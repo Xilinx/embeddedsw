@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_43bd1f97248e7204f9a5b84e3dd33ead" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xdfemix__examples_8c">xdfemix_examples.c</innerfile>
+    <innerfile refid="xdfemix__examples_8h">xdfemix_examples.h</innerfile>
+    <innerfile refid="xdfemix__multi_add_c_c__pass__through__example_8c">xdfemix_multiAddCC_pass_through_example.c</innerfile>
+    <innerfile refid="xdfemix__one__instance__initialization__example_8c">xdfemix_one_instance_initialization_example.c</innerfile>
+    <innerfile refid="xdfemix__pass__through__example_8c">xdfemix_pass_through_example.c</innerfile>
+    <innerfile refid="xdfesi570__mgt_8c">xdfesi570_mgt.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/examples/"/>
+  </compounddef>
+</doxygen>

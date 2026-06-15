@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___tx___revocation_list" kind="struct" prot="public">
+    <compoundname>XHdcp22_Tx_RevocationList</compoundname>
+    <includes local="no">xhdcp22_tx.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___revocation_list_1a518f83ca71e73427c28e989da0920629" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Tx_RevocationList::NumDevices</definition>
+        <argsstring></argsstring>
+        <name>NumDevices</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="425" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="425" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___revocation_list_1a1dd8bead75ad344bb7b84786ae5466cb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_RevocationList::ReceiverId[XHDCP22_TX_REVOCATION_LIST_MAX_DEVICES][5]</definition>
+        <argsstring>[XHDCP22_TX_REVOCATION_LIST_MAX_DEVICES][5]</argsstring>
+        <name>ReceiverId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="426" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="426" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains the HDCP2 Revocation information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="424" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="423" bodyend="427"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___tx___revocation_list_1a518f83ca71e73427c28e989da0920629" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_RevocationList</scope><name>NumDevices</name></member>
+      <member refid="struct_x_hdcp22___tx___revocation_list_1a1dd8bead75ad344bb7b84786ae5466cb" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_RevocationList</scope><name>ReceiverId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

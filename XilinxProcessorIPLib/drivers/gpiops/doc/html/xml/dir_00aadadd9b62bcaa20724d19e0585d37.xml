@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_00aadadd9b62bcaa20724d19e0585d37" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xgpiops_8c">xgpiops.c</innerfile>
+    <innerfile refid="xgpiops_8h">xgpiops.h</innerfile>
+    <innerfile refid="xgpiops__g_8c">xgpiops_g.c</innerfile>
+    <innerfile refid="xgpiops__hw_8c">xgpiops_hw.c</innerfile>
+    <innerfile refid="xgpiops__hw_8h">xgpiops_hw.h</innerfile>
+    <innerfile refid="xgpiops__intr_8c">xgpiops_intr.c</innerfile>
+    <innerfile refid="xgpiops__selftest_8c">xgpiops_selftest.c</innerfile>
+    <innerfile refid="xgpiops__sinit_8c">xgpiops_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/"/>
+  </compounddef>
+</doxygen>

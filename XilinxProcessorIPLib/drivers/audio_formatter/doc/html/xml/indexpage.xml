@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>audio_formatter</title>
+    <detaileddescription>
+<para>This header file contains identifiers and register-level driver functions (or macros), range macros, structure typedefs that can be used to access the Xilinx Audio Formatter core instance. </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

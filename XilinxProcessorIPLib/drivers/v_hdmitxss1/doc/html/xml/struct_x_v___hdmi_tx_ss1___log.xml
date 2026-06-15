@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___hdmi_tx_ss1___log" kind="struct" prot="public">
+    <compoundname>XV_HdmiTxSs1_Log</compoundname>
+    <includes local="no">xv_hdmitxss1.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss1___log_1a532fe0a3c2815fcd3331395034b0e4b1" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_HdmiTxSs1_Log::DataBuffer[128]</definition>
+        <argsstring>[128]</argsstring>
+        <name>DataBuffer</name>
+        <briefdescription>
+<para>Log buffer with event data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" bodystart="151" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss1__log_8c_1ac884bd9e77df975e8e1a762081c13607" compoundref="xv__hdmitxss1__log_8c" startline="119" endline="144">XV_HdmiTxSs1_LogRead</referencedby>
+        <referencedby refid="xv__hdmitxss1__log_8c_1a0c9023e762552ac6d46bddeaaa1ea40b" compoundref="xv__hdmitxss1__log_8c" startline="67" endline="106">XV_HdmiTxSs1_LogWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss1___log_1a549f6f3f078ebab3bcb93848ca9a6775" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XV_HdmiTxSs1_Log::TimeRecord[128]</definition>
+        <argsstring>[128]</argsstring>
+        <name>TimeRecord</name>
+        <briefdescription>
+<para>Log time for the event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" bodystart="152" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss1__log_8c_1a8198201051910096470956c1040019e8" compoundref="xv__hdmitxss1__log_8c" startline="157" endline="330">XV_HdmiTxSs1_LogDisplay</referencedby>
+        <referencedby refid="xv__hdmitxss1__log_8c_1a0c9023e762552ac6d46bddeaaa1ea40b" compoundref="xv__hdmitxss1__log_8c" startline="67" endline="106">XV_HdmiTxSs1_LogWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss1___log_1acffe7a884e4c8745e46927ec1a7b47c3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTxSs1_Log::HeadIndex</definition>
+        <argsstring></argsstring>
+        <name>HeadIndex</name>
+        <briefdescription>
+<para>Index of the head entry of the Event/DataBuffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" bodystart="153" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss1__log_8c_1ac884bd9e77df975e8e1a762081c13607" compoundref="xv__hdmitxss1__log_8c" startline="119" endline="144">XV_HdmiTxSs1_LogRead</referencedby>
+        <referencedby refid="xv__hdmitxss1__log_8c_1a2c2352dc54100975c45f106b42f4cd03" compoundref="xv__hdmitxss1__log_8c" startline="45" endline="52">XV_HdmiTxSs1_LogReset</referencedby>
+        <referencedby refid="xv__hdmitxss1__log_8c_1a0c9023e762552ac6d46bddeaaa1ea40b" compoundref="xv__hdmitxss1__log_8c" startline="67" endline="106">XV_HdmiTxSs1_LogWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTxSs1_Log::TailIndex</definition>
+        <argsstring></argsstring>
+        <name>TailIndex</name>
+        <briefdescription>
+<para>Index of the tail entry of the Event/DataBuffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" bodystart="155" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss1__log_8c_1a8198201051910096470956c1040019e8" compoundref="xv__hdmitxss1__log_8c" startline="157" endline="330">XV_HdmiTxSs1_LogDisplay</referencedby>
+        <referencedby refid="xv__hdmitxss1__log_8c_1ac884bd9e77df975e8e1a762081c13607" compoundref="xv__hdmitxss1__log_8c" startline="119" endline="144">XV_HdmiTxSs1_LogRead</referencedby>
+        <referencedby refid="xv__hdmitxss1__log_8c_1a2c2352dc54100975c45f106b42f4cd03" compoundref="xv__hdmitxss1__log_8c" startline="45" endline="52">XV_HdmiTxSs1_LogReset</referencedby>
+        <referencedby refid="xv__hdmitxss1__log_8c_1a0c9023e762552ac6d46bddeaaa1ea40b" compoundref="xv__hdmitxss1__log_8c" startline="67" endline="106">XV_HdmiTxSs1_LogWrite</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the logging mechanism for debug. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1.h" bodystart="150" bodyend="157"/>
+    <listofallmembers>
+      <member refid="struct_x_v___hdmi_tx_ss1___log_1a532fe0a3c2815fcd3331395034b0e4b1" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs1_Log</scope><name>DataBuffer</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss1___log_1acffe7a884e4c8745e46927ec1a7b47c3" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs1_Log</scope><name>HeadIndex</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs1_Log</scope><name>TailIndex</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss1___log_1a549f6f3f078ebab3bcb93848ca9a6775" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs1_Log</scope><name>TimeRecord</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

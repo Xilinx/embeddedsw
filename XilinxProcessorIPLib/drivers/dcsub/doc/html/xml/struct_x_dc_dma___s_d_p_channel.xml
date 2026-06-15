@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dc_dma___s_d_p_channel" kind="struct" prot="public">
+    <compoundname>XDcDma_SDPChannel</compoundname>
+    <includes local="no">xdcdma.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dc_dma___s_d_p_channel_1a8df07ca8b10f175bee6786de067526bb" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dc_dma___channel___dscr" kindref="compound">XDcDma_Channel_Dscr</ref></type>
+        <definition>XDcDma_Channel_Dscr XDcDma_SDPChannel::Channel</definition>
+        <argsstring></argsstring>
+        <name>Channel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___s_d_p_channel_1a0903edce1946b442c2ff266c414cfdb6" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dc_dma___s_d_p_buffer" kindref="compound">XDcDma_SDPBuffer</ref> *</type>
+        <definition>XDcDma_SDPBuffer* XDcDma_SDPChannel::Buffer</definition>
+        <argsstring></argsstring>
+        <name>Buffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___s_d_p_channel_1a12e947f587ae08a154e3a7e2a882e05d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDcDma_SDPChannel::SDP_TriggerStatus</definition>
+        <argsstring></argsstring>
+        <name>SDP_TriggerStatus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___s_d_p_channel_1a318c54199747834c9d73d5f8ceaa00c4" prot="public" static="no" mutable="no">
+        <type>XDcDma_State</type>
+        <definition>XDcDma_State XDcDma_SDPChannel::State</definition>
+        <argsstring></argsstring>
+        <name>State</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef defines the SDP Channel attributes. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="75">
+        <label>XDcDma_SDPChannel</label>
+        <link refid="struct_x_dc_dma___s_d_p_channel"/>
+        <childnode refid="76" relation="usage">
+          <edgelabel>Buffer</edgelabel>
+        </childnode>
+        <childnode refid="77" relation="usage">
+          <edgelabel>Channel</edgelabel>
+        </childnode>
+      </node>
+      <node id="76">
+        <label>XDcDma_SDPBuffer</label>
+        <link refid="struct_x_dc_dma___s_d_p_buffer"/>
+      </node>
+      <node id="77">
+        <label>XDcDma_Channel_Dscr</label>
+        <link refid="struct_x_dc_dma___channel___dscr"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="213" bodyend="218"/>
+    <listofallmembers>
+      <member refid="struct_x_dc_dma___s_d_p_channel_1a0903edce1946b442c2ff266c414cfdb6" prot="public" virt="non-virtual"><scope>XDcDma_SDPChannel</scope><name>Buffer</name></member>
+      <member refid="struct_x_dc_dma___s_d_p_channel_1a8df07ca8b10f175bee6786de067526bb" prot="public" virt="non-virtual"><scope>XDcDma_SDPChannel</scope><name>Channel</name></member>
+      <member refid="struct_x_dc_dma___s_d_p_channel_1a12e947f587ae08a154e3a7e2a882e05d" prot="public" virt="non-virtual"><scope>XDcDma_SDPChannel</scope><name>SDP_TriggerStatus</name></member>
+      <member refid="struct_x_dc_dma___s_d_p_channel_1a318c54199747834c9d73d5f8ceaa00c4" prot="public" virt="non-virtual"><scope>XDcDma_SDPChannel</scope><name>State</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

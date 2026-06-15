@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_csi___data_lane_info" kind="struct" prot="public">
+    <compoundname>XCsi_DataLaneInfo</compoundname>
+    <includes local="no">xcsi.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_csi___data_lane_info_1af5d036bdece3eca60f479d9d95350047" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCsi_DataLaneInfo::StopState</definition>
+        <argsstring></argsstring>
+        <name>StopState</name>
+        <briefdescription>
+<para>Data Lane is in Stop State. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="183" bodyend="-1"/>
+        <referencedby refid="group__csi_1ga15dac2ab0092aadc270c1cd074ca917c" compoundref="xcsi_8c" startline="408" endline="452">XCsi_GetDataLaneInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi___data_lane_info_1a11e83a2effeaeedee76f698b14a51d45" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCsi_DataLaneInfo::SoTErr</definition>
+        <argsstring></argsstring>
+        <name>SoTErr</name>
+        <briefdescription>
+<para>Detected Start Of Transmission High Speed Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="184" bodyend="-1"/>
+        <referencedby refid="group__csi_1ga15dac2ab0092aadc270c1cd074ca917c" compoundref="xcsi_8c" startline="408" endline="452">XCsi_GetDataLaneInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi___data_lane_info_1ad85e5b16529cc9e102cd592d8afce3e1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCsi_DataLaneInfo::SoTSyncErr</definition>
+        <argsstring></argsstring>
+        <name>SoTSyncErr</name>
+        <briefdescription>
+<para>Detected SoT Synchronization Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="185" bodyend="-1"/>
+        <referencedby refid="group__csi_1ga15dac2ab0092aadc270c1cd074ca917c" compoundref="xcsi_8c" startline="408" endline="452">XCsi_GetDataLaneInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi___data_lane_info_1ae53af9610edbbeab382d276b8d470c87" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCsi_DataLaneInfo::SkewCalHs</definition>
+        <argsstring></argsstring>
+        <name>SkewCalHs</name>
+        <briefdescription>
+<para>Data Lane Skew Reception status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="186" bodyend="-1"/>
+        <referencedby refid="group__csi_1ga15dac2ab0092aadc270c1cd074ca917c" compoundref="xcsi_8c" startline="408" endline="452">XCsi_GetDataLaneInfo</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Data Lane information structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure contains the information about the Data Lane. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="182" bodyend="187"/>
+    <listofallmembers>
+      <member refid="struct_x_csi___data_lane_info_1ae53af9610edbbeab382d276b8d470c87" prot="public" virt="non-virtual"><scope>XCsi_DataLaneInfo</scope><name>SkewCalHs</name></member>
+      <member refid="struct_x_csi___data_lane_info_1a11e83a2effeaeedee76f698b14a51d45" prot="public" virt="non-virtual"><scope>XCsi_DataLaneInfo</scope><name>SoTErr</name></member>
+      <member refid="struct_x_csi___data_lane_info_1ad85e5b16529cc9e102cd592d8afce3e1" prot="public" virt="non-virtual"><scope>XCsi_DataLaneInfo</scope><name>SoTSyncErr</name></member>
+      <member refid="struct_x_csi___data_lane_info_1af5d036bdece3eca60f479d9d95350047" prot="public" virt="non-virtual"><scope>XCsi_DataLaneInfo</scope><name>StopState</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

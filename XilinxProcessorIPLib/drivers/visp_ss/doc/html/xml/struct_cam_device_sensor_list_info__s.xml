@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_sensor_list_info__s" kind="struct" prot="public">
+    <compoundname>CamDeviceSensorListInfo_s</compoundname>
+    <includes local="no">sensor_drv.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_sensor_list_info__s_1a47e1b90d5f34fd980886f42a3d9f635b" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceSensorListInfo_s::number</definition>
+        <argsstring></argsstring>
+        <name>number</name>
+        <briefdescription>
+<para>Sensor index number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_list_info__s_1a661fd769ed39a78c2bfd63897336d063" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CamDeviceSensorListInfo_s::name[20]</definition>
+        <argsstring>[20]</argsstring>
+        <name>name</name>
+        <briefdescription>
+<para>Sensor name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_list_info__s_1a250bd6124d69bf3e9a28bb04b964c1c4" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_cam_device_sensor_drv_mode_info__s" kindref="compound">CamDeviceSensorDrvModeInfo_t</ref></type>
+        <definition>CamDeviceSensorDrvModeInfo_t CamDeviceSensorListInfo_s::sensorModeInfo[SENSOR_DRV_NUM]</definition>
+        <argsstring>[SENSOR_DRV_NUM]</argsstring>
+        <name>sensorModeInfo</name>
+        <briefdescription>
+<para>Sensor mode information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>CamDevice sensor mode list information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="573">
+        <label>CamDeviceSensorDrvModeInfo_s</label>
+        <link refid="struct_cam_device_sensor_drv_mode_info__s"/>
+      </node>
+      <node id="572">
+        <label>CamDeviceSensorListInfo_s</label>
+        <link refid="struct_cam_device_sensor_list_info__s"/>
+        <childnode refid="573" relation="usage">
+          <edgelabel>sensorModeInfo</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="110" bodyend="114"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_sensor_list_info__s_1a661fd769ed39a78c2bfd63897336d063" prot="public" virt="non-virtual"><scope>CamDeviceSensorListInfo_s</scope><name>name</name></member>
+      <member refid="struct_cam_device_sensor_list_info__s_1a47e1b90d5f34fd980886f42a3d9f635b" prot="public" virt="non-virtual"><scope>CamDeviceSensorListInfo_s</scope><name>number</name></member>
+      <member refid="struct_cam_device_sensor_list_info__s_1a250bd6124d69bf3e9a28bb04b964c1c4" prot="public" virt="non-virtual"><scope>CamDeviceSensorListInfo_s</scope><name>sensorModeInfo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

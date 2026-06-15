@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dc_sub" kind="struct" prot="public">
+    <compoundname>XDcSub</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dc_sub_1a09a1f210b069d740e5f0759fba3c4d6c" prot="public" static="no" mutable="no">
+        <type>XDcSub_Config</type>
+        <definition>XDcSub_Config XDcSub::XDcSubCfg</definition>
+        <argsstring></argsstring>
+        <name>XDcSubCfg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_sub_1ac86d7da7a58f3b3daf832298c98d5f1f" prot="public" static="no" mutable="no">
+        <type>XDc *</type>
+        <definition>XDc* XDcSub::DcPtr</definition>
+        <argsstring></argsstring>
+        <name>DcPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_sub_1a91db2fa50ca1e37ca88be02853a00970" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+        <definition>XDcDma* XDcSub::DmaPtr</definition>
+        <argsstring></argsstring>
+        <name>DmaPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="87">
+        <label>XDcDma_AudioBuffer</label>
+        <link refid="struct_x_dc_dma___audio_buffer"/>
+      </node>
+      <node id="79">
+        <label>XDcSub</label>
+        <childnode refid="80" relation="usage">
+          <edgelabel>DmaPtr</edgelabel>
+        </childnode>
+      </node>
+      <node id="80">
+        <label>XDcDma</label>
+        <link refid="struct_x_dc_dma"/>
+        <childnode refid="81" relation="usage">
+          <edgelabel>SDP</edgelabel>
+        </childnode>
+        <childnode refid="84" relation="usage">
+          <edgelabel>Gfx</edgelabel>
+          <edgelabel>Video</edgelabel>
+        </childnode>
+        <childnode refid="86" relation="usage">
+          <edgelabel>Audio</edgelabel>
+        </childnode>
+      </node>
+      <node id="81">
+        <label>XDcDma_SDPChannel</label>
+        <link refid="struct_x_dc_dma___s_d_p_channel"/>
+        <childnode refid="82" relation="usage">
+          <edgelabel>Buffer</edgelabel>
+        </childnode>
+        <childnode refid="83" relation="usage">
+          <edgelabel>Channel</edgelabel>
+        </childnode>
+      </node>
+      <node id="86">
+        <label>XDcDma_AudioChannel</label>
+        <link refid="struct_x_dc_dma___audio_channel"/>
+        <childnode refid="87" relation="usage">
+          <edgelabel>Buffer</edgelabel>
+        </childnode>
+        <childnode refid="83" relation="usage">
+          <edgelabel>Channel</edgelabel>
+        </childnode>
+      </node>
+      <node id="82">
+        <label>XDcDma_SDPBuffer</label>
+        <link refid="struct_x_dc_dma___s_d_p_buffer"/>
+      </node>
+      <node id="84">
+        <label>XDcDma_Channel</label>
+        <link refid="struct_x_dc_dma___channel"/>
+        <childnode refid="85" relation="usage">
+          <edgelabel>FrameBuffer</edgelabel>
+        </childnode>
+        <childnode refid="83" relation="usage">
+          <edgelabel>Channel</edgelabel>
+        </childnode>
+      </node>
+      <node id="85">
+        <label>XDcDma_FrameBuffer</label>
+        <link refid="struct_x_dc_dma___frame_buffer"/>
+      </node>
+      <node id="83">
+        <label>XDcDma_Channel_Dscr</label>
+        <link refid="struct_x_dc_dma___channel___dscr"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" bodystart="45" bodyend="51"/>
+    <listofallmembers>
+      <member refid="struct_x_dc_sub_1ac86d7da7a58f3b3daf832298c98d5f1f" prot="public" virt="non-virtual"><scope>XDcSub</scope><name>DcPtr</name></member>
+      <member refid="struct_x_dc_sub_1a91db2fa50ca1e37ca88be02853a00970" prot="public" virt="non-virtual"><scope>XDcSub</scope><name>DmaPtr</name></member>
+      <member refid="struct_x_dc_sub_1a09a1f210b069d740e5f0759fba3c4d6c" prot="public" virt="non-virtual"><scope>XDcSub</scope><name>XDcSubCfg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

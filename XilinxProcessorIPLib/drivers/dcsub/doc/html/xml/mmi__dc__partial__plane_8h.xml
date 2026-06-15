@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mmi__dc__partial__plane_8h" kind="file">
+    <compoundname>mmi_dc_partial_plane.h</compoundname>
+    <includes refid="mmi__dc__nonlive__test_8h" local="yes">mmi_dc_nonlive_test.h</includes>
+    <includedby refid="mmi__dc__nonlive__test_8c" local="yes">mmi_dc_nonlive_test.c</includedby>
+    <includedby refid="mmi__dc__partial__plane_8c" local="yes">mmi_dc_partial_plane.c</includedby>
+    <incdepgraph>
+      <node id="195">
+        <label>xclk_wiz.h</label>
+      </node>
+      <node id="203">
+        <label>mmi_dpdc_example.h</label>
+        <link refid="mmi__dpdc__example_8h"/>
+        <childnode refid="197" relation="include">
+        </childnode>
+        <childnode refid="200" relation="include">
+        </childnode>
+        <childnode refid="196" relation="include">
+        </childnode>
+        <childnode refid="202" relation="include">
+        </childnode>
+        <childnode refid="204" relation="include">
+        </childnode>
+      </node>
+      <node id="199">
+        <label>xil_io.h</label>
+      </node>
+      <node id="193">
+        <label>mmi_dc_nonlive_test.h</label>
+        <link refid="mmi__dc__nonlive__test_8h"/>
+        <childnode refid="194" relation="include">
+        </childnode>
+        <childnode refid="195" relation="include">
+        </childnode>
+        <childnode refid="196" relation="include">
+        </childnode>
+        <childnode refid="202" relation="include">
+        </childnode>
+        <childnode refid="203" relation="include">
+        </childnode>
+      </node>
+      <node id="192">
+        <label>mmi_dc_partial_plane.h</label>
+        <link refid="mmi_dc_partial_plane.h"/>
+        <childnode refid="193" relation="include">
+        </childnode>
+      </node>
+      <node id="196">
+        <label>xdcsub.h</label>
+        <link refid="xdcsub_8h"/>
+        <childnode refid="197" relation="include">
+        </childnode>
+        <childnode refid="200" relation="include">
+        </childnode>
+      </node>
+      <node id="197">
+        <label>xdc.h</label>
+        <link refid="xdc_8h"/>
+        <childnode refid="198" relation="include">
+        </childnode>
+      </node>
+      <node id="194">
+        <label>xinterrupt_wrap.h</label>
+      </node>
+      <node id="202">
+        <label>xmmidp.h</label>
+      </node>
+      <node id="198">
+        <label>xdc_hw.h</label>
+        <link refid="xdc__hw_8h"/>
+        <childnode refid="199" relation="include">
+        </childnode>
+      </node>
+      <node id="204">
+        <label>xparameters.h</label>
+      </node>
+      <node id="201">
+        <label>xdcdma_hw.h</label>
+        <link refid="xdcdma__hw_8h"/>
+        <childnode refid="199" relation="include">
+        </childnode>
+      </node>
+      <node id="200">
+        <label>xdcdma.h</label>
+        <link refid="xdcdma_8h"/>
+        <childnode refid="201" relation="include">
+        </childnode>
+        <childnode refid="197" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="206">
+        <label>mmi_dc_nonlive_test.c</label>
+        <link refid="mmi__dc__nonlive__test_8c"/>
+      </node>
+      <node id="207">
+        <label>mmi_dc_partial_plane.c</label>
+        <link refid="mmi__dc__partial__plane_8c"/>
+      </node>
+      <node id="205">
+        <label>mmi_dc_partial_plane.h</label>
+        <link refid="mmi_dc_partial_plane.h"/>
+        <childnode refid="206" relation="include">
+        </childnode>
+        <childnode refid="207" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="mmi__dc__partial__plane_8h_1a6e178086ff7e0efa38d851be4e57b118" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_ConfigurePartialPlaneBlend</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_ConfigurePartialPlaneBlend</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function configures partial plane blend for Stream1 or Stream2 using DCsub APIs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to <ref refid="struct_run_config" kindref="compound">RunConfig</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Partial plane blending allows displaying a rectangular region from a video stream at a specific position. Configuration includes:<itemizedlist>
+<listitem><para>CoordX, CoordY: Position of the partial plane on the output</para></listitem><listitem><para>SizeX, SizeY: Dimensions of the partial plane region</para></listitem><listitem><para>OffsetX, OffsetY: Offset within the source stream</para></listitem></itemizedlist>
+</para></simplesect>
+This function uses the XDcSub_SetStreamPartialBlend API to configure partial plane blend parameters from <ref refid="struct_run_config" kindref="compound">RunConfig</ref>.</para><para>Note: XDcSub_SetStreamPartialBlend stores a POINTER to the coords structure, so we use static storage to ensure it remains valid. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_partial_plane.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_partial_plane.c" bodystart="44" bodyend="120"/>
+        <references refid="struct_run_config_1a155539680243341a34acb114b0333b41" compoundref="mmi__dpdc__example_8h" startline="84">RunConfig::DcSubPtr</references>
+        <references refid="struct_run_config_1aedebedc6ff67f0ed64f987b8548a8554" compoundref="mmi__dpdc__example_8h" startline="128">RunConfig::PpbCoordX</references>
+        <references refid="struct_run_config_1a0204dfaaa74d8a0c7c7c29a291a25ad6" compoundref="mmi__dpdc__example_8h" startline="129">RunConfig::PpbCoordY</references>
+        <references refid="struct_run_config_1a9009deb408fcea686b6846e06b2b5134" compoundref="mmi__dpdc__example_8h" startline="132">RunConfig::PpbOffsetX</references>
+        <references refid="struct_run_config_1ad5999c160200ee00bae388de38d06ed0" compoundref="mmi__dpdc__example_8h" startline="133">RunConfig::PpbOffsetY</references>
+        <references refid="struct_run_config_1a8612be37b0cdf9932f1de7f82a30f3d2" compoundref="mmi__dpdc__example_8h" startline="130">RunConfig::PpbSizeX</references>
+        <references refid="struct_run_config_1a982b47059a0853debe3fd9facadaedc0" compoundref="mmi__dpdc__example_8h" startline="131">RunConfig::PpbSizeY</references>
+        <references refid="struct_run_config_1ab574751a70f38e5b62ec97832ba85856" compoundref="mmi__dpdc__example_8h" startline="120">RunConfig::Stream1PbEnable</references>
+        <references refid="struct_run_config_1aca6772afd5918984836a43ec006d6802" compoundref="mmi__dpdc__example_8h" startline="121">RunConfig::Stream2PbEnable</references>
+        <references refid="xdcsub_8c_1aa6fac37353a51167b6a3cba72acdfa4f" compoundref="xdcsub_8c" startline="873" endline="889">XDcSub_SetStreamPartialBlend</references>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This header file contains partial plane blend functionality declarations. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor">#ifndef<sp/>MMI_DC_PARTIAL_PLANE_H_</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MMI_DC_PARTIAL_PLANE_H_</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mmi__dc__nonlive__test_8h" kindref="compound">mmi_dc_nonlive_test.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Function<sp/>prototypes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__partial__plane_8c_1a6e178086ff7e0efa38d851be4e57b118" kindref="member">XDpDc_ConfigurePartialPlaneBlend</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>MMI_DC_PARTIAL_PLANE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_partial_plane.h"/>
+  </compounddef>
+</doxygen>

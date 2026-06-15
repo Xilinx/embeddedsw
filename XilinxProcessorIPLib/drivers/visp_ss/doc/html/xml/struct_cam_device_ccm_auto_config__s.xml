@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_ccm_auto_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceCcmAutoConfig_s</compoundname>
+    <includes local="no">cam_device_ccm_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_ccm_auto_config__s_1a33eeb9a7d65d3752ff2c511e8aa9dab5" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceCcmAutoConfig_s::autoLevel</definition>
+        <argsstring></argsstring>
+        <name>autoLevel</name>
+        <briefdescription>
+<para>Auto configuration level &gt; </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_ccm_auto_config__s_1a6d133b2e83061d872eccd8e8c5c2d937" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceCcmAutoConfig_s::gains[CAMDEV_ISO_STRENGTH_NUM]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM]</argsstring>
+        <name>gains</name>
+        <briefdescription>
+<para>CCM gains &gt; </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_ccm_auto_config__s_1a2a44d3d84682b1aa954a04383e61df62" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceCcmAutoConfig_s::damping</definition>
+        <argsstring></argsstring>
+        <name>damping</name>
+        <briefdescription>
+<para>damping function &gt; </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_ccm_auto_config__s_1a790d940e825e417ed04a90ab2cf964a9" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceCcmAutoConfig_s::strength[CAMDEV_ISO_STRENGTH_NUM]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM]</argsstring>
+        <name>strength</name>
+        <briefdescription>
+<para>CCM strength &gt; </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice CCM manual configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" bodystart="54" bodyend="59"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_ccm_auto_config__s_1a33eeb9a7d65d3752ff2c511e8aa9dab5" prot="public" virt="non-virtual"><scope>CamDeviceCcmAutoConfig_s</scope><name>autoLevel</name></member>
+      <member refid="struct_cam_device_ccm_auto_config__s_1a2a44d3d84682b1aa954a04383e61df62" prot="public" virt="non-virtual"><scope>CamDeviceCcmAutoConfig_s</scope><name>damping</name></member>
+      <member refid="struct_cam_device_ccm_auto_config__s_1a6d133b2e83061d872eccd8e8c5c2d937" prot="public" virt="non-virtual"><scope>CamDeviceCcmAutoConfig_s</scope><name>gains</name></member>
+      <member refid="struct_cam_device_ccm_auto_config__s_1a790d940e825e417ed04a90ab2cf964a9" prot="public" virt="non-virtual"><scope>CamDeviceCcmAutoConfig_s</scope><name>strength</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

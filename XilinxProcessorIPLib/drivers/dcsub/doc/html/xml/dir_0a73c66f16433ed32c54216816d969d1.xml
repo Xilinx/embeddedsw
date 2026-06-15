@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_0a73c66f16433ed32c54216816d969d1" kind="dir">
+    <compoundname>dpdc</compoundname>
+    <innerfile refid="mmi__dc__cursor_8c">mmi_dc_cursor.c</innerfile>
+    <innerfile refid="mmi__dc__cursor_8h">mmi_dc_cursor.h</innerfile>
+    <innerfile refid="mmi__dc__generate__frames_8c">mmi_dc_generate_frames.c</innerfile>
+    <innerfile refid="mmi__dc__generate__frames_8h">mmi_dc_generate_frames.h</innerfile>
+    <innerfile refid="mmi__dc__live__test_8c">mmi_dc_live_test.c</innerfile>
+    <innerfile refid="mmi__dc__live__test_8h">mmi_dc_live_test.h</innerfile>
+    <innerfile refid="mmi__dc__mixed__test_8c">mmi_dc_mixed_test.c</innerfile>
+    <innerfile refid="mmi__dc__mixed__test_8h">mmi_dc_mixed_test.h</innerfile>
+    <innerfile refid="mmi__dc__nonlive__test_8c">mmi_dc_nonlive_test.c</innerfile>
+    <innerfile refid="mmi__dc__nonlive__test_8h">mmi_dc_nonlive_test.h</innerfile>
+    <innerfile refid="mmi__dc__partial__plane_8c">mmi_dc_partial_plane.c</innerfile>
+    <innerfile refid="mmi__dc__partial__plane_8h">mmi_dc_partial_plane.h</innerfile>
+    <innerfile refid="mmi__dc__sdp_8c">mmi_dc_sdp.c</innerfile>
+    <innerfile refid="mmi__dc__sdp_8h">mmi_dc_sdp.h</innerfile>
+    <innerfile refid="mmi__dc__setup__frames_8c">mmi_dc_setup_frames.c</innerfile>
+    <innerfile refid="mmi__dc__setup__frames_8h">mmi_dc_setup_frames.h</innerfile>
+    <innerfile refid="mmi__dp__init_8c">mmi_dp_init.c</innerfile>
+    <innerfile refid="mmi__dp__init_8h">mmi_dp_init.h</innerfile>
+    <innerfile refid="mmi__dp__intr_8c">mmi_dp_intr.c</innerfile>
+    <innerfile refid="mmi__dp__intr_8h">mmi_dp_intr.h</innerfile>
+    <innerfile refid="mmi__dpdc__example_8c">mmi_dpdc_example.c</innerfile>
+    <innerfile refid="mmi__dpdc__example_8h">mmi_dpdc_example.h</innerfile>
+    <innerfile refid="mmi__dpdc__menus_8c">mmi_dpdc_menus.c</innerfile>
+    <innerfile refid="mmi__dpdc__menus_8h">mmi_dpdc_menus.h</innerfile>
+    <innerfile refid="mmi__dpdc__platform_8c">mmi_dpdc_platform.c</innerfile>
+    <innerfile refid="mmi__dpdc__platform_8h">mmi_dpdc_platform.h</innerfile>
+    <innerfile refid="xavpg_8c">xavpg.c</innerfile>
+    <innerfile refid="xavpg_8h">xavpg.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/"/>
+  </compounddef>
+</doxygen>

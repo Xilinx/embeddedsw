@@ -1,0 +1,502 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___tx" kind="struct" prot="public">
+    <compoundname>XHdcp22_Tx</compoundname>
+    <includes local="no">xhdcp22_tx.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___tx_1aad7252c95a9be505433ffab90735b4e1" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdcp22___tx___config" kindref="compound">XHdcp22_Tx_Config</ref></type>
+        <definition>XHdcp22_Tx_Config XHdcp22_Tx::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Config. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="494" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="494" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1ga58d674b66a469567b4d75eea6f02fd25" compoundref="xhdcp22__tx_8c" startline="286" endline="396">XHdcp22Tx_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga7274984807782d5875e72806ebbca53d" compoundref="xhdcp22__tx_8c" startline="1232" endline="1237">XHdcp22Tx_IsRepeater</referencedby>
+        <referencedby refid="group__hdcp22__tx_1gadb7cd328bf4728b91678482c13224e5c" compoundref="xhdcp22__tx_8c" startline="3965" endline="3994">XHdcp22Tx_RevokeReceiverId</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga7c58391609e18d5cbd899e5ed069a037" compoundref="xhdcp22__tx_8c" startline="1249" endline="1257">XHdcp22Tx_SetRepeater</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx_1ad9cfd23b01229bcd57a2611446df6adc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Tx::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Is the component ready for usage. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="496" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="496" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1ga58d674b66a469567b4d75eea6f02fd25" compoundref="xhdcp22__tx_8c" startline="286" endline="396">XHdcp22Tx_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx_1a21a3a0b90851644375ae5388dc440cfa" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx::IsReceiverHDCP2Capable</definition>
+        <argsstring></argsstring>
+        <name>IsReceiverHDCP2Capable</name>
+        <briefdescription>
+<para>Is the attached receiver HDCP2 capable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="499" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="499" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1ga444e0ba5255b0c52f6cde5d406f4e7ae" compoundref="xhdcp22__tx_8c" startline="1346" endline="1376">XHdcp22Tx_IsDwnstrmCapable</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx_1ab0efb75bdae539644b546b11269c76cc" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__tx_1ga9810d0d1184c399c68d773241f877dd3" kindref="member">XHdcp22_Tx_DdcHandler</ref></type>
+        <definition>XHdcp22_Tx_DdcHandler XHdcp22_Tx::DdcRead</definition>
+        <argsstring></argsstring>
+        <name>DdcRead</name>
+        <briefdescription>
+<para>Function pointer for reading DDC (Rx HDCP DeviceAddress: 0x74) using the XHdcp22_Tx_Ddc structure as parameter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="503" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="503" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1ga58d674b66a469567b4d75eea6f02fd25" compoundref="xhdcp22__tx_8c" startline="286" endline="396">XHdcp22Tx_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga444e0ba5255b0c52f6cde5d406f4e7ae" compoundref="xhdcp22__tx_8c" startline="1346" endline="1376">XHdcp22Tx_IsDwnstrmCapable</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga9cb19e51fda89c401121edafbda166da" compoundref="xhdcp22__tx_8c" startline="1408" endline="1468">XHdcp22Tx_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx_1a1d0c78ae1585a9cf65ad1e021cab0030" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx::IsDdcReadSet</definition>
+        <argsstring></argsstring>
+        <name>IsDdcReadSet</name>
+        <briefdescription>
+<para>Set if DdcRead handler is defined. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="505" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="505" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1ga58d674b66a469567b4d75eea6f02fd25" compoundref="xhdcp22__tx_8c" startline="286" endline="396">XHdcp22Tx_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga9cb19e51fda89c401121edafbda166da" compoundref="xhdcp22__tx_8c" startline="1408" endline="1468">XHdcp22Tx_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx_1a296b6355455b787816a864939d171c6c" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__tx_1ga9810d0d1184c399c68d773241f877dd3" kindref="member">XHdcp22_Tx_DdcHandler</ref></type>
+        <definition>XHdcp22_Tx_DdcHandler XHdcp22_Tx::DdcWrite</definition>
+        <argsstring></argsstring>
+        <name>DdcWrite</name>
+        <briefdescription>
+<para>Function pointer for writing DDC (Rx HDCP DeviceAddress: 0x74) using the XHdcp22_Tx_Ddc structure as parameter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="509" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="509" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1ga58d674b66a469567b4d75eea6f02fd25" compoundref="xhdcp22__tx_8c" startline="286" endline="396">XHdcp22Tx_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga444e0ba5255b0c52f6cde5d406f4e7ae" compoundref="xhdcp22__tx_8c" startline="1346" endline="1376">XHdcp22Tx_IsDwnstrmCapable</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga9cb19e51fda89c401121edafbda166da" compoundref="xhdcp22__tx_8c" startline="1408" endline="1468">XHdcp22Tx_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx_1a5f48900d192e380a98752d7b5b2428c9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx::IsDdcWriteSet</definition>
+        <argsstring></argsstring>
+        <name>IsDdcWriteSet</name>
+        <briefdescription>
+<para>Set if DdcWrite handler is defined. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="511" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="511" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1ga58d674b66a469567b4d75eea6f02fd25" compoundref="xhdcp22__tx_8c" startline="286" endline="396">XHdcp22Tx_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga9cb19e51fda89c401121edafbda166da" compoundref="xhdcp22__tx_8c" startline="1408" endline="1468">XHdcp22Tx_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx_1a5df98da5c6f15c15f02201fde65db0f6" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp22_Tx::DdcHandlerRef</definition>
+        <argsstring></argsstring>
+        <name>DdcHandlerRef</name>
+        <briefdescription>
+<para>Reference pointer set with <ref refid="group__hdcp22__tx_1ga9cb19e51fda89c401121edafbda166da" kindref="member">XHdcp22Tx_SetCallback</ref> function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="514" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="514" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1ga444e0ba5255b0c52f6cde5d406f4e7ae" compoundref="xhdcp22__tx_8c" startline="1346" endline="1376">XHdcp22Tx_IsDwnstrmCapable</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga9cb19e51fda89c401121edafbda166da" compoundref="xhdcp22__tx_8c" startline="1408" endline="1468">XHdcp22Tx_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx_1ae612fdac124b1e9a1e39b22fea0b8303" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__tx_1gabeef722c69c0f10d44442d952c0d7c7c" kindref="member">XHdcp22_Tx_Callback</ref></type>
+        <definition>XHdcp22_Tx_Callback XHdcp22_Tx::AuthenticatedCallback</definition>
+        <argsstring></argsstring>
+        <name>AuthenticatedCallback</name>
+        <briefdescription>
+<para>Function pointer called after successful authentication. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="517" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="517" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1ga58d674b66a469567b4d75eea6f02fd25" compoundref="xhdcp22__tx_8c" startline="286" endline="396">XHdcp22Tx_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga9cb19e51fda89c401121edafbda166da" compoundref="xhdcp22__tx_8c" startline="1408" endline="1468">XHdcp22Tx_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx_1a384405559b9ed645eaa59f29d98b5b8e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx::IsAuthenticatedCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsAuthenticatedCallbackSet</name>
+        <briefdescription>
+<para>Set if AuthenticatedCallback handler is defined. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="519" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="519" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1ga58d674b66a469567b4d75eea6f02fd25" compoundref="xhdcp22__tx_8c" startline="286" endline="396">XHdcp22Tx_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga9cb19e51fda89c401121edafbda166da" compoundref="xhdcp22__tx_8c" startline="1408" endline="1468">XHdcp22Tx_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx_1abadc7b610f00629748f800bcfa19c137" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp22_Tx::AuthenticatedCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>AuthenticatedCallbackRef</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="520" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="520" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx_1a6b9de907c658d3684d2968e503502c0b" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__tx_1gabeef722c69c0f10d44442d952c0d7c7c" kindref="member">XHdcp22_Tx_Callback</ref></type>
+        <definition>XHdcp22_Tx_Callback XHdcp22_Tx::UnauthenticatedCallback</definition>
+        <argsstring></argsstring>
+        <name>UnauthenticatedCallback</name>
+        <briefdescription>
+<para>Function pointer called after authentication failure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="523" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="523" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1ga58d674b66a469567b4d75eea6f02fd25" compoundref="xhdcp22__tx_8c" startline="286" endline="396">XHdcp22Tx_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga6db0e5cde70480f6457e37d3eea52567" compoundref="xhdcp22__tx_8c" startline="1054" endline="1088">XHdcp22Tx_Reset</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga9cb19e51fda89c401121edafbda166da" compoundref="xhdcp22__tx_8c" startline="1408" endline="1468">XHdcp22Tx_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx_1a01bad8e3865353a2f9d2612d849431a9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx::IsUnauthenticatedCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsUnauthenticatedCallbackSet</name>
+        <briefdescription>
+<para>Set if UnauthenticatedCallback handler is defined. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="525" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="525" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1ga58d674b66a469567b4d75eea6f02fd25" compoundref="xhdcp22__tx_8c" startline="286" endline="396">XHdcp22Tx_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga6db0e5cde70480f6457e37d3eea52567" compoundref="xhdcp22__tx_8c" startline="1054" endline="1088">XHdcp22Tx_Reset</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga9cb19e51fda89c401121edafbda166da" compoundref="xhdcp22__tx_8c" startline="1408" endline="1468">XHdcp22Tx_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx_1a9873f8ddbcb23584dd92242d536807e5" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp22_Tx::UnauthenticatedCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>UnauthenticatedCallbackRef</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="526" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="526" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx_1ae58536e150512fc486c3d709d644ad60" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__tx_1gabeef722c69c0f10d44442d952c0d7c7c" kindref="member">XHdcp22_Tx_Callback</ref></type>
+        <definition>XHdcp22_Tx_Callback XHdcp22_Tx::DownstreamTopologyAvailableCallback</definition>
+        <argsstring></argsstring>
+        <name>DownstreamTopologyAvailableCallback</name>
+        <briefdescription>
+<para>Function pointer called after the downstream topology is available. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="529" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="529" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1ga58d674b66a469567b4d75eea6f02fd25" compoundref="xhdcp22__tx_8c" startline="286" endline="396">XHdcp22Tx_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga9cb19e51fda89c401121edafbda166da" compoundref="xhdcp22__tx_8c" startline="1408" endline="1468">XHdcp22Tx_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx_1a439eabef45bc1345a26832c0825aa4d6" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx::IsDownstreamTopologyAvailableCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsDownstreamTopologyAvailableCallbackSet</name>
+        <briefdescription>
+<para>Set if DownstreamTopologyAvailableCallback handler is defined. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="531" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="531" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1ga58d674b66a469567b4d75eea6f02fd25" compoundref="xhdcp22__tx_8c" startline="286" endline="396">XHdcp22Tx_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga9cb19e51fda89c401121edafbda166da" compoundref="xhdcp22__tx_8c" startline="1408" endline="1468">XHdcp22Tx_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx_1a4dfd3aae3be325269a81d255fe73b8a7" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp22_Tx::DownstreamTopologyAvailableCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>DownstreamTopologyAvailableCallbackRef</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="532" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="532" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx_1a4011fa9ee0117de55340f4dd06b3b704" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdcp22___tx___timer" kindref="compound">XHdcp22_Tx_Timer</ref></type>
+        <definition>XHdcp22_Tx_Timer XHdcp22_Tx::Timer</definition>
+        <argsstring></argsstring>
+        <name>Timer</name>
+        <briefdescription>
+<para>Internal used timer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="535" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="535" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1ga58d674b66a469567b4d75eea6f02fd25" compoundref="xhdcp22__tx_8c" startline="286" endline="396">XHdcp22Tx_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__tx_1gaede32c44933a72890515f66af66de919" compoundref="xhdcp22__tx_8c" startline="1102" endline="1112">XHdcp22Tx_Enable</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga7c8ccef305984403185cd1e29dc2c651" compoundref="xhdcp22__tx_8c" startline="1483" endline="1487">XHdcp22Tx_GetTimer</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga7ddb7914b3a42e47c84b6912936e7ccf" compoundref="xhdcp22__tx_8c" startline="4160" endline="4168">XHdcp22Tx_LogGetTimeUSecs</referencedby>
+        <referencedby refid="group__hdcp22__tx_1gab170f225bd4e854a9eab9f6e9e99d75f" compoundref="xhdcp22__tx_8c" startline="4132" endline="4146">XHdcp22Tx_LogReset</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga3b241b90bc8c251efc52890691a4d31e" compoundref="xhdcp22__tx_8c" startline="1000" endline="1040">XHdcp22Tx_Poll</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga6db0e5cde70480f6457e37d3eea52567" compoundref="xhdcp22__tx_8c" startline="1054" endline="1088">XHdcp22Tx_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx_1a7ac906a703afc6bd1a861d6eaae753c9" prot="public" static="no" mutable="no">
+        <type>XHdcp22_Rng</type>
+        <definition>XHdcp22_Rng XHdcp22_Tx::Rng</definition>
+        <argsstring></argsstring>
+        <name>Rng</name>
+        <briefdescription>
+<para>Internal used hardware random number generator. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="538" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="538" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1ga172503f210cc3f3d731ee899dca90cd9" compoundref="xhdcp22__tx__crypt_8c" startline="423" endline="431">XHdcp22Tx_GenerateRandom</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx_1a88f23872a40fda6eaef7c792db5b08ff" prot="public" static="no" mutable="no">
+        <type>XHdcp22_Cipher</type>
+        <definition>XHdcp22_Cipher XHdcp22_Tx::Cipher</definition>
+        <argsstring></argsstring>
+        <name>Cipher</name>
+        <briefdescription>
+<para>Internal used cipher. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="541" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="541" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1ga493adee36eade40c5e45c48c71026f7e" compoundref="xhdcp22__tx_8c" startline="1126" endline="1135">XHdcp22Tx_Disable</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga4e382328083fe5c9e9f1258a1a64c643" compoundref="xhdcp22__tx_8c" startline="1213" endline="1218">XHdcp22Tx_DisableBlank</referencedby>
+        <referencedby refid="group__hdcp22__tx_1gaaf65601c2a0851171783e85d29d3782a" compoundref="xhdcp22__tx_8c" startline="1176" endline="1182">XHdcp22Tx_DisableEncryption</referencedby>
+        <referencedby refid="group__hdcp22__tx_1gaede32c44933a72890515f66af66de919" compoundref="xhdcp22__tx_8c" startline="1102" endline="1112">XHdcp22Tx_Enable</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga409c680a90ec05bb9c160d340ca8371b" compoundref="xhdcp22__tx_8c" startline="1195" endline="1200">XHdcp22Tx_EnableBlank</referencedby>
+        <referencedby refid="group__hdcp22__tx_1gaf8a55cf53a3340d11b3ee036b76b82be" compoundref="xhdcp22__tx_8c" startline="1150" endline="1162">XHdcp22Tx_EnableEncryption</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga03612f45bd11fe5cf6e2935b7c95005a" compoundref="xhdcp22__tx_8c" startline="902" endline="907">XHdcp22Tx_GetVersion</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga7ca5567441ff4e74a0e386e22ecffb75" compoundref="xhdcp22__tx_8c" startline="1288" endline="1295">XHdcp22Tx_IsEncryptionEnabled</referencedby>
+        <referencedby refid="group__hdcp22__tx_1gaf5885334b801dd99f2d0be6532f99520" compoundref="xhdcp22__tx_8c" startline="552" endline="560">XHdcp22Tx_LoadLc128</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga6db0e5cde70480f6457e37d3eea52567" compoundref="xhdcp22__tx_8c" startline="1054" endline="1088">XHdcp22Tx_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx_1a721076c56ea499e7a7fce25a39605664" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdcp22___tx___info" kindref="compound">XHdcp22_Tx_Info</ref></type>
+        <definition>XHdcp22_Tx_Info XHdcp22_Tx::Info</definition>
+        <argsstring></argsstring>
+        <name>Info</name>
+        <briefdescription>
+<para>Info. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="544" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="544" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1ga8ea402fbb37578b457a1b3313bb877ef" compoundref="xhdcp22__tx_8c" startline="959" endline="984">XHdcp22Tx_Authenticate</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga58d674b66a469567b4d75eea6f02fd25" compoundref="xhdcp22__tx_8c" startline="286" endline="396">XHdcp22Tx_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__tx_1gae4d180e2dd5aeab9688a7dfe8731129e" compoundref="xhdcp22__tx_8c" startline="3829" endline="3837">XHdcp22Tx_ClearPairingInfo</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga493adee36eade40c5e45c48c71026f7e" compoundref="xhdcp22__tx_8c" startline="1126" endline="1135">XHdcp22Tx_Disable</referencedby>
+        <referencedby refid="group__hdcp22__tx_1gaede32c44933a72890515f66af66de919" compoundref="xhdcp22__tx_8c" startline="1102" endline="1112">XHdcp22Tx_Enable</referencedby>
+        <referencedby refid="group__hdcp22__tx_1gabccfa163c40ef175a59a4be0b29314aa" compoundref="xhdcp22__tx_8c" startline="806" endline="812">XHdcp22Tx_GetTopology</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga650f737e06ddfa38fa76d28d758039df" compoundref="xhdcp22__tx_8c" startline="4470" endline="4538">XHdcp22Tx_Info</referencedby>
+        <referencedby refid="group__hdcp22__tx_1gac378a52e489c09e7cd3108f8ad0dc079" compoundref="xhdcp22__tx_8c" startline="1327" endline="1331">XHdcp22Tx_IsAuthenticated</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga1581bf2eb6845e55ea14ee3a60eb30b0" compoundref="xhdcp22__tx_8c" startline="1271" endline="1274">XHdcp22Tx_IsEnabled</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga624b718cbf5906dac17f554bdfb438e1" compoundref="xhdcp22__tx_8c" startline="1309" endline="1313">XHdcp22Tx_IsInProgress</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga14fbb52d5b5e9707008aafc7e49bc41a" compoundref="xhdcp22__tx_8c" startline="578" endline="737">XHdcp22Tx_LoadRevocationTable</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga3b241b90bc8c251efc52890691a4d31e" compoundref="xhdcp22__tx_8c" startline="1000" endline="1040">XHdcp22Tx_Poll</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga6db0e5cde70480f6457e37d3eea52567" compoundref="xhdcp22__tx_8c" startline="1054" endline="1088">XHdcp22Tx_Reset</referencedby>
+        <referencedby refid="group__hdcp22__tx_1gadb7cd328bf4728b91678482c13224e5c" compoundref="xhdcp22__tx_8c" startline="3965" endline="3994">XHdcp22Tx_RevokeReceiverId</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga7ebdf8bc4dec78be947ea2328f68a0e5" compoundref="xhdcp22__tx_8c" startline="881" endline="888">XHdcp22Tx_SetContentStreamType</referencedby>
+        <referencedby refid="group__hdcp22__tx_1gaef47325dea03dc622618744b86ccf2fb" compoundref="xhdcp22__tx_8c" startline="3236" endline="3239">XHdcp22Tx_SetMessagePollingValue</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx_1a13f9da520f86fc99be79fa0ffcd0d8aa" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdcp22___tx___log" kindref="compound">XHdcp22_Tx_Log</ref></type>
+        <definition>XHdcp22_Tx_Log XHdcp22_Tx::Log</definition>
+        <argsstring></argsstring>
+        <name>Log</name>
+        <briefdescription>
+<para>Logging. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="547" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="547" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1ga6117a1f753b1eeac3ba2427fe7c7de6b" compoundref="xhdcp22__tx_8c" startline="4237" endline="4268">XHdcp22Tx_LogRd</referencedby>
+        <referencedby refid="group__hdcp22__tx_1gab170f225bd4e854a9eab9f6e9e99d75f" compoundref="xhdcp22__tx_8c" startline="4132" endline="4146">XHdcp22Tx_LogReset</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga13dade65f38f5ab12c831b69e28cb8d3" compoundref="xhdcp22__tx_8c" startline="4185" endline="4221">XHdcp22Tx_LogWr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx_1ab34679864258aaded85877018f1589a0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx::MessageBuffer[XHDCP22_TX_MAX_MESSAGE_SIZE]</definition>
+        <argsstring>[XHDCP22_TX_MAX_MESSAGE_SIZE]</argsstring>
+        <name>MessageBuffer</name>
+        <briefdescription>
+<para>Message buffer for messages that are sent/received. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="550" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="550" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx_1a2e3c3132466eeb60e5fe0034458988af" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdcp22___tx___revocation_list" kindref="compound">XHdcp22_Tx_RevocationList</ref></type>
+        <definition>XHdcp22_Tx_RevocationList XHdcp22_Tx::RevocationList</definition>
+        <argsstring></argsstring>
+        <name>RevocationList</name>
+        <briefdescription>
+<para>Revocation List. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="553" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="553" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1ga58d674b66a469567b4d75eea6f02fd25" compoundref="xhdcp22__tx_8c" startline="286" endline="396">XHdcp22Tx_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga821b6b2b13e8e7959bdb6ed57fcf26c9" compoundref="xhdcp22__tx_8c" startline="785" endline="791">XHdcp22Tx_GetRevocationReceiverIdList</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx_1a19acd1a745e0f2f27e819379c4d33876" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdcp22___tx___topology" kindref="compound">XHdcp22_Tx_Topology</ref></type>
+        <definition>XHdcp22_Tx_Topology XHdcp22_Tx::Topology</definition>
+        <argsstring></argsstring>
+        <name>Topology</name>
+        <briefdescription>
+<para>Topology info. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="556" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="556" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1gabccfa163c40ef175a59a4be0b29314aa" compoundref="xhdcp22__tx_8c" startline="806" endline="812">XHdcp22Tx_GetTopology</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga1e1f365aca47dd9bd70e13ae948222ab" compoundref="xhdcp22__tx_8c" startline="827" endline="833">XHdcp22Tx_GetTopologyReceiverIdList</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga650f737e06ddfa38fa76d28d758039df" compoundref="xhdcp22__tx_8c" startline="4470" endline="4538">XHdcp22Tx_Info</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The XHdcpTx driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>An instance must be allocated for each HDCP TX core in use. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="4">
+        <label>XHdcp22_Tx_Timer</label>
+        <link refid="struct_x_hdcp22___tx___timer"/>
+      </node>
+      <node id="3">
+        <label>XHdcp22_Tx_LogItem</label>
+        <link refid="struct_x_hdcp22___tx___log_item"/>
+      </node>
+      <node id="6">
+        <label>XHdcp22_Tx_Info</label>
+        <link refid="struct_x_hdcp22___tx___info"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>PairingInfo</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>XHdcp22_Tx_PairingInfo</label>
+        <link refid="struct_x_hdcp22___tx___pairing_info"/>
+      </node>
+      <node id="2">
+        <label>XHdcp22_Tx_Log</label>
+        <link refid="struct_x_hdcp22___tx___log"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>LogItems</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>XHdcp22_Tx_RevocationList</label>
+        <link refid="struct_x_hdcp22___tx___revocation_list"/>
+      </node>
+      <node id="8">
+        <label>XHdcp22_Tx_Topology</label>
+        <link refid="struct_x_hdcp22___tx___topology"/>
+      </node>
+      <node id="1">
+        <label>XHdcp22_Tx</label>
+        <link refid="struct_x_hdcp22___tx"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Log</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>Timer</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>RevocationList</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>Info</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>Topology</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="9">
+        <label>XHdcp22_Tx_Config</label>
+        <link refid="struct_x_hdcp22___tx___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="492" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="491" bodyend="562"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___tx_1ae612fdac124b1e9a1e39b22fea0b8303" prot="public" virt="non-virtual"><scope>XHdcp22_Tx</scope><name>AuthenticatedCallback</name></member>
+      <member refid="struct_x_hdcp22___tx_1abadc7b610f00629748f800bcfa19c137" prot="public" virt="non-virtual"><scope>XHdcp22_Tx</scope><name>AuthenticatedCallbackRef</name></member>
+      <member refid="struct_x_hdcp22___tx_1a88f23872a40fda6eaef7c792db5b08ff" prot="public" virt="non-virtual"><scope>XHdcp22_Tx</scope><name>Cipher</name></member>
+      <member refid="struct_x_hdcp22___tx_1aad7252c95a9be505433ffab90735b4e1" prot="public" virt="non-virtual"><scope>XHdcp22_Tx</scope><name>Config</name></member>
+      <member refid="struct_x_hdcp22___tx_1a5df98da5c6f15c15f02201fde65db0f6" prot="public" virt="non-virtual"><scope>XHdcp22_Tx</scope><name>DdcHandlerRef</name></member>
+      <member refid="struct_x_hdcp22___tx_1ab0efb75bdae539644b546b11269c76cc" prot="public" virt="non-virtual"><scope>XHdcp22_Tx</scope><name>DdcRead</name></member>
+      <member refid="struct_x_hdcp22___tx_1a296b6355455b787816a864939d171c6c" prot="public" virt="non-virtual"><scope>XHdcp22_Tx</scope><name>DdcWrite</name></member>
+      <member refid="struct_x_hdcp22___tx_1ae58536e150512fc486c3d709d644ad60" prot="public" virt="non-virtual"><scope>XHdcp22_Tx</scope><name>DownstreamTopologyAvailableCallback</name></member>
+      <member refid="struct_x_hdcp22___tx_1a4dfd3aae3be325269a81d255fe73b8a7" prot="public" virt="non-virtual"><scope>XHdcp22_Tx</scope><name>DownstreamTopologyAvailableCallbackRef</name></member>
+      <member refid="struct_x_hdcp22___tx_1a721076c56ea499e7a7fce25a39605664" prot="public" virt="non-virtual"><scope>XHdcp22_Tx</scope><name>Info</name></member>
+      <member refid="struct_x_hdcp22___tx_1a384405559b9ed645eaa59f29d98b5b8e" prot="public" virt="non-virtual"><scope>XHdcp22_Tx</scope><name>IsAuthenticatedCallbackSet</name></member>
+      <member refid="struct_x_hdcp22___tx_1a1d0c78ae1585a9cf65ad1e021cab0030" prot="public" virt="non-virtual"><scope>XHdcp22_Tx</scope><name>IsDdcReadSet</name></member>
+      <member refid="struct_x_hdcp22___tx_1a5f48900d192e380a98752d7b5b2428c9" prot="public" virt="non-virtual"><scope>XHdcp22_Tx</scope><name>IsDdcWriteSet</name></member>
+      <member refid="struct_x_hdcp22___tx_1a439eabef45bc1345a26832c0825aa4d6" prot="public" virt="non-virtual"><scope>XHdcp22_Tx</scope><name>IsDownstreamTopologyAvailableCallbackSet</name></member>
+      <member refid="struct_x_hdcp22___tx_1ad9cfd23b01229bcd57a2611446df6adc" prot="public" virt="non-virtual"><scope>XHdcp22_Tx</scope><name>IsReady</name></member>
+      <member refid="struct_x_hdcp22___tx_1a21a3a0b90851644375ae5388dc440cfa" prot="public" virt="non-virtual"><scope>XHdcp22_Tx</scope><name>IsReceiverHDCP2Capable</name></member>
+      <member refid="struct_x_hdcp22___tx_1a01bad8e3865353a2f9d2612d849431a9" prot="public" virt="non-virtual"><scope>XHdcp22_Tx</scope><name>IsUnauthenticatedCallbackSet</name></member>
+      <member refid="struct_x_hdcp22___tx_1a13f9da520f86fc99be79fa0ffcd0d8aa" prot="public" virt="non-virtual"><scope>XHdcp22_Tx</scope><name>Log</name></member>
+      <member refid="struct_x_hdcp22___tx_1ab34679864258aaded85877018f1589a0" prot="public" virt="non-virtual"><scope>XHdcp22_Tx</scope><name>MessageBuffer</name></member>
+      <member refid="struct_x_hdcp22___tx_1a2e3c3132466eeb60e5fe0034458988af" prot="public" virt="non-virtual"><scope>XHdcp22_Tx</scope><name>RevocationList</name></member>
+      <member refid="struct_x_hdcp22___tx_1a7ac906a703afc6bd1a861d6eaae753c9" prot="public" virt="non-virtual"><scope>XHdcp22_Tx</scope><name>Rng</name></member>
+      <member refid="struct_x_hdcp22___tx_1a4011fa9ee0117de55340f4dd06b3b704" prot="public" virt="non-virtual"><scope>XHdcp22_Tx</scope><name>Timer</name></member>
+      <member refid="struct_x_hdcp22___tx_1a19acd1a745e0f2f27e819379c4d33876" prot="public" virt="non-virtual"><scope>XHdcp22_Tx</scope><name>Topology</name></member>
+      <member refid="struct_x_hdcp22___tx_1a6b9de907c658d3684d2968e503502c0b" prot="public" virt="non-virtual"><scope>XHdcp22_Tx</scope><name>UnauthenticatedCallback</name></member>
+      <member refid="struct_x_hdcp22___tx_1a9873f8ddbcb23584dd92242d536807e5" prot="public" virt="non-virtual"><scope>XHdcp22_Tx</scope><name>UnauthenticatedCallbackRef</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

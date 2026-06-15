@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_48ca71433168ee7cab29af0e5ed42a8c" kind="dir">
+    <compoundname>versal_2vp_p</compoundname>
+    <innerfile refid="2vp__p_2xsecure__cmd_8c">2vp_p/xsecure_cmd.c</innerfile>
+    <innerfile refid="versal__2vp__p_2xsecure__error_8h">versal_2vp_p/xsecure_error.h</innerfile>
+    <innerfile refid="versal__2vp__p_2xsecure__plat_8c">versal_2vp_p/xsecure_plat.c</innerfile>
+    <innerfile refid="versal__2vp__p_2xsecure__plat_8h">versal_2vp_p/xsecure_plat.h</innerfile>
+    <innerfile refid="2vp__p_2xsecure__plat__ipihandler_8c">2vp_p/xsecure_plat_ipihandler.c</innerfile>
+    <innerfile refid="2vp__p_2xsecure__plat__ipihandler_8h">2vp_p/xsecure_plat_ipihandler.h</innerfile>
+    <innerfile refid="2vp__p_2xsecure__plat__kat_8c">2vp_p/xsecure_plat_kat.c</innerfile>
+    <innerfile refid="2vp__p_2xsecure__plat__kat_8h">2vp_p/xsecure_plat_kat.h</innerfile>
+    <innerfile refid="versal__2vp__p_2xsecure__plat__kat__ipihandler_8c">versal_2vp_p/xsecure_plat_kat_ipihandler.c</innerfile>
+    <innerfile refid="versal__2vp__p_2xsecure__plat__kat__ipihandler_8h">versal_2vp_p/xsecure_plat_kat_ipihandler.h</innerfile>
+    <innerfile refid="versal__2vp__p_2xsecure__sha__hw_8h">versal_2vp_p/xsecure_sha_hw.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp_p/"/>
+  </compounddef>
+</doxygen>

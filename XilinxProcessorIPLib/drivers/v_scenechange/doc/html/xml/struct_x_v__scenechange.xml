@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v__scenechange" kind="struct" prot="public">
+    <compoundname>XV_scenechange</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v__scenechange_1abcee11497f6cd10daf542de5088326b6" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_scenechange::Ctrl_BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>Ctrl_BaseAddress</name>
+        <briefdescription>
+<para>Base address of the control registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__scenechange_1aff8afaca82e3d3bf85091c5677fd7b45" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_scenechange::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Initialization status flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__scenechange_1a7a6d5cecab1848bd7234609ee439aaf1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_scenechange::ScdDetLayerId</definition>
+        <argsstring></argsstring>
+        <name>ScdDetLayerId</name>
+        <briefdescription>
+<para>Current detected scene change layer ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__scenechange_1a386f3e6cc3339db17bf79da271b1594e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_scenechange::ScdLayerDetSAD</definition>
+        <argsstring></argsstring>
+        <name>ScdLayerDetSAD</name>
+        <briefdescription>
+<para>Sum of Absolute Differences for detected layer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__scenechange_1ac80fb6978f119e11d3b24b7ea14827a3" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_scenechange::CallbackRef</definition>
+        <argsstring></argsstring>
+        <name>CallbackRef</name>
+        <briefdescription>
+<para>User-defined callback reference pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__scenechange_1a87b0890ecd2aea9acd12fefbc9fc36b1" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__scenechange___config" kindref="compound">XV_scenechange_Config</ref> *</type>
+        <definition>XV_scenechange_Config* XV_scenechange::ScdConfig</definition>
+        <argsstring></argsstring>
+        <name>ScdConfig</name>
+        <briefdescription>
+<para>Pointer to device configuration structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__scenechange_1ad52e2e1c84fa5b48b16510662e20cba3" prot="public" static="no" mutable="no">
+        <type>XVScdLayerConfig</type>
+        <definition>XVScdLayerConfig XV_scenechange::LayerConfig[XV_SCD_IP_MAX_STREAMS]</definition>
+        <argsstring>[XV_SCD_IP_MAX_STREAMS]</argsstring>
+        <name>LayerConfig</name>
+        <briefdescription>
+<para>Layer configurations for all streams. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__scenechange_1ab815ce0a57e2cef327aa54b2de7b4cb4" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__scenechange_8h_1a7cf4f8a78175227a22f8487960367ad1" kindref="member">XVSceneChange_Callback</ref></type>
+        <definition>XVSceneChange_Callback XV_scenechange::FrameDoneCallback</definition>
+        <argsstring></argsstring>
+        <name>FrameDoneCallback</name>
+        <briefdescription>
+<para>Callback function invoked on frame processing completion. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>XV_scenechange_Config</label>
+        <link refid="struct_x_v__scenechange___config"/>
+      </node>
+      <node id="1">
+        <label>XV_scenechange</label>
+        <childnode refid="2" relation="usage">
+          <edgelabel>ScdConfig</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange.h" bodystart="165" bodyend="174"/>
+    <listofallmembers>
+      <member refid="struct_x_v__scenechange_1ac80fb6978f119e11d3b24b7ea14827a3" prot="public" virt="non-virtual"><scope>XV_scenechange</scope><name>CallbackRef</name></member>
+      <member refid="struct_x_v__scenechange_1abcee11497f6cd10daf542de5088326b6" prot="public" virt="non-virtual"><scope>XV_scenechange</scope><name>Ctrl_BaseAddress</name></member>
+      <member refid="struct_x_v__scenechange_1ab815ce0a57e2cef327aa54b2de7b4cb4" prot="public" virt="non-virtual"><scope>XV_scenechange</scope><name>FrameDoneCallback</name></member>
+      <member refid="struct_x_v__scenechange_1aff8afaca82e3d3bf85091c5677fd7b45" prot="public" virt="non-virtual"><scope>XV_scenechange</scope><name>IsReady</name></member>
+      <member refid="struct_x_v__scenechange_1ad52e2e1c84fa5b48b16510662e20cba3" prot="public" virt="non-virtual"><scope>XV_scenechange</scope><name>LayerConfig</name></member>
+      <member refid="struct_x_v__scenechange_1a87b0890ecd2aea9acd12fefbc9fc36b1" prot="public" virt="non-virtual"><scope>XV_scenechange</scope><name>ScdConfig</name></member>
+      <member refid="struct_x_v__scenechange_1a7a6d5cecab1848bd7234609ee439aaf1" prot="public" virt="non-virtual"><scope>XV_scenechange</scope><name>ScdDetLayerId</name></member>
+      <member refid="struct_x_v__scenechange_1a386f3e6cc3339db17bf79da271b1594e" prot="public" virt="non-virtual"><scope>XV_scenechange</scope><name>ScdLayerDetSAD</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

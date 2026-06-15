@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_h_d_m_i___r_e_g" kind="struct" prot="public">
+    <compoundname>HDMI_REG</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_h_d_m_i___r_e_g_1ae93e97491bceb7cdfb1bfbbc8fc85731" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 HDMI_REG::addr</definition>
+        <argsstring></argsstring>
+        <name>addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/xmipi_sp701_example.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/xmipi_sp701_example.c" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_h_d_m_i___r_e_g_1ae2fa7972961abecd92d362058065ddce" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 HDMI_REG::data</definition>
+        <argsstring></argsstring>
+        <name>data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/xmipi_sp701_example.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/xmipi_sp701_example.c" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_h_d_m_i___r_e_g_1a7621b526972ae1949ed7473fac2a1300" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 HDMI_REG::init</definition>
+        <argsstring></argsstring>
+        <name>init</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/xmipi_sp701_example.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/xmipi_sp701_example.c" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/xmipi_sp701_example.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/xmipi_sp701_example.c" bodystart="60" bodyend="64"/>
+    <listofallmembers>
+      <member refid="struct_h_d_m_i___r_e_g_1ae93e97491bceb7cdfb1bfbbc8fc85731" prot="public" virt="non-virtual"><scope>HDMI_REG</scope><name>addr</name></member>
+      <member refid="struct_h_d_m_i___r_e_g_1ae2fa7972961abecd92d362058065ddce" prot="public" virt="non-virtual"><scope>HDMI_REG</scope><name>data</name></member>
+      <member refid="struct_h_d_m_i___r_e_g_1a7621b526972ae1949ed7473fac2a1300" prot="public" virt="non-virtual"><scope>HDMI_REG</scope><name>init</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_f0c12dd6fdd002b9d06dc98870f3a75c" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xcan_8c">xcan.c</innerfile>
+    <innerfile refid="xcan_8h">xcan.h</innerfile>
+    <innerfile refid="xcan__config_8c">xcan_config.c</innerfile>
+    <innerfile refid="xcan__g_8c">xcan_g.c</innerfile>
+    <innerfile refid="xcan__intr_8c">xcan_intr.c</innerfile>
+    <innerfile refid="xcan__l_8h">xcan_l.h</innerfile>
+    <innerfile refid="xcan__selftest_8c">xcan_selftest.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/"/>
+  </compounddef>
+</doxygen>

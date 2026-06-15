@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_d5462c56d13517514a32758973a98584" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xv__hdmitxss1_8c">xv_hdmitxss1.c</innerfile>
+    <innerfile refid="xv__hdmitxss1_8h">xv_hdmitxss1.h</innerfile>
+    <innerfile refid="xv__hdmitxss1__coreinit_8c">xv_hdmitxss1_coreinit.c</innerfile>
+    <innerfile refid="xv__hdmitxss1__coreinit_8h">xv_hdmitxss1_coreinit.h</innerfile>
+    <innerfile refid="xv__hdmitxss1__frl_8c">xv_hdmitxss1_frl.c</innerfile>
+    <innerfile refid="xv__hdmitxss1__frl_8h">xv_hdmitxss1_frl.h</innerfile>
+    <innerfile refid="xv__hdmitxss1__g_8c">xv_hdmitxss1_g.c</innerfile>
+    <innerfile refid="xv__hdmitxss1__hdcp_8c">xv_hdmitxss1_hdcp.c</innerfile>
+    <innerfile refid="xv__hdmitxss1__log_8c">xv_hdmitxss1_log.c</innerfile>
+    <innerfile refid="xv__hdmitxss1__sinit_8c">xv_hdmitxss1_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/"/>
+  </compounddef>
+</doxygen>

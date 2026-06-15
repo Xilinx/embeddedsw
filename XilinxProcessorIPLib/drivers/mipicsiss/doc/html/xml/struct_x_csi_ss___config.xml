@@ -1,0 +1,331 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_csi_ss___config" kind="struct" prot="public">
+    <compoundname>XCsiSs_Config</compoundname>
+    <includes local="no">xcsiss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_csi_ss___config_1a1a7ad41338a32fc6910eccd90cc0c99b" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XCsiSs_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_ss___config_1accf7178f1f7fc0ba40fee2e61ca159bc" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XCsiSs_Config::BaseAddr</definition>
+        <argsstring></argsstring>
+        <name>BaseAddr</name>
+        <briefdescription>
+<para><verbatim> BaseAddress is the physical base address
+</verbatim> of the subsystem address range </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="214" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1a6fb058d3bf941cd9a817bb6ad7e0a819" compoundref="xcsiss__intr__example_8c" startline="219" endline="349">CsiSs_IntrExample</referencedby>
+        <referencedby refid="xcsiss__selftest__example_8c_1a670a4c28d6e2f3b6341f0f261a7a1835" compoundref="xcsiss__selftest__example_8c" startline="121" endline="144">CsiSs_SelfTestExample</referencedby>
+        <referencedby refid="pipeline__program_8h_1a9af254929ec07e0b8e29ff28e18ec709" compoundref="function__prototype_8c" startline="432" endline="456">InitializeCsiRxSs</referencedby>
+        <referencedby refid="group__csiss_1ga8fde229b1ad93697e0cf3f1710b2db7e" compoundref="xcsiss_8c" startline="126" endline="169">XCsiSs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_ss___config_1a47c248f223217fb36480fd87299817b0" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XCsiSs_Config::HighAddr</definition>
+        <argsstring></argsstring>
+        <name>HighAddr</name>
+        <briefdescription>
+<para><verbatim> HighAddress is the physical MAX address
+</verbatim> of the subsystem address range </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_ss___config_1a161805ed2b55c724c987115b5c0b376a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCsiSs_Config::LanesPresent</definition>
+        <argsstring></argsstring>
+        <name>LanesPresent</name>
+        <briefdescription>
+<para>Number of PPI Lanes in the design. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="218" bodyend="-1"/>
+        <referencedby refid="group__csiss_1ga32e53cbe89a9acc42816e016c39e1cd6" compoundref="xcsiss_8c" startline="442" endline="455">XCsiSs_GetLaneInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_ss___config_1a203422f11e21168679180a7060553199" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCsiSs_Config::PixelCount</definition>
+        <argsstring></argsstring>
+        <name>PixelCount</name>
+        <briefdescription>
+<para>Number of Pixels per clock 1,2,4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_ss___config_1a7c808fba33fd373f15f4c7e98bea29b9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCsiSs_Config::PixelFormat</definition>
+        <argsstring></argsstring>
+        <name>PixelFormat</name>
+        <briefdescription>
+<para>The pixel format selected from all RGB, RAW and YUV422 8bit options. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="220" bodyend="-1"/>
+        <referencedby refid="pipeline__program_8h_1a27a98e798ed33a22a64a35485322bbdc" compoundref="pipeline__program_8c" startline="1581" endline="1588">SetColorDepth</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_ss___config_1a96e356d9a84ea1e476fcca77b4061dcc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCsiSs_Config::VcNo</definition>
+        <argsstring></argsstring>
+        <name>VcNo</name>
+        <briefdescription>
+<para>Number of Virtual Channels supported by system. </para>        </briefdescription>
+        <detaileddescription>
+<para>This can range from 1 - 4 to ALL </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="222" bodyend="-1"/>
+        <referencedby refid="group__csiss_1gae291a001aba0f4141b360de5195ee81e" compoundref="xcsiss_8c" startline="391" endline="406">XCsiSs_GetVCSelection</referencedby>
+        <referencedby refid="group__csiss_1ga038b595c1a424408b3ee277a8496e8cf" compoundref="xcsiss_8c" startline="360" endline="375">XCsiSs_SetVCSelection</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_ss___config_1a2b108e8ca479ecd320c08d66cb808e72" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCsiSs_Config::CsiBuffDepth</definition>
+        <argsstring></argsstring>
+        <name>CsiBuffDepth</name>
+        <briefdescription>
+<para>Line buffer Depth set. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_ss___config_1af0858f6d6032b5f521f2630737c3ecbb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCsiSs_Config::IsEmbNonImgPresent</definition>
+        <argsstring></argsstring>
+        <name>IsEmbNonImgPresent</name>
+        <briefdescription>
+<para>Flag for presence of Embedded Non Image data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_ss___config_1af96d74b947652a7cdd48c66eac494ecd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCsiSs_Config::IsDphyRegIntfcPresent</definition>
+        <argsstring></argsstring>
+        <name>IsDphyRegIntfcPresent</name>
+        <briefdescription>
+<para>Flag for DPHY register interface presence. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="227" bodyend="-1"/>
+        <referencedby refid="group__csiss_1gaf30fdaf13ba08d8612f8e20ab21d8ff2" compoundref="xcsiss_8c" startline="235" endline="258">XCsiSs_Activate</referencedby>
+        <referencedby refid="group__csiss_1ga8fde229b1ad93697e0cf3f1710b2db7e" compoundref="xcsiss_8c" startline="126" endline="169">XCsiSs_CfgInitialize</referencedby>
+        <referencedby refid="group__csiss_1ga3c63d232d9c7c19a7206fe10d5713509" compoundref="xcsiss_8c" startline="304" endline="342">XCsiSs_ReportCoreInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_ss___config_1a9f231140e4e8a641b6a0bcfbf3a245fc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCsiSs_Config::DphyLineRate</definition>
+        <argsstring></argsstring>
+        <name>DphyLineRate</name>
+        <briefdescription>
+<para>DPHY Line Rate ranging from 80-1500 Mbps. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_ss___config_1a87c8dcd4a84e413201c4718c97094aa0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCsiSs_Config::EnableCrc</definition>
+        <argsstring></argsstring>
+        <name>EnableCrc</name>
+        <briefdescription>
+<para>CRC Calculation optimization enabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_ss___config_1a8f1b9fcb8ab6b865cbfe8a113ddfa273" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCsiSs_Config::EnableActiveLanes</definition>
+        <argsstring></argsstring>
+        <name>EnableActiveLanes</name>
+        <briefdescription>
+<para>Active Lanes programming optimization enabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="232" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_ss___config_1acff2240352b375a363ed6c2b7eeff545" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCsiSs_Config::EnableCSIv20</definition>
+        <argsstring></argsstring>
+        <name>EnableCSIv20</name>
+        <briefdescription>
+<para>CSI v2.0 support enabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_ss___config_1a6b67cf053b411761156d597d241a1b1b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCsiSs_Config::EnableVCx</definition>
+        <argsstring></argsstring>
+        <name>EnableVCx</name>
+        <briefdescription>
+<para>VCx feature support enabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="235" bodyend="-1"/>
+        <referencedby refid="group__csiss_1ga5010fb2ee6d104be8fd63de6f2ff5ba1" compoundref="xcsiss_8c" startline="470" endline="487">XCsiSs_GetVCInfo</referencedby>
+        <referencedby refid="group__csiss_1gae291a001aba0f4141b360de5195ee81e" compoundref="xcsiss_8c" startline="391" endline="406">XCsiSs_GetVCSelection</referencedby>
+        <referencedby refid="group__csiss_1ga038b595c1a424408b3ee277a8496e8cf" compoundref="xcsiss_8c" startline="360" endline="375">XCsiSs_SetVCSelection</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_ss___config_1ab0e69785dbdf558a6a79296eb2485e7a" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_csi_rx_ss_sub_core" kindref="compound">CsiRxSsSubCore</ref></type>
+        <definition>CsiRxSsSubCore XCsiSs_Config::CsiInfo</definition>
+        <argsstring></argsstring>
+        <name>CsiInfo</name>
+        <briefdescription>
+<para>CSI sub-core configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_ss___config_1ad1d8bc1de669bafd1619a221002416db" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_csi_rx_ss_sub_core" kindref="compound">CsiRxSsSubCore</ref></type>
+        <definition>CsiRxSsSubCore XCsiSs_Config::DphyInfo</definition>
+        <argsstring></argsstring>
+        <name>DphyInfo</name>
+        <briefdescription>
+<para>DPHY sub-core configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_ss___config_1af2885547ebd53dac6048b74c79c9b103" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_csi_rx_ss_sub_core" kindref="compound">CsiRxSsSubCore</ref></type>
+        <definition>CsiRxSsSubCore XCsiSs_Config::MipiRxPhyInfo</definition>
+        <argsstring></argsstring>
+        <name>MipiRxPhyInfo</name>
+        <briefdescription>
+<para>MIPI RX PHY sub-core configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="238" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_ss___config_1a3d56fca78c4ccb41929537f7e9c9cb3b" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XCsiSs_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Interrupt ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="240" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1a6fb058d3bf941cd9a817bb6ad7e0a819" compoundref="xcsiss__intr__example_8c" startline="219" endline="349">CsiSs_IntrExample</referencedby>
+        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="926" endline="1441">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_ss___config_1a71383ce9801d9eee837758c8aa6bd3f0" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XCsiSs_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt Parent. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="241" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1a6fb058d3bf941cd9a817bb6ad7e0a819" compoundref="xcsiss__intr__example_8c" startline="219" endline="349">CsiSs_IntrExample</referencedby>
+        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="926" endline="1441">main</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>MIPI CSI Rx Subsystem configuration structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure contains the configuration information for the MIPI CSI Rx Subsystem. Each subsystem device should have a configuration structure associated that defines the MAX supported sub-cores within subsystem. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="26">
+        <label>CsiRxSsSubCore</label>
+        <link refid="struct_csi_rx_ss_sub_core"/>
+      </node>
+      <node id="25">
+        <label>XCsiSs_Config</label>
+        <link refid="struct_x_csi_ss___config"/>
+        <childnode refid="26" relation="usage">
+          <edgelabel>MipiRxPhyInfo</edgelabel>
+          <edgelabel>CsiInfo</edgelabel>
+          <edgelabel>DphyInfo</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="208" bodyend="243"/>
+    <listofallmembers>
+      <member refid="struct_x_csi_ss___config_1accf7178f1f7fc0ba40fee2e61ca159bc" prot="public" virt="non-virtual"><scope>XCsiSs_Config</scope><name>BaseAddr</name></member>
+      <member refid="struct_x_csi_ss___config_1a2b108e8ca479ecd320c08d66cb808e72" prot="public" virt="non-virtual"><scope>XCsiSs_Config</scope><name>CsiBuffDepth</name></member>
+      <member refid="struct_x_csi_ss___config_1ab0e69785dbdf558a6a79296eb2485e7a" prot="public" virt="non-virtual"><scope>XCsiSs_Config</scope><name>CsiInfo</name></member>
+      <member refid="struct_x_csi_ss___config_1ad1d8bc1de669bafd1619a221002416db" prot="public" virt="non-virtual"><scope>XCsiSs_Config</scope><name>DphyInfo</name></member>
+      <member refid="struct_x_csi_ss___config_1a9f231140e4e8a641b6a0bcfbf3a245fc" prot="public" virt="non-virtual"><scope>XCsiSs_Config</scope><name>DphyLineRate</name></member>
+      <member refid="struct_x_csi_ss___config_1a8f1b9fcb8ab6b865cbfe8a113ddfa273" prot="public" virt="non-virtual"><scope>XCsiSs_Config</scope><name>EnableActiveLanes</name></member>
+      <member refid="struct_x_csi_ss___config_1a87c8dcd4a84e413201c4718c97094aa0" prot="public" virt="non-virtual"><scope>XCsiSs_Config</scope><name>EnableCrc</name></member>
+      <member refid="struct_x_csi_ss___config_1acff2240352b375a363ed6c2b7eeff545" prot="public" virt="non-virtual"><scope>XCsiSs_Config</scope><name>EnableCSIv20</name></member>
+      <member refid="struct_x_csi_ss___config_1a6b67cf053b411761156d597d241a1b1b" prot="public" virt="non-virtual"><scope>XCsiSs_Config</scope><name>EnableVCx</name></member>
+      <member refid="struct_x_csi_ss___config_1a47c248f223217fb36480fd87299817b0" prot="public" virt="non-virtual"><scope>XCsiSs_Config</scope><name>HighAddr</name></member>
+      <member refid="struct_x_csi_ss___config_1a3d56fca78c4ccb41929537f7e9c9cb3b" prot="public" virt="non-virtual"><scope>XCsiSs_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_csi_ss___config_1a71383ce9801d9eee837758c8aa6bd3f0" prot="public" virt="non-virtual"><scope>XCsiSs_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_csi_ss___config_1af96d74b947652a7cdd48c66eac494ecd" prot="public" virt="non-virtual"><scope>XCsiSs_Config</scope><name>IsDphyRegIntfcPresent</name></member>
+      <member refid="struct_x_csi_ss___config_1af0858f6d6032b5f521f2630737c3ecbb" prot="public" virt="non-virtual"><scope>XCsiSs_Config</scope><name>IsEmbNonImgPresent</name></member>
+      <member refid="struct_x_csi_ss___config_1a161805ed2b55c724c987115b5c0b376a" prot="public" virt="non-virtual"><scope>XCsiSs_Config</scope><name>LanesPresent</name></member>
+      <member refid="struct_x_csi_ss___config_1af2885547ebd53dac6048b74c79c9b103" prot="public" virt="non-virtual"><scope>XCsiSs_Config</scope><name>MipiRxPhyInfo</name></member>
+      <member refid="struct_x_csi_ss___config_1a1a7ad41338a32fc6910eccd90cc0c99b" prot="public" virt="non-virtual"><scope>XCsiSs_Config</scope><name>Name</name></member>
+      <member refid="struct_x_csi_ss___config_1a203422f11e21168679180a7060553199" prot="public" virt="non-virtual"><scope>XCsiSs_Config</scope><name>PixelCount</name></member>
+      <member refid="struct_x_csi_ss___config_1a7c808fba33fd373f15f4c7e98bea29b9" prot="public" virt="non-virtual"><scope>XCsiSs_Config</scope><name>PixelFormat</name></member>
+      <member refid="struct_x_csi_ss___config_1a96e356d9a84ea1e476fcca77b4061dcc" prot="public" virt="non-virtual"><scope>XCsiSs_Config</scope><name>VcNo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1567 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__axi4s__remap_8c" kind="file">
+    <compoundname>xv_axi4s_remap.c</compoundname>
+    <includes refid="xv__axi4s__remap_8h" local="yes">xv_axi4s_remap.h</includes>
+    <incdepgraph>
+      <node id="22">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="24">
+        <label>xil_io.h</label>
+      </node>
+      <node id="25">
+        <label>xv_axi4s_remap_hw.h</label>
+        <link refid="xv__axi4s__remap__hw_8h"/>
+      </node>
+      <node id="19">
+        <label>xv_axi4s_remap.c</label>
+        <link refid="xv_axi4s_remap.c"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>xv_axi4s_remap.h</label>
+        <link refid="xv__axi4s__remap_8h"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>xstatus.h</label>
+      </node>
+      <node id="21">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1ae173d8c933eff784e841ac5f0210f9bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_axi4s_remap_CfgInitialize</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr, XV_axi4s_remap_Config *ConfigPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XV_axi4s_remap_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap___config" kindref="compound">XV_axi4s_remap_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>Initialize AXI4-Stream Remap driver with configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function initializes the AXI4-Stream Remap driver instance with the provided configuration structure and effective base address. It copies the configuration, sets the base address, and marks the driver as ready.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the driver instance structure to initialize </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the configuration structure </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Effective base address for the device registers</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if initialization completed successfully</para></simplesect>
+<simplesect kind="note"><para>This function is only available in bare-metal builds (not Linux) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="34" bodyend="49"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <referencedby refid="main_8c_1aca6c8ac5234bd20fc964dc5c20a427e4" compoundref="main_8c" startline="73" endline="128">driverInit</referencedby>
+        <referencedby refid="xv__axi4s__remap__sinit_8c_1ad3b6d0fd3c85cdabcfb25e77b0806eae" compoundref="xv__axi4s__remap__sinit_8c" startline="155" endline="169">XV_axi4s_remap_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1a20a0ac05eb63d7d010fcc6b8fcce01e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_axi4s_remap_Start</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr)</argsstring>
+        <name>XV_axi4s_remap_Start</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Start the AXI4-Stream Remap core operation. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function starts the AXI4-Stream Remap core by setting the AP_START bit in the control register while preserving the auto-restart setting.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="66" bodyend="74"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1a79520bf53f56571a8099c3c11c947810" compoundref="xv__axi4s__remap__hw_8h" startline="79">XV_AXI4S_REMAP_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" compoundref="xv__axi4s__remap_8h" startline="97">XV_axi4s_remap_ReadReg</references>
+        <references refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" compoundref="xv__axi4s__remap_8h" startline="94">XV_axi4s_remap_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1a8420c0dd9b8304c3e19a9d1c86fbbedf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_axi4s_remap_IsDone</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr)</argsstring>
+        <name>XV_axi4s_remap_IsDone</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Check if the core operation is done. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function checks the AP_DONE bit in the control register to determine if the current operation has completed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 if operation is done, 0 otherwise</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="90" bodyend="98"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1a79520bf53f56571a8099c3c11c947810" compoundref="xv__axi4s__remap__hw_8h" startline="79">XV_AXI4S_REMAP_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" compoundref="xv__axi4s__remap_8h" startline="97">XV_axi4s_remap_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1a26a1f9ec9a1a8fe5a94ca0bc7d59c1f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_axi4s_remap_IsIdle</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr)</argsstring>
+        <name>XV_axi4s_remap_IsIdle</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Check if the core is idle. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function checks the AP_IDLE bit in the control register to determine if the core is currently idle and not processing data.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 if core is idle, 0 if core is busy</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="114" bodyend="122"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1a79520bf53f56571a8099c3c11c947810" compoundref="xv__axi4s__remap__hw_8h" startline="79">XV_AXI4S_REMAP_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" compoundref="xv__axi4s__remap_8h" startline="97">XV_axi4s_remap_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1a3e9c5feb14cf78cd7d2f9fc2a365daae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_axi4s_remap_IsReady</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr)</argsstring>
+        <name>XV_axi4s_remap_IsReady</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Check if the core is ready for new input. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function checks if the core is ready to accept new input by verifying that the AP_START bit is not set.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 if core is ready for new input, 0 if core is busy</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="138" bodyend="147"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1a79520bf53f56571a8099c3c11c947810" compoundref="xv__axi4s__remap__hw_8h" startline="79">XV_AXI4S_REMAP_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" compoundref="xv__axi4s__remap_8h" startline="97">XV_axi4s_remap_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1afff5b0d7a50476327f3256ed64efab5f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_axi4s_remap_EnableAutoRestart</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr)</argsstring>
+        <name>XV_axi4s_remap_EnableAutoRestart</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Enable automatic restart of the core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function enables the auto-restart feature which causes the core to automatically restart processing after completing an operation.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="163" bodyend="168"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1a79520bf53f56571a8099c3c11c947810" compoundref="xv__axi4s__remap__hw_8h" startline="79">XV_AXI4S_REMAP_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" compoundref="xv__axi4s__remap_8h" startline="94">XV_axi4s_remap_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1a58a64814ff2ecb80a378f30c3d523970" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_axi4s_remap_DisableAutoRestart</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr)</argsstring>
+        <name>XV_axi4s_remap_DisableAutoRestart</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Disable automatic restart of the core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function disables the auto-restart feature, requiring manual restart via <ref refid="xv__axi4s__remap_8c_1a20a0ac05eb63d7d010fcc6b8fcce01e6" kindref="member">XV_axi4s_remap_Start()</ref> after each operation completes.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="184" bodyend="189"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1a79520bf53f56571a8099c3c11c947810" compoundref="xv__axi4s__remap__hw_8h" startline="79">XV_AXI4S_REMAP_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" compoundref="xv__axi4s__remap_8h" startline="94">XV_axi4s_remap_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1aedbd7449447da1b3f14975cc0c90c966" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_axi4s_remap_Set_height</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr, u32 Data)</argsstring>
+        <name>XV_axi4s_remap_Set_height</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Set the video frame height. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function configures the height (number of rows) of the video frame to be processed by the AXI4-Stream Remap core.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Frame height in pixels</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="206" bodyend="211"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1a401aa5047ee8540e26d5694da32d870d" compoundref="xv__axi4s__remap__hw_8h" startline="89">XV_AXI4S_REMAP_CTRL_ADDR_HEIGHT_DATA</references>
+        <references refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" compoundref="xv__axi4s__remap_8h" startline="94">XV_axi4s_remap_WriteReg</references>
+        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="147" endline="190">videoIpConfig</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1a6c754c1c09b21f92fea36a52e960ea68" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_axi4s_remap_Get_height</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr)</argsstring>
+        <name>XV_axi4s_remap_Get_height</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Get the configured video frame height. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads the currently configured height (number of rows) of the video frame from the AXI4-Stream Remap core.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Configured frame height in pixels</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="227" bodyend="235"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1a401aa5047ee8540e26d5694da32d870d" compoundref="xv__axi4s__remap__hw_8h" startline="89">XV_AXI4S_REMAP_CTRL_ADDR_HEIGHT_DATA</references>
+        <references refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" compoundref="xv__axi4s__remap_8h" startline="97">XV_axi4s_remap_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1a0f4db0b3b4b6a236c763d891ce66fe91" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_axi4s_remap_Set_width</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr, u32 Data)</argsstring>
+        <name>XV_axi4s_remap_Set_width</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Set the video frame width. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function configures the width (number of columns) of the video frame to be processed by the AXI4-Stream Remap core.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Frame width in pixels</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="252" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="252" bodyend="257"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1ab08e76ec877c52145a92dbe21d6e246d" compoundref="xv__axi4s__remap__hw_8h" startline="93">XV_AXI4S_REMAP_CTRL_ADDR_WIDTH_DATA</references>
+        <references refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" compoundref="xv__axi4s__remap_8h" startline="94">XV_axi4s_remap_WriteReg</references>
+        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="147" endline="190">videoIpConfig</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1a59eaeec1e8e7d67de71b3d1f9ac01861" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_axi4s_remap_Get_width</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr)</argsstring>
+        <name>XV_axi4s_remap_Get_width</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Get the configured video frame width. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads the currently configured width (number of columns) of the video frame from the AXI4-Stream Remap core.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Configured frame width in pixels</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="273" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="273" bodyend="281"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1ab08e76ec877c52145a92dbe21d6e246d" compoundref="xv__axi4s__remap__hw_8h" startline="93">XV_AXI4S_REMAP_CTRL_ADDR_WIDTH_DATA</references>
+        <references refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" compoundref="xv__axi4s__remap_8h" startline="97">XV_axi4s_remap_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1a6e8b67ede52a11d74c2c2c7e9e8ae903" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_axi4s_remap_Set_ColorFormat</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr, u32 Data)</argsstring>
+        <name>XV_axi4s_remap_Set_ColorFormat</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Set the color format configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function configures the color format to be used for video stream processing by the AXI4-Stream Remap core.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Color format value</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="298" bodyend="303"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1a0ebb0993ba5ea137851317eb8f28f2f4" compoundref="xv__axi4s__remap__hw_8h" startline="99">XV_AXI4S_REMAP_CTRL_ADDR_COLORFORMAT_DATA</references>
+        <references refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" compoundref="xv__axi4s__remap_8h" startline="94">XV_axi4s_remap_WriteReg</references>
+        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="147" endline="190">videoIpConfig</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1a969d050b1514cd1a5a8b3f9460b213f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_axi4s_remap_Get_ColorFormat</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr)</argsstring>
+        <name>XV_axi4s_remap_Get_ColorFormat</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Get the configured color format. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads the currently configured color format from the AXI4-Stream Remap core.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Configured color format value</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="319" bodyend="327"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1a0ebb0993ba5ea137851317eb8f28f2f4" compoundref="xv__axi4s__remap__hw_8h" startline="99">XV_AXI4S_REMAP_CTRL_ADDR_COLORFORMAT_DATA</references>
+        <references refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" compoundref="xv__axi4s__remap_8h" startline="97">XV_axi4s_remap_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1a77f9f62e7d191df271744850241d81d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_axi4s_remap_Set_inPixClk</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr, u32 Data)</argsstring>
+        <name>XV_axi4s_remap_Set_inPixClk</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Set the input pixels per clock. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function configures the number of pixels per clock cycle for the input video stream.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of input pixels per clock (1, 2, or 4)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="344" bodyend="349"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1a037a6371bc0e47d1d845813a2b8b33ae" compoundref="xv__axi4s__remap__hw_8h" startline="105">XV_AXI4S_REMAP_CTRL_ADDR_INPIXCLK_DATA</references>
+        <references refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" compoundref="xv__axi4s__remap_8h" startline="94">XV_axi4s_remap_WriteReg</references>
+        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="147" endline="190">videoIpConfig</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1a06a9f36d19d2af3c6219ab2f862b102f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_axi4s_remap_Get_inPixClk</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr)</argsstring>
+        <name>XV_axi4s_remap_Get_inPixClk</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Get the configured input pixels per clock. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads the currently configured number of pixels per clock cycle for the input video stream.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Configured number of input pixels per clock</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="365" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="365" bodyend="373"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1a037a6371bc0e47d1d845813a2b8b33ae" compoundref="xv__axi4s__remap__hw_8h" startline="105">XV_AXI4S_REMAP_CTRL_ADDR_INPIXCLK_DATA</references>
+        <references refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" compoundref="xv__axi4s__remap_8h" startline="97">XV_axi4s_remap_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1ab1aef19d2557481c1211517325a94100" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_axi4s_remap_Set_outPixClk</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr, u32 Data)</argsstring>
+        <name>XV_axi4s_remap_Set_outPixClk</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Set the output pixels per clock. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function configures the number of pixels per clock cycle for the output video stream.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of output pixels per clock (1, 2, or 4)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="390" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="390" bodyend="395"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1a2ede158b05c9b7612b128da1c2dc94c1" compoundref="xv__axi4s__remap__hw_8h" startline="109">XV_AXI4S_REMAP_CTRL_ADDR_OUTPIXCLK_DATA</references>
+        <references refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" compoundref="xv__axi4s__remap_8h" startline="94">XV_axi4s_remap_WriteReg</references>
+        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="147" endline="190">videoIpConfig</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1afb73f3b3b69ad79fb12d40679365853f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_axi4s_remap_Get_outPixClk</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr)</argsstring>
+        <name>XV_axi4s_remap_Get_outPixClk</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Get the configured output pixels per clock. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads the currently configured number of pixels per clock cycle for the output video stream.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Configured number of output pixels per clock</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="411" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="411" bodyend="419"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1a2ede158b05c9b7612b128da1c2dc94c1" compoundref="xv__axi4s__remap__hw_8h" startline="109">XV_AXI4S_REMAP_CTRL_ADDR_OUTPIXCLK_DATA</references>
+        <references refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" compoundref="xv__axi4s__remap_8h" startline="97">XV_axi4s_remap_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1a28d9e3f48e2b722840bbf6ed30b7986d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_axi4s_remap_Set_inHDMI420</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr, u32 Data)</argsstring>
+        <name>XV_axi4s_remap_Set_inHDMI420</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Set input HDMI 4:2:0 mode enable. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function enables or disables HDMI 4:2:0 format processing for the input video stream.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1 to enable HDMI 4:2:0 mode, 0 to disable</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="436" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="436" bodyend="441"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1ac4ccbee7ae5314614afb9b4f2d703cba" compoundref="xv__axi4s__remap__hw_8h" startline="115">XV_AXI4S_REMAP_CTRL_ADDR_INHDMI420_DATA</references>
+        <references refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" compoundref="xv__axi4s__remap_8h" startline="94">XV_axi4s_remap_WriteReg</references>
+        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="147" endline="190">videoIpConfig</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1ab27cb65f1da442f8b867d7039e6cc3d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_axi4s_remap_Get_inHDMI420</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr)</argsstring>
+        <name>XV_axi4s_remap_Get_inHDMI420</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Get input HDMI 4:2:0 mode configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads whether HDMI 4:2:0 format processing is enabled for the input video stream.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 if HDMI 4:2:0 mode is enabled, 0 if disabled</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="457" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="457" bodyend="465"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1ac4ccbee7ae5314614afb9b4f2d703cba" compoundref="xv__axi4s__remap__hw_8h" startline="115">XV_AXI4S_REMAP_CTRL_ADDR_INHDMI420_DATA</references>
+        <references refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" compoundref="xv__axi4s__remap_8h" startline="97">XV_axi4s_remap_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1a423440084f71d7a0bf5b67375220c385" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_axi4s_remap_Set_outHDMI420</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr, u32 Data)</argsstring>
+        <name>XV_axi4s_remap_Set_outHDMI420</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Set output HDMI 4:2:0 mode enable. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function enables or disables HDMI 4:2:0 format processing for the output video stream.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1 to enable HDMI 4:2:0 mode, 0 to disable</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="482" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="482" bodyend="487"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1a5fcc687ad4b8932947b4d33a922a2b61" compoundref="xv__axi4s__remap__hw_8h" startline="119">XV_AXI4S_REMAP_CTRL_ADDR_OUTHDMI420_DATA</references>
+        <references refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" compoundref="xv__axi4s__remap_8h" startline="94">XV_axi4s_remap_WriteReg</references>
+        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="147" endline="190">videoIpConfig</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1aa0d733f2f1af598377ce45866faedb57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_axi4s_remap_Get_outHDMI420</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr)</argsstring>
+        <name>XV_axi4s_remap_Get_outHDMI420</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Get output HDMI 4:2:0 mode configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads whether HDMI 4:2:0 format processing is enabled for the output video stream.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 if HDMI 4:2:0 mode is enabled, 0 if disabled</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="503" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="503" bodyend="511"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1a5fcc687ad4b8932947b4d33a922a2b61" compoundref="xv__axi4s__remap__hw_8h" startline="119">XV_AXI4S_REMAP_CTRL_ADDR_OUTHDMI420_DATA</references>
+        <references refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" compoundref="xv__axi4s__remap_8h" startline="97">XV_axi4s_remap_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1a99269876f11e022e1d945961eaf351e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_axi4s_remap_Set_inPixDrop</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr, u32 Data)</argsstring>
+        <name>XV_axi4s_remap_Set_inPixDrop</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Set input pixel drop enable. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function enables or disables pixel dropping on the input video stream to adjust the effective pixel rate.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1 to enable pixel drop, 0 to disable</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="528" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="528" bodyend="533"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1a2a1ba51fea5551a5174c6bdf9be0d2a0" compoundref="xv__axi4s__remap__hw_8h" startline="125">XV_AXI4S_REMAP_CTRL_ADDR_INPIXDROP_DATA</references>
+        <references refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" compoundref="xv__axi4s__remap_8h" startline="94">XV_axi4s_remap_WriteReg</references>
+        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="147" endline="190">videoIpConfig</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1a91a7dd205a573c309efb2fb7f5f10ea3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_axi4s_remap_Get_inPixDrop</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr)</argsstring>
+        <name>XV_axi4s_remap_Get_inPixDrop</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Get input pixel drop configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads whether pixel dropping is enabled on the input video stream.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 if pixel drop is enabled, 0 if disabled</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="549" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="549" bodyend="557"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1a2a1ba51fea5551a5174c6bdf9be0d2a0" compoundref="xv__axi4s__remap__hw_8h" startline="125">XV_AXI4S_REMAP_CTRL_ADDR_INPIXDROP_DATA</references>
+        <references refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" compoundref="xv__axi4s__remap_8h" startline="97">XV_axi4s_remap_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1a2fcb6904b9d6ed0a94ac461bc9bbb55c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_axi4s_remap_Set_outPixRepeat</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr, u32 Data)</argsstring>
+        <name>XV_axi4s_remap_Set_outPixRepeat</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Set output pixel repeat enable. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function enables or disables pixel repetition on the output video stream to adjust the effective pixel rate.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1 to enable pixel repeat, 0 to disable</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="574" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="574" bodyend="579"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1abdeba3e5e64c2c70231d0faa94fc79b8" compoundref="xv__axi4s__remap__hw_8h" startline="129">XV_AXI4S_REMAP_CTRL_ADDR_OUTPIXREPEAT_DATA</references>
+        <references refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" compoundref="xv__axi4s__remap_8h" startline="94">XV_axi4s_remap_WriteReg</references>
+        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="147" endline="190">videoIpConfig</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1a901b524fa549a3c5340cdcfc831fe1c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_axi4s_remap_Get_outPixRepeat</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr)</argsstring>
+        <name>XV_axi4s_remap_Get_outPixRepeat</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Get output pixel repeat configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads whether pixel repetition is enabled on the output video stream.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 if pixel repeat is enabled, 0 if disabled</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="595" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="595" bodyend="603"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1abdeba3e5e64c2c70231d0faa94fc79b8" compoundref="xv__axi4s__remap__hw_8h" startline="129">XV_AXI4S_REMAP_CTRL_ADDR_OUTPIXREPEAT_DATA</references>
+        <references refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" compoundref="xv__axi4s__remap_8h" startline="97">XV_axi4s_remap_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1abdf4a5d8f81e4716fa007df4ca4b494c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_axi4s_remap_InterruptGlobalEnable</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr)</argsstring>
+        <name>XV_axi4s_remap_InterruptGlobalEnable</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Enable global interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function enables the global interrupt output from the AXI4-Stream Remap core by setting the Global Interrupt Enable (GIE) bit.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para><simplesectsep/><para>Individual interrupts must also be enabled via InterruptEnable() </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="620" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="620" bodyend="625"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1a5ceda9b77a4a5c121dbeb470a0899bb4" compoundref="xv__axi4s__remap__hw_8h" startline="81">XV_AXI4S_REMAP_CTRL_ADDR_GIE</references>
+        <references refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" compoundref="xv__axi4s__remap_8h" startline="94">XV_axi4s_remap_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1ad1880d9e0af52561b9d4a66980676cdb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_axi4s_remap_InterruptGlobalDisable</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr)</argsstring>
+        <name>XV_axi4s_remap_InterruptGlobalDisable</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Disable global interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function disables the global interrupt output from the AXI4-Stream Remap core by clearing the Global Interrupt Enable (GIE) bit.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="641" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="641" bodyend="646"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1a5ceda9b77a4a5c121dbeb470a0899bb4" compoundref="xv__axi4s__remap__hw_8h" startline="81">XV_AXI4S_REMAP_CTRL_ADDR_GIE</references>
+        <references refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" compoundref="xv__axi4s__remap_8h" startline="94">XV_axi4s_remap_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1aa2f4ec7778d206f4d6f7881fc1947371" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_axi4s_remap_InterruptEnable</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr, u32 Mask)</argsstring>
+        <name>XV_axi4s_remap_InterruptEnable</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Enable specific interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function enables individual interrupt sources by setting the corresponding bits in the Interrupt Enable Register (IER).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bitmask of interrupts to enable (bit 0: ap_done, bit 1: ap_ready)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para><simplesectsep/><para>Global interrupts must also be enabled via InterruptGlobalEnable() </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="664" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="664" bodyend="672"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1ab510e39b81fb134e6d1355a52817b1c0" compoundref="xv__axi4s__remap__hw_8h" startline="83">XV_AXI4S_REMAP_CTRL_ADDR_IER</references>
+        <references refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" compoundref="xv__axi4s__remap_8h" startline="97">XV_axi4s_remap_ReadReg</references>
+        <references refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" compoundref="xv__axi4s__remap_8h" startline="94">XV_axi4s_remap_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1abc70f3279632c8ecddae5a8c9e89d6f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_axi4s_remap_InterruptDisable</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr, u32 Mask)</argsstring>
+        <name>XV_axi4s_remap_InterruptDisable</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Disable specific interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function disables individual interrupt sources by clearing the corresponding bits in the Interrupt Enable Register (IER).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bitmask of interrupts to disable (bit 0: ap_done, bit 1: ap_ready)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="689" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="689" bodyend="697"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1ab510e39b81fb134e6d1355a52817b1c0" compoundref="xv__axi4s__remap__hw_8h" startline="83">XV_AXI4S_REMAP_CTRL_ADDR_IER</references>
+        <references refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" compoundref="xv__axi4s__remap_8h" startline="97">XV_axi4s_remap_ReadReg</references>
+        <references refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" compoundref="xv__axi4s__remap_8h" startline="94">XV_axi4s_remap_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1a088bad78ede022f42248f80fc315c366" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_axi4s_remap_InterruptClear</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr, u32 Mask)</argsstring>
+        <name>XV_axi4s_remap_InterruptClear</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Clear interrupt status flags. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function clears pending interrupt status bits by writing to the Interrupt Status Register (ISR). This is a toggle-on-write register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bitmask of interrupt flags to clear</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para><simplesectsep/><para>Writing 1 to a bit toggles/clears that interrupt status </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="715" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="715" bodyend="720"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1a9ca3df5f17504d65907bfdf70b7c5309" compoundref="xv__axi4s__remap__hw_8h" startline="85">XV_AXI4S_REMAP_CTRL_ADDR_ISR</references>
+        <references refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" compoundref="xv__axi4s__remap_8h" startline="94">XV_axi4s_remap_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1a802375a319bf4d5fbfc47957287b9a8d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_axi4s_remap_InterruptGetEnabled</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr)</argsstring>
+        <name>XV_axi4s_remap_InterruptGetEnabled</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Get enabled interrupt mask. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads the Interrupt Enable Register (IER) to determine which interrupt sources are currently enabled.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Bitmask of enabled interrupts (bit 0: ap_done, bit 1: ap_ready)</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="736" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="736" bodyend="741"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1ab510e39b81fb134e6d1355a52817b1c0" compoundref="xv__axi4s__remap__hw_8h" startline="83">XV_AXI4S_REMAP_CTRL_ADDR_IER</references>
+        <references refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" compoundref="xv__axi4s__remap_8h" startline="97">XV_axi4s_remap_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__axi4s__remap_8c_1a731437bea890cda27301b64a7bb80045" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_axi4s_remap_InterruptGetStatus</definition>
+        <argsstring>(XV_axi4s_remap *InstancePtr)</argsstring>
+        <name>XV_axi4s_remap_InterruptGetStatus</name>
+        <param>
+          <type><ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Get interrupt status flags. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads the Interrupt Status Register (ISR) to determine which interrupt conditions are currently pending.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the initialized driver instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Bitmask of pending interrupt flags (bit 0: ap_done, bit 1: ap_ready)</para></simplesect>
+<simplesect kind="note"><para>The driver instance must be ready (IsReady == XIL_COMPONENT_IS_READY) </para><simplesectsep/><para>Use InterruptClear() to clear pending interrupt flags </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" line="758" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c" bodystart="758" bodyend="763"/>
+        <references refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" compoundref="xv__axi4s__remap_8h" startline="61">XV_axi4s_remap_Config::BaseAddress</references>
+        <references refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" compoundref="xv__axi4s__remap_8h" startline="87">XV_axi4s_remap::Config</references>
+        <references refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" compoundref="xv__axi4s__remap_8h" startline="88">XV_axi4s_remap::IsReady</references>
+        <references refid="xv__axi4s__remap__hw_8h_1a9ca3df5f17504d65907bfdf70b7c5309" compoundref="xv__axi4s__remap__hw_8h" startline="85">XV_AXI4S_REMAP_CTRL_ADDR_ISR</references>
+        <references refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" compoundref="xv__axi4s__remap_8h" startline="97">XV_axi4s_remap_ReadReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__axi4s__remap_8h" kindref="compound">xv_axi4s_remap.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Implementation<sp/>*************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__linux__</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="34" refid="xv__axi4s__remap_8h_1ae173d8c933eff784e841ac5f0210f9bc" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__axi4s__remap_8c_1ae173d8c933eff784e841ac5f0210f9bc" kindref="member">XV_axi4s_remap_CfgInitialize</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v__axi4s__remap___config" kindref="compound">XV_axi4s_remap_Config</ref><sp/>*ConfigPtr,</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr)<sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(ConfigPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(EffectiveAddr<sp/>!=<sp/>(UINTPTR)NULL);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>the<sp/>instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref><sp/>=<sp/>*ConfigPtr;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref><sp/>=<sp/>EffectiveAddr;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>flag<sp/>to<sp/>indicate<sp/>the<sp/>driver<sp/>is<sp/>ready<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="66" refid="xv__axi4s__remap_8h_1a20a0ac05eb63d7d010fcc6b8fcce01e6" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__axi4s__remap_8c_1a20a0ac05eb63d7d010fcc6b8fcce01e6" kindref="member">XV_axi4s_remap_Start</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" kindref="member">XV_axi4s_remap_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1a79520bf53f56571a8099c3c11c947810" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_AP_CTRL</ref>)<sp/>&amp;<sp/>0x80;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" kindref="member">XV_axi4s_remap_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1a79520bf53f56571a8099c3c11c947810" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_AP_CTRL</ref>,<sp/>Data<sp/>|<sp/>0x01);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="90" refid="xv__axi4s__remap_8h_1a8420c0dd9b8304c3e19a9d1c86fbbedf" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__axi4s__remap_8c_1a8420c0dd9b8304c3e19a9d1c86fbbedf" kindref="member">XV_axi4s_remap_IsDone</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" kindref="member">XV_axi4s_remap_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1a79520bf53f56571a8099c3c11c947810" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_AP_CTRL</ref>);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(Data<sp/>&gt;&gt;<sp/>1)<sp/>&amp;<sp/>0x1;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="114" refid="xv__axi4s__remap_8h_1a26a1f9ec9a1a8fe5a94ca0bc7d59c1f3" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__axi4s__remap_8c_1a26a1f9ec9a1a8fe5a94ca0bc7d59c1f3" kindref="member">XV_axi4s_remap_IsIdle</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" kindref="member">XV_axi4s_remap_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1a79520bf53f56571a8099c3c11c947810" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_AP_CTRL</ref>);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(Data<sp/>&gt;&gt;<sp/>2)<sp/>&amp;<sp/>0x1;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="138" refid="xv__axi4s__remap_8h_1a3e9c5feb14cf78cd7d2f9fc2a365daae" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__axi4s__remap_8c_1a3e9c5feb14cf78cd7d2f9fc2a365daae" kindref="member">XV_axi4s_remap_IsReady</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" kindref="member">XV_axi4s_remap_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1a79520bf53f56571a8099c3c11c947810" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_AP_CTRL</ref>);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>check<sp/>ap_start<sp/>to<sp/>see<sp/>if<sp/>the<sp/>pcore<sp/>is<sp/>ready<sp/>for<sp/>next<sp/>input</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>!(Data<sp/>&amp;<sp/>0x1);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="163" refid="xv__axi4s__remap_8h_1afff5b0d7a50476327f3256ed64efab5f" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__axi4s__remap_8c_1afff5b0d7a50476327f3256ed64efab5f" kindref="member">XV_axi4s_remap_EnableAutoRestart</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" kindref="member">XV_axi4s_remap_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1a79520bf53f56571a8099c3c11c947810" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_AP_CTRL</ref>,<sp/>0x80);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="184" refid="xv__axi4s__remap_8h_1a58a64814ff2ecb80a378f30c3d523970" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__axi4s__remap_8c_1a58a64814ff2ecb80a378f30c3d523970" kindref="member">XV_axi4s_remap_DisableAutoRestart</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" kindref="member">XV_axi4s_remap_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1a79520bf53f56571a8099c3c11c947810" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_AP_CTRL</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="206" refid="xv__axi4s__remap_8h_1aedbd7449447da1b3f14975cc0c90c966" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__axi4s__remap_8c_1aedbd7449447da1b3f14975cc0c90c966" kindref="member">XV_axi4s_remap_Set_height</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data)<sp/>{</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" kindref="member">XV_axi4s_remap_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1a401aa5047ee8540e26d5694da32d870d" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_HEIGHT_DATA</ref>,<sp/>Data);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="227" refid="xv__axi4s__remap_8h_1a6c754c1c09b21f92fea36a52e960ea68" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__axi4s__remap_8c_1a6c754c1c09b21f92fea36a52e960ea68" kindref="member">XV_axi4s_remap_Get_height</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" kindref="member">XV_axi4s_remap_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1a401aa5047ee8540e26d5694da32d870d" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_HEIGHT_DATA</ref>);</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Data;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="252" refid="xv__axi4s__remap_8h_1a0f4db0b3b4b6a236c763d891ce66fe91" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__axi4s__remap_8c_1a0f4db0b3b4b6a236c763d891ce66fe91" kindref="member">XV_axi4s_remap_Set_width</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data)<sp/>{</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" kindref="member">XV_axi4s_remap_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1ab08e76ec877c52145a92dbe21d6e246d" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_WIDTH_DATA</ref>,<sp/>Data);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="273" refid="xv__axi4s__remap_8h_1a59eaeec1e8e7d67de71b3d1f9ac01861" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__axi4s__remap_8c_1a59eaeec1e8e7d67de71b3d1f9ac01861" kindref="member">XV_axi4s_remap_Get_width</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" kindref="member">XV_axi4s_remap_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1ab08e76ec877c52145a92dbe21d6e246d" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_WIDTH_DATA</ref>);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Data;</highlight></codeline>
+<codeline lineno="281"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="298" refid="xv__axi4s__remap_8h_1a6e8b67ede52a11d74c2c2c7e9e8ae903" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__axi4s__remap_8c_1a6e8b67ede52a11d74c2c2c7e9e8ae903" kindref="member">XV_axi4s_remap_Set_ColorFormat</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data)<sp/>{</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" kindref="member">XV_axi4s_remap_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1a0ebb0993ba5ea137851317eb8f28f2f4" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_COLORFORMAT_DATA</ref>,<sp/>Data);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="319" refid="xv__axi4s__remap_8h_1a969d050b1514cd1a5a8b3f9460b213f0" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__axi4s__remap_8c_1a969d050b1514cd1a5a8b3f9460b213f0" kindref="member">XV_axi4s_remap_Get_ColorFormat</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" kindref="member">XV_axi4s_remap_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1a0ebb0993ba5ea137851317eb8f28f2f4" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_COLORFORMAT_DATA</ref>);</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Data;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="344" refid="xv__axi4s__remap_8h_1a77f9f62e7d191df271744850241d81d4" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__axi4s__remap_8c_1a77f9f62e7d191df271744850241d81d4" kindref="member">XV_axi4s_remap_Set_inPixClk</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data)<sp/>{</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" kindref="member">XV_axi4s_remap_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1a037a6371bc0e47d1d845813a2b8b33ae" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_INPIXCLK_DATA</ref>,<sp/>Data);</highlight></codeline>
+<codeline lineno="349"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="365" refid="xv__axi4s__remap_8h_1a06a9f36d19d2af3c6219ab2f862b102f" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__axi4s__remap_8c_1a06a9f36d19d2af3c6219ab2f862b102f" kindref="member">XV_axi4s_remap_Get_inPixClk</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" kindref="member">XV_axi4s_remap_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1a037a6371bc0e47d1d845813a2b8b33ae" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_INPIXCLK_DATA</ref>);</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Data;</highlight></codeline>
+<codeline lineno="373"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="390" refid="xv__axi4s__remap_8h_1ab1aef19d2557481c1211517325a94100" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__axi4s__remap_8c_1ab1aef19d2557481c1211517325a94100" kindref="member">XV_axi4s_remap_Set_outPixClk</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data)<sp/>{</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" kindref="member">XV_axi4s_remap_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1a2ede158b05c9b7612b128da1c2dc94c1" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_OUTPIXCLK_DATA</ref>,<sp/>Data);</highlight></codeline>
+<codeline lineno="395"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"></highlight></codeline>
+<codeline lineno="397"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="411" refid="xv__axi4s__remap_8h_1afb73f3b3b69ad79fb12d40679365853f" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__axi4s__remap_8c_1afb73f3b3b69ad79fb12d40679365853f" kindref="member">XV_axi4s_remap_Get_outPixClk</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"></highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"></highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" kindref="member">XV_axi4s_remap_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1a2ede158b05c9b7612b128da1c2dc94c1" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_OUTPIXCLK_DATA</ref>);</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Data;</highlight></codeline>
+<codeline lineno="419"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"></highlight></codeline>
+<codeline lineno="421"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="436" refid="xv__axi4s__remap_8h_1a28d9e3f48e2b722840bbf6ed30b7986d" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__axi4s__remap_8c_1a28d9e3f48e2b722840bbf6ed30b7986d" kindref="member">XV_axi4s_remap_Set_inHDMI420</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data)<sp/>{</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="439"><highlight class="normal"></highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" kindref="member">XV_axi4s_remap_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1ac4ccbee7ae5314614afb9b4f2d703cba" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_INHDMI420_DATA</ref>,<sp/>Data);</highlight></codeline>
+<codeline lineno="441"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"></highlight></codeline>
+<codeline lineno="443"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="457" refid="xv__axi4s__remap_8h_1ab27cb65f1da442f8b867d7039e6cc3d2" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__axi4s__remap_8c_1ab27cb65f1da442f8b867d7039e6cc3d2" kindref="member">XV_axi4s_remap_Get_inHDMI420</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"></highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"></highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" kindref="member">XV_axi4s_remap_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1ac4ccbee7ae5314614afb9b4f2d703cba" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_INHDMI420_DATA</ref>);</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Data;</highlight></codeline>
+<codeline lineno="465"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"></highlight></codeline>
+<codeline lineno="467"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="482" refid="xv__axi4s__remap_8h_1a423440084f71d7a0bf5b67375220c385" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__axi4s__remap_8c_1a423440084f71d7a0bf5b67375220c385" kindref="member">XV_axi4s_remap_Set_outHDMI420</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data)<sp/>{</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"></highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" kindref="member">XV_axi4s_remap_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1a5fcc687ad4b8932947b4d33a922a2b61" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_OUTHDMI420_DATA</ref>,<sp/>Data);</highlight></codeline>
+<codeline lineno="487"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"></highlight></codeline>
+<codeline lineno="489"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="503" refid="xv__axi4s__remap_8h_1aa0d733f2f1af598377ce45866faedb57" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__axi4s__remap_8c_1aa0d733f2f1af598377ce45866faedb57" kindref="member">XV_axi4s_remap_Get_outHDMI420</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"></highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"></highlight></codeline>
+<codeline lineno="509"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" kindref="member">XV_axi4s_remap_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1a5fcc687ad4b8932947b4d33a922a2b61" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_OUTHDMI420_DATA</ref>);</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Data;</highlight></codeline>
+<codeline lineno="511"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"></highlight></codeline>
+<codeline lineno="513"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="528" refid="xv__axi4s__remap_8h_1a99269876f11e022e1d945961eaf351e8" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__axi4s__remap_8c_1a99269876f11e022e1d945961eaf351e8" kindref="member">XV_axi4s_remap_Set_inPixDrop</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data)<sp/>{</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"></highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" kindref="member">XV_axi4s_remap_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1a2a1ba51fea5551a5174c6bdf9be0d2a0" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_INPIXDROP_DATA</ref>,<sp/>Data);</highlight></codeline>
+<codeline lineno="533"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"></highlight></codeline>
+<codeline lineno="535"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="549" refid="xv__axi4s__remap_8h_1a91a7dd205a573c309efb2fb7f5f10ea3" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__axi4s__remap_8c_1a91a7dd205a573c309efb2fb7f5f10ea3" kindref="member">XV_axi4s_remap_Get_inPixDrop</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="551"><highlight class="normal"></highlight></codeline>
+<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="553"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"></highlight></codeline>
+<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" kindref="member">XV_axi4s_remap_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1a2a1ba51fea5551a5174c6bdf9be0d2a0" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_INPIXDROP_DATA</ref>);</highlight></codeline>
+<codeline lineno="556"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Data;</highlight></codeline>
+<codeline lineno="557"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="558"><highlight class="normal"></highlight></codeline>
+<codeline lineno="559"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="574" refid="xv__axi4s__remap_8h_1a2fcb6904b9d6ed0a94ac461bc9bbb55c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__axi4s__remap_8c_1a2fcb6904b9d6ed0a94ac461bc9bbb55c" kindref="member">XV_axi4s_remap_Set_outPixRepeat</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data)<sp/>{</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="577"><highlight class="normal"></highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" kindref="member">XV_axi4s_remap_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1abdeba3e5e64c2c70231d0faa94fc79b8" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_OUTPIXREPEAT_DATA</ref>,<sp/>Data);</highlight></codeline>
+<codeline lineno="579"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="580"><highlight class="normal"></highlight></codeline>
+<codeline lineno="581"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="595" refid="xv__axi4s__remap_8h_1a901b524fa549a3c5340cdcfc831fe1c9" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__axi4s__remap_8c_1a901b524fa549a3c5340cdcfc831fe1c9" kindref="member">XV_axi4s_remap_Get_outPixRepeat</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="596"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="597"><highlight class="normal"></highlight></codeline>
+<codeline lineno="598"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="600"><highlight class="normal"></highlight></codeline>
+<codeline lineno="601"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" kindref="member">XV_axi4s_remap_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1abdeba3e5e64c2c70231d0faa94fc79b8" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_OUTPIXREPEAT_DATA</ref>);</highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Data;</highlight></codeline>
+<codeline lineno="603"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="604"><highlight class="normal"></highlight></codeline>
+<codeline lineno="605"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="620" refid="xv__axi4s__remap_8h_1abdf4a5d8f81e4716fa007df4ca4b494c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__axi4s__remap_8c_1abdf4a5d8f81e4716fa007df4ca4b494c" kindref="member">XV_axi4s_remap_InterruptGlobalEnable</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="622"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="623"><highlight class="normal"></highlight></codeline>
+<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" kindref="member">XV_axi4s_remap_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1a5ceda9b77a4a5c121dbeb470a0899bb4" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_GIE</ref>,<sp/>1);</highlight></codeline>
+<codeline lineno="625"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="626"><highlight class="normal"></highlight></codeline>
+<codeline lineno="627"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="641" refid="xv__axi4s__remap_8h_1ad1880d9e0af52561b9d4a66980676cdb" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__axi4s__remap_8c_1ad1880d9e0af52561b9d4a66980676cdb" kindref="member">XV_axi4s_remap_InterruptGlobalDisable</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="642"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="643"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="644"><highlight class="normal"></highlight></codeline>
+<codeline lineno="645"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" kindref="member">XV_axi4s_remap_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1a5ceda9b77a4a5c121dbeb470a0899bb4" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_GIE</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="646"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="647"><highlight class="normal"></highlight></codeline>
+<codeline lineno="648"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="664" refid="xv__axi4s__remap_8h_1aa2f4ec7778d206f4d6f7881fc1947371" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__axi4s__remap_8c_1aa2f4ec7778d206f4d6f7881fc1947371" kindref="member">XV_axi4s_remap_InterruptEnable</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)<sp/>{</highlight></codeline>
+<codeline lineno="665"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Register;</highlight></codeline>
+<codeline lineno="666"><highlight class="normal"></highlight></codeline>
+<codeline lineno="667"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="668"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="669"><highlight class="normal"></highlight></codeline>
+<codeline lineno="670"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>=<sp/><sp/><ref refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" kindref="member">XV_axi4s_remap_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1ab510e39b81fb134e6d1355a52817b1c0" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_IER</ref>);</highlight></codeline>
+<codeline lineno="671"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" kindref="member">XV_axi4s_remap_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1ab510e39b81fb134e6d1355a52817b1c0" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_IER</ref>,<sp/>Register<sp/>|<sp/>Mask);</highlight></codeline>
+<codeline lineno="672"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="673"><highlight class="normal"></highlight></codeline>
+<codeline lineno="674"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="689" refid="xv__axi4s__remap_8h_1abc70f3279632c8ecddae5a8c9e89d6f9" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__axi4s__remap_8c_1abc70f3279632c8ecddae5a8c9e89d6f9" kindref="member">XV_axi4s_remap_InterruptDisable</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)<sp/>{</highlight></codeline>
+<codeline lineno="690"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Register;</highlight></codeline>
+<codeline lineno="691"><highlight class="normal"></highlight></codeline>
+<codeline lineno="692"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="693"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="694"><highlight class="normal"></highlight></codeline>
+<codeline lineno="695"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>=<sp/><sp/><ref refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" kindref="member">XV_axi4s_remap_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1ab510e39b81fb134e6d1355a52817b1c0" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_IER</ref>);</highlight></codeline>
+<codeline lineno="696"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" kindref="member">XV_axi4s_remap_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1ab510e39b81fb134e6d1355a52817b1c0" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_IER</ref>,<sp/>Register<sp/>&amp;<sp/>(~Mask));</highlight></codeline>
+<codeline lineno="697"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="698"><highlight class="normal"></highlight></codeline>
+<codeline lineno="699"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="715" refid="xv__axi4s__remap_8h_1a088bad78ede022f42248f80fc315c366" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__axi4s__remap_8c_1a088bad78ede022f42248f80fc315c366" kindref="member">XV_axi4s_remap_InterruptClear</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)<sp/>{</highlight></codeline>
+<codeline lineno="716"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="717"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="718"><highlight class="normal"></highlight></codeline>
+<codeline lineno="719"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__axi4s__remap_8h_1ab6102b08d6e7e3518f8935f5e1d13c6e" kindref="member">XV_axi4s_remap_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1a9ca3df5f17504d65907bfdf70b7c5309" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_ISR</ref>,<sp/>Mask);</highlight></codeline>
+<codeline lineno="720"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="721"><highlight class="normal"></highlight></codeline>
+<codeline lineno="722"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="736" refid="xv__axi4s__remap_8h_1a802375a319bf4d5fbfc47957287b9a8d" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__axi4s__remap_8c_1a802375a319bf4d5fbfc47957287b9a8d" kindref="member">XV_axi4s_remap_InterruptGetEnabled</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="737"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="738"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="739"><highlight class="normal"></highlight></codeline>
+<codeline lineno="740"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" kindref="member">XV_axi4s_remap_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1ab510e39b81fb134e6d1355a52817b1c0" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_IER</ref>);</highlight></codeline>
+<codeline lineno="741"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="742"><highlight class="normal"></highlight></codeline>
+<codeline lineno="743"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="758" refid="xv__axi4s__remap_8h_1a731437bea890cda27301b64a7bb80045" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__axi4s__remap_8c_1a731437bea890cda27301b64a7bb80045" kindref="member">XV_axi4s_remap_InterruptGetStatus</ref>(<ref refid="struct_x_v__axi4s__remap" kindref="compound">XV_axi4s_remap</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="759"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="760"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="761"><highlight class="normal"></highlight></codeline>
+<codeline lineno="762"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="xv__axi4s__remap_8h_1ae94402f1946b0a939f999484c396d59c" kindref="member">XV_axi4s_remap_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" kindref="member">Config</ref>.<ref refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__axi4s__remap__hw_8h_1a9ca3df5f17504d65907bfdf70b7c5309" kindref="member">XV_AXI4S_REMAP_CTRL_ADDR_ISR</ref>);</highlight></codeline>
+<codeline lineno="763"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.c"/>
+  </compounddef>
+</doxygen>

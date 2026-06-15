@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mmi_dp___controller" kind="struct" prot="public">
+    <compoundname>XMmiDp_Controller</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mmi_dp___controller_1a6a0806dc146f895f902e13ea057968a4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_Controller::ScrambleDis</definition>
+        <argsstring></argsstring>
+        <name>ScrambleDis</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="387" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="387" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___controller_1a7ec866047b01ce993a215610198c4460" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_Controller::EnhanceFramingEn</definition>
+        <argsstring></argsstring>
+        <name>EnhanceFramingEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="388" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="388" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___controller_1a03d70848e433ce350641c660b23f59e1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_Controller::EnhanceFramingWithFecEn</definition>
+        <argsstring></argsstring>
+        <name>EnhanceFramingWithFecEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="389" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="389" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___controller_1a18b412481f88e0bacfb7449201866b90" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_Controller::FastLinkTrainEn</definition>
+        <argsstring></argsstring>
+        <name>FastLinkTrainEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="390" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="390" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___controller_1ac1cf2caaf329e9d3f76b2db740ef72b1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_Controller::ScaleDownModeEn</definition>
+        <argsstring></argsstring>
+        <name>ScaleDownModeEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="391" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___controller_1adeb630c20540b6fef248763dac24d719" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_Controller::DisableInterleaving</definition>
+        <argsstring></argsstring>
+        <name>DisableInterleaving</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="392" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="392" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___controller_1a57681982469a7c8dc3f022dcee0649b9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_Controller::SelAuxTimeout32Ms</definition>
+        <argsstring></argsstring>
+        <name>SelAuxTimeout32Ms</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="393" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___controller_1a081bc6475ba20d987b96d01a334a004a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_Controller::MstModeEn</definition>
+        <argsstring></argsstring>
+        <name>MstModeEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="394" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="394" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___controller_1a2899cdf089e1a01174867085b1442f80" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_Controller::FecEn</definition>
+        <argsstring></argsstring>
+        <name>FecEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="395" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="395" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___controller_1a901bbdac609a27d94170259d879f059c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_Controller::eDpEn</definition>
+        <argsstring></argsstring>
+        <name>eDpEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="396" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="396" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___controller_1ace63378a15ecc9be0ee18cb80f50d390" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_Controller::InitiateMstActSeq</definition>
+        <argsstring></argsstring>
+        <name>InitiateMstActSeq</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="397" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="397" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="386" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="386" bodyend="398"/>
+    <listofallmembers>
+      <member refid="struct_x_mmi_dp___controller_1adeb630c20540b6fef248763dac24d719" prot="public" virt="non-virtual"><scope>XMmiDp_Controller</scope><name>DisableInterleaving</name></member>
+      <member refid="struct_x_mmi_dp___controller_1a901bbdac609a27d94170259d879f059c" prot="public" virt="non-virtual"><scope>XMmiDp_Controller</scope><name>eDpEn</name></member>
+      <member refid="struct_x_mmi_dp___controller_1a7ec866047b01ce993a215610198c4460" prot="public" virt="non-virtual"><scope>XMmiDp_Controller</scope><name>EnhanceFramingEn</name></member>
+      <member refid="struct_x_mmi_dp___controller_1a03d70848e433ce350641c660b23f59e1" prot="public" virt="non-virtual"><scope>XMmiDp_Controller</scope><name>EnhanceFramingWithFecEn</name></member>
+      <member refid="struct_x_mmi_dp___controller_1a18b412481f88e0bacfb7449201866b90" prot="public" virt="non-virtual"><scope>XMmiDp_Controller</scope><name>FastLinkTrainEn</name></member>
+      <member refid="struct_x_mmi_dp___controller_1a2899cdf089e1a01174867085b1442f80" prot="public" virt="non-virtual"><scope>XMmiDp_Controller</scope><name>FecEn</name></member>
+      <member refid="struct_x_mmi_dp___controller_1ace63378a15ecc9be0ee18cb80f50d390" prot="public" virt="non-virtual"><scope>XMmiDp_Controller</scope><name>InitiateMstActSeq</name></member>
+      <member refid="struct_x_mmi_dp___controller_1a081bc6475ba20d987b96d01a334a004a" prot="public" virt="non-virtual"><scope>XMmiDp_Controller</scope><name>MstModeEn</name></member>
+      <member refid="struct_x_mmi_dp___controller_1ac1cf2caaf329e9d3f76b2db740ef72b1" prot="public" virt="non-virtual"><scope>XMmiDp_Controller</scope><name>ScaleDownModeEn</name></member>
+      <member refid="struct_x_mmi_dp___controller_1a6a0806dc146f895f902e13ea057968a4" prot="public" virt="non-virtual"><scope>XMmiDp_Controller</scope><name>ScrambleDis</name></member>
+      <member refid="struct_x_mmi_dp___controller_1a57681982469a7c8dc3f022dcee0649b9" prot="public" virt="non-virtual"><scope>XMmiDp_Controller</scope><name>SelAuxTimeout32Ms</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

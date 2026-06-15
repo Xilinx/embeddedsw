@@ -1,0 +1,258 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xhdmi__hdcp__keys_8h" kind="file">
+    <compoundname>xhdmi_hdcp_keys.h</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xiic.h</includes>
+    <includes refid="xhdmi__example_2aes256_8h" local="yes">aes256.h</includes>
+    <includes refid="sha256_8h" local="yes">sha256.h</includes>
+    <includes local="no">string.h</includes>
+    <includes local="yes">xuartps.h</includes>
+    <includedby refid="xhdmi__example_8h" local="yes">xhdmi_example.h</includedby>
+    <includedby refid="xhdmi__hdcp__keys_8c" local="yes">xhdmi_hdcp_keys.c</includedby>
+    <incdepgraph>
+      <node id="526">
+        <label>xuartps.h</label>
+      </node>
+      <node id="516">
+        <label>xhdmi_hdcp_keys.h</label>
+        <link refid="xhdmi_hdcp_keys.h"/>
+        <childnode refid="517" relation="include">
+        </childnode>
+        <childnode refid="518" relation="include">
+        </childnode>
+        <childnode refid="519" relation="include">
+        </childnode>
+        <childnode refid="520" relation="include">
+        </childnode>
+        <childnode refid="521" relation="include">
+        </childnode>
+        <childnode refid="522" relation="include">
+        </childnode>
+        <childnode refid="523" relation="include">
+        </childnode>
+        <childnode refid="525" relation="include">
+        </childnode>
+        <childnode refid="526" relation="include">
+        </childnode>
+      </node>
+      <node id="519">
+        <label>sleep.h</label>
+      </node>
+      <node id="522">
+        <label>aes256.h</label>
+      </node>
+      <node id="524">
+        <label>stddef.h</label>
+      </node>
+      <node id="523">
+        <label>sha256.h</label>
+        <childnode refid="524" relation="include">
+        </childnode>
+      </node>
+      <node id="525">
+        <label>string.h</label>
+      </node>
+      <node id="518">
+        <label>xstatus.h</label>
+      </node>
+      <node id="517">
+        <label>xparameters.h</label>
+      </node>
+      <node id="520">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="521">
+        <label>xiic.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="530">
+        <label>xhdmi_hdcp_keys.c</label>
+        <link refid="xhdmi__hdcp__keys_8c"/>
+      </node>
+      <node id="527">
+        <label>xhdmi_hdcp_keys.h</label>
+        <link refid="xhdmi_hdcp_keys.h"/>
+        <childnode refid="528" relation="include">
+        </childnode>
+        <childnode refid="530" relation="include">
+        </childnode>
+      </node>
+      <node id="529">
+        <label>xhdmi_example.c</label>
+        <link refid="xhdmi__example_8c"/>
+      </node>
+      <node id="528">
+        <label>xhdmi_example.h</label>
+        <link refid="xhdmi__example_8h"/>
+        <childnode refid="529" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xhdmi__hdcp__keys_8h_1a5ba36a832d6372f20855dd81a1c7fc11" prot="public" static="no">
+        <name>XHDMI_HDCP_KEYS_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/xhdmi_hdcp_keys.h" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/xhdmi_hdcp_keys.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xhdmi__hdcp__keys_8h_1af4c47cc7a690a55b40711bc5b07695c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp_LoadKeys</definition>
+        <argsstring>(void *IicPtr, u8 *Hdcp22Lc128, u32 Hdcp22Lc128Size, u8 *Hdcp22RxPrivateKey, u32 Hdcp22RxPrivateKeySize, u8 *Hdcp14KeyA, u32 Hdcp14KeyASize, u8 *Hdcp14KeyB, u32 Hdcp14KeyBSize)</argsstring>
+        <name>XHdcp_LoadKeys</name>
+        <param>
+          <type>void *</type>
+          <declname>IicPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Hdcp22Lc128</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Hdcp22Lc128Size</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Hdcp22RxPrivateKey</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Hdcp22RxPrivateKeySize</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Hdcp14KeyA</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Hdcp14KeyASize</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Hdcp14KeyB</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Hdcp14KeyBSize</declname>
+        </param>
+        <briefdescription>
+<para>This function loads the HDCP keys from the eeprom. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if action was successful</para></listitem><listitem><para>XST_FAILURE if action was not successful </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/xhdmi_hdcp_keys.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/xhdmi_hdcp_keys.c" bodystart="206" bodyend="299"/>
+      </memberdef>
+      <memberdef kind="function" id="xhdmi__hdcp__keys_8h_1a1a85fb59f068baefa8d04e243f468e25" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp_KeyManagerInit</definition>
+        <argsstring>(u32 BaseAddress, u8 *Hdcp14Key)</argsstring>
+        <name>XHdcp_KeyManagerInit</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Hdcp14Key</declname>
+        </param>
+        <briefdescription>
+<para>This function initialize the HDCP 1.4 key manager. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if action was successful</para></listitem><listitem><para>XST_FAILURE if action was not successful </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/xhdmi_hdcp_keys.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/xhdmi_hdcp_keys.c" bodystart="312" bodyend="432"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is the main header file for the Xilinx HDCP key loading utility used in the HDMI example design. </para>    </briefdescription>
+    <detaileddescription>
+<para>The HDCP cores are used for content protection according to the HDCP 1.4 and HDCP 2.2 specifications.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date       Changes
+<hruler/>
+
+1.0   MG   26-01-2016 Initial version
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>–<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor">#ifndef<sp/>XHDMI_HDCP_KEYS_H_</highlight></codeline>
+<codeline lineno="26" refid="xhdmi__hdcp__keys_8h_1a5ba36a832d6372f20855dd81a1c7fc11" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDMI_HDCP_KEYS_H_<sp/></highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPS_BOARD_ZCU102)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_ZCU104)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_ZCU106)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_VCK190)</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiicps.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;aes256.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sha256.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPAR_XUARTPSV_NUM_INSTANCES<sp/>)</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xuartpsv.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>defined<sp/>(XPAR_XUARTLITE_NUM_INSTANCES)</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xuartlite_l.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xuartps.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xhdmi__hdcp__keys_8c_1af4c47cc7a690a55b40711bc5b07695c0" kindref="member">XHdcp_LoadKeys</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*IicPtr,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*Hdcp22Lc128,<sp/>u32<sp/>Hdcp22Lc128Size,<sp/>u8<sp/>*Hdcp22RxPrivateKey,<sp/>u32<sp/>Hdcp22RxPrivateKeySize,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*Hdcp14KeyA,<sp/>u32<sp/>Hdcp14KeyASize,<sp/>u8<sp/>*Hdcp14KeyB,<sp/>u32<sp/>Hdcp14KeyBSize);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xhdmi__hdcp__keys_8c_1a1a85fb59f068baefa8d04e243f468e25" kindref="member">XHdcp_KeyManagerInit</ref>(u32<sp/>BaseAddress,<sp/>u8<sp/>*Hdcp14Key);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPS_BOARD_VEK280_ES)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_VEK280_ES_REVB)</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPS_BOARD_VEK280</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPS_BOARD_VEK385)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_VEK385_1)</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPS_BOARD_VEK385</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/xhdmi_hdcp_keys.h"/>
+  </compounddef>
+</doxygen>

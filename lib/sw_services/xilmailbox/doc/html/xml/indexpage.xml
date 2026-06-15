@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>xilmailbox</title>
+    <detaileddescription>
+<para>This file contains the definitions for ZynqMP and versal IPI implementation. <preformatted>
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who  Date        Changes
+ ----- ---- -------- -------------------------------------------------------
+ 1.0   adk  14/02/19    Initial Release
+ 1.1   sd   16/08/19    Initialise status variable
+ 1.3   sd   03/03/21    Doxygen Fixes
+ 1.4   sd   23/06/21    Fix MISRA-C warnings
+ 1.5   dp   22/11/21    Update <ref refid="group__xilmailbox_1ga4da6358addbe4237f3982d5b5b06c228" kindref="member">XIpiPs_RegisterIrq()</ref> to check whether GIC has
+                        already been setup or not and if it was setup skip
+                        initializing GIC again and just register handlers.
+ 1.6   sd   28/02/21    Add support for microblaze
+       kpt  03/16/21    Fixed compilation warning on microblaze
+ 1.7   sd   01/04/22    Replace memset with Xil_SMemSet
+ 1.8   ana  05/02/23      Updated XIpiPs_PollforDone logic to improve
+                                                  AES client performance
+         ht   05/30/23    Added support for system device-tree flow.
+         ht   06/12/23    Fix MISRA-C warnings
+         ht   07/24/23    Restructure the code for more modularity
+ 1.12  ht   09/02/25      IPI operation relied on the RemoteId stored in XMailbox
+                          Instance, which could lead to race conditions and data
+                          corruption when handling multiple requests from
+                          different IPI channels concurrently.
+                          Use RemoteId based APIs to support concurrent IPI
+                          channel requests.
+</preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+  </compounddef>
+</doxygen>

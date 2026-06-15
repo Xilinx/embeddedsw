@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_input_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceInputConfig_s</compoundname>
+    <includes local="no">cam_device_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_input_config__s_1ace2931d7536ffebf0a03e620d9d6671e" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga03d5afda881a720931044845b7659167" kindref="member">CamDeviceInputType_t</ref></type>
+        <definition>CamDeviceInputType_t CamDeviceInputConfig_s::inputType</definition>
+        <argsstring></argsstring>
+        <name>inputType</name>
+        <briefdescription>
+<para>ISP input type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_input_config__s_1ab24daee536636ac02946d395cb0ee82f" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CamDeviceInputConfig_s::inputDevName[CAMDEV_INPUT_DEV_NAME_LEN]</definition>
+        <argsstring>[CAMDEV_INPUT_DEV_NAME_LEN]</argsstring>
+        <name>inputDevName</name>
+        <briefdescription>
+<para>ISP input device name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to configure ISP input. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="97" bodyend="100"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_input_config__s_1ab24daee536636ac02946d395cb0ee82f" prot="public" virt="non-virtual"><scope>CamDeviceInputConfig_s</scope><name>inputDevName</name></member>
+      <member refid="struct_cam_device_input_config__s_1ace2931d7536ffebf0a03e620d9d6671e" prot="public" virt="non-virtual"><scope>CamDeviceInputConfig_s</scope><name>inputType</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

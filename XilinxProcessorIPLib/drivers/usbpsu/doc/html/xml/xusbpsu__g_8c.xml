@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xusbpsu__g_8c" kind="file">
+    <compoundname>xusbpsu_g.c</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes refid="xusbpsu_8h" local="yes">xusbpsu.h</includes>
+    <incdepgraph>
+      <node id="1079">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="1083">
+        <label>xil_io.h</label>
+      </node>
+      <node id="1085">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="1081">
+        <label>xusbpsu_hw.h</label>
+        <link refid="xusbpsu__hw_8h"/>
+      </node>
+      <node id="1075">
+        <label>xusbpsu_g.c</label>
+        <link refid="xusbpsu_g.c"/>
+        <childnode refid="1076" relation="include">
+        </childnode>
+        <childnode refid="1077" relation="include">
+        </childnode>
+      </node>
+      <node id="1084">
+        <label>xil_util.h</label>
+      </node>
+      <node id="1077">
+        <label>xusbpsu.h</label>
+        <link refid="xusbpsu_8h"/>
+        <childnode refid="1078" relation="include">
+        </childnode>
+        <childnode refid="1079" relation="include">
+        </childnode>
+        <childnode refid="1080" relation="include">
+        </childnode>
+        <childnode refid="1081" relation="include">
+        </childnode>
+        <childnode refid="1082" relation="include">
+        </childnode>
+        <childnode refid="1083" relation="include">
+        </childnode>
+        <childnode refid="1084" relation="include">
+        </childnode>
+        <childnode refid="1085" relation="include">
+        </childnode>
+      </node>
+      <node id="1080">
+        <label>xstatus.h</label>
+      </node>
+      <node id="1078">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1076">
+        <label>xparameters.h</label>
+      </node>
+      <node id="1082">
+        <label>xusbpsu_endpoint.h</label>
+        <link refid="xusbpsu__endpoint_8h"/>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__usbpsu__api_1ga846d0a038155f23633778e0bed4109ff" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_usb_psu___config" kindref="compound">XUsbPsu_Config</ref></type>
+        <definition>XUsbPsu_Config XUsbPsu_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XUsbPsu_ConfigTable</name>
+        <initializer>= {
+	{
+		XPAR_PSU_USB_0_DEVICE_ID,
+		XPAR_PSU_USB_0_BASEADDR
+	}
+}</initializer>
+        <briefdescription>
+<para>Configuration table. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_g.c" line="15" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_g.c" bodystart="15" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1ga87fd60823e07b4852b8a8d569121908b" compoundref="xusbpsu__sinit_8c" startline="89" endline="103">XUsbPsu_LookupConfig</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xusbpsu_8h" kindref="compound">xusbpsu.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="12"><highlight class="comment">*<sp/>The<sp/>configuration<sp/>table<sp/>for<sp/>devices</highlight></codeline>
+<codeline lineno="13"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15" refid="group__usbpsu__api_1ga846d0a038155f23633778e0bed4109ff" refkind="member"><highlight class="normal"><ref refid="struct_x_usb_psu___config" kindref="compound">XUsbPsu_Config</ref><sp/><ref refid="group__usbpsu__api_1ga846d0a038155f23633778e0bed4109ff" kindref="member">XUsbPsu_ConfigTable</ref>[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_PSU_USB_0_DEVICE_ID,</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_PSU_USB_0_BASEADDR</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_g.c"/>
+  </compounddef>
+</doxygen>

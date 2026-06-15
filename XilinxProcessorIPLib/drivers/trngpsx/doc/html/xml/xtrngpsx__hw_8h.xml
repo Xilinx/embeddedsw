@@ -1,0 +1,522 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xtrngpsx__hw_8h" kind="file">
+    <compoundname>xtrngpsx_hw.h</compoundname>
+    <includedby refid="xtrngpsx_8c" local="yes">xtrngpsx.c</includedby>
+    <invincdepgraph>
+      <node id="65">
+        <label>xtrngpsx.c</label>
+        <link refid="xtrngpsx_8c"/>
+      </node>
+      <node id="64">
+        <label>xtrngpsx_hw.h</label>
+        <link refid="xtrngpsx_hw.h"/>
+        <childnode refid="65" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__trngpsx__api_1gaf77ee289c4048ef0d77b350f6eda8868" prot="public" static="no">
+        <name>TRNG_STATUS</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+<para>Register: TRNG_STATUS. </para>        </briefdescription>
+        <detaileddescription>
+<para>TRNG Status register </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga2850b7489d45506a87bd4ba636ef3edf" prot="public" static="no">
+        <name>TRNG_STATUS_QCNT_SHIFT</name>
+        <initializer>9U</initializer>
+        <briefdescription>
+<para>Queue count field shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga6df8f06124be83436e2762e6a136872b" prot="public" static="no">
+        <name>TRNG_STATUS_QCNT_MASK</name>
+        <initializer>0x00000e00U</initializer>
+        <briefdescription>
+<para>Queue count field mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga880d808160c3030bbc997fd3006fc8f6" prot="public" static="no">
+        <name>TRNG_STATUS_CERTF_MASK</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>Catastrophic error test failure mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga36cefbb8fe3eb31e20854464ddee1497" prot="public" static="no">
+        <name>TRNG_STATUS_DTF_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Deterministic test failure mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga284f7c1c27b0a6ebc4fff8741962976b" prot="public" static="no">
+        <name>TRNG_STATUS_DONE_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Operation done mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga627ca508102e338acd949acd07143efc" prot="public" static="no">
+        <name>TRNG_CTRL</name>
+        <initializer>(0x00000008U)</initializer>
+        <briefdescription>
+<para>Register: TRNG_CTRL. </para>        </briefdescription>
+        <detaileddescription>
+<para>TRNG Control register </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga01678d0c9944ca35c2229cb6b7dadaba" prot="public" static="no">
+        <name>TRNG_CTRL_PERSODISABLE_MASK</name>
+        <initializer>0x00000400U</initializer>
+        <briefdescription>
+<para>Personalization string disable mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga1e968c5fed4a3ba11e28dd7e44c42f9b" prot="public" static="no">
+        <name>TRNG_CTRL_PERSODISABLE_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>Personalization string disable default value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga7685611014c6b3c4a8ce7d6ae82f731a" prot="public" static="no">
+        <name>TRNG_CTRL_SINGLEGENMODE_MASK</name>
+        <initializer>0x00000200U</initializer>
+        <briefdescription>
+<para>Single generation mode mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga1e2bc5b67730effce22dcfe914ee9dd2" prot="public" static="no">
+        <name>TRNG_CTRL_EUMODE_MASK</name>
+        <initializer>0x00000100U</initializer>
+        <briefdescription>
+<para>Entropy unit mode mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga3d4799e72c1f1e4380a42fb3697a0aae" prot="public" static="no">
+        <name>TRNG_CTRL_PRNGMODE_MASK</name>
+        <initializer>0x00000080U</initializer>
+        <briefdescription>
+<para>PRNG mode mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gaa9fb114e06f0a5b09087190ae2c06352" prot="public" static="no">
+        <name>TRNG_CTRL_TSTMODE_MASK</name>
+        <initializer>0x00000040U</initializer>
+        <briefdescription>
+<para>Test mode mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gaf5b8e569641ab9386d881280ecc8c099" prot="public" static="no">
+        <name>TRNG_CTRL_PRNGSTART_MASK</name>
+        <initializer>0x00000020U</initializer>
+        <briefdescription>
+<para>PRNG start mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gab6a6cda808a7b8f87b4811d1355477b3" prot="public" static="no">
+        <name>TRNG_CTRL_PRNGXS_MASK</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>PRNG external seed mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gac90cd9724712cb7599e4afc7d44e7ff4" prot="public" static="no">
+        <name>TRNG_CTRL_TRSSEN_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>True random seed source enable mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="87" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gaa78ad6f6a1a4c3f520549b113780a3a1" prot="public" static="no">
+        <name>TRNG_CTRL_PRNGSRST_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>PRNG soft reset mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga9c41aa1786b9a3319d9ba21ed793e8e5" prot="public" static="no">
+        <name>TRNG_CTRL_2</name>
+        <initializer>(0x0000000CU)</initializer>
+        <briefdescription>
+<para>Register: TRNG_CTRL_2. </para>        </briefdescription>
+        <detaileddescription>
+<para>TRNG Control 2 register </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gab0e23f7aae69a9bb2951978a70fc23d0" prot="public" static="no">
+        <name>TRNG_CTRL_2_REPCOUNTTESTCUTOFF_SHIFT</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Repetition count test cutoff shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gaeda137e537d647e895d90af0ddb616fa" prot="public" static="no">
+        <name>TRNG_CTRL_2_REPCOUNTTESTCUTOFF_MASK</name>
+        <initializer>0x0001ff00U</initializer>
+        <briefdescription>
+<para>Repetition count test cutoff mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga580a393154b6d4ca870270e54d28c9b4" prot="public" static="no">
+        <name>TRNG_CTRL_2_DIT_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Digitization interval time shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gae0735b261a316d56bf2af77002767eee" prot="public" static="no">
+        <name>TRNG_CTRL_2_DIT_MASK</name>
+        <initializer>0x0000001fU</initializer>
+        <briefdescription>
+<para>Digitization interval time mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gae3c0870472b6d82493439c7b4e99e923" prot="public" static="no">
+        <name>TRNG_CTRL_2_DIT_DEFVAL</name>
+        <initializer>0xcU</initializer>
+        <briefdescription>
+<para>Digitization interval time default value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="104" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga68da9a334ae46bbed63a36ae6a273745" compoundref="xtrngpsx_8c" startline="398" endline="523">XTrngpsx_Instantiate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga5271f5f0b2ecb9126c07d68581116ccf" prot="public" static="no">
+        <name>TRNG_CTRL_3</name>
+        <initializer>(0x00000010U)</initializer>
+        <briefdescription>
+<para>Register: TRNG_CTRL_3. </para>        </briefdescription>
+        <detaileddescription>
+<para>TRNG Control 3 register </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga47b2a68547ee86e4a61d795cf1f542fb" prot="public" static="no">
+        <name>TRNG_CTRL_3_ADAPTPROPTESTCUTOFF_SHIFT</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Adaptive proportion test cutoff shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga4ff85037f4fefc3a35780755f3cf6a6c" prot="public" static="no">
+        <name>TRNG_CTRL_3_ADAPTPROPTESTCUTOFF_MASK</name>
+        <initializer>0x0003ff00U</initializer>
+        <briefdescription>
+<para>Adaptive proportion test cutoff mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga2b22a9801f9a00c8705569db8aef7486" prot="public" static="no">
+        <name>TRNG_CTRL_3_DLEN_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Derivation function length shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gab84d06a24b2eaa5f0b16deab3a218f83" prot="public" static="no">
+        <name>TRNG_CTRL_3_DLEN_MASK</name>
+        <initializer>0x000000ffU</initializer>
+        <briefdescription>
+<para>Derivation function length mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gac1e96b5268436833221c1187eb8eb352" prot="public" static="no">
+        <name>TRNG_CTRL_4</name>
+        <initializer>(0x00000014U)</initializer>
+        <briefdescription>
+<para>Register: TRNG_CTRL_4. </para>        </briefdescription>
+        <detaileddescription>
+<para>TRNG Control 4 register </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga9db2e85bbf48d3398bb57fdd83883299" prot="public" static="no">
+        <name>TRNG_PER_STRNG_11</name>
+        <initializer>(0x000000ACU)</initializer>
+        <briefdescription>
+<para>Register: TRNG_PER_STRNG_11. </para>        </briefdescription>
+        <detaileddescription>
+<para>TRNG Personalization String register </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gaeb6c603167ad973de2393d02da9757f5" prot="public" static="no">
+        <name>TRNG_CORE_OUTPUT</name>
+        <initializer>(0x000000C0U)</initializer>
+        <briefdescription>
+<para>Register: TRNG_CORE_OUTPUT. </para>        </briefdescription>
+        <detaileddescription>
+<para>TRNG Core Output register </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga1febe7e7a18bb1d14cb3ebbafa06dd1c" prot="public" static="no">
+        <name>TRNG_RESET</name>
+        <initializer>(0x000000D0U)</initializer>
+        <briefdescription>
+<para>Register: TRNG_RESET. </para>        </briefdescription>
+        <detaileddescription>
+<para>TRNG Reset register </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga635089836ce79e4e56afc9191024e981" prot="public" static="no">
+        <name>TRNG_RESET_DEFVAL</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+<para>TRNG reset default value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga88a8c0c3f285adfd9d93cf2d45ae52f3" prot="public" static="no">
+        <name>TRNG_RESET_VAL_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>TRNG reset value mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga67d733d1c108e408b09b96db25076861" prot="public" static="no">
+        <name>TRNG_OSC_EN</name>
+        <initializer>(0x000000D4U)</initializer>
+        <briefdescription>
+<para>Register: TRNG_OSC_EN. </para>        </briefdescription>
+        <detaileddescription>
+<para>TRNG Oscillator Enable register </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="145" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</referencedby>
+        <referencedby refid="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" compoundref="xtrngpsx_8c" startline="753" endline="784">XTrngpsx_Uninstantiate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga90f3e727ddf1fbd4ec13779395f5e13f" prot="public" static="no">
+        <name>TRNG_OSC_EN_VAL_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Oscillator enable value mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="148" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</referencedby>
+        <referencedby refid="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" compoundref="xtrngpsx_8c" startline="753" endline="784">XTrngpsx_Uninstantiate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga2da4f2d731a5c785ca07a0792b0414c1" prot="public" static="no">
+        <name>TRNG_OSC_EN_VAL_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>Oscillator enable default value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="149" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" compoundref="xtrngpsx_8c" startline="753" endline="784">XTrngpsx_Uninstantiate</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains trng core hardware definitions of VersalNet. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor">#ifndef<sp/>__XTRNPSX_HW_H_</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__XTRNPSX_HW_H_</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44" refid="group__trngpsx__api_1gaf77ee289c4048ef0d77b350f6eda8868" refkind="member"><highlight class="preprocessor">#define<sp/>TRNG_STATUS<sp/><sp/><sp/><sp/>(0x00000004U)<sp/></highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>access_type:<sp/>ro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="47" refid="group__trngpsx__api_1ga2850b7489d45506a87bd4ba636ef3edf" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TRNG_STATUS_QCNT_SHIFT<sp/><sp/><sp/>9U<sp/></highlight></codeline>
+<codeline lineno="48" refid="group__trngpsx__api_1ga6df8f06124be83436e2762e6a136872b" refkind="member"><highlight class="preprocessor">#define<sp/>TRNG_STATUS_QCNT_MASK<sp/><sp/><sp/><sp/>0x00000e00U<sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>access_type:<sp/>ro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="51" refid="group__trngpsx__api_1ga880d808160c3030bbc997fd3006fc8f6" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TRNG_STATUS_CERTF_MASK<sp/><sp/><sp/><sp/>0x00000008U<sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>access_type:<sp/>ro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="54" refid="group__trngpsx__api_1ga36cefbb8fe3eb31e20854464ddee1497" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TRNG_STATUS_DTF_MASK<sp/><sp/><sp/><sp/>0x00000002U<sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>access_type:<sp/>ro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="57" refid="group__trngpsx__api_1ga284f7c1c27b0a6ebc4fff8741962976b" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TRNG_STATUS_DONE_MASK<sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="62" refid="group__trngpsx__api_1ga627ca508102e338acd949acd07143efc" refkind="member"><highlight class="preprocessor">#define<sp/>TRNG_CTRL<sp/><sp/><sp/><sp/>(0x00000008U)<sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>access_type:<sp/>rw<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="65" refid="group__trngpsx__api_1ga01678d0c9944ca35c2229cb6b7dadaba" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TRNG_CTRL_PERSODISABLE_MASK<sp/><sp/><sp/><sp/>0x00000400U<sp/></highlight></codeline>
+<codeline lineno="66" refid="group__trngpsx__api_1ga1e968c5fed4a3ba11e28dd7e44c42f9b" refkind="member"><highlight class="preprocessor">#define<sp/>TRNG_CTRL_PERSODISABLE_DEFVAL<sp/><sp/>0x0U<sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>access_type:<sp/>rw<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="69" refid="group__trngpsx__api_1ga7685611014c6b3c4a8ce7d6ae82f731a" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TRNG_CTRL_SINGLEGENMODE_MASK<sp/><sp/><sp/><sp/>0x00000200U<sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>access_type:<sp/>rw<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="72" refid="group__trngpsx__api_1ga1e2bc5b67730effce22dcfe914ee9dd2" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TRNG_CTRL_EUMODE_MASK<sp/><sp/><sp/><sp/>0x00000100U<sp/></highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>access_type:<sp/>rw<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="75" refid="group__trngpsx__api_1ga3d4799e72c1f1e4380a42fb3697a0aae" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TRNG_CTRL_PRNGMODE_MASK<sp/><sp/><sp/><sp/>0x00000080U<sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>access_type:<sp/>rw<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="78" refid="group__trngpsx__api_1gaa9fb114e06f0a5b09087190ae2c06352" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TRNG_CTRL_TSTMODE_MASK<sp/><sp/><sp/><sp/>0x00000040U<sp/></highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>access_type:<sp/>rw<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="81" refid="group__trngpsx__api_1gaf5b8e569641ab9386d881280ecc8c099" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TRNG_CTRL_PRNGSTART_MASK<sp/><sp/><sp/><sp/>0x00000020U<sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>access_type:<sp/>rw<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="84" refid="group__trngpsx__api_1gab6a6cda808a7b8f87b4811d1355477b3" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TRNG_CTRL_PRNGXS_MASK<sp/><sp/><sp/><sp/>0x00000008U<sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>access_type:<sp/>rw<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="87" refid="group__trngpsx__api_1gac90cd9724712cb7599e4afc7d44e7ff4" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TRNG_CTRL_TRSSEN_MASK<sp/><sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>access_type:<sp/>rw<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="90" refid="group__trngpsx__api_1gaa78ad6f6a1a4c3f520549b113780a3a1" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TRNG_CTRL_PRNGSRST_MASK<sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="95" refid="group__trngpsx__api_1ga9c41aa1786b9a3319d9ba21ed793e8e5" refkind="member"><highlight class="preprocessor">#define<sp/>TRNG_CTRL_2<sp/><sp/><sp/><sp/>(0x0000000CU)<sp/></highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>access_type:<sp/>wo<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="98" refid="group__trngpsx__api_1gab0e23f7aae69a9bb2951978a70fc23d0" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TRNG_CTRL_2_REPCOUNTTESTCUTOFF_SHIFT<sp/><sp/><sp/>8U<sp/></highlight></codeline>
+<codeline lineno="99" refid="group__trngpsx__api_1gaeda137e537d647e895d90af0ddb616fa" refkind="member"><highlight class="preprocessor">#define<sp/>TRNG_CTRL_2_REPCOUNTTESTCUTOFF_MASK<sp/><sp/><sp/><sp/>0x0001ff00U<sp/></highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>access_type:<sp/>wo<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="102" refid="group__trngpsx__api_1ga580a393154b6d4ca870270e54d28c9b4" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TRNG_CTRL_2_DIT_SHIFT<sp/><sp/><sp/>0U<sp/></highlight></codeline>
+<codeline lineno="103" refid="group__trngpsx__api_1gae0735b261a316d56bf2af77002767eee" refkind="member"><highlight class="preprocessor">#define<sp/>TRNG_CTRL_2_DIT_MASK<sp/><sp/><sp/><sp/>0x0000001fU<sp/></highlight></codeline>
+<codeline lineno="104" refid="group__trngpsx__api_1gae3c0870472b6d82493439c7b4e99e923" refkind="member"><highlight class="preprocessor">#define<sp/>TRNG_CTRL_2_DIT_DEFVAL<sp/><sp/>0xcU<sp/></highlight></codeline>
+<codeline lineno="109" refid="group__trngpsx__api_1ga5271f5f0b2ecb9126c07d68581116ccf" refkind="member"><highlight class="preprocessor">#define<sp/>TRNG_CTRL_3<sp/><sp/><sp/><sp/>(0x00000010U)<sp/></highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>access_type:<sp/>wo<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="112" refid="group__trngpsx__api_1ga47b2a68547ee86e4a61d795cf1f542fb" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TRNG_CTRL_3_ADAPTPROPTESTCUTOFF_SHIFT<sp/><sp/><sp/>8U<sp/></highlight></codeline>
+<codeline lineno="113" refid="group__trngpsx__api_1ga4ff85037f4fefc3a35780755f3cf6a6c" refkind="member"><highlight class="preprocessor">#define<sp/>TRNG_CTRL_3_ADAPTPROPTESTCUTOFF_MASK<sp/><sp/><sp/><sp/>0x0003ff00U<sp/></highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>access_type:<sp/>wo<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="116" refid="group__trngpsx__api_1ga2b22a9801f9a00c8705569db8aef7486" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TRNG_CTRL_3_DLEN_SHIFT<sp/><sp/><sp/>0U<sp/></highlight></codeline>
+<codeline lineno="117" refid="group__trngpsx__api_1gab84d06a24b2eaa5f0b16deab3a218f83" refkind="member"><highlight class="preprocessor">#define<sp/>TRNG_CTRL_3_DLEN_MASK<sp/><sp/><sp/><sp/>0x000000ffU<sp/></highlight></codeline>
+<codeline lineno="122" refid="group__trngpsx__api_1gac1e96b5268436833221c1187eb8eb352" refkind="member"><highlight class="preprocessor">#define<sp/>TRNG_CTRL_4<sp/><sp/><sp/><sp/>(0x00000014U)<sp/></highlight></codeline>
+<codeline lineno="127" refid="group__trngpsx__api_1ga9db2e85bbf48d3398bb57fdd83883299" refkind="member"><highlight class="preprocessor">#define<sp/>TRNG_PER_STRNG_11<sp/><sp/><sp/><sp/>(0x000000ACU)<sp/></highlight></codeline>
+<codeline lineno="132" refid="group__trngpsx__api_1gaeb6c603167ad973de2393d02da9757f5" refkind="member"><highlight class="preprocessor">#define<sp/>TRNG_CORE_OUTPUT<sp/><sp/><sp/><sp/>(0x000000C0U)<sp/></highlight></codeline>
+<codeline lineno="136" refid="group__trngpsx__api_1ga1febe7e7a18bb1d14cb3ebbafa06dd1c" refkind="member"><highlight class="preprocessor">#define<sp/>TRNG_RESET<sp/><sp/><sp/><sp/>(0x000000D0U)<sp/></highlight></codeline>
+<codeline lineno="137" refid="group__trngpsx__api_1ga635089836ce79e4e56afc9191024e981" refkind="member"><highlight class="preprocessor">#define<sp/>TRNG_RESET_DEFVAL<sp/><sp/><sp/>0x1U<sp/></highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>access_type:<sp/>rw<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="140" refid="group__trngpsx__api_1ga88a8c0c3f285adfd9d93cf2d45ae52f3" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TRNG_RESET_VAL_MASK<sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="145" refid="group__trngpsx__api_1ga67d733d1c108e408b09b96db25076861" refkind="member"><highlight class="preprocessor">#define<sp/>TRNG_OSC_EN<sp/><sp/><sp/><sp/>(0x000000D4U)<sp/></highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>access_type:<sp/>rw<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="148" refid="group__trngpsx__api_1ga90f3e727ddf1fbd4ec13779395f5e13f" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TRNG_OSC_EN_VAL_MASK<sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="149" refid="group__trngpsx__api_1ga2da4f2d731a5c785ca07a0792b0414c1" refkind="member"><highlight class="preprocessor">#define<sp/>TRNG_OSC_EN_VAL_DEFVAL<sp/><sp/>0x0U<sp/></highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>__XTRNGPSX_HW_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_os_mem_block__t" kind="struct" prot="public">
+    <compoundname>OsMemBlock_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_os_mem_block__t_1abd0f0e3b25caa15aa9a848157d25b482" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* OsMemBlock_t::addr</definition>
+        <argsstring></argsstring>
+        <name>addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_os_mem_block__t_1ace82a59620213d18503a8588f31b552f" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t OsMemBlock_t::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_os_mem_block__t_1aad5de8e6742cc0d11c9419a08597a87a" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t OsMemBlock_t::used</definition>
+        <argsstring></argsstring>
+        <name>used</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" line="23" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="23" bodyend="27"/>
+    <listofallmembers>
+      <member refid="struct_os_mem_block__t_1abd0f0e3b25caa15aa9a848157d25b482" prot="public" virt="non-virtual"><scope>OsMemBlock_t</scope><name>addr</name></member>
+      <member refid="struct_os_mem_block__t_1ace82a59620213d18503a8588f31b552f" prot="public" virt="non-virtual"><scope>OsMemBlock_t</scope><name>size</name></member>
+      <member refid="struct_os_mem_block__t_1aad5de8e6742cc0d11c9419a08597a87a" prot="public" virt="non-virtual"><scope>OsMemBlock_t</scope><name>used</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ocp___dme_response" kind="struct" prot="public">
+    <compoundname>XOcp_DmeResponse</compoundname>
+    <includes local="no">xocp_common.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ocp___dme_response_1a029c2c99fd80b654d8a96e0847b6394c" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_ocp___dme" kindref="compound">XOcp_Dme</ref></type>
+        <definition>XOcp_Dme XOcp_DmeResponse::Dme</definition>
+        <argsstring></argsstring>
+        <name>Dme</name>
+        <briefdescription>
+<para>DME. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ocp___dme_response_1a5af10bc470928d4185e8f65a8b23a579" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XOcp_DmeResponse::DmeSignatureR[XOCP_ECC_P384_SIZE_WORDS]</definition>
+        <argsstring>[XOCP_ECC_P384_SIZE_WORDS]</argsstring>
+        <name>DmeSignatureR</name>
+        <briefdescription>
+<para>Signature comp R. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ocp___dme_response_1a4a25fbe1d34db42459f10b2aad626e9c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XOcp_DmeResponse::DmeSignatureS[XOCP_ECC_P384_SIZE_WORDS]</definition>
+        <argsstring>[XOCP_ECC_P384_SIZE_WORDS]</argsstring>
+        <name>DmeSignatureS</name>
+        <briefdescription>
+<para>Signature comp S. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>DME response structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="8">
+        <label>XOcp_Dme</label>
+        <link refid="struct_x_ocp___dme"/>
+      </node>
+      <node id="7">
+        <label>XOcp_DmeResponse</label>
+        <link refid="struct_x_ocp___dme_response"/>
+        <childnode refid="8" relation="usage">
+          <edgelabel>Dme</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="113" bodyend="117"/>
+    <listofallmembers>
+      <member refid="struct_x_ocp___dme_response_1a029c2c99fd80b654d8a96e0847b6394c" prot="public" virt="non-virtual"><scope>XOcp_DmeResponse</scope><name>Dme</name></member>
+      <member refid="struct_x_ocp___dme_response_1a5af10bc470928d4185e8f65a8b23a579" prot="public" virt="non-virtual"><scope>XOcp_DmeResponse</scope><name>DmeSignatureR</name></member>
+      <member refid="struct_x_ocp___dme_response_1a4a25fbe1d34db42459f10b2aad626e9c" prot="public" virt="non-virtual"><scope>XOcp_DmeResponse</scope><name>DmeSignatureS</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

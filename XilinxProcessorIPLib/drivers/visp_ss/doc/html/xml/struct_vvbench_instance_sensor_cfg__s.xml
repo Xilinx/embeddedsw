@@ -1,0 +1,421 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_vvbench_instance_sensor_cfg__s" kind="struct" prot="public">
+    <compoundname>VvbenchInstanceSensorCfg_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1aeb7c7fef5e96ebc9c3e9cef421ef12f8" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceSensorCfg_s::sensorWidth</definition>
+        <argsstring></argsstring>
+        <name>sensorWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1aac0163e11a5d71d574b354c64e2b6a3c" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceSensorCfg_s::sensorHeight</definition>
+        <argsstring></argsstring>
+        <name>sensorHeight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1a9ac6163995d85b3cd2dc3f2b647aa5d2" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceSensorCfg_s::useSensorCfg</definition>
+        <argsstring></argsstring>
+        <name>useSensorCfg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1aad1b8530d660d9f2efdcd53d5d8ca370" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceSensorCfg_s::queryEnable</definition>
+        <argsstring></argsstring>
+        <name>queryEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1ae04c7854b15695ddca0920f3e1ca2076" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceSensorCfg_s::capsEnable</definition>
+        <argsstring></argsstring>
+        <name>capsEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1a4c0a94ae045982d2c13bd4aec9465a1d" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceSensorCfg_s::infoEnable</definition>
+        <argsstring></argsstring>
+        <name>infoEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1a8794f971af91189116e42455e64d1276" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceSensorCfg_s::testPatternEnable</definition>
+        <argsstring></argsstring>
+        <name>testPatternEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1ac660007b1b3937c49cc0f61371af13ef" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceSensorCfg_s::driverListEnable</definition>
+        <argsstring></argsstring>
+        <name>driverListEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1ac99011ea212b5b2d6164324592c825e9" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceSensorCfg_s::statusEnable</definition>
+        <argsstring></argsstring>
+        <name>statusEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1a91fe7b76b8f552f3409e298623fa874b" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char VvbenchInstanceSensorCfg_s::sensorName[FILE_LEN]</definition>
+        <argsstring>[FILE_LEN]</argsstring>
+        <name>sensorName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1a7b93a1e8f54fd8737414933c2f0ba679" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char VvbenchInstanceSensorCfg_s::calibrationName[FILE_LEN]</definition>
+        <argsstring>[FILE_LEN]</argsstring>
+        <name>calibrationName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1aa33aa246424964a399703abddd9fe2fd" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char VvbenchInstanceSensorCfg_s::simulatorName[FILE_LEN]</definition>
+        <argsstring>[FILE_LEN]</argsstring>
+        <name>simulatorName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1a2deef04c97514296b044afa26cd231d3" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char VvbenchInstanceSensorCfg_s::autoSimulatorName[FILE_LEN]</definition>
+        <argsstring>[FILE_LEN]</argsstring>
+        <name>autoSimulatorName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1aa4ca2e454c7ae83086b52929dd5d2521" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char VvbenchInstanceSensorCfg_s::illumType[FILE_LEN]</definition>
+        <argsstring>[FILE_LEN]</argsstring>
+        <name>illumType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1a26160800a8a48c5e4d878adb4957f2c6" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceSensorCfg_s::sensorDevId</definition>
+        <argsstring></argsstring>
+        <name>sensorDevId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1a9eaa237703d03728699d8d3ca876ced0" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceSensorCfg_s::modeIndex</definition>
+        <argsstring></argsstring>
+        <name>modeIndex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1acae1efb7f1e60c61c23ab3175ec68131" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__sensor_1gaa2adcad0d9e99f047c2c14ec961557bf" kindref="member">CamDeviceSensorType_t</ref></type>
+        <definition>CamDeviceSensorType_t VvbenchInstanceSensorCfg_s::sensorType</definition>
+        <argsstring></argsstring>
+        <name>sensorType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1a2d78363a4dd46a0ddfac0d3d5285ef02" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gaa07990d77492d7c58759e58a047ae356" kindref="member">CamDeviceStitchingMode_t</ref></type>
+        <definition>CamDeviceStitchingMode_t VvbenchInstanceSensorCfg_s::stitchingMode</definition>
+        <argsstring></argsstring>
+        <name>stitchingMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1af5f04658644f2662b38c938a87744ea8" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceSensorCfg_s::bitWidth</definition>
+        <argsstring></argsstring>
+        <name>bitWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1a2ea0deb7071dd6b1723d4f96d4fb52e5" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float VvbenchInstanceSensorCfg_s::fps</definition>
+        <argsstring></argsstring>
+        <name>fps</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1a497123897ceab540e6900b3564eff92f" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceSensorCfg_s::registerAddress</definition>
+        <argsstring></argsstring>
+        <name>registerAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1af9776bb2404872302ebd839ace6a3225" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceSensorCfg_s::registerValue</definition>
+        <argsstring></argsstring>
+        <name>registerValue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1ab5d609c7dd5cf26e95f2237e4d1ffbbb" prot="public" static="no" mutable="no">
+        <type>VvbenchSensorGain_t</type>
+        <definition>VvbenchSensorGain_t VvbenchInstanceSensorCfg_s::gain</definition>
+        <argsstring></argsstring>
+        <name>gain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1a7df3aca19bdb4fc563f03e885139cb4e" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float VvbenchInstanceSensorCfg_s::totalGain</definition>
+        <argsstring></argsstring>
+        <name>totalGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1a26665cc4e2b5982a8dfe497bdf859111" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float VvbenchInstanceSensorCfg_s::exposurtime</definition>
+        <argsstring></argsstring>
+        <name>exposurtime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1ab520a9c5823265e46ea40a5f5e545b04" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char VvbenchInstanceSensorCfg_s::dumpfile[FILE_LEN]</definition>
+        <argsstring>[FILE_LEN]</argsstring>
+        <name>dumpfile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1ae7f86d0be9e1d3032bf1152a9abd7e55" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceSensorCfg_s::otpEnable</definition>
+        <argsstring></argsstring>
+        <name>otpEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1ac92b8c50d65a2f02bbfe86bbdd0141d1" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchInstanceSensorCfg_s::useExternalDriver</definition>
+        <argsstring></argsstring>
+        <name>useExternalDriver</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_sensor_cfg__s_1ac4b3bdf814773bc386fbba5737288c52" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceSensorCfg_s::virtualChannelId</definition>
+        <argsstring></argsstring>
+        <name>virtualChannelId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="136" bodyend="166"/>
+    <listofallmembers>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1a2deef04c97514296b044afa26cd231d3" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>autoSimulatorName</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1af5f04658644f2662b38c938a87744ea8" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>bitWidth</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1a7b93a1e8f54fd8737414933c2f0ba679" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>calibrationName</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1ae04c7854b15695ddca0920f3e1ca2076" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>capsEnable</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1ac660007b1b3937c49cc0f61371af13ef" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>driverListEnable</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1ab520a9c5823265e46ea40a5f5e545b04" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>dumpfile</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1a26665cc4e2b5982a8dfe497bdf859111" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>exposurtime</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1a2ea0deb7071dd6b1723d4f96d4fb52e5" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>fps</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1ab5d609c7dd5cf26e95f2237e4d1ffbbb" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>gain</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1aa4ca2e454c7ae83086b52929dd5d2521" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>illumType</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1a4c0a94ae045982d2c13bd4aec9465a1d" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>infoEnable</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1a9eaa237703d03728699d8d3ca876ced0" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>modeIndex</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1ae7f86d0be9e1d3032bf1152a9abd7e55" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>otpEnable</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1aad1b8530d660d9f2efdcd53d5d8ca370" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>queryEnable</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1a497123897ceab540e6900b3564eff92f" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>registerAddress</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1af9776bb2404872302ebd839ace6a3225" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>registerValue</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1a26160800a8a48c5e4d878adb4957f2c6" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>sensorDevId</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1aac0163e11a5d71d574b354c64e2b6a3c" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>sensorHeight</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1a91fe7b76b8f552f3409e298623fa874b" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>sensorName</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1acae1efb7f1e60c61c23ab3175ec68131" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>sensorType</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1aeb7c7fef5e96ebc9c3e9cef421ef12f8" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>sensorWidth</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1aa33aa246424964a399703abddd9fe2fd" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>simulatorName</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1ac99011ea212b5b2d6164324592c825e9" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>statusEnable</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1a2d78363a4dd46a0ddfac0d3d5285ef02" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>stitchingMode</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1a8794f971af91189116e42455e64d1276" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>testPatternEnable</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1a7df3aca19bdb4fc563f03e885139cb4e" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>totalGain</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1ac92b8c50d65a2f02bbfe86bbdd0141d1" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>useExternalDriver</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1a9ac6163995d85b3cd2dc3f2b647aa5d2" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>useSensorCfg</name></member>
+      <member refid="struct_vvbench_instance_sensor_cfg__s_1ac4b3bdf814773bc386fbba5737288c52" prot="public" virt="non-virtual"><scope>VvbenchInstanceSensorCfg_s</scope><name>virtualChannelId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

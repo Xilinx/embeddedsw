@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_sensor_mode_info__s" kind="struct" prot="public">
+    <compoundname>CamDeviceSensorModeInfo_s</compoundname>
+    <includes local="no">cam_device_sensor_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_sensor_mode_info__s_1a998ec1a78e6a3bc72c40aede8037a1a3" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceSensorModeInfo_s::index</definition>
+        <argsstring></argsstring>
+        <name>index</name>
+        <briefdescription>
+<para>Sensor mode index value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_mode_info__s_1a793f6fdabc8ed8e30f9e658d64b4bba9" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__sensor_1gafa8b60b84ee4796b8d16a54d39fe0e8a" kindref="member">CamDeviceSensorSize_t</ref></type>
+        <definition>CamDeviceSensorSize_t CamDeviceSensorModeInfo_s::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+<para>Sensor size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_mode_info__s_1a9b989b3a0be4ce24bb145758013ba9e7" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__sensor_1gaa2adcad0d9e99f047c2c14ec961557bf" kindref="member">CamDeviceSensorType_t</ref></type>
+        <definition>CamDeviceSensorType_t CamDeviceSensorModeInfo_s::sensorType</definition>
+        <argsstring></argsstring>
+        <name>sensorType</name>
+        <briefdescription>
+<para>The sensor type is linear or HDR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_mode_info__s_1a66d2119945be4783e86ff9504cf7fed9" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gaa07990d77492d7c58759e58a047ae356" kindref="member">CamDeviceStitchingMode_t</ref></type>
+        <definition>CamDeviceStitchingMode_t CamDeviceSensorModeInfo_s::stitchingMode</definition>
+        <argsstring></argsstring>
+        <name>stitchingMode</name>
+        <briefdescription>
+<para>The sensor type is HDR stitching. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_mode_info__s_1a0b3806cd727ac30f9dc37b5298ffd735" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__sensor_1gaa7b351073636fb84a645fe1e3f7c2987" kindref="member">CamDeviceSensorNativeMode_t</ref></type>
+        <definition>CamDeviceSensorNativeMode_t CamDeviceSensorModeInfo_s::nativeMode</definition>
+        <argsstring></argsstring>
+        <name>nativeMode</name>
+        <briefdescription>
+<para>The sensor type is HDR Native. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_mode_info__s_1a9696159764c701b91e2883b6dc2acf4b" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceSensorModeInfo_s::bitWidth</definition>
+        <argsstring></argsstring>
+        <name>bitWidth</name>
+        <briefdescription>
+<para>Sensor bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_mode_info__s_1affd0953a392e3440e431cbc66cb7a270" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__sensor_1gaa391867d5447b8feffcd6295078d48f9" kindref="member">CamDeviceSensorCompress_t</ref></type>
+        <definition>CamDeviceSensorCompress_t CamDeviceSensorModeInfo_s::compress</definition>
+        <argsstring></argsstring>
+        <name>compress</name>
+        <briefdescription>
+<para>Sensor compression information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_mode_info__s_1aa6d4b213e9d67cb034c56ffd8978ad4c" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gabe9fccb93f742ca122d0a0b5d7e66298" kindref="member">CamDeviceRawPattern_t</ref></type>
+        <definition>CamDeviceRawPattern_t CamDeviceSensorModeInfo_s::bayerPattern</definition>
+        <argsstring></argsstring>
+        <name>bayerPattern</name>
+        <briefdescription>
+<para>Sensor Bayer pattern type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_mode_info__s_1a3e7d8cd7cafc31c3303d82218d1e8f49" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceSensorModeInfo_s::maxFps</definition>
+        <argsstring></argsstring>
+        <name>maxFps</name>
+        <briefdescription>
+<para>Sensor maximum FPS value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_mode_info__s_1a804a2ff059b29761f2450b207aa7a4e2" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__sensor_1ga904388bb84e937ebe185ae643f3d3976" kindref="member">CamDeviceSensorAutoFocusMode_t</ref></type>
+        <definition>CamDeviceSensorAutoFocusMode_t CamDeviceSensorModeInfo_s::afMode</definition>
+        <argsstring></argsstring>
+        <name>afMode</name>
+        <briefdescription>
+<para>Sensor auto focusing mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice sensor mode information structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="595">
+        <label>CamDeviceSensorModeInfo_s</label>
+        <link refid="struct_cam_device_sensor_mode_info__s"/>
+        <childnode refid="596" relation="usage">
+          <edgelabel>compress</edgelabel>
+        </childnode>
+        <childnode refid="597" relation="usage">
+          <edgelabel>size</edgelabel>
+        </childnode>
+      </node>
+      <node id="596">
+        <label>CamDeviceSensorCompress_s</label>
+        <link refid="struct_cam_device_sensor_compress__s"/>
+      </node>
+      <node id="597">
+        <label>CamDeviceSensorSize_s</label>
+        <link refid="struct_cam_device_sensor_size__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="218" bodyend="229"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_sensor_mode_info__s_1a804a2ff059b29761f2450b207aa7a4e2" prot="public" virt="non-virtual"><scope>CamDeviceSensorModeInfo_s</scope><name>afMode</name></member>
+      <member refid="struct_cam_device_sensor_mode_info__s_1aa6d4b213e9d67cb034c56ffd8978ad4c" prot="public" virt="non-virtual"><scope>CamDeviceSensorModeInfo_s</scope><name>bayerPattern</name></member>
+      <member refid="struct_cam_device_sensor_mode_info__s_1a9696159764c701b91e2883b6dc2acf4b" prot="public" virt="non-virtual"><scope>CamDeviceSensorModeInfo_s</scope><name>bitWidth</name></member>
+      <member refid="struct_cam_device_sensor_mode_info__s_1affd0953a392e3440e431cbc66cb7a270" prot="public" virt="non-virtual"><scope>CamDeviceSensorModeInfo_s</scope><name>compress</name></member>
+      <member refid="struct_cam_device_sensor_mode_info__s_1a998ec1a78e6a3bc72c40aede8037a1a3" prot="public" virt="non-virtual"><scope>CamDeviceSensorModeInfo_s</scope><name>index</name></member>
+      <member refid="struct_cam_device_sensor_mode_info__s_1a3e7d8cd7cafc31c3303d82218d1e8f49" prot="public" virt="non-virtual"><scope>CamDeviceSensorModeInfo_s</scope><name>maxFps</name></member>
+      <member refid="struct_cam_device_sensor_mode_info__s_1a0b3806cd727ac30f9dc37b5298ffd735" prot="public" virt="non-virtual"><scope>CamDeviceSensorModeInfo_s</scope><name>nativeMode</name></member>
+      <member refid="struct_cam_device_sensor_mode_info__s_1a9b989b3a0be4ce24bb145758013ba9e7" prot="public" virt="non-virtual"><scope>CamDeviceSensorModeInfo_s</scope><name>sensorType</name></member>
+      <member refid="struct_cam_device_sensor_mode_info__s_1a793f6fdabc8ed8e30f9e658d64b4bba9" prot="public" virt="non-virtual"><scope>CamDeviceSensorModeInfo_s</scope><name>size</name></member>
+      <member refid="struct_cam_device_sensor_mode_info__s_1a66d2119945be4783e86ff9504cf7fed9" prot="public" virt="non-virtual"><scope>CamDeviceSensorModeInfo_s</scope><name>stitchingMode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

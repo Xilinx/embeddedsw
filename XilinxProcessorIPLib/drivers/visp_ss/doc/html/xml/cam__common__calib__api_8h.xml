@@ -1,0 +1,233 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="cam__common__calib__api_8h" kind="file">
+    <compoundname>cam_common_calib_api.h</compoundname>
+    <includes refid="cam__common__api_8h" local="yes">cam_common_api.h</includes>
+    <includes refid="cam__device__api_8h" local="no">cam_device_api.h</includes>
+    <includedby refid="vvdevice_8c" local="yes">vvdevice.c</includedby>
+    <incdepgraph>
+      <node id="537">
+        <label>stdbool.h</label>
+      </node>
+      <node id="546">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="536">
+        <label>stdint.h</label>
+      </node>
+      <node id="543">
+        <label>stdlib.h</label>
+      </node>
+      <node id="538">
+        <label>cam_device_api.h</label>
+        <childnode refid="539" relation="include">
+        </childnode>
+        <childnode refid="554" relation="include">
+        </childnode>
+        <childnode refid="555" relation="include">
+        </childnode>
+        <childnode refid="556" relation="include">
+        </childnode>
+      </node>
+      <node id="554">
+        <label>cam_device_calibration.h</label>
+        <childnode refid="540" relation="include">
+        </childnode>
+      </node>
+      <node id="550">
+        <label>sensor_cmd.h</label>
+        <childnode refid="551" relation="include">
+        </childnode>
+        <childnode refid="546" relation="include">
+        </childnode>
+      </node>
+      <node id="545">
+        <label>stddef.h</label>
+      </node>
+      <node id="544">
+        <label>limits.h</label>
+      </node>
+      <node id="539">
+        <label>cam_device_common.h</label>
+        <childnode refid="540" relation="include">
+        </childnode>
+        <childnode refid="546" relation="include">
+        </childnode>
+        <childnode refid="547" relation="include">
+        </childnode>
+        <childnode refid="549" relation="include">
+        </childnode>
+        <childnode refid="550" relation="include">
+        </childnode>
+      </node>
+      <node id="549">
+        <label>buf_defs.h</label>
+        <childnode refid="540" relation="include">
+        </childnode>
+      </node>
+      <node id="551">
+        <label>mbox_api.h</label>
+        <childnode refid="537" relation="include">
+        </childnode>
+        <childnode refid="536" relation="include">
+        </childnode>
+        <childnode refid="552" relation="include">
+        </childnode>
+      </node>
+      <node id="548">
+        <label>string.h</label>
+      </node>
+      <node id="552">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="537" relation="include">
+        </childnode>
+        <childnode refid="553" relation="include">
+        </childnode>
+      </node>
+      <node id="534">
+        <label>cam_common_calib_api.h</label>
+        <link refid="cam_common_calib_api.h"/>
+        <childnode refid="535" relation="include">
+        </childnode>
+        <childnode refid="538" relation="include">
+        </childnode>
+      </node>
+      <node id="535">
+        <label>cam_common_api.h</label>
+        <childnode refid="536" relation="include">
+        </childnode>
+        <childnode refid="537" relation="include">
+        </childnode>
+      </node>
+      <node id="553">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="555">
+        <label>offline_trace.h</label>
+        <link refid="offline__trace_8h"/>
+        <childnode refid="541" relation="include">
+        </childnode>
+        <childnode refid="540" relation="include">
+        </childnode>
+        <childnode refid="546" relation="include">
+        </childnode>
+      </node>
+      <node id="540">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="541" relation="include">
+        </childnode>
+        <childnode refid="544" relation="include">
+        </childnode>
+        <childnode refid="545" relation="include">
+        </childnode>
+      </node>
+      <node id="556">
+        <label>cam_device_ccm_api.h</label>
+        <childnode refid="539" relation="include">
+        </childnode>
+      </node>
+      <node id="547">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="540" relation="include">
+        </childnode>
+        <childnode refid="548" relation="include">
+        </childnode>
+      </node>
+      <node id="542">
+        <label>stdio.h</label>
+      </node>
+      <node id="541">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="542" relation="include">
+        </childnode>
+        <childnode refid="543" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="558">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="557">
+        <label>cam_common_calib_api.h</label>
+        <link refid="cam_common_calib_api.h"/>
+        <childnode refid="558" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="cam__common__calib__api_8h_1a825cb0860b916cdb0b82280223978aa6" prot="public" static="no">
+        <type>void *</type>
+        <definition>typedef void* CamDeviceHandle_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceHandle_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/submodules/cam_common_calib_api.h" line="12" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/submodules/cam_common_calib_api.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="cam__common__calib__api_8h_1ae83a3f4f62408cb0fdfcd9ccb4ed6f78" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamCommonLoadCalibration</definition>
+        <argsstring>(CamCommonHandle_t *phCamCommon, CamDeviceHandle_t hCamDevice, int calibIllum)</argsstring>
+        <name>VsiCamCommonLoadCalibration</name>
+        <param>
+          <type>CamCommonHandle_t *</type>
+          <declname>phCamCommon</declname>
+        </param>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>calibIllum</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/submodules/cam_common_calib_api.h" line="14" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*<sp/>Stub<sp/>header<sp/>-<sp/>function<sp/>implementations<sp/>provided<sp/>by<sp/>libvisp.a<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>CAM_COMMON_CALIB_API_H</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CAM_COMMON_CALIB_API_H</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cam_common_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cam_device_api.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CamDeviceHandle_t;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal">RESULT<sp/>VsiCamCommonLoadCalibration(CamCommonHandle_t<sp/>*phCamCommon,<sp/>CamDeviceHandle_t<sp/>hCamDevice,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>calibIllum);</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>CAM_COMMON_CALIB_API_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/submodules/cam_common_calib_api.h"/>
+  </compounddef>
+</doxygen>

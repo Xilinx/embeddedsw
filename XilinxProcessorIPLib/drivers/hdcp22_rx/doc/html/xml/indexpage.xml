@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>hdcp22_rx</title>
+    <detaileddescription>
+<para>This header file contains internal data types and functions declarations for the Xilinx HDCP 2.2 Receiver. <preformatted>
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who  Date     Changes
+<hruler/>
+
+ 1.00  MH   10/30/15 First Release
+ 1.01  MH   03/02/16 Moved prototype of XHdcp22Rx_CalcMontNPrime to
+                     to internal functions.
+ 1.02  MH   04/14/16 Updated for repeater upstream support.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,348 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xspdif__chsts_8c" kind="file">
+    <compoundname>xspdif_chsts.c</compoundname>
+    <includes refid="xspdif__chsts_8h" local="yes">xspdif_chsts.h</includes>
+    <includes refid="xspdif_8h" local="yes">xspdif.h</includes>
+    <includes refid="xspdif__hw_8h" local="yes">xspdif_hw.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <incdepgraph>
+      <node id="32">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="31">
+        <label>xil_io.h</label>
+      </node>
+      <node id="27">
+        <label>xspdif_chsts.c</label>
+        <link refid="xspdif_chsts.c"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>xspdif_chsts.h</label>
+        <link refid="xspdif__chsts_8h"/>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>xspdif.h</label>
+        <link refid="xspdif_8h"/>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>xspdif_hw.h</label>
+        <link refid="xspdif__hw_8h"/>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>xstatus.h</label>
+      </node>
+      <node id="34">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__spdif_1gaa51d2927e959df0556c24e2f85d58d7a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSpdif_Decode_ChStat</definition>
+        <argsstring>(u8 Spdif_SrcBuf[24])</argsstring>
+        <name>XSpdif_Decode_ChStat</name>
+        <param>
+          <type>u8</type>
+          <declname>Spdif_SrcBuf</declname>
+          <array>[24]</array>
+        </param>
+        <briefdescription>
+<para>This function reads the array i.e. </para>        </briefdescription>
+        <detaileddescription>
+<para>Spdif_SrcBuffer which has the values of all the six Spdif AES status registers, extracts the required bits and displays them. Note: Call XSpdif_Rx_GetChStat API before calling XSpdif_Decode_ChStat API</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Spdif_SrcBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an array that contains the values of all the the AES Status registers.It contains 24 bytes i.e. 192 status bits. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>&lt; use of channel status block</para><para>&lt; linear PCM identification</para><para>&lt; audio signal Pre-emphasis</para><para>&lt; lock indication</para><para>&lt; sampling frequency</para><para>&lt; channel mode</para><para>&lt; user bits management</para><para>&lt; use of auxiliary sample bits</para><para>&lt; source word length</para><para>&lt; indication of alignment level</para><para>&lt; channel mode</para><para>&lt; Channel number 0</para><para>&lt; Channel number 1</para><para>&lt; multi channel1 mode number</para><para>&lt; digital audio reference signal</para><para>&lt; reserved but undefined</para><para>&lt; sampling frequency</para><para>&lt; sampling frequency scaling flag</para><para>&lt; reserved but undefined</para><para>&lt; Alphanumeric channel origin data</para><para>&lt; Alphanumeric channel destination data</para><para>&lt; Local sample address code</para><para>&lt; Time-of-day sample address code</para><para>&lt; Reliability flags</para><para>&lt; Cyclic redundancy check character </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_chsts.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_chsts.c" bodystart="58" bodyend="245"/>
+        <references refid="group__spdif_1gadbb9d31148b71d737e51021aa90986d2" compoundref="xspdif__chsts_8h" startline="62">XSPDIF_AES_STS_AUDIO_SIG_PRE_EMPH_MASK</references>
+        <references refid="group__spdif_1ga31d37e948304527fc7f2805c12beaa5d" compoundref="xspdif__chsts_8h" startline="59">XSPDIF_AES_STS_AUDIO_SIG_PRE_EMPH_SHIFT</references>
+        <references refid="group__spdif_1ga61d1c6757b6483b6364af7ddbe2e0b92" compoundref="xspdif__chsts_8h" startline="82">XSPDIF_AES_STS_CH_MODE_MASK</references>
+        <references refid="group__spdif_1gad1c4ea06eaf4dc86db223a2b0ca5ec02" compoundref="xspdif__chsts_8h" startline="126">XSPDIF_AES_STS_CH_NUM0_MASK</references>
+        <references refid="group__spdif_1ga2d2322d01a917e1c615a6c61ca1abf51" compoundref="xspdif__chsts_8h" startline="134">XSPDIF_AES_STS_CH_NUM1_MASK</references>
+        <references refid="group__spdif_1ga14d044656cba232d7178da66be8f6074" compoundref="xspdif__chsts_8h" startline="223">XSPDIF_AES_STS_CRC_CHAR_OFFSET</references>
+        <references refid="group__spdif_1gacdf0421f14eede57f958994ee05b07bc" compoundref="xspdif__chsts_8h" startline="150">XSPDIF_AES_STS_DIGITAL_AUDIO_REF_SIG_MASK</references>
+        <references refid="group__spdif_1ga312051807586273423b084606b9e40ae" compoundref="xspdif__chsts_8h" startline="145">XSPDIF_AES_STS_DIGITAL_AUDIO_REF_SIG_SHIFT</references>
+        <references refid="group__spdif_1ga48bed09f27ff0d6d80a53e8c74defde3" compoundref="xspdif__chsts_8h" startline="118">XSPDIF_AES_STS_INDICATE_ALIGN_LEVEL_MASK</references>
+        <references refid="group__spdif_1gacf671c2b22efd7086a6d02720bdb6e1b" compoundref="xspdif__chsts_8h" startline="113">XSPDIF_AES_STS_INDICATE_ALIGN_LEVEL_SHIFT</references>
+        <references refid="group__spdif_1ga9c214675f7ddf66a51bb87f36266b620" compoundref="xspdif__chsts_8h" startline="54">XSPDIF_AES_STS_LINEAR_PCM_ID_MASK</references>
+        <references refid="group__spdif_1ga567bced0ad2be4f7a01ddf89b999f915" compoundref="xspdif__chsts_8h" startline="51">XSPDIF_AES_STS_LINEAR_PCM_ID_SHIFT</references>
+        <references refid="group__spdif_1gac73a0ee6d535b3a0e02774b564bae998" compoundref="xspdif__chsts_8h" startline="70">XSPDIF_AES_STS_LOCK_INDICATION_MASK</references>
+        <references refid="group__spdif_1ga326786a673b55daf8b3f68050167481f" compoundref="xspdif__chsts_8h" startline="67">XSPDIF_AES_STS_LOCK_INDICATION_SHIFT</references>
+        <references refid="group__spdif_1ga8c6574f10f4ddf3191739f2a65e41fff" compoundref="xspdif__chsts_8h" startline="130">XSPDIF_AES_STS_MC_CH_MODE_MASK</references>
+        <references refid="group__spdif_1ga71078825e28429294e0ff6bd6ac2f8aa" compoundref="xspdif__chsts_8h" startline="140">XSPDIF_AES_STS_MC_CH_MODE_NUM_MASK</references>
+        <references refid="group__spdif_1gab3f43f893c92dc38fd08b6d5da55da5f" compoundref="xspdif__chsts_8h" startline="137">XSPDIF_AES_STS_MC_CH_MODE_NUM_SHIFT</references>
+        <references refid="group__spdif_1gae936b4e2dc69b44f9cb55e2797986de2" compoundref="xspdif__chsts_8h" startline="129">XSPDIF_AES_STS_MC_CH_MODE_SHIFT</references>
+        <references refid="group__spdif_1gac781e3060f6f281ddf4c2fb609b62941" compoundref="xspdif__chsts_8h" startline="219">XSPDIF_AES_STS_RELIABLE_FLAGS_OFFSET</references>
+        <references refid="group__spdif_1gaef6674a7adc5e3901805f0eda7a383db" compoundref="xspdif__chsts_8h" startline="160">XSPDIF_AES_STS_RSVD_BUT_UNDEF0_MASK</references>
+        <references refid="group__spdif_1gab6bba951c11eb2f2d2f8d5fe360753c2" compoundref="xspdif__chsts_8h" startline="157">XSPDIF_AES_STS_RSVD_BUT_UNDEF0_SHIFT</references>
+        <references refid="group__spdif_1ga3e9765ab35955fdd6d60b9a38f525d55" compoundref="xspdif__chsts_8h" startline="188">XSPDIF_AES_STS_RSVD_BUT_UNDEF1_MASK</references>
+        <references refid="group__spdif_1gae3f756a9ed3e54825608b18794f9f151" compoundref="xspdif__chsts_8h" startline="76">XSPDIF_AES_STS_SAMPLING_FREQ_E_MASK</references>
+        <references refid="group__spdif_1gaf8023c98dcc18afc76163ac2a87c0852" compoundref="xspdif__chsts_8h" startline="73">XSPDIF_AES_STS_SAMPLING_FREQ_E_SHIFT</references>
+        <references refid="group__spdif_1gad18a50ce2817a5141e4219b632b6881b" compoundref="xspdif__chsts_8h" startline="168">XSPDIF_AES_STS_SAMPLING_FREQ_Q_MASK</references>
+        <references refid="group__spdif_1gae7f4f7367ab6da14a4bbbf1e9b372f8b" compoundref="xspdif__chsts_8h" startline="165">XSPDIF_AES_STS_SAMPLING_FREQ_Q_SHIFT</references>
+        <references refid="group__spdif_1gad2b5f2028540d8dfdbd282a441e6d2de" compoundref="xspdif__chsts_8h" startline="178">XSPDIF_AES_STS_SAMPLING_FREQ_SCALE_FLAG_MASK</references>
+        <references refid="group__spdif_1gac7103e8d9208f958e09758d8a6ec2d72" compoundref="xspdif__chsts_8h" startline="173">XSPDIF_AES_STS_SAMPLING_FREQ_SCALE_FLAG_SHIFT</references>
+        <references refid="group__spdif_1gac20878460c7db74344ed1945dd91a8f2" compoundref="xspdif__chsts_8h" startline="108">XSPDIF_AES_STS_SRC_WORD_LENGTH_MASK</references>
+        <references refid="group__spdif_1gaf4518316d0057e6222413928d69848e7" compoundref="xspdif__chsts_8h" startline="105">XSPDIF_AES_STS_SRC_WORD_LENGTH_SHIFT</references>
+        <references refid="group__spdif_1ga037137493b39c8d16d47305e8d612630" compoundref="xspdif__chsts_8h" startline="46">XSPDIF_AES_STS_USE_OF_CH_STS_BLK_MASK</references>
+        <references refid="group__spdif_1ga5e74a60c3a3fde81331ee465f97028fc" compoundref="xspdif__chsts_8h" startline="98">XSPDIF_AES_STS_USEOF_AUX_SMPL_BITS_MASK</references>
+        <references refid="group__spdif_1ga0d28b61ccb94c9c1a0ab10a5b4dc1061" compoundref="xspdif__chsts_8h" startline="88">XSPDIF_AES_STS_USR_BITS_MGMT_MASK</references>
+        <references refid="group__spdif_1ga4f8b4daecaa31b4d2c8fa678e12d6fcc" compoundref="xspdif__chsts_8h" startline="85">XSPDIF_AES_STS_USR_BITS_MGMT_SHIFT</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xspdif__chsts_8h" kindref="compound">xspdif_chsts.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xspdif_8h" kindref="compound">xspdif.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xspdif__hw_8h" kindref="compound">xspdif_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="58" refid="group__spdif_1gaa51d2927e959df0556c24e2f85d58d7a" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__spdif_1gaa51d2927e959df0556c24e2f85d58d7a" kindref="member">XSpdif_Decode_ChStat</ref>(u8<sp/>Spdif_SrcBuf[24])</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Spdif_useOf_ch_sts_blk;<sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Spdif_linear_pcm_id;<sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Spdif_audio_sig_pre_emph;<sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Spdif_lock_indication;<sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Spdif_sampling_freq_e;<sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Spdif_ch_mode;<sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Spdif_usr_bits_mgmt;<sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Spdif_useOf_aux_smpl_bits;<sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Spdif_src_word_length;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Spdif_indicate_align_level;<sp/><sp/></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Spdif_mc_ch_mode;<sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Spdif_byte3_mc0_ch_num;<sp/></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Spdif_byte3_mc1_ch_num;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Spdif_byte3_mc1_ch_mode_num;<sp/></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Spdif_digital_audio_ref_sig;<sp/></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Spdif_rsvd_but_undef0;<sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Spdif_sampling_freq_q;<sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Spdif_sampling_freq_scale_flag;<sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Spdif_rsvd_but_undef1;<sp/></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Spdif_alphanum_ch_org_data;<sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Spdif_alphanum_ch_dest_data;<sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Spdif_local_sample_addrcode;<sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Spdif_timeOfDay_sample_addrcode;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Spdif_reliable_flags;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Spdif_crc_char;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Data;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data32;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Spdif_SrcBuf<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>value<sp/>of<sp/>Status<sp/>register<sp/>offset<sp/>0<sp/>from<sp/>the<sp/>Spdif_SrcBuf<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>Spdif_SrcBuf[0];</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_useOf_ch_sts_blk<sp/>=</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Data<sp/>&amp;<sp/><ref refid="group__spdif_1ga037137493b39c8d16d47305e8d612630" kindref="member">XSPDIF_AES_STS_USE_OF_CH_STS_BLK_MASK</ref>);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_useOf_ch_sts_blk<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,<sp/>Spdif_useOf_ch_sts_blk);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_linear_pcm_id<sp/>=</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__spdif_1ga9c214675f7ddf66a51bb87f36266b620" kindref="member">XSPDIF_AES_STS_LINEAR_PCM_ID_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1ga567bced0ad2be4f7a01ddf89b999f915" kindref="member">XSPDIF_AES_STS_LINEAR_PCM_ID_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_linear_pcm_id<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,<sp/>Spdif_linear_pcm_id);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_audio_sig_pre_emph<sp/>=</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__spdif_1gadbb9d31148b71d737e51021aa90986d2" kindref="member">XSPDIF_AES_STS_AUDIO_SIG_PRE_EMPH_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1ga31d37e948304527fc7f2805c12beaa5d" kindref="member">XSPDIF_AES_STS_AUDIO_SIG_PRE_EMPH_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_audio_sig_pre_emph<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_audio_sig_pre_emph);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_lock_indication<sp/>=</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__spdif_1gac73a0ee6d535b3a0e02774b564bae998" kindref="member">XSPDIF_AES_STS_LOCK_INDICATION_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1ga326786a673b55daf8b3f68050167481f" kindref="member">XSPDIF_AES_STS_LOCK_INDICATION_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_lock_indication<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,Spdif_lock_indication<sp/>);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_sampling_freq_e<sp/>=</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__spdif_1gae3f756a9ed3e54825608b18794f9f151" kindref="member">XSPDIF_AES_STS_SAMPLING_FREQ_E_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1gaf8023c98dcc18afc76163ac2a87c0852" kindref="member">XSPDIF_AES_STS_SAMPLING_FREQ_E_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_sampling_freq_e<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,Spdif_sampling_freq_e<sp/>);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>value<sp/>of<sp/>Status<sp/>register<sp/>offset<sp/>1<sp/>from<sp/>the<sp/>Spdif_SrcBuf<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>Spdif_SrcBuf[1];</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_ch_mode<sp/>=<sp/>(Data<sp/>&amp;<sp/><ref refid="group__spdif_1ga61d1c6757b6483b6364af7ddbe2e0b92" kindref="member">XSPDIF_AES_STS_CH_MODE_MASK</ref>);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_ch_mode<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,Spdif_ch_mode<sp/>);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_usr_bits_mgmt<sp/>=</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__spdif_1ga0d28b61ccb94c9c1a0ab10a5b4dc1061" kindref="member">XSPDIF_AES_STS_USR_BITS_MGMT_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1ga4f8b4daecaa31b4d2c8fa678e12d6fcc" kindref="member">XSPDIF_AES_STS_USR_BITS_MGMT_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_usr_bits_mgmt<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,<sp/>Spdif_usr_bits_mgmt);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>value<sp/>of<sp/>Status<sp/>register<sp/>offset<sp/>2<sp/>from<sp/>the<sp/>Spdif_SrcBuf<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>Spdif_SrcBuf[2];</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_useOf_aux_smpl_bits<sp/>=</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Data<sp/>&amp;<sp/><ref refid="group__spdif_1ga5e74a60c3a3fde81331ee465f97028fc" kindref="member">XSPDIF_AES_STS_USEOF_AUX_SMPL_BITS_MASK</ref>);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_useOf_aux_smpl_bits<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_useOf_aux_smpl_bits<sp/>);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_src_word_length<sp/>=</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__spdif_1gac20878460c7db74344ed1945dd91a8f2" kindref="member">XSPDIF_AES_STS_SRC_WORD_LENGTH_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1gaf4518316d0057e6222413928d69848e7" kindref="member">XSPDIF_AES_STS_SRC_WORD_LENGTH_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_src_word_length<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,<sp/>Spdif_src_word_length);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_indicate_align_level<sp/>=</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__spdif_1ga48bed09f27ff0d6d80a53e8c74defde3" kindref="member">XSPDIF_AES_STS_INDICATE_ALIGN_LEVEL_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1gacf671c2b22efd7086a6d02720bdb6e1b" kindref="member">XSPDIF_AES_STS_INDICATE_ALIGN_LEVEL_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_indicate_align_level<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_indicate_align_level<sp/>);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>value<sp/>of<sp/>Status<sp/>register<sp/>offset<sp/>3<sp/>from<sp/>the<sp/>Spdif_SrcBuf<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>Spdif_SrcBuf[3];</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_mc_ch_mode<sp/>=</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__spdif_1ga8c6574f10f4ddf3191739f2a65e41fff" kindref="member">XSPDIF_AES_STS_MC_CH_MODE_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1gae936b4e2dc69b44f9cb55e2797986de2" kindref="member">XSPDIF_AES_STS_MC_CH_MODE_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Spdif_mc_ch_mode<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_byte3_mc0_ch_num<sp/>=</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Data<sp/>&amp;<sp/><ref refid="group__spdif_1gad1c4ea06eaf4dc86db223a2b0ca5ec02" kindref="member">XSPDIF_AES_STS_CH_NUM0_MASK</ref>);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_mc_ch_mode<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,Spdif_mc_ch_mode<sp/>);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_byte3_mc0_ch_num<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_byte3_mc0_ch_num<sp/>);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Spdif_mc_ch_mode<sp/>==<sp/>1)<sp/>{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_byte3_mc1_ch_num<sp/>=</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Data<sp/>&amp;<sp/><ref refid="group__spdif_1ga2d2322d01a917e1c615a6c61ca1abf51" kindref="member">XSPDIF_AES_STS_CH_NUM1_MASK</ref>);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_byte3_mc1_ch_mode_num<sp/>=</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__spdif_1ga71078825e28429294e0ff6bd6ac2f8aa" kindref="member">XSPDIF_AES_STS_MC_CH_MODE_NUM_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1gab3f43f893c92dc38fd08b6d5da55da5f" kindref="member">XSPDIF_AES_STS_MC_CH_MODE_NUM_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_mc_ch_mode<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,Spdif_mc_ch_mode<sp/>);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_byte3_mc1_ch_num=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_byte3_mc1_ch_num);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_byte3_mc1_ch_mode_num=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_byte3_mc1_ch_mode_num);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>value<sp/>of<sp/>Status<sp/>register<sp/>offset<sp/>4<sp/>from<sp/>the<sp/>Spdif_SrcBuf<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>Spdif_SrcBuf[4];</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_digital_audio_ref_sig<sp/>=</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__spdif_1gacdf0421f14eede57f958994ee05b07bc" kindref="member">XSPDIF_AES_STS_DIGITAL_AUDIO_REF_SIG_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1ga312051807586273423b084606b9e40ae" kindref="member">XSPDIF_AES_STS_DIGITAL_AUDIO_REF_SIG_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_digital_audio_ref_sig<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_digital_audio_ref_sig<sp/>);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_rsvd_but_undef0<sp/>=</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__spdif_1gaef6674a7adc5e3901805f0eda7a383db" kindref="member">XSPDIF_AES_STS_RSVD_BUT_UNDEF0_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1gab6bba951c11eb2f2d2f8d5fe360753c2" kindref="member">XSPDIF_AES_STS_RSVD_BUT_UNDEF0_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_rsvd_but_undef0<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,Spdif_rsvd_but_undef0<sp/>);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_sampling_freq_q<sp/>=</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__spdif_1gad18a50ce2817a5141e4219b632b6881b" kindref="member">XSPDIF_AES_STS_SAMPLING_FREQ_Q_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1gae7f4f7367ab6da14a4bbbf1e9b372f8b" kindref="member">XSPDIF_AES_STS_SAMPLING_FREQ_Q_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_sampling_freq_q<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,Spdif_sampling_freq_q<sp/>);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_sampling_freq_scale_flag<sp/>=</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__spdif_1gad2b5f2028540d8dfdbd282a441e6d2de" kindref="member">XSPDIF_AES_STS_SAMPLING_FREQ_SCALE_FLAG_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1gac7103e8d9208f958e09758d8a6ec2d72" kindref="member">XSPDIF_AES_STS_SAMPLING_FREQ_SCALE_FLAG_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_sampling_freq_scale_flag<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_sampling_freq_scale_flag);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>value<sp/>of<sp/>Status<sp/>register<sp/>offset<sp/>5<sp/>from<sp/>the<sp/>Spdif_SrcBuf<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>Spdif_SrcBuf[5];</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_rsvd_but_undef1<sp/>=</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Data<sp/>&amp;<sp/><ref refid="group__spdif_1ga3e9765ab35955fdd6d60b9a38f525d55" kindref="member">XSPDIF_AES_STS_RSVD_BUT_UNDEF1_MASK</ref>);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_rsvd_but_undef1<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,Spdif_rsvd_but_undef1<sp/>);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>values<sp/>of<sp/>Status<sp/>registers<sp/>from<sp/>offsets<sp/>6<sp/>-<sp/>9<sp/>from<sp/>the</highlight></codeline>
+<codeline lineno="204"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Spdif_SrcBuf<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data32<sp/>=<sp/>(u32)((Spdif_SrcBuf[9]<sp/>&lt;&lt;<sp/>24)<sp/>|<sp/>(Spdif_SrcBuf[8]<sp/>&lt;&lt;<sp/>16)<sp/>|</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Spdif_SrcBuf[7]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>Spdif_SrcBuf[6]);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_alphanum_ch_org_data<sp/>=<sp/>Data32;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_alphanum_ch_org_data<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_alphanum_ch_org_data);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>values<sp/>of<sp/>Status<sp/>registers<sp/>from<sp/>offsets<sp/>10<sp/>-<sp/>13<sp/>from<sp/>the</highlight></codeline>
+<codeline lineno="212"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Spdif_SrcBuf<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data32<sp/>=<sp/>(u32)((Spdif_SrcBuf[13]<sp/>&lt;&lt;<sp/>24)<sp/>|<sp/>(Spdif_SrcBuf[12]<sp/>&lt;&lt;<sp/>16)<sp/>|</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Spdif_SrcBuf[11]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>Spdif_SrcBuf[10]);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_alphanum_ch_dest_data<sp/>=<sp/>Data32;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_alphanum_ch_dest_data<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_alphanum_ch_dest_data);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>values<sp/>of<sp/>Status<sp/>registers<sp/>from<sp/>offsets<sp/>14<sp/>-<sp/>17<sp/>from<sp/>the</highlight></codeline>
+<codeline lineno="220"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Spdif_SrcBuf<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data32<sp/>=<sp/>(u32)((Spdif_SrcBuf[17]<sp/>&lt;&lt;<sp/>24)<sp/>|<sp/>(Spdif_SrcBuf[16]<sp/>&lt;&lt;<sp/>16)<sp/>|</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Spdif_SrcBuf[15]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>Spdif_SrcBuf[14]);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_local_sample_addrcode<sp/>=<sp/>Data32;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_local_sample_addrcode<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_local_sample_addrcode<sp/>);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>values<sp/>of<sp/>Status<sp/>registers<sp/>from<sp/>the<sp/>offsets<sp/>18<sp/>-<sp/>21<sp/>from</highlight></codeline>
+<codeline lineno="228"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>Spdif_SrcBuf<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data32<sp/>=<sp/>(u32)((Spdif_SrcBuf[21]<sp/>&lt;&lt;<sp/>24)<sp/>|<sp/>(Spdif_SrcBuf[20]<sp/>&lt;&lt;<sp/>16)<sp/>|</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Spdif_SrcBuf[19]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>Spdif_SrcBuf[18]);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_timeOfDay_sample_addrcode<sp/>=<sp/>Data32;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_timeOfDay_sample_addrcode<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_timeOfDay_sample_addrcode<sp/>);</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>value<sp/>of<sp/>the<sp/>Status<sp/>register<sp/>offset<sp/>22<sp/>from</highlight></codeline>
+<codeline lineno="236"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>Spdif_SrcBuf<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>Spdif_SrcBuf[<ref refid="group__spdif_1gac781e3060f6f281ddf4c2fb609b62941" kindref="member">XSPDIF_AES_STS_RELIABLE_FLAGS_OFFSET</ref>];</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_reliable_flags<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_reliable_flags<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,Spdif_reliable_flags);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>value<sp/>of<sp/>Status<sp/>register<sp/>offset<sp/>23<sp/>from<sp/>the<sp/>Spdif_SrcBuf<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>Spdif_SrcBuf[<ref refid="group__spdif_1ga14d044656cba232d7178da66be8f6074" kindref="member">XSPDIF_AES_STS_CRC_CHAR_OFFSET</ref>];</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Spdif_crc_char<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Spdif_crc_char<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,Spdif_crc_char<sp/>);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_chsts.c"/>
+  </compounddef>
+</doxygen>

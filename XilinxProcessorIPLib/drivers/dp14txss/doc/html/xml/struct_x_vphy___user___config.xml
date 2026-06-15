@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_vphy___user___config" kind="struct" prot="public">
+    <compoundname>XVphy_User_Config</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_vphy___user___config_1a954d49645f0d95043753e31e544e6414" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVphy_User_Config::Index</definition>
+        <argsstring></argsstring>
+        <name>Index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___user___config_1aa29c3feb970661f9c6185f18f3c195bf" prot="public" static="no" mutable="no">
+        <type>XVphy_PllType</type>
+        <definition>XVphy_PllType XVphy_User_Config::TxPLL</definition>
+        <argsstring></argsstring>
+        <name>TxPLL</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___user___config_1a81f33dd5393c1009dacd38b52da61859" prot="public" static="no" mutable="no">
+        <type>XVphy_PllType</type>
+        <definition>XVphy_PllType XVphy_User_Config::RxPLL</definition>
+        <argsstring></argsstring>
+        <name>RxPLL</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___user___config_1a2c7acb7807392e2c14212e7e13cee1b5" prot="public" static="no" mutable="no">
+        <type>XVphy_ChannelId</type>
+        <definition>XVphy_ChannelId XVphy_User_Config::TxChId</definition>
+        <argsstring></argsstring>
+        <name>TxChId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___user___config_1a9a0a7f8c5a44707d9411f020ff18d7bf" prot="public" static="no" mutable="no">
+        <type>XVphy_ChannelId</type>
+        <definition>XVphy_ChannelId XVphy_User_Config::RxChId</definition>
+        <argsstring></argsstring>
+        <name>RxChId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___user___config_1ae8310eaa70789c87c7ff88a91fa05ab7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVphy_User_Config::LineRate</definition>
+        <argsstring></argsstring>
+        <name>LineRate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___user___config_1aeb2cd69746123723358593b1edf581e4" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XVphy_User_Config::LineRateHz</definition>
+        <argsstring></argsstring>
+        <name>LineRateHz</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___user___config_1ac272975f1e5267314bdd6c935088fdfd" prot="public" static="no" mutable="no">
+        <type>XVphy_User_GT_RefClk_Src</type>
+        <definition>XVphy_User_GT_RefClk_Src XVphy_User_Config::QPLLRefClkSrc</definition>
+        <argsstring></argsstring>
+        <name>QPLLRefClkSrc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___user___config_1af4e34aaaef3c370c8d8156121e88430d" prot="public" static="no" mutable="no">
+        <type>XVphy_User_GT_RefClk_Src</type>
+        <definition>XVphy_User_GT_RefClk_Src XVphy_User_Config::CPLLRefClkSrc</definition>
+        <argsstring></argsstring>
+        <name>CPLLRefClkSrc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___user___config_1a5864687317296ac059ae78c6fd7940ce" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XVphy_User_Config::QPLLRefClkFreqHz</definition>
+        <argsstring></argsstring>
+        <name>QPLLRefClkFreqHz</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___user___config_1ac81049ad1ddead91e8b7291cde404e7e" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XVphy_User_Config::CPLLRefClkFreqHz</definition>
+        <argsstring></argsstring>
+        <name>CPLLRefClkFreqHz</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="128" bodyend="140"/>
+    <listofallmembers>
+      <member refid="struct_x_vphy___user___config_1ac81049ad1ddead91e8b7291cde404e7e" prot="public" virt="non-virtual"><scope>XVphy_User_Config</scope><name>CPLLRefClkFreqHz</name></member>
+      <member refid="struct_x_vphy___user___config_1af4e34aaaef3c370c8d8156121e88430d" prot="public" virt="non-virtual"><scope>XVphy_User_Config</scope><name>CPLLRefClkSrc</name></member>
+      <member refid="struct_x_vphy___user___config_1a954d49645f0d95043753e31e544e6414" prot="public" virt="non-virtual"><scope>XVphy_User_Config</scope><name>Index</name></member>
+      <member refid="struct_x_vphy___user___config_1ae8310eaa70789c87c7ff88a91fa05ab7" prot="public" virt="non-virtual"><scope>XVphy_User_Config</scope><name>LineRate</name></member>
+      <member refid="struct_x_vphy___user___config_1aeb2cd69746123723358593b1edf581e4" prot="public" virt="non-virtual"><scope>XVphy_User_Config</scope><name>LineRateHz</name></member>
+      <member refid="struct_x_vphy___user___config_1a5864687317296ac059ae78c6fd7940ce" prot="public" virt="non-virtual"><scope>XVphy_User_Config</scope><name>QPLLRefClkFreqHz</name></member>
+      <member refid="struct_x_vphy___user___config_1ac272975f1e5267314bdd6c935088fdfd" prot="public" virt="non-virtual"><scope>XVphy_User_Config</scope><name>QPLLRefClkSrc</name></member>
+      <member refid="struct_x_vphy___user___config_1a9a0a7f8c5a44707d9411f020ff18d7bf" prot="public" virt="non-virtual"><scope>XVphy_User_Config</scope><name>RxChId</name></member>
+      <member refid="struct_x_vphy___user___config_1a81f33dd5393c1009dacd38b52da61859" prot="public" virt="non-virtual"><scope>XVphy_User_Config</scope><name>RxPLL</name></member>
+      <member refid="struct_x_vphy___user___config_1a2c7acb7807392e2c14212e7e13cee1b5" prot="public" virt="non-virtual"><scope>XVphy_User_Config</scope><name>TxChId</name></member>
+      <member refid="struct_x_vphy___user___config_1aa29c3feb970661f9c6185f18f3c195bf" prot="public" virt="non-virtual"><scope>XVphy_User_Config</scope><name>TxPLL</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

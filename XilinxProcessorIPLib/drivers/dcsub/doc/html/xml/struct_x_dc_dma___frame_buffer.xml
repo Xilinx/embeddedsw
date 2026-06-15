@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dc_dma___frame_buffer" kind="struct" prot="public">
+    <compoundname>XDcDma_FrameBuffer</compoundname>
+    <includes local="no">xdcdma.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dc_dma___frame_buffer_1a87b31ed0c2a72f7bcb909cf93322d1d4" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XDcDma_FrameBuffer::Address</definition>
+        <argsstring></argsstring>
+        <name>Address</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___frame_buffer_1a5ee521c7d6a1b191cf20fc2c3f1872f3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_FrameBuffer::Size</definition>
+        <argsstring></argsstring>
+        <name>Size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___frame_buffer_1ade1db3c78069ba78298682aeef1c65cd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_FrameBuffer::Stride</definition>
+        <argsstring></argsstring>
+        <name>Stride</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___frame_buffer_1ab76ceddcb177e506c4d847ee8dbcab7c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcDma_FrameBuffer::LineSize</definition>
+        <argsstring></argsstring>
+        <name>LineSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef is the information needed to transfer video info. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="156" bodyend="161"/>
+    <listofallmembers>
+      <member refid="struct_x_dc_dma___frame_buffer_1a87b31ed0c2a72f7bcb909cf93322d1d4" prot="public" virt="non-virtual"><scope>XDcDma_FrameBuffer</scope><name>Address</name></member>
+      <member refid="struct_x_dc_dma___frame_buffer_1ab76ceddcb177e506c4d847ee8dbcab7c" prot="public" virt="non-virtual"><scope>XDcDma_FrameBuffer</scope><name>LineSize</name></member>
+      <member refid="struct_x_dc_dma___frame_buffer_1a5ee521c7d6a1b191cf20fc2c3f1872f3" prot="public" virt="non-virtual"><scope>XDcDma_FrameBuffer</scope><name>Size</name></member>
+      <member refid="struct_x_dc_dma___frame_buffer_1ade1db3c78069ba78298682aeef1c65cd" prot="public" virt="non-virtual"><scope>XDcDma_FrameBuffer</scope><name>Stride</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

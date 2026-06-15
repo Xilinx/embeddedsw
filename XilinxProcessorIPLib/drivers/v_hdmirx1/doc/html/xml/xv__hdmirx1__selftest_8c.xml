@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__hdmirx1__selftest_8c" kind="file">
+    <compoundname>xv_hdmirx1_selftest.c</compoundname>
+    <includes refid="xv__hdmirx1_8h" local="yes">xv_hdmirx1.h</includes>
+    <incdepgraph>
+      <node id="105">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="104">
+        <label>xil_io.h</label>
+      </node>
+      <node id="102">
+        <label>sleep.h</label>
+      </node>
+      <node id="110">
+        <label>xv_hdmirx1_frl.h</label>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+      </node>
+      <node id="107">
+        <label>xdebug.h</label>
+      </node>
+      <node id="106">
+        <label>xstatus.h</label>
+      </node>
+      <node id="108">
+        <label>xvidc.h</label>
+      </node>
+      <node id="111">
+        <label>xil_types.h</label>
+      </node>
+      <node id="103">
+        <label>xv_hdmirx1_hw.h</label>
+        <link refid="xv__hdmirx1__hw_8h"/>
+        <childnode refid="104" relation="include">
+        </childnode>
+      </node>
+      <node id="109">
+        <label>xv_hdmic.h</label>
+      </node>
+      <node id="101">
+        <label>xv_hdmirx1.h</label>
+        <link refid="xv__hdmirx1_8h"/>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+      </node>
+      <node id="112">
+        <label>xparameters.h</label>
+      </node>
+      <node id="100">
+        <label>xv_hdmirx1_selftest.c</label>
+        <link refid="xv_hdmirx1_selftest.c"/>
+        <childnode refid="101" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xv__hdmirx1__selftest_8c_1abaa46cfd50c028ac5b941638dceb7bb7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_HdmiRx1_SelfTest</definition>
+        <argsstring>(XV_HdmiRx1 *InstancePtr)</argsstring>
+        <name>XV_HdmiRx1_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_v___hdmi_rx1" kindref="compound">XV_HdmiRx1</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads ID of PIO peripheral. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the HDMI RX core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if PIO ID was matched.</para></listitem><listitem><para>XST_FAILURE if PIO ID was mismatched.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx1/src/xv_hdmirx1_selftest.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx1/src/xv_hdmirx1_selftest.c" bodystart="59" bodyend="78"/>
+        <references refid="struct_x_v___hdmi_rx1___config_1ab0d9f429af93cfc3bf3a97e5fc63692c" compoundref="xv__hdmirx1_8h" startline="265">XV_HdmiRx1_Config::BaseAddress</references>
+        <references refid="struct_x_v___hdmi_rx1_1aa1008eb31826031b552c087c5f8d87d8" compoundref="xv__hdmirx1_8h" startline="379">XV_HdmiRx1::Config</references>
+        <references refid="xv__hdmirx1__hw_8h_1a090582e52a472f924918d70505f62b11" compoundref="xv__hdmirx1__hw_8h" startline="699">XV_HDMIRX1_MASK_16</references>
+        <references refid="xv__hdmirx1__hw_8h_1aa303f116af14392fe13aebd0cc78a125" compoundref="xv__hdmirx1__hw_8h" startline="700">XV_HDMIRX1_PIO_ID</references>
+        <references refid="xv__hdmirx1__hw_8h_1af194c444b1a273aed3950eca10ca1135" compoundref="xv__hdmirx1__hw_8h" startline="87">XV_HDMIRX1_PIO_ID_OFFSET</references>
+        <references refid="xv__hdmirx1__hw_8h_1a851cb0524c797d3ce8380b1c27b9a17f" compoundref="xv__hdmirx1__hw_8h" startline="731">XV_HdmiRx1_ReadReg</references>
+        <references refid="xv__hdmirx1__hw_8h_1a44f9bde6a5097e3b1c287447e8292f87" compoundref="xv__hdmirx1__hw_8h" startline="698">XV_HDMIRX1_SHIFT_16</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains self test function for the HDMI RX core. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date       Changes
+<hruler/>
+
+1.00  EB        02/05/19 Initial release.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>–<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="24"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__hdmirx1_8h" kindref="compound">xv_hdmirx1.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="59" refid="xv__hdmirx1__selftest_8c_1abaa46cfd50c028ac5b941638dceb7bb7" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__hdmirx1_8h_1abaa46cfd50c028ac5b941638dceb7bb7" kindref="member">XV_HdmiRx1_SelfTest</ref>(<ref refid="struct_x_v___hdmi_rx1" kindref="compound">XV_HdmiRx1</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>argument.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>PIO<sp/>ID<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/><ref refid="xv__hdmirx1__hw_8h_1a851cb0524c797d3ce8380b1c27b9a17f" kindref="member">XV_HdmiRx1_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_rx1_1aa1008eb31826031b552c087c5f8d87d8" kindref="member">Config</ref>.<ref refid="struct_x_v___hdmi_rx1___config_1ab0d9f429af93cfc3bf3a97e5fc63692c" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xv__hdmirx1__hw_8h_1af194c444b1a273aed3950eca10ca1135" kindref="member">XV_HDMIRX1_PIO_ID_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>((RegValue)<sp/>&gt;&gt;<sp/>(<ref refid="xv__hdmirx1__hw_8h_1a44f9bde6a5097e3b1c287447e8292f87" kindref="member">XV_HDMIRX1_SHIFT_16</ref>))<sp/>&amp;<sp/>(<ref refid="xv__hdmirx1__hw_8h_1a090582e52a472f924918d70505f62b11" kindref="member">XV_HDMIRX1_MASK_16</ref>);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RegValue<sp/>!=<sp/>(<ref refid="xv__hdmirx1__hw_8h_1aa303f116af14392fe13aebd0cc78a125" kindref="member">XV_HDMIRX1_PIO_ID</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XST_FAILURE);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx1/src/xv_hdmirx1_selftest.c"/>
+  </compounddef>
+</doxygen>

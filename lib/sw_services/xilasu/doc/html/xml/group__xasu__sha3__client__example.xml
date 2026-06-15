@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xasu__sha3__client__example" kind="group">
+    <compoundname>xasu_sha3_client_example</compoundname>
+    <title>ASU SHA3 API Example Generic Usage</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xasu__sha3__client__example_1ga3e27475b3c8f5a43974133b338f6fdcc" prot="public" static="yes" mutable="no">
+        <type>const char</type>
+        <definition>const char Data[ASU_SHA3_INPUT_DATA_LEN+1U]</definition>
+        <argsstring>[ASU_SHA3_INPUT_DATA_LEN+1U]</argsstring>
+        <name>Data</name>
+        <initializer>=
+								&quot;HELLO&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__sha3__client__example_1ga4cafaaf3f51cd5199df9e44f9604b609" prot="public" static="yes" mutable="no">
+        <type>char</type>
+        <definition>char Sha3Hash[ASU_SHA3_HASH_LEN_IN_BYTES]</definition>
+        <argsstring>[ASU_SHA3_HASH_LEN_IN_BYTES]</argsstring>
+        <name>Sha3Hash</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__sha3__client__example_1ga7970d6d5b860de9bfd5da4fc047b041f" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 ExpHash[ASU_SHA3_HASH_LEN_IN_BYTES]</definition>
+        <argsstring>[ASU_SHA3_HASH_LEN_IN_BYTES]</argsstring>
+        <name>ExpHash</name>
+        <initializer>= {
+	0x07, 0x99, 0x8B, 0xA4, 0x19, 0xE8, 0x54, 0x6F, 0xAE, 0x0D, 0x5B, 0x66, 0x43, 0xC8, 0x2B, 0x92,
+	0xDE, 0x5F, 0x8E, 0x85, 0x3A, 0xC8, 0xBE, 0x82, 0xDD, 0x85, 0x54, 0x82, 0x72, 0x9F, 0xA0, 0xAC,
+	0x0A, 0xF1, 0xF0, 0xB9, 0x22, 0xF2, 0xCF, 0xEF, 0x80, 0x74, 0x21, 0x63, 0x79, 0x0A, 0xF1, 0x36
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__sha3__client__example_1ga3c904c6c8f2cb359b6847af0df908e64" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 Notify</definition>
+        <argsstring></argsstring>
+        <name>Notify</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>To notify the call back from client library. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__sha3__client__example_1ga7675f98d2cee44cb9153eae33547ff42" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 Asu_Sha3Example</definition>
+        <argsstring>(void)</argsstring>
+        <name>Asu_Sha3Example</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function sends &apos;HELLO&apos; string to SHA3 module for hashing. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>            The purpose of this function is to illustrate how to use the ASU SHA3 client APIs.
+</verbatim></para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if SHA3 hash successfully generated for given input data string.</para></listitem><listitem><para>XST_FAILURE, if the SHA3 hash generation fails.//! [SHA3 example] </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Initialize mailbox instance. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="136" bodyend="194"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__sha3__client__example_1gafd42a3b091494e696ac9ea95b0d45514" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Asu_Sha3PrintHash</definition>
+        <argsstring>(const u8 *Hash)</argsstring>
+        <name>Asu_Sha3PrintHash</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>Hash</declname>
+        </param>
+        <briefdescription>
+<para>This function prints the given hash on the console. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Hash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to given array. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="203" bodyend="211"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__sha3__client__example_1ga501fdf1cb08dc41fc604a672fffbdeab" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_Sha3CallBackRef</definition>
+        <argsstring>(void *CallBackRef, u32 Status)</argsstring>
+        <name>XAsu_Sha3CallBackRef</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Call back function which will be registered with library to notify the completion of request. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the call back reference. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Status of the request will be passed as an argument during callback<itemizedlist>
+<listitem><para>0 Upon success</para></listitem><listitem><para>Error code from ASUFW application upon any error </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="224" bodyend="246"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__sha3__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function to call the Asu_Sha3Example. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if SHA3 hash successfully generated for given input data string.</para></listitem><listitem><para>XST_FAILURE, if the SHA3 hash generation fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="106" bodyend="123"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__sha3__client__example_1ga970db3253bcdb665fb87caacae1d0725" prot="public" static="no">
+        <name>ASU_CACHE_DISABLE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__sha3__client__example_1gacdba6bf7f52f1f51441ecb8b9c9f7c93" prot="public" static="no">
+        <name>ASU_SHA3_HASH_LEN_IN_BYTES</name>
+        <initializer>(48U)</initializer>
+        <briefdescription>
+<para>ASU SHA3 input hash length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__sha3__client__example_1gadc1b9f4efa9855c48af82feeb4e286bb" prot="public" static="no">
+        <name>ASU_SHA3_INPUT_DATA_LEN</name>
+        <initializer>(5U)</initializer>
+        <briefdescription>
+<para>ASU SHA3 input data length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_sha3_example.c" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This example illustrates the SHA3 hash calculation. </para>    </briefdescription>
+    <detaileddescription>
+<para>To build this application, xilmailbox library must be included in BSP and xilasu must be in client mode.</para><para><simplesect kind="note"><para><heading level="2">Procedure to link and compile the example for the default ddr less designs </heading>
+</para></simplesect>
+The default linker settings places a software stack, heap and data in DDR memory. For this example to work, any data shared between client running on A72/R5/PL and server running on ASU, should be placed in area which is accessible to both client and server.</para><para>Following is the procedure to compile the example on OCM or any memory region which can be accessed by server</para><para><orderedlist>
+<listitem><para>Open example linker script(lscript.ld) in Vitis project and section to memory mapping should be updated to point all the required sections to shared memory(OCM or TCM) using a memory region drop down selection <verbatim>                         OR
+</verbatim></para></listitem></orderedlist>
+<orderedlist>
+<listitem><para>In linker script(lscript.ld) user can add new memory section in source tab as shown below .sharedmemory : { . = ALIGN(4); __sharedmemory_start = .; *(.sharedmemory) *(.sharedmemory.*) *(.gnu.linkonce.d.*) __sharedmemory_end = .; } &gt; ocm_ram_0_psv_ocm_ram_0</para></listitem><listitem><para>In this example &quot;.data&quot; section elements that are passed by reference to the server-side should be stored in the above shared memory section. To make it happen in below example, replace &quot;.data&quot; in attribute section with &quot;.sharedmemory&quot;. For example, static char Sha3Hash[ASU_SHA3_HASH_LEN_IN_BYTES] <bold>attribute</bold> ((section (&quot;.data.Sha3Hash&quot;))); should be changed to static char Sha3Hash[ASU_SHA3_HASH_LEN_IN_BYTES] <bold>attribute</bold> ((section (&quot;.sharedmemory.Sha3Hash&quot;)));</para></listitem></orderedlist>
+</para><para>To keep things simple, by default the cache is disabled for this example</para><para>MODIFICATION HISTORY: <preformatted>
+Ver   Who    Date     Changes
+<hruler/>
+
+1.0   vns    08/28/24 Initial Release
+      am     09/24/24 Added SDT support
+1.1   ma     12/20/24 Corrected macro name</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

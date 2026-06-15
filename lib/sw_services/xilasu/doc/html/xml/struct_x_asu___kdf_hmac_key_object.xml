@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___kdf_hmac_key_object" kind="struct" prot="public">
+    <compoundname>XAsu_KdfHmacKeyObject</compoundname>
+    <includes local="no">xasu_hmacinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___kdf_hmac_key_object_1a6478bb66b6eb171e9d3d1d439bcbef61" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_KdfHmacKeyObject::KeyInAddr</definition>
+        <argsstring></argsstring>
+        <name>KeyInAddr</name>
+        <briefdescription>
+<para>Key address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+        <referencedby refid="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" compoundref="xasu__kdf_8c" startline="341" endline="398">XAsu_KdfSha3Kat</referencedby>
+        <referencedby refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" compoundref="xasu__kdf__common_8c" startline="60" endline="93">XAsu_ValidateKdfParameters</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___kdf_hmac_key_object_1aa99618d3506017ef8945a10063ccfe3e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_KdfHmacKeyObject::KeyInLen</definition>
+        <argsstring></argsstring>
+        <name>KeyInLen</name>
+        <briefdescription>
+<para>Key length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="55" bodyend="-1"/>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+        <referencedby refid="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" compoundref="xasu__kdf_8c" startline="341" endline="398">XAsu_KdfSha3Kat</referencedby>
+        <referencedby refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" compoundref="xasu__kdf__common_8c" startline="60" endline="93">XAsu_ValidateKdfParameters</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___kdf_hmac_key_object_1ae1828d9c928fb0b79910e3f06e3f18c3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_KdfHmacKeyObject::KeyId</definition>
+        <argsstring></argsstring>
+        <name>KeyId</name>
+        <briefdescription>
+<para>Key identifier for key vault resolution. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__xasu__kdf__client__apis_1ga013f9791db5b7cc455ec31a399952fc8" compoundref="xasu__kdf_8c" startline="217" endline="269">XAsu_HKdfGenerate</referencedby>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+        <referencedby refid="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" compoundref="xasu__kdf_8c" startline="341" endline="398">XAsu_KdfSha3Kat</referencedby>
+        <referencedby refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" compoundref="xasu__kdf__common_8c" startline="60" endline="93">XAsu_ValidateKdfParameters</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains KDF/HMAC key object for vault resolution. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="53" bodyend="57"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___kdf_hmac_key_object_1ae1828d9c928fb0b79910e3f06e3f18c3" prot="public" virt="non-virtual"><scope>XAsu_KdfHmacKeyObject</scope><name>KeyId</name></member>
+      <member refid="struct_x_asu___kdf_hmac_key_object_1a6478bb66b6eb171e9d3d1d439bcbef61" prot="public" virt="non-virtual"><scope>XAsu_KdfHmacKeyObject</scope><name>KeyInAddr</name></member>
+      <member refid="struct_x_asu___kdf_hmac_key_object_1aa99618d3506017ef8945a10063ccfe3e" prot="public" virt="non-virtual"><scope>XAsu_KdfHmacKeyObject</scope><name>KeyInLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

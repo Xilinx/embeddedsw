@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="struct_x_dfxasm" kind="struct"><name>XDfxasm</name>
+    <member refid="struct_x_dfxasm_1a8e2913c94397c5c7e4246abe2060b206" kind="variable"><name>Config</name></member>
+    <member refid="struct_x_dfxasm_1a7ff8aef63ccbcb05208e98fb05d89599" kind="variable"><name>IsReady</name></member>
+  </compound>
+  <compound refid="struct_x_dfxasm___config" kind="struct"><name>XDfxasm_Config</name>
+    <member refid="struct_x_dfxasm___config_1a14edf15f555b134d6bda5e2e6f3f9817" kind="variable"><name>Name</name></member>
+    <member refid="struct_x_dfxasm___config_1a68d4f543f48650643c57cfdc773cd09b" kind="variable"><name>BaseAddress</name></member>
+  </compound>
+  <compound refid="_c_make_lists_8txt" kind="file"><name>CMakeLists.txt</name>
+  </compound>
+  <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
+  </compound>
+  <compound refid="xdfxasm_8c" kind="file"><name>xdfxasm.c</name>
+    <member refid="group__dfxasm_1gadfe5b93b82691e4bb3318a18e9e46724" kind="function"><name>XDfxasm_CfgInitialize</name></member>
+    <member refid="group__dfxasm_1ga9ce867d2441c25c264a7ef380c819ba1" kind="function"><name>XDfxasm_SetState</name></member>
+    <member refid="group__dfxasm_1ga71614d1412d3974e2b21d089c16c4210" kind="function"><name>XDfxasm_GetState</name></member>
+  </compound>
+  <compound refid="xdfxasm_8h" kind="file"><name>xdfxasm.h</name>
+    <member refid="group__dfxasm_1ga78bb352e742614d8a8899f49a238825b" kind="define"><name>XDFX_ASM_H_</name></member>
+    <member refid="group__dfxasm_1gae411ce8d8656c0b2b86c41d9f0518879" kind="enum"><name>XDfxasm_State</name></member>
+    <member refid="group__dfxasm_1ggae411ce8d8656c0b2b86c41d9f0518879a30eb8164856b0f61a09157bd519609e2" kind="enumvalue"><name>XDFX_ASM_PASSTHROUGH_MODE</name></member>
+    <member refid="group__dfxasm_1ggae411ce8d8656c0b2b86c41d9f0518879ae5db6c200da9c33f21d241040296aff1" kind="enumvalue"><name>XDFX_ASM_SHUTDOWN_MODE</name></member>
+    <member refid="group__dfxasm_1ga675a9e008159dcd1c3dce0c0f7c89d7c" kind="function"><name>XDfxasm_LookupConfig</name></member>
+    <member refid="group__dfxasm_1gadfe5b93b82691e4bb3318a18e9e46724" kind="function"><name>XDfxasm_CfgInitialize</name></member>
+    <member refid="group__dfxasm_1ga9ce867d2441c25c264a7ef380c819ba1" kind="function"><name>XDfxasm_SetState</name></member>
+    <member refid="group__dfxasm_1ga71614d1412d3974e2b21d089c16c4210" kind="function"><name>XDfxasm_GetState</name></member>
+  </compound>
+  <compound refid="xdfxasm__example_8c" kind="file"><name>xdfxasm_example.c</name>
+    <member refid="xdfxasm__example_8c_1a09677e52418d6a4facf93b93097d2bee" kind="define"><name>XDFX_BASEADDR</name></member>
+    <member refid="xdfxasm__example_8c_1a88f8c99e5d60e6acd29f8ba8f9dbe2d1" kind="variable"><name>Dfxasm</name></member>
+    <member refid="xdfxasm__example_8c_1af912ad10837e3f41d017989e080b019f" kind="function"><name>XDfxasm_Example</name></member>
+    <member refid="xdfxasm__example_8c_1a276f161582681a2b43e64e3da9ebe988" kind="function"><name>XDfxasm_TestState</name></member>
+    <member refid="xdfxasm__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xdfxasm__g_8c" kind="file"><name>xdfxasm_g.c</name>
+    <member refid="group__dfxasm_1ga658097a15246061f1de348c52b061d59" kind="variable"><name>XDfxasm_ConfigTable</name></member>
+  </compound>
+  <compound refid="xdfxasm__hw_8h" kind="file"><name>xdfxasm_hw.h</name>
+    <member refid="group__dfxasm_1gab1c260601f1123450c205d6c6a0bc308" kind="define"><name>XDFX_ASM_CTRL_OFFSET</name></member>
+    <member refid="group__dfxasm_1ga6e9e6fde6fb0e9b0a4103d87fbaa5ec2" kind="define"><name>XDFX_ASM_CTRL_SHUTDOWN_MASK</name></member>
+    <member refid="group__dfxasm_1ga8c3d2879db2af5d54462e2c1856f5d43" kind="define"><name>XDFXASM_HW_H_</name></member>
+    <member refid="group__dfxasm_1ga176bab706eb493327c1ad34a47d00c44" kind="define"><name>XDfxasm_ReadReg</name></member>
+    <member refid="group__dfxasm_1gacb795d12bfcf138db49ba64d9c1b614e" kind="define"><name>XDfxasm_WriteReg</name></member>
+  </compound>
+  <compound refid="xdfxasm__sinit_8c" kind="file"><name>xdfxasm_sinit.c</name>
+    <member refid="group__dfxasm_1ga658097a15246061f1de348c52b061d59" kind="variable"><name>XDfxasm_ConfigTable</name></member>
+    <member refid="group__dfxasm_1ga675a9e008159dcd1c3dce0c0f7c89d7c" kind="function"><name>XDfxasm_LookupConfig</name></member>
+  </compound>
+  <compound refid="group__dfxasm" kind="group"><name>dfxasm</name>
+    <member refid="group__dfxasm_1gab1c260601f1123450c205d6c6a0bc308" kind="define"><name>XDFX_ASM_CTRL_OFFSET</name></member>
+    <member refid="group__dfxasm_1ga6e9e6fde6fb0e9b0a4103d87fbaa5ec2" kind="define"><name>XDFX_ASM_CTRL_SHUTDOWN_MASK</name></member>
+    <member refid="group__dfxasm_1gae411ce8d8656c0b2b86c41d9f0518879" kind="enum"><name>XDfxasm_State</name></member>
+    <member refid="group__dfxasm_1ggae411ce8d8656c0b2b86c41d9f0518879a30eb8164856b0f61a09157bd519609e2" kind="enumvalue"><name>XDFX_ASM_PASSTHROUGH_MODE</name></member>
+    <member refid="group__dfxasm_1ggae411ce8d8656c0b2b86c41d9f0518879ae5db6c200da9c33f21d241040296aff1" kind="enumvalue"><name>XDFX_ASM_SHUTDOWN_MODE</name></member>
+    <member refid="group__dfxasm_1ga658097a15246061f1de348c52b061d59" kind="variable"><name>XDfxasm_ConfigTable</name></member>
+    <member refid="group__dfxasm_1gadfe5b93b82691e4bb3318a18e9e46724" kind="function"><name>XDfxasm_CfgInitialize</name></member>
+    <member refid="group__dfxasm_1ga9ce867d2441c25c264a7ef380c819ba1" kind="function"><name>XDfxasm_SetState</name></member>
+    <member refid="group__dfxasm_1ga71614d1412d3974e2b21d089c16c4210" kind="function"><name>XDfxasm_GetState</name></member>
+    <member refid="group__dfxasm_1ga675a9e008159dcd1c3dce0c0f7c89d7c" kind="function"><name>XDfxasm_LookupConfig</name></member>
+    <member refid="group__dfxasm_1ga78bb352e742614d8a8899f49a238825b" kind="define"><name>XDFX_ASM_H_</name></member>
+    <member refid="group__dfxasm_1ga8c3d2879db2af5d54462e2c1856f5d43" kind="define"><name>XDFXASM_HW_H_</name></member>
+    <member refid="group__dfxasm_1ga176bab706eb493327c1ad34a47d00c44" kind="define"><name>XDfxasm_ReadReg</name></member>
+    <member refid="group__dfxasm_1gacb795d12bfcf138db49ba64d9c1b614e" kind="define"><name>XDfxasm_WriteReg</name></member>
+  </compound>
+  <compound refid="example" kind="page"><name>example</name>
+  </compound>
+  <compound refid="dir_fc46c8a6baebbcc21de4030429980f4e" kind="dir"><name>dfxasm</name>
+  </compound>
+  <compound refid="dir_2680ef0c0550eb98de2b36bbb7dede4e" kind="dir"><name>examples</name>
+  </compound>
+  <compound refid="dir_f78087039d575c9309a7c621775ed579" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

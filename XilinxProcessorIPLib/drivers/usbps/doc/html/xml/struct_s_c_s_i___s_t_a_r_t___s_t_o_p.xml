@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_s_c_s_i___s_t_a_r_t___s_t_o_p" kind="struct" prot="public">
+    <compoundname>SCSI_START_STOP</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_s_c_s_i___s_t_a_r_t___s_t_o_p_1a86ddd3767429605d5c4d015b8246ed70" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_START_STOP::opCode</definition>
+        <argsstring></argsstring>
+        <name>opCode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_c_s_i___s_t_a_r_t___s_t_o_p_1ae4e20aabdf2a3931e4f2b445f03f8ee4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_START_STOP::immed</definition>
+        <argsstring></argsstring>
+        <name>immed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_c_s_i___s_t_a_r_t___s_t_o_p_1a39abf97b538e3d39a87a405ec46a11f5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_START_STOP::reserved1</definition>
+        <argsstring></argsstring>
+        <name>reserved1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_c_s_i___s_t_a_r_t___s_t_o_p_1a8b86d7c0afea0a7d5d70d9e11d8ab812" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_START_STOP::reserved2</definition>
+        <argsstring></argsstring>
+        <name>reserved2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_c_s_i___s_t_a_r_t___s_t_o_p_1af6e646187a0d31211a781e1da39a49e4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_START_STOP::start</definition>
+        <argsstring></argsstring>
+        <name>start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_c_s_i___s_t_a_r_t___s_t_o_p_1ab6c329a260296a41d11f8326a136cb7e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_START_STOP::control</definition>
+        <argsstring></argsstring>
+        <name>control</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="174" bodyend="185"/>
+    <listofallmembers>
+      <member refid="struct_s_c_s_i___s_t_a_r_t___s_t_o_p_1ab6c329a260296a41d11f8326a136cb7e" prot="public" virt="non-virtual"><scope>SCSI_START_STOP</scope><name>control</name></member>
+      <member refid="struct_s_c_s_i___s_t_a_r_t___s_t_o_p_1ae4e20aabdf2a3931e4f2b445f03f8ee4" prot="public" virt="non-virtual"><scope>SCSI_START_STOP</scope><name>immed</name></member>
+      <member refid="struct_s_c_s_i___s_t_a_r_t___s_t_o_p_1a86ddd3767429605d5c4d015b8246ed70" prot="public" virt="non-virtual"><scope>SCSI_START_STOP</scope><name>opCode</name></member>
+      <member refid="struct_s_c_s_i___s_t_a_r_t___s_t_o_p_1a39abf97b538e3d39a87a405ec46a11f5" prot="public" virt="non-virtual"><scope>SCSI_START_STOP</scope><name>reserved1</name></member>
+      <member refid="struct_s_c_s_i___s_t_a_r_t___s_t_o_p_1a8b86d7c0afea0a7d5d70d9e11d8ab812" prot="public" virt="non-virtual"><scope>SCSI_START_STOP</scope><name>reserved2</name></member>
+      <member refid="struct_s_c_s_i___s_t_a_r_t___s_t_o_p_1af6e646187a0d31211a781e1da39a49e4" prot="public" virt="non-virtual"><scope>SCSI_START_STOP</scope><name>start</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

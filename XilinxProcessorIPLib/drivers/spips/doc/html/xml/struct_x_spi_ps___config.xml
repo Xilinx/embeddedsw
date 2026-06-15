@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_spi_ps___config" kind="struct" prot="public">
+    <compoundname>XSpiPs_Config</compoundname>
+    <includes local="no">xspips.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_spi_ps___config_1a02a3ee78ece469f23018c54893adea6d" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XSpiPs_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="396" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="396" bodyend="-1"/>
+        <referencedby refid="group__spips_1ga4fa549669d98870a88eba403598ee595" compoundref="xspips__sinit_8c" startline="89" endline="103">XSpiPs_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_spi_ps___config_1af265320ef6d6282e194b6234780c2e6e" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XSpiPs_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base address of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="399" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="399" bodyend="-1"/>
+        <referencedby refid="xspips__eeprom__intr__example_8c_1add210e3892dd3e73c55e1f40e3a2b63f" compoundref="xspips__eeprom__intr__example_8c" startline="259" endline="381">SpiPsEepromIntrExample</referencedby>
+        <referencedby refid="xspips__eeprom__polled__example_8c_1af156542e10fb69ebb3a0760a22f77fbb" compoundref="xspips__eeprom__polled__example_8c" startline="224" endline="306">SpiPsEepromPolledExample</referencedby>
+        <referencedby refid="xspips__flash__intr__example_8c_1ab495f3b6de9f82f475f5c2b8508ae0c1" compoundref="xspips__flash__intr__example_8c" startline="273" endline="478">SpiPsFlashIntrExample</referencedby>
+        <referencedby refid="xspips__flash__polled__example_8c_1aa6648812b68cd9317398312d369bbfd8" compoundref="xspips__flash__polled__example_8c" startline="237" endline="411">SpiPsFlashPolledExample</referencedby>
+        <referencedby refid="xspips__selftest__example_8c_1a78ca9c2607cd3ea29c908634e0877a8c" compoundref="xspips__selftest__example_8c" startline="129" endline="161">SpiPsSelfTestExample</referencedby>
+        <referencedby refid="xspips__slave__polled__example_8c_1a49f4c793f732588a505bf8b93a2279e3" compoundref="xspips__slave__polled__example_8c" startline="160" endline="200">SpiPsSlavePolledExample</referencedby>
+        <referencedby refid="xspips__tpm__polled__example_8c_1ac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="235" endline="469">SpiPsTpmPolledExample</referencedby>
+        <referencedby refid="group__spips_1ga1f40732e67f63579b811af115f2c575c" compoundref="xspips_8c" startline="1160" endline="1202">XSpiPs_Abort</referencedby>
+        <referencedby refid="group__spips_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="157" endline="208">XSpiPs_CfgInitialize</referencedby>
+        <referencedby refid="group__spips_1ga98c42c293d0278c31dd74cbcbec9451c" compoundref="xspips__options_8c" startline="286" endline="300">XSpiPs_GetClkPrescaler</referencedby>
+        <referencedby refid="group__spips_1ga06003e6ce763f2e61922a985e40abb2d" compoundref="xspips__options_8c" startline="386" endline="408">XSpiPs_GetDelays</referencedby>
+        <referencedby refid="group__spips_1ga95e9f2a440a68b4e55694bd593d6c810" compoundref="xspips__options_8c" startline="186" endline="212">XSpiPs_GetOptions</referencedby>
+        <referencedby refid="group__spips_1gac57ccd3fab9a25399bdb8bc234fecc66" compoundref="xspips_8c" startline="917" endline="1141">XSpiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__spips_1ga94490f99431c92c2a9a54cc41d4abe71" compoundref="xspips_8c" startline="482" endline="657">XSpiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__spips_1gad3abd2456cfa67bc8d24dd255ba7de51" compoundref="xspips_8c" startline="229" endline="247">XSpiPs_Reset</referencedby>
+        <referencedby refid="group__spips_1gaaa797b9b8184e6f39b0c0038553e48d8" compoundref="xspips__selftest_8c" startline="72" endline="144">XSpiPs_SelfTest</referencedby>
+        <referencedby refid="group__spips_1ga146ed84d7a6ab3b3f8961697bd78da60" compoundref="xspips__options_8c" startline="235" endline="271">XSpiPs_SetClkPrescaler</referencedby>
+        <referencedby refid="group__spips_1ga18d5dbc4eeeac171a1c2795f898b8a83" compoundref="xspips__options_8c" startline="333" endline="362">XSpiPs_SetDelays</referencedby>
+        <referencedby refid="group__spips_1ga4f14bfc3ddd296adb08843dbbe30a306" compoundref="xspips__options_8c" startline="97" endline="167">XSpiPs_SetOptions</referencedby>
+        <referencedby refid="group__spips_1ga1ef5af2211095df5692567fa4721a8d5" compoundref="xspips_8c" startline="693" endline="740">XSpiPs_SetSlaveSelect</referencedby>
+        <referencedby refid="group__spips_1ga747939dd62eb9c82ed185611e95211c7" compoundref="xspips_8c" startline="317" endline="426">XSpiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_spi_ps___config_1affb5ebe3e4dce28bb91536500dcc3d7b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSpiPs_Config::InputClockHz</definition>
+        <argsstring></argsstring>
+        <name>InputClockHz</name>
+        <briefdescription>
+<para>Input clock frequency. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="400" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="400" bodyend="-1"/>
+        <referencedby refid="group__spips_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="157" endline="208">XSpiPs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_spi_ps___config_1a4b10fed8a3c744dde2ec8b80a8cdbaf0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSpiPs_Config::FifoDepth</definition>
+        <argsstring></argsstring>
+        <name>FifoDepth</name>
+        <briefdescription>
+<para>Total size of transfer fifo in bytes (witdth * depth) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="401" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="401" bodyend="-1"/>
+        <referencedby refid="group__spips_1gabfabf86279474d10c04bfe97f3386a64" compoundref="xspips_8c" startline="157" endline="208">XSpiPs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_spi_ps___config_1ae8110b04c0f446cd35df029a7e423fd6" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XSpiPs_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="403" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="403" bodyend="-1"/>
+        <referencedby refid="xspips__eeprom__intr__example_8c_1add210e3892dd3e73c55e1f40e3a2b63f" compoundref="xspips__eeprom__intr__example_8c" startline="259" endline="381">SpiPsEepromIntrExample</referencedby>
+        <referencedby refid="xspips__flash__intr__example_8c_1ab495f3b6de9f82f475f5c2b8508ae0c1" compoundref="xspips__flash__intr__example_8c" startline="273" endline="478">SpiPsFlashIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_spi_ps___config_1a67af05f80f2d57b0ea4c07e1ddb65629" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XSpiPs_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="405" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="405" bodyend="-1"/>
+        <referencedby refid="xspips__eeprom__intr__example_8c_1add210e3892dd3e73c55e1f40e3a2b63f" compoundref="xspips__eeprom__intr__example_8c" startline="259" endline="381">SpiPsEepromIntrExample</referencedby>
+        <referencedby refid="xspips__flash__intr__example_8c_1ab495f3b6de9f82f475f5c2b8508ae0c1" compoundref="xspips__flash__intr__example_8c" startline="273" endline="478">SpiPsFlashIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="392" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" bodystart="392" bodyend="408"/>
+    <listofallmembers>
+      <member refid="struct_x_spi_ps___config_1af265320ef6d6282e194b6234780c2e6e" prot="public" virt="non-virtual"><scope>XSpiPs_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_spi_ps___config_1a4b10fed8a3c744dde2ec8b80a8cdbaf0" prot="public" virt="non-virtual"><scope>XSpiPs_Config</scope><name>FifoDepth</name></member>
+      <member refid="struct_x_spi_ps___config_1affb5ebe3e4dce28bb91536500dcc3d7b" prot="public" virt="non-virtual"><scope>XSpiPs_Config</scope><name>InputClockHz</name></member>
+      <member refid="struct_x_spi_ps___config_1ae8110b04c0f446cd35df029a7e423fd6" prot="public" virt="non-virtual"><scope>XSpiPs_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_spi_ps___config_1a67af05f80f2d57b0ea4c07e1ddb65629" prot="public" virt="non-virtual"><scope>XSpiPs_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_spi_ps___config_1a02a3ee78ece469f23018c54893adea6d" prot="public" virt="non-virtual"><scope>XSpiPs_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

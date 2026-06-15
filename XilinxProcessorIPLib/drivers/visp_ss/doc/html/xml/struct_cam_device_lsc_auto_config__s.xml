@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_lsc_auto_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceLscAutoConfig_s</compoundname>
+    <includes local="no">cam_device_lsc_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_lsc_auto_config__s_1ab7ffc5f13c19b6ddb76899e7c4d1d7aa" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceLscAutoConfig_s::autoLevel</definition>
+        <argsstring></argsstring>
+        <name>autoLevel</name>
+        <briefdescription>
+<para>Auto configuration level. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_lsc_auto_config__s_1aa3f9da1d025a9f9b66f6404182721cb8" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceLscAutoConfig_s::gains[CAMDEV_ISO_STRENGTH_NUM]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM]</argsstring>
+        <name>gains</name>
+        <briefdescription>
+<para>LSC gains. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_lsc_auto_config__s_1abefd3b2f7b8711d00d1bed402f5928b8" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceLscAutoConfig_s::damping</definition>
+        <argsstring></argsstring>
+        <name>damping</name>
+        <briefdescription>
+<para>LSC damping value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_lsc_auto_config__s_1adda4d086d3dfa3d9309f74039ec6515a" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceLscAutoConfig_s::strength[CAMDEV_ISO_STRENGTH_NUM]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM]</argsstring>
+        <name>strength</name>
+        <briefdescription>
+<para>LSC strength. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_lsc_auto_config__s_1a9c2b4c56a906737e23a9879d6d10a9e4" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__lsc_1ga53fcc026f51a3c6b05a971c78a43dfcc" kindref="member">CamDeviceLscInterMode_t</ref></type>
+        <definition>CamDeviceLscInterMode_t CamDeviceLscAutoConfig_s::interMode</definition>
+        <argsstring></argsstring>
+        <name>interMode</name>
+        <briefdescription>
+<para>LSC internal mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice LSC V3 auto configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" bodystart="80" bodyend="87"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_lsc_auto_config__s_1ab7ffc5f13c19b6ddb76899e7c4d1d7aa" prot="public" virt="non-virtual"><scope>CamDeviceLscAutoConfig_s</scope><name>autoLevel</name></member>
+      <member refid="struct_cam_device_lsc_auto_config__s_1abefd3b2f7b8711d00d1bed402f5928b8" prot="public" virt="non-virtual"><scope>CamDeviceLscAutoConfig_s</scope><name>damping</name></member>
+      <member refid="struct_cam_device_lsc_auto_config__s_1aa3f9da1d025a9f9b66f6404182721cb8" prot="public" virt="non-virtual"><scope>CamDeviceLscAutoConfig_s</scope><name>gains</name></member>
+      <member refid="struct_cam_device_lsc_auto_config__s_1a9c2b4c56a906737e23a9879d6d10a9e4" prot="public" virt="non-virtual"><scope>CamDeviceLscAutoConfig_s</scope><name>interMode</name></member>
+      <member refid="struct_cam_device_lsc_auto_config__s_1adda4d086d3dfa3d9309f74039ec6515a" prot="public" virt="non-virtual"><scope>CamDeviceLscAutoConfig_s</scope><name>strength</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

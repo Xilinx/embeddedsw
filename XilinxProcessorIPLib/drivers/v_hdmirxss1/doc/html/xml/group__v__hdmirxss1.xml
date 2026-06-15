@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__v__hdmirxss1" kind="group">
+    <compoundname>v_hdmirxss1</compoundname>
+    <title>V_hdmirxss1</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__v__hdmirxss1_1ga68409ded8710da27184abfed11fdddbf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_HdmiRxSs1_SubcoreInitHdmiRx1</definition>
+        <argsstring>(XV_HdmiRxSs1 *HdmiRxSs1Ptr)</argsstring>
+        <name>XV_HdmiRxSs1_SubcoreInitHdmiRx1</name>
+        <param>
+          <type><ref refid="struct_x_v___hdmi_rx_ss1" kindref="compound">XV_HdmiRxSs1</ref> *</type>
+          <declname>HdmiRxSs1Ptr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the included sub-core to it&apos;s static configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>HdmiRxSs1Ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS/XST_FAILURE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_coreinit.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_coreinit.c" bodystart="66" bodyend="115"/>
+        <references refid="struct_x_v___hdmi_rx_ss1___config_1afce02f1610b14e6a599c142352055d59" compoundref="xv__hdmirxss1_8h" startline="348">XV_HdmiRxSs1_Config::AxiLiteClkFreq</references>
+        <references refid="struct_x_v___hdmi_rx_ss1___config_1ac34aadaeb0d531c2374d101e6ac1d46c" compoundref="xv__hdmirxss1_8h" startline="339">XV_HdmiRxSs1_Config::BaseAddress</references>
+        <references refid="struct_x_v___hdmi_rx_ss1_1ae498c708a39c0a72d9d0c56cac26b523" compoundref="xv__hdmirxss1_8h" startline="396">XV_HdmiRxSs1::Config</references>
+        <references refid="struct_x_v___hdmi_rx_ss1_1ac84dbbbfa102d974d1489765b8dd3d04" compoundref="xv__hdmirxss1_8h" startline="519">XV_HdmiRxSs1::EdidLength</references>
+        <references refid="struct_x_v___hdmi_rx_ss1_1aa79a686eb11f948daa2a85bd87266557" compoundref="xv__hdmirxss1_8h" startline="518">XV_HdmiRxSs1::EdidPtr</references>
+        <references refid="struct_x_v___hdmi_rx_ss1___config_1ae087a3e8b92106e5e7cebb2d32315c66" compoundref="xv__hdmirxss1_8h" startline="353">XV_HdmiRxSs1_Config::HdmiRx1</references>
+        <references refid="struct_x_v___hdmi_rx_ss1_1a51fe864b06a7b80a949a9c65d0f8ec54" compoundref="xv__hdmirxss1_8h" startline="414">XV_HdmiRxSs1::HdmiRx1Ptr</references>
+        <references refid="struct_x_v___hdmi_rx_ss1___config_1a23cb1bc207dcd4b239ff035c3a7dfe45" compoundref="xv__hdmirxss1_8h" startline="343">XV_HdmiRxSs1_Config::Ppc</references>
+        <references refid="struct_x_v___hdmi_rx_ss1___config_1acf1343cb7b7cef1889fab0eec80f221d" compoundref="xv__hdmirxss1_8h" startline="349">XV_HdmiRxSs1_Config::VideoInterface</references>
+        <references refid="xv__hdmirxss1_8h_1af3a71dd7327c20d37f9daa233bc882c0a662aa2923351ce1af9f66d4ad335b3e0" compoundref="xv__hdmirxss1_8h" startline="112">XV_HDMIRXSS1_LOG_EVT_HDMIRX1_INIT</references>
+        <references refid="xv__hdmirxss1_8h_1a7d0b053f82c85248f45171523ef784e5" compoundref="xv__hdmirxss1__log_8c" startline="66" endline="108">XV_HdmiRxSs1_LogWrite</references>
+        <referencedby refid="xv__hdmirxss1_8h_1ae7df2cc91e752d61253d9a86462d95ab" compoundref="xv__hdmirxss1_8c" startline="566" endline="711">XV_HdmiRxSs1_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>} </para>    </briefdescription>
+    <detaileddescription>
+<para>This file contains the implementation of the HDMI RX Subsystem driver&apos;s static initialization functionality.</para><para>This header file contains the hdmi rx subsystem sub-cores initialization routines and helper functions.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00  EB   22/05/18 Initial release.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

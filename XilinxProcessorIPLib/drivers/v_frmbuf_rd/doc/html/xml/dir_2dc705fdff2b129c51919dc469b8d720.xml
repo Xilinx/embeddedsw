@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_2dc705fdff2b129c51919dc469b8d720" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xv__frmbufrd_8c">xv_frmbufrd.c</innerfile>
+    <innerfile refid="xv__frmbufrd_8h">xv_frmbufrd.h</innerfile>
+    <innerfile refid="xv__frmbufrd__g_8c">xv_frmbufrd_g.c</innerfile>
+    <innerfile refid="xv__frmbufrd__hw_8h">xv_frmbufrd_hw.h</innerfile>
+    <innerfile refid="xv__frmbufrd__l2_8c">xv_frmbufrd_l2.c</innerfile>
+    <innerfile refid="xv__frmbufrd__l2_8h">xv_frmbufrd_l2.h</innerfile>
+    <innerfile refid="xv__frmbufrd__l2__intr_8c">xv_frmbufrd_l2_intr.c</innerfile>
+    <innerfile refid="xv__frmbufrd__linux_8c">xv_frmbufrd_linux.c</innerfile>
+    <innerfile refid="xv__frmbufrd__sinit_8c">xv_frmbufrd_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_ofdm___interrupt_mask" kind="struct" prot="public">
+    <compoundname>XDfeOfdm_InterruptMask</compoundname>
+    <includes local="no">xdfeofdm.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___interrupt_mask_1a5c15043f94d8d6fc50f2adace2b5cf6e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_InterruptMask::CCUpdate</definition>
+        <argsstring></argsstring>
+        <name>CCUpdate</name>
+        <briefdescription>
+<para>[0,1] Mask CC update events </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="401" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="401" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1gaa653cb59c46752bf69a87541679ce65f" compoundref="xdfeofdm__intr_8c" startline="192" endline="215">XDfeOfdm_GetInterruptMask</referencedby>
+        <referencedby refid="group__dfeofdm_1ga500a580c416fd8a48cdce2b0844f7206" compoundref="xdfeofdm__intr_8c" startline="142" endline="180">XDfeOfdm_SetInterruptMask</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___interrupt_mask_1a8a4b6b0b25807e006b10f796f370f0d4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_InterruptMask::FTCCSequenceError</definition>
+        <argsstring></argsstring>
+        <name>FTCCSequenceError</name>
+        <briefdescription>
+<para>[0,1] Mask sequence mismatch events </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="402" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="402" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1gaa653cb59c46752bf69a87541679ce65f" compoundref="xdfeofdm__intr_8c" startline="192" endline="215">XDfeOfdm_GetInterruptMask</referencedby>
+        <referencedby refid="group__dfeofdm_1ga500a580c416fd8a48cdce2b0844f7206" compoundref="xdfeofdm__intr_8c" startline="142" endline="180">XDfeOfdm_SetInterruptMask</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___interrupt_mask_1a3b2fae4f642b7c02b2a3605a69ff3e7d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_InterruptMask::Saturation</definition>
+        <argsstring></argsstring>
+        <name>Saturation</name>
+        <briefdescription>
+<para>[0,1] Mask Saturation events </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="403" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="403" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1gaa653cb59c46752bf69a87541679ce65f" compoundref="xdfeofdm__intr_8c" startline="192" endline="215">XDfeOfdm_GetInterruptMask</referencedby>
+        <referencedby refid="group__dfeofdm_1ga500a580c416fd8a48cdce2b0844f7206" compoundref="xdfeofdm__intr_8c" startline="142" endline="180">XDfeOfdm_SetInterruptMask</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___interrupt_mask_1a97ced32c8a8cd23f9ed64f321b9ee337" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_InterruptMask::Overflow</definition>
+        <argsstring></argsstring>
+        <name>Overflow</name>
+        <briefdescription>
+<para>[0,1] Mask Overflow events </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="404" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="404" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1gaa653cb59c46752bf69a87541679ce65f" compoundref="xdfeofdm__intr_8c" startline="192" endline="215">XDfeOfdm_GetInterruptMask</referencedby>
+        <referencedby refid="group__dfeofdm_1ga500a580c416fd8a48cdce2b0844f7206" compoundref="xdfeofdm__intr_8c" startline="142" endline="180">XDfeOfdm_SetInterruptMask</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Interrupt mask. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="400" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="400" bodyend="405"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_ofdm___interrupt_mask_1a5c15043f94d8d6fc50f2adace2b5cf6e" prot="public" virt="non-virtual"><scope>XDfeOfdm_InterruptMask</scope><name>CCUpdate</name></member>
+      <member refid="struct_x_dfe_ofdm___interrupt_mask_1a8a4b6b0b25807e006b10f796f370f0d4" prot="public" virt="non-virtual"><scope>XDfeOfdm_InterruptMask</scope><name>FTCCSequenceError</name></member>
+      <member refid="struct_x_dfe_ofdm___interrupt_mask_1a97ced32c8a8cd23f9ed64f321b9ee337" prot="public" virt="non-virtual"><scope>XDfeOfdm_InterruptMask</scope><name>Overflow</name></member>
+      <member refid="struct_x_dfe_ofdm___interrupt_mask_1a3b2fae4f642b7c02b2a3605a69ff3e7d" prot="public" virt="non-virtual"><scope>XDfeOfdm_InterruptMask</scope><name>Saturation</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

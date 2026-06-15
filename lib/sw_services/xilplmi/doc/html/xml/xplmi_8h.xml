@@ -1,0 +1,949 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xplmi_8h" kind="file">
+    <compoundname>xplmi.h</compoundname>
+    <includes refid="server_2xplmi__generic_8h" local="yes">xplmi_generic.h</includes>
+    <includes local="yes">xplmi_plat.h</includes>
+    <includedby refid="xplmi_8c" local="yes">xplmi.c</includedby>
+    <includedby refid="xplmi__debug_8c" local="yes">xplmi_debug.c</includedby>
+    <includedby refid="xplmi__err__cmd_8c" local="yes">xplmi_err_cmd.c</includedby>
+    <includedby refid="xplmi__err__common_8c" local="yes">xplmi_err_common.c</includedby>
+    <includedby refid="xplmi__err__psm_8c" local="yes">xplmi_err_psm.c</includedby>
+    <includedby refid="xplmi__event__logging_8c" local="yes">xplmi_event_logging.c</includedby>
+    <includedby refid="server_2xplmi__generic_8c" local="yes">xplmi_generic.c</includedby>
+    <includedby refid="xplmi__ipi_8c" local="yes">xplmi_ipi.c</includedby>
+    <includedby refid="xplmi__tamper_8c" local="yes">xplmi_tamper.c</includedby>
+    <includedby refid="xplmi__util_8c" local="yes">xplmi_util.c</includedby>
+    <includedby refid="server_2xplmi__ssit_8h" local="yes">xplmi_ssit.h</includedby>
+    <includedby refid="server_2xplmi__wdt_8c" local="yes">xplmi_wdt.c</includedby>
+    <includedby refid="xplmi__asu__cmd_8c" local="yes">xplmi_asu_cmd.c</includedby>
+    <includedby refid="2ve__2vm_2server_2xplmi__err_8c" local="yes">xplmi_err.c</includedby>
+    <includedby refid="2ve__2vm_2server_2xplmi__plat_8c" local="yes">xplmi_plat.c</includedby>
+    <includedby refid="2vp_2server_2xplmi__plat_8c" local="yes">xplmi_plat.c</includedby>
+    <includedby refid="2vp_2server_2xplmi__wdt_8c" local="yes">xplmi_wdt.c</includedby>
+    <includedby refid="2vp__p_2server_2xplmi__plat_8c" local="yes">xplmi_plat.c</includedby>
+    <includedby refid="net_2server_2xplmi__plat_8c" local="yes">xplmi_plat.c</includedby>
+    <includedby refid="xplmi__plat__cmd_8c" local="yes">xplmi_plat_cmd.c</includedby>
+    <includedby refid="xplmi__update_8c" local="yes">xplmi_update.c</includedby>
+    <includedby refid="net_2server_2xplmi__wdt_8c" local="yes">xplmi_wdt.c</includedby>
+    <incdepgraph>
+      <node id="174">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="166">
+        <label>xplmi_proc.h</label>
+        <link refid="xplmi__proc_8h"/>
+        <childnode refid="167" relation="include">
+        </childnode>
+        <childnode refid="168" relation="include">
+        </childnode>
+        <childnode refid="169" relation="include">
+        </childnode>
+        <childnode refid="164" relation="include">
+        </childnode>
+        <childnode refid="163" relation="include">
+        </childnode>
+      </node>
+      <node id="175">
+        <label>xil_hw.h</label>
+      </node>
+      <node id="180">
+        <label>stdlib.h</label>
+      </node>
+      <node id="161">
+        <label>xplmi_event_logging.h</label>
+        <link refid="xplmi__event__logging_8h"/>
+        <childnode refid="162" relation="include">
+        </childnode>
+        <childnode refid="164" relation="include">
+        </childnode>
+      </node>
+      <node id="170">
+        <label>xplmi_ipi.h</label>
+        <link refid="xplmi__ipi_8h"/>
+        <childnode refid="171" relation="include">
+        </childnode>
+        <childnode refid="172" relation="include">
+        </childnode>
+        <childnode refid="162" relation="include">
+        </childnode>
+        <childnode refid="174" relation="include">
+        </childnode>
+        <childnode refid="175" relation="include">
+        </childnode>
+      </node>
+      <node id="176">
+        <label>xplmi_task.h</label>
+        <link refid="xplmi__task_8h"/>
+        <childnode refid="174" relation="include">
+        </childnode>
+        <childnode refid="177" relation="include">
+        </childnode>
+        <childnode refid="165" relation="include">
+        </childnode>
+        <childnode refid="178" relation="include">
+        </childnode>
+        <childnode refid="179" relation="include">
+        </childnode>
+      </node>
+      <node id="158">
+        <label>xplmi_debug.h</label>
+        <link refid="xplmi__debug_8h"/>
+        <childnode refid="159" relation="include">
+        </childnode>
+        <childnode refid="160" relation="include">
+        </childnode>
+        <childnode refid="161" relation="include">
+        </childnode>
+        <childnode refid="166" relation="include">
+        </childnode>
+      </node>
+      <node id="164">
+        <label>xplmi_util.h</label>
+        <link refid="xplmi__util_8h"/>
+        <childnode refid="165" relation="include">
+        </childnode>
+      </node>
+      <node id="156">
+        <label>xplmi.h</label>
+        <link refid="xplmi.h"/>
+        <childnode refid="157" relation="include">
+        </childnode>
+        <childnode refid="173" relation="include">
+        </childnode>
+      </node>
+      <node id="181">
+        <label>xplmi_dma.h</label>
+        <link refid="xplmi__dma_8h"/>
+        <childnode refid="182" relation="include">
+        </childnode>
+      </node>
+      <node id="157">
+        <label>xplmi_generic.h</label>
+        <childnode refid="158" relation="include">
+        </childnode>
+        <childnode refid="181" relation="include">
+        </childnode>
+        <childnode refid="162" relation="include">
+        </childnode>
+      </node>
+      <node id="177">
+        <label>mb_interface.h</label>
+      </node>
+      <node id="172">
+        <label>xplmi_modules.h</label>
+        <link refid="xplmi__modules_8h"/>
+        <childnode refid="162" relation="include">
+        </childnode>
+        <childnode refid="173" relation="include">
+        </childnode>
+        <childnode refid="171" relation="include">
+        </childnode>
+        <childnode refid="165" relation="include">
+        </childnode>
+      </node>
+      <node id="178">
+        <label>xstatus.h</label>
+      </node>
+      <node id="160">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="168">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="165">
+        <label>xil_types.h</label>
+      </node>
+      <node id="182">
+        <label>xpmcdma.h</label>
+      </node>
+      <node id="162">
+        <label>xplmi_cmd.h</label>
+        <link refid="xplmi__cmd_8h"/>
+        <childnode refid="163" relation="include">
+        </childnode>
+        <childnode refid="160" relation="include">
+        </childnode>
+      </node>
+      <node id="171">
+        <label>xparameters.h</label>
+      </node>
+      <node id="159">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="179">
+        <label>list.h</label>
+        <childnode refid="180" relation="include">
+        </childnode>
+      </node>
+      <node id="169">
+        <label>xplmi_gic_interrupts.h</label>
+        <link refid="xplmi__gic__interrupts_8h"/>
+        <childnode refid="170" relation="include">
+        </childnode>
+        <childnode refid="176" relation="include">
+        </childnode>
+      </node>
+      <node id="167">
+        <label>xiomodule.h</label>
+      </node>
+      <node id="173">
+        <label>xplmi_plat.h</label>
+      </node>
+      <node id="163">
+        <label>xplmi_status.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="196">
+        <label>xplmi_plat.c</label>
+      </node>
+      <node id="200">
+        <label>xplmi_err.c</label>
+      </node>
+      <node id="189">
+        <label>xplmi_event_logging.c</label>
+        <link refid="xplmi__event__logging_8c"/>
+      </node>
+      <node id="199">
+        <label>xplmi_asu_cmd.c</label>
+        <link refid="xplmi__asu__cmd_8c"/>
+      </node>
+      <node id="191">
+        <label>xplmi_ipi.c</label>
+        <link refid="xplmi__ipi_8c"/>
+      </node>
+      <node id="185">
+        <label>xplmi_debug.c</label>
+        <link refid="xplmi__debug_8c"/>
+      </node>
+      <node id="192">
+        <label>xplmi_tamper.c</label>
+        <link refid="xplmi__tamper_8c"/>
+      </node>
+      <node id="202">
+        <label>xplmi_plat.c</label>
+        <link refid="2vp_2server_2xplmi__plat_8c"/>
+      </node>
+      <node id="201">
+        <label>xplmi_plat.c</label>
+      </node>
+      <node id="193">
+        <label>xplmi_util.c</label>
+        <link refid="xplmi__util_8c"/>
+      </node>
+      <node id="184">
+        <label>xplmi.c</label>
+        <link refid="xplmi_8c"/>
+      </node>
+      <node id="204">
+        <label>xplmi_plat.c</label>
+        <link refid="2vp__p_2server_2xplmi__plat_8c"/>
+      </node>
+      <node id="183">
+        <label>xplmi.h</label>
+        <link refid="xplmi.h"/>
+        <childnode refid="184" relation="include">
+        </childnode>
+        <childnode refid="185" relation="include">
+        </childnode>
+        <childnode refid="186" relation="include">
+        </childnode>
+        <childnode refid="187" relation="include">
+        </childnode>
+        <childnode refid="188" relation="include">
+        </childnode>
+        <childnode refid="189" relation="include">
+        </childnode>
+        <childnode refid="190" relation="include">
+        </childnode>
+        <childnode refid="191" relation="include">
+        </childnode>
+        <childnode refid="192" relation="include">
+        </childnode>
+        <childnode refid="193" relation="include">
+        </childnode>
+        <childnode refid="194" relation="include">
+        </childnode>
+        <childnode refid="198" relation="include">
+        </childnode>
+        <childnode refid="199" relation="include">
+        </childnode>
+        <childnode refid="200" relation="include">
+        </childnode>
+        <childnode refid="201" relation="include">
+        </childnode>
+        <childnode refid="202" relation="include">
+        </childnode>
+        <childnode refid="203" relation="include">
+        </childnode>
+        <childnode refid="204" relation="include">
+        </childnode>
+        <childnode refid="205" relation="include">
+        </childnode>
+        <childnode refid="206" relation="include">
+        </childnode>
+        <childnode refid="207" relation="include">
+        </childnode>
+        <childnode refid="208" relation="include">
+        </childnode>
+      </node>
+      <node id="195">
+        <label>xplmi_err.c</label>
+      </node>
+      <node id="187">
+        <label>xplmi_err_common.c</label>
+        <link refid="xplmi__err__common_8c"/>
+      </node>
+      <node id="207">
+        <label>xplmi_update.c</label>
+        <link refid="xplmi__update_8c"/>
+      </node>
+      <node id="197">
+        <label>xplmi_ssit.c</label>
+      </node>
+      <node id="194">
+        <label>xplmi_ssit.h</label>
+        <childnode refid="195" relation="include">
+        </childnode>
+        <childnode refid="196" relation="include">
+        </childnode>
+        <childnode refid="197" relation="include">
+        </childnode>
+      </node>
+      <node id="198">
+        <label>xplmi_wdt.c</label>
+      </node>
+      <node id="190">
+        <label>xplmi_generic.c</label>
+      </node>
+      <node id="208">
+        <label>xplmi_wdt.c</label>
+      </node>
+      <node id="188">
+        <label>xplmi_err_psm.c</label>
+        <link refid="xplmi__err__psm_8c"/>
+      </node>
+      <node id="203">
+        <label>xplmi_wdt.c</label>
+        <link refid="2vp_2server_2xplmi__wdt_8c"/>
+      </node>
+      <node id="206">
+        <label>xplmi_plat_cmd.c</label>
+        <link refid="xplmi__plat__cmd_8c"/>
+      </node>
+      <node id="205">
+        <label>xplmi_plat.c</label>
+      </node>
+      <node id="186">
+        <label>xplmi_err_cmd.c</label>
+        <link refid="xplmi__err__cmd_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xplmi_8h_1a92ceeeea4057c595c7df535c65e351ed" prot="public" static="no">
+        <name>SDK_RELEASE_YEAR</name>
+        <initializer>&quot;2026&quot;</initializer>
+        <briefdescription>
+<para>Specifies the SDK release year. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="93" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gabc6c22a6abbfe15fb3d908c81b0941dc" compoundref="xplmi_8c" startline="293" endline="340">XPlmi_PrintPlmBanner</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi_8h_1af0c1ecafb49cd854040429431d27fd30" prot="public" static="no">
+        <name>SDK_RELEASE_QUARTER</name>
+        <initializer>&quot;1&quot;</initializer>
+        <briefdescription>
+<para>Specifies the SDK release quarter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="94" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gabc6c22a6abbfe15fb3d908c81b0941dc" compoundref="xplmi_8c" startline="293" endline="340">XPlmi_PrintPlmBanner</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi_8h_1ab5ce4f0450661c7d604cd813d02deb36" prot="public" static="no">
+        <name>XPLMI_PLM_MAJOR_VERSION</name>
+        <initializer>26U</initializer>
+        <briefdescription>
+<para>PLM Major Version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="96" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gac7d9401e9180244111edb141932b0d37" compoundref="xplmi_8c" startline="162" endline="232">XPlmi_RunTimeConfigInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi_8h_1a32e2908463b2798137fb7803fbd699f2" prot="public" static="no">
+        <name>XPLMI_PLM_MINOR_VERSION</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>PLM Minor Version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="97" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gac7d9401e9180244111edb141932b0d37" compoundref="xplmi_8c" startline="162" endline="232">XPlmi_RunTimeConfigInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi_8h_1acfc039e4322a82d801b5226baee68126" prot="public" static="no">
+        <name>XPLMI_PLM_RC_VERSION</name>
+        <initializer><ref refid="2vp__p_2server_2xplmi__plat_8h_1ad80521701912b9aacc5aa7c3975f0663" kindref="member">XPLMI_PLM_PLAT_RC_VERSION</ref></initializer>
+        <briefdescription>
+<para>PLM RC Version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gac7d9401e9180244111edb141932b0d37" compoundref="xplmi_8c" startline="162" endline="232">XPlmi_RunTimeConfigInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi_8h_1aaa1d6f0e73669ddbf6307fb34d9f3954" prot="public" static="no">
+        <name>XPLMI_PLM_MAJOR_VERSION_SHIFT</name>
+        <initializer>24U</initializer>
+        <briefdescription>
+<para>PLM Major Version Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="100" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gac7d9401e9180244111edb141932b0d37" compoundref="xplmi_8c" startline="162" endline="232">XPlmi_RunTimeConfigInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi_8h_1a9f5b5242c70ed334d25712914560563c" prot="public" static="no">
+        <name>XPLMI_PLM_MINOR_VERSION_SHIFT</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+<para>PLM Minor Version Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="101" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gac7d9401e9180244111edb141932b0d37" compoundref="xplmi_8c" startline="162" endline="232">XPlmi_RunTimeConfigInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi_8h_1add9122b602dd6a27131c2086cc450838" prot="public" static="no">
+        <name>XPLMI_PLM_RC_VERSION_SHIFT</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>PLM RC Version Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="102" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gac7d9401e9180244111edb141932b0d37" compoundref="xplmi_8c" startline="162" endline="232">XPlmi_RunTimeConfigInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi_8h_1a436f23779c84b98a8428bf0af341cf9b" prot="public" static="no">
+        <name>XPLMI_DEVICE_COPY_STATE_MASK</name>
+        <initializer>(0x7U &lt;&lt; 5U)</initializer>
+        <briefdescription>
+<para>Device copy state mask flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi_8h_1a7508a78fec0705805826c93c9bd3dde4" prot="public" static="no">
+        <name>XPLMI_DEVICE_COPY_STATE_BLK</name>
+        <initializer>(0x0U &lt;&lt; 5U)</initializer>
+        <briefdescription>
+<para>Flag set to block device copy. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi_8h_1a8a6ea0835117eba38fe7bc2f23e3655b" prot="public" static="no">
+        <name>XPLMI_DEVICE_COPY_STATE_INITIATE</name>
+        <initializer>(0x1U &lt;&lt; 5U)</initializer>
+        <briefdescription>
+<para>Flag set after device copy initiates. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi_8h_1aca0a72b404ceeebf00062f862cbc51ce" prot="public" static="no">
+        <name>XPLMI_DEVICE_COPY_STATE_WAIT_DONE</name>
+        <initializer>(0x2U &lt;&lt; 5U)</initializer>
+        <briefdescription>
+<para>Flag set after device copy done. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi_8h_1af2f1ddda52360a0197436bb67411ad0c" prot="public" static="no">
+        <name>XPLMI_CHUNK_SIZE</name>
+        <initializer>(0x10000U)</initializer>
+        <briefdescription>
+<para>PMCRAM chunk size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi_8h_1adf6711e85d6a9449675252cf416e470d" prot="public" static="no">
+        <name>XPLMI_CMD_SECURE</name>
+        <initializer>(0x0U)</initializer>
+        <briefdescription>
+<para>IPI command secure flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi_8h_1ace39af7c10883a002636a9ec68ecf936" prot="public" static="no">
+        <name>XPLMI_CMD_NON_SECURE</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+<para>IPI command non-secure flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi_8h_1a3c8c0cc7bddd7a647846335ae9139db4" prot="public" static="no">
+        <name>XPLMI_PMC_VERSION_MASK</name>
+        <initializer>(0xFU)</initializer>
+        <briefdescription>
+<para>Used to calculate PMC Version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="124" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gabc6c22a6abbfe15fb3d908c81b0941dc" compoundref="xplmi_8c" startline="293" endline="340">XPlmi_PrintPlmBanner</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi_8h_1a74e13164b0e8ec2249d86657820c7557" prot="public" static="no">
+        <name>XPLMI_PMC_VERSION_SHIFT</name>
+        <initializer>(0x4U)</initializer>
+        <briefdescription>
+<para>Used to calculate PMC Version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="125" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gabc6c22a6abbfe15fb3d908c81b0941dc" compoundref="xplmi_8c" startline="293" endline="340">XPlmi_PrintPlmBanner</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi_8h_1a6bc4800a6cfc8a5c1de8c52514d568ee" prot="public" static="no">
+        <name>XPLMI_UART_PRINT_DISABLED</name>
+        <initializer>(0x01U)</initializer>
+        <briefdescription>
+<para>Used to check if UART Prints Disabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xplmi_8h_1af601db1e3dfa27453bbc0d96439a3d45" prot="public" static="no">
+        <name>XPLMI_RTCFG_LOG_UART_OFFSET</name>
+        <initializer>(0x24U)</initializer>
+        <briefdescription>
+<para>RTCFG UART LOG Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="127" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gac7d9401e9180244111edb141932b0d37" compoundref="xplmi_8c" startline="162" endline="232">XPlmi_RunTimeConfigInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi_8h_1af2f54717aeab90c91cb85cd095f2c86b" prot="public" static="no">
+        <name>UART_INITIALIZED</name>
+        <initializer>((u32)(1U &lt;&lt; 0U))</initializer>
+        <briefdescription>
+<para>Flag indicates UART is initialized. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="130" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga7074352326bac9f81a27eb1896c15801" compoundref="xplmi__debug_8c" startline="113" endline="198">XPlmi_InitUart</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi_8h_1a8da3b9c038d06165eaed1bd2e7c14295" prot="public" static="no">
+        <name>LPD_INITIALIZED</name>
+        <initializer>((u32)(1U &lt;&lt; 1U))</initializer>
+        <briefdescription>
+<para>Flag indicates LPD is initialized. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="131" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga096c3ab59b174d7abd84700c70debaa7" compoundref="xplmi_8c" startline="241" endline="286">XPlmi_LpdInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi_8h_1a2da9f028be145a4f17852a4d3eb7898f" prot="public" static="no">
+        <name>LPD_WDT_INITIALIZED</name>
+        <initializer>((u32)(1U &lt;&lt; 2U))</initializer>
+        <briefdescription>
+<para>Flag indicates LPD_WDT is initialized. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="132" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1gaf37f68542fdb6d4c42b74ab8862be551" compoundref="server_2xplmi__wdt_8c" startline="106" endline="154">XPlmi_EnableWdt</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga6787ab6388dd1d5d6d188fb4f2292bef" compoundref="xplmi_8c" startline="375" endline="384">XPlmi_ResetLpdInitialized</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi_8h_1a2c770b4d1c45e582fe15305dd53bc832" prot="public" static="no">
+        <name>UART_PRINT_ENABLED</name>
+        <initializer>((u32)(1U &lt;&lt; 3U))</initializer>
+        <briefdescription>
+<para>Flag indicates UART prints are enabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="133" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga51cdb30d3f7194a797cbe30886428a9b" compoundref="xplmi__debug_8c" startline="218" endline="265">XPlmi_ConfigUart</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga7074352326bac9f81a27eb1896c15801" compoundref="xplmi__debug_8c" startline="113" endline="198">XPlmi_InitUart</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xplmi_8h_1a139d319e6d77ef5a0dda1dee43586992" prot="public" static="no">
+        <name>UART_PRINT_INITIALIZED</name>
+        <initializer>(<ref refid="xplmi_8h_1af2f54717aeab90c91cb85cd095f2c86b" kindref="member">UART_INITIALIZED</ref> | <ref refid="xplmi_8h_1a2c770b4d1c45e582fe15305dd53bc832" kindref="member">UART_PRINT_ENABLED</ref>)</initializer>
+        <briefdescription>
+<para>Flag indicates UART is initialized and prints are enabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xplmi_8h_1a6a59068b762e464f948abf3aa8de7ef4" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u8</type>
+        <definition>static u8 XPlmi_IsLpdInitialized</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_IsLpdInitialized</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function checks if LPD is initialized or not. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>TRUE if Lpd initialized or</para></listitem><listitem><para>FALSE if Lpd not initialized </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="147" bodyend="153"/>
+      </memberdef>
+      <memberdef kind="function" id="xplmi_8h_1a5346d110627e19be8ea3060ce79fccca" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u8</type>
+        <definition>static u8 XPlmi_IsUartInitialized</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_IsUartInitialized</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function checks if UART is initialized or not. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>TRUE if UART initialized or</para></listitem><listitem><para>FALSE if UART not initialized </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="163" bodyend="169"/>
+      </memberdef>
+      <memberdef kind="function" id="xplmi_8h_1a51e679dc9088740a0cc6f77adf80b06e" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u8</type>
+        <definition>static u8 XPlmi_IsUartPrintInitialized</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_IsUartPrintInitialized</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function checks if UART print is initialized or not. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>TRUE if UART Print initialized or</para></listitem><listitem><para>FALSE if UART Print not initialized </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h" bodystart="179" bodyend="194"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains declarations PLMI module. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+----- ---- -------- -------------------------------------------------------
+1.00  kc   02/07/2019 Initial release
+1.01  ma   08/01/2019 Added LPD init code
+1.02  kc   02/19/2020 Moved code to support PLM banner from PLM app
+      bsv  04/04/2020 Code clean up
+1.03  bsv  07/07/2020 Made functions used in single translation unit as
+                                        static
+      kc   07/28/2020 Added WDT MACRO to indicate WDT initialized
+      skd  07/29/2020 Added device copy macros
+      bm   09/08/2020 Added RunTime Configuration related registers
+      bsv  09/30/2020 Added XPLMI_CHUNK_SIZE macro
+      bm   10/14/2020 Code clean up
+      td   10/19/2020 MISRA C Fixes
+1.04  nsk  12/14/2020 Modified <ref refid="xplmi__event__logging_8c" kindref="compound">xplmi_event_logging.c</ref> to use Canonical
+                      names.
+1.05  ma   03/04/2021 Added IPI security defines
+      har  03/17/2021 Added Secure State register for authentication and
+                      encryption
+      ma   03/24/2021 Added RTCA Debug Log Address define
+      bm   03/24/2021 Added RTCA defines for Error Status registers
+      har  03/31/2021 Added RTCA defines for PDI ID
+      bm   05/05/2021 Added USR_ACCESS defines for PLD0 image
+      ma   05/21/2021 Added RTCA define for Secure Boot State
+1.06  bsv  07/16/2021 Fix doxygen warnings
+      bsv  07/24/2021 Clear RTC area at the beginning of PLM
+      bsv  08/02/2021 Code clean up to reduce elf size
+      ma   08/06/2021 Added RTCA define for storing PMC_FW_ERR register value
+      bm   08/09/2021 Cleared PMC CDO buffer by default after processing
+      bm   08/12/2021 Added support to configure uart during run-time
+      ma   08/23/2021 Do not clear Debug Log RTCA memory
+      ma   08/30/2021 Added defines related to SSIT
+      gm   09/17/2021 Added RunTime Configuration register for MJTAG
+                      workaround
+      tnt  11/11/2021 Added RTCA defines for MIO Flush routine
+      tnt  12/17/2021 Added RTCA define for PL_POR HDIO workaround
+1.07  ma   05/10/2022 Added PLM to PLM communication feature
+      bm   07/06/2022 Refactor versal and versal_net code
+      kpt  07/05/2022 Added XPLMI_RTCFG_SECURE_CTRL_ADDR
+      ma   07/08/2022 Added support for secure lockdown
+      kpt  07/19/2022 Added APIs and macros related to KAT
+1.08  ng   12/08/2022 Updated SDK release version
+      sk   01/13/2023 Added defines for Image Store
+1.09  skd  02/10/2023 SDK release version updated
+1.10  ma   09/27/2023 Add XPLMI_RTCFG_TAMPER_RESP_SLD_0_MASK macro
+1.11  dd   10/18/2023 Updated SDK release year and SDK release quarter
+      ng   02/12/2024 optimised u8 vars to u32 for size reduction
+      sk   02/18/2024 Added define for DDRMC Calib Check Status RTCA Reg init
+1.12  sk   06/05/2024 Added defines for PLM Version in RTCA register
+2.1   prt  09/18/2024 Updated the SDK_RELEASE_QUARTER as 2 and XPLMI_PLM_MINOR_VERSION as 2
+      obs  09/30/2024 Fixed Doxygen Warnings
+2.2   prt  02/06/2025 Updated the SDK RELEASE YEAR and QUARTER
+2.3   aa   06/19/2025 Updated SDK release version
+2.4   sk   09/27/2025 Added Boot Time config support to disable UART Logs
+      aa   03/11/2025 Updated SDK release version
+      tvp  24/12/2025 Added RTCA define for JTAG enablement for secondary PDI
+      ias  03/26/2026 Added RTCA register and masks for boot device release policy
+</preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor">#ifndef<sp/>XPLMI_H</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_H</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_generic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_plat.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>SDK<sp/>release<sp/>version<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93" refid="xplmi_8h_1a92ceeeea4057c595c7df535c65e351ed" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SDK_RELEASE_YEAR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;2026&quot;<sp/></highlight></codeline>
+<codeline lineno="94" refid="xplmi_8h_1af0c1ecafb49cd854040429431d27fd30" refkind="member"><highlight class="preprocessor">#define<sp/>SDK_RELEASE_QUARTER<sp/><sp/><sp/><sp/><sp/>&quot;1&quot;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96" refid="xplmi_8h_1ab5ce4f0450661c7d604cd813d02deb36" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_PLM_MAJOR_VERSION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>26U<sp/></highlight></codeline>
+<codeline lineno="97" refid="xplmi_8h_1a32e2908463b2798137fb7803fbd699f2" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_PLM_MINOR_VERSION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/><sp/></highlight></codeline>
+<codeline lineno="98" refid="xplmi_8h_1acfc039e4322a82d801b5226baee68126" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_PLM_RC_VERSION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_PLM_PLAT_RC_VERSION<sp/><sp/></highlight></codeline>
+<codeline lineno="100" refid="xplmi_8h_1aaa1d6f0e73669ddbf6307fb34d9f3954" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_PLM_MAJOR_VERSION_SHIFT<sp/><sp/><sp/>24U<sp/><sp/></highlight></codeline>
+<codeline lineno="101" refid="xplmi_8h_1a9f5b5242c70ed334d25712914560563c" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_PLM_MINOR_VERSION_SHIFT<sp/><sp/><sp/>16U<sp/><sp/></highlight></codeline>
+<codeline lineno="102" refid="xplmi_8h_1add9122b602dd6a27131c2086cc450838" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_PLM_RC_VERSION_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U<sp/><sp/></highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="105"><highlight class="comment"><sp/>*<sp/>Device<sp/>Copy<sp/>flag<sp/>related<sp/>macros</highlight></codeline>
+<codeline lineno="106"><highlight class="comment"><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="107" refid="xplmi_8h_1a436f23779c84b98a8428bf0af341cf9b" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_DEVICE_COPY_STATE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x7U<sp/>&lt;&lt;<sp/>5U)<sp/></highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor">#define<sp/>XPLMI_DEVICE_COPY_STATE_BLK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U<sp/>&lt;&lt;<sp/>5U)<sp/></highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor">#define<sp/>XPLMI_DEVICE_COPY_STATE_INITIATE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U<sp/>&lt;&lt;<sp/>5U)<sp/></highlight></codeline>
+<codeline lineno="113" refid="xplmi_8h_1a8a6ea0835117eba38fe7bc2f23e3655b" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_DEVICE_COPY_STATE_WAIT_DONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2U<sp/>&lt;&lt;<sp/>5U)<sp/></highlight></codeline>
+<codeline lineno="116" refid="xplmi_8h_1aca0a72b404ceeebf00062f862cbc51ce" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_CHUNK_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x10000U)<sp/></highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor">#define<sp/>XPLMI_CMD_SECURE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)<sp/></highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor">#define<sp/>XPLMI_CMD_NON_SECURE<sp/><sp/><sp/><sp/>(0x1U)<sp/></highlight></codeline>
+<codeline lineno="120" refid="xplmi_8h_1af2f1ddda52360a0197436bb67411ad0c" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_PMC_VERSION_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFU)<sp/></highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor">#define<sp/>XPLMI_PMC_VERSION_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x4U)<sp/></highlight></codeline>
+<codeline lineno="122" refid="xplmi_8h_1adf6711e85d6a9449675252cf416e470d" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_UART_PRINT_DISABLED<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01U)<sp/></highlight></codeline>
+<codeline lineno="123" refid="xplmi_8h_1ace39af7c10883a002636a9ec68ecf936" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_LOG_UART_OFFSET<sp/><sp/><sp/><sp/><sp/>(0x24U)<sp/></highlight></codeline>
+<codeline lineno="125" refid="xplmi_8h_1a74e13164b0e8ec2249d86657820c7557" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="126" refid="xplmi_8h_1a6bc4800a6cfc8a5c1de8c52514d568ee" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>UART_INITIALIZED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(1U<sp/>&lt;&lt;<sp/>0U))<sp/></highlight></codeline>
+<codeline lineno="127" refid="xplmi_8h_1af601db1e3dfa27453bbc0d96439a3d45" refkind="member"><highlight class="preprocessor">#define<sp/>LPD_INITIALIZED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(1U<sp/>&lt;&lt;<sp/>1U))<sp/></highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor">#define<sp/>LPD_WDT_INITIALIZED<sp/><sp/><sp/><sp/><sp/>((u32)(1U<sp/>&lt;&lt;<sp/>2U))<sp/></highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor">#define<sp/>UART_PRINT_ENABLED<sp/><sp/><sp/><sp/><sp/><sp/>((u32)(1U<sp/>&lt;&lt;<sp/>3U))<sp/></highlight></codeline>
+<codeline lineno="130" refid="xplmi_8h_1af2f54717aeab90c91cb85cd095f2c86b" refkind="member"><highlight class="preprocessor">#define<sp/>UART_PRINT_INITIALIZED<sp/><sp/>(UART_INITIALIZED<sp/>|<sp/>UART_PRINT_ENABLED)</highlight></codeline>
+<codeline lineno="131" refid="xplmi_8h_1a8da3b9c038d06165eaed1bd2e7c14295" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="133" refid="xplmi_8h_1a2c770b4d1c45e582fe15305dd53bc832" refkind="member"><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134" refid="xplmi_8h_1a139d319e6d77ef5a0dda1dee43586992" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="143"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u8<sp/>XPlmi_IsLpdInitialized(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*LpdInitializedPtr<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga1edaac0184e76d6ca65c7499e137f72c" kindref="member">XPlmi_GetLpdInitialized</ref>();</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(((*LpdInitializedPtr<sp/>&amp;<sp/><ref refid="xplmi_8h_1a8da3b9c038d06165eaed1bd2e7c14295" kindref="member">LPD_INITIALIZED</ref>)<sp/>==<sp/>LPD_INITIALIZED)<sp/>?</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)TRUE<sp/>:<sp/>(u8)FALSE);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="159"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u8<sp/>XPlmi_IsUartInitialized(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*LpdInitializedPtr<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga1edaac0184e76d6ca65c7499e137f72c" kindref="member">XPlmi_GetLpdInitialized</ref>();</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(((*LpdInitializedPtr<sp/>&amp;<sp/><ref refid="xplmi_8h_1af2f54717aeab90c91cb85cd095f2c86b" kindref="member">UART_INITIALIZED</ref>)<sp/>==<sp/>UART_INITIALIZED)<sp/>?</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)TRUE<sp/>:<sp/>(u8)FALSE);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="175"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u8<sp/>XPlmi_IsUartPrintInitialized(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="176"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*LpdInitializedPtr<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga1edaac0184e76d6ca65c7499e137f72c" kindref="member">XPlmi_GetLpdInitialized</ref>();</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Status<sp/>=<sp/>(u8)FALSE;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>UART<sp/>Logging<sp/>is<sp/>disabled<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XPlmi_In32(<ref refid="2vp_2server_2xplmi__plat_8h_1a5ec9ec42c88f293a05b22e166653fafb" kindref="member">XPLMI_RTCFG_BASEADDR</ref><sp/>+<sp/><ref refid="xplmi_8h_1af601db1e3dfa27453bbc0d96439a3d45" kindref="member">XPLMI_RTCFG_LOG_UART_OFFSET</ref>)</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>==<sp/><ref refid="xplmi_8h_1a6bc4800a6cfc8a5c1de8c52514d568ee" kindref="member">XPLMI_UART_PRINT_DISABLED</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u8)FALSE;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(((*LpdInitializedPtr<sp/>&amp;<sp/><ref refid="xplmi_8h_1a139d319e6d77ef5a0dda1dee43586992" kindref="member">UART_PRINT_INITIALIZED</ref>)<sp/>==</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xplmi_8h_1a139d319e6d77ef5a0dda1dee43586992" kindref="member">UART_PRINT_INITIALIZED</ref>)<sp/>?<sp/><sp/>(u8)TRUE<sp/>:<sp/>(u8)FALSE);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="197"><highlight class="comment"><sp/>*<sp/>PLM<sp/>RunTime<sp/>Configuration<sp/>Registers<sp/>related<sp/>defines</highlight></codeline>
+<codeline lineno="198"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Offsets<sp/>of<sp/>PLM<sp/>Runtime<sp/>Configuration<sp/>Registers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_RTCA_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPLMI_RTCFG_BASEADDR<sp/>+<sp/>0x0U)</highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_VERSION_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPLMI_RTCFG_BASEADDR<sp/>+<sp/>0x4U)</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_SIZE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPLMI_RTCFG_BASEADDR<sp/>+<sp/>0x8U)</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_DBG_LOG_BUF_ADDR<sp/><sp/><sp/><sp/>(XPLMI_RTCFG_BASEADDR<sp/>+<sp/>0x10U)</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_SECURE_CTRL_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPLMI_RTCFG_BASEADDR<sp/>+<sp/>0x28U)</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_IMGINFOTBL_ADDRLOW_ADDR<sp/><sp/><sp/><sp/><sp/>(XPLMI_RTCFG_BASEADDR<sp/>+<sp/>0x40U)</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_IMGINFOTBL_ADDRHIGH_ADDR<sp/><sp/><sp/><sp/>(XPLMI_RTCFG_BASEADDR<sp/>+<sp/>0x44U)</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_IMGINFOTBL_LEN_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPLMI_RTCFG_BASEADDR<sp/>+<sp/>0x48U)</highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_SECURESTATE_AHWROT_ADDR<sp/><sp/><sp/><sp/><sp/>(XPLMI_RTCFG_BASEADDR<sp/>+<sp/>0x14CU)</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_SECURESTATE_SHWROT_ADDR<sp/><sp/><sp/><sp/><sp/>(XPLMI_RTCFG_BASEADDR<sp/>+<sp/>0x150U)</highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_PDI_ID_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPLMI_RTCFG_BASEADDR<sp/>+<sp/>0x164U)</highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_USR_ACCESS_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPLMI_RTCFG_BASEADDR<sp/>+<sp/>0x168U)</highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_SECURE_STATE_ADDR<sp/><sp/><sp/>(XPLMI_RTCFG_BASEADDR<sp/>+<sp/>0x16CU)</highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_PMC_FW_ERR_VAL_ADDR<sp/>(XPLMI_RTCFG_BASEADDR<sp/>+<sp/>0x184U)</highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_TAMPER_RESP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPLMI_RTCFG_BASEADDR<sp/>+<sp/>0x18CU)</highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_PLM_VERSION_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPLMI_RTCFG_BASEADDR<sp/>+<sp/>0x320U)</highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_PLM_KAT_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPLMI_RTCFG_SECURE_STATE_PLM_ADDR)</highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_SEC_PDI_CFG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPLMI_RTCFG_BASEADDR<sp/>+<sp/>0x368U)</highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_SKIP_BOOT_DEV_RELEASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPLMI_RTCFG_BASEADDR<sp/>+<sp/>0x36CU)</highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_DBG_LOG_BUF_OFFSET<sp/><sp/>(0x10U)</highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_LOG_UART_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x24U)</highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Masks<sp/>of<sp/>PLM<sp/>RunTime<sp/>Configuration<sp/>Registers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_IMGINFOTBL_NUM_ENTRIES_MASK<sp/>(0x0000FFFFU)</highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_MASK<sp/><sp/>(0xFFFF0000U)</highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Mask<sp/>for<sp/>Tamper<sp/>Response<sp/>Secure<sp/>lockdown<sp/>0<sp/>and<sp/>1<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_TAMPER_RESP_SLD_0_1_MASK<sp/><sp/><sp/><sp/>(0xCU)</highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Mask<sp/>for<sp/>Tamper<sp/>response<sp/>Secure<sp/>lockdown<sp/>1<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_TAMPER_RESP_SLD_1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x8U)</highlight></codeline>
+<codeline lineno="230"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Mask<sp/>for<sp/>Tamper<sp/>response<sp/>Secure<sp/>lockdown<sp/>0<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_TAMPER_RESP_SLD_0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x4U)</highlight></codeline>
+<codeline lineno="232"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Mask<sp/>for<sp/>secondary<sp/>PDI<sp/>configuration<sp/>to<sp/>enable<sp/>JTAG<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_SEC_PDI_CFG_JTAG_EN_MASK<sp/><sp/><sp/><sp/>(0x1U)</highlight></codeline>
+<codeline lineno="234"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Boot<sp/>device<sp/>release<sp/>skip<sp/>policy<sp/>bit<sp/>masks<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_SKIP_BOOT_DEV_QSPI_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)</highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_SKIP_BOOT_DEV_SD0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000002U)</highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_SKIP_BOOT_DEV_SD1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000004U)</highlight></codeline>
+<codeline lineno="238"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_SKIP_BOOT_DEV_OSPI_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000008U)</highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_SKIP_BOOT_DEV_USB_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000010U)</highlight></codeline>
+<codeline lineno="240"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_SKIP_BOOT_DEV_UFS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000020U)</highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Shifts<sp/>of<sp/>PLM<sp/>RunTime<sp/>Configuration<sp/>Registers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_SHIFT<sp/>(0x10U)</highlight></codeline>
+<codeline lineno="244"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Default<sp/>Values<sp/>of<sp/>PLM<sp/>RunTime<sp/>Configuration<sp/>Registers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_VER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)</highlight></codeline>
+<codeline lineno="247"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x400U)</highlight></codeline>
+<codeline lineno="248"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_IMGINFOTBL_ADDR_HIGH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)</highlight></codeline>
+<codeline lineno="249"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_IMGINFOTBL_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)</highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_IDENTIFICATION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x41435452U)</highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_SECURESTATE_AHWROT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xA5A5A5A5U)</highlight></codeline>
+<codeline lineno="252"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_SECURESTATE_SHWROT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x96969696U)</highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_PDI_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)</highlight></codeline>
+<codeline lineno="254"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Values<sp/>of<sp/>Secure<sp/>State<sp/>Register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_SECURESTATE_EMUL_AHWROT<sp/><sp/><sp/><sp/><sp/>(0x5A5A5A5AU)</highlight></codeline>
+<codeline lineno="257"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_SECURESTATE_EMUL_SHWROT<sp/><sp/><sp/><sp/><sp/>(0x69696969U)</highlight></codeline>
+<codeline lineno="258"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_SECURESTATE_NONSECURE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xD2D2D2D2U)</highlight></codeline>
+<codeline lineno="259"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Mask<sp/>and<sp/>shifts<sp/>for<sp/>KAT<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_EFUSE_CACHE_CRYPTO_KAT_EN_MASK<sp/><sp/>(0X00008000U)</highlight></codeline>
+<codeline lineno="262"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_EFUSE_CACHE_CRYPTO_KAT_EN_SHIFT<sp/>(15U)</highlight></codeline>
+<codeline lineno="263"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Default<sp/>value<sp/>for<sp/>Image<sp/>Store<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_IMG_STORE_ADDRESS_HIGH_INVALID<sp/><sp/><sp/>(0xFFFFFFFFU)</highlight></codeline>
+<codeline lineno="266"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_IMG_STORE_ADDRESS_LOW_INVALID<sp/><sp/><sp/><sp/>(0xFFFFFFFFU)</highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_IMG_STORE_SIZE_INVALID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)</highlight></codeline>
+<codeline lineno="268"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Default<sp/>value<sp/>for<sp/>DDRMC<sp/>Calib<sp/>Check<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_RTCFG_INIT_DDRMC_CALIB_CHECK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)</highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="273"><highlight class="comment"><sp/>*<sp/>Using<sp/>FW_IS_PRESENT<sp/>to<sp/>indicate<sp/>Boot<sp/>PDI<sp/>loading<sp/>is<sp/>completed</highlight></codeline>
+<codeline lineno="274"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPlmi_SetBootPdiDone()<sp/><sp/>XPlmi_UtilRMW(PMC_GLOBAL_GLOBAL_CNTRL,<sp/>\</highlight></codeline>
+<codeline lineno="276"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PMC_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK,<sp/>\</highlight></codeline>
+<codeline lineno="277"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PMC_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK)</highlight></codeline>
+<codeline lineno="278"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPlmi_IsLoadBootPdiDone()<sp/>(((XPlmi_In32(PMC_GLOBAL_GLOBAL_CNTRL)<sp/>&amp;<sp/>\</highlight></codeline>
+<codeline lineno="280"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PMC_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK)<sp/>==<sp/>\</highlight></codeline>
+<codeline lineno="281"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PMC_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK)<sp/>?<sp/>\</highlight></codeline>
+<codeline lineno="282"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TRUE)<sp/>:<sp/>(FALSE))</highlight></codeline>
+<codeline lineno="283"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Maximum<sp/>length<sp/>of<sp/>PMC<sp/>CDO<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PMC_CDO_MAX_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x14000U)</highlight></codeline>
+<codeline lineno="286"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PMC_CDO_MAX_WORD_LEN<sp/><sp/><sp/><sp/><sp/><sp/>(XPLMI_PMC_CDO_MAX_LEN<sp/>/<sp/>XPLMI_WORD_LEN)</highlight></codeline>
+<codeline lineno="287"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga87aef31fe1a4af9ef9dbb6f9a06a3c34" kindref="member">XPlmi_Init</ref>(<ref refid="2vp_2server_2xplmi__plat_8h_1a3f69d50232dc5c7c01788c7646929d9d" kindref="member">XPlmi_IsAddrRangeValid_t</ref><sp/>IsAddrRangeValidHandler);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga096c3ab59b174d7abd84700c70debaa7" kindref="member">XPlmi_LpdInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga6787ab6388dd1d5d6d188fb4f2292bef" kindref="member">XPlmi_ResetLpdInitialized</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gabc6c22a6abbfe15fb3d908c81b0941dc" kindref="member">XPlmi_PrintPlmBanner</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gac7d9401e9180244111edb141932b0d37" kindref="member">XPlmi_RunTimeConfigInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga4eb444b49ce4a70d9cda587bddafada9" kindref="member">XPlmi_SetLpdInitialized</ref>(u32<sp/>Flag);</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gabd3b47e48133fb2e51358b8f476f8cf1" kindref="member">XPlmi_UnSetLpdInitialized</ref>(u32<sp/>Flag);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga25e99e120ef0c34fb5f96b37ab03539d" kindref="member">XPlmi_UpdateKatStatus</ref>(u32<sp/>PlmKatStatus);</highlight></codeline>
+<codeline lineno="297"><highlight class="normal">u32<sp/><ref refid="group__xilplmi__server__apis_1ga8de52017af72f81c5525e900a5e95855" kindref="member">XPlmi_GetKatStatus</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga23c31adbc077352c74d251c2c164b0ab" kindref="member">XPlmi_SetKatMask</ref>(u32<sp/>PlmKatMask);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga68e1f74e26153655b8f85fc892396843" kindref="member">XPlmi_ClearKatMask</ref>(u32<sp/>PlmKatMask);</highlight></codeline>
+<codeline lineno="300"><highlight class="normal">u32<sp/><ref refid="group__xilplmi__server__apis_1gae6c21cf5cfaf66b61df763e6f926e908" kindref="member">XPlmi_IsCryptoKatEn</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="310"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="312"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XPLMI_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.h"/>
+  </compounddef>
+</doxygen>

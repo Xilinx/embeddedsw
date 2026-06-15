@@ -1,0 +1,292 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xzdma__intr_8c" kind="file">
+    <compoundname>xzdma_intr.c</compoundname>
+    <includes refid="xzdma_8h" local="yes">xzdma.h</includes>
+    <incdepgraph>
+      <node id="67">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="66">
+        <label>xil_io.h</label>
+      </node>
+      <node id="71">
+        <label>sleep.h</label>
+      </node>
+      <node id="70">
+        <label>bspconfig.h</label>
+      </node>
+      <node id="69">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="63">
+        <label>xzdma_intr.c</label>
+        <link refid="xzdma_intr.c"/>
+        <childnode refid="64" relation="include">
+        </childnode>
+      </node>
+      <node id="68">
+        <label>xstatus.h</label>
+      </node>
+      <node id="64">
+        <label>xzdma.h</label>
+        <link refid="xzdma_8h"/>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+      </node>
+      <node id="65">
+        <label>xzdma_hw.h</label>
+        <link refid="xzdma__hw_8h"/>
+        <childnode refid="66" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__zdma_1gaa5012fbb827d2330cae8cb90cafb388c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XZDma_IntrHandler</definition>
+        <argsstring>(void *Instance)</argsstring>
+        <name>XZDma_IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>Instance</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the ZDMA core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler reads the pending interrupt from Status register, determines the source of the interrupts and calls the respective callbacks for the interrupts that are enabled in IRQ_ENABLE register, and finally clears the interrupts.</para><para>The application is responsible for connecting this function to the interrupt system. Application beyond this driver is also responsible for providing callbacks to handle interrupts and installing the callbacks using <ref refid="group__zdma_1ga78a9c500b9c87963f7695fc5edf87a21" kindref="member">XZDma_SetCallBack()</ref> during initialization phase. .</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Instance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_z_dma" kindref="compound">XZDma</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>To generate interrupt required interrupts should be enabled. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_intr.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_intr.c" bodystart="70" bodyend="110"/>
+        <references refid="struct_x_z_dma_1ae7cb358dd89da5287751442fd9a7fb53" compoundref="xzdma_8h" startline="349">XZDma::ChannelState</references>
+        <references refid="struct_x_z_dma_1a6ee062895bf6a06d28bb9aa2e118a11b" compoundref="xzdma_8h" startline="338">XZDma::DoneHandler</references>
+        <references refid="struct_x_z_dma_1af216f69d108160949a9f319929d64727" compoundref="xzdma_8h" startline="340">XZDma::DoneRef</references>
+        <references refid="struct_x_z_dma_1ad507017674e5386e741e8e05d9415c98" compoundref="xzdma_8h" startline="343">XZDma::ErrorHandler</references>
+        <references refid="struct_x_z_dma_1aeb05d269e323ab52e9dd37fce46ad807" compoundref="xzdma_8h" startline="345">XZDma::ErrorRef</references>
+        <references refid="xzdma_8h_1aaf5bc66296248406b7fa1a85e736e7f5" compoundref="xzdma_8h" startline="477">XZDma_DisableIntr</references>
+        <references refid="xzdma_8h_1a2c7e211a1e57e96c48039753506ababe" compoundref="xzdma_8h" startline="434">XZDma_GetIntrMask</references>
+        <references refid="xzdma_8h_1a19f8494063d56f2f39f9d40e6ded952aa598386ffccc9121fe927b5d761e0d07b" compoundref="xzdma_8h" startline="177">XZDMA_IDLE</references>
+        <references refid="xzdma_8h_1a01dcc0932c4566c5efeefd0b781fea01" compoundref="xzdma_8h" startline="412">XZDma_IntrClear</references>
+        <references refid="xzdma_8h_1a9d60ab769eea32f66b28c1a63c2d23cf" compoundref="xzdma_8h" startline="389">XZDma_IntrGetStatus</references>
+        <references refid="group__zdma_1gad82b072a8c2cc4c5e32fc43e9822e634" compoundref="xzdma__hw_8h" startline="140">XZDMA_IXR_ALL_INTR_MASK</references>
+        <references refid="group__zdma_1gae24332b4ced51e3a17de66e87f508e72" compoundref="xzdma__hw_8h" startline="101">XZDMA_IXR_AXI_RD_DATA_MASK</references>
+        <references refid="group__zdma_1ga508df1ddb568661acbe7eb02addd91aa" compoundref="xzdma__hw_8h" startline="104">XZDMA_IXR_AXI_RD_DST_DSCR_MASK</references>
+        <references refid="group__zdma_1gaa616129e7e1d450c57a45518c883a4b0" compoundref="xzdma__hw_8h" startline="109">XZDMA_IXR_AXI_RD_SRC_DSCR_MASK</references>
+        <references refid="group__zdma_1gaf54288858bd030f724d9939416975778" compoundref="xzdma__hw_8h" startline="98">XZDMA_IXR_AXI_WR_DATA_MASK</references>
+        <references refid="group__zdma_1ga3427b844ce3c78c2e203cbe632ce8d11" compoundref="xzdma__hw_8h" startline="97">XZDMA_IXR_DMA_DONE_MASK</references>
+        <references refid="group__zdma_1ga749957c47c3d65c99861579af039b5db" compoundref="xzdma__hw_8h" startline="96">XZDMA_IXR_DMA_PAUSE_MASK</references>
+        <references refid="group__zdma_1gaf2a5aa7481789b82f9a68ddbb803b072" compoundref="xzdma__hw_8h" startline="145">XZDMA_IXR_ERR_MASK</references>
+        <references refid="xzdma_8h_1a19f8494063d56f2f39f9d40e6ded952aadce3cf4581ae7112ecb82e47127e7202" compoundref="xzdma_8h" startline="178">XZDMA_PAUSE</references>
+        <referencedby refid="xzdma__linear__example_8c_1a910e85a529128bf68b6ebf34ff403edb" compoundref="xzdma__linear__example_8c" startline="179" endline="369">XZDma_LinearExample</referencedby>
+        <referencedby refid="xzdma__linkedlist__example_8c_1a8eaf63cf61558e3f6df72461882a5f38" compoundref="xzdma__linkedlist__example_8c" startline="171" endline="336">XZDma_LinkedListExample</referencedby>
+        <referencedby refid="xzdma__simple__example_8c_1aebcaa07fcc29d54aad629d7735a9cb07" compoundref="xzdma__simple__example_8c" startline="201" endline="373">XZDma_SimpleExample</referencedby>
+        <referencedby refid="xzdma__readonlymode__example_8c_1af71ec0de7cd3c5ec4b6ec49ee901c62f" compoundref="xzdma__readonlymode__example_8c" startline="147" endline="268">XZDma_SimpleReadOnlyExample</referencedby>
+        <referencedby refid="xzdma__writeonlymode__example_8c_1aa41225599b937564211d0a7c122ebfd2" compoundref="xzdma__writeonlymode__example_8c" startline="161" endline="324">XZDma_WriteOnlyExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__zdma_1ga78a9c500b9c87963f7695fc5edf87a21" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XZDma_SetCallBack</definition>
+        <argsstring>(XZDma *InstancePtr, XZDma_Handler HandlerType, void *CallBackFunc, void *CallBackRef)</argsstring>
+        <name>XZDma_SetCallBack</name>
+        <param>
+          <type><ref refid="struct_x_z_dma" kindref="compound">XZDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__zdma_1ga37a3c751884020089469a54e242ff4cd" kindref="member">XZDma_Handler</ref></type>
+          <declname>HandlerType</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>This routine installs an asynchronous callback function for the given HandlerType. </para>        </briefdescription>
+        <detaileddescription>
+<para><preformatted>
+HandlerType              Callback Function Type
+-----------------------  --------------------------------------------------
+XZDMA_HANDLER_DONE         Done handler
+XZDMA_HANDLER_ERROR        Error handler</preformatted></para><para><preformatted></preformatted></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_z_dma" kindref="compound">XZDma</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HandlerType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies which callback is to be attached. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS when handler is installed.</para></listitem><listitem><para>XST_INVALID_PARAM when HandlerType is invalid.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Invoking this function for a handler that already has been installed replaces it with the new handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_intr.c" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_intr.c" bodystart="140" bodyend="168"/>
+        <references refid="struct_x_z_dma_1a6ee062895bf6a06d28bb9aa2e118a11b" compoundref="xzdma_8h" startline="338">XZDma::DoneHandler</references>
+        <references refid="struct_x_z_dma_1af216f69d108160949a9f319929d64727" compoundref="xzdma_8h" startline="340">XZDma::DoneRef</references>
+        <references refid="struct_x_z_dma_1ad507017674e5386e741e8e05d9415c98" compoundref="xzdma_8h" startline="343">XZDma::ErrorHandler</references>
+        <references refid="struct_x_z_dma_1aeb05d269e323ab52e9dd37fce46ad807" compoundref="xzdma_8h" startline="345">XZDma::ErrorRef</references>
+        <references refid="struct_x_z_dma_1a11e560b15511ce0c1bea957659236f4a" compoundref="xzdma_8h" startline="326">XZDma::IsReady</references>
+        <references refid="group__zdma_1gga37a3c751884020089469a54e242ff4cdaaffcfeb2b42f83e2654e1d58d609f0ab" compoundref="xzdma_8h" startline="148">XZDMA_HANDLER_DONE</references>
+        <references refid="group__zdma_1gga37a3c751884020089469a54e242ff4cdafc560c87ab5657b331fb72c38c1ad83c" compoundref="xzdma_8h" startline="149">XZDMA_HANDLER_ERROR</references>
+        <referencedby refid="xzdma__linear__example_8c_1a910e85a529128bf68b6ebf34ff403edb" compoundref="xzdma__linear__example_8c" startline="179" endline="369">XZDma_LinearExample</referencedby>
+        <referencedby refid="xzdma__linkedlist__example_8c_1a8eaf63cf61558e3f6df72461882a5f38" compoundref="xzdma__linkedlist__example_8c" startline="171" endline="336">XZDma_LinkedListExample</referencedby>
+        <referencedby refid="xzdma__simple__example_8c_1aebcaa07fcc29d54aad629d7735a9cb07" compoundref="xzdma__simple__example_8c" startline="201" endline="373">XZDma_SimpleExample</referencedby>
+        <referencedby refid="xzdma__readonlymode__example_8c_1af71ec0de7cd3c5ec4b6ec49ee901c62f" compoundref="xzdma__readonlymode__example_8c" startline="147" endline="268">XZDma_SimpleReadOnlyExample</referencedby>
+        <referencedby refid="xzdma__writeonlymode__example_8c_1aa41225599b937564211d0a7c122ebfd2" compoundref="xzdma__writeonlymode__example_8c" startline="161" endline="324">XZDma_WriteOnlyExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2014<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xzdma_8h" kindref="compound">xzdma.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="70" refid="group__zdma_1gaa5012fbb827d2330cae8cb90cafb388c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__zdma_1gaa5012fbb827d2330cae8cb90cafb388c" kindref="member">XZDma_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Instance)</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PendingIntr;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ErrorStatus;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_z_dma" kindref="compound">XZDma</ref><sp/>*InstancePtr<sp/>=<sp/>(<ref refid="struct_x_z_dma" kindref="compound">XZDma</ref><sp/>*)((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)Instance);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>pending<sp/>interrupts<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PendingIntr<sp/>=<sp/>(u32)(<ref refid="xzdma_8h_1a9d60ab769eea32f66b28c1a63c2d23cf" kindref="member">XZDma_IntrGetStatus</ref>(InstancePtr));</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PendingIntr<sp/>&amp;=<sp/>(~<ref refid="xzdma_8h_1a2c7e211a1e57e96c48039753506ababe" kindref="member">XZDma_GetIntrMask</ref>(InstancePtr));</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>ZDMA<sp/>transfer<sp/>has<sp/>completed<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorStatus<sp/>=<sp/>(PendingIntr)<sp/>&amp;<sp/>(<ref refid="group__zdma_1ga3427b844ce3c78c2e203cbe632ce8d11" kindref="member">XZDMA_IXR_DMA_DONE_MASK</ref>);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ErrorStatus)<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xzdma_8h_1aaf5bc66296248406b7fa1a85e736e7f5" kindref="member">XZDma_DisableIntr</ref>(InstancePtr,<sp/><ref refid="group__zdma_1gad82b072a8c2cc4c5e32fc43e9822e634" kindref="member">XZDMA_IXR_ALL_INTR_MASK</ref>);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_z_dma_1ae7cb358dd89da5287751442fd9a7fb53" kindref="member">ChannelState</ref><sp/>=<sp/><ref refid="xzdma_8h_1a19f8494063d56f2f39f9d40e6ded952aa598386ffccc9121fe927b5d761e0d07b" kindref="member">XZDMA_IDLE</ref>;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_z_dma_1a6ee062895bf6a06d28bb9aa2e118a11b" kindref="member">DoneHandler</ref>(InstancePtr-&gt;<ref refid="struct_x_z_dma_1af216f69d108160949a9f319929d64727" kindref="member">DoneRef</ref>);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>An<sp/>error<sp/>has<sp/>been<sp/>occurred<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorStatus<sp/>=<sp/>PendingIntr<sp/>&amp;<sp/>(<ref refid="group__zdma_1gaf2a5aa7481789b82f9a68ddbb803b072" kindref="member">XZDMA_IXR_ERR_MASK</ref>);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ErrorStatus)<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ErrorStatus<sp/>&amp;<sp/><ref refid="group__zdma_1ga749957c47c3d65c99861579af039b5db" kindref="member">XZDMA_IXR_DMA_PAUSE_MASK</ref>)<sp/>==</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__zdma_1ga749957c47c3d65c99861579af039b5db" kindref="member">XZDMA_IXR_DMA_PAUSE_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_z_dma_1ae7cb358dd89da5287751442fd9a7fb53" kindref="member">ChannelState</ref><sp/>=<sp/><ref refid="xzdma_8h_1a19f8494063d56f2f39f9d40e6ded952aadce3cf4581ae7112ecb82e47127e7202" kindref="member">XZDMA_PAUSE</ref>;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ErrorStatus<sp/>&amp;<sp/>(<ref refid="group__zdma_1gaf54288858bd030f724d9939416975778" kindref="member">XZDMA_IXR_AXI_WR_DATA_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__zdma_1gae24332b4ced51e3a17de66e87f508e72" kindref="member">XZDMA_IXR_AXI_RD_DATA_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__zdma_1ga508df1ddb568661acbe7eb02addd91aa" kindref="member">XZDMA_IXR_AXI_RD_DST_DSCR_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__zdma_1gaa616129e7e1d450c57a45518c883a4b0" kindref="member">XZDMA_IXR_AXI_RD_SRC_DSCR_MASK</ref>))<sp/>!=<sp/>0x00U)<sp/>{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_z_dma_1ae7cb358dd89da5287751442fd9a7fb53" kindref="member">ChannelState</ref><sp/>=<sp/><ref refid="xzdma_8h_1a19f8494063d56f2f39f9d40e6ded952aa598386ffccc9121fe927b5d761e0d07b" kindref="member">XZDMA_IDLE</ref>;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_z_dma_1ad507017674e5386e741e8e05d9415c98" kindref="member">ErrorHandler</ref>(InstancePtr-&gt;<ref refid="struct_x_z_dma_1aeb05d269e323ab52e9dd37fce46ad807" kindref="member">ErrorRef</ref>,<sp/>ErrorStatus);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>pending<sp/>interrupt(s)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xzdma_8h_1a01dcc0932c4566c5efeefd0b781fea01" kindref="member">XZDma_IntrClear</ref>(InstancePtr,<sp/>PendingIntr);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="140" refid="group__zdma_1ga78a9c500b9c87963f7695fc5edf87a21" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__zdma_1ga78a9c500b9c87963f7695fc5edf87a21" kindref="member">XZDma_SetCallBack</ref>(<ref refid="struct_x_z_dma" kindref="compound">XZDma</ref><sp/>*InstancePtr,<sp/><ref refid="group__zdma_1ga37a3c751884020089469a54e242ff4cd" kindref="member">XZDma_Handler</ref><sp/>HandlerType,</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef)</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CallBackFunc<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CallBackRef<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid((HandlerType<sp/>==<sp/><ref refid="group__zdma_1gga37a3c751884020089469a54e242ff4cdaaffcfeb2b42f83e2654e1d58d609f0ab" kindref="member">XZDMA_HANDLER_DONE</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(HandlerType<sp/>==<sp/><ref refid="group__zdma_1gga37a3c751884020089469a54e242ff4cdafc560c87ab5657b331fb72c38c1ad83c" kindref="member">XZDMA_HANDLER_ERROR</ref>));</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_z_dma_1a11e560b15511ce0c1bea957659236f4a" kindref="member">IsReady</ref><sp/>==</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(XIL_COMPONENT_IS_READY));</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="154"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Calls<sp/>the<sp/>respective<sp/>callback<sp/>function<sp/>corresponding<sp/>to</highlight></codeline>
+<codeline lineno="155"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>handler<sp/>type</highlight></codeline>
+<codeline lineno="156"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(HandlerType<sp/>==<sp/><ref refid="group__zdma_1gga37a3c751884020089469a54e242ff4cdaaffcfeb2b42f83e2654e1d58d609f0ab" kindref="member">XZDMA_HANDLER_DONE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_z_dma_1a6ee062895bf6a06d28bb9aa2e118a11b" kindref="member">DoneHandler</ref><sp/>=</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xzdma_8h_1a741c5a34979dbc89ac158ce254092481" kindref="member">XZDma_DoneHandler</ref>)((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)CallBackFunc);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_z_dma_1af216f69d108160949a9f319929d64727" kindref="member">DoneRef</ref><sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_z_dma_1ad507017674e5386e741e8e05d9415c98" kindref="member">ErrorHandler</ref><sp/>=</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xzdma_8h_1ac57192732fbc322f6875a31f9d7b830e" kindref="member">XZDma_ErrorHandler</ref>)((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)CallBackFunc);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_z_dma_1aeb05d269e323ab52e9dd37fce46ad807" kindref="member">ErrorRef</ref><sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_intr.c"/>
+  </compounddef>
+</doxygen>

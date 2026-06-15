@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_9be8e9d6290c75ca08127d0e48957f2c" kind="dir">
+    <compoundname>client</compoundname>
+    <innerdir refid="dir_e389961a937d30bf81f39fe09458f15a">dme</innerdir>
+    <innerdir refid="dir_0466606e70fac91dc443e89ca24ee8ba">hwpcr</innerdir>
+    <innerdir refid="dir_367520a0413b326ad72368163a325612">key_mgmt</innerdir>
+    <innerdir refid="dir_4f07510b031312247df55370742d27e4">swpcr</innerdir>
+    <innerfile refid="xocp__client_8c">xocp_client.c</innerfile>
+    <innerfile refid="xocp__client_8h">xocp_client.h</innerfile>
+    <innerfile refid="xocp__mailbox_8c">xocp_mailbox.c</innerfile>
+    <innerfile refid="xocp__mailbox_8h">xocp_mailbox.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/"/>
+  </compounddef>
+</doxygen>

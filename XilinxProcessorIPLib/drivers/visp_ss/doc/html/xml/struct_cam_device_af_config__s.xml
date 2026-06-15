@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_af_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceAfConfig_s</compoundname>
+    <includes local="no">cam_device_af_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_af_config__s_1a39d2dcee5dd2ed2c4703f9377a8588d2" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAfConfig_s::weightWindow[CAMDEV_AF_WINDOWNUM]</definition>
+        <argsstring>[CAMDEV_AF_WINDOWNUM]</argsstring>
+        <name>weightWindow</name>
+        <briefdescription>
+<para>Weight window. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_af_config__s_1a4cc5e36367bb2e2cf2f1968622323875" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAfConfig_s::cStableTolerance</definition>
+        <argsstring></argsstring>
+        <name>cStableTolerance</name>
+        <briefdescription>
+<para>Range: [0, 1]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_af_config__s_1a38e825d3f742eb0d03403f0f485c8498" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceAfConfig_s::cPointsOfCurve</definition>
+        <argsstring></argsstring>
+        <name>cPointsOfCurve</name>
+        <briefdescription>
+<para>Range: [5, 100]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_af_config__s_1a6e16a43fa523967cdd43a03512e546b8" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceAfConfig_s::maxFocal</definition>
+        <argsstring></argsstring>
+        <name>maxFocal</name>
+        <briefdescription>
+<para>Maximum focal point. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_af_config__s_1aafbe31a9e501000a8ed3c883496e2deb" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceAfConfig_s::minFocal</definition>
+        <argsstring></argsstring>
+        <name>minFocal</name>
+        <briefdescription>
+<para>Minimum focal point. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_af_config__s_1a50ca3961013cb7f4b8a55eff77b98ac1" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAfConfig_s::cMotionThreshold</definition>
+        <argsstring></argsstring>
+        <name>cMotionThreshold</name>
+        <briefdescription>
+<para>Motion threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_af_config__s_1a7fa33cd1dc5cd5bedeb5b685e2a756a3" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceAfConfig_s::uphillAllowance</definition>
+        <argsstring></argsstring>
+        <name>uphillAllowance</name>
+        <briefdescription>
+<para>The range of top hill when CDAF in searching. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_af_config__s_1a68e80a9704427e0009b65353edf739e7" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceAfConfig_s::downhillAllowance</definition>
+        <argsstring></argsstring>
+        <name>downhillAllowance</name>
+        <briefdescription>
+<para>The range of bottom hill when CDAF in searching. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_af_config__s_1a275b9aced9a6f5211d74bd6554c3a7ec" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAfConfig_s::cPdConfThreshold</definition>
+        <argsstring></argsstring>
+        <name>cPdConfThreshold</name>
+        <briefdescription>
+<para>PDAF configuration threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_af_config__s_1ab66e28c50faafa21d67a7e4af9b206e5" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAfConfig_s::pdShiftThreshold</definition>
+        <argsstring></argsstring>
+        <name>pdShiftThreshold</name>
+        <briefdescription>
+<para>Phase Detection shift stable threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_af_config__s_1a41b378e3841888db6a9653015047923f" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceAfConfig_s::pdStableCountMax</definition>
+        <argsstring></argsstring>
+        <name>pdStableCountMax</name>
+        <briefdescription>
+<para>Maximum focusing to which PDAF locks. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_af_config__s_1a86866785bbbbd7bd1c9c51986a44cbc4" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAfConfig_s::pdafUnlockThreshold</definition>
+        <argsstring></argsstring>
+        <name>pdafUnlockThreshold</name>
+        <briefdescription>
+<para>PDAF unlock threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_af_config__s_1a8777adefcc1c9231edc492f9fee7faf0" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__af_1gac3dce5d9d3f7cfcaff0c80cd36f46867" kindref="member">CamDeviceAfPcdfHybridConfig_t</ref></type>
+        <definition>CamDeviceAfPcdfHybridConfig_t CamDeviceAfConfig_s::pcdafHybridConfig</definition>
+        <argsstring></argsstring>
+        <name>pcdafHybridConfig</name>
+        <briefdescription>
+<para>PDAF and CDAF hybrid configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice AF library configuration, which is required by the AF library calculation. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="68">
+        <label>CamDeviceAfConfig_s</label>
+        <link refid="struct_cam_device_af_config__s"/>
+        <childnode refid="69" relation="usage">
+          <edgelabel>pcdafHybridConfig</edgelabel>
+        </childnode>
+      </node>
+      <node id="69">
+        <label>CamDeviceAfPcdfHybridConfig_s</label>
+        <link refid="struct_cam_device_af_pcdf_hybrid_config__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="98" bodyend="118"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_af_config__s_1a50ca3961013cb7f4b8a55eff77b98ac1" prot="public" virt="non-virtual"><scope>CamDeviceAfConfig_s</scope><name>cMotionThreshold</name></member>
+      <member refid="struct_cam_device_af_config__s_1a275b9aced9a6f5211d74bd6554c3a7ec" prot="public" virt="non-virtual"><scope>CamDeviceAfConfig_s</scope><name>cPdConfThreshold</name></member>
+      <member refid="struct_cam_device_af_config__s_1a38e825d3f742eb0d03403f0f485c8498" prot="public" virt="non-virtual"><scope>CamDeviceAfConfig_s</scope><name>cPointsOfCurve</name></member>
+      <member refid="struct_cam_device_af_config__s_1a4cc5e36367bb2e2cf2f1968622323875" prot="public" virt="non-virtual"><scope>CamDeviceAfConfig_s</scope><name>cStableTolerance</name></member>
+      <member refid="struct_cam_device_af_config__s_1a68e80a9704427e0009b65353edf739e7" prot="public" virt="non-virtual"><scope>CamDeviceAfConfig_s</scope><name>downhillAllowance</name></member>
+      <member refid="struct_cam_device_af_config__s_1a6e16a43fa523967cdd43a03512e546b8" prot="public" virt="non-virtual"><scope>CamDeviceAfConfig_s</scope><name>maxFocal</name></member>
+      <member refid="struct_cam_device_af_config__s_1aafbe31a9e501000a8ed3c883496e2deb" prot="public" virt="non-virtual"><scope>CamDeviceAfConfig_s</scope><name>minFocal</name></member>
+      <member refid="struct_cam_device_af_config__s_1a8777adefcc1c9231edc492f9fee7faf0" prot="public" virt="non-virtual"><scope>CamDeviceAfConfig_s</scope><name>pcdafHybridConfig</name></member>
+      <member refid="struct_cam_device_af_config__s_1a86866785bbbbd7bd1c9c51986a44cbc4" prot="public" virt="non-virtual"><scope>CamDeviceAfConfig_s</scope><name>pdafUnlockThreshold</name></member>
+      <member refid="struct_cam_device_af_config__s_1ab66e28c50faafa21d67a7e4af9b206e5" prot="public" virt="non-virtual"><scope>CamDeviceAfConfig_s</scope><name>pdShiftThreshold</name></member>
+      <member refid="struct_cam_device_af_config__s_1a41b378e3841888db6a9653015047923f" prot="public" virt="non-virtual"><scope>CamDeviceAfConfig_s</scope><name>pdStableCountMax</name></member>
+      <member refid="struct_cam_device_af_config__s_1a7fa33cd1dc5cd5bedeb5b685e2a756a3" prot="public" virt="non-virtual"><scope>CamDeviceAfConfig_s</scope><name>uphillAllowance</name></member>
+      <member refid="struct_cam_device_af_config__s_1a39d2dcee5dd2ed2c4703f9377a8588d2" prot="public" virt="non-virtual"><scope>CamDeviceAfConfig_s</scope><name>weightWindow</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

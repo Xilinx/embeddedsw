@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_clock___type_mux" kind="struct" prot="public">
+    <compoundname>XClock_TypeMux</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_clock___type_mux_1a72245221ab1cd363ddaf09138cc153cb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XClock_TypeMux::Shift</definition>
+        <argsstring></argsstring>
+        <name>Shift</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clock___type_mux_1a5a9be204cf56d1e98fc160445d53caae" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XClock_TypeMux::Width</definition>
+        <argsstring></argsstring>
+        <name>Width</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clock___type_mux_1ae515965400a842af4e704314af951c89" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XClock_TypeMux::ActiveParent</definition>
+        <argsstring></argsstring>
+        <name>ActiveParent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clock___type_mux_1ae93328bdd3c8828531cc2afc5c6fe2d2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XClock_TypeMux::DefaultParent</definition>
+        <argsstring></argsstring>
+        <name>DefaultParent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clock___type_mux_1a6fc1d2124a6024a9d2e46da703da2977" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XClock_TypeMux::IsInit</definition>
+        <argsstring></argsstring>
+        <name>IsInit</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clock___type_mux_1a5f395f8abf999c9af9d642a7301c5600" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XClock_TypeMux::NumParents</definition>
+        <argsstring></argsstring>
+        <name>NumParents</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clock___type_mux_1ad7ce2e7355b273a1d9baebff4b8ea6b1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XClock_TypeMux::EnableCount</definition>
+        <argsstring></argsstring>
+        <name>EnableCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clock___type_mux_1a4159609da303d070f4bb961fe4087690" prot="public" static="no" mutable="no">
+        <type>u16 *</type>
+        <definition>u16* XClock_TypeMux::Parent</definition>
+        <argsstring></argsstring>
+        <name>Parent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clock___type_mux_1a9b456d996034a2204e47c2d7a4242f63" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XClock_TypeMux::CtrlReg</definition>
+        <argsstring></argsstring>
+        <name>CtrlReg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clock___type_mux_1a3d89d46d1aab4c75860015c2340f3f58" prot="public" static="no" mutable="no">
+        <type>XClockRate</type>
+        <definition>XClockRate XClock_TypeMux::Rate</definition>
+        <argsstring></argsstring>
+        <name>Rate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" bodystart="139" bodyend="150"/>
+    <listofallmembers>
+      <member refid="struct_x_clock___type_mux_1ae515965400a842af4e704314af951c89" prot="public" virt="non-virtual"><scope>XClock_TypeMux</scope><name>ActiveParent</name></member>
+      <member refid="struct_x_clock___type_mux_1a9b456d996034a2204e47c2d7a4242f63" prot="public" virt="non-virtual"><scope>XClock_TypeMux</scope><name>CtrlReg</name></member>
+      <member refid="struct_x_clock___type_mux_1ae93328bdd3c8828531cc2afc5c6fe2d2" prot="public" virt="non-virtual"><scope>XClock_TypeMux</scope><name>DefaultParent</name></member>
+      <member refid="struct_x_clock___type_mux_1ad7ce2e7355b273a1d9baebff4b8ea6b1" prot="public" virt="non-virtual"><scope>XClock_TypeMux</scope><name>EnableCount</name></member>
+      <member refid="struct_x_clock___type_mux_1a6fc1d2124a6024a9d2e46da703da2977" prot="public" virt="non-virtual"><scope>XClock_TypeMux</scope><name>IsInit</name></member>
+      <member refid="struct_x_clock___type_mux_1a5f395f8abf999c9af9d642a7301c5600" prot="public" virt="non-virtual"><scope>XClock_TypeMux</scope><name>NumParents</name></member>
+      <member refid="struct_x_clock___type_mux_1a4159609da303d070f4bb961fe4087690" prot="public" virt="non-virtual"><scope>XClock_TypeMux</scope><name>Parent</name></member>
+      <member refid="struct_x_clock___type_mux_1a3d89d46d1aab4c75860015c2340f3f58" prot="public" virt="non-virtual"><scope>XClock_TypeMux</scope><name>Rate</name></member>
+      <member refid="struct_x_clock___type_mux_1a72245221ab1cd363ddaf09138cc153cb" prot="public" virt="non-virtual"><scope>XClock_TypeMux</scope><name>Shift</name></member>
+      <member refid="struct_x_clock___type_mux_1a5a9be204cf56d1e98fc160445d53caae" prot="public" virt="non-virtual"><scope>XClock_TypeMux</scope><name>Width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_c62ddf1e78322c705a2499b0a7c71acf" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xcanfd_8c">xcanfd.c</innerfile>
+    <innerfile refid="xcanfd_8h">xcanfd.h</innerfile>
+    <innerfile refid="xcanfd__config_8c">xcanfd_config.c</innerfile>
+    <innerfile refid="xcanfd__g_8c">xcanfd_g.c</innerfile>
+    <innerfile refid="xcanfd__hw_8h">xcanfd_hw.h</innerfile>
+    <innerfile refid="xcanfd__intr_8c">xcanfd_intr.c</innerfile>
+    <innerfile refid="xcanfd__selftest_8c">xcanfd_selftest.c</innerfile>
+    <innerfile refid="xcanfd__sinit_8c">xcanfd_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1175 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xsecure__aes__zynqmp__apis" kind="group">
+    <compoundname>xsecure_aes_zynqmp_apis</compoundname>
+    <title>XilSecure AES ZynqMP APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1ga4b437ccc89b1549fd3886aab41f9ca44" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XSecure_Zeroize</definition>
+        <argsstring>(u8 *DataPtr, u32 Length)</argsstring>
+        <name>XSecure_Zeroize</name>
+        <param>
+          <type>u8 *</type>
+          <declname>DataPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Length</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to zeroize the memory. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DataPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the memory which need to be zeroized. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Final call of this API returns the status of Comparison.<itemizedlist>
+<listitem><para>XSECURE_CSU_AES_ZEROIZATION_ERROR: If Zeroization is not Successful.</para></listitem><listitem><para>XST_SUCCESS: If Zeroization is Successful. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Clear the decrypted data</para></listitem><listitem><para>Read it back to verify </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="716" bodyend="738"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1gaad5b256213fa6093c89a97f6fac3355a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_AesCsuDmaConfigureEndiannes</definition>
+        <argsstring>(XCsuDma *InstancePtr, XCsuDma_Channel Channel, u8 EndianType)</argsstring>
+        <name>XSecure_AesCsuDmaConfigureEndiannes</name>
+        <param>
+          <type>XCsuDma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XCsuDma_Channel</type>
+          <declname>Channel</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>EndianType</declname>
+        </param>
+        <briefdescription>
+<para>This is a helper function to enable/disable byte swapping feature of CSU DMA. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XCsuDma instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Channel Type - XCSUDMA_SRC_CHANNEL XCSUDMA_DST_CHANNEL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EndianType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1 : Enable Byte Swapping 0 : Disable Byte Swapping</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="1659" bodyend="1671"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1ga52330d8e63bfcd25888e185b24e9738e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XSecure_ReadNPassChunkToAes</definition>
+        <argsstring>(XSecure_Aes *InstancePtr, const u8 *SrcAddr, const u8 *DestAddr, u32 Length, u8 EnLastFlag)</argsstring>
+        <name>XSecure_ReadNPassChunkToAes</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>SrcAddr</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>DestAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Length</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>EnLastFlag</declname>
+        </param>
+        <briefdescription>
+<para>This API reads bitstream from flash device to destination address. </para>        </briefdescription>
+        <detaileddescription>
+<para>This API should be called while loading bitstream in chunks.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XSecure_Aes instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SrcAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is address of encrypted data source location </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DestAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is address of location where data will get copied </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of data to be copied in bytes </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EnLastFlag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is to indicate end of data</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>returns XST_SUCCESS if successful, or the relevant errorcode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="1689" bodyend="1719"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1ga4aaa0702cd3ee5e256eaea171b7e4b01" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XSecure_PassChunkToAes</definition>
+        <argsstring>(XCsuDma *InstancePtr, const u8 *SrcAddr, u32 Length, u8 EnLastFlag)</argsstring>
+        <name>XSecure_PassChunkToAes</name>
+        <param>
+          <type>XCsuDma *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>SrcAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Length</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>EnLastFlag</declname>
+        </param>
+        <briefdescription>
+<para>This API triggers DMA at source address. </para>        </briefdescription>
+        <detaileddescription>
+<para>This API should be called while loading bitstream in chunks.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XCsuDma instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SrcAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is address of encrypted data source location </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of data to be copied in bytes </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EnLastFlag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is to indicate end of data</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>returns XST_SUCCESS if successful, or the relevant errorcode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Acknowledge the transfers has completed </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="1736" bodyend="1758"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1gadeb15e6ff58fe7e52935350e1a92a102" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSecure_AesInitialize</definition>
+        <argsstring>(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr, u32 KeySel, u32 *IvPtr, u32 *KeyPtr)</argsstring>
+        <name>XSecure_AesInitialize</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XCsuDma *</type>
+          <declname>CsuDmaPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>KeySel</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>IvPtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>KeyPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the instance pointer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CsuDmaPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XCsuDma instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeySel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Key source for decryption, can be KUP/device key (XSECURE_CSU_AES_KEY_SRC_KUP for KUP key or XSECURE_CSU_AES_KEY_SRC_DEV for Device Key) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IvPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Initialization Vector for decryption </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to Aes key in case KUP key is used. Pass <computeroutput>Null</computeroutput> if the device key is to be used.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if initialization was successful.</para></simplesect>
+<simplesect kind="note"><para>All the inputs are accepted in little endian format but the AES engine accepts the data in big endian format, The decryption and encryption functions in xsecure_aes handle the little endian to big endian conversion using few API&apos;s, Xil_Htonl (provided by Xilinx xil_io library) and XSecure_AesCsuDmaConfigureEndiannes for handling data endianness conversions. If higher performance is needed, users can strictly use data in big endian format and modify the xsecure_aes functions to remove the use of the Xil_Htonl and XSecure_AesCsuDmaConfigureEndiannes functions as required. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="150" bodyend="186"/>
+        <references refid="group__xsecure__generic__server__apis_1ga4900fde0f315a9807c11bf73a2e8d90d" compoundref="core_2generic_2xsecure__cryptochk_8c" startline="54" endline="80">XSecure_CryptoCheck</references>
+        <references refid="xsecure__aes__hw_8h_1aae1144b9830a93d8a345636a8082431c" compoundref="xsecure__aes__hw_8h" startline="41">XSECURE_CSU_AES_BASE</references>
+        <references refid="group__xsecure__generic__server__apis_1gac44d78314f59033c8bee53a3f1dee58b" compoundref="core_2util_2xsecure__sss_8c" startline="67" endline="83">XSecure_SssInitialize</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1ga7b2c563fa3324f4f329b775f314b96c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSecure_AesEncryptInit</definition>
+        <argsstring>(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)</argsstring>
+        <name>XSecure_AesEncryptInit</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>EncData</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to initialize the AES engine for encryption. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EncData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer of a buffer in which encrypted data along with GCM TAG will be stored. Buffer size should be Size of data plus 16 bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A 32 bit variable, which holds the size of the input data to be encrypted in bytes, whereas number of bytes provided should be multiples of 4.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>If all of the data to be encrypted is available, the XSecure_AesEncryptData function can be used instead. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Configure the SSS for AES.</para></listitem><listitem><para>Clear AES contents by resetting it.</para></listitem><listitem><para>Clear AES_KEY_CLEAR bits to avoid clearing of key</para></listitem><listitem><para>Helion AES block expects the key in big-endian.</para></listitem><listitem><para>Configure the AES for Encryption.</para></listitem><listitem><para>Start the message.</para></listitem><listitem><para>Enable CSU DMA Src channel for byte swapping.</para></listitem><listitem><para>Enable CSU DMA Dst channel for byte swapping.</para></listitem><listitem><para>Push IV into the AES engine.</para></listitem><listitem><para>Acknowledge the transfer has completed</para></listitem><listitem><para>Configure the CSU DMA Tx/Rx.</para></listitem><listitem><para>Update the size of data </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="207" bodyend="296"/>
+        <references refid="group__xsecure__aes__zynqmp__apis_1ga4fc84c4dd9023538aaff6201b9d63ad7" compoundref="zynqmp_2xsecure__aes_8c" startline="931" endline="959">XSecure_AesKeySelNLoad</references>
+        <references refid="group__xsecure__aes__client__apis_1gaa3c4b19232e0c5fa8cf14d69410e31e7" compoundref="xsecure__aesclient_8c" startline="524" endline="549">XSecure_AesKeyZero</references>
+        <references refid="group__xsecure__aes__zynqmp__apis_1ga88b6213e7e2f971ea5de22040b4f2510" compoundref="zynqmp_2xsecure__aes_8c" startline="858" endline="865">XSecure_AesReset</references>
+        <references refid="xsecure__aes__hw_8h_1a65de8895ca639c0793d5f3bc3b7ff127" compoundref="xsecure__aes__hw_8h" startline="58">XSECURE_CSU_AES_CFG_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1aefe6749b6b1e100f76c8b489f5143452" compoundref="xsecure__aes__hw_8h" startline="57">XSECURE_CSU_AES_KEY_CLR_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1aadc62cc398f22228ef7972c28b1bc2b4" compoundref="xsecure__aes__hw_8h" startline="61">XSECURE_CSU_AES_KUP_0_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1aac3ef8dc2d3278648d10fcccab4c4267" compoundref="xsecure__aes__hw_8h" startline="56">XSECURE_CSU_AES_RESET_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1a5fc757392b9473d3902cb3c214639e32" compoundref="xsecure__aes__hw_8h" startline="55">XSECURE_CSU_AES_START_MSG_OFFSET</references>
+        <references refid="group__xsecure__generic__server__apis_1gae500e79a22c37a14027ce0ad88a8cafe" compoundref="core_2util_2xsecure__utils_8h" startline="218">XSecure_Out32</references>
+        <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ad99985ebb6cf4318c4ff571557bc6b09" compoundref="spartanup_2xsecure__plat_8h" startline="212">XSECURE_SSS_DMA0</references>
+        <references refid="group__xsecure__generic__server__apis_1ga149d2122c6b082fafda37d6f20b013e3" compoundref="core_2util_2xsecure__sss_8c" startline="101" endline="140">XSecure_SssAes</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1gabdefc1128b9769010e42070e15f06d74" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSecure_AesEncryptUpdate</definition>
+        <argsstring>(XSecure_Aes *InstancePtr, const u8 *Data, u32 Size)</argsstring>
+        <name>XSecure_AesEncryptUpdate</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Data</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+<para>This function encrypts the clear-text data passed in and updates the GCM tag from any previous calls. </para>        </briefdescription>
+        <detaileddescription>
+<para>The size from XSecure_AesEncryptInit is decremented from the size passed into this function to determine when the final CSU DMA transfer of data to the AES-GCM cryptographic core.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the data for which encryption should be performed. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A 32 bit variable, which holds the size of the input data in bytes, whereas the number of bytes provided should be multiples of 4.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>If all of the data to be encrypted is available, the XSecure_AesEncryptData function can be used instead. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Wait for Src DMA done.</para></listitem><listitem><para>Acknowledge the transfer has completed</para></listitem><listitem><para>Wait for Dst DMA done.</para></listitem><listitem><para>Acknowledge the transfer has completed</para></listitem><listitem><para>Disable CSU DMA Dst channel for byte swapping.</para></listitem><listitem><para>Disable CSU DMA Src channel for byte swapping.</para></listitem><listitem><para>Wait for AES encryption completion.</para></listitem><listitem><para>Update the size of instance </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="319" bodyend="387"/>
+        <references refid="group__xsecure__aes__client__apis_1gaa3c4b19232e0c5fa8cf14d69410e31e7" compoundref="xsecure__aesclient_8c" startline="524" endline="549">XSecure_AesKeyZero</references>
+        <references refid="group__xsecure__aes__zynqmp__apis_1ga99f31d64c5559493db205be3c6bb4d69" compoundref="zynqmp_2xsecure__aes_8h" startline="246">XSecure_AesWaitForDone</references>
+        <references refid="xsecure__aes__hw_8h_1aac3ef8dc2d3278648d10fcccab4c4267" compoundref="xsecure__aes__hw_8h" startline="56">XSECURE_CSU_AES_RESET_OFFSET</references>
+        <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1gace1d0dd6146035c42a6ae0add6f0d09a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSecure_AesEncryptData</definition>
+        <argsstring>(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src, u32 Len)</argsstring>
+        <name>XSecure_AesEncryptData</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Dst</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Src</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Len</declname>
+        </param>
+        <briefdescription>
+<para>This function encrypts Len (length) number of bytes of the passed in Src (source) buffer and stores the encrypted data along with its associated 16 byte tag in the Dst (destination) buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A pointer to the XSecure_Aes instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A pointer to a buffer where encrypted data along with GCM tag will be stored. The Size of buffer provided should be Size of the data plus 16 bytes </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Src</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A pointer to input data for encryption. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of input data in bytes, whereas the number of bytes provided should be multiples of 4.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>If data to be encrypted is not available in one buffer one can call <ref refid="group__xsecure__aes__client__apis_1ga23f9b2bfaf978518d82c19d8331c9cb8" kindref="member">XSecure_AesEncryptInit()</ref> and update the AES engine with data to be encrypted by calling <ref refid="group__xsecure__aes__client__apis_1ga162a8009f9d4983d841b517fe53d14c4" kindref="member">XSecure_AesEncryptUpdate()</ref> API multiple times as required. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="412" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="412" bodyend="428"/>
+        <references refid="group__xsecure__aes__client__apis_1ga23f9b2bfaf978518d82c19d8331c9cb8" compoundref="xsecure__aesclient_8c" startline="104" endline="150">XSecure_AesEncryptInit</references>
+        <references refid="group__xsecure__aes__client__apis_1ga162a8009f9d4983d841b517fe53d14c4" compoundref="xsecure__aesclient_8c" startline="306" endline="355">XSecure_AesEncryptUpdate</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1ga78edf33e47f7a19be135b194af962d2c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSecure_AesDecryptInit</definition>
+        <argsstring>(XSecure_Aes *InstancePtr, u8 *DecData, u32 Size, u8 *GcmTagAddr)</argsstring>
+        <name>XSecure_AesDecryptInit</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>DecData</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>GcmTagAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the AES engine for decryption and is required to be called before calling XSecure_AesDecryptUpdate. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DecData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer in which decrypted data will be stored. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Expected size of the data in bytes whereas the number of bytes provided should be multiples of 4.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>GcmTagAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the GCM tag which needs to be verified during decryption of the data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>If all of the data to be decrypted is available, the XSecure_AesDecryptData function can be used instead. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Configure the SSS for AES.</para></listitem><listitem><para>Clear AES contents by resetting it.</para></listitem><listitem><para>Configure AES for Decryption</para></listitem><listitem><para>Clear AES_KEY_CLEAR bits to avoid clearing of key</para></listitem><listitem><para>Helion AES block expects the key in big-endian.</para></listitem><listitem><para>Enable CSU DMA Src channel for byte swapping.</para></listitem><listitem><para>Configure the CSU DMA Tx/Rx for the incoming Block</para></listitem><listitem><para>Start the message.</para></listitem><listitem><para>Push IV into the AES engine.</para></listitem><listitem><para>Acknowledge the transfer has completed </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="450" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="450" bodyend="554"/>
+        <references refid="group__xsecure__aes__zynqmp__apis_1ga4fc84c4dd9023538aaff6201b9d63ad7" compoundref="zynqmp_2xsecure__aes_8c" startline="931" endline="959">XSecure_AesKeySelNLoad</references>
+        <references refid="group__xsecure__aes__client__apis_1gaa3c4b19232e0c5fa8cf14d69410e31e7" compoundref="xsecure__aesclient_8c" startline="524" endline="549">XSecure_AesKeyZero</references>
+        <references refid="group__xsecure__aes__zynqmp__apis_1ga88b6213e7e2f971ea5de22040b4f2510" compoundref="zynqmp_2xsecure__aes_8c" startline="858" endline="865">XSecure_AesReset</references>
+        <references refid="xsecure__aes__hw_8h_1a65de8895ca639c0793d5f3bc3b7ff127" compoundref="xsecure__aes__hw_8h" startline="58">XSECURE_CSU_AES_CFG_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1aefe6749b6b1e100f76c8b489f5143452" compoundref="xsecure__aes__hw_8h" startline="57">XSECURE_CSU_AES_KEY_CLR_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1aadc62cc398f22228ef7972c28b1bc2b4" compoundref="xsecure__aes__hw_8h" startline="61">XSECURE_CSU_AES_KUP_0_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1aac3ef8dc2d3278648d10fcccab4c4267" compoundref="xsecure__aes__hw_8h" startline="56">XSECURE_CSU_AES_RESET_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1a5fc757392b9473d3902cb3c214639e32" compoundref="xsecure__aes__hw_8h" startline="55">XSECURE_CSU_AES_START_MSG_OFFSET</references>
+        <references refid="group__xsecure__generic__server__apis_1gae500e79a22c37a14027ce0ad88a8cafe" compoundref="core_2util_2xsecure__utils_8h" startline="218">XSecure_Out32</references>
+        <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ad99985ebb6cf4318c4ff571557bc6b09" compoundref="spartanup_2xsecure__plat_8h" startline="212">XSECURE_SSS_DMA0</references>
+        <references refid="group__xsecure__generic__server__apis_1ga149d2122c6b082fafda37d6f20b013e3" compoundref="core_2util_2xsecure__sss_8c" startline="101" endline="140">XSecure_SssAes</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1ga4db7441166b2271ceaac1ac859a15c60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSecure_AesDecryptUpdate</definition>
+        <argsstring>(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)</argsstring>
+        <name>XSecure_AesDecryptUpdate</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>EncData</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+<para>This function decrypts the encrypted data passed in and updates the GCM tag from any previous calls. </para>        </briefdescription>
+        <detaileddescription>
+<para>The size from XSecure_AesDecryptInit is decremented from the size passed into this function to determine when the GCM tag passed to XSecure_AesDecryptInit needs to be compared to the GCM tag calculated in the AES engine.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EncData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the encrypted data which needs to be decrypted. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Expected size of data to be decrypted in bytes, whereas the number of bytes should be multiples of 4.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Final call of this API returns the status of GCM tag matching.<itemizedlist>
+<listitem><para>XSECURE_CSU_AES_GCM_TAG_MISMATCH: If GCM tag is mismatched</para></listitem><listitem><para>XSECURE_CSU_AES_ZEROIZATION_ERROR: If GCM tag is mismatched, zeroize the decrypted data and send the status of zeroization.</para></listitem><listitem><para>XST_SUCCESS: If GCM tag is matching.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>When Size of the data equals to size of the remaining data that data will be treated as final data. This API can be called multpile times but sum of all Sizes should be equal to Size mention in init. Return of the final call of this API tells whether GCM tag is matching or not. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Check if this is final update</para></listitem><listitem><para>Wait for the Src DMA completion.</para></listitem><listitem><para>Acknowledge the transfer has completed</para></listitem><listitem><para>If this is the last update for the data</para></listitem><listitem><para>Wait for the Src DMA completion.</para></listitem><listitem><para>Acknowledge the transfer has completed</para></listitem><listitem><para>Disable CSU DMA Src channel for byte swapping.</para></listitem><listitem><para>Disable CSU DMA Dst channel for byte swapping.</para></listitem><listitem><para>Wait for AES Decryption completion.</para></listitem><listitem><para>Get the AES status to know if GCM check passed.</para></listitem><listitem><para>Zeroize the decrypted data</para></listitem><listitem><para>Update the size of data</para></listitem><listitem><para>Aes engine is set under reset when GCM tag is failed or when the next block length of decryption is zero</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="585" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="585" bodyend="700"/>
+        <references refid="group__xsecure__aes__client__apis_1gaa3c4b19232e0c5fa8cf14d69410e31e7" compoundref="xsecure__aesclient_8c" startline="524" endline="549">XSecure_AesKeyZero</references>
+        <references refid="group__xsecure__aes__zynqmp__apis_1ga99f31d64c5559493db205be3c6bb4d69" compoundref="zynqmp_2xsecure__aes_8h" startline="246">XSecure_AesWaitForDone</references>
+        <references refid="xsecure__aes__hw_8h_1aec24a13d03bd602adc1f46eee16fcaf8" compoundref="xsecure__aes__hw_8h" startline="74">XSECURE_CSU_AES_IV_3_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1aac3ef8dc2d3278648d10fcccab4c4267" compoundref="xsecure__aes__hw_8h" startline="56">XSECURE_CSU_AES_RESET_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1ad630ee247405208df10c42bea596dafb" compoundref="xsecure__aes__hw_8h" startline="52">XSECURE_CSU_AES_STS_OFFSET</references>
+        <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1gabaf0da2dbbd5f793378a8cc3700a8ef7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSecure_AesDecryptData</definition>
+        <argsstring>(XSecure_Aes *InstancePtr, u8 *DecData, u8 *EncData, u32 Size, u8 *GcmTagAddr)</argsstring>
+        <name>XSecure_AesDecryptData</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>DecData</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>EncData</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>GcmTagAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function decrypts the encrypted data provided and updates the DecData buffer with decrypted data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DecData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to a buffer in which decrypted data will be stored. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EncData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the encrypted data which needs to be decrypted. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of data to be decrypted in bytes, whereas the number of bytes should be multiples of 4. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of data to be decrypted in bytes, whereas the number of bytes should be multiples of 4. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>GcmTagAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to a buffer in which GCM tag address will be stored. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>This API returns the status of GCM tag matching.<itemizedlist>
+<listitem><para>XSECURE_CSU_AES_GCM_TAG_MISMATCH: If GCM tag was mismatched</para></listitem><listitem><para>XST_SUCCESS: If GCM tag was matched.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>When using this function to decrypt data that was encrypted with XSecure_AesEncryptData, the GCM tag will be stored as the last sixteen (16) bytes of data in XSecure_AesEncryptData&apos;s Dst (destination) buffer and should be used as the GcmTagAddr&apos;s pointer. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="767" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="767" bodyend="781"/>
+        <references refid="group__xsecure__aes__client__apis_1gacea2fc49243f66d0b440a95d1bd6170f" compoundref="xsecure__aesclient_8c" startline="166" endline="211">XSecure_AesDecryptInit</references>
+        <references refid="group__xsecure__aes__client__apis_1ga3150fb8656509ac0217c44c9609776cc" compoundref="xsecure__aesclient_8c" startline="419" endline="468">XSecure_AesDecryptUpdate</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1gacb0931126062f28653faf95b53608a8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSecure_AesSetChunking</definition>
+        <argsstring>(XSecure_Aes *InstancePtr, u8 Chunking)</argsstring>
+        <name>XSecure_AesSetChunking</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Chunking</declname>
+        </param>
+        <briefdescription>
+<para>This API enables/disables data chunking. </para>        </briefdescription>
+        <detaileddescription>
+<para>Chunking will be used when complete encrypted data is not present at a single contiguous location (for eg. DDR less systems.) or the data source is not directly reachable through CSU DMA.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Chunking</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Used to enable or disable data chunking.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Chunking enable will be taken account only for <ref refid="group__xsecure__aes__zynqmp__apis_1ga9d60cf825dcf6e7eb30d734f01014266" kindref="member">XSecure_AesDecrypt()</ref> API usage. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="799" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="799" bodyend="805"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1gaf5b3e415f1e4c52d42f8fd9a5265dc90" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSecure_AesSetChunkConfig</definition>
+        <argsstring>(XSecure_Aes *InstancePtr, u8 *ReadBuffer, u32 ChunkSize, u32(*DeviceCopy)(u32, UINTPTR, u32))</argsstring>
+        <name>XSecure_AesSetChunkConfig</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ReadBuffer</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ChunkSize</declname>
+        </param>
+        <param>
+          <type>u32(*)(u32, UINTPTR, u32)</type>
+          <declname>DeviceCopy</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the configuration for Data Chunking. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReadBuffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer where the data will be written after copying. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChunkSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the buffer in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceCopy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function pointer to copy data from FLASH to buffer. Arguments are:<itemizedlist>
+<listitem><para>SrcAddress: Address of data in device</para></listitem><listitem><para>DestAddress: Address where data will be copied</para></listitem><listitem><para>Length: Length of data in bytes. Return value should be 0 in case of success and 1 in case of failure.</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>This function should be used along with <ref refid="group__xsecure__aes__zynqmp__apis_1gaf5b3e415f1e4c52d42f8fd9a5265dc90" kindref="member">XSecure_AesSetChunkConfig()</ref> API, this feature is taken into account only for <ref refid="group__xsecure__aes__zynqmp__apis_1ga9d60cf825dcf6e7eb30d734f01014266" kindref="member">XSecure_AesDecrypt()</ref> API while decrypting the boot image&apos;s partition which is generated using bootgen. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Chunk Size has to be multiple of words </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="835" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="835" bodyend="848"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1ga88b6213e7e2f971ea5de22040b4f2510" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSecure_AesReset</definition>
+        <argsstring>(XSecure_Aes *InstancePtr)</argsstring>
+        <name>XSecure_AesReset</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets and then clears the AES-GCM&apos;s reset line. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XSecure_Aes instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="858" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="858" bodyend="865"/>
+        <references refid="xsecure__aes__hw_8h_1aac3ef8dc2d3278648d10fcccab4c4267" compoundref="xsecure__aes__hw_8h" startline="56">XSECURE_CSU_AES_RESET_OFFSET</references>
+        <references refid="group__xsecure__generic__server__apis_1ga448da91f94630d83a52c21b895455ebf" compoundref="core_2util_2xsecure__utils_8c" startline="47" endline="54">XSecure_ReleaseReset</references>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga9d60cf825dcf6e7eb30d734f01014266" compoundref="zynqmp_2xsecure__aes_8c" startline="1438" endline="1642">XSecure_AesDecrypt</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga78edf33e47f7a19be135b194af962d2c" compoundref="zynqmp_2xsecure__aes_8c" startline="450" endline="554">XSecure_AesDecryptInit</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga7b2c563fa3324f4f329b775f314b96c4" compoundref="zynqmp_2xsecure__aes_8c" startline="207" endline="296">XSecure_AesEncryptInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1gabc4743067996b2f55c4a701ca6c2a331" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSecure_AesKeyZero</definition>
+        <argsstring>(XSecure_Aes *InstancePtr)</argsstring>
+        <name>XSecure_AesKeyZero</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function resets the AES key storage registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="878" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="878" bodyend="918"/>
+        <references refid="xsecure__aes__hw_8h_1aefe6749b6b1e100f76c8b489f5143452" compoundref="xsecure__aes__hw_8h" startline="57">XSECURE_CSU_AES_KEY_CLR_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1ad630ee247405208df10c42bea596dafb" compoundref="xsecure__aes__hw_8h" startline="52">XSECURE_CSU_AES_STS_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1ga4fc84c4dd9023538aaff6201b9d63ad7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSecure_AesKeySelNLoad</definition>
+        <argsstring>(XSecure_Aes *InstancePtr)</argsstring>
+        <name>XSecure_AesKeySelNLoad</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function configures and load AES key from selected key source. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Trig loading of key.</para></listitem><listitem><para>Wait for AES key loading. </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="931" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="931" bodyend="959"/>
+        <references refid="group__xsecure__aes__zynqmp__apis_1ga6ae975b0dbab5ac81cb69192c234fc9c" compoundref="zynqmp_2xsecure__aes_8c" startline="98">XSecure_AesWaitKeyLoad</references>
+        <references refid="xsecure__aes__hw_8h_1ae1c3ca104b2640688266e44b30c888f7" compoundref="xsecure__aes__hw_8h" startline="54">XSECURE_CSU_AES_KEY_LOAD_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1ac4f6d3f9238230cda8ad67d102f6e6d6" compoundref="xsecure__aes__hw_8h" startline="53">XSECURE_CSU_AES_KEY_SRC_OFFSET</references>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga9d60cf825dcf6e7eb30d734f01014266" compoundref="zynqmp_2xsecure__aes_8c" startline="1438" endline="1642">XSecure_AesDecrypt</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga78edf33e47f7a19be135b194af962d2c" compoundref="zynqmp_2xsecure__aes_8c" startline="450" endline="554">XSecure_AesDecryptInit</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga7b2c563fa3324f4f329b775f314b96c4" compoundref="zynqmp_2xsecure__aes_8c" startline="207" endline="296">XSecure_AesEncryptInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1ga8f5000b1f45542f191dbd6c088be1270" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XSecure_AesChunkDecrypt</definition>
+        <argsstring>(XSecure_Aes *InstancePtr, const u8 *Src, u32 Len)</argsstring>
+        <name>XSecure_AesChunkDecrypt</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Src</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Len</declname>
+        </param>
+        <briefdescription>
+<para>This is a helper function to decrypt chunked bitstream block and route to PCAP. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Src</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the encrypted bitstream block start. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of bitstream data block in bytes, whereas the number of bytes should be multiples of 4.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>returns XST_SUCCESS if bitstream block is decrypted by AES. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="978" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="978" bodyend="1027"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1ga059f24728a94629252d443a1869a9c33" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSecure_AesDecryptBlk</definition>
+        <argsstring>(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src, const u8 *Tag, u32 Len, u32 Flag)</argsstring>
+        <name>XSecure_AesDecryptBlk</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Dst</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Src</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Tag</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Len</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Flag</declname>
+        </param>
+        <briefdescription>
+<para>This function handles decryption using the AES engine. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to location where decrypted data will be written </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Src</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to encrypted input data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Tag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the GCM tag used for authentication </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the output data (in bytes)expected after decryption, whereas the number of bytes should be multiple of 4. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Flag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Denotes whether the block is Secure header or data block 0 : Secure Header 1 : Data Block / image </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>returns XST_SUCCESS if GCM tag matching was successful </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Start the message.</para></listitem><listitem><para>Push IV into the AES engine.</para></listitem><listitem><para>Acknowledge the transfer has completed</para></listitem><listitem><para>Enable CSU DMA Src channel for byte swapping.</para></listitem><listitem><para>Configure the CSU DMA Tx/Rx for the incoming Block.</para></listitem><listitem><para>Wait for the Dst DMA completion.</para></listitem><listitem><para>Disable CSU DMA Dst channel for byte swapping</para></listitem><listitem><para>Wait for the Src DMA completion.</para></listitem><listitem><para>Acknowledge the transfers have completed</para></listitem><listitem><para>Copy all the chunks to OCM, decrypt &amp; send to PCAP</para></listitem><listitem><para>update address to point to incoming secure header</para></listitem><listitem><para>Copy the secure header and GCM tag from flash to OCM</para></listitem><listitem><para>Restore Key write register to 0.</para></listitem><listitem><para>Disable CSU DMA Src channel for byte swapping.</para></listitem><listitem><para>Wait for AES Decryption completion.</para></listitem><listitem><para>Get the AES status to know if GCM check passed. </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="1185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="1185" bodyend="1383"/>
+        <references refid="group__xsecure__aes__zynqmp__apis_1ga99f31d64c5559493db205be3c6bb4d69" compoundref="zynqmp_2xsecure__aes_8h" startline="246">XSecure_AesWaitForDone</references>
+        <references refid="xsecure__aes__hw_8h_1a77b13d20302780896f179e0c3789b224" compoundref="xsecure__aes__hw_8h" startline="59">XSECURE_CSU_AES_KUP_WR_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1a5fc757392b9473d3902cb3c214639e32" compoundref="xsecure__aes__hw_8h" startline="55">XSECURE_CSU_AES_START_MSG_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1ad630ee247405208df10c42bea596dafb" compoundref="xsecure__aes__hw_8h" startline="52">XSECURE_CSU_AES_STS_OFFSET</references>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga9d60cf825dcf6e7eb30d734f01014266" compoundref="zynqmp_2xsecure__aes_8c" startline="1438" endline="1642">XSecure_AesDecrypt</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1ga9d60cf825dcf6e7eb30d734f01014266" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSecure_AesDecrypt</definition>
+        <argsstring>(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src, u32 Length)</argsstring>
+        <name>XSecure_AesDecrypt</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Dst</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Src</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Length</declname>
+        </param>
+        <briefdescription>
+<para>This function will handle the AES-GCM Decryption. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Src</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to encrypted data source location </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to location where decrypted data will be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Expected total length of decrypted image expected.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>returns XST_SUCCESS if successful, or the relevant errorcode.</para></simplesect>
+<simplesect kind="note"><para>This function is used for decrypting the Image&apos;s partition encrypted by Bootgen </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Chunking is only for bitstream partitions</para></listitem><listitem><para>Configure the SSS for AES.</para></listitem><listitem><para>Configure AES for Decryption</para></listitem><listitem><para>Clear AES contents by resetting it.</para></listitem><listitem><para>Clear AES_KEY_CLEAR bits to avoid clearing of key</para></listitem><listitem><para>Helion AES block expects the key in big-endian.</para></listitem><listitem><para>Enable CSU DMA Src channel for byte swapping.</para></listitem><listitem><para>First block is always secure header</para></listitem><listitem><para>Start decryption of Secure-Header/Block/Footer.</para></listitem><listitem><para>If decryption failed then return error.</para></listitem><listitem><para>Update the current image size.</para></listitem><listitem><para>After secure header, rest of the blocks are data blocks (image blocks)</para></listitem><listitem><para>Point IV to the CSU IV register.</para></listitem><listitem><para>Update the GcmTagAddr to get GCM-TAG for next block.</para></listitem><listitem><para>Zeroize the decrypted data </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="1438" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="1438" bodyend="1642"/>
+        <references refid="group__xsecure__aes__zynqmp__apis_1ga059f24728a94629252d443a1869a9c33" compoundref="zynqmp_2xsecure__aes_8c" startline="1185" endline="1383">XSecure_AesDecryptBlk</references>
+        <references refid="group__xsecure__aes__zynqmp__apis_1ga4fc84c4dd9023538aaff6201b9d63ad7" compoundref="zynqmp_2xsecure__aes_8c" startline="931" endline="959">XSecure_AesKeySelNLoad</references>
+        <references refid="group__xsecure__aes__client__apis_1gaa3c4b19232e0c5fa8cf14d69410e31e7" compoundref="xsecure__aesclient_8c" startline="524" endline="549">XSecure_AesKeyZero</references>
+        <references refid="group__xsecure__aes__zynqmp__apis_1ga88b6213e7e2f971ea5de22040b4f2510" compoundref="zynqmp_2xsecure__aes_8c" startline="858" endline="865">XSecure_AesReset</references>
+        <references refid="xsecure__aes__hw_8h_1a65de8895ca639c0793d5f3bc3b7ff127" compoundref="xsecure__aes__hw_8h" startline="58">XSECURE_CSU_AES_CFG_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1a288b9458ee0a6ca2541a80df9bbdf2b5" compoundref="xsecure__aes__hw_8h" startline="71">XSECURE_CSU_AES_IV_0_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1aec24a13d03bd602adc1f46eee16fcaf8" compoundref="xsecure__aes__hw_8h" startline="74">XSECURE_CSU_AES_IV_3_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1aefe6749b6b1e100f76c8b489f5143452" compoundref="xsecure__aes__hw_8h" startline="57">XSECURE_CSU_AES_KEY_CLR_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1aadc62cc398f22228ef7972c28b1bc2b4" compoundref="xsecure__aes__hw_8h" startline="61">XSECURE_CSU_AES_KUP_0_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1aac3ef8dc2d3278648d10fcccab4c4267" compoundref="xsecure__aes__hw_8h" startline="56">XSECURE_CSU_AES_RESET_OFFSET</references>
+        <references refid="group__xsecure__generic__server__apis_1gae500e79a22c37a14027ce0ad88a8cafe" compoundref="core_2util_2xsecure__utils_8h" startline="218">XSecure_Out32</references>
+        <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ad99985ebb6cf4318c4ff571557bc6b09" compoundref="spartanup_2xsecure__plat_8h" startline="212">XSECURE_SSS_DMA0</references>
+        <references refid="group__xsecure__generic__server__apis_1ga149d2122c6b082fafda37d6f20b013e3" compoundref="core_2util_2xsecure__sss_8c" startline="101" endline="140">XSecure_SssAes</references>
+        <referencedby refid="group__xsecure__apis_1ga2b8b3f8c925d15be80cff15f248c1532" compoundref="xilsecure__aes__example_8c" startline="151" endline="200">SecureAesExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__aes__zynqmp__apis_1ga6ae975b0dbab5ac81cb69192c234fc9c" prot="public" static="no">
+        <name>XSecure_AesWaitKeyLoad</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>Xil_WaitForEvent((InstancePtr)-&gt;BaseAddress + <ref refid="xsecure__aes__hw_8h_1ad630ee247405208df10c42bea596dafb" kindref="member">XSECURE_CSU_AES_STS_OFFSET</ref>,\
+	                XSECURE_CSU_AES_STS_KEY_INIT_DONE,	\
+	                XSECURE_CSU_AES_STS_KEY_INIT_DONE,	\
+	                XSECURE_AES_TIMEOUT_MAX)</initializer>
+        <briefdescription>
+<para>This macro waits for AES engine to complete key loading. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the AES engine completes key loading. XST_FAILURE if a timeout has occurred. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="98" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga4fc84c4dd9023538aaff6201b9d63ad7" compoundref="zynqmp_2xsecure__aes_8c" startline="931" endline="959">XSecure_AesKeySelNLoad</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__aes__zynqmp__apis_1ga99f31d64c5559493db205be3c6bb4d69" prot="public" static="no">
+        <name>XSecure_AesWaitForDone</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>Xil_WaitForEvent((InstancePtr)-&gt;BaseAddress + <ref refid="xsecure__aes__hw_8h_1ad630ee247405208df10c42bea596dafb" kindref="member">XSECURE_CSU_AES_STS_OFFSET</ref>,\
+	                XSECURE_CSU_AES_STS_AES_BUSY,	\
+	                0U,	\
+	                XSECURE_AES_TIMEOUT_MAX)</initializer>
+        <briefdescription>
+<para>This macro waits for AES engine to complete configured operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the AES engine completes configured operation. XST_FAILURE if a timeout has occurred. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.h" line="246" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.h" bodystart="246" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga059f24728a94629252d443a1869a9c33" compoundref="zynqmp_2xsecure__aes_8c" startline="1185" endline="1383">XSecure_AesDecryptBlk</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga4db7441166b2271ceaac1ac859a15c60" compoundref="zynqmp_2xsecure__aes_8c" startline="585" endline="700">XSecure_AesDecryptUpdate</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1gabdefc1128b9769010e42070e15f06d74" compoundref="zynqmp_2xsecure__aes_8c" startline="319" endline="387">XSecure_AesEncryptUpdate</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

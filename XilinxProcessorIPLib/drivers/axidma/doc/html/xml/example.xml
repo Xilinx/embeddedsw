@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use axidma driver.</para><sect1 id="example_1ex1">
+<title>xaxidma_example_selftest.c</title>
+<para>Contains an example on how to use the XAxidma driver directly. This example performs the basic selftest on the device using the driver.</para><para>For details, see <ref refid="xaxidma__example__selftest_8c" kindref="compound">xaxidma_example_selftest.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xaxidma_example_sg_intr.c</title>
+<para>Contains an example on how to use the XAxidma driver directly. This example shows the usage of the driver to transfer packets in interrupt mode when the axidma is configured in scatter gather mode.</para><para>For details, see <ref refid="xaxidma__example__sg__intr_8c" kindref="compound">xaxidma_example_sg_intr.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xaxidma_example_sg_poll.c</title>
+<para>Contains an example on how to use the XAxidma driver directly. This example shows the usage of the driver to transfer packets in polling mode when the axidma is configured in scatter gather mode.</para><para>For details, see <ref refid="xaxidma__example__sg__poll_8c" kindref="compound">xaxidma_example_sg_poll.c</ref>.</para></sect1>
+<sect1 id="example_1ex4">
+<title>xaxidma_example_simple_intr.c</title>
+<para>Contains an example on how to use the XAxidma driver directly. This example shows the usage of the driver to transfer packets in interrupt mode when the axidma is configured in simple mode.</para><para>For details, see <ref refid="xaxidma__example__simple__intr_8c" kindref="compound">xaxidma_example_simple_intr.c</ref>.</para></sect1>
+<sect1 id="example_1ex5">
+<title>xaxidma_example_simple_poll.c</title>
+<para>Contains an example on how to use the XAxidma driver directly. This example shows the usage of the driver to transfer packets in polling mode when the axidma is configured in simple mode.</para><para>For details, see <ref refid="xaxidma__example__simple__poll_8c" kindref="compound">xaxidma_example_simple_poll.c</ref>.</para></sect1>
+<sect1 id="example_1ex6">
+<title>xaxidma_example_multichan_sg_intr.c</title>
+<para>Contains an example on how to use the XAxidma driver directly. This example shows the usage of the driver to transfer packets in interrupt mode for multichannel capability and works only when the axidma core is configured in scatter gather mode and multichannel mode.</para><para>For details, see xaxidma_example_multichan_sg_intr.c.</para></sect1>
+<sect1 id="example_1ex7">
+<title>xaxidma_example_poll_multi_pkts.c</title>
+<para>Contains an example on how to use the XAxidma driver directly. This example shows the usage of the driver to transfer multiple packets in polling mode when the axidma core is configured in Scatter Gather Mode.</para><para>For details, see <ref refid="xaxidma__example__poll__multi__pkts_8c" kindref="compound">xaxidma_example_poll_multi_pkts.c</ref>.</para></sect1>
+<sect1 id="example_1ex8">
+<title>xaxidma_example_sgcyclic_intr.c</title>
+<para>Contains an example on how to use the XAxidma driver directly. This example shows the usage of the driver to transfer packets in cyclic in interrupt mode when the axidma is configured in scatter gather mode.</para><para>For details, see <ref refid="xaxidma__example__sgcyclic__intr_8c" kindref="compound">xaxidma_example_sgcyclic_intr.c</ref>. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

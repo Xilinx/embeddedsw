@@ -1,0 +1,2340 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__trngpsx__api" kind="group">
+    <compoundname>trngpsx_api</compoundname>
+    <title>TRNGPSX APIs</title>
+    <innerclass refid="struct_x_trngpsx___config" prot="public">XTrngpsx_Config</innerclass>
+    <innerclass refid="struct_x_trngpsx___user_config" prot="public">XTrngpsx_UserConfig</innerclass>
+    <innerclass refid="struct_x_trngpsx___status" prot="public">XTrngpsx_Status</innerclass>
+    <innerclass refid="struct_x_trngpsx___instance" prot="public">XTrngpsx_Instance</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Constant definitions for parameters used for Health and KAT tests</header>
+      <memberdef kind="define" id="group__trngpsx__api_1gaab24ba681f298c15064c277757f8c7c5" prot="public" static="no">
+        <name>XTRNGPSX_KAT_DEFAULT_DF_lENGTH</name>
+        <initializer>7U</initializer>
+        <briefdescription>
+<para>Constant definitions for Health and KAT tests. </para>        </briefdescription>
+        <detaileddescription>
+<para>DF length </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" bodystart="43" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga96822ba4d9b936cb95d8190ffd3095f0" compoundref="xtrngpsx__tests_8c" startline="68" endline="164">XTrngpsx_DRBGKat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga18bacb2c9611d69bff3d8faeb800a345" prot="public" static="no">
+        <name>XTRNGPSX_KAT_DEFAULT_SEED_LIFE</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+<para>Seed life. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" bodystart="44" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga96822ba4d9b936cb95d8190ffd3095f0" compoundref="xtrngpsx__tests_8c" startline="68" endline="164">XTrngpsx_DRBGKat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga731ef8ad5a39bb107502c64ec57f5f00" prot="public" static="no">
+        <name>XTRNGPSX_KAT_SEED_LEN_IN_BYTES</name>
+        <initializer>128U</initializer>
+        <briefdescription>
+<para>Seed length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" bodystart="45" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga96822ba4d9b936cb95d8190ffd3095f0" compoundref="xtrngpsx__tests_8c" startline="68" endline="164">XTrngpsx_DRBGKat</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__trngpsx__api_1ga1b63c27259b3c8679b9f7a7018375276" prot="public" static="no">
+        <name>XTrngpsx_Mode</name>
+        <enumvalue id="group__trngpsx__api_1gga1b63c27259b3c8679b9f7a7018375276a0adbbd4805a7a56d9912f8a9cf57aff4" prot="public">
+          <name>XTRNGPSX_DRNG_MODE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Deterministic Random Number Generator mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1gga1b63c27259b3c8679b9f7a7018375276af30825ebdfd1812d8d59c13ed3736d12" prot="public">
+          <name>XTRNGPSX_PTRNG_MODE</name>
+          <briefdescription>
+<para>Physical True Random Number Generator mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1gga1b63c27259b3c8679b9f7a7018375276ae982b26bd4c7f35518c14f88b7ce5ba7" prot="public">
+          <name>XTRNGPSX_HRNG_MODE</name>
+          <briefdescription>
+<para>Hybrid Random Number Generator mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef contains mode information on which TRNG operates. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="71" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__trngpsx__api_1gabf665f37f1800c3d3859681db4fb46c2" prot="public" static="no">
+        <name>XTrngpsx_ErrorState</name>
+        <enumvalue id="group__trngpsx__api_1ggabf665f37f1800c3d3859681db4fb46c2af33a5bf5d37571fefcdaa758930d6c5b" prot="public">
+          <name>XTRNGPSX_UNHEALTHY</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Unhealthy state. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1ggabf665f37f1800c3d3859681db4fb46c2a519e903ee50abb8ccf5050c6bde24740" prot="public">
+          <name>XTRNGPSX_HEALTHY</name>
+          <briefdescription>
+<para>Healthy state. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1ggabf665f37f1800c3d3859681db4fb46c2ac8bf6bfdece57626cb0915eb4d8772b4" prot="public">
+          <name>XTRNGPSX_CATASTROPHIC</name>
+          <briefdescription>
+<para>Catastrophic state. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1ggabf665f37f1800c3d3859681db4fb46c2aea69652aba529ca2df1550310a5b92cc" prot="public">
+          <name>XTRNGPSX_ERROR</name>
+          <briefdescription>
+<para>Error state. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1ggabf665f37f1800c3d3859681db4fb46c2a7c767c57bf2693d05df2a4aa7ed49b60" prot="public">
+          <name>XTRNGPSX_STARTUP_TEST</name>
+          <briefdescription>
+<para>Startup test state. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef contains different states of TRNG. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="104" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__trngpsx__api_1ga1a37c0faa6994f63b7c2c62ffe43562f" prot="public" static="no">
+        <name>XTrngpsx_State</name>
+        <enumvalue id="group__trngpsx__api_1gga1a37c0faa6994f63b7c2c62ffe43562fab40d38d0bc64cb683a4ade9c3d07bd1b" prot="public">
+          <name>XTRNGPSX_UNINITIALIZED_STATE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Default state. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1gga1a37c0faa6994f63b7c2c62ffe43562fa6256a9f5a1ae6be94d94216a77e47d1c" prot="public">
+          <name>XTRNGPSX_INSTANTIATE_STATE</name>
+          <briefdescription>
+<para>Instantiate state. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1gga1a37c0faa6994f63b7c2c62ffe43562fa0ec15ca3bf0e6216ad396aab80cd64db" prot="public">
+          <name>XTRNGPSX_RESEED_STATE</name>
+          <briefdescription>
+<para>Reseed state. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1gga1a37c0faa6994f63b7c2c62ffe43562fabf5f966ef2781b173f3d0126aa1aa1d3" prot="public">
+          <name>XTRNGPSX_GENERATE_STATE</name>
+          <briefdescription>
+<para>Generate state. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef contains trng driver state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="113" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__trngpsx__api_1ga2d0ae14b9bbf4f302c87faaa43cb8a79" prot="public" static="no">
+        <name>XTrngpsx_ErrorCodes</name>
+        <enumvalue id="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a3028234bc4951452efec651d280e9a13" prot="public">
+          <name>XTRNGPSX_INVALID_PARAM</name>
+          <initializer>= 0x0</initializer>
+          <briefdescription>
+<para>0x0 - Invalid argument </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79abea04f8cfe70d6dc5a8e7a78d8a9929a" prot="public">
+          <name>XTRNGPSX_INVALID_MODE</name>
+          <briefdescription>
+<para>0x1 - Error when TRNG operation mode is invalid </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79ace1309d483b3c71b4648cfc74ffc5944" prot="public">
+          <name>XTRNGPSX_INVALID_DF_LENGTH</name>
+          <briefdescription>
+<para>0x2 - Error when DF length is invalid </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a75b95f1933476804c7b9aabc342b465f" prot="public">
+          <name>XTRNGPSX_INVALID_SEED_LIFE</name>
+          <briefdescription>
+<para>0x3 - Error when seed life is invalid </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79aaf19eaa7b8db854d074a23c6722bc99d" prot="public">
+          <name>XTRNGPSX_INVALID_SEED_VALUE</name>
+          <briefdescription>
+<para>0x4 - Error when seed is NULL </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a95625aa33c96fc9e65543064eb4e973e" prot="public">
+          <name>XTRNGPSX_INVALID_SEED_LENGTH</name>
+          <briefdescription>
+<para>0x5 - Error when input seed length doesn&apos;t match with df length </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a21c4b76c9247554959c5f0ff66568ac0" prot="public">
+          <name>XTRNGPSX_INVALID_STATE</name>
+          <briefdescription>
+<para>0x6 - Error when TRNG state is invalid </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a892ff927b85e5aeb786102b701523766" prot="public">
+          <name>XTRNGPSX_INVALID_ADAPTPROPTEST_CUTOFF_VALUE</name>
+          <briefdescription>
+<para>0x7 - Invalid adaptive proptest cutoff value </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a4879ffc6bc8dbbef89413a41af0bef1f" prot="public">
+          <name>XTRNGPSX_INVALID_REPCOUNTTEST_CUTOFF_VALUE</name>
+          <briefdescription>
+<para>0x8 - Invalid repitive count test cutoff value </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a12c6a942189e26d4ef054ec3b4e5a39f" prot="public">
+          <name>XTRNGPSX_USER_CFG_COPY_ERROR</name>
+          <briefdescription>
+<para>0x9 - Error during memcpy of UserConfig structure </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a750afc0bc2b7948b06e719628dce4ec4" prot="public">
+          <name>XTRNGPSX_UNHEALTHY_STATE</name>
+          <briefdescription>
+<para>0xA - Error when device fails KAT or health tests </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79ab478bf676839153009c7a5bc91005079" prot="public">
+          <name>XTRNGPSX_INVALID_BUF_SIZE</name>
+          <briefdescription>
+<para>0xB - Error invalid buffer size </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a45649834be62e2cac315b4ed8db133f9" prot="public">
+          <name>XTRNGPSX_RESEED_REQUIRED_ERROR</name>
+          <briefdescription>
+<para>0xC - Error seed life expired and reseed required in DRBG mode </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a026fb1ebe44fe8daa96bb6a7b27e98c9" prot="public">
+          <name>XTRNG_PSX_INVALID_PREDRES_VALUE</name>
+          <briefdescription>
+<para>0xD - Invalid predication resistance valye </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a1e193483a8faf3099ed9860439b6ee3d" prot="public">
+          <name>XTRNGPSX_MEMSET_UNINSTANTIATE_ERROR</name>
+          <briefdescription>
+<para>0xE - Error during memset </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a611d0be64ec9b573c0aa0ed99e0a5975" prot="public">
+          <name>XTRNGPSX_TIMEOUT_ERROR</name>
+          <briefdescription>
+<para>0xF - Timeout while waiting for done bit during reseed or generate </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a83efeb211988308d8f9b07bbbe8c23b3" prot="public">
+          <name>XTRNGPSX_CATASTROPHIC_CTF_ERROR</name>
+          <briefdescription>
+<para>0x10 - CTF error during reseed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a2929b58685ab788ea0107d339657632d" prot="public">
+          <name>XTRNGPSX_CATASTROPHIC_DTF_ERROR</name>
+          <briefdescription>
+<para>0x11 - DTF error during generate </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a16fc12b7986ebaee8fe81ae27042988a" prot="public">
+          <name>XTRNGPSX_KAT_FAILED_ERROR</name>
+          <briefdescription>
+<para>0x12 - Error when resultant TRNG o/p doesn&apos;t match with expected o/p </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a8b29809ecc7cba250e0961eb2e8f4ce6" prot="public">
+          <name>XTRNGPSX_WRITE_ERROR</name>
+          <briefdescription>
+<para>0x13 - Error occurred while writing in to the register </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a07e0d5857d20d9872791857be99cd964" prot="public">
+          <name>XTRNGPSX_INVALID_BLOCKING_MODE</name>
+          <briefdescription>
+<para>0x14 - Error occurred when invalid blocking mode is selected </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="129" bodyend="163"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__trngpsx__api_1ga8a9a86209f21795b5c59ea97229d04a3" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_trngpsx___config" kindref="compound">XTrngpsx_Config</ref></type>
+        <definition>XTrngpsx_Config XTrngpsx_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XTrngpsx_ConfigTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_g.c" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__trngpsx__api_1ga46f5ad83528cc8a14519490289b4aaa5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XTrngpsx_ReseedInternal</definition>
+        <argsstring>(XTrngpsx_Instance *InstancePtr, const u8 *Seed, u8 DLen, const u8 *PerStr, const u8 IsBlocking)</argsstring>
+        <name>XTrngpsx_ReseedInternal</name>
+        <param>
+          <type><ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Seed</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DLen</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>PerStr</declname>
+        </param>
+        <param>
+          <type>const u8</type>
+          <declname>IsBlocking</declname>
+        </param>
+        <briefdescription>
+<para>This function triggers and reseeds the DRBG module. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the seed input </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Seed length in multiples of TRNG block size </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PerStr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the personalization string </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsBlocking</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Blocking or Non-blocking support for reseed operation</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On successful reseed</para></listitem><listitem><para>XTRNGPSX_ERROR_WRITE On write failure</para></listitem></itemizedlist>
+</para></simplesect>
+<itemizedlist>
+<listitem><para>XTRNGPSX_TIMEOUT_ERROR If timeout occurred waiting for done bit</para></listitem><listitem><para>XTRNGPSX_CATASTROPHIC_CTF_ERROR If CTF bit asserted in STATUS register. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Configure DF Len</para></listitem><listitem><para>Personalization string processing: optional entropy input for DRBG instantiation</para></listitem><listitem><para>Write 384-bit personalization string to TRNG_PER_STRNG registers</para></listitem><listitem><para>Enable personalization string usage: clear PERSODISABLE bit</para></listitem><listitem><para>Configure personalization and initialize PRNG start bit for reseed sequence</para></listitem><listitem><para>DRNG Mode</para></listitem><listitem><para>Enable TST mode and set PRNG mode for reseed operation</para></listitem><listitem><para>Start reseed operation</para></listitem><listitem><para>For writing seed as an input to DF, PRNG start needs to be set</para></listitem><listitem><para>HTRNG Mode</para></listitem><listitem><para>Enable ring oscillators for random seed source</para></listitem><listitem><para>Enable TRSSEN and set PRNG mode for reseed operation</para></listitem><listitem><para>Start reseed operation</para></listitem><listitem><para>Blocking mode handling: optionally wait for reseed completion based on user configuration</para></listitem><listitem><para>State transition and statistics update: mark reseed complete and reset seed life counter</para></listitem><listitem><para>Reset elapsed seed life counter after successful reseed operation</para></listitem><listitem><para>Error state management: update error status unless catastrophic failure already flagged </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="804" bodyend="880"/>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1ga6b8d4312a4983753f99e0963a52bfbf5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XTrngpsx_WritePersString</definition>
+        <argsstring>(XTrngpsx_Instance *InstancePtr, const u8 *PersString)</argsstring>
+        <name>XTrngpsx_WritePersString</name>
+        <param>
+          <type><ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>PersString</declname>
+        </param>
+        <briefdescription>
+<para>This function writes personalization string in to the registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PersString</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to personalization string.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>-XST_SUCCESS On successful write -XST_FAILURE On failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Write 384-bit personalization string to TRNG_PER_STRNG registers</para></listitem><listitem><para>Pack 4 bytes into 32-bit word in big-endian format </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="1086" bodyend="1108"/>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1gaca8d154b45d3e62d921b2f16421cbf73" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XTrngpsx_WaitForReseed</definition>
+        <argsstring>(XTrngpsx_Instance *InstancePtr)</argsstring>
+        <name>XTrngpsx_WaitForReseed</name>
+        <param>
+          <type><ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function waits for the reseed done bit. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if Random number collection was successful.</para></listitem><listitem><para>XTRNGPSX_TIMEOUT_ERROR if timeout occurred waiting for done bit</para></listitem><listitem><para>XTRNGPSX_CATASTROPHIC_CTF_ERROR if CTF bit asserted in STATUS register. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Wait for TRNG_STATUS.DONE bit with temporal protection</para></listitem><listitem><para>Check for Catastrophic Test Failure (CTF) in status register</para></listitem><listitem><para>Catastrophic error state: mark TRNG as permanently failed until reset/reinitialize</para></listitem><listitem><para>Reset PRNG and TRNG bits for the next operation </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="895" bodyend="922"/>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1ga79e5003073462baeb917ca7e5754a6e5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XTrngpsx_CollectRandData</definition>
+        <argsstring>(XTrngpsx_Instance *InstancePtr, u8 *RandBuf, u32 RandBufSize)</argsstring>
+        <name>XTrngpsx_CollectRandData</name>
+        <param>
+          <type><ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>RandBuf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RandBufSize</declname>
+        </param>
+        <briefdescription>
+<para>This function triggers Generate operation and collects random data in buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RandBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer in which random data is stored. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RandBufSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer size in bytes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if Random number collection was successful.</para></listitem><listitem><para>XTRNGPSX_TIMEOUT_ERROR if timeout occurred waiting for QCNT to become 4.</para></listitem><listitem><para>XTRNGPSX_CATASTROPHIC_DTF_ERROR if DTF bit asserted in STATUS register. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Configure single-generation mode if prediction resistance enabled</para></listitem><listitem><para>Set TRNG in PRNG mode and start random number generation on first random number generation or in single mode generation. Skip for subsequent calls to allow continuous random number generation.</para></listitem><listitem><para>Set PRNG mode to generate</para></listitem><listitem><para>Start random number generation</para></listitem><listitem><para>Mark TRNG as catastrophically failed</para></listitem><listitem><para>Calculate burst index and read 4 words with endian conversion</para></listitem><listitem><para>Clear output buffer on failure to prevent data leakage </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="939" bodyend="1021"/>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1ga414f58da4365f53ddf6d91e21b04c96a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XTrngpsx_WriteSeed</definition>
+        <argsstring>(XTrngpsx_Instance *InstancePtr, const u8 *Seed, u8 DLen)</argsstring>
+        <name>XTrngpsx_WriteSeed</name>
+        <param>
+          <type><ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Seed</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DLen</declname>
+        </param>
+        <briefdescription>
+<para>This function writes seed to the derivative function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the seed input. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Seed length in multiples of TRNG block size</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>-XST_SUCCESS On successful write -XST_FAILURE On failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Seed reconstruction variable for integrity verification</para></listitem><listitem><para>Serial bit input to derivative function via TRNG_CTRL_4 register</para></listitem><listitem><para>Process each bit MSB-first for hardware DF input and integrity verification</para></listitem><listitem><para>Verify entire seed length processed successfully </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="1037" bodyend="1071"/>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1ga56d64f09317ddadc32a9fedbdce07777" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XTrngpsx_WaitForEvent</definition>
+        <argsstring>(UINTPTR Addr, u32 EventMask, u32 Event, u32 Timeout)</argsstring>
+        <name>XTrngpsx_WaitForEvent</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>Addr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EventMask</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Event</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Timeout</declname>
+        </param>
+        <briefdescription>
+<para>Waits for an event to occur for a specified duration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of register to be checked for event(s) occurrence. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EventMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask indicating event(s) to be checked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Specific event(s) value to be checked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Timeout</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Max number of microseconds to wait for an event(s).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS - On occurrence of the event(s). XST_FAILURE - Event did not occur before counter reaches 0. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="1125" bodyend="1129"/>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1ga95bfe7545989e7d9e945265c27c38c45" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XTrngpsx_WriteReg</definition>
+        <argsstring>(UINTPTR Address, u32 RegValue)</argsstring>
+        <name>XTrngpsx_WriteReg</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegValue</declname>
+        </param>
+        <briefdescription>
+<para>Write to the register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the register to be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to be written to the register. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="105" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1ga7d2f200e4627e03feb4417ccbeecbf41" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XTrngpsx_ReadReg</definition>
+        <argsstring>(UINTPTR RegAddress)</argsstring>
+        <name>XTrngpsx_ReadReg</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>RegAddress</declname>
+        </param>
+        <briefdescription>
+<para>Read from the register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RegAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read from the register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="120" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1ga36e195f3005c33bfed1033fbbe00f28a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XTrngpsx_UtilRMW32</definition>
+        <argsstring>(UINTPTR RegAddress, u32 Mask, u32 Value)</argsstring>
+        <name>XTrngpsx_UtilRMW32</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>RegAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>This function reads, modifies and writes in to the register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RegAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the register. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indicates the bits to be modified </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains 32 bit Value to be written at the specified address</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>-XST_SUCCESS On successful write -XST_FAILURE On failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="139" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1ga4d6ea303dd85063cf5c4412f92fb9c28" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XTrngpsx_Set</definition>
+        <argsstring>(XTrngpsx_Instance *InstancePtr)</argsstring>
+        <name>XTrngpsx_Set</name>
+        <param>
+          <type><ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function brings TRNG core and prng unit out of reset. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>-XST_SUCCESS On success -XST_FAILURE On failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Soft reset PRNG unit </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="156" bodyend="172"/>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1gad14b993877273bd5024189548d002c62" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XTrngpsx_Reset</definition>
+        <argsstring>(XTrngpsx_Instance *InstancePtr)</argsstring>
+        <name>XTrngpsx_Reset</name>
+        <param>
+          <type><ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets TRNG core in to reset state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>-XST_SUCCESS On success -XST_FAILURE On failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="186" bodyend="190"/>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1gab96b799ba1f3b17a94c897d1e4c5796a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XTrngpsx_PrngReset</definition>
+        <argsstring>(XTrngpsx_Instance *InstancePtr)</argsstring>
+        <name>XTrngpsx_PrngReset</name>
+        <param>
+          <type><ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets PRNG unit in to reset state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>-XST_SUCCESS On success -XST_FAILURE On failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="231" bodyend="235"/>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1ga66e2a0389140e36a2b959182152105b2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XTrngpsx_PrngSet</definition>
+        <argsstring>(XTrngpsx_Instance *InstancePtr)</argsstring>
+        <name>XTrngpsx_PrngSet</name>
+        <param>
+          <type><ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function brings PRNG unit out of reset. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>-XST_SUCCESS On success -XST_FAILURE On failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert PRNG soft reset bit</para></listitem><listitem><para>Deassert PRNG soft reset bit </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="204" bodyend="217"/>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1ga8a262cb74910b8271534589b87005e16" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XTrngpsx_CfgDfLen</definition>
+        <argsstring>(XTrngpsx_Instance *InstancePtr, u8 DfLen)</argsstring>
+        <name>XTrngpsx_CfgDfLen</name>
+        <param>
+          <type><ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DfLen</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the DF input length. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DfLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>input DF length.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>-XST_SUCCESS On successful write -XST_FAILURE On failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="250" bodyend="254"/>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1ga0bda2c1b0f58518557ddadf7c7c804bf" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XTrngpsx_CfgAdaptPropTestCutoff</definition>
+        <argsstring>(XTrngpsx_Instance *InstancePtr, u16 AdaptPropTestCutoff)</argsstring>
+        <name>XTrngpsx_CfgAdaptPropTestCutoff</name>
+        <param>
+          <type><ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>AdaptPropTestCutoff</declname>
+        </param>
+        <briefdescription>
+<para>This function writes the cutoff value in to the register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AdaptPropTestCutoff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>cutoff value for adaptive count test.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>-XST_SUCCESS On successful write -XST_FAILURE On failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="269" bodyend="273"/>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1ga9d61f5704190974b4c9375a25e00690a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XTrngpsx_CfgRepCountTestCutoff</definition>
+        <argsstring>(XTrngpsx_Instance *InstancePtr, u16 RepCountTestCutoff)</argsstring>
+        <name>XTrngpsx_CfgRepCountTestCutoff</name>
+        <param>
+          <type><ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>RepCountTestCutoff</declname>
+        </param>
+        <briefdescription>
+<para>This function writes the cutoff value in to the register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RepCountTestCutoff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>cutoff value for repetitive count test.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>-XST_SUCCESS On successful write -XST_FAILURE On failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="288" bodyend="292"/>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1gaef000d1f346e487905e6be3d9b80025a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XTrngpsx_CfgDIT</definition>
+        <argsstring>(XTrngpsx_Instance *InstancePtr, u8 DITValue)</argsstring>
+        <name>XTrngpsx_CfgDIT</name>
+        <param>
+          <type><ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DITValue</declname>
+        </param>
+        <briefdescription>
+<para>This function writes the DIT value in to the register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DITValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Digitization interval time.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>-XST_SUCCESS On successful write -XST_FAILURE On failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="307" bodyend="311"/>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1ga6b5653250d7dad396a064b0ba6fa5c34" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XTrngpsx_CfgInitialize</definition>
+        <argsstring>(XTrngpsx_Instance *InstancePtr, const XTrngpsx_Config *CfgPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XTrngpsx_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_trngpsx___config" kindref="compound">XTrngpsx_Config</ref> *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the TRNGPSV instance/driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function must be called prior to using the driver. Initialization includes only setting up the device id and base address. All the remaining parameters of the Instance will be initialized in Instantiate function.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XTrngpsx instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the configuration structure associated with the TRNGPSX driver. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. If address translation is being used, then this parameter must reflect the virtual base address. Otherwise, the physical address should be used.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful.</para></listitem><listitem><para>XTRNGPSX_INVALID_PARAM if invalid parameter passed to this function. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters.</para></listitem><listitem><para>Populate Config parameters </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="331" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="331" bodyend="365"/>
+        <references refid="struct_x_trngpsx___config_1a620f1d30b205b73853ba2944daf3792d" compoundref="xtrngpsx_8h" startline="84">XTrngpsx_Config::BaseAddress</references>
+        <references refid="struct_x_trngpsx___instance_1a2dbc9278a04d95a6ce941a671cd1e643" compoundref="xtrngpsx_8h" startline="122">XTrngpsx_Instance::Config</references>
+        <references refid="struct_x_trngpsx___instance_1a09306785899052b04da48d650153eb65" compoundref="xtrngpsx_8h" startline="125">XTrngpsx_Instance::ErrorState</references>
+        <references refid="struct_x_trngpsx___instance_1a78a6095bc46bd1501992906d51cb0826" compoundref="xtrngpsx_8h" startline="126">XTrngpsx_Instance::State</references>
+        <references refid="group__trngpsx__api_1ggabf665f37f1800c3d3859681db4fb46c2aea69652aba529ca2df1550310a5b92cc" compoundref="xtrngpsx_8h" startline="108">XTRNGPSX_ERROR</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a3028234bc4951452efec651d280e9a13" compoundref="xtrngpsx_8h" startline="130">XTRNGPSX_INVALID_PARAM</references>
+        <references refid="group__trngpsx__api_1gga1a37c0faa6994f63b7c2c62ffe43562fab40d38d0bc64cb683a4ade9c3d07bd1b" compoundref="xtrngpsx_8h" startline="114">XTRNGPSX_UNINITIALIZED_STATE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1ga68da9a334ae46bbed63a36ae6a273745" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XTrngpsx_Instantiate</definition>
+        <argsstring>(XTrngpsx_Instance *InstancePtr, const u8 *Seed, u32 SeedLength, const u8 *PersStr, const XTrngpsx_UserConfig *UserCfg)</argsstring>
+        <name>XTrngpsx_Instantiate</name>
+        <param>
+          <type><ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Seed</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SeedLength</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>PersStr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_trngpsx___user_config" kindref="compound">XTrngpsx_UserConfig</ref> *</type>
+          <declname>UserCfg</declname>
+        </param>
+        <briefdescription>
+<para>This function instantiates the TRNG instance with user configure values. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the seed input </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SeedLength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Seed length in bytes </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PersStr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the personalization string input </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>UserCfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_trngpsx___user_config" kindref="compound">XTrngpsx_UserConfig</ref></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On successful instantiation</para></listitem><listitem><para>XTRNGPSX_INVALID_PARAM If invalid parameter(s) passed to this function.</para></listitem><listitem><para>XTRNGPSX_INVALID_SEED_VALUE If provide seed is NULL in DRBG mode</para></listitem><listitem><para>XTRNGPSX_INVALID_STATE If state is not in uninstantiate state</para></listitem><listitem><para>XTRNGPSX_UNHEALTHY_STATE If TRNG KAT fails</para></listitem><listitem><para>XTRNGPSX_INVALID_MODE If invalid mode is passed to this function</para></listitem><listitem><para>XTRNGPSX_INVALID_DF_LENGTH If invalid DF input length is passed as a function</para></listitem><listitem><para>XTRNGPSX_INVALID_SEED_LENGTH If provide seed length doesn&apos;t match with given DF length</para></listitem><listitem><para>XTRNGPSX_INVALID_SEED_LIFE If invalid seed life is provided</para></listitem><listitem><para>XTRNGPSX_INVALID_ADAPTPROPTEST_CUTOFF_VALUE If invalid cutoff value is provided</para></listitem><listitem><para>XTRNGPSX_INVALID_REPCOUNTTEST_CUTOFF_VALUE If invalid repetitive test cutoff value is provided</para></listitem><listitem><para>XTRNGPSX_USER_CFG_COPY_ERROR If error occurred during copy of <ref refid="struct_x_trngpsx___user_config" kindref="compound">XTrngpsx_UserConfig</ref> structure</para></listitem><listitem><para>XTRNGPSX_TIMEOUT_ERROR If timeout occurred waiting for done bit</para></listitem><listitem><para>XTRNGPSX_CATASTROPHIC_CTF_ERROR If CTF bit asserted in STATUS register.</para></listitem><listitem><para>XTRNGPSX_ERROR_WRITE On write failure</para></listitem><listitem><para>XTRNGPSX_INVALID_BLOCKING_MODE If invalid blocking mode is chosen</para></listitem><listitem><para>XST_FAILURE On unexpected failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input arguments</para></listitem><listitem><para>Secure copy user configuration to driver instance</para></listitem><listitem><para>Bring TRNG and PRNG unit core out of reset</para></listitem><listitem><para>Configure health monitoring and DIT for PTRNG/HRNG</para></listitem><listitem><para>Configure cutoff values</para></listitem><listitem><para>Configure default DIT value</para></listitem><listitem><para>Do reseed operation when mode is DRNG/HRNG</para></listitem><listitem><para>Mark TRNG as healthy and ready for operation</para></listitem><listitem><para>Set error state on failure (except catastrophic failures) </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="398" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="398" bodyend="523"/>
+        <references refid="struct_x_trngpsx___user_config_1ae55baa3e0c90545ee6ad97a887f375c4" compoundref="xtrngpsx_8h" startline="91">XTrngpsx_UserConfig::AdaptPropTestCutoff</references>
+        <references refid="struct_x_trngpsx___user_config_1ae795125d60d3a1f3854b8ea7d5c8be86" compoundref="xtrngpsx_8h" startline="93">XTrngpsx_UserConfig::DFLength</references>
+        <references refid="struct_x_trngpsx___instance_1a09306785899052b04da48d650153eb65" compoundref="xtrngpsx_8h" startline="125">XTrngpsx_Instance::ErrorState</references>
+        <references refid="struct_x_trngpsx___user_config_1ac035b7ac282ed5d91d933a9a37b94dd9" compoundref="xtrngpsx_8h" startline="95">XTrngpsx_UserConfig::IsBlocking</references>
+        <references refid="struct_x_trngpsx___user_config_1a64c4d3affe039dabf29ab3bfe92d7938" compoundref="xtrngpsx_8h" startline="89">XTrngpsx_UserConfig::Mode</references>
+        <references refid="struct_x_trngpsx___user_config_1a9421e3a61e8bcdf807ba51f61517513b" compoundref="xtrngpsx_8h" startline="92">XTrngpsx_UserConfig::RepCountTestCutoff</references>
+        <references refid="struct_x_trngpsx___user_config_1a1ad720d71f169d0dba2f4457c0e4f872" compoundref="xtrngpsx_8h" startline="90">XTrngpsx_UserConfig::SeedLife</references>
+        <references refid="struct_x_trngpsx___instance_1a78a6095bc46bd1501992906d51cb0826" compoundref="xtrngpsx_8h" startline="126">XTrngpsx_Instance::State</references>
+        <references refid="group__trngpsx__api_1gae3c0870472b6d82493439c7b4e99e923" compoundref="xtrngpsx__hw_8h" startline="104">TRNG_CTRL_2_DIT_DEFVAL</references>
+        <references refid="struct_x_trngpsx___instance_1a35e78a175d954c5c5f6232283996eb42" compoundref="xtrngpsx_8h" startline="123">XTrngpsx_Instance::UserCfg</references>
+        <references refid="group__trngpsx__api_1ga0644d7e73c8645812333618387619c84" compoundref="xtrngpsx_8c" startline="62">XTRNGPSX_ADAPTPROPTESTCUTOFF_MAX_VAL</references>
+        <references refid="group__trngpsx__api_1gaebafd9bdd9fd17cc76f7d644f2661b4c" compoundref="xtrngpsx_8c" startline="51">XTRNGPSX_BLOCK_LEN_IN_BYTES</references>
+        <references refid="group__trngpsx__api_1ggabf665f37f1800c3d3859681db4fb46c2ac8bf6bfdece57626cb0915eb4d8772b4" compoundref="xtrngpsx_8h" startline="107">XTRNGPSX_CATASTROPHIC</references>
+        <references refid="group__trngpsx__api_1gacdb1fbfdbaf6706a613cabfe35e4b23d" compoundref="xtrngpsx_8c" startline="57">XTRNGPSX_DF_MAX_LENGTH</references>
+        <references refid="group__trngpsx__api_1ga0cd1496d0e68ec8adf6f020b4ee07639" compoundref="xtrngpsx_8c" startline="56">XTRNGPSX_DF_MIN_LENGTH</references>
+        <references refid="group__trngpsx__api_1gga1b63c27259b3c8679b9f7a7018375276a0adbbd4805a7a56d9912f8a9cf57aff4" compoundref="xtrngpsx_8h" startline="72">XTRNGPSX_DRNG_MODE</references>
+        <references refid="group__trngpsx__api_1ggabf665f37f1800c3d3859681db4fb46c2aea69652aba529ca2df1550310a5b92cc" compoundref="xtrngpsx_8h" startline="108">XTRNGPSX_ERROR</references>
+        <references refid="group__trngpsx__api_1ggabf665f37f1800c3d3859681db4fb46c2a519e903ee50abb8ccf5050c6bde24740" compoundref="xtrngpsx_8h" startline="106">XTRNGPSX_HEALTHY</references>
+        <references refid="group__trngpsx__api_1gga1b63c27259b3c8679b9f7a7018375276ae982b26bd4c7f35518c14f88b7ce5ba7" compoundref="xtrngpsx_8h" startline="74">XTRNGPSX_HRNG_MODE</references>
+        <references refid="group__trngpsx__api_1gga1a37c0faa6994f63b7c2c62ffe43562fa6256a9f5a1ae6be94d94216a77e47d1c" compoundref="xtrngpsx_8h" startline="115">XTRNGPSX_INSTANTIATE_STATE</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a892ff927b85e5aeb786102b701523766" compoundref="xtrngpsx_8h" startline="140">XTRNGPSX_INVALID_ADAPTPROPTEST_CUTOFF_VALUE</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a07e0d5857d20d9872791857be99cd964" compoundref="xtrngpsx_8h" startline="161">XTRNGPSX_INVALID_BLOCKING_MODE</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79ace1309d483b3c71b4648cfc74ffc5944" compoundref="xtrngpsx_8h" startline="133">XTRNGPSX_INVALID_DF_LENGTH</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79abea04f8cfe70d6dc5a8e7a78d8a9929a" compoundref="xtrngpsx_8h" startline="131">XTRNGPSX_INVALID_MODE</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a3028234bc4951452efec651d280e9a13" compoundref="xtrngpsx_8h" startline="130">XTRNGPSX_INVALID_PARAM</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a4879ffc6bc8dbbef89413a41af0bef1f" compoundref="xtrngpsx_8h" startline="142">XTRNGPSX_INVALID_REPCOUNTTEST_CUTOFF_VALUE</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a95625aa33c96fc9e65543064eb4e973e" compoundref="xtrngpsx_8h" startline="136">XTRNGPSX_INVALID_SEED_LENGTH</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a75b95f1933476804c7b9aabc342b465f" compoundref="xtrngpsx_8h" startline="134">XTRNGPSX_INVALID_SEED_LIFE</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79aaf19eaa7b8db854d074a23c6722bc99d" compoundref="xtrngpsx_8h" startline="135">XTRNGPSX_INVALID_SEED_VALUE</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a21c4b76c9247554959c5f0ff66568ac0" compoundref="xtrngpsx_8h" startline="138">XTRNGPSX_INVALID_STATE</references>
+        <references refid="group__trngpsx__api_1ga369bd60024827c90f5863cb1e82baa59" compoundref="xtrngpsx_8c" startline="53">XTRNGPSX_MAX_SEEDLIFE</references>
+        <references refid="group__trngpsx__api_1gab156d67eb4a798f294dc6ddebe8ab53b" compoundref="xtrngpsx_8c" startline="52">XTRNGPSX_MIN_SEEDLIFE</references>
+        <references refid="group__trngpsx__api_1gga1b63c27259b3c8679b9f7a7018375276af30825ebdfd1812d8d59c13ed3736d12" compoundref="xtrngpsx_8h" startline="73">XTRNGPSX_PTRNG_MODE</references>
+        <references refid="group__trngpsx__api_1gacf4e638c7db3dcb2f105857b8d69880e" compoundref="xtrngpsx_8c" startline="63">XTRNGPSX_REPCOUNTTESTCUTOFF_MAX_VAL</references>
+        <references refid="group__trngpsx__api_1gadf95ce99ad81427554ef3edf0ff281c0" compoundref="xtrngpsx_8c" startline="71">XTRNGPSX_TEMPORAL_CHECK</references>
+        <references refid="group__trngpsx__api_1gga1a37c0faa6994f63b7c2c62ffe43562fab40d38d0bc64cb683a4ade9c3d07bd1b" compoundref="xtrngpsx_8h" startline="114">XTRNGPSX_UNINITIALIZED_STATE</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a12c6a942189e26d4ef054ec3b4e5a39f" compoundref="xtrngpsx_8h" startline="144">XTRNGPSX_USER_CFG_COPY_ERROR</references>
+        <referencedby refid="group__trngpsx__api_1ga96822ba4d9b936cb95d8190ffd3095f0" compoundref="xtrngpsx__tests_8c" startline="68" endline="164">XTrngpsx_DRBGKat</referencedby>
+        <referencedby refid="group__trngpsx__api_1ga9b57a3574f76fbaf1edac0255b95373e" compoundref="xtrngpsx__tests_8c" startline="178" endline="198">XTrngpsx_HealthTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1ga27d626b65acc3b1e97573f4c2d2ee8e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XTrngpsx_Reseed</definition>
+        <argsstring>(XTrngpsx_Instance *InstancePtr, const u8 *Seed, u8 DLen)</argsstring>
+        <name>XTrngpsx_Reseed</name>
+        <param>
+          <type><ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Seed</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DLen</declname>
+        </param>
+        <briefdescription>
+<para>This function triggers and reseeds the DRBG module. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the seed input </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Seed length in TRNG block size</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On successful reseed</para></listitem><listitem><para>XTRNGPSX_INVALID_PARAM If invalid parameter(s) passed to this function.</para></listitem><listitem><para>XTRNGPSX_INVALID_SEED_VALUE If provide seed is NULL in DRBG/HRNG mode</para></listitem><listitem><para>XTRNGPSX_INVALID_MODE If invalid mode is passed to this function</para></listitem><listitem><para>XTRNGPSX_INVALID_DF_LENGTH If invalid DF input length is passed as a function</para></listitem><listitem><para>XTRNGPSX_INVALID_STATE If state is not sequenced correctly</para></listitem><listitem><para>XTRNGPSX_UNHEALTHY_STATE If TRNG is in failure state, needs an uninstantiation or KAT should be run if the error is catastrophic</para></listitem><listitem><para>XTRNGPSX_TIMEOUT_ERROR If timeout occurred waiting for done bit</para></listitem><listitem><para>XTRNGPSX_CATASTROPHIC_CTF_ERROR If CTF bit asserted in STATUS register.</para></listitem><listitem><para>XTRNGPSX_ERROR_WRITE On write failure</para></listitem><listitem><para>XST_FAILURE On unexpected failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input arguments.</para></listitem><listitem><para>Wait for reseed operation and check CTF flag</para></listitem><listitem><para>Execute reseed operation with temporal protection against fault attacks </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="549" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="549" bodyend="600"/>
+        <references refid="struct_x_trngpsx___instance_1a09306785899052b04da48d650153eb65" compoundref="xtrngpsx_8h" startline="125">XTrngpsx_Instance::ErrorState</references>
+        <references refid="struct_x_trngpsx___user_config_1ac035b7ac282ed5d91d933a9a37b94dd9" compoundref="xtrngpsx_8h" startline="95">XTrngpsx_UserConfig::IsBlocking</references>
+        <references refid="struct_x_trngpsx___user_config_1a64c4d3affe039dabf29ab3bfe92d7938" compoundref="xtrngpsx_8h" startline="89">XTrngpsx_UserConfig::Mode</references>
+        <references refid="struct_x_trngpsx___instance_1a78a6095bc46bd1501992906d51cb0826" compoundref="xtrngpsx_8h" startline="126">XTrngpsx_Instance::State</references>
+        <references refid="struct_x_trngpsx___instance_1a35e78a175d954c5c5f6232283996eb42" compoundref="xtrngpsx_8h" startline="123">XTrngpsx_Instance::UserCfg</references>
+        <references refid="group__trngpsx__api_1gacdb1fbfdbaf6706a613cabfe35e4b23d" compoundref="xtrngpsx_8c" startline="57">XTRNGPSX_DF_MAX_LENGTH</references>
+        <references refid="group__trngpsx__api_1ga0cd1496d0e68ec8adf6f020b4ee07639" compoundref="xtrngpsx_8c" startline="56">XTRNGPSX_DF_MIN_LENGTH</references>
+        <references refid="group__trngpsx__api_1gga1b63c27259b3c8679b9f7a7018375276a0adbbd4805a7a56d9912f8a9cf57aff4" compoundref="xtrngpsx_8h" startline="72">XTRNGPSX_DRNG_MODE</references>
+        <references refid="group__trngpsx__api_1ggabf665f37f1800c3d3859681db4fb46c2a519e903ee50abb8ccf5050c6bde24740" compoundref="xtrngpsx_8h" startline="106">XTRNGPSX_HEALTHY</references>
+        <references refid="group__trngpsx__api_1gga1b63c27259b3c8679b9f7a7018375276ae982b26bd4c7f35518c14f88b7ce5ba7" compoundref="xtrngpsx_8h" startline="74">XTRNGPSX_HRNG_MODE</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79ace1309d483b3c71b4648cfc74ffc5944" compoundref="xtrngpsx_8h" startline="133">XTRNGPSX_INVALID_DF_LENGTH</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79abea04f8cfe70d6dc5a8e7a78d8a9929a" compoundref="xtrngpsx_8h" startline="131">XTRNGPSX_INVALID_MODE</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a3028234bc4951452efec651d280e9a13" compoundref="xtrngpsx_8h" startline="130">XTRNGPSX_INVALID_PARAM</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79aaf19eaa7b8db854d074a23c6722bc99d" compoundref="xtrngpsx_8h" startline="135">XTRNGPSX_INVALID_SEED_VALUE</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a21c4b76c9247554959c5f0ff66568ac0" compoundref="xtrngpsx_8h" startline="138">XTRNGPSX_INVALID_STATE</references>
+        <references refid="group__trngpsx__api_1gga1b63c27259b3c8679b9f7a7018375276af30825ebdfd1812d8d59c13ed3736d12" compoundref="xtrngpsx_8h" startline="73">XTRNGPSX_PTRNG_MODE</references>
+        <references refid="group__trngpsx__api_1gga1a37c0faa6994f63b7c2c62ffe43562fa0ec15ca3bf0e6216ad396aab80cd64db" compoundref="xtrngpsx_8h" startline="116">XTRNGPSX_RESEED_STATE</references>
+        <references refid="group__trngpsx__api_1ggabf665f37f1800c3d3859681db4fb46c2a7c767c57bf2693d05df2a4aa7ed49b60" compoundref="xtrngpsx_8h" startline="109">XTRNGPSX_STARTUP_TEST</references>
+        <references refid="group__trngpsx__api_1gadf95ce99ad81427554ef3edf0ff281c0" compoundref="xtrngpsx_8c" startline="71">XTRNGPSX_TEMPORAL_CHECK</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a750afc0bc2b7948b06e719628dce4ec4" compoundref="xtrngpsx_8h" startline="146">XTRNGPSX_UNHEALTHY_STATE</references>
+        <references refid="group__trngpsx__api_1gga1a37c0faa6994f63b7c2c62ffe43562fab40d38d0bc64cb683a4ade9c3d07bd1b" compoundref="xtrngpsx_8h" startline="114">XTRNGPSX_UNINITIALIZED_STATE</references>
+        <referencedby refid="group__trngpsx__api_1ga96822ba4d9b936cb95d8190ffd3095f0" compoundref="xtrngpsx__tests_8c" startline="68" endline="164">XTrngpsx_DRBGKat</referencedby>
+        <referencedby refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XTrngpsx_Generate</definition>
+        <argsstring>(XTrngpsx_Instance *InstancePtr, u8 *RandBuf, u32 RandBufSize, u8 PredResistance)</argsstring>
+        <name>XTrngpsx_Generate</name>
+        <param>
+          <type><ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>RandBuf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RandBufSize</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>PredResistance</declname>
+        </param>
+        <briefdescription>
+<para>This function generates and collects random data in to a buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RandBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to buffer in which random data is stored. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RandBufSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of the buffer in which random data is stored. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PredResistance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the flag that controls Generate level Prediction Resistance. When enabled, it mandates fresh seed for every Generate operation.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On successful generate of random number</para></listitem><listitem><para>XTRNGPSX_INVALID_PARAM If invalid parameter(s) passed to this function.</para></listitem><listitem><para>XTRNGPSX_INVALID_STATE If state is not sequenced correctly</para></listitem><listitem><para>XTRNGPSX_INVALID_MODE If invalid mode is passed to this function</para></listitem><listitem><para>XTRNGPSX_INVALID_BUF_SIZE If buffer is less that 256 bytes or NULL</para></listitem><listitem><para>XTRNGPSX_INVALID_PREDRES_VALUE If invalid predication resistance value is passed to this function</para></listitem><listitem><para>XTRNGPSX_UNHEALTHY_STATE If TRNG is in failure state, needs an uninstantiation or KAT should be run if error is catastrophic</para></listitem><listitem><para>XTRNGPSX_RESEED_REQUIRED_ERROR If elapsed seed life exceeds the requested seed life in DRBG mode</para></listitem><listitem><para>XTRNGPSX_TIMEOUT_ERROR If timeout occurred waiting for QCNT to become 4.</para></listitem><listitem><para>XTRNGPSX_CATASTROPHIC_DTF_ERROR If DTF bit asserted in STATUS register.</para></listitem><listitem><para>XTRNGPSX_ERROR_WRITE On write failure</para></listitem><listitem><para>XST_FAILURE On unexpected failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input arguments.</para></listitem><listitem><para>Wait for reseed operation and check CTF flag</para></listitem><listitem><para>Store prediction resistance setting for hardware configuration during data collection</para></listitem><listitem><para>Enable ring oscillators for random seed source</para></listitem><listitem><para>Configure TRNG control: enable TRSS, EU mode for PTRNG operation</para></listitem><listitem><para>Trigger generate and collect random data</para></listitem><listitem><para>State machine update: transition to generate state indicating successful operation</para></listitem><listitem><para>Update seed life and handle HRNG automatic reseed logic</para></listitem><listitem><para>HRNG automatic reseed logic: maintain fresh entropy based on configured seed life</para></listitem><listitem><para>Auto reseed in HRNG mode</para></listitem><listitem><para>Automatic reseed with internal entropy: maintain cryptographic strength</para></listitem><listitem><para>Update error state on failure (preserve catastrophic state) </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="629" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="629" bodyend="737"/>
+        <references refid="struct_x_trngpsx___config_1a620f1d30b205b73853ba2944daf3792d" compoundref="xtrngpsx_8h" startline="84">XTrngpsx_Config::BaseAddress</references>
+        <references refid="struct_x_trngpsx___instance_1a2dbc9278a04d95a6ce941a671cd1e643" compoundref="xtrngpsx_8h" startline="122">XTrngpsx_Instance::Config</references>
+        <references refid="struct_x_trngpsx___user_config_1ae795125d60d3a1f3854b8ea7d5c8be86" compoundref="xtrngpsx_8h" startline="93">XTrngpsx_UserConfig::DFLength</references>
+        <references refid="struct_x_trngpsx___status_1a6829b403e9725800370da4b70cd94b39" compoundref="xtrngpsx_8h" startline="100">XTrngpsx_Status::ElapsedSeedLife</references>
+        <references refid="struct_x_trngpsx___instance_1a09306785899052b04da48d650153eb65" compoundref="xtrngpsx_8h" startline="125">XTrngpsx_Instance::ErrorState</references>
+        <references refid="struct_x_trngpsx___user_config_1ac035b7ac282ed5d91d933a9a37b94dd9" compoundref="xtrngpsx_8h" startline="95">XTrngpsx_UserConfig::IsBlocking</references>
+        <references refid="struct_x_trngpsx___user_config_1a64c4d3affe039dabf29ab3bfe92d7938" compoundref="xtrngpsx_8h" startline="89">XTrngpsx_UserConfig::Mode</references>
+        <references refid="struct_x_trngpsx___user_config_1a74cc2acfe2398387faba13dcb046f7b6" compoundref="xtrngpsx_8h" startline="94">XTrngpsx_UserConfig::PredResistance</references>
+        <references refid="struct_x_trngpsx___user_config_1a1ad720d71f169d0dba2f4457c0e4f872" compoundref="xtrngpsx_8h" startline="90">XTrngpsx_UserConfig::SeedLife</references>
+        <references refid="struct_x_trngpsx___instance_1a78a6095bc46bd1501992906d51cb0826" compoundref="xtrngpsx_8h" startline="126">XTrngpsx_Instance::State</references>
+        <references refid="struct_x_trngpsx___instance_1a7f41434fe1d6a995b5d7935665c09df5" compoundref="xtrngpsx_8h" startline="124">XTrngpsx_Instance::Stats</references>
+        <references refid="group__trngpsx__api_1ga627ca508102e338acd949acd07143efc" compoundref="xtrngpsx__hw_8h" startline="62">TRNG_CTRL</references>
+        <references refid="group__trngpsx__api_1ga1e2bc5b67730effce22dcfe914ee9dd2" compoundref="xtrngpsx__hw_8h" startline="72">TRNG_CTRL_EUMODE_MASK</references>
+        <references refid="group__trngpsx__api_1gab6a6cda808a7b8f87b4811d1355477b3" compoundref="xtrngpsx__hw_8h" startline="84">TRNG_CTRL_PRNGXS_MASK</references>
+        <references refid="group__trngpsx__api_1gac90cd9724712cb7599e4afc7d44e7ff4" compoundref="xtrngpsx__hw_8h" startline="87">TRNG_CTRL_TRSSEN_MASK</references>
+        <references refid="group__trngpsx__api_1ga67d733d1c108e408b09b96db25076861" compoundref="xtrngpsx__hw_8h" startline="145">TRNG_OSC_EN</references>
+        <references refid="group__trngpsx__api_1ga90f3e727ddf1fbd4ec13779395f5e13f" compoundref="xtrngpsx__hw_8h" startline="148">TRNG_OSC_EN_VAL_MASK</references>
+        <references refid="struct_x_trngpsx___instance_1a35e78a175d954c5c5f6232283996eb42" compoundref="xtrngpsx_8h" startline="123">XTrngpsx_Instance::UserCfg</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a026fb1ebe44fe8daa96bb6a7b27e98c9" compoundref="xtrngpsx_8h" startline="151">XTRNG_PSX_INVALID_PREDRES_VALUE</references>
+        <references refid="group__trngpsx__api_1ggabf665f37f1800c3d3859681db4fb46c2ac8bf6bfdece57626cb0915eb4d8772b4" compoundref="xtrngpsx_8h" startline="107">XTRNGPSX_CATASTROPHIC</references>
+        <references refid="group__trngpsx__api_1gga1b63c27259b3c8679b9f7a7018375276a0adbbd4805a7a56d9912f8a9cf57aff4" compoundref="xtrngpsx_8h" startline="72">XTRNGPSX_DRNG_MODE</references>
+        <references refid="group__trngpsx__api_1ggabf665f37f1800c3d3859681db4fb46c2aea69652aba529ca2df1550310a5b92cc" compoundref="xtrngpsx_8h" startline="108">XTRNGPSX_ERROR</references>
+        <references refid="group__trngpsx__api_1gga1a37c0faa6994f63b7c2c62ffe43562fabf5f966ef2781b173f3d0126aa1aa1d3" compoundref="xtrngpsx_8h" startline="117">XTRNGPSX_GENERATE_STATE</references>
+        <references refid="group__trngpsx__api_1ggabf665f37f1800c3d3859681db4fb46c2a519e903ee50abb8ccf5050c6bde24740" compoundref="xtrngpsx_8h" startline="106">XTRNGPSX_HEALTHY</references>
+        <references refid="group__trngpsx__api_1gga1b63c27259b3c8679b9f7a7018375276ae982b26bd4c7f35518c14f88b7ce5ba7" compoundref="xtrngpsx_8h" startline="74">XTRNGPSX_HRNG_MODE</references>
+        <references refid="group__trngpsx__api_1gga1a37c0faa6994f63b7c2c62ffe43562fa6256a9f5a1ae6be94d94216a77e47d1c" compoundref="xtrngpsx_8h" startline="115">XTRNGPSX_INSTANTIATE_STATE</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79ab478bf676839153009c7a5bc91005079" compoundref="xtrngpsx_8h" startline="148">XTRNGPSX_INVALID_BUF_SIZE</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79abea04f8cfe70d6dc5a8e7a78d8a9929a" compoundref="xtrngpsx_8h" startline="131">XTRNGPSX_INVALID_MODE</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a3028234bc4951452efec651d280e9a13" compoundref="xtrngpsx_8h" startline="130">XTRNGPSX_INVALID_PARAM</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a21c4b76c9247554959c5f0ff66568ac0" compoundref="xtrngpsx_8h" startline="138">XTRNGPSX_INVALID_STATE</references>
+        <references refid="group__trngpsx__api_1gga1b63c27259b3c8679b9f7a7018375276af30825ebdfd1812d8d59c13ed3736d12" compoundref="xtrngpsx_8h" startline="73">XTRNGPSX_PTRNG_MODE</references>
+        <references refid="group__trngpsx__api_1ga27d626b65acc3b1e97573f4c2d2ee8e1" compoundref="xtrngpsx_8c" startline="549" endline="600">XTrngpsx_Reseed</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a45649834be62e2cac315b4ed8db133f9" compoundref="xtrngpsx_8h" startline="149">XTRNGPSX_RESEED_REQUIRED_ERROR</references>
+        <references refid="group__trngpsx__api_1gga1a37c0faa6994f63b7c2c62ffe43562fa0ec15ca3bf0e6216ad396aab80cd64db" compoundref="xtrngpsx_8h" startline="116">XTRNGPSX_RESEED_STATE</references>
+        <references refid="group__trngpsx__api_1ga6633fc0a90497ef7a28b75e708053d77" compoundref="xtrngpsx_8h" startline="50">XTRNGPSX_SEC_STRENGTH_IN_BYTES</references>
+        <references refid="group__trngpsx__api_1ggabf665f37f1800c3d3859681db4fb46c2a7c767c57bf2693d05df2a4aa7ed49b60" compoundref="xtrngpsx_8h" startline="109">XTRNGPSX_STARTUP_TEST</references>
+        <references refid="group__trngpsx__api_1gadf95ce99ad81427554ef3edf0ff281c0" compoundref="xtrngpsx_8c" startline="71">XTRNGPSX_TEMPORAL_CHECK</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a750afc0bc2b7948b06e719628dce4ec4" compoundref="xtrngpsx_8h" startline="146">XTRNGPSX_UNHEALTHY_STATE</references>
+        <references refid="group__trngpsx__api_1ga9ef3e8b4f65633065b5de8de9f7429b4" compoundref="xtrngpsx_8c" startline="49">XTRNGPSX_WORD_LEN_IN_BYTES</references>
+        <referencedby refid="group__trngpsx__api_1ga96822ba4d9b936cb95d8190ffd3095f0" compoundref="xtrngpsx__tests_8c" startline="68" endline="164">XTrngpsx_DRBGKat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XTrngpsx_Uninstantiate</definition>
+        <argsstring>(XTrngpsx_Instance *InstancePtr)</argsstring>
+        <name>XTrngpsx_Uninstantiate</name>
+        <param>
+          <type><ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function uninstantiates the TRNG instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if uninstantiation was successful.</para></listitem><listitem><para>XTRNGPSX_INVALID_PARAM if invalid instance is passed to function</para></listitem><listitem><para>XTRNGPSX_ERROR_MEMSET_UNINSTANTIATE_ERROR if memset was not successful</para></listitem><listitem><para>XST_FAILURE On unexpected failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Bring cores in to reset state</para></listitem><listitem><para>Disable ring oscillators as a random seed source</para></listitem><listitem><para>Retain the error state </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="753" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="753" bodyend="784"/>
+        <references refid="struct_x_trngpsx___config_1a620f1d30b205b73853ba2944daf3792d" compoundref="xtrngpsx_8h" startline="84">XTrngpsx_Config::BaseAddress</references>
+        <references refid="struct_x_trngpsx___instance_1a2dbc9278a04d95a6ce941a671cd1e643" compoundref="xtrngpsx_8h" startline="122">XTrngpsx_Instance::Config</references>
+        <references refid="struct_x_trngpsx___instance_1a09306785899052b04da48d650153eb65" compoundref="xtrngpsx_8h" startline="125">XTrngpsx_Instance::ErrorState</references>
+        <references refid="struct_x_trngpsx___instance_1a78a6095bc46bd1501992906d51cb0826" compoundref="xtrngpsx_8h" startline="126">XTrngpsx_Instance::State</references>
+        <references refid="group__trngpsx__api_1ga67d733d1c108e408b09b96db25076861" compoundref="xtrngpsx__hw_8h" startline="145">TRNG_OSC_EN</references>
+        <references refid="group__trngpsx__api_1ga2da4f2d731a5c785ca07a0792b0414c1" compoundref="xtrngpsx__hw_8h" startline="149">TRNG_OSC_EN_VAL_DEFVAL</references>
+        <references refid="group__trngpsx__api_1ga90f3e727ddf1fbd4ec13779395f5e13f" compoundref="xtrngpsx__hw_8h" startline="148">TRNG_OSC_EN_VAL_MASK</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a3028234bc4951452efec651d280e9a13" compoundref="xtrngpsx_8h" startline="130">XTRNGPSX_INVALID_PARAM</references>
+        <references refid="group__trngpsx__api_1gga1a37c0faa6994f63b7c2c62ffe43562fab40d38d0bc64cb683a4ade9c3d07bd1b" compoundref="xtrngpsx_8h" startline="114">XTRNGPSX_UNINITIALIZED_STATE</references>
+        <referencedby refid="group__trngpsx__api_1ga96822ba4d9b936cb95d8190ffd3095f0" compoundref="xtrngpsx__tests_8c" startline="68" endline="164">XTrngpsx_DRBGKat</referencedby>
+        <referencedby refid="group__trngpsx__api_1ga9b57a3574f76fbaf1edac0255b95373e" compoundref="xtrngpsx__tests_8c" startline="178" endline="198">XTrngpsx_HealthTest</referencedby>
+        <referencedby refid="group__trngpsx__api_1gaecce7c23f64a684ac613d6c36ae708cb" compoundref="xtrngpsx__tests_8c" startline="212" endline="230">XTrngpsx_PreOperationalSelfTests</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1ga585c8fe9159bad7d022d6ffe54743149" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_trngpsx___config" kindref="compound">XTrngpsx_Config</ref> *</type>
+        <definition>XTrngpsx_Config * XTrngpsx_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XTrngpsx_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function returns a reference to an <ref refid="struct_x_trngpsx___config" kindref="compound">XTrngpsx_Config</ref> structure based on the DeviceId. </para>        </briefdescription>
+        <detaileddescription>
+<para>The return value will refer to an entry in the device configuration table defined in the xtrngpsx_g.c file.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique device ID of the device being lookedup.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XTrngpsx_LookupConfig returns a reference to a config record in the configuration table (in <ref refid="xtrngpsx_8c" kindref="compound">xtrngpsx.c</ref>) corresponding to DeviceId, or NULL if no match is found. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Checks all the instances </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_sinit.c" bodystart="77" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1ga96822ba4d9b936cb95d8190ffd3095f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XTrngpsx_DRBGKat</definition>
+        <argsstring>(XTrngpsx_Instance *InstancePtr)</argsstring>
+        <name>XTrngpsx_DRBGKat</name>
+        <param>
+          <type><ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function runs DRBG self test i.e DRBG full cycle Instantiate+Reseed, Reseed and Generate. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>Error Code On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" bodystart="68" bodyend="164"/>
+        <references refid="struct_x_trngpsx___user_config_1ae795125d60d3a1f3854b8ea7d5c8be86" compoundref="xtrngpsx_8h" startline="93">XTrngpsx_UserConfig::DFLength</references>
+        <references refid="struct_x_trngpsx___user_config_1ac035b7ac282ed5d91d933a9a37b94dd9" compoundref="xtrngpsx_8h" startline="95">XTrngpsx_UserConfig::IsBlocking</references>
+        <references refid="struct_x_trngpsx___user_config_1a64c4d3affe039dabf29ab3bfe92d7938" compoundref="xtrngpsx_8h" startline="89">XTrngpsx_UserConfig::Mode</references>
+        <references refid="struct_x_trngpsx___user_config_1a1ad720d71f169d0dba2f4457c0e4f872" compoundref="xtrngpsx_8h" startline="90">XTrngpsx_UserConfig::SeedLife</references>
+        <references refid="group__trngpsx__api_1gga1b63c27259b3c8679b9f7a7018375276a0adbbd4805a7a56d9912f8a9cf57aff4" compoundref="xtrngpsx_8h" startline="72">XTRNGPSX_DRNG_MODE</references>
+        <references refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</references>
+        <references refid="group__trngpsx__api_1ga68da9a334ae46bbed63a36ae6a273745" compoundref="xtrngpsx_8c" startline="398" endline="523">XTrngpsx_Instantiate</references>
+        <references refid="group__trngpsx__api_1gaab24ba681f298c15064c277757f8c7c5" compoundref="xtrngpsx__tests_8c" startline="43">XTRNGPSX_KAT_DEFAULT_DF_lENGTH</references>
+        <references refid="group__trngpsx__api_1ga18bacb2c9611d69bff3d8faeb800a345" compoundref="xtrngpsx__tests_8c" startline="44">XTRNGPSX_KAT_DEFAULT_SEED_LIFE</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a16fc12b7986ebaee8fe81ae27042988a" compoundref="xtrngpsx_8h" startline="157">XTRNGPSX_KAT_FAILED_ERROR</references>
+        <references refid="group__trngpsx__api_1ga731ef8ad5a39bb107502c64ec57f5f00" compoundref="xtrngpsx__tests_8c" startline="45">XTRNGPSX_KAT_SEED_LEN_IN_BYTES</references>
+        <references refid="group__trngpsx__api_1ga3257b88a565d4f7b0fa135f5c24f7fde" compoundref="xtrngpsx_8h" startline="49">XTRNGPSX_PERS_STRING_LEN_IN_BYTES</references>
+        <references refid="group__trngpsx__api_1ga27d626b65acc3b1e97573f4c2d2ee8e1" compoundref="xtrngpsx_8c" startline="549" endline="600">XTrngpsx_Reseed</references>
+        <references refid="group__trngpsx__api_1ga6633fc0a90497ef7a28b75e708053d77" compoundref="xtrngpsx_8h" startline="50">XTRNGPSX_SEC_STRENGTH_IN_BYTES</references>
+        <references refid="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" compoundref="xtrngpsx_8c" startline="753" endline="784">XTrngpsx_Uninstantiate</references>
+        <referencedby refid="group__trngpsx__api_1gaecce7c23f64a684ac613d6c36ae708cb" compoundref="xtrngpsx__tests_8c" startline="212" endline="230">XTrngpsx_PreOperationalSelfTests</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1ga9b57a3574f76fbaf1edac0255b95373e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XTrngpsx_HealthTest</definition>
+        <argsstring>(XTrngpsx_Instance *InstancePtr)</argsstring>
+        <name>XTrngpsx_HealthTest</name>
+        <param>
+          <type><ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function runs health tests. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>Error Code On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" bodystart="178" bodyend="198"/>
+        <references refid="struct_x_trngpsx___user_config_1ae55baa3e0c90545ee6ad97a887f375c4" compoundref="xtrngpsx_8h" startline="91">XTrngpsx_UserConfig::AdaptPropTestCutoff</references>
+        <references refid="struct_x_trngpsx___user_config_1ae795125d60d3a1f3854b8ea7d5c8be86" compoundref="xtrngpsx_8h" startline="93">XTrngpsx_UserConfig::DFLength</references>
+        <references refid="struct_x_trngpsx___user_config_1ac035b7ac282ed5d91d933a9a37b94dd9" compoundref="xtrngpsx_8h" startline="95">XTrngpsx_UserConfig::IsBlocking</references>
+        <references refid="struct_x_trngpsx___user_config_1a64c4d3affe039dabf29ab3bfe92d7938" compoundref="xtrngpsx_8h" startline="89">XTrngpsx_UserConfig::Mode</references>
+        <references refid="struct_x_trngpsx___user_config_1a9421e3a61e8bcdf807ba51f61517513b" compoundref="xtrngpsx_8h" startline="92">XTrngpsx_UserConfig::RepCountTestCutoff</references>
+        <references refid="struct_x_trngpsx___user_config_1a1ad720d71f169d0dba2f4457c0e4f872" compoundref="xtrngpsx_8h" startline="90">XTrngpsx_UserConfig::SeedLife</references>
+        <references refid="group__trngpsx__api_1gga1b63c27259b3c8679b9f7a7018375276ae982b26bd4c7f35518c14f88b7ce5ba7" compoundref="xtrngpsx_8h" startline="74">XTRNGPSX_HRNG_MODE</references>
+        <references refid="group__trngpsx__api_1ga68da9a334ae46bbed63a36ae6a273745" compoundref="xtrngpsx_8c" startline="398" endline="523">XTrngpsx_Instantiate</references>
+        <references refid="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" compoundref="xtrngpsx_8c" startline="753" endline="784">XTrngpsx_Uninstantiate</references>
+        <references refid="group__trngpsx__api_1gafbb555572f5c0cad2a73379b1aca4eaf" compoundref="xtrngpsx_8h" startline="61">XTRNGPSX_USER_CFG_ADAPT_TEST_CUTOFF</references>
+        <references refid="group__trngpsx__api_1gafbbe7ca8d2cfa78d527632a011d6e233" compoundref="xtrngpsx_8h" startline="57">XTRNGPSX_USER_CFG_DF_LENGTH</references>
+        <references refid="group__trngpsx__api_1ga823d53c1fbdbe9fe6446be697c506f0c" compoundref="xtrngpsx_8h" startline="65">XTRNGPSX_USER_CFG_REP_TEST_CUTOFF</references>
+        <references refid="group__trngpsx__api_1ga8a7c9b3542de85ba6563a79f4e3e123c" compoundref="xtrngpsx_8h" startline="53">XTRNGPSX_USER_CFG_SEED_LIFE</references>
+        <referencedby refid="group__trngpsx__api_1gaecce7c23f64a684ac613d6c36ae708cb" compoundref="xtrngpsx__tests_8c" startline="212" endline="230">XTrngpsx_PreOperationalSelfTests</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1gaecce7c23f64a684ac613d6c36ae708cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XTrngpsx_PreOperationalSelfTests</definition>
+        <argsstring>(XTrngpsx_Instance *InstancePtr)</argsstring>
+        <name>XTrngpsx_PreOperationalSelfTests</name>
+        <param>
+          <type><ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function runs preoperational self tests and updates TRNG error state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>Error Code On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Reset the TRNG state </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" bodystart="212" bodyend="230"/>
+        <references refid="group__trngpsx__api_1ga96822ba4d9b936cb95d8190ffd3095f0" compoundref="xtrngpsx__tests_8c" startline="68" endline="164">XTrngpsx_DRBGKat</references>
+        <references refid="group__trngpsx__api_1ga9b57a3574f76fbaf1edac0255b95373e" compoundref="xtrngpsx__tests_8c" startline="178" endline="198">XTrngpsx_HealthTest</references>
+        <references refid="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" compoundref="xtrngpsx_8c" startline="753" endline="784">XTrngpsx_Uninstantiate</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__trngpsx__api_1ga88c45d9fcea045da2a83fac3a839a976" prot="public" static="no">
+        <name>XTRNGPSX_RESEED_TIMEOUT</name>
+        <initializer>1500000U</initializer>
+        <briefdescription>
+<para>Reseed timeout in micro-seconds. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gaf6620c2ebd55840666179003a283acea" prot="public" static="no">
+        <name>XTRNGPSX_GENERATE_TIMEOUT</name>
+        <initializer>1500000U</initializer>
+        <briefdescription>
+<para>Generate timeout in micro-seconds. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga9ef3e8b4f65633065b5de8de9f7429b4" prot="public" static="no">
+        <name>XTRNGPSX_WORD_LEN_IN_BYTES</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>Word length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga6192793c73f6cbf4a3635835507d28c4" prot="public" static="no">
+        <name>XTRNGPSX_BYTE_LEN_IN_BITS</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Byte length in bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gaebafd9bdd9fd17cc76f7d644f2661b4c" prot="public" static="no">
+        <name>XTRNGPSX_BLOCK_LEN_IN_BYTES</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+<para>TRNG block length length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga68da9a334ae46bbed63a36ae6a273745" compoundref="xtrngpsx_8c" startline="398" endline="523">XTrngpsx_Instantiate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gab156d67eb4a798f294dc6ddebe8ab53b" prot="public" static="no">
+        <name>XTRNGPSX_MIN_SEEDLIFE</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>Minimum seed life. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga68da9a334ae46bbed63a36ae6a273745" compoundref="xtrngpsx_8c" startline="398" endline="523">XTrngpsx_Instantiate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga369bd60024827c90f5863cb1e82baa59" prot="public" static="no">
+        <name>XTRNGPSX_MAX_SEEDLIFE</name>
+        <initializer>0x80000U</initializer>
+        <briefdescription>
+<para>Maximum seed life 2^19. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga68da9a334ae46bbed63a36ae6a273745" compoundref="xtrngpsx_8c" startline="398" endline="523">XTrngpsx_Instantiate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga613878c668ba11cca5bfffd493caccba" prot="public" static="no">
+        <name>XTRNGPSX_SEC_STRENGTH_IN_BURSTS</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+<para>Security strength in 128-bit bursts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gaf7f5bd1585dc56e50d4f0c5bef8db42a" prot="public" static="no">
+        <name>XTRNGPSX_BURST_SIZE_IN_WORDS</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>Burst size in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga0cd1496d0e68ec8adf6f020b4ee07639" prot="public" static="no">
+        <name>XTRNGPSX_DF_MIN_LENGTH</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+<para>Minimum DF input length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga68da9a334ae46bbed63a36ae6a273745" compoundref="xtrngpsx_8c" startline="398" endline="523">XTrngpsx_Instantiate</referencedby>
+        <referencedby refid="group__trngpsx__api_1ga27d626b65acc3b1e97573f4c2d2ee8e1" compoundref="xtrngpsx_8c" startline="549" endline="600">XTrngpsx_Reseed</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gacdb1fbfdbaf6706a613cabfe35e4b23d" prot="public" static="no">
+        <name>XTRNGPSX_DF_MAX_LENGTH</name>
+        <initializer>0x1FU</initializer>
+        <briefdescription>
+<para>Maximum DF input length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga68da9a334ae46bbed63a36ae6a273745" compoundref="xtrngpsx_8c" startline="398" endline="523">XTrngpsx_Instantiate</referencedby>
+        <referencedby refid="group__trngpsx__api_1ga27d626b65acc3b1e97573f4c2d2ee8e1" compoundref="xtrngpsx_8c" startline="549" endline="600">XTrngpsx_Reseed</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga30f3bd42732148271382271d13f7d669" prot="public" static="no">
+        <name>XTRNGPSX_DF_NUM_OF_BYTES_BEFORE_MIN_700CLKS_WAIT</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Number of bytes to be written before wait. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga0644d7e73c8645812333618387619c84" prot="public" static="no">
+        <name>XTRNGPSX_ADAPTPROPTESTCUTOFF_MAX_VAL</name>
+        <initializer>0x3FFU</initializer>
+        <briefdescription>
+<para>maximum adaptprpptest cutoff value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga68da9a334ae46bbed63a36ae6a273745" compoundref="xtrngpsx_8c" startline="398" endline="523">XTrngpsx_Instantiate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gacf4e638c7db3dcb2f105857b8d69880e" prot="public" static="no">
+        <name>XTRNGPSX_REPCOUNTTESTCUTOFF_MAX_VAL</name>
+        <initializer>0x1FFU</initializer>
+        <briefdescription>
+<para>maximum repcounttest cutoff value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga68da9a334ae46bbed63a36ae6a273745" compoundref="xtrngpsx_8c" startline="398" endline="523">XTrngpsx_Instantiate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga3a8bea34f7a544065f06747e58fcdb61" prot="public" static="no">
+        <name>XTRNGPSX_RESET_DELAY_US</name>
+        <initializer>10U</initializer>
+        <briefdescription>
+<para>Reset delay. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga3503bef03eb9057b912fe6248f6e966c" prot="public" static="no">
+        <name>XTRNGPSX_DF_700CLKS_WAIT</name>
+        <initializer>10U</initializer>
+        <briefdescription>
+<para>Delay after 4 bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gaa2ef373e2cf65b9ed262214213f81ea8" prot="public" static="no">
+        <name>XTRNGPSX_DF_2CLKS_WAIT</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+<para>Delay after 1 byte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gae4e39a4fadbffee18b5faf2fce14e7a3" prot="public" static="no">
+        <name>XTRNGPSX_STATUS_QCNT_VAL</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>QCNT value for single burst. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga377c35c37a828bf521d675ce601896f7" prot="public" static="no">
+        <name>XTRNGPSX_TEMPORAL_IMPL</name>
+        <initializer>XSECURE_TEMPORAL_IMPL</initializer>
+        <briefdescription>
+<para>Temporal redundancy implementation macro for fault injection protection. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gadf95ce99ad81427554ef3edf0ff281c0" prot="public" static="no">
+        <name>XTRNGPSX_TEMPORAL_CHECK</name>
+        <initializer>XSECURE_TEMPORAL_CHECK</initializer>
+        <briefdescription>
+<para>Temporal redundancy check macro with error handling for security-critical operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.c" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</referencedby>
+        <referencedby refid="group__trngpsx__api_1ga68da9a334ae46bbed63a36ae6a273745" compoundref="xtrngpsx_8c" startline="398" endline="523">XTrngpsx_Instantiate</referencedby>
+        <referencedby refid="group__trngpsx__api_1ga27d626b65acc3b1e97573f4c2d2ee8e1" compoundref="xtrngpsx_8c" startline="549" endline="600">XTrngpsx_Reseed</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga77e0b07d55f767a322cb870bb0521da3" prot="public" static="no">
+        <name>XTRNGPSX_PERS_STRING_LEN_IN_WORDS</name>
+        <initializer>12U</initializer>
+        <briefdescription>
+<para>Personalization string length in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga3257b88a565d4f7b0fa135f5c24f7fde" prot="public" static="no">
+        <name>XTRNGPSX_PERS_STRING_LEN_IN_BYTES</name>
+        <initializer>48U</initializer>
+        <briefdescription>
+<para>Personalization string length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga96822ba4d9b936cb95d8190ffd3095f0" compoundref="xtrngpsx__tests_8c" startline="68" endline="164">XTrngpsx_DRBGKat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga6633fc0a90497ef7a28b75e708053d77" prot="public" static="no">
+        <name>XTRNGPSX_SEC_STRENGTH_IN_BYTES</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+<para>security strength in Bytes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga96822ba4d9b936cb95d8190ffd3095f0" compoundref="xtrngpsx__tests_8c" startline="68" endline="164">XTrngpsx_DRBGKat</referencedby>
+        <referencedby refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga8a7c9b3542de85ba6563a79f4e3e123c" prot="public" static="no">
+        <name>XTRNGPSX_USER_CFG_SEED_LIFE</name>
+        <initializer>256U</initializer>
+        <briefdescription>
+<para>Default seed life configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga9b57a3574f76fbaf1edac0255b95373e" compoundref="xtrngpsx__tests_8c" startline="178" endline="198">XTrngpsx_HealthTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gafbbe7ca8d2cfa78d527632a011d6e233" prot="public" static="no">
+        <name>XTRNGPSX_USER_CFG_DF_LENGTH</name>
+        <initializer>7U</initializer>
+        <briefdescription>
+<para>Default DF (Derivation Function) length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga9b57a3574f76fbaf1edac0255b95373e" compoundref="xtrngpsx__tests_8c" startline="178" endline="198">XTrngpsx_HealthTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gafbb555572f5c0cad2a73379b1aca4eaf" prot="public" static="no">
+        <name>XTRNGPSX_USER_CFG_ADAPT_TEST_CUTOFF</name>
+        <initializer>645U</initializer>
+        <briefdescription>
+<para>Default adaptive proportion test cutoff value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga9b57a3574f76fbaf1edac0255b95373e" compoundref="xtrngpsx__tests_8c" startline="178" endline="198">XTrngpsx_HealthTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga823d53c1fbdbe9fe6446be697c506f0c" prot="public" static="no">
+        <name>XTRNGPSX_USER_CFG_REP_TEST_CUTOFF</name>
+        <initializer>66U</initializer>
+        <briefdescription>
+<para>Default repetition count test cutoff value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga9b57a3574f76fbaf1edac0255b95373e" compoundref="xtrngpsx__tests_8c" startline="178" endline="198">XTrngpsx_HealthTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gaf77ee289c4048ef0d77b350f6eda8868" prot="public" static="no">
+        <name>TRNG_STATUS</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+<para>Register: TRNG_STATUS. </para>        </briefdescription>
+        <detaileddescription>
+<para>TRNG Status register </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga2850b7489d45506a87bd4ba636ef3edf" prot="public" static="no">
+        <name>TRNG_STATUS_QCNT_SHIFT</name>
+        <initializer>9U</initializer>
+        <briefdescription>
+<para>Queue count field shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga6df8f06124be83436e2762e6a136872b" prot="public" static="no">
+        <name>TRNG_STATUS_QCNT_MASK</name>
+        <initializer>0x00000e00U</initializer>
+        <briefdescription>
+<para>Queue count field mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga880d808160c3030bbc997fd3006fc8f6" prot="public" static="no">
+        <name>TRNG_STATUS_CERTF_MASK</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>Catastrophic error test failure mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga36cefbb8fe3eb31e20854464ddee1497" prot="public" static="no">
+        <name>TRNG_STATUS_DTF_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Deterministic test failure mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga284f7c1c27b0a6ebc4fff8741962976b" prot="public" static="no">
+        <name>TRNG_STATUS_DONE_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Operation done mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga627ca508102e338acd949acd07143efc" prot="public" static="no">
+        <name>TRNG_CTRL</name>
+        <initializer>(0x00000008U)</initializer>
+        <briefdescription>
+<para>Register: TRNG_CTRL. </para>        </briefdescription>
+        <detaileddescription>
+<para>TRNG Control register </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga01678d0c9944ca35c2229cb6b7dadaba" prot="public" static="no">
+        <name>TRNG_CTRL_PERSODISABLE_MASK</name>
+        <initializer>0x00000400U</initializer>
+        <briefdescription>
+<para>Personalization string disable mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga1e968c5fed4a3ba11e28dd7e44c42f9b" prot="public" static="no">
+        <name>TRNG_CTRL_PERSODISABLE_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>Personalization string disable default value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga7685611014c6b3c4a8ce7d6ae82f731a" prot="public" static="no">
+        <name>TRNG_CTRL_SINGLEGENMODE_MASK</name>
+        <initializer>0x00000200U</initializer>
+        <briefdescription>
+<para>Single generation mode mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga1e2bc5b67730effce22dcfe914ee9dd2" prot="public" static="no">
+        <name>TRNG_CTRL_EUMODE_MASK</name>
+        <initializer>0x00000100U</initializer>
+        <briefdescription>
+<para>Entropy unit mode mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga3d4799e72c1f1e4380a42fb3697a0aae" prot="public" static="no">
+        <name>TRNG_CTRL_PRNGMODE_MASK</name>
+        <initializer>0x00000080U</initializer>
+        <briefdescription>
+<para>PRNG mode mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gaa9fb114e06f0a5b09087190ae2c06352" prot="public" static="no">
+        <name>TRNG_CTRL_TSTMODE_MASK</name>
+        <initializer>0x00000040U</initializer>
+        <briefdescription>
+<para>Test mode mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gaf5b8e569641ab9386d881280ecc8c099" prot="public" static="no">
+        <name>TRNG_CTRL_PRNGSTART_MASK</name>
+        <initializer>0x00000020U</initializer>
+        <briefdescription>
+<para>PRNG start mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gab6a6cda808a7b8f87b4811d1355477b3" prot="public" static="no">
+        <name>TRNG_CTRL_PRNGXS_MASK</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>PRNG external seed mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gac90cd9724712cb7599e4afc7d44e7ff4" prot="public" static="no">
+        <name>TRNG_CTRL_TRSSEN_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>True random seed source enable mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="87" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gaa78ad6f6a1a4c3f520549b113780a3a1" prot="public" static="no">
+        <name>TRNG_CTRL_PRNGSRST_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>PRNG soft reset mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga9c41aa1786b9a3319d9ba21ed793e8e5" prot="public" static="no">
+        <name>TRNG_CTRL_2</name>
+        <initializer>(0x0000000CU)</initializer>
+        <briefdescription>
+<para>Register: TRNG_CTRL_2. </para>        </briefdescription>
+        <detaileddescription>
+<para>TRNG Control 2 register </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gab0e23f7aae69a9bb2951978a70fc23d0" prot="public" static="no">
+        <name>TRNG_CTRL_2_REPCOUNTTESTCUTOFF_SHIFT</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Repetition count test cutoff shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gaeda137e537d647e895d90af0ddb616fa" prot="public" static="no">
+        <name>TRNG_CTRL_2_REPCOUNTTESTCUTOFF_MASK</name>
+        <initializer>0x0001ff00U</initializer>
+        <briefdescription>
+<para>Repetition count test cutoff mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga580a393154b6d4ca870270e54d28c9b4" prot="public" static="no">
+        <name>TRNG_CTRL_2_DIT_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Digitization interval time shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gae0735b261a316d56bf2af77002767eee" prot="public" static="no">
+        <name>TRNG_CTRL_2_DIT_MASK</name>
+        <initializer>0x0000001fU</initializer>
+        <briefdescription>
+<para>Digitization interval time mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gae3c0870472b6d82493439c7b4e99e923" prot="public" static="no">
+        <name>TRNG_CTRL_2_DIT_DEFVAL</name>
+        <initializer>0xcU</initializer>
+        <briefdescription>
+<para>Digitization interval time default value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="104" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga68da9a334ae46bbed63a36ae6a273745" compoundref="xtrngpsx_8c" startline="398" endline="523">XTrngpsx_Instantiate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga5271f5f0b2ecb9126c07d68581116ccf" prot="public" static="no">
+        <name>TRNG_CTRL_3</name>
+        <initializer>(0x00000010U)</initializer>
+        <briefdescription>
+<para>Register: TRNG_CTRL_3. </para>        </briefdescription>
+        <detaileddescription>
+<para>TRNG Control 3 register </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga47b2a68547ee86e4a61d795cf1f542fb" prot="public" static="no">
+        <name>TRNG_CTRL_3_ADAPTPROPTESTCUTOFF_SHIFT</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Adaptive proportion test cutoff shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga4ff85037f4fefc3a35780755f3cf6a6c" prot="public" static="no">
+        <name>TRNG_CTRL_3_ADAPTPROPTESTCUTOFF_MASK</name>
+        <initializer>0x0003ff00U</initializer>
+        <briefdescription>
+<para>Adaptive proportion test cutoff mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga2b22a9801f9a00c8705569db8aef7486" prot="public" static="no">
+        <name>TRNG_CTRL_3_DLEN_SHIFT</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Derivation function length shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gab84d06a24b2eaa5f0b16deab3a218f83" prot="public" static="no">
+        <name>TRNG_CTRL_3_DLEN_MASK</name>
+        <initializer>0x000000ffU</initializer>
+        <briefdescription>
+<para>Derivation function length mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gac1e96b5268436833221c1187eb8eb352" prot="public" static="no">
+        <name>TRNG_CTRL_4</name>
+        <initializer>(0x00000014U)</initializer>
+        <briefdescription>
+<para>Register: TRNG_CTRL_4. </para>        </briefdescription>
+        <detaileddescription>
+<para>TRNG Control 4 register </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga9db2e85bbf48d3398bb57fdd83883299" prot="public" static="no">
+        <name>TRNG_PER_STRNG_11</name>
+        <initializer>(0x000000ACU)</initializer>
+        <briefdescription>
+<para>Register: TRNG_PER_STRNG_11. </para>        </briefdescription>
+        <detaileddescription>
+<para>TRNG Personalization String register </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1gaeb6c603167ad973de2393d02da9757f5" prot="public" static="no">
+        <name>TRNG_CORE_OUTPUT</name>
+        <initializer>(0x000000C0U)</initializer>
+        <briefdescription>
+<para>Register: TRNG_CORE_OUTPUT. </para>        </briefdescription>
+        <detaileddescription>
+<para>TRNG Core Output register </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga1febe7e7a18bb1d14cb3ebbafa06dd1c" prot="public" static="no">
+        <name>TRNG_RESET</name>
+        <initializer>(0x000000D0U)</initializer>
+        <briefdescription>
+<para>Register: TRNG_RESET. </para>        </briefdescription>
+        <detaileddescription>
+<para>TRNG Reset register </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga635089836ce79e4e56afc9191024e981" prot="public" static="no">
+        <name>TRNG_RESET_DEFVAL</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+<para>TRNG reset default value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga88a8c0c3f285adfd9d93cf2d45ae52f3" prot="public" static="no">
+        <name>TRNG_RESET_VAL_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>TRNG reset value mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga67d733d1c108e408b09b96db25076861" prot="public" static="no">
+        <name>TRNG_OSC_EN</name>
+        <initializer>(0x000000D4U)</initializer>
+        <briefdescription>
+<para>Register: TRNG_OSC_EN. </para>        </briefdescription>
+        <detaileddescription>
+<para>TRNG Oscillator Enable register </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="145" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</referencedby>
+        <referencedby refid="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" compoundref="xtrngpsx_8c" startline="753" endline="784">XTrngpsx_Uninstantiate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga90f3e727ddf1fbd4ec13779395f5e13f" prot="public" static="no">
+        <name>TRNG_OSC_EN_VAL_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Oscillator enable value mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="148" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</referencedby>
+        <referencedby refid="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" compoundref="xtrngpsx_8c" startline="753" endline="784">XTrngpsx_Uninstantiate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga2da4f2d731a5c785ca07a0792b0414c1" prot="public" static="no">
+        <name>TRNG_OSC_EN_VAL_DEFVAL</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>Oscillator enable default value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_hw.h" bodystart="149" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" compoundref="xtrngpsx_8c" startline="753" endline="784">XTrngpsx_Uninstantiate</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the required functions to operate TRNG core. </para>    </briefdescription>
+    <detaileddescription>
+<para>Contains Known Answer Tests and Health Tests for the TRNGPSV component.</para><para>This file contains static initialization method for Xilinx versalnet TRNG driver.</para><para>This header file contains identifiers and register-level core macros that can be used to access the True Random Number Generator core.</para><para>This header file contains structure definitions, function declarations and macros to define TRNG Hardware state.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+1.0   kpt  01/03/23 Initial release
+      kpt  05/18/23 Fix passing invalid DF length in HRNG mode
+1.1   kpt  08/29/23 Add volatile keyword to avoid compiler optimization
+      ng   09/04/23 Added SDT support
+1.2   kpt  12/18/23 Non-blocking support for reseed operation and corrected
+                    check for PTRNG mode during generate
+      kpt  01/09/24 Added option for blocking or non-blocking reseed support
+      kpt  02/14/24 Use correct offset during PRNG set and reset
+      vss  08/02/24 Fixed comments on security best practices
+1.5   ank  09/26/25 Fixed MISRA-C Violations
+1.6   hae  01/06/26 Fixed doxygen warnings
+      tvp  04/06/26 Allow continuous random number generation in PRNG mode</preformatted></para><para><preformatted></preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+1.0   kpt  01/04/23 Initial release
+      kpt  05/18/23 Updated adapttestcutoff and reptestcutoff default values
+1.1   mmd  07/09/23 Included header file for crypto algorithm information
+      ng   09/04/23 Added SDT support
+1.2   kpt  01/09/24 Added error code XTRNGPSX_INVALID_BLOCKING_MODE
+1.5   ank  09/26/25 Fixed MISRA-C Violations
+1.6   hae  01/06/26 Fixed doxygen warnings</preformatted></para><para><preformatted></preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+1.0   kpt  01/04/23 Initial release
+1.5   ank  09/26/25 Fixed MISRA-C Violations
+1.6   hae  01/06/26 Fixed doxygen warnings</preformatted></para><para><preformatted></preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00  kpt  01/04/23 First release
+1.01  ng   09/04/23 Added SDT support</preformatted></para><para><preformatted></preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   kpt  01/04/23 First release
+1.1   kpt  08/29/23 Removed dead code
+1.2   kpt  01/09/24 Added option for blocking or non-blocking reseed support
+1.6   hae  01/06/26 Fixed doxygen warnings</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

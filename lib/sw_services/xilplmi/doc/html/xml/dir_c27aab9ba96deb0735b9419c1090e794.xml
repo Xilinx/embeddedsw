@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_c27aab9ba96deb0735b9419c1090e794" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xilplmi__in__place__asu__update__client__example_8c">xilplmi_in_place_asu_update_client_example.c</innerfile>
+    <innerfile refid="xilplmi__in__place__plm__update__client__example_8c">xilplmi_in_place_plm_update_client_example.c</innerfile>
+    <innerfile refid="xplmi__configure__secure__comm__example_8c">xplmi_configure_secure_comm_example.c</innerfile>
+    <innerfile refid="xplmi__event__logging__client__example_8c">xplmi_event_logging_client_example.c</innerfile>
+    <innerfile refid="xplmi__get__board__client__example_8c">xplmi_get_board_client_example.c</innerfile>
+    <innerfile refid="xplmi__get__device__id__client__example_8c">xplmi_get_device_id_client_example.c</innerfile>
+    <innerfile refid="xplmi__glitch__detector__example_8c">xplmi_glitch_detector_example.c</innerfile>
+    <innerfile refid="xplmi__tamper__trigger__client__example_8c">xplmi_tamper_trigger_client_example.c</innerfile>
+    <innerfile refid="xplmi__usermodule__example_8c">xplmi_usermodule_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/"/>
+  </compounddef>
+</doxygen>

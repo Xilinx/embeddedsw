@@ -1,0 +1,1041 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__wdtps" kind="group">
+    <compoundname>wdtps</compoundname>
+    <title>Overview</title>
+    <innerclass refid="struct_x_wdt_ps___config" prot="public">XWdtPs_Config</innerclass>
+    <innerclass refid="struct_x_wdt_ps" prot="public">XWdtPs</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Register Map</header>
+      <description><para>Offsets of registers from the start of the device </para></description>
+      <memberdef kind="define" id="group__wdtps_1gabfb6c271ee50fc3735fde379c938be0c" prot="public" static="no">
+        <name>XWDTPS_ZMR_OFFSET</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>Zero Mode Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="48" bodyend="-1"/>
+        <referencedby refid="group__wdtps_1ga0d6091a8ee48e49031cf0c8c92a87658" compoundref="xwdtps_8c" startline="280" endline="319">XWdtPs_DisableOutput</referencedby>
+        <referencedby refid="group__wdtps_1ga8f98775051f9ea2cb0a47da8a75f555a" compoundref="xwdtps_8c" startline="222" endline="261">XWdtPs_EnableOutput</referencedby>
+        <referencedby refid="group__wdtps_1ga173e89798890bf73fd20f5cdadf113b5" compoundref="xwdtps__selftest_8c" startline="67" endline="147">XWdtPs_SelfTest</referencedby>
+        <referencedby refid="group__wdtps_1ga2ac689cec0d17cc916c509285635135b" compoundref="xwdtps_8c" startline="126" endline="157">XWdtPs_Start</referencedby>
+        <referencedby refid="group__wdtps_1ga4a8899689039c676ab3ad7ff80c9c750" compoundref="xwdtps_8c" startline="175" endline="202">XWdtPs_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1ga55c7e50c407f1bb66181c306fc51e3b3" prot="public" static="no">
+        <name>XWDTPS_CCR_OFFSET</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Counter Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__wdtps_1ga007b92a62641b7db61edd11f8e4bc7dc" compoundref="xwdtps_8c" startline="344" endline="379">XWdtPs_GetControlValue</referencedby>
+        <referencedby refid="group__wdtps_1ga64f2de6079bde6e9b8c495401a555a64" compoundref="xwdtps_8c" startline="407" endline="453">XWdtPs_SetControlValue</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1gaa8bb5ca85ad74f2e5601444673e6ed09" prot="public" static="no">
+        <name>XWDTPS_RESTART_OFFSET</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>Restart Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1gaf91a6934748dedcd7f21665696277922" prot="public" static="no">
+        <name>XWDTPS_SR_OFFSET</name>
+        <initializer>0x0000000CU</initializer>
+        <briefdescription>
+<para>Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Zero Mode Register</header>
+      <description><para>This register controls how the time out is indicated and also contains the access code (0xABC) to allow writes to the register </para></description>
+      <memberdef kind="define" id="group__wdtps_1gab5a46221cc01e7b376f46ee60f726dad" prot="public" static="no">
+        <name>XWDTPS_ZMR_WDEN_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>enable the WDT </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__wdtps_1ga2ac689cec0d17cc916c509285635135b" compoundref="xwdtps_8c" startline="126" endline="157">XWdtPs_Start</referencedby>
+        <referencedby refid="group__wdtps_1ga4a8899689039c676ab3ad7ff80c9c750" compoundref="xwdtps_8c" startline="175" endline="202">XWdtPs_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1gace442e2a904cbae1a530f29f96e183ec" prot="public" static="no">
+        <name>XWDTPS_ZMR_RSTEN_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>enable the reset output </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__wdtps_1ga0d6091a8ee48e49031cf0c8c92a87658" compoundref="xwdtps_8c" startline="280" endline="319">XWdtPs_DisableOutput</referencedby>
+        <referencedby refid="group__wdtps_1ga8f98775051f9ea2cb0a47da8a75f555a" compoundref="xwdtps_8c" startline="222" endline="261">XWdtPs_EnableOutput</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1ga8ab972f80540aaa4dcab5fa69c355354" prot="public" static="no">
+        <name>XWDTPS_ZMR_IRQEN_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>enable the IRQ output </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__wdtps_1ga0d6091a8ee48e49031cf0c8c92a87658" compoundref="xwdtps_8c" startline="280" endline="319">XWdtPs_DisableOutput</referencedby>
+        <referencedby refid="group__wdtps_1ga8f98775051f9ea2cb0a47da8a75f555a" compoundref="xwdtps_8c" startline="222" endline="261">XWdtPs_EnableOutput</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1gaecc5f08ee18069fdd264027e7da22165" prot="public" static="no">
+        <name>XWDTPS_ZMR_RSTLN_MASK</name>
+        <initializer>0x00000070U</initializer>
+        <briefdescription>
+<para>set length of reset pulse </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__wdtps_1ga173e89798890bf73fd20f5cdadf113b5" compoundref="xwdtps__selftest_8c" startline="67" endline="147">XWdtPs_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1ga9038442d353f8b8dc15786f1efaad62d" prot="public" static="no">
+        <name>XWDTPS_ZMR_RSTLN_SHIFT</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>shift for reset pulse </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1ga23875fd789deb201c12053d6339c4d43" prot="public" static="no">
+        <name>XWDTPS_ZMR_IRQLN_MASK</name>
+        <initializer>0x00000180U</initializer>
+        <briefdescription>
+<para>set length of interrupt pulse </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1gae16f80502d0c7542dcc7269c62f93701" prot="public" static="no">
+        <name>XWDTPS_ZMR_IRQLN_SHIFT</name>
+        <initializer>7U</initializer>
+        <briefdescription>
+<para>shift for interrupt pulse </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1ga90391e03ac8d6d1e404a8f654129abbf" prot="public" static="no">
+        <name>XWDTPS_ZMR_ZKEY_MASK</name>
+        <initializer>0x00FFF000U</initializer>
+        <briefdescription>
+<para>mask for writing access key </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1ga1d77314aa941add791ce8d0bfa9ec3b9" prot="public" static="no">
+        <name>XWDTPS_ZMR_ZKEY_VAL</name>
+        <initializer>0x00ABC000U</initializer>
+        <briefdescription>
+<para>access key, 0xABC &lt;&lt; 12 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__wdtps_1ga0d6091a8ee48e49031cf0c8c92a87658" compoundref="xwdtps_8c" startline="280" endline="319">XWdtPs_DisableOutput</referencedby>
+        <referencedby refid="group__wdtps_1ga8f98775051f9ea2cb0a47da8a75f555a" compoundref="xwdtps_8c" startline="222" endline="261">XWdtPs_EnableOutput</referencedby>
+        <referencedby refid="group__wdtps_1ga173e89798890bf73fd20f5cdadf113b5" compoundref="xwdtps__selftest_8c" startline="67" endline="147">XWdtPs_SelfTest</referencedby>
+        <referencedby refid="group__wdtps_1ga2ac689cec0d17cc916c509285635135b" compoundref="xwdtps_8c" startline="126" endline="157">XWdtPs_Start</referencedby>
+        <referencedby refid="group__wdtps_1ga4a8899689039c676ab3ad7ff80c9c750" compoundref="xwdtps_8c" startline="175" endline="202">XWdtPs_Stop</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Counter Control register</header>
+      <description><para>This register controls how fast the timer runs and the reset value and also contains the access code (0x248) to allow writes to the register </para></description>
+      <memberdef kind="define" id="group__wdtps_1ga57d4d9381e95475f46b366139f39ce51" prot="public" static="no">
+        <name>XWDTPS_CCR_CLKSEL_MASK</name>
+        <initializer>0x00000003U</initializer>
+        <briefdescription>
+<para>counter clock prescale </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="82" bodyend="-1"/>
+        <referencedby refid="group__wdtps_1ga007b92a62641b7db61edd11f8e4bc7dc" compoundref="xwdtps_8c" startline="344" endline="379">XWdtPs_GetControlValue</referencedby>
+        <referencedby refid="group__wdtps_1ga64f2de6079bde6e9b8c495401a555a64" compoundref="xwdtps_8c" startline="407" endline="453">XWdtPs_SetControlValue</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1ga8459363e0e0ad2d44291c68dfaa444d0" prot="public" static="no">
+        <name>XWDTPS_CCR_CRV_MASK</name>
+        <initializer>0x00003FFCU</initializer>
+        <briefdescription>
+<para>counter reset value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group__wdtps_1ga007b92a62641b7db61edd11f8e4bc7dc" compoundref="xwdtps_8c" startline="344" endline="379">XWdtPs_GetControlValue</referencedby>
+        <referencedby refid="group__wdtps_1ga64f2de6079bde6e9b8c495401a555a64" compoundref="xwdtps_8c" startline="407" endline="453">XWdtPs_SetControlValue</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1gadd87253d3c5419b22ea299760058ab00" prot="public" static="no">
+        <name>XWDTPS_CCR_CRV_SHIFT</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+<para>shift for writing value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="85" bodyend="-1"/>
+        <referencedby refid="group__wdtps_1ga007b92a62641b7db61edd11f8e4bc7dc" compoundref="xwdtps_8c" startline="344" endline="379">XWdtPs_GetControlValue</referencedby>
+        <referencedby refid="group__wdtps_1ga64f2de6079bde6e9b8c495401a555a64" compoundref="xwdtps_8c" startline="407" endline="453">XWdtPs_SetControlValue</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1gaf030acbc21b20d7cb8a857a10cb965ed" prot="public" static="no">
+        <name>XWDTPS_CCR_CKEY_MASK</name>
+        <initializer>0x03FFC000U</initializer>
+        <briefdescription>
+<para>mask for writing access key </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1ga25fcda0719e4ead71bd6bef791c7ec83" prot="public" static="no">
+        <name>XWDTPS_CCR_CKEY_VAL</name>
+        <initializer>0x00920000U</initializer>
+        <briefdescription>
+<para>access key, 0x248 &lt;&lt; 14 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="88" bodyend="-1"/>
+        <referencedby refid="group__wdtps_1ga64f2de6079bde6e9b8c495401a555a64" compoundref="xwdtps_8c" startline="407" endline="453">XWdtPs_SetControlValue</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1ga9c5980e1118cff3e565fcc1f3b6e140a" prot="public" static="no">
+        <name>XWDTPS_CCR_PSCALE_0008</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>divide clock by 8 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="92" bodyend="-1"/>
+        <referencedby refid="xwdtps__intr__example_8c_1a68c49aac48afdadb5e61491d93bdc6db" compoundref="xwdtps__intr__example_8c" startline="174" endline="399">WdtPsIntrExample</referencedby>
+        <referencedby refid="xwdtps__polled__example_8c_1ad9108236957be3abb536a57807d2af0a" compoundref="xwdtps__polled__example_8c" startline="130" endline="260">WdtPsPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1ga77aab579ac71f7ac44d785ff35564c05" prot="public" static="no">
+        <name>XWDTPS_CCR_PSCALE_0064</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>divide clock by 64 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1ga5a1088e125265e83d8f75a4e39110ee6" prot="public" static="no">
+        <name>XWDTPS_CCR_PSCALE_0512</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>divide clock by 512 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1gac45a97f7c45ce5c10365a27c199d8d2c" prot="public" static="no">
+        <name>XWDTPS_CCR_PSCALE_4096</name>
+        <initializer>0x00000003U</initializer>
+        <briefdescription>
+<para>divide clock by 4096 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Restart register</header>
+      <description><para>This register resets the timer preventing a timeout.</para><para>Value is specific 0x1999 </para></description>
+      <memberdef kind="define" id="group__wdtps_1ga798fcec0eac576d8309e3995e3597b3e" prot="public" static="no">
+        <name>XWDTPS_RESTART_KEY_VAL</name>
+        <initializer>0x00001999U</initializer>
+        <briefdescription>
+<para>valid key </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Status register</header>
+      <description><para>This register indicates timer reached zero count. </para></description>
+      <memberdef kind="define" id="group__wdtps_1ga79c7165641f0f9b4e356675fc0d0960b" prot="public" static="no">
+        <name>XWDTPS_SR_WDZ_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>time out occurred </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__wdtps_1ga230fdf90fd02a0ac309937d235f560ac" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_wdt_ps___config" kindref="compound">XWdtPs_Config</ref></type>
+        <definition>XWdtPs_Config XWdtPs_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XWdtPs_ConfigTable</name>
+        <briefdescription>
+<para>Configuration table. </para>        </briefdescription>
+        <detaileddescription>
+<para>Configuration table. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_g.c" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__wdtps_1gae2a8c2673df0d37c03eea50b2ea76ce2" compoundref="xwdtps__sinit_8c" startline="84" endline="97">XWdtPs_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__wdtps_1ga23a43d76136564699b548fb0a4b144dd" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_wdt_ps___config" kindref="compound">XWdtPs_Config</ref></type>
+        <definition>XWdtPs_Config XWdtPs_ConfigTable[XPAR_XWDTPS_NUM_INSTANCES]</definition>
+        <argsstring>[XPAR_XWDTPS_NUM_INSTANCES]</argsstring>
+        <name>XWdtPs_ConfigTable</name>
+        <initializer>= {
+	{
+		(u16)XPAR_XWDTPS_0_DEVICE_ID,
+		(u32)XPAR_XWDTPS_0_BASEADDR
+	},
+
+
+
+
+
+
+}</initializer>
+        <briefdescription>
+<para>This table contains configuration information for each watchdog timer device in the system. </para>        </briefdescription>
+        <detaileddescription>
+<para>Configuration table. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_g.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_g.c" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__wdtps_1gae2a8c2673df0d37c03eea50b2ea76ce2" compoundref="xwdtps__sinit_8c" startline="84" endline="97">XWdtPs_LookupConfig</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__wdtps_1gaf5315b5d46aba7c4d02b988740d44c66" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XWdtPs_CfgInitialize</definition>
+        <argsstring>(XWdtPs *InstancePtr, XWdtPs_Config *ConfigPtr, UINTPTR EffectiveAddress)</argsstring>
+        <name>XWdtPs_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_wdt_ps" kindref="compound">XWdtPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_wdt_ps___config" kindref="compound">XWdtPs_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddress</declname>
+        </param>
+        <briefdescription>
+<para>Initialize a specific watchdog timer instance/driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function must be called before other functions of the driver are called.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_wdt_ps" kindref="compound">XWdtPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the config structure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address for the device. It could be a virtual address if address translation is supported in the system, otherwise it is the physical address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful.</para></listitem><listitem><para>XST_DEVICE_IS_STARTED if the device has already been started.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.c" bodystart="73" bodyend="112"/>
+        <references refid="struct_x_wdt_ps___config_1ab09dc2a13ed7882ec309278ebc43b16c" compoundref="xwdtps_8h" startline="120">XWdtPs_Config::BaseAddress</references>
+        <references refid="struct_x_wdt_ps_1a156efe4faa90db8ce8c582c8756255f8" compoundref="xwdtps_8h" startline="136">XWdtPs::Config</references>
+        <references refid="struct_x_wdt_ps_1a7e636142b5fa9c8bd940026976fb0006" compoundref="xwdtps_8h" startline="137">XWdtPs::IsReady</references>
+        <references refid="struct_x_wdt_ps_1ae48dad9bc1c3b06fdbdc40cb64501dd5" compoundref="xwdtps_8h" startline="138">XWdtPs::IsStarted</references>
+        <referencedby refid="xwdtps__intr__example_8c_1a68c49aac48afdadb5e61491d93bdc6db" compoundref="xwdtps__intr__example_8c" startline="174" endline="399">WdtPsIntrExample</referencedby>
+        <referencedby refid="xwdtps__polled__example_8c_1ad9108236957be3abb536a57807d2af0a" compoundref="xwdtps__polled__example_8c" startline="130" endline="260">WdtPsPolledExample</referencedby>
+        <referencedby refid="xwdtps__selftest__example_8c_1a1c0dd37dd465b8e22dfec43c60a5de1e" compoundref="xwdtps__selftest__example_8c" startline="125" endline="161">WdtPsSelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__wdtps_1ga2ac689cec0d17cc916c509285635135b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XWdtPs_Start</definition>
+        <argsstring>(XWdtPs *InstancePtr)</argsstring>
+        <name>XWdtPs_Start</name>
+        <param>
+          <type><ref refid="struct_x_wdt_ps" kindref="compound">XWdtPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Start the watchdog timer of the device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_wdt_ps" kindref="compound">XWdtPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.c" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.c" bodystart="126" bodyend="157"/>
+        <references refid="struct_x_wdt_ps___config_1ab09dc2a13ed7882ec309278ebc43b16c" compoundref="xwdtps_8h" startline="120">XWdtPs_Config::BaseAddress</references>
+        <references refid="struct_x_wdt_ps_1a156efe4faa90db8ce8c582c8756255f8" compoundref="xwdtps_8h" startline="136">XWdtPs::Config</references>
+        <references refid="struct_x_wdt_ps_1a7e636142b5fa9c8bd940026976fb0006" compoundref="xwdtps_8h" startline="137">XWdtPs::IsReady</references>
+        <references refid="struct_x_wdt_ps_1ae48dad9bc1c3b06fdbdc40cb64501dd5" compoundref="xwdtps_8h" startline="138">XWdtPs::IsStarted</references>
+        <references refid="group__wdtps_1gae41b46b220ba0da6a9f28e594c3c0a47" compoundref="xwdtps__hw_8h" startline="136">XWdtPs_ReadReg</references>
+        <references refid="group__wdtps_1gac1cc7282f826a550a7f5107f1e12523b" compoundref="xwdtps__hw_8h" startline="154">XWdtPs_WriteReg</references>
+        <references refid="group__wdtps_1gabfb6c271ee50fc3735fde379c938be0c" compoundref="xwdtps__hw_8h" startline="48">XWDTPS_ZMR_OFFSET</references>
+        <references refid="group__wdtps_1gab5a46221cc01e7b376f46ee60f726dad" compoundref="xwdtps__hw_8h" startline="60">XWDTPS_ZMR_WDEN_MASK</references>
+        <references refid="group__wdtps_1ga1d77314aa941add791ce8d0bfa9ec3b9" compoundref="xwdtps__hw_8h" startline="71">XWDTPS_ZMR_ZKEY_VAL</references>
+        <referencedby refid="xwdtps__intr__example_8c_1a68c49aac48afdadb5e61491d93bdc6db" compoundref="xwdtps__intr__example_8c" startline="174" endline="399">WdtPsIntrExample</referencedby>
+        <referencedby refid="xwdtps__polled__example_8c_1ad9108236957be3abb536a57807d2af0a" compoundref="xwdtps__polled__example_8c" startline="130" endline="260">WdtPsPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__wdtps_1ga4a8899689039c676ab3ad7ff80c9c750" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XWdtPs_Stop</definition>
+        <argsstring>(XWdtPs *InstancePtr)</argsstring>
+        <name>XWdtPs_Stop</name>
+        <param>
+          <type><ref refid="struct_x_wdt_ps" kindref="compound">XWdtPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Disable the watchdog timer. </para>        </briefdescription>
+        <detaileddescription>
+<para>It is the caller&apos;s responsibility to disconnect the interrupt handler of the watchdog timer from the interrupt source, typically an interrupt controller, and disable the interrupt in the interrupt controller.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_wdt_ps" kindref="compound">XWdtPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.c" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.c" bodystart="175" bodyend="202"/>
+        <references refid="struct_x_wdt_ps___config_1ab09dc2a13ed7882ec309278ebc43b16c" compoundref="xwdtps_8h" startline="120">XWdtPs_Config::BaseAddress</references>
+        <references refid="struct_x_wdt_ps_1a156efe4faa90db8ce8c582c8756255f8" compoundref="xwdtps_8h" startline="136">XWdtPs::Config</references>
+        <references refid="struct_x_wdt_ps_1a7e636142b5fa9c8bd940026976fb0006" compoundref="xwdtps_8h" startline="137">XWdtPs::IsReady</references>
+        <references refid="struct_x_wdt_ps_1ae48dad9bc1c3b06fdbdc40cb64501dd5" compoundref="xwdtps_8h" startline="138">XWdtPs::IsStarted</references>
+        <references refid="group__wdtps_1gae41b46b220ba0da6a9f28e594c3c0a47" compoundref="xwdtps__hw_8h" startline="136">XWdtPs_ReadReg</references>
+        <references refid="group__wdtps_1gac1cc7282f826a550a7f5107f1e12523b" compoundref="xwdtps__hw_8h" startline="154">XWdtPs_WriteReg</references>
+        <references refid="group__wdtps_1gabfb6c271ee50fc3735fde379c938be0c" compoundref="xwdtps__hw_8h" startline="48">XWDTPS_ZMR_OFFSET</references>
+        <references refid="group__wdtps_1gab5a46221cc01e7b376f46ee60f726dad" compoundref="xwdtps__hw_8h" startline="60">XWDTPS_ZMR_WDEN_MASK</references>
+        <references refid="group__wdtps_1ga1d77314aa941add791ce8d0bfa9ec3b9" compoundref="xwdtps__hw_8h" startline="71">XWDTPS_ZMR_ZKEY_VAL</references>
+        <referencedby refid="xwdtps__intr__example_8c_1a68c49aac48afdadb5e61491d93bdc6db" compoundref="xwdtps__intr__example_8c" startline="174" endline="399">WdtPsIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__wdtps_1ga8f98775051f9ea2cb0a47da8a75f555a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XWdtPs_EnableOutput</definition>
+        <argsstring>(XWdtPs *InstancePtr, u8 Signal)</argsstring>
+        <name>XWdtPs_EnableOutput</name>
+        <param>
+          <type><ref refid="struct_x_wdt_ps" kindref="compound">XWdtPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Signal</declname>
+        </param>
+        <briefdescription>
+<para>Enables the indicated signal/output. </para>        </briefdescription>
+        <detaileddescription>
+<para>Performs a read/modify/write cycle to update the value correctly.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_wdt_ps" kindref="compound">XWdtPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Signal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the desired signal/output. Valid Signal Values are XWDTPS_RESET_SIGNAL and XWDTPS_IRQ_SIGNAL. Only one of them can be specified at a time.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.c" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.c" bodystart="222" bodyend="261"/>
+        <references refid="struct_x_wdt_ps___config_1ab09dc2a13ed7882ec309278ebc43b16c" compoundref="xwdtps_8h" startline="120">XWdtPs_Config::BaseAddress</references>
+        <references refid="struct_x_wdt_ps_1a156efe4faa90db8ce8c582c8756255f8" compoundref="xwdtps_8h" startline="136">XWdtPs::Config</references>
+        <references refid="struct_x_wdt_ps_1a7e636142b5fa9c8bd940026976fb0006" compoundref="xwdtps_8h" startline="137">XWdtPs::IsReady</references>
+        <references refid="group__wdtps_1ga1c3aaf158b04e2d1e77145d5b425c5d3" compoundref="xwdtps_8h" startline="100">XWDTPS_IRQ_SIGNAL</references>
+        <references refid="group__wdtps_1gae41b46b220ba0da6a9f28e594c3c0a47" compoundref="xwdtps__hw_8h" startline="136">XWdtPs_ReadReg</references>
+        <references refid="group__wdtps_1gad0b2439fb19478f1b1c1d14b76cd15cc" compoundref="xwdtps_8h" startline="99">XWDTPS_RESET_SIGNAL</references>
+        <references refid="group__wdtps_1gac1cc7282f826a550a7f5107f1e12523b" compoundref="xwdtps__hw_8h" startline="154">XWdtPs_WriteReg</references>
+        <references refid="group__wdtps_1ga8ab972f80540aaa4dcab5fa69c355354" compoundref="xwdtps__hw_8h" startline="62">XWDTPS_ZMR_IRQEN_MASK</references>
+        <references refid="group__wdtps_1gabfb6c271ee50fc3735fde379c938be0c" compoundref="xwdtps__hw_8h" startline="48">XWDTPS_ZMR_OFFSET</references>
+        <references refid="group__wdtps_1gace442e2a904cbae1a530f29f96e183ec" compoundref="xwdtps__hw_8h" startline="61">XWDTPS_ZMR_RSTEN_MASK</references>
+        <references refid="group__wdtps_1ga1d77314aa941add791ce8d0bfa9ec3b9" compoundref="xwdtps__hw_8h" startline="71">XWDTPS_ZMR_ZKEY_VAL</references>
+        <referencedby refid="xwdtps__intr__example_8c_1a68c49aac48afdadb5e61491d93bdc6db" compoundref="xwdtps__intr__example_8c" startline="174" endline="399">WdtPsIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__wdtps_1ga0d6091a8ee48e49031cf0c8c92a87658" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XWdtPs_DisableOutput</definition>
+        <argsstring>(XWdtPs *InstancePtr, u8 Signal)</argsstring>
+        <name>XWdtPs_DisableOutput</name>
+        <param>
+          <type><ref refid="struct_x_wdt_ps" kindref="compound">XWdtPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Signal</declname>
+        </param>
+        <briefdescription>
+<para>Disables the indicated signal/output. </para>        </briefdescription>
+        <detaileddescription>
+<para>Performs a read/modify/write cycle to update the value correctly.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_wdt_ps" kindref="compound">XWdtPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Signal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the desired signal/output. Valid Signal Values are XWDTPS_RESET_SIGNAL and XWDTPS_IRQ_SIGNAL Only one of them can be specified at a time.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.c" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.c" bodystart="280" bodyend="319"/>
+        <references refid="struct_x_wdt_ps___config_1ab09dc2a13ed7882ec309278ebc43b16c" compoundref="xwdtps_8h" startline="120">XWdtPs_Config::BaseAddress</references>
+        <references refid="struct_x_wdt_ps_1a156efe4faa90db8ce8c582c8756255f8" compoundref="xwdtps_8h" startline="136">XWdtPs::Config</references>
+        <references refid="struct_x_wdt_ps_1a7e636142b5fa9c8bd940026976fb0006" compoundref="xwdtps_8h" startline="137">XWdtPs::IsReady</references>
+        <references refid="group__wdtps_1ga1c3aaf158b04e2d1e77145d5b425c5d3" compoundref="xwdtps_8h" startline="100">XWDTPS_IRQ_SIGNAL</references>
+        <references refid="group__wdtps_1gae41b46b220ba0da6a9f28e594c3c0a47" compoundref="xwdtps__hw_8h" startline="136">XWdtPs_ReadReg</references>
+        <references refid="group__wdtps_1gad0b2439fb19478f1b1c1d14b76cd15cc" compoundref="xwdtps_8h" startline="99">XWDTPS_RESET_SIGNAL</references>
+        <references refid="group__wdtps_1gac1cc7282f826a550a7f5107f1e12523b" compoundref="xwdtps__hw_8h" startline="154">XWdtPs_WriteReg</references>
+        <references refid="group__wdtps_1ga8ab972f80540aaa4dcab5fa69c355354" compoundref="xwdtps__hw_8h" startline="62">XWDTPS_ZMR_IRQEN_MASK</references>
+        <references refid="group__wdtps_1gabfb6c271ee50fc3735fde379c938be0c" compoundref="xwdtps__hw_8h" startline="48">XWDTPS_ZMR_OFFSET</references>
+        <references refid="group__wdtps_1gace442e2a904cbae1a530f29f96e183ec" compoundref="xwdtps__hw_8h" startline="61">XWDTPS_ZMR_RSTEN_MASK</references>
+        <references refid="group__wdtps_1ga1d77314aa941add791ce8d0bfa9ec3b9" compoundref="xwdtps__hw_8h" startline="71">XWDTPS_ZMR_ZKEY_VAL</references>
+        <referencedby refid="xwdtps__intr__example_8c_1a68c49aac48afdadb5e61491d93bdc6db" compoundref="xwdtps__intr__example_8c" startline="174" endline="399">WdtPsIntrExample</referencedby>
+        <referencedby refid="xwdtps__polled__example_8c_1ad9108236957be3abb536a57807d2af0a" compoundref="xwdtps__polled__example_8c" startline="130" endline="260">WdtPsPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__wdtps_1ga007b92a62641b7db61edd11f8e4bc7dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XWdtPs_GetControlValue</definition>
+        <argsstring>(XWdtPs *InstancePtr, u8 Control)</argsstring>
+        <name>XWdtPs_GetControlValue</name>
+        <param>
+          <type><ref refid="struct_x_wdt_ps" kindref="compound">XWdtPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Control</declname>
+        </param>
+        <briefdescription>
+<para>Returns the current control setting for the indicated signal/output. </para>        </briefdescription>
+        <detaileddescription>
+<para>The register referenced is the Counter Control Register (XWDTPS_CCR_OFFSET)</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_wdt_ps" kindref="compound">XWdtPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Control</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the desired signal/output. Valid Control Values are XWDTPS_CLK_PRESCALE and XWDTPS_COUNTER_RESET. Only one of them can be specified at a time.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The contents of the requested control field in the Counter Control Register (XWDTPS_CCR_OFFSET). If the Control is XWDTPS_CLK_PRESCALE then use the definitions XWDTEPB_CCR_PSCALE_XXXX. If the Control is XWDTPS_COUNTER_RESET then the values are 0x0 to 0xFFF. This is the Counter Restart value in the CCR register.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.c" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.c" bodystart="344" bodyend="379"/>
+        <references refid="struct_x_wdt_ps___config_1ab09dc2a13ed7882ec309278ebc43b16c" compoundref="xwdtps_8h" startline="120">XWdtPs_Config::BaseAddress</references>
+        <references refid="struct_x_wdt_ps_1a156efe4faa90db8ce8c582c8756255f8" compoundref="xwdtps_8h" startline="136">XWdtPs::Config</references>
+        <references refid="struct_x_wdt_ps_1a7e636142b5fa9c8bd940026976fb0006" compoundref="xwdtps_8h" startline="137">XWdtPs::IsReady</references>
+        <references refid="group__wdtps_1ga57d4d9381e95475f46b366139f39ce51" compoundref="xwdtps__hw_8h" startline="82">XWDTPS_CCR_CLKSEL_MASK</references>
+        <references refid="group__wdtps_1ga8459363e0e0ad2d44291c68dfaa444d0" compoundref="xwdtps__hw_8h" startline="84">XWDTPS_CCR_CRV_MASK</references>
+        <references refid="group__wdtps_1gadd87253d3c5419b22ea299760058ab00" compoundref="xwdtps__hw_8h" startline="85">XWDTPS_CCR_CRV_SHIFT</references>
+        <references refid="group__wdtps_1ga55c7e50c407f1bb66181c306fc51e3b3" compoundref="xwdtps__hw_8h" startline="49">XWDTPS_CCR_OFFSET</references>
+        <references refid="group__wdtps_1ga4182ead880093d17d2b0962839821929" compoundref="xwdtps_8h" startline="106">XWDTPS_CLK_PRESCALE</references>
+        <references refid="group__wdtps_1gac055573454d39a7fadf5cbd1ed19aea5" compoundref="xwdtps_8h" startline="107">XWDTPS_COUNTER_RESET</references>
+        <references refid="group__wdtps_1gae41b46b220ba0da6a9f28e594c3c0a47" compoundref="xwdtps__hw_8h" startline="136">XWdtPs_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__wdtps_1ga64f2de6079bde6e9b8c495401a555a64" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XWdtPs_SetControlValue</definition>
+        <argsstring>(XWdtPs *InstancePtr, u8 Control, u32 Value)</argsstring>
+        <name>XWdtPs_SetControlValue</name>
+        <param>
+          <type><ref refid="struct_x_wdt_ps" kindref="compound">XWdtPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Control</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>Updates the current control setting for the indicated signal/output with the provided value. </para>        </briefdescription>
+        <detaileddescription>
+<para>Performs a read/modify/write cycle to update the value correctly. The register referenced is the Counter Control Register (XWDTPS_CCR_OFFSET)</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_wdt_ps" kindref="compound">XWdtPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Control</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the desired signal/output. Valid Control Values are XWDTPS_CLK_PRESCALE and XWDTPS_COUNTER_RESET. Only one of them can be specified at a time. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the desired control value. If the Control is XWDTPS_CLK_PRESCALE then use the definitions XWDTEPB_CCR_PSCALE_XXXX. If the Control is XWDTPS_COUNTER_RESET then the valid values are 0x0 to 0xFFF, this sets the counter restart value of the CCR register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.c" line="407" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.c" bodystart="407" bodyend="453"/>
+        <references refid="struct_x_wdt_ps___config_1ab09dc2a13ed7882ec309278ebc43b16c" compoundref="xwdtps_8h" startline="120">XWdtPs_Config::BaseAddress</references>
+        <references refid="struct_x_wdt_ps_1a156efe4faa90db8ce8c582c8756255f8" compoundref="xwdtps_8h" startline="136">XWdtPs::Config</references>
+        <references refid="struct_x_wdt_ps_1a7e636142b5fa9c8bd940026976fb0006" compoundref="xwdtps_8h" startline="137">XWdtPs::IsReady</references>
+        <references refid="group__wdtps_1ga25fcda0719e4ead71bd6bef791c7ec83" compoundref="xwdtps__hw_8h" startline="88">XWDTPS_CCR_CKEY_VAL</references>
+        <references refid="group__wdtps_1ga57d4d9381e95475f46b366139f39ce51" compoundref="xwdtps__hw_8h" startline="82">XWDTPS_CCR_CLKSEL_MASK</references>
+        <references refid="group__wdtps_1ga8459363e0e0ad2d44291c68dfaa444d0" compoundref="xwdtps__hw_8h" startline="84">XWDTPS_CCR_CRV_MASK</references>
+        <references refid="group__wdtps_1gadd87253d3c5419b22ea299760058ab00" compoundref="xwdtps__hw_8h" startline="85">XWDTPS_CCR_CRV_SHIFT</references>
+        <references refid="group__wdtps_1ga55c7e50c407f1bb66181c306fc51e3b3" compoundref="xwdtps__hw_8h" startline="49">XWDTPS_CCR_OFFSET</references>
+        <references refid="group__wdtps_1ga4182ead880093d17d2b0962839821929" compoundref="xwdtps_8h" startline="106">XWDTPS_CLK_PRESCALE</references>
+        <references refid="group__wdtps_1gac055573454d39a7fadf5cbd1ed19aea5" compoundref="xwdtps_8h" startline="107">XWDTPS_COUNTER_RESET</references>
+        <references refid="group__wdtps_1gae41b46b220ba0da6a9f28e594c3c0a47" compoundref="xwdtps__hw_8h" startline="136">XWdtPs_ReadReg</references>
+        <references refid="group__wdtps_1gac1cc7282f826a550a7f5107f1e12523b" compoundref="xwdtps__hw_8h" startline="154">XWdtPs_WriteReg</references>
+        <referencedby refid="xwdtps__intr__example_8c_1a68c49aac48afdadb5e61491d93bdc6db" compoundref="xwdtps__intr__example_8c" startline="174" endline="399">WdtPsIntrExample</referencedby>
+        <referencedby refid="xwdtps__polled__example_8c_1ad9108236957be3abb536a57807d2af0a" compoundref="xwdtps__polled__example_8c" startline="130" endline="260">WdtPsPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__wdtps_1gae2a8c2673df0d37c03eea50b2ea76ce2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_wdt_ps___config" kindref="compound">XWdtPs_Config</ref> *</type>
+        <definition>XWdtPs_Config * XWdtPs_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XWdtPs_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Looks up the device configuration based on the unique device ID/BaseAddress. </para>        </briefdescription>
+        <detaileddescription>
+<para>The XWdtPs_ConfigTable[] contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration found or NULL if the specified device ID/BaseAddress was not found. See <ref refid="xwdtps_8h" kindref="compound">xwdtps.h</ref> for the definition of <ref refid="struct_x_wdt_ps___config" kindref="compound">XWdtPs_Config</ref>.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_sinit.c" bodystart="84" bodyend="97"/>
+        <references refid="struct_x_wdt_ps___config_1aed0ba808a3e5260b3fa9244af1547c4d" compoundref="xwdtps_8h" startline="118">XWdtPs_Config::Name</references>
+        <references refid="group__wdtps_1ga230fdf90fd02a0ac309937d235f560ac" compoundref="xwdtps__g_8c" startline="51">XWdtPs_ConfigTable</references>
+        <referencedby refid="xwdtps__intr__example_8c_1a68c49aac48afdadb5e61491d93bdc6db" compoundref="xwdtps__intr__example_8c" startline="174" endline="399">WdtPsIntrExample</referencedby>
+        <referencedby refid="xwdtps__polled__example_8c_1ad9108236957be3abb536a57807d2af0a" compoundref="xwdtps__polled__example_8c" startline="130" endline="260">WdtPsPolledExample</referencedby>
+        <referencedby refid="xwdtps__selftest__example_8c_1a1c0dd37dd465b8e22dfec43c60a5de1e" compoundref="xwdtps__selftest__example_8c" startline="125" endline="161">WdtPsSelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__wdtps_1ga173e89798890bf73fd20f5cdadf113b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XWdtPs_SelfTest</definition>
+        <argsstring>(XWdtPs *InstancePtr)</argsstring>
+        <name>XWdtPs_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_wdt_ps" kindref="compound">XWdtPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Run a self-test on the timebase. </para>        </briefdescription>
+        <detaileddescription>
+<para>This test verifies that the register access locking functions. This is tested by trying to alter a register without setting the key value and verifying that the register contents did not change.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_wdt_ps" kindref="compound">XWdtPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if self-test was successful.</para></listitem><listitem><para>XST_FAILURE if self-test was not successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_selftest.c" bodystart="67" bodyend="147"/>
+        <references refid="struct_x_wdt_ps___config_1ab09dc2a13ed7882ec309278ebc43b16c" compoundref="xwdtps_8h" startline="120">XWdtPs_Config::BaseAddress</references>
+        <references refid="struct_x_wdt_ps_1a156efe4faa90db8ce8c582c8756255f8" compoundref="xwdtps_8h" startline="136">XWdtPs::Config</references>
+        <references refid="struct_x_wdt_ps_1a7e636142b5fa9c8bd940026976fb0006" compoundref="xwdtps_8h" startline="137">XWdtPs::IsReady</references>
+        <references refid="group__wdtps_1gae41b46b220ba0da6a9f28e594c3c0a47" compoundref="xwdtps__hw_8h" startline="136">XWdtPs_ReadReg</references>
+        <references refid="group__wdtps_1gac1cc7282f826a550a7f5107f1e12523b" compoundref="xwdtps__hw_8h" startline="154">XWdtPs_WriteReg</references>
+        <references refid="group__wdtps_1gabfb6c271ee50fc3735fde379c938be0c" compoundref="xwdtps__hw_8h" startline="48">XWDTPS_ZMR_OFFSET</references>
+        <references refid="group__wdtps_1gaecc5f08ee18069fdd264027e7da22165" compoundref="xwdtps__hw_8h" startline="64">XWDTPS_ZMR_RSTLN_MASK</references>
+        <references refid="group__wdtps_1ga1d77314aa941add791ce8d0bfa9ec3b9" compoundref="xwdtps__hw_8h" startline="71">XWDTPS_ZMR_ZKEY_VAL</references>
+        <referencedby refid="xwdtps__intr__example_8c_1a68c49aac48afdadb5e61491d93bdc6db" compoundref="xwdtps__intr__example_8c" startline="174" endline="399">WdtPsIntrExample</referencedby>
+        <referencedby refid="xwdtps__selftest__example_8c_1a1c0dd37dd465b8e22dfec43c60a5de1e" compoundref="xwdtps__selftest__example_8c" startline="125" endline="161">WdtPsSelfTestExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__wdtps_1gac766494d522d445e628dd65f01fe4130" prot="public" static="no">
+        <name>XWDTPS_H</name>
+        <briefdescription>
+<para>by using protection macros </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1gad0b2439fb19478f1b1c1d14b76cd15cc" prot="public" static="no">
+        <name>XWDTPS_RESET_SIGNAL</name>
+        <initializer>0x01U</initializer>
+        <briefdescription>
+<para>Reset signal request. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" bodystart="99" bodyend="-1"/>
+        <referencedby refid="xwdtps__intr__example_8c_1a68c49aac48afdadb5e61491d93bdc6db" compoundref="xwdtps__intr__example_8c" startline="174" endline="399">WdtPsIntrExample</referencedby>
+        <referencedby refid="xwdtps__polled__example_8c_1ad9108236957be3abb536a57807d2af0a" compoundref="xwdtps__polled__example_8c" startline="130" endline="260">WdtPsPolledExample</referencedby>
+        <referencedby refid="group__wdtps_1ga0d6091a8ee48e49031cf0c8c92a87658" compoundref="xwdtps_8c" startline="280" endline="319">XWdtPs_DisableOutput</referencedby>
+        <referencedby refid="group__wdtps_1ga8f98775051f9ea2cb0a47da8a75f555a" compoundref="xwdtps_8c" startline="222" endline="261">XWdtPs_EnableOutput</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1ga1c3aaf158b04e2d1e77145d5b425c5d3" prot="public" static="no">
+        <name>XWDTPS_IRQ_SIGNAL</name>
+        <initializer>0x02U</initializer>
+        <briefdescription>
+<para>IRQ signal request. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" bodystart="100" bodyend="-1"/>
+        <referencedby refid="xwdtps__intr__example_8c_1a68c49aac48afdadb5e61491d93bdc6db" compoundref="xwdtps__intr__example_8c" startline="174" endline="399">WdtPsIntrExample</referencedby>
+        <referencedby refid="group__wdtps_1ga0d6091a8ee48e49031cf0c8c92a87658" compoundref="xwdtps_8c" startline="280" endline="319">XWdtPs_DisableOutput</referencedby>
+        <referencedby refid="group__wdtps_1ga8f98775051f9ea2cb0a47da8a75f555a" compoundref="xwdtps_8c" startline="222" endline="261">XWdtPs_EnableOutput</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1ga4182ead880093d17d2b0962839821929" prot="public" static="no">
+        <name>XWDTPS_CLK_PRESCALE</name>
+        <initializer>0x01U</initializer>
+        <briefdescription>
+<para>Clock Prescale request. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" bodystart="106" bodyend="-1"/>
+        <referencedby refid="xwdtps__intr__example_8c_1a68c49aac48afdadb5e61491d93bdc6db" compoundref="xwdtps__intr__example_8c" startline="174" endline="399">WdtPsIntrExample</referencedby>
+        <referencedby refid="xwdtps__polled__example_8c_1ad9108236957be3abb536a57807d2af0a" compoundref="xwdtps__polled__example_8c" startline="130" endline="260">WdtPsPolledExample</referencedby>
+        <referencedby refid="group__wdtps_1ga007b92a62641b7db61edd11f8e4bc7dc" compoundref="xwdtps_8c" startline="344" endline="379">XWdtPs_GetControlValue</referencedby>
+        <referencedby refid="group__wdtps_1ga64f2de6079bde6e9b8c495401a555a64" compoundref="xwdtps_8c" startline="407" endline="453">XWdtPs_SetControlValue</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1gac055573454d39a7fadf5cbd1ed19aea5" prot="public" static="no">
+        <name>XWDTPS_COUNTER_RESET</name>
+        <initializer>0x02U</initializer>
+        <briefdescription>
+<para>Counter Reset request. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" bodystart="107" bodyend="-1"/>
+        <referencedby refid="xwdtps__intr__example_8c_1a68c49aac48afdadb5e61491d93bdc6db" compoundref="xwdtps__intr__example_8c" startline="174" endline="399">WdtPsIntrExample</referencedby>
+        <referencedby refid="xwdtps__polled__example_8c_1ad9108236957be3abb536a57807d2af0a" compoundref="xwdtps__polled__example_8c" startline="130" endline="260">WdtPsPolledExample</referencedby>
+        <referencedby refid="group__wdtps_1ga007b92a62641b7db61edd11f8e4bc7dc" compoundref="xwdtps_8c" startline="344" endline="379">XWdtPs_GetControlValue</referencedby>
+        <referencedby refid="group__wdtps_1ga64f2de6079bde6e9b8c495401a555a64" compoundref="xwdtps_8c" startline="407" endline="453">XWdtPs_SetControlValue</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1ga5ad51ea203fc3eb20ecd848117c2f930" prot="public" static="no">
+        <name>XWdtPs_IsWdtExpired</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((<ref refid="group__wdtps_1gae41b46b220ba0da6a9f28e594c3c0a47" kindref="member">XWdtPs_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress, <ref refid="group__wdtps_1gaf91a6934748dedcd7f21665696277922" kindref="member">XWDTPS_SR_OFFSET</ref>) &amp; \
+	  <ref refid="group__wdtps_1ga79c7165641f0f9b4e356675fc0d0960b" kindref="member">XWDTPS_SR_WDZ_MASK</ref>) == <ref refid="group__wdtps_1ga79c7165641f0f9b4e356675fc0d0960b" kindref="member">XWDTPS_SR_WDZ_MASK</ref>)</initializer>
+        <briefdescription>
+<para>Check if the watchdog timer has expired. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is used for polled mode and it is also used to check if the last reset was caused by the watchdog timer.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_wdt_ps" kindref="compound">XWdtPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>TRUE if the watchdog has expired.</para></listitem><listitem><para>FALSE if the watchdog has not expired.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>C-style signature: int <ref refid="group__wdtps_1ga5ad51ea203fc3eb20ecd848117c2f930" kindref="member">XWdtPs_IsWdtExpired(XWdtPs *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" bodystart="162" bodyend="-1"/>
+        <referencedby refid="xwdtps__intr__example_8c_1a68c49aac48afdadb5e61491d93bdc6db" compoundref="xwdtps__intr__example_8c" startline="174" endline="399">WdtPsIntrExample</referencedby>
+        <referencedby refid="xwdtps__polled__example_8c_1ad9108236957be3abb536a57807d2af0a" compoundref="xwdtps__polled__example_8c" startline="130" endline="260">WdtPsPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1ga89baace72a7b8abe477a8cfed4606a08" prot="public" static="no">
+        <name>XWdtPs_RestartWdt</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__wdtps_1gac1cc7282f826a550a7f5107f1e12523b" kindref="member">XWdtPs_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress,		\
+			<ref refid="group__wdtps_1gaa8bb5ca85ad74f2e5601444673e6ed09" kindref="member">XWDTPS_RESTART_OFFSET</ref>, <ref refid="group__wdtps_1ga798fcec0eac576d8309e3995e3597b3e" kindref="member">XWDTPS_RESTART_KEY_VAL</ref>)</initializer>
+        <briefdescription>
+<para>Restart the watchdog timer. </para>        </briefdescription>
+        <detaileddescription>
+<para>An application needs to call this function periodically to keep the timer from asserting the enabled output.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_wdt_ps" kindref="compound">XWdtPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__wdtps_1ga89baace72a7b8abe477a8cfed4606a08" kindref="member">XWdtPs_RestartWdt(XWdtPs *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps.h" bodystart="181" bodyend="-1"/>
+        <referencedby refid="xwdtps__intr__example_8c_1a68c49aac48afdadb5e61491d93bdc6db" compoundref="xwdtps__intr__example_8c" startline="174" endline="399">WdtPsIntrExample</referencedby>
+        <referencedby refid="xwdtps__polled__example_8c_1ad9108236957be3abb536a57807d2af0a" compoundref="xwdtps__polled__example_8c" startline="130" endline="260">WdtPsPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1gaa55483ea4e4979700111be19b03d06e7" prot="public" static="no">
+        <name>XWDTPS_HW_H</name>
+        <briefdescription>
+<para>by using protection macros </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1gae41b46b220ba0da6a9f28e594c3c0a47" prot="public" static="no">
+        <name>XWdtPs_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32((BaseAddress) + (u32)(RegOffset))</initializer>
+        <briefdescription>
+<para>Read the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset to be read</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__wdtps_1gae41b46b220ba0da6a9f28e594c3c0a47" kindref="member">XWdtPs_ReadReg(UINTPTR BaseAddress, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="136" bodyend="-1"/>
+        <referencedby refid="group__wdtps_1ga0d6091a8ee48e49031cf0c8c92a87658" compoundref="xwdtps_8c" startline="280" endline="319">XWdtPs_DisableOutput</referencedby>
+        <referencedby refid="group__wdtps_1ga8f98775051f9ea2cb0a47da8a75f555a" compoundref="xwdtps_8c" startline="222" endline="261">XWdtPs_EnableOutput</referencedby>
+        <referencedby refid="group__wdtps_1ga007b92a62641b7db61edd11f8e4bc7dc" compoundref="xwdtps_8c" startline="344" endline="379">XWdtPs_GetControlValue</referencedby>
+        <referencedby refid="group__wdtps_1ga173e89798890bf73fd20f5cdadf113b5" compoundref="xwdtps__selftest_8c" startline="67" endline="147">XWdtPs_SelfTest</referencedby>
+        <referencedby refid="group__wdtps_1ga64f2de6079bde6e9b8c495401a555a64" compoundref="xwdtps_8c" startline="407" endline="453">XWdtPs_SetControlValue</referencedby>
+        <referencedby refid="group__wdtps_1ga2ac689cec0d17cc916c509285635135b" compoundref="xwdtps_8c" startline="126" endline="157">XWdtPs_Start</referencedby>
+        <referencedby refid="group__wdtps_1ga4a8899689039c676ab3ad7ff80c9c750" compoundref="xwdtps_8c" startline="175" endline="202">XWdtPs_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdtps_1gac1cc7282f826a550a7f5107f1e12523b" prot="public" static="no">
+        <name>XWdtPs_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32((BaseAddress) + (u32)(RegOffset), (u32)(Data))</initializer>
+        <briefdescription>
+<para>Write the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset to be written </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__wdtps_1gac1cc7282f826a550a7f5107f1e12523b" kindref="member">XWdtPs_WriteReg(UINTPTR BaseAddress, u32 RegOffset, u32 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdtps/src/xwdtps_hw.h" bodystart="154" bodyend="-1"/>
+        <referencedby refid="group__wdtps_1ga0d6091a8ee48e49031cf0c8c92a87658" compoundref="xwdtps_8c" startline="280" endline="319">XWdtPs_DisableOutput</referencedby>
+        <referencedby refid="group__wdtps_1ga8f98775051f9ea2cb0a47da8a75f555a" compoundref="xwdtps_8c" startline="222" endline="261">XWdtPs_EnableOutput</referencedby>
+        <referencedby refid="group__wdtps_1ga173e89798890bf73fd20f5cdadf113b5" compoundref="xwdtps__selftest_8c" startline="67" endline="147">XWdtPs_SelfTest</referencedby>
+        <referencedby refid="group__wdtps_1ga64f2de6079bde6e9b8c495401a555a64" compoundref="xwdtps_8c" startline="407" endline="453">XWdtPs_SetControlValue</referencedby>
+        <referencedby refid="group__wdtps_1ga2ac689cec0d17cc916c509285635135b" compoundref="xwdtps_8c" startline="126" endline="157">XWdtPs_Start</referencedby>
+        <referencedby refid="group__wdtps_1ga4a8899689039c676ab3ad7ff80c9c750" compoundref="xwdtps_8c" startline="175" endline="202">XWdtPs_Stop</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains the implementation of interface functions of the <ref refid="struct_x_wdt_ps" kindref="compound">XWdtPs</ref> driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>This file contains method for static initialization (compile-time) of the driver.</para><para>Contains diagnostic self-test functions for the <ref refid="struct_x_wdt_ps" kindref="compound">XWdtPs</ref> driver.</para><para>This file contains the hardware interface to the System Watch Dog Timer (WDT).</para><para>This file contains a table that specifies the configuration of the watchdog timer devices in the system.</para><para>}</para><para>See <ref refid="xwdtps_8h" kindref="compound">xwdtps.h</ref> for a description of the driver.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00a ecm/jz 01/15/10 First release
+1.02a  sg    07/15/12 Removed code/APIs related to  External Signal
+                Length functionality for CR 658287
+                Removed APIs XWdtPs_SetExternalSignalLength,
+                XWdtPs_GetExternalSignalLength
+3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+3.2     sne    08/05/19 Fixed coverity warnings.
+3.6     sb     06/27/23 Added support for system device-tree flow.</preformatted></para><para><preformatted></preformatted></para><para>Each device should have an entry in the table.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00a ecm/jz 01/15/10 First release
+3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00a ecm/jz 01/15/10 First release
+1.02a  sg    07/15/12 Removed defines related to  External Signal
+                Length functionality for CR 658287
+3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00a ecm/jz 01/15/10 First release
+1.02a sg     08/01/12 Modified it use the Reset Length mask for the self
+                test for CR 658287
+3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00a ecm/jz 01/15/10 First release
+3.00  kvn    02/13/15 Modified code for MISRA-C:2012 compliance.
+3.6   sb     06/27/23 Added support for system device-tree flow.
+3.9  vlt    12/18/25 Update Doxygen comments to include SDT flow details.
+3.9  vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
+                     to support 64-bit addressing.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

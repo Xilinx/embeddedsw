@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xrtcpsu__selftest_8c" kind="file">
+    <compoundname>xrtcpsu_selftest.c</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xrtcpsu_8h" local="yes">xrtcpsu.h</includes>
+    <incdepgraph>
+      <node id="130">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="131">
+        <label>xil_io.h</label>
+      </node>
+      <node id="129">
+        <label>xrtcpsu.h</label>
+        <link refid="xrtcpsu_8h"/>
+        <childnode refid="128" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="131" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
+        <childnode refid="133" relation="include">
+        </childnode>
+      </node>
+      <node id="127">
+        <label>xrtcpsu_selftest.c</label>
+        <link refid="xrtcpsu_selftest.c"/>
+        <childnode refid="128" relation="include">
+        </childnode>
+        <childnode refid="129" relation="include">
+        </childnode>
+      </node>
+      <node id="128">
+        <label>xstatus.h</label>
+      </node>
+      <node id="133">
+        <label>xil_types.h</label>
+      </node>
+      <node id="132">
+        <label>xrtcpsu_hw.h</label>
+        <link refid="xrtcpsu__hw_8h"/>
+        <childnode refid="133" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="131" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__rtcpsu_1ga1c969c089715ea9a86cec887c09f9b92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XRtcPsu_SelfTest</definition>
+        <argsstring>(XRtcPsu *InstancePtr)</argsstring>
+        <name>XRtcPsu_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function runs a self-test on the driver and hardware device. </para>        </briefdescription>
+        <detaileddescription>
+<para>This self test writes reset value into safety check register and read backs the same. If mismatch offers, returns the failure.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the test was successful</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+This function can hang if the hardware is not functioning properly. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_selftest.c" bodystart="71" bodyend="94"/>
+        <references refid="struct_x_rtc_psu___config_1a0bc4fef50a1edc589aaa4f9fed0a50c2" compoundref="xrtcpsu_8h" startline="170">XRtcPsu_Config::BaseAddr</references>
+        <references refid="struct_x_rtc_psu_1a944bb7e04321463dcfde5e2eac03d271" compoundref="xrtcpsu_8h" startline="186">XRtcPsu::IsReady</references>
+        <references refid="struct_x_rtc_psu_1a510539ab390fac74a4e6f7d8a837e20c" compoundref="xrtcpsu_8h" startline="185">XRtcPsu::RtcConfig</references>
+        <references refid="group__rtcpsu_1ga1f92062d8d2cb1c7f0735b1ecd5cdb67" compoundref="xrtcpsu__hw_8h" startline="326">XRTC_SFTY_CHK_OFFSET</references>
+        <references refid="group__rtcpsu_1gaccbbc47feabb330a937816bc347766ea" compoundref="xrtcpsu__hw_8h" startline="361">XRtcPsu_ReadReg</references>
+        <references refid="group__rtcpsu_1gac80374611ede3fc00461df6aaff75028" compoundref="xrtcpsu__hw_8h" startline="377">XRtcPsu_WriteReg</references>
+        <referencedby refid="xrtcpsu__alarm__interrupt__example_8c_1a3e843772dd9d972673b8f2da8914f458" compoundref="xrtcpsu__alarm__interrupt__example_8c" startline="154" endline="234">RtcPsuAlarmIntrExample</referencedby>
+        <referencedby refid="xrtcpsu__alarm__polled__example_8c_1ade766b38594035be98f9fd0c0647b8d4" compoundref="xrtcpsu__alarm__polled__example_8c" startline="123" endline="174">RtcPsuAlarmPolledExample</referencedby>
+        <referencedby refid="xrtcpsu__periodic__alarm__interrupt__example_8c_1a466f19414ce6436bac17f8528a587308" compoundref="xrtcpsu__periodic__alarm__interrupt__example_8c" startline="159" endline="240">RtcPsuPeriodicAlarmIntrExample</referencedby>
+        <referencedby refid="xrtcpsu__seconds__interrupt__example_8c_1a62dc54770bc562926f39bbce4bf82236" compoundref="xrtcpsu__seconds__interrupt__example_8c" startline="154" endline="221">RtcPsuSecondsIntrExample</referencedby>
+        <referencedby refid="xrtcpsu__seconds__polled__example_8c_1a97a07e8ae01687a3a33c4bcdd5cb54d9" compoundref="xrtcpsu__seconds__polled__example_8c" startline="123" endline="166">RtcPsuSecondsPolledExample</referencedby>
+        <referencedby refid="xrtcpsu__set__calibration__example_8c_1a120cb273455f9b3ac137ec30f7af45bf" compoundref="xrtcpsu__set__calibration__example_8c" startline="126" endline="203">RtcPsuSetCalibrationExample</referencedby>
+        <referencedby refid="xrtcpsu__set__time__example_8c_1a2e15617fdde74cad66814bc251619131" compoundref="xrtcpsu__set__time__example_8c" startline="124" endline="182">RtcPsuSetTimeExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="34"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xrtcpsu_8h" kindref="compound">xrtcpsu.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="71" refid="group__rtcpsu_1ga1c969c089715ea9a86cec887c09f9b92" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__rtcpsu_1ga1c969c089715ea9a86cec887c09f9b92" kindref="member">XRtcPsu_SelfTest</ref>(<ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SafetyCheck;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a944bb7e04321463dcfde5e2eac03d271" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="81"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>the<sp/>reset<sp/>value<sp/>in<sp/>safety<sp/>check<sp/>register<sp/>and</highlight></codeline>
+<codeline lineno="82"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>try<sp/>reading<sp/>back.<sp/>If<sp/>mismatch<sp/>happens,<sp/>return<sp/>failure.</highlight></codeline>
+<codeline lineno="83"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__rtcpsu_1gac80374611ede3fc00461df6aaff75028" kindref="member">XRtcPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a510539ab390fac74a4e6f7d8a837e20c" kindref="member">RtcConfig</ref>.<ref refid="struct_x_rtc_psu___config_1a0bc4fef50a1edc589aaa4f9fed0a50c2" kindref="member">BaseAddr</ref><sp/>+<sp/><ref refid="group__rtcpsu_1ga1f92062d8d2cb1c7f0735b1ecd5cdb67" kindref="member">XRTC_SFTY_CHK_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRTC_SFTY_CHK_RSTVAL);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SafetyCheck<sp/>=<sp/><ref refid="group__rtcpsu_1gaccbbc47feabb330a937816bc347766ea" kindref="member">XRtcPsu_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a510539ab390fac74a4e6f7d8a837e20c" kindref="member">RtcConfig</ref>.<ref refid="struct_x_rtc_psu___config_1a0bc4fef50a1edc589aaa4f9fed0a50c2" kindref="member">BaseAddr</ref><sp/>+</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__rtcpsu_1ga1f92062d8d2cb1c7f0735b1ecd5cdb67" kindref="member">XRTC_SFTY_CHK_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SafetyCheck<sp/>!=<sp/>XRTC_SFTY_CHK_RSTVAL)<sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu_selftest.c"/>
+  </compounddef>
+</doxygen>

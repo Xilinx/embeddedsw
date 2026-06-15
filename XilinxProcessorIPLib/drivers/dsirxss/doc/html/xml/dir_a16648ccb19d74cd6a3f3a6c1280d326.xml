@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_a16648ccb19d74cd6a3f3a6c1280d326" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xdsi2rxss_8c">xdsi2rxss.c</innerfile>
+    <innerfile refid="xdsi2rxss_8h">xdsi2rxss.h</innerfile>
+    <innerfile refid="xdsi2rxss__g_8c">xdsi2rxss_g.c</innerfile>
+    <innerfile refid="xdsi2rxss__hw_8h">xdsi2rxss_hw.h</innerfile>
+    <innerfile refid="xdsi2rxss__intr_8c">xdsi2rxss_intr.c</innerfile>
+    <innerfile refid="xdsi2rxss__selftest_8c">xdsi2rxss_selftest.c</innerfile>
+    <innerfile refid="xdsi2rxss__sinit_8c">xdsi2rxss_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/"/>
+  </compounddef>
+</doxygen>

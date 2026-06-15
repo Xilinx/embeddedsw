@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___lms_param" kind="struct" prot="public">
+    <compoundname>XSecure_LmsParam</compoundname>
+    <includes local="no">xsecure_lms.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___lms_param_1a8ac67f54252e30e78f07b20bca4903b5" prot="public" static="no" mutable="no">
+        <type>XSecure_ShaMode</type>
+        <definition>XSecure_ShaMode XSecure_LmsParam::H</definition>
+        <argsstring></argsstring>
+        <name>H</name>
+        <briefdescription>
+<para>HASH function for selected type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" bodystart="142" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga4fe7fa250fbd0908fb92b6f65becf08e" compoundref="xsecure__lms__core_8c" startline="1517" endline="1553">XSecure_GetLmsHashAlgo</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1gaf587dc47c7f636cb574154e79ae31f0a" compoundref="xsecure__lms__core_8c" startline="1424" endline="1476">XSecure_HssSignatureVerification</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga292e1e3bc9bd3759b76c98cfd8196deb" compoundref="xsecure__lms_8c" startline="58" endline="216">XSecure_LmsLookupParamSet</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_param_1a87a19a975a59e9fc7fa8d10fd4ac6ab4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_LmsParam::m</definition>
+        <argsstring></argsstring>
+        <name>m</name>
+        <briefdescription>
+<para>The number of bytes of the output of the hash function, same as &apos;n&apos; in LMS OTS. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" bodystart="143" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_param_1a1fb9b3a0d2a2674d9f5cc1bb386d6eb0" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xsecure__lms__server__apis_1gabfea850f87a3e52a4a69c40eb98b3e06" kindref="member">XSecure_LmsTreeHeight</ref></type>
+        <definition>XSecure_LmsTreeHeight XSecure_LmsParam::h</definition>
+        <argsstring></argsstring>
+        <name>h</name>
+        <briefdescription>
+<para>Height of Merkle tree. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" bodystart="144" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_param_1a42a5db17d1cf707af99fddeb1a50315e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_LmsParam::mh</definition>
+        <argsstring></argsstring>
+        <name>mh</name>
+        <briefdescription>
+<para>Product of m and h, used in signature length determination. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" bodystart="145" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga112da8c38a140d02852bd8f93ab78e2f" compoundref="xsecure__lms__core_8c" startline="1308" endline="1403">XSecure_HssFinish</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for maintaining parameters for each LMS Type. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms.h" bodystart="141" bodyend="146"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___lms_param_1a8ac67f54252e30e78f07b20bca4903b5" prot="public" virt="non-virtual"><scope>XSecure_LmsParam</scope><name>H</name></member>
+      <member refid="struct_x_secure___lms_param_1a1fb9b3a0d2a2674d9f5cc1bb386d6eb0" prot="public" virt="non-virtual"><scope>XSecure_LmsParam</scope><name>h</name></member>
+      <member refid="struct_x_secure___lms_param_1a87a19a975a59e9fc7fa8d10fd4ac6ab4" prot="public" virt="non-virtual"><scope>XSecure_LmsParam</scope><name>m</name></member>
+      <member refid="struct_x_secure___lms_param_1a42a5db17d1cf707af99fddeb1a50315e" prot="public" virt="non-virtual"><scope>XSecure_LmsParam</scope><name>mh</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

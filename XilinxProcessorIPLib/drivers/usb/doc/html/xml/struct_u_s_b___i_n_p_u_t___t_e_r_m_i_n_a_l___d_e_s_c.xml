@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c" kind="struct" prot="public">
+    <compoundname>USB_INPUT_TERMINAL_DESC</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1af9800f8d0ca3ef94db51bc5a3ffcc66c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_INPUT_TERMINAL_DESC::bLength</definition>
+        <argsstring></argsstring>
+        <name>bLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1aa022e3a32d9669a6ff5114f25267dd46" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_INPUT_TERMINAL_DESC::bDescriptorType</definition>
+        <argsstring></argsstring>
+        <name>bDescriptorType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="301" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1addfd560ab43516c52f5025a52aabda85" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_INPUT_TERMINAL_DESC::bDescriptorSubtype</definition>
+        <argsstring></argsstring>
+        <name>bDescriptorSubtype</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a4217356dbc7f3242fcb9d96fd1a9ab65" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_INPUT_TERMINAL_DESC::bTerminalId</definition>
+        <argsstring></argsstring>
+        <name>bTerminalId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a3024a26877633f53c65deb2391578e0d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_INPUT_TERMINAL_DESC::wTerminalTypeL</definition>
+        <argsstring></argsstring>
+        <name>wTerminalTypeL</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a79e9be3fc3fd0319c82d2f426e1e55e3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_INPUT_TERMINAL_DESC::wTerminalTypeH</definition>
+        <argsstring></argsstring>
+        <name>wTerminalTypeH</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a55acd40f3260ed7622db72b29941d977" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_INPUT_TERMINAL_DESC::bAssocTerminal</definition>
+        <argsstring></argsstring>
+        <name>bAssocTerminal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1ae8dd3a85e5fdf2c87c4aebf65ae21084" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_INPUT_TERMINAL_DESC::bNrChannels</definition>
+        <argsstring></argsstring>
+        <name>bNrChannels</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1afca089e6c23f108e520ae0f89e547e89" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_INPUT_TERMINAL_DESC::wChannelConfigL</definition>
+        <argsstring></argsstring>
+        <name>wChannelConfigL</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="308" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a89c369b0ff05daecfdeace2fe799dddc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_INPUT_TERMINAL_DESC::wChannelConfigH</definition>
+        <argsstring></argsstring>
+        <name>wChannelConfigH</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="309" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="309" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a1ad2036651a1ac1850e830ef1d4bb889" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_INPUT_TERMINAL_DESC::iChannelNames</definition>
+        <argsstring></argsstring>
+        <name>iChannelNames</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="310" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a513280552f9d92ab8336843cd31bfd07" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_INPUT_TERMINAL_DESC::iTerminal</definition>
+        <argsstring></argsstring>
+        <name>iTerminal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="311" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="299" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="299" bodyend="313"/>
+    <listofallmembers>
+      <member refid="struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a55acd40f3260ed7622db72b29941d977" prot="public" virt="non-virtual"><scope>USB_INPUT_TERMINAL_DESC</scope><name>bAssocTerminal</name></member>
+      <member refid="struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1addfd560ab43516c52f5025a52aabda85" prot="public" virt="non-virtual"><scope>USB_INPUT_TERMINAL_DESC</scope><name>bDescriptorSubtype</name></member>
+      <member refid="struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1aa022e3a32d9669a6ff5114f25267dd46" prot="public" virt="non-virtual"><scope>USB_INPUT_TERMINAL_DESC</scope><name>bDescriptorType</name></member>
+      <member refid="struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1af9800f8d0ca3ef94db51bc5a3ffcc66c" prot="public" virt="non-virtual"><scope>USB_INPUT_TERMINAL_DESC</scope><name>bLength</name></member>
+      <member refid="struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1ae8dd3a85e5fdf2c87c4aebf65ae21084" prot="public" virt="non-virtual"><scope>USB_INPUT_TERMINAL_DESC</scope><name>bNrChannels</name></member>
+      <member refid="struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a4217356dbc7f3242fcb9d96fd1a9ab65" prot="public" virt="non-virtual"><scope>USB_INPUT_TERMINAL_DESC</scope><name>bTerminalId</name></member>
+      <member refid="struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a1ad2036651a1ac1850e830ef1d4bb889" prot="public" virt="non-virtual"><scope>USB_INPUT_TERMINAL_DESC</scope><name>iChannelNames</name></member>
+      <member refid="struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a513280552f9d92ab8336843cd31bfd07" prot="public" virt="non-virtual"><scope>USB_INPUT_TERMINAL_DESC</scope><name>iTerminal</name></member>
+      <member refid="struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a89c369b0ff05daecfdeace2fe799dddc" prot="public" virt="non-virtual"><scope>USB_INPUT_TERMINAL_DESC</scope><name>wChannelConfigH</name></member>
+      <member refid="struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1afca089e6c23f108e520ae0f89e547e89" prot="public" virt="non-virtual"><scope>USB_INPUT_TERMINAL_DESC</scope><name>wChannelConfigL</name></member>
+      <member refid="struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a79e9be3fc3fd0319c82d2f426e1e55e3" prot="public" virt="non-virtual"><scope>USB_INPUT_TERMINAL_DESC</scope><name>wTerminalTypeH</name></member>
+      <member refid="struct_u_s_b___i_n_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a3024a26877633f53c65deb2391578e0d" prot="public" virt="non-virtual"><scope>USB_INPUT_TERMINAL_DESC</scope><name>wTerminalTypeL</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

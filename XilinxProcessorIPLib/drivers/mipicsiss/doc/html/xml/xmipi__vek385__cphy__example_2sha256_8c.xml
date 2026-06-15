@@ -1,0 +1,428 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xmipi__vek385__cphy__example_2sha256_8c" kind="file">
+    <compoundname>xmipi_vek385_cphy_example/sha256.c</compoundname>
+    <includes local="no">stdlib.h</includes>
+    <includes local="no">string.h</includes>
+    <includes refid="xmipi__vek385__cphy__example_2sha256_8h" local="yes">sha256.h</includes>
+    <incdepgraph>
+      <node id="797">
+        <label>stdlib.h</label>
+      </node>
+      <node id="800">
+        <label>stddef.h</label>
+      </node>
+      <node id="798">
+        <label>string.h</label>
+      </node>
+      <node id="796">
+        <label>sha256.c</label>
+        <link refid="xmipi_vek385_cphy_example/sha256.c"/>
+        <childnode refid="797" relation="include">
+        </childnode>
+        <childnode refid="798" relation="include">
+        </childnode>
+        <childnode refid="799" relation="include">
+        </childnode>
+      </node>
+      <node id="799">
+        <label>sha256.h</label>
+        <childnode refid="800" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xmipi__vek385__cphy__example_2sha256_8c_1aa554f63b1bff923e477da72974a8ca9a" prot="public" static="no">
+        <name>ROTLEFT</name>
+        <param><defname>a</defname></param>
+        <param><defname>b</defname></param>
+        <initializer>(((a) &lt;&lt; (b)) | ((a) &gt;&gt; (32-(b))))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" line="21" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__vek385__cphy__example_2sha256_8c_1a3f24e956e9863a34a6f07be0b06b093a" prot="public" static="no">
+        <name>ROTRIGHT</name>
+        <param><defname>a</defname></param>
+        <param><defname>b</defname></param>
+        <initializer>(((a) &gt;&gt; (b)) | ((a) &lt;&lt; (32-(b))))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" line="22" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__vek385__cphy__example_2sha256_8c_1a0ed6c9c714485592a8c317a8ad91c83b" prot="public" static="no">
+        <name>CH</name>
+        <param><defname>x</defname></param>
+        <param><defname>y</defname></param>
+        <param><defname>z</defname></param>
+        <initializer>(((x) &amp; (y)) ^ (~(x) &amp; (z)))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__vek385__cphy__example_2sha256_8c_1ae2f6c7a0b4fdb15387259356b16854c9" prot="public" static="no">
+        <name>MAJ</name>
+        <param><defname>x</defname></param>
+        <param><defname>y</defname></param>
+        <param><defname>z</defname></param>
+        <initializer>(((x) &amp; (y)) ^ ((x) &amp; (z)) ^ ((y) &amp; (z)))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__vek385__cphy__example_2sha256_8c_1ac0ae633634f25ba56304236388a04290" prot="public" static="no">
+        <name>EP0</name>
+        <param><defname>x</defname></param>
+        <initializer>(ROTRIGHT(x,2) ^ ROTRIGHT(x,13) ^ ROTRIGHT(x,22))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__vek385__cphy__example_2sha256_8c_1a0438f3b09eae5f53b75f5d76f9724880" prot="public" static="no">
+        <name>EP1</name>
+        <param><defname>x</defname></param>
+        <initializer>(ROTRIGHT(x,6) ^ ROTRIGHT(x,11) ^ ROTRIGHT(x,25))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__vek385__cphy__example_2sha256_8c_1a2f0da11cf6577ba2dd4aea7685d0268e" prot="public" static="no">
+        <name>SIG0</name>
+        <param><defname>x</defname></param>
+        <initializer>(ROTRIGHT(x,7) ^ ROTRIGHT(x,18) ^ ((x) &gt;&gt; 3))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" line="28" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__vek385__cphy__example_2sha256_8c_1a865de5131d1e990ca62d66220a527d2c" prot="public" static="no">
+        <name>SIG1</name>
+        <param><defname>x</defname></param>
+        <initializer>(ROTRIGHT(x,17) ^ ROTRIGHT(x,19) ^ ((x) &gt;&gt; 10))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xmipi__vek385__cphy__example_2sha256_8c_1a6f53dcd196ba7818ad3329bef1d04bf6" prot="public" static="yes" mutable="no">
+        <type>const WORD</type>
+        <definition>const WORD k[64]</definition>
+        <argsstring>[64]</argsstring>
+        <name>k</name>
+        <initializer>= {
+	0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,
+        0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,
+        0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,
+        0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,
+        0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,
+        0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,
+        0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,
+        0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,
+	0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,
+        0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,
+        0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,
+        0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,
+        0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xmipi__vek385__cphy__example_2sha256_8c_1af0b9aa0b4a0569dadbce029bb4c534b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void sha256_transform</definition>
+        <argsstring>(SHA256_CTX *ctx, const BYTE data[])</argsstring>
+        <name>sha256_transform</name>
+        <param>
+          <type>SHA256_CTX *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const BYTE</type>
+          <declname>data</declname>
+          <array>[]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" bodystart="49" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="xmipi__vek385__cphy__example_2sha256_8c_1ade6fde6ef9ea137449d72891931c77ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void sha256_init</definition>
+        <argsstring>(SHA256_CTX *ctx)</argsstring>
+        <name>sha256_init</name>
+        <param>
+          <type>SHA256_CTX *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" bodystart="90" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="xmipi__vek385__cphy__example_2sha256_8c_1ac98a25de627f4cded12b7312dee1ffa0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void sha256_update</definition>
+        <argsstring>(SHA256_CTX *ctx, const BYTE data[], size_t len)</argsstring>
+        <name>sha256_update</name>
+        <param>
+          <type>SHA256_CTX *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>const BYTE</type>
+          <declname>data</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" bodystart="104" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="xmipi__vek385__cphy__example_2sha256_8c_1a8f4b55bd1e49af6e4620bc9ba9549397" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void sha256_final</definition>
+        <argsstring>(SHA256_CTX *ctx, BYTE hash[])</argsstring>
+        <name>sha256_final</name>
+        <param>
+          <type>SHA256_CTX *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>BYTE</type>
+          <declname>hash</declname>
+          <array>[]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c" bodystart="119" bodyend="163"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*********************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Filename:<sp/><sp/><sp/>sha256.c</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Author:<sp/><sp/><sp/><sp/><sp/>Brad<sp/>Conte<sp/>(brad<sp/>AT<sp/>bradconte.com)</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>Copyright:</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*<sp/>Disclaimer:<sp/>This<sp/>code<sp/>is<sp/>presented<sp/>&quot;as<sp/>is&quot;<sp/>without<sp/>any<sp/>guarantees.</highlight></codeline>
+<codeline lineno="6"><highlight class="comment">*<sp/>Details:<sp/><sp/><sp/><sp/>Implementation<sp/>of<sp/>the<sp/>SHA-256<sp/>hashing<sp/>algorithm.</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SHA-256<sp/>is<sp/>one<sp/>of<sp/>the<sp/>three<sp/>algorithms<sp/>in<sp/>the<sp/>SHA2</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>specification.<sp/>The<sp/>others,<sp/>SHA-384<sp/>and<sp/>SHA-512,<sp/>are<sp/>not</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>offered<sp/>in<sp/>this<sp/>implementation.</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Algorithm<sp/>specification<sp/>can<sp/>be<sp/>found<sp/>here:</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>http://csrc.nist.gov/publications/fips/fips180-2/fips180-2withchangenotice.pdf</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>implementation<sp/>uses<sp/>little<sp/>endian<sp/>byte<sp/>order.</highlight></codeline>
+<codeline lineno="13"><highlight class="comment">*********************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>HEADER<sp/>FILES<sp/>***************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sha256.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>MACROS<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ROTLEFT(a,b)<sp/>(((a)<sp/>&lt;&lt;<sp/>(b))<sp/>|<sp/>((a)<sp/>&gt;&gt;<sp/>(32-(b))))</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ROTRIGHT(a,b)<sp/>(((a)<sp/>&gt;&gt;<sp/>(b))<sp/>|<sp/>((a)<sp/>&lt;&lt;<sp/>(32-(b))))</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CH(x,y,z)<sp/>(((x)<sp/>&amp;<sp/>(y))<sp/>^<sp/>(~(x)<sp/>&amp;<sp/>(z)))</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MAJ(x,y,z)<sp/>(((x)<sp/>&amp;<sp/>(y))<sp/>^<sp/>((x)<sp/>&amp;<sp/>(z))<sp/>^<sp/>((y)<sp/>&amp;<sp/>(z)))</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EP0(x)<sp/>(ROTRIGHT(x,2)<sp/>^<sp/>ROTRIGHT(x,13)<sp/>^<sp/>ROTRIGHT(x,22))</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EP1(x)<sp/>(ROTRIGHT(x,6)<sp/>^<sp/>ROTRIGHT(x,11)<sp/>^<sp/>ROTRIGHT(x,25))</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SIG0(x)<sp/>(ROTRIGHT(x,7)<sp/>^<sp/>ROTRIGHT(x,18)<sp/>^<sp/>((x)<sp/>&gt;&gt;<sp/>3))</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SIG1(x)<sp/>(ROTRIGHT(x,17)<sp/>^<sp/>ROTRIGHT(x,19)<sp/>^<sp/>((x)<sp/>&gt;&gt;<sp/>10))</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>VARIABLES<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>WORD<sp/>k[64]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/***********************<sp/>FUNCTION<sp/>DEFINITIONS<sp/>***********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>sha256_transform(SHA256_CTX<sp/>*ctx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>BYTE<sp/>data[])</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WORD<sp/>a,<sp/>b,<sp/>c,<sp/>d,<sp/>e,<sp/>f,<sp/>g,<sp/>h,<sp/>i,<sp/>j,<sp/>t1,<sp/>t2,<sp/>m[64];</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0,<sp/>j<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>16;<sp/>++i,<sp/>j<sp/>+=<sp/>4)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m[i]<sp/>=<sp/>(data[j]<sp/>&lt;&lt;<sp/>24)<sp/>|<sp/>(data[j<sp/>+<sp/>1]<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>(data[j<sp/>+<sp/>2]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>(data[j<sp/>+<sp/>3]);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(<sp/>;<sp/>i<sp/>&lt;<sp/>64;<sp/>++i)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m[i]<sp/>=<sp/>SIG1(m[i<sp/>-<sp/>2])<sp/>+<sp/>m[i<sp/>-<sp/>7]<sp/>+<sp/>SIG0(m[i<sp/>-<sp/>15])<sp/>+<sp/>m[i<sp/>-<sp/>16];</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>a<sp/>=<sp/>ctx-&gt;state[0];</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b<sp/>=<sp/>ctx-&gt;state[1];</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>c<sp/>=<sp/>ctx-&gt;state[2];</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>d<sp/>=<sp/>ctx-&gt;state[3];</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>e<sp/>=<sp/>ctx-&gt;state[4];</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>f<sp/>=<sp/>ctx-&gt;state[5];</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>g<sp/>=<sp/>ctx-&gt;state[6];</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>h<sp/>=<sp/>ctx-&gt;state[7];</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>64;<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t1<sp/>=<sp/>h<sp/>+<sp/>EP1(e)<sp/>+<sp/>CH(e,f,g)<sp/>+<sp/>k[i]<sp/>+<sp/>m[i];</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t2<sp/>=<sp/>EP0(a)<sp/>+<sp/>MAJ(a,b,c);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>h<sp/>=<sp/>g;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>g<sp/>=<sp/>f;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>f<sp/>=<sp/>e;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>e<sp/>=<sp/>d<sp/>+<sp/>t1;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>d<sp/>=<sp/>c;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>c<sp/>=<sp/>b;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b<sp/>=<sp/>a;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>a<sp/>=<sp/>t1<sp/>+<sp/>t2;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;state[0]<sp/>+=<sp/>a;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;state[1]<sp/>+=<sp/>b;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;state[2]<sp/>+=<sp/>c;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;state[3]<sp/>+=<sp/>d;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;state[4]<sp/>+=<sp/>e;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;state[5]<sp/>+=<sp/>f;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;state[6]<sp/>+=<sp/>g;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;state[7]<sp/>+=<sp/>h;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>sha256_init(SHA256_CTX<sp/>*ctx)</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;datalen<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;bitlen<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;state[0]<sp/>=<sp/>0x6a09e667;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;state[1]<sp/>=<sp/>0xbb67ae85;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;state[2]<sp/>=<sp/>0x3c6ef372;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;state[3]<sp/>=<sp/>0xa54ff53a;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;state[4]<sp/>=<sp/>0x510e527f;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;state[5]<sp/>=<sp/>0x9b05688c;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;state[6]<sp/>=<sp/>0x1f83d9ab;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;state[7]<sp/>=<sp/>0x5be0cd19;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>sha256_update(SHA256_CTX<sp/>*ctx,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>BYTE<sp/>data[],<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len)</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WORD<sp/>i;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>len;<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;data[ctx-&gt;datalen]<sp/>=<sp/>data[i];</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;datalen++;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ctx-&gt;datalen<sp/>==<sp/>64)<sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sha256_transform(ctx,<sp/>ctx-&gt;data);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;bitlen<sp/>+=<sp/>512;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;datalen<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>sha256_final(SHA256_CTX<sp/>*ctx,<sp/>BYTE<sp/>hash[])</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WORD<sp/>i;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>i<sp/>=<sp/>ctx-&gt;datalen;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Pad<sp/>whatever<sp/>data<sp/>is<sp/>left<sp/>in<sp/>the<sp/>buffer.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ctx-&gt;datalen<sp/>&lt;<sp/>56)<sp/>{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;data[i++]<sp/>=<sp/>0x80;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(i<sp/>&lt;<sp/>56)</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;data[i++]<sp/>=<sp/>0x00;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;data[i++]<sp/>=<sp/>0x80;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(i<sp/>&lt;<sp/>64)</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;data[i++]<sp/>=<sp/>0x00;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sha256_transform(ctx,<sp/>ctx-&gt;data);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(ctx-&gt;data,<sp/>0,<sp/>56);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Append<sp/>to<sp/>the<sp/>padding<sp/>the<sp/>total<sp/>message&apos;s<sp/>length<sp/>in<sp/>bits<sp/>and<sp/>transform.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;bitlen<sp/>+=<sp/>ctx-&gt;datalen<sp/>*<sp/>8;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;data[63]<sp/>=<sp/>ctx-&gt;bitlen;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;data[62]<sp/>=<sp/>ctx-&gt;bitlen<sp/>&gt;&gt;<sp/>8;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;data[61]<sp/>=<sp/>ctx-&gt;bitlen<sp/>&gt;&gt;<sp/>16;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;data[60]<sp/>=<sp/>ctx-&gt;bitlen<sp/>&gt;&gt;<sp/>24;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;data[59]<sp/>=<sp/>ctx-&gt;bitlen<sp/>&gt;&gt;<sp/>32;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;data[58]<sp/>=<sp/>ctx-&gt;bitlen<sp/>&gt;&gt;<sp/>40;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;data[57]<sp/>=<sp/>ctx-&gt;bitlen<sp/>&gt;&gt;<sp/>48;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctx-&gt;data[56]<sp/>=<sp/>ctx-&gt;bitlen<sp/>&gt;&gt;<sp/>56;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sha256_transform(ctx,<sp/>ctx-&gt;data);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Since<sp/>this<sp/>implementation<sp/>uses<sp/>little<sp/>endian<sp/>byte<sp/>ordering<sp/>and<sp/>SHA<sp/>uses<sp/>big<sp/>endian,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>reverse<sp/>all<sp/>the<sp/>bytes<sp/>when<sp/>copying<sp/>the<sp/>final<sp/>state<sp/>to<sp/>the<sp/>output<sp/>hash.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>4;<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hash[i]<sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>(ctx-&gt;state[0]<sp/>&gt;&gt;<sp/>(24<sp/>-<sp/>i<sp/>*<sp/>8))<sp/>&amp;<sp/>0x000000ff;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hash[i<sp/>+<sp/>4]<sp/><sp/>=<sp/>(ctx-&gt;state[1]<sp/>&gt;&gt;<sp/>(24<sp/>-<sp/>i<sp/>*<sp/>8))<sp/>&amp;<sp/>0x000000ff;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hash[i<sp/>+<sp/>8]<sp/><sp/>=<sp/>(ctx-&gt;state[2]<sp/>&gt;&gt;<sp/>(24<sp/>-<sp/>i<sp/>*<sp/>8))<sp/>&amp;<sp/>0x000000ff;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hash[i<sp/>+<sp/>12]<sp/>=<sp/>(ctx-&gt;state[3]<sp/>&gt;&gt;<sp/>(24<sp/>-<sp/>i<sp/>*<sp/>8))<sp/>&amp;<sp/>0x000000ff;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hash[i<sp/>+<sp/>16]<sp/>=<sp/>(ctx-&gt;state[4]<sp/>&gt;&gt;<sp/>(24<sp/>-<sp/>i<sp/>*<sp/>8))<sp/>&amp;<sp/>0x000000ff;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hash[i<sp/>+<sp/>20]<sp/>=<sp/>(ctx-&gt;state[5]<sp/>&gt;&gt;<sp/>(24<sp/>-<sp/>i<sp/>*<sp/>8))<sp/>&amp;<sp/>0x000000ff;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hash[i<sp/>+<sp/>24]<sp/>=<sp/>(ctx-&gt;state[6]<sp/>&gt;&gt;<sp/>(24<sp/>-<sp/>i<sp/>*<sp/>8))<sp/>&amp;<sp/>0x000000ff;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hash[i<sp/>+<sp/>28]<sp/>=<sp/>(ctx-&gt;state[7]<sp/>&gt;&gt;<sp/>(24<sp/>-<sp/>i<sp/>*<sp/>8))<sp/>&amp;<sp/>0x000000ff;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="163"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sha256.c"/>
+  </compounddef>
+</doxygen>

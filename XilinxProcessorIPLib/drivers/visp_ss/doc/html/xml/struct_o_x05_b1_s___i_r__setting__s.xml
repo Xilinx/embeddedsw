@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_o_x05_b1_s___i_r__setting__s" kind="struct" prot="public">
+    <compoundname>OX05B1S_IR_setting_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_o_x05_b1_s___i_r__setting__s_1a34a85500b8400e5c74edf34b8b36e92a" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t OX05B1S_IR_setting_s::irOn</definition>
+        <argsstring></argsstring>
+        <name>irOn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox05b1s.c" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox05b1s.c" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_o_x05_b1_s___i_r__setting__s_1ad5897cca544ff2d860664fde73132a02" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t OX05B1S_IR_setting_s::irStrength</definition>
+        <argsstring></argsstring>
+        <name>irStrength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox05b1s.c" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox05b1s.c" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox05b1s.c" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox05b1s.c" bodystart="31" bodyend="34"/>
+    <listofallmembers>
+      <member refid="struct_o_x05_b1_s___i_r__setting__s_1a34a85500b8400e5c74edf34b8b36e92a" prot="public" virt="non-virtual"><scope>OX05B1S_IR_setting_s</scope><name>irOn</name></member>
+      <member refid="struct_o_x05_b1_s___i_r__setting__s_1ad5897cca544ff2d860664fde73132a02" prot="public" virt="non-virtual"><scope>OX05B1S_IR_setting_s</scope><name>irStrength</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

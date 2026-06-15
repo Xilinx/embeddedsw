@@ -1,0 +1,526 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xsecure__sha__example__apis" kind="group">
+    <compoundname>xsecure_sha_example_apis</compoundname>
+    <title>XilSecure SHA SPARTANUP API Example Usage</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xsecure__sha__example__apis_1ga3c82a89a9ab66585db83da2d1a73473b" prot="public" static="yes" mutable="no">
+        <type>XSecure_Sha</type>
+        <definition>XSecure_Sha Secure_Sha</definition>
+        <argsstring></argsstring>
+        <name>Secure_Sha</name>
+        <initializer>= {0U}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__sha__example__apis_1ga0903830edda2fda26b8ff58dfde3f088" prot="public" static="yes" mutable="no">
+        <type>XPmcDma</type>
+        <definition>XPmcDma PmcDma</definition>
+        <argsstring></argsstring>
+        <name>PmcDma</name>
+        <initializer>= {0U}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__sha__example__apis_1ga8227114f1927e51be097514357a7e5d3" prot="public" static="yes" mutable="no">
+        <type>const char</type>
+        <definition>const char Data[SHA_INPUT_DATA_LEN+1U]</definition>
+        <argsstring>[SHA_INPUT_DATA_LEN+1U]</argsstring>
+        <name>Data</name>
+        <initializer>= &quot;SHA3_256&quot;</initializer>
+        <briefdescription>
+<para>Input data should be word aligned. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__sha__example__apis_1ga637ee243fd8a9d5fa1a4ca05a9a4b04f" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 ExpHash[SHA_HASH_LEN_IN_BYTES]</definition>
+        <argsstring>[SHA_HASH_LEN_IN_BYTES]</argsstring>
+        <name>ExpHash</name>
+        <initializer>= {
+	0x88U, 0x8FU, 0xBDU, 0x5BU, 0x0EU, 0xB9U, 0xD7U, 0x7EU,
+	0x15U, 0x1BU, 0xD3U, 0x83U, 0xD9U, 0x3BU, 0x16U, 0xEAU,
+	0xF2U, 0xF1U, 0x4FU, 0xC7U, 0x06U, 0x8CU, 0x61U, 0x23U,
+	0x09U, 0x57U, 0x9BU, 0x4BU, 0x79U, 0x91U, 0x6CU, 0xE2U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__sha__example__apis_1ga8227114f1927e51be097514357a7e5d3" prot="public" static="yes" mutable="no">
+        <type>const char</type>
+        <definition>const char Data[SHA_INPUT_DATA_LEN+1U]</definition>
+        <argsstring>[SHA_INPUT_DATA_LEN+1U]</argsstring>
+        <name>Data</name>
+        <initializer>= &quot;XILINX&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__sha__example__apis_1ga4bd48d6ec795a0574a733c9b62656f67" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_secure___sha_op_params" kindref="compound">XSecure_ShaOpParams</ref></type>
+        <definition>XSecure_ShaOpParams ShaParams</definition>
+        <argsstring></argsstring>
+        <name>ShaParams</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__sha__example__apis_1gad60315bc7cb2f89a534544d1c49caaf6" prot="public" static="yes" mutable="no">
+        <type>const char</type>
+        <definition>const char Sha3Hash[SHA3_384_HASH_LEN_IN_BYTES]</definition>
+        <argsstring>[SHA3_384_HASH_LEN_IN_BYTES]</argsstring>
+        <name>Sha3Hash</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__sha__example__apis_1ga030b67f9c903e419dcc4520b014d5ebd" prot="public" static="yes" mutable="no">
+        <type>const char</type>
+        <definition>const char Sha2Hash[SHA2_256_HASH_LEN_IN_BYTES]</definition>
+        <argsstring>[SHA2_256_HASH_LEN_IN_BYTES]</argsstring>
+        <name>Sha2Hash</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__sha__example__apis_1ga1f45cd13f322de9c614741fe7f435dc9" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 ExpSha3Hash[SHA3_384_HASH_LEN_IN_BYTES]</definition>
+        <argsstring>[SHA3_384_HASH_LEN_IN_BYTES]</argsstring>
+        <name>ExpSha3Hash</name>
+        <initializer>= {
+	0x70, 0x69, 0x77, 0x35, 0x0b, 0x93,
+	0x92, 0xa0, 0x48, 0x2c, 0xd8, 0x23,
+	0x38, 0x47, 0xd2, 0xd9, 0x2d, 0x1a,
+	0x95, 0x0c, 0xad, 0xa8, 0x60, 0xc0,
+	0x9b, 0x70, 0xc6, 0xad, 0x6e, 0xf1,
+	0x5d, 0x49, 0x68, 0xa3, 0x50, 0x75,
+	0x06, 0xbb, 0x0b, 0x9b, 0x03, 0x7d,
+	0xd5, 0x93, 0x76, 0x50, 0xdb, 0xd4
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__sha__example__apis_1gacd3af124ebf577115d6fafc7383a36f9" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 ExpSha2Hash[SHA2_256_HASH_LEN_IN_BYTES]</definition>
+        <argsstring>[SHA2_256_HASH_LEN_IN_BYTES]</argsstring>
+        <name>ExpSha2Hash</name>
+        <initializer>= {
+	0xC1, 0x80, 0xFF, 0x2A, 0xB4, 0x79,
+	0xD5, 0xD6, 0xA0, 0xD5, 0x8F, 0x23,
+	0x16, 0xF5, 0x23, 0x18, 0xBE, 0x29,
+	0x72, 0x4C, 0xAF, 0x10, 0x29, 0x1A,
+	0x1F, 0xF5, 0x74, 0xCF, 0x6B, 0xC6,
+	0xDA, 0xBF
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__sha__example__apis_1ga96d1344c2a31192cc7f7592b26e6ec64" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 SharedMem[XSECURE_SHARED_MEM_SIZE]</definition>
+        <argsstring>[XSECURE_SHARED_MEM_SIZE]</argsstring>
+        <name>SharedMem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__sha__example__apis_1gaff145eea4302d3b700dee2619aeea46e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int SecureShaExample</definition>
+        <argsstring>()</argsstring>
+        <name>SecureShaExample</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function sends string to SHA module for hashing. </para>        </briefdescription>
+        <detaileddescription>
+<para>The purpose of this function is to illustrate how to use the SHA driver.</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - hash successfully generated for given input data string.</para></listitem><listitem><para>XST_FAILURE - if the hash generation failed.//! [SHA example] </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="178" bodyend="229"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__sha__example__apis_1ga641c2baa9d8628b51216463a4bd59cfb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int SecureShaCompareHash</definition>
+        <argsstring>(u8 *Hash, u8 *ExpectedHash)</argsstring>
+        <name>SecureShaCompareHash</name>
+        <param>
+          <type>u8 *</type>
+          <declname>Hash</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ExpectedHash</declname>
+        </param>
+        <briefdescription>
+<para>This function compares the given hash with the expected Hash. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - if the expected hash is equal to the given hash</para></listitem><listitem><para>XST_FAILURE - if the comparison fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="241" bodyend="254"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__sha__example__apis_1gabb9f5ab870e6af28ca1a24076d329fde" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void SecureShaPrintHash</definition>
+        <argsstring>(u8 *Hash)</argsstring>
+        <name>SecureShaPrintHash</name>
+        <param>
+          <type>u8 *</type>
+          <declname>Hash</declname>
+        </param>
+        <briefdescription>
+<para>This function prints the given hash on the console. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="261" bodyend="269"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__sha__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function to call the SecureShaExample. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the SHA calculation is successful.</para></listitem><listitem><para>XST_FAILURE if the SHA calculation failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_FAILURE if the SHA calculation failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="151" bodyend="162"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__sha__example__apis_1ga6f5bef0be9464285c68336b1233ef3d8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 SecureSha3Example</definition>
+        <argsstring>(void)</argsstring>
+        <name>SecureSha3Example</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function sends &apos;XILINX&apos; to SHA-3 module for hashing. </para>        </briefdescription>
+        <detaileddescription>
+<para>The purpose of this function is to illustrate how to use the XSecure_Sha3 driver.</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - SHA-3 hash successfully generated for given input data string.</para></listitem><listitem><para>XST_FAILURE - if the SHA-3 hash failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.//! [SHA3 example] </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" bodystart="169" bodyend="242"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__sha__example__apis_1gac5088e46ce9129d7e764c98e2439129b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 SecureSha2Example</definition>
+        <argsstring>(void)</argsstring>
+        <name>SecureSha2Example</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function sends &apos;XILINX&apos; to SHA-2 module for hashing. </para>        </briefdescription>
+        <detaileddescription>
+<para>The purpose of this function is to illustrate how to use the XSecure_Sha2 driver.</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - SHA-2 hash successfully generated for given input.</para></listitem></itemizedlist>
+</para></simplesect>
+<itemizedlist>
+<listitem><para>XST_FAILURE - if the SHA-2 hash failed.//! [SHA2 example] </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" bodystart="275" bodyend="348"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__sha__example__apis_1ga71f09f0d424b01e4350c3bda8b75c2cf" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void SecureSha3PrintHash</definition>
+        <argsstring>(const u8 *Hash)</argsstring>
+        <name>SecureSha3PrintHash</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>Hash</declname>
+        </param>
+        <briefdescription>
+<para>This function prints the given hash on the console. </para>        </briefdescription>
+        <detaileddescription>
+<para>Hash Pointer to the hash buffer </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" bodystart="251" bodyend="259"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__sha__example__apis_1gaa6aed2449789707fdd2b51a2166c4777" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void SecureSha2PrintHash</definition>
+        <argsstring>(const u8 *Hash)</argsstring>
+        <name>SecureSha2PrintHash</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>Hash</declname>
+        </param>
+        <briefdescription>
+<para>This function prints the given hash on the console. </para>        </briefdescription>
+        <detaileddescription>
+<para>Hash Pointer to the hash buffer </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" bodystart="357" bodyend="365"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__sha__example__apis_1gab861d4c865c5fd4a955a54426cce4522" prot="public" static="no">
+        <name>XSECURE_SHA3_384</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>SHA3-384 mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__xsecure__mgf__server__apis_1ga3528d2ff2183bb3aab43e4d408ee6760" compoundref="xsecure__mgf_8c" startline="203" endline="212">XSecure_GetHashInstance</referencedby>
+        <referencedby refid="group__xsecure__hmac__apis_1ga19b58a827d01b838233e4b98fb95b0f7" compoundref="xsecure__hmac_8c" startline="190" endline="251">XSecure_HmacFinal</referencedby>
+        <referencedby refid="group__xsecure__hmac__apis_1ga326185e9709790ef9dc6d0eb61da6ab9" compoundref="xsecure__hmac_8c" startline="75" endline="128">XSecure_HmacInit</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga56962fc3f5090340f69a4fa56ef264ad" compoundref="xsecure__kat_8c" startline="1026" endline="1095">XSecure_Sha3Kat</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga0204d6babc12872e9be472c0d4645901" compoundref="core_2sha_2sha__pmxc_2xsecure__sha_8c" startline="301" endline="335">XSecure_ShaGetBlockLen</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1gaf4fe7931a3c30dedeb0b314ae921b2dd" compoundref="spartanup_2xsecure__plat_8c" startline="418" endline="454">XSecure_ShaValidateModeAndCfgInstance</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__sha__example__apis_1gad83e90d954ca31ac3d9cc687321cdb2d" prot="public" static="no">
+        <name>XSECURE_SHAKE_256</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>SHAKE256 mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga75f8f635a7d2a99f8b2011b8365a7c46" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1718" endline="1751">XSecure_HssShake256Kat</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga292e1e3bc9bd3759b76c98cfd8196deb" compoundref="xsecure__lms_8c" startline="58" endline="216">XSecure_LmsLookupParamSet</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga0204d6babc12872e9be472c0d4645901" compoundref="core_2sha_2sha__pmxc_2xsecure__sha_8c" startline="301" endline="335">XSecure_ShaGetBlockLen</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga8e446a6cf529f6a697035b0643c22c1b" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1592" endline="1658">XSecure_ShakeKat</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1gaf4fe7931a3c30dedeb0b314ae921b2dd" compoundref="spartanup_2xsecure__plat_8c" startline="418" endline="454">XSecure_ShaValidateModeAndCfgInstance</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga2ff07fcdbe3cb7ae4dbb53308394c080" compoundref="xsecure__slhdsa__hash_8c" startline="131" endline="178">XSecure_SlhdsaShake256sHashF</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gad836abaf83f14c844a4b30fcca05992b" compoundref="xsecure__slhdsa__hash_8c" startline="341" endline="395">XSecure_SlhdsaShake256sHashH</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga4f9fb47928190c4aaf68df51efac1382" compoundref="xsecure__slhdsa__hash_8c" startline="53" endline="114">XSecure_SlhdsaShake256sHashMsg</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga97c714ead98479888556f73faf3d1dfb" compoundref="xsecure__slhdsa__hash_8c" startline="276" endline="323">XSecure_SlhdsaShake256sHashTl</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__sha__example__apis_1ga05aab58840d59876dbb5766b285514ec" prot="public" static="no">
+        <name>XSECURE_SHA3_256</name>
+        <initializer>(5U)</initializer>
+        <briefdescription>
+<para>SHA3-256 mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__xsecure__apis_1ga0204d6babc12872e9be472c0d4645901" compoundref="core_2sha_2sha__pmxc_2xsecure__sha_8c" startline="301" endline="335">XSecure_ShaGetBlockLen</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1gaf4fe7931a3c30dedeb0b314ae921b2dd" compoundref="spartanup_2xsecure__plat_8c" startline="418" endline="454">XSecure_ShaValidateModeAndCfgInstance</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__sha__example__apis_1ga0c53d1151bdfe8162b00de54316b016c" prot="public" static="no">
+        <name>SHA_MODE</name>
+        <initializer>(<ref refid="group__xsecure__sha__example__apis_1ga05aab58840d59876dbb5766b285514ec" kindref="member">XSECURE_SHA3_256</ref>)</initializer>
+        <briefdescription>
+<para>User configurable SHA mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__sha__example__apis_1ga0a3b36e7cfa872fe275c5b05c09e54ba" prot="public" static="no">
+        <name>SHA_INPUT_DATA_LEN</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Input data length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__sha__example__apis_1gaf67c791ae203a535584a31b9493e0261" prot="public" static="no">
+        <name>SHA_HASH_LEN_IN_BYTES</name>
+        <initializer>(<ref refid="group__xsecure__helper__server__apis_1gac46301e6ca1664825a2ceb3a44a484cd" kindref="member">XSECURE_SHA3_256_HASH_LEN</ref>)</initializer>
+        <briefdescription>
+<para>SHA3-256 hash length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__sha__example__apis_1ga78c0f78c5db552df9a6e1ae838f47109" prot="public" static="no">
+        <name>SHA3_384_HASH_LEN_IN_BYTES</name>
+        <initializer>(48U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__sha__example__apis_1ga81624f0f6d021ddda3cfc2e06c0a5728" prot="public" static="no">
+        <name>SHA2_256_HASH_LEN_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__sha__example__apis_1ga0a3b36e7cfa872fe275c5b05c09e54ba" prot="public" static="no">
+        <name>SHA_INPUT_DATA_LEN</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_2ve_2vm_sha_client_example.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This example illustrates the SHA3_256 and SHAKE_256 hash calculation. </para>    </briefdescription>
+    <detaileddescription>
+<para>This example illustrates the SHA3/2 hash calculation.</para><para>This example is supported for spartanup device.</para><para><heading level="2">Procedure to link and compile the example for the default ddr less designs </heading>
+</para><para>The default linker settings places a software stack, heap and data in DDR memory. For this example to work, any data shared between PL and PMC peripherals, should be placed in area which is accessible to both PL and PMC.</para><para>Following is the procedure to compile the example on any memory region which can be accessed by both PL and PMC <verbatim>    1. In linker script(lscript.ld) user can add new memory region in declaration section as shown below
+            shared_mem : ORIGIN = SHARED_MEM, LENGTH = 0x2000
+
+    2. Data elements that are passed by reference to the PMC side should be stored in the above shared memory section.
+       Change the .data section region to point to the new shared_mem region created in step 1. as below
+
+            .data : {
+            . = ALIGN(4);
+            __data_start = .;
+            *(.data)
+            *(.data.*)
+            *(.gnu.linkonce.d.*)
+            __data_end = .;
+            } &gt; shared_mem
+</verbatim></para><para>Note: The shared_mem section address is design and platform dependent. Users must map shared_mem to a memory region that is accessible to both the PMC and the PL, based on the target device and Vivado design.</para><para>MODIFICATION HISTORY: <preformatted>
+Ver   Who    Date     Changes
+<hruler/>
+
+1.0   kpt    09/03/24 First Release
+1.1   mb     03/25/25 Add section attribute to global variables
+1.1   mb     04/11/25 Add support for XSECURE_SHAKE_256 hash calculation
+1.2   mb     06/10/25 Add description on usage of shared memory
+5.6   mb     09/11/25 Added support to calculate hash in SHA3_384 mode
+      mb     11/17/25 Corrected hash length definitions
+5.7   tus    05/04/26 Moved SHA and PmcDma instances to data section
+                      which is mapped to shared memory by linker script
+      mb     03/25/26 Remove hard code shared_mem section address</preformatted></para><para><preformatted></preformatted></para><para>To build this application, xilmailbox library must be included in BSP and xilsecure must be in client mode This example is supported for Versal_2Ve_2Vm devices.</para><para><simplesect kind="note"><para><heading level="2">Procedure to link and compile the example for the default ddr less designs </heading>
+</para></simplesect>
+The default linker settings places a software stack, heap and data in DDR memory. For this example to work, any data shared between client running on A72/R5/PL and server running on PMC, should be placed in area which is accessible to both client and server.</para><para>Following is the procedure to compile the example on OCM or any memory region which can be accessed by server <verbatim>    1. Open example linker script(lscript.ld) in Vitis project and section to memory mapping should
+            be updated to point all the required sections to shared memory(OCM or TCM)
+            using a memory region drop down selection
+
+                                    OR
+
+    1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
+            .sharedmemory : {
+                    . = ALIGN(4);
+                    __sharedmemory_start = .;
+                    *(.sharedmemory)
+                    *(.sharedmemory.*)
+                    *(.gnu.linkonce.d.*)
+                    __sharedmemory_end = .;
+                    } &gt; versal_cips_0_pspmc_0_psv_ocm_ram_0_psv_ocm_ram_0
+
+            2. In this example &quot;.data&quot; section elements that are passed by reference to the server-side should
+               be stored in the above shared memory section. To make it happen in below example,
+       replace &quot;.data&quot; in attribute section with &quot;.sharedmemory&quot;. For example,
+               static const char Sha3Hash[SHA3_HASH_LEN_IN_BYTES] __attribute__ ((section (&quot;.data.Sha3Hash&quot;)));
+                                    should be changed to
+               static const char Sha3Hash[SHA3_HASH_LEN_IN_BYTES] __attribute__ ((section (&quot;.sharedmemory.Sha3Hash&quot;)));
+</verbatim></para><para>By default the cache is enabled for this example</para><para>MODIFICATION HISTORY: <preformatted>
+Ver   Who    Date     Changes
+<hruler/>
+
+5.4     kal   08/22/24 First Release
+5.7     sri   04/17/26 Added DCache invalidate for before sending IPI request</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

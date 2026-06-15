@@ -1,0 +1,436 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xasu__ecc__client__apis" kind="group">
+    <compoundname>xasu_ecc_client_apis</compoundname>
+    <title>ECC Client APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__ecc__client__apis_1ga720e6cc00926fad1f1c52c8ec4264c05" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_ValidateEccParameters</definition>
+        <argsstring>(XAsu_EccParams *EccParamsPtr)</argsstring>
+        <name>XAsu_ValidateEccParameters</name>
+        <param>
+          <type><ref refid="struct_x_asu___ecc_params" kindref="compound">XAsu_EccParams</ref> *</type>
+          <declname>EccParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the input ECC parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EccParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___ecc_params" kindref="compound">XAsu_EccParams</ref> structure which holds the parameters of ECC input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if ECC parameters are validated successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if parameter validation fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate ECC params pointer.</para><para>Validate input addresses provided.</para><para>Validate that exactly one of KeyAddr or KeyId is provided.</para><para>Validate curve information.</para><para>Validate the digest length. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" bodystart="448" bodyend="487"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__ecc__client__apis_1gae4ede72093d9ec99d65d9b90fca2e612" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_ValidateEccKeyParameters</definition>
+        <argsstring>(const XAsu_EccKeyParams *EccKeyParamsPtr)</argsstring>
+        <name>XAsu_ValidateEccKeyParameters</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___ecc_key_params" kindref="compound">XAsu_EccKeyParams</ref> *</type>
+          <declname>EccKeyParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function validates ECC parameters for public key generation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EccKeyParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___ecc_key_params" kindref="compound">XAsu_EccKeyParams</ref> structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if ECC parameters are validated successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if parameter validation fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Validate that exactly one of PvtKey.KeyAddr or PvtKey.KeyId is provided. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" bodystart="500" bodyend="527"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__ecc__client__apis_1gaa27b24273c3cad832ca283e68346469c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_ValidateEcdhParameters</definition>
+        <argsstring>(const XAsu_EcdhParams *EcdhParamsPtr)</argsstring>
+        <name>XAsu_ValidateEcdhParameters</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___ecdh_params" kindref="compound">XAsu_EcdhParams</ref> *</type>
+          <declname>EcdhParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function validates ECDH parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EcdhParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___ecdh_params" kindref="compound">XAsu_EcdhParams</ref> structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if ECC parameters are validated successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if parameter validation fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Validate that exactly one of PvtKey.KeyAddr or PvtKey.KeyId is provided.</para><para>Validate that exactly one of PubKey.KeyAddr or PubKey.KeyId is provided. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" bodystart="540" bodyend="578"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__ecc__client__apis_1gaaabcb4485412f47df39713bd5df6a544" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_EccGenSign</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccParamsPtr)</argsstring>
+        <name>XAsu_EccGenSign</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamsPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___ecc_params" kindref="compound">XAsu_EccParams</ref> *</type>
+          <declname>EccParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends command to ASUFW to generate an ECDSA signature for the provided hash by using the given private key associated with the elliptic curve. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EccParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___ecc_params" kindref="compound">XAsu_EccParams</ref> structure which holds the parameters of ECC input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" bodystart="71" bodyend="106"/>
+        <references refid="group__xasu__common__defs_1ga549a33ccfc02a7609c2f7868db91aecd" compoundref="xasu__eccinfo_8h" startline="50">XASU_ECC_GEN_SIGNATURE_CMD_ID</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gab1bb64b01f529f1437cdd11017cc1751" compoundref="xasu__def_8h" startline="53">XASU_MODULE_ECC_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__ecc__client__apis_1ga4b8e73d2c2143da5c419680e6a1d6c59" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_EccVerifySign</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamsPtr, XAsu_EccParams *EccParamsPtr)</argsstring>
+        <name>XAsu_EccVerifySign</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamsPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___ecc_params" kindref="compound">XAsu_EccParams</ref> *</type>
+          <declname>EccParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to validate the ECDSA signature for the provided hash using the provided ecc public key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EccParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___ecc_params" kindref="compound">XAsu_EccParams</ref> structure which holds the parameters of ECC input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" bodystart="124" bodyend="159"/>
+        <references refid="group__xasu__common__defs_1ga169bc6365e7267e189aef9fcf1bacf81" compoundref="xasu__eccinfo_8h" startline="51">XASU_ECC_VERIFY_SIGNATURE_CMD_ID</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gab1bb64b01f529f1437cdd11017cc1751" compoundref="xasu__def_8h" startline="53">XASU_MODULE_ECC_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__ecc__client__apis_1ga48e7b1ccb5585cef9da33497b4ddecd4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_EccGenPubKey</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamsPtr, XAsu_EccKeyParams *EccKeyParamsPtr)</argsstring>
+        <name>XAsu_EccGenPubKey</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamsPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___ecc_key_params" kindref="compound">XAsu_EccKeyParams</ref> *</type>
+          <declname>EccKeyParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to generate public key for the specified elliptic curve using the provided private key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EccKeyParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___ecc_key_params" kindref="compound">XAsu_EccKeyParams</ref> structure which holds the parameters of ECC input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_CURVEINFO, if curve info is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" bodystart="179" bodyend="215"/>
+        <references refid="group__xasu__common__defs_1ga6ae858dda9f5299a42254dfa7c9cc73f" compoundref="xasu__eccinfo_8h" startline="55">XASU_ECC_GEN_PUBKEY_CMD_ID</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba2e92f55c533ae361894e1cebba98f7ed" compoundref="xasu__status_8h" startline="60">XASU_INVALID_CURVEINFO</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gab1bb64b01f529f1437cdd11017cc1751" compoundref="xasu__def_8h" startline="53">XASU_MODULE_ECC_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__ecc__client__apis_1ga66e66b97823b69487c4c2e10635dc226" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_EccValidatePubKey</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamsPtr, XAsu_EccKeyParams *EccKeyParamsPtr)</argsstring>
+        <name>XAsu_EccValidatePubKey</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamsPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___ecc_key_params" kindref="compound">XAsu_EccKeyParams</ref> *</type>
+          <declname>EccKeyParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to validate the provided ECC public key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EccKeyParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___ecc_key_params" kindref="compound">XAsu_EccKeyParams</ref> structure which holds the parameters of ECC input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_CURVEINFO, if curve info is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Key manager is not supported for ECC validate public key; KeyId must be 0.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" bodystart="234" bodyend="286"/>
+        <references refid="struct_x_asu___ecc_key_params_1a0d0ce8eef9e2961c1b392c827d3caba7" compoundref="xasu__eccinfo_8h" startline="132">XAsu_EccKeyParams::CurveType</references>
+        <references refid="struct_x_asu___ecc_key_object_1a02196f5aadc4a8e9a43a6e2d767306c0" compoundref="xasu__eccinfo_8h" startline="115">XAsu_EccKeyObject::KeyId</references>
+        <references refid="struct_x_asu___ecc_key_object_1ac7340774e8e250d8d2712cc5eaad1690" compoundref="xasu__eccinfo_8h" startline="116">XAsu_EccKeyObject::KeyLen</references>
+        <references refid="struct_x_asu___ecc_key_params_1a89ea1775c2f9736d7cf50876c80b5951" compoundref="xasu__eccinfo_8h" startline="131">XAsu_EccKeyParams::PubKeyAddr</references>
+        <references refid="struct_x_asu___ecc_key_params_1a5d2bdcbf89a67623051f0da37988dd1b" compoundref="xasu__eccinfo_8h" startline="130">XAsu_EccKeyParams::PvtKey</references>
+        <references refid="group__xasu__common__defs_1gae1a496679846654aac02da3220276642" compoundref="xasu__eccinfo_8h" startline="56">XASU_ECC_VAL_PUBKEY_CMD_ID</references>
+        <references refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba2e92f55c533ae361894e1cebba98f7ed" compoundref="xasu__status_8h" startline="60">XASU_INVALID_CURVEINFO</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gab1bb64b01f529f1437cdd11017cc1751" compoundref="xasu__def_8h" startline="53">XASU_MODULE_ECC_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__ecc__client__apis_1gaf5f7b17a3df3c792590f9a0304e466a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_EccKat</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamsPtr, u32 CurveType)</argsstring>
+        <name>XAsu_EccKat</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamsPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CurveType</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to perform ECC Known Answer Tests (KAT&apos;s). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CurveType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of supported elliptic curve for KAT.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" bodystart="303" bodyend="338"/>
+        <references refid="group__xasu__common__defs_1ga9a001666cbead1c0995a30c81d3cf705" compoundref="xasu__eccinfo_8h" startline="52">XASU_ECC_KAT_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1gaa2b7c60491a82de1e957abc66e6a299d" compoundref="xasu__eccinfo_8h" startline="69">XASU_ECC_NIST_ED25519</references>
+        <references refid="group__xasu__common__defs_1ga165bdfeb12775565e04c4f325b658e93" compoundref="xasu__eccinfo_8h" startline="70">XASU_ECC_NIST_ED448</references>
+        <references refid="group__xasu__common__defs_1gae0d5b0eb8d6006304f667517a55da079" compoundref="xasu__eccinfo_8h" startline="60">XASU_ECC_NIST_P256</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gab1bb64b01f529f1437cdd11017cc1751" compoundref="xasu__def_8h" startline="53">XASU_MODULE_ECC_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__ecc__client__apis_1ga479b14161470bf8787e6f265bb4d23d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_EcdhGenSharedSecret</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamsPtr, XAsu_EcdhParams *EcdhParamsPtr)</argsstring>
+        <name>XAsu_EcdhGenSharedSecret</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamsPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___ecdh_params" kindref="compound">XAsu_EcdhParams</ref> *</type>
+          <declname>EcdhParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW, to generate an ECDH shared secret, by using the provided ECC public key and private key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EcdhParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___ecdh_params" kindref="compound">XAsu_EcdhParams</ref> structure which holds the parameters of ECDH input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" bodystart="357" bodyend="392"/>
+        <references refid="group__xasu__common__defs_1ga10dae1a65991613bacadcdafe44a7c79" compoundref="xasu__eccinfo_8h" startline="53">XASU_ECDH_SHARED_SECRET_CMD_ID</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gab1bb64b01f529f1437cdd11017cc1751" compoundref="xasu__def_8h" startline="53">XASU_MODULE_ECC_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+        <referencedby refid="group__xasufw__ecdh__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecdh__example_8c" startline="101" endline="227">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__ecc__client__apis_1ga856dd75948e7f1643841339257eade80" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_EcdhKat</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamsPtr)</argsstring>
+        <name>XAsu_EcdhKat</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to perform ECDH Known Answer Tests (KAT&apos;s). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to client params structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" line="406" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ecc.c" bodystart="406" bodyend="434"/>
+        <references refid="group__xasu__client__info_1gae954c6c287fd8516f1cf18672f6b0eba" compoundref="xasu__client_8h" startline="51">XASU_CMD_LEN_ZERO</references>
+        <references refid="group__xasu__common__defs_1ga88d456387e78867dfe712550898b9f6e" compoundref="xasu__eccinfo_8h" startline="54">XASU_ECDH_KAT_CMD_ID</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gab1bb64b01f529f1437cdd11017cc1751" compoundref="xasu__def_8h" startline="53">XASU_MODULE_ECC_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

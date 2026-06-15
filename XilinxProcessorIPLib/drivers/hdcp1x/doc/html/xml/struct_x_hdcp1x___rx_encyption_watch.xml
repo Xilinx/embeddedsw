@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp1x___rx_encyption_watch" kind="struct" prot="public">
+    <compoundname>XHdcp1x_RxEncyptionWatch</compoundname>
+    <includes local="no">xhdcp1x.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_encyption_watch_1ad5508205069078b7f8728cd35072144a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp1x_RxEncyptionWatch::PreviousState</definition>
+        <argsstring></argsstring>
+        <name>PreviousState</name>
+        <briefdescription>
+<para>Previous state of encryption. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1005" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1005" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_encyption_watch_1a24cd28d7cab88a265a296faabc6be6fc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp1x_RxEncyptionWatch::CurrentState</definition>
+        <argsstring></argsstring>
+        <name>CurrentState</name>
+        <briefdescription>
+<para>Current state of encryption. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1006" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1006" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef is used to keep a tab on the changes in the encryption status of the HDCP receiver, depending on whether the incoming data non the receiver is HDCP protected or not. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1004" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1004" bodyend="1007"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp1x___rx_encyption_watch_1a24cd28d7cab88a265a296faabc6be6fc" prot="public" virt="non-virtual"><scope>XHdcp1x_RxEncyptionWatch</scope><name>CurrentState</name></member>
+      <member refid="struct_x_hdcp1x___rx_encyption_watch_1ad5508205069078b7f8728cd35072144a" prot="public" virt="non-virtual"><scope>XHdcp1x_RxEncyptionWatch</scope><name>PreviousState</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="core_2default__timer_2_c_make_lists_8txt" kind="file">
+    <compoundname>core/default_timer/CMakeLists.txt</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="core_2default__timer_2_c_make_lists_8txt_1ae9e45733bfebc1adc2a763f2383f9c0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>if</definition>
+        <argsstring>((&quot;${CMAKE_SYSTEM_PROCESSOR}&quot;STREQUAL&quot;cortexr5&quot;) OR(&quot;${CMAKE_SYSTEM_PROCESSOR}&quot;STREQUAL&quot;cortexr52&quot;)) if((&quot;$</argsstring>
+        <name>if</name>
+        <param>
+          <type>(&quot;${CMAKE_SYSTEM_PROCESSOR}&quot;STREQUAL&quot;cortexr5&quot;) OR(&quot;${CMAKE_SYSTEM_PROCESSOR}&quot;STREQUAL&quot;cortexr52&quot;)</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/default_timer/CMakeLists.txt" line="4" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/default_timer/CMakeLists.txt" bodystart="4" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="core_2default__timer_2_c_make_lists_8txt_1a7da938b0e5caaaf71ba0d26269e2dc56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>STREQUAL microblaze</type>
+        <definition>STREQUAL microblaze OR</definition>
+        <argsstring>(&quot;${CMAKE_SYSTEM_PROCESSOR}&quot;STREQUAL&quot;microblazeel&quot;) OR(&quot;$</argsstring>
+        <name>OR</name>
+        <param>
+          <type>&quot;${CMAKE_SYSTEM_PROCESSOR}&quot;STREQUAL&quot;microblazeel&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/default_timer/CMakeLists.txt" line="17" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/default_timer/CMakeLists.txt" bodystart="18" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="core_2default__timer_2_c_make_lists_8txt_1a34a00bbf298dffb25efbf69b33fe8582" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>STREQUAL plm_microblaze</type>
+        <definition>STREQUAL plm_microblaze OR</definition>
+        <argsstring>(&quot;${CMAKE_SYSTEM_PROCESSOR}&quot;STREQUAL&quot;pmu_microblaze&quot;)) OR(&quot;$</argsstring>
+        <name>OR</name>
+        <param>
+          <type>&quot;${CMAKE_SYSTEM_PROCESSOR}&quot;STREQUAL&quot;pmu_microblaze&quot;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/default_timer/CMakeLists.txt" line="19" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/default_timer/CMakeLists.txt" bodystart="20" bodyend="28"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">((</highlight><highlight class="stringliteral">&quot;${CMAKE_SYSTEM_PROCESSOR}&quot;</highlight><highlight class="normal"><sp/>STREQUAL<sp/></highlight><highlight class="stringliteral">&quot;cortexr5&quot;</highlight><highlight class="normal">)<sp/>OR</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/>(</highlight><highlight class="stringliteral">&quot;${CMAKE_SYSTEM_PROCESSOR}&quot;</highlight><highlight class="normal"><sp/>STREQUAL<sp/></highlight><highlight class="stringliteral">&quot;cortexr52&quot;</highlight><highlight class="normal">))</highlight></codeline>
+<codeline lineno="6"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>cortexr5_sleep.c)</highlight></codeline>
+<codeline lineno="7"><highlight class="normal">endif()</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal">if(&quot;${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">cortexa9</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="10"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_SOURCES<sp/>globaltimer_sleep_zynq.c)</highlight></codeline>
+<codeline lineno="11"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="12"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="13"><highlight class="stringliteral">if(&quot;</highlight><highlight class="normal">${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">microblaze_riscv</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="14"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_SOURCES<sp/>microblaze_riscv_sleep.c)</highlight></codeline>
+<codeline lineno="15"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="16"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="17"><highlight class="stringliteral">if((&quot;</highlight><highlight class="normal">${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">microblaze</highlight><highlight class="stringliteral">&quot;)<sp/>OR</highlight></codeline>
+<codeline lineno="18"><highlight class="stringliteral"><sp/><sp/><sp/>(&quot;</highlight><highlight class="normal">${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">microblazeel</highlight><highlight class="stringliteral">&quot;)<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="stringliteral"><sp/><sp/><sp/>(&quot;</highlight><highlight class="normal">${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">plm_microblaze</highlight><highlight class="stringliteral">&quot;)<sp/>OR</highlight></codeline>
+<codeline lineno="20"><highlight class="stringliteral"><sp/><sp/><sp/>(&quot;</highlight><highlight class="normal">${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">pmu_microblaze</highlight><highlight class="stringliteral">&quot;))</highlight></codeline>
+<codeline lineno="21"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_SOURCES<sp/>microblaze_sleep.c)</highlight></codeline>
+<codeline lineno="22"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="23"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="24"><highlight class="stringliteral">if((&quot;</highlight><highlight class="normal">${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">cortexa72</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="25"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OR<sp/>(&quot;</highlight><highlight class="normal">${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">cortexa78</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="26"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OR<sp/>(&quot;</highlight><highlight class="normal">${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">cortexa53</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="27"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OR<sp/>(&quot;</highlight><highlight class="normal">${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">cortexa53-32</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="28"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OR<sp/>(&quot;</highlight><highlight class="normal">${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">aarch64</highlight><highlight class="stringliteral">&quot;))</highlight></codeline>
+<codeline lineno="29"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_SOURCES<sp/>globaltimer_sleep.c)</highlight></codeline>
+<codeline lineno="30"><highlight class="stringliteral">endif()</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/default_timer/CMakeLists.txt"/>
+  </compounddef>
+</doxygen>

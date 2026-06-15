@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_dmsc_cac_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceDmscCacConfig_s</compoundname>
+    <includes local="no">cam_device_dmsc_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_dmsc_cac_config__s_1a354ae44d6d3624bf3c07683a092bf07b" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceDmscCacConfig_s::aBlue</definition>
+        <argsstring></argsstring>
+        <name>aBlue</name>
+        <briefdescription>
+<para>Parameter A_Blue for radial blue shift calculation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_cac_config__s_1a0f2c3a5e7731255b1b1eb74be5a78f0a" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceDmscCacConfig_s::aRed</definition>
+        <argsstring></argsstring>
+        <name>aRed</name>
+        <briefdescription>
+<para>Parameter A_Red for radial blue shift calculation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_cac_config__s_1a5fb8cf019bbca1819778aceeb91e13d6" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceDmscCacConfig_s::bBlue</definition>
+        <argsstring></argsstring>
+        <name>bBlue</name>
+        <briefdescription>
+<para>Parameter B_Blue for radial blue shift calculation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_cac_config__s_1adc3d694760a3cedc37296d1e4c3f3dea" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceDmscCacConfig_s::bRed</definition>
+        <argsstring></argsstring>
+        <name>bRed</name>
+        <briefdescription>
+<para>Parameter B_Red for radial blue shift calculation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_cac_config__s_1a93a7eab783e27f5cc05ec5354e206a42" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceDmscCacConfig_s::cBlue</definition>
+        <argsstring></argsstring>
+        <name>cBlue</name>
+        <briefdescription>
+<para>Parameter C_Blue for radial blue shift calculation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_cac_config__s_1aac6214db02c9dc1f612b3d7f9888a372" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceDmscCacConfig_s::cRed</definition>
+        <argsstring></argsstring>
+        <name>cRed</name>
+        <briefdescription>
+<para>Parameter C_Red for radial blue shift calculation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_cac_config__s_1ac45555ac7282e4623cbc3a21ccf79f9a" prot="public" static="no" mutable="no">
+        <type>int16_t</type>
+        <definition>int16_t CamDeviceDmscCacConfig_s::centerHoffs</definition>
+        <argsstring></argsstring>
+        <name>centerHoffs</name>
+        <briefdescription>
+<para>Defines the red/blue pixel shift in horizontal direction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_cac_config__s_1ac75714ac3ac542e621a7da3f1d3b425e" prot="public" static="no" mutable="no">
+        <type>int16_t</type>
+        <definition>int16_t CamDeviceDmscCacConfig_s::centerVoffs</definition>
+        <argsstring></argsstring>
+        <name>centerVoffs</name>
+        <briefdescription>
+<para>Defines the red/blue pixel shift in vertical direction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice DMSC CAC configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="83" bodyend="93"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_dmsc_cac_config__s_1a354ae44d6d3624bf3c07683a092bf07b" prot="public" virt="non-virtual"><scope>CamDeviceDmscCacConfig_s</scope><name>aBlue</name></member>
+      <member refid="struct_cam_device_dmsc_cac_config__s_1a0f2c3a5e7731255b1b1eb74be5a78f0a" prot="public" virt="non-virtual"><scope>CamDeviceDmscCacConfig_s</scope><name>aRed</name></member>
+      <member refid="struct_cam_device_dmsc_cac_config__s_1a5fb8cf019bbca1819778aceeb91e13d6" prot="public" virt="non-virtual"><scope>CamDeviceDmscCacConfig_s</scope><name>bBlue</name></member>
+      <member refid="struct_cam_device_dmsc_cac_config__s_1adc3d694760a3cedc37296d1e4c3f3dea" prot="public" virt="non-virtual"><scope>CamDeviceDmscCacConfig_s</scope><name>bRed</name></member>
+      <member refid="struct_cam_device_dmsc_cac_config__s_1a93a7eab783e27f5cc05ec5354e206a42" prot="public" virt="non-virtual"><scope>CamDeviceDmscCacConfig_s</scope><name>cBlue</name></member>
+      <member refid="struct_cam_device_dmsc_cac_config__s_1ac45555ac7282e4623cbc3a21ccf79f9a" prot="public" virt="non-virtual"><scope>CamDeviceDmscCacConfig_s</scope><name>centerHoffs</name></member>
+      <member refid="struct_cam_device_dmsc_cac_config__s_1ac75714ac3ac542e621a7da3f1d3b425e" prot="public" virt="non-virtual"><scope>CamDeviceDmscCacConfig_s</scope><name>centerVoffs</name></member>
+      <member refid="struct_cam_device_dmsc_cac_config__s_1aac6214db02c9dc1f612b3d7f9888a372" prot="public" virt="non-virtual"><scope>CamDeviceDmscCacConfig_s</scope><name>cRed</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

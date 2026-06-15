@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___sha_operation_cmd" kind="struct" prot="public">
+    <compoundname>XAsu_ShaOperationCmd</compoundname>
+    <includes local="no">xasu_shainfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___sha_operation_cmd_1a0c80fb45a77e0d8703c26624f7880384" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_ShaOperationCmd::DataAddr</definition>
+        <argsstring></argsstring>
+        <name>DataAddr</name>
+        <briefdescription>
+<para>SHA2/3 data address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__xasu__sha2__client__apis_1ga3495a73519c85badf4c6c2fa83216d7f" compoundref="xasu__sha2_8c" startline="68" endline="154">XAsu_Sha2Operation</referencedby>
+        <referencedby refid="group__xasu__sha3__client__apis_1ga522f701ac29ec343d5ad2d90ebac4a2a" compoundref="xasu__sha3_8c" startline="69" endline="154">XAsu_Sha3Operation</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___sha_operation_cmd_1a5a46d5d9f4cbfa657beb34d64989fb93" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_ShaOperationCmd::HashAddr</definition>
+        <argsstring></argsstring>
+        <name>HashAddr</name>
+        <briefdescription>
+<para>SHA2/3 hash address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__xasu__sha2__client__apis_1ga3495a73519c85badf4c6c2fa83216d7f" compoundref="xasu__sha2_8c" startline="68" endline="154">XAsu_Sha2Operation</referencedby>
+        <referencedby refid="group__xasu__sha3__client__apis_1ga522f701ac29ec343d5ad2d90ebac4a2a" compoundref="xasu__sha3_8c" startline="69" endline="154">XAsu_Sha3Operation</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___sha_operation_cmd_1a158287b66e45758c02fa6738afad4716" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_ShaOperationCmd::DataSize</definition>
+        <argsstring></argsstring>
+        <name>DataSize</name>
+        <briefdescription>
+<para>SHA2/3 data size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__xasu__sha2__client__apis_1ga3495a73519c85badf4c6c2fa83216d7f" compoundref="xasu__sha2_8c" startline="68" endline="154">XAsu_Sha2Operation</referencedby>
+        <referencedby refid="group__xasu__sha3__client__apis_1ga522f701ac29ec343d5ad2d90ebac4a2a" compoundref="xasu__sha3_8c" startline="69" endline="154">XAsu_Sha3Operation</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___sha_operation_cmd_1afc4e0234d282f65f5a863173f5003624" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_ShaOperationCmd::HashBufSize</definition>
+        <argsstring></argsstring>
+        <name>HashBufSize</name>
+        <briefdescription>
+<para>SHA2/3 hash buffer size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__xasu__sha2__client__apis_1ga3495a73519c85badf4c6c2fa83216d7f" compoundref="xasu__sha2_8c" startline="68" endline="154">XAsu_Sha2Operation</referencedby>
+        <referencedby refid="group__xasu__sha3__client__apis_1ga522f701ac29ec343d5ad2d90ebac4a2a" compoundref="xasu__sha3_8c" startline="69" endline="154">XAsu_Sha3Operation</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___sha_operation_cmd_1a156f2363c44178819cae2f58e1fdab5c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_ShaOperationCmd::ShaMode</definition>
+        <argsstring></argsstring>
+        <name>ShaMode</name>
+        <briefdescription>
+<para><verbatim>   SHA2/3 Mode, where XASU_SHA_MODE_SHAKE256 is valid only for SHA3 Type
+</verbatim> (XASU_SHA_MODE_256 / XASU_SHA_MODE_384 / XASU_SHA_MODE_512 / XASU_SHA_MODE_SHAKE256) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__xasu__sha2__client__apis_1ga3495a73519c85badf4c6c2fa83216d7f" compoundref="xasu__sha2_8c" startline="68" endline="154">XAsu_Sha2Operation</referencedby>
+        <referencedby refid="group__xasu__sha3__client__apis_1ga522f701ac29ec343d5ad2d90ebac4a2a" compoundref="xasu__sha3_8c" startline="69" endline="154">XAsu_Sha3Operation</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___sha_operation_cmd_1afac49d6bc5df4eb5cfcc97cdfd808436" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_ShaOperationCmd::IsLast</definition>
+        <argsstring></argsstring>
+        <name>IsLast</name>
+        <briefdescription>
+<para>Indicates whether it is the last update of data to AES engine. </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>FALSE: Not Last update.</para></listitem><listitem><para>TRUE: Last update. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="group__xasu__sha2__client__apis_1ga3495a73519c85badf4c6c2fa83216d7f" compoundref="xasu__sha2_8c" startline="68" endline="154">XAsu_Sha2Operation</referencedby>
+        <referencedby refid="group__xasu__sha3__client__apis_1ga522f701ac29ec343d5ad2d90ebac4a2a" compoundref="xasu__sha3_8c" startline="69" endline="154">XAsu_Sha3Operation</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___sha_operation_cmd_1a3e45916a5f844bc83a5607e5f836cd5a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_ShaOperationCmd::OperationFlags</definition>
+        <argsstring></argsstring>
+        <name>OperationFlags</name>
+        <briefdescription>
+<para>SHA2/3 operation flags is a combination of (XASU_INIT, XASU_UPDATE, XASU_FINISH) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" bodystart="80" bodyend="-1"/>
+        <referencedby refid="group__xasu__sha2__client__apis_1ga3495a73519c85badf4c6c2fa83216d7f" compoundref="xasu__sha2_8c" startline="68" endline="154">XAsu_Sha2Operation</referencedby>
+        <referencedby refid="group__xasu__sha3__client__apis_1ga522f701ac29ec343d5ad2d90ebac4a2a" compoundref="xasu__sha3_8c" startline="69" endline="154">XAsu_Sha3Operation</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___sha_operation_cmd_1afdd18b075d9489ac81f456def251f877" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_ShaOperationCmd::ShakeReserved</definition>
+        <argsstring></argsstring>
+        <name>ShakeReserved</name>
+        <briefdescription>
+<para>SHA3 SHAKE256 next xof enable flag. </para>        </briefdescription>
+        <detaileddescription>
+<para>NA for client. ASUFW internal use </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___sha_operation_cmd_1afd817d2215d8e31a45c023c0e3dd5779" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_ShaOperationCmd::Reserved[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Explicit padding to ensure consistent struct size across architectures. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains SHA params info. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" bodystart="69" bodyend="84"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___sha_operation_cmd_1a0c80fb45a77e0d8703c26624f7880384" prot="public" virt="non-virtual"><scope>XAsu_ShaOperationCmd</scope><name>DataAddr</name></member>
+      <member refid="struct_x_asu___sha_operation_cmd_1a158287b66e45758c02fa6738afad4716" prot="public" virt="non-virtual"><scope>XAsu_ShaOperationCmd</scope><name>DataSize</name></member>
+      <member refid="struct_x_asu___sha_operation_cmd_1a5a46d5d9f4cbfa657beb34d64989fb93" prot="public" virt="non-virtual"><scope>XAsu_ShaOperationCmd</scope><name>HashAddr</name></member>
+      <member refid="struct_x_asu___sha_operation_cmd_1afc4e0234d282f65f5a863173f5003624" prot="public" virt="non-virtual"><scope>XAsu_ShaOperationCmd</scope><name>HashBufSize</name></member>
+      <member refid="struct_x_asu___sha_operation_cmd_1afac49d6bc5df4eb5cfcc97cdfd808436" prot="public" virt="non-virtual"><scope>XAsu_ShaOperationCmd</scope><name>IsLast</name></member>
+      <member refid="struct_x_asu___sha_operation_cmd_1a3e45916a5f844bc83a5607e5f836cd5a" prot="public" virt="non-virtual"><scope>XAsu_ShaOperationCmd</scope><name>OperationFlags</name></member>
+      <member refid="struct_x_asu___sha_operation_cmd_1afd817d2215d8e31a45c023c0e3dd5779" prot="public" virt="non-virtual"><scope>XAsu_ShaOperationCmd</scope><name>Reserved</name></member>
+      <member refid="struct_x_asu___sha_operation_cmd_1afdd18b075d9489ac81f456def251f877" prot="public" virt="non-virtual"><scope>XAsu_ShaOperationCmd</scope><name>ShakeReserved</name></member>
+      <member refid="struct_x_asu___sha_operation_cmd_1a156f2363c44178819cae2f58e1fdab5c" prot="public" virt="non-virtual"><scope>XAsu_ShaOperationCmd</scope><name>ShaMode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1059 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__sharedmem_8h" kind="file">
+    <compoundname>xasu_sharedmem.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="xasu__client_8h" local="yes">xasu_client.h</includedby>
+    <includedby refid="xasu__sharedmem_8c" local="yes">xasu_sharedmem.c</includedby>
+    <incdepgraph>
+      <node id="1161">
+        <label>xasu_sharedmem.h</label>
+        <link refid="xasu_sharedmem.h"/>
+        <childnode refid="1162" relation="include">
+        </childnode>
+      </node>
+      <node id="1162">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1173">
+        <label>xasu_ecc_example.c</label>
+        <link refid="xasu__ecc__example_8c"/>
+      </node>
+      <node id="1178">
+        <label>xasu_hmac.c</label>
+        <link refid="xasu__hmac_8c"/>
+      </node>
+      <node id="1177">
+        <label>xasu_hmac.h</label>
+        <link refid="xasu__hmac_8h"/>
+        <childnode refid="1178" relation="include">
+        </childnode>
+        <childnode refid="1179" relation="include">
+        </childnode>
+      </node>
+      <node id="1208">
+        <label>xasu_sharedmem.c</label>
+        <link refid="xasu__sharedmem_8c"/>
+      </node>
+      <node id="1163">
+        <label>xasu_sharedmem.h</label>
+        <link refid="xasu_sharedmem.h"/>
+        <childnode refid="1164" relation="include">
+        </childnode>
+        <childnode refid="1208" relation="include">
+        </childnode>
+      </node>
+      <node id="1186">
+        <label>xasu_keywrap.c</label>
+        <link refid="xasu__keywrap_8c"/>
+      </node>
+      <node id="1185">
+        <label>xasu_keywrap.h</label>
+        <link refid="xasu__keywrap_8h"/>
+        <childnode refid="1186" relation="include">
+        </childnode>
+        <childnode refid="1187" relation="include">
+        </childnode>
+      </node>
+      <node id="1176">
+        <label>xasu_ecies_example.c</label>
+        <link refid="xasu__ecies__example_8c"/>
+      </node>
+      <node id="1169">
+        <label>xasu_client.c</label>
+        <link refid="xasu__client_8c"/>
+      </node>
+      <node id="1164">
+        <label>xasu_client.h</label>
+        <link refid="xasu__client_8h"/>
+        <childnode refid="1165" relation="include">
+        </childnode>
+        <childnode refid="1169" relation="include">
+        </childnode>
+        <childnode refid="1170" relation="include">
+        </childnode>
+        <childnode refid="1175" relation="include">
+        </childnode>
+        <childnode refid="1177" relation="include">
+        </childnode>
+        <childnode refid="1180" relation="include">
+        </childnode>
+        <childnode refid="1183" relation="include">
+        </childnode>
+        <childnode refid="1185" relation="include">
+        </childnode>
+        <childnode refid="1188" relation="include">
+        </childnode>
+        <childnode refid="1191" relation="include">
+        </childnode>
+        <childnode refid="1196" relation="include">
+        </childnode>
+        <childnode refid="1199" relation="include">
+        </childnode>
+        <childnode refid="1202" relation="include">
+        </childnode>
+        <childnode refid="1205" relation="include">
+        </childnode>
+        <childnode refid="1167" relation="include">
+        </childnode>
+        <childnode refid="1173" relation="include">
+        </childnode>
+        <childnode refid="1174" relation="include">
+        </childnode>
+        <childnode refid="1176" relation="include">
+        </childnode>
+        <childnode refid="1179" relation="include">
+        </childnode>
+        <childnode refid="1182" relation="include">
+        </childnode>
+        <childnode refid="1187" relation="include">
+        </childnode>
+        <childnode refid="1190" relation="include">
+        </childnode>
+        <childnode refid="1168" relation="include">
+        </childnode>
+        <childnode refid="1193" relation="include">
+        </childnode>
+        <childnode refid="1194" relation="include">
+        </childnode>
+        <childnode refid="1198" relation="include">
+        </childnode>
+        <childnode refid="1201" relation="include">
+        </childnode>
+        <childnode refid="1204" relation="include">
+        </childnode>
+        <childnode refid="1207" relation="include">
+        </childnode>
+        <childnode refid="1195" relation="include">
+        </childnode>
+      </node>
+      <node id="1168">
+        <label>xasu_multi_crypto_example.c</label>
+        <link refid="xasu__multi__crypto__example_8c"/>
+      </node>
+      <node id="1206">
+        <label>xasu_trng.c</label>
+        <link refid="xasu__trng_8c"/>
+      </node>
+      <node id="1205">
+        <label>xasu_trng.h</label>
+        <link refid="xasu__trng_8h"/>
+        <childnode refid="1206" relation="include">
+        </childnode>
+        <childnode refid="1207" relation="include">
+        </childnode>
+      </node>
+      <node id="1171">
+        <label>xasu_ecc.c</label>
+        <link refid="xasu__ecc_8c"/>
+      </node>
+      <node id="1170">
+        <label>xasu_ecc.h</label>
+        <link refid="xasu__ecc_8h"/>
+        <childnode refid="1171" relation="include">
+        </childnode>
+        <childnode refid="1172" relation="include">
+        </childnode>
+        <childnode refid="1173" relation="include">
+        </childnode>
+        <childnode refid="1174" relation="include">
+        </childnode>
+        <childnode refid="1168" relation="include">
+        </childnode>
+      </node>
+      <node id="1190">
+        <label>xasu_lms_example.c</label>
+        <link refid="xasu__lms__example_8c"/>
+      </node>
+      <node id="1181">
+        <label>xasu_kdf.c</label>
+        <link refid="xasu__kdf_8c"/>
+      </node>
+      <node id="1180">
+        <label>xasu_kdf.h</label>
+        <link refid="xasu__kdf_8h"/>
+        <childnode refid="1181" relation="include">
+        </childnode>
+        <childnode refid="1182" relation="include">
+        </childnode>
+      </node>
+      <node id="1200">
+        <label>xasu_sha2.c</label>
+        <link refid="xasu__sha2_8c"/>
+      </node>
+      <node id="1199">
+        <label>xasu_sha2.h</label>
+        <link refid="xasu__sha2_8h"/>
+        <childnode refid="1200" relation="include">
+        </childnode>
+        <childnode refid="1168" relation="include">
+        </childnode>
+        <childnode refid="1201" relation="include">
+        </childnode>
+      </node>
+      <node id="1198">
+        <label>xasu_rsa_example.c</label>
+        <link refid="xasu__rsa__example_8c"/>
+      </node>
+      <node id="1187">
+        <label>xasu_keywrap_example.c</label>
+        <link refid="xasu__keywrap__example_8c"/>
+      </node>
+      <node id="1207">
+        <label>xasu_trng_example.c</label>
+        <link refid="xasu__trng__example_8c"/>
+      </node>
+      <node id="1195">
+        <label>xasu_ude_keys_enc_example.c</label>
+        <link refid="xasu__ude__keys__enc__example_8c"/>
+      </node>
+      <node id="1201">
+        <label>xasu_sha2_example.c</label>
+        <link refid="xasu__sha2__example_8c"/>
+      </node>
+      <node id="1194">
+        <label>xasu_ocp_ude_example.c</label>
+        <link refid="xasu__ocp__ude__example_8c"/>
+      </node>
+      <node id="1204">
+        <label>xasu_sha3_example.c</label>
+        <link refid="xasu__sha3__example_8c"/>
+      </node>
+      <node id="1189">
+        <label>xasu_lms.c</label>
+        <link refid="xasu__lms_8c"/>
+      </node>
+      <node id="1188">
+        <label>xasu_lms.h</label>
+        <link refid="xasu__lms_8h"/>
+        <childnode refid="1189" relation="include">
+        </childnode>
+        <childnode refid="1190" relation="include">
+        </childnode>
+      </node>
+      <node id="1197">
+        <label>xasu_rsa.c</label>
+        <link refid="xasu__rsa_8c"/>
+      </node>
+      <node id="1196">
+        <label>xasu_rsa.h</label>
+        <link refid="xasu__rsa_8h"/>
+        <childnode refid="1197" relation="include">
+        </childnode>
+        <childnode refid="1168" relation="include">
+        </childnode>
+        <childnode refid="1198" relation="include">
+        </childnode>
+      </node>
+      <node id="1203">
+        <label>xasu_sha3.c</label>
+        <link refid="xasu__sha3_8c"/>
+      </node>
+      <node id="1202">
+        <label>xasu_sha3.h</label>
+        <link refid="xasu__sha3_8h"/>
+        <childnode refid="1203" relation="include">
+        </childnode>
+        <childnode refid="1204" relation="include">
+        </childnode>
+      </node>
+      <node id="1192">
+        <label>xasu_ocp.c</label>
+        <link refid="xasu__ocp_8c"/>
+      </node>
+      <node id="1191">
+        <label>xasu_ocp.h</label>
+        <link refid="xasu__ocp_8h"/>
+        <childnode refid="1192" relation="include">
+        </childnode>
+        <childnode refid="1193" relation="include">
+        </childnode>
+        <childnode refid="1194" relation="include">
+        </childnode>
+        <childnode refid="1195" relation="include">
+        </childnode>
+      </node>
+      <node id="1166">
+        <label>xasu_aes.c</label>
+        <link refid="xasu__aes_8c"/>
+      </node>
+      <node id="1165">
+        <label>xasu_aes.h</label>
+        <link refid="xasu__aes_8h"/>
+        <childnode refid="1166" relation="include">
+        </childnode>
+        <childnode refid="1167" relation="include">
+        </childnode>
+        <childnode refid="1168" relation="include">
+        </childnode>
+      </node>
+      <node id="1172">
+        <label>xasu_ecies.c</label>
+        <link refid="xasu__ecies_8c"/>
+      </node>
+      <node id="1175">
+        <label>xasu_ecies.h</label>
+        <link refid="xasu__ecies_8h"/>
+        <childnode refid="1172" relation="include">
+        </childnode>
+        <childnode refid="1176" relation="include">
+        </childnode>
+      </node>
+      <node id="1193">
+        <label>xasu_ocp_example.c</label>
+        <link refid="xasu__ocp__example_8c"/>
+      </node>
+      <node id="1182">
+        <label>xasu_kdf_example.c</label>
+        <link refid="xasu__kdf__example_8c"/>
+      </node>
+      <node id="1167">
+        <label>xasu_aes_example.c</label>
+        <link refid="xasu__aes__example_8c"/>
+      </node>
+      <node id="1184">
+        <label>xasu_keymanager.c</label>
+        <link refid="xasu__keymanager_8c"/>
+      </node>
+      <node id="1179">
+        <label>xasu_hmac_example.c</label>
+        <link refid="xasu__hmac__example_8c"/>
+      </node>
+      <node id="1183">
+        <label>xasu_keymanager.h</label>
+        <link refid="xasu__keymanager_8h"/>
+        <childnode refid="1184" relation="include">
+        </childnode>
+      </node>
+      <node id="1174">
+        <label>xasu_ecdh_example.c</label>
+        <link refid="xasu__ecdh__example_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_asu___req_buf" prot="public">XAsu_ReqBuf</innerclass>
+    <innerclass refid="struct_x_asu___resp_buf" prot="public">XAsu_RespBuf</innerclass>
+    <innerclass refid="struct_x_asu___channel_queue_buf" prot="public">XAsu_ChannelQueueBuf</innerclass>
+    <innerclass refid="struct_x_asu___channel_queue" prot="public">XAsu_ChannelQueue</innerclass>
+    <innerclass refid="struct_x_asu___channel_memory" prot="public">XAsu_ChannelMemory</innerclass>
+    <innerclass refid="struct_x_asu___comm_channel" prot="public">XAsu_CommChannel</innerclass>
+    <innerclass refid="struct_x_asu___comm_channel_info" prot="public">XAsu_CommChannelInfo</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__common__defs_1ga42b3aa06026ff016a8f26ee691725604" prot="public" static="no">
+        <name>XASU_MAX_BUFFERS</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Maximum request and response buffers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gac97dfd46ae42816df7341f11b426fa79" prot="public" static="no">
+        <name>XASU_CHANNEL_RESERVED_MEM</name>
+        <initializer>(1188U)</initializer>
+        <briefdescription>
+<para>Reserved memory in channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gae5377804925882e44f623938a3a5d936" prot="public" static="no">
+        <name>XASU_COMMAND_IS_PRESENT</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+<para>Command is written by client. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaf77f0408c6cc5ebe16a9e2e2425dfb5d" prot="public" static="no">
+        <name>XASU_COMMAND_IN_PROGRESS</name>
+        <initializer>(0x2U)</initializer>
+        <briefdescription>
+<para>Command is in progress by ASUFW. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga037b96d20be7ac2ffc1ccbd2483c536f" prot="public" static="no">
+        <name>XASU_COMMAND_VALIDATED</name>
+        <initializer>(0x3U)</initializer>
+        <briefdescription>
+<para>Command is validated by ASUFW. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gafeeb2e83e0aa227a90a052c8f6962157" prot="public" static="no">
+        <name>XASU_COMMAND_DMA_WAIT_COMPLETE</name>
+        <initializer>(0x4U)</initializer>
+        <briefdescription>
+<para>Command DMA wait operation is complete. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga41a0d07b1d8903f369416aa1dd27c386" prot="public" static="no">
+        <name>XASU_COMMAND_EXECUTION_COMPLETE</name>
+        <initializer>(0x5U)</initializer>
+        <briefdescription>
+<para>Command execution is complete by ASUFW. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gacceb1b8bd8a66cdf336d3aee33e7a67b" prot="public" static="no">
+        <name>XASU_RESPONSE_IS_PRESENT</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+<para>Response is written by ASUFW. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga9d689c4efe84f0224b41d6961b3e76bd" prot="public" static="no">
+        <name>XASU_RESPONSE_STATUS_INDEX</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Response status index in response buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga8b345aa71e5b0cd9f2a7f9b812da4128" prot="public" static="no">
+        <name>XASU_RESPONSE_BUFF_ADDR_INDEX</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Response buffer address index in response buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaf17ac7d08dde7a01ddb54120c0c08c98" prot="public" static="no">
+        <name>XASU_COMMAND_ID_MASK</name>
+        <initializer>(0x0000003FU)</initializer>
+        <briefdescription>
+<para>Mask for command ID in header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gad814338ff887d2a38c89d03dfdbba8b8" prot="public" static="no">
+        <name>XASU_UNIQUE_REQ_ID_MASK</name>
+        <initializer>(0x00000FC0U)</initializer>
+        <briefdescription>
+<para>Mask for command unique request ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga03b103f4017ab2ab06aa5ba57628b570" prot="public" static="no">
+        <name>XASU_UNIQUE_REQ_ID_SHIFT</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>Shift value for unique request ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" prot="public" static="no">
+        <name>XASU_UNIQUE_ID_MAX</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1ga42b3aa06026ff016a8f26ee691725604" kindref="member">XASU_MAX_BUFFERS</ref> &lt;&lt; 1U)</initializer>
+        <briefdescription>
+<para>Maximum unique IDs generated by ASU. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__client__apis_1ga449363099fd772acb0c5d4202b25de18" compoundref="xasu__aes_8c" startline="346" endline="383">XAsu_AesKat</referencedby>
+        <referencedby refid="group__xasu__kdf__client__apis_1gae698f3b9e3922429f0dea99c0a20e541" compoundref="xasu__kdf_8c" startline="163" endline="198">XAsu_CmacKdfGenerate</referencedby>
+        <referencedby refid="group__xasu__ecc__client__apis_1ga48e7b1ccb5585cef9da33497b4ddecd4" compoundref="xasu__ecc_8c" startline="179" endline="215">XAsu_EccGenPubKey</referencedby>
+        <referencedby refid="group__xasu__ecc__client__apis_1gaaabcb4485412f47df39713bd5df6a544" compoundref="xasu__ecc_8c" startline="71" endline="106">XAsu_EccGenSign</referencedby>
+        <referencedby refid="group__xasu__ecc__client__apis_1gaf5f7b17a3df3c792590f9a0304e466a9" compoundref="xasu__ecc_8c" startline="303" endline="338">XAsu_EccKat</referencedby>
+        <referencedby refid="group__xasu__ecc__client__apis_1ga66e66b97823b69487c4c2e10635dc226" compoundref="xasu__ecc_8c" startline="234" endline="286">XAsu_EccValidatePubKey</referencedby>
+        <referencedby refid="group__xasu__ecc__client__apis_1ga4b8e73d2c2143da5c419680e6a1d6c59" compoundref="xasu__ecc_8c" startline="124" endline="159">XAsu_EccVerifySign</referencedby>
+        <referencedby refid="group__xasu__ecc__client__apis_1ga479b14161470bf8787e6f265bb4d23d8" compoundref="xasu__ecc_8c" startline="357" endline="392">XAsu_EcdhGenSharedSecret</referencedby>
+        <referencedby refid="group__xasu__ecc__client__apis_1ga856dd75948e7f1643841339257eade80" compoundref="xasu__ecc_8c" startline="406" endline="434">XAsu_EcdhKat</referencedby>
+        <referencedby refid="group__xasu__ecies__client__apis_1ga689f879d22a42d9da5fe3148cd307883" compoundref="xasu__ecies_8c" startline="124" endline="167">XAsu_EciesDecrypt</referencedby>
+        <referencedby refid="group__xasu__ecies__client__apis_1gafa9ae6edbd3dba6873779ab7bdc055b4" compoundref="xasu__ecies_8c" startline="62" endline="105">XAsu_EciesEncrypt</referencedby>
+        <referencedby refid="group__xasu__ecies__client__apis_1ga632493276648e0bc48790642d1c29225" compoundref="xasu__ecies_8c" startline="183" endline="211">XAsu_EciesKat</referencedby>
+        <referencedby refid="group__xasu__kdf__client__apis_1ga013f9791db5b7cc455ec31a399952fc8" compoundref="xasu__kdf_8c" startline="217" endline="269">XAsu_HKdfGenerate</referencedby>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga3338c25e5bbadd96a6665ee2ccc8818b" compoundref="xasu__hmac_8c" startline="184" endline="212">XAsu_HmacKat</referencedby>
+        <referencedby refid="group__xasu__lms__client__apis_1ga82e8754efc7bf804924fd4c107fbab54" compoundref="xasu__lms_8c" startline="266" endline="310">XAsu_HssSignVerify</referencedby>
+        <referencedby refid="group__xasu__lms__client__apis_1ga795f43d3e4e7ef4434885a3de2f42693" compoundref="xasu__lms_8c" startline="398" endline="426">XAsu_HssSignVerifyKat</referencedby>
+        <referencedby refid="group__xasu__kdf__client__apis_1ga7a4b83725ed01255a8d9e31595a610b2" compoundref="xasu__kdf_8c" startline="103" endline="144">XAsu_KdfGenerate</referencedby>
+        <referencedby refid="group__xasu__kdf__client__apis_1ga3361507e3fd3db0fd6bdf820c3cafb3a" compoundref="xasu__kdf_8c" startline="285" endline="311">XAsu_KdfKat</referencedby>
+        <referencedby refid="group__xasu__keywrap__client__apis_1ga5182a3df4600b1e0c78db02eab118fe7" compoundref="xasu__keywrap_8c" startline="129" endline="178">XAsu_KeyUnwrap</referencedby>
+        <referencedby refid="group__xasu__keywrap__client__apis_1gad64883d138efba842bfc4961b3c8ee0f" compoundref="xasu__keywrap_8c" startline="61" endline="110">XAsu_KeyWrap</referencedby>
+        <referencedby refid="group__xasu__keywrap__client__apis_1gaec0ce35e1cab18b618bb1a6a11ebd2da" compoundref="xasu__keywrap_8c" startline="195" endline="224">XAsu_KeyWrapKat</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga27ba749e3ba109043a0d7ae904391ea9" compoundref="xasu__keymanager_8c" startline="67" endline="121">XAsu_KmCreateKeyVault</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga29138b38ed8aa506d1fef266e168aaf1" compoundref="xasu__keymanager_8c" startline="320" endline="356">XAsu_KmDeleteKey</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gafda93d7df00d0dd4a14762d5adf03706" compoundref="xasu__keymanager_8c" startline="268" endline="302">XAsu_KmDeleteKeyVault</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gaecafe629489cae689c1a3c9b5e36acf5" compoundref="xasu__keymanager_8c" startline="684" endline="724">XAsu_KmExportKeyVault</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gac066d272856e75beb3e09464144c5ccb" compoundref="xasu__keymanager_8c" startline="204" endline="251">XAsu_KmGenerateAesIv</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga56b084274630d37fa309acb8a415bc93" compoundref="xasu__keymanager_8c" startline="139" endline="186">XAsu_KmGenerateAesKey</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga3705ea1001da546f3fc6f3b3721a2035" compoundref="xasu__keymanager_8c" startline="461" endline="522">XAsu_KmGenerateEccKeyPair</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga14ab4dc7e43637436186efc7d332d5de" compoundref="xasu__keymanager_8c" startline="619" endline="666">XAsu_KmGenerateRawKey</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gab7094e9eae7536f433977773199a0ded" compoundref="xasu__keymanager_8c" startline="375" endline="442">XAsu_KmGenerateRsaKeyPair</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga6e184f6a768b418ae0ddd229bce85baa" compoundref="xasu__keymanager_8c" startline="742" endline="780">XAsu_KmImportKeyVault</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga125224815bbb6f71e54dfc4ed27f9908" compoundref="xasu__keymanager_8c" startline="540" endline="600">XAsu_KmStoreKey</referencedby>
+        <referencedby refid="group__xasu__lms__client__apis_1gaaa6e70a20d08e1f575cc85b36087be43" compoundref="xasu__lms_8c" startline="201" endline="245">XAsu_LmsSignVerify</referencedby>
+        <referencedby refid="group__xasu__ocp__client__apis_1ga9ac4646205a525765f9b6fac4b030875" compoundref="xasu__ocp_8c" startline="242" endline="286">XAsu_OcpDevAkAttestation</referencedby>
+        <referencedby refid="group__xasu__ocp__client__apis_1gaa09f38e166d54e624013584714c334dd" compoundref="xasu__ocp_8c" startline="121" endline="165">XAsu_OcpGetDevAkX509Certificate</referencedby>
+        <referencedby refid="group__xasu__ocp__client__apis_1ga5ea47b4f5a36aace5a9f471042173fa3" compoundref="xasu__ocp_8c" startline="182" endline="226">XAsu_OcpGetDevIkCsr</referencedby>
+        <referencedby refid="group__xasu__ocp__client__apis_1ga75a2fbdb2ea2b018cfc332f53db0cee9" compoundref="xasu__ocp_8c" startline="60" endline="104">XAsu_OcpGetDevIkX509Certificate</referencedby>
+        <referencedby refid="group__xasu__ocp__client__apis_1gaa4e266d168a74b841012e6884d281486" compoundref="xasu__ocp_8c" startline="439" endline="473">XAsu_OcpGetHuk</referencedby>
+        <referencedby refid="group__xasu__ocp__client__apis_1ga3c3e8b42eab489f97dab01062de04aba" compoundref="xasu__ocp_8c" startline="303" endline="353">XAsu_OcpUdeChallengeReq</referencedby>
+        <referencedby refid="group__xasu__ocp__client__apis_1ga56ee81058035dc435d3cc4597c769b10" compoundref="xasu__ocp_8c" startline="371" endline="420">XAsu_OcpUdeKeysEncrypt</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaa738d6a05293f677e9fdd1fd137cc912" compoundref="xasu__rsa_8c" startline="233" endline="299">XAsu_RsaCrtDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga8d99c3659893b5b77683b6bc3ee3abf8" compoundref="xasu__rsa_8c" startline="148" endline="214">XAsu_RsaDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaa85dcefff8e7e30465bf6a5e5d20e7fd" compoundref="xasu__rsa_8c" startline="64" endline="130">XAsu_RsaEnc</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaf459c9f8ebb4d33247bbd8b6ab591809" compoundref="xasu__rsa_8c" startline="418" endline="499">XAsu_RsaOaepDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga32fd59ce2f1c0da67ca9217a224a4626" compoundref="xasu__rsa_8c" startline="318" endline="399">XAsu_RsaOaepEnc</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga5d24241387d6859603f7de3270205d0a" compoundref="xasu__rsa_8c" startline="718" endline="747">XAsu_RsaOaepEncDecKat</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaceff65cb28ac22b56121a047dbb53aa9" compoundref="xasu__rsa_8c" startline="518" endline="601">XAsu_RsaPssSignGen</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga0e3fbf80fd0254640e9938019e3b9ee1" compoundref="xasu__rsa_8c" startline="764" endline="793">XAsu_RsaPssSignGenAndVerKat</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga3a33eba68b96c49e0dcb8ca6abfd7b89" compoundref="xasu__rsa_8c" startline="620" endline="701">XAsu_RsaPssSignVer</referencedby>
+        <referencedby refid="group__xasu__sha2__client__apis_1ga6a607ba08dd12b58054f04cc6e8c6dd3" compoundref="xasu__sha2_8c" startline="172" endline="206">XAsu_Sha2Kat</referencedby>
+        <referencedby refid="group__xasu__sha3__client__apis_1ga6bee0e4d744e4febdfbb84efd76ae207" compoundref="xasu__sha3_8c" startline="171" endline="199">XAsu_Sha3Kat</referencedby>
+        <referencedby refid="group__xasu__trng__client__apis_1gae0592608aa50c0471f6ec54b14d298bf" compoundref="xasu__trng_8c" startline="62" endline="94">XAsu_TrngGetRandomNum</referencedby>
+        <referencedby refid="group__xasu__trng__client__apis_1ga6c70aad0ac1c1d37e0d5cc8f7b1581fd" compoundref="xasu__trng_8c" startline="110" endline="138">XAsu_TrngKat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga9632bb01696bdcf0db8dd9f670237f9e" prot="public" static="no">
+        <name>XASU_MODULE_ID_MASK</name>
+        <initializer>(0x0003F000U)</initializer>
+        <briefdescription>
+<para>Mask for module ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga22c4ed5bfe4baaf7b6441848e9057446" prot="public" static="no">
+        <name>XASU_MODULE_ID_SHIFT</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>Shift value for module ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga9eadc42ffad077fdd90a398b018d2a5a" prot="public" static="no">
+        <name>XASU_COMMAND_LENGTH_MASK</name>
+        <initializer>(0x00FC0000U)</initializer>
+        <briefdescription>
+<para>Mask for command length in header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gabf2469b7f4d27b2773877a157e71ecc8" prot="public" static="no">
+        <name>XASU_COMMAND_LENGTH_SHIFT</name>
+        <initializer>(18U)</initializer>
+        <briefdescription>
+<para>Shift for command length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaa232fe05f2ec49c3a9a2ec2ffb04634b" prot="public" static="no">
+        <name>XASU_COMMAND_SECURE_FLAG_MASK</name>
+        <initializer>(0x01000000U)</initializer>
+        <briefdescription>
+<para>Mask for secure bit in command header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gae8d7ed32157c6d590c0e4f37420dc656" prot="public" static="no">
+        <name>XASU_COMMAND_SECURE_FLAG_SHIFT</name>
+        <initializer>(24U)</initializer>
+        <briefdescription>
+<para>Shift for secure flag in command header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaaed89c4fe5ef44bd1dc598b7a4ed68ca" prot="public" static="no">
+        <name>XASU_COMMAND_REQ_ARGS</name>
+        <initializer>(22U)</initializer>
+        <briefdescription>
+<para>Command arguments count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga13c43c7dbd93c845e6f31a02ecfdb682" prot="public" static="no">
+        <name>XASU_COMMAND_RESP_ARGS</name>
+        <initializer>(17U)</initializer>
+        <briefdescription>
+<para>Response arguments count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gacff30e505c594f6890fd7008d60b02bf" prot="public" static="no">
+        <name>XASU_RTCA_BASEADDR</name>
+        <initializer>(0xEBE40000U)</initializer>
+        <briefdescription>
+<para>ASUFW run time configuration area base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaa9716937444e9436cdfc3eb14bf87419" prot="public" static="no">
+        <name>XASU_RTCA_COMM_CHANNEL_INFO_ADDR</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1gacff30e505c594f6890fd7008d60b02bf" kindref="member">XASU_RTCA_BASEADDR</ref> + 0x10U)</initializer>
+        <briefdescription>
+<para>Communication channel info register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaf8bb48beeaec290b78fa334f7f9b504f" prot="public" static="no">
+        <name>XASU_RTCA_DDR_BASEADDR_HIGH</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1gacff30e505c594f6890fd7008d60b02bf" kindref="member">XASU_RTCA_BASEADDR</ref> + 0x98U)</initializer>
+        <briefdescription>
+<para>Higher 32-bit base address of DDR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga8f6168264b302a89cb8b3b948701816f" prot="public" static="no">
+        <name>XASU_RTCA_DDR_BASEADDR_LOW</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1gacff30e505c594f6890fd7008d60b02bf" kindref="member">XASU_RTCA_BASEADDR</ref> + 0x9CU)</initializer>
+        <briefdescription>
+<para>Lower 32-bit base address of DDR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga5ea814abeec9878cd2bf4d172e10e25f" prot="public" static="no">
+        <name>XASU_RTCA_DDR_SIZE_ADDR</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1gacff30e505c594f6890fd7008d60b02bf" kindref="member">XASU_RTCA_BASEADDR</ref> + 0xA0U)</initializer>
+        <briefdescription>
+<para>Address of size of DDR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga57ae609337be0fd7bc3e4cccec16e6d5" prot="public" static="no">
+        <name>XASU_RTCA_MODULE_INFO_BASEADDR</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1gacff30e505c594f6890fd7008d60b02bf" kindref="member">XASU_RTCA_BASEADDR</ref> + 0xA8U)</initializer>
+        <briefdescription>
+<para><verbatim> Base address of module info of
+</verbatim> size (180 bytes) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga7a190d10ccdbcc17e6486c40ec4c377a" prot="public" static="no">
+        <name>XASU_RTCA_DBG_LOG_BUF_INFO_ADDR</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1gacff30e505c594f6890fd7008d60b02bf" kindref="member">XASU_RTCA_BASEADDR</ref> + 0x15CU)</initializer>
+        <briefdescription>
+<para>Debug log buffer info address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga05b46e929ec6824d277d7168b4c014b7" prot="public" static="no">
+        <name>XASU_RTCA_EXEC_STATUS_ADDR</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1gacff30e505c594f6890fd7008d60b02bf" kindref="member">XASU_RTCA_BASEADDR</ref> + 0x174U)</initializer>
+        <briefdescription>
+<para>Base address of execution status of size 1 byte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga7208ddb53cbd1502c4e98840e14cc313" prot="public" static="no">
+        <name>XASU_RTCA_KEYVAULT_CHNL_MAX_SIZE_BASE_ADDR</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1gacff30e505c594f6890fd7008d60b02bf" kindref="member">XASU_RTCA_BASEADDR</ref> + 0x178U)</initializer>
+        <briefdescription>
+<para>Base address of maximum size of key vault. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga9e584fad118bfe58066b537789e00db7" prot="public" static="no">
+        <name>XASU_RTCA_KAT_EXEC_STATUS_VALUE</name>
+        <initializer>(0x01U)</initializer>
+        <briefdescription>
+<para>KAT status execution complete value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gac551c0d72c2984ca13d3ba249d9073a8" prot="public" static="no">
+        <name>XASU_RTCA_KAT_EXEC_STATUS_MASK</name>
+        <initializer>(0x01U)</initializer>
+        <briefdescription>
+<para>KAT status execution complete mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga3934e85ec541c56c73496d521b58be2b" prot="public" static="no">
+        <name>XASU_RTCA_FW_IS_PRESENT_STATUS_VALUE</name>
+        <initializer>(0x02U)</initializer>
+        <briefdescription>
+<para>FW is present status value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gafe00959d24b7bfd7333284bb24b6c532" prot="public" static="no">
+        <name>XASU_RTCA_FW_IS_PRESENT_STATUS_MASK</name>
+        <initializer>(0x02U)</initializer>
+        <briefdescription>
+<para>FW is present status mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga2665899119ec35458b26d3064096fd53" prot="public" static="no">
+        <name>XASU_MAX_IPI_CHANNELS</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Maximum IPI channels supported by ASUFW. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gadac5f880e1157b61e1f80c8d90c4b8a6" prot="public" static="no">
+        <name>XASU_CHANNEL_MEMORY_OFFSET</name>
+        <initializer>(0x1000U)</initializer>
+        <briefdescription>
+<para>Channel memory offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga9e2c477367996b04a97ad24e22f4163c" prot="public" static="no">
+        <name>XASU_CHANNEL_MEMORY_BASEADDR</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1gacff30e505c594f6890fd7008d60b02bf" kindref="member">XASU_RTCA_BASEADDR</ref> + <ref refid="group__xasu__common__defs_1gadac5f880e1157b61e1f80c8d90c4b8a6" kindref="member">XASU_CHANNEL_MEMORY_OFFSET</ref>)</initializer>
+        <briefdescription>
+<para>Base address of channel memory. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xasu__sharedmem_8h_1a3829195858676435fd770549858db548" prot="public" static="no">
+        <name>XASU_MAX_CHANNELS_SUPPORTED</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Maximum channels supported. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xasu__sharedmem__apis_1gacdac79066080531f4293b5796ac10ee2" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___comm_channel_info" kindref="compound">XAsu_CommChannelInfo</ref> *</type>
+        <definition>XAsu_CommChannelInfo* CommChannelInfo</definition>
+        <argsstring></argsstring>
+        <name>CommChannelInfo</name>
+        <briefdescription>
+<para>Pointer to the IPI communication channel information received from user configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__sharedmem__apis_1ga7c6b10e8c9e75576ca858d70529e24e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAsu_GetSubsysIdFromIpiMask</definition>
+        <argsstring>(u32 IpiMask)</argsstring>
+        <name>XAsu_GetSubsysIdFromIpiMask</name>
+        <param>
+          <type>u32</type>
+          <declname>IpiMask</declname>
+        </param>
+        <briefdescription>
+<para>This function provides subsystem ID based on IPI mask. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IpiMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IPI mask.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Returns subsystem ID correspond to IPI mask.</para></listitem><listitem><para>XASU_INVALID_SUBSYS_ID if no matching IPI mask is found. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" bodystart="82" bodyend="96"/>
+        <references refid="group__xasu__sharedmem__apis_1ga0c17784a7b57124ecb63d177b31087d2" compoundref="xasu__sharedmem_8c" startline="34">XASU_INVALID_SUBSYS_ID</references>
+        <references refid="struct_x_asu___comm_channel_info_1aae88a6b5fc1371423e75ba0eff863c25" compoundref="xasu__sharedmem_8h" startline="176">XAsu_CommChannelInfo::NumOfIpiChannels</references>
+        <references refid="struct_x_asu___comm_channel_info_1ae163920888661eaf6ac17e3357546105" compoundref="xasu__sharedmem_8h" startline="177">XAsu_CommChannelInfo::Channel</references>
+        <references refid="struct_x_asu___comm_channel_1af7649fa343d5eda766279b9e6033fb6d" compoundref="xasu__sharedmem_8h" startline="167">XAsu_CommChannel::IpiBitMask</references>
+        <references refid="struct_x_asu___comm_channel_1a06b6409c913c25cdaac10f5fce1b7986" compoundref="xasu__sharedmem_8h" startline="169">XAsu_CommChannel::SubsystemId</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__sharedmem__apis_1gab7baf8908fd849424cefb1738edb74fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAsu_GetIpiMask</definition>
+        <argsstring>(u32 ChannelIndex)</argsstring>
+        <name>XAsu_GetIpiMask</name>
+        <param>
+          <type>u32</type>
+          <declname>ChannelIndex</declname>
+        </param>
+        <briefdescription>
+<para>This function returns IPI Mask corresponding to the Channel Index. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ChannelIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IPI Channel Index.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>IPI Bit Mask. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" bodystart="58" bodyend="69"/>
+        <references refid="struct_x_asu___comm_channel_info_1aae88a6b5fc1371423e75ba0eff863c25" compoundref="xasu__sharedmem_8h" startline="176">XAsu_CommChannelInfo::NumOfIpiChannels</references>
+        <references refid="struct_x_asu___comm_channel_info_1ae163920888661eaf6ac17e3357546105" compoundref="xasu__sharedmem_8h" startline="177">XAsu_CommChannelInfo::Channel</references>
+        <references refid="struct_x_asu___comm_channel_1af7649fa343d5eda766279b9e6033fb6d" compoundref="xasu__sharedmem_8h" startline="167">XAsu_CommChannel::IpiBitMask</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This header file defines the structures that are used for shared memory communication between the client and the server. </para>    </briefdescription>
+    <detaileddescription>
+<para>The structures include definitions for message formats, shared memory control blocks, and any other relevant data structures needed for inter-process communication</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   vns  06/04/24 Initial release
+      ma   07/08/24 Add task based approach at queue level
+      ma   07/23/24 Update XASU_RESPONSE_STATUS_INDEX with 0
+1.1   ma   12/12/24 Updated command states
+      ma   02/19/25 Updated handling of same priority queue requests in round robin scheduling
+      ma   02/26/25 Corrected XASU_CHANNEL_RESERVED_MEM define value
+      rmv  07/30/25 Updated <ref refid="struct_x_asu___comm_channel" kindref="compound">XAsu_CommChannel</ref> structure</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor">#ifndef<sp/>XASU_SHAREDMEM_H_</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_SHAREDMEM_H_</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="group__xasu__common__defs_1ga42b3aa06026ff016a8f26ee691725604" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XASU_MAX_BUFFERS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)<sp/></highlight></codeline>
+<codeline lineno="48" refid="group__xasu__common__defs_1gac97dfd46ae42816df7341f11b426fa79" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_CHANNEL_RESERVED_MEM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1188U)<sp/></highlight></codeline>
+<codeline lineno="50" refid="group__xasu__common__defs_1gae5377804925882e44f623938a3a5d936" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_COMMAND_IS_PRESENT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)<sp/></highlight></codeline>
+<codeline lineno="51" refid="group__xasu__common__defs_1gaf77f0408c6cc5ebe16a9e2e2425dfb5d" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_COMMAND_IN_PROGRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2U)<sp/></highlight></codeline>
+<codeline lineno="52" refid="group__xasu__common__defs_1ga037b96d20be7ac2ffc1ccbd2483c536f" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_COMMAND_VALIDATED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3U)<sp/></highlight></codeline>
+<codeline lineno="53" refid="group__xasu__common__defs_1gafeeb2e83e0aa227a90a052c8f6962157" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_COMMAND_DMA_WAIT_COMPLETE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x4U)<sp/></highlight></codeline>
+<codeline lineno="54" refid="group__xasu__common__defs_1ga41a0d07b1d8903f369416aa1dd27c386" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_COMMAND_EXECUTION_COMPLETE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x5U)<sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Response<sp/>buffers<sp/>status<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="57" refid="group__xasu__common__defs_1gacceb1b8bd8a66cdf336d3aee33e7a67b" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_RESPONSE_IS_PRESENT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)<sp/></highlight></codeline>
+<codeline lineno="59" refid="group__xasu__common__defs_1ga9d689c4efe84f0224b41d6961b3e76bd" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_RESPONSE_STATUS_INDEX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="60" refid="group__xasu__common__defs_1ga8b345aa71e5b0cd9f2a7f9b812da4128" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_RESPONSE_BUFF_ADDR_INDEX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor">#define<sp/>XASU_COMMAND_ID_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000003FU)<sp/></highlight></codeline>
+<codeline lineno="64" refid="group__xasu__common__defs_1gaf17ac7d08dde7a01ddb54120c0c08c98" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_UNIQUE_REQ_ID_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000FC0U)<sp/></highlight></codeline>
+<codeline lineno="65" refid="group__xasu__common__defs_1gad814338ff887d2a38c89d03dfdbba8b8" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_UNIQUE_REQ_ID_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6U)<sp/></highlight></codeline>
+<codeline lineno="66" refid="group__xasu__common__defs_1ga03b103f4017ab2ab06aa5ba57628b570" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_UNIQUE_ID_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XASU_MAX_BUFFERS<sp/>&lt;&lt;<sp/>1U)<sp/></highlight></codeline>
+<codeline lineno="67" refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MODULE_ID_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0003F000U)<sp/></highlight></codeline>
+<codeline lineno="68" refid="group__xasu__common__defs_1ga9632bb01696bdcf0db8dd9f670237f9e" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_MODULE_ID_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(12U)<sp/></highlight></codeline>
+<codeline lineno="69" refid="group__xasu__common__defs_1ga22c4ed5bfe4baaf7b6441848e9057446" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_COMMAND_LENGTH_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00FC0000U)<sp/></highlight></codeline>
+<codeline lineno="70" refid="group__xasu__common__defs_1ga9eadc42ffad077fdd90a398b018d2a5a" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_COMMAND_LENGTH_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(18U)<sp/></highlight></codeline>
+<codeline lineno="71" refid="group__xasu__common__defs_1gabf2469b7f4d27b2773877a157e71ecc8" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_COMMAND_SECURE_FLAG_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01000000U)<sp/></highlight></codeline>
+<codeline lineno="72" refid="group__xasu__common__defs_1gaa232fe05f2ec49c3a9a2ec2ffb04634b" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_COMMAND_SECURE_FLAG_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(24U)<sp/></highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor">#define<sp/>XASU_COMMAND_REQ_ARGS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(22U)<sp/></highlight></codeline>
+<codeline lineno="75" refid="group__xasu__common__defs_1gaaed89c4fe5ef44bd1dc598b7a4ed68ca" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_COMMAND_RESP_ARGS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(17U)<sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor">#define<sp/>XASU_RTCA_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xEBE40000U)<sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor">#define<sp/>XASU_RTCA_COMM_CHANNEL_INFO_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XASU_RTCA_BASEADDR<sp/>+<sp/>0x10U)<sp/></highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor">#define<sp/>XASU_RTCA_DDR_BASEADDR_HIGH<sp/><sp/><sp/><sp/><sp/>(XASU_RTCA_BASEADDR<sp/>+<sp/>0x98U)</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor">#define<sp/>XASU_RTCA_DDR_BASEADDR_LOW<sp/><sp/><sp/><sp/><sp/><sp/>(XASU_RTCA_BASEADDR<sp/>+<sp/>0x9CU)</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="86" refid="group__xasu__common__defs_1gaf8bb48beeaec290b78fa334f7f9b504f" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_RTCA_DDR_SIZE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XASU_RTCA_BASEADDR<sp/>+<sp/>0xA0U)</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor">#define<sp/>XASU_RTCA_MODULE_INFO_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XASU_RTCA_BASEADDR<sp/>+<sp/>0xA8U)</highlight></codeline>
+<codeline lineno="90" refid="group__xasu__common__defs_1ga5ea814abeec9878cd2bf4d172e10e25f" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="93" refid="group__xasu__common__defs_1ga57ae609337be0fd7bc3e4cccec16e6d5" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_RTCA_DBG_LOG_BUF_INFO_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XASU_RTCA_BASEADDR<sp/>+<sp/>0x15CU)</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor">#define<sp/>XASU_RTCA_EXEC_STATUS_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XASU_RTCA_BASEADDR<sp/>+<sp/>0x174U)</highlight></codeline>
+<codeline lineno="97" refid="group__xasu__common__defs_1ga7a190d10ccdbcc17e6486c40ec4c377a" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="100" refid="group__xasu__common__defs_1ga05b46e929ec6824d277d7168b4c014b7" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_RTCA_KEYVAULT_CHNL_MAX_SIZE_BASE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/>(XASU_RTCA_BASEADDR<sp/>+<sp/>0x178U)</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor">#define<sp/>XASU_RTCA_KAT_EXEC_STATUS_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01U)</highlight></codeline>
+<codeline lineno="104" refid="group__xasu__common__defs_1ga7208ddb53cbd1502c4e98840e14cc313" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor">#define<sp/>XASU_RTCA_KAT_EXEC_STATUS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01U)</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="107" refid="group__xasu__common__defs_1ga9e584fad118bfe58066b537789e00db7" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_RTCA_FW_IS_PRESENT_STATUS_VALUE<sp/><sp/><sp/><sp/>(0x02U)</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="109" refid="group__xasu__common__defs_1gac551c0d72c2984ca13d3ba249d9073a8" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_RTCA_FW_IS_PRESENT_STATUS_MASK<sp/><sp/><sp/><sp/><sp/>(0x02U)</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor">#define<sp/>XASU_MAX_IPI_CHANNELS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)<sp/></highlight></codeline>
+<codeline lineno="113" refid="group__xasu__common__defs_1gafe00959d24b7bfd7333284bb24b6c532" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_CHANNEL_MEMORY_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1000U)<sp/></highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor">#define<sp/>XASU_CHANNEL_MEMORY_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XASU_RTCA_BASEADDR<sp/>+<sp/>XASU_CHANNEL_MEMORY_OFFSET)</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="118" refid="group__xasu__common__defs_1ga9e2c477367996b04a97ad24e22f4163c" refkind="member"><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight></codeline>
+<codeline lineno="120"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Header;<sp/></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Arg[<ref refid="group__xasu__common__defs_1gaaed89c4fe5ef44bd1dc598b7a4ed68ca" kindref="member">XASU_COMMAND_REQ_ARGS</ref>];<sp/></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reserved;<sp/></highlight></codeline>
+<codeline lineno="124" refid="struct_x_asu___req_buf" refkind="compound"><highlight class="normal">}<sp/><ref refid="struct_x_asu___req_buf" kindref="compound">XAsu_ReqBuf</ref>;</highlight></codeline>
+<codeline lineno="125" refid="struct_x_asu___req_buf_1ae6e3ffde005f27cd4b9dc3a5a671551e" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127" refid="struct_x_asu___req_buf_1ac6d6c1a90715dbe975287a7be8f797c4" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Header;<sp/></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Arg[<ref refid="group__xasu__common__defs_1ga13c43c7dbd93c845e6f31a02ecfdb682" kindref="member">XASU_COMMAND_RESP_ARGS</ref>];<sp/></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>AdditionalStatus;<sp/></highlight></codeline>
+<codeline lineno="131" refid="struct_x_asu___resp_buf" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reserved;<sp/></highlight></codeline>
+<codeline lineno="132" refid="struct_x_asu___resp_buf_1ab962e27d59a44a1affbe81298a614a29" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_asu___resp_buf" kindref="compound">XAsu_RespBuf</ref>;</highlight></codeline>
+<codeline lineno="133" refid="struct_x_asu___resp_buf_1aea3e3032e620d263b0ba6d08d02a49db" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135" refid="struct_x_asu___resp_buf_1aa31fcbf7c9a82dc4e93b68842d879c6d" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ReqBufStatus;<sp/></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>RespBufStatus;<sp/></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Reserved;<sp/></highlight></codeline>
+<codeline lineno="139" refid="struct_x_asu___channel_queue_buf" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___req_buf" kindref="compound">XAsu_ReqBuf</ref><sp/>ReqBuf;<sp/></highlight></codeline>
+<codeline lineno="140" refid="struct_x_asu___channel_queue_buf_1a8bed35bbe579d0406901a18c8a02176a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___resp_buf" kindref="compound">XAsu_RespBuf</ref><sp/>RespBuf;<sp/></highlight></codeline>
+<codeline lineno="141" refid="struct_x_asu___channel_queue_buf_1aacab7148b91d90b10dc04045489031b0" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_asu___channel_queue_buf" kindref="compound">XAsu_ChannelQueueBuf</ref>;</highlight></codeline>
+<codeline lineno="142" refid="struct_x_asu___channel_queue_buf_1a127487f51f4b58fd1e97abcb21da3bf7" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144" refid="struct_x_asu___channel_queue_buf_1ad606b1cd0b0518b06f12434c5e83356d" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsCmdPresent;<sp/></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ReqSent;<sp/></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ReqServed;<sp/></highlight></codeline>
+<codeline lineno="148" refid="struct_x_asu___channel_queue" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___channel_queue_buf" kindref="compound">XAsu_ChannelQueueBuf</ref><sp/>ChannelQueueBufs[<ref refid="group__xasu__common__defs_1ga42b3aa06026ff016a8f26ee691725604" kindref="member">XASU_MAX_BUFFERS</ref>];<sp/></highlight></codeline>
+<codeline lineno="149" refid="struct_x_asu___channel_queue_1a5d85c84bfbb9c25a8f4f20e9595ef035" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_asu___channel_queue" kindref="compound">XAsu_ChannelQueue</ref>;</highlight></codeline>
+<codeline lineno="150" refid="struct_x_asu___channel_queue_1af646a7c4a7d609a10bbe55bee2616025" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152" refid="struct_x_asu___channel_queue_1a04bd787659e274a1673c5e9b522b7b9f" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Version;<sp/></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Reserved[<ref refid="group__xasu__common__defs_1gac97dfd46ae42816df7341f11b426fa79" kindref="member">XASU_CHANNEL_RESERVED_MEM</ref>];<sp/></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___channel_queue" kindref="compound">XAsu_ChannelQueue</ref><sp/>P0ChannelQueue;<sp/></highlight></codeline>
+<codeline lineno="156" refid="struct_x_asu___channel_memory" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___channel_queue" kindref="compound">XAsu_ChannelQueue</ref><sp/>P1ChannelQueue;<sp/></highlight></codeline>
+<codeline lineno="157" refid="struct_x_asu___channel_memory_1aaf6376417de1b8d560be3a50a8d7215c" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_asu___channel_memory" kindref="compound">XAsu_ChannelMemory</ref>;</highlight></codeline>
+<codeline lineno="158" refid="struct_x_asu___channel_memory_1affb9ba7641154236dea39a3f149fd085" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160" refid="struct_x_asu___channel_memory_1af53279664e7fb3ae5cf60061f680c266" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>P0QueuePriority;<sp/></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>P1QueuePriority;<sp/></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>IpiBitMask;<sp/></highlight></codeline>
+<codeline lineno="164" refid="struct_x_asu___comm_channel" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SmId;<sp/></highlight></codeline>
+<codeline lineno="165" refid="struct_x_asu___comm_channel_1a7fca8a7588843f342892028aef85639f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SubsystemId;<sp/></highlight></codeline>
+<codeline lineno="166" refid="struct_x_asu___comm_channel_1a6e2a450b707f61d78a43d964091db41b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reserved;<sp/></highlight></codeline>
+<codeline lineno="167" refid="struct_x_asu___comm_channel_1af7649fa343d5eda766279b9e6033fb6d" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_asu___comm_channel" kindref="compound">XAsu_CommChannel</ref>;</highlight></codeline>
+<codeline lineno="168" refid="struct_x_asu___comm_channel_1aaeb060ef5c85aeccdf2e3de7d78ab0bf" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170" refid="struct_x_asu___comm_channel_1a6081988462132a390396a19261a29dfd" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CommChannelInfoHeader;<sp/></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumOfIpiChannels;<sp/></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___comm_channel" kindref="compound">XAsu_CommChannel</ref><sp/>Channel[<ref refid="group__xasu__common__defs_1ga2665899119ec35458b26d3064096fd53" kindref="member">XASU_MAX_IPI_CHANNELS</ref>];<sp/></highlight></codeline>
+<codeline lineno="174" refid="struct_x_asu___comm_channel_info" refkind="compound"><highlight class="normal">}<sp/><ref refid="struct_x_asu___comm_channel_info" kindref="compound">XAsu_CommChannelInfo</ref>;</highlight></codeline>
+<codeline lineno="175" refid="struct_x_asu___comm_channel_info_1a40df16fef64bd58b3717924af3c0c8ff" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176" refid="struct_x_asu___comm_channel_info_1aae88a6b5fc1371423e75ba0eff863c25" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="177" refid="struct_x_asu___comm_channel_info_1ae163920888661eaf6ac17e3357546105" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XASU_MAX_CHANNELS_SUPPORTED<sp/><sp/><sp/><sp/><sp/>(8U)<sp/></highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="group__xasu__sharedmem__apis_1ga7c6b10e8c9e75576ca858d70529e24e4" kindref="member">XAsu_GetSubsysIdFromIpiMask</ref>(u32<sp/>IpiMask);</highlight></codeline>
+<codeline lineno="181" refid="xasu__sharedmem_8h_1a3829195858676435fd770549858db548" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xasu__sharedmem__apis_1gab7baf8908fd849424cefb1738edb74fc" kindref="member">XAsu_GetIpiMask</ref>(u32<sp/>ChannelIndex);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight></codeline>
+<codeline lineno="185"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_asu___comm_channel_info" kindref="compound">XAsu_CommChannelInfo</ref><sp/>*<ref refid="group__xasu__sharedmem__apis_1gacdac79066080531f4293b5796ac10ee2" kindref="member">CommChannelInfo</ref>;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XASU_SHAREDMEM_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h"/>
+  </compounddef>
+</doxygen>

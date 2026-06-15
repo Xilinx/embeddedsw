@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_csi2_tx___config" kind="struct" prot="public">
+    <compoundname>XCsi2Tx_Config</compoundname>
+    <includes local="no">xcsi2tx.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_csi2_tx___config_1ab8d729ac707024b829110e18ffb9ac8d" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XCsi2Tx_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi2_tx___config_1a3a98c112448388a88d774028e6621d5b" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XCsi2Tx_Config::BaseAddr</definition>
+        <argsstring></argsstring>
+        <name>BaseAddr</name>
+        <briefdescription>
+<para>Base address of CSI2 Rx Controller. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx.h" bodystart="168" bodyend="-1"/>
+        <referencedby refid="group__csi2tx_1ga79fec6c8f14f43478aedaaaae040447e" compoundref="xcsi2tx__example__selftest_8c" startline="118" endline="139">Csi2TxSelfTestExample</referencedby>
+        <referencedby refid="group__csi2tx_1gac9ea3e1e3c6a8ecc2f5074caca2e4c6b" compoundref="xcsi2tx_8c" startline="74" endline="103">XCsi2Tx_CfgInitialize</referencedby>
+        <referencedby refid="group__csi2tx_1ga874801fd63ef703d0b8ec36379b743a7" compoundref="xcsi2tx_8c" startline="189" endline="236">XCsi2Tx_Configure</referencedby>
+        <referencedby refid="group__csi2tx_1ga3ff13690fd3d7cbb9ef1b0b8bf579235" compoundref="xcsi2tx__intr_8c" startline="125" endline="136">XCsi2Tx_GetIntrEnable</referencedby>
+        <referencedby refid="group__csi2tx_1ga40b9d2c4e3ac95c5a55c085ba0412304" compoundref="xcsi2tx__intr_8c" startline="151" endline="162">XCsi2Tx_GetIntrStatus</referencedby>
+        <referencedby refid="group__csi2tx_1ga7aceee43ac75b5e2e7fb5c072e99543d" compoundref="xcsi2tx_8c" startline="375" endline="393">XCsi2Tx_GetLineCountForVC</referencedby>
+        <referencedby refid="group__csi2tx_1gad74fa52c21a09573d7838c8ec469cb82" compoundref="xcsi2tx_8c" startline="250" endline="271">XCsi2Tx_GetShortPacket</referencedby>
+        <referencedby refid="group__csi2tx_1ga60da0ba950424b0e90d2cf108eefed2c" compoundref="xcsi2tx__intr_8c" startline="178" endline="198">XCsi2Tx_InterruptClear</referencedby>
+        <referencedby refid="group__csi2tx_1gad54b9d4f661d683594d59fe7ab428962" compoundref="xcsi2tx__intr_8c" startline="94" endline="111">XCsi2Tx_IntrDisable</referencedby>
+        <referencedby refid="group__csi2tx_1ga2caa416a631b37b3414f3ebe811fb50e" compoundref="xcsi2tx__intr_8c" startline="58" endline="79">XCsi2Tx_IntrEnable</referencedby>
+        <referencedby refid="group__csi2tx_1ga8c4f599fd297b0b87b7b5028bc59a1a4" compoundref="xcsi2tx__selftest_8c" startline="72" endline="124">XCsi2Tx_SelfTest</referencedby>
+        <referencedby refid="group__csi2tx_1ga1f42ddbe8c72819877271b1e2b1b2f66" compoundref="xcsi2tx_8c" startline="328" endline="353">XCsi2Tx_SetLineCountForVC</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi2_tx___config_1a81490985967772106c88ddf719652d37" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCsi2Tx_Config::MaxLanesPresent</definition>
+        <argsstring></argsstring>
+        <name>MaxLanesPresent</name>
+        <briefdescription>
+<para>Max value of Lanes. </para>        </briefdescription>
+        <detaileddescription>
+<para>Range 0 - 3 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx.h" bodystart="169" bodyend="-1"/>
+        <referencedby refid="group__csi2tx_1gac3002b53f14fc92a2f9dbd70466fb54f" compoundref="xcsi2tx_8c" startline="289" endline="305">XCsi2Tx_IsActiveLaneCountValid</referencedby>
+        <referencedby refid="group__csi2tx_1ga8c4f599fd297b0b87b7b5028bc59a1a4" compoundref="xcsi2tx__selftest_8c" startline="72" endline="124">XCsi2Tx_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi2_tx___config_1ab432923634a1d5e2b780e9602658e64c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCsi2Tx_Config::ActiveLanes</definition>
+        <argsstring></argsstring>
+        <name>ActiveLanes</name>
+        <briefdescription>
+<para>Number of Lanes configured. </para>        </briefdescription>
+        <detaileddescription>
+<para>Range 0 - 3 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi2_tx___config_1a661cd2b2d33ae733dffafdd736aaaaa2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCsi2Tx_Config::FEGenEnabled</definition>
+        <argsstring></argsstring>
+        <name>FEGenEnabled</name>
+        <briefdescription>
+<para>Frame End generation enabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx.h" bodystart="171" bodyend="-1"/>
+        <referencedby refid="group__csi2tx_1ga7aceee43ac75b5e2e7fb5c072e99543d" compoundref="xcsi2tx_8c" startline="375" endline="393">XCsi2Tx_GetLineCountForVC</referencedby>
+        <referencedby refid="group__csi2tx_1ga60da0ba950424b0e90d2cf108eefed2c" compoundref="xcsi2tx__intr_8c" startline="178" endline="198">XCsi2Tx_InterruptClear</referencedby>
+        <referencedby refid="group__csi2tx_1gad54b9d4f661d683594d59fe7ab428962" compoundref="xcsi2tx__intr_8c" startline="94" endline="111">XCsi2Tx_IntrDisable</referencedby>
+        <referencedby refid="group__csi2tx_1ga2caa416a631b37b3414f3ebe811fb50e" compoundref="xcsi2tx__intr_8c" startline="58" endline="79">XCsi2Tx_IntrEnable</referencedby>
+        <referencedby refid="group__csi2tx_1gafc4a705bd3a295ac372fa02eb578af4d" compoundref="xcsi2tx__intr_8c" startline="325" endline="425">XCsi2Tx_IntrHandler</referencedby>
+        <referencedby refid="group__csi2tx_1ga1f42ddbe8c72819877271b1e2b1b2f66" compoundref="xcsi2tx_8c" startline="328" endline="353">XCsi2Tx_SetLineCountForVC</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The configuration structure for CSI Controller. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure passes the hardware building information to the driver </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx.h" bodystart="162" bodyend="172"/>
+    <listofallmembers>
+      <member refid="struct_x_csi2_tx___config_1ab432923634a1d5e2b780e9602658e64c" prot="public" virt="non-virtual"><scope>XCsi2Tx_Config</scope><name>ActiveLanes</name></member>
+      <member refid="struct_x_csi2_tx___config_1a3a98c112448388a88d774028e6621d5b" prot="public" virt="non-virtual"><scope>XCsi2Tx_Config</scope><name>BaseAddr</name></member>
+      <member refid="struct_x_csi2_tx___config_1a661cd2b2d33ae733dffafdd736aaaaa2" prot="public" virt="non-virtual"><scope>XCsi2Tx_Config</scope><name>FEGenEnabled</name></member>
+      <member refid="struct_x_csi2_tx___config_1a81490985967772106c88ddf719652d37" prot="public" virt="non-virtual"><scope>XCsi2Tx_Config</scope><name>MaxLanesPresent</name></member>
+      <member refid="struct_x_csi2_tx___config_1ab8d729ac707024b829110e18ffb9ac8d" prot="public" virt="non-virtual"><scope>XCsi2Tx_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

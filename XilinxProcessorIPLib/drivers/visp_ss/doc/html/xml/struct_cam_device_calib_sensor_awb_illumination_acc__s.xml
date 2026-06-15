@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_calib_sensor_awb_illumination_acc__s" kind="struct" prot="public">
+    <compoundname>CamDeviceCalibSensorAwbIlluminationAcc_s</compoundname>
+    <includes local="no">cam_device_calibration.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_illumination_acc__s_1a8ee2990556bb4bd2e784cd60093e808a" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CamDeviceCalibSensorAwbIlluminationAcc_s::profile[CAMDEV_CALIB_LENGTH *4U]</definition>
+        <argsstring>[CAMDEV_CALIB_LENGTH *4U]</argsstring>
+        <name>profile</name>
+        <briefdescription>
+<para>CC profile corresponding to the light source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="233" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice Calibration sensor AWB Illumination auto CC configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="232" bodyend="234"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_calib_sensor_awb_illumination_acc__s_1a8ee2990556bb4bd2e784cd60093e808a" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbIlluminationAcc_s</scope><name>profile</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

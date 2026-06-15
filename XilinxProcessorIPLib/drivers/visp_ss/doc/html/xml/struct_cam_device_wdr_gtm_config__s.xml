@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_wdr_gtm_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceWdrGtmConfig_s</compoundname>
+    <includes local="no">cam_device_wdr_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_wdr_gtm_config__s_1ab546135e2cb9863f47a069fc883fc27f" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceWdrGtmConfig_s::wdrCurveSelect</definition>
+        <argsstring></argsstring>
+        <name>wdrCurveSelect</name>
+        <briefdescription>
+<para>WDR curve select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_gtm_config__s_1a21748494aefb48758ce4c518e8c2d972" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceWdrGtmConfig_s::logWeight</definition>
+        <argsstring></argsstring>
+        <name>logWeight</name>
+        <briefdescription>
+<para>WDR log weight. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_gtm_config__s_1ae0a74380a9ff88f4cce531a7e7f3b9e3" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceWdrGtmConfig_s::logAnchorXLog</definition>
+        <argsstring></argsstring>
+        <name>logAnchorXLog</name>
+        <briefdescription>
+<para>WDR anchor X log. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_gtm_config__s_1a95e829641838083dc86988ce24747309" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceWdrGtmConfig_s::logAnchorSlope</definition>
+        <argsstring></argsstring>
+        <name>logAnchorSlope</name>
+        <briefdescription>
+<para>WDR anchor slope. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_gtm_config__s_1ac64308f3cbc3c277993c0b3ec3e1ef6e" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceWdrGtmConfig_s::ratioActual</definition>
+        <argsstring></argsstring>
+        <name>ratioActual</name>
+        <briefdescription>
+<para>WDR actual ratio. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_gtm_config__s_1aa69e57958fd11b62804d2a173e7a5152" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceWdrGtmConfig_s::curve2Thr</definition>
+        <argsstring></argsstring>
+        <name>curve2Thr</name>
+        <briefdescription>
+<para>WDR curve2 threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_gtm_config__s_1ac74dd723fdda1eaa445b4d43badbe36c" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceWdrGtmConfig_s::curve2Losat</definition>
+        <argsstring></argsstring>
+        <name>curve2Losat</name>
+        <briefdescription>
+<para>WDR curve2 low saturation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_gtm_config__s_1ae4d63afb7a23e35bfbc22b95e6201044" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceWdrGtmConfig_s::curve2Lofactor</definition>
+        <argsstring></argsstring>
+        <name>curve2Lofactor</name>
+        <briefdescription>
+<para>WDR curve2 low factor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_gtm_config__s_1ae03b4a0b9632df3482dd79c93ca29368" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceWdrGtmConfig_s::curve2Hifactor</definition>
+        <argsstring></argsstring>
+        <name>curve2Hifactor</name>
+        <briefdescription>
+<para>WDR curve2 high factor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_gtm_config__s_1a790c005c601d47f08fd5c5a050caba1a" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceWdrGtmConfig_s::flatLevelGlobal</definition>
+        <argsstring></argsstring>
+        <name>flatLevelGlobal</name>
+        <briefdescription>
+<para>WDR global flat level. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice WDR GTM configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="119" bodyend="131"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_wdr_gtm_config__s_1ae03b4a0b9632df3482dd79c93ca29368" prot="public" virt="non-virtual"><scope>CamDeviceWdrGtmConfig_s</scope><name>curve2Hifactor</name></member>
+      <member refid="struct_cam_device_wdr_gtm_config__s_1ae4d63afb7a23e35bfbc22b95e6201044" prot="public" virt="non-virtual"><scope>CamDeviceWdrGtmConfig_s</scope><name>curve2Lofactor</name></member>
+      <member refid="struct_cam_device_wdr_gtm_config__s_1ac74dd723fdda1eaa445b4d43badbe36c" prot="public" virt="non-virtual"><scope>CamDeviceWdrGtmConfig_s</scope><name>curve2Losat</name></member>
+      <member refid="struct_cam_device_wdr_gtm_config__s_1aa69e57958fd11b62804d2a173e7a5152" prot="public" virt="non-virtual"><scope>CamDeviceWdrGtmConfig_s</scope><name>curve2Thr</name></member>
+      <member refid="struct_cam_device_wdr_gtm_config__s_1a790c005c601d47f08fd5c5a050caba1a" prot="public" virt="non-virtual"><scope>CamDeviceWdrGtmConfig_s</scope><name>flatLevelGlobal</name></member>
+      <member refid="struct_cam_device_wdr_gtm_config__s_1a95e829641838083dc86988ce24747309" prot="public" virt="non-virtual"><scope>CamDeviceWdrGtmConfig_s</scope><name>logAnchorSlope</name></member>
+      <member refid="struct_cam_device_wdr_gtm_config__s_1ae0a74380a9ff88f4cce531a7e7f3b9e3" prot="public" virt="non-virtual"><scope>CamDeviceWdrGtmConfig_s</scope><name>logAnchorXLog</name></member>
+      <member refid="struct_cam_device_wdr_gtm_config__s_1a21748494aefb48758ce4c518e8c2d972" prot="public" virt="non-virtual"><scope>CamDeviceWdrGtmConfig_s</scope><name>logWeight</name></member>
+      <member refid="struct_cam_device_wdr_gtm_config__s_1ac64308f3cbc3c277993c0b3ec3e1ef6e" prot="public" virt="non-virtual"><scope>CamDeviceWdrGtmConfig_s</scope><name>ratioActual</name></member>
+      <member refid="struct_cam_device_wdr_gtm_config__s_1ab546135e2cb9863f47a069fc883fc27f" prot="public" virt="non-virtual"><scope>CamDeviceWdrGtmConfig_s</scope><name>wdrCurveSelect</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

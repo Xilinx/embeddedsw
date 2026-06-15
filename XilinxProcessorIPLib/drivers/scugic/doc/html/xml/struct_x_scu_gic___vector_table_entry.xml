@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_scu_gic___vector_table_entry" kind="struct" prot="public">
+    <compoundname>XScuGic_VectorTableEntry</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="group__scugic__api_1ga5f67ecf54244b46e2570691626906397" prot="public" static="no" mutable="no">
+        <type>Xil_InterruptHandler</type>
+        <definition>Xil_InterruptHandler XScuGic_VectorTableEntry::Handler</definition>
+        <argsstring></argsstring>
+        <name>Handler</name>
+        <briefdescription>
+<para>Interrupt Handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__scugic__api_1ga6969d00688039e7e14b25fadd8227398" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XScuGic_VectorTableEntry::CallBackRef</definition>
+        <argsstring></argsstring>
+        <name>CallBackRef</name>
+        <briefdescription>
+<para>CallBackRef is the callback reference passed in by the upper layer when setting the Interrupt handler for specific interrupt ID, and it will passed back to Interrupt handler when it is invoked. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" bodystart="216" bodyend="224"/>
+    <listofallmembers>
+      <member refid="group__scugic__api_1ga6969d00688039e7e14b25fadd8227398" prot="public" virt="non-virtual"><scope>XScuGic_VectorTableEntry</scope><name>CallBackRef</name></member>
+      <member refid="group__scugic__api_1ga5f67ecf54244b46e2570691626906397" prot="public" virt="non-virtual"><scope>XScuGic_VectorTableEntry</scope><name>Handler</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

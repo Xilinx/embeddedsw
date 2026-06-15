@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_isi_o_t_p_a_f_data__s" kind="struct" prot="public">
+    <compoundname>IsiOTPAFData_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_isi_o_t_p_a_f_data__s_1a291cf1c974f305f343d1d0893063ef3d" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiOTPAFData_s::otpVersion</definition>
+        <argsstring></argsstring>
+        <name>otpVersion</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_o_t_p_a_f_data__s_1a2b375dffc9219bd90f1b233ea7428fab" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool IsiOTPAFData_s::otpFocusEnable</definition>
+        <argsstring></argsstring>
+        <name>otpFocusEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_o_t_p_a_f_data__s_1a6424c557ee0b010cc1c958c90cb3f8d8" prot="public" static="no" mutable="no">
+        <type>IsiOTPCdaf_t</type>
+        <definition>IsiOTPCdaf_t IsiOTPAFData_s::cdafOtp</definition>
+        <argsstring></argsstring>
+        <name>cdafOtp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_o_t_p_a_f_data__s_1a9ff01d56423fcca4a9bcbda189eaf0c6" prot="public" static="no" mutable="no">
+        <type>IsiOTPPdaf_t</type>
+        <definition>IsiOTPPdaf_t IsiOTPAFData_s::pdafOtp</definition>
+        <argsstring></argsstring>
+        <name>pdafOtp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="79" bodyend="84"/>
+    <listofallmembers>
+      <member refid="struct_isi_o_t_p_a_f_data__s_1a6424c557ee0b010cc1c958c90cb3f8d8" prot="public" virt="non-virtual"><scope>IsiOTPAFData_s</scope><name>cdafOtp</name></member>
+      <member refid="struct_isi_o_t_p_a_f_data__s_1a2b375dffc9219bd90f1b233ea7428fab" prot="public" virt="non-virtual"><scope>IsiOTPAFData_s</scope><name>otpFocusEnable</name></member>
+      <member refid="struct_isi_o_t_p_a_f_data__s_1a291cf1c974f305f343d1d0893063ef3d" prot="public" virt="non-virtual"><scope>IsiOTPAFData_s</scope><name>otpVersion</name></member>
+      <member refid="struct_isi_o_t_p_a_f_data__s_1a9ff01d56423fcca4a9bcbda189eaf0c6" prot="public" virt="non-virtual"><scope>IsiOTPAFData_s</scope><name>pdafOtp</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

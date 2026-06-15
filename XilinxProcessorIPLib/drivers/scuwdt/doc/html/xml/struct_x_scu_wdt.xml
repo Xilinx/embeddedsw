@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_scu_wdt" kind="struct" prot="public">
+    <compoundname>XScuWdt</compoundname>
+    <includes local="no">xscuwdt.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_scu_wdt_1a6d670660d7b2dbb2cb2af9894f2d8562" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_scu_wdt___config" kindref="compound">XScuWdt_Config</ref></type>
+        <definition>XScuWdt_Config XScuWdt::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" bodystart="157" bodyend="-1"/>
+        <referencedby refid="xscuwdt__intr__example_8c_1a0054ab1cdccc0040a5d9633b4c386d9a" compoundref="xscuwdt__intr__example_8c" startline="158" endline="336">ScuWdtIntrExample</referencedby>
+        <referencedby refid="group___overview_1ga1fee56fc3ec3c8b003e6ae0528703b1c" compoundref="xscuwdt_8c" startline="62" endline="106">XScuWdt_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga87a7a8230fc5fa80f64cb66210e596b8" compoundref="xscuwdt_8c" startline="123" endline="151">XScuWdt_Start</referencedby>
+        <referencedby refid="group___overview_1gae1493503cc6e52afa681f23329e9abef" compoundref="xscuwdt_8c" startline="165" endline="193">XScuWdt_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_scu_wdt_1aa0f6b50d4cc3682c07cb1f982e0d9ceb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XScuWdt::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" bodystart="158" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1fee56fc3ec3c8b003e6ae0528703b1c" compoundref="xscuwdt_8c" startline="62" endline="106">XScuWdt_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga2d6d32ff992704d9b78f93ab00ebdf78" compoundref="xscuwdt__selftest_8c" startline="60" endline="106">XScuWdt_SelfTest</referencedby>
+        <referencedby refid="group___overview_1ga87a7a8230fc5fa80f64cb66210e596b8" compoundref="xscuwdt_8c" startline="123" endline="151">XScuWdt_Start</referencedby>
+        <referencedby refid="group___overview_1gae1493503cc6e52afa681f23329e9abef" compoundref="xscuwdt_8c" startline="165" endline="193">XScuWdt_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_scu_wdt_1ab9a2c001a81fa32ba6c78b94689dd611" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XScuWdt::IsStarted</definition>
+        <argsstring></argsstring>
+        <name>IsStarted</name>
+        <briefdescription>
+<para>Device watchdog timer is running. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" bodystart="159" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1fee56fc3ec3c8b003e6ae0528703b1c" compoundref="xscuwdt_8c" startline="62" endline="106">XScuWdt_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga87a7a8230fc5fa80f64cb66210e596b8" compoundref="xscuwdt_8c" startline="123" endline="151">XScuWdt_Start</referencedby>
+        <referencedby refid="group___overview_1gae1493503cc6e52afa681f23329e9abef" compoundref="xscuwdt_8c" startline="165" endline="193">XScuWdt_Stop</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every watchdog/timer device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>XScuWdt_Config</label>
+        <link refid="struct_x_scu_wdt___config"/>
+      </node>
+      <node id="1">
+        <label>XScuWdt</label>
+        <link refid="struct_x_scu_wdt"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" bodystart="156" bodyend="160"/>
+    <listofallmembers>
+      <member refid="struct_x_scu_wdt_1a6d670660d7b2dbb2cb2af9894f2d8562" prot="public" virt="non-virtual"><scope>XScuWdt</scope><name>Config</name></member>
+      <member refid="struct_x_scu_wdt_1aa0f6b50d4cc3682c07cb1f982e0d9ceb" prot="public" virt="non-virtual"><scope>XScuWdt</scope><name>IsReady</name></member>
+      <member refid="struct_x_scu_wdt_1ab9a2c001a81fa32ba6c78b94689dd611" prot="public" virt="non-virtual"><scope>XScuWdt</scope><name>IsStarted</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

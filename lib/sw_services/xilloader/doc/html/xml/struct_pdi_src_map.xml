@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_pdi_src_map" kind="struct" prot="public">
+    <compoundname>PdiSrcMap</compoundname>
+    <includes local="no">xloader.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_pdi_src_map_1a5ca4176787f3c37c34a3ef1821f52c02" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* PdiSrcMap::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Name of PDI source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pdi_src_map_1a7a1d1054b48f3962a5274eb92855bb8f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 PdiSrcMap::Index</definition>
+        <argsstring></argsstring>
+        <name>Index</name>
+        <briefdescription>
+<para>Index of PDI source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="291" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1gaadc121bcc59feb4ece3c40802d81987b" compoundref="xloader_8c" startline="420" endline="594">XLoader_PdiInit</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to map PDI source names to their indices. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="289" bodyend="292"/>
+    <listofallmembers>
+      <member refid="struct_pdi_src_map_1a7a1d1054b48f3962a5274eb92855bb8f" prot="public" virt="non-virtual"><scope>PdiSrcMap</scope><name>Index</name></member>
+      <member refid="struct_pdi_src_map_1a5ca4176787f3c37c34a3ef1821f52c02" prot="public" virt="non-virtual"><scope>PdiSrcMap</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

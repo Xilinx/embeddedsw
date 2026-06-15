@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___lms_hss_public_key" kind="struct" prot="public">
+    <compoundname>XSecure_LmsHssPublicKey</compoundname>
+    <includes local="no">xsecure_lms_hss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___lms_hss_public_key_1a72db34768ff86ad08c95dbc639f23c6c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_LmsHssPublicKey::Levels</definition>
+        <argsstring></argsstring>
+        <name>Levels</name>
+        <briefdescription>
+<para>Levels supported. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_hss_public_key_1a56016066ce1d20e7638544427ee07e1d" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xsecure__lms__server__apis_1ga5f079495df8a194b92d5484aaa4f4d69" kindref="member">XSecure_LmsPublicKey</ref></type>
+        <definition>XSecure_LmsPublicKey XSecure_LmsHssPublicKey::LmsPubKey</definition>
+        <argsstring></argsstring>
+        <name>LmsPubKey</name>
+        <briefdescription>
+<para>LMS public key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Used to parse HSS public key fields. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="73">
+        <label>XSecure_LmsHssPublicKey</label>
+        <link refid="struct_x_secure___lms_hss_public_key"/>
+        <childnode refid="74" relation="usage">
+          <edgelabel>LmsPubKey</edgelabel>
+        </childnode>
+      </node>
+      <node id="74">
+        <label>XSecure_LmsPublicKey_</label>
+        <link refid="union_x_secure___lms_public_key__"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_hss.h" bodystart="71" bodyend="75"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___lms_hss_public_key_1a72db34768ff86ad08c95dbc639f23c6c" prot="public" virt="non-virtual"><scope>XSecure_LmsHssPublicKey</scope><name>Levels</name></member>
+      <member refid="struct_x_secure___lms_hss_public_key_1a56016066ce1d20e7638544427ee07e1d" prot="public" virt="non-virtual"><scope>XSecure_LmsHssPublicKey</scope><name>LmsPubKey</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,375 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xtrngpsx__tests_8c" kind="file">
+    <compoundname>xtrngpsx_tests.c</compoundname>
+    <includes refid="xtrngpsx_8h" local="yes">xtrngpsx.h</includes>
+    <includes local="yes">xil_sutil.h</includes>
+    <incdepgraph>
+      <node id="83">
+        <label>xtrngpsx_tests.c</label>
+        <link refid="xtrngpsx_tests.c"/>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+      </node>
+      <node id="86">
+        <label>xtrngpsx_alginfo.h</label>
+        <link refid="xtrngpsx__alginfo_8h"/>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+      </node>
+      <node id="88">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="87">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="85">
+        <label>xil_types.h</label>
+      </node>
+      <node id="84">
+        <label>xtrngpsx.h</label>
+        <link refid="xtrngpsx_8h"/>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Constant definitions for parameters used for Health and KAT tests</header>
+      <memberdef kind="define" id="group__trngpsx__api_1gaab24ba681f298c15064c277757f8c7c5" prot="public" static="no">
+        <name>XTRNGPSX_KAT_DEFAULT_DF_lENGTH</name>
+        <initializer>7U</initializer>
+        <briefdescription>
+<para>Constant definitions for Health and KAT tests. </para>        </briefdescription>
+        <detaileddescription>
+<para>DF length </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" bodystart="43" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga96822ba4d9b936cb95d8190ffd3095f0" compoundref="xtrngpsx__tests_8c" startline="68" endline="164">XTrngpsx_DRBGKat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga18bacb2c9611d69bff3d8faeb800a345" prot="public" static="no">
+        <name>XTRNGPSX_KAT_DEFAULT_SEED_LIFE</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+<para>Seed life. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" bodystart="44" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga96822ba4d9b936cb95d8190ffd3095f0" compoundref="xtrngpsx__tests_8c" startline="68" endline="164">XTrngpsx_DRBGKat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__trngpsx__api_1ga731ef8ad5a39bb107502c64ec57f5f00" prot="public" static="no">
+        <name>XTRNGPSX_KAT_SEED_LEN_IN_BYTES</name>
+        <initializer>128U</initializer>
+        <briefdescription>
+<para>Seed length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" bodystart="45" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga96822ba4d9b936cb95d8190ffd3095f0" compoundref="xtrngpsx__tests_8c" startline="68" endline="164">XTrngpsx_DRBGKat</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__trngpsx__api_1ga96822ba4d9b936cb95d8190ffd3095f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XTrngpsx_DRBGKat</definition>
+        <argsstring>(XTrngpsx_Instance *InstancePtr)</argsstring>
+        <name>XTrngpsx_DRBGKat</name>
+        <param>
+          <type><ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function runs DRBG self test i.e DRBG full cycle Instantiate+Reseed, Reseed and Generate. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>Error Code On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" bodystart="68" bodyend="164"/>
+        <references refid="struct_x_trngpsx___user_config_1ae795125d60d3a1f3854b8ea7d5c8be86" compoundref="xtrngpsx_8h" startline="93">XTrngpsx_UserConfig::DFLength</references>
+        <references refid="struct_x_trngpsx___user_config_1ac035b7ac282ed5d91d933a9a37b94dd9" compoundref="xtrngpsx_8h" startline="95">XTrngpsx_UserConfig::IsBlocking</references>
+        <references refid="struct_x_trngpsx___user_config_1a64c4d3affe039dabf29ab3bfe92d7938" compoundref="xtrngpsx_8h" startline="89">XTrngpsx_UserConfig::Mode</references>
+        <references refid="struct_x_trngpsx___user_config_1a1ad720d71f169d0dba2f4457c0e4f872" compoundref="xtrngpsx_8h" startline="90">XTrngpsx_UserConfig::SeedLife</references>
+        <references refid="group__trngpsx__api_1gga1b63c27259b3c8679b9f7a7018375276a0adbbd4805a7a56d9912f8a9cf57aff4" compoundref="xtrngpsx_8h" startline="72">XTRNGPSX_DRNG_MODE</references>
+        <references refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</references>
+        <references refid="group__trngpsx__api_1ga68da9a334ae46bbed63a36ae6a273745" compoundref="xtrngpsx_8c" startline="398" endline="523">XTrngpsx_Instantiate</references>
+        <references refid="group__trngpsx__api_1gaab24ba681f298c15064c277757f8c7c5" compoundref="xtrngpsx__tests_8c" startline="43">XTRNGPSX_KAT_DEFAULT_DF_lENGTH</references>
+        <references refid="group__trngpsx__api_1ga18bacb2c9611d69bff3d8faeb800a345" compoundref="xtrngpsx__tests_8c" startline="44">XTRNGPSX_KAT_DEFAULT_SEED_LIFE</references>
+        <references refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a16fc12b7986ebaee8fe81ae27042988a" compoundref="xtrngpsx_8h" startline="157">XTRNGPSX_KAT_FAILED_ERROR</references>
+        <references refid="group__trngpsx__api_1ga731ef8ad5a39bb107502c64ec57f5f00" compoundref="xtrngpsx__tests_8c" startline="45">XTRNGPSX_KAT_SEED_LEN_IN_BYTES</references>
+        <references refid="group__trngpsx__api_1ga3257b88a565d4f7b0fa135f5c24f7fde" compoundref="xtrngpsx_8h" startline="49">XTRNGPSX_PERS_STRING_LEN_IN_BYTES</references>
+        <references refid="group__trngpsx__api_1ga27d626b65acc3b1e97573f4c2d2ee8e1" compoundref="xtrngpsx_8c" startline="549" endline="600">XTrngpsx_Reseed</references>
+        <references refid="group__trngpsx__api_1ga6633fc0a90497ef7a28b75e708053d77" compoundref="xtrngpsx_8h" startline="50">XTRNGPSX_SEC_STRENGTH_IN_BYTES</references>
+        <references refid="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" compoundref="xtrngpsx_8c" startline="753" endline="784">XTrngpsx_Uninstantiate</references>
+        <referencedby refid="group__trngpsx__api_1gaecce7c23f64a684ac613d6c36ae708cb" compoundref="xtrngpsx__tests_8c" startline="212" endline="230">XTrngpsx_PreOperationalSelfTests</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1ga9b57a3574f76fbaf1edac0255b95373e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XTrngpsx_HealthTest</definition>
+        <argsstring>(XTrngpsx_Instance *InstancePtr)</argsstring>
+        <name>XTrngpsx_HealthTest</name>
+        <param>
+          <type><ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function runs health tests. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>Error Code On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" bodystart="178" bodyend="198"/>
+        <references refid="struct_x_trngpsx___user_config_1ae55baa3e0c90545ee6ad97a887f375c4" compoundref="xtrngpsx_8h" startline="91">XTrngpsx_UserConfig::AdaptPropTestCutoff</references>
+        <references refid="struct_x_trngpsx___user_config_1ae795125d60d3a1f3854b8ea7d5c8be86" compoundref="xtrngpsx_8h" startline="93">XTrngpsx_UserConfig::DFLength</references>
+        <references refid="struct_x_trngpsx___user_config_1ac035b7ac282ed5d91d933a9a37b94dd9" compoundref="xtrngpsx_8h" startline="95">XTrngpsx_UserConfig::IsBlocking</references>
+        <references refid="struct_x_trngpsx___user_config_1a64c4d3affe039dabf29ab3bfe92d7938" compoundref="xtrngpsx_8h" startline="89">XTrngpsx_UserConfig::Mode</references>
+        <references refid="struct_x_trngpsx___user_config_1a9421e3a61e8bcdf807ba51f61517513b" compoundref="xtrngpsx_8h" startline="92">XTrngpsx_UserConfig::RepCountTestCutoff</references>
+        <references refid="struct_x_trngpsx___user_config_1a1ad720d71f169d0dba2f4457c0e4f872" compoundref="xtrngpsx_8h" startline="90">XTrngpsx_UserConfig::SeedLife</references>
+        <references refid="group__trngpsx__api_1gga1b63c27259b3c8679b9f7a7018375276ae982b26bd4c7f35518c14f88b7ce5ba7" compoundref="xtrngpsx_8h" startline="74">XTRNGPSX_HRNG_MODE</references>
+        <references refid="group__trngpsx__api_1ga68da9a334ae46bbed63a36ae6a273745" compoundref="xtrngpsx_8c" startline="398" endline="523">XTrngpsx_Instantiate</references>
+        <references refid="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" compoundref="xtrngpsx_8c" startline="753" endline="784">XTrngpsx_Uninstantiate</references>
+        <references refid="group__trngpsx__api_1gafbb555572f5c0cad2a73379b1aca4eaf" compoundref="xtrngpsx_8h" startline="61">XTRNGPSX_USER_CFG_ADAPT_TEST_CUTOFF</references>
+        <references refid="group__trngpsx__api_1gafbbe7ca8d2cfa78d527632a011d6e233" compoundref="xtrngpsx_8h" startline="57">XTRNGPSX_USER_CFG_DF_LENGTH</references>
+        <references refid="group__trngpsx__api_1ga823d53c1fbdbe9fe6446be697c506f0c" compoundref="xtrngpsx_8h" startline="65">XTRNGPSX_USER_CFG_REP_TEST_CUTOFF</references>
+        <references refid="group__trngpsx__api_1ga8a7c9b3542de85ba6563a79f4e3e123c" compoundref="xtrngpsx_8h" startline="53">XTRNGPSX_USER_CFG_SEED_LIFE</references>
+        <referencedby refid="group__trngpsx__api_1gaecce7c23f64a684ac613d6c36ae708cb" compoundref="xtrngpsx__tests_8c" startline="212" endline="230">XTrngpsx_PreOperationalSelfTests</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__trngpsx__api_1gaecce7c23f64a684ac613d6c36ae708cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XTrngpsx_PreOperationalSelfTests</definition>
+        <argsstring>(XTrngpsx_Instance *InstancePtr)</argsstring>
+        <name>XTrngpsx_PreOperationalSelfTests</name>
+        <param>
+          <type><ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function runs preoperational self tests and updates TRNG error state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>Error Code On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Reset the TRNG state </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c" bodystart="212" bodyend="230"/>
+        <references refid="group__trngpsx__api_1ga96822ba4d9b936cb95d8190ffd3095f0" compoundref="xtrngpsx__tests_8c" startline="68" endline="164">XTrngpsx_DRBGKat</references>
+        <references refid="group__trngpsx__api_1ga9b57a3574f76fbaf1edac0255b95373e" compoundref="xtrngpsx__tests_8c" startline="178" endline="198">XTrngpsx_HealthTest</references>
+        <references refid="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" compoundref="xtrngpsx_8c" startline="753" endline="784">XTrngpsx_Uninstantiate</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xtrngpsx_8h" kindref="compound">xtrngpsx.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_sutil.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight></codeline>
+<codeline lineno="43" refid="group__trngpsx__api_1gaab24ba681f298c15064c277757f8c7c5" refkind="member"><highlight class="preprocessor">#define<sp/>XTRNGPSX_KAT_DEFAULT_DF_lENGTH<sp/><sp/>7U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="44" refid="group__trngpsx__api_1ga18bacb2c9611d69bff3d8faeb800a345" refkind="member"><highlight class="preprocessor">#define<sp/>XTRNGPSX_KAT_DEFAULT_SEED_LIFE<sp/><sp/>2U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="45" refid="group__trngpsx__api_1ga731ef8ad5a39bb107502c64ec57f5f00" refkind="member"><highlight class="preprocessor">#define<sp/>XTRNGPSX_KAT_SEED_LEN_IN_BYTES<sp/><sp/>128U<sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="68" refid="group__trngpsx__api_1ga96822ba4d9b936cb95d8190ffd3095f0" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__trngpsx__api_1ga96822ba4d9b936cb95d8190ffd3095f0" kindref="member">XTrngpsx_DRBGKat</ref>(<ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_trngpsx___user_config" kindref="compound">XTrngpsx_UserConfig</ref><sp/>UsrCfg;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>RandBuf[<ref refid="group__trngpsx__api_1ga6633fc0a90497ef7a28b75e708053d77" kindref="member">XTRNGPSX_SEC_STRENGTH_IN_BYTES</ref>];</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>ExtSeed[<ref refid="group__trngpsx__api_1ga731ef8ad5a39bb107502c64ec57f5f00" kindref="member">XTRNGPSX_KAT_SEED_LEN_IN_BYTES</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3BU,<sp/>0xC3U,<sp/>0xEDU,<sp/>0x64U,<sp/>0xF4U,<sp/>0x80U,<sp/>0x1CU,<sp/>0xC7U,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x14U,<sp/>0xCCU,<sp/>0x35U,<sp/>0xEDU,<sp/>0x57U,<sp/>0x01U,<sp/>0x2AU,<sp/>0xE4U,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xBCU,<sp/>0xEFU,<sp/>0xDEU,<sp/>0xF6U,<sp/>0x7CU,<sp/>0x46U,<sp/>0xA6U,<sp/>0x34U,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xC6U,<sp/>0x79U,<sp/>0xE8U,<sp/>0x91U,<sp/>0x5DU,<sp/>0xB1U,<sp/>0xDBU,<sp/>0xA7U,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x49U,<sp/>0xA5U,<sp/>0xBBU,<sp/>0x4FU,<sp/>0xEDU,<sp/>0x30U,<sp/>0xB3U,<sp/>0x7BU,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xA9U,<sp/>0x8BU,<sp/>0xF5U,<sp/>0x56U,<sp/>0x4DU,<sp/>0x40U,<sp/>0x18U,<sp/>0x9FU,</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x66U,<sp/>0x4EU,<sp/>0x39U,<sp/>0xC0U,<sp/>0x60U,<sp/>0xC8U,<sp/>0x8EU,<sp/>0xF4U,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1CU,<sp/>0xB9U,<sp/>0x9DU,<sp/>0x7BU,<sp/>0x97U,<sp/>0x8BU,<sp/>0x69U,<sp/>0x62U,</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x45U,<sp/>0x0CU,<sp/>0xD4U,<sp/>0x85U,<sp/>0xFCU,<sp/>0xDCU,<sp/>0x5AU,<sp/>0x2BU,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFDU,<sp/>0xABU,<sp/>0x92U,<sp/>0x4AU,<sp/>0x12U,<sp/>0x52U,<sp/>0x7DU,<sp/>0x45U,</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xD2U,<sp/>0x61U,<sp/>0x0AU,<sp/>0x06U,<sp/>0x74U,<sp/>0xA7U,<sp/>0x88U,<sp/>0x36U,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4BU,<sp/>0xA2U,<sp/>0x65U,<sp/>0xEEU,<sp/>0x71U,<sp/>0x0BU,<sp/>0x5AU,<sp/>0x4EU,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x33U,<sp/>0xB2U,<sp/>0x7AU,<sp/>0x2EU,<sp/>0xC0U,<sp/>0xA6U,<sp/>0xF2U,<sp/>0x7DU,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xBDU,<sp/>0x7DU,<sp/>0xDFU,<sp/>0x07U,<sp/>0xBBU,<sp/>0xE2U,<sp/>0x86U,<sp/>0xFFU,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF0U,<sp/>0x8EU,<sp/>0xA4U,<sp/>0xB1U,<sp/>0x46U,<sp/>0xDBU,<sp/>0xF7U,<sp/>0x8CU,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3CU,<sp/>0x62U,<sp/>0x4DU,<sp/>0xF0U,<sp/>0x51U,<sp/>0x50U,<sp/>0xE7U,<sp/>0x85U</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>ReseedEntropy[<ref refid="group__trngpsx__api_1ga731ef8ad5a39bb107502c64ec57f5f00" kindref="member">XTRNGPSX_KAT_SEED_LEN_IN_BYTES</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xDFU,<sp/>0x5EU,<sp/>0x4DU,<sp/>0x4FU,<sp/>0x38U,<sp/>0x9EU,<sp/>0x2AU,<sp/>0x3EU,</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF2U,<sp/>0xABU,<sp/>0x46U,<sp/>0xE3U,<sp/>0xA0U,<sp/>0x26U,<sp/>0x77U,<sp/>0x84U,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0BU,<sp/>0x9DU,<sp/>0x29U,<sp/>0xB0U,<sp/>0x5DU,<sp/>0xCEU,<sp/>0xC8U,<sp/>0xC3U,</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF9U,<sp/>0x4DU,<sp/>0x32U,<sp/>0xF7U,<sp/>0xBAU,<sp/>0x6FU,<sp/>0xA3U,<sp/>0xB5U,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x35U,<sp/>0xCBU,<sp/>0xC7U,<sp/>0x5CU,<sp/>0x62U,<sp/>0x48U,<sp/>0x01U,<sp/>0x65U,</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3AU,<sp/>0xAAU,<sp/>0x34U,<sp/>0x2DU,<sp/>0x89U,<sp/>0x6EU,<sp/>0xEFU,<sp/>0x6FU,</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x69U,<sp/>0x96U,<sp/>0xE7U,<sp/>0x84U,<sp/>0xDAU,<sp/>0xEFU,<sp/>0x4EU,<sp/>0xBEU,</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x27U,<sp/>0x4EU,<sp/>0x9FU,<sp/>0x88U,<sp/>0xB1U,<sp/>0xA0U,<sp/>0x7FU,<sp/>0x83U,</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xDBU,<sp/>0x4AU,<sp/>0xA9U,<sp/>0x42U,<sp/>0x01U,<sp/>0xF1U,<sp/>0x84U,<sp/>0x71U,</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xA9U,<sp/>0xEFU,<sp/>0xB9U,<sp/>0xE8U,<sp/>0x7FU,<sp/>0x81U,<sp/>0xC7U,<sp/>0xC1U,</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x6CU,<sp/>0x5EU,<sp/>0xACU,<sp/>0x00U,<sp/>0x47U,<sp/>0x34U,<sp/>0xA1U,<sp/>0x75U,</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xC0U,<sp/>0xE8U,<sp/>0x7FU,<sp/>0x48U,<sp/>0x00U,<sp/>0x45U,<sp/>0xC9U,<sp/>0xE9U,</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x41U,<sp/>0xE3U,<sp/>0x8DU,<sp/>0xD8U,<sp/>0x4AU,<sp/>0x63U,<sp/>0xC4U,<sp/>0x94U,</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x77U,<sp/>0x59U,<sp/>0xD9U,<sp/>0x50U,<sp/>0x2AU,<sp/>0x1DU,<sp/>0x4CU,<sp/>0x47U,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x64U,<sp/>0xA6U,<sp/>0x66U,<sp/>0x60U,<sp/>0x16U,<sp/>0xE7U,<sp/>0x29U,<sp/>0xC0U,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xB1U,<sp/>0xCFU,<sp/>0x3BU,<sp/>0x3FU,<sp/>0x54U,<sp/>0x49U,<sp/>0x31U,<sp/>0xD4U</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>PersString[<ref refid="group__trngpsx__api_1ga3257b88a565d4f7b0fa135f5c24f7fde" kindref="member">XTRNGPSX_PERS_STRING_LEN_IN_BYTES</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xB2U,<sp/>0x80U,<sp/>0x7EU,<sp/>0x4CU,<sp/>0xD0U,<sp/>0xE4U,<sp/>0xE2U,<sp/>0xA9U,</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2FU,<sp/>0x1FU,<sp/>0x5DU,<sp/>0xC1U,<sp/>0xA2U,<sp/>0x1FU,<sp/>0x40U,<sp/>0xFCU,</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1FU,<sp/>0x24U,<sp/>0x5DU,<sp/>0x42U,<sp/>0x61U,<sp/>0x80U,<sp/>0xE6U,<sp/>0xE9U,</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x71U,<sp/>0x05U,<sp/>0x17U,<sp/>0x5BU,<sp/>0xAFU,<sp/>0x70U,<sp/>0x30U,<sp/>0x18U,</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xBCU,<sp/>0x23U,<sp/>0x18U,<sp/>0x15U,<sp/>0xCBU,<sp/>0xB8U,<sp/>0xA6U,<sp/>0x3EU,</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x83U,<sp/>0xB8U,<sp/>0x4AU,<sp/>0xFEU,<sp/>0x38U,<sp/>0xFCU,<sp/>0x25U,<sp/>0x87U</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>ExpectedOutput[<ref refid="group__trngpsx__api_1ga6633fc0a90497ef7a28b75e708053d77" kindref="member">XTRNGPSX_SEC_STRENGTH_IN_BYTES</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xEEU,<sp/>0xA7U,<sp/>0x5BU,<sp/>0xB6U,<sp/>0x2BU,<sp/>0x97U,<sp/>0xF0U,<sp/>0xC0U,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0FU,<sp/>0xD6U,<sp/>0xABU,<sp/>0x13U,<sp/>0x00U,<sp/>0x87U,<sp/>0x7EU,<sp/>0xF4U,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00U,<sp/>0x7FU,<sp/>0xD7U,<sp/>0x56U,<sp/>0xFEU,<sp/>0xE5U,<sp/>0xDFU,<sp/>0xA6U,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x55U,<sp/>0x5BU,<sp/>0xB2U,<sp/>0x86U,<sp/>0xDDU,<sp/>0x81U,<sp/>0x73U,<sp/>0xB2U</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SMemSet(&amp;UsrCfg,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_trngpsx___user_config" kindref="compound">XTrngpsx_UserConfig</ref>),<sp/>0U,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_trngpsx___user_config" kindref="compound">XTrngpsx_UserConfig</ref>));</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsrCfg.<ref refid="struct_x_trngpsx___user_config_1ae795125d60d3a1f3854b8ea7d5c8be86" kindref="member">DFLength</ref><sp/>=<sp/><ref refid="group__trngpsx__api_1gaab24ba681f298c15064c277757f8c7c5" kindref="member">XTRNGPSX_KAT_DEFAULT_DF_lENGTH</ref>;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsrCfg.<ref refid="struct_x_trngpsx___user_config_1a64c4d3affe039dabf29ab3bfe92d7938" kindref="member">Mode</ref><sp/>=<sp/><ref refid="group__trngpsx__api_1gga1b63c27259b3c8679b9f7a7018375276a0adbbd4805a7a56d9912f8a9cf57aff4" kindref="member">XTRNGPSX_DRNG_MODE</ref>;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsrCfg.<ref refid="struct_x_trngpsx___user_config_1a1ad720d71f169d0dba2f4457c0e4f872" kindref="member">SeedLife</ref><sp/>=<sp/><ref refid="group__trngpsx__api_1ga18bacb2c9611d69bff3d8faeb800a345" kindref="member">XTRNGPSX_KAT_DEFAULT_SEED_LIFE</ref>;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsrCfg.<ref refid="struct_x_trngpsx___user_config_1ac035b7ac282ed5d91d933a9a37b94dd9" kindref="member">IsBlocking</ref><sp/>=<sp/>FALSE;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__trngpsx__api_1ga68da9a334ae46bbed63a36ae6a273745" kindref="member">XTrngpsx_Instantiate</ref>(InstancePtr,<sp/>ExtSeed,<sp/><ref refid="group__trngpsx__api_1ga731ef8ad5a39bb107502c64ec57f5f00" kindref="member">XTRNGPSX_KAT_SEED_LEN_IN_BYTES</ref>,<sp/>PersString,</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;UsrCfg);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__trngpsx__api_1ga27d626b65acc3b1e97573f4c2d2ee8e1" kindref="member">XTrngpsx_Reseed</ref>(InstancePtr,<sp/>ReseedEntropy,<sp/><ref refid="group__trngpsx__api_1gaab24ba681f298c15064c277757f8c7c5" kindref="member">XTRNGPSX_KAT_DEFAULT_DF_lENGTH</ref>);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" kindref="member">XTrngpsx_Generate</ref>(InstancePtr,<sp/>RandBuf,<sp/><ref refid="group__trngpsx__api_1ga6633fc0a90497ef7a28b75e708053d77" kindref="member">XTRNGPSX_SEC_STRENGTH_IN_BYTES</ref>,<sp/>FALSE);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SMemCmp(ExpectedOutput,<sp/><ref refid="group__trngpsx__api_1ga6633fc0a90497ef7a28b75e708053d77" kindref="member">XTRNGPSX_SEC_STRENGTH_IN_BYTES</ref>,<sp/>RandBuf,<sp/><ref refid="group__trngpsx__api_1ga6633fc0a90497ef7a28b75e708053d77" kindref="member">XTRNGPSX_SEC_STRENGTH_IN_BYTES</ref>,</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__trngpsx__api_1ga6633fc0a90497ef7a28b75e708053d77" kindref="member">XTRNGPSX_SEC_STRENGTH_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__trngpsx__api_1gga2d0ae14b9bbf4f302c87faaa43cb8a79a16fc12b7986ebaee8fe81ae27042988a" kindref="member">XTRNGPSX_KAT_FAILED_ERROR</ref>;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" kindref="member">XTrngpsx_Uninstantiate</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="178" refid="group__trngpsx__api_1ga9b57a3574f76fbaf1edac0255b95373e" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__trngpsx__api_1ga9b57a3574f76fbaf1edac0255b95373e" kindref="member">XTrngpsx_HealthTest</ref>(<ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_trngpsx___user_config" kindref="compound">XTrngpsx_UserConfig</ref><sp/>UsrCfg;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsrCfg.<ref refid="struct_x_trngpsx___user_config_1a64c4d3affe039dabf29ab3bfe92d7938" kindref="member">Mode</ref><sp/>=<sp/><ref refid="group__trngpsx__api_1gga1b63c27259b3c8679b9f7a7018375276ae982b26bd4c7f35518c14f88b7ce5ba7" kindref="member">XTRNGPSX_HRNG_MODE</ref>;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsrCfg.<ref refid="struct_x_trngpsx___user_config_1ae55baa3e0c90545ee6ad97a887f375c4" kindref="member">AdaptPropTestCutoff</ref><sp/>=<sp/><ref refid="group__trngpsx__api_1gafbb555572f5c0cad2a73379b1aca4eaf" kindref="member">XTRNGPSX_USER_CFG_ADAPT_TEST_CUTOFF</ref>;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsrCfg.<ref refid="struct_x_trngpsx___user_config_1a9421e3a61e8bcdf807ba51f61517513b" kindref="member">RepCountTestCutoff</ref><sp/>=<sp/><ref refid="group__trngpsx__api_1ga823d53c1fbdbe9fe6446be697c506f0c" kindref="member">XTRNGPSX_USER_CFG_REP_TEST_CUTOFF</ref>;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsrCfg.<ref refid="struct_x_trngpsx___user_config_1ae795125d60d3a1f3854b8ea7d5c8be86" kindref="member">DFLength</ref><sp/>=<sp/><ref refid="group__trngpsx__api_1gafbbe7ca8d2cfa78d527632a011d6e233" kindref="member">XTRNGPSX_USER_CFG_DF_LENGTH</ref>;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsrCfg.<ref refid="struct_x_trngpsx___user_config_1a1ad720d71f169d0dba2f4457c0e4f872" kindref="member">SeedLife</ref><sp/>=<sp/><ref refid="group__trngpsx__api_1ga8a7c9b3542de85ba6563a79f4e3e123c" kindref="member">XTRNGPSX_USER_CFG_SEED_LIFE</ref>;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsrCfg.<ref refid="struct_x_trngpsx___user_config_1ac035b7ac282ed5d91d933a9a37b94dd9" kindref="member">IsBlocking</ref><sp/>=<sp/>TRUE;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__trngpsx__api_1ga68da9a334ae46bbed63a36ae6a273745" kindref="member">XTrngpsx_Instantiate</ref>(InstancePtr,<sp/>NULL,<sp/>0U,<sp/>NULL,<sp/>&amp;UsrCfg);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" kindref="member">XTrngpsx_Uninstantiate</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="212" refid="group__trngpsx__api_1gaecce7c23f64a684ac613d6c36ae708cb" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__trngpsx__api_1gaecce7c23f64a684ac613d6c36ae708cb" kindref="member">XTrngpsx_PreOperationalSelfTests</ref>(<ref refid="struct_x_trngpsx___instance" kindref="compound">XTrngpsx_Instance</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" kindref="member">XTrngpsx_Uninstantiate</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__trngpsx__api_1ga96822ba4d9b936cb95d8190ffd3095f0" kindref="member">XTrngpsx_DRBGKat</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__trngpsx__api_1ga9b57a3574f76fbaf1edac0255b95373e" kindref="member">XTrngpsx_HealthTest</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_tests.c"/>
+  </compounddef>
+</doxygen>

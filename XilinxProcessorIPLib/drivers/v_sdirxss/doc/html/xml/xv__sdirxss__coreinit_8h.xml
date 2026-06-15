@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__sdirxss__coreinit_8h" kind="file">
+    <compoundname>xv_sdirxss_coreinit.h</compoundname>
+    <includes refid="xv__sdirxss_8h" local="yes">xv_sdirxss.h</includes>
+    <includedby refid="xv__sdirxss_8c" local="yes">xv_sdirxss.c</includedby>
+    <includedby refid="xv__sdirxss__coreinit_8c" local="yes">xv_sdirxss_coreinit.c</includedby>
+    <incdepgraph>
+      <node id="804">
+        <label>xv_sdivid.h</label>
+      </node>
+      <node id="802">
+        <label>xv_sdirxss.h</label>
+        <link refid="xv__sdirxss_8h"/>
+        <childnode refid="803" relation="include">
+        </childnode>
+        <childnode refid="804" relation="include">
+        </childnode>
+        <childnode refid="805" relation="include">
+        </childnode>
+        <childnode refid="806" relation="include">
+        </childnode>
+      </node>
+      <node id="806">
+        <label>xv_sdirx.h</label>
+      </node>
+      <node id="801">
+        <label>xv_sdirxss_coreinit.h</label>
+        <link refid="xv_sdirxss_coreinit.h"/>
+        <childnode refid="802" relation="include">
+        </childnode>
+      </node>
+      <node id="803">
+        <label>xstatus.h</label>
+      </node>
+      <node id="805">
+        <label>xvidc.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="808">
+        <label>xv_sdirxss.c</label>
+        <link refid="xv__sdirxss_8c"/>
+      </node>
+      <node id="809">
+        <label>xv_sdirxss_coreinit.c</label>
+        <link refid="xv__sdirxss__coreinit_8c"/>
+      </node>
+      <node id="807">
+        <label>xv_sdirxss_coreinit.h</label>
+        <link refid="xv_sdirxss_coreinit.h"/>
+        <childnode refid="808" relation="include">
+        </childnode>
+        <childnode refid="809" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__v__sdirxss_1ga933762ca8bd842e98d6de33b988fcd20" prot="public" static="no">
+        <name>XV_SDIRXSS_COREINIT_H__</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_coreinit.h" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_coreinit.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__v__sdirxss_1ga8acb662b4cdd74817ee6b48f166f3e25" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_SdiRxSs_SubcoreInitSdiRx</definition>
+        <argsstring>(XV_SdiRxSs *SdiRxSsPtr)</argsstring>
+        <name>XV_SdiRxSs_SubcoreInitSdiRx</name>
+        <param>
+          <type><ref refid="struct_x_v___sdi_rx_ss" kindref="compound">XV_SdiRxSs</ref> *</type>
+          <declname>SdiRxSsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the included sub-core to it&apos;s static configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SdiRxSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS/XST_FAILURE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_coreinit.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_coreinit.c" bodystart="51" bodyend="87"/>
+        <references refid="struct_x_v___sdi_rx_ss___sub_core_1a9f70e8bf6414426919b91556c034c334" compoundref="xv__sdirxss_8h" startline="124">XV_SdiRxSs_SubCore::AbsAddr</references>
+        <references refid="struct_x_v___sdi_rx_ss_1a881d8188fa81829cfb38a44aea36e7a1" compoundref="xv__sdirxss_8h" startline="169">XV_SdiRxSs::Config</references>
+        <references refid="struct_x_v___sdi_rx_ss___config_1a778de600283189203c525664695ca373" compoundref="xv__sdirxss_8h" startline="143">XV_SdiRxSs_Config::SdiRx</references>
+        <references refid="struct_x_v___sdi_rx_ss_1ae3d8d6ae92334dc0e542d1af1f8d9a3e" compoundref="xv__sdirxss_8h" startline="172">XV_SdiRxSs::SdiRxPtr</references>
+        <references refid="xv__sdirxss_8h_1ade9ffd7c4cd3343a53668c77788e00baab255967dc5490db2cd7f57f778aec61e" compoundref="xv__sdirxss_8h" startline="76">XV_SDIRXSS_LOG_EVT_SDIRX_INIT</references>
+        <references refid="xv__sdirxss_8h_1a4ec835467423d601222535543e1ffedf" compoundref="xv__sdirxss__log_8c" startline="61" endline="93">XV_SdiRxSs_LogWrite</references>
+        <referencedby refid="xv__sdirxss_8h_1a43a9c2aa8bc176afeaa71534eb0e8304" compoundref="xv__sdirxss_8c" startline="200" endline="237">XV_SdiRxSs_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor">#ifndef<sp/>XV_SDIRXSS_COREINIT_H__<sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_SDIRXSS_COREINIT_H__<sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__sdirxss_8h" kindref="compound">xv_sdirxss.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__sdirxss_1ga8acb662b4cdd74817ee6b48f166f3e25" kindref="member">XV_SdiRxSs_SubcoreInitSdiRx</ref>(<ref refid="struct_x_v___sdi_rx_ss" kindref="compound">XV_SdiRxSs</ref><sp/>*SdiRxSsPtr);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss_coreinit.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_c39b2003de06e91e8cfc6ce795651192" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xaxipcie__ep__cdma__example_8c">xaxipcie_ep_cdma_example.c</innerfile>
+    <innerfile refid="xaxipcie__ep__enable__example_8c">xaxipcie_ep_enable_example.c</innerfile>
+    <innerfile refid="xaxipcie__rc__cdma__example_8c">xaxipcie_rc_cdma_example.c</innerfile>
+    <innerfile refid="xaxipcie__rc__enumerate__example_8c">xaxipcie_rc_enumerate_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/examples/"/>
+  </compounddef>
+</doxygen>

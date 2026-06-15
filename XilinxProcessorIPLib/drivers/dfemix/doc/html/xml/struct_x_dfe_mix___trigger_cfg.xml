@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_mix___trigger_cfg" kind="struct" prot="public">
+    <compoundname>XDfeMix_TriggerCfg</compoundname>
+    <includes local="no">xdfemix.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_mix___trigger_cfg_1a43fff3e50b5af64abfaa006ba3f0c5b2" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_mix___trigger" kindref="compound">XDfeMix_Trigger</ref></type>
+        <definition>XDfeMix_Trigger XDfeMix_TriggerCfg::Activate</definition>
+        <argsstring></argsstring>
+        <name>Activate</name>
+        <briefdescription>
+<para><verbatim>                   Switch between &quot;Initialized&quot;,
+</verbatim> ultra-low power state, and &quot;Operational&quot;. </para>        </briefdescription>
+        <detaileddescription>
+<para>One-shot trigger, disabled following a single event. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="261" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga1061d48f6c831d81557dff815fc7ff1f" compoundref="xdfemix__pass__through__example_8c" startline="66" endline="178">XDfeMix_AddCCExample</referencedby>
+        <referencedby refid="group__dfemix_1gace396f6630605798c654ddbff69c75ba" compoundref="xdfemix_8c" startline="3211" endline="3299">XDfeMix_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfemix_1gad11616c20803424abe6edac0f5f4a900" compoundref="xdfemix__multi_add_c_c__pass__through__example_8c" startline="68" endline="205">XDfeMix_MultiAddCCExample</referencedby>
+        <referencedby refid="group__dfemix_1ga5a9e206d3191e92986737d8e2b0b8625" compoundref="xdfemix_8c" startline="3311" endline="3428">XDfeMix_SetTriggersCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___trigger_cfg_1a30ba18109cde8cd042e46b346adf453d" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_mix___trigger" kindref="compound">XDfeMix_Trigger</ref></type>
+        <definition>XDfeMix_Trigger XDfeMix_TriggerCfg::LowPower</definition>
+        <argsstring></argsstring>
+        <name>LowPower</name>
+        <briefdescription>
+<para><verbatim>                   Switch between &quot;Low-power&quot;
+</verbatim> and &quot;Operational&quot; state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="264" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1gace396f6630605798c654ddbff69c75ba" compoundref="xdfemix_8c" startline="3211" endline="3299">XDfeMix_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfemix_1ga5a9e206d3191e92986737d8e2b0b8625" compoundref="xdfemix_8c" startline="3311" endline="3428">XDfeMix_SetTriggersCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___trigger_cfg_1a36783b89190c2726bb32a6035dbc71dc" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_mix___trigger" kindref="compound">XDfeMix_Trigger</ref></type>
+        <definition>XDfeMix_Trigger XDfeMix_TriggerCfg::CCUpdate</definition>
+        <argsstring></argsstring>
+        <name>CCUpdate</name>
+        <briefdescription>
+<para><verbatim>                   Transition to next CC
+</verbatim> configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para>Will initiate flush based on CC configuration. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="266" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga1061d48f6c831d81557dff815fc7ff1f" compoundref="xdfemix__pass__through__example_8c" startline="66" endline="178">XDfeMix_AddCCExample</referencedby>
+        <referencedby refid="group__dfemix_1gace396f6630605798c654ddbff69c75ba" compoundref="xdfemix_8c" startline="3211" endline="3299">XDfeMix_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfemix_1gad11616c20803424abe6edac0f5f4a900" compoundref="xdfemix__multi_add_c_c__pass__through__example_8c" startline="68" endline="205">XDfeMix_MultiAddCCExample</referencedby>
+        <referencedby refid="group__dfemix_1ga5a9e206d3191e92986737d8e2b0b8625" compoundref="xdfemix_8c" startline="3311" endline="3428">XDfeMix_SetTriggersCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___trigger_cfg_1ab1cd788fc706f64f29e27c1362976078" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_mix___trigger" kindref="compound">XDfeMix_Trigger</ref></type>
+        <definition>XDfeMix_Trigger XDfeMix_TriggerCfg::Switch</definition>
+        <argsstring></argsstring>
+        <name>Switch</name>
+        <briefdescription>
+<para><verbatim>                 Switch between Downlink and Uplink
+</verbatim> configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para>Will initiate flush based on CC configuration. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="268" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1gace396f6630605798c654ddbff69c75ba" compoundref="xdfemix_8c" startline="3211" endline="3299">XDfeMix_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfemix_1ga5a9e206d3191e92986737d8e2b0b8625" compoundref="xdfemix_8c" startline="3311" endline="3428">XDfeMix_SetTriggersCfg</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>All IP triggers. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="59">
+        <label>XDfeMix_Trigger</label>
+        <link refid="struct_x_dfe_mix___trigger"/>
+      </node>
+      <node id="58">
+        <label>XDfeMix_TriggerCfg</label>
+        <link refid="struct_x_dfe_mix___trigger_cfg"/>
+        <childnode refid="59" relation="usage">
+          <edgelabel>Switch</edgelabel>
+          <edgelabel>LowPower</edgelabel>
+          <edgelabel>Activate</edgelabel>
+          <edgelabel>CCUpdate</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="260" bodyend="270"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_mix___trigger_cfg_1a43fff3e50b5af64abfaa006ba3f0c5b2" prot="public" virt="non-virtual"><scope>XDfeMix_TriggerCfg</scope><name>Activate</name></member>
+      <member refid="struct_x_dfe_mix___trigger_cfg_1a36783b89190c2726bb32a6035dbc71dc" prot="public" virt="non-virtual"><scope>XDfeMix_TriggerCfg</scope><name>CCUpdate</name></member>
+      <member refid="struct_x_dfe_mix___trigger_cfg_1a30ba18109cde8cd042e46b346adf453d" prot="public" virt="non-virtual"><scope>XDfeMix_TriggerCfg</scope><name>LowPower</name></member>
+      <member refid="struct_x_dfe_mix___trigger_cfg_1ab1cd788fc706f64f29e27c1362976078" prot="public" virt="non-virtual"><scope>XDfeMix_TriggerCfg</scope><name>Switch</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

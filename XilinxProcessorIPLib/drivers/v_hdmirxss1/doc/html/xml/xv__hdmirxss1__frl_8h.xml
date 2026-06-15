@@ -1,0 +1,213 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__hdmirxss1__frl_8h" kind="file">
+    <compoundname>xv_hdmirxss1_frl.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includedby refid="xv__hdmirxss1_8h" local="yes">xv_hdmirxss1.h</includedby>
+    <includedby refid="xv__hdmirxss1__frl_8c" local="yes">xv_hdmirxss1_frl.c</includedby>
+    <incdepgraph>
+      <node id="655">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="653">
+        <label>xv_hdmirxss1_frl.h</label>
+        <link refid="xv_hdmirxss1_frl.h"/>
+        <childnode refid="654" relation="include">
+        </childnode>
+        <childnode refid="655" relation="include">
+        </childnode>
+        <childnode refid="656" relation="include">
+        </childnode>
+      </node>
+      <node id="656">
+        <label>xstatus.h</label>
+      </node>
+      <node id="654">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="664">
+        <label>xv_hdmirxss1_hdcp.c</label>
+        <link refid="xv__hdmirxss1__hdcp_8c"/>
+      </node>
+      <node id="666">
+        <label>xv_hdmirxss1_sinit.c</label>
+        <link refid="xv__hdmirxss1__sinit_8c"/>
+      </node>
+      <node id="661">
+        <label>xv_hdmirxss1_coreinit.c</label>
+        <link refid="xv__hdmirxss1__coreinit_8c"/>
+      </node>
+      <node id="660">
+        <label>xv_hdmirxss1_coreinit.h</label>
+        <link refid="xv__hdmirxss1__coreinit_8h"/>
+        <childnode refid="659" relation="include">
+        </childnode>
+        <childnode refid="661" relation="include">
+        </childnode>
+      </node>
+      <node id="663">
+        <label>xv_hdmirxss1_g.c</label>
+      </node>
+      <node id="662">
+        <label>xv_hdmirxss1_frl.c</label>
+        <link refid="xv__hdmirxss1__frl_8c"/>
+      </node>
+      <node id="657">
+        <label>xv_hdmirxss1_frl.h</label>
+        <link refid="xv_hdmirxss1_frl.h"/>
+        <childnode refid="658" relation="include">
+        </childnode>
+        <childnode refid="662" relation="include">
+        </childnode>
+      </node>
+      <node id="659">
+        <label>xv_hdmirxss1.c</label>
+        <link refid="xv__hdmirxss1_8c"/>
+      </node>
+      <node id="658">
+        <label>xv_hdmirxss1.h</label>
+        <link refid="xv__hdmirxss1_8h"/>
+        <childnode refid="659" relation="include">
+        </childnode>
+        <childnode refid="660" relation="include">
+        </childnode>
+        <childnode refid="662" relation="include">
+        </childnode>
+        <childnode refid="663" relation="include">
+        </childnode>
+        <childnode refid="664" relation="include">
+        </childnode>
+        <childnode refid="665" relation="include">
+        </childnode>
+        <childnode refid="666" relation="include">
+        </childnode>
+      </node>
+      <node id="665">
+        <label>xv_hdmirxss1_log.c</label>
+        <link refid="xv__hdmirxss1__log_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xv__hdmirxss1__frl_8h_1a82281451ac36d24073fd292511b47586" prot="public" static="no">
+        <name>HDMIRXSS_FRL_H</name>
+        <briefdescription>
+<para>&lt; prevent circular inclusions by using protection macros </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_frl.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_frl.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xv__hdmirxss1__frl_8h_1acb065e48b80263fcead7cc2b06391f08" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HdmiRxSs1_FrlConfigCallback</definition>
+        <argsstring>(void *CallbackRef)</argsstring>
+        <name>XV_HdmiRxSs1_FrlConfigCallback</name>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_frl.h" line="54" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xv__hdmirxss1__frl_8h_1ae3f70430e6323c8674c87ac97a44bae2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HdmiRxSs1_FrlStartCallback</definition>
+        <argsstring>(void *CallbackRef)</argsstring>
+        <name>XV_HdmiRxSs1_FrlStartCallback</name>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_frl.h" line="55" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xv__hdmirxss1__frl_8h_1add011f95edda7fe781095a43d89484c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HdmiRxSs1_TmdsConfigCallback</definition>
+        <argsstring>(void *CallbackRef)</argsstring>
+        <name>XV_HdmiRxSs1_TmdsConfigCallback</name>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function is called when during FRL link training, it is decided to fallback to the legacy HDMI TMDS mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the callback reference.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_frl.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_frl.c" bodystart="206" bodyend="214"/>
+        <references refid="struct_x_v___hdmi_rx_ss1_1acf69d50ff508fc32360005a369f4b691" compoundref="xv__hdmirxss1_8h" startline="473">XV_HdmiRxSs1::TmdsConfigCallback</references>
+        <references refid="struct_x_v___hdmi_rx_ss1_1acd7b5a4741af92eee50cafa7e55f86d3" compoundref="xv__hdmirxss1_8h" startline="474">XV_HdmiRxSs1::TmdsConfigRef</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is main header file of the Xilinx HDMI RX Subsystem driver. </para>    </briefdescription>
+    <detaileddescription>
+<para><bold>HDMI Transmitter Subsystem Overview</bold></para><para>HDMI RX Subsystem is a collection of IP cores bounded together by software to provide an abstract view of the processing pipe. It hides all the complexities of programming the underlying cores from end user.</para><para><bold>Subsystem Driver Features</bold></para><para>HDMI Subsystem supports following features<itemizedlist>
+<listitem><para>AXI Stream Input/Output interface</para></listitem><listitem><para>1, 2 or 4 pixel-wide video interface</para></listitem><listitem><para>8/10/12/16 bits per component</para></listitem><listitem><para>RGB &amp; YCbCr color space</para></listitem><listitem><para>Up to 4k2k 60Hz resolution at both Input and Output interface</para></listitem><listitem><para>Interlaced input support (1080i 50Hz/60Hz)</para></listitem></itemizedlist>
+</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00  EB   22/05/18 Initial release.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>–<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor">#ifndef<sp/>HDMIRXSS_FRL_H<sp/></highlight></codeline>
+<codeline lineno="39" refid="xv__hdmirxss1__frl_8h_1a82281451ac36d24073fd292511b47586" refkind="member"><highlight class="preprocessor">#define<sp/>HDMIRXSS_FRL_H</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_HdmiRxSs1_FrlConfigCallback(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_HdmiRxSs1_FrlStartCallback(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__hdmirxss1__frl_8c_1add011f95edda7fe781095a43d89484c4" kindref="member">XV_HdmiRxSs1_TmdsConfigCallback</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_frl.h"/>
+  </compounddef>
+</doxygen>

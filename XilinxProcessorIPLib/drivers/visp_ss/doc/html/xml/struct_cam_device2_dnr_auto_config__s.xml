@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device2_dnr_auto_config__s" kind="struct" prot="public">
+    <compoundname>CamDevice2DnrAutoConfig_s</compoundname>
+    <includes local="no">cam_device_2dnr_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device2_dnr_auto_config__s_1a4ecd927a7eefc93f78ca63afd5c4d1a0" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDevice2DnrAutoConfig_s::autoLevel</definition>
+        <argsstring></argsstring>
+        <name>autoLevel</name>
+        <briefdescription>
+<para>The auto level. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device2_dnr_auto_config__s_1a0c85029f99868e9bd3d88f70d6cc888f" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDevice2DnrAutoConfig_s::gain[CAMDEV_ISO_STRENGTH_NUM]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM]</argsstring>
+        <name>gain</name>
+        <briefdescription>
+<para>2DNR gain </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device2_dnr_auto_config__s_1ad293d6ae5844d3939826d1267c7304ad" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDevice2DnrAutoConfig_s::sigma[CAMDEV_ISO_STRENGTH_NUM]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM]</argsstring>
+        <name>sigma</name>
+        <briefdescription>
+<para>2DNR sigma </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device2_dnr_auto_config__s_1ab56f758c51cf9872bd276c86129801c9" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDevice2DnrAutoConfig_s::strength[CAMDEV_ISO_STRENGTH_NUM]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM]</argsstring>
+        <name>strength</name>
+        <briefdescription>
+<para>2DNR strength </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device2_dnr_auto_config__s_1aed049555d9a47630747df0792aa249c0" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDevice2DnrAutoConfig_s::pregammaStrength[CAMDEV_ISO_STRENGTH_NUM]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM]</argsstring>
+        <name>pregammaStrength</name>
+        <briefdescription>
+<para>2DNR pregamma strength </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device2_dnr_auto_config__s_1a6d2d29183557d0dba5dcbea8722f5a99" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDevice2DnrAutoConfig_s::lumaCurveX[CAMDEV_ISO_STRENGTH_NUM][CAMDEV_DNR_LUMA_CURVE_SIZE]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM][CAMDEV_DNR_LUMA_CURVE_SIZE]</argsstring>
+        <name>lumaCurveX</name>
+        <briefdescription>
+<para>2DNR luma curve on X axis </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device2_dnr_auto_config__s_1a3935902e23f5c418e0b4d78e40fc9c93" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDevice2DnrAutoConfig_s::lumaCurveY[CAMDEV_ISO_STRENGTH_NUM][CAMDEV_DNR_LUMA_CURVE_SIZE]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM][CAMDEV_DNR_LUMA_CURVE_SIZE]</argsstring>
+        <name>lumaCurveY</name>
+        <briefdescription>
+<para>2DNR luma curve on Y axis </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice 2DNR auto configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" bodystart="80" bodyend="89"/>
+    <listofallmembers>
+      <member refid="struct_cam_device2_dnr_auto_config__s_1a4ecd927a7eefc93f78ca63afd5c4d1a0" prot="public" virt="non-virtual"><scope>CamDevice2DnrAutoConfig_s</scope><name>autoLevel</name></member>
+      <member refid="struct_cam_device2_dnr_auto_config__s_1a0c85029f99868e9bd3d88f70d6cc888f" prot="public" virt="non-virtual"><scope>CamDevice2DnrAutoConfig_s</scope><name>gain</name></member>
+      <member refid="struct_cam_device2_dnr_auto_config__s_1a6d2d29183557d0dba5dcbea8722f5a99" prot="public" virt="non-virtual"><scope>CamDevice2DnrAutoConfig_s</scope><name>lumaCurveX</name></member>
+      <member refid="struct_cam_device2_dnr_auto_config__s_1a3935902e23f5c418e0b4d78e40fc9c93" prot="public" virt="non-virtual"><scope>CamDevice2DnrAutoConfig_s</scope><name>lumaCurveY</name></member>
+      <member refid="struct_cam_device2_dnr_auto_config__s_1aed049555d9a47630747df0792aa249c0" prot="public" virt="non-virtual"><scope>CamDevice2DnrAutoConfig_s</scope><name>pregammaStrength</name></member>
+      <member refid="struct_cam_device2_dnr_auto_config__s_1ad293d6ae5844d3939826d1267c7304ad" prot="public" virt="non-virtual"><scope>CamDevice2DnrAutoConfig_s</scope><name>sigma</name></member>
+      <member refid="struct_cam_device2_dnr_auto_config__s_1ab56f758c51cf9872bd276c86129801c9" prot="public" virt="non-virtual"><scope>CamDevice2DnrAutoConfig_s</scope><name>strength</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,269 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__slhdsa_8h" kind="file">
+    <compoundname>xsecure_slhdsa.h</compoundname>
+    <includes refid="xsecure__slhdsa__instance_8h" local="yes">xsecure_slhdsa_instance.h</includes>
+    <includes refid="xsecure__defs_8h" local="yes">xsecure_defs.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="xsecure__slhdsa_8c" local="yes">xsecure_slhdsa.c</includedby>
+    <includedby refid="xsecure__slhdsa__ipihandler_8c" local="yes">xsecure_slhdsa_ipihandler.c</includedby>
+    <incdepgraph>
+      <node id="4364">
+        <label>xsecure_slhdsa_addr.h</label>
+        <link refid="xsecure__slhdsa__addr_8h"/>
+        <childnode refid="4365" relation="include">
+        </childnode>
+        <childnode refid="4366" relation="include">
+        </childnode>
+        <childnode refid="4367" relation="include">
+        </childnode>
+      </node>
+      <node id="4366">
+        <label>xil_io.h</label>
+      </node>
+      <node id="4363">
+        <label>xsecure_slhdsa_instance.h</label>
+        <link refid="xsecure__slhdsa__instance_8h"/>
+        <childnode refid="4364" relation="include">
+        </childnode>
+        <childnode refid="4365" relation="include">
+        </childnode>
+        <childnode refid="4368" relation="include">
+        </childnode>
+      </node>
+      <node id="4368">
+        <label>xsecure_sha.h</label>
+      </node>
+      <node id="4362">
+        <label>xsecure_slhdsa.h</label>
+        <link refid="xsecure_slhdsa.h"/>
+        <childnode refid="4363" relation="include">
+        </childnode>
+        <childnode refid="4369" relation="include">
+        </childnode>
+        <childnode refid="4365" relation="include">
+        </childnode>
+      </node>
+      <node id="4371">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="4372">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="4369">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure__defs_8h"/>
+        <childnode refid="4370" relation="include">
+        </childnode>
+        <childnode refid="4365" relation="include">
+        </childnode>
+        <childnode refid="4371" relation="include">
+        </childnode>
+        <childnode refid="4372" relation="include">
+        </childnode>
+        <childnode refid="4373" relation="include">
+        </childnode>
+      </node>
+      <node id="4367">
+        <label>xsecure_utils.h</label>
+      </node>
+      <node id="4373">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="4365">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4370">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4375">
+        <label>xsecure_slhdsa.c</label>
+        <link refid="xsecure__slhdsa_8c"/>
+      </node>
+      <node id="4374">
+        <label>xsecure_slhdsa.h</label>
+        <link refid="xsecure_slhdsa.h"/>
+        <childnode refid="4375" relation="include">
+        </childnode>
+        <childnode refid="4376" relation="include">
+        </childnode>
+      </node>
+      <node id="4376">
+        <label>xsecure_slhdsa_ipihandler.c</label>
+        <link refid="xsecure__slhdsa__ipihandler_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__slhdsa__server__apis_1ga66d2775f17e75e180f12b69b472d9daf" prot="public" static="no">
+        <name>XSECURE_SLH_DSA_CTX_MAX_LEN_BYTES</name>
+        <initializer>(255U)</initializer>
+        <briefdescription>
+<para>Maximum possible context length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa.h" bodystart="41" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gad8b325c7b6c17a9c088bd30b04027423" compoundref="xsecure__slhdsa_8c" startline="250" endline="322">XSecure_SlhdsaVerify</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__slhdsa__server__apis_1ga2a05f8b8b8203433f5a08a1e9def436e" prot="public" static="no">
+        <name>XSECURE_SLH_DSA_DS_LEN_BYTES</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Domain separator length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa.h" bodystart="42" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gad8b325c7b6c17a9c088bd30b04027423" compoundref="xsecure__slhdsa_8c" startline="250" endline="322">XSecure_SlhdsaVerify</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__slhdsa__server__apis_1gaa346a8d0982658c93db6fdcc505d27bc" prot="public" static="no">
+        <name>XSECURE_SLH_DSA_CTX_LEN_FIELD_LEN_BYTES</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Length of ctx length field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa.h" bodystart="43" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gad8b325c7b6c17a9c088bd30b04027423" compoundref="xsecure__slhdsa_8c" startline="250" endline="322">XSecure_SlhdsaVerify</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__slhdsa__server__apis_1ga1b3de50c8e3f7af1a0b50ccd9411231e" prot="public" static="no">
+        <name>XSECURE_SLH_DSA_PURE_SLH_VERIFY_DS</name>
+        <initializer>(0x0U)</initializer>
+        <briefdescription>
+<para>Domain separator for pure SLH-DSA verification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa.h" bodystart="45" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gad8b325c7b6c17a9c088bd30b04027423" compoundref="xsecure__slhdsa_8c" startline="250" endline="322">XSecure_SlhdsaVerify</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__slhdsa__server__apis_1gad8b325c7b6c17a9c088bd30b04027423" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_SlhdsaVerify</definition>
+        <argsstring>(XSecure_Sha *ShaInstPtr, const XSecure_SlhdsaInputParams *const SlhdsaParams)</argsstring>
+        <name>XSecure_SlhdsaVerify</name>
+        <param>
+          <type>XSecure_Sha *</type>
+          <declname>ShaInstPtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_secure___slhdsa_input_params" kindref="compound">XSecure_SlhdsaInputParams</ref> *const</type>
+          <declname>SlhdsaParams</declname>
+        </param>
+        <briefdescription>
+<para>This function verifies an SLH-DSA signature for a given message using the provided public key. </para>        </briefdescription>
+        <detaileddescription>
+<para>It implements the pure SLH-DSA verification algorithm with optional context string support.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ShaInstPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to initialized SHA instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SlhdsaParams</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to structure containing all SLH-DSA verification parameters:<itemizedlist>
+<listitem><para>DataAddr: 64-bit address of message data buffer to be verified</para></listitem><listitem><para>DataLen: Length of message data in bytes</para></listitem><listitem><para>SignatureAddr: 64-bit address of signature buffer (R || SIG_FORS || SIG_HT)</para></listitem><listitem><para>SignatureLen: Length of signature in bytes</para></listitem><listitem><para>ContextAddr: 64-bit address of optional context string buffer (can be 0)</para></listitem><listitem><para>ContextLen: Length of context string in bytes (must be &lt;= 255)</para></listitem><listitem><para>PublicKeyAddr: 64-bit address of public key buffer (PK.seed || PK.root)</para></listitem><listitem><para>PublicKeyLen: Length of public key in bytes (must be 2n)</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On successful signature verification.</para></listitem><listitem><para>ErrorCode On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Step 1: if |ctx| &gt; 255 then</para></listitem><listitem><para>Step 2: return false</para></listitem><listitem><para>Step 3: end if</para></listitem><listitem><para>Store context length as a single byte (Algorithm 24, step 4)</para></listitem><listitem><para>Copy context string to buffer using XSecure_InByte64() for IPC compatibility</para></listitem><listitem><para>Store addresses in instance for IPC compatibility</para></listitem><listitem><para>Step 5: return slh_verify_internal(M&apos;, SIG, PK) </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa.c" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa.c" bodystart="250" bodyend="322"/>
+        <references refid="struct_x_secure___slhdsa_input_params_1ae8a51b1e40a0c78413605e095823f04b" compoundref="xsecure__defs_8h" startline="276">XSecure_SlhdsaInputParams::ContextAddr</references>
+        <references refid="struct_x_secure___slhdsa_input_params_1ab17b5f2290c32bb3ee8f833b5bec261b" compoundref="xsecure__defs_8h" startline="281">XSecure_SlhdsaInputParams::ContextLen</references>
+        <references refid="struct_x_secure___slhdsa_instance_1a9e8012429ea8cd259bcd4b67a106fb62" compoundref="xsecure__slhdsa__instance_8h" startline="247">XSecure_SlhdsaInstance::Data1</references>
+        <references refid="struct_x_secure___slhdsa_instance_1acda367f1dbceb62bbbf0e7aa62a40ff2" compoundref="xsecure__slhdsa__instance_8h" startline="248">XSecure_SlhdsaInstance::Data1Len</references>
+        <references refid="struct_x_secure___slhdsa_instance_1adbeb1e96e43abbd2f601f01fc1f77ae4" compoundref="xsecure__slhdsa__instance_8h" startline="231">XSecure_SlhdsaInstance::DataAddr</references>
+        <references refid="struct_x_secure___slhdsa_input_params_1a2e2c7f27b31f66a93190aba3c703ef8c" compoundref="xsecure__defs_8h" startline="274">XSecure_SlhdsaInputParams::DataAddr</references>
+        <references refid="struct_x_secure___slhdsa_instance_1a5e847e8ef27559ec5878e125cff29750" compoundref="xsecure__slhdsa__instance_8h" startline="232">XSecure_SlhdsaInstance::DataLen</references>
+        <references refid="struct_x_secure___slhdsa_input_params_1ab4d122d457d715a6ed35b089989ccafe" compoundref="xsecure__defs_8h" startline="278">XSecure_SlhdsaInputParams::DataLen</references>
+        <references refid="struct_x_secure___slhdsa_param_1adf0e83ff47d247fa29935dcbf4bd089d" compoundref="xsecure__slhdsa__instance_8h" startline="187">XSecure_SlhdsaParam::n</references>
+        <references refid="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" compoundref="xsecure__slhdsa__instance_8h" startline="225">XSecure_SlhdsaInstance::Param</references>
+        <references refid="struct_x_secure___slhdsa_instance_1a8ea400cc718dc8ffab6d5403182df2b9" compoundref="xsecure__slhdsa__instance_8h" startline="235">XSecure_SlhdsaInstance::PublicKeyAddr</references>
+        <references refid="struct_x_secure___slhdsa_input_params_1a060cca9d05f0c32d876967aa5d1918e6" compoundref="xsecure__defs_8h" startline="277">XSecure_SlhdsaInputParams::PublicKeyAddr</references>
+        <references refid="struct_x_secure___slhdsa_input_params_1a2a1f1257299e40adaecba573284c53cb" compoundref="xsecure__defs_8h" startline="280">XSecure_SlhdsaInputParams::PublicKeyLen</references>
+        <references refid="struct_x_secure___slhdsa_instance_1abd301830d66fff840b500e526bc66d2a" compoundref="xsecure__slhdsa__instance_8h" startline="228">XSecure_SlhdsaInstance::ShaInstance</references>
+        <references refid="struct_x_secure___slhdsa_instance_1a767aaa310aca5f5f2e4de06e801a2b93" compoundref="xsecure__slhdsa__instance_8h" startline="233">XSecure_SlhdsaInstance::SignatureAddr</references>
+        <references refid="struct_x_secure___slhdsa_input_params_1a00bd10ffa362cb92ad88faf259d78e51" compoundref="xsecure__defs_8h" startline="275">XSecure_SlhdsaInputParams::SignatureAddr</references>
+        <references refid="struct_x_secure___slhdsa_instance_1ab4bff74f0c1eec2336a3155d60ac839d" compoundref="xsecure__slhdsa__instance_8h" startline="234">XSecure_SlhdsaInstance::SignatureLen</references>
+        <references refid="struct_x_secure___slhdsa_input_params_1adf6708fff83be8aa2c009a22b454bf21" compoundref="xsecure__defs_8h" startline="279">XSecure_SlhdsaInputParams::SignatureLen</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1gaa346a8d0982658c93db6fdcc505d27bc" compoundref="xsecure__slhdsa_8h" startline="43">XSECURE_SLH_DSA_CTX_LEN_FIELD_LEN_BYTES</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1ga66d2775f17e75e180f12b69b472d9daf" compoundref="xsecure__slhdsa_8h" startline="41">XSECURE_SLH_DSA_CTX_MAX_LEN_BYTES</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1ga2a05f8b8b8203433f5a08a1e9def436e" compoundref="xsecure__slhdsa_8h" startline="42">XSECURE_SLH_DSA_DS_LEN_BYTES</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1ga1b3de50c8e3f7af1a0b50ccd9411231e" compoundref="xsecure__slhdsa_8h" startline="45">XSECURE_SLH_DSA_PURE_SLH_VERIFY_DS</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1gac666ed875bc8cdc6f659d8981a63bad2" compoundref="xsecure__slhdsa_8c" startline="41">XSECURE_SLH_DSA_VERIFY_PREFIX_OFFSET_CTX</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1ga1bc029b4403640060ab91636624a4c83" compoundref="xsecure__slhdsa_8c" startline="40">XSECURE_SLH_DSA_VERIFY_PREFIX_OFFSET_CTXLEN</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1gad24e6a2b327e9a55d90cbc7a3ac0c05f" compoundref="xsecure__slhdsa_8c" startline="39">XSECURE_SLH_DSA_VERIFY_PREFIX_OFFSET_DS</references>
+        <references refid="versal__2vp__p_2xsecure__error_8h_1abc5c98fcc1211af2b80116dd6e0a035dacb64633665b73d563a2ba2d9661dce74" compoundref="versal__2vp__p_2xsecure__error_8h" startline="378">XSECURE_SLHDSA_CTX_LEN_ERROR</references>
+        <references refid="versal__2vp__p_2xsecure__error_8h_1abc5c98fcc1211af2b80116dd6e0a035daa08c8a206ec3066ee30d15aa3fa52692" compoundref="versal__2vp__p_2xsecure__error_8h" startline="376">XSECURE_SLHDSA_INVALID_PARAM</references>
+        <references refid="versal__2vp__p_2xsecure__error_8h_1abc5c98fcc1211af2b80116dd6e0a035da320ffd4116753cda04592917b3010ef5" compoundref="versal__2vp__p_2xsecure__error_8h" startline="377">XSECURE_SLHDSA_PK_LEN_ERROR</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" compoundref="xsecure__slhdsa__instance_8c" startline="51" endline="102">XSecure_SlhdsaGetInstance</references>
+        <references refid="group__xsecure__generic__server__apis_1ga11cdf9a462e84497704a8673f83b5e83" compoundref="core_2util_2xsecure__utils_8h" startline="60">XSECURE_VALUE_TWO</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains constants and function declarations used in software based SLHDSA operations. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+5.7   tvp  02/19/26 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>XSECURE_SLH_DSA_H_</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_SLH_DSA_H_</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/****************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__slhdsa__instance_8h" kindref="compound">xsecure_slhdsa_instance.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__defs_8h" kindref="compound">xsecure_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*****************************************<sp/>Constant<sp/>Definitions<sp/>***********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="group__xsecure__slhdsa__server__apis_1ga66d2775f17e75e180f12b69b472d9daf" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_SLH_DSA_CTX_MAX_LEN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(255U)<sp/><sp/></highlight></codeline>
+<codeline lineno="42" refid="group__xsecure__slhdsa__server__apis_1ga2a05f8b8b8203433f5a08a1e9def436e" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SLH_DSA_DS_LEN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="43" refid="group__xsecure__slhdsa__server__apis_1gaa346a8d0982658c93db6fdcc505d27bc" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SLH_DSA_CTX_LEN_FIELD_LEN_BYTES<sp/>(1U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="45" refid="group__xsecure__slhdsa__server__apis_1ga1b3de50c8e3f7af1a0b50ccd9411231e" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SLH_DSA_PURE_SLH_VERIFY_DS<sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)<sp/><sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************<sp/>Type<sp/>Definitions<sp/>***************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Function<sp/>Prototypes<sp/>**************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gad8b325c7b6c17a9c088bd30b04027423" kindref="member">XSecure_SlhdsaVerify</ref>(XSecure_Sha<sp/>*ShaInstPtr,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___slhdsa_input_params" kindref="compound">XSecure_SlhdsaInputParams</ref><sp/>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>SlhdsaParams);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_SLH_DSA_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa.h"/>
+  </compounddef>
+</doxygen>

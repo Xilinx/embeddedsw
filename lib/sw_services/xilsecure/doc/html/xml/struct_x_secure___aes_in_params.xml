@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___aes_in_params" kind="struct" prot="public">
+    <compoundname>XSecure_AesInParams</compoundname>
+    <includes local="no">xsecure_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___aes_in_params_1ad7f217564f0c58bc33831f875e046ff6" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_AesInParams::InDataAddr</definition>
+        <argsstring></argsstring>
+        <name>InDataAddr</name>
+        <briefdescription>
+<para>Address of input data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___aes_in_params_1a9fe6ec2d063d59eeb2d02fdfc2d6aeea" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_AesInParams::Size</definition>
+        <argsstring></argsstring>
+        <name>Size</name>
+        <briefdescription>
+<para>Length of input data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___aes_in_params_1a476ed373ff6b6dcc8138d38faa23c1ef" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_AesInParams::IsLast</definition>
+        <argsstring></argsstring>
+        <name>IsLast</name>
+        <briefdescription>
+<para>Flag to indicate last update of data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for input parameters for AES Encryption and Decryption. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="179" bodyend="183"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___aes_in_params_1ad7f217564f0c58bc33831f875e046ff6" prot="public" virt="non-virtual"><scope>XSecure_AesInParams</scope><name>InDataAddr</name></member>
+      <member refid="struct_x_secure___aes_in_params_1a476ed373ff6b6dcc8138d38faa23c1ef" prot="public" virt="non-virtual"><scope>XSecure_AesInParams</scope><name>IsLast</name></member>
+      <member refid="struct_x_secure___aes_in_params_1a9fe6ec2d063d59eeb2d02fdfc2d6aeea" prot="public" virt="non-virtual"><scope>XSecure_AesInParams</scope><name>Size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

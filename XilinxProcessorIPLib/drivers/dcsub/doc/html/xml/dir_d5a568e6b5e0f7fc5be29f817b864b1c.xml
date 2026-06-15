@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_d5a568e6b5e0f7fc5be29f817b864b1c" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xdc_8c">xdc.c</innerfile>
+    <innerfile refid="xdc_8h">xdc.h</innerfile>
+    <innerfile refid="xdc__hw_8h">xdc_hw.h</innerfile>
+    <innerfile refid="xdc__videoformats_8c">xdc_videoformats.c</innerfile>
+    <innerfile refid="xdcdma_8c">xdcdma.c</innerfile>
+    <innerfile refid="xdcdma_8h">xdcdma.h</innerfile>
+    <innerfile refid="xdcdma__hw_8h">xdcdma_hw.h</innerfile>
+    <innerfile refid="xdcsub_8c">xdcsub.c</innerfile>
+    <innerfile refid="xdcsub_8h">xdcsub.h</innerfile>
+    <innerfile refid="xdcsub__g_8c">xdcsub_g.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/"/>
+  </compounddef>
+</doxygen>

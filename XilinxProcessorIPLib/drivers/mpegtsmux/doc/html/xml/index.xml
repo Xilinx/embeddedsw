@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="struct_x_mpegtsmux" kind="struct"><name>XMpegtsmux</name>
+    <member refid="struct_x_mpegtsmux_1a663cec6e150b308ab6910cfc1330870c" kind="variable"><name>Ctrl_BaseAddress</name></member>
+    <member refid="struct_x_mpegtsmux_1aea978388d92d569990ab56026bf07e6b" kind="variable"><name>IsReady</name></member>
+    <member refid="struct_x_mpegtsmux_1ac35bfefdb5f6e1e53665662b1c593deb" kind="variable"><name>Callback</name></member>
+    <member refid="struct_x_mpegtsmux_1acd3d14f678d70fb04be21f77606dae5a" kind="variable"><name>CallbackRef</name></member>
+  </compound>
+  <compound refid="struct_x_mpegtsmux___config" kind="struct"><name>XMpegtsmux_Config</name>
+    <member refid="struct_x_mpegtsmux___config_1af8636fe9fa54738ed1047c1bbe889536" kind="variable"><name>DeviceId</name></member>
+    <member refid="struct_x_mpegtsmux___config_1a50c4b957303a8224fbc3088ca4fb8f8b" kind="variable"><name>Ctrl_BaseAddress</name></member>
+  </compound>
+  <compound refid="xmpegtsmux_8c" kind="file"><name>xmpegtsmux.c</name>
+    <member refid="xmpegtsmux_8c_1addde68004ca2bfffbf78975d5dde9b20" kind="function"><name>XMpegtsmux_CfgInitialize</name></member>
+    <member refid="xmpegtsmux_8c_1a130d01b0d4cb6ab168e7c3adb73c7c46" kind="function"><name>XMpegtsmux_Start</name></member>
+    <member refid="xmpegtsmux_8c_1a2accec0e82176988b6ad7fc72785f799" kind="function"><name>XMpegtsmux_IsDone</name></member>
+    <member refid="xmpegtsmux_8c_1a03c9766baacf19b31d692e164edc6d58" kind="function"><name>XMpegtsmux_IsIdle</name></member>
+    <member refid="xmpegtsmux_8c_1a4f30984516aca635f574752c191e17ff" kind="function"><name>XMpegtsmux_IsReady</name></member>
+    <member refid="xmpegtsmux_8c_1aa1362f426c6ada41938e0d90e73cb087" kind="function"><name>XMpegtsmux_EnableAutoRestart</name></member>
+    <member refid="xmpegtsmux_8c_1a744f57b2f2839764a161d5db5309abd5" kind="function"><name>XMpegtsmux_Stop</name></member>
+    <member refid="xmpegtsmux_8c_1a6bfec0e9db58b8c125e41694e42dae8e" kind="function"><name>XMpegtsmux_Get_status</name></member>
+    <member refid="xmpegtsmux_8c_1a22901ea4d35764395605627a69b5de29" kind="function"><name>XMpegtsmux_Set_mux_context</name></member>
+    <member refid="xmpegtsmux_8c_1ae813f92a28998d140fcb4e2e46ad9d36" kind="function"><name>XMpegtsmux_Get_mux_context</name></member>
+    <member refid="xmpegtsmux_8c_1a9237b4212bdd9a76e48ad7f75babffbd" kind="function"><name>XMpegtsmux_Set_stream_context</name></member>
+    <member refid="xmpegtsmux_8c_1ae477cdd49f65ca5ffe758d1adc1fdea2" kind="function"><name>XMpegtsmux_Get_stream_context</name></member>
+    <member refid="xmpegtsmux_8c_1ae148375e35eb36926dbfd4d2d9447a93" kind="function"><name>XMpegtsmux_Set_data_in</name></member>
+    <member refid="xmpegtsmux_8c_1a7b4d2f20859f71bda252dbfc40f415c8" kind="function"><name>XMpegtsmux_Get_data_in</name></member>
+    <member refid="xmpegtsmux_8c_1a28c364b6f4abeed89cfe0fcf85004418" kind="function"><name>XMpegtsmux_Set_data_out_byte_inf</name></member>
+    <member refid="xmpegtsmux_8c_1a6faa8fb63088ff71ea4e4867a9b0b2a9" kind="function"><name>XMpegtsmux_Get_data_out_byte_inf</name></member>
+    <member refid="xmpegtsmux_8c_1a83d13802f064383c3fadbe75c1076a28" kind="function"><name>XMpegtsmux_Set_num_desc</name></member>
+    <member refid="xmpegtsmux_8c_1acdf641d123c74bd520a86c2f433e8abc" kind="function"><name>XMpegtsmux_Get_num_desc</name></member>
+    <member refid="xmpegtsmux_8c_1a5132e4e65e5c5da57a64f0527d80e90b" kind="function"><name>XMpegtsmux_Set_stream_id_table</name></member>
+    <member refid="xmpegtsmux_8c_1a796da3380ba8ed6359b49a76af68f256" kind="function"><name>XMpegtsmux_Get_stream_id_table</name></member>
+    <member refid="xmpegtsmux_8c_1a516bd2c0b04062cfb270991f591b7cdb" kind="function"><name>XMpegtsmux_Set_num_streams_table</name></member>
+    <member refid="xmpegtsmux_8c_1aa591e756848c4942395fff8ef7ba5810" kind="function"><name>XMpegtsmux_Get_num_streams_table</name></member>
+    <member refid="xmpegtsmux_8c_1a8fba206d6ae929dc46534da77826603f" kind="function"><name>XMpegtsmux_InterruptGlobalEnable</name></member>
+    <member refid="xmpegtsmux_8c_1aa4693f4bda0e8353602890f43c5db8af" kind="function"><name>XMpegtsmux_InterruptGlobalDisable</name></member>
+    <member refid="xmpegtsmux_8c_1a70da3680437bcf8991a39aee33426be9" kind="function"><name>XMpegtsmux_InterruptEnable</name></member>
+    <member refid="xmpegtsmux_8c_1a22ca2ac4a4287c6d819c751aa1b30d98" kind="function"><name>XMpegtsmux_InterruptDisable</name></member>
+    <member refid="xmpegtsmux_8c_1a2d328ec53e24e81274ce2e3781328043" kind="function"><name>XMpegtsmux_InterruptClear</name></member>
+    <member refid="xmpegtsmux_8c_1a3d64df5d656d066bf9359afb3b978037" kind="function"><name>XMpegtsmux_InterruptGetEnabled</name></member>
+    <member refid="xmpegtsmux_8c_1a1793971c6cdfecfbdc3c71437ed29d85" kind="function"><name>XMpegtsmux_InterruptGetStatus</name></member>
+  </compound>
+  <compound refid="xmpegtsmux_8h" kind="file"><name>xmpegtsmux.h</name>
+    <member refid="xmpegtsmux_8h_1af3139eb88950a010103e2a49284ee543" kind="define"><name>XMpegtsmux_WriteReg</name></member>
+    <member refid="xmpegtsmux_8h_1ab54d740365fb0b9f3b6d8496b216b70e" kind="define"><name>XMpegtsmux_ReadReg</name></member>
+    <member refid="xmpegtsmux_8h_1a3f885dce47371a2670dda43dbd541a84" kind="typedef"><name>XMpegTsMux_Callback</name></member>
+    <member refid="xmpegtsmux_8h_1aaf63d839a06b4f4b1e6b635ff1b1da0e" kind="function"><name>XMpegtsmux_Initialize</name></member>
+    <member refid="xmpegtsmux_8h_1aa7b85b77cef2a255cb30a3f096aedacd" kind="function"><name>XMpegtsmux_LookupConfig</name></member>
+    <member refid="xmpegtsmux_8h_1addde68004ca2bfffbf78975d5dde9b20" kind="function"><name>XMpegtsmux_CfgInitialize</name></member>
+    <member refid="xmpegtsmux_8h_1a130d01b0d4cb6ab168e7c3adb73c7c46" kind="function"><name>XMpegtsmux_Start</name></member>
+    <member refid="xmpegtsmux_8h_1a2accec0e82176988b6ad7fc72785f799" kind="function"><name>XMpegtsmux_IsDone</name></member>
+    <member refid="xmpegtsmux_8h_1a03c9766baacf19b31d692e164edc6d58" kind="function"><name>XMpegtsmux_IsIdle</name></member>
+    <member refid="xmpegtsmux_8h_1a4f30984516aca635f574752c191e17ff" kind="function"><name>XMpegtsmux_IsReady</name></member>
+    <member refid="xmpegtsmux_8h_1aa1362f426c6ada41938e0d90e73cb087" kind="function"><name>XMpegtsmux_EnableAutoRestart</name></member>
+    <member refid="xmpegtsmux_8h_1a744f57b2f2839764a161d5db5309abd5" kind="function"><name>XMpegtsmux_Stop</name></member>
+    <member refid="xmpegtsmux_8h_1a6bfec0e9db58b8c125e41694e42dae8e" kind="function"><name>XMpegtsmux_Get_status</name></member>
+    <member refid="xmpegtsmux_8h_1a22901ea4d35764395605627a69b5de29" kind="function"><name>XMpegtsmux_Set_mux_context</name></member>
+    <member refid="xmpegtsmux_8h_1ae813f92a28998d140fcb4e2e46ad9d36" kind="function"><name>XMpegtsmux_Get_mux_context</name></member>
+    <member refid="xmpegtsmux_8h_1a9237b4212bdd9a76e48ad7f75babffbd" kind="function"><name>XMpegtsmux_Set_stream_context</name></member>
+    <member refid="xmpegtsmux_8h_1ae477cdd49f65ca5ffe758d1adc1fdea2" kind="function"><name>XMpegtsmux_Get_stream_context</name></member>
+    <member refid="xmpegtsmux_8h_1ae148375e35eb36926dbfd4d2d9447a93" kind="function"><name>XMpegtsmux_Set_data_in</name></member>
+    <member refid="xmpegtsmux_8h_1a7b4d2f20859f71bda252dbfc40f415c8" kind="function"><name>XMpegtsmux_Get_data_in</name></member>
+    <member refid="xmpegtsmux_8h_1a28c364b6f4abeed89cfe0fcf85004418" kind="function"><name>XMpegtsmux_Set_data_out_byte_inf</name></member>
+    <member refid="xmpegtsmux_8h_1a6faa8fb63088ff71ea4e4867a9b0b2a9" kind="function"><name>XMpegtsmux_Get_data_out_byte_inf</name></member>
+    <member refid="xmpegtsmux_8h_1a83d13802f064383c3fadbe75c1076a28" kind="function"><name>XMpegtsmux_Set_num_desc</name></member>
+    <member refid="xmpegtsmux_8h_1acdf641d123c74bd520a86c2f433e8abc" kind="function"><name>XMpegtsmux_Get_num_desc</name></member>
+    <member refid="xmpegtsmux_8h_1a5132e4e65e5c5da57a64f0527d80e90b" kind="function"><name>XMpegtsmux_Set_stream_id_table</name></member>
+    <member refid="xmpegtsmux_8h_1a796da3380ba8ed6359b49a76af68f256" kind="function"><name>XMpegtsmux_Get_stream_id_table</name></member>
+    <member refid="xmpegtsmux_8h_1a516bd2c0b04062cfb270991f591b7cdb" kind="function"><name>XMpegtsmux_Set_num_streams_table</name></member>
+    <member refid="xmpegtsmux_8h_1aa591e756848c4942395fff8ef7ba5810" kind="function"><name>XMpegtsmux_Get_num_streams_table</name></member>
+    <member refid="xmpegtsmux_8h_1a8fba206d6ae929dc46534da77826603f" kind="function"><name>XMpegtsmux_InterruptGlobalEnable</name></member>
+    <member refid="xmpegtsmux_8h_1aa4693f4bda0e8353602890f43c5db8af" kind="function"><name>XMpegtsmux_InterruptGlobalDisable</name></member>
+    <member refid="xmpegtsmux_8h_1a70da3680437bcf8991a39aee33426be9" kind="function"><name>XMpegtsmux_InterruptEnable</name></member>
+    <member refid="xmpegtsmux_8h_1a22ca2ac4a4287c6d819c751aa1b30d98" kind="function"><name>XMpegtsmux_InterruptDisable</name></member>
+    <member refid="xmpegtsmux_8h_1a2d328ec53e24e81274ce2e3781328043" kind="function"><name>XMpegtsmux_InterruptClear</name></member>
+    <member refid="xmpegtsmux_8h_1a3d64df5d656d066bf9359afb3b978037" kind="function"><name>XMpegtsmux_InterruptGetEnabled</name></member>
+    <member refid="xmpegtsmux_8h_1a1793971c6cdfecfbdc3c71437ed29d85" kind="function"><name>XMpegtsmux_InterruptGetStatus</name></member>
+    <member refid="group__mpegtsmux_1gaa848f85c1c5a5b89ce2839bf5e8a8fb1" kind="function"><name>XMpegTsMuxIntrHandler</name></member>
+    <member refid="group__mpegtsmux_1ga4587003bc60d57251bf8ec4fdaa9d415" kind="function"><name>XMpegTsMux_SetCallback</name></member>
+  </compound>
+  <compound refid="xmpegtsmux__g_8c" kind="file"><name>xmpegtsmux_g.c</name>
+    <member refid="xmpegtsmux__g_8c_1ae2494a19b46876d558bbcbe4870c908d" kind="variable"><name>XMpegtsmux_ConfigTable</name></member>
+  </compound>
+  <compound refid="xmpegtsmux__hw_8h" kind="file"><name>xmpegtsmux_hw.h</name>
+    <member refid="xmpegtsmux__hw_8h_1a12736e2b2697baecbff70d10eda41421" kind="define"><name>XMPEGTSMUX_CTRL_ADDR_AP_CTRL</name></member>
+    <member refid="xmpegtsmux__hw_8h_1a2f03c91f49720bf4e63114b19d28f194" kind="define"><name>XMPEGTSMUX_CTRL_ADDR_GIE</name></member>
+    <member refid="xmpegtsmux__hw_8h_1a448431b555a0f26b9fd6aebc8d9d8768" kind="define"><name>XMPEGTSMUX_CTRL_ADDR_IER</name></member>
+    <member refid="xmpegtsmux__hw_8h_1a452eee88587b4938677a7a96b8551723" kind="define"><name>XMPEGTSMUX_CTRL_ADDR_ISR</name></member>
+    <member refid="xmpegtsmux__hw_8h_1a5e446bc61662e4a3288285f689646704" kind="define"><name>XMPEGTSMUX_CTRL_ADDR_HWSTRUCTIN_STATUS_DATA</name></member>
+    <member refid="xmpegtsmux__hw_8h_1a9ec79d1d04be0485c6b197ce0bd7b116" kind="define"><name>XMPEGTSMUX_CTRL_BITS_HWSTRUCTIN_STATUS_DATA</name></member>
+    <member refid="xmpegtsmux__hw_8h_1a7a658599c3c2d37d6f475be68faa53e9" kind="define"><name>XMPEGTSMUX_CTRL_ADDR_HWSTRUCTIN_MUX_CONTEXT_DATA</name></member>
+    <member refid="xmpegtsmux__hw_8h_1a518d22d3483a23c8e4259299ecb95581" kind="define"><name>XMPEGTSMUX_CTRL_BITS_HWSTRUCTIN_MUX_CONTEXT_DATA</name></member>
+    <member refid="xmpegtsmux__hw_8h_1a78be3c6d44d136c055c3f2cbec8168fd" kind="define"><name>XMPEGTSMUX_CTRL_ADDR_HWSTRUCTIN_STREAM_CONTEXT_DATA</name></member>
+    <member refid="xmpegtsmux__hw_8h_1a9880ccad404c5050eb18957a9d27a830" kind="define"><name>XMPEGTSMUX_CTRL_BITS_HWSTRUCTIN_STREAM_CONTEXT_DATA</name></member>
+    <member refid="xmpegtsmux__hw_8h_1a7392eb3f8fc736732ed8d9e38ff5458d" kind="define"><name>XMPEGTSMUX_CTRL_ADDR_HWSTRUCTIN_DATA_IN_DATA</name></member>
+    <member refid="xmpegtsmux__hw_8h_1a243d02388b373c0c90e931671c7280ad" kind="define"><name>XMPEGTSMUX_CTRL_BITS_HWSTRUCTIN_DATA_IN_DATA</name></member>
+    <member refid="xmpegtsmux__hw_8h_1aa267af2e520cbf6dbf9541f0f2c20db6" kind="define"><name>XMPEGTSMUX_CTRL_ADDR_HWSTRUCTIN_DATA_OUT_BYTE_INF_DATA</name></member>
+    <member refid="xmpegtsmux__hw_8h_1a4982348d94b1d5a6aa0caf06104a416b" kind="define"><name>XMPEGTSMUX_CTRL_BITS_HWSTRUCTIN_DATA_OUT_BYTE_INF_DATA</name></member>
+    <member refid="xmpegtsmux__hw_8h_1abc6e66293b597b0818a9ba4ab7f7379b" kind="define"><name>XMPEGTSMUX_CTRL_ADDR_HWSTRUCTIN_NUM_DESC_DATA</name></member>
+    <member refid="xmpegtsmux__hw_8h_1aac0849212f256f9e601467c4f172be5b" kind="define"><name>XMPEGTSMUX_CTRL_BITS_HWSTRUCTIN_NUM_DESC_DATA</name></member>
+    <member refid="xmpegtsmux__hw_8h_1a867b90960cdf3dee2c6a621423819c41" kind="define"><name>XMPEGTSMUX_CTRL_ADDR_HWSTRUCTIN_STREAM_ID_TABLE_DATA</name></member>
+    <member refid="xmpegtsmux__hw_8h_1a0b4c4a7eb51c97299bdae604848c1537" kind="define"><name>XMPEGTSMUX_CTRL_BITS_HWSTRUCTIN_STREAM_ID_TABLE_DATA</name></member>
+    <member refid="xmpegtsmux__hw_8h_1a8bbd897d7bd890402c3f90b51f553de7" kind="define"><name>XMPEGTSMUX_CTRL_ADDR_HWSTRUCTIN_NUM_STREAMS_TABLE_DATA</name></member>
+    <member refid="xmpegtsmux__hw_8h_1a0eaca7e5f8a4611e942f448f3824f2fd" kind="define"><name>XMPEGTSMUX_CTRL_BITS_HWSTRUCTIN_NUM_STREAMS_TABLE_DATA</name></member>
+    <member refid="xmpegtsmux__hw_8h_1a8b37d3722601020900442bda4082336d" kind="define"><name>XMPEGTSMUX_CTRL_EN_MASK</name></member>
+    <member refid="xmpegtsmux__hw_8h_1a890fef9a7e3147bb1ef719621c9c71c3" kind="define"><name>XMPEGTSMUX_CTRL_DIS_MASK</name></member>
+    <member refid="xmpegtsmux__hw_8h_1a6aa2d708d805e7627d058afb2f56b5c9" kind="define"><name>XMPEGTSMUX_CTRL_IS_DONE_MASK</name></member>
+    <member refid="xmpegtsmux__hw_8h_1a8362b1db38e0d399c89dd28d1bacbc58" kind="define"><name>XMPEGTSMUX_CTRL_IS_DONE_SHIFT</name></member>
+    <member refid="xmpegtsmux__hw_8h_1afc5afeaac4bba7fa067160adafa4730e" kind="define"><name>XMPEGTSMUX_CTRL_IS_IDLE_MASK</name></member>
+    <member refid="xmpegtsmux__hw_8h_1a7219984220b5b5a702e07fedab1ff21d" kind="define"><name>XMPEGTSMUX_CTRL_IS_IDLE_SHIFT</name></member>
+    <member refid="xmpegtsmux__hw_8h_1a44c0a9f7d00ac40fec7927df441ee1bd" kind="define"><name>XMPEGTSMUX_CTRL_AUTO_RESTART_MASK</name></member>
+  </compound>
+  <compound refid="xmpegtsmux__intr_8c" kind="file"><name>xmpegtsmux_intr.c</name>
+    <member refid="group__mpegtsmux_1gad4a08c36298d63b50914b9fd394942f3" kind="define"><name>XMPEG_TS_MUX_ISR_DONE_BIT_MASK</name></member>
+    <member refid="group__mpegtsmux_1ga4587003bc60d57251bf8ec4fdaa9d415" kind="function"><name>XMpegTsMux_SetCallback</name></member>
+    <member refid="group__mpegtsmux_1gaa848f85c1c5a5b89ce2839bf5e8a8fb1" kind="function"><name>XMpegTsMuxIntrHandler</name></member>
+  </compound>
+  <compound refid="xmpegtsmux__linux_8c" kind="file"><name>xmpegtsmux_linux.c</name>
+  </compound>
+  <compound refid="xmpegtsmux__sinit_8c" kind="file"><name>xmpegtsmux_sinit.c</name>
+    <member refid="xmpegtsmux__sinit_8c_1ab0fdcaabdcd47c8473ac7177717c314d" kind="variable"><name>XMpegtsmux_ConfigTable</name></member>
+    <member refid="xmpegtsmux__sinit_8c_1aa7b85b77cef2a255cb30a3f096aedacd" kind="function"><name>XMpegtsmux_LookupConfig</name></member>
+    <member refid="xmpegtsmux__sinit_8c_1aaf63d839a06b4f4b1e6b635ff1b1da0e" kind="function"><name>XMpegtsmux_Initialize</name></member>
+  </compound>
+  <compound refid="group__mpegtsmux" kind="group"><name>mpegtsmux</name>
+    <member refid="group__mpegtsmux_1ga4587003bc60d57251bf8ec4fdaa9d415" kind="function"><name>XMpegTsMux_SetCallback</name></member>
+    <member refid="group__mpegtsmux_1gaa848f85c1c5a5b89ce2839bf5e8a8fb1" kind="function"><name>XMpegTsMuxIntrHandler</name></member>
+    <member refid="group__mpegtsmux_1gad4a08c36298d63b50914b9fd394942f3" kind="define"><name>XMPEG_TS_MUX_ISR_DONE_BIT_MASK</name></member>
+  </compound>
+  <compound refid="dir_ceead88002d1ab8f27b4fadf82c03c8a" kind="dir"><name>mpegtsmux</name>
+  </compound>
+  <compound refid="dir_d117a2f26788c7e830cb6144ac14178b" kind="dir"><name>src</name>
+  </compound>
+</doxygenindex>

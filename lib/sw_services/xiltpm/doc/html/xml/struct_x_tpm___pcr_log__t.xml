@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_tpm___pcr_log__t" kind="struct" prot="public">
+    <compoundname>XTpm_PcrLog_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_tpm___pcr_log__t_1a9085317c1eb6db1dd5c7024b19fcf529" prot="public" static="no" mutable="no">
+        <type>XTpm_PcrEvent_t</type>
+        <definition>XTpm_PcrEvent_t XTpm_PcrLog_t::Buffer[XTPM_MAX_NUM_OF_PCR_EVENTS]</definition>
+        <argsstring>[XTPM_MAX_NUM_OF_PCR_EVENTS]</argsstring>
+        <name>Buffer</name>
+        <briefdescription>
+<para>Stores hardware PCR events. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tpm___pcr_log__t_1a1c38687e5b081684e87c0afb2100b04b" prot="public" static="no" mutable="no">
+        <type>XTpm_PcrLogInfo_t</type>
+        <definition>XTpm_PcrLogInfo_t XTpm_PcrLog_t::LogInfo</definition>
+        <argsstring></argsstring>
+        <name>LogInfo</name>
+        <briefdescription>
+<para>Log information of hardware PCR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tpm___pcr_log__t_1a0ec3218fbd4b6c23150ad8511fda52a2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTpm_PcrLog_t::HeadIndex</definition>
+        <argsstring></argsstring>
+        <name>HeadIndex</name>
+        <briefdescription>
+<para>Starting index of hardware PCR event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tpm___pcr_log__t_1a323dc4b886f401e039f7b50783b3312d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTpm_PcrLog_t::TailIndex</definition>
+        <argsstring></argsstring>
+        <name>TailIndex</name>
+        <briefdescription>
+<para>Last index of hardware PCR event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="98" bodyend="103"/>
+    <listofallmembers>
+      <member refid="struct_x_tpm___pcr_log__t_1a9085317c1eb6db1dd5c7024b19fcf529" prot="public" virt="non-virtual"><scope>XTpm_PcrLog_t</scope><name>Buffer</name></member>
+      <member refid="struct_x_tpm___pcr_log__t_1a0ec3218fbd4b6c23150ad8511fda52a2" prot="public" virt="non-virtual"><scope>XTpm_PcrLog_t</scope><name>HeadIndex</name></member>
+      <member refid="struct_x_tpm___pcr_log__t_1a1c38687e5b081684e87c0afb2100b04b" prot="public" virt="non-virtual"><scope>XTpm_PcrLog_t</scope><name>LogInfo</name></member>
+      <member refid="struct_x_tpm___pcr_log__t_1a323dc4b886f401e039f7b50783b3312d" prot="public" virt="non-virtual"><scope>XTpm_PcrLog_t</scope><name>TailIndex</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

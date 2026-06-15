@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dma_ps___channel_data" kind="struct" prot="public">
+    <compoundname>XDmaPs_ChannelData</compoundname>
+    <includes local="no">xdmaps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dma_ps___channel_data_1a08d8c39e4ba2390ea88c95a39d820e50" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned XDmaPs_ChannelData::DevId</definition>
+        <argsstring></argsstring>
+        <name>DevId</name>
+        <briefdescription>
+<para>Device id indicating which DMAC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="215" bodyend="-1"/>
+        <referencedby refid="group__dmaps_1ga2fed90dfba1ff9f472b40ed492d78b4c" compoundref="xdmaps_8c" startline="129" endline="187">XDmaPs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps___channel_data_1a688c5e3052dbb1956fb8139e44cc4c8e" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned XDmaPs_ChannelData::ChanId</definition>
+        <argsstring></argsstring>
+        <name>ChanId</name>
+        <briefdescription>
+<para>Channel number of the DMAC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="216" bodyend="-1"/>
+        <referencedby refid="group__dmaps_1ga2fed90dfba1ff9f472b40ed492d78b4c" compoundref="xdmaps_8c" startline="129" endline="187">XDmaPs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps___channel_data_1ad258334833157a5499605e16b821c582" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dma_ps___prog_buf" kindref="compound">XDmaPs_ProgBuf</ref></type>
+        <definition>XDmaPs_ProgBuf XDmaPs_ChannelData::ProgBufPool[XDMAPS_MAX_CHAN_BUFS]</definition>
+        <argsstring>[XDMAPS_MAX_CHAN_BUFS]</argsstring>
+        <name>ProgBufPool</name>
+        <briefdescription>
+<para>A pool of program buffers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="217" bodyend="-1"/>
+        <referencedby refid="group__dmaps_1gae1f2b39fb5e2e8d369c3286aeada67be" compoundref="xdmaps_8c" startline="246" endline="337">XDmaPs_FaultISR</referencedby>
+        <referencedby refid="group__dmaps_1ga96c4c2e45ab31a22f05767c24db425ea" compoundref="xdmaps_8c" startline="1414" endline="1437">XDmaPs_FreeDmaProg</referencedby>
+        <referencedby refid="group__dmaps_1gabc2e04f69037f0bdba33275ae017af8a" compoundref="xdmaps_8c" startline="1337" endline="1396">XDmaPs_GenDmaProg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps___channel_data_1a467e0893ad92dabed349617cfefb56be" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dmaps_1gad59232da2016e1a60744cc6e11a04a98" kindref="member">XDmaPsDoneHandler</ref></type>
+        <definition>XDmaPsDoneHandler XDmaPs_ChannelData::DoneHandler</definition>
+        <argsstring></argsstring>
+        <name>DoneHandler</name>
+        <briefdescription>
+<para>Done interrupt handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="219" bodyend="-1"/>
+        <referencedby refid="group__dmaps_1gaccf32b08856fbe62745a4d0552aa1bff" compoundref="xdmaps_8c" startline="354" endline="374">XDmaPs_SetDoneHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps___channel_data_1a0816a57a2212df7c540c3f2ea7e7b3b0" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDmaPs_ChannelData::DoneRef</definition>
+        <argsstring></argsstring>
+        <name>DoneRef</name>
+        <briefdescription>
+<para>Done interrupt callback data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="220" bodyend="-1"/>
+        <referencedby refid="group__dmaps_1gaccf32b08856fbe62745a4d0552aa1bff" compoundref="xdmaps_8c" startline="354" endline="374">XDmaPs_SetDoneHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps___channel_data_1aea6a90655d2a8abf180cf32733abc2a3" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dma_ps___cmd" kindref="compound">XDmaPs_Cmd</ref> *</type>
+        <definition>XDmaPs_Cmd* XDmaPs_ChannelData::DmaCmdToHw</definition>
+        <argsstring></argsstring>
+        <name>DmaCmdToHw</name>
+        <briefdescription>
+<para>DMA command being executed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="221" bodyend="-1"/>
+        <referencedby refid="group__dmaps_1gae1f2b39fb5e2e8d369c3286aeada67be" compoundref="xdmaps_8c" startline="246" endline="337">XDmaPs_FaultISR</referencedby>
+        <referencedby refid="group__dmaps_1ga05047e523efd0dcc0e1f3ba16a32a796" compoundref="xdmaps_8c" startline="1542" endline="1552">XDmaPs_IsActive</referencedby>
+        <referencedby refid="group__dmaps_1ga3691ba115c788c4f68a05cf05c486eeb" compoundref="xdmaps_8c" startline="1464" endline="1526">XDmaPs_Start</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps___channel_data_1a9c04806fc749b5053f2ae3327d897281" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dma_ps___cmd" kindref="compound">XDmaPs_Cmd</ref> *</type>
+        <definition>XDmaPs_Cmd* XDmaPs_ChannelData::DmaCmdFromHw</definition>
+        <argsstring></argsstring>
+        <name>DmaCmdFromHw</name>
+        <briefdescription>
+<para>DMA command that is finished. </para>        </briefdescription>
+        <detaileddescription>
+<para>This field is for debugging purpose </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="222" bodyend="-1"/>
+        <referencedby refid="group__dmaps_1gae1f2b39fb5e2e8d369c3286aeada67be" compoundref="xdmaps_8c" startline="246" endline="337">XDmaPs_FaultISR</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps___channel_data_1a0d07377a17ee1ed816fa3bde5ac52c47" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XDmaPs_ChannelData::HoldDmaProg</definition>
+        <argsstring></argsstring>
+        <name>HoldDmaProg</name>
+        <briefdescription>
+<para>A tag indicating whether to hold the DMA program after the DMA is done. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="225" bodyend="-1"/>
+        <referencedby refid="group__dmaps_1gae1f2b39fb5e2e8d369c3286aeada67be" compoundref="xdmaps_8c" startline="246" endline="337">XDmaPs_FaultISR</referencedby>
+        <referencedby refid="group__dmaps_1ga3691ba115c788c4f68a05cf05c486eeb" compoundref="xdmaps_8c" startline="1464" endline="1526">XDmaPs_Start</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_dma_ps___channel_data" kindref="compound">XDmaPs_ChannelData</ref> is a struct to book keep individual channel of the DMAC. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="16">
+        <label>XDmaPs_ChanCtrl</label>
+        <link refid="struct_x_dma_ps___chan_ctrl"/>
+      </node>
+      <node id="17">
+        <label>XDmaPs_BD</label>
+        <link refid="struct_x_dma_ps___b_d"/>
+      </node>
+      <node id="13">
+        <label>XDmaPs_ChannelData</label>
+        <link refid="struct_x_dma_ps___channel_data"/>
+        <childnode refid="14" relation="usage">
+          <edgelabel>ProgBufPool</edgelabel>
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>DmaCmdFromHw</edgelabel>
+          <edgelabel>DmaCmdToHw</edgelabel>
+        </childnode>
+      </node>
+      <node id="14">
+        <label>XDmaPs_ProgBuf</label>
+        <link refid="struct_x_dma_ps___prog_buf"/>
+      </node>
+      <node id="15">
+        <label>XDmaPs_Cmd</label>
+        <link refid="struct_x_dma_ps___cmd"/>
+        <childnode refid="16" relation="usage">
+          <edgelabel>ChanCtrl</edgelabel>
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>BD</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="214" bodyend="229"/>
+    <listofallmembers>
+      <member refid="struct_x_dma_ps___channel_data_1a688c5e3052dbb1956fb8139e44cc4c8e" prot="public" virt="non-virtual"><scope>XDmaPs_ChannelData</scope><name>ChanId</name></member>
+      <member refid="struct_x_dma_ps___channel_data_1a08d8c39e4ba2390ea88c95a39d820e50" prot="public" virt="non-virtual"><scope>XDmaPs_ChannelData</scope><name>DevId</name></member>
+      <member refid="struct_x_dma_ps___channel_data_1a9c04806fc749b5053f2ae3327d897281" prot="public" virt="non-virtual"><scope>XDmaPs_ChannelData</scope><name>DmaCmdFromHw</name></member>
+      <member refid="struct_x_dma_ps___channel_data_1aea6a90655d2a8abf180cf32733abc2a3" prot="public" virt="non-virtual"><scope>XDmaPs_ChannelData</scope><name>DmaCmdToHw</name></member>
+      <member refid="struct_x_dma_ps___channel_data_1a467e0893ad92dabed349617cfefb56be" prot="public" virt="non-virtual"><scope>XDmaPs_ChannelData</scope><name>DoneHandler</name></member>
+      <member refid="struct_x_dma_ps___channel_data_1a0816a57a2212df7c540c3f2ea7e7b3b0" prot="public" virt="non-virtual"><scope>XDmaPs_ChannelData</scope><name>DoneRef</name></member>
+      <member refid="struct_x_dma_ps___channel_data_1a0d07377a17ee1ed816fa3bde5ac52c47" prot="public" virt="non-virtual"><scope>XDmaPs_ChannelData</scope><name>HoldDmaProg</name></member>
+      <member refid="struct_x_dma_ps___channel_data_1ad258334833157a5499605e16b821c582" prot="public" virt="non-virtual"><scope>XDmaPs_ChannelData</scope><name>ProgBufPool</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

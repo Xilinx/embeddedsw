@@ -1,0 +1,194 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__ocp__common_8c" kind="file">
+    <compoundname>xasu_ocp_common.c</compoundname>
+    <includes refid="xasu__ocp__common_8h" local="yes">xasu_ocp_common.h</includes>
+    <includes refid="xasu__eccinfo_8h" local="yes">xasu_eccinfo.h</includes>
+    <incdepgraph>
+      <node id="847">
+        <label>xil_util.h</label>
+      </node>
+      <node id="848">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="846">
+        <label>xasu_ocpinfo.h</label>
+        <link refid="xasu__ocpinfo_8h"/>
+        <childnode refid="845" relation="include">
+        </childnode>
+        <childnode refid="847" relation="include">
+        </childnode>
+        <childnode refid="848" relation="include">
+        </childnode>
+      </node>
+      <node id="843">
+        <label>xasu_ocp_common.c</label>
+        <link refid="xasu_ocp_common.c"/>
+        <childnode refid="844" relation="include">
+        </childnode>
+        <childnode refid="849" relation="include">
+        </childnode>
+      </node>
+      <node id="844">
+        <label>xasu_ocp_common.h</label>
+        <link refid="xasu__ocp__common_8h"/>
+        <childnode refid="845" relation="include">
+        </childnode>
+        <childnode refid="846" relation="include">
+        </childnode>
+      </node>
+      <node id="845">
+        <label>xil_types.h</label>
+      </node>
+      <node id="849">
+        <label>xasu_eccinfo.h</label>
+        <link refid="xasu__eccinfo_8h"/>
+        <childnode refid="845" relation="include">
+        </childnode>
+        <childnode refid="848" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__ocp__common__apis_1ga14a22333993f81451f6060e6432b5608" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_OcpValidateCertParams</definition>
+        <argsstring>(const XAsu_OcpCertParams *OcpCertParam)</argsstring>
+        <name>XAsu_OcpValidateCertParams</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___ocp_cert_params" kindref="compound">XAsu_OcpCertParams</ref> *</type>
+          <declname>OcpCertParam</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the OCP certificate parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>OcpCertParam</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___ocp_cert_params" kindref="compound">XAsu_OcpCertParams</ref> structure which holds the parameters of OCP input argument.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if OCP certificate parameters are validated successfully.</para></listitem><listitem><para>XST_FAILURE, if OCP certificate parameters validation is failed. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocp_common.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocp_common.c" bodystart="58" bodyend="72"/>
+        <references refid="struct_x_asu___ocp_cert_params_1a7da40094426fa29654155aa00a764e85" compoundref="xasu__ocpinfo_8h" startline="96">XAsu_OcpCertParams::CertActualSize</references>
+        <references refid="struct_x_asu___ocp_cert_params_1a51c1c6fa4113b532ca44fff879eab74e" compoundref="xasu__ocpinfo_8h" startline="94">XAsu_OcpCertParams::CertBufAddr</references>
+        <references refid="struct_x_asu___ocp_cert_params_1a92f93e1c17fe3d3844afda84fb033303" compoundref="xasu__ocpinfo_8h" startline="95">XAsu_OcpCertParams::CertBufLen</references>
+        <references refid="struct_x_asu___ocp_cert_params_1ac399fb1b25745f8c06a56cb6eae1ef29" compoundref="xasu__ocpinfo_8h" startline="97">XAsu_OcpCertParams::DevKeySel</references>
+        <references refid="group__xasu__common__defs_1gga99fb83031ce9923c84392b4e92f956b5ab8d8418b3a51861026942a8008b6304a" compoundref="xasu__ocpinfo_8h" startline="87">XOCP_MAX_DEVICE_KEY</references>
+        <referencedby refid="group__xasu__ocp__client__apis_1gaa09f38e166d54e624013584714c334dd" compoundref="xasu__ocp_8c" startline="121" endline="165">XAsu_OcpGetDevAkX509Certificate</referencedby>
+        <referencedby refid="group__xasu__ocp__client__apis_1ga5ea47b4f5a36aace5a9f471042173fa3" compoundref="xasu__ocp_8c" startline="182" endline="226">XAsu_OcpGetDevIkCsr</referencedby>
+        <referencedby refid="group__xasu__ocp__client__apis_1ga75a2fbdb2ea2b018cfc332f53db0cee9" compoundref="xasu__ocp_8c" startline="60" endline="104">XAsu_OcpGetDevIkX509Certificate</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__ocp__common__apis_1ga3e41f95cc96b47f6c22d3a45f9acacf7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_OcpValidateAttestParams</definition>
+        <argsstring>(const XAsu_OcpDevAkAttest *OcpAttestParam)</argsstring>
+        <name>XAsu_OcpValidateAttestParams</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___ocp_dev_ak_attest" kindref="compound">XAsu_OcpDevAkAttest</ref> *</type>
+          <declname>OcpAttestParam</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the OCP DevAk attestation parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>OcpAttestParam</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___ocp_dev_ak_attest" kindref="compound">XAsu_OcpDevAkAttest</ref> Params structure which holds the parameters of OCP attestation input argument.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if OCP attestation parameters are validated successfully.</para></listitem><listitem><para>XST_FAILURE, if OCP attestation parameters validation is failed. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocp_common.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocp_common.c" bodystart="86" bodyend="101"/>
+        <references refid="struct_x_asu___ocp_dev_ak_attest_1a7610ca5ca3389ced84161ca74c19fda3" compoundref="xasu__ocpinfo_8h" startline="105">XAsu_OcpDevAkAttest::DataAddr</references>
+        <references refid="struct_x_asu___ocp_dev_ak_attest_1aaf571aa149289ea01a7f9b69db553476" compoundref="xasu__ocpinfo_8h" startline="107">XAsu_OcpDevAkAttest::DataLen</references>
+        <references refid="struct_x_asu___ocp_dev_ak_attest_1a0c6a9b091fb7bd03f6dc55cff845ecb9" compoundref="xasu__ocpinfo_8h" startline="106">XAsu_OcpDevAkAttest::SignatureAddr</references>
+        <references refid="struct_x_asu___ocp_dev_ak_attest_1a31b1c10068e56565070f5637fdffea95" compoundref="xasu__ocpinfo_8h" startline="108">XAsu_OcpDevAkAttest::SignatureBufLen</references>
+        <references refid="group__xasu__common__defs_1ga561202b987c6542752ab230cbb5d3257" compoundref="xasu__eccinfo_8h" startline="88">XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES</references>
+        <referencedby refid="group__xasu__ocp__client__apis_1ga9ac4646205a525765f9b6fac4b030875" compoundref="xasu__ocp_8c" startline="242" endline="286">XAsu_OcpDevAkAttestation</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the OCP function definitions which are common across the client and server. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   rmv  08/12/25 Initial release
+      rmv  09/08/25 Add validation for signature buffer length in XAsu_OcpValidateAttestParams
+               function</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2025,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="comment">/************************************<sp/>Include<sp/>Files<sp/>**********************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__ocp__common_8h" kindref="compound">xasu_ocp_common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__eccinfo_8h" kindref="compound">xasu_eccinfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*********************************<sp/>Constant<sp/>Definitions<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/***********************************<sp/>Macros<sp/>Definitions<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/***********************************<sp/>Type<sp/>Definitions<sp/>********************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*********************************<sp/>Variable<sp/>Definitions<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Inline<sp/>Function<sp/>Definitions<sp/>**************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**********************************<sp/>Function<sp/>Prototypes<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="58" refid="group__xasu__ocp__common__apis_1ga14a22333993f81451f6060e6432b5608" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__xasu__ocp__common__apis_1ga14a22333993f81451f6060e6432b5608" kindref="member">XAsu_OcpValidateCertParams</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_asu___ocp_cert_params" kindref="compound">XAsu_OcpCertParams</ref><sp/>*OcpCertParam)</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((OcpCertParam-&gt;<ref refid="struct_x_asu___ocp_cert_params_1a51c1c6fa4113b532ca44fff879eab74e" kindref="member">CertBufAddr</ref><sp/>==<sp/>0U)<sp/>||<sp/>(OcpCertParam-&gt;<ref refid="struct_x_asu___ocp_cert_params_1a92f93e1c17fe3d3844afda84fb033303" kindref="member">CertBufLen</ref><sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(OcpCertParam-&gt;<ref refid="struct_x_asu___ocp_cert_params_1a7da40094426fa29654155aa00a764e85" kindref="member">CertActualSize</ref><sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(OcpCertParam-&gt;<ref refid="struct_x_asu___ocp_cert_params_1ac399fb1b25745f8c06a56cb6eae1ef29" kindref="member">DevKeySel</ref><sp/>&gt;=<sp/>(u32)<ref refid="group__xasu__common__defs_1gga99fb83031ce9923c84392b4e92f956b5ab8d8418b3a51861026942a8008b6304a" kindref="member">XOCP_MAX_DEVICE_KEY</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="86" refid="group__xasu__ocp__common__apis_1ga3e41f95cc96b47f6c22d3a45f9acacf7" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__xasu__ocp__common__apis_1ga3e41f95cc96b47f6c22d3a45f9acacf7" kindref="member">XAsu_OcpValidateAttestParams</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_asu___ocp_dev_ak_attest" kindref="compound">XAsu_OcpDevAkAttest</ref><sp/>*OcpAttestParam)</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((OcpAttestParam-&gt;<ref refid="struct_x_asu___ocp_dev_ak_attest_1a7610ca5ca3389ced84161ca74c19fda3" kindref="member">DataAddr</ref><sp/>==<sp/>0U)<sp/>||<sp/>(OcpAttestParam-&gt;<ref refid="struct_x_asu___ocp_dev_ak_attest_1aaf571aa149289ea01a7f9b69db553476" kindref="member">DataLen</ref><sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(OcpAttestParam-&gt;<ref refid="struct_x_asu___ocp_dev_ak_attest_1a0c6a9b091fb7bd03f6dc55cff845ecb9" kindref="member">SignatureAddr</ref><sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(OcpAttestParam-&gt;<ref refid="struct_x_asu___ocp_dev_ak_attest_1a31b1c10068e56565070f5637fdffea95" kindref="member">SignatureBufLen</ref><sp/>&lt;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAsu_DoubleCurveLength(<ref refid="group__xasu__common__defs_1ga561202b987c6542752ab230cbb5d3257" kindref="member">XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES</ref>)))<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocp_common.c"/>
+  </compounddef>
+</doxygen>

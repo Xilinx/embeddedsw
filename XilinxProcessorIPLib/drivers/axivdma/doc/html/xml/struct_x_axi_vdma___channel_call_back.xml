@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_axi_vdma___channel_call_back" kind="struct" prot="public">
+    <compoundname>XAxiVdma_ChannelCallBack</compoundname>
+    <includes local="no">xaxivdma.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="group__axivdma_1gaf3e1965613b2d1a437d798e8a37df333" prot="public" static="no" mutable="no">
+        <type><ref refid="group__axivdma_1ga07f81ffdbceb0024e3a675a787ca3d90" kindref="member">XAxiVdma_CallBack</ref></type>
+        <definition>XAxiVdma_CallBack XAxiVdma_ChannelCallBack::CompletionCallBack</definition>
+        <argsstring></argsstring>
+        <name>CompletionCallBack</name>
+        <briefdescription>
+<para>Call back for completion intr. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="495" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="495" bodyend="-1"/>
+        <referencedby refid="group__axivdma_1ga7dff0c11a9aa88a19519734702904dca" compoundref="xaxivdma_8c" startline="120" endline="328">XAxiVdma_CfgInitialize</referencedby>
+        <referencedby refid="group__axivdma_1ga60ceb86226e513a16d6776a97fcfa50f" compoundref="xaxivdma__intr_8c" startline="217" endline="265">XAxiVdma_ReadIntrHandler</referencedby>
+        <referencedby refid="group__axivdma_1gafd0477fae9534ebd2d2e15cc8885642d" compoundref="xaxivdma__intr_8c" startline="347" endline="383">XAxiVdma_SetCallBack</referencedby>
+        <referencedby refid="group__axivdma_1gaad76f2f6ab41e322ddcd240d2af8140d" compoundref="xaxivdma__intr_8c" startline="279" endline="327">XAxiVdma_WriteIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__axivdma_1ga43dc909946c675490c5380e7f8f90ede" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XAxiVdma_ChannelCallBack::CompletionRef</definition>
+        <argsstring></argsstring>
+        <name>CompletionRef</name>
+        <briefdescription>
+<para>Call back ref. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="496" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="496" bodyend="-1"/>
+        <referencedby refid="group__axivdma_1ga60ceb86226e513a16d6776a97fcfa50f" compoundref="xaxivdma__intr_8c" startline="217" endline="265">XAxiVdma_ReadIntrHandler</referencedby>
+        <referencedby refid="group__axivdma_1gafd0477fae9534ebd2d2e15cc8885642d" compoundref="xaxivdma__intr_8c" startline="347" endline="383">XAxiVdma_SetCallBack</referencedby>
+        <referencedby refid="group__axivdma_1gaad76f2f6ab41e322ddcd240d2af8140d" compoundref="xaxivdma__intr_8c" startline="279" endline="327">XAxiVdma_WriteIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__axivdma_1ga8bde9bc1e0f2871e63eebff6b4d3a11f" prot="public" static="no" mutable="no">
+        <type><ref refid="group__axivdma_1gaf4cafedb40698ffa21e672bf20ac3602" kindref="member">XAxiVdma_ErrorCallBack</ref></type>
+        <definition>XAxiVdma_ErrorCallBack XAxiVdma_ChannelCallBack::ErrCallBack</definition>
+        <argsstring></argsstring>
+        <name>ErrCallBack</name>
+        <briefdescription>
+<para>Call back for error intr. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="498" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="498" bodyend="-1"/>
+        <referencedby refid="group__axivdma_1ga7dff0c11a9aa88a19519734702904dca" compoundref="xaxivdma_8c" startline="120" endline="328">XAxiVdma_CfgInitialize</referencedby>
+        <referencedby refid="group__axivdma_1ga60ceb86226e513a16d6776a97fcfa50f" compoundref="xaxivdma__intr_8c" startline="217" endline="265">XAxiVdma_ReadIntrHandler</referencedby>
+        <referencedby refid="group__axivdma_1gafd0477fae9534ebd2d2e15cc8885642d" compoundref="xaxivdma__intr_8c" startline="347" endline="383">XAxiVdma_SetCallBack</referencedby>
+        <referencedby refid="group__axivdma_1gaad76f2f6ab41e322ddcd240d2af8140d" compoundref="xaxivdma__intr_8c" startline="279" endline="327">XAxiVdma_WriteIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__axivdma_1gaa39f1f408770ba9a38f520a0c0df5c48" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XAxiVdma_ChannelCallBack::ErrRef</definition>
+        <argsstring></argsstring>
+        <name>ErrRef</name>
+        <briefdescription>
+<para>Call back ref. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="499" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="499" bodyend="-1"/>
+        <referencedby refid="group__axivdma_1ga60ceb86226e513a16d6776a97fcfa50f" compoundref="xaxivdma__intr_8c" startline="217" endline="265">XAxiVdma_ReadIntrHandler</referencedby>
+        <referencedby refid="group__axivdma_1gafd0477fae9534ebd2d2e15cc8885642d" compoundref="xaxivdma__intr_8c" startline="347" endline="383">XAxiVdma_SetCallBack</referencedby>
+        <referencedby refid="group__axivdma_1gaad76f2f6ab41e322ddcd240d2af8140d" compoundref="xaxivdma__intr_8c" startline="279" endline="327">XAxiVdma_WriteIntrHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Channel callback functions. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="494" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" bodystart="494" bodyend="500"/>
+    <listofallmembers>
+      <member refid="group__axivdma_1gaf3e1965613b2d1a437d798e8a37df333" prot="public" virt="non-virtual"><scope>XAxiVdma_ChannelCallBack</scope><name>CompletionCallBack</name></member>
+      <member refid="group__axivdma_1ga43dc909946c675490c5380e7f8f90ede" prot="public" virt="non-virtual"><scope>XAxiVdma_ChannelCallBack</scope><name>CompletionRef</name></member>
+      <member refid="group__axivdma_1ga8bde9bc1e0f2871e63eebff6b4d3a11f" prot="public" virt="non-virtual"><scope>XAxiVdma_ChannelCallBack</scope><name>ErrCallBack</name></member>
+      <member refid="group__axivdma_1gaa39f1f408770ba9a38f520a0c0df5c48" prot="public" virt="non-virtual"><scope>XAxiVdma_ChannelCallBack</scope><name>ErrRef</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_wdr_gain_limitation_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceWdrGainLimitationConfig_s</compoundname>
+    <includes local="no">cam_device_wdr_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_wdr_gain_limitation_config__s_1a23c2945fa02533d21b31e527d66e748c" prot="public" static="no" mutable="no">
+        <type>float64_t</type>
+        <definition>float64_t CamDeviceWdrGainLimitationConfig_s::maxGain</definition>
+        <argsstring></argsstring>
+        <name>maxGain</name>
+        <briefdescription>
+<para>WDR max gain. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_gain_limitation_config__s_1a395a9e8b6445b54ecb7c06a206085633" prot="public" static="no" mutable="no">
+        <type>float64_t</type>
+        <definition>float64_t CamDeviceWdrGainLimitationConfig_s::minGain</definition>
+        <argsstring></argsstring>
+        <name>minGain</name>
+        <briefdescription>
+<para>WDR min gain. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice WDR gain limitation configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="148" bodyend="152"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_wdr_gain_limitation_config__s_1a23c2945fa02533d21b31e527d66e748c" prot="public" virt="non-virtual"><scope>CamDeviceWdrGainLimitationConfig_s</scope><name>maxGain</name></member>
+      <member refid="struct_cam_device_wdr_gain_limitation_config__s_1a395a9e8b6445b54ecb7c06a206085633" prot="public" virt="non-virtual"><scope>CamDeviceWdrGainLimitationConfig_s</scope><name>minGain</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

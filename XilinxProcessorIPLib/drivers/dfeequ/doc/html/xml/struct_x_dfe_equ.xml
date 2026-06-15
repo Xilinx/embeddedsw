@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_equ" kind="struct" prot="public">
+    <compoundname>XDfeEqu</compoundname>
+    <includes local="no">xdfeequ.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_equ_1aa12922012ff7c9f59660b8e3e4133297" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_equ___config" kindref="compound">XDfeEqu_Config</ref></type>
+        <definition>XDfeEqu_Config XDfeEqu::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Config Structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="334" bodyend="-1"/>
+        <referencedby refid="group__dfeequ_1ga8517b5d3c53f9694d03a3fe0868b3937" compoundref="xdfeequ_8c" startline="748" endline="798">XDfeEqu_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_equ_1acc9e6897596d510348bef4268f8d947d" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dfeequ_1ga023ff98141bd1c5721ba461a697a109f" kindref="member">XDfeEqu_StateId</ref></type>
+        <definition>XDfeEqu_StateId XDfeEqu::StateId</definition>
+        <argsstring></argsstring>
+        <name>StateId</name>
+        <briefdescription>
+<para>StateId. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="335" bodyend="-1"/>
+        <referencedby refid="group__dfeequ_1gac3eedb65f956253285490a558a751862" compoundref="xdfeequ_8c" startline="861" endline="889">XDfeEqu_Activate</referencedby>
+        <referencedby refid="group__dfeequ_1ga8517b5d3c53f9694d03a3fe0868b3937" compoundref="xdfeequ_8c" startline="748" endline="798">XDfeEqu_Configure</referencedby>
+        <referencedby refid="group__dfeequ_1gace488d54e41f3d8d9179f9be9bbbef58" compoundref="xdfeequ_8c" startline="899" endline="924">XDfeEqu_Deactivate</referencedby>
+        <referencedby refid="group__dfeequ_1ga0223057a4cb6242c44ddf078d49bb509" compoundref="xdfeequ_8c" startline="1252" endline="1276">XDfeEqu_GetActiveSets</referencedby>
+        <referencedby refid="group__dfeequ_1ga7343bc5dbb0c15974f3c15184955ad89" compoundref="xdfeequ_8c" startline="936" endline="940">XDfeEqu_GetStateID</referencedby>
+        <referencedby refid="group__dfeequ_1ga6007e4c4495f0ce8cd9c4ec9ec2a94a4" compoundref="xdfeequ_8c" startline="1004" endline="1068">XDfeEqu_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeequ_1ga91f5801fc102819ea32fe8f0a40c43cb" compoundref="xdfeequ_8c" startline="1351" endline="1376">XDfeEqu_GetVersions</referencedby>
+        <referencedby refid="group__dfeequ_1ga84403d8f6f2f4e9a45668d9dc7dc5b28" compoundref="xdfeequ_8c" startline="810" endline="850">XDfeEqu_Initialize</referencedby>
+        <referencedby refid="group__dfeequ_1ga197062db05b1c51bc800b6a90e82838a" compoundref="xdfeequ_8c" startline="699" endline="718">XDfeEqu_InstanceClose</referencedby>
+        <referencedby refid="group__dfeequ_1ga57eeb135c4ee22d243462e43795fcd45" compoundref="xdfeequ_8c" startline="593" endline="688">XDfeEqu_InstanceInit</referencedby>
+        <referencedby refid="group__dfeequ_1gab553aa1cfced879709804331bda8c876" compoundref="xdfeequ_8c" startline="1189" endline="1240">XDfeEqu_LoadCoefficients</referencedby>
+        <referencedby refid="group__dfeequ_1ga14d48b6aa1a784e94ac55d1a8950c2bf" compoundref="xdfeequ_8c" startline="728" endline="736">XDfeEqu_Reset</referencedby>
+        <referencedby refid="group__dfeequ_1ga8397193c8752e178b30f4161ebf24617" compoundref="xdfeequ_8c" startline="1079" endline="1174">XDfeEqu_SetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeequ_1ga4996ddd3d1b3e4a372ece433df9a5766" compoundref="xdfeequ_8c" startline="1288" endline="1295">XDfeEqu_SetTUserDelay</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_equ_1a44f0527f3c63afbafd641cd1d24b9639" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char XDfeEqu::NodeName[XDFEEQU_NODE_NAME_MAX_LENGTH]</definition>
+        <argsstring>[XDFEEQU_NODE_NAME_MAX_LENGTH]</argsstring>
+        <name>NodeName</name>
+        <briefdescription>
+<para>Node name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="336" bodyend="-1"/>
+        <referencedby refid="group__dfeequ_1ga197062db05b1c51bc800b6a90e82838a" compoundref="xdfeequ_8c" startline="699" endline="718">XDfeEqu_InstanceClose</referencedby>
+        <referencedby refid="group__dfeequ_1ga57eeb135c4ee22d243462e43795fcd45" compoundref="xdfeequ_8c" startline="593" endline="688">XDfeEqu_InstanceInit</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_equ_1a4bd94282772fb67f15359792e8e6270e" prot="public" static="no" mutable="no">
+        <type>struct metal_io_region *</type>
+        <definition>struct metal_io_region* XDfeEqu::Io</definition>
+        <argsstring></argsstring>
+        <name>Io</name>
+        <briefdescription>
+<para>Libmetal IO structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="337" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_equ_1a1a92c641f9441ce29ef319fbff91c635" prot="public" static="no" mutable="no">
+        <type>struct metal_device *</type>
+        <definition>struct metal_device* XDfeEqu::Device</definition>
+        <argsstring></argsstring>
+        <name>Device</name>
+        <briefdescription>
+<para>Libmetal device structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="338" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="338" bodyend="-1"/>
+        <referencedby refid="group__dfeequ_1ga197062db05b1c51bc800b6a90e82838a" compoundref="xdfeequ_8c" startline="699" endline="718">XDfeEqu_InstanceClose</referencedby>
+        <referencedby refid="group__dfeequ_1ga57eeb135c4ee22d243462e43795fcd45" compoundref="xdfeequ_8c" startline="593" endline="688">XDfeEqu_InstanceInit</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Equalizer Structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>XDfeEqu</label>
+        <link refid="struct_x_dfe_equ"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XDfeEqu_Config</label>
+        <link refid="struct_x_dfe_equ___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="333" bodyend="339"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_equ_1aa12922012ff7c9f59660b8e3e4133297" prot="public" virt="non-virtual"><scope>XDfeEqu</scope><name>Config</name></member>
+      <member refid="struct_x_dfe_equ_1a1a92c641f9441ce29ef319fbff91c635" prot="public" virt="non-virtual"><scope>XDfeEqu</scope><name>Device</name></member>
+      <member refid="struct_x_dfe_equ_1a4bd94282772fb67f15359792e8e6270e" prot="public" virt="non-virtual"><scope>XDfeEqu</scope><name>Io</name></member>
+      <member refid="struct_x_dfe_equ_1a44f0527f3c63afbafd641cd1d24b9639" prot="public" virt="non-virtual"><scope>XDfeEqu</scope><name>NodeName</name></member>
+      <member refid="struct_x_dfe_equ_1acc9e6897596d510348bef4268f8d947d" prot="public" virt="non-virtual"><scope>XDfeEqu</scope><name>StateId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

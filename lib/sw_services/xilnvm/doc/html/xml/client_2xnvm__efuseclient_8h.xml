@@ -1,0 +1,1198 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="client_2xnvm__efuseclient_8h" kind="file">
+    <compoundname>client/xnvm_efuseclient.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xnvm_defs.h</includes>
+    <includes refid="xnvm__mailbox_8h" local="yes">xnvm_mailbox.h</includes>
+    <includedby refid="client_2xnvm__efuseclient_8c" local="yes">xnvm_efuseclient.c</includedby>
+    <incdepgraph>
+      <node id="478">
+        <label>xnvm_efuseclient.h</label>
+        <link refid="client/xnvm_efuseclient.h"/>
+        <childnode refid="479" relation="include">
+        </childnode>
+        <childnode refid="480" relation="include">
+        </childnode>
+        <childnode refid="481" relation="include">
+        </childnode>
+      </node>
+      <node id="480">
+        <label>xnvm_defs.h</label>
+      </node>
+      <node id="482">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="479">
+        <label>xil_types.h</label>
+      </node>
+      <node id="483">
+        <label>xparameters.h</label>
+      </node>
+      <node id="481">
+        <label>xnvm_mailbox.h</label>
+        <link refid="xnvm__mailbox_8h"/>
+        <childnode refid="482" relation="include">
+        </childnode>
+        <childnode refid="483" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="485">
+        <label>xnvm_efuseclient.c</label>
+      </node>
+      <node id="484">
+        <label>xnvm_efuseclient.h</label>
+        <link refid="client/xnvm_efuseclient.h"/>
+        <childnode refid="485" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xnvm__efuse__client__apis_1ga16b69cce167bd701e56511c099fdf150" prot="public" static="no">
+        <name>XNVM_SLR_INDEX_SHIFT</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>Slr index shift constant. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__efuse__client__apis_1ga3b6228f47fedbf81e4a4d428a59f2ed4" prot="public" static="no">
+        <name>XNVM_SLR_INDEX_0</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>SLR Index 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__efuse__client__apis_1gaa11ceca8fb47cd6c3448fd647a144a93" prot="public" static="no">
+        <name>XNVM_SLR_INDEX_1</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>SLR Index 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__efuse__client__apis_1gaab93353d8da089021e9539b33d3ce7e0" prot="public" static="no">
+        <name>XNVM_SLR_INDEX_2</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>SLR Index 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__efuse__client__apis_1gae83bff3d807531eee2767b16d00a54f4" prot="public" static="no">
+        <name>XNVM_SLR_INDEX_3</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>SLR Index 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__efuse__client__apis_1gaea0d7fa1f00d844fe51451c22316b9e8" prot="public" static="no">
+        <name>XNVM_WORD_LEN</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Word length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xnvm__efuse__client__apis_1gaefb1c21b807d6bb2cd0725d0bdc473af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseWrite</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr, const u64 DataAddr)</argsstring>
+        <name>XNvm_EfuseWrite</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>DataAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to program eFuses with user provided data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the data structure where the eFUSE data to be programmed is stored</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the eFUSE programming is successful</para></listitem><listitem><para>XST_INVALID_PARAM If there is a input validation failure</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request using generic API </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.c" bodystart="77" bodyend="105"/>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15af801fea29fd664f33d2499795991be50" compoundref="common_2xnvm__defs_8h" startline="153">XNVM_API_ID_EFUSE_WRITE</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</references>
+        <references refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__bbramclient_8h" startline="50">XNVM_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__client__apis_1ga7ed0e93e0e8a58ecfc5dd60e42461c15" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseWriteIVs</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const u32 EnvDisFlag)</argsstring>
+        <name>XNvm_EfuseWriteIVs</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>IvAddr</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>EnvDisFlag</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to program IV eFuses with user provided data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IvAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the data structure where the eFUSE data to be programmed is stored </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EnvDisFlag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag that tells weather to enable/disable Environmental monitoring in XilNvm</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the programming is successful</para></listitem><listitem><para>XST_INVALID_PARAM If there is a input validation failure</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Link Shared memory for IPI usage. If shared memory is not assigned return XST_FAILURE.</para></listitem><listitem><para>Zeroize the shared memory.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request using generic API </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.c" bodystart="124" bodyend="178"/>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15af801fea29fd664f33d2499795991be50" compoundref="common_2xnvm__defs_8h" startline="153">XNVM_API_ID_EFUSE_WRITE</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</references>
+        <references refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__bbramclient_8h" startline="50">XNVM_SLR_INDEX_SHIFT</references>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gac572fc5f0c58365ced7c15eeb8adec73" compoundref="net_2client_2xnvm__efuseclient_8c" startline="125" endline="276">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__client__apis_1ga6615e748856e15f3e2169f9413e7cbd1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseRevokePpk</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr, const XNvm_PpkType PpkRevoke, const u32 EnvDisFlag)</argsstring>
+        <name>XNvm_EfuseRevokePpk</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group__xnvm__def__api__ids_1gaafc5df161f553f1717cbf341bc30cd2c" kindref="member">XNvm_PpkType</ref></type>
+          <declname>PpkRevoke</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>EnvDisFlag</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to program PPK_INVLD eFuse requested by the user. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PpkRevoke</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of PPK_INVLD to be revoked </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EnvDisFlag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag that tells whether to enable/disable Environmental monitoring in XilNvm</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the programming is successful</para></listitem><listitem><para>XST_INVALID_PARAM If there is a input validation failure</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Link shared memory for IPI usage. If shared memory is not assigned return XST_FAILURE.</para></listitem><listitem><para>Zeroize the shared memory.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request using generic API </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.c" bodystart="196" bodyend="281"/>
+        <references refid="struct_x_nvm___efuse_misc_ctrl_bits_1a496f2ea5a9be4e55d18119bde3b69d20" compoundref="xnvm__common__defs_8h" startline="199">XNvm_EfuseMiscCtrlBits::Ppk0Invalid</references>
+        <references refid="struct_x_nvm___efuse_misc_ctrl_bits_1a9228ad2b3bf4fd1b1f6d066d5db58ae0" compoundref="xnvm__common__defs_8h" startline="200">XNvm_EfuseMiscCtrlBits::Ppk1Invalid</references>
+        <references refid="struct_x_nvm___efuse_misc_ctrl_bits_1afd8442f9a8bcd4bcbbc67e0c8224b3ce" compoundref="xnvm__common__defs_8h" startline="201">XNvm_EfuseMiscCtrlBits::Ppk2Invalid</references>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15af801fea29fd664f33d2499795991be50" compoundref="common_2xnvm__defs_8h" startline="153">XNVM_API_ID_EFUSE_WRITE</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ggaf1c02a37ed9053839674b9a9adf3e169a928eb461776b691d01df0067168cbeb2" compoundref="spartanup_2xnvm__efuse_8h" startline="324">XNVM_EFUSE_PPK0</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ggaf1c02a37ed9053839674b9a9adf3e169a6e608e7e460e21c9a60f77fdc8199f01" compoundref="spartanup_2xnvm__efuse_8h" startline="325">XNVM_EFUSE_PPK1</references>
+        <references refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ggaf1c02a37ed9053839674b9a9adf3e169acabb8510d521f1f2c81b72a99db4ce07" compoundref="spartanup_2xnvm__efuse_8h" startline="326">XNVM_EFUSE_PPK2</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</references>
+        <references refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__bbramclient_8h" startline="50">XNVM_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__client__apis_1gae09868a910eea80203d78873f4de064c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseWriteRevocationId</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr, const u32 RevokeId, const u32 EnvDisFlag)</argsstring>
+        <name>XNvm_EfuseWriteRevocationId</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>RevokeId</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>EnvDisFlag</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to program revoke id eFuses requested by the user. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RevokeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>RevokeId number to be revoked </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EnvDisFlag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag that tells whether to enable/disable Environmental monitoring in XilNvm</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the programming is successful</para></listitem><listitem><para>XST_INVALID_PARAM If there is a input validation failure</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Link shared memory for IPI usage. If shared memory is not assigned return XST_FAILURE.</para></listitem><listitem><para>Zeroize the shared memory.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request using generic API </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.c" bodystart="299" bodyend="374"/>
+        <references refid="struct_x_nvm___efuse_revoke_ids_1a004d078f04aa0ff025565a16f9031d0f" compoundref="xnvm__common__defs_8h" startline="281">XNvm_EfuseRevokeIds::PrgmRevokeId</references>
+        <references refid="struct_x_nvm___efuse_revoke_ids_1a65cbfd51efe91e6ef7bc6c81aa64f8c0" compoundref="xnvm__common__defs_8h" startline="282">XNvm_EfuseRevokeIds::RevokeId</references>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15af801fea29fd664f33d2499795991be50" compoundref="common_2xnvm__defs_8h" startline="153">XNVM_API_ID_EFUSE_WRITE</references>
+        <references refid="group__xnvm__def__api__ids_1ga5c05d1181dfada411f0627f7ea676c11" compoundref="xnvm__common__defs_8h" startline="50">XNVM_NUM_OF_REVOKE_ID_FUSES</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</references>
+        <references refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__bbramclient_8h" startline="50">XNVM_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__client__apis_1gab49aedef8afbe4faa8a842b847cece3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseWriteUserFuses</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr, const u64 UserFuseAddr, const u32 EnvDisFlag)</argsstring>
+        <name>XNvm_EfuseWriteUserFuses</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>UserFuseAddr</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>EnvDisFlag</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to program User eFuses requested by the user. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>UserFuseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the <ref refid="struct_x_nvm___efuse_user_data" kindref="compound">XNvm_EfuseUserData</ref> structure where the user provided data to be programmed </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EnvDisFlag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag that tells whether to enable/disable Environmental monitoring in XilNvm</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the programming is successful</para></listitem><listitem><para>XST_INVALID_PARAM If there is a input validation failure</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Link shared memory for IPI usage. If shared memory is not assigned return XST_FAILURE.</para></listitem><listitem><para>Zeroize the shared memory.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request using generic API </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.c" bodystart="393" bodyend="446"/>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15af801fea29fd664f33d2499795991be50" compoundref="common_2xnvm__defs_8h" startline="153">XNVM_API_ID_EFUSE_WRITE</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</references>
+        <references refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__bbramclient_8h" startline="50">XNVM_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__client__apis_1gabbff97b78f82ae83002d64c9e4e61964" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseReadIv</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const XNvm_IvType IvType)</argsstring>
+        <name>XNvm_EfuseReadIv</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>IvAddr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group__xnvm__def__api__ids_1ga9b9c488dfe06ff2966d5ded5f5ec76ba" kindref="member">XNvm_IvType</ref></type>
+          <declname>IvType</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to read IV eFuses requested by the user. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IvAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the output buffer to store the IV eFuse data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IvType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of the IV to read out</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the read is successful</para></listitem><listitem><para>XST_INVALID_PARAM If there is a input validation failure</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request using generic API </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.c" bodystart="464" bodyend="489"/>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a86a108201c274229518f66caef1d9d05" compoundref="common_2xnvm__defs_8h" startline="156">XNVM_API_ID_EFUSE_READ_IV</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</references>
+        <references refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__bbramclient_8h" startline="50">XNVM_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__client__apis_1ga32e43ec62893f850f115f3ee0a5434f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseReadRevocationId</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr, const u64 RevokeIdAddr, const XNvm_RevocationId RevokeIdNum)</argsstring>
+        <name>XNvm_EfuseReadRevocationId</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>RevokeIdAddr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group__xnvm__def__api__ids_1ga2d6a5249bee4709d3ab0eccb810e1ee9" kindref="member">XNvm_RevocationId</ref></type>
+          <declname>RevokeIdNum</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to read Revocation ID eFuses requested by the user. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RevokeIdAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the output buffer to store the Revocation ID eFuse data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RevokeIdNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Revocation ID to be read out</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the read is successful</para></listitem><listitem><para>XST_INVALID_PARAM If there is a input validation failure</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request using generic API </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.c" bodystart="507" bodyend="533"/>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a5eaf576c3b00d23c6750333f5960211d" compoundref="common_2xnvm__defs_8h" startline="157">XNVM_API_ID_EFUSE_READ_REVOCATION_ID</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</references>
+        <references refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__bbramclient_8h" startline="50">XNVM_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__client__apis_1ga1a3da417c5ca5121f4c8d375bf0ea298" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseReadUserFuses</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr, const u64 UserFuseAddr)</argsstring>
+        <name>XNvm_EfuseReadUserFuses</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>UserFuseAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to read User eFuses requested by the user. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>UserFuseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the output buffer to store the User eFuse data</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the read is successful</para></listitem><listitem><para>XST_INVALID_PARAM If there is a input validation failure</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request using generic API </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.c" bodystart="550" bodyend="574"/>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15aae258f735541002955695d49852baf08" compoundref="common_2xnvm__defs_8h" startline="159">XNVM_API_ID_EFUSE_READ_USER_FUSES</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</references>
+        <references refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__bbramclient_8h" startline="50">XNVM_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__client__apis_1gaf3ba1177b7892366982f77d32ec7ecf8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseReadMiscCtrlBits</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr, const u64 MiscCtrlBits)</argsstring>
+        <name>XNvm_EfuseReadMiscCtrlBits</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>MiscCtrlBits</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to read MiscCtrlBits requested by the user. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MiscCtrlBits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the output buffer to store the MiscCtrlBits eFuses data</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the read is successful</para></listitem><listitem><para>XST_INVALID_PARAM If there is a input validation failure</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request using generic API </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.c" bodystart="591" bodyend="615"/>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a07d2fb536ecefa505fae791760cd6794" compoundref="common_2xnvm__defs_8h" startline="160">XNVM_API_ID_EFUSE_READ_MISC_CTRL_BITS</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</references>
+        <references refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__bbramclient_8h" startline="50">XNVM_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__client__apis_1gae6cbda607227cfb4778b66c8c2a8ebf0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseReadSecCtrlBits</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr, const u64 SecCtrlBits)</argsstring>
+        <name>XNvm_EfuseReadSecCtrlBits</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>SecCtrlBits</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to read SecCtrlBits requested by the user. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SecCtrlBits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the output buffer to store the SecCtrlBits eFuses data</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the read is successful</para></listitem><listitem><para>XST_INVALID_PARAM If there is a input validation failure</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request using generic API </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.c" bodystart="632" bodyend="656"/>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ab262c355b25fcadb900261ffc1002a70" compoundref="common_2xnvm__defs_8h" startline="161">XNVM_API_ID_EFUSE_READ_SEC_CTRL_BITS</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</references>
+        <references refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__bbramclient_8h" startline="50">XNVM_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__client__apis_1gacc863c22d5d7a8f54f7d3cb28781a82e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseReadSecMisc1Bits</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr, const u64 SecMisc1Bits)</argsstring>
+        <name>XNvm_EfuseReadSecMisc1Bits</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>SecMisc1Bits</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to read SecMisc1Bits requested by the user. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SecMisc1Bits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the output buffer to store the SecMisc1Bits eFuses data</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the read is successful</para></listitem><listitem><para>XST_INVALID_PARAM If there is a input validation failure</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request using generic API </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.c" bodystart="673" bodyend="697"/>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a688ce960e05abcaa2305ba3ac62388d4" compoundref="common_2xnvm__defs_8h" startline="162">XNVM_API_ID_EFUSE_READ_SEC_MISC1_BITS</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</references>
+        <references refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__bbramclient_8h" startline="50">XNVM_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__client__apis_1gaa14ae0e8b42bf8801a510e2f31e29c88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseReadBootEnvCtrlBits</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr, const u64 BootEnvCtrlBits)</argsstring>
+        <name>XNvm_EfuseReadBootEnvCtrlBits</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>BootEnvCtrlBits</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to read BootEnvCtrlBits requested by the user. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BootEnvCtrlBits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the output buffer to store the BootEnvCtrlBits eFuses data</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the read is successful</para></listitem><listitem><para>XST_INVALID_PARAM If there is a input validation failure</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request using generic API </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.c" bodystart="714" bodyend="738"/>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15abe1ec7b0512577f37350a4482c9dc09a" compoundref="common_2xnvm__defs_8h" startline="163">XNVM_API_ID_EFUSE_READ_BOOT_ENV_CTRL_BITS</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</references>
+        <references refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__bbramclient_8h" startline="50">XNVM_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__client__apis_1gae98054231a90a3ded1ec82c9a011ac94" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseReadPufSecCtrlBits</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr, const u64 PufSecCtrlBits)</argsstring>
+        <name>XNvm_EfuseReadPufSecCtrlBits</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>PufSecCtrlBits</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to read PufSecCtrlBits requested by the user. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PufSecCtrlBits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the output buffer to store the PufSecCtrlBits eFuses data</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the read is successful</para></listitem><listitem><para>XST_INVALID_PARAM If there is a input validation failure</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Fill IPI Payload</para></listitem><listitem><para>Send request using generic API </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.c" bodystart="755" bodyend="780"/>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a0944844aa13b7f24ba401f8e53e6a120" compoundref="common_2xnvm__defs_8h" startline="164">XNVM_API_ID_EFUSE_READ_PUF_SEC_CTRL_BITS</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</references>
+        <references refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__bbramclient_8h" startline="50">XNVM_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__client__apis_1ga55a6be49ea504c9e07a532b5e82797c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseReadOffchipRevokeId</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr, const u64 OffChidIdAddr, const XNvm_OffchipId OffChipIdNum)</argsstring>
+        <name>XNvm_EfuseReadOffchipRevokeId</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>OffChidIdAddr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group__xnvm__def__api__ids_1gaf84fe281e56c68dea0409b055fd2cd26" kindref="member">XNvm_OffchipId</ref></type>
+          <declname>OffChipIdNum</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to read OffChip ID eFuses requested by the user. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OffChidIdAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the output buffer to store the OffChip ID eFuse data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OffChipIdNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>OffChip ID number to be read out</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the read is successful</para></listitem><listitem><para>XST_INVALID_PARAM If there is a input validation failure</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request using generic API </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.c" bodystart="798" bodyend="824"/>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ab4a9b4f2c0e6dd2e74fd03816b70d127" compoundref="common_2xnvm__defs_8h" startline="158">XNVM_API_ID_EFUSE_READ_OFFCHIP_REVOCATION_ID</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</references>
+        <references refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__bbramclient_8h" startline="50">XNVM_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__client__apis_1gad7ea5c5b0c9de1c1e6b4c2659a02ddeb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseReadPpkHash</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr, const u64 PpkHashAddr, const XNvm_PpkType PpkHashType)</argsstring>
+        <name>XNvm_EfuseReadPpkHash</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>PpkHashAddr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group__xnvm__def__api__ids_1gaafc5df161f553f1717cbf341bc30cd2c" kindref="member">XNvm_PpkType</ref></type>
+          <declname>PpkHashType</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to read PpkHash requested by the user. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PpkHashAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the output buffer to store the PpkHashAddr eFuses data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PpkHashType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of the PpkHash to be read out</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the read is successful</para></listitem><listitem><para>XST_INVALID_PARAM If there is a input validation failure</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request using generic API </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.c" bodystart="842" bodyend="867"/>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a9ede9ca1e9dc57f447ac91e8961901b9" compoundref="common_2xnvm__defs_8h" startline="165">XNVM_API_ID_EFUSE_READ_PPK_HASH</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</references>
+        <references refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__bbramclient_8h" startline="50">XNVM_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__client__apis_1ga15ea0137369d9a81a853a6784c43b29d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseReadDecOnly</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr, const u64 DecOnlyAddr)</argsstring>
+        <name>XNvm_EfuseReadDecOnly</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>DecOnlyAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to read DecEfuseOnly eFuses requested by the user. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DecOnlyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the output buffer to store the DecEfuseOnly eFuses data</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the read is successful</para></listitem><listitem><para>XST_INVALID_PARAM If there is a input validation failure</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request using generic API </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.c" bodystart="884" bodyend="908"/>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a1989104225a5241285be4ec426d7472d" compoundref="common_2xnvm__defs_8h" startline="166">XNVM_API_ID_EFUSE_READ_DEC_EFUSE_ONLY</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</references>
+        <references refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__bbramclient_8h" startline="50">XNVM_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__client__apis_1gacb7ff4ed433334fd4c7af398a6698be6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseReadDna</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr, const u64 DnaAddr)</argsstring>
+        <name>XNvm_EfuseReadDna</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>DnaAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to read DNA eFuses requested by the user. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DnaAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the output buffer to store the DNA eFuses data</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the read is successful</para></listitem><listitem><para>XST_INVALID_PARAM If there is a input validation failure</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request using generic API </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.c" bodystart="925" bodyend="949"/>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a6dc404249dd00d07a0863d8e948f47bd" compoundref="common_2xnvm__defs_8h" startline="167">XNVM_API_ID_EFUSE_READ_DNA</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</references>
+        <references refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__bbramclient_8h" startline="50">XNVM_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__client__apis_1ga016c1951e834a91b6e5b39d2db818977" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseAesKeyCrcCheck</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr, const u32 AesKeyCrc, const XNvm_AesKeyType AesKeyType)</argsstring>
+        <name>XNvm_EfuseAesKeyCrcCheck</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>AesKeyCrc</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group__xnvm__def__api__ids_1ga3b0258a29c1f095e8949ab58e45e9540" kindref="member">XNvm_AesKeyType</ref></type>
+          <declname>AesKeyType</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to check given CRC is matched with calculated CRC. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AesKeyCrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CRC value of the AES key which needs to be checked </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AesKeyType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of AES key Supported key types:<itemizedlist>
+<listitem><para>XNVM_EFUSE_AES_KEY</para></listitem><listitem><para>XNVM_EFUSE_USER_KEY0</para></listitem><listitem><para>XNVM_EFUSE_USER_KEY1</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the CRC matches</para></listitem><listitem><para>XST_INVALID_PARAM If there is a input validation failure</para></listitem><listitem><para>XNVM_EFUSE_ERR_CRC_VERIFICATION If there is a CRC verification failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request using generic API</para></listitem><listitem><para>Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Fill IPI Payload</para></listitem><listitem><para>Send check AES key CRC CDO to PLM to check the given CRC. Return XST_FAILURE if IPI request processing fails in PLM.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.c" bodystart="1141" bodyend="1165"/>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a15352ecb21ac56b5375b06495b8b4276" compoundref="common_2xnvm__defs_8h" startline="184">XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC</references>
+        <references refid="group__xnvm__mailbox__apis_1ga3ce66c6266190912ba2552c2bc1701c7" compoundref="xnvm__mailbox_8c" startline="66" endline="95">XNvm_ProcessMailbox</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</references>
+        <references refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__bbramclient_8h" startline="50">XNVM_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__client__apis_1gad260093cbe9bacb6d0f649b84bccd8a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseWritePuf</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr)</argsstring>
+        <name>XNvm_EfuseWritePuf</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>PufHdAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to program Puf helper data requested by the user. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PufHdAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the XNvm_EfusePufHdAddr structure where the user provided helper data to be programmed</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the programming is successful</para></listitem><listitem><para>XST_INVALID_PARAM If there is a input validation failure</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request using generic API </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.c" bodystart="1051" bodyend="1080"/>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15aa8264a14c55ac3cfa81b0bcf2d04c7cc" compoundref="common_2xnvm__defs_8h" startline="154">XNVM_API_ID_EFUSE_WRITE_PUF</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</references>
+        <references refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__bbramclient_8h" startline="50">XNVM_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__client__apis_1ga6a1e538568cd6b7e21084eaf138a3113" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_EfuseReadPuf</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr)</argsstring>
+        <name>XNvm_EfuseReadPuf</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>PufHdAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to read Puf helper data requested by the user. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PufHdAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the output buffer to store the Puf helper data</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the read is successful</para></listitem><listitem><para>XST_INVALID_PARAM If there is a input validation failure</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request using generic API </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.c" bodystart="1097" bodyend="1120"/>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a2d1b4af1814790948d3f5b077957b00b" compoundref="common_2xnvm__defs_8h" startline="169">XNVM_API_ID_EFUSE_READ_PUF</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</references>
+        <references refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__bbramclient_8h" startline="50">XNVM_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file Contains the client function prototypes, defines and macros for the eFUSE programming and read. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   kal  07/29/21 Initial release
+      kpt  08/27/21 Added client API&apos;s to support puf helper data efuse
+                    programming
+      kpt  03/16/22 Removed IPI related code and added mailbox support
+3.1   skg  10/04/22 Added SlrIndex Constants
+3.2   vss  09/19/23 Fixed MISRA-C Rule 2.5 violaion
+3.3   ng   11/22/2023 Fixed doxygen grouping
+3.7   mb   12/31/2025 Added client API XNvm_EfuseCheckAesKeyCrc to check AES key CRC</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor">#ifndef<sp/>XNVM_EFUSECLIENT_H</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSECLIENT_H</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xnvm_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xnvm__mailbox_8h" kindref="compound">xnvm_mailbox.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="group__xnvm__efuse__client__apis_1ga16b69cce167bd701e56511c099fdf150" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_SLR_INDEX_SHIFT<sp/>(6U)<sp/></highlight></codeline>
+<codeline lineno="54" refid="group__xnvm__efuse__client__apis_1ga3b6228f47fedbf81e4a4d428a59f2ed4" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_SLR_INDEX_0<sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="55" refid="group__xnvm__efuse__client__apis_1gaa11ceca8fb47cd6c3448fd647a144a93" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_SLR_INDEX_1<sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="56" refid="group__xnvm__efuse__client__apis_1gaab93353d8da089021e9539b33d3ce7e0" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_SLR_INDEX_2<sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="57" refid="group__xnvm__efuse__client__apis_1gae83bff3d807531eee2767b16d00a54f4" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_SLR_INDEX_3<sp/>(3U)<sp/></highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62" refid="group__xnvm__efuse__client__apis_1gaea0d7fa1f00d844fe51451c22316b9e8" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_WORD_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga4a8eb9760cd0e92e9dcfb411c149a80a" kindref="member">XNvm_EfuseWrite</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>DataAddr);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__client__apis_1ga7ed0e93e0e8a58ecfc5dd60e42461c15" kindref="member">XNvm_EfuseWriteIVs</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>IvAddr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>EnvDisFlag);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__client__apis_1ga6615e748856e15f3e2169f9413e7cbd1" kindref="member">XNvm_EfuseRevokePpk</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__def__api__ids_1gaafc5df161f553f1717cbf341bc30cd2c" kindref="member">XNvm_PpkType</ref><sp/>PpkRevoke,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>EnvDisFlag);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__client__apis_1gae09868a910eea80203d78873f4de064c" kindref="member">XNvm_EfuseWriteRevocationId</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>RevokeId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>EnvDisFlag);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__client__apis_1gab49aedef8afbe4faa8a842b847cece3c" kindref="member">XNvm_EfuseWriteUserFuses</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>UserFuseAddr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>EnvDisFlag);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga47d7b6aba6853677925dd61821de43e7" kindref="member">XNvm_EfuseReadIv</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>IvAddr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__def__api__ids_1ga9b9c488dfe06ff2966d5ded5f5ec76ba" kindref="member">XNvm_IvType</ref><sp/>IvType);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__client__apis_1ga32e43ec62893f850f115f3ee0a5434f9" kindref="member">XNvm_EfuseReadRevocationId</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>RevokeIdAddr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__def__api__ids_1ga2d6a5249bee4709d3ab0eccb810e1ee9" kindref="member">XNvm_RevocationId</ref><sp/>RevokeIdNum);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__client__apis_1ga1a3da417c5ca5121f4c8d375bf0ea298" kindref="member">XNvm_EfuseReadUserFuses</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>UserFuseAddr);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__client__apis_1gaf3ba1177b7892366982f77d32ec7ecf8" kindref="member">XNvm_EfuseReadMiscCtrlBits</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>MiscCtrlBits);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaf0e51beac90b7d5fe2d18c9ef25bc2ea" kindref="member">XNvm_EfuseReadSecCtrlBits</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>SecCtrlBits);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__client__apis_1gacc863c22d5d7a8f54f7d3cb28781a82e" kindref="member">XNvm_EfuseReadSecMisc1Bits</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>SecMisc1Bits);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__client__apis_1gaa14ae0e8b42bf8801a510e2f31e29c88" kindref="member">XNvm_EfuseReadBootEnvCtrlBits</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>BootEnvCtrlBits);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__client__apis_1gae98054231a90a3ded1ec82c9a011ac94" kindref="member">XNvm_EfuseReadPufSecCtrlBits</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>PufSecCtrlBits);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__client__apis_1ga55a6be49ea504c9e07a532b5e82797c1" kindref="member">XNvm_EfuseReadOffchipRevokeId</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>OffChidIdAddr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__def__api__ids_1gaf84fe281e56c68dea0409b055fd2cd26" kindref="member">XNvm_OffchipId</ref><sp/>OffChipIdNum);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaef6b3eed8eac8a53b3e028efdc0e1a39" kindref="member">XNvm_EfuseReadPpkHash</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>PpkHashAddr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__def__api__ids_1gaafc5df161f553f1717cbf341bc30cd2c" kindref="member">XNvm_PpkType</ref><sp/>PpkHashType);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gaf25ea1ce6b8a6f3971b341861f66a4d6" kindref="member">XNvm_EfuseReadDecOnly</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>DecOnlyAddr);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga659394d4c6d6d24e431fb707a88031ef" kindref="member">XNvm_EfuseReadDna</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>DnaAddr);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__client__apis_1ga016c1951e834a91b6e5b39d2db818977" kindref="member">XNvm_EfuseAesKeyCrcCheck</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>AesKeyCrc,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__def__api__ids_1ga3b0258a29c1f095e8949ab58e45e9540" kindref="member">XNvm_AesKeyType</ref><sp/>AesKeyType);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XNVM_ACCESS_PUF_USER_DATA</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XNvm_EfuseWritePufAsUserFuses(XNvm_ClientInstance<sp/>*InstancePtr,<sp/>u64<sp/>PufUserFuseAddr);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XNvm_EfuseReadPufAsUserFuses(XNvm_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>PufUserFuseAddr);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__client__apis_1gad260093cbe9bacb6d0f649b84bccd8a0" kindref="member">XNvm_EfuseWritePuf</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>PufHdAddr);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__efuse__client__apis_1ga6a1e538568cd6b7e21084eaf138a3113" kindref="member">XNvm_EfuseReadPuf</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>PufHdAddr);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XNVM_EFUSECLIENT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/client/xnvm_efuseclient.h"/>
+  </compounddef>
+</doxygen>

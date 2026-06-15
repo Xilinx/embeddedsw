@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___resp_buf" kind="struct" prot="public">
+    <compoundname>XAsu_RespBuf</compoundname>
+    <includes local="no">xasu_sharedmem.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___resp_buf_1ab962e27d59a44a1affbe81298a614a29" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RespBuf::Header</definition>
+        <argsstring></argsstring>
+        <name>Header</name>
+        <briefdescription>
+<para>Command header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___resp_buf_1aea3e3032e620d263b0ba6d08d02a49db" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RespBuf::Arg[XASU_COMMAND_RESP_ARGS]</definition>
+        <argsstring>[XASU_COMMAND_RESP_ARGS]</argsstring>
+        <name>Arg</name>
+        <briefdescription>
+<para>Response arguments. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___resp_buf_1a4e4b498ae75a39426630a068a707ea8c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RespBuf::AdditionalStatus</definition>
+        <argsstring></argsstring>
+        <name>AdditionalStatus</name>
+        <briefdescription>
+<para>Redundant variable to hold additional status from server. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___resp_buf_1aa31fcbf7c9a82dc4e93b68842d879c6d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RespBuf::Reserved</definition>
+        <argsstring></argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Reserved. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure is the response buffer. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="131" bodyend="136"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___resp_buf_1a4e4b498ae75a39426630a068a707ea8c" prot="public" virt="non-virtual"><scope>XAsu_RespBuf</scope><name>AdditionalStatus</name></member>
+      <member refid="struct_x_asu___resp_buf_1aea3e3032e620d263b0ba6d08d02a49db" prot="public" virt="non-virtual"><scope>XAsu_RespBuf</scope><name>Arg</name></member>
+      <member refid="struct_x_asu___resp_buf_1ab962e27d59a44a1affbe81298a614a29" prot="public" virt="non-virtual"><scope>XAsu_RespBuf</scope><name>Header</name></member>
+      <member refid="struct_x_asu___resp_buf_1aa31fcbf7c9a82dc4e93b68842d879c6d" prot="public" virt="non-virtual"><scope>XAsu_RespBuf</scope><name>Reserved</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

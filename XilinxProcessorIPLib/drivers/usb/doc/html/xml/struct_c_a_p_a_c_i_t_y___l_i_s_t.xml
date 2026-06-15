@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_c_a_p_a_c_i_t_y___l_i_s_t" kind="struct" prot="public">
+    <compoundname>CAPACITY_LIST</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_c_a_p_a_c_i_t_y___l_i_s_t_1a96d163d21bf5822f3c3a07dda97533df" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 CAPACITY_LIST::caplstlen[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>caplstlen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="233" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_c_a_p_a_c_i_t_y___l_i_s_t_1a1488e6a908839d1d32dabc35960777a3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 CAPACITY_LIST::maxnumblocks[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>maxnumblocks</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_c_a_p_a_c_i_t_y___l_i_s_t_1a9f043097cf1f27b6108e66425adeac5a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 CAPACITY_LIST::cap_code_blocklength[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>cap_code_blocklength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="232" bodyend="237"/>
+    <listofallmembers>
+      <member refid="struct_c_a_p_a_c_i_t_y___l_i_s_t_1a9f043097cf1f27b6108e66425adeac5a" prot="public" virt="non-virtual"><scope>CAPACITY_LIST</scope><name>cap_code_blocklength</name></member>
+      <member refid="struct_c_a_p_a_c_i_t_y___l_i_s_t_1a96d163d21bf5822f3c3a07dda97533df" prot="public" virt="non-virtual"><scope>CAPACITY_LIST</scope><name>caplstlen</name></member>
+      <member refid="struct_c_a_p_a_c_i_t_y___l_i_s_t_1a1488e6a908839d1d32dabc35960777a3" prot="public" virt="non-virtual"><scope>CAPACITY_LIST</scope><name>maxnumblocks</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

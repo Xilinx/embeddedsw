@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ufs_psxc___config" kind="struct" prot="public">
+    <compoundname>XUfsPsxc_Config</compoundname>
+    <includes local="no">xufspsxc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ufs_psxc___config_1a39490cc28ba952f3bef5aa832f3c27e0" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XUfsPsxc_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Compatible string of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group__ufspsxc_1ga2002c7351a5cac41c7a0bea8c1bf8ed9" compoundref="xufspsxc__sinit_8c" startline="55" endline="67">XUfsPsxc_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___config_1a4a3f9ad972b6dcab5ae62033e59571a1" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XUfsPsxc_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base address of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__ufspsxc_1gaa67843f95526f7c11553c1f125004374" compoundref="xufspsxc_8c" startline="57" endline="82">XUfsPsxc_CfgInitialize</referencedby>
+        <referencedby refid="group__ufspsxc_1ga76dd7620ac6f336d4a9aaa5108e009d6" compoundref="xufspsxc_8c" startline="134" endline="197">XUfsPsxc_ConfigureSpeedGear</referencedby>
+        <referencedby refid="group__ufspsxc_1gae0db9d094adbe197913f6c107e0f02ef" compoundref="xufspsxc__init_8c" startline="60" endline="192">XUfsPsxc_HostInitialize</referencedby>
+        <referencedby refid="group__ufspsxc_1ga5c93689c07193dfa1a85d9b093596b0e" compoundref="xufspsxc__hw_8c" startline="535" endline="656">XUfsPsxc_ProcessUpiu</referencedby>
+        <referencedby refid="group__ufspsxc_1ga3466d6c88ad459aef56d2d686ff077c8" compoundref="xufspsxc__hw_8c" startline="59" endline="131">XUfsPsxc_SendUICCmd</referencedby>
+        <referencedby refid="group__ufspsxc_1ga9d2af8ff970bc14578e9b35d1969d460" compoundref="xufspsxc__hw_8c" startline="145" endline="162">XUfsPsxc_SetHce</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___config_1ab6fd32d5fd25f5b32edf2b4f69875e67" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_Config::InputClockHz</definition>
+        <argsstring></argsstring>
+        <name>InputClockHz</name>
+        <briefdescription>
+<para>Input clock frequency. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__ufspsxc_1gaa67843f95526f7c11553c1f125004374" compoundref="xufspsxc_8c" startline="57" endline="82">XUfsPsxc_CfgInitialize</referencedby>
+        <referencedby refid="group__ufspsxc_1gae0db9d094adbe197913f6c107e0f02ef" compoundref="xufspsxc__init_8c" startline="60" endline="192">XUfsPsxc_HostInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___config_1a9e08ed8c5c8ba0b3b67ce267134a9ee4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_Config::CfgClkFreqHz</definition>
+        <argsstring></argsstring>
+        <name>CfgClkFreqHz</name>
+        <briefdescription>
+<para>M-PHY Config clock frequency (external clock) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__ufspsxc_1gaa67843f95526f7c11553c1f125004374" compoundref="xufspsxc_8c" startline="57" endline="82">XUfsPsxc_CfgInitialize</referencedby>
+        <referencedby refid="group__ufspsxc_1gae0db9d094adbe197913f6c107e0f02ef" compoundref="xufspsxc__init_8c" startline="60" endline="192">XUfsPsxc_HostInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___config_1ac3e9e067157d1afa16f87784578dd1f9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_Config::RefPadClk</definition>
+        <argsstring></argsstring>
+        <name>RefPadClk</name>
+        <briefdescription>
+<para>UFS Reference Pad clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__ufspsxc_1gaa67843f95526f7c11553c1f125004374" compoundref="xufspsxc_8c" startline="57" endline="82">XUfsPsxc_CfgInitialize</referencedby>
+        <referencedby refid="group__ufspsxc_1gae0db9d094adbe197913f6c107e0f02ef" compoundref="xufspsxc__init_8c" startline="60" endline="192">XUfsPsxc_HostInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___config_1a9ca68c44716762c73f53c17f35cf7eea" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUfsPsxc_Config::IsCacheCoherent</definition>
+        <argsstring></argsstring>
+        <name>IsCacheCoherent</name>
+        <briefdescription>
+<para>If UFS is Cache Coherent or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__ufspsxc_1gaa67843f95526f7c11553c1f125004374" compoundref="xufspsxc_8c" startline="57" endline="82">XUfsPsxc_CfgInitialize</referencedby>
+        <referencedby refid="group__ufspsxc_1ga5c93689c07193dfa1a85d9b093596b0e" compoundref="xufspsxc__hw_8c" startline="535" endline="656">XUfsPsxc_ProcessUpiu</referencedby>
+        <referencedby refid="group__ufspsxc_1ga7c68d7e7d43d9d3f3c327c4ea3d58dd6" compoundref="xufspsxc_8c" startline="338" endline="416">XUfsPsxc_ReadPolled</referencedby>
+        <referencedby refid="group__ufspsxc_1ga5b503a6cef357e029c87ab07e4354763" compoundref="xufspsxc_8c" startline="432" endline="501">XUfsPsxc_WritePolled</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___config_1acbc5e6c3535aad9294bdcbb420c617da" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XUfsPsxc_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___config_1a12826ecb87695efb3ea2dd824a23bfbc" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XUfsPsxc_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="65" bodyend="76"/>
+    <listofallmembers>
+      <member refid="struct_x_ufs_psxc___config_1a4a3f9ad972b6dcab5ae62033e59571a1" prot="public" virt="non-virtual"><scope>XUfsPsxc_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_ufs_psxc___config_1a9e08ed8c5c8ba0b3b67ce267134a9ee4" prot="public" virt="non-virtual"><scope>XUfsPsxc_Config</scope><name>CfgClkFreqHz</name></member>
+      <member refid="struct_x_ufs_psxc___config_1ab6fd32d5fd25f5b32edf2b4f69875e67" prot="public" virt="non-virtual"><scope>XUfsPsxc_Config</scope><name>InputClockHz</name></member>
+      <member refid="struct_x_ufs_psxc___config_1acbc5e6c3535aad9294bdcbb420c617da" prot="public" virt="non-virtual"><scope>XUfsPsxc_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_ufs_psxc___config_1a12826ecb87695efb3ea2dd824a23bfbc" prot="public" virt="non-virtual"><scope>XUfsPsxc_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_ufs_psxc___config_1a9ca68c44716762c73f53c17f35cf7eea" prot="public" virt="non-virtual"><scope>XUfsPsxc_Config</scope><name>IsCacheCoherent</name></member>
+      <member refid="struct_x_ufs_psxc___config_1a39490cc28ba952f3bef5aa832f3c27e0" prot="public" virt="non-virtual"><scope>XUfsPsxc_Config</scope><name>Name</name></member>
+      <member refid="struct_x_ufs_psxc___config_1ac3e9e067157d1afa16f87784578dd1f9" prot="public" virt="non-virtual"><scope>XUfsPsxc_Config</scope><name>RefPadClk</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

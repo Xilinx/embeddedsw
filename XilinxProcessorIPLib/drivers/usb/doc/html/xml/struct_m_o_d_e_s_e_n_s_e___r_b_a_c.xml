@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_m_o_d_e_s_e_n_s_e___r_b_a_c" kind="struct" prot="public">
+    <compoundname>MODESENSE_RBAC</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___r_b_a_c_1add9332d564c4622d7dbd56aa735b14aa" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 MODESENSE_RBAC::page_code</definition>
+        <argsstring></argsstring>
+        <name>page_code</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="294" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___r_b_a_c_1a1682a2dd8a5d5fd4a2db13cd393305f8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 MODESENSE_RBAC::page_length</definition>
+        <argsstring></argsstring>
+        <name>page_length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="295" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___r_b_a_c_1ae0ea2d72eb7f39eebeac21d72df0f6a0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 MODESENSE_RBAC::mb0_1</definition>
+        <argsstring></argsstring>
+        <name>mb0_1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="296" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___r_b_a_c_1aca6fa013dcfa5b81848d6202f5d102bb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 MODESENSE_RBAC::total_luns</definition>
+        <argsstring></argsstring>
+        <name>total_luns</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="297" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___r_b_a_c_1a85ebecd2be250de4471ab228799a9e09" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 MODESENSE_RBAC::mb0_2[8]</definition>
+        <argsstring>[8]</argsstring>
+        <name>mb0_2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="298" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="293" bodyend="300"/>
+    <listofallmembers>
+      <member refid="struct_m_o_d_e_s_e_n_s_e___r_b_a_c_1ae0ea2d72eb7f39eebeac21d72df0f6a0" prot="public" virt="non-virtual"><scope>MODESENSE_RBAC</scope><name>mb0_1</name></member>
+      <member refid="struct_m_o_d_e_s_e_n_s_e___r_b_a_c_1a85ebecd2be250de4471ab228799a9e09" prot="public" virt="non-virtual"><scope>MODESENSE_RBAC</scope><name>mb0_2</name></member>
+      <member refid="struct_m_o_d_e_s_e_n_s_e___r_b_a_c_1add9332d564c4622d7dbd56aa735b14aa" prot="public" virt="non-virtual"><scope>MODESENSE_RBAC</scope><name>page_code</name></member>
+      <member refid="struct_m_o_d_e_s_e_n_s_e___r_b_a_c_1a1682a2dd8a5d5fd4a2db13cd393305f8" prot="public" virt="non-virtual"><scope>MODESENSE_RBAC</scope><name>page_length</name></member>
+      <member refid="struct_m_o_d_e_s_e_n_s_e___r_b_a_c_1aca6fa013dcfa5b81848d6202f5d102bb" prot="public" virt="non-virtual"><scope>MODESENSE_RBAC</scope><name>total_luns</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

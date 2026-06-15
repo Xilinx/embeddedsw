@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__hcresampler__g_8c" kind="file">
+    <compoundname>xv_hcresampler_g.c</compoundname>
+    <includes refid="xv__hcresampler_8h" local="yes">xv_hcresampler.h</includes>
+    <incdepgraph>
+      <node id="36">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="38">
+        <label>xil_io.h</label>
+      </node>
+      <node id="34">
+        <label>xv_hcresampler.h</label>
+        <link refid="xv__hcresampler_8h"/>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>xstatus.h</label>
+      </node>
+      <node id="35">
+        <label>xil_types.h</label>
+      </node>
+      <node id="33">
+        <label>xv_hcresampler_g.c</label>
+        <link refid="xv_hcresampler_g.c"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>xv_hcresampler_hw.h</label>
+        <link refid="xv__hcresampler__hw_8h"/>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xv__hcresampler__g_8c_1a2a86fd5ee4ce955d5c61ba9aaa95d0ca" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__hcresampler___config" kindref="compound">XV_hcresampler_Config</ref></type>
+        <definition>XV_hcresampler_Config XV_hcresampler_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XV_hcresampler_ConfigTable</name>
+        <initializer>= {
+
+	{
+		&quot;xlnx,v-hcresampler-1.1&quot;,
+		0x0,
+		0x2,
+		0xf00,
+		0x870,
+		0xa,
+		0x2,
+		0x4
+	},
+	 {
+		 NULL
+	}
+}</initializer>
+        <briefdescription>
+<para>XV_hcresampler_ConfigTable. </para>        </briefdescription>
+        <detaileddescription>
+<para>This table contains configuration structures for the <ref refid="struct_x_v__hcresampler" kindref="compound">XV_hcresampler</ref> driver. Each entry represents the configuration parameters for a specific instance of the v-hcresampler hardware core.</para><para>Fields:<itemizedlist>
+<listitem><para>compatible: Hardware core compatibility string.</para></listitem><listitem><para>reg: Base address of the hardware core.</para></listitem><listitem><para>xlnx,samples-per-clock: Number of samples processed per clock cycle.</para></listitem><listitem><para>xlnx,max-cols: Maximum number of columns supported.</para></listitem><listitem><para>xlnx,max-rows: Maximum number of rows supported.</para></listitem><listitem><para>xlnx,max-data-width: Maximum data width supported.</para></listitem><listitem><para>xlnx,convert-type: Type of conversion performed by the core.</para></listitem><listitem><para>xlnx,num-h-taps: Number of horizontal filter taps.</para></listitem></itemizedlist>
+</para><para>The final entry with NULL indicates the end of the configuration table. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_g.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_g.c" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010-2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">********************************************************************/</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__hcresampler_8h" kindref="compound">xv_hcresampler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><ref refid="struct_x_v__hcresampler___config" kindref="compound">XV_hcresampler_Config</ref><sp/><ref refid="xv__hcresampler__g_8c_1a2a86fd5ee4ce955d5c61ba9aaa95d0ca" kindref="member">XV_hcresampler_ConfigTable</ref>[]<sp/>=</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HCRESAMPLER_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_PROC_SS_0_V_HCRESAMPLER_DEVICE_ID,<sp/></highlight><highlight class="comment">/*<sp/>Device<sp/>ID<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_PROC_SS_0_V_HCRESAMPLER_S_AXI_CTRL_BASEADDR,<sp/></highlight><highlight class="comment">/*<sp/>Base<sp/>Addr<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_PROC_SS_0_V_HCRESAMPLER_SAMPLES_PER_CLOCK,<sp/></highlight><highlight class="comment">/*<sp/>Samples/Clk<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_PROC_SS_0_V_HCRESAMPLER_MAX_COLS,<sp/></highlight><highlight class="comment">/*<sp/>Max<sp/>Columns<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_PROC_SS_0_V_HCRESAMPLER_MAX_ROWS,<sp/></highlight><highlight class="comment">/*<sp/>Max<sp/>Rows<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_PROC_SS_0_V_HCRESAMPLER_MAX_DATA_WIDTH,<sp/></highlight><highlight class="comment">/*<sp/>Max<sp/>Data<sp/>Width<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_PROC_SS_0_V_HCRESAMPLER_CONVERT_TYPE,<sp/></highlight><highlight class="comment">/*<sp/>Convert<sp/>Type<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_PROC_SS_0_V_HCRESAMPLER_NUM_H_TAPS<sp/></highlight><highlight class="comment">/*<sp/>Num<sp/>H<sp/>Taps<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="69" refid="xv__hcresampler__sinit_8c_1a2a86fd5ee4ce955d5c61ba9aaa95d0ca" refkind="member"><highlight class="normal"><ref refid="struct_x_v__hcresampler___config" kindref="compound">XV_hcresampler_Config</ref><sp/>XV_hcresampler_ConfigTable[]<sp/>__attribute__<sp/>((section<sp/>(</highlight><highlight class="stringliteral">&quot;.drvcfg_sec&quot;</highlight><highlight class="normal">)))<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;xlnx,v-hcresampler-1.1&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="comment">/*<sp/>compatible<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0,<sp/></highlight><highlight class="comment">/*<sp/>reg<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2,<sp/></highlight><highlight class="comment">/*<sp/>xlnx,samples-per-clock<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xf00,<sp/></highlight><highlight class="comment">/*<sp/>xlnx,max-cols<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x870,<sp/></highlight><highlight class="comment">/*<sp/>xlnx,max-rows<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xa,<sp/></highlight><highlight class="comment">/*<sp/>xlnx,max-data-width<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2,<sp/></highlight><highlight class="comment">/*<sp/>xlnx,convert-type<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4<sp/></highlight><highlight class="comment">/*<sp/>xlnx,num-h-taps<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_g.c"/>
+  </compounddef>
+</doxygen>

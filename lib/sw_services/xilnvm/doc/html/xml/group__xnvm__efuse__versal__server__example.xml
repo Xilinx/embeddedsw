@@ -1,0 +1,1063 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xnvm__efuse__versal__server__example" kind="group">
+    <compoundname>xnvm_efuse_versal_server_example</compoundname>
+    <title>XilNvm eFuse API Usage</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xnvm__efuse__versal__server__example_1gad78fa733ed58e2fa7e7999b5ed17c691" prot="public" static="yes" mutable="no">
+        <type>XSysMonPsv</type>
+        <definition>XSysMonPsv SysMonInst</definition>
+        <argsstring></argsstring>
+        <name>SysMonInst</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xnvm__efuse__versal__server__example_1ga78f9bcd9751682479ba44b88f9a5c54d" prot="public" static="yes" mutable="no">
+        <type>XSysMonPsv_Config *</type>
+        <definition>XSysMonPsv_Config* ConfigPtr</definition>
+        <argsstring></argsstring>
+        <name>ConfigPtr</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1gafb7beed3e60bf66669bde7d644a66238" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XilNvm_EfuseWriteFuses</definition>
+        <argsstring>(void)</argsstring>
+        <name>XilNvm_EfuseWriteFuses</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function is used to send eFuses write request to library. </para>        </briefdescription>
+        <detaileddescription>
+<para>There are individual structures for each set of eFuses in the library and one global structure which defines type of requests present in the write request. <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> is a global structure and members of this structure will be filled with the data to be written to eFuse.</para><para>typedef struct { u8 EnvMonitorDis; <ref refid="struct_x_nvm___efuse_aes_keys" kindref="compound">XNvm_EfuseAesKeys</ref> *AesKeys; <ref refid="struct_x_nvm___efuse_ppk_hash" kindref="compound">XNvm_EfusePpkHash</ref> *PpkHash; <ref refid="struct_x_nvm___efuse_dec_only" kindref="compound">XNvm_EfuseDecOnly</ref> *DecOnly; <ref refid="struct_x_nvm___efuse_sec_ctrl_bits" kindref="compound">XNvm_EfuseSecCtrlBits</ref> *SecCtrlBits; <ref refid="struct_x_nvm___efuse_misc_ctrl_bits" kindref="compound">XNvm_EfuseMiscCtrlBits</ref> *MiscCtrlBits; <ref refid="struct_x_nvm___efuse_revoke_ids" kindref="compound">XNvm_EfuseRevokeIds</ref> *RevokeIds; <ref refid="struct_x_nvm___efuse_ivs" kindref="compound">XNvm_EfuseIvs</ref> *Ivs; <ref refid="struct_x_nvm___efuse_user_data" kindref="compound">XNvm_EfuseUserData</ref> *UserFuses; <ref refid="struct_x_nvm___efuse_glitch_cfg_bits" kindref="compound">XNvm_EfuseGlitchCfgBits</ref> *GlitchCfgBits; }<ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref>;</para><para>Example : <ref refid="struct_x_nvm___efuse_ivs" kindref="compound">XNvm_EfuseIvs</ref> is a write request to program IVs, if there is no request to program IVs then Ivs pointer in <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> will be NULL.</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If the Write is successful</para></listitem><listitem><para>Error code - On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="224" bodyend="333"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1gaaf21f87a0a6b089b0b061f77d85fa30d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XilNvm_EfusePerformCrcChecks</definition>
+        <argsstring>(void)</argsstring>
+        <name>XilNvm_EfusePerformCrcChecks</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function performs CRC validation of AES key and User Keys based on user input. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If the CRC checks are successful.</para></listitem><listitem><para>Error code - On Failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="480" bodyend="543"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga96ff3319f4d0839b35e067f297501261" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XilNvm_EfuseReadFuses</definition>
+        <argsstring>(void)</argsstring>
+        <name>XilNvm_EfuseReadFuses</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function reads all eFuses data and displays. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If all the read requests are successful.</para></listitem><listitem><para>Error code - On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="344" bodyend="468"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1gab44bfd69cc4f8d44c2024ec572f657ed" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XilNvm_EfuseShowCtrlBits</definition>
+        <argsstring>(void)</argsstring>
+        <name>XilNvm_EfuseShowCtrlBits</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This API reads secure and control bits from efuse cache and displays here. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If read is successful</para></listitem><listitem><para>ErrorCode - On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1542" bodyend="1860"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga59c89a986705394fc76b3df75068ee86" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XilNvm_EfuseInitSecCtrl</definition>
+        <argsstring>(XNvm_EfuseData *WriteEfuse, XNvm_EfuseSecCtrlBits *SecCtrlBits)</argsstring>
+        <name>XilNvm_EfuseInitSecCtrl</name>
+        <param>
+          <type><ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> *</type>
+          <declname>WriteEfuse</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_nvm___efuse_sec_ctrl_bits" kindref="compound">XNvm_EfuseSecCtrlBits</ref> *</type>
+          <declname>SecCtrlBits</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to initialize the <ref refid="struct_x_nvm___efuse_sec_ctrl_bits" kindref="compound">XNvm_EfuseSecCtrlBits</ref> structure with user provided data and assign the same to global structure <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> to program SECURITY_CONTROL eFuses. </para>        </briefdescription>
+        <detaileddescription>
+<para>typedef struct { u8 AesDis; u8 JtagErrOutDis; u8 JtagDis; u8 HwTstBitsDis; u8 Ppk0WrLk; u8 Ppk1WrLk; u8 Ppk2WrLk; u8 AesCrcLk; u8 AesWrLk; u8 UserKey0CrcLk; u8 UserKey0WrLk; u8 UserKey1CrcLk; u8 UserKey1WrLk; u8 SecDbgDis; u8 SecLockDbgDis; u8 PmcScEn; u8 BootEnvWrLk; u8 RegInitDis; }<ref refid="struct_x_nvm___efuse_sec_ctrl_bits" kindref="compound">XNvm_EfuseSecCtrlBits</ref>;</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>WriteEfuse</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> structure.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SecCtrlBits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_nvm___efuse_sec_ctrl_bits" kindref="compound">XNvm_EfuseSecCtrlBits</ref> structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If the initialization of <ref refid="struct_x_nvm___efuse_sec_ctrl_bits" kindref="compound">XNvm_EfuseSecCtrlBits</ref> structure is successful</para></listitem><listitem><para>ErrCode - On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="849" bodyend="898"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga461edce871b89dbe3fb1ab425e6b918c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XilNvm_EfuseInitMiscCtrl</definition>
+        <argsstring>(XNvm_EfuseData *WriteEfuse, XNvm_EfuseMiscCtrlBits *MiscCtrlBits)</argsstring>
+        <name>XilNvm_EfuseInitMiscCtrl</name>
+        <param>
+          <type><ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> *</type>
+          <declname>WriteEfuse</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_nvm___efuse_misc_ctrl_bits" kindref="compound">XNvm_EfuseMiscCtrlBits</ref> *</type>
+          <declname>MiscCtrlBits</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to initialize <ref refid="struct_x_nvm___efuse_misc_ctrl_bits" kindref="compound">XNvm_EfuseMiscCtrlBits</ref> structure with user provided data and assign the same to global structure <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> to program PPK INVLD eFuses. </para>        </briefdescription>
+        <detaileddescription>
+<para>typedef struct { u8 GlitchDetHaltBootEn; u8 GlitchDetRomMonitorEn; u8 HaltBootError; u8 HaltBootEnv; u8 CryptoKatEn; u8 LbistEn; u8 SafetyMissionEn; u8 Ppk0Invalid; u8 Ppk1Invalid; u8 Ppk2Invalid; }<ref refid="struct_x_nvm___efuse_misc_ctrl_bits" kindref="compound">XNvm_EfuseMiscCtrlBits</ref>;</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MiscCtrlBits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_nvm___efuse_misc_ctrl_bits" kindref="compound">XNvm_EfuseMiscCtrlBits</ref> structure</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WriteEfuse</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If the initialization <ref refid="struct_x_nvm___efuse_misc_ctrl_bits" kindref="compound">XNvm_EfuseMiscCtrlBits</ref> structure is successful</para></listitem><listitem><para>Error Code - On Failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="929" bodyend="962"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga92d79be8424c72fc7e3d9829b4cdd783" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XilNvm_EfuseInitRevocationIds</definition>
+        <argsstring>(XNvm_EfuseData *WriteEfuse, XNvm_EfuseRevokeIds *RevokeIds)</argsstring>
+        <name>XilNvm_EfuseInitRevocationIds</name>
+        <param>
+          <type><ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> *</type>
+          <declname>WriteEfuse</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_nvm___efuse_revoke_ids" kindref="compound">XNvm_EfuseRevokeIds</ref> *</type>
+          <declname>RevokeId</declname>
+          <defname>RevokeIds</defname>
+        </param>
+        <briefdescription>
+<para>This function is used to initialize <ref refid="struct_x_nvm___efuse_revoke_ids" kindref="compound">XNvm_EfuseRevokeIds</ref> structure with user provided data and assign it to global structure <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> to program revocation ID eFuses. </para>        </briefdescription>
+        <detaileddescription>
+<para>typedef struct { u8 PrgmRevokeId; u32 RevokeId[XNVM_NUM_OF_REVOKE_ID_FUSES]; }<ref refid="struct_x_nvm___efuse_revoke_ids" kindref="compound">XNvm_EfuseRevokeIds</ref>;</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>WriteEfuse</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> structure</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RevokeIds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_nvm___efuse_revoke_ids" kindref="compound">XNvm_EfuseRevokeIds</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If the initialization of <ref refid="struct_x_nvm___efuse_revoke_ids" kindref="compound">XNvm_EfuseRevokeIds</ref> structure is successful</para></listitem><listitem><para>Error Code - On Failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1126" bodyend="1249"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga32534c26ed42cc0979926d7c9f1365e9" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XilNvm_EfuseInitIVs</definition>
+        <argsstring>(XNvm_EfuseData *WriteEfuse, XNvm_EfuseIvs *Ivs)</argsstring>
+        <name>XilNvm_EfuseInitIVs</name>
+        <param>
+          <type><ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> *</type>
+          <declname>WriteEfuse</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_nvm___efuse_ivs" kindref="compound">XNvm_EfuseIvs</ref> *</type>
+          <declname>Ivs</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to initialize <ref refid="struct_x_nvm___efuse_ivs" kindref="compound">XNvm_EfuseIvs</ref> structure with user provided data and assign the same to global structure <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> to program IV eFuses. </para>        </briefdescription>
+        <detaileddescription>
+<para>typedef struct { u8 PrgmMetaHeaderIv; u8 PrgmBlkObfusIv; u8 PrgmPlmIv; u8 PrgmDataPartitionIv; u32 MetaHeaderIv[XNVM_EFUSE_IV_LEN_IN_WORDS]; u32 BlkObfusIv[XNVM_EFUSE_IV_LEN_IN_WORDS]; u32 PlmIv[XNVM_EFUSE_IV_LEN_IN_WORDS]; u32 DataPartitionIv[XNVM_EFUSE_IV_LEN_IN_WORDS]; }<ref refid="struct_x_nvm___efuse_ivs" kindref="compound">XNvm_EfuseIvs</ref>;</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>WriteEfuse</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> structure</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Ivs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_nvm___efuse_ivs" kindref="compound">XNvm_EfuseIvs</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If the initialization of <ref refid="struct_x_nvm___efuse_ivs" kindref="compound">XNvm_EfuseIvs</ref> structure is successful</para></listitem><listitem><para>Error Code - On Failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1423" bodyend="1477"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga1d4eb457f1ff0e0c32aff8173716999c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XilNvm_EfuseInitGlitchData</definition>
+        <argsstring>(XNvm_EfuseData *WriteEfuse, XNvm_EfuseGlitchCfgBits *GlitchData)</argsstring>
+        <name>XilNvm_EfuseInitGlitchData</name>
+        <param>
+          <type><ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> *</type>
+          <declname>WriteEfuse</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_nvm___efuse_glitch_cfg_bits" kindref="compound">XNvm_EfuseGlitchCfgBits</ref> *</type>
+          <declname>GlitchData</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to initialize Glitch config structure with user provided data and assign the same to global structure <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> to program below eFuses. </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>Glitch Configuration Row write lock</para></listitem><listitem><para>Glitch configuration data</para></listitem></itemizedlist>
+</para><para>typedef struct { u8 PrgmGlitch; u8 GlitchDetWrLk; u32 GlitchDetTrim; u8 GdRomMonitorEn; u8 GdHaltBootEn; }<ref refid="struct_x_nvm___efuse_glitch_cfg_bits" kindref="compound">XNvm_EfuseGlitchCfgBits</ref>;</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>WriteEfuse</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> structure.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>GlitchData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_nvm___efuse_glitch_cfg_bits" kindref="compound">XNvm_EfuseGlitchCfgBits</ref> structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If initialization is successful</para></listitem><listitem><para>ErrorCode - On Failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Config data size is 31 bits Bit[30:0]</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="570" bodyend="619"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga76af8f69da066a97f30fe4071a147b81" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XilNvm_EfuseInitAesKeys</definition>
+        <argsstring>(XNvm_EfuseData *WriteEfuse, XNvm_EfuseAesKeys *AesKeys)</argsstring>
+        <name>XilNvm_EfuseInitAesKeys</name>
+        <param>
+          <type><ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> *</type>
+          <declname>WriteEfuse</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_nvm___efuse_aes_keys" kindref="compound">XNvm_EfuseAesKeys</ref> *</type>
+          <declname>AesKeys</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to initialize <ref refid="struct_x_nvm___efuse_aes_keys" kindref="compound">XNvm_EfuseAesKeys</ref> structure with user provided data and assign it to global structure <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> to program below eFuses. </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>AES key</para></listitem><listitem><para>AES User keys</para></listitem></itemizedlist>
+</para><para>typedef struct { u8 PrgmAesKey; u8 PrgmUserKey0; u8 PrgmUserKey1; u32 AesKey[XNVM_EFUSE_AES_KEY_LEN_IN_WORDS]; u32 UserKey0[XNVM_EFUSE_AES_KEY_LEN_IN_WORDS]; u32 UserKey1[XNVM_EFUSE_AES_KEY_LEN_IN_WORDS]; }<ref refid="struct_x_nvm___efuse_aes_keys" kindref="compound">XNvm_EfuseAesKeys</ref>;</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>WriteEfuse</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> structure.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AesKeys</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_nvm___efuse_aes_keys" kindref="compound">XNvm_EfuseAesKeys</ref> structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If initialization of <ref refid="struct_x_nvm___efuse_aes_keys" kindref="compound">XNvm_EfuseAesKeys</ref> structure is successful</para></listitem><listitem><para>ErrorCode - On Failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="648" bodyend="690"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga90d9dd133404f59787beec4bff69f590" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XilNvm_EfuseInitPpkHash</definition>
+        <argsstring>(XNvm_EfuseData *WriteEfuse, XNvm_EfusePpkHash *PpkHash)</argsstring>
+        <name>XilNvm_EfuseInitPpkHash</name>
+        <param>
+          <type><ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> *</type>
+          <declname>WriteEfuse</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_nvm___efuse_ppk_hash" kindref="compound">XNvm_EfusePpkHash</ref> *</type>
+          <declname>PpkHash</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to initialize the <ref refid="struct_x_nvm___efuse_ppk_hash" kindref="compound">XNvm_EfusePpkHash</ref> structure with user provided data and assign it to global structure <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> to program PPK0/PPK1/PPK2 hash eFuses. </para>        </briefdescription>
+        <detaileddescription>
+<para>typedef struct { u8 PrgmPpk0Hash; u8 PrgmPpk1Hash; u8 PrgmPpk2Hash; u32 Ppk0Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS]; u32 Ppk1Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS]; u32 Ppk2Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS]; }<ref refid="struct_x_nvm___efuse_ppk_hash" kindref="compound">XNvm_EfusePpkHash</ref>;</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>WriteEfuse</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> structure.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PpkHash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_nvm___efuse_ppk_hash" kindref="compound">XNvm_EfusePpkHash</ref> structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If initialization of <ref refid="struct_x_nvm___efuse_ppk_hash" kindref="compound">XNvm_EfusePpkHash</ref> structure is successful</para></listitem><listitem><para>ErrorCode - On Failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="717" bodyend="777"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga3ff01a6321934994a29c6951bc5781eb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XilNvm_EfuseInitDecOnly</definition>
+        <argsstring>(XNvm_EfuseData *WriteEfuse, XNvm_EfuseDecOnly *DecOnly)</argsstring>
+        <name>XilNvm_EfuseInitDecOnly</name>
+        <param>
+          <type><ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> *</type>
+          <declname>WriteEfuse</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_nvm___efuse_dec_only" kindref="compound">XNvm_EfuseDecOnly</ref> *</type>
+          <declname>DecOnly</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to initialize the <ref refid="struct_x_nvm___efuse_dec_only" kindref="compound">XNvm_EfuseDecOnly</ref> structure with user provided data and assign the same to global structure <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> to program DEC_ONLY eFuses. </para>        </briefdescription>
+        <detaileddescription>
+<para>typedef struct { u8 PrgmDecOnly; }<ref refid="struct_x_nvm___efuse_dec_only" kindref="compound">XNvm_EfuseDecOnly</ref>;</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>WriteEfuse</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> structure.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DecOnly</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_nvm___efuse_dec_only" kindref="compound">XNvm_EfuseDecOnly</ref> structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If initialization of <ref refid="struct_x_nvm___efuse_dec_only" kindref="compound">XNvm_EfuseDecOnly</ref> structure is successful</para></listitem><listitem><para>ErrorCode - On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="799" bodyend="810"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga39d022ba7afb1114c3cdfb1f75c33da0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XilNvm_EfuseInitUserFuses</definition>
+        <argsstring>(XNvm_EfuseData *WriteEfuse, XNvm_EfuseUserData *Data)</argsstring>
+        <name>XilNvm_EfuseInitUserFuses</name>
+        <param>
+          <type><ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> *</type>
+          <declname>WriteEfuse</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_nvm___efuse_user_data" kindref="compound">XNvm_EfuseUserData</ref> *</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to initialize XNvm_UserEfuseData structure with user provided data and assign the same to global structure <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> to program User Fuses. </para>        </briefdescription>
+        <detaileddescription>
+<para>typedef struct { u32 StartUserFuseNum; u32 NumOfUserFuses; u32 *UserFuseData; }<ref refid="struct_x_nvm___efuse_user_data" kindref="compound">XNvm_EfuseUserData</ref>;</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>WriteEfuse</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> structure</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to XNvm_UserEfuseData structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If the initialization of XNvm_UserEfuseData structure is successful</para></listitem><listitem><para>Error Code - On Failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1501" bodyend="1531"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1gaedc6ddc35b9400984cd573b15842ea54" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XilNvm_EfuseInitOffChipRevokeIds</definition>
+        <argsstring>(XNvm_EfuseData *WriteEfuse, XNvm_EfuseOffChipIds *OffChipIds)</argsstring>
+        <name>XilNvm_EfuseInitOffChipRevokeIds</name>
+        <param>
+          <type><ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> *</type>
+          <declname>WriteEfuse</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_nvm___efuse_off_chip_ids" kindref="compound">XNvm_EfuseOffChipIds</ref> *</type>
+          <declname>OffChipIds</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to initialize <ref refid="struct_x_nvm___efuse_off_chip_ids" kindref="compound">XNvm_EfuseOffChipIds</ref> structure with user provided data and assign it to global structure <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> to program OffChip_Revoke ID eFuses. </para>        </briefdescription>
+        <detaileddescription>
+<para>typedef struct { u8 PrgmOffchipId; u32 OffChipId[XNVM_NUM_OF_OFFCHIP_ID_FUSES]; }<ref refid="struct_x_nvm___efuse_off_chip_ids" kindref="compound">XNvm_EfuseOffChipIds</ref>;</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>WriteEfuse</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> structure</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OffChipIds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_nvm___efuse_off_chip_ids" kindref="compound">XNvm_EfuseOffChipIds</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If the initialization of <ref refid="struct_x_nvm___efuse_off_chip_ids" kindref="compound">XNvm_EfuseOffChipIds</ref> structure is successful</para></listitem><listitem><para>Error Code - On Failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1272" bodyend="1395"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga3177068d90192b1dc9158bfece5cbb0d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XilNvm_EfuseInitBootEnvCtrl</definition>
+        <argsstring>(XNvm_EfuseData *WriteEfuse, XNvm_EfuseBootEnvCtrlBits *BootEnvCtrl)</argsstring>
+        <name>XilNvm_EfuseInitBootEnvCtrl</name>
+        <param>
+          <type><ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> *</type>
+          <declname>WriteEfuse</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_nvm___efuse_boot_env_ctrl_bits" kindref="compound">XNvm_EfuseBootEnvCtrlBits</ref> *</type>
+          <declname>BootEnvCtrl</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to initialize <ref refid="struct_x_nvm___efuse_boot_env_ctrl_bits" kindref="compound">XNvm_EfuseBootEnvCtrlBits</ref> structure with user provided data and assign the same to global structure <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> to program <ref refid="struct_x_nvm___efuse_boot_env_ctrl_bits" kindref="compound">XNvm_EfuseBootEnvCtrlBits</ref> eFuses. </para>        </briefdescription>
+        <detaileddescription>
+<para>typedef struct { u8 PrgmSysmonTempHot; u8 PrgmSysmonVoltPmc; u8 PrgmSysmonVoltPslp; u8 PrgmSysmonVoltSoc; u8 PrgmSysmonTempCold; u8 SysmonTempEn; u8 SysmonVoltEn; u8 SysmonTempHot; u8 SysmonVoltPmc; u8 SysmonVoltPslp; u8 SysmonVoltSoc; u8 SysmonTempCold; }<ref refid="struct_x_nvm___efuse_boot_env_ctrl_bits" kindref="compound">XNvm_EfuseBootEnvCtrlBits</ref>;</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SecMisc1Bits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_nvm___efuse_boot_env_ctrl_bits" kindref="compound">XNvm_EfuseBootEnvCtrlBits</ref> structure</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WriteEfuse</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If the initialization <ref refid="struct_x_nvm___efuse_boot_env_ctrl_bits" kindref="compound">XNvm_EfuseBootEnvCtrlBits</ref> structure is successful</para></listitem><listitem><para>Error Code - On Failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1039" bodyend="1103"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1gab5f45b1e4148dceb6385e76fa255b7b0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XilNvm_EfuseInitSecMisc1Ctrl</definition>
+        <argsstring>(XNvm_EfuseData *WriteEfuse, XNvm_EfuseSecMisc1Bits *SecMisc1Bits)</argsstring>
+        <name>XilNvm_EfuseInitSecMisc1Ctrl</name>
+        <param>
+          <type><ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> *</type>
+          <declname>WriteEfuse</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_nvm___efuse_sec_misc1_bits" kindref="compound">XNvm_EfuseSecMisc1Bits</ref> *</type>
+          <declname>SecMisc1Bits</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to initialize <ref refid="struct_x_nvm___efuse_sec_misc1_bits" kindref="compound">XNvm_EfuseSecMisc1Bits</ref> structure with user provided data and assign the same to global structure <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> to program <ref refid="struct_x_nvm___efuse_sec_misc1_bits" kindref="compound">XNvm_EfuseSecMisc1Bits</ref> eFuses. </para>        </briefdescription>
+        <detaileddescription>
+<para>typedef struct { u8 LpdMbistEn; u8 PmcMbistEn; u8 LpdNocScEn; u8 SysmonVoltMonEn; u8 SysmonTempMonEn; }<ref refid="struct_x_nvm___efuse_sec_misc1_bits" kindref="compound">XNvm_EfuseSecMisc1Bits</ref>;</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SecMisc1Bits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_nvm___efuse_sec_misc1_bits" kindref="compound">XNvm_EfuseSecMisc1Bits</ref> structure</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WriteEfuse</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_nvm___efuse_data" kindref="compound">XNvm_EfuseData</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If the initialization <ref refid="struct_x_nvm___efuse_sec_misc1_bits" kindref="compound">XNvm_EfuseSecMisc1Bits</ref> structure is successful</para></listitem><listitem><para>Error Code - On Failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="988" bodyend="1006"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga2bb2418a958246a265643aa4d22c3c53" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XilNvm_ValidateUserFuseStr</definition>
+        <argsstring>(const char *UserFuseStr)</argsstring>
+        <name>XilNvm_ValidateUserFuseStr</name>
+        <param>
+          <type>const char *</type>
+          <declname>UserFuseStr</declname>
+        </param>
+        <briefdescription>
+<para>This function is validate the input string contains valid User Fuse String. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>UserFuseStr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to User Fuse String</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On valid input UserFuse string</para></listitem><listitem><para>XST_INVALID_PARAM - On invalid length of the input string </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1978" bodyend="1994"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga1721c330ccfaf727b7e48f3bf8f96ebb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XilNvm_PrepareAesKeyForWrite</definition>
+        <argsstring>(const char *KeyStr, u8 *Dst, u32 Len)</argsstring>
+        <name>XilNvm_PrepareAesKeyForWrite</name>
+        <param>
+          <type>const char *</type>
+          <declname>KeyStr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Dst</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Len</declname>
+        </param>
+        <briefdescription>
+<para>This function is to validate and convert Aes key string to Hex. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>KeyStr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to Aes Key String</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination where converted Aes key can be stored</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the Aes key in bits</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If validation and conversion of key is success</para></listitem><listitem><para>Error Code - On Failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1877" bodyend="1894"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga14057d6bd2f0aa87660d457d585ef72c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XilNvm_PrepareIvForWrite</definition>
+        <argsstring>(const char *IvStr, u8 *Dst, u32 Len, XNvm_IvType IvType)</argsstring>
+        <name>XilNvm_PrepareIvForWrite</name>
+        <param>
+          <type>const char *</type>
+          <declname>IvStr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Dst</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Len</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xnvm__def__api__ids_1ga9b9c488dfe06ff2966d5ded5f5ec76ba" kindref="member">XNvm_IvType</ref></type>
+          <declname>IvType</declname>
+        </param>
+        <briefdescription>
+<para>This function is to validate and convert IV string to byte array in required format. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IvStr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to IV String</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination to store the converted IV in Hex</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the IV in bits</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IvType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of IV(PLM IV/ Data Partition IV/ Black IV/ Metaheader IV)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If validation and conversion of IV success</para></listitem><listitem><para>Error Code - On Failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1915" bodyend="1941"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1gab5317bebac00e3026759b0c6b566b0dc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XilNvm_ValidateIvString</definition>
+        <argsstring>(const char *IvStr)</argsstring>
+        <name>XilNvm_ValidateIvString</name>
+        <param>
+          <type>const char *</type>
+          <declname>IvStr</declname>
+        </param>
+        <briefdescription>
+<para>Validate the input string contains valid IV String. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IvStr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to Iv String</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS - On valid input IV string XST_INVALID_PARAM - On invalid length of the input string </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="2047" bodyend="2061"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga30f52ffad149cef68711a6d3bf431291" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XilNvm_ValidateHash</definition>
+        <argsstring>(const char *Hash, u32 Len)</argsstring>
+        <name>XilNvm_ValidateHash</name>
+        <param>
+          <type>const char *</type>
+          <declname>Hash</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Len</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to validate the input string contains valid PPK hash. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Hash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to PPK hash</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Length of the input string</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On valid input Ppk Hash string</para></listitem><listitem><para>XST_INVALID_PARAM - On invalid length of the input string</para></listitem><listitem><para>XST_FAILURE - On non hexadecimal character in string </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="2010" bodyend="2034"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1gad85099e651ab0e77ae139402dee77479" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XilNvm_FormatData</definition>
+        <argsstring>(const u8 *OrgDataPtr, u8 *SwapPtr, u32 Len)</argsstring>
+        <name>XilNvm_FormatData</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>OrgDataPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>SwapPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Len</declname>
+        </param>
+        <briefdescription>
+<para>This function reverses the data array. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>OrgDataPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the original data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SwapPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the reversed data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the data in bytes </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="2073" bodyend="2082"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga275cdc2152f8c9ace0049e3906c21ecc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XilNvm_ValidateRevokeIds</definition>
+        <argsstring>(const char *RevokeIdStr)</argsstring>
+        <name>XilNvm_ValidateRevokeIds</name>
+        <param>
+          <type>const char *</type>
+          <declname>RevokeIdStr</declname>
+        </param>
+        <briefdescription>
+<para>This function is validate the input string contains valid Revoke Id String. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RevokeIdStr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to Revocation ID/OffChip_Revoke ID String</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On valid input Revoke Id string</para></listitem><listitem><para>XST_INVALID_PARAM - On invalid length of the input string </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="1953" bodyend="1966"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1gab6d0042e28b92077df7d4df4fb2fc36c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XilNvm_ShowData</definition>
+        <argsstring>(const u8 *Data, u32 Len)</argsstring>
+        <name>XilNvm_ShowData</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>Data</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Len</declname>
+        </param>
+        <briefdescription>
+<para>This function displays Data of specified length. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the data to be displayed </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the data to be displayed </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="2308" bodyend="2317"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__efuse__versal__server__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="148" bodyend="191"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xnvm__efuse__versal__server__example_1gadc5acb1c261fef40c3011e4b27fa98c0" prot="public" static="no">
+        <name>XNVM_EFUSE_AES_KEY_STRING_LEN</name>
+        <initializer>(64U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__efuse__versal__server__example_1ga20b8179fdbca646efcb514e5d8c167a2" prot="public" static="no">
+        <name>XNVM_EFUSE_PPK_HASH_STRING_LEN</name>
+        <initializer>(64U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__efuse__versal__server__example_1ga75a54ad53ee0eb9c2a19e92a4489a7ef" prot="public" static="no">
+        <name>XNVM_EFUSE_ROW_STRING_LEN</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__efuse__versal__server__example_1ga7e57ad124c24a003b4770f5a6eb8e0e7" prot="public" static="no">
+        <name>XNVM_EFUSE_GLITCH_WR_LK_MASK</name>
+        <initializer>(0x80000000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__efuse__versal__server__example_1gacc2fed2080b003d8f2d2ad636ed2ca76" prot="public" static="no">
+        <name>XNVM_EFUSE_DEC_EFUSE_ONLY_MASK</name>
+        <initializer>(0x0000ffffU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__efuse__versal__server__example_1ga609675b021bb7c0700660707f3c42dd4" prot="public" static="no">
+        <name>XNVM_EFUSE_TEMP_VOLT_LIMIT_MAX</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__efuse__versal__server__example_1ga6aab35d890227548938b98edad6d939b" prot="public" static="no">
+        <name>XNVM_EFUSE_VOLT_SOC_LIMIT</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__efuse__versal__server__example_1ga5ebc89643176d045307e053819c4a745" prot="public" static="no">
+        <name>XNVM_EFUSE_PPK_READ_START</name>
+        <initializer><ref refid="group__xnvm__def__api__ids_1ggaafc5df161f553f1717cbf341bc30cd2ca928eb461776b691d01df0067168cbeb2" kindref="member">XNVM_EFUSE_PPK0</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__efuse__versal__server__example_1ga0c0a45ac43d3b1c71be92030b2655c01" prot="public" static="no">
+        <name>XNVM_EFUSE_PPK_READ_END</name>
+        <initializer><ref refid="group__xnvm__def__api__ids_1ggaafc5df161f553f1717cbf341bc30cd2cacabb8510d521f1f2c81b72a99db4ce07" kindref="member">XNVM_EFUSE_PPK2</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" line="88" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_server_example.c" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file illustrates Basic eFuse read/write using rows. </para>    </briefdescription>
+    <detaileddescription>
+<para>This example is supported for Versal devices.</para><para>To build this application, xilnvm library must be in server mode</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver      Who    Date    Changes
+<hruler/>
+
+1.0      kal   08/16/2019 Initial release of xnvm_efuse_versal_example
+2.0   kal   09/30/2019 Renamed example to xilnvm_efuse_versal_example
+      kal   01/03/2020 Added &quot;Successfully ran&quot; golden string when success
+      kal   02/27/2020 Updates example with wrapper function calls.
+      kal   03/06/2020 Optimized the example to have single interface
+                       to xilnvm library.
+      kal   05/06/2020 Fixed bug of not programming Ppk2_Invld eFuse bit.
+2.1   rpo   06/06/2020 Support added to write glitch configuration data.
+      rpo   06/08/2020 Support added to program eFUSE halt boot bits to stop
+                       at ROM stage.
+      kal   06/30/2020 Added read support to all SecCtrl efuses and
+                       MiscCtrl eFuses also updated read pattern.
+      am    10/10/2020 Changed function return type and type of
+                  status variable from u32 to int
+      kal   10/12/2020 Addressed Security review comments.
+2.3      kal   01/07/2021 Added support to SecurityMisc1, BootEnvCtrl,MiscCtrl
+                  and remaining eFuses in SecCtrl eFuse rows programming
+                  and reading
+      kal   02/20/2021 Added Environmental Monitor Disable interface support
+      har   04/21/2021 Fixed CPP warnings
+      kpt   05/20/2021 Added support for programming PUF efuses as
+                       general purpose data
+      kpt   08/03/2021 Status variable set to XST_SUCCESS in
+                       XilNvm_EfuseInitPufFuses
+      har   09/13/2021 Changed PLM and Data Partition IV formatting to LE
+2.4   kpt   11/28/2021 Fixed typo Ppk1WrLk in XilNvm_EfuseInitSecCtrl
+      har   01/03/2022 Renamed NumOfPufFuses as NumOfPufFusesRows
+      kpt   01/07/2022 Added check to program RegInitDis in
+                       XilNvm_EfuseInitSecCtrl
+3.1   skg   12/07/2022 Added Additional PPks support
+3.2   yog   09/13/2023 Added XilNvm_ShowData() API
+      vss   09/19/23 Fixed MISRA-C Rule 2.5 violation
+3.3   har   12/04/2023 Added support for HWTSTBITS_DIS and PMC_SC_EN efuse bits
+3.4   obs   04/21/2025 Fixed GCC Warnings.
+3.7   mb    01/06/2026 Rename XNVM_EFUSE_AES_KEY to XNVM_EFUSE_KEY,
+                                XNVM_EFUSE_USER_KEY_0 to XNVM_EFUSE_USER_KEY0,
+                                XNVM_EFUSE_USER_KEY_1 to XNVM_EFUSE_USER_KEY1</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

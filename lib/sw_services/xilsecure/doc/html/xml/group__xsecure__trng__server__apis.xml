@@ -1,0 +1,619 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xsecure__trng__server__apis" kind="group">
+    <compoundname>xsecure_trng_server_apis</compoundname>
+    <title>XilSecure TRNG Server APIs</title>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xsecure__trng__server__apis_1ga2bd87e5d7e3fc02e8f0e0e783a390305" prot="public" static="no">
+        <name>XSecureTrng_Mode</name>
+        <enumvalue id="group__xsecure__trng__server__apis_1gga2bd87e5d7e3fc02e8f0e0e783a390305a4987d50e7368c26103a77a8b684e62d9" prot="public">
+          <name>XSECURE_TRNG_HRNG_MODE</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>HRNG mode for TRNG. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__trng__server__apis_1gga2bd87e5d7e3fc02e8f0e0e783a390305a5088d989982ebce7fcd8d5a3c0b965e6" prot="public">
+          <name>XSECURE_TRNG_DRNG_MODE</name>
+          <briefdescription>
+<para>DRNG mode for TRNG. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__trng__server__apis_1gga2bd87e5d7e3fc02e8f0e0e783a390305ac5b71433c6f552be797cfbd5b4d38f4c" prot="public">
+          <name>XSECURE_TRNG_PTRNG_MODE</name>
+          <briefdescription>
+<para>PTRNG mode for TRNG. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__trng__server__apis_1gga2bd87e5d7e3fc02e8f0e0e783a390305a5088d989982ebce7fcd8d5a3c0b965e6" prot="public">
+          <name>XSECURE_TRNG_DRNG_MODE</name>
+          <initializer>= 1U</initializer>
+          <briefdescription>
+<para>DRNG mode for TRNG. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__trng__server__apis_1gga2bd87e5d7e3fc02e8f0e0e783a390305ac5b71433c6f552be797cfbd5b4d38f4c" prot="public">
+          <name>XSECURE_TRNG_PTRNG_MODE</name>
+          <briefdescription>
+<para>PTRNG mode for TRNG. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__trng__server__apis_1gga2bd87e5d7e3fc02e8f0e0e783a390305a4987d50e7368c26103a77a8b684e62d9" prot="public">
+          <name>XSECURE_TRNG_HRNG_MODE</name>
+          <briefdescription>
+<para>HRNG mode for TRNG. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef contains mode information on which TRNG operates. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.h" bodystart="73" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xsecure__trng__server__apis_1ga2bd87e5d7e3fc02e8f0e0e783a390305" prot="public" static="no">
+        <name>XSecureTrng_Mode</name>
+        <enumvalue id="group__xsecure__trng__server__apis_1gga2bd87e5d7e3fc02e8f0e0e783a390305a4987d50e7368c26103a77a8b684e62d9" prot="public">
+          <name>XSECURE_TRNG_HRNG_MODE</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>HRNG mode for TRNG. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__trng__server__apis_1gga2bd87e5d7e3fc02e8f0e0e783a390305a5088d989982ebce7fcd8d5a3c0b965e6" prot="public">
+          <name>XSECURE_TRNG_DRNG_MODE</name>
+          <briefdescription>
+<para>DRNG mode for TRNG. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__trng__server__apis_1gga2bd87e5d7e3fc02e8f0e0e783a390305ac5b71433c6f552be797cfbd5b4d38f4c" prot="public">
+          <name>XSECURE_TRNG_PTRNG_MODE</name>
+          <briefdescription>
+<para>PTRNG mode for TRNG. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__trng__server__apis_1gga2bd87e5d7e3fc02e8f0e0e783a390305a5088d989982ebce7fcd8d5a3c0b965e6" prot="public">
+          <name>XSECURE_TRNG_DRNG_MODE</name>
+          <initializer>= 1U</initializer>
+          <briefdescription>
+<para>DRNG mode for TRNG. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__trng__server__apis_1gga2bd87e5d7e3fc02e8f0e0e783a390305ac5b71433c6f552be797cfbd5b4d38f4c" prot="public">
+          <name>XSECURE_TRNG_PTRNG_MODE</name>
+          <briefdescription>
+<para>PTRNG mode for TRNG. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__trng__server__apis_1gga2bd87e5d7e3fc02e8f0e0e783a390305a4987d50e7368c26103a77a8b684e62d9" prot="public">
+          <name>XSECURE_TRNG_HRNG_MODE</name>
+          <briefdescription>
+<para>HRNG mode for TRNG. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef contains mode information on which TRNG operates. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" bodystart="77" bodyend="81"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__xsecure__trng__server__apis_1gae3246090a0786e5c20c739dfcbce2fe7" prot="public" static="no">
+        <type>XTrngpsv</type>
+        <definition>typedef XTrngpsv XSecure_TrngInstance</definition>
+        <argsstring></argsstring>
+        <name>XSecure_TrngInstance</name>
+        <briefdescription>
+<para>typedef XTrngpsv as XSecure_TrngInstance for compatibility </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__xsecure__trng__server__apis_1ga2df15787ae4e8f2dc7b77a586928ff66" prot="public" static="no">
+        <type>XTrngpsx_Instance</type>
+        <definition>typedef XTrngpsx_Instance XSecure_TrngInstance</definition>
+        <argsstring></argsstring>
+        <name>XSecure_TrngInstance</name>
+        <briefdescription>
+<para>typedef XTrngpsx_Instance as XSecure_TrngInstance for compatibility </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__trng__server__apis_1ga4cfae3189327a2de74505744d07bf464" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__xsecure__trng__server__apis_1gae3246090a0786e5c20c739dfcbce2fe7" kindref="member">XSecure_TrngInstance</ref> *</type>
+        <definition>XSecure_TrngInstance * XSecure_GetTrngInstance</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_GetTrngInstance</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function provides the pointer to the common trng instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>Pointer to the XSecure_TrngInstance instance </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" bodystart="62" bodyend="67"/>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga7ceaf28c4b557ab6cefc96402262ecc0" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="478" endline="510">XSecure_ECCRandInit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="85" endline="166">XSecure_EllipticPrvtKeyGenerate</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga57bbf2056be52d8c1d21154930ae0751" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="402" endline="464">XSecure_GetRandomNum</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__trng__server__apis_1ga47d5d39c195cbbcb803bc61f4f078516" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_TrngInitNCfgMode</definition>
+        <argsstring>(int XSecureTrngMode, u8 *Seed, u32 SeedLength, u8 *PersStr)</argsstring>
+        <name>XSecure_TrngInitNCfgMode</name>
+        <param>
+          <type>int</type>
+          <declname>XSecureTrngMode</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Seed</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SeedLength</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>PersStr</declname>
+        </param>
+        <briefdescription>
+<para>This function initialize and configures the TRNG into DRNG/HRNG mode of operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - Upon success.</para></listitem><listitem><para>XST_FAILURE - On failure.</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>XSecureTrngMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Trng Mode of operation </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Seed</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Holds the address of Seed buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SeedLength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Holds size Seed </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PersStr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Personalization string</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - Upon success.</para></listitem><listitem><para>XST_FAILURE - On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Initiate TRNG</para></listitem><listitem><para>Initiate TRNG </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" bodystart="78" bodyend="148"/>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga7ceaf28c4b557ab6cefc96402262ecc0" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="478" endline="510">XSecure_ECCRandInit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="85" endline="166">XSecure_EllipticPrvtKeyGenerate</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__trng__server__apis_1gaa644702ed555bd453f0837a5d12abc97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_PreOperationalSelfTests</definition>
+        <argsstring>(XSecure_TrngInstance *TrngInstance)</argsstring>
+        <name>XSecure_PreOperationalSelfTests</name>
+        <param>
+          <type><ref refid="group__xsecure__trng__server__apis_1gae3246090a0786e5c20c739dfcbce2fe7" kindref="member">XSecure_TrngInstance</ref> *</type>
+          <declname>TrngInstance</declname>
+        </param>
+        <briefdescription>
+<para>This function runs preoperational self tests and updates TRNG error state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>TrngInstance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to XTrngpsv Instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XST_FAILURE - On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Reset the TRNG state </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" bodystart="161" bodyend="185"/>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga7ceaf28c4b557ab6cefc96402262ecc0" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="478" endline="510">XSecure_ECCRandInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__trng__server__apis_1gaba16eb43570e3808308b9288029a1195" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u8</type>
+        <definition>static u8 XSecure_TrngIsUninitialized</definition>
+        <argsstring>(XSecure_TrngInstance *TrngInstance)</argsstring>
+        <name>XSecure_TrngIsUninitialized</name>
+        <param>
+          <type><ref refid="group__xsecure__trng__server__apis_1gae3246090a0786e5c20c739dfcbce2fe7" kindref="member">XSecure_TrngInstance</ref> *</type>
+          <declname>TrngInstance</declname>
+        </param>
+        <briefdescription>
+<para>This is a wrapper function to check trngpsv initialization status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>TrngInstance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to XTrngpsv instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If TRNGPSV is not initialized.</para></listitem><listitem><para>XST_FAILURE If TRNGPSV is initialized. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.h" bodystart="97" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__trng__server__apis_1gafdd3e588e23876c9e822faf8d89cdedf" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u8</type>
+        <definition>static u8 XSecure_TrngIsHealthy</definition>
+        <argsstring>(XSecure_TrngInstance *TrngInstance)</argsstring>
+        <name>XSecure_TrngIsHealthy</name>
+        <param>
+          <type><ref refid="group__xsecure__trng__server__apis_1gae3246090a0786e5c20c739dfcbce2fe7" kindref="member">XSecure_TrngInstance</ref> *</type>
+          <declname>TrngInstance</declname>
+        </param>
+        <briefdescription>
+<para>This is a wrapper function to check trngpsv health status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>TrngInstance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to XTrngpsv instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If status of TRNGPSV is healthy.</para></listitem><listitem><para>XST_FAILURE If status of TRNGPSV is not healthy. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.h" bodystart="113" bodyend="116"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__trng__server__apis_1ga854fdd81ccd24645444c8d96cae03860" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_TrngGenerate</definition>
+        <argsstring>(XSecure_TrngInstance *TrngInstance, u8 *RandBuf, u32 RandBufSize, u8 PredResistance)</argsstring>
+        <name>XSecure_TrngGenerate</name>
+        <param>
+          <type><ref refid="group__xsecure__trng__server__apis_1gae3246090a0786e5c20c739dfcbce2fe7" kindref="member">XSecure_TrngInstance</ref> *</type>
+          <declname>TrngInstance</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>RandBuf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RandBufSize</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>PredResistance</declname>
+        </param>
+        <briefdescription>
+<para>This wrapper to generate random bits. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>TrngInstance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XTrngpsv instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RandBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to memory address where generated random data will be stored and the memory address should be word aligned. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RandBufSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of the buffer to which RandBufPtr points to and it should be always greater than or equal to XTRNGPSV_SEC_STRENGTH_BYTES. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PredResistance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag that controls Generate level Prediction Resistance. When enabled, it mandates fresh seed for every Generate operation.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success.</para></listitem><listitem><para>ErrorCode On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.h" bodystart="135" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__trng__server__apis_1gabf2d87d030229083f287ee96b2306640" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_TrngGenerateRandNum</definition>
+        <argsstring>(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size)</argsstring>
+        <name>XSecure_TrngGenerateRandNum</name>
+        <param>
+          <type>u32</type>
+          <declname>SrcAddrLow</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SrcAddrHigh</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+<para>This function handler extracts the payload params with respect to XSECURE_API_TRNG_GENERATE IPI command and calls XSecure_GetRandomNum server API to generate random number. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SrcAddrLow</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Lower 32 bit address of the random data buffer address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SrcAddrHigh</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Higher 32 bit address of the random data buffer address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of random bytes needs to be generated.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the generate is successful.</para></listitem><listitem><para>XST_FAILURE If there is a failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng_ipihandler.c" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng_ipihandler.c" bodystart="93" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__trng__server__apis_1ga1b389dc6ee1adeeff437018602b66742" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_TrngIpiHandler</definition>
+        <argsstring>(XPlmi_Cmd *Cmd)</argsstring>
+        <name>XSecure_TrngIpiHandler</name>
+        <param>
+          <type>XPlmi_Cmd *</type>
+          <declname>Cmd</declname>
+        </param>
+        <briefdescription>
+<para>This function calls respective IPI handler based on the API_ID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the command structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the handler execution is successful.</para></listitem><listitem><para>XST_INVALID_PARAM If any input parameter is invalid.</para></listitem><listitem><para>XST_FAILURE If there is a failure.</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the command structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If the handler execution is successful</para></listitem><listitem><para>XST_INVALID_PARAM - If any input parameter is invalid</para></listitem><listitem><para>XST_FAILURE - If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng_ipihandler.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng_ipihandler.c" bodystart="53" bodyend="76"/>
+        <references refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" compoundref="xsecure__defs_8h" startline="104">XSECURE_API</references>
+        <references refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" compoundref="xsecure__defs_8h" startline="108">XSECURE_API_ID_MASK</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="155">XSECURE_API_TRNG_GENERATE</references>
+        <references refid="group__xsecure__trng__client__apis_1ga7d6de56d442c1199e990cfa01d45411c" compoundref="xsecure__trngclient_8c" startline="53" endline="82">XSecure_TrngGenerateRandNum</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__trng__server__apis_1gab50d8d53c6a959b985095de243e7d5c9" prot="public" static="no">
+        <name>XSECURE_ECC_TRNG_DF_LENGTH</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Default length of xilsecure ecc true random number generator. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__trng__server__apis_1ga52bdbccf7009bf8dc214b6ca390d1462" prot="public" static="no">
+        <name>XTRNGPSV_USER_CFG_DF_LENGTH</name>
+        <initializer>(7U)</initializer>
+        <briefdescription>
+<para>Default multiplier used to determine num of bits on the input of the DF construct. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.c" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__trng__server__apis_1gafaf6b2f4582742d4fb15beafb4875378" prot="public" static="no">
+        <name>XSECURE_TRNG_SEC_STRENGTH_IN_BYTES</name>
+        <initializer>XTRNGPSV_SEC_STRENGTH_BYTES</initializer>
+        <briefdescription>
+<para>Security strength in bytes for XTRNGPSV. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__trng__server__apis_1gaea6dd83414f12e293f2c5e2460d55140" prot="public" static="no">
+        <name>XSECURE_TRNG_PER_STRING_LEN_IN_BYTES</name>
+        <initializer>XTRNGPSV_PERS_STR_LEN_BYTES</initializer>
+        <briefdescription>
+<para>Personalization string length in bytes for XTRNGPSV. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__trng__server__apis_1ga8bd38df529b235dd05c88b7d0612e142" prot="public" static="no">
+        <name>XSECURE_TRNG_USER_CFG_SEED_LIFE</name>
+        <initializer>(256U)</initializer>
+        <briefdescription>
+<para>User config Seed life. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__trng__server__apis_1ga03ced7fffd85b330260e4f88bf1b93c3" prot="public" static="no">
+        <name>XSecure_Uninstantiate</name>
+        <initializer>XTrngpsv_Uninstantiate</initializer>
+        <briefdescription>
+<para>Redefine XTrngpsv_Uninstantiate as XSecure_Uninstantiate for compatibility. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsv/xsecure_trng.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="85" endline="166">XSecure_EllipticPrvtKeyGenerate</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga57bbf2056be52d8c1d21154930ae0751" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="402" endline="464">XSecure_GetRandomNum</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__trng__server__apis_1gab50d8d53c6a959b985095de243e7d5c9" prot="public" static="no">
+        <name>XSECURE_ECC_TRNG_DF_LENGTH</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Default length of xilsecure ecc true random number generator. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.c" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.c" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__trng__server__apis_1gafaf6b2f4582742d4fb15beafb4875378" prot="public" static="no">
+        <name>XSECURE_TRNG_SEC_STRENGTH_IN_BYTES</name>
+        <initializer>XTRNGPSX_SEC_STRENGTH_IN_BYTES</initializer>
+        <briefdescription>
+<para>Security strength in bytes for XTRNGPSX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__trng__server__apis_1gaea6dd83414f12e293f2c5e2460d55140" prot="public" static="no">
+        <name>XSECURE_TRNG_PER_STRING_LEN_IN_BYTES</name>
+        <initializer>XTRNGPSX_PERS_STRING_LEN_IN_BYTES</initializer>
+        <briefdescription>
+<para>Personalization string length in bytes for XTRNGPSX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__trng__server__apis_1ga80857d61ba8ef8316b1389d81d6ea688" prot="public" static="no">
+        <name>XSecure_PreOperationalSelfTests</name>
+        <initializer>XTrngpsx_PreOperationalSelfTests</initializer>
+        <briefdescription>
+<para>Redefine XTrngpsx_PreOperationalSelfTests as XSecure_PreOperationalSelfTests for compatibility. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__trng__server__apis_1ga1c2995e2c8fd44bb1d66f698cda7d51c" prot="public" static="no">
+        <name>XSecure_TrngGenerate</name>
+        <initializer>XTrngpsx_Generate</initializer>
+        <briefdescription>
+<para>Redefine XTrngpsx_Generate as XSecure_TrngGenerate for compatibility. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="85" endline="166">XSecure_EllipticPrvtKeyGenerate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__trng__server__apis_1ga03ced7fffd85b330260e4f88bf1b93c3" prot="public" static="no">
+        <name>XSecure_Uninstantiate</name>
+        <initializer>XTrngpsx_Uninstantiate</initializer>
+        <briefdescription>
+<para>Redefine XTrngpsx_Uninstantiate as XSecure_Uninstantiate for compatibility. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/trngpsx/xsecure_trng.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sd_fec_interrupt_class" kind="struct" prot="public">
+    <compoundname>XSdFecInterruptClass</compoundname>
+    <includes local="no">xsdfec.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_sd_fec_interrupt_class_1a4b8c09af7e5b5c7d5f8bc4f487b171e3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSdFecInterruptClass::Intf</definition>
+        <argsstring></argsstring>
+        <name>Intf</name>
+        <briefdescription>
+<para>Triggered due to interface or control error (ISR) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_fec_interrupt_class_1a01e69813e77204c9664924531d42c66a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSdFecInterruptClass::ECCSBit</definition>
+        <argsstring></argsstring>
+        <name>ECCSBit</name>
+        <briefdescription>
+<para>Triggered due to single-bit ECC error (ECC_ISR) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_fec_interrupt_class_1a38d57c033608974a991ec533bb0265a3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSdFecInterruptClass::ECCMBit</definition>
+        <argsstring></argsstring>
+        <name>ECCMBit</name>
+        <briefdescription>
+<para>Triggered due to multi-bit ECC error (ECC_ISR) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_fec_interrupt_class_1a67d441005acd67e27ccbe523f199c12b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSdFecInterruptClass::RstReq</definition>
+        <argsstring></argsstring>
+        <name>RstReq</name>
+        <briefdescription>
+<para>Device requires reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_fec_interrupt_class_1a8b393fd84238b8f967abe87ab01bae24" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSdFecInterruptClass::ReprogReq</definition>
+        <argsstring></argsstring>
+        <name>ReprogReq</name>
+        <briefdescription>
+<para>Device requires reprogrammed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_fec_interrupt_class_1a8c4764743c3ef572e0884f7c8e64deed" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSdFecInterruptClass::ReCfgReq</definition>
+        <argsstring></argsstring>
+        <name>ReCfgReq</name>
+        <briefdescription>
+<para>FPGA requires reprogrammed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Interrupt class. </para>    </briefdescription>
+    <detaileddescription>
+<para>Members define interrupt class and action required </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="134" bodyend="141"/>
+    <listofallmembers>
+      <member refid="struct_x_sd_fec_interrupt_class_1a38d57c033608974a991ec533bb0265a3" prot="public" virt="non-virtual"><scope>XSdFecInterruptClass</scope><name>ECCMBit</name></member>
+      <member refid="struct_x_sd_fec_interrupt_class_1a01e69813e77204c9664924531d42c66a" prot="public" virt="non-virtual"><scope>XSdFecInterruptClass</scope><name>ECCSBit</name></member>
+      <member refid="struct_x_sd_fec_interrupt_class_1a4b8c09af7e5b5c7d5f8bc4f487b171e3" prot="public" virt="non-virtual"><scope>XSdFecInterruptClass</scope><name>Intf</name></member>
+      <member refid="struct_x_sd_fec_interrupt_class_1a8c4764743c3ef572e0884f7c8e64deed" prot="public" virt="non-virtual"><scope>XSdFecInterruptClass</scope><name>ReCfgReq</name></member>
+      <member refid="struct_x_sd_fec_interrupt_class_1a8b393fd84238b8f967abe87ab01bae24" prot="public" virt="non-virtual"><scope>XSdFecInterruptClass</scope><name>ReprogReq</name></member>
+      <member refid="struct_x_sd_fec_interrupt_class_1a67d441005acd67e27ccbe523f199c12b" prot="public" virt="non-virtual"><scope>XSdFecInterruptClass</scope><name>RstReq</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

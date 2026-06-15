@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="xmig__7series_8h" kind="file"><name>xmig_7series.h</name>
+  </compound>
+  <compound refid="group__mig__7series" kind="group"><name>mig_7series</name>
+  </compound>
+  <compound refid="dir_4f3c36f080da74aced50a123039a2e4a" kind="dir"><name>mig_7series</name>
+  </compound>
+  <compound refid="dir_b70bdcb0004a4c7b6c4735d98ae18067" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

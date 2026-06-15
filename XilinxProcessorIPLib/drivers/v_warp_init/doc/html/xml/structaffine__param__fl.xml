@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structaffine__param__fl" kind="struct" prot="public">
+    <compoundname>affine_param_fl</compoundname>
+    <includes local="no">xwarp_input_configs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structaffine__param__fl_1a5f337e8d70109ef1cc09e838044fc808" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float affine_param_fl::scale_x</definition>
+        <argsstring></argsstring>
+        <name>scale_x</name>
+        <briefdescription>
+<para>Scale factor in X direction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="114" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structaffine__param__fl_1ad38efae54e9f9f73cb3919f3960a309d" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float affine_param_fl::scale_y</definition>
+        <argsstring></argsstring>
+        <name>scale_y</name>
+        <briefdescription>
+<para>Scale factor in Y direction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="115" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structaffine__param__fl_1ada5d2bee25361b714a07a1e9472f4078" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float affine_param_fl::rot_angle</definition>
+        <argsstring></argsstring>
+        <name>rot_angle</name>
+        <briefdescription>
+<para>Rotation angle in degrees. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="116" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structaffine__param__fl_1a5e0acda1e20830b51c8f52246817f3d5" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float affine_param_fl::trans_x</definition>
+        <argsstring></argsstring>
+        <name>trans_x</name>
+        <briefdescription>
+<para>Translation offset in X direction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="117" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structaffine__param__fl_1ac02518c882a21fff4af176379244de6c" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float affine_param_fl::trans_y</definition>
+        <argsstring></argsstring>
+        <name>trans_y</name>
+        <briefdescription>
+<para>Translation offset in Y direction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="118" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structaffine__param__fl_1a07e351516fc973242914b1fbac9d6347" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float affine_param_fl::zoom</definition>
+        <argsstring></argsstring>
+        <name>zoom</name>
+        <briefdescription>
+<para>Zoom factor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="119" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Affine transformation parameters in floating-point format. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure contains parameters for 2D affine transformations including scale, rotation, translation, and zoom operations. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="113" bodyend="120"/>
+    <listofallmembers>
+      <member refid="structaffine__param__fl_1ada5d2bee25361b714a07a1e9472f4078" prot="public" virt="non-virtual"><scope>affine_param_fl</scope><name>rot_angle</name></member>
+      <member refid="structaffine__param__fl_1a5f337e8d70109ef1cc09e838044fc808" prot="public" virt="non-virtual"><scope>affine_param_fl</scope><name>scale_x</name></member>
+      <member refid="structaffine__param__fl_1ad38efae54e9f9f73cb3919f3960a309d" prot="public" virt="non-virtual"><scope>affine_param_fl</scope><name>scale_y</name></member>
+      <member refid="structaffine__param__fl_1a5e0acda1e20830b51c8f52246817f3d5" prot="public" virt="non-virtual"><scope>affine_param_fl</scope><name>trans_x</name></member>
+      <member refid="structaffine__param__fl_1ac02518c882a21fff4af176379244de6c" prot="public" virt="non-virtual"><scope>affine_param_fl</scope><name>trans_y</name></member>
+      <member refid="structaffine__param__fl_1a07e351516fc973242914b1fbac9d6347" prot="public" virt="non-virtual"><scope>affine_param_fl</scope><name>zoom</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

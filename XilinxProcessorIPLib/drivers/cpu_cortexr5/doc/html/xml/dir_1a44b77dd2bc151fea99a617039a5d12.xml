@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_1a44b77dd2bc151fea99a617039a5d12" kind="dir">
+    <compoundname>cpu_cortexr5</compoundname>
+    <innerdir refid="dir_97ab6a082741c0f4f5518dac57171afb">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu_cortexr5/"/>
+  </compounddef>
+</doxygen>

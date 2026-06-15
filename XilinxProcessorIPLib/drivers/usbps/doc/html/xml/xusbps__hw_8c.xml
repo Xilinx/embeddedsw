@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xusbps__hw_8c" kind="file">
+    <compoundname>xusbps_hw.c</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xusbps_8h" local="yes">xusbps.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <incdepgraph>
+      <node id="228">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="229">
+        <label>xil_io.h</label>
+      </node>
+      <node id="224">
+        <label>xstatus.h</label>
+      </node>
+      <node id="227">
+        <label>xil_types.h</label>
+      </node>
+      <node id="230">
+        <label>xparameters.h</label>
+      </node>
+      <node id="223">
+        <label>xusbps_hw.c</label>
+        <link refid="xusbps_hw.c"/>
+        <childnode refid="224" relation="include">
+        </childnode>
+        <childnode refid="225" relation="include">
+        </childnode>
+        <childnode refid="230" relation="include">
+        </childnode>
+      </node>
+      <node id="226">
+        <label>xusbps_hw.h</label>
+        <link refid="xusbps__hw_8h"/>
+        <childnode refid="227" relation="include">
+        </childnode>
+        <childnode refid="228" relation="include">
+        </childnode>
+        <childnode refid="229" relation="include">
+        </childnode>
+      </node>
+      <node id="225">
+        <label>xusbps.h</label>
+        <link refid="xusbps_8h"/>
+        <childnode refid="226" relation="include">
+        </childnode>
+        <childnode refid="227" relation="include">
+        </childnode>
+        <childnode refid="224" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__usbps_1gaa72fb1dd34e4b5f9522909e58dc2e3dd" prot="public" static="no">
+        <name>XUSBPS_RESET_TIMEOUT</name>
+        <initializer>0xFFFFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_hw.c" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_hw.c" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__usbps_1gaf07a1ec6f70450249f71f4831649974c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUsbPs_ResetHw</definition>
+        <argsstring>(u32 BaseAddress)</argsstring>
+        <name>XUsbPs_ResetHw</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function perform the reset sequence to the given usbps interface by configuring the appropriate control bits in the usbps specific registers. </para>        </briefdescription>
+        <detaileddescription>
+<para>the usbps reset sequence involves the below steps Disable the interrupts Clear the status registers Apply the reset command and wait for reset complete status Update the relevant control registers with reset values <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of the interface</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_hw.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_hw.c" bodystart="62" bodyend="93"/>
+        <references refid="group__usbps_1ga5321ce3c50f36383f51d1d8ccea520f3" compoundref="xusbps__hw_8h" startline="102">XUSBPS_ASYNCLISTADDR_OFFSET</references>
+        <references refid="group__usbps_1gaf4e60df9453b2ca88e075768c80eb362" compoundref="xusbps__hw_8h" startline="96">XUSBPS_CMD_OFFSET</references>
+        <references refid="group__usbps_1ga0da6c04d3bd127161f774e9be81e5b51" compoundref="xusbps__hw_8h" startline="181">XUSBPS_CMD_RST_MASK</references>
+        <references refid="group__usbps_1gabfe306519d91eb6e73e2758ef0e4022a" compoundref="xusbps__hw_8h" startline="98">XUSBPS_IER_OFFSET</references>
+        <references refid="group__usbps_1gae977cbceae698547d039d7fdd643b209" compoundref="xusbps__hw_8h" startline="97">XUSBPS_ISR_OFFSET</references>
+        <references refid="group__usbps_1gac554c295a361105374944e4e1da07aad" compoundref="xusbps__hw_8h" startline="100">XUSBPS_LISTBASE_OFFSET</references>
+        <references refid="group__usbps_1gae013de4110ae5cd348830c36a365fb14" compoundref="xusbps__hw_8h" startline="484">XUsbPs_ReadReg</references>
+        <references refid="group__usbps_1gaefd4e31b2628602507b5df0f7d9c934f" compoundref="xusbps__hw_8h" startline="503">XUsbPs_WriteReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xusbps_8h" kindref="compound">xusbps.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XUSBPS_RESET_TIMEOUT<sp/>0xFFFFF</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="62" refid="group__usbps_1gaf07a1ec6f70450249f71f4831649974c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__usbps_1gaf07a1ec6f70450249f71f4831649974c" kindref="member">XUsbPs_ResetHw</ref>(u32<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Timeout<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Host<sp/>and<sp/>device<sp/>mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>the<sp/>interrupts<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbps_1gaefd4e31b2628602507b5df0f7d9c934f" kindref="member">XUsbPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__usbps_1gabfe306519d91eb6e73e2758ef0e4022a" kindref="member">XUSBPS_IER_OFFSET</ref>,<sp/>0x0);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>interrupt<sp/>status<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="group__usbps_1gae013de4110ae5cd348830c36a365fb14" kindref="member">XUsbPs_ReadReg</ref>(BaseAddress,<sp/><ref refid="group__usbps_1gae977cbceae698547d039d7fdd643b209" kindref="member">XUSBPS_ISR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbps_1gaefd4e31b2628602507b5df0f7d9c934f" kindref="member">XUsbPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__usbps_1gae977cbceae698547d039d7fdd643b209" kindref="member">XUSBPS_ISR_OFFSET</ref>,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Perform<sp/>the<sp/>reset<sp/>operation<sp/>using<sp/>USB<sp/>CMD<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="group__usbps_1gae013de4110ae5cd348830c36a365fb14" kindref="member">XUsbPs_ReadReg</ref>(BaseAddress,<sp/><ref refid="group__usbps_1gaf4e60df9453b2ca88e075768c80eb362" kindref="member">XUSBPS_CMD_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>RegVal<sp/>|<sp/><ref refid="group__usbps_1ga0da6c04d3bd127161f774e9be81e5b51" kindref="member">XUSBPS_CMD_RST_MASK</ref>;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbps_1gaefd4e31b2628602507b5df0f7d9c934f" kindref="member">XUsbPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__usbps_1gaf4e60df9453b2ca88e075768c80eb362" kindref="member">XUSBPS_CMD_OFFSET</ref>,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="group__usbps_1gae013de4110ae5cd348830c36a365fb14" kindref="member">XUsbPs_ReadReg</ref>(BaseAddress,<sp/><ref refid="group__usbps_1gaf4e60df9453b2ca88e075768c80eb362" kindref="member">XUSBPS_CMD_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>till<sp/>the<sp/>reset<sp/>operation<sp/>returns<sp/>success<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="81"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>FIX<sp/>ME:<sp/>right<sp/>now<sp/>no<sp/>indication<sp/>to<sp/>the<sp/>caller<sp/>or<sp/>user<sp/>about</highlight></codeline>
+<codeline lineno="82"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>timeout<sp/>overflow</highlight></codeline>
+<codeline lineno="83"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((RegVal<sp/>&amp;<sp/><ref refid="group__usbps_1ga0da6c04d3bd127161f774e9be81e5b51" kindref="member">XUSBPS_CMD_RST_MASK</ref>)<sp/>&amp;&amp;<sp/>(Timeout<sp/>&lt;<sp/>XUSBPS_RESET_TIMEOUT))<sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="group__usbps_1gae013de4110ae5cd348830c36a365fb14" kindref="member">XUsbPs_ReadReg</ref>(BaseAddress,<sp/><ref refid="group__usbps_1gaf4e60df9453b2ca88e075768c80eb362" kindref="member">XUSBPS_CMD_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Timeout++;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Update<sp/>periodic<sp/>list<sp/>base<sp/>address<sp/>register<sp/>with<sp/>reset<sp/>value<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbps_1gaefd4e31b2628602507b5df0f7d9c934f" kindref="member">XUsbPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__usbps_1gac554c295a361105374944e4e1da07aad" kindref="member">XUSBPS_LISTBASE_OFFSET</ref>,<sp/>0x0);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Update<sp/>async/endpoint<sp/>list<sp/>base<sp/>address<sp/>register<sp/>with<sp/>reset<sp/>value<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbps_1gaefd4e31b2628602507b5df0f7d9c934f" kindref="member">XUsbPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__usbps_1ga5321ce3c50f36383f51d1d8ccea520f3" kindref="member">XUSBPS_ASYNCLISTADDR_OFFSET</ref>,<sp/>0x0);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps_hw.c"/>
+  </compounddef>
+</doxygen>

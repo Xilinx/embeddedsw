@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xrfclk___l_m_k__conf" kind="group">
+    <compoundname>xrfclk_LMK_conf</compoundname>
+    <title>Xrfclk_LMK_conf</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xrfclk___l_m_k__conf_1gaad82661aabadc19128387a24d35c7e31" prot="public" static="no" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 LMK_FREQ_LIST[LMK_FREQ_NUM][FREQ_LIST_STR_SIZE]</definition>
+        <argsstring>[LMK_FREQ_NUM][FREQ_LIST_STR_SIZE]</argsstring>
+        <name>LMK_FREQ_LIST</name>
+        <initializer>= {
+	&quot;245M76_PL_122M88_SYSREF_7M68&quot;, &quot;250M_PL_125M_SYSREF_10M&quot;
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMK_conf.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMK_conf.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xrfclk___l_m_k__conf_1ga3df823b80bbe1f9d9be67b9651e079b2" prot="public" static="no" mutable="no">
+        <type>const u32</type>
+        <definition>const u32 LMK_CKin[LMK_FREQ_NUM][LMK_COUNT]</definition>
+        <argsstring>[LMK_FREQ_NUM][LMK_COUNT]</argsstring>
+        <name>LMK_CKin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMK_conf.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMK_conf.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains the configuration data for LMK. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.0   dc     08/28/19 Initial version
+1.1   dc     11/21/19 Remove xil dependencies from linux build
+      dc     11/25/19 update LMX and LMK configs
+      dc     12/05/19 adjust LMX and LMK configs to a rftool needs
+1.2   dc     22/01/20 add version and list of LMK frequencies
+1.3   dc     03/10/20 update LMK/LMX config for MTS
+1.5   dc     13/05/21 Make clear LMK/LMX configuration comments</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

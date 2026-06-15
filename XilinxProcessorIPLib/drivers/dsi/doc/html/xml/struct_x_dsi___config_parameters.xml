@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dsi___config_parameters" kind="struct" prot="public">
+    <compoundname>XDsi_ConfigParameters</compoundname>
+    <includes local="no">xdsi.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dsi___config_parameters_1a148dc8d5b5992733b8504fc570a15305" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dsi___config" kindref="compound">XDsi_Config</ref></type>
+        <definition>XDsi_Config XDsi_ConfigParameters::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>GUI Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="167" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gaef3bbf8bd7a39e7154eb3ce1129fdda7" compoundref="xdsi_8c" startline="457" endline="532">XDsi_GetConfigParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi___config_parameters_1a9578d1e50519ec42ad991c9bdd459cc9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDsi_ConfigParameters::VideoMode</definition>
+        <argsstring></argsstring>
+        <name>VideoMode</name>
+        <briefdescription>
+<para>Specifies VideoMode NoNBurst/Burst. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="168" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gaef3bbf8bd7a39e7154eb3ce1129fdda7" compoundref="xdsi_8c" startline="457" endline="532">XDsi_GetConfigParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi___config_parameters_1af4115683dda967c09f5801e4f36d3bcd" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDsi_ConfigParameters::BlankPacketType</definition>
+        <argsstring></argsstring>
+        <name>BlankPacketType</name>
+        <briefdescription>
+<para>Blanking packet type for BLLP region. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="170" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gaef3bbf8bd7a39e7154eb3ce1129fdda7" compoundref="xdsi_8c" startline="457" endline="532">XDsi_GetConfigParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi___config_parameters_1a5db0abb127dbd384356f552fc0f965f9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDsi_ConfigParameters::BLLPMode</definition>
+        <argsstring></argsstring>
+        <name>BLLPMode</name>
+        <briefdescription>
+<para>BLLP Selection. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="172" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gaef3bbf8bd7a39e7154eb3ce1129fdda7" compoundref="xdsi_8c" startline="457" endline="532">XDsi_GetConfigParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi___config_parameters_1ad61ccf6a6fc23112623076e6d3e82623" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDsi_ConfigParameters::EoTp</definition>
+        <argsstring></argsstring>
+        <name>EoTp</name>
+        <briefdescription>
+<para>EoTp Bit Enable/Disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="173" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gaef3bbf8bd7a39e7154eb3ce1129fdda7" compoundref="xdsi_8c" startline="457" endline="532">XDsi_GetConfigParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi___config_parameters_1a5b80ccc98918a36a87e31ed5ac843135" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dsi___video_timing" kindref="compound">XDsi_VideoTiming</ref></type>
+        <definition>XDsi_VideoTiming XDsi_ConfigParameters::Timing</definition>
+        <argsstring></argsstring>
+        <name>Timing</name>
+        <briefdescription>
+<para>Video Timing structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="174" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gaef3bbf8bd7a39e7154eb3ce1129fdda7" compoundref="xdsi_8c" startline="457" endline="532">XDsi_GetConfigParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi___config_parameters_1a8d7d3f2da7b8b292bf61f97d144491da" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDsi_ConfigParameters::LineTime</definition>
+        <argsstring></argsstring>
+        <name>LineTime</name>
+        <briefdescription>
+<para>Total Line Time. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="175" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gaef3bbf8bd7a39e7154eb3ce1129fdda7" compoundref="xdsi_8c" startline="457" endline="532">XDsi_GetConfigParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi___config_parameters_1ae4a682beace1fdcc338207b2371e4a89" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDsi_ConfigParameters::BLLPTime</definition>
+        <argsstring></argsstring>
+        <name>BLLPTime</name>
+        <briefdescription>
+<para>BLLP Time by core. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="176" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gaef3bbf8bd7a39e7154eb3ce1129fdda7" compoundref="xdsi_8c" startline="457" endline="532">XDsi_GetConfigParams</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The structure to read DSI controller &amp; Configurable Parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="6">
+        <label>XDsi_ConfigParameters</label>
+        <link refid="struct_x_dsi___config_parameters"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>Timing</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>XDsi_Config</label>
+        <link refid="struct_x_dsi___config"/>
+      </node>
+      <node id="7">
+        <label>XDsi_VideoTiming</label>
+        <link refid="struct_x_dsi___video_timing"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="166" bodyend="177"/>
+    <listofallmembers>
+      <member refid="struct_x_dsi___config_parameters_1af4115683dda967c09f5801e4f36d3bcd" prot="public" virt="non-virtual"><scope>XDsi_ConfigParameters</scope><name>BlankPacketType</name></member>
+      <member refid="struct_x_dsi___config_parameters_1a5db0abb127dbd384356f552fc0f965f9" prot="public" virt="non-virtual"><scope>XDsi_ConfigParameters</scope><name>BLLPMode</name></member>
+      <member refid="struct_x_dsi___config_parameters_1ae4a682beace1fdcc338207b2371e4a89" prot="public" virt="non-virtual"><scope>XDsi_ConfigParameters</scope><name>BLLPTime</name></member>
+      <member refid="struct_x_dsi___config_parameters_1a148dc8d5b5992733b8504fc570a15305" prot="public" virt="non-virtual"><scope>XDsi_ConfigParameters</scope><name>Config</name></member>
+      <member refid="struct_x_dsi___config_parameters_1ad61ccf6a6fc23112623076e6d3e82623" prot="public" virt="non-virtual"><scope>XDsi_ConfigParameters</scope><name>EoTp</name></member>
+      <member refid="struct_x_dsi___config_parameters_1a8d7d3f2da7b8b292bf61f97d144491da" prot="public" virt="non-virtual"><scope>XDsi_ConfigParameters</scope><name>LineTime</name></member>
+      <member refid="struct_x_dsi___config_parameters_1a5b80ccc98918a36a87e31ed5ac843135" prot="public" virt="non-virtual"><scope>XDsi_ConfigParameters</scope><name>Timing</name></member>
+      <member refid="struct_x_dsi___config_parameters_1a9578d1e50519ec42ad991c9bdd459cc9" prot="public" virt="non-virtual"><scope>XDsi_ConfigParameters</scope><name>VideoMode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

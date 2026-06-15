@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_loader___device_id_code" kind="struct" prot="public">
+    <compoundname>XLoader_DeviceIdCode</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_loader___device_id_code_1a5d870b809c237fd734b8561a71974de9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_DeviceIdCode::IdCode</definition>
+        <argsstring></argsstring>
+        <name>IdCode</name>
+        <briefdescription>
+<para>Id code. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___device_id_code_1ab25ab0707dc91f0af28e4ffcbd1be86c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_DeviceIdCode::ExtIdCode</definition>
+        <argsstring></argsstring>
+        <name>ExtIdCode</name>
+        <briefdescription>
+<para>Extended id code. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_client.h" bodystart="62" bodyend="65"/>
+    <listofallmembers>
+      <member refid="struct_x_loader___device_id_code_1ab25ab0707dc91f0af28e4ffcbd1be86c" prot="public" virt="non-virtual"><scope>XLoader_DeviceIdCode</scope><name>ExtIdCode</name></member>
+      <member refid="struct_x_loader___device_id_code_1a5d870b809c237fd734b8561a71974de9" prot="public" virt="non-virtual"><scope>XLoader_DeviceIdCode</scope><name>IdCode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

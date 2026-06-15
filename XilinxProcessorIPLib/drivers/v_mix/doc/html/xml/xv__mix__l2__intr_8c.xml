@@ -1,0 +1,199 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__mix__l2__intr_8c" kind="file">
+    <compoundname>xv_mix_l2_intr.c</compoundname>
+    <includes refid="xv__mix__l2_8h" local="yes">xv_mix_l2.h</includes>
+    <incdepgraph>
+      <node id="101">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="97">
+        <label>xv_mix_l2.h</label>
+        <link refid="xv__mix__l2_8h"/>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+      </node>
+      <node id="103">
+        <label>xil_io.h</label>
+      </node>
+      <node id="99">
+        <label>xv_mix.h</label>
+        <link refid="xv__mix_8h"/>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+      </node>
+      <node id="102">
+        <label>xstatus.h</label>
+      </node>
+      <node id="98">
+        <label>xvidc.h</label>
+      </node>
+      <node id="100">
+        <label>xil_types.h</label>
+      </node>
+      <node id="104">
+        <label>xv_mix_hw.h</label>
+        <link refid="xv__mix__hw_8h"/>
+      </node>
+      <node id="96">
+        <label>xv_mix_l2_intr.c</label>
+        <link refid="xv_mix_l2_intr.c"/>
+        <childnode refid="97" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__v__mix_1gad12afb12681e1426a8129e35fa729046" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XVMix_SetCallback</definition>
+        <argsstring>(XV_Mix_l2 *InstancePtr, void *CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XVMix_SetCallback</name>
+        <param>
+          <type><ref refid="struct_x_v___mix__l2" kindref="compound">XV_Mix_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function installs an asynchronous callback function for Mixer interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the mixer core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if callback function installed successfully.</para></simplesect>
+<simplesect kind="note"><para>Invoking this function for a handler that already has been installed replaces it with the new handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="570" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2_intr.c" bodystart="50" bodyend="61"/>
+        <references refid="struct_x_v___mix__l2_1ad374a97b3230791c2c55271d063aef54" compoundref="xv__mix__l2_8h" startline="308">XV_Mix_l2::CallbackRef</references>
+        <references refid="struct_x_v___mix__l2_1ae7f8572bd90632d268180e01c836b069" compoundref="xv__mix__l2_8h" startline="307">XV_Mix_l2::FrameDoneCallback</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__mix_1ga11c3c9f8be66807a720a0043195e5382" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVMix_InterruptHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XVMix_InterruptHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the mixer core driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler clears the pending interrupt and determined if the source is frame done signal. If yes, starts the next frame processing and calls the registered callback function</para><para>The application is responsible for connecting this function to the interrupt system. Application beyond this driver is also responsible for providing callbacks to handle interrupts and installing the callbacks using <ref refid="group__v__mix_1gad12afb12681e1426a8129e35fa729046" kindref="member">XVMix_SetCallback()</ref> during initialization phase.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance that just interrupted.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="569" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2_intr.c" bodystart="83" bodyend="106"/>
+        <references refid="struct_x_v___mix__l2_1ad374a97b3230791c2c55271d063aef54" compoundref="xv__mix__l2_8h" startline="308">XV_Mix_l2::CallbackRef</references>
+        <references refid="struct_x_v___mix__l2_1ae7f8572bd90632d268180e01c836b069" compoundref="xv__mix__l2_8h" startline="307">XV_Mix_l2::FrameDoneCallback</references>
+        <references refid="struct_x_v__mix_1aae1d21c5f20dad615adbcb7ec97354ac" compoundref="xv__mix_8h" startline="215">XV_mix::IsReady</references>
+        <references refid="struct_x_v___mix__l2_1ac5a8467e514ea5628de7784f2bbe36ad" compoundref="xv__mix__l2_8h" startline="304">XV_Mix_l2::Mix</references>
+        <references refid="xv__mix_8c_1adc3df9baaa7847de23ef2e024bfe6297" compoundref="xv__mix_8c" startline="8436" endline="8441">XV_mix_InterruptClear</references>
+        <references refid="xv__mix_8c_1a4464bf44b7217ff1723b87d7133cfb66" compoundref="xv__mix_8c" startline="8473" endline="8478">XV_mix_InterruptGetStatus</references>
+        <references refid="xv__mix_8c_1aa4bdcc65788bfaa22f5dd4f0c4a0fca3" compoundref="xv__mix_8c" startline="60" endline="68">XV_mix_Start</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__mix__l2_8h" kindref="compound">xv_mix_l2.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="50" refid="group__v__mix_1gad12afb12681e1426a8129e35fa729046" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__mix_1gad12afb12681e1426a8129e35fa729046" kindref="member">XVMix_SetCallback</ref>(<ref refid="struct_x_v___mix__l2" kindref="compound">XV_Mix_l2</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/>Xil_AssertNonvoid(CallbackFunc<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/>Xil_AssertNonvoid(CallbackRef<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___mix__l2_1ae7f8572bd90632d268180e01c836b069" kindref="member">FrameDoneCallback</ref><sp/>=<sp/>(<ref refid="group__v__mix_1ga547d67e8ebe67c5c6f124464fa5d5783" kindref="member">XVMix_Callback</ref>)CallbackFunc;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___mix__l2_1ad374a97b3230791c2c55271d063aef54" kindref="member">CallbackRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="83" refid="group__v__mix_1ga11c3c9f8be66807a720a0043195e5382" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__mix_1ga11c3c9f8be66807a720a0043195e5382" kindref="member">XVMix_InterruptHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><ref refid="struct_x_v___mix__l2" kindref="compound">XV_Mix_l2</ref><sp/>*MixPtr<sp/>=<sp/>(<ref refid="struct_x_v___mix__l2" kindref="compound">XV_Mix_l2</ref><sp/>*)InstancePtr;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/>Xil_AssertVoid(MixPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/>Xil_AssertVoid(MixPtr-&gt;<ref refid="struct_x_v___mix__l2_1ac5a8467e514ea5628de7784f2bbe36ad" kindref="member">Mix</ref>.<ref refid="struct_x_v__mix_1aae1d21c5f20dad615adbcb7ec97354ac" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>the<sp/>interrupt<sp/>source<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/>Status<sp/>=<sp/><ref refid="xv__mix_8c_1a4464bf44b7217ff1723b87d7133cfb66" kindref="member">XV_mix_InterruptGetStatus</ref>(&amp;MixPtr-&gt;<ref refid="struct_x_v___mix__l2_1ac5a8467e514ea5628de7784f2bbe36ad" kindref="member">Mix</ref>);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><ref refid="xv__mix_8c_1adc3df9baaa7847de23ef2e024bfe6297" kindref="member">XV_mix_InterruptClear</ref>(&amp;MixPtr-&gt;<ref refid="struct_x_v___mix__l2_1ac5a8467e514ea5628de7784f2bbe36ad" kindref="member">Mix</ref>,<sp/>XVMIX_IRQ_DONE_MASK);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>Done<sp/>Signal<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Status<sp/>&amp;<sp/>XVMIX_IRQ_DONE_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Call<sp/>user<sp/>registered<sp/>callback<sp/>function,<sp/>if<sp/>any</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(MixPtr-&gt;<ref refid="struct_x_v___mix__l2_1ae7f8572bd90632d268180e01c836b069" kindref="member">FrameDoneCallback</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MixPtr-&gt;<ref refid="struct_x_v___mix__l2_1ae7f8572bd90632d268180e01c836b069" kindref="member">FrameDoneCallback</ref>(MixPtr-&gt;<ref refid="struct_x_v___mix__l2_1ad374a97b3230791c2c55271d063aef54" kindref="member">CallbackRef</ref>);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__mix_8c_1aa4bdcc65788bfaa22f5dd4f0c4a0fca3" kindref="member">XV_mix_Start</ref>(&amp;MixPtr-&gt;<ref refid="struct_x_v___mix__l2_1ac5a8467e514ea5628de7784f2bbe36ad" kindref="member">Mix</ref>);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2_intr.c"/>
+  </compounddef>
+</doxygen>

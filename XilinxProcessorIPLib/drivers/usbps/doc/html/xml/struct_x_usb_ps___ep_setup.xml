@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_usb_ps___ep_setup" kind="struct" prot="public">
+    <compoundname>XUsbPs_EpSetup</compoundname>
+    <includes local="no">xusbps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_usb_ps___ep_setup_1a3d73546dc7146b2695f001901763bff9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUsbPs_EpSetup::Type</definition>
+        <argsstring></argsstring>
+        <name>Type</name>
+        <briefdescription>
+<para>Endpoint type: </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>XUSBPS_EP_TYPE_CONTROL</para></listitem><listitem><para>XUSBPS_EP_TYPE_ISOCHRONOUS</para></listitem><listitem><para>XUSBPS_EP_TYPE_BULK</para></listitem><listitem><para>XUSBPS_EP_TYPE_INTERRUPT </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="467" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="467" bodyend="-1"/>
+        <referencedby refid="xusbps__audio__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusbps__audio__example_8c" startline="176" endline="292">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_ps___ep_setup_1a55577027dc17083887a0fd818a80f453" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUsbPs_EpSetup::NumBufs</definition>
+        <argsstring></argsstring>
+        <name>NumBufs</name>
+        <briefdescription>
+<para>Number of buffers to be handled by this endpoint. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="474" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="474" bodyend="-1"/>
+        <referencedby refid="xusbps__audio__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusbps__audio__example_8c" startline="176" endline="292">main</referencedby>
+        <referencedby refid="group__usbps_1ga90aab040f015299b2064124bed882896" compoundref="xusbps__endpoint_8c" startline="1385" endline="1442">XUsbPs_ReconfigureEp</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_ps___ep_setup_1a256d341fe10df4647516600022afa2a3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUsbPs_EpSetup::BufSize</definition>
+        <argsstring></argsstring>
+        <name>BufSize</name>
+        <briefdescription>
+<para>Buffer size. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only relevant for OUT (receive) Endpoints. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="476" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="476" bodyend="-1"/>
+        <referencedby refid="xusbps__audio__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusbps__audio__example_8c" startline="176" endline="292">main</referencedby>
+        <referencedby refid="group__usbps_1gac27a9d64ddf33a2400d7493e301a7192" compoundref="xusbps__endpoint_8c" startline="506" endline="566">XUsbPs_EpBufferReceive</referencedby>
+        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="395" endline="478">XUsbPs_EpGetData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_ps___ep_setup_1ab6896a844582da8978f89a4245c055a9" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XUsbPs_EpSetup::MaxPacketSize</definition>
+        <argsstring></argsstring>
+        <name>MaxPacketSize</name>
+        <briefdescription>
+<para>Maximum packet size for this endpoint. </para>        </briefdescription>
+        <detaileddescription>
+<para>This number will define the maximum number of bytes sent on the wire per transaction. Range: 0..1024 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="479" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="479" bodyend="-1"/>
+        <referencedby refid="xusbps__audio__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusbps__audio__example_8c" startline="176" endline="292">main</referencedby>
+        <referencedby refid="group__usbps_1ga1e4c0735be24ea24b73404db8d18133e" compoundref="xusbps__endpoint_8c" startline="200" endline="218">XUsbPs_EpBufferSendWithZLT</referencedby>
+        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="395" endline="478">XUsbPs_EpGetData</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Data structures used to configure endpoints. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="466" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="466" bodyend="483"/>
+    <listofallmembers>
+      <member refid="struct_x_usb_ps___ep_setup_1a256d341fe10df4647516600022afa2a3" prot="public" virt="non-virtual"><scope>XUsbPs_EpSetup</scope><name>BufSize</name></member>
+      <member refid="struct_x_usb_ps___ep_setup_1ab6896a844582da8978f89a4245c055a9" prot="public" virt="non-virtual"><scope>XUsbPs_EpSetup</scope><name>MaxPacketSize</name></member>
+      <member refid="struct_x_usb_ps___ep_setup_1a55577027dc17083887a0fd818a80f453" prot="public" virt="non-virtual"><scope>XUsbPs_EpSetup</scope><name>NumBufs</name></member>
+      <member refid="struct_x_usb_ps___ep_setup_1a3d73546dc7146b2695f001901763bff9" prot="public" virt="non-virtual"><scope>XUsbPs_EpSetup</scope><name>Type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_vmix_hdmi_bridge___input_buffer" kind="struct" prot="public">
+    <compoundname>VmixHdmiBridge_InputBuffer</compoundname>
+    <includes local="no">vmix_hdmi_bridge.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_vmix_hdmi_bridge___input_buffer_1a284f85d5f5c8f2d375e78f8dd2a888b9" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 VmixHdmiBridge_InputBuffer::baseAddress</definition>
+        <argsstring></argsstring>
+        <name>baseAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Simple structure for passing buffer addresses to VMix layer update. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" bodystart="75" bodyend="77"/>
+    <listofallmembers>
+      <member refid="struct_vmix_hdmi_bridge___input_buffer_1a284f85d5f5c8f2d375e78f8dd2a888b9" prot="public" virt="non-virtual"><scope>VmixHdmiBridge_InputBuffer</scope><name>baseAddress</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

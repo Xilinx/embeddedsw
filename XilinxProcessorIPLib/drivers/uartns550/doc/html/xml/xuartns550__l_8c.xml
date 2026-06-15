@@ -1,0 +1,287 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xuartns550__l_8c" kind="file">
+    <compoundname>xuartns550_l.c</compoundname>
+    <includes refid="xuartns550__l_8h" local="yes">xuartns550_l.h</includes>
+    <incdepgraph>
+      <node id="101">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="102">
+        <label>xil_io.h</label>
+      </node>
+      <node id="98">
+        <label>xuartns550_l.c</label>
+        <link refid="xuartns550_l.c"/>
+        <childnode refid="99" relation="include">
+        </childnode>
+      </node>
+      <node id="99">
+        <label>xuartns550_l.h</label>
+        <link refid="xuartns550__l_8h"/>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+      </node>
+      <node id="100">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__uartns550_1ga39973a1a14e9e66e4bd3a8e90320c982" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartNs550_SendByte</definition>
+        <argsstring>(UINTPTR BaseAddress, u8 Data)</argsstring>
+        <name>XUartNs550_SendByte</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a data byte with the UART. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function operates in the polling mode and blocks until the data has been put into the UART transmit holding register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the UART. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the data byte to be sent.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.c" bodystart="78" bodyend="91"/>
+        <references refid="group__uartns550_1gabae5b671e19c043af9e1c76e183acb60" compoundref="xuartns550__l_8h" startline="312">XUartNs550_IsTransmitEmpty</references>
+        <references refid="group__uartns550_1gae648146666080fdac4f6949b6ed3101a" compoundref="xuartns550__l_8h" startline="201">XUartNs550_WriteReg</references>
+        <references refid="group__uartns550_1gaaeadf9e35937495ade3ac065a4a6ccbf" compoundref="xuartns550__l_8h" startline="64">XUN_THR_OFFSET</references>
+        <referencedby refid="xuartns550__low__level__example_8c_1adb369a61c1b28dd7908e165c0c408efc" compoundref="xuartns550__low__level__example_8c" startline="131" endline="183">XUartNs550_LowLevelExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__uartns550_1ga2f885279ade985dee519d1f4c3730b1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XUartNs550_RecvByte</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XUartNs550_RecvByte</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function receives a byte from the UART. </para>        </briefdescription>
+        <detaileddescription>
+<para>It operates in a polling mode and blocks until a byte of data is received.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the UART.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The data byte received by the UART.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.c" bodystart="106" bodyend="117"/>
+        <references refid="group__uartns550_1ga941188ffba023576548effef6ccb0707" compoundref="xuartns550__l_8h" startline="297">XUartNs550_IsReceiveData</references>
+        <references refid="group__uartns550_1ga58ff500307c70fda263888b18fc6389c" compoundref="xuartns550__l_8h" startline="182">XUartNs550_ReadReg</references>
+        <references refid="group__uartns550_1ga0c9f6a9aff7a8753caf9965f3162c2ce" compoundref="xuartns550__l_8h" startline="63">XUN_RBR_OFFSET</references>
+        <referencedby refid="xuartns550__low__level__example_8c_1adb369a61c1b28dd7908e165c0c408efc" compoundref="xuartns550__low__level__example_8c" startline="131" endline="183">XUartNs550_LowLevelExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__uartns550_1ga5aa56fa41ef620d2199925f22f2ca21f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartNs550_SetBaud</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 InputClockHz, u32 BaudRate)</argsstring>
+        <name>XUartNs550_SetBaud</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>InputClockHz</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BaudRate</declname>
+        </param>
+        <briefdescription>
+<para>Set the baud rate for the UART. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the UART. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InputClockHz</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the frequency of the input clock to the device in Hertz. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaudRate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baud rate to be set.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.c" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.c" bodystart="135" bodyend="179"/>
+        <references refid="group__uartns550_1gab9ba96c18cb50a8ab5873d781b4ee94e" compoundref="xuartns550__l_8h" startline="231">XUartNs550_GetLineControlReg</references>
+        <references refid="group__uartns550_1ga4f3ff99ca70dfe6c715cbbfdd9742230" compoundref="xuartns550__l_8h" startline="248">XUartNs550_SetLineControlReg</references>
+        <references refid="group__uartns550_1gae648146666080fdac4f6949b6ed3101a" compoundref="xuartns550__l_8h" startline="201">XUartNs550_WriteReg</references>
+        <references refid="group__uartns550_1ga035a43e3e92312cf94894d0df59eed71" compoundref="xuartns550__l_8h" startline="72">XUN_DLL_OFFSET</references>
+        <references refid="group__uartns550_1ga61325f1ebb5100606fa900290d1497d7" compoundref="xuartns550__l_8h" startline="73">XUN_DLM_OFFSET</references>
+        <references refid="group__uartns550_1gaa2aa323315e8d4e0265bcb004debc302" compoundref="xuartns550__l_8h" startline="120">XUN_LCR_DLAB</references>
+        <referencedby refid="xuartns550__low__level__example_8c_1adb369a61c1b28dd7908e165c0c408efc" compoundref="xuartns550__low__level__example_8c" startline="131" endline="183">XUartNs550_LowLevelExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="44"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xuartns550__l_8h" kindref="compound">xuartns550_l.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="78" refid="group__uartns550_1ga39973a1a14e9e66e4bd3a8e90320c982" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartns550_1ga39973a1a14e9e66e4bd3a8e90320c982" kindref="member">XUartNs550_SendByte</ref>(UINTPTR<sp/>BaseAddress,<sp/>u8<sp/>Data)</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="81"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Wait<sp/>til<sp/>we<sp/>know<sp/>that<sp/>the<sp/>byte<sp/>can<sp/>be<sp/>sent,<sp/>the<sp/>550<sp/>does<sp/>not<sp/>have<sp/>any</highlight></codeline>
+<codeline lineno="82"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>way<sp/>to<sp/>tell<sp/>how<sp/>much<sp/>room<sp/>is<sp/>in<sp/>the<sp/>FIFO<sp/>such<sp/>that<sp/>we<sp/>must<sp/>wait<sp/>for</highlight></codeline>
+<codeline lineno="83"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>it<sp/>to<sp/>be<sp/>empty</highlight></codeline>
+<codeline lineno="84"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(!<ref refid="group__uartns550_1gabae5b671e19c043af9e1c76e183acb60" kindref="member">XUartNs550_IsTransmitEmpty</ref>(BaseAddress));</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="88"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>the<sp/>data<sp/>byte<sp/>to<sp/>the<sp/>UART<sp/>to<sp/>be<sp/>transmitted</highlight></codeline>
+<codeline lineno="89"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1gae648146666080fdac4f6949b6ed3101a" kindref="member">XUartNs550_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__uartns550_1gaaeadf9e35937495ade3ac065a4a6ccbf" kindref="member">XUN_THR_OFFSET</ref>,<sp/>(u32)Data);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="106" refid="group__uartns550_1ga2f885279ade985dee519d1f4c3730b1c" refkind="member"><highlight class="normal">u8<sp/><ref refid="group__uartns550_1ga2f885279ade985dee519d1f4c3730b1c" kindref="member">XUartNs550_RecvByte</ref>(UINTPTR<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="109"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Wait<sp/>for<sp/>there<sp/>to<sp/>be<sp/>data<sp/>received</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(!<ref refid="group__uartns550_1ga941188ffba023576548effef6ccb0707" kindref="member">XUartNs550_IsReceiveData</ref>(BaseAddress));</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="114"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Return<sp/>the<sp/>next<sp/>data<sp/>byte<sp/>the<sp/>UART<sp/>received</highlight></codeline>
+<codeline lineno="115"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u8)<sp/><ref refid="group__uartns550_1ga58ff500307c70fda263888b18fc6389c" kindref="member">XUartNs550_ReadReg</ref>(BaseAddress,<sp/><ref refid="group__uartns550_1ga0c9f6a9aff7a8753caf9965f3162c2ce" kindref="member">XUN_RBR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="135" refid="group__uartns550_1ga5aa56fa41ef620d2199925f22f2ca21f" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartns550_1ga5aa56fa41ef620d2199925f22f2ca21f" kindref="member">XUartNs550_SetBaud</ref>(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>InputClockHz,<sp/>u32<sp/>BaudRate)</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BaudLSB;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BaudMSB;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LcrRegister;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Divisor;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="144"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Determine<sp/>what<sp/>the<sp/>divisor<sp/>should<sp/>be<sp/>to<sp/>get<sp/>the<sp/>specified<sp/>baud</highlight></codeline>
+<codeline lineno="145"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>rater<sp/>based<sp/>upon<sp/>the<sp/>input<sp/>clock<sp/>frequency<sp/>and<sp/>a<sp/>baud<sp/>clock<sp/>prescaler</highlight></codeline>
+<codeline lineno="146"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>of<sp/>16</highlight></codeline>
+<codeline lineno="147"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Divisor<sp/>=<sp/>((InputClockHz<sp/>+((BaudRate<sp/>*<sp/>16UL)/2))<sp/>/</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(BaudRate<sp/>*<sp/>16UL));</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="151"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Get<sp/>the<sp/>least<sp/>significant<sp/>and<sp/>most<sp/>significant<sp/>bytes<sp/>of<sp/>the<sp/>divisor</highlight></codeline>
+<codeline lineno="152"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>so<sp/>they<sp/>can<sp/>be<sp/>written<sp/>to<sp/>2<sp/>byte<sp/>registers</highlight></codeline>
+<codeline lineno="153"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaudLSB<sp/>=<sp/>Divisor<sp/>&amp;<sp/>XUN_DIVISOR_BYTE_MASK;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaudMSB<sp/>=<sp/>(Divisor<sp/>&gt;&gt;<sp/>8)<sp/>&amp;<sp/>XUN_DIVISOR_BYTE_MASK;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="158"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Get<sp/>the<sp/>line<sp/>control<sp/>register<sp/>contents<sp/>and<sp/>set<sp/>the<sp/>divisor<sp/>latch</highlight></codeline>
+<codeline lineno="159"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>access<sp/>bit<sp/>so<sp/>the<sp/>baud<sp/>rate<sp/>can<sp/>be<sp/>set</highlight></codeline>
+<codeline lineno="160"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LcrRegister<sp/>=<sp/><ref refid="group__uartns550_1gab9ba96c18cb50a8ab5873d781b4ee94e" kindref="member">XUartNs550_GetLineControlReg</ref>(BaseAddress);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1ga4f3ff99ca70dfe6c715cbbfdd9742230" kindref="member">XUartNs550_SetLineControlReg</ref>(BaseAddress,</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LcrRegister<sp/>|<sp/><ref refid="group__uartns550_1gaa2aa323315e8d4e0265bcb004debc302" kindref="member">XUN_LCR_DLAB</ref>);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="166"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>baud<sp/>Divisors<sp/>to<sp/>set<sp/>rate,<sp/>the<sp/>initial<sp/>write<sp/>of<sp/>0xFF<sp/>is<sp/>to</highlight></codeline>
+<codeline lineno="167"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>keep<sp/>the<sp/>divisor<sp/>from<sp/>being<sp/>0<sp/>which<sp/>is<sp/>not<sp/>recommended<sp/>as<sp/>per<sp/>the</highlight></codeline>
+<codeline lineno="168"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>NS16550D<sp/>spec<sp/>sheet</highlight></codeline>
+<codeline lineno="169"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1gae648146666080fdac4f6949b6ed3101a" kindref="member">XUartNs550_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__uartns550_1ga035a43e3e92312cf94894d0df59eed71" kindref="member">XUN_DLL_OFFSET</ref>,<sp/>0xFF);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1gae648146666080fdac4f6949b6ed3101a" kindref="member">XUartNs550_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__uartns550_1ga61325f1ebb5100606fa900290d1497d7" kindref="member">XUN_DLM_OFFSET</ref>,<sp/>BaudMSB);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1gae648146666080fdac4f6949b6ed3101a" kindref="member">XUartNs550_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__uartns550_1ga035a43e3e92312cf94894d0df59eed71" kindref="member">XUN_DLL_OFFSET</ref>,<sp/>BaudLSB);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="175"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clear<sp/>the<sp/>Divisor<sp/>latch<sp/>access<sp/>bit,<sp/>DLAB<sp/>to<sp/>allow<sp/>nornal</highlight></codeline>
+<codeline lineno="176"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>operation<sp/>and<sp/>write<sp/>to<sp/>the<sp/>line<sp/>control<sp/>register</highlight></codeline>
+<codeline lineno="177"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1ga4f3ff99ca70dfe6c715cbbfdd9742230" kindref="member">XUartNs550_SetLineControlReg</ref>(BaseAddress,<sp/>LcrRegister);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(SDT)<sp/>&amp;&amp;<sp/>defined(XPAR_STDIN_IS_UARTNS550)</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>!defined(VERSAL_PLM)<sp/>&amp;&amp;<sp/>!defined(ASUFW)</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>outbyte(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>c)<sp/>{</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1ga39973a1a14e9e66e4bd3a8e90320c982" kindref="member">XUartNs550_SendByte</ref>(STDOUT_BASEADDRESS,<sp/>c);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>inbyte(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__uartns550_1ga2f885279ade985dee519d1f4c3730b1c" kindref="member">XUartNs550_RecvByte</ref>(STDIN_BASEADDRESS);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.c"/>
+  </compounddef>
+</doxygen>

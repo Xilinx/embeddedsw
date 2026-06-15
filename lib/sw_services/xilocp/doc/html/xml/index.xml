@@ -1,0 +1,584 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="struct_x_ocp___attest" kind="struct"><name>XOcp_Attest</name>
+    <member refid="struct_x_ocp___attest_1ac82b140ed86b5f838dc5853504177334" kind="variable"><name>HashAddr</name></member>
+    <member refid="struct_x_ocp___attest_1ab392dbc5aeec10f51091f92bb6970c67" kind="variable"><name>SignatureAddr</name></member>
+    <member refid="struct_x_ocp___attest_1a4bf1ea6e3a379f9f6ab2bef0db9ac971" kind="variable"><name>Reserved</name></member>
+    <member refid="struct_x_ocp___attest_1a797154d7bb27e2f9c3c3c5dec24e5270" kind="variable"><name>HashLen</name></member>
+  </compound>
+  <compound refid="struct_x_ocp___client_instance" kind="struct"><name>XOcp_ClientInstance</name>
+    <member refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" kind="variable"><name>MailboxPtr</name></member>
+  </compound>
+  <compound refid="struct_x_ocp___dme" kind="struct"><name>XOcp_Dme</name>
+    <member refid="struct_x_ocp___dme_1a4f362c8d176cc1aa12dfd013073ae7c4" kind="variable"><name>DeviceID</name></member>
+    <member refid="struct_x_ocp___dme_1abdf7a1ae94fa9a85c575a7b12090adbe" kind="variable"><name>Nonce</name></member>
+    <member refid="struct_x_ocp___dme_1a29b0b23d9c5e103581cc704d8d41d6aa" kind="variable"><name>Measurement</name></member>
+  </compound>
+  <compound refid="struct_x_ocp___dme_response" kind="struct"><name>XOcp_DmeResponse</name>
+    <member refid="struct_x_ocp___dme_response_1a029c2c99fd80b654d8a96e0847b6394c" kind="variable"><name>Dme</name></member>
+    <member refid="struct_x_ocp___dme_response_1a5af10bc470928d4185e8f65a8b23a579" kind="variable"><name>DmeSignatureR</name></member>
+    <member refid="struct_x_ocp___dme_response_1a4a25fbe1d34db42459f10b2aad626e9c" kind="variable"><name>DmeSignatureS</name></member>
+  </compound>
+  <compound refid="struct_x_ocp___hw_pcr_event" kind="struct"><name>XOcp_HwPcrEvent</name>
+    <member refid="struct_x_ocp___hw_pcr_event_1a9c3e569cad9bd0724f0332543c7b5406" kind="variable"><name>PcrNo</name></member>
+    <member refid="struct_x_ocp___hw_pcr_event_1a43de5bc41c221f781de99245e76a7ded" kind="variable"><name>Hash</name></member>
+    <member refid="struct_x_ocp___hw_pcr_event_1abd388da1f48ad2d8c3bde69a10439761" kind="variable"><name>PcrValue</name></member>
+  </compound>
+  <compound refid="struct_x_ocp___hw_pcr_log" kind="struct"><name>XOcp_HwPcrLog</name>
+    <member refid="struct_x_ocp___hw_pcr_log_1ae53faac2188c2c461e4cbd14edd71db2" kind="variable"><name>Buffer</name></member>
+    <member refid="struct_x_ocp___hw_pcr_log_1a3db006e8e4655dab8f6c3b163d9ba60f" kind="variable"><name>LogInfo</name></member>
+    <member refid="struct_x_ocp___hw_pcr_log_1a18189c2759714ab277466237828d1d5c" kind="variable"><name>HeadIndex</name></member>
+    <member refid="struct_x_ocp___hw_pcr_log_1aa117f46c19378ccd1a2b17e9b6f44634" kind="variable"><name>TailIndex</name></member>
+  </compound>
+  <compound refid="struct_x_ocp___hw_pcr_log_info" kind="struct"><name>XOcp_HwPcrLogInfo</name>
+    <member refid="struct_x_ocp___hw_pcr_log_info_1ae261df1b4c6cc891cb0e9ecc1b8af53d" kind="variable"><name>RemainingHwPcrEvents</name></member>
+    <member refid="struct_x_ocp___hw_pcr_log_info_1a208bc301dbae07f5e254944bb668049a" kind="variable"><name>TotalHwPcrLogEvents</name></member>
+    <member refid="struct_x_ocp___hw_pcr_log_info_1aeb6cb11fefac5fea284eb3f6818d7a90" kind="variable"><name>OverflowCntSinceLastRd</name></member>
+    <member refid="struct_x_ocp___hw_pcr_log_info_1a05335db0c413a7cb189abaf05df5c51d" kind="variable"><name>HwPcrEventsRead</name></member>
+  </compound>
+  <compound refid="struct_x_ocp___pcr_measurement" kind="struct"><name>XOcp_PcrMeasurement</name>
+    <member refid="struct_x_ocp___pcr_measurement_1a20859a5d025254cf41a00e6ea48d142c" kind="variable"><name>EventId</name></member>
+    <member refid="struct_x_ocp___pcr_measurement_1a45f5b83bcf22035cf4c484fafb85f92e" kind="variable"><name>Version</name></member>
+    <member refid="struct_x_ocp___pcr_measurement_1aaf74f03e37bcbd23a61600ec240387d4" kind="variable"><name>DataLength</name></member>
+    <member refid="struct_x_ocp___pcr_measurement_1ad4137c176c5fbe053cc70cbb1e8b417f" kind="variable"><name>HashOfData</name></member>
+    <member refid="struct_x_ocp___pcr_measurement_1ab85c801a97b79ef8b2db75d0498f5027" kind="variable"><name>MeasuredData</name></member>
+  </compound>
+  <compound refid="struct_x_ocp___sw_pcr_extend_params" kind="struct"><name>XOcp_SwPcrExtendParams</name>
+    <member refid="struct_x_ocp___sw_pcr_extend_params_1acd0d5c22baa2384c39ac448963605249" kind="variable"><name>PcrNum</name></member>
+    <member refid="struct_x_ocp___sw_pcr_extend_params_1a97ea75414c0c483ab19c49f1beabee7c" kind="variable"><name>MeasurementIdx</name></member>
+    <member refid="struct_x_ocp___sw_pcr_extend_params_1a4c22e941f32e615bfc2e84f87cb64cf1" kind="variable"><name>DataSize</name></member>
+    <member refid="struct_x_ocp___sw_pcr_extend_params_1a0e5d49183c11aaa311a5b4583bfaf9ec" kind="variable"><name>OverWrite</name></member>
+    <member refid="struct_x_ocp___sw_pcr_extend_params_1afa1f351c212e71494fa38c06ed97a98e" kind="variable"><name>DataAddr</name></member>
+  </compound>
+  <compound refid="struct_x_ocp___sw_pcr_log_read_data" kind="struct"><name>XOcp_SwPcrLogReadData</name>
+    <member refid="struct_x_ocp___sw_pcr_log_read_data_1a228b003c238efa3aea955e402d7f5792" kind="variable"><name>PcrNum</name></member>
+    <member refid="struct_x_ocp___sw_pcr_log_read_data_1a33e5a0b3d180448ae54f2577a1bce7c9" kind="variable"><name>LogSize</name></member>
+    <member refid="struct_x_ocp___sw_pcr_log_read_data_1a5564c13ef3df18204c7a023c66fdb7f0" kind="variable"><name>PcrLogAddr</name></member>
+    <member refid="struct_x_ocp___sw_pcr_log_read_data_1acbe1bdf6c597dbe9a87a3343792e1acd" kind="variable"><name>DigestCount</name></member>
+  </compound>
+  <compound refid="struct_x_ocp___sw_pcr_read_data" kind="struct"><name>XOcp_SwPcrReadData</name>
+    <member refid="struct_x_ocp___sw_pcr_read_data_1aa76f835f1cf1a6ef6621a80682ff4cb4" kind="variable"><name>PcrNum</name></member>
+    <member refid="struct_x_ocp___sw_pcr_read_data_1ac9fe350cf6ee6dc444c68f1cfbaee78e" kind="variable"><name>MeasurementIdx</name></member>
+    <member refid="struct_x_ocp___sw_pcr_read_data_1add0d43e0fdf205ba0cb430f65b043716" kind="variable"><name>DataStartIdx</name></member>
+    <member refid="struct_x_ocp___sw_pcr_read_data_1a7fafcfc28e7ba31094bfe29dad239002" kind="variable"><name>BufSize</name></member>
+    <member refid="struct_x_ocp___sw_pcr_read_data_1a4db5a18a44feb3528b89e70bb346a52e" kind="variable"><name>BufAddr</name></member>
+    <member refid="struct_x_ocp___sw_pcr_read_data_1a355a3ef218ce492855e11d23098944e9" kind="variable"><name>ReturnedBytes</name></member>
+  </compound>
+  <compound refid="struct_x_ocp___x509_cert" kind="struct"><name>XOcp_X509Cert</name>
+    <member refid="struct_x_ocp___x509_cert_1a682e991ef0c2bdd9c1fc2f342fbda92b" kind="variable"><name>CertAddr</name></member>
+    <member refid="struct_x_ocp___x509_cert_1ab601adae5228b4c5b4d1c633222bbc22" kind="variable"><name>ActualLenAddr</name></member>
+    <member refid="struct_x_ocp___x509_cert_1a7a6117571f9a0f803bc94b9aee7c7a02" kind="variable"><name>CertSize</name></member>
+    <member refid="struct_x_ocp___x509_cert_1a4fb4be269714e6fb2854ad704a4fe5ad" kind="variable"><name>DevKeySel</name></member>
+    <member refid="struct_x_ocp___x509_cert_1ad78221d8e5c2b24414d81299728914b1" kind="variable"><name>IsCsr</name></member>
+  </compound>
+  <compound refid="client_2_c_make_lists_8txt" kind="file"><name>client/CMakeLists.txt</name>
+  </compound>
+  <compound refid="client_2dme_2_c_make_lists_8txt" kind="file"><name>client/dme/CMakeLists.txt</name>
+  </compound>
+  <compound refid="client_2hwpcr_2_c_make_lists_8txt" kind="file"><name>client/hwpcr/CMakeLists.txt</name>
+  </compound>
+  <compound refid="client_2key__mgmt_2_c_make_lists_8txt" kind="file"><name>client/key_mgmt/CMakeLists.txt</name>
+  </compound>
+  <compound refid="client_2swpcr_2_c_make_lists_8txt" kind="file"><name>client/swpcr/CMakeLists.txt</name>
+  </compound>
+  <compound refid="_c_make_lists_8txt" kind="file"><name>CMakeLists.txt</name>
+  </compound>
+  <compound refid="common_2_c_make_lists_8txt" kind="file"><name>common/CMakeLists.txt</name>
+  </compound>
+  <compound refid="server_2_c_make_lists_8txt" kind="file"><name>server/CMakeLists.txt</name>
+  </compound>
+  <compound refid="server_2versal__2ve__2vm_2_c_make_lists_8txt" kind="file"><name>server/versal_2ve_2vm/CMakeLists.txt</name>
+  </compound>
+  <compound refid="server_2versal__2vp_2_c_make_lists_8txt" kind="file"><name>server/versal_2vp/CMakeLists.txt</name>
+  </compound>
+  <compound refid="server_2versal__net_2_c_make_lists_8txt" kind="file"><name>server/versal_net/CMakeLists.txt</name>
+  </compound>
+  <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
+    <member refid="readme_8txt_1af97c64e6c2e723dca83ca317c0b20ca6" kind="variable"><name>platforms</name></member>
+  </compound>
+  <compound refid="xilocp__client__devicekey__example_8c" kind="file"><name>xilocp_client_devicekey_example.c</name>
+    <member refid="group__xocp__dev_keyexample__apis_1ga383dd93080ce48cb88a305cc5179ed6b" kind="define"><name>XOCP_ECC_SIGN_TOTAL_LEN</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1gac03722a2b98a2289a2f32c0cca3ca470" kind="define"><name>XOCP_SHA3_HASH_LEN_IN_BYTES</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1gaa793e608f54a259455e6c30d2f8524b1" kind="define"><name>XOCP_X509_CERT_BUF_SIZE</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1ga6a66c2644eee1344dfc30f743e64fcc7" kind="variable"><name>Signature</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1gaa165589ff890273a47aefe46d953c578" kind="variable"><name>X509Cert</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1gaeed8c7b8752d6e440bc0a495910f0a2e" kind="variable"><name>DataX509</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1gaee8120f5f176a163cdd5f287fdd63a10" kind="variable"><name>ActualCertSize</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1gac08c5f835e3b47d3af3999df0f7bdd34" kind="variable"><name>AttestData</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1gaef7ef5a82ffb55a77ac7d10064d9106a" kind="variable"><name>Data</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1gaa73ed2dcacc05449695f5f361df81726" kind="function"><name>XOcp_PrintData</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1gad0df7566afcc7a9bd23f8eaac61d8a33" kind="function"><name>XOcp_AttestationExample</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1gacd1bdb908197f16c722697057977d727" kind="function"><name>XOcp_GetX509DevIK</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1gaf51624ec7a13a1e6766388d8919faf91" kind="function"><name>XOcp_GetX509DevAK</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1ga4719fb1b17504d5fe8b6af4b5f76ad50" kind="function"><name>XOcp_GetX509DevIKCSR</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xilocp__client__dme__example_8c" kind="file"><name>xilocp_client_dme_example.c</name>
+    <member refid="group__xocp__example__apis_1gadd523cdea3fe65a9104578783a308b0d" kind="variable"><name>DmeResp</name></member>
+    <member refid="group__xocp__example__apis_1ga1f9a8fb8b3dcdd16efe752cb1deb5582" kind="variable"><name>NonceBuffer</name></member>
+    <member refid="group__xocp__example__apis_1gaa73ed2dcacc05449695f5f361df81726" kind="function"><name>XOcp_PrintData</name></member>
+    <member refid="group__xocp__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xilocp__client__pcr__example_8c" kind="file"><name>xilocp_client_pcr_example.c</name>
+    <member refid="group__xocp__example__apis_1ga6f1ef9417ff43ef9f7a726968f60bcbd" kind="define"><name>XOCP_WORD_LEN</name></member>
+    <member refid="group__xocp__example__apis_1ga63ff019150f35868de5cb75e6567f523" kind="define"><name>XOCP_SELECT_PCR_NUM</name></member>
+    <member refid="group__xocp__example__apis_1gaaaf5d16cda42e517e3b9ecfb80788542" kind="define"><name>XOCP_READ_PCR_MASK</name></member>
+    <member refid="group__xocp__example__apis_1ga0f044c69ba8894eeecafae50ba1f0190" kind="define"><name>XOCP_READ_NUM_OF_LOG_ENTRIES</name></member>
+    <member refid="group__xocp__example__apis_1ga34334b9f63ce6e02e1b466d4131a9447" kind="define"><name>XOCP_NUM_SW_PCR_LOG_EVENTS</name></member>
+    <member refid="group__xocp__example__apis_1ga3a37ae776f42748263be1a6257a62a20" kind="variable"><name>PcrBuf</name></member>
+    <member refid="group__xocp__example__apis_1ga2e8e2f866ab248ca563b2265ccae46f9" kind="variable"><name>HwPcrEvents</name></member>
+    <member refid="group__xocp__example__apis_1ga5bc626048d6d69d8ecee5839275aacdb" kind="variable"><name>HwPcrLogInfo</name></member>
+    <member refid="group__xocp__example__apis_1ga1099039f4d882403f85ede98b3a5be09" kind="variable"><name>SwPcrMeasurement</name></member>
+    <member refid="group__xocp__example__apis_1ga62f6156313a1589b9e2b77b7b6cce380" kind="variable"><name>ExtendHash</name></member>
+    <member refid="group__xocp__example__apis_1ga1549326bcf65b1346b4b66d61fe724c9" kind="variable"><name>ExtendParams</name></member>
+    <member refid="group__xocp__example__apis_1ga24b87e87f9f104ceb41ad9cf97d02503" kind="variable"><name>LogParams</name></member>
+    <member refid="group__xocp__example__apis_1gab334531cad1e41f22ee68ee2ca7549ba" kind="variable"><name>DataParams</name></member>
+    <member refid="xilocp__client__pcr__example_8c_1gaa73ed2dcacc05449695f5f361df81726" kind="function"><name>XOcp_PrintData</name></member>
+    <member refid="group__xocp__example__apis_1ga7453c292703dccc38c60f8b3e792bda7" kind="function"><name>XOcp_HwPcrExample</name></member>
+    <member refid="group__xocp__example__apis_1gaff0d1530259366d30c433729f69f882c" kind="function"><name>XOcp_SwPcrExample</name></member>
+    <member refid="group__xocp__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xocp_8h" kind="file"><name>xocp.h</name>
+  </compound>
+  <compound refid="xocp__asufw_8c" kind="file"><name>xocp_asufw.c</name>
+  </compound>
+  <compound refid="xocp__asufw_8h" kind="file"><name>xocp_asufw.h</name>
+  </compound>
+  <compound refid="xocp__client_8c" kind="file"><name>xocp_client.c</name>
+    <member refid="group__xocp__mailbox__apis_1gaa164a8fafefc1e2b183db27281ee1b13" kind="function"><name>XOcp_ClientInit</name></member>
+  </compound>
+  <compound refid="xocp__client_8h" kind="file"><name>xocp_client.h</name>
+    <member refid="group__xocp__mailbox__apis_1gaa164a8fafefc1e2b183db27281ee1b13" kind="function"><name>XOcp_ClientInit</name></member>
+  </compound>
+  <compound refid="xocp__cmd_8c" kind="file"><name>xocp_cmd.c</name>
+  </compound>
+  <compound refid="xocp__cmd_8h" kind="file"><name>xocp_cmd.h</name>
+  </compound>
+  <compound refid="xocp__common_8h" kind="file"><name>xocp_common.h</name>
+    <member refid="group__xocp__definitions_1gadb87c9a8f9ef9ed1dd757911265433e9" kind="define"><name>XOCP_PCR_SIZE_WORDS</name></member>
+    <member refid="group__xocp__definitions_1ga5771509ef835b477f9a406226b3b5500" kind="define"><name>XOCP_PCR_SIZE_BYTES</name></member>
+    <member refid="group__xocp__definitions_1ga1c23f09d95cb6b2a6d4d3aebf4485130" kind="define"><name>XOCP_DME_DEVICE_ID_SIZE_WORDS</name></member>
+    <member refid="group__xocp__definitions_1gab595dcb8639bc9bf6153244010bd5b93" kind="define"><name>XOCP_DME_DEVICE_ID_SIZE_BYTES</name></member>
+    <member refid="group__xocp__definitions_1ga52f43af0490909816b1fd70e6454ba00" kind="define"><name>XOCP_DME_NONCE_SIZE_WORDS</name></member>
+    <member refid="group__xocp__definitions_1ga65f16f72818ba9627165b1c696aa44a6" kind="define"><name>XOCP_DME_NONCE_SIZE_BYTES</name></member>
+    <member refid="group__xocp__definitions_1ga37cfc4a2c6fea16aa45ab07f96772c3e" kind="define"><name>XOCP_DME_MEASURE_SIZE_WORDS</name></member>
+    <member refid="group__xocp__definitions_1ga08b5a30e390b44f00bf15fab24d2df1f" kind="define"><name>XOCP_DME_MEASURE_SIZE_BYTES</name></member>
+    <member refid="group__xocp__definitions_1gaa1ca5c72c0f033b55ca06b2994222f22" kind="define"><name>XOCP_ECC_P384_SIZE_WORDS</name></member>
+    <member refid="group__xocp__definitions_1gabdab6975eb4de0d6d09be5e7d805dde6" kind="define"><name>XOCP_ECC_P384_SIZE_BYTES</name></member>
+    <member refid="group__xocp__definitions_1ga6f031ee6aae45e53cc610ca90dd35873" kind="define"><name>XOCP_SIZE_OF_ECC_P384_PUBLIC_KEY_BYTES</name></member>
+    <member refid="group__xocp__definitions_1ga2bb2148bec5b9f32b6f5ff80d6d210a2" kind="define"><name>XOCP_MAX_NUM_OF_HWPCR_EVENTS</name></member>
+    <member refid="group__xocp__definitions_1gab840aac15126a76a89dd18b97b7097b1" kind="define"><name>XOCP_SHA3_LEN_IN_BYTES</name></member>
+    <member refid="group__xocp__definitions_1ga8a12ddbad29fd26b0bbdfbb69b1b3285" kind="define"><name>XOCP_MAX_NUM_OF_SWPCRS</name></member>
+    <member refid="group__xocp__definitions_1gaa88b30a97626e6fdfe2e7296011bffa8" kind="define"><name>XOCP_NUM_OF_SWPCRS</name></member>
+    <member refid="group__xocp__definitions_1gac17bf226c2af120f34925b7e47c54b73" kind="define"><name>XOCP_EVENT_ID_NUM_OF_BYTES</name></member>
+    <member refid="group__xocp__definitions_1gacd13b245098e70fcc158b76b8e158e2e" kind="define"><name>XOCP_VERSION_NUM_OF_BYTES</name></member>
+    <member refid="group__xocp__definitions_1gab776f2dc0dab2b429fa8987f08b181dd" kind="define"><name>XOCP_GET_ALL_PCR_MASK</name></member>
+    <member refid="group__xocp__definitions_1gab4f16347c8ba05472531d737ae9e04a3" kind="enum"><name>XOcp_DevKey</name></member>
+    <member refid="group__xocp__definitions_1ggab4f16347c8ba05472531d737ae9e04a3abfd834914b2b4a643f6e2754b3796c58" kind="enumvalue"><name>XOCP_DEVIK</name></member>
+    <member refid="group__xocp__definitions_1ggab4f16347c8ba05472531d737ae9e04a3a1f5d8bd26ea07de888d516faf2b16538" kind="enumvalue"><name>XOCP_DEVAK</name></member>
+    <member refid="group__xocp__definitions_1ggab4f16347c8ba05472531d737ae9e04a3a8b81fae25c36788b0dff450beea1a59d" kind="enumvalue"><name>XOCP_KEY_WRAP_DEVAK</name></member>
+    <member refid="group__xocp__definitions_1ga6d4b0b867435b21d30213387044b633c" kind="enum"><name>XOcp_HwPcr</name></member>
+    <member refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633ca485e27e750ff77ffa056644046abc080" kind="enumvalue"><name>XOCP_PCR_0</name></member>
+    <member refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633caf88c5559cd77e5b3b88e8f87294c48e5" kind="enumvalue"><name>XOCP_PCR_1</name></member>
+    <member refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633caa807a2abd9da11c3920b2d88a2da3e64" kind="enumvalue"><name>XOCP_PCR_2</name></member>
+    <member refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633cad2185ab520f760c2dcb8a8ac6d0c3c58" kind="enumvalue"><name>XOCP_PCR_3</name></member>
+    <member refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633caf043ee0bba56ad1f31bd613aab31e2f5" kind="enumvalue"><name>XOCP_PCR_4</name></member>
+    <member refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633cab5a0fb4fb2fe0cd743b8e3ee33e0ff09" kind="enumvalue"><name>XOCP_PCR_5</name></member>
+    <member refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633ca6f6d4d06aa80905f05baea85f4d47294" kind="enumvalue"><name>XOCP_PCR_6</name></member>
+    <member refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633ca20e6e5ced54f49d4001064c9fa4e58be" kind="enumvalue"><name>XOCP_PCR_7</name></member>
+    <member refid="group__xocp__definitions_1gaa2429504100aa2ea3c8f7a11bdd6c503" kind="enum"><name>XOcp_OcpErrorStatus</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503af3b4033b0f4a80a8cc7882f2dfbac478" kind="enumvalue"><name>XOCP_PCR_ERR_PCR_SELECT</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ae3815d1a2cf06201c74123a00d5ef4f3" kind="enumvalue"><name>XOCP_PCR_ERR_NOT_COMPLETED</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a269799b64ea33df35a6bfa2196360514" kind="enumvalue"><name>XOCP_PCR_ERR_OPERATION</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503aefe98e757135e5a687321f4b435b72a2" kind="enumvalue"><name>XOCP_PCR_ERR_IN_UPDATE_LOG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a88a7cb1094967fc712e6640ae1a4f638" kind="enumvalue"><name>XOCP_PCR_ERR_IN_GET_PCR</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503aa817798dbf85e7e27959b2654f06f7c6" kind="enumvalue"><name>XOCP_PCR_ERR_IN_GET_PCR_LOG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503aa1af2a22b1192694eb4c16417e2b4651" kind="enumvalue"><name>XOCP_PCR_ERR_INVALID_LOG_READ_REQUEST</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a9a85006a82fbbfd184fe88dea930dfbe" kind="enumvalue"><name>XOCP_PCR_ERR_MEASURE_IDX_SELECT</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ae75d43999ab1c773a2f1296b277d8e64" kind="enumvalue"><name>XOCP_PCR_ERR_SWPCR_CONFIG_NOT_RECEIVED</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a79fdd3a71131b51658b389c7d9752d80" kind="enumvalue"><name>XOCP_PCR_ERR_INSUFFICIENT_BUF_MEM</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a4278dec969ec9438374d9cdaf3b9f0aa" kind="enumvalue"><name>XOCP_PCR_ERR_SWPCR_DUP_EXTEND</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a3967f4a82634e5681edc9e07993343a4" kind="enumvalue"><name>XOCP_PCR_ERR_DATA_IN_INVALID_MEM</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503add445d9bc9fb78d613ef30bf1a266159" kind="enumvalue"><name>XOCP_DICE_CDI_PARITY_ERROR</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ad574a1cea06ea61fa5cc4d497357bbc1" kind="enumvalue"><name>XOCP_DME_ERR</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a96486d35a3503ac6753dbe80fe22d6c3" kind="enumvalue"><name>XOCP_DME_ROM_ERROR</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a02ca2fe57cbf4aabfb7387e8efef1c71" kind="enumvalue"><name>XOCP_ERR_DEVIK_NOT_READY</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503abdbd0d3dca5c602882210254beea1aed" kind="enumvalue"><name>XOCP_ERR_DEVAK_NOT_READY</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503aee6ecacf4fbfe1f036a3e8ce7f1d9f2c" kind="enumvalue"><name>XOCP_ERR_INVALID_DEVAK_REQ</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ad360693820af75516db0bf72b32edc57" kind="enumvalue"><name>XOCP_DICE_CDI_SEED_ZERO</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ae040625c5710e6c0de35b77dd351e4f5" kind="enumvalue"><name>XOCP_ERR_GLITCH_DETECTED</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ab3bc8703605a641b7ec8aa0404af1e3d" kind="enumvalue"><name>XOCP_ERR_CHUNK_BOUNDARY_CROSSED</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ac1535fd60ce5df78e528adcdb94e26ba" kind="enumvalue"><name>XOCP_ERR_SECURE_EFUSE_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a78561a971de722c3d6421d28a7112472" kind="enumvalue"><name>XOCP_ERR_SECURE_TAP_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ab655625e55e05418d84e29602a12cee0" kind="enumvalue"><name>XOCP_ERR_SECURE_STATE_MEASUREMENT</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a5e4465358789e0f4579d7a63922fa185" kind="enumvalue"><name>XOCP_ERR_DME_RESP_ALREADY_GENERATED</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a627f801106a6c144c0faf0481678e575" kind="enumvalue"><name>XOCP_ERR_DME_RESP_NOT_GENERATED</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503adf81aaa14cf599742df289c06b0fb4ed" kind="enumvalue"><name>XOCP_ERR_PUB_KEY_NOT_AVAIL</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503adfd4f2b038a2dc6a88284b0772d6bf51" kind="enumvalue"><name>XOCP_ERR_INVALID_ATTEST_BUF_SIZE</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503acec598c0e28788205900e8107b27d9f0" kind="enumvalue"><name>XOCP_ERR_SECURE_PPK_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a05c5a1f3c541ad87bc73e401e3595804" kind="enumvalue"><name>XOCP_ERR_SECURE_SPK_REVOKE_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a284d3270fbe02e3c7950fd5630db9c1a" kind="enumvalue"><name>XOCP_ERR_SECURE_OTHER_REVOKE_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a3fe95f0472ba90d219c719aad65c57b4" kind="enumvalue"><name>XOCP_ERR_SECURE_MISC_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ad6abdf428dfb929b7630247cbca5cc11" kind="enumvalue"><name>XOCP_ERR_READ_PPK_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a3f2998f49a52f87f570c63a5690d329c" kind="enumvalue"><name>XOCP_ERR_READ_SPK_REVOKE_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a0cdd083bba4e227bd9752951ac24a8ba" kind="enumvalue"><name>XOCP_ERR_READ_OTHER_REVOKE_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a8bc38c63a2670152a732a5138e92effe" kind="enumvalue"><name>XOCP_ERR_IN_EXTEND_PPK_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a120ece45813a148f3263f46f44cb8c52" kind="enumvalue"><name>XOCP_ERR_IN_EXTEND_SPK_REVOKE_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a209e33fcf91b97b40847d037b394e590" kind="enumvalue"><name>XOCP_ERR_IN_EXTEND_OTHER_REVOKE_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ae4eb7f63debc4879164d54c06f3da98f" kind="enumvalue"><name>XOCP_ERR_IN_EXTEND_MISC_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a8eaebbcf5e4844b1d644e03150b27342" kind="enumvalue"><name>XOCP_ERR_IN_EXTEND_SECURE_STATE_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a463144d8331c7b43883ae1bc63e50d96" kind="enumvalue"><name>XOCP_ERR_IN_MEMCPY</name></member>
+  </compound>
+  <compound refid="xocp__def_8h" kind="file"><name>xocp_def.h</name>
+    <member refid="group__xocp__definitions_1gae95d465df2996596afe4dd4e5f669667" kind="enum"><name>XOcp_ApiId</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a284a6e25cd4cd8ecd456b731f3ef8c94" kind="enumvalue"><name>XOCP_API_FEATURES</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0ea33ccca2247ae86b23182b1d691e25" kind="enumvalue"><name>XOCP_API_EXTEND_HWPCR</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0165a00496c3a9724f9e97be4262fef6" kind="enumvalue"><name>XOCP_API_GET_HWPCR</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a04912d871713dcd3b61d694f429bc095" kind="enumvalue"><name>XOCP_API_GET_HWPCRLOG</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667ac30d0d7181e066b8a984ede325504cf8" kind="enumvalue"><name>XOCP_API_GENDMERESP</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a7af3c34b216fdfca90d0d831514044a0" kind="enumvalue"><name>XOCP_API_DEVAKINPUT</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a928aad79a711aa80ab131b85ca6951e5" kind="enumvalue"><name>XOCP_API_GETCERTUSERCFG</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a27d6f0ea57a51b0b5cb4b61f85c690a8" kind="enumvalue"><name>XOCP_API_GETX509CERT</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a82068a5409464a0f6dc3dcc23037d747" kind="enumvalue"><name>XOCP_API_ATTESTWITHDEVAK</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0849254c181626b2ccc0bca601313933" kind="enumvalue"><name>XOCP_API_SET_SWPCRCONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a802d68e4fc35a8bb08e4e79fd2a5aa48" kind="enumvalue"><name>XOCP_API_EXTEND_SWPCR</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0d48b20c276c35c9e253b2756aa9f1ac" kind="enumvalue"><name>XOCP_API_GET_SWPCR</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a4e737b47477267f9e7b792a237c388d0" kind="enumvalue"><name>XOCP_API_GET_SWPCRLOG</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a6ad39f4af276b8893ca0e8975a6f8f6f" kind="enumvalue"><name>XOCP_API_GET_SWPCRDATA</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a159154b25019671afd2acc943f5ee6e2" kind="enumvalue"><name>XOCP_API_GEN_SHARED_SECRET</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a3ee212594f10d93c996947ac021ac2ef" kind="enumvalue"><name>XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a66f014b98820f9d137b873a196637968" kind="enumvalue"><name>XOCP_API_OCP_SUBSYS_INPUT</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a3bc966370e0b71c627e2f312f0c3089e" kind="enumvalue"><name>XOCP_API_MAX</name></member>
+    <member refid="group__xocp__definitions_1gaacfcb856e34e9be4766a8d0498ad832f" kind="define"><name>XOcp_DCacheFlushRange</name></member>
+    <member refid="group__xocp__definitions_1ga41127f0b373baf2090c38aaecfe71f0b" kind="define"><name>XOCP_API</name></member>
+    <member refid="group__xocp__definitions_1ga5b1f076af518588d82d3c1292274a1d9" kind="define"><name>XOCP_API_ID_MASK</name></member>
+    <member refid="group__xocp__definitions_1ga7365d3fa2793edeb5a50ca16d130f019" kind="define"><name>XOCP_EXTENDED_HASH_SIZE_IN_BYTES</name></member>
+    <member refid="group__xocp__definitions_1gaa8d58e56f5d115e19424d4d0d02b8207" kind="define"><name>XOCP_EXTENDED_HASH_SIZE_IN_BITS</name></member>
+    <member refid="group__xocp__definitions_1gab835a3422a1a25e56cea83a48d48560e" kind="define"><name>XOCP_DME_NONCE_SIZE_IN_BITS</name></member>
+    <member refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" kind="define"><name>XOCP_ADDR_HIGH_SHIFT</name></member>
+  </compound>
+  <compound refid="versal__2vp_2xocp__dice__dme_8c" kind="file"><name>versal_2vp/xocp_dice_dme.c</name>
+  </compound>
+  <compound refid="versal__net_2xocp__dice__dme_8c" kind="file"><name>versal_net/xocp_dice_dme.c</name>
+  </compound>
+  <compound refid="versal__2ve__2vm_2xocp__dice__dme_8h" kind="file"><name>versal_2ve_2vm/xocp_dice_dme.h</name>
+  </compound>
+  <compound refid="versal__2vp_2xocp__dice__dme_8h" kind="file"><name>versal_2vp/xocp_dice_dme.h</name>
+  </compound>
+  <compound refid="versal__net_2xocp__dice__dme_8h" kind="file"><name>versal_net/xocp_dice_dme.h</name>
+  </compound>
+  <compound refid="client_2dme_2xocp__dme_8c" kind="file"><name>client/dme/xocp_dme.c</name>
+    <member refid="group__xocp__dme__client__apis_1gaebd4df862308eaeebbfb06a456a19f9f" kind="function"><name>XOcp_GenDmeResp</name></member>
+  </compound>
+  <compound refid="server_2xocp__dme_8c" kind="file"><name>server/xocp_dme.c</name>
+  </compound>
+  <compound refid="client_2dme_2xocp__dme_8h" kind="file"><name>client/dme/xocp_dme.h</name>
+    <member refid="group__xocp__dme__client__apis_1gaebd4df862308eaeebbfb06a456a19f9f" kind="function"><name>XOcp_GenDmeResp</name></member>
+  </compound>
+  <compound refid="server_2xocp__dme_8h" kind="file"><name>server/xocp_dme.h</name>
+  </compound>
+  <compound refid="xocp__generic_8c" kind="file"><name>xocp_generic.c</name>
+  </compound>
+  <compound refid="xocp__generic_8h" kind="file"><name>xocp_generic.h</name>
+  </compound>
+  <compound refid="versal__2ve__2vm_2xocp__hw_8h" kind="file"><name>versal_2ve_2vm/xocp_hw.h</name>
+  </compound>
+  <compound refid="versal__2vp_2xocp__hw_8h" kind="file"><name>versal_2vp/xocp_hw.h</name>
+  </compound>
+  <compound refid="versal__net_2xocp__hw_8h" kind="file"><name>versal_net/xocp_hw.h</name>
+  </compound>
+  <compound refid="xocp__hwpcr_8c" kind="file"><name>xocp_hwpcr.c</name>
+    <member refid="group__xocp__hwpcr__client__apis_1gabe2000beca7269b9e9f1ba0434adfbb7" kind="function"><name>XOcp_ExtendHwPcr</name></member>
+    <member refid="group__xocp__hwpcr__client__apis_1ga729ea6a53f3410b330a4eb6635074c88" kind="function"><name>XOcp_GetHwPcr</name></member>
+    <member refid="group__xocp__hwpcr__client__apis_1ga36f63a2e8165e1f3360f8e2858d7aa53" kind="function"><name>XOcp_GetHwPcrLog</name></member>
+  </compound>
+  <compound refid="xocp__hwpcr_8h" kind="file"><name>xocp_hwpcr.h</name>
+    <member refid="group__xocp__hwpcr__client__apis_1gabe2000beca7269b9e9f1ba0434adfbb7" kind="function"><name>XOcp_ExtendHwPcr</name></member>
+    <member refid="group__xocp__hwpcr__client__apis_1ga729ea6a53f3410b330a4eb6635074c88" kind="function"><name>XOcp_GetHwPcr</name></member>
+    <member refid="group__xocp__hwpcr__client__apis_1ga36f63a2e8165e1f3360f8e2858d7aa53" kind="function"><name>XOcp_GetHwPcrLog</name></member>
+  </compound>
+  <compound refid="xocp__init_8c" kind="file"><name>xocp_init.c</name>
+  </compound>
+  <compound refid="xocp__init_8h" kind="file"><name>xocp_init.h</name>
+  </compound>
+  <compound refid="xocp__ipihandler_8c" kind="file"><name>xocp_ipihandler.c</name>
+  </compound>
+  <compound refid="xocp__ipihandler_8h" kind="file"><name>xocp_ipihandler.h</name>
+  </compound>
+  <compound refid="xocp__key__mgmt_8c" kind="file"><name>xocp_key_mgmt.c</name>
+    <member refid="group__xocp__key__mgmt__client__apis_1ga16013e82a245e7dfdd7a3c2e2df476e5" kind="function"><name>XOcp_GetX509Cert</name></member>
+    <member refid="group__xocp__key__mgmt__client__apis_1ga0c6bb44603339209f55de3ef94141395" kind="function"><name>XOcp_ClientAttestWithDevAk</name></member>
+    <member refid="group__xocp__key__mgmt__client__apis_1ga43e275e75f776f74a124968aa83d29a2" kind="function"><name>XOcp_ClientAttestWithKeyWrapDevAk</name></member>
+    <member refid="group__xocp__key__mgmt__client__apis_1ga50bd2fa853d6aba7c12fec38bb3867ae" kind="function"><name>XOcp_GenSharedSecretWithDevAk</name></member>
+  </compound>
+  <compound refid="xocp__key__mgmt_8h" kind="file"><name>xocp_key_mgmt.h</name>
+    <member refid="group__xocp__key__mgmt__client__apis_1ga16013e82a245e7dfdd7a3c2e2df476e5" kind="function"><name>XOcp_GetX509Cert</name></member>
+    <member refid="group__xocp__key__mgmt__client__apis_1ga0c6bb44603339209f55de3ef94141395" kind="function"><name>XOcp_ClientAttestWithDevAk</name></member>
+    <member refid="group__xocp__key__mgmt__client__apis_1ga50bd2fa853d6aba7c12fec38bb3867ae" kind="function"><name>XOcp_GenSharedSecretWithDevAk</name></member>
+    <member refid="group__xocp__key__mgmt__client__apis_1ga43e275e75f776f74a124968aa83d29a2" kind="function"><name>XOcp_ClientAttestWithKeyWrapDevAk</name></member>
+  </compound>
+  <compound refid="xocp__keymgmt__common_8c" kind="file"><name>xocp_keymgmt_common.c</name>
+  </compound>
+  <compound refid="xocp__keymgmt__common_8h" kind="file"><name>xocp_keymgmt_common.h</name>
+  </compound>
+  <compound refid="xocp__keymgmt__native_8c" kind="file"><name>xocp_keymgmt_native.c</name>
+  </compound>
+  <compound refid="xocp__keymgmt__native_8h" kind="file"><name>xocp_keymgmt_native.h</name>
+  </compound>
+  <compound refid="xocp__mailbox_8c" kind="file"><name>xocp_mailbox.c</name>
+    <member refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" kind="function"><name>XOcp_ProcessMailbox</name></member>
+  </compound>
+  <compound refid="xocp__mailbox_8h" kind="file"><name>xocp_mailbox.h</name>
+    <member refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" kind="function"><name>XOcp_ProcessMailbox</name></member>
+  </compound>
+  <compound refid="xocp__pcr_8c" kind="file"><name>xocp_pcr.c</name>
+  </compound>
+  <compound refid="xocp__pcr_8h" kind="file"><name>xocp_pcr.h</name>
+  </compound>
+  <compound refid="versal__2ve__2vm_2xocp__plat_8c" kind="file"><name>versal_2ve_2vm/xocp_plat.c</name>
+  </compound>
+  <compound refid="versal__2vp_2xocp__plat_8c" kind="file"><name>versal_2vp/xocp_plat.c</name>
+  </compound>
+  <compound refid="versal__net_2xocp__plat_8c" kind="file"><name>versal_net/xocp_plat.c</name>
+  </compound>
+  <compound refid="versal__2ve__2vm_2xocp__plat_8h" kind="file"><name>versal_2ve_2vm/xocp_plat.h</name>
+  </compound>
+  <compound refid="versal__2vp_2xocp__plat_8h" kind="file"><name>versal_2vp/xocp_plat.h</name>
+  </compound>
+  <compound refid="versal__net_2xocp__plat_8h" kind="file"><name>versal_net/xocp_plat.h</name>
+  </compound>
+  <compound refid="versal__2ve__2vm_2xocp__sha_8h" kind="file"><name>versal_2ve_2vm/xocp_sha.h</name>
+    <member refid="versal__2ve__2vm_2xocp__sha_8h_1a27a56a3d6a3019b4009d439b79ecc7fd" kind="function"><name>XOcp_ShaStart</name></member>
+    <member refid="versal__2ve__2vm_2xocp__sha_8h_1af8f08180a2968f8f90043030a75884dc" kind="function"><name>XOcp_ShaUpdate</name></member>
+    <member refid="versal__2ve__2vm_2xocp__sha_8h_1aa0a1953eae90c02c650dde0e6ae43062" kind="function"><name>XOcp_ShaFinish</name></member>
+    <member refid="versal__2ve__2vm_2xocp__sha_8h_1af80c0e58369b4f8a684876ce0c404557" kind="function"><name>XOcp_ShaDigest</name></member>
+  </compound>
+  <compound refid="versal__2vp_2xocp__sha_8h" kind="file"><name>versal_2vp/xocp_sha.h</name>
+    <member refid="versal__2vp_2xocp__sha_8h_1a27a56a3d6a3019b4009d439b79ecc7fd" kind="function"><name>XOcp_ShaStart</name></member>
+    <member refid="versal__2vp_2xocp__sha_8h_1af8f08180a2968f8f90043030a75884dc" kind="function"><name>XOcp_ShaUpdate</name></member>
+    <member refid="versal__2vp_2xocp__sha_8h_1aa0a1953eae90c02c650dde0e6ae43062" kind="function"><name>XOcp_ShaFinish</name></member>
+    <member refid="versal__2vp_2xocp__sha_8h_1af80c0e58369b4f8a684876ce0c404557" kind="function"><name>XOcp_ShaDigest</name></member>
+  </compound>
+  <compound refid="versal__net_2xocp__sha_8h" kind="file"><name>versal_net/xocp_sha.h</name>
+    <member refid="versal__net_2xocp__sha_8h_1a27a56a3d6a3019b4009d439b79ecc7fd" kind="function"><name>XOcp_ShaStart</name></member>
+    <member refid="versal__net_2xocp__sha_8h_1af8f08180a2968f8f90043030a75884dc" kind="function"><name>XOcp_ShaUpdate</name></member>
+    <member refid="versal__net_2xocp__sha_8h_1aa0a1953eae90c02c650dde0e6ae43062" kind="function"><name>XOcp_ShaFinish</name></member>
+    <member refid="versal__net_2xocp__sha_8h_1af80c0e58369b4f8a684876ce0c404557" kind="function"><name>XOcp_ShaDigest</name></member>
+  </compound>
+  <compound refid="xocp__swpcr_8c" kind="file"><name>xocp_swpcr.c</name>
+    <member refid="group__xocp__swpcr__client__apis_1gab8fbe7fbfcb136e816374b295b769972" kind="function"><name>XOcp_ExtendSwPcr</name></member>
+    <member refid="group__xocp__swpcr__client__apis_1gaaca4f4567e961877901f3ed298ed01e9" kind="function"><name>XOcp_GetSwPcr</name></member>
+    <member refid="group__xocp__swpcr__client__apis_1ga71a4d8aea262fc732fa812829dd891ae" kind="function"><name>XOcp_GetSwPcrLog</name></member>
+    <member refid="group__xocp__swpcr__client__apis_1gaa9d5159f23ac4215dff07b1a16a0e2e9" kind="function"><name>XOcp_GetSwPcrData</name></member>
+  </compound>
+  <compound refid="xocp__swpcr_8h" kind="file"><name>xocp_swpcr.h</name>
+    <member refid="group__xocp__swpcr__client__apis_1gab8fbe7fbfcb136e816374b295b769972" kind="function"><name>XOcp_ExtendSwPcr</name></member>
+    <member refid="group__xocp__swpcr__client__apis_1gaaca4f4567e961877901f3ed298ed01e9" kind="function"><name>XOcp_GetSwPcr</name></member>
+    <member refid="group__xocp__swpcr__client__apis_1ga71a4d8aea262fc732fa812829dd891ae" kind="function"><name>XOcp_GetSwPcrLog</name></member>
+    <member refid="group__xocp__swpcr__client__apis_1gaa9d5159f23ac4215dff07b1a16a0e2e9" kind="function"><name>XOcp_GetSwPcrData</name></member>
+  </compound>
+  <compound refid="xocp__ver_8h" kind="file"><name>xocp_ver.h</name>
+    <member refid="xocp__ver_8h_1a465a3231bec52cf89999b66e0d25ac10" kind="define"><name>XOCP_MAJOR_VERSION</name></member>
+    <member refid="xocp__ver_8h_1a4681c2296b8fdf296b333217fa251fd0" kind="define"><name>XOCP_MINOR_VERSION</name></member>
+    <member refid="xocp__ver_8h_1aa97256c5e07d91ca6e716344f6fea7d5" kind="function"><name>XOcp_GetLibVersion</name></member>
+  </compound>
+  <compound refid="group__xocp__dev_keyexample__apis" kind="group"><name>xocp_devKeyexample_apis</name>
+    <member refid="group__xocp__dev_keyexample__apis_1ga6a66c2644eee1344dfc30f743e64fcc7" kind="variable"><name>Signature</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1gaa165589ff890273a47aefe46d953c578" kind="variable"><name>X509Cert</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1gaeed8c7b8752d6e440bc0a495910f0a2e" kind="variable"><name>DataX509</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1gaee8120f5f176a163cdd5f287fdd63a10" kind="variable"><name>ActualCertSize</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1gac08c5f835e3b47d3af3999df0f7bdd34" kind="variable"><name>AttestData</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1gaef7ef5a82ffb55a77ac7d10064d9106a" kind="variable"><name>Data</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1gaa73ed2dcacc05449695f5f361df81726" kind="function"><name>XOcp_PrintData</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1gad0df7566afcc7a9bd23f8eaac61d8a33" kind="function"><name>XOcp_AttestationExample</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1gacd1bdb908197f16c722697057977d727" kind="function"><name>XOcp_GetX509DevIK</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1gaf51624ec7a13a1e6766388d8919faf91" kind="function"><name>XOcp_GetX509DevAK</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1ga4719fb1b17504d5fe8b6af4b5f76ad50" kind="function"><name>XOcp_GetX509DevIKCSR</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1ga383dd93080ce48cb88a305cc5179ed6b" kind="define"><name>XOCP_ECC_SIGN_TOTAL_LEN</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1gac03722a2b98a2289a2f32c0cca3ca470" kind="define"><name>XOCP_SHA3_HASH_LEN_IN_BYTES</name></member>
+    <member refid="group__xocp__dev_keyexample__apis_1gaa793e608f54a259455e6c30d2f8524b1" kind="define"><name>XOCP_X509_CERT_BUF_SIZE</name></member>
+  </compound>
+  <compound refid="group__xocp__example__apis" kind="group"><name>xocp_example_apis</name>
+    <member refid="group__xocp__example__apis_1gadd523cdea3fe65a9104578783a308b0d" kind="variable"><name>DmeResp</name></member>
+    <member refid="group__xocp__example__apis_1ga1f9a8fb8b3dcdd16efe752cb1deb5582" kind="variable"><name>NonceBuffer</name></member>
+    <member refid="group__xocp__example__apis_1ga3a37ae776f42748263be1a6257a62a20" kind="variable"><name>PcrBuf</name></member>
+    <member refid="group__xocp__example__apis_1ga2e8e2f866ab248ca563b2265ccae46f9" kind="variable"><name>HwPcrEvents</name></member>
+    <member refid="group__xocp__example__apis_1ga5bc626048d6d69d8ecee5839275aacdb" kind="variable"><name>HwPcrLogInfo</name></member>
+    <member refid="group__xocp__example__apis_1ga1099039f4d882403f85ede98b3a5be09" kind="variable"><name>SwPcrMeasurement</name></member>
+    <member refid="group__xocp__example__apis_1ga62f6156313a1589b9e2b77b7b6cce380" kind="variable"><name>ExtendHash</name></member>
+    <member refid="group__xocp__example__apis_1ga1549326bcf65b1346b4b66d61fe724c9" kind="variable"><name>ExtendParams</name></member>
+    <member refid="group__xocp__example__apis_1ga24b87e87f9f104ceb41ad9cf97d02503" kind="variable"><name>LogParams</name></member>
+    <member refid="group__xocp__example__apis_1gab334531cad1e41f22ee68ee2ca7549ba" kind="variable"><name>DataParams</name></member>
+    <member refid="group__xocp__example__apis_1gaa73ed2dcacc05449695f5f361df81726" kind="function"><name>XOcp_PrintData</name></member>
+    <member refid="group__xocp__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+    <member refid="group__xocp__example__apis_1ga7453c292703dccc38c60f8b3e792bda7" kind="function"><name>XOcp_HwPcrExample</name></member>
+    <member refid="group__xocp__example__apis_1gaff0d1530259366d30c433729f69f882c" kind="function"><name>XOcp_SwPcrExample</name></member>
+    <member refid="group__xocp__example__apis_1ga6f1ef9417ff43ef9f7a726968f60bcbd" kind="define"><name>XOCP_WORD_LEN</name></member>
+    <member refid="group__xocp__example__apis_1ga63ff019150f35868de5cb75e6567f523" kind="define"><name>XOCP_SELECT_PCR_NUM</name></member>
+    <member refid="group__xocp__example__apis_1gaaaf5d16cda42e517e3b9ecfb80788542" kind="define"><name>XOCP_READ_PCR_MASK</name></member>
+    <member refid="group__xocp__example__apis_1ga0f044c69ba8894eeecafae50ba1f0190" kind="define"><name>XOCP_READ_NUM_OF_LOG_ENTRIES</name></member>
+    <member refid="group__xocp__example__apis_1ga34334b9f63ce6e02e1b466d4131a9447" kind="define"><name>XOCP_NUM_SW_PCR_LOG_EVENTS</name></member>
+  </compound>
+  <compound refid="group__xilocp__asufw__server__apis" kind="group"><name>xilocp_asufw_server_apis</name>
+  </compound>
+  <compound refid="group__xocp__dme__client__apis" kind="group"><name>xocp_dme_client_apis</name>
+    <member refid="group__xocp__dme__client__apis_1gaebd4df862308eaeebbfb06a456a19f9f" kind="function"><name>XOcp_GenDmeResp</name></member>
+  </compound>
+  <compound refid="group__xilocp__dme__server__apis" kind="group"><name>xilocp_dme_server_apis</name>
+  </compound>
+  <compound refid="group__xocp__definitions" kind="group"><name>xocp_definitions</name>
+    <member refid="group__xocp__definitions_1gae95d465df2996596afe4dd4e5f669667" kind="enum"><name>XOcp_ApiId</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a284a6e25cd4cd8ecd456b731f3ef8c94" kind="enumvalue"><name>XOCP_API_FEATURES</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0ea33ccca2247ae86b23182b1d691e25" kind="enumvalue"><name>XOCP_API_EXTEND_HWPCR</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0165a00496c3a9724f9e97be4262fef6" kind="enumvalue"><name>XOCP_API_GET_HWPCR</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a04912d871713dcd3b61d694f429bc095" kind="enumvalue"><name>XOCP_API_GET_HWPCRLOG</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667ac30d0d7181e066b8a984ede325504cf8" kind="enumvalue"><name>XOCP_API_GENDMERESP</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a7af3c34b216fdfca90d0d831514044a0" kind="enumvalue"><name>XOCP_API_DEVAKINPUT</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a928aad79a711aa80ab131b85ca6951e5" kind="enumvalue"><name>XOCP_API_GETCERTUSERCFG</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a27d6f0ea57a51b0b5cb4b61f85c690a8" kind="enumvalue"><name>XOCP_API_GETX509CERT</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a82068a5409464a0f6dc3dcc23037d747" kind="enumvalue"><name>XOCP_API_ATTESTWITHDEVAK</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0849254c181626b2ccc0bca601313933" kind="enumvalue"><name>XOCP_API_SET_SWPCRCONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a802d68e4fc35a8bb08e4e79fd2a5aa48" kind="enumvalue"><name>XOCP_API_EXTEND_SWPCR</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0d48b20c276c35c9e253b2756aa9f1ac" kind="enumvalue"><name>XOCP_API_GET_SWPCR</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a4e737b47477267f9e7b792a237c388d0" kind="enumvalue"><name>XOCP_API_GET_SWPCRLOG</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a6ad39f4af276b8893ca0e8975a6f8f6f" kind="enumvalue"><name>XOCP_API_GET_SWPCRDATA</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a159154b25019671afd2acc943f5ee6e2" kind="enumvalue"><name>XOCP_API_GEN_SHARED_SECRET</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a3ee212594f10d93c996947ac021ac2ef" kind="enumvalue"><name>XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a66f014b98820f9d137b873a196637968" kind="enumvalue"><name>XOCP_API_OCP_SUBSYS_INPUT</name></member>
+    <member refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a3bc966370e0b71c627e2f312f0c3089e" kind="enumvalue"><name>XOCP_API_MAX</name></member>
+    <member refid="group__xocp__definitions_1gab4f16347c8ba05472531d737ae9e04a3" kind="enum"><name>XOcp_DevKey</name></member>
+    <member refid="group__xocp__definitions_1ggab4f16347c8ba05472531d737ae9e04a3abfd834914b2b4a643f6e2754b3796c58" kind="enumvalue"><name>XOCP_DEVIK</name></member>
+    <member refid="group__xocp__definitions_1ggab4f16347c8ba05472531d737ae9e04a3a1f5d8bd26ea07de888d516faf2b16538" kind="enumvalue"><name>XOCP_DEVAK</name></member>
+    <member refid="group__xocp__definitions_1ggab4f16347c8ba05472531d737ae9e04a3a8b81fae25c36788b0dff450beea1a59d" kind="enumvalue"><name>XOCP_KEY_WRAP_DEVAK</name></member>
+    <member refid="group__xocp__definitions_1ga6d4b0b867435b21d30213387044b633c" kind="enum"><name>XOcp_HwPcr</name></member>
+    <member refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633ca485e27e750ff77ffa056644046abc080" kind="enumvalue"><name>XOCP_PCR_0</name></member>
+    <member refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633caf88c5559cd77e5b3b88e8f87294c48e5" kind="enumvalue"><name>XOCP_PCR_1</name></member>
+    <member refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633caa807a2abd9da11c3920b2d88a2da3e64" kind="enumvalue"><name>XOCP_PCR_2</name></member>
+    <member refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633cad2185ab520f760c2dcb8a8ac6d0c3c58" kind="enumvalue"><name>XOCP_PCR_3</name></member>
+    <member refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633caf043ee0bba56ad1f31bd613aab31e2f5" kind="enumvalue"><name>XOCP_PCR_4</name></member>
+    <member refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633cab5a0fb4fb2fe0cd743b8e3ee33e0ff09" kind="enumvalue"><name>XOCP_PCR_5</name></member>
+    <member refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633ca6f6d4d06aa80905f05baea85f4d47294" kind="enumvalue"><name>XOCP_PCR_6</name></member>
+    <member refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633ca20e6e5ced54f49d4001064c9fa4e58be" kind="enumvalue"><name>XOCP_PCR_7</name></member>
+    <member refid="group__xocp__definitions_1gaa2429504100aa2ea3c8f7a11bdd6c503" kind="enum"><name>XOcp_OcpErrorStatus</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503af3b4033b0f4a80a8cc7882f2dfbac478" kind="enumvalue"><name>XOCP_PCR_ERR_PCR_SELECT</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ae3815d1a2cf06201c74123a00d5ef4f3" kind="enumvalue"><name>XOCP_PCR_ERR_NOT_COMPLETED</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a269799b64ea33df35a6bfa2196360514" kind="enumvalue"><name>XOCP_PCR_ERR_OPERATION</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503aefe98e757135e5a687321f4b435b72a2" kind="enumvalue"><name>XOCP_PCR_ERR_IN_UPDATE_LOG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a88a7cb1094967fc712e6640ae1a4f638" kind="enumvalue"><name>XOCP_PCR_ERR_IN_GET_PCR</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503aa817798dbf85e7e27959b2654f06f7c6" kind="enumvalue"><name>XOCP_PCR_ERR_IN_GET_PCR_LOG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503aa1af2a22b1192694eb4c16417e2b4651" kind="enumvalue"><name>XOCP_PCR_ERR_INVALID_LOG_READ_REQUEST</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a9a85006a82fbbfd184fe88dea930dfbe" kind="enumvalue"><name>XOCP_PCR_ERR_MEASURE_IDX_SELECT</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ae75d43999ab1c773a2f1296b277d8e64" kind="enumvalue"><name>XOCP_PCR_ERR_SWPCR_CONFIG_NOT_RECEIVED</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a79fdd3a71131b51658b389c7d9752d80" kind="enumvalue"><name>XOCP_PCR_ERR_INSUFFICIENT_BUF_MEM</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a4278dec969ec9438374d9cdaf3b9f0aa" kind="enumvalue"><name>XOCP_PCR_ERR_SWPCR_DUP_EXTEND</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a3967f4a82634e5681edc9e07993343a4" kind="enumvalue"><name>XOCP_PCR_ERR_DATA_IN_INVALID_MEM</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503add445d9bc9fb78d613ef30bf1a266159" kind="enumvalue"><name>XOCP_DICE_CDI_PARITY_ERROR</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ad574a1cea06ea61fa5cc4d497357bbc1" kind="enumvalue"><name>XOCP_DME_ERR</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a96486d35a3503ac6753dbe80fe22d6c3" kind="enumvalue"><name>XOCP_DME_ROM_ERROR</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a02ca2fe57cbf4aabfb7387e8efef1c71" kind="enumvalue"><name>XOCP_ERR_DEVIK_NOT_READY</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503abdbd0d3dca5c602882210254beea1aed" kind="enumvalue"><name>XOCP_ERR_DEVAK_NOT_READY</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503aee6ecacf4fbfe1f036a3e8ce7f1d9f2c" kind="enumvalue"><name>XOCP_ERR_INVALID_DEVAK_REQ</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ad360693820af75516db0bf72b32edc57" kind="enumvalue"><name>XOCP_DICE_CDI_SEED_ZERO</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ae040625c5710e6c0de35b77dd351e4f5" kind="enumvalue"><name>XOCP_ERR_GLITCH_DETECTED</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ab3bc8703605a641b7ec8aa0404af1e3d" kind="enumvalue"><name>XOCP_ERR_CHUNK_BOUNDARY_CROSSED</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ac1535fd60ce5df78e528adcdb94e26ba" kind="enumvalue"><name>XOCP_ERR_SECURE_EFUSE_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a78561a971de722c3d6421d28a7112472" kind="enumvalue"><name>XOCP_ERR_SECURE_TAP_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ab655625e55e05418d84e29602a12cee0" kind="enumvalue"><name>XOCP_ERR_SECURE_STATE_MEASUREMENT</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a5e4465358789e0f4579d7a63922fa185" kind="enumvalue"><name>XOCP_ERR_DME_RESP_ALREADY_GENERATED</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a627f801106a6c144c0faf0481678e575" kind="enumvalue"><name>XOCP_ERR_DME_RESP_NOT_GENERATED</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503adf81aaa14cf599742df289c06b0fb4ed" kind="enumvalue"><name>XOCP_ERR_PUB_KEY_NOT_AVAIL</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503adfd4f2b038a2dc6a88284b0772d6bf51" kind="enumvalue"><name>XOCP_ERR_INVALID_ATTEST_BUF_SIZE</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503acec598c0e28788205900e8107b27d9f0" kind="enumvalue"><name>XOCP_ERR_SECURE_PPK_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a05c5a1f3c541ad87bc73e401e3595804" kind="enumvalue"><name>XOCP_ERR_SECURE_SPK_REVOKE_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a284d3270fbe02e3c7950fd5630db9c1a" kind="enumvalue"><name>XOCP_ERR_SECURE_OTHER_REVOKE_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a3fe95f0472ba90d219c719aad65c57b4" kind="enumvalue"><name>XOCP_ERR_SECURE_MISC_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ad6abdf428dfb929b7630247cbca5cc11" kind="enumvalue"><name>XOCP_ERR_READ_PPK_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a3f2998f49a52f87f570c63a5690d329c" kind="enumvalue"><name>XOCP_ERR_READ_SPK_REVOKE_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a0cdd083bba4e227bd9752951ac24a8ba" kind="enumvalue"><name>XOCP_ERR_READ_OTHER_REVOKE_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a8bc38c63a2670152a732a5138e92effe" kind="enumvalue"><name>XOCP_ERR_IN_EXTEND_PPK_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a120ece45813a148f3263f46f44cb8c52" kind="enumvalue"><name>XOCP_ERR_IN_EXTEND_SPK_REVOKE_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a209e33fcf91b97b40847d037b394e590" kind="enumvalue"><name>XOCP_ERR_IN_EXTEND_OTHER_REVOKE_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503ae4eb7f63debc4879164d54c06f3da98f" kind="enumvalue"><name>XOCP_ERR_IN_EXTEND_MISC_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a8eaebbcf5e4844b1d644e03150b27342" kind="enumvalue"><name>XOCP_ERR_IN_EXTEND_SECURE_STATE_CONFIG</name></member>
+    <member refid="group__xocp__definitions_1ggaa2429504100aa2ea3c8f7a11bdd6c503a463144d8331c7b43883ae1bc63e50d96" kind="enumvalue"><name>XOCP_ERR_IN_MEMCPY</name></member>
+    <member refid="group__xocp__definitions_1gadb87c9a8f9ef9ed1dd757911265433e9" kind="define"><name>XOCP_PCR_SIZE_WORDS</name></member>
+    <member refid="group__xocp__definitions_1ga5771509ef835b477f9a406226b3b5500" kind="define"><name>XOCP_PCR_SIZE_BYTES</name></member>
+    <member refid="group__xocp__definitions_1ga1c23f09d95cb6b2a6d4d3aebf4485130" kind="define"><name>XOCP_DME_DEVICE_ID_SIZE_WORDS</name></member>
+    <member refid="group__xocp__definitions_1gab595dcb8639bc9bf6153244010bd5b93" kind="define"><name>XOCP_DME_DEVICE_ID_SIZE_BYTES</name></member>
+    <member refid="group__xocp__definitions_1ga52f43af0490909816b1fd70e6454ba00" kind="define"><name>XOCP_DME_NONCE_SIZE_WORDS</name></member>
+    <member refid="group__xocp__definitions_1ga65f16f72818ba9627165b1c696aa44a6" kind="define"><name>XOCP_DME_NONCE_SIZE_BYTES</name></member>
+    <member refid="group__xocp__definitions_1ga37cfc4a2c6fea16aa45ab07f96772c3e" kind="define"><name>XOCP_DME_MEASURE_SIZE_WORDS</name></member>
+    <member refid="group__xocp__definitions_1ga08b5a30e390b44f00bf15fab24d2df1f" kind="define"><name>XOCP_DME_MEASURE_SIZE_BYTES</name></member>
+    <member refid="group__xocp__definitions_1gaa1ca5c72c0f033b55ca06b2994222f22" kind="define"><name>XOCP_ECC_P384_SIZE_WORDS</name></member>
+    <member refid="group__xocp__definitions_1gabdab6975eb4de0d6d09be5e7d805dde6" kind="define"><name>XOCP_ECC_P384_SIZE_BYTES</name></member>
+    <member refid="group__xocp__definitions_1ga6f031ee6aae45e53cc610ca90dd35873" kind="define"><name>XOCP_SIZE_OF_ECC_P384_PUBLIC_KEY_BYTES</name></member>
+    <member refid="group__xocp__definitions_1ga2bb2148bec5b9f32b6f5ff80d6d210a2" kind="define"><name>XOCP_MAX_NUM_OF_HWPCR_EVENTS</name></member>
+    <member refid="group__xocp__definitions_1gab840aac15126a76a89dd18b97b7097b1" kind="define"><name>XOCP_SHA3_LEN_IN_BYTES</name></member>
+    <member refid="group__xocp__definitions_1ga8a12ddbad29fd26b0bbdfbb69b1b3285" kind="define"><name>XOCP_MAX_NUM_OF_SWPCRS</name></member>
+    <member refid="group__xocp__definitions_1gaa88b30a97626e6fdfe2e7296011bffa8" kind="define"><name>XOCP_NUM_OF_SWPCRS</name></member>
+    <member refid="group__xocp__definitions_1gac17bf226c2af120f34925b7e47c54b73" kind="define"><name>XOCP_EVENT_ID_NUM_OF_BYTES</name></member>
+    <member refid="group__xocp__definitions_1gacd13b245098e70fcc158b76b8e158e2e" kind="define"><name>XOCP_VERSION_NUM_OF_BYTES</name></member>
+    <member refid="group__xocp__definitions_1gab776f2dc0dab2b429fa8987f08b181dd" kind="define"><name>XOCP_GET_ALL_PCR_MASK</name></member>
+    <member refid="group__xocp__definitions_1gaacfcb856e34e9be4766a8d0498ad832f" kind="define"><name>XOcp_DCacheFlushRange</name></member>
+    <member refid="group__xocp__definitions_1ga41127f0b373baf2090c38aaecfe71f0b" kind="define"><name>XOCP_API</name></member>
+    <member refid="group__xocp__definitions_1ga5b1f076af518588d82d3c1292274a1d9" kind="define"><name>XOCP_API_ID_MASK</name></member>
+    <member refid="group__xocp__definitions_1ga7365d3fa2793edeb5a50ca16d130f019" kind="define"><name>XOCP_EXTENDED_HASH_SIZE_IN_BYTES</name></member>
+    <member refid="group__xocp__definitions_1gaa8d58e56f5d115e19424d4d0d02b8207" kind="define"><name>XOCP_EXTENDED_HASH_SIZE_IN_BITS</name></member>
+    <member refid="group__xocp__definitions_1gab835a3422a1a25e56cea83a48d48560e" kind="define"><name>XOCP_DME_NONCE_SIZE_IN_BITS</name></member>
+    <member refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" kind="define"><name>XOCP_ADDR_HIGH_SHIFT</name></member>
+  </compound>
+  <compound refid="group__xocp__hwpcr__client__apis" kind="group"><name>xocp_hwpcr_client_apis</name>
+    <member refid="group__xocp__hwpcr__client__apis_1gabe2000beca7269b9e9f1ba0434adfbb7" kind="function"><name>XOcp_ExtendHwPcr</name></member>
+    <member refid="group__xocp__hwpcr__client__apis_1ga729ea6a53f3410b330a4eb6635074c88" kind="function"><name>XOcp_GetHwPcr</name></member>
+    <member refid="group__xocp__hwpcr__client__apis_1ga36f63a2e8165e1f3360f8e2858d7aa53" kind="function"><name>XOcp_GetHwPcrLog</name></member>
+  </compound>
+  <compound refid="group__xocp__key__mgmt__client__apis" kind="group"><name>xocp_key_mgmt_client_apis</name>
+    <member refid="group__xocp__key__mgmt__client__apis_1ga16013e82a245e7dfdd7a3c2e2df476e5" kind="function"><name>XOcp_GetX509Cert</name></member>
+    <member refid="group__xocp__key__mgmt__client__apis_1ga0c6bb44603339209f55de3ef94141395" kind="function"><name>XOcp_ClientAttestWithDevAk</name></member>
+    <member refid="group__xocp__key__mgmt__client__apis_1ga43e275e75f776f74a124968aa83d29a2" kind="function"><name>XOcp_ClientAttestWithKeyWrapDevAk</name></member>
+    <member refid="group__xocp__key__mgmt__client__apis_1ga50bd2fa853d6aba7c12fec38bb3867ae" kind="function"><name>XOcp_GenSharedSecretWithDevAk</name></member>
+  </compound>
+  <compound refid="group__xilocp__keymgmt__server__apis" kind="group"><name>xilocp_keymgmt_server_apis</name>
+  </compound>
+  <compound refid="group__xocp__mailbox__apis" kind="group"><name>xocp_mailbox_apis</name>
+    <member refid="group__xocp__mailbox__apis_1gaa164a8fafefc1e2b183db27281ee1b13" kind="function"><name>XOcp_ClientInit</name></member>
+    <member refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" kind="function"><name>XOcp_ProcessMailbox</name></member>
+  </compound>
+  <compound refid="group__xilocp__pcr__server__apis" kind="group"><name>xilocp_pcr_server_apis</name>
+  </compound>
+  <compound refid="group__xilocp__plat__apis" kind="group"><name>xilocp_plat_apis</name>
+  </compound>
+  <compound refid="group__xocp__swpcr__client__apis" kind="group"><name>xocp_swpcr_client_apis</name>
+    <member refid="group__xocp__swpcr__client__apis_1gab8fbe7fbfcb136e816374b295b769972" kind="function"><name>XOcp_ExtendSwPcr</name></member>
+    <member refid="group__xocp__swpcr__client__apis_1gaaca4f4567e961877901f3ed298ed01e9" kind="function"><name>XOcp_GetSwPcr</name></member>
+    <member refid="group__xocp__swpcr__client__apis_1ga71a4d8aea262fc732fa812829dd891ae" kind="function"><name>XOcp_GetSwPcrLog</name></member>
+    <member refid="group__xocp__swpcr__client__apis_1gaa9d5159f23ac4215dff07b1a16a0e2e9" kind="function"><name>XOcp_GetSwPcrData</name></member>
+  </compound>
+  <compound refid="dir_9be8e9d6290c75ca08127d0e48957f2c" kind="dir"><name>client</name>
+  </compound>
+  <compound refid="dir_7d8f14313f1ca9b3c8607bf7d553ccb4" kind="dir"><name>common</name>
+  </compound>
+  <compound refid="dir_e389961a937d30bf81f39fe09458f15a" kind="dir"><name>dme</name>
+  </compound>
+  <compound refid="dir_1790410cc2299ff5bc0b8456d5142a75" kind="dir"><name>examples</name>
+  </compound>
+  <compound refid="dir_0466606e70fac91dc443e89ca24ee8ba" kind="dir"><name>hwpcr</name>
+  </compound>
+  <compound refid="dir_367520a0413b326ad72368163a325612" kind="dir"><name>key_mgmt</name>
+  </compound>
+  <compound refid="dir_4f70aaff2b5cd30facd53d3ba1ffddad" kind="dir"><name>server</name>
+  </compound>
+  <compound refid="dir_c9342ddea83ebc1f6f636f2558524c3c" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="dir_4f07510b031312247df55370742d27e4" kind="dir"><name>swpcr</name>
+  </compound>
+  <compound refid="dir_beef951c24db56a849b13b52ed4c04c2" kind="dir"><name>versal_2ve_2vm</name>
+  </compound>
+  <compound refid="dir_8fda72420a24783a8b03ddbb21c5a71d" kind="dir"><name>versal_2vp</name>
+  </compound>
+  <compound refid="dir_3d40b51f361b9d764a074fb4b1745f37" kind="dir"><name>versal_net</name>
+  </compound>
+  <compound refid="dir_5507966f400a3609691e32a399fec7c4" kind="dir"><name>xilocp</name>
+  </compound>
+</doxygenindex>

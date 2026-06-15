@@ -1,0 +1,911 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp___rx" kind="struct" prot="public">
+    <compoundname>XDp_Rx</compoundname>
+    <includes local="no">xdp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp___rx_1aa49701850b5a4085a92f16082faa7639" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp___rx_topology" kindref="compound">XDp_RxTopology</ref></type>
+        <definition>XDp_RxTopology XDp_Rx::Topology</definition>
+        <argsstring></argsstring>
+        <name>Topology</name>
+        <briefdescription>
+<para>Topology of connected sinks to the RX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="948" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="948" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a5a1317bed7459b6cd3f8c73288aa8eaf" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp___rx_link_config" kindref="compound">XDp_RxLinkConfig</ref></type>
+        <definition>XDp_RxLinkConfig XDp_Rx::LinkConfig</definition>
+        <argsstring></argsstring>
+        <name>LinkConfig</name>
+        <briefdescription>
+<para>Configuration structure for the main link. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="950" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="950" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a27e08369ec460820f75deea188c4d249" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrVmChangeHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrVmChangeHandler</name>
+        <briefdescription>
+<para>Callback function for video mode change interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="952" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="952" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1ab18832cdc4b9d5c5687ffc4f5d409581" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrVmChangeCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrVmChangeCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the video mode change callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="955" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="955" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1aa5f28ace80643a0b860f4058c28d01ff" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrPowerStateHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrPowerStateHandler</name>
+        <briefdescription>
+<para>Callback function for power state change interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="959" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="959" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1ac636d522634562874ea4644911e44272" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrPowerStateCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrPowerStateCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the power state change callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="962" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="962" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a3c1b7592f447db6170d483d42b6ab977" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrNoVideoHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrNoVideoHandler</name>
+        <briefdescription>
+<para>Callback function for no video interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="966" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="966" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1af62bfb8c23d92f7ba65c2d04c44e9ec7" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrNoVideoCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrNoVideoCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the no video callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="968" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="968" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1aeb032dc23110548cca4cf7809fe27c7a" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrVBlankHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrVBlankHandler</name>
+        <briefdescription>
+<para>Callback function for vertical blanking interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="971" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="971" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a531bbde7701f07ea4b024fcbeb864230" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrVBlankCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrVBlankCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the vertical blanking callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="974" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="974" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a769650b11fdcbab56ff3a7ce3558dc35" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrTrainingLostHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrTrainingLostHandler</name>
+        <briefdescription>
+<para>Callback function for training lost interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="978" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="978" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a22ffdcd7178255226d9a5b9f169a64fe" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrTrainingLostCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrTrainingLostCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the training lost callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="981" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="981" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1aa2a454a720d2bba0864c43ed3e76e295" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrVideoHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrVideoHandler</name>
+        <briefdescription>
+<para>Callback function for valid video interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="985" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="985" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a9a0b32232579ed8860727ba5390dd0bd" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrVideoCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrVideoCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the valid video callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="987" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="987" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a0d96f5496bcc75767d1aefcd45ab8c7e" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrInfoPktHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrInfoPktHandler</name>
+        <briefdescription>
+<para>Callback function for audio info packet received interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="991" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="991" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1ad74c947e7d31c8fe258863c9deede1ab" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrInfoPktCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrInfoPktCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the audio info packet callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="994" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="994" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a2c7bf01947161996ae2a357455e755a7" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrExtPktHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrExtPktHandler</name>
+        <briefdescription>
+<para>Callback function for audio extension packet received interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="998" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="998" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a4284dcf73b0962979eb3819338184989" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrExtPktCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrExtPktCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the audio extension packet callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1001" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1001" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1aa427502e7f72b7239d363281a81f3dc5" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrTrainingDoneHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrTrainingDoneHandler</name>
+        <briefdescription>
+<para>Callback function for training done interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1005" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1005" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a564710e35f3f88462feaa80f6391dce6" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrTrainingDoneCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrTrainingDoneCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the training done callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1008" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1008" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a7a3cda5c4645ee0bffa43d9712393962" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrBwChangeHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrBwChangeHandler</name>
+        <briefdescription>
+<para>Callback function for bandwidth change interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1012" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1012" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a2809360f5cdd1cf988284dc56825a8a1" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrBwChangeCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrBwChangeCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the bandwidth change callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1015" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1015" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1ad3d54a8197ee56d1450eb56364c1dc5d" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrTp1Handler</definition>
+        <argsstring></argsstring>
+        <name>IntrTp1Handler</name>
+        <briefdescription>
+<para>Callback function for training pattern 1 interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1019" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1019" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1acb78d1ee99097176c01e29eb4978ac8b" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrTp1CallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrTp1CallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the training pattern 1 callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1022" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1022" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a028fa568f6ed1739463c30e6961ec4d0" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrTp2Handler</definition>
+        <argsstring></argsstring>
+        <name>IntrTp2Handler</name>
+        <briefdescription>
+<para>Callback function for training pattern 2 interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1026" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1026" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1ad7fac0ed3e2a1909ae3ebdbe5b15b9e1" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrTp2CallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrTp2CallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the training pattern 2 callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1029" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1029" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1af1ae9f2c95c47449ae7c4dc9241a17c8" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrTp3Handler</definition>
+        <argsstring></argsstring>
+        <name>IntrTp3Handler</name>
+        <briefdescription>
+<para>Callback function for training pattern 3 interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1033" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1033" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1adffce711114463846804e94ce4722ebd" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrTp3CallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrTp3CallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the training pattern 3 callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1036" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1036" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a3a43143e23e84125bc87f0229f542ac2" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrDownReqHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrDownReqHandler</name>
+        <briefdescription>
+<para>Callback function for down request interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1040" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1040" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1afc6dd83b5eeee43b002121eff0eb211b" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrDownReqCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrDownReqCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the down request callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1042" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1042" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1ada02ee64a8209b0e81831638de82d164" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrDownReplyHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrDownReplyHandler</name>
+        <briefdescription>
+<para>Callback function for down reply interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1046" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1046" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1acb19bd1bbaa0febc48a8f29a296a6214" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrDownReplyCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrDownReplyCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the down reply callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1048" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1048" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1ac144c5ac589d5d8204fd473c8bb67fd2" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrAudioOverHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrAudioOverHandler</name>
+        <briefdescription>
+<para>Callback function for audio packet overflow interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1052" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1052" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a8e528ca5264bcfdb1a8f39d83e24fb7e" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrAudioOverCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrAudioOverCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the audio packet overflow callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1055" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1055" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a883ac45045ab822afa7934a9baa562d3" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrPayloadAllocHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrPayloadAllocHandler</name>
+        <briefdescription>
+<para>Callback function for payload allocation interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1059" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1059" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1aa569f46544b94e58457338fdbadd5b53" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrPayloadAllocCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrPayloadAllocCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the payload allocation callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1062" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1062" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a866e32d8ac4723454b12e36cbd7f7307" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrActRxHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrActRxHandler</name>
+        <briefdescription>
+<para>Callback function for ACT sequence received interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1066" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1066" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a0a2de51d1caba8749b83400491690ee5" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrActRxCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrActRxCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the ACT sequence received callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1069" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1069" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a772a36069465d9828206568b840ceb80" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrCrcTestHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrCrcTestHandler</name>
+        <briefdescription>
+<para>Callback function for CRC test start interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1073" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1073" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a0e0f463e8c7f115f9ee1ef43306dded5" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrCrcTestCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrCrcTestCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the CRC test start callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1076" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1076" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a158650c25ffdc9e2d1b81bbf727ea1a1" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrHdcpDbgWrHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrHdcpDbgWrHandler</name>
+        <briefdescription>
+<para>Callback function for HDCP debug register write interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1080" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1080" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1af7b9d1fbca377b77e7c5655b302a690d" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrHdcpDbgWrCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrHdcpDbgWrCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the hdcp debug register write callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1083" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1083" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a3d46a857ed24e15c4b60d4b81ed50987" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrHdcpAksvWrHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrHdcpAksvWrHandler</name>
+        <briefdescription>
+<para>Callback function for HDCP Aksv MSB register write interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1087" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1087" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1ae9d93092d0a23146b87e1aa61f0d578d" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrHdcpAksvWrCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrHdcpAksvWrCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the HDCP Aksv MSB register write callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1090" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1090" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1ae6c686f36e4b87b35830d7f955a0c908" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrHdcpAnWrHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrHdcpAnWrHandler</name>
+        <briefdescription>
+<para>Callback function for HDCP An MSB register write interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1094" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1094" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a2557a761b60dd5eebb1000c9f6514564" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrHdcpAnWrCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrHdcpAnWrCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the HDCP An MSB register write callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1097" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1097" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1aad1b78cb54d18a10c6b3aa65cf45a787" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrHdcpAinfoWrHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrHdcpAinfoWrHandler</name>
+        <briefdescription>
+<para>Callback function for HDCP Ainfo register write interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a401abb5b3dade95f207cfaf22b8ce0ca" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrHdcpAinfoWrCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrHdcpAinfoWrCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the HDCP Ainfo register write callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a830d0232abf6fba32629f890031f54f3" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrHdcpRoRdHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrHdcpRoRdHandler</name>
+        <briefdescription>
+<para>Callback function for HDCP Ro register read interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1ad6dd1ef419071e3b78f9974c5cb7739a" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrHdcpRoRdCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrHdcpRoRdCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the HDCP Ro register read callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a66e4c51917427aa062465103e7e4c013" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrHdcpBinfoRdHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrHdcpBinfoRdHandler</name>
+        <briefdescription>
+<para>Callback function for HDCP Binfo register read interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1aae371d7d3905178ac53797a0d5893405" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrHdcpBinfoRdCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrHdcpBinfoRdCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the HDCP Binfo register read callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1ab7aff22b4e0a7f2b35d58c57b04cfedf" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrUnplugHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrUnplugHandler</name>
+        <briefdescription>
+<para>Callback function for unplug interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1aa6d847f9ece5a65f7f4dc27421b19b9f" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrUnplugCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrUnplugCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the unplug callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a8cb135429afeafeff485bfd55eec78a0" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrDrvPowerStateHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrDrvPowerStateHandler</name>
+        <briefdescription>
+<para>Callback function for driver power state interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a455dd4269bc84e49a6391ca905ae35fa" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrDrvPowerStateCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrDrvPowerStateCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the power state drv function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a4760d2eaeae702d567c775c9160c394e" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrDrvNoVideoHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrDrvNoVideoHandler</name>
+        <briefdescription>
+<para>Callback function for driver no video interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1aa843d9a544bb9ef04dadaf2653f91433" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrDrvNoVideoCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrDrvNoVideoCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the no video drv function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a6515b648f959d063f3bef966edc30f2f" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Rx::IntrDrvVideoHandler</definition>
+        <argsstring></argsstring>
+        <name>IntrDrvVideoHandler</name>
+        <briefdescription>
+<para>Callback function for driver video interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_1a7bfcf7e708b83a06bb85f3c6c22416c1" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Rx::IntrDrvVideoCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>IntrDrvVideoCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the video drv function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="1142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="1142" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_dp" kindref="compound">XDp</ref> driver instance data representing the RX mode of operation. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="29">
+        <label>XDp_RxPort</label>
+        <link refid="struct_x_dp___rx_port"/>
+        <childnode refid="30" relation="usage">
+          <edgelabel>IicMap</edgelabel>
+        </childnode>
+        <childnode refid="31" relation="usage">
+          <edgelabel>DpcdMap</edgelabel>
+        </childnode>
+      </node>
+      <node id="28">
+        <label>XDp_SbMsgLinkAddressReplyPortDetail</label>
+        <link refid="struct_x_dp___sb_msg_link_address_reply_port_detail"/>
+      </node>
+      <node id="27">
+        <label>XDp_SbMsgLinkAddressReplyDeviceInfo</label>
+        <link refid="struct_x_dp___sb_msg_link_address_reply_device_info"/>
+        <childnode refid="28" relation="usage">
+          <edgelabel>PortDetails</edgelabel>
+        </childnode>
+      </node>
+      <node id="31">
+        <label>XDp_RxDpcdMap</label>
+        <link refid="struct_x_dp___rx_dpcd_map"/>
+      </node>
+      <node id="24">
+        <label>XDp_Rx</label>
+        <link refid="struct_x_dp___rx"/>
+        <childnode refid="25" relation="usage">
+          <edgelabel>LinkConfig</edgelabel>
+        </childnode>
+        <childnode refid="26" relation="usage">
+          <edgelabel>Topology</edgelabel>
+        </childnode>
+      </node>
+      <node id="30">
+        <label>XDp_RxIicMapEntry</label>
+        <link refid="struct_x_dp___rx_iic_map_entry"/>
+      </node>
+      <node id="26">
+        <label>XDp_RxTopology</label>
+        <link refid="struct_x_dp___rx_topology"/>
+        <childnode refid="27" relation="usage">
+          <edgelabel>LinkAddressInfo</edgelabel>
+        </childnode>
+        <childnode refid="29" relation="usage">
+          <edgelabel>Ports</edgelabel>
+        </childnode>
+      </node>
+      <node id="25">
+        <label>XDp_RxLinkConfig</label>
+        <link refid="struct_x_dp___rx_link_config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="947" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="947" bodyend="1145"/>
+    <listofallmembers>
+      <member refid="struct_x_dp___rx_1a0a2de51d1caba8749b83400491690ee5" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrActRxCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1a866e32d8ac4723454b12e36cbd7f7307" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrActRxHandler</name></member>
+      <member refid="struct_x_dp___rx_1a8e528ca5264bcfdb1a8f39d83e24fb7e" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrAudioOverCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1ac144c5ac589d5d8204fd473c8bb67fd2" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrAudioOverHandler</name></member>
+      <member refid="struct_x_dp___rx_1a2809360f5cdd1cf988284dc56825a8a1" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrBwChangeCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1a7a3cda5c4645ee0bffa43d9712393962" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrBwChangeHandler</name></member>
+      <member refid="struct_x_dp___rx_1a0e0f463e8c7f115f9ee1ef43306dded5" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrCrcTestCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1a772a36069465d9828206568b840ceb80" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrCrcTestHandler</name></member>
+      <member refid="struct_x_dp___rx_1acb19bd1bbaa0febc48a8f29a296a6214" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrDownReplyCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1ada02ee64a8209b0e81831638de82d164" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrDownReplyHandler</name></member>
+      <member refid="struct_x_dp___rx_1afc6dd83b5eeee43b002121eff0eb211b" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrDownReqCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1a3a43143e23e84125bc87f0229f542ac2" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrDownReqHandler</name></member>
+      <member refid="struct_x_dp___rx_1aa843d9a544bb9ef04dadaf2653f91433" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrDrvNoVideoCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1a4760d2eaeae702d567c775c9160c394e" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrDrvNoVideoHandler</name></member>
+      <member refid="struct_x_dp___rx_1a455dd4269bc84e49a6391ca905ae35fa" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrDrvPowerStateCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1a8cb135429afeafeff485bfd55eec78a0" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrDrvPowerStateHandler</name></member>
+      <member refid="struct_x_dp___rx_1a7bfcf7e708b83a06bb85f3c6c22416c1" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrDrvVideoCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1a6515b648f959d063f3bef966edc30f2f" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrDrvVideoHandler</name></member>
+      <member refid="struct_x_dp___rx_1a4284dcf73b0962979eb3819338184989" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrExtPktCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1a2c7bf01947161996ae2a357455e755a7" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrExtPktHandler</name></member>
+      <member refid="struct_x_dp___rx_1a401abb5b3dade95f207cfaf22b8ce0ca" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrHdcpAinfoWrCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1aad1b78cb54d18a10c6b3aa65cf45a787" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrHdcpAinfoWrHandler</name></member>
+      <member refid="struct_x_dp___rx_1ae9d93092d0a23146b87e1aa61f0d578d" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrHdcpAksvWrCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1a3d46a857ed24e15c4b60d4b81ed50987" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrHdcpAksvWrHandler</name></member>
+      <member refid="struct_x_dp___rx_1a2557a761b60dd5eebb1000c9f6514564" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrHdcpAnWrCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1ae6c686f36e4b87b35830d7f955a0c908" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrHdcpAnWrHandler</name></member>
+      <member refid="struct_x_dp___rx_1aae371d7d3905178ac53797a0d5893405" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrHdcpBinfoRdCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1a66e4c51917427aa062465103e7e4c013" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrHdcpBinfoRdHandler</name></member>
+      <member refid="struct_x_dp___rx_1af7b9d1fbca377b77e7c5655b302a690d" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrHdcpDbgWrCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1a158650c25ffdc9e2d1b81bbf727ea1a1" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrHdcpDbgWrHandler</name></member>
+      <member refid="struct_x_dp___rx_1ad6dd1ef419071e3b78f9974c5cb7739a" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrHdcpRoRdCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1a830d0232abf6fba32629f890031f54f3" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrHdcpRoRdHandler</name></member>
+      <member refid="struct_x_dp___rx_1ad74c947e7d31c8fe258863c9deede1ab" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrInfoPktCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1a0d96f5496bcc75767d1aefcd45ab8c7e" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrInfoPktHandler</name></member>
+      <member refid="struct_x_dp___rx_1af62bfb8c23d92f7ba65c2d04c44e9ec7" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrNoVideoCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1a3c1b7592f447db6170d483d42b6ab977" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrNoVideoHandler</name></member>
+      <member refid="struct_x_dp___rx_1aa569f46544b94e58457338fdbadd5b53" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrPayloadAllocCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1a883ac45045ab822afa7934a9baa562d3" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrPayloadAllocHandler</name></member>
+      <member refid="struct_x_dp___rx_1ac636d522634562874ea4644911e44272" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrPowerStateCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1aa5f28ace80643a0b860f4058c28d01ff" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrPowerStateHandler</name></member>
+      <member refid="struct_x_dp___rx_1acb78d1ee99097176c01e29eb4978ac8b" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrTp1CallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1ad3d54a8197ee56d1450eb56364c1dc5d" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrTp1Handler</name></member>
+      <member refid="struct_x_dp___rx_1ad7fac0ed3e2a1909ae3ebdbe5b15b9e1" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrTp2CallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1a028fa568f6ed1739463c30e6961ec4d0" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrTp2Handler</name></member>
+      <member refid="struct_x_dp___rx_1adffce711114463846804e94ce4722ebd" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrTp3CallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1af1ae9f2c95c47449ae7c4dc9241a17c8" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrTp3Handler</name></member>
+      <member refid="struct_x_dp___rx_1a564710e35f3f88462feaa80f6391dce6" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrTrainingDoneCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1aa427502e7f72b7239d363281a81f3dc5" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrTrainingDoneHandler</name></member>
+      <member refid="struct_x_dp___rx_1a22ffdcd7178255226d9a5b9f169a64fe" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrTrainingLostCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1a769650b11fdcbab56ff3a7ce3558dc35" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrTrainingLostHandler</name></member>
+      <member refid="struct_x_dp___rx_1aa6d847f9ece5a65f7f4dc27421b19b9f" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrUnplugCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1ab7aff22b4e0a7f2b35d58c57b04cfedf" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrUnplugHandler</name></member>
+      <member refid="struct_x_dp___rx_1a531bbde7701f07ea4b024fcbeb864230" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrVBlankCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1aeb032dc23110548cca4cf7809fe27c7a" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrVBlankHandler</name></member>
+      <member refid="struct_x_dp___rx_1a9a0b32232579ed8860727ba5390dd0bd" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrVideoCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1aa2a454a720d2bba0864c43ed3e76e295" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrVideoHandler</name></member>
+      <member refid="struct_x_dp___rx_1ab18832cdc4b9d5c5687ffc4f5d409581" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrVmChangeCallbackRef</name></member>
+      <member refid="struct_x_dp___rx_1a27e08369ec460820f75deea188c4d249" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>IntrVmChangeHandler</name></member>
+      <member refid="struct_x_dp___rx_1a5a1317bed7459b6cd3f8c73288aa8eaf" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>LinkConfig</name></member>
+      <member refid="struct_x_dp___rx_1aa49701850b5a4085a92f16082faa7639" prot="public" virt="non-virtual"><scope>XDp_Rx</scope><name>Topology</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

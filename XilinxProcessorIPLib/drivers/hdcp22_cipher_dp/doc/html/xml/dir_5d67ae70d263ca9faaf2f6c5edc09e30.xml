@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_5d67ae70d263ca9faaf2f6c5edc09e30" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xhdcp22__cipher__dp_8c">xhdcp22_cipher_dp.c</innerfile>
+    <innerfile refid="xhdcp22__cipher__dp_8h">xhdcp22_cipher_dp.h</innerfile>
+    <innerfile refid="xhdcp22__cipher__dp__g_8c">xhdcp22_cipher_dp_g.c</innerfile>
+    <innerfile refid="xhdcp22__cipher__dp__hw_8h">xhdcp22_cipher_dp_hw.h</innerfile>
+    <innerfile refid="xhdcp22__cipher__dp__selftest_8c">xhdcp22_cipher_dp_selftest.c</innerfile>
+    <innerfile refid="xhdcp22__cipher__dp__sinit_8c">xhdcp22_cipher_dp_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/"/>
+  </compounddef>
+</doxygen>

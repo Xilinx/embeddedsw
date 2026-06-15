@@ -1,0 +1,1215 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__rsa_8c" kind="file">
+    <compoundname>xasu_rsa.c</compoundname>
+    <includes refid="xasu__rsa_8h" local="yes">xasu_rsa.h</includes>
+    <includes refid="xasu__def_8h" local="yes">xasu_def.h</includes>
+    <includes refid="xasu__shainfo_8h" local="yes">xasu_shainfo.h</includes>
+    <includes refid="xasu__rsa__common_8h" local="yes">xasu_rsa_common.h</includes>
+    <incdepgraph>
+      <node id="968">
+        <label>xasu_shainfo.h</label>
+        <link refid="xasu__shainfo_8h"/>
+        <childnode refid="958" relation="include">
+        </childnode>
+        <childnode refid="969" relation="include">
+        </childnode>
+      </node>
+      <node id="967">
+        <label>xasu_def.h</label>
+        <link refid="xasu__def_8h"/>
+        <childnode refid="958" relation="include">
+        </childnode>
+      </node>
+      <node id="963">
+        <label>xasu_sharedmem.h</label>
+        <link refid="xasu__sharedmem_8h"/>
+        <childnode refid="958" relation="include">
+        </childnode>
+      </node>
+      <node id="962">
+        <label>xasu_client.h</label>
+        <link refid="xasu__client_8h"/>
+        <childnode refid="963" relation="include">
+        </childnode>
+        <childnode refid="964" relation="include">
+        </childnode>
+        <childnode refid="965" relation="include">
+        </childnode>
+        <childnode refid="966" relation="include">
+        </childnode>
+        <childnode refid="967" relation="include">
+        </childnode>
+      </node>
+      <node id="960">
+        <label>xil_util.h</label>
+      </node>
+      <node id="961">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="970">
+        <label>xasu_rsa_common.h</label>
+        <link refid="xasu__rsa__common_8h"/>
+        <childnode refid="958" relation="include">
+        </childnode>
+        <childnode refid="959" relation="include">
+        </childnode>
+      </node>
+      <node id="964">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="965">
+        <label>xasu_perf.h</label>
+        <link refid="xasu__perf_8h"/>
+        <childnode refid="958" relation="include">
+        </childnode>
+        <childnode refid="961" relation="include">
+        </childnode>
+      </node>
+      <node id="969">
+        <label>xstatus.h</label>
+      </node>
+      <node id="956">
+        <label>xasu_rsa.c</label>
+        <link refid="xasu_rsa.c"/>
+        <childnode refid="957" relation="include">
+        </childnode>
+        <childnode refid="967" relation="include">
+        </childnode>
+        <childnode refid="968" relation="include">
+        </childnode>
+        <childnode refid="970" relation="include">
+        </childnode>
+      </node>
+      <node id="957">
+        <label>xasu_rsa.h</label>
+        <link refid="xasu__rsa_8h"/>
+        <childnode refid="958" relation="include">
+        </childnode>
+        <childnode refid="959" relation="include">
+        </childnode>
+        <childnode refid="962" relation="include">
+        </childnode>
+      </node>
+      <node id="958">
+        <label>xil_types.h</label>
+      </node>
+      <node id="959">
+        <label>xasu_rsainfo.h</label>
+        <link refid="xasu__rsainfo_8h"/>
+        <childnode refid="958" relation="include">
+        </childnode>
+        <childnode refid="960" relation="include">
+        </childnode>
+        <childnode refid="961" relation="include">
+        </childnode>
+      </node>
+      <node id="966">
+        <label>xasu_status.h</label>
+        <link refid="xasu__status_8h"/>
+        <childnode refid="958" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__rsa__client__apis_1gaa85dcefff8e7e30465bf6a5e5d20e7fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_RsaEnc</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientParamPtr)</argsstring>
+        <name>XAsu_RsaEnc</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref> *</type>
+          <declname>RsaClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to perform RSA encryption on the provided data by using specified public key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RsaClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref> structure which holds the parameters of RSA input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validations of inputs.</para><para>Validate InputDataAddr and that exactly one of KeyCompAddr or KeyId is provided.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" bodystart="64" bodyend="130"/>
+        <references refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" compoundref="xasu__rsainfo_8h" startline="154">XAsu_RsaParams::KeySize</references>
+        <references refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" compoundref="xasu__rsainfo_8h" startline="150">XAsu_RsaParams::Len</references>
+        <references refid="struct_x_asu___rsa_params_1a4d1e5191bc0b3870ab1dc8a58ebc539f" compoundref="xasu__rsainfo_8h" startline="143">XAsu_RsaParams::OutputDataAddr</references>
+        <references refid="struct_x_asu___rsa_params_1a1abf4a87c26e0d8113367be1832373fe" compoundref="xasu__rsainfo_8h" startline="151">XAsu_RsaParams::OutputDataLen</references>
+        <references refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" compoundref="xasu__rsainfo_8h" startline="148">XAsu_RsaParams::OutputLenAddr</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" compoundref="xasu__def_8h" startline="54">XASU_MODULE_RSA_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__common__defs_1ga244bab817f8c6f8eedd5698e26b772d7" compoundref="xasu__rsainfo_8h" startline="77">XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1gaaa08cb3f7d74f46248a0628c8608dd4e" compoundref="xasu__rsainfo_8h" startline="48">XASU_RSA_PUB_ENC_CMD_ID</references>
+        <references refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" compoundref="xasu__rsa__common_8c" startline="57" endline="70">XAsu_RsaValidateInputParams</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+        <referencedby refid="group__xasufw__rsa__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__rsa__example_8c" startline="234" endline="367">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__rsa__client__apis_1ga8d99c3659893b5b77683b6bc3ee3abf8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_RsaDec</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientParamPtr)</argsstring>
+        <name>XAsu_RsaDec</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref> *</type>
+          <declname>RsaClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends command to ASUFW to perform RSA decryption on the provided data by using specified private key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RsaClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref> structure which holds the parameters of RSA input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validations of inputs.</para><para>Validate InputDataAddr and that exactly one of KeyCompAddr or KeyId is provided.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" bodystart="148" bodyend="214"/>
+        <references refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" compoundref="xasu__rsainfo_8h" startline="154">XAsu_RsaParams::KeySize</references>
+        <references refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" compoundref="xasu__rsainfo_8h" startline="150">XAsu_RsaParams::Len</references>
+        <references refid="struct_x_asu___rsa_params_1a4d1e5191bc0b3870ab1dc8a58ebc539f" compoundref="xasu__rsainfo_8h" startline="143">XAsu_RsaParams::OutputDataAddr</references>
+        <references refid="struct_x_asu___rsa_params_1a1abf4a87c26e0d8113367be1832373fe" compoundref="xasu__rsainfo_8h" startline="151">XAsu_RsaParams::OutputDataLen</references>
+        <references refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" compoundref="xasu__rsainfo_8h" startline="148">XAsu_RsaParams::OutputLenAddr</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" compoundref="xasu__def_8h" startline="54">XASU_MODULE_RSA_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__common__defs_1ga244bab817f8c6f8eedd5698e26b772d7" compoundref="xasu__rsainfo_8h" startline="77">XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1ga1e4840ada393e62fadbcb459dda61154" compoundref="xasu__rsainfo_8h" startline="49">XASU_RSA_PVT_DEC_CMD_ID</references>
+        <references refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" compoundref="xasu__rsa__common_8c" startline="57" endline="70">XAsu_RsaValidateInputParams</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+        <referencedby refid="group__xasufw__rsa__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__rsa__example_8c" startline="234" endline="367">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__rsa__client__apis_1gaa738d6a05293f677e9fdd1fd137cc912" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_RsaCrtDec</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientParamPtr)</argsstring>
+        <name>XAsu_RsaCrtDec</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref> *</type>
+          <declname>RsaClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends command to ASUFW to perform RSA decryption using CRT algorithm for the provided message by using specified private key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RsaClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref> structure which holds the parameters of RSA input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Validate InputDataAddr and that exactly one of KeyCompAddr or KeyId is provided.</para><para>Generate unique ID and register the callback.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" bodystart="233" bodyend="299"/>
+        <references refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" compoundref="xasu__rsainfo_8h" startline="154">XAsu_RsaParams::KeySize</references>
+        <references refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" compoundref="xasu__rsainfo_8h" startline="150">XAsu_RsaParams::Len</references>
+        <references refid="struct_x_asu___rsa_params_1a4d1e5191bc0b3870ab1dc8a58ebc539f" compoundref="xasu__rsainfo_8h" startline="143">XAsu_RsaParams::OutputDataAddr</references>
+        <references refid="struct_x_asu___rsa_params_1a1abf4a87c26e0d8113367be1832373fe" compoundref="xasu__rsainfo_8h" startline="151">XAsu_RsaParams::OutputDataLen</references>
+        <references refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" compoundref="xasu__rsainfo_8h" startline="148">XAsu_RsaParams::OutputLenAddr</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" compoundref="xasu__def_8h" startline="54">XASU_MODULE_RSA_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__common__defs_1ga244bab817f8c6f8eedd5698e26b772d7" compoundref="xasu__rsainfo_8h" startline="77">XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1ga77e251196592abb4501a5f44e6904efc" compoundref="xasu__rsainfo_8h" startline="50">XASU_RSA_PVT_CRT_DEC_CMD_ID</references>
+        <references refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" compoundref="xasu__rsa__common_8c" startline="57" endline="70">XAsu_RsaValidateInputParams</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__rsa__client__apis_1ga32fd59ce2f1c0da67ca9217a224a4626" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_RsaOaepEnc</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_RsaOaepPaddingParams *RsaClientParamPtr)</argsstring>
+        <name>XAsu_RsaOaepEnc</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___rsa_oaep_padding_params" kindref="compound">XAsu_RsaOaepPaddingParams</ref> *</type>
+          <declname>RsaClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends command to ASUFW to perform encoding using RSA OAEP padding algorithm by using the specified RSA key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RsaClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___rsa_oaep_padding_params" kindref="compound">XAsu_RsaOaepPaddingParams</ref> structure which holds the parameters of RSA input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Validations of inputs.</para><para>Generate Unique ID and register the callback.</para><para>Set the command ID based on the selected SHA type.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" bodystart="318" bodyend="399"/>
+        <references refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" compoundref="xasu__rsainfo_8h" startline="154">XAsu_RsaParams::KeySize</references>
+        <references refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" compoundref="xasu__rsainfo_8h" startline="150">XAsu_RsaParams::Len</references>
+        <references refid="struct_x_asu___rsa_oaep_padding_params_1a9ea8551bd7f02de893a2bd8b633d42f0" compoundref="xasu__rsainfo_8h" startline="179">XAsu_RsaOaepPaddingParams::OptionalLabelAddr</references>
+        <references refid="struct_x_asu___rsa_params_1a4d1e5191bc0b3870ab1dc8a58ebc539f" compoundref="xasu__rsainfo_8h" startline="143">XAsu_RsaParams::OutputDataAddr</references>
+        <references refid="struct_x_asu___rsa_params_1a1abf4a87c26e0d8113367be1832373fe" compoundref="xasu__rsainfo_8h" startline="151">XAsu_RsaParams::OutputDataLen</references>
+        <references refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" compoundref="xasu__rsainfo_8h" startline="148">XAsu_RsaParams::OutputLenAddr</references>
+        <references refid="struct_x_asu___rsa_oaep_padding_params_1abaffccd03d581705cd3a9be40dc7ad8b" compoundref="xasu__rsainfo_8h" startline="182">XAsu_RsaOaepPaddingParams::ShaMode</references>
+        <references refid="struct_x_asu___rsa_oaep_padding_params_1ae09922eadcfe378ccb74fbda3e11094d" compoundref="xasu__rsainfo_8h" startline="181">XAsu_RsaOaepPaddingParams::ShaType</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" compoundref="xasu__def_8h" startline="54">XASU_MODULE_RSA_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__common__defs_1gae9e00748dcd61fab9b96a551cccd7463" compoundref="xasu__rsainfo_8h" startline="53">XASU_RSA_OAEP_ENC_SHA2_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1ga5a4a3265632fdf2a9397dcd01e34a45f" compoundref="xasu__rsainfo_8h" startline="55">XASU_RSA_OAEP_ENC_SHA3_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1ga244bab817f8c6f8eedd5698e26b772d7" compoundref="xasu__rsainfo_8h" startline="77">XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES</references>
+        <references refid="struct_x_asu___rsa_oaep_padding_params_1af7270c6b61dded1f64850612185a62e4" compoundref="xasu__rsainfo_8h" startline="178">XAsu_RsaOaepPaddingParams::XAsu_RsaOpComp</references>
+        <references refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" compoundref="xasu__rsa__common_8c" startline="57" endline="70">XAsu_RsaValidateInputParams</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="57">XASU_SHA2_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__rsa__client__apis_1gaf459c9f8ebb4d33247bbd8b6ab591809" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_RsaOaepDec</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_RsaOaepPaddingParams *RsaClientParamPtr)</argsstring>
+        <name>XAsu_RsaOaepDec</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___rsa_oaep_padding_params" kindref="compound">XAsu_RsaOaepPaddingParams</ref> *</type>
+          <declname>RsaClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to perform decoding using RSA OAEP padding algorithm of the provided message by using the specified key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RsaClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___rsa_oaep_padding_params" kindref="compound">XAsu_RsaOaepPaddingParams</ref> structure which holds the parameters of RSA input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Validations of inputs.</para><para>Generate unique ID and register the callback.</para><para>Set the command ID based on the selected SHA type.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" line="418" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" bodystart="418" bodyend="499"/>
+        <references refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" compoundref="xasu__rsainfo_8h" startline="154">XAsu_RsaParams::KeySize</references>
+        <references refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" compoundref="xasu__rsainfo_8h" startline="150">XAsu_RsaParams::Len</references>
+        <references refid="struct_x_asu___rsa_oaep_padding_params_1a9ea8551bd7f02de893a2bd8b633d42f0" compoundref="xasu__rsainfo_8h" startline="179">XAsu_RsaOaepPaddingParams::OptionalLabelAddr</references>
+        <references refid="struct_x_asu___rsa_params_1a4d1e5191bc0b3870ab1dc8a58ebc539f" compoundref="xasu__rsainfo_8h" startline="143">XAsu_RsaParams::OutputDataAddr</references>
+        <references refid="struct_x_asu___rsa_params_1a1abf4a87c26e0d8113367be1832373fe" compoundref="xasu__rsainfo_8h" startline="151">XAsu_RsaParams::OutputDataLen</references>
+        <references refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" compoundref="xasu__rsainfo_8h" startline="148">XAsu_RsaParams::OutputLenAddr</references>
+        <references refid="struct_x_asu___rsa_oaep_padding_params_1abaffccd03d581705cd3a9be40dc7ad8b" compoundref="xasu__rsainfo_8h" startline="182">XAsu_RsaOaepPaddingParams::ShaMode</references>
+        <references refid="struct_x_asu___rsa_oaep_padding_params_1ae09922eadcfe378ccb74fbda3e11094d" compoundref="xasu__rsainfo_8h" startline="181">XAsu_RsaOaepPaddingParams::ShaType</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" compoundref="xasu__def_8h" startline="54">XASU_MODULE_RSA_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__common__defs_1gabfb400e0730a77cdf78539a1bb2aa40f" compoundref="xasu__rsainfo_8h" startline="54">XASU_RSA_OAEP_DEC_SHA2_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1gae2d0d4cdb898536ce9b81fb427fbe66f" compoundref="xasu__rsainfo_8h" startline="56">XASU_RSA_OAEP_DEC_SHA3_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1ga244bab817f8c6f8eedd5698e26b772d7" compoundref="xasu__rsainfo_8h" startline="77">XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES</references>
+        <references refid="struct_x_asu___rsa_oaep_padding_params_1af7270c6b61dded1f64850612185a62e4" compoundref="xasu__rsainfo_8h" startline="178">XAsu_RsaOaepPaddingParams::XAsu_RsaOpComp</references>
+        <references refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" compoundref="xasu__rsa__common_8c" startline="57" endline="70">XAsu_RsaValidateInputParams</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="57">XASU_SHA2_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__rsa__client__apis_1gaceff65cb28ac22b56121a047dbb53aa9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_RsaPssSignGen</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams *RsaClientParamPtr)</argsstring>
+        <name>XAsu_RsaPssSignGen</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___rsa_padding_params" kindref="compound">XAsu_RsaPaddingParams</ref> *</type>
+          <declname>RsaClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to generate signature using RSA PSS padding on provided message by using the specified key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RsaClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___rsa_padding_params" kindref="compound">XAsu_RsaPaddingParams</ref> structure which holds the parameters of RSA input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Validations of inputs.</para><para>Generate unique ID and register the callback.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" line="518" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" bodystart="518" bodyend="601"/>
+        <references refid="struct_x_asu___rsa_padding_params_1afa1caad52128e98d9e481af3fc96626c" compoundref="xasu__rsainfo_8h" startline="170">XAsu_RsaPaddingParams::InputDataType</references>
+        <references refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" compoundref="xasu__rsainfo_8h" startline="154">XAsu_RsaParams::KeySize</references>
+        <references refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" compoundref="xasu__rsainfo_8h" startline="150">XAsu_RsaParams::Len</references>
+        <references refid="struct_x_asu___rsa_params_1a4d1e5191bc0b3870ab1dc8a58ebc539f" compoundref="xasu__rsainfo_8h" startline="143">XAsu_RsaParams::OutputDataAddr</references>
+        <references refid="struct_x_asu___rsa_params_1a1abf4a87c26e0d8113367be1832373fe" compoundref="xasu__rsainfo_8h" startline="151">XAsu_RsaParams::OutputDataLen</references>
+        <references refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" compoundref="xasu__rsainfo_8h" startline="148">XAsu_RsaParams::OutputLenAddr</references>
+        <references refid="struct_x_asu___rsa_padding_params_1a1c007736fb6e25858b9dcfaf2f952369" compoundref="xasu__rsainfo_8h" startline="167">XAsu_RsaPaddingParams::ShaMode</references>
+        <references refid="struct_x_asu___rsa_padding_params_1a4b962e1d08fb88965e9dcb6805769c34" compoundref="xasu__rsainfo_8h" startline="166">XAsu_RsaPaddingParams::ShaType</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" compoundref="xasu__def_8h" startline="54">XASU_MODULE_RSA_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__common__defs_1ga49f5d87d707175ade5c12f09f2062ba0" compoundref="xasu__rsainfo_8h" startline="89">XASU_RSA_HASHED_INPUT_DATA</references>
+        <references refid="group__xasu__common__defs_1ga244bab817f8c6f8eedd5698e26b772d7" compoundref="xasu__rsainfo_8h" startline="77">XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1ga0326c60f03f41427f495cae1b16bfaea" compoundref="xasu__rsainfo_8h" startline="57">XASU_RSA_PSS_SIGN_GEN_SHA2_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1gafe66a48f7bc8613f847b950a4527d90d" compoundref="xasu__rsainfo_8h" startline="63">XASU_RSA_PSS_SIGN_GEN_SHA3_CMD_ID</references>
+        <references refid="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" compoundref="xasu__rsainfo_8h" startline="160">XAsu_RsaPaddingParams::XAsu_RsaOpComp</references>
+        <references refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" compoundref="xasu__rsa__common_8c" startline="57" endline="70">XAsu_RsaValidateInputParams</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="57">XASU_SHA2_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga03b4e128752ecabe8915b7c8a8a4d73f" compoundref="xasu__shainfo_8h" startline="62">XASU_SHA_384_HASH_LEN</references>
+        <references refid="group__xasu__common__defs_1ga2f1dce4b9423d6e10cd1914f67a70178" compoundref="xasu__shainfo_8h" startline="63">XASU_SHA_512_HASH_LEN</references>
+        <references refid="group__xasu__common__defs_1gaac7d78d75140a49311500aeecaeb857f" compoundref="xasu__shainfo_8h" startline="61">XASU_SHA_SHAKE_256_HASH_LEN</references>
+        <references refid="group__xasu__common__defs_1ga76b2a99254d75adbf6f36f2cfbb39964" compoundref="xasu__shainfo_8h" startline="64">XASU_SHAKE_256_MAX_HASH_LEN</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__rsa__client__apis_1ga3a33eba68b96c49e0dcb8ca6abfd7b89" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_RsaPssSignVer</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams *RsaClientParamPtr)</argsstring>
+        <name>XAsu_RsaPssSignVer</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___rsa_padding_params" kindref="compound">XAsu_RsaPaddingParams</ref> *</type>
+          <declname>RsaClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends request to ASUFW to verify the specified signature by using RSA PSS padding by using the provided key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RsaClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___rsa_padding_params" kindref="compound">XAsu_RsaPaddingParams</ref> structure which holds the parameters of RSA input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Validations of inputs.</para><para>Generate unique ID and register the callback.</para><para>Select the command ID based on SHA type.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" line="620" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" bodystart="620" bodyend="701"/>
+        <references refid="struct_x_asu___rsa_padding_params_1afa1caad52128e98d9e481af3fc96626c" compoundref="xasu__rsainfo_8h" startline="170">XAsu_RsaPaddingParams::InputDataType</references>
+        <references refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" compoundref="xasu__rsainfo_8h" startline="154">XAsu_RsaParams::KeySize</references>
+        <references refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" compoundref="xasu__rsainfo_8h" startline="150">XAsu_RsaParams::Len</references>
+        <references refid="struct_x_asu___rsa_padding_params_1a1c007736fb6e25858b9dcfaf2f952369" compoundref="xasu__rsainfo_8h" startline="167">XAsu_RsaPaddingParams::ShaMode</references>
+        <references refid="struct_x_asu___rsa_padding_params_1a4b962e1d08fb88965e9dcb6805769c34" compoundref="xasu__rsainfo_8h" startline="166">XAsu_RsaPaddingParams::ShaType</references>
+        <references refid="struct_x_asu___rsa_padding_params_1adcdbd318ffffe4d16dd53a354d64b510" compoundref="xasu__rsainfo_8h" startline="161">XAsu_RsaPaddingParams::SignatureDataAddr</references>
+        <references refid="struct_x_asu___rsa_padding_params_1a835f488b95ca9c9ae8cc9ae3e8732c5d" compoundref="xasu__rsainfo_8h" startline="164">XAsu_RsaPaddingParams::SignatureLen</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" compoundref="xasu__def_8h" startline="54">XASU_MODULE_RSA_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__common__defs_1ga49f5d87d707175ade5c12f09f2062ba0" compoundref="xasu__rsainfo_8h" startline="89">XASU_RSA_HASHED_INPUT_DATA</references>
+        <references refid="group__xasu__common__defs_1ga63ed6f5157f1f8058157a323d86de0a3" compoundref="xasu__rsainfo_8h" startline="60">XASU_RSA_PSS_SIGN_VER_SHA2_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1gabdaa92632a989db821db9bd361430159" compoundref="xasu__rsainfo_8h" startline="66">XASU_RSA_PSS_SIGN_VER_SHA3_CMD_ID</references>
+        <references refid="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" compoundref="xasu__rsainfo_8h" startline="160">XAsu_RsaPaddingParams::XAsu_RsaOpComp</references>
+        <references refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" compoundref="xasu__rsa__common_8c" startline="57" endline="70">XAsu_RsaValidateInputParams</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="57">XASU_SHA2_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga03b4e128752ecabe8915b7c8a8a4d73f" compoundref="xasu__shainfo_8h" startline="62">XASU_SHA_384_HASH_LEN</references>
+        <references refid="group__xasu__common__defs_1ga2f1dce4b9423d6e10cd1914f67a70178" compoundref="xasu__shainfo_8h" startline="63">XASU_SHA_512_HASH_LEN</references>
+        <references refid="group__xasu__common__defs_1gaac7d78d75140a49311500aeecaeb857f" compoundref="xasu__shainfo_8h" startline="61">XASU_SHA_SHAKE_256_HASH_LEN</references>
+        <references refid="group__xasu__common__defs_1ga76b2a99254d75adbf6f36f2cfbb39964" compoundref="xasu__shainfo_8h" startline="64">XASU_SHAKE_256_MAX_HASH_LEN</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__rsa__client__apis_1ga5d24241387d6859603f7de3270205d0a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_RsaOaepEncDecKat</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr)</argsstring>
+        <name>XAsu_RsaOaepEncDecKat</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to perform RSA OAEP encrypt and decrypt Known Answer Tests (KAT&apos;s). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Generate unique ID and register callback.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" line="718" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" bodystart="718" bodyend="747"/>
+        <references refid="group__xasu__client__info_1gae954c6c287fd8516f1cf18672f6b0eba" compoundref="xasu__client_8h" startline="51">XASU_CMD_LEN_ZERO</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" compoundref="xasu__def_8h" startline="54">XASU_MODULE_RSA_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__common__defs_1ga76cafee9cd51795f3a81afec4eeb570f" compoundref="xasu__rsainfo_8h" startline="69">XASU_RSA_OAEP_ENC_DEC_KAT_CMD_ID</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__rsa__client__apis_1ga0e3fbf80fd0254640e9938019e3b9ee1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_RsaPssSignGenAndVerKat</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr)</argsstring>
+        <name>XAsu_RsaPssSignGenAndVerKat</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to perform RSA PSS sign generation and verification Known Answer Tests (KAT&apos;s). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Generate unique ID and register callback.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" line="764" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" bodystart="764" bodyend="793"/>
+        <references refid="group__xasu__client__info_1gae954c6c287fd8516f1cf18672f6b0eba" compoundref="xasu__client_8h" startline="51">XASU_CMD_LEN_ZERO</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" compoundref="xasu__def_8h" startline="54">XASU_MODULE_RSA_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__common__defs_1ga8e3e63880bd11293a0ff07490dc00efe" compoundref="xasu__rsainfo_8h" startline="72">XASU_RSA_PSS_SIGN_GEN_VER_KAT_CMD_ID</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the implementation of the client interface functions for RSA driver. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   ss   08/20/24 Initial release
+      ss   09/26/24 Fixed doxygen comments
+      ss   02/04/25 Added client API&apos;s for RSA padding scheme
+      yog  01/28/26 Added RSA key ID validation in RSA operations.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="31"><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__rsa_8h" kindref="compound">xasu_rsa.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__def_8h" kindref="compound">xasu_def.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__shainfo_8h" kindref="compound">xasu_shainfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__rsa__common_8h" kindref="compound">xasu_rsa_common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="64" refid="group__xasu__rsa__client__apis_1gaa85dcefff8e7e30465bf6a5e5d20e7fd" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__xasu__rsa__client__apis_1gaa85dcefff8e7e30465bf6a5e5d20e7fd" kindref="member">XAsu_RsaEnc</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,<sp/><ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref><sp/>*RsaClientParamPtr)</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Header;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UniqueId;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" kindref="member">XAsu_ValidateClientParameters</ref>(ClientParamPtr);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaClientParamPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" kindref="member">XAsu_RsaValidateInputParams</ref>(RsaClientParamPtr);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a4d1e5191bc0b3870ab1dc8a58ebc539f" kindref="member">OutputDataAddr</ref><sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" kindref="member">OutputLenAddr</ref><sp/>==<sp/>0U))<sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a1abf4a87c26e0d8113367be1832373fe" kindref="member">OutputDataLen</ref><sp/>&lt;<sp/>RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" kindref="member">KeySize</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XAsu_RsaValidateKeySize(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" kindref="member">KeySize</ref>);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" kindref="member">Len</ref><sp/>&gt;<sp/>RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" kindref="member">KeySize</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UniqueId<sp/>=<sp/><ref refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" kindref="member">XAsu_RegCallBackNGetUniqueId</ref>(ClientParamPtr,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8<sp/>*)(UINTPTR)RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" kindref="member">OutputLenAddr</ref>,</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1ga244bab817f8c6f8eedd5698e26b772d7" kindref="member">XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES</ref>,<sp/><ref refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" kindref="member">XASU_TRUE</ref>);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(UniqueId<sp/>&gt;=<sp/><ref refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" kindref="member">XASU_UNIQUE_ID_MAX</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" kindref="member">XASU_INVALID_UNIQUE_ID</ref>;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Header<sp/>=<sp/>XAsu_CreateHeader(<ref refid="group__xasu__common__defs_1gaaa08cb3f7d74f46248a0628c8608dd4e" kindref="member">XASU_RSA_PUB_ENC_CMD_ID</ref>,<sp/>UniqueId,<sp/><ref refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" kindref="member">XASU_MODULE_RSA_ID</ref>,</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref>)<sp/>/<sp/><ref refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" kindref="member">XASU_WORD_LEN_IN_BYTES</ref>),</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParamPtr-&gt;SecureFlag);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" kindref="member">XAsu_SendCmdToAsu</ref>(ClientParamPtr,<sp/>RsaClientParamPtr,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref>)),<sp/>Header);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="148" refid="group__xasu__rsa__client__apis_1ga8d99c3659893b5b77683b6bc3ee3abf8" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__xasu__rsa__client__apis_1ga8d99c3659893b5b77683b6bc3ee3abf8" kindref="member">XAsu_RsaDec</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,<sp/><ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref><sp/>*RsaClientParamPtr)</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Header;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UniqueId;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" kindref="member">XAsu_ValidateClientParameters</ref>(ClientParamPtr);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaClientParamPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" kindref="member">XAsu_RsaValidateInputParams</ref>(RsaClientParamPtr);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a4d1e5191bc0b3870ab1dc8a58ebc539f" kindref="member">OutputDataAddr</ref><sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" kindref="member">OutputLenAddr</ref><sp/>==<sp/>0U))<sp/>{</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a1abf4a87c26e0d8113367be1832373fe" kindref="member">OutputDataLen</ref><sp/>&lt;<sp/>RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" kindref="member">KeySize</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XAsu_RsaValidateKeySize(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" kindref="member">KeySize</ref>);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" kindref="member">Len</ref><sp/>!=<sp/>RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" kindref="member">KeySize</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UniqueId<sp/>=<sp/><ref refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" kindref="member">XAsu_RegCallBackNGetUniqueId</ref>(ClientParamPtr,</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8<sp/>*)(UINTPTR)RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" kindref="member">OutputLenAddr</ref>,</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1ga244bab817f8c6f8eedd5698e26b772d7" kindref="member">XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES</ref>,<sp/><ref refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" kindref="member">XASU_TRUE</ref>);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(UniqueId<sp/>&gt;=<sp/><ref refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" kindref="member">XASU_UNIQUE_ID_MAX</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" kindref="member">XASU_INVALID_UNIQUE_ID</ref>;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Header<sp/>=<sp/>XAsu_CreateHeader(<ref refid="group__xasu__common__defs_1ga1e4840ada393e62fadbcb459dda61154" kindref="member">XASU_RSA_PVT_DEC_CMD_ID</ref>,<sp/>UniqueId,<sp/><ref refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" kindref="member">XASU_MODULE_RSA_ID</ref>,</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref>)<sp/>/<sp/><ref refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" kindref="member">XASU_WORD_LEN_IN_BYTES</ref>),</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParamPtr-&gt;SecureFlag);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" kindref="member">XAsu_SendCmdToAsu</ref>(ClientParamPtr,<sp/>RsaClientParamPtr,</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref>)),<sp/>Header);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="233" refid="group__xasu__rsa__client__apis_1gaa738d6a05293f677e9fdd1fd137cc912" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__xasu__rsa__client__apis_1gaa738d6a05293f677e9fdd1fd137cc912" kindref="member">XAsu_RsaCrtDec</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,<sp/><ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref><sp/>*RsaClientParamPtr)</highlight></codeline>
+<codeline lineno="234"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Header;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UniqueId;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" kindref="member">XAsu_ValidateClientParameters</ref>(ClientParamPtr);</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaClientParamPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" kindref="member">XAsu_RsaValidateInputParams</ref>(RsaClientParamPtr);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a4d1e5191bc0b3870ab1dc8a58ebc539f" kindref="member">OutputDataAddr</ref><sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" kindref="member">OutputLenAddr</ref><sp/>==<sp/>0U))<sp/>{</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a1abf4a87c26e0d8113367be1832373fe" kindref="member">OutputDataLen</ref><sp/>&lt;<sp/>RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" kindref="member">KeySize</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XAsu_RsaValidateKeySize(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" kindref="member">KeySize</ref>);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" kindref="member">Len</ref><sp/>!=<sp/>RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" kindref="member">KeySize</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UniqueId<sp/>=<sp/><ref refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" kindref="member">XAsu_RegCallBackNGetUniqueId</ref>(ClientParamPtr,</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8<sp/>*)(UINTPTR)RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" kindref="member">OutputLenAddr</ref>,</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1ga244bab817f8c6f8eedd5698e26b772d7" kindref="member">XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES</ref>,<sp/><ref refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" kindref="member">XASU_TRUE</ref>);</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(UniqueId<sp/>&gt;=<sp/><ref refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" kindref="member">XASU_UNIQUE_ID_MAX</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" kindref="member">XASU_INVALID_UNIQUE_ID</ref>;</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Header<sp/>=<sp/>XAsu_CreateHeader(<ref refid="group__xasu__common__defs_1ga77e251196592abb4501a5f44e6904efc" kindref="member">XASU_RSA_PVT_CRT_DEC_CMD_ID</ref>,<sp/>UniqueId,<sp/><ref refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" kindref="member">XASU_MODULE_RSA_ID</ref>,</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref>)<sp/>/<sp/><ref refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" kindref="member">XASU_WORD_LEN_IN_BYTES</ref>),</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParamPtr-&gt;SecureFlag);</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" kindref="member">XAsu_SendCmdToAsu</ref>(ClientParamPtr,<sp/>RsaClientParamPtr,</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref>)),<sp/>Header);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="299"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="318" refid="group__xasu__rsa__client__apis_1ga32fd59ce2f1c0da67ca9217a224a4626" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__xasu__rsa__client__apis_1ga32fd59ce2f1c0da67ca9217a224a4626" kindref="member">XAsu_RsaOaepEnc</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___rsa_oaep_padding_params" kindref="compound">XAsu_RsaOaepPaddingParams</ref><sp/>*RsaClientParamPtr)</highlight></codeline>
+<codeline lineno="320"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Header;</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UniqueId;</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>CmdId;</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" kindref="member">XAsu_ValidateClientParameters</ref>(ClientParamPtr);</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaClientParamPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" kindref="member">XAsu_RsaValidateInputParams</ref>(&amp;(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_oaep_padding_params_1af7270c6b61dded1f64850612185a62e4" kindref="member">XAsu_RsaOpComp</ref>));</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_oaep_padding_params_1af7270c6b61dded1f64850612185a62e4" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a4d1e5191bc0b3870ab1dc8a58ebc539f" kindref="member">OutputDataAddr</ref><sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_oaep_padding_params_1a9ea8551bd7f02de893a2bd8b633d42f0" kindref="member">OptionalLabelAddr</ref><sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_oaep_padding_params_1af7270c6b61dded1f64850612185a62e4" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" kindref="member">OutputLenAddr</ref><sp/>==<sp/>0U))<sp/>{</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_oaep_padding_params_1af7270c6b61dded1f64850612185a62e4" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a1abf4a87c26e0d8113367be1832373fe" kindref="member">OutputDataLen</ref><sp/>&lt;<sp/>RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_oaep_padding_params_1af7270c6b61dded1f64850612185a62e4" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" kindref="member">KeySize</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"></highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XAsu_RsaValidateKeySize(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_oaep_padding_params_1af7270c6b61dded1f64850612185a62e4" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" kindref="member">KeySize</ref>);</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_oaep_padding_params_1af7270c6b61dded1f64850612185a62e4" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" kindref="member">Len</ref><sp/>&gt;<sp/>RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_oaep_padding_params_1af7270c6b61dded1f64850612185a62e4" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" kindref="member">KeySize</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XAsu_ShaValidateModeAndType(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_oaep_padding_params_1ae09922eadcfe378ccb74fbda3e11094d" kindref="member">ShaType</ref>,<sp/>RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_oaep_padding_params_1abaffccd03d581705cd3a9be40dc7ad8b" kindref="member">ShaMode</ref>)<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UniqueId<sp/>=<sp/><ref refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" kindref="member">XAsu_RegCallBackNGetUniqueId</ref>(ClientParamPtr,</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8<sp/>*)(UINTPTR)RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_oaep_padding_params_1af7270c6b61dded1f64850612185a62e4" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" kindref="member">OutputLenAddr</ref>,</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1ga244bab817f8c6f8eedd5698e26b772d7" kindref="member">XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES</ref>,<sp/><ref refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" kindref="member">XASU_TRUE</ref>);</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(UniqueId<sp/>&gt;=<sp/><ref refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" kindref="member">XASU_UNIQUE_ID_MAX</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" kindref="member">XASU_INVALID_UNIQUE_ID</ref>;</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"></highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_oaep_padding_params_1ae09922eadcfe378ccb74fbda3e11094d" kindref="member">ShaType</ref><sp/>==<sp/><ref refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" kindref="member">XASU_SHA2_TYPE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CmdId<sp/>=<sp/><ref refid="group__xasu__common__defs_1gae9e00748dcd61fab9b96a551cccd7463" kindref="member">XASU_RSA_OAEP_ENC_SHA2_CMD_ID</ref>;</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CmdId<sp/>=<sp/><ref refid="group__xasu__common__defs_1ga5a4a3265632fdf2a9397dcd01e34a45f" kindref="member">XASU_RSA_OAEP_ENC_SHA3_CMD_ID</ref>;</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"></highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Header<sp/>=<sp/>XAsu_CreateHeader(CmdId,<sp/>UniqueId,<sp/><ref refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" kindref="member">XASU_MODULE_RSA_ID</ref>,</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_asu___rsa_oaep_padding_params" kindref="compound">XAsu_RsaOaepPaddingParams</ref>)<sp/>/<sp/><ref refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" kindref="member">XASU_WORD_LEN_IN_BYTES</ref>),</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParamPtr-&gt;SecureFlag);</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"></highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" kindref="member">XAsu_SendCmdToAsu</ref>(ClientParamPtr,<sp/>RsaClientParamPtr,</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_asu___rsa_oaep_padding_params" kindref="compound">XAsu_RsaOaepPaddingParams</ref>)),<sp/>Header);</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"></highlight></codeline>
+<codeline lineno="397"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="399"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"></highlight></codeline>
+<codeline lineno="401"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="418" refid="group__xasu__rsa__client__apis_1gaf459c9f8ebb4d33247bbd8b6ab591809" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__xasu__rsa__client__apis_1gaf459c9f8ebb4d33247bbd8b6ab591809" kindref="member">XAsu_RsaOaepDec</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___rsa_oaep_padding_params" kindref="compound">XAsu_RsaOaepPaddingParams</ref><sp/>*RsaClientParamPtr)</highlight></codeline>
+<codeline lineno="420"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Header;</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UniqueId;</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>CmdId;</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"></highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" kindref="member">XAsu_ValidateClientParameters</ref>(ClientParamPtr);</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"></highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaClientParamPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"></highlight></codeline>
+<codeline lineno="438"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" kindref="member">XAsu_RsaValidateInputParams</ref>(&amp;(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_oaep_padding_params_1af7270c6b61dded1f64850612185a62e4" kindref="member">XAsu_RsaOpComp</ref>));</highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"></highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_oaep_padding_params_1af7270c6b61dded1f64850612185a62e4" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a4d1e5191bc0b3870ab1dc8a58ebc539f" kindref="member">OutputDataAddr</ref><sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_oaep_padding_params_1a9ea8551bd7f02de893a2bd8b633d42f0" kindref="member">OptionalLabelAddr</ref><sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_oaep_padding_params_1af7270c6b61dded1f64850612185a62e4" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" kindref="member">OutputLenAddr</ref><sp/>==<sp/>0U))<sp/>{</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"></highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_oaep_padding_params_1af7270c6b61dded1f64850612185a62e4" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a1abf4a87c26e0d8113367be1832373fe" kindref="member">OutputDataLen</ref><sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="455"><highlight class="normal"></highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XAsu_RsaValidateKeySize(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_oaep_padding_params_1af7270c6b61dded1f64850612185a62e4" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" kindref="member">KeySize</ref>);</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"></highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_oaep_padding_params_1af7270c6b61dded1f64850612185a62e4" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" kindref="member">Len</ref><sp/>&gt;<sp/>RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_oaep_padding_params_1af7270c6b61dded1f64850612185a62e4" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" kindref="member">KeySize</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"></highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XAsu_ShaValidateModeAndType(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_oaep_padding_params_1ae09922eadcfe378ccb74fbda3e11094d" kindref="member">ShaType</ref>,<sp/>RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_oaep_padding_params_1abaffccd03d581705cd3a9be40dc7ad8b" kindref="member">ShaMode</ref>)<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"></highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UniqueId<sp/>=<sp/><ref refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" kindref="member">XAsu_RegCallBackNGetUniqueId</ref>(ClientParamPtr,</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8<sp/>*)(UINTPTR)RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_oaep_padding_params_1af7270c6b61dded1f64850612185a62e4" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" kindref="member">OutputLenAddr</ref>,</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1ga244bab817f8c6f8eedd5698e26b772d7" kindref="member">XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES</ref>,<sp/><ref refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" kindref="member">XASU_TRUE</ref>);</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(UniqueId<sp/>&gt;=<sp/><ref refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" kindref="member">XASU_UNIQUE_ID_MAX</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" kindref="member">XASU_INVALID_UNIQUE_ID</ref>;</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"></highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_oaep_padding_params_1ae09922eadcfe378ccb74fbda3e11094d" kindref="member">ShaType</ref><sp/>==<sp/><ref refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" kindref="member">XASU_SHA2_TYPE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CmdId<sp/>=<sp/><ref refid="group__xasu__common__defs_1gabfb400e0730a77cdf78539a1bb2aa40f" kindref="member">XASU_RSA_OAEP_DEC_SHA2_CMD_ID</ref>;</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CmdId<sp/>=<sp/><ref refid="group__xasu__common__defs_1gae2d0d4cdb898536ce9b81fb427fbe66f" kindref="member">XASU_RSA_OAEP_DEC_SHA3_CMD_ID</ref>;</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"></highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Header<sp/>=<sp/>XAsu_CreateHeader(CmdId,<sp/>UniqueId,<sp/><ref refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" kindref="member">XASU_MODULE_RSA_ID</ref>,</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_asu___rsa_oaep_padding_params" kindref="compound">XAsu_RsaOaepPaddingParams</ref>)<sp/>/<sp/><ref refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" kindref="member">XASU_WORD_LEN_IN_BYTES</ref>),</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParamPtr-&gt;SecureFlag);</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"></highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" kindref="member">XAsu_SendCmdToAsu</ref>(ClientParamPtr,<sp/>RsaClientParamPtr,</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_asu___rsa_oaep_padding_params" kindref="compound">XAsu_RsaOaepPaddingParams</ref>)),<sp/>Header);</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"></highlight></codeline>
+<codeline lineno="497"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="499"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="500"><highlight class="normal"></highlight></codeline>
+<codeline lineno="501"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="518" refid="group__xasu__rsa__client__apis_1gaceff65cb28ac22b56121a047dbb53aa9" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__xasu__rsa__client__apis_1gaceff65cb28ac22b56121a047dbb53aa9" kindref="member">XAsu_RsaPssSignGen</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,<sp/><ref refid="struct_x_asu___rsa_padding_params" kindref="compound">XAsu_RsaPaddingParams</ref><sp/>*RsaClientParamPtr)</highlight></codeline>
+<codeline lineno="519"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Header;</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UniqueId;</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>CmdId;</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"></highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" kindref="member">XAsu_ValidateClientParameters</ref>(ClientParamPtr);</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"></highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaClientParamPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"></highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" kindref="member">XAsu_RsaValidateInputParams</ref>(&amp;(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" kindref="member">XAsu_RsaOpComp</ref>));</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"></highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a4d1e5191bc0b3870ab1dc8a58ebc539f" kindref="member">OutputDataAddr</ref><sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" kindref="member">OutputLenAddr</ref><sp/>==<sp/>0U))<sp/>{</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"></highlight></codeline>
+<codeline lineno="549"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a1abf4a87c26e0d8113367be1832373fe" kindref="member">OutputDataLen</ref><sp/>&lt;<sp/>RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" kindref="member">KeySize</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="551"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="553"><highlight class="normal"></highlight></codeline>
+<codeline lineno="554"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XAsu_RsaValidateKeySize(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" kindref="member">KeySize</ref>);</highlight></codeline>
+<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="556"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="557"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="558"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="559"><highlight class="normal"></highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" kindref="member">Len</ref><sp/>!=<sp/><ref refid="group__xasu__common__defs_1gaac7d78d75140a49311500aeecaeb857f" kindref="member">XASU_SHA_SHAKE_256_HASH_LEN</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" kindref="member">Len</ref><sp/>!=<sp/><ref refid="group__xasu__common__defs_1ga03b4e128752ecabe8915b7c8a8a4d73f" kindref="member">XASU_SHA_384_HASH_LEN</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" kindref="member">Len</ref><sp/>!=<sp/><ref refid="group__xasu__common__defs_1ga2f1dce4b9423d6e10cd1914f67a70178" kindref="member">XASU_SHA_512_HASH_LEN</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="563"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" kindref="member">Len</ref><sp/>!=<sp/><ref refid="group__xasu__common__defs_1gaac7d78d75140a49311500aeecaeb857f" kindref="member">XASU_SHA_SHAKE_256_HASH_LEN</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" kindref="member">Len</ref><sp/>!=<sp/><ref refid="group__xasu__common__defs_1ga76b2a99254d75adbf6f36f2cfbb39964" kindref="member">XASU_SHAKE_256_MAX_HASH_LEN</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1afa1caad52128e98d9e481af3fc96626c" kindref="member">InputDataType</ref><sp/>==<sp/><ref refid="group__xasu__common__defs_1ga49f5d87d707175ade5c12f09f2062ba0" kindref="member">XASU_RSA_HASHED_INPUT_DATA</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"></highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XAsu_ShaValidateModeAndType(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a4b962e1d08fb88965e9dcb6805769c34" kindref="member">ShaType</ref>,<sp/>RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a1c007736fb6e25858b9dcfaf2f952369" kindref="member">ShaMode</ref>)<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"></highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UniqueId<sp/>=<sp/><ref refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" kindref="member">XAsu_RegCallBackNGetUniqueId</ref>(ClientParamPtr,</highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8<sp/>*)(UINTPTR)RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" kindref="member">OutputLenAddr</ref>,</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1ga244bab817f8c6f8eedd5698e26b772d7" kindref="member">XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES</ref>,<sp/><ref refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" kindref="member">XASU_TRUE</ref>);</highlight></codeline>
+<codeline lineno="579"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(UniqueId<sp/>&gt;=<sp/><ref refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" kindref="member">XASU_UNIQUE_ID_MAX</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" kindref="member">XASU_INVALID_UNIQUE_ID</ref>;</highlight></codeline>
+<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="582"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="583"><highlight class="normal"></highlight></codeline>
+<codeline lineno="584"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a4b962e1d08fb88965e9dcb6805769c34" kindref="member">ShaType</ref><sp/>==<sp/><ref refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" kindref="member">XASU_SHA2_TYPE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CmdId<sp/>=<sp/><ref refid="group__xasu__common__defs_1ga0326c60f03f41427f495cae1b16bfaea" kindref="member">XASU_RSA_PSS_SIGN_GEN_SHA2_CMD_ID</ref>;</highlight></codeline>
+<codeline lineno="586"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="587"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CmdId<sp/>=<sp/><ref refid="group__xasu__common__defs_1gafe66a48f7bc8613f847b950a4527d90d" kindref="member">XASU_RSA_PSS_SIGN_GEN_SHA3_CMD_ID</ref>;</highlight></codeline>
+<codeline lineno="588"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="589"><highlight class="normal"></highlight></codeline>
+<codeline lineno="591"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Header<sp/>=<sp/>XAsu_CreateHeader(CmdId,<sp/>UniqueId,<sp/><ref refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" kindref="member">XASU_MODULE_RSA_ID</ref>,</highlight></codeline>
+<codeline lineno="592"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_asu___rsa_padding_params" kindref="compound">XAsu_RsaPaddingParams</ref>)<sp/>/<sp/><ref refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" kindref="member">XASU_WORD_LEN_IN_BYTES</ref>),</highlight></codeline>
+<codeline lineno="593"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParamPtr-&gt;SecureFlag);</highlight></codeline>
+<codeline lineno="594"><highlight class="normal"></highlight></codeline>
+<codeline lineno="596"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" kindref="member">XAsu_SendCmdToAsu</ref>(ClientParamPtr,<sp/>RsaClientParamPtr,</highlight></codeline>
+<codeline lineno="597"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_asu___rsa_padding_params" kindref="compound">XAsu_RsaPaddingParams</ref>)),<sp/>Header);</highlight></codeline>
+<codeline lineno="598"><highlight class="normal"></highlight></codeline>
+<codeline lineno="599"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="600"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="601"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="602"><highlight class="normal"></highlight></codeline>
+<codeline lineno="603"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="620" refid="group__xasu__rsa__client__apis_1ga3a33eba68b96c49e0dcb8ca6abfd7b89" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__xasu__rsa__client__apis_1ga3a33eba68b96c49e0dcb8ca6abfd7b89" kindref="member">XAsu_RsaPssSignVer</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,<sp/><ref refid="struct_x_asu___rsa_padding_params" kindref="compound">XAsu_RsaPaddingParams</ref><sp/>*RsaClientParamPtr)</highlight></codeline>
+<codeline lineno="621"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="622"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="623"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Header;</highlight></codeline>
+<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UniqueId;</highlight></codeline>
+<codeline lineno="625"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>CmdId;</highlight></codeline>
+<codeline lineno="626"><highlight class="normal"></highlight></codeline>
+<codeline lineno="628"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" kindref="member">XAsu_ValidateClientParameters</ref>(ClientParamPtr);</highlight></codeline>
+<codeline lineno="629"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="630"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="631"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="632"><highlight class="normal"></highlight></codeline>
+<codeline lineno="633"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaClientParamPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="634"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="635"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="636"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="637"><highlight class="normal"></highlight></codeline>
+<codeline lineno="639"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" kindref="member">XAsu_RsaValidateInputParams</ref>(&amp;(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" kindref="member">XAsu_RsaOpComp</ref>));</highlight></codeline>
+<codeline lineno="640"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="641"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="642"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="643"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="644"><highlight class="normal"></highlight></codeline>
+<codeline lineno="645"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1adcdbd318ffffe4d16dd53a354d64b510" kindref="member">SignatureDataAddr</ref><sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="646"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="647"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="648"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="649"><highlight class="normal"></highlight></codeline>
+<codeline lineno="650"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XAsu_RsaValidateKeySize(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" kindref="member">KeySize</ref>);</highlight></codeline>
+<codeline lineno="651"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="652"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="653"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="654"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="655"><highlight class="normal"></highlight></codeline>
+<codeline lineno="656"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" kindref="member">Len</ref><sp/>!=<sp/><ref refid="group__xasu__common__defs_1gaac7d78d75140a49311500aeecaeb857f" kindref="member">XASU_SHA_SHAKE_256_HASH_LEN</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="657"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" kindref="member">Len</ref><sp/>!=<sp/><ref refid="group__xasu__common__defs_1ga03b4e128752ecabe8915b7c8a8a4d73f" kindref="member">XASU_SHA_384_HASH_LEN</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="658"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" kindref="member">Len</ref><sp/>!=<sp/><ref refid="group__xasu__common__defs_1ga2f1dce4b9423d6e10cd1914f67a70178" kindref="member">XASU_SHA_512_HASH_LEN</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="659"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" kindref="member">Len</ref><sp/>!=<sp/><ref refid="group__xasu__common__defs_1gaac7d78d75140a49311500aeecaeb857f" kindref="member">XASU_SHA_SHAKE_256_HASH_LEN</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="660"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" kindref="member">Len</ref><sp/>!=<sp/><ref refid="group__xasu__common__defs_1ga76b2a99254d75adbf6f36f2cfbb39964" kindref="member">XASU_SHAKE_256_MAX_HASH_LEN</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="661"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1afa1caad52128e98d9e481af3fc96626c" kindref="member">InputDataType</ref><sp/>==<sp/><ref refid="group__xasu__common__defs_1ga49f5d87d707175ade5c12f09f2062ba0" kindref="member">XASU_RSA_HASHED_INPUT_DATA</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="662"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="663"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="664"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="665"><highlight class="normal"></highlight></codeline>
+<codeline lineno="666"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a835f488b95ca9c9ae8cc9ae3e8732c5d" kindref="member">SignatureLen</ref><sp/>!=<sp/>RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" kindref="member">XAsu_RsaOpComp</ref>.<ref refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" kindref="member">KeySize</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="667"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="668"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="669"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="670"><highlight class="normal"></highlight></codeline>
+<codeline lineno="671"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XAsu_ShaValidateModeAndType(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a4b962e1d08fb88965e9dcb6805769c34" kindref="member">ShaType</ref>,<sp/>RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a1c007736fb6e25858b9dcfaf2f952369" kindref="member">ShaMode</ref>)<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="672"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" kindref="member">XASU_INVALID_ARGUMENT</ref>;</highlight></codeline>
+<codeline lineno="673"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="674"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="675"><highlight class="normal"></highlight></codeline>
+<codeline lineno="677"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UniqueId<sp/>=<sp/><ref refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" kindref="member">XAsu_RegCallBackNGetUniqueId</ref>(ClientParamPtr,<sp/>NULL,<sp/>0U,<sp/><ref refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" kindref="member">XASU_TRUE</ref>);</highlight></codeline>
+<codeline lineno="678"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(UniqueId<sp/>&gt;=<sp/><ref refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" kindref="member">XASU_UNIQUE_ID_MAX</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="679"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" kindref="member">XASU_INVALID_UNIQUE_ID</ref>;</highlight></codeline>
+<codeline lineno="680"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="681"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="682"><highlight class="normal"></highlight></codeline>
+<codeline lineno="684"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaClientParamPtr-&gt;<ref refid="struct_x_asu___rsa_padding_params_1a4b962e1d08fb88965e9dcb6805769c34" kindref="member">ShaType</ref><sp/>==<sp/><ref refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" kindref="member">XASU_SHA2_TYPE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="685"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CmdId<sp/>=<sp/><ref refid="group__xasu__common__defs_1ga63ed6f5157f1f8058157a323d86de0a3" kindref="member">XASU_RSA_PSS_SIGN_VER_SHA2_CMD_ID</ref>;</highlight></codeline>
+<codeline lineno="686"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="687"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CmdId<sp/>=<sp/><ref refid="group__xasu__common__defs_1gabdaa92632a989db821db9bd361430159" kindref="member">XASU_RSA_PSS_SIGN_VER_SHA3_CMD_ID</ref>;</highlight></codeline>
+<codeline lineno="688"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="689"><highlight class="normal"></highlight></codeline>
+<codeline lineno="691"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Header<sp/>=<sp/>XAsu_CreateHeader(CmdId,<sp/>UniqueId,<sp/><ref refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" kindref="member">XASU_MODULE_RSA_ID</ref>,</highlight></codeline>
+<codeline lineno="692"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_asu___rsa_padding_params" kindref="compound">XAsu_RsaPaddingParams</ref>)<sp/>/<sp/><ref refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" kindref="member">XASU_WORD_LEN_IN_BYTES</ref>),</highlight></codeline>
+<codeline lineno="693"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParamPtr-&gt;SecureFlag);</highlight></codeline>
+<codeline lineno="694"><highlight class="normal"></highlight></codeline>
+<codeline lineno="696"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" kindref="member">XAsu_SendCmdToAsu</ref>(ClientParamPtr,<sp/>RsaClientParamPtr,</highlight></codeline>
+<codeline lineno="697"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_asu___rsa_padding_params" kindref="compound">XAsu_RsaPaddingParams</ref>)),<sp/>Header);</highlight></codeline>
+<codeline lineno="698"><highlight class="normal"></highlight></codeline>
+<codeline lineno="699"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="700"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="701"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="702"><highlight class="normal"></highlight></codeline>
+<codeline lineno="703"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="718" refid="group__xasu__rsa__client__apis_1ga5d24241387d6859603f7de3270205d0a" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__xasu__rsa__client__apis_1ga5d24241387d6859603f7de3270205d0a" kindref="member">XAsu_RsaOaepEncDecKat</ref>(XAsu_ClientParams<sp/>*ClientParamPtr)</highlight></codeline>
+<codeline lineno="719"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="720"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="721"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Header;</highlight></codeline>
+<codeline lineno="722"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UniqueId;</highlight></codeline>
+<codeline lineno="723"><highlight class="normal"></highlight></codeline>
+<codeline lineno="725"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" kindref="member">XAsu_ValidateClientParameters</ref>(ClientParamPtr);</highlight></codeline>
+<codeline lineno="726"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="727"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="728"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="729"><highlight class="normal"></highlight></codeline>
+<codeline lineno="731"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UniqueId<sp/>=<sp/><ref refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" kindref="member">XAsu_RegCallBackNGetUniqueId</ref>(ClientParamPtr,<sp/>NULL,<sp/>0U,<sp/><ref refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" kindref="member">XASU_TRUE</ref>);</highlight></codeline>
+<codeline lineno="732"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(UniqueId<sp/>&gt;=<sp/><ref refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" kindref="member">XASU_UNIQUE_ID_MAX</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="733"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" kindref="member">XASU_INVALID_UNIQUE_ID</ref>;</highlight></codeline>
+<codeline lineno="734"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="735"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="736"><highlight class="normal"></highlight></codeline>
+<codeline lineno="738"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Header<sp/>=<sp/>XAsu_CreateHeader(<ref refid="group__xasu__common__defs_1ga76cafee9cd51795f3a81afec4eeb570f" kindref="member">XASU_RSA_OAEP_ENC_DEC_KAT_CMD_ID</ref>,<sp/>UniqueId,</highlight></codeline>
+<codeline lineno="739"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" kindref="member">XASU_MODULE_RSA_ID</ref>,<sp/><ref refid="group__xasu__client__info_1gae954c6c287fd8516f1cf18672f6b0eba" kindref="member">XASU_CMD_LEN_ZERO</ref>,</highlight></codeline>
+<codeline lineno="740"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParamPtr-&gt;SecureFlag);</highlight></codeline>
+<codeline lineno="741"><highlight class="normal"></highlight></codeline>
+<codeline lineno="743"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" kindref="member">XAsu_SendCmdToAsu</ref>(ClientParamPtr,<sp/>NULL,<sp/>0U,<sp/>Header);</highlight></codeline>
+<codeline lineno="744"><highlight class="normal"></highlight></codeline>
+<codeline lineno="745"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="746"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="747"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="748"><highlight class="normal"></highlight></codeline>
+<codeline lineno="749"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="764" refid="group__xasu__rsa__client__apis_1ga0e3fbf80fd0254640e9938019e3b9ee1" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__xasu__rsa__client__apis_1ga0e3fbf80fd0254640e9938019e3b9ee1" kindref="member">XAsu_RsaPssSignGenAndVerKat</ref>(XAsu_ClientParams<sp/>*ClientParamPtr)</highlight></codeline>
+<codeline lineno="765"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="766"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="767"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Header;</highlight></codeline>
+<codeline lineno="768"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UniqueId;</highlight></codeline>
+<codeline lineno="769"><highlight class="normal"></highlight></codeline>
+<codeline lineno="771"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" kindref="member">XAsu_ValidateClientParameters</ref>(ClientParamPtr);</highlight></codeline>
+<codeline lineno="772"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="773"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="774"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="775"><highlight class="normal"></highlight></codeline>
+<codeline lineno="777"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UniqueId<sp/>=<sp/><ref refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" kindref="member">XAsu_RegCallBackNGetUniqueId</ref>(ClientParamPtr,<sp/>NULL,<sp/>0U,<sp/><ref refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" kindref="member">XASU_TRUE</ref>);</highlight></codeline>
+<codeline lineno="778"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(UniqueId<sp/>&gt;=<sp/><ref refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" kindref="member">XASU_UNIQUE_ID_MAX</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="779"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" kindref="member">XASU_INVALID_UNIQUE_ID</ref>;</highlight></codeline>
+<codeline lineno="780"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="781"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="782"><highlight class="normal"></highlight></codeline>
+<codeline lineno="784"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Header<sp/>=<sp/>XAsu_CreateHeader(<ref refid="group__xasu__common__defs_1ga8e3e63880bd11293a0ff07490dc00efe" kindref="member">XASU_RSA_PSS_SIGN_GEN_VER_KAT_CMD_ID</ref>,<sp/>UniqueId,</highlight></codeline>
+<codeline lineno="785"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" kindref="member">XASU_MODULE_RSA_ID</ref>,<sp/><ref refid="group__xasu__client__info_1gae954c6c287fd8516f1cf18672f6b0eba" kindref="member">XASU_CMD_LEN_ZERO</ref>,</highlight></codeline>
+<codeline lineno="786"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParamPtr-&gt;SecureFlag);</highlight></codeline>
+<codeline lineno="787"><highlight class="normal"></highlight></codeline>
+<codeline lineno="789"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" kindref="member">XAsu_SendCmdToAsu</ref>(ClientParamPtr,<sp/>NULL,<sp/>0U,<sp/>Header);</highlight></codeline>
+<codeline lineno="790"><highlight class="normal"></highlight></codeline>
+<codeline lineno="791"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="792"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="793"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="794"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c"/>
+  </compounddef>
+</doxygen>

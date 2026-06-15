@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___rsa_pvt_key_comp" kind="struct" prot="public">
+    <compoundname>XAsu_RsaPvtKeyComp</compoundname>
+    <includes local="no">xasu_rsainfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___rsa_pvt_key_comp_1aefcc19b50b4d9737f74baeca5f256529" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___rsa_pub_key_comp" kindref="compound">XAsu_RsaPubKeyComp</ref></type>
+        <definition>XAsu_RsaPubKeyComp XAsu_RsaPvtKeyComp::PubKeyComp</definition>
+        <argsstring></argsstring>
+        <name>PubKeyComp</name>
+        <briefdescription>
+<para>Contains public key components. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="110" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_pvt_key_comp_1a062bb63966c303087965d1e37b767428" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaPvtKeyComp::PvtExp[XRSA_MAX_KEY_SIZE_IN_WORDS]</definition>
+        <argsstring>[XRSA_MAX_KEY_SIZE_IN_WORDS]</argsstring>
+        <name>PvtExp</name>
+        <briefdescription>
+<para>Private Exponent. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="111" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_pvt_key_comp_1a872aad7bcfa90dd5b032b26199ea05f5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaPvtKeyComp::PrimeCompOrTotient[XRSA_MAX_KEY_SIZE_IN_WORDS]</definition>
+        <argsstring>[XRSA_MAX_KEY_SIZE_IN_WORDS]</argsstring>
+        <name>PrimeCompOrTotient</name>
+        <briefdescription>
+<para>Prime component or Totient. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_pvt_key_comp_1aee026bc85163c5d997042dc1895c48be" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaPvtKeyComp::PrimeCompOrTotientPrsnt</definition>
+        <argsstring></argsstring>
+        <name>PrimeCompOrTotientPrsnt</name>
+        <briefdescription>
+<para>0 : Ignore PrimeComporTotient array 1 : Array Consists totient 2 : Array Consists Prime component </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="114" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains RSA private key parameters info. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="130">
+        <label>XAsu_RsaPubKeyComp</label>
+        <link refid="struct_x_asu___rsa_pub_key_comp"/>
+      </node>
+      <node id="129">
+        <label>XAsu_RsaPvtKeyComp</label>
+        <link refid="struct_x_asu___rsa_pvt_key_comp"/>
+        <childnode refid="130" relation="usage">
+          <edgelabel>PubKeyComp</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="109" bodyend="117"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___rsa_pvt_key_comp_1a872aad7bcfa90dd5b032b26199ea05f5" prot="public" virt="non-virtual"><scope>XAsu_RsaPvtKeyComp</scope><name>PrimeCompOrTotient</name></member>
+      <member refid="struct_x_asu___rsa_pvt_key_comp_1aee026bc85163c5d997042dc1895c48be" prot="public" virt="non-virtual"><scope>XAsu_RsaPvtKeyComp</scope><name>PrimeCompOrTotientPrsnt</name></member>
+      <member refid="struct_x_asu___rsa_pvt_key_comp_1aefcc19b50b4d9737f74baeca5f256529" prot="public" virt="non-virtual"><scope>XAsu_RsaPvtKeyComp</scope><name>PubKeyComp</name></member>
+      <member refid="struct_x_asu___rsa_pvt_key_comp_1a062bb63966c303087965d1e37b767428" prot="public" virt="non-virtual"><scope>XAsu_RsaPvtKeyComp</scope><name>PvtExp</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

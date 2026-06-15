@@ -1,0 +1,643 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xcanps__intr_8c" kind="file">
+    <compoundname>xcanps_intr.c</compoundname>
+    <includes refid="xcanps_8h" local="yes">xcanps.h</includes>
+    <incdepgraph>
+      <node id="65">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="61">
+        <label>xcanps.h</label>
+        <link refid="xcanps_8h"/>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+      </node>
+      <node id="66">
+        <label>xil_io.h</label>
+      </node>
+      <node id="63">
+        <label>xcanps_hw.h</label>
+        <link refid="xcanps__hw_8h"/>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>xstatus.h</label>
+      </node>
+      <node id="64">
+        <label>xil_types.h</label>
+      </node>
+      <node id="60">
+        <label>xcanps_intr.c</label>
+        <link refid="xcanps_intr.c"/>
+        <childnode refid="61" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__canps_1ga06e4eda1022a81ea619ac7d66e345577" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCanPs_IntrEnable</definition>
+        <argsstring>(XCanPs *InstancePtr, u32 Mask)</argsstring>
+        <name>XCanPs_IntrEnable</name>
+        <param>
+          <type><ref refid="struct_x_can_ps" kindref="compound">XCanPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This routine enables interrupt(s). </para>        </briefdescription>
+        <detaileddescription>
+<para>Use the XCANPS_IXR_* constants defined in <ref refid="xcanps__hw_8h" kindref="compound">xcanps_hw.h</ref> to create the bit-mask to enable interrupts.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can_ps" kindref="compound">XCanPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the mask to enable. Bit positions of 1 will be enabled. Bit positions of 0 will keep the previous setting. This mask is formed by OR&apos;ing XCANPS_IXR_* bits defined in <ref refid="xcanps__hw_8h" kindref="compound">xcanps_hw.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" line="556" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_intr.c" bodystart="60" bodyend="74"/>
+        <references refid="struct_x_can_ps___config_1aead9a19a4d9084512a482d1d5ae41bc9" compoundref="xcanps_8h" startline="240">XCanPs_Config::BaseAddr</references>
+        <references refid="struct_x_can_ps_1a30d5c051230d85a6e3067c612017db79" compoundref="xcanps_8h" startline="291">XCanPs::CanConfig</references>
+        <references refid="struct_x_can_ps_1ab07950d363c9316882a112ec5b32de32" compoundref="xcanps_8h" startline="292">XCanPs::IsReady</references>
+        <references refid="group__canps_1gad534c55a73e054745c04c3adada42a7a" compoundref="xcanps__hw_8h" startline="70">XCANPS_IER_OFFSET</references>
+        <references refid="group__canps_1gac3325adebecffcb97cb01ff3c75391b0" compoundref="xcanps__intr_8c" startline="122" endline="130">XCanPs_IntrGetEnabled</references>
+        <references refid="group__canps_1ga54552fe78115d81806e23a03646efb55" compoundref="xcanps__hw_8h" startline="333">XCanPs_WriteReg</references>
+        <referencedby refid="xcanps__intr__example_8c_1aa5372d75abf21251529fc57361192132" compoundref="xcanps__intr__example_8c" startline="237" endline="338">CanPsIntrExample</referencedby>
+        <referencedby refid="xcanps__watermark__intr__example_8c_1a6c810de1921e088a01fbd2c4670dbfe4" compoundref="xcanps__watermark__intr__example_8c" startline="230" endline="366">CanPsWatermarkIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__canps_1ga6228ea25a1ccf31608231b07f3ae54a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCanPs_IntrDisable</definition>
+        <argsstring>(XCanPs *InstancePtr, u32 Mask)</argsstring>
+        <name>XCanPs_IntrDisable</name>
+        <param>
+          <type><ref refid="struct_x_can_ps" kindref="compound">XCanPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This routine disables interrupt(s). </para>        </briefdescription>
+        <detaileddescription>
+<para>Use the XCANPS_IXR_* constants defined in <ref refid="xcanps__hw_8h" kindref="compound">xcanps_hw.h</ref> to create the bit-mask to disable interrupt(s).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can_ps" kindref="compound">XCanPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the mask to disable. Bit positions of 1 will be disabled. Bit positions of 0 will keep the previous setting. This mask is formed by OR&apos;ing XCANPS_IXR_* bits defined in <ref refid="xcanps__hw_8h" kindref="compound">xcanps_hw.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" line="557" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_intr.c" bodystart="93" bodyend="107"/>
+        <references refid="struct_x_can_ps___config_1aead9a19a4d9084512a482d1d5ae41bc9" compoundref="xcanps_8h" startline="240">XCanPs_Config::BaseAddr</references>
+        <references refid="struct_x_can_ps_1a30d5c051230d85a6e3067c612017db79" compoundref="xcanps_8h" startline="291">XCanPs::CanConfig</references>
+        <references refid="struct_x_can_ps_1ab07950d363c9316882a112ec5b32de32" compoundref="xcanps_8h" startline="292">XCanPs::IsReady</references>
+        <references refid="group__canps_1gad534c55a73e054745c04c3adada42a7a" compoundref="xcanps__hw_8h" startline="70">XCANPS_IER_OFFSET</references>
+        <references refid="group__canps_1gac3325adebecffcb97cb01ff3c75391b0" compoundref="xcanps__intr_8c" startline="122" endline="130">XCanPs_IntrGetEnabled</references>
+        <references refid="group__canps_1ga54552fe78115d81806e23a03646efb55" compoundref="xcanps__hw_8h" startline="333">XCanPs_WriteReg</references>
+        <referencedby refid="xcanps__watermark__intr__example_8c_1a6c810de1921e088a01fbd2c4670dbfe4" compoundref="xcanps__watermark__intr__example_8c" startline="230" endline="366">CanPsWatermarkIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__canps_1gac3325adebecffcb97cb01ff3c75391b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCanPs_IntrGetEnabled</definition>
+        <argsstring>(XCanPs *InstancePtr)</argsstring>
+        <name>XCanPs_IntrGetEnabled</name>
+        <param>
+          <type><ref refid="struct_x_can_ps" kindref="compound">XCanPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This routine returns enabled interrupt(s). </para>        </briefdescription>
+        <detaileddescription>
+<para>Use the XCANPS_IXR_* constants defined in <ref refid="xcanps__hw_8h" kindref="compound">xcanps_hw.h</ref> to interpret the returned value.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can_ps" kindref="compound">XCanPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Enabled interrupt(s) in a 32-bit format.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" line="558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_intr.c" bodystart="122" bodyend="130"/>
+        <references refid="struct_x_can_ps___config_1aead9a19a4d9084512a482d1d5ae41bc9" compoundref="xcanps_8h" startline="240">XCanPs_Config::BaseAddr</references>
+        <references refid="struct_x_can_ps_1a30d5c051230d85a6e3067c612017db79" compoundref="xcanps_8h" startline="291">XCanPs::CanConfig</references>
+        <references refid="struct_x_can_ps_1ab07950d363c9316882a112ec5b32de32" compoundref="xcanps_8h" startline="292">XCanPs::IsReady</references>
+        <references refid="group__canps_1gad534c55a73e054745c04c3adada42a7a" compoundref="xcanps__hw_8h" startline="70">XCANPS_IER_OFFSET</references>
+        <references refid="group__canps_1ga6bace9f8a3ecc5df69b5e9611deaa47c" compoundref="xcanps__hw_8h" startline="315">XCanPs_ReadReg</references>
+        <referencedby refid="group__canps_1ga6228ea25a1ccf31608231b07f3ae54a7" compoundref="xcanps__intr_8c" startline="93" endline="107">XCanPs_IntrDisable</referencedby>
+        <referencedby refid="group__canps_1ga06e4eda1022a81ea619ac7d66e345577" compoundref="xcanps__intr_8c" startline="60" endline="74">XCanPs_IntrEnable</referencedby>
+        <referencedby refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" compoundref="xcanps__intr_8c" startline="210" endline="306">XCanPs_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__canps_1gac6640f1ea5f9e4027d67af3b4eec4623" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCanPs_IntrGetStatus</definition>
+        <argsstring>(XCanPs *InstancePtr)</argsstring>
+        <name>XCanPs_IntrGetStatus</name>
+        <param>
+          <type><ref refid="struct_x_can_ps" kindref="compound">XCanPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This routine returns interrupt status read from Interrupt Status Register. </para>        </briefdescription>
+        <detaileddescription>
+<para>Use the XCANPS_IXR_* constants defined in <ref refid="xcanps__hw_8h" kindref="compound">xcanps_hw.h</ref> to interpret the returned value.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can_ps" kindref="compound">XCanPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value stored in Interrupt Status Register.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" line="559" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_intr.c" bodystart="147" bodyend="154"/>
+        <references refid="struct_x_can_ps___config_1aead9a19a4d9084512a482d1d5ae41bc9" compoundref="xcanps_8h" startline="240">XCanPs_Config::BaseAddr</references>
+        <references refid="struct_x_can_ps_1a30d5c051230d85a6e3067c612017db79" compoundref="xcanps_8h" startline="291">XCanPs::CanConfig</references>
+        <references refid="struct_x_can_ps_1ab07950d363c9316882a112ec5b32de32" compoundref="xcanps_8h" startline="292">XCanPs::IsReady</references>
+        <references refid="group__canps_1gaf4dd00135421b512fc9c7eb7ce6b67bc" compoundref="xcanps__hw_8h" startline="69">XCANPS_ISR_OFFSET</references>
+        <references refid="group__canps_1ga6bace9f8a3ecc5df69b5e9611deaa47c" compoundref="xcanps__hw_8h" startline="315">XCanPs_ReadReg</references>
+        <referencedby refid="group__canps_1gae573e5472755420a3b6ded5d01814534" compoundref="xcanps__intr_8c" startline="173" endline="187">XCanPs_IntrClear</referencedby>
+        <referencedby refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" compoundref="xcanps__intr_8c" startline="210" endline="306">XCanPs_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__canps_1gae573e5472755420a3b6ded5d01814534" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCanPs_IntrClear</definition>
+        <argsstring>(XCanPs *InstancePtr, u32 Mask)</argsstring>
+        <name>XCanPs_IntrClear</name>
+        <param>
+          <type><ref refid="struct_x_can_ps" kindref="compound">XCanPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function clears interrupt(s). </para>        </briefdescription>
+        <detaileddescription>
+<para>Every bit set in Interrupt Status Register indicates that a specific type of interrupt is occurring, and this function clears one or more interrupts by writing a bit mask to Interrupt Clear Register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can_ps" kindref="compound">XCanPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the mask to clear. Bit positions of 1 will be cleared. Bit positions of 0 will not change the previous interrupt status. This mask is formed by OR&apos;ing XCANPS_IXR_* bits defined in <ref refid="xcanps__hw_8h" kindref="compound">xcanps_hw.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" line="560" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_intr.c" bodystart="173" bodyend="187"/>
+        <references refid="struct_x_can_ps___config_1aead9a19a4d9084512a482d1d5ae41bc9" compoundref="xcanps_8h" startline="240">XCanPs_Config::BaseAddr</references>
+        <references refid="struct_x_can_ps_1a30d5c051230d85a6e3067c612017db79" compoundref="xcanps_8h" startline="291">XCanPs::CanConfig</references>
+        <references refid="struct_x_can_ps_1ab07950d363c9316882a112ec5b32de32" compoundref="xcanps_8h" startline="292">XCanPs::IsReady</references>
+        <references refid="group__canps_1gad00a5deeda33258d922282e6fa62e876" compoundref="xcanps__hw_8h" startline="71">XCANPS_ICR_OFFSET</references>
+        <references refid="group__canps_1gac6640f1ea5f9e4027d67af3b4eec4623" compoundref="xcanps__intr_8c" startline="147" endline="154">XCanPs_IntrGetStatus</references>
+        <references refid="group__canps_1ga54552fe78115d81806e23a03646efb55" compoundref="xcanps__hw_8h" startline="333">XCanPs_WriteReg</references>
+        <referencedby refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" compoundref="xcanps__intr_8c" startline="210" endline="306">XCanPs_IntrHandler</referencedby>
+        <referencedby refid="group__canps_1gaf821f77f00b8eca7c564b15d6c8f8b5e" compoundref="xcanps_8c" startline="514" endline="546">XCanPs_Recv</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCanPs_IntrHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XCanPs_IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This routine is the interrupt handler for the CAN driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler reads the interrupt status from the ISR, determines the source of the interrupts, calls according callbacks, and finally clears the interrupts.</para><para>Application beyond this driver is responsible for providing callbacks to handle interrupts and installing the callbacks using <ref refid="group__canps_1ga0204f292cdab7478127acd765d97dd8d" kindref="member">XCanPs_SetHandler()</ref> during initialization phase. An example delivered with this driver demonstrates how this could be done.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can_ps" kindref="compound">XCanPs</ref> instance that just interrupted.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" line="561" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_intr.c" bodystart="210" bodyend="306"/>
+        <references refid="struct_x_can_ps_1a9313489940a11876015dd38b6e3de9ff" compoundref="xcanps_8h" startline="309">XCanPs::ErrorHandler</references>
+        <references refid="struct_x_can_ps_1ad2163a0fe420d71555523a8fb6dd9930" compoundref="xcanps_8h" startline="310">XCanPs::ErrorRef</references>
+        <references refid="struct_x_can_ps_1a1857e20990da8e6fd56ea2b7675d4ec6" compoundref="xcanps_8h" startline="316">XCanPs::EventHandler</references>
+        <references refid="struct_x_can_ps_1ab66517c65da23938534a00e4ede60e04" compoundref="xcanps_8h" startline="317">XCanPs::EventRef</references>
+        <references refid="struct_x_can_ps_1ab07950d363c9316882a112ec5b32de32" compoundref="xcanps_8h" startline="292">XCanPs::IsReady</references>
+        <references refid="struct_x_can_ps_1aeb2c7083ed53b05f1281bf5ccc5c8c93" compoundref="xcanps_8h" startline="303">XCanPs::RecvHandler</references>
+        <references refid="struct_x_can_ps_1a2ede4be878ace6204e2b9a666dd3271c" compoundref="xcanps_8h" startline="304">XCanPs::RecvRef</references>
+        <references refid="struct_x_can_ps_1ab21c9bfc9351154b2c8731ec6b7a7fcb" compoundref="xcanps_8h" startline="297">XCanPs::SendHandler</references>
+        <references refid="struct_x_can_ps_1a3fdbe81dfc211c00586a9d6f435f70b8" compoundref="xcanps_8h" startline="298">XCanPs::SendRef</references>
+        <references refid="group__canps_1ga616ac01563ef3d8f9ae57bf308bad534" compoundref="xcanps_8c" startline="419" endline="426">XCanPs_ClearBusErrorStatus</references>
+        <references refid="group__canps_1ga647e39edd3f7247a5e283e9083d8d285" compoundref="xcanps_8c" startline="392" endline="400">XCanPs_GetBusErrorStatus</references>
+        <references refid="group__canps_1gae573e5472755420a3b6ded5d01814534" compoundref="xcanps__intr_8c" startline="173" endline="187">XCanPs_IntrClear</references>
+        <references refid="group__canps_1gac3325adebecffcb97cb01ff3c75391b0" compoundref="xcanps__intr_8c" startline="122" endline="130">XCanPs_IntrGetEnabled</references>
+        <references refid="group__canps_1gac6640f1ea5f9e4027d67af3b4eec4623" compoundref="xcanps__intr_8c" startline="147" endline="154">XCanPs_IntrGetStatus</references>
+        <references refid="group__canps_1ga4a9f40766aa79e63473f80e45d7a4cb2" compoundref="xcanps__hw_8h" startline="185">XCANPS_IXR_ARBLST_MASK</references>
+        <references refid="group__canps_1ga438360dd41b95c4e5794ed038e311cf1" compoundref="xcanps__hw_8h" startline="176">XCANPS_IXR_BSOFF_MASK</references>
+        <references refid="group__canps_1ga5f8ec6f644bc0212dce402d138716aa4" compoundref="xcanps__hw_8h" startline="177">XCANPS_IXR_ERROR_MASK</references>
+        <references refid="group__canps_1gafe154f7d522c1a8e7e26f20d1e8df897" compoundref="xcanps__hw_8h" startline="173">XCANPS_IXR_RXFWMFLL_MASK</references>
+        <references refid="group__canps_1ga63bd136fc25bca2796bce56d60a31ea6" compoundref="xcanps__hw_8h" startline="178">XCANPS_IXR_RXNEMP_MASK</references>
+        <references refid="group__canps_1ga380edfd096c837c735e9f50fcae4bd89" compoundref="xcanps__hw_8h" startline="179">XCANPS_IXR_RXOFLW_MASK</references>
+        <references refid="group__canps_1gadb093abe285ffcc4acfbe92175a9ff3c" compoundref="xcanps__hw_8h" startline="180">XCANPS_IXR_RXUFLW_MASK</references>
+        <references refid="group__canps_1ga83a79d0a328234c542de4a6a0615791c" compoundref="xcanps__hw_8h" startline="175">XCANPS_IXR_SLP_MASK</references>
+        <references refid="group__canps_1ga8ac7090cc527801acbb5209a75265072" compoundref="xcanps__hw_8h" startline="182">XCANPS_IXR_TXBFLL_MASK</references>
+        <references refid="group__canps_1ga7ee9a029b99b8293db3aa66c34a1db7c" compoundref="xcanps__hw_8h" startline="183">XCANPS_IXR_TXFLL_MASK</references>
+        <references refid="group__canps_1gae0079b661baab2a690b6beab2e259e86" compoundref="xcanps__hw_8h" startline="172">XCANPS_IXR_TXFWMEMP_MASK</references>
+        <references refid="group__canps_1ga5270e4112cfc21e4a7ed8c168f2ccb10" compoundref="xcanps__hw_8h" startline="184">XCANPS_IXR_TXOK_MASK</references>
+        <references refid="group__canps_1gaa85aec590359fff45d33d12edb43d1fd" compoundref="xcanps__hw_8h" startline="174">XCANPS_IXR_WKUP_MASK</references>
+        <referencedby refid="xcanps__intr__example_8c_1aa5372d75abf21251529fc57361192132" compoundref="xcanps__intr__example_8c" startline="237" endline="338">CanPsIntrExample</referencedby>
+        <referencedby refid="xcanps__watermark__intr__example_8c_1a6c810de1921e088a01fbd2c4670dbfe4" compoundref="xcanps__watermark__intr__example_8c" startline="230" endline="366">CanPsWatermarkIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__canps_1ga0204f292cdab7478127acd765d97dd8d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XCanPs_SetHandler</definition>
+        <argsstring>(XCanPs *InstancePtr, u32 HandlerType, void *CallBackFunc, void *CallBackRef)</argsstring>
+        <name>XCanPs_SetHandler</name>
+        <param>
+          <type><ref refid="struct_x_can_ps" kindref="compound">XCanPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HandlerType</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>This routine installs an asynchronous callback function for the given HandlerType: </para>        </briefdescription>
+        <detaileddescription>
+<para><preformatted>
+HandlerType                     Callback Function Type
+----------------------- ------------------------
+XCANPS_HANDLER_SEND             XCanPs_SendRecvHandler
+XCANPS_HANDLER_RECV             XCanPs_SendRecvHandler
+XCANPS_HANDLER_ERROR            XCanPs_ErrorHandler
+XCANPS_HANDLER_EVENT            XCanPs_EventHandler</preformatted></para><para><preformatted>HandlerType                     Invoked by this driver when:
+-------------------------------------------------------------------------
+XCANPS_HANDLER_SEND             A frame transmitted by a call to
+                        <ref refid="group__canps_1ga4bea2b2b897bad064ebbf6c87a934a40" kindref="member">XCanPs_Send()</ref> has been sent successfully.</preformatted></para><para><preformatted>XCANPS_HANDLER_RECV             A frame(s) has been received and is sitting in
+                        the RX FIFO.</preformatted></para><para><preformatted>XCANPS_HANDLER_ERROR            An error interrupt is occurring.</preformatted></para><para><preformatted>XCANPS_HANDLER_EVENT            Any other kind of interrupt is occurring.
+</preformatted></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can_ps" kindref="compound">XCanPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HandlerType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies which handler is to be attached. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS when handler is installed.</para></listitem><listitem><para>XST_INVALID_PARAM when HandlerType is invalid.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Invoking this function for a handler that already has been installed replaces it with the new handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" line="562" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_intr.c" bodystart="351" bodyend="392"/>
+        <references refid="struct_x_can_ps_1a9313489940a11876015dd38b6e3de9ff" compoundref="xcanps_8h" startline="309">XCanPs::ErrorHandler</references>
+        <references refid="struct_x_can_ps_1ad2163a0fe420d71555523a8fb6dd9930" compoundref="xcanps_8h" startline="310">XCanPs::ErrorRef</references>
+        <references refid="struct_x_can_ps_1a1857e20990da8e6fd56ea2b7675d4ec6" compoundref="xcanps_8h" startline="316">XCanPs::EventHandler</references>
+        <references refid="struct_x_can_ps_1ab66517c65da23938534a00e4ede60e04" compoundref="xcanps_8h" startline="317">XCanPs::EventRef</references>
+        <references refid="struct_x_can_ps_1ab07950d363c9316882a112ec5b32de32" compoundref="xcanps_8h" startline="292">XCanPs::IsReady</references>
+        <references refid="struct_x_can_ps_1aeb2c7083ed53b05f1281bf5ccc5c8c93" compoundref="xcanps_8h" startline="303">XCanPs::RecvHandler</references>
+        <references refid="struct_x_can_ps_1a2ede4be878ace6204e2b9a666dd3271c" compoundref="xcanps_8h" startline="304">XCanPs::RecvRef</references>
+        <references refid="struct_x_can_ps_1ab21c9bfc9351154b2c8731ec6b7a7fcb" compoundref="xcanps_8h" startline="297">XCanPs::SendHandler</references>
+        <references refid="struct_x_can_ps_1a3fdbe81dfc211c00586a9d6f435f70b8" compoundref="xcanps_8h" startline="298">XCanPs::SendRef</references>
+        <references refid="group__canps_1ga60962a646bcd90fd768f78ff34f17ba5" compoundref="xcanps_8h" startline="225">XCANPS_HANDLER_ERROR</references>
+        <references refid="group__canps_1gad64733c5ddd21a972fc93a8d43f52d74" compoundref="xcanps_8h" startline="226">XCANPS_HANDLER_EVENT</references>
+        <references refid="group__canps_1ga6393e21002da8517ac35ae9c1be58681" compoundref="xcanps_8h" startline="224">XCANPS_HANDLER_RECV</references>
+        <references refid="group__canps_1gafed3df99b6f79d0ff7c39a6a03ec6c90" compoundref="xcanps_8h" startline="223">XCANPS_HANDLER_SEND</references>
+        <referencedby refid="xcanps__intr__example_8c_1aa5372d75abf21251529fc57361192132" compoundref="xcanps__intr__example_8c" startline="237" endline="338">CanPsIntrExample</referencedby>
+        <referencedby refid="xcanps__watermark__intr__example_8c_1a6c810de1921e088a01fbd2c4670dbfe4" compoundref="xcanps__watermark__intr__example_8c" startline="230" endline="366">CanPsWatermarkIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xcanps_8h" kindref="compound">xcanps.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="60" refid="group__canps_1ga06e4eda1022a81ea619ac7d66e345577" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__canps_1ga06e4eda1022a81ea619ac7d66e345577" kindref="member">XCanPs_IntrEnable</ref>(<ref refid="struct_x_can_ps" kindref="compound">XCanPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrValue;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_can_ps_1ab07950d363c9316882a112ec5b32de32" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="68"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>to<sp/>the<sp/>IER<sp/>to<sp/>enable<sp/>the<sp/>specified<sp/>interrupts.</highlight></codeline>
+<codeline lineno="69"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrValue<sp/>=<sp/><ref refid="group__canps_1gac3325adebecffcb97cb01ff3c75391b0" kindref="member">XCanPs_IntrGetEnabled</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrValue<sp/>|=<sp/>Mask;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canps_1ga54552fe78115d81806e23a03646efb55" kindref="member">XCanPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_ps_1a30d5c051230d85a6e3067c612017db79" kindref="member">CanConfig</ref>.<ref refid="struct_x_can_ps___config_1aead9a19a4d9084512a482d1d5ae41bc9" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canps_1gad534c55a73e054745c04c3adada42a7a" kindref="member">XCANPS_IER_OFFSET</ref>,<sp/>IntrValue);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="93" refid="group__canps_1ga6228ea25a1ccf31608231b07f3ae54a7" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__canps_1ga6228ea25a1ccf31608231b07f3ae54a7" kindref="member">XCanPs_IntrDisable</ref>(<ref refid="struct_x_can_ps" kindref="compound">XCanPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrValue;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_can_ps_1ab07950d363c9316882a112ec5b32de32" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="101"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>to<sp/>the<sp/>IER<sp/>to<sp/>disable<sp/>the<sp/>specified<sp/>interrupts.</highlight></codeline>
+<codeline lineno="102"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrValue<sp/>=<sp/><ref refid="group__canps_1gac3325adebecffcb97cb01ff3c75391b0" kindref="member">XCanPs_IntrGetEnabled</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrValue<sp/>&amp;=<sp/>~Mask;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canps_1ga54552fe78115d81806e23a03646efb55" kindref="member">XCanPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_ps_1a30d5c051230d85a6e3067c612017db79" kindref="member">CanConfig</ref>.<ref refid="struct_x_can_ps___config_1aead9a19a4d9084512a482d1d5ae41bc9" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canps_1gad534c55a73e054745c04c3adada42a7a" kindref="member">XCANPS_IER_OFFSET</ref>,<sp/>IntrValue);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="122" refid="group__canps_1gac3325adebecffcb97cb01ff3c75391b0" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__canps_1gac3325adebecffcb97cb01ff3c75391b0" kindref="member">XCanPs_IntrGetEnabled</ref>(<ref refid="struct_x_can_ps" kindref="compound">XCanPs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_can_ps_1ab07950d363c9316882a112ec5b32de32" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__canps_1ga6bace9f8a3ecc5df69b5e9611deaa47c" kindref="member">XCanPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_ps_1a30d5c051230d85a6e3067c612017db79" kindref="member">CanConfig</ref>.<ref refid="struct_x_can_ps___config_1aead9a19a4d9084512a482d1d5ae41bc9" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canps_1gad534c55a73e054745c04c3adada42a7a" kindref="member">XCANPS_IER_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="147" refid="group__canps_1gac6640f1ea5f9e4027d67af3b4eec4623" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__canps_1gac6640f1ea5f9e4027d67af3b4eec4623" kindref="member">XCanPs_IntrGetStatus</ref>(<ref refid="struct_x_can_ps" kindref="compound">XCanPs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_can_ps_1ab07950d363c9316882a112ec5b32de32" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__canps_1ga6bace9f8a3ecc5df69b5e9611deaa47c" kindref="member">XCanPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_ps_1a30d5c051230d85a6e3067c612017db79" kindref="member">CanConfig</ref>.<ref refid="struct_x_can_ps___config_1aead9a19a4d9084512a482d1d5ae41bc9" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canps_1gaf4dd00135421b512fc9c7eb7ce6b67bc" kindref="member">XCANPS_ISR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="173" refid="group__canps_1gae573e5472755420a3b6ded5d01814534" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__canps_1gae573e5472755420a3b6ded5d01814534" kindref="member">XCanPs_IntrClear</ref>(<ref refid="struct_x_can_ps" kindref="compound">XCanPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="174"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrValue;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_can_ps_1ab07950d363c9316882a112ec5b32de32" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="181"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clear<sp/>the<sp/>currently<sp/>pending<sp/>interrupts.</highlight></codeline>
+<codeline lineno="182"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrValue<sp/>=<sp/><ref refid="group__canps_1gac6640f1ea5f9e4027d67af3b4eec4623" kindref="member">XCanPs_IntrGetStatus</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrValue<sp/>&amp;=<sp/>Mask;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canps_1ga54552fe78115d81806e23a03646efb55" kindref="member">XCanPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_ps_1a30d5c051230d85a6e3067c612017db79" kindref="member">CanConfig</ref>.<ref refid="struct_x_can_ps___config_1aead9a19a4d9084512a482d1d5ae41bc9" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__canps_1gad00a5deeda33258d922282e6fa62e876" kindref="member">XCANPS_ICR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrValue);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="210" refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" kindref="member">XCanPs_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="211"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PendingIntr;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EventIntr;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ErrorStatus;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_can_ps" kindref="compound">XCanPs</ref><sp/>*CanPtr<sp/>=<sp/>(<ref refid="struct_x_can_ps" kindref="compound">XCanPs</ref><sp/>*)<sp/>InstancePtr;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(CanPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(CanPtr-&gt;<ref refid="struct_x_can_ps_1ab07950d363c9316882a112ec5b32de32" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PendingIntr<sp/>=<sp/><ref refid="group__canps_1gac6640f1ea5f9e4027d67af3b4eec4623" kindref="member">XCanPs_IntrGetStatus</ref>(CanPtr);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PendingIntr<sp/>&amp;=<sp/><ref refid="group__canps_1gac3325adebecffcb97cb01ff3c75391b0" kindref="member">XCanPs_IntrGetEnabled</ref>(CanPtr);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="224"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clear<sp/>all<sp/>pending<sp/>interrupts.</highlight></codeline>
+<codeline lineno="225"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Rising<sp/>Edge<sp/>interrupt</highlight></codeline>
+<codeline lineno="226"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canps_1gae573e5472755420a3b6ded5d01814534" kindref="member">XCanPs_IntrClear</ref>(CanPtr,<sp/>PendingIntr);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="230"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>An<sp/>error<sp/>interrupt<sp/>is<sp/>occurring.</highlight></codeline>
+<codeline lineno="231"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((PendingIntr<sp/>&amp;<sp/><ref refid="group__canps_1ga5f8ec6f644bc0212dce402d138716aa4" kindref="member">XCANPS_IXR_ERROR_MASK</ref>)<sp/>!=<sp/>(u32)0)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(CanPtr-&gt;<ref refid="struct_x_can_ps_1a9313489940a11876015dd38b6e3de9ff" kindref="member">ErrorHandler</ref><sp/>!=<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorStatus<sp/>=<sp/><ref refid="group__canps_1ga647e39edd3f7247a5e283e9083d8d285" kindref="member">XCanPs_GetBusErrorStatus</ref>(CanPtr);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CanPtr-&gt;<ref refid="struct_x_can_ps_1a9313489940a11876015dd38b6e3de9ff" kindref="member">ErrorHandler</ref>(CanPtr-&gt;<ref refid="struct_x_can_ps_1ad2163a0fe420d71555523a8fb6dd9930" kindref="member">ErrorRef</ref>,ErrorStatus);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="237"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clear<sp/>Error<sp/>Status<sp/>Register.</highlight></codeline>
+<codeline lineno="238"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canps_1ga616ac01563ef3d8f9ae57bf308bad534" kindref="member">XCanPs_ClearBusErrorStatus</ref>(CanPtr,ErrorStatus);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="243"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Check<sp/>if<sp/>any<sp/>following<sp/>event<sp/>interrupt<sp/>is<sp/>pending:</highlight></codeline>
+<codeline lineno="244"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>RX<sp/>FIFO<sp/>Overflow</highlight></codeline>
+<codeline lineno="245"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>RX<sp/>FIFO<sp/>Underflow</highlight></codeline>
+<codeline lineno="246"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>TX<sp/>High<sp/>Priority<sp/>Buffer<sp/>full</highlight></codeline>
+<codeline lineno="247"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>TX<sp/>FIFO<sp/>Full</highlight></codeline>
+<codeline lineno="248"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Wake<sp/>up<sp/>from<sp/>sleep<sp/>mode</highlight></codeline>
+<codeline lineno="249"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Enter<sp/>sleep<sp/>mode</highlight></codeline>
+<codeline lineno="250"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Enter<sp/>Bus<sp/>off<sp/>status</highlight></codeline>
+<codeline lineno="251"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Arbitration<sp/>is<sp/>lost</highlight></codeline>
+<codeline lineno="252"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="253"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>so,<sp/>call<sp/>event<sp/>callback<sp/>provided<sp/>by<sp/>upper<sp/>level.</highlight></codeline>
+<codeline lineno="254"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EventIntr<sp/>=<sp/>PendingIntr<sp/>&amp;<sp/>((u32)<ref refid="group__canps_1ga380edfd096c837c735e9f50fcae4bd89" kindref="member">XCANPS_IXR_RXOFLW_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__canps_1gadb093abe285ffcc4acfbe92175a9ff3c" kindref="member">XCANPS_IXR_RXUFLW_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__canps_1ga8ac7090cc527801acbb5209a75265072" kindref="member">XCANPS_IXR_TXBFLL_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__canps_1ga7ee9a029b99b8293db3aa66c34a1db7c" kindref="member">XCANPS_IXR_TXFLL_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__canps_1gaa85aec590359fff45d33d12edb43d1fd" kindref="member">XCANPS_IXR_WKUP_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__canps_1ga83a79d0a328234c542de4a6a0615791c" kindref="member">XCANPS_IXR_SLP_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__canps_1ga438360dd41b95c4e5794ed038e311cf1" kindref="member">XCANPS_IXR_BSOFF_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__canps_1ga4a9f40766aa79e63473f80e45d7a4cb2" kindref="member">XCANPS_IXR_ARBLST_MASK</ref>);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((EventIntr<sp/>!=<sp/>(u32)0)<sp/>&amp;&amp;<sp/>(CanPtr-&gt;<ref refid="struct_x_can_ps_1a1857e20990da8e6fd56ea2b7675d4ec6" kindref="member">EventHandler</ref><sp/>!=<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CanPtr-&gt;<ref refid="struct_x_can_ps_1a1857e20990da8e6fd56ea2b7675d4ec6" kindref="member">EventHandler</ref>(CanPtr-&gt;<ref refid="struct_x_can_ps_1ab66517c65da23938534a00e4ede60e04" kindref="member">EventRef</ref>,<sp/>EventIntr);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((EventIntr<sp/>&amp;<sp/><ref refid="group__canps_1ga438360dd41b95c4e5794ed038e311cf1" kindref="member">XCANPS_IXR_BSOFF_MASK</ref>)<sp/>!=<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="268"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Event<sp/>callback<sp/>should<sp/>reset<sp/>whole<sp/>device<sp/>if<sp/>&quot;Enter</highlight></codeline>
+<codeline lineno="269"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Bus<sp/>Off<sp/>Status&quot;<sp/>interrupt<sp/>occurred.<sp/>All<sp/>pending</highlight></codeline>
+<codeline lineno="270"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>interrupts<sp/>are<sp/>cleared<sp/>and<sp/>no<sp/>further<sp/>checking<sp/>and</highlight></codeline>
+<codeline lineno="271"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>handling<sp/>of<sp/>other<sp/>interrupts<sp/>is<sp/>needed<sp/>any<sp/>more.</highlight></codeline>
+<codeline lineno="272"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((PendingIntr<sp/>&amp;<sp/>(<ref refid="group__canps_1gafe154f7d522c1a8e7e26f20d1e8df897" kindref="member">XCANPS_IXR_RXFWMFLL_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canps_1ga63bd136fc25bca2796bce56d60a31ea6" kindref="member">XCANPS_IXR_RXNEMP_MASK</ref>))<sp/>!=<sp/>(u32)0)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(CanPtr-&gt;<ref refid="struct_x_can_ps_1aeb2c7083ed53b05f1281bf5ccc5c8c93" kindref="member">RecvHandler</ref><sp/>!=<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="283"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>This<sp/>case<sp/>happens<sp/>when</highlight></codeline>
+<codeline lineno="284"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>A<sp/>number<sp/>of<sp/>frames<sp/>depending<sp/>on<sp/>the<sp/>Rx<sp/>FIFO<sp/>Watermark</highlight></codeline>
+<codeline lineno="285"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>threshold<sp/>are<sp/>received.</highlight></codeline>
+<codeline lineno="286"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>And<sp/><sp/>also<sp/>when<sp/>frame<sp/>was<sp/>received<sp/>and<sp/>is<sp/>sitting<sp/>in<sp/>RX<sp/>FIFO.</highlight></codeline>
+<codeline lineno="287"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="288"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>XCANPS_IXR_RXOK_MASK<sp/>is<sp/>not<sp/>used<sp/>because<sp/>the<sp/>bit<sp/>is<sp/>set</highlight></codeline>
+<codeline lineno="289"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>just<sp/>once<sp/>even<sp/>if<sp/>there<sp/>are<sp/>multiple<sp/>frames<sp/>sitting</highlight></codeline>
+<codeline lineno="290"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>in<sp/>the<sp/>RX<sp/>FIFO.</highlight></codeline>
+<codeline lineno="291"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="292"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>XCANPS_IXR_RXNEMP_MASK<sp/>is<sp/>used<sp/>because<sp/>the<sp/>bit<sp/>can<sp/>be</highlight></codeline>
+<codeline lineno="293"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>set<sp/>again<sp/>and<sp/>again<sp/>automatically<sp/>as<sp/>long<sp/>as<sp/>there<sp/>is</highlight></codeline>
+<codeline lineno="294"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>at<sp/>least<sp/>one<sp/>frame<sp/>in<sp/>RX<sp/>FIFO.</highlight></codeline>
+<codeline lineno="295"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CanPtr-&gt;<ref refid="struct_x_can_ps_1aeb2c7083ed53b05f1281bf5ccc5c8c93" kindref="member">RecvHandler</ref>(CanPtr-&gt;<ref refid="struct_x_can_ps_1a2ede4be878ace6204e2b9a666dd3271c" kindref="member">RecvRef</ref>);</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="300"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>A<sp/>frame<sp/>was<sp/>transmitted<sp/>successfully.</highlight></codeline>
+<codeline lineno="301"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((PendingIntr<sp/>&amp;<sp/>(<ref refid="group__canps_1ga5270e4112cfc21e4a7ed8c168f2ccb10" kindref="member">XCANPS_IXR_TXOK_MASK</ref><sp/>|<sp/><ref refid="group__canps_1gae0079b661baab2a690b6beab2e259e86" kindref="member">XCANPS_IXR_TXFWMEMP_MASK</ref>))<sp/>!=<sp/>(u32)0)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(CanPtr-&gt;<ref refid="struct_x_can_ps_1ab21c9bfc9351154b2c8731ec6b7a7fcb" kindref="member">SendHandler</ref><sp/>!=<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CanPtr-&gt;<ref refid="struct_x_can_ps_1ab21c9bfc9351154b2c8731ec6b7a7fcb" kindref="member">SendHandler</ref>(CanPtr-&gt;<ref refid="struct_x_can_ps_1a3fdbe81dfc211c00586a9d6f435f70b8" kindref="member">SendRef</ref>);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="306"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="351" refid="group__canps_1ga0204f292cdab7478127acd765d97dd8d" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__canps_1ga0204f292cdab7478127acd765d97dd8d" kindref="member">XCanPs_SetHandler</ref>(<ref refid="struct_x_can_ps" kindref="compound">XCanPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>HandlerType,</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef)</highlight></codeline>
+<codeline lineno="353"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status;</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_can_ps_1ab07950d363c9316882a112ec5b32de32" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(HandlerType)<sp/>{</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__canps_1gafed3df99b6f79d0ff7c39a6a03ec6c90" kindref="member">XCANPS_HANDLER_SEND</ref>:</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_can_ps_1ab21c9bfc9351154b2c8731ec6b7a7fcb" kindref="member">SendHandler</ref><sp/>=</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__canps_1ga8a0277ac1de7be22b9de36ef55da1c8d" kindref="member">XCanPs_SendRecvHandler</ref>)<sp/>CallBackFunc;</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_can_ps_1a3fdbe81dfc211c00586a9d6f435f70b8" kindref="member">SendRef</ref><sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__canps_1ga6393e21002da8517ac35ae9c1be58681" kindref="member">XCANPS_HANDLER_RECV</ref>:</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_can_ps_1aeb2c7083ed53b05f1281bf5ccc5c8c93" kindref="member">RecvHandler</ref><sp/>=</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__canps_1ga8a0277ac1de7be22b9de36ef55da1c8d" kindref="member">XCanPs_SendRecvHandler</ref>)<sp/>CallBackFunc;</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_can_ps_1a2ede4be878ace6204e2b9a666dd3271c" kindref="member">RecvRef</ref><sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__canps_1ga60962a646bcd90fd768f78ff34f17ba5" kindref="member">XCANPS_HANDLER_ERROR</ref>:</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_can_ps_1a9313489940a11876015dd38b6e3de9ff" kindref="member">ErrorHandler</ref><sp/>=</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__canps_1ga72002ff7916781152d893abbe71d83a8" kindref="member">XCanPs_ErrorHandler</ref>)<sp/>CallBackFunc;</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_can_ps_1ad2163a0fe420d71555523a8fb6dd9930" kindref="member">ErrorRef</ref><sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"></highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__canps_1gad64733c5ddd21a972fc93a8d43f52d74" kindref="member">XCANPS_HANDLER_EVENT</ref>:</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_can_ps_1a1857e20990da8e6fd56ea2b7675d4ec6" kindref="member">EventHandler</ref><sp/>=</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__canps_1gad81f0a8035bff610185b30bec4e012ea" kindref="member">XCanPs_EventHandler</ref>)<sp/>CallBackFunc;</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_can_ps_1ab66517c65da23938534a00e4ede60e04" kindref="member">EventRef</ref><sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"></highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="392"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_intr.c"/>
+  </compounddef>
+</doxygen>

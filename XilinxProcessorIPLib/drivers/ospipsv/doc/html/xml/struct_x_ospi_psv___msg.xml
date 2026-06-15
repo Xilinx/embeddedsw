@@ -1,0 +1,438 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ospi_psv___msg" kind="struct" prot="public">
+    <compoundname>XOspiPsv_Msg</compoundname>
+    <includes local="no">xospipsv.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ospi_psv___msg_1a95f5d41c7ebd3d5b5da41c6289049e6f" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XOspiPsv_Msg::TxBfrPtr</definition>
+        <argsstring></argsstring>
+        <name>TxBfrPtr</name>
+        <briefdescription>
+<para>Write buffer pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="109" bodyend="-1"/>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a223a0d4b5dd8fb7fca1b1e42872d3521" compoundref="xospipsv__flash__intr__example_8c" startline="1108" endline="1242">BulkErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a7ceb61abe9a7b767c75ad57929adf3b3" compoundref="xospipsv__flash__intr__example_8c" startline="1259" endline="1388">DieErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a929e1c114b2752e00136aa5ebb3cbeda" compoundref="xospipsv__flash__intr__example_8c" startline="1404" endline="1572">FlashEnterExit4BAddMode</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a6d28e30d23e136e4af00a436d43c9923" compoundref="xospipsv__flash__intr__example_8c" startline="770" endline="997">FlashErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a8337d4d551570e7ecaa44321605280a7" compoundref="xospipsv__flash__intr__example_8c" startline="596" endline="750">FlashIoWrite</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a6fff73aa13d90cd15521ab1f7de503dc" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="545" endline="603">FlashLinearWrite</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a1355d0e2c6bb04d1f65ca815d71d5996" compoundref="xospipsv__flash__intr__example_8c" startline="1017" endline="1092">FlashRead</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a19dbfab221d6a11c3fa45674c1304f2e" compoundref="xospipsv__flash__intr__example_8c" startline="501" endline="575">FlashReadID</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1725" endline="1956">FlashSetSDRDDRMode</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1ab01ca7bff4098e88b315bd230b948658" compoundref="xospipsv__flash__intr__example_8c" startline="2145" endline="2262">MxConfigDummy</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a48b07e8e007e2da190edcfc0cc1d389b" compoundref="xospipsv__flash__polled__example_8c" startline="1852" endline="2004">SetBlockProtect</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1af2bad08ca36b22108da68d87e5d29201" compoundref="xospipsv__flash__intr__example_8c" startline="2005" endline="2133">SpansionSetEccMode</referencedby>
+        <referencedby refid="group__ospipsv__api_1gadb1ae4f737c07e890039cdaf3a006b26" compoundref="xospipsv__control_8c" startline="287" endline="303">XOspiPsv_Dac_Write</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga54d82d31820cd30d9c32055380e0ab04" compoundref="xospipsv__hw_8c" startline="198" endline="216">XOspiPsv_FifoWrite</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga8400388c80d471a4535fa7357104f07b" compoundref="xospipsv__control_8c" startline="442" endline="493">XOspiPsv_IDac_Write</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga065d5ced624e31f2a9699482cc6aa743" compoundref="xospipsv__xfer_8c" startline="152" endline="185">XOspiPsv_IntrSendData</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga6b7b4e2f6b2fde2908649918699e86b0" compoundref="xospipsv__xfer_8c" startline="76" endline="95">XOspiPsv_PollSendData</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga3946ea37da6d9ce478f29eca239b597b" compoundref="xospipsv_8c" startline="820" endline="944">XOspiPsv_SetDllDelay</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___msg_1a584672579015305052780c6b14e5a576" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XOspiPsv_Msg::RxBfrPtr</definition>
+        <argsstring></argsstring>
+        <name>RxBfrPtr</name>
+        <briefdescription>
+<para>Read buffer pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="110" bodyend="-1"/>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a223a0d4b5dd8fb7fca1b1e42872d3521" compoundref="xospipsv__flash__intr__example_8c" startline="1108" endline="1242">BulkErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a7ceb61abe9a7b767c75ad57929adf3b3" compoundref="xospipsv__flash__intr__example_8c" startline="1259" endline="1388">DieErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a929e1c114b2752e00136aa5ebb3cbeda" compoundref="xospipsv__flash__intr__example_8c" startline="1404" endline="1572">FlashEnterExit4BAddMode</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a6d28e30d23e136e4af00a436d43c9923" compoundref="xospipsv__flash__intr__example_8c" startline="770" endline="997">FlashErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a8337d4d551570e7ecaa44321605280a7" compoundref="xospipsv__flash__intr__example_8c" startline="596" endline="750">FlashIoWrite</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a6fff73aa13d90cd15521ab1f7de503dc" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="545" endline="603">FlashLinearWrite</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a1355d0e2c6bb04d1f65ca815d71d5996" compoundref="xospipsv__flash__intr__example_8c" startline="1017" endline="1092">FlashRead</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a19dbfab221d6a11c3fa45674c1304f2e" compoundref="xospipsv__flash__intr__example_8c" startline="501" endline="575">FlashReadID</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1725" endline="1956">FlashSetSDRDDRMode</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1ab01ca7bff4098e88b315bd230b948658" compoundref="xospipsv__flash__intr__example_8c" startline="2145" endline="2262">MxConfigDummy</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a48b07e8e007e2da190edcfc0cc1d389b" compoundref="xospipsv__flash__polled__example_8c" startline="1852" endline="2004">SetBlockProtect</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1af2bad08ca36b22108da68d87e5d29201" compoundref="xospipsv__flash__intr__example_8c" startline="2005" endline="2133">SpansionSetEccMode</referencedby>
+        <referencedby refid="group__ospipsv__api_1gabef79236b8c8e5ada4f6ddb58132e35c" compoundref="xospipsv__hw_8c" startline="696" endline="780">XOspiPsv_CalculateRxTap</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga816c6bf2a419d38bd2e4d51a266a6d3b" compoundref="xospipsv_8c" startline="550" endline="598">XOspiPsv_CheckDmaDone</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga7dd7305678eaea4774657b38046cc5e4" compoundref="xospipsv__hw_8c" startline="545" endline="597">XOspiPsv_Config_Dma</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga9f70d70b4dcd8a325a7dacc3aa31a5ef" compoundref="xospipsv__control_8c" startline="256" endline="272">XOspiPsv_Dac_Read</referencedby>
+        <referencedby refid="group__ospipsv__api_1gab882c01ec4fd29b29a58e0a07075414d" compoundref="xospipsv__control_8c" startline="184" endline="241">XOspiPsv_Dma_Read</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga621f2c47a2e8fdf59de28b2333d6da6f" compoundref="xospipsv__hw_8c" startline="165" endline="181">XOspiPsv_FifoRead</referencedby>
+        <referencedby refid="group__ospipsv__api_1gaa415227de8c6663e478041a82887dd5b" compoundref="xospipsv_8c" startline="678" endline="769">XOspiPsv_IntrHandler</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga15aade843d6401d997e3d67afcd0a2cc" compoundref="xospipsv__xfer_8c" startline="108" endline="139">XOspiPsv_IntrRecvData</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga034a9ae49aa555c3c94396e5b821a4b1" compoundref="xospipsv__xfer_8c" startline="43" endline="61">XOspiPsv_PollRecvData</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga3946ea37da6d9ce478f29eca239b597b" compoundref="xospipsv_8c" startline="820" endline="944">XOspiPsv_SetDllDelay</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga4fe1250ba300d83c1acb4291301429f9" compoundref="xospipsv_8c" startline="480" endline="536">XOspiPsv_StartDmaTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___msg_1ab46554545943ecf8f1a0152c237489f4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XOspiPsv_Msg::ByteCount</definition>
+        <argsstring></argsstring>
+        <name>ByteCount</name>
+        <briefdescription>
+<para>Number of bytes to read or write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="111" bodyend="-1"/>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a223a0d4b5dd8fb7fca1b1e42872d3521" compoundref="xospipsv__flash__intr__example_8c" startline="1108" endline="1242">BulkErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a7ceb61abe9a7b767c75ad57929adf3b3" compoundref="xospipsv__flash__intr__example_8c" startline="1259" endline="1388">DieErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a929e1c114b2752e00136aa5ebb3cbeda" compoundref="xospipsv__flash__intr__example_8c" startline="1404" endline="1572">FlashEnterExit4BAddMode</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a6d28e30d23e136e4af00a436d43c9923" compoundref="xospipsv__flash__intr__example_8c" startline="770" endline="997">FlashErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a8337d4d551570e7ecaa44321605280a7" compoundref="xospipsv__flash__intr__example_8c" startline="596" endline="750">FlashIoWrite</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a6fff73aa13d90cd15521ab1f7de503dc" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="545" endline="603">FlashLinearWrite</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a1355d0e2c6bb04d1f65ca815d71d5996" compoundref="xospipsv__flash__intr__example_8c" startline="1017" endline="1092">FlashRead</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a19dbfab221d6a11c3fa45674c1304f2e" compoundref="xospipsv__flash__intr__example_8c" startline="501" endline="575">FlashReadID</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1725" endline="1956">FlashSetSDRDDRMode</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1ab01ca7bff4098e88b315bd230b948658" compoundref="xospipsv__flash__intr__example_8c" startline="2145" endline="2262">MxConfigDummy</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a48b07e8e007e2da190edcfc0cc1d389b" compoundref="xospipsv__flash__polled__example_8c" startline="1852" endline="2004">SetBlockProtect</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1af2bad08ca36b22108da68d87e5d29201" compoundref="xospipsv__flash__intr__example_8c" startline="2005" endline="2133">SpansionSetEccMode</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga816c6bf2a419d38bd2e4d51a266a6d3b" compoundref="xospipsv_8c" startline="550" endline="598">XOspiPsv_CheckDmaDone</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga7dd7305678eaea4774657b38046cc5e4" compoundref="xospipsv__hw_8c" startline="545" endline="597">XOspiPsv_Config_Dma</referencedby>
+        <referencedby refid="group__ospipsv__api_1gae199f0006d6d3282aad2a18c4e87d479" compoundref="xospipsv__hw_8c" startline="513" endline="532">XOspiPsv_Config_IndirectAhb</referencedby>
+        <referencedby refid="group__ospipsv__api_1gab882c01ec4fd29b29a58e0a07075414d" compoundref="xospipsv__control_8c" startline="184" endline="241">XOspiPsv_Dma_Read</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga8400388c80d471a4535fa7357104f07b" compoundref="xospipsv__control_8c" startline="442" endline="493">XOspiPsv_IDac_Write</referencedby>
+        <referencedby refid="group__ospipsv__api_1gaa415227de8c6663e478041a82887dd5b" compoundref="xospipsv_8c" startline="678" endline="769">XOspiPsv_IntrHandler</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga15aade843d6401d997e3d67afcd0a2cc" compoundref="xospipsv__xfer_8c" startline="108" endline="139">XOspiPsv_IntrRecvData</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga065d5ced624e31f2a9699482cc6aa743" compoundref="xospipsv__xfer_8c" startline="152" endline="185">XOspiPsv_IntrSendData</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga034a9ae49aa555c3c94396e5b821a4b1" compoundref="xospipsv__xfer_8c" startline="43" endline="61">XOspiPsv_PollRecvData</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga6b7b4e2f6b2fde2908649918699e86b0" compoundref="xospipsv__xfer_8c" startline="76" endline="95">XOspiPsv_PollSendData</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga3946ea37da6d9ce478f29eca239b597b" compoundref="xospipsv_8c" startline="820" endline="944">XOspiPsv_SetDllDelay</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga4fe1250ba300d83c1acb4291301429f9" compoundref="xospipsv_8c" startline="480" endline="536">XOspiPsv_StartDmaTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___msg_1a960350cdb6c3c5dc679c637ca1e21be0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XOspiPsv_Msg::Flags</definition>
+        <argsstring></argsstring>
+        <name>Flags</name>
+        <briefdescription>
+<para>Used to indicate the Msg is for TX or RX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="112" bodyend="-1"/>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a223a0d4b5dd8fb7fca1b1e42872d3521" compoundref="xospipsv__flash__intr__example_8c" startline="1108" endline="1242">BulkErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a7ceb61abe9a7b767c75ad57929adf3b3" compoundref="xospipsv__flash__intr__example_8c" startline="1259" endline="1388">DieErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a929e1c114b2752e00136aa5ebb3cbeda" compoundref="xospipsv__flash__intr__example_8c" startline="1404" endline="1572">FlashEnterExit4BAddMode</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a6d28e30d23e136e4af00a436d43c9923" compoundref="xospipsv__flash__intr__example_8c" startline="770" endline="997">FlashErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a8337d4d551570e7ecaa44321605280a7" compoundref="xospipsv__flash__intr__example_8c" startline="596" endline="750">FlashIoWrite</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a6fff73aa13d90cd15521ab1f7de503dc" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="545" endline="603">FlashLinearWrite</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a1355d0e2c6bb04d1f65ca815d71d5996" compoundref="xospipsv__flash__intr__example_8c" startline="1017" endline="1092">FlashRead</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a19dbfab221d6a11c3fa45674c1304f2e" compoundref="xospipsv__flash__intr__example_8c" startline="501" endline="575">FlashReadID</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1725" endline="1956">FlashSetSDRDDRMode</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1ab01ca7bff4098e88b315bd230b948658" compoundref="xospipsv__flash__intr__example_8c" startline="2145" endline="2262">MxConfigDummy</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a48b07e8e007e2da190edcfc0cc1d389b" compoundref="xospipsv__flash__polled__example_8c" startline="1852" endline="2004">SetBlockProtect</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1af2bad08ca36b22108da68d87e5d29201" compoundref="xospipsv__flash__intr__example_8c" startline="2005" endline="2133">SpansionSetEccMode</referencedby>
+        <referencedby refid="group__ospipsv__api_1gaa415227de8c6663e478041a82887dd5b" compoundref="xospipsv_8c" startline="678" endline="769">XOspiPsv_IntrHandler</referencedby>
+        <referencedby refid="group__ospipsv__api_1gaaf23d7567b974cfac69ecadd2919999d" compoundref="xospipsv_8c" startline="613" endline="664">XOspiPsv_IntrTransfer</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga808cc2759798221d0d4f44eef27c0629" compoundref="xospipsv_8c" startline="404" endline="464">XOspiPsv_PollTransfer</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga3946ea37da6d9ce478f29eca239b597b" compoundref="xospipsv_8c" startline="820" endline="944">XOspiPsv_SetDllDelay</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga4fe1250ba300d83c1acb4291301429f9" compoundref="xospipsv_8c" startline="480" endline="536">XOspiPsv_StartDmaTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___msg_1a55ac289317d94775757cac9529ea51c2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XOspiPsv_Msg::Opcode</definition>
+        <argsstring></argsstring>
+        <name>Opcode</name>
+        <briefdescription>
+<para>Opcode/Command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a223a0d4b5dd8fb7fca1b1e42872d3521" compoundref="xospipsv__flash__intr__example_8c" startline="1108" endline="1242">BulkErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a7ceb61abe9a7b767c75ad57929adf3b3" compoundref="xospipsv__flash__intr__example_8c" startline="1259" endline="1388">DieErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a929e1c114b2752e00136aa5ebb3cbeda" compoundref="xospipsv__flash__intr__example_8c" startline="1404" endline="1572">FlashEnterExit4BAddMode</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a6d28e30d23e136e4af00a436d43c9923" compoundref="xospipsv__flash__intr__example_8c" startline="770" endline="997">FlashErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a8337d4d551570e7ecaa44321605280a7" compoundref="xospipsv__flash__intr__example_8c" startline="596" endline="750">FlashIoWrite</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a6fff73aa13d90cd15521ab1f7de503dc" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="545" endline="603">FlashLinearWrite</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a1355d0e2c6bb04d1f65ca815d71d5996" compoundref="xospipsv__flash__intr__example_8c" startline="1017" endline="1092">FlashRead</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a19dbfab221d6a11c3fa45674c1304f2e" compoundref="xospipsv__flash__intr__example_8c" startline="501" endline="575">FlashReadID</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1725" endline="1956">FlashSetSDRDDRMode</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1ab01ca7bff4098e88b315bd230b948658" compoundref="xospipsv__flash__intr__example_8c" startline="2145" endline="2262">MxConfigDummy</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a48b07e8e007e2da190edcfc0cc1d389b" compoundref="xospipsv__flash__polled__example_8c" startline="1852" endline="2004">SetBlockProtect</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1af2bad08ca36b22108da68d87e5d29201" compoundref="xospipsv__flash__intr__example_8c" startline="2005" endline="2133">SpansionSetEccMode</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga15aade843d6401d997e3d67afcd0a2cc" compoundref="xospipsv__xfer_8c" startline="108" endline="139">XOspiPsv_IntrRecvData</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga065d5ced624e31f2a9699482cc6aa743" compoundref="xospipsv__xfer_8c" startline="152" endline="185">XOspiPsv_IntrSendData</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga3946ea37da6d9ce478f29eca239b597b" compoundref="xospipsv_8c" startline="820" endline="944">XOspiPsv_SetDllDelay</referencedby>
+        <referencedby refid="group__ospipsv__api_1gaf618dd1d9a3b5fe6a60feedd9cfca12b" compoundref="xospipsv__hw_8c" startline="351" endline="451">XOspiPsv_Setup_Dev_Read_Instr_Reg</referencedby>
+        <referencedby refid="group__ospipsv__api_1gaa347217a72ad5240a86eb29dacec9270" compoundref="xospipsv__hw_8c" startline="233" endline="334">XOspiPsv_Setup_Dev_Write_Instr_Reg</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga6af9f098248cd39891e92d9caa1d75c8" compoundref="xospipsv__control_8c" startline="68" endline="111">XOspiPsv_Stig_Read</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga1b1a6b7fd20d9183ad58f84d3303eeec" compoundref="xospipsv__control_8c" startline="128" endline="169">XOspiPsv_Stig_Write</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___msg_1af8358bd6a8075c4abacf9b0a7b10a490" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XOspiPsv_Msg::Addr</definition>
+        <argsstring></argsstring>
+        <name>Addr</name>
+        <briefdescription>
+<para>Device Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="114" bodyend="-1"/>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a223a0d4b5dd8fb7fca1b1e42872d3521" compoundref="xospipsv__flash__intr__example_8c" startline="1108" endline="1242">BulkErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a6d28e30d23e136e4af00a436d43c9923" compoundref="xospipsv__flash__intr__example_8c" startline="770" endline="997">FlashErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a8337d4d551570e7ecaa44321605280a7" compoundref="xospipsv__flash__intr__example_8c" startline="596" endline="750">FlashIoWrite</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a6fff73aa13d90cd15521ab1f7de503dc" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="545" endline="603">FlashLinearWrite</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a1355d0e2c6bb04d1f65ca815d71d5996" compoundref="xospipsv__flash__intr__example_8c" startline="1017" endline="1092">FlashRead</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1725" endline="1956">FlashSetSDRDDRMode</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1ab01ca7bff4098e88b315bd230b948658" compoundref="xospipsv__flash__intr__example_8c" startline="2145" endline="2262">MxConfigDummy</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a48b07e8e007e2da190edcfc0cc1d389b" compoundref="xospipsv__flash__polled__example_8c" startline="1852" endline="2004">SetBlockProtect</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1af2bad08ca36b22108da68d87e5d29201" compoundref="xospipsv__flash__intr__example_8c" startline="2005" endline="2133">SpansionSetEccMode</referencedby>
+        <referencedby refid="group__ospipsv__api_1gae199f0006d6d3282aad2a18c4e87d479" compoundref="xospipsv__hw_8c" startline="513" endline="532">XOspiPsv_Config_IndirectAhb</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga9f70d70b4dcd8a325a7dacc3aa31a5ef" compoundref="xospipsv__control_8c" startline="256" endline="272">XOspiPsv_Dac_Read</referencedby>
+        <referencedby refid="group__ospipsv__api_1gadb1ae4f737c07e890039cdaf3a006b26" compoundref="xospipsv__control_8c" startline="287" endline="303">XOspiPsv_Dac_Write</referencedby>
+        <referencedby refid="group__ospipsv__api_1gab882c01ec4fd29b29a58e0a07075414d" compoundref="xospipsv__control_8c" startline="184" endline="241">XOspiPsv_Dma_Read</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga8400388c80d471a4535fa7357104f07b" compoundref="xospipsv__control_8c" startline="442" endline="493">XOspiPsv_IDac_Write</referencedby>
+        <referencedby refid="group__ospipsv__api_1gaa415227de8c6663e478041a82887dd5b" compoundref="xospipsv_8c" startline="678" endline="769">XOspiPsv_IntrHandler</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga065d5ced624e31f2a9699482cc6aa743" compoundref="xospipsv__xfer_8c" startline="152" endline="185">XOspiPsv_IntrSendData</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga3946ea37da6d9ce478f29eca239b597b" compoundref="xospipsv_8c" startline="820" endline="944">XOspiPsv_SetDllDelay</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga6af9f098248cd39891e92d9caa1d75c8" compoundref="xospipsv__control_8c" startline="68" endline="111">XOspiPsv_Stig_Read</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga1b1a6b7fd20d9183ad58f84d3303eeec" compoundref="xospipsv__control_8c" startline="128" endline="169">XOspiPsv_Stig_Write</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___msg_1aed44f5b363f17a6ebb50ec89b032f112" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XOspiPsv_Msg::Addrsize</definition>
+        <argsstring></argsstring>
+        <name>Addrsize</name>
+        <briefdescription>
+<para>Size of address in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="115" bodyend="-1"/>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a223a0d4b5dd8fb7fca1b1e42872d3521" compoundref="xospipsv__flash__intr__example_8c" startline="1108" endline="1242">BulkErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a7ceb61abe9a7b767c75ad57929adf3b3" compoundref="xospipsv__flash__intr__example_8c" startline="1259" endline="1388">DieErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a929e1c114b2752e00136aa5ebb3cbeda" compoundref="xospipsv__flash__intr__example_8c" startline="1404" endline="1572">FlashEnterExit4BAddMode</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a6d28e30d23e136e4af00a436d43c9923" compoundref="xospipsv__flash__intr__example_8c" startline="770" endline="997">FlashErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a8337d4d551570e7ecaa44321605280a7" compoundref="xospipsv__flash__intr__example_8c" startline="596" endline="750">FlashIoWrite</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a6fff73aa13d90cd15521ab1f7de503dc" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="545" endline="603">FlashLinearWrite</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a1355d0e2c6bb04d1f65ca815d71d5996" compoundref="xospipsv__flash__intr__example_8c" startline="1017" endline="1092">FlashRead</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a19dbfab221d6a11c3fa45674c1304f2e" compoundref="xospipsv__flash__intr__example_8c" startline="501" endline="575">FlashReadID</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1725" endline="1956">FlashSetSDRDDRMode</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1ab01ca7bff4098e88b315bd230b948658" compoundref="xospipsv__flash__intr__example_8c" startline="2145" endline="2262">MxConfigDummy</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a48b07e8e007e2da190edcfc0cc1d389b" compoundref="xospipsv__flash__polled__example_8c" startline="1852" endline="2004">SetBlockProtect</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1af2bad08ca36b22108da68d87e5d29201" compoundref="xospipsv__flash__intr__example_8c" startline="2005" endline="2133">SpansionSetEccMode</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga15aade843d6401d997e3d67afcd0a2cc" compoundref="xospipsv__xfer_8c" startline="108" endline="139">XOspiPsv_IntrRecvData</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga065d5ced624e31f2a9699482cc6aa743" compoundref="xospipsv__xfer_8c" startline="152" endline="185">XOspiPsv_IntrSendData</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga3946ea37da6d9ce478f29eca239b597b" compoundref="xospipsv_8c" startline="820" endline="944">XOspiPsv_SetDllDelay</referencedby>
+        <referencedby refid="group__ospipsv__api_1gab0a1fd4b1edb33eeb7f14588f09a8355" compoundref="xospipsv__hw_8c" startline="464" endline="478">XOspiPsv_Setup_Devsize</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga6af9f098248cd39891e92d9caa1d75c8" compoundref="xospipsv__control_8c" startline="68" endline="111">XOspiPsv_Stig_Read</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga1b1a6b7fd20d9183ad58f84d3303eeec" compoundref="xospipsv__control_8c" startline="128" endline="169">XOspiPsv_Stig_Write</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___msg_1a3df927f0564ffc2896abff80b63e5601" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XOspiPsv_Msg::Addrvalid</definition>
+        <argsstring></argsstring>
+        <name>Addrvalid</name>
+        <briefdescription>
+<para>1 if Address is required for opcode, 0 otherwise </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="116" bodyend="-1"/>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a223a0d4b5dd8fb7fca1b1e42872d3521" compoundref="xospipsv__flash__intr__example_8c" startline="1108" endline="1242">BulkErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a7ceb61abe9a7b767c75ad57929adf3b3" compoundref="xospipsv__flash__intr__example_8c" startline="1259" endline="1388">DieErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a929e1c114b2752e00136aa5ebb3cbeda" compoundref="xospipsv__flash__intr__example_8c" startline="1404" endline="1572">FlashEnterExit4BAddMode</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a6d28e30d23e136e4af00a436d43c9923" compoundref="xospipsv__flash__intr__example_8c" startline="770" endline="997">FlashErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a8337d4d551570e7ecaa44321605280a7" compoundref="xospipsv__flash__intr__example_8c" startline="596" endline="750">FlashIoWrite</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a6fff73aa13d90cd15521ab1f7de503dc" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="545" endline="603">FlashLinearWrite</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a1355d0e2c6bb04d1f65ca815d71d5996" compoundref="xospipsv__flash__intr__example_8c" startline="1017" endline="1092">FlashRead</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a19dbfab221d6a11c3fa45674c1304f2e" compoundref="xospipsv__flash__intr__example_8c" startline="501" endline="575">FlashReadID</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1725" endline="1956">FlashSetSDRDDRMode</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1ab01ca7bff4098e88b315bd230b948658" compoundref="xospipsv__flash__intr__example_8c" startline="2145" endline="2262">MxConfigDummy</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a48b07e8e007e2da190edcfc0cc1d389b" compoundref="xospipsv__flash__polled__example_8c" startline="1852" endline="2004">SetBlockProtect</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1af2bad08ca36b22108da68d87e5d29201" compoundref="xospipsv__flash__intr__example_8c" startline="2005" endline="2133">SpansionSetEccMode</referencedby>
+        <referencedby refid="group__ospipsv__api_1gaa415227de8c6663e478041a82887dd5b" compoundref="xospipsv_8c" startline="678" endline="769">XOspiPsv_IntrHandler</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga15aade843d6401d997e3d67afcd0a2cc" compoundref="xospipsv__xfer_8c" startline="108" endline="139">XOspiPsv_IntrRecvData</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga065d5ced624e31f2a9699482cc6aa743" compoundref="xospipsv__xfer_8c" startline="152" endline="185">XOspiPsv_IntrSendData</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga034a9ae49aa555c3c94396e5b821a4b1" compoundref="xospipsv__xfer_8c" startline="43" endline="61">XOspiPsv_PollRecvData</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga3946ea37da6d9ce478f29eca239b597b" compoundref="xospipsv_8c" startline="820" endline="944">XOspiPsv_SetDllDelay</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga6af9f098248cd39891e92d9caa1d75c8" compoundref="xospipsv__control_8c" startline="68" endline="111">XOspiPsv_Stig_Read</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga1b1a6b7fd20d9183ad58f84d3303eeec" compoundref="xospipsv__control_8c" startline="128" endline="169">XOspiPsv_Stig_Write</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___msg_1aee5814ae840542f0968358c6c00371d8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XOspiPsv_Msg::Dummy</definition>
+        <argsstring></argsstring>
+        <name>Dummy</name>
+        <briefdescription>
+<para>Number of dummy cycles for opcode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="117" bodyend="-1"/>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a223a0d4b5dd8fb7fca1b1e42872d3521" compoundref="xospipsv__flash__intr__example_8c" startline="1108" endline="1242">BulkErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a7ceb61abe9a7b767c75ad57929adf3b3" compoundref="xospipsv__flash__intr__example_8c" startline="1259" endline="1388">DieErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a929e1c114b2752e00136aa5ebb3cbeda" compoundref="xospipsv__flash__intr__example_8c" startline="1404" endline="1572">FlashEnterExit4BAddMode</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a6d28e30d23e136e4af00a436d43c9923" compoundref="xospipsv__flash__intr__example_8c" startline="770" endline="997">FlashErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a8337d4d551570e7ecaa44321605280a7" compoundref="xospipsv__flash__intr__example_8c" startline="596" endline="750">FlashIoWrite</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a6fff73aa13d90cd15521ab1f7de503dc" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="545" endline="603">FlashLinearWrite</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a1355d0e2c6bb04d1f65ca815d71d5996" compoundref="xospipsv__flash__intr__example_8c" startline="1017" endline="1092">FlashRead</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a19dbfab221d6a11c3fa45674c1304f2e" compoundref="xospipsv__flash__intr__example_8c" startline="501" endline="575">FlashReadID</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1725" endline="1956">FlashSetSDRDDRMode</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1ab01ca7bff4098e88b315bd230b948658" compoundref="xospipsv__flash__intr__example_8c" startline="2145" endline="2262">MxConfigDummy</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a48b07e8e007e2da190edcfc0cc1d389b" compoundref="xospipsv__flash__polled__example_8c" startline="1852" endline="2004">SetBlockProtect</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1af2bad08ca36b22108da68d87e5d29201" compoundref="xospipsv__flash__intr__example_8c" startline="2005" endline="2133">SpansionSetEccMode</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga3ac73304cb055f7184181eb4b176637e" compoundref="xospipsv__control_8c" startline="320" endline="362">XOspiPsv_ExecuteRxTuning</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga15aade843d6401d997e3d67afcd0a2cc" compoundref="xospipsv__xfer_8c" startline="108" endline="139">XOspiPsv_IntrRecvData</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga3946ea37da6d9ce478f29eca239b597b" compoundref="xospipsv_8c" startline="820" endline="944">XOspiPsv_SetDllDelay</referencedby>
+        <referencedby refid="group__ospipsv__api_1gaf618dd1d9a3b5fe6a60feedd9cfca12b" compoundref="xospipsv__hw_8c" startline="351" endline="451">XOspiPsv_Setup_Dev_Read_Instr_Reg</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga6af9f098248cd39891e92d9caa1d75c8" compoundref="xospipsv__control_8c" startline="68" endline="111">XOspiPsv_Stig_Read</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___msg_1a9d8c2658ecdf8c0e9d7f4196844cccf0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XOspiPsv_Msg::Proto</definition>
+        <argsstring></argsstring>
+        <name>Proto</name>
+        <briefdescription>
+<para>Indicate number of Cmd-Addr-Data lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="118" bodyend="-1"/>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a223a0d4b5dd8fb7fca1b1e42872d3521" compoundref="xospipsv__flash__intr__example_8c" startline="1108" endline="1242">BulkErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a7ceb61abe9a7b767c75ad57929adf3b3" compoundref="xospipsv__flash__intr__example_8c" startline="1259" endline="1388">DieErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a929e1c114b2752e00136aa5ebb3cbeda" compoundref="xospipsv__flash__intr__example_8c" startline="1404" endline="1572">FlashEnterExit4BAddMode</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a6d28e30d23e136e4af00a436d43c9923" compoundref="xospipsv__flash__intr__example_8c" startline="770" endline="997">FlashErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a8337d4d551570e7ecaa44321605280a7" compoundref="xospipsv__flash__intr__example_8c" startline="596" endline="750">FlashIoWrite</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a6fff73aa13d90cd15521ab1f7de503dc" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="545" endline="603">FlashLinearWrite</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a1355d0e2c6bb04d1f65ca815d71d5996" compoundref="xospipsv__flash__intr__example_8c" startline="1017" endline="1092">FlashRead</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a19dbfab221d6a11c3fa45674c1304f2e" compoundref="xospipsv__flash__intr__example_8c" startline="501" endline="575">FlashReadID</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1725" endline="1956">FlashSetSDRDDRMode</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1ab01ca7bff4098e88b315bd230b948658" compoundref="xospipsv__flash__intr__example_8c" startline="2145" endline="2262">MxConfigDummy</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a48b07e8e007e2da190edcfc0cc1d389b" compoundref="xospipsv__flash__polled__example_8c" startline="1852" endline="2004">SetBlockProtect</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1af2bad08ca36b22108da68d87e5d29201" compoundref="xospipsv__flash__intr__example_8c" startline="2005" endline="2133">SpansionSetEccMode</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga034a9ae49aa555c3c94396e5b821a4b1" compoundref="xospipsv__xfer_8c" startline="43" endline="61">XOspiPsv_PollRecvData</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga3946ea37da6d9ce478f29eca239b597b" compoundref="xospipsv_8c" startline="820" endline="944">XOspiPsv_SetDllDelay</referencedby>
+        <referencedby refid="group__ospipsv__api_1gaf618dd1d9a3b5fe6a60feedd9cfca12b" compoundref="xospipsv__hw_8c" startline="351" endline="451">XOspiPsv_Setup_Dev_Read_Instr_Reg</referencedby>
+        <referencedby refid="group__ospipsv__api_1gaa347217a72ad5240a86eb29dacec9270" compoundref="xospipsv__hw_8c" startline="233" endline="334">XOspiPsv_Setup_Dev_Write_Instr_Reg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___msg_1a5a9c4b0b141795207120a3d62c6d5144" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XOspiPsv_Msg::IsDDROpCode</definition>
+        <argsstring></argsstring>
+        <name>IsDDROpCode</name>
+        <briefdescription>
+<para>1 if opcode is DDR command, 0 otherwise </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="119" bodyend="-1"/>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a223a0d4b5dd8fb7fca1b1e42872d3521" compoundref="xospipsv__flash__intr__example_8c" startline="1108" endline="1242">BulkErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a7ceb61abe9a7b767c75ad57929adf3b3" compoundref="xospipsv__flash__intr__example_8c" startline="1259" endline="1388">DieErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a929e1c114b2752e00136aa5ebb3cbeda" compoundref="xospipsv__flash__intr__example_8c" startline="1404" endline="1572">FlashEnterExit4BAddMode</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a6d28e30d23e136e4af00a436d43c9923" compoundref="xospipsv__flash__intr__example_8c" startline="770" endline="997">FlashErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a8337d4d551570e7ecaa44321605280a7" compoundref="xospipsv__flash__intr__example_8c" startline="596" endline="750">FlashIoWrite</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a6fff73aa13d90cd15521ab1f7de503dc" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="545" endline="603">FlashLinearWrite</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a1355d0e2c6bb04d1f65ca815d71d5996" compoundref="xospipsv__flash__intr__example_8c" startline="1017" endline="1092">FlashRead</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a19dbfab221d6a11c3fa45674c1304f2e" compoundref="xospipsv__flash__intr__example_8c" startline="501" endline="575">FlashReadID</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1725" endline="1956">FlashSetSDRDDRMode</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1ab01ca7bff4098e88b315bd230b948658" compoundref="xospipsv__flash__intr__example_8c" startline="2145" endline="2262">MxConfigDummy</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a48b07e8e007e2da190edcfc0cc1d389b" compoundref="xospipsv__flash__polled__example_8c" startline="1852" endline="2004">SetBlockProtect</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1af2bad08ca36b22108da68d87e5d29201" compoundref="xospipsv__flash__intr__example_8c" startline="2005" endline="2133">SpansionSetEccMode</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga3946ea37da6d9ce478f29eca239b597b" compoundref="xospipsv_8c" startline="820" endline="944">XOspiPsv_SetDllDelay</referencedby>
+        <referencedby refid="group__ospipsv__api_1gaf618dd1d9a3b5fe6a60feedd9cfca12b" compoundref="xospipsv__hw_8c" startline="351" endline="451">XOspiPsv_Setup_Dev_Read_Instr_Reg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___msg_1abaa1e4b4bd1883e86018d400c49d438a" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XOspiPsv_Msg::RxAddr64bit</definition>
+        <argsstring></argsstring>
+        <name>RxAddr64bit</name>
+        <briefdescription>
+<para>Provide 64-bit read address for 32-bit platform. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="120" bodyend="-1"/>
+        <referencedby refid="group__ospipsv__api_1ga7dd7305678eaea4774657b38046cc5e4" compoundref="xospipsv__hw_8c" startline="545" endline="597">XOspiPsv_Config_Dma</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___msg_1af3b6091e16d13e4be338d18494c63485" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XOspiPsv_Msg::Xfer64bit</definition>
+        <argsstring></argsstring>
+        <name>Xfer64bit</name>
+        <briefdescription>
+<para>Set to 1 when reading from 64-bit addr otherwise 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="121" bodyend="-1"/>
+        <referencedby refid="group__ospipsv__api_1ga816c6bf2a419d38bd2e4d51a266a6d3b" compoundref="xospipsv_8c" startline="550" endline="598">XOspiPsv_CheckDmaDone</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga7dd7305678eaea4774657b38046cc5e4" compoundref="xospipsv__hw_8c" startline="545" endline="597">XOspiPsv_Config_Dma</referencedby>
+        <referencedby refid="group__ospipsv__api_1gab882c01ec4fd29b29a58e0a07075414d" compoundref="xospipsv__control_8c" startline="184" endline="241">XOspiPsv_Dma_Read</referencedby>
+        <referencedby refid="group__ospipsv__api_1gaa415227de8c6663e478041a82887dd5b" compoundref="xospipsv_8c" startline="678" endline="769">XOspiPsv_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___msg_1a63025a20ca549b4b65f2c6d611d40abc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XOspiPsv_Msg::ExtendedOpcode</definition>
+        <argsstring></argsstring>
+        <name>ExtendedOpcode</name>
+        <briefdescription>
+<para>Extended opcode in dual-byte opcode mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="122" bodyend="-1"/>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a223a0d4b5dd8fb7fca1b1e42872d3521" compoundref="xospipsv__flash__intr__example_8c" startline="1108" endline="1242">BulkErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a7ceb61abe9a7b767c75ad57929adf3b3" compoundref="xospipsv__flash__intr__example_8c" startline="1259" endline="1388">DieErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a929e1c114b2752e00136aa5ebb3cbeda" compoundref="xospipsv__flash__intr__example_8c" startline="1404" endline="1572">FlashEnterExit4BAddMode</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a6d28e30d23e136e4af00a436d43c9923" compoundref="xospipsv__flash__intr__example_8c" startline="770" endline="997">FlashErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a8337d4d551570e7ecaa44321605280a7" compoundref="xospipsv__flash__intr__example_8c" startline="596" endline="750">FlashIoWrite</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a6fff73aa13d90cd15521ab1f7de503dc" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="545" endline="603">FlashLinearWrite</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a1355d0e2c6bb04d1f65ca815d71d5996" compoundref="xospipsv__flash__intr__example_8c" startline="1017" endline="1092">FlashRead</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a19dbfab221d6a11c3fa45674c1304f2e" compoundref="xospipsv__flash__intr__example_8c" startline="501" endline="575">FlashReadID</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1725" endline="1956">FlashSetSDRDDRMode</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1ab01ca7bff4098e88b315bd230b948658" compoundref="xospipsv__flash__intr__example_8c" startline="2145" endline="2262">MxConfigDummy</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a48b07e8e007e2da190edcfc0cc1d389b" compoundref="xospipsv__flash__polled__example_8c" startline="1852" endline="2004">SetBlockProtect</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1af2bad08ca36b22108da68d87e5d29201" compoundref="xospipsv__flash__intr__example_8c" startline="2005" endline="2133">SpansionSetEccMode</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga3946ea37da6d9ce478f29eca239b597b" compoundref="xospipsv_8c" startline="820" endline="944">XOspiPsv_SetDllDelay</referencedby>
+        <referencedby refid="group__ospipsv__api_1gaf618dd1d9a3b5fe6a60feedd9cfca12b" compoundref="xospipsv__hw_8c" startline="351" endline="451">XOspiPsv_Setup_Dev_Read_Instr_Reg</referencedby>
+        <referencedby refid="group__ospipsv__api_1gaa347217a72ad5240a86eb29dacec9270" compoundref="xospipsv__hw_8c" startline="233" endline="334">XOspiPsv_Setup_Dev_Write_Instr_Reg</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga6af9f098248cd39891e92d9caa1d75c8" compoundref="xospipsv__control_8c" startline="68" endline="111">XOspiPsv_Stig_Read</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga1b1a6b7fd20d9183ad58f84d3303eeec" compoundref="xospipsv__control_8c" startline="128" endline="169">XOspiPsv_Stig_Write</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for a flash message. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="108" bodyend="123"/>
+    <listofallmembers>
+      <member refid="struct_x_ospi_psv___msg_1af8358bd6a8075c4abacf9b0a7b10a490" prot="public" virt="non-virtual"><scope>XOspiPsv_Msg</scope><name>Addr</name></member>
+      <member refid="struct_x_ospi_psv___msg_1aed44f5b363f17a6ebb50ec89b032f112" prot="public" virt="non-virtual"><scope>XOspiPsv_Msg</scope><name>Addrsize</name></member>
+      <member refid="struct_x_ospi_psv___msg_1a3df927f0564ffc2896abff80b63e5601" prot="public" virt="non-virtual"><scope>XOspiPsv_Msg</scope><name>Addrvalid</name></member>
+      <member refid="struct_x_ospi_psv___msg_1ab46554545943ecf8f1a0152c237489f4" prot="public" virt="non-virtual"><scope>XOspiPsv_Msg</scope><name>ByteCount</name></member>
+      <member refid="struct_x_ospi_psv___msg_1aee5814ae840542f0968358c6c00371d8" prot="public" virt="non-virtual"><scope>XOspiPsv_Msg</scope><name>Dummy</name></member>
+      <member refid="struct_x_ospi_psv___msg_1a63025a20ca549b4b65f2c6d611d40abc" prot="public" virt="non-virtual"><scope>XOspiPsv_Msg</scope><name>ExtendedOpcode</name></member>
+      <member refid="struct_x_ospi_psv___msg_1a960350cdb6c3c5dc679c637ca1e21be0" prot="public" virt="non-virtual"><scope>XOspiPsv_Msg</scope><name>Flags</name></member>
+      <member refid="struct_x_ospi_psv___msg_1a5a9c4b0b141795207120a3d62c6d5144" prot="public" virt="non-virtual"><scope>XOspiPsv_Msg</scope><name>IsDDROpCode</name></member>
+      <member refid="struct_x_ospi_psv___msg_1a55ac289317d94775757cac9529ea51c2" prot="public" virt="non-virtual"><scope>XOspiPsv_Msg</scope><name>Opcode</name></member>
+      <member refid="struct_x_ospi_psv___msg_1a9d8c2658ecdf8c0e9d7f4196844cccf0" prot="public" virt="non-virtual"><scope>XOspiPsv_Msg</scope><name>Proto</name></member>
+      <member refid="struct_x_ospi_psv___msg_1abaa1e4b4bd1883e86018d400c49d438a" prot="public" virt="non-virtual"><scope>XOspiPsv_Msg</scope><name>RxAddr64bit</name></member>
+      <member refid="struct_x_ospi_psv___msg_1a584672579015305052780c6b14e5a576" prot="public" virt="non-virtual"><scope>XOspiPsv_Msg</scope><name>RxBfrPtr</name></member>
+      <member refid="struct_x_ospi_psv___msg_1a95f5d41c7ebd3d5b5da41c6289049e6f" prot="public" virt="non-virtual"><scope>XOspiPsv_Msg</scope><name>TxBfrPtr</name></member>
+      <member refid="struct_x_ospi_psv___msg_1af3b6091e16d13e4be338d18494c63485" prot="public" virt="non-virtual"><scope>XOspiPsv_Msg</scope><name>Xfer64bit</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

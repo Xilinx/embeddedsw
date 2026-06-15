@@ -1,0 +1,38 @@
+var xv__demosaic_8h =
+[
+    [ "XV_demosaic_Config", "struct_x_v__demosaic___config.html", "struct_x_v__demosaic___config" ],
+    [ "XV_demosaic", "struct_x_v__demosaic.html", "struct_x_v__demosaic" ],
+    [ "XV_demosaic_ReadReg", "xv__demosaic_8h.html#a36a7c251b12bd89ab6cc2a0d75157137", null ],
+    [ "XV_demosaic_WriteReg", "xv__demosaic_8h.html#aa38ba1f902b94e08f2cc6391a1691a4e", null ],
+    [ "XVDEMOSAIC_IRQ_DONE_MASK", "xv__demosaic_8h.html#a3c788dd3373066d3529afd6dc9cbfdc0", null ],
+    [ "XVDEMOSAIC_IRQ_READY_MASK", "xv__demosaic_8h.html#a80585d23495da0cf76c416fec07ddac3", null ],
+    [ "XVDemosaic_Callback", "xv__demosaic_8h.html#ad9bd8e937eb2be1722715aae1c60cd51", null ],
+    [ "XVDEMOSAIC_HandlerType", "xv__demosaic_8h.html#a2f58fe6c1acbed02cb5ab0bcc3f860ef", [
+      [ "XVDEMOSAIC_HANDLER_DONE", "xv__demosaic_8h.html#a2f58fe6c1acbed02cb5ab0bcc3f860efa1f7fcccfd95b90f778d734ac63b90d94", null ],
+      [ "XVDEMOSAIC_HANDLER_READY", "xv__demosaic_8h.html#a2f58fe6c1acbed02cb5ab0bcc3f860efa22fa321977dbe1bf0953f8e7cd41d846", null ]
+    ] ],
+    [ "XV_demosaic_CfgInitialize", "xv__demosaic_8h.html#a602f8a7aadb48c2e10b3748a9d33de06", null ],
+    [ "XV_demosaic_DisableAutoRestart", "xv__demosaic_8h.html#af01e921cbe12a3628cc237f090ac0bcd", null ],
+    [ "XV_demosaic_EnableAutoRestart", "xv__demosaic_8h.html#a5f0761b2c3d98c221e6b3d1a3153bd23", null ],
+    [ "XV_demosaic_Get_HwReg_bayer_phase", "xv__demosaic_8h.html#aad5daf24f3e5183eb540c7e9558f0345", null ],
+    [ "XV_demosaic_Get_HwReg_height", "xv__demosaic_8h.html#a8cad5ce63900772b821e46d6c60ead88", null ],
+    [ "XV_demosaic_Get_HwReg_width", "xv__demosaic_8h.html#a21bc9ff12055b15575178d906a131e31", null ],
+    [ "XV_demosaic_Initialize", "xv__demosaic_8h.html#a395e8e7efdf053e79d5b9a14d90f6767", null ],
+    [ "XV_demosaic_InterruptClear", "xv__demosaic_8h.html#a7158f8e24e9a182c264a876013681193", null ],
+    [ "XV_demosaic_InterruptDisable", "xv__demosaic_8h.html#a4f0de1734d2a54e682d620f06514049f", null ],
+    [ "XV_demosaic_InterruptEnable", "xv__demosaic_8h.html#a69fa1f851aa2f2d43ad537ccbdb9260d", null ],
+    [ "XV_demosaic_InterruptGetEnabled", "xv__demosaic_8h.html#aa538f7cb79b4692a6584beaf89e6afb7", null ],
+    [ "XV_demosaic_InterruptGetStatus", "xv__demosaic_8h.html#a5543702ffe2eca8a81cbcc4c004e88df", null ],
+    [ "XV_demosaic_InterruptGlobalDisable", "xv__demosaic_8h.html#aa71214d873527ed1af928e50b252affb", null ],
+    [ "XV_demosaic_InterruptGlobalEnable", "xv__demosaic_8h.html#a6891f3d35c268cddf40987470001ef6c", null ],
+    [ "XV_demosaic_IsDone", "xv__demosaic_8h.html#a5e3a407d7833c2bc549928d745bd32b1", null ],
+    [ "XV_demosaic_IsIdle", "xv__demosaic_8h.html#a3e78dd875d5342088e53634681f22d8a", null ],
+    [ "XV_demosaic_IsReady", "xv__demosaic_8h.html#a591e5c37e9e274122fab9a763eca2a5b", null ],
+    [ "XV_demosaic_LookupConfig", "xv__demosaic_8h.html#a357663e2a0c965194d856bfda50d4291", null ],
+    [ "XV_demosaic_Set_HwReg_bayer_phase", "xv__demosaic_8h.html#adfe6297757130862d4d2fd25ff4c413f", null ],
+    [ "XV_demosaic_Set_HwReg_height", "xv__demosaic_8h.html#aa40e36caefa57c07fe9b9e068f9c8493", null ],
+    [ "XV_demosaic_Set_HwReg_width", "xv__demosaic_8h.html#ac238328090e6c339df7e342215984be8", null ],
+    [ "XV_demosaic_Start", "xv__demosaic_8h.html#a41dc5cdfde882e8bed16965d5f5f5f86", null ],
+    [ "XVDemosaic_InterruptHandler", "xv__demosaic_8h.html#gaec49738eff318af31f6412423d884cde", null ],
+    [ "XVDemosaic_SetCallback", "xv__demosaic_8h.html#ga8adc7ef231a300187bbdb466e5d4a280", null ]
+];

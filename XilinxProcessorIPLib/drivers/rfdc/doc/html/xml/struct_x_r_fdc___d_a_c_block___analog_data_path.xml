@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_r_fdc___d_a_c_block___analog_data_path" kind="struct" prot="public">
+    <compoundname>XRFdc_DACBlock_AnalogDataPath</compoundname>
+    <includes local="no">xrfdc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_r_fdc___d_a_c_block___analog_data_path_1abf5be9b5ebe420825869bacfc2b82bd0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_DACBlock_AnalogDataPath::Enabled</definition>
+        <argsstring></argsstring>
+        <name>Enabled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="693" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="693" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___d_a_c_block___analog_data_path_1a7169aa094e330e05890a5f630491e656" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_DACBlock_AnalogDataPath::MixedMode</definition>
+        <argsstring></argsstring>
+        <name>MixedMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="694" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="694" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___d_a_c_block___analog_data_path_1a4ff4799182fd1960ce738885654d19de" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double XRFdc_DACBlock_AnalogDataPath::TerminationVoltage</definition>
+        <argsstring></argsstring>
+        <name>TerminationVoltage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="695" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="695" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___d_a_c_block___analog_data_path_1a8d6d2fdc6cba27506be7b602ac928352" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double XRFdc_DACBlock_AnalogDataPath::OutputCurrent</definition>
+        <argsstring></argsstring>
+        <name>OutputCurrent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="696" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="696" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___d_a_c_block___analog_data_path_1a2e849c2970339bf6bc76647a722f5971" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_DACBlock_AnalogDataPath::InverseSincFilterEnable</definition>
+        <argsstring></argsstring>
+        <name>InverseSincFilterEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="697" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="697" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___d_a_c_block___analog_data_path_1aaa81f98caa1a8ebdb0bc817ade68eb4d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_DACBlock_AnalogDataPath::DecoderMode</definition>
+        <argsstring></argsstring>
+        <name>DecoderMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="698" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="698" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___d_a_c_block___analog_data_path_1a35ecc1123e7f1585b8190eafd0935848" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XRFdc_DACBlock_AnalogDataPath::FuncHandler</definition>
+        <argsstring></argsstring>
+        <name>FuncHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="699" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="699" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___d_a_c_block___analog_data_path_1a915f9a8f763482c286aadcc955413378" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_DACBlock_AnalogDataPath::NyquistZone</definition>
+        <argsstring></argsstring>
+        <name>NyquistZone</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="700" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="700" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___d_a_c_block___analog_data_path_1ab432da253c294106820de6d05ad06b9e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XRFdc_DACBlock_AnalogDataPath::AnalogPathEnabled</definition>
+        <argsstring></argsstring>
+        <name>AnalogPathEnabled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="701" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="701" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___d_a_c_block___analog_data_path_1afd1b8976b21f9d92d5fe815277aba474" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XRFdc_DACBlock_AnalogDataPath::AnalogPathAvailable</definition>
+        <argsstring></argsstring>
+        <name>AnalogPathAvailable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="702" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="702" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___d_a_c_block___analog_data_path_1a9c306a3109e70921a0f61afe85033f49" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_r_fdc___q_m_c___settings" kindref="compound">XRFdc_QMC_Settings</ref></type>
+        <definition>XRFdc_QMC_Settings XRFdc_DACBlock_AnalogDataPath::QMC_Settings</definition>
+        <argsstring></argsstring>
+        <name>QMC_Settings</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="703" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="703" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___d_a_c_block___analog_data_path_1af9a0978c7309e5aaa8009da03cfd7d62" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_r_fdc___coarse_delay___settings" kindref="compound">XRFdc_CoarseDelay_Settings</ref></type>
+        <definition>XRFdc_CoarseDelay_Settings XRFdc_DACBlock_AnalogDataPath::CoarseDelay_Settings</definition>
+        <argsstring></argsstring>
+        <name>CoarseDelay_Settings</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="704" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="704" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>DAC Block Analog DataPath Structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="72">
+        <label>XRFdc_QMC_Settings</label>
+        <link refid="struct_x_r_fdc___q_m_c___settings"/>
+      </node>
+      <node id="70">
+        <label>XRFdc_DACBlock_AnalogDataPath</label>
+        <link refid="struct_x_r_fdc___d_a_c_block___analog_data_path"/>
+        <childnode refid="71" relation="usage">
+          <edgelabel>CoarseDelay_Settings</edgelabel>
+        </childnode>
+        <childnode refid="72" relation="usage">
+          <edgelabel>QMC_Settings</edgelabel>
+        </childnode>
+      </node>
+      <node id="71">
+        <label>XRFdc_CoarseDelay_Settings</label>
+        <link refid="struct_x_r_fdc___coarse_delay___settings"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="692" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="692" bodyend="705"/>
+    <listofallmembers>
+      <member refid="struct_x_r_fdc___d_a_c_block___analog_data_path_1afd1b8976b21f9d92d5fe815277aba474" prot="public" virt="non-virtual"><scope>XRFdc_DACBlock_AnalogDataPath</scope><name>AnalogPathAvailable</name></member>
+      <member refid="struct_x_r_fdc___d_a_c_block___analog_data_path_1ab432da253c294106820de6d05ad06b9e" prot="public" virt="non-virtual"><scope>XRFdc_DACBlock_AnalogDataPath</scope><name>AnalogPathEnabled</name></member>
+      <member refid="struct_x_r_fdc___d_a_c_block___analog_data_path_1af9a0978c7309e5aaa8009da03cfd7d62" prot="public" virt="non-virtual"><scope>XRFdc_DACBlock_AnalogDataPath</scope><name>CoarseDelay_Settings</name></member>
+      <member refid="struct_x_r_fdc___d_a_c_block___analog_data_path_1aaa81f98caa1a8ebdb0bc817ade68eb4d" prot="public" virt="non-virtual"><scope>XRFdc_DACBlock_AnalogDataPath</scope><name>DecoderMode</name></member>
+      <member refid="struct_x_r_fdc___d_a_c_block___analog_data_path_1abf5be9b5ebe420825869bacfc2b82bd0" prot="public" virt="non-virtual"><scope>XRFdc_DACBlock_AnalogDataPath</scope><name>Enabled</name></member>
+      <member refid="struct_x_r_fdc___d_a_c_block___analog_data_path_1a35ecc1123e7f1585b8190eafd0935848" prot="public" virt="non-virtual"><scope>XRFdc_DACBlock_AnalogDataPath</scope><name>FuncHandler</name></member>
+      <member refid="struct_x_r_fdc___d_a_c_block___analog_data_path_1a2e849c2970339bf6bc76647a722f5971" prot="public" virt="non-virtual"><scope>XRFdc_DACBlock_AnalogDataPath</scope><name>InverseSincFilterEnable</name></member>
+      <member refid="struct_x_r_fdc___d_a_c_block___analog_data_path_1a7169aa094e330e05890a5f630491e656" prot="public" virt="non-virtual"><scope>XRFdc_DACBlock_AnalogDataPath</scope><name>MixedMode</name></member>
+      <member refid="struct_x_r_fdc___d_a_c_block___analog_data_path_1a915f9a8f763482c286aadcc955413378" prot="public" virt="non-virtual"><scope>XRFdc_DACBlock_AnalogDataPath</scope><name>NyquistZone</name></member>
+      <member refid="struct_x_r_fdc___d_a_c_block___analog_data_path_1a8d6d2fdc6cba27506be7b602ac928352" prot="public" virt="non-virtual"><scope>XRFdc_DACBlock_AnalogDataPath</scope><name>OutputCurrent</name></member>
+      <member refid="struct_x_r_fdc___d_a_c_block___analog_data_path_1a9c306a3109e70921a0f61afe85033f49" prot="public" virt="non-virtual"><scope>XRFdc_DACBlock_AnalogDataPath</scope><name>QMC_Settings</name></member>
+      <member refid="struct_x_r_fdc___d_a_c_block___analog_data_path_1a4ff4799182fd1960ce738885654d19de" prot="public" virt="non-virtual"><scope>XRFdc_DACBlock_AnalogDataPath</scope><name>TerminationVoltage</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

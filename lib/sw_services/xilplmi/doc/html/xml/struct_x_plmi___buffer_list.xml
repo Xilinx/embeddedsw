@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_plmi___buffer_list" kind="struct" prot="public">
+    <compoundname>XPlmi_BufferList</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_plmi___buffer_list_1a39a649f4c61fedb5f81c98f6ecbe1903" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPlmi_BufferList::MaxBufferCount</definition>
+        <argsstring></argsstring>
+        <name>MaxBufferCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___buffer_list_1a99c9ac6ab6150c8315e02689bf6b22b4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPlmi_BufferList::BufferCount</definition>
+        <argsstring></argsstring>
+        <name>BufferCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___buffer_list_1a6f0c57fd9a85d74a34980ec4250a22fc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPlmi_BufferList::IsBufferMemAvailable</definition>
+        <argsstring></argsstring>
+        <name>IsBufferMemAvailable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___buffer_list_1aa631903e006232a141cab068bd2268d5" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPlmi_BufferList::BufferMemSize</definition>
+        <argsstring></argsstring>
+        <name>BufferMemSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___buffer_list_1ac4739d089fcbdfbb7b350c2f8237ab67" prot="public" static="no" mutable="no">
+        <type>XPlmi_BufferData *</type>
+        <definition>XPlmi_BufferData* XPlmi_BufferList::Data</definition>
+        <argsstring></argsstring>
+        <name>Data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="108" bodyend="114"/>
+    <listofallmembers>
+      <member refid="struct_x_plmi___buffer_list_1a99c9ac6ab6150c8315e02689bf6b22b4" prot="public" virt="non-virtual"><scope>XPlmi_BufferList</scope><name>BufferCount</name></member>
+      <member refid="struct_x_plmi___buffer_list_1aa631903e006232a141cab068bd2268d5" prot="public" virt="non-virtual"><scope>XPlmi_BufferList</scope><name>BufferMemSize</name></member>
+      <member refid="struct_x_plmi___buffer_list_1ac4739d089fcbdfbb7b350c2f8237ab67" prot="public" virt="non-virtual"><scope>XPlmi_BufferList</scope><name>Data</name></member>
+      <member refid="struct_x_plmi___buffer_list_1a6f0c57fd9a85d74a34980ec4250a22fc" prot="public" virt="non-virtual"><scope>XPlmi_BufferList</scope><name>IsBufferMemAvailable</name></member>
+      <member refid="struct_x_plmi___buffer_list_1a39a649f4c61fedb5f81c98f6ecbe1903" prot="public" virt="non-virtual"><scope>XPlmi_BufferList</scope><name>MaxBufferCount</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

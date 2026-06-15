@@ -1,0 +1,411 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group____cam__device__hist64" kind="group">
+    <compoundname>_cam_device_hist64</compoundname>
+    <title>VsCamDevice E01C29 Device_Hist64 Definitions</title>
+    <innerclass refid="struct_cam_device_hist64_bins__s" prot="public">CamDeviceHist64Bins_s</innerclass>
+    <innerclass refid="struct_cam_device_hist64_config__s" prot="public">CamDeviceHist64Config_s</innerclass>
+    <innerclass refid="struct_cam_device_hist64_status__s" prot="public">CamDeviceHist64Status_s</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group____cam__device__hist64_1ga2881efb0317620b2f6aa9e314c846e99" prot="public" static="no">
+        <name>CamDeviceHist64Mode_e</name>
+        <enumvalue id="group____cam__device__hist64_1gga2881efb0317620b2f6aa9e314c846e99abc14838ab0a03ae36268aaeadbde1f63" prot="public">
+          <name>CAMDEV_HIST64_MODE_DISABLE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Disabled, no measurements. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__hist64_1gga2881efb0317620b2f6aa9e314c846e99a50882bac3486c7b69521f0aa07e4da15" prot="public">
+          <name>CAMDEV_HIST64_MODE_ONE_FROM_YRGB</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Control Y/R/G/B histogram via coefficients coeff_r/g/b. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__hist64_1gga2881efb0317620b2f6aa9e314c846e99af77552b20135892b75f3259ed4da768f" prot="public">
+          <name>CAMDEV_HIST64_MODE_R</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>R histogram. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__hist64_1gga2881efb0317620b2f6aa9e314c846e99a753196f7efd020db004259fa73c6e341" prot="public">
+          <name>CAMDEV_HIST64_MODE_GR</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>Gr histogram. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__hist64_1gga2881efb0317620b2f6aa9e314c846e99a028f003320f267e5b4bf3bb6478f8190" prot="public">
+          <name>CAMDEV_HIST64_MODE_B</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+<para>B histogram. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__hist64_1gga2881efb0317620b2f6aa9e314c846e99a55f5932e6870d758bc0afc674a639a42" prot="public">
+          <name>CAMDEV_HIST64_MODE_GB</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+<para>Gb histogram. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__hist64_1gga2881efb0317620b2f6aa9e314c846e99a54fd4b01cdf46dba6bf5bff95d6a106e" prot="public">
+          <name>CAMDEV_IST64_MODE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice HIST64 mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" bodystart="53" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__hist64_1ga8ced0f2634d7d031fd5f6e0fbaa699ff" prot="public" static="no">
+        <name>CamDeviceHist64Channel_e</name>
+        <enumvalue id="group____cam__device__hist64_1gga8ced0f2634d7d031fd5f6e0fbaa699ffa957e3af3db51e1d302d1daf760fdad20" prot="public">
+          <name>CAMDEV_HIST64_CHANNEL_0</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__hist64_1gga8ced0f2634d7d031fd5f6e0fbaa699ffaa5e9590b7a0eb7d6cd0897dab5e770b2" prot="public">
+          <name>CAMDEV_HIST64_CHANNEL_1</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__hist64_1gga8ced0f2634d7d031fd5f6e0fbaa699ffae9ea6fe22f96d58c9aeb847d03cce706" prot="public">
+          <name>CAMDEV_HIST64_CHANNEL_2</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__hist64_1gga8ced0f2634d7d031fd5f6e0fbaa699ffaf1ebf2ea659196093a47b31950344789" prot="public">
+          <name>CAMDEV_HIST64_CHANNEL_3</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__hist64_1gga8ced0f2634d7d031fd5f6e0fbaa699ffad60fca96aed106e2698bad4884b57624" prot="public">
+          <name>CAMDEV_HIST64_CHANNEL_4</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__hist64_1gga8ced0f2634d7d031fd5f6e0fbaa699ffaa18f7d03e76af60c0805bae55a3d8890" prot="public">
+          <name>CAMDEV_HIST64_CHANNEL_5</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__hist64_1gga8ced0f2634d7d031fd5f6e0fbaa699ffa069e188a04552b55ab6a725675263882" prot="public">
+          <name>CAMDEV_HIST64_CHANNEL_6</name>
+          <initializer>= 6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__hist64_1gga8ced0f2634d7d031fd5f6e0fbaa699ffad5d8a587374080a66329a9f003b43446" prot="public">
+          <name>CAMDEV_HIST64_CHANNEL_7</name>
+          <initializer>= 7</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__hist64_1gga8ced0f2634d7d031fd5f6e0fbaa699ffa33f670916144d96d2b1fc71f2954997e" prot="public">
+          <name>CAMDEV_HIST64_CHANNEL_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice HIST64 channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" bodystart="68" bodyend="79"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__hist64_1ga5434aa6df87372a9f439ca3270b80cf9" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__hist64_1ga2881efb0317620b2f6aa9e314c846e99" kindref="member">CamDeviceHist64Mode_e</ref></type>
+        <definition>typedef enum CamDeviceHist64Mode_e  CamDeviceHist64Mode_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceHist64Mode_t</name>
+        <briefdescription>
+<para>VsCamDevice HIST64 mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" line="61" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__hist64_1ga48173f8d35df1cd6184e7c3c8c5d341d" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__hist64_1ga8ced0f2634d7d031fd5f6e0fbaa699ff" kindref="member">CamDeviceHist64Channel_e</ref></type>
+        <definition>typedef enum CamDeviceHist64Channel_e  CamDeviceHist64Channel_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceHist64Channel_t</name>
+        <briefdescription>
+<para>VsCamDevice HIST64 channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" line="79" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__hist64_1ga421a6a250c3640fb58dc907c591e3170" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_hist64_bins__s" kindref="compound">CamDeviceHist64Bins_s</ref></type>
+        <definition>typedef struct CamDeviceHist64Bins_s  CamDeviceHist64Bins_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceHist64Bins_t</name>
+        <briefdescription>
+<para>VsCamDevice HIST64 bins. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" line="89" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__hist64_1ga1f17c615585347fd1a1ff84355909511" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_hist64_config__s" kindref="compound">CamDeviceHist64Config_s</ref></type>
+        <definition>typedef struct CamDeviceHist64Config_s  CamDeviceHist64Config_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceHist64Config_t</name>
+        <briefdescription>
+<para>VsCamDevice HIST64 configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" line="104" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__hist64_1ga56581a771531758061dc5aae44bcfa1a" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_hist64_status__s" kindref="compound">CamDeviceHist64Status_s</ref></type>
+        <definition>typedef struct CamDeviceHist64Status_s CamDeviceHist64Status_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceHist64Status_t</name>
+        <briefdescription>
+<para>VsCamDevice HIST64 status structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" line="114" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__hist64_1ga48174b51245beebbbc12e8e1af8469f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceHist64SetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceHist64Config_t *pConfig)</argsstring>
+        <name>VsiCamDeviceHist64SetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__hist64_1ga1f17c615585347fd1a1ff84355909511" kindref="member">CamDeviceHist64Config_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/hist/cam_device_hist64_api.c" bodystart="18" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__hist64_1ga002b4eec3fa307a7ce02000490e4fe17" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceHist64GetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceHist64Config_t *pConfig)</argsstring>
+        <name>VsiCamDeviceHist64GetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__hist64_1ga1f17c615585347fd1a1ff84355909511" kindref="member">CamDeviceHist64Config_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/hist/cam_device_hist64_api.c" bodystart="63" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__hist64_1gae58016aed0efad792cae4f0adb0a6312" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceHist64Enable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceHist64Enable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/hist/cam_device_hist64_api.c" bodystart="108" bodyend="143"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__hist64_1gaea6efddca421a9b2bbff873726e60693" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceHist64Disable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceHist64Disable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/hist/cam_device_hist64_api.c" bodystart="147" bodyend="182"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__hist64_1gacfc17a18e3e26e0dd51b64d5cd03d240" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceHist64GetStatistic</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceHist64Bins_t *pHistBins)</argsstring>
+        <name>VsiCamDeviceHist64GetStatistic</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__hist64_1ga421a6a250c3640fb58dc907c591e3170" kindref="member">CamDeviceHist64Bins_t</ref> *</type>
+          <declname>pHistBins</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/hist/cam_device_hist64_api.c" bodystart="186" bodyend="227"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__hist64_1ga1b163cc55ba70fce4a088859a8f935bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceHist64GetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceHist64Status_t *pStatus)</argsstring>
+        <name>VsiCamDeviceHist64GetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__hist64_1ga56581a771531758061dc5aae44bcfa1a" kindref="member">CamDeviceHist64Status_t</ref> *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/hist/cam_device_hist64_api.c" bodystart="231" bodyend="272"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__hist64_1ga024704eaa37c8dfe589d04b8708569e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceHist64GetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceHist64GetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/hist/cam_device_hist64_api.c" bodystart="276" bodyend="317"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__hist64_1ga9ce44e1b0e7c6130e339e905751c3ee2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceHist64Reset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceHist64Reset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" line="313" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/hist/cam_device_hist64_api.c" bodystart="321" bodyend="356"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group____cam__device__hist64_1gac40a5d0a562a397730b2b4de22e04f3e" prot="public" static="no">
+        <name>CAMDEV_HIST64_GRID_ITEMS</name>
+        <initializer>25</initializer>
+        <briefdescription>
+<para>The number of grid sub windows. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__hist64_1ga5897d9f3a769886f77b02e27a5487db4" prot="public" static="no">
+        <name>CAMDEV_HIST64_NUM_BINS</name>
+        <initializer>32</initializer>
+        <briefdescription>
+<para>number of bins </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Provides interfaces for controlling the histogram 64 module working in the ISP pipeline. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,738 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xnvm__bbram_8c" kind="file">
+    <compoundname>xnvm_bbram.c</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xnvm__bbram_8h" local="yes">xnvm_bbram.h</includes>
+    <includes refid="xnvm__bbram__hw_8h" local="yes">xnvm_bbram_hw.h</includes>
+    <includes local="yes">xnvm_utils.h</includes>
+    <includes local="yes">xnvm_defs.h</includes>
+    <incdepgraph>
+      <node id="142">
+        <label>xil_io.h</label>
+      </node>
+      <node id="146">
+        <label>xnvm_bbram_hw.h</label>
+        <link refid="xnvm__bbram__hw_8h"/>
+      </node>
+      <node id="148">
+        <label>xnvm_defs.h</label>
+      </node>
+      <node id="147">
+        <label>xnvm_utils.h</label>
+      </node>
+      <node id="143">
+        <label>xstatus.h</label>
+      </node>
+      <node id="145">
+        <label>xil_types.h</label>
+      </node>
+      <node id="141">
+        <label>xnvm_bbram.c</label>
+        <link refid="xnvm_bbram.c"/>
+        <childnode refid="142" relation="include">
+        </childnode>
+        <childnode refid="143" relation="include">
+        </childnode>
+        <childnode refid="144" relation="include">
+        </childnode>
+        <childnode refid="146" relation="include">
+        </childnode>
+        <childnode refid="147" relation="include">
+        </childnode>
+        <childnode refid="148" relation="include">
+        </childnode>
+      </node>
+      <node id="144">
+        <label>xnvm_bbram.h</label>
+        <link refid="xnvm__bbram_8h"/>
+        <childnode refid="145" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xnvm__bbram__server__apis_1ga6ebc086461092546789c62ddbd362948" prot="public" static="no">
+        <name>REVERSE_POLYNOMIAL</name>
+        <initializer>(0x82F63B78U)</initializer>
+        <briefdescription>
+<para>Polynomial used for CRC calculation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__xnvm__util__apis_1ga05857cc7a1c346b57ab04e5f1fb0edb5" compoundref="spartanup_2xnvm__utils_8c" startline="451" endline="496">XNvm_AesCrcCalc</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xnvm__bbram__server__apis_1gae9458eb4c933dd9769cf0c0e2252dee7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XNvm_BbramReadReg</definition>
+        <argsstring>(u32 Offset)</argsstring>
+        <name>XNvm_BbramReadReg</name>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Performs Reading the BBRAM register at the given offset</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" bodystart="93" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__bbram__server__apis_1ga396e827ab5f1f56def33f03621da3290" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XNvm_BbramWriteReg</definition>
+        <argsstring>(u32 Offset, u32 Data)</argsstring>
+        <name>XNvm_BbramWriteReg</name>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function writes the value into the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the register. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Writes the data in to BBRAM register at given offset</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" bodystart="109" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__bbram__server__apis_1ga98ba40768aa9f879dfc0640a20ffa0c4" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XNvm_BbramEnablePgmMode</definition>
+        <argsstring>(void)</argsstring>
+        <name>XNvm_BbramEnablePgmMode</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function enables the BBRAM programming mode by writing to the BBRAM_PGM_MODE register with the required value. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Enabled programming mode.</para></listitem><listitem><para>XNVM_BBRAM_ERROR_PGM_MODE_ENABLE_TIMEOUT On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Write PassCode 0x757BDF0DU to BBRAM_PGM_MODE register to enable programming mode. Wait for BBRAM_PGM_MODE_DONE bit to set in BBRAM_STATUS register with timeout of 1 second. If timed out return timeout error else Return XST_SUCCESS.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" bodystart="396" bodyend="417"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__bbram__server__apis_1gad3194f417aa1aaf0aa1a4921bb9fcc9a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XNvm_BbramDisablePgmMode</definition>
+        <argsstring>(void)</argsstring>
+        <name>XNvm_BbramDisablePgmMode</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function disables the programming mode of the BBRAM by writing to 0 BBRAM_PGM_MODE register. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Disabled programming mode.</para></listitem><listitem><para>XST_FAILURE On failure in disabling programming mode. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Write 0x0 to BBRAM_PGM_MODE register.</para></listitem><listitem><para>Read back and verify that 0x0 is written to BBRAM_PGM_MODE register.</para></listitem><listitem><para>If PGM_MODE is disabled return XST_SUCCESS else XST_FAILURE.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" bodystart="429" bodyend="448"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__bbram__server__apis_1gaa453dbd4f39cd744f682eb99e84ca1b4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XNvm_BbramValidateAesKeyCrc</definition>
+        <argsstring>(const u32 *Key)</argsstring>
+        <name>XNvm_BbramValidateAesKeyCrc</name>
+        <param>
+          <type>const u32 *</type>
+          <declname>Key</declname>
+        </param>
+        <briefdescription>
+<para>Validates CRC of the key stored in BBRAM with CRC of input key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to key which is to be matched with key stored in BBRAM.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS CRC matched</para></listitem><listitem><para>XNVM_BBRAM_ERROR_AES_CRC_DONE_TIMEOUT CRC validation check timed out.</para></listitem><listitem><para>XNVM_BBRAM_ERROR_AES_CRC_MISMATCH CRC mismatch </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Calculate the 32 bit CRC of the input key.</para></listitem><listitem><para>Write that CRC to BBRAM_AES_CRC_REG register.</para></listitem><listitem><para>Wait for BBRAM_AES_CRC_DONE to set in BBRAM_STATUS register with timeout of 1 second. If timed out return timeout error else Check for CRC_PASS.</para></listitem><listitem><para>Check for BBRAM_AES_CRC_PASS bit in BBRAM_STATUS register. If set return XST_SUCCESS else return XNVM_BBRAM_ERROR_AES_CRC_MISMATCH error.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" bodystart="463" bodyend="504"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__bbram__server__apis_1ga01a33fa4cb5828071708928968629728" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XNvm_BbramWriteBbram8</definition>
+        <argsstring>(u32 Data)</argsstring>
+        <name>XNvm_BbramWriteBbram8</name>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Programs BBRAM_8 register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- 32-bit data to be written to BBRAM_8 register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Successfully programmed data in BBRAM_8 register</para></listitem><listitem><para>XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED Failure since write is locked for the register </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Check for BBRAM Lock register for Lock. If it Locked then return XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED</para></listitem></itemizedlist>
+</para><para>-Else write user data to BBRAM and Return XST_SUCCESS</para><para><itemizedlist>
+<listitem><para>Read back the user data to verify if the data is correctly programmed. For versal_2ve_2vm devices, the data should be written in BBRAM_8 register and read from BBRAM_8_MEM register.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" bodystart="258" bodyend="294"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__bbram__server__apis_1ga85d604d634dbf207503a9128fee84a50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_BbramWriteAesKey</definition>
+        <argsstring>(const u8 *Key, u16 KeyLen)</argsstring>
+        <name>XNvm_BbramWriteAesKey</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>Key</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>KeyLen</declname>
+        </param>
+        <briefdescription>
+<para>This function does programming of key provided into BBRAM and validates CRC of the key stored in BBRAM with CRC of input key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to hex buffer which is pointing to key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- XNVM_256_BITS_AES_KEY_LEN_IN_BYTES for 256-bit AES key</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Key is written to BBRAM.</para></listitem><listitem><para>XST_INVALID_PARAM Invalid parameter passed.</para></listitem><listitem><para>XNVM_BBRAM_ERROR_PGM_MODE_ENABLE_TIMEOUT Timeout during enabling programming mode.</para></listitem><listitem><para>XNVM_BBRAM_ERROR_PGM_MODE_DISABLE_TIMEOUT Timeout during disabling programming mode.</para></listitem><listitem><para>XNVM_BBRAM_ERROR_AES_CRC_DONE_TIMEOUT CRC validation check timed out.</para></listitem><listitem><para>XNVM_BBRAM_ERROR_AES_CRC_MISMATCH CRC mismatch. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation. Return appropriate error code if input parameters are invalid.</para></listitem><listitem><para>Assign the key address to local pointer.</para></listitem><listitem><para>Bring BBRAM to programming mode by writing Magic Word 0x757BDF0D to PGM_MODE register.</para></listitem><listitem><para>Write 256-bit AES Key to BBRAM registers BBRAM_0 to BBRAM_7.</para></listitem><listitem><para>Calculate CRC on input AES Key and write it to BBRAM_AES_CRC which triggers BBRAM CRC integrity check. Wait for AES_CRC_DONE bit to set in BBRAM_STATUS register with timeout of 1 second. If timed out return timeout error. If AES_CRC_PASS bit is set in BBRAM_STATUS register, return XST_SUCCESS else return CRC mismatch error.</para></listitem><listitem><para>Disable BBRAM programming mode by writing 0x00 to PGM_MODE register.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" bodystart="146" bodyend="214"/>
+        <references refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gaec82562ab864eeb29b8aabf22976c4d0" compoundref="xilnvm__efuse__spartan__ultrascale__plus__example_8c" startline="60">XNVM_256_BITS_AES_KEY_LEN_IN_BYTES</references>
+        <references refid="xnvm__bbram__hw_8h_1a46ecbf17de00ceb1955a2d0d44412533" compoundref="xnvm__bbram__hw_8h" startline="56">XNVM_BBRAM_0_REG</references>
+        <references refid="xnvm__bbram_8h_1a3201b971919b08d8190b4927bd3da3ec" compoundref="xnvm__bbram_8h" startline="50">XNVM_BBRAM_AES_KEY_SIZE_IN_WORDS</references>
+        <references refid="group__xnvm__bbram__client__api_1gae4085a2c2243377cae4029f3236684e7" compoundref="xnvm__bbramclient_8c" startline="108" endline="131">XNvm_BbramZeroize</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__bbram__server__apis_1ga3d264db9b87c4fe29a755a02f0bad72f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_BbramLockUsrDataWrite</definition>
+        <argsstring>(void)</argsstring>
+        <name>XNvm_BbramLockUsrDataWrite</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function locks the user data written in BBRAM_8 that is making user data written in BBRAM as read only. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Success in locking the BBRAM user data.</para></listitem><listitem><para>XNVM_BBRAM_ERROR_LOCK_USR_DATA_WRITE Failure to lock BBRAM user data. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Write to BBRAM Lock register and readback to confirm if lock is successful. Return the status of the lock, Success if the lock is done else error.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" line="226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" bodystart="226" bodyend="245"/>
+        <references refid="xnvm__bbram_8h_1abe4a861137aa2ba239f599b20a23612c" compoundref="xnvm__bbram_8h" startline="65">XNVM_BBRAM_ERROR_LOCK_USR_DATA_WRITE</references>
+        <references refid="xnvm__bbram__hw_8h_1a6d26b912dbfc8709d217f9dc3b0f6b15" compoundref="xnvm__bbram__hw_8h" startline="93">XNVM_BBRAM_MSW_LOCK</references>
+        <references refid="xnvm__bbram__hw_8h_1aaab0eca5f9f09e58de06085d9208b118" compoundref="xnvm__bbram__hw_8h" startline="58">XNVM_BBRAM_MSW_LOCK_REG</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__bbram__server__apis_1gade0b7ce1639f068fb871c52eccfef0b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_BbramWriteUsrData</definition>
+        <argsstring>(u32 GeneralPurposeData)</argsstring>
+        <name>XNvm_BbramWriteUsrData</name>
+        <param>
+          <type>u32</type>
+          <declname>GeneralPurposeData</declname>
+        </param>
+        <briefdescription>
+<para>Writes user provided 32-bit data to BBRAM. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>GeneralPurposeData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- 32-bit user data to be written to BBRAM</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS User data written to BBRAM</para></listitem><listitem><para>XNVM_BBRAM_INVALID_PARAM Invalid input parameter</para></listitem><listitem><para>XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED Failure since write is locked for the register</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Provisoning of general purpose data is allowed only if Symmetric/Asymeetric HWRoT boot is not enabled for Versal Gen 2 devices </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" bodystart="311" bodyend="333"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__bbram__server__apis_1gafcee46d7df5018a118844238cf4e3f65" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XNvm_BbramReadUsrData</definition>
+        <argsstring>(void)</argsstring>
+        <name>XNvm_BbramReadUsrData</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function reads 32-bit user data from BBRAM_8 register. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>32-bit user data stored in BBRAM_8 register </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Read the 32 bit user data from the BBRAM_8 register and return it</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" bodystart="342" bodyend="353"/>
+        <references refid="xnvm__bbram__hw_8h_1a9bef32696aa67987c3325cb363a13272" compoundref="xnvm__bbram__hw_8h" startline="57">XNVM_BBRAM_8_REG</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__bbram__server__apis_1ga689df607f805a008e64d9c2a181b2f17" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_BbramZeroize</definition>
+        <argsstring>(void)</argsstring>
+        <name>XNvm_BbramZeroize</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function zeroizes the BBRAM. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Success in Zeroization of BBRAM.</para></listitem><listitem><para>XNVM_BBRAM_ERROR_ZEROIZE_TIMEOUT If Timed out during BBRAM zeroization </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Write 1 to BBRAM_CTRL register. Wait for BBRAM_ZEROIZED bit to set in BBRAM_STATUS register with timeout of 1 second. If timed out return timeout error. Return XST_SUCCESS.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" bodystart="364" bodyend="384"/>
+        <references refid="xnvm__bbram__hw_8h_1a791e4d21765eb196c6e2819bea01c443" compoundref="xnvm__bbram__hw_8h" startline="45">XNVM_BBRAM_BASE_ADDR</references>
+        <references refid="xnvm__bbram__hw_8h_1ac5e2f0fb82509488c3d0e6f0417bc96e" compoundref="xnvm__bbram__hw_8h" startline="53">XNVM_BBRAM_CTRL_REG</references>
+        <references refid="xnvm__bbram__hw_8h_1a065b3b8d7d6be2ebeffb4974df61863f" compoundref="xnvm__bbram__hw_8h" startline="79">XNVM_BBRAM_CTRL_START_ZEROIZE</references>
+        <references refid="xnvm__bbram_8h_1aa9a7eb5fa36c8914dda4fa5fd858c363" compoundref="xnvm__bbram_8h" startline="74">XNVM_BBRAM_ERROR_ZEROIZE_TIMEOUT</references>
+        <references refid="xnvm__bbram__hw_8h_1a7caf87ce570f0ba169e55ce0bd3faf69" compoundref="xnvm__bbram__hw_8h" startline="52">XNVM_BBRAM_STATUS_REG</references>
+        <references refid="xnvm__bbram__hw_8h_1a52c1541a393d73c7029173c875f805e3" compoundref="xnvm__bbram__hw_8h" startline="70">XNVM_BBRAM_STATUS_ZEROIZED</references>
+        <references refid="xnvm__bbram__hw_8h_1ae0eba09038fae11350f11f17bd2348f9" compoundref="xnvm__bbram__hw_8h" startline="102">XNVM_BBRAM_ZEROIZE_TIMEOUT_VAL</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains NVM library BBRAM functions. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+1.0   mmd  04/01/2019 Initial release
+2.0   kal  11/14/2019 Added error check when BBRAM keylen is not 128 or 256.
+2.1     am   08/19/2020 Resolved MISRA C violations.
+      kal  09/03/2020 Fixed Security CoE review comments
+      am   10/13/2020 Resolved MISRA C violations
+2.3   am   11/23/2020 Resolved MISRA C violation Rule 10.6
+        kal  12/23/2020 Disable BBRAM programming in error case also
+      kal  01/27/2021   Zeroize BBRAM in case of CRC mismatch
+                Zeroize BBRAM User Data in case of write failure
+2.4   kal  07/13/2021 Fixed doxygen warnings
+      kal  08/03/2021 Removed clearing BBRAM UsrData in case for write failure
+3.0   kal  08/01/2022 Added redundancy to XNvm_BbramEnablePgmMode function
+      dc   08/29/2022 Changed u8 to u32 type
+3.1   skg  10/23/2022 Added In body comments for APIs
+3.4   pre  09/11/2024 Removed zeroization before writing key
+      ng   09/20/2024 Fixed doxygen grouping
+3.5   pre  11/21/2024 Removed zeroization before writing key
+3.5   hj   26/03/2025 Return explicit error code on General Purpose BBRAM8 write request in SB
+      har  04/10/2025 Modified to read user data from XNVM_BBRAM_8_MEM_REG for versal_2ve_2vm</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="49"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>**********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xnvm__bbram_8h" kindref="compound">xnvm_bbram.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xnvm__bbram__hw_8h" kindref="compound">xnvm_bbram_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xnvm_utils.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xnvm_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59" refid="group__xnvm__bbram__server__apis_1ga6ebc086461092546789c62ddbd362948" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>REVERSE_POLYNOMIAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x82F63B78U)</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor">#ifdef<sp/>VERSAL_2VE_2VM</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_CL_ENABLE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(30U)</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor">#define<sp/>XNVM_CL_MODE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(28U)</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor">#define<sp/>XNVM_CL_MAX_COUNT_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0FFFFFFFU)</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor">#define<sp/>XNVM_RTCFG_SECURESTATE_AHWROT_ADDR<sp/><sp/><sp/><sp/><sp/><sp/>(0xF201414CU)</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor">#define<sp/>XNVM_RTCFG_SECURESTATE_SHWROT_ADDR<sp/><sp/><sp/><sp/><sp/><sp/>(0xF2014150U)</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor">#define<sp/>XNVM_RTCFG_SECURESTATE_AHWROT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xA5A5A5A5U)</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor">#define<sp/>XNVM_RTCFG_SECURESTATE_SHWROT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x96969696U)</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="comment">/******************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="93"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>u32<sp/>XNvm_BbramReadReg(u32<sp/>Offset)</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Xil_In32((UINTPTR)(<ref refid="xnvm__bbram__hw_8h_1a791e4d21765eb196c6e2819bea01c443" kindref="member">XNVM_BBRAM_BASE_ADDR</ref><sp/>+<sp/>Offset));</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="109"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XNvm_BbramWriteReg(u32<sp/>Offset,<sp/>u32<sp/>Data)</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32((UINTPTR)(<ref refid="xnvm__bbram__hw_8h_1a791e4d21765eb196c6e2819bea01c443" kindref="member">XNVM_BBRAM_BASE_ADDR</ref><sp/>+<sp/>Offset),<sp/>Data);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XNvm_BbramEnablePgmMode(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XNvm_BbramDisablePgmMode(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XNvm_BbramValidateAesKeyCrc(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32*<sp/>Key);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XNvm_BbramWriteBbram8(u32<sp/>Data);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="146" refid="group__xnvm__bbram__server__apis_1ga85d604d634dbf207503a9128fee84a50" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__bbram__client__api_1ga3a9878e9a0eb1071cd34c4d14d842f10" kindref="member">XNvm_BbramWriteAesKey</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Key,<sp/>u16<sp/>KeyLen)</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>StatusTmp<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>DisableStatus<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ZeroizeStatus<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*AesKey<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BbramKeyAddr;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Idx;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((KeyLen<sp/>!=<sp/><ref refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gaec82562ab864eeb29b8aabf22976c4d0" kindref="member">XNVM_256_BITS_AES_KEY_LEN_IN_BYTES</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Key<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesKey<sp/>=<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*)<sp/>Key;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_IMPL(Status,<sp/>StatusTmp,<sp/>XNvm_BbramEnablePgmMode);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Status<sp/>!=<sp/>XST_SUCCESS)<sp/>||<sp/>(StatusTmp<sp/>!=<sp/>XST_SUCCESS))<sp/>{</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(Status<sp/>|<sp/>StatusTmp);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BbramKeyAddr<sp/>=<sp/><ref refid="xnvm__bbram__hw_8h_1a46ecbf17de00ceb1955a2d0d44412533" kindref="member">XNVM_BBRAM_0_REG</ref>;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Idx<sp/>=<sp/>0U;<sp/>Idx<sp/>&lt;<sp/><ref refid="xnvm__bbram_8h_1a3201b971919b08d8190b4927bd3da3ec" kindref="member">XNVM_BBRAM_AES_KEY_SIZE_IN_WORDS</ref>;<sp/>Idx++)<sp/>{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNvm_BbramWriteReg(BbramKeyAddr,<sp/>AesKey[Idx]);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BbramKeyAddr<sp/>+=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(u32);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XNvm_BbramValidateAesKeyCrc(AesKey);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ZeroizeStatus<sp/>=<sp/><ref refid="group__xnvm__bbram__client__api_1gae4085a2c2243377cae4029f3236684e7" kindref="member">XNvm_BbramZeroize</ref>();</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ZeroizeStatus<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(Status<sp/>|<sp/>ZeroizeStatus);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DisableStatus<sp/>=<sp/>XNvm_BbramDisablePgmMode();</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((DisableStatus<sp/>!=<sp/>XST_SUCCESS)<sp/>&amp;&amp;<sp/>(Status<sp/>==<sp/>XST_SUCCESS))<sp/>{</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>DisableStatus;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="226" refid="group__xnvm__bbram__server__apis_1ga3d264db9b87c4fe29a755a02f0bad72f" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__bbram__client__api_1ga5ab6ca734ee3f575632ba1c88164d182" kindref="member">XNvm_BbramLockUsrDataWrite</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="227"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LockStatus<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNvm_BbramWriteReg(<ref refid="xnvm__bbram__hw_8h_1aaab0eca5f9f09e58de06085d9208b118" kindref="member">XNVM_BBRAM_MSW_LOCK_REG</ref>,<sp/><ref refid="xnvm__bbram__hw_8h_1a6d26b912dbfc8709d217f9dc3b0f6b15" kindref="member">XNVM_BBRAM_MSW_LOCK</ref>);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LockStatus<sp/>=<sp/>XNvm_BbramReadReg(<ref refid="xnvm__bbram__hw_8h_1aaab0eca5f9f09e58de06085d9208b118" kindref="member">XNVM_BBRAM_MSW_LOCK_REG</ref>);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">((LockStatus<sp/>&amp;<sp/><ref refid="xnvm__bbram__hw_8h_1a6d26b912dbfc8709d217f9dc3b0f6b15" kindref="member">XNVM_BBRAM_MSW_LOCK</ref>)<sp/>==<sp/>XNVM_BBRAM_MSW_LOCK)<sp/>{</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="xnvm__bbram_8h_1abe4a861137aa2ba239f599b20a23612c" kindref="member">XNVM_BBRAM_ERROR_LOCK_USR_DATA_WRITE</ref>;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="245"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="258"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XNvm_BbramWriteBbram8(u32<sp/>Data)</highlight></codeline>
+<codeline lineno="259"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LockStatus;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ReadReg;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LockStatus<sp/>=<sp/>XNvm_BbramReadReg(<ref refid="xnvm__bbram__hw_8h_1aaab0eca5f9f09e58de06085d9208b118" kindref="member">XNVM_BBRAM_MSW_LOCK_REG</ref>);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">((LockStatus<sp/>&amp;<sp/><ref refid="xnvm__bbram__hw_8h_1a6d26b912dbfc8709d217f9dc3b0f6b15" kindref="member">XNVM_BBRAM_MSW_LOCK</ref>)<sp/>==<sp/>XNVM_BBRAM_MSW_LOCK)<sp/>{</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="xnvm__bbram_8h_1aefa66a5f99bbcf519a89d147bc584c77" kindref="member">XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED</ref>;</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNvm_BbramWriteReg(<ref refid="xnvm__bbram__hw_8h_1a9bef32696aa67987c3325cb363a13272" kindref="member">XNVM_BBRAM_8_REG</ref>,<sp/>Data);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="preprocessor">#ifndef<sp/>VERSAL_2VE_2VM</highlight></codeline>
+<codeline lineno="284"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadReg<sp/>=<sp/>XNvm_BbramReadReg(<ref refid="xnvm__bbram__hw_8h_1a9bef32696aa67987c3325cb363a13272" kindref="member">XNVM_BBRAM_8_REG</ref>);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="286"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadReg<sp/>=<sp/>XNvm_BbramReadReg(XNVM_BBRAM_8_MEM_REG);</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="288"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ReadReg<sp/>==<sp/>Data)<sp/>{</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="294"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="311" refid="group__xnvm__bbram__server__apis_1gade0b7ce1639f068fb871c52eccfef0b0" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__bbram__client__api_1ga99bad6a63ce3e2663bd7976371598b4f" kindref="member">XNvm_BbramWriteUsrData</ref>(u32<sp/>GeneralPurposeData)</highlight></codeline>
+<codeline lineno="312"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>VERSAL_2VE_2VM</highlight></codeline>
+<codeline lineno="315"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>AHwRotState<sp/>=<sp/>Xil_In32(XNVM_RTCFG_SECURESTATE_AHWROT_ADDR);</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SHwRotState<sp/>=<sp/>Xil_In32(XNVM_RTCFG_SECURESTATE_SHWROT_ADDR);</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((AHwRotState<sp/>!=<sp/>XNVM_RTCFG_SECURESTATE_AHWROT)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(SHwRotState<sp/>!=<sp/>XNVM_RTCFG_SECURESTATE_SHWROT))<sp/>{</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XNvm_BbramWriteBbram8(GeneralPurposeData);</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XNVM_BBRAM_ERROR_USER_DATA_WRITE_IN_SB;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="329"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XNvm_BbramWriteBbram8(GeneralPurposeData);</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="331"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="333"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="342" refid="group__xnvm__bbram__server__apis_1gafcee46d7df5018a118844238cf4e3f65" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xnvm__bbram__client__api_1ga8cdf06389845d0a30a2d48ae3373b72b" kindref="member">XNvm_BbramReadUsrData</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="343"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="347"><highlight class="preprocessor">#ifndef<sp/>VERSAL_2VE_2VM</highlight></codeline>
+<codeline lineno="348"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XNvm_BbramReadReg(<ref refid="xnvm__bbram__hw_8h_1a9bef32696aa67987c3325cb363a13272" kindref="member">XNVM_BBRAM_8_REG</ref>);</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="350"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XNvm_BbramReadReg(XNVM_BBRAM_8_MEM_REG);</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="352"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="353"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="364" refid="group__xnvm__bbram__server__apis_1ga689df607f805a008e64d9c2a181b2f17" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__bbram__client__api_1gae4085a2c2243377cae4029f3236684e7" kindref="member">XNvm_BbramZeroize</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="365"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNvm_BbramWriteReg(<ref refid="xnvm__bbram__hw_8h_1ac5e2f0fb82509488c3d0e6f0417bc96e" kindref="member">XNVM_BBRAM_CTRL_REG</ref>,<sp/><ref refid="xnvm__bbram__hw_8h_1a065b3b8d7d6be2ebeffb4974df61863f" kindref="member">XNVM_BBRAM_CTRL_START_ZEROIZE</ref>);</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)Xil_WaitForEvent((UINTPTR)(<ref refid="xnvm__bbram__hw_8h_1a791e4d21765eb196c6e2819bea01c443" kindref="member">XNVM_BBRAM_BASE_ADDR</ref><sp/>+<sp/><ref refid="xnvm__bbram__hw_8h_1a7caf87ce570f0ba169e55ce0bd3faf69" kindref="member">XNVM_BBRAM_STATUS_REG</ref>),</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xnvm__bbram__hw_8h_1a52c1541a393d73c7029173c875f805e3" kindref="member">XNVM_BBRAM_STATUS_ZEROIZED</ref>,</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xnvm__bbram__hw_8h_1a52c1541a393d73c7029173c875f805e3" kindref="member">XNVM_BBRAM_STATUS_ZEROIZED</ref>,</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xnvm__bbram__hw_8h_1ae0eba09038fae11350f11f17bd2348f9" kindref="member">XNVM_BBRAM_ZEROIZE_TIMEOUT_VAL</ref>);</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="xnvm__bbram_8h_1aa9a7eb5fa36c8914dda4fa5fd858c363" kindref="member">XNVM_BBRAM_ERROR_ZEROIZE_TIMEOUT</ref>;</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="384"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"></highlight></codeline>
+<codeline lineno="386"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="396"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XNvm_BbramEnablePgmMode(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="397"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"></highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNvm_BbramWriteReg(<ref refid="xnvm__bbram__hw_8h_1a6801e42518705030610d149061379da4" kindref="member">XNVM_BBRAM_PGM_MODE_REG</ref>,</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xnvm__bbram__hw_8h_1af9030aadc91b57ba2036c0aa7c81fdc2" kindref="member">XNVM_EFUSE_PGM_MODE_PASSCODE</ref>);</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)Xil_WaitForEvent((UINTPTR)(<ref refid="xnvm__bbram__hw_8h_1a791e4d21765eb196c6e2819bea01c443" kindref="member">XNVM_BBRAM_BASE_ADDR</ref><sp/>+<sp/><ref refid="xnvm__bbram__hw_8h_1a7caf87ce570f0ba169e55ce0bd3faf69" kindref="member">XNVM_BBRAM_STATUS_REG</ref>),</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xnvm__bbram__hw_8h_1a88eec70630e98d4d027df42e0735b7cf" kindref="member">XNVM_BBRAM_STATUS_PGM_MODE_DONE</ref>,</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xnvm__bbram__hw_8h_1a88eec70630e98d4d027df42e0735b7cf" kindref="member">XNVM_BBRAM_STATUS_PGM_MODE_DONE</ref>,</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xnvm__bbram__hw_8h_1a6c2c8d46a75c721ed4bd0893f796030e" kindref="member">XNVM_BBRAM_PGM_MODE_TIMEOUT_VAL</ref>);</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"></highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="xnvm__bbram_8h_1a85d34d2728e2875f484c2905bbb9ac75" kindref="member">XNVM_BBRAM_ERROR_PGM_MODE_ENABLE_TIMEOUT</ref>;</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"></highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="417"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"></highlight></codeline>
+<codeline lineno="419"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="429"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XNvm_BbramDisablePgmMode(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="430"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"></highlight></codeline>
+<codeline lineno="438"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ReadReg<sp/>=<sp/>XNvm_BbramReadReg(<ref refid="xnvm__bbram__hw_8h_1a6801e42518705030610d149061379da4" kindref="member">XNVM_BBRAM_PGM_MODE_REG</ref>);</highlight></codeline>
+<codeline lineno="439"><highlight class="normal"></highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNvm_BbramWriteReg(<ref refid="xnvm__bbram__hw_8h_1a6801e42518705030610d149061379da4" kindref="member">XNVM_BBRAM_PGM_MODE_REG</ref>,<sp/>0x00U);</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"></highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadReg<sp/>=<sp/>XNvm_BbramReadReg(<ref refid="xnvm__bbram__hw_8h_1a6801e42518705030610d149061379da4" kindref="member">XNVM_BBRAM_PGM_MODE_REG</ref>);</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ReadReg<sp/>==<sp/>0x00U)<sp/>{</highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"></highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="448"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"></highlight></codeline>
+<codeline lineno="450"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="463"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XNvm_BbramValidateAesKeyCrc(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32*<sp/>Key)</highlight></codeline>
+<codeline lineno="464"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Crc;</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BbramStatus;</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"></highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Crc<sp/>=<sp/><ref refid="group__xnvm__util__apis_1ga05857cc7a1c346b57ab04e5f1fb0edb5" kindref="member">XNvm_AesCrcCalc</ref>(Key);</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"></highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNvm_BbramWriteReg(<ref refid="xnvm__bbram__hw_8h_1ace11affedc6517e78ab353885dbd46f5" kindref="member">XNVM_BBRAM_AES_CRC_REG</ref>,<sp/>Crc);</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)Xil_WaitForEvent((UINTPTR)(<ref refid="xnvm__bbram__hw_8h_1a791e4d21765eb196c6e2819bea01c443" kindref="member">XNVM_BBRAM_BASE_ADDR</ref><sp/>+<sp/><ref refid="xnvm__bbram__hw_8h_1a7caf87ce570f0ba169e55ce0bd3faf69" kindref="member">XNVM_BBRAM_STATUS_REG</ref>),</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xnvm__bbram__hw_8h_1a8a0373f4e0a98947ed17db7a5705d19f" kindref="member">XNVM_BBRAM_STATUS_AES_CRC_DONE</ref>,</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xnvm__bbram__hw_8h_1a8a0373f4e0a98947ed17db7a5705d19f" kindref="member">XNVM_BBRAM_STATUS_AES_CRC_DONE</ref>,</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xnvm__bbram__hw_8h_1afd414f959c99e9ec202ad998ea1a85f4" kindref="member">XNVM_BBRAM_AES_CRC_DONE_TIMEOUT_VAL</ref>);</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"></highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="xnvm__bbram_8h_1a818122f0d6b837329f2631c75e6ebae4" kindref="member">XNVM_BBRAM_ERROR_AES_CRC_DONE_TIMEOUT</ref>;</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"></highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"></highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BbramStatus<sp/>=<sp/>XNvm_BbramReadReg(<ref refid="xnvm__bbram__hw_8h_1a7caf87ce570f0ba169e55ce0bd3faf69" kindref="member">XNVM_BBRAM_STATUS_REG</ref>);</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"></highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">((BbramStatus<sp/>&amp;<sp/><ref refid="xnvm__bbram__hw_8h_1adc88865275489175d0b41ffa70d5adda" kindref="member">XNVM_BBRAM_STATUS_AES_CRC_PASS</ref>)</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>==<sp/>XNVM_BBRAM_STATUS_AES_CRC_PASS)<sp/>{</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="xnvm__bbram_8h_1a7d22e17a0fd9b9e6aa75f10ac68e6647" kindref="member">XNVM_BBRAM_ERROR_AES_CRC_MISMATCH</ref>;</highlight></codeline>
+<codeline lineno="500"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="501"><highlight class="normal"></highlight></codeline>
+<codeline lineno="502"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="504"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"></highlight></codeline>
+<codeline lineno="506"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>VERSAL_2VE_2VM</highlight></codeline>
+<codeline lineno="507"><highlight class="preprocessor"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="536"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XNvm_BbramWriteConfigLimiterParams(u32<sp/>ClEnFlag,<sp/>u32<sp/>ClMode,<sp/>u32<sp/>MaxNumOfConfigs)</highlight></codeline>
+<codeline lineno="537"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>AHwRotState<sp/>=<sp/>Xil_In32(XNVM_RTCFG_SECURESTATE_AHWROT_ADDR);</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SHwRotState<sp/>=<sp/>Xil_In32(XNVM_RTCFG_SECURESTATE_SHWROT_ADDR);</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ValToBeProvisioned;</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"></highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((AHwRotState<sp/>!=<sp/>XNVM_RTCFG_SECURESTATE_AHWROT)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(SHwRotState<sp/>!=<sp/>XNVM_RTCFG_SECURESTATE_SHWROT))<sp/>{</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="xnvm__bbram_8h_1acb40bd59b0728bcd5cde5dd975d53432" kindref="member">XNVM_BBRAM_INVALID_PARAM</ref>;</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"></highlight></codeline>
+<codeline lineno="549"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ClEnFlag<sp/>!=<sp/>XNVM_BBRAM_CONFIG_LIMITER_DISABLED)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(ClEnFlag<sp/>!=<sp/>XNVM_BBRAM_CONFIG_LIMITER_ENABLED))<sp/>{</highlight></codeline>
+<codeline lineno="551"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="xnvm__bbram_8h_1acb40bd59b0728bcd5cde5dd975d53432" kindref="member">XNVM_BBRAM_INVALID_PARAM</ref>;</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="553"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"></highlight></codeline>
+<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ClMode<sp/>!=<sp/>XNVM_BBRAM_CONFIG_LIMITER_FAIL_CONFIGS_COUNT)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="556"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(ClMode<sp/>!=<sp/>XNVM_BBRAM_CONFIG_LIMITER_TOTAL_CONFIGS_COUNT))<sp/>{</highlight></codeline>
+<codeline lineno="557"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="xnvm__bbram_8h_1acb40bd59b0728bcd5cde5dd975d53432" kindref="member">XNVM_BBRAM_INVALID_PARAM</ref>;</highlight></codeline>
+<codeline lineno="558"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="559"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="560"><highlight class="normal"></highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(MaxNumOfConfigs<sp/>&gt;<sp/>XNVM_CL_MAX_COUNT_VAL)<sp/>{</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="xnvm__bbram_8h_1acb40bd59b0728bcd5cde5dd975d53432" kindref="member">XNVM_BBRAM_INVALID_PARAM</ref>;</highlight></codeline>
+<codeline lineno="563"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"></highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValToBeProvisioned<sp/>=<sp/>(ClEnFlag<sp/>&lt;&lt;<sp/>XNVM_CL_ENABLE_SHIFT)<sp/>|<sp/>(ClMode<sp/>&lt;&lt;<sp/>XNVM_CL_MODE_SHIFT);</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValToBeProvisioned<sp/>=<sp/>ValToBeProvisioned<sp/>|<sp/>MaxNumOfConfigs;</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"></highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XNvm_BbramWriteBbram8(ValToBeProvisioned);</highlight></codeline>
+<codeline lineno="570"><highlight class="normal"></highlight></codeline>
+<codeline lineno="571"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="573"><highlight class="normal"></highlight></codeline>
+<codeline lineno="574"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="576"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c"/>
+  </compounddef>
+</doxygen>

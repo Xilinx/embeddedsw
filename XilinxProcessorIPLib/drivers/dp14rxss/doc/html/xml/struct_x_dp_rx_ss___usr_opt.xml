@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_rx_ss___usr_opt" kind="struct" prot="public">
+    <compoundname>XDpRxSs_UsrOpt</compoundname>
+    <includes local="no">xdprxss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___usr_opt_1af77aed7c2b7d5d851382f451402839e8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpRxSs_UsrOpt::Bpc</definition>
+        <argsstring></argsstring>
+        <name>Bpc</name>
+        <briefdescription>
+<para>Bits per color. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="331" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="331" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="351" endline="680">XDpRxSs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___usr_opt_1a2e5a0e9ec997f440ab0407165160bd5d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpRxSs_UsrOpt::LaneCount</definition>
+        <argsstring></argsstring>
+        <name>LaneCount</name>
+        <briefdescription>
+<para>Lane count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="332" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="332" bodyend="-1"/>
+        <referencedby refid="xdprxss__dp14__rx_8c_1a0ab062285606abd7aefe27bc5e4e783c" compoundref="xdprxss__dp14__rx_8c" startline="1962" endline="2084">CalculateCRC</referencedby>
+        <referencedby refid="xdprxss__dp14__rx_8c_1a9c7565cc1ee7c14291a1da9c02a1513f" compoundref="xdprxss__dp14__rx_8c" startline="563" endline="868">DpRxSs_Main</referencedby>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="351" endline="680">XDpRxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__dprxss_1ga180a0386c25a456d436bbfc9fec05c02" compoundref="xdprxss_8c" startline="832" endline="854">XDpRxSs_SetLaneCount</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___usr_opt_1a154dd5d14a6c2aea3726ff04c0292a6a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpRxSs_UsrOpt::LinkRate</definition>
+        <argsstring></argsstring>
+        <name>LinkRate</name>
+        <briefdescription>
+<para>Link rate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="333" bodyend="-1"/>
+        <referencedby refid="xdprxss__dp14__rx_8c_1a4e933da366c3f1d04022bfc4cede6852" compoundref="xdprxss__dp14__rx_8c" startline="1440" endline="1452">DpRxSs_LinkBandwidthHandler</referencedby>
+        <referencedby refid="xdprxss__dp14__rx_8c_1a9c7565cc1ee7c14291a1da9c02a1513f" compoundref="xdprxss__dp14__rx_8c" startline="563" endline="868">DpRxSs_Main</referencedby>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="351" endline="680">XDpRxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__dprxss_1gae447b427e7616d143f2170881fa79bb1" compoundref="xdprxss_8c" startline="789" endline="812">XDpRxSs_SetLinkRate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___usr_opt_1a3b30d496a7ebaea9b6f78a4edd47e07a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpRxSs_UsrOpt::MstSupport</definition>
+        <argsstring></argsstring>
+        <name>MstSupport</name>
+        <briefdescription>
+<para>Multi-stream transport (MST) support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="334" bodyend="-1"/>
+        <referencedby refid="xdprxss__debug__example_8c_1a1ba81c8bc9e52facf98dbea2915e557d" compoundref="xdprxss__debug__example_8c" startline="140" endline="212">DpRxSs_DebugExample</referencedby>
+        <referencedby refid="xdprxss__hdcp__example_8c_1a33c9dce40424c29784819adc27eaf94e" compoundref="xdprxss__hdcp__example_8c" startline="136" endline="240">DpRxSs_HdcpExample</referencedby>
+        <referencedby refid="xdprxss__intr__example_8c_1aa3b5b709da2f704130f76b2cb237952c" compoundref="xdprxss__intr__example_8c" startline="211" endline="279">DpRxSs_IntrExample</referencedby>
+        <referencedby refid="xdprxss__dp14__rx_8c_1a9c7565cc1ee7c14291a1da9c02a1513f" compoundref="xdprxss__dp14__rx_8c" startline="563" endline="868">DpRxSs_Main</referencedby>
+        <referencedby refid="xdprxss__mst__example_8c_1a4ee6ff10963ea3a0f8d8e340983a5a99" compoundref="xdprxss__mst__example_8c" startline="183" endline="249">DpRxSs_MstExample</referencedby>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="351" endline="680">XDpRxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__dprxss_1ga65886916bf0be3e73f4d718ec087c6f5" compoundref="xdprxss_8c" startline="875" endline="928">XDpRxSs_ExposePort</referencedby>
+        <referencedby refid="group__dprxss_1ga5bcda88f1e979aa99b8a903a12e421fc" compoundref="xdprxss__dbg_8c" startline="65" endline="125">XDpRxSs_ReportCoreInfo</referencedby>
+        <referencedby refid="group__dprxss_1ga5ada36b95407b1169e183bbb7b9847d6" compoundref="xdprxss_8c" startline="750" endline="768">XDpRxSs_Start</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___usr_opt_1a9414402ff321c7b18cb5de15bf8528f0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpRxSs_UsrOpt::NumOfStreams</definition>
+        <argsstring></argsstring>
+        <name>NumOfStreams</name>
+        <briefdescription>
+<para>The total number of MST streams. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="335" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="351" endline="680">XDpRxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__dprxss_1ga65886916bf0be3e73f4d718ec087c6f5" compoundref="xdprxss_8c" startline="875" endline="928">XDpRxSs_ExposePort</referencedby>
+        <referencedby refid="group__dprxss_1ga5bcda88f1e979aa99b8a903a12e421fc" compoundref="xdprxss__dbg_8c" startline="65" endline="125">XDpRxSs_ReportCoreInfo</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>User input structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="330" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="330" bodyend="336"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_rx_ss___usr_opt_1af77aed7c2b7d5d851382f451402839e8" prot="public" virt="non-virtual"><scope>XDpRxSs_UsrOpt</scope><name>Bpc</name></member>
+      <member refid="struct_x_dp_rx_ss___usr_opt_1a2e5a0e9ec997f440ab0407165160bd5d" prot="public" virt="non-virtual"><scope>XDpRxSs_UsrOpt</scope><name>LaneCount</name></member>
+      <member refid="struct_x_dp_rx_ss___usr_opt_1a154dd5d14a6c2aea3726ff04c0292a6a" prot="public" virt="non-virtual"><scope>XDpRxSs_UsrOpt</scope><name>LinkRate</name></member>
+      <member refid="struct_x_dp_rx_ss___usr_opt_1a3b30d496a7ebaea9b6f78a4edd47e07a" prot="public" virt="non-virtual"><scope>XDpRxSs_UsrOpt</scope><name>MstSupport</name></member>
+      <member refid="struct_x_dp_rx_ss___usr_opt_1a9414402ff321c7b18cb5de15bf8528f0" prot="public" virt="non-virtual"><scope>XDpRxSs_UsrOpt</scope><name>NumOfStreams</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

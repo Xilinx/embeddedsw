@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_vphy___mmcm" kind="struct" prot="public">
+    <compoundname>XVphy_Mmcm</compoundname>
+    <includes local="no">xvphy.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_vphy___mmcm_1a9d496236920bf7b44dc708b997e32877" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVphy_Mmcm::dp20rate</definition>
+        <argsstring></argsstring>
+        <name>dp20rate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="612" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="612" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___mmcm_1aedbedf9ac74b1c10f053be32b6453389" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVphy_Mmcm::DivClkDivide</definition>
+        <argsstring></argsstring>
+        <name>DivClkDivide</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="613" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="613" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___mmcm_1a7b76eb4f55f9a73e9bac1cf58724a1b9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVphy_Mmcm::ClkFbOutMult</definition>
+        <argsstring></argsstring>
+        <name>ClkFbOutMult</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="614" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="614" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___mmcm_1a092cbb3fbac692a90bec2386c434fe41" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVphy_Mmcm::ClkFbOutFrac</definition>
+        <argsstring></argsstring>
+        <name>ClkFbOutFrac</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="615" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="615" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___mmcm_1af5ac34aec82e4aeabede3c99f9c4d1b9" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVphy_Mmcm::ClkOut0Div</definition>
+        <argsstring></argsstring>
+        <name>ClkOut0Div</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="616" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="616" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___mmcm_1aff237daad751d76c2fa612c95eda3b53" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVphy_Mmcm::ClkOut0Frac</definition>
+        <argsstring></argsstring>
+        <name>ClkOut0Frac</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="617" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="617" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___mmcm_1a9f2a334e5318309899976411d626d2c0" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVphy_Mmcm::ClkOut1Div</definition>
+        <argsstring></argsstring>
+        <name>ClkOut1Div</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="618" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="618" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___mmcm_1a10eae530e5e038670fa55ac029574f5f" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVphy_Mmcm::ClkOut2Div</definition>
+        <argsstring></argsstring>
+        <name>ClkOut2Div</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="619" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="619" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for MMCM programming. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="611" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="611" bodyend="620"/>
+    <listofallmembers>
+      <member refid="struct_x_vphy___mmcm_1a092cbb3fbac692a90bec2386c434fe41" prot="public" virt="non-virtual"><scope>XVphy_Mmcm</scope><name>ClkFbOutFrac</name></member>
+      <member refid="struct_x_vphy___mmcm_1a7b76eb4f55f9a73e9bac1cf58724a1b9" prot="public" virt="non-virtual"><scope>XVphy_Mmcm</scope><name>ClkFbOutMult</name></member>
+      <member refid="struct_x_vphy___mmcm_1af5ac34aec82e4aeabede3c99f9c4d1b9" prot="public" virt="non-virtual"><scope>XVphy_Mmcm</scope><name>ClkOut0Div</name></member>
+      <member refid="struct_x_vphy___mmcm_1aff237daad751d76c2fa612c95eda3b53" prot="public" virt="non-virtual"><scope>XVphy_Mmcm</scope><name>ClkOut0Frac</name></member>
+      <member refid="struct_x_vphy___mmcm_1a9f2a334e5318309899976411d626d2c0" prot="public" virt="non-virtual"><scope>XVphy_Mmcm</scope><name>ClkOut1Div</name></member>
+      <member refid="struct_x_vphy___mmcm_1a10eae530e5e038670fa55ac029574f5f" prot="public" virt="non-virtual"><scope>XVphy_Mmcm</scope><name>ClkOut2Div</name></member>
+      <member refid="struct_x_vphy___mmcm_1aedbedf9ac74b1c10f053be32b6453389" prot="public" virt="non-virtual"><scope>XVphy_Mmcm</scope><name>DivClkDivide</name></member>
+      <member refid="struct_x_vphy___mmcm_1a9d496236920bf7b44dc708b997e32877" prot="public" virt="non-virtual"><scope>XVphy_Mmcm</scope><name>dp20rate</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

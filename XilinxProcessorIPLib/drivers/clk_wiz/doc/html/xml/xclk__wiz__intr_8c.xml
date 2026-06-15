@@ -1,0 +1,539 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xclk__wiz__intr_8c" kind="file">
+    <compoundname>xclk_wiz_intr.c</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xclk__wiz__hw_8h" local="yes">xclk_wiz_hw.h</includes>
+    <includes refid="xclk__wiz_8h" local="yes">xclk_wiz.h</includes>
+    <incdepgraph>
+      <node id="58">
+        <label>xil_io.h</label>
+      </node>
+      <node id="62">
+        <label>sleep.h</label>
+      </node>
+      <node id="59">
+        <label>xclk_wiz.h</label>
+        <link refid="xclk__wiz_8h"/>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="60">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="54">
+        <label>xclk_wiz_intr.c</label>
+        <link refid="xclk_wiz_intr.c"/>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>xplatform_info.h</label>
+      </node>
+      <node id="56">
+        <label>xclk_wiz_hw.h</label>
+        <link refid="xclk__wiz__hw_8h"/>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
+        <label>xstatus.h</label>
+      </node>
+      <node id="57">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___overview_1ga4f547fb0dce8abc367979e38081a5080" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XClk_Wiz_InterruptEnable</definition>
+        <argsstring>(XClk_Wiz *InstancePtr, u32 Mask)</argsstring>
+        <name>XClk_Wiz_InterruptEnable</name>
+        <param>
+          <type><ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>XClk_Wiz_InterruptEnable will enable the interrupts present in the interrupt mask passed onto the function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> instance to operate on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt mask which need to be enabled in core</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_intr.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_intr.c" bodystart="66" bodyend="76"/>
+        <references refid="group___overview_1gaa454fd2cfc7ed730c52b747b72de71ef" compoundref="xclk__wiz__hw_8h" startline="343">XCLK_WIZ_IER_ALLINTR_MASK</references>
+        <referencedby refid="xclk__wiz__intr__example_8c_1a4317fcb0dd04f5e8a7ea459815115c12" compoundref="xclk__wiz__intr__example_8c" startline="563" endline="661">ClkWiz_IntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gab75c6d3b3e928e8cfcf136e93cdf20b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XClk_Wiz_InterruptDisable</definition>
+        <argsstring>(XClk_Wiz *InstancePtr, u32 Mask)</argsstring>
+        <name>XClk_Wiz_InterruptDisable</name>
+        <param>
+          <type><ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>XClk_Wiz_InterruptDisable will disable the interrupts present in the interrupt mask passed onto the function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> instance to operate on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt mask which need to be enabled in core</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_intr.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_intr.c" bodystart="91" bodyend="99"/>
+        <references refid="group___overview_1gaa454fd2cfc7ed730c52b747b72de71ef" compoundref="xclk__wiz__hw_8h" startline="343">XCLK_WIZ_IER_ALLINTR_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gad9cbda03df42d37371a19800efb6ec13" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XClk_Wiz_InterruptGetEnabled</definition>
+        <argsstring>(XClk_Wiz *InstancePtr)</argsstring>
+        <name>XClk_Wiz_InterruptGetEnabled</name>
+        <param>
+          <type><ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XClk_Wiz_InterruptGetEnabled will get the interrupt mask set (enabled) in the CLK_WIZ core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> instance to operate on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Interrupt Mask with bits set for corresponding interrupt in Interrupt enable register</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_intr.c" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_intr.c" bodystart="114" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gaf5850b23acf450ae86fcc514f052256e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XClk_Wiz_InterruptGetStatus</definition>
+        <argsstring>(XClk_Wiz *InstancePtr)</argsstring>
+        <name>XClk_Wiz_InterruptGetStatus</name>
+        <param>
+          <type><ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XClk_Wiz_InterruptGetStatus will get the list of interrupts pending in the Interrupt Status Register of the CLK_WIZ core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> instance to operate on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Interrupt Mask with bits set for corresponding interrupt in Interrupt Status register</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_intr.c" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_intr.c" bodystart="138" bodyend="147"/>
+        <referencedby refid="group___overview_1gab4d4ca4b2b5d036b0e0df621692135f6" compoundref="xclk__wiz__intr_8c" startline="261" endline="310">XClk_Wiz_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gab48767fd035d10bd40cec167cdd7778d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XClk_Wiz_InterruptClear</definition>
+        <argsstring>(XClk_Wiz *InstancePtr, u32 Mask)</argsstring>
+        <name>XClk_Wiz_InterruptClear</name>
+        <param>
+          <type><ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>XClk_Wiz_InterruptClear will clear the interrupts set in the Interrupt Status Register of the CLK_WIZ core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> instance to operate on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Interrupt Mask with bits set for corresponding interrupt to be cleared in the Interrupt Status register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_intr.c" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_intr.c" bodystart="163" bodyend="172"/>
+        <references refid="group___overview_1gaa454fd2cfc7ed730c52b747b72de71ef" compoundref="xclk__wiz__hw_8h" startline="343">XCLK_WIZ_IER_ALLINTR_MASK</references>
+        <referencedby refid="group___overview_1gab4d4ca4b2b5d036b0e0df621692135f6" compoundref="xclk__wiz__intr_8c" startline="261" endline="310">XClk_Wiz_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga57d65e65942c50b405b79dacf4704339" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XClk_Wiz_SetCallBack</definition>
+        <argsstring>(XClk_Wiz *InstancePtr, u32 HandleType, void *CallBackFunc, void *CallBackRef)</argsstring>
+        <name>XClk_Wiz_SetCallBack</name>
+        <param>
+          <type><ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HandleType</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>This routine installs an asynchronous callback function for the given HandlerType: </para>        </briefdescription>
+        <detaileddescription>
+<para><preformatted></preformatted></para><para><preformatted>HandlerType                             Invoked by this driver when:
+-----------------------  --------------------------------------------------
+XCLK_WIZ_HANDLER_CLK_OUTOF_RANGE        Clock under flow/over flow
+XCLK_WIZ_HANDLER_CLK_GLITCH             Clock Glitch
+XCLK_WIZ_HANDLER_CLK_STOP               Clock Stop
+XCLK_WIZ_HANDLER_OTHERERROR             Any other type of interrupts
+</preformatted></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> instance to operate on</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HandleType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the type of call back to be registered.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to a call back function which is called when a particular event occurs.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a void pointer to data to be referenced to by the CallBackFunc</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS when handler is installed.</para></listitem></itemizedlist>
+</para></simplesect>
+<itemizedlist>
+<listitem><para>XST_INVALID_PARAM when HandlerType is invalid.</para></listitem></itemizedlist>
+</para><para><simplesect kind="note"><para>Invoking this function for a handler that already has been installed replaces it with the new handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" line="465" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_intr.c" bodystart="207" bodyend="237"/>
+        <references refid="struct_x_clk___wiz_1a006de5f883be8c8025c870a326f1daff" compoundref="xclk__wiz_8h" startline="221">XClk_Wiz::ClkGlitchCallBack</references>
+        <references refid="struct_x_clk___wiz_1a91ba0b071bb596329ac28cb31f149596" compoundref="xclk__wiz_8h" startline="223">XClk_Wiz::ClkGlitchRef</references>
+        <references refid="struct_x_clk___wiz_1aa0ca3d6f96f2224007f40552048eb747" compoundref="xclk__wiz_8h" startline="216">XClk_Wiz::ClkOutOfRangeCallBack</references>
+        <references refid="struct_x_clk___wiz_1adc84e5f595cf0448bfe4573f3b9095bd" compoundref="xclk__wiz_8h" startline="219">XClk_Wiz::ClkOutOfRangeRef</references>
+        <references refid="struct_x_clk___wiz_1a48c00841fd4a6cfff0c50c9ec204458e" compoundref="xclk__wiz_8h" startline="225">XClk_Wiz::ClkStopCallBack</references>
+        <references refid="struct_x_clk___wiz_1a874f6dfbb1c2fb1a35fb30f1035f6918" compoundref="xclk__wiz_8h" startline="226">XClk_Wiz::ClkStopRef</references>
+        <references refid="struct_x_clk___wiz_1a492db8cdab7648eb930008b5caa3db72" compoundref="xclk__wiz_8h" startline="228">XClk_Wiz::ErrorCallBack</references>
+        <references refid="struct_x_clk___wiz_1a7c805aa6c9f8561dcdc3922f076f3416" compoundref="xclk__wiz_8h" startline="230">XClk_Wiz::ErrRef</references>
+        <references refid="struct_x_clk___wiz_1a8d30680f0e4edf48a59f5391aeb4df29" compoundref="xclk__wiz_8h" startline="231">XClk_Wiz::IsReady</references>
+        <referencedby refid="xclk__wiz__intr__example_8c_1a4317fcb0dd04f5e8a7ea459815115c12" compoundref="xclk__wiz__intr__example_8c" startline="563" endline="661">ClkWiz_IntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gab4d4ca4b2b5d036b0e0df621692135f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XClk_Wiz_IntrHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XClk_Wiz_IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the CLK_WIZ core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler reads the pending interrupt from the Interrupt Status register determines the source of the interrupts and calls the respective callbacks for the interrupts that are enabled in Interrupt Enable register and finally clears the interrupts.</para><para>The application is responsible for connecting this function to the interrupt system. Application beyond this core is also responsible for providing callbacks to handle interrupts and installing the callbacks using <ref refid="group___overview_1ga57d65e65942c50b405b79dacf4704339" kindref="member">XClk_Wiz_SetCallBack()</ref> during initialization phase.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Interrupt should be enabled to execute interrupt handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_intr.c" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_intr.c" bodystart="261" bodyend="310"/>
+        <references refid="struct_x_clk___wiz_1a006de5f883be8c8025c870a326f1daff" compoundref="xclk__wiz_8h" startline="221">XClk_Wiz::ClkGlitchCallBack</references>
+        <references refid="struct_x_clk___wiz_1a91ba0b071bb596329ac28cb31f149596" compoundref="xclk__wiz_8h" startline="223">XClk_Wiz::ClkGlitchRef</references>
+        <references refid="struct_x_clk___wiz_1aa0ca3d6f96f2224007f40552048eb747" compoundref="xclk__wiz_8h" startline="216">XClk_Wiz::ClkOutOfRangeCallBack</references>
+        <references refid="struct_x_clk___wiz_1adc84e5f595cf0448bfe4573f3b9095bd" compoundref="xclk__wiz_8h" startline="219">XClk_Wiz::ClkOutOfRangeRef</references>
+        <references refid="struct_x_clk___wiz_1a48c00841fd4a6cfff0c50c9ec204458e" compoundref="xclk__wiz_8h" startline="225">XClk_Wiz::ClkStopCallBack</references>
+        <references refid="struct_x_clk___wiz_1a874f6dfbb1c2fb1a35fb30f1035f6918" compoundref="xclk__wiz_8h" startline="226">XClk_Wiz::ClkStopRef</references>
+        <references refid="struct_x_clk___wiz_1a8d30680f0e4edf48a59f5391aeb4df29" compoundref="xclk__wiz_8h" startline="231">XClk_Wiz::IsReady</references>
+        <references refid="group___overview_1gab48767fd035d10bd40cec167cdd7778d" compoundref="xclk__wiz__intr_8c" startline="163" endline="172">XClk_Wiz_InterruptClear</references>
+        <references refid="group___overview_1gaf5850b23acf450ae86fcc514f052256e" compoundref="xclk__wiz__intr_8c" startline="138" endline="147">XClk_Wiz_InterruptGetStatus</references>
+        <references refid="group___overview_1ga868aa5dd6399404298d686e73a44a565" compoundref="xclk__wiz__hw_8h" startline="175">XCLK_WIZ_ISR_CLKALL_GLITCH_MASK</references>
+        <references refid="group___overview_1ga7b6a6f0f1fda56cdb7b97a293e9ee72e" compoundref="xclk__wiz__hw_8h" startline="183">XCLK_WIZ_ISR_CLKALL_MAXFREQ_MASK</references>
+        <references refid="group___overview_1ga9cfc8a66cb70f62b8546fb4b9a448d50" compoundref="xclk__wiz__hw_8h" startline="178">XCLK_WIZ_ISR_CLKALL_MINFREQ_MASK</references>
+        <references refid="group___overview_1ga82daa29abf414a316c26355e3771cf88" compoundref="xclk__wiz__hw_8h" startline="172">XCLK_WIZ_ISR_CLKALL_STOP_MASK</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xclk__wiz__hw_8h" kindref="compound">xclk_wiz_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xclk__wiz_8h" kindref="compound">xclk_wiz.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Macros<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="66" refid="group___overview_1ga4f547fb0dce8abc367979e38081a5080" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga4f547fb0dce8abc367979e38081a5080" kindref="member">XClk_Wiz_InterruptEnable</ref>(<ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Checking<sp/>for<sp/>invalid<sp/>mask<sp/>bits<sp/>being<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Mask<sp/>&amp;<sp/>(~(<ref refid="group___overview_1gaa454fd2cfc7ed730c52b747b72de71ef" kindref="member">XCLK_WIZ_IER_ALLINTR_MASK</ref>)))<sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>|=<sp/>XClk_Wiz_GetIntrEnable(InstancePtr);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XClk_Wiz_IntrEnable(InstancePtr,<sp/>Mask);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="91" refid="group___overview_1gab75c6d3b3e928e8cfcf136e93cdf20b2" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___overview_1gab75c6d3b3e928e8cfcf136e93cdf20b2" kindref="member">XClk_Wiz_InterruptDisable</ref>(<ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Checking<sp/>for<sp/>invalid<sp/>mask<sp/>bits<sp/>being<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Mask<sp/>&amp;<sp/>(~(<ref refid="group___overview_1gaa454fd2cfc7ed730c52b747b72de71ef" kindref="member">XCLK_WIZ_IER_ALLINTR_MASK</ref>)))<sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XClk_Wiz_IntrDisable(InstancePtr,<sp/>\</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Mask<sp/>&amp;<sp/>(XClk_Wiz_GetIntrEnable(InstancePtr))));</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="114" refid="group___overview_1gad9cbda03df42d37371a19800efb6ec13" refkind="member"><highlight class="normal">u32<sp/><ref refid="group___overview_1gad9cbda03df42d37371a19800efb6ec13" kindref="member">XClk_Wiz_InterruptGetEnabled</ref>(<ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>XClk_Wiz_GetIntrEnable(InstancePtr);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Mask;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="138" refid="group___overview_1gaf5850b23acf450ae86fcc514f052256e" refkind="member"><highlight class="normal">u32<sp/><ref refid="group___overview_1gaf5850b23acf450ae86fcc514f052256e" kindref="member">XClk_Wiz_InterruptGetStatus</ref>(<ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="139"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>XClk_Wiz_IntrGetIrq(InstancePtr);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Mask;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="163" refid="group___overview_1gab48767fd035d10bd40cec167cdd7778d" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___overview_1gab48767fd035d10bd40cec167cdd7778d" kindref="member">XClk_Wiz_InterruptClear</ref>(<ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Checking<sp/>for<sp/>invalid<sp/>mask<sp/>bits<sp/>being<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Mask<sp/>&amp;<sp/>(~(<ref refid="group___overview_1gaa454fd2cfc7ed730c52b747b72de71ef" kindref="member">XCLK_WIZ_IER_ALLINTR_MASK</ref>)))<sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>&amp;=<sp/>XClk_Wiz_IntrGetIrq(InstancePtr);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XClk_Wiz_IntrAckIrq(InstancePtr,<sp/>Mask);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="207" refid="group___overview_1ga57d65e65942c50b405b79dacf4704339" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga57d65e65942c50b405b79dacf4704339" kindref="member">XClk_Wiz_SetCallBack</ref>(<ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref><sp/>*InstancePtr,<sp/>u32<sp/>HandleType,</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef)</highlight></codeline>
+<codeline lineno="209"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CallBackRef<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_clk___wiz_1a8d30680f0e4edf48a59f5391aeb4df29" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(HandleType)<sp/>{</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XCLK_WIZ_HANDLER_CLK_OUTOF_RANGE:</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_clk___wiz_1aa0ca3d6f96f2224007f40552048eb747" kindref="member">ClkOutOfRangeCallBack</ref><sp/>=<sp/>(<ref refid="group___overview_1ga96bd226f11dc053a8db6732c1c0e2001" kindref="member">XClk_Wiz_CallBack</ref>)CallBackFunc;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_clk___wiz_1adc84e5f595cf0448bfe4573f3b9095bd" kindref="member">ClkOutOfRangeRef</ref><sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XCLK_WIZ_HANDLER_CLK_GLITCH:</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_clk___wiz_1a006de5f883be8c8025c870a326f1daff" kindref="member">ClkGlitchCallBack</ref><sp/>=<sp/>(<ref refid="group___overview_1ga96bd226f11dc053a8db6732c1c0e2001" kindref="member">XClk_Wiz_CallBack</ref>)CallBackFunc;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_clk___wiz_1a91ba0b071bb596329ac28cb31f149596" kindref="member">ClkGlitchRef</ref><sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XCLK_WIZ_HANDLER_CLK_STOP:</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_clk___wiz_1a48c00841fd4a6cfff0c50c9ec204458e" kindref="member">ClkStopCallBack</ref><sp/>=<sp/>(<ref refid="group___overview_1ga96bd226f11dc053a8db6732c1c0e2001" kindref="member">XClk_Wiz_CallBack</ref>)CallBackFunc;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_clk___wiz_1a874f6dfbb1c2fb1a35fb30f1035f6918" kindref="member">ClkStopRef</ref><sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XCLK_WIZ_HANDLER_CLK_OTHER_ERROR:</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_clk___wiz_1a492db8cdab7648eb930008b5caa3db72" kindref="member">ErrorCallBack</ref><sp/>=<sp/>(<ref refid="group___overview_1ga96bd226f11dc053a8db6732c1c0e2001" kindref="member">XClk_Wiz_CallBack</ref>)CallBackFunc;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_clk___wiz_1a7c805aa6c9f8561dcdc3922f076f3416" kindref="member">ErrRef</ref><sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Invalid<sp/>value<sp/>of<sp/>HandleType<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="261" refid="group___overview_1gab4d4ca4b2b5d036b0e0df621692135f6" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___overview_1gab4d4ca4b2b5d036b0e0df621692135f6" kindref="member">XClk_Wiz_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="262"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PendingIntr;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref><sp/>*XClk_WizPtr<sp/>=<sp/>(<ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref><sp/>*)InstancePtr;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XClk_WizPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XClk_WizPtr-&gt;<ref refid="struct_x_clk___wiz_1a8d30680f0e4edf48a59f5391aeb4df29" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>pending<sp/>interrupts<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PendingIntr<sp/>=<sp/><ref refid="group___overview_1gaf5850b23acf450ae86fcc514f052256e" kindref="member">XClk_Wiz_InterruptGetStatus</ref>(XClk_WizPtr);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>PendingIntr<sp/>&amp;<sp/><ref refid="group___overview_1ga7b6a6f0f1fda56cdb7b97a293e9ee72e" kindref="member">XCLK_WIZ_ISR_CLKALL_MAXFREQ_MASK</ref>;</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask)<sp/>{</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>Clock<sp/>out<sp/>of<sp/>max<sp/>range<sp/>then<sp/>call<sp/>corresponding</highlight></codeline>
+<codeline lineno="278"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>callback<sp/>function</highlight></codeline>
+<codeline lineno="279"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XClk_WizPtr-&gt;<ref refid="struct_x_clk___wiz_1aa0ca3d6f96f2224007f40552048eb747" kindref="member">ClkOutOfRangeCallBack</ref>\</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XClk_WizPtr-&gt;<ref refid="struct_x_clk___wiz_1adc84e5f595cf0448bfe4573f3b9095bd" kindref="member">ClkOutOfRangeRef</ref>,<sp/>Mask);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>PendingIntr<sp/>&amp;<sp/><ref refid="group___overview_1ga9cfc8a66cb70f62b8546fb4b9a448d50" kindref="member">XCLK_WIZ_ISR_CLKALL_MINFREQ_MASK</ref>;</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask)<sp/>{</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>Clock<sp/>out<sp/>of<sp/>min<sp/>range<sp/>then<sp/>call<sp/>corresponding</highlight></codeline>
+<codeline lineno="287"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>callback<sp/>function</highlight></codeline>
+<codeline lineno="288"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XClk_WizPtr-&gt;<ref refid="struct_x_clk___wiz_1aa0ca3d6f96f2224007f40552048eb747" kindref="member">ClkOutOfRangeCallBack</ref>\</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XClk_WizPtr-&gt;<ref refid="struct_x_clk___wiz_1adc84e5f595cf0448bfe4573f3b9095bd" kindref="member">ClkOutOfRangeRef</ref>,<sp/>Mask);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>PendingIntr<sp/>&amp;<sp/><ref refid="group___overview_1ga868aa5dd6399404298d686e73a44a565" kindref="member">XCLK_WIZ_ISR_CLKALL_GLITCH_MASK</ref>;</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask)<sp/>{</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>clock<sp/>glitch<sp/>then<sp/>call<sp/>corresponding</highlight></codeline>
+<codeline lineno="296"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>callback<sp/>function<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XClk_WizPtr-&gt;<ref refid="struct_x_clk___wiz_1a006de5f883be8c8025c870a326f1daff" kindref="member">ClkGlitchCallBack</ref>\</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XClk_WizPtr-&gt;<ref refid="struct_x_clk___wiz_1a91ba0b071bb596329ac28cb31f149596" kindref="member">ClkGlitchRef</ref>,<sp/>Mask);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>PendingIntr<sp/>&amp;<sp/><ref refid="group___overview_1ga82daa29abf414a316c26355e3771cf88" kindref="member">XCLK_WIZ_ISR_CLKALL_STOP_MASK</ref>;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask)<sp/>{</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>clock<sp/>stops<sp/>then<sp/>call<sp/>corresponding</highlight></codeline>
+<codeline lineno="303"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>callback<sp/>function<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XClk_WizPtr-&gt;<ref refid="struct_x_clk___wiz_1a48c00841fd4a6cfff0c50c9ec204458e" kindref="member">ClkStopCallBack</ref>\</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XClk_WizPtr-&gt;<ref refid="struct_x_clk___wiz_1a874f6dfbb1c2fb1a35fb30f1035f6918" kindref="member">ClkStopRef</ref>,<sp/>Mask);</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>pending<sp/>interrupt(s)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gab48767fd035d10bd40cec167cdd7778d" kindref="member">XClk_Wiz_InterruptClear</ref>(XClk_WizPtr,<sp/>PendingIntr);</highlight></codeline>
+<codeline lineno="310"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_intr.c"/>
+  </compounddef>
+</doxygen>

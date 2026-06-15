@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_gtm_color_weight_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceGtmColorWeightConfig_s</compoundname>
+    <includes local="no">cam_device_gtm_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_gtm_color_weight_config__s_1ac55a5efadf2ba6a07aa47aca808bdf19" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceGtmColorWeightConfig_s::gtmRgbCoef[CAMDEV_GTM_RGB_COEF_SIZE]</definition>
+        <argsstring>[CAMDEV_GTM_RGB_COEF_SIZE]</argsstring>
+        <name>gtmRgbCoef</name>
+        <briefdescription>
+<para>Rgb coefficient. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_color_weight_config__s_1a2a10d4f5e4a0aec99e2bccc1c07d7886" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceGtmColorWeightConfig_s::gtmLightnessWeight</definition>
+        <argsstring></argsstring>
+        <name>gtmLightnessWeight</name>
+        <briefdescription>
+<para>Lightness weight. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_color_weight_config__s_1a400699f9f640816918990b6ef77eda50" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceGtmColorWeightConfig_s::gtmColorWeight[CAMDEV_GTM_COLOR_WEIGHT_SIZE]</definition>
+        <argsstring>[CAMDEV_GTM_COLOR_WEIGHT_SIZE]</argsstring>
+        <name>gtmColorWeight</name>
+        <briefdescription>
+<para>Color weight. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice GTM color weight structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="122" bodyend="127"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_gtm_color_weight_config__s_1a400699f9f640816918990b6ef77eda50" prot="public" virt="non-virtual"><scope>CamDeviceGtmColorWeightConfig_s</scope><name>gtmColorWeight</name></member>
+      <member refid="struct_cam_device_gtm_color_weight_config__s_1a2a10d4f5e4a0aec99e2bccc1c07d7886" prot="public" virt="non-virtual"><scope>CamDeviceGtmColorWeightConfig_s</scope><name>gtmLightnessWeight</name></member>
+      <member refid="struct_cam_device_gtm_color_weight_config__s_1ac55a5efadf2ba6a07aa47aca808bdf19" prot="public" virt="non-virtual"><scope>CamDeviceGtmColorWeightConfig_s</scope><name>gtmRgbCoef</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,322 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xasu__keywrap__client__example" kind="group">
+    <compoundname>xasu_keywrap_client_example</compoundname>
+    <title>XilAsu Key wrap unwrap API Example Generic Usage</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xasu__keywrap__client__example_1gabcd89f838ad336b0eb904d8584a838b6" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XAsu_RsaModulus[XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES]</argsstring>
+        <name>XAsu_RsaModulus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keywrap__client__example_1gac90ee3ea3837d00c048cdc2059fbe368" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XAsu_RsaPrivateExp[XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES]</argsstring>
+        <name>XAsu_RsaPrivateExp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keywrap__client__example_1ga30194181baf1b060347df4ba72777d40" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XAsu_KeywrapInput[XASU_KEYWRAP_INPUT_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_KEYWRAP_INPUT_SIZE_IN_BYTES]</argsstring>
+        <name>XAsu_KeywrapInput</name>
+        <initializer>= {
+	0x2cU, 0xe9U, 0x3aU, 0x23U, 0x22U, 0x69U, 0xfeU, 0x10U, 0x59U, 0xcaU, 0x99U, 0x2aU, 0xd8U,
+        0xb7U, 0x07U, 0xfeU, 0x2eU, 0x72U, 0x33U, 0xe5U, 0xabU, 0xb3U, 0xdeU, 0x0dU, 0x7fU, 0xf7U,
+        0x25U, 0x2aU, 0x78U, 0xc9U, 0x9dU
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keywrap__client__example_1ga3fffe5334fef61dc4bbb2aab7f3ff976" prot="public" static="yes" mutable="no">
+        <type>const char</type>
+        <definition>const char XAsu_RsaOpt[XASU_RSA_OPTIONAL_DATA_SIZE_IN_BYTES+1U]</definition>
+        <argsstring>[XASU_RSA_OPTIONAL_DATA_SIZE_IN_BYTES+1U]</argsstring>
+        <name>XAsu_RsaOpt</name>
+        <initializer>= &quot;HI&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keywrap__client__example_1gac0cf66ff32e334445bcac8e2b7c66cd3" prot="public" static="yes" mutable="no">
+        <type>const u32</type>
+        <definition>const u32 XAsu_RsaPublicExp</definition>
+        <argsstring></argsstring>
+        <name>XAsu_RsaPublicExp</name>
+        <initializer>= 0x1000100U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keywrap__client__example_1gac0cb74bcee26f1da969e3b2bf1fb14e1" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_KeyWrapWrappedOutput[XASU_KEYWRAP_OUTPUT_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_KEYWRAP_OUTPUT_SIZE_IN_BYTES]</argsstring>
+        <name>XAsu_KeyWrapWrappedOutput</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keywrap__client__example_1ga321808753141d2eae52908078dd82a10" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_KeyWrapUnwrappedOutput[XASU_KEYWRAP_INPUT_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_KEYWRAP_INPUT_SIZE_IN_BYTES]</argsstring>
+        <name>XAsu_KeyWrapUnwrappedOutput</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keywrap__client__example_1ga1c1b963b027de446092e91d695efb1c7" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_KeyWrapOutputLen</definition>
+        <argsstring></argsstring>
+        <name>XAsu_KeyWrapOutputLen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keywrap__client__example_1ga70ea992adacb42e65e8c487d8a1b8d2d" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_KeyWrapUnwrapOutputLen</definition>
+        <argsstring></argsstring>
+        <name>XAsu_KeyWrapUnwrapOutputLen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keywrap__client__example_1ga3c904c6c8f2cb359b6847af0df908e64" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 Notify</definition>
+        <argsstring></argsstring>
+        <name>Notify</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>To notify the call back from client library. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keywrap__client__example_1ga89bdef12ea1ad95bf3acb2ef59e4d299" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 ErrorStatus</definition>
+        <argsstring></argsstring>
+        <name>ErrorStatus</name>
+        <initializer>= XST_FAILURE</initializer>
+        <briefdescription>
+<para>Status variable to store the error returned from server. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__keywrap__client__example_1ga3ca88b4ff1c2a1c59c0f29995ce79642" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_KeywrapunwrapCallBackRef</definition>
+        <argsstring>(void *CallBackRef, u32 Status)</argsstring>
+        <name>XAsu_KeywrapunwrapCallBackRef</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Call back function which will be registered with library to notify the completion of request. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the call back reference. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Status of the request will be passed as an argument during callback<itemizedlist>
+<listitem><para>0 Upon success</para></listitem><listitem><para>Error code from ASUFW application upon any error </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="324" bodyend="332"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function to call the XAsu_Keywrap() and XAsu_Keyunwrap() API&apos;s. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if example runs successfully.</para></listitem><listitem><para>ErrorCode if the example fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Initialize mailbox instance.</para><para>Compare generated unwrapped message with expected input. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="175" bodyend="311"/>
+        <references refid="struct_x_asu___key_wrap_params_1a680fae798d0ff51fca68a4871f1568d9" compoundref="xasu__keywrapinfo_8h" startline="65">XAsu_KeyWrapParams::ActualOutputDataLenAddr</references>
+        <references refid="struct_x_asu___key_wrap_params_1ac335e1a7457b3dfa31bfb6ad2f7a40e7" compoundref="xasu__keywrapinfo_8h" startline="74">XAsu_KeyWrapParams::AesKeyId</references>
+        <references refid="struct_x_asu___key_wrap_params_1aadaa548059c19c40a13624d158c4efd4" compoundref="xasu__keywrapinfo_8h" startline="76">XAsu_KeyWrapParams::AesKeySize</references>
+        <references refid="struct_x_asu___key_wrap_params_1a994f49dc1b961429ba8cb8170d8bc0ba" compoundref="xasu__keywrapinfo_8h" startline="61">XAsu_KeyWrapParams::ExpoCompAddr</references>
+        <references refid="struct_x_asu___key_wrap_params_1a7e975623b5d478db1451042b05b662ea" compoundref="xasu__keywrapinfo_8h" startline="57">XAsu_KeyWrapParams::InputDataAddr</references>
+        <references refid="struct_x_asu___key_wrap_params_1a776bcc1fcddaf0b9d9b4323f4051ee85" compoundref="xasu__keywrapinfo_8h" startline="67">XAsu_KeyWrapParams::InputDataLen</references>
+        <references refid="struct_x_asu___key_wrap_params_1ac1f5e0fc07b7e1b19fcccfe352442269" compoundref="xasu__keywrapinfo_8h" startline="62">XAsu_KeyWrapParams::KeyCompAddr</references>
+        <references refid="struct_x_asu___rsa_pub_key_comp_1a9ad687d0df69d07e4584833f13049d22" compoundref="xasu__rsainfo_8h" startline="103">XAsu_RsaPubKeyComp::Keysize</references>
+        <references refid="struct_x_asu___rsa_pub_key_comp_1a227d2fe9cecd9dae88b63cd268a0eebe" compoundref="xasu__rsainfo_8h" startline="104">XAsu_RsaPubKeyComp::Modulus</references>
+        <references refid="struct_x_asu___key_wrap_params_1a35bf5a34cf3e2325bdcf3100f82af618" compoundref="xasu__keywrapinfo_8h" startline="64">XAsu_KeyWrapParams::OptionalLabelAddr</references>
+        <references refid="struct_x_asu___key_wrap_params_1abf6549ec448bea10512c895abf9baf07" compoundref="xasu__keywrapinfo_8h" startline="69">XAsu_KeyWrapParams::OptionalLabelSize</references>
+        <references refid="struct_x_asu___key_wrap_params_1aa7cbcf8280698e9df3458951df9959ec" compoundref="xasu__keywrapinfo_8h" startline="59">XAsu_KeyWrapParams::OutputDataAddr</references>
+        <references refid="struct_x_asu___key_wrap_params_1aa700f9f3d7b11950e1b932fd2f2ddefe" compoundref="xasu__keywrapinfo_8h" startline="70">XAsu_KeyWrapParams::OutputDataLen</references>
+        <references refid="struct_x_asu___rsa_pvt_key_comp_1aee026bc85163c5d997042dc1895c48be" compoundref="xasu__rsainfo_8h" startline="114">XAsu_RsaPvtKeyComp::PrimeCompOrTotientPrsnt</references>
+        <references refid="struct_x_asu___rsa_pub_key_comp_1a0b396660fe58b779190f084389c92bb4" compoundref="xasu__rsainfo_8h" startline="105">XAsu_RsaPubKeyComp::PubExp</references>
+        <references refid="struct_x_asu___rsa_pvt_key_comp_1aefcc19b50b4d9737f74baeca5f256529" compoundref="xasu__rsainfo_8h" startline="110">XAsu_RsaPvtKeyComp::PubKeyComp</references>
+        <references refid="struct_x_asu___rsa_pvt_key_comp_1a062bb63966c303087965d1e37b767428" compoundref="xasu__rsainfo_8h" startline="111">XAsu_RsaPvtKeyComp::PvtExp</references>
+        <references refid="struct_x_asu___key_wrap_params_1ab5d016c0e32be8c69f03308ef2491508" compoundref="xasu__keywrapinfo_8h" startline="75">XAsu_KeyWrapParams::RsaKeyId</references>
+        <references refid="struct_x_asu___key_wrap_params_1a38fcf90cf3ca3349320ec043a58e065b" compoundref="xasu__keywrapinfo_8h" startline="68">XAsu_KeyWrapParams::RsaKeySize</references>
+        <references refid="struct_x_asu___key_wrap_params_1a3d2c47719c3dab4ce5dd8222487751b8" compoundref="xasu__keywrapinfo_8h" startline="79">XAsu_KeyWrapParams::ShaMode</references>
+        <references refid="struct_x_asu___key_wrap_params_1abb2a09abd19af9c8165f7dadf6b365ab" compoundref="xasu__keywrapinfo_8h" startline="78">XAsu_KeyWrapParams::ShaType</references>
+        <references refid="group__xasu__common__defs_1ga565a9f9f9f947674eb43a1ce60e638d6" compoundref="xasu__aesinfo_8h" startline="103">XASU_AES_KEY_SIZE_256_BITS</references>
+        <references refid="group__xasu__client__info_1ga3dc785000c560adedbb23beb0404beee" compoundref="xasu__client_8c" startline="127" endline="177">XAsu_ClientInit</references>
+        <references refid="group__xasu__common__defs_1ga2ce83e6be7ef8a6dc0ec9067b7e8f396" compoundref="xasu__def_8h" startline="46">XASU_CMD_SECURE</references>
+        <references refid="group__xasu__keywrap__client__apis_1ga5182a3df4600b1e0c78db02eab118fe7" compoundref="xasu__keywrap_8c" startline="129" endline="178">XAsu_KeyUnwrap</references>
+        <references refid="group__xasu__keywrap__client__apis_1gad64883d138efba842bfc4961b3c8ee0f" compoundref="xasu__keywrap_8c" startline="61" endline="110">XAsu_KeyWrap</references>
+        <references refid="group__xasu__keywrap__client__example_1ga7718a8369314053fa0d9bacbc2a784cb" compoundref="xasu__keywrap__example_8c" startline="39">XASU_KEYWRAP_INPUT_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__keywrap__client__example_1gabba3327756b50588a5aad980277ea39e" compoundref="xasu__keywrap__example_8c" startline="41">XASU_KEYWRAP_OUTPUT_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__keywrap__client__example_1ga2384dc543a2c3a267b328d6b592db417" compoundref="xasu__keywrap__example_8c" startline="38">XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__client__info_1gaf4bee00214accc868d4697e6745d83ca" compoundref="xasu__client_8h" startline="50">XASU_PRIORITY_HIGH</references>
+        <references refid="group__xasu__keywrap__client__example_1ga53d0fa016126e0a90a01c81e00515464" compoundref="xasu__keywrap__example_8c" startline="40">XASU_RSA_OPTIONAL_DATA_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="57">XASU_SHA2_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga1b2246776bc9c632002768c9edd40340" compoundref="xasu__shainfo_8h" startline="51">XASU_SHA_MODE_256</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__keywrap__client__example_1ga2384dc543a2c3a267b328d6b592db417" prot="public" static="no">
+        <name>XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES</name>
+        <initializer>(512U)</initializer>
+        <briefdescription>
+<para>RSA key size for 4096 bit data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="38" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keywrap__client__example_1ga7718a8369314053fa0d9bacbc2a784cb" prot="public" static="no">
+        <name>XASU_KEYWRAP_INPUT_SIZE_IN_BYTES</name>
+        <initializer>(31U)</initializer>
+        <briefdescription>
+<para>Key wrap unwrap input size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="39" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keywrap__client__example_1ga53d0fa016126e0a90a01c81e00515464" prot="public" static="no">
+        <name>XASU_RSA_OPTIONAL_DATA_SIZE_IN_BYTES</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>512 bytes for 4096 bit data </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="40" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keywrap__client__example_1gabba3327756b50588a5aad980277ea39e" prot="public" static="no">
+        <name>XASU_KEYWRAP_OUTPUT_SIZE_IN_BYTES</name>
+        <initializer>(552U)</initializer>
+        <briefdescription>
+<para>Key wrap unwrap output size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="41" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keywrap__client__example_1gad009724e34661e0dc7ffc2595a0ab630" prot="public" static="no">
+        <name>XASU_CACHE_DISABLE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>This example illustrates the usage of ASU Key wrap unwrap APIs using below tests wrap the provided input data. The output result is then unwrapped back to get original data. The test fails, if unwrap operation does not produce the original data.</para></simplesect>
+MODIFICATION HISTORY: <preformatted>
+Ver   Who    Date     Changes
+<hruler/>
+
+1.0   ss     02/24/25 Initial Release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

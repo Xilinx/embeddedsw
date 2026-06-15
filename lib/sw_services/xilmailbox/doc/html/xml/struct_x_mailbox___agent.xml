@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mailbox___agent" kind="struct" prot="public">
+    <compoundname>XMailbox_Agent</compoundname>
+    <includes local="no">xilmailbox_ipips.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="group__xilmailbox_1ga626145fbf006cb062b91ef47889a49ed" prot="public" static="no" mutable="no">
+        <type>XIpiPsu</type>
+        <definition>XIpiPsu XMailbox_Agent::IpiInst</definition>
+        <argsstring></argsstring>
+        <name>IpiInst</name>
+        <briefdescription>
+<para>Ipi instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips.h" bodystart="55" bodyend="-1"/>
+        <referencedby refid="group__xilmailbox_1ga3ec66bb2a5cd007668bd5096471f691d" compoundref="xilmailbox__ipips__control_8c" startline="59" endline="102">XIpiPs_Init</referencedby>
+        <referencedby refid="group__xilmailbox_1ga4f8f4f223ac7cab8c35b259803256e50" compoundref="xilmailbox__ipips__control_8c" startline="327" endline="340">XIpiPs_IntrHandler</referencedby>
+        <referencedby refid="group__xilmailbox_1gadb81c93bcb13ef48d004b89eb27ecc6c" compoundref="xilmailbox__ipips__intr_8c" startline="60" endline="85">XIpiPs_PollforDone</referencedby>
+        <referencedby refid="group__xilmailbox_1ga8102ed0d9a2448e2754d4036b0aeebac" compoundref="xilmailbox__ipips__intr_8c" startline="98" endline="123">XIpiPs_PollforDoneById</referencedby>
+        <referencedby refid="group__xilmailbox_1ga56a6cdab3dba08f469f27b341aa3c178" compoundref="xilmailbox__ipips__control_8c" startline="277" endline="287">XIpiPs_RecvData</referencedby>
+        <referencedby refid="group__xilmailbox_1ga76681a9ebd3706299aa0fa85874c0b40" compoundref="xilmailbox__ipips__control_8c" startline="305" endline="315">XIpiPs_RecvDataById</referencedby>
+        <referencedby refid="group__xilmailbox_1ga4da6358addbe4237f3982d5b5b06c228" compoundref="xilmailbox__ipips__intr_8c" startline="145" endline="239">XIpiPs_RegisterIrq</referencedby>
+        <referencedby refid="group__xilmailbox_1gafe03d42ebcf3d3e93c2fb709de6e9142" compoundref="xilmailbox__ipips__control_8c" startline="119" endline="136">XIpiPs_Send</referencedby>
+        <referencedby refid="group__xilmailbox_1ga0fd5f2755e0951d389b6b83c619e21c6" compoundref="xilmailbox__ipips__control_8c" startline="150" endline="167">XIpiPs_SendById</referencedby>
+        <referencedby refid="group__xilmailbox_1gae6a5843a165afbc782fb45ab48e8b77d" compoundref="xilmailbox__ipips__control_8c" startline="188" endline="213">XIpiPs_SendData</referencedby>
+        <referencedby refid="group__xilmailbox_1gaecaec4da5fe63fb55a3a71eba12b8e05" compoundref="xilmailbox__ipips__control_8c" startline="231" endline="256">XIpiPs_SendDataById</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilmailbox_1ga5697f39a913b178ec64c6cff4575bb0e" prot="public" static="no" mutable="no">
+        <type>XScuGic</type>
+        <definition>XScuGic XMailbox_Agent::GicInst</definition>
+        <argsstring></argsstring>
+        <name>GicInst</name>
+        <briefdescription>
+<para>Interrupt instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__xilmailbox_1ga3ec66bb2a5cd007668bd5096471f691d" compoundref="xilmailbox__ipips__control_8c" startline="59" endline="102">XIpiPs_Init</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilmailbox_1ga4a6fb8ef4ca25e40d3640a37ae80704c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMailbox_Agent::SourceId</definition>
+        <argsstring></argsstring>
+        <name>SourceId</name>
+        <briefdescription>
+<para>Source id. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__xilmailbox_1ga56a6cdab3dba08f469f27b341aa3c178" compoundref="xilmailbox__ipips__control_8c" startline="277" endline="287">XIpiPs_RecvData</referencedby>
+        <referencedby refid="group__xilmailbox_1ga1e5da60f7c2fc80ec54209fc4031c03b" compoundref="xilmailbox_8c" startline="128" endline="153">XMailbox_Recv</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilmailbox_1ga5de32cff7d1fe5e482d0e3d75b528e6f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMailbox_Agent::RemoteId</definition>
+        <argsstring></argsstring>
+        <name>RemoteId</name>
+        <briefdescription>
+<para>Remote id. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__xilmailbox_1gadb81c93bcb13ef48d004b89eb27ecc6c" compoundref="xilmailbox__ipips__intr_8c" startline="60" endline="85">XIpiPs_PollforDone</referencedby>
+        <referencedby refid="group__xilmailbox_1gafe03d42ebcf3d3e93c2fb709de6e9142" compoundref="xilmailbox__ipips__control_8c" startline="119" endline="136">XIpiPs_Send</referencedby>
+        <referencedby refid="group__xilmailbox_1gae6a5843a165afbc782fb45ab48e8b77d" compoundref="xilmailbox__ipips__control_8c" startline="188" endline="213">XIpiPs_SendData</referencedby>
+        <referencedby refid="group__xilmailbox_1ga3b1215935d7ba605846e3a13f015e956" compoundref="xilmailbox_8c" startline="58" endline="69">XMailbox_Send</referencedby>
+        <referencedby refid="group__xilmailbox_1ga4c8296024494f03b6e33a54fe80ba3da" compoundref="xilmailbox_8c" startline="88" endline="109">XMailbox_SendData</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Data structure used to refer Xilmailbox agents. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips.h" bodystart="54" bodyend="61"/>
+    <listofallmembers>
+      <member refid="group__xilmailbox_1ga5697f39a913b178ec64c6cff4575bb0e" prot="public" virt="non-virtual"><scope>XMailbox_Agent</scope><name>GicInst</name></member>
+      <member refid="group__xilmailbox_1ga626145fbf006cb062b91ef47889a49ed" prot="public" virt="non-virtual"><scope>XMailbox_Agent</scope><name>IpiInst</name></member>
+      <member refid="group__xilmailbox_1ga5de32cff7d1fe5e482d0e3d75b528e6f" prot="public" virt="non-virtual"><scope>XMailbox_Agent</scope><name>RemoteId</name></member>
+      <member refid="group__xilmailbox_1ga4a6fb8ef4ca25e40d3640a37ae80704c" prot="public" virt="non-virtual"><scope>XMailbox_Agent</scope><name>SourceId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

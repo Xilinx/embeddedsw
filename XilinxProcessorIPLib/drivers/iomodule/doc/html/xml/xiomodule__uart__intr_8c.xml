@@ -1,0 +1,1042 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xiomodule__uart__intr_8c" kind="file">
+    <compoundname>xiomodule_uart_intr.c</compoundname>
+    <includes local="yes">xil_assert.h</includes>
+    <includes refid="xiomodule_8h" local="yes">xiomodule.h</includes>
+    <includes refid="xiomodule__i_8h" local="yes">xiomodule_i.h</includes>
+    <includes refid="xiomodule__l_8h" local="yes">xiomodule_l.h</includes>
+    <incdepgraph>
+      <node id="216">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="221">
+        <label>xil_io.h</label>
+      </node>
+      <node id="223">
+        <label>xiomodule_i.h</label>
+        <link refid="xiomodule__i_8h"/>
+        <childnode refid="217" relation="include">
+        </childnode>
+      </node>
+      <node id="215">
+        <label>xiomodule_uart_intr.c</label>
+        <link refid="xiomodule_uart_intr.c"/>
+        <childnode refid="216" relation="include">
+        </childnode>
+        <childnode refid="217" relation="include">
+        </childnode>
+        <childnode refid="223" relation="include">
+        </childnode>
+        <childnode refid="219" relation="include">
+        </childnode>
+      </node>
+      <node id="217">
+        <label>xiomodule.h</label>
+        <link refid="xiomodule_8h"/>
+        <childnode refid="218" relation="include">
+        </childnode>
+        <childnode refid="219" relation="include">
+        </childnode>
+        <childnode refid="222" relation="include">
+        </childnode>
+      </node>
+      <node id="218">
+        <label>xstatus.h</label>
+      </node>
+      <node id="222">
+        <label>xil_types.h</label>
+      </node>
+      <node id="219">
+        <label>xiomodule_l.h</label>
+        <link refid="xiomodule__l_8h"/>
+        <childnode refid="218" relation="include">
+        </childnode>
+        <childnode refid="220" relation="include">
+        </childnode>
+      </node>
+      <node id="220">
+        <label>xiomodule_io.h</label>
+        <link refid="xiomodule__io_8h"/>
+        <childnode refid="221" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__iomodule_1ga7c7eb802878944c1e915ea06e07679a2" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* Handler)(XIOModule *InstancePtr)</definition>
+        <argsstring>)(XIOModule *InstancePtr)</argsstring>
+        <name>Handler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_uart_intr.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_uart_intr.c" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__iomodule_1gab4cefc3670d18b6d78db5c70158c5625" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void ReceiveDataHandler</definition>
+        <argsstring>(XIOModule *InstancePtr)</argsstring>
+        <name>ReceiveDataHandler</name>
+        <param>
+          <type><ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function handles the interrupt when data is received, either a single byte when FIFOs are not enabled, or multiple bytes with the FIFO. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_uart_intr.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_uart_intr.c" bodystart="595" bodyend="621"/>
+      </memberdef>
+      <memberdef kind="function" id="group__iomodule_1gaa23c9a05ca267bee2347020384d98541" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void SendDataHandler</definition>
+        <argsstring>(XIOModule *InstancePtr)</argsstring>
+        <name>SendDataHandler</name>
+        <param>
+          <type><ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function handles the interrupt when data has been sent, the transmit FIFO is empty (transmitter holding register). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> instance .</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_uart_intr.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_uart_intr.c" bodystart="636" bodyend="670"/>
+      </memberdef>
+      <memberdef kind="function" id="group__iomodule_1gabe2219bbd76d37299ef7e645133bd74f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XIOModule_Send</definition>
+        <argsstring>(XIOModule *InstancePtr, u8 *DataBufferPtr, u32 NumBytes)</argsstring>
+        <name>XIOModule_Send</name>
+        <param>
+          <type><ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>DataBufferPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumBytes</declname>
+        </param>
+        <briefdescription>
+<para>This functions sends the specified buffer of data using the UART in either polled or interrupt driven modes. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is non-blocking such that it will return before the data has been sent by the UART. If the UART is busy sending data, it will return and indicate zero bytes were sent.</para><para>In a polled mode, this function will only send as much data as the UART can buffer in the transmitter. The application may need to call it repeatedly to send a buffer.</para><para>In interrupt mode, this function will start sending the specified buffer and then the interrupt handler of the driver will continue sending data until the buffer has been sent. A callback function, as specified by the application, will be called to indicate the completion of sending the buffer.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataBufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to a buffer of data to be sent. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumBytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the number of bytes to be sent. A value of zero will stop a previous send operation that is in progress in interrupt mode. Any data that was already put into the transmit FIFO will be sent.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of bytes actually sent.</para></simplesect>
+<simplesect kind="note"><para>The number of bytes is not asserted so that this function may be called with a value of zero to stop an operation that is already in progress. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="532" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_uart_intr.c" bodystart="96" bodyend="142"/>
+        <references refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" compoundref="xiomodule_8h" startline="433">XIOModule::BaseAddress</references>
+        <references refid="struct_x_i_o_module_1aa587d9b5ceed79935fa1c5cf842531d8" compoundref="xiomodule_8h" startline="448">XIOModule::CurrentIER</references>
+        <references refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" compoundref="xiomodule_8h" startline="434">XIOModule::IsReady</references>
+        <references refid="struct_x_i_o_module___buffer_1a50853264e2e15f5714c35c69e3044110" compoundref="xiomodule_8h" startline="401">XIOModule_Buffer::NextBytePtr</references>
+        <references refid="struct_x_i_o_module___buffer_1af9c6e265f52ba355d454e0b29983889e" compoundref="xiomodule_8h" startline="403">XIOModule_Buffer::RemainingBytes</references>
+        <references refid="struct_x_i_o_module___buffer_1ad1d8239c6072600ea84bbbf16b6d59fb" compoundref="xiomodule_8h" startline="402">XIOModule_Buffer::RequestedBytes</references>
+        <references refid="struct_x_i_o_module_1ab43b4d33329f1d1c7685f0123dc37588" compoundref="xiomodule_8h" startline="439">XIOModule::SendBuffer</references>
+        <references refid="group__iomodule_1ga1fc16de9c0cbaad1d3022d19a0d883cd" compoundref="xiomodule__uart__intr_8c" startline="306" endline="371">XIOModule_SendBuffer</references>
+      </memberdef>
+      <memberdef kind="function" id="group__iomodule_1ga3840262ec8f698849bf0bba791c978a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XIOModule_Recv</definition>
+        <argsstring>(XIOModule *InstancePtr, u8 *DataBufferPtr, u32 NumBytes)</argsstring>
+        <name>XIOModule_Recv</name>
+        <param>
+          <type><ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>DataBufferPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumBytes</declname>
+        </param>
+        <briefdescription>
+<para>This function will attempt to receive a specified number of bytes of data from the UART and store it into the specified buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is designed for either polled or interrupt driven modes. It is non-blocking such that it will return if no data has already received by the UART.</para><para>In a polled mode, this function will only receive as much data as the UART can buffer in the receiver. The application may need to call it repeatedly to receive a buffer. Polled mode is the default mode of operation for the driver.</para><para>In interrupt mode, this function will start receiving and then the interrupt handler of the driver will continue receiving data until the buffer has been received. A callback function, as specified by the application, will be called to indicate the completion of receiving the buffer or when any receive errors or timeouts occur.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataBufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to buffer for data to be received into. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumBytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of bytes to be received. A value of zero will stop a previous receive operation that is in progress in interrupt mode.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of bytes received.</para></simplesect>
+<simplesect kind="note"><para>The number of bytes is not asserted so that this function may be called with a value of zero to stop an operation that is already in progress. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="534" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_uart_intr.c" bodystart="176" bodyend="221"/>
+        <references refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" compoundref="xiomodule_8h" startline="433">XIOModule::BaseAddress</references>
+        <references refid="struct_x_i_o_module_1aa587d9b5ceed79935fa1c5cf842531d8" compoundref="xiomodule_8h" startline="448">XIOModule::CurrentIER</references>
+        <references refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" compoundref="xiomodule_8h" startline="434">XIOModule::IsReady</references>
+        <references refid="struct_x_i_o_module___buffer_1a50853264e2e15f5714c35c69e3044110" compoundref="xiomodule_8h" startline="401">XIOModule_Buffer::NextBytePtr</references>
+        <references refid="struct_x_i_o_module_1a9779459fb73d4db975bdf4d112d63408" compoundref="xiomodule_8h" startline="440">XIOModule::ReceiveBuffer</references>
+        <references refid="struct_x_i_o_module___buffer_1af9c6e265f52ba355d454e0b29983889e" compoundref="xiomodule_8h" startline="403">XIOModule_Buffer::RemainingBytes</references>
+        <references refid="struct_x_i_o_module___buffer_1ad1d8239c6072600ea84bbbf16b6d59fb" compoundref="xiomodule_8h" startline="402">XIOModule_Buffer::RequestedBytes</references>
+        <references refid="group__iomodule_1ga70b12729029fff571ad8915dc30897d6" compoundref="xiomodule__uart__intr_8c" startline="405" endline="473">XIOModule_ReceiveBuffer</references>
+      </memberdef>
+      <memberdef kind="function" id="group__iomodule_1gadabb5f2e09817afb284173f31f3d7265" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIOModule_ResetFifos</definition>
+        <argsstring>(XIOModule *InstancePtr)</argsstring>
+        <name>XIOModule_ResetFifos</name>
+        <param>
+          <type><ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function does nothing, since the UART doesn&apos;t have any FIFOs. </para>        </briefdescription>
+        <detaileddescription>
+<para>It is included for compatibility with the UART Lite driver.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> instance .</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="530" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_uart_intr.c" bodystart="236" bodyend="240"/>
+        <references refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" compoundref="xiomodule_8h" startline="434">XIOModule::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="group__iomodule_1ga0e055e6172c30e7acbfde08aeed10fa1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XIOModule_IsSending</definition>
+        <argsstring>(XIOModule *InstancePtr)</argsstring>
+        <name>XIOModule_IsSending</name>
+        <param>
+          <type><ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function determines if the specified UART is sending data. </para>        </briefdescription>
+        <detaileddescription>
+<para>If the transmitter register is not empty, it is sending data.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A value of TRUE if the UART is sending data, otherwise FALSE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="537" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_uart_intr.c" bodystart="255" bodyend="275"/>
+        <references refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" compoundref="xiomodule_8h" startline="433">XIOModule::BaseAddress</references>
+        <references refid="group__iomodule_1ga4eaff234e65f369a870fca3b92215df4" compoundref="xiomodule__l_8h" startline="404">XIOModule_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__iomodule_1ga1fc16de9c0cbaad1d3022d19a0d883cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int XIOModule_SendBuffer</definition>
+        <argsstring>(XIOModule *InstancePtr)</argsstring>
+        <name>XIOModule_SendBuffer</name>
+        <param>
+          <type><ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a buffer that has been previously specified by setting up the instance variables of the instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is designed to be an internal function for the <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> component such that it may be called from a shell function that sets up the buffer or from an interrupt handler.</para><para>This function sends the specified buffer of data to the UART in either polled or interrupt driven modes. This function is non-blocking such that it will return before the data has been sent by the UART.</para><para>In a polled mode, this function will only send as much data as the UART can buffer in the transmitter. The application may need to call it repeatedly to send a buffer.</para><para>In interrupt mode, this function will start sending the specified buffer and then the interrupt handler of the driver will continue until the buffer has been sent. A callback function, as specified by the application, will be called to indicate the completion of sending the buffer.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>NumBytes is the number of bytes actually sent (put into the UART transmitter and/or FIFO).</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_i.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_uart_intr.c" bodystart="306" bodyend="371"/>
+        <references refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" compoundref="xiomodule_8h" startline="433">XIOModule::BaseAddress</references>
+        <references refid="struct_x_i_o_module___uart___stats_1a0e5ff03c225123a482235e43ba8b60f0" compoundref="xiomodule_8h" startline="388">XIOModule_Uart_Stats::CharactersTransmitted</references>
+        <references refid="struct_x_i_o_module_1aa587d9b5ceed79935fa1c5cf842531d8" compoundref="xiomodule_8h" startline="448">XIOModule::CurrentIER</references>
+        <references refid="struct_x_i_o_module___buffer_1a50853264e2e15f5714c35c69e3044110" compoundref="xiomodule_8h" startline="401">XIOModule_Buffer::NextBytePtr</references>
+        <references refid="struct_x_i_o_module___buffer_1af9c6e265f52ba355d454e0b29983889e" compoundref="xiomodule_8h" startline="403">XIOModule_Buffer::RemainingBytes</references>
+        <references refid="struct_x_i_o_module_1ab43b4d33329f1d1c7685f0123dc37588" compoundref="xiomodule_8h" startline="439">XIOModule::SendBuffer</references>
+        <references refid="struct_x_i_o_module_1a012d912c3ca44ef12ff3e9877950912d" compoundref="xiomodule_8h" startline="438">XIOModule::Uart_Stats</references>
+        <references refid="group__iomodule_1ga313c2576e159fd472cb0b25b7a395837" compoundref="xiomodule__l_8h" startline="327">XIOModule_GetStatusReg</references>
+        <references refid="group__iomodule_1ga829c77e3efe996211599f9a2a6bb4890" compoundref="xiomodule__l_8h" startline="384">XIOModule_WriteReg</references>
+        <referencedby refid="group__iomodule_1gabe2219bbd76d37299ef7e645133bd74f" compoundref="xiomodule__uart__intr_8c" startline="96" endline="142">XIOModule_Send</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iomodule_1ga70b12729029fff571ad8915dc30897d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int XIOModule_ReceiveBuffer</definition>
+        <argsstring>(XIOModule *InstancePtr)</argsstring>
+        <name>XIOModule_ReceiveBuffer</name>
+        <param>
+          <type><ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function receives a buffer that has been previously specified by setting up the instance variables of the instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is designed to be an internal function for the <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> component such that it may be called from a shell function that sets up the buffer or from an interrupt handler.</para><para>This function will attempt to receive a specified number of bytes of data from the UART and store it into the specified buffer. This function is designed for either polled or interrupt driven modes. It is non-blocking such that it will return if there is no data has already received by the UART.</para><para>In a polled mode, this function will only receive as much data as the UART can buffer, either in the receiver or in the FIFO if present and enabled. The application may need to call it repeatedly to receive a buffer. Polled mode is the default mode of operation for the driver.</para><para>In interrupt mode, this function will start receiving and then the interrupt handler of the driver will continue until the buffer has been received. A callback function, as specified by the application, will be called to indicate the completion of receiving the buffer or when any receive errors or timeouts occur.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of bytes received.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_i.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_uart_intr.c" bodystart="405" bodyend="473"/>
+        <references refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" compoundref="xiomodule_8h" startline="433">XIOModule::BaseAddress</references>
+        <references refid="struct_x_i_o_module___uart___stats_1a6007db24145bcd77eea843689a894999" compoundref="xiomodule_8h" startline="389">XIOModule_Uart_Stats::CharactersReceived</references>
+        <references refid="struct_x_i_o_module_1aa587d9b5ceed79935fa1c5cf842531d8" compoundref="xiomodule_8h" startline="448">XIOModule::CurrentIER</references>
+        <references refid="struct_x_i_o_module___buffer_1a50853264e2e15f5714c35c69e3044110" compoundref="xiomodule_8h" startline="401">XIOModule_Buffer::NextBytePtr</references>
+        <references refid="struct_x_i_o_module_1a9779459fb73d4db975bdf4d112d63408" compoundref="xiomodule_8h" startline="440">XIOModule::ReceiveBuffer</references>
+        <references refid="struct_x_i_o_module___buffer_1af9c6e265f52ba355d454e0b29983889e" compoundref="xiomodule_8h" startline="403">XIOModule_Buffer::RemainingBytes</references>
+        <references refid="struct_x_i_o_module_1a012d912c3ca44ef12ff3e9877950912d" compoundref="xiomodule_8h" startline="438">XIOModule::Uart_Stats</references>
+        <references refid="group__iomodule_1ga313c2576e159fd472cb0b25b7a395837" compoundref="xiomodule__l_8h" startline="327">XIOModule_GetStatusReg</references>
+        <references refid="group__iomodule_1ga4eaff234e65f369a870fca3b92215df4" compoundref="xiomodule__l_8h" startline="404">XIOModule_ReadReg</references>
+        <references refid="group__iomodule_1ga71f9336a3492b8501e09d3a87e2d661a" compoundref="xiomodule__i_8h" startline="70">XIOModule_UpdateStats</references>
+        <referencedby refid="group__iomodule_1ga3840262ec8f698849bf0bba791c978a8" compoundref="xiomodule__uart__intr_8c" startline="176" endline="221">XIOModule_Recv</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iomodule_1ga5ece62521d0d34bd420888ecc876750c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIOModule_SetRecvHandler</definition>
+        <argsstring>(XIOModule *InstancePtr, XIOModule_Handler FuncPtr, void *CallBackRef)</argsstring>
+        <name>XIOModule_SetRecvHandler</name>
+        <param>
+          <type><ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__iomodule_1ga40a7295554b9483f28c0f004b0c53302" kindref="member">XIOModule_Handler</ref></type>
+          <declname>FuncPtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the handler that will be called when an event (interrupt) occurs in the driver for the UART. </para>        </briefdescription>
+        <detaileddescription>
+<para>The purpose of the handler is to allow application specific processing to be performed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FuncPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the upper layer callback reference passed back when the callback function is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>There is no assert on the CallBackRef since the driver doesn&apos;t know what it is (nor should it) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="559" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_uart_intr.c" bodystart="495" bodyend="508"/>
+        <references refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" compoundref="xiomodule_8h" startline="434">XIOModule::IsReady</references>
+        <references refid="struct_x_i_o_module_1aba9945a4a56cd7d80eddfeb72ec0fa3c" compoundref="xiomodule_8h" startline="442">XIOModule::RecvCallBackRef</references>
+        <references refid="struct_x_i_o_module_1a7d242c9d237f263e9b895b57c827b728" compoundref="xiomodule_8h" startline="441">XIOModule::RecvHandler</references>
+      </memberdef>
+      <memberdef kind="function" id="group__iomodule_1ga07b376ebf11fee3ff027445eaa096261" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIOModule_SetSendHandler</definition>
+        <argsstring>(XIOModule *InstancePtr, XIOModule_Handler FuncPtr, void *CallBackRef)</argsstring>
+        <name>XIOModule_SetSendHandler</name>
+        <param>
+          <type><ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__iomodule_1ga40a7295554b9483f28c0f004b0c53302" kindref="member">XIOModule_Handler</ref></type>
+          <declname>FuncPtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the handler that will be called when an event (interrupt) occurs in the driver for the UART. </para>        </briefdescription>
+        <detaileddescription>
+<para>The purpose of the handler is to allow application specific processing to be performed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> instance . </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FuncPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the upper layer callback reference passed back when the callback function is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>There is no assert on the CallBackRef since the driver doesn&apos;t know what it is (nor should it) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="561" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_uart_intr.c" bodystart="528" bodyend="541"/>
+        <references refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" compoundref="xiomodule_8h" startline="434">XIOModule::IsReady</references>
+        <references refid="struct_x_i_o_module_1a1c7dd2691c80c532a0b2624a91c6b615" compoundref="xiomodule_8h" startline="444">XIOModule::SendCallBackRef</references>
+        <references refid="struct_x_i_o_module_1a900c8563fc749f2cb97e5c0bbf1c7af7" compoundref="xiomodule_8h" startline="443">XIOModule::SendHandler</references>
+      </memberdef>
+      <memberdef kind="function" id="group__iomodule_1gacf2a67095f9797403f5c269fdcd7a6b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIOModule_Uart_InterruptHandler</definition>
+        <argsstring>(XIOModule *InstancePtr)</argsstring>
+        <name>XIOModule_Uart_InterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the UART. </para>        </briefdescription>
+        <detaileddescription>
+<para>It must be connected to an interrupt system by the user such that it is called when an interrupt for any UART lite occurs. This function does not save or restore the processor context such that the user must ensure this occurs.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains a pointer to the instance of the IOModule that the interrupt is for.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="564" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_uart_intr.c" bodystart="560" bodyend="580"/>
+        <references refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" compoundref="xiomodule_8h" startline="433">XIOModule::BaseAddress</references>
+        <references refid="struct_x_i_o_module___buffer_1ad1d8239c6072600ea84bbbf16b6d59fb" compoundref="xiomodule_8h" startline="402">XIOModule_Buffer::RequestedBytes</references>
+        <references refid="struct_x_i_o_module_1ab43b4d33329f1d1c7685f0123dc37588" compoundref="xiomodule_8h" startline="439">XIOModule::SendBuffer</references>
+        <references refid="group__iomodule_1ga313c2576e159fd472cb0b25b7a395837" compoundref="xiomodule__l_8h" startline="327">XIOModule_GetStatusReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__iomodule_1ga5ec72d0dd352ad42de494821220e3185" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIOModule_Uart_DisableInterrupt</definition>
+        <argsstring>(XIOModule *InstancePtr)</argsstring>
+        <name>XIOModule_Uart_DisableInterrupt</name>
+        <param>
+          <type><ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function disables the UART interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para>After calling this function, data may still be received by the UART but no interrupt will be generated since the hardware device has no way to disable the receiver.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="557" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_uart_intr.c" bodystart="687" bodyend="701"/>
+        <references refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" compoundref="xiomodule_8h" startline="433">XIOModule::BaseAddress</references>
+        <references refid="struct_x_i_o_module_1aa587d9b5ceed79935fa1c5cf842531d8" compoundref="xiomodule_8h" startline="448">XIOModule::CurrentIER</references>
+        <references refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" compoundref="xiomodule_8h" startline="434">XIOModule::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="group__iomodule_1gaa805a7f9982d9acc5b3b16849c5d2dfd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIOModule_Uart_EnableInterrupt</definition>
+        <argsstring>(XIOModule *InstancePtr)</argsstring>
+        <name>XIOModule_Uart_EnableInterrupt</name>
+        <param>
+          <type><ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the UART interrupts such that an interrupt will occur when data is received or data has been transmitted. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="556" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_uart_intr.c" bodystart="716" bodyend="729"/>
+        <references refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" compoundref="xiomodule_8h" startline="433">XIOModule::BaseAddress</references>
+        <references refid="struct_x_i_o_module_1aa587d9b5ceed79935fa1c5cf842531d8" compoundref="xiomodule_8h" startline="448">XIOModule::CurrentIER</references>
+        <references refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" compoundref="xiomodule_8h" startline="434">XIOModule::IsReady</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2011<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="39"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiomodule_8h" kindref="compound">xiomodule.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiomodule__i_8h" kindref="compound">xiomodule_i.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiomodule__l_8h" kindref="compound">xiomodule_l.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReceiveDataHandler(<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SendDataHandler(<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*Handler)(<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="96" refid="group__iomodule_1gabe2219bbd76d37299ef7e645133bd74f" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__iomodule_1gabe2219bbd76d37299ef7e645133bd74f" kindref="member">XIOModule_Send</ref>(<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*InstancePtr,<sp/>u8<sp/>*DataBufferPtr,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumBytes)</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BytesSent;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StatusRegister;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="103"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="104"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(DataBufferPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(((s32)NumBytes)<sp/>&gt;=<sp/>0);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="111"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enter<sp/>a<sp/>critical<sp/>region<sp/>by<sp/>disabling<sp/>the<sp/>UART<sp/>interrupts<sp/>to<sp/>allow</highlight></codeline>
+<codeline lineno="112"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>this<sp/>call<sp/>to<sp/>stop<sp/>a<sp/>previous<sp/>operation<sp/>that<sp/>may<sp/>be<sp/>interrupt<sp/>driven.</highlight></codeline>
+<codeline lineno="113"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusRegister<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1aa587d9b5ceed79935fa1c5cf842531d8" kindref="member">CurrentIER</ref>;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIomodule_Out32(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" kindref="member">BaseAddress</ref><sp/>+<sp/>XIN_IER_OFFSET,</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusRegister<sp/>&amp;<sp/>0xFFFFFFF8U);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="119"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Setup<sp/>the<sp/>specified<sp/>buffer<sp/>to<sp/>be<sp/>sent<sp/>by<sp/>setting<sp/>the<sp/>instance</highlight></codeline>
+<codeline lineno="120"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>variables<sp/>so<sp/>it<sp/>can<sp/>be<sp/>sent<sp/>with<sp/>polled<sp/>or<sp/>interrupt<sp/>mode</highlight></codeline>
+<codeline lineno="121"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ab43b4d33329f1d1c7685f0123dc37588" kindref="member">SendBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1ad1d8239c6072600ea84bbbf16b6d59fb" kindref="member">RequestedBytes</ref><sp/>=<sp/>NumBytes;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ab43b4d33329f1d1c7685f0123dc37588" kindref="member">SendBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1af9c6e265f52ba355d454e0b29983889e" kindref="member">RemainingBytes</ref><sp/>=<sp/>NumBytes;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ab43b4d33329f1d1c7685f0123dc37588" kindref="member">SendBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1a50853264e2e15f5714c35c69e3044110" kindref="member">NextBytePtr</ref><sp/>=<sp/>DataBufferPtr;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="127"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Restore<sp/>the<sp/>interrupt<sp/>enable<sp/>register<sp/>to<sp/>it&apos;s<sp/>previous<sp/>value<sp/>such</highlight></codeline>
+<codeline lineno="128"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>that<sp/>the<sp/>critical<sp/>region<sp/>is<sp/>exited.</highlight></codeline>
+<codeline lineno="129"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>This<sp/>is<sp/>done<sp/>here<sp/>to<sp/>minimize<sp/>the<sp/>amount<sp/>of<sp/>time<sp/>the<sp/>interrupt<sp/>is</highlight></codeline>
+<codeline lineno="130"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>disabled<sp/>since<sp/>there<sp/>is<sp/>only<sp/>one<sp/>interrupt<sp/>and<sp/>the<sp/>receive<sp/>could</highlight></codeline>
+<codeline lineno="131"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>be<sp/>filling<sp/>up<sp/>while<sp/>interrupts<sp/>are<sp/>blocked.</highlight></codeline>
+<codeline lineno="132"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIomodule_Out32(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" kindref="member">BaseAddress</ref><sp/>+<sp/>XIN_IER_OFFSET,</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1aa587d9b5ceed79935fa1c5cf842531d8" kindref="member">CurrentIER</ref><sp/>&amp;<sp/>0xFFFFFFF8U)<sp/>|<sp/>(StatusRegister<sp/>&amp;<sp/>0x7U));</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="137"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Send<sp/>the<sp/>buffer<sp/>using<sp/>the<sp/>UART<sp/>and<sp/>return<sp/>the<sp/>number<sp/>of<sp/>bytes<sp/>sent</highlight></codeline>
+<codeline lineno="138"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BytesSent<sp/>=<sp/><ref refid="group__iomodule_1ga1fc16de9c0cbaad1d3022d19a0d883cd" kindref="member">XIOModule_SendBuffer</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>BytesSent;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="176" refid="group__iomodule_1ga3840262ec8f698849bf0bba791c978a8" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__iomodule_1ga3840262ec8f698849bf0bba791c978a8" kindref="member">XIOModule_Recv</ref>(<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*InstancePtr,<sp/>u8<sp/>*DataBufferPtr,</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumBytes)</highlight></codeline>
+<codeline lineno="178"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ReceivedCount;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StatusRegister;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="183"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="184"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(DataBufferPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(((s32)NumBytes)<sp/>&gt;=<sp/>0);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="191"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enter<sp/>a<sp/>critical<sp/>region<sp/>by<sp/>disabling<sp/>all<sp/>the<sp/>UART<sp/>interrupts<sp/>to<sp/>allow</highlight></codeline>
+<codeline lineno="192"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>this<sp/>call<sp/>to<sp/>stop<sp/>a<sp/>previous<sp/>operation<sp/>that<sp/>may<sp/>be<sp/>interrupt<sp/>driven</highlight></codeline>
+<codeline lineno="193"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusRegister<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1aa587d9b5ceed79935fa1c5cf842531d8" kindref="member">CurrentIER</ref>;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIomodule_Out32(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" kindref="member">BaseAddress</ref><sp/>+<sp/>XIN_IER_OFFSET,</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusRegister<sp/>&amp;<sp/>0xFFFFFFF8U);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="199"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Setup<sp/>the<sp/>specified<sp/>buffer<sp/>to<sp/>be<sp/>received<sp/>by<sp/>setting<sp/>the<sp/>instance</highlight></codeline>
+<codeline lineno="200"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>variables<sp/>so<sp/>it<sp/>can<sp/>be<sp/>received<sp/>with<sp/>polled<sp/>or<sp/>interrupt<sp/>mode</highlight></codeline>
+<codeline lineno="201"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a9779459fb73d4db975bdf4d112d63408" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1ad1d8239c6072600ea84bbbf16b6d59fb" kindref="member">RequestedBytes</ref><sp/>=<sp/>NumBytes;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a9779459fb73d4db975bdf4d112d63408" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1af9c6e265f52ba355d454e0b29983889e" kindref="member">RemainingBytes</ref><sp/>=<sp/>NumBytes;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a9779459fb73d4db975bdf4d112d63408" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1a50853264e2e15f5714c35c69e3044110" kindref="member">NextBytePtr</ref><sp/>=<sp/>DataBufferPtr;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="207"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Restore<sp/>the<sp/>interrupt<sp/>enable<sp/>register<sp/>to<sp/>it&apos;s<sp/>previous<sp/>value<sp/>such</highlight></codeline>
+<codeline lineno="208"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>that<sp/>the<sp/>critical<sp/>region<sp/>is<sp/>exited</highlight></codeline>
+<codeline lineno="209"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIomodule_Out32(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" kindref="member">BaseAddress</ref><sp/>+<sp/>XIN_IER_OFFSET,</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1aa587d9b5ceed79935fa1c5cf842531d8" kindref="member">CurrentIER</ref><sp/>&amp;<sp/>0xFFFFFFF8U)<sp/>|<sp/>(StatusRegister<sp/>&amp;<sp/>0x7U));</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="214"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Receive<sp/>the<sp/>data<sp/>from<sp/>the<sp/>UART<sp/>and<sp/>return<sp/>the<sp/>number<sp/>of<sp/>bytes</highlight></codeline>
+<codeline lineno="215"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>received.<sp/>This<sp/>is<sp/>done<sp/>here<sp/>to<sp/>minimize<sp/>the<sp/>amount<sp/>of<sp/>time<sp/>the</highlight></codeline>
+<codeline lineno="216"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>interrupt<sp/>is<sp/>disabled.</highlight></codeline>
+<codeline lineno="217"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReceivedCount<sp/>=<sp/><ref refid="group__iomodule_1ga70b12729029fff571ad8915dc30897d6" kindref="member">XIOModule_ReceiveBuffer</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ReceivedCount;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="236" refid="group__iomodule_1gadabb5f2e09817afb284173f31f3d7265" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__iomodule_1gadabb5f2e09817afb284173f31f3d7265" kindref="member">XIOModule_ResetFifos</ref>(<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="237"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="255" refid="group__iomodule_1ga0e055e6172c30e7acbfde08aeed10fa1" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__iomodule_1ga0e055e6172c30e7acbfde08aeed10fa1" kindref="member">XIOModule_IsSending</ref>(<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="256"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StatusRegister;</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="260"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="261"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="265"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>status<sp/>register<sp/>to<sp/>determine<sp/>if<sp/>the<sp/>transmitter<sp/>is<sp/>empty</highlight></codeline>
+<codeline lineno="266"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusRegister<sp/>=<sp/><ref refid="group__iomodule_1ga4eaff234e65f369a870fca3b92215df4" kindref="member">XIOModule_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUL_STATUS_REG_OFFSET);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="271"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>the<sp/>transmitter<sp/>is<sp/>not<sp/>empty<sp/>then<sp/>indicate<sp/>that<sp/>the<sp/>UART<sp/>is<sp/>still</highlight></codeline>
+<codeline lineno="272"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>sending<sp/>some<sp/>data</highlight></codeline>
+<codeline lineno="273"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>((s32)((StatusRegister<sp/>&amp;<sp/>XUL_SR_TX_FIFO_FULL)<sp/>==<sp/>XUL_SR_TX_FIFO_FULL));</highlight></codeline>
+<codeline lineno="275"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="306" refid="group__iomodule_1ga1fc16de9c0cbaad1d3022d19a0d883cd" refkind="member"><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__iomodule_1ga1fc16de9c0cbaad1d3022d19a0d883cd" kindref="member">XIOModule_SendBuffer</ref>(<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="307"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SentCount<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StatusRegister;</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrEnableStatus;</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="313"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>status<sp/>register<sp/>to<sp/>determine<sp/>if<sp/>the<sp/>transmitter<sp/>is<sp/>full</highlight></codeline>
+<codeline lineno="314"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusRegister<sp/>=<sp/><ref refid="group__iomodule_1ga313c2576e159fd472cb0b25b7a395837" kindref="member">XIOModule_GetStatusReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"></highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="318"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enter<sp/>a<sp/>critical<sp/>region<sp/>by<sp/>disabling<sp/>all<sp/>the<sp/>UART<sp/>interrupts<sp/>to<sp/>allow</highlight></codeline>
+<codeline lineno="319"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>this<sp/>call<sp/>to<sp/>stop<sp/>a<sp/>previous<sp/>operation<sp/>that<sp/>may<sp/>be<sp/>interrupt<sp/>driven</highlight></codeline>
+<codeline lineno="320"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIomodule_Out32(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" kindref="member">BaseAddress</ref><sp/>+<sp/>XIN_IER_OFFSET,</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusRegister<sp/>&amp;<sp/>0xFFFFFFF8U);</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="325"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Save<sp/>the<sp/>status<sp/>register<sp/>contents<sp/>to<sp/>restore<sp/>the<sp/>interrupt<sp/>enable</highlight></codeline>
+<codeline lineno="326"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>register<sp/>to<sp/>it&apos;s<sp/>previous<sp/>value<sp/>when<sp/>that<sp/>the<sp/>critical<sp/>region<sp/>is</highlight></codeline>
+<codeline lineno="327"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>exited</highlight></codeline>
+<codeline lineno="328"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrEnableStatus<sp/>=<sp/>StatusRegister;</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="332"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Fill<sp/>the<sp/>FIFO<sp/>from<sp/>the<sp/>the<sp/>buffer<sp/>that<sp/>was<sp/>specified</highlight></codeline>
+<codeline lineno="333"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(((StatusRegister<sp/>&amp;<sp/>XUL_SR_TX_FIFO_FULL)<sp/>==<sp/>0U)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(SentCount<sp/>&lt;<sp/>InstancePtr-&gt;SendBuffer.RemainingBytes))<sp/>{</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iomodule_1ga829c77e3efe996211599f9a2a6bb4890" kindref="member">XIOModule_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUL_TX_OFFSET,</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ab43b4d33329f1d1c7685f0123dc37588" kindref="member">SendBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1a50853264e2e15f5714c35c69e3044110" kindref="member">NextBytePtr</ref>[</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SentCount]);</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SentCount++;</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusRegister<sp/>=</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iomodule_1ga313c2576e159fd472cb0b25b7a395837" kindref="member">XIOModule_GetStatusReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="349"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Update<sp/>the<sp/>buffer<sp/>to<sp/>reflect<sp/>the<sp/>bytes<sp/>that<sp/>were<sp/>sent<sp/>from<sp/>it</highlight></codeline>
+<codeline lineno="350"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ab43b4d33329f1d1c7685f0123dc37588" kindref="member">SendBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1a50853264e2e15f5714c35c69e3044110" kindref="member">NextBytePtr</ref><sp/>+=<sp/>SentCount;</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ab43b4d33329f1d1c7685f0123dc37588" kindref="member">SendBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1af9c6e265f52ba355d454e0b29983889e" kindref="member">RemainingBytes</ref><sp/>-=<sp/>SentCount;</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"></highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="355"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Increment<sp/>associated<sp/>counters</highlight></codeline>
+<codeline lineno="356"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a012d912c3ca44ef12ff3e9877950912d" kindref="member">Uart_Stats</ref>.<ref refid="struct_x_i_o_module___uart___stats_1a0e5ff03c225123a482235e43ba8b60f0" kindref="member">CharactersTransmitted</ref><sp/>+=<sp/>SentCount;</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="360"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Restore<sp/>the<sp/>interrupt<sp/>enable<sp/>register<sp/>to<sp/>it&apos;s<sp/>previous<sp/>value<sp/>such</highlight></codeline>
+<codeline lineno="361"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>that<sp/>the<sp/>critical<sp/>region<sp/>is<sp/>exited</highlight></codeline>
+<codeline lineno="362"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIomodule_Out32(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" kindref="member">BaseAddress</ref><sp/>+<sp/>XIN_IER_OFFSET,</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1aa587d9b5ceed79935fa1c5cf842531d8" kindref="member">CurrentIER</ref><sp/>&amp;<sp/>0xFFFFFFF8U)<sp/>|<sp/>(IntrEnableStatus<sp/>&amp;<sp/>0x7U));</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="367"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Return<sp/>the<sp/>number<sp/>of<sp/>bytes<sp/>that<sp/>were<sp/>sent,<sp/>although<sp/>they<sp/>really<sp/>were</highlight></codeline>
+<codeline lineno="368"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>only<sp/>put<sp/>into<sp/>the<sp/>FIFO,<sp/>not<sp/>completely<sp/>sent<sp/>yet</highlight></codeline>
+<codeline lineno="369"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>SentCount;</highlight></codeline>
+<codeline lineno="371"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="405" refid="group__iomodule_1ga70b12729029fff571ad8915dc30897d6" refkind="member"><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__iomodule_1ga70b12729029fff571ad8915dc30897d6" kindref="member">XIOModule_ReceiveBuffer</ref>(<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="406"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StatusRegister;</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ReceivedCount<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"></highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="411"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Loop<sp/>until<sp/>there<sp/>is<sp/>not<sp/>more<sp/>data<sp/>buffered<sp/>by<sp/>the<sp/>UART<sp/>or<sp/>the</highlight></codeline>
+<codeline lineno="412"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>specified<sp/>number<sp/>of<sp/>bytes<sp/>is<sp/>received</highlight></codeline>
+<codeline lineno="413"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="414"><highlight class="normal"></highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(ReceivedCount<sp/>&lt;<sp/>InstancePtr-&gt;ReceiveBuffer.RemainingBytes)<sp/>{</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="417"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>Status<sp/>Register<sp/>to<sp/>determine<sp/>if<sp/>there<sp/>is<sp/>any<sp/>data<sp/>in</highlight></codeline>
+<codeline lineno="418"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>receiver</highlight></codeline>
+<codeline lineno="419"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusRegister<sp/>=</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iomodule_1ga313c2576e159fd472cb0b25b7a395837" kindref="member">XIOModule_GetStatusReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"></highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="424"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>there<sp/>is<sp/>data<sp/>ready<sp/>to<sp/>be<sp/>removed,<sp/>then<sp/>put<sp/>the<sp/>next<sp/>byte</highlight></codeline>
+<codeline lineno="425"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>received<sp/>into<sp/>the<sp/>specified<sp/>buffer<sp/>and<sp/>update<sp/>the<sp/>stats<sp/>to</highlight></codeline>
+<codeline lineno="426"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>reflect<sp/>any<sp/>receive<sp/>errors<sp/>for<sp/>the<sp/>byte</highlight></codeline>
+<codeline lineno="427"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(StatusRegister<sp/>&amp;<sp/>XUL_SR_RX_FIFO_VALID_DATA)<sp/>{</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a9779459fb73d4db975bdf4d112d63408" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1a50853264e2e15f5714c35c69e3044110" kindref="member">NextBytePtr</ref>[ReceivedCount++]=</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iomodule_1ga4eaff234e65f369a870fca3b92215df4" kindref="member">XIOModule_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUL_RX_OFFSET);</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"></highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iomodule_1ga71f9336a3492b8501e09d3a87e2d661a" kindref="member">XIOModule_UpdateStats</ref>(InstancePtr,<sp/>StatusRegister);</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"></highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="437"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>There&apos;s<sp/>no<sp/>more<sp/>data<sp/>buffered,<sp/>so<sp/>exit<sp/>such<sp/>that<sp/>this</highlight></codeline>
+<codeline lineno="438"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>function<sp/>does<sp/>not<sp/>block<sp/>waiting<sp/>for<sp/>data</highlight></codeline>
+<codeline lineno="439"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="444"><highlight class="normal"></highlight></codeline>
+<codeline lineno="445"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="446"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enter<sp/>a<sp/>critical<sp/>region<sp/>by<sp/>disabling<sp/>all<sp/>the<sp/>UART<sp/>interrupts<sp/>to<sp/>allow</highlight></codeline>
+<codeline lineno="447"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>this<sp/>call<sp/>to<sp/>stop<sp/>a<sp/>previous<sp/>operation<sp/>that<sp/>may<sp/>be<sp/>interrupt<sp/>driven</highlight></codeline>
+<codeline lineno="448"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusRegister<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1aa587d9b5ceed79935fa1c5cf842531d8" kindref="member">CurrentIER</ref>;</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIomodule_Out32(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" kindref="member">BaseAddress</ref><sp/>+<sp/>XIN_IER_OFFSET,</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusRegister<sp/>&amp;<sp/>0xFFFFFFF8U);</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"></highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="454"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Update<sp/>the<sp/>receive<sp/>buffer<sp/>to<sp/>reflect<sp/>the<sp/>number<sp/>of<sp/>bytes<sp/>that<sp/>was</highlight></codeline>
+<codeline lineno="455"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>received</highlight></codeline>
+<codeline lineno="456"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a9779459fb73d4db975bdf4d112d63408" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1a50853264e2e15f5714c35c69e3044110" kindref="member">NextBytePtr</ref><sp/>+=<sp/>ReceivedCount;</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a9779459fb73d4db975bdf4d112d63408" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1af9c6e265f52ba355d454e0b29983889e" kindref="member">RemainingBytes</ref><sp/>-=<sp/>ReceivedCount;</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"></highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="461"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Increment<sp/>associated<sp/>counters<sp/>in<sp/>the<sp/>statistics</highlight></codeline>
+<codeline lineno="462"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a012d912c3ca44ef12ff3e9877950912d" kindref="member">Uart_Stats</ref>.<ref refid="struct_x_i_o_module___uart___stats_1a6007db24145bcd77eea843689a894999" kindref="member">CharactersReceived</ref><sp/>+=<sp/>ReceivedCount;</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"></highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="466"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Restore<sp/>the<sp/>interrupt<sp/>enable<sp/>register<sp/>to<sp/>it&apos;s<sp/>previous<sp/>value<sp/>such</highlight></codeline>
+<codeline lineno="467"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>that<sp/>the<sp/>critical<sp/>region<sp/>is<sp/>exited</highlight></codeline>
+<codeline lineno="468"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIomodule_Out32(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" kindref="member">BaseAddress</ref><sp/>+<sp/>XIN_IER_OFFSET,</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1aa587d9b5ceed79935fa1c5cf842531d8" kindref="member">CurrentIER</ref><sp/>&amp;<sp/>0xFFFFFFF8U)<sp/>|<sp/>(StatusRegister<sp/>&amp;<sp/>0x7U));</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"></highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ReceivedCount;</highlight></codeline>
+<codeline lineno="473"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"></highlight></codeline>
+<codeline lineno="475"><highlight class="normal"></highlight></codeline>
+<codeline lineno="476"><highlight class="normal"></highlight></codeline>
+<codeline lineno="477"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="495" refid="group__iomodule_1ga5ece62521d0d34bd420888ecc876750c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__iomodule_1ga5ece62521d0d34bd420888ecc876750c" kindref="member">XIOModule_SetRecvHandler</ref>(<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iomodule_1ga40a7295554b9483f28c0f004b0c53302" kindref="member">XIOModule_Handler</ref><sp/>FuncPtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef)</highlight></codeline>
+<codeline lineno="497"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="499"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="500"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>CallBackRef<sp/>not<sp/>checked,<sp/>no<sp/>way<sp/>to<sp/>know<sp/>what<sp/>is<sp/>valid</highlight></codeline>
+<codeline lineno="501"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(FuncPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"></highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a7d242c9d237f263e9b895b57c827b728" kindref="member">RecvHandler</ref><sp/>=<sp/>FuncPtr;</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1aba9945a4a56cd7d80eddfeb72ec0fa3c" kindref="member">RecvCallBackRef</ref><sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="508"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="509"><highlight class="normal"></highlight></codeline>
+<codeline lineno="510"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="528" refid="group__iomodule_1ga07b376ebf11fee3ff027445eaa096261" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__iomodule_1ga07b376ebf11fee3ff027445eaa096261" kindref="member">XIOModule_SetSendHandler</ref>(<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iomodule_1ga40a7295554b9483f28c0f004b0c53302" kindref="member">XIOModule_Handler</ref><sp/>FuncPtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef)</highlight></codeline>
+<codeline lineno="530"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="532"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="533"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>CallBackRef<sp/>not<sp/>checked,<sp/>no<sp/>way<sp/>to<sp/>know<sp/>what<sp/>is<sp/>valid</highlight></codeline>
+<codeline lineno="534"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(FuncPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"></highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a900c8563fc749f2cb97e5c0bbf1c7af7" kindref="member">SendHandler</ref><sp/>=<sp/>FuncPtr;</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a1c7dd2691c80c532a0b2624a91c6b615" kindref="member">SendCallBackRef</ref><sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="541"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"></highlight></codeline>
+<codeline lineno="543"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="560" refid="group__iomodule_1gacf2a67095f9797403f5c269fdcd7a6b2" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__iomodule_1gacf2a67095f9797403f5c269fdcd7a6b2" kindref="member">XIOModule_Uart_InterruptHandler</ref>(<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="561"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsrStatus;</highlight></codeline>
+<codeline lineno="563"><highlight class="normal"></highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"></highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="567"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>status<sp/>register<sp/>to<sp/>determine<sp/>which,<sp/>could<sp/>be<sp/>both,</highlight></codeline>
+<codeline lineno="568"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>interrupt<sp/>is<sp/>active</highlight></codeline>
+<codeline lineno="569"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsrStatus<sp/>=<sp/><ref refid="group__iomodule_1ga313c2576e159fd472cb0b25b7a395837" kindref="member">XIOModule_GetStatusReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"></highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((IsrStatus<sp/>&amp;<sp/>XUL_SR_RX_FIFO_VALID_DATA)<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReceiveDataHandler(InstancePtr);</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"></highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((IsrStatus<sp/>&amp;<sp/>XUL_SR_TX_FIFO_FULL)<sp/>==<sp/>XUL_SR_TX_FIFO_FULL)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ab43b4d33329f1d1c7685f0123dc37588" kindref="member">SendBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1ad1d8239c6072600ea84bbbf16b6d59fb" kindref="member">RequestedBytes</ref><sp/>&gt;<sp/>0U))<sp/>{</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SendDataHandler(InstancePtr);</highlight></codeline>
+<codeline lineno="579"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="580"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="581"><highlight class="normal"></highlight></codeline>
+<codeline lineno="582"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="595"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReceiveDataHandler(<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="596"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="597"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="598"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>there<sp/>are<sp/>bytes<sp/>still<sp/>to<sp/>be<sp/>received<sp/>in<sp/>the<sp/>specified<sp/>buffer</highlight></codeline>
+<codeline lineno="599"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>go<sp/>ahead<sp/>and<sp/>receive<sp/>them</highlight></codeline>
+<codeline lineno="600"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="601"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a9779459fb73d4db975bdf4d112d63408" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1af9c6e265f52ba355d454e0b29983889e" kindref="member">RemainingBytes</ref><sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/><ref refid="group__iomodule_1ga70b12729029fff571ad8915dc30897d6" kindref="member">XIOModule_ReceiveBuffer</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="603"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="604"><highlight class="normal"></highlight></codeline>
+<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="606"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>the<sp/>last<sp/>byte<sp/>of<sp/>a<sp/>message<sp/>was<sp/>received<sp/>then<sp/>call<sp/>the<sp/>application</highlight></codeline>
+<codeline lineno="607"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>handler,<sp/>this<sp/>code<sp/>should<sp/>not<sp/>use<sp/>an<sp/>else<sp/>from<sp/>the<sp/>previous<sp/>check<sp/>of</highlight></codeline>
+<codeline lineno="608"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>number<sp/>of<sp/>bytes<sp/>to<sp/>receive<sp/>because<sp/>the<sp/>call<sp/>to<sp/>receive<sp/>the<sp/>buffer</highlight></codeline>
+<codeline lineno="609"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>updates<sp/>the<sp/>bytes<sp/>to<sp/>receive</highlight></codeline>
+<codeline lineno="610"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="611"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a9779459fb73d4db975bdf4d112d63408" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1af9c6e265f52ba355d454e0b29983889e" kindref="member">RemainingBytes</ref><sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a7d242c9d237f263e9b895b57c827b728" kindref="member">RecvHandler</ref>(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1aba9945a4a56cd7d80eddfeb72ec0fa3c" kindref="member">RecvCallBackRef</ref>,</highlight></codeline>
+<codeline lineno="613"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a9779459fb73d4db975bdf4d112d63408" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1ad1d8239c6072600ea84bbbf16b6d59fb" kindref="member">RequestedBytes</ref><sp/>-</highlight></codeline>
+<codeline lineno="614"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a9779459fb73d4db975bdf4d112d63408" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1af9c6e265f52ba355d454e0b29983889e" kindref="member">RemainingBytes</ref>);</highlight></codeline>
+<codeline lineno="615"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="616"><highlight class="normal"></highlight></codeline>
+<codeline lineno="617"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="618"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Update<sp/>the<sp/>receive<sp/>stats<sp/>to<sp/>reflect<sp/>the<sp/>receive<sp/>interrupt</highlight></codeline>
+<codeline lineno="619"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="620"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a012d912c3ca44ef12ff3e9877950912d" kindref="member">Uart_Stats</ref>.<ref refid="struct_x_i_o_module___uart___stats_1a129217276becb44353a60f4d4dafb1c7" kindref="member">ReceiveInterrupts</ref>++;</highlight></codeline>
+<codeline lineno="621"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="622"><highlight class="normal"></highlight></codeline>
+<codeline lineno="623"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="636"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SendDataHandler(<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="637"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="638"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="639"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>there<sp/>are<sp/>not<sp/>bytes<sp/>to<sp/>be<sp/>sent<sp/>from<sp/>the<sp/>specified<sp/>buffer,</highlight></codeline>
+<codeline lineno="640"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>call<sp/>the<sp/>callback<sp/>function</highlight></codeline>
+<codeline lineno="641"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="642"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ab43b4d33329f1d1c7685f0123dc37588" kindref="member">SendBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1af9c6e265f52ba355d454e0b29983889e" kindref="member">RemainingBytes</ref><sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="643"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SaveReq;</highlight></codeline>
+<codeline lineno="644"><highlight class="normal"></highlight></codeline>
+<codeline lineno="645"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="646"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Save<sp/>and<sp/>zero<sp/>the<sp/>requested<sp/>bytes<sp/>since<sp/>transmission</highlight></codeline>
+<codeline lineno="647"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>complete</highlight></codeline>
+<codeline lineno="648"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="649"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SaveReq<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ab43b4d33329f1d1c7685f0123dc37588" kindref="member">SendBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1ad1d8239c6072600ea84bbbf16b6d59fb" kindref="member">RequestedBytes</ref>;</highlight></codeline>
+<codeline lineno="650"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ab43b4d33329f1d1c7685f0123dc37588" kindref="member">SendBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1ad1d8239c6072600ea84bbbf16b6d59fb" kindref="member">RequestedBytes</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="651"><highlight class="normal"></highlight></codeline>
+<codeline lineno="652"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="653"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Call<sp/>the<sp/>application<sp/>handler<sp/>to<sp/>indicate</highlight></codeline>
+<codeline lineno="654"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>data<sp/>has<sp/>been<sp/>sent</highlight></codeline>
+<codeline lineno="655"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="656"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a900c8563fc749f2cb97e5c0bbf1c7af7" kindref="member">SendHandler</ref>(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a1c7dd2691c80c532a0b2624a91c6b615" kindref="member">SendCallBackRef</ref>,<sp/>SaveReq);</highlight></codeline>
+<codeline lineno="657"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="658"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="659"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Otherwise<sp/>there<sp/>is<sp/>still<sp/>more<sp/>data<sp/>to<sp/>send<sp/>in<sp/>the<sp/>specified<sp/>buffer</highlight></codeline>
+<codeline lineno="660"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>so<sp/>go<sp/>ahead<sp/>and<sp/>send<sp/>it</highlight></codeline>
+<codeline lineno="661"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="662"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="663"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/><ref refid="group__iomodule_1ga1fc16de9c0cbaad1d3022d19a0d883cd" kindref="member">XIOModule_SendBuffer</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="664"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="665"><highlight class="normal"></highlight></codeline>
+<codeline lineno="666"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="667"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Update<sp/>the<sp/>transmit<sp/>stats<sp/>to<sp/>reflect<sp/>the<sp/>transmit<sp/>interrupt</highlight></codeline>
+<codeline lineno="668"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="669"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a012d912c3ca44ef12ff3e9877950912d" kindref="member">Uart_Stats</ref>.<ref refid="struct_x_i_o_module___uart___stats_1ad2939bb3e9f8fc089a2b0168425b4369" kindref="member">TransmitInterrupts</ref>++;</highlight></codeline>
+<codeline lineno="670"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="671"><highlight class="normal"></highlight></codeline>
+<codeline lineno="672"><highlight class="normal"></highlight></codeline>
+<codeline lineno="673"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="687" refid="group__iomodule_1ga5ec72d0dd352ad42de494821220e3185" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__iomodule_1ga5ec72d0dd352ad42de494821220e3185" kindref="member">XIOModule_Uart_DisableInterrupt</ref>(<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="688"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="689"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NewIER;</highlight></codeline>
+<codeline lineno="690"><highlight class="normal"></highlight></codeline>
+<codeline lineno="691"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="692"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="693"><highlight class="normal"></highlight></codeline>
+<codeline lineno="694"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="695"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>to<sp/>the<sp/>interrupt<sp/>enable<sp/>register<sp/>to<sp/>disable<sp/>the<sp/>UART</highlight></codeline>
+<codeline lineno="696"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>interrupts.</highlight></codeline>
+<codeline lineno="697"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="698"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NewIER<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1aa587d9b5ceed79935fa1c5cf842531d8" kindref="member">CurrentIER</ref><sp/>&amp;<sp/>0xFFFFFFF8U;</highlight></codeline>
+<codeline lineno="699"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIomodule_Out32(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" kindref="member">BaseAddress</ref><sp/>+<sp/>XIN_IER_OFFSET,<sp/>NewIER);</highlight></codeline>
+<codeline lineno="700"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1aa587d9b5ceed79935fa1c5cf842531d8" kindref="member">CurrentIER</ref><sp/>=<sp/>NewIER;</highlight></codeline>
+<codeline lineno="701"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="702"><highlight class="normal"></highlight></codeline>
+<codeline lineno="703"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="716" refid="group__iomodule_1gaa805a7f9982d9acc5b3b16849c5d2dfd" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__iomodule_1gaa805a7f9982d9acc5b3b16849c5d2dfd" kindref="member">XIOModule_Uart_EnableInterrupt</ref>(<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="717"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="718"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NewIER;</highlight></codeline>
+<codeline lineno="719"><highlight class="normal"></highlight></codeline>
+<codeline lineno="720"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="721"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="722"><highlight class="normal"></highlight></codeline>
+<codeline lineno="723"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="724"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>to<sp/>the<sp/>interrupt<sp/>enable<sp/>register<sp/>to<sp/>enable<sp/>the<sp/>interrupts.</highlight></codeline>
+<codeline lineno="725"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="726"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NewIER<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1aa587d9b5ceed79935fa1c5cf842531d8" kindref="member">CurrentIER</ref><sp/>|<sp/>0x7U;</highlight></codeline>
+<codeline lineno="727"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIomodule_Out32(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" kindref="member">BaseAddress</ref><sp/>+<sp/>XIN_IER_OFFSET,<sp/>NewIER);</highlight></codeline>
+<codeline lineno="728"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1aa587d9b5ceed79935fa1c5cf842531d8" kindref="member">CurrentIER</ref><sp/>=<sp/>NewIER;</highlight></codeline>
+<codeline lineno="729"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_uart_intr.c"/>
+  </compounddef>
+</doxygen>

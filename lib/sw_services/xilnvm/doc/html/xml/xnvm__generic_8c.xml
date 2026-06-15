@@ -1,0 +1,208 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xnvm__generic_8c" kind="file">
+    <compoundname>xnvm_generic.c</compoundname>
+    <includes refid="xnvm__generic_8h" local="yes">xnvm_generic.h</includes>
+    <incdepgraph>
+      <node id="501">
+        <label>xnvm_generic.c</label>
+        <link refid="xnvm_generic.c"/>
+        <childnode refid="502" relation="include">
+        </childnode>
+      </node>
+      <node id="502">
+        <label>xnvm_generic.h</label>
+        <link refid="xnvm__generic_8h"/>
+        <childnode refid="503" relation="include">
+        </childnode>
+        <childnode refid="504" relation="include">
+        </childnode>
+      </node>
+      <node id="505">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="503">
+        <label>xil_types.h</label>
+      </node>
+      <node id="506">
+        <label>xparameters.h</label>
+      </node>
+      <node id="504">
+        <label>xnvm_mailbox.h</label>
+        <link refid="xnvm__mailbox_8h"/>
+        <childnode refid="505" relation="include">
+        </childnode>
+        <childnode refid="506" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_SendRequest</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr, u32 *PayloadBuf, u32 PayloadLen, u32 *ResponseBuf, u32 ResponseLen)</argsstring>
+        <name>XNvm_SendRequest</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>PayloadBuf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PayloadLen</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>ResponseBuf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ResponseLen</declname>
+        </param>
+        <briefdescription>
+<para>This function sends request to PLM through either SMC or IPI mailbox based on the execution environment. </para>        </briefdescription>
+        <detaileddescription>
+<para>For EL1 non-secure AArch64 applications, SMC is used. For other environments, IPI mailbox is used.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PayloadBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the payload message </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PayloadLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the payload message </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ResponseBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to store response values (can be NULL) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ResponseLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of response buffer (pass 0U when ResponseBuf is NULL)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the request is successful</para></listitem><listitem><para>XST_FAILURE If there is a failure</para></listitem><listitem><para>XST_INVALID_PARAM If input parameters are invalid</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This is a generic API that internally handles SMC or Mailbox communication based on the build configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters</para></listitem><listitem><para>Validate mailbox pointer for IPI communication</para></listitem><listitem><para>Send request through IPI mailbox</para></listitem></itemizedlist>
+</para><para>Note: For mailbox path, response is not directly returned. The caller should handle response retrieval if needed.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_generic.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_generic.c" bodystart="67" bodyend="104"/>
+        <references refid="group__xnvm__mailbox__apis_1ga3ce66c6266190912ba2552c2bc1701c7" compoundref="xnvm__mailbox_8c" startline="66" endline="95">XNvm_ProcessMailbox</references>
+        <referencedby refid="group__xnvm__bbram__client__api_1ga5ab6ca734ee3f575632ba1c88164d182" compoundref="xnvm__bbramclient_8c" startline="228" endline="251">XNvm_BbramLockUsrDataWrite</referencedby>
+        <referencedby refid="group__xnvm__bbram__client__api_1ga8cdf06389845d0a30a2d48ae3373b72b" compoundref="xnvm__bbramclient_8c" startline="187" endline="212">XNvm_BbramReadUsrData</referencedby>
+        <referencedby refid="group__xnvm__bbram__client__api_1ga3a9878e9a0eb1071cd34c4d14d842f10" compoundref="xnvm__bbramclient_8c" startline="64" endline="94">XNvm_BbramWriteAesKey</referencedby>
+        <referencedby refid="group__xnvm__bbram__client__api_1ga99bad6a63ce3e2663bd7976371598b4f" compoundref="xnvm__bbramclient_8c" startline="147" endline="171">XNvm_BbramWriteUsrData</referencedby>
+        <referencedby refid="group__xnvm__bbram__client__api_1gae4085a2c2243377cae4029f3236684e7" compoundref="xnvm__bbramclient_8c" startline="108" endline="131">XNvm_BbramZeroize</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga016c1951e834a91b6e5b39d2db818977" compoundref="client_2xnvm__efuseclient_8c" startline="1141" endline="1165">XNvm_EfuseAesKeyCrcCheck</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gaa14ae0e8b42bf8801a510e2f31e29c88" compoundref="client_2xnvm__efuseclient_8c" startline="714" endline="738">XNvm_EfuseReadBootEnvCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga15ea0137369d9a81a853a6784c43b29d" compoundref="client_2xnvm__efuseclient_8c" startline="884" endline="908">XNvm_EfuseReadDecOnly</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gacb7ff4ed433334fd4c7af398a6698be6" compoundref="client_2xnvm__efuseclient_8c" startline="925" endline="949">XNvm_EfuseReadDna</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gabbff97b78f82ae83002d64c9e4e61964" compoundref="client_2xnvm__efuseclient_8c" startline="464" endline="489">XNvm_EfuseReadIv</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gaf3ba1177b7892366982f77d32ec7ecf8" compoundref="client_2xnvm__efuseclient_8c" startline="591" endline="615">XNvm_EfuseReadMiscCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga55a6be49ea504c9e07a532b5e82797c1" compoundref="client_2xnvm__efuseclient_8c" startline="798" endline="824">XNvm_EfuseReadOffchipRevokeId</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gad7ea5c5b0c9de1c1e6b4c2659a02ddeb" compoundref="client_2xnvm__efuseclient_8c" startline="842" endline="867">XNvm_EfuseReadPpkHash</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga6a1e538568cd6b7e21084eaf138a3113" compoundref="client_2xnvm__efuseclient_8c" startline="1097" endline="1120">XNvm_EfuseReadPuf</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gae98054231a90a3ded1ec82c9a011ac94" compoundref="client_2xnvm__efuseclient_8c" startline="755" endline="780">XNvm_EfuseReadPufSecCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga32e43ec62893f850f115f3ee0a5434f9" compoundref="client_2xnvm__efuseclient_8c" startline="507" endline="533">XNvm_EfuseReadRevocationId</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gae6cbda607227cfb4778b66c8c2a8ebf0" compoundref="client_2xnvm__efuseclient_8c" startline="632" endline="656">XNvm_EfuseReadSecCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gacc863c22d5d7a8f54f7d3cb28781a82e" compoundref="client_2xnvm__efuseclient_8c" startline="673" endline="697">XNvm_EfuseReadSecMisc1Bits</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga1a3da417c5ca5121f4c8d375bf0ea298" compoundref="client_2xnvm__efuseclient_8c" startline="550" endline="574">XNvm_EfuseReadUserFuses</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga6615e748856e15f3e2169f9413e7cbd1" compoundref="client_2xnvm__efuseclient_8c" startline="196" endline="281">XNvm_EfuseRevokePpk</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gaefb1c21b807d6bb2cd0725d0bdc473af" compoundref="client_2xnvm__efuseclient_8c" startline="77" endline="105">XNvm_EfuseWrite</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga7ed0e93e0e8a58ecfc5dd60e42461c15" compoundref="client_2xnvm__efuseclient_8c" startline="124" endline="178">XNvm_EfuseWriteIVs</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gad260093cbe9bacb6d0f649b84bccd8a0" compoundref="client_2xnvm__efuseclient_8c" startline="1051" endline="1080">XNvm_EfuseWritePuf</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gae09868a910eea80203d78873f4de064c" compoundref="client_2xnvm__efuseclient_8c" startline="299" endline="374">XNvm_EfuseWriteRevocationId</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gab49aedef8afbe4faa8a842b847cece3c" compoundref="client_2xnvm__efuseclient_8c" startline="393" endline="446">XNvm_EfuseWriteUserFuses</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the implementation of the generic request API that handles both SMC and IPI mailbox communication for xilnvm client library. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+3.7   tbk  03/24/26 Initial release for unified SMC/Mailbox handling</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xnvm__generic_8h" kindref="compound">xnvm_generic.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(__aarch64__)<sp/>&amp;&amp;<sp/>(EL1_NONSECURE<sp/>==<sp/>1)</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xnvm__smc_8h" kindref="compound">xnvm_smc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="67" refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" kindref="member">XNvm_SendRequest</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr,<sp/>u32<sp/>*PayloadBuf,<sp/>u32<sp/>PayloadLen,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*ResponseBuf,<sp/>u32<sp/>ResponseLen)</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PayloadBuf<sp/>==<sp/>NULL)<sp/>||<sp/>(PayloadLen<sp/>==<sp/>0U))<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(__aarch64__)<sp/>&amp;&amp;<sp/>(EL1_NONSECURE<sp/>==<sp/>1)</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)InstancePtr;<sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XNvm_SmcCall(PayloadBuf,<sp/>PayloadLen,<sp/>ResponseBuf,<sp/>ResponseLen);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr<sp/>==<sp/>NULL)<sp/>||<sp/>(InstancePtr-&gt;MailboxPtr<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xnvm__mailbox__apis_1ga3ce66c6266190912ba2552c2bc1701c7" kindref="member">XNvm_ProcessMailbox</ref>(InstancePtr-&gt;MailboxPtr,<sp/>PayloadBuf,<sp/>PayloadLen);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)ResponseBuf;<sp/></highlight><highlight class="comment">/*<sp/>Unused<sp/>in<sp/>mailbox<sp/>path<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)ResponseLen;<sp/></highlight><highlight class="comment">/*<sp/>Unused<sp/>in<sp/>mailbox<sp/>path<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_generic.c"/>
+  </compounddef>
+</doxygen>

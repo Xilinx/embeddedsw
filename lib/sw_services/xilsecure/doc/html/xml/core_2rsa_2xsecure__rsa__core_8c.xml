@@ -1,0 +1,1114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="core_2rsa_2xsecure__rsa__core_8c" kind="file">
+    <compoundname>core/rsa/xsecure_rsa_core.c</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes refid="core_2rsa_2xsecure__rsa__core_8h" local="yes">xsecure_rsa_core.h</includes>
+    <includes refid="xsecure__ecdsa__rsa__hw_8h" local="yes">xsecure_ecdsa_rsa_hw.h</includes>
+    <includes local="yes">xil_sutil.h</includes>
+    <includes refid="core_2rsa_2xsecure__rsa_8h" local="yes">xsecure_rsa.h</includes>
+    <includes local="yes">xsecure_error.h</includes>
+    <includes local="yes">xsecure_plat.h</includes>
+    <incdepgraph>
+      <node id="3472">
+        <label>xsecure_plat.h</label>
+      </node>
+      <node id="3469">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="3464">
+        <label>xsecure_rsa_core.c</label>
+        <link refid="core/rsa/xsecure_rsa_core.c"/>
+        <childnode refid="3465" relation="include">
+        </childnode>
+        <childnode refid="3466" relation="include">
+        </childnode>
+        <childnode refid="3468" relation="include">
+        </childnode>
+        <childnode refid="3469" relation="include">
+        </childnode>
+        <childnode refid="3470" relation="include">
+        </childnode>
+        <childnode refid="3471" relation="include">
+        </childnode>
+        <childnode refid="3472" relation="include">
+        </childnode>
+      </node>
+      <node id="3466">
+        <label>xsecure_rsa_core.h</label>
+        <link refid="core_2rsa_2xsecure__rsa__core_8h"/>
+        <childnode refid="3465" relation="include">
+        </childnode>
+        <childnode refid="3467" relation="include">
+        </childnode>
+      </node>
+      <node id="3470">
+        <label>xsecure_rsa.h</label>
+        <link refid="core_2rsa_2xsecure__rsa_8h"/>
+        <childnode refid="3465" relation="include">
+        </childnode>
+        <childnode refid="3466" relation="include">
+        </childnode>
+      </node>
+      <node id="3467">
+        <label>xsecure_utils.h</label>
+      </node>
+      <node id="3468">
+        <label>xsecure_ecdsa_rsa_hw.h</label>
+        <link refid="xsecure__ecdsa__rsa__hw_8h"/>
+        <childnode refid="3465" relation="include">
+        </childnode>
+      </node>
+      <node id="3465">
+        <label>xparameters.h</label>
+      </node>
+      <node id="3471">
+        <label>xsecure_error.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__rsa__server__apis_1gae655880142d336ed6515f196e68a4074" prot="public" static="no">
+        <name>XSECURE_TIMEOUT_MAX</name>
+        <initializer>(0x1FFFFFU)</initializer>
+        <briefdescription>
+<para>Recommended software timeout. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga3c38edd112fb7b6799153ab9eabba178" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="156" endline="325">XSecure_RsaOperation</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__server__apis_1ga06a22adced7435767b04a4ed7db6461c" prot="public" static="no">
+        <name>SIZEOF_INT_IN_BYTES</name>
+        <initializer>(0x4U)</initializer>
+        <briefdescription>
+<para>Size of integer om bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xsecure__rsa__server__apis_1gade4c01fbf1f34582cf49b025fb14b79d" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XSecure_Silicon2_TPadSha3[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XSecure_Silicon2_TPadSha3</name>
+        <initializer>=
+			{0x30U, 0x41U, 0x30U, 0x0DU,
+			 0x06U, 0x09U, 0x60U, 0x86U,
+			 0x48U, 0x01U, 0x65U, 0x03U,
+			 0x04U, 0x02U, 0x09U, 0x05U,
+			 0x00U, 0x04U, 0x30U }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__rsa__server__apis_1ga62bf0702185b0df76aaa4e2a2b18b80c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_RsaPutData</definition>
+        <argsstring>(const XSecure_Rsa *InstancePtr)</argsstring>
+        <name>XSecure_RsaPutData</name>
+        <param>
+          <type>const <ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function writes all the RSA data used for decryption (Modulus, Exponent) at the corresponding offsets in RSA RAM. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref> instance </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Initialize Modular exponentiation</para></listitem><listitem><para>Initialize Modular.</para></listitem><listitem><para>Initialize Modular extension (R*R Mod M) </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="335" bodyend="353"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__server__apis_1gabe60393805e6766498d96a973a1ef495" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_RsaWriteMem</definition>
+        <argsstring>(const XSecure_Rsa *InstancePtr, u64 WrDataAddr, u8 RamOffset)</argsstring>
+        <name>XSecure_RsaWriteMem</name>
+        <param>
+          <type>const <ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>WrDataAddr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>RamOffset</declname>
+        </param>
+        <briefdescription>
+<para>This function writes data to RSA RAM at a given offset. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WrDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the data to be written to RSA RAM </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RamOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Offset for the data to be written in RSA RAM </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="449" bodyend="503"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__server__apis_1gae237da0720ea47834ec4cf118efef2d4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_RsaMod32Inverse</definition>
+        <argsstring>(const XSecure_Rsa *InstancePtr)</argsstring>
+        <name>XSecure_RsaMod32Inverse</name>
+        <param>
+          <type>const <ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates the MINV value and put it into RSA core registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to XSeure_Rsa instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>MINV is the 32-bit value of <computeroutput>-M mod 2**32</computeroutput>, where M is LSB 32 bits of the original modulus </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Calculate the MINV</para></listitem><listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Store calculated MINV value in RSA registers </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="412" bodyend="438"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__server__apis_1ga8b456f4b3d0d688828186d25e6382a25" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_RsaGetData</definition>
+        <argsstring>(const XSecure_Rsa *InstancePtr, u64 RdDataAddr)</argsstring>
+        <name>XSecure_RsaGetData</name>
+        <param>
+          <type>const <ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>RdDataAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads back the resulting data from RSA RAM. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref> instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RdDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the location where RSA output data will be written </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Read the data from RSA RAM buffer and store it in the destination address </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="364" bodyend="399"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__server__apis_1ga4fa1a363c76fd0cfefef06d4612cb04e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_RsaDataLenCfg</definition>
+        <argsstring>(const XSecure_Rsa *InstancePtr, u32 Cfg0, u32 Cfg1, u32 Cfg2, u32 Cfg5)</argsstring>
+        <name>XSecure_RsaDataLenCfg</name>
+        <param>
+          <type>const <ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Cfg0</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Cfg1</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Cfg2</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Cfg5</declname>
+        </param>
+        <briefdescription>
+<para>This function updates data length configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Cfg0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>QSEL, Multiplication passes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Cfg1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of Montgomery digits. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Cfg2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Memory location size. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Cfg5</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of groups. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="550" bodyend="568"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__server__apis_1gaa7dd5cb6143f1767dbfce0cee845f014" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>u32 XSecure_RsaCfgInitialize</definition>
+        <argsstring>(XSecure_Rsa *InstancePtr)</argsstring>
+        <name>XSecure_RsaCfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function stores the base address of RSA core registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_RSA_INVALID_PARAM - On invalid parameter </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate the input arguments</para></listitem><listitem><para>Set RSA in use flag </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="111" bodyend="134"/>
+        <references refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="148">XSecure_Rsa::BaseAddress</references>
+        <references refid="group__xsecure__helper__server__apis_1gga4a4bd32908fec3ffc005880c1fd38ce0a8fd1af87ffbefaeca194e706837cc248" compoundref="core_2generic_2xsecure__cryptochk_8h" startline="50">XSECURE_CORE_RSA_ECC</references>
+        <references refid="group__xsecure__generic__server__apis_1ga4900fde0f315a9807c11bf73a2e8d90d" compoundref="core_2generic_2xsecure__cryptochk_8c" startline="54" endline="80">XSecure_CryptoCheck</references>
+        <references refid="xsecure__ecdsa__rsa__hw_8h_1a9f0671ce55189d7783c0abaf1f001c55" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="45">XSECURE_ECDSA_RSA_BASEADDR</references>
+        <references refid="group__xsecure__rsa__server__apis_1gae602b8815f7d462cb8d71acd1518cc16" compoundref="core_2rsa_2xsecure__rsa_8h" startline="96">XSECURE_RSA_INVALID_PARAM</references>
+        <referencedby refid="group__xsecure__rsa__server__apis_1gaed24e77892a61d31d934ec519c9a8d92" compoundref="core_2rsa_2xsecure__rsa_8c" startline="107" endline="141">XSecure_RsaInitialize_64Bit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__server__apis_1ga3c38edd112fb7b6799153ab9eabba178" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaOperation</definition>
+        <argsstring>(XSecure_Rsa *InstancePtr, u64 Input, u64 Result, XSecure_RsaOps RsaOp, u32 KeySize)</argsstring>
+        <name>XSecure_RsaOperation</name>
+        <param>
+          <type><ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Input</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Result</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__rsa__server__apis_1gac58931a8d38bdc9dc4398b99c61d6977" kindref="member">XSecure_RsaOps</ref></type>
+          <declname>RsaOp</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>KeySize</declname>
+        </param>
+        <briefdescription>
+<para>This function handles the Public encryption and private decryption of RSA operations with provided inputs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref> instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the buffer which contains the input data to be encrypted/decrypted </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Result</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of buffer where resultant encrypted/decrypted data to be stored </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RsaOp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag to inform the operation to be performed is either encryption/decryption </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeySize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of the key in bytes</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_RSA_INVALID_PARAM - On invalid parameter</para></listitem><listitem><para>XST_FAILURE - On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate the input arguments</para></listitem><listitem><para>Check if modulus exponent buffer is non zero</para></listitem><listitem><para>Reset core</para></listitem><listitem><para>Setting Key length</para></listitem><listitem><para>configuring endianness for data</para></listitem><listitem><para>Put Modulus, exponent, Mod extension in RSA RAM</para></listitem><listitem><para>Initialize Digest</para></listitem><listitem><para>Initialize MINV values from Mod.</para></listitem><listitem><para>Configurations</para></listitem><listitem><para>For 2048 key</para></listitem><listitem><para>For 3072 key</para></listitem><listitem><para>For 4096 key</para></listitem><listitem><para>Start the RSA operation.</para></listitem><listitem><para>Check and wait for status</para></listitem><listitem><para>Time out occurred or RSA error observed</para></listitem><listitem><para>Copy the result</para></listitem><listitem><para>Revert configuring endianness for data</para></listitem><listitem><para>Zeroize and Verify RSA memory space</para></listitem><listitem><para>Reset core </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="156" bodyend="325"/>
+        <references refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="148">XSecure_Rsa::BaseAddress</references>
+        <references refid="struct_x_secure___rsa_1a3448138023856a4306b5c7cc2c55dbd8" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="152">XSecure_Rsa::EncDec</references>
+        <references refid="struct_x_secure___rsa_1af1962b2e4f9b304470a695e3d5274cff" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="151">XSecure_Rsa::ModExpoAddr</references>
+        <references refid="struct_x_secure___rsa_1a8193b491caa2c772737ebf90823338c3" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="150">XSecure_Rsa::ModExtAddr</references>
+        <references refid="struct_x_secure___rsa_1a624a335d5d428b0affa26f286f46fc1a" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="153">XSecure_Rsa::SizeInWords</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga3f74d8b1fdd3cb62e6b42f94477baea2" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="112">XSECURE_ECDSA_RSA_CFG0_2048_VALUE</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga441252e98483a66e42885babef4a3a4f" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="107">XSECURE_ECDSA_RSA_CFG0_3072_VALUE</references>
+        <references refid="group__xsecure__rsa__server__apis_1gad2c0edbea8d67db9377cd12a22645aa0" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="102">XSECURE_ECDSA_RSA_CFG0_4096_VALUE</references>
+        <references refid="group__xsecure__rsa__server__apis_1gae86c78b20bfdfe28377fae54d4359bb5" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="113">XSECURE_ECDSA_RSA_CFG1_2048_VALUE</references>
+        <references refid="group__xsecure__rsa__server__apis_1gaca2741b6c05e9b8d34814c8da41b9094" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="108">XSECURE_ECDSA_RSA_CFG1_3072_VALUE</references>
+        <references refid="group__xsecure__rsa__server__apis_1gab809f2cf302a694e97151c15f1ecd178" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="103">XSECURE_ECDSA_RSA_CFG1_4096_VALUE</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga428d127a4c7ca3cb3f9ca6c5f598926b" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="114">XSECURE_ECDSA_RSA_CFG2_2048_VALUE</references>
+        <references refid="group__xsecure__rsa__server__apis_1gadc343c3b1b289869f9d80c16d11e8296" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="109">XSECURE_ECDSA_RSA_CFG2_3072_VALUE</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga5424da4f0e694d048bf1958cac68d912" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="104">XSECURE_ECDSA_RSA_CFG2_4096_VALUE</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga657535fb0fdef8833089462fb0001198" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="115">XSECURE_ECDSA_RSA_CFG5_2048_VALUE</references>
+        <references refid="group__xsecure__rsa__server__apis_1gabc91f9d925d1a698ea47efd143ee76fc" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="110">XSECURE_ECDSA_RSA_CFG5_3072_VALUE</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga1bb16e915f8ae8d239e5828517eebdb0" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="105">XSECURE_ECDSA_RSA_CFG5_4096_VALUE</references>
+        <references refid="xsecure__ecdsa__rsa__hw_8h_1a295bfe198c97c66a4f15ca179aef0d00" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="102">XSECURE_ECDSA_RSA_CFG_OFFSET</references>
+        <references refid="xsecure__ecdsa__rsa__hw_8h_1a3ae31970ad1b34122be4c83ec41eb65c" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="69">XSECURE_ECDSA_RSA_CTRL_OFFSET</references>
+        <references refid="xsecure__ecdsa__rsa__hw_8h_1a44ca8c2ef009ddb0d23287c6e481e939" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="79">XSECURE_ECDSA_RSA_KEY_LEN_OFFSET</references>
+        <references refid="xsecure__ecdsa__rsa__hw_8h_1a88ec30cbcee985ead897eabfeace1549" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="94">XSECURE_ECDSA_RSA_RESET_OFFSET</references>
+        <references refid="xsecure__ecdsa__rsa__hw_8h_1a1b39b90e45fed3b08a2c96f5498eb8b7" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="73">XSECURE_ECDSA_RSA_STATUS_OFFSET</references>
+        <references refid="group__xsecure__generic__server__apis_1ga448da91f94630d83a52c21b895455ebf" compoundref="core_2util_2xsecure__utils_8c" startline="47" endline="54">XSecure_ReleaseReset</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="75">XSECURE_RSA_2048_KEY_SIZE</references>
+        <references refid="group__xsecure__rsa__server__apis_1gab5e03185e5083dafd48c34ec3860f13b" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="80">XSECURE_RSA_2048_SIZE_WORDS</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga59620f1b6f6bde84528a793de12385c5" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="76">XSECURE_RSA_3072_KEY_SIZE</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga347aecc336477793453c4d4d7ff4883a" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="81">XSECURE_RSA_3072_SIZE_WORDS</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga6ff2e0197483048fcc9e7c52416750c8" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="77">XSECURE_RSA_4096_KEY_SIZE</references>
+        <references refid="group__xsecure__rsa__server__apis_1gaaf42b952c1d1cab97ba23e4c1a5f5ae6" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="82">XSECURE_RSA_4096_SIZE_WORDS</references>
+        <references refid="group__xsecure__rsa__server__apis_1gaafa59a9f17f72541503918edc46b049a" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="93">XSECURE_RSA_CONTROL_EXP</references>
+        <references refid="group__xsecure__rsa__server__apis_1gaf6aa7128fa94bf8080ab386fbad49019" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="94">XSECURE_RSA_CONTROL_EXP_PRE</references>
+        <references refid="group__xsecure__rsa__server__apis_1gae602b8815f7d462cb8d71acd1518cc16" compoundref="core_2rsa_2xsecure__rsa_8h" startline="96">XSECURE_RSA_INVALID_PARAM</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga471ea882e22eda21835226bbd7f5f5fe" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="73">XSECURE_RSA_PUBLIC_EXPO_SIZE</references>
+        <references refid="group__xsecure__rsa__server__apis_1gaeb1c90322fbfab2d67199e5a1b7221ac" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="86">XSECURE_RSA_RAM_DIGEST</references>
+        <references refid="group__xsecure__rsa__server__apis_1ggac58931a8d38bdc9dc4398b99c61d6977ab636361ce27fcaf256dacda0c41e29cd" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="137">XSECURE_RSA_SIGN_DEC</references>
+        <references refid="group__xsecure__rsa__server__apis_1ggac58931a8d38bdc9dc4398b99c61d6977a6cea5b8237a7ef2b4e973ee824e8ba6c" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="136">XSECURE_RSA_SIGN_ENC</references>
+        <references refid="group__xsecure__rsa__server__apis_1gab2f3464839888fbb08885a9edfa3de1e" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="124">XSECURE_RSA_STATUS_DONE</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga2a14eba16b0398959800e6d638c63447" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="125">XSECURE_RSA_STATUS_ERROR</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga7c621f0e66a73464aefc9c725cb1b2b1" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="518" endline="537">XSecure_RsaZeroize</references>
+        <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
+        <references refid="group__xsecure__rsa__server__apis_1gae655880142d336ed6515f196e68a4074" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="81">XSECURE_TIMEOUT_MAX</references>
+        <references refid="group__xsecure__generic__server__apis_1ga0ab39c362c3e2b0d6750187ce4e7c809" compoundref="core_2util_2xsecure__utils_8h" startline="54">XSECURE_WORD_IN_BITS</references>
+        <references refid="group__xsecure__generic__server__apis_1ga014b8298824e67a2e9fe8a5c8719f59a" compoundref="core_2util_2xsecure__utils_8h" startline="52">XSECURE_WORD_SIZE</references>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga955d5211bd63a9325ec0a93f9c49eaef" compoundref="core_2rsa_2xsecure__rsa_8c" startline="399" endline="451">XSecure_RsaPrivateDecrypt_64Bit</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1gafc7c87fceab6593e002f7e3b9e15fccc" compoundref="core_2rsa_2xsecure__rsa_8c" startline="312" endline="340">XSecure_RsaPublicEncrypt_64Bit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__server__apis_1ga7c621f0e66a73464aefc9c725cb1b2b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaZeroize</definition>
+        <argsstring>(const XSecure_Rsa *InstancePtr)</argsstring>
+        <name>XSecure_RsaZeroize</name>
+        <param>
+          <type>const <ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function clears whole RSA memory space. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function clears stored exponent, modulus and exponentiation key components along with digest</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On Success</para></listitem><listitem><para>XSECURE_RSA_INVALID_PARAM - On invalid parameter </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate the input arguments</para></listitem><listitem><para>Zeroize and verify whole RSA RAM space </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="518" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="518" bodyend="537"/>
+        <references refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="148">XSecure_Rsa::BaseAddress</references>
+        <references refid="xsecure__ecdsa__rsa__hw_8h_1a1a773a114eb7eee5d89964d73d7af3f3" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="76">XSECURE_ECDSA_RSA_MINV_OFFSET</references>
+        <references refid="group__xsecure__rsa__server__apis_1gae602b8815f7d462cb8d71acd1518cc16" compoundref="core_2rsa_2xsecure__rsa_8h" startline="96">XSECURE_RSA_INVALID_PARAM</references>
+        <references refid="group__xsecure__rsa__server__apis_1gaf5b1250865b33d073498f0d29816d664" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="641" endline="664">XSecure_RsaEcdsaZeroizeAndVerifyRam</references>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga3c38edd112fb7b6799153ab9eabba178" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="156" endline="325">XSecure_RsaOperation</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__server__apis_1gad533296d3fabf1afb69312994476a8cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8 *</type>
+        <definition>u8 * XSecure_RsaGetTPadding</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_RsaGetTPadding</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function returns PKCS padding as per the silicon version. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XSecure_Silicon2_TPadSha3 </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="578" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="578" bodyend="581"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga88c72694ec8259484002620958682dde" compoundref="core_2rsa_2xsecure__rsa_8c" startline="191" endline="259">XSecure_RsaSignVerification_64Bit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__server__apis_1ga03d374a59e9fa66e4caf5ad19321c0ba" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_RsaEcdsaZeroizeVerify</definition>
+        <argsstring>(u32 BaseAddress)</argsstring>
+        <name>XSecure_RsaEcdsaZeroizeVerify</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function verifies whole RSA or ECDSA memory space. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BaseAddress of RSA or ECDSA controller.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On Success</para></listitem><listitem><para>XST_FAILURE - On Failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="597" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="597" bodyend="628"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__server__apis_1gaf5b1250865b33d073498f0d29816d664" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaEcdsaZeroizeAndVerifyRam</definition>
+        <argsstring>(u32 BaseAddress)</argsstring>
+        <name>XSecure_RsaEcdsaZeroizeAndVerifyRam</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function clears and verifies whole RSA or ECDSA memory space. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BaseAddress of ECDSA or RSA controller.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On Success</para></listitem><listitem><para>XST_FAILURE - On Failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Clears whole RSA or ECDSA RAM space</para></listitem><listitem><para>Verify whether whole RSA or ECDSA RAM space is zeroized or not </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" line="641" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c" bodystart="641" bodyend="664"/>
+        <references refid="xsecure__ecdsa__rsa__hw_8h_1a3ae31970ad1b34122be4c83ec41eb65c" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="69">XSECURE_ECDSA_RSA_CTRL_OFFSET</references>
+        <references refid="xsecure__ecdsa__rsa__hw_8h_1a718b30703cf78c3de892668e9f41716a" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="60">XSECURE_ECDSA_RSA_RAM_ADDR_OFFSET</references>
+        <references refid="group__xsecure__rsa__server__apis_1gadd18fc8e8c833a9b50703479655a131a" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="59">XSECURE_RSA_MAX_RD_WR_CNT</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga143c9f60ab09cc9145dcd03ad720957c" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="61">XSECURE_RSA_RAM_RES_Q</references>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga7c621f0e66a73464aefc9c725cb1b2b1" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="518" endline="537">XSecure_RsaZeroize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the implementation of the Versal specific RSA driver. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+4.0   vns  03/18/19 Initial Release.
+4.1   vns  08/23/19 Updated Status variables with XST_FAILURE and added
+                    to while loops.
+4.2   kpt  01/07/20 Resolved CR-1049134 and added Macro&apos;s for all the
+                    Magic Numbers
+      har  03/19/20 Simplified calculation for Index
+      rpo  04/02/20 Added crypto KAT APIs
+                    Added function to update data length configuration
+      kpt  03/24/20 Added XSecure_RsaZeroizeVerify for
+                    RSA Zeroization Verification and modified Code for
+                    Zeroization
+      har  04/06/20 Moved PKCS padding related code for versal from the
+                    common directory
+      bvi  04/07/20 Renamed csudma as pmcdma
+4.3   ana  06/04/20 Minor enhancement
+      har  07/12/20 Removed Magic number from XSecure_RsaPublicEncryptKat
+      rpo  09/01/20 Asserts are not compiled by default for secure libraries
+      rpo  09/10/20 Input validations are added
+      rpo  09/21/20 New error code added for crypto state mismatch
+      am   09/24/20 Resolved MISRA C violations
+      har  10/12/20 Addressed security review comments
+      am   10/10/20 Resolved Coverity warnings
+4.6   har  07/14/21 Fixed doxygen warnings
+      gm   07/16/21 Added support for 64-bit address
+5.0   kpt  07/24/21 Moved XSecure_RsaPublicEncrypt KAT into <ref refid="xsecure__kat_8c" kindref="compound">xsecure_kat.c</ref>
+      kpt  08/03/22 Added volatile keyword to avoid compiler optimization of
+                    loop redundancy check
+      dc   08/26/22 Optimization of size by changing u8 to u32
+5.2   kpt  08/20/23 Added XSecure_RsaEcdsaZeroizeAndVerifyRam
+      vss  09/18/23 Fixed compilation warning due to XSecure_RsaEcdsaZeroizeAndVerifyRam
+5.4   yog  04/29/24 Fixed doxygen warnings.
+5.6   mb   11/04/25 Update to handle 64 bit DMA address</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="59"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="core_2rsa_2xsecure__rsa__core_8h" kindref="compound">xsecure_rsa_core.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__ecdsa__rsa__hw_8h" kindref="compound">xsecure_ecdsa_rsa_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_sutil.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_RSA_EXCLUDE</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="core_2rsa_2xsecure__rsa_8h" kindref="compound">xsecure_rsa.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_error.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_plat.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>PKCS<sp/>padding<sp/>for<sp/>SHA-3<sp/>in<sp/>Versal<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>XSecure_Silicon2_TPadSha3[]<sp/>=</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{0x30U,<sp/>0x41U,<sp/>0x30U,<sp/>0x0DU,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x06U,<sp/>0x09U,<sp/>0x60U,<sp/>0x86U,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x48U,<sp/>0x01U,<sp/>0x65U,<sp/>0x03U,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04U,<sp/>0x02U,<sp/>0x09U,<sp/>0x05U,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00U,<sp/>0x04U,<sp/>0x30U<sp/>};</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81" refid="group__xsecure__rsa__server__apis_1gae655880142d336ed6515f196e68a4074" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_TIMEOUT_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1FFFFFU)</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="83" refid="group__xsecure__rsa__server__apis_1ga06a22adced7435767b04a4ed7db6461c" refkind="member"><highlight class="preprocessor">#define<sp/>SIZEOF_INT_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x4U)</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="86"><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_RsaPutData(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_RsaWriteMem(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>WrDataAddr,<sp/>u8<sp/>RamOffset);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_RsaMod32Inverse(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_RsaGetData(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref><sp/>*InstancePtr,<sp/>u64<sp/>RdDataAddr);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_RsaDataLenCfg(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref><sp/>*InstancePtr,<sp/>u32<sp/>Cfg0,<sp/>u32<sp/>Cfg1,</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Cfg2,<sp/>u32<sp/>Cfg5);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="111" refid="group__xsecure__rsa__server__apis_1gaa7dd5cb6143f1767dbfce0cee845f014" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__server__apis_1gaa7dd5cb6143f1767dbfce0cee845f014" kindref="member">XSecure_RsaCfgInitialize</ref>(<ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1ga4900fde0f315a9807c11bf73a2e8d90d" kindref="member">XSecure_CryptoCheck</ref>(<ref refid="group__xsecure__helper__server__apis_1gga4a4bd32908fec3ffc005880c1fd38ce0a8fd1af87ffbefaeca194e706837cc248" kindref="member">XSECURE_CORE_RSA_ECC</ref>);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="group__xsecure__rsa__server__apis_1gae602b8815f7d462cb8d71acd1518cc16" kindref="member">XSECURE_RSA_INVALID_PARAM</ref>;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_SetRsaCryptoStatus();</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" kindref="member">BaseAddress</ref><sp/>=<sp/><ref refid="xsecure__ecdsa__rsa__hw_8h_1a9f0671ce55189d7783c0abaf1f001c55" kindref="member">XSECURE_ECDSA_RSA_BASEADDR</ref>;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="156" refid="group__xsecure__rsa__server__apis_1ga3c38edd112fb7b6799153ab9eabba178" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__server__apis_1ga3c38edd112fb7b6799153ab9eabba178" kindref="member">XSecure_RsaOperation</ref>(<ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref><sp/>*InstancePtr,<sp/>u64<sp/>Input,</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Result,<sp/><ref refid="group__xsecure__rsa__server__apis_1gac58931a8d38bdc9dc4398b99c61d6977" kindref="member">XSecure_RsaOps</ref><sp/>RsaOp,<sp/>u32<sp/>KeySize)</highlight></codeline>
+<codeline lineno="158"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ErrorCode<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Events;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ModExpoSize;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorCode<sp/>=<sp/>(int)<ref refid="group__xsecure__rsa__server__apis_1gae602b8815f7d462cb8d71acd1518cc16" kindref="member">XSECURE_RSA_INVALID_PARAM</ref>;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RsaOp<sp/>!=<sp/><ref refid="group__xsecure__rsa__server__apis_1ggac58931a8d38bdc9dc4398b99c61d6977a6cea5b8237a7ef2b4e973ee824e8ba6c" kindref="member">XSECURE_RSA_SIGN_ENC</ref>)<sp/>&amp;&amp;<sp/>(RsaOp<sp/>!=<sp/><ref refid="group__xsecure__rsa__server__apis_1ggac58931a8d38bdc9dc4398b99c61d6977ab636361ce27fcaf256dacda0c41e29cd" kindref="member">XSECURE_RSA_SIGN_DEC</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorCode<sp/>=<sp/>(int)<ref refid="group__xsecure__rsa__server__apis_1gae602b8815f7d462cb8d71acd1518cc16" kindref="member">XSECURE_RSA_INVALID_PARAM</ref>;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END_RST;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((KeySize<sp/>!=<sp/><ref refid="group__xsecure__rsa__server__apis_1ga6ff2e0197483048fcc9e7c52416750c8" kindref="member">XSECURE_RSA_4096_KEY_SIZE</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(KeySize<sp/>!=<ref refid="group__xsecure__rsa__server__apis_1ga59620f1b6f6bde84528a793de12385c5" kindref="member">XSECURE_RSA_3072_KEY_SIZE</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(KeySize<sp/>!=<sp/><ref refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorCode<sp/>=<sp/>(int)<ref refid="group__xsecure__rsa__server__apis_1gae602b8815f7d462cb8d71acd1518cc16" kindref="member">XSECURE_RSA_INVALID_PARAM</ref>;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END_RST;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a3448138023856a4306b5c7cc2c55dbd8" kindref="member">EncDec</ref><sp/>=<sp/>(u8)RsaOp;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a624a335d5d428b0affa26f286f46fc1a" kindref="member">SizeInWords</ref><sp/>=<sp/>KeySize<sp/>/<sp/><ref refid="group__xsecure__generic__server__apis_1ga014b8298824e67a2e9fe8a5c8719f59a" kindref="member">XSECURE_WORD_SIZE</ref>;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a3448138023856a4306b5c7cc2c55dbd8" kindref="member">EncDec</ref><sp/>==<sp/>(u8)<ref refid="group__xsecure__rsa__server__apis_1ggac58931a8d38bdc9dc4398b99c61d6977a6cea5b8237a7ef2b4e973ee824e8ba6c" kindref="member">XSECURE_RSA_SIGN_ENC</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ModExpoSize<sp/>=<sp/><ref refid="group__xsecure__rsa__server__apis_1ga471ea882e22eda21835226bbd7f5f5fe" kindref="member">XSECURE_RSA_PUBLIC_EXPO_SIZE</ref>;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ModExpoSize<sp/>=<sp/>KeySize;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>ModExpoSize;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XSecure_InByte64(((InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1af1962b2e4f9b304470a695e3d5274cff" kindref="member">ModExpoAddr</ref>)<sp/>+<sp/>Index))<sp/>!=<sp/>0x00U)<sp/>{</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Index<sp/>==<sp/>ModExpoSize)<sp/>{</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorCode<sp/>=<sp/><ref refid="group__xsecure__rsa__server__apis_1gae602b8815f7d462cb8d71acd1518cc16" kindref="member">XSECURE_RSA_INVALID_PARAM</ref>;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END_RST;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__generic__server__apis_1ga448da91f94630d83a52c21b895455ebf" kindref="member">XSecure_ReleaseReset</ref>(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__ecdsa__rsa__hw_8h_1a88ec30cbcee985ead897eabfeace1549" kindref="member">XSECURE_ECDSA_RSA_RESET_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_WriteReg(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__ecdsa__rsa__hw_8h_1a44ca8c2ef009ddb0d23287c6e481e939" kindref="member">XSECURE_ECDSA_RSA_KEY_LEN_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a624a335d5d428b0affa26f286f46fc1a" kindref="member">SizeInWords</ref><sp/>*<sp/><ref refid="group__xsecure__generic__server__apis_1ga0ab39c362c3e2b0d6750187ce4e7c809" kindref="member">XSECURE_WORD_IN_BITS</ref>));</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_WriteReg(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__ecdsa__rsa__hw_8h_1a295bfe198c97c66a4f15ca179aef0d00" kindref="member">XSECURE_ECDSA_RSA_CFG_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_ECDSA_RSA_RSA_CFG_WR_ENDIANNESS_MASK<sp/>|</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_ECDSA_RSA_CFG_RD_ENDIANNESS_MASK);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_RsaPutData(InstancePtr);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_RsaWriteMem(InstancePtr,<sp/>Input,</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1gaeb1c90322fbfab2d67199e5a1b7221ac" kindref="member">XSECURE_RSA_RAM_DIGEST</ref>);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_RsaMod32Inverse(InstancePtr);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a624a335d5d428b0affa26f286f46fc1a" kindref="member">SizeInWords</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__server__apis_1gab5e03185e5083dafd48c34ec3860f13b" kindref="member">XSECURE_RSA_2048_SIZE_WORDS</ref>:</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_RsaDataLenCfg(InstancePtr,</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1ga3f74d8b1fdd3cb62e6b42f94477baea2" kindref="member">XSECURE_ECDSA_RSA_CFG0_2048_VALUE</ref>,</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1gae86c78b20bfdfe28377fae54d4359bb5" kindref="member">XSECURE_ECDSA_RSA_CFG1_2048_VALUE</ref>,</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1ga428d127a4c7ca3cb3f9ca6c5f598926b" kindref="member">XSECURE_ECDSA_RSA_CFG2_2048_VALUE</ref>,</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1ga657535fb0fdef8833089462fb0001198" kindref="member">XSECURE_ECDSA_RSA_CFG5_2048_VALUE</ref>);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorCode<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__server__apis_1ga347aecc336477793453c4d4d7ff4883a" kindref="member">XSECURE_RSA_3072_SIZE_WORDS</ref>:</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_RsaDataLenCfg(InstancePtr,</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1ga441252e98483a66e42885babef4a3a4f" kindref="member">XSECURE_ECDSA_RSA_CFG0_3072_VALUE</ref>,</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1gaca2741b6c05e9b8d34814c8da41b9094" kindref="member">XSECURE_ECDSA_RSA_CFG1_3072_VALUE</ref>,</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1gadc343c3b1b289869f9d80c16d11e8296" kindref="member">XSECURE_ECDSA_RSA_CFG2_3072_VALUE</ref>,</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1gabc91f9d925d1a698ea47efd143ee76fc" kindref="member">XSECURE_ECDSA_RSA_CFG5_3072_VALUE</ref>);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorCode<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__server__apis_1gaaf42b952c1d1cab97ba23e4c1a5f5ae6" kindref="member">XSECURE_RSA_4096_SIZE_WORDS</ref>:</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_RsaDataLenCfg(InstancePtr,</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1gad2c0edbea8d67db9377cd12a22645aa0" kindref="member">XSECURE_ECDSA_RSA_CFG0_4096_VALUE</ref>,</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1gab809f2cf302a694e97151c15f1ecd178" kindref="member">XSECURE_ECDSA_RSA_CFG1_4096_VALUE</ref>,</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1ga5424da4f0e694d048bf1958cac68d912" kindref="member">XSECURE_ECDSA_RSA_CFG2_4096_VALUE</ref>,</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1ga1bb16e915f8ae8d239e5828517eebdb0" kindref="member">XSECURE_ECDSA_RSA_CFG5_4096_VALUE</ref>);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorCode<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorCode<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ErrorCode<sp/>==<sp/>XST_FAILURE)<sp/>{</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END_RST;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a8193b491caa2c772737ebf90823338c3" kindref="member">ModExtAddr</ref><sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_WriteReg(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__ecdsa__rsa__hw_8h_1a3ae31970ad1b34122be4c83ec41eb65c" kindref="member">XSECURE_ECDSA_RSA_CTRL_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1gaf6aa7128fa94bf8080ab386fbad49019" kindref="member">XSECURE_RSA_CONTROL_EXP_PRE</ref>);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_WriteReg(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__ecdsa__rsa__hw_8h_1a3ae31970ad1b34122be4c83ec41eb65c" kindref="member">XSECURE_ECDSA_RSA_CTRL_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1gaafa59a9f17f72541503918edc46b049a" kindref="member">XSECURE_RSA_CONTROL_EXP</ref>);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorCode<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)Xil_WaitForEvents((InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" kindref="member">BaseAddress</ref><sp/>+</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__ecdsa__rsa__hw_8h_1a1b39b90e45fed3b08a2c96f5498eb8b7" kindref="member">XSECURE_ECDSA_RSA_STATUS_OFFSET</ref>),</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__xsecure__rsa__server__apis_1gab2f3464839888fbb08885a9edfa3de1e" kindref="member">XSECURE_RSA_STATUS_DONE</ref><sp/>|</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1ga2a14eba16b0398959800e6d638c63447" kindref="member">XSECURE_RSA_STATUS_ERROR</ref>),</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__xsecure__rsa__server__apis_1gab2f3464839888fbb08885a9edfa3de1e" kindref="member">XSECURE_RSA_STATUS_DONE</ref><sp/>|</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1ga2a14eba16b0398959800e6d638c63447" kindref="member">XSECURE_RSA_STATUS_ERROR</ref>),</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1gae655880142d336ed6515f196e68a4074" kindref="member">XSECURE_TIMEOUT_MAX</ref>,</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;Events);</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorCode<sp/>=<sp/>Status;</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END_RST;</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">((Events<sp/>&amp;<sp/><ref refid="group__xsecure__rsa__server__apis_1ga2a14eba16b0398959800e6d638c63447" kindref="member">XSECURE_RSA_STATUS_ERROR</ref>)<sp/>==<sp/><ref refid="group__xsecure__rsa__server__apis_1ga2a14eba16b0398959800e6d638c63447" kindref="member">XSECURE_RSA_STATUS_ERROR</ref>)</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorCode<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END_RST;</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_RsaGetData(InstancePtr,<sp/>Result);</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorCode<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="308"><highlight class="normal">END_RST:</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_WriteReg(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__ecdsa__rsa__hw_8h_1a295bfe198c97c66a4f15ca179aef0d00" kindref="member">XSECURE_ECDSA_RSA_CFG_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_ECDSA_RSA_CFG_CLEAR_ENDIANNESS_MASK);</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a3448138023856a4306b5c7cc2c55dbd8" kindref="member">EncDec</ref><sp/>==<sp/>(u8)<ref refid="group__xsecure__rsa__server__apis_1ggac58931a8d38bdc9dc4398b99c61d6977ab636361ce27fcaf256dacda0c41e29cd" kindref="member">XSECURE_RSA_SIGN_DEC</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__rsa__server__apis_1ga7c621f0e66a73464aefc9c725cb1b2b1" kindref="member">XSecure_RsaZeroize</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorCode<sp/>|=<sp/>Status;</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" kindref="member">XSecure_SetReset</ref>(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__ecdsa__rsa__hw_8h_1a88ec30cbcee985ead897eabfeace1549" kindref="member">XSECURE_ECDSA_RSA_RESET_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ErrorCode;</highlight></codeline>
+<codeline lineno="325"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="335"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_RsaPutData(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="336"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__generic__server__apis_1ga2d44494aa84e82f6e26bd0c0a396b734" kindref="member">XSecure_AssertVoid</ref>(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_RsaWriteMem(InstancePtr,<sp/>InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1af1962b2e4f9b304470a695e3d5274cff" kindref="member">ModExpoAddr</ref>,</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1ga54df4ba49a902c189e6b829f70bf4c12" kindref="member">XSECURE_RSA_RAM_EXPO</ref>);</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_RsaWriteMem(InstancePtr,<sp/>InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1af3cdc9b2018fd40f262355873a2a1b39" kindref="member">ModAddr</ref>,</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1gafda03a0526dc76f9c6b01005ef59d12c" kindref="member">XSECURE_RSA_RAM_MOD</ref>);</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a8193b491caa2c772737ebf90823338c3" kindref="member">ModExtAddr</ref><sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_RsaWriteMem(InstancePtr,<sp/>InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a8193b491caa2c772737ebf90823338c3" kindref="member">ModExtAddr</ref>,</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1gae1c8324e032b5c9d15f811018284b13e" kindref="member">XSECURE_RSA_RAM_RES_Y</ref>);</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="353"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="364"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_RsaGetData(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref><sp/>*InstancePtr,<sp/>u64<sp/>RdDataAddr)</highlight></codeline>
+<codeline lineno="365"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DataOffset;</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>TmpIndex;</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>WrOffSet;</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__generic__server__apis_1ga2d44494aa84e82f6e26bd0c0a396b734" kindref="member">XSecure_AssertVoid</ref>(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__generic__server__apis_1ga2d44494aa84e82f6e26bd0c0a396b734" kindref="member">XSecure_AssertVoid</ref>(RdDataAddr<sp/>!=<sp/>0U);</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TmpIndex<sp/>=<sp/>(int)(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a624a335d5d428b0affa26f286f46fc1a" kindref="member">SizeInWords</ref>)<sp/>-<sp/>1;</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"></highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(DataOffset<sp/>=<sp/>0U;<sp/>DataOffset<sp/>&lt;<sp/><ref refid="group__xsecure__rsa__server__apis_1gadd18fc8e8c833a9b50703479655a131a" kindref="member">XSECURE_RSA_MAX_RD_WR_CNT</ref>;</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DataOffset++)<sp/>{</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_WriteReg(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__ecdsa__rsa__hw_8h_1a718b30703cf78c3de892668e9f41716a" kindref="member">XSECURE_ECDSA_RSA_RAM_ADDR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__xsecure__rsa__server__apis_1gae1c8324e032b5c9d15f811018284b13e" kindref="member">XSECURE_RSA_RAM_RES_Y</ref><sp/>*<sp/>XSECURE_RSA_MAX_RD_WR_CNT)</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>DataOffset);</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"></highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/><ref refid="group__xsecure__rsa__server__apis_1gae6abb189863af8fdcc377b2a92080865" kindref="member">XSECURE_RSA_MAX_BUFF</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(TmpIndex<sp/>&lt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WrOffSet<sp/>=<sp/><ref refid="group__xsecure__rsa__server__apis_1ga06a22adced7435767b04a4ed7db6461c" kindref="member">SIZEOF_INT_IN_BYTES</ref><sp/>*<sp/>(u32)TmpIndex;</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_OutWord64(</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RdDataAddr<sp/>+<sp/>(u64)WrOffSet),</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_ReadReg(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__ecdsa__rsa__hw_8h_1a64dac802f12fdd9803f5674c8e9584a2" kindref="member">XSECURE_ECDSA_RSA_RAM_DATA_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TmpIndex<sp/>--;</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"></highlight></codeline>
+<codeline lineno="398"><highlight class="normal">END:<sp/>;</highlight></codeline>
+<codeline lineno="399"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"></highlight></codeline>
+<codeline lineno="401"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="412"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_RsaMod32Inverse(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="413"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Count;</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ModVal;</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Inv;</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OffSet<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"></highlight></codeline>
+<codeline lineno="420"><highlight class="normal"></highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__generic__server__apis_1ga2d44494aa84e82f6e26bd0c0a396b734" kindref="member">XSecure_AssertVoid</ref>(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"></highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OffSet<sp/>=<sp/>(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a624a335d5d428b0affa26f286f46fc1a" kindref="member">SizeInWords</ref><sp/>-<sp/>1U)<sp/>*<sp/><ref refid="group__xsecure__rsa__server__apis_1ga06a22adced7435767b04a4ed7db6461c" kindref="member">SIZEOF_INT_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ModVal<sp/>=<sp/>XSecure_In64((InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1af3cdc9b2018fd40f262355873a2a1b39" kindref="member">ModAddr</ref><sp/>+<sp/>OffSet));</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ModVal<sp/>=<sp/>Xil_Htonl(ModVal);</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Inv<sp/>=<sp/>(u32)2U<sp/>-<sp/>ModVal;</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"></highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Count<sp/>=<sp/>0U;<sp/>Count<sp/>&lt;<sp/><ref refid="group__xsecure__generic__server__apis_1ga014b8298824e67a2e9fe8a5c8719f59a" kindref="member">XSECURE_WORD_SIZE</ref>;<sp/>++Count)<sp/>{</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Inv<sp/>=<sp/>Inv<sp/>*<sp/>(2U<sp/>-<sp/>(ModVal<sp/>*<sp/>Inv));</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"></highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Inv<sp/>=<sp/>~Inv<sp/>+<sp/>1U;</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"></highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_WriteReg(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__ecdsa__rsa__hw_8h_1a1a773a114eb7eee5d89964d73d7af3f3" kindref="member">XSECURE_ECDSA_RSA_MINV_OFFSET</ref>,<sp/>(Inv));</highlight></codeline>
+<codeline lineno="438"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="439"><highlight class="normal"></highlight></codeline>
+<codeline lineno="440"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="449"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_RsaWriteMem(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>WrDataAddr,<sp/>u8<sp/>RamOffset)</highlight></codeline>
+<codeline lineno="451"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DataOffset;</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TmpIndex;</highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OffSet;</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"></highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__generic__server__apis_1ga2d44494aa84e82f6e26bd0c0a396b734" kindref="member">XSecure_AssertVoid</ref>(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__generic__server__apis_1ga2d44494aa84e82f6e26bd0c0a396b734" kindref="member">XSecure_AssertVoid</ref>(WrDataAddr<sp/>!=<sp/>0U);</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"></highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(DataOffset<sp/>=<sp/>0U;<sp/>DataOffset<sp/>&lt;<sp/><ref refid="group__xsecure__rsa__server__apis_1gadd18fc8e8c833a9b50703479655a131a" kindref="member">XSECURE_RSA_MAX_RD_WR_CNT</ref>;</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DataOffset++)<sp/>{</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/><ref refid="group__xsecure__rsa__server__apis_1gae6abb189863af8fdcc377b2a92080865" kindref="member">XSECURE_RSA_MAX_BUFF</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TmpIndex<sp/>=<sp/>(DataOffset<sp/>*<sp/><ref refid="group__xsecure__rsa__server__apis_1gae6abb189863af8fdcc377b2a92080865" kindref="member">XSECURE_RSA_MAX_BUFF</ref>)<sp/>+<sp/>Index;</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"></highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="468"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Exponent<sp/>size<sp/>is<sp/>only<sp/>4<sp/>bytes</highlight></codeline>
+<codeline lineno="469"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>and<sp/>rest<sp/>of<sp/>the<sp/>data<sp/>needs<sp/>to<sp/>be<sp/>0</highlight></codeline>
+<codeline lineno="470"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">((<ref refid="group__xsecure__rsa__server__apis_1ga54df4ba49a902c189e6b829f70bf4c12" kindref="member">XSECURE_RSA_RAM_EXPO</ref><sp/>==<sp/>RamOffset)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a3448138023856a4306b5c7cc2c55dbd8" kindref="member">EncDec</ref><sp/>==<sp/>(u8)<ref refid="group__xsecure__rsa__server__apis_1ggac58931a8d38bdc9dc4398b99c61d6977a6cea5b8237a7ef2b4e973ee824e8ba6c" kindref="member">XSECURE_RSA_SIGN_ENC</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(0U<sp/>==<sp/>TmpIndex<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XSecure_In64(WrDataAddr);</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>0x0U;</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(TmpIndex<sp/>&gt;=<sp/>InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a624a335d5d428b0affa26f286f46fc1a" kindref="member">SizeInWords</ref>)</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>0x0U;</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OffSet<sp/>=<sp/>((InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a624a335d5d428b0affa26f286f46fc1a" kindref="member">SizeInWords</ref><sp/>-<sp/>1U)<sp/>-<sp/>TmpIndex)<sp/>*<sp/><ref refid="group__xsecure__rsa__server__apis_1ga06a22adced7435767b04a4ed7db6461c" kindref="member">SIZEOF_INT_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XSecure_In64((WrDataAddr<sp/>+<sp/>OffSet));</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_WriteReg(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__ecdsa__rsa__hw_8h_1a64dac802f12fdd9803f5674c8e9584a2" kindref="member">XSECURE_ECDSA_RSA_RAM_DATA_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data);</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"></highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_WriteReg(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__ecdsa__rsa__hw_8h_1a718b30703cf78c3de892668e9f41716a" kindref="member">XSECURE_ECDSA_RSA_RAM_ADDR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="500"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(RamOffset<sp/>*<sp/>(u32)XSECURE_RSA_MAX_RD_WR_CNT)<sp/>+<sp/>DataOffset)<sp/>|</highlight></codeline>
+<codeline lineno="501"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_ECDSA_RSA_RAM_ADDR_WRRD_B_MASK);</highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="503"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"></highlight></codeline>
+<codeline lineno="505"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="518" refid="group__xsecure__rsa__server__apis_1ga7c621f0e66a73464aefc9c725cb1b2b1" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__server__apis_1ga7c621f0e66a73464aefc9c725cb1b2b1" kindref="member">XSecure_RsaZeroize</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="519"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"></highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"></highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="group__xsecure__rsa__server__apis_1gae602b8815f7d462cb8d71acd1518cc16" kindref="member">XSECURE_RSA_INVALID_PARAM</ref>;</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"></highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__rsa__server__apis_1gaf5b1250865b33d073498f0d29816d664" kindref="member">XSecure_RsaEcdsaZeroizeAndVerifyRam</ref>((u32)InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"></highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_WriteReg(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__ecdsa__rsa__hw_8h_1a1a773a114eb7eee5d89964d73d7af3f3" kindref="member">XSECURE_ECDSA_RSA_MINV_OFFSET</ref>,<sp/>0U);</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"></highlight></codeline>
+<codeline lineno="535"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="537"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"></highlight></codeline>
+<codeline lineno="539"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="550"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_RsaDataLenCfg(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref><sp/>*InstancePtr,<sp/>u32<sp/>Cfg0,</highlight></codeline>
+<codeline lineno="551"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Cfg1,<sp/>u32<sp/>Cfg2,<sp/>u32<sp/>Cfg5)</highlight></codeline>
+<codeline lineno="552"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__generic__server__apis_1ga2d44494aa84e82f6e26bd0c0a396b734" kindref="member">XSecure_AssertVoid</ref>(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="555"><highlight class="normal"></highlight></codeline>
+<codeline lineno="556"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_WriteReg(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="557"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__ecdsa__rsa__hw_8h_1a65834715b979609812965d9ea85c7e1e" kindref="member">XSECURE_ECDSA_RSA_CFG0_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="558"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cfg0);</highlight></codeline>
+<codeline lineno="559"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_WriteReg(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__ecdsa__rsa__hw_8h_1af7c6bf631f2bb2f6aab584f2515bd1fa" kindref="member">XSECURE_ECDSA_RSA_CFG1_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cfg1);</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_WriteReg(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="563"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__ecdsa__rsa__hw_8h_1affd5bb1d52dae3a167c0f2f18f8de92b" kindref="member">XSECURE_ECDSA_RSA_CFG2_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cfg2);</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_WriteReg(InstancePtr-&gt;<ref refid="struct_x_secure___rsa_1a43f0c9f61e8826ec3d3622ec3d2a166e" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__ecdsa__rsa__hw_8h_1a1b73b7bb0f41b526d398db334738df71" kindref="member">XSECURE_ECDSA_RSA_CFG5_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cfg5);</highlight></codeline>
+<codeline lineno="568"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"></highlight></codeline>
+<codeline lineno="570"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="578" refid="group__xsecure__rsa__server__apis_1gad533296d3fabf1afb69312994476a8cf" refkind="member"><highlight class="normal">u8*<sp/><ref refid="group__xsecure__rsa__server__apis_1gad533296d3fabf1afb69312994476a8cf" kindref="member">XSecure_RsaGetTPadding</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="579"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u8<sp/>*)XSecure_Silicon2_TPadSha3;</highlight></codeline>
+<codeline lineno="581"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="582"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="583"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="584"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined(PLM_RSA_EXCLUDE)<sp/>||<sp/>!defined(PLM_ECDSA_EXCLUDE)</highlight></codeline>
+<codeline lineno="585"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="586"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="597"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_RsaEcdsaZeroizeVerify(u32<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="598"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="600"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>RamOffset<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="601"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>DataOffset;</highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="603"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="604"><highlight class="normal"></highlight></codeline>
+<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(DataOffset<sp/>=<sp/>0U;<sp/>DataOffset<sp/>&lt;<sp/><ref refid="group__xsecure__rsa__server__apis_1gadd18fc8e8c833a9b50703479655a131a" kindref="member">XSECURE_RSA_MAX_RD_WR_CNT</ref>;<sp/>DataOffset++)<sp/>{</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_WriteReg(BaseAddress,<sp/><ref refid="xsecure__ecdsa__rsa__hw_8h_1a718b30703cf78c3de892668e9f41716a" kindref="member">XSECURE_ECDSA_RSA_RAM_ADDR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="608"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RamOffset<sp/>*<sp/>(u8)XSECURE_RSA_MAX_RD_WR_CNT)<sp/>+<sp/>DataOffset));</highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/><ref refid="group__xsecure__rsa__server__apis_1gae6abb189863af8fdcc377b2a92080865" kindref="member">XSECURE_RSA_MAX_BUFF</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>|=<sp/>XSecure_ReadReg(BaseAddress,</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__ecdsa__rsa__hw_8h_1a64dac802f12fdd9803f5674c8e9584a2" kindref="member">XSECURE_ECDSA_RSA_RAM_DATA_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="613"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="614"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="group__xsecure__rsa__server__apis_1ga5f0529979a66b7619ea517a83788794a" kindref="member">XSECURE_RSA_ECDSA_ZEROIZE_ERROR</ref>;</highlight></codeline>
+<codeline lineno="615"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="616"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="617"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="618"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RamOffset++;</highlight></codeline>
+<codeline lineno="619"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(RamOffset<sp/>&lt;=<sp/><ref refid="group__xsecure__rsa__server__apis_1ga143c9f60ab09cc9145dcd03ad720957c" kindref="member">XSECURE_RSA_RAM_RES_Q</ref>);</highlight></codeline>
+<codeline lineno="620"><highlight class="normal"></highlight></codeline>
+<codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(((RamOffset<sp/>-<sp/>1U)<sp/>==<sp/><ref refid="group__xsecure__rsa__server__apis_1ga143c9f60ab09cc9145dcd03ad720957c" kindref="member">XSECURE_RSA_RAM_RES_Q</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="622"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(DataOffset<sp/>==<sp/><ref refid="group__xsecure__rsa__server__apis_1gadd18fc8e8c833a9b50703479655a131a" kindref="member">XSECURE_RSA_MAX_RD_WR_CNT</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="623"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="625"><highlight class="normal"></highlight></codeline>
+<codeline lineno="626"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="627"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="628"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="629"><highlight class="normal"></highlight></codeline>
+<codeline lineno="630"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="641" refid="group__xsecure__rsa__server__apis_1gaf5b1250865b33d073498f0d29816d664" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__server__apis_1gaf5b1250865b33d073498f0d29816d664" kindref="member">XSecure_RsaEcdsaZeroizeAndVerifyRam</ref>(u32<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="642"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="643"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>RamOffset<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="644"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>DataOffset;</highlight></codeline>
+<codeline lineno="645"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="646"><highlight class="normal"></highlight></codeline>
+<codeline lineno="648"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="649"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(DataOffset<sp/>=<sp/>0U;<sp/>DataOffset<sp/>&lt;<sp/><ref refid="group__xsecure__rsa__server__apis_1gadd18fc8e8c833a9b50703479655a131a" kindref="member">XSECURE_RSA_MAX_RD_WR_CNT</ref>;<sp/>DataOffset++)<sp/>{</highlight></codeline>
+<codeline lineno="650"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_WriteReg(BaseAddress,<sp/><ref refid="xsecure__ecdsa__rsa__hw_8h_1a3ae31970ad1b34122be4c83ec41eb65c" kindref="member">XSECURE_ECDSA_RSA_CTRL_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="651"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_ECDSA_RSA_CTRL_CLR_DATA_BUF_MASK);</highlight></codeline>
+<codeline lineno="652"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_WriteReg(BaseAddress,</highlight></codeline>
+<codeline lineno="653"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__ecdsa__rsa__hw_8h_1a718b30703cf78c3de892668e9f41716a" kindref="member">XSECURE_ECDSA_RSA_RAM_ADDR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="654"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RamOffset<sp/>*<sp/>(u8)XSECURE_RSA_MAX_RD_WR_CNT)<sp/>+<sp/>DataOffset)<sp/>|</highlight></codeline>
+<codeline lineno="655"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_ECDSA_RSA_RAM_ADDR_WRRD_B_MASK);</highlight></codeline>
+<codeline lineno="656"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="657"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RamOffset++;</highlight></codeline>
+<codeline lineno="658"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(RamOffset<sp/>&lt;=<sp/><ref refid="group__xsecure__rsa__server__apis_1ga143c9f60ab09cc9145dcd03ad720957c" kindref="member">XSECURE_RSA_RAM_RES_Q</ref>);</highlight></codeline>
+<codeline lineno="659"><highlight class="normal"></highlight></codeline>
+<codeline lineno="661"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XSecure_RsaEcdsaZeroizeVerify(BaseAddress);</highlight></codeline>
+<codeline lineno="662"><highlight class="normal"></highlight></codeline>
+<codeline lineno="663"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="664"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="665"><highlight class="normal"></highlight></codeline>
+<codeline lineno="666"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="667"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/xsecure_rsa_core.c"/>
+  </compounddef>
+</doxygen>

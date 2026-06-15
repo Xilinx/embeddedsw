@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ocp___client_instance" kind="struct" prot="public">
+    <compoundname>XOcp_ClientInstance</compoundname>
+    <includes local="no">xocp_mailbox.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" prot="public" static="no" mutable="no">
+        <type>XMailbox *</type>
+        <definition>XMailbox* XOcp_ClientInstance::MailboxPtr</definition>
+        <argsstring></argsstring>
+        <name>MailboxPtr</name>
+        <briefdescription>
+<para>Mailbox pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/xocp_mailbox.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/xocp_mailbox.h" bodystart="95" bodyend="-1"/>
+        <referencedby refid="group__xocp__key__mgmt__client__apis_1ga0c6bb44603339209f55de3ef94141395" compoundref="xocp__key__mgmt_8c" startline="95" endline="119">XOcp_ClientAttestWithDevAk</referencedby>
+        <referencedby refid="group__xocp__key__mgmt__client__apis_1ga43e275e75f776f74a124968aa83d29a2" compoundref="xocp__key__mgmt_8c" startline="137" endline="164">XOcp_ClientAttestWithKeyWrapDevAk</referencedby>
+        <referencedby refid="group__xocp__mailbox__apis_1gaa164a8fafefc1e2b183db27281ee1b13" compoundref="xocp__client_8c" startline="65" endline="80">XOcp_ClientInit</referencedby>
+        <referencedby refid="group__xocp__hwpcr__client__apis_1gabe2000beca7269b9e9f1ba0434adfbb7" compoundref="xocp__hwpcr_8c" startline="63" endline="89">XOcp_ExtendHwPcr</referencedby>
+        <referencedby refid="group__xocp__swpcr__client__apis_1gab8fbe7fbfcb136e816374b295b769972" compoundref="xocp__swpcr_8c" startline="59" endline="92">XOcp_ExtendSwPcr</referencedby>
+        <referencedby refid="group__xocp__dme__client__apis_1gaebd4df862308eaeebbfb06a456a19f9f" compoundref="client_2dme_2xocp__dme_8c" startline="62" endline="88">XOcp_GenDmeResp</referencedby>
+        <referencedby refid="group__xocp__key__mgmt__client__apis_1ga50bd2fa853d6aba7c12fec38bb3867ae" compoundref="xocp__key__mgmt_8c" startline="187" endline="214">XOcp_GenSharedSecretWithDevAk</referencedby>
+        <referencedby refid="group__xocp__hwpcr__client__apis_1ga729ea6a53f3410b330a4eb6635074c88" compoundref="xocp__hwpcr_8c" startline="109" endline="134">XOcp_GetHwPcr</referencedby>
+        <referencedby refid="group__xocp__hwpcr__client__apis_1ga36f63a2e8165e1f3360f8e2858d7aa53" compoundref="xocp__hwpcr_8c" startline="150" endline="176">XOcp_GetHwPcrLog</referencedby>
+        <referencedby refid="group__xocp__swpcr__client__apis_1gaaca4f4567e961877901f3ed298ed01e9" compoundref="xocp__swpcr_8c" startline="112" endline="141">XOcp_GetSwPcr</referencedby>
+        <referencedby refid="group__xocp__swpcr__client__apis_1gaa9d5159f23ac4215dff07b1a16a0e2e9" compoundref="xocp__swpcr_8c" startline="196" endline="222">XOcp_GetSwPcrData</referencedby>
+        <referencedby refid="group__xocp__swpcr__client__apis_1ga71a4d8aea262fc732fa812829dd891ae" compoundref="xocp__swpcr_8c" startline="155" endline="181">XOcp_GetSwPcrLog</referencedby>
+        <referencedby refid="group__xocp__key__mgmt__client__apis_1ga16013e82a245e7dfdd7a3c2e2df476e5" compoundref="xocp__key__mgmt_8c" startline="58" endline="81">XOcp_GetX509Cert</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>XilOcp client instance structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/xocp_mailbox.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/xocp_mailbox.h" bodystart="94" bodyend="96"/>
+    <listofallmembers>
+      <member refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" prot="public" virt="non-virtual"><scope>XOcp_ClientInstance</scope><name>MailboxPtr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

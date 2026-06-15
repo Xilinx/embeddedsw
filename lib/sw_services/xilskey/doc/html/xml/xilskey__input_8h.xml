@@ -1,0 +1,1744 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilskey__input_8h" kind="file">
+    <compoundname>xilskey_input.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includedby refid="xilskey__bbram__example_8c" local="yes">xilskey_bbram_example.c</includedby>
+    <includedby refid="xilskey__efuse__example_8c" local="yes">xilskey_efuse_example.c</includedby>
+    <incdepgraph>
+      <node id="143">
+        <label>xilskey_input.h</label>
+        <link refid="xilskey_input.h"/>
+        <childnode refid="144" relation="include">
+        </childnode>
+        <childnode refid="145" relation="include">
+        </childnode>
+      </node>
+      <node id="144">
+        <label>xil_types.h</label>
+      </node>
+      <node id="145">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="146">
+        <label>xilskey_input.h</label>
+        <link refid="xilskey_input.h"/>
+        <childnode refid="147" relation="include">
+        </childnode>
+        <childnode refid="148" relation="include">
+        </childnode>
+      </node>
+      <node id="147">
+        <label>xilskey_bbram_example.c</label>
+        <link refid="xilskey__bbram__example_8c"/>
+      </node>
+      <node id="148">
+        <label>xilskey_efuse_example.c</label>
+        <link refid="xilskey__efuse__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xilskey__input_8h_1acda30b279984914b4bd214d07fd90399" prot="public" static="no">
+        <name>XSK_EFUSEPL_DRIVER</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="504" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="504" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1af4ec9c451ff5feed96fa132706c3756c" prot="public" static="no">
+        <name>XSK_EFUSEPS_DRIVER</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="505" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="505" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1ab811d8c6ff3a505312d3276590444289" prot="public" static="no">
+        <name>LOW</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Voltage level definitions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="512" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="512" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a5bb885982ff66a2e0a0a45a8ee9c35e2" prot="public" static="no">
+        <name>HIGH</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="513" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="513" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a9dc2b1efc06cb416f47f666cb928ce95" prot="public" static="no">
+        <name>XSK_EFUSEPL_PGM_SLR_CONFIG_ORDER_0</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para><heading level="2">Definition of Zynq PL </heading>
+</para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="616" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="616" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1aaedde69d011c73bf3c54fb8c546ec8cb" prot="public" static="no">
+        <name>XSK_EFUSEPL_PGM_SLR_CONFIG_ORDER_1</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="617" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="617" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a190be0fda26b3f1901ece04b89b72f90" prot="public" static="no">
+        <name>XSK_EFUSEPL_PGM_SLR_CONFIG_ORDER_2</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="618" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="618" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1aa04d006b9170bbd7e7780cdc67481e69" prot="public" static="no">
+        <name>XSK_EFUSEPL_PGM_SLR_CONFIG_ORDER_3</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="619" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="619" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a159376dc8276282bd506b0ef0df2c591" prot="public" static="no">
+        <name>XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS</name>
+        <initializer>XSK_EFUSEPL_CRC_FOR_AES_ZEROS</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="625" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="625" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a32a7550d4b349f396975c7bbf47c9753" prot="public" static="no">
+        <name>XSK_EFUSEPL_DISABLE_AES_KEY_READ</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>Following is the define to select if the user wants to program control bits. </para>        </briefdescription>
+        <detaileddescription>
+<para>If TRUE will disable AES key crc check andprogramming </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="634" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="631" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a69eb8d7b978503f8e2df800619fa2e1c" prot="public" static="no">
+        <name>XSK_EFUSEPL_DISABLE_USER_KEY_READ</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>If TRUE will disable 32 bit User key reading and programming. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="638" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="638" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a6d36a04bc5d165c0ec921b71b06b4cc8" prot="public" static="no">
+        <name>XSK_EFUSEPL_DISABLE_SECURE_READ</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>If TRUE will disable secure block reading and programming. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="642" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="645" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a24ecfdedb5cfeb51d4a0eb46b7665326" prot="public" static="no">
+        <name>XSK_EFUSEPL_DISABLE_FUSE_CNTRL_WRITE</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>If TRUE will disable programming control bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="646" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="652" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a9e6f29fbe2ae5d0a8888d8babd33ceea" prot="public" static="no">
+        <name>XSK_EFUSEPL_DISABLE_RSA_KEY_READ</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>If TRUE will disable RSA key hash reading and programming. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="650" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="659" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a9f4256a60fd63c50992aa5417b001a53" prot="public" static="no">
+        <name>XSK_EFUSEPL_DISABLE_KEY_WRITE</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>If TRUE will disable AES key programming. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="653" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="666" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1ac077850702136e793b4eebeb68789ee0" prot="public" static="no">
+        <name>XSK_EFUSEPL_DISABLE_USER_KEY_WRITE</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>If TRUE will disable Programming 32 bit User key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="657" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="671" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1aec67e43b447466ee30afe3e3e843f14f" prot="public" static="no">
+        <name>XSK_EFUSEPL_DISABLE_SECURE_WRITE</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>If TRUE will disable programming Secure block. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="660" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="678" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a1fe8e326d51a14890d3613a8de33ca97" prot="public" static="no">
+        <name>XSK_EFUSEPL_DISABLE_RSA_HASH_WRITE</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>If TRUE will disable programming to RSA key hash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="664" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="683" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1aa45b6ddf0ea61824f5ce88825bb17fae" prot="public" static="no">
+        <name>XSK_EFUSEPL_DISABLE_128BIT_USER_KEY_WRITE</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>If TRUE will disable Programming 128 bit User key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="665" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="690" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1ac923fc8de09b3b8bad7f06c48aa04e70" prot="public" static="no">
+        <name>XSK_EFUSEPL_ALLOW_ENCRYPTED_ONLY</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>Following is the define to select if the user wants to program Secure bits. </para>        </briefdescription>
+        <detaileddescription>
+<para>If TRUE will force to use only encrypted bitstreams </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="677" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="699" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1ad14bece75c983e61cf1d11f5765c0d44" prot="public" static="no">
+        <name>XSK_EFUSEPL_FORCE_USE_FUSE_AES_ONLY</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>If TRUE will force to use Secure boot with eFUSE key only. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="682" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="707" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a6199ced282f260e182e7252a78354551" prot="public" static="no">
+        <name>XSK_EFUSEPL_ENABLE_RSA_AUTH</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>If TRUE will enable RSA authentication of bitstream. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="686" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="715" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a71b64715838c481f02f08c0500e6e8c3" prot="public" static="no">
+        <name>XSK_EFUSEPL_DISABLE_JTAG_CHAIN</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>If TRUE then permanently sets the Ultrascale device in bypass mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="690" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="720" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a2cf32a008decb67551ce6d3928e9b8a6" prot="public" static="no">
+        <name>XSK_EFUSEPL_DISABLE_TEST_ACCESS</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>If TRUE will disable internal test access for ULTRASCALE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="694" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="728" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a3c22cfe79258da35575529ac9c5a2fed" prot="public" static="no">
+        <name>XSK_EFUSEPL_DISABLE_AES_DECRYPTOR</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>If TRUE will Disable AES decryptor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="697" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="733" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a856a6d64b6f7bae8f125b3206b984f92" prot="public" static="no">
+        <name>XSK_EFUSEPL_ENABLE_OBFUSCATION_EFUSEAES</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>If TRUE will enable obfuscation feature for eFUSE&apos;s AES key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="702" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="738" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a52ee2396e79f7348aa8129ae832f407e" prot="public" static="no">
+        <name>XSK_EFUSEPL_AXI_GPIO_DEVICE_ID</name>
+        <initializer>XPAR_XGPIO_0_BASEADDR</initializer>
+        <briefdescription>
+<para>Following defines should be given in decimal/hexa-decimal values. </para>        </briefdescription>
+        <detaileddescription>
+<para>These are to be defined for Ultrascale Microblaze AXI GPIO pin numbers connected to MASTER JTAG primitive and corresponding channel numbers for GPIO pins </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="715" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="759" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1ab07d64f1a24bac9013d128decded32a3" prot="public" static="no">
+        <name>XSK_EFUSEPL_AXI_GPIO_JTAG_TDO</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>MASTER JTAG GPIO pin for TDO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="720" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="763" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a3e5671abdf541887baa675db2cb647ab" prot="public" static="no">
+        <name>XSK_EFUSEPL_AXI_GPIO_HWM_READY</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>Tells whether hardware module is ready or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="722" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="766" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a4b46859387bf852a331f3b9d335496f6" prot="public" static="no">
+        <name>XSK_EFUSEPL_AXI_GPIO_HWM_END</name>
+        <initializer>(2)</initializer>
+        <briefdescription>
+<para>Notifies hardware module programming completion. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="725" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="769" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1acd8b2e9d1221ea136d85ec0ff732c004" prot="public" static="no">
+        <name>XSK_EFUSEPL_AXI_GPIO_JTAG_TDI</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>MASTER JTAG GPIO pin for TDI. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="729" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="776" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a6d1a6e92268be8777cb047b602dad96a" prot="public" static="no">
+        <name>XSK_EFUSEPL_AXI_GPIO_JTAG_TMS</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>MASTER JTAG GPIO pin for TMS. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="731" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="779" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1aeb60bdc7ee93e8271fdf9d4c2b371637" prot="public" static="no">
+        <name>XSK_EFUSEPL_AXI_GPIO_JTAG_TCK</name>
+        <initializer>(2)</initializer>
+        <briefdescription>
+<para>MASTER JTAG GPIO pin for TCK. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="733" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="782" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a3313ad0856dd592234aa55030acdd050" prot="public" static="no">
+        <name>XSK_EFUSEPL_AXI_GPIO_HWM_START</name>
+        <initializer>(3)</initializer>
+        <briefdescription>
+<para>Triggers Hardware module, for programming start. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="736" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="785" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a9a81580dacc2270f0daaed8aae100750" prot="public" static="no">
+        <name>XSK_EFUSEPL_GPIO_INPUT_CH</name>
+        <initializer>(2)</initializer>
+        <briefdescription>
+<para>GPIO Channel for which TDO, Hardware module ready and end pins connected. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="739" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="791" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a82e4c58666c3f5f1f08b6588f468702d" prot="public" static="no">
+        <name>XSK_EFUSEPL_GPIO_OUTPUT_CH</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>GPIO Channel for which Hardware module Starte, TDI,. </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>TMS and TCK pin connected </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="742" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="794" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a13ad3c35e580ea044b38e632b35708ee" prot="public" static="no">
+        <name>XSK_EFUSEPL_PROGRAM_AES_KEY</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>Following is the define to select if the user wants to select AES, User, RSA and RES keys for Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>TRUE burns the AES key </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="751" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="805" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1afcc335e078dd3033a2c58dfc6a2b5e7a" prot="public" static="no">
+        <name>XSK_EFUSEPL_PROGRAM_USER_KEY</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>TRUE burns the USER key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="754" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="810" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a8407a268cde433bd3c30dd84bbbba17c" prot="public" static="no">
+        <name>XSK_EFUSEPL_PROGRAM_RSA_KEY_HASH</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>TRUE burns the RSA hash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="757" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="815" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a3352ec7a859c58c3702d1d0bada54f20" prot="public" static="no">
+        <name>XSK_EFUSEPL_PROGRAM_USER_KEY_128BIT</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>TRUE burns 128 bit USER key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="760" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="820" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1ae046eedb98b0ca25cfcf00f398c1e854" prot="public" static="no">
+        <name>XSK_EFUSEPL_CHECK_AES_KEY_CRC</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>TRUE checks AES key with below provided CRC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="765" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="826" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+        <referencedby refid="xilskey__efuse__example_8c_1a4ea026a1ab321b06be36cf1cb5192148" compoundref="xilskey__efuse__example_8c" startline="633" endline="880">XilSKey_EfusePl_ReadnCheck</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a347b687cbd4844cc6b43d2b9137614dc" prot="public" static="no">
+        <name>XSK_EFUSEPL_READ_USER_KEY</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>TRUE read 32 bit USER key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="768" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="833" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+        <referencedby refid="xilskey__efuse__example_8c_1a4ea026a1ab321b06be36cf1cb5192148" compoundref="xilskey__efuse__example_8c" startline="633" endline="880">XilSKey_EfusePl_ReadnCheck</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1abe87a9c44421a207d99847a3a2fe9681" prot="public" static="no">
+        <name>XSK_EFUSEPL_READ_RSA_KEY_HASH</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>TRUE read RSA Hash value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="771" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="838" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+        <referencedby refid="xilskey__efuse__example_8c_1a4ea026a1ab321b06be36cf1cb5192148" compoundref="xilskey__efuse__example_8c" startline="633" endline="880">XilSKey_EfusePl_ReadnCheck</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a7330b5e6185ce49f678bd124191851af" prot="public" static="no">
+        <name>XSK_EFUSEPL_READ_USER_KEY128_BIT</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>TRUE reads 128 bit USER key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="774" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="843" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+        <referencedby refid="xilskey__efuse__example_8c_1a4ea026a1ab321b06be36cf1cb5192148" compoundref="xilskey__efuse__example_8c" startline="633" endline="880">XilSKey_EfusePl_ReadnCheck</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a8b39f907fe8aef2d27f92ed7fbf172ad" prot="public" static="no">
+        <name>XSK_EFUSEPL_AES_KEY_CONFIG_ORDER_0</name>
+        <initializer>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+<para>Following defines should be given in the form of hex string. </para>        </briefdescription>
+        <detaileddescription>
+<para>The length of AES_KEY string must me 64 and for 32 bit USER_KEY must be 8. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="780" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="853" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a56de0f885fa7ceb0acdddce5b6392dcf" prot="public" static="no">
+        <name>XSK_EFUSEPL_AES_KEY_CONFIG_ORDER_1</name>
+        <initializer>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="781" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="854" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1ac6ab23ed2fb156c57d33b47182cd469b" prot="public" static="no">
+        <name>XSK_EFUSEPL_AES_KEY_CONFIG_ORDER_2</name>
+        <initializer>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="782" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="855" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a14dc03df06495a4e0ec2a181f26ff9f1" prot="public" static="no">
+        <name>XSK_EFUSEPL_AES_KEY_CONFIG_ORDER_3</name>
+        <initializer>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="783" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="856" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a0178891e0659a8793d1167aab663ceac" prot="public" static="no">
+        <name>XSK_EFUSEPL_USER_KEY_CONFIG_ORDER_0</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="785" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="858" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1ab1f51b18573ed6a6e57acd5caef0ae09" prot="public" static="no">
+        <name>XSK_EFUSEPL_USER_KEY_CONFIG_ORDER_1</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="786" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="859" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a7d2102c8fee3a4d3da1e6ba1b22e15a5" prot="public" static="no">
+        <name>XSK_EFUSEPL_USER_KEY_CONFIG_ORDER_2</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="787" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="860" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a6a112d14cfe7278d1934ab51c476fb1c" prot="public" static="no">
+        <name>XSK_EFUSEPL_USER_KEY_CONFIG_ORDER_3</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="788" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="861" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a2da041527f9e60608313d0ed3230c0b8" prot="public" static="no">
+        <name>XSK_EFUSEPL_RSA_KEY_HASH_VALUE_CONFIG_ORDER_0</name>
+        <initializer>&quot;000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+<para>Following defines should be given only for Ultrascale the length of RSA string must be 96. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="793" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="866" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a589ea963589cb9e727068334ccce941c" prot="public" static="no">
+        <name>XSK_EFUSEPL_RSA_KEY_HASH_VALUE_CONFIG_ORDER_1</name>
+        <initializer>&quot;000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="794" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="867" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a21fe0c7b7506d702a4808852d47ea738" prot="public" static="no">
+        <name>XSK_EFUSEPL_RSA_KEY_HASH_VALUE_CONFIG_ORDER_2</name>
+        <initializer>&quot;000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="795" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="868" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a411a437dc0a4587ca07cead9d545a62b" prot="public" static="no">
+        <name>XSK_EFUSEPL_RSA_KEY_HASH_VALUE_CONFIG_ORDER_3</name>
+        <initializer>&quot;000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="796" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="869" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a7ea41e599d2f384830c7fd718dfa0113" prot="public" static="no">
+        <name>XSK_EFUSEPL_USER_KEY_128BIT_0_CONFIG_ORDER_0</name>
+        <initializer>&quot;00000000&quot;	/* 31:0 */</initializer>
+        <briefdescription>
+<para>Following define should be given only for Ultrascale the total length of User 128-bit register is 128bit, to make it easier 128 bit register is broken into four 32 bit, single bit programming is also available. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="803" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="876" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1ac37c693686918501cb13277af60ce7d5" prot="public" static="no">
+        <name>XSK_EFUSEPL_USER_KEY_128BIT_1_CONFIG_ORDER_0</name>
+        <initializer>&quot;00000000&quot;	/* 63:32 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="804" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="877" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1accd619af7fdfb120872f06e605c67d14" prot="public" static="no">
+        <name>XSK_EFUSEPL_USER_KEY_128BIT_2_CONFIG_ORDER_0</name>
+        <initializer>&quot;00000000&quot;	/* 95:64 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="805" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="878" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a3e1dbe26841ad0208988517fee4ecf8d" prot="public" static="no">
+        <name>XSK_EFUSEPL_USER_KEY_128BIT_3_CONFIG_ORDER_0</name>
+        <initializer>&quot;00000000&quot;	/* 127:96 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="806" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="879" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a54753bb5e34694d6e608ee5db626288b" prot="public" static="no">
+        <name>XSK_EFUSEPL_USER_KEY_128BIT_0_CONFIG_ORDER_1</name>
+        <initializer>&quot;00000000&quot;	/* 31:0 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="808" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="881" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a6ee87e3dcacce475af3115f984aa4260" prot="public" static="no">
+        <name>XSK_EFUSEPL_USER_KEY_128BIT_1_CONFIG_ORDER_1</name>
+        <initializer>&quot;00000000&quot;	/* 63:32 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="809" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="882" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1af654355dd5b2eafe04d9b01c7722f87f" prot="public" static="no">
+        <name>XSK_EFUSEPL_USER_KEY_128BIT_2_CONFIG_ORDER_1</name>
+        <initializer>&quot;00000000&quot;	/* 95:64 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="810" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="883" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a02e3227c620feaa8ae91349cfd9e569c" prot="public" static="no">
+        <name>XSK_EFUSEPL_USER_KEY_128BIT_3_CONFIG_ORDER_1</name>
+        <initializer>&quot;00000000&quot;	/* 127:96 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="811" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="884" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a47eeccaebae1ee05c121e4a27471589e" prot="public" static="no">
+        <name>XSK_EFUSEPL_USER_KEY_128BIT_0_CONFIG_ORDER_2</name>
+        <initializer>&quot;00000000&quot;	/* 31:0 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="813" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="886" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a3892702388008098e7cd8a92c4d053dc" prot="public" static="no">
+        <name>XSK_EFUSEPL_USER_KEY_128BIT_1_CONFIG_ORDER_2</name>
+        <initializer>&quot;00000000&quot;	/* 63:32 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="814" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="887" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1aec93c7999f9fda1b685f459cdf9e0d83" prot="public" static="no">
+        <name>XSK_EFUSEPL_USER_KEY_128BIT_2_CONFIG_ORDER_2</name>
+        <initializer>&quot;00000000&quot;	/* 95:64 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="815" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="888" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1ace9a213a8f40e340378436dc4d63a935" prot="public" static="no">
+        <name>XSK_EFUSEPL_USER_KEY_128BIT_3_CONFIG_ORDER_2</name>
+        <initializer>&quot;00000000&quot;	/* 127:96 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="816" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="889" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a3835c8d1127fd2353ea4c27e91df0923" prot="public" static="no">
+        <name>XSK_EFUSEPL_USER_KEY_128BIT_0_CONFIG_ORDER_3</name>
+        <initializer>&quot;00000000&quot;	/* 31:0 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="818" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="891" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a387759c17d2c6f9dd4d6c095a95b2a3c" prot="public" static="no">
+        <name>XSK_EFUSEPL_USER_KEY_128BIT_1_CONFIG_ORDER_3</name>
+        <initializer>&quot;00000000&quot;	/* 63:32 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="819" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="892" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1ae09027a691fdc3682e50722d2603ccc1" prot="public" static="no">
+        <name>XSK_EFUSEPL_USER_KEY_128BIT_2_CONFIG_ORDER_3</name>
+        <initializer>&quot;00000000&quot;	/* 95:64 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="820" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="893" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1aaff5f4aeb25938503a96a61d247b47b6" prot="public" static="no">
+        <name>XSK_EFUSEPL_USER_KEY_128BIT_3_CONFIG_ORDER_3</name>
+        <initializer>&quot;00000000&quot;	/* 127:96 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="821" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="894" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a2a87752a585cdc5031b13131abe68085" prot="public" static="no">
+        <name>XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_CONFIG_ORDER_0</name>
+        <initializer>XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS</initializer>
+        <briefdescription>
+<para>Following define is CRC value of expected AES key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="826" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="899" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1afe75ca1365ab21d563e3127deb5d714b" prot="public" static="no">
+        <name>XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_CONFIG_ORDER_1</name>
+        <initializer>XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="827" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="900" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a613dd7f86e7ba37b6c5036536fb3af93" prot="public" static="no">
+        <name>XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_CONFIG_ORDER_2</name>
+        <initializer>XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="828" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="901" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a889f879f404736646f3cb1193d788b12" prot="public" static="no">
+        <name>XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_CONFIG_ORDER_3</name>
+        <initializer>XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="829" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="902" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a3889f2adc0f009d96515da1a00fa71eb" prot="public" static="no">
+        <name>XSK_EFUSEPS_ENABLE_WRITE_PROTECT</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para><heading level="2">Similarly we can define PS eFUSE related data </heading>
+</para>        </briefdescription>
+        <detaileddescription>
+<para>Enable the eFUSE Array write protection </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="843" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="914" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1ae591d283de7547921dda96ed1630dae9" compoundref="xilskey__efuse__example_8c" startline="504" endline="543">XilSKey_EfusePs_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1afe8e63a4e7e38867ee26c0bbc98a9d13" prot="public" static="no">
+        <name>XSK_EFUSEPS_ENABLE_RSA_AUTH</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>Enable the RSA Authentication eFUSE Bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="846" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="919" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1ae591d283de7547921dda96ed1630dae9" compoundref="xilskey__efuse__example_8c" startline="504" endline="543">XilSKey_EfusePs_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1ae6e646b55e445adaac2932f9e3472fc3" prot="public" static="no">
+        <name>XSK_EFUSEPS_ENABLE_ROM_128K_CRC</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>Enable the ROM code 128K crc eFUSE Bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="849" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="924" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1ae591d283de7547921dda96ed1630dae9" compoundref="xilskey__efuse__example_8c" startline="504" endline="543">XilSKey_EfusePs_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1ade1acea86c1f8fc273d692290b65d5c8" prot="public" static="no">
+        <name>XSK_EFUSEPS_DISABLE_DFT_JTAG</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>DFT jtag Disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="852" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="929" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1ae591d283de7547921dda96ed1630dae9" compoundref="xilskey__efuse__example_8c" startline="504" endline="543">XilSKey_EfusePs_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a4c3f1935c4f3a4d845e2b908b0b4a35c" prot="public" static="no">
+        <name>XSK_EFUSEPS_DISABLE_DFT_MODE</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>DFT mode Disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="855" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="934" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1ae591d283de7547921dda96ed1630dae9" compoundref="xilskey__efuse__example_8c" startline="504" endline="543">XilSKey_EfusePs_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a50d686024989f6b036d043335c66469c" prot="public" static="no">
+        <name>XSK_EFUSEPS_ENABLE_RSA_KEY_HASH</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>Enabling this RsaKeyHashValue[64] is written to eFUSE array. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="859" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="939" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1ae591d283de7547921dda96ed1630dae9" compoundref="xilskey__efuse__example_8c" startline="504" endline="543">XilSKey_EfusePs_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a08d28fa4542ea2df3cf4239dfb047641" prot="public" static="no">
+        <name>XSK_EFUSEPS_RSA_KEY_HASH_VALUE</name>
+        <initializer>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="860" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="946" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a8ac2d516599594a2e245fd3260517fac" prot="public" static="no">
+        <name>XSK_BBRAM_MIO_JTAG_TDI</name>
+        <initializer>(17)</initializer>
+        <briefdescription>
+<para>JTAG MIO pin for TDI. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="868" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="954" bodyend="-1"/>
+        <referencedby refid="xilskey__bbram__example_8c_1aa2a34496cba738813e2c992e8d15a260" compoundref="xilskey__bbram__example_8c" startline="108" endline="132">XilSKey_Bbram_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a855df416e26b9d6e82a6b1fd7bed3838" prot="public" static="no">
+        <name>XSK_BBRAM_MIO_JTAG_TDO</name>
+        <initializer>(21)</initializer>
+        <briefdescription>
+<para>JTAG MIO pin for TDO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="869" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="955" bodyend="-1"/>
+        <referencedby refid="xilskey__bbram__example_8c_1aa2a34496cba738813e2c992e8d15a260" compoundref="xilskey__bbram__example_8c" startline="108" endline="132">XilSKey_Bbram_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a185ba8a1bbbe3dce6facb5c7e3add24f" prot="public" static="no">
+        <name>XSK_BBRAM_MIO_JTAG_TCK</name>
+        <initializer>(19)</initializer>
+        <briefdescription>
+<para>JTAG MIO pin for TCK. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="870" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="956" bodyend="-1"/>
+        <referencedby refid="xilskey__bbram__example_8c_1aa2a34496cba738813e2c992e8d15a260" compoundref="xilskey__bbram__example_8c" startline="108" endline="132">XilSKey_Bbram_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a0ef1e832969a454349d7ed62d82e88b1" prot="public" static="no">
+        <name>XSK_BBRAM_MIO_JTAG_TMS</name>
+        <initializer>(20)</initializer>
+        <briefdescription>
+<para>JTAG MIO pin for TMS. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="871" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="957" bodyend="-1"/>
+        <referencedby refid="xilskey__bbram__example_8c_1aa2a34496cba738813e2c992e8d15a260" compoundref="xilskey__bbram__example_8c" startline="108" endline="132">XilSKey_Bbram_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a752dcf195942b7d9a7d4e01d01e2b7fe" prot="public" static="no">
+        <name>XSK_BBRAM_MIO_JTAG_MUX_SELECT</name>
+        <initializer>(11)</initializer>
+        <briefdescription>
+<para>JTAG MIO pin for MUX selection line. </para>        </briefdescription>
+        <detaileddescription>
+<para>Default value to enable the PL JTAG </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="874" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="958" bodyend="-1"/>
+        <referencedby refid="xilskey__bbram__example_8c_1aa2a34496cba738813e2c992e8d15a260" compoundref="xilskey__bbram__example_8c" startline="108" endline="132">XilSKey_Bbram_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a3cfcbbb0e22d3b06d789263e7ba21dd9" prot="public" static="no">
+        <name>XSK_BBRAM_MIO_MUX_SEL_DEFAULT_VAL</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="878" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="966" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a5b69a281922edbcc3706b4a7f9843d00" prot="public" static="no">
+        <name>XSK_BBRAM_AES_KEY</name>
+        <initializer>&quot;349de4571ae6d88de23de65489acf67000ff5ec901ae3d409aabbce4549812dd&quot;</initializer>
+        <briefdescription>
+<para>This is the 256 bit key to be programmed into BBRAM. </para>        </briefdescription>
+        <detaileddescription>
+<para>This should entered by user in HEX. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="883" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="971" bodyend="-1"/>
+        <referencedby refid="xilskey__bbram__example_8c_1aa2a34496cba738813e2c992e8d15a260" compoundref="xilskey__bbram__example_8c" startline="108" endline="132">XilSKey_Bbram_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__input_8h_1a022b305bf65f6c4cc6abf24a20ceea96" prot="public" static="no">
+        <name>XSK_BBRAM_AES_KEY_SIZE_IN_BITS</name>
+        <initializer>256</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" line="885" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h" bodystart="973" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para><verbatim>                                   User configurable parameters for PS eFUSE
+   ---------------------------------------------------------------------------
+   #define XSK_EFUSEPS_ENABLE_WRITE_PROTECT                                FALSE
+
+   TRUE to burn the write protect bits in eFUSE array. Write protect
+   has two bits, when any of the bit is blown, it is considered as write
+   protected. So, while burning the Write protect bits, even if one bit is
+   blown, write API returns success. Note that, POR reset is required after
+   burning, for write protection of the eFUSE bits to come into effect.
+   It is recommended to do the POR reset after write protection.
+   Also note that, once write protect bits are burned, no more eFUSE writes
+   are possible. So, please be sure when burning the write protect bits.
+   If the Write protect macro is TRUE with other macros, write protect will
+   be burned in the last, after burning all the defined values, so that for
+   any error while burning other macros will not effect the total eFUSE array.
+   FALSE will not modify the write protect bits.
+
+   #define XSK_EFUSEPS_ENABLE_RSA_AUTH                                     FALSE
+
+   TRUE to burn the RSA enable bit in PS eFUSE array. After enabling the bit,
+   every successive boot must be RSA enabled apart from JTAG. Before burning
+   this bit, make sure that eFUSE array has the valid PPK hash.If the PPK hash
+   burning is enabled, only after writing the hash successfully, RSA enable
+   bit will be blown. Note that, for RSA enable bit to take effect, POR reset
+   is required.
+   FALSE will not modify the RSA enable bit.
+
+   #define XSK_EFUSEPS_ENABLE_ROM_128K_CRC                         FALSE
+   TRUE will burn the ROM 128k crc bit. Every successive boot after this,
+   BootROM will calculate 128k crc. FALSE will not modify the ROM CRC128K bit.
+
+   #define XSK_EFUSEPS_DISABLE_DFT_JTAG            FALSE
+   TRUE will disable DFT JTAG permanently.
+   FALSE will not modify the eFuse PS DFT JTAG disable bit
+
+   #define XSK_EFUSEPS_DISABLE_DFT_MODE            FALSE
+   TRUE will disable DFT mode permanently.
+   FALSE will not modify the eFuse PS DFT mode disable bit
+
+   #define XSK_EFUSEPS_ENABLE_RSA_KEY_HASH                         FALSE
+   TRUE will burn the eFUSE hash, that is given in XSK_EFUSEPS_RSA_KEY_HASH_VALUE
+   when write API is used. TRUE will read the eFUSE hash when read API is used
+   and will be read into structure. FALSE will ignore the value given.
+
+   #define XSK_EFUSEPS_RSA_KEY_HASH_VALUE
+                   &quot;c8bb4d9e1fcdbd27b99d48a3df5720b98f35bafabb1e10333a78322fb82ce63d&quot;
+
+   The value mentioned in this will be converted to hex buffer and written
+   into the PS eFUSE array when write API used. This value should be the
+   PPK(Primary Public Key) hash given in string format. It should be 64
+   characters long, valid characters are 0-9,a-f,A-F. Any other character
+   is considered as invalid string and will not burn RSA hash.
+
+   Note: When XilSKey_EfusePs_Write() API is used, above mentioned RSA hash
+   is written and  XSK_EFUSEPS_ENABLE_RSA_KEY_HASH should have TRUE value.
+
+                           User configurable parameters for PL eFUSE for Zynq
+   -----------------------------------------------------------------------
+   #define         XSK_EFUSEPL_FORCE_PCYCLE_RECONFIG                       FALSE
+   TRUE then part has to be power cycled to be able to be reconfigured.
+   FALSE will not set the eFUSE control bit.
+
+   #define         XSK_EFUSEPL_DISABLE_KEY_WRITE                           FALSE
+   TRUE will disable eFUSE write to FUSE_AES and FUSE_USER blocks
+   XFLASE will enable eFUSE write to FUSE_AES and FUSE_USER blocks
+
+   #define         XSK_EFUSEPL_DISABLE_AES_KEY_READ                        FALSE
+   TRUE will disable the write to FUSE_AES &amp; FUSE_USER key &amp; disables
+   read of FUSE_AES.
+   FALSE will enable eFUSE read from &amp; write to FUSE_AES and FUSE_USER blocks
+
+   #define         XSK_EFUSEPL_DISABLE_USER_KEY_READ                       FALSE
+   TRUE will disable the write to FUSE_AES &amp; FUSE_USER key &amp; disables read of
+   FUSE_USER
+   FALSE will enable eFUSE read from &amp; write to FUSE_AES and FUSE_USER blocks
+
+   Note: If any one of the above two definitions are FALSE then reading of
+   FUSE_AES &amp; FUSE_USER is not possible
+
+   #define         XSK_EFUSEPL_DISABLE_FUSE_CNTRL_WRITE            FALSE
+   TRUE will disable the eFUSE write to FUSE_CTRL block
+   FALSE will not set the eFUSE control bit, so that user can write into
+   FUSE_CTRL block later.
+
+   #define         XSK_EFUSEPL_FORCE_USE_AES_ONLY                          FALSE
+   TRUE will force to use secure boot with eFUSE AES key only
+   FALSE will not set the eFUSE control bit so that user can use non-secure
+   boot.
+
+   #define         XSK_EFUSEPL_DISABLE_JTAG_CHAIN                          FALSE
+   If TRUE then permanently sets the Zynq ARM DAP controller in bypass mode.
+   FALSE will allow Zynq ARM DAP visible through JTAG.
+
+   #define         XSK_EFUSEPL_BBRAM_KEY_DISABLE                           FALSE
+   TRUE will force eFUSE key to be used if booting Secure Image.
+   FALSE will not set the eFUSE control bit so that user can use secure boot
+   with BBRAM key.
+
+   Following are the MIO pins used for PL JTAG operations.
+   User can change these pins as their discretion.
+   #define         XSK_EFUSEPL_MIO_JTAG_TDI                                (17)
+   #define         XSK_EFUSEPL_MIO_JTAG_TDO                                (21)
+   #define         XSK_EFUSEPL_MIO_JTAG_TCK                                (19)
+   #define         XSK_EFUSEPL_MIO_JTAG_TMS                                (20)
+
+   MUX selection pin:
+   #define         XSK_EFUSEPL_MIO_JTAG_MUX_SELECT         (11)
+   This pin is used to select between the external JTAG or MIO driving JTAG
+   operations.
+
+   #define         XSK_EFUSEPL_MIO_MUX_SEL_DEFAULT_VAL                             LOW
+   LOW writes zero on the mux select line before writing the PL eFUSE
+   HIGH writes one on the mux select line before writing the PL eFUSE
+
+   #define XSK_EFUSEPL_PROGRAM_AES_AND_USER_LOW_KEY                FALSE
+   TRUE will burn the AES &amp; User Low hash key, that is given in
+   XSK_EFUSEPL_AES_KEY &amp; XSK_EFUSEPL_USER_LOW_KEY respectively.
+   FALSE will ignore the values given.
+
+   Note: User cannot write AES Key &amp; User Low Key separately.
+
+   #define XSK_EFUSEPL_PROGRAM_USER_HIGH_KEY                               FALSE
+   TRUE will burn the User High hash key, that is given in
+   XSK_EFUSEPL_AES_KEY &amp; XSK_EFUSEPL_USER_LOW_KEY respectively.
+   FALSE will ignore the values given.
+
+   #define         XSK_EFUSEPL_AES_KEY
+           &quot;0000000000000000000000000000000000000000000000000000000000000000&quot;
+   The value mentioned in this will be converted to hex buffer and written
+   into the PL eFUSE array when write API used. This value should be the
+   AES key given in string format. It should be 64
+   characters long, valid characters are 0-9,a-f,A-F. Any other character
+   is considered as invalid string and will not burn AES Key. Note that,
+   for writing the AES Key, XSK_EFUSEPL_PROGRAM_AES_AND_USER_LOW_KEY should
+   have TRUE value.
+
+   #define         XSK_EFUSEPL_USER_LOW_KEY                        &quot;00&quot;
+   The value mentioned in this will be converted to hex buffer and written
+   into the PL eFUSE array when write API used. This value should be the
+   User Low Key given in string format. It should be 2 characters long, valid
+    characters are 0-9,a-f,A-F. Any other character is considered as invalid
+    string and will not burn User Low Key. Note that, for writing the AES Key,
+    XSK_EFUSEPL_PROGRAM_AES_AND_USER_LOW_KEY should have TRUE value.
+
+
+   #define         XSK_EFUSEPL_USER_HIGH_KEY                       &quot;000000&quot;
+   The value mentioned in this will be converted to hex buffer and written
+   into the PL eFUSE array when write API used. This value should be the User
+    High Key given in string format. It should be 6 characters long, valid
+    characters are 0-9,a-f,A-F. Any other character is considered as invalid
+    string and will not burn User High Key. Note that, for writing the AES
+    Key, XSK_EFUSEPL_PROGRAM_USER_HIGH_KEY should have TRUE value.
+</verbatim></para></simplesect>
+<heading level="2">BBRAM related definitions: </heading>
+</para><para>MIO pins used for JTAG signals. Can be changed as per hardware. #define XSK_BBRAM_MIO_JTAG_TDI (17) #define XSK_BBRAM_MIO_JTAG_TDO (21) #define XSK_BBRAM_MIO_JTAG_TCK (19) #define XSK_BBRAM_MIO_JTAG_TMS (20) #define XSK_BBRAM_MIO_JTAG_MUX_SELECT (11) #define XSK_BBRAM_MIO_MUX_SEL_DEFAULT_VAL LOW Default value to enable the PL JTAG This is the 256 bit key to be programmed into BBRAM. This should entered by user in HEX. #define XSK_BBRAM_AES_KEY &quot;349de4571ae6d88de23de65489acf67000ff5ec901ae3d409aabbce4549812dd&quot; #define XSK_BBRAM_AES_KEY_SIZE_IN_BITS 256 <verbatim>   User configurable parameters for PL eFUSE for Kintex Ultrascale
+   -----------------------------------------------------------------------
+   #define XSK_EFUSEPL_PGM_SLR_CONFIG_ORDER_0      FALSE
+   #define XSK_EFUSEPL_PGM_SLR_CONFIG_ORDER_1      FALSE
+   #define XSK_EFUSEPL_PGM_SLR_CONFIG_ORDER_2      FALSE
+   #define XSK_EFUSEPL_PGM_SLR_CONFIG_ORDER_3      FALSE
+   TRUE will select particular SLR(1/2/3/4) to program:
+   - AES Keys(256bits/SLR)
+   - User Fuse bits (32bits/SLR)
+   - User Keys (128bits/SLR)
+   - RSA Public Key HASH (384bits/SLR)
+   FALSE will disable programming.
+
+   #define XSK_EFUSEPL_DISABLE_AES_KEY_READ        FALSE
+   TRUE will permanently disables the write to FUSE_AES and
+   check CRC for AES key by programming control bit of FUSE.
+   FALSE will not modify this control bit of eFuse.
+
+   #define XSK_EFUSEPL_DISABLE_USER_KEY_READ       FALSE
+   TRUE will permanently disables the write to 32 bit FUSE_USER and
+   read of FUSE_USER key by programming control bit of FUSE.
+   FALSE will not modify this control bit of eFuse.
+
+   #define XSK_EFUSEPL_DISABLE_SECURE_READ         FALSE
+   TRUE will permanently disables the write to FUSE_Secure block
+   and reading of secure block by programming control bit of FUSE.
+   FALSE will not modify this control bit of eFuse.
+
+   #define XSK_EFUSEPL_DISABLE_FUSE_CNTRL_WRITE    FALSE
+   TRUE will permanently disables the write to FUSE_CNTRL block
+   by programming control bit of FUSE.
+   FALSE will not modify this control bit of eFuse.
+
+   #define XSK_EFUSEPL_DISABLE_RSA_KEY_READ        FALSE
+   TRUE will permanently disables the write to FUSE_RSA block and
+   reading of FUSE_RSA Hash by programming control bit of FUSE.
+   FALSE will not modify this control bit of eFuse.
+
+   #define XSK_EFUSEPL_DISABLE_KEY_WRITE           FALSE
+   TRUE will permanently disables the write to FUSE_AES block by
+   programming control bit of FUSE.
+   FALSE will not modify this control bit of eFuse.
+
+   #define XSK_EFUSEPL_DISABLE_USER_KEY_WRITE      FALSE
+   TRUE will permanently disables the write to FUSE_USER block
+   by programming control bit of FUSE.
+   FALSE will not modify this control bit of eFuse.
+
+   #define XSK_EFUSEPL_DISABLE_SECURE_WRITE        FALSE
+   TRUE will permanently disables the write to FUSE_SECURE block
+   by programming control bit of FUSE.
+   FALSE will not modify this control bit of eFuse.
+
+   #define XSK_EFUSEPL_DISABLE_RSA_HASH_WRITE      FALSE
+   TRUE will permanently disables the write to FUSE_RSA authentication
+   key by programming control bit of FUSE.
+   FALSE will not modify this control bit of eFuse.
+
+   #define XSK_EFUSEPL_DISABLE_128BIT_USER_KEY_WRITE       FALSE
+   TRUE will permanently disables the write to 128 bit FUSE_USER
+   by programming control bit of FUSE.
+   FALSE will not modify this control bit of eFuse
+
+   #define XSK_EFUSEPL_ALLOW_ENCRYPTED_ONLY        FALSE
+   TRUE will permanently allows encrypted bitstream only.
+   FALSE will not modify this Secure bit of eFuse.
+
+   #define XSK_EFUSEPL_FORCE_USE_FUSE_AES_ONLY     FALSE
+   TRUE then allows only FUSE&apos;s AES key as source of encryption
+   FALSE then allows FPGA to configure an unencrypted bitstream or
+   bitstream encrypted using key stored BBRAM or eFuse.
+
+   #define XSK_EFUSEPL_ENABLE_RSA_AUTH             FALSE
+   TRUE will enable RSA authentication of bitstream
+   FALSE will not modify this secure bit of eFuse.
+
+   #define XSK_EFUSEPL_DISABLE_JTAG_CHAIN          FALSE
+   TRUE will disable JTAG permanently.
+   FALSE will not modify this secure bit of eFuse.
+
+   #define XSK_EFUSEPL_DISABLE_TEST_ACCESS         FALSE
+   TRUE will disables Xilinx test access.
+   FALSE will not modify this secure bit of eFuse.
+
+   #define XSK_EFUSEPL_DISABLE_AES_DECRYPTOR       FALSE
+   TRUE will disables decoder completely.
+   FALSE will not modify this secure bit of eFuse.
+
+   #define XSK_EFUSEPL_ENABLE_OBFUSCATION_EFUSEAES FALSE
+   TRUE will enable obfuscation feature for eFUSE AES key,
+   this instructs the device to decode the eFUSE AES key
+   to actual AES key before decrypting the bitstream.
+   FALSE will not modify this secure bit of eFUSE.
+
+  #define XSK_EFUSEPL_AXI_GPIO_DEVICE_ID  XPAR_AXI_GPIO_0_DEVICE_ID
+  Default value is XPAR_AXI_GPIO_0_DEVICE_ID
+  This macro is for providing exact GPIO device ID, based on the
+  design configuration this macro should be modified to provide
+  GPIO device ID which is used for connecting MASTER JTAG pins.
+
+   In Ultrascale GPIO pins used for connecting MASTER_JTAG pins and
+   hardware module to access eFUSE.
+   Following are the GPIO pins and user can change these pins
+   #define XSK_EFUSEPL_AXI_GPIO_JTAG_TDO   (0)
+   #define XSK_EFUSEPL_AXI_GPIO_HWM_READY  (1)
+   #define XSK_EFUSEPL_AXI_GPIO_HWM_END    (2)
+
+   #define XSK_EFUSEPL_AXI_GPIO_JTAG_TDI   (0)
+   #define XSK_EFUSEPL_AXI_GPIO_JTAG_TMS   (1)
+   #define XSK_EFUSEPL_AXI_GPIO_JTAG_TCK   (2)
+   #define XSK_EFUSEPL_AXI_GPIO_HWM_START  (3)
+
+   #define XSK_EFUSEPL_GPIO_INPUT_CH                       (2)
+   This macro is for providing channel number of ALL INPUTS connected
+   (Master JTAG&apos;s - TDO, Hardware module&apos;s - READY and END)
+   #define XSK_EFUSEPL_GPIO_OUTPUT_CH                      (1)
+   This macro is for providing channel number of ALL OUTPUTS connected
+   (Master JTAG&apos;s - TDI, TCK, TMS,and Hardware module&apos;s - START)
+
+   NOTE: All inputs and outputs of GPIO can be configured in single
+   channel also
+   i.e XSK_EFUSEPL_GPIO_INPUT_CH = XSK_EFUSEPL_GPIO_OUTPUT_CH = 1 or 2.
+   Among (TDI, TCK, TMS, START) Outputs of GPIO cannot be connected to
+   different GPIO channels all the 4 signals should be in same channel.
+   (TDO, READY and END) can be a other channel of (TDI, TCK, TMS, START)
+   or the same.
+
+   #define XSK_EFUSEPL_PROGRAM_AES_KEY             FALSE
+   TRUE will burn the AES key given in XSK_EFUSEPL_AES_KEY.
+   FALSE will ignore the values given.
+
+   #define XSK_EFUSEPL_PROGRAM_USER_KEY    FALSE
+   TRUE will burn 32 bit User key given in XSK_EFUSEPL_USER_KEY
+   FALSE will ignore the values given.
+
+   #define XSK_EFUSEPL_PROGRAM_RSA_HASH    FALSE
+   TRUE will burn RSA hash given in XSK_EFUSEPL_RSA_KEY_HASH_VALUE
+   FALSE will ignore the values given.
+
+   #define XSK_EFUSEPL_PROGRAM_USER_KEY_128BIT     FALSE
+   TRUE will burn 128 bit User key given in XSK_EFUSEPL_USER_KEY_128BIT_CONFIG_ORDER_0,
+   XSK_EFUSEPL_USER_KEY_128BIT_CONFIG_ORDER_1, XSK_EFUSEPL_USER_KEY_128BIT_CONFIG_ORDER_2,
+   XSK_EFUSEPL_USER_KEY_128BIT_CONFIG_ORDER_3
+   FALSE will ignore the values given.
+
+   #define XSK_EFUSEPL_CHECK_AES_KEY               FALSE
+   TRUE will perform CRC check of FUSE_AES with provided CRC value in macro
+   XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY.
+   And result of CRC check will be updated in XilSKey_EPl instance
+   parameter AESKeyMatched with either TRUE or FALSE.
+   FALSE CRC check of FUSE_AES will not be performed.
+
+   #define XSK_EFUSEPL_READ_USER_KEY               FALSE
+   TRUE will read 32 bit FUSE_USER from Ultrascale&apos;s eFuse and updates in
+   XilSKey_EPl instance parameter UserKeyReadback
+   FALSE 32 bit FUSE_USER key read will not be performed.
+
+   #define XSK_EFUSEPL_READ_RSA_HASH               FALSE
+   TRUE will read FUSE_USER from Ultrascale&apos;s eFuse and updates in
+   XilSKey_EPl instance parameter RSAHashReadback
+   FALSE FUSE_RSA_HASH read will not be performed.
+
+   #define XSK_EFUSEPL_READ_USER_KEY128_BIT        FALSE
+   TRUE will read 128 bit USER key from Ultrascale&apos;s eFuse and updates in
+   XilSKey_EPl instance parameter User128BitReadBack
+   FALSE 128 bit USER key read will not be performed.
+
+   #define XSK_EFUSEPL_AES_KEY_CONFIG_ORDER_0
+   &quot;0000000000000000000000000000000000000000000000000000000000000000&quot;
+   #define XSK_EFUSEPL_AES_KEY_CONFIG_ORDER_1
+   &quot;0000000000000000000000000000000000000000000000000000000000000000&quot;
+   #define XSK_EFUSEPL_AES_KEY_CONFIG_ORDER_2
+   &quot;0000000000000000000000000000000000000000000000000000000000000000&quot;
+   #define XSK_EFUSEPL_AES_KEY_CONFIG_ORDER_3
+   &quot;0000000000000000000000000000000000000000000000000000000000000000&quot;
+   The value mentioned in this will be converted to hex buffer and written
+   into the PL eFUSE array when write API used. This value should be the
+   AES key given in string format. It should be 64
+   characters long, valid characters are 0-9,a-f,A-F. Any other character
+   is considered as invalid string and will not burn AES Key. Note that,
+   for writing the AES Key, XSK_EFUSEPL_PROGRAM_AES_KEY for
+   particular SLR(1/2/3/4)should have TRUE value.
+
+   #define XSK_EFUSEPL_USER_KEY_CONFIG_ORDER_0     &quot;00000000&quot;
+   #define XSK_EFUSEPL_USER_KEY_CONFIG_ORDER_1     &quot;00000000&quot;
+   #define XSK_EFUSEPL_USER_KEY_CONFIG_ORDER_2     &quot;00000000&quot;
+   #define XSK_EFUSEPL_USER_KEY_CONFIG_ORDER_3             &quot;00000000&quot;
+   The value mentioned in this will be converted to hex buffer and written
+   into the PL eFUSE array when write API used. This value should be the
+   User Key given in string format. It should be 8 characters long, valid
+   characters are 0-9,a-f,A-F. Any other character is considered as invalid
+   string and will not burn User Key. Note that, for writing the User Key,
+   XSK_EFUSEPL_PROGRAM_USER_KEY_ULTRA for particular SLR(1/2/3/4)should
+   have TRUE value.
+
+   #define XSK_EFUSEPL_RSA_KEY_HASH_VALUE_CONFIG_ORDER_0
+           &quot;0000000000000000000000000000000000000000000000 \
+           00000000000000000000000000000000000000000000000000&quot;
+   #define XSK_EFUSEPL_RSA_KEY_HASH_VALUE_CONFIG_ORDER_1
+           &quot;0000000000000000000000000000000000000000000000  \
+           00000000000000000000000000000000000000000000000000&quot;
+   #define XSK_EFUSEPL_RSA_KEY_HASH_VALUE_CONFIG_ORDER_2
+           &quot;0000000000000000000000000000000000000000000000  \
+           00000000000000000000000000000000000000000000000000&quot;
+   #define XSK_EFUSEPL_RSA_KEY_HASH_VALUE_CONFIG_ORDER_3
+           &quot;0000000000000000000000000000000000000000000000  \
+           00000000000000000000000000000000000000000000000000&quot;
+   The value mentioned in this will be converted to hex buffer and written
+   into the PL eFUSE array when write API used. This value should be the
+   RSA Key hash given in string format. It should be 96 characters long,
+   valid characters are 0-9,a-f,A-F. Any other character is considered as
+   invalid string and will not burn RSA hash value. Note that, for writing
+   the RSA hash, XSK_EFUSEPL_PROGRAM_RSA_HASH_ULTRA for particular SLR(1/2/3/4)
+   should have TRUE value.
+
+   #define XSK_EFUSEPL_USER_KEY_128BIT_0_CONFIG_ORDER_0    &quot;00000000&quot;
+   #define XSK_EFUSEPL_USER_KEY_128BIT_1_CONFIG_ORDER_0    &quot;00000000&quot;
+   #define XSK_EFUSEPL_USER_KEY_128BIT_2_CONFIG_ORDER_0    &quot;00000000&quot;
+   #define XSK_EFUSEPL_USER_KEY_128BIT_3_CONFIG_ORDER_0    &quot;00000000&quot;
+
+   #define XSK_EFUSEPL_USER_KEY_128BIT_0_CONFIG_ORDER_1    &quot;00000000&quot;
+   #define XSK_EFUSEPL_USER_KEY_128BIT_1_CONFIG_ORDER_1    &quot;00000000&quot;
+   #define XSK_EFUSEPL_USER_KEY_128BIT_2_CONFIG_ORDER_1    &quot;00000000&quot;
+   #define XSK_EFUSEPL_USER_KEY_128BIT_3_CONFIG_ORDER_1    &quot;00000000&quot;
+
+   #define XSK_EFUSEPL_USER_KEY_128BIT_0_CONFIG_ORDER_2    &quot;00000000&quot;
+   #define XSK_EFUSEPL_USER_KEY_128BIT_1_CONFIG_ORDER_2    &quot;00000000&quot;
+   #define XSK_EFUSEPL_USER_KEY_128BIT_2_CONFIG_ORDER_2    &quot;00000000&quot;
+   #define XSK_EFUSEPL_USER_KEY_128BIT_3_CONFIG_ORDER_2    &quot;00000000&quot;
+
+   #define XSK_EFUSEPL_USER_KEY_128BIT_0_CONFIG_ORDER_3    &quot;00000000&quot;
+   #define XSK_EFUSEPL_USER_KEY_128BIT_1_CONFIG_ORDER_3    &quot;00000000&quot;
+   #define XSK_EFUSEPL_USER_KEY_128BIT_2_CONFIG_ORDER_3    &quot;00000000&quot;
+   #define XSK_EFUSEPL_USER_KEY_128BIT_3_CONFIG_ORDER_3    &quot;00000000&quot;
+   The above four macros are meant for providing 128 bit User key for SLR(1/2/3/4),
+   XSK_EFUSEPL_USER_KEY_128BIT_CONFIG_ORDER_0 holds 31:0 bits,
+   XSK_EFUSEPL_USER_KEY_128BIT_CONFIG_ORDER_1 holds 63:32 bits,
+   XSK_EFUSEPL_USER_KEY_128BIT_CONFIG_ORDER_2 holds 95:64 bits and
+   XSK_EFUSEPL_USER_KEY_128BIT_CONFIG_ORDER_3 holds 127:96 bits of whole 128 bit User
+   key.
+   The value mentioned in this will be converted to hex buffer and written
+   into the PL eFUSE array when write API used. This value should be the
+   User Key given in string format. It should be 8 characters long, valid
+   characters are 0-9,a-f,A-F. Any other character is considered as invalid
+   string and will not burn User Key. Note that, for writing the User Key,
+   XSK_EFUSEPL_PROGRAM_USER_KEY_128BIT should have TRUE value.
+
+   #define XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_CONFIG_ORDER_0
+   XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS
+</verbatim> #define XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_CONFIG_ORDER_1 XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS #define XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_CONFIG_ORDER_2 XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS #define XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_CONFIG_ORDER_3 XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS</para><para>XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS is the default value for all SLRs and is hexadecimal CRC value of FUSE_AES with all Zeros. Please provide CRC of the AES key programmed. For Checking CRC of FUSE_AES XSK_EFUSEPL_CHECK_AES_KEY_ULTRA macro should be TRUE otherwise CRC check will not be performed. For calculation of AES key&apos;s CRC one can use u32 XilSKey_CrcCalculation(u8 *Key) API</para><para>NOTE:Please make sure you have sufficient heap and stack to run this application. For more information on creating vivado design please refer to xapp1283.</para><para><preformatted>
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who      Date     Changes
+<hruler/>
+
+ 1.00a rpoolla 04/26/13 First release
+ 1.01a hk      09/18/13 Added BBRAM related definitions
+ 3.00  vns     31/07/15 Added efuse functionality for Ultrascale.
+                        In Ultrascale GPIO pins and channels macros are added
+                        to access Master Jtag primitive and also added
+                        extra control bits and secure bits for Ultrascale&apos;s
+                        eFuse.
+ 4.00  vns     09/10/15 Added DFT JTAG disable and DFT MODE disable programming
+                        options for Zynq eFuse PS.
+ 6.0   vns     07/07/16 Added Gpio pin numbers connected to hardware module.
+               27/08/16 Modified XSK_EFUSEPL_DISABLE_DECODER macro to
+                        XSK_EFUSEPL_DISABLE_AES_DECRYPTOR
+ 6.1   vns     10/25/16 Removed XSK_BBRAM_FORCE_PCYCLE_RECONFIG and
+                        XSK_BBRAM_DISABLE_JTAG_CHAIN, from Zynq BBRAM
+                        configurations as they are not actually
+                        programming any control bit. These 2 are part of the
+                        eFUSE PL and they already exist at eFUSE PL
+                        configurations (XSK_EFUSEPL_FORCE_PCYCLE_RECONFIG and
+                        XSK_EFUSEPL_DISABLE_JTAG_CHAIN)
+ 6.4   vns     02/27/18 Added support for programming secure bit -
+                        enable obfuscation feature for eFUSE AES key
+ 6.7   psl     03/20/19 Added eFuse key write support for SSIT devices.
+       psl     03/29/19 Added support for user configurable GPIO for
+                        jtag control.
+ 6.8   psl     05/28/19 Added Macro for expected CRC of AES key for different
+                        SLR.
+ 6.8   psl     06/07/19 Added doxygen tags.
+ 7.5   ng      07/13/23 added SDT support
+ 7.6   vss     04/08/25 Corrected efuse AXI GPIO device ID macro name.
+ 7.9   rpu     03/26/26 Updated efuse AXI GPIO device base address macro name.
+ </preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2013<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="491"><highlight class="preprocessor">#ifndef<sp/>XILSKEY_INPUT_H</highlight></codeline>
+<codeline lineno="492"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILSKEY_INPUT_H</highlight></codeline>
+<codeline lineno="493"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="494"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="495"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="497"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="498"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="499"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="500"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="501"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="502"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="503"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="504"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_DRIVER</highlight></codeline>
+<codeline lineno="505"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_DRIVER</highlight></codeline>
+<codeline lineno="506"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="507"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XSK_EFUSEPL_DRIVER</highlight></codeline>
+<codeline lineno="508"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="512" refid="xilskey__input_8h_1ab811d8c6ff3a505312d3276590444289" refkind="member"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="513"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HIGH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="514"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="519"><highlight class="preprocessor">#ifdef<sp/>XSK_ARM_PLATFORM</highlight></codeline>
+<codeline lineno="520"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="525"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_FORCE_PCYCLE_RECONFIG<sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/></highlight></codeline>
+<codeline lineno="529"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_DISABLE_KEY_WRITE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/></highlight></codeline>
+<codeline lineno="533"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_DISABLE_AES_KEY_READ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/></highlight></codeline>
+<codeline lineno="538"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_DISABLE_USER_KEY_READ<sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/></highlight></codeline>
+<codeline lineno="544"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_DISABLE_FUSE_CNTRL_WRITE<sp/><sp/><sp/><sp/>FALSE<sp/></highlight></codeline>
+<codeline lineno="548"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_FORCE_USE_AES_ONLY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/></highlight></codeline>
+<codeline lineno="552"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_DISABLE_JTAG_CHAIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/></highlight></codeline>
+<codeline lineno="557"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_BBRAM_KEY_DISABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/></highlight></codeline>
+<codeline lineno="570"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_MIO_JTAG_TDI<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(17)<sp/></highlight></codeline>
+<codeline lineno="571"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_MIO_JTAG_TDO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(21)<sp/></highlight></codeline>
+<codeline lineno="572"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_MIO_JTAG_TCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(19)<sp/></highlight></codeline>
+<codeline lineno="573"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_MIO_JTAG_TMS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(20)<sp/></highlight></codeline>
+<codeline lineno="574"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_MIO_JTAG_MUX_SELECT<sp/>(11)<sp/></highlight></codeline>
+<codeline lineno="580"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_MIO_MUX_SEL_DEFAULT_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOW<sp/></highlight></codeline>
+<codeline lineno="589"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_PROGRAM_AES_AND_USER_LOW_KEY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/></highlight></codeline>
+<codeline lineno="592"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_PROGRAM_USER_HIGH_KEY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/></highlight></codeline>
+<codeline lineno="599"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_AES_KEY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="600"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_USER_LOW_KEY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;00&quot;</highlight></codeline>
+<codeline lineno="601"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_USER_HIGH_KEY<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;000000&quot;</highlight></codeline>
+<codeline lineno="602"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="606"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="607"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="608"><highlight class="normal"></highlight><highlight class="comment">/*<sp/><sp/><sp/><sp/><sp/><sp/>Select<sp/>the<sp/>SLR(s)<sp/>to<sp/>write</highlight></codeline>
+<codeline lineno="609"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>All<sp/>the<sp/>control<sp/>information<sp/>cannot<sp/>be<sp/>independently<sp/>selected</highlight></codeline>
+<codeline lineno="610"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>with<sp/>following<sp/>exceptions</highlight></codeline>
+<codeline lineno="611"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>AES<sp/>Keys(256bits/SLR)</highlight></codeline>
+<codeline lineno="612"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>User<sp/>Fuse<sp/>bits<sp/>(32bits/SLR)</highlight></codeline>
+<codeline lineno="613"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>User<sp/>Keys<sp/>(128bits/SLR)</highlight></codeline>
+<codeline lineno="614"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>RSA<sp/>Public<sp/>Key<sp/>HASH<sp/>(384bits/SLR)</highlight></codeline>
+<codeline lineno="615"><highlight class="comment"><sp/>**/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="616" refid="xilskey__input_8h_1a9dc2b1efc06cb416f47f666cb928ce95" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_PGM_SLR_CONFIG_ORDER_0<sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="617"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_PGM_SLR_CONFIG_ORDER_1<sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="618"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_PGM_SLR_CONFIG_ORDER_2<sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="619"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_PGM_SLR_CONFIG_ORDER_3<sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="620"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="621"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Definition<sp/>of<sp/>CRC<sp/>of<sp/>all<sp/>zeros<sp/>AES<sp/>key<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="622"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XSK_MICROBLAZE_ULTRA_PLUS</highlight></codeline>
+<codeline lineno="623"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_CRC_FOR_AES_ZEROS_ULTRA_PLUS</highlight></codeline>
+<codeline lineno="624"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="625"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_CRC_FOR_AES_ZEROS</highlight></codeline>
+<codeline lineno="626"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="627"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="631" refid="xilskey__input_8h_1a32a7550d4b349f396975c7bbf47c9753" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_DISABLE_AES_KEY_READ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="635"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_DISABLE_USER_KEY_READ<sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="639"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_DISABLE_SECURE_READ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="643"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_DISABLE_FUSE_CNTRL_WRITE<sp/><sp/><sp/><sp/>FALSE<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="647"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_DISABLE_RSA_KEY_READ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="651"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_DISABLE_KEY_WRITE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="654"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_DISABLE_USER_KEY_WRITE<sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="658"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_DISABLE_SECURE_WRITE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="661"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_DISABLE_RSA_HASH_WRITE<sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="665"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_DISABLE_128BIT_USER_KEY_WRITE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="666" refid="xilskey__input_8h_1a9f4256a60fd63c50992aa5417b001a53" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="674"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_ALLOW_ENCRYPTED_ONLY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="679"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_FORCE_USE_FUSE_AES_ONLY<sp/><sp/><sp/><sp/><sp/>FALSE<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="684"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_ENABLE_RSA_AUTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="687"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_DISABLE_JTAG_CHAIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="692"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_DISABLE_TEST_ACCESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="695"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_DISABLE_AES_DECRYPTOR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="698"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_ENABLE_OBFUSCATION_EFUSEAES<sp/>FALSE<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="711"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>GPIO<sp/>device<sp/>ID<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="712"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="713"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_AXI_GPIO_DEVICE_ID<sp/><sp/>XPAR_AXI_GPIO_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="714"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="715" refid="xilskey__input_8h_1a6199ced282f260e182e7252a78354551" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_AXI_GPIO_DEVICE_ID<sp/><sp/>XPAR_XGPIO_0_BASEADDR</highlight></codeline>
+<codeline lineno="716"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="717"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="718"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Signals<sp/>connect<sp/>as<sp/>Input<sp/>to<sp/>GPIO<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="719"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_AXI_GPIO_JTAG_TDO<sp/><sp/><sp/>(0)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="721"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_AXI_GPIO_HWM_READY<sp/><sp/>(1)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="723"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_AXI_GPIO_HWM_END<sp/><sp/><sp/><sp/>(2)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="727"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Signals<sp/>connect<sp/>as<sp/>Output<sp/>from<sp/>GPIO<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="728" refid="xilskey__input_8h_1a2cf32a008decb67551ce6d3928e9b8a6" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_AXI_GPIO_JTAG_TDI<sp/><sp/><sp/>(0)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="730"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_AXI_GPIO_JTAG_TMS<sp/><sp/><sp/>(1)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="732"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_AXI_GPIO_JTAG_TCK<sp/><sp/><sp/>(2)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="734"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_AXI_GPIO_HWM_START<sp/><sp/>(3)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="738" refid="xilskey__input_8h_1a856a6d64b6f7bae8f125b3206b984f92" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_GPIO_INPUT_CH<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="740"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_GPIO_OUTPUT_CH<sp/><sp/><sp/><sp/><sp/><sp/>(1)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="748"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>For<sp/>Programming<sp/>keys<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="749"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_PROGRAM_AES_KEY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="752"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_PROGRAM_USER_KEY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="755"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_PROGRAM_RSA_KEY_HASH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="758"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_PROGRAM_USER_KEY_128BIT<sp/><sp/><sp/><sp/><sp/>FALSE<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="761"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>For<sp/>reading<sp/>keys<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="762"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_CHECK_AES_KEY_CRC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="766" refid="xilskey__input_8h_1a3e5671abdf541887baa675db2cb647ab" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_READ_USER_KEY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="769" refid="xilskey__input_8h_1a4b46859387bf852a331f3b9d335496f6" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_READ_RSA_KEY_HASH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="772"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_READ_USER_KEY128_BIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="780"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_AES_KEY_CONFIG_ORDER_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="781"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_AES_KEY_CONFIG_ORDER_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="782" refid="xilskey__input_8h_1aeb60bdc7ee93e8271fdf9d4c2b371637" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_AES_KEY_CONFIG_ORDER_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="783"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_AES_KEY_CONFIG_ORDER_3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="784"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="785" refid="xilskey__input_8h_1a3313ad0856dd592234aa55030acdd050" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_USER_KEY_CONFIG_ORDER_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="786"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_USER_KEY_CONFIG_ORDER_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="787"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_USER_KEY_CONFIG_ORDER_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="788"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_USER_KEY_CONFIG_ORDER_3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="789"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="793"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_RSA_KEY_HASH_VALUE_CONFIG_ORDER_0<sp/><sp/><sp/>&quot;000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="794" refid="xilskey__input_8h_1a82e4c58666c3f5f1f08b6588f468702d" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_RSA_KEY_HASH_VALUE_CONFIG_ORDER_1<sp/><sp/><sp/>&quot;000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="795"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_RSA_KEY_HASH_VALUE_CONFIG_ORDER_2<sp/><sp/><sp/>&quot;000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="796"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_RSA_KEY_HASH_VALUE_CONFIG_ORDER_3<sp/><sp/><sp/>&quot;000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="797"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="803"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_USER_KEY_128BIT_0_CONFIG_ORDER_0<sp/><sp/><sp/><sp/>&quot;00000000&quot;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>31:0<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="804"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_USER_KEY_128BIT_1_CONFIG_ORDER_0<sp/><sp/><sp/><sp/>&quot;00000000&quot;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>63:32<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="805" refid="xilskey__input_8h_1a13ad3c35e580ea044b38e632b35708ee" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_USER_KEY_128BIT_2_CONFIG_ORDER_0<sp/><sp/><sp/><sp/>&quot;00000000&quot;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>95:64<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="806"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_USER_KEY_128BIT_3_CONFIG_ORDER_0<sp/><sp/><sp/><sp/>&quot;00000000&quot;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>127:96<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="807"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="808"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_USER_KEY_128BIT_0_CONFIG_ORDER_1<sp/><sp/><sp/><sp/>&quot;00000000&quot;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>31:0<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="809"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_USER_KEY_128BIT_1_CONFIG_ORDER_1<sp/><sp/><sp/><sp/>&quot;00000000&quot;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>63:32<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="810" refid="xilskey__input_8h_1afcc335e078dd3033a2c58dfc6a2b5e7a" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_USER_KEY_128BIT_2_CONFIG_ORDER_1<sp/><sp/><sp/><sp/>&quot;00000000&quot;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>95:64<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="811"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_USER_KEY_128BIT_3_CONFIG_ORDER_1<sp/><sp/><sp/><sp/>&quot;00000000&quot;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>127:96<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="812"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="813"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_USER_KEY_128BIT_0_CONFIG_ORDER_2<sp/><sp/><sp/><sp/>&quot;00000000&quot;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>31:0<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="814"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_USER_KEY_128BIT_1_CONFIG_ORDER_2<sp/><sp/><sp/><sp/>&quot;00000000&quot;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>63:32<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="815" refid="xilskey__input_8h_1a8407a268cde433bd3c30dd84bbbba17c" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_USER_KEY_128BIT_2_CONFIG_ORDER_2<sp/><sp/><sp/><sp/>&quot;00000000&quot;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>95:64<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="816"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_USER_KEY_128BIT_3_CONFIG_ORDER_2<sp/><sp/><sp/><sp/>&quot;00000000&quot;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>127:96<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="817"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="818"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_USER_KEY_128BIT_0_CONFIG_ORDER_3<sp/><sp/><sp/><sp/>&quot;00000000&quot;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>31:0<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="819"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_USER_KEY_128BIT_1_CONFIG_ORDER_3<sp/><sp/><sp/><sp/>&quot;00000000&quot;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>63:32<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="820" refid="xilskey__input_8h_1a3352ec7a859c58c3702d1d0bada54f20" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_USER_KEY_128BIT_2_CONFIG_ORDER_3<sp/><sp/><sp/><sp/>&quot;00000000&quot;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>95:64<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="821"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_USER_KEY_128BIT_3_CONFIG_ORDER_3<sp/><sp/><sp/><sp/>&quot;00000000&quot;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>127:96<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="822"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="826" refid="xilskey__input_8h_1ae046eedb98b0ca25cfcf00f398c1e854" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_CONFIG_ORDER_0<sp/><sp/>XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS</highlight></codeline>
+<codeline lineno="827"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_CONFIG_ORDER_1<sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS</highlight></codeline>
+<codeline lineno="828"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_CONFIG_ORDER_2<sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS</highlight></codeline>
+<codeline lineno="829"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_CRC_OF_EXPECTED_AES_KEY_CONFIG_ORDER_3<sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_AES_CRC_OF_ALL_ZEROS</highlight></codeline>
+<codeline lineno="830"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="831"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="832"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="833" refid="xilskey__input_8h_1a347b687cbd4844cc6b43d2b9137614dc" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*XSK_EFUSEPL_DRIVER*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="834"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="839"><highlight class="preprocessor">#ifdef<sp/>XSK_EFUSEPS_DRIVER</highlight></codeline>
+<codeline lineno="840"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="841"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_ENABLE_WRITE_PROTECT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/></highlight></codeline>
+<codeline lineno="844"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_ENABLE_RSA_AUTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/></highlight></codeline>
+<codeline lineno="847"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_ENABLE_ROM_128K_CRC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/></highlight></codeline>
+<codeline lineno="850"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_DISABLE_DFT_JTAG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/></highlight></codeline>
+<codeline lineno="853" refid="xilskey__input_8h_1a8b39f907fe8aef2d27f92ed7fbf172ad" refkind="member"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_DISABLE_DFT_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/></highlight></codeline>
+<codeline lineno="856"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_ENABLE_RSA_KEY_HASH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE<sp/></highlight></codeline>
+<codeline lineno="860"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_RSA_KEY_HASH_VALUE<sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="861"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="862"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>XSK_EFUSEPS_DRIVER<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="863"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="864"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="865"><highlight class="comment"><sp/>*<sp/>Definitions<sp/>for<sp/>BBRAM</highlight></codeline>
+<codeline lineno="866" refid="xilskey__input_8h_1a2da041527f9e60608313d0ed3230c0b8" refkind="member"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="867"><highlight class="normal"></highlight></codeline>
+<codeline lineno="868"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_BBRAM_MIO_JTAG_TDI<sp/><sp/>(17)<sp/></highlight></codeline>
+<codeline lineno="869"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_BBRAM_MIO_JTAG_TDO<sp/><sp/>(21)<sp/></highlight></codeline>
+<codeline lineno="870"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_BBRAM_MIO_JTAG_TCK<sp/><sp/>(19)<sp/></highlight></codeline>
+<codeline lineno="871"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_BBRAM_MIO_JTAG_TMS<sp/><sp/>(20)<sp/></highlight></codeline>
+<codeline lineno="872"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_BBRAM_MIO_JTAG_MUX_SELECT<sp/><sp/><sp/>(11)<sp/></highlight></codeline>
+<codeline lineno="878"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_BBRAM_MIO_MUX_SEL_DEFAULT_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="879"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="883"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_BBRAM_AES_KEY<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;349de4571ae6d88de23de65489acf67000ff5ec901ae3d409aabbce4549812dd&quot;</highlight></codeline>
+<codeline lineno="884"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="885"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_BBRAM_AES_KEY_SIZE_IN_BITS<sp/><sp/>256</highlight></codeline>
+<codeline lineno="886"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="887"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="888"><highlight class="comment"><sp/>*<sp/>End<sp/>of<sp/>definitions<sp/>for<sp/>BBRAM</highlight></codeline>
+<codeline lineno="889"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="890"><highlight class="normal"></highlight></codeline>
+<codeline lineno="891"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="892"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="893"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="894"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="895"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="896"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="897"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*XILSKEY_INPUT_H*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_input.h"/>
+  </compounddef>
+</doxygen>

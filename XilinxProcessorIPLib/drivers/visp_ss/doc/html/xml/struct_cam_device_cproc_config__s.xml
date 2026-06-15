@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_cproc_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceCprocConfig_s</compoundname>
+    <includes local="no">cam_device_cproc_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_cproc_config__s_1a5a989a73e94aa7390a4aae106d4a2612" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga7a54f95af23ab3af59d485ffaec2ae60" kindref="member">CamDeviceConfigMode_t</ref></type>
+        <definition>CamDeviceConfigMode_t CamDeviceCprocConfig_s::configMode</definition>
+        <argsstring></argsstring>
+        <name>configMode</name>
+        <briefdescription>
+<para>The run mode: 0<ndash/>manual, 1<ndash/>auto. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_cproc_config__s_1aebbe5e0fe2855a3ac1ff98b3ec03e648" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__cproc_1ga2a88ad7fed93a02ece07b3c637b0165f" kindref="member">CamDeviceCprocAutoConfig_t</ref></type>
+        <definition>CamDeviceCprocAutoConfig_t CamDeviceCprocConfig_s::autoCfg</definition>
+        <argsstring></argsstring>
+        <name>autoCfg</name>
+        <briefdescription>
+<para>CPROC auto configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_cproc_config__s_1af48e7cad3ca3378db4fee4fd21f29966" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__cproc_1gaad36980ca7d8863e31e3aab3fe210ede" kindref="member">CamDeviceCprocManualConfig_t</ref></type>
+        <definition>CamDeviceCprocManualConfig_t CamDeviceCprocConfig_s::manualCfg</definition>
+        <argsstring></argsstring>
+        <name>manualCfg</name>
+        <briefdescription>
+<para>CPROC auto configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice CPROC configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="243">
+        <label>CamDeviceCprocManualConfig_s</label>
+        <link refid="struct_cam_device_cproc_manual_config__s"/>
+      </node>
+      <node id="241">
+        <label>CamDeviceCprocConfig_s</label>
+        <link refid="struct_cam_device_cproc_config__s"/>
+        <childnode refid="242" relation="usage">
+          <edgelabel>autoCfg</edgelabel>
+        </childnode>
+        <childnode refid="243" relation="usage">
+          <edgelabel>manualCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="242">
+        <label>CamDeviceCprocAutoConfig_s</label>
+        <link refid="struct_cam_device_cproc_auto_config__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" bodystart="119" bodyend="123"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_cproc_config__s_1aebbe5e0fe2855a3ac1ff98b3ec03e648" prot="public" virt="non-virtual"><scope>CamDeviceCprocConfig_s</scope><name>autoCfg</name></member>
+      <member refid="struct_cam_device_cproc_config__s_1a5a989a73e94aa7390a4aae106d4a2612" prot="public" virt="non-virtual"><scope>CamDeviceCprocConfig_s</scope><name>configMode</name></member>
+      <member refid="struct_cam_device_cproc_config__s_1af48e7cad3ca3378db4fee4fd21f29966" prot="public" virt="non-virtual"><scope>CamDeviceCprocConfig_s</scope><name>manualCfg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

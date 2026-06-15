@@ -1,0 +1,837 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xi2srx_8c" kind="file">
+    <compoundname>xi2srx.c</compoundname>
+    <includes refid="xi2srx_8h" local="yes">xi2srx.h</includes>
+    <includes refid="xi2srx__chsts_8h" local="yes">xi2srx_chsts.h</includes>
+    <includes refid="xi2srx__hw_8h" local="yes">xi2srx_hw.h</includes>
+    <includes refid="xi2srx__debug_8h" local="yes">xi2srx_debug.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <incdepgraph>
+      <node id="7">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="5">
+        <label>xil_io.h</label>
+      </node>
+      <node id="10">
+        <label>xi2srx_chsts.h</label>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>xi2srx_hw.h</label>
+        <link refid="xi2srx__hw_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>xstatus.h</label>
+      </node>
+      <node id="2">
+        <label>xi2srx.c</label>
+        <link refid="xi2srx.c"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>xi2srx.h</label>
+        <link refid="xi2srx_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>xil_types.h</label>
+      </node>
+      <node id="6">
+        <label>xi2srx_debug.h</label>
+        <link refid="xi2srx__debug_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__i2srx_1ga1f15531e4af871ca5a3c61841bfbec33" prot="public" static="no">
+        <name>XI2S_RX_CLK_MASK</name>
+        <initializer>(0xFF)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.c" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__i2srx_1ga4d444eaa5a0dd7d980c0d216b3382260" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XI2s_Rx_CfgInitialize</definition>
+        <argsstring>(XI2s_Rx *InstancePtr, XI2srx_Config *CfgPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XI2s_Rx_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_i2s___rx" kindref="compound">XI2s_Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_i2srx___config" kindref="compound">XI2srx_Config</ref> *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the XI2s Receiver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function must be called prior to using the core. Initialization of the XI2s Receiver includes setting up the instance data, and ensuring the hardware is in a quiescent state.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XI2s Receiver instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the configuration structure associated with the XI2s Receiver. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. If address translation is being used, then this parameter must reflect the virtual base address. Otherwise, the physical address should be used.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS : if successful.</para></listitem><listitem><para>XST_FAILURE : if version mismatched.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.c" bodystart="75" bodyend="101"/>
+        <references refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" compoundref="xi2srx_8h" startline="131">XI2s_Rx::Config</references>
+        <references refid="struct_x_i2s___rx_1af37339d572a56a98e696f0dec19b0c74" compoundref="xi2srx_8h" startline="129">XI2s_Rx::IsReady</references>
+        <references refid="group__i2srx_1ga3a853463222fc023817337626e04ea1a" compoundref="xi2srx_8c" startline="112" endline="129">XI2s_Rx_Enable</references>
+        <references refid="group__i2srx_1ga8be6ac54842b054fb0f5b047669a794c" compoundref="xi2srx__selftest_8c" startline="123" endline="169">XI2s_Rx_SelfTest</references>
+        <referencedby refid="xi2srx__selftest__example_8c_1a1073bbba6cc5a04731200bae41f17d39" compoundref="xi2srx__selftest__example_8c" startline="109" endline="131">I2srx_SelfTest_Example</referencedby>
+        <referencedby refid="group__i2srx_1ga164f49a595611f6092889fbc157982f4" compoundref="xi2srx__sinit_8c" startline="119" endline="135">XI2s_Rx_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__i2srx_1ga3a853463222fc023817337626e04ea1a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XI2s_Rx_Enable</definition>
+        <argsstring>(XI2s_Rx *InstancePtr, u8 Enable)</argsstring>
+        <name>XI2s_Rx_Enable</name>
+        <param>
+          <type><ref refid="struct_x_i2s___rx" kindref="compound">XI2s_Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+<para>This function enables/disables the XI2s Receiver. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XI2s Receiver instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies TRUE/FALSE value to either enable or disable the XI2s Receiver. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.c" bodystart="112" bodyend="129"/>
+        <references refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" compoundref="xi2srx_8h" startline="131">XI2s_Rx::Config</references>
+        <references refid="struct_x_i2s___rx_1a03429754d7904790001a12c6ab28877f" compoundref="xi2srx_8h" startline="130">XI2s_Rx::IsStarted</references>
+        <references refid="group__i2srx_1gaa79a92debd04aa3b8f9866869fcee2ea" compoundref="xi2srx__hw_8h" startline="44">XI2S_RX_CORE_CTRL_OFFSET</references>
+        <references refid="group__i2srx_1ga7f13e37d826cfd786b54f7ad04c0fd3c" compoundref="xi2srx__hw_8h" startline="170">XI2s_Rx_ReadReg</references>
+        <references refid="group__i2srx_1ga72d3a8ea524c40940140512a982fb910" compoundref="xi2srx__hw_8h" startline="86">XI2S_RX_REG_CTRL_EN_MASK</references>
+        <references refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" compoundref="xi2srx__hw_8h" startline="191">XI2s_Rx_WriteReg</references>
+        <referencedby refid="group__i2srx_1ga4d444eaa5a0dd7d980c0d216b3382260" compoundref="xi2srx_8c" startline="75" endline="101">XI2s_Rx_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__i2srx_1gae745a449c173356fad2c4f4d3f19d9e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XI2s_Rx_LatchAesChannelStatus</definition>
+        <argsstring>(XI2s_Rx *InstancePtr)</argsstring>
+        <name>XI2s_Rx_LatchAesChannelStatus</name>
+        <param>
+          <type><ref refid="struct_x_i2s___rx" kindref="compound">XI2s_Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function requests the XI2s Receiver to latch the AES Channel Status bits from the registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XI2s Receiver instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.c" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.c" bodystart="139" bodyend="150"/>
+        <references refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" compoundref="xi2srx_8h" startline="131">XI2s_Rx::Config</references>
+        <references refid="group__i2srx_1gaa79a92debd04aa3b8f9866869fcee2ea" compoundref="xi2srx__hw_8h" startline="44">XI2S_RX_CORE_CTRL_OFFSET</references>
+        <references refid="group__i2srx_1ga7f13e37d826cfd786b54f7ad04c0fd3c" compoundref="xi2srx__hw_8h" startline="170">XI2s_Rx_ReadReg</references>
+        <references refid="group__i2srx_1gab1cb52ffff197179ecb2453f3b055f2e" compoundref="xi2srx__hw_8h" startline="99">XI2S_RX_REG_CTRL_LATCH_CHSTS_MASK</references>
+        <references refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" compoundref="xi2srx__hw_8h" startline="191">XI2s_Rx_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__i2srx_1ga595ca2872d1b5b59f05a229b3a28fd86" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XI2s_Rx_IntrEnable</definition>
+        <argsstring>(XI2s_Rx *InstancePtr, u32 Mask)</argsstring>
+        <name>XI2s_Rx_IntrEnable</name>
+        <param>
+          <type><ref refid="struct_x_i2s___rx" kindref="compound">XI2s_Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the specified interrupt of the XI2s Receiver. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XI2s Receiver instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a bit mask of the interrupts to be enabled.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="see"><para>XI2srx_HW for the available interrupt masks. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.c" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.c" bodystart="161" bodyend="172"/>
+        <references refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" compoundref="xi2srx_8h" startline="131">XI2s_Rx::Config</references>
+        <references refid="group__i2srx_1ga9d9730105131e980b1b2ca3996969f31" compoundref="xi2srx__hw_8h" startline="46">XI2S_RX_IRQCTRL_OFFSET</references>
+        <references refid="group__i2srx_1ga7f13e37d826cfd786b54f7ad04c0fd3c" compoundref="xi2srx__hw_8h" startline="170">XI2s_Rx_ReadReg</references>
+        <references refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" compoundref="xi2srx__hw_8h" startline="191">XI2s_Rx_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__i2srx_1ga80556a73ef85dd5a4731afab9ad10f22" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XI2s_Rx_IntrDisable</definition>
+        <argsstring>(XI2s_Rx *InstancePtr, u32 Mask)</argsstring>
+        <name>XI2s_Rx_IntrDisable</name>
+        <param>
+          <type><ref refid="struct_x_i2s___rx" kindref="compound">XI2s_Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function disables the specified interrupt of the XI2s Receiver. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XI2s Receiver instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a bit mask of the interrupts to be disabled.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="see"><para>XI2s_Receiver_HW for the available interrupt masks. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.c" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.c" bodystart="184" bodyend="194"/>
+        <references refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" compoundref="xi2srx_8h" startline="131">XI2s_Rx::Config</references>
+        <references refid="group__i2srx_1ga9d9730105131e980b1b2ca3996969f31" compoundref="xi2srx__hw_8h" startline="46">XI2S_RX_IRQCTRL_OFFSET</references>
+        <references refid="group__i2srx_1ga7f13e37d826cfd786b54f7ad04c0fd3c" compoundref="xi2srx__hw_8h" startline="170">XI2s_Rx_ReadReg</references>
+        <references refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" compoundref="xi2srx__hw_8h" startline="191">XI2s_Rx_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__i2srx_1ga522d6260d91826f18572844fb0fbf39d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XI2s_Rx_SetChMux</definition>
+        <argsstring>(XI2s_Rx *InstancePtr, XI2s_Rx_ChannelId ChID, XI2s_Rx_ChMuxInput InputSource)</argsstring>
+        <name>XI2s_Rx_SetChMux</name>
+        <param>
+          <type><ref refid="struct_x_i2s___rx" kindref="compound">XI2s_Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__i2srx_1ga29fe382428db32ed7ad00cd1082609e2" kindref="member">XI2s_Rx_ChannelId</ref></type>
+          <declname>ChID</declname>
+        </param>
+        <param>
+          <type><ref refid="group__i2srx_1gace941535376f24ef90b44f160f55b70e" kindref="member">XI2s_Rx_ChMuxInput</ref></type>
+          <declname>InputSource</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the input source for the specified AXI-Stream channel pair. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XI2s Receiver instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the AXI-Stream channel pair<itemizedlist>
+<listitem><para>0 : AXI-Stream channel 0 and 1</para></listitem><listitem><para>1 : AXI-Stream channel 2 and 3</para></listitem><listitem><para>2 : AXI-Stream channel 4 and 5</para></listitem><listitem><para>3 : AXI-Stream channel 6 and 7 </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InputSource</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the input source</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS : if successful.</para></listitem><listitem><para>XST_FAILURE : if the AXI-Stream channel pair is invalid. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.c" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.c" bodystart="212" bodyend="251"/>
+        <references refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" compoundref="xi2srx_8h" startline="131">XI2s_Rx::Config</references>
+        <references refid="group__i2srx_1gacc668d400426098bae3149a9fc4c094f" compoundref="xi2srx__hw_8h" startline="51">XI2S_RX_CH01_OFFSET</references>
+        <references refid="group__i2srx_1ggace941535376f24ef90b44f160f55b70ea4f5885668f79e682e8ffa887330e99de" compoundref="xi2srx_8h" startline="160">XI2S_RX_CHMUX_WAVEGEN</references>
+        <references refid="group__i2srx_1ggace941535376f24ef90b44f160f55b70ea0df7f22d4a2d5f2f1dbf9305443194e1" compoundref="xi2srx_8h" startline="156">XI2S_RX_CHMUX_XI2S_01</references>
+        <references refid="group__i2srx_1ggace941535376f24ef90b44f160f55b70ea269c4b47b2a78c065aee963d3396aab2" compoundref="xi2srx_8h" startline="157">XI2S_RX_CHMUX_XI2S_23</references>
+        <references refid="group__i2srx_1ggace941535376f24ef90b44f160f55b70ea55bc0f78e50439c70f6a2580471a4b3b" compoundref="xi2srx_8h" startline="158">XI2S_RX_CHMUX_XI2S_45</references>
+        <references refid="group__i2srx_1ggace941535376f24ef90b44f160f55b70ea51c18d250475c4f196015e8972e44b1f" compoundref="xi2srx_8h" startline="159">XI2S_RX_CHMUX_XI2S_67</references>
+        <references refid="group__i2srx_1gga29fe382428db32ed7ad00cd1082609e2a3c8607ad2a5133fa10d64bbcf6c37e20" compoundref="xi2srx_8h" startline="73">XI2S_RX_NUM_CHANNELS</references>
+        <references refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" compoundref="xi2srx__hw_8h" startline="191">XI2s_Rx_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__i2srx_1ga6b26d3fc18f6a8a65f2a55eb94300aac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XI2s_Rx_SetSclkOutDiv</definition>
+        <argsstring>(XI2s_Rx *InstancePtr, u32 MClk, u32 Fs)</argsstring>
+        <name>XI2s_Rx_SetSclkOutDiv</name>
+        <param>
+          <type><ref refid="struct_x_i2s___rx" kindref="compound">XI2s_Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>MClk</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Fs</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates the SCLK Output divider value of the I2s timing generator. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the I2s Receiver instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MClk</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the frequency of the MClk. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Fs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the sampling frequency of the system. Divider value for the SCLK generation MCLK/SCLK = SCLKOUT_DIV x 2 i.e. MCLK = 384xFs, SCLK = 48xFs (2x24bits) -&gt; SCLKOUT_DIV = MCLK/SCLK/2 = 4 Valid values are 1 through 15.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_FAILURE if SCLK Output divider is not calculated to be a positive integer.<itemizedlist>
+<listitem><para>XST_SUCCESS, otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.c" line="272" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.c" bodystart="272" bodyend="295"/>
+        <references refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" compoundref="xi2srx_8h" startline="131">XI2s_Rx::Config</references>
+        <references refid="struct_x_i2srx___config_1ac8287c82083c51bbb50169ccfc112504" compoundref="xi2srx_8h" startline="107">XI2srx_Config::DWidth</references>
+        <references refid="group__i2srx_1gad10e1d11d2c50b2111dd3f8a4dd26389" compoundref="xi2srx__hw_8h" startline="49">XI2S_RX_TMR_CTRL_OFFSET</references>
+        <references refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" compoundref="xi2srx__hw_8h" startline="191">XI2s_Rx_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__i2srx_1ga0732ac9b13399678fe408cf55eeab264" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XI2s_Rx_SetAesChStatus</definition>
+        <argsstring>(XI2s_Rx *InstancePtr, u8 *AesChStatusBuf)</argsstring>
+        <name>XI2s_Rx_SetAesChStatus</name>
+        <param>
+          <type><ref refid="struct_x_i2s___rx" kindref="compound">XI2s_Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>AesChStatusBuf</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the AES Channel Status bits to insert. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XI2s Receiver instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AesChStatusBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a buffer containing the AES channel status bits. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.c" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.c" bodystart="306" bodyend="320"/>
+        <references refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" compoundref="xi2srx_8h" startline="131">XI2s_Rx::Config</references>
+        <references refid="group__i2srx_1gaef854c082d18fb31d75d15c23aa7fab5" compoundref="xi2srx__hw_8h" startline="56">XI2S_RX_AES_CHSTS0_OFFSET</references>
+        <references refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" compoundref="xi2srx__hw_8h" startline="191">XI2s_Rx_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__i2srx_1ga700662592a50d2f7ee92aff8304706f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XI2s_Rx_ClrAesChStatRegs</definition>
+        <argsstring>(XI2s_Rx *InstancePtr)</argsstring>
+        <name>XI2s_Rx_ClrAesChStatRegs</name>
+        <param>
+          <type><ref refid="struct_x_i2s___rx" kindref="compound">XI2s_Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function clears the captured AES Channel Status bits. </para>        </briefdescription>
+        <detaileddescription>
+<para>This will clear all the 6 channel status registers.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i2s___rx" kindref="compound">XI2s_Rx</ref> core instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.c" line="331" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.c" bodystart="331" bodyend="347"/>
+        <references refid="group__i2srx_1gaef854c082d18fb31d75d15c23aa7fab5" compoundref="xi2srx__hw_8h" startline="56">XI2S_RX_AES_CHSTS0_OFFSET</references>
+        <references refid="group__i2srx_1ga6eb6685030ce7a4097e2d26591026109" compoundref="xi2srx__hw_8h" startline="57">XI2S_RX_AES_CHSTS1_OFFSET</references>
+        <references refid="group__i2srx_1ga4a5e64ec439b371f7dbb7795796ea525" compoundref="xi2srx__hw_8h" startline="58">XI2S_RX_AES_CHSTS2_OFFSET</references>
+        <references refid="group__i2srx_1ga5aec8ad439da8047b7e2406680091bb3" compoundref="xi2srx__hw_8h" startline="59">XI2S_RX_AES_CHSTS3_OFFSET</references>
+        <references refid="group__i2srx_1ga64228e861649cfca19122186738890c3" compoundref="xi2srx__hw_8h" startline="60">XI2S_RX_AES_CHSTS4_OFFSET</references>
+        <references refid="group__i2srx_1gada5ad0f01fc6b245bc58fb0ac66f3672" compoundref="xi2srx__hw_8h" startline="61">XI2S_RX_AES_CHSTS5_OFFSET</references>
+        <references refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" compoundref="xi2srx__hw_8h" startline="191">XI2s_Rx_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__i2srx_1ga4407276f62220e4983d6ec7251ad98d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XI2s_Rx_JustifyEnable</definition>
+        <argsstring>(XI2s_Rx *InstancePtr, u8 Enable)</argsstring>
+        <name>XI2s_Rx_JustifyEnable</name>
+        <param>
+          <type><ref refid="struct_x_i2s___rx" kindref="compound">XI2s_Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+<para>This function enables/disables the justification. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XI2s Receiver instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies TRUE/FALSE value to either enable or disable the justification. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.c" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.c" bodystart="358" bodyend="372"/>
+        <references refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" compoundref="xi2srx_8h" startline="131">XI2s_Rx::Config</references>
+        <references refid="group__i2srx_1gaa79a92debd04aa3b8f9866869fcee2ea" compoundref="xi2srx__hw_8h" startline="44">XI2S_RX_CORE_CTRL_OFFSET</references>
+        <references refid="group__i2srx_1ga7f13e37d826cfd786b54f7ad04c0fd3c" compoundref="xi2srx__hw_8h" startline="170">XI2s_Rx_ReadReg</references>
+        <references refid="group__i2srx_1ga4bed9d26f96c101a80fdeb5e16c61882" compoundref="xi2srx__hw_8h" startline="90">XI2S_RX_REG_CTRL_JFE_MASK</references>
+        <references refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" compoundref="xi2srx__hw_8h" startline="191">XI2s_Rx_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__i2srx_1ga68a5ca9532a69737b7d8788edd9f822d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XI2s_Rx_Justify</definition>
+        <argsstring>(XI2s_Rx *InstancePtr, XI2s_Rx_Justification Justify)</argsstring>
+        <name>XI2s_Rx_Justify</name>
+        <param>
+          <type><ref refid="struct_x_i2s___rx" kindref="compound">XI2s_Rx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__i2srx_1ga787bbfc7c06021fa68c40dd4e1248ec1" kindref="member">XI2s_Rx_Justification</ref></type>
+          <declname>Justify</declname>
+        </param>
+        <briefdescription>
+<para>This function is to enable right/left justification. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XI2s Receiver instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Justify</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a enum to select the left or right justification.<itemizedlist>
+<listitem><para>XI2S_RX_JUSTIFY_LEFT : Left justification</para></listitem><listitem><para>XI2S_RX_JUSTIFY_RIGHT : Right justification </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.c" line="385" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.c" bodystart="385" bodyend="399"/>
+        <references refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" compoundref="xi2srx_8h" startline="131">XI2s_Rx::Config</references>
+        <references refid="group__i2srx_1gaa79a92debd04aa3b8f9866869fcee2ea" compoundref="xi2srx__hw_8h" startline="44">XI2S_RX_CORE_CTRL_OFFSET</references>
+        <references refid="group__i2srx_1ga7f13e37d826cfd786b54f7ad04c0fd3c" compoundref="xi2srx__hw_8h" startline="170">XI2s_Rx_ReadReg</references>
+        <references refid="group__i2srx_1gae1e05f03cc894aaa4e5bf213460eeb43" compoundref="xi2srx__hw_8h" startline="94">XI2S_RX_REG_CTRL_LORJF_MASK</references>
+        <references refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" compoundref="xi2srx__hw_8h" startline="191">XI2s_Rx_WriteReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xi2srx_8h" kindref="compound">xi2srx.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xi2srx_chsts.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xi2srx__hw_8h" kindref="compound">xi2srx_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xi2srx__debug_8h" kindref="compound">xi2srx_debug.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XI2S_RX_CLK_MASK<sp/>(0xFF)</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="75" refid="group__i2srx_1ga4d444eaa5a0dd7d980c0d216b3382260" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__i2srx_1ga4d444eaa5a0dd7d980c0d216b3382260" kindref="member">XI2s_Rx_CfgInitialize</ref>(<ref refid="struct_x_i2s___rx" kindref="compound">XI2s_Rx</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_i2srx___config" kindref="compound">XI2srx_Config</ref><sp/>*CfgPtr,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr)</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CfgPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(EffectiveAddr<sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>the<sp/>instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" kindref="member">Config</ref><sp/>=<sp/>*CfgPtr;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" kindref="member">Config</ref>.BaseAddress<sp/>=<sp/>EffectiveAddr;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Run<sp/>the<sp/>selftest.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__i2srx_1ga8be6ac54842b054fb0f5b047669a794c" kindref="member">XI2s_Rx_SelfTest</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>the<sp/>core<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1ga3a853463222fc023817337626e04ea1a" kindref="member">XI2s_Rx_Enable</ref>(InstancePtr,<sp/>FALSE);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>flag<sp/>to<sp/>indicate<sp/>the<sp/>driver<sp/>is<sp/>ready<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i2s___rx_1af37339d572a56a98e696f0dec19b0c74" kindref="member">IsReady</ref><sp/>=<sp/>(u32)(XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="112" refid="group__i2srx_1ga3a853463222fc023817337626e04ea1a" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2srx_1ga3a853463222fc023817337626e04ea1a" kindref="member">XI2s_Rx_Enable</ref>(<ref refid="struct_x_i2s___rx" kindref="compound">XI2s_Rx</ref><sp/>*InstancePtr,<sp/>u8<sp/>Enable)</highlight></codeline>
+<codeline lineno="113"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue<sp/>=<sp/><ref refid="group__i2srx_1ga7f13e37d826cfd786b54f7ad04c0fd3c" kindref="member">XI2s_Rx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" kindref="member">Config</ref>.BaseAddress,</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gaa79a92debd04aa3b8f9866869fcee2ea" kindref="member">XI2S_RX_CORE_CTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Enable)<sp/>{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>|=<sp/><ref refid="group__i2srx_1ga72d3a8ea524c40940140512a982fb910" kindref="member">XI2S_RX_REG_CTRL_EN_MASK</ref>;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i2s___rx_1a03429754d7904790001a12c6ab28877f" kindref="member">IsStarted</ref><sp/>=<sp/>(XIL_COMPONENT_IS_STARTED);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>&amp;=<sp/>~<ref refid="group__i2srx_1ga72d3a8ea524c40940140512a982fb910" kindref="member">XI2S_RX_REG_CTRL_EN_MASK</ref>;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i2s___rx_1a03429754d7904790001a12c6ab28877f" kindref="member">IsStarted</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" kindref="member">XI2s_Rx_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" kindref="member">Config</ref>.BaseAddress,</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gaa79a92debd04aa3b8f9866869fcee2ea" kindref="member">XI2S_RX_CORE_CTRL_OFFSET</ref>,<sp/>RegValue);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="139" refid="group__i2srx_1gae745a449c173356fad2c4f4d3f19d9e0" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2srx_1gae745a449c173356fad2c4f4d3f19d9e0" kindref="member">XI2s_Rx_LatchAesChannelStatus</ref>(<ref refid="struct_x_i2s___rx" kindref="compound">XI2s_Rx</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="140"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue<sp/>=<sp/><ref refid="group__i2srx_1ga7f13e37d826cfd786b54f7ad04c0fd3c" kindref="member">XI2s_Rx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" kindref="member">Config</ref>.BaseAddress,</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gaa79a92debd04aa3b8f9866869fcee2ea" kindref="member">XI2S_RX_CORE_CTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>|=<sp/><ref refid="group__i2srx_1gab1cb52ffff197179ecb2453f3b055f2e" kindref="member">XI2S_RX_REG_CTRL_LATCH_CHSTS_MASK</ref>;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" kindref="member">XI2s_Rx_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" kindref="member">Config</ref>.BaseAddress,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gaa79a92debd04aa3b8f9866869fcee2ea" kindref="member">XI2S_RX_CORE_CTRL_OFFSET</ref>,<sp/>RegValue);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="161" refid="group__i2srx_1ga595ca2872d1b5b59f05a229b3a28fd86" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2srx_1ga595ca2872d1b5b59f05a229b3a28fd86" kindref="member">XI2s_Rx_IntrEnable</ref>(<ref refid="struct_x_i2s___rx" kindref="compound">XI2s_Rx</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="162"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue<sp/>=<sp/><ref refid="group__i2srx_1ga7f13e37d826cfd786b54f7ad04c0fd3c" kindref="member">XI2s_Rx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" kindref="member">Config</ref>.BaseAddress,</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1ga9d9730105131e980b1b2ca3996969f31" kindref="member">XI2S_RX_IRQCTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>|=<sp/>Mask;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" kindref="member">XI2s_Rx_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" kindref="member">Config</ref>.BaseAddress,</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1ga9d9730105131e980b1b2ca3996969f31" kindref="member">XI2S_RX_IRQCTRL_OFFSET</ref>,<sp/>RegValue);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="184" refid="group__i2srx_1ga80556a73ef85dd5a4731afab9ad10f22" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2srx_1ga80556a73ef85dd5a4731afab9ad10f22" kindref="member">XI2s_Rx_IntrDisable</ref>(<ref refid="struct_x_i2s___rx" kindref="compound">XI2s_Rx</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="185"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue<sp/>=<sp/><ref refid="group__i2srx_1ga7f13e37d826cfd786b54f7ad04c0fd3c" kindref="member">XI2s_Rx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" kindref="member">Config</ref>.BaseAddress,</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1ga9d9730105131e980b1b2ca3996969f31" kindref="member">XI2S_RX_IRQCTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>&amp;=<sp/>~Mask;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" kindref="member">XI2s_Rx_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" kindref="member">Config</ref>.BaseAddress,</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1ga9d9730105131e980b1b2ca3996969f31" kindref="member">XI2S_RX_IRQCTRL_OFFSET</ref>,<sp/>RegValue);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="212" refid="group__i2srx_1ga522d6260d91826f18572844fb0fbf39d" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__i2srx_1ga522d6260d91826f18572844fb0fbf39d" kindref="member">XI2s_Rx_SetChMux</ref>(<ref refid="struct_x_i2s___rx" kindref="compound">XI2s_Rx</ref><sp/>*InstancePtr,<sp/><ref refid="group__i2srx_1ga29fe382428db32ed7ad00cd1082609e2" kindref="member">XI2s_Rx_ChannelId</ref><sp/>ChID,</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gace941535376f24ef90b44f160f55b70e" kindref="member">XI2s_Rx_ChMuxInput</ref><sp/>InputSource)</highlight></codeline>
+<codeline lineno="214"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ChID<sp/>&gt;<sp/><ref refid="group__i2srx_1gga29fe382428db32ed7ad00cd1082609e2a3c8607ad2a5133fa10d64bbcf6c37e20" kindref="member">XI2S_RX_NUM_CHANNELS</ref>)</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>RegValue<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>RegOffset<sp/>=<sp/><ref refid="group__i2srx_1gacc668d400426098bae3149a9fc4c094f" kindref="member">XI2S_RX_CH01_OFFSET</ref><sp/>+<sp/>(ChID<sp/>*<sp/>4);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(InputSource)<sp/>{</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__i2srx_1ggace941535376f24ef90b44f160f55b70ea0df7f22d4a2d5f2f1dbf9305443194e1" kindref="member">XI2S_RX_CHMUX_XI2S_01</ref>:</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>InputSource;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__i2srx_1ggace941535376f24ef90b44f160f55b70ea269c4b47b2a78c065aee963d3396aab2" kindref="member">XI2S_RX_CHMUX_XI2S_23</ref>:</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>InputSource;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__i2srx_1ggace941535376f24ef90b44f160f55b70ea55bc0f78e50439c70f6a2580471a4b3b" kindref="member">XI2S_RX_CHMUX_XI2S_45</ref>:</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>InputSource;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__i2srx_1ggace941535376f24ef90b44f160f55b70ea51c18d250475c4f196015e8972e44b1f" kindref="member">XI2S_RX_CHMUX_XI2S_67</ref>:</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>InputSource;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__i2srx_1ggace941535376f24ef90b44f160f55b70ea4f5885668f79e682e8ffa887330e99de" kindref="member">XI2S_RX_CHMUX_WAVEGEN</ref>:</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>InputSource;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" kindref="member">XI2s_Rx_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" kindref="member">Config</ref>.BaseAddress,</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegOffset,<sp/>RegValue);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="251"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="272" refid="group__i2srx_1ga6b26d3fc18f6a8a65f2a55eb94300aac" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__i2srx_1ga6b26d3fc18f6a8a65f2a55eb94300aac" kindref="member">XI2s_Rx_SetSclkOutDiv</ref>(<ref refid="struct_x_i2s___rx" kindref="compound">XI2s_Rx</ref><sp/>*InstancePtr,<sp/>u32<sp/>MClk,<sp/>u32<sp/>Fs)</highlight></codeline>
+<codeline lineno="273"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid((MClk<sp/>&gt;<sp/>0)<sp/>&amp;&amp;<sp/>(MClk<sp/>&gt;<sp/>Fs));</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid((Fs<sp/>&gt;<sp/>0)<sp/>&amp;&amp;<sp/>(Fs<sp/>&lt;<sp/>MClk));</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SClk;</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>SClkOut_Div;</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Sclk<sp/>should<sp/>be<sp/>multiplied<sp/>by<sp/>32,<sp/>when<sp/>32BitLR<sp/>parameter<sp/>is<sp/>enabled<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" kindref="member">Config</ref>.Is32BitLR)</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SClk<sp/>=<sp/>(2<sp/>*<sp/>Fs<sp/>*<sp/>32);</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SClk<sp/>=<sp/>(2<sp/>*<sp/>Fs<sp/>*<sp/>InstancePtr-&gt;<ref refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" kindref="member">Config</ref>.<ref refid="struct_x_i2srx___config_1ac8287c82083c51bbb50169ccfc112504" kindref="member">DWidth</ref>);</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SClkOut_Div<sp/>=<sp/>(MClk/SClk);</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SClkOut_Div<sp/>/=<sp/>2;</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" kindref="member">XI2s_Rx_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" kindref="member">Config</ref>.BaseAddress,</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gad10e1d11d2c50b2111dd3f8a4dd26389" kindref="member">XI2S_RX_TMR_CTRL_OFFSET</ref>,<sp/>SClkOut_Div<sp/>&amp;<sp/>XI2S_RX_CLK_MASK);</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="295"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="306" refid="group__i2srx_1ga0732ac9b13399678fe408cf55eeab264" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2srx_1ga0732ac9b13399678fe408cf55eeab264" kindref="member">XI2s_Rx_SetAesChStatus</ref>(<ref refid="struct_x_i2s___rx" kindref="compound">XI2s_Rx</ref><sp/>*InstancePtr,<sp/>u8<sp/>*AesChStatusBuf)</highlight></codeline>
+<codeline lineno="307"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>RegOffset<sp/>=<sp/><ref refid="group__i2srx_1gaef854c082d18fb31d75d15c23aa7fab5" kindref="member">XI2S_RX_AES_CHSTS0_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*pBuf32<sp/>=<sp/>(u32<sp/>*)<sp/>AesChStatusBuf;</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(AesChStatusBuf<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>24;<sp/>i<sp/>+=<sp/>4)<sp/>{</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" kindref="member">XI2s_Rx_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" kindref="member">Config</ref>.BaseAddress,</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegOffset,<sp/>*pBuf32);</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pBuf32++;</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegOffset<sp/>+=<sp/>4;</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="320"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="331" refid="group__i2srx_1ga700662592a50d2f7ee92aff8304706f3" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2srx_1ga700662592a50d2f7ee92aff8304706f3" kindref="member">XI2s_Rx_ClrAesChStatRegs</ref>(<ref refid="struct_x_i2s___rx" kindref="compound">XI2s_Rx</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="332"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" kindref="member">XI2s_Rx_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress,</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1gaef854c082d18fb31d75d15c23aa7fab5" kindref="member">XI2S_RX_AES_CHSTS0_OFFSET</ref>),<sp/>(u32)0);</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" kindref="member">XI2s_Rx_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress,</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1ga6eb6685030ce7a4097e2d26591026109" kindref="member">XI2S_RX_AES_CHSTS1_OFFSET</ref>),<sp/>(u32)0);</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" kindref="member">XI2s_Rx_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress,</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1ga4a5e64ec439b371f7dbb7795796ea525" kindref="member">XI2S_RX_AES_CHSTS2_OFFSET</ref>),<sp/>(u32)0);</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" kindref="member">XI2s_Rx_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress,</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1ga5aec8ad439da8047b7e2406680091bb3" kindref="member">XI2S_RX_AES_CHSTS3_OFFSET</ref>),<sp/>(u32)0);</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" kindref="member">XI2s_Rx_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress,</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1ga64228e861649cfca19122186738890c3" kindref="member">XI2S_RX_AES_CHSTS4_OFFSET</ref>),<sp/>(u32)0);</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" kindref="member">XI2s_Rx_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress,</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__i2srx_1gada5ad0f01fc6b245bc58fb0ac66f3672" kindref="member">XI2S_RX_AES_CHSTS5_OFFSET</ref>),<sp/>(u32)0);</highlight></codeline>
+<codeline lineno="347"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="358" refid="group__i2srx_1ga4407276f62220e4983d6ec7251ad98d6" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2srx_1ga4407276f62220e4983d6ec7251ad98d6" kindref="member">XI2s_Rx_JustifyEnable</ref>(<ref refid="struct_x_i2s___rx" kindref="compound">XI2s_Rx</ref><sp/>*InstancePtr,<sp/>u8<sp/>Enable)</highlight></codeline>
+<codeline lineno="359"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue<sp/>=<sp/><ref refid="group__i2srx_1ga7f13e37d826cfd786b54f7ad04c0fd3c" kindref="member">XI2s_Rx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" kindref="member">Config</ref>.BaseAddress,</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gaa79a92debd04aa3b8f9866869fcee2ea" kindref="member">XI2S_RX_CORE_CTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"></highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Enable)</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>|=<sp/><ref refid="group__i2srx_1ga4bed9d26f96c101a80fdeb5e16c61882" kindref="member">XI2S_RX_REG_CTRL_JFE_MASK</ref>;</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>&amp;=<sp/>~<ref refid="group__i2srx_1ga4bed9d26f96c101a80fdeb5e16c61882" kindref="member">XI2S_RX_REG_CTRL_JFE_MASK</ref>;</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" kindref="member">XI2s_Rx_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" kindref="member">Config</ref>.BaseAddress,</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gaa79a92debd04aa3b8f9866869fcee2ea" kindref="member">XI2S_RX_CORE_CTRL_OFFSET</ref>,<sp/>RegValue);</highlight></codeline>
+<codeline lineno="372"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="385" refid="group__i2srx_1ga68a5ca9532a69737b7d8788edd9f822d" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2srx_1ga68a5ca9532a69737b7d8788edd9f822d" kindref="member">XI2s_Rx_Justify</ref>(<ref refid="struct_x_i2s___rx" kindref="compound">XI2s_Rx</ref><sp/>*InstancePtr,<sp/><ref refid="group__i2srx_1ga787bbfc7c06021fa68c40dd4e1248ec1" kindref="member">XI2s_Rx_Justification</ref><sp/>Justify)</highlight></codeline>
+<codeline lineno="386"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"></highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue<sp/>=<sp/><ref refid="group__i2srx_1ga7f13e37d826cfd786b54f7ad04c0fd3c" kindref="member">XI2s_Rx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" kindref="member">Config</ref>.BaseAddress,</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gaa79a92debd04aa3b8f9866869fcee2ea" kindref="member">XI2S_RX_CORE_CTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Justify)</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>|=<sp/><ref refid="group__i2srx_1gae1e05f03cc894aaa4e5bf213460eeb43" kindref="member">XI2S_RX_REG_CTRL_LORJF_MASK</ref>;</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>&amp;=<sp/>~<ref refid="group__i2srx_1gae1e05f03cc894aaa4e5bf213460eeb43" kindref="member">XI2S_RX_REG_CTRL_LORJF_MASK</ref>;</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"></highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gac98a6dde12e4efc76872f80b47fe641f" kindref="member">XI2s_Rx_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i2s___rx_1a7657d091fcc3dd42b0a8d86a1713b18f" kindref="member">Config</ref>.BaseAddress,</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gaa79a92debd04aa3b8f9866869fcee2ea" kindref="member">XI2S_RX_CORE_CTRL_OFFSET</ref>,<sp/>RegValue);</highlight></codeline>
+<codeline lineno="399"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.c"/>
+  </compounddef>
+</doxygen>

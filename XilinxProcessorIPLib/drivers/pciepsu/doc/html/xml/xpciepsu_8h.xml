@@ -1,0 +1,984 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpciepsu_8h" kind="file">
+    <compoundname>xpciepsu.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes refid="xpciepsu__hw_8h" local="yes">xpciepsu_hw.h</includes>
+    <includedby refid="xpciepsu_8c" local="yes">xpciepsu.c</includedby>
+    <includedby refid="xpciepsu__caps_8c" local="yes">xpciepsu_caps.c</includedby>
+    <includedby refid="xpciepsu__ep_8h" local="yes">xpciepsu_ep.h</includedby>
+    <includedby refid="xpciepsu__g_8c" local="yes">xpciepsu_g.c</includedby>
+    <includedby refid="xpciepsu__sinit_8c" local="yes">xpciepsu_sinit.c</includedby>
+    <includedby refid="xpciepsu__rc__enumerate__example_8c" local="yes">xpciepsu_rc_enumerate_example.c</includedby>
+    <incdepgraph>
+      <node id="19">
+        <label>xpciepsu_hw.h</label>
+        <link refid="xpciepsu__hw_8h"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>xil_io.h</label>
+      </node>
+      <node id="15">
+        <label>xpciepsu.h</label>
+        <link refid="xpciepsu.h"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>xstatus.h</label>
+      </node>
+      <node id="16">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="29">
+        <label>xpciepsu_rc_enumerate_example.c</label>
+        <link refid="xpciepsu__rc__enumerate__example_8c"/>
+      </node>
+      <node id="22">
+        <label>xpciepsu_caps.c</label>
+        <link refid="xpciepsu__caps_8c"/>
+      </node>
+      <node id="28">
+        <label>xpciepsu_sinit.c</label>
+        <link refid="xpciepsu__sinit_8c"/>
+      </node>
+      <node id="26">
+        <label>xpciepsu_ingress_ep_enable_example.c</label>
+      </node>
+      <node id="24">
+        <label>xpciepsu_ep.c</label>
+        <link refid="xpciepsu__ep_8c"/>
+      </node>
+      <node id="23">
+        <label>xpciepsu_ep.h</label>
+        <link refid="xpciepsu__ep_8h"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>xpciepsu.c</label>
+        <link refid="xpciepsu_8c"/>
+      </node>
+      <node id="20">
+        <label>xpciepsu.h</label>
+        <link refid="xpciepsu.h"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>xpciepsu_g.c</label>
+      </node>
+      <node id="25">
+        <label>xpciepsu_egress_ep_enable_example.c</label>
+        <link refid="xpciepsu__egress__ep__enable__example_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pcie_psu___config" prot="public">XPciePsu_Config</innerclass>
+    <innerclass refid="struct_x_pcie_psu" prot="public">XPciePsu</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpciepsu_8h_1a6242a25f9d996f0cc4f4cdb911218b75" prot="public" static="no">
+        <name>ARRAY_SIZE</name>
+        <param><defname>x</defname></param>
+        <initializer>sizeof(x) / sizeof(x[0])</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpciepsu_8h_1a11bdbeb0f844db1d203f2b8f6f29ca5c" prot="public" static="no">
+        <name>MAX_BARS</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>No BAR allocation for Bridge. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpciepsu_8h_1acad74e57979d6bc62e24ddaa31ed11e9" prot="public" static="no">
+        <name>REQ_SIZE</name>
+        <initializer>(<ref refid="xpciepsu_8h_1a11bdbeb0f844db1d203f2b8f6f29ca5c" kindref="member">MAX_BARS</ref> * sizeof(unsigned long))</initializer>
+        <briefdescription>
+<para>Required size for BAR Alignment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xpciepsu_8h_1ae3aead0d2bf26fb531c9ada837ba55d6" prot="public" static="no" mutable="no">
+        <type>XPciePsu_Config</type>
+        <definition>XPciePsu_Config XPciePsu_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XPciePsu_ConfigTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_g.c" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xpciepsu_8h_1aed2b259bc4017a799839fc7c93a034a1" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t XPciePsu_ConfigTableSize</definition>
+        <argsstring></argsstring>
+        <name>XPciePsu_ConfigTableSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="115" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpciepsu_8h_1a74e7ad8ca6e2eabdda4f4a491a2f09c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XPciePsu_Config *</type>
+        <definition>XPciePsu_Config* XPciePsu_LookupConfig</definition>
+        <argsstring>(UINTPTR BrigReg)</argsstring>
+        <name>XPciePsu_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BrigReg</declname>
+        </param>
+        <briefdescription>
+<para>This function looks for the configuration of PCIe from the configTable based on the unique device ID. </para>        </briefdescription>
+        <detaileddescription>
+<para>The table XPciePsu_ConfigTable[] contains the configuration information for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique device ID of the device being looked up.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration table entry corresponding to the given device ID, or NULL if no match is found. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_sinit.c" bodystart="75" bodyend="100"/>
+        <referencedby refid="xpciepsu__rc__enumerate__example_8c_1af76b29384e19e30325ab001db778988c" compoundref="xpciepsu__rc__enumerate__example_8c" startline="124" endline="181">PcieInitRootComplex</referencedby>
+        <referencedby refid="xpciepsu__egress__ep__enable__example_8c_1acc7842964c589d60177706498dfb51c1" compoundref="xpciepsu__egress__ep__enable__example_8c" startline="213" endline="231">XPciePsu_InitEndPoint</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xpciepsu_8h_1a3d54a4fe188343ce59d689901c2b88c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPciePsu_CfgInitialize</definition>
+        <argsstring>(XPciePsu *InstancePtr, const XPciePsu_Config *CfgPtr, UINTPTR EffectiveBrgAddress)</argsstring>
+        <name>XPciePsu_CfgInitialize</name>
+        <param>
+          <type>XPciePsu *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const XPciePsu_Config *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveBrgAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the config space and PCIe bridge. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to XPciePsu Instance Pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to XPciePsu_Config instrance Pointer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveBrgAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>config brigReg address</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success err on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="1366" bodyend="1394"/>
+        <referencedby refid="xpciepsu__rc__enumerate__example_8c_1af76b29384e19e30325ab001db778988c" compoundref="xpciepsu__rc__enumerate__example_8c" startline="124" endline="181">PcieInitRootComplex</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xpciepsu_8h_1a862b72cd0796d429f122b5b83603f1d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XPciePsu_EnumerateBus</definition>
+        <argsstring>(XPciePsu *InstancePtr)</argsstring>
+        <name>XPciePsu_EnumerateBus</name>
+        <param>
+          <type>XPciePsu *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function starts PCIe enumeration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to XPciePsu Instance Pointer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 if success 0 if fails </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="1346" bodyend="1352"/>
+        <referencedby refid="xpciepsu__rc__enumerate__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xpciepsu__rc__enumerate__example_8c" startline="82" endline="104">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xpciepsu_8h_1a2c102ea980dacfdcfdfde291b60986be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XPciePsu_ReadConfigSpace</definition>
+        <argsstring>(XPciePsu *InstancePtr, u8 Bus, u8 Device, u8 Function, u16 Offset, u32 *DataPtr)</argsstring>
+        <name>XPciePsu_ReadConfigSpace</name>
+        <param>
+          <type>XPciePsu *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Bus</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Device</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Function</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DataPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function read from remote configuration space location. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to XPciePsu Instance Pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>location of the address to read data from. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer store date available in the offset</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success XST_FAILURE on failure. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="366" bodyend="395"/>
+        <references refid="xpciepsu_8c_1ac2d7bc13d9f1da8d6e67b88a1c37ed24" compoundref="xpciepsu_8c" startline="329" endline="349">XPciePsu_ComposeExternalConfigAddress</references>
+        <references refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" compoundref="xpciepsu_8c" startline="54" endline="56">XPciePsu_ReadReg</references>
+        <referencedby refid="xpciepsu__caps_8c_1a1cf81ffb26c43a972d2b92278b20cf7c" compoundref="xpciepsu__caps_8c" startline="95" endline="118">XPciePsu_HasCapability</referencedby>
+        <referencedby refid="xpciepsu__caps_8c_1a95b11e3f3a7fc1ae339795b380fde121" compoundref="xpciepsu__caps_8c" startline="178" endline="196">XPciePsu_PrintAllCapabilites</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xpciepsu_8h_1a55212721869b9ddb1f187cdbefebdc57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XPciePsu_WriteConfigSpace</definition>
+        <argsstring>(XPciePsu *InstancePtr, u8 Bus, u8 Device, u8 Function, u16 Offset, u32 Data)</argsstring>
+        <name>XPciePsu_WriteConfigSpace</name>
+        <param>
+          <type>XPciePsu *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Bus</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Device</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Function</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function write to remote configuration space location. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to XPciePsu Instance Pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>location of the address to write data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to be written on to the offset</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success XST_FAILURE on failure. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="412" bodyend="454"/>
+        <references refid="xpciepsu_8c_1ac2d7bc13d9f1da8d6e67b88a1c37ed24" compoundref="xpciepsu_8c" startline="329" endline="349">XPciePsu_ComposeExternalConfigAddress</references>
+        <references refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" compoundref="xpciepsu_8c" startline="54" endline="56">XPciePsu_ReadReg</references>
+        <references refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" compoundref="xpciepsu_8c" startline="69" endline="71">XPciePsu_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xpciepsu_8h_1ad974ca02c5108cc4d4afbfa809474c75" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XPciePsu_ReadLocalConfigSpace</definition>
+        <argsstring>(XPciePsu *InstancePtr, u16 Offset, u32 *DataPtr)</argsstring>
+        <name>XPciePsu_ReadLocalConfigSpace</name>
+        <param>
+          <type>XPciePsu *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DataPtr</declname>
+        </param>
+        <briefdescription>
+<para>Read 32-bit value from one of this IP own configuration space. </para>        </briefdescription>
+        <detaileddescription>
+<para>Location is identified by its offset from the beginning of the configuration space.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the XPciePsu instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>from beginning of IP own configuration space. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable where the driver will pass back the value read from the specified location.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success XST_FAILURE on failure.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="473" bodyend="486"/>
+        <references refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" compoundref="xpciepsu_8c" startline="54" endline="56">XPciePsu_ReadReg</references>
+        <referencedby refid="xpciepsu__rc__enumerate__example_8c_1af76b29384e19e30325ab001db778988c" compoundref="xpciepsu__rc__enumerate__example_8c" startline="124" endline="181">PcieInitRootComplex</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xpciepsu_8h_1a70154f924a73a1ee89b6b829bab05857" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XPciePsu_WriteLocalConfigSpace</definition>
+        <argsstring>(XPciePsu *InstancePtr, u16 Offset, u32 Data)</argsstring>
+        <name>XPciePsu_WriteLocalConfigSpace</name>
+        <param>
+          <type>XPciePsu *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Write 32-bit value to one of this IP own configuration space. </para>        </briefdescription>
+        <detaileddescription>
+<para>Location is identified by its offset from the beginning of the configuration space.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the PCIe component to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>from beggininng of IP own configuration space. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to be written to the specified location.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success XST_FAILURE on failure.</para></simplesect>
+<simplesect kind="note"><para>This function is valid only when IP is configured as a root complex. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="505" bodyend="517"/>
+        <references refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" compoundref="xpciepsu_8c" startline="69" endline="71">XPciePsu_WriteReg</references>
+        <referencedby refid="xpciepsu__rc__enumerate__example_8c_1af76b29384e19e30325ab001db778988c" compoundref="xpciepsu__rc__enumerate__example_8c" startline="124" endline="181">PcieInitRootComplex</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xpciepsu_8h_1ac2d7bc13d9f1da8d6e67b88a1c37ed24" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPciePsu_ComposeExternalConfigAddress</definition>
+        <argsstring>(u8 Bus, u8 Device, u8 Function, u16 Offset)</argsstring>
+        <name>XPciePsu_ComposeExternalConfigAddress</name>
+        <param>
+          <type>u8</type>
+          <declname>Bus</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Device</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Function</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Offset</declname>
+        </param>
+        <briefdescription>
+<para>This function Composes configuration space location. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Bus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>location address of the composed address </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="329" bodyend="349"/>
+        <references refid="xpciepsu__hw_8h_1a20a45b167585637a9c235ff5b012ca09" compoundref="xpciepsu__hw_8h" startline="152">XPCIEPSU_ECAM_BUS_MASK</references>
+        <references refid="xpciepsu__hw_8h_1a43e34c012ad52ea9f676bc0be12b7755" compoundref="xpciepsu__hw_8h" startline="157">XPCIEPSU_ECAM_BUS_SHIFT</references>
+        <references refid="xpciepsu__hw_8h_1a025cd22e68482e510c64559acafb2b7a" compoundref="xpciepsu__hw_8h" startline="153">XPCIEPSU_ECAM_DEV_MASK</references>
+        <references refid="xpciepsu__hw_8h_1a656b4b5d6c324bb37973ad122d06e764" compoundref="xpciepsu__hw_8h" startline="158">XPCIEPSU_ECAM_DEV_SHIFT</references>
+        <references refid="xpciepsu__hw_8h_1ad49fa35e338b4835db5b768e05377a94" compoundref="xpciepsu__hw_8h" startline="154">XPCIEPSU_ECAM_FUN_MASK</references>
+        <references refid="xpciepsu__hw_8h_1a70e8568f9b38b009d293beb175ad7dad" compoundref="xpciepsu__hw_8h" startline="159">XPCIEPSU_ECAM_FUN_SHIFT</references>
+        <references refid="xpciepsu__hw_8h_1a1f631e0208927a2a67ceade471bba3bc" compoundref="xpciepsu__hw_8h" startline="151">XPCIEPSU_ECAM_MASK</references>
+        <references refid="xpciepsu__hw_8h_1ad790db72820f81029d65b4d420e05742" compoundref="xpciepsu__hw_8h" startline="155">XPCIEPSU_ECAM_REG_MASK</references>
+        <references refid="xpciepsu__hw_8h_1a37c37016f94f30ed1a242bed0ce2ba2f" compoundref="xpciepsu__hw_8h" startline="160">XPCIEPSU_ECAM_REG_SHIFT</references>
+        <referencedby refid="xpciepsu_8h_1a2c102ea980dacfdcfdfde291b60986be" compoundref="xpciepsu_8c" startline="366" endline="395">XPciePsu_ReadConfigSpace</referencedby>
+        <referencedby refid="xpciepsu_8h_1a55212721869b9ddb1f187cdbefebdc57" compoundref="xpciepsu_8c" startline="412" endline="454">XPciePsu_WriteConfigSpace</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xpciepsu_8h_1a1cf81ffb26c43a972d2b92278b20cf7c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XPciePsu_HasCapability</definition>
+        <argsstring>(XPciePsu *InstancePtr, u8 Bus, u8 Device, u8 Function, u8 CapId)</argsstring>
+        <name>XPciePsu_HasCapability</name>
+        <param>
+          <type>XPciePsu *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Bus</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Device</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Function</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>CapId</declname>
+        </param>
+        <briefdescription>
+<para>This function returns whether capability Id is available or not for the particular Function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to XPciePsu Instance Pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of the Bus </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of the Device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is number of the Function </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>id to check capability pointer availability</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>u32 0 if capability is not available 1 if capability is available </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_caps.c" bodystart="95" bodyend="118"/>
+        <references refid="xpciepsu_8c_1a2c102ea980dacfdcfdfde291b60986be" compoundref="xpciepsu_8c" startline="366" endline="395">XPciePsu_ReadConfigSpace</references>
+      </memberdef>
+      <memberdef kind="function" id="xpciepsu_8h_1a95b11e3f3a7fc1ae339795b380fde121" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XPciePsu_PrintAllCapabilites</definition>
+        <argsstring>(XPciePsu *InstancePtr, u8 Bus, u8 Device, u8 Function)</argsstring>
+        <name>XPciePsu_PrintAllCapabilites</name>
+        <param>
+          <type>XPciePsu *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Bus</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Device</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Function</declname>
+        </param>
+        <briefdescription>
+<para>This function prints all the available capabilities in the Function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to XPciePsu Instance Pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of the Bus </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of the Device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is number of the Function</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success XST_FAILURE on failure. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_caps.c" bodystart="178" bodyend="196"/>
+        <references refid="xpciepsu_8c_1a2c102ea980dacfdcfdfde291b60986be" compoundref="xpciepsu_8c" startline="366" endline="395">XPciePsu_ReadConfigSpace</references>
+      </memberdef>
+      <memberdef kind="function" id="xpciepsu_8h_1a0cfd7833187346f6f654d80a359951b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPciePsu_ReadReg</definition>
+        <argsstring>(UINTPTR BaseAddr, u32 RegOffset)</argsstring>
+        <name>XPciePsu_ReadReg</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <briefdescription>
+<para>This function reads a register value from specified offset. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>BaseAddr of the register </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Offset from the base address to be read</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Register value </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="54" bodyend="56"/>
+        <referencedby refid="xpciepsu__egress__ep__enable__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xpciepsu__egress__ep__enable__example_8c" startline="159" endline="194">main</referencedby>
+        <referencedby refid="xpciepsu__ep_8h_1a6486e8d86d93762e998010aa29efd100" compoundref="xpciepsu__ep_8c" startline="116" endline="171">XPciePsu_Egress_EP_BridgeInitialize</referencedby>
+        <referencedby refid="xpciepsu__ep_8h_1a99474c575ca291a93548797b66df45b8" compoundref="xpciepsu__ep_8c" startline="61" endline="107">XPciePsu_EP_BridgeInitialize</referencedby>
+        <referencedby refid="xpciepsu__egress__ep__enable__example_8c_1a77aeb276879c8d92a9169d7f6c3f4b98" compoundref="xpciepsu__egress__ep__enable__example_8c" startline="83" endline="100">XPciePsu_EP_IntrHandler</referencedby>
+        <referencedby refid="xpciepsu__ep_8h_1ad0ab59afa2bae270a5be2f4496945dde" compoundref="xpciepsu__ep_8c" startline="347" endline="402">XPciePsu_EP_SetupEgress</referencedby>
+        <referencedby refid="xpciepsu__ep_8h_1a60670dca0dbddb37079e9917e41eae40" compoundref="xpciepsu__ep_8c" startline="278" endline="333">XPciePsu_EP_SetupIngress</referencedby>
+        <referencedby refid="xpciepsu__ep_8h_1a1d40296b15e59da3006fda5faa6a5d9c" compoundref="xpciepsu__ep_8c" startline="197" endline="206">XPciePsu_EP_WaitForEnumeration</referencedby>
+        <referencedby refid="xpciepsu__ep_8h_1aca1b71a1574b91939ee539c11556ce88" compoundref="xpciepsu__ep_8c" startline="179" endline="187">XPciePsu_EP_WaitForLinkup</referencedby>
+        <referencedby refid="xpciepsu_8h_1a2c102ea980dacfdcfdfde291b60986be" compoundref="xpciepsu_8c" startline="366" endline="395">XPciePsu_ReadConfigSpace</referencedby>
+        <referencedby refid="xpciepsu_8h_1ad974ca02c5108cc4d4afbfa809474c75" compoundref="xpciepsu_8c" startline="473" endline="486">XPciePsu_ReadLocalConfigSpace</referencedby>
+        <referencedby refid="xpciepsu_8h_1a55212721869b9ddb1f187cdbefebdc57" compoundref="xpciepsu_8c" startline="412" endline="454">XPciePsu_WriteConfigSpace</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xpciepsu_8h_1a558622766b2c01af123a216c1d682376" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPciePsu_WriteReg</definition>
+        <argsstring>(UINTPTR BaseAddr, u32 RegOffset, u32 Val)</argsstring>
+        <name>XPciePsu_WriteReg</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Val</declname>
+        </param>
+        <briefdescription>
+<para>This function writes a register value to specified offset. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base Address of the register </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Offset from the base address to be written </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to be written</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>none </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="69" bodyend="71"/>
+        <referencedby refid="xpciepsu__egress__ep__enable__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xpciepsu__egress__ep__enable__example_8c" startline="159" endline="194">main</referencedby>
+        <referencedby refid="xpciepsu__ep_8h_1a6486e8d86d93762e998010aa29efd100" compoundref="xpciepsu__ep_8c" startline="116" endline="171">XPciePsu_Egress_EP_BridgeInitialize</referencedby>
+        <referencedby refid="xpciepsu__ep_8h_1a99474c575ca291a93548797b66df45b8" compoundref="xpciepsu__ep_8c" startline="61" endline="107">XPciePsu_EP_BridgeInitialize</referencedby>
+        <referencedby refid="xpciepsu__egress__ep__enable__example_8c_1a77aeb276879c8d92a9169d7f6c3f4b98" compoundref="xpciepsu__egress__ep__enable__example_8c" startline="83" endline="100">XPciePsu_EP_IntrHandler</referencedby>
+        <referencedby refid="xpciepsu__ep_8h_1ad0ab59afa2bae270a5be2f4496945dde" compoundref="xpciepsu__ep_8c" startline="347" endline="402">XPciePsu_EP_SetupEgress</referencedby>
+        <referencedby refid="xpciepsu__ep_8h_1a60670dca0dbddb37079e9917e41eae40" compoundref="xpciepsu__ep_8c" startline="278" endline="333">XPciePsu_EP_SetupIngress</referencedby>
+        <referencedby refid="xpciepsu_8h_1a55212721869b9ddb1f187cdbefebdc57" compoundref="xpciepsu_8c" startline="412" endline="454">XPciePsu_WriteConfigSpace</referencedby>
+        <referencedby refid="xpciepsu_8h_1a70154f924a73a1ee89b6b829bab05857" compoundref="xpciepsu_8c" startline="505" endline="517">XPciePsu_WriteLocalConfigSpace</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the software API definition of the Xilinx PSU PCI IP (psu_pcie). </para>    </briefdescription>
+    <detaileddescription>
+<para>This driver provides &quot;C&quot; function interface to application/upper layer to access the hardware.</para><para><bold>Features</bold> The driver provides its user with entry points<itemizedlist>
+<listitem><para>To initialize and configure itself and the hardware</para></listitem><listitem><para>To access PCIe configuration space locally</para></listitem></itemizedlist>
+</para><para><bold>Driver Initialization &amp; Configuration</bold></para><para>The XPciePsu_Config structure is used by the driver to configure itself. This configuration structure is typically created by the tool-chain based on HW build properties.</para><para>To support multiple runtime loading and initialization strategies employed by various operating systems, the driver instance can be initialized in the following way:</para><para><itemizedlist>
+<listitem><para>XPciePsu_LookupConfig(DeviceId) - Use the device identifier to find the static configuration structure defined in xpciepsu_g.c. This is setup by the tools.</para></listitem><listitem><para>XPciePsu_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddress) - Uses a configuration structure provided by the caller. If running in a system with address translation, the provided virtual memory base address replaces the physical address present in the configuration structure.</para></listitem></itemizedlist>
+</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0     bs      08/21/2018      First release
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor">#ifndef<sp/>XPCIEPSU_H_</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPCIEPSU_H_</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/********************************<sp/>Include<sp/>Files<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xpciepsu__hw_8h" kindref="compound">xpciepsu_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/********************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ARRAY_SIZE(x)<sp/><sp/><sp/>sizeof(x)<sp/>/<sp/>sizeof(x[0])</highlight></codeline>
+<codeline lineno="65" refid="xpciepsu_8h_1a11bdbeb0f844db1d203f2b8f6f29ca5c" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MAX_BARS<sp/>6<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66" refid="xpciepsu_8h_1acad74e57979d6bc62e24ddaa31ed11e9" refkind="member"><highlight class="preprocessor">#define<sp/>REQ_SIZE<sp/>(MAX_BARS<sp/>*<sp/>sizeof(unsigned<sp/>long))<sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="comment">/******************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DeviceId;<sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>defined(SDT)</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>BrigReg;<sp/><sp/></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>PciReg;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Ecam;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor">#if<sp/>defined(ARMR5)</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NpMemBaseAddr;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NpMemMaxAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/>NpMemBaseAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/>NpMemMaxAddr;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><sp/><sp/><sp/><sp/>PMemBaseAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><sp/><sp/><sp/><sp/>PMemMaxAddr;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>BrigReg;<sp/><sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>PciReg;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Ecam;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor">#if<sp/>defined(ARMR5)</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NpMemBaseAddr;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NpMemMaxAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/>NpMemBaseAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><sp/><sp/><sp/><sp/>PMemBaseAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/>NpMemMaxAddr;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><sp/><sp/><sp/><sp/>PMemMaxAddr;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DmaBaseAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/>PcieMode;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="normal">}<sp/>XPciePsu_Config;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPciePsu_Config<sp/>Config;<sp/></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsReady;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MaxSupportedBusNo;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="111"><highlight class="normal">}<sp/>XPciePsu;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Variable<sp/>definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XPciePsu_Config<sp/>XPciePsu_ConfigTable[];</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>XPciePsu_ConfigTableSize;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Function<sp/>Prototypes<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="normal">XPciePsu_Config<sp/>*<ref refid="xpciepsu_8h_1a74e7ad8ca6e2eabdda4f4a491a2f09c6" kindref="member">XPciePsu_LookupConfig</ref>(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="normal">XPciePsu_Config<sp/>*<ref refid="xpciepsu_8h_1a74e7ad8ca6e2eabdda4f4a491a2f09c6" kindref="member">XPciePsu_LookupConfig</ref>(UINTPTR<sp/>BrigReg);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal">u32<sp/><ref refid="xpciepsu_8c_1a3d54a4fe188343ce59d689901c2b88c6" kindref="member">XPciePsu_CfgInitialize</ref>(XPciePsu<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPciePsu_Config<sp/>*CfgPtr,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveBrgAddress);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal">u8<sp/><ref refid="xpciepsu_8c_1a862b72cd0796d429f122b5b83603f1d3" kindref="member">XPciePsu_EnumerateBus</ref>(XPciePsu<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal">u8<sp/><ref refid="xpciepsu_8c_1a2c102ea980dacfdcfdfde291b60986be" kindref="member">XPciePsu_ReadConfigSpace</ref>(XPciePsu<sp/>*InstancePtr,<sp/>u8<sp/>Bus,<sp/>u8<sp/>Device,</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Function,<sp/>u16<sp/>Offset,<sp/>u32<sp/>*DataPtr);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal">u8<sp/><ref refid="xpciepsu_8c_1a55212721869b9ddb1f187cdbefebdc57" kindref="member">XPciePsu_WriteConfigSpace</ref>(XPciePsu<sp/>*InstancePtr,<sp/>u8<sp/>Bus,<sp/>u8<sp/>Device,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Function,<sp/>u16<sp/>Offset,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal">u8<sp/><ref refid="xpciepsu_8c_1ad974ca02c5108cc4d4afbfa809474c75" kindref="member">XPciePsu_ReadLocalConfigSpace</ref>(XPciePsu<sp/>*InstancePtr,<sp/>u16<sp/>Offset,</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*DataPtr);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal">u8<sp/><ref refid="xpciepsu_8c_1a70154f924a73a1ee89b6b829bab05857" kindref="member">XPciePsu_WriteLocalConfigSpace</ref>(XPciePsu<sp/>*InstancePtr,<sp/>u16<sp/>Offset,</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">u32<sp/><ref refid="xpciepsu_8c_1ac2d7bc13d9f1da8d6e67b88a1c37ed24" kindref="member">XPciePsu_ComposeExternalConfigAddress</ref>(u8<sp/>Bus,<sp/>u8<sp/>Device,<sp/>u8<sp/>Function,</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Offset);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal">u8<sp/><ref refid="xpciepsu_8h_1a1cf81ffb26c43a972d2b92278b20cf7c" kindref="member">XPciePsu_HasCapability</ref>(XPciePsu<sp/>*InstancePtr,<sp/>u8<sp/>Bus,<sp/>u8<sp/>Device,</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Function,<sp/>u8<sp/>CapId);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(__aarch64__)<sp/>||<sp/>defined(__arch64__)</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="normal">u64<sp/>XPciePsu_GetCapability(XPciePsu<sp/>*InstancePtr,<sp/>u8<sp/>Bus,<sp/>u8<sp/>Device,</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Function,<sp/>u8<sp/>CapId);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="normal">u8<sp/><ref refid="xpciepsu_8h_1a95b11e3f3a7fc1ae339795b380fde121" kindref="member">XPciePsu_PrintAllCapabilites</ref>(XPciePsu<sp/>*InstancePtr,<sp/>u8<sp/>Bus,<sp/>u8<sp/>Device,</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Function);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal">u32<sp/><ref refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" kindref="member">XPciePsu_ReadReg</ref>(UINTPTR<sp/>BaseAddr,<sp/>u32<sp/>RegOffset);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(UINTPTR<sp/>BaseAddr,<sp/>u32<sp/>RegOffset,<sp/>u32<sp/>Val);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(__aarch64__)<sp/>||<sp/>defined(__arch64__)</highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPciePsu_WriteReg64(UINTPTR<sp/>BaseAddr,<sp/>u64<sp/>RegOffset,<sp/>u64<sp/>Val);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPCIEPSU_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mpegtsmux" kind="struct" prot="public">
+    <compoundname>XMpegtsmux</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mpegtsmux_1a663cec6e150b308ab6910cfc1330870c" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XMpegtsmux::Ctrl_BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>Ctrl_BaseAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mpegtsmux_1aea978388d92d569990ab56026bf07e6b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMpegtsmux::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mpegtsmux_1ac35bfefdb5f6e1e53665662b1c593deb" prot="public" static="no" mutable="no">
+        <type>XMpegTsMux_Callback</type>
+        <definition>XMpegTsMux_Callback XMpegtsmux::Callback</definition>
+        <argsstring></argsstring>
+        <name>Callback</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mpegtsmux_1acd3d14f678d70fb04be21f77606dae5a" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XMpegtsmux::CallbackRef</definition>
+        <argsstring></argsstring>
+        <name>CallbackRef</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" bodystart="46" bodyend="51"/>
+    <listofallmembers>
+      <member refid="struct_x_mpegtsmux_1ac35bfefdb5f6e1e53665662b1c593deb" prot="public" virt="non-virtual"><scope>XMpegtsmux</scope><name>Callback</name></member>
+      <member refid="struct_x_mpegtsmux_1acd3d14f678d70fb04be21f77606dae5a" prot="public" virt="non-virtual"><scope>XMpegtsmux</scope><name>CallbackRef</name></member>
+      <member refid="struct_x_mpegtsmux_1a663cec6e150b308ab6910cfc1330870c" prot="public" virt="non-virtual"><scope>XMpegtsmux</scope><name>Ctrl_BaseAddress</name></member>
+      <member refid="struct_x_mpegtsmux_1aea978388d92d569990ab56026bf07e6b" prot="public" virt="non-virtual"><scope>XMpegtsmux</scope><name>IsReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_a719c45bdc640507d0be05bb27d871bd" kind="dir">
+    <compoundname>xiltpm</compoundname>
+    <innerdir refid="dir_de13ec639b8f39d782bee3f462fe3d42">examples</innerdir>
+    <innerdir refid="dir_1c25db9497ab9997f61ececf3cc63991">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/"/>
+  </compounddef>
+</doxygen>

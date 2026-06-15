@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_tx_ss___tmr_ctr_sub_core" kind="struct" prot="public">
+    <compoundname>XDpTxSs_TmrCtrSubCore</compoundname>
+    <includes local="no">xdptxss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___tmr_ctr_sub_core_1a2652aedaf78ad628e5de1dcf00e87b0c" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDpTxSs_TmrCtrSubCore::IsPresent</definition>
+        <argsstring></argsstring>
+        <name>IsPresent</name>
+        <briefdescription>
+<para>Flag to hold the presence of Timer Counter core. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.h" line="278" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.h" bodystart="278" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___tmr_ctr_sub_core_1ad33edf334a1336677e05b41c71ed0f6d" prot="public" static="no" mutable="no">
+        <type>XDpTxSs_SubCoreConfig</type>
+        <definition>XDpTxSs_SubCoreConfig XDpTxSs_TmrCtrSubCore::TmrCtrConfig</definition>
+        <argsstring></argsstring>
+        <name>TmrCtrConfig</name>
+        <briefdescription>
+<para>Timer Counter core configuration information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.h" bodystart="280" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1gafb7b3b467a12177fb0c8053f4b7d70a1" compoundref="xdptxss_8c" startline="121" endline="356">XDpTxSs_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Timer Counter Sub-core structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.h" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.h" bodystart="277" bodyend="282"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_tx_ss___tmr_ctr_sub_core_1a2652aedaf78ad628e5de1dcf00e87b0c" prot="public" virt="non-virtual"><scope>XDpTxSs_TmrCtrSubCore</scope><name>IsPresent</name></member>
+      <member refid="struct_x_dp_tx_ss___tmr_ctr_sub_core_1ad33edf334a1336677e05b41c71ed0f6d" prot="public" virt="non-virtual"><scope>XDpTxSs_TmrCtrSubCore</scope><name>TmrCtrConfig</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

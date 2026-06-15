@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_sub_core_csi2_tx" kind="struct" prot="public">
+    <compoundname>SubCoreCsi2Tx</compoundname>
+    <includes local="no">xcsi2txss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_sub_core_csi2_tx_1abc02d9ffedadf7ebdc709f69c773c767" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 SubCoreCsi2Tx::IsPresent</definition>
+        <argsstring></argsstring>
+        <name>IsPresent</name>
+        <briefdescription>
+<para>Flag to indicate if sub-core is present in design. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_sub_core_csi2_tx_1acaae9fd3ab15c0b099b352b20cd064d7" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR SubCoreCsi2Tx::AddrOffset</definition>
+        <argsstring></argsstring>
+        <name>AddrOffset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Sub-Core Configuration Table. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="196" bodyend="205"/>
+    <listofallmembers>
+      <member refid="struct_sub_core_csi2_tx_1acaae9fd3ab15c0b099b352b20cd064d7" prot="public" virt="non-virtual"><scope>SubCoreCsi2Tx</scope><name>AddrOffset</name></member>
+      <member refid="struct_sub_core_csi2_tx_1abc02d9ffedadf7ebdc709f69c773c767" prot="public" virt="non-virtual"><scope>SubCoreCsi2Tx</scope><name>IsPresent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_xil_loader___hash_block" kind="struct" prot="public">
+    <compoundname>XilLoader_HashBlock</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_xil_loader___hash_block_1a54a4474e723b8082a1f6c6e3462f62a4" prot="public" static="no" mutable="no">
+        <type>XilLoader_PrtnHashInfo</type>
+        <definition>XilLoader_PrtnHashInfo XilLoader_HashBlock::HashData[XLOADER_IH_MAX_PRTNS+1U]</definition>
+        <argsstring>[XLOADER_IH_MAX_PRTNS+1U]</argsstring>
+        <name>HashData</name>
+        <briefdescription>
+<para>Partition hash data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>HashBlock Definition. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="188" bodyend="190"/>
+    <listofallmembers>
+      <member refid="struct_xil_loader___hash_block_1a54a4474e723b8082a1f6c6e3462f62a4" prot="public" virt="non-virtual"><scope>XilLoader_HashBlock</scope><name>HashData</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

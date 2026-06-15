@@ -1,0 +1,1477 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="audiogen__drv_8h" kind="file">
+    <compoundname>audiogen_drv.h</compoundname>
+    <includes local="yes">xvidc.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <includedby refid="audiogen__drv_8c" local="yes">audiogen_drv.c</includedby>
+    <incdepgraph>
+      <node id="66">
+        <label>xil_io.h</label>
+      </node>
+      <node id="67">
+        <label>sleep.h</label>
+      </node>
+      <node id="65">
+        <label>xstatus.h</label>
+      </node>
+      <node id="63">
+        <label>xvidc.h</label>
+      </node>
+      <node id="62">
+        <label>audiogen_drv.h</label>
+        <link refid="audiogen_drv.h"/>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+      </node>
+      <node id="64">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="69">
+        <label>audiogen_drv.c</label>
+      </node>
+      <node id="68">
+        <label>audiogen_drv.h</label>
+        <link refid="audiogen_drv.h"/>
+        <childnode refid="69" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_a_c_r___n___table__t" prot="public">ACR_N_Table_t</innerclass>
+    <innerclass refid="struct_xhdmi_audio_gen___p_l_l__t" prot="public">XhdmiAudioGen_PLL_t</innerclass>
+    <innerclass refid="struct_xhdmi_audio_gen__t" prot="public">XhdmiAudioGen_t</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="audiogen__drv_8h_1a2ac636b5e8ec7ab5f818df52f1e1a2a6" prot="public" static="no">
+        <name>AUDGEN_WAIT_CNT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="44" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a54032017588d2fc51e5632662318220d" prot="public" static="no">
+        <name>XAudGen_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+<para>Input Operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1ac092aef14372cdc316d142336d855ec6" prot="public" static="no">
+        <name>XAudGen_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+<para>Output Operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a32eb5f44dc9631db2600edd337de5e35" prot="public" static="no">
+        <name>XAudGen_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>XAudGen_In32((BaseAddress) + ((u32)RegOffset))</initializer>
+        <briefdescription>
+<para>This function macro reads the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the Audio Generator core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 XAudGen_ReadReg(u32 BaseAddress, u32 RegOffset) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a1f8b21c2dd98f173e0f58038514a832d" prot="public" static="no">
+        <name>XAudGen_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>XAudGen_Out32((BaseAddress) + ((u32)RegOffset), (u32)(Data))</initializer>
+        <briefdescription>
+<para>Write the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the Audio Generator core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void XAudGen_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1adb0787c24d3108dd9882976ea4e2afd5" prot="public" static="no">
+        <name>AUD_CTRL</name>
+        <initializer>0x000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a4b3ef28903c591db79f4c1f729dc4a32" prot="public" static="no">
+        <name>AUD_CFG</name>
+        <initializer>0x004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1ac694e554f6a4669c19385ae136f8820b" prot="public" static="no">
+        <name>CH1_CTRL</name>
+        <initializer>0x010</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1afa3bfe9a87462945fe21465d0baa4d2d" prot="public" static="no">
+        <name>CH2_CTRL</name>
+        <initializer>0x020</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a80a17c17af3714b963f4920f51e2998a" prot="public" static="no">
+        <name>CH3_CTRL</name>
+        <initializer>0x030</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a3f312cfe9b90b5251ff5f997abada201" prot="public" static="no">
+        <name>CH4_CTRL</name>
+        <initializer>0x040</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="160" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a2dfe3dcbdaf71eaf8dcc71c765a64698" prot="public" static="no">
+        <name>CH5_CTRL</name>
+        <initializer>0x050</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a9773d54a3d2ddfafeb093b318902bfb1" prot="public" static="no">
+        <name>CH6_CTRL</name>
+        <initializer>0x060</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a8b93c0725619089a02de4eaa852ebfbf" prot="public" static="no">
+        <name>CH7_CTRL</name>
+        <initializer>0x070</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1aac5cccddfc90daf7dfc413d7522e89a5" prot="public" static="no">
+        <name>CH8_CTRL</name>
+        <initializer>0x080</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1ab6c81a55ed2830390a5e1e5edfe0b71b" prot="public" static="no">
+        <name>CHSTS_0</name>
+        <initializer>0x0A0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1af53cfd1219734cdeded2e78fdc65445a" prot="public" static="no">
+        <name>CHSTS_1</name>
+        <initializer>0x0A4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a32866b08833cce5a2c31676525d90af6" prot="public" static="no">
+        <name>CHSTS_2</name>
+        <initializer>0x0A8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a7639e3a817388dbe8e37dfff97a34118" prot="public" static="no">
+        <name>CHSTS_3</name>
+        <initializer>0x0AC</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a38e8cc9c0c4dfbaffbc17c91203ddc92" prot="public" static="no">
+        <name>CHSTS_4</name>
+        <initializer>0x0B0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a7bd7280bc4fda6a6f37356c0def94a0b" prot="public" static="no">
+        <name>CHSTS_5</name>
+        <initializer>0x0B4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a8e2d06ba6c01b9b1be9f28b741b01023" prot="public" static="no">
+        <name>AUD_CTRL_REG_AUD_RST_MASK</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a941e19383b2f48bb50ef98736b92d661" prot="public" static="no">
+        <name>AUD_CTRL_REG_AUD_RST_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1addbc7fc3d3c1bef75f96319ef4ff8d04" prot="public" static="no">
+        <name>AUD_CTRL_REG_AUD_START_MASK</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a17fecb2b9a7edb7a491dddd39ec31e89" prot="public" static="no">
+        <name>AUD_CTRL_REG_AUD_START_SHIFT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a4e228ab796878ab4b8d2912df9d336e0" prot="public" static="no">
+        <name>AUD_CTRL_REG_AUD_UPDCFG_MASK</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1afe6c31f4612d52dd9aa7ac2b0f6de93f" prot="public" static="no">
+        <name>AUD_CTRL_REG_AUD_UPDCFG_SHIFT</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a9b4b137ff82b5b9342cfba3e8daa8a69" prot="public" static="no">
+        <name>AUD_CTRL_REG_AUD_DROP_MASK</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a946980d992e898f7c8b93c1134957995" prot="public" static="no">
+        <name>AUD_CTRL_REG_AUD_DROP_SHIFT</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a151b32c74b3bb7c8190ddde48026b4b6" prot="public" static="no">
+        <name>AUD_CFG_REG_SAMPRATE_MASK</name>
+        <initializer>0xF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="183" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a2e0658822f1b02b2f66af49b68e4438c" prot="public" static="no">
+        <name>AUD_CFG_REG_SAMPRATE_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a5c321f6de2e6ed51b90a9ea2a10cb421" prot="public" static="no">
+        <name>AUD_CFG_REG_NUMCH_MASK</name>
+        <initializer>0xF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a220f3817c80f721434bb72abd00752d0" prot="public" static="no">
+        <name>AUD_CFG_REG_NUMCH_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="186" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1acef477436797af564ea0de26584fc5fa" prot="public" static="no">
+        <name>CH_CTRL_REG_PATTERN_MASK</name>
+        <initializer>0x3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="189" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a08310e8f00b8879ba3eec5c1b2c520bf" prot="public" static="no">
+        <name>CH_CTRL_REG_PATTERN_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="190" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1ab4a0b1b843c255a4c2ed24aacdf0dd95" prot="public" static="no">
+        <name>CH_CTRL_REG_PERIOD_MASK</name>
+        <initializer>0xF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="191" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a5fcb0705752c913a51cd843bfb5d7f62" prot="public" static="no">
+        <name>CH_CTRL_REG_PERIOD_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a11f0a24b3f5589e9032b2e898f1ecc88" prot="public" static="no">
+        <name>ACR_VER</name>
+        <initializer>0x000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="195" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a3490619666bf662b793dd8675f94edd1" prot="public" static="no">
+        <name>ACR_CTRL</name>
+        <initializer>0x004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="196" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1aa7393348b75db248342227921b6df934" prot="public" static="no">
+        <name>ACR_CTS</name>
+        <initializer>0x008</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="197" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1ae96904e0e4ed07683b991e5726ce7402" prot="public" static="no">
+        <name>ACR_N</name>
+        <initializer>0x00C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="198" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a430b3bfb91753a30696c23b6ae545044" prot="public" static="no">
+        <name>ACR_CTRL_ENAB_ACR_MASK</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="201" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1af9d047870b9bcd049dccdf8611d53122" prot="public" static="no">
+        <name>ACR_CTRL_ENAB_ACR_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="202" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a3311ac606ec7f69a84cd83e4f9f4a1f5" prot="public" static="no">
+        <name>ACR_CTRL_SEL_ACR_MASK</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="203" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1ab590d857257578b9ae751aa5f8912a2e" prot="public" static="no">
+        <name>ACR_CTRL_SEL_ACR_SHIFT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="204" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1ae543b4075d663c19dc393f0fb1c22b25" prot="public" static="no">
+        <name>ACR_CTRL_AUD_RST_MASK</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="205" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1ab70da6772f06504b4a59372546853dcc" prot="public" static="no">
+        <name>ACR_CTRL_AUD_RST_SHIFT</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="206" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a5a7fef2f2ac0f50cf4da625a090dc2a2" prot="public" static="no">
+        <name>ACR_CTRL_TMDSCLKRATIO_MASK</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="207" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a33b93941458d12a573c91d0611a265fe" prot="public" static="no">
+        <name>ACR_CTRL_TMDSCLKRATIO_SHIFT</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="208" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a4432ca29f70485b19c491321ba13aa7e" prot="public" static="no">
+        <name>ACR_SEL_GEN</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="audiogen__drv_8h_1a6c5a5e8cc43964a7101dd747356d37a6" prot="public" static="no">
+        <name>ACR_SEL_IN</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="211" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="audiogen__drv_8h_1a6ec52584543cfd0cb513205cb3e84e60" prot="public" static="no">
+        <name>AudioRate_t</name>
+        <enumvalue id="audiogen__drv_8h_1a6ec52584543cfd0cb513205cb3e84e60a0c06bfa39aa16f400dc7738d05e187cc" prot="public">
+          <name>XAUD_SRATE_32K</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="audiogen__drv_8h_1a6ec52584543cfd0cb513205cb3e84e60a0de9e337cd9581197947935fdcdaf706" prot="public">
+          <name>XAUD_SRATE_44K1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="audiogen__drv_8h_1a6ec52584543cfd0cb513205cb3e84e60a10a90cbff35d21c75199822de4e584ab" prot="public">
+          <name>XAUD_SRATE_48K</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="audiogen__drv_8h_1a6ec52584543cfd0cb513205cb3e84e60ae94689f4ed051946001bf22b12cf6b36" prot="public">
+          <name>XAUD_SRATE_88K2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="audiogen__drv_8h_1a6ec52584543cfd0cb513205cb3e84e60a997cd2b908fb409f88d1496f5b37c48d" prot="public">
+          <name>XAUD_SRATE_96K</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="audiogen__drv_8h_1a6ec52584543cfd0cb513205cb3e84e60aa29da6460c80df657718fcd684f1ad5a" prot="public">
+          <name>XAUD_SRATE_176K4</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="audiogen__drv_8h_1a6ec52584543cfd0cb513205cb3e84e60a8553d90ac68210c0c5c1f67b5a91b2f6" prot="public">
+          <name>XAUD_SRATE_192K</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="audiogen__drv_8h_1a6ec52584543cfd0cb513205cb3e84e60aaa7fde28bb185111d341b7a09433801f" prot="public">
+          <name>XAUD_NUM_SUPPORTED_SRATE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_i2_s_2audiogen__drv_8h_1a6ec52584543cfd0cb513205cb3e84e60a0c06bfa39aa16f400dc7738d05e187cc" prot="public">
+          <name>XAUD_SRATE_32K</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_i2_s_2audiogen__drv_8h_1a6ec52584543cfd0cb513205cb3e84e60a0de9e337cd9581197947935fdcdaf706" prot="public">
+          <name>XAUD_SRATE_44K1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_i2_s_2audiogen__drv_8h_1a6ec52584543cfd0cb513205cb3e84e60a10a90cbff35d21c75199822de4e584ab" prot="public">
+          <name>XAUD_SRATE_48K</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_i2_s_2audiogen__drv_8h_1a6ec52584543cfd0cb513205cb3e84e60ae94689f4ed051946001bf22b12cf6b36" prot="public">
+          <name>XAUD_SRATE_88K2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_i2_s_2audiogen__drv_8h_1a6ec52584543cfd0cb513205cb3e84e60a997cd2b908fb409f88d1496f5b37c48d" prot="public">
+          <name>XAUD_SRATE_96K</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_i2_s_2audiogen__drv_8h_1a6ec52584543cfd0cb513205cb3e84e60aa29da6460c80df657718fcd684f1ad5a" prot="public">
+          <name>XAUD_SRATE_176K4</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_i2_s_2audiogen__drv_8h_1a6ec52584543cfd0cb513205cb3e84e60a8553d90ac68210c0c5c1f67b5a91b2f6" prot="public">
+          <name>XAUD_SRATE_192K</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_i2_s_2audiogen__drv_8h_1a6ec52584543cfd0cb513205cb3e84e60aaa7fde28bb185111d341b7a09433801f" prot="public">
+          <name>XAUD_NUM_SUPPORTED_SRATE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="52" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="enum" id="audiogen__drv_8h_1a9a87e01a4e3b238ffa100ea3a44ea7b2" prot="public" static="no">
+        <name>AudioPattern_t</name>
+        <enumvalue id="audiogen__drv_8h_1a9a87e01a4e3b238ffa100ea3a44ea7b2a1f9088f0584f9f9d2cf9a1009d2f7081" prot="public">
+          <name>XAUD_PAT_MUTE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="audiogen__drv_8h_1a9a87e01a4e3b238ffa100ea3a44ea7b2a5df48a5a9b7f90560830e4e6742fdd10" prot="public">
+          <name>XAUD_PAT_SINE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="audiogen__drv_8h_1a9a87e01a4e3b238ffa100ea3a44ea7b2ad02054c3c21eac2b2c16ab189ecbe944" prot="public">
+          <name>XAUD_PAT_PING</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="audiogen__drv_8h_1a9a87e01a4e3b238ffa100ea3a44ea7b2abe1292b4492a7cb0ca4bdafb12cbe74a" prot="public">
+          <name>XAUD_PAT_RAMP</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="audiogen__drv_8h_1a9a87e01a4e3b238ffa100ea3a44ea7b2a8c2304495c362a8f80a80a18422a8311" prot="public">
+          <name>XAUD_NUM_SUPPORTED_PAT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_i2_s_2audiogen__drv_8h_1a9a87e01a4e3b238ffa100ea3a44ea7b2a1f9088f0584f9f9d2cf9a1009d2f7081" prot="public">
+          <name>XAUD_PAT_MUTE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_i2_s_2audiogen__drv_8h_1a9a87e01a4e3b238ffa100ea3a44ea7b2a5df48a5a9b7f90560830e4e6742fdd10" prot="public">
+          <name>XAUD_PAT_SINE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_i2_s_2audiogen__drv_8h_1a9a87e01a4e3b238ffa100ea3a44ea7b2ad02054c3c21eac2b2c16ab189ecbe944" prot="public">
+          <name>XAUD_PAT_PING</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_i2_s_2audiogen__drv_8h_1a9a87e01a4e3b238ffa100ea3a44ea7b2abe1292b4492a7cb0ca4bdafb12cbe74a" prot="public">
+          <name>XAUD_PAT_RAMP</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_i2_s_2audiogen__drv_8h_1a9a87e01a4e3b238ffa100ea3a44ea7b2a8c2304495c362a8f80a80a18422a8311" prot="public">
+          <name>XAUD_NUM_SUPPORTED_PAT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="63" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="enum" id="audiogen__drv_8h_1a38f16784b07ff9bb90f943cf805b1054" prot="public" static="no">
+        <name>XhdmiAudioGen_MmcmDivType</name>
+        <enumvalue id="audiogen__drv_8h_1a38f16784b07ff9bb90f943cf805b1054a70c7ae4177c9d370cf95c111d5c4736a" prot="public">
+          <name>AUDGEN_MMCM_CLKFBOUT_MULT_F</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="audiogen__drv_8h_1a38f16784b07ff9bb90f943cf805b1054a0af4624477c2375604b4fcbb5570f54a" prot="public">
+          <name>AUDGEN_MMCM_DIVCLK_DIVIDE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="audiogen__drv_8h_1a38f16784b07ff9bb90f943cf805b1054ab5c5ad9a8fbfe115d8a54660b096e593" prot="public">
+          <name>AUDGEN_MMCM_CLKOUT_DIVIDE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" bodystart="88" bodyend="92"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="audiogen__drv_8h_1a4ec51cdb79d80d789d9ccc00a2ced413" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XhdmiAudGen_Init</definition>
+        <argsstring>(XhdmiAudioGen_t *AudioGen, UINTPTR AudGen_Base, UINTPTR ACRCtrl_Base, UINTPTR AudClk_Gen_Base)</argsstring>
+        <name>XhdmiAudGen_Init</name>
+        <param>
+          <type>XhdmiAudioGen_t *</type>
+          <declname>AudioGen</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>AudGen_Base</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>ACRCtrl_Base</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>AudClk_Gen_Base</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.c" bodystart="171" bodyend="188"/>
+      </memberdef>
+      <memberdef kind="function" id="audiogen__drv_8h_1a85d736de9c9bf0c4096db24d81cd2496" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XhdmiAudGen_Reset</definition>
+        <argsstring>(XhdmiAudioGen_t *AudioGen)</argsstring>
+        <name>XhdmiAudGen_Reset</name>
+        <param>
+          <type>XhdmiAudioGen_t *</type>
+          <declname>AudioGen</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.c" bodystart="190" bodyend="200"/>
+      </memberdef>
+      <memberdef kind="function" id="audiogen__drv_8h_1a7a7d2fe8b1ec7c5df7c812fbe2cd01d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XhdmiAudGen_Start</definition>
+        <argsstring>(XhdmiAudioGen_t *AudioGen, u8 setclr)</argsstring>
+        <name>XhdmiAudGen_Start</name>
+        <param>
+          <type>XhdmiAudioGen_t *</type>
+          <declname>AudioGen</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>setclr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.c" bodystart="202" bodyend="216"/>
+      </memberdef>
+      <memberdef kind="function" id="audiogen__drv_8h_1a801a72103ee6081467edb9642cde1420" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XhdmiAudGen_Drop</definition>
+        <argsstring>(XhdmiAudioGen_t *AudioGen, u8 setclr)</argsstring>
+        <name>XhdmiAudGen_Drop</name>
+        <param>
+          <type>XhdmiAudioGen_t *</type>
+          <declname>AudioGen</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>setclr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.c" bodystart="218" bodyend="232"/>
+      </memberdef>
+      <memberdef kind="function" id="audiogen__drv_8h_1a01a8bfb5b8de7df121960c001f8e60c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XhdmiAudGen_SetSampleRate</definition>
+        <argsstring>(XhdmiAudioGen_t *AudioGen, u32 TMDSCharRate, AudioRate_t SampleRate)</argsstring>
+        <name>XhdmiAudGen_SetSampleRate</name>
+        <param>
+          <type>XhdmiAudioGen_t *</type>
+          <declname>AudioGen</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TMDSCharRate</declname>
+        </param>
+        <param>
+          <type>AudioRate_t</type>
+          <declname>SampleRate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.c" bodystart="247" bodyend="295"/>
+      </memberdef>
+      <memberdef kind="function" id="audiogen__drv_8h_1a7340d573381940e569f99b7bd6aa0487" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XhdmiAudGen_SetPattern</definition>
+        <argsstring>(XhdmiAudioGen_t *AudioGen, u8 ChannelID, AudioPattern_t Pattern)</argsstring>
+        <name>XhdmiAudGen_SetPattern</name>
+        <param>
+          <type>XhdmiAudioGen_t *</type>
+          <declname>AudioGen</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ChannelID</declname>
+        </param>
+        <param>
+          <type>AudioPattern_t</type>
+          <declname>Pattern</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.c" bodystart="441" bodyend="458"/>
+      </memberdef>
+      <memberdef kind="function" id="audiogen__drv_8h_1a54377240ed29174aae4c99179f385adb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XhdmiAudGen_SetEnabChannels</definition>
+        <argsstring>(XhdmiAudioGen_t *AudioGen, u8 NumChannels)</argsstring>
+        <name>XhdmiAudGen_SetEnabChannels</name>
+        <param>
+          <type>XhdmiAudioGen_t *</type>
+          <declname>AudioGen</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>NumChannels</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.c" bodystart="460" bodyend="475"/>
+      </memberdef>
+      <memberdef kind="function" id="audiogen__drv_8h_1a8f8341d1f3b692dc6a560315f73836a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XhdmiAudGen_GetEnabChannels</definition>
+        <argsstring>(XhdmiAudioGen_t *AudioGen)</argsstring>
+        <name>XhdmiAudGen_GetEnabChannels</name>
+        <param>
+          <type>XhdmiAudioGen_t *</type>
+          <declname>AudioGen</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.c" bodystart="477" bodyend="483"/>
+      </memberdef>
+      <memberdef kind="function" id="audiogen__drv_8h_1a4a1d65e91d39a09d2ee525bdb8039ad0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XhdmiAudGen_SetChSts</definition>
+        <argsstring>(XhdmiAudioGen_t *AudioGen, AudioRate_t SampleRate)</argsstring>
+        <name>XhdmiAudGen_SetChSts</name>
+        <param>
+          <type>XhdmiAudioGen_t *</type>
+          <declname>AudioGen</declname>
+        </param>
+        <param>
+          <type>AudioRate_t</type>
+          <declname>SampleRate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.c" bodystart="485" bodyend="546"/>
+      </memberdef>
+      <memberdef kind="function" id="audiogen__drv_8h_1a6fe687bc1b41f1beb043a885cc43a9a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XhdmiAudGen_UpdateConfig</definition>
+        <argsstring>(XhdmiAudioGen_t *AudioGen)</argsstring>
+        <name>XhdmiAudGen_UpdateConfig</name>
+        <param>
+          <type>XhdmiAudioGen_t *</type>
+          <declname>AudioGen</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.c" bodystart="234" bodyend="245"/>
+      </memberdef>
+      <memberdef kind="function" id="audiogen__drv_8h_1a7c1103cf12785bc7d35bfbd1906d6865" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XhdmiAudGen_SetAudClk</definition>
+        <argsstring>(XhdmiAudioGen_t *AudioGen, AudioRate_t SampleRate)</argsstring>
+        <name>XhdmiAudGen_SetAudClk</name>
+        <param>
+          <type>XhdmiAudioGen_t *</type>
+          <declname>AudioGen</declname>
+        </param>
+        <param>
+          <type>AudioRate_t</type>
+          <declname>SampleRate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.c" bodystart="297" bodyend="312"/>
+      </memberdef>
+      <memberdef kind="function" id="audiogen__drv_8h_1a7df50c1d51d911f31e3c1b752670c904" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XhdmiAudGen_SetAudClkParam</definition>
+        <argsstring>(XhdmiAudioGen_t *AudioGen, AudioRate_t SampleRate)</argsstring>
+        <name>XhdmiAudGen_SetAudClkParam</name>
+        <param>
+          <type>XhdmiAudioGen_t *</type>
+          <declname>AudioGen</declname>
+        </param>
+        <param>
+          <type>AudioRate_t</type>
+          <declname>SampleRate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.c" bodystart="314" bodyend="326"/>
+      </memberdef>
+      <memberdef kind="function" id="audiogen__drv_8h_1ad10ba8e6fcb98d53bc7d6710dfddffd1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XhdmiAudGen_AudClkConfig</definition>
+        <argsstring>(XhdmiAudioGen_t *AudioGen)</argsstring>
+        <name>XhdmiAudGen_AudClkConfig</name>
+        <param>
+          <type>XhdmiAudioGen_t *</type>
+          <declname>AudioGen</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.c" bodystart="328" bodyend="434"/>
+      </memberdef>
+      <memberdef kind="function" id="audiogen__drv_8h_1aa9430145380e587276e95cd9bc20b05b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XhdmiAudGen_GetAudClk</definition>
+        <argsstring>(AudioRate_t SampleRate)</argsstring>
+        <name>XhdmiAudGen_GetAudClk</name>
+        <param>
+          <type>AudioRate_t</type>
+          <declname>SampleRate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.c" bodystart="436" bodyend="439"/>
+      </memberdef>
+      <memberdef kind="function" id="audiogen__drv_8h_1ab2122518f0c3089997b9efab21fcea69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XhdmiACRCtrl_AudioReset</definition>
+        <argsstring>(XhdmiAudioGen_t *AudioGen, u8 setclr)</argsstring>
+        <name>XhdmiACRCtrl_AudioReset</name>
+        <param>
+          <type>XhdmiAudioGen_t *</type>
+          <declname>AudioGen</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>setclr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.c" bodystart="548" bodyend="561"/>
+      </memberdef>
+      <memberdef kind="function" id="audiogen__drv_8h_1a81570872aaff60af26fe3b5554e05a49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XhdmiACRCtrl_Enab</definition>
+        <argsstring>(XhdmiAudioGen_t *AudioGen, u8 setclr)</argsstring>
+        <name>XhdmiACRCtrl_Enab</name>
+        <param>
+          <type>XhdmiAudioGen_t *</type>
+          <declname>AudioGen</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>setclr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.c" bodystart="563" bodyend="577"/>
+      </memberdef>
+      <memberdef kind="function" id="audiogen__drv_8h_1a16f8c3f7dd58e8aa31223bc45ccc7887" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XhdmiACRCtrl_Sel</definition>
+        <argsstring>(XhdmiAudioGen_t *AudioGen, u8 sel)</argsstring>
+        <name>XhdmiACRCtrl_Sel</name>
+        <param>
+          <type>XhdmiAudioGen_t *</type>
+          <declname>AudioGen</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>sel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.c" bodystart="579" bodyend="593"/>
+      </memberdef>
+      <memberdef kind="function" id="audiogen__drv_8h_1a04f97612bed07cbdeaef91f62190856f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XhdmiACRCtrl_TMDSClkRatio</definition>
+        <argsstring>(XhdmiAudioGen_t *AudioGen, u8 setclr)</argsstring>
+        <name>XhdmiACRCtrl_TMDSClkRatio</name>
+        <param>
+          <type>XhdmiAudioGen_t *</type>
+          <declname>AudioGen</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>setclr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.c" bodystart="595" bodyend="608"/>
+      </memberdef>
+      <memberdef kind="function" id="audiogen__drv_8h_1aa0e04fc5ae7a965a3c97d9da652a8a46" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XhdmiACRCtrl_SetNVal</definition>
+        <argsstring>(XhdmiAudioGen_t *AudioGen, u32 NVal)</argsstring>
+        <name>XhdmiACRCtrl_SetNVal</name>
+        <param>
+          <type>XhdmiAudioGen_t *</type>
+          <declname>AudioGen</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NVal</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.c" bodystart="610" bodyend="614"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2016<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor">#ifndef<sp/>AUDIOGEN_DRV_H_</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AUDIOGEN_DRV_H_</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>AUDGEN_WAIT_CNT<sp/>will<sp/>be<sp/>assigned<sp/>a<sp/>dummy<sp/>value<sp/>when<sp/>there<sp/>is<sp/>no<sp/>TX<sp/>Instance</highlight></codeline>
+<codeline lineno="40"><highlight class="comment"><sp/>*<sp/>as<sp/>AUDGEN<sp/>only<sp/>exists<sp/>for<sp/>exdes<sp/>which<sp/>contains<sp/>TX<sp/>instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPAR_XV_HDMITXSS_NUM_INSTANCES)</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AUDGEN_WAIT_CNT<sp/>(XPAR_XV_HDMITXSS_0_AXI_LITE_FREQ_HZ<sp/>/<sp/>500)</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AUDGEN_WAIT_CNT<sp/>1</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/>u32<sp/>TMDSCharRate;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/>u32<sp/>ACR_NVal[7];</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">}<sp/>ACR_N_Table_t;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/>XAUD_SRATE_32K<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/>XAUD_SRATE_44K1,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/>XAUD_SRATE_48K,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/>XAUD_SRATE_88K2,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/>XAUD_SRATE_96K,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/>XAUD_SRATE_176K4,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/>XAUD_SRATE_192K,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/>XAUD_NUM_SUPPORTED_SRATE</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">}<sp/>AudioRate_t;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/>XAUD_PAT_MUTE<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/>XAUD_PAT_SINE<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/>XAUD_PAT_PING<sp/>=<sp/>2,</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/>XAUD_PAT_RAMP<sp/>=<sp/>3,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/>XAUD_NUM_SUPPORTED_PAT</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">}<sp/>AudioPattern_t;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/>u8<sp/>Div;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/>u8<sp/>Mult;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/>u8<sp/>Mult_Eights;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/>u8<sp/>Clk0Div;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/>u8<sp/>Clk0Div_Eights;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal">}<sp/>XhdmiAudioGen_PLL_t;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/>UINTPTR<sp/>AudGenBase;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/>UINTPTR<sp/>ACRCtrlBase;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/>UINTPTR<sp/>AudClkGenBase;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/>XhdmiAudioGen_PLL_t<sp/>AudClkPLL;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">}<sp/>XhdmiAudioGen_t;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>This<sp/>typedef<sp/>enumerates<sp/>the<sp/>different<sp/>MMCM<sp/>Dividers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/>AUDGEN_MMCM_CLKFBOUT_MULT_F,<sp/></highlight><highlight class="comment">/*<sp/>M<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/>AUDGEN_MMCM_DIVCLK_DIVIDE,<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>D<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/>AUDGEN_MMCM_CLKOUT_DIVIDE<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>On<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal">}<sp/>XhdmiAudioGen_MmcmDivType;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XhdmiAudGen_Init(XhdmiAudioGen_t<sp/>*AudioGen,<sp/>UINTPTR<sp/>AudGen_Base,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>ACRCtrl_Base,<sp/>UINTPTR<sp/>AudClk_Gen_Base);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XhdmiAudGen_Reset(XhdmiAudioGen_t<sp/>*AudioGen);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XhdmiAudGen_Start(XhdmiAudioGen_t<sp/>*AudioGen,<sp/>u8<sp/>setclr);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XhdmiAudGen_Drop(XhdmiAudioGen_t<sp/>*AudioGen,<sp/>u8<sp/>setclr);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XhdmiAudGen_SetSampleRate(XhdmiAudioGen_t<sp/>*AudioGen,<sp/>u32<sp/>TMDSCharRate,<sp/>AudioRate_t<sp/>SampleRate);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XhdmiAudGen_SetPattern(XhdmiAudioGen_t<sp/>*AudioGen,<sp/>u8<sp/>ChannelID,<sp/>AudioPattern_t<sp/>Pattern);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XhdmiAudGen_SetEnabChannels(XhdmiAudioGen_t<sp/>*AudioGen,<sp/>u8<sp/>NumChannels);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XhdmiAudGen_GetEnabChannels(XhdmiAudioGen_t<sp/>*AudioGen);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XhdmiAudGen_SetChSts(XhdmiAudioGen_t<sp/>*AudioGen,<sp/>AudioRate_t<sp/>SampleRate);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XhdmiAudGen_UpdateConfig(XhdmiAudioGen_t<sp/>*AudioGen);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XhdmiAudGen_SetAudClk(XhdmiAudioGen_t<sp/>*AudioGen,<sp/>AudioRate_t<sp/>SampleRate);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XhdmiAudGen_SetAudClkParam(XhdmiAudioGen_t<sp/>*AudioGen,<sp/>AudioRate_t<sp/>SampleRate);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XhdmiAudGen_AudClkConfig(XhdmiAudioGen_t<sp/>*AudioGen);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XhdmiAudGen_GetAudClk(AudioRate_t<sp/>SampleRate);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XhdmiACRCtrl_AudioReset(XhdmiAudioGen_t<sp/>*AudioGen,<sp/>u8<sp/>setclr);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XhdmiACRCtrl_Enab(XhdmiAudioGen_t<sp/>*AudioGen,<sp/>u8<sp/>setclr);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XhdmiACRCtrl_Sel(XhdmiAudioGen_t<sp/>*AudioGen,<sp/>u8<sp/>sel);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XhdmiACRCtrl_TMDSClkRatio<sp/>(XhdmiAudioGen_t<sp/>*AudioGen,<sp/>u8<sp/>setclr);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XhdmiACRCtrl_SetNVal(XhdmiAudioGen_t<sp/>*AudioGen,<sp/>u32<sp/>NVal);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XAudGen_In32<sp/><sp/><sp/>Xil_In32<sp/><sp/></highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor">#define<sp/>XAudGen_Out32<sp/><sp/>Xil_Out32<sp/></highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor">#define<sp/>XAudGen_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>XAudGen_In32((BaseAddress)<sp/>+<sp/>((u32)RegOffset))</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor">#define<sp/>XAudGen_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>XAudGen_Out32((BaseAddress)<sp/>+<sp/>((u32)RegOffset),<sp/>(u32)(Data))</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AUD_CTRL<sp/><sp/>0x000<sp/>//<sp/>Audio<sp/>Generator<sp/>Control<sp/>Register</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AUD_CFG<sp/><sp/><sp/>0x004<sp/>//<sp/>Audio<sp/>Generator<sp/>Configuration<sp/>Register</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CH1_CTRL<sp/><sp/>0x010<sp/>//<sp/>Audio<sp/>Channel<sp/>1<sp/>Control<sp/>Register</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CH2_CTRL<sp/><sp/>0x020<sp/>//<sp/>Audio<sp/>Channel<sp/>2<sp/>Control<sp/>Register</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CH3_CTRL<sp/><sp/>0x030<sp/>//<sp/>Audio<sp/>Channel<sp/>3<sp/>Control<sp/>Register</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CH4_CTRL<sp/><sp/>0x040<sp/>//<sp/>Audio<sp/>Channel<sp/>4<sp/>Control<sp/>Register</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CH5_CTRL<sp/><sp/>0x050<sp/>//<sp/>Audio<sp/>Channel<sp/>5<sp/>Control<sp/>Register</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CH6_CTRL<sp/><sp/>0x060<sp/>//<sp/>Audio<sp/>Channel<sp/>6<sp/>Control<sp/>Register</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CH7_CTRL<sp/><sp/>0x070<sp/>//<sp/>Audio<sp/>Channel<sp/>7<sp/>Control<sp/>Register</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CH8_CTRL<sp/><sp/>0x080<sp/>//<sp/>Audio<sp/>Channel<sp/>8<sp/>Control<sp/>Register</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CHSTS_0<sp/><sp/><sp/>0x0A0<sp/>//<sp/>Audio<sp/>Channel<sp/>Status<sp/>0<sp/>Register</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CHSTS_1<sp/><sp/><sp/>0x0A4<sp/>//<sp/>Audio<sp/>Channel<sp/>Status<sp/>1<sp/>Register</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CHSTS_2<sp/><sp/><sp/>0x0A8<sp/>//<sp/>Audio<sp/>Channel<sp/>Status<sp/>2<sp/>Register</highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CHSTS_3<sp/><sp/><sp/>0x0AC<sp/>//<sp/>Audio<sp/>Channel<sp/>Status<sp/>3<sp/>Register</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CHSTS_4<sp/><sp/><sp/>0x0B0<sp/>//<sp/>Audio<sp/>Channel<sp/>Status<sp/>4<sp/>Register</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CHSTS_5<sp/><sp/><sp/>0x0B4<sp/>//<sp/>Audio<sp/>Channel<sp/>Status<sp/>5<sp/>Register</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Audio<sp/>Control<sp/>Register</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AUD_CTRL_REG_AUD_RST_MASK<sp/><sp/><sp/><sp/><sp/>0x1</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AUD_CTRL_REG_AUD_RST_SHIFT<sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AUD_CTRL_REG_AUD_START_MASK<sp/><sp/><sp/>0x1</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AUD_CTRL_REG_AUD_START_SHIFT<sp/><sp/>1</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AUD_CTRL_REG_AUD_UPDCFG_MASK<sp/><sp/>0x1</highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AUD_CTRL_REG_AUD_UPDCFG_SHIFT<sp/>2</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AUD_CTRL_REG_AUD_DROP_MASK<sp/><sp/><sp/><sp/>0x1</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AUD_CTRL_REG_AUD_DROP_SHIFT<sp/><sp/><sp/>3</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Audio<sp/>Configuration<sp/>Register</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AUD_CFG_REG_SAMPRATE_MASK<sp/><sp/>0xF<sp/>//<sp/>Sample<sp/>rate</highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AUD_CFG_REG_SAMPRATE_SHIFT<sp/>0</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AUD_CFG_REG_NUMCH_MASK<sp/><sp/><sp/><sp/><sp/>0xF<sp/>//<sp/>Number<sp/>of<sp/>channels</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AUD_CFG_REG_NUMCH_SHIFT<sp/><sp/><sp/><sp/>8</highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Channel<sp/>Control<sp/>Register</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CH_CTRL_REG_PATTERN_MASK<sp/><sp/>0x3<sp/>//<sp/>Audio<sp/>pattern</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CH_CTRL_REG_PATTERN_SHIFT<sp/>0</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CH_CTRL_REG_PERIOD_MASK<sp/><sp/><sp/>0xF<sp/>//<sp/>Reserved</highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CH_CTRL_REG_PERIOD_SHIFT<sp/><sp/>8</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="comment">//<sp/>ACR<sp/>Control<sp/>registers</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ACR_VER<sp/><sp/>0x000</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ACR_CTRL<sp/>0x004</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ACR_CTS<sp/><sp/>0x008</highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ACR_N<sp/><sp/><sp/><sp/>0x00C</highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight><highlight class="comment">//<sp/>ACR<sp/>Control<sp/>Register</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ACR_CTRL_ENAB_ACR_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x1</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ACR_CTRL_ENAB_ACR_SHIFT<sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ACR_CTRL_SEL_ACR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ACR_CTRL_SEL_ACR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ACR_CTRL_AUD_RST_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ACR_CTRL_AUD_RST_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ACR_CTRL_TMDSCLKRATIO_MASK<sp/><sp/>0x1</highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ACR_CTRL_TMDSCLKRATIO_SHIFT<sp/>3</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ACR_SEL_GEN<sp/>1<sp/><sp/>//<sp/>Select<sp/>generated<sp/>ACR<sp/>values</highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ACR_SEL_IN<sp/><sp/>0<sp/><sp/>//<sp/>Select<sp/>input<sp/>ACR<sp/>values</highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>AUDIOGEN_DRV_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/audiogen_drv.h"/>
+  </compounddef>
+</doxygen>

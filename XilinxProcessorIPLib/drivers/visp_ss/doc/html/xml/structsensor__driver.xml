@@ -1,0 +1,239 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structsensor__driver" kind="struct" prot="public">
+    <compoundname>sensor_driver</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structsensor__driver_1a2e2e384f804c0d32b105a2dfca3ae3e5" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char sensor_driver::name[30]</definition>
+        <argsstring>[30]</argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsensor__driver_1a1604a5c2cd76c32c93e1390dfd2f5211" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 sensor_driver::pipe_no</definition>
+        <argsstring></argsstring>
+        <name>pipe_no</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsensor__driver_1ae48bcfc32ee29aef54d2ccf24003d03b" prot="public" static="no" mutable="no">
+        <type>reg_8 *</type>
+        <definition>reg_8* sensor_driver::init_array</definition>
+        <argsstring></argsstring>
+        <name>init_array</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsensor__driver_1a896fd14e90714cdacd3d454df4be37c3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 sensor_driver::init_array_len</definition>
+        <argsstring></argsstring>
+        <name>init_array_len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsensor__driver_1a6d0fdc669e415fb7e2f3adacc029fe65" prot="public" static="no" mutable="no">
+        <type>reg_8 *</type>
+        <definition>reg_8* sensor_driver::streamon_array</definition>
+        <argsstring></argsstring>
+        <name>streamon_array</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsensor__driver_1a85f389ad0b7645baa601d42a7d93f227" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 sensor_driver::streamon_array_len</definition>
+        <argsstring></argsstring>
+        <name>streamon_array_len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsensor__driver_1a122ce16776b32706c4b5d0bec454c8d7" prot="public" static="no" mutable="no">
+        <type>reg_8 *</type>
+        <definition>reg_8* sensor_driver::streamoff_array</definition>
+        <argsstring></argsstring>
+        <name>streamoff_array</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsensor__driver_1a7a2f3007f89970aefb961757fc2e1c5c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 sensor_driver::streamoff_array_len</definition>
+        <argsstring></argsstring>
+        <name>streamoff_array_len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsensor__driver_1ad28ae93fe5fe6ae7285609a0f83cc76d" prot="public" static="no" mutable="no">
+        <type>reg_8 *</type>
+        <definition>reg_8* sensor_driver::fps_array</definition>
+        <argsstring></argsstring>
+        <name>fps_array</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsensor__driver_1a89fe88c91db524a09a31ef067b25e875" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 sensor_driver::fps_array_len</definition>
+        <argsstring></argsstring>
+        <name>fps_array_len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsensor__driver_1ad731c116a7c6b379ffd092920669c8b8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 sensor_driver::sensor_alias_addr</definition>
+        <argsstring></argsstring>
+        <name>sensor_alias_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsensor__driver_1a348a31127fc75dce4b24d773c82a1eb7" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* sensor_driver::init_sensor)(struct sensor_driver *)</definition>
+        <argsstring>)(struct sensor_driver *)</argsstring>
+        <name>init_sensor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsensor__driver_1ac0ad5dbc5dbe2dafa10d6a3ce0746f1c" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* sensor_driver::deinit_sensor)(struct sensor_driver *)</definition>
+        <argsstring>)(struct sensor_driver *)</argsstring>
+        <name>deinit_sensor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsensor__driver_1ad0c77346a4d22edf1e8327536b566f91" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* sensor_driver::stream_on)(struct sensor_driver *)</definition>
+        <argsstring>)(struct sensor_driver *)</argsstring>
+        <name>stream_on</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsensor__driver_1ae886392c6a6baeb02d9a42c83daa4714" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* sensor_driver::stream_off)(struct sensor_driver *)</definition>
+        <argsstring>)(struct sensor_driver *)</argsstring>
+        <name>stream_off</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsensor__driver_1a67829b7b220f53632538e3c0fa11bda4" prot="public" static="no" mutable="no">
+        <type>transition_state</type>
+        <definition>transition_state sensor_driver::sensor_state</definition>
+        <argsstring></argsstring>
+        <name>sensor_state</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="208" bodyend="229"/>
+    <listofallmembers>
+      <member refid="structsensor__driver_1ac0ad5dbc5dbe2dafa10d6a3ce0746f1c" prot="public" virt="non-virtual"><scope>sensor_driver</scope><name>deinit_sensor</name></member>
+      <member refid="structsensor__driver_1ad28ae93fe5fe6ae7285609a0f83cc76d" prot="public" virt="non-virtual"><scope>sensor_driver</scope><name>fps_array</name></member>
+      <member refid="structsensor__driver_1a89fe88c91db524a09a31ef067b25e875" prot="public" virt="non-virtual"><scope>sensor_driver</scope><name>fps_array_len</name></member>
+      <member refid="structsensor__driver_1ae48bcfc32ee29aef54d2ccf24003d03b" prot="public" virt="non-virtual"><scope>sensor_driver</scope><name>init_array</name></member>
+      <member refid="structsensor__driver_1a896fd14e90714cdacd3d454df4be37c3" prot="public" virt="non-virtual"><scope>sensor_driver</scope><name>init_array_len</name></member>
+      <member refid="structsensor__driver_1a348a31127fc75dce4b24d773c82a1eb7" prot="public" virt="non-virtual"><scope>sensor_driver</scope><name>init_sensor</name></member>
+      <member refid="structsensor__driver_1a2e2e384f804c0d32b105a2dfca3ae3e5" prot="public" virt="non-virtual"><scope>sensor_driver</scope><name>name</name></member>
+      <member refid="structsensor__driver_1a1604a5c2cd76c32c93e1390dfd2f5211" prot="public" virt="non-virtual"><scope>sensor_driver</scope><name>pipe_no</name></member>
+      <member refid="structsensor__driver_1ad731c116a7c6b379ffd092920669c8b8" prot="public" virt="non-virtual"><scope>sensor_driver</scope><name>sensor_alias_addr</name></member>
+      <member refid="structsensor__driver_1a67829b7b220f53632538e3c0fa11bda4" prot="public" virt="non-virtual"><scope>sensor_driver</scope><name>sensor_state</name></member>
+      <member refid="structsensor__driver_1ae886392c6a6baeb02d9a42c83daa4714" prot="public" virt="non-virtual"><scope>sensor_driver</scope><name>stream_off</name></member>
+      <member refid="structsensor__driver_1ad0c77346a4d22edf1e8327536b566f91" prot="public" virt="non-virtual"><scope>sensor_driver</scope><name>stream_on</name></member>
+      <member refid="structsensor__driver_1a122ce16776b32706c4b5d0bec454c8d7" prot="public" virt="non-virtual"><scope>sensor_driver</scope><name>streamoff_array</name></member>
+      <member refid="structsensor__driver_1a7a2f3007f89970aefb961757fc2e1c5c" prot="public" virt="non-virtual"><scope>sensor_driver</scope><name>streamoff_array_len</name></member>
+      <member refid="structsensor__driver_1a6d0fdc669e415fb7e2f3adacc029fe65" prot="public" virt="non-virtual"><scope>sensor_driver</scope><name>streamon_array</name></member>
+      <member refid="structsensor__driver_1a85f389ad0b7645baa601d42a7d93f227" prot="public" virt="non-virtual"><scope>sensor_driver</scope><name>streamon_array_len</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

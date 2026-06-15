@@ -1,0 +1,892 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xospipsv__control_8c" kind="file">
+    <compoundname>xospipsv_control.c</compoundname>
+    <includes refid="xospipsv__control_8h" local="yes">xospipsv_control.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <incdepgraph>
+      <node id="43">
+        <label>sleep.h</label>
+      </node>
+      <node id="37">
+        <label>xospipsv.h</label>
+        <link refid="xospipsv_8h"/>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="39">
+        <label>xospipsv_hw.h</label>
+        <link refid="xospipsv__hw_8h"/>
+      </node>
+      <node id="42">
+        <label>xil_util.h</label>
+      </node>
+      <node id="41">
+        <label>xil_mem.h</label>
+      </node>
+      <node id="38">
+        <label>xstatus.h</label>
+      </node>
+      <node id="35">
+        <label>xospipsv_control.c</label>
+        <link refid="xospipsv_control.c"/>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>xospipsv_control.h</label>
+        <link refid="xospipsv__control_8h"/>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__ospipsv__api_1ga02055aef4b0f9a801005ebdc7b556157" prot="public" static="no">
+        <name>MAX_DELAY_CNT</name>
+        <initializer>10000U</initializer>
+        <briefdescription>
+<para>&lt; Maximum delay count </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_control.c" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_control.c" bodystart="42" bodyend="-1"/>
+        <referencedby refid="group__ospipsv__api_1ga289baf1466add8dfa4a70a3952354cd7" compoundref="xospipsv__control_8c" startline="413" endline="428">XOspiPsv_CheckOspiIdle</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ospipsv__api_1ga2837097f3f203eeff26f5cfc61947bcf" prot="public" static="no">
+        <name>MAX_IDAC_DELAY_CNT</name>
+        <initializer>10000000U</initializer>
+        <briefdescription>
+<para>Max INDAC delay count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_control.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_control.c" bodystart="43" bodyend="-1"/>
+        <referencedby refid="group__ospipsv__api_1ga8400388c80d471a4535fa7357104f07b" compoundref="xospipsv__control_8c" startline="442" endline="493">XOspiPsv_IDac_Write</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__ospipsv__api_1ga6af9f098248cd39891e92d9caa1d75c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XOspiPsv_Stig_Read</definition>
+        <argsstring>(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)</argsstring>
+        <name>XOspiPsv_Stig_Read</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ospi_psv___msg" kindref="compound">XOspiPsv_Msg</ref> *</type>
+          <declname>Msg</declname>
+        </param>
+        <briefdescription>
+<para>Flash command based data reading using flash command control registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the structure containing transfer data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if transfer fails.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This operation is in IO mode of reading. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_control.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_control.c" bodystart="68" bodyend="111"/>
+        <references refid="struct_x_ospi_psv___msg_1af8358bd6a8075c4abacf9b0a7b10a490" compoundref="xospipsv_8h" startline="114">XOspiPsv_Msg::Addr</references>
+        <references refid="struct_x_ospi_psv___msg_1aed44f5b363f17a6ebb50ec89b032f112" compoundref="xospipsv_8h" startline="115">XOspiPsv_Msg::Addrsize</references>
+        <references refid="struct_x_ospi_psv___msg_1a3df927f0564ffc2896abff80b63e5601" compoundref="xospipsv_8h" startline="116">XOspiPsv_Msg::Addrvalid</references>
+        <references refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" compoundref="xospipsv_8h" startline="134">XOspiPsv_Config::BaseAddress</references>
+        <references refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" compoundref="xospipsv_8h" startline="153">XOspiPsv::Config</references>
+        <references refid="struct_x_ospi_psv_1a4796e4047cf6a5cb697cfdb5e4799aa7" compoundref="xospipsv_8h" startline="170">XOspiPsv::DualByteOpcodeEn</references>
+        <references refid="struct_x_ospi_psv___msg_1aee5814ae840542f0968358c6c00371d8" compoundref="xospipsv_8h" startline="117">XOspiPsv_Msg::Dummy</references>
+        <references refid="struct_x_ospi_psv___msg_1a63025a20ca549b4b65f2c6d611d40abc" compoundref="xospipsv_8h" startline="122">XOspiPsv_Msg::ExtendedOpcode</references>
+        <references refid="struct_x_ospi_psv___msg_1a55ac289317d94775757cac9529ea51c2" compoundref="xospipsv_8h" startline="113">XOspiPsv_Msg::Opcode</references>
+        <references refid="struct_x_ospi_psv_1ab006c89c9b2e2e9e3eddef303ed06054" compoundref="xospipsv_8h" startline="158">XOspiPsv::RxBytes</references>
+        <references refid="group__ospipsv__api_1ga8bb2848b91c02f54adca66fae6820e7e" compoundref="xospipsv__hw_8c" startline="128" endline="150">XOspiPsv_Exec_Flash_Cmd</references>
+        <references refid="group__ospipsv__api_1ga621f2c47a2e8fdf59de28b2333d6da6f" compoundref="xospipsv__hw_8c" startline="165" endline="181">XOspiPsv_FifoRead</references>
+        <references refid="group__ospipsv__api_1ga1101ef0b6b567210a26c9b95e3ef2de5" compoundref="xospipsv_8h" startline="214">XOspiPsv_ReadReg</references>
+        <references refid="group__ospipsv__api_1gafb4ad780fc9faa2f91aa7208ceb91583" compoundref="xospipsv__hw_8c" startline="72" endline="111">XOspiPsv_Setup_Stig_Ctrl</references>
+        <referencedby refid="group__ospipsv__api_1ga034a9ae49aa555c3c94396e5b821a4b1" compoundref="xospipsv__xfer_8c" startline="43" endline="61">XOspiPsv_PollRecvData</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ospipsv__api_1ga1b1a6b7fd20d9183ad58f84d3303eeec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XOspiPsv_Stig_Write</definition>
+        <argsstring>(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)</argsstring>
+        <name>XOspiPsv_Stig_Write</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ospi_psv___msg" kindref="compound">XOspiPsv_Msg</ref> *</type>
+          <declname>Msg</declname>
+        </param>
+        <briefdescription>
+<para>Flash command based data write using flash command control registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the structure containing transfer data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<itemizedlist>
+<listitem><para>XST_FAILURE if fails.</para></listitem></itemizedlist>
+</para><para><simplesect kind="note"><para>This operation is in IO mode of writing. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_control.c" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_control.c" bodystart="128" bodyend="169"/>
+        <references refid="struct_x_ospi_psv___msg_1af8358bd6a8075c4abacf9b0a7b10a490" compoundref="xospipsv_8h" startline="114">XOspiPsv_Msg::Addr</references>
+        <references refid="struct_x_ospi_psv___msg_1aed44f5b363f17a6ebb50ec89b032f112" compoundref="xospipsv_8h" startline="115">XOspiPsv_Msg::Addrsize</references>
+        <references refid="struct_x_ospi_psv___msg_1a3df927f0564ffc2896abff80b63e5601" compoundref="xospipsv_8h" startline="116">XOspiPsv_Msg::Addrvalid</references>
+        <references refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" compoundref="xospipsv_8h" startline="134">XOspiPsv_Config::BaseAddress</references>
+        <references refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" compoundref="xospipsv_8h" startline="153">XOspiPsv::Config</references>
+        <references refid="struct_x_ospi_psv_1a4796e4047cf6a5cb697cfdb5e4799aa7" compoundref="xospipsv_8h" startline="170">XOspiPsv::DualByteOpcodeEn</references>
+        <references refid="struct_x_ospi_psv___msg_1a63025a20ca549b4b65f2c6d611d40abc" compoundref="xospipsv_8h" startline="122">XOspiPsv_Msg::ExtendedOpcode</references>
+        <references refid="struct_x_ospi_psv___msg_1a55ac289317d94775757cac9529ea51c2" compoundref="xospipsv_8h" startline="113">XOspiPsv_Msg::Opcode</references>
+        <references refid="struct_x_ospi_psv_1a307cc221c5d9dde996530c5edc151e8e" compoundref="xospipsv_8h" startline="157">XOspiPsv::TxBytes</references>
+        <references refid="group__ospipsv__api_1ga8bb2848b91c02f54adca66fae6820e7e" compoundref="xospipsv__hw_8c" startline="128" endline="150">XOspiPsv_Exec_Flash_Cmd</references>
+        <references refid="group__ospipsv__api_1ga54d82d31820cd30d9c32055380e0ab04" compoundref="xospipsv__hw_8c" startline="198" endline="216">XOspiPsv_FifoWrite</references>
+        <references refid="group__ospipsv__api_1ga1101ef0b6b567210a26c9b95e3ef2de5" compoundref="xospipsv_8h" startline="214">XOspiPsv_ReadReg</references>
+        <references refid="group__ospipsv__api_1gafb4ad780fc9faa2f91aa7208ceb91583" compoundref="xospipsv__hw_8c" startline="72" endline="111">XOspiPsv_Setup_Stig_Ctrl</references>
+        <referencedby refid="group__ospipsv__api_1ga6b7b4e2f6b2fde2908649918699e86b0" compoundref="xospipsv__xfer_8c" startline="76" endline="95">XOspiPsv_PollSendData</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ospipsv__api_1gab882c01ec4fd29b29a58e0a07075414d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XOspiPsv_Dma_Read</definition>
+        <argsstring>(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)</argsstring>
+        <name>XOspiPsv_Dma_Read</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ospi_psv___msg" kindref="compound">XOspiPsv_Msg</ref> *</type>
+          <declname>Msg</declname>
+        </param>
+        <briefdescription>
+<para>Reads the data using DMA. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the structure containing transfer data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<itemizedlist>
+<listitem><para>XST_FAILURE if transfer fails. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_control.c" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_control.c" bodystart="184" bodyend="241"/>
+        <references refid="struct_x_ospi_psv___msg_1af8358bd6a8075c4abacf9b0a7b10a490" compoundref="xospipsv_8h" startline="114">XOspiPsv_Msg::Addr</references>
+        <references refid="struct_x_ospi_psv___msg_1ab46554545943ecf8f1a0152c237489f4" compoundref="xospipsv_8h" startline="111">XOspiPsv_Msg::ByteCount</references>
+        <references refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" compoundref="xospipsv_8h" startline="153">XOspiPsv::Config</references>
+        <references refid="struct_x_ospi_psv___config_1a215dbf976af5b97426b6ac5638c06607" compoundref="xospipsv_8h" startline="136">XOspiPsv_Config::IsCacheCoherent</references>
+        <references refid="struct_x_ospi_psv_1a37393464bab76176fb86de030eb4f144" compoundref="xospipsv_8h" startline="166">XOspiPsv::IsUnaligned</references>
+        <references refid="struct_x_ospi_psv_1af9d2352cda8abe04913cfd09201e3cab" compoundref="xospipsv_8h" startline="156">XOspiPsv::RecvBufferPtr</references>
+        <references refid="struct_x_ospi_psv___msg_1a584672579015305052780c6b14e5a576" compoundref="xospipsv_8h" startline="110">XOspiPsv_Msg::RxBfrPtr</references>
+        <references refid="struct_x_ospi_psv_1ab006c89c9b2e2e9e3eddef303ed06054" compoundref="xospipsv_8h" startline="158">XOspiPsv::RxBytes</references>
+        <references refid="struct_x_ospi_psv_1aa024b5869c092081094478379cc51bc4" compoundref="xospipsv_8h" startline="180">XOspiPsv::UnalignReadBuffer</references>
+        <references refid="struct_x_ospi_psv___msg_1af3b6091e16d13e4be338d18494c63485" compoundref="xospipsv_8h" startline="121">XOspiPsv_Msg::Xfer64bit</references>
+        <references refid="group__ospipsv__api_1ga7dd7305678eaea4774657b38046cc5e4" compoundref="xospipsv__hw_8c" startline="545" endline="597">XOspiPsv_Config_Dma</references>
+        <references refid="group__ospipsv__api_1gae199f0006d6d3282aad2a18c4e87d479" compoundref="xospipsv__hw_8c" startline="513" endline="532">XOspiPsv_Config_IndirectAhb</references>
+        <references refid="group__ospipsv__api_1gaa2f584dfcca76360b59188e58c60b770" compoundref="xospipsv__hw_8c" startline="611" endline="646">XOspiPsv_Exec_Dma</references>
+        <referencedby refid="group__ospipsv__api_1ga034a9ae49aa555c3c94396e5b821a4b1" compoundref="xospipsv__xfer_8c" startline="43" endline="61">XOspiPsv_PollRecvData</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ospipsv__api_1ga9f70d70b4dcd8a325a7dacc3aa31a5ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XOspiPsv_Dac_Read</definition>
+        <argsstring>(XOspiPsv *InstancePtr, XOspiPsv_Msg *Msg)</argsstring>
+        <name>XOspiPsv_Dac_Read</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ospi_psv___msg" kindref="compound">XOspiPsv_Msg</ref> *</type>
+          <declname>Msg</declname>
+        </param>
+        <briefdescription>
+<para>Reads the data using Linear controller. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the structure containing transfer data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<itemizedlist>
+<listitem><para>XST_FAILURE for invalid address. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_control.c" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_control.c" bodystart="256" bodyend="272"/>
+        <references refid="struct_x_ospi_psv___msg_1af8358bd6a8075c4abacf9b0a7b10a490" compoundref="xospipsv_8h" startline="114">XOspiPsv_Msg::Addr</references>
+        <references refid="struct_x_ospi_psv___msg_1a584672579015305052780c6b14e5a576" compoundref="xospipsv_8h" startline="110">XOspiPsv_Msg::RxBfrPtr</references>
+        <references refid="struct_x_ospi_psv_1ab006c89c9b2e2e9e3eddef303ed06054" compoundref="xospipsv_8h" startline="158">XOspiPsv::RxBytes</references>
+        <referencedby refid="group__ospipsv__api_1ga034a9ae49aa555c3c94396e5b821a4b1" compoundref="xospipsv__xfer_8c" startline="43" endline="61">XOspiPsv_PollRecvData</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ospipsv__api_1gadb1ae4f737c07e890039cdaf3a006b26" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XOspiPsv_Dac_Write</definition>
+        <argsstring>(XOspiPsv *InstancePtr, const XOspiPsv_Msg *Msg)</argsstring>
+        <name>XOspiPsv_Dac_Write</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_ospi_psv___msg" kindref="compound">XOspiPsv_Msg</ref> *</type>
+          <declname>Msg</declname>
+        </param>
+        <briefdescription>
+<para>Writes the data Using Linear controller. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the structure containing transfer data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<itemizedlist>
+<listitem><para>XST_FAILURE for invalid address. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_control.c" line="287" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_control.c" bodystart="287" bodyend="303"/>
+        <references refid="struct_x_ospi_psv___msg_1af8358bd6a8075c4abacf9b0a7b10a490" compoundref="xospipsv_8h" startline="114">XOspiPsv_Msg::Addr</references>
+        <references refid="struct_x_ospi_psv___msg_1a95f5d41c7ebd3d5b5da41c6289049e6f" compoundref="xospipsv_8h" startline="109">XOspiPsv_Msg::TxBfrPtr</references>
+        <references refid="struct_x_ospi_psv_1a307cc221c5d9dde996530c5edc151e8e" compoundref="xospipsv_8h" startline="157">XOspiPsv::TxBytes</references>
+        <referencedby refid="group__ospipsv__api_1ga6b7b4e2f6b2fde2908649918699e86b0" compoundref="xospipsv__xfer_8c" startline="76" endline="95">XOspiPsv_PollSendData</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ospipsv__api_1ga3ac73304cb055f7184181eb4b176637e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XOspiPsv_ExecuteRxTuning</definition>
+        <argsstring>(XOspiPsv *InstancePtr, XOspiPsv_Msg *FlashMsg, u32 TXTap)</argsstring>
+        <name>XOspiPsv_ExecuteRxTuning</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ospi_psv___msg" kindref="compound">XOspiPsv_Msg</ref> *</type>
+          <declname>FlashMsg</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TXTap</declname>
+        </param>
+        <briefdescription>
+<para>Performs RX Tuning for SDR/DDR mode to calculate RX DLL Delay. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FlashMsg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_ospi_psv___msg" kindref="compound">XOspiPsv_Msg</ref> structure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TXTap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>TX DLL Delay value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_control.c" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_control.c" bodystart="320" bodyend="362"/>
+        <references refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" compoundref="xospipsv_8h" startline="134">XOspiPsv_Config::BaseAddress</references>
+        <references refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" compoundref="xospipsv_8h" startline="153">XOspiPsv::Config</references>
+        <references refid="struct_x_ospi_psv_1ade8b294559fe3e26e9cc9ae94afa9926" compoundref="xospipsv_8h" startline="169">XOspiPsv::DllMode</references>
+        <references refid="struct_x_ospi_psv___msg_1aee5814ae840542f0968358c6c00371d8" compoundref="xospipsv_8h" startline="117">XOspiPsv_Msg::Dummy</references>
+        <references refid="group__ospipsv__api_1gabef79236b8c8e5ada4f6ddb58132e35c" compoundref="xospipsv__hw_8c" startline="696" endline="780">XOspiPsv_CalculateRxTap</references>
+        <references refid="group__ospipsv__api_1ga943852604b61a80a53f42a143bf87241" compoundref="xospipsv__hw_8c" startline="662" endline="677">XOspiPsv_WaitForLock</references>
+        <referencedby refid="group__ospipsv__api_1ga3946ea37da6d9ce478f29eca239b597b" compoundref="xospipsv_8c" startline="820" endline="944">XOspiPsv_SetDllDelay</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ospipsv__api_1gacb2c9597040e54b985ddf380365af639" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XOspiPsv_ConfigureTaps</definition>
+        <argsstring>(const XOspiPsv *InstancePtr, u32 RxTap, u32 TxTap)</argsstring>
+        <name>XOspiPsv_ConfigureTaps</name>
+        <param>
+          <type>const <ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RxTap</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TxTap</declname>
+        </param>
+        <briefdescription>
+<para>Configures the Rx and Tx taps in Phy Configuration register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RxTap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Rx tap value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TxTap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Tx tap value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_control.c" line="379" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_control.c" bodystart="379" bodyend="398"/>
+        <references refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" compoundref="xospipsv_8h" startline="134">XOspiPsv_Config::BaseAddress</references>
+        <references refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" compoundref="xospipsv_8h" startline="153">XOspiPsv::Config</references>
+        <references refid="struct_x_ospi_psv_1ade8b294559fe3e26e9cc9ae94afa9926" compoundref="xospipsv_8h" startline="169">XOspiPsv::DllMode</references>
+        <references refid="group__ospipsv__api_1ga943852604b61a80a53f42a143bf87241" compoundref="xospipsv__hw_8c" startline="662" endline="677">XOspiPsv_WaitForLock</references>
+        <referencedby refid="group__ospipsv__api_1gabef79236b8c8e5ada4f6ddb58132e35c" compoundref="xospipsv__hw_8c" startline="696" endline="780">XOspiPsv_CalculateRxTap</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ospipsv__api_1ga289baf1466add8dfa4a70a3952354cd7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XOspiPsv_CheckOspiIdle</definition>
+        <argsstring>(const XOspiPsv *InstancePtr)</argsstring>
+        <name>XOspiPsv_CheckOspiIdle</name>
+        <param>
+          <type>const <ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Checks for OSPI idle which means Serial interface and low level SPI pipeline is IDLE. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_control.c" line="413" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_control.c" bodystart="413" bodyend="428"/>
+        <references refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" compoundref="xospipsv_8h" startline="134">XOspiPsv_Config::BaseAddress</references>
+        <references refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" compoundref="xospipsv_8h" startline="153">XOspiPsv::Config</references>
+        <references refid="group__ospipsv__api_1ga02055aef4b0f9a801005ebdc7b556157" compoundref="xospipsv__control_8c" startline="42">MAX_DELAY_CNT</references>
+        <referencedby refid="group__ospipsv__api_1ga816c6bf2a419d38bd2e4d51a266a6d3b" compoundref="xospipsv_8c" startline="550" endline="598">XOspiPsv_CheckDmaDone</referencedby>
+        <referencedby refid="group__ospipsv__api_1gaa415227de8c6663e478041a82887dd5b" compoundref="xospipsv_8c" startline="678" endline="769">XOspiPsv_IntrHandler</referencedby>
+        <referencedby refid="group__ospipsv__api_1gaaf23d7567b974cfac69ecadd2919999d" compoundref="xospipsv_8c" startline="613" endline="664">XOspiPsv_IntrTransfer</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga808cc2759798221d0d4f44eef27c0629" compoundref="xospipsv_8c" startline="404" endline="464">XOspiPsv_PollTransfer</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga3946ea37da6d9ce478f29eca239b597b" compoundref="xospipsv_8c" startline="820" endline="944">XOspiPsv_SetDllDelay</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga4fe1250ba300d83c1acb4291301429f9" compoundref="xospipsv_8c" startline="480" endline="536">XOspiPsv_StartDmaTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ospipsv__api_1ga8400388c80d471a4535fa7357104f07b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XOspiPsv_IDac_Write</definition>
+        <argsstring>(const XOspiPsv *InstancePtr, const XOspiPsv_Msg *Msg)</argsstring>
+        <name>XOspiPsv_IDac_Write</name>
+        <param>
+          <type>const <ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_ospi_psv___msg" kindref="compound">XOspiPsv_Msg</ref> *</type>
+          <declname>Msg</declname>
+        </param>
+        <briefdescription>
+<para>Writes data in Non-DMA Indirect mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the structure containing transfer data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS if successful.<itemizedlist>
+<listitem><para>XST_FAILURE if fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_control.c" line="442" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_control.c" bodystart="442" bodyend="493"/>
+        <references refid="struct_x_ospi_psv___msg_1af8358bd6a8075c4abacf9b0a7b10a490" compoundref="xospipsv_8h" startline="114">XOspiPsv_Msg::Addr</references>
+        <references refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" compoundref="xospipsv_8h" startline="134">XOspiPsv_Config::BaseAddress</references>
+        <references refid="struct_x_ospi_psv___msg_1ab46554545943ecf8f1a0152c237489f4" compoundref="xospipsv_8h" startline="111">XOspiPsv_Msg::ByteCount</references>
+        <references refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" compoundref="xospipsv_8h" startline="153">XOspiPsv::Config</references>
+        <references refid="group__ospipsv__api_1ga2837097f3f203eeff26f5cfc61947bcf" compoundref="xospipsv__control_8c" startline="43">MAX_IDAC_DELAY_CNT</references>
+        <references refid="struct_x_ospi_psv___msg_1a95f5d41c7ebd3d5b5da41c6289049e6f" compoundref="xospipsv_8h" startline="109">XOspiPsv_Msg::TxBfrPtr</references>
+        <references refid="group__ospipsv__api_1ga1101ef0b6b567210a26c9b95e3ef2de5" compoundref="xospipsv_8h" startline="214">XOspiPsv_ReadReg</references>
+        <referencedby refid="group__ospipsv__api_1ga6b7b4e2f6b2fde2908649918699e86b0" compoundref="xospipsv__xfer_8c" startline="76" endline="95">XOspiPsv_PollSendData</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="36"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xospipsv__control_8h" kindref="compound">xospipsv_control.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="42" refid="group__ospipsv__api_1ga02055aef4b0f9a801005ebdc7b556157" refkind="member"><highlight class="preprocessor">#define<sp/>MAX_DELAY_CNT<sp/><sp/><sp/>10000U</highlight></codeline>
+<codeline lineno="43" refid="group__ospipsv__api_1ga2837097f3f203eeff26f5cfc61947bcf" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MAX_IDAC_DELAY_CNT<sp/><sp/><sp/><sp/><sp/><sp/>10000000U<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="68" refid="group__ospipsv__api_1ga6af9f098248cd39891e92d9caa1d75c8" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__ospipsv__api_1ga6af9f098248cd39891e92d9caa1d75c8" kindref="member">XOspiPsv_Stig_Read</ref>(<ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ospi_psv___msg" kindref="compound">XOspiPsv_Msg</ref><sp/>*Msg)</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reqaddr;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1ab006c89c9b2e2e9e3eddef303ed06054" kindref="member">RxBytes</ref><sp/>&lt;=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ERROR_PATH;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1a3df927f0564ffc2896abff80b63e5601" kindref="member">Addrvalid</ref><sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_FLASH_CMD_ADDR_REG,<sp/>Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1af8358bd6a8075c4abacf9b0a7b10a490" kindref="member">Addr</ref>);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqaddr<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqaddr<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ospipsv__api_1gafb4ad780fc9faa2f91aa7208ceb91583" kindref="member">XOspiPsv_Setup_Stig_Ctrl</ref>(InstancePtr,<sp/>(u32)Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1a55ac289317d94775757cac9529ea51c2" kindref="member">Opcode</ref>,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1,<sp/>(u32)InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1ab006c89c9b2e2e9e3eddef303ed06054" kindref="member">RxBytes</ref><sp/>-<sp/>(u32)1,<sp/>Reqaddr,<sp/>0,<sp/>(u32)Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1aed44f5b363f17a6ebb50ec89b032f112" kindref="member">Addrsize</ref><sp/>-<sp/>(u32)1,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0,<sp/>0,<sp/>(u32)Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1aee5814ae840542f0968358c6c00371d8" kindref="member">Dummy</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a4796e4047cf6a5cb697cfdb5e4799aa7" kindref="member">DualByteOpcodeEn</ref><sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="group__ospipsv__api_1ga1101ef0b6b567210a26c9b95e3ef2de5" kindref="member">XOspiPsv_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_OPCODE_EXT_LOWER_REG);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>&amp;=<sp/>~(u32)XOSPIPSV_OPCODE_EXT_LOWER_REG_EXT_STIG_OPCODE_FLD_MASK;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>|=<sp/>((u32)Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1a63025a20ca549b4b65f2c6d611d40abc" kindref="member">ExtendedOpcode</ref><sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XOSPIPSV_OPCODE_EXT_LOWER_REG_EXT_STIG_OPCODE_FLD_SHIFT);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_OPCODE_EXT_LOWER_REG,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Execute<sp/>command<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__ospipsv__api_1ga8bb2848b91c02f54adca66fae6820e7e" kindref="member">XOspiPsv_Exec_Flash_Cmd</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(u32)XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ERROR_PATH;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ospipsv__api_1ga621f2c47a2e8fdf59de28b2333d6da6f" kindref="member">XOspiPsv_FifoRead</ref>(InstancePtr,<sp/>Msg);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal">ERROR_PATH:</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="128" refid="group__ospipsv__api_1ga1b1a6b7fd20d9183ad58f84d3303eeec" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__ospipsv__api_1ga1b1a6b7fd20d9183ad58f84d3303eeec" kindref="member">XOspiPsv_Stig_Write</ref>(<ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ospi_psv___msg" kindref="compound">XOspiPsv_Msg</ref><sp/>*Msg)</highlight></codeline>
+<codeline lineno="129"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reqaddr;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reqwridataen;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ByteCount;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1a3df927f0564ffc2896abff80b63e5601" kindref="member">Addrvalid</ref><sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_FLASH_CMD_ADDR_REG,<sp/>Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1af8358bd6a8075c4abacf9b0a7b10a490" kindref="member">Addr</ref>);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqaddr<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqaddr<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a307cc221c5d9dde996530c5edc151e8e" kindref="member">TxBytes</ref><sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqwridataen<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ByteCount<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a307cc221c5d9dde996530c5edc151e8e" kindref="member">TxBytes</ref>;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ospipsv__api_1ga54d82d31820cd30d9c32055380e0ab04" kindref="member">XOspiPsv_FifoWrite</ref>(InstancePtr,<sp/>Msg);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqwridataen<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ByteCount<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ospipsv__api_1gafb4ad780fc9faa2f91aa7208ceb91583" kindref="member">XOspiPsv_Setup_Stig_Ctrl</ref>(InstancePtr,<sp/>(u32)Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1a55ac289317d94775757cac9529ea51c2" kindref="member">Opcode</ref>,</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0,<sp/>0,<sp/>Reqaddr,<sp/>0,<sp/>(u32)Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1aed44f5b363f17a6ebb50ec89b032f112" kindref="member">Addrsize</ref><sp/>-<sp/>(u32)1,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reqwridataen,<sp/>(u32)ByteCount<sp/>-<sp/>(u32)1,<sp/>0,<sp/>0);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a4796e4047cf6a5cb697cfdb5e4799aa7" kindref="member">DualByteOpcodeEn</ref><sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="group__ospipsv__api_1ga1101ef0b6b567210a26c9b95e3ef2de5" kindref="member">XOspiPsv_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_OPCODE_EXT_LOWER_REG);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>&amp;=<sp/>~(u32)XOSPIPSV_OPCODE_EXT_LOWER_REG_EXT_STIG_OPCODE_FLD_MASK;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>|=<sp/>((u32)Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1a63025a20ca549b4b65f2c6d611d40abc" kindref="member">ExtendedOpcode</ref><sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XOSPIPSV_OPCODE_EXT_LOWER_REG_EXT_STIG_OPCODE_FLD_SHIFT);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_OPCODE_EXT_LOWER_REG,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Exec<sp/>cmd<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__ospipsv__api_1ga8bb2848b91c02f54adca66fae6820e7e" kindref="member">XOspiPsv_Exec_Flash_Cmd</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="184" refid="group__ospipsv__api_1gab882c01ec4fd29b29a58e0a07075414d" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__ospipsv__api_1gab882c01ec4fd29b29a58e0a07075414d" kindref="member">XOspiPsv_Dma_Read</ref>(<ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ospi_psv___msg" kindref="compound">XOspiPsv_Msg</ref><sp/>*Msg)</highlight></codeline>
+<codeline lineno="185"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1ab46554545943ecf8f1a0152c237489f4" kindref="member">ByteCount</ref><sp/>%<sp/>4U)<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a37393464bab76176fb86de030eb4f144" kindref="member">IsUnaligned</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1ab46554545943ecf8f1a0152c237489f4" kindref="member">ByteCount</ref><sp/>&gt;=<sp/>(u32)4)<sp/>{</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1ab46554545943ecf8f1a0152c237489f4" kindref="member">ByteCount</ref><sp/>-=<sp/>(Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1ab46554545943ecf8f1a0152c237489f4" kindref="member">ByteCount</ref><sp/>%<sp/>4U);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ospipsv__api_1ga7dd7305678eaea4774657b38046cc5e4" kindref="member">XOspiPsv_Config_Dma</ref>(InstancePtr,Msg);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ospipsv__api_1gae199f0006d6d3282aad2a18c4e87d479" kindref="member">XOspiPsv_Config_IndirectAhb</ref>(InstancePtr,Msg);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__ospipsv__api_1gaa2f584dfcca76360b59188e58c60b770" kindref="member">XOspiPsv_Exec_Dma</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(u32)XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ERROR_PATH;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1af3b6091e16d13e4be338d18494c63485" kindref="member">Xfer64bit</ref><sp/>!=<sp/>(u8)1U)<sp/>{</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(EL1_NONSECURE)<sp/>&amp;&amp;<sp/>(EL1_NONSECURE==1U)</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1a215dbf976af5b97426b6ac5638c06607" kindref="member">IsCacheCoherent</ref><sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheInvalidateRange((INTPTR)Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1a584672579015305052780c6b14e5a576" kindref="member">RxBfrPtr</ref>,<sp/>(INTPTR)Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1ab46554545943ecf8f1a0152c237489f4" kindref="member">ByteCount</ref>);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheInvalidateRange((INTPTR)Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1a584672579015305052780c6b14e5a576" kindref="member">RxBfrPtr</ref>,<sp/>(INTPTR)Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1ab46554545943ecf8f1a0152c237489f4" kindref="member">ByteCount</ref>);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a37393464bab76176fb86de030eb4f144" kindref="member">IsUnaligned</ref><sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1af9d2352cda8abe04913cfd09201e3cab" kindref="member">RecvBufferPtr</ref><sp/>+=<sp/>Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1ab46554545943ecf8f1a0152c237489f4" kindref="member">ByteCount</ref>;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1af8358bd6a8075c4abacf9b0a7b10a490" kindref="member">Addr</ref><sp/>+=<sp/>Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1ab46554545943ecf8f1a0152c237489f4" kindref="member">ByteCount</ref>;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a37393464bab76176fb86de030eb4f144" kindref="member">IsUnaligned</ref><sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1ab46554545943ecf8f1a0152c237489f4" kindref="member">ByteCount</ref><sp/>=<sp/>4;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1a584672579015305052780c6b14e5a576" kindref="member">RxBfrPtr</ref><sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1aa024b5869c092081094478379cc51bc4" kindref="member">UnalignReadBuffer</ref>;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1ab006c89c9b2e2e9e3eddef303ed06054" kindref="member">RxBytes</ref><sp/>=<sp/>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1ab006c89c9b2e2e9e3eddef303ed06054" kindref="member">RxBytes</ref><sp/>%<sp/>4U);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ospipsv__api_1ga7dd7305678eaea4774657b38046cc5e4" kindref="member">XOspiPsv_Config_Dma</ref>(InstancePtr,Msg);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ospipsv__api_1gae199f0006d6d3282aad2a18c4e87d479" kindref="member">XOspiPsv_Config_IndirectAhb</ref>(InstancePtr,Msg);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__ospipsv__api_1gaa2f584dfcca76360b59188e58c60b770" kindref="member">XOspiPsv_Exec_Dma</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(u32)XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ERROR_PATH;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(EL1_NONSECURE)<sp/>&amp;&amp;<sp/>(EL1_NONSECURE==1U)</highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1a215dbf976af5b97426b6ac5638c06607" kindref="member">IsCacheCoherent</ref><sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheInvalidateRange((INTPTR)Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1a584672579015305052780c6b14e5a576" kindref="member">RxBfrPtr</ref>,<sp/>(INTPTR)Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1ab46554545943ecf8f1a0152c237489f4" kindref="member">ByteCount</ref>);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="230"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheInvalidateRange((INTPTR)Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1a584672579015305052780c6b14e5a576" kindref="member">RxBfrPtr</ref>,<sp/>(INTPTR)Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1ab46554545943ecf8f1a0152c237489f4" kindref="member">ByteCount</ref>);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="232"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_MemCpy(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1af9d2352cda8abe04913cfd09201e3cab" kindref="member">RecvBufferPtr</ref>,<sp/>InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1aa024b5869c092081094478379cc51bc4" kindref="member">UnalignReadBuffer</ref>,</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1ab006c89c9b2e2e9e3eddef303ed06054" kindref="member">RxBytes</ref>);</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a37393464bab76176fb86de030eb4f144" kindref="member">IsUnaligned</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal">ERROR_PATH:</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="256" refid="group__ospipsv__api_1ga9f70d70b4dcd8a325a7dacc3aa31a5ef" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__ospipsv__api_1ga9f70d70b4dcd8a325a7dacc3aa31a5ef" kindref="member">XOspiPsv_Dac_Read</ref>(<ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ospi_psv___msg" kindref="compound">XOspiPsv_Msg</ref><sp/>*Msg)</highlight></codeline>
+<codeline lineno="257"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>UINTPTR<sp/>Addr=<sp/>(UINTPTR)(XOSPIPSV_LINEAR_ADDR_BASE<sp/>+<sp/>Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1af8358bd6a8075c4abacf9b0a7b10a490" kindref="member">Addr</ref>);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Addr<sp/>&gt;=<sp/>(UINTPTR)(XOSPIPSV_LINEAR_ADDR_BASE<sp/>+<sp/>SIZE_512MB))<sp/>{</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ERROR_PATH;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_MemCpy(Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1a584672579015305052780c6b14e5a576" kindref="member">RxBfrPtr</ref>,(u32<sp/>*)Addr,<sp/>InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1ab006c89c9b2e2e9e3eddef303ed06054" kindref="member">RxBytes</ref>);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1ab006c89c9b2e2e9e3eddef303ed06054" kindref="member">RxBytes</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal">ERROR_PATH:</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="287" refid="group__ospipsv__api_1gadb1ae4f737c07e890039cdaf3a006b26" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__ospipsv__api_1gadb1ae4f737c07e890039cdaf3a006b26" kindref="member">XOspiPsv_Dac_Write</ref>(<ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_ospi_psv___msg" kindref="compound">XOspiPsv_Msg</ref><sp/>*Msg)</highlight></codeline>
+<codeline lineno="288"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>Addr<sp/>=<sp/>(UINTPTR)(XOSPIPSV_LINEAR_ADDR_BASE<sp/>+<sp/>Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1af8358bd6a8075c4abacf9b0a7b10a490" kindref="member">Addr</ref>);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Addr<sp/>&gt;=<sp/>(UINTPTR)(XOSPIPSV_LINEAR_ADDR_BASE<sp/>+<sp/>SIZE_512MB))<sp/>{</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ERROR_PATH;</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_MemCpy((u32<sp/>*)Addr,<sp/>Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1a95f5d41c7ebd3d5b5da41c6289049e6f" kindref="member">TxBfrPtr</ref>,<sp/>InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a307cc221c5d9dde996530c5edc151e8e" kindref="member">TxBytes</ref>);</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a307cc221c5d9dde996530c5edc151e8e" kindref="member">TxBytes</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal">ERROR_PATH:</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="303"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="320" refid="group__ospipsv__api_1ga3ac73304cb055f7184181eb4b176637e" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__ospipsv__api_1ga3ac73304cb055f7184181eb4b176637e" kindref="member">XOspiPsv_ExecuteRxTuning</ref>(<ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ospi_psv___msg" kindref="compound">XOspiPsv_Msg</ref><sp/>*FlashMsg,</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TXTap)</highlight></codeline>
+<codeline lineno="322"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>AvgRXTap<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>MaxWindowSize<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>DummyIncr;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Dummy<sp/>=<sp/>FlashMsg-&gt;<ref refid="struct_x_ospi_psv___msg_1aee5814ae840542f0968358c6c00371d8" kindref="member">Dummy</ref>;</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(DummyIncr<sp/>=<sp/>0U;<sp/>DummyIncr<sp/>&lt;=<sp/>1U;<sp/>DummyIncr++)<sp/>{</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DummyIncr<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FlashMsg-&gt;<ref refid="struct_x_ospi_psv___msg_1aee5814ae840542f0968358c6c00371d8" kindref="member">Dummy</ref><sp/>=<sp/>Dummy<sp/>+<sp/>1U;</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__ospipsv__api_1gabef79236b8c8e5ada4f6ddb58132e35c" kindref="member">XOspiPsv_CalculateRxTap</ref>(InstancePtr,<sp/>FlashMsg,<sp/>&amp;AvgRXTap,</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;MaxWindowSize,<sp/>DummyIncr,<sp/>TXTap);</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(u32)XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RETURN_PATH;</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(MaxWindowSize<sp/>&lt;<sp/>3U)<sp/>{</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RETURN_PATH;</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_PHY_CONFIGURATION_REG,<sp/>(TXTap<sp/>|<sp/>(u32)AvgRXTap<sp/>|</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESET_FLD_MASK));</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_PHY_CONFIGURATION_REG,<sp/>(TXTap<sp/>|<sp/>(u32)AvgRXTap<sp/>|</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESET_FLD_MASK<sp/>|</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK));</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1ade8b294559fe3e26e9cc9ae94afa9926" kindref="member">DllMode</ref><sp/>==<sp/>XOSPIPSV_DLL_MASTER_MODE)<sp/>{</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__ospipsv__api_1ga943852604b61a80a53f42a143bf87241" kindref="member">XOspiPsv_WaitForLock</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_DLL_OBSERVABLE_LOWER_DLL_LOCK_FLD_MASK);</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"></highlight></codeline>
+<codeline lineno="360"><highlight class="normal">RETURN_PATH:</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="362"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="379" refid="group__ospipsv__api_1gacb2c9597040e54b985ddf380365af639" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__ospipsv__api_1gacb2c9597040e54b985ddf380365af639" kindref="member">XOspiPsv_ConfigureTaps</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref><sp/>*InstancePtr,<sp/>u32<sp/>RxTap,<sp/>u32<sp/>TxTap)</highlight></codeline>
+<codeline lineno="380"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_PHY_CONFIGURATION_REG,<sp/>(TxTap<sp/>|<sp/>(u32)RxTap<sp/>|</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESET_FLD_MASK));</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_PHY_CONFIGURATION_REG,<sp/>(TxTap<sp/>|<sp/>(u32)RxTap<sp/>|</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESET_FLD_MASK<sp/>|</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_PHY_CONFIGURATION_REG_PHY_CONFIG_RESYNC_FLD_MASK));</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1ade8b294559fe3e26e9cc9ae94afa9926" kindref="member">DllMode</ref><sp/>==<sp/>XOSPIPSV_DLL_MASTER_MODE)<sp/>{</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__ospipsv__api_1ga943852604b61a80a53f42a143bf87241" kindref="member">XOspiPsv_WaitForLock</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_DLL_OBSERVABLE_LOWER_DLL_LOCK_FLD_MASK);</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"></highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="398"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="413" refid="group__ospipsv__api_1ga289baf1466add8dfa4a70a3952354cd7" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__ospipsv__api_1ga289baf1466add8dfa4a70a3952354cd7" kindref="member">XOspiPsv_CheckOspiIdle</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="414"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"></highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Xil_WaitForEvent((InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref><sp/>+<sp/>XOSPIPSV_CONFIG_REG),</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_CONFIG_REG_IDLE_FLD_MASK,</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_CONFIG_REG_IDLE_FLD_MASK,</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ospipsv__api_1ga02055aef4b0f9a801005ebdc7b556157" kindref="member">MAX_DELAY_CNT</ref>)<sp/>!=<sp/>(u32)XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ERROR_PATH;</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"></highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="426"><highlight class="normal">ERROR_PATH:</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="428"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"></highlight></codeline>
+<codeline lineno="430"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="442" refid="group__ospipsv__api_1ga8400388c80d471a4535fa7357104f07b" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__ospipsv__api_1ga8400388c80d471a4535fa7357104f07b" kindref="member">XOspiPsv_IDac_Write</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_ospi_psv___msg" kindref="compound">XOspiPsv_Msg</ref><sp/>*Msg)</highlight></codeline>
+<codeline lineno="443"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ReadReg;</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*Addr<sp/>=<sp/>(u32<sp/>*)XOSPIPSV_IND_TRIGGAHB_BASE;</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"></highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>SRAM<sp/>Partition<sp/>configuration<sp/>for<sp/>write<sp/>transfer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,<sp/>XOSPIPSV_SRAM_PARTITION_CFG_REG,</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80U);</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"></highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_INDIRECT_WRITE_XFER_WATERMARK_REG,<sp/>0xFFFFFFFF);</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"></highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>Address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_INDIRECT_WRITE_XFER_START_REG,<sp/>Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1af8358bd6a8075c4abacf9b0a7b10a490" kindref="member">Addr</ref>);</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"></highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>number<sp/>of<sp/>bytes<sp/>to<sp/>write<sp/>and<sp/>indirect<sp/>address*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_INDIRECT_WRITE_XFER_NUM_BYTES_REG,<sp/>Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1ab46554545943ecf8f1a0152c237489f4" kindref="member">ByteCount</ref>);</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"></highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_IND_AHB_ADDR_TRIGGER_REG,<sp/>XOSPIPSV_IND_TRIGGAHB_BASE);</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"></highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>configure<sp/>trigger<sp/>range<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_INDIRECT_TRIGGER_ADDR_RANGE_REG,<sp/>XOSPIPSV_IND_TRIGGER_RANGE);</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"></highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadReg<sp/>=<sp/><ref refid="group__ospipsv__api_1ga1101ef0b6b567210a26c9b95e3ef2de5" kindref="member">XOspiPsv_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG);</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadReg<sp/>|=<sp/>(XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG_START_FLD_MASK);</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG,<sp/>(ReadReg));</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"></highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_MemCpy(Addr,<sp/>Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1a95f5d41c7ebd3d5b5da41c6289049e6f" kindref="member">TxBfrPtr</ref>,<sp/>Msg-&gt;<ref refid="struct_x_ospi_psv___msg_1ab46554545943ecf8f1a0152c237489f4" kindref="member">ByteCount</ref>);</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"></highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Xil_WaitForEvent((InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref><sp/>+<sp/>XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG),</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG_IND_OPS_DONE_STATUS_FLD_MASK,</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG_IND_OPS_DONE_STATUS_FLD_MASK,</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ospipsv__api_1ga2837097f3f203eeff26f5cfc61947bcf" kindref="member">MAX_IDAC_DELAY_CNT</ref>)<sp/>!=<sp/>(u32)XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ERROR_PATH;</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"></highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG,</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XOSPIPSV_INDIRECT_WRITE_XFER_CTRL_REG_IND_OPS_DONE_STATUS_FLD_MASK));</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"></highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="491"><highlight class="normal">ERROR_PATH:</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="493"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_control.c"/>
+  </compounddef>
+</doxygen>

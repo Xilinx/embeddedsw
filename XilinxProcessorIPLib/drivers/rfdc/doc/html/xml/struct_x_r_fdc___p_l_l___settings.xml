@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_r_fdc___p_l_l___settings" kind="struct" prot="public">
+    <compoundname>XRFdc_PLL_Settings</compoundname>
+    <includes local="no">xrfdc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_r_fdc___p_l_l___settings_1a51d4091077dccc755dff764788c9ee9a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_PLL_Settings::Enabled</definition>
+        <argsstring></argsstring>
+        <name>Enabled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="366" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="366" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___p_l_l___settings_1ab7d2c796491ea7d946513bdb99e47604" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double XRFdc_PLL_Settings::RefClkFreq</definition>
+        <argsstring></argsstring>
+        <name>RefClkFreq</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="367" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="367" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___p_l_l___settings_1aa7054bfd3207dc082b338ef8b04b7afc" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double XRFdc_PLL_Settings::SampleRate</definition>
+        <argsstring></argsstring>
+        <name>SampleRate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="368" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="368" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___p_l_l___settings_1a407e4f22b2c5550864da0246aa0dc236" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_PLL_Settings::RefClkDivider</definition>
+        <argsstring></argsstring>
+        <name>RefClkDivider</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="369" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___p_l_l___settings_1aa30263c2832462abe96f8bb33e3d1ddf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_PLL_Settings::FeedbackDivider</definition>
+        <argsstring></argsstring>
+        <name>FeedbackDivider</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="370" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="370" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___p_l_l___settings_1a5aae45f49f22f720493228e4445df4f5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_PLL_Settings::OutputDivider</definition>
+        <argsstring></argsstring>
+        <name>OutputDivider</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="371" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="371" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___p_l_l___settings_1abb3e0e7c4e7d3aed80af23bd2596ada0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_PLL_Settings::FractionalMode</definition>
+        <argsstring></argsstring>
+        <name>FractionalMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="372" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="372" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___p_l_l___settings_1a007d31f9c008d2b300f00fd9379f7ac8" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XRFdc_PLL_Settings::FractionalData</definition>
+        <argsstring></argsstring>
+        <name>FractionalData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="373" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="373" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___p_l_l___settings_1a8d9e9fb78d61fe5315afd0ff3dcfdfbe" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_PLL_Settings::FractWidth</definition>
+        <argsstring></argsstring>
+        <name>FractWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="374" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="374" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>PLL settings. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="365" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="365" bodyend="375"/>
+    <listofallmembers>
+      <member refid="struct_x_r_fdc___p_l_l___settings_1a51d4091077dccc755dff764788c9ee9a" prot="public" virt="non-virtual"><scope>XRFdc_PLL_Settings</scope><name>Enabled</name></member>
+      <member refid="struct_x_r_fdc___p_l_l___settings_1aa30263c2832462abe96f8bb33e3d1ddf" prot="public" virt="non-virtual"><scope>XRFdc_PLL_Settings</scope><name>FeedbackDivider</name></member>
+      <member refid="struct_x_r_fdc___p_l_l___settings_1a007d31f9c008d2b300f00fd9379f7ac8" prot="public" virt="non-virtual"><scope>XRFdc_PLL_Settings</scope><name>FractionalData</name></member>
+      <member refid="struct_x_r_fdc___p_l_l___settings_1abb3e0e7c4e7d3aed80af23bd2596ada0" prot="public" virt="non-virtual"><scope>XRFdc_PLL_Settings</scope><name>FractionalMode</name></member>
+      <member refid="struct_x_r_fdc___p_l_l___settings_1a8d9e9fb78d61fe5315afd0ff3dcfdfbe" prot="public" virt="non-virtual"><scope>XRFdc_PLL_Settings</scope><name>FractWidth</name></member>
+      <member refid="struct_x_r_fdc___p_l_l___settings_1a5aae45f49f22f720493228e4445df4f5" prot="public" virt="non-virtual"><scope>XRFdc_PLL_Settings</scope><name>OutputDivider</name></member>
+      <member refid="struct_x_r_fdc___p_l_l___settings_1a407e4f22b2c5550864da0246aa0dc236" prot="public" virt="non-virtual"><scope>XRFdc_PLL_Settings</scope><name>RefClkDivider</name></member>
+      <member refid="struct_x_r_fdc___p_l_l___settings_1ab7d2c796491ea7d946513bdb99e47604" prot="public" virt="non-virtual"><scope>XRFdc_PLL_Settings</scope><name>RefClkFreq</name></member>
+      <member refid="struct_x_r_fdc___p_l_l___settings_1aa7054bfd3207dc082b338ef8b04b7afc" prot="public" virt="non-virtual"><scope>XRFdc_PLL_Settings</scope><name>SampleRate</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

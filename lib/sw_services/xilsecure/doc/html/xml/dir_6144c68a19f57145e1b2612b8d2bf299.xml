@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_6144c68a19f57145e1b2612b8d2bf299" kind="dir">
+    <compoundname>softsha2-384</compoundname>
+    <innerfile refid="_soft_s_h_a_8h">SoftSHA.h</innerfile>
+    <innerfile refid="xsecure__sha384_8c">xsecure_sha384.c</innerfile>
+    <innerfile refid="xsecure__sha384_8h">xsecure_sha384.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha2-384/"/>
+  </compounddef>
+</doxygen>

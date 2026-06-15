@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>qspips</title>
+    <detaileddescription>
+<para>This file contains the implementation of the <ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> driver. It supports only master mode. User documentation for the driver functions is contained in this file in the form of comment blocks at the front of each function.</para><para>A QSPI device connects to an QSPI bus through a 4-wire serial interface. The QSPI bus is a full-duplex, synchronous bus that facilitates communication between one master and one slave. The device is always full-duplex, which means that for every byte sent, one is received, and vice-versa. The master controls the clock, so it can regulate when it wants to send or receive data. The slave is under control of the master, it must respond quickly since it has no control of the clock and must send/receive data as fast or as slow as the master does.</para><para><bold> Linear Mode </bold> The Linear Quad-SPI Controller extends the existing Quad-SPI Controller�s functionality by adding a linear addressing scheme that allows the SPI flash memory subsystem to behave like a typical ROM device. The new feature hides the normal SPI protocol from a master reading from the SPI flash memory. The feature improves both the user friendliness and the overall read memory throughput over that of the current Quad-SPI Controller by lessening the amount of software overheads required and by the use of the faster AXI interface.</para><para><bold>Initialization &amp; Configuration</bold></para><para>The <ref refid="struct_x_qspi_ps___config" kindref="compound">XQspiPs_Config</ref> structure is used by the driver to configure itself. This configuration structure is typically created by the tool-chain based on HW build properties.</para><para>To support multiple runtime loading and initialization strategies employed by various operating systems, the driver instance can be initialized in the following way:<itemizedlist>
+<listitem><para>XQspiPs_LookupConfig(DeviceId) - Use the device identifier to find static configuration structure defined in <ref refid="xqspips__g_8c" kindref="compound">xqspips_g.c</ref>. This is setup by the tools. For some operating systems the config structure will be initialized by the software and this call is not needed.</para></listitem><listitem><para>XQspiPs_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a configuration structure provided by the caller. If running in a system with address translation, the provided virtual memory base address replaces the physical address present in the configuration structure.</para></listitem></itemizedlist>
+</para><para><bold>Multiple Masters</bold></para><para>More than one master can exist, but arbitration is the responsibility of the higher layer software. The device driver does not perform any type of arbitration.</para><para><bold>Modes of Operation</bold></para><para>There are four modes to perform a data transfer and the selection of a mode is based on Chip Select(CS) and Start. These two options individually, can be controlled either by software(Manual) or hardware(Auto).<itemizedlist>
+<listitem><para>Auto CS: Chip select is automatically asserted as soon as the first word is written into the TXFIFO and de asserted when the TXFIFO becomes empty</para></listitem><listitem><para>Manual CS: Software must assert and de assert CS.</para></listitem><listitem><para>Auto Start: Data transmission starts as soon as there is data in the TXFIFO and stalls when the TXFIFO is empty</para></listitem><listitem><para>Manual Start: Software must start data transmission at the beginning of the transaction or whenever the TXFIFO has become empty</para></listitem></itemizedlist>
+</para><para>The preferred combination is Manual CS and Auto Start. In this combination, the software asserts CS before loading any data into TXFIFO. In Auto Start mode, whenever data is in TXFIFO, controller sends it out until TXFIFO becomes empty. The software reads the RXFIFO whenever the data is available. If no further data, software disables CS.</para><para>Risks/challenges of other combinations:<itemizedlist>
+<listitem><para>Manual CS and Manual Start: Manual Start bit should be set after each TXFIFO write otherwise there could be a race condition where the TXFIFO becomes empty before the new word is written. In that case the transmission stops.</para></listitem><listitem><para>Auto CS with Manual or Auto Start: It is very difficult for software to keep the TXFIFO filled. Whenever the TXFIFO runs empty, CS is de asserted. This results in a single transaction to be split into multiple pieces each with its own chip select. This will result in garbage data to be sent.</para></listitem></itemizedlist>
+</para><para><bold>Interrupts</bold></para><para>The user must connect the interrupt handler of the driver, XQspiPs_InterruptHandler, to an interrupt system such that it will be called when an interrupt occurs. This function does not save and restore the processor context such that the user must provide this processing.</para><para>The driver handles the following interrupts:<itemizedlist>
+<listitem><para>Data Transmit Register/FIFO Underflow</para></listitem><listitem><para>Data Receive Register/FIFO Not Empty</para></listitem><listitem><para>Data Transmit Register/FIFO Overwater</para></listitem><listitem><para>Data Receive Register/FIFO Overrun</para></listitem></itemizedlist>
+</para><para>The Data Transmit Register/FIFO Overwater interrupt <ndash/> indicates that the QSPI device has transmitted the data available to transmit, and now its data register and FIFO is ready to accept more data. The driver uses this interrupt to indicate progress while sending data. The driver may have more data to send, in which case the data transmit register and FIFO is filled for subsequent transmission. When this interrupt arrives and all the data has been sent, the driver invokes the status callback with a value of XST_SPI_TRANSFER_DONE to inform the upper layer software that all data has been sent.</para><para>The Data Transmit Register/FIFO Underflow interrupt <ndash/> indicates that, as slave, the QSPI device was required to transmit but there was no data available to transmit in the transmit register (or FIFO). This may not be an error if the master is not expecting data. But in the case where the master is expecting data, this serves as a notification of such a condition. The driver reports this condition to the upper layer software through the status handler.</para><para>The Data Receive Register/FIFO Overrun interrupt <ndash/> indicates that the QSPI device received data and subsequently dropped the data because the data receive register and FIFO was full. The driver reports this condition to the upper layer software through the status handler. This likely indicates a problem with the higher layer protocol, or a problem with the slave performance.</para><para><bold>Polled Operation</bold></para><para>Transfer in polled mode is supported through a separate interface function <ref refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" kindref="member">XQspiPs_PolledTransfer()</ref>. Unlike the transfer function in the interrupt mode, this function blocks until all data has been sent/received.</para><para><bold>Device Busy</bold></para><para>Some operations are disallowed when the device is busy. The driver tracks whether a device is busy. The device is considered busy when a data transfer request is outstanding, and is considered not busy only when that transfer completes (or is aborted with a mode fault error).</para><para><bold>Device Configuration</bold></para><para>The device can be configured in various ways during the FPGA implementation process. Configuration parameters are stored in the <ref refid="xqspips__g_8c" kindref="compound">xqspips_g.c</ref> file or passed in via <ref refid="group__qspips_1gaf348b6ee07c1e3e7d01857a789e658d4" kindref="member">XQspiPs_CfgInitialize()</ref>. A table is defined where each entry contains configuration information for an QSPI device, including the base address for the device.</para><para><bold>RTOS Independence</bold></para><para>This driver is intended to be RTOS and processor independent. It works with physical addresses only. Any needs for dynamic memory management, threads or thread mutual exclusion, virtual memory, or cache control must be satisfied by the layer above this driver.</para><para>NOTE: This driver was always tested with endianness set to little-endian.</para><para><preformatted>
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who Date     Changes
+<hruler/>
+
+ 1.00a sdm 11/25/10 First release, based on the PS SPI driver...
+ 1.01a sdm 11/22/11 Added TCL file for generating QSPI parameters
+                     in xparameters.h
+ 2.00a kka 07/25/12 Added a few register defines for CR 670297
+                     Removed code related to mode fault for CR 671468
+                     The XQspiPs_SetSlaveSelect has been modified to remove
+                     the argument of the slave select as the QSPI controller
+                     only supports one slave.
+                     XQspiPs_GetSlaveSelect API has been removed
+                     Added a flag ShiftReadData to the instance structure
+.                    and is used in the XQspiPs_GetReadData API.
+                     The ShiftReadData Flag indicates whether the data
+                     read from the Rx FIFO needs to be shifted
+                     in cases where the data is less than 4  bytes
+                     Removed the selection for the following options:
+                     Master mode (XQSPIPS_MASTER_OPTION) and
+                     Flash interface mode (XQSPIPS_FLASH_MODE_OPTION) option
+                     as the QSPI driver supports the Master mode
+                     and Flash Interface mode and doesn&apos;t support
+                     Slave mode or the legacy mode.
+                     Modified the XQspiPs_PolledTransfer and XQspiPs_Transfer
+                     APIs so that the last argument (IsInst) specifying whether
+                     it is instruction or data has been removed. The first byte
+                     in the SendBufPtr argument of these APIs specify the
+                     instruction to be sent to the Flash Device.
+                     This version of the driver fixes CRs 670197/663787/
+                     670297/671468.
+                     Added the option for setting the Holdb_dr bit in the
+                     configuration options, XQSPIPS_HOLD_B_DRIVE_OPTION
+                     is the option to be used for setting this bit in the
+                     configuration register.
+                     The XQspiPs_PolledTransfer function has been updated
+                     to fill the data to fifo depth.
+ 2.01a sg  02/03/13 Added flash opcodes for DUAL_IO_READ,QUAD_IO_READ.
+                     Added macros for Set/Get Rx Watermark. Changed QSPI
+                     Enable/Disable macro argument from BaseAddress to
+                     Instance Pointer. Added DelayNss argument to SetDelays
+                     and GetDelays API&apos;s.
+                     Created macros XQspiPs_IsManualStart and
+                     XQspiPs_IsManualChipSelect.
+                     Changed QSPI transfer logic for polled and interrupt
+                     modes to be based on filled tx fifo count and receive
+                     based on it. RXNEMPTY interrupt is not used.
+                     Added assertions to XQspiPs_LqspiRead function.
+                     SetDelays and GetDelays API&apos;s include DelayNss parameter.
+                     Added defines for DelayNss,Rx Watermark,Interrupts
+                     which need write to clear. Removed Read zeros mask from
+                     LQSPI Config register. Renamed Fixed burst error to
+                     data FSM error in  LQSPI Status register.</preformatted></para><para><preformatted> 2.02a hk  05/07/13 Added ConnectionMode to config structure.
+                         Corresponds to C_QSPI_MODE - 0:Single, 1:Stacked, 2:Parallel
+                         Added enable and disable to the <ref refid="group__qspips_1gacbdefc29998bb7b4a61e62f8ef3ed127" kindref="member">XQspiPs_LqspiRead()</ref> function
+                         Removed XQspi_Reset() in Set_Options() function when
+                         LQSPI_MODE_OPTION is set.
+            Added instructions for bank selection, die erase and
+            flag status register to the flash instruction table
+            Handling for instructions not in flash instruction
+                         table added. Checking for Tx FIFO empty when switching from
+                         TXD1/2/3 to TXD0 added. If WRSR instruction is sent with
+            byte count 3 (spansion), instruction size and TXD register
+                         changed accordingly. CR# 712502 and 703869.
+            Added prefix to constant definitions for ConnectionMode
+            Added (#ifdef linear base address) in the Linear read function.
+            Changed  XPAR_XQSPIPS_0_LINEAR_BASEADDR to
+            XPAR_PS7_QSPI_LINEAR_0_S_AXI_BASEADDR in
+            XQspiPs_LqspiRead function. Fix for CR#718141.</preformatted></para><para><preformatted> 2.03a hk  09/17/13 Modified polled and interrupt transfers to make use of
+                    thresholds. This is to improve performance.
+                    Added API&apos;s for QSPI reset and
+                    linear mode initialization for boot.
+                    Added RX and TX threshold reset to one in XQspiPs_Abort.
+                    Added RX threshold reset(1) after transfer in polled and
+                    interrupt transfers. Made changes to make sure threshold
+                    change is done only when no transfer is in progress.
+                    Updated linear init API for parallel and stacked modes.
+                    CR#737760.
+ 3.1   hk  08/13/14 When writing to the configuration register, set/reset
+                    required bits leaving reserved bits untouched. CR# 796813.
+ 3.2    sk      02/05/15 Add SLCR reset in abort function as a workaround because
+                                         controller does not update FIFO status flags as expected
+                                         when thresholds are used.
+ 3.3   sk  11/07/15 Modified the API prototypes according to MISRAC standards
+                    to remove compilation warnings. CR# 868893.
+       ms  03/17/17 Added readme.txt file in examples folder for doxygen
+                    generation.
+       ms  04/05/17 Modified Comment lines in functions of qspips
+                    examples to recognize it as documentation block
+                    and modified filename tag in
+                    <ref refid="xqspips__dual__flash__stack__lqspi__example_8c" kindref="compound">xqspips_dual_flash_stack_lqspi_example.c</ref> to include it in
+                    doxygen examples.
+ 3.4   nsk 31/07/17 Added QSPI_BUS_WIDTH parameter in xparameters.h file
+ 3.5    tjs 08/21/18 Fixed compilation warnings for the ARMCC.
+ 3.5    tjs 07/16/18 Added support for low density ISSI flash parts.
+ 3.6   akm 03/28/19 Fixed memory leak issue while reading from qspi.(CR#1016357)
+ 3.6   akm 04/15/19 Modified FlashQuadEnable, FlashWrie and FlashErase APIs,
+                    to wait for the on going operation to complete before
+                    performing the next operation.
+ 3.6   akm 04/15/19 Modified the mask in XQspiPs_GetReadData() API to retrieve
+                    configuration register values of both the Flashes in dual
+                    parellel connection.
+ 3.7    akm 11/19/19 Fixed Coverity unused value warning in <ref refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" kindref="member">XQspiPs_PolledTransfer()</ref>
+                        and <ref refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" kindref="member">XQspiPs_Transfer()</ref> APIs.
+ 3.7    akm 03/19/20 Modified <ref refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" kindref="member">XQspiPs_PolledTransfer()</ref>, <ref refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" kindref="member">XQspiPs_Transfer()</ref> and
+                        <ref refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" kindref="member">XQspiPs_InterruptHandler()</ref> APIs to fill TX FIFO with valid
+                        data when RX buffer is not NULL.
+ 3.8    akm 09/02/20 Updated the Makefile to support parallel make execution.
+ 3.11   akm 07/10/23 Update the driver to support for system device-tree flow.
+ 3.12   sb  02/20/24 Add missing parenthesis for macro expansions.
+ 3.15  vlt 12/30/25 Update Doxygen comments to include SDT flow details.
+ 3.15  vlt 03/15/26 Updated BaseAddress type from u32 to UINTPTR
+                    to support 64-bit addressing.</preformatted></para><para><preformatted> </preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

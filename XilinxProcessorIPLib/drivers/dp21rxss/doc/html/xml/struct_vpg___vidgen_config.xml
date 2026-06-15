@@ -1,0 +1,309 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_vpg___vidgen_config" kind="struct" prot="public">
+    <compoundname>Vpg_VidgenConfig</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_vpg___vidgen_config_1a9fd68051a187e0d13f336a696feb5208" prot="public" static="no" mutable="no">
+        <type>XVidC_VideoTiming</type>
+        <definition>XVidC_VideoTiming Vpg_VidgenConfig::Timing</definition>
+        <argsstring></argsstring>
+        <name>Timing</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vpg___vidgen_config_1ad60ec375928d81de1bf4ffdc0fc238a8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Vpg_VidgenConfig::DePolarity</definition>
+        <argsstring></argsstring>
+        <name>DePolarity</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vpg___vidgen_config_1a9f044ad1a96956ce7236d56a77ce2c94" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Vpg_VidgenConfig::FrameLock0</definition>
+        <argsstring></argsstring>
+        <name>FrameLock0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vpg___vidgen_config_1a06a058ce00eabb4bc4f0d53950e2ccec" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Vpg_VidgenConfig::FrameLock1</definition>
+        <argsstring></argsstring>
+        <name>FrameLock1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vpg___vidgen_config_1a98f4362e8309a7e650faad50046d59a2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Vpg_VidgenConfig::HdColorBarMode</definition>
+        <argsstring></argsstring>
+        <name>HdColorBarMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vpg___vidgen_config_1a11d969ab0e304a36ea555592ec7ae4ba" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Vpg_VidgenConfig::TcHsBlnk</definition>
+        <argsstring></argsstring>
+        <name>TcHsBlnk</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vpg___vidgen_config_1aa40ca1700fa8716d7195a33c94e12af2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Vpg_VidgenConfig::TcHsSync</definition>
+        <argsstring></argsstring>
+        <name>TcHsSync</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vpg___vidgen_config_1afe3a23052281caf79f8f8def0bf58fa0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Vpg_VidgenConfig::TcHeSync</definition>
+        <argsstring></argsstring>
+        <name>TcHeSync</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vpg___vidgen_config_1a77e18b8293bedca0fc2c32b83378d00b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Vpg_VidgenConfig::TcHeBlnk</definition>
+        <argsstring></argsstring>
+        <name>TcHeBlnk</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vpg___vidgen_config_1a5d4a07907f3bcf399f91978676f18266" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Vpg_VidgenConfig::TcVsBlnk</definition>
+        <argsstring></argsstring>
+        <name>TcVsBlnk</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vpg___vidgen_config_1a240a75bfa28b53622577920ec5179326" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Vpg_VidgenConfig::TcVsSync</definition>
+        <argsstring></argsstring>
+        <name>TcVsSync</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vpg___vidgen_config_1aef567b8c4d725ab5edbacc4d3e7d0b95" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Vpg_VidgenConfig::TcVeSync</definition>
+        <argsstring></argsstring>
+        <name>TcVeSync</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vpg___vidgen_config_1ae4f78a8484a0df87647f4d16f4ebf2b4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Vpg_VidgenConfig::TcVeBlnk</definition>
+        <argsstring></argsstring>
+        <name>TcVeBlnk</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vpg___vidgen_config_1afbcfc39c8e4596eafbeeef19104da366" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Vpg_VidgenConfig::VidClkSel</definition>
+        <argsstring></argsstring>
+        <name>VidClkSel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vpg___vidgen_config_1a9a76230d649a411be76e41366b646d1f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Vpg_VidgenConfig::MVid</definition>
+        <argsstring></argsstring>
+        <name>MVid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vpg___vidgen_config_1a4b7fb3c8ddc1801ee39c9530ea15bfe7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Vpg_VidgenConfig::VidClkD</definition>
+        <argsstring></argsstring>
+        <name>VidClkD</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vpg___vidgen_config_1a9bed55a8c9e9a169d514577bbd81903c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Vpg_VidgenConfig::DSMode</definition>
+        <argsstring></argsstring>
+        <name>DSMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vpg___vidgen_config_1a23139356bb01cee9620cd794e7074584" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Vpg_VidgenConfig::MvidBy2</definition>
+        <argsstring></argsstring>
+        <name>MvidBy2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vpg___vidgen_config_1a50f5529915a59f552386cf4408d1c226" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Vpg_VidgenConfig::VidClkDBy2</definition>
+        <argsstring></argsstring>
+        <name>VidClkDBy2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vpg___vidgen_config_1afb139d1a55835bbb8272b72e1117d147" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Vpg_VidgenConfig::Misc0</definition>
+        <argsstring></argsstring>
+        <name>Misc0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vpg___vidgen_config_1a10eb68876c7ba929d65fa97d680ead7e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Vpg_VidgenConfig::Misc1</definition>
+        <argsstring></argsstring>
+        <name>Misc1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" bodystart="134" bodyend="161"/>
+    <listofallmembers>
+      <member refid="struct_vpg___vidgen_config_1ad60ec375928d81de1bf4ffdc0fc238a8" prot="public" virt="non-virtual"><scope>Vpg_VidgenConfig</scope><name>DePolarity</name></member>
+      <member refid="struct_vpg___vidgen_config_1a9bed55a8c9e9a169d514577bbd81903c" prot="public" virt="non-virtual"><scope>Vpg_VidgenConfig</scope><name>DSMode</name></member>
+      <member refid="struct_vpg___vidgen_config_1a9f044ad1a96956ce7236d56a77ce2c94" prot="public" virt="non-virtual"><scope>Vpg_VidgenConfig</scope><name>FrameLock0</name></member>
+      <member refid="struct_vpg___vidgen_config_1a06a058ce00eabb4bc4f0d53950e2ccec" prot="public" virt="non-virtual"><scope>Vpg_VidgenConfig</scope><name>FrameLock1</name></member>
+      <member refid="struct_vpg___vidgen_config_1a98f4362e8309a7e650faad50046d59a2" prot="public" virt="non-virtual"><scope>Vpg_VidgenConfig</scope><name>HdColorBarMode</name></member>
+      <member refid="struct_vpg___vidgen_config_1afb139d1a55835bbb8272b72e1117d147" prot="public" virt="non-virtual"><scope>Vpg_VidgenConfig</scope><name>Misc0</name></member>
+      <member refid="struct_vpg___vidgen_config_1a10eb68876c7ba929d65fa97d680ead7e" prot="public" virt="non-virtual"><scope>Vpg_VidgenConfig</scope><name>Misc1</name></member>
+      <member refid="struct_vpg___vidgen_config_1a9a76230d649a411be76e41366b646d1f" prot="public" virt="non-virtual"><scope>Vpg_VidgenConfig</scope><name>MVid</name></member>
+      <member refid="struct_vpg___vidgen_config_1a23139356bb01cee9620cd794e7074584" prot="public" virt="non-virtual"><scope>Vpg_VidgenConfig</scope><name>MvidBy2</name></member>
+      <member refid="struct_vpg___vidgen_config_1a77e18b8293bedca0fc2c32b83378d00b" prot="public" virt="non-virtual"><scope>Vpg_VidgenConfig</scope><name>TcHeBlnk</name></member>
+      <member refid="struct_vpg___vidgen_config_1afe3a23052281caf79f8f8def0bf58fa0" prot="public" virt="non-virtual"><scope>Vpg_VidgenConfig</scope><name>TcHeSync</name></member>
+      <member refid="struct_vpg___vidgen_config_1a11d969ab0e304a36ea555592ec7ae4ba" prot="public" virt="non-virtual"><scope>Vpg_VidgenConfig</scope><name>TcHsBlnk</name></member>
+      <member refid="struct_vpg___vidgen_config_1aa40ca1700fa8716d7195a33c94e12af2" prot="public" virt="non-virtual"><scope>Vpg_VidgenConfig</scope><name>TcHsSync</name></member>
+      <member refid="struct_vpg___vidgen_config_1ae4f78a8484a0df87647f4d16f4ebf2b4" prot="public" virt="non-virtual"><scope>Vpg_VidgenConfig</scope><name>TcVeBlnk</name></member>
+      <member refid="struct_vpg___vidgen_config_1aef567b8c4d725ab5edbacc4d3e7d0b95" prot="public" virt="non-virtual"><scope>Vpg_VidgenConfig</scope><name>TcVeSync</name></member>
+      <member refid="struct_vpg___vidgen_config_1a5d4a07907f3bcf399f91978676f18266" prot="public" virt="non-virtual"><scope>Vpg_VidgenConfig</scope><name>TcVsBlnk</name></member>
+      <member refid="struct_vpg___vidgen_config_1a240a75bfa28b53622577920ec5179326" prot="public" virt="non-virtual"><scope>Vpg_VidgenConfig</scope><name>TcVsSync</name></member>
+      <member refid="struct_vpg___vidgen_config_1a9fd68051a187e0d13f336a696feb5208" prot="public" virt="non-virtual"><scope>Vpg_VidgenConfig</scope><name>Timing</name></member>
+      <member refid="struct_vpg___vidgen_config_1a4b7fb3c8ddc1801ee39c9530ea15bfe7" prot="public" virt="non-virtual"><scope>Vpg_VidgenConfig</scope><name>VidClkD</name></member>
+      <member refid="struct_vpg___vidgen_config_1a50f5529915a59f552386cf4408d1c226" prot="public" virt="non-virtual"><scope>Vpg_VidgenConfig</scope><name>VidClkDBy2</name></member>
+      <member refid="struct_vpg___vidgen_config_1afbcfc39c8e4596eafbeeef19104da366" prot="public" virt="non-virtual"><scope>Vpg_VidgenConfig</scope><name>VidClkSel</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

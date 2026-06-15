@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structjs__lib__command__sequence__struct" kind="struct" prot="public">
+    <compoundname>js_lib_command_sequence_struct</compoundname>
+    <includes local="no">xilskey_jslib.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structjs__lib__command__sequence__struct_1ad3d18a7661bbc9b63b09f4c67c2b91f1" prot="public" static="no" mutable="no">
+        <type><ref refid="structjs__command__sequence__struct" kindref="compound">js_command_sequence_t</ref></type>
+        <definition>js_command_sequence_t js_lib_command_sequence_struct::base</definition>
+        <argsstring></argsstring>
+        <name>base</name>
+        <briefdescription>
+<para>Client visible part. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjs__lib__command__sequence__struct_1aa324139a4e5db776fb80d90e698b7fd8" prot="public" static="no" mutable="no">
+        <type>js_lib_command_t *</type>
+        <definition>js_lib_command_t* js_lib_command_sequence_struct::cmd_list</definition>
+        <argsstring></argsstring>
+        <name>cmd_list</name>
+        <briefdescription>
+<para>Array of commands. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjs__lib__command__sequence__struct_1afb3ef49131b000081e265d2ba2970dba" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int js_lib_command_sequence_struct::cmd_count</definition>
+        <argsstring></argsstring>
+        <name>cmd_count</name>
+        <briefdescription>
+<para>Count of added commands. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjs__lib__command__sequence__struct_1af19570bdb6595c4f414f40b57687bafb" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int js_lib_command_sequence_struct::cmd_max</definition>
+        <argsstring></argsstring>
+        <name>cmd_max</name>
+        <briefdescription>
+<para>Command list capacity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjs__lib__command__sequence__struct_1aefa0dcc32e776e4c3b6073456fa3a4f1" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int js_lib_command_sequence_struct::cmd_size</definition>
+        <argsstring></argsstring>
+        <name>cmd_size</name>
+        <briefdescription>
+<para>Size of command objects. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjs__lib__command__sequence__struct_1a344df19ae1affd3c96b19d81b73e8380" prot="public" static="no" mutable="no">
+        <type>js_lib_command_buffer_t *</type>
+        <definition>js_lib_command_buffer_t* js_lib_command_sequence_struct::buf_head</definition>
+        <argsstring></argsstring>
+        <name>buf_head</name>
+        <briefdescription>
+<para>Command buffer pool. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>JTAG command sequence library object. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="12">
+        <label>js_lib_command_sequence_struct</label>
+        <link refid="structjs__lib__command__sequence__struct"/>
+        <childnode refid="13" relation="usage">
+          <edgelabel>base</edgelabel>
+        </childnode>
+      </node>
+      <node id="16">
+        <label>js_server_struct</label>
+        <link refid="structjs__server__struct"/>
+      </node>
+      <node id="15">
+        <label>js_port_struct</label>
+        <link refid="structjs__port__struct"/>
+        <childnode refid="16" relation="usage">
+          <edgelabel>server</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>root_node</edgelabel>
+        </childnode>
+      </node>
+      <node id="13">
+        <label>js_command_sequence_struct</label>
+        <link refid="structjs__command__sequence__struct"/>
+        <childnode refid="14" relation="usage">
+          <edgelabel>node</edgelabel>
+        </childnode>
+      </node>
+      <node id="14">
+        <label>js_node_struct</label>
+        <link refid="structjs__node__struct"/>
+        <childnode refid="15" relation="usage">
+          <edgelabel>port</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>child_list</edgelabel>
+          <edgelabel>parent</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" bodystart="114" bodyend="132"/>
+    <listofallmembers>
+      <member refid="structjs__lib__command__sequence__struct_1ad3d18a7661bbc9b63b09f4c67c2b91f1" prot="public" virt="non-virtual"><scope>js_lib_command_sequence_struct</scope><name>base</name></member>
+      <member refid="structjs__lib__command__sequence__struct_1a344df19ae1affd3c96b19d81b73e8380" prot="public" virt="non-virtual"><scope>js_lib_command_sequence_struct</scope><name>buf_head</name></member>
+      <member refid="structjs__lib__command__sequence__struct_1afb3ef49131b000081e265d2ba2970dba" prot="public" virt="non-virtual"><scope>js_lib_command_sequence_struct</scope><name>cmd_count</name></member>
+      <member refid="structjs__lib__command__sequence__struct_1aa324139a4e5db776fb80d90e698b7fd8" prot="public" virt="non-virtual"><scope>js_lib_command_sequence_struct</scope><name>cmd_list</name></member>
+      <member refid="structjs__lib__command__sequence__struct_1af19570bdb6595c4f414f40b57687bafb" prot="public" virt="non-virtual"><scope>js_lib_command_sequence_struct</scope><name>cmd_max</name></member>
+      <member refid="structjs__lib__command__sequence__struct_1aefa0dcc32e776e4c3b6073456fa3a4f1" prot="public" virt="non-virtual"><scope>js_lib_command_sequence_struct</scope><name>cmd_size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

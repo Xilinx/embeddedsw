@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>This function calls: \ref CamDeviceIspcoreInit, \ref CamDeviceRequestInstance,</title>
+    <detaileddescription>
+<para>This function creates and initializes a VsCamDevice instance. VsiCamDeviceCreate !include E01_External/VsiCamDeviceCreate.plantuml  <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">pCamConfig</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instance configuration. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">phCamDevice</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Handle to the VsCamDevice instance. } CamDeviceInstanceIdMapping, CamDeviceHalHolderCreate, CamDeviceSensorInit, CamDevicePlatformInit, CamDeviceBufCtrlInit, CamDevicePipeInit, CamDeviceEngineInit, CamDeviceSubModuleInit } </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+  </compounddef>
+</doxygen>

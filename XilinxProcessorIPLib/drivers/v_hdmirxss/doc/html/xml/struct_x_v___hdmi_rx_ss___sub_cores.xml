@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___hdmi_rx_ss___sub_cores" kind="struct" prot="public">
+    <compoundname>XV_HdmiRxSs_SubCores</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss___sub_cores_1a2e9262ddc2631d8ed0ef9bd1ca9e02f7" prot="public" static="no" mutable="no">
+        <type>XV_HdmiRx</type>
+        <definition>XV_HdmiRx XV_HdmiRxSs_SubCores::HdmiRx</definition>
+        <argsstring></argsstring>
+        <name>HdmiRx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss.c" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss.c" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef declares the driver instances of all the cores in the subsystem. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss.c" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/src/xv_hdmirxss.c" bodystart="113" bodyend="123"/>
+    <listofallmembers>
+      <member refid="struct_x_v___hdmi_rx_ss___sub_cores_1a2e9262ddc2631d8ed0ef9bd1ca9e02f7" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs_SubCores</scope><name>HdmiRx</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

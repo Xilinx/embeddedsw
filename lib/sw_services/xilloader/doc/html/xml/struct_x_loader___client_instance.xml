@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_loader___client_instance" kind="struct" prot="public">
+    <compoundname>XLoader_ClientInstance</compoundname>
+    <includes local="no">xloader_mailbox.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_loader___client_instance_1a70881eafcc74159f111c98ad8f0e2b15" prot="public" static="no" mutable="no">
+        <type>XMailbox *</type>
+        <definition>XMailbox* XLoader_ClientInstance::MailboxPtr</definition>
+        <argsstring></argsstring>
+        <name>MailboxPtr</name>
+        <briefdescription>
+<para>Pointer to mailbox for IPI communication. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="group__xloader__mailbox__apis_1ga349dbfd771fbf6783438c7950ffd088d" compoundref="xloader__mailbox_8c" startline="103" endline="117">XLoader_ClientInit</referencedby>
+        <referencedby refid="group__xloader__mailbox__apis_1gaec362edc32aeb812a5a06179372d81d1" compoundref="xloader__mailbox_8c" startline="61" endline="89">XLoader_ProcessMailbox</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gacc2cbcde55040cd535bd94e0e3f89ca7" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="296" endline="326">XLoader_ReadDdrCryptoPerfCounters</referencedby>
+        <referencedby refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" compoundref="xloader__generic_8c" startline="65" endline="113">XLoader_SendRequest</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gaaff698654e9776729055a8cdd661afa9" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="878" endline="943">XLoader_ValidatePdiAuth</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___client_instance_1a1660f547b4a77019d9c99b65dc5cd314" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_ClientInstance::Response[RESPONSE_ARG_CNT]</definition>
+        <argsstring>[RESPONSE_ARG_CNT]</argsstring>
+        <name>Response</name>
+        <briefdescription>
+<para>Buffer to store the response of the IPI. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="99" bodyend="-1"/>
+        <referencedby refid="group__xloader__mailbox__apis_1gaec362edc32aeb812a5a06179372d81d1" compoundref="xloader__mailbox_8c" startline="61" endline="89">XLoader_ProcessMailbox</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gacc2cbcde55040cd535bd94e0e3f89ca7" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="296" endline="326">XLoader_ReadDdrCryptoPerfCounters</referencedby>
+        <referencedby refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" compoundref="xloader__generic_8c" startline="65" endline="113">XLoader_SendRequest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___client_instance_1aeefcd87082cd08d88aaa1bbf15b2fa88" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_ClientInstance::SlrIndex</definition>
+        <argsstring></argsstring>
+        <name>SlrIndex</name>
+        <briefdescription>
+<para>SLR index number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="100" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gaabb2d5baeb7ebd06f2743edc48b28674" compoundref="xloader__client_8c" startline="387" endline="416">XLoader_CfiSelectiveReadback</referencedby>
+        <referencedby refid="group__xloader__client__apis_1ga048d2ad178b4c29a0f491b49f9e5788f" compoundref="xloader__client_8c" startline="429" endline="439">XLoader_InputSlrIndex</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to hold the client instance information for xilloader. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="97" bodyend="101"/>
+    <listofallmembers>
+      <member refid="struct_x_loader___client_instance_1a70881eafcc74159f111c98ad8f0e2b15" prot="public" virt="non-virtual"><scope>XLoader_ClientInstance</scope><name>MailboxPtr</name></member>
+      <member refid="struct_x_loader___client_instance_1a1660f547b4a77019d9c99b65dc5cd314" prot="public" virt="non-virtual"><scope>XLoader_ClientInstance</scope><name>Response</name></member>
+      <member refid="struct_x_loader___client_instance_1aeefcd87082cd08d88aaa1bbf15b2fa88" prot="public" virt="non-virtual"><scope>XLoader_ClientInstance</scope><name>SlrIndex</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

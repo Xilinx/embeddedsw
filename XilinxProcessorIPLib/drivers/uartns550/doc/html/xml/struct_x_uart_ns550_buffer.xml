@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_uart_ns550_buffer" kind="struct" prot="public">
+    <compoundname>XUartNs550Buffer</compoundname>
+    <includes local="no">xuartns550.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_uart_ns550_buffer_1a859b304d4e811e4510b2b01724645593" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XUartNs550Buffer::NextBytePtr</definition>
+        <argsstring></argsstring>
+        <name>NextBytePtr</name>
+        <briefdescription>
+<para>Pointer to next byte for transfer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" bodystart="357" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga8430ad911c59b500771723d565f29f29" compoundref="xuartns550_8c" startline="116" endline="193">XUartNs550_CfgInitialize</referencedby>
+        <referencedby refid="group__uartns550_1ga6df754edf91aea638537a15536d4d34e" compoundref="xuartns550_8c" startline="523" endline="587">XUartNs550_ReceiveBuffer</referencedby>
+        <referencedby refid="group__uartns550_1ga35fc171801e394fce29cbcb09dc1ff99" compoundref="xuartns550_8c" startline="313" endline="357">XUartNs550_Recv</referencedby>
+        <referencedby refid="group__uartns550_1ga421921af6a8df7c51ddbfa5d2301ad1b" compoundref="xuartns550_8c" startline="231" endline="278">XUartNs550_Send</referencedby>
+        <referencedby refid="group__uartns550_1ga9046228564fdafeb5715dce1c0b46766" compoundref="xuartns550_8c" startline="388" endline="489">XUartNs550_SendBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_ns550_buffer_1a4dcea1c6eeab4b433d5e2528bb8df23c" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int XUartNs550Buffer::RequestedBytes</definition>
+        <argsstring></argsstring>
+        <name>RequestedBytes</name>
+        <briefdescription>
+<para>Total bytes requested. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" bodystart="358" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga8430ad911c59b500771723d565f29f29" compoundref="xuartns550_8c" startline="116" endline="193">XUartNs550_CfgInitialize</referencedby>
+        <referencedby refid="group__uartns550_1ga35fc171801e394fce29cbcb09dc1ff99" compoundref="xuartns550_8c" startline="313" endline="357">XUartNs550_Recv</referencedby>
+        <referencedby refid="group__uartns550_1ga421921af6a8df7c51ddbfa5d2301ad1b" compoundref="xuartns550_8c" startline="231" endline="278">XUartNs550_Send</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_ns550_buffer_1a3ed337f8095b814045280a7903a10630" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int XUartNs550Buffer::RemainingBytes</definition>
+        <argsstring></argsstring>
+        <name>RemainingBytes</name>
+        <briefdescription>
+<para>Bytes remaining to transfer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" bodystart="359" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga8430ad911c59b500771723d565f29f29" compoundref="xuartns550_8c" startline="116" endline="193">XUartNs550_CfgInitialize</referencedby>
+        <referencedby refid="group__uartns550_1ga6df754edf91aea638537a15536d4d34e" compoundref="xuartns550_8c" startline="523" endline="587">XUartNs550_ReceiveBuffer</referencedby>
+        <referencedby refid="group__uartns550_1ga35fc171801e394fce29cbcb09dc1ff99" compoundref="xuartns550_8c" startline="313" endline="357">XUartNs550_Recv</referencedby>
+        <referencedby refid="group__uartns550_1ga421921af6a8df7c51ddbfa5d2301ad1b" compoundref="xuartns550_8c" startline="231" endline="278">XUartNs550_Send</referencedby>
+        <referencedby refid="group__uartns550_1ga9046228564fdafeb5715dce1c0b46766" compoundref="xuartns550_8c" startline="388" endline="489">XUartNs550_SendBuffer</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The following data type is used to manage the buffers that are handled when sending and receiving data in the interrupt mode. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" bodystart="356" bodyend="360"/>
+    <listofallmembers>
+      <member refid="struct_x_uart_ns550_buffer_1a859b304d4e811e4510b2b01724645593" prot="public" virt="non-virtual"><scope>XUartNs550Buffer</scope><name>NextBytePtr</name></member>
+      <member refid="struct_x_uart_ns550_buffer_1a3ed337f8095b814045280a7903a10630" prot="public" virt="non-virtual"><scope>XUartNs550Buffer</scope><name>RemainingBytes</name></member>
+      <member refid="struct_x_uart_ns550_buffer_1a4dcea1c6eeab4b433d5e2528bb8df23c" prot="public" virt="non-virtual"><scope>XUartNs550Buffer</scope><name>RequestedBytes</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

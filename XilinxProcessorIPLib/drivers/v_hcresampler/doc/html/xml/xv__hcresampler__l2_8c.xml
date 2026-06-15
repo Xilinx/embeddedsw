@@ -1,0 +1,785 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__hcresampler__l2_8c" kind="file">
+    <compoundname>xv_hcresampler_l2.c</compoundname>
+    <includes local="no">string.h</includes>
+    <includes refid="xv__hcresampler__l2_8h" local="yes">xv_hcresampler_l2.h</includes>
+    <incdepgraph>
+      <node id="56">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="58">
+        <label>xil_io.h</label>
+      </node>
+      <node id="54">
+        <label>xv_hcresampler.h</label>
+        <link refid="xv__hcresampler_8h"/>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>string.h</label>
+      </node>
+      <node id="57">
+        <label>xstatus.h</label>
+      </node>
+      <node id="53">
+        <label>xvidc.h</label>
+      </node>
+      <node id="50">
+        <label>xv_hcresampler_l2.c</label>
+        <link refid="xv_hcresampler_l2.c"/>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>xv_hcresampler_l2.h</label>
+        <link refid="xv__hcresampler__l2_8h"/>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
+        <label>xil_types.h</label>
+      </node>
+      <node id="59">
+        <label>xv_hcresampler_hw.h</label>
+        <link refid="xv__hcresampler__hw_8h"/>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__v__hcresampler_1ga42da4f86d1ddb56d8f692e349e3e4ef8" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hcrsmplrcoeff_taps4[XV_HCRSMPLR_NUM_CONVERSIONS][XV_HCRSMPLR_MAX_PHASES][XV_HCRSMPLR_TAPS_4]</definition>
+        <argsstring>[XV_HCRSMPLR_NUM_CONVERSIONS][XV_HCRSMPLR_MAX_PHASES][XV_HCRSMPLR_TAPS_4]</argsstring>
+        <name>XV_hcrsmplrcoeff_taps4</name>
+        <briefdescription>
+<para>4 tap filter coefficients </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_coeff.c" bodystart="35" bodyend="-1"/>
+        <referencedby refid="group__v__hcresampler_1ga9969083c920287d23a7e669049a6b0b3" compoundref="xv__hcresampler__l2_8c" startline="118" endline="157">XV_HCrsmplLoadDefaultCoeff</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hcresampler_1ga7586ca69413292c858e94b908cc80e0c" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hcrsmplrcoeff_taps6[XV_HCRSMPLR_NUM_CONVERSIONS][XV_HCRSMPLR_MAX_PHASES][XV_HCRSMPLR_TAPS_6]</definition>
+        <argsstring>[XV_HCRSMPLR_NUM_CONVERSIONS][XV_HCRSMPLR_MAX_PHASES][XV_HCRSMPLR_TAPS_6]</argsstring>
+        <name>XV_hcrsmplrcoeff_taps6</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_coeff.c" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hcresampler_1ga94b96f81d231243ce66fb8fe33bb43d4" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hcrsmplrcoeff_taps8[XV_HCRSMPLR_NUM_CONVERSIONS][XV_HCRSMPLR_MAX_PHASES][XV_HCRSMPLR_TAPS_8]</definition>
+        <argsstring>[XV_HCRSMPLR_NUM_CONVERSIONS][XV_HCRSMPLR_MAX_PHASES][XV_HCRSMPLR_TAPS_8]</argsstring>
+        <name>XV_hcrsmplrcoeff_taps8</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_coeff.c" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hcresampler_1ga8185ea94d35e7b49be5503f94a6b2079" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hcrsmplrcoeff_taps10[XV_HCRSMPLR_NUM_CONVERSIONS][XV_HCRSMPLR_MAX_PHASES][XV_HCRSMPLR_TAPS_10]</definition>
+        <argsstring>[XV_HCRSMPLR_NUM_CONVERSIONS][XV_HCRSMPLR_MAX_PHASES][XV_HCRSMPLR_TAPS_10]</argsstring>
+        <name>XV_hcrsmplrcoeff_taps10</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_coeff.c" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__v__hcresampler_1gaf4149b460f5c2b7f4418062d4824ebda" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XV_hcresampler_SetCoefficients</definition>
+        <argsstring>(XV_Hcresampler_l2 *pHCrsmplr, XV_HCRESAMPLER_CONVERSION convType)</argsstring>
+        <name>XV_hcresampler_SetCoefficients</name>
+        <param>
+          <type><ref refid="struct_x_v___hcresampler__l2" kindref="compound">XV_Hcresampler_l2</ref> *</type>
+          <declname>pHCrsmplr</declname>
+        </param>
+        <param>
+          <type><ref refid="xv__hcresampler__l2_8h_1aa674edda56028d2861403fc370971c62" kindref="member">XV_HCRESAMPLER_CONVERSION</ref></type>
+          <declname>convType</declname>
+        </param>
+        <briefdescription>
+<para>This function updates the core registers with computed coefficients for required conversion. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pHCrsmplr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>convType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the format conversion requested</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.c" bodystart="317" bodyend="340"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__hcresampler_1ga8edf41784a5dff2152da42de6048154a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_HcrsmplInitialize</definition>
+        <argsstring>(XV_Hcresampler_l2 *InstancePtr, u16 DeviceId)</argsstring>
+        <name>XV_HcrsmplInitialize</name>
+        <param>
+          <type><ref refid="struct_x_v___hcresampler__l2" kindref="compound">XV_Hcresampler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the core instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to core instance to be worked upon </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is instance id of the core</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if device is found and initialized XST_DEVICE_NOT_FOUND if device is not found </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.c" bodystart="63" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__hcresampler_1ga6a354122e39ecef23b558432f9e7c840" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HCrsmplStart</definition>
+        <argsstring>(XV_Hcresampler_l2 *InstancePtr)</argsstring>
+        <name>XV_HCrsmplStart</name>
+        <param>
+          <type><ref refid="struct_x_v___hcresampler__l2" kindref="compound">XV_Hcresampler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function starts the Chroma resampler core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.c" bodystart="84" bodyend="90"/>
+        <references refid="xv__hcresampler_8c_1a743973d52e0778d0f77b70069ebfbf92" compoundref="xv__hcresampler_8c" startline="165" endline="170">XV_hcresampler_EnableAutoRestart</references>
+        <references refid="xv__hcresampler_8c_1adc2b49a0e2c16041578b62420c9519f3" compoundref="xv__hcresampler_8c" startline="70" endline="78">XV_hcresampler_Start</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__hcresampler_1gaa0cf87db5e4a9b6a82280b6e2605326a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HCrsmplStop</definition>
+        <argsstring>(XV_Hcresampler_l2 *InstancePtr)</argsstring>
+        <name>XV_HCrsmplStop</name>
+        <param>
+          <type><ref refid="struct_x_v___hcresampler__l2" kindref="compound">XV_Hcresampler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function stops the Chroma resampler core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.c" bodystart="101" bodyend="106"/>
+        <references refid="xv__hcresampler_8c_1a68cb2008cb880739abfefd576ef1f348" compoundref="xv__hcresampler_8c" startline="189" endline="194">XV_hcresampler_DisableAutoRestart</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__hcresampler_1ga9969083c920287d23a7e669049a6b0b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HCrsmplLoadDefaultCoeff</definition>
+        <argsstring>(XV_Hcresampler_l2 *InstancePtr)</argsstring>
+        <name>XV_HCrsmplLoadDefaultCoeff</name>
+        <param>
+          <type><ref refid="struct_x_v___hcresampler__l2" kindref="compound">XV_Hcresampler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function loads default filter coefficients in the chroma resampler coefficient storage based on the selected TAP configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.c" bodystart="118" bodyend="157"/>
+        <references refid="struct_x_v__hcresampler_1a9339e0f851abaeb3d71a74082229b51a" compoundref="xv__hcresampler_8h" startline="70">XV_hcresampler::Config</references>
+        <references refid="struct_x_v__hcresampler___config_1a87d8f42750fbc34b7cbd1195acc5402a" compoundref="xv__hcresampler_8h" startline="62">XV_hcresampler_Config::NumTaps</references>
+        <references refid="group__v__hcresampler_1ga42da4f86d1ddb56d8f692e349e3e4ef8" compoundref="xv__hcresampler__coeff_8c" startline="35">XV_hcrsmplrcoeff_taps4</references>
+        <references refid="group__v__hcresampler_1gaa56796e25b4889da7d75dc5e6b259f01" compoundref="xv__hcresampler__l2_8c" startline="171" endline="237">XV_HCrsmplrLoadExtCoeff</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__hcresampler_1gaa56796e25b4889da7d75dc5e6b259f01" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HCrsmplrLoadExtCoeff</definition>
+        <argsstring>(XV_Hcresampler_l2 *InstancePtr, u16 num_taps, const short *Coeff)</argsstring>
+        <name>XV_HCrsmplrLoadExtCoeff</name>
+        <param>
+          <type><ref refid="struct_x_v___hcresampler__l2" kindref="compound">XV_Hcresampler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>num_taps</declname>
+        </param>
+        <param>
+          <type>const short *</type>
+          <declname>Coeff</declname>
+        </param>
+        <briefdescription>
+<para>This function loads user defined filter coefficients in the horiz. </para>        </briefdescription>
+        <detaileddescription>
+<para>chroma resampler coefficient storage</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_taps</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of taps </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Coeff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to user defined filter coefficients table</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.c" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.c" bodystart="171" bodyend="237"/>
+        <references refid="struct_x_v__hcresampler_1a9339e0f851abaeb3d71a74082229b51a" compoundref="xv__hcresampler_8h" startline="70">XV_hcresampler::Config</references>
+        <references refid="struct_x_v__hcresampler___config_1a87d8f42750fbc34b7cbd1195acc5402a" compoundref="xv__hcresampler_8h" startline="62">XV_hcresampler_Config::NumTaps</references>
+        <referencedby refid="group__v__hcresampler_1ga9969083c920287d23a7e669049a6b0b3" compoundref="xv__hcresampler__l2_8c" startline="118" endline="157">XV_HCrsmplLoadDefaultCoeff</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__v__hcresampler_1ga70506d4235b8ade375fe3a3d40439342" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HCrsmplSetActiveSize</definition>
+        <argsstring>(XV_Hcresampler_l2 *InstancePtr, u32 width, u32 height)</argsstring>
+        <name>XV_HCrsmplSetActiveSize</name>
+        <param>
+          <type><ref refid="struct_x_v___hcresampler__l2" kindref="compound">XV_Hcresampler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>height</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the Chroma resampler active resolution. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the active frame width </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>height</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the active frame height</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.c" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.c" bodystart="250" bodyend="258"/>
+        <references refid="xv__hcresampler_8c_1a0afdda20db791da1aa9d29e1abd270b2" compoundref="xv__hcresampler_8c" startline="250" endline="255">XV_hcresampler_Set_HwReg_height</references>
+        <references refid="xv__hcresampler_8c_1a90fec85aa04130a25ce2013cb65d7374" compoundref="xv__hcresampler_8c" startline="210" endline="215">XV_hcresampler_Set_HwReg_width</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__hcresampler_1gab0f5941d407f7792cd60e1e82bbb46d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HCrsmplSetFormat</definition>
+        <argsstring>(XV_Hcresampler_l2 *InstancePtr, XVidC_ColorFormat formatIn, XVidC_ColorFormat formatOut)</argsstring>
+        <name>XV_HCrsmplSetFormat</name>
+        <param>
+          <type><ref refid="struct_x_v___hcresampler__l2" kindref="compound">XV_Hcresampler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XVidC_ColorFormat</type>
+          <declname>formatIn</declname>
+        </param>
+        <param>
+          <type>XVidC_ColorFormat</type>
+          <declname>formatOut</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the Chroma resampler for the required format conversion. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>formatIn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the input chroma format </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>formatOut</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is required chroma format</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.c" line="272" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.c" bodystart="272" bodyend="304"/>
+        <references refid="struct_x_v__hcresampler_1a9339e0f851abaeb3d71a74082229b51a" compoundref="xv__hcresampler_8h" startline="70">XV_hcresampler::Config</references>
+        <references refid="struct_x_v__hcresampler___config_1a42453638babe61766681305da466ea17" compoundref="xv__hcresampler_8h" startline="61">XV_hcresampler_Config::ResamplingType</references>
+        <references refid="xv__hcresampler_8c_1ab3c54aa1d732f97e6a681d561afb1460" compoundref="xv__hcresampler_8c" startline="296" endline="301">XV_hcresampler_Set_HwReg_input_video_format</references>
+        <references refid="xv__hcresampler_8c_1a9a3517f394c0bbf9f723b5cf5e7ed205" compoundref="xv__hcresampler_8c" startline="336" endline="341">XV_hcresampler_Set_HwReg_output_video_format</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__hcresampler_1ga5e5c18b7117ccf1b54bea100e0c67485" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HCrsmplDbgReportStatus</definition>
+        <argsstring>(XV_Hcresampler_l2 *InstancePtr)</argsstring>
+        <name>XV_HCrsmplDbgReportStatus</name>
+        <param>
+          <type><ref refid="struct_x_v___hcresampler__l2" kindref="compound">XV_Hcresampler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function prints Chroma Resampler status on the console. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.c" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.c" bodystart="352" bodyend="420"/>
+        <references refid="struct_x_v__hcresampler___config_1a5edcef996e150667a116cd88462ba453" compoundref="xv__hcresampler_8h" startline="56">XV_hcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hcresampler_1a9339e0f851abaeb3d71a74082229b51a" compoundref="xv__hcresampler_8h" startline="70">XV_hcresampler::Config</references>
+        <references refid="struct_x_v__hcresampler___config_1a87d8f42750fbc34b7cbd1195acc5402a" compoundref="xv__hcresampler_8h" startline="62">XV_hcresampler_Config::NumTaps</references>
+        <references refid="struct_x_v__hcresampler___config_1a42453638babe61766681305da466ea17" compoundref="xv__hcresampler_8h" startline="61">XV_hcresampler_Config::ResamplingType</references>
+        <references refid="xv__hcresampler__hw_8h_1a444c44669eb7d2881930cfc4c8880835" compoundref="xv__hcresampler__hw_8h" startline="66">XV_HCRESAMPLER_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__hcresampler_8c_1a14cd879456fd51925ad41c41916aece7" compoundref="xv__hcresampler_8c" startline="273" endline="281">XV_hcresampler_Get_HwReg_height</references>
+        <references refid="xv__hcresampler_8c_1a2fddb7e216d327da5766659ebff07ff8" compoundref="xv__hcresampler_8c" startline="315" endline="323">XV_hcresampler_Get_HwReg_input_video_format</references>
+        <references refid="xv__hcresampler_8c_1af79968ae80f8e5c5574356e68ba4cc2c" compoundref="xv__hcresampler_8c" startline="353" endline="361">XV_hcresampler_Get_HwReg_output_video_format</references>
+        <references refid="xv__hcresampler_8c_1a2c5928ded4f4861335589b1fb6d564aa" compoundref="xv__hcresampler_8c" startline="229" endline="237">XV_hcresampler_Get_HwReg_width</references>
+        <references refid="xv__hcresampler_8c_1a1befa18fc7f857d3320de9e9356060d1" compoundref="xv__hcresampler_8c" startline="94" endline="102">XV_hcresampler_IsDone</references>
+        <references refid="xv__hcresampler_8c_1a499f2c1125bfffcee9f0e344b08e6c64" compoundref="xv__hcresampler_8c" startline="116" endline="124">XV_hcresampler_IsIdle</references>
+        <references refid="xv__hcresampler_8c_1ad8a39527f36b581dc79374c15e3ea763" compoundref="xv__hcresampler_8c" startline="139" endline="148">XV_hcresampler_IsReady</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="33"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__hcresampler__l2_8h" kindref="compound">xv_hcresampler_l2.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Local<sp/>Global<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><ref refid="group__v__hcresampler_1ga42da4f86d1ddb56d8f692e349e3e4ef8" kindref="member">XV_hcrsmplrcoeff_taps4</ref>[XV_HCRSMPLR_NUM_CONVERSIONS][XV_HCRSMPLR_MAX_PHASES][XV_HCRSMPLR_TAPS_4];</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>XV_hcrsmplrcoeff_taps6[XV_HCRSMPLR_NUM_CONVERSIONS][XV_HCRSMPLR_MAX_PHASES][XV_HCRSMPLR_TAPS_6];</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>XV_hcrsmplrcoeff_taps8[XV_HCRSMPLR_NUM_CONVERSIONS][XV_HCRSMPLR_MAX_PHASES][XV_HCRSMPLR_TAPS_8];</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>XV_hcrsmplrcoeff_taps10[XV_HCRSMPLR_NUM_CONVERSIONS][XV_HCRSMPLR_MAX_PHASES][XV_HCRSMPLR_TAPS_10];</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_hcresampler_SetCoefficients(<ref refid="struct_x_v___hcresampler__l2" kindref="compound">XV_Hcresampler_l2</ref><sp/>*pHCrsmplr,</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hcresampler__l2_8h_1aa674edda56028d2861403fc370971c62" kindref="member">XV_HCRESAMPLER_CONVERSION</ref><sp/>convType);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="63" refid="group__v__hcresampler_1ga8edf41784a5dff2152da42de6048154a" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__hcresampler_1ga8edf41784a5dff2152da42de6048154a" kindref="member">XV_HcrsmplInitialize</ref>(<ref refid="struct_x_v___hcresampler__l2" kindref="compound">XV_Hcresampler_l2</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>the<sp/>instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/>memset(InstancePtr,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_v___hcresampler__l2" kindref="compound">XV_Hcresampler_l2</ref>));</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/>Status<sp/>=<sp/>XV_hcresampler_Initialize(&amp;InstancePtr-&gt;Hcr,<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(Status);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="84" refid="group__v__hcresampler_1ga6a354122e39ecef23b558432f9e7c840" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__hcresampler_1ga6a354122e39ecef23b558432f9e7c840" kindref="member">XV_HCrsmplStart</ref>(<ref refid="struct_x_v___hcresampler__l2" kindref="compound">XV_Hcresampler_l2</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><ref refid="xv__hcresampler_8c_1a743973d52e0778d0f77b70069ebfbf92" kindref="member">XV_hcresampler_EnableAutoRestart</ref>(&amp;InstancePtr-&gt;Hcr);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><ref refid="xv__hcresampler_8c_1adc2b49a0e2c16041578b62420c9519f3" kindref="member">XV_hcresampler_Start</ref>(&amp;InstancePtr-&gt;Hcr);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="101" refid="group__v__hcresampler_1gaa0cf87db5e4a9b6a82280b6e2605326a" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__hcresampler_1gaa0cf87db5e4a9b6a82280b6e2605326a" kindref="member">XV_HCrsmplStop</ref>(<ref refid="struct_x_v___hcresampler__l2" kindref="compound">XV_Hcresampler_l2</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><ref refid="xv__hcresampler_8c_1a68cb2008cb880739abfefd576ef1f348" kindref="member">XV_hcresampler_DisableAutoRestart</ref>(&amp;InstancePtr-&gt;Hcr);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="118" refid="group__v__hcresampler_1ga9969083c920287d23a7e669049a6b0b3" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__hcresampler_1ga9969083c920287d23a7e669049a6b0b3" kindref="member">XV_HCrsmplLoadDefaultCoeff</ref>(<ref refid="struct_x_v___hcresampler__l2" kindref="compound">XV_Hcresampler_l2</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="119"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/>u16<sp/>numTaps;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>*coeff;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="124"><highlight class="comment"><sp/><sp/><sp/>*<sp/>validates<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="125"><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/>numTaps<sp/>=<sp/>InstancePtr-&gt;Hcr.<ref refid="struct_x_v__hcresampler_1a9339e0f851abaeb3d71a74082229b51a" kindref="member">Config</ref>.<ref refid="struct_x_v__hcresampler___config_1a87d8f42750fbc34b7cbd1195acc5402a" kindref="member">NumTaps</ref>;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal">(numTaps)</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XV_HCRSMPLR_TAPS_4:</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>coeff<sp/>=<sp/>&amp;<ref refid="group__v__hcresampler_1ga42da4f86d1ddb56d8f692e349e3e4ef8" kindref="member">XV_hcrsmplrcoeff_taps4</ref>[0][0][0];</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XV_HCRSMPLR_TAPS_6:</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>coeff<sp/>=<sp/>&amp;XV_hcrsmplrcoeff_taps6[0][0][0];</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XV_HCRSMPLR_TAPS_8:</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>coeff<sp/>=<sp/>&amp;XV_hcrsmplrcoeff_taps8[0][0][0];</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XV_HCRSMPLR_TAPS_10:</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>coeff<sp/>=<sp/>&amp;XV_hcrsmplrcoeff_taps10[0][0][0];</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Use<sp/>external<sp/>filter<sp/>load<sp/>API<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><ref refid="group__v__hcresampler_1gaa56796e25b4889da7d75dc5e6b259f01" kindref="member">XV_HCrsmplrLoadExtCoeff</ref>(InstancePtr,<sp/>numTaps,<sp/>coeff);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>use<sp/>of<sp/>external<sp/>coefficients<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/>InstancePtr-&gt;UseExtCoeff<sp/>=<sp/>FALSE;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="171" refid="group__v__hcresampler_1gaa56796e25b4889da7d75dc5e6b259f01" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__hcresampler_1gaa56796e25b4889da7d75dc5e6b259f01" kindref="member">XV_HCrsmplrLoadExtCoeff</ref>(<ref refid="struct_x_v___hcresampler__l2" kindref="compound">XV_Hcresampler_l2</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>num_taps,</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>*Coeff)</highlight></codeline>
+<codeline lineno="174"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>pad,<sp/>offset;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index,<sp/>phase,<sp/>tap,<sp/>conversion;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="179"><highlight class="comment"><sp/><sp/><sp/>*<sp/>validate<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="180"><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/>Xil_AssertVoid(num_taps<sp/>&lt;=<sp/>InstancePtr-&gt;Hcr.Config.NumTaps);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/>Xil_AssertVoid(Coeff<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal">(num_taps)</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XV_HCRSMPLR_TAPS_4:</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XV_HCRSMPLR_TAPS_6:</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XV_HCRSMPLR_TAPS_8:</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XV_HCRSMPLR_TAPS_10:</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//determine<sp/>if<sp/>coefficient<sp/>needs<sp/>padding<sp/>(effective<sp/>vs.<sp/>max<sp/>taps)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/>pad<sp/>=<sp/>XV_HCRSMPLR_MAX_TAPS<sp/>-<sp/>InstancePtr-&gt;Hcr.<ref refid="struct_x_v__hcresampler_1a9339e0f851abaeb3d71a74082229b51a" kindref="member">Config</ref>.<ref refid="struct_x_v__hcresampler___config_1a87d8f42750fbc34b7cbd1195acc5402a" kindref="member">NumTaps</ref>;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/>offset<sp/>=<sp/>((pad)<sp/>?<sp/>(pad&gt;&gt;1)<sp/>:<sp/>0);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/>index<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//Load<sp/>User<sp/>defined<sp/>coefficients<sp/>into<sp/>coefficient<sp/>storage</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(conversion<sp/>=<sp/>0;<sp/>conversion<sp/>&lt;<sp/>XV_HCRSMPLR_NUM_CONVERSIONS;<sp/>++conversion)</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(phase<sp/>=<sp/>0;<sp/>phase<sp/>&lt;<sp/>XV_HCRSMPLR_MAX_PHASES;<sp/>++phase)</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(tap<sp/>=<sp/>0;<sp/>tap<sp/>&lt;<sp/>num_taps;<sp/>++tap)</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>index<sp/>=<sp/>(conversion*XV_HCRSMPLR_MAX_PHASES*num_taps)<sp/>+<sp/>(phase*num_taps)<sp/>+<sp/>tap;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;coeff[conversion][phase][tap+offset]<sp/>=<sp/>Coeff[index];</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(pad)<sp/></highlight><highlight class="comment">//effective<sp/>taps<sp/>&lt;<sp/>max_taps</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(conversion<sp/>=<sp/>0;<sp/>conversion<sp/>&lt;<sp/>XV_HCRSMPLR_NUM_CONVERSIONS;<sp/>++conversion)</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(phase<sp/>=<sp/>0;<sp/>phase<sp/>&lt;<sp/>XV_HCRSMPLR_MAX_PHASES;<sp/>++phase)</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//pad<sp/>left</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(tap<sp/>=<sp/>0;<sp/>tap<sp/>&lt;<sp/>offset;<sp/>++tap)</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;coeff[conversion][phase][tap]<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//pad<sp/>right</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(tap<sp/>=<sp/>(num_taps+offset);<sp/>tap<sp/>&lt;<sp/>XV_HCRSMPLR_MAX_TAPS;<sp/>++tap)</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;coeff[conversion][phase][tap]<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>use<sp/>of<sp/>external<sp/>coefficients<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/>InstancePtr-&gt;UseExtCoeff<sp/>=<sp/>TRUE;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="250" refid="group__v__hcresampler_1ga70506d4235b8ade375fe3a3d40439342" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__hcresampler_1ga70506d4235b8ade375fe3a3d40439342" kindref="member">XV_HCrsmplSetActiveSize</ref>(<ref refid="struct_x_v___hcresampler__l2" kindref="compound">XV_Hcresampler_l2</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>width,</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>height)</highlight></codeline>
+<codeline lineno="253"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><ref refid="xv__hcresampler_8c_1a90fec85aa04130a25ce2013cb65d7374" kindref="member">XV_hcresampler_Set_HwReg_width</ref>(&amp;InstancePtr-&gt;Hcr,<sp/><sp/>width);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><ref refid="xv__hcresampler_8c_1a0afdda20db791da1aa9d29e1abd270b2" kindref="member">XV_hcresampler_Set_HwReg_height</ref>(&amp;InstancePtr-&gt;Hcr,<sp/>height);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="272" refid="group__v__hcresampler_1gab0f5941d407f7792cd60e1e82bbb46d3" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__hcresampler_1gab0f5941d407f7792cd60e1e82bbb46d3" kindref="member">XV_HCrsmplSetFormat</ref>(<ref refid="struct_x_v___hcresampler__l2" kindref="compound">XV_Hcresampler_l2</ref><sp/><sp/><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_ColorFormat<sp/>formatIn,</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_ColorFormat<sp/>formatOut)</highlight></codeline>
+<codeline lineno="275"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><ref refid="xv__hcresampler__l2_8h_1aa674edda56028d2861403fc370971c62" kindref="member">XV_HCRESAMPLER_CONVERSION</ref><sp/>convType<sp/>=<sp/>XV_HCRSMPLR_NUM_CONVERSIONS;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="279"><highlight class="comment"><sp/><sp/><sp/>*<sp/>validates<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="280"><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><ref refid="xv__hcresampler_8c_1ab3c54aa1d732f97e6a681d561afb1460" kindref="member">XV_hcresampler_Set_HwReg_input_video_format</ref>(&amp;InstancePtr-&gt;Hcr,<sp/><sp/>formatIn);</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><ref refid="xv__hcresampler_8c_1a9a3517f394c0bbf9f723b5cf5e7ed205" kindref="member">XV_hcresampler_Set_HwReg_output_video_format</ref>(&amp;InstancePtr-&gt;Hcr,<sp/>formatOut);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(InstancePtr-&gt;Hcr.<ref refid="struct_x_v__hcresampler_1a9339e0f851abaeb3d71a74082229b51a" kindref="member">Config</ref>.<ref refid="struct_x_v__hcresampler___config_1a42453638babe61766681305da466ea17" kindref="member">ResamplingType</ref><sp/>==<sp/>XV_HCRSMPLR_TYPE_FIR)</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">((formatIn<sp/><sp/>==<sp/>XVIDC_CSF_YCRCB_422)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(formatOut<sp/>==<sp/>XVIDC_CSF_YCRCB_444))</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>convType<sp/>=<sp/>XV_HCRSMPLR_422_TO_444;</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">((formatIn<sp/><sp/>==<sp/>XVIDC_CSF_YCRCB_444)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(formatOut<sp/>==<sp/>XVIDC_CSF_YCRCB_422))</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>convType<sp/>=<sp/>XV_HCRSMPLR_444_TO_422;</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Update<sp/>coefficients<sp/>only<sp/>if<sp/>conversion<sp/>type<sp/>is<sp/>set</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(convType<sp/>!=<sp/>XV_HCRSMPLR_NUM_CONVERSIONS)<sp/>{</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>XV_hcresampler_SetCoefficients(InstancePtr,<sp/>convType);</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="304"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="317"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_hcresampler_SetCoefficients(<ref refid="struct_x_v___hcresampler__l2" kindref="compound">XV_Hcresampler_l2</ref><sp/>*pHCrsmplr,</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hcresampler__l2_8h_1aa674edda56028d2861403fc370971c62" kindref="member">XV_HCRESAMPLER_CONVERSION</ref><sp/>convType)</highlight></codeline>
+<codeline lineno="319"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/>u16<sp/>pad,<sp/>offset;</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/>u32<sp/>baseaddr;</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/>u16<sp/>tap,<sp/>phase,regcount;</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//determine<sp/>if<sp/>coefficients<sp/>are<sp/>padded</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/>pad<sp/>=<sp/>XV_HCRSMPLR_MAX_TAPS<sp/>-<sp/>pHCrsmplr-&gt;Hcr.<ref refid="struct_x_v__hcresampler_1a9339e0f851abaeb3d71a74082229b51a" kindref="member">Config</ref>.<ref refid="struct_x_v__hcresampler___config_1a87d8f42750fbc34b7cbd1195acc5402a" kindref="member">NumTaps</ref>;</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/>offset<sp/>=<sp/>((pad)<sp/>?<sp/>(pad&gt;&gt;1)<sp/>:<sp/>0);</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/>regcount<sp/>=<sp/>0;<sp/></highlight><highlight class="comment">//number<sp/>of<sp/>registers<sp/>being<sp/>written</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/>baseaddr<sp/>=<sp/>XV_HCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_0_DATA;</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/>baseaddr<sp/>+=<sp/>pHCrsmplr-&gt;Hcr.<ref refid="struct_x_v__hcresampler_1a9339e0f851abaeb3d71a74082229b51a" kindref="member">Config</ref>.<ref refid="struct_x_v__hcresampler___config_1a5edcef996e150667a116cd88462ba453" kindref="member">BaseAddress</ref>;</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(phase<sp/>=<sp/>0;<sp/>phase<sp/>&lt;<sp/>XV_HCRSMPLR_MAX_PHASES;<sp/>++phase)</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(tap<sp/>=<sp/>0;<sp/>tap<sp/>&lt;<sp/>pHCrsmplr-&gt;Hcr.<ref refid="struct_x_v__hcresampler_1a9339e0f851abaeb3d71a74082229b51a" kindref="member">Config</ref>.<ref refid="struct_x_v__hcresampler___config_1a87d8f42750fbc34b7cbd1195acc5402a" kindref="member">NumTaps</ref>;<sp/>++tap)</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32((baseaddr+(regcount*8)),<sp/>pHCrsmplr-&gt;coeff[convType][phase][offset+tap]);</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++regcount;</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="340"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="352" refid="group__v__hcresampler_1ga5e5c18b7117ccf1b54bea100e0c67485" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__hcresampler_1ga5e5c18b7117ccf1b54bea100e0c67485" kindref="member">XV_HCrsmplDbgReportStatus</ref>(<ref refid="struct_x_v___hcresampler__l2" kindref="compound">XV_Hcresampler_l2</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="353"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><ref refid="struct_x_v__hcresampler" kindref="compound">XV_hcresampler</ref><sp/>*pHCrsmplr<sp/>=<sp/>&amp;InstancePtr-&gt;Hcr;</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/>u32<sp/>done,<sp/>idle,<sp/>ready,<sp/>ctrl;</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/>u32<sp/>vidfmtIn,<sp/>vidfmtOut,<sp/>height,<sp/>width;</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/>u32<sp/>baseAddr;</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*RsmplrTypeStr[]<sp/>=<sp/>{</highlight><highlight class="stringliteral">&quot;Nearest<sp/>Neighbor&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;Fixed<sp/>Coeff&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;FIR&quot;</highlight><highlight class="normal">};</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"></highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="361"><highlight class="comment"><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="362"><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"></highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n\r\n-----&gt;H<sp/>Chroma<sp/>Resampler<sp/>IP<sp/>STATUS&lt;----\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/>done<sp/><sp/>=<sp/><ref refid="xv__hcresampler_8c_1a1befa18fc7f857d3320de9e9356060d1" kindref="member">XV_hcresampler_IsDone</ref>(pHCrsmplr);</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/>idle<sp/><sp/>=<sp/><ref refid="xv__hcresampler_8c_1a499f2c1125bfffcee9f0e344b08e6c64" kindref="member">XV_hcresampler_IsIdle</ref>(pHCrsmplr);</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/>ready<sp/>=<sp/><ref refid="xv__hcresampler_8c_1ad8a39527f36b581dc79374c15e3ea763" kindref="member">XV_hcresampler_IsReady</ref>(pHCrsmplr);</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/>ctrl<sp/><sp/>=<sp/>XV_hcresampler_ReadReg(pHCrsmplr-&gt;<ref refid="struct_x_v__hcresampler_1a9339e0f851abaeb3d71a74082229b51a" kindref="member">Config</ref>.<ref refid="struct_x_v__hcresampler___config_1a5edcef996e150667a116cd88462ba453" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__hcresampler__hw_8h_1a444c44669eb7d2881930cfc4c8880835" kindref="member">XV_HCRESAMPLER_CTRL_ADDR_AP_CTRL</ref>);</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"></highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/>vidfmtIn<sp/><sp/>=<sp/><ref refid="xv__hcresampler_8c_1a2fddb7e216d327da5766659ebff07ff8" kindref="member">XV_hcresampler_Get_HwReg_input_video_format</ref>(pHCrsmplr);</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/>vidfmtOut<sp/>=<sp/><ref refid="xv__hcresampler_8c_1af79968ae80f8e5c5574356e68ba4cc2c" kindref="member">XV_hcresampler_Get_HwReg_output_video_format</ref>(pHCrsmplr);</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/>height<sp/><sp/><sp/><sp/>=<sp/><ref refid="xv__hcresampler_8c_1a14cd879456fd51925ad41c41916aece7" kindref="member">XV_hcresampler_Get_HwReg_height</ref>(pHCrsmplr);</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/>width<sp/><sp/><sp/><sp/><sp/>=<sp/><ref refid="xv__hcresampler_8c_1a2c5928ded4f4861335589b1fb6d564aa" kindref="member">XV_hcresampler_Get_HwReg_width</ref>(pHCrsmplr);</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"></highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;IsDone:<sp/><sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>done);</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;IsIdle:<sp/><sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>idle);</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;IsReady:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>ready);</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Ctrl:<sp/><sp/><sp/><sp/>0x%x\r\n\r\n&quot;</highlight><highlight class="normal">,<sp/>ctrl);</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"></highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(pHCrsmplr-&gt;<ref refid="struct_x_v__hcresampler_1a9339e0f851abaeb3d71a74082229b51a" kindref="member">Config</ref>.<ref refid="struct_x_v__hcresampler___config_1a42453638babe61766681305da466ea17" kindref="member">ResamplingType</ref><sp/>&lt;=<sp/>XV_HCRSMPLR_TYPE_FIR)</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Resampling<sp/>Type:<sp/><sp/>%s\r\n&quot;</highlight><highlight class="normal">,<sp/>RsmplrTypeStr[pHCrsmplr-&gt;<ref refid="struct_x_v__hcresampler_1a9339e0f851abaeb3d71a74082229b51a" kindref="member">Config</ref>.<ref refid="struct_x_v__hcresampler___config_1a42453638babe61766681305da466ea17" kindref="member">ResamplingType</ref>]);</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Resampling<sp/>Type:<sp/><sp/>Unknown\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Video<sp/>Format<sp/>In:<sp/><sp/>%s\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_GetColorFormatStr((XVidC_ColorFormat)vidfmtIn));</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Video<sp/>Format<sp/>Out:<sp/>%s\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_GetColorFormatStr((XVidC_ColorFormat)vidfmtOut));</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Width:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>width);</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Height:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>height);</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"></highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(pHCrsmplr-&gt;<ref refid="struct_x_v__hcresampler_1a9339e0f851abaeb3d71a74082229b51a" kindref="member">Config</ref>.<ref refid="struct_x_v__hcresampler___config_1a42453638babe61766681305da466ea17" kindref="member">ResamplingType</ref><sp/>==<sp/>XV_HCRSMPLR_TYPE_FIR)</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>numTaps,<sp/>tap,<sp/>phase,<sp/>regcount;</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>coeff;</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"></highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/>numTaps<sp/>=<sp/>pHCrsmplr-&gt;<ref refid="struct_x_v__hcresampler_1a9339e0f851abaeb3d71a74082229b51a" kindref="member">Config</ref>.<ref refid="struct_x_v__hcresampler___config_1a87d8f42750fbc34b7cbd1195acc5402a" kindref="member">NumTaps</ref>;</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Num<sp/>Taps:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>numTaps);</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nCoefficients:&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"></highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/>regcount<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/>baseAddr<sp/>=<sp/>XV_HCRESAMPLER_CTRL_ADDR_HWREG_COEFS_0_0_DATA;</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/>baseAddr<sp/>+=<sp/>pHCrsmplr-&gt;<ref refid="struct_x_v__hcresampler_1a9339e0f851abaeb3d71a74082229b51a" kindref="member">Config</ref>.<ref refid="struct_x_v__hcresampler___config_1a5edcef996e150667a116cd88462ba453" kindref="member">BaseAddress</ref>;</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(phase=0;<sp/>phase<sp/>&lt;<sp/>XV_HCRSMPLR_MAX_PHASES;<sp/>++phase)</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nPhase<sp/>%2d:<sp/>&quot;</highlight><highlight class="normal">,<sp/>phase);</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(tap=0;<sp/>tap<sp/>&lt;<sp/>numTaps;<sp/>++tap)</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>coeff<sp/>=<sp/>Xil_In32((baseAddr+(regcount*8)));</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;%4d<sp/>&quot;</highlight><highlight class="normal">,coeff);</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++regcount;</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="420"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/xv_hcresampler_l2.c"/>
+  </compounddef>
+</doxygen>

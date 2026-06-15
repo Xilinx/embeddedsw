@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_equ___cfg" kind="struct" prot="public">
+    <compoundname>XDfeEqu_Cfg</compoundname>
+    <includes local="no">xdfeequ.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_equ___cfg_1af99ac4bfb75af7a83882d0d94a62fa15" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_equ___version" kindref="compound">XDfeEqu_Version</ref></type>
+        <definition>XDfeEqu_Version XDfeEqu_Cfg::Version</definition>
+        <argsstring></argsstring>
+        <name>Version</name>
+        <briefdescription>
+<para>Logicore version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="261" bodyend="-1"/>
+        <referencedby refid="group__dfeequ_1ga8517b5d3c53f9694d03a3fe0868b3937" compoundref="xdfeequ_8c" startline="748" endline="798">XDfeEqu_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_equ___cfg_1a608d93d466e7878d7b12b69cdcf260a8" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_equ___model_parameters" kindref="compound">XDfeEqu_ModelParameters</ref></type>
+        <definition>XDfeEqu_ModelParameters XDfeEqu_Cfg::ModelParams</definition>
+        <argsstring></argsstring>
+        <name>ModelParams</name>
+        <briefdescription>
+<para><verbatim>                              Logicore
+</verbatim> parameterization </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="262" bodyend="-1"/>
+        <referencedby refid="group__dfeequ_1ga8517b5d3c53f9694d03a3fe0868b3937" compoundref="xdfeequ_8c" startline="748" endline="798">XDfeEqu_Configure</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="6">
+        <label>XDfeEqu_ModelParameters</label>
+        <link refid="struct_x_dfe_equ___model_parameters"/>
+      </node>
+      <node id="4">
+        <label>XDfeEqu_Cfg</label>
+        <link refid="struct_x_dfe_equ___cfg"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>Version</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>ModelParams</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>XDfeEqu_Version</label>
+        <link refid="struct_x_dfe_equ___version"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="260" bodyend="264"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_equ___cfg_1a608d93d466e7878d7b12b69cdcf260a8" prot="public" virt="non-virtual"><scope>XDfeEqu_Cfg</scope><name>ModelParams</name></member>
+      <member refid="struct_x_dfe_equ___cfg_1af99ac4bfb75af7a83882d0d94a62fa15" prot="public" virt="non-virtual"><scope>XDfeEqu_Cfg</scope><name>Version</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

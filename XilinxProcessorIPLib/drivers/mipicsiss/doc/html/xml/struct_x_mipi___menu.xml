@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mipi___menu" kind="struct" prot="public">
+    <compoundname>XMipi_Menu</compoundname>
+    <includes local="no">xmipi_menu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mipi___menu_1a25693f656fa2e3297e188c148fe523ec" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_mipi___menu_config" kindref="compound">XMipi_MenuConfig</ref></type>
+        <definition>XMipi_MenuConfig XMipi_Menu::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mipi___menu_1a0e87b6ca8b6c8084bcf11027dec892cf" prot="public" static="no" mutable="no">
+        <type><ref refid="xmipi__menu_8h_1ad152a71eec6c6e938d9dc27638785eb3" kindref="member">XMipi_MenuType</ref></type>
+        <definition>XMipi_MenuType XMipi_Menu::CurrentMenu</definition>
+        <argsstring></argsstring>
+        <name>CurrentMenu</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mipi___menu_1a7528267151a52849e84f5a8d63221856" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMipi_Menu::UartBaseAddress</definition>
+        <argsstring></argsstring>
+        <name>UartBaseAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mipi___menu_1af4af6e50c8e8d25aff0b07a8f92e8e60" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMipi_Menu::Value</definition>
+        <argsstring></argsstring>
+        <name>Value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mipi___menu_1ae062ed7a733a3e715095fd1a9dec6d21" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMipi_Menu::WaitForColorbar</definition>
+        <argsstring></argsstring>
+        <name>WaitForColorbar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The MIPI menu instance data. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="40">
+        <label>XMipi_Menu</label>
+        <link refid="struct_x_mipi___menu"/>
+        <childnode refid="41" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="41">
+        <label>XMipi_MenuConfig</label>
+        <link refid="struct_x_mipi___menu_config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" bodystart="72" bodyend="79"/>
+    <listofallmembers>
+      <member refid="struct_x_mipi___menu_1a25693f656fa2e3297e188c148fe523ec" prot="public" virt="non-virtual"><scope>XMipi_Menu</scope><name>Config</name></member>
+      <member refid="struct_x_mipi___menu_1a0e87b6ca8b6c8084bcf11027dec892cf" prot="public" virt="non-virtual"><scope>XMipi_Menu</scope><name>CurrentMenu</name></member>
+      <member refid="struct_x_mipi___menu_1a7528267151a52849e84f5a8d63221856" prot="public" virt="non-virtual"><scope>XMipi_Menu</scope><name>UartBaseAddress</name></member>
+      <member refid="struct_x_mipi___menu_1af4af6e50c8e8d25aff0b07a8f92e8e60" prot="public" virt="non-virtual"><scope>XMipi_Menu</scope><name>Value</name></member>
+      <member refid="struct_x_mipi___menu_1ae062ed7a733a3e715095fd1a9dec6d21" prot="public" virt="non-virtual"><scope>XMipi_Menu</scope><name>WaitForColorbar</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

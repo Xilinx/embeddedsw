@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_9e6501728c75a0cf84e934475cfeed06" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xcsudma__intr__example_8c">xcsudma_intr_example.c</innerfile>
+    <innerfile refid="xcsudma__polled__example_8c">xcsudma_polled_example.c</innerfile>
+    <innerfile refid="xcsudma__selftest__example_8c">xcsudma_selftest_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/examples/"/>
+  </compounddef>
+</doxygen>

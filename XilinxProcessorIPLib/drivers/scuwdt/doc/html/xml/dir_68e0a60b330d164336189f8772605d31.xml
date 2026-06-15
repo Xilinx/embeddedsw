@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_68e0a60b330d164336189f8772605d31" kind="dir">
+    <compoundname>scuwdt</compoundname>
+    <innerdir refid="dir_5031fa2b6577fcf2b6a5de9389dff088">examples</innerdir>
+    <innerdir refid="dir_f3a6784cab53d50e23c079fc32c8aa67">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/"/>
+  </compounddef>
+</doxygen>

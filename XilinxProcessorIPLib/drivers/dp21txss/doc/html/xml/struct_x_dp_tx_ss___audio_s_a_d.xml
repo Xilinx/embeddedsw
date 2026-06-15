@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_tx_ss___audio_s_a_d" kind="struct" prot="public">
+    <compoundname>XDpTxSs_AudioSAD</compoundname>
+    <includes local="no">xdptxss_edid_parser.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___audio_s_a_d_1a6368c871f6ab26c9d7435213d08ff532" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_AudioSAD::AudioFormatCode</definition>
+        <argsstring></argsstring>
+        <name>AudioFormatCode</name>
+        <briefdescription>
+<para>Audio format code (0-15): 1=LPCM, 2=AC-3, 3=MPEG-1, 4=MP3, 5=MPEG-2, 6=AAC, 7=DTS, 8=ATRAC, 9=One-bit, 10=DD+, 11=DTS-HD, 12=MAT, 13=DST, 14=WMA Pro, 15=Extended. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="150" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___audio_s_a_d_1a21a6f6e29e741a33ae202978dfb1e5a4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_AudioSAD::MaxChannels</definition>
+        <argsstring></argsstring>
+        <name>MaxChannels</name>
+        <briefdescription>
+<para>Maximum number of audio channels (1-8) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="155" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___audio_s_a_d_1abaf55a950b92b20adcc1fce516d4b242" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_AudioSAD::SamplingFreqFlags</definition>
+        <argsstring></argsstring>
+        <name>SamplingFreqFlags</name>
+        <briefdescription>
+<para>Bitmap of supported sampling frequencies: Bit 0: 32 kHz, Bit 1: 44.1 kHz, Bit 2: 48 kHz, Bit 3: 88.2 kHz, Bit 4: 96 kHz, Bit 5: 176.4 kHz, Bit 6: 192 kHz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="156" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___audio_s_a_d_1a42191a60f7245a17d72566a536526ed2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_AudioSAD::BitDepthFlags</definition>
+        <argsstring></argsstring>
+        <name>BitDepthFlags</name>
+        <briefdescription>
+<para><verbatim>For LPCM (format code 1):
+</verbatim> Bit 0=16-bit, Bit 1=20-bit, Bit 2=24-bit </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="166" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___audio_s_a_d_1a395d7ec44ea23b5bdc718e4a7202870d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_AudioSAD::MaxBitrate</definition>
+        <argsstring></argsstring>
+        <name>MaxBitrate</name>
+        <briefdescription>
+<para>For compressed formats: Max bitrate / 8 kHz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="168" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___audio_s_a_d_1ad92e55b957b21df6977a65e5033a0f5d" prot="public" static="no" mutable="no">
+        <type>union XDpTxSs_AudioSAD::@0</type>
+        <definition>union XDpTxSs_AudioSAD::@0  XDpTxSs_AudioSAD::FormatDependent</definition>
+        <argsstring></argsstring>
+        <name>FormatDependent</name>
+        <briefdescription>
+<para>Format-dependent data from SAD byte 2. </para>        </briefdescription>
+        <detaileddescription>
+<para>For LPCM (format code 1): Use BitDepthFlags for supported bit depths. For compressed formats (2-14): Use MaxBitrate for maximum bitrate in units of 8 kHz. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="169" column="1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to store Short Audio Descriptor (SAD) information from CTA-861 extension blocks (3 bytes per SAD) </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="148" bodyend="170"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_tx_ss___audio_s_a_d_1a6368c871f6ab26c9d7435213d08ff532" prot="public" virt="non-virtual"><scope>XDpTxSs_AudioSAD</scope><name>AudioFormatCode</name></member>
+      <member refid="struct_x_dp_tx_ss___audio_s_a_d_1a42191a60f7245a17d72566a536526ed2" prot="public" virt="non-virtual"><scope>XDpTxSs_AudioSAD</scope><name>BitDepthFlags</name></member>
+      <member refid="struct_x_dp_tx_ss___audio_s_a_d_1ad92e55b957b21df6977a65e5033a0f5d" prot="public" virt="non-virtual"><scope>XDpTxSs_AudioSAD</scope><name>FormatDependent</name></member>
+      <member refid="struct_x_dp_tx_ss___audio_s_a_d_1a395d7ec44ea23b5bdc718e4a7202870d" prot="public" virt="non-virtual"><scope>XDpTxSs_AudioSAD</scope><name>MaxBitrate</name></member>
+      <member refid="struct_x_dp_tx_ss___audio_s_a_d_1a21a6f6e29e741a33ae202978dfb1e5a4" prot="public" virt="non-virtual"><scope>XDpTxSs_AudioSAD</scope><name>MaxChannels</name></member>
+      <member refid="struct_x_dp_tx_ss___audio_s_a_d_1abaf55a950b92b20adcc1fce516d4b242" prot="public" virt="non-virtual"><scope>XDpTxSs_AudioSAD</scope><name>SamplingFreqFlags</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

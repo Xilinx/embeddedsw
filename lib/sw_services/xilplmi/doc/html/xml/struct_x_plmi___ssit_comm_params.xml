@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_plmi___ssit_comm_params" kind="struct" prot="public">
+    <compoundname>XPlmi_SsitCommParams</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_plmi___ssit_comm_params_1aa58be0fea436126bd666c8f191345724" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XPlmi_SsitCommParams::SendMessage)(u32 *Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCommCmd)</definition>
+        <argsstring>)(u32 *Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCommCmd)</argsstring>
+        <name>SendMessage</name>
+        <briefdescription>
+<para>This function sends the message/response in the Buf with or without encryption. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___ssit_comm_params_1a3294c89cfdf82b7935e19218853c72ec" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XPlmi_SsitCommParams::ReceiveMessage)(u32 *Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCommCmd)</definition>
+        <argsstring>)(u32 *Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCommCmd)</argsstring>
+        <name>ReceiveMessage</name>
+        <briefdescription>
+<para>This function receives the message/response with or without decryption. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___ssit_comm_params_1ac852e2998643dda2226a5ef85603b79e" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XPlmi_SsitCommParams::AesKeyWrite)(u32 SlrIndex, u32 KeyAddr)</definition>
+        <argsstring>)(u32 SlrIndex, u32 KeyAddr)</argsstring>
+        <name>AesKeyWrite</name>
+        <briefdescription>
+<para>Writes the key provided into respective SLR&apos;s AES key registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___ssit_comm_params_1a2f08c8d4a18dc6777b0c3419653439ad" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XPlmi_SsitCommParams::KeyIvUpdate)(XPlmi_Cmd *Cmd)</definition>
+        <argsstring>)(XPlmi_Cmd *Cmd)</argsstring>
+        <name>KeyIvUpdate</name>
+        <briefdescription>
+<para>This function updates the key and IV with new key and new IV. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___ssit_comm_params_1a701da1ece3eca20fc2320b376954cb57" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_SsitCommParams::NewKeyAddr</definition>
+        <argsstring></argsstring>
+        <name>NewKeyAddr</name>
+        <briefdescription>
+<para>Address of new key used for secure communication. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="211" bodyend="218"/>
+    <listofallmembers>
+      <member refid="struct_x_plmi___ssit_comm_params_1ac852e2998643dda2226a5ef85603b79e" prot="public" virt="non-virtual"><scope>XPlmi_SsitCommParams</scope><name>AesKeyWrite</name></member>
+      <member refid="struct_x_plmi___ssit_comm_params_1a2f08c8d4a18dc6777b0c3419653439ad" prot="public" virt="non-virtual"><scope>XPlmi_SsitCommParams</scope><name>KeyIvUpdate</name></member>
+      <member refid="struct_x_plmi___ssit_comm_params_1a701da1ece3eca20fc2320b376954cb57" prot="public" virt="non-virtual"><scope>XPlmi_SsitCommParams</scope><name>NewKeyAddr</name></member>
+      <member refid="struct_x_plmi___ssit_comm_params_1a3294c89cfdf82b7935e19218853c72ec" prot="public" virt="non-virtual"><scope>XPlmi_SsitCommParams</scope><name>ReceiveMessage</name></member>
+      <member refid="struct_x_plmi___ssit_comm_params_1aa58be0fea436126bd666c8f191345724" prot="public" virt="non-virtual"><scope>XPlmi_SsitCommParams</scope><name>SendMessage</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

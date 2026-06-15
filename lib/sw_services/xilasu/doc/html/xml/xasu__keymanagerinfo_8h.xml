@@ -1,0 +1,868 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__keymanagerinfo_8h" kind="file">
+    <compoundname>xasu_keymanagerinfo.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <includes refid="xasu__rsainfo_8h" local="yes">xasu_rsainfo.h</includes>
+    <includes refid="xasu__eccinfo_8h" local="yes">xasu_eccinfo.h</includes>
+    <includes refid="xasu__aesinfo_8h" local="yes">xasu_aesinfo.h</includes>
+    <includes local="yes">xasu_bsp_config.h</includes>
+    <includedby refid="xasu__keymanager_8h" local="yes">xasu_keymanager.h</includedby>
+    <includedby refid="xasu__keymanager__common_8h" local="yes">xasu_keymanager_common.h</includedby>
+    <incdepgraph>
+      <node id="619">
+        <label>xil_util.h</label>
+      </node>
+      <node id="621">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="617">
+        <label>xasu_keymanagerinfo.h</label>
+        <link refid="xasu_keymanagerinfo.h"/>
+        <childnode refid="618" relation="include">
+        </childnode>
+        <childnode refid="619" relation="include">
+        </childnode>
+        <childnode refid="620" relation="include">
+        </childnode>
+        <childnode refid="622" relation="include">
+        </childnode>
+        <childnode refid="623" relation="include">
+        </childnode>
+        <childnode refid="621" relation="include">
+        </childnode>
+      </node>
+      <node id="618">
+        <label>xil_types.h</label>
+      </node>
+      <node id="622">
+        <label>xasu_eccinfo.h</label>
+        <link refid="xasu__eccinfo_8h"/>
+        <childnode refid="618" relation="include">
+        </childnode>
+        <childnode refid="621" relation="include">
+        </childnode>
+      </node>
+      <node id="620">
+        <label>xasu_rsainfo.h</label>
+        <link refid="xasu__rsainfo_8h"/>
+        <childnode refid="618" relation="include">
+        </childnode>
+        <childnode refid="619" relation="include">
+        </childnode>
+        <childnode refid="621" relation="include">
+        </childnode>
+      </node>
+      <node id="623">
+        <label>xasu_aesinfo.h</label>
+        <link refid="xasu__aesinfo_8h"/>
+        <childnode refid="618" relation="include">
+        </childnode>
+        <childnode refid="621" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="630">
+        <label>xasu_hmac.c</label>
+        <link refid="xasu__hmac_8c"/>
+      </node>
+      <node id="632">
+        <label>xasu_keymanager_common.c</label>
+        <link refid="xasu__keymanager__common_8c"/>
+      </node>
+      <node id="627">
+        <label>xasu_keymanager_common.h</label>
+        <link refid="xasu__keymanager__common_8h"/>
+        <childnode refid="628" relation="include">
+        </childnode>
+        <childnode refid="629" relation="include">
+        </childnode>
+        <childnode refid="630" relation="include">
+        </childnode>
+        <childnode refid="626" relation="include">
+        </childnode>
+        <childnode refid="631" relation="include">
+        </childnode>
+        <childnode refid="632" relation="include">
+        </childnode>
+        <childnode refid="633" relation="include">
+        </childnode>
+        <childnode refid="634" relation="include">
+        </childnode>
+        <childnode refid="635" relation="include">
+        </childnode>
+      </node>
+      <node id="633">
+        <label>xasu_keywrap_common.c</label>
+        <link refid="xasu__keywrap__common_8c"/>
+      </node>
+      <node id="629">
+        <label>xasu_ecc.c</label>
+        <link refid="xasu__ecc_8c"/>
+      </node>
+      <node id="635">
+        <label>xasu_rsa_common.c</label>
+        <link refid="xasu__rsa__common_8c"/>
+      </node>
+      <node id="624">
+        <label>xasu_keymanagerinfo.h</label>
+        <link refid="xasu_keymanagerinfo.h"/>
+        <childnode refid="625" relation="include">
+        </childnode>
+        <childnode refid="627" relation="include">
+        </childnode>
+      </node>
+      <node id="628">
+        <label>xasu_aes.c</label>
+        <link refid="xasu__aes_8c"/>
+      </node>
+      <node id="631">
+        <label>xasu_kdf_common.c</label>
+        <link refid="xasu__kdf__common_8c"/>
+      </node>
+      <node id="626">
+        <label>xasu_keymanager.c</label>
+        <link refid="xasu__keymanager_8c"/>
+      </node>
+      <node id="625">
+        <label>xasu_keymanager.h</label>
+        <link refid="xasu__keymanager_8h"/>
+        <childnode refid="626" relation="include">
+        </childnode>
+      </node>
+      <node id="634">
+        <label>xasu_lms_common.c</label>
+        <link refid="xasu__lms__common_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_asu___key_manager_key_metadata" prot="public">XAsu_KeyManagerKeyMetadata</innerclass>
+    <innerclass refid="struct_x_asu___key_manager_params" prot="public">XAsu_KeyManagerParams</innerclass>
+    <innerclass refid="struct_x_asu___key_manager_sub_vault_params" prot="public">XAsu_KeyManagerSubVaultParams</innerclass>
+    <innerclass refid="struct_x_asu___rsa_key_pair_object" prot="public">XAsu_RsaKeyPairObject</innerclass>
+    <innerclass refid="struct_x_asu___ecc_key_pair_object" prot="public">XAsu_EccKeyPairObject</innerclass>
+    <innerclass refid="struct_x_asu___key_vault_transfer_params" prot="public">XAsu_KeyVaultTransferParams</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__common__defs_1gac0624ac2023b316ce02a22c039284605" prot="public" static="no">
+        <name>XASU_KM_CREATE_KEYVAULT_CMD_ID</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Command ID for key vault creation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="48" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga27ba749e3ba109043a0d7ae904391ea9" compoundref="xasu__keymanager_8c" startline="67" endline="121">XAsu_KmCreateKeyVault</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga9874b8c0c9595e70565d4890968c146c" prot="public" static="no">
+        <name>XASU_KM_DELETE_KEYVAULT_CMD_ID</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Command ID for key vault deletion. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gafda93d7df00d0dd4a14762d5adf03706" compoundref="xasu__keymanager_8c" startline="268" endline="302">XAsu_KmDeleteKeyVault</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga5b8d219409b4082ac0957f1ef5103eb1" prot="public" static="no">
+        <name>XASU_KM_DELETE_KEY_CMD_ID</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Command ID for key deletion. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga29138b38ed8aa506d1fef266e168aaf1" compoundref="xasu__keymanager_8c" startline="320" endline="356">XAsu_KmDeleteKey</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gabf75a310d299abcd87952b69915699e4" prot="public" static="no">
+        <name>XASU_KM_GEN_AES_KEY_CMD_ID</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Command ID for AES key generation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga56b084274630d37fa309acb8a415bc93" compoundref="xasu__keymanager_8c" startline="139" endline="186">XAsu_KmGenerateAesKey</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga7d2a32d5c90029e8b9d84ab00a23e863" prot="public" static="no">
+        <name>XASU_KM_GEN_AES_IV_CMD_ID</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Command ID for AES IV generation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gac066d272856e75beb3e09464144c5ccb" compoundref="xasu__keymanager_8c" startline="204" endline="251">XAsu_KmGenerateAesIv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga4dd6dcb6dba625aace70cd86016960c4" prot="public" static="no">
+        <name>XASU_KM_GEN_RAW_KEY_CMD_ID</name>
+        <initializer>(5U)</initializer>
+        <briefdescription>
+<para>Command ID for raw key generation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga14ab4dc7e43637436186efc7d332d5de" compoundref="xasu__keymanager_8c" startline="619" endline="666">XAsu_KmGenerateRawKey</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaf01a49f56136106cec86d306916abbd9" prot="public" static="no">
+        <name>XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>Command ID for RSA key pair generation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gab7094e9eae7536f433977773199a0ded" compoundref="xasu__keymanager_8c" startline="375" endline="442">XAsu_KmGenerateRsaKeyPair</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga2b430e15ed3fccd4f60cf37352307f5e" prot="public" static="no">
+        <name>XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID</name>
+        <initializer>(7U)</initializer>
+        <briefdescription>
+<para>Command ID for ECC key pair generation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="55" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga3705ea1001da546f3fc6f3b3721a2035" compoundref="xasu__keymanager_8c" startline="461" endline="522">XAsu_KmGenerateEccKeyPair</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga87c4a31a395449a4bf7d53a8c026153f" prot="public" static="no">
+        <name>XASU_KM_STORE_KEY_CMD_ID</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Command ID for storing key in vault. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga125224815bbb6f71e54dfc4ed27f9908" compoundref="xasu__keymanager_8c" startline="540" endline="600">XAsu_KmStoreKey</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga58dfc9b62ceedbb67764edfe8a3668eb" prot="public" static="no">
+        <name>XASU_KM_EXPORT_KEYVAULT_CMD_ID</name>
+        <initializer>(9U)</initializer>
+        <briefdescription>
+<para>Command ID for exporting key vault. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gaecafe629489cae689c1a3c9b5e36acf5" compoundref="xasu__keymanager_8c" startline="684" endline="724">XAsu_KmExportKeyVault</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaa621ca613ebe973da936d53621b85319" prot="public" static="no">
+        <name>XASU_KM_IMPORT_KEYVAULT_CMD_ID</name>
+        <initializer>(10U)</initializer>
+        <briefdescription>
+<para>Command ID for importing key vault. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga6e184f6a768b418ae0ddd229bce85baa" compoundref="xasu__keymanager_8c" startline="742" endline="780">XAsu_KmImportKeyVault</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga39edeed49dd8b48be0b10d6598d22684" prot="public" static="no">
+        <name>XASU_KM_MAX_CMDS</name>
+        <initializer>(11U)</initializer>
+        <briefdescription>
+<para>Maximum number of commands supported by KeyManager module. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gadd9692276fafec6c5d0c5067eca7512c" prot="public" static="no">
+        <name>XASU_KM_OUTPUT_ID_SIZE_IN_BYTES</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Key vault output id size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga27ba749e3ba109043a0d7ae904391ea9" compoundref="xasu__keymanager_8c" startline="67" endline="121">XAsu_KmCreateKeyVault</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga29138b38ed8aa506d1fef266e168aaf1" compoundref="xasu__keymanager_8c" startline="320" endline="356">XAsu_KmDeleteKey</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gac066d272856e75beb3e09464144c5ccb" compoundref="xasu__keymanager_8c" startline="204" endline="251">XAsu_KmGenerateAesIv</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga56b084274630d37fa309acb8a415bc93" compoundref="xasu__keymanager_8c" startline="139" endline="186">XAsu_KmGenerateAesKey</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga3705ea1001da546f3fc6f3b3721a2035" compoundref="xasu__keymanager_8c" startline="461" endline="522">XAsu_KmGenerateEccKeyPair</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga14ab4dc7e43637436186efc7d332d5de" compoundref="xasu__keymanager_8c" startline="619" endline="666">XAsu_KmGenerateRawKey</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gab7094e9eae7536f433977773199a0ded" compoundref="xasu__keymanager_8c" startline="375" endline="442">XAsu_KmGenerateRsaKeyPair</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga125224815bbb6f71e54dfc4ed27f9908" compoundref="xasu__keymanager_8c" startline="540" endline="600">XAsu_KmStoreKey</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga350078d7afaaa92d440324cc5e42eff5" prot="public" static="no">
+        <name>XASU_KM_EXPORT_SIZE_IN_BYTES</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Size in bytes of the field storing actual exported keyvault data size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gaecafe629489cae689c1a3c9b5e36acf5" compoundref="xasu__keymanager_8c" startline="684" endline="724">XAsu_KmExportKeyVault</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga7e51a879abae15a0eca7382bb543de9d" prot="public" static="no">
+        <name>XASU_KM_USAGE_COUNT_NON_DEPLETING_VALUE</name>
+        <initializer>(0xFFFFFFFFU)</initializer>
+        <briefdescription>
+<para>Marker for keys that never expire. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga7fde0f2d4410bc849d07afff46f028cc" prot="public" static="no">
+        <name>XASU_KM_KEYTYPE_WRAPPED_BIT_MASK</name>
+        <initializer>(0x80U)</initializer>
+        <briefdescription>
+<para>Bit mask for wrapped key type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga125224815bbb6f71e54dfc4ed27f9908" compoundref="xasu__keymanager_8c" startline="540" endline="600">XAsu_KmStoreKey</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga9dfb0e1de39faf56b461a45841dd8e8f" prot="public" static="no">
+        <name>XASU_KM_MAX_VAULTS</name>
+        <initializer>(64U)</initializer>
+        <briefdescription>
+<para>Maximum number of key vaults supported. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1gafda93d7df00d0dd4a14762d5adf03706" compoundref="xasu__keymanager_8c" startline="268" endline="302">XAsu_KmDeleteKeyVault</referencedby>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gaed7a338139856f73034a592f739a9424" compoundref="xasu__keymanager__common_8c" startline="96" endline="115">XAsu_KmValidateKeyMetadata</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga3154a859fe1e5133d7c92cffe3fae2e7" prot="public" static="no">
+        <name>XASU_KM_KDF_HMAC_MAX_KEY_LENGTH</name>
+        <initializer>(136U)</initializer>
+        <briefdescription>
+<para>Max key length for KDF/HMAC in key vault. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gafd14cee9cb664e2c541e3bac5c7226ae" compoundref="xasu__keymanager__common_8c" startline="129" endline="178">XAsu_KmValidateKeyLength</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga7393a3427e1e972df7acd0576c1bd649" prot="public" static="no">
+        <name>XASU_KEYMANAGER_AES_ENC_USE_CASE</name>
+        <initializer>(0x01U)</initializer>
+        <briefdescription>
+<para>Data encryption key use case. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gac2450cb742aec9c71f89aadd3e2aa091" prot="public" static="no">
+        <name>XASU_KEYMANAGER_AES_DEC_USE_CASE</name>
+        <initializer>(0x02U)</initializer>
+        <briefdescription>
+<para>Data decryption key use case. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga77075e3530fe97b7a76aee7c78bb6e6a" prot="public" static="no">
+        <name>XASU_KEYMANAGER_AES_KEY_WRAP_USE_CASE</name>
+        <initializer>(0x04U)</initializer>
+        <briefdescription>
+<para>Data key wrap use case. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gadd23b544335e96fd28d65d12f2ae2270" prot="public" static="no">
+        <name>XASU_KEYMANAGER_AES_KEY_UNWRAP_USE_CASE</name>
+        <initializer>(0x08U)</initializer>
+        <briefdescription>
+<para>Data key unwrap use case. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gae0e48de374db6311c06bf0fd4fedabfb" prot="public" static="no">
+        <name>XASU_KEYMANAGER_AES_AUTH_USE_CASE</name>
+        <initializer>(0x10U)</initializer>
+        <briefdescription>
+<para>Data authentication use case. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga7401049b6de50421553cab77130e505e" prot="public" static="no">
+        <name>XASU_KEYMANAGER_RSA_PVT_SIGN_GEN_USE_CASE</name>
+        <initializer>(0x01U)</initializer>
+        <briefdescription>
+<para>RSA private key sign use case. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga38af76f63796f6af0aaa520797419f69" prot="public" static="no">
+        <name>XASU_KEYMANAGER_RSA_PVT_DECRYPT_USE_CASE</name>
+        <initializer>(0x02U)</initializer>
+        <briefdescription>
+<para>RSA private key decryption use case. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gade9ca5c7b560872b0bbb6425731c642a" prot="public" static="no">
+        <name>XASU_KEYMANAGER_RSA_PVT_KEY_TRANSPORT_USE_CASE</name>
+        <initializer>(0x04U)</initializer>
+        <briefdescription>
+<para>RSA private key key transport use case. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gad4960a54eeee248375edf5e4c4ed5921" prot="public" static="no">
+        <name>XASU_KEYMANAGER_RSA_PUB_SIGN_VER_USE_CASE</name>
+        <initializer>(0x01U)</initializer>
+        <briefdescription>
+<para>RSA public key sign verification use case. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga43e95abba2dc9c474fcdd6c0ec792096" prot="public" static="no">
+        <name>XASU_KEYMANAGER_RSA_PUB_ENCRYPT_USE_CASE</name>
+        <initializer>(0x02U)</initializer>
+        <briefdescription>
+<para>RSA public key encryption use case. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gadc8443ec54e80555696a3e1bb34c8366" prot="public" static="no">
+        <name>XASU_KEYMANAGER_RSA_PUB_KEY_TRANSPORT_USE_CASE</name>
+        <initializer>(0x04U)</initializer>
+        <briefdescription>
+<para>RSA public key key transport use case. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaa33ce58d8f55ceb04ee894dfe53b9c0e" prot="public" static="no">
+        <name>XASU_KEYMANAGER_ECC_PUB_SIGN_VER_USE_CASE</name>
+        <initializer>(0x01U)</initializer>
+        <briefdescription>
+<para>ECC public key sign verification use case. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaa9bfc0a55dc404466ffc803387e513be" prot="public" static="no">
+        <name>XASU_KEYMANAGER_ECC_PUB_KEY_AGREEMENT_USE_CASE</name>
+        <initializer>(0x02U)</initializer>
+        <briefdescription>
+<para>ECC public key key agreement use case. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga031f34fb5e1a81062ba9bf1d82d5125c" prot="public" static="no">
+        <name>XASU_KEYMANAGER_ECC_PUB_KEY_AUTH_ENC_USE_CASE</name>
+        <initializer>(0x04U)</initializer>
+        <briefdescription>
+<para>ECC public key key authentication and encryption use case. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gadb9be24795313ab67b0a8e0860cd67fb" prot="public" static="no">
+        <name>XASU_KEYMANAGER_ECC_PVT_SIGN_GEN_USE_CASE</name>
+        <initializer>(0x01U)</initializer>
+        <briefdescription>
+<para>ECC private key sign use case. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga0f7e1346960b6d85ec688d5ef7e616d4" prot="public" static="no">
+        <name>XASU_KEYMANAGER_ECC_PVT_KEY_AGREEMENT_USE_CASE</name>
+        <initializer>(0x02U)</initializer>
+        <briefdescription>
+<para>ECC private key key agreement use case. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gae8f1b235da7b1e5d2ed7431dad761169" prot="public" static="no">
+        <name>XASU_KEYMANAGER_ECC_PVT_KEY_AUTH_ENC_USE_CASE</name>
+        <initializer>(0x04U)</initializer>
+        <briefdescription>
+<para>ECC private key key authentication and encryption use case. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gad1fba29ba869d49348bd0aeb33cd6b12" prot="public" static="no">
+        <name>XASU_KEYMANAGER_ECC_PVT_PUB_KEY_GEN_USE_CASE</name>
+        <initializer>(0x08U)</initializer>
+        <briefdescription>
+<para>ECC private key for public key generation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga560c7fb77fb00e84b68f6294ca27088a" prot="public" static="no">
+        <name>XASU_KEYMANAGER_KDF_HMAC_KDF_USE_CASE</name>
+        <initializer>(0x01U)</initializer>
+        <briefdescription>
+<para>Key derivation key use case. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gac5bdb496c30403c440f63dedebed380c" prot="public" static="no">
+        <name>XASU_KEYMANAGER_KDF_HMAC_HMAC_USE_CASE</name>
+        <initializer>(0x02U)</initializer>
+        <briefdescription>
+<para>HMAC secret key use case. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaffe5395112fbca201023add15639f0a6" prot="public" static="no">
+        <name>XASU_KEYMANAGER_LMS_PUB_SIGN_VER_USE_CASE</name>
+        <initializer>(0x01U)</initializer>
+        <briefdescription>
+<para>LMS public key signature verification use case. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga5540f33752eb5f4c0014b1dde7e4dfdb" prot="public" static="no">
+        <name>XASU_KM_RSA_PVT_ATTR_MAX</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Maximum allowed value for RSA private key attribute. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="132" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga125224815bbb6f71e54dfc4ed27f9908" compoundref="xasu__keymanager_8c" startline="540" endline="600">XAsu_KmStoreKey</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cef" prot="public" static="no">
+        <name>XAsu_KeyManagerSubVaultType</name>
+        <enumvalue id="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefaf740098bbc142edef36c17c99490f656" prot="public">
+          <name>XASU_AES_SUBVAULT_ID</name>
+          <briefdescription>
+<para>AES key sub-vault ID. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefa71dc647937225980e817a86924acdc75" prot="public">
+          <name>XASU_IV_SUBVAULT_ID</name>
+          <briefdescription>
+<para>IV sub-vault ID. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefa86a082fadbc14b7ca3ff0a3cf16fea59" prot="public">
+          <name>XASU_KDF_HMAC_SUBVAULT_ID</name>
+          <briefdescription>
+<para>KDF/HMAC key sub-vault ID. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefad349b41a92cf2266bebcf585bc20a251" prot="public">
+          <name>XASU_RSA_PVT_SUBVAULT_ID</name>
+          <briefdescription>
+<para>RSA private key sub-vault ID. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefaec58a1f255ca2c47db6c66b297340f53" prot="public">
+          <name>XASU_RSA_PUB_SUBVAULT_ID</name>
+          <briefdescription>
+<para>RSA public key sub-vault ID. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefa4f33bfdc92dc53b6972090427fa74fa7" prot="public">
+          <name>XASU_ECC_PVT_SUBVAULT_ID</name>
+          <briefdescription>
+<para>ECC private key sub-vault ID. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefa4a2d8cef1e6bd0e80984d1ac6d93c334" prot="public">
+          <name>XASU_ECC_PUB_SUBVAULT_ID</name>
+          <briefdescription>
+<para>ECC public key sub-vault ID. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefa365bccb424e128039cf3b9ad53509a44" prot="public">
+          <name>XASU_LMS_SUBVAULT_ID</name>
+          <briefdescription>
+<para>LMS key sub-vault ID. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefa9017444ae0f1e54ed7b3b387f60dafd5" prot="public">
+          <name>XASU_X509_SUBVAULT_ID</name>
+          <briefdescription>
+<para>X509 certificate sub-vault ID. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefab27c5894574d60a1480b71abea99fc82" prot="public">
+          <name>XASU_INVALID_SUBVAULT_ID</name>
+          <briefdescription>
+<para>Invalid sub-vault identifier. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This enum contains sub vault ID related information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="137" bodyend="148"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the Keymanager definitions which are common across the client and server. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   ss   11/25/25 Initial release
+      yog  01/28/26 Added RSA key pair generation command and structure definitions.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor">#ifndef<sp/>XASU_KEYMANAGERINFO_H_</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_KEYMANAGERINFO_H_</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__rsainfo_8h" kindref="compound">xasu_rsainfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__eccinfo_8h" kindref="compound">xasu_eccinfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__aesinfo_8h" kindref="compound">xasu_aesinfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xasu_bsp_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>KeyManager<sp/>module<sp/>command<sp/>IDs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="group__xasu__common__defs_1gac0624ac2023b316ce02a22c039284605" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XASU_KM_CREATE_KEYVAULT_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="49" refid="group__xasu__common__defs_1ga9874b8c0c9595e70565d4890968c146c" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_KM_DELETE_KEYVAULT_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="50" refid="group__xasu__common__defs_1ga5b8d219409b4082ac0957f1ef5103eb1" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_KM_DELETE_KEY_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="51" refid="group__xasu__common__defs_1gabf75a310d299abcd87952b69915699e4" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_KM_GEN_AES_KEY_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)<sp/></highlight></codeline>
+<codeline lineno="52" refid="group__xasu__common__defs_1ga7d2a32d5c90029e8b9d84ab00a23e863" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_KM_GEN_AES_IV_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="53" refid="group__xasu__common__defs_1ga4dd6dcb6dba625aace70cd86016960c4" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_KM_GEN_RAW_KEY_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(5U)<sp/></highlight></codeline>
+<codeline lineno="54" refid="group__xasu__common__defs_1gaf01a49f56136106cec86d306916abbd9" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_KM_GEN_RSA_KEY_PAIR_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6U)<sp/></highlight></codeline>
+<codeline lineno="55" refid="group__xasu__common__defs_1ga2b430e15ed3fccd4f60cf37352307f5e" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_KM_GEN_ECC_KEY_PAIR_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(7U)<sp/></highlight></codeline>
+<codeline lineno="56" refid="group__xasu__common__defs_1ga87c4a31a395449a4bf7d53a8c026153f" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_KM_STORE_KEY_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)<sp/></highlight></codeline>
+<codeline lineno="57" refid="group__xasu__common__defs_1ga58dfc9b62ceedbb67764edfe8a3668eb" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_KM_EXPORT_KEYVAULT_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(9U)<sp/></highlight></codeline>
+<codeline lineno="58" refid="group__xasu__common__defs_1gaa621ca613ebe973da936d53621b85319" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_KM_IMPORT_KEYVAULT_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(10U)<sp/></highlight></codeline>
+<codeline lineno="59" refid="group__xasu__common__defs_1ga39edeed49dd8b48be0b10d6598d22684" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_KM_MAX_CMDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(11U)<sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor">#define<sp/>XASU_KM_OUTPUT_ID_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="63" refid="group__xasu__common__defs_1gadd9692276fafec6c5d0c5067eca7512c" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_KM_EXPORT_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor">#define<sp/>XASU_KM_USAGE_COUNT_NON_DEPLETING_VALUE<sp/>(0xFFFFFFFFU)<sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor">#define<sp/>XASU_KM_KEYTYPE_WRAPPED_BIT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x80U)<sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor">#define<sp/>XASU_KM_MAX_VAULTS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(64U)<sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor">#define<sp/>XASU_KM_KDF_HMAC_MAX_KEY_LENGTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(136U)<sp/></highlight></codeline>
+<codeline lineno="76" refid="group__xasu__common__defs_1ga3154a859fe1e5133d7c92cffe3fae2e7" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="77"><highlight class="comment"><sp/>*<sp/>Key<sp/>usecases<sp/>bitmask<sp/>related<sp/>macros.</highlight></codeline>
+<codeline lineno="78"><highlight class="comment"><sp/>*<sp/>To<sp/>specify<sp/>multiple<sp/>usecases<sp/>from<sp/>client,<sp/>use<sp/>bitwise<sp/>OR<sp/>operation<sp/>with<sp/>desired<sp/>usecases.</highlight></codeline>
+<codeline lineno="79"><highlight class="comment"><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Key<sp/>usecases<sp/>for<sp/>AES<sp/>key<sp/>type.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XASU_KEYMANAGER_AES_ENC_USE_CASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01U)<sp/></highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor">#define<sp/>XASU_KEYMANAGER_AES_DEC_USE_CASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x02U)<sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor">#define<sp/>XASU_KEYMANAGER_AES_KEY_WRAP_USE_CASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x04U)<sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor">#define<sp/>XASU_KEYMANAGER_AES_KEY_UNWRAP_USE_CASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x08U)<sp/></highlight></codeline>
+<codeline lineno="85" refid="group__xasu__common__defs_1ga7393a3427e1e972df7acd0576c1bd649" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_KEYMANAGER_AES_AUTH_USE_CASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x10U)<sp/></highlight></codeline>
+<codeline lineno="87" refid="group__xasu__common__defs_1ga77075e3530fe97b7a76aee7c78bb6e6a" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Key<sp/>usecases<sp/>for<sp/>RSA<sp/>private<sp/>key<sp/>type.<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="88" refid="group__xasu__common__defs_1gadd23b544335e96fd28d65d12f2ae2270" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_KEYMANAGER_RSA_PVT_SIGN_GEN_USE_CASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01U)<sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor">#define<sp/>XASU_KEYMANAGER_RSA_PVT_DECRYPT_USE_CASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x02U)<sp/></highlight></codeline>
+<codeline lineno="92" refid="group__xasu__common__defs_1ga7401049b6de50421553cab77130e505e" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_KEYMANAGER_RSA_PVT_KEY_TRANSPORT_USE_CASE<sp/><sp/>(0x04U)<sp/></highlight></codeline>
+<codeline lineno="95" refid="group__xasu__common__defs_1ga38af76f63796f6af0aaa520797419f69" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Key<sp/>usecases<sp/>for<sp/>RSA<sp/>public<sp/>key<sp/>type.<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_KEYMANAGER_RSA_PUB_SIGN_VER_USE_CASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01U)<sp/></highlight></codeline>
+<codeline lineno="98" refid="group__xasu__common__defs_1gade9ca5c7b560872b0bbb6425731c642a" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_KEYMANAGER_RSA_PUB_ENCRYPT_USE_CASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x02U)<sp/></highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor">#define<sp/>XASU_KEYMANAGER_RSA_PUB_KEY_TRANSPORT_USE_CASE<sp/><sp/>(0x04U)<sp/></highlight></codeline>
+<codeline lineno="103" refid="group__xasu__common__defs_1gad4960a54eeee248375edf5e4c4ed5921" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Key<sp/>usecases<sp/>for<sp/>ECC<sp/>public<sp/>key<sp/>type.<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_KEYMANAGER_ECC_PUB_SIGN_VER_USE_CASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01U)<sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor">#define<sp/>XASU_KEYMANAGER_ECC_PUB_KEY_AGREEMENT_USE_CASE<sp/><sp/>(0x02U)<sp/></highlight></codeline>
+<codeline lineno="106" refid="group__xasu__common__defs_1ga43e95abba2dc9c474fcdd6c0ec792096" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_KEYMANAGER_ECC_PUB_KEY_AUTH_ENC_USE_CASE<sp/><sp/><sp/>(0x04U)<sp/></highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Key<sp/>usecases<sp/>for<sp/>ECC<sp/>private<sp/>key<sp/>type.<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="109" refid="group__xasu__common__defs_1gadc8443ec54e80555696a3e1bb34c8366" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_KEYMANAGER_ECC_PVT_SIGN_GEN_USE_CASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01U)<sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor">#define<sp/>XASU_KEYMANAGER_ECC_PVT_KEY_AGREEMENT_USE_CASE<sp/><sp/>(0x02U)<sp/></highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor">#define<sp/>XASU_KEYMANAGER_ECC_PVT_KEY_AUTH_ENC_USE_CASE<sp/><sp/><sp/>(0x04U)<sp/></highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor">#define<sp/>XASU_KEYMANAGER_ECC_PVT_PUB_KEY_GEN_USE_CASE<sp/><sp/><sp/><sp/>(0x08U)<sp/></highlight></codeline>
+<codeline lineno="114" refid="group__xasu__common__defs_1gaa33ce58d8f55ceb04ee894dfe53b9c0e" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Key<sp/>usecases<sp/>for<sp/>KDF/HMAC<sp/>key<sp/>type.<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="115" refid="group__xasu__common__defs_1gaa9bfc0a55dc404466ffc803387e513be" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_KEYMANAGER_KDF_HMAC_KDF_USE_CASE<sp/><sp/><sp/>(0x01U)<sp/></highlight></codeline>
+<codeline lineno="116" refid="group__xasu__common__defs_1ga031f34fb5e1a81062ba9bf1d82d5125c" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_KEYMANAGER_KDF_HMAC_HMAC_USE_CASE<sp/><sp/>(0x02U)<sp/></highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Key<sp/>usecases<sp/>for<sp/>LMS<sp/>public<sp/>key<sp/>type.<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="119" refid="group__xasu__common__defs_1gadb9be24795313ab67b0a8e0860cd67fb" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_KEYMANAGER_LMS_PUB_SIGN_VER_USE_CASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01U)<sp/></highlight></codeline>
+<codeline lineno="121" refid="group__xasu__common__defs_1gae8f1b235da7b1e5d2ed7431dad761169" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Key<sp/>attribute<sp/>for<sp/>RSA<sp/>private<sp/>decrypt<sp/>operation.<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="122" refid="group__xasu__common__defs_1gad1fba29ba869d49348bd0aeb33cd6b12" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_KM_RSA_PVT_ATTR_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="125" refid="group__xasu__common__defs_1ga560c7fb77fb00e84b68f6294ca27088a" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="126" refid="group__xasu__common__defs_1gac5bdb496c30403c440f63dedebed380c" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="127"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefaf740098bbc142edef36c17c99490f656" kindref="member">XASU_AES_SUBVAULT_ID</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="129" refid="group__xasu__common__defs_1gaffe5395112fbca201023add15639f0a6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefa71dc647937225980e817a86924acdc75" kindref="member">XASU_IV_SUBVAULT_ID</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefa86a082fadbc14b7ca3ff0a3cf16fea59" kindref="member">XASU_KDF_HMAC_SUBVAULT_ID</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefad349b41a92cf2266bebcf585bc20a251" kindref="member">XASU_RSA_PVT_SUBVAULT_ID</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="132" refid="group__xasu__common__defs_1ga5540f33752eb5f4c0014b1dde7e4dfdb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefaec58a1f255ca2c47db6c66b297340f53" kindref="member">XASU_RSA_PUB_SUBVAULT_ID</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefa4f33bfdc92dc53b6972090427fa74fa7" kindref="member">XASU_ECC_PVT_SUBVAULT_ID</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefa4a2d8cef1e6bd0e80984d1ac6d93c334" kindref="member">XASU_ECC_PUB_SUBVAULT_ID</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefa365bccb424e128039cf3b9ad53509a44" kindref="member">XASU_LMS_SUBVAULT_ID</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefa9017444ae0f1e54ed7b3b387f60dafd5" kindref="member">XASU_X509_SUBVAULT_ID</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="137" refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cef" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefab27c5894574d60a1480b71abea99fc82" kindref="member">XASU_INVALID_SUBVAULT_ID</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="138" refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefaf740098bbc142edef36c17c99490f656" refkind="member"><highlight class="normal">}<sp/><ref refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cef" kindref="member">XAsu_KeyManagerSubVaultType</ref>;</highlight></codeline>
+<codeline lineno="139" refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefa71dc647937225980e817a86924acdc75" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141" refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefad349b41a92cf2266bebcf585bc20a251" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="142" refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefaec58a1f255ca2c47db6c66b297340f53" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>KeyId;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="144" refid="xasu__keymanagerinfo_8h_1a58cd450c2b09332bdeecf49c4d9f3cefa4a2d8cef1e6bd0e80984d1ac6d93c334" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>KeyType;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>VaultId;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>KeyUseCase;<sp/><sp/></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>KeyAttributes;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="152" refid="struct_x_asu___key_manager_key_metadata_1a8bc72eb5dda7de94f1ea15de06c0cb20" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Length;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="154" refid="struct_x_asu___key_manager_key_metadata_1a232f48effb7996f286541782d4711489" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EpochTime;<sp/><sp/></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>UsageCount;<sp/></highlight></codeline>
+<codeline lineno="156"><highlight class="normal">}<sp/><ref refid="struct_x_asu___key_manager_key_metadata" kindref="compound">XAsu_KeyManagerKeyMetadata</ref>;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159" refid="struct_x_asu___key_manager_key_metadata_1ab24bc266d1169f4e3362310f08bfe67c" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="160" refid="struct_x_asu___key_manager_key_metadata_1ab136d3365e8b6521fbcfd8f486fd2c5c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___key_manager_key_metadata" kindref="compound">XAsu_KeyManagerKeyMetadata</ref><sp/>KeyMetadata;<sp/></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___aes_key_object" kindref="compound">XAsu_AesKeyObject</ref><sp/>AesKeyObj;<sp/></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>KeyObjectAddr;<sp/></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>KeyIdAddr;<sp/></highlight></codeline>
+<codeline lineno="171" refid="struct_x_asu___key_manager_params_1a436dedc6c3f0f349ca740f21b6399f3a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>WrappedInputLen;<sp/></highlight></codeline>
+<codeline lineno="173" refid="struct_x_asu___key_manager_params_1a885de57c0cd9d6c3b788a50f2e6985a4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Reserved[4];<sp/></highlight></codeline>
+<codeline lineno="174"><highlight class="normal">}<sp/><ref refid="struct_x_asu___key_manager_params" kindref="compound">XAsu_KeyManagerParams</ref>;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177" refid="struct_x_asu___key_manager_params_1af7b159bed08728b504f1636b64432322" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>VaultIdAddr;<sp/></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>AESKeyVaultCapacity;<sp/></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>IVVaultCapacity;<sp/></highlight></codeline>
+<codeline lineno="181" refid="struct_x_asu___key_manager_params_1a9a45b82fce6b349db3f7efaaa74c4533" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>KDFHmacKeyVaultCapacity;<sp/></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>RSAPvtKeyVaultCapacity;<sp/></highlight></codeline>
+<codeline lineno="183" refid="struct_x_asu___key_manager_params_1a3b2ea128a5574629bc4a79565dfcec3c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>RSAPubKeyVaultCapacity;<sp/></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>ECCPvtKeyVaultCapacity;<sp/></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>ECCPubKeyVaultCapacity;<sp/></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>LMSKeyVaultCapacity;<sp/></highlight></codeline>
+<codeline lineno="187" refid="struct_x_asu___key_manager_sub_vault_params" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>X509KeyVaultCapacity;<sp/></highlight></codeline>
+<codeline lineno="188" refid="struct_x_asu___key_manager_sub_vault_params_1a502cff614ec073e3fa9dc79a0d9acc5c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>AccessRights;<sp/></highlight></codeline>
+<codeline lineno="189" refid="struct_x_asu___key_manager_sub_vault_params_1a890638e3675989aec90bb0a508d01753" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Restrictions;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="190" refid="struct_x_asu___key_manager_sub_vault_params_1a58e8d1900ea2219edeef5a1a185072e3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Reserved[3];<sp/></highlight></codeline>
+<codeline lineno="191" refid="struct_x_asu___key_manager_sub_vault_params_1a2b1aeda09bf402a4d58ad0a304666f3d" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_asu___key_manager_sub_vault_params" kindref="compound">XAsu_KeyManagerSubVaultParams</ref>;</highlight></codeline>
+<codeline lineno="192" refid="struct_x_asu___key_manager_sub_vault_params_1a7acc476cd8f8dafc737b98e24906ff44" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194" refid="struct_x_asu___key_manager_sub_vault_params_1a3bc5c9ba701fc64b91608cc2df778830" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="195" refid="struct_x_asu___key_manager_sub_vault_params_1aee2730f3db896dbf5993564c7218091b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Modulus[<ref refid="group__xasu__common__defs_1gac7df8425838403069e0c562a63fc4532" kindref="member">XRSA_MAX_KEY_SIZE_IN_WORDS</ref>];<sp/></highlight></codeline>
+<codeline lineno="196" refid="struct_x_asu___key_manager_sub_vault_params_1a3afa39d6b7d6d50754670c986381bbe9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PvtExp[<ref refid="group__xasu__common__defs_1gac7df8425838403069e0c562a63fc4532" kindref="member">XRSA_MAX_KEY_SIZE_IN_WORDS</ref>];<sp/></highlight></codeline>
+<codeline lineno="197" refid="struct_x_asu___key_manager_sub_vault_params_1afd2f1e5657b67701519472624242c60b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Prime1[<ref refid="group__xasu__common__defs_1gad3da6f2be5d0dec3c74e23d9197ba40b" kindref="member">XRSA_MAX_PRIME_SIZE_IN_WORDS</ref>];<sp/></highlight></codeline>
+<codeline lineno="198" refid="struct_x_asu___key_manager_sub_vault_params_1a6f0c8014f215ea0e28728fab0eaf9316" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Prime2[<ref refid="group__xasu__common__defs_1gad3da6f2be5d0dec3c74e23d9197ba40b" kindref="member">XRSA_MAX_PRIME_SIZE_IN_WORDS</ref>];<sp/></highlight></codeline>
+<codeline lineno="199" refid="struct_x_asu___key_manager_sub_vault_params_1a7777cfe773824e8655d84003e0838039" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DP[<ref refid="group__xasu__common__defs_1gad3da6f2be5d0dec3c74e23d9197ba40b" kindref="member">XRSA_MAX_PRIME_SIZE_IN_WORDS</ref>];<sp/></highlight></codeline>
+<codeline lineno="200" refid="struct_x_asu___key_manager_sub_vault_params_1aa435c9bd910f93d361b399bab6e03cb1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DQ[<ref refid="group__xasu__common__defs_1gad3da6f2be5d0dec3c74e23d9197ba40b" kindref="member">XRSA_MAX_PRIME_SIZE_IN_WORDS</ref>];<sp/></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>QInv[<ref refid="group__xasu__common__defs_1gad3da6f2be5d0dec3c74e23d9197ba40b" kindref="member">XRSA_MAX_PRIME_SIZE_IN_WORDS</ref>];<sp/></highlight></codeline>
+<codeline lineno="202"><highlight class="normal">}<sp/><ref refid="struct_x_asu___rsa_key_pair_object" kindref="compound">XAsu_RsaKeyPairObject</ref>;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205" refid="struct_x_asu___rsa_key_pair_object_1ae660ccb6a2029eca503acd6b3e49980a" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="206" refid="struct_x_asu___rsa_key_pair_object_1a8b837880f357bfb3c0f09b53f0e93847" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PublicKey[<ref refid="group__xasu__common__defs_1gaf1215bddb9131b0abcb3f0575c726a11" kindref="member">XASU_ECC_P521_PUB_KEY_SIZE_IN_BYTES</ref>];<sp/></highlight></codeline>
+<codeline lineno="207" refid="struct_x_asu___rsa_key_pair_object_1acc9ae2bf860d284b77a4a4bbba9011cb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PrivateKey[<ref refid="group__xasu__common__defs_1ga8472a238724905399a7aa23e410523f7" kindref="member">XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES</ref>];<sp/></highlight></codeline>
+<codeline lineno="208" refid="struct_x_asu___rsa_key_pair_object_1a6b07a3a63fd49d5129164cac41363ef2" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_asu___ecc_key_pair_object" kindref="compound">XAsu_EccKeyPairObject</ref>;</highlight></codeline>
+<codeline lineno="209" refid="struct_x_asu___rsa_key_pair_object_1aa2bce4e142ab94c67c967807ae77610b" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211" refid="struct_x_asu___rsa_key_pair_object_1a73a2ff9b651cd531778f8d4400e145ef" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DataAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>ActualSizeAddr;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BufSize;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="215" refid="struct_x_asu___ecc_key_pair_object" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Reserved[4];<sp/></highlight></codeline>
+<codeline lineno="216" refid="struct_x_asu___ecc_key_pair_object_1aaefca24a04c2e509aa885afaf637d621" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_asu___key_vault_transfer_params" kindref="compound">XAsu_KeyVaultTransferParams</ref>;</highlight></codeline>
+<codeline lineno="217" refid="struct_x_asu___ecc_key_pair_object_1ab885231187f2883e12273e0ce5e4564f" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221" refid="struct_x_asu___key_vault_transfer_params" refkind="compound"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222" refid="struct_x_asu___key_vault_transfer_params_1a9373e5cf1542771f7a23547326324b4d" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="223" refid="struct_x_asu___key_vault_transfer_params_1ad510c5f95321ac4833ad166d00017b46" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="224" refid="struct_x_asu___key_vault_transfer_params_1a6965b3efee81689aabad4de7a6841356" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="225" refid="struct_x_asu___key_vault_transfer_params_1ae019e952db20dd74bd28f4b18d00dc27" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XASU_KEYMANAGERINFO_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h"/>
+  </compounddef>
+</doxygen>

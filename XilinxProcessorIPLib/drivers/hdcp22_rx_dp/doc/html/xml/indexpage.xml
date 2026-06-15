@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>hdcp22_rx_dp</title>
+    <detaileddescription>
+<para>This file contains the main implementation of the Xilinx HDCP 2.2 Receiver device driver. <preformatted>
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who  Date     Changes
+<hruler/>
+
+ 1.00  JB   02/19/19 First Release.
+ 3.00  JB   12/24/21 File name changed from xhdcp22_rx.c to <ref refid="xhdcp22__rx__dp_8c" kindref="compound">xhdcp22_rx_dp.c</ref>,
+                     Also all the APIs and structure names are added with
+                     suffix _dp.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

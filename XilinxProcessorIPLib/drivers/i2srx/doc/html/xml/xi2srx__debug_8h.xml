@@ -1,0 +1,272 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xi2srx__debug_8h" kind="file">
+    <compoundname>xi2srx_debug.h</compoundname>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xi2srx_8h" local="yes">xi2srx.h</includes>
+    <includes refid="xi2srx__hw_8h" local="yes">xi2srx_hw.h</includes>
+    <includes refid="xi2srx__chsts_8h" local="yes">xi2srx_chsts.h</includes>
+    <includedby refid="xi2srx_8h" local="yes">xi2srx.h</includedby>
+    <includedby refid="xi2srx_8c" local="yes">xi2srx.c</includedby>
+    <includedby refid="xi2srx__chsts_8c" local="yes">xi2srx_chsts.c</includedby>
+    <includedby refid="xi2srx__debug_8c" local="yes">xi2srx_debug.c</includedby>
+    <includedby refid="xi2srx__selftest_8c" local="yes">xi2srx_selftest.c</includedby>
+    <incdepgraph>
+      <node id="73">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="78">
+        <label>xil_io.h</label>
+      </node>
+      <node id="79">
+        <label>xi2srx_chsts.h</label>
+        <childnode refid="76" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
+        <label>xi2srx_hw.h</label>
+        <link refid="xi2srx__hw_8h"/>
+        <childnode refid="78" relation="include">
+        </childnode>
+      </node>
+      <node id="75">
+        <label>xstatus.h</label>
+      </node>
+      <node id="76">
+        <label>xi2srx.h</label>
+        <link refid="xi2srx_8h"/>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+      </node>
+      <node id="74">
+        <label>xil_types.h</label>
+      </node>
+      <node id="72">
+        <label>xi2srx_debug.h</label>
+        <link refid="xi2srx_debug.h"/>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="88">
+        <label>xi2srx_selftest.c</label>
+        <link refid="xi2srx__selftest_8c"/>
+      </node>
+      <node id="91">
+        <label>xi2srx_selftest_example.c</label>
+        <link refid="xi2srx__selftest__example_8c"/>
+      </node>
+      <node id="89">
+        <label>xi2srx_sinit.c</label>
+        <link refid="xi2srx__sinit_8c"/>
+      </node>
+      <node id="84">
+        <label>xi2srx_chsts.c</label>
+        <link refid="xi2srx__chsts_8c"/>
+      </node>
+      <node id="83">
+        <label>xi2srx_chsts.h</label>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+      </node>
+      <node id="87">
+        <label>xi2srx_intr.c</label>
+        <link refid="xi2srx__intr_8c"/>
+      </node>
+      <node id="86">
+        <label>xi2srx_g.c</label>
+      </node>
+      <node id="82">
+        <label>xi2srx.c</label>
+        <link refid="xi2srx_8c"/>
+      </node>
+      <node id="81">
+        <label>xi2srx.h</label>
+        <link refid="xi2srx_8h"/>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+      </node>
+      <node id="90">
+        <label>xi2srx_intr_example.c</label>
+        <link refid="xi2srx__intr__example_8c"/>
+      </node>
+      <node id="85">
+        <label>xi2srx_debug.c</label>
+        <link refid="xi2srx__debug_8c"/>
+      </node>
+      <node id="80">
+        <label>xi2srx_debug.h</label>
+        <link refid="xi2srx_debug.h"/>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_i2s___rx___log_item" prot="public">XI2s_Rx_LogItem</innerclass>
+    <innerclass refid="struct_x_i2s___rx___log" prot="public">XI2s_Rx_Log</innerclass>
+      <sectiondef kind="user-defined">
+      <memberdef kind="define" id="group__i2srx_1gaf209d23e3a0830d768f89eae49aa1be2" prot="public" static="no">
+        <name>XI2S_RX_LOG_ITEM_BUFFER_SIZE</name>
+        <initializer>(256)</initializer>
+        <briefdescription>
+<para>@ name Log Item Buffer Size </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_debug.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_debug.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Handler Types</header>
+      <memberdef kind="enum" id="group__i2srx_1ga4fecc6c86b725108f3488292d518816c" prot="public" static="no">
+        <name>XI2s_Rx_LogEvt</name>
+        <enumvalue id="group__i2srx_1gga4fecc6c86b725108f3488292d518816cafcbc177f865f01745336004358d4479e" prot="public">
+          <name>XI2S_RX_AES_BLKCMPLT_EVT</name>
+          <briefdescription>
+<para>AES Block Complete Event. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__i2srx_1gga4fecc6c86b725108f3488292d518816caac11c46eda786e90c37a6bc1dac96897" prot="public">
+          <name>XI2S_RX_AUD_OVERFLOW_EVT</name>
+          <briefdescription>
+<para>Audio Overflow Detected Event. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__i2srx_1gga4fecc6c86b725108f3488292d518816cabd013a083c7841b935a6f5f5d38d45a5" prot="public">
+          <name>XI2S_RX_LOG_EVT_INVALID</name>
+          <briefdescription>
+<para>Invalid Log Event. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>These constants specify different types of handlers and is used to differentiate interrupt requests from the XI2s Receiver peripheral. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_debug.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_debug.h" bodystart="55" bodyend="59"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor">#ifndef<sp/>XI2SRX_DEBUG_H</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XI2SRX_DEBUG_H</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xi2srx_8h" kindref="compound">xi2srx.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xi2srx__hw_8h" kindref="compound">xi2srx_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xi2srx_chsts.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="44" refid="group__i2srx_1gaf209d23e3a0830d768f89eae49aa1be2" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_RX_LOG_ITEM_BUFFER_SIZE<sp/>(256)</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="46"><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="group__i2srx_1ga4fecc6c86b725108f3488292d518816c" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="56" refid="group__i2srx_1gga4fecc6c86b725108f3488292d518816cafcbc177f865f01745336004358d4479e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gga4fecc6c86b725108f3488292d518816cafcbc177f865f01745336004358d4479e" kindref="member">XI2S_RX_AES_BLKCMPLT_EVT</ref>,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="57" refid="group__i2srx_1gga4fecc6c86b725108f3488292d518816caac11c46eda786e90c37a6bc1dac96897" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gga4fecc6c86b725108f3488292d518816caac11c46eda786e90c37a6bc1dac96897" kindref="member">XI2S_RX_AUD_OVERFLOW_EVT</ref>,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58" refid="group__i2srx_1gga4fecc6c86b725108f3488292d518816cabd013a083c7841b935a6f5f5d38d45a5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1gga4fecc6c86b725108f3488292d518816cabd013a083c7841b935a6f5f5d38d45a5" kindref="member">XI2S_RX_LOG_EVT_INVALID</ref><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59"><highlight class="normal">}<sp/><ref refid="group__i2srx_1ga4fecc6c86b725108f3488292d518816c" kindref="member">XI2s_Rx_LogEvt</ref>;</highlight></codeline>
+<codeline lineno="65" refid="struct_x_i2s___rx___log_item" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="66" refid="struct_x_i2s___rx___log_item_1a4c0af844eba3d12af2d8519c5cc6aa1e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2srx_1ga4fecc6c86b725108f3488292d518816c" kindref="member">XI2s_Rx_LogEvt</ref><sp/><ref refid="struct_x_i2s___rx___log_item_1a4c0af844eba3d12af2d8519c5cc6aa1e" kindref="member">Event</ref>;<sp/></highlight></codeline>
+<codeline lineno="67" refid="struct_x_i2s___rx___log_item_1a209f66c283495774513f9745e91e05d3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_i2s___rx___log_item_1a209f66c283495774513f9745e91e05d3" kindref="member">Data</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="normal">}<sp/><ref refid="struct_x_i2s___rx___log_item" kindref="compound">XI2s_Rx_LogItem</ref>;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73" refid="struct_x_i2s___rx___log" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="74" refid="struct_x_i2s___rx___log_1afce10615c31d774e63fe22e99bda4636" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_i2s___rx___log_item" kindref="compound">XI2s_Rx_LogItem</ref><sp/>Items[<ref refid="group__i2srx_1gaf209d23e3a0830d768f89eae49aa1be2" kindref="member">XI2S_RX_LOG_ITEM_BUFFER_SIZE</ref>];</highlight></codeline>
+<codeline lineno="76" refid="struct_x_i2s___rx___log_1af4a0ae28aae0f9c715d1c31a86e8775c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_i2s___rx___log_1af4a0ae28aae0f9c715d1c31a86e8775c" kindref="member">Head</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77" refid="struct_x_i2s___rx___log_1ae4d081a816f800aa7c7032cedc1822bb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_i2s___rx___log_1ae4d081a816f800aa7c7032cedc1822bb" kindref="member">Tail</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="78" refid="struct_x_i2s___rx___log_1a49948767f4b2b4240b4785f1b38f30c1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_i2s___rx___log_1a49948767f4b2b4240b4785f1b38f30c1" kindref="member">IsEnabled</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="normal">}<sp/><ref refid="struct_x_i2s___rx___log" kindref="compound">XI2s_Rx_Log</ref>;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XI2SRX_DEBUG_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx_debug.h"/>
+  </compounddef>
+</doxygen>

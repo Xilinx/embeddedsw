@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_78d1856b951bdd102c5c7db50be6c66e" kind="dir">
+    <compoundname>sensor_drv</compoundname>
+    <innerfile refid="ox03f10_8c">ox03f10.c</innerfile>
+    <innerfile refid="ox05b1s_8c">ox05b1s.c</innerfile>
+    <innerfile refid="ox08b40_8c">ox08b40.c</innerfile>
+    <innerfile refid="sensor__drv_8c">sensor_drv.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_u_a_c1___a_c___h_e_a_d_e_r___d_e_s_c" kind="struct" prot="public">
+    <compoundname>UAC1_AC_HEADER_DESC</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_u_a_c1___a_c___h_e_a_d_e_r___d_e_s_c_1a2187ed0afbcb0a51139bc8449f27cdea" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC1_AC_HEADER_DESC::bLength</definition>
+        <argsstring></argsstring>
+        <name>bLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="301" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c1___a_c___h_e_a_d_e_r___d_e_s_c_1a0b481b6a2190bc9c4a9d7d04643ce8e5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC1_AC_HEADER_DESC::bDescriptorType</definition>
+        <argsstring></argsstring>
+        <name>bDescriptorType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c1___a_c___h_e_a_d_e_r___d_e_s_c_1a6df29bd847f6ec0e7bb57ed766c00638" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC1_AC_HEADER_DESC::bDescriptorSubtype</definition>
+        <argsstring></argsstring>
+        <name>bDescriptorSubtype</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c1___a_c___h_e_a_d_e_r___d_e_s_c_1a2909c51af883a12d938a04407c60aea5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC1_AC_HEADER_DESC::bcdADCL</definition>
+        <argsstring></argsstring>
+        <name>bcdADCL</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c1___a_c___h_e_a_d_e_r___d_e_s_c_1a04c0b3efe0952d2fd20865e8e9646f4e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC1_AC_HEADER_DESC::bcdADCH</definition>
+        <argsstring></argsstring>
+        <name>bcdADCH</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c1___a_c___h_e_a_d_e_r___d_e_s_c_1a1a9cc2dd270d41ed77aa2f2d399764d4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC1_AC_HEADER_DESC::wTotalLengthL</definition>
+        <argsstring></argsstring>
+        <name>wTotalLengthL</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c1___a_c___h_e_a_d_e_r___d_e_s_c_1a485774c83177c1deee22455b07bd9b73" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC1_AC_HEADER_DESC::wTotalLengthH</definition>
+        <argsstring></argsstring>
+        <name>wTotalLengthH</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c1___a_c___h_e_a_d_e_r___d_e_s_c_1adbc146d5854463d1869b75b6e6440daf" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC1_AC_HEADER_DESC::bInCollection</definition>
+        <argsstring></argsstring>
+        <name>bInCollection</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="308" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c1___a_c___h_e_a_d_e_r___d_e_s_c_1a9dc9e806c93fbf5ff69e7ee2e0a82cd5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC1_AC_HEADER_DESC::baInterfaceNr</definition>
+        <argsstring></argsstring>
+        <name>baInterfaceNr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="309" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="309" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="300" bodyend="310"/>
+    <listofallmembers>
+      <member refid="struct_u_a_c1___a_c___h_e_a_d_e_r___d_e_s_c_1a9dc9e806c93fbf5ff69e7ee2e0a82cd5" prot="public" virt="non-virtual"><scope>UAC1_AC_HEADER_DESC</scope><name>baInterfaceNr</name></member>
+      <member refid="struct_u_a_c1___a_c___h_e_a_d_e_r___d_e_s_c_1a04c0b3efe0952d2fd20865e8e9646f4e" prot="public" virt="non-virtual"><scope>UAC1_AC_HEADER_DESC</scope><name>bcdADCH</name></member>
+      <member refid="struct_u_a_c1___a_c___h_e_a_d_e_r___d_e_s_c_1a2909c51af883a12d938a04407c60aea5" prot="public" virt="non-virtual"><scope>UAC1_AC_HEADER_DESC</scope><name>bcdADCL</name></member>
+      <member refid="struct_u_a_c1___a_c___h_e_a_d_e_r___d_e_s_c_1a6df29bd847f6ec0e7bb57ed766c00638" prot="public" virt="non-virtual"><scope>UAC1_AC_HEADER_DESC</scope><name>bDescriptorSubtype</name></member>
+      <member refid="struct_u_a_c1___a_c___h_e_a_d_e_r___d_e_s_c_1a0b481b6a2190bc9c4a9d7d04643ce8e5" prot="public" virt="non-virtual"><scope>UAC1_AC_HEADER_DESC</scope><name>bDescriptorType</name></member>
+      <member refid="struct_u_a_c1___a_c___h_e_a_d_e_r___d_e_s_c_1adbc146d5854463d1869b75b6e6440daf" prot="public" virt="non-virtual"><scope>UAC1_AC_HEADER_DESC</scope><name>bInCollection</name></member>
+      <member refid="struct_u_a_c1___a_c___h_e_a_d_e_r___d_e_s_c_1a2187ed0afbcb0a51139bc8449f27cdea" prot="public" virt="non-virtual"><scope>UAC1_AC_HEADER_DESC</scope><name>bLength</name></member>
+      <member refid="struct_u_a_c1___a_c___h_e_a_d_e_r___d_e_s_c_1a485774c83177c1deee22455b07bd9b73" prot="public" virt="non-virtual"><scope>UAC1_AC_HEADER_DESC</scope><name>wTotalLengthH</name></member>
+      <member refid="struct_u_a_c1___a_c___h_e_a_d_e_r___d_e_s_c_1a1a9cc2dd270d41ed77aa2f2d399764d4" prot="public" virt="non-virtual"><scope>UAC1_AC_HEADER_DESC</scope><name>wTotalLengthL</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

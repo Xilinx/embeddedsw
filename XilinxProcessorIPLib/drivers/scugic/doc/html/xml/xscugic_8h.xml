@@ -1,0 +1,1486 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xscugic_8h" kind="file">
+    <compoundname>xscugic.h</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes refid="xscugic__hw_8h" local="yes">xscugic_hw.h</includes>
+    <includes local="yes">xil_exception.h</includes>
+    <includes local="yes">xil_spinlock.h</includes>
+    <includedby refid="xscugic_8c" local="yes">xscugic.c</includedby>
+    <includedby refid="xscugic__g_8c" local="yes">xscugic_g.c</includedby>
+    <includedby refid="xscugic__hw_8c" local="yes">xscugic_hw.c</includedby>
+    <includedby refid="xscugic__intr_8c" local="yes">xscugic_intr.c</includedby>
+    <includedby refid="xscugic__selftest_8c" local="yes">xscugic_selftest.c</includedby>
+    <includedby refid="xscugic__sinit_8c" local="yes">xscugic_sinit.c</includedby>
+    <includedby refid="xscugic__example_8c" local="yes">xscugic_example.c</includedby>
+    <includedby refid="xscugic__low__level__example_8c" local="yes">xscugic_low_level_example.c</includedby>
+    <includedby refid="xscugic__tapp__example_8c" local="yes">xscugic_tapp_example.c</includedby>
+    <incdepgraph>
+      <node id="23">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="20">
+        <label>xil_io.h</label>
+      </node>
+      <node id="25">
+        <label>bspconfig.h</label>
+      </node>
+      <node id="26">
+        <label>xil_spinlock.h</label>
+      </node>
+      <node id="18">
+        <label>xscugic.h</label>
+        <link refid="xscugic.h"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>xscugic_hw.h</label>
+        <link refid="xscugic__hw_8h"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>xstatus.h</label>
+      </node>
+      <node id="24">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="22">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="29">
+        <label>xscugic_g.c</label>
+        <link refid="xscugic__g_8c"/>
+      </node>
+      <node id="34">
+        <label>xscugic_example.c</label>
+        <link refid="xscugic__example_8c"/>
+      </node>
+      <node id="36">
+        <label>xscugic_tapp_example.c</label>
+        <link refid="xscugic__tapp__example_8c"/>
+      </node>
+      <node id="32">
+        <label>xscugic_selftest.c</label>
+        <link refid="xscugic__selftest_8c"/>
+      </node>
+      <node id="33">
+        <label>xscugic_sinit.c</label>
+        <link refid="xscugic__sinit_8c"/>
+      </node>
+      <node id="28">
+        <label>xscugic.c</label>
+        <link refid="xscugic_8c"/>
+      </node>
+      <node id="30">
+        <label>xscugic_hw.c</label>
+        <link refid="xscugic__hw_8c"/>
+      </node>
+      <node id="27">
+        <label>xscugic.h</label>
+        <link refid="xscugic.h"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>xscugic_intr.c</label>
+        <link refid="xscugic__intr_8c"/>
+      </node>
+      <node id="35">
+        <label>xscugic_low_level_example.c</label>
+        <link refid="xscugic__low__level__example_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_scu_gic___vector_table_entry" prot="public">XScuGic_VectorTableEntry</innerclass>
+    <innerclass refid="struct_x_scu_gic___config" prot="public">XScuGic_Config</innerclass>
+    <innerclass refid="struct_x_scu_gic" prot="public">XScuGic</innerclass>
+      <sectiondef kind="user-defined">
+      <header>EFUSE status Register information</header>
+      <description><para>EFUSE Status Register </para></description>
+      <memberdef kind="define" id="group__scugic__api_1ga07d27bd67c789603a7130283855f0c53" prot="public" static="no">
+        <name>EFUSE_STATUS_OFFSET</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__scugic__api_1gabf7f61958eba005dd02a7014a664def5" prot="public" static="no">
+        <name>EFUSE_STATUS_CPU_MASK</name>
+        <initializer>0x80</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__scugic__api_1ga3dde6ae31d569b01dc88903a5340d744" prot="public" static="no">
+        <name>ARMA9</name>
+        <briefdescription>
+<para>ARMA9 macro to identify cortexA9. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>GICD_CTLR Register information</header>
+      <description><para>GICD_CTLR Status Register </para></description>
+      <memberdef kind="define" id="group__scugic__api_1ga8fe68480cb749450b3b8df5af1fb5198" prot="public" static="no">
+        <name>XSCUGIC500_DCTLR_ARE_NS_ENABLE</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__scugic__api_1ga28dd6678d0630c07191a41b8f5af0950" prot="public" static="no">
+        <name>XSCUGIC500_DCTLR_ARE_S_ENABLE</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="193" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__scugic__api_1ga2a4ba236ff7bfeab20b5ca81082f2b13" prot="public" static="no">
+        <name>XScuGic_CPUWriteReg</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>(<ref refid="xscugic__hw_8h_1a01c0f85e48858531c313ce22cbfd2dfa" kindref="member">XScuGic_WriteReg</ref>(((InstancePtr)-&gt;Config-&gt;CpuBaseAddress), (RegOffset), \
+					((u32)(Data))))</initializer>
+        <briefdescription>
+<para>Writes the given CPU Interface register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register offset to be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>32-bit value to write to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__scugic__api_1ga2a4ba236ff7bfeab20b5ca81082f2b13" kindref="member">XScuGic_CPUWriteReg(XScuGic *InstancePtr, u32 RegOffset, u32 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="280" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" bodystart="280" bodyend="-1"/>
+        <referencedby refid="group__scugic__api_1gaa26a952ecd376be0bc3d8433023d1364" compoundref="xscugic__intr_8c" startline="94" endline="162">XScuGic_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__scugic__api_1ga2f3bba7c5247812158ef4fde7a0e7dfe" prot="public" static="no">
+        <name>XScuGic_CPUReadReg</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>(<ref refid="xscugic__hw_8h_1af5fb346faf5dff7820e4ce87c86f8eca" kindref="member">XScuGic_ReadReg</ref>(((InstancePtr)-&gt;Config-&gt;CpuBaseAddress), (RegOffset)))</initializer>
+        <briefdescription>
+<para>Reads the given CPU Interface register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Rregister offset to be read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>32-bit value of the register</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__scugic__api_1ga2f3bba7c5247812158ef4fde7a0e7dfe" kindref="member">XScuGic_CPUReadReg(XScuGic *InstancePtr, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="298" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" bodystart="298" bodyend="-1"/>
+        <referencedby refid="group__scugic__api_1gaa26a952ecd376be0bc3d8433023d1364" compoundref="xscugic__intr_8c" startline="94" endline="162">XScuGic_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__scugic__api_1ga22e9f81ed00f7cc39df1c6e76988fdb1" prot="public" static="no">
+        <name>XScuGic_DistWriteReg</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>(<ref refid="xscugic__hw_8h_1a01c0f85e48858531c313ce22cbfd2dfa" kindref="member">XScuGic_WriteReg</ref>(((InstancePtr)-&gt;Config-&gt;DistBaseAddress), (RegOffset), \
+					((u32)(Data))))</initializer>
+        <briefdescription>
+<para>Writes the given Distributor Interface register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register offset to be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>32-bit value to write to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__scugic__api_1ga22e9f81ed00f7cc39df1c6e76988fdb1" kindref="member">XScuGic_DistWriteReg(XScuGic *InstancePtr, u32 RegOffset, u32 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="316" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" bodystart="316" bodyend="-1"/>
+        <referencedby refid="group__scugic__api_1gaafd153e16238a1189c513846675e096a" compoundref="xscugic_8c" startline="807" endline="869">XScuGic_Disable</referencedby>
+        <referencedby refid="group__scugic__api_1gad162acedbbd41fd890fc7f2225ed480b" compoundref="xscugic_8c" startline="669" endline="714">XScuGic_Disconnect</referencedby>
+        <referencedby refid="group__scugic__api_1gac965b9e3ae7668a92cf07a65bde142cc" compoundref="xscugic_8c" startline="732" endline="788">XScuGic_Enable</referencedby>
+        <referencedby refid="group__scugic__api_1ga2a94f1a519d965f051d598e5a6b5a855" compoundref="xscugic_8c" startline="1192" endline="1251">XScuGic_InterruptMaptoCpu</referencedby>
+        <referencedby refid="group__scugic__api_1ga04f8ea74458251784b293e4ad98f2d74" compoundref="xscugic_8c" startline="1267" endline="1320">XScuGic_InterruptUnmapFromCpu</referencedby>
+        <referencedby refid="group__scugic__api_1ga79abd6248cb578142e9c475f20dbeb06" compoundref="xscugic_8c" startline="1018" endline="1101">XScuGic_SetPriorityTriggerType</referencedby>
+        <referencedby refid="group__scugic__api_1gaca28a576540ab5fcd75cee1f38917ae4" compoundref="xscugic_8c" startline="893" endline="967">XScuGic_SoftwareIntr</referencedby>
+        <referencedby refid="group__scugic__api_1ga6146a0489a1c748ceeaee729639d48a7" compoundref="xscugic_8c" startline="1398" endline="1536">XScuGic_Stop</referencedby>
+        <referencedby refid="group__scugic__api_1ga66b2416be64a5e582e530ed9ed7f962c" compoundref="xscugic_8c" startline="1333" endline="1383">XScuGic_UnmapAllInterruptsFromCpu</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__scugic__api_1ga3d639fe1851f9d833367fb4322390eeb" prot="public" static="no">
+        <name>XScuGic_DistReadReg</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>(<ref refid="xscugic__hw_8h_1af5fb346faf5dff7820e4ce87c86f8eca" kindref="member">XScuGic_ReadReg</ref>(((InstancePtr)-&gt;Config-&gt;DistBaseAddress), (RegOffset)))</initializer>
+        <briefdescription>
+<para>Reads the given Distributor Interface register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register offset to be read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__scugic__api_1ga3d639fe1851f9d833367fb4322390eeb" kindref="member">XScuGic_DistReadReg(XScuGic *InstancePtr, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="334" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" bodystart="334" bodyend="-1"/>
+        <referencedby refid="group__scugic__api_1ga6ed162180ffb45b082c2fbe23951ba13" compoundref="xscugic_8c" startline="1119" endline="1177">XScuGic_GetPriorityTriggerType</referencedby>
+        <referencedby refid="group__scugic__api_1ga2a94f1a519d965f051d598e5a6b5a855" compoundref="xscugic_8c" startline="1192" endline="1251">XScuGic_InterruptMaptoCpu</referencedby>
+        <referencedby refid="group__scugic__api_1ga04f8ea74458251784b293e4ad98f2d74" compoundref="xscugic_8c" startline="1267" endline="1320">XScuGic_InterruptUnmapFromCpu</referencedby>
+        <referencedby refid="group__scugic__api_1ga081a9a62546b413d94e609894282a575" compoundref="xscugic__selftest_8c" startline="67" endline="95">XScuGic_SelfTest</referencedby>
+        <referencedby refid="group__scugic__api_1ga79abd6248cb578142e9c475f20dbeb06" compoundref="xscugic_8c" startline="1018" endline="1101">XScuGic_SetPriorityTriggerType</referencedby>
+        <referencedby refid="group__scugic__api_1ga6146a0489a1c748ceeaee729639d48a7" compoundref="xscugic_8c" startline="1398" endline="1536">XScuGic_Stop</referencedby>
+        <referencedby refid="group__scugic__api_1ga66b2416be64a5e582e530ed9ed7f962c" compoundref="xscugic_8c" startline="1333" endline="1383">XScuGic_UnmapAllInterruptsFromCpu</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__scugic__api_1ga3de9d984ad4026ce214e09bf796cdc49" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_scu_gic___config" kindref="compound">XScuGic_Config</ref></type>
+        <definition>XScuGic_Config XScuGic_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XScuGic_ConfigTable</name>
+        <briefdescription>
+<para>Config table. </para>        </briefdescription>
+        <detaileddescription>
+<para>Config table.</para><para>The <ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> driver must know when to acknowledge the interrupt. The entry which specifies this as a bit mask where each bit corresponds to a specific interrupt. A bit set indicates to ACK it before servicing it. Generally, acknowledge before service is used when the interrupt signal is edge-sensitive, and after when the signal is level-sensitive.</para><para>Refer to the <ref refid="struct_x_scu_gic___config" kindref="compound">XScuGic_Config</ref> data structure in <ref refid="xscugic_8h" kindref="compound">xscugic.h</ref> for details on how this table should be initialized. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic_g.c" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__scugic__api_1ga96bfe161e3b4e401f76f2b35df9fab86" compoundref="xscugic__hw_8c" startline="472" endline="543">XScuGic_DeviceInterruptHandler</referencedby>
+        <referencedby refid="group__scugic__api_1ga8ed9875ae4c92a9688a2916ceb0306d8" compoundref="xscugic__sinit_8c" startline="130" endline="146">XScuGic_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__scugic__api_1ga48f9dd531aa861a74e6bd627943573ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XScuGic_Connect</definition>
+        <argsstring>(XScuGic *InstancePtr, u32 Int_Id, Xil_InterruptHandler Handler, void *CallBackRef)</argsstring>
+        <name>XScuGic_Connect</name>
+        <param>
+          <type><ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Int_Id</declname>
+        </param>
+        <param>
+          <type>Xil_InterruptHandler</type>
+          <declname>Handler</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>Makes the connection between the Int_Id of the interrupt source and the associated handler that is to run when the interrupt is recognized. </para>        </briefdescription>
+        <detaileddescription>
+<para>The argument provided in this call as the Callbackref is used as the argument for the handler when it is called.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Int_Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the ID of the interrupt source and should be in the range of 0 to XSCUGIC_MAX_NUM_INTR_INPUTS - 1 </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Handler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Handler for interrupt. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instance pointer of the connecting driver.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><verbatim>    - XST_SUCCESS if the handler was connected correctly.
+</verbatim></para></simplesect>
+WARNING: The handler provided as an argument will overwrite any handler that was previously connected. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" line="627" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" bodystart="627" bodyend="652"/>
+        <references refid="group__scugic__api_1ga231f58b4755a1856bbe3120370e5889e" compoundref="xscugic_8h" startline="251">XScuGic::Config</references>
+        <references refid="group__scugic__api_1ga7ea39fc648dff09faa2a238e9a054089" compoundref="xscugic_8h" startline="240">XScuGic_Config::HandlerTable</references>
+        <references refid="group__scugic__api_1ga797e50fb56fbc19bc35f73896decaf82" compoundref="xscugic_8h" startline="255">XScuGic::IsReady</references>
+        <referencedby refid="xscugic__example_8c_1af13568914659f91abee8b8f1be0bb209" compoundref="xscugic__example_8c" startline="220" endline="341">ScuGicExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__scugic__api_1gad162acedbbd41fd890fc7f2225ed480b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XScuGic_Disconnect</definition>
+        <argsstring>(XScuGic *InstancePtr, u32 Int_Id)</argsstring>
+        <name>XScuGic_Disconnect</name>
+        <param>
+          <type><ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Int_Id</declname>
+        </param>
+        <briefdescription>
+<para>Updates the interrupt table with the Null Handler and NULL arguments at the location pointed at by the Int_Id. </para>        </briefdescription>
+        <detaileddescription>
+<para>This effectively disconnects that interrupt source from any handler. The interrupt is disabled also.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Int_Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the ID of the interrupt source and should be in the range of 0 to XSCUGIC_MAX_NUM_INTR_INPUTS - 1</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" line="669" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" bodystart="669" bodyend="714"/>
+        <references refid="group__scugic__api_1ga231f58b4755a1856bbe3120370e5889e" compoundref="xscugic_8h" startline="251">XScuGic::Config</references>
+        <references refid="group__scugic__api_1ga7ea39fc648dff09faa2a238e9a054089" compoundref="xscugic_8h" startline="240">XScuGic_Config::HandlerTable</references>
+        <references refid="group__scugic__api_1ga797e50fb56fbc19bc35f73896decaf82" compoundref="xscugic_8h" startline="255">XScuGic::IsReady</references>
+        <references refid="group__scugic__api_1ga7a61a9bf8e0b229925a5ddbf763b414b" compoundref="xscugic__hw_8h" startline="180">XSCUGIC_DISABLE_OFFSET</references>
+        <references refid="group__scugic__api_1ga22e9f81ed00f7cc39df1c6e76988fdb1" compoundref="xscugic_8h" startline="316">XScuGic_DistWriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__scugic__api_1gac965b9e3ae7668a92cf07a65bde142cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XScuGic_Enable</definition>
+        <argsstring>(XScuGic *InstancePtr, u32 Int_Id)</argsstring>
+        <name>XScuGic_Enable</name>
+        <param>
+          <type><ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Int_Id</declname>
+        </param>
+        <briefdescription>
+<para>Enables the interrupt source provided as the argument Int_Id. </para>        </briefdescription>
+        <detaileddescription>
+<para>Any pending interrupt condition for the specified Int_Id will occur after this function is called. This API also maps the interrupt to the requesting CPU.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Int_Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the ID of the interrupt source and should be in the range of 0 to XSCUGIC_MAX_NUM_INTR_INPUTS - 1</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" line="732" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" bodystart="732" bodyend="788"/>
+        <references refid="group__scugic__api_1ga797e50fb56fbc19bc35f73896decaf82" compoundref="xscugic_8h" startline="255">XScuGic::IsReady</references>
+        <references refid="group__scugic__api_1ga22e9f81ed00f7cc39df1c6e76988fdb1" compoundref="xscugic_8h" startline="316">XScuGic_DistWriteReg</references>
+        <references refid="group__scugic__api_1ga7e39be0cb9e08f4c9231f76e685a76cc" compoundref="xscugic__hw_8h" startline="177">XSCUGIC_ENABLE_SET_OFFSET</references>
+        <references refid="group__scugic__api_1ga2a94f1a519d965f051d598e5a6b5a855" compoundref="xscugic_8c" startline="1192" endline="1251">XScuGic_InterruptMaptoCpu</references>
+        <references refid="group__scugic__api_1ga1706d457c89d8e76f1d120cc6fad418b" compoundref="xscugic__hw_8h" startline="145">XSCUGIC_SPI_INT_ID_START</references>
+        <referencedby refid="xscugic__example_8c_1af13568914659f91abee8b8f1be0bb209" compoundref="xscugic__example_8c" startline="220" endline="341">ScuGicExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__scugic__api_1gaafd153e16238a1189c513846675e096a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XScuGic_Disable</definition>
+        <argsstring>(XScuGic *InstancePtr, u32 Int_Id)</argsstring>
+        <name>XScuGic_Disable</name>
+        <param>
+          <type><ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Int_Id</declname>
+        </param>
+        <briefdescription>
+<para>Disables the interrupt source provided as the argument Int_Id such that the interrupt controller will not cause interrupts for the specified Int_Id. </para>        </briefdescription>
+        <detaileddescription>
+<para>The interrupt controller will continue to hold an interrupt condition for the Int_Id, but will not cause an interrupt. This API also unmaps the interrupt for the requesting CPU.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Int_Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the ID of the interrupt source and should be in the range of 0 to XSCUGIC_MAX_NUM_INTR_INPUTS - 1</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" line="807" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" bodystart="807" bodyend="869"/>
+        <references refid="group__scugic__api_1ga797e50fb56fbc19bc35f73896decaf82" compoundref="xscugic_8h" startline="255">XScuGic::IsReady</references>
+        <references refid="group__scugic__api_1ga7a61a9bf8e0b229925a5ddbf763b414b" compoundref="xscugic__hw_8h" startline="180">XSCUGIC_DISABLE_OFFSET</references>
+        <references refid="group__scugic__api_1ga22e9f81ed00f7cc39df1c6e76988fdb1" compoundref="xscugic_8h" startline="316">XScuGic_DistWriteReg</references>
+        <references refid="group__scugic__api_1ga04f8ea74458251784b293e4ad98f2d74" compoundref="xscugic_8c" startline="1267" endline="1320">XScuGic_InterruptUnmapFromCpu</references>
+        <references refid="group__scugic__api_1ga1706d457c89d8e76f1d120cc6fad418b" compoundref="xscugic__hw_8h" startline="145">XSCUGIC_SPI_INT_ID_START</references>
+      </memberdef>
+      <memberdef kind="function" id="group__scugic__api_1gaf8e0bfe31c0fa2ca654c36715a3c13f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XScuGic_CfgInitialize</definition>
+        <argsstring>(XScuGic *InstancePtr, XScuGic_Config *ConfigPtr, u32 EffectiveAddr)</argsstring>
+        <name>XScuGic_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_scu_gic___config" kindref="compound">XScuGic_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>CfgInitialize a specific interrupt controller instance/driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>The initialization entails:</para><para><itemizedlist>
+<listitem><para>Initialize fields of the <ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> structure</para></listitem><listitem><para>Initial vector table with stub function calls</para></listitem><listitem><para>All interrupt sources are disabled</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to a config table for the particular device this driver is associated with. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, use Config-&gt;BaseAddress for this parameters, passing the physical address instead.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" line="509" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" bodystart="509" bodyend="602"/>
+        <references refid="group__scugic__api_1ga231f58b4755a1856bbe3120370e5889e" compoundref="xscugic_8h" startline="251">XScuGic::Config</references>
+        <references refid="group__scugic__api_1ga699bf6b8bb8bfbb652b647b78cfae695" compoundref="xscugic_8h" startline="237">XScuGic_Config::DistBaseAddress</references>
+        <references refid="group__scugic__api_1ga7ea39fc648dff09faa2a238e9a054089" compoundref="xscugic_8h" startline="240">XScuGic_Config::HandlerTable</references>
+        <references refid="group__scugic__api_1ga797e50fb56fbc19bc35f73896decaf82" compoundref="xscugic_8h" startline="255">XScuGic::IsReady</references>
+        <references refid="group__scugic__api_1ga1027fc01e0c0efc80eadd0e6bb69f801" compoundref="xscugic__hw_8h" startline="138">XSCUGIC_MAX_NUM_INTR_INPUTS</references>
+        <references refid="group__scugic__api_1ga6146a0489a1c748ceeaee729639d48a7" compoundref="xscugic_8c" startline="1398" endline="1536">XScuGic_Stop</references>
+        <referencedby refid="xscugic__example_8c_1af13568914659f91abee8b8f1be0bb209" compoundref="xscugic__example_8c" startline="220" endline="341">ScuGicExample</referencedby>
+        <referencedby refid="xscugic__tapp__example_8c_1afc90342b59ae4675049ce95603456339" compoundref="xscugic__tapp__example_8c" startline="204" endline="250">ScuGicInterruptSetup</referencedby>
+        <referencedby refid="xscugic__tapp__example_8c_1ab990ab0ba6edb93226c0f59f1201c187" compoundref="xscugic__tapp__example_8c" startline="150" endline="177">ScuGicSelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__scugic__api_1gaca28a576540ab5fcd75cee1f38917ae4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XScuGic_SoftwareIntr</definition>
+        <argsstring>(XScuGic *InstancePtr, u32 Int_Id, u32 Cpu_Identifier)</argsstring>
+        <name>XScuGic_SoftwareIntr</name>
+        <param>
+          <type><ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Int_Id</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Cpu_Identifier</declname>
+        </param>
+        <briefdescription>
+<para>Allows software to simulate an interrupt in the interrupt controller. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function will only be successful when the interrupt controller has been started in simulation mode. A simulated interrupt allows the interrupt controller to be tested without any device to drive an interrupt input signal into it.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Int_Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Software interrupt ID to simulate an interrupt. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Cpu_Identifier</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>List of CPUs to send the interrupt. For VERSAL_NET bits 0-7 specifies core ID to send the interrupt. bits 8-15 specifies the cluster id.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+XST_SUCCESS if successful, or XST_FAILURE if the interrupt could not be simulated </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" line="893" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" bodystart="893" bodyend="967"/>
+        <references refid="group__scugic__api_1ga797e50fb56fbc19bc35f73896decaf82" compoundref="xscugic_8h" startline="255">XScuGic::IsReady</references>
+        <references refid="group__scugic__api_1ga22e9f81ed00f7cc39df1c6e76988fdb1" compoundref="xscugic_8h" startline="316">XScuGic_DistWriteReg</references>
+        <references refid="group__scugic__api_1gab68476cc3813858c0c809ebfb4e28c74" compoundref="xscugic__hw_8h" startline="457">XSCUGIC_SFI_TRIG_CPU_MASK</references>
+        <references refid="group__scugic__api_1ga7956d8a2796ad6f92fafc49d92aa1a7d" compoundref="xscugic__hw_8h" startline="459">XSCUGIC_SFI_TRIG_INTID_MASK</references>
+        <references refid="group__scugic__api_1ga5152b8067164fc0208df744dd20edea4" compoundref="xscugic__hw_8h" startline="202">XSCUGIC_SFI_TRIG_OFFSET</references>
+        <referencedby refid="xscugic__example_8c_1af13568914659f91abee8b8f1be0bb209" compoundref="xscugic__example_8c" startline="220" endline="341">ScuGicExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__scugic__api_1ga6ed162180ffb45b082c2fbe23951ba13" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XScuGic_GetPriorityTriggerType</definition>
+        <argsstring>(XScuGic *InstancePtr, u32 Int_Id, u8 *Priority, u8 *Trigger)</argsstring>
+        <name>XScuGic_GetPriorityTriggerType</name>
+        <param>
+          <type><ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Int_Id</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Priority</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Trigger</declname>
+        </param>
+        <briefdescription>
+<para>Gets the interrupt priority and trigger type for the specificd IRQ source. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Int_Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IRQ source number to modify. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Priority</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the value of the priority of the IRQ source. This is a return value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Trigger</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the value of the trigger of the IRQ source.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to the value of the trigger of the IRQ source. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" line="1119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" bodystart="1119" bodyend="1177"/>
+        <references refid="group__scugic__api_1ga797e50fb56fbc19bc35f73896decaf82" compoundref="xscugic_8h" startline="255">XScuGic::IsReady</references>
+        <references refid="group__scugic__api_1ga3d639fe1851f9d833367fb4322390eeb" compoundref="xscugic_8h" startline="334">XScuGic_DistReadReg</references>
+        <references refid="group__scugic__api_1ga2be546274013a123da9a0a8f21acfbc5" compoundref="xscugic__hw_8h" startline="389">XSCUGIC_INT_CFG_MASK</references>
+        <references refid="xscugic__hw_8h_1a3921ef6af4f5fd6a35cb5089ef85a22a" compoundref="xscugic__hw_8h" startline="643">XSCUGIC_INT_CFG_OFFSET_CALC</references>
+        <references refid="group__scugic__api_1gaf56426a8af8b676cb9184cf2196b6bf4" compoundref="xscugic__hw_8h" startline="342">XSCUGIC_PRIORITY_MASK</references>
+        <references refid="xscugic__hw_8h_1af5f397349cab91733882c9d388498d5b" compoundref="xscugic__hw_8h" startline="657">XSCUGIC_PRIORITY_OFFSET_CALC</references>
+        <references refid="xscugic__hw_8h_1a53759eec986eab489c00e26a566d2b00" compoundref="xscugic__hw_8h" startline="712">XSCUGIC_RDIST_INT_CONFIG_OFFSET_CALC</references>
+        <references refid="xscugic__hw_8h_1a93135e195fabc65c81e26163c8aabcdb" compoundref="xscugic__hw_8h" startline="726">XSCUGIC_RDIST_INT_PRIORITY_OFFSET_CALC</references>
+        <references refid="group__scugic__api_1ga1706d457c89d8e76f1d120cc6fad418b" compoundref="xscugic__hw_8h" startline="145">XSCUGIC_SPI_INT_ID_START</references>
+      </memberdef>
+      <memberdef kind="function" id="group__scugic__api_1ga79abd6248cb578142e9c475f20dbeb06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XScuGic_SetPriorityTriggerType</definition>
+        <argsstring>(XScuGic *InstancePtr, u32 Int_Id, u8 Priority, u8 Trigger)</argsstring>
+        <name>XScuGic_SetPriorityTriggerType</name>
+        <param>
+          <type><ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Int_Id</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Priority</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Trigger</declname>
+        </param>
+        <briefdescription>
+<para>Sets the interrupt priority and trigger type for the specificd IRQ source. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Int_Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IRQ source number to modify. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Priority</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New priority for the IRQ source. 0 is highest priority, 0xF8(248) is lowest. There are 32 priority levels supported with a step of 8. Hence the supported priorities are 0, 8, 16, 32, 40 ..., 248. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Trigger</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>New trigger type for the IRQ source. Each bit pair describes the configuration for an INT_ID. SFI Read Only b10 always PPI Read Only depending on how the PPIs are configured. b01 Active HIGH level sensitive b11 Rising edge sensitive SPI LSB is read only. b01 Active HIGH level sensitive b11 Rising edge sensitive/</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" line="1018" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" bodystart="1018" bodyend="1101"/>
+        <references refid="group__scugic__api_1ga797e50fb56fbc19bc35f73896decaf82" compoundref="xscugic_8h" startline="255">XScuGic::IsReady</references>
+        <references refid="group__scugic__api_1ga3d639fe1851f9d833367fb4322390eeb" compoundref="xscugic_8h" startline="334">XScuGic_DistReadReg</references>
+        <references refid="group__scugic__api_1ga22e9f81ed00f7cc39df1c6e76988fdb1" compoundref="xscugic_8h" startline="316">XScuGic_DistWriteReg</references>
+        <references refid="group__scugic__api_1ga2be546274013a123da9a0a8f21acfbc5" compoundref="xscugic__hw_8h" startline="389">XSCUGIC_INT_CFG_MASK</references>
+        <references refid="xscugic__hw_8h_1a3921ef6af4f5fd6a35cb5089ef85a22a" compoundref="xscugic__hw_8h" startline="643">XSCUGIC_INT_CFG_OFFSET_CALC</references>
+        <references refid="group__scugic__api_1ga314e70261cb0c4c4da8019ff78c7e6f8" compoundref="xscugic__hw_8h" startline="154">XSCUGIC_INTR_PRIO_MASK</references>
+        <references refid="group__scugic__api_1gaecd562b440bde835a8eee0c8a0e78249" compoundref="xscugic__hw_8h" startline="149">XSCUGIC_MAX_INTR_PRIO_VAL</references>
+        <references refid="group__scugic__api_1gaf56426a8af8b676cb9184cf2196b6bf4" compoundref="xscugic__hw_8h" startline="342">XSCUGIC_PRIORITY_MASK</references>
+        <references refid="xscugic__hw_8h_1af5f397349cab91733882c9d388498d5b" compoundref="xscugic__hw_8h" startline="657">XSCUGIC_PRIORITY_OFFSET_CALC</references>
+        <references refid="xscugic__hw_8h_1a53759eec986eab489c00e26a566d2b00" compoundref="xscugic__hw_8h" startline="712">XSCUGIC_RDIST_INT_CONFIG_OFFSET_CALC</references>
+        <references refid="xscugic__hw_8h_1a93135e195fabc65c81e26163c8aabcdb" compoundref="xscugic__hw_8h" startline="726">XSCUGIC_RDIST_INT_PRIORITY_OFFSET_CALC</references>
+        <references refid="group__scugic__api_1ga1706d457c89d8e76f1d120cc6fad418b" compoundref="xscugic__hw_8h" startline="145">XSCUGIC_SPI_INT_ID_START</references>
+      </memberdef>
+      <memberdef kind="function" id="group__scugic__api_1ga2a94f1a519d965f051d598e5a6b5a855" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XScuGic_InterruptMaptoCpu</definition>
+        <argsstring>(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 Int_Id)</argsstring>
+        <name>XScuGic_InterruptMaptoCpu</name>
+        <param>
+          <type><ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Cpu_Identifier</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Int_Id</declname>
+        </param>
+        <briefdescription>
+<para>Sets the target CPU for the interrupt of a peripheral. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Cpu_Identifier</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CPU number for which the interrupt has to be targeted For VERSAL_NET APU: 0 t0 3 bits specifies core id and 4 to 7 bits specifies cluster id of the targeted core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Int_Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IRQ source number to modify.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" line="1192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" bodystart="1192" bodyend="1251"/>
+        <references refid="group__scugic__api_1ga3d639fe1851f9d833367fb4322390eeb" compoundref="xscugic_8h" startline="334">XScuGic_DistReadReg</references>
+        <references refid="group__scugic__api_1ga22e9f81ed00f7cc39df1c6e76988fdb1" compoundref="xscugic_8h" startline="316">XScuGic_DistWriteReg</references>
+        <references refid="xscugic__hw_8h_1a68ccffbaf26e88803874e3fd9592bc80" compoundref="xscugic__hw_8h" startline="671">XSCUGIC_IROUTER_OFFSET_CALC</references>
+        <references refid="group__scugic__api_1ga1706d457c89d8e76f1d120cc6fad418b" compoundref="xscugic__hw_8h" startline="145">XSCUGIC_SPI_INT_ID_START</references>
+        <references refid="xscugic__hw_8h_1aa2cf2e3acd2e8cf537c415276efa3a97" compoundref="xscugic__hw_8h" startline="685">XSCUGIC_SPI_TARGET_OFFSET_CALC</references>
+        <referencedby refid="group__scugic__api_1gac965b9e3ae7668a92cf07a65bde142cc" compoundref="xscugic_8c" startline="732" endline="788">XScuGic_Enable</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__scugic__api_1ga04f8ea74458251784b293e4ad98f2d74" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XScuGic_InterruptUnmapFromCpu</definition>
+        <argsstring>(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 Int_Id)</argsstring>
+        <name>XScuGic_InterruptUnmapFromCpu</name>
+        <param>
+          <type><ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Cpu_Identifier</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Int_Id</declname>
+        </param>
+        <briefdescription>
+<para>Unmaps specific SPI interrupt from the target CPU. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Cpu_Identifier</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CPU number from which the interrupt has to be unmapped. For VERSAL_NET APU: 0 t0 3 bits specifies core id and 4 to 7 bits specifies cluster id of the targeted core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Int_Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IRQ source number to modify</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" line="1267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" bodystart="1267" bodyend="1320"/>
+        <references refid="group__scugic__api_1ga3d639fe1851f9d833367fb4322390eeb" compoundref="xscugic_8h" startline="334">XScuGic_DistReadReg</references>
+        <references refid="group__scugic__api_1ga22e9f81ed00f7cc39df1c6e76988fdb1" compoundref="xscugic_8h" startline="316">XScuGic_DistWriteReg</references>
+        <references refid="group__scugic__api_1ga1706d457c89d8e76f1d120cc6fad418b" compoundref="xscugic__hw_8h" startline="145">XSCUGIC_SPI_INT_ID_START</references>
+        <references refid="xscugic__hw_8h_1aa2cf2e3acd2e8cf537c415276efa3a97" compoundref="xscugic__hw_8h" startline="685">XSCUGIC_SPI_TARGET_OFFSET_CALC</references>
+        <referencedby refid="group__scugic__api_1gaafd153e16238a1189c513846675e096a" compoundref="xscugic_8c" startline="807" endline="869">XScuGic_Disable</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__scugic__api_1ga66b2416be64a5e582e530ed9ed7f962c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XScuGic_UnmapAllInterruptsFromCpu</definition>
+        <argsstring>(XScuGic *InstancePtr, u8 Cpu_Identifier)</argsstring>
+        <name>XScuGic_UnmapAllInterruptsFromCpu</name>
+        <param>
+          <type><ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Cpu_Identifier</declname>
+        </param>
+        <briefdescription>
+<para>Unmaps all SPI interrupts from the target CPU. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Cpu_Identifier</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CPU number from which the interrupts has to be unmapped.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" line="1333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" bodystart="1333" bodyend="1383"/>
+        <references refid="group__scugic__api_1ga3d639fe1851f9d833367fb4322390eeb" compoundref="xscugic_8h" startline="334">XScuGic_DistReadReg</references>
+        <references refid="group__scugic__api_1ga22e9f81ed00f7cc39df1c6e76988fdb1" compoundref="xscugic_8h" startline="316">XScuGic_DistWriteReg</references>
+        <references refid="group__scugic__api_1ga1027fc01e0c0efc80eadd0e6bb69f801" compoundref="xscugic__hw_8h" startline="138">XSCUGIC_MAX_NUM_INTR_INPUTS</references>
+        <references refid="xscugic__hw_8h_1aa2cf2e3acd2e8cf537c415276efa3a97" compoundref="xscugic__hw_8h" startline="685">XSCUGIC_SPI_TARGET_OFFSET_CALC</references>
+      </memberdef>
+      <memberdef kind="function" id="group__scugic__api_1ga6146a0489a1c748ceeaee729639d48a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XScuGic_Stop</definition>
+        <argsstring>(XScuGic *InstancePtr)</argsstring>
+        <name>XScuGic_Stop</name>
+        <param>
+          <type><ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Checks if the interrupt target register contains all interrupts to be targeted for current CPU. </para>        </briefdescription>
+        <detaileddescription>
+<para>If they are programmed to be forwarded to current cpu, this API disable all interrupts and disable GIC distributor. This API also removes current CPU from interrupt target registers for all interrupt.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" line="1398" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" bodystart="1398" bodyend="1536"/>
+        <references refid="group__scugic__api_1ga7a61a9bf8e0b229925a5ddbf763b414b" compoundref="xscugic__hw_8h" startline="180">XSCUGIC_DISABLE_OFFSET</references>
+        <references refid="group__scugic__api_1ga94cd5e2c3a1ab5b6c282d76bead5d616" compoundref="xscugic__hw_8h" startline="165">XSCUGIC_DIST_EN_OFFSET</references>
+        <references refid="group__scugic__api_1ga3d639fe1851f9d833367fb4322390eeb" compoundref="xscugic_8h" startline="334">XScuGic_DistReadReg</references>
+        <references refid="group__scugic__api_1ga22e9f81ed00f7cc39df1c6e76988fdb1" compoundref="xscugic_8h" startline="316">XScuGic_DistWriteReg</references>
+        <references refid="xscugic__hw_8h_1a37b4c6eb0a94fe5e17b6ce5ddc021f5b" compoundref="xscugic__hw_8h" startline="740">XSCUGIC_EN_DIS_OFFSET_CALC</references>
+        <references refid="group__scugic__api_1gabd696b30c6257dea212cb9925ba73796" compoundref="xscugic__hw_8h" startline="220">XSCUGIC_EN_INT_MASK</references>
+        <references refid="xscugic__hw_8h_1a68ccffbaf26e88803874e3fd9592bc80" compoundref="xscugic__hw_8h" startline="671">XSCUGIC_IROUTER_OFFSET_CALC</references>
+        <references refid="group__scugic__api_1ga1027fc01e0c0efc80eadd0e6bb69f801" compoundref="xscugic__hw_8h" startline="138">XSCUGIC_MAX_NUM_INTR_INPUTS</references>
+        <references refid="xscugic__hw_8h_1aa2cf2e3acd2e8cf537c415276efa3a97" compoundref="xscugic__hw_8h" startline="685">XSCUGIC_SPI_TARGET_OFFSET_CALC</references>
+        <referencedby refid="group__scugic__api_1gaf8e0bfe31c0fa2ca654c36715a3c13f8" compoundref="xscugic_8c" startline="509" endline="602">XScuGic_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__scugic__api_1ga945e029b4356be809020c81745c4a23b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XScuGic_SetCpuID</definition>
+        <argsstring>(u32 CpuCoreId)</argsstring>
+        <name>XScuGic_SetCpuID</name>
+        <param>
+          <type>u32</type>
+          <declname>CpuCoreId</declname>
+        </param>
+        <briefdescription>
+<para>Updates the CpuId global variable. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CpuCoreId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CPU core number.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" line="1548" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" bodystart="1548" bodyend="1556"/>
+      </memberdef>
+      <memberdef kind="function" id="group__scugic__api_1ga6c30ba79ea9505dc29b9cac4deea3df8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XScuGic_GetCpuID</definition>
+        <argsstring>(void)</argsstring>
+        <name>XScuGic_GetCpuID</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Returns the CpuId variable. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The CPU core number. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" line="1566" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" bodystart="1566" bodyend="1569"/>
+        <referencedby refid="group__scugic__api_1ga0d183d23d05aac5d61cd640c5b39b275" compoundref="xscugic__hw_8c" startline="1088" endline="1141">XScuGic_DisableIntr</referencedby>
+        <referencedby refid="group__scugic__api_1gadaa95193630e661a6a578f35a5e3ea1a" compoundref="xscugic__hw_8c" startline="1028" endline="1071">XScuGic_EnableIntr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__scugic__api_1ga61b776573423fcfb32d9eb30010b17a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XScuGic_IsInitialized</definition>
+        <argsstring>(u32 BaseAddress)</argsstring>
+        <name>XScuGic_IsInitialized</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Checks whether the XScGic is initialized or not given the device ID/BaseAddress. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns 1 if initialized otherwise 0.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" line="1590" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.c" bodystart="1590" bodyend="1617"/>
+        <references refid="group__scugic__api_1ga699bf6b8bb8bfbb652b647b78cfae695" compoundref="xscugic_8h" startline="237">XScuGic_Config::DistBaseAddress</references>
+        <references refid="group__scugic__api_1ga94cd5e2c3a1ab5b6c282d76bead5d616" compoundref="xscugic__hw_8h" startline="165">XSCUGIC_DIST_EN_OFFSET</references>
+        <references refid="group__scugic__api_1gabd696b30c6257dea212cb9925ba73796" compoundref="xscugic__hw_8h" startline="220">XSCUGIC_EN_INT_MASK</references>
+        <references refid="group__scugic__api_1ga8ed9875ae4c92a9688a2916ceb0306d8" compoundref="xscugic__sinit_8c" startline="130" endline="146">XScuGic_LookupConfig</references>
+        <references refid="xscugic__hw_8h_1af5fb346faf5dff7820e4ce87c86f8eca" compoundref="xscugic__hw_8h" startline="757">XScuGic_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__scugic__api_1ga8ed9875ae4c92a9688a2916ceb0306d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_scu_gic___config" kindref="compound">XScuGic_Config</ref> *</type>
+        <definition>XScuGic_Config * XScuGic_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XScuGic_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Looks up the device configuration based on the unique device ID/BaseAddress. </para>        </briefdescription>
+        <detaileddescription>
+<para>A table contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the <ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> configuration structure for the specified device, or NULL if the device ID/BaseAddress is not found.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="643" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic_sinit.c" bodystart="130" bodyend="146"/>
+        <references refid="group__scugic__api_1ga003522c9b6a6db98f6e1cf9f3dc42d1b" compoundref="xscugic_8h" startline="236">XScuGic_Config::Name</references>
+        <references refid="group__scugic__api_1ga3de9d984ad4026ce214e09bf796cdc49" compoundref="xscugic__g_8c" startline="65">XScuGic_ConfigTable</references>
+        <referencedby refid="xscugic__example_8c_1af13568914659f91abee8b8f1be0bb209" compoundref="xscugic__example_8c" startline="220" endline="341">ScuGicExample</referencedby>
+        <referencedby refid="xscugic__tapp__example_8c_1afc90342b59ae4675049ce95603456339" compoundref="xscugic__tapp__example_8c" startline="204" endline="250">ScuGicInterruptSetup</referencedby>
+        <referencedby refid="xscugic__tapp__example_8c_1ab990ab0ba6edb93226c0f59f1201c187" compoundref="xscugic__tapp__example_8c" startline="150" endline="177">ScuGicSelfTestExample</referencedby>
+        <referencedby refid="group__scugic__api_1ga9a39b7ce56a0c803c6c94b4ee147647e" compoundref="xscugic__hw_8c" startline="433" endline="451">XScuGic_DeviceInitialize</referencedby>
+        <referencedby refid="group__scugic__api_1ga61b776573423fcfb32d9eb30010b17a8" compoundref="xscugic_8c" startline="1590" endline="1617">XScuGic_IsInitialized</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__scugic__api_1gaa26a952ecd376be0bc3d8433023d1364" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XScuGic_InterruptHandler</definition>
+        <argsstring>(XScuGic *InstancePtr)</argsstring>
+        <name>XScuGic_InterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the primary interrupt handler for the driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>It must be connected to the interrupt source such that it is called when an interrupt of the interrupt controller is active. It will resolve which interrupts are active and enabled and call the appropriate interrupt handler. It uses the Interrupt Type information to determine when to acknowledge the interrupt. Highest priority interrupts are serviced first.</para><para>This function assumes that an interrupt vector table has been previously initialized. It does not verify that entries in the table are valid before calling an interrupt handler.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="649" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic_intr.c" bodystart="94" bodyend="162"/>
+        <references refid="group__scugic__api_1ga231f58b4755a1856bbe3120370e5889e" compoundref="xscugic_8h" startline="251">XScuGic::Config</references>
+        <references refid="group__scugic__api_1ga7ea39fc648dff09faa2a238e9a054089" compoundref="xscugic_8h" startline="240">XScuGic_Config::HandlerTable</references>
+        <references refid="group__scugic__api_1gad9945cea79930d883f977fc97e1aa292" compoundref="xscugic__hw_8h" startline="547">XSCUGIC_ACK_INTID_MASK</references>
+        <references refid="group__scugic__api_1ga2f3bba7c5247812158ef4fde7a0e7dfe" compoundref="xscugic_8h" startline="298">XScuGic_CPUReadReg</references>
+        <references refid="group__scugic__api_1ga2a4ba236ff7bfeab20b5ca81082f2b13" compoundref="xscugic_8h" startline="280">XScuGic_CPUWriteReg</references>
+        <references refid="group__scugic__api_1gaa65c329712b1a7f3ab12b0bf4ada058d" compoundref="xscugic__hw_8h" startline="476">XSCUGIC_EOI_OFFSET</references>
+        <references refid="group__scugic__api_1ga5f1418c8f0e05b7f928c2fff42b4514d" compoundref="xscugic__hw_8h" startline="475">XSCUGIC_INT_ACK_OFFSET</references>
+        <references refid="group__scugic__api_1ga1027fc01e0c0efc80eadd0e6bb69f801" compoundref="xscugic__hw_8h" startline="138">XSCUGIC_MAX_NUM_INTR_INPUTS</references>
+        <referencedby refid="xscugic__tapp__example_8c_1afc90342b59ae4675049ce95603456339" compoundref="xscugic__tapp__example_8c" startline="204" endline="250">ScuGicInterruptSetup</referencedby>
+        <referencedby refid="xscugic__example_8c_1a89589e10926b9add4601dac19679feda" compoundref="xscugic__example_8c" startline="359" endline="376">SetUpInterruptSystem</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__scugic__api_1ga081a9a62546b413d94e609894282a575" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XScuGic_SelfTest</definition>
+        <argsstring>(XScuGic *InstancePtr)</argsstring>
+        <name>XScuGic_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Runs a self-test on the driver/device. </para>        </briefdescription>
+        <detaileddescription>
+<para>This test reads the ID registers and compares them.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><verbatim>    -XST_SUCCESS if self-test is successful.
+    -XST_FAILURE if the self-test is not successful.</verbatim> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="654" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic_selftest.c" bodystart="67" bodyend="95"/>
+        <references refid="group__scugic__api_1ga797e50fb56fbc19bc35f73896decaf82" compoundref="xscugic_8h" startline="255">XScuGic::IsReady</references>
+        <references refid="group__scugic__api_1ga3d639fe1851f9d833367fb4322390eeb" compoundref="xscugic_8h" startline="334">XScuGic_DistReadReg</references>
+        <references refid="group__scugic__api_1gaeb56c44f88d7770aadf2b1fdbd3c24da" compoundref="xscugic__selftest_8c" startline="40">XSCUGIC_PCELL_ID</references>
+        <references refid="group__scugic__api_1ga41becddbff3dcc589f4c9d70d0177ff6" compoundref="xscugic__hw_8h" startline="209">XSCUGIC_PCELLID_OFFSET</references>
+        <referencedby refid="xscugic__example_8c_1af13568914659f91abee8b8f1be0bb209" compoundref="xscugic__example_8c" startline="220" endline="341">ScuGicExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__scugic__api_1ga9f2c28f54da589ba1000235cfb0929ba" prot="public" static="no">
+        <name>XSCUGIC_H</name>
+        <briefdescription>
+<para>&lt; prevent circular inclusions </para>        </briefdescription>
+        <detaileddescription>
+<para>by using protection macros </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor">#ifndef<sp/>XSCUGIC_H<sp/></highlight></codeline>
+<codeline lineno="158" refid="group__scugic__api_1ga9f2c28f54da589ba1000235cfb0929ba" refkind="member"><highlight class="preprocessor">#define<sp/>XSCUGIC_H<sp/></highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xscugic__hw_8h" kindref="compound">xscugic_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_exception.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_spinlock.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor">#define<sp/>EFUSE_STATUS_OFFSET<sp/><sp/><sp/>0x10</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EFUSE_STATUS_CPU_MASK<sp/>0x80</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined<sp/>(ARMR5)<sp/>&amp;&amp;<sp/>!defined<sp/>(__aarch64__)<sp/>&amp;&amp;<sp/>!defined<sp/>(ARMA53_32)</highlight></codeline>
+<codeline lineno="184" refid="group__scugic__api_1ga3dde6ae31d569b01dc88903a5340d744" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ARMA9<sp/></highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor">#define<sp/>XSCUGIC500_DCTLR_ARE_NS_ENABLE<sp/><sp/>0x20</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSCUGIC500_DCTLR_ARE_S_ENABLE<sp/><sp/>0x10</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(VERSAL_NET)</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSCUGIC_CLUSTERID_MASK<sp/>0xF0U</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSCUGIC_COREID_MASK<sp/>0xFU</highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSCUGIC_CLUSTERID_SHIFT<sp/>4U</highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSCUGIC_COREID_SHIFT<sp/>0U</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSCUGIC_SGI1R_AFFINITY1_SHIFT<sp/>16U</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSCUGIC_SGI1R_AFFINITY2_SHIFT<sp/>32U</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSCUGIC_IROUTER_AFFINITY1_SHIFT<sp/>8U</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSCUGIC_IROUTER_AFFINITY2_SHIFT<sp/>16U</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSCUGIC_IROUTER_IRM_MASK<sp/>0x80000000U</highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>The<sp/>following<sp/>data<sp/>type<sp/>defines<sp/>each<sp/>entry<sp/>in<sp/>an<sp/>interrupt<sp/>vector<sp/>table.</highlight></codeline>
+<codeline lineno="213"><highlight class="comment"><sp/>*<sp/>The<sp/>callback<sp/>reference<sp/>is<sp/>the<sp/>base<sp/>address<sp/>of<sp/>the<sp/>interrupting<sp/>device</highlight></codeline>
+<codeline lineno="214"><highlight class="comment"><sp/>*<sp/>for<sp/>the<sp/>low<sp/>level<sp/>driver<sp/>and<sp/>an<sp/>instance<sp/>pointer<sp/>for<sp/>the<sp/>high<sp/>level<sp/>driver.</highlight></codeline>
+<codeline lineno="215"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="218" refid="group__scugic__api_1ga5f67ecf54244b46e2570691626906397" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_InterruptHandler<sp/><ref refid="group__scugic__api_1ga5f67ecf54244b46e2570691626906397" kindref="member">Handler</ref>;<sp/></highlight></codeline>
+<codeline lineno="219" refid="group__scugic__api_1ga6969d00688039e7e14b25fadd8227398" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="group__scugic__api_1ga6969d00688039e7e14b25fadd8227398" kindref="member">CallBackRef</ref>;<sp/></highlight></codeline>
+<codeline lineno="224"><highlight class="normal">}<sp/>XScuGic_VectorTableEntry;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229" refid="struct_x_scu_gic___config" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="232"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DeviceId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>CpuBaseAddress;<sp/></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>DistBaseAddress;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="235"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="236" refid="group__scugic__api_1ga003522c9b6a6db98f6e1cf9f3dc42d1b" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="group__scugic__api_1ga003522c9b6a6db98f6e1cf9f3dc42d1b" kindref="member">Name</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="237" refid="group__scugic__api_1ga699bf6b8bb8bfbb652b647b78cfae695" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="group__scugic__api_1ga699bf6b8bb8bfbb652b647b78cfae695" kindref="member">DistBaseAddress</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="238" refid="group__scugic__api_1ga1bb3866706357e2cd84c657e0e703986" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="group__scugic__api_1ga1bb3866706357e2cd84c657e0e703986" kindref="member">CpuBaseAddress</ref>;<sp/></highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="240" refid="group__scugic__api_1ga7ea39fc648dff09faa2a238e9a054089" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic_VectorTableEntry<sp/>HandlerTable[<ref refid="group__scugic__api_1ga1027fc01e0c0efc80eadd0e6bb69f801" kindref="member">XSCUGIC_MAX_NUM_INTR_INPUTS</ref>];</highlight></codeline>
+<codeline lineno="242"><highlight class="normal">}<sp/><ref refid="struct_x_scu_gic___config" kindref="compound">XScuGic_Config</ref>;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249" refid="struct_x_scu_gic" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="251" refid="group__scugic__api_1ga231f58b4755a1856bbe3120370e5889e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_scu_gic___config" kindref="compound">XScuGic_Config</ref><sp/>*<ref refid="group__scugic__api_1ga231f58b4755a1856bbe3120370e5889e" kindref="member">Config</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="252"><highlight class="preprocessor">#if<sp/>defined<sp/>(GICv3)</highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>RedistBaseAddr;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="255" refid="group__scugic__api_1ga797e50fb56fbc19bc35f73896decaf82" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="group__scugic__api_1ga797e50fb56fbc19bc35f73896decaf82" kindref="member">IsReady</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="256" refid="group__scugic__api_1ga1fa65e4df0e0d8da24a557e1398c9df8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="group__scugic__api_1ga1fa65e4df0e0d8da24a557e1398c9df8" kindref="member">UnhandledInterrupts</ref>;<sp/></highlight></codeline>
+<codeline lineno="257"><highlight class="normal">}<sp/><ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref>;</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_scu_gic___config" kindref="compound">XScuGic_Config</ref><sp/><ref refid="group__scugic__api_1ga3de9d984ad4026ce214e09bf796cdc49" kindref="member">XScuGic_ConfigTable</ref>[];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="263"><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="280" refid="group__scugic__api_1ga2a4ba236ff7bfeab20b5ca81082f2b13" refkind="member"><highlight class="preprocessor">#define<sp/>XScuGic_CPUWriteReg(InstancePtr,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="281"><highlight class="preprocessor">(XScuGic_WriteReg(((InstancePtr)-&gt;Config-&gt;CpuBaseAddress),<sp/>(RegOffset),<sp/>\</highlight></codeline>
+<codeline lineno="282"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Data))))</highlight></codeline>
+<codeline lineno="283"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="298" refid="group__scugic__api_1ga2f3bba7c5247812158ef4fde7a0e7dfe" refkind="member"><highlight class="preprocessor">#define<sp/>XScuGic_CPUReadReg(InstancePtr,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="299"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XScuGic_ReadReg(((InstancePtr)-&gt;Config-&gt;CpuBaseAddress),<sp/>(RegOffset)))</highlight></codeline>
+<codeline lineno="300"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="316" refid="group__scugic__api_1ga22e9f81ed00f7cc39df1c6e76988fdb1" refkind="member"><highlight class="preprocessor">#define<sp/>XScuGic_DistWriteReg(InstancePtr,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="317"><highlight class="preprocessor">(XScuGic_WriteReg(((InstancePtr)-&gt;Config-&gt;DistBaseAddress),<sp/>(RegOffset),<sp/>\</highlight></codeline>
+<codeline lineno="318"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Data))))</highlight></codeline>
+<codeline lineno="319"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="334" refid="group__scugic__api_1ga3d639fe1851f9d833367fb4322390eeb" refkind="member"><highlight class="preprocessor">#define<sp/>XScuGic_DistReadReg(InstancePtr,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="335"><highlight class="preprocessor">(XScuGic_ReadReg(((InstancePtr)-&gt;Config-&gt;DistBaseAddress),<sp/>(RegOffset)))</highlight></codeline>
+<codeline lineno="336"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(GICv3)</highlight></codeline>
+<codeline lineno="338"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="353"><highlight class="preprocessor">#define<sp/>XScuGic_ReDistWriteReg(InstancePtr,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="354"><highlight class="preprocessor">(XScuGic_WriteReg(InstancePtr-&gt;RedistBaseAddr,<sp/>RegOffset,<sp/>(u32)Data))</highlight></codeline>
+<codeline lineno="355"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="356"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="370"><highlight class="preprocessor">#define<sp/>XScuGic_ReDistReadReg(InstancePtr,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="371"><highlight class="preprocessor">(XScuGic_ReadReg(InstancePtr-&gt;RedistBaseAddr,<sp/>RegOffset))</highlight></codeline>
+<codeline lineno="372"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="388"><highlight class="preprocessor">#define<sp/>XScuGic_ReDistSGIPPIWriteReg(InstancePtr,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="389"><highlight class="preprocessor">(XScuGic_WriteReg(InstancePtr-&gt;RedistBaseAddr<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="390"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSCUGIC_RDIST_SGI_PPI_OFFSET,<sp/>(RegOffset),<sp/>((u32)(Data))))</highlight></codeline>
+<codeline lineno="391"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="392"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="406"><highlight class="preprocessor">#define<sp/>XScuGic_ReDistSGIPPIReadReg(InstancePtr,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="407"><highlight class="preprocessor">(XScuGic_ReadReg(InstancePtr-&gt;RedistBaseAddr<sp/>+<sp/>XSCUGIC_RDIST_SGI_PPI_OFFSET,<sp/>\</highlight></codeline>
+<codeline lineno="408"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegOffset))</highlight></codeline>
+<codeline lineno="409"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="410"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(ARMR52)</highlight></codeline>
+<codeline lineno="411"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_ICC_SRE_EL1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;p15,<sp/>0,<sp/>%0,<sp/><sp/>c12,<sp/><sp/>c12,<sp/>5&quot;</highlight></codeline>
+<codeline lineno="412"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_ICC_IGRPEN0_EL1<sp/><sp/><sp/><sp/>&quot;p15,<sp/>0,<sp/>%0,<sp/><sp/>c12,<sp/><sp/>c12,<sp/>6&quot;</highlight></codeline>
+<codeline lineno="413"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_ICC_IGRPEN1_EL1<sp/><sp/><sp/><sp/>&quot;p15,<sp/>0,<sp/>%0,<sp/><sp/>c12,<sp/><sp/>c12,<sp/>7&quot;</highlight></codeline>
+<codeline lineno="414"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_ICC_SGI0R_EL1<sp/><sp/><sp/><sp/><sp/><sp/>&quot;p15,<sp/>2,<sp/>%0,<sp/><sp/>%1,<sp/><sp/>c12&quot;</highlight></codeline>
+<codeline lineno="415"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_ICC_SGI1R_EL1<sp/><sp/><sp/><sp/><sp/><sp/>&quot;p15,<sp/>0,<sp/>%0,<sp/><sp/>%1,<sp/><sp/>c12&quot;</highlight></codeline>
+<codeline lineno="416"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_ICC_PMR_EL1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;p15,<sp/>0,<sp/>%0,<sp/><sp/>c4,<sp/><sp/>c6,<sp/>0&quot;</highlight></codeline>
+<codeline lineno="417"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_ICC_IAR0_EL1<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;p15,<sp/>0,<sp/>%0,<sp/><sp/>c12,<sp/><sp/>c8,<sp/>0&quot;</highlight></codeline>
+<codeline lineno="418"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_ICC_IAR1_EL1<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;p15,<sp/>0,<sp/>%0,<sp/><sp/>c12,<sp/><sp/>c12,<sp/>0&quot;</highlight></codeline>
+<codeline lineno="419"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_ICC_EOIR0_EL1<sp/><sp/><sp/><sp/><sp/><sp/>&quot;p15,<sp/>0,<sp/>%0,<sp/><sp/>c12,<sp/><sp/>c8,<sp/>1&quot;</highlight></codeline>
+<codeline lineno="420"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_ICC_EOIR1_EL1<sp/><sp/><sp/><sp/><sp/><sp/>&quot;p15,<sp/>0,<sp/>%0,<sp/><sp/>c12,<sp/><sp/>c12,<sp/>1&quot;</highlight></codeline>
+<codeline lineno="421"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_IMP_CBAR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;p15,<sp/>1,<sp/>%0,<sp/>c15,<sp/>c3,<sp/>0&quot;</highlight></codeline>
+<codeline lineno="422"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_ICC_BPR0_EL1<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;p15,<sp/>0,<sp/>%0,<sp/>c12,<sp/>c8,<sp/>3&quot;</highlight></codeline>
+<codeline lineno="423"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_ICC_BPR1_EL1<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;p15,<sp/>0,<sp/>%0,<sp/>c12,<sp/>c12,<sp/>3&quot;</highlight></codeline>
+<codeline lineno="424"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_ICC_RPR_EL1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;p15,<sp/>0,<sp/>%0,<sp/>c12,<sp/>c11,<sp/>3&quot;</highlight></codeline>
+<codeline lineno="425"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="426"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_ICC_SRE_EL1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;S3_0_C12_C12_5&quot;</highlight></codeline>
+<codeline lineno="427"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_ICC_SRE_EL3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;S3_6_C12_C12_5&quot;</highlight></codeline>
+<codeline lineno="428"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_ICC_IGRPEN0_EL1<sp/><sp/><sp/><sp/>&quot;S3_0_C12_C12_6&quot;</highlight></codeline>
+<codeline lineno="429"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_ICC_IGRPEN1_EL1<sp/><sp/><sp/><sp/>&quot;S3_0_C12_C12_7&quot;</highlight></codeline>
+<codeline lineno="430"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_ICC_IGRPEN1_EL3<sp/><sp/><sp/><sp/>&quot;S3_6_C12_C12_7&quot;</highlight></codeline>
+<codeline lineno="431"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_ICC_SGI0R_EL1<sp/><sp/><sp/><sp/><sp/><sp/>&quot;S3_0_C12_C11_7&quot;</highlight></codeline>
+<codeline lineno="432"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_ICC_SGI1R_EL1<sp/><sp/><sp/><sp/><sp/><sp/>&quot;S3_0_C12_C11_5&quot;</highlight></codeline>
+<codeline lineno="433"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_ICC_PMR_EL1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;S3_0_C4_C6_0&quot;</highlight></codeline>
+<codeline lineno="434"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_ICC_IAR0_EL1<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;S3_0_C12_C8_0&quot;</highlight></codeline>
+<codeline lineno="435"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_ICC_IAR1_EL1<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;S3_0_C12_C12_0&quot;</highlight></codeline>
+<codeline lineno="436"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_ICC_EOIR0_EL1<sp/><sp/><sp/><sp/><sp/><sp/>&quot;S3_0_C12_C8_1&quot;</highlight></codeline>
+<codeline lineno="437"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XREG_ICC_EOIR1_EL1<sp/><sp/><sp/><sp/><sp/><sp/>&quot;S3_0_C12_C12_1&quot;</highlight></codeline>
+<codeline lineno="438"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="439"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="449"><highlight class="preprocessor">#if<sp/>defined<sp/>(__aarch64__)</highlight></codeline>
+<codeline lineno="450"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XScuGic_Enable_SystemReg_CPU_Interface_EL3()<sp/>mtcpnotoken(XREG_ICC_SRE_EL3,<sp/>(u64)0xF);</highlight></codeline>
+<codeline lineno="451"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XScuGic_Enable_SystemReg_CPU_Interface_EL1()<sp/>mtcpnotoken(XREG_ICC_SRE_EL1,<sp/>(u64)0xF);</highlight></codeline>
+<codeline lineno="452"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>defined<sp/>(ARMR52)</highlight></codeline>
+<codeline lineno="453"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XScuGic_Enable_SystemReg_CPU_Interface_EL1()<sp/>mtcp(XREG_ICC_SRE_EL1,<sp/>0xF);</highlight></codeline>
+<codeline lineno="454"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="455"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="465"><highlight class="preprocessor">#if<sp/>defined(ARMR52)</highlight></codeline>
+<codeline lineno="466"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XScuGic_Enable_Group0_Interrupts()<sp/>mtcp(XREG_ICC_IGRPEN0_EL1,0x1);</highlight></codeline>
+<codeline lineno="467"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="468"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XScuGic_Enable_Group0_Interrupts()<sp/>mtcpnotoken(XREG_ICC_IGRPEN0_EL1,(u64)0x1);</highlight></codeline>
+<codeline lineno="469"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="470"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="480"><highlight class="preprocessor">#if<sp/>defined<sp/>(ARMR52)</highlight></codeline>
+<codeline lineno="481"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="482"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XScuGic_Enable_Group1_Interrupts()<sp/>\</highlight></codeline>
+<codeline lineno="483"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mtcp<sp/>(XREG_ICC_IGRPEN1_EL1,<sp/>0x1<sp/>|<sp/>mfcp(XREG_ICC_IGRPEN1_EL1)<sp/>);</highlight></codeline>
+<codeline lineno="484"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>EL1_NONSECURE</highlight></codeline>
+<codeline lineno="485"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XScuGic_Enable_Group1_Interrupts()<sp/>\</highlight></codeline>
+<codeline lineno="486"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mtcpnotoken(XREG_ICC_IGRPEN1_EL1,<sp/>0x1<sp/>|<sp/>mfcpnotoken(XREG_ICC_IGRPEN1_EL1)<sp/>);</highlight></codeline>
+<codeline lineno="487"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="488"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XScuGic_Enable_Group1_Interrupts()<sp/>\</highlight></codeline>
+<codeline lineno="489"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mtcpnotoken(XREG_ICC_IGRPEN1_EL3,<sp/>0x1<sp/>|<sp/>mfcpnotoken(XREG_ICC_IGRPEN1_EL3)<sp/>);</highlight></codeline>
+<codeline lineno="490"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="491"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="501"><highlight class="preprocessor">#if<sp/>defined(ARMR52)</highlight></codeline>
+<codeline lineno="502"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XScuGic_WriteICC_SGI0R_EL1(val)<sp/>mtcp2(XREG_ICC_SGI0R_EL1,val)</highlight></codeline>
+<codeline lineno="503"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="504"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XScuGic_WriteICC_SGI0R_EL1(val)<sp/>mtcpnotoken(XREG_ICC_SGI0R_EL1,val)</highlight></codeline>
+<codeline lineno="505"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="506"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="507"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="517"><highlight class="preprocessor">#if<sp/>defined(ARMR52)</highlight></codeline>
+<codeline lineno="518"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XScuGic_WriteICC_SGI1R_EL1(val)<sp/>mtcp2(XREG_ICC_SGI1R_EL1,val)</highlight></codeline>
+<codeline lineno="519"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="520"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XScuGic_WriteICC_SGI1R_EL1(val)<sp/>mtcpnotoken(XREG_ICC_SGI1R_EL1,val)</highlight></codeline>
+<codeline lineno="521"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="522"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="523"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="533"><highlight class="preprocessor">#if<sp/>defined<sp/>(ARMR52)</highlight></codeline>
+<codeline lineno="534"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XScuGic_ReadICC_SGI1R_EL1()<sp/>mfcp(XREG_ICC_SGI1R_EL1)</highlight></codeline>
+<codeline lineno="535"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="536"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XScuGic_ReadICC_SGI1R_EL1()<sp/>mfcpnotoken(XREG_ICC_SGI1R_EL1)</highlight></codeline>
+<codeline lineno="537"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="538"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="548"><highlight class="preprocessor">#if<sp/>defined<sp/>(ARMR52)</highlight></codeline>
+<codeline lineno="549"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XScuGic_set_priority_filter(val)<sp/><sp/>mtcp(XREG_ICC_PMR_EL1,<sp/>val)</highlight></codeline>
+<codeline lineno="550"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="551"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XScuGic_set_priority_filter(val)<sp/><sp/>mtcpnotoken(XREG_ICC_PMR_EL1,<sp/>(u64)val)</highlight></codeline>
+<codeline lineno="552"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="553"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="563"><highlight class="preprocessor">#if<sp/>defined(ARMR52)</highlight></codeline>
+<codeline lineno="564"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XScuGic_get_IntID()<sp/><sp/>mfcp(XREG_ICC_IAR1_EL1)</highlight></codeline>
+<codeline lineno="565"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>EL3</highlight></codeline>
+<codeline lineno="566"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XScuGic_get_IntID()<sp/><sp/>mfcpnotoken(XREG_ICC_IAR0_EL1)</highlight></codeline>
+<codeline lineno="567"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="568"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XScuGic_get_IntID()<sp/><sp/>mfcpnotoken(XREG_ICC_IAR1_EL1)</highlight></codeline>
+<codeline lineno="569"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="570"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="580"><highlight class="preprocessor">#if<sp/>defined(ARMR52)</highlight></codeline>
+<codeline lineno="581"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XScuGic_ack_Int(val)<sp/><sp/><sp/>mtcp(XREG_ICC_EOIR1_EL1,val)</highlight></codeline>
+<codeline lineno="582"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>EL3</highlight></codeline>
+<codeline lineno="583"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XScuGic_ack_Int(val)<sp/><sp/><sp/>mtcpnotoken(XREG_ICC_EOIR0_EL1,(u64)val)</highlight></codeline>
+<codeline lineno="584"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="585"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XScuGic_ack_Int(val)<sp/><sp/><sp/>mtcpnotoken(XREG_ICC_EOIR1_EL1,val)</highlight></codeline>
+<codeline lineno="586"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="587"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="598"><highlight class="preprocessor">#define<sp/>XScuGic_Get_Rdist_Int_Trigger_Index(IntrId)<sp/><sp/>((Int_Id%16)<sp/>*<sp/>2U)</highlight></codeline>
+<codeline lineno="599"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="600"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="601"><highlight class="normal"></highlight></codeline>
+<codeline lineno="602"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="603"><highlight class="comment"><sp/>*<sp/>Required<sp/>functions<sp/>in<sp/>xscugic.c</highlight></codeline>
+<codeline lineno="604"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="605"><highlight class="normal"></highlight></codeline>
+<codeline lineno="606"><highlight class="normal">s32<sp/><sp/><ref refid="group__scugic__api_1ga48f9dd531aa861a74e6bd627943573ea" kindref="member">XScuGic_Connect</ref>(<ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref><sp/>*InstancePtr,<sp/>u32<sp/>Int_Id,</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_InterruptHandler<sp/>Handler,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef);</highlight></codeline>
+<codeline lineno="608"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__scugic__api_1gad162acedbbd41fd890fc7f2225ed480b" kindref="member">XScuGic_Disconnect</ref>(<ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref><sp/>*InstancePtr,<sp/>u32<sp/>Int_Id);</highlight></codeline>
+<codeline lineno="609"><highlight class="normal"></highlight></codeline>
+<codeline lineno="610"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__scugic__api_1gac965b9e3ae7668a92cf07a65bde142cc" kindref="member">XScuGic_Enable</ref>(<ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref><sp/>*InstancePtr,<sp/>u32<sp/>Int_Id);</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__scugic__api_1gaafd153e16238a1189c513846675e096a" kindref="member">XScuGic_Disable</ref>(<ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref><sp/>*InstancePtr,<sp/>u32<sp/>Int_Id);</highlight></codeline>
+<codeline lineno="612"><highlight class="normal"></highlight></codeline>
+<codeline lineno="613"><highlight class="normal">s32<sp/><sp/><ref refid="group__scugic__api_1gaf8e0bfe31c0fa2ca654c36715a3c13f8" kindref="member">XScuGic_CfgInitialize</ref>(<ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_scu_gic___config" kindref="compound">XScuGic_Config</ref><sp/>*ConfigPtr,</highlight></codeline>
+<codeline lineno="614"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EffectiveAddr);</highlight></codeline>
+<codeline lineno="615"><highlight class="normal"></highlight></codeline>
+<codeline lineno="616"><highlight class="normal">s32<sp/><sp/><ref refid="group__scugic__api_1gaca28a576540ab5fcd75cee1f38917ae4" kindref="member">XScuGic_SoftwareIntr</ref>(<ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref><sp/>*InstancePtr,<sp/>u32<sp/>Int_Id,<sp/>u32<sp/>Cpu_Identifier);</highlight></codeline>
+<codeline lineno="617"><highlight class="normal"></highlight></codeline>
+<codeline lineno="618"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__scugic__api_1ga6ed162180ffb45b082c2fbe23951ba13" kindref="member">XScuGic_GetPriorityTriggerType</ref>(<ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref><sp/>*InstancePtr,<sp/>u32<sp/>Int_Id,</highlight></codeline>
+<codeline lineno="619"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*Priority,<sp/>u8<sp/>*Trigger);</highlight></codeline>
+<codeline lineno="620"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__scugic__api_1ga79abd6248cb578142e9c475f20dbeb06" kindref="member">XScuGic_SetPriorityTriggerType</ref>(<ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref><sp/>*InstancePtr,<sp/>u32<sp/>Int_Id,</highlight></codeline>
+<codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Priority,<sp/>u8<sp/>Trigger);</highlight></codeline>
+<codeline lineno="622"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__scugic__api_1ga2a94f1a519d965f051d598e5a6b5a855" kindref="member">XScuGic_InterruptMaptoCpu</ref>(<ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref><sp/>*InstancePtr,<sp/>u8<sp/>Cpu_Identifier,<sp/>u32<sp/>Int_Id);</highlight></codeline>
+<codeline lineno="623"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__scugic__api_1ga04f8ea74458251784b293e4ad98f2d74" kindref="member">XScuGic_InterruptUnmapFromCpu</ref>(<ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref><sp/>*InstancePtr,<sp/>u8<sp/>Cpu_Identifier,<sp/>u32<sp/>Int_Id);</highlight></codeline>
+<codeline lineno="624"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__scugic__api_1ga66b2416be64a5e582e530ed9ed7f962c" kindref="member">XScuGic_UnmapAllInterruptsFromCpu</ref>(<ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref><sp/>*InstancePtr,<sp/>u8<sp/>Cpu_Identifier);</highlight></codeline>
+<codeline lineno="625"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__scugic__api_1ga6146a0489a1c748ceeaee729639d48a7" kindref="member">XScuGic_Stop</ref>(<ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="626"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__scugic__api_1ga945e029b4356be809020c81745c4a23b" kindref="member">XScuGic_SetCpuID</ref>(u32<sp/>CpuCoreId);</highlight></codeline>
+<codeline lineno="627"><highlight class="normal">u32<sp/><ref refid="group__scugic__api_1ga6c30ba79ea9505dc29b9cac4deea3df8" kindref="member">XScuGic_GetCpuID</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="628"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="629"><highlight class="preprocessor"></highlight><highlight class="normal">u8<sp/><ref refid="group__scugic__api_1ga61b776573423fcfb32d9eb30010b17a8" kindref="member">XScuGic_IsInitialized</ref>(u32<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="630"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="631"><highlight class="preprocessor"></highlight><highlight class="normal">u8<sp/><ref refid="group__scugic__api_1ga61b776573423fcfb32d9eb30010b17a8" kindref="member">XScuGic_IsInitialized</ref>(u32<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="632"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="633"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="634"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="635"><highlight class="comment"><sp/>*<sp/>Lookup<sp/>configuration<sp/>by<sp/>using<sp/>DeviceId</highlight></codeline>
+<codeline lineno="636"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="637"><highlight class="normal"><ref refid="struct_x_scu_gic___config" kindref="compound">XScuGic_Config</ref><sp/>*<ref refid="group__scugic__api_1ga8ed9875ae4c92a9688a2916ceb0306d8" kindref="member">XScuGic_LookupConfig</ref>(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="638"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="639"><highlight class="comment"><sp/>*<sp/>Lookup<sp/>configuration<sp/>by<sp/>using<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="640"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="641"><highlight class="normal"><ref refid="struct_x_scu_gic___config" kindref="compound">XScuGic_Config</ref><sp/>*XScuGic_LookupConfigBaseAddr(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="642"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="643"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_scu_gic___config" kindref="compound">XScuGic_Config</ref><sp/>*<ref refid="group__scugic__api_1ga8ed9875ae4c92a9688a2916ceb0306d8" kindref="member">XScuGic_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="644"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="645"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="646"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="647"><highlight class="comment"><sp/>*<sp/>Interrupt<sp/>functions<sp/>in<sp/>xscugic_intr.c</highlight></codeline>
+<codeline lineno="648"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="649"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__scugic__api_1gaa26a952ecd376be0bc3d8433023d1364" kindref="member">XScuGic_InterruptHandler</ref>(<ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="650"><highlight class="normal"></highlight></codeline>
+<codeline lineno="651"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="652"><highlight class="comment"><sp/>*<sp/>Self-test<sp/>functions<sp/>in<sp/>xscugic_selftest.c</highlight></codeline>
+<codeline lineno="653"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="654"><highlight class="normal">s32<sp/><sp/><ref refid="group__scugic__api_1ga081a9a62546b413d94e609894282a575" kindref="member">XScuGic_SelfTest</ref>(<ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="655"><highlight class="normal"></highlight></codeline>
+<codeline lineno="656"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(GICv3)</highlight></codeline>
+<codeline lineno="657"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XScuGic_MarkCoreAsleep(<ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="658"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XScuGic_MarkCoreAwake(<ref refid="struct_x_scu_gic" kindref="compound">XScuGic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="659"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="660"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="661"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="662"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="663"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="664"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="665"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scugic/src/xscugic.h"/>
+  </compounddef>
+</doxygen>

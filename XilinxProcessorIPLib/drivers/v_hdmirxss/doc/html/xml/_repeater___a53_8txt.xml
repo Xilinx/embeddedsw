@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="_repeater___a53_8txt" kind="file">
+    <compoundname>Repeater_A53.txt</compoundname>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="_repeater___a53_8txt_1a86d00db9560efc2ee295686a87c479b8" prot="public" static="no" mutable="no">
+        <type>BLOCK ATTRIBUTES CONTENTS OF THIS FILE *Introduction *Features *System illustration *UART menu illustration INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI Transmitter and Receiver running on the same hardware with the HDCP configured as a Repeater For</type>
+        <definition>BLOCK ATTRIBUTES CONTENTS OF THIS FILE* Introduction* Features* System illustration* UART menu illustration INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI Transmitter and Receiver running on the same hardware with the HDCP configured as a Repeater For see xhdmi_example c FEATURES* HDMI RX is to receive and lock to the incoming HDMI stream from the SOURCE* By HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK* If Color Bar module is a test pattern generator IP will generate video stream according to user then HDMI TX will transmit HDMI stream to the downstream SINK* There is an additional option to not start the colorbar mode when the Repeater is enabled This will make the HDCP authentication process over the Repeater more robust* If the the application will supports HDCP handling in both HDMI TX and RX This will be implemented as a Repeater The HDCP TX will be driven by the HDCP RX For details</definition>
+        <argsstring></argsstring>
+        <name>details</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/dummy/Repeater_A53.txt" line="18" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/dummy/Repeater_A53.txt" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_repeater___a53_8txt_1a6d742e72859b76723c073a2115d7afc0" prot="public" static="no" mutable="no">
+        <type>BLOCK ATTRIBUTES CONTENTS OF THIS FILE *Introduction *Features *System illustration *UART menu illustration INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI Transmitter and Receiver running on the same hardware with the HDCP configured as a Repeater For see xhdmi_example c FEATURES *HDMI RX is to receive and lock to the incoming HDMI stream from the SOURCE *By</type>
+        <definition>BLOCK ATTRIBUTES CONTENTS OF THIS FILE* Introduction* Features* System illustration* UART menu illustration INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI Transmitter and Receiver running on the same hardware with the HDCP configured as a Repeater For see xhdmi_example c FEATURES* HDMI RX is to receive and lock to the incoming HDMI stream from the SOURCE* By default</definition>
+        <argsstring></argsstring>
+        <name>default</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/dummy/Repeater_A53.txt" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/dummy/Repeater_A53.txt" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_repeater___a53_8txt_1a126674009b0203bd45abc135a10d1aab" prot="public" static="no" mutable="no">
+        <type>BLOCK ATTRIBUTES CONTENTS OF THIS FILE *Introduction *Features *System illustration *UART menu illustration INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI Transmitter and Receiver running on the same hardware with the HDCP configured as a Repeater For see xhdmi_example c FEATURES *HDMI RX is to receive and lock to the incoming HDMI stream from the SOURCE *By HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK *If Color Bar module is a test pattern generator IP will generate video stream according to user then HDMI TX will transmit HDMI stream to the downstream SINK *There is an additional option to not start the colorbar mode when the Repeater is enabled This will make the HDCP authentication process over the Repeater more robust *If the the application will supports HDCP handling in both HDMI TX and RX This will be implemented as a Repeater The HDCP TX will be driven by the HDCP RX For please refer to</type>
+        <definition>BLOCK ATTRIBUTES CONTENTS OF THIS FILE* Introduction* Features* System illustration* UART menu illustration INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI Transmitter and Receiver running on the same hardware with the HDCP configured as a Repeater For see xhdmi_example c FEATURES* HDMI RX is to receive and lock to the incoming HDMI stream from the SOURCE* By HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK* If Color Bar module is a test pattern generator IP will generate video stream according to user then HDMI TX will transmit HDMI stream to the downstream SINK* There is an additional option to not start the colorbar mode when the Repeater is enabled This will make the HDCP authentication process over the Repeater more robust* If the the application will supports HDCP handling in both HDMI TX and RX This will be implemented as a Repeater The HDCP TX will be driven by the HDCP RX For please refer to PG235</definition>
+        <argsstring></argsstring>
+        <name>PG235</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/dummy/Repeater_A53.txt" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/dummy/Repeater_A53.txt" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_repeater___a53_8txt_1a0c3f71b5424019cc57bf9da528512fdb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>BLOCK ATTRIBUTES CONTENTS OF THIS FILE *Introduction *Features *System illustration *UART menu illustration INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI Transmitter and Receiver running on the same hardware with the HDCP configured as a Repeater For see xhdmi_example c FEATURES *HDMI RX is to receive and lock to the incoming HDMI stream from the SOURCE *By HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK *If Color Bar module is</type>
+        <definition>BLOCK ATTRIBUTES CONTENTS OF THIS FILE* Introduction* Features* System illustration* UART menu illustration INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI Transmitter and Receiver running on the same hardware with the HDCP configured as a Repeater For see xhdmi_example c FEATURES* HDMI RX is to receive and lock to the incoming HDMI stream from the SOURCE* By HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK* If Color Bar module is selected</definition>
+        <argsstring>(via UART menu)</argsstring>
+        <name>selected</name>
+        <param>
+          <type>via UART</type>
+          <declname>menu</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/dummy/Repeater_A53.txt" line="25" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_repeater___a53_8txt_1a3335a4802102df80e985b60c140162fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>BLOCK ATTRIBUTES CONTENTS OF THIS FILE *Introduction *Features *System illustration *UART menu illustration INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI Transmitter and Receiver running on the same hardware with the HDCP configured as a Repeater For see xhdmi_example c FEATURES *HDMI RX is to receive and lock to the incoming HDMI stream from the SOURCE *By HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK *If Color Bar module is a test pattern generator IP will generate video stream according to user</type>
+        <definition>BLOCK ATTRIBUTES CONTENTS OF THIS FILE* Introduction* Features* System illustration* UART menu illustration INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI Transmitter and Receiver running on the same hardware with the HDCP configured as a Repeater For see xhdmi_example c FEATURES* HDMI RX is to receive and lock to the incoming HDMI stream from the SOURCE* By HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK* If Color Bar module is a test pattern generator IP will generate video stream according to user selection</definition>
+        <argsstring>(via UART)</argsstring>
+        <name>selection</name>
+        <param>
+          <type>via</type>
+          <declname>UART</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/dummy/Repeater_A53.txt" line="25" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_repeater___a53_8txt_1aefb9cdebd301b4e02e353ea7d0144b98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>BLOCK ATTRIBUTES CONTENTS OF THIS FILE *Introduction *Features *System illustration *UART menu illustration INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI Transmitter and Receiver running on the same hardware with the HDCP configured as a Repeater For see xhdmi_example c FEATURES *HDMI RX is to receive and lock to the incoming HDMI stream from the SOURCE *By HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK *If Color Bar module is a test pattern generator IP will generate video stream according to user then HDMI TX will transmit HDMI stream to the downstream SINK *There is an additional option to not start the colorbar mode when the Repeater is enabled This will make the HDCP authentication process over the Repeater more robust *If the</type>
+        <definition>BLOCK ATTRIBUTES CONTENTS OF THIS FILE* Introduction* Features* System illustration* UART menu illustration INTRODUCTION This example application is built to demonstrate the functionality of Xilinx HDMI Transmitter and Receiver running on the same hardware with the HDCP configured as a Repeater For see xhdmi_example c FEATURES* HDMI RX is to receive and lock to the incoming HDMI stream from the SOURCE* By HDMI TX is to transmit HDMI stream received from the SOURCE by the RX to the SINK* If Color Bar module is a test pattern generator IP will generate video stream according to user then HDMI TX will transmit HDMI stream to the downstream SINK* There is an additional option to not start the colorbar mode when the Repeater is enabled This will make the HDCP authentication process over the Repeater more robust* If the HDCP</definition>
+        <argsstring>(1.4, 2.2 or both) is enabled by the hardware</argsstring>
+        <name>HDCP</name>
+        <param>
+          <type>1.</type>
+          <declname>4</declname>
+        </param>
+        <param>
+          <type>2.2 or</type>
+          <declname>both</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/dummy/Repeater_A53.txt" line="27" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal">BLOCK<sp/>ATTRIBUTES</highlight></codeline>
+<codeline lineno="2"><highlight class="normal">----------------</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal">CONTENTS<sp/>OF<sp/>THIS<sp/>FILE</highlight></codeline>
+<codeline lineno="5"><highlight class="normal">---------------------</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/>*<sp/>Introduction</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/>*<sp/>Features</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/>*<sp/>System<sp/>illustration</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/>*<sp/>UART<sp/>menu<sp/>illustration</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal">1.<sp/>INTRODUCTION</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">------------</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal">This<sp/>example<sp/>application<sp/>is<sp/>built<sp/>to<sp/>demonstrate<sp/>the<sp/>functionality<sp/>of<sp/>Xilinx<sp/>HDMI<sp/>Transmitter<sp/>and<sp/>Receiver<sp/>running<sp/>on<sp/>the<sp/>same<sp/>hardware<sp/>with<sp/>the<sp/>HDCP<sp/>configured<sp/>as<sp/>a<sp/>Repeater.</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal">For<sp/>details,<sp/>see<sp/>xhdmi_example.c.</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal">2.<sp/>FEATURES</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">------------</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">*<sp/>HDMI<sp/>RX<sp/>is<sp/>to<sp/>receive<sp/>and<sp/>lock<sp/>to<sp/>the<sp/>incoming<sp/>HDMI<sp/>stream<sp/>from<sp/>the<sp/>SOURCE.</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">*<sp/>By<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">,<sp/>HDMI<sp/>TX<sp/>is<sp/>to<sp/>transmit<sp/>HDMI<sp/>stream<sp/>received<sp/>from<sp/>the<sp/>SOURCE<sp/>by<sp/>the<sp/>RX<sp/>to<sp/>the<sp/>SINK.</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">*<sp/>If<sp/>Color<sp/>Bar<sp/>module<sp/>is<sp/>selected<sp/>(via<sp/>UART<sp/>menu),<sp/>a<sp/>test<sp/>pattern<sp/>generator<sp/>IP<sp/>will<sp/>generate<sp/>video<sp/>stream<sp/>according<sp/>to<sp/>user<sp/>selection<sp/>(via<sp/>UART),<sp/>then<sp/>HDMI<sp/>TX<sp/>will<sp/>transmit<sp/>HDMI<sp/>stream<sp/>to<sp/>the<sp/>downstream<sp/>SINK.</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">*<sp/>There<sp/>is<sp/>an<sp/>additional<sp/>option<sp/>to<sp/>not<sp/>start<sp/>the<sp/>colorbar<sp/>mode<sp/>when<sp/>the<sp/>Repeater<sp/>is<sp/>enabled.<sp/>This<sp/>will<sp/>make<sp/>the<sp/>HDCP<sp/>authentication<sp/>process<sp/>over<sp/>the<sp/>Repeater<sp/>more<sp/>robust.</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">*<sp/>If<sp/>the<sp/>HDCP<sp/>(1.4,<sp/>2.2<sp/>or<sp/>both)<sp/>is<sp/>enabled<sp/>by<sp/>the<sp/>hardware,<sp/>the<sp/>application<sp/>will<sp/>supports<sp/>HDCP<sp/>handling<sp/>in<sp/>both<sp/>HDMI<sp/>TX<sp/>and<sp/>RX.<sp/>This<sp/>will<sp/>be<sp/>implemented<sp/>as<sp/>a<sp/>Repeater.<sp/>The<sp/>HDCP<sp/>TX<sp/>will<sp/>be<sp/>driven<sp/>by<sp/>the<sp/>HDCP<sp/>RX.</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal">For<sp/>details,<sp/>please<sp/>refer<sp/>to<sp/>PG235,<sp/>PG236<sp/>and<sp/>PG230.</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal">3.<sp/>SYSTEM<sp/>ILLUSTRATION</highlight></codeline>
+<codeline lineno="33"><highlight class="normal">---------------------</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal">A<sp/>system<sp/>illustration<sp/>is<sp/>shown<sp/>as<sp/>below.</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>----------<sp/><sp/><sp/><sp/><sp/>-------------<sp/><sp/><sp/><sp/><sp/>--------</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>SOURCE<sp/>|----&gt;|<sp/>RX<sp/><sp/>|<sp/>TX<sp/><sp/>|----&gt;|<sp/>SINK<sp/>|</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/>|<sp/><sp/>REPEATER<sp/>|<sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>----------<sp/><sp/><sp/><sp/><sp/>-------------<sp/><sp/><sp/><sp/><sp/>--------</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal">4.<sp/>UART<sp/>MENU<sp/>ILLUSTRATION</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">------------------------</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal">---------------------</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">---<sp/><sp/><sp/>MAIN<sp/>MENU<sp/><sp/><sp/>---</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">---------------------</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">i<sp/>-<sp/>Info</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=&gt;<sp/>Shows<sp/>information<sp/>about<sp/>the<sp/>HDMI<sp/>RX<sp/>stream,<sp/>HDMI<sp/>TX<sp/>stream,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GT<sp/>transceivers<sp/>and<sp/>PLL<sp/>settings.</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">c<sp/>-<sp/>Colorbar</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=&gt;<sp/>Displays<sp/>the<sp/>colorbar<sp/>on<sp/>the<sp/>source<sp/>output.</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">r<sp/>-<sp/>Resolution</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=&gt;<sp/>Change<sp/>the<sp/>video<sp/>resolution<sp/>of<sp/>the<sp/>colorbar.</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">f<sp/>-<sp/>Frame<sp/>rate</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=&gt;<sp/>Change<sp/>the<sp/>frame<sp/>rate<sp/>of<sp/>the<sp/>colorbar.</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">d<sp/>-<sp/>Color<sp/>depth</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=&gt;<sp/>Change<sp/>the<sp/>color<sp/>depth<sp/>of<sp/>the<sp/>colorbar.</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">s<sp/>-<sp/>Color<sp/>space</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=&gt;<sp/>Change<sp/>the<sp/>color<sp/>space<sp/>of<sp/>the<sp/>colorbar.</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">p<sp/>-<sp/>Pass-through</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=&gt;<sp/>Passes<sp/>the<sp/>sink<sp/>input<sp/>to<sp/>source<sp/>output.</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">l<sp/>-<sp/>GT<sp/>PLL<sp/>layout</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=&gt;<sp/>Select<sp/>GT<sp/>transceiver<sp/>PLL<sp/>layout.</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">z<sp/>-<sp/>GT<sp/>&amp;<sp/>HDMI<sp/>TX/RX<sp/>log</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=&gt;<sp/>Shows<sp/>log<sp/>information<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>GT<sp/>&amp;<sp/>HDMI<sp/>TX/RX.</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">e<sp/>-<sp/>Edid</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=&gt;<sp/>Display<sp/>and<sp/>set<sp/>edid.</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">a<sp/>-<sp/>Audio</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=&gt;<sp/>Audio<sp/>options.</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">v<sp/>-<sp/>Video</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=&gt;<sp/>Video<sp/>pattern<sp/>options.</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">m<sp/>-<sp/>Set<sp/>HDMI<sp/>Mode</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">n<sp/>-<sp/>Set<sp/>DVI<sp/>Mode</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">h<sp/>-<sp/>HDCP</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=&gt;<sp/>Goto<sp/>HDCP<sp/>menu.</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/dummy/Repeater_A53.txt"/>
+  </compounddef>
+</doxygen>

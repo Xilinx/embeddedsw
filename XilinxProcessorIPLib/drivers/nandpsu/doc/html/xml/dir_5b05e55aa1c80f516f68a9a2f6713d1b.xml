@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_5b05e55aa1c80f516f68a9a2f6713d1b" kind="dir">
+    <compoundname>nandpsu</compoundname>
+    <innerdir refid="dir_a55b8daa7f5e4ec5f0187667cc0de9f2">examples</innerdir>
+    <innerdir refid="dir_43125d423256f73b749b56973f378af6">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/"/>
+  </compounddef>
+</doxygen>

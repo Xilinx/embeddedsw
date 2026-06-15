@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_trngpsx___config" kind="struct" prot="public">
+    <compoundname>XTrngpsx_Config</compoundname>
+    <includes local="no">xtrngpsx.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_trngpsx___config_1a8bf1d2809ae940e23cb6b05596d9e85a" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XTrngpsx_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_trngpsx___config_1a620f1d30b205b73853ba2944daf3792d" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XTrngpsx_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>BaseAddress is the physical base address of the device&apos;s registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga6b5653250d7dad396a064b0ba6fa5c34" compoundref="xtrngpsx_8c" startline="331" endline="365">XTrngpsx_CfgInitialize</referencedby>
+        <referencedby refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</referencedby>
+        <referencedby refid="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" compoundref="xtrngpsx_8c" startline="753" endline="784">XTrngpsx_Uninstantiate</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="78" bodyend="85"/>
+    <listofallmembers>
+      <member refid="struct_x_trngpsx___config_1a620f1d30b205b73853ba2944daf3792d" prot="public" virt="non-virtual"><scope>XTrngpsx_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_trngpsx___config_1a8bf1d2809ae940e23cb6b05596d9e85a" prot="public" virt="non-virtual"><scope>XTrngpsx_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

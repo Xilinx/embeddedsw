@@ -1,0 +1,358 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xi2stx__chsts_8c" kind="file">
+    <compoundname>xi2stx_chsts.c</compoundname>
+    <includes refid="xi2stx__chsts_8h" local="yes">xi2stx_chsts.h</includes>
+    <includes refid="xi2stx_8h" local="yes">xi2stx.h</includes>
+    <includes refid="xi2stx__hw_8h" local="yes">xi2stx_hw.h</includes>
+    <includes refid="xi2stx__debug_8h" local="yes">xi2stx_debug.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <incdepgraph>
+      <node id="37">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="35">
+        <label>xil_io.h</label>
+      </node>
+      <node id="33">
+        <label>xi2stx.h</label>
+        <link refid="xi2stx_8h"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>xi2stx_debug.h</label>
+        <link refid="xi2stx__debug_8h"/>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>xstatus.h</label>
+      </node>
+      <node id="31">
+        <label>xi2stx_chsts.c</label>
+        <link refid="xi2stx_chsts.c"/>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>xi2stx_chsts.h</label>
+        <link refid="xi2stx__chsts_8h"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>xil_types.h</label>
+      </node>
+      <node id="34">
+        <label>xi2stx_hw.h</label>
+        <link refid="xi2stx__hw_8h"/>
+        <childnode refid="35" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XI2s_Tx_ReslveAesChStat</definition>
+        <argsstring>(u8 I2stx_SrcBuf[])</argsstring>
+        <name>XI2s_Tx_ReslveAesChStat</name>
+        <param>
+          <type>u8</type>
+          <declname>I2stx_SrcBuf</declname>
+          <array>[]</array>
+        </param>
+        <briefdescription>
+<para>This function reads the array I2stx_SrcBuf which has the values of all the I2S Transmitter AES status registers, extracts the required bits and prints them. </para>        </briefdescription>
+        <detaileddescription>
+<para>Before calling this API, Call API XI2s_Tx_GetAesChStatus.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2stx_SrcBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an array that contains the values of all the the AES Status registers. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>&lt; use of channel status block</para><para>&lt; linear PCM identification</para><para>&lt; audio signal Pre-emphasis</para><para>&lt; lock indication</para><para>&lt; sampling frequency</para><para>&lt; channel mode</para><para>&lt; user bits management</para><para>&lt; use of auxiliary sample bits</para><para>&lt; source word length</para><para>&lt; indication of alignment level</para><para>&lt; channel mode</para><para>&lt; Channel number 0</para><para>&lt; Channel number 1</para><para>&lt; multi channel1 mode number</para><para>&lt; digital audio reference signal</para><para>&lt; reserved but undefined</para><para>&lt; sampling frequency</para><para>&lt; sampling frequency scaling flag</para><para>&lt; reserved but undefined</para><para>&lt; Alphanumeric channel origin data</para><para>&lt; Alphanumeric channel destination data</para><para>&lt; Local sample address code</para><para>&lt; Time-of-day sample address code</para><para>&lt; Reliability flags</para><para>&lt; Cyclic redundancy check character </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.c" bodystart="57" bodyend="238"/>
+        <references refid="group__i2stx_1ga36f5fabf2bf95db8602835cc95861fa5" compoundref="xi2stx__chsts_8h" startline="62">XI2S_TX_AES_STS_AUDIO_SIG_PRE_EMPH_MASK</references>
+        <references refid="group__i2stx_1ga78cc8bc6611969180c83c93f6a495896" compoundref="xi2stx__chsts_8h" startline="59">XI2S_TX_AES_STS_AUDIO_SIG_PRE_EMPH_SHIFT</references>
+        <references refid="group__i2stx_1gaa8d727003a8e7cc47d0a7e45f506518e" compoundref="xi2stx__chsts_8h" startline="82">XI2S_TX_AES_STS_CH_MODE_MASK</references>
+        <references refid="group__i2stx_1gaa34fe37e7fabe3dbe32d1cb3978a7ab3" compoundref="xi2stx__chsts_8h" startline="126">XI2S_TX_AES_STS_CH_NUM0_MASK</references>
+        <references refid="group__i2stx_1ga0b92225913f1d1397643d294b96a3e79" compoundref="xi2stx__chsts_8h" startline="134">XI2S_TX_AES_STS_CH_NUM1_MASK</references>
+        <references refid="group__i2stx_1gae5dd63d1443d92e1002b3a67cc6a1a84" compoundref="xi2stx__chsts_8h" startline="223">XI2S_TX_AES_STS_CRC_CHAR_OFFSET</references>
+        <references refid="group__i2stx_1gac284c05fb5e7d7ad0f7c571cceb92c44" compoundref="xi2stx__chsts_8h" startline="150">XI2S_TX_AES_STS_DIGITAL_AUDIO_REF_SIG_MASK</references>
+        <references refid="group__i2stx_1gac59f23705e781eb6d2375f7793e05847" compoundref="xi2stx__chsts_8h" startline="145">XI2S_TX_AES_STS_DIGITAL_AUDIO_REF_SIG_SHIFT</references>
+        <references refid="group__i2stx_1ga00224a5937919a23e18bac70be453341" compoundref="xi2stx__chsts_8h" startline="118">XI2S_TX_AES_STS_INDICATE_ALIGN_LEVEL_MASK</references>
+        <references refid="group__i2stx_1ga2d1071669dd6047ca5c4ed69c9dc78a4" compoundref="xi2stx__chsts_8h" startline="113">XI2S_TX_AES_STS_INDICATE_ALIGN_LEVEL_SHIFT</references>
+        <references refid="group__i2stx_1ga61af06e74f87b278b69a501a972e68e8" compoundref="xi2stx__chsts_8h" startline="54">XI2S_TX_AES_STS_LINEAR_PCM_ID_MASK</references>
+        <references refid="group__i2stx_1gaed277941e701357e05662d27cf26f8e4" compoundref="xi2stx__chsts_8h" startline="51">XI2S_TX_AES_STS_LINEAR_PCM_ID_SHIFT</references>
+        <references refid="group__i2stx_1ga6ad2f825b0dda934666fd0c8e66de95f" compoundref="xi2stx__chsts_8h" startline="70">XI2S_TX_AES_STS_LOCK_INDICATION_MASK</references>
+        <references refid="group__i2stx_1gafa5b86b6aa7c49e9edc95ee095e99ae1" compoundref="xi2stx__chsts_8h" startline="67">XI2S_TX_AES_STS_LOCK_INDICATION_SHIFT</references>
+        <references refid="group__i2stx_1ga7444409e9557cb8d2fba5d04791cc90f" compoundref="xi2stx__chsts_8h" startline="130">XI2S_TX_AES_STS_MC_CH_MODE_MASK</references>
+        <references refid="group__i2stx_1ga60bdf4661314ff81890dd36a51203c1b" compoundref="xi2stx__chsts_8h" startline="140">XI2S_TX_AES_STS_MC_CH_MODE_NUM_MASK</references>
+        <references refid="group__i2stx_1gabc365c9d82d007f429dbc2c3175ba469" compoundref="xi2stx__chsts_8h" startline="137">XI2S_TX_AES_STS_MC_CH_MODE_NUM_SHIFT</references>
+        <references refid="group__i2stx_1gaa6c85a34557271fafd80989c4d16c3fa" compoundref="xi2stx__chsts_8h" startline="129">XI2S_TX_AES_STS_MC_CH_MODE_SHIFT</references>
+        <references refid="group__i2stx_1ga1424825d020d189367c1d66634b3c704" compoundref="xi2stx__chsts_8h" startline="219">XI2S_TX_AES_STS_RELIABLE_FLAGS_OFFSET</references>
+        <references refid="group__i2stx_1gab54c4d024eec7747b7fdf2a90082ab54" compoundref="xi2stx__chsts_8h" startline="160">XI2S_TX_AES_STS_RSVD_BUT_UNDEF0_MASK</references>
+        <references refid="group__i2stx_1ga32a5c5c380f0add139e9973ca5509ea2" compoundref="xi2stx__chsts_8h" startline="157">XI2S_TX_AES_STS_RSVD_BUT_UNDEF0_SHIFT</references>
+        <references refid="group__i2stx_1ga2417522499255b6d277cf54940eb5873" compoundref="xi2stx__chsts_8h" startline="188">XI2S_TX_AES_STS_RSVD_BUT_UNDEF1_MASK</references>
+        <references refid="group__i2stx_1ga7938a13abaa67d6d136feabbd6014b1d" compoundref="xi2stx__chsts_8h" startline="76">XI2S_TX_AES_STS_SAMPLING_FREQ_E_MASK</references>
+        <references refid="group__i2stx_1gaab03ab7ac0cf37ff3a8f57008ff6c8b3" compoundref="xi2stx__chsts_8h" startline="73">XI2S_TX_AES_STS_SAMPLING_FREQ_E_SHIFT</references>
+        <references refid="group__i2stx_1ga06846f7b8d66403d152212ba43f193d1" compoundref="xi2stx__chsts_8h" startline="168">XI2S_TX_AES_STS_SAMPLING_FREQ_Q_MASK</references>
+        <references refid="group__i2stx_1gab1548ab3982c777016c42ae4a5666fd6" compoundref="xi2stx__chsts_8h" startline="165">XI2S_TX_AES_STS_SAMPLING_FREQ_Q_SHIFT</references>
+        <references refid="group__i2stx_1gac50f0435d41fd0b486bb02013ece9bd1" compoundref="xi2stx__chsts_8h" startline="178">XI2S_TX_AES_STS_SAMPLING_FREQ_SCALE_FLAG_MASK</references>
+        <references refid="group__i2stx_1gafa41e86e16999bcb460a58866386e054" compoundref="xi2stx__chsts_8h" startline="173">XI2S_TX_AES_STS_SAMPLING_FREQ_SCALE_FLAG_SHIFT</references>
+        <references refid="group__i2stx_1gaeadd56e1eb2fe7f16e64d20f4cc658a2" compoundref="xi2stx__chsts_8h" startline="108">XI2S_TX_AES_STS_SRC_WORD_LENGTH_MASK</references>
+        <references refid="group__i2stx_1ga16fae1ae006e75519d45a4dc31e2aca1" compoundref="xi2stx__chsts_8h" startline="105">XI2S_TX_AES_STS_SRC_WORD_LENGTH_SHIFT</references>
+        <references refid="group__i2stx_1gaffd31964c7785f76f3c1e443e6f306dd" compoundref="xi2stx__chsts_8h" startline="46">XI2S_TX_AES_STS_USE_OF_CH_STS_BLK_MASK</references>
+        <references refid="group__i2stx_1ga2792e6c77cf3427d9ba40ecafc84781c" compoundref="xi2stx__chsts_8h" startline="98">XI2S_TX_AES_STS_USEOF_AUX_SMPL_BITS_MASK</references>
+        <references refid="group__i2stx_1ga4425bdbc5e0d0d757fb94635c60a6279" compoundref="xi2stx__chsts_8h" startline="88">XI2S_TX_AES_STS_USR_BITS_MGMT_MASK</references>
+        <references refid="group__i2stx_1gabb8e06582adcf37c20a9db80d9d22881" compoundref="xi2stx__chsts_8h" startline="85">XI2S_TX_AES_STS_USR_BITS_MGMT_SHIFT</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xi2stx__chsts_8h" kindref="compound">xi2stx_chsts.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xi2stx_8h" kindref="compound">xi2stx.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xi2stx__hw_8h" kindref="compound">xi2stx_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xi2stx__debug_8h" kindref="compound">xi2stx_debug.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="57" refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" kindref="member">XI2s_Tx_ReslveAesChStat</ref>(u8<sp/>I2stx_SrcBuf[])</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2stx_useOf_ch_sts_blk;<sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2stx_linear_pcm_id;<sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2stx_audio_sig_pre_emph;<sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2stx_lock_indication;<sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2stx_sampling_freq_e;<sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2stx_ch_mode;<sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2stx_usr_bits_mgmt;<sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2stx_useOf_aux_smpl_bits;<sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2stx_src_word_length;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2stx_indicate_align_level;<sp/><sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2stx_mc_ch_mode;<sp/></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2stx_byte3_mc0_ch_num;<sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2stx_byte3_mc1_ch_num;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2stx_byte3_mc1_ch_mode_num;<sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2stx_digital_audio_ref_sig;<sp/></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2stx_rsvd_but_undef0;<sp/></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2stx_sampling_freq_q;<sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2stx_sampling_freq_scale_flag;<sp/></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2stx_rsvd_but_undef1;<sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>I2stx_alphanum_ch_org_data;<sp/></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>I2stx_alphanum_ch_dest_data;<sp/></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>I2stx_local_sample_addrcode;<sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>I2stx_timeOfDay_sample_addrcode;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2stx_reliable_flags;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>I2stx_crc_char;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Data;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data32;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(I2stx_SrcBuf<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>value<sp/>of<sp/>Status<sp/>register<sp/>offset<sp/>0<sp/>from<sp/>the<sp/>SrcBuffer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>I2stx_SrcBuf[0];</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_useOf_ch_sts_blk<sp/>=</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Data<sp/>&amp;<sp/><ref refid="group__i2stx_1gaffd31964c7785f76f3c1e443e6f306dd" kindref="member">XI2S_TX_AES_STS_USE_OF_CH_STS_BLK_MASK</ref>);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_useOf_ch_sts_blk<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,<sp/>I2stx_useOf_ch_sts_blk);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_linear_pcm_id<sp/>=</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__i2stx_1ga61af06e74f87b278b69a501a972e68e8" kindref="member">XI2S_TX_AES_STS_LINEAR_PCM_ID_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1gaed277941e701357e05662d27cf26f8e4" kindref="member">XI2S_TX_AES_STS_LINEAR_PCM_ID_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_linear_pcm_id<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,<sp/>I2stx_linear_pcm_id);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_digital_audio_ref_sig<sp/>=</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__i2stx_1ga36f5fabf2bf95db8602835cc95861fa5" kindref="member">XI2S_TX_AES_STS_AUDIO_SIG_PRE_EMPH_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1ga78cc8bc6611969180c83c93f6a495896" kindref="member">XI2S_TX_AES_STS_AUDIO_SIG_PRE_EMPH_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_digital_audio_ref_sig<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_digital_audio_ref_sig);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_lock_indication<sp/>=</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__i2stx_1ga6ad2f825b0dda934666fd0c8e66de95f" kindref="member">XI2S_TX_AES_STS_LOCK_INDICATION_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1gafa5b86b6aa7c49e9edc95ee095e99ae1" kindref="member">XI2S_TX_AES_STS_LOCK_INDICATION_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_lock_indication<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,I2stx_lock_indication<sp/>);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_sampling_freq_e<sp/>=</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__i2stx_1ga7938a13abaa67d6d136feabbd6014b1d" kindref="member">XI2S_TX_AES_STS_SAMPLING_FREQ_E_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1gaab03ab7ac0cf37ff3a8f57008ff6c8b3" kindref="member">XI2S_TX_AES_STS_SAMPLING_FREQ_E_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_sampling_freq_e<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,I2stx_sampling_freq_e<sp/>);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>Status<sp/>register<sp/>offset<sp/>1<sp/>from<sp/>the<sp/>SrcBuffer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>I2stx_SrcBuf[1];</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_ch_mode<sp/>=<sp/>(Data<sp/>&amp;<sp/><ref refid="group__i2stx_1gaa8d727003a8e7cc47d0a7e45f506518e" kindref="member">XI2S_TX_AES_STS_CH_MODE_MASK</ref>);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_ch_mode<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,I2stx_ch_mode<sp/>);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_usr_bits_mgmt<sp/>=</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__i2stx_1ga4425bdbc5e0d0d757fb94635c60a6279" kindref="member">XI2S_TX_AES_STS_USR_BITS_MGMT_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1gabb8e06582adcf37c20a9db80d9d22881" kindref="member">XI2S_TX_AES_STS_USR_BITS_MGMT_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_usr_bits_mgmt<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,<sp/>I2stx_usr_bits_mgmt);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>Status<sp/>register<sp/>offset<sp/>2<sp/>from<sp/>the<sp/>SrcBuffer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>I2stx_SrcBuf[2];</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_useOf_aux_smpl_bits<sp/>=</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Data<sp/>&amp;<sp/><ref refid="group__i2stx_1ga2792e6c77cf3427d9ba40ecafc84781c" kindref="member">XI2S_TX_AES_STS_USEOF_AUX_SMPL_BITS_MASK</ref>);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_useOf_aux_smpl_bits<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_useOf_aux_smpl_bits<sp/>);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_src_word_length<sp/>=</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__i2stx_1gaeadd56e1eb2fe7f16e64d20f4cc658a2" kindref="member">XI2S_TX_AES_STS_SRC_WORD_LENGTH_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1ga16fae1ae006e75519d45a4dc31e2aca1" kindref="member">XI2S_TX_AES_STS_SRC_WORD_LENGTH_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_src_word_length<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,<sp/>I2stx_src_word_length);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_indicate_align_level<sp/>=</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__i2stx_1ga00224a5937919a23e18bac70be453341" kindref="member">XI2S_TX_AES_STS_INDICATE_ALIGN_LEVEL_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1ga2d1071669dd6047ca5c4ed69c9dc78a4" kindref="member">XI2S_TX_AES_STS_INDICATE_ALIGN_LEVEL_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_indicate_align_level<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_indicate_align_level<sp/>);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>Status<sp/>register<sp/>offset<sp/>3<sp/>from<sp/>the<sp/>SrcBuffer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>I2stx_SrcBuf[3];</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_mc_ch_mode<sp/>=</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__i2stx_1ga7444409e9557cb8d2fba5d04791cc90f" kindref="member">XI2S_TX_AES_STS_MC_CH_MODE_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1gaa6c85a34557271fafd80989c4d16c3fa" kindref="member">XI2S_TX_AES_STS_MC_CH_MODE_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(I2stx_mc_ch_mode<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_byte3_mc0_ch_num<sp/>=</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Data<sp/>&amp;<sp/><ref refid="group__i2stx_1gaa34fe37e7fabe3dbe32d1cb3978a7ab3" kindref="member">XI2S_TX_AES_STS_CH_NUM0_MASK</ref>);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_mc_ch_mode<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,I2stx_mc_ch_mode<sp/>);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_byte3_mc0_ch_num<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_byte3_mc0_ch_num<sp/>);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(I2stx_mc_ch_mode<sp/>==<sp/>1)<sp/>{</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_byte3_mc1_ch_num<sp/>=</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Data<sp/>&amp;<sp/><ref refid="group__i2stx_1ga0b92225913f1d1397643d294b96a3e79" kindref="member">XI2S_TX_AES_STS_CH_NUM1_MASK</ref>);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_byte3_mc1_ch_mode_num<sp/>=</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__i2stx_1ga60bdf4661314ff81890dd36a51203c1b" kindref="member">XI2S_TX_AES_STS_MC_CH_MODE_NUM_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1gabc365c9d82d007f429dbc2c3175ba469" kindref="member">XI2S_TX_AES_STS_MC_CH_MODE_NUM_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_mc_ch_mode<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,I2stx_mc_ch_mode<sp/>);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_byte3_mc1_ch_num=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_byte3_mc1_ch_num);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_byte3_mc1_ch_mode_num=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_byte3_mc1_ch_mode_num);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>Status<sp/>register<sp/>offset<sp/>4<sp/>from<sp/>the<sp/>SrcBuffer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>I2stx_SrcBuf[4];</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_audio_sig_pre_emph<sp/>=</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__i2stx_1gac284c05fb5e7d7ad0f7c571cceb92c44" kindref="member">XI2S_TX_AES_STS_DIGITAL_AUDIO_REF_SIG_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1gac59f23705e781eb6d2375f7793e05847" kindref="member">XI2S_TX_AES_STS_DIGITAL_AUDIO_REF_SIG_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_audio_sig_pre_emph<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_audio_sig_pre_emph<sp/>);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_rsvd_but_undef0<sp/>=</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__i2stx_1gab54c4d024eec7747b7fdf2a90082ab54" kindref="member">XI2S_TX_AES_STS_RSVD_BUT_UNDEF0_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1ga32a5c5c380f0add139e9973ca5509ea2" kindref="member">XI2S_TX_AES_STS_RSVD_BUT_UNDEF0_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_rsvd_but_undef0<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,I2stx_rsvd_but_undef0<sp/>);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_sampling_freq_q<sp/>=</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__i2stx_1ga06846f7b8d66403d152212ba43f193d1" kindref="member">XI2S_TX_AES_STS_SAMPLING_FREQ_Q_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1gab1548ab3982c777016c42ae4a5666fd6" kindref="member">XI2S_TX_AES_STS_SAMPLING_FREQ_Q_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_sampling_freq_q<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,I2stx_sampling_freq_q<sp/>);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_sampling_freq_scale_flag<sp/>=</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Data<sp/>&amp;<sp/><ref refid="group__i2stx_1gac50f0435d41fd0b486bb02013ece9bd1" kindref="member">XI2S_TX_AES_STS_SAMPLING_FREQ_SCALE_FLAG_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1gafa41e86e16999bcb460a58866386e054" kindref="member">XI2S_TX_AES_STS_SAMPLING_FREQ_SCALE_FLAG_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_sampling_freq_scale_flag<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_sampling_freq_scale_flag);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>Status<sp/>register<sp/>offset<sp/>5<sp/>from<sp/>the<sp/>SrcBuffer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>I2stx_SrcBuf[5];</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_rsvd_but_undef1<sp/>=</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Data<sp/>&amp;<sp/><ref refid="group__i2stx_1ga2417522499255b6d277cf54940eb5873" kindref="member">XI2S_TX_AES_STS_RSVD_BUT_UNDEF1_MASK</ref>);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_rsvd_but_undef1<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,I2stx_rsvd_but_undef1<sp/>);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>Status<sp/>registers<sp/>from<sp/>offset<sp/>6<sp/>-<sp/>9<sp/>from<sp/>the<sp/>SrcBuffer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data32<sp/>=<sp/>(u32)((I2stx_SrcBuf[9]<sp/>&lt;&lt;<sp/>24)<sp/>|<sp/>(I2stx_SrcBuf[8]<sp/>&lt;&lt;<sp/>16)<sp/>|</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(I2stx_SrcBuf[7]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>I2stx_SrcBuf[6]);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_alphanum_ch_org_data<sp/>=<sp/>Data32;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_alphanum_ch_org_data<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_alphanum_ch_org_data);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>Status<sp/>registers<sp/>from<sp/>offset<sp/>10<sp/>-<sp/>13<sp/>from<sp/>the<sp/>SrcBuffer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data32<sp/>=<sp/>(u32)((I2stx_SrcBuf[13]<sp/>&lt;&lt;<sp/>24)<sp/>|<sp/>(I2stx_SrcBuf[12]<sp/>&lt;&lt;<sp/>16)<sp/>|</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(I2stx_SrcBuf[11]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>I2stx_SrcBuf[10]);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_alphanum_ch_dest_data<sp/>=<sp/>Data32;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_alphanum_ch_dest_data<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_alphanum_ch_dest_data);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>Status<sp/>registers<sp/>from<sp/>offset<sp/>14<sp/>-<sp/>17<sp/>from<sp/>the<sp/>SrcBuffer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data32<sp/>=<sp/>(u32)((I2stx_SrcBuf[17]<sp/>&lt;&lt;<sp/>24)<sp/>|<sp/>(I2stx_SrcBuf[16]<sp/>&lt;&lt;<sp/>16)<sp/>|</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(I2stx_SrcBuf[15]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>I2stx_SrcBuf[14]);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_local_sample_addrcode<sp/>=<sp/>Data32;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_local_sample_addrcode<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_local_sample_addrcode<sp/>);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>Status<sp/>registers<sp/>from<sp/>offset<sp/>18<sp/>-<sp/>21<sp/>from<sp/>the<sp/>SrcBuffer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data32<sp/>=<sp/>(u32)((I2stx_SrcBuf[21]<sp/>&lt;&lt;<sp/>24)<sp/>|<sp/>(I2stx_SrcBuf[20]<sp/>&lt;&lt;<sp/>16)<sp/>|</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(I2stx_SrcBuf[19]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>I2stx_SrcBuf[18]);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_timeOfDay_sample_addrcode<sp/>=<sp/>Data32;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_timeOfDay_sample_addrcode<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_timeOfDay_sample_addrcode<sp/>);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>Status<sp/>register<sp/>offset<sp/>22<sp/>from<sp/>the<sp/>SrcBuffer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>I2stx_SrcBuf[<ref refid="group__i2stx_1ga1424825d020d189367c1d66634b3c704" kindref="member">XI2S_TX_AES_STS_RELIABLE_FLAGS_OFFSET</ref>];</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_reliable_flags<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_reliable_flags<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,I2stx_reliable_flags);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>Status<sp/>register<sp/>offset<sp/>23<sp/>from<sp/>the<sp/>SrcBuffer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>I2stx_SrcBuf[<ref refid="group__i2stx_1gae5dd63d1443d92e1002b3a67cc6a1a84" kindref="member">XI2S_TX_AES_STS_CRC_CHAR_OFFSET</ref>];</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>I2stx_crc_char<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;I2stx_crc_char<sp/>=0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,I2stx_crc_char<sp/>);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.c"/>
+  </compounddef>
+</doxygen>

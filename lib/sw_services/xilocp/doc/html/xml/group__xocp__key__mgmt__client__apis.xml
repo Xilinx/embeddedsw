@@ -1,0 +1,237 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xocp__key__mgmt__client__apis" kind="group">
+    <compoundname>xocp_key_mgmt_client_apis</compoundname>
+    <title>XilOcp KeyMgmt Client APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xocp__key__mgmt__client__apis_1ga16013e82a245e7dfdd7a3c2e2df476e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XOcp_GetX509Cert</definition>
+        <argsstring>(XOcp_ClientInstance *InstancePtr, u64 GetX509CertAddr)</argsstring>
+        <name>XOcp_GetX509Cert</name>
+        <param>
+          <type><ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>GetX509CertAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to get 509 certificate. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>GetX509CertAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Address of <ref refid="struct_x_ocp___x509_cert" kindref="compound">XOcp_X509Cert</ref> structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If PCR contents are copied</para></listitem><listitem><para>XST_FAILURE - Upon any failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters</para></listitem><listitem><para>Fill IPI payload for XOCP_API_GETX509CERT command and send the request to Server </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/key_mgmt/xocp_key_mgmt.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/key_mgmt/xocp_key_mgmt.c" bodystart="58" bodyend="81"/>
+        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="95">XOcp_ClientInstance::MailboxPtr</references>
+        <references refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" compoundref="xocp__def_8h" startline="83">XOCP_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a27d6f0ea57a51b0b5cb4b61f85c690a8" compoundref="xocp__def_8h" startline="110">XOCP_API_GETX509CERT</references>
+        <references refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" compoundref="xocp__mailbox_8c" startline="65" endline="94">XOcp_ProcessMailbox</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xocp__key__mgmt__client__apis_1ga0c6bb44603339209f55de3ef94141395" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XOcp_ClientAttestWithDevAk</definition>
+        <argsstring>(XOcp_ClientInstance *InstancePtr, u64 AttestWithDevAk)</argsstring>
+        <name>XOcp_ClientAttestWithDevAk</name>
+        <param>
+          <type><ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>AttestWithDevAk</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to attest the data with DevAk. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AttestWithDevAk</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Address of XOcp_AttestWithDevAk structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - Attestation with DevAk is successful</para></listitem><listitem><para>XST_FAILURE - Upon any failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters</para></listitem><listitem><para>Fill IPI payload for XOCP_API_ATTESTWITHDEVAK command and send the request to Server </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/key_mgmt/xocp_key_mgmt.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/key_mgmt/xocp_key_mgmt.c" bodystart="95" bodyend="119"/>
+        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="95">XOcp_ClientInstance::MailboxPtr</references>
+        <references refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" compoundref="xocp__def_8h" startline="83">XOCP_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a82068a5409464a0f6dc3dcc23037d747" compoundref="xocp__def_8h" startline="111">XOCP_API_ATTESTWITHDEVAK</references>
+        <references refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" compoundref="xocp__mailbox_8c" startline="65" endline="94">XOcp_ProcessMailbox</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xocp__key__mgmt__client__apis_1ga43e275e75f776f74a124968aa83d29a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XOcp_ClientAttestWithKeyWrapDevAk</definition>
+        <argsstring>(XOcp_ClientInstance *InstancePtr, u64 AttnPloadAddr, u32 AttnPloadSize, u32 PubKeyOffset, u64 SignatureAddr)</argsstring>
+        <name>XOcp_ClientAttestWithKeyWrapDevAk</name>
+        <param>
+          <type><ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>AttnPloadAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>AttnPloadSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PubKeyOffset</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>SignatureAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to calculate the hash of the Key Wrap buffer and attest with Key Wrap DevAk private key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AttnPloadAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Address of the buffer which should be attested </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AttnPloadSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Size of buffer in bytes </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PubKeyOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Offset in provided buffer where public key needs to be stored </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SignatureAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Address of the signature after attestation</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - Successfully hashed and attested the data with Key Wrap DevAk private key</para></listitem><listitem><para>XST_FAILURE - Upon any failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters</para></listitem><listitem><para>Fill IPI payload for XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK command and send the request to Server </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/key_mgmt/xocp_key_mgmt.c" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/key_mgmt/xocp_key_mgmt.c" bodystart="137" bodyend="164"/>
+        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="95">XOcp_ClientInstance::MailboxPtr</references>
+        <references refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" compoundref="xocp__def_8h" startline="83">XOCP_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a3ee212594f10d93c996947ac021ac2ef" compoundref="xocp__def_8h" startline="118">XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK</references>
+        <references refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" compoundref="xocp__mailbox_8c" startline="65" endline="94">XOcp_ProcessMailbox</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xocp__key__mgmt__client__apis_1ga50bd2fa853d6aba7c12fec38bb3867ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XOcp_GenSharedSecretWithDevAk</definition>
+        <argsstring>(XOcp_ClientInstance *InstancePtr, const u8 *PubKey, u8 *SharedSecret)</argsstring>
+        <name>XOcp_GenSharedSecretWithDevAk</name>
+        <param>
+          <type><ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>PubKey</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>SharedSecret</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to generate shared secret using Elliptic Curve Diffie-Hellman Key Exchange (ECDH). </para>        </briefdescription>
+        <detaileddescription>
+<para>The private key used to generate the shared secret is internal DevAK private key which is determined by the subsystem from where the command is originating.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PubKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer which contains the public key to be used for calculating shared secret using ECDH. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SharedSecret</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the output buffer which shall be used to store shared secret</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On Success</para></listitem><listitem><para>Errorcode On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters</para></listitem><listitem><para>Fill IPI Payload for XOCP_API_GEN_SHARED_SECRET and send request to Server </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/key_mgmt/xocp_key_mgmt.c" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/key_mgmt/xocp_key_mgmt.c" bodystart="187" bodyend="214"/>
+        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="95">XOcp_ClientInstance::MailboxPtr</references>
+        <references refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" compoundref="xocp__def_8h" startline="83">XOCP_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a159154b25019671afd2acc943f5ee6e2" compoundref="xocp__def_8h" startline="117">XOCP_API_GEN_SHARED_SECRET</references>
+        <references refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" compoundref="xocp__mailbox_8c" startline="65" endline="94">XOcp_ProcessMailbox</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

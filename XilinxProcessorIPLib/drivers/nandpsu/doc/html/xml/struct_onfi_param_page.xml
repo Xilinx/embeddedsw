@@ -1,0 +1,827 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_onfi_param_page" kind="struct" prot="public">
+    <compoundname>OnfiParamPage</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_onfi_param_page_1a0358d5bee01ac26b30cb80745a7328b9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::Signature[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Signature</name>
+        <briefdescription>
+<para>Parameter page signature. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1ad737b0c289ea4c4875a4fad066bdcd3a" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiParamPage::Revision</definition>
+        <argsstring></argsstring>
+        <name>Revision</name>
+        <briefdescription>
+<para>Revision Number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a80997028ed63034a7135b7cfce235cf0" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiParamPage::Features</definition>
+        <argsstring></argsstring>
+        <name>Features</name>
+        <briefdescription>
+<para>Features supported. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a4df79966c9f0d4888ae809868538a354" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiParamPage::OptionalCmds</definition>
+        <argsstring></argsstring>
+        <name>OptionalCmds</name>
+        <briefdescription>
+<para>Optional commands supported. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a1cc93f168e8f0b351516aa0dffbe0d29" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::JedecJtgPrmAdvCmd</definition>
+        <argsstring></argsstring>
+        <name>JedecJtgPrmAdvCmd</name>
+        <briefdescription>
+<para>ONFI JEDEC JTG primary advanced command support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a5a2da4c0c8e2176bb09014f25477f942" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::Reserved0</definition>
+        <argsstring></argsstring>
+        <name>Reserved0</name>
+        <briefdescription>
+<para>Reserved (11) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a99cc9c4ebe4f8f0fa39f0e96ec540e0a" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiParamPage::ExtParamPageLen</definition>
+        <argsstring></argsstring>
+        <name>ExtParamPageLen</name>
+        <briefdescription>
+<para>Extended Parameter Page Length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1adbbaedbe772dc7c5226e58998d63448b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::NumOfParamPages</definition>
+        <argsstring></argsstring>
+        <name>NumOfParamPages</name>
+        <briefdescription>
+<para>Number of Parameter Pages. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a12cecbc5d3023806af0bdbb25288e265" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::Reserved1[17]</definition>
+        <argsstring>[17]</argsstring>
+        <name>Reserved1</name>
+        <briefdescription>
+<para>Reserved (15-31) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a201f9b22dc837c895565f7fc8c61ac50" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::DeviceManufacturer[12]</definition>
+        <argsstring>[12]</argsstring>
+        <name>DeviceManufacturer</name>
+        <briefdescription>
+<para>Device manufacturer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a64565615455bb2bc75dcc258c8805ee0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::DeviceModel[20]</definition>
+        <argsstring>[20]</argsstring>
+        <name>DeviceModel</name>
+        <briefdescription>
+<para>Device model. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a62deaecca73f157c86e7522b062bb3d9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::JedecManufacturerId</definition>
+        <argsstring></argsstring>
+        <name>JedecManufacturerId</name>
+        <briefdescription>
+<para>JEDEC Manufacturer ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a46177991a3c5ecbf8b1d0aec4b7ca93b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::DateCode[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>DateCode</name>
+        <briefdescription>
+<para>Date code. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1af78daf5d42d3848de06810cb3b5acd96" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::Reserved2[13]</definition>
+        <argsstring>[13]</argsstring>
+        <name>Reserved2</name>
+        <briefdescription>
+<para>Reserved (67-79) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1af15197152d4f4c629082aa8e1830532f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 OnfiParamPage::BytesPerPage</definition>
+        <argsstring></argsstring>
+        <name>BytesPerPage</name>
+        <briefdescription>
+<para>Number of data bytes per page. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1aab07bd0a5744cb2fb277bab305f3e963" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiParamPage::SpareBytesPerPage</definition>
+        <argsstring></argsstring>
+        <name>SpareBytesPerPage</name>
+        <briefdescription>
+<para>Number of spare bytes per page. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a33d4f14b1bb0245998be68ff6ad4edbb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 OnfiParamPage::BytesPerPartialPage</definition>
+        <argsstring></argsstring>
+        <name>BytesPerPartialPage</name>
+        <briefdescription>
+<para>Number of data bytes per partial page. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a9a409e35724a4a7fabcc2667b6123b88" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiParamPage::SpareBytesPerPartialPage</definition>
+        <argsstring></argsstring>
+        <name>SpareBytesPerPartialPage</name>
+        <briefdescription>
+<para>Number of spare bytes per partial page. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a16116dd101c47029042db3529d983c60" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 OnfiParamPage::PagesPerBlock</definition>
+        <argsstring></argsstring>
+        <name>PagesPerBlock</name>
+        <briefdescription>
+<para>Number of pages per block. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="233" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1aaf76ebfe1b76dc168c2bf69368ebbbf5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 OnfiParamPage::BlocksPerLun</definition>
+        <argsstring></argsstring>
+        <name>BlocksPerLun</name>
+        <briefdescription>
+<para>Number of blocks per LUN. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1ad92e72c179492e114ff19617c393767f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::NumLuns</definition>
+        <argsstring></argsstring>
+        <name>NumLuns</name>
+        <briefdescription>
+<para>Number of LUN&apos;s. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a3d400dcfa53342f382140032a7aa3aee" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::AddrCycles</definition>
+        <argsstring></argsstring>
+        <name>AddrCycles</name>
+        <briefdescription>
+<para>Number of address cycles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1acc431677896eeaef132bc9c1def3aa23" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::BitsPerCell</definition>
+        <argsstring></argsstring>
+        <name>BitsPerCell</name>
+        <briefdescription>
+<para>Number of bits per cell. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a9b76ee82d6d5f6a58093024614aac30d" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiParamPage::MaxBadBlocksPerLun</definition>
+        <argsstring></argsstring>
+        <name>MaxBadBlocksPerLun</name>
+        <briefdescription>
+<para>Bad blocks maximum per LUN. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="238" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a425a5dca6c56a442fa8f28b924b0cd3e" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiParamPage::BlockEndurance</definition>
+        <argsstring></argsstring>
+        <name>BlockEndurance</name>
+        <briefdescription>
+<para>Block endurance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1aa38fd880c86e50360bbf88c29c4284fe" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::GuaranteedValidBlock</definition>
+        <argsstring></argsstring>
+        <name>GuaranteedValidBlock</name>
+        <briefdescription>
+<para>Guaranteed valid blocks at beginning of target. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1ae590add5d7fefcc0648f2f0c916d1959" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiParamPage::BlockEnduranceGVB</definition>
+        <argsstring></argsstring>
+        <name>BlockEnduranceGVB</name>
+        <briefdescription>
+<para>Block endurance for guaranteed valid block. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a851463518d775f3c498334890dbcb346" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::ProgramsPerPage</definition>
+        <argsstring></argsstring>
+        <name>ProgramsPerPage</name>
+        <briefdescription>
+<para>Number of programs per page. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1aa9b789c6822b981b4c8cf89dbdddcc50" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::PartialProgAttr</definition>
+        <argsstring></argsstring>
+        <name>PartialProgAttr</name>
+        <briefdescription>
+<para>Partial programming attributes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1afa4a979083100321d6757d734fe04d28" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::EccBits</definition>
+        <argsstring></argsstring>
+        <name>EccBits</name>
+        <briefdescription>
+<para>Number of bits ECC correctability. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a9a18823fe0ce46bb23fc8ac7238ab12f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::PlaneAddrBits</definition>
+        <argsstring></argsstring>
+        <name>PlaneAddrBits</name>
+        <briefdescription>
+<para>Number of plane address bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a8c735458e2375f442ed705c0adea7bbb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::PlaneOperationAttr</definition>
+        <argsstring></argsstring>
+        <name>PlaneOperationAttr</name>
+        <briefdescription>
+<para>Multi-plane operation attributes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1aad7a77562e03ec063c61df51de3b7406" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::EzNandSupport</definition>
+        <argsstring></argsstring>
+        <name>EzNandSupport</name>
+        <briefdescription>
+<para>EZ NAND support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="251" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="251" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1acc14ad9a1aa38a1882f1d779e2a1f535" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::Reserved3[12]</definition>
+        <argsstring>[12]</argsstring>
+        <name>Reserved3</name>
+        <briefdescription>
+<para>Reserved (116 - 127) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="252" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a44d3d532073f632054f5694306fae9b0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::IOPinCapacitance</definition>
+        <argsstring></argsstring>
+        <name>IOPinCapacitance</name>
+        <briefdescription>
+<para>I/O pin capacitance, maximum. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1abd63d7aba2923408b712c055b42b5c8e" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiParamPage::SDRTimingMode</definition>
+        <argsstring></argsstring>
+        <name>SDRTimingMode</name>
+        <briefdescription>
+<para>SDR Timing mode support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1ab4370e65b8aad9ecd50d8280317a079d" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiParamPage::SDRPagecacheTimingMode</definition>
+        <argsstring></argsstring>
+        <name>SDRPagecacheTimingMode</name>
+        <briefdescription>
+<para>SDR Program cache timing mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a4426a9a0a89ffbebb3897b19f85c671a" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiParamPage::TProg</definition>
+        <argsstring></argsstring>
+        <name>TProg</name>
+        <briefdescription>
+<para>Maximum page program time. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1abd76ba2e8f2a670b4b9969c91d38605d" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiParamPage::TBers</definition>
+        <argsstring></argsstring>
+        <name>TBers</name>
+        <briefdescription>
+<para>Maximum block erase time. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a108161c72888558912d6c1bcb26e85d0" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiParamPage::TR</definition>
+        <argsstring></argsstring>
+        <name>TR</name>
+        <briefdescription>
+<para>Maximum page read time. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1ad007393acbe7ecd629f8234ce0132329" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiParamPage::TCcs</definition>
+        <argsstring></argsstring>
+        <name>TCcs</name>
+        <briefdescription>
+<para>Maximum change column setup time. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a3b701837237cdc335c6e14dd5d71043a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::NVDDRTimingMode</definition>
+        <argsstring></argsstring>
+        <name>NVDDRTimingMode</name>
+        <briefdescription>
+<para>NVDDR timing mode support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a67c29fe0f0943e7a52d58c78a897763d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::NVDDR2TimingMode</definition>
+        <argsstring></argsstring>
+        <name>NVDDR2TimingMode</name>
+        <briefdescription>
+<para>NVDDR2 timing mode support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1aa53e6b77319b2ce5dc897549519fc8b2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::SynFeatures</definition>
+        <argsstring></argsstring>
+        <name>SynFeatures</name>
+        <briefdescription>
+<para>NVDDR/NVDDR2 features. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1aef8fc1a9f6ec2e1bd63da11666678d3d" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiParamPage::ClkInputPinCap</definition>
+        <argsstring></argsstring>
+        <name>ClkInputPinCap</name>
+        <briefdescription>
+<para>CLK input pin capacitance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a8edd22d6ae4039cc7c8d3cf38db89cd4" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiParamPage::IOPinCap</definition>
+        <argsstring></argsstring>
+        <name>IOPinCap</name>
+        <briefdescription>
+<para>I/O pin capacitance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1aa4c82c3f863fb42785fd445d3d153595" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiParamPage::InputPinCap</definition>
+        <argsstring></argsstring>
+        <name>InputPinCap</name>
+        <briefdescription>
+<para>Input pin capacitance typical. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="267" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a128b7659b7ae37d10e8427b05ccce661" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::InputPinCapMax</definition>
+        <argsstring></argsstring>
+        <name>InputPinCapMax</name>
+        <briefdescription>
+<para>Input pin capacitance maximum. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="268" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a4c2543948367a3bc8a0c4f6c761bdc16" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::DrvStrength</definition>
+        <argsstring></argsstring>
+        <name>DrvStrength</name>
+        <briefdescription>
+<para>Driver strength support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="269" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a2f5574a3d049fb19fe2aad31c8e64312" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiParamPage::TMr</definition>
+        <argsstring></argsstring>
+        <name>TMr</name>
+        <briefdescription>
+<para>Maximum multi-plane read time. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="270" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1abc7fb56fd4c60fa5013b6a55aede1a32" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiParamPage::TAdl</definition>
+        <argsstring></argsstring>
+        <name>TAdl</name>
+        <briefdescription>
+<para>Program page register clear enhancement value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="271" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="271" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a0f33ec373715ded72f825e15bb3e7eed" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiParamPage::TEr</definition>
+        <argsstring></argsstring>
+        <name>TEr</name>
+        <briefdescription>
+<para>Typical page read time for EZ NAND. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="273" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="273" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a2321098d0210c434171d83737e6a390c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::NVDDR2Features</definition>
+        <argsstring></argsstring>
+        <name>NVDDR2Features</name>
+        <briefdescription>
+<para>NVDDR2 Features. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a80a0459d57a509a2d8be3b069de0e3ac" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::NVDDR2WarmupCycles</definition>
+        <argsstring></argsstring>
+        <name>NVDDR2WarmupCycles</name>
+        <briefdescription>
+<para>NVDDR2 Warm up Cycles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="276" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1ac20d862338f73fd724c6fde9fcd309a5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::Reserved4[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Reserved4</name>
+        <briefdescription>
+<para>Reserved (160 - 163) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a4bdf804adba9e55fed9030d63bcb5765" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiParamPage::VendorRevisionNum</definition>
+        <argsstring></argsstring>
+        <name>VendorRevisionNum</name>
+        <briefdescription>
+<para>Vendor specific revision number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1a5eb766829a69faf2f3fde716db4c545c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiParamPage::VendorSpecific[88]</definition>
+        <argsstring>[88]</argsstring>
+        <name>VendorSpecific</name>
+        <briefdescription>
+<para>Vendor specific. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_param_page_1afde24babfa30be6c6ac8ea2178d4747f" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiParamPage::Crc</definition>
+        <argsstring></argsstring>
+        <name>Crc</name>
+        <briefdescription>
+<para>Integrity CRC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="208" bodyend="286"/>
+    <listofallmembers>
+      <member refid="struct_onfi_param_page_1a3d400dcfa53342f382140032a7aa3aee" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>AddrCycles</name></member>
+      <member refid="struct_onfi_param_page_1acc431677896eeaef132bc9c1def3aa23" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>BitsPerCell</name></member>
+      <member refid="struct_onfi_param_page_1a425a5dca6c56a442fa8f28b924b0cd3e" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>BlockEndurance</name></member>
+      <member refid="struct_onfi_param_page_1ae590add5d7fefcc0648f2f0c916d1959" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>BlockEnduranceGVB</name></member>
+      <member refid="struct_onfi_param_page_1aaf76ebfe1b76dc168c2bf69368ebbbf5" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>BlocksPerLun</name></member>
+      <member refid="struct_onfi_param_page_1af15197152d4f4c629082aa8e1830532f" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>BytesPerPage</name></member>
+      <member refid="struct_onfi_param_page_1a33d4f14b1bb0245998be68ff6ad4edbb" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>BytesPerPartialPage</name></member>
+      <member refid="struct_onfi_param_page_1aef8fc1a9f6ec2e1bd63da11666678d3d" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>ClkInputPinCap</name></member>
+      <member refid="struct_onfi_param_page_1afde24babfa30be6c6ac8ea2178d4747f" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>Crc</name></member>
+      <member refid="struct_onfi_param_page_1a46177991a3c5ecbf8b1d0aec4b7ca93b" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>DateCode</name></member>
+      <member refid="struct_onfi_param_page_1a201f9b22dc837c895565f7fc8c61ac50" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>DeviceManufacturer</name></member>
+      <member refid="struct_onfi_param_page_1a64565615455bb2bc75dcc258c8805ee0" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>DeviceModel</name></member>
+      <member refid="struct_onfi_param_page_1a4c2543948367a3bc8a0c4f6c761bdc16" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>DrvStrength</name></member>
+      <member refid="struct_onfi_param_page_1afa4a979083100321d6757d734fe04d28" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>EccBits</name></member>
+      <member refid="struct_onfi_param_page_1a99cc9c4ebe4f8f0fa39f0e96ec540e0a" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>ExtParamPageLen</name></member>
+      <member refid="struct_onfi_param_page_1aad7a77562e03ec063c61df51de3b7406" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>EzNandSupport</name></member>
+      <member refid="struct_onfi_param_page_1a80997028ed63034a7135b7cfce235cf0" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>Features</name></member>
+      <member refid="struct_onfi_param_page_1aa38fd880c86e50360bbf88c29c4284fe" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>GuaranteedValidBlock</name></member>
+      <member refid="struct_onfi_param_page_1aa4c82c3f863fb42785fd445d3d153595" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>InputPinCap</name></member>
+      <member refid="struct_onfi_param_page_1a128b7659b7ae37d10e8427b05ccce661" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>InputPinCapMax</name></member>
+      <member refid="struct_onfi_param_page_1a8edd22d6ae4039cc7c8d3cf38db89cd4" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>IOPinCap</name></member>
+      <member refid="struct_onfi_param_page_1a44d3d532073f632054f5694306fae9b0" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>IOPinCapacitance</name></member>
+      <member refid="struct_onfi_param_page_1a1cc93f168e8f0b351516aa0dffbe0d29" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>JedecJtgPrmAdvCmd</name></member>
+      <member refid="struct_onfi_param_page_1a62deaecca73f157c86e7522b062bb3d9" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>JedecManufacturerId</name></member>
+      <member refid="struct_onfi_param_page_1a9b76ee82d6d5f6a58093024614aac30d" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>MaxBadBlocksPerLun</name></member>
+      <member refid="struct_onfi_param_page_1ad92e72c179492e114ff19617c393767f" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>NumLuns</name></member>
+      <member refid="struct_onfi_param_page_1adbbaedbe772dc7c5226e58998d63448b" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>NumOfParamPages</name></member>
+      <member refid="struct_onfi_param_page_1a2321098d0210c434171d83737e6a390c" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>NVDDR2Features</name></member>
+      <member refid="struct_onfi_param_page_1a67c29fe0f0943e7a52d58c78a897763d" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>NVDDR2TimingMode</name></member>
+      <member refid="struct_onfi_param_page_1a80a0459d57a509a2d8be3b069de0e3ac" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>NVDDR2WarmupCycles</name></member>
+      <member refid="struct_onfi_param_page_1a3b701837237cdc335c6e14dd5d71043a" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>NVDDRTimingMode</name></member>
+      <member refid="struct_onfi_param_page_1a4df79966c9f0d4888ae809868538a354" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>OptionalCmds</name></member>
+      <member refid="struct_onfi_param_page_1a16116dd101c47029042db3529d983c60" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>PagesPerBlock</name></member>
+      <member refid="struct_onfi_param_page_1aa9b789c6822b981b4c8cf89dbdddcc50" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>PartialProgAttr</name></member>
+      <member refid="struct_onfi_param_page_1a9a18823fe0ce46bb23fc8ac7238ab12f" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>PlaneAddrBits</name></member>
+      <member refid="struct_onfi_param_page_1a8c735458e2375f442ed705c0adea7bbb" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>PlaneOperationAttr</name></member>
+      <member refid="struct_onfi_param_page_1a851463518d775f3c498334890dbcb346" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>ProgramsPerPage</name></member>
+      <member refid="struct_onfi_param_page_1a5a2da4c0c8e2176bb09014f25477f942" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>Reserved0</name></member>
+      <member refid="struct_onfi_param_page_1a12cecbc5d3023806af0bdbb25288e265" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>Reserved1</name></member>
+      <member refid="struct_onfi_param_page_1af78daf5d42d3848de06810cb3b5acd96" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>Reserved2</name></member>
+      <member refid="struct_onfi_param_page_1acc14ad9a1aa38a1882f1d779e2a1f535" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>Reserved3</name></member>
+      <member refid="struct_onfi_param_page_1ac20d862338f73fd724c6fde9fcd309a5" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>Reserved4</name></member>
+      <member refid="struct_onfi_param_page_1ad737b0c289ea4c4875a4fad066bdcd3a" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>Revision</name></member>
+      <member refid="struct_onfi_param_page_1ab4370e65b8aad9ecd50d8280317a079d" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>SDRPagecacheTimingMode</name></member>
+      <member refid="struct_onfi_param_page_1abd63d7aba2923408b712c055b42b5c8e" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>SDRTimingMode</name></member>
+      <member refid="struct_onfi_param_page_1a0358d5bee01ac26b30cb80745a7328b9" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>Signature</name></member>
+      <member refid="struct_onfi_param_page_1aab07bd0a5744cb2fb277bab305f3e963" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>SpareBytesPerPage</name></member>
+      <member refid="struct_onfi_param_page_1a9a409e35724a4a7fabcc2667b6123b88" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>SpareBytesPerPartialPage</name></member>
+      <member refid="struct_onfi_param_page_1aa53e6b77319b2ce5dc897549519fc8b2" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>SynFeatures</name></member>
+      <member refid="struct_onfi_param_page_1abc7fb56fd4c60fa5013b6a55aede1a32" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>TAdl</name></member>
+      <member refid="struct_onfi_param_page_1abd76ba2e8f2a670b4b9969c91d38605d" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>TBers</name></member>
+      <member refid="struct_onfi_param_page_1ad007393acbe7ecd629f8234ce0132329" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>TCcs</name></member>
+      <member refid="struct_onfi_param_page_1a0f33ec373715ded72f825e15bb3e7eed" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>TEr</name></member>
+      <member refid="struct_onfi_param_page_1a2f5574a3d049fb19fe2aad31c8e64312" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>TMr</name></member>
+      <member refid="struct_onfi_param_page_1a4426a9a0a89ffbebb3897b19f85c671a" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>TProg</name></member>
+      <member refid="struct_onfi_param_page_1a108161c72888558912d6c1bcb26e85d0" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>TR</name></member>
+      <member refid="struct_onfi_param_page_1a4bdf804adba9e55fed9030d63bcb5765" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>VendorRevisionNum</name></member>
+      <member refid="struct_onfi_param_page_1a5eb766829a69faf2f3fde716db4c545c" prot="public" virt="non-virtual"><scope>OnfiParamPage</scope><name>VendorSpecific</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,233 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xmipi__vek385__dphy__example_2sensor__cfgs_8c" kind="file">
+    <compoundname>xmipi_vek385_dphy_example/sensor_cfgs.c</compoundname>
+    <includes refid="xmipi__vek385__dphy__example_2sensor__cfgs_8h" local="yes">sensor_cfgs.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <incdepgraph>
+      <node id="717">
+        <label>sensor_cfgs.c</label>
+        <link refid="xmipi_vek385_dphy_example/sensor_cfgs.c"/>
+        <childnode refid="718" relation="include">
+        </childnode>
+        <childnode refid="721" relation="include">
+        </childnode>
+      </node>
+      <node id="718">
+        <label>sensor_cfgs.h</label>
+        <childnode refid="719" relation="include">
+        </childnode>
+        <childnode refid="720" relation="include">
+        </childnode>
+      </node>
+      <node id="720">
+        <label>xvidc.h</label>
+      </node>
+      <node id="719">
+        <label>xil_types.h</label>
+      </node>
+      <node id="721">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xmipi__vek385__dphy__example_2sensor__cfgs_8c_1a6242a25f9d996f0cc4f4cdb911218b75" prot="public" static="no">
+        <name>ARRAY_SIZE</name>
+        <param><defname>x</defname></param>
+        <initializer>sizeof((x))/sizeof((x)[0])</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/sensor_cfgs.c" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/sensor_cfgs.c" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xmipi__vek385__dphy__example_2sensor__cfgs_8c_1aa47f038fc6d0319389dc94dbdd35729b" prot="public" static="no" mutable="no">
+        <type>struct regval_list</type>
+        <definition>struct regval_list OS05A10_config_1080p_60fps_regs[]</definition>
+        <argsstring>[]</argsstring>
+        <name>OS05A10_config_1080p_60fps_regs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/sensor_cfgs.c" line="14" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/sensor_cfgs.c" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xmipi__vek385__dphy__example_2sensor__cfgs_8c_1a3f347e0a22017d3eae5d048eb79e2583" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int length_OS05A10_config_1080p_60fps_regs</definition>
+        <argsstring></argsstring>
+        <name>length_OS05A10_config_1080p_60fps_regs</name>
+        <initializer>=
+		ARRAY_SIZE(OS05A10_config_1080p_60fps_regs)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/sensor_cfgs.c" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/sensor_cfgs.c" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor">#include<sp/>&quot;sensor_cfgs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">regval_list<sp/>OS05A10_config_1080p_60fps_regs[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">//<sp/>----------<sp/>Standby<sp/>----------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal">{0x3000,<sp/>0x01},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>STANDBY<sp/>=<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal">{0x3002,<sp/>0x01},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>XMSTA<sp/><sp/>=<sp/>1<sp/>(stop)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">//<sp/>----------<sp/>Basic<sp/>clocks<sp/>/<sp/>INCKSEL<sp/>for<sp/>INCK=37.125<sp/>MHz<sp/>----------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal">{0x3008,<sp/>0x7F},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>BCWAIT_TIME</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal">{0x300A,<sp/>0x5B},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>CPWAIT_TIME</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal">{0x3033,<sp/>0x02},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>SYS_MODE<sp/>for<sp/>1485<sp/>Mbps<sp/>profile</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal">{0x3009,<sp/>0x00},</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">{0x300B,<sp/>0xA0},</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">{0x3115,<sp/>0x00},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>INCKSEL1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal">{0x3116,<sp/>0x24},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>INCKSEL2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal">{0x3118,<sp/>0xA0},<sp/>{0x3119,<sp/>0x00},<sp/><sp/></highlight><highlight class="comment">//<sp/>INCKSEL3<sp/>=<sp/>0x00A0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal">{0x311A,<sp/>0xE0},<sp/>{0x311B,<sp/>0x00},<sp/><sp/></highlight><highlight class="comment">//<sp/>INCKSEL4<sp/>=<sp/>0x00E0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal">{0x311E,<sp/>0x24},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>INCKSEL5</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal">{0x400C,<sp/>0x01},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>INCKSEL6</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal">{0x4074,<sp/>0x00},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>INCKSEL7</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">//<sp/>----------<sp/>Output<sp/>format<sp/>----------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal">{0x3031,<sp/>0x00},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>ADBIT:<sp/>RAW10</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal">{0x3032,<sp/>0x00},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>MDBIT:<sp/>RAW10</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">//<sp/>----------<sp/>Frame<sp/>timing<sp/>(Totals<sp/>set<sp/>for<sp/>1080-class<sp/>60<sp/>fps)<sp/>----------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal">{0x301C,<sp/>0x04},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>(WINMODE<sp/>selector<sp/>as<sp/>in<sp/>your<sp/>working<sp/>set)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal">{0x3024,<sp/>0xCA},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>VMAX<sp/>L</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal">{0x3025,<sp/>0x08},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>VMAX<sp/>M</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal">{0x3026,<sp/>0x00},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>VMAX<sp/>H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal">{0x3028,<sp/>0x4C},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>HMAX<sp/>L<sp/>=<sp/>0x044C</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal">{0x3029,<sp/>0x04},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>HMAX<sp/>H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">//<sp/>----------<sp/>Misc/drive<sp/>(from<sp/>your<sp/>working<sp/>set)<sp/>----------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal">{0x3061,<sp/>0x00},</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">{0x3062,<sp/>0x00},</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">{0x3064,<sp/>0x4A},</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">{0x3065,<sp/>0x00},</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">{0x3066,<sp/>0x00},</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">{0x30C0,<sp/>0x2A},</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">{0x30C1,<sp/>0x00},</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">{0x30CC,<sp/>0x00},</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">{0x30CD,<sp/>0x00},</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">{0x30CF,<sp/>0x00},</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">{0x30D9,<sp/>0x02},</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">{0x30DA,<sp/>0x01},</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">{0x30E2,<sp/>0x32},<sp/>{0x30E3,<sp/>0x00},<sp/><sp/></highlight><highlight class="comment">//<sp/>Black-level<sp/>pedestal</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">//<sp/>----------<sp/>Analog<sp/>gain:<sp/>start<sp/>moderate<sp/>to<sp/>avoid<sp/>color<sp/>pumping<sp/>----------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal">{0x3001,<sp/>0x01},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>REGHOLD<sp/>=<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal">{0x3090,<sp/>0x30},<sp/>{0x3091,<sp/>0x00},<sp/><sp/></highlight><highlight class="comment">//<sp/>+4.8<sp/>dB<sp/>(0.3<sp/>dB/LSB<sp/>→<sp/>0x10<sp/>=<sp/>16<sp/>*<sp/>0.3)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal">{0x3001,<sp/>0x00},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>REGHOLD<sp/>=<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">//<sp/>----------<sp/>MIPI<sp/>lane<sp/>mode<sp/>&amp;<sp/>D‑PHY<sp/>timing<sp/>----------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal">{0x4001,<sp/>0x03},<sp/>{0x4000,<sp/>0x00},<sp/><sp/></highlight><highlight class="comment">//<sp/>4<sp/>lanes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal">{0x4004,<sp/>0x48},<sp/>{0x4005,<sp/>0x09},<sp/><sp/></highlight><highlight class="comment">//<sp/>TXCLKESC<sp/>=<sp/>0x0948<sp/>(your<sp/>proven<sp/>value)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="comment">//<sp/>High‑rate<sp/>D‑PHY<sp/>timings<sp/>(your<sp/>proven<sp/>set<sp/>for<sp/>~1.44–1.485<sp/>Gbps)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal">{0x4018,<sp/>0x9F},<sp/>{0x4019,<sp/>0x00},<sp/><sp/></highlight><highlight class="comment">//<sp/>TCLKPOST</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal">{0x401A,<sp/>0x57},<sp/>{0x401B,<sp/>0x00},<sp/><sp/></highlight><highlight class="comment">//<sp/>TCLKPREPARE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal">{0x401C,<sp/>0x57},<sp/>{0x401D,<sp/>0x00},<sp/><sp/></highlight><highlight class="comment">//<sp/>TCLKTRAIL</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal">{0x401E,<sp/>0x87},<sp/>{0x401F,<sp/>0x01},<sp/><sp/></highlight><highlight class="comment">//<sp/>TCLKZERO</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal">{0x4020,<sp/>0x5F},<sp/>{0x4021,<sp/>0x00},<sp/><sp/></highlight><highlight class="comment">//<sp/>THSPREPARE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal">{0x4022,<sp/>0xA7},<sp/>{0x4023,<sp/>0x00},<sp/><sp/></highlight><highlight class="comment">//<sp/>THSZERO</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal">{0x4024,<sp/>0x5F},<sp/>{0x4025,<sp/>0x00},<sp/><sp/></highlight><highlight class="comment">//<sp/>THSTRAIL</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal">{0x4026,<sp/>0x97},<sp/>{0x4027,<sp/>0x00},<sp/><sp/></highlight><highlight class="comment">//<sp/>THSEXIT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal">{0x4028,<sp/>0x4F},<sp/>{0x4029,<sp/>0x00},<sp/><sp/></highlight><highlight class="comment">//<sp/>TLPX</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="comment">//<sp/>----------<sp/>Sony<sp/>IQ<sp/>/<sp/>shading<sp/>/<sp/>black-level<sp/>/<sp/>noise<sp/>tables<sp/>----------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="comment">//<sp/>(As<sp/>you<sp/>pasted;<sp/>harmless<sp/>to<sp/>streaming,<sp/>fixes<sp/>color<sp/>stability)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment">/*{0x3260,<sp/>0x01},</highlight></codeline>
+<codeline lineno="101"><highlight class="comment">{0x32C8,<sp/>0x01},</highlight></codeline>
+<codeline lineno="102"><highlight class="comment">{0x32D4,<sp/>0x21},</highlight></codeline>
+<codeline lineno="103"><highlight class="comment">{0x32EC,<sp/>0xA1},</highlight></codeline>
+<codeline lineno="104"><highlight class="comment">{0x344C,<sp/>0x2B},<sp/>{0x344D,<sp/>0x01},</highlight></codeline>
+<codeline lineno="105"><highlight class="comment">{0x344E,<sp/>0xED},<sp/>{0x344F,<sp/>0x01},</highlight></codeline>
+<codeline lineno="106"><highlight class="comment">{0x3450,<sp/>0xF6},<sp/>{0x3451,<sp/>0x02},</highlight></codeline>
+<codeline lineno="107"><highlight class="comment">{0x3452,<sp/>0x7F},<sp/>{0x3453,<sp/>0x03},</highlight></codeline>
+<codeline lineno="108"><highlight class="comment">{0x358A,<sp/>0x04},</highlight></codeline>
+<codeline lineno="109"><highlight class="comment">{0x35A1,<sp/>0x02},</highlight></codeline>
+<codeline lineno="110"><highlight class="comment">{0x35EC,<sp/>0x27},<sp/>{0x35EE,<sp/>0x8D},<sp/>{0x35F0,<sp/>0x8D},<sp/>{0x35F2,<sp/>0x29},</highlight></codeline>
+<codeline lineno="111"><highlight class="comment">{0x36BC,<sp/>0x0C},</highlight></codeline>
+<codeline lineno="112"><highlight class="comment">{0x36CC,<sp/>0x53},<sp/>{0x36CD,<sp/>0x00},<sp/>{0x36CE,<sp/>0x3C},</highlight></codeline>
+<codeline lineno="113"><highlight class="comment">{0x36D0,<sp/>0x8C},<sp/>{0x36D1,<sp/>0x00},<sp/>{0x36D2,<sp/>0x71},</highlight></codeline>
+<codeline lineno="114"><highlight class="comment">{0x36D4,<sp/>0x3C},<sp/>{0x36D6,<sp/>0x53},<sp/>{0x36D7,<sp/>0x00},<sp/>{0x36D8,<sp/>0x71},</highlight></codeline>
+<codeline lineno="115"><highlight class="comment">{0x3701,<sp/>0x00},</highlight></codeline>
+<codeline lineno="116"><highlight class="comment">{0x3720,<sp/>0x00},</highlight></codeline>
+<codeline lineno="117"><highlight class="comment">{0x3724,<sp/>0x02},</highlight></codeline>
+<codeline lineno="118"><highlight class="comment">{0x3726,<sp/>0x02},</highlight></codeline>
+<codeline lineno="119"><highlight class="comment">{0x3732,<sp/>0x02},</highlight></codeline>
+<codeline lineno="120"><highlight class="comment">{0x3734,<sp/>0x03},</highlight></codeline>
+<codeline lineno="121"><highlight class="comment">{0x3736,<sp/>0x03},</highlight></codeline>
+<codeline lineno="122"><highlight class="comment">{0x3742,<sp/>0x03},</highlight></codeline>
+<codeline lineno="123"><highlight class="comment">{0x3862,<sp/>0xE0},</highlight></codeline>
+<codeline lineno="124"><highlight class="comment">{0x38CC,<sp/>0x30},<sp/>{0x38CD,<sp/>0x2F},</highlight></codeline>
+<codeline lineno="125"><highlight class="comment">{0x395C,<sp/>0x0C},</highlight></codeline>
+<codeline lineno="126"><highlight class="comment">{0x39A4,<sp/>0x07},</highlight></codeline>
+<codeline lineno="127"><highlight class="comment">{0x39A8,<sp/>0x32},<sp/>{0x39AA,<sp/>0x32},<sp/>{0x39AC,<sp/>0x32},<sp/>{0x39AE,<sp/>0x32},</highlight></codeline>
+<codeline lineno="128"><highlight class="comment">{0x39B0,<sp/>0x32},<sp/>{0x39B2,<sp/>0x2F},<sp/>{0x39B4,<sp/>0x2D},<sp/>{0x39B6,<sp/>0x28},</highlight></codeline>
+<codeline lineno="129"><highlight class="comment">{0x39B8,<sp/>0x30},<sp/>{0x39BA,<sp/>0x30},<sp/>{0x39BC,<sp/>0x30},<sp/>{0x39BE,<sp/>0x30},</highlight></codeline>
+<codeline lineno="130"><highlight class="comment">{0x39C0,<sp/>0x30},<sp/>{0x39C2,<sp/>0x2E},<sp/>{0x39C4,<sp/>0x2B},<sp/>{0x39C6,<sp/>0x25},</highlight></codeline>
+<codeline lineno="131"><highlight class="comment">{0x3A42,<sp/>0xD1},<sp/>{0x3A4C,<sp/>0x77},</highlight></codeline>
+<codeline lineno="132"><highlight class="comment">{0x3AE0,<sp/>0x02},</highlight></codeline>
+<codeline lineno="133"><highlight class="comment">{0x3AEC,<sp/>0x0C},</highlight></codeline>
+<codeline lineno="134"><highlight class="comment">{0x3B00,<sp/>0x2E},<sp/>{0x3B06,<sp/>0x29},</highlight></codeline>
+<codeline lineno="135"><highlight class="comment">{0x3B98,<sp/>0x25},<sp/>{0x3B99,<sp/>0x21},</highlight></codeline>
+<codeline lineno="136"><highlight class="comment">{0x3B9B,<sp/>0x13},<sp/>{0x3B9C,<sp/>0x13},<sp/>{0x3B9D,<sp/>0x13},<sp/>{0x3B9E,<sp/>0x13},</highlight></codeline>
+<codeline lineno="137"><highlight class="comment">{0x3BA1,<sp/>0x00},<sp/>{0x3BA2,<sp/>0x06},<sp/>{0x3BA3,<sp/>0x0B},<sp/>{0x3BA4,<sp/>0x10},</highlight></codeline>
+<codeline lineno="138"><highlight class="comment">{0x3BA5,<sp/>0x14},<sp/>{0x3BA6,<sp/>0x18},<sp/>{0x3BA7,<sp/>0x1A},<sp/>{0x3BA8,<sp/>0x1A},</highlight></codeline>
+<codeline lineno="139"><highlight class="comment">{0x3BAC,<sp/>0xED},<sp/>{0x3BAD,<sp/>0x01},</highlight></codeline>
+<codeline lineno="140"><highlight class="comment">{0x3BAE,<sp/>0xF6},<sp/>{0x3BAF,<sp/>0x02},</highlight></codeline>
+<codeline lineno="141"><highlight class="comment">{0x3BB0,<sp/>0xA2},<sp/>{0x3BB1,<sp/>0x03},</highlight></codeline>
+<codeline lineno="142"><highlight class="comment">{0x3BB2,<sp/>0xE0},<sp/>{0x3BB3,<sp/>0x03},</highlight></codeline>
+<codeline lineno="143"><highlight class="comment">{0x3BB4,<sp/>0xE0},<sp/>{0x3BB5,<sp/>0x03},</highlight></codeline>
+<codeline lineno="144"><highlight class="comment">{0x3BB6,<sp/>0xE0},<sp/>{0x3BB7,<sp/>0x03},</highlight></codeline>
+<codeline lineno="145"><highlight class="comment">{0x3BB8,<sp/>0xE0},</highlight></codeline>
+<codeline lineno="146"><highlight class="comment">{0x3BBA,<sp/>0xE0},</highlight></codeline>
+<codeline lineno="147"><highlight class="comment">{0x3BBC,<sp/>0xDA},</highlight></codeline>
+<codeline lineno="148"><highlight class="comment">{0x3BBE,<sp/>0x88},</highlight></codeline>
+<codeline lineno="149"><highlight class="comment">{0x3BC0,<sp/>0x44},</highlight></codeline>
+<codeline lineno="150"><highlight class="comment">{0x3BC2,<sp/>0x7B},</highlight></codeline>
+<codeline lineno="151"><highlight class="comment">{0x3BC4,<sp/>0xA2},</highlight></codeline>
+<codeline lineno="152"><highlight class="comment">{0x3BC8,<sp/>0xBD},</highlight></codeline>
+<codeline lineno="153"><highlight class="comment">{0x3BCA,<sp/>0xBD},*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="comment">//<sp/>----------<sp/>Do<sp/>NOT<sp/>program<sp/>SYS_MODE<sp/>(0x3033)<sp/>or<sp/>ROI<sp/>(0x3040–0x3047)<sp/>here<sp/>----------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="comment">//<sp/>(Leaving<sp/>them<sp/>at<sp/>the<sp/>working<sp/>defaults<sp/>avoids<sp/>stream<sp/>loss.)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="comment">//<sp/>----------<sp/>Stream<sp/>ON<sp/>----------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal">{0x3000,<sp/>0x00},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>STANDBY<sp/>=<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal">{0x3002,<sp/>0x00},<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>XMSTA<sp/><sp/>=<sp/>0<sp/>(start)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ARRAY_SIZE(x)<sp/><sp/><sp/>sizeof((x))/sizeof((x)[0])</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length_OS05A10_config_1080p_60fps_regs<sp/>=</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ARRAY_SIZE(OS05A10_config_1080p_60fps_regs);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_dphy_example/sensor_cfgs.c"/>
+  </compounddef>
+</doxygen>

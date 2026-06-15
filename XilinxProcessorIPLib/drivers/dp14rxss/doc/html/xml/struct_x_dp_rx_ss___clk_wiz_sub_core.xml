@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_rx_ss___clk_wiz_sub_core" kind="struct" prot="public">
+    <compoundname>XDpRxSs_ClkWizSubCore</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___clk_wiz_sub_core_1ad053564788325270baffb6705dc70ca4" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDpRxSs_ClkWizSubCore::IsPresent</definition>
+        <argsstring></argsstring>
+        <name>IsPresent</name>
+        <briefdescription>
+<para>Flag to hold the presence of clocking wizard. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="375" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="375" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___clk_wiz_sub_core_1ab98eea6ef3c2d3a87329aee9bda825a6" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp_rx_ss___sub_core_config" kindref="compound">XDpRxSs_SubCoreConfig</ref></type>
+        <definition>XDpRxSs_SubCoreConfig XDpRxSs_ClkWizSubCore::ClkWizConfig</definition>
+        <argsstring></argsstring>
+        <name>ClkWizConfig</name>
+        <briefdescription>
+<para>Clocking Wizard core configuration information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="376" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="376" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="36">
+        <label>XDpRxSs_SubCoreConfig</label>
+        <link refid="struct_x_dp_rx_ss___sub_core_config"/>
+      </node>
+      <node id="35">
+        <label>XDpRxSs_ClkWizSubCore</label>
+        <childnode refid="36" relation="usage">
+          <edgelabel>ClkWizConfig</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="374" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="374" bodyend="378"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_rx_ss___clk_wiz_sub_core_1ab98eea6ef3c2d3a87329aee9bda825a6" prot="public" virt="non-virtual"><scope>XDpRxSs_ClkWizSubCore</scope><name>ClkWizConfig</name></member>
+      <member refid="struct_x_dp_rx_ss___clk_wiz_sub_core_1ad053564788325270baffb6705dc70ca4" prot="public" virt="non-virtual"><scope>XDpRxSs_ClkWizSubCore</scope><name>IsPresent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

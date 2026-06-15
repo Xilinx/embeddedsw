@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_s_i__5344___freq_config" kind="struct" prot="public">
+    <compoundname>SI_5344_FreqConfig</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_s_i__5344___freq_config_1aee803fea3a67171cf50afdc74ace9cc1" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 SI_5344_FreqConfig::Address</definition>
+        <argsstring></argsstring>
+        <name>Address</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/si_5344_freqconfigs.h" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/si_5344_freqconfigs.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_i__5344___freq_config_1a2da90082c6cc5b7a19d624a1c2b7914a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SI_5344_FreqConfig::Value</definition>
+        <argsstring></argsstring>
+        <name>Value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/si_5344_freqconfigs.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/si_5344_freqconfigs.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/si_5344_freqconfigs.h" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/si_5344_freqconfigs.h" bodystart="37" bodyend="41"/>
+    <listofallmembers>
+      <member refid="struct_s_i__5344___freq_config_1aee803fea3a67171cf50afdc74ace9cc1" prot="public" virt="non-virtual"><scope>SI_5344_FreqConfig</scope><name>Address</name></member>
+      <member refid="struct_s_i__5344___freq_config_1a2da90082c6cc5b7a19d624a1c2b7914a" prot="public" virt="non-virtual"><scope>SI_5344_FreqConfig</scope><name>Value</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

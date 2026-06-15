@@ -1,0 +1,667 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__rsa__q_8h" kind="file">
+    <compoundname>xsecure_rsa_q.h</compoundname>
+    <includes local="yes">xsecure_config.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xsecure_rsa_core.h</includes>
+    <includes local="yes">Rsa.h</includes>
+    <includedby refid="xsecure__plat__rsa_8h" local="yes">xsecure_plat_rsa.h</includedby>
+    <includedby refid="xsecure__rsa__q_8c" local="yes">xsecure_rsa_q.c</includedby>
+    <includedby refid="2ve__2vm_2xsecure__plat__ipihandler_8c" local="yes">xsecure_plat_ipihandler.c</includedby>
+    <includedby refid="2vp__p_2xsecure__plat__ipihandler_8c" local="yes">xsecure_plat_ipihandler.c</includedby>
+    <incdepgraph>
+      <node id="3612">
+        <label>Rsa.h</label>
+      </node>
+      <node id="3608">
+        <label>xsecure_rsa_q.h</label>
+        <link refid="xsecure_rsa_q.h"/>
+        <childnode refid="3609" relation="include">
+        </childnode>
+        <childnode refid="3610" relation="include">
+        </childnode>
+        <childnode refid="3611" relation="include">
+        </childnode>
+        <childnode refid="3612" relation="include">
+        </childnode>
+      </node>
+      <node id="3609">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="3610">
+        <label>xil_types.h</label>
+      </node>
+      <node id="3611">
+        <label>xsecure_rsa_core.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3616">
+        <label>xsecure_plat_rsa.c</label>
+        <link refid="xsecure__plat__rsa_8c"/>
+      </node>
+      <node id="3618">
+        <label>xsecure_kat_ipihandler.c</label>
+        <link refid="xsecure__kat__ipihandler_8c"/>
+      </node>
+      <node id="3614">
+        <label>xsecure_plat_rsa.h</label>
+        <link refid="xsecure__plat__rsa_8h"/>
+        <childnode refid="3615" relation="include">
+        </childnode>
+        <childnode refid="3616" relation="include">
+        </childnode>
+        <childnode refid="3617" relation="include">
+        </childnode>
+        <childnode refid="3623" relation="include">
+        </childnode>
+      </node>
+      <node id="3619">
+        <label>xsecure_ellipticplat.c</label>
+        <link refid="xsecure__ellipticplat_8c"/>
+      </node>
+      <node id="3625">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="2ve__2vm_2xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="3615">
+        <label>xsecure_keyunwrap.c</label>
+        <link refid="xsecure__keyunwrap_8c"/>
+      </node>
+      <node id="3624">
+        <label>xsecure_rsa_q.c</label>
+        <link refid="xsecure__rsa__q_8c"/>
+      </node>
+      <node id="3613">
+        <label>xsecure_rsa_q.h</label>
+        <link refid="xsecure_rsa_q.h"/>
+        <childnode refid="3614" relation="include">
+        </childnode>
+        <childnode refid="3624" relation="include">
+        </childnode>
+        <childnode refid="3625" relation="include">
+        </childnode>
+        <childnode refid="3626" relation="include">
+        </childnode>
+      </node>
+      <node id="3620">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__net_2xsecure__plat_8c"/>
+      </node>
+      <node id="3622">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__net_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="3626">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="2vp__p_2xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="3621">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="net_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="3617">
+        <label>xsecure_plat_kat.h</label>
+        <link refid="net_2xsecure__plat__kat_8h"/>
+        <childnode refid="3618" relation="include">
+        </childnode>
+        <childnode refid="3619" relation="include">
+        </childnode>
+        <childnode refid="3616" relation="include">
+        </childnode>
+        <childnode refid="3620" relation="include">
+        </childnode>
+        <childnode refid="3621" relation="include">
+        </childnode>
+        <childnode refid="3622" relation="include">
+        </childnode>
+      </node>
+      <node id="3623">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="net_2xsecure__plat__ipihandler_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_secure___rsa_operation_param" prot="public">XSecure_RsaOperationParam</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__rsa__qmode__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" prot="public" static="no">
+        <name>externC</name>
+        <initializer>extern</initializer>
+        <briefdescription>
+<para>For compilation in C++. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" line="35" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__qmode__apis_1ga38e1b28752d6069910cf90fb422e9cca" prot="public" static="no">
+        <name>XSECURE_ECDSA_RSA_SOFT_RESET</name>
+        <initializer>(0xF1200040U)</initializer>
+        <briefdescription>
+<para>ECDSA/RSA soft reset address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__qmode__apis_1gacba3eaa97a1cf39d9022dddcaded8e1b" prot="public" static="no">
+        <name>XSECURE_RSA_SIZE_IN_BYTES</name>
+        <initializer>(512U)</initializer>
+        <briefdescription>
+<para>512 bytes for 4096 bit data </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__qmode__apis_1ga127677299bd2c7d46a4cf8941e91ccc3" prot="public" static="no">
+        <name>XSECURE_PRIME_FACTOR_MAX_P_SIZE</name>
+        <initializer>(<ref refid="group__xsecure__rsa__qmode__apis_1gacba3eaa97a1cf39d9022dddcaded8e1b" kindref="member">XSECURE_RSA_SIZE_IN_BYTES</ref> &gt;&gt; 1U)</initializer>
+        <briefdescription>
+<para>256 bytes size of first prime factor(P) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__qmode__apis_1gae905dfaa14a252d9b935b0f5ce8e7583" prot="public" static="no">
+        <name>XSECURE_PRIME_FACTOR_MAX_Q_SIZE</name>
+        <initializer>(<ref refid="group__xsecure__rsa__qmode__apis_1gacba3eaa97a1cf39d9022dddcaded8e1b" kindref="member">XSECURE_RSA_SIZE_IN_BYTES</ref> &gt;&gt; 1U)</initializer>
+        <briefdescription>
+<para>256 bytes size of first prime factor(Q) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__qmode__apis_1gac68769cb4d2f865843c2e77b2b5c3fbd" prot="public" static="no">
+        <name>XSECURE_RSA_PUB_EXP_SIZE</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>RSA public exponent size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__rsa__qmode__apis_1gae1a74baadcd5d96038076e38a6af64e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaExpCRT</definition>
+        <argsstring>(u8 *Hash, u8 *P, u8 *Q, u8 *Dp, u8 *Dq, u8 *Qinv, u8 *Pub, u8 *Mod, int Len, u8 *Res)</argsstring>
+        <name>XSecure_RsaExpCRT</name>
+        <param>
+          <type>u8 *</type>
+          <declname>Hash</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>P</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Q</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Dp</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Dq</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Qinv</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Pub</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Mod</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Len</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Res</declname>
+        </param>
+        <briefdescription>
+<para>This function performs the RSA exponentiation using CRT (Chinese Remainder Theorem). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Hash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Hash of the exponentiation. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>P</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is first factor, a positive integer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Q</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is second factor, a positive integer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is first factor&apos;s CRT exponent, a positive integer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dq</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is second factor&apos;s CRT exponent, a positive integer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Qinv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is (first) CRT coefficient, a positive integer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Pub</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the public exponent to protect against the fault insertions. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mod</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the public modulus (p*q), if NULL, calculated internally. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is length of the full-length integer in bits. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Res</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is result of exponentiation r = (h^e) mod n.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success.</para></listitem><listitem><para>XSECURE_RSA_EXPONENT_INVALID_PARAM - If any input parameter is invalid.</para></listitem><listitem><para>XST_FAILURE - On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters</para></listitem><listitem><para>Release the RSA engine from reset</para></listitem><listitem><para>Perform the RSA exponentiation using CRT</para></listitem><listitem><para>Reset the RSA engine </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.c" bodystart="73" bodyend="96"/>
+        <references refid="group__xsecure__rsa__server__apis_1ga38e1b28752d6069910cf90fb422e9cca" compoundref="xsecure__plat__rsa_8h" startline="80">XSECURE_ECDSA_RSA_SOFT_RESET</references>
+        <references refid="group__xsecure__generic__server__apis_1gae500e79a22c37a14027ce0ad88a8cafe" compoundref="core_2util_2xsecure__utils_8h" startline="218">XSecure_Out32</references>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57abec901590074cb2fc5128fcfeb2fe6be" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="177">XSECURE_RSA_EXPONENT_INVALID_PARAM</references>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga7fe869dab6a634c2866f9ec26ee8cec0" compoundref="xsecure__plat__rsa_8c" startline="346" endline="378">XSecure_RsaOaepDecrypt</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__qmode__apis_1gab93e9d20b03a5821f0b533b3c0a1f681" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaExp</definition>
+        <argsstring>(u8 *Hash, u8 *Exp, u8 *Mod, u8 *P, u8 *Q, u8 *Pub, u8 *Tot, int Len, u8 *Res)</argsstring>
+        <name>XSecure_RsaExp</name>
+        <param>
+          <type>u8 *</type>
+          <declname>Hash</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Exp</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Mod</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>P</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Q</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Pub</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Tot</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Len</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Res</declname>
+        </param>
+        <briefdescription>
+<para>This function performs the RSA exponentiation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Hash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Hash of the exponentiation. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Exp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is exponent, a positive integer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mod</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is public modulus (p*q), NULL is invalid param. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>P</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is first factor, a positive integer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Q</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is second factor, a positive integer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Pub</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is public exponent to protect against the fault insertions. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Tot</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is totient, a secret value equal to (p-1)*(q-1). if NULL, calculated internally with p and q. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is length of the full-length integer in bits. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Res</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is result of exponentiation r = (h^e) mod n.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success.</para></listitem><listitem><para>XSECURE_RSA_EXPONENT_INVALID_PARAM - If any input parameter is invalid.</para></listitem><listitem><para>XST_FAILURE - On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters</para></listitem><listitem><para>Release the RSA engine from reset</para></listitem><listitem><para>Perform the RSA exponentiation</para></listitem><listitem><para>Reset the RSA engine </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.c" bodystart="119" bodyend="141"/>
+        <references refid="group__xsecure__rsa__server__apis_1ga38e1b28752d6069910cf90fb422e9cca" compoundref="xsecure__plat__rsa_8h" startline="80">XSECURE_ECDSA_RSA_SOFT_RESET</references>
+        <references refid="group__xsecure__generic__server__apis_1gae500e79a22c37a14027ce0ad88a8cafe" compoundref="core_2util_2xsecure__utils_8h" startline="218">XSecure_Out32</references>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57abec901590074cb2fc5128fcfeb2fe6be" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="177">XSECURE_RSA_EXPONENT_INVALID_PARAM</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__qmode__apis_1ga6d3412455d770af7b891c3c90df4dffd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaExpopt</definition>
+        <argsstring>(u8 *Hash, u8 *Exp, u8 *Mod, u8 *RN, u8 *RRN, u8 *P, u8 *Q, u8 *Pub, u8 *Tot, int Len, u8 *Res)</argsstring>
+        <name>XSecure_RsaExpopt</name>
+        <param>
+          <type>u8 *</type>
+          <declname>Hash</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Exp</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Mod</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>RN</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>RRN</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>P</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Q</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Pub</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Tot</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Len</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Res</declname>
+        </param>
+        <briefdescription>
+<para>This function perofrms the RSA exponentiation using pre-calculated modulus. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Hash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Hash of the exponentiation. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Exp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is exponent, a positive integer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mod</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is public modulus (p*q), NULL is invalid param. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RN</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pre-calculated modulus RmodN </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RRN</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pre-calculated modulus RRmodN </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>P</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is first factor, a positive integer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Q</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is second factor, a positive integer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Pub</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is public exponent to protect against the fault insertions. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Tot</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is totient, a secret value equal to (p-1)*(q-1). if NULL, calculated internally with p and q. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is length of the full-length integer in bits. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Res</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is result of exponentiation r = (h^e) mod n.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success.</para></listitem><listitem><para>XSECURE_RSA_EXPONENT_INVALID_PARAM - If any input parameter is invalid.</para></listitem><listitem><para>XST_FAILURE - On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters</para></listitem><listitem><para>Release the RSA engine from reset</para></listitem><listitem><para>Perform the RSA exponentiation with pre-calculated modulus</para></listitem><listitem><para>Reset the RSA engine </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.c" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.c" bodystart="166" bodyend="189"/>
+        <references refid="group__xsecure__rsa__server__apis_1ga38e1b28752d6069910cf90fb422e9cca" compoundref="xsecure__plat__rsa_8h" startline="80">XSECURE_ECDSA_RSA_SOFT_RESET</references>
+        <references refid="group__xsecure__generic__server__apis_1gae500e79a22c37a14027ce0ad88a8cafe" compoundref="core_2util_2xsecure__utils_8h" startline="218">XSecure_Out32</references>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57abec901590074cb2fc5128fcfeb2fe6be" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="177">XSECURE_RSA_EXPONENT_INVALID_PARAM</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains hardware interface related information for RSA quite mode. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+5.4   kal  08/26/24 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>XSECURE_RSA_Q_H_</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_RSA_Q_H_</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>externC<sp/>extern<sp/>&quot;C&quot;</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="35" refid="group__xsecure__rsa__qmode__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>externC<sp/>extern</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_RSA_EXCLUDE</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_rsa_core.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Rsa.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="group__xsecure__rsa__qmode__apis_1ga38e1b28752d6069910cf90fb422e9cca" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_ECDSA_RSA_SOFT_RESET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF1200040U)<sp/></highlight></codeline>
+<codeline lineno="53" refid="group__xsecure__rsa__qmode__apis_1gacba3eaa97a1cf39d9022dddcaded8e1b" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_RSA_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(512U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54" refid="group__xsecure__rsa__qmode__apis_1ga127677299bd2c7d46a4cf8941e91ccc3" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_PRIME_FACTOR_MAX_P_SIZE<sp/>(XSECURE_RSA_SIZE_IN_BYTES<sp/>&gt;&gt;<sp/>1U)<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55" refid="group__xsecure__rsa__qmode__apis_1gae905dfaa14a252d9b935b0f5ce8e7583" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_PRIME_FACTOR_MAX_Q_SIZE<sp/>(XSECURE_RSA_SIZE_IN_BYTES<sp/>&gt;&gt;<sp/>1U)<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56" refid="group__xsecure__rsa__qmode__apis_1gac68769cb4d2f865843c2e77b2b5c3fbd" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_RSA_PUB_EXP_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>InData[<ref refid="group__xsecure__rsa__qmode__apis_1gacba3eaa97a1cf39d9022dddcaded8e1b" kindref="member">XSECURE_RSA_SIZE_IN_BYTES</ref>];<sp/><sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Exp[<ref refid="group__xsecure__rsa__qmode__apis_1gacba3eaa97a1cf39d9022dddcaded8e1b" kindref="member">XSECURE_RSA_SIZE_IN_BYTES</ref>];<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Mod[<ref refid="group__xsecure__rsa__qmode__apis_1gacba3eaa97a1cf39d9022dddcaded8e1b" kindref="member">XSECURE_RSA_SIZE_IN_BYTES</ref>];<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>P[<ref refid="group__xsecure__rsa__qmode__apis_1ga127677299bd2c7d46a4cf8941e91ccc3" kindref="member">XSECURE_PRIME_FACTOR_MAX_P_SIZE</ref>];<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Q[<ref refid="group__xsecure__rsa__qmode__apis_1gae905dfaa14a252d9b935b0f5ce8e7583" kindref="member">XSECURE_PRIME_FACTOR_MAX_Q_SIZE</ref>];<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>DP[<ref refid="group__xsecure__rsa__qmode__apis_1ga127677299bd2c7d46a4cf8941e91ccc3" kindref="member">XSECURE_PRIME_FACTOR_MAX_P_SIZE</ref>];<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>DQ[<ref refid="group__xsecure__rsa__qmode__apis_1gae905dfaa14a252d9b935b0f5ce8e7583" kindref="member">XSECURE_PRIME_FACTOR_MAX_Q_SIZE</ref>];<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>QInv[<ref refid="group__xsecure__rsa__qmode__apis_1ga127677299bd2c7d46a4cf8941e91ccc3" kindref="member">XSECURE_PRIME_FACTOR_MAX_P_SIZE</ref>];<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Tot[<ref refid="group__xsecure__rsa__qmode__apis_1gacba3eaa97a1cf39d9022dddcaded8e1b" kindref="member">XSECURE_RSA_SIZE_IN_BYTES</ref>];<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>RN[<ref refid="group__xsecure__rsa__qmode__apis_1gacba3eaa97a1cf39d9022dddcaded8e1b" kindref="member">XSECURE_RSA_SIZE_IN_BYTES</ref>];<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>RRN[<ref refid="group__xsecure__rsa__qmode__apis_1gacba3eaa97a1cf39d9022dddcaded8e1b" kindref="member">XSECURE_RSA_SIZE_IN_BYTES</ref>];<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PubExp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="72"><highlight class="normal">}<sp/>XSecure_RsaOperationParam;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Function<sp/>Prototypes<sp/>***************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__qmode__apis_1gae1a74baadcd5d96038076e38a6af64e1" kindref="member">XSecure_RsaExpCRT</ref>(u8<sp/>*Hash,<sp/>u8<sp/>*P,<sp/>u8<sp/>*Q,<sp/>u8<sp/>*Dp,<sp/>u8<sp/>*Dq,<sp/>u8<sp/>*Qinv,<sp/>u8<sp/>*Pub,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*Mod,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Len,<sp/>u8<sp/>*Res);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__qmode__apis_1gab93e9d20b03a5821f0b533b3c0a1f681" kindref="member">XSecure_RsaExp</ref>(u8<sp/>*Hash,<sp/>u8<sp/>*Exp,<sp/>u8<sp/>*Mod,<sp/>u8<sp/>*P,<sp/>u8<sp/>*Q,<sp/>u8<sp/>*Pub,<sp/>u8<sp/>*Tot,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Len,<sp/>u8<sp/>*Res);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__qmode__apis_1ga6d3412455d770af7b891c3c90df4dffd" kindref="member">XSecure_RsaExpopt</ref>(u8<sp/>*Hash,<sp/>u8<sp/>*Exp,<sp/>u8<sp/>*Mod,<sp/>u8<sp/>*RN,<sp/>u8<sp/>*RRN,<sp/>u8<sp/>*P,<sp/>u8<sp/>*Q,<sp/>u8<sp/>*Pub,<sp/>u8<sp/>*Tot,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Len,<sp/>u8<sp/>*Res);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>PLM_RSA_EXCLUDE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_RSA_Q_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h"/>
+  </compounddef>
+</doxygen>

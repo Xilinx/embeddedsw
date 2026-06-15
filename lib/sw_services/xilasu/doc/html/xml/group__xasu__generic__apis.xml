@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xasu__generic__apis" kind="group">
+    <compoundname>xasu_generic_apis</compoundname>
+    <title>Generic APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__generic__apis_1ga04f710c11a465ba2bca492d9517c73d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_IsBufferNonZero</definition>
+        <argsstring>(u8 *Buffer, u32 Length)</argsstring>
+        <name>XAsu_IsBufferNonZero</name>
+        <param>
+          <type>u8 *</type>
+          <declname>Buffer</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Length</declname>
+        </param>
+        <briefdescription>
+<para>This function checks whether the buffer has a non-zero value or not. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer whose value needs to be checked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the buffer in bytes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if buffer has non-zero value.</para></listitem><listitem><para>XST_FAILURE, if buffer has all zeroes as values. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_generic.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_generic.c" bodystart="56" bodyend="73"/>
+        <referencedby refid="group__xasu__ocp__client__apis_1ga3c3e8b42eab489f97dab01062de04aba" compoundref="xasu__ocp_8c" startline="303" endline="353">XAsu_OcpUdeChallengeReq</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

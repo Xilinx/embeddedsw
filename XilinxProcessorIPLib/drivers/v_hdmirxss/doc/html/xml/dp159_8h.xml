@@ -1,0 +1,336 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dp159_8h" kind="file">
+    <compoundname>dp159.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xvphy.h</includes>
+    <includedby refid="dp159_8c" local="yes">dp159.c</includedby>
+    <includedby refid="_pass_through_2xhdmi__example_8h" local="yes">xhdmi_example.h</includedby>
+    <includedby refid="_pass_through_versal_2xhdmi__example_8h" local="yes">xhdmi_example.h</includedby>
+    <includedby refid="_pass_through_versal_2xhdmi__menu_8h" local="yes">xhdmi_menu.h</includedby>
+    <includedby refid="_repeater_2xhdmi__example_8h" local="yes">xhdmi_example.h</includedby>
+    <includedby refid="_repeater_professional_2xhdmi__example_8h" local="yes">xhdmi_example.h</includedby>
+    <includedby refid="_rx_only_2xhdmi__example_8h" local="yes">xhdmi_example.h</includedby>
+    <incdepgraph>
+      <node id="101">
+        <label>xvphy.h</label>
+      </node>
+      <node id="98">
+        <label>dp159.h</label>
+        <link refid="dp159.h"/>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+      </node>
+      <node id="99">
+        <label>xil_types.h</label>
+      </node>
+      <node id="100">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="122">
+        <label>xhdcp.c</label>
+      </node>
+      <node id="116">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="114">
+        <label>xhdmi_example.h</label>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="116" relation="include">
+        </childnode>
+      </node>
+      <node id="112">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="109">
+        <label>xhdmi_example.h</label>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+      </node>
+      <node id="107">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="104">
+        <label>xhdmi_example.h</label>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+      </node>
+      <node id="103">
+        <label>dp159.c</label>
+      </node>
+      <node id="102">
+        <label>dp159.h</label>
+        <link refid="dp159.h"/>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="121" relation="include">
+        </childnode>
+      </node>
+      <node id="115">
+        <label>xhdcp.c</label>
+      </node>
+      <node id="120">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="117">
+        <label>xhdmi_example.h</label>
+        <childnode refid="118" relation="include">
+        </childnode>
+        <childnode refid="119" relation="include">
+        </childnode>
+        <childnode refid="120" relation="include">
+        </childnode>
+      </node>
+      <node id="108">
+        <label>xhdmi_menu.c</label>
+      </node>
+      <node id="106">
+        <label>xhdmi_menu.h</label>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+      </node>
+      <node id="119">
+        <label>xhdcp.c</label>
+      </node>
+      <node id="118">
+        <label>xhdcp.h</label>
+        <childnode refid="119" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+      </node>
+      <node id="124">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="121">
+        <label>xhdmi_example.h</label>
+        <childnode refid="122" relation="include">
+        </childnode>
+        <childnode refid="123" relation="include">
+        </childnode>
+        <childnode refid="124" relation="include">
+        </childnode>
+      </node>
+      <node id="110">
+        <label>xhdcp.c</label>
+      </node>
+      <node id="125">
+        <label>xhdmi_menu.c</label>
+      </node>
+      <node id="123">
+        <label>xhdmi_menu.h</label>
+        <childnode refid="114" relation="include">
+        </childnode>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="120" relation="include">
+        </childnode>
+        <childnode refid="121" relation="include">
+        </childnode>
+        <childnode refid="124" relation="include">
+        </childnode>
+        <childnode refid="125" relation="include">
+        </childnode>
+      </node>
+      <node id="113">
+        <label>xhdmi_menu.c</label>
+      </node>
+      <node id="111">
+        <label>xhdmi_menu.h</label>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+      </node>
+      <node id="105">
+        <label>xhdcp.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="dp159_8h_1ae7d3fc64c447f602e0f2f32227c51b4d" prot="public" static="no">
+        <name>DP159_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/dp159.h" line="9" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/dp159.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="dp159_8h_1a2e4b8cf26cdbad49ce643e7b10ae2b56" prot="public" static="no">
+        <name>XPAR_IIC_0_BASEADDR</name>
+        <initializer>XPAR_XIIC_0_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/dp159.h" line="20" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/dp159.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="dp159_8h_1ad0965aa4556241c459c6124bde173898" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 i2c_dp159</definition>
+        <argsstring>(XVphy *VphyPtr, u8 QuadId, u64 TxLineRate)</argsstring>
+        <name>i2c_dp159</name>
+        <param>
+          <type>XVphy *</type>
+          <declname>VphyPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>QuadId</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>TxLineRate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/dp159.h" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/dp159.c" bodystart="127" bodyend="487"/>
+      </memberdef>
+      <memberdef kind="function" id="dp159_8h_1a69847c793fd3d7007bbe965818b3cfa8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 i2c_dp159_write</definition>
+        <argsstring>(u8 dev, u8 addr, u8 dat)</argsstring>
+        <name>i2c_dp159_write</name>
+        <param>
+          <type>u8</type>
+          <declname>dev</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>addr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>dat</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/dp159.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/dp159.c" bodystart="57" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="dp159_8h_1a9d42f987baf5e8b758c976c9d76d1455" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 i2c_dp159_read</definition>
+        <argsstring>(u8 dev, u8 addr)</argsstring>
+        <name>i2c_dp159_read</name>
+        <param>
+          <type>u8</type>
+          <declname>dev</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/dp159.h" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/dp159.c" bodystart="82" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="dp159_8h_1aff83478d5c199656866ba3227a428816" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void i2c_dp159_dump</definition>
+        <argsstring>(void)</argsstring>
+        <name>i2c_dp159_dump</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/dp159.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/dp159.c" bodystart="109" bodyend="123"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>DP159_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DP159_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>versal</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvphy.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xhdmiphy1.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_IIC_0_BASEADDR<sp/>XPAR_XIIC_0_BASEADDR</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="comment">//<sp/>Function<sp/>prototypes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>versal</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/>i2c_dp159(XVphy<sp/>*VphyPtr,<sp/>u8<sp/>QuadId,<sp/>u64<sp/>TxLineRate);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/>i2c_dp159(XHdmiphy1<sp/>*Hdmiphy1Ptr,<sp/>u8<sp/>QuadId,<sp/>u64<sp/>TxLineRate);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/>i2c_dp159_write(u8<sp/>dev,<sp/>u8<sp/>addr,<sp/>u8<sp/>dat);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">u8<sp/>i2c_dp159_read(u8<sp/>dev,<sp/>u8<sp/>addr);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>i2c_dp159_dump(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/dp159.h"/>
+  </compounddef>
+</doxygen>

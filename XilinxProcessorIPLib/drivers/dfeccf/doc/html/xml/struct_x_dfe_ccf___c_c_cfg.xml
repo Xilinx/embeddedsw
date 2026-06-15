@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_ccf___c_c_cfg" kind="struct" prot="public">
+    <compoundname>XDfeCcf_CCCfg</compoundname>
+    <includes local="no">xdfeccf.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_ccf___c_c_cfg_1abed0b47de6a645db63b4a99d0811a253" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_ccf___c_c_sequence" kindref="compound">XDfeCcf_CCSequence</ref></type>
+        <definition>XDfeCcf_CCSequence XDfeCcf_CCCfg::Sequence</definition>
+        <argsstring></argsstring>
+        <name>Sequence</name>
+        <briefdescription>
+<para>CCID sequence. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="359" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga2bfa4131ce8d5857886eafa44a99f6bb" compoundref="xdfeccf_8c" startline="1595" endline="1649">XDfeCcf_AddCC</referencedby>
+        <referencedby refid="group__dfeccf_1gad0fac8e80b48aebf7a8b3da0681b8d14" compoundref="xdfeccf_8c" startline="1361" endline="1399">XDfeCcf_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfeccf_1gaadad4a797dff7b30ac37d42df1a540a0" compoundref="xdfeccf_8c" startline="1287" endline="1310">XDfeCcf_GetCarrierCfg</referencedby>
+        <referencedby refid="group__dfeccf_1ga31a32e74a6fef543927f191eed1fbbb0" compoundref="xdfeccf_8c" startline="1136" endline="1144">XDfeCcf_GetCurrentCCCfg</referencedby>
+        <referencedby refid="group__dfeccf_1ga9dabb47e081bcecd0c865126daa6a92a" compoundref="xdfeccf_8c" startline="1218" endline="1245">XDfeCcf_GetCurrentCCCfgSwitchable</referencedby>
+        <referencedby refid="group__dfeccf_1ga699c8f140720fcbf22543c7758ace5d5" compoundref="xdfeccf_8c" startline="1258" endline="1272">XDfeCcf_GetEmptyCCCfg</referencedby>
+        <referencedby refid="group__dfeccf_1gaab4eacc4f345b3e01db53abae16e997a" compoundref="xdfeccf_8c" startline="1674" endline="1693">XDfeCcf_RemoveCC</referencedby>
+        <referencedby refid="group__dfeccf_1gaeb13bf603062867f0e7827abcf65fb34" compoundref="xdfeccf_8c" startline="1413" endline="1425">XDfeCcf_RemoveCCfromCCCfg</referencedby>
+        <referencedby refid="group__dfeccf_1gacd14259acee557613b0002ec6d187550" compoundref="xdfeccf_8c" startline="1482" endline="1499">XDfeCcf_SetNextCCCfgAndTrigger</referencedby>
+        <referencedby refid="group__dfeccf_1ga47f2c3d66e66518a7337906b5871e04d" compoundref="xdfeccf_8c" startline="1517" endline="1559">XDfeCcf_SetNextCCCfgAndTriggerSwitchable</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___c_c_cfg_1a9ce7a33596f8bde0e056af616e1c5ca8" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_ccf___internal_carrier_cfg" kindref="compound">XDfeCcf_InternalCarrierCfg</ref></type>
+        <definition>XDfeCcf_InternalCarrierCfg XDfeCcf_CCCfg::CarrierCfg[XDFECCF_CC_NUM]</definition>
+        <argsstring>[XDFECCF_CC_NUM]</argsstring>
+        <name>CarrierCfg</name>
+        <briefdescription>
+<para>CC configurations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="361" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="361" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga2bfa4131ce8d5857886eafa44a99f6bb" compoundref="xdfeccf_8c" startline="1595" endline="1649">XDfeCcf_AddCC</referencedby>
+        <referencedby refid="group__dfeccf_1gad0fac8e80b48aebf7a8b3da0681b8d14" compoundref="xdfeccf_8c" startline="1361" endline="1399">XDfeCcf_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfeccf_1gaadad4a797dff7b30ac37d42df1a540a0" compoundref="xdfeccf_8c" startline="1287" endline="1310">XDfeCcf_GetCarrierCfg</referencedby>
+        <referencedby refid="group__dfeccf_1gaab4eacc4f345b3e01db53abae16e997a" compoundref="xdfeccf_8c" startline="1674" endline="1693">XDfeCcf_RemoveCC</referencedby>
+        <referencedby refid="group__dfeccf_1gaeb13bf603062867f0e7827abcf65fb34" compoundref="xdfeccf_8c" startline="1413" endline="1425">XDfeCcf_RemoveCCfromCCCfg</referencedby>
+        <referencedby refid="group__dfeccf_1gabc93998a929eabcbe6b5845626cef210" compoundref="xdfeccf_8c" startline="1721" endline="1751">XDfeCcf_UpdateCC</referencedby>
+        <referencedby refid="group__dfeccf_1gabd6cdd5621c842a4d6a8a58a4eaf6235" compoundref="xdfeccf_8c" startline="1441" endline="1466">XDfeCcf_UpdateCCinCCCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___c_c_cfg_1a05d55118937cf523f1644b656b32d734" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_ccf___antenna_cfg" kindref="compound">XDfeCcf_AntennaCfg</ref></type>
+        <definition>XDfeCcf_AntennaCfg XDfeCcf_CCCfg::AntennaCfg</definition>
+        <argsstring></argsstring>
+        <name>AntennaCfg</name>
+        <briefdescription>
+<para>Antenna configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="362" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="362" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1gab5d7373cd4ff648bb2d785fcf5f92c1e" compoundref="xdfeccf_8c" startline="1322" endline="1331">XDfeCcf_SetAntennaCfgInCCCfg</referencedby>
+        <referencedby refid="group__dfeccf_1ga890dacc7d32bf591be36640065cfe414" compoundref="xdfeccf_8c" startline="1772" endline="1792">XDfeCcf_UpdateAntenna</referencedby>
+        <referencedby refid="group__dfeccf_1ga47f55600425550380b976828c7947ac2" compoundref="xdfeccf_8c" startline="1810" endline="1822">XDfeCcf_UpdateAntennaCfg</referencedby>
+        <referencedby refid="group__dfeccf_1gae0913ce20c92ecd4a35a59a19ad171af" compoundref="xdfeccf_8c" startline="1842" endline="1868">XDfeCcf_UpdateAntennaCfgSwitchable</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Full CC configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="10">
+        <label>XDfeCcf_InternalCarrierCfg</label>
+        <link refid="struct_x_dfe_ccf___internal_carrier_cfg"/>
+      </node>
+      <node id="9">
+        <label>XDfeCcf_CCSequence</label>
+        <link refid="struct_x_dfe_ccf___c_c_sequence"/>
+      </node>
+      <node id="8">
+        <label>XDfeCcf_CCCfg</label>
+        <link refid="struct_x_dfe_ccf___c_c_cfg"/>
+        <childnode refid="9" relation="usage">
+          <edgelabel>Sequence</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>CarrierCfg</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>AntennaCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="11">
+        <label>XDfeCcf_AntennaCfg</label>
+        <link refid="struct_x_dfe_ccf___antenna_cfg"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="358" bodyend="363"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_ccf___c_c_cfg_1a05d55118937cf523f1644b656b32d734" prot="public" virt="non-virtual"><scope>XDfeCcf_CCCfg</scope><name>AntennaCfg</name></member>
+      <member refid="struct_x_dfe_ccf___c_c_cfg_1a9ce7a33596f8bde0e056af616e1c5ca8" prot="public" virt="non-virtual"><scope>XDfeCcf_CCCfg</scope><name>CarrierCfg</name></member>
+      <member refid="struct_x_dfe_ccf___c_c_cfg_1abed0b47de6a645db63b4a99d0811a253" prot="public" virt="non-virtual"><scope>XDfeCcf_CCCfg</scope><name>Sequence</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

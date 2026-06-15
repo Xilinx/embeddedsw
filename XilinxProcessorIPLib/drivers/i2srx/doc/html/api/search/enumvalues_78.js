@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['xi2s_5frx_5faes_5fblkcmplt_5fevt',['XI2S_RX_AES_BLKCMPLT_EVT',['../group__i2srx.html#gga4fecc6c86b725108f3488292d518816cafcbc177f865f01745336004358d4479e',1,'xi2srx_debug.h']]],
+  ['xi2s_5frx_5faud_5foverflow_5fevt',['XI2S_RX_AUD_OVERFLOW_EVT',['../group__i2srx.html#gga4fecc6c86b725108f3488292d518816caac11c46eda786e90c37a6bc1dac96897',1,'xi2srx_debug.h']]],
+  ['xi2s_5frx_5fchid0',['XI2S_RX_CHID0',['../group__i2srx.html#gga29fe382428db32ed7ad00cd1082609e2a0d5df5d0173cff1b2ddfda530698d4d6',1,'xi2srx.h']]],
+  ['xi2s_5frx_5fchid1',['XI2S_RX_CHID1',['../group__i2srx.html#gga29fe382428db32ed7ad00cd1082609e2aa4e1404437e2db8108a9b6da4ba5fd03',1,'xi2srx.h']]],
+  ['xi2s_5frx_5fchid2',['XI2S_RX_CHID2',['../group__i2srx.html#gga29fe382428db32ed7ad00cd1082609e2ae0fcdcc15c32a53bd6b7e907cbc89e6a',1,'xi2srx.h']]],
+  ['xi2s_5frx_5fchid3',['XI2S_RX_CHID3',['../group__i2srx.html#gga29fe382428db32ed7ad00cd1082609e2aec3f40e4bcd10c6af7fbbf987a89e4db',1,'xi2srx.h']]],
+  ['xi2s_5frx_5fchmux_5fdisabled',['XI2S_RX_CHMUX_DISABLED',['../group__i2srx.html#ggace941535376f24ef90b44f160f55b70eaabeb21056fc06cd622d7a0b191a0127e',1,'xi2srx.h']]],
+  ['xi2s_5frx_5fchmux_5fwavegen',['XI2S_RX_CHMUX_WAVEGEN',['../group__i2srx.html#ggace941535376f24ef90b44f160f55b70ea4f5885668f79e682e8ffa887330e99de',1,'xi2srx.h']]],
+  ['xi2s_5frx_5fchmux_5fxi2s_5f01',['XI2S_RX_CHMUX_XI2S_01',['../group__i2srx.html#ggace941535376f24ef90b44f160f55b70ea0df7f22d4a2d5f2f1dbf9305443194e1',1,'xi2srx.h']]],
+  ['xi2s_5frx_5fchmux_5fxi2s_5f23',['XI2S_RX_CHMUX_XI2S_23',['../group__i2srx.html#ggace941535376f24ef90b44f160f55b70ea269c4b47b2a78c065aee963d3396aab2',1,'xi2srx.h']]],
+  ['xi2s_5frx_5fchmux_5fxi2s_5f45',['XI2S_RX_CHMUX_XI2S_45',['../group__i2srx.html#ggace941535376f24ef90b44f160f55b70ea55bc0f78e50439c70f6a2580471a4b3b',1,'xi2srx.h']]],
+  ['xi2s_5frx_5fchmux_5fxi2s_5f67',['XI2S_RX_CHMUX_XI2S_67',['../group__i2srx.html#ggace941535376f24ef90b44f160f55b70ea51c18d250475c4f196015e8972e44b1f',1,'xi2srx.h']]],
+  ['xi2s_5frx_5fhandler_5faes_5fblkcmplt',['XI2S_RX_HANDLER_AES_BLKCMPLT',['../group__i2srx.html#gga73cea697b9b2b7edb411ac4ecf01b349ad5a32351d829855baf3f691a3718d176',1,'xi2srx.h']]],
+  ['xi2s_5frx_5fhandler_5faud_5fovrflw',['XI2S_RX_HANDLER_AUD_OVRFLW',['../group__i2srx.html#gga73cea697b9b2b7edb411ac4ecf01b349adbc31f3ef63cffa075c18ad2a1288b0d',1,'xi2srx.h']]],
+  ['xi2s_5frx_5fjustify_5fleft',['XI2S_RX_JUSTIFY_LEFT',['../group__i2srx.html#gga787bbfc7c06021fa68c40dd4e1248ec1aa461181648e4f912e5f6bf33b922dae8',1,'xi2srx.h']]],
+  ['xi2s_5frx_5fjustify_5fright',['XI2S_RX_JUSTIFY_RIGHT',['../group__i2srx.html#gga787bbfc7c06021fa68c40dd4e1248ec1a9bd0f58e092109daff42c8007ef31110',1,'xi2srx.h']]],
+  ['xi2s_5frx_5flog_5fevt_5finvalid',['XI2S_RX_LOG_EVT_INVALID',['../group__i2srx.html#gga4fecc6c86b725108f3488292d518816cabd013a083c7841b935a6f5f5d38d45a5',1,'xi2srx_debug.h']]],
+  ['xi2s_5frx_5fnum_5fchannels',['XI2S_RX_NUM_CHANNELS',['../group__i2srx.html#gga29fe382428db32ed7ad00cd1082609e2a3c8607ad2a5133fa10d64bbcf6c37e20',1,'xi2srx.h']]],
+  ['xi2s_5frx_5fnum_5fhandlers',['XI2S_RX_NUM_HANDLERS',['../group__i2srx.html#gga73cea697b9b2b7edb411ac4ecf01b349a743f017dc379e345fa2511aa81fc3621',1,'xi2srx.h']]]
+];

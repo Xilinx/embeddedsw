@@ -1,0 +1,443 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xnvm__bbramclient_8c" kind="file">
+    <compoundname>xnvm_bbramclient.c</compoundname>
+    <includes refid="xnvm__bbramclient_8h" local="yes">xnvm_bbramclient.h</includes>
+    <includes refid="xnvm__generic_8h" local="yes">xnvm_generic.h</includes>
+    <incdepgraph>
+      <node id="178">
+        <label>xnvm_generic.h</label>
+        <link refid="xnvm__generic_8h"/>
+        <childnode refid="173" relation="include">
+        </childnode>
+        <childnode refid="174" relation="include">
+        </childnode>
+      </node>
+      <node id="177">
+        <label>xnvm_defs.h</label>
+      </node>
+      <node id="175">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="173">
+        <label>xil_types.h</label>
+      </node>
+      <node id="171">
+        <label>xnvm_bbramclient.c</label>
+        <link refid="xnvm_bbramclient.c"/>
+        <childnode refid="172" relation="include">
+        </childnode>
+        <childnode refid="178" relation="include">
+        </childnode>
+      </node>
+      <node id="172">
+        <label>xnvm_bbramclient.h</label>
+        <link refid="xnvm__bbramclient_8h"/>
+        <childnode refid="173" relation="include">
+        </childnode>
+        <childnode refid="174" relation="include">
+        </childnode>
+        <childnode refid="177" relation="include">
+        </childnode>
+      </node>
+      <node id="176">
+        <label>xparameters.h</label>
+      </node>
+      <node id="174">
+        <label>xnvm_mailbox.h</label>
+        <link refid="xnvm__mailbox_8h"/>
+        <childnode refid="175" relation="include">
+        </childnode>
+        <childnode refid="176" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xnvm__bbram__client__api_1ga3a9878e9a0eb1071cd34c4d14d842f10" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_BbramWriteAesKey</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr, const u64 KeyAddr, const u32 KeyLen)</argsstring>
+        <name>XNvm_BbramWriteAesKey</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>KeyAddr</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>KeyLen</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to program BBRAM AES key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the key buffer where the key to be programmed is stored</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of the Aes key</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the BBRAM programming is successful</para></listitem><listitem><para>XST_INVALID_PARAM If there is a input validation failure</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Performs input parameters validation. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request using generic API </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_bbramclient.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_bbramclient.c" bodystart="64" bodyend="94"/>
+        <references refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__bbramclient_8h" startline="50">XNVM_SLR_INDEX_SHIFT</references>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a63f341a70acf2369ab0c59f6d739a076" compoundref="common_2xnvm__defs_8h" startline="148">XNVM_API_ID_BBRAM_WRITE_AES_KEY</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__bbram__client__api_1gae4085a2c2243377cae4029f3236684e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_BbramZeroize</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr)</argsstring>
+        <name>XNvm_BbramZeroize</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to zeroize the BBRAM. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the BBRAM zeroize is successful</para></listitem><listitem><para>XST_INVALID_PARAM If there is a input validation failure</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Performs input parameters validation. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request using generic API </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_bbramclient.c" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_bbramclient.c" bodystart="108" bodyend="131"/>
+        <references refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__bbramclient_8h" startline="50">XNVM_SLR_INDEX_SHIFT</references>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15adb948dbf0612c47405ce1a41cf129085" compoundref="common_2xnvm__defs_8h" startline="149">XNVM_API_ID_BBRAM_ZEROIZE</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</references>
+        <referencedby refid="group__xnvm__bbram__server__apis_1ga85d604d634dbf207503a9128fee84a50" compoundref="xnvm__bbram_8c" startline="146" endline="214">XNvm_BbramWriteAesKey</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__bbram__client__api_1ga99bad6a63ce3e2663bd7976371598b4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_BbramWriteUsrData</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr, const u32 UsrData)</argsstring>
+        <name>XNvm_BbramWriteUsrData</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>UsrData</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to write the user data into BBRAM user data registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>UsrData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>User data to be written to BBRAM</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the BBRAM user data write successful</para></listitem><listitem><para>XST_INVALID_PARAM If there is a input validation failure.</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Performs input parameters validation. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request using generic API </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_bbramclient.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_bbramclient.c" bodystart="147" bodyend="171"/>
+        <references refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__bbramclient_8h" startline="50">XNVM_SLR_INDEX_SHIFT</references>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a24a0115494a63b9142244840b17516af" compoundref="common_2xnvm__defs_8h" startline="150">XNVM_API_ID_BBRAM_WRITE_USER_DATA</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__bbram__client__api_1ga8cdf06389845d0a30a2d48ae3373b72b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_BbramReadUsrData</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr, const u64 OutDataAddr)</argsstring>
+        <name>XNvm_BbramReadUsrData</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>OutDataAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to read the BBRAM user data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the output buffer to store the BBRAM user data</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the read is successful</para></listitem><listitem><para>XST_INVALID_PARAM If there is a input validation failure</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Performs input parameters validation. Return XST_INVALID_PARAM if input parameters are invalid.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request using generic API </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_bbramclient.c" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_bbramclient.c" bodystart="187" bodyend="212"/>
+        <references refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__bbramclient_8h" startline="50">XNVM_SLR_INDEX_SHIFT</references>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ad8bb87510818d4f4fbf77feb219ab94f" compoundref="common_2xnvm__defs_8h" startline="151">XNVM_API_ID_BBRAM_READ_USER_DATA</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__bbram__client__api_1ga5ab6ca734ee3f575632ba1c88164d182" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_BbramLockUsrDataWrite</definition>
+        <argsstring>(const XNvm_ClientInstance *InstancePtr)</argsstring>
+        <name>XNvm_BbramLockUsrDataWrite</name>
+        <param>
+          <type>const XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to lock the updates to user data written to BBRAM_8 register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the Locking is successful</para></listitem><listitem><para>XST_INVALID_PARAM If there is a input validation failure</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Performs input parameters validation. Return XST_INVALID_PARAM, if input parameters are invalid.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request using generic API </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_bbramclient.c" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_bbramclient.c" bodystart="228" bodyend="251"/>
+        <references refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" compoundref="xnvm__bbramclient_8h" startline="50">XNVM_SLR_INDEX_SHIFT</references>
+        <references refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ac6fecda349caa64872cc3355f9ce80e4" compoundref="common_2xnvm__defs_8h" startline="152">XNVM_API_ID_BBRAM_LOCK_WRITE_USER_DATA</references>
+        <references refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" compoundref="xnvm__generic_8c" startline="67" endline="104">XNvm_SendRequest</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the implementation of the client interface functions for BBRAM programming. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   kal  07/05/21 Initial release
+1.1   am   02/28/22 Fixed MISRA C violation rule 4.5
+      kpt  03/16/22 Removed IPI related code and added mailbox support
+3.1   skg  10/04/22 Added SlrIndex as part of payload based on user input
+      skg  10/23/22 Added In body comments for APIs
+3.2   am   03/09/23 Replaced xnvm payload lengths with xmailbox payload lengths
+3.4   har  08/22/24 Added support for provisioning configuration limiter
+3.4   ng   09/05/24 Fixed doxygen grouping
+3.7   tbk  03/20/26 Added SMC support for client applications</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2021<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="34"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xnvm__bbramclient_8h" kindref="compound">xnvm_bbramclient.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xnvm__generic_8h" kindref="compound">xnvm_generic.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="64" refid="group__xnvm__bbram__client__api_1ga3a9878e9a0eb1071cd34c4d14d842f10" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__bbram__client__api_1ga3a9878e9a0eb1071cd34c4d14d842f10" kindref="member">XNvm_BbramWriteAesKey</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>KeyAddr,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>KeyLen)</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[PAYLOAD_ARG_CNT];</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_PACK_PAYLOAD3(Payload,<sp/>(u32)(((InstancePtr-&gt;SlrIndex)<sp/>&lt;&lt;<sp/><ref refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" kindref="member">XNVM_SLR_INDEX_SHIFT</ref>)</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>(u32)<ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a63f341a70acf2369ab0c59f6d739a076" kindref="member">XNVM_API_ID_BBRAM_WRITE_AES_KEY</ref>),</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KeyLen,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KeyAddr,</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(KeyAddr<sp/>&gt;&gt;<sp/>XNVM_ADDR_HIGH_SHIFT));</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" kindref="member">XNvm_SendRequest</ref>(InstancePtr,<sp/>Payload,<sp/>(u32)PAYLOAD_ARG_CNT,<sp/>NULL,<sp/>0U);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNvm_Printf(XNVM_DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;BBRAM<sp/>programming<sp/>Failed<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="108" refid="group__xnvm__bbram__client__api_1gae4085a2c2243377cae4029f3236684e7" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__bbram__client__api_1gae4085a2c2243377cae4029f3236684e7" kindref="member">XNvm_BbramZeroize</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="109"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[PAYLOAD_ARG_CNT];</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_PACK_PAYLOAD0(Payload,<sp/>(u32)(((InstancePtr-&gt;SlrIndex)<sp/>&lt;&lt;<sp/><ref refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" kindref="member">XNVM_SLR_INDEX_SHIFT</ref>)</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>(u32)<ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15adb948dbf0612c47405ce1a41cf129085" kindref="member">XNVM_API_ID_BBRAM_ZEROIZE</ref>));</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" kindref="member">XNvm_SendRequest</ref>(InstancePtr,<sp/>Payload,<sp/>(u32)PAYLOAD_ARG_CNT,<sp/>NULL,<sp/>0U);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="147" refid="group__xnvm__bbram__client__api_1ga99bad6a63ce3e2663bd7976371598b4f" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__bbram__client__api_1ga99bad6a63ce3e2663bd7976371598b4f" kindref="member">XNvm_BbramWriteUsrData</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>UsrData)</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[PAYLOAD_ARG_CNT];</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_PACK_PAYLOAD1(Payload,<sp/>(u32)(((InstancePtr-&gt;SlrIndex)<sp/>&lt;&lt;<sp/><ref refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" kindref="member">XNVM_SLR_INDEX_SHIFT</ref>)</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>(u32)<ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a24a0115494a63b9142244840b17516af" kindref="member">XNVM_API_ID_BBRAM_WRITE_USER_DATA</ref>),</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsrData);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" kindref="member">XNvm_SendRequest</ref>(InstancePtr,<sp/>Payload,<sp/>(u32)PAYLOAD_ARG_CNT,<sp/>NULL,<sp/>0U);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="187" refid="group__xnvm__bbram__client__api_1ga8cdf06389845d0a30a2d48ae3373b72b" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__bbram__client__api_1ga8cdf06389845d0a30a2d48ae3373b72b" kindref="member">XNvm_BbramReadUsrData</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>OutDataAddr)</highlight></codeline>
+<codeline lineno="188"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[PAYLOAD_ARG_CNT];</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_PACK_PAYLOAD2(Payload,<sp/>(u32)(((InstancePtr-&gt;SlrIndex)<sp/>&lt;&lt;<sp/><ref refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" kindref="member">XNVM_SLR_INDEX_SHIFT</ref>)</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>(u32)<ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ad8bb87510818d4f4fbf77feb219ab94f" kindref="member">XNVM_API_ID_BBRAM_READ_USER_DATA</ref>),</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OutDataAddr,</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(OutDataAddr<sp/>&gt;&gt;<sp/>XNVM_ADDR_HIGH_SHIFT));</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" kindref="member">XNvm_SendRequest</ref>(InstancePtr,<sp/>Payload,<sp/>(u32)PAYLOAD_ARG_CNT,<sp/>NULL,<sp/>0U);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="228" refid="group__xnvm__bbram__client__api_1ga5ab6ca734ee3f575632ba1c88164d182" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__bbram__client__api_1ga5ab6ca734ee3f575632ba1c88164d182" kindref="member">XNvm_BbramLockUsrDataWrite</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="229"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[PAYLOAD_ARG_CNT];</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_PACK_PAYLOAD0(Payload,<sp/>(u32)(((InstancePtr-&gt;SlrIndex)<sp/>&lt;&lt;<sp/><ref refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" kindref="member">XNVM_SLR_INDEX_SHIFT</ref>)</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>(u32)<ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ac6fecda349caa64872cc3355f9ce80e4" kindref="member">XNVM_API_ID_BBRAM_LOCK_WRITE_USER_DATA</ref>));</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" kindref="member">XNvm_SendRequest</ref>(InstancePtr,<sp/>Payload,<sp/>(u32)PAYLOAD_ARG_CNT,<sp/>NULL,<sp/>0U);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="251"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>VERSAL_2VE_2VM</highlight></codeline>
+<codeline lineno="254"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="271"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XNvm_BbramWriteConfigLimiterParams(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XNvm_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>ClEnFlag,</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>ClMode,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>MaxNumOfConfigs)</highlight></codeline>
+<codeline lineno="273"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[PAYLOAD_ARG_CNT];</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_PACK_PAYLOAD3(Payload,<sp/>(u32)(((InstancePtr-&gt;SlrIndex)<sp/>&lt;&lt;<sp/><ref refid="group__xnvm__bbram__client__api_1ga16b69cce167bd701e56511c099fdf150" kindref="member">XNVM_SLR_INDEX_SHIFT</ref>)<sp/>|</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XNVM_API_ID_BBRAM_WRITE_CFG_LMT_PARAMS),</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClEnFlag,</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClMode,</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MaxNumOfConfigs);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xnvm__mailbox__apis_1ga4f3c270f11a9a69fbc46f6a53b700384" kindref="member">XNvm_SendRequest</ref>(InstancePtr,<sp/>Payload,<sp/>(u32)PAYLOAD_ARG_CNT,<sp/>NULL,<sp/>0U);</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="297"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/client/xnvm_bbramclient.c"/>
+  </compounddef>
+</doxygen>

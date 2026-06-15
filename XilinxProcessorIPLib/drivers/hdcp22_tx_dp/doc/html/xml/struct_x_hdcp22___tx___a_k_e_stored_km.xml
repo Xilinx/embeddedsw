@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___tx___a_k_e_stored_km" kind="struct" prot="public">
+    <compoundname>XHdcp22_Tx_AKEStoredKm</compoundname>
+    <includes local="no">xhdcp22_tx_dp_i.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___a_k_e_stored_km_1a9ac18e988b0fe422f6b83663beb2d436" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_AKEStoredKm::MsgId</definition>
+        <argsstring></argsstring>
+        <name>MsgId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" bodystart="359" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___a_k_e_stored_km_1aa7a9c6f809d3c48d25e373a62d07f348" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_AKEStoredKm::EKhKm[XHDCP22_TX_EKH_KM_SIZE]</definition>
+        <argsstring>[XHDCP22_TX_EKH_KM_SIZE]</argsstring>
+        <name>EKhKm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" line="361" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" bodystart="361" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___a_k_e_stored_km_1a151b22e13d2067aefe73cbd918b40943" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_AKEStoredKm::Rtx[XHDCP22_TX_RTX_SIZE]</definition>
+        <argsstring>[XHDCP22_TX_RTX_SIZE]</argsstring>
+        <name>Rtx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" line="362" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" bodystart="362" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___a_k_e_stored_km_1a020adf5d92cfe14f4b6afed757b45a8a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_AKEStoredKm::Rrx[XHDCP22_TX_RRX_SIZE]</definition>
+        <argsstring>[XHDCP22_TX_RRX_SIZE]</argsstring>
+        <name>Rrx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" line="363" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" bodystart="363" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the transmitted AKE_Stored_km message definition. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" bodystart="357" bodyend="364"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___tx___a_k_e_stored_km_1aa7a9c6f809d3c48d25e373a62d07f348" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_AKEStoredKm</scope><name>EKhKm</name></member>
+      <member refid="struct_x_hdcp22___tx___a_k_e_stored_km_1a9ac18e988b0fe422f6b83663beb2d436" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_AKEStoredKm</scope><name>MsgId</name></member>
+      <member refid="struct_x_hdcp22___tx___a_k_e_stored_km_1a020adf5d92cfe14f4b6afed757b45a8a" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_AKEStoredKm</scope><name>Rrx</name></member>
+      <member refid="struct_x_hdcp22___tx___a_k_e_stored_km_1a151b22e13d2067aefe73cbd918b40943" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_AKEStoredKm</scope><name>Rtx</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

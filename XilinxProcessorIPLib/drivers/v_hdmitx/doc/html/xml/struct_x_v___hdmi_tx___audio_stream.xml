@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___hdmi_tx___audio_stream" kind="struct" prot="public">
+    <compoundname>XV_HdmiTx_AudioStream</compoundname>
+    <includes local="no">xv_hdmitx.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx___audio_stream_1a674063853c1c45de575c7630a1542e68" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTx_AudioStream::Channels</definition>
+        <argsstring></argsstring>
+        <name>Channels</name>
+        <briefdescription>
+<para>Video Identification code. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains audio stream specific data structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" bodystart="216" bodyend="218"/>
+    <listofallmembers>
+      <member refid="struct_x_v___hdmi_tx___audio_stream_1a674063853c1c45de575c7630a1542e68" prot="public" virt="non-virtual"><scope>XV_HdmiTx_AudioStream</scope><name>Channels</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

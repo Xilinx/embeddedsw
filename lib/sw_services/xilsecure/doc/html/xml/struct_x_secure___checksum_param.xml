@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___checksum_param" kind="struct" prot="public">
+    <compoundname>XSecure_ChecksumParam</compoundname>
+    <includes local="no">xsecure_slhdsa_instance.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___checksum_param_1a1a71e3287a2b92df1697067deab000df" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_ChecksumParam::DigitWidth</definition>
+        <argsstring></argsstring>
+        <name>DigitWidth</name>
+        <briefdescription>
+<para>Width of each digit in bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___checksum_param_1a622729b6c957e154dbd17d4c1909c522" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_ChecksumParam::InputLenInDigits</definition>
+        <argsstring></argsstring>
+        <name>InputLenInDigits</name>
+        <briefdescription>
+<para>Length of input in digits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="176" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga63a83a36cf727551fc0e1f69fef4e9b6" compoundref="xsecure__slhdsa__ht_8c" startline="194" endline="290">XSecure_SlhdsaHtVerify</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gaf6e4f612fb9bedd0adc25a5e5d6828c1" compoundref="xsecure__slhdsa__wots_8c" startline="214" endline="282">XSecure_SlhdsaWotsPkFromSign</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gae2f63765bb0a4b550407c200d2715a1c" compoundref="xsecure__slhdsa__xmss_8c" startline="189" endline="287">XSecure_SlhdsaXmssPkFromSign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___checksum_param_1add5d7a87ec82f389e013cb54061879e3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_ChecksumParam::ChecksumLenInDigits</definition>
+        <argsstring></argsstring>
+        <name>ChecksumLenInDigits</name>
+        <briefdescription>
+<para>Length of checksum in digits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="177" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga63a83a36cf727551fc0e1f69fef4e9b6" compoundref="xsecure__slhdsa__ht_8c" startline="194" endline="290">XSecure_SlhdsaHtVerify</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gaf6e4f612fb9bedd0adc25a5e5d6828c1" compoundref="xsecure__slhdsa__wots_8c" startline="214" endline="282">XSecure_SlhdsaWotsPkFromSign</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gae2f63765bb0a4b550407c200d2715a1c" compoundref="xsecure__slhdsa__xmss_8c" startline="189" endline="287">XSecure_SlhdsaXmssPkFromSign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___checksum_param_1ab7c489e02d09f7c480ab0870f0b18bb9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_ChecksumParam::ChecksumShift</definition>
+        <argsstring></argsstring>
+        <name>ChecksumShift</name>
+        <briefdescription>
+<para>Shift value for checksum calculation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___checksum_param_1a7fb98e2f1d2a36144f8d64a9fb125ea4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_ChecksumParam::ChecksumSizeInBytes</definition>
+        <argsstring></argsstring>
+        <name>ChecksumSizeInBytes</name>
+        <briefdescription>
+<para>Size of checksum in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to maintain checksum parameters for WOTS+ operations. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="174" bodyend="180"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___checksum_param_1add5d7a87ec82f389e013cb54061879e3" prot="public" virt="non-virtual"><scope>XSecure_ChecksumParam</scope><name>ChecksumLenInDigits</name></member>
+      <member refid="struct_x_secure___checksum_param_1ab7c489e02d09f7c480ab0870f0b18bb9" prot="public" virt="non-virtual"><scope>XSecure_ChecksumParam</scope><name>ChecksumShift</name></member>
+      <member refid="struct_x_secure___checksum_param_1a7fb98e2f1d2a36144f8d64a9fb125ea4" prot="public" virt="non-virtual"><scope>XSecure_ChecksumParam</scope><name>ChecksumSizeInBytes</name></member>
+      <member refid="struct_x_secure___checksum_param_1a1a71e3287a2b92df1697067deab000df" prot="public" virt="non-virtual"><scope>XSecure_ChecksumParam</scope><name>DigitWidth</name></member>
+      <member refid="struct_x_secure___checksum_param_1a622729b6c957e154dbd17d4c1909c522" prot="public" virt="non-virtual"><scope>XSecure_ChecksumParam</scope><name>InputLenInDigits</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_trngpsv___config" kind="struct" prot="public">
+    <compoundname>XTrngpsv_Config</compoundname>
+    <includes local="no">xtrngpsv.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_trngpsv___config_1a921f9f39eb44de4859eda31661a4f814" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XTrngpsv_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_trngpsv___config_1a0e3ba770c44cf05bae4b492916e65e1f" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XTrngpsv_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>BaseAddress is the physical base address of the device&apos;s registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" bodystart="208" bodyend="-1"/>
+        <referencedby refid="group__trngpsv__api_1ga2d5b1c7182c8de3767e0345a3435ffe5" compoundref="xtrngpsv_8c" startline="450" endline="627">XTrngpsv_Generate</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains configuration information for the TRNGPSV device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" bodystart="201" bodyend="210"/>
+    <listofallmembers>
+      <member refid="struct_x_trngpsv___config_1a0e3ba770c44cf05bae4b492916e65e1f" prot="public" virt="non-virtual"><scope>XTrngpsv_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_trngpsv___config_1a921f9f39eb44de4859eda31661a4f814" prot="public" virt="non-virtual"><scope>XTrngpsv_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

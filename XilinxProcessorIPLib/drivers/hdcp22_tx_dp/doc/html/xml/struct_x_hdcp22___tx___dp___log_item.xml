@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___tx___dp___log_item" kind="struct" prot="public">
+    <compoundname>XHdcp22_Tx_Dp_LogItem</compoundname>
+    <includes local="no">xhdcp22_tx_dp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___dp___log_item_1aeba1fa2e4bb8691eac10d720a75efcf0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_Dp_LogItem::LogEvent</definition>
+        <argsstring></argsstring>
+        <name>LogEvent</name>
+        <briefdescription>
+<para>Event that has been triggered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" line="458" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" bodystart="458" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx__dp_1ga644d57760a3520c785abfe73ea958ddf" compoundref="xhdcp22__tx__dp_8c" startline="4311" endline="4480">XHdcp22Tx_Dp_LogDisplay</referencedby>
+        <referencedby refid="group__hdcp22__tx__dp_1ga2fe9ec028ad46162102ff036ce7433ed" compoundref="xhdcp22__tx__dp_8c" startline="4268" endline="4299">XHdcp22Tx_Dp_LogRd</referencedby>
+        <referencedby refid="group__hdcp22__tx__dp_1ga20d897b6bb0d9cc52ca625ac6887f766" compoundref="xhdcp22__tx__dp_8c" startline="4216" endline="4252">XHdcp22Tx_Dp_LogWr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___dp___log_item_1aa79e0516a463334c43a6e2dea92f7504" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHdcp22_Tx_Dp_LogItem::Data</definition>
+        <argsstring></argsstring>
+        <name>Data</name>
+        <briefdescription>
+<para>Optional data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" line="459" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" bodystart="459" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx__dp_1ga644d57760a3520c785abfe73ea958ddf" compoundref="xhdcp22__tx__dp_8c" startline="4311" endline="4480">XHdcp22Tx_Dp_LogDisplay</referencedby>
+        <referencedby refid="group__hdcp22__tx__dp_1ga2fe9ec028ad46162102ff036ce7433ed" compoundref="xhdcp22__tx__dp_8c" startline="4268" endline="4299">XHdcp22Tx_Dp_LogRd</referencedby>
+        <referencedby refid="group__hdcp22__tx__dp_1ga20d897b6bb0d9cc52ca625ac6887f766" compoundref="xhdcp22__tx__dp_8c" startline="4216" endline="4252">XHdcp22Tx_Dp_LogWr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___dp___log_item_1a2f508189cef867094c9ab2f2f4a9393f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Tx_Dp_LogItem::TimeStamp</definition>
+        <argsstring></argsstring>
+        <name>TimeStamp</name>
+        <briefdescription>
+<para>Time stamp on when event occurred. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only used for time critical events. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" line="460" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" bodystart="460" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx__dp_1ga644d57760a3520c785abfe73ea958ddf" compoundref="xhdcp22__tx__dp_8c" startline="4311" endline="4480">XHdcp22Tx_Dp_LogDisplay</referencedby>
+        <referencedby refid="group__hdcp22__tx__dp_1ga2fe9ec028ad46162102ff036ce7433ed" compoundref="xhdcp22__tx__dp_8c" startline="4268" endline="4299">XHdcp22Tx_Dp_LogRd</referencedby>
+        <referencedby refid="group__hdcp22__tx__dp_1ga20d897b6bb0d9cc52ca625ac6887f766" compoundref="xhdcp22__tx__dp_8c" startline="4216" endline="4252">XHdcp22Tx_Dp_LogWr</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef is used to store logging events. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" line="457" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" bodystart="457" bodyend="461"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___tx___dp___log_item_1aa79e0516a463334c43a6e2dea92f7504" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_Dp_LogItem</scope><name>Data</name></member>
+      <member refid="struct_x_hdcp22___tx___dp___log_item_1aeba1fa2e4bb8691eac10d720a75efcf0" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_Dp_LogItem</scope><name>LogEvent</name></member>
+      <member refid="struct_x_hdcp22___tx___dp___log_item_1a2f508189cef867094c9ab2f2f4a9393f" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_Dp_LogItem</scope><name>TimeStamp</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

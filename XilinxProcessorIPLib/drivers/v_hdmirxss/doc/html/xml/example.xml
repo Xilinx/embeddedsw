@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use v_hdmirxss driver.</para><sect1 id="example_1ex1">
+<title>xhdmi_menu.c</title>
+<para>This file contains the Xilinx Menu implementation as used in the HDMI example design.</para><para>For details, see xhdmi_menu.c.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xhdmi_menu.h</title>
+<para>This is the main header file for the Xilinx Menu implementation as used in the HDMI example design.</para><para>For details, see xhdmi_menu.h.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xhdmi_hdcp_keys.c</title>
+<para>This file contains the Xilinx HDCP key loading utility implementation as used in the HDMI example design.</para><para>For details, see <ref refid="xhdmi__hdcp__keys_8c" kindref="compound">xhdmi_hdcp_keys.c</ref>.</para></sect1>
+<sect1 id="example_1ex4">
+<title>xhdmi_hdcp_keys.h</title>
+<para>This is the main header file for the Xilinx HDCP key loading utility used in the HDMI example design.</para><para>For details, see <ref refid="xhdmi__hdcp__keys_8h" kindref="compound">xhdmi_hdcp_keys.h</ref>.</para></sect1>
+<sect1 id="example_1ex5">
+<title>xhdmi_example.c</title>
+<para>This example shows the usage of the Xilinx HDMI TX Subsystem, HDMI RX Subsystem and Video PHY Controller drivers.</para><para>For details, see xhdmi_example.c.</para></sect1>
+<sect1 id="example_1ex6">
+<title>xhdmi_example_zynq.c</title>
+<para>This example shows the usage of the Xilinx HDMI TX Subsystem, HDMI RX Subsystem and Video PHY Controller drivers for zynq.</para><para>For details, see xhdmi_example_zynq.c.</para></sect1>
+<sect1 id="example_1ex7">
+<title>xhdmi_example_zynq_us.c</title>
+<para>This example shows the usage of the Xilinx HDMI TX Subsystem, HDMI RX Subsystem and Video PHY Controller drivers for zynq ultrascale.</para><para>For details, see xhdmi_example_zynq_us.c.</para></sect1>
+<sect1 id="example_1ex8">
+<title>xhdcp.c</title>
+<para>This example contains the main implementation of the Xilinx HDCP abstraction layer. The HDCP abstraction layer can support repeater topologies with a single upstream interface and up to 32 downstream interfaces.</para><para>For details, see xhdcp.c.</para></sect1>
+<sect1 id="example_1ex9">
+<title>xhdcp.h</title>
+<para>This is the main header file for the Xilinx HDCP abstraction layer.</para><para>For details, see xhdcp.h.</para></sect1>
+<sect1 id="example_1ex10">
+<title>video_prbs_genchk_drv.c</title>
+<para>This file contains the driver implementation for the Video PRBS generator and checker used in the HDMI example design.</para><para>For details, see video_prbs_genchk_drv.c.</para></sect1>
+<sect1 id="example_1ex11">
+<title>video_prbs_genchk_drv.h</title>
+<para>This is the header file which contains the definitions for the Video PRBS generator and checker used in the HDMI example design.</para><para>For details, see video_prbs_genchk_drv.h.</para></sect1>
+<sect1 id="example_1ex12">
+<title>si5324drv.c</title>
+<para>This file contains low-level driver functions for controlling the SiliconLabs Si5324 clock generator as mounted on the KC705 demo board.</para><para>For details, see <ref refid="si5324drv_8c" kindref="compound">si5324drv.c</ref>.</para></sect1>
+<sect1 id="example_1ex13">
+<title>si5324drv.h</title>
+<para>This is the header file which contains definitions for low-level driver functions for controlling the SiliconLabs Si5324 clock generator as mounted on the KC705 demo board.</para><para>For details, see <ref refid="si5324drv_8h" kindref="compound">si5324drv.h</ref>.</para></sect1>
+<sect1 id="example_1ex14">
+<title>audiogen_drv.c</title>
+<para>This file contains the driver implementation for the Audio generator in the HDMI example design.</para><para>For details, see <ref refid="audiogen__drv_8c" kindref="compound">audiogen_drv.c</ref>.</para></sect1>
+<sect1 id="example_1ex15">
+<title>audiogen_drv.h</title>
+<para>This is the header file which contains definitions for the Audio generator in the HDMI example design.</para><para>For details, see <ref refid="audiogen__drv_8h" kindref="compound">audiogen_drv.h</ref>.</para></sect1>
+<sect1 id="example_1ex16">
+<title>audio_prbs_genchk_drv.c</title>
+<para>This file contains the driver implementation for the Audio PRBS generator and checker used in the HDMI example design.</para><para>For details, see audio_prbs_genchk_drv.c.</para></sect1>
+<sect1 id="example_1ex17">
+<title>audio_prbs_genchk_drv.h</title>
+<para>This is the header file which contains definitions for the Audio PRBS generator and checker used in the HDMI example design.</para><para>For details, see audio_prbs_genchk_drv.h.</para><sect2 id="example_1IMPORTANT">
+<title>NOTES</title>
+<para><itemizedlist>
+<listitem><para>Platform source file(platform.c), header file(platform.h), lscript and config header file(platform_config.h) are available separately in example folder for zynq, zynq ultrascale and microblaze platforms. </para></listitem></itemizedlist>
+</para></sect2>
+</sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

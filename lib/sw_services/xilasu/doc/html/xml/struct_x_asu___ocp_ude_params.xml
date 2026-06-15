@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___ocp_ude_params" kind="struct" prot="public">
+    <compoundname>XAsu_OcpUdeParams</compoundname>
+    <includes local="no">xasu_ocpinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___ocp_ude_params_1adc1581b5e472714037858d6925c243ae" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_OcpUdeParams::NonceAddr</definition>
+        <argsstring></argsstring>
+        <name>NonceAddr</name>
+        <briefdescription>
+<para>Address of the Nonce buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="131" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__client__apis_1ga3c3e8b42eab489f97dab01062de04aba" compoundref="xasu__ocp_8c" startline="303" endline="353">XAsu_OcpUdeChallengeReq</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ocp_ude_params_1a02a1410a6391e264049b304435ae62a7" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_OcpUdeParams::OcpUdeResponseAddr</definition>
+        <argsstring></argsstring>
+        <name>OcpUdeResponseAddr</name>
+        <briefdescription>
+<para>Address of the UDE response structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="132" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__client__apis_1ga3c3e8b42eab489f97dab01062de04aba" compoundref="xasu__ocp_8c" startline="303" endline="353">XAsu_OcpUdeChallengeReq</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains information related to UDE challenge parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="130" bodyend="133"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___ocp_ude_params_1adc1581b5e472714037858d6925c243ae" prot="public" virt="non-virtual"><scope>XAsu_OcpUdeParams</scope><name>NonceAddr</name></member>
+      <member refid="struct_x_asu___ocp_ude_params_1a02a1410a6391e264049b304435ae62a7" prot="public" virt="non-virtual"><scope>XAsu_OcpUdeParams</scope><name>OcpUdeResponseAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

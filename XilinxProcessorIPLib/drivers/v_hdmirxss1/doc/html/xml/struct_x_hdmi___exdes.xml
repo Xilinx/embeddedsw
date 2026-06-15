@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdmi___exdes" kind="struct" prot="public">
+    <compoundname>XHdmi_Exdes</compoundname>
+    <includes local="no">xhdmi_example.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdmi___exdes_1a78c708ff1765685768d0ee54b591e10a" prot="public" static="no" mutable="no">
+        <type>XTmrCtr</type>
+        <definition>XTmrCtr XHdmi_Exdes::SysTmrInst</definition>
+        <argsstring></argsstring>
+        <name>SysTmrInst</name>
+        <briefdescription>
+<para>Generic timer instance for control and exception handlers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h" bodystart="300" bodyend="-1"/>
+        <referencedby refid="xhdmi__example_8c_1aa6b596b261b156c7b1735ba0e6bec5a0" compoundref="xhdmi__example_8c" startline="1029" endline="1077">Exdes_StartSysTmr</referencedby>
+        <referencedby refid="xhdmi__example_8c_1a3e110f4be5d9fb0f4860a009daecfc77" compoundref="xhdmi__example_8c" startline="1135" endline="1139">Exdes_SysTimerIntrHandler</referencedby>
+        <referencedby refid="xhdmi__example_8c_1a39d4ef0414af2a9d67241bbddf20677f" compoundref="xhdmi__example_8c" startline="929" endline="969">Exdes_SysTmrInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi___exdes_1a894a925f3281d179bdcf9ffcc5e7e074" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdmi_Exdes::SysTmrPulseIntervalinMs</definition>
+        <argsstring></argsstring>
+        <name>SysTmrPulseIntervalinMs</name>
+        <briefdescription>
+<para><verbatim>    User specified pulse interval
+</verbatim> for system timer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h" bodystart="302" bodyend="-1"/>
+        <referencedby refid="xhdmi__example_8c_1aa6b596b261b156c7b1735ba0e6bec5a0" compoundref="xhdmi__example_8c" startline="1029" endline="1077">Exdes_StartSysTmr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi___exdes_1a9eeb611ce53af3b431361681aec29089" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdmi_Exdes::HdcpPulseCounter</definition>
+        <argsstring></argsstring>
+        <name>HdcpPulseCounter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi___exdes_1af42291ffc38b4a2ee4d10a3717a092f4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdmi_Exdes::TmrPulseCnt1second</definition>
+        <argsstring></argsstring>
+        <name>TmrPulseCnt1second</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi___exdes_1a36b215857be51d20dc17ed649d2e7e2a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmi_Exdes::IsTxPresent</definition>
+        <argsstring></argsstring>
+        <name>IsTxPresent</name>
+        <briefdescription>
+<para>Flag to track the presence of TX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h" bodystart="308" bodyend="-1"/>
+        <referencedby refid="xhdmi__example_8c_1a51323d81024622285f0112cc70bad72a" compoundref="xhdmi__example_8c" startline="889" endline="908">Exdes_InitController</referencedby>
+        <referencedby refid="xhdmi__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xhdmi__example_8c" startline="6801" endline="7418">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi___exdes_1a81adb98bd3dc8068bdc274e190212f8c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmi_Exdes::IsRxPresent</definition>
+        <argsstring></argsstring>
+        <name>IsRxPresent</name>
+        <briefdescription>
+<para>Flag to track the presence of RX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h" line="309" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h" bodystart="309" bodyend="-1"/>
+        <referencedby refid="xhdmi__example_8c_1a51323d81024622285f0112cc70bad72a" compoundref="xhdmi__example_8c" startline="889" endline="908">Exdes_InitController</referencedby>
+        <referencedby refid="xhdmi__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xhdmi__example_8c" startline="6801" endline="7418">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi___exdes_1af57a8d66a84be2be093f78cc9203db6d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmi_Exdes::ForceIndependent</definition>
+        <argsstring></argsstring>
+        <name>ForceIndependent</name>
+        <briefdescription>
+<para>Flag to track independent or pass-through mode of operation of the example design. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h" bodystart="311" bodyend="-1"/>
+        <referencedby refid="xhdmi__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xhdmi__example_8c" startline="6801" endline="7418">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi___exdes_1a99759cfe3592a22b91afcf9535b76c14" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmi_Exdes::SystemEvent</definition>
+        <argsstring></argsstring>
+        <name>SystemEvent</name>
+        <briefdescription>
+<para>This flag tracks the happening of an &apos;event&apos; on the system, which can the detection of a new rx stream or a new tx sink. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h" line="314" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h" bodystart="314" bodyend="-1"/>
+        <referencedby refid="xhdmi__example_8c_1a51323d81024622285f0112cc70bad72a" compoundref="xhdmi__example_8c" startline="889" endline="908">Exdes_InitController</referencedby>
+        <referencedby refid="xhdmi__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xhdmi__example_8c" startline="6801" endline="7418">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi___exdes_1adb6a6b5c0e1261022b42c62f78c38318" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmi_Exdes::TxStartTransmit</definition>
+        <argsstring></argsstring>
+        <name>TxStartTransmit</name>
+        <briefdescription>
+<para>This flag allows the example design to hold/allow the transmission of a new stream on the transmitter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h" bodystart="318" bodyend="-1"/>
+        <referencedby refid="xhdmi__example_8c_1acd642332518889b8d0869e9f0ecec307" compoundref="xhdmi__example_8c" startline="3123" endline="3174">Exdes_CheckforResChange</referencedby>
+        <referencedby refid="xhdmi__example_8c_1a51323d81024622285f0112cc70bad72a" compoundref="xhdmi__example_8c" startline="889" endline="908">Exdes_InitController</referencedby>
+        <referencedby refid="xhdmi__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xhdmi__example_8c" startline="6801" endline="7418">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi___exdes_1add4251825a6a4d52f92bbdc87d005b26" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmi_Exdes::TxBusy</definition>
+        <argsstring></argsstring>
+        <name>TxBusy</name>
+        <briefdescription>
+<para>This flag is set while the TX is initialized. </para>        </briefdescription>
+        <detaileddescription>
+<para>This flag is used by the menu to check if TX operations are ongoing and block the menu prints from disrupting the time-sensitive operations of the TX. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h" bodystart="321" bodyend="-1"/>
+        <referencedby refid="xhdmi__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xhdmi__example_8c" startline="6801" endline="7418">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi___exdes_1a4c936140937cc7107c580193bac9f7d2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmi_Exdes::crop</definition>
+        <argsstring></argsstring>
+        <name>crop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h" line="325" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h" bodystart="325" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef defines the handler for the pass-thorugh example design that handles the state of the pass-through design. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/PassThrough/xhdmi_example.h" bodystart="291" bodyend="327"/>
+    <listofallmembers>
+      <member refid="struct_x_hdmi___exdes_1a4c936140937cc7107c580193bac9f7d2" prot="public" virt="non-virtual"><scope>XHdmi_Exdes</scope><name>crop</name></member>
+      <member refid="struct_x_hdmi___exdes_1af57a8d66a84be2be093f78cc9203db6d" prot="public" virt="non-virtual"><scope>XHdmi_Exdes</scope><name>ForceIndependent</name></member>
+      <member refid="struct_x_hdmi___exdes_1a9eeb611ce53af3b431361681aec29089" prot="public" virt="non-virtual"><scope>XHdmi_Exdes</scope><name>HdcpPulseCounter</name></member>
+      <member refid="struct_x_hdmi___exdes_1a81adb98bd3dc8068bdc274e190212f8c" prot="public" virt="non-virtual"><scope>XHdmi_Exdes</scope><name>IsRxPresent</name></member>
+      <member refid="struct_x_hdmi___exdes_1a36b215857be51d20dc17ed649d2e7e2a" prot="public" virt="non-virtual"><scope>XHdmi_Exdes</scope><name>IsTxPresent</name></member>
+      <member refid="struct_x_hdmi___exdes_1a99759cfe3592a22b91afcf9535b76c14" prot="public" virt="non-virtual"><scope>XHdmi_Exdes</scope><name>SystemEvent</name></member>
+      <member refid="struct_x_hdmi___exdes_1a78c708ff1765685768d0ee54b591e10a" prot="public" virt="non-virtual"><scope>XHdmi_Exdes</scope><name>SysTmrInst</name></member>
+      <member refid="struct_x_hdmi___exdes_1a894a925f3281d179bdcf9ffcc5e7e074" prot="public" virt="non-virtual"><scope>XHdmi_Exdes</scope><name>SysTmrPulseIntervalinMs</name></member>
+      <member refid="struct_x_hdmi___exdes_1af42291ffc38b4a2ee4d10a3717a092f4" prot="public" virt="non-virtual"><scope>XHdmi_Exdes</scope><name>TmrPulseCnt1second</name></member>
+      <member refid="struct_x_hdmi___exdes_1add4251825a6a4d52f92bbdc87d005b26" prot="public" virt="non-virtual"><scope>XHdmi_Exdes</scope><name>TxBusy</name></member>
+      <member refid="struct_x_hdmi___exdes_1adb6a6b5c0e1261022b42c62f78c38318" prot="public" virt="non-virtual"><scope>XHdmi_Exdes</scope><name>TxStartTransmit</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

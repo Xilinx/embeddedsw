@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>xadcps</title>
+    <detaileddescription>
+<para>The <ref refid="struct_x_adc_ps" kindref="compound">XAdcPs</ref> driver supports the Xilinx XADC/ADC device.The XADC/ADC device has the following features:<itemizedlist>
+<listitem><para>10-bit, 200-KSPS (kilo samples per second) Analog-to-Digital Converter (ADC)</para></listitem><listitem><para>Monitoring of on-chip supply voltages and temperature</para></listitem><listitem><para>1 dedicated differential analog-input pair and 16 auxiliary differential analog-input pairs</para></listitem><listitem><para>Automatic alarms based on user defined limits for the on-chip supply voltages and temperature</para></listitem><listitem><para>Automatic Channel Sequencer, programmable averaging, programmable acquisition time for the external inputs, unipolar or differential input selection for the external inputs</para></listitem><listitem><para>Inbuilt Calibration</para></listitem><listitem><para>Optional interrupt request generation</para></listitem></itemizedlist>
+</para><para>The user should refer to the hardware device specification for detailed information about the device.</para><para>This header file contains the prototypes of driver functions that can be used to access the XADC/ADC device.</para><para><bold> XADC Channel Sequencer Modes </bold></para><para>The XADC Channel Sequencer supports the following operating modes:</para><para><itemizedlist>
+<listitem><para><bold> Default </bold>: This is the default mode after power up. In this mode of operation the XADC operates in a sequence mode, monitoring the on chip sensors: Temperature, VCCINT, and VCCAUX.</para></listitem><listitem><para><bold> One pass through sequence </bold>: In this mode the XADC converts the channels enabled in the Sequencer Channel Enable registers for a single pass and then stops.</para></listitem><listitem><para><bold> Continuous cycling of sequence </bold>: In this mode the XADC converts the channels enabled in the Sequencer Channel Enable registers continuously.</para></listitem><listitem><para><bold> Single channel mode</bold>: In this mode the XADC Channel Sequencer is disabled and the XADC operates in a Single Channel Mode. The XADC can operate either in a Continuous or Event driven sampling mode in the single channel mode.</para></listitem><listitem><para><bold> Simultaneous Sampling Mode</bold>: In this mode the XADC Channel Sequencer will automatically sequence through eight fixed pairs of auxiliary analog input channels for simultaneous conversion.</para></listitem><listitem><para><bold> Independent ADC mode</bold>: In this mode the first ADC (A) is used to implement a fixed monitoring mode similar to the default mode but the alarm functions are enabled. The second ADC (B) is available to be used with external analog input channels only.</para></listitem></itemizedlist>
+</para><para>Read the XADC spec for more information about the sequencer modes.</para><para><bold> Initialization and Configuration </bold></para><para>The device driver enables higher layer software (e.g., an application) to communicate to the XADC/ADC device.</para><para><ref refid="group___overview_1ga57807452402a6b52dd48083f676bd4ff" kindref="member">XAdcPs_CfgInitialize()</ref> API is used to initialize the XADC/ADC device. The user needs to first call the <ref refid="group___overview_1ga65ab0058623109a1e13c5c84aca78efe" kindref="member">XAdcPs_LookupConfig()</ref> API which returns the Configuration structure pointer which is passed as a parameter to the <ref refid="group___overview_1ga57807452402a6b52dd48083f676bd4ff" kindref="member">XAdcPs_CfgInitialize()</ref> API.</para><para><bold>Interrupts</bold></para><para>The XADC/ADC device supports interrupt driven mode and the default operation mode is polling mode.</para><para>The interrupt mode is available only if hardware is configured to support interrupts.</para><para>This driver does not provide a Interrupt Service Routine (ISR) for the device. It is the responsibility of the application to provide one if needed. Refer to the interrupt example provided with this driver for details on using the device in interrupt mode.</para><para><bold> Virtual Memory </bold></para><para>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space.</para><para><bold> Threads </bold></para><para>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</para><para><bold> Asserts </bold></para><para>Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining, at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that users leave asserts on during development.</para><para><bold> Building the driver </bold></para><para>The <ref refid="struct_x_adc_ps" kindref="compound">XAdcPs</ref> driver is composed of several source files. This allows the user to build and link only those parts of the driver that are necessary.</para><para><bold> Limitations of the driver </bold></para><para>XADC/ADC device can be accessed through the JTAG port and the PLB interface. The driver implementation does not support the simultaneous access of the device by both these interfaces. The user has to care of this situation in the user application code.</para><para><linebreak/>
+<linebreak/>
+</para><para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00a ssb    12/22/11 First release based on the XPS/AXI xadc driver
+1.01a bss    02/18/13   Modified XAdcPs_SetSeqChEnables,XAdcPs_SetSeqAvgEnables
+                XAdcPs_SetSeqInputMode and XAdcPs_SetSeqAcqTime APIs
+                in <ref refid="xadcps_8c" kindref="compound">xadcps.c</ref> to fix CR #693371
+1.03a bss    11/01/13 Modified <ref refid="xadcps__hw_8h" kindref="compound">xadcps_hw.h</ref> to use correct Register offsets
+                CR#749687
+2.1   bss    08/05/14 Added declarations for XAdcPs_SetSequencerEvent,
+                XAdcPs_GetSamplingMode, XAdcPs_SetMuxMode,
+                XAdcPs_SetPowerdownMode and XAdcPs_GetPowerdownMode
+                functions.
+                Modified Assert for XAdcPs_SetSingleChParams in
+                <ref refid="xadcps_8c" kindref="compound">xadcps.c</ref> to fix CR #807563.
+2.2   bss    04/27/14 Modified to use correct Device Config base address in
+                                        <ref refid="xadcps_8c" kindref="compound">xadcps.c</ref> (CR#854437).
+      ms     01/23/17 Added xil_printf statement in main function for all
+                      examples to ensure that &quot;Successfully ran&quot; and &quot;Failed&quot;
+                      strings are available in all examples. This is a fix
+                      for CR-965028.
+      ms     03/17/17 Added readme.txt file in examples folder for doxygen
+                      generation.
+      ms     04/05/17 Modified Comment lines in functions of xadcps
+                      examples to recognize it as documentation block
+                      for doxygen generation.
+2.3   mn     07/09/18 Fix Doxygen warning
+2.6   aad    11/02/20 Fix MISRAC Mandatory and Advisory errors.
+      aad    12/17/20 Added missing function declarations and removed
+                functions with no definitions.
+2.7   cog    07/24/23 Added support for SDT flow
+2.8   dc     02/18/26 Correct spelling errors
+      se     03/12/26 Fix GCC warnings and documentation errors.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

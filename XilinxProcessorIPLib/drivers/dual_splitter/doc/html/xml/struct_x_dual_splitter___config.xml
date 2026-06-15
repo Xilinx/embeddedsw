@@ -1,0 +1,192 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dual_splitter___config" kind="struct" prot="public">
+    <compoundname>XDualSplitter_Config</compoundname>
+    <includes local="no">xdualsplitter.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dual_splitter___config_1ad7c003d67af4f89cb1267568bf400c15" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XDualSplitter_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dual_splitter___config_1a3da7ad4f8e876ab73acc8c72274ea0f6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDualSplitter_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>BaseAddress is the physical base address of the core&apos;s registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="123" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1gae802302ea4de37154e36cbe0993e8cfd" compoundref="xdualsplitter_8c" startline="73" endline="102">XDualSplitter_CfgInitialize</referencedby>
+        <referencedby refid="group__dual__splitter_1gaabda56798dc29e25c03eb5098ba60850" compoundref="xdualsplitter_8c" startline="185" endline="202">XDualSplitter_GetImageSize</referencedby>
+        <referencedby refid="group__dual__splitter_1gaf9b807d631f1491dcd23add904e40049" compoundref="xdualsplitter_8c" startline="274" endline="302">XDualSplitter_GetImgParam</referencedby>
+        <referencedby refid="group__dual__splitter_1ga9cb1484d45dfd8caeba7b82f3cb57d26" compoundref="xdualsplitter_8c" startline="117" endline="131">XDualSplitter_Reset</referencedby>
+        <referencedby refid="group__dual__splitter_1ga134facdfb0255d7de8f17cccf404349b" compoundref="xdualsplitter_8c" startline="149" endline="167">XDualSplitter_SetImageSize</referencedby>
+        <referencedby refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" compoundref="xdualsplitter_8c" startline="223" endline="249">XDualSplitter_SetImgParam</referencedby>
+        <referencedby refid="xdualsplitter__example_8c_1a42e5da16cadf070754de53ee38e934b2" compoundref="xdualsplitter__example_8c" startline="99" endline="165">XDualSplitterExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dual_splitter___config_1a5767a958a21deb63eca5e479e249260c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDualSplitter_Config::ActiveCols</definition>
+        <argsstring></argsstring>
+        <name>ActiveCols</name>
+        <briefdescription>
+<para>Active Maximum Image Width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dual_splitter___config_1a85c7e13225c5a5522b3907806bdc9491" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDualSplitter_Config::ActiveRows</definition>
+        <argsstring></argsstring>
+        <name>ActiveRows</name>
+        <briefdescription>
+<para>Active Maximum Image Height. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dual_splitter___config_1afeb1fef1827c6345854ee71667748f1a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDualSplitter_Config::MaxSegments</definition>
+        <argsstring></argsstring>
+        <name>MaxSegments</name>
+        <briefdescription>
+<para>Maximum number of segments in an image. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dual_splitter___config_1a3ecbce61afe25996389837f7d416254f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDualSplitter_Config::MaxTDataWidth</definition>
+        <argsstring></argsstring>
+        <name>MaxTDataWidth</name>
+        <briefdescription>
+<para>Maximum Data bus Width. </para>        </briefdescription>
+        <detaileddescription>
+<para>It is the multiplication of maximum input sample width and maximum input samples per clock </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dual_splitter___config_1a947ea9cc89838d114c897275288054a8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDualSplitter_Config::MaxITDataSamples</definition>
+        <argsstring></argsstring>
+        <name>MaxITDataSamples</name>
+        <briefdescription>
+<para>Maximum Input Data Samples per clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dual_splitter___config_1a154df5a421e0802875ef0f8ce09bcf4d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDualSplitter_Config::MaxOTDataSamples</definition>
+        <argsstring></argsstring>
+        <name>MaxOTDataSamples</name>
+        <briefdescription>
+<para>Maximum Output Data Samples per clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dual_splitter___config_1ad14700785f7760d0aa6fac84b851fd6a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDualSplitter_Config::MaxOverlap</definition>
+        <argsstring></argsstring>
+        <name>MaxOverlap</name>
+        <briefdescription>
+<para>Maximum Overlap of the samples in the segments. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dual_splitter___config_1a08b7e0195efc167381ad64ef46932d65" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDualSplitter_Config::MaxSampleWidth</definition>
+        <argsstring></argsstring>
+        <name>MaxSampleWidth</name>
+        <briefdescription>
+<para>Maximum number of bits in a Sample. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dual_splitter___config_1aeb4b36b9c35d5c299f37c65b3cc4aa79" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDualSplitter_Config::HasAxi4Lite</definition>
+        <argsstring></argsstring>
+        <name>HasAxi4Lite</name>
+        <briefdescription>
+<para>Axi4-Lite support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dual_splitter___config_1a0a9073578b8b05a9d3c3ae49f1b7ac7f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDualSplitter_Config::HasIntrReq</definition>
+        <argsstring></argsstring>
+        <name>HasIntrReq</name>
+        <briefdescription>
+<para>IRQ support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="138" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1ga040c43cf8292cad54fad4111a7af19c3" compoundref="xdualsplitter__intr_8c" startline="70" endline="93">XDualSplitter_IntrHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the Dual Splitter core. </para>    </briefdescription>
+    <detaileddescription>
+<para>Each Dual Splitter device should have a configuration structure associated. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="116" bodyend="139"/>
+    <listofallmembers>
+      <member refid="struct_x_dual_splitter___config_1a5767a958a21deb63eca5e479e249260c" prot="public" virt="non-virtual"><scope>XDualSplitter_Config</scope><name>ActiveCols</name></member>
+      <member refid="struct_x_dual_splitter___config_1a85c7e13225c5a5522b3907806bdc9491" prot="public" virt="non-virtual"><scope>XDualSplitter_Config</scope><name>ActiveRows</name></member>
+      <member refid="struct_x_dual_splitter___config_1a3da7ad4f8e876ab73acc8c72274ea0f6" prot="public" virt="non-virtual"><scope>XDualSplitter_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_dual_splitter___config_1aeb4b36b9c35d5c299f37c65b3cc4aa79" prot="public" virt="non-virtual"><scope>XDualSplitter_Config</scope><name>HasAxi4Lite</name></member>
+      <member refid="struct_x_dual_splitter___config_1a0a9073578b8b05a9d3c3ae49f1b7ac7f" prot="public" virt="non-virtual"><scope>XDualSplitter_Config</scope><name>HasIntrReq</name></member>
+      <member refid="struct_x_dual_splitter___config_1a947ea9cc89838d114c897275288054a8" prot="public" virt="non-virtual"><scope>XDualSplitter_Config</scope><name>MaxITDataSamples</name></member>
+      <member refid="struct_x_dual_splitter___config_1a154df5a421e0802875ef0f8ce09bcf4d" prot="public" virt="non-virtual"><scope>XDualSplitter_Config</scope><name>MaxOTDataSamples</name></member>
+      <member refid="struct_x_dual_splitter___config_1ad14700785f7760d0aa6fac84b851fd6a" prot="public" virt="non-virtual"><scope>XDualSplitter_Config</scope><name>MaxOverlap</name></member>
+      <member refid="struct_x_dual_splitter___config_1a08b7e0195efc167381ad64ef46932d65" prot="public" virt="non-virtual"><scope>XDualSplitter_Config</scope><name>MaxSampleWidth</name></member>
+      <member refid="struct_x_dual_splitter___config_1afeb1fef1827c6345854ee71667748f1a" prot="public" virt="non-virtual"><scope>XDualSplitter_Config</scope><name>MaxSegments</name></member>
+      <member refid="struct_x_dual_splitter___config_1a3ecbce61afe25996389837f7d416254f" prot="public" virt="non-virtual"><scope>XDualSplitter_Config</scope><name>MaxTDataWidth</name></member>
+      <member refid="struct_x_dual_splitter___config_1ad7c003d67af4f89cb1267568bf400c15" prot="public" virt="non-virtual"><scope>XDualSplitter_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

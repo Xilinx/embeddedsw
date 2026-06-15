@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_rtc_psu___d_t" kind="struct" prot="public">
+    <compoundname>XRtcPsu_DT</compoundname>
+    <includes local="no">xrtcpsu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_rtc_psu___d_t_1a422474627fadc62823e8ff87e0bf1863" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRtcPsu_DT::Year</definition>
+        <argsstring></argsstring>
+        <name>Year</name>
+        <briefdescription>
+<para>Year. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" bodystart="203" bodyend="-1"/>
+        <referencedby refid="xrtcpsu__alarm__interrupt__example_8c_1a3e843772dd9d972673b8f2da8914f458" compoundref="xrtcpsu__alarm__interrupt__example_8c" startline="154" endline="234">RtcPsuAlarmIntrExample</referencedby>
+        <referencedby refid="xrtcpsu__alarm__polled__example_8c_1ade766b38594035be98f9fd0c0647b8d4" compoundref="xrtcpsu__alarm__polled__example_8c" startline="123" endline="174">RtcPsuAlarmPolledExample</referencedby>
+        <referencedby refid="xrtcpsu__periodic__alarm__interrupt__example_8c_1a466f19414ce6436bac17f8528a587308" compoundref="xrtcpsu__periodic__alarm__interrupt__example_8c" startline="159" endline="240">RtcPsuPeriodicAlarmIntrExample</referencedby>
+        <referencedby refid="xrtcpsu__set__calibration__example_8c_1a120cb273455f9b3ac137ec30f7af45bf" compoundref="xrtcpsu__set__calibration__example_8c" startline="126" endline="203">RtcPsuSetCalibrationExample</referencedby>
+        <referencedby refid="xrtcpsu__set__time__example_8c_1a2e15617fdde74cad66814bc251619131" compoundref="xrtcpsu__set__time__example_8c" startline="124" endline="182">RtcPsuSetTimeExample</referencedby>
+        <referencedby refid="group__rtcpsu_1ga15d97f88e65f27121f56f06480717824" compoundref="xrtcpsu_8c" startline="399" endline="437">XRtcPsu_DateTimeToSec</referencedby>
+        <referencedby refid="group__rtcpsu_1gaac3d95ea1a75533a1fd3cd95d62a9914" compoundref="xrtcpsu_8c" startline="330" endline="381">XRtcPsu_SecToDateTime</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_rtc_psu___d_t_1a17e3941ee44e1c60d8702e5ea9a6b658" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRtcPsu_DT::Month</definition>
+        <argsstring></argsstring>
+        <name>Month</name>
+        <briefdescription>
+<para>Month. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" bodystart="204" bodyend="-1"/>
+        <referencedby refid="xrtcpsu__alarm__interrupt__example_8c_1a3e843772dd9d972673b8f2da8914f458" compoundref="xrtcpsu__alarm__interrupt__example_8c" startline="154" endline="234">RtcPsuAlarmIntrExample</referencedby>
+        <referencedby refid="xrtcpsu__alarm__polled__example_8c_1ade766b38594035be98f9fd0c0647b8d4" compoundref="xrtcpsu__alarm__polled__example_8c" startline="123" endline="174">RtcPsuAlarmPolledExample</referencedby>
+        <referencedby refid="xrtcpsu__periodic__alarm__interrupt__example_8c_1a466f19414ce6436bac17f8528a587308" compoundref="xrtcpsu__periodic__alarm__interrupt__example_8c" startline="159" endline="240">RtcPsuPeriodicAlarmIntrExample</referencedby>
+        <referencedby refid="xrtcpsu__set__calibration__example_8c_1a120cb273455f9b3ac137ec30f7af45bf" compoundref="xrtcpsu__set__calibration__example_8c" startline="126" endline="203">RtcPsuSetCalibrationExample</referencedby>
+        <referencedby refid="xrtcpsu__set__time__example_8c_1a2e15617fdde74cad66814bc251619131" compoundref="xrtcpsu__set__time__example_8c" startline="124" endline="182">RtcPsuSetTimeExample</referencedby>
+        <referencedby refid="group__rtcpsu_1ga15d97f88e65f27121f56f06480717824" compoundref="xrtcpsu_8c" startline="399" endline="437">XRtcPsu_DateTimeToSec</referencedby>
+        <referencedby refid="group__rtcpsu_1gaac3d95ea1a75533a1fd3cd95d62a9914" compoundref="xrtcpsu_8c" startline="330" endline="381">XRtcPsu_SecToDateTime</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_rtc_psu___d_t_1a0d91fe193b2ace3bec1c253d9d4651b0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRtcPsu_DT::Day</definition>
+        <argsstring></argsstring>
+        <name>Day</name>
+        <briefdescription>
+<para>Day. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" bodystart="205" bodyend="-1"/>
+        <referencedby refid="xrtcpsu__alarm__interrupt__example_8c_1a3e843772dd9d972673b8f2da8914f458" compoundref="xrtcpsu__alarm__interrupt__example_8c" startline="154" endline="234">RtcPsuAlarmIntrExample</referencedby>
+        <referencedby refid="xrtcpsu__alarm__polled__example_8c_1ade766b38594035be98f9fd0c0647b8d4" compoundref="xrtcpsu__alarm__polled__example_8c" startline="123" endline="174">RtcPsuAlarmPolledExample</referencedby>
+        <referencedby refid="xrtcpsu__periodic__alarm__interrupt__example_8c_1a466f19414ce6436bac17f8528a587308" compoundref="xrtcpsu__periodic__alarm__interrupt__example_8c" startline="159" endline="240">RtcPsuPeriodicAlarmIntrExample</referencedby>
+        <referencedby refid="xrtcpsu__set__calibration__example_8c_1a120cb273455f9b3ac137ec30f7af45bf" compoundref="xrtcpsu__set__calibration__example_8c" startline="126" endline="203">RtcPsuSetCalibrationExample</referencedby>
+        <referencedby refid="xrtcpsu__set__time__example_8c_1a2e15617fdde74cad66814bc251619131" compoundref="xrtcpsu__set__time__example_8c" startline="124" endline="182">RtcPsuSetTimeExample</referencedby>
+        <referencedby refid="group__rtcpsu_1ga15d97f88e65f27121f56f06480717824" compoundref="xrtcpsu_8c" startline="399" endline="437">XRtcPsu_DateTimeToSec</referencedby>
+        <referencedby refid="group__rtcpsu_1gaac3d95ea1a75533a1fd3cd95d62a9914" compoundref="xrtcpsu_8c" startline="330" endline="381">XRtcPsu_SecToDateTime</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_rtc_psu___d_t_1a5217abcfa19b6ee79441c80593233410" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRtcPsu_DT::Hour</definition>
+        <argsstring></argsstring>
+        <name>Hour</name>
+        <briefdescription>
+<para>Hour. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" bodystart="206" bodyend="-1"/>
+        <referencedby refid="xrtcpsu__alarm__interrupt__example_8c_1a3e843772dd9d972673b8f2da8914f458" compoundref="xrtcpsu__alarm__interrupt__example_8c" startline="154" endline="234">RtcPsuAlarmIntrExample</referencedby>
+        <referencedby refid="xrtcpsu__alarm__polled__example_8c_1ade766b38594035be98f9fd0c0647b8d4" compoundref="xrtcpsu__alarm__polled__example_8c" startline="123" endline="174">RtcPsuAlarmPolledExample</referencedby>
+        <referencedby refid="xrtcpsu__periodic__alarm__interrupt__example_8c_1a466f19414ce6436bac17f8528a587308" compoundref="xrtcpsu__periodic__alarm__interrupt__example_8c" startline="159" endline="240">RtcPsuPeriodicAlarmIntrExample</referencedby>
+        <referencedby refid="xrtcpsu__set__calibration__example_8c_1a120cb273455f9b3ac137ec30f7af45bf" compoundref="xrtcpsu__set__calibration__example_8c" startline="126" endline="203">RtcPsuSetCalibrationExample</referencedby>
+        <referencedby refid="xrtcpsu__set__time__example_8c_1a2e15617fdde74cad66814bc251619131" compoundref="xrtcpsu__set__time__example_8c" startline="124" endline="182">RtcPsuSetTimeExample</referencedby>
+        <referencedby refid="group__rtcpsu_1ga15d97f88e65f27121f56f06480717824" compoundref="xrtcpsu_8c" startline="399" endline="437">XRtcPsu_DateTimeToSec</referencedby>
+        <referencedby refid="group__rtcpsu_1gaac3d95ea1a75533a1fd3cd95d62a9914" compoundref="xrtcpsu_8c" startline="330" endline="381">XRtcPsu_SecToDateTime</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_rtc_psu___d_t_1a985ad2e22c16c13787bad0bc5a6252d3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRtcPsu_DT::Min</definition>
+        <argsstring></argsstring>
+        <name>Min</name>
+        <briefdescription>
+<para>Minute. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" bodystart="207" bodyend="-1"/>
+        <referencedby refid="xrtcpsu__alarm__interrupt__example_8c_1a3e843772dd9d972673b8f2da8914f458" compoundref="xrtcpsu__alarm__interrupt__example_8c" startline="154" endline="234">RtcPsuAlarmIntrExample</referencedby>
+        <referencedby refid="xrtcpsu__alarm__polled__example_8c_1ade766b38594035be98f9fd0c0647b8d4" compoundref="xrtcpsu__alarm__polled__example_8c" startline="123" endline="174">RtcPsuAlarmPolledExample</referencedby>
+        <referencedby refid="xrtcpsu__periodic__alarm__interrupt__example_8c_1a466f19414ce6436bac17f8528a587308" compoundref="xrtcpsu__periodic__alarm__interrupt__example_8c" startline="159" endline="240">RtcPsuPeriodicAlarmIntrExample</referencedby>
+        <referencedby refid="xrtcpsu__set__calibration__example_8c_1a120cb273455f9b3ac137ec30f7af45bf" compoundref="xrtcpsu__set__calibration__example_8c" startline="126" endline="203">RtcPsuSetCalibrationExample</referencedby>
+        <referencedby refid="xrtcpsu__set__time__example_8c_1a2e15617fdde74cad66814bc251619131" compoundref="xrtcpsu__set__time__example_8c" startline="124" endline="182">RtcPsuSetTimeExample</referencedby>
+        <referencedby refid="group__rtcpsu_1ga15d97f88e65f27121f56f06480717824" compoundref="xrtcpsu_8c" startline="399" endline="437">XRtcPsu_DateTimeToSec</referencedby>
+        <referencedby refid="group__rtcpsu_1gaac3d95ea1a75533a1fd3cd95d62a9914" compoundref="xrtcpsu_8c" startline="330" endline="381">XRtcPsu_SecToDateTime</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_rtc_psu___d_t_1a2a4a6d1fc2f482c69610be4c46681ee0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRtcPsu_DT::Sec</definition>
+        <argsstring></argsstring>
+        <name>Sec</name>
+        <briefdescription>
+<para>Second. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" bodystart="208" bodyend="-1"/>
+        <referencedby refid="xrtcpsu__alarm__interrupt__example_8c_1a3e843772dd9d972673b8f2da8914f458" compoundref="xrtcpsu__alarm__interrupt__example_8c" startline="154" endline="234">RtcPsuAlarmIntrExample</referencedby>
+        <referencedby refid="xrtcpsu__alarm__polled__example_8c_1ade766b38594035be98f9fd0c0647b8d4" compoundref="xrtcpsu__alarm__polled__example_8c" startline="123" endline="174">RtcPsuAlarmPolledExample</referencedby>
+        <referencedby refid="xrtcpsu__periodic__alarm__interrupt__example_8c_1a466f19414ce6436bac17f8528a587308" compoundref="xrtcpsu__periodic__alarm__interrupt__example_8c" startline="159" endline="240">RtcPsuPeriodicAlarmIntrExample</referencedby>
+        <referencedby refid="xrtcpsu__set__calibration__example_8c_1a120cb273455f9b3ac137ec30f7af45bf" compoundref="xrtcpsu__set__calibration__example_8c" startline="126" endline="203">RtcPsuSetCalibrationExample</referencedby>
+        <referencedby refid="xrtcpsu__set__time__example_8c_1a2e15617fdde74cad66814bc251619131" compoundref="xrtcpsu__set__time__example_8c" startline="124" endline="182">RtcPsuSetTimeExample</referencedby>
+        <referencedby refid="group__rtcpsu_1ga15d97f88e65f27121f56f06480717824" compoundref="xrtcpsu_8c" startline="399" endline="437">XRtcPsu_DateTimeToSec</referencedby>
+        <referencedby refid="group__rtcpsu_1gaac3d95ea1a75533a1fd3cd95d62a9914" compoundref="xrtcpsu_8c" startline="330" endline="381">XRtcPsu_SecToDateTime</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_rtc_psu___d_t_1a768d292f62468b17e36dce098f8c7d49" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRtcPsu_DT::WeekDay</definition>
+        <argsstring></argsstring>
+        <name>WeekDay</name>
+        <briefdescription>
+<para>Week Day. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" bodystart="209" bodyend="-1"/>
+        <referencedby refid="xrtcpsu__alarm__interrupt__example_8c_1a3e843772dd9d972673b8f2da8914f458" compoundref="xrtcpsu__alarm__interrupt__example_8c" startline="154" endline="234">RtcPsuAlarmIntrExample</referencedby>
+        <referencedby refid="xrtcpsu__alarm__polled__example_8c_1ade766b38594035be98f9fd0c0647b8d4" compoundref="xrtcpsu__alarm__polled__example_8c" startline="123" endline="174">RtcPsuAlarmPolledExample</referencedby>
+        <referencedby refid="xrtcpsu__periodic__alarm__interrupt__example_8c_1a466f19414ce6436bac17f8528a587308" compoundref="xrtcpsu__periodic__alarm__interrupt__example_8c" startline="159" endline="240">RtcPsuPeriodicAlarmIntrExample</referencedby>
+        <referencedby refid="xrtcpsu__set__time__example_8c_1a2e15617fdde74cad66814bc251619131" compoundref="xrtcpsu__set__time__example_8c" startline="124" endline="182">RtcPsuSetTimeExample</referencedby>
+        <referencedby refid="group__rtcpsu_1gaac3d95ea1a75533a1fd3cd95d62a9914" compoundref="xrtcpsu_8c" startline="330" endline="381">XRtcPsu_SecToDateTime</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains DateTime format structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.h" bodystart="202" bodyend="210"/>
+    <listofallmembers>
+      <member refid="struct_x_rtc_psu___d_t_1a0d91fe193b2ace3bec1c253d9d4651b0" prot="public" virt="non-virtual"><scope>XRtcPsu_DT</scope><name>Day</name></member>
+      <member refid="struct_x_rtc_psu___d_t_1a5217abcfa19b6ee79441c80593233410" prot="public" virt="non-virtual"><scope>XRtcPsu_DT</scope><name>Hour</name></member>
+      <member refid="struct_x_rtc_psu___d_t_1a985ad2e22c16c13787bad0bc5a6252d3" prot="public" virt="non-virtual"><scope>XRtcPsu_DT</scope><name>Min</name></member>
+      <member refid="struct_x_rtc_psu___d_t_1a17e3941ee44e1c60d8702e5ea9a6b658" prot="public" virt="non-virtual"><scope>XRtcPsu_DT</scope><name>Month</name></member>
+      <member refid="struct_x_rtc_psu___d_t_1a2a4a6d1fc2f482c69610be4c46681ee0" prot="public" virt="non-virtual"><scope>XRtcPsu_DT</scope><name>Sec</name></member>
+      <member refid="struct_x_rtc_psu___d_t_1a768d292f62468b17e36dce098f8c7d49" prot="public" virt="non-virtual"><scope>XRtcPsu_DT</scope><name>WeekDay</name></member>
+      <member refid="struct_x_rtc_psu___d_t_1a422474627fadc62823e8ff87e0bf1863" prot="public" virt="non-virtual"><scope>XRtcPsu_DT</scope><name>Year</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

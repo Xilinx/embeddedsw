@@ -1,0 +1,443 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group____cam__device__rgbir" kind="group">
+    <compoundname>_cam_device_rgbir</compoundname>
+    <title>VsCamDevice E01C22 Device_RGBIR Definitions</title>
+    <innerclass refid="struct_cam_device_rgbir_config__s" prot="public">CamDeviceRgbirConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_rgbir_status__s" prot="public">CamDeviceRgbirStatus_s</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group____cam__device__rgbir_1ga2d0a9b9c63e99a1d44ba36b1ce153cf0" prot="public" static="no">
+        <name>CamDeviceRgbirOutPat_e</name>
+        <enumvalue id="group____cam__device__rgbir_1gga2d0a9b9c63e99a1d44ba36b1ce153cf0a9fc1f15097123743d61674418898f423" prot="public">
+          <name>CAMDEV_RGBIR_OUT_PAT_RGGB</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Output RGB RAW pattern RGGB. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__rgbir_1gga2d0a9b9c63e99a1d44ba36b1ce153cf0afa726bc7493c506f87884d8d959553a6" prot="public">
+          <name>CAMDEV_RGBIR_OUT_PAT_GRBG</name>
+          <briefdescription>
+<para>Output RGB RAW pattern GRBG. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__rgbir_1gga2d0a9b9c63e99a1d44ba36b1ce153cf0a65d6d1015701ae66c041029e9c1f6e56" prot="public">
+          <name>CAMDEV_RGBIR_OUT_PAT_GBRG</name>
+          <briefdescription>
+<para>Output RGB RAW pattern GBRG. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__rgbir_1gga2d0a9b9c63e99a1d44ba36b1ce153cf0a0b97c2488358f3f7d7f5f60715431242" prot="public">
+          <name>CAMDEV_RGBIR_OUT_PAT_BGGR</name>
+          <briefdescription>
+<para>Output RGB RAW pattern BGGR. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__rgbir_1gga2d0a9b9c63e99a1d44ba36b1ce153cf0aca90aa1ce708750fc48dc7ceb1365385" prot="public">
+          <name>CAMDEV_RGBIR_OUT_PAT_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice RGBIR output Bayer pattern. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" bodystart="53" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__rgbir_1gaffabb59ff5e403e9601c6092564721e2" prot="public" static="no">
+        <name>CamDeviceRgbirIrPathSel_e</name>
+        <enumvalue id="group____cam__device__rgbir_1ggaffabb59ff5e403e9601c6092564721e2ae160131cf6987cf4f7e3ec94d32a4893" prot="public">
+          <name>CAMDEV_RGBIR_IR_RAW_SELECT_MP</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Select MP RAW path. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__rgbir_1ggaffabb59ff5e403e9601c6092564721e2aea231dd2b83decf2f00a6ecd790496aa" prot="public">
+          <name>CAMDEV_RGBIR_IR_RAW_SELECT_SELF1</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Select SP1 yuv only path. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice RGBIR IR RAW path selection. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" bodystart="66" bodyend="69"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__rgbir_1ga28fee7d6f4ee0f22715bc3af57e3c020" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__rgbir_1ga2d0a9b9c63e99a1d44ba36b1ce153cf0" kindref="member">CamDeviceRgbirOutPat_e</ref></type>
+        <definition>typedef enum CamDeviceRgbirOutPat_e CamDeviceRgbirOutPat_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceRgbirOutPat_t</name>
+        <briefdescription>
+<para>VsCamDevice RGBIR output Bayer pattern. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="59" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__rgbir_1ga0f924353bc4eb52dcdea819535f7a5db" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__rgbir_1gaffabb59ff5e403e9601c6092564721e2" kindref="member">CamDeviceRgbirIrPathSel_e</ref></type>
+        <definition>typedef enum CamDeviceRgbirIrPathSel_e  CamDeviceRgbirIrPathSel_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceRgbirIrPathSel_t</name>
+        <briefdescription>
+<para>VsCamDevice RGBIR IR RAW path selection. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="69" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__rgbir_1gac7e62b360ff6609357d76f63d3618916" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_rgbir_config__s" kindref="compound">CamDeviceRgbirConfig_s</ref></type>
+        <definition>typedef struct CamDeviceRgbirConfig_s  CamDeviceRgbirConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceRgbirConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice RGBIR status structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="84" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__rgbir_1ga3cac712cf47fe80f09a8c6e6747245bf" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_rgbir_status__s" kindref="compound">CamDeviceRgbirStatus_s</ref></type>
+        <definition>typedef struct CamDeviceRgbirStatus_s CamDeviceRgbirStatus_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceRgbirStatus_t</name>
+        <briefdescription>
+<para>VsCamDevice RGBIR status structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="97" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__rgbir_1gaa57d9c4cc37081561c801546d413d915" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceRgbirEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceRgbirEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/rgbir/cam_device_rgbir_api_v2.c" bodystart="140" bodyend="174"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__rgbir_1ga2b5bda39d8df70d846ac28adf1553ca6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceRgbirDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceRgbirDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/rgbir/cam_device_rgbir_api_v2.c" bodystart="178" bodyend="212"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__rgbir_1ga4b5fd87715151d223f6fa22f15ae33e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceRgbirRcccEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceRgbirRcccEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/rgbir/cam_device_rgbir_api_v2.c" bodystart="216" bodyend="250"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__rgbir_1ga222f93aa3796722ebd56bea518d0d4d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceRgbirRcccDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceRgbirRcccDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/rgbir/cam_device_rgbir_api_v2.c" bodystart="254" bodyend="288"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__rgbir_1ga49045bdc32a48f55f7481f31a3c4dd23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceRgbirIrRawOutEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceRgbirIrRawOutEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/rgbir/cam_device_rgbir_api_v2.c" bodystart="292" bodyend="326"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__rgbir_1ga8804420df7f50c0dff7d06fb539dc0c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceRgbirIrRawOutDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceRgbirIrRawOutDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/rgbir/cam_device_rgbir_api_v2.c" bodystart="330" bodyend="364"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__rgbir_1ga435b61fd9f51b700bdc0d5f141ece2f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceRgbirSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceRgbirConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceRgbirSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__rgbir_1gac7e62b360ff6609357d76f63d3618916" kindref="member">CamDeviceRgbirConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/rgbir/cam_device_rgbir_api_v2.c" bodystart="56" bodyend="95"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__rgbir_1ga6c45f02210c7dd2b196100d189ef2153" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceRgbirGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceRgbirConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceRgbirGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__rgbir_1gac7e62b360ff6609357d76f63d3618916" kindref="member">CamDeviceRgbirConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="278" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/rgbir/cam_device_rgbir_api_v2.c" bodystart="98" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__rgbir_1ga5a5196c21694adcd3eefc5d79826143d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceRgbirSetOutPattern</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceRgbirOutPat_t outPattern)</argsstring>
+        <name>VsiCamDeviceRgbirSetOutPattern</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__rgbir_1ga28fee7d6f4ee0f22715bc3af57e3c020" kindref="member">CamDeviceRgbirOutPat_t</ref></type>
+          <declname>outPattern</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/rgbir/cam_device_rgbir_api_v2.c" bodystart="367" bodyend="405"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__rgbir_1ga3083eb7637693723a1cbfeecd0722f6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceRgbirGetOutPattern</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceRgbirOutPat_t *pOutPattern)</argsstring>
+        <name>VsiCamDeviceRgbirGetOutPattern</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__rgbir_1ga28fee7d6f4ee0f22715bc3af57e3c020" kindref="member">CamDeviceRgbirOutPat_t</ref> *</type>
+          <declname>pOutPattern</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/rgbir/cam_device_rgbir_api_v2.c" bodystart="408" bodyend="447"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__rgbir_1gac57c536e63d14c3eca94efa1b851379f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceRgbirSetIrPathSelect</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceRgbirIrPathSel_t irPathSelect)</argsstring>
+        <name>VsiCamDeviceRgbirSetIrPathSelect</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__rgbir_1ga0f924353bc4eb52dcdea819535f7a5db" kindref="member">CamDeviceRgbirIrPathSel_t</ref></type>
+          <declname>irPathSelect</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="362" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/rgbir/cam_device_rgbir_api_v2.c" bodystart="451" bodyend="489"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__rgbir_1gaae1faa3db369a81de39fdd10cd89f62e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceRgbirGetIrPathSelect</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceRgbirIrPathSel_t *pIrPathSelect)</argsstring>
+        <name>VsiCamDeviceRgbirGetIrPathSelect</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__rgbir_1ga0f924353bc4eb52dcdea819535f7a5db" kindref="member">CamDeviceRgbirIrPathSel_t</ref> *</type>
+          <declname>pIrPathSelect</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="390" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/rgbir/cam_device_rgbir_api_v2.c" bodystart="493" bodyend="532"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__rgbir_1gab5b9abdff23da86d14712d2abcf1e83e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceRgbirGetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceRgbirStatus_t *pStatus)</argsstring>
+        <name>VsiCamDeviceRgbirGetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__rgbir_1ga3cac712cf47fe80f09a8c6e6747245bf" kindref="member">CamDeviceRgbirStatus_t</ref> *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="418" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/rgbir/cam_device_rgbir_api_v2.c" bodystart="535" bodyend="574"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__rgbir_1ga4c9bccb07f2ad8b6c22006b9da37342a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceRgbirGetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceRgbirGetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="440" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/rgbir/cam_device_rgbir_api_v2.c" bodystart="577" bodyend="616"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__rgbir_1ga604bc6552e68a4cd7f7482c510aa78d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceRgbirReset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceRgbirReset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="469" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/rgbir/cam_device_rgbir_api_v2.c" bodystart="619" bodyend="653"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group____cam__device__rgbir_1gaf2e8ee1fd15aa1f4189747975d6487be" prot="public" static="no">
+        <name>CAMDEV_RGBIR_CC_MATRIX_SIZE</name>
+        <initializer>12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Provides interfaces for controlling the RGB infrared radiation module working in the ISP pipeline. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

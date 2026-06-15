@@ -1,0 +1,274 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__hdmitxss__g_8c" kind="file">
+    <compoundname>xv_hdmitxss_g.c</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes refid="xv__hdmitxss_8h" local="yes">xv_hdmitxss.h</includes>
+    <incdepgraph>
+      <node id="1584">
+        <label>xv_hdmitxss_g.c</label>
+        <link refid="xv_hdmitxss_g.c"/>
+        <childnode refid="1585" relation="include">
+        </childnode>
+        <childnode refid="1586" relation="include">
+        </childnode>
+      </node>
+      <node id="1590">
+        <label>xv_hdmic_vsif.h</label>
+      </node>
+      <node id="1591">
+        <label>xvidc_edid.h</label>
+      </node>
+      <node id="1592">
+        <label>xv_hdmitx.h</label>
+      </node>
+      <node id="1586">
+        <label>xv_hdmitxss.h</label>
+        <link refid="xv__hdmitxss_8h"/>
+        <childnode refid="1585" relation="include">
+        </childnode>
+        <childnode refid="1587" relation="include">
+        </childnode>
+        <childnode refid="1588" relation="include">
+        </childnode>
+        <childnode refid="1589" relation="include">
+        </childnode>
+        <childnode refid="1590" relation="include">
+        </childnode>
+        <childnode refid="1591" relation="include">
+        </childnode>
+        <childnode refid="1592" relation="include">
+        </childnode>
+        <childnode refid="1593" relation="include">
+        </childnode>
+      </node>
+      <node id="1587">
+        <label>xstatus.h</label>
+      </node>
+      <node id="1588">
+        <label>xvidc.h</label>
+      </node>
+      <node id="1589">
+        <label>xv_hdmic.h</label>
+      </node>
+      <node id="1585">
+        <label>xparameters.h</label>
+      </node>
+      <node id="1593">
+        <label>xvtc.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xv__hdmitxss__g_8c_1ad17cd78c2897b3967ee5a0b4d414fe84" prot="public" static="no">
+        <name>XPAR_V_HDMI_TX_SS_AXI_TIMER_PRESENT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_g.c" line="16" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_g.c" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__hdmitxss__g_8c_1a89af0cb090ae88cda0a2971dc0660e17" prot="public" static="no">
+        <name>XPAR_V_HDMI_TX_SS_AXI_TIMER_ABSOLUTE_BASEADDR</name>
+        <initializer>(XPAR_V_HDMI_TX_SS_BASEADDR + XPAR_V_HDMI_TX_SS_AXI_TIMER_BASEADDR)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_g.c" line="17" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_g.c" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__hdmitxss__g_8c_1a2724c607f747653f24e62c2baee6221f" prot="public" static="no">
+        <name>XPAR_V_HDMI_TX_SS_HDCP22_TX_SS_PRESENT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_g.c" line="19" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_g.c" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__hdmitxss__g_8c_1ab3066c82059c59dc5af8dd20565085b3" prot="public" static="no">
+        <name>XPAR_V_HDMI_TX_SS_HDCP22_TX_SS_ABSOLUTE_BASEADDR</name>
+        <initializer>(XPAR_V_HDMI_TX_SS_BASEADDR + XPAR_V_HDMI_TX_SS_HDCP22_TX_SS_BASEADDR)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_g.c" line="20" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_g.c" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__hdmitxss__g_8c_1ae7d0fbeb0e757981f6b223f5a994c0de" prot="public" static="no">
+        <name>XPAR_V_HDMI_TX_SS_HDCP_1_4_PRESENT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_g.c" line="22" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_g.c" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__hdmitxss__g_8c_1a5ccc696cb810822606ad2ad8a7cabd81" prot="public" static="no">
+        <name>XPAR_V_HDMI_TX_SS_HDCP_1_4_ABSOLUTE_BASEADDR</name>
+        <initializer>(XPAR_V_HDMI_TX_SS_BASEADDR + XPAR_V_HDMI_TX_SS_HDCP_1_4_BASEADDR)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_g.c" line="23" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_g.c" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__hdmitxss__g_8c_1a8200d5e88ab24f9aa3c65eedc71bb403" prot="public" static="no">
+        <name>XPAR_V_HDMI_TX_SS_V_HDMI_TX_PRESENT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_g.c" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_g.c" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__hdmitxss__g_8c_1a966e517601ab4600afadc38d93b6e765" prot="public" static="no">
+        <name>XPAR_V_HDMI_TX_SS_V_HDMI_TX_ABSOLUTE_BASEADDR</name>
+        <initializer>(XPAR_V_HDMI_TX_SS_BASEADDR + XPAR_V_HDMI_TX_SS_V_HDMI_TX_BASEADDR)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_g.c" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_g.c" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__hdmitxss__g_8c_1a995bf98ce1c5e6257990b82a2c93a65a" prot="public" static="no">
+        <name>XPAR_V_HDMI_TX_SS_V_TC_PRESENT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_g.c" line="28" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_g.c" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__hdmitxss__g_8c_1afc137be2b4610eca3a71c70febda1157" prot="public" static="no">
+        <name>XPAR_V_HDMI_TX_SS_V_TC_ABSOLUTE_BASEADDR</name>
+        <initializer>(XPAR_V_HDMI_TX_SS_BASEADDR + XPAR_V_HDMI_TX_SS_V_TC_BASEADDR)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_g.c" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_g.c" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xv__hdmitxss__g_8c_1a0da2309377e3f9aac31c561b7d01ccc3" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v___hdmi_tx_ss___config" kindref="compound">XV_HdmiTxSs_Config</ref></type>
+        <definition>XV_HdmiTxSs_Config XV_HdmiTxSs_ConfigTable[XPAR_XV_HDMITXSS_NUM_INSTANCES]</definition>
+        <argsstring>[XPAR_XV_HDMITXSS_NUM_INSTANCES]</argsstring>
+        <name>XV_HdmiTxSs_ConfigTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_g.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_g.c" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010-2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"></highlight></codeline>
+<codeline lineno="6"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__hdmitxss_8h" kindref="compound">xv_hdmitxss.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="12"><highlight class="comment">*<sp/>List<sp/>of<sp/>Sub-cores<sp/>included<sp/>in<sp/>the<sp/>Subsystem<sp/>for<sp/>Device<sp/>ID<sp/>0</highlight></codeline>
+<codeline lineno="13"><highlight class="comment">*<sp/>Sub-core<sp/>device<sp/>id<sp/>will<sp/>be<sp/>set<sp/>by<sp/>its<sp/>driver<sp/>in<sp/>xparameters.h</highlight></codeline>
+<codeline lineno="14"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPAR_V_HDMI_TX_SS_AXI_TIMER_PRESENT<sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_V_HDMI_TX_SS_AXI_TIMER_ABSOLUTE_BASEADDR<sp/><sp/><sp/><sp/>(XPAR_V_HDMI_TX_SS_BASEADDR<sp/>+<sp/>XPAR_V_HDMI_TX_SS_AXI_TIMER_BASEADDR)</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPAR_V_HDMI_TX_SS_HDCP22_TX_SS_PRESENT<sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_V_HDMI_TX_SS_HDCP22_TX_SS_ABSOLUTE_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPAR_V_HDMI_TX_SS_BASEADDR<sp/>+<sp/>XPAR_V_HDMI_TX_SS_HDCP22_TX_SS_BASEADDR)</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPAR_V_HDMI_TX_SS_HDCP_1_4_PRESENT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_V_HDMI_TX_SS_HDCP_1_4_ABSOLUTE_BASEADDR<sp/><sp/><sp/><sp/><sp/>(XPAR_V_HDMI_TX_SS_BASEADDR<sp/>+<sp/>XPAR_V_HDMI_TX_SS_HDCP_1_4_BASEADDR)</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPAR_V_HDMI_TX_SS_V_HDMI_TX_PRESENT<sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_V_HDMI_TX_SS_V_HDMI_TX_ABSOLUTE_BASEADDR<sp/><sp/><sp/><sp/>(XPAR_V_HDMI_TX_SS_BASEADDR<sp/>+<sp/>XPAR_V_HDMI_TX_SS_V_HDMI_TX_BASEADDR)</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPAR_V_HDMI_TX_SS_V_TC_PRESENT<sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_V_HDMI_TX_SS_V_TC_ABSOLUTE_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPAR_V_HDMI_TX_SS_BASEADDR<sp/>+<sp/>XPAR_V_HDMI_TX_SS_V_TC_BASEADDR)</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="33"><highlight class="comment">*<sp/>List<sp/>of<sp/>Sub-cores<sp/>excluded<sp/>from<sp/>the<sp/>subsystem<sp/>for<sp/>Device<sp/>ID<sp/>0</highlight></codeline>
+<codeline lineno="34"><highlight class="comment">*<sp/><sp/><sp/>-<sp/>Excluded<sp/>sub-core<sp/>device<sp/>id<sp/>is<sp/>set<sp/>to<sp/>255</highlight></codeline>
+<codeline lineno="35"><highlight class="comment">*<sp/><sp/><sp/>-<sp/>Excluded<sp/>sub-core<sp/>baseaddr<sp/>is<sp/>set<sp/>to<sp/>0</highlight></codeline>
+<codeline lineno="36"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><ref refid="struct_x_v___hdmi_tx_ss___config" kindref="compound">XV_HdmiTxSs_Config</ref><sp/>XV_HdmiTxSs_ConfigTable[XPAR_XV_HDMITXSS_NUM_INSTANCES]<sp/>=</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_HDMI_TX_SS_DEVICE_ID,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_HDMI_TX_SS_BASEADDR,</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_HDMI_TX_SS_HIGHADDR,</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XVidC_PixelsPerClock)<sp/>XPAR_V_HDMI_TX_SS_INPUT_PIXELS_PER_CLOCK,</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_HDMI_TX_SS_MAX_BITS_PER_COMPONENT,</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_HDMI_TX_SS_INCLUDE_LOW_RESO_VID,</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_HDMI_TX_SS_INCLUDE_YUV420_SUP,</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_HDMI_TX_SS_AXI_LITE_FREQ_HZ,</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_HDMI_TX_SS_AXI_TIMER_PRESENT,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_HDMI_TX_SS_AXI_TIMER_DEVICE_ID,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_HDMI_TX_SS_AXI_TIMER_ABSOLUTE_BASEADDR</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_HDMI_TX_SS_HDCP_1_4_PRESENT,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_HDMI_TX_SS_HDCP_1_4_DEVICE_ID,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_HDMI_TX_SS_HDCP_1_4_ABSOLUTE_BASEADDR</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_HDMI_TX_SS_HDCP22_TX_SS_PRESENT,</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_HDMI_TX_SS_HDCP22_TX_SS_DEVICE_ID,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_HDMI_TX_SS_HDCP22_TX_SS_ABSOLUTE_BASEADDR</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_HDMI_TX_SS_V_HDMI_TX_PRESENT,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_HDMI_TX_SS_V_HDMI_TX_DEVICE_ID,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_HDMI_TX_SS_V_HDMI_TX_ABSOLUTE_BASEADDR</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_HDMI_TX_SS_V_TC_PRESENT,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_HDMI_TX_SS_V_TC_DEVICE_ID,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_HDMI_TX_SS_V_TC_ABSOLUTE_BASEADDR</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss_g.c"/>
+  </compounddef>
+</doxygen>

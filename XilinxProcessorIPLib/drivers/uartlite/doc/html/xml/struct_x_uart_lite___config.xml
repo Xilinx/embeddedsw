@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_uart_lite___config" kind="struct" prot="public">
+    <compoundname>XUartLite_Config</compoundname>
+    <includes local="no">xuartlite.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_uart_lite___config_1a8d5c1bec555a07a93d2b793beb6d089d" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XUartLite_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_lite___config_1a8afe6e1ad74e83584e757bebddbf7a30" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XUartLite_Config::RegBaseAddr</definition>
+        <argsstring></argsstring>
+        <name>RegBaseAddr</name>
+        <briefdescription>
+<para>Register base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="197" bodyend="-1"/>
+        <referencedby refid="group__uartlite_1ga3c83194bde1d39a420bc5ff1b6c8677d" compoundref="xuartlite__sinit_8c" startline="133" endline="158">XUartLite_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_lite___config_1ae711744a0420840d9599e234525f1487" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUartLite_Config::BaudRate</definition>
+        <argsstring></argsstring>
+        <name>BaudRate</name>
+        <briefdescription>
+<para>Fixed baud rate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_lite___config_1a581d63c484cae600ecdeb5b05f775a08" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUartLite_Config::UseParity</definition>
+        <argsstring></argsstring>
+        <name>UseParity</name>
+        <briefdescription>
+<para>Parity generator enabled when TRUE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_lite___config_1a4265aa3443fe342e8e6a7858ca96ab37" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUartLite_Config::ParityOdd</definition>
+        <argsstring></argsstring>
+        <name>ParityOdd</name>
+        <briefdescription>
+<para>Parity generated is odd when TRUE, even when FALSE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_lite___config_1abde7d4add528443f4bf8ab33aa98fad8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUartLite_Config::DataBits</definition>
+        <argsstring></argsstring>
+        <name>DataBits</name>
+        <briefdescription>
+<para>Fixed data bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_lite___config_1ab90c5e86d516f1f49a14325a0fbe9c33" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XUartLite_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="204" bodyend="-1"/>
+        <referencedby refid="xuartlite__intr__example_8c_1a8079702e33795e4de685d18352796beb" compoundref="xuartlite__intr__example_8c" startline="215" endline="316">UartLiteIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_lite___config_1a2f57cbe432323d54cd26352bb9d8ce63" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XUartLite_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="206" bodyend="-1"/>
+        <referencedby refid="xuartlite__intr__example_8c_1a8079702e33795e4de685d18352796beb" compoundref="xuartlite__intr__example_8c" startline="215" endline="316">UartLiteIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="191" bodyend="209"/>
+    <listofallmembers>
+      <member refid="struct_x_uart_lite___config_1ae711744a0420840d9599e234525f1487" prot="public" virt="non-virtual"><scope>XUartLite_Config</scope><name>BaudRate</name></member>
+      <member refid="struct_x_uart_lite___config_1abde7d4add528443f4bf8ab33aa98fad8" prot="public" virt="non-virtual"><scope>XUartLite_Config</scope><name>DataBits</name></member>
+      <member refid="struct_x_uart_lite___config_1ab90c5e86d516f1f49a14325a0fbe9c33" prot="public" virt="non-virtual"><scope>XUartLite_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_uart_lite___config_1a2f57cbe432323d54cd26352bb9d8ce63" prot="public" virt="non-virtual"><scope>XUartLite_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_uart_lite___config_1a8d5c1bec555a07a93d2b793beb6d089d" prot="public" virt="non-virtual"><scope>XUartLite_Config</scope><name>Name</name></member>
+      <member refid="struct_x_uart_lite___config_1a4265aa3443fe342e8e6a7858ca96ab37" prot="public" virt="non-virtual"><scope>XUartLite_Config</scope><name>ParityOdd</name></member>
+      <member refid="struct_x_uart_lite___config_1a8afe6e1ad74e83584e757bebddbf7a30" prot="public" virt="non-virtual"><scope>XUartLite_Config</scope><name>RegBaseAddr</name></member>
+      <member refid="struct_x_uart_lite___config_1a581d63c484cae600ecdeb5b05f775a08" prot="public" virt="non-virtual"><scope>XUartLite_Config</scope><name>UseParity</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

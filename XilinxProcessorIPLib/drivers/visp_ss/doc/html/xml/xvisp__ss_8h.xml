@@ -1,0 +1,413 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xvisp__ss_8h" kind="file">
+    <compoundname>xvisp_ss.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includedby refid="apu__to__rpu__ipi_8c" local="yes">apu_to_rpu_ipi.c</includedby>
+    <includedby refid="xvisp__ss_8c" local="yes">xvisp_ss.c</includedby>
+    <includedby refid="xvisp__ss__sinit_8c" local="yes">xvisp_ss_sinit.c</includedby>
+    <includedby refid="vvbench_8c" local="yes">vvbench.c</includedby>
+    <includedby refid="vvdevice_8c" local="yes">vvdevice.c</includedby>
+    <includedby refid="xvisp__ss__example_8c" local="yes">xvisp_ss_example.c</includedby>
+    <incdepgraph>
+      <node id="11931">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="11929">
+        <label>xvisp_ss.h</label>
+        <link refid="xvisp_ss.h"/>
+        <childnode refid="11930" relation="include">
+        </childnode>
+        <childnode refid="11931" relation="include">
+        </childnode>
+        <childnode refid="11932" relation="include">
+        </childnode>
+      </node>
+      <node id="11932">
+        <label>xstatus.h</label>
+      </node>
+      <node id="11930">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="11934">
+        <label>apu_to_rpu_ipi.c</label>
+      </node>
+      <node id="11938">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="11935">
+        <label>xvisp_ss.c</label>
+        <link refid="xvisp__ss_8c"/>
+      </node>
+      <node id="11933">
+        <label>xvisp_ss.h</label>
+        <link refid="xvisp_ss.h"/>
+        <childnode refid="11934" relation="include">
+        </childnode>
+        <childnode refid="11935" relation="include">
+        </childnode>
+        <childnode refid="11936" relation="include">
+        </childnode>
+        <childnode refid="11937" relation="include">
+        </childnode>
+        <childnode refid="11938" relation="include">
+        </childnode>
+        <childnode refid="11939" relation="include">
+        </childnode>
+      </node>
+      <node id="11936">
+        <label>xvisp_ss_sinit.c</label>
+        <link refid="xvisp__ss__sinit_8c"/>
+      </node>
+      <node id="11937">
+        <label>vvbench.c</label>
+      </node>
+      <node id="11939">
+        <label>xvisp_ss_example.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structxvisp__ss___config" prot="public">xvisp_ss_Config</innerclass>
+    <innerclass refid="struct_x_visp___ss" prot="public">XVisp_Ss</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xvisp__ss_8h_1a049a539c9e44923281e64c144ab2ea8d" prot="public" static="no">
+        <name>XVISP_SS_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="7" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__visp__ss__api_1ga485a78abe4444e082e2152f784565d52" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XVisp_Ss_Initialize</definition>
+        <argsstring>(XVisp_Ss *InstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>XVisp_Ss_Initialize</name>
+        <param>
+          <type><ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes a <ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref> instance/driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function must be called prior to using the <ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref> driver.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique ID of the device controlled by this <ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref> instance. Passing in a device ID associates the generic <ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref> instance to a specific device, as chosen by the caller or application developer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful.</para></listitem><listitem><para>XST_DEVICE_NOT_FOUND if the device configuration data was not found for a device with the supplied device ID.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss_sinit.c" bodystart="131" bodyend="147"/>
+        <references refid="group__visp__ss__api_1gac1095c7c564a32dfcf21a8e289604728" compoundref="xvisp__ss__sinit_8c" startline="75" endline="89">XVisp_Ss_LookupConfig</references>
+        <references refid="struct_x_visp___ss_1a85479e6b81ae9114d8c30c47cfb61e5f" compoundref="xvisp__ss_8h" startline="103">XVisp_Ss::IsReady</references>
+        <references refid="xvisp__ss_8c_1ae48c7ad91c20c72f07341b52b40c25a7" compoundref="xvisp__ss_8c" startline="74" endline="94">XVisp_Ss_CfgInitialize</references>
+        <references refid="structxvisp__ss___config_1a60f84fcaaf259b545f07b64a1479fec8" compoundref="xvisp__ss_8h" startline="36">xvisp_ss_Config::BaseAddress</references>
+      </memberdef>
+      <memberdef kind="function" id="group__visp__ss__api_1gac1095c7c564a32dfcf21a8e289604728" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structxvisp__ss___config" kindref="compound">xvisp_ss_Config</ref> *</type>
+        <definition>xvisp_ss_Config* XVisp_Ss_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XVisp_Ss_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function looks for the device configuration based on the unique device ID. </para>        </briefdescription>
+        <detaileddescription>
+<para>The table xvisp_ss_ConfigTable[] contains the configuration information for each instance of the device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique device ID of the device being looked up.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration table entry corresponding to the given device ID, or NULL if no match is found.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss_sinit.c" bodystart="75" bodyend="89"/>
+        <referencedby refid="group__visp__ss__api_1ga485a78abe4444e082e2152f784565d52" compoundref="xvisp__ss__sinit_8c" startline="131" endline="147">XVisp_Ss_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xvisp__ss_8h_1ab636bb42c01cf75bea0eaac0657248e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XVisp_Ss_CfgInitialize</definition>
+        <argsstring>(XVisp_Ss *InstancePtr, xvisp_ss_Config *Config, UINTPTR EffectiveAddr)</argsstring>
+        <name>XVisp_Ss_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="structxvisp__ss___config" kindref="compound">xvisp_ss_Config</ref> *</type>
+          <declname>Config</declname>
+          <defname>CfgPtr</defname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>Initialize the VISP SS instance provided by the caller based on the given configuration data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device configuration structure containing information about a specific VISP SS device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the initialization is successful. XST_DEVICE_IS_STARTED if the device has already been started.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.c" bodystart="74" bodyend="94"/>
+        <references refid="struct_x_visp___ss_1a969c0538a973cb96e4d942605924da15" compoundref="xvisp__ss_8h" startline="102">XVisp_Ss::Config</references>
+        <references refid="structxvisp__ss___config_1a60f84fcaaf259b545f07b64a1479fec8" compoundref="xvisp__ss_8h" startline="36">xvisp_ss_Config::BaseAddress</references>
+        <references refid="struct_x_visp___ss_1a85479e6b81ae9114d8c30c47cfb61e5f" compoundref="xvisp__ss_8h" startline="103">XVisp_Ss::IsReady</references>
+        <referencedby refid="group__visp__ss__api_1ga485a78abe4444e082e2152f784565d52" compoundref="xvisp__ss__sinit_8c" startline="131" endline="147">XVisp_Ss_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xvisp__ss_8h_1a1dbe420b68573c622a3e3019114aef05" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void reset_isp2rpu_mapping</definition>
+        <argsstring>()</argsstring>
+        <name>reset_isp2rpu_mapping</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.c" bodystart="96" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="xvisp__ss_8h_1ad00cd56894f7d97e3a72356bc2a22669" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void init_isp2rpu_mapping</definition>
+        <argsstring>(u32 rpu_id, u32 isp_id)</argsstring>
+        <name>init_isp2rpu_mapping</name>
+        <param>
+          <type>u32</type>
+          <declname>rpu_id</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>isp_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.c" bodystart="101" bodyend="127"/>
+      </memberdef>
+      <memberdef kind="function" id="xvisp__ss_8h_1a65519322f78ede8ced2b630f9af83af7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int selectDestinationCore</definition>
+        <argsstring>(u32 ispid)</argsstring>
+        <name>selectDestinationCore</name>
+        <param>
+          <type>u32</type>
+          <declname>ispid</declname>
+        </param>
+        <briefdescription>
+<para>Select the destination RPU core for the given ISP instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ispid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the ISP instance ID used to look up the mapped RPU core.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the destination core is successfully selected. XST_FAILURE if the ISP ID is out of range or not mapped.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.c" bodystart="142" bodyend="151"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XVISP_SS_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVISP_SS_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__linux__</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint8_t<sp/>u8;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint16_t<sp/>u16;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint32_t<sp/>u32;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="30" refid="structxvisp__ss___config" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DeviceId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="34" refid="structxvisp__ss___config_1a7318d177e5ac1f2a947fa78740988460" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="structxvisp__ss___config_1a7318d177e5ac1f2a947fa78740988460" kindref="member">Name</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="36" refid="structxvisp__ss___config_1a60f84fcaaf259b545f07b64a1479fec8" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="structxvisp__ss___config_1a60f84fcaaf259b545f07b64a1479fec8" kindref="member">BaseAddress</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="37" refid="structxvisp__ss___config_1a9e89061a48f1e1ccfcca9a8a6c670ae1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a9e89061a48f1e1ccfcca9a8a6c670ae1" kindref="member">NumStreams</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="38" refid="structxvisp__ss___config_1a18f895d531ede886ad73b01d15418f7b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a18f895d531ede886ad73b01d15418f7b" kindref="member">Rpu</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="39" refid="structxvisp__ss___config_1a959ef4ffe608d4020c3db7f26ab63a48" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a959ef4ffe608d4020c3db7f26ab63a48" kindref="member">IspId</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="40" refid="structxvisp__ss___config_1a15cc6b9fe147f30029a5d545c83fe6ea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="structxvisp__ss___config_1a15cc6b9fe147f30029a5d545c83fe6ea" kindref="member">IoMode</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>IBA0<sp/>Configuration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42" refid="structxvisp__ss___config_1a7b1c41e01a1761696779c9c483197c50" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a7b1c41e01a1761696779c9c483197c50" kindref="member">Iba0FrameRate</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="43" refid="structxvisp__ss___config_1aee1fbd0b10d2537a1004be7f0f55a11f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1aee1fbd0b10d2537a1004be7f0f55a11f" kindref="member">Iba0DataFormat</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="44" refid="structxvisp__ss___config_1a6456971bd839ee1e2b06fb39fdf9c403" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a6456971bd839ee1e2b06fb39fdf9c403" kindref="member">Iba0Ppc</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="45" refid="structxvisp__ss___config_1a2dbccac9557681c8d9a9a23755390a1e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a2dbccac9557681c8d9a9a23755390a1e" kindref="member">Iba0MaxWidth</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="46" refid="structxvisp__ss___config_1a8c02242fe02117b92e5ac720b9637278" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a8c02242fe02117b92e5ac720b9637278" kindref="member">Iba0MaxHeight</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="47" refid="structxvisp__ss___config_1a92acdb52d524939a57f221139fa75e9d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a92acdb52d524939a57f221139fa75e9d" kindref="member">Iba0Vcid</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>OBA0<sp/>Main<sp/>Path<sp/>Configuration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="structxvisp__ss___config_1ae5c526369c69ed384a366b4ca879bfa4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1ae5c526369c69ed384a366b4ca879bfa4" kindref="member">Oba0MpBpp</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50" refid="structxvisp__ss___config_1aaaa2c9ac8783d585d21199cf91ea77db" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1aaaa2c9ac8783d585d21199cf91ea77db" kindref="member">Oba0MpPpc</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="51" refid="structxvisp__ss___config_1ab3081fd162878275606b0d9f7e36c97c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="structxvisp__ss___config_1ab3081fd162878275606b0d9f7e36c97c" kindref="member">Oba0MpDataFormat</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>OBA0<sp/>Self<sp/>Path<sp/>Configuration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53" refid="structxvisp__ss___config_1a4d8f7f6bbfc90d940b555f8aa0c5479c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a4d8f7f6bbfc90d940b555f8aa0c5479c" kindref="member">Oba0SpBpp</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54" refid="structxvisp__ss___config_1ab8541cf62d33161eb2ed3920c73bdd92" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1ab8541cf62d33161eb2ed3920c73bdd92" kindref="member">Oba0SpPpc</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55" refid="structxvisp__ss___config_1a1409b2e5c94f75fc5a41b6be872c0fc2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="structxvisp__ss___config_1a1409b2e5c94f75fc5a41b6be872c0fc2" kindref="member">Oba0SpDataFormat</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>IBA1<sp/>Configuration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57" refid="structxvisp__ss___config_1a7edad79f1e24cb30608059d8234d143b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a7edad79f1e24cb30608059d8234d143b" kindref="member">Iba1FrameRate</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58" refid="structxvisp__ss___config_1a94e170fb5f9df495fa528c643e757f2f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a94e170fb5f9df495fa528c643e757f2f" kindref="member">Iba1DataFormat</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59" refid="structxvisp__ss___config_1a4b6dbaa963abea1a3d2b60d8aba70053" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a4b6dbaa963abea1a3d2b60d8aba70053" kindref="member">Iba1Ppc</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60" refid="structxvisp__ss___config_1ae518a0ffd4dddbbf975bdc7960c77dec" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1ae518a0ffd4dddbbf975bdc7960c77dec" kindref="member">Iba1MaxWidth</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="structxvisp__ss___config_1adecefb3233606b58d08705fa0c92c146" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1adecefb3233606b58d08705fa0c92c146" kindref="member">Iba1MaxHeight</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="structxvisp__ss___config_1ab98e30e0835e3df2f6fc587afd513756" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1ab98e30e0835e3df2f6fc587afd513756" kindref="member">Iba1Vcid</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>IBA2<sp/>Configuration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64" refid="structxvisp__ss___config_1ad41b704cd096e145512bb8893de6f1af" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1ad41b704cd096e145512bb8893de6f1af" kindref="member">Iba2FrameRate</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="structxvisp__ss___config_1a64b6bc427f7919a9b5b47c6a420d6c54" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a64b6bc427f7919a9b5b47c6a420d6c54" kindref="member">Iba2DataFormat</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66" refid="structxvisp__ss___config_1ae2aa475ff4f1146e9171eb922b29be22" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1ae2aa475ff4f1146e9171eb922b29be22" kindref="member">Iba2Ppc</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67" refid="structxvisp__ss___config_1aa649d68e404db7ad925c68813a59dd8e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1aa649d68e404db7ad925c68813a59dd8e" kindref="member">Iba2MaxWidth</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68" refid="structxvisp__ss___config_1a26a75922ab6ae2bbd497e3486ae2ad28" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a26a75922ab6ae2bbd497e3486ae2ad28" kindref="member">Iba2MaxHeight</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69" refid="structxvisp__ss___config_1a9a26941926b6891cbdb66c8278cac8af" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a9a26941926b6891cbdb66c8278cac8af" kindref="member">Iba2Vcid</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>IBA3<sp/>Configuration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71" refid="structxvisp__ss___config_1af220127e34a8bd16cc23d386b204bbae" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1af220127e34a8bd16cc23d386b204bbae" kindref="member">Iba3FrameRate</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="72" refid="structxvisp__ss___config_1a65d84ad0db33042b38cd7f5cc4c3405b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a65d84ad0db33042b38cd7f5cc4c3405b" kindref="member">Iba3DataFormat</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73" refid="structxvisp__ss___config_1a84123fe79507274b790c25f1fde50a60" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a84123fe79507274b790c25f1fde50a60" kindref="member">Iba3Ppc</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="74" refid="structxvisp__ss___config_1a77078d05928c0fd4c6cecb641bfdeaac" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a77078d05928c0fd4c6cecb641bfdeaac" kindref="member">Iba3MaxWidth</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75" refid="structxvisp__ss___config_1a818cd2d40b8084d963914c875103b45a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a818cd2d40b8084d963914c875103b45a" kindref="member">Iba3MaxHeight</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76" refid="structxvisp__ss___config_1a303d11619ed4077d45a6197da0c979a1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a303d11619ed4077d45a6197da0c979a1" kindref="member">Iba3Vcid</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>IBA4<sp/>Configuration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78" refid="structxvisp__ss___config_1a0af172660482f546475afc177ae0b5c5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a0af172660482f546475afc177ae0b5c5" kindref="member">Iba4FrameRate</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79" refid="structxvisp__ss___config_1a2c25000d4b08ffbe7b02a4ba88c27075" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a2c25000d4b08ffbe7b02a4ba88c27075" kindref="member">Iba4DataFormat</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="80" refid="structxvisp__ss___config_1a20de794b121af35390501992f4754a51" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a20de794b121af35390501992f4754a51" kindref="member">Iba4Ppc</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81" refid="structxvisp__ss___config_1a0b1f7f001e9f2df1eba67c095cc7fc1f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a0b1f7f001e9f2df1eba67c095cc7fc1f" kindref="member">Iba4MaxWidth</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82" refid="structxvisp__ss___config_1ae6926881557a203abc76288ee0949588" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1ae6926881557a203abc76288ee0949588" kindref="member">Iba4MaxHeight</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83" refid="structxvisp__ss___config_1a73468ddbdf3fbc83e3c2b53527cd1f00" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a73468ddbdf3fbc83e3c2b53527cd1f00" kindref="member">Iba4Vcid</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>OBA1<sp/>Configuration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85" refid="structxvisp__ss___config_1a4ebeadc53871963274aca7c802d5af12" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a4ebeadc53871963274aca7c802d5af12" kindref="member">Oba1MpBpp</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86" refid="structxvisp__ss___config_1af82c43c78473122e0e6d3af92a66d053" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1af82c43c78473122e0e6d3af92a66d053" kindref="member">Oba1MpPpc</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87" refid="structxvisp__ss___config_1a2b230ef752912eb89b96b7b23d535e91" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="structxvisp__ss___config_1a2b230ef752912eb89b96b7b23d535e91" kindref="member">Oba1MpDataFormat</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88" refid="structxvisp__ss___config_1ae78bf00fad63ef9f43b6d17b3d746ff8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1ae78bf00fad63ef9f43b6d17b3d746ff8" kindref="member">Oba1SpBpp</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="89" refid="structxvisp__ss___config_1a14ea5cd80b92a57c22a72f2a61a26dbd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="structxvisp__ss___config_1a14ea5cd80b92a57c22a72f2a61a26dbd" kindref="member">Oba1SpPpc</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90" refid="structxvisp__ss___config_1af35fa90bd2401bb5fb20f496f5fcb182" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="structxvisp__ss___config_1af35fa90bd2401bb5fb20f496f5fcb182" kindref="member">Oba1SpDataFormat</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Interrupt<sp/>Configuration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92" refid="structxvisp__ss___config_1abd06defb3913867ec8200fdd3acfdc6c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Interrupts[4];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93" refid="structxvisp__ss___config_1a8634cfa9168e1c4ce7adc1ac0db975ca" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="structxvisp__ss___config_1a8634cfa9168e1c4ce7adc1ac0db975ca" kindref="member">InterruptParent</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="94"><highlight class="normal">}<sp/><ref refid="structxvisp__ss___config" kindref="compound">xvisp_ss_Config</ref>;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="101" refid="struct_x_visp___ss" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="102" refid="struct_x_visp___ss_1a969c0538a973cb96e4d942605924da15" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structxvisp__ss___config" kindref="compound">xvisp_ss_Config</ref><sp/><ref refid="struct_x_visp___ss_1a969c0538a973cb96e4d942605924da15" kindref="member">Config</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="103" refid="struct_x_visp___ss_1a85479e6b81ae9114d8c30c47cfb61e5f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_visp___ss_1a85479e6b81ae9114d8c30c47cfb61e5f" kindref="member">IsReady</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104"><highlight class="normal">}<sp/><ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref>;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="111"><highlight class="comment"><sp/>*<sp/>Static<sp/>Initialization<sp/>API&apos;s<sp/>in<sp/>xvisp_ss_sinit.c</highlight></codeline>
+<codeline lineno="112"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__visp__ss__api_1ga485a78abe4444e082e2152f784565d52" kindref="member">XVisp_Ss_Initialize</ref>(<ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><ref refid="structxvisp__ss___config" kindref="compound">xvisp_ss_Config</ref><sp/>*<ref refid="group__visp__ss__api_1gac1095c7c564a32dfcf21a8e289604728" kindref="member">XVisp_Ss_LookupConfig</ref>(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__visp__ss__api_1ga485a78abe4444e082e2152f784565d52" kindref="member">XVisp_Ss_Initialize</ref>(<ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><ref refid="structxvisp__ss___config" kindref="compound">xvisp_ss_Config</ref><sp/>*<ref refid="group__visp__ss__api_1gac1095c7c564a32dfcf21a8e289604728" kindref="member">XVisp_Ss_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="122"><highlight class="comment"><sp/>*<sp/>Initialization<sp/>and<sp/>control<sp/>functions<sp/>implemented<sp/>in<sp/>xvisp_ss.c</highlight></codeline>
+<codeline lineno="123"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xvisp__ss_8c_1ae48c7ad91c20c72f07341b52b40c25a7" kindref="member">XVisp_Ss_CfgInitialize</ref>(<ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref><sp/>*InstancePtr,<sp/><ref refid="structxvisp__ss___config" kindref="compound">xvisp_ss_Config</ref><sp/>*Config,</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>reset_isp2rpu_mapping();</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>init_isp2rpu_mapping(u32<sp/>rpu_id,<sp/>u32<sp/>isp_id);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xvisp__ss_8c_1a65519322f78ede8ced2b630f9af83af7" kindref="member">selectDestinationCore</ref>(u32<sp/>ispid);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h"/>
+  </compounddef>
+</doxygen>

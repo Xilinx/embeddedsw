@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structoba__map" kind="struct" prot="public">
+    <compoundname>oba_map</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structoba__map_1a006989d17e60e8065aa1de804e9c5bd7" prot="public" static="no" mutable="no">
+        <type>oba_inst_t</type>
+        <definition>oba_inst_t oba_map::oba_inst[OBA_MAX_TILE][OBA_MAX_ISP_PER_TILE][MAX_OBA_PER_ISP]</definition>
+        <argsstring>[OBA_MAX_TILE][OBA_MAX_ISP_PER_TILE][MAX_OBA_PER_ISP]</argsstring>
+        <name>oba_inst</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structoba__map_1ace399ec56869be31faf18fe0cc153b1c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int oba_map::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="108" bodyend="111"/>
+    <listofallmembers>
+      <member refid="structoba__map_1ace399ec56869be31faf18fe0cc153b1c" prot="public" virt="non-virtual"><scope>oba_map</scope><name>IsReady</name></member>
+      <member refid="structoba__map_1a006989d17e60e8065aa1de804e9c5bd7" prot="public" virt="non-virtual"><scope>oba_map</scope><name>oba_inst</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

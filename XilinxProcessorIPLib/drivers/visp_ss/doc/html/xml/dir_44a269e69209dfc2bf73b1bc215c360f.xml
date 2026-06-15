@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_44a269e69209dfc2bf73b1bc215c360f" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="apu__to__rpu__ipi_8c">apu_to_rpu_ipi.c</innerfile>
+    <innerfile refid="mbox__api_8c">mbox_api.c</innerfile>
+    <innerfile refid="mbox__cmd_8c">mbox_cmd.c</innerfile>
+    <innerfile refid="mbox__fifo_8c">mbox_fifo.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/"/>
+  </compounddef>
+</doxygen>

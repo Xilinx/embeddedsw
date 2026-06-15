@@ -1,0 +1,221 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilskey__eps_8h" kind="file">
+    <compoundname>xilskey_eps.h</compoundname>
+    <includedby refid="xilskey__eps_8c" local="yes">xilskey_eps.c</includedby>
+    <includedby refid="xilskey__efuse__example_8c" local="yes">xilskey_efuse_example.c</includedby>
+    <invincdepgraph>
+      <node id="106">
+        <label>xilskey_eps.c</label>
+        <link refid="xilskey__eps_8c"/>
+      </node>
+      <node id="105">
+        <label>xilskey_eps.h</label>
+        <link refid="xilskey_eps.h"/>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+      </node>
+      <node id="107">
+        <label>xilskey_efuse_example.c</label>
+        <link refid="xilskey__efuse__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilskey__zynq__efuse_1ga63c6c25524196e392935e0c9c9e34825" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_EfusePs_Write</definition>
+        <argsstring>(XilSKey_EPs *InstancePtr)</argsstring>
+        <name>XilSKey_EfusePs_Write</name>
+        <param>
+          <type>XilSKey_EPs *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>PS eFUSE interface functions. </para>        </briefdescription>
+        <detaileddescription>
+<para>PS eFUSE interface functions.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the PsEfuseHandle which describes which PS eFUSE bit should be burned.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS.</para></listitem><listitem><para>In case of error, value is as defined in <ref refid="xilskey__utils_8h" kindref="compound">xilskey_utils.h</ref> Error value is a combination of Upper 8 bit value and Lower 8 bit value. For example, 0x8A03 should be checked in error.h as 0x8A00 and 0x03. Upper 8 bit value signifies the major error and lower 8 bit values tells more precisely. </para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>When called, this Initializes the timer, XADC subsystems. Unlocks the PS eFUSE controller.Configures the PS eFUSE controller. Writes the hash and control bits if requested. Programs the PS eFUSE to enable the RSA authentication if requested. Locks the PS eFUSE controller. Returns an error, if the reference clock frequency is not in between 20 and 60 MHz or if the system not in a position to write the requested PS eFUSE bits (because the bits are already written or not allowed to write) or if the temperature and voltage are not within range </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Check the variables</para><para>XAdc Initialization</para><para>Unlock the eFUSE controller</para><para>Check if the controller is unlocked</para><para>If eFUSE Array is write protected no more writes are possible</para><para>Configure the eFUSE controller with mode, strobe width values.</para><para>Enable Programming, write and read</para><para>Initialize the timer for delay while programming the eFUSE</para><para>Program the eFUSE based on the structure values</para><para>Program the eFUSE bit 0xA to enable ROM 128K CRC</para><para>Program the RSA key Hash value in eFUSE Array \</para><para>Check if all the hash eFUSE bits are zero or not</para><para>Program the RSA hash</para><para>Program the eFUSE bit 0xB to enable RSA authentication</para><para>Program the eFUSE bit 0x8,0x9 to enable eFUSE Array Write Protection</para><para>Once enabled the write protection, we will not be able to program any PS eFUSE afterwards</para><para>SLCR reset is required for write protect to take into effect</para><para>Disable Programming, write and read</para><para>Lock the eFUSE controller</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps.c" bodystart="94" bodyend="306"/>
+        <references refid="xilskey__utils_8c_1a3f78c13955deedf337289569a5dc0387" compoundref="xilskey__utils_8c" startline="472" endline="497">XilSKey_Efuse_StartTimer</references>
+        <references refid="xilskey__eps_8c_1a86aa3b42b03a38e86ae622b0338523cc" compoundref="xilskey__eps_8c" startline="1238" endline="1304">XilSKey_EfusePs_ControllerConfig</references>
+        <references refid="xilskey__eps_8c_1a445869d8f60f01261334c1022c4b08f5" compoundref="xilskey__eps_8c" startline="1390" endline="1420">XilSKey_EfusePs_ControllerSetReadWriteEnable</references>
+        <references refid="xilskey__epshw_8h_1ab40242d2cc93420c7a7bb744ddfee68c" compoundref="xilskey__epshw_8h" startline="549">XilSKey_EfusePs_IsEfuseWriteProtected</references>
+        <references refid="xilskey__utils_8c_1ac23b7512fa6d7680514d181ef2a51963" compoundref="xilskey__utils_8c" startline="127" endline="210">XilSKey_EfusePs_XAdcInit</references>
+        <references refid="xilskey__utils_8c_1a2983af8944dad03a6326987278142199" compoundref="xilskey__utils_8c" startline="1081" endline="1140">XilSKey_Timer_Intialise</references>
+        <references refid="xilskey__epshw_8h_1ab3e22310d214573799dd3337599f5dde" compoundref="xilskey__epshw_8h" startline="406">XSK_EFUSEPS_APB_DFT_JTAG_DISABLE</references>
+        <references refid="xilskey__epshw_8h_1aa9c2a75e70d7dd0ac999bb7b2157dbec" compoundref="xilskey__epshw_8h" startline="410">XSK_EFUSEPS_APB_DFT_MODE_DISABLE</references>
+        <references refid="xilskey__epshw_8h_1a043fd44c43605e5b4992086603099367" compoundref="xilskey__epshw_8h" startline="398">XSK_EFUSEPS_APB_ROM_128K_CRC_ENABLE</references>
+        <references refid="xilskey__epshw_8h_1ab1e2ac0d16c9642260c14232003ade75" compoundref="xilskey__epshw_8h" startline="402">XSK_EFUSEPS_APB_RSA_AUTH_ENABLE</references>
+        <references refid="xilskey__epshw_8h_1a0248a7f53d9204f32b9de14b855b5d3d" compoundref="xilskey__epshw_8h" startline="390">XSK_EFUSEPS_APB_WRITE_PROTECTION_ADDR_1</references>
+        <references refid="xilskey__epshw_8h_1a439afda37a15708eaef5b5e643553d2b" compoundref="xilskey__epshw_8h" startline="394">XSK_EFUSEPS_APB_WRITE_PROTECTION_ADDR_2</references>
+        <references refid="xilskey__epshw_8h_1a440b422d4faa0d2d13a4c4fb59ae0bb1" compoundref="xilskey__epshw_8h" startline="511">XSK_EFUSEPS_CONTROLER_LOCK</references>
+        <references refid="xilskey__epshw_8h_1a0d28dedee1ceb722c49cb6da990a3199" compoundref="xilskey__epshw_8h" startline="528">XSK_EFUSEPS_CONTROLER_LOCK_STATUS</references>
+        <references refid="xilskey__epshw_8h_1a14cfddcfbb88c1b0c7c8c0559b22896c" compoundref="xilskey__epshw_8h" startline="518">XSK_EFUSEPS_CONTROLER_UNLOCK</references>
+        <references refid="xilskey__epshw_8h_1a8b6db89bcacd73a511cfc74cd117d058" compoundref="xilskey__epshw_8h" startline="79">XSK_EFUSEPS_ENABLE_PROGRAMMING</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aac6c84ad0c0d1939c3af81903ce81fe10" compoundref="xilskey__utils_8h" startline="831">XSK_EFUSEPS_ERROR_CONTROLLER_CONFIG</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa51b19122bd2d929bac2c23850fd31f43" compoundref="xilskey__utils_8h" startline="827">XSK_EFUSEPS_ERROR_CONTROLLER_LOCK</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa7008920237d925ff68a1db0ed9de2ffe" compoundref="xilskey__utils_8h" startline="829">XSK_EFUSEPS_ERROR_EFUSE_WRITE_PROTECTED</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aacb05a25d88a36ca191b47ab61bbde023" compoundref="xilskey__utils_8h" startline="833">XSK_EFUSEPS_ERROR_PS_PARAMETER_WRONG</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa9c4bc995f7882b30dd7604aac906e614" compoundref="xilskey__utils_8h" startline="823">XSK_EFUSEPS_ERROR_PS_STRUCT_NULL</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aab087899f320bf9af544752114275aa5f" compoundref="xilskey__utils_8h" startline="857">XSK_EFUSEPS_ERROR_READ_HASH_BEFORE_PROGRAMMING</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aafd7a966bc5100c5068dc16188e098efa" compoundref="xilskey__utils_8h" startline="840">XSK_EFUSEPS_ERROR_WRITE_128K_CRC_BIT</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa1947c18302787ce037a2aba2c2dd9c69" compoundref="xilskey__utils_8h" startline="851">XSK_EFUSEPS_ERROR_WRITE_RSA_AUTH_BIT</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aad82de1dd6c5b84728d634eed9de15629" compoundref="xilskey__utils_8h" startline="849">XSK_EFUSEPS_ERROR_WRITE_RSA_HASH</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa37165006942d17b451832e511f602136" compoundref="xilskey__utils_8h" startline="854">XSK_EFUSEPS_ERROR_WRITE_WRITE_PROTECT_BIT</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa0752715b6bd927becb1904bcd37dab51" compoundref="xilskey__utils_8h" startline="861">XSK_EFUSEPS_ERROR_WRTIE_DFT_JTAG_DIS_BIT</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa63a2bc5d1a556e070c907a202ea0a294" compoundref="xilskey__utils_8h" startline="865">XSK_EFUSEPS_ERROR_WRTIE_DFT_MODE_DIS_BIT</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa1893196d6dc579318ff5b9eff4347a43" compoundref="xilskey__utils_8h" startline="825">XSK_EFUSEPS_ERROR_XADC_INIT</references>
+        <references refid="xilskey__epshw_8h_1afd1d475c7976c8d4057f1f422b38caa0" compoundref="xilskey__epshw_8h" startline="69">XSK_EFUSEPS_READ_MODE_NORMAL</references>
+        <references refid="xilskey__epshw_8h_1ab89168a190f2b176fc52aa119fbfd4bb" compoundref="xilskey__epshw_8h" startline="60">XSK_EFUSEPS_SINGLE_MODE</references>
+        <referencedby refid="xilskey__efuse__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__efuse__example_8c" startline="244" endline="482">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynq__efuse_1gaf4b1541decb6c6f85a71e95c6023e601" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_EfusePs_Read</definition>
+        <argsstring>(XilSKey_EPs *InstancePtr)</argsstring>
+        <name>XilSKey_EfusePs_Read</name>
+        <param>
+          <type>XilSKey_EPs *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to read the PS eFUSE. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the PsEfuseHandle which describes which PS eFUSE should be burned.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS no errors occurred.</para></listitem><listitem><para>In case of error, value is as defined in <ref refid="xilskey__utils_8h" kindref="compound">xilskey_utils.h</ref>. Error value is a combination of Upper 8 bit value and Lower 8 bit value. For example, 0x8A03 should be checked in error.h as 0x8A00 and 0x03. Upper 8 bit value signifies the major error and lower 8 bit values tells more precisely. </para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>When called: This API initializes the timer, XADC subsystems. Unlocks the PS eFUSE Controller. Configures the PS eFUSE Controller and enables read-only mode. Reads the PS eFUSE (Hash Value), and enables read-only mode. Locks the PS eFUSE Controller. Returns an error, if the reference clock frequency is not in between 20 and 60MHz. or if unable to unlock PS eFUSE controller or requested address corresponds to restricted bits. or if the temperature and voltage are not within range </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Check the variables</para><para>XAdc Initialization</para><para>Unlock the eFUSE controller</para><para>Check if the controller is unlocked</para><para>Configure the eFUSE controller with mode, strobe width values</para><para>Enable eFUSE reading only</para><para>Read the eFUSE</para><para>Read the RSA key Hash value from eFUSE Array</para><para>Disable Programming, write and read</para><para>Lock the eFUSE controller</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps.c" bodystart="333" bodyend="432"/>
+        <references refid="xilskey__eps_8c_1a86aa3b42b03a38e86ae622b0338523cc" compoundref="xilskey__eps_8c" startline="1238" endline="1304">XilSKey_EfusePs_ControllerConfig</references>
+        <references refid="xilskey__eps_8c_1a445869d8f60f01261334c1022c4b08f5" compoundref="xilskey__eps_8c" startline="1390" endline="1420">XilSKey_EfusePs_ControllerSetReadWriteEnable</references>
+        <references refid="xilskey__utils_8c_1ac23b7512fa6d7680514d181ef2a51963" compoundref="xilskey__utils_8c" startline="127" endline="210">XilSKey_EfusePs_XAdcInit</references>
+        <references refid="xilskey__utils_8c_1a2983af8944dad03a6326987278142199" compoundref="xilskey__utils_8c" startline="1081" endline="1140">XilSKey_Timer_Intialise</references>
+        <references refid="xilskey__epshw_8h_1a440b422d4faa0d2d13a4c4fb59ae0bb1" compoundref="xilskey__epshw_8h" startline="511">XSK_EFUSEPS_CONTROLER_LOCK</references>
+        <references refid="xilskey__epshw_8h_1a0d28dedee1ceb722c49cb6da990a3199" compoundref="xilskey__epshw_8h" startline="528">XSK_EFUSEPS_CONTROLER_LOCK_STATUS</references>
+        <references refid="xilskey__epshw_8h_1a14cfddcfbb88c1b0c7c8c0559b22896c" compoundref="xilskey__epshw_8h" startline="518">XSK_EFUSEPS_CONTROLER_UNLOCK</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aac6c84ad0c0d1939c3af81903ce81fe10" compoundref="xilskey__utils_8h" startline="831">XSK_EFUSEPS_ERROR_CONTROLLER_CONFIG</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa51b19122bd2d929bac2c23850fd31f43" compoundref="xilskey__utils_8h" startline="827">XSK_EFUSEPS_ERROR_CONTROLLER_LOCK</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aacb05a25d88a36ca191b47ab61bbde023" compoundref="xilskey__utils_8h" startline="833">XSK_EFUSEPS_ERROR_PS_PARAMETER_WRONG</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa9c4bc995f7882b30dd7604aac906e614" compoundref="xilskey__utils_8h" startline="823">XSK_EFUSEPS_ERROR_PS_STRUCT_NULL</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aab2e32984f034a56bb748946e777c42e6" compoundref="xilskey__utils_8h" startline="893">XSK_EFUSEPS_ERROR_READ_RSA_HASH</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa1893196d6dc579318ff5b9eff4347a43" compoundref="xilskey__utils_8h" startline="825">XSK_EFUSEPS_ERROR_XADC_INIT</references>
+        <references refid="xilskey__epshw_8h_1afd1d475c7976c8d4057f1f422b38caa0" compoundref="xilskey__epshw_8h" startline="69">XSK_EFUSEPS_READ_MODE_NORMAL</references>
+        <referencedby refid="xilskey__efuse__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__efuse__example_8c" startline="244" endline="482">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynq__efuse_1gae3fb5ac72380a5efddd99df27fde3c41" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_EfusePs_ReadStatus</definition>
+        <argsstring>(XilSKey_EPs *InstancePtr, u32 *StatusBits)</argsstring>
+        <name>XilSKey_EfusePs_ReadStatus</name>
+        <param>
+          <type>XilSKey_EPs *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>StatusBits</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to read the PS efuse status register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the PS eFUSE instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>StatusBits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer to store the status register read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS.</para></listitem><listitem><para>XST_FAILURE </para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This API unlocks the controller and reads the Zynq PS eFUSE status register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Unlock the eFUSE controller</para><para>Check if the controller is unlocked</para><para>Read the eFUSE status</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps.c" bodystart="1535" bodyend="1566"/>
+        <references refid="xilskey__epshw_8h_1a0d28dedee1ceb722c49cb6da990a3199" compoundref="xilskey__epshw_8h" startline="528">XSK_EFUSEPS_CONTROLER_LOCK_STATUS</references>
+        <references refid="xilskey__epshw_8h_1a14cfddcfbb88c1b0c7c8c0559b22896c" compoundref="xilskey__epshw_8h" startline="518">XSK_EFUSEPS_CONTROLER_UNLOCK</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa51b19122bd2d929bac2c23850fd31f43" compoundref="xilskey__utils_8h" startline="827">XSK_EFUSEPS_ERROR_CONTROLLER_LOCK</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa9c4bc995f7882b30dd7604aac906e614" compoundref="xilskey__utils_8h" startline="823">XSK_EFUSEPS_ERROR_PS_STRUCT_NULL</references>
+        <references refid="xilskey__epshw_8h_1a3f4977445c365f71eda60b2bba84727c" compoundref="xilskey__epshw_8h" startline="160">XSK_EFUSEPS_STATUS_REG</references>
+        <referencedby refid="xilskey__efuse__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__efuse__example_8c" startline="244" endline="482">main</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2013<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor">#ifndef<sp/>XILSKEY_EPS_H</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILSKEY_EPS_H</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPS_RSA_KEY_HASH_LEN_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(32U)</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="58"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EnableWriteProtect;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EnableRsaAuth;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EnableRom128Crc;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DisableDftJtag;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DisableDftMode;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EnableRsaKeyHash;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>RsaKeyHashValue[XSK_EFUSEPS_RSA_KEY_HASH_LEN_IN_BYTES];</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>RsaKeyReadback[XSK_EFUSEPS_RSA_KEY_HASH_LEN_IN_BYTES];</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">}<sp/>XilSKey_EPs;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">u32<sp/><ref refid="group__xilskey__zynq__efuse_1ga63c6c25524196e392935e0c9c9e34825" kindref="member">XilSKey_EfusePs_Write</ref>(XilSKey_EPs<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">u32<sp/><ref refid="group__xilskey__zynq__efuse_1gaf4b1541decb6c6f85a71e95c6023e601" kindref="member">XilSKey_EfusePs_Read</ref><sp/>(XilSKey_EPs<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">u32<sp/><ref refid="group__xilskey__zynq__efuse_1gae3fb5ac72380a5efddd99df27fde3c41" kindref="member">XilSKey_EfusePs_ReadStatus</ref>(XilSKey_EPs<sp/>*InstancePtr,<sp/>u32<sp/>*StatusBits);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XILSKEY_EPS_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps.h"/>
+  </compounddef>
+</doxygen>

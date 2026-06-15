@@ -1,0 +1,455 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp___tx" kind="struct" prot="public">
+    <compoundname>XDp_Tx</compoundname>
+    <includes local="no">xdp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp___tx_1abdafb050c07beab77a3b561b1bb303b0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDp_Tx::MstEnable</definition>
+        <argsstring></argsstring>
+        <name>MstEnable</name>
+        <briefdescription>
+<para>Multi-stream transport (MST) mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>Enables functionality, allowing multiple streams to be sent over the main link. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="843" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="843" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1a141a5a1d6d4b6077694e8fe15004bd56" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_Tx::TrainAdaptive</definition>
+        <argsstring></argsstring>
+        <name>TrainAdaptive</name>
+        <briefdescription>
+<para>Downshift lane count and link rate if necessary during training. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="849" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="849" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1afc53743b5f9d8dd60b0fd843b5b26999" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_Tx::NumOfMSTStreams</definition>
+        <argsstring></argsstring>
+        <name>NumOfMSTStreams</name>
+        <briefdescription>
+<para>No of mst streams supported. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="852" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="852" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1a3c5be80616b37b15f210b9a938a0f411" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp___tx_sink_config" kindref="compound">XDp_TxSinkConfig</ref></type>
+        <definition>XDp_TxSinkConfig XDp_Tx::RxConfig</definition>
+        <argsstring></argsstring>
+        <name>RxConfig</name>
+        <briefdescription>
+<para>Configuration structure for the RX device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="853" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="853" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1ae63e057dfdae91215b4361fe98e0600d" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp___tx_link_config" kindref="compound">XDp_TxLinkConfig</ref></type>
+        <definition>XDp_TxLinkConfig XDp_Tx::LinkConfig</definition>
+        <argsstring></argsstring>
+        <name>LinkConfig</name>
+        <briefdescription>
+<para>Configuration structure for the main link. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="855" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="855" bodyend="-1"/>
+        <referencedby refid="xdp__tx__mst__example_8c_1a02657a34bba30ff571b25e0b8992f081" compoundref="xdp__tx__mst__example_8c" startline="181" endline="367">Dptx_MstExampleRun</referencedby>
+        <referencedby refid="xdp__tx__example__common_8h_1a6700facd123226784319febf7189c092" compoundref="xdp__tx__example__common_8c" startline="137" endline="223">Dptx_StartLink</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1a69e7454dfe4a61f9f4239333723b3ab3" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp___tx_board_char" kindref="compound">XDp_TxBoardChar</ref></type>
+        <definition>XDp_TxBoardChar XDp_Tx::BoardChar</definition>
+        <argsstring></argsstring>
+        <name>BoardChar</name>
+        <briefdescription>
+<para>Some board characteristics information that affects link training. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="857" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="857" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1aeae01016eebcbaaca5e9afef55f0edcd" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp___tx_main_stream_attributes" kindref="compound">XDp_TxMainStreamAttributes</ref></type>
+        <definition>XDp_TxMainStreamAttributes XDp_Tx::MsaConfig[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>MsaConfig</name>
+        <briefdescription>
+<para>Configuration structure for the main stream attributes (MSA). </para>        </briefdescription>
+        <detaileddescription>
+<para>Each stream has its own set of attributes. When MST mode is disabled, only MsaConfig[0] is used. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="860" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="860" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1a93ab19b5375f99edf64064c82af149c5" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp___tx_mst_stream" kindref="compound">XDp_TxMstStream</ref></type>
+        <definition>XDp_TxMstStream XDp_Tx::MstStreamConfig[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>MstStreamConfig</name>
+        <briefdescription>
+<para>Configuration structure for a multi-stream transport (MST) stream. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="867" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="867" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1a19edce3f5edecc937ceae19e79186bd2" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp___tx_topology" kindref="compound">XDp_TxTopology</ref></type>
+        <definition>XDp_TxTopology XDp_Tx::Topology</definition>
+        <argsstring></argsstring>
+        <name>Topology</name>
+        <briefdescription>
+<para>The topology of connected downstream DisplayPort devices when the driver is running in MST mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="871" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="871" bodyend="-1"/>
+        <referencedby refid="xdp__tx__mst__example_8c_1a02657a34bba30ff571b25e0b8992f081" compoundref="xdp__tx__mst__example_8c" startline="181" endline="367">Dptx_MstExampleRun</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1a9058e0650c07f8bd7edeeb7b410b65cd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDp_Tx::AuxDelayUs</definition>
+        <argsstring></argsstring>
+        <name>AuxDelayUs</name>
+        <briefdescription>
+<para>Amount of latency in micro- seconds to use between AUX transactions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="876" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="876" bodyend="-1"/>
+        <referencedby refid="xdp__tx__mst__example_8c_1a02657a34bba30ff571b25e0b8992f081" compoundref="xdp__tx__mst__example_8c" startline="181" endline="367">Dptx_MstExampleRun</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1a1e5f4f3c56d0896c3e54eb1d5170c778" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDp_Tx::SbMsgDelayUs</definition>
+        <argsstring></argsstring>
+        <name>SbMsgDelayUs</name>
+        <briefdescription>
+<para>Amount of latency in micro- seconds to use between sideband messages for multi-stream transport (MST) mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="879" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="879" bodyend="-1"/>
+        <referencedby refid="xdp__tx__mst__example_8c_1a02657a34bba30ff571b25e0b8992f081" compoundref="xdp__tx__mst__example_8c" startline="181" endline="367">Dptx_MstExampleRun</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1a265cbc9453d1024a19d446d4ecbd0b98" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Tx::TxSetMsaCallback</definition>
+        <argsstring></argsstring>
+        <name>TxSetMsaCallback</name>
+        <briefdescription>
+<para>Callback function for setting the TX MSA. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="884" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="884" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1a52b39ba43df0bba5bbc9d6efbdec5043" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Tx::TxMsaCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>TxMsaCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the TX MSA callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="886" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="886" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1a125ec94156c49cb1dc044e659a9330c0" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Tx::HpdEventHandler</definition>
+        <argsstring></argsstring>
+        <name>HpdEventHandler</name>
+        <briefdescription>
+<para>Callback function for Hot- Plug-Detect (HPD) event interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="889" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="889" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1a81cdc1d79a2f0996ceff3f728668bece" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Tx::HpdEventCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>HpdEventCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the HPD event callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="892" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="892" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1ae45a90a87a306554c23c49e25d1cab8c" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Tx::DrvHpdEventHandler</definition>
+        <argsstring></argsstring>
+        <name>DrvHpdEventHandler</name>
+        <briefdescription>
+<para>Callback function for Hot- Plug-Detect (HPD) event interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="895" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="895" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1a72065824b8f17781bca0cf8e795db9a9" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Tx::DrvHpdEventCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>DrvHpdEventCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the HPD event callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="898" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="898" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1aa2eb7b2c9c1e6c648e0701a36dcf048e" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Tx::HpdPulseHandler</definition>
+        <argsstring></argsstring>
+        <name>HpdPulseHandler</name>
+        <briefdescription>
+<para>Callback function for Hot- Plug-Detect (HPD) pulse interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="901" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="901" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1a9086287beb7db669c163b82d01cdb81e" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Tx::HpdPulseCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>HpdPulseCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the HPD pulse callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="904" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="904" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1a8ae147b0aaca037acf88df569a89c451" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Tx::DrvHpdPulseHandler</definition>
+        <argsstring></argsstring>
+        <name>DrvHpdPulseHandler</name>
+        <briefdescription>
+<para>Callback function for Hot- Plug-Detect (HPD) pulse interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="907" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="907" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1a2c40ae42193e6ebca87420dd04052d24" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Tx::DrvHpdPulseCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>DrvHpdPulseCallbackRef</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the HPD pulse callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="910" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="910" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1a3bf7e7eb1a46a018e4c023994828765f" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Tx::LaneCountChangeCallback</definition>
+        <argsstring></argsstring>
+        <name>LaneCountChangeCallback</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="913" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="913" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1aa5c929dc480a56cf29d113fa8334a205" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Tx::LaneCountChangeCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>LaneCountChangeCallbackRef</name>
+        <briefdescription>
+<para>Callback function to be invoked once a lane count change has occurred within the driver. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="918" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="918" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1a8a3348526228e93fea000605d61956e4" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Tx::LinkRateChangeCallback</definition>
+        <argsstring></argsstring>
+        <name>LinkRateChangeCallback</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the lane count change callback function. </para>        </briefdescription>
+        <detaileddescription>
+<para>Callback function to be invoked once a link rate change has occurred within the driver. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="922" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="922" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1a0d4610361798ff48acbf1a6f7a609b78" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Tx::LinkRateChangeCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>LinkRateChangeCallbackRef</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="927" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="927" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1a7cbaf33f9493e08709a7fd110d340603" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dp_1gaf3faa5ed2b3acfa7dd063f3afddda551" kindref="member">XDp_IntrHandler</ref></type>
+        <definition>XDp_IntrHandler XDp_Tx::PeVsAdjustCallback</definition>
+        <argsstring></argsstring>
+        <name>PeVsAdjustCallback</name>
+        <briefdescription>
+<para>A pointer to the user data passed to the link rate change callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="931" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="931" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_1a1a9567bb3d659279650c50c6a9674cbc" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDp_Tx::PeVsAdjustCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>PeVsAdjustCallbackRef</name>
+        <briefdescription>
+<para>Callback function to be invoked once a voltage swing and pre-emphasis adjust request has been handled within the driver. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="937" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="937" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_dp" kindref="compound">XDp</ref> driver instance data representing the TX mode of operation. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="66">
+        <label>XDp_TxLinkConfig</label>
+        <link refid="struct_x_dp___tx_link_config"/>
+      </node>
+      <node id="69">
+        <label>XDp_TxMainStreamAttributes</label>
+        <link refid="struct_x_dp___tx_main_stream_attributes"/>
+      </node>
+      <node id="70">
+        <label>XDp_TxBoardChar</label>
+        <link refid="struct_x_dp___tx_board_char"/>
+      </node>
+      <node id="65">
+        <label>XDp_TxTopologyNode</label>
+        <link refid="struct_x_dp___tx_topology_node"/>
+      </node>
+      <node id="63">
+        <label>XDp_Tx</label>
+        <link refid="struct_x_dp___tx"/>
+        <childnode refid="64" relation="usage">
+          <edgelabel>Topology</edgelabel>
+        </childnode>
+        <childnode refid="66" relation="usage">
+          <edgelabel>LinkConfig</edgelabel>
+        </childnode>
+        <childnode refid="67" relation="usage">
+          <edgelabel>RxConfig</edgelabel>
+        </childnode>
+        <childnode refid="68" relation="usage">
+          <edgelabel>MstStreamConfig</edgelabel>
+        </childnode>
+        <childnode refid="69" relation="usage">
+          <edgelabel>MsaConfig</edgelabel>
+        </childnode>
+        <childnode refid="70" relation="usage">
+          <edgelabel>BoardChar</edgelabel>
+        </childnode>
+      </node>
+      <node id="64">
+        <label>XDp_TxTopology</label>
+        <link refid="struct_x_dp___tx_topology"/>
+        <childnode refid="65" relation="usage">
+          <edgelabel>SinkList</edgelabel>
+          <edgelabel>NodeTable</edgelabel>
+        </childnode>
+      </node>
+      <node id="68">
+        <label>XDp_TxMstStream</label>
+        <link refid="struct_x_dp___tx_mst_stream"/>
+      </node>
+      <node id="67">
+        <label>XDp_TxSinkConfig</label>
+        <link refid="struct_x_dp___tx_sink_config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="842" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="842" bodyend="942"/>
+    <listofallmembers>
+      <member refid="struct_x_dp___tx_1a9058e0650c07f8bd7edeeb7b410b65cd" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>AuxDelayUs</name></member>
+      <member refid="struct_x_dp___tx_1a69e7454dfe4a61f9f4239333723b3ab3" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>BoardChar</name></member>
+      <member refid="struct_x_dp___tx_1a72065824b8f17781bca0cf8e795db9a9" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>DrvHpdEventCallbackRef</name></member>
+      <member refid="struct_x_dp___tx_1ae45a90a87a306554c23c49e25d1cab8c" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>DrvHpdEventHandler</name></member>
+      <member refid="struct_x_dp___tx_1a2c40ae42193e6ebca87420dd04052d24" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>DrvHpdPulseCallbackRef</name></member>
+      <member refid="struct_x_dp___tx_1a8ae147b0aaca037acf88df569a89c451" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>DrvHpdPulseHandler</name></member>
+      <member refid="struct_x_dp___tx_1a81cdc1d79a2f0996ceff3f728668bece" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>HpdEventCallbackRef</name></member>
+      <member refid="struct_x_dp___tx_1a125ec94156c49cb1dc044e659a9330c0" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>HpdEventHandler</name></member>
+      <member refid="struct_x_dp___tx_1a9086287beb7db669c163b82d01cdb81e" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>HpdPulseCallbackRef</name></member>
+      <member refid="struct_x_dp___tx_1aa2eb7b2c9c1e6c648e0701a36dcf048e" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>HpdPulseHandler</name></member>
+      <member refid="struct_x_dp___tx_1a3bf7e7eb1a46a018e4c023994828765f" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>LaneCountChangeCallback</name></member>
+      <member refid="struct_x_dp___tx_1aa5c929dc480a56cf29d113fa8334a205" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>LaneCountChangeCallbackRef</name></member>
+      <member refid="struct_x_dp___tx_1ae63e057dfdae91215b4361fe98e0600d" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>LinkConfig</name></member>
+      <member refid="struct_x_dp___tx_1a8a3348526228e93fea000605d61956e4" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>LinkRateChangeCallback</name></member>
+      <member refid="struct_x_dp___tx_1a0d4610361798ff48acbf1a6f7a609b78" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>LinkRateChangeCallbackRef</name></member>
+      <member refid="struct_x_dp___tx_1aeae01016eebcbaaca5e9afef55f0edcd" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>MsaConfig</name></member>
+      <member refid="struct_x_dp___tx_1abdafb050c07beab77a3b561b1bb303b0" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>MstEnable</name></member>
+      <member refid="struct_x_dp___tx_1a93ab19b5375f99edf64064c82af149c5" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>MstStreamConfig</name></member>
+      <member refid="struct_x_dp___tx_1afc53743b5f9d8dd60b0fd843b5b26999" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>NumOfMSTStreams</name></member>
+      <member refid="struct_x_dp___tx_1a7cbaf33f9493e08709a7fd110d340603" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>PeVsAdjustCallback</name></member>
+      <member refid="struct_x_dp___tx_1a1a9567bb3d659279650c50c6a9674cbc" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>PeVsAdjustCallbackRef</name></member>
+      <member refid="struct_x_dp___tx_1a3c5be80616b37b15f210b9a938a0f411" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>RxConfig</name></member>
+      <member refid="struct_x_dp___tx_1a1e5f4f3c56d0896c3e54eb1d5170c778" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>SbMsgDelayUs</name></member>
+      <member refid="struct_x_dp___tx_1a19edce3f5edecc937ceae19e79186bd2" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>Topology</name></member>
+      <member refid="struct_x_dp___tx_1a141a5a1d6d4b6077694e8fe15004bd56" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>TrainAdaptive</name></member>
+      <member refid="struct_x_dp___tx_1a52b39ba43df0bba5bbc9d6efbdec5043" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>TxMsaCallbackRef</name></member>
+      <member refid="struct_x_dp___tx_1a265cbc9453d1024a19d446d4ecbd0b98" prot="public" virt="non-virtual"><scope>XDp_Tx</scope><name>TxSetMsaCallback</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

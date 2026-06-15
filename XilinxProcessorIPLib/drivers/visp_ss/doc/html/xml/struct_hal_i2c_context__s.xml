@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_hal_i2c_context__s" kind="struct" prot="public">
+    <compoundname>HalI2cContext_s</compoundname>
+    <includes local="no">hal_i2c.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_hal_i2c_context__s_1afcea438dbf77801ebe7a67b6cd1746df" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t HalI2cContext_s::i2cBusId</definition>
+        <argsstring></argsstring>
+        <name>i2cBusId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_hal_i2c_context__s_1a01edb093898275a5e3a02d6545f044b0" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t HalI2cContext_s::slaveAddr</definition>
+        <argsstring></argsstring>
+        <name>slaveAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_hal_i2c_context__s_1a0713cad8751a6a3c300f3ee31db6b757" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t HalI2cContext_s::regWidth</definition>
+        <argsstring></argsstring>
+        <name>regWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_hal_i2c_context__s_1a08db38b391d03b5d9c37480d3d1e3221" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t HalI2cContext_s::dataWidth</definition>
+        <argsstring></argsstring>
+        <name>dataWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_hal_i2c_context__s_1abfe4f7ff5c9c9955b1cc31471d89dfcd" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t HalI2cContext_s::fd</definition>
+        <argsstring></argsstring>
+        <name>fd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_hal_i2c_context__s_1ad24df8106fc55e908ab03ad6d069b25d" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t HalI2cContext_s::refCount</definition>
+        <argsstring></argsstring>
+        <name>refCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_hal_i2c_context__s_1adb5b2962f1d82d507c1e8bd044f48813" prot="public" static="no" mutable="no">
+        <type>HalI2cApiOps_t *</type>
+        <definition>HalI2cApiOps_t* HalI2cContext_s::pHalI2c</definition>
+        <argsstring></argsstring>
+        <name>pHalI2c</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_hal_i2c_context__s_1a80b69525cdf907a80c79aca895828aa1" prot="public" static="no" mutable="no">
+        <type>HalI2cApiOps_t *</type>
+        <definition>HalI2cApiOps_t* HalI2cContext_s::pHalI2cApiOps</definition>
+        <argsstring></argsstring>
+        <name>pHalI2cApiOps</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_hal_i2c_context__s_1aafea4f3ce02b392f43b3319cc0c6d1f7" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* HalI2cContext_s::pPrivateCtx</definition>
+        <argsstring></argsstring>
+        <name>pPrivateCtx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>hal I2C configuration struct </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" bodystart="44" bodyend="55"/>
+    <listofallmembers>
+      <member refid="struct_hal_i2c_context__s_1a08db38b391d03b5d9c37480d3d1e3221" prot="public" virt="non-virtual"><scope>HalI2cContext_s</scope><name>dataWidth</name></member>
+      <member refid="struct_hal_i2c_context__s_1abfe4f7ff5c9c9955b1cc31471d89dfcd" prot="public" virt="non-virtual"><scope>HalI2cContext_s</scope><name>fd</name></member>
+      <member refid="struct_hal_i2c_context__s_1afcea438dbf77801ebe7a67b6cd1746df" prot="public" virt="non-virtual"><scope>HalI2cContext_s</scope><name>i2cBusId</name></member>
+      <member refid="struct_hal_i2c_context__s_1adb5b2962f1d82d507c1e8bd044f48813" prot="public" virt="non-virtual"><scope>HalI2cContext_s</scope><name>pHalI2c</name></member>
+      <member refid="struct_hal_i2c_context__s_1a80b69525cdf907a80c79aca895828aa1" prot="public" virt="non-virtual"><scope>HalI2cContext_s</scope><name>pHalI2cApiOps</name></member>
+      <member refid="struct_hal_i2c_context__s_1aafea4f3ce02b392f43b3319cc0c6d1f7" prot="public" virt="non-virtual"><scope>HalI2cContext_s</scope><name>pPrivateCtx</name></member>
+      <member refid="struct_hal_i2c_context__s_1ad24df8106fc55e908ab03ad6d069b25d" prot="public" virt="non-virtual"><scope>HalI2cContext_s</scope><name>refCount</name></member>
+      <member refid="struct_hal_i2c_context__s_1a0713cad8751a6a3c300f3ee31db6b757" prot="public" virt="non-virtual"><scope>HalI2cContext_s</scope><name>regWidth</name></member>
+      <member refid="struct_hal_i2c_context__s_1a01edb093898275a5e3a02d6545f044b0" prot="public" virt="non-virtual"><scope>HalI2cContext_s</scope><name>slaveAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

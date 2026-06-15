@@ -1,0 +1,661 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="vdma_8c" kind="file">
+    <compoundname>vdma.c</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xintc.h</includes>
+    <includes local="yes">xil_exception.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes refid="xaxivdma_8h" local="yes">xaxivdma.h</includes>
+    <includes refid="xaxivdma__i_8h" local="yes">xaxivdma_i.h</includes>
+    <incdepgraph>
+      <node id="11">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="15">
+        <label>xil_io.h</label>
+      </node>
+      <node id="16">
+        <label>xaxivdma_i.h</label>
+        <link refid="xaxivdma__i_8h"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>xaxivdma_hw.h</label>
+        <link refid="xaxivdma__hw_8h"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>xdebug.h</label>
+      </node>
+      <node id="9">
+        <label>xintc.h</label>
+      </node>
+      <node id="17">
+        <label>string.h</label>
+      </node>
+      <node id="12">
+        <label>xaxivdma.h</label>
+        <link refid="xaxivdma_8h"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>xstatus.h</label>
+      </node>
+      <node id="10">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="14">
+        <label>xil_types.h</label>
+      </node>
+      <node id="6">
+        <label>vdma.c</label>
+        <link refid="vdma.c"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="vdma_8c_1a26c2d5e99be4ff133702e3225fe4091f" prot="public" static="no">
+        <name>MEMORY_BASE</name>
+        <initializer>0x01000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma.c" line="50" column="11" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="vdma_8c_1a527b755d4c4f2ee6ce45b7fdef4f71f0" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int srcBuffer</definition>
+        <argsstring></argsstring>
+        <name>srcBuffer</name>
+        <initializer>= (MEMORY_BASE  + 0x1000000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma.c" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="vdma_8c_1a6a990dfb5e3d88faf9e25e0e7cb0b28c" prot="public" static="yes" mutable="no">
+        <type>XIntc</type>
+        <definition>XIntc Intc</definition>
+        <argsstring></argsstring>
+        <name>Intc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma.c" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="vdma_8c_1a8f3f4f8546399efc071f59f35f17bdfa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int run_triple_frame_buffer</definition>
+        <argsstring>(XAxiVdma *InstancePtr, int DeviceId, int hsize, int vsize, int buf_base_addr, int number_frame_count, int enable_frm_cnt_intr)</argsstring>
+        <name>run_triple_frame_buffer</name>
+        <param>
+          <type><ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>DeviceId</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>hsize</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>vsize</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>buf_base_addr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>number_frame_count</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>enable_frm_cnt_intr</declname>
+        </param>
+        <briefdescription>
+<para>run_triple_frame_buffer API </para>        </briefdescription>
+        <detaileddescription>
+<para>This API is the interface between application and other API. When application will call this API with right argument, This API will call rest of the API to configure the read and write path of VDMA,based on ID. After that it will start both the read and write path of VDMA</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the handle to <ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref> data structure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device ID of current VDMA </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>hsize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the horizontal size of the frame. It will be in Pixels. The actual size of frame will be calculated by multiplying this with tdata width. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>vsize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Vertical size of the frame. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buf_base_addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the buffer address where frames will be written and read by VDMA. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>number_frame_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies after how many frames the interrupt should come. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>enable_frm_cnt_intr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is for enabling frame count interrupt when set to 1. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if example finishes successfully</para></listitem><listitem><para>XST_FAILURE if example fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma_api.c" bodystart="98" bodyend="236"/>
+        <references refid="group__axivdma_1ga76cf51d7be754a670e697e74966c68cd" compoundref="xaxivdma_8h" startline="400">XAxiVdma_Config::BaseAddress</references>
+        <references refid="group__axivdma_1ga569bedc89182bd0542f62580767c98d3" compoundref="xaxivdma_8h" startline="422">XAxiVdma_Config::Mm2SStreamWidth</references>
+        <references refid="group__axivdma_1ga03ffbe1551620b7f0f72b905006dcf88" compoundref="xaxivdma_8h" startline="486">XAxiVdma_FrameCounter::ReadDelayTimerCount</references>
+        <references refid="group__axivdma_1gaa60c173f1c6d7314821ae2c24e2ff7af" compoundref="xaxivdma_8h" startline="485">XAxiVdma_FrameCounter::ReadFrameCount</references>
+        <references refid="group__axivdma_1gad55f207b3d4bfab082a90ea7a43f044c" compoundref="xaxivdma_8h" startline="488">XAxiVdma_FrameCounter::WriteDelayTimerCount</references>
+        <references refid="group__axivdma_1gab43078f5f7fdd17728ac6ecfb97aea27" compoundref="xaxivdma_8h" startline="487">XAxiVdma_FrameCounter::WriteFrameCount</references>
+        <references refid="group__axivdma_1ga7dff0c11a9aa88a19519734702904dca" compoundref="xaxivdma_8c" startline="120" endline="328">XAxiVdma_CfgInitialize</references>
+        <references refid="group__axivdma_1ga4c687431dde198458fb4e42dff22c106" compoundref="xaxivdma__intr_8c" startline="55" endline="66">XAxiVdma_IntrEnable</references>
+        <references refid="group__axivdma_1ga88ccc9e37f16a1b4ecffd5e09a4c8cfb" compoundref="xaxivdma__hw_8h" startline="193">XAXIVDMA_IXR_ERROR_MASK</references>
+        <references refid="group__axivdma_1ga2f25fa1f54f8b95752ba1d303fc4a6b6" compoundref="xaxivdma__hw_8h" startline="191">XAXIVDMA_IXR_FRMCNT_MASK</references>
+        <references refid="group__axivdma_1ga731fd42d22c597c0e045970e26f22681" compoundref="xaxivdma__sinit_8c" startline="83" endline="98">XAxiVdma_LookupConfig</references>
+        <references refid="group__axivdma_1ga5fa27b3ce66d947167262fe918fb5373" compoundref="xaxivdma_8h" startline="308">XAXIVDMA_READ</references>
+        <references refid="group__axivdma_1gaabe404c2a5c1483bc95be749c7540ba4" compoundref="xaxivdma_8c" startline="1105" endline="1154">XAxiVdma_SetFrameCounter</references>
+        <references refid="group__axivdma_1ga525d0fa8fc04a9dde871ab55cf6b227b" compoundref="xaxivdma_8h" startline="307">XAXIVDMA_WRITE</references>
+        <referencedby refid="vdma_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="vdma_8c" startline="75" endline="114">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="vdma_8c_1a38a4577a35fd7f413ae5107273fa7e26" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int SetupIntrSystem</definition>
+        <argsstring>(XAxiVdma *AxiVdmaPtr, u16 ReadIntrId, u16 WriteIntrId)</argsstring>
+        <name>SetupIntrSystem</name>
+        <param>
+          <type><ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref> *</type>
+          <declname>AxiVdmaPtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>ReadIntrId</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>WriteIntrId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma.c" bodystart="208" bodyend="267"/>
+      </memberdef>
+      <memberdef kind="function" id="vdma_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>()</argsstring>
+        <name>main</name>
+        <briefdescription>
+<para>Main function. </para>        </briefdescription>
+        <detaileddescription>
+<para>This is main entry point to demonstrate this example.</para><para><simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma.c" bodystart="75" bodyend="114"/>
+        <references refid="vdma_8c_1a8f3f4f8546399efc071f59f35f17bdfa" compoundref="vdma__api_8c" startline="98" endline="236">run_triple_frame_buffer</references>
+      </memberdef>
+      <memberdef kind="function" id="vdma_8c_1a0efaec58f0146c77d82a5ef5e251c823" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void ReadCallBack</definition>
+        <argsstring>(void *CallbackRef, u32 Mask)</argsstring>
+        <name>ReadCallBack</name>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma.c" bodystart="130" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="function" id="vdma_8c_1a0eceb710d5c5a7e3f3657ee8cf018f21" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void ReadErrorCallBack</definition>
+        <argsstring>(void *CallbackRef, u32 Mask)</argsstring>
+        <name>ReadErrorCallBack</name>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma.c" bodystart="147" bodyend="152"/>
+      </memberdef>
+      <memberdef kind="function" id="vdma_8c_1aa5dc2d3c6b5031198186b796d33c5f72" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void WriteCallBack</definition>
+        <argsstring>(void *CallbackRef, u32 Mask)</argsstring>
+        <name>WriteCallBack</name>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma.c" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma.c" bodystart="167" bodyend="172"/>
+      </memberdef>
+      <memberdef kind="function" id="vdma_8c_1a9f8b14b2ba773c648c90a221934050b8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void WriteErrorCallBack</definition>
+        <argsstring>(void *CallbackRef, u32 Mask)</argsstring>
+        <name>WriteErrorCallBack</name>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma.c" bodystart="185" bodyend="191"/>
+      </memberdef>
+      <memberdef kind="function" id="vdma_8c_1a43bd7199752a35dc5be87441d95dd28e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void DisableIntrSystem</definition>
+        <argsstring>(u16 ReadIntrId, u16 WriteIntrId)</argsstring>
+        <name>DisableIntrSystem</name>
+        <param>
+          <type>u16</type>
+          <declname>ReadIntrId</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>WriteIntrId</declname>
+        </param>
+        <briefdescription>
+<para>This function disables the interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ReadIntrId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is interrupt ID associated w/ DMA read channel </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WriteIntrId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is interrupt ID associated w/ DMA write channel</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma.c" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma.c" bodystart="282" bodyend="289"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file comprises sample application to usage of VDMA APi&apos;s in <ref refid="vdma__api_8c" kindref="compound">vdma_api.c</ref>. </para>    </briefdescription>
+    <detaileddescription>
+<para>MODIFICATION HISTORY:</para><para>Ver Who Date Changes <hruler/>
+ 4.0 adk 11/26/15 First release 4.1 adk 01/07/16 Updated DDR base address for Ultrascale (CR 799532) and removed the defines for S6/V6. ms 04/05/17 Modified Comment lines in functions to recognize it as documentation block for doxygen generation of examples. 6.12 sa 08/12/22 Updated the example to use latest MIG cannoical define i.e XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR. </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2014<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/***<sp/>Include<sp/>file<sp/>***/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xintc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_exception.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xaxivdma_8h" kindref="compound">xaxivdma.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xaxivdma__i_8h" kindref="compound">xaxivdma_i.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_AXI_7SDDR_0_S_AXI_BASEADDR</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MEMORY_BASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_AXI_7SDDR_0_S_AXI_BASEADDR</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>XPAR_MIG7SERIES_0_BASEADDR</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MEMORY_BASE<sp/><sp/><sp/><sp/><sp/>XPAR_MIG7SERIES_0_BASEADDR</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MEMORY_BASE<sp/><sp/><sp/><sp/><sp/>XPAR_MIG_0_C0_DDR4_MEMORY_MAP_BASEADDR</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>XPAR_PSU_DDR_0_S_AXI_BASEADDR</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MEMORY_BASE<sp/><sp/><sp/><sp/><sp/>XPAR_PSU_DDR_0_S_AXI_BASEADDR</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#warning<sp/>CHECK<sp/>FOR<sp/>THE<sp/>VALID<sp/>DDR<sp/>ADDRESS<sp/>IN<sp/>XPARAMETERS.H,<sp/>\</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEFAULT<sp/>SET<sp/>TO<sp/>0x01000000</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MEMORY_BASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01000000</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/***<sp/>Global<sp/>Variables<sp/>***/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>srcBuffer<sp/>=<sp/>(MEMORY_BASE<sp/><sp/>+<sp/>0x1000000);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Instance<sp/>of<sp/>the<sp/>Interrupt<sp/>Controller<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XIntc<sp/>Intc;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="vdma_8c_1a8f3f4f8546399efc071f59f35f17bdfa" kindref="member">run_triple_frame_buffer</ref>(<ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref>*<sp/>InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>DeviceId,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>hsize,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>vsize,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>buf_base_addr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>number_frame_count,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>enable_frm_cnt_intr);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SetupIntrSystem(<ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref><sp/>*AxiVdmaPtr,<sp/>u16<sp/>ReadIntrId,</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>WriteIntrId);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="75" refid="vdma_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="vdma_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kindref="member">main</ref>(){</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref><sp/>InstancePtr;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref><sp/>InstancePtr_1;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\n---<sp/>Entering<sp/>main()<sp/>---<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Starting<sp/>the<sp/>first<sp/>VDMA<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Calling<sp/>the<sp/>API<sp/>to<sp/>configure<sp/>and<sp/>start<sp/>VDMA<sp/>without<sp/>frame<sp/>counter<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="vdma_8c_1a8f3f4f8546399efc071f59f35f17bdfa" kindref="member">run_triple_frame_buffer</ref>(&amp;InstancePtr,<sp/>0,<sp/>1920,<sp/>1080,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>srcBuffer,<sp/>100,<sp/>0);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Transfer<sp/>of<sp/>frames<sp/>failed<sp/>with<sp/>error<sp/>=<sp/>%d\r\n&quot;</highlight><highlight class="normal">,Status);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Transfer<sp/>of<sp/>frames<sp/>started<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Starting<sp/>the<sp/>second<sp/>VDMA<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Calling<sp/>the<sp/>API<sp/>to<sp/>configure<sp/>and<sp/>start<sp/>second<sp/>VDMA<sp/>with<sp/>frame<sp/>counter<sp/>interrupt</highlight></codeline>
+<codeline lineno="97"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Please<sp/>note<sp/>source<sp/>buffer<sp/>pointer<sp/>is<sp/>being<sp/>offset<sp/>a<sp/>bit<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="vdma_8c_1a8f3f4f8546399efc071f59f35f17bdfa" kindref="member">run_triple_frame_buffer</ref>(&amp;InstancePtr_1,<sp/>1,<sp/>1920,<sp/>1080,</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>srcBuffer<sp/>+<sp/>0x1000000,<sp/>100,<sp/>1);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS){</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Transfer<sp/>of<sp/>frames<sp/>failed<sp/>with<sp/>error<sp/>=<sp/>%d\r\n&quot;</highlight><highlight class="normal">,Status);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Transfer<sp/>of<sp/>frames<sp/>started<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enabling<sp/>the<sp/>interrupt<sp/>for<sp/>second<sp/>VDMA<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SetupIntrSystem(&amp;InstancePtr_1,<sp/>XPAR_INTC_0_AXIVDMA_1_MM2S_INTROUT_VEC_ID,</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_INTC_0_AXIVDMA_1_S2MM_INTROUT_VEC_ID);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Infinite<sp/>while<sp/>loop<sp/>to<sp/>let<sp/>it<sp/>run<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal">(1);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="119"><highlight class="comment"><sp/>*<sp/>Call<sp/>back<sp/>function<sp/>for<sp/>read<sp/>channel</highlight></codeline>
+<codeline lineno="120"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="121"><highlight class="comment"><sp/>*<sp/>The<sp/>user<sp/>can<sp/>put<sp/>his<sp/>code<sp/>that<sp/>should<sp/>get<sp/>executed<sp/>when<sp/>this</highlight></codeline>
+<codeline lineno="122"><highlight class="comment"><sp/>*<sp/>call<sp/>back<sp/>happens.</highlight></codeline>
+<codeline lineno="123"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="124"><highlight class="comment"><sp/>*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallbackRef<sp/>is<sp/>the<sp/>call<sp/>back<sp/>reference<sp/>pointer</highlight></codeline>
+<codeline lineno="125"><highlight class="comment"><sp/>*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>is<sp/>the<sp/>interrupt<sp/>mask<sp/>passed<sp/>in<sp/>from<sp/>the<sp/>driver</highlight></codeline>
+<codeline lineno="126"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="127"><highlight class="comment"><sp/>*<sp/>@return<sp/><sp/><sp/><sp/><sp/><sp/>None</highlight></codeline>
+<codeline lineno="128"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="129"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReadCallBack(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>User<sp/>can<sp/>add<sp/>his<sp/>code<sp/>in<sp/>this<sp/>call<sp/>back<sp/>function<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Read<sp/>Call<sp/>back<sp/>function<sp/>is<sp/>called\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="138"><highlight class="comment"><sp/>*<sp/>The<sp/>user<sp/>can<sp/>put<sp/>his<sp/>code<sp/>that<sp/>should<sp/>get<sp/>executed<sp/>when<sp/>this</highlight></codeline>
+<codeline lineno="139"><highlight class="comment"><sp/>*<sp/>call<sp/>back<sp/>happens.</highlight></codeline>
+<codeline lineno="140"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="141"><highlight class="comment"><sp/>*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallbackRef<sp/>is<sp/>the<sp/>call<sp/>back<sp/>reference<sp/>pointer</highlight></codeline>
+<codeline lineno="142"><highlight class="comment"><sp/>*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>is<sp/>the<sp/>interrupt<sp/>mask<sp/>passed<sp/>in<sp/>from<sp/>the<sp/>driver</highlight></codeline>
+<codeline lineno="143"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="144"><highlight class="comment"><sp/>*<sp/>@return<sp/><sp/><sp/><sp/><sp/><sp/>None</highlight></codeline>
+<codeline lineno="145"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="146"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReadErrorCallBack(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>User<sp/>can<sp/>add<sp/>his<sp/>code<sp/>in<sp/>this<sp/>call<sp/>back<sp/>function<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Read<sp/>Call<sp/>back<sp/>Error<sp/>function<sp/>is<sp/>called\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="comment">/*The<sp/>user<sp/>can<sp/>put<sp/>his<sp/>code<sp/>that<sp/>should<sp/>get<sp/>executed<sp/>when<sp/>this</highlight></codeline>
+<codeline lineno="156"><highlight class="comment"><sp/>*<sp/>call<sp/>back<sp/>happens.</highlight></codeline>
+<codeline lineno="157"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="158"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="159"><highlight class="comment"><sp/>*<sp/>This<sp/>callback<sp/>only<sp/>clears<sp/>the<sp/>interrupts<sp/>and<sp/>updates<sp/>the<sp/>transfer<sp/>status.</highlight></codeline>
+<codeline lineno="160"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="161"><highlight class="comment"><sp/>*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallbackRef<sp/>is<sp/>the<sp/>call<sp/>back<sp/>reference<sp/>pointer</highlight></codeline>
+<codeline lineno="162"><highlight class="comment"><sp/>*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>is<sp/>the<sp/>interrupt<sp/>mask<sp/>passed<sp/>in<sp/>from<sp/>the<sp/>driver</highlight></codeline>
+<codeline lineno="163"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="164"><highlight class="comment"><sp/>*<sp/>@return<sp/><sp/><sp/><sp/><sp/><sp/>None</highlight></codeline>
+<codeline lineno="165"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="166"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>WriteCallBack(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="168"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>User<sp/>can<sp/>add<sp/>his<sp/>code<sp/>in<sp/>this<sp/>call<sp/>back<sp/>function<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Write<sp/>Call<sp/>back<sp/>function<sp/>is<sp/>called\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="176"><highlight class="comment">*<sp/>The<sp/>user<sp/>can<sp/>put<sp/>his<sp/>code<sp/>that<sp/>should<sp/>get<sp/>executed<sp/>when<sp/>this</highlight></codeline>
+<codeline lineno="177"><highlight class="comment">*<sp/>call<sp/>back<sp/>happens.</highlight></codeline>
+<codeline lineno="178"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="179"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallbackRef<sp/>is<sp/>the<sp/>call<sp/>back<sp/>reference<sp/>pointer</highlight></codeline>
+<codeline lineno="180"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>is<sp/>the<sp/>interrupt<sp/>mask<sp/>passed<sp/>in<sp/>from<sp/>the<sp/>driver</highlight></codeline>
+<codeline lineno="181"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="182"><highlight class="comment">*<sp/>@return<sp/><sp/><sp/><sp/><sp/><sp/><sp/>None</highlight></codeline>
+<codeline lineno="183"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="184"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>WriteErrorCallBack(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="186"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>User<sp/>can<sp/>add<sp/>his<sp/>code<sp/>in<sp/>this<sp/>call<sp/>back<sp/>function<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Write<sp/>Call<sp/>back<sp/>Error<sp/>function<sp/>is<sp/>called<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="195"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="196"><highlight class="comment">*<sp/>This<sp/>function<sp/>setups<sp/>the<sp/>interrupt<sp/>system<sp/>so<sp/>interrupts<sp/>can<sp/>occur<sp/>for<sp/>the</highlight></codeline>
+<codeline lineno="197"><highlight class="comment">*<sp/>DMA.<sp/><sp/>This<sp/>function<sp/>assumes<sp/>INTC<sp/>component<sp/>exists<sp/>in<sp/>the<sp/>hardware<sp/>system.</highlight></codeline>
+<codeline lineno="198"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="199"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AxiDmaPtr<sp/>is<sp/>a<sp/>pointer<sp/>to<sp/>the<sp/>instance<sp/>of<sp/>the<sp/>DMA<sp/>engine</highlight></codeline>
+<codeline lineno="200"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadIntrId<sp/>is<sp/>the<sp/>read<sp/>channel<sp/>Interrupt<sp/>ID.</highlight></codeline>
+<codeline lineno="201"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WriteIntrId<sp/>is<sp/>the<sp/>write<sp/>channel<sp/>Interrupt<sp/>ID.</highlight></codeline>
+<codeline lineno="202"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="203"><highlight class="comment">*<sp/>@return<sp/><sp/><sp/><sp/><sp/><sp/><sp/>XST_SUCCESS<sp/>if<sp/>successful,<sp/>otherwise<sp/>XST_FAILURE.</highlight></codeline>
+<codeline lineno="204"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="205"><highlight class="comment">*<sp/>@note<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>None.</highlight></codeline>
+<codeline lineno="206"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="207"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SetupIntrSystem(<ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref><sp/>*AxiVdmaPtr,<sp/>u16<sp/>ReadIntrId,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>WriteIntrId)</highlight></codeline>
+<codeline lineno="210"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIntc<sp/>*IntcInstancePtr<sp/>=&amp;Intc;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>interrupt<sp/>controller<sp/>and<sp/>connect<sp/>the<sp/>ISRs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIntc_Initialize(IntcInstancePtr,<sp/>XPAR_INTC_0_DEVICE_ID);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(<sp/></highlight><highlight class="stringliteral">&quot;Failed<sp/>init<sp/>intc\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIntc_Connect(IntcInstancePtr,<sp/>ReadIntrId,</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XInterruptHandler)<ref refid="group__axivdma_1ga60ceb86226e513a16d6776a97fcfa50f" kindref="member">XAxiVdma_ReadIntrHandler</ref>,<sp/>AxiVdmaPtr);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Failed<sp/>read<sp/>channel<sp/>connect<sp/>intc<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIntc_Connect(IntcInstancePtr,<sp/>WriteIntrId,</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XInterruptHandler)<ref refid="group__axivdma_1gaad76f2f6ab41e322ddcd240d2af8140d" kindref="member">XAxiVdma_WriteIntrHandler</ref>,<sp/>AxiVdmaPtr);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Failed<sp/>write<sp/>channel<sp/>connect<sp/>intc<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Start<sp/>the<sp/>interrupt<sp/>controller<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIntc_Start(IntcInstancePtr,<sp/>XIN_REAL_MODE);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(<sp/></highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>start<sp/>intc\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>interrupts<sp/>from<sp/>the<sp/>hardware<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIntc_Enable(IntcInstancePtr,<sp/>ReadIntrId);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIntc_Enable(IntcInstancePtr,<sp/>WriteIntrId);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionInit();</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_ExceptionHandler)XIntc_InterruptHandler,</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)IntcInstancePtr);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionEnable();</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Register<sp/>call-back<sp/>functions</highlight></codeline>
+<codeline lineno="254"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axivdma_1gafd0477fae9534ebd2d2e15cc8885642d" kindref="member">XAxiVdma_SetCallBack</ref>(AxiVdmaPtr,<sp/><ref refid="group__axivdma_1ga4c57db0180eafe041035a8d4781cb2b9" kindref="member">XAXIVDMA_HANDLER_GENERAL</ref>,<sp/>ReadCallBack,</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)AxiVdmaPtr,<sp/><ref refid="group__axivdma_1ga5fa27b3ce66d947167262fe918fb5373" kindref="member">XAXIVDMA_READ</ref>);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axivdma_1gafd0477fae9534ebd2d2e15cc8885642d" kindref="member">XAxiVdma_SetCallBack</ref>(AxiVdmaPtr,<sp/><ref refid="group__axivdma_1ga7ed954b5de3073f15b8e47c5736d627b" kindref="member">XAXIVDMA_HANDLER_ERROR</ref>,</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadErrorCallBack,<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)AxiVdmaPtr,<sp/><ref refid="group__axivdma_1ga5fa27b3ce66d947167262fe918fb5373" kindref="member">XAXIVDMA_READ</ref>);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axivdma_1gafd0477fae9534ebd2d2e15cc8885642d" kindref="member">XAxiVdma_SetCallBack</ref>(AxiVdmaPtr,<sp/><ref refid="group__axivdma_1ga4c57db0180eafe041035a8d4781cb2b9" kindref="member">XAXIVDMA_HANDLER_GENERAL</ref>,</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WriteCallBack,<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)AxiVdmaPtr,<sp/><ref refid="group__axivdma_1ga525d0fa8fc04a9dde871ab55cf6b227b" kindref="member">XAXIVDMA_WRITE</ref>);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axivdma_1gafd0477fae9534ebd2d2e15cc8885642d" kindref="member">XAxiVdma_SetCallBack</ref>(AxiVdmaPtr,<sp/><ref refid="group__axivdma_1ga7ed954b5de3073f15b8e47c5736d627b" kindref="member">XAXIVDMA_HANDLER_ERROR</ref>,</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WriteErrorCallBack,<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)AxiVdmaPtr,<sp/><ref refid="group__axivdma_1ga525d0fa8fc04a9dde871ab55cf6b227b" kindref="member">XAXIVDMA_WRITE</ref>);</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="282"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>DisableIntrSystem(u16<sp/>ReadIntrId,<sp/>u16<sp/>WriteIntrId)</highlight></codeline>
+<codeline lineno="283"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disconnect<sp/>the<sp/>interrupts<sp/>for<sp/>the<sp/>DMA<sp/>TX<sp/>and<sp/>RX<sp/>channels<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIntc_Disconnect(&amp;Intc,<sp/>ReadIntrId);</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIntc_Disconnect(&amp;Intc,<sp/>WriteIntrId);</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/vdma.c"/>
+  </compounddef>
+</doxygen>

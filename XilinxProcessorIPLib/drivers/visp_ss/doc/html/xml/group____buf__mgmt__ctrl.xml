@@ -1,0 +1,499 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group____buf__mgmt__ctrl" kind="group">
+    <compoundname>_buf_mgmt_ctrl</compoundname>
+    <title>VsCamBufMgmt E10C01 BufMgmt_Ctrl Definitions</title>
+    <innerclass refid="struct_cam_device_buf_pool_config__s" prot="public">CamDeviceBufPoolConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_buf_que_op_config__s" prot="public">CamDeviceBufQueOpConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_buf_chain_config__s" prot="public">CamDeviceBufChainConfig_s</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group____buf__mgmt__ctrl_1ga645c5c53494c2a6cb9c14655666e3f0b" prot="public" static="no">
+        <name>CamDeviceBufChainId_e</name>
+        <enumvalue id="group____buf__mgmt__ctrl_1gga645c5c53494c2a6cb9c14655666e3f0ba4770f1cb534c2d801e97e1e01e160b7a" prot="public">
+          <name>CAMDEV_BUFCHAIN_MP</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>ISP output main path buffer chain index. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____buf__mgmt__ctrl_1gga645c5c53494c2a6cb9c14655666e3f0ba3b44935607128578690c9d4e72fc6e44" prot="public">
+          <name>CAMDEV_BUFCHAIN_SP1</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>ISP output self1 path buffer chain index. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____buf__mgmt__ctrl_1gga645c5c53494c2a6cb9c14655666e3f0ba581777edddfda64905244ec56011c76c" prot="public">
+          <name>CAMDEV_BUFCHAIN_SP2</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>ISP output self2 path buffer chain index. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____buf__mgmt__ctrl_1gga645c5c53494c2a6cb9c14655666e3f0baaa4db066351029d7f4fec4d10bd361f3" prot="public">
+          <name>CAMDEV_BUFCHAIN_RAW</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>ISP output RAW path buffer chain index. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____buf__mgmt__ctrl_1gga645c5c53494c2a6cb9c14655666e3f0badbed62a7e8df0cb16d186164cc487af9" prot="public">
+          <name>CAMDEV_BUFCHAIN_HDR_RAW</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+<para>ISP output retiming HDR RAW path buffer chain index. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____buf__mgmt__ctrl_1gga645c5c53494c2a6cb9c14655666e3f0baaacc910912ffab29e043e6c45b6fa43a" prot="public">
+          <name>CAMDEV_BUFCHAIN_METADATA</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+<para>Warning: CAMDEV_BUFCHAIN_METADATA will be deleted in next release, don&apos;t use this index. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____buf__mgmt__ctrl_1gga645c5c53494c2a6cb9c14655666e3f0bae74782e29a0906e9c6b811dcb8178f6a" prot="public">
+          <name>CAMDEV_BUFCHAIN_RDMA</name>
+          <initializer>= 6</initializer>
+          <briefdescription>
+<para>ISP input read DMA path buffer chain index. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____buf__mgmt__ctrl_1gga645c5c53494c2a6cb9c14655666e3f0baaece438a699f9bbcf2fedff52a748564" prot="public">
+          <name>CAMDEV_BUFCHAIN_RETIMING</name>
+          <initializer>= 7</initializer>
+          <briefdescription>
+<para>ISP input retiming DMA path buffer chain index. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____buf__mgmt__ctrl_1gga645c5c53494c2a6cb9c14655666e3f0bac138435f18bc87913b93f3fe1d5f2369" prot="public">
+          <name>CAMDEV_BUFCHAIN_MAX</name>
+          <briefdescription>
+<para>Maximum path buffer chain index. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>The buffer chain index enumeration of each output path. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" bodystart="68" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____buf__mgmt__ctrl_1gac2d0126c589b24e09c6d9a627f6cf436" prot="public" static="no">
+        <name>CamDeviceBufMode_e</name>
+        <enumvalue id="group____buf__mgmt__ctrl_1ggac2d0126c589b24e09c6d9a627f6cf436a62db1b2fe098a19fa1fd8f22711254d0" prot="public">
+          <name>CAMDEV_BUFMODE_INVALID</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Invalid buffer mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____buf__mgmt__ctrl_1ggac2d0126c589b24e09c6d9a627f6cf436a32976db1e7871fda30e96e9aa8c137d1" prot="public">
+          <name>CAMDEV_BUFMODE_USERPTR</name>
+          <briefdescription>
+<para>The buffer allocated from user application. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____buf__mgmt__ctrl_1ggac2d0126c589b24e09c6d9a627f6cf436ae50f29995406c288d8a2c5fea6132962" prot="public">
+          <name>CAMDEV_BUFMODE_RESMEM</name>
+          <briefdescription>
+<para>The buffer allocated from internal reserved memory. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____buf__mgmt__ctrl_1ggac2d0126c589b24e09c6d9a627f6cf436a33169c17e3c1d12cc7e7a354f0646680" prot="public">
+          <name>CAMDEV_BUFMODE_MAX</name>
+          <briefdescription>
+<para>Maximum buffer mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>The buffer mode enumeration which can be configured by user application. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" bodystart="85" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____buf__mgmt__ctrl_1gaebd978cfc61d15492da7ef4b44caff6a" prot="public" static="no">
+        <name>CamDeviceBufQueBlockType_e</name>
+        <enumvalue id="group____buf__mgmt__ctrl_1ggaebd978cfc61d15492da7ef4b44caff6aad254bd400dae4252d4917c007ad320b2" prot="public">
+          <name>CAMDEV_BUFQUE_NONBLOCK_TYPE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Non-blocking type. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____buf__mgmt__ctrl_1ggaebd978cfc61d15492da7ef4b44caff6aa6d31a8cff139c21dd4b2d581a6571e9f" prot="public">
+          <name>CAMDEV_BUFQUE_TIMEOUT_TYPE</name>
+          <briefdescription>
+<para>Time-blocking type. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____buf__mgmt__ctrl_1ggaebd978cfc61d15492da7ef4b44caff6aa6996f925e130a56ec9e67acd7ba2c43d" prot="public">
+          <name>CAMDEV_BUFQUE_BLOCK_TYPE</name>
+          <briefdescription>
+<para>Blocking type. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____buf__mgmt__ctrl_1ggaebd978cfc61d15492da7ef4b44caff6aa8219f256b45578fc03e4104a5e2527ae" prot="public">
+          <name>CAMDEV_BUFQUE_BLOCK_TYPE_MAX</name>
+          <briefdescription>
+<para>Blocking type max. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>The buffer queue blocking type enumeration when user read/write buffer queue. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" bodystart="97" bodyend="102"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____buf__mgmt__ctrl_1ga477942d22afe7298d497ae48e8bb498b" prot="public" static="no">
+        <type>enum <ref refid="group____buf__mgmt__ctrl_1ga645c5c53494c2a6cb9c14655666e3f0b" kindref="member">CamDeviceBufChainId_e</ref></type>
+        <definition>typedef enum CamDeviceBufChainId_e  CamDeviceBufChainId_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceBufChainId_t</name>
+        <briefdescription>
+<para>The buffer chain index enumeration of each output path. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="78" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____buf__mgmt__ctrl_1gaabd1c3649d1090fdbf374d4998429302" prot="public" static="no">
+        <type>enum <ref refid="group____buf__mgmt__ctrl_1gac2d0126c589b24e09c6d9a627f6cf436" kindref="member">CamDeviceBufMode_e</ref></type>
+        <definition>typedef enum CamDeviceBufMode_e  CamDeviceBufMode_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceBufMode_t</name>
+        <briefdescription>
+<para>The buffer mode enumeration which can be configured by user application. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="90" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____buf__mgmt__ctrl_1gae6ee30acbc80416c9fea77a3d75e92d7" prot="public" static="no">
+        <type>enum <ref refid="group____buf__mgmt__ctrl_1gaebd978cfc61d15492da7ef4b44caff6a" kindref="member">CamDeviceBufQueBlockType_e</ref></type>
+        <definition>typedef enum CamDeviceBufQueBlockType_e  CamDeviceBufQueBlockType_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceBufQueBlockType_t</name>
+        <briefdescription>
+<para>The buffer queue blocking type enumeration when user read/write buffer queue. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="102" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____buf__mgmt__ctrl_1ga8e8610a65bf1bb5a163c454a388adf69" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_buf_pool_config__s" kindref="compound">CamDeviceBufPoolConfig_s</ref></type>
+        <definition>typedef struct CamDeviceBufPoolConfig_s CamDeviceBufPoolConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceBufPoolConfig_t</name>
+        <briefdescription>
+<para>The buffer pool configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="118" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____buf__mgmt__ctrl_1gab4ca18c943a2d333c0365d6d60e83ce9" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_buf_que_op_config__s" kindref="compound">CamDeviceBufQueOpConfig_s</ref></type>
+        <definition>typedef struct CamDeviceBufQueOpConfig_s CamDeviceBufQueOpConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceBufQueOpConfig_t</name>
+        <briefdescription>
+<para>The buffer queue operation configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="129" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____buf__mgmt__ctrl_1ga2db6aaa2ea4785da1d08d91c554a17bf" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_buf_chain_config__s" kindref="compound">CamDeviceBufChainConfig_s</ref></type>
+        <definition>typedef struct CamDeviceBufChainConfig_s CamDeviceBufChainConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceBufChainConfig_t</name>
+        <briefdescription>
+<para>The buffer chain configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="142" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____buf__mgmt__ctrl_1ga26d89c13e2bdeb43b75e4e883428d31f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceInitBufChain</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceBufChainId_t bufId, CamDeviceBufChainConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceInitBufChain</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____buf__mgmt__ctrl_1ga477942d22afe7298d497ae48e8bb498b" kindref="member">CamDeviceBufChainId_t</ref></type>
+          <declname>bufId</declname>
+        </param>
+        <param>
+          <type><ref refid="group____buf__mgmt__ctrl_1ga2db6aaa2ea4785da1d08d91c554a17bf" kindref="member">CamDeviceBufChainConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_buffer_api.c" bodystart="26" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="group____buf__mgmt__ctrl_1gaac736f2514788dd7f06258111b5b8c70" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceDeInitBufChain</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceBufChainId_t bufId)</argsstring>
+        <name>VsiCamDeviceDeInitBufChain</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____buf__mgmt__ctrl_1ga477942d22afe7298d497ae48e8bb498b" kindref="member">CamDeviceBufChainId_t</ref></type>
+          <declname>bufId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_buffer_api.c" bodystart="71" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="group____buf__mgmt__ctrl_1ga41464e799a8f420541d23127ec0153ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCreateBufPool</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceBufChainId_t bufId, CamDeviceBufPoolConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceCreateBufPool</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____buf__mgmt__ctrl_1ga477942d22afe7298d497ae48e8bb498b" kindref="member">CamDeviceBufChainId_t</ref></type>
+          <declname>bufId</declname>
+        </param>
+        <param>
+          <type><ref refid="group____buf__mgmt__ctrl_1ga8e8610a65bf1bb5a163c454a388adf69" kindref="member">CamDeviceBufPoolConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_buffer_api.c" bodystart="112" bodyend="187"/>
+      </memberdef>
+      <memberdef kind="function" id="group____buf__mgmt__ctrl_1ga52c1569c456cf1ff6e6b97f4320a4e14" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceDestroyBufPool</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceBufChainId_t bufId)</argsstring>
+        <name>VsiCamDeviceDestroyBufPool</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____buf__mgmt__ctrl_1ga477942d22afe7298d497ae48e8bb498b" kindref="member">CamDeviceBufChainId_t</ref></type>
+          <declname>bufId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_buffer_api.c" bodystart="191" bodyend="228"/>
+      </memberdef>
+      <memberdef kind="function" id="group____buf__mgmt__ctrl_1gae81a55de2a78ecd30bc27f196ac0c511" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSetupBufMgmt</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceBufChainId_t bufId)</argsstring>
+        <name>VsiCamDeviceSetupBufMgmt</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____buf__mgmt__ctrl_1ga477942d22afe7298d497ae48e8bb498b" kindref="member">CamDeviceBufChainId_t</ref></type>
+          <declname>bufId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_buffer_api.c" bodystart="232" bodyend="269"/>
+      </memberdef>
+      <memberdef kind="function" id="group____buf__mgmt__ctrl_1gaec47bf94344eef394d1703ffb0be0bd1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceReleaseBufMgmt</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceBufChainId_t bufId)</argsstring>
+        <name>VsiCamDeviceReleaseBufMgmt</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____buf__mgmt__ctrl_1ga477942d22afe7298d497ae48e8bb498b" kindref="member">CamDeviceBufChainId_t</ref></type>
+          <declname>bufId</declname>
+        </param>
+        <briefdescription>
+<para>This function releases buffer management. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>hCamDevice</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Handle to the CamDevice instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Operation succeeded </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_buffer_api.c" bodystart="282" bodyend="319"/>
+        <references refid="return__codes_8h_1a98c7ef8d3f2437e62bce09dcb19a26fc" compoundref="return__codes_8h" startline="43">RET_FAILURE</references>
+        <references refid="return__codes_8h_1aac3ed5b1f552a86e3bad252351e09a84" compoundref="return__codes_8h" startline="48">RET_OUTOFRANGE</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group____buf__mgmt__ctrl_1gac393ceb474a9bba2987926f4c75101a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceDeQueBuffer</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceBufChainId_t bufId, MediaBuffer_t **pMediaBuf)</argsstring>
+        <name>VsiCamDeviceDeQueBuffer</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____buf__mgmt__ctrl_1ga477942d22afe7298d497ae48e8bb498b" kindref="member">CamDeviceBufChainId_t</ref></type>
+          <declname>bufId</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_media_buffer__s" kindref="compound">MediaBuffer_t</ref> **</type>
+          <declname>pMediaBuf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="328" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_buffer_api.c" bodystart="322" bodyend="460"/>
+      </memberdef>
+      <memberdef kind="function" id="group____buf__mgmt__ctrl_1ga4ddf787d61574b4028df82d611366902" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceEnQueBuffer</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceBufChainId_t bufId, MediaBuffer_t *pMediaBuf)</argsstring>
+        <name>VsiCamDeviceEnQueBuffer</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____buf__mgmt__ctrl_1ga477942d22afe7298d497ae48e8bb498b" kindref="member">CamDeviceBufChainId_t</ref></type>
+          <declname>bufId</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_media_buffer__s" kindref="compound">MediaBuffer_t</ref> *</type>
+          <declname>pMediaBuf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_buffer_api.c" bodystart="464" bodyend="541"/>
+      </memberdef>
+      <memberdef kind="function" id="group____buf__mgmt__ctrl_1gafefe45af4dfc3925d715eb44181c6c03" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceGetBufferSize</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceBufChainId_t bufId, uint32_t *pBufSize)</argsstring>
+        <name>VsiCamDeviceGetBufferSize</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____buf__mgmt__ctrl_1ga477942d22afe7298d497ae48e8bb498b" kindref="member">CamDeviceBufChainId_t</ref></type>
+          <declname>bufId</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pBufSize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="387" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_buffer_api.c" bodystart="545" bodyend="586"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group____buf__mgmt__ctrl_1ga90fa8f5c9b5b0ff9b6d525355e31d85b" prot="public" static="no">
+        <name>CAMDEV_BUFFER_RDMA_WAIT_TIME_OUT</name>
+        <initializer>4000</initializer>
+        <briefdescription>
+<para>Timeout for buffer waiting in RDMA mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>Unit: msec. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>For the control flow of E10 VsCamBufMgmt, its oeprations of external modules on the buffer queue can be summarized into two types: buffer producer and bufferconsumer. </para>    </briefdescription>
+    <detaileddescription>
+<para>Buffer Producer: Write image data to the memory pointed to by the idle media buffer and deliver the filled media buffer to the full buffer queue. Buffer Consumer: Read image data to the memory pointed to by the filled media buffer and return the used media buffer to the empty buffer queue. </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

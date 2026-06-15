@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>intc</title>
+    <detaileddescription>
+<para>The Xilinx interrupt controller driver component. This component supports the Xilinx interrupt controller.</para><para>The interrupt controller driver uses the idea of priority for the various handlers. Priority is an integer within the range of 0 and 31 inclusive with 0 being the highest priority interrupt source.</para><para>The Xilinx interrupt controller supports the following features:</para><para><itemizedlist>
+<listitem><para>specific individual interrupt enabling/disabling</para></listitem><listitem><para>specific individual interrupt acknowledging</para></listitem><listitem><para>attaching specific callback function to handle interrupt source</para></listitem><listitem><para>master enable/disable</para></listitem><listitem><para>single callback per interrupt or all pending interrupts handled for each interrupt of the processor</para></listitem></itemizedlist>
+</para><para>The acknowledgement of the interrupt within the interrupt controller is selectable, either prior to the device&apos;s handler being called or after the handler is called. This is necessary to support interrupt signal inputs which are either edge or level signals. Edge driven interrupt signals require that the interrupt is acknowledged prior to the interrupt being serviced in order to prevent the loss of interrupts which are occurring extremely close together. A level driven interrupt input signal requires the interrupt to acknowledged after servicing the interrupt to ensure that the interrupt only generates a single interrupt condition.</para><para>Details about connecting the interrupt handler of the driver are contained in the source file specific to interrupt processing, <ref refid="xintc__intr_8c" kindref="compound">xintc_intr.c</ref>.</para><para>This driver is intended to be RTOS and processor independent. It works with physical addresses only. Any needs for dynamic memory management, threads or thread mutual exclusion, virtual memory, or cache control must be satisfied by the layer above this driver.</para><para><bold>Interrupt Vector Tables</bold></para><para>The interrupt vector table for each interrupt controller device is declared statically in <ref refid="xintc__g_8c" kindref="compound">xintc_g.c</ref> within the configuration data for each instance. The device ID of the interrupt controller device is used by the driver as a direct index into the configuration data table - to retrieve the vector table for an instance of the interrupt controller. The user should populate the vector table with handlers and callbacks at run-time using the <ref refid="group__intc_1gaee9ec5873a764994d64b4da35a110084" kindref="member">XIntc_Connect()</ref> and <ref refid="group__intc_1ga8f7caaeb26b6b264fffefbd32f90f855" kindref="member">XIntc_Disconnect()</ref> functions.</para><para>Each vector table entry corresponds to a device that can generate an interrupt. Each entry contains an interrupt handler function and an argument to be passed to the handler when an interrupt occurs. The tools default this argument to the base address of the interrupting device. Note that the device driver interrupt handlers given in this file do not take a base address as an argument, but instead take a pointer to the driver instance. This means that although the table is created statically, the user must still use <ref refid="group__intc_1gaee9ec5873a764994d64b4da35a110084" kindref="member">XIntc_Connect()</ref> when the interrupt handler takes an argument other than the base address. This is only to say that the existence of the static vector tables should not mislead the user into thinking they no longer need to register/connect interrupt handlers with this driver.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00a ecm  08/16/01 First release
+1.00a rpm  01/09/02 Removed the AckLocation argument from <ref refid="group__intc_1gaee9ec5873a764994d64b4da35a110084" kindref="member">XIntc_Connect()</ref>.
+                    This information is now internal in <ref refid="xintc__g_8c" kindref="compound">xintc_g.c</ref>.
+1.00b jhl  02/13/02 Repartitioned the driver for smaller files
+1.00b jhl  04/24/02 Made LookupConfig function global and relocated config
+                    data type
+1.00c rpm  10/17/03 New release. Support the static vector table created
+                    in the <ref refid="xintc__g_8c" kindref="compound">xintc_g.c</ref> configuration table. Moved vector
+                    table and options out of instance structure and into
+                    the configuration table.
+1.10c mta  03/21/07 Updated to new coding style
+1.11a sv   11/21/07 Updated driver to support access through a DCR bridge
+2.00a ktn  10/20/09 Updated to use HAL Processor APIs and _m is removed from
+              all the macro names/definitions.
+2.01a sdm  04/27/10 Updated the tcl so that the definitions are generated in
+              the xparameters.h to know whether the optional registers
+              SIE, CIE and IVR are enabled in the HW - Refer CR 555392.
+              This driver does not make use of these definitions and does
+              not use the optional registers.
+2.03a hvm  05/24/11 Updated the tcl to generate vector Ids for external
+              interrupts. CR565336
+2.04a bss  01/13/12 Added XIntc_ConnectFastHandler API for Fast Interrupt
+              and XIntc_SetNormalIntrMode for setting to normal
+              interrupt mode.
+2.04a asa  03/19/12 Changed the <ref refid="struct_x_intc___config" kindref="compound">XIntc_Config</ref> struct. The order of entries
+              declared in the structure now matches with the
+              XIntc_ConfigTable generated by the driver tcl.
+2.05a bss  08/16/12 Updated to support relocatable vectors in Microblaze,
+              added IntVectorAddr to <ref refid="struct_x_intc___config" kindref="compound">XIntc_Config</ref> for this.
+              Added XIntc_RegisterFastHandler API to register fast
+              interrupt handlers using base address.
+2.06a bss  01/28/13 To support Cascade mode:
+                      Added XIN_INTC_NOCASCADE,XIN_INTC_PRIMARY,
+              XIN_INTC_SECONDARY,XIN_INTC_LAST and
+              XIN_CONTROLLER_MAX_INTRS  macros
+              Added NumberofIntrs and IntcType fields in <ref refid="struct_x_intc___config" kindref="compound">XIntc_Config</ref>
+              structure.
+              Modified XIntc_Initialize,XIntc_Start,XIntc_Connect
+              XIntc_Disconnect,XIntc_Enable,XIntc_Disable,
+              XIntc_Acknowledge,XIntc_ConnectFastHandler and
+              XIntc_SetNormalIntrMode APIs.Added XIntc_InitializeSlaves
+              API in <ref refid="xintc_8c" kindref="compound">xintc.c</ref>
+                      Modified XIntc_DeviceInterruptHandler,
+                      XIntc_SetIntrSvcOption,XIntc_RegisterHandler and
+              XIntc_RegisterFastHandler APIs.Added XIntc_CascadeHandler
+              API in <ref refid="xintc__l_8c" kindref="compound">xintc_l.c</ref>.
+              Modified XIntc_SetOptions API in <ref refid="xintc__options_8c" kindref="compound">xintc_options.c</ref>.
+              Modified XIntc_SimulateIntr API in <ref refid="xintc__selftest_8c" kindref="compound">xintc_selftest.c</ref>.
+              Modified driver tcl:
+                to check for Cascade mode and generate XPAR_INTC_TYPE
+                for each controller.
+                Generate XPAR_INTC_MAX_NUM_INTR_INPUTS by adding all
+                interrupt sources of all Controllers in Cascade mode.
+2.07a bss  10/18/13 To support Nested interrupts:
+              Modified XIntc_DeviceInterruptHandler API.
+              Added XIN_ILR_OFFSET macro in <ref refid="xintc__l_8h" kindref="compound">xintc_l.h</ref>.
+              Modified driver tcl to generate HAS_ILR parameter in
+              xparameters.h
+3.0   bss  01/28/13 Modified <ref refid="xintc_8c" kindref="compound">xintc.c</ref> to initialize IVAR register with
+              XPAR_MICROBLAZE_BASE_VECTORS + 0x10 to fix
+              CR#765931.
+              Modified driver tcl to generate XPAR_AXI_INTC_0_TYPE
+              correctly(CR#764865).
+3.10  mus   04/10/19 Updated intc_update_source_array proc to
+                      calculate total_source_intrs, based on the width of
+              interrupt port/pins.
+3.11  adk   18/10/19 Updated the get_slice_interrupt_sources_for_slice proc
+               to consider external interrupt source pin connected to
+               slice use case.</preformatted></para><para><preformatted><simplesect kind="note"><para>For Cascade mode, Interrupt IDs are generated in xparameters.h
+        as shown below:</para></simplesect>
+Master/Primary INTC
+<hruler/>
+
+        |      |-0      Secondary INTC
+        |      |-.         ______
+        |      |-.        |      |-32        Last INTC
+        |      |-.        |      |-.          ______
+        |______|&lt;-31---<mdash/>|      |-.         |      |-64
+                          |      |-.         |      |-.
+                          |______|&lt;-63----<mdash/>|      |-.
+                                                   |      |-.
+                                                   |______|-95</preformatted></para><para><preformatted>        All driver functions has to be called using DeviceId/
+        InstancePtr/BaseAddress of Primary/Master Controller and
+        Interrupts IDs generated in xparameters.h only.
+        Driver functions takes care of Slave Controllers based on
+        Interrupt ID passed. User must not use Interrupt source/ID
+        31 of Primary and Secondary controllers to call driver
+        functions.</preformatted></para><para><preformatted>        For nested interrupts, XIntc_DeviceInterruptHandler saves
+        microblaze r14 register on entry and restores on exit. This is
+        required since compiler does not support nesting. It enables
+        Microblaze interrupts after blocking further interrupts from
+        the current interrupt number and interrupts below current
+        interrupt priority by writing to Interrupt Level Register of
+        INTC on entry. On exit, it disables microblaze interrupts and
+        restores ILR register default value(0xFFFFFFFF)back. It is
+        recommended to increase STACK_SIZE in linker script for nested
+        interrupts.
+3.0     adk    12/10/13  Updated as per the New Tcl API&apos;s
+3.0       adk    17/02/14  Fixed the CR:771287 Changes are made in the intc
+                           driver tcl.
+3.1     adk    8/4/14    Fixed the CR:783248 Changes are made in
+                   the test-app tcl
+3.2     bss    4/8/14    Fixed driver tcl to handle external interrupt pins
+                   correctly (CR#799609).
+3.3     adk    11/3/14   added generation of C_HAS_ILR parameter to
+                   xparameters.h.Changes are made in the driver tcl file
+                   (CR#828046).
+3.5   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+3.6   ms   01/23/17 Added xil_printf statement in main function for all
+                    examples to ensure that &quot;Successfully ran&quot; and &quot;Failed&quot;
+                    strings are available in all examples. This is a fix
+                    for CR-965028.
+      ms   03/17/17 Added readme.txt file in examples folder for doxygen
+                    generation.
+3.7   ms   04/18/17 Modified tcl file to add suffix U for macro definitions
+                    of intc in xparameters.h
+3.9   adk  19/12/18 If design contains unconnected interrupt pins
+              return proper error message(CR#1018878).
+3.11   adk  10/03/20 Fix race condition for designs where interrupt pin is
+                     connected to cascade slices.
+3.13   mus  12/22/20 Updated source code comments. It fixes CR#1080821
+3.19   adk  08/02/24 In SDT flow Sync the driver yaml required section entries
+                       with config structure entries.
+3.20   ml   05/06/25 Fixed GCC warnings by declaring functions explicitly before
+                     usage
+3.21   ml   09/13/25 Added support for IntrId and IntrParent to enable interrupt
+                     routing through the GIC from the INTC.
+3.22   ml   26/02/26 Added cascade helper macros and <ref refid="group__intc_1gaa6e69276f3923a7d61d366c98269d750" kindref="member">XIntc_GetPrimaryController()</ref>
+                     API to support topology-aware cascade in SDT flow.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

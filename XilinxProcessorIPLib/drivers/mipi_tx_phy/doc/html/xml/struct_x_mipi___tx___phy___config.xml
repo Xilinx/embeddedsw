@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mipi___tx___phy___config" kind="struct" prot="public">
+    <compoundname>XMipi_Tx_Phy_Config</compoundname>
+    <includes local="no">xmipi_tx_phy.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mipi___tx___phy___config_1a5bdd800e8eafa114f68734d96ab786e6" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XMipi_Tx_Phy_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="285" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mipi___tx___phy___config_1a4673423aeb644c8cf11fe30fbaf19b04" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XMipi_Tx_Phy_Config::BaseAddr</definition>
+        <argsstring></argsstring>
+        <name>BaseAddr</name>
+        <briefdescription>
+<para>Base address of mipi_tx_phy. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="286" bodyend="-1"/>
+        <referencedby refid="xmipi__tx__phy__example__selftest_8c_1a9893e377f68273dd05a2d26d47a99a23" compoundref="xmipi__tx__phy__example__selftest_8c" startline="109" endline="135">Mipi_Tx_PhySelfTestExample</referencedby>
+        <referencedby refid="group__mipi__tx__phy_1ga6e9c7bebd5db9ead39815cac90867d2f" compoundref="xmipi__tx__phy_8c" startline="64" endline="80">XMipi_Tx_Phy_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mipi___tx___phy___config_1ae278036709d322cc21888b24463a01f3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMipi_Tx_Phy_Config::IsDphy</definition>
+        <argsstring></argsstring>
+        <name>IsDphy</name>
+        <briefdescription>
+<para>CPHY or DPHY Mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="287" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="287" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mipi___tx___phy___config_1a0db9d0089b4a24b665a8e5f1c32e4f98" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMipi_Tx_Phy_Config::IsRegisterPresent</definition>
+        <argsstring></argsstring>
+        <name>IsRegisterPresent</name>
+        <briefdescription>
+<para>Is register access allowed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mipi___tx___phy___config_1a442de8892fdd7791c701e3bee870b38a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMipi_Tx_Phy_Config::MaxLanesPresent</definition>
+        <argsstring></argsstring>
+        <name>MaxLanesPresent</name>
+        <briefdescription>
+<para>Number of Lanes. </para>        </briefdescription>
+        <detaileddescription>
+<para>Range 1 - 4 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mipi___tx___phy___config_1af6c35aa855c913c9a7b2afba99c70005" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMipi_Tx_Phy_Config::EscClkPeriod</definition>
+        <argsstring></argsstring>
+        <name>EscClkPeriod</name>
+        <briefdescription>
+<para>Escape Clock Period. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mipi___tx___phy___config_1ae35a91c9d0b588fb1bb2a0d7ee84f5f0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMipi_Tx_Phy_Config::EscTimeout</definition>
+        <argsstring></argsstring>
+        <name>EscTimeout</name>
+        <briefdescription>
+<para>Escape Timeout. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mipi___tx___phy___config_1ae55a54d678a2b837bd950e574b445adc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMipi_Tx_Phy_Config::HSLineRate</definition>
+        <argsstring></argsstring>
+        <name>HSLineRate</name>
+        <briefdescription>
+<para>High Speed Line Rate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="292" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mipi___tx___phy___config_1a2377c4cd19231e1c33268348bcc1ecfe" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMipi_Tx_Phy_Config::HSTimeOut</definition>
+        <argsstring></argsstring>
+        <name>HSTimeOut</name>
+        <briefdescription>
+<para>Max Frame Length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="293" bodyend="-1"/>
+        <referencedby refid="group__mipi__tx__phy_1ga4a6f46a83ce56b8538bd115feb1e652f" compoundref="xmipi__tx__phy__selftest_8c" startline="60" endline="72">XMipi_Tx_Phy_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mipi___tx___phy___config_1a4bc04e1e2d835f24bd616342687137dc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMipi_Tx_Phy_Config::LPXPeriod</definition>
+        <argsstring></argsstring>
+        <name>LPXPeriod</name>
+        <briefdescription>
+<para>Low Power Transmit (LPX) period in nanoseconds. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="294" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mipi___tx___phy___config_1ad0140549c6ec552c206c85fe55397212" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMipi_Tx_Phy_Config::StableClkPeriod</definition>
+        <argsstring></argsstring>
+        <name>StableClkPeriod</name>
+        <briefdescription>
+<para>Stable clock period in nanoseconds. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="295" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The configuration structure for mipi_tx_phy. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure passes the hardware building information to the driver </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="284" bodyend="296"/>
+    <listofallmembers>
+      <member refid="struct_x_mipi___tx___phy___config_1a4673423aeb644c8cf11fe30fbaf19b04" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_Config</scope><name>BaseAddr</name></member>
+      <member refid="struct_x_mipi___tx___phy___config_1af6c35aa855c913c9a7b2afba99c70005" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_Config</scope><name>EscClkPeriod</name></member>
+      <member refid="struct_x_mipi___tx___phy___config_1ae35a91c9d0b588fb1bb2a0d7ee84f5f0" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_Config</scope><name>EscTimeout</name></member>
+      <member refid="struct_x_mipi___tx___phy___config_1ae55a54d678a2b837bd950e574b445adc" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_Config</scope><name>HSLineRate</name></member>
+      <member refid="struct_x_mipi___tx___phy___config_1a2377c4cd19231e1c33268348bcc1ecfe" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_Config</scope><name>HSTimeOut</name></member>
+      <member refid="struct_x_mipi___tx___phy___config_1ae278036709d322cc21888b24463a01f3" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_Config</scope><name>IsDphy</name></member>
+      <member refid="struct_x_mipi___tx___phy___config_1a0db9d0089b4a24b665a8e5f1c32e4f98" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_Config</scope><name>IsRegisterPresent</name></member>
+      <member refid="struct_x_mipi___tx___phy___config_1a4bc04e1e2d835f24bd616342687137dc" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_Config</scope><name>LPXPeriod</name></member>
+      <member refid="struct_x_mipi___tx___phy___config_1a442de8892fdd7791c701e3bee870b38a" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_Config</scope><name>MaxLanesPresent</name></member>
+      <member refid="struct_x_mipi___tx___phy___config_1a5bdd800e8eafa114f68734d96ab786e6" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_Config</scope><name>Name</name></member>
+      <member refid="struct_x_mipi___tx___phy___config_1ad0140549c6ec552c206c85fe55397212" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy_Config</scope><name>StableClkPeriod</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

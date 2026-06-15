@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_add715e1a77188d9f4da975dda334823" kind="dir">
+    <compoundname>source</compoundname>
+    <innerdir refid="dir_3739483ab6740c60e1ea57c2c0bb5710">fmc</innerdir>
+    <innerdir refid="dir_536a8c82982ae183b8b50b98b0f02f6c">Multi_sensor_framework</innerdir>
+    <innerdir refid="dir_78d1856b951bdd102c5c7db50be6c66e">sensor_drv</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/"/>
+  </compounddef>
+</doxygen>

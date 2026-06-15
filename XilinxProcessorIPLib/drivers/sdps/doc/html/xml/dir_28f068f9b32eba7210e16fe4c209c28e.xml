@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_28f068f9b32eba7210e16fe4c209c28e" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xsdps_8c">xsdps.c</innerfile>
+    <innerfile refid="xsdps_8h">xsdps.h</innerfile>
+    <innerfile refid="xsdps__card_8c">xsdps_card.c</innerfile>
+    <innerfile refid="xsdps__core_8h">xsdps_core.h</innerfile>
+    <innerfile refid="xsdps__g_8c">xsdps_g.c</innerfile>
+    <innerfile refid="xsdps__host_8c">xsdps_host.c</innerfile>
+    <innerfile refid="xsdps__hw_8h">xsdps_hw.h</innerfile>
+    <innerfile refid="xsdps__options_8c">xsdps_options.c</innerfile>
+    <innerfile refid="xsdps__sinit_8c">xsdps_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/"/>
+  </compounddef>
+</doxygen>

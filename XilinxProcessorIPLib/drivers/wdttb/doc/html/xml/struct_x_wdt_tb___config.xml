@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_wdt_tb___config" kind="struct" prot="public">
+    <compoundname>XWdtTb_Config</compoundname>
+    <includes local="no">xwdttb.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_wdt_tb___config_1a02c5f0b429b7cc96178a64496597ec6c" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XWdtTb_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb.h" bodystart="152" bodyend="-1"/>
+        <referencedby refid="xwdttb__selftest__example_8c_1abf14d811dc1e193cc7053819cf1ad827" compoundref="xwdttb__selftest__example_8c" startline="146" endline="194">WdtTbSelfTestExample</referencedby>
+        <referencedby refid="xwdttb__winwdt__intr__example_8c_1a493438d0854982efd7719e9ffe2d6da8" compoundref="xwdttb__winwdt__intr__example_8c" startline="217" endline="351">WinWdtIntrExample</referencedby>
+        <referencedby refid="group__wdttb__api_1gadf3c428b985d77e28b5df5cd5d82dff3" compoundref="xwdttb_8c" startline="209" endline="262">XWdtTb_CfgInitialize</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa1ec9f43580e5497f47960d47a231cb1" compoundref="xwdttb_8c" startline="454" endline="504">XWdtTb_IsWdtExpired</referencedby>
+        <referencedby refid="group__wdttb__api_1gad27ab5404921a0500231b02220f0dee4" compoundref="xwdttb__sinit_8c" startline="97" endline="111">XWdtTb_LookupConfig</referencedby>
+        <referencedby refid="group__wdttb__api_1gaf1baa5a1d69ac6c61ecc62d5df1a0c01" compoundref="xwdttb_8c" startline="555" endline="606">XWdtTb_RestartWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa9e410506154d92a551b6261742d98b1" compoundref="xwdttb__selftest_8c" startline="101" endline="225">XWdtTb_SelfTest</referencedby>
+        <referencedby refid="group__wdttb__api_1gaab195e280eca1e2985509d954c2e4e52" compoundref="xwdttb_8c" startline="354" endline="378">XWdtTb_Start</referencedby>
+        <referencedby refid="group__wdttb__api_1gacd5617bce061deaa57743ea46008daf8" compoundref="xwdttb_8c" startline="406" endline="432">XWdtTb_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XWdtTb_Config::BaseAddr</definition>
+        <argsstring></argsstring>
+        <name>BaseAddr</name>
+        <briefdescription>
+<para>Base address of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb.h" bodystart="154" bodyend="-1"/>
+        <referencedby refid="xwdttb__gwdt__example_8c_1ae46c5a8ca3ff40cfd7ae9004c68032c7" compoundref="xwdttb__gwdt__example_8c" startline="132" endline="211">GWdtTbExample</referencedby>
+        <referencedby refid="xwdttb__gwdt__selftest__example_8c_1a348849b782194898b97aad0598f27cea" compoundref="xwdttb__gwdt__selftest__example_8c" startline="120" endline="162">GWdtTbSelfTestExample</referencedby>
+        <referencedby refid="xwdttb__example_8c_1aba68c6bcda83b7e5394221562daacb40" compoundref="xwdttb__example_8c" startline="150" endline="242">WdtTbExample</referencedby>
+        <referencedby refid="xwdttb__gwdt__intr__example_8c_1a3a2250354004b0d38a79cbc2549dacfa" compoundref="xwdttb__gwdt__intr__example_8c" startline="181" endline="276">WdtTbIntrExample</referencedby>
+        <referencedby refid="xwdttb__selftest__example_8c_1abf14d811dc1e193cc7053819cf1ad827" compoundref="xwdttb__selftest__example_8c" startline="146" endline="194">WdtTbSelfTestExample</referencedby>
+        <referencedby refid="xwdttb__winwdt__intr__example_8c_1a493438d0854982efd7719e9ffe2d6da8" compoundref="xwdttb__winwdt__intr__example_8c" startline="217" endline="351">WinWdtIntrExample</referencedby>
+        <referencedby refid="group__wdttb__api_1ga9b3e984acc19cf7d0f45eaa09298e0a7" compoundref="xwdttb_8c" startline="622" endline="637">XWdtTb_AlwaysEnable</referencedby>
+        <referencedby refid="group__wdttb__api_1gadf3c428b985d77e28b5df5cd5d82dff3" compoundref="xwdttb_8c" startline="209" endline="262">XWdtTb_CfgInitialize</referencedby>
+        <referencedby refid="group__wdttb__api_1ga043f754323225b43513c2f7a2f71aedb" compoundref="xwdttb_8c" startline="653" endline="679">XWdtTb_ClearLastEvent</referencedby>
+        <referencedby refid="group__wdttb__api_1gafbd0c485e4a716fd1c6dc5cea084f759" compoundref="xwdttb_8c" startline="694" endline="709">XWdtTb_ClearResetPending</referencedby>
+        <referencedby refid="group__wdttb__api_1ga31311c4f3e1f921ab55d005e0a0ff028" compoundref="xwdttb_8c" startline="1162" endline="1177">XWdtTb_DisableExtraProtection</referencedby>
+        <referencedby refid="group__wdttb__api_1ga3ec7a898566961227074db888ab4e222" compoundref="xwdttb_8c" startline="1095" endline="1112">XWdtTb_DisableFailCounter</referencedby>
+        <referencedby refid="group__wdttb__api_1ga12faff17b943f0cbf70a6d639280a630" compoundref="xwdttb_8c" startline="1023" endline="1038">XWdtTb_DisablePsm</referencedby>
+        <referencedby refid="group__wdttb__api_1ga3fbc0d643f910953abf6e476cf13c5e8" compoundref="xwdttb_8c" startline="952" endline="967">XWdtTb_DisableSst</referencedby>
+        <referencedby refid="group__wdttb__api_1gadfcdf4e7e38ec7aba993e838ce541720" compoundref="xwdttb__config_8c" startline="214" endline="255">XWdtTb_DisableTimebaseWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1ga0303dd42c4ffa7c10d60ec487b2c8f4b" compoundref="xwdttb__config_8c" startline="62" endline="157">XWdtTb_DisableWinWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1ga8eacf75d4a475f687640902f5219f4de" compoundref="xwdttb_8c" startline="1130" endline="1145">XWdtTb_EnableExtraProtection</referencedby>
+        <referencedby refid="group__wdttb__api_1ga595c530371577b29e0a5e090d9967205" compoundref="xwdttb_8c" startline="1061" endline="1078">XWdtTb_EnableFailCounter</referencedby>
+        <referencedby refid="group__wdttb__api_1ga29cdd15b771748985524abd19a1aead0" compoundref="xwdttb_8c" startline="991" endline="1006">XWdtTb_EnablePsm</referencedby>
+        <referencedby refid="group__wdttb__api_1ga4c9f9d6df6c3c96c579ab7c2f1c350ec" compoundref="xwdttb_8c" startline="920" endline="935">XWdtTb_EnableSst</referencedby>
+        <referencedby refid="group__wdttb__api_1gaba28c63af933ee36e715218b7c0137ae" compoundref="xwdttb__config_8c" startline="171" endline="199">XWdtTb_EnableTimebaseWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1ga8e3a836964ef56168668f3d26307dfc7" compoundref="xwdttb_8c" startline="815" endline="824">XWdtTb_GetByteCount</referencedby>
+        <referencedby refid="group__wdttb__api_1ga2e1e6ee60443c503144572bd00fc8589" compoundref="xwdttb_8c" startline="889" endline="898">XWdtTb_GetByteSegment</referencedby>
+        <referencedby refid="group__wdttb__api_1gaf2b1b1175aac0974fa1c9c1c7c50550c" compoundref="xwdttb_8c" startline="724" endline="757">XWdtTb_IntrClear</referencedby>
+        <referencedby refid="group__wdttb__api_1ga24e80e9f7fb7d427513e7fe03833dc1e" compoundref="xwdttb_8c" startline="522" endline="538">XWdtTb_IsGenericWdtFWExpired</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa1ec9f43580e5497f47960d47a231cb1" compoundref="xwdttb_8c" startline="454" endline="504">XWdtTb_IsWdtExpired</referencedby>
+        <referencedby refid="group__wdttb__api_1ga86133d7e1b0053409d5c743746a129fc" compoundref="xwdttb_8c" startline="1298" endline="1312">XWdtTb_ProgramWDTWidth</referencedby>
+        <referencedby refid="group__wdttb__api_1gaf1baa5a1d69ac6c61ecc62d5df1a0c01" compoundref="xwdttb_8c" startline="555" endline="606">XWdtTb_RestartWdt</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa9e410506154d92a551b6261742d98b1" compoundref="xwdttb__selftest_8c" startline="101" endline="225">XWdtTb_SelfTest</referencedby>
+        <referencedby refid="group__wdttb__api_1gaa1e121c7e6b69d7b10fedf92d91b5396" compoundref="xwdttb_8c" startline="779" endline="798">XWdtTb_SetByteCount</referencedby>
+        <referencedby refid="group__wdttb__api_1ga26519cefd97128dca8d1f147f5364945" compoundref="xwdttb_8c" startline="849" endline="869">XWdtTb_SetByteSegment</referencedby>
+        <referencedby refid="group__wdttb__api_1ga160723502d4b5b8797e358f96cc902c1" compoundref="xwdttb_8c" startline="1237" endline="1243">XWdtTb_SetGenericWdtWindow</referencedby>
+        <referencedby refid="group__wdttb__api_1gaf297a0071482bd7a767360d6bd265cd9" compoundref="xwdttb_8c" startline="1260" endline="1272">XWdtTb_SetGenericWdtWindowTimeOut</referencedby>
+        <referencedby refid="group__wdttb__api_1ga924185ce28862e06ea62fa4f51bfed8d" compoundref="xwdttb_8c" startline="1205" endline="1219">XWdtTb_SetWindowCount</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_wdt_tb___config_1abef305a045949ed887fab676a997f983" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XWdtTb_Config::EnableWinWdt</definition>
+        <argsstring></argsstring>
+        <name>EnableWinWdt</name>
+        <briefdescription>
+<para>Flag for Window WDT enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb.h" bodystart="155" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gadf3c428b985d77e28b5df5cd5d82dff3" compoundref="xwdttb_8c" startline="209" endline="262">XWdtTb_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_wdt_tb___config_1a61e6b7774e3326eb776ab0b4e92c16bd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XWdtTb_Config::MaxCountWidth</definition>
+        <argsstring></argsstring>
+        <name>MaxCountWidth</name>
+        <briefdescription>
+<para>Maximum width of first timer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb.h" bodystart="156" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gadf3c428b985d77e28b5df5cd5d82dff3" compoundref="xwdttb_8c" startline="209" endline="262">XWdtTb_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_wdt_tb___config_1a5b4b7454446515a76affbb351c2ed0dd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XWdtTb_Config::SstCountWidth</definition>
+        <argsstring></argsstring>
+        <name>SstCountWidth</name>
+        <briefdescription>
+<para>Maximum width of Second Sequence Timer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb.h" bodystart="157" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gadf3c428b985d77e28b5df5cd5d82dff3" compoundref="xwdttb_8c" startline="209" endline="262">XWdtTb_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_wdt_tb___config_1a3b0c0a9785a2ff0db3c42788a1a51e68" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XWdtTb_Config::Clock</definition>
+        <argsstring></argsstring>
+        <name>Clock</name>
+        <briefdescription>
+<para>Watchdog Clock Frequency. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb.h" bodystart="161" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gadf3c428b985d77e28b5df5cd5d82dff3" compoundref="xwdttb_8c" startline="209" endline="262">XWdtTb_CfgInitialize</referencedby>
+        <referencedby refid="group__wdttb__api_1gaf297a0071482bd7a767360d6bd265cd9" compoundref="xwdttb_8c" startline="1260" endline="1272">XWdtTb_SetGenericWdtWindowTimeOut</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_wdt_tb___config_1a74fd053c02b895e521481255807017c8" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XWdtTb_Config::IntrId[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb.h" bodystart="163" bodyend="-1"/>
+        <referencedby refid="xwdttb__gwdt__intr__example_8c_1a3a2250354004b0d38a79cbc2549dacfa" compoundref="xwdttb__gwdt__intr__example_8c" startline="181" endline="276">WdtTbIntrExample</referencedby>
+        <referencedby refid="xwdttb__winwdt__intr__example_8c_1a493438d0854982efd7719e9ffe2d6da8" compoundref="xwdttb__winwdt__intr__example_8c" startline="217" endline="351">WinWdtIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_wdt_tb___config_1a29a10d90ccba022173f1bea40d8dfea4" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XWdtTb_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb.h" bodystart="164" bodyend="-1"/>
+        <referencedby refid="xwdttb__gwdt__intr__example_8c_1a3a2250354004b0d38a79cbc2549dacfa" compoundref="xwdttb__gwdt__intr__example_8c" startline="181" endline="276">WdtTbIntrExample</referencedby>
+        <referencedby refid="xwdttb__winwdt__intr__example_8c_1a493438d0854982efd7719e9ffe2d6da8" compoundref="xwdttb__winwdt__intr__example_8c" startline="217" endline="351">WinWdtIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb.h" bodystart="148" bodyend="166"/>
+    <listofallmembers>
+      <member refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" prot="public" virt="non-virtual"><scope>XWdtTb_Config</scope><name>BaseAddr</name></member>
+      <member refid="struct_x_wdt_tb___config_1a3b0c0a9785a2ff0db3c42788a1a51e68" prot="public" virt="non-virtual"><scope>XWdtTb_Config</scope><name>Clock</name></member>
+      <member refid="struct_x_wdt_tb___config_1abef305a045949ed887fab676a997f983" prot="public" virt="non-virtual"><scope>XWdtTb_Config</scope><name>EnableWinWdt</name></member>
+      <member refid="struct_x_wdt_tb___config_1a74fd053c02b895e521481255807017c8" prot="public" virt="non-virtual"><scope>XWdtTb_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_wdt_tb___config_1a29a10d90ccba022173f1bea40d8dfea4" prot="public" virt="non-virtual"><scope>XWdtTb_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_wdt_tb___config_1a61e6b7774e3326eb776ab0b4e92c16bd" prot="public" virt="non-virtual"><scope>XWdtTb_Config</scope><name>MaxCountWidth</name></member>
+      <member refid="struct_x_wdt_tb___config_1a02c5f0b429b7cc96178a64496597ec6c" prot="public" virt="non-virtual"><scope>XWdtTb_Config</scope><name>Name</name></member>
+      <member refid="struct_x_wdt_tb___config_1a5b4b7454446515a76affbb351c2ed0dd" prot="public" virt="non-virtual"><scope>XWdtTb_Config</scope><name>SstCountWidth</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

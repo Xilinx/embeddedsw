@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_prach___c_c_sequence" kind="struct" prot="public">
+    <compoundname>XDfePrach_CCSequence</compoundname>
+    <includes local="no">xdfeprach.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_prach___c_c_sequence_1a0d0155f6feef3938aa495104ea2a7cf6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_CCSequence::Length</definition>
+        <argsstring></argsstring>
+        <name>Length</name>
+        <briefdescription>
+<para>[1-16] Sequence length </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="261" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1287a30b7e83158a48088593234ab1e4" compoundref="xdfeprach__2_c_c__3_r_c__dynamic__example_8c" startline="71" endline="324">XDfePrach_2CC3RCDynamicTestExample</referencedby>
+        <referencedby refid="group___overview_1ga80c73e89a6fc66abac088bbc45431dc3" compoundref="xdfeprach__2_c_c__3_r_c__reconfigure__example_8c" startline="73" endline="377">XDfePrach_2CC3RCReconfigureTestExample</referencedby>
+        <referencedby refid="group___overview_1gabd47bf94fdf2e70c66193ba7d36baded" compoundref="xdfeprach__2_c_c__3_r_c__example_8c" startline="70" endline="337">XDfePrach_2CC3RCTestExample</referencedby>
+        <referencedby refid="group__dfeprach_1gab7c5663ad84ff2b078cb3e935ecff7b3" compoundref="xdfeprach_8c" startline="2163" endline="2187">XDfePrach_GetCarrierCfgMB</referencedby>
+        <referencedby refid="group__dfeprach_1ga5da17d2168e7d61dc25b4e377226b207" compoundref="xdfeprach_8c" startline="2127" endline="2147">XDfePrach_GetEmptyCCCfg</referencedby>
+        <referencedby refid="group__dfeprach_1gae381973dcaf014664d8df4f8b95f456b" compoundref="xdfeprach_8c" startline="1914" endline="1941">XDfePrach_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___c_c_sequence_1a502ef289b3363d36e1a83a983872f0a9" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>s32 XDfePrach_CCSequence::CCID[XDFEPRACH_SEQ_LENGTH_MAX]</definition>
+        <argsstring>[XDFEPRACH_SEQ_LENGTH_MAX]</argsstring>
+        <name>CCID</name>
+        <briefdescription>
+<para><verbatim>   [0-15].Array of CCID&apos;s
+</verbatim> arranged in the order the CCIDs are required to be processed in the PRACH. </para>        </briefdescription>
+        <detaileddescription>
+<para>May contain duplicate entries depending on the CC rates. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="262" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1gab7c5663ad84ff2b078cb3e935ecff7b3" compoundref="xdfeprach_8c" startline="2163" endline="2187">XDfePrach_GetCarrierCfgMB</referencedby>
+        <referencedby refid="group__dfeprach_1ga5da17d2168e7d61dc25b4e377226b207" compoundref="xdfeprach_8c" startline="2127" endline="2147">XDfePrach_GetEmptyCCCfg</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>CC sequence definition. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="260" bodyend="266"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_prach___c_c_sequence_1a502ef289b3363d36e1a83a983872f0a9" prot="public" virt="non-virtual"><scope>XDfePrach_CCSequence</scope><name>CCID</name></member>
+      <member refid="struct_x_dfe_prach___c_c_sequence_1a0d0155f6feef3938aa495104ea2a7cf6" prot="public" virt="non-virtual"><scope>XDfePrach_CCSequence</scope><name>Length</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

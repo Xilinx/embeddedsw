@@ -1,0 +1,1149 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xloader__prtn__load_8c" kind="file">
+    <compoundname>xloader_prtn_load.c</compoundname>
+    <includes local="yes">xpm_nodeid.h</includes>
+    <includes local="yes">xplmi_hw.h</includes>
+    <includes refid="xloader_8h" local="yes">xloader.h</includes>
+    <includes local="yes">xplmi_dma.h</includes>
+    <includes local="yes">xplmi_debug.h</includes>
+    <includes local="yes">xplmi_cdo.h</includes>
+    <includes local="yes">xpm_api.h</includes>
+    <includes local="yes">xplmi_util.h</includes>
+    <includes refid="xloader__secure_8h" local="yes">xloader_secure.h</includes>
+    <includes refid="xloader__ddr_8h" local="yes">xloader_ddr.h</includes>
+    <includes local="yes">xplmi.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <includes local="yes">xplmi_err_common.h</includes>
+    <includes local="yes">xplmi_plat.h</includes>
+    <includes local="yes">xloader_plat.h</includes>
+    <includes local="yes">xplmi_wdt.h</includes>
+    <includes local="yes">xplmi_tamper.h</includes>
+    <incdepgraph>
+      <node id="1369">
+        <label>xplmi_util.h</label>
+      </node>
+      <node id="1374">
+        <label>xsecure_rsa.h</label>
+      </node>
+      <node id="1380">
+        <label>xloader_ddr.h</label>
+        <link refid="xloader__ddr_8h"/>
+      </node>
+      <node id="1371">
+        <label>xsecure_sha.h</label>
+      </node>
+      <node id="1381">
+        <label>xplmi.h</label>
+      </node>
+      <node id="1362">
+        <label>xcfupmc.h</label>
+      </node>
+      <node id="1379">
+        <label>xloader_plat_secure.h</label>
+      </node>
+      <node id="1361">
+        <label>xplmi_dma.h</label>
+      </node>
+      <node id="1354">
+        <label>xloader_prtn_load.c</label>
+        <link refid="xloader_prtn_load.c"/>
+        <childnode refid="1355" relation="include">
+        </childnode>
+        <childnode refid="1356" relation="include">
+        </childnode>
+        <childnode refid="1357" relation="include">
+        </childnode>
+        <childnode refid="1361" relation="include">
+        </childnode>
+        <childnode refid="1360" relation="include">
+        </childnode>
+        <childnode refid="1367" relation="include">
+        </childnode>
+        <childnode refid="1368" relation="include">
+        </childnode>
+        <childnode refid="1369" relation="include">
+        </childnode>
+        <childnode refid="1370" relation="include">
+        </childnode>
+        <childnode refid="1380" relation="include">
+        </childnode>
+        <childnode refid="1381" relation="include">
+        </childnode>
+        <childnode refid="1376" relation="include">
+        </childnode>
+        <childnode refid="1382" relation="include">
+        </childnode>
+        <childnode refid="1383" relation="include">
+        </childnode>
+        <childnode refid="1384" relation="include">
+        </childnode>
+        <childnode refid="1385" relation="include">
+        </childnode>
+        <childnode refid="1377" relation="include">
+        </childnode>
+      </node>
+      <node id="1373">
+        <label>xsecure_sha_common.h</label>
+      </node>
+      <node id="1370">
+        <label>xloader_secure.h</label>
+        <link refid="xloader__secure_8h"/>
+        <childnode refid="1371" relation="include">
+        </childnode>
+        <childnode refid="1372" relation="include">
+        </childnode>
+        <childnode refid="1357" relation="include">
+        </childnode>
+        <childnode refid="1369" relation="include">
+        </childnode>
+        <childnode refid="1376" relation="include">
+        </childnode>
+        <childnode refid="1356" relation="include">
+        </childnode>
+      </node>
+      <node id="1376">
+        <label>xil_util.h</label>
+      </node>
+      <node id="1384">
+        <label>xloader_plat.h</label>
+      </node>
+      <node id="1360">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="1367">
+        <label>xplmi_cdo.h</label>
+      </node>
+      <node id="1363">
+        <label>xloader_defs.h</label>
+        <link refid="xloader__defs_8h"/>
+        <childnode refid="1364" relation="include">
+        </childnode>
+        <childnode refid="1365" relation="include">
+        </childnode>
+      </node>
+      <node id="1358">
+        <label>xilpdi.h</label>
+      </node>
+      <node id="1366">
+        <label>xsecure_init.h</label>
+      </node>
+      <node id="1375">
+        <label>xsecure_aes.h</label>
+      </node>
+      <node id="1377">
+        <label>xplmi_tamper.h</label>
+      </node>
+      <node id="1355">
+        <label>xpm_nodeid.h</label>
+      </node>
+      <node id="1372">
+        <label>xloader_auth_enc.h</label>
+        <link refid="xloader__auth__enc_8h"/>
+        <childnode refid="1357" relation="include">
+        </childnode>
+        <childnode refid="1373" relation="include">
+        </childnode>
+        <childnode refid="1358" relation="include">
+        </childnode>
+        <childnode refid="1374" relation="include">
+        </childnode>
+        <childnode refid="1375" relation="include">
+        </childnode>
+        <childnode refid="1369" relation="include">
+        </childnode>
+        <childnode refid="1376" relation="include">
+        </childnode>
+        <childnode refid="1356" relation="include">
+        </childnode>
+        <childnode refid="1377" relation="include">
+        </childnode>
+        <childnode refid="1378" relation="include">
+        </childnode>
+        <childnode refid="1379" relation="include">
+        </childnode>
+      </node>
+      <node id="1365">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1357">
+        <label>xloader.h</label>
+        <link refid="xloader_8h"/>
+        <childnode refid="1358" relation="include">
+        </childnode>
+        <childnode refid="1359" relation="include">
+        </childnode>
+        <childnode refid="1360" relation="include">
+        </childnode>
+        <childnode refid="1361" relation="include">
+        </childnode>
+        <childnode refid="1362" relation="include">
+        </childnode>
+        <childnode refid="1363" relation="include">
+        </childnode>
+        <childnode refid="1356" relation="include">
+        </childnode>
+        <childnode refid="1366" relation="include">
+        </childnode>
+      </node>
+      <node id="1368">
+        <label>xpm_api.h</label>
+      </node>
+      <node id="1364">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="1356">
+        <label>xplmi_hw.h</label>
+      </node>
+      <node id="1383">
+        <label>xplmi_plat.h</label>
+      </node>
+      <node id="1359">
+        <label>xplmi_status.h</label>
+      </node>
+      <node id="1382">
+        <label>xplmi_err_common.h</label>
+      </node>
+      <node id="1378">
+        <label>xpuf.h</label>
+      </node>
+      <node id="1385">
+        <label>xplmi_wdt.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xloader__server__apis_1ga2649fc63e039d0ea257ceb1706063594" prot="public" static="no">
+        <name>XLOADER_SUCCESS_NOT_PRTN_OWNER</name>
+        <initializer>(0x100U)</initializer>
+        <briefdescription>
+<para>Indicates that PLM is not the partition owner. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_prtn_load.c" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_prtn_load.c" bodystart="156" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1gacb74ee2f2a0e0dcce9bfdae7750bbc14" compoundref="xloader__prtn__load_8c" startline="179" endline="306">XLoader_LoadImagePrtns</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__server__apis_1ga4eba70b7be10245a53f4834b514bcb7e" prot="public" static="no">
+        <name>XLOADER_BOOT_COPY_OPTIMIZATION_ENABLED</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Indicates Boot Device Copy Optimization is Enabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_prtn_load.c" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_prtn_load.c" bodystart="157" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga629ebb0c55462b5cde87f7e91037b8c0" compoundref="xloader__prtn__load_8c" startline="392" endline="486">XLoader_PrtnCopy</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xloader__server__apis_1ga4429c37dc44d7558af33c99f6ca93630" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XLoader_PrtnHdrValidation</definition>
+        <argsstring>(const XilPdi_PrtnHdr *PrtnHdr, u32 PrtnNum)</argsstring>
+        <name>XLoader_PrtnHdrValidation</name>
+        <param>
+          <type>const XilPdi_PrtnHdr *</type>
+          <declname>PrtnHdr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PrtnNum</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the partition header. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PrtnHdr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to partition header </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PrtnNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the partition number in the image to be loaded</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XLOADER_SUCCESS_NOT_PRTN_OWNER if partition is not owned by PLM. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Check if partition belongs to PLM</para><para><itemizedlist>
+<listitem><para>If the partition doesn&apos;t belong to PLM, skip the partition</para></listitem></itemizedlist>
+</para><para>Validate the fields of partition</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_prtn_load.c" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_prtn_load.c" bodystart="320" bodyend="376"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__server__apis_1gaeb1ceafa503b9b1161b4764d9e2781cd" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XLoader_ProcessCdo</definition>
+        <argsstring>(const XilPdi *PdiPtr, XLoader_DeviceCopy *DeviceCopy, XLoader_SecureParams *SecureParams)</argsstring>
+        <name>XLoader_ProcessCdo</name>
+        <param>
+          <type>const <ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref> *</type>
+          <declname>PdiPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_loader___device_copy" kindref="compound">XLoader_DeviceCopy</ref> *</type>
+          <declname>DeviceCopy</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref> *</type>
+          <declname>SecureParams</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to process the CDO partition. </para>        </briefdescription>
+        <detaileddescription>
+<para>It copies and validates if security is enabled.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PdiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to <ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref> instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceCopy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the structure variable with parameters required for copying </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SecureParams</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the instance containing security related params</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XLOADER_ERR_INIT_CDO on CDO initialization fail. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Initialize the Cdo Pointer and check CDO header contents</para><para>Update the len for last chunk</para><para>Update variables for next chunk</para><para>Start the copy of the next chunk for increasing performance</para><para>Update the next chunk address to other part</para><para>Update the len for last chunk</para><para>Initiate the data copy</para><para>Process the chunk</para><para>There are some CDO commands to be processed in memory pointed to by ChunkAddr</para><para>If deferred error, flagging it after CDO process complete </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_prtn_load.c" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_prtn_load.c" bodystart="504" bodyend="706"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__server__apis_1gabdb666b144c4a300aa374babfa729bab" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XLoader_ProcessPrtn</definition>
+        <argsstring>(XilPdi *PdiPtr)</argsstring>
+        <name>XLoader_ProcessPrtn</name>
+        <param>
+          <type><ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref> *</type>
+          <declname>PdiPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to process the partition. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PdiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to <ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XLOADER_ERR_COPY_TO_MEM if failed to copy image to DDR.</para></listitem><listitem><para>XLOADER_ERR_DELAY_LOAD on errors during copies from SMAP, SBI, PCIE, or JTAG to PMC RAM. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Read Partition Type</para><para>Set partition type as ELF and copy load address as destination execution address for OPTEE partition</para><para>ProcessCdo, ProcessElf and PrtnCopy APIs expected unencrypted length that is 16 byte aligned. Make unencrypted length 16 byte aligned.</para><para>To make sure total data length passed is without authentication certificate size when authentication is enabled.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_prtn_load.c" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_prtn_load.c" bodystart="721" bodyend="827"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__server__apis_1gacb74ee2f2a0e0dcce9bfdae7750bbc14" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_LoadImagePrtns</definition>
+        <argsstring>(XilPdi *PdiPtr)</argsstring>
+        <name>XLoader_LoadImagePrtns</name>
+        <param>
+          <type><ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref> *</type>
+          <declname>PdiPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function loads the partition. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PdiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to <ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XLOADER_SLD_DETECTED_SKIP_PRTN_PROCESS on secure lockdown.</para></listitem><listitem><para>XPLMI_NPI_ERR on NPI errors. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate and load the image partitions.</para></listitem><listitem><para>Clear NPI errors before loading each partition.</para></listitem><listitem><para>Validate the partition header.</para></listitem><listitem><para>If PLM is not partition owner then skip this partition.</para></listitem><listitem><para>Otherwise process the partition.</para></listitem><listitem><para>Skip processing rest of the partitions if secure lockdown is triggered.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_prtn_load.c" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_prtn_load.c" bodystart="179" bodyend="306"/>
+        <references refid="struct_xil_pdi_1a06ce3a51615d7686895e4b702de31082" compoundref="xloader_8h" startline="377">XilPdi::DelayLoad</references>
+        <references refid="struct_xil_pdi_1a5c1c3a68a8f24232d6a24ad64e3c1f4e" compoundref="xloader_8h" startline="374">XilPdi::ImageNum</references>
+        <references refid="struct_xil_pdi_1a2a42cd776cf3b5b4bcb422e651c9619d" compoundref="xloader_8h" startline="385">XilPdi::ImagePrtnId</references>
+        <references refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" compoundref="xloader_8h" startline="368">XilPdi::MetaHdr</references>
+        <references refid="struct_xil_pdi_1ad42f5bc76853fd4d615db46648a91110" compoundref="xloader_8h" startline="375">XilPdi::PrtnNum</references>
+        <references refid="group__xloader__server__apis_1ga2649fc63e039d0ea257ceb1706063594" compoundref="xloader__prtn__load_8c" startline="156">XLOADER_SUCCESS_NOT_PRTN_OWNER</references>
+        <referencedby refid="group__xloader__server__apis_1ga165b8b9d58043ef922abac0188d45373" compoundref="server_2xloader__plat_8c" startline="479" endline="597">XLoader_MeasureNLoad</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__server__apis_1ga629ebb0c55462b5cde87f7e91037b8c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_PrtnCopy</definition>
+        <argsstring>(const XilPdi *PdiPtr, const XLoader_DeviceCopy *DeviceCopy, void *SecureParamsPtr)</argsstring>
+        <name>XLoader_PrtnCopy</name>
+        <param>
+          <type>const <ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref> *</type>
+          <declname>PdiPtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_loader___device_copy" kindref="compound">XLoader_DeviceCopy</ref> *</type>
+          <declname>DeviceCopy</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>SecureParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function copies partition data to respective target memories. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PdiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to <ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref> instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceCopy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the structure variable with parameters required for copying </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SecureParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the instance containing security related params</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success and error code on failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Verify the destination address range before writing.</para></listitem><listitem><para>Check if security is enabled and start the partition copy securely. Otherwise copy the partition in non-secure mode.</para></listitem><listitem><para>In non-secure mode, if device copy optimization is enabled, directly copy the partition to destination address. Otherwise copy the partition to PMC RAM and then to the destination address.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_prtn_load.c" line="392" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_prtn_load.c" bodystart="392" bodyend="486"/>
+        <references refid="struct_x_loader___device_copy_1aa5d26c1fc32172b4befdda406a2e3873" compoundref="xloader_8h" startline="406">XLoader_DeviceCopy::DestAddr</references>
+        <references refid="struct_x_loader___device_copy_1aa6a1e07e689496e0213bea601168adc4" compoundref="xloader_8h" startline="408">XLoader_DeviceCopy::Flags</references>
+        <references refid="struct_x_loader___secure_params_1a727f9a1cea52e21ecd29414628e4809b" compoundref="xloader__auth__enc_8h" startline="771">XLoader_SecureParams::IsCheckSumEnabled</references>
+        <references refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" compoundref="xloader_8h" startline="407">XLoader_DeviceCopy::Len</references>
+        <references refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" compoundref="xloader_8h" startline="368">XilPdi::MetaHdr</references>
+        <references refid="struct_xil_pdi_1ad42f5bc76853fd4d615db46648a91110" compoundref="xloader_8h" startline="375">XilPdi::PrtnNum</references>
+        <references refid="struct_x_loader___secure_temp_params_1a2ed92ce0504832cec7347c969edbfdf3" compoundref="xloader__secure_8h" startline="136">XLoader_SecureTempParams::SecureEn</references>
+        <references refid="struct_x_loader___secure_params_1a6069b369a2378ffede37c5ea0f1bf06b" compoundref="xloader__auth__enc_8h" startline="769">XLoader_SecureParams::SecureEn</references>
+        <references refid="struct_x_loader___device_copy_1a262d93387fc1f3019c567d8230beba86" compoundref="xloader_8h" startline="405">XLoader_DeviceCopy::SrcAddr</references>
+        <references refid="group__xloader__server__apis_1ga4eba70b7be10245a53f4834b514bcb7e" compoundref="xloader__prtn__load_8c" startline="157">XLOADER_BOOT_COPY_OPTIMIZATION_ENABLED</references>
+        <references refid="xloader_8h_1abf2917ca5bd94bc73423c5990c220f74" compoundref="xloader_8h" startline="168">XLOADER_DEVICE_COPY_OPTIMIZATION_MASK</references>
+        <references refid="group__xloader__server__apis_1ga31df7acaead3af0dfa1735979d3cee12" compoundref="xloader__secure_8c" startline="1194" endline="1198">XLoader_GetTempParams</references>
+        <references refid="group__xloader__server__apis_1ga04bdca8398a9278a9c382ef66ad42ed9" compoundref="xloader__secure_8c" startline="398" endline="441">XLoader_SecureCopy</references>
+        <references refid="group__xloader__server__apis_1ga6f79f561d049e76c070c6d139aa1ce80" compoundref="server_2xloader__plat_8c" startline="173" endline="277">XLoader_UpdateDataMeasurement</references>
+        <referencedby refid="group__xloader__server__apis_1ga4ee480ef9152cd51e9aabb49fd0515fd" compoundref="server_2xloader__plat_8c" startline="1034" endline="1223">XLoader_ProcessElf</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is the file which contains partition load code for the Platform loader. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+----- ---- -------- -------------------------------------------------------
+1.00  kc   02/21/2017 Initial release
+1.01  vnsl 04/28/2019 Added security support
+      kc   05/09/2019 Added code for PSM RAM ECC initialization
+      bsv  06/11/2019 Added TCM power up code to Xilloader to fix issue in
+                                        R5-1 split mode functionality
+      bsv  06/24/2019 Moved ECC initialization code from Xilloader to Xilpm
+      js   06/27/2019 Updated PSM arguments
+      vnsl 07/09/2019 Added PPK and SPK integrity checks
+      vnsl 07/09/2019 Added authentication + encryption support
+      kc   09/05/2019 Added code to use PMCDMA0 and PMCDMA1 in parallel
+1.02  ma   12/12/2019 Added support for passing hand off parameters to ATF
+      kc   12/17/2019 Added support for deferred error mechanism for mask poll
+      bsv  01/12/2020 Changes related to bitstream loading
+      bsv  01/30/2002 Enabled direct DMA from boot devices to CFI
+      ma   02/03/2020 Change XPlmi_MeasurePerfTime to retrieve Performance
+                      time and print
+      bsv  02/28/2020 Added support for delay handoff
+      ma   03/02/2020 Added support for logging trace events
+      bsv  04/09/2020 Code clean up of Xilloader
+1.03  kc   06/12/2020 Added IPI mask to PDI CDO commands to get subsystem info
+      kal  07/20/2020 Added double buffering support for secure CDOs
+      bsv  07/29/2020 Added delay load support
+      skd  07/29/2020 Added parallel DMA support for Qspi and Ospi
+      bsv  08/06/2020 Code clean up
+      td   08/19/2020 Fixed MISRA C violations Rule 10.3
+      kal  08/23/2020 Added parallel DMA support for Qspi and Ospi for secure
+      kpt  09/07/2020 Fixed key rolling issue for secure cases
+      bsv  09/30/2020 Added parallel DMA support for SBI, JTAG, SMAP and PCIE
+                      boot modes
+      bsv  10/13/2020 Code clean up
+      td   10/19/2020 MISRA C Fixes
+1.04  bsv  01/28/2021 Initialize variables to invalid values
+      bsv  01/29/2021 Added check for NPI errors after loading every partition
+1.05  bm   03/04/2021 Added address range check before loading elfs
+      ma   03/24/2021 Redirect <ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref> prints to XilLoader
+      ma   03/24/2021 Minor updates to prints in XilLoader
+      bl   04/01/2021 Add secure IPI arg to XPm_DevIoctl and
+                      XPm_RequestWakeUp
+      bsv  04/13/2021 Added support for variable Keyhole sizes in
+                      DmaWriteKeyHole command
+      bsv  04/16/2021 Add provision to store Subsystem Id in XilPlmi
+      rp   04/20/2021 Add extra arg for calls to XPm_RequestDevice and
+                XPm_ReleaseDevice
+      gm   05/10/2021 Added support to dump DDRMC registers in case of
+                deferred error
+      td   05/20/2021 Fixed blind write on locking NPI address space in
+                      XPlmi_ClearNpiErrors
+1.06  td   07/15/2021 Fix doxygen warnings
+      bsv  08/17/2021 Code clean up
+      bsv  08/31/2021 Code clean up
+      bsv  09/01/2021 Added checks for zero length in XLoader_ProcessCdo
+      bsv  09/20/2021 Fixed logical error in processing Cdos
+      bm   09/23/2021 Fix R5 partition load issue
+1.07  kpt  10/07/2021 Decoupled checksum functionality from secure code
+      is   10/12/2021 Updated XPm_DevIoctl to reflect additional command arg
+      kpt  10/20/2021 Modified temporal checks to use temporal variables from
+                      data section
+      bsv  10/26/2021 Code clean up
+      kpt  10/28/2021 Fixed checksum issue in case of copy to memory
+1.08  skd  11/18/2021 Added time stamps in XLoader_ProcessCdo
+      ma   01/30/2022 Added support for skipping MJTAG image when bootmode is
+                      JTAG or Reset Reason is not EPOR
+      ma   01/31/2022 Fix DMA Keyhole command issue where the command
+                      starts at the 32K boundary
+      kpt  02/18/2022 Fix copy to memory issue for slave and non-slave boot
+                      modes
+      bsv  03/17/2022 Add support for A72 elfs to run from TCM
+      bsv  03/23/2022 Minor change in loading of A72 elfs to TCM
+      bsv  03/29/2022 Dump Ddrmc registers only when PLM DEBUG MODE is enabled
+1.09  skg  06/20/2022 Fixed MISRA C Rule 10.3 violation
+      skg  06/20/2022 Fixed MISRA C Rule 4.1 violation
+      bm   07/06/2022 Refactor versal and versal_net code
+      dc   07/19/2022 Added support for data measurement in VersalNet
+      bm   07/24/2022 Set PlmLiveStatus during boot time
+1.10  ng   11/11/2022 Updated doxygen comments
+      kal  01/05/2023 Added XLoader_SecureConfigMeasurement function for
+                      secure images measurement
+      bm   01/05/2023 Clear End Stack before processing a CDO partition
+      bm   01/03/2023 Notify Other SLRs about Secure Lockdown
+      ng   03/30/2023 Updated algorithm and return values in doxygen comments
+      sk   05/18/2023 Deprecate copy to memory feature
+      bm   05/22/2023 Update current CDO command offset in GSW Error Status
+      bm   07/06/2023 Remove XPlmi_ClearEndStack call
+      rama 08/10/2023 Changed partition ID print to DEBUG_ALWAYS for
+                      debug level_0 option
+      dd   09/11/2023 MISRA-C violation Rule 10.3 fixed
+      mss  11/02/2023 Added VerifyAddr check for destination address of
+                      Raw Partition Loading
+      sk   02/18/2024 Added logic to print DDRMC Calib Check Status
+      kal  06/04/2024 Moved XLoader_SecureConfigMeasurement call to
+                XLoader_ProcessAuthEncPrtn
+      mss  04/05/2024 Added logic to disable device copy optimization
+      bm   09/25/2024 Fix Boot Device Copy Optimization logic
+      pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
+      tri  03/01/2025 Updated <ref refid="struct_x_loader___image_measure_info" kindref="compound">XLoader_ImageMeasureInfo</ref> for partition measurement
+2.3   ng   07/17/2025 Implemented partition copy when boot copy optimization is disabled
+      tvp  07/28/2025 Refactor platform specific code.
+      obs  08/26/2025 Added support for address range checks
+2.4   pre  04/17/2026 Made updates to process optee partition as ELF.</preformatted></para><para><preformatted></preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="131"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_nodeid.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_hw.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xloader_8h" kindref="compound">xloader.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_dma.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_debug.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_cdo.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xloader__secure_8h" kindref="compound">xloader_secure.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xloader__ddr_8h" kindref="compound">xloader_ddr.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_err_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpm_nodeid.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_plat.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xloader_plat.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_wdt.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_tamper.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156" refid="group__xloader__server__apis_1ga2649fc63e039d0ea257ceb1706063594" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_SUCCESS_NOT_PRTN_OWNER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x100U)<sp/></highlight></codeline>
+<codeline lineno="157" refid="group__xloader__server__apis_1ga4eba70b7be10245a53f4834b514bcb7e" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_BOOT_COPY_OPTIMIZATION_ENABLED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_PrtnHdrValidation(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XilPdi_PrtnHdr*<sp/>PrtnHdr,<sp/>u32<sp/>PrtnNum);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_ProcessCdo<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref>*<sp/>PdiPtr,<sp/><ref refid="struct_x_loader___device_copy" kindref="compound">XLoader_DeviceCopy</ref>*<sp/>DeviceCopy,</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref>*<sp/>SecureParams);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_ProcessPrtn(<ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref>*<sp/>PdiPtr);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="179" refid="group__xloader__server__apis_1gacb74ee2f2a0e0dcce9bfdae7750bbc14" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1gacb74ee2f2a0e0dcce9bfdae7750bbc14" kindref="member">XLoader_LoadImagePrtns</ref>(<ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref>*<sp/>PdiPtr)</highlight></codeline>
+<codeline lineno="180"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PrtnIndex;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>PrtnLoadTime;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_PerfTime<sp/>PerfTime;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DDRMCCalibCheck;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/>Ub;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PdiPtr-&gt;<ref refid="struct_xil_pdi_1a06ce3a51615d7686895e4b702de31082" kindref="member">DelayLoad</ref><sp/>==<sp/>(u8)FALSE)<sp/>{</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_PRINT_ALWAYS,</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;+++Loading<sp/>Image#:<sp/>0x%0x,<sp/>Name:<sp/>%s,<sp/>Id:<sp/>0x%08x\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PdiPtr-&gt;<ref refid="struct_xil_pdi_1a5c1c3a68a8f24232d6a24ad64e3c1f4e" kindref="member">ImageNum</ref>,</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)PdiPtr-&gt;<ref refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" kindref="member">MetaHdr</ref>-&gt;ImgHdr[PdiPtr-&gt;<ref refid="struct_xil_pdi_1a5c1c3a68a8f24232d6a24ad64e3c1f4e" kindref="member">ImageNum</ref>].ImgName,</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PdiPtr-&gt;<ref refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" kindref="member">MetaHdr</ref>-&gt;ImgHdr[PdiPtr-&gt;<ref refid="struct_xil_pdi_1a5c1c3a68a8f24232d6a24ad64e3c1f4e" kindref="member">ImageNum</ref>].ImgID);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;+++Skipping<sp/>Image#:<sp/>0x%0x,<sp/>Name:<sp/>%s,<sp/>Id:<sp/>0x%08x\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PdiPtr-&gt;<ref refid="struct_xil_pdi_1a5c1c3a68a8f24232d6a24ad64e3c1f4e" kindref="member">ImageNum</ref>,</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)PdiPtr-&gt;<ref refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" kindref="member">MetaHdr</ref>-&gt;ImgHdr[PdiPtr-&gt;<ref refid="struct_xil_pdi_1a5c1c3a68a8f24232d6a24ad64e3c1f4e" kindref="member">ImageNum</ref>].ImgName,</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PdiPtr-&gt;<ref refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" kindref="member">MetaHdr</ref>-&gt;ImgHdr[PdiPtr-&gt;<ref refid="struct_xil_pdi_1a5c1c3a68a8f24232d6a24ad64e3c1f4e" kindref="member">ImageNum</ref>].ImgID);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_INFO,<sp/></highlight><highlight class="stringliteral">&quot;------------------------------------\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(PrtnIndex<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnIndex<sp/>&lt;<sp/>PdiPtr-&gt;<ref refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" kindref="member">MetaHdr</ref>-&gt;ImgHdr[PdiPtr-&gt;<ref refid="struct_xil_pdi_1a5c1c3a68a8f24232d6a24ad64e3c1f4e" kindref="member">ImageNum</ref>].NoOfPrtns;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++PrtnIndex)<sp/>{</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XPlmi_NpiOutOfReset()<sp/>==<sp/>(u8)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_ClearNpiErrors();</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PdiPtr-&gt;<ref refid="struct_xil_pdi_1a06ce3a51615d7686895e4b702de31082" kindref="member">DelayLoad</ref><sp/>==<sp/>(u8)FALSE)<sp/>{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_PRINT_ALWAYS,<sp/></highlight><highlight class="stringliteral">&quot;---Loading<sp/>Partition#:<sp/>0x%0x,<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Id:<sp/>0x%0x\r\n&quot;</highlight><highlight class="normal">,<sp/>PdiPtr-&gt;<ref refid="struct_xil_pdi_1ad42f5bc76853fd4d615db46648a91110" kindref="member">PrtnNum</ref>,</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PdiPtr-&gt;<ref refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" kindref="member">MetaHdr</ref>-&gt;PrtnHdr[PdiPtr-&gt;<ref refid="struct_xil_pdi_1ad42f5bc76853fd4d615db46648a91110" kindref="member">PrtnNum</ref>].PrtnId);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;---Skipping<sp/>Partition#:<sp/>0x%0x,<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Id:<sp/>0x%0x\r\n&quot;</highlight><highlight class="normal">,<sp/>PdiPtr-&gt;<ref refid="struct_xil_pdi_1ad42f5bc76853fd4d615db46648a91110" kindref="member">PrtnNum</ref>,</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PdiPtr-&gt;<ref refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" kindref="member">MetaHdr</ref>-&gt;PrtnHdr[PdiPtr-&gt;<ref refid="struct_xil_pdi_1ad42f5bc76853fd4d615db46648a91110" kindref="member">PrtnNum</ref>].PrtnId);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnLoadTime<sp/>=<sp/>XPlmi_GetTimerValue();</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XLoader_PrtnHdrValidation(</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;(PdiPtr-&gt;<ref refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" kindref="member">MetaHdr</ref>-&gt;PrtnHdr[PdiPtr-&gt;<ref refid="struct_xil_pdi_1ad42f5bc76853fd4d615db46648a91110" kindref="member">PrtnNum</ref>]),<sp/>PdiPtr-&gt;<ref refid="struct_xil_pdi_1ad42f5bc76853fd4d615db46648a91110" kindref="member">PrtnNum</ref>);</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)<ref refid="group__xloader__server__apis_1ga2649fc63e039d0ea257ceb1706063594" kindref="member">XLOADER_SUCCESS_NOT_PRTN_OWNER</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_SetPlmLiveStatus();</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PdiPtr-&gt;<ref refid="struct_xil_pdi_1a2a42cd776cf3b5b4bcb422e651c9619d" kindref="member">ImagePrtnId</ref><sp/>=<sp/>PrtnIndex;</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XLoader_ProcessPrtn(PdiPtr);</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_MeasurePerfTime(PrtnLoadTime,<sp/>&amp;PerfTime);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_PRINT_PERF,</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;<sp/>%u.%03u<sp/>ms<sp/>for<sp/>Partition#:<sp/>0x%0x,<sp/>Size:<sp/>%u<sp/>Bytes\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)PerfTime.TPerfMs,<sp/>(u32)PerfTime.TPerfMsFrac,<sp/>PdiPtr-&gt;<ref refid="struct_xil_pdi_1ad42f5bc76853fd4d615db46648a91110" kindref="member">PrtnNum</ref>,</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PdiPtr-&gt;<ref refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" kindref="member">MetaHdr</ref>-&gt;PrtnHdr[PdiPtr-&gt;<ref refid="struct_xil_pdi_1ad42f5bc76853fd4d615db46648a91110" kindref="member">PrtnNum</ref>].TotalDataWordLen)<sp/>*</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_WORD_LEN);</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++PdiPtr-&gt;<ref refid="struct_xil_pdi_1ad42f5bc76853fd4d615db46648a91110" kindref="member">PrtnNum</ref>;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XPlmi_SldState()<sp/>!=<sp/>XPLMI_SLD_NOT_TRIGGERED)<sp/>{</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(XLOADER_SLD_DETECTED_SKIP_PRTN_PROCESS,<sp/>XIL_SIGNED_ZERO);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END1;</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XPlmi_NpiOutOfReset()<sp/>==<sp/>(u8)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_CheckNpiErrors();</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(XPLMI_NPI_ERR,<sp/>Status);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END1;</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XPlmi_NpiOutOfReset()<sp/>==<sp/>(u8)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)XPlmi_CheckNpiErrors();</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="294"><highlight class="normal">END1:</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NODESUBCLASS(PdiPtr-&gt;<ref refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" kindref="member">MetaHdr</ref>-&gt;ImgHdr[PdiPtr-&gt;<ref refid="struct_xil_pdi_1a5c1c3a68a8f24232d6a24ad64e3c1f4e" kindref="member">ImageNum</ref>].ImgID)<sp/>==</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XPM_NODESUBCL_DEV_PL)<sp/>{</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DDRMCCalibCheck<sp/>=<sp/>XPlmi_In32(XPLMI_RTCFG_DDRMC_CALIB_CHECK_SKIP_ADDR);</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Ub<sp/>=<sp/>0U;<sp/>Ub<sp/>&lt;<sp/>MAX_DEV_DDRMC;<sp/>Ub++)<sp/>{</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((DDRMCCalibCheck<sp/>&gt;&gt;<sp/>Ub)<sp/>&amp;<sp/>0x01U)<sp/>{</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;DDRMC_%u<sp/>Calib<sp/>Check<sp/>Skip<sp/>Enabled<sp/>\n\r&quot;</highlight><highlight class="normal">,<sp/>Ub);</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="306"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="320"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_PrtnHdrValidation(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XilPdi_PrtnHdr<sp/>*<sp/>PrtnHdr,<sp/>u32<sp/>PrtnNum)</highlight></codeline>
+<codeline lineno="321"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>(int)<ref refid="group__xloader__server__apis_1ga2649fc63e039d0ea257ceb1706063594" kindref="member">XLOADER_SUCCESS_NOT_PRTN_OWNER</ref>;</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XilPdi_GetPrtnOwner(PrtnHdr)<sp/>!=<sp/>XIH_PH_ATTRB_PRTN_OWNER_PLM)<sp/>{</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;Not<sp/>owned<sp/>by<sp/>PLM,&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;skipping<sp/>the<sp/>Partition#<sp/>0x%08x\n\r&quot;</highlight><highlight class="normal">,<sp/>PrtnNum);</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XilPdi_ValidatePrtnHdr(PrtnHdr);</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="343"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Print<sp/>Prtn<sp/>Hdr<sp/>Details</highlight></codeline>
+<codeline lineno="344"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_INFO,<sp/></highlight><highlight class="stringliteral">&quot;UnEncrypted<sp/>data<sp/>length:<sp/>0x%x\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnHdr-&gt;UnEncDataWordLen);</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_INFO,<sp/></highlight><highlight class="stringliteral">&quot;Encrypted<sp/>data<sp/>length:<sp/>0x%x\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnHdr-&gt;EncDataWordLen);</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_INFO,<sp/></highlight><highlight class="stringliteral">&quot;Total<sp/>data<sp/>word<sp/>length:<sp/>0x%x\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnHdr-&gt;TotalDataWordLen);</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_INFO,<sp/></highlight><highlight class="stringliteral">&quot;Destination<sp/>load<sp/>address:<sp/>0x%lx\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnHdr-&gt;DstnLoadAddr);</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_INFO,<sp/></highlight><highlight class="stringliteral">&quot;Execution<sp/>address:<sp/>0x%lx\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnHdr-&gt;DstnExecutionAddr);</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_INFO,<sp/></highlight><highlight class="stringliteral">&quot;Data<sp/>word<sp/>offset:<sp/>0x%x\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnHdr-&gt;DataWordOfst);</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_INFO,<sp/></highlight><highlight class="stringliteral">&quot;Partition<sp/>attributes:<sp/>0x%x\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnHdr-&gt;PrtnAttrb);</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>VERSAL_2VE_2VM</highlight></codeline>
+<codeline lineno="360"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_INFO,<sp/></highlight><highlight class="stringliteral">&quot;AC<sp/>offset:<sp/>0x%x\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnHdr-&gt;AuthCertificateOfst);</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_INFO,<sp/></highlight><highlight class="stringliteral">&quot;TotalPpkSize:<sp/>0x%x\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnHdr-&gt;TotalPpkSize);</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_INFO,<sp/></highlight><highlight class="stringliteral">&quot;ActualPpkSize:<sp/>0x%x\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnHdr-&gt;ActualPpkSize);</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_INFO,<sp/></highlight><highlight class="stringliteral">&quot;TotalHBSignSize:<sp/>0x%x\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnHdr-&gt;TotalHBSignSize);</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_INFO,<sp/></highlight><highlight class="stringliteral">&quot;ActualHBSignSize:<sp/>0x%x\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnHdr-&gt;ActualHBSignSize);</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_INFO,<sp/></highlight><highlight class="stringliteral">&quot;HashBlockSize:<sp/>0x%x\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnHdr-&gt;HashBlockSize);</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_INFO,<sp/></highlight><highlight class="stringliteral">&quot;HashBlockOffset:<sp/>0x%x\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnHdr-&gt;HashBlockOffset);</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="375"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="376"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"></highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="392" refid="group__xloader__server__apis_1ga629ebb0c55462b5cde87f7e91037b8c0" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1ga629ebb0c55462b5cde87f7e91037b8c0" kindref="member">XLoader_PrtnCopy</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref>*<sp/>PdiPtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_loader___device_copy" kindref="compound">XLoader_DeviceCopy</ref>*<sp/>DeviceCopy,</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>SecureParamsPtr)</highlight></codeline>
+<codeline lineno="394"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>StatusTmp<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_loader___secure_temp_params" kindref="compound">XLoader_SecureTempParams</ref><sp/>*SecureTempParams<sp/>=<sp/><ref refid="group__xloader__server__apis_1ga31df7acaead3af0dfa1735979d3cee12" kindref="member">XLoader_GetTempParams</ref>();</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref><sp/>*SecureParams<sp/>=<sp/>(<ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref><sp/>*)SecureParamsPtr;</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Len;</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>SourceAddr;</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DestinationAddr;</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DevCopyOptimization<sp/>=<sp/>(XPlmi_In32(XPLMI_RTCFG_SECURE_CTRL_ADDR)<sp/>&amp;</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xloader_8h_1abf2917ca5bd94bc73423c5990c220f74" kindref="member">XLOADER_DEVICE_COPY_OPTIMIZATION_MASK</ref>);</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"></highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="406"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Chunk<sp/>length<sp/>stores<sp/>the<sp/>maximum<sp/>size<sp/>of<sp/>data<sp/>that<sp/>can<sp/>be<sp/>copied<sp/>in<sp/>one<sp/>go.<sp/>Chunk<sp/>memory</highlight></codeline>
+<codeline lineno="407"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>space<sp/>allocated<sp/>in<sp/>PMC<sp/>RAM<sp/>is<sp/>64KB.<sp/>First<sp/>40<sp/>bytes<sp/>are<sp/>reserved<sp/>for<sp/>CDO<sp/>command<sp/>header.</highlight></codeline>
+<codeline lineno="408"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Total<sp/>memory<sp/>available<sp/>for<sp/>data<sp/>copy<sp/>is<sp/>64KB<sp/>-<sp/>40B<sp/>=<sp/>63.96KB.</highlight></codeline>
+<codeline lineno="409"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ChunkLen<sp/>=<sp/>(XPLMI_CHUNK_SIZE<sp/>-<sp/>(XPLMI_CMD_LEN_TEMPBUF<sp/>*<sp/>XPLMI_WORD_LEN));</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"></highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PrtnNum<sp/>=<sp/>PdiPtr-&gt;<ref refid="struct_xil_pdi_1ad42f5bc76853fd4d615db46648a91110" kindref="member">PrtnNum</ref>;</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XilPdi_PrtnHdr<sp/>*<sp/>PrtnHdr<sp/>=<sp/>&amp;(PdiPtr-&gt;<ref refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" kindref="member">MetaHdr</ref>-&gt;PrtnHdr[PrtnNum]);</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"></highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_VERIFY_ADDR_RANGE(PM_SUBSYS_PMC,<sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1aa5d26c1fc32172b4befdda406a2e3873" kindref="member">DestAddr</ref>,<sp/>(u64)DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" kindref="member">Len</ref>,<sp/>Status,<sp/>XLOADER_ERR_INVALID_PRTNCOPY_DEST_ADDR,<sp/>END);</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"></highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((SecureParams-&gt;<ref refid="struct_x_loader___secure_params_1a6069b369a2378ffede37c5ea0f1bf06b" kindref="member">SecureEn</ref><sp/>==<sp/>(u8)FALSE)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(SecureTempParams-&gt;<ref refid="struct_x_loader___secure_temp_params_1a2ed92ce0504832cec7347c969edbfdf3" kindref="member">SecureEn</ref><sp/>==<sp/>(u8)FALSE)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(SecureParams-&gt;<ref refid="struct_x_loader___secure_params_1a727f9a1cea52e21ecd29414628e4809b" kindref="member">IsCheckSumEnabled</ref><sp/>==<sp/>(u8)FALSE))<sp/>{</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DevCopyOptimization<sp/>==<sp/><ref refid="group__xloader__server__apis_1ga4eba70b7be10245a53f4834b514bcb7e" kindref="member">XLOADER_BOOT_COPY_OPTIMIZATION_ENABLED</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>PdiPtr-&gt;<ref refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" kindref="member">MetaHdr</ref>-&gt;DeviceCopy(DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a262d93387fc1f3019c567d8230beba86" kindref="member">SrcAddr</ref>,</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1aa5d26c1fc32172b4befdda406a2e3873" kindref="member">DestAddr</ref>,<sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" kindref="member">Len</ref>,</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1aa6a1e07e689496e0213bea601168adc4" kindref="member">Flags</ref>);</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Len<sp/>=<sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" kindref="member">Len</ref>;</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SourceAddr<sp/>=<sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a262d93387fc1f3019c567d8230beba86" kindref="member">SrcAddr</ref>;</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DestinationAddr<sp/>=<sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1aa5d26c1fc32172b4befdda406a2e3873" kindref="member">DestAddr</ref>;</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(Len<sp/>&gt;<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Len<sp/>&lt;=<sp/>ChunkLen)<sp/>{</highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ChunkLen<sp/>=<sp/>Len;</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"></highlight></codeline>
+<codeline lineno="443"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>the<sp/>data<sp/>from<sp/>boot<sp/>device<sp/>to<sp/>PMC<sp/>RAM.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>PdiPtr-&gt;<ref refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" kindref="member">MetaHdr</ref>-&gt;DeviceCopy(SourceAddr,</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_PMCRAM_CHUNK_MEMORY,</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ChunkLen,</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1aa6a1e07e689496e0213bea601168adc4" kindref="member">Flags</ref>);</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(XLOADER_ERR_PRTN_COPY_TO_PMCRAM,</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status);</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"></highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>the<sp/>data<sp/>from<sp/>PMC<sp/>RAM<sp/>to<sp/>destination<sp/>address.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_DmaXfr(XPLMI_PMCRAM_CHUNK_MEMORY,<sp/>DestinationAddr,</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ChunkLen,<sp/>XPLMI_PMCDMA_0);</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(XLOADER_ERR_PRTN_COPY_FROM_PMCRAM_TO_DEST,</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status);</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"></highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Len<sp/>=<sp/>Len<sp/>-<sp/>ChunkLen;</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SourceAddr<sp/>=<sp/>SourceAddr<sp/>+<sp/>ChunkLen;</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DestinationAddr<sp/>=<sp/>DestinationAddr<sp/>+<sp/>ChunkLen;</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_IMPL(Status,<sp/>StatusTmp,<sp/><ref refid="group__xloader__server__apis_1ga04bdca8398a9278a9c382ef66ad42ed9" kindref="member">XLoader_SecureCopy</ref>,</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SecureParams,<sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1aa5d26c1fc32172b4befdda406a2e3873" kindref="member">DestAddr</ref>,</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" kindref="member">Len</ref>);</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((XST_SUCCESS<sp/>!=<sp/>Status)<sp/>||<sp/>(XST_SUCCESS<sp/>!=<sp/>StatusTmp))<sp/>{</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>StatusTmp;</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"></highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;Device<sp/>Copy<sp/>Failed\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xloader__server__apis_1ga6f79f561d049e76c070c6d139aa1ce80" kindref="member">XLoader_UpdateDataMeasurement</ref>(PdiPtr,<sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1aa5d26c1fc32172b4befdda406a2e3873" kindref="member">DestAddr</ref>,</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnHdr-&gt;UnEncDataWordLen<sp/>&lt;&lt;<sp/>XPLMI_WORD_LEN_SHIFT);</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"></highlight></codeline>
+<codeline lineno="484"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="486"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"></highlight></codeline>
+<codeline lineno="488"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="504"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_ProcessCdo(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref>*<sp/>PdiPtr,<sp/><ref refid="struct_x_loader___device_copy" kindref="compound">XLoader_DeviceCopy</ref>*<sp/>DeviceCopy,</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref>*<sp/>SecureParams)</highlight></codeline>
+<codeline lineno="506"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ChunkLen<sp/>=<sp/><ref refid="group__xloader__client__apis_1ga3944db2060fd83c89b79580dd0caa0de" kindref="member">XLOADER_SECURE_CHUNK_SIZE</ref>;</highlight></codeline>
+<codeline lineno="509"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ChunkLenTemp;</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmiCdo<sp/>Cdo;</highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ChunkAddr<sp/>=<sp/>XPLMI_PMCRAM_CHUNK_MEMORY;</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ChunkAddrTemp;</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>LastChunk<sp/>=<sp/>(u8)FALSE;</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Flags;</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DevCopyOptimization<sp/>=<sp/>(XPlmi_In32(XPLMI_RTCFG_SECURE_CTRL_ADDR)<sp/>&amp;</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xloader_8h_1abf2917ca5bd94bc73423c5990c220f74" kindref="member">XLOADER_DEVICE_COPY_OPTIMIZATION_MASK</ref>);</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_loader___secure_temp_params" kindref="compound">XLoader_SecureTempParams</ref><sp/>*SecureTempParams<sp/>=<sp/><ref refid="group__xloader__server__apis_1ga31df7acaead3af0dfa1735979d3cee12" kindref="member">XLoader_GetTempParams</ref>();</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>PLM_PRINT_PERF_CDO_PROCESS</highlight></codeline>
+<codeline lineno="519"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>CdoProcessTimeStart;</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>CdoProcessTimeEnd;</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>CdoProcessTime<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_PerfTime<sp/>PerfTime;</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="524"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_INFO,<sp/></highlight><highlight class="stringliteral">&quot;Processing<sp/>CDO<sp/>partition<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_InitCdo(&amp;Cdo);</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(XLOADER_ERR_INIT_CDO,<sp/>Status);</highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cdo.NextChunkAddr<sp/>=<sp/>XPLMI_PMCRAM_CHUNK_MEMORY;</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cdo.SubsystemId<sp/>=<sp/>XPm_GetSubsystemId(</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PdiPtr-&gt;<ref refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" kindref="member">MetaHdr</ref>-&gt;ImgHdr[PdiPtr-&gt;<ref refid="struct_xil_pdi_1a5c1c3a68a8f24232d6a24ad64e3c1f4e" kindref="member">ImageNum</ref>].ImgID);</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cdo.PartitionOffset<sp/>=<sp/>PdiPtr-&gt;<ref refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" kindref="member">MetaHdr</ref>-&gt;PrtnHdr[PdiPtr-&gt;<ref refid="struct_xil_pdi_1ad42f5bc76853fd4d615db46648a91110" kindref="member">PrtnNum</ref>].DataWordOfst;</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SecureParams-&gt;<ref refid="struct_x_loader___secure_params_1abbc93e51cf3060638961a99bb93946f9" kindref="member">IsCdo</ref><sp/>=<sp/>(u8)TRUE;</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((SecureParams-&gt;<ref refid="struct_x_loader___secure_params_1a6069b369a2378ffede37c5ea0f1bf06b" kindref="member">SecureEn</ref><sp/>==<sp/>(u8)FALSE)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(SecureTempParams-&gt;<ref refid="struct_x_loader___secure_temp_params_1a2ed92ce0504832cec7347c969edbfdf3" kindref="member">SecureEn</ref><sp/>==<sp/>(u8)FALSE)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(SecureParams-&gt;<ref refid="struct_x_loader___secure_params_1a727f9a1cea52e21ecd29414628e4809b" kindref="member">IsCheckSumEnabled</ref><sp/>==<sp/>(u8)FALSE))<sp/>{</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PdiPtr-&gt;<ref refid="struct_xil_pdi_1a4fb19c13e2c03590de9f45d4c337ddeb" kindref="member">PdiIndex</ref><sp/>==<sp/>XLOADER_SD_INDEX)<sp/>||</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PdiPtr-&gt;<ref refid="struct_xil_pdi_1a4fb19c13e2c03590de9f45d4c337ddeb" kindref="member">PdiIndex</ref><sp/>==<sp/>XLOADER_SD_RAW_INDEX))<sp/>{</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ChunkLen<sp/>=<sp/><ref refid="xloader_8h_1a732b3b1ac340dbfdb48da621a9d32071" kindref="member">XLOADER_CHUNK_SIZE</ref>;</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DevCopyOptimization<sp/>==<sp/><ref refid="group__xloader__server__apis_1ga4eba70b7be10245a53f4834b514bcb7e" kindref="member">XLOADER_BOOT_COPY_OPTIMIZATION_ENABLED</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cdo.Cmd.KeyHoleParams.Func<sp/>=<sp/>PdiPtr-&gt;<ref refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" kindref="member">MetaHdr</ref>-&gt;DeviceCopy;</highlight></codeline>
+<codeline lineno="549"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="551"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"></highlight></codeline>
+<codeline lineno="553"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" kindref="member">Len</ref><sp/>&gt;<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" kindref="member">Len</ref><sp/>&lt;=<sp/>ChunkLen)<sp/>{</highlight></codeline>
+<codeline lineno="556"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LastChunk<sp/>=<sp/>(u8)TRUE;</highlight></codeline>
+<codeline lineno="557"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ChunkLen<sp/>=<sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" kindref="member">Len</ref>;</highlight></codeline>
+<codeline lineno="558"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="559"><highlight class="normal"></highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((SecureParams-&gt;<ref refid="struct_x_loader___secure_params_1a6069b369a2378ffede37c5ea0f1bf06b" kindref="member">SecureEn</ref><sp/>==<sp/>(u8)FALSE)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(SecureTempParams-&gt;<ref refid="struct_x_loader___secure_temp_params_1a2ed92ce0504832cec7347c969edbfdf3" kindref="member">SecureEn</ref><sp/>==<sp/>(u8)FALSE)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(SecureParams-&gt;<ref refid="struct_x_loader___secure_params_1a727f9a1cea52e21ecd29414628e4809b" kindref="member">IsCheckSumEnabled</ref><sp/>==<sp/>FALSE))<sp/>{</highlight></codeline>
+<codeline lineno="563"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Cdo.Cmd.KeyHoleParams.IsNextChunkCopyStarted<sp/>==<sp/>(u8)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cdo.Cmd.KeyHoleParams.IsNextChunkCopyStarted<sp/>=<sp/>(u8)FALSE;</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Flags<sp/>=<sp/>XPLMI_DEVICE_COPY_STATE_WAIT_DONE;</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Flags<sp/>=<sp/>XPLMI_DEVICE_COPY_STATE_BLK;</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>PdiPtr-&gt;<ref refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" kindref="member">MetaHdr</ref>-&gt;DeviceCopy(DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a262d93387fc1f3019c567d8230beba86" kindref="member">SrcAddr</ref>,</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ChunkAddr,<sp/>ChunkLen,<sp/>(DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1aa6a1e07e689496e0213bea601168adc4" kindref="member">Flags</ref><sp/>|<sp/>Flags));</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cdo.BufPtr<sp/>=<sp/>(u32<sp/>*)ChunkAddr;</highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cdo.BufLen<sp/>=<sp/>ChunkLen<sp/>&gt;&gt;<sp/>XPLMI_WORD_LEN_SHIFT;</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ChunkLenTemp<sp/>=<sp/>ChunkLen;</highlight></codeline>
+<codeline lineno="579"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a262d93387fc1f3019c567d8230beba86" kindref="member">SrcAddr</ref><sp/>+=<sp/>ChunkLen;</highlight></codeline>
+<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" kindref="member">Len</ref><sp/>-=<sp/>ChunkLen;</highlight></codeline>
+<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cdo.Cmd.KeyHoleParams.SrcAddr<sp/>=<sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a262d93387fc1f3019c567d8230beba86" kindref="member">SrcAddr</ref>;</highlight></codeline>
+<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(LastChunk<sp/>!=<sp/>(u8)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="587"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ChunkAddr<sp/>+=<sp/>ChunkLen;</highlight></codeline>
+<codeline lineno="588"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ChunkAddr<sp/>&gt;<sp/>XPLMI_PMCRAM_CHUNK_MEMORY_1)<sp/>{</highlight></codeline>
+<codeline lineno="589"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ChunkAddr<sp/>=</highlight></codeline>
+<codeline lineno="590"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_PMCRAM_CHUNK_MEMORY;</highlight></codeline>
+<codeline lineno="591"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="592"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="593"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ChunkAddr<sp/>=<sp/>XPLMI_PMCRAM_CHUNK_MEMORY_1;</highlight></codeline>
+<codeline lineno="594"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="596"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" kindref="member">Len</ref><sp/>&lt;=<sp/>ChunkLen)<sp/>{</highlight></codeline>
+<codeline lineno="597"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LastChunk<sp/>=<sp/>(u8)TRUE;</highlight></codeline>
+<codeline lineno="598"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ChunkLen<sp/>=<sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" kindref="member">Len</ref>;</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="600"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cdo.Cmd.KeyHoleParams.IsNextChunkCopyStarted<sp/>=<sp/>(u8)TRUE;</highlight></codeline>
+<codeline lineno="601"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cdo.NextChunkAddr<sp/>=<sp/>ChunkAddr;</highlight></codeline>
+<codeline lineno="603"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>PdiPtr-&gt;<ref refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" kindref="member">MetaHdr</ref>-&gt;DeviceCopy(</highlight></codeline>
+<codeline lineno="604"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a262d93387fc1f3019c567d8230beba86" kindref="member">SrcAddr</ref>,<sp/>ChunkAddr,</highlight></codeline>
+<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ChunkLen,<sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1aa6a1e07e689496e0213bea601168adc4" kindref="member">Flags</ref><sp/>|</highlight></codeline>
+<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_DEVICE_COPY_STATE_INITIATE);</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="608"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="613"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SecureParams-&gt;<ref refid="struct_x_loader___secure_params_1a1fe8808a895081bf96663603c0500393" kindref="member">RemainingDataLen</ref><sp/>=<sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" kindref="member">Len</ref>;</highlight></codeline>
+<codeline lineno="614"><highlight class="normal"></highlight></codeline>
+<codeline lineno="615"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>SecureParams-&gt;<ref refid="struct_x_loader___secure_params_1a72675da875a77e68ee27f62d18038482" kindref="member">ProcessPrtn</ref>(SecureParams,</highlight></codeline>
+<codeline lineno="616"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SecureParams-&gt;<ref refid="struct_x_loader___secure_params_1ae78d22b1294bd09514ac5e6b06d4bee0" kindref="member">SecureData</ref>,<sp/>ChunkLen,<sp/>LastChunk);</highlight></codeline>
+<codeline lineno="617"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="618"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="619"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="620"><highlight class="normal"></highlight></codeline>
+<codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cdo.NextChunkAddr<sp/>=<sp/>SecureParams-&gt;<ref refid="struct_x_loader___secure_params_1abeeaf55387225399d2923d50a0244011" kindref="member">NextChunkAddr</ref>;</highlight></codeline>
+<codeline lineno="622"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SecureParams-&gt;<ref refid="struct_x_loader___secure_params_1a64f40d79e6a1885658ba2f3c7b58666d" kindref="member">ChunkAddr</ref><sp/>=<sp/>SecureParams-&gt;<ref refid="struct_x_loader___secure_params_1abeeaf55387225399d2923d50a0244011" kindref="member">NextChunkAddr</ref>;</highlight></codeline>
+<codeline lineno="623"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cdo.BufPtr<sp/>=<sp/>(u32<sp/>*)SecureParams-&gt;<ref refid="struct_x_loader___secure_params_1ae78d22b1294bd09514ac5e6b06d4bee0" kindref="member">SecureData</ref>;</highlight></codeline>
+<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cdo.BufLen<sp/>=<sp/>SecureParams-&gt;<ref refid="struct_x_loader___secure_params_1aa8068957063ef08e9a529c406e700a50" kindref="member">SecureDataLen</ref><sp/>&gt;&gt;<sp/>XPLMI_WORD_LEN_SHIFT;</highlight></codeline>
+<codeline lineno="625"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ChunkLenTemp<sp/>=<sp/>SecureParams-&gt;<ref refid="struct_x_loader___secure_params_1aa8068957063ef08e9a529c406e700a50" kindref="member">SecureDataLen</ref>;</highlight></codeline>
+<codeline lineno="626"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a262d93387fc1f3019c567d8230beba86" kindref="member">SrcAddr</ref><sp/>+=<sp/>SecureParams-&gt;<ref refid="struct_x_loader___secure_params_1afe9f6132e61e1f3c816b74c00269bd36" kindref="member">ProcessedLen</ref>;</highlight></codeline>
+<codeline lineno="627"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" kindref="member">Len</ref><sp/>-=<sp/>SecureParams-&gt;<ref refid="struct_x_loader___secure_params_1afe9f6132e61e1f3c816b74c00269bd36" kindref="member">ProcessedLen</ref>;</highlight></codeline>
+<codeline lineno="628"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="629"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>PLM_PRINT_PERF_CDO_PROCESS</highlight></codeline>
+<codeline lineno="630"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CdoProcessTimeStart<sp/>=<sp/>XPlmi_GetTimerValue();</highlight></codeline>
+<codeline lineno="631"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="632"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PdiPtr-&gt;<ref refid="struct_xil_pdi_1abfb2bdf4aada2ee8b70475e9dc179edc" kindref="member">PdiType</ref><sp/>!=<sp/>XLOADER_PDI_TYPE_IPU)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="633"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PdiPtr-&gt;<ref refid="struct_xil_pdi_1abfb2bdf4aada2ee8b70475e9dc179edc" kindref="member">PdiType</ref><sp/>!=<sp/>XLOADER_PDI_TYPE_IAU))<sp/>{</highlight></codeline>
+<codeline lineno="635"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_ProcessCdo(&amp;Cdo);</highlight></codeline>
+<codeline lineno="636"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="637"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="638"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="639"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="640"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>PLM_PRINT_PERF_CDO_PROCESS</highlight></codeline>
+<codeline lineno="641"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CdoProcessTimeEnd<sp/>=<sp/>XPlmi_GetTimerValue();</highlight></codeline>
+<codeline lineno="642"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CdoProcessTime<sp/>+=<sp/>(CdoProcessTimeStart<sp/>-<sp/>CdoProcessTimeEnd);</highlight></codeline>
+<codeline lineno="643"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="644"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Cdo.Cmd.KeyHoleParams.ExtraWords<sp/>!=<sp/>0x0U)<sp/>{</highlight></codeline>
+<codeline lineno="645"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cdo.Cmd.KeyHoleParams.ExtraWords<sp/>&lt;&lt;=<sp/>XPLMI_WORD_LEN_SHIFT;</highlight></codeline>
+<codeline lineno="646"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Cdo.Cmd.KeyHoleParams.IsNextChunkCopyStarted<sp/>==<sp/>(u8)TRUE)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="647"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Cdo.Cmd.KeyHoleParams.ExtraWords<sp/>&lt;<sp/>ChunkLen))<sp/>{</highlight></codeline>
+<codeline lineno="648"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" kindref="member">Len</ref><sp/>-=<sp/>ChunkLen;</highlight></codeline>
+<codeline lineno="649"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a262d93387fc1f3019c567d8230beba86" kindref="member">SrcAddr</ref><sp/>+=<sp/>ChunkLen;</highlight></codeline>
+<codeline lineno="654"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ChunkAddrTemp<sp/>=<sp/>(ChunkAddr<sp/>+<sp/>Cdo.Cmd.KeyHoleParams.ExtraWords);</highlight></codeline>
+<codeline lineno="655"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ChunkLenTemp<sp/>=<sp/>(ChunkLen<sp/>-<sp/>Cdo.Cmd.KeyHoleParams.ExtraWords);</highlight></codeline>
+<codeline lineno="656"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cdo.BufPtr<sp/>=<sp/>(u32<sp/>*)ChunkAddrTemp;</highlight></codeline>
+<codeline lineno="657"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cdo.BufLen<sp/>=<sp/>ChunkLenTemp<sp/>&gt;&gt;<sp/>XIH_PRTN_WORD_LEN_SHIFT;</highlight></codeline>
+<codeline lineno="658"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cdo.Cmd.KeyHoleParams.ExtraWords<sp/>=<sp/>0x0U;</highlight></codeline>
+<codeline lineno="659"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cdo.Cmd.KeyHoleParams.SrcAddr<sp/>=<sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a262d93387fc1f3019c567d8230beba86" kindref="member">SrcAddr</ref>;</highlight></codeline>
+<codeline lineno="660"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cdo.Cmd.KeyHoleParams.IsNextChunkCopyStarted<sp/>=<sp/>(u8)FALSE;</highlight></codeline>
+<codeline lineno="661"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PdiPtr-&gt;<ref refid="struct_xil_pdi_1abfb2bdf4aada2ee8b70475e9dc179edc" kindref="member">PdiType</ref><sp/>!=<sp/>XLOADER_PDI_TYPE_IPU)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="662"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PdiPtr-&gt;<ref refid="struct_xil_pdi_1abfb2bdf4aada2ee8b70475e9dc179edc" kindref="member">PdiType</ref><sp/>!=<sp/>XLOADER_PDI_TYPE_IAU))<sp/>{</highlight></codeline>
+<codeline lineno="663"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_ProcessCdo(&amp;Cdo);</highlight></codeline>
+<codeline lineno="664"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="665"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="666"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="667"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="668"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Cdo.Cmd.KeyHoleParams.ExtraWords<sp/>!=<sp/>0x0U)<sp/>{</highlight></codeline>
+<codeline lineno="669"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cdo.Cmd.KeyHoleParams.ExtraWords<sp/>&lt;&lt;=<sp/>XPLMI_WORD_LEN_SHIFT;</highlight></codeline>
+<codeline lineno="670"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" kindref="member">Len</ref><sp/>-=<sp/>Cdo.Cmd.KeyHoleParams.ExtraWords;</highlight></codeline>
+<codeline lineno="671"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a262d93387fc1f3019c567d8230beba86" kindref="member">SrcAddr</ref><sp/>+=<sp/>Cdo.Cmd.KeyHoleParams.ExtraWords;</highlight></codeline>
+<codeline lineno="672"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cdo.Cmd.KeyHoleParams.ExtraWords<sp/>=<sp/>0x0U;</highlight></codeline>
+<codeline lineno="673"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="674"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="675"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="676"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" kindref="member">Len</ref><sp/>-=<sp/>Cdo.Cmd.KeyHoleParams.ExtraWords;</highlight></codeline>
+<codeline lineno="677"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DeviceCopy-&gt;<ref refid="struct_x_loader___device_copy_1a262d93387fc1f3019c567d8230beba86" kindref="member">SrcAddr</ref><sp/>+=<sp/>Cdo.Cmd.KeyHoleParams.ExtraWords;</highlight></codeline>
+<codeline lineno="678"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cdo.Cmd.KeyHoleParams.ExtraWords<sp/>=<sp/>0x0U;</highlight></codeline>
+<codeline lineno="679"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cdo.Cmd.KeyHoleParams.IsNextChunkCopyStarted<sp/>=<sp/>(u8)FALSE;</highlight></codeline>
+<codeline lineno="680"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="681"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="682"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="683"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xloader__server__apis_1ga6f79f561d049e76c070c6d139aa1ce80" kindref="member">XLoader_UpdateDataMeasurement</ref>(PdiPtr,<sp/>(u64)(UINTPTR)Cdo.BufPtr,<sp/>ChunkLenTemp);</highlight></codeline>
+<codeline lineno="684"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="685"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="686"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="687"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="688"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="689"><highlight class="normal"></highlight></codeline>
+<codeline lineno="691"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Cdo.DeferredError<sp/>==<sp/>(u8)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="692"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xloader__server__apis_1ga99e1b8db2c77863361f3d8802cff6d8b" kindref="member">XLoader_ProcessDeferredError</ref>();</highlight></codeline>
+<codeline lineno="693"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="694"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="695"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="696"><highlight class="normal"></highlight></codeline>
+<codeline lineno="697"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="698"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>PLM_PRINT_PERF_CDO_PROCESS</highlight></codeline>
+<codeline lineno="699"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_MeasurePerfTime((XPlmi_GetTimerValue()<sp/>+<sp/>CdoProcessTime),</highlight></codeline>
+<codeline lineno="700"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;PerfTime);</highlight></codeline>
+<codeline lineno="701"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_PRINT_PERF,</highlight></codeline>
+<codeline lineno="702"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;%u.%03u<sp/>ms<sp/>Cdo<sp/>Processing<sp/>time\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="703"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)PerfTime.TPerfMs,<sp/>(u32)PerfTime.TPerfMsFrac);</highlight></codeline>
+<codeline lineno="704"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="705"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="706"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="707"><highlight class="normal"></highlight></codeline>
+<codeline lineno="708"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="721"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_ProcessPrtn(<ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref>*<sp/>PdiPtr)</highlight></codeline>
+<codeline lineno="722"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="723"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="724"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref><sp/>SecureParams;</highlight></codeline>
+<codeline lineno="725"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_loader___prtn_params" kindref="compound">XLoader_PrtnParams</ref><sp/>PrtnParams;</highlight></codeline>
+<codeline lineno="726"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PrtnType;</highlight></codeline>
+<codeline lineno="727"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TrfLen;</highlight></codeline>
+<codeline lineno="728"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>TempVal;</highlight></codeline>
+<codeline lineno="729"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PrtnNum<sp/>=<sp/>PdiPtr-&gt;<ref refid="struct_xil_pdi_1ad42f5bc76853fd4d615db46648a91110" kindref="member">PrtnNum</ref>;</highlight></codeline>
+<codeline lineno="730"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assign<sp/>the<sp/>partition<sp/>header<sp/>to<sp/>local<sp/>variable<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="731"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilPdi_PrtnHdr<sp/>*<sp/>PrtnHdr<sp/>=<sp/>&amp;(PdiPtr-&gt;<ref refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" kindref="member">MetaHdr</ref>-&gt;PrtnHdr[PrtnNum]);</highlight></codeline>
+<codeline lineno="732"><highlight class="normal"></highlight></codeline>
+<codeline lineno="734"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnType<sp/>=<sp/>XilPdi_GetPrtnType(PrtnHdr);</highlight></codeline>
+<codeline lineno="735"><highlight class="normal"></highlight></codeline>
+<codeline lineno="740"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((XilPdi_GetEL((</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XilPdi_PrtnHdr<sp/>*)PrtnHdr)<sp/>==<sp/>XIH_PH_ATTRB_EL1)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="741"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XilPdi_GetTZ((</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XilPdi_PrtnHdr<sp/>*)PrtnHdr)<sp/>==<sp/>XIH_PH_ATTRB_TZ_SECURE))<sp/>{</highlight></codeline>
+<codeline lineno="742"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnType<sp/>=<sp/>XIH_PH_ATTRB_PRTN_TYPE_ELF;</highlight></codeline>
+<codeline lineno="743"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnHdr-&gt;DstnExecutionAddr<sp/>=<sp/>PrtnHdr-&gt;DstnLoadAddr;</highlight></codeline>
+<codeline lineno="744"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="745"><highlight class="normal"></highlight></codeline>
+<codeline lineno="746"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnParams.<ref refid="struct_x_loader___prtn_params_1aa1a8cbeb58271aec95d124d58f8c200d" kindref="member">DeviceCopy</ref>.<ref refid="struct_x_loader___device_copy_1aa5d26c1fc32172b4befdda406a2e3873" kindref="member">DestAddr</ref><sp/>=<sp/>PrtnHdr-&gt;DstnLoadAddr;</highlight></codeline>
+<codeline lineno="747"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnParams.<ref refid="struct_x_loader___prtn_params_1aa1a8cbeb58271aec95d124d58f8c200d" kindref="member">DeviceCopy</ref>.<ref refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" kindref="member">Len</ref><sp/>=<sp/>(PrtnHdr-&gt;TotalDataWordLen<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="748"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_WORD_LEN_SHIFT);</highlight></codeline>
+<codeline lineno="749"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnParams.<ref refid="struct_x_loader___prtn_params_1aa1a8cbeb58271aec95d124d58f8c200d" kindref="member">DeviceCopy</ref>.<ref refid="struct_x_loader___device_copy_1aa6a1e07e689496e0213bea601168adc4" kindref="member">Flags</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="750"><highlight class="normal"></highlight></codeline>
+<codeline lineno="751"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PdiPtr-&gt;<ref refid="struct_xil_pdi_1abfb2bdf4aada2ee8b70475e9dc179edc" kindref="member">PdiType</ref><sp/>!=<sp/>XLOADER_PDI_TYPE_RESTORE)<sp/>{</highlight></codeline>
+<codeline lineno="752"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnParams.<ref refid="struct_x_loader___prtn_params_1aa1a8cbeb58271aec95d124d58f8c200d" kindref="member">DeviceCopy</ref>.<ref refid="struct_x_loader___device_copy_1a262d93387fc1f3019c567d8230beba86" kindref="member">SrcAddr</ref><sp/>=<sp/>PdiPtr-&gt;<ref refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" kindref="member">MetaHdr</ref>-&gt;FlashOfstAddr<sp/>+</highlight></codeline>
+<codeline lineno="753"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u64)PrtnHdr-&gt;DataWordOfst<sp/>&lt;&lt;<sp/>XPLMI_WORD_LEN_SHIFT);</highlight></codeline>
+<codeline lineno="754"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="755"><highlight class="normal"></highlight></codeline>
+<codeline lineno="756"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PdiPtr-&gt;<ref refid="struct_xil_pdi_1a06ce3a51615d7686895e4b702de31082" kindref="member">DelayLoad</ref><sp/>==<sp/>(u8)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="757"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PdiPtr-&gt;<ref refid="struct_xil_pdi_1a4fb19c13e2c03590de9f45d4c337ddeb" kindref="member">PdiIndex</ref><sp/>==<sp/><ref refid="xloader_8h_1ac8097924f1abad9477162e3b273ccfc6" kindref="member">XLOADER_SBI_INDEX</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="758"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(PrtnParams.<ref refid="struct_x_loader___prtn_params_1aa1a8cbeb58271aec95d124d58f8c200d" kindref="member">DeviceCopy</ref>.<ref refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" kindref="member">Len</ref><sp/>&gt;<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="759"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PrtnParams.<ref refid="struct_x_loader___prtn_params_1aa1a8cbeb58271aec95d124d58f8c200d" kindref="member">DeviceCopy</ref>.<ref refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" kindref="member">Len</ref><sp/>&gt;<sp/><ref refid="xloader_8h_1a732b3b1ac340dbfdb48da621a9d32071" kindref="member">XLOADER_CHUNK_SIZE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="760"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TrfLen<sp/>=<sp/><ref refid="xloader_8h_1a732b3b1ac340dbfdb48da621a9d32071" kindref="member">XLOADER_CHUNK_SIZE</ref>;</highlight></codeline>
+<codeline lineno="761"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="762"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="763"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TrfLen<sp/>=<sp/>PrtnParams.<ref refid="struct_x_loader___prtn_params_1aa1a8cbeb58271aec95d124d58f8c200d" kindref="member">DeviceCopy</ref>.<ref refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" kindref="member">Len</ref>;</highlight></codeline>
+<codeline lineno="764"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="765"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>PdiPtr-&gt;<ref refid="struct_xil_pdi_1a97b41fa32e374d83d1dd6fde4a6255e7" kindref="member">MetaHdr</ref>-&gt;DeviceCopy(PrtnParams.<ref refid="struct_x_loader___prtn_params_1aa1a8cbeb58271aec95d124d58f8c200d" kindref="member">DeviceCopy</ref>.<ref refid="struct_x_loader___device_copy_1a262d93387fc1f3019c567d8230beba86" kindref="member">SrcAddr</ref>,</highlight></codeline>
+<codeline lineno="766"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_PMCRAM_CHUNK_MEMORY,<sp/>TrfLen,<sp/>0U);</highlight></codeline>
+<codeline lineno="767"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="768"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(XLOADER_ERR_DELAY_LOAD,<sp/>Status);</highlight></codeline>
+<codeline lineno="769"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="770"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="771"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnParams.<ref refid="struct_x_loader___prtn_params_1aa1a8cbeb58271aec95d124d58f8c200d" kindref="member">DeviceCopy</ref>.<ref refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" kindref="member">Len</ref><sp/>=<sp/>PrtnParams.<ref refid="struct_x_loader___prtn_params_1aa1a8cbeb58271aec95d124d58f8c200d" kindref="member">DeviceCopy</ref>.<ref refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" kindref="member">Len</ref><sp/>-<sp/>TrfLen;</highlight></codeline>
+<codeline lineno="772"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnParams.<ref refid="struct_x_loader___prtn_params_1aa1a8cbeb58271aec95d124d58f8c200d" kindref="member">DeviceCopy</ref>.<ref refid="struct_x_loader___device_copy_1a262d93387fc1f3019c567d8230beba86" kindref="member">SrcAddr</ref><sp/>=<sp/>PrtnParams.<ref refid="struct_x_loader___prtn_params_1aa1a8cbeb58271aec95d124d58f8c200d" kindref="member">DeviceCopy</ref>.<ref refid="struct_x_loader___device_copy_1a262d93387fc1f3019c567d8230beba86" kindref="member">SrcAddr</ref><sp/>+<sp/>TrfLen;</highlight></codeline>
+<codeline lineno="773"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="774"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="775"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="776"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="777"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="778"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="779"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="780"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>MISRA-C<sp/>compliance</highlight></codeline>
+<codeline lineno="781"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="782"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="783"><highlight class="normal"></highlight></codeline>
+<codeline lineno="784"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xloader__server__apis_1ga9410756c2dbe4b6bd6cdfce81a5bd7fa" kindref="member">XLoader_SecureInit</ref>(&amp;SecureParams,<sp/>PdiPtr,<sp/>PrtnNum);</highlight></codeline>
+<codeline lineno="785"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="786"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="787"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="788"><highlight class="normal"></highlight></codeline>
+<codeline lineno="793"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TempVal<sp/>=<sp/>(u8)(<ref refid="xloader_8h_1a47f9e913d294cbf5cda326e9aeef55f5" kindref="member">XLOADER_DMA_LEN_ALIGN</ref><sp/>-</highlight></codeline>
+<codeline lineno="794"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)((PrtnParams.<ref refid="struct_x_loader___prtn_params_1aa1a8cbeb58271aec95d124d58f8c200d" kindref="member">DeviceCopy</ref>.<ref refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" kindref="member">Len</ref><sp/>&amp;<sp/><ref refid="xloader_8h_1a850f9e4c5fd1eb6b8c24594276a6cb76" kindref="member">XLOADER_DMA_LEN_ALIGN_MASK</ref>)));</highlight></codeline>
+<codeline lineno="795"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnParams.<ref refid="struct_x_loader___prtn_params_1aa1a8cbeb58271aec95d124d58f8c200d" kindref="member">DeviceCopy</ref>.<ref refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" kindref="member">Len</ref><sp/>+=<sp/>TempVal<sp/>&amp;<sp/><ref refid="xloader_8h_1a850f9e4c5fd1eb6b8c24594276a6cb76" kindref="member">XLOADER_DMA_LEN_ALIGN_MASK</ref>;</highlight></codeline>
+<codeline lineno="796"><highlight class="normal"></highlight></codeline>
+<codeline lineno="801"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnParams.<ref refid="struct_x_loader___prtn_params_1aa1a8cbeb58271aec95d124d58f8c200d" kindref="member">DeviceCopy</ref>.<ref refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" kindref="member">Len</ref><sp/>-=<sp/>SecureParams.<ref refid="struct_x_loader___secure_params_1afe9f6132e61e1f3c816b74c00269bd36" kindref="member">ProcessedLen</ref>;</highlight></codeline>
+<codeline lineno="802"><highlight class="normal"></highlight></codeline>
+<codeline lineno="803"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Skip<sp/>MJTAG<sp/>workaround<sp/>partition<sp/>for<sp/>versal<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="804"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__xloader__server__apis_1ga98700d17bfbbf3cf29e418a784745169" kindref="member">XLoader_SkipMJtagWorkAround</ref>(PdiPtr)<sp/>==<sp/>(u8)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="805"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Just<sp/>copy<sp/>the<sp/>partitions<sp/>to<sp/>PMC<sp/>RAM<sp/>and<sp/>skip<sp/>processing<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="806"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnParams.<ref refid="struct_x_loader___prtn_params_1aa1a8cbeb58271aec95d124d58f8c200d" kindref="member">DeviceCopy</ref>.<ref refid="struct_x_loader___device_copy_1aa5d26c1fc32172b4befdda406a2e3873" kindref="member">DestAddr</ref><sp/>=<sp/>XPLMI_PMCRAM_BASEADDR;</highlight></codeline>
+<codeline lineno="807"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xloader__server__apis_1ga629ebb0c55462b5cde87f7e91037b8c0" kindref="member">XLoader_PrtnCopy</ref>(PdiPtr,<sp/>&amp;PrtnParams.<ref refid="struct_x_loader___prtn_params_1aa1a8cbeb58271aec95d124d58f8c200d" kindref="member">DeviceCopy</ref>,<sp/>&amp;SecureParams);</highlight></codeline>
+<codeline lineno="808"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;Skipping<sp/>MJTAG<sp/>partition\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="809"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="810"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="811"><highlight class="normal"></highlight></codeline>
+<codeline lineno="812"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PrtnType<sp/>==<sp/>XIH_PH_ATTRB_PRTN_TYPE_CDO)<sp/>{</highlight></codeline>
+<codeline lineno="813"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XLoader_ProcessCdo(PdiPtr,<sp/>&amp;PrtnParams.<ref refid="struct_x_loader___prtn_params_1aa1a8cbeb58271aec95d124d58f8c200d" kindref="member">DeviceCopy</ref>,<sp/>&amp;SecureParams);</highlight></codeline>
+<codeline lineno="814"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="815"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PrtnType<sp/>==<sp/>XIH_PH_ATTRB_PRTN_TYPE_ELF)<sp/>{</highlight></codeline>
+<codeline lineno="816"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_INFO,<sp/></highlight><highlight class="stringliteral">&quot;Copying<sp/>elf<sp/>partitions\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="817"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xloader__server__apis_1ga4ee480ef9152cd51e9aabb49fd0515fd" kindref="member">XLoader_ProcessElf</ref>(PdiPtr,<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XilPdi_PrtnHdr<sp/>*)PrtnHdr,<sp/>&amp;PrtnParams,<sp/>&amp;SecureParams);</highlight></codeline>
+<codeline lineno="818"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="819"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="820"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_INFO,<sp/></highlight><highlight class="stringliteral">&quot;Copying<sp/>data<sp/>partition\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="821"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Partition<sp/>Copy<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="822"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xloader__server__apis_1ga629ebb0c55462b5cde87f7e91037b8c0" kindref="member">XLoader_PrtnCopy</ref>(PdiPtr,<sp/>&amp;PrtnParams.<ref refid="struct_x_loader___prtn_params_1aa1a8cbeb58271aec95d124d58f8c200d" kindref="member">DeviceCopy</ref>,<sp/>&amp;SecureParams);</highlight></codeline>
+<codeline lineno="823"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="824"><highlight class="normal"></highlight></codeline>
+<codeline lineno="825"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="826"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="827"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="828"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_prtn_load.c"/>
+  </compounddef>
+</doxygen>

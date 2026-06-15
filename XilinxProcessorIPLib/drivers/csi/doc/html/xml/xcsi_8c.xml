@@ -1,0 +1,1209 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xcsi_8c" kind="file">
+    <compoundname>xcsi.c</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xdebug.h</includes>
+    <includes refid="xcsi_8h" local="yes">xcsi.h</includes>
+    <incdepgraph>
+      <node id="11">
+        <label>xil_io.h</label>
+      </node>
+      <node id="4">
+        <label>xcsi.c</label>
+        <link refid="xcsi.c"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>xcsi.h</label>
+        <link refid="xcsi_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>xdebug.h</label>
+      </node>
+      <node id="6">
+        <label>xstatus.h</label>
+      </node>
+      <node id="9">
+        <label>xil_types.h</label>
+      </node>
+      <node id="5">
+        <label>xparameters.h</label>
+      </node>
+      <node id="10">
+        <label>xcsi_hw.h</label>
+        <link refid="xcsi__hw_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__csi_1ga97cd274fdfd6dbedab1a892d58cec9af" prot="public" static="no">
+        <name>XCSI_RESET_TIMEOUT</name>
+        <initializer>10000</initializer>
+        <briefdescription>
+<para>Timeout count for CSI soft reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" bodystart="36" bodyend="-1"/>
+        <referencedby refid="group__csi_1ga067001a4c7e39114b27d3926c4ae8e63" compoundref="xcsi_8c" startline="161" endline="188">XCsi_Activate</referencedby>
+        <referencedby refid="group__csi_1ga757f09602140036cdf563da1df275d1a" compoundref="xcsi_8c" startline="203" endline="277">XCsi_Configure</referencedby>
+        <referencedby refid="group__csi_1ga0069d82265929da556da847513183dc5" compoundref="xcsi_8c" startline="121" endline="145">XCsi_Reset</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__csi_1gaa97bf3adf9004a248b5ce4bc570da8ff" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void StubErrCallBack</definition>
+        <argsstring>(void *Callbackref, u32 ErrorMask)</argsstring>
+        <name>StubErrCallBack</name>
+        <param>
+          <type>void *</type>
+          <declname>Callbackref</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ErrorMask</declname>
+        </param>
+        <briefdescription>
+<para>Stub callback function for asynchronous error interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>This routine is a stub for the asynchronous error interrupt callback.</para><para>Each of callback functions to be called on different types of interrupts. These stub functions are set during XCsi_CfgInitialize as default callback functions. If application is not registered any of the callback function, these functions will be called for doing nothing.</para><para>The stub is here in case the upper layer forgot to set the handler. On initialization, Error interrupt handler is set to this callback. It is considered an error for this handler to be invoked.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Callbackref</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a callback reference passed in by the upper layer when setting the callback functions, and passed back to the upper layer when the callback is invoked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ErrorMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a bit mask indicating the cause of the error. Its value equals &apos;OR&apos;ing one or more XCSI_ISR_*_MASK values defined in <ref refid="xcsi__hw_8h" kindref="compound">xcsi_hw.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" bodystart="565" bodyend="570"/>
+      </memberdef>
+      <memberdef kind="function" id="group__csi_1ga0805b66d6432c2d9cc42b1e2e8a547bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCsi_CfgInitialize</definition>
+        <argsstring>(XCsi *InstancePtr, XCsi_Config *CfgPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XCsi_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_csi" kindref="compound">XCsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_csi___config" kindref="compound">XCsi_Config</ref> *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>Initialize the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance provided by the caller based on the given Config structure. </para>        </briefdescription>
+        <detaileddescription>
+<para>Initialize the CSI driver.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device configuration structure containing information about a specific CSI. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. If address translation is being used, then this parameter must reflect the virtual base address. Otherwise, the physical address should be used.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function initializes the CSI driver/device. This function must be called prior to using the driver. Initialization includes setting up the instance data and ensuring the hardware is in a quiescent state.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a reference to a structure containing information about a specific <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. If address translation is being used, then this parameter must reflect the virtual base address. Otherwise, the physical address should be used.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful.</para></listitem><listitem><para>XST_FAILURE if initialization failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" bodystart="78" bodyend="105"/>
+        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="200">XCsi_Config::BaseAddr</references>
+        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="232">XCsi::Config</references>
+        <references refid="struct_x_csi_1a8b406c848347ac5d063b7865ea0762d0" compoundref="xcsi_8h" startline="243">XCsi::DPhyLvlErrCallBack</references>
+        <references refid="struct_x_csi_1a8ddd267108d3d2f22658ea312562f379" compoundref="xcsi_8h" startline="256">XCsi::ErrorCallBack</references>
+        <references refid="struct_x_csi_1ab46f113494ae58a53682d744ae6548bf" compoundref="xcsi_8h" startline="239">XCsi::FrameRecvdCallBack</references>
+        <references refid="struct_x_csi_1a36462ce1359d50dbf5ecea4f0168c2cb" compoundref="xcsi_8h" startline="264">XCsi::IsReady</references>
+        <references refid="struct_x_csi_1a05071607f3b47ecce8babbd0a728eee0" compoundref="xcsi_8h" startline="247">XCsi::PktLvlErrCallBack</references>
+        <references refid="struct_x_csi_1abc9974457110808626dcbbee8e189abc" compoundref="xcsi_8h" startline="251">XCsi::ProtDecodeErrCallBack</references>
+        <references refid="struct_x_csi_1a1e8a9855b48d7110615dd76476a766af" compoundref="xcsi_8h" startline="235">XCsi::ShortPacketCallBack</references>
+        <references refid="struct_x_csi_1adafcf436efdfd4b5e5eaebf3a0a9833f" compoundref="xcsi_8h" startline="260">XCsi::VCXErrCallBack</references>
+        <referencedby refid="xcsi__example__selftest_8c_1a5458a8d8bab84547078ef5d7f4f3db86" compoundref="xcsi__example__selftest_8c" startline="115" endline="136">CsiSelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__csi_1ga0069d82265929da556da847513183dc5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCsi_Reset</definition>
+        <argsstring>(XCsi *InstancePtr)</argsstring>
+        <name>XCsi_Reset</name>
+        <param>
+          <type><ref refid="struct_x_csi" kindref="compound">XCsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will do a reset of the IP. </para>        </briefdescription>
+        <detaileddescription>
+<para>Reset the CSI controller.</para><para>This will reset the values of all registers except Core Config and Protocol Config registers.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on proper reset.</para></listitem><listitem><para>XST_FAILURE on timeout and core being stuck in reset.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function resets the CSI controller.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if reset was successful.</para></listitem><listitem><para>XST_FAILURE if reset failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" bodystart="121" bodyend="145"/>
+        <references refid="group__csi_1ga97cd274fdfd6dbedab1a892d58cec9af" compoundref="xcsi_8c" startline="36">XCSI_RESET_TIMEOUT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csi_1ga067001a4c7e39114b27d3926c4ae8e63" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCsi_Activate</definition>
+        <argsstring>(XCsi *InstancePtr, u8 Flag)</argsstring>
+        <name>XCsi_Activate</name>
+        <param>
+          <type><ref refid="struct_x_csi" kindref="compound">XCsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Flag</declname>
+        </param>
+        <briefdescription>
+<para>This function will enable/disable the IP Core to start processing. </para>        </briefdescription>
+        <detaileddescription>
+<para>Activate or deactivate the CSI controller.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Flag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>will be used to indicate Enable or Disable action.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful core enable or disable.</para></listitem><listitem><para>XST_FAILURE if core disable times out.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function activates or deactivates the CSI controller based on the Flag parameter.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Flag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the enable/disable flag. Set to 1 to enable, 0 to disable.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if operation was successful.</para></listitem><listitem><para>XST_FAILURE if operation failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" bodystart="161" bodyend="188"/>
+        <references refid="struct_x_csi_1a36462ce1359d50dbf5ecea4f0168c2cb" compoundref="xcsi_8h" startline="264">XCsi::IsReady</references>
+        <references refid="group__csi_1gabfc0ece733382fa2f41d742cb1e8a513" compoundref="xcsi_8h" startline="133">XCSI_DISABLE</references>
+        <references refid="group__csi_1ga808cccc8f92bdf537656c722bc957c5b" compoundref="xcsi_8h" startline="132">XCSI_ENABLE</references>
+        <references refid="group__csi_1ga97cd274fdfd6dbedab1a892d58cec9af" compoundref="xcsi_8c" startline="36">XCSI_RESET_TIMEOUT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csi_1ga757f09602140036cdf563da1df275d1a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCsi_Configure</definition>
+        <argsstring>(XCsi *InstancePtr)</argsstring>
+        <name>XCsi_Configure</name>
+        <param>
+          <type><ref refid="struct_x_csi" kindref="compound">XCsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will configure the core with proper number of Active Lanes. </para>        </briefdescription>
+        <detaileddescription>
+<para>Configure the CSI controller.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on configuring the core.</para></listitem><listitem><para>XST_FAILURE if active lanes not set correctly.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function configures the CSI controller with the active lanes setting.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if configuration was successful.</para></listitem><listitem><para>XST_FAILURE if configuration failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" bodystart="203" bodyend="277"/>
+        <references refid="struct_x_csi_1a051d338982c8f95bf20f4a422a5d09fa" compoundref="xcsi_8h" startline="233">XCsi::ActiveLanes</references>
+        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="200">XCsi_Config::BaseAddr</references>
+        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="232">XCsi::Config</references>
+        <references refid="struct_x_csi___config_1ae768bd302d0e55bcf4e73ad077e1b146" compoundref="xcsi_8h" startline="206">XCsi_Config::FixedLanes</references>
+        <references refid="struct_x_csi_1a36462ce1359d50dbf5ecea4f0168c2cb" compoundref="xcsi_8h" startline="264">XCsi::IsReady</references>
+        <references refid="group__csi_1gaf224384089501234f8c3ef338fbe242f" compoundref="xcsi__intr_8c" startline="112" endline="122">XCsi_GetIntrEnable</references>
+        <references refid="group__csi_1gafc61f1c74c32f6a1a258b1f8a9760ef0" compoundref="xcsi__hw_8h" startline="58">XCSI_GIER_OFFSET</references>
+        <references refid="group__csi_1gacd995a7fb82069ad196da70b4d033f19" compoundref="xcsi__intr_8c" startline="63" endline="74">XCsi_IntrEnable</references>
+        <references refid="group__csi_1ga60136f55dc84f4b4dde66f187b09a78d" compoundref="xcsi_8c" startline="516" endline="544">XCsi_IsActiveLaneCountValid</references>
+        <references refid="group__csi_1ga97cd274fdfd6dbedab1a892d58cec9af" compoundref="xcsi_8c" startline="36">XCSI_RESET_TIMEOUT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csi_1ga32489a42829995877019f38cfaa06cf8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsi_SetVCSelection</definition>
+        <argsstring>(XCsi *InstancePtr, u16 Value)</argsstring>
+        <name>XCsi_SetVCSelection</name>
+        <param>
+          <type><ref refid="struct_x_csi" kindref="compound">XCsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>This function will control the virtual channels selection dynamically. </para>        </briefdescription>
+        <detaileddescription>
+<para>Set the virtual channel selection.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>will set the virtual channels corresponding to each bit value. bit value 1: core processes packets with this VC, bit value 0: core filters packets with this VC.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function sets the virtual channel selection for filtering.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the virtual channel selection value to be set.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" bodystart="293" bodyend="303"/>
+        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="200">XCsi_Config::BaseAddr</references>
+        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="232">XCsi::Config</references>
+        <references refid="group__csi_1gabfbc42b0ca4fcd2013748d70adb40e64" compoundref="xcsi__hw_8h" startline="67">XCSI_VC_SEL_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csi_1ga20061dc4d29af4f28937f3791e12b282" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCsi_GetVCSelection</definition>
+        <argsstring>(XCsi *InstancePtr)</argsstring>
+        <name>XCsi_GetVCSelection</name>
+        <param>
+          <type><ref refid="struct_x_csi" kindref="compound">XCsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will return the virtual channels selected. </para>        </briefdescription>
+        <detaileddescription>
+<para>Get the virtual channel selection.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Value of selected VCs.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function returns the current virtual channel selection.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Virtual channel selection value.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" bodystart="316" bodyend="329"/>
+        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="200">XCsi_Config::BaseAddr</references>
+        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="232">XCsi::Config</references>
+        <references refid="group__csi_1gabfbc42b0ca4fcd2013748d70adb40e64" compoundref="xcsi__hw_8h" startline="67">XCSI_VC_SEL_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csi_1ga9a4ced8d01b40c64ed467ff71ed4533c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsi_GetShortPacket</definition>
+        <argsstring>(XCsi *InstancePtr, XCsi_SPktData *ShortPacketStruct)</argsstring>
+        <name>XCsi_GetShortPacket</name>
+        <param>
+          <type><ref refid="struct_x_csi" kindref="compound">XCsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_csi___s_pkt_data" kindref="compound">XCsi_SPktData</ref> *</type>
+          <declname>ShortPacketStruct</declname>
+        </param>
+        <briefdescription>
+<para>This function will get the short packet received in the FIFO from the Generic Short Packet Register and fill up the structure passed from caller. </para>        </briefdescription>
+        <detaileddescription>
+<para>Get short packet information.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ShortPacketStruct</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is going to be filled up by this function and returned to the caller.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function retrieves the short packet information from the controller.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ShortPacketStruct</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the structure where short packet data will be stored.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" line="345" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" bodystart="345" bodyend="364"/>
+        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="200">XCsi_Config::BaseAddr</references>
+        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="232">XCsi::Config</references>
+        <references refid="struct_x_csi___s_pkt_data_1af09c649a111693b7a17a5fc1e13c6535" compoundref="xcsi_8h" startline="150">XCsi_SPktData::Data</references>
+        <references refid="struct_x_csi___s_pkt_data_1a4c099e5368c46569a5725b5cbf6c264f" compoundref="xcsi_8h" startline="151">XCsi_SPktData::DataType</references>
+        <references refid="struct_x_csi___s_pkt_data_1a4865b5d5676061baa27a7dc575d2eb81" compoundref="xcsi_8h" startline="152">XCsi_SPktData::VirtualChannel</references>
+        <references refid="group__csi_1gaf85ea64ffadb25a6b0822afd1afd0b33" compoundref="xcsi__hw_8h" startline="786">XCSI_SPKTR_DATA_MASK</references>
+        <references refid="group__csi_1gaca6a23d7a3dacbeaee543f6c26bb0902" compoundref="xcsi__hw_8h" startline="793">XCSI_SPKTR_DATA_SHIFT</references>
+        <references refid="group__csi_1gaaec3afae595e32f6c6673d1f8eab3bc8" compoundref="xcsi__hw_8h" startline="790">XCSI_SPKTR_DT_MASK</references>
+        <references refid="group__csi_1gae7cf11694daf4a1d35be83c9fe4baf06" compoundref="xcsi__hw_8h" startline="797">XCSI_SPKTR_DT_SHIFT</references>
+        <references refid="group__csi_1gac36c83bb3e2e4f61e51f4a8e4794963d" compoundref="xcsi__hw_8h" startline="70">XCSI_SPKTR_OFFSET</references>
+        <references refid="group__csi_1gad869c707e0640c8708c51abf33bcc2ca" compoundref="xcsi__hw_8h" startline="789">XCSI_SPKTR_VC_MASK</references>
+        <references refid="group__csi_1ga32c72224329b546c1c5574735e8822e7" compoundref="xcsi__hw_8h" startline="794">XCSI_SPKTR_VC_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csi_1ga2588fe696b38dd330514a55fd839965a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsi_GetClkLaneInfo</definition>
+        <argsstring>(XCsi *InstancePtr, XCsi_ClkLaneInfo *ClkLane)</argsstring>
+        <name>XCsi_GetClkLaneInfo</name>
+        <param>
+          <type><ref refid="struct_x_csi" kindref="compound">XCsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_csi___clk_lane_info" kindref="compound">XCsi_ClkLaneInfo</ref> *</type>
+          <declname>ClkLane</declname>
+        </param>
+        <briefdescription>
+<para>This function will get the information about the state of the Clock Lane. </para>        </briefdescription>
+        <detaileddescription>
+<para>Get clock lane information.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ClkLane</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is going to be filled up by this function and returned to the caller.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function retrieves the clock lane information from the controller.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ClkLane</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the structure where clock lane info will be stored.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" line="379" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" bodystart="379" bodyend="392"/>
+        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="200">XCsi_Config::BaseAddr</references>
+        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="232">XCsi::Config</references>
+        <references refid="struct_x_csi___clk_lane_info_1aea0b10f785b55afa41e11d3a6408bab4" compoundref="xcsi_8h" startline="174">XCsi_ClkLaneInfo::StopState</references>
+        <references refid="group__csi_1ga6cfb6fd4c714b9564f8c914d00bf9fc0" compoundref="xcsi__hw_8h" startline="76">XCSI_CLKINFR_OFFSET</references>
+        <references refid="group__csi_1gab11137ba0c99987263c0be2cbb5223b3" compoundref="xcsi__hw_8h" startline="807">XCSI_CLKINFR_STOP_MASK</references>
+        <references refid="group__csi_1gab677cb92c735f9e975a9aa2d0c42a3da" compoundref="xcsi__hw_8h" startline="809">XCSI_CLKINFR_STOP_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csi_1ga15dac2ab0092aadc270c1cd074ca917c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsi_GetDataLaneInfo</definition>
+        <argsstring>(XCsi *InstancePtr, u8 Lane, XCsi_DataLaneInfo *DataLane)</argsstring>
+        <name>XCsi_GetDataLaneInfo</name>
+        <param>
+          <type><ref refid="struct_x_csi" kindref="compound">XCsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Lane</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_csi___data_lane_info" kindref="compound">XCsi_DataLaneInfo</ref> *</type>
+          <declname>DataLane</declname>
+        </param>
+        <briefdescription>
+<para>This function will get the information about the state of a Data Lane. </para>        </briefdescription>
+        <detaileddescription>
+<para>Get data lane information.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Lane</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Lane number whose information is requested. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataLane</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is going to be filled up by this function and returned to the caller.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function retrieves the data lane information for a specific lane.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Lane</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the lane number (0 to 3) for which to get information. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataLane</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the structure where data lane info will be stored.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" line="408" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" bodystart="408" bodyend="452"/>
+        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="200">XCsi_Config::BaseAddr</references>
+        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="232">XCsi::Config</references>
+        <references refid="struct_x_csi___data_lane_info_1ae53af9610edbbeab382d276b8d470c87" compoundref="xcsi_8h" startline="186">XCsi_DataLaneInfo::SkewCalHs</references>
+        <references refid="struct_x_csi___data_lane_info_1a11e83a2effeaeedee76f698b14a51d45" compoundref="xcsi_8h" startline="184">XCsi_DataLaneInfo::SoTErr</references>
+        <references refid="struct_x_csi___data_lane_info_1ad85e5b16529cc9e102cd592d8afce3e1" compoundref="xcsi_8h" startline="185">XCsi_DataLaneInfo::SoTSyncErr</references>
+        <references refid="struct_x_csi___data_lane_info_1af5d036bdece3eca60f479d9d95350047" compoundref="xcsi_8h" startline="183">XCsi_DataLaneInfo::StopState</references>
+        <references refid="group__csi_1gab1056f273fc84b3b7241bc67ac254407" compoundref="xcsi__hw_8h" startline="81">XCSI_L0INFR_OFFSET</references>
+        <references refid="group__csi_1ga47796db49877d9816ec92136a05272e7" compoundref="xcsi__hw_8h" startline="82">XCSI_L1INFR_OFFSET</references>
+        <references refid="group__csi_1gaecb5b9b81f7ceceaf46e52246b0c0dbb" compoundref="xcsi__hw_8h" startline="83">XCSI_L2INFR_OFFSET</references>
+        <references refid="group__csi_1ga6dc141b9aa188308339a761656b08b58" compoundref="xcsi__hw_8h" startline="84">XCSI_L3INFR_OFFSET</references>
+        <references refid="group__csi_1ga589c5ae228bb4e5b8d819ca1df8636d6" compoundref="xcsi__hw_8h" startline="821">XCSI_LXINFR_SKEWCALHS_MASK</references>
+        <references refid="group__csi_1ga9c2fd3d897253afd51cb78e5025284f0" compoundref="xcsi__hw_8h" startline="832">XCSI_LXINFR_SKEWCALHS_SHIFT</references>
+        <references refid="group__csi_1gabf6ab43a1b425464f9fd48590f28a4ee" compoundref="xcsi__hw_8h" startline="822">XCSI_LXINFR_SOTERR_MASK</references>
+        <references refid="group__csi_1ga9d29cff7328543aaa94571ef4fa467aa" compoundref="xcsi__hw_8h" startline="835">XCSI_LXINFR_SOTERR_SHIFT</references>
+        <references refid="group__csi_1ga7ca60e6ee4eefe567949ee9d96ad58c8" compoundref="xcsi__hw_8h" startline="825">XCSI_LXINFR_SOTSYNCERR_MASK</references>
+        <references refid="group__csi_1ga6a47f7427a717ed0d5fd355fcd127984" compoundref="xcsi__hw_8h" startline="838">XCSI_LXINFR_SOTSYNCERR_SHIFT</references>
+        <references refid="group__csi_1ga6aa8e997488d74d37f2c667cd0158175" compoundref="xcsi__hw_8h" startline="820">XCSI_LXINFR_STOP_MASK</references>
+        <references refid="group__csi_1ga62ae0961cd90bfa0061c969fd161293f" compoundref="xcsi__hw_8h" startline="829">XCSI_LXINFR_STOP_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csi_1gaccba2dc3c98a68b73ca3bfec33abe747" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsi_GetVCInfo</definition>
+        <argsstring>(XCsi *InstancePtr, u8 Vc, XCsi_VCInfo *VCInfo)</argsstring>
+        <name>XCsi_GetVCInfo</name>
+        <param>
+          <type><ref refid="struct_x_csi" kindref="compound">XCsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Vc</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_csi___v_c_info" kindref="compound">XCsi_VCInfo</ref> *</type>
+          <declname>VCInfo</declname>
+        </param>
+        <briefdescription>
+<para>This function will get the line count, byte count and data type information about a Virtual Channel. </para>        </briefdescription>
+        <detaileddescription>
+<para>Get virtual channel information.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Vc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Virtual Channel number whose information is requested. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VCInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is going to be filled up by this function and returned to the caller.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function retrieves the virtual channel information.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Vc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the virtual channel number for which to get information. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VCInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the structure where virtual channel info will be stored.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" line="469" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" bodystart="469" bodyend="498"/>
+        <references refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" compoundref="xcsi_8h" startline="200">XCsi_Config::BaseAddr</references>
+        <references refid="struct_x_csi___v_c_info_1a201d3c35d258a057c922fe693b861215" compoundref="xcsi_8h" startline="163">XCsi_VCInfo::ByteCount</references>
+        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="232">XCsi::Config</references>
+        <references refid="struct_x_csi___v_c_info_1a02fde36772ebfcf7fc6d7e8505701557" compoundref="xcsi_8h" startline="164">XCsi_VCInfo::DataType</references>
+        <references refid="struct_x_csi___v_c_info_1a26de732464bb575f9f4d5825066a4cbf" compoundref="xcsi_8h" startline="162">XCsi_VCInfo::LineCount</references>
+        <references refid="group__csi_1gacfff4ce86a309b659d22a5727b4bd0c4" compoundref="xcsi_8h" startline="139">XCSI_MAX_VC</references>
+        <references refid="group__csi_1ga68533f6063c55f0fdc873c1139fcfa06" compoundref="xcsi__hw_8h" startline="87">XCSI_VC0INF1R_OFFSET</references>
+        <references refid="group__csi_1ga95310bd1ba5ca04ffed06b2d30c3676b" compoundref="xcsi__hw_8h" startline="93">XCSI_VC1INF1R_OFFSET</references>
+        <references refid="group__csi_1gaf68735f792689ed44e2a81233fa94f35" compoundref="xcsi__hw_8h" startline="858">XCSI_VCXINF1R_BYTECOUNT_MASK</references>
+        <references refid="group__csi_1gad1b30946e45739cd6279e0dfd66401fd" compoundref="xcsi__hw_8h" startline="868">XCSI_VCXINF1R_BYTECOUNT_SHIFT</references>
+        <references refid="group__csi_1ga19d7db8907235f7f05c1b975888d356b" compoundref="xcsi__hw_8h" startline="851">XCSI_VCXINF1R_LINECOUNT_MASK</references>
+        <references refid="group__csi_1ga024da71861851bc088277ecdb9ac3225" compoundref="xcsi__hw_8h" startline="863">XCSI_VCXINF1R_LINECOUNT_SHIFT</references>
+        <references refid="group__csi_1gac4f3135e27046f018e517bd3926507f9" compoundref="xcsi__hw_8h" startline="874">XCSI_VCXINF2R_DATATYPE_MASK</references>
+        <references refid="group__csi_1ga5e2a1093e76adc0896e0fa8f20b11b16" compoundref="xcsi__hw_8h" startline="879">XCSI_VCXINF2R_DATATYPE_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csi_1ga60136f55dc84f4b4dde66f187b09a78d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XCsi_IsActiveLaneCountValid</definition>
+        <argsstring>(XCsi *InstancePtr, u8 ActiveLanesCount)</argsstring>
+        <name>XCsi_IsActiveLaneCountValid</name>
+        <param>
+          <type><ref refid="struct_x_csi" kindref="compound">XCsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ActiveLanesCount</declname>
+        </param>
+        <briefdescription>
+<para>This function checks the validity of the active lanes parameter. </para>        </briefdescription>
+        <detaileddescription>
+<para>Check if active lane count is valid.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ActiveLanesCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the lane count to check if valid.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>1 if specified Active Lanes is valid.</para></listitem><listitem><para>0 otherwise, if the Active Lanes specified isn&apos;t valid as per spec and design.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function validates if the specified active lane count is valid for the current configuration.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_csi" kindref="compound">XCsi</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ActiveLanesCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the active lane count to be validated.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>1 if the active lane count is valid.</para></listitem><listitem><para>0 if the active lane count is invalid.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" line="516" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c" bodystart="516" bodyend="544"/>
+        <references refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" compoundref="xcsi_8h" startline="232">XCsi::Config</references>
+        <references refid="struct_x_csi___config_1ae768bd302d0e55bcf4e73ad077e1b146" compoundref="xcsi_8h" startline="206">XCsi_Config::FixedLanes</references>
+        <references refid="struct_x_csi___config_1a0ac18a90247b18004fbe69473f3f88c6" compoundref="xcsi_8h" startline="201">XCsi_Config::MaxLanesPresent</references>
+        <referencedby refid="group__csi_1ga757f09602140036cdf563da1df275d1a" compoundref="xcsi_8c" startline="203" endline="277">XCsi_Configure</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xdebug.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xcsi_8h" kindref="compound">xcsi.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="group__csi_1ga97cd274fdfd6dbedab1a892d58cec9af" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XCSI_RESET_TIMEOUT<sp/><sp/><sp/><sp/><sp/><sp/>10000<sp/></highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>StubErrCallBack(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Callbackref,<sp/>u32<sp/>ErrorMask);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="78" refid="group__csi_1ga0805b66d6432c2d9cc42b1e2e8a547bc" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__csi_1ga0805b66d6432c2d9cc42b1e2e8a547bc" kindref="member">XCsi_CfgInitialize</ref>(<ref refid="struct_x_csi" kindref="compound">XCsi</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_csi___config" kindref="compound">XCsi_Config</ref><sp/>*CfgPtr,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr)</highlight></codeline>
+<codeline lineno="80"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CfgPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(EffectiveAddr<sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>the<sp/>instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" kindref="member">Config</ref><sp/>=<sp/>*CfgPtr;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" kindref="member">Config</ref>.<ref refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" kindref="member">BaseAddr</ref><sp/>=<sp/>EffectiveAddr;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>all<sp/>handlers<sp/>to<sp/>stub<sp/>values,<sp/>let<sp/>user<sp/>configure<sp/>this<sp/>data<sp/>later</highlight></codeline>
+<codeline lineno="92"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1a1e8a9855b48d7110615dd76476a766af" kindref="member">ShortPacketCallBack</ref><sp/>=<sp/>StubErrCallBack;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1ab46f113494ae58a53682d744ae6548bf" kindref="member">FrameRecvdCallBack</ref><sp/>=<sp/>StubErrCallBack;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1a8b406c848347ac5d063b7865ea0762d0" kindref="member">DPhyLvlErrCallBack</ref><sp/>=<sp/>StubErrCallBack;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1abc9974457110808626dcbbee8e189abc" kindref="member">ProtDecodeErrCallBack</ref><sp/>=<sp/>StubErrCallBack;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1a05071607f3b47ecce8babbd0a728eee0" kindref="member">PktLvlErrCallBack</ref><sp/>=<sp/>StubErrCallBack;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1adafcf436efdfd4b5e5eaebf3a0a9833f" kindref="member">VCXErrCallBack</ref><sp/>=<sp/>StubErrCallBack;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1a8ddd267108d3d2f22658ea312562f379" kindref="member">ErrorCallBack</ref><sp/>=<sp/>StubErrCallBack;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1a36462ce1359d50dbf5ecea4f0168c2cb" kindref="member">IsReady</ref><sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="121" refid="group__csi_1ga0069d82265929da556da847513183dc5" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__csi_1ga0069d82265929da556da847513183dc5" kindref="member">XCsi_Reset</ref>(<ref refid="struct_x_csi" kindref="compound">XCsi</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="122"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Timeout<sp/>=<sp/><ref refid="group__csi_1ga97cd274fdfd6dbedab1a892d58cec9af" kindref="member">XCSI_RESET_TIMEOUT</ref>;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi_SetSoftReset(InstancePtr);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>wait<sp/>till<sp/>core<sp/>resets<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XCsi_IsSoftResetInProgress(InstancePtr);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Timeout--;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(Status<sp/>&amp;&amp;<sp/>Timeout);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!Timeout)<sp/>{</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,<sp/></highlight><highlight class="stringliteral">&quot;CSI<sp/>Reset<sp/>failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi_ClearSoftReset(InstancePtr);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="161" refid="group__csi_1ga067001a4c7e39114b27d3926c4ae8e63" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__csi_1ga067001a4c7e39114b27d3926c4ae8e63" kindref="member">XCsi_Activate</ref>(<ref refid="struct_x_csi" kindref="compound">XCsi</ref><sp/>*InstancePtr,<sp/>u8<sp/>Flag)</highlight></codeline>
+<codeline lineno="162"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Timeout<sp/>=<sp/><ref refid="group__csi_1ga97cd274fdfd6dbedab1a892d58cec9af" kindref="member">XCSI_RESET_TIMEOUT</ref>;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_csi_1a36462ce1359d50dbf5ecea4f0168c2cb" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Flag<sp/>==<sp/><ref refid="group__csi_1gabfc0ece733382fa2f41d742cb1e8a513" kindref="member">XCSI_DISABLE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi_ResetGlobalInterrupt(InstancePtr);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi_Disable(InstancePtr);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>wait<sp/>till<sp/>core<sp/>resets<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XCsi_IsSoftResetInProgress(InstancePtr);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Timeout--;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(Status<sp/>&amp;&amp;<sp/>Timeout);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!Timeout)<sp/>{</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,<sp/></highlight><highlight class="stringliteral">&quot;CSI<sp/>Reset<sp/>failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Flag<sp/>==<sp/><ref refid="group__csi_1ga808cccc8f92bdf537656c722bc957c5b" kindref="member">XCSI_ENABLE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi_SetGlobalInterrupt(InstancePtr);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi_Enable(InstancePtr);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="203" refid="group__csi_1ga757f09602140036cdf563da1df275d1a" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__csi_1ga757f09602140036cdf563da1df275d1a" kindref="member">XCsi_Configure</ref>(<ref refid="struct_x_csi" kindref="compound">XCsi</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="204"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Timeout<sp/>=<sp/><ref refid="group__csi_1ga97cd274fdfd6dbedab1a892d58cec9af" kindref="member">XCSI_RESET_TIMEOUT</ref>;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntEnReg,<sp/>GlbIntEnReg;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ActiveLanesSet;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_csi_1a36462ce1359d50dbf5ecea4f0168c2cb" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(<ref refid="group__csi_1ga60136f55dc84f4b4dde66f187b09a78d" kindref="member">XCsi_IsActiveLaneCountValid</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1a051d338982c8f95bf20f4a422a5d09fa" kindref="member">ActiveLanes</ref>));</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>fixed<sp/>lanes<sp/>is<sp/>set<sp/>and<sp/>the<sp/>assert<sp/>condition<sp/>passes<sp/>then</highlight></codeline>
+<codeline lineno="218"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>no<sp/>need<sp/>of<sp/>programming<sp/>the<sp/>ActiveLanes<sp/>bits.</highlight></codeline>
+<codeline lineno="219"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" kindref="member">Config</ref>.<ref refid="struct_x_csi___config_1ae768bd302d0e55bcf4e73ad077e1b146" kindref="member">FixedLanes</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Save<sp/>the<sp/>status<sp/>of<sp/>interrupt<sp/>enable<sp/>registers<sp/>and</highlight></codeline>
+<codeline lineno="225"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>global<sp/>interrupt<sp/>enable<sp/>registers</highlight></codeline>
+<codeline lineno="226"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntEnReg<sp/>=<sp/><ref refid="group__csi_1gaf224384089501234f8c3ef338fbe242f" kindref="member">XCsi_GetIntrEnable</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GlbIntEnReg<sp/>=<sp/>XCsi_ReadReg(InstancePtr-&gt;<ref refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" kindref="member">Config</ref>.<ref refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csi_1gafc61f1c74c32f6a1a258b1f8a9760ef0" kindref="member">XCSI_GIER_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>Soft<sp/>reset<sp/>bit<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi_SetSoftReset(InstancePtr);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>wait<sp/>till<sp/>core<sp/>resets<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XCsi_IsSoftResetInProgress(InstancePtr);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Timeout--;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(Status<sp/>&amp;&amp;<sp/>Timeout);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!Timeout)<sp/>{</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,<sp/></highlight><highlight class="stringliteral">&quot;CSI<sp/>Reset<sp/>failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csi_1gacd995a7fb82069ad196da70b4d033f19" kindref="member">XCsi_IntrEnable</ref>(InstancePtr,<sp/>IntEnReg);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi_WriteReg(InstancePtr-&gt;<ref refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" kindref="member">Config</ref>.<ref refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csi_1gafc61f1c74c32f6a1a258b1f8a9760ef0" kindref="member">XCSI_GIER_OFFSET</ref>,<sp/>GlbIntEnReg);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>set<sp/>the<sp/>active<sp/>lanes<sp/>if<sp/>FixedLanes<sp/>is<sp/>disabled.</highlight></codeline>
+<codeline lineno="249"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>ActiveLanes<sp/>bits<sp/>range<sp/>from<sp/>0<sp/>-<sp/>3.<sp/>Hence<sp/>subtract<sp/>1<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi_SetActiveLaneCount(InstancePtr,<sp/>(InstancePtr-&gt;<ref refid="struct_x_csi_1a051d338982c8f95bf20f4a422a5d09fa" kindref="member">ActiveLanes</ref><sp/>-<sp/>1));</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reset<sp/>the<sp/>Soft<sp/>reset<sp/>bit<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi_ClearSoftReset(InstancePtr);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Restore<sp/>the<sp/>Interrupt<sp/>enable<sp/>and<sp/>global<sp/>interrupt<sp/>enable<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csi_1gacd995a7fb82069ad196da70b4d033f19" kindref="member">XCsi_IntrEnable</ref>(InstancePtr,<sp/>IntEnReg);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi_WriteReg(InstancePtr-&gt;<ref refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" kindref="member">Config</ref>.<ref refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csi_1gafc61f1c74c32f6a1a258b1f8a9760ef0" kindref="member">XCSI_GIER_OFFSET</ref>,<sp/>GlbIntEnReg);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>back<sp/>the<sp/>active<sp/>lanes<sp/>from<sp/>Protocol<sp/>config<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>the<sp/>active<sp/>lanes<sp/>read<sp/>back<sp/>and<sp/>set<sp/>from<sp/>the</highlight></codeline>
+<codeline lineno="262"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>InstancePtr-&gt;ActiveLanes)<sp/>are<sp/>equal.</highlight></codeline>
+<codeline lineno="263"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>yes<sp/>then<sp/>send<sp/>success<sp/>else<sp/>fail</highlight></codeline>
+<codeline lineno="264"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="265"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>This<sp/>is<sp/>checked<sp/>only<sp/>if<sp/>FixedLanes<sp/>parameter<sp/>is<sp/>false</highlight></codeline>
+<codeline lineno="266"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ActiveLanesSet<sp/>=<sp/>XCsi_GetActiveLaneCount(InstancePtr)<sp/>+<sp/>1;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(ActiveLanesSet<sp/>==<sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1a051d338982c8f95bf20f4a422a5d09fa" kindref="member">ActiveLanes</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1a051d338982c8f95bf20f4a422a5d09fa" kindref="member">ActiveLanes</ref><sp/>=<sp/>ActiveLanesSet;</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="293" refid="group__csi_1ga32489a42829995877019f38cfaa06cf8" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__csi_1ga32489a42829995877019f38cfaa06cf8" kindref="member">XCsi_SetVCSelection</ref>(<ref refid="struct_x_csi" kindref="compound">XCsi</ref><sp/>*InstancePtr,<sp/>u16<sp/>Value)</highlight></codeline>
+<codeline lineno="294"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>argument<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>Value;</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>write<sp/>VC<sp/>Selection<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi_WriteReg(InstancePtr-&gt;<ref refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" kindref="member">Config</ref>.<ref refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csi_1gabfbc42b0ca4fcd2013748d70adb40e64" kindref="member">XCSI_VC_SEL_OFFSET</ref>,<sp/>Mask);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="316" refid="group__csi_1ga20061dc4d29af4f28937f3791e12b282" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__csi_1ga20061dc4d29af4f28937f3791e12b282" kindref="member">XCsi_GetVCSelection</ref>(<ref refid="struct_x_csi" kindref="compound">XCsi</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="317"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>argument<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>VC<sp/>Selection<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/>XCsi_ReadReg(InstancePtr-&gt;<ref refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" kindref="member">Config</ref>.<ref refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__csi_1gabfbc42b0ca4fcd2013748d70adb40e64" kindref="member">XCSI_VC_SEL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clearing<sp/>reserved<sp/>higher<sp/>16<sp/>bits<sp/>and<sp/>15:0<sp/>are<sp/>for<sp/>VC<sp/>selection*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>&amp;=<sp/>0xFFFF;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Value;</highlight></codeline>
+<codeline lineno="329"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="345" refid="group__csi_1ga9a4ced8d01b40c64ed467ff71ed4533c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__csi_1ga9a4ced8d01b40c64ed467ff71ed4533c" kindref="member">XCsi_GetShortPacket</ref>(<ref refid="struct_x_csi" kindref="compound">XCsi</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_csi___s_pkt_data" kindref="compound">XCsi_SPktData</ref><sp/>*ShortPacketStruct)</highlight></codeline>
+<codeline lineno="346"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(ShortPacketStruct<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"></highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>Generic<sp/>Packet<sp/>from<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/>XCsi_ReadReg(InstancePtr-&gt;<ref refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" kindref="member">Config</ref>.<ref refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__csi_1gac36c83bb3e2e4f61e51f4a8e4794963d" kindref="member">XCSI_SPKTR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"></highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ShortPacketStruct-&gt;<ref refid="struct_x_csi___s_pkt_data_1af09c649a111693b7a17a5fc1e13c6535" kindref="member">Data</ref><sp/>=<sp/>((Value<sp/>&amp;<sp/><ref refid="group__csi_1gaf85ea64ffadb25a6b0822afd1afd0b33" kindref="member">XCSI_SPKTR_DATA_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csi_1gaca6a23d7a3dacbeaee543f6c26bb0902" kindref="member">XCSI_SPKTR_DATA_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ShortPacketStruct-&gt;<ref refid="struct_x_csi___s_pkt_data_1a4865b5d5676061baa27a7dc575d2eb81" kindref="member">VirtualChannel</ref><sp/>=<sp/>((Value<sp/>&amp;<sp/><ref refid="group__csi_1gad869c707e0640c8708c51abf33bcc2ca" kindref="member">XCSI_SPKTR_VC_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csi_1ga32c72224329b546c1c5574735e8822e7" kindref="member">XCSI_SPKTR_VC_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ShortPacketStruct-&gt;<ref refid="struct_x_csi___s_pkt_data_1a4c099e5368c46569a5725b5cbf6c264f" kindref="member">DataType</ref><sp/>=<sp/>((Value<sp/>&amp;<sp/><ref refid="group__csi_1gaaec3afae595e32f6c6673d1f8eab3bc8" kindref="member">XCSI_SPKTR_DT_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csi_1gae7cf11694daf4a1d35be83c9fe4baf06" kindref="member">XCSI_SPKTR_DT_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="364"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="379" refid="group__csi_1ga2588fe696b38dd330514a55fd839965a" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__csi_1ga2588fe696b38dd330514a55fd839965a" kindref="member">XCsi_GetClkLaneInfo</ref>(<ref refid="struct_x_csi" kindref="compound">XCsi</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_csi___clk_lane_info" kindref="compound">XCsi_ClkLaneInfo</ref><sp/>*ClkLane)</highlight></codeline>
+<codeline lineno="380"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(ClkLane<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"></highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/>XCsi_ReadReg(InstancePtr-&gt;<ref refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" kindref="member">Config</ref>.<ref refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csi_1ga6cfb6fd4c714b9564f8c914d00bf9fc0" kindref="member">XCSI_CLKINFR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"></highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClkLane-&gt;<ref refid="struct_x_csi___clk_lane_info_1aea0b10f785b55afa41e11d3a6408bab4" kindref="member">StopState</ref><sp/>=<sp/>(Value<sp/>&amp;<sp/><ref refid="group__csi_1gab11137ba0c99987263c0be2cbb5223b3" kindref="member">XCSI_CLKINFR_STOP_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csi_1gab677cb92c735f9e975a9aa2d0c42a3da" kindref="member">XCSI_CLKINFR_STOP_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="392"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight></codeline>
+<codeline lineno="394"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="408" refid="group__csi_1ga15dac2ab0092aadc270c1cd074ca917c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__csi_1ga15dac2ab0092aadc270c1cd074ca917c" kindref="member">XCsi_GetDataLaneInfo</ref>(<ref refid="struct_x_csi" kindref="compound">XCsi</ref><sp/>*InstancePtr,<sp/>u8<sp/>Lane,</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_csi___data_lane_info" kindref="compound">XCsi_DataLaneInfo</ref><sp/>*DataLane)</highlight></codeline>
+<codeline lineno="410"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value,<sp/>Offset<sp/>=<sp/><ref refid="group__csi_1gab1056f273fc84b3b7241bc67ac254407" kindref="member">XCSI_L0INFR_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"></highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(DataLane<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Lane<sp/>&lt;=<sp/>InstancePtr-&gt;ActiveLanes);</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"></highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(Lane)<sp/>{</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>0:</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/><ref refid="group__csi_1gab1056f273fc84b3b7241bc67ac254407" kindref="member">XCSI_L0INFR_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"></highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>1:</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/><ref refid="group__csi_1ga47796db49877d9816ec92136a05272e7" kindref="member">XCSI_L1INFR_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"></highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>2:</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/><ref refid="group__csi_1gaecb5b9b81f7ceceaf46e52246b0c0dbb" kindref="member">XCSI_L2INFR_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"></highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>3:</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/><ref refid="group__csi_1ga6dc141b9aa188308339a761656b08b58" kindref="member">XCSI_L3INFR_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"></highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"></highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/>XCsi_ReadReg(InstancePtr-&gt;<ref refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" kindref="member">Config</ref>.<ref refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" kindref="member">BaseAddr</ref>,<sp/>Offset);</highlight></codeline>
+<codeline lineno="440"><highlight class="normal"></highlight></codeline>
+<codeline lineno="441"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DataLane-&gt;<ref refid="struct_x_csi___data_lane_info_1af5d036bdece3eca60f479d9d95350047" kindref="member">StopState</ref><sp/>=<sp/>(Value<sp/>&amp;<sp/><ref refid="group__csi_1ga6aa8e997488d74d37f2c667cd0158175" kindref="member">XCSI_LXINFR_STOP_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csi_1ga62ae0961cd90bfa0061c969fd161293f" kindref="member">XCSI_LXINFR_STOP_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"></highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DataLane-&gt;<ref refid="struct_x_csi___data_lane_info_1ae53af9610edbbeab382d276b8d470c87" kindref="member">SkewCalHs</ref><sp/>=<sp/>(Value<sp/>&amp;<sp/><ref refid="group__csi_1ga589c5ae228bb4e5b8d819ca1df8636d6" kindref="member">XCSI_LXINFR_SKEWCALHS_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csi_1ga9c2fd3d897253afd51cb78e5025284f0" kindref="member">XCSI_LXINFR_SKEWCALHS_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"></highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DataLane-&gt;<ref refid="struct_x_csi___data_lane_info_1a11e83a2effeaeedee76f698b14a51d45" kindref="member">SoTErr</ref><sp/>=<sp/>(Value<sp/>&amp;<sp/><ref refid="group__csi_1gabf6ab43a1b425464f9fd48590f28a4ee" kindref="member">XCSI_LXINFR_SOTERR_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csi_1ga9d29cff7328543aaa94571ef4fa467aa" kindref="member">XCSI_LXINFR_SOTERR_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"></highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DataLane-&gt;<ref refid="struct_x_csi___data_lane_info_1ad85e5b16529cc9e102cd592d8afce3e1" kindref="member">SoTSyncErr</ref><sp/>=<sp/>(Value<sp/>&amp;<sp/><ref refid="group__csi_1ga7ca60e6ee4eefe567949ee9d96ad58c8" kindref="member">XCSI_LXINFR_SOTSYNCERR_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csi_1ga6a47f7427a717ed0d5fd355fcd127984" kindref="member">XCSI_LXINFR_SOTSYNCERR_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="452"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"></highlight></codeline>
+<codeline lineno="454"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="469" refid="group__csi_1gaccba2dc3c98a68b73ca3bfec33abe747" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__csi_1gaccba2dc3c98a68b73ca3bfec33abe747" kindref="member">XCsi_GetVCInfo</ref>(<ref refid="struct_x_csi" kindref="compound">XCsi</ref><sp/>*InstancePtr,<sp/>u8<sp/>Vc,<sp/><ref refid="struct_x_csi___v_c_info" kindref="compound">XCsi_VCInfo</ref><sp/>*VCInfo)</highlight></codeline>
+<codeline lineno="470"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value1,<sp/>Value2,<sp/>Offset;</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"></highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(VCInfo<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Vc<sp/>&lt;<sp/><ref refid="group__csi_1gacfff4ce86a309b659d22a5727b4bd0c4" kindref="member">XCSI_MAX_VC</ref>);</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"></highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>Information<sp/>Registers<sp/>for<sp/>each<sp/>Virtual<sp/>Channel<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Vc<sp/>&amp;<sp/>0x1)</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>((Vc<sp/>*<sp/>0x10)<sp/>+<sp/><ref refid="group__csi_1ga95310bd1ba5ca04ffed06b2d30c3676b" kindref="member">XCSI_VC1INF1R_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>((Vc<sp/>*<sp/>0x10)<sp/>+<sp/><ref refid="group__csi_1ga68533f6063c55f0fdc873c1139fcfa06" kindref="member">XCSI_VC0INF1R_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"></highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>from<sp/>Info<sp/>Reg<sp/>1<sp/>and<sp/>Info<sp/>Reg<sp/>2<sp/>of<sp/>particular<sp/>VC<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value1<sp/>=<sp/>XCsi_ReadReg(InstancePtr-&gt;<ref refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" kindref="member">Config</ref>.<ref refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" kindref="member">BaseAddr</ref>,<sp/>Offset);</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"></highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value2<sp/>=<sp/>XCsi_ReadReg(InstancePtr-&gt;<ref refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" kindref="member">Config</ref>.<ref refid="struct_x_csi___config_1af15a61c606b555781629045cb29eb1b2" kindref="member">BaseAddr</ref>,<sp/>(Offset<sp/>+<sp/>0x4));</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"></highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Fill<sp/>up<sp/>the<sp/>structure<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VCInfo-&gt;<ref refid="struct_x_csi___v_c_info_1a26de732464bb575f9f4d5825066a4cbf" kindref="member">LineCount</ref><sp/>=<sp/>(Value1<sp/>&amp;<sp/><ref refid="group__csi_1ga19d7db8907235f7f05c1b975888d356b" kindref="member">XCSI_VCXINF1R_LINECOUNT_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csi_1ga024da71861851bc088277ecdb9ac3225" kindref="member">XCSI_VCXINF1R_LINECOUNT_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"></highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VCInfo-&gt;<ref refid="struct_x_csi___v_c_info_1a201d3c35d258a057c922fe693b861215" kindref="member">ByteCount</ref><sp/>=<sp/>(Value1<sp/>&amp;<sp/><ref refid="group__csi_1gaf68735f792689ed44e2a81233fa94f35" kindref="member">XCSI_VCXINF1R_BYTECOUNT_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csi_1gad1b30946e45739cd6279e0dfd66401fd" kindref="member">XCSI_VCXINF1R_BYTECOUNT_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"></highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VCInfo-&gt;<ref refid="struct_x_csi___v_c_info_1a02fde36772ebfcf7fc6d7e8505701557" kindref="member">DataType</ref><sp/>=<sp/>(Value2<sp/>&amp;<sp/><ref refid="group__csi_1gac4f3135e27046f018e517bd3926507f9" kindref="member">XCSI_VCXINF2R_DATATYPE_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__csi_1ga5e2a1093e76adc0896e0fa8f20b11b16" kindref="member">XCSI_VCXINF2R_DATATYPE_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="498"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"></highlight></codeline>
+<codeline lineno="500"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="516" refid="group__csi_1ga60136f55dc84f4b4dde66f187b09a78d" refkind="member"><highlight class="normal">u8<sp/><ref refid="group__csi_1ga60136f55dc84f4b4dde66f187b09a78d" kindref="member">XCsi_IsActiveLaneCountValid</ref>(<ref refid="struct_x_csi" kindref="compound">XCsi</ref><sp/>*InstancePtr,<sp/>u8<sp/>ActiveLanesCount)</highlight></codeline>
+<codeline lineno="517"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Valid;</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"></highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Active<sp/>lanes<sp/>can&apos;t<sp/>be<sp/>more<sp/>than<sp/>maximum<sp/>lanes<sp/>configured<sp/>ever<sp/>and</highlight></codeline>
+<codeline lineno="521"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>as<sp/>per<sp/>spec,<sp/>it<sp/>can<sp/>range<sp/>between<sp/>1<sp/>and<sp/>4<sp/>only.</highlight></codeline>
+<codeline lineno="522"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ActiveLanesCount<sp/>==<sp/>0)<sp/>||</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(ActiveLanesCount<sp/>&gt;<sp/>4)<sp/>||</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(ActiveLanesCount<sp/>&gt;<sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" kindref="member">Config</ref>.<ref refid="struct_x_csi___config_1a0ac18a90247b18004fbe69473f3f88c6" kindref="member">MaxLanesPresent</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Valid<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr-&gt;<ref refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" kindref="member">Config</ref>.<ref refid="struct_x_csi___config_1ae768bd302d0e55bcf4e73ad077e1b146" kindref="member">FixedLanes</ref><sp/>==<sp/>1)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(ActiveLanesCount<sp/>!=</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" kindref="member">Config</ref>.<ref refid="struct_x_csi___config_1a0ac18a90247b18004fbe69473f3f88c6" kindref="member">MaxLanesPresent</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>if<sp/>the<sp/>FixedLanes<sp/>parameter<sp/>is<sp/>set<sp/>then<sp/>ActiveLanes<sp/>can&apos;t<sp/>be</highlight></codeline>
+<codeline lineno="532"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>modified.<sp/>So<sp/>accepted<sp/>value<sp/>is<sp/>only<sp/>Max<sp/>Lanes.</highlight></codeline>
+<codeline lineno="533"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Valid<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>dynamic<sp/>active<sp/>lane<sp/>config<sp/>is<sp/>allowed<sp/>or<sp/>if<sp/>active<sp/>lane</highlight></codeline>
+<codeline lineno="537"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>count<sp/>equals<sp/>max<sp/>lanes<sp/>present<sp/>in<sp/>case<sp/>of<sp/>dynamic<sp/>active<sp/>lane</highlight></codeline>
+<codeline lineno="538"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>config<sp/>is<sp/>disabled.</highlight></codeline>
+<codeline lineno="539"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Valid<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"></highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Valid;</highlight></codeline>
+<codeline lineno="544"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"></highlight></codeline>
+<codeline lineno="546"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="565"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>StubErrCallBack(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Callbackref,<sp/>u32<sp/>ErrorMask)</highlight></codeline>
+<codeline lineno="566"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/>((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)Callbackref);</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/>ErrorMask;</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoidAlways();</highlight></codeline>
+<codeline lineno="570"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.c"/>
+  </compounddef>
+</doxygen>

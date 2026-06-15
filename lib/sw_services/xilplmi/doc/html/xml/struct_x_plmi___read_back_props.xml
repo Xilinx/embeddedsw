@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_plmi___read_back_props" kind="struct" prot="public">
+    <compoundname>XPlmi_ReadBackProps</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_plmi___read_back_props_1a2c340cc66aba8cbec10714f7675e3684" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XPlmi_ReadBackProps::DestAddr</definition>
+        <argsstring></argsstring>
+        <name>DestAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___read_back_props_1add5279025b9271c1d187e728d0dde539" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_ReadBackProps::MaxSize</definition>
+        <argsstring></argsstring>
+        <name>MaxSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___read_back_props_1a033764d7736feed6b67dc4446d948214" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_ReadBackProps::ProcessedLen</definition>
+        <argsstring></argsstring>
+        <name>ProcessedLen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="87" bodyend="91"/>
+    <listofallmembers>
+      <member refid="struct_x_plmi___read_back_props_1a2c340cc66aba8cbec10714f7675e3684" prot="public" virt="non-virtual"><scope>XPlmi_ReadBackProps</scope><name>DestAddr</name></member>
+      <member refid="struct_x_plmi___read_back_props_1add5279025b9271c1d187e728d0dde539" prot="public" virt="non-virtual"><scope>XPlmi_ReadBackProps</scope><name>MaxSize</name></member>
+      <member refid="struct_x_plmi___read_back_props_1a033764d7736feed6b67dc4446d948214" prot="public" virt="non-virtual"><scope>XPlmi_ReadBackProps</scope><name>ProcessedLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

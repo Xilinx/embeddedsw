@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsem__gic__setup_8h" kind="file">
+    <compoundname>xsem_gic_setup.h</compoundname>
+    <includes local="no">xscugic.h</includes>
+    <includes local="no">xscugic_hw.h</includes>
+    <includedby refid="xsem__ipi_8h" local="yes">xsem_ipi.h</includedby>
+    <includedby refid="xsem__cram__example_8c" local="yes">xsem_cram_example.c</includedby>
+    <includedby refid="xsem__cram__ssit__example_8c" local="yes">xsem_cram_ssit_example.c</includedby>
+    <includedby refid="xsem__gic__setup_8c" local="yes">xsem_gic_setup.c</includedby>
+    <includedby refid="xsem__ipi_8c" local="yes">xsem_ipi.c</includedby>
+    <includedby refid="xsem__npi__example_8c" local="yes">xsem_npi_example.c</includedby>
+    <includedby refid="xsem__npi__ssit__example_8c" local="yes">xsem_npi_ssit_example.c</includedby>
+    <incdepgraph>
+      <node id="105">
+        <label>xsem_gic_setup.h</label>
+        <link refid="xsem_gic_setup.h"/>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+      </node>
+      <node id="107">
+        <label>xscugic_hw.h</label>
+      </node>
+      <node id="106">
+        <label>xscugic.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="115">
+        <label>xsem_gic_setup.c</label>
+        <link refid="xsem__gic__setup_8c"/>
+      </node>
+      <node id="108">
+        <label>xsem_gic_setup.h</label>
+        <link refid="xsem_gic_setup.h"/>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
+      </node>
+      <node id="114">
+        <label>xsem_npi_ssit_example.c</label>
+        <link refid="xsem__npi__ssit__example_8c"/>
+      </node>
+      <node id="110">
+        <label>xsem_cram_example.c</label>
+        <link refid="xsem__cram__example_8c"/>
+      </node>
+      <node id="112">
+        <label>xsem_ipi.c</label>
+        <link refid="xsem__ipi_8c"/>
+      </node>
+      <node id="109">
+        <label>xsem_ipi.h</label>
+        <link refid="xsem__ipi_8h"/>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
+      </node>
+      <node id="113">
+        <label>xsem_npi_example.c</label>
+        <link refid="xsem__npi__example_8c"/>
+      </node>
+      <node id="111">
+        <label>xsem_cram_ssit_example.c</label>
+        <link refid="xsem__cram__ssit__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xsem__gic__setup_8h_1a90bc74590962865fc1ab7ee1be0f4b64" prot="public" static="no">
+        <name>INTC_DEVICE_ID</name>
+        <initializer>(XPAR_SCUGIC_SINGLE_DEVICE_ID)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_gic_setup.h" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_gic_setup.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xsem__gic__setup_8h_1a0ea039f8f3fbba4547bd642dfeeb728d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 GicSetupInterruptSystem</definition>
+        <argsstring>(XScuGic *GicInst)</argsstring>
+        <name>GicSetupInterruptSystem</name>
+        <param>
+          <type>XScuGic *</type>
+          <declname>GicInst</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_gic_setup.h" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_gic_setup.c" bodystart="27" bodyend="59"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains global variables and Macro definitions for GIC setup. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date       Changes
+====  ==== ========== ======================================================
+0.1   gm   03/19/2021 Initial version</preformatted></para><para><preformatted></preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor">#ifndef<sp/>XSEM_GIC_SETUP_H</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_GIC_SETUP_H</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xscugic.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xscugic_hw.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>INTC_DEVICE_ID<sp/><sp/>(XPAR_SCUGIC_SINGLE_DEVICE_ID)</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal">s32<sp/>GicSetupInterruptSystem(XScuGic<sp/>*GicInst);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSEM_GIC_SETUP_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_gic_setup.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_7a2d94379285515d46c1d0841e0012bb" kind="dir">
+    <compoundname>xilrsa</compoundname>
+    <innerdir refid="dir_a4e8a2e21cd3867325cb98adf56dc9a3">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilrsa/"/>
+  </compounddef>
+</doxygen>

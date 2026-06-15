@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_reset_ps___config" kind="struct" prot="public">
+    <compoundname>XResetPs_Config</compoundname>
+    <includes local="no">xresetps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_reset_ps___config_1a912ea9d78a90bbb6c7bc4e9077139483" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XResetPs_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" bodystart="86" bodyend="-1"/>
+        <referencedby refid="group__resetps_1ga05e84b1c4dcc3e8df420fd6ea2813bd6" compoundref="xresetps__sinit_8c" startline="91" endline="104">XResetPs_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_reset_ps___config_1a4dd62d2391d1f27e2361e0cbb0d69c82" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XResetPs_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base address of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" bodystart="87" bodyend="-1"/>
+        <referencedby refid="group__resetps_1gaa07a2af5abb40332c21bb77963841dcd" compoundref="xresetps_8c" startline="661" endline="676">XResetPs_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" bodystart="82" bodyend="89"/>
+    <listofallmembers>
+      <member refid="struct_x_reset_ps___config_1a4dd62d2391d1f27e2361e0cbb0d69c82" prot="public" virt="non-virtual"><scope>XResetPs_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_reset_ps___config_1a912ea9d78a90bbb6c7bc4e9077139483" prot="public" virt="non-virtual"><scope>XResetPs_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

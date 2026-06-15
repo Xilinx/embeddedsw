@@ -1,0 +1,972 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xiic__pmbus__intr__example_8c" kind="file">
+    <compoundname>xiic_pmbus_intr_example.c</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes refid="xiic_8h" local="yes">xiic.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <includes refid="xiic__l_8h" local="yes">xiic_l.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <includes local="yes">xinterrupt_wrap.h</includes>
+    <incdepgraph>
+      <node id="229">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="232">
+        <label>xil_io.h</label>
+      </node>
+      <node id="231">
+        <label>xiic_l.h</label>
+        <link refid="xiic__l_8h"/>
+        <childnode refid="228" relation="include">
+        </childnode>
+        <childnode refid="229" relation="include">
+        </childnode>
+        <childnode refid="230" relation="include">
+        </childnode>
+        <childnode refid="232" relation="include">
+        </childnode>
+      </node>
+      <node id="234">
+        <label>xil_util.h</label>
+      </node>
+      <node id="235">
+        <label>xinterrupt_wrap.h</label>
+      </node>
+      <node id="230">
+        <label>xstatus.h</label>
+      </node>
+      <node id="228">
+        <label>xil_types.h</label>
+      </node>
+      <node id="226">
+        <label>xparameters.h</label>
+      </node>
+      <node id="233">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="227">
+        <label>xiic.h</label>
+        <link refid="xiic_8h"/>
+        <childnode refid="228" relation="include">
+        </childnode>
+        <childnode refid="229" relation="include">
+        </childnode>
+        <childnode refid="230" relation="include">
+        </childnode>
+        <childnode refid="231" relation="include">
+        </childnode>
+      </node>
+      <node id="225">
+        <label>xiic_pmbus_intr_example.c</label>
+        <link refid="xiic_pmbus_intr_example.c"/>
+        <childnode refid="226" relation="include">
+        </childnode>
+        <childnode refid="227" relation="include">
+        </childnode>
+        <childnode refid="233" relation="include">
+        </childnode>
+        <childnode refid="231" relation="include">
+        </childnode>
+        <childnode refid="234" relation="include">
+        </childnode>
+        <childnode refid="235" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xiic__pmbus__intr__example_8c_1a028d21c1d779d7c992e41b11d876de26" prot="public" static="no">
+        <name>XIIC_BASEADDRESS</name>
+        <initializer>XPAR_XIIC_0_BASEADDR</initializer>
+        <briefdescription>
+<para>The following constants map to the XPAR parameters created in the xparameters.h file. </para>        </briefdescription>
+        <detaileddescription>
+<para>They are defined here such that a user can easily change all the needed parameters in one place. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="54" bodyend="-1"/>
+        <referencedby refid="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" compoundref="xiic__pmbus__intr__example_8c" startline="198" endline="306">IicPmbusInterruptSdtExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__intr__example_8c_1a8ad02ab61f37d20ecedd7acfbc5c42ed" prot="public" static="no">
+        <name>IIC_MUX_ADDRESS</name>
+        <initializer>0x75</initializer>
+        <briefdescription>
+<para>The ZCU102 and ZCU106 boards use a PMBus MUX address of 0x75 with channel address 0x05 and PMBus slave address 0x13. </para>        </briefdescription>
+        <detaileddescription>
+<para>The ZC702 and ZC706 boards use a PMBus MUX address of 0x74 with channel address 0x80 and PMBus slave address 0x52.</para><para>The KCU105 board uses a PMBus MUX address of 0x74 or 0x75 with channel address 0x04 and PMBus slave address 0x0A. Please refer to the User Guide of the respective board and the PMBus device datasheet for further information about the correct addresses and channel to use for PMBus communication. The defines below must be updated to match the board in use. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__intr__example_8c_1a01f188bacaad2ee1cc6049eb600c9f86" prot="public" static="no">
+        <name>IIC_PMBUS_CHANNEL</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__intr__example_8c_1a872f2f314f8e720ab639f76056ea1e7c" prot="public" static="no">
+        <name>PMBUS_SLAVE_ADDR</name>
+        <initializer>0x0A</initializer>
+        <briefdescription>
+<para>The following constant defines the address of the PMBus device on the IIC bus. </para>        </briefdescription>
+        <detaileddescription>
+<para>Note that this is a 7-bit address. The PMBus slave address may vary depending on the board and the PMBus device used. For example, the KCU105 board uses 0x0A as the PMBus slave address for its power controller. Please refer to the User Guide of the respective board and the PMBus device datasheet for further information about the correct slave address to use. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="81" bodyend="-1"/>
+        <referencedby refid="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" compoundref="xiic__pmbus__intr__example_8c" startline="198" endline="306">IicPmbusInterruptSdtExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__intr__example_8c_1aca2c06eb8e2fb046f1eebf52436db999" prot="public" static="no">
+        <name>IIC_MUX_ENABLE</name>
+        <initializer>/** Enables the IIC MUX */</initializer>
+        <briefdescription>
+<para>This define should be uncommented if there is an IIC MUX on the board to which the PMBus device is connected. </para>        </briefdescription>
+        <detaileddescription>
+<para>For example, the KCU105 board uses an IIC MUX to access PMBus devices. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__intr__example_8c_1ad345bccf457826be9f894cb922452219" prot="public" static="no">
+        <name>PMBUS_CMD_READ_VOUT</name>
+        <initializer>0x8B	/** Command to read output voltage (VOUT) */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__intr__example_8c_1aef5a773ba971f9637cdc57c2c5f037ff" prot="public" static="no">
+        <name>PMBUS_CMD_READ_TEMP</name>
+        <initializer>0x8D	/** Command to read temperature (TEMP) */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__intr__example_8c_1ac21613290ae2c73274231e4c78ddc09f" prot="public" static="no">
+        <name>PMBUS_VOUT_EXPONENT</name>
+        <initializer>(-12)</initializer>
+        <briefdescription>
+<para>PMBus READ_VOUT uses LINEAR16 format. </para>        </briefdescription>
+        <detaileddescription>
+<para>As per PMBus specification, the exponent is defined by VOUT_MODE. For the PMBus device used in this example, VOUT_MODE exponent is fixed at -12 (device/board specific). </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="99" bodyend="-1"/>
+        <referencedby refid="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" compoundref="xiic__pmbus__intr__example_8c" startline="198" endline="306">IicPmbusInterruptSdtExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__intr__example_8c_1a02055aef4b0f9a801005ebdc7b556157" prot="public" static="no">
+        <name>MAX_DELAY_CNT</name>
+        <initializer>1000</initializer>
+        <briefdescription>
+<para>Maximum delay count used for timeout handling. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__intr__example_8c_1a6f6955c7e0d854dfae76ca64d9861d06" prot="public" static="no">
+        <name>EventMask</name>
+        <initializer>0xFF</initializer>
+        <briefdescription>
+<para>Internal IIC event mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__intr__example_8c_1a3289fc3b552e479f461cd4cb762b1c9f" prot="public" static="no">
+        <name>Event_Value</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Internal event value used for IIC event checking. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__intr__example_8c_1aa79883d73882e4c7ca5840f7aab09b3e" prot="public" static="no">
+        <name>EXPONENT_SHIFT</name>
+        <initializer>11</initializer>
+        <briefdescription>
+<para>Shift to get exponent bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__intr__example_8c_1afe45c5697f427cf50fd6887cd59b741e" prot="public" static="no">
+        <name>EXPONENT_MASK</name>
+        <initializer>0x1F</initializer>
+        <briefdescription>
+<para>Mask for 5-bit exponent. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__intr__example_8c_1af02e9117e403fe139271f62523bcb397" prot="public" static="no">
+        <name>MANTISSA_MASK</name>
+        <initializer>0x7FF</initializer>
+        <briefdescription>
+<para>Mask for 11-bit mantissa. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__intr__example_8c_1a18961e00dd694882c467b4e54a6fba67" prot="public" static="no">
+        <name>EXP_SIGN_BIT</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>Exponent sign bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__intr__example_8c_1a8deb5e5623a9a97cbef6f05e35a9ec6f" prot="public" static="no">
+        <name>MANT_SIGN_BIT</name>
+        <initializer>0x400</initializer>
+        <briefdescription>
+<para>Mantissa sign bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xiic__pmbus__intr__example_8c_1a82ac42ea08442144b4d372ff9f7740c0" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_iic" kindref="compound">XIic</ref></type>
+        <definition>XIic IicInstance</definition>
+        <argsstring></argsstring>
+        <name>IicInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xiic__pmbus__intr__example_8c_1a19d9dd848a431a459bff8db6e3eb2985" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 TransmitComplete</definition>
+        <argsstring></argsstring>
+        <name>TransmitComplete</name>
+        <briefdescription>
+<para>The instance of the IIC device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xiic__pmbus__intr__example_8c_1a9f1fae969d865449aacad8208e70ce16" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 ReceiveComplete</definition>
+        <argsstring></argsstring>
+        <name>ReceiveComplete</name>
+        <briefdescription>
+<para>Flag to check completion of Transmission. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xiic__pmbus__intr__example_8c_1a0073f5989f4bf6135a340c0b26ad2138" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 ErrorEvent</definition>
+        <argsstring></argsstring>
+        <name>ErrorEvent</name>
+        <briefdescription>
+<para>Flag to check completion of Reception. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xiic__pmbus__intr__example_8c_1acd645bea5d9544f256abc449cecde3d5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 WriteBuffer[1]</definition>
+        <argsstring>[1]</argsstring>
+        <name>WriteBuffer</name>
+        <briefdescription>
+<para>Error event flag set by the IIC interrupt handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xiic__pmbus__intr__example_8c_1a1ee519e156c49c7c409aeec5d404f339" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int MuxInitIntr</definition>
+        <argsstring>(void)</argsstring>
+        <name>MuxInitIntr</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function initializes the IIC MUX to select the PMBus channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if pass, otherwise XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Wait for transmit completion.</para><para>The TransmitComplete flag is set to 1 by the transmit interrupt handler once all requested bytes are successfully transmitted. Xil_WaitForEvent() polls this software flag until it matches the expected completion value or the timeout expires, preventing an infinite wait in case the interrupt is not serviced.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="581" bodyend="614"/>
+      </memberdef>
+      <memberdef kind="function" id="xiic__pmbus__intr__example_8c_1a57de3959580ef5d13fe44fe36ee6dd6f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void SendHandler</definition>
+        <argsstring>(void *CallBackRef, int ByteCount)</argsstring>
+        <name>SendHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>This Send handler is called asynchronously from an interrupt context and indicates that data in the specified buffer has been sent. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the IIC device instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of bytes sent.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="518" bodyend="524"/>
+      </memberdef>
+      <memberdef kind="function" id="xiic__pmbus__intr__example_8c_1a2dc42043eaab1d3701336fda406b9dab" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void ReceiveHandler</definition>
+        <argsstring>(void *CallBackRef, int ByteCount)</argsstring>
+        <name>ReceiveHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>This Receive handler is called asynchronously from an interrupt context and indicates that data in the specified buffer has been received. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the IIC device instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of bytes received.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="539" bodyend="545"/>
+      </memberdef>
+      <memberdef kind="function" id="xiic__pmbus__intr__example_8c_1a781f83a72ac373b2b192ec99f4561084" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void StatusHandler</definition>
+        <argsstring>(XIic *InstancePtr, int Event)</argsstring>
+        <name>StatusHandler</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Event</declname>
+        </param>
+        <briefdescription>
+<para>This status handler is invoked from the interrupt context to report IIC status events. </para>        </briefdescription>
+        <detaileddescription>
+<para>It checks for error conditions such as arbitration loss or missing slave acknowledgment and sets an error flag.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the IIC driver instance for which the handler is being called for. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates the condition that has occurred.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>The errorflag is used by the application to detect PMBus transaction failures. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="563" bodyend="569"/>
+      </memberdef>
+      <memberdef kind="function" id="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int IicPmbusInterruptSdtExample</definition>
+        <argsstring>(void)</argsstring>
+        <name>IicPmbusInterruptSdtExample</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function demonstrates PMBus interrupt access: initializes IIC, sets up interrupts, selects MUX (if enabled), and read voltage and temperature from the PMBus device, printing results. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Initialize the IIC driver so that it is ready to use.</para><para>Setup the Interrupt System.</para><para>Set the Handlers for transmit and reception.</para><para>Start the IIC device.</para><para>Set the Global Interrupt Enable.</para><para>Initialize the IIC MUX on boards where the PMBus devices are connected through the MUX.</para><para>Set the Slave address.</para><para>Read the output voltage (VOUT) from the PMBus device</para><para>Combine the two bytes into a 16-bit raw value, convert it to voltage using Linear16 format, scale it to centivolts, and print the result.</para><para>Read the output temperature from the PMBus device</para><para>Convert raw PMBus temperature data (Linear11) to centi-degrees Celsius and print</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="198" bodyend="306"/>
+        <references refid="struct_x_iic___config_1ae783f76b6713be6d9b77060d77328102" compoundref="xiic_8h" startline="393">XIic_Config::BaseAddress</references>
+        <references refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" compoundref="xiic_8h" startline="466">XIic::BaseAddress</references>
+        <references refid="struct_x_iic___config_1acab9a6750ed1288bc87868653feaf70e" compoundref="xiic_8h" startline="397">XIic_Config::IntrId</references>
+        <references refid="struct_x_iic___config_1a30b5d6af72a05a175b7af553f8eef939" compoundref="xiic_8h" startline="399">XIic_Config::IntrParent</references>
+        <references refid="xiic__pmbus__polled__example_8c_1ad345bccf457826be9f894cb922452219" compoundref="xiic__pmbus__polled__example_8c" startline="96">PMBUS_CMD_READ_VOUT</references>
+        <references refid="xiic__pmbus__intr__example_8c_1a872f2f314f8e720ab639f76056ea1e7c" compoundref="xiic__pmbus__intr__example_8c" startline="81">PMBUS_SLAVE_ADDR</references>
+        <references refid="xiic__pmbus__intr__example_8c_1ac21613290ae2c73274231e4c78ddc09f" compoundref="xiic__pmbus__intr__example_8c" startline="99">PMBUS_VOUT_EXPONENT</references>
+        <references refid="group___overview_1gace6af337aea33e4f162897b40591e0ac" compoundref="xiic_8h" startline="379">XII_ADDR_TO_SEND_TYPE</references>
+        <references refid="xiic__pmbus__intr__example_8c_1a028d21c1d779d7c992e41b11d876de26" compoundref="xiic__pmbus__intr__example_8c" startline="54">XIIC_BASEADDRESS</references>
+        <references refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</references>
+        <references refid="group___overview_1ga50c5aa4448e8993c80ef7b6a87b1aaea" compoundref="xiic__intr_8c" startline="109" endline="228">XIic_InterruptHandler</references>
+        <references refid="xiic__l_8h_1a7071fcf4cf60d65fd862653fa34faa21" compoundref="xiic__l_8h" startline="334">XIic_IntrGlobalEnable</references>
+        <references refid="group___overview_1ga7e448669953bf36074837f174726814d" compoundref="xiic__sinit_8c" startline="93" endline="107">XIic_LookupConfig</references>
+        <references refid="group___overview_1gad944f42c3d9972fc2c986a7eed726297" compoundref="xiic_8c" startline="397" endline="437">XIic_SetAddress</references>
+        <references refid="group___overview_1ga86b4b2b307df26df2ecac39337c78bed" compoundref="xiic_8c" startline="619" endline="628">XIic_SetRecvHandler</references>
+        <references refid="group___overview_1gad33428830e9016ef50c1deae59d1e604" compoundref="xiic_8c" startline="648" endline="657">XIic_SetSendHandler</references>
+        <references refid="group___overview_1gaa74a6884f6dfc826a10768d7d0333991" compoundref="xiic_8c" startline="678" endline="687">XIic_SetStatusHandler</references>
+        <references refid="group___overview_1ga5f4e497710a9c3719f27d40faa74a10f" compoundref="xiic_8c" startline="223" endline="265">XIic_Start</references>
+        <referencedby refid="xiic__pmbus__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xiic__pmbus__intr__example_8c" startline="168" endline="185">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xiic__pmbus__intr__example_8c_1a055b77c24d8f099279c4f2e58d134aad" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int Pmbus_SendCmd_Intr</definition>
+        <argsstring>(u8 Cmd)</argsstring>
+        <name>Pmbus_SendCmd_Intr</name>
+        <param>
+          <type>u8</type>
+          <declname>Cmd</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a single command byte to the PMBus slave device using interrupt-driven IIC communication. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the command byte to be sent to the slave.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the command was sent successfully.</para></listitem><listitem><para>XST_FAILURE if an error occurred during transmission.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function waits for the IIC bus to become free before sending the command and waits for the transmission to complete. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Ensure bus is free before starting</para><para>Send the command byte to the slave device</para><para>Wait for transmit completion.</para><para>The TransmitComplete flag is set to 1 by the transmit interrupt handler once all requested bytes are successfully transmitted. Xil_WaitForEvent() polls this software flag until it matches the expected completion value or the timeout expires, preventing an infinite wait in case the interrupt is not serviced.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="323" bodyend="351"/>
+      </memberdef>
+      <memberdef kind="function" id="xiic__pmbus__intr__example_8c_1a353335e9924be292a67786469a34cc69" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int Pmbus_ReadWord_Intr</definition>
+        <argsstring>(u8 Cmd, u8 *ReadBuf)</argsstring>
+        <name>Pmbus_ReadWord_Intr</name>
+        <param>
+          <type>u8</type>
+          <declname>Cmd</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ReadBuf</declname>
+        </param>
+        <briefdescription>
+<para>This function reads a 2-byte word from the PMBus slave device using interrupt-driven IIC communication. </para>        </briefdescription>
+        <detaileddescription>
+<para>It first sends the command byte, then receives the data.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the command byte to be sent to the slave. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReadBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the buffer to store the received data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the word was read successfully.</para></listitem><listitem><para>XST_FAILURE if an error occurred during the operation.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function uses a repeated start condition between the write (command) and read (data) phases. It waits for the receive operation to complete or timeout. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Ensure bus is free before starting</para><para>PMBus requires a repeated start between command write and data read. Enable repeated start for the command WRITE phase.</para><para>Send command byte (write)</para><para>Restore options on failure</para><para>Disable repeated start BEFORE the READ phase so STOP is generated</para><para>Receive 2 bytes (read)</para><para>Wait for receive completion.</para><para>The ReceiveComplete flag is set to 1 by the receive interrupt handler once all requested bytes are successfully received. Xil_WaitForEvent() polls this software flag until it matches the expected completion value or the timeout expires, preventing an infinite wait in case the interrupt is not serviced.</para><para>Make sure bus is free for the next command </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="371" bodyend="423"/>
+      </memberdef>
+      <memberdef kind="function" id="xiic__pmbus__intr__example_8c_1aae1713080685e3ed951c18fd5a7fc4e8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>static float Pmbus_Linear11_ToFloat</definition>
+        <argsstring>(u16 Raw)</argsstring>
+        <name>Pmbus_Linear11_ToFloat</name>
+        <param>
+          <type>u16</type>
+          <declname>Raw</declname>
+        </param>
+        <briefdescription>
+<para>This function converts a PMBus Linear11 formatted value to float. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Raw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 16-bit raw value from the PMBus device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Floating point value after conversion.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Step 1: Extract the exponent and mantissa fields.</para><para>LINEAR11 format: Bits[15:11] : 5-bit signed exponent Bits[10:0] : 11-bit signed mantissa</para><para>Step 2: Sign-extend the 5-bit exponent. Bit[4] (0x10) is the sign bit of the exponent(2&apos;s complement).</para><para>Step 3: Sign-extend the 11-bit mantissa. Bit[10] (0x400) is the sign bit of the mantissa(2&apos;s complement).</para><para>Step 4: Apply the Linear11 conversion formula. Value = Mantissa × 2^Exponent</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="436" bodyend="470"/>
+      </memberdef>
+      <memberdef kind="function" id="xiic__pmbus__intr__example_8c_1aec7aa7fd9459730d5e366491a8038756" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>static float Pmbus_Linear16_ToFloat</definition>
+        <argsstring>(u16 Raw, int Vout_Exp)</argsstring>
+        <name>Pmbus_Linear16_ToFloat</name>
+        <param>
+          <type>u16</type>
+          <declname>Raw</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Vout_Exp</declname>
+        </param>
+        <briefdescription>
+<para>This function converts a PMBus Linear16 formatted value to float. </para>        </briefdescription>
+        <detaileddescription>
+<para>Used for voltage (READ_VOUT).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Raw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 16-bit raw value from the PMBus device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Vout_Exp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the exponent for VOUT.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Floating point value after conversion.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Step 1: Convert the 5‑bit exponent to a signed integer. Bit[4] (0x10) is the sign bit in a 5‑bit two&apos;s‑complement exponent.</para><para>Step 2: Apply the Linear16 conversion formula. Value = Raw × 2^Exponent</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="485" bodyend="503"/>
+      </memberdef>
+      <memberdef kind="function" id="xiic__pmbus__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Write buffer used for IIC data transmission. </para>        </briefdescription>
+        <detaileddescription>
+<para>Main function to call the PMBus interrupt example.</para><para><simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Run the PMBus example.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c" bodystart="168" bodyend="185"/>
+        <references refid="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" compoundref="xiic__pmbus__intr__example_8c" startline="198" endline="306">IicPmbusInterruptSdtExample</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file consists of an interrupt mode design example which uses the Xilinx IIC device and low-level driver to communicate with a PMBus device. </para>    </briefdescription>
+    <detaileddescription>
+<para>The example demonstrates how to read voltage and temperature from a PMBus-compliant device using the IIC interface. It includes conversion routines for PMBus Linear11 and Linear16 formats.</para><para>The <ref refid="group___overview_1ga977382e8a20bd5e690229f82af2e7603" kindref="member">XIic_MasterSend()</ref> API is used to transmit the data and <ref refid="group___overview_1ga337bf0d322d4a7d9b4f8baa30e00ab45" kindref="member">XIic_MasterRecv()</ref> API is used to receive the data. Interrupt handlers are used for send, receive, and status events.</para><para>The define PMBUS_SLAVE_ADDR in this file needs to be changed depending on the PMBus device and board configuration on which this example is to be run.</para><para>This code assumes that no Operating System is being used.</para><para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+3.15  vlt  02/18/26    Initial version
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="37"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiic_8h" kindref="compound">xiic.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiic__l_8h" kindref="compound">xiic_l.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xinterrupt_wrap.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54" refid="xiic__pmbus__intr__example_8c_1a028d21c1d779d7c992e41b11d876de26" refkind="member"><highlight class="preprocessor">#define<sp/>XIIC_BASEADDRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XIIC_0_BASEADDR</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="70" refid="xiic__pmbus__intr__example_8c_1a8ad02ab61f37d20ecedd7acfbc5c42ed" refkind="member"><highlight class="preprocessor">#define<sp/>IIC_MUX_ADDRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x75</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IIC_PMBUS_CHANNEL<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="81" refid="xiic__pmbus__intr__example_8c_1a872f2f314f8e720ab639f76056ea1e7c" refkind="member"><highlight class="preprocessor">#define<sp/>PMBUS_SLAVE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0A</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="88" refid="xiic__pmbus__intr__example_8c_1aca2c06eb8e2fb046f1eebf52436db999" refkind="member"><highlight class="preprocessor">#define<sp/>IIC_MUX_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor">#define<sp/>PMBUS_CMD_READ_VOUT<sp/><sp/><sp/><sp/><sp/>0x8B<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor">#define<sp/>PMBUS_CMD_READ_TEMP<sp/><sp/><sp/><sp/><sp/>0x8D<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99" refid="xiic__pmbus__intr__example_8c_1ac21613290ae2c73274231e4c78ddc09f" refkind="member"><highlight class="preprocessor">#define<sp/>PMBUS_VOUT_EXPONENT<sp/><sp/><sp/><sp/><sp/>(-12)</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="104" refid="xiic__pmbus__intr__example_8c_1a02055aef4b0f9a801005ebdc7b556157" refkind="member"><highlight class="preprocessor">#define<sp/>MAX_DELAY_CNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1000</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="107" refid="xiic__pmbus__intr__example_8c_1a6f6955c7e0d854dfae76ca64d9861d06" refkind="member"><highlight class="preprocessor">#define<sp/>EventMask<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="110" refid="xiic__pmbus__intr__example_8c_1a3289fc3b552e479f461cd4cb762b1c9f" refkind="member"><highlight class="preprocessor">#define<sp/>Event_Value<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="113" refid="xiic__pmbus__intr__example_8c_1aa79883d73882e4c7ca5840f7aab09b3e" refkind="member"><highlight class="preprocessor">#define<sp/>EXPONENT_SHIFT<sp/><sp/><sp/>11</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="116" refid="xiic__pmbus__intr__example_8c_1afe45c5697f427cf50fd6887cd59b741e" refkind="member"><highlight class="preprocessor">#define<sp/>EXPONENT_MASK<sp/><sp/><sp/><sp/>0x1F</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="119" refid="xiic__pmbus__intr__example_8c_1af02e9117e403fe139271f62523bcb397" refkind="member"><highlight class="preprocessor">#define<sp/>MANTISSA_MASK<sp/><sp/><sp/><sp/>0x7FF</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="122" refid="xiic__pmbus__intr__example_8c_1a18961e00dd694882c467b4e54a6fba67" refkind="member"><highlight class="preprocessor">#define<sp/>EXP_SIGN_BIT<sp/><sp/><sp/><sp/>0x10</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="125" refid="xiic__pmbus__intr__example_8c_1a8deb5e5623a9a97cbef6f05e35a9ec6f" refkind="member"><highlight class="preprocessor">#define<sp/>MANT_SIGN_BIT<sp/><sp/><sp/>0x400</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>IIC_MUX_ENABLE</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>MuxInitIntr(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SendHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ByteCount);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReceiveHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ByteCount);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>StatusHandler(<ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Event);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" kindref="member">IicPmbusInterruptSdtExample</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Pmbus_SendCmd_Intr(u8<sp/>Cmd);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Pmbus_ReadWord_Intr(u8<sp/>Cmd,<sp/>u8<sp/>*ReadBuf);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>Pmbus_Linear11_ToFloat(u16<sp/>Raw);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>Pmbus_Linear16_ToFloat(u16<sp/>Raw,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Vout_Exp);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>IicInstance;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="normal">INTC<sp/>Intc;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151" refid="xiic__pmbus__intr__example_8c_1a19d9dd848a431a459bff8db6e3eb2985" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u8<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a19d9dd848a431a459bff8db6e3eb2985" kindref="member">TransmitComplete</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="152" refid="xiic__pmbus__intr__example_8c_1a9f1fae969d865449aacad8208e70ce16" refkind="member"><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u8<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a9f1fae969d865449aacad8208e70ce16" kindref="member">ReceiveComplete</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="153" refid="xiic__pmbus__intr__example_8c_1a0073f5989f4bf6135a340c0b26ad2138" refkind="member"><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u8<sp/><ref refid="xiic__pmbus__intr__example_8c_1a0073f5989f4bf6135a340c0b26ad2138" kindref="member">ErrorEvent</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="155" refid="xiic__pmbus__intr__example_8c_1acd645bea5d9544f256abc449cecde3d5" refkind="member"><highlight class="normal">u8<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a301b988b2453fda0d2780ed4d82c8450" kindref="member">WriteBuffer</ref>[1];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="157"><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="168" refid="xiic__pmbus__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="169"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;IIC<sp/>PMBus<sp/>interrupt<sp/>Example\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" kindref="member">IicPmbusInterruptSdtExample</ref>();</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;IIC<sp/>PMBus<sp/>Example<sp/>Failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>IIC<sp/>PMBus<sp/>Example\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="198" refid="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" kindref="member">IicPmbusInterruptSdtExample</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="199"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_iic___config" kindref="compound">XIic_Config</ref><sp/>*ConfigPtr;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ReadBuffer[2];</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>RawData;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>Voltage;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>Temperature;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Centi;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="group___overview_1ga7e448669953bf36074837f174726814d" kindref="member">XIic_LookupConfig</ref>(<ref refid="xiic__pmbus__intr__example_8c_1a028d21c1d779d7c992e41b11d876de26" kindref="member">XIIC_BASEADDRESS</ref>);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ConfigPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" kindref="member">XIic_CfgInitialize</ref>(&amp;IicInstance,<sp/>ConfigPtr,<sp/>ConfigPtr-&gt;<ref refid="struct_x_iic___config_1ae783f76b6713be6d9b77060d77328102" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XSetupInterruptSystem(&amp;IicInstance,<sp/>&amp;<ref refid="group___overview_1ga50c5aa4448e8993c80ef7b6a87b1aaea" kindref="member">XIic_InterruptHandler</ref>,<sp/>ConfigPtr-&gt;<ref refid="struct_x_iic___config_1acab9a6750ed1288bc87868653feaf70e" kindref="member">IntrId</ref>,<sp/>ConfigPtr-&gt;<ref refid="struct_x_iic___config_1a30b5d6af72a05a175b7af553f8eef939" kindref="member">IntrParent</ref>,XINTERRUPT_DEFAULT_PRIORITY);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gad33428830e9016ef50c1deae59d1e604" kindref="member">XIic_SetSendHandler</ref>(&amp;IicInstance,<sp/>&amp;IicInstance,<sp/>(<ref refid="group___overview_1ga85db866c44d23a4c6e985f2c6c647053" kindref="member">XIic_Handler</ref>)SendHandler);</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga86b4b2b307df26df2ecac39337c78bed" kindref="member">XIic_SetRecvHandler</ref>(&amp;IicInstance,<sp/>&amp;IicInstance,<sp/>(<ref refid="group___overview_1ga85db866c44d23a4c6e985f2c6c647053" kindref="member">XIic_Handler</ref>)ReceiveHandler);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gaa74a6884f6dfc826a10768d7d0333991" kindref="member">XIic_SetStatusHandler</ref>(&amp;IicInstance,<sp/>&amp;IicInstance,<sp/>(<ref refid="group___overview_1gac96e3f6975be1bdb8fe5956812855962" kindref="member">XIic_StatusHandler</ref>)StatusHandler);</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1ga5f4e497710a9c3719f27d40faa74a10f" kindref="member">XIic_Start</ref>(&amp;IicInstance);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__l_8h_1a7071fcf4cf60d65fd862653fa34faa21" kindref="member">XIic_IntrGlobalEnable</ref>(IicInstance.<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>IIC_MUX_ENABLE</highlight></codeline>
+<codeline lineno="248"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>MuxInitIntr();</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="258"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gad944f42c3d9972fc2c986a7eed726297" kindref="member">XIic_SetAddress</ref>(&amp;IicInstance,<sp/><ref refid="group___overview_1gace6af337aea33e4f162897b40591e0ac" kindref="member">XII_ADDR_TO_SEND_TYPE</ref>,<sp/><ref refid="xiic__pmbus__intr__example_8c_1a872f2f314f8e720ab639f76056ea1e7c" kindref="member">PMBUS_SLAVE_ADDR</ref>);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Pmbus_ReadWord_Intr(<ref refid="xiic__pmbus__polled__example_8c_1ad345bccf457826be9f894cb922452219" kindref="member">PMBUS_CMD_READ_VOUT</ref>,<sp/>ReadBuffer);</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RawData<sp/>=<sp/>((u16)ReadBuffer[1]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>ReadBuffer[0];</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Voltage<sp/>=<sp/>Pmbus_Linear16_ToFloat(RawData,<ref refid="xiic__pmbus__intr__example_8c_1ac21613290ae2c73274231e4c78ddc09f" kindref="member">PMBUS_VOUT_EXPONENT</ref>);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>VOUT<sp/>is<sp/>expected<sp/>to<sp/>be<sp/>non-negative<sp/>for<sp/>standard<sp/>PMBus<sp/>READ_VOUT<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Centi<sp/>=<sp/>(int)(Voltage<sp/>*<sp/>100<sp/>+<sp/>0.5f);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;VOUT:<sp/>RAW<sp/>=<sp/>0x%04X,<sp/>Voltage<sp/>=<sp/>%d.%02d<sp/>V\r\n&quot;</highlight><highlight class="normal">,RawData,<sp/>Centi<sp/>/<sp/>100,<sp/>Centi<sp/>%<sp/>100);</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><sp/>Pmbus_ReadWord_Intr(PMBUS_CMD_READ_TEMP,<sp/>ReadBuffer);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RawData<sp/>=<sp/>((u16)ReadBuffer[1]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>ReadBuffer[0];</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temperature<sp/>=<sp/>Pmbus_Linear11_ToFloat(RawData);</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Temperature<sp/>&gt;=<sp/>0.0f)<sp/>{</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Centi<sp/>=<sp/>(int)(Temperature<sp/>*<sp/>100.0f<sp/>+<sp/>0.5f);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Centi<sp/>=<sp/>(int)(Temperature<sp/>*<sp/>100.0f<sp/>-<sp/>0.5f);</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>TempWhole<sp/>=<sp/>Centi<sp/>/<sp/>100;</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>TempFrac<sp/><sp/>=<sp/>Centi<sp/>%<sp/>100;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TempFrac<sp/>&lt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TempFrac<sp/>=<sp/>-TempFrac;</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;TEMP:<sp/>RAW<sp/>=<sp/>0x%04X,<sp/>Temperature<sp/>=<sp/>%d.%02d<sp/>C\r\n&quot;</highlight><highlight class="normal">,RawData,<sp/>TempWhole,<sp/>TempFrac);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="306"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="323"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Pmbus_SendCmd_Intr(u8<sp/>Cmd)</highlight></codeline>
+<codeline lineno="324"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a19d9dd848a431a459bff8db6e3eb2985" kindref="member">TransmitComplete</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group___overview_1ga90f3806cf4817250596f6f68f2c066a3" kindref="member">XIic_WaitBusFree</ref>(IicInstance.<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref>)<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1ga977382e8a20bd5e690229f82af2e7603" kindref="member">XIic_MasterSend</ref>(&amp;IicInstance,<sp/>&amp;Cmd,<sp/>1);</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_WaitForEvent((UINTPTR)&amp;<ref refid="xiic__dynamic__eeprom__example_8c_1a19d9dd848a431a459bff8db6e3eb2985" kindref="member">TransmitComplete</ref>,<sp/><ref refid="xiic__pmbus__intr__example_8c_1a6f6955c7e0d854dfae76ca64d9861d06" kindref="member">EventMask</ref>,<sp/><ref refid="xiic__pmbus__intr__example_8c_1a3289fc3b552e479f461cd4cb762b1c9f" kindref="member">Event_Value</ref>,<sp/><ref refid="xiic__pmbus__intr__example_8c_1a02055aef4b0f9a801005ebdc7b556157" kindref="member">MAX_DELAY_CNT</ref>);</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="351"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"></highlight></codeline>
+<codeline lineno="353"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="371"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Pmbus_ReadWord_Intr(u8<sp/>Cmd,<sp/>u8<sp/>*ReadBuf)</highlight></codeline>
+<codeline lineno="372"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OldOpts;</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a9f1fae969d865449aacad8208e70ce16" kindref="member">ReceiveComplete</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a19d9dd848a431a459bff8db6e3eb2985" kindref="member">TransmitComplete</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__pmbus__intr__example_8c_1a0073f5989f4bf6135a340c0b26ad2138" kindref="member">ErrorEvent</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group___overview_1ga90f3806cf4817250596f6f68f2c066a3" kindref="member">XIic_WaitBusFree</ref>(IicInstance.<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref>)<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OldOpts<sp/>=<sp/><ref refid="group___overview_1gaf15dd70c4f1bb34a9e35c1ca85cee841" kindref="member">XIic_GetOptions</ref>(&amp;IicInstance);</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga900a7ab49c2e13b0562ab629c088cf3a" kindref="member">XIic_SetOptions</ref>(&amp;IicInstance,<sp/>OldOpts<sp/>|<sp/>XII_REPEATED_START_OPTION);</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Pmbus_SendCmd_Intr(Cmd);</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga900a7ab49c2e13b0562ab629c088cf3a" kindref="member">XIic_SetOptions</ref>(&amp;IicInstance,<sp/>OldOpts);</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga900a7ab49c2e13b0562ab629c088cf3a" kindref="member">XIic_SetOptions</ref>(&amp;IicInstance,<sp/>OldOpts);</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1ga337bf0d322d4a7d9b4f8baa30e00ab45" kindref="member">XIic_MasterRecv</ref>(&amp;IicInstance,<sp/>ReadBuf,<sp/>2);</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_WaitForEvent((UINTPTR)&amp;<ref refid="xiic__dynamic__eeprom__example_8c_1a9f1fae969d865449aacad8208e70ce16" kindref="member">ReceiveComplete</ref>,</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__pmbus__intr__example_8c_1a6f6955c7e0d854dfae76ca64d9861d06" kindref="member">EventMask</ref>,<sp/><ref refid="xiic__pmbus__intr__example_8c_1a3289fc3b552e479f461cd4cb762b1c9f" kindref="member">Event_Value</ref>,<sp/><ref refid="xiic__pmbus__intr__example_8c_1a02055aef4b0f9a801005ebdc7b556157" kindref="member">MAX_DELAY_CNT</ref>);</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS<sp/>||<sp/><ref refid="xiic__pmbus__intr__example_8c_1a0073f5989f4bf6135a340c0b26ad2138" kindref="member">ErrorEvent</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"></highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group___overview_1ga90f3806cf4817250596f6f68f2c066a3" kindref="member">XIic_WaitBusFree</ref>(IicInstance.<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref>)<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="423"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"></highlight></codeline>
+<codeline lineno="425"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="436"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>Pmbus_Linear11_ToFloat(u16<sp/>Raw)</highlight></codeline>
+<codeline lineno="437"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Exponent<sp/><sp/>=<sp/>(Raw<sp/>&gt;&gt;<sp/><ref refid="xiic__pmbus__intr__example_8c_1aa79883d73882e4c7ca5840f7aab09b3e" kindref="member">EXPONENT_SHIFT</ref><sp/>)<sp/>&amp;<sp/><ref refid="xiic__pmbus__intr__example_8c_1afe45c5697f427cf50fd6887cd59b741e" kindref="member">EXPONENT_MASK</ref>;</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Mantissa<sp/><sp/>=<sp/>Raw<sp/>&amp;<sp/><ref refid="xiic__pmbus__intr__example_8c_1af02e9117e403fe139271f62523bcb397" kindref="member">MANTISSA_MASK</ref>;</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Exponent<sp/>&amp;<sp/><ref refid="xiic__pmbus__intr__example_8c_1a18961e00dd694882c467b4e54a6fba67" kindref="member">EXP_SIGN_BIT</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Exponent<sp/>|=<sp/>~<ref refid="xiic__pmbus__intr__example_8c_1afe45c5697f427cf50fd6887cd59b741e" kindref="member">EXPONENT_MASK</ref>;</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mantissa<sp/>&amp;<sp/><ref refid="xiic__pmbus__intr__example_8c_1a8deb5e5623a9a97cbef6f05e35a9ec6f" kindref="member">MANT_SIGN_BIT</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mantissa<sp/>|=<sp/>~MANTISSA_MASK;</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Exponent<sp/>&gt;=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">)Mantissa<sp/>*<sp/>(float)(1<sp/>&lt;&lt;<sp/>Exponent);</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">)Mantissa<sp/>/<sp/>(float)(1<sp/>&lt;&lt;<sp/>(-Exponent));</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="470"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"></highlight></codeline>
+<codeline lineno="472"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="485"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>Pmbus_Linear16_ToFloat(u16<sp/>Raw,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Vout_Exp)</highlight></codeline>
+<codeline lineno="486"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Vout_Exp<sp/>&amp;<sp/>EXP_SIGN_BIT)<sp/>{</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Vout_Exp<sp/>|=<sp/>~<ref refid="xiic__pmbus__intr__example_8c_1afe45c5697f427cf50fd6887cd59b741e" kindref="member">EXPONENT_MASK</ref>;</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Vout_Exp<sp/>&gt;=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">)Raw<sp/>*<sp/>(float)(1<sp/>&lt;&lt;<sp/>Vout_Exp);</highlight></codeline>
+<codeline lineno="500"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="501"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">)Raw<sp/>/<sp/>(float)(1<sp/>&lt;&lt;<sp/>(-Vout_Exp));</highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="503"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"></highlight></codeline>
+<codeline lineno="505"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="518"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SendHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ByteCount)</highlight></codeline>
+<codeline lineno="519"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/>(void)ByteCount;</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/>(void)CallBackRef;</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"></highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a19d9dd848a431a459bff8db6e3eb2985" kindref="member">TransmitComplete</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="524"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"></highlight></codeline>
+<codeline lineno="526"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="539"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReceiveHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ByteCount)</highlight></codeline>
+<codeline lineno="540"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/>(void)CallBackRef;</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/>(void)ByteCount;</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"></highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a9f1fae969d865449aacad8208e70ce16" kindref="member">ReceiveComplete</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="545"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"></highlight></codeline>
+<codeline lineno="547"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="563"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>StatusHandler(<ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Event)</highlight></codeline>
+<codeline lineno="564"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)InstancePtr;</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Event<sp/>==<sp/><ref refid="group___overview_1ga5843af7de7006ae82767f16bb78ee84e" kindref="member">XII_ARB_LOST_EVENT</ref>)<sp/>||<sp/>(Event<sp/>==<sp/><ref refid="group___overview_1gab5762b506d3e39139007bb6968cdef80" kindref="member">XII_SLAVE_NO_ACK_EVENT</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__pmbus__intr__example_8c_1a0073f5989f4bf6135a340c0b26ad2138" kindref="member">ErrorEvent</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="569"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="570"><highlight class="normal"></highlight></codeline>
+<codeline lineno="571"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>IIC_MUX_ENABLE</highlight></codeline>
+<codeline lineno="572"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="581"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>MuxInitIntr(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="582"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="583"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="584"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1gad944f42c3d9972fc2c986a7eed726297" kindref="member">XIic_SetAddress</ref>(&amp;IicInstance,<sp/><ref refid="group___overview_1gace6af337aea33e4f162897b40591e0ac" kindref="member">XII_ADDR_TO_SEND_TYPE</ref>,<sp/><ref refid="xiic__pmbus__intr__example_8c_1a8ad02ab61f37d20ecedd7acfbc5c42ed" kindref="member">IIC_MUX_ADDRESS</ref>);</highlight></codeline>
+<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="586"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="587"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="588"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a301b988b2453fda0d2780ed4d82c8450" kindref="member">WriteBuffer</ref>[0]<sp/>=<sp/>IIC_PMBUS_CHANNEL;</highlight></codeline>
+<codeline lineno="589"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a19d9dd848a431a459bff8db6e3eb2985" kindref="member">TransmitComplete</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="590"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__pmbus__intr__example_8c_1a0073f5989f4bf6135a340c0b26ad2138" kindref="member">ErrorEvent</ref><sp/>=<sp/>0</highlight></codeline>
+<codeline lineno="591"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Ensure<sp/>the<sp/>IIC<sp/>bus<sp/>is<sp/>free<sp/>before<sp/>accessing<sp/>the<sp/>IIC<sp/>MUX<sp/>*/</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="592"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group___overview_1ga90f3806cf4817250596f6f68f2c066a3" kindref="member">XIic_WaitBusFree</ref>(IicInstance.<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref>)<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="593"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="594"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="595"><highlight class="normal"></highlight></codeline>
+<codeline lineno="596"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1ga977382e8a20bd5e690229f82af2e7603" kindref="member">XIic_MasterSend</ref>(&amp;IicInstance,<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a301b988b2453fda0d2780ed4d82c8450" kindref="member">WriteBuffer</ref>,<sp/>1);</highlight></codeline>
+<codeline lineno="597"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="598"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_WaitForEvent((UINTPTR)&amp;<ref refid="xiic__dynamic__eeprom__example_8c_1a19d9dd848a431a459bff8db6e3eb2985" kindref="member">TransmitComplete</ref>,<sp/><ref refid="xiic__pmbus__intr__example_8c_1a6f6955c7e0d854dfae76ca64d9861d06" kindref="member">EventMask</ref>,<sp/><ref refid="xiic__pmbus__intr__example_8c_1a3289fc3b552e479f461cd4cb762b1c9f" kindref="member">Event_Value</ref>,<sp/><ref refid="xiic__pmbus__intr__example_8c_1a02055aef4b0f9a801005ebdc7b556157" kindref="member">MAX_DELAY_CNT</ref>);</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS<sp/>||<sp/><ref refid="xiic__pmbus__intr__example_8c_1a0073f5989f4bf6135a340c0b26ad2138" kindref="member">ErrorEvent</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="613"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="614"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="615"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_intr_example.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,295 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xsecure__keyunwrap__example__apis" kind="group">
+    <compoundname>xsecure_keyunwrap_example_apis</compoundname>
+    <title>XilSecure Key Unwrap API Example Usage</title>
+    <innerclass refid="struct_x_secure___key_wrap_buf" prot="public">XSecure_KeyWrapBuf</innerclass>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xsecure__keyunwrap__example__apis_1gab13e95f9065ab86419ae2f5a1f07ad86" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 RsaEncodedData[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES+XSECURE_AES_CMK_SIZE_IN_BYTES]</definition>
+        <argsstring>[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES+XSECURE_AES_CMK_SIZE_IN_BYTES]</argsstring>
+        <name>RsaEncodedData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__keyunwrap__example__apis_1ga3c7e0d358f84c87829b7ed1239c18d4e" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_secure___key_wrap_data" kindref="compound">XSecure_KeyWrapData</ref></type>
+        <definition>XSecure_KeyWrapData KeyWrapData</definition>
+        <argsstring></argsstring>
+        <name>KeyWrapData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__keyunwrap__example__apis_1ga1caf24706b2c9d8c44cf763d402245f8" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 WrappedKey[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES+XSECURE_AES_CMK_SIZE_IN_BYTES]</definition>
+        <argsstring>[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES+XSECURE_AES_CMK_SIZE_IN_BYTES]</argsstring>
+        <name>WrappedKey</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__keyunwrap__example__apis_1gaf8209a9f457a86e2ecb7cbb568f616ed" prot="public" static="yes" mutable="no">
+        <type>XSecure_KeyWrapBuf</type>
+        <definition>XSecure_KeyWrapBuf KeyWrapBuf</definition>
+        <argsstring></argsstring>
+        <name>KeyWrapBuf</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__keyunwrap__example__apis_1gaae5bc30256c39606c9c8a29a464bbba5" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 AesWrappedKey[XSECURE_AES_CMK_SIZE_IN_BYTES]</definition>
+        <argsstring>[XSECURE_AES_CMK_SIZE_IN_BYTES]</argsstring>
+        <name>AesWrappedKey</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__keyunwrap__example__apis_1ga1487c9e40575bef3fbb29f3e41ec7ad6" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 Signature[XSECURE_ECC_SIGN_TOTAL_LEN]</definition>
+        <argsstring>[XSECURE_ECC_SIGN_TOTAL_LEN]</argsstring>
+        <name>Signature</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__keyunwrap__example__apis_1ga96d1344c2a31192cc7f7592b26e6ec64" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 SharedMem[XSECURE_SHARED_MEM_SIZE]</definition>
+        <argsstring>[XSECURE_SHARED_MEM_SIZE]</argsstring>
+        <name>SharedMem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__keyunwrap__example__apis_1gadcfc566233057c0444a9079f444485eb" prot="public" static="yes" mutable="no">
+        <type>const u32</type>
+        <definition>const u32 PublicExp</definition>
+        <argsstring></argsstring>
+        <name>PublicExp</name>
+        <initializer>= 0x1000100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__keyunwrap__example__apis_1ga87572cddbba01eca912954d464238fd9" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_PrintData</definition>
+        <argsstring>(const u8 *Data, u32 Size)</argsstring>
+        <name>XSecure_PrintData</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>Data</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+<para>This function prints the given data on the console. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to any given data buffer</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Size of the given buffer </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" bodystart="369" bodyend="377"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__keyunwrap__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function to call the XSecure_KeyUnwrap to unwrap the wrapped key. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On successful key unwrap</para></listitem><listitem><para>Errorcode - On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" bodystart="233" bodyend="358"/>
+        <references refid="group__xsecure__keyunwrap__example__apis_1ga0dfce136d6eb36d277a8deba72eaac07" compoundref="xilsecure__versal__net__keyunwrap__client__example_8c" startline="81">XSECURE_AES_CMK_SIZE_IN_BYTES</references>
+        <references refid="group__xsecure__keyunwrap__example__apis_1ga8964a86f95973d27f64f6fcceb03e7fb" compoundref="xilsecure__versal__net__keyunwrap__client__example_8c" startline="83">XSECURE_AES_CMK_WRAP_DATA</references>
+        <references refid="group__xsecure__mailbox__apis_1ga14ac66445aa924c4c0bd9b91b9744af9" compoundref="xsecure__mailbox_8c" startline="119" endline="134">XSecure_ClientInit</references>
+        <references refid="group__xsecure__common__apis_1gga7a82a3ba05e484a7cfee6327447fd63ea1c55e87bcd7704c8b44a7c003eda87e9" compoundref="net_2xsecure__plat__defs_8h" startline="312">XSECURE_ENC_OP</references>
+        <references refid="group__xsecure__helper__client__apis_1ga34fb190dff4e61e8f39544f732a94edf" compoundref="xsecure__plat__client_8c" startline="193" endline="218">XSecure_KeyUnwrap</references>
+        <references refid="group__xsecure__rsa__server__apis_1gaef98b03d932368574ec1123184b9a9e4" compoundref="xsecure__plat__rsa_8h" startline="68">XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES</references>
+        <references refid="group__xsecure__keyunwrap__example__apis_1gaa2d21aca3ad0469d4bd2a951c190be3e" compoundref="xilsecure__versal__net__keyunwrap__client__example_8c" startline="92">XSECURE_RSA_KEY_GEN_TIMEOUT_US</references>
+        <references refid="group__xsecure__keyunwrap__example__apis_1gac68769cb4d2f865843c2e77b2b5c3fbd" compoundref="xilsecure__versal__net__keyunwrap__client__example_8c" startline="86">XSECURE_RSA_PUB_EXP_SIZE</references>
+        <references refid="group__xsecure__kat__client__apis_1ga7e00313e2e3f47bfb6dbc463889971c4" compoundref="xsecure__katclient_8c" startline="144" endline="170">XSecure_RsaPublicEncKat</references>
+        <references refid="group__xsecure__rsa__client__apis_1gaf2a6250efae11b0bdbfe22e6642dedf4" compoundref="xsecure__rsaclient_8c" startline="136" endline="185">XSecure_RsaPublicEncrypt</references>
+        <references refid="group__xsecure__common__apis_1ga9256d68fdb87398a39ca9c81e9460ca5" compoundref="net_2xsecure__plat__defs_8h" startline="83">XSECURE_RTCA_RSA_KEY_STATUS_MASK</references>
+        <references refid="group__xsecure__common__apis_1gad4836d8e994c2e4a78549e2e77ae5bc0" compoundref="net_2xsecure__plat__defs_8h" startline="81">XSECURE_RTCA_RSA_KEY_STATUS_REG</references>
+        <references refid="group__xsecure__common__apis_1gaacb4b7c562037f76ce135fd2659024b4" compoundref="net_2xsecure__plat__defs_8h" startline="78">XSECURE_SHARED_KEY_STORE_SIZE_OFFSET</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__keyunwrap__example__apis_1ga0dfce136d6eb36d277a8deba72eaac07" prot="public" static="no">
+        <name>XSECURE_AES_CMK_SIZE_IN_BYTES</name>
+        <initializer>(40U)</initializer>
+        <briefdescription>
+<para>CMK size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__xsecure__keyunwrap__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__versal__net__keyunwrap__client__example_8c" startline="233" endline="358">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__keyunwrap__example__apis_1ga8964a86f95973d27f64f6fcceb03e7fb" prot="public" static="no">
+        <name>XSECURE_AES_CMK_WRAP_DATA</name>
+        <initializer>&quot;e3c2ee8876b89396ddbe1409a7b5cd0e9030eb1dfaa1a8898d6d0d97f72f00ebe8017b69a4ba48f3&quot;</initializer>
+        <briefdescription>
+<para>Wrapped CMK key using AES. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" bodystart="83" bodyend="-1"/>
+        <referencedby refid="group__xsecure__keyunwrap__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__versal__net__keyunwrap__client__example_8c" startline="233" endline="358">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__keyunwrap__example__apis_1gac68769cb4d2f865843c2e77b2b5c3fbd" prot="public" static="no">
+        <name>XSECURE_RSA_PUB_EXP_SIZE</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Public exponent size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" bodystart="86" bodyend="-1"/>
+        <referencedby refid="group__xsecure__keyunwrap__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__versal__net__keyunwrap__client__example_8c" startline="233" endline="358">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__keyunwrap__example__apis_1ga156d4b87524a45ccdcd0d56c02a6ceea" prot="public" static="no">
+        <name>XSECURE_KEY_WRAP_PUB_KEY_OFFSET</name>
+        <initializer>(0U) /** Public key offset */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__keyunwrap__example__apis_1gacc773f6ab3ceec0c5390f5c26c485ccc" prot="public" static="no">
+        <name>XSECURE_ECC_SIGN_TOTAL_LEN</name>
+        <initializer>(96U) /** ECC signature length */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__keyunwrap__example__apis_1gaa2d21aca3ad0469d4bd2a951c190be3e" prot="public" static="no">
+        <name>XSECURE_RSA_KEY_GEN_TIMEOUT_US</name>
+        <initializer>(600000000U)</initializer>
+        <briefdescription>
+<para>Timeout in microseconds. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_keyunwrap_client_example.c" bodystart="92" bodyend="-1"/>
+        <referencedby refid="group__xsecure__keyunwrap__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__versal__net__keyunwrap__client__example_8c" startline="233" endline="358">main</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This example illustrates on how to unwrap the wrapped key using IPI calls. </para>    </briefdescription>
+    <detaileddescription>
+<para>To build this application, xilmailbox, xilocp, xilsecure library must be included in BSP and xilsecure must be in client mode This example is supported for Versal Net devices.</para><para><simplesect kind="note"><para><heading level="2">Procedure to link and compile the example for the default ddr less designs </heading>
+</para></simplesect>
+The default linker settings places a software stack, heap and data in DDR memory. For this example to work, any data shared between client running on A72/R5/PL and server running on PMC, should be placed in area which is accessible to both client and server.</para><para>Following is the procedure to compile the example on OCM or any memory region which can be accessed by server <verbatim>    1. Open example linker script(lscript.ld) in Vitis project and section to memory mapping should
+            be updated to point all the required sections to shared memory(OCM or TCM)
+            using a memory region drop down selection
+
+                                    OR
+
+    1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
+            .sharedmemory : {
+                    . = ALIGN(4);
+                    __sharedmemory_start = .;
+                    *(.sharedmemory)
+                    *(.sharedmemory.*)
+                    *(.gnu.linkonce.d.*)
+                    __sharedmemory_end = .;
+                    } &gt; versal_cips_0_pspmc_0_psv_ocm_ram_0_psv_ocm_ram_0
+
+            2. In this example &quot;.data&quot; section elements that are passed by reference to the server-side should
+               be stored in the above shared memory section. To make it happen in below example,
+       replace &quot;.data&quot; in attribute section with &quot;.sharedmemory&quot;. For example,
+               static XSecure_KeyWrapData KeyWrapData __attribute__ ((aligned (64)))
+                            __attribute__ ((section (&quot;.data.KeyWrapData&quot;)));
+                                    should be changed to
+               static XSecure_KeyWrapData KeyWrapData __attribute__ ((aligned (64)))
+                    __attribute__ ((section (&quot;.sharedmemory.KeyWrapData&quot;)));
+</verbatim></para><para>By default the cache is enabled for this example</para><para>MODIFICATION HISTORY: <preformatted>
+Ver   Who    Date     Changes
+<hruler/>
+
+1.0   kpt    07/03/23 Initial release
+5.3   kpt    12/13/23 Added support for RSA CRT
+5.3   ng     01/28/24 Added SDT support
+5.4   kpt    06/13/24 Add AES key wrap with padding support
+5.7   tvp    04/04/26 Wait for RSA key pair to be available</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

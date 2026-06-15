@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_aa0b5dc4f20c64819777f243ebe9d95b" kind="dir">
+    <compoundname>control</compoundname>
+    <innerfile refid="cam__device__api_8h">cam_device_api.h</innerfile>
+    <innerfile refid="cam__device__buffer__api_8h">cam_device_buffer_api.h</innerfile>
+    <innerfile refid="cam__device__calib__api_8h">cam_device_calib_api.h</innerfile>
+    <innerfile refid="cam__device__calibration_8h">cam_device_calibration.h</innerfile>
+    <innerfile refid="cam__device__common_8h">cam_device_common.h</innerfile>
+    <innerfile refid="cam__device__isp__system__api_8h">cam_device_isp_system_api.h</innerfile>
+    <innerfile refid="cam__device__sensor__api_8h">cam_device_sensor_api.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/"/>
+  </compounddef>
+</doxygen>

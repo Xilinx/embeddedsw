@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pcie_psu___bar_alloc" kind="struct" prot="public">
+    <compoundname>XPciePsu_BarAlloc</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pcie_psu___bar_alloc_1a222d3c3df2b7bdb5c0ac0e364d00daaf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPciePsu_BarAlloc::BarAdd</definition>
+        <argsstring></argsstring>
+        <name>BarAdd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pcie_psu___bar_alloc_1a84127f84724a7e23a218b2e088f66939" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPciePsu_BarAlloc::BarNo</definition>
+        <argsstring></argsstring>
+        <name>BarNo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.c" bodystart="32" bodyend="35"/>
+    <listofallmembers>
+      <member refid="struct_x_pcie_psu___bar_alloc_1a222d3c3df2b7bdb5c0ac0e364d00daaf" prot="public" virt="non-virtual"><scope>XPciePsu_BarAlloc</scope><name>BarAdd</name></member>
+      <member refid="struct_x_pcie_psu___bar_alloc_1a84127f84724a7e23a218b2e088f66939" prot="public" virt="non-virtual"><scope>XPciePsu_BarAlloc</scope><name>BarNo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

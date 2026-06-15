@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_pic_buf_plane__s" kind="struct" prot="public">
+    <compoundname>PicBufPlane_s</compoundname>
+    <includes local="no">buf_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_pic_buf_plane__s_1aa9e36f861381614e6c9e9d2e18b224bb" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t PicBufPlane_s::pData</definition>
+        <argsstring></argsstring>
+        <name>pData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="421" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="421" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pic_buf_plane__s_1a99c375b47a881c6fa282cfe8fbb70cfc" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t PicBufPlane_s::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="422" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="422" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pic_buf_plane__s_1a5297cf9970710ea6e79a0e5375cb5a6a" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t PicBufPlane_s::PicWidthPixel</definition>
+        <argsstring></argsstring>
+        <name>PicWidthPixel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="423" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pic_buf_plane__s_1afe286741955128d1a9f4d2e7b0d1b333" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t PicBufPlane_s::PicWidthBytes</definition>
+        <argsstring></argsstring>
+        <name>PicWidthBytes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="424" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="424" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pic_buf_plane__s_1afc9a6e649aa3018f8926ce7897978175" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t PicBufPlane_s::PicHeightPixel</definition>
+        <argsstring></argsstring>
+        <name>PicHeightPixel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="425" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="425" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pic_buf_plane__s_1a18b18b086603ed419657ff0bcf786672" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t PicBufPlane_s::PixelDataAlignMode</definition>
+        <argsstring></argsstring>
+        <name>PixelDataAlignMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="426" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="426" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pic_buf_plane__s_1ae0f36ecec218a651e885320d3837a5ab" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t PicBufPlane_s::bitWidth</definition>
+        <argsstring></argsstring>
+        <name>bitWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="427" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="427" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>PicBufPlane_t. </para>    </briefdescription>
+    <detaileddescription>
+<para>Common information about a color component plane within an image buffer. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="420" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="420" bodyend="428"/>
+    <listofallmembers>
+      <member refid="struct_pic_buf_plane__s_1a99c375b47a881c6fa282cfe8fbb70cfc" prot="public" virt="non-virtual"><scope>PicBufPlane_s</scope><name>BaseAddress</name></member>
+      <member refid="struct_pic_buf_plane__s_1ae0f36ecec218a651e885320d3837a5ab" prot="public" virt="non-virtual"><scope>PicBufPlane_s</scope><name>bitWidth</name></member>
+      <member refid="struct_pic_buf_plane__s_1aa9e36f861381614e6c9e9d2e18b224bb" prot="public" virt="non-virtual"><scope>PicBufPlane_s</scope><name>pData</name></member>
+      <member refid="struct_pic_buf_plane__s_1afc9a6e649aa3018f8926ce7897978175" prot="public" virt="non-virtual"><scope>PicBufPlane_s</scope><name>PicHeightPixel</name></member>
+      <member refid="struct_pic_buf_plane__s_1afe286741955128d1a9f4d2e7b0d1b333" prot="public" virt="non-virtual"><scope>PicBufPlane_s</scope><name>PicWidthBytes</name></member>
+      <member refid="struct_pic_buf_plane__s_1a5297cf9970710ea6e79a0e5375cb5a6a" prot="public" virt="non-virtual"><scope>PicBufPlane_s</scope><name>PicWidthPixel</name></member>
+      <member refid="struct_pic_buf_plane__s_1a18b18b086603ed419657ff0bcf786672" prot="public" virt="non-virtual"><scope>PicBufPlane_s</scope><name>PixelDataAlignMode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,307 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_psu___main_stream_attributes" kind="struct" prot="public">
+    <compoundname>XDpPsu_MainStreamAttributes</compoundname>
+    <includes local="no">xdppsu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_psu___main_stream_attributes_1a187fa13aab8b4f9c6a4a29e0ff834447" prot="public" static="no" mutable="no">
+        <type>XVidC_VideoTimingMode</type>
+        <definition>XVidC_VideoTimingMode XDpPsu_MainStreamAttributes::Vtm</definition>
+        <argsstring></argsstring>
+        <name>Vtm</name>
+        <briefdescription>
+<para>The video timing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="155" bodyend="-1"/>
+        <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a2fda86e200651dfc92ad74779ebddbf0" compoundref="xdppsu__spm_8c" startline="495" endline="560">XDpPsu_CfgMsaUseCustom</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1af4a2bfe8c203d186833dd3f1590bc262" compoundref="xdppsu__spm_8c" startline="362" endline="462">XDpPsu_CfgMsaUseEdidPreferredTiming</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a5c17c2d8df179f32a3da77787a81f0fc" compoundref="xdppsu__spm_8c" startline="290" endline="343">XDpPsu_CfgMsaUseStandardVideoMode</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a0ae04780a260564bbae1fd7c26155bd5" compoundref="xdppsu__spm_8c" startline="660" endline="715">XDpPsu_SetMsaValues</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___main_stream_attributes_1a473d3bb30522b93cc5ac130d6da59d55" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDpPsu_MainStreamAttributes::PixelClockHz</definition>
+        <argsstring></argsstring>
+        <name>PixelClockHz</name>
+        <briefdescription>
+<para>The pixel clock of the stream (in Hz). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="156" bodyend="-1"/>
+        <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a2fda86e200651dfc92ad74779ebddbf0" compoundref="xdppsu__spm_8c" startline="495" endline="560">XDpPsu_CfgMsaUseCustom</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1af4a2bfe8c203d186833dd3f1590bc262" compoundref="xdppsu__spm_8c" startline="362" endline="462">XDpPsu_CfgMsaUseEdidPreferredTiming</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a5c17c2d8df179f32a3da77787a81f0fc" compoundref="xdppsu__spm_8c" startline="290" endline="343">XDpPsu_CfgMsaUseStandardVideoMode</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a0ae04780a260564bbae1fd7c26155bd5" compoundref="xdppsu__spm_8c" startline="660" endline="715">XDpPsu_SetMsaValues</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___main_stream_attributes_1a39efde558c7dc46d473c5d97a5e57f0c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDpPsu_MainStreamAttributes::HStart</definition>
+        <argsstring></argsstring>
+        <name>HStart</name>
+        <briefdescription>
+<para>Horizontal blank start (in pixels). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="158" bodyend="-1"/>
+        <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a2fda86e200651dfc92ad74779ebddbf0" compoundref="xdppsu__spm_8c" startline="495" endline="560">XDpPsu_CfgMsaUseCustom</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a0ae04780a260564bbae1fd7c26155bd5" compoundref="xdppsu__spm_8c" startline="660" endline="715">XDpPsu_SetMsaValues</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___main_stream_attributes_1a49874c82f96ffd1d8b9a252318902669" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDpPsu_MainStreamAttributes::VStart</definition>
+        <argsstring></argsstring>
+        <name>VStart</name>
+        <briefdescription>
+<para>Vertical blank start (in lines). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="160" bodyend="-1"/>
+        <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a2fda86e200651dfc92ad74779ebddbf0" compoundref="xdppsu__spm_8c" startline="495" endline="560">XDpPsu_CfgMsaUseCustom</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a0ae04780a260564bbae1fd7c26155bd5" compoundref="xdppsu__spm_8c" startline="660" endline="715">XDpPsu_SetMsaValues</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___main_stream_attributes_1aad53f91b8a18773658be4b11a83b1b07" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDpPsu_MainStreamAttributes::Misc0</definition>
+        <argsstring></argsstring>
+        <name>Misc0</name>
+        <briefdescription>
+<para>Miscellaneous stream attributes 0 as specified by the DisplayPort 1.2 specification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="161" bodyend="-1"/>
+        <referencedby refid="xdppsu__spm_8c_1a288a08c1d83e4f66f0217cab4d695544" compoundref="xdppsu__spm_8c" startline="603" endline="623">XDpPsu_CfgMsaEnSynchClkMode</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a2fda86e200651dfc92ad74779ebddbf0" compoundref="xdppsu__spm_8c" startline="495" endline="560">XDpPsu_CfgMsaUseCustom</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a93872e0beb0405b47b7d689e8f8749c5" compoundref="xdppsu__spm_8c" startline="49" endline="111">XDpPsu_SetColorEncode</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a0ae04780a260564bbae1fd7c26155bd5" compoundref="xdppsu__spm_8c" startline="660" endline="715">XDpPsu_SetMsaValues</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___main_stream_attributes_1a20a535cfdb61148f3a27e1be513451ff" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDpPsu_MainStreamAttributes::Misc1</definition>
+        <argsstring></argsstring>
+        <name>Misc1</name>
+        <briefdescription>
+<para>Miscellaneous stream attributes 1 as specified by the DisplayPort 1.2 specification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="164" bodyend="-1"/>
+        <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a2fda86e200651dfc92ad74779ebddbf0" compoundref="xdppsu__spm_8c" startline="495" endline="560">XDpPsu_CfgMsaUseCustom</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a93872e0beb0405b47b7d689e8f8749c5" compoundref="xdppsu__spm_8c" startline="49" endline="111">XDpPsu_SetColorEncode</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a0ae04780a260564bbae1fd7c26155bd5" compoundref="xdppsu__spm_8c" startline="660" endline="715">XDpPsu_SetMsaValues</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___main_stream_attributes_1a5800534070e04bcfbb537f3fc67bf26b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDpPsu_MainStreamAttributes::NVid</definition>
+        <argsstring></argsstring>
+        <name>NVid</name>
+        <briefdescription>
+<para>N value for the video stream. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="167" bodyend="-1"/>
+        <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a2fda86e200651dfc92ad74779ebddbf0" compoundref="xdppsu__spm_8c" startline="495" endline="560">XDpPsu_CfgMsaUseCustom</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a0ae04780a260564bbae1fd7c26155bd5" compoundref="xdppsu__spm_8c" startline="660" endline="715">XDpPsu_SetMsaValues</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___main_stream_attributes_1aa65d39155f3e2be26683222b92036ea9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDpPsu_MainStreamAttributes::UserPixelWidth</definition>
+        <argsstring></argsstring>
+        <name>UserPixelWidth</name>
+        <briefdescription>
+<para>The width of the user data input port. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="168" bodyend="-1"/>
+        <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a2fda86e200651dfc92ad74779ebddbf0" compoundref="xdppsu__spm_8c" startline="495" endline="560">XDpPsu_CfgMsaUseCustom</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a0ae04780a260564bbae1fd7c26155bd5" compoundref="xdppsu__spm_8c" startline="660" endline="715">XDpPsu_SetMsaValues</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___main_stream_attributes_1ab45384e75710459fcc27223be6b6fab6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDpPsu_MainStreamAttributes::DataPerLane</definition>
+        <argsstring></argsstring>
+        <name>DataPerLane</name>
+        <briefdescription>
+<para>Used to translate the number of pixels per line to the native internal 16-bit datapath. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="170" bodyend="-1"/>
+        <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a2fda86e200651dfc92ad74779ebddbf0" compoundref="xdppsu__spm_8c" startline="495" endline="560">XDpPsu_CfgMsaUseCustom</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a0ae04780a260564bbae1fd7c26155bd5" compoundref="xdppsu__spm_8c" startline="660" endline="715">XDpPsu_SetMsaValues</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___main_stream_attributes_1a68c1a909b07494754efdb3013fefd3a2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDpPsu_MainStreamAttributes::AvgBytesPerTU</definition>
+        <argsstring></argsstring>
+        <name>AvgBytesPerTU</name>
+        <briefdescription>
+<para>Average number of bytes per transfer unit, scaled up by a factor of 1000. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="173" bodyend="-1"/>
+        <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a2fda86e200651dfc92ad74779ebddbf0" compoundref="xdppsu__spm_8c" startline="495" endline="560">XDpPsu_CfgMsaUseCustom</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a0ae04780a260564bbae1fd7c26155bd5" compoundref="xdppsu__spm_8c" startline="660" endline="715">XDpPsu_SetMsaValues</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___main_stream_attributes_1a279b948bbb49e9894cb5835a0b580e75" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDpPsu_MainStreamAttributes::TransferUnitSize</definition>
+        <argsstring></argsstring>
+        <name>TransferUnitSize</name>
+        <briefdescription>
+<para>Size of the transfer unit in the framing logic. </para>        </briefdescription>
+        <detaileddescription>
+<para>In MST mode, this is also the number of time slots that are allotted in the payload ID table. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="176" bodyend="-1"/>
+        <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a2fda86e200651dfc92ad74779ebddbf0" compoundref="xdppsu__spm_8c" startline="495" endline="560">XDpPsu_CfgMsaUseCustom</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a0ae04780a260564bbae1fd7c26155bd5" compoundref="xdppsu__spm_8c" startline="660" endline="715">XDpPsu_SetMsaValues</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___main_stream_attributes_1a3665a9f198631d956098e0e2d8110c83" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDpPsu_MainStreamAttributes::InitWait</definition>
+        <argsstring></argsstring>
+        <name>InitWait</name>
+        <briefdescription>
+<para>Number of initial wait cycles at the start of a new line by the framing logic. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="181" bodyend="-1"/>
+        <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a2fda86e200651dfc92ad74779ebddbf0" compoundref="xdppsu__spm_8c" startline="495" endline="560">XDpPsu_CfgMsaUseCustom</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a0ae04780a260564bbae1fd7c26155bd5" compoundref="xdppsu__spm_8c" startline="660" endline="715">XDpPsu_SetMsaValues</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___main_stream_attributes_1a45cd153f3800b1f808f85d3d5a479bb5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDpPsu_MainStreamAttributes::BitsPerColor</definition>
+        <argsstring></argsstring>
+        <name>BitsPerColor</name>
+        <briefdescription>
+<para>Number of bits per color component. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="184" bodyend="-1"/>
+        <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1af59b28d1d599ee7d265c7ab0badf1e19" compoundref="xdppsu__spm_8c" startline="576" endline="588">XDpPsu_CfgMsaSetBpc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___main_stream_attributes_1a05a5424fcecad4f711e93a713918e1b4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpPsu_MainStreamAttributes::ComponentFormat</definition>
+        <argsstring></argsstring>
+        <name>ComponentFormat</name>
+        <briefdescription>
+<para>The component format currently in use by the video stream. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="186" bodyend="-1"/>
+        <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a93872e0beb0405b47b7d689e8f8749c5" compoundref="xdppsu__spm_8c" startline="49" endline="111">XDpPsu_SetColorEncode</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___main_stream_attributes_1ab98fd80f6d8ce3ff3fead5dbb3e98b19" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpPsu_MainStreamAttributes::DynamicRange</definition>
+        <argsstring></argsstring>
+        <name>DynamicRange</name>
+        <briefdescription>
+<para>The dynamic range currently in use by the video stream. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="188" bodyend="-1"/>
+        <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a93872e0beb0405b47b7d689e8f8749c5" compoundref="xdppsu__spm_8c" startline="49" endline="111">XDpPsu_SetColorEncode</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___main_stream_attributes_1abbab364a50e80789370359c596dabc14" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpPsu_MainStreamAttributes::YCbCrColorimetry</definition>
+        <argsstring></argsstring>
+        <name>YCbCrColorimetry</name>
+        <briefdescription>
+<para>The YCbCr colorimetry currently in use by the video stream. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="190" bodyend="-1"/>
+        <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a93872e0beb0405b47b7d689e8f8749c5" compoundref="xdppsu__spm_8c" startline="49" endline="111">XDpPsu_SetColorEncode</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___main_stream_attributes_1aa3b4c4d678fe829e401a090c946fb97e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpPsu_MainStreamAttributes::SynchronousClockMode</definition>
+        <argsstring></argsstring>
+        <name>SynchronousClockMode</name>
+        <briefdescription>
+<para>Synchronous clock mode is currently in use by the video stream. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="192" bodyend="-1"/>
+        <referencedby refid="xdppsu__spm_8c_1a288a08c1d83e4f66f0217cab4d695544" compoundref="xdppsu__spm_8c" startline="603" endline="623">XDpPsu_CfgMsaEnSynchClkMode</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the main stream attributes which determine how the video will be displayed. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="154" bodyend="194"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_psu___main_stream_attributes_1a68c1a909b07494754efdb3013fefd3a2" prot="public" virt="non-virtual"><scope>XDpPsu_MainStreamAttributes</scope><name>AvgBytesPerTU</name></member>
+      <member refid="struct_x_dp_psu___main_stream_attributes_1a45cd153f3800b1f808f85d3d5a479bb5" prot="public" virt="non-virtual"><scope>XDpPsu_MainStreamAttributes</scope><name>BitsPerColor</name></member>
+      <member refid="struct_x_dp_psu___main_stream_attributes_1a05a5424fcecad4f711e93a713918e1b4" prot="public" virt="non-virtual"><scope>XDpPsu_MainStreamAttributes</scope><name>ComponentFormat</name></member>
+      <member refid="struct_x_dp_psu___main_stream_attributes_1ab45384e75710459fcc27223be6b6fab6" prot="public" virt="non-virtual"><scope>XDpPsu_MainStreamAttributes</scope><name>DataPerLane</name></member>
+      <member refid="struct_x_dp_psu___main_stream_attributes_1ab98fd80f6d8ce3ff3fead5dbb3e98b19" prot="public" virt="non-virtual"><scope>XDpPsu_MainStreamAttributes</scope><name>DynamicRange</name></member>
+      <member refid="struct_x_dp_psu___main_stream_attributes_1a39efde558c7dc46d473c5d97a5e57f0c" prot="public" virt="non-virtual"><scope>XDpPsu_MainStreamAttributes</scope><name>HStart</name></member>
+      <member refid="struct_x_dp_psu___main_stream_attributes_1a3665a9f198631d956098e0e2d8110c83" prot="public" virt="non-virtual"><scope>XDpPsu_MainStreamAttributes</scope><name>InitWait</name></member>
+      <member refid="struct_x_dp_psu___main_stream_attributes_1aad53f91b8a18773658be4b11a83b1b07" prot="public" virt="non-virtual"><scope>XDpPsu_MainStreamAttributes</scope><name>Misc0</name></member>
+      <member refid="struct_x_dp_psu___main_stream_attributes_1a20a535cfdb61148f3a27e1be513451ff" prot="public" virt="non-virtual"><scope>XDpPsu_MainStreamAttributes</scope><name>Misc1</name></member>
+      <member refid="struct_x_dp_psu___main_stream_attributes_1a5800534070e04bcfbb537f3fc67bf26b" prot="public" virt="non-virtual"><scope>XDpPsu_MainStreamAttributes</scope><name>NVid</name></member>
+      <member refid="struct_x_dp_psu___main_stream_attributes_1a473d3bb30522b93cc5ac130d6da59d55" prot="public" virt="non-virtual"><scope>XDpPsu_MainStreamAttributes</scope><name>PixelClockHz</name></member>
+      <member refid="struct_x_dp_psu___main_stream_attributes_1aa3b4c4d678fe829e401a090c946fb97e" prot="public" virt="non-virtual"><scope>XDpPsu_MainStreamAttributes</scope><name>SynchronousClockMode</name></member>
+      <member refid="struct_x_dp_psu___main_stream_attributes_1a279b948bbb49e9894cb5835a0b580e75" prot="public" virt="non-virtual"><scope>XDpPsu_MainStreamAttributes</scope><name>TransferUnitSize</name></member>
+      <member refid="struct_x_dp_psu___main_stream_attributes_1aa65d39155f3e2be26683222b92036ea9" prot="public" virt="non-virtual"><scope>XDpPsu_MainStreamAttributes</scope><name>UserPixelWidth</name></member>
+      <member refid="struct_x_dp_psu___main_stream_attributes_1a49874c82f96ffd1d8b9a252318902669" prot="public" virt="non-virtual"><scope>XDpPsu_MainStreamAttributes</scope><name>VStart</name></member>
+      <member refid="struct_x_dp_psu___main_stream_attributes_1a187fa13aab8b4f9c6a4a29e0ff834447" prot="public" virt="non-virtual"><scope>XDpPsu_MainStreamAttributes</scope><name>Vtm</name></member>
+      <member refid="struct_x_dp_psu___main_stream_attributes_1abbab364a50e80789370359c596dabc14" prot="public" virt="non-virtual"><scope>XDpPsu_MainStreamAttributes</scope><name>YCbCrColorimetry</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

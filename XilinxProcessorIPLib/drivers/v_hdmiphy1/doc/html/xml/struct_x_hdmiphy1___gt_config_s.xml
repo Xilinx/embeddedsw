@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdmiphy1___gt_config_s" kind="struct" prot="public">
+    <compoundname>XHdmiphy1_GtConfigS</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdmiphy1___gt_config_s_1af072922cd7dec35f3c2c99305d8120e4" prot="public" static="no" mutable="no">
+        <type>u32(*</type>
+        <definition>u32(* XHdmiphy1_GtConfigS::CfgSetCdr)(XHdmiphy1 *, u8, XHdmiphy1_ChannelId)</definition>
+        <argsstring>)(XHdmiphy1 *, u8, XHdmiphy1_ChannelId)</argsstring>
+        <name>CfgSetCdr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___gt_config_s_1a50d8638ead8229d6b8dea367bcc53cb3" prot="public" static="no" mutable="no">
+        <type>u32(*</type>
+        <definition>u32(* XHdmiphy1_GtConfigS::CheckPllOpRange)(XHdmiphy1 *, u8, XHdmiphy1_ChannelId, u64)</definition>
+        <argsstring>)(XHdmiphy1 *, u8, XHdmiphy1_ChannelId, u64)</argsstring>
+        <name>CheckPllOpRange</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___gt_config_s_1a3314d489fb8958bdafece9e24cf25b4d" prot="public" static="no" mutable="no">
+        <type>u32(*</type>
+        <definition>u32(* XHdmiphy1_GtConfigS::OutDivChReconfig)(XHdmiphy1 *, u8, XHdmiphy1_ChannelId, XHdmiphy1_DirectionType)</definition>
+        <argsstring>)(XHdmiphy1 *, u8, XHdmiphy1_ChannelId, XHdmiphy1_DirectionType)</argsstring>
+        <name>OutDivChReconfig</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___gt_config_s_1ae72f0f131a62d651fc1bffde5550ef07" prot="public" static="no" mutable="no">
+        <type>u32(*</type>
+        <definition>u32(* XHdmiphy1_GtConfigS::ClkChReconfig)(XHdmiphy1 *, u8, XHdmiphy1_ChannelId)</definition>
+        <argsstring>)(XHdmiphy1 *, u8, XHdmiphy1_ChannelId)</argsstring>
+        <name>ClkChReconfig</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___gt_config_s_1a4f88a048f03f322173d42f7b37994790" prot="public" static="no" mutable="no">
+        <type>u32(*</type>
+        <definition>u32(* XHdmiphy1_GtConfigS::ClkCmnReconfig)(XHdmiphy1 *, u8, XHdmiphy1_ChannelId)</definition>
+        <argsstring>)(XHdmiphy1 *, u8, XHdmiphy1_ChannelId)</argsstring>
+        <name>ClkCmnReconfig</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___gt_config_s_1a0e1b6df9fc8220a9f792b35f45a44d86" prot="public" static="no" mutable="no">
+        <type>u32(*</type>
+        <definition>u32(* XHdmiphy1_GtConfigS::RxChReconfig)(XHdmiphy1 *, u8, XHdmiphy1_ChannelId)</definition>
+        <argsstring>)(XHdmiphy1 *, u8, XHdmiphy1_ChannelId)</argsstring>
+        <name>RxChReconfig</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___gt_config_s_1aa4f946d28b1372f13970b3c422d5d864" prot="public" static="no" mutable="no">
+        <type>u32(*</type>
+        <definition>u32(* XHdmiphy1_GtConfigS::TxChReconfig)(XHdmiphy1 *, u8, XHdmiphy1_ChannelId)</definition>
+        <argsstring>)(XHdmiphy1 *, u8, XHdmiphy1_ChannelId)</argsstring>
+        <name>TxChReconfig</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___gt_config_s_1abf703f666bccf4fb21b55125c694a2e6" prot="public" static="no" mutable="no">
+        <type>XHdmiphy1_GtPllDivs</type>
+        <definition>XHdmiphy1_GtPllDivs XHdmiphy1_GtConfigS::CpllDivs</definition>
+        <argsstring></argsstring>
+        <name>CpllDivs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___gt_config_s_1aa46fdf7f0f1d06e48d84f227c0920d01" prot="public" static="no" mutable="no">
+        <type>XHdmiphy1_GtPllDivs</type>
+        <definition>XHdmiphy1_GtPllDivs XHdmiphy1_GtConfigS::QpllDivs</definition>
+        <argsstring></argsstring>
+        <name>QpllDivs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_gt.h" bodystart="55" bodyend="67"/>
+    <listofallmembers>
+      <member refid="struct_x_hdmiphy1___gt_config_s_1af072922cd7dec35f3c2c99305d8120e4" prot="public" virt="non-virtual"><scope>XHdmiphy1_GtConfigS</scope><name>CfgSetCdr</name></member>
+      <member refid="struct_x_hdmiphy1___gt_config_s_1a50d8638ead8229d6b8dea367bcc53cb3" prot="public" virt="non-virtual"><scope>XHdmiphy1_GtConfigS</scope><name>CheckPllOpRange</name></member>
+      <member refid="struct_x_hdmiphy1___gt_config_s_1ae72f0f131a62d651fc1bffde5550ef07" prot="public" virt="non-virtual"><scope>XHdmiphy1_GtConfigS</scope><name>ClkChReconfig</name></member>
+      <member refid="struct_x_hdmiphy1___gt_config_s_1a4f88a048f03f322173d42f7b37994790" prot="public" virt="non-virtual"><scope>XHdmiphy1_GtConfigS</scope><name>ClkCmnReconfig</name></member>
+      <member refid="struct_x_hdmiphy1___gt_config_s_1abf703f666bccf4fb21b55125c694a2e6" prot="public" virt="non-virtual"><scope>XHdmiphy1_GtConfigS</scope><name>CpllDivs</name></member>
+      <member refid="struct_x_hdmiphy1___gt_config_s_1a3314d489fb8958bdafece9e24cf25b4d" prot="public" virt="non-virtual"><scope>XHdmiphy1_GtConfigS</scope><name>OutDivChReconfig</name></member>
+      <member refid="struct_x_hdmiphy1___gt_config_s_1aa46fdf7f0f1d06e48d84f227c0920d01" prot="public" virt="non-virtual"><scope>XHdmiphy1_GtConfigS</scope><name>QpllDivs</name></member>
+      <member refid="struct_x_hdmiphy1___gt_config_s_1a0e1b6df9fc8220a9f792b35f45a44d86" prot="public" virt="non-virtual"><scope>XHdmiphy1_GtConfigS</scope><name>RxChReconfig</name></member>
+      <member refid="struct_x_hdmiphy1___gt_config_s_1aa4f946d28b1372f13970b3c422d5d864" prot="public" virt="non-virtual"><scope>XHdmiphy1_GtConfigS</scope><name>TxChReconfig</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

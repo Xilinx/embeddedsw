@@ -1,0 +1,205 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_psu___link_config" kind="struct" prot="public">
+    <compoundname>XDpPsu_LinkConfig</compoundname>
+    <includes local="no">xdppsu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_psu___link_config_1a1e61b94ec7a7329b4b7929251b293e79" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpPsu_LinkConfig::LaneCount</definition>
+        <argsstring></argsstring>
+        <name>LaneCount</name>
+        <briefdescription>
+<para>The current lane count of the main link. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="xdppsu__common__example_8h_1a64d2267afa217a44aa3bf09bcd51e409" compoundref="xdppsu__common__example_8c" startline="130" endline="209">DpPsu_StartLink</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
+        <referencedby refid="xdppsu_8h_1abe31bd9b101b094a40eff13ef032ea44" compoundref="xdppsu_8c" startline="1477" endline="1524">XDpPsu_EstablishLink</referencedby>
+        <referencedby refid="xdppsu_8h_1a868ca9bd2184707f3929e6f7e695cc93" compoundref="xdppsu_8c" startline="1975" endline="2009">XDpPsu_SetLaneCount</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___link_config_1ae1994c57d3126737fc0028f5039b62be" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpPsu_LinkConfig::LinkRate</definition>
+        <argsstring></argsstring>
+        <name>LinkRate</name>
+        <briefdescription>
+<para>The current link rate of the main link. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="100" bodyend="-1"/>
+        <referencedby refid="xdppsu__common__example_8h_1a64d2267afa217a44aa3bf09bcd51e409" compoundref="xdppsu__common__example_8c" startline="130" endline="209">DpPsu_StartLink</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a60932e88ba047ac16f0b6ce9103d43b7" compoundref="xdppsu__spm_8c" startline="150" endline="271">XDpPsu_CfgMsaRecalculate</referencedby>
+        <referencedby refid="xdppsu_8h_1abe31bd9b101b094a40eff13ef032ea44" compoundref="xdppsu_8c" startline="1477" endline="1524">XDpPsu_EstablishLink</referencedby>
+        <referencedby refid="xdppsu_8h_1a68384c6a808dff1f2e68e7611057a548" compoundref="xdppsu_8c" startline="2031" endline="2078">XDpPsu_SetLinkRate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___link_config_1acdbacf632dd479df825fa795e6647250" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpPsu_LinkConfig::ScramblerEn</definition>
+        <argsstring></argsstring>
+        <name>ScramblerEn</name>
+        <briefdescription>
+<para>Symbol scrambling is currently in use over the main link. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="102" bodyend="-1"/>
+        <referencedby refid="xdppsu_8h_1a690be0eee00d0c06370f88fdfbfdfb75" compoundref="xdppsu_8c" startline="2095" endline="2130">XDpPsu_SetScrambler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___link_config_1aab19db4a5af65cabf219702e29716368" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpPsu_LinkConfig::EnhancedFramingMode</definition>
+        <argsstring></argsstring>
+        <name>EnhancedFramingMode</name>
+        <briefdescription>
+<para>Enhanced frame mode is currently in use over the main link. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="104" bodyend="-1"/>
+        <referencedby refid="xdppsu_8h_1a2ec5ae4af1f5232fc86116d457045997" compoundref="xdppsu_8c" startline="1920" endline="1957">XDpPsu_SetEnhancedFrameMode</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___link_config_1aa8f2287632a67655c1b1f0e1956068af" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpPsu_LinkConfig::DownspreadControl</definition>
+        <argsstring></argsstring>
+        <name>DownspreadControl</name>
+        <briefdescription>
+<para>Downspread control is currently in use over the main link. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="106" bodyend="-1"/>
+        <referencedby refid="xdppsu_8h_1a7836168f290562156a24fb51762acde4" compoundref="xdppsu_8c" startline="1864" endline="1900">XDpPsu_SetDownspread</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___link_config_1a0953d4a5c490da688eb7d4636f918712" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpPsu_LinkConfig::MaxLaneCount</definition>
+        <argsstring></argsstring>
+        <name>MaxLaneCount</name>
+        <briefdescription>
+<para>The maximum lane count of the main link. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="xdppsu__common__example_8h_1a64d2267afa217a44aa3bf09bcd51e409" compoundref="xdppsu__common__example_8c" startline="130" endline="209">DpPsu_StartLink</referencedby>
+        <referencedby refid="xdppsu_8h_1a3d4cefedd9d272f58c7927b72add609d" compoundref="xdppsu_8c" startline="1438" endline="1459">XDpPsu_CfgMainLinkMax</referencedby>
+        <referencedby refid="xdppsu_8h_1a0a935cce246619f8f43ea0794ed9fa8e" compoundref="xdppsu_8c" startline="1383" endline="1421">XDpPsu_GetRxCapabilities</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___link_config_1a7add556a95dbf238f21ae156bfd284f3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpPsu_LinkConfig::MaxLinkRate</definition>
+        <argsstring></argsstring>
+        <name>MaxLinkRate</name>
+        <briefdescription>
+<para>The maximum link rate of the main link. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="110" bodyend="-1"/>
+        <referencedby refid="xdppsu__common__example_8h_1a64d2267afa217a44aa3bf09bcd51e409" compoundref="xdppsu__common__example_8c" startline="130" endline="209">DpPsu_StartLink</referencedby>
+        <referencedby refid="xdppsu_8h_1a3d4cefedd9d272f58c7927b72add609d" compoundref="xdppsu_8c" startline="1438" endline="1459">XDpPsu_CfgMainLinkMax</referencedby>
+        <referencedby refid="xdppsu_8h_1a0a935cce246619f8f43ea0794ed9fa8e" compoundref="xdppsu_8c" startline="1383" endline="1421">XDpPsu_GetRxCapabilities</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___link_config_1a4324898c50cc247ccca7ed02e19526ba" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpPsu_LinkConfig::SupportEnhancedFramingMode</definition>
+        <argsstring></argsstring>
+        <name>SupportEnhancedFramingMode</name>
+        <briefdescription>
+<para>Enhanced frame mode is supported by the RX device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="112" bodyend="-1"/>
+        <referencedby refid="xdppsu_8h_1a0a935cce246619f8f43ea0794ed9fa8e" compoundref="xdppsu_8c" startline="1383" endline="1421">XDpPsu_GetRxCapabilities</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___link_config_1a7081564e099efad7b842948efae9eed5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpPsu_LinkConfig::SupportDownspreadControl</definition>
+        <argsstring></argsstring>
+        <name>SupportDownspreadControl</name>
+        <briefdescription>
+<para>Downspread control is supported by the RX device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="114" bodyend="-1"/>
+        <referencedby refid="xdppsu_8h_1a0a935cce246619f8f43ea0794ed9fa8e" compoundref="xdppsu_8c" startline="1383" endline="1421">XDpPsu_GetRxCapabilities</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___link_config_1a11df7b48a818526775ed8228e31da551" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpPsu_LinkConfig::VsLevel</definition>
+        <argsstring></argsstring>
+        <name>VsLevel</name>
+        <briefdescription>
+<para>The current voltage swing level for each lane. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="116" bodyend="-1"/>
+        <referencedby refid="xdppsu__serdes_8h_1a8e083018091fb6116ba6db59cd22b083" compoundref="xdppsu__serdes_8c" startline="91" endline="112">XDpPsu_SetVswingPreemp</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___link_config_1a6157c199c9f3129e999c48301926bce9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpPsu_LinkConfig::PeLevel</definition>
+        <argsstring></argsstring>
+        <name>PeLevel</name>
+        <briefdescription>
+<para>The current pre-emphasis/cursor level for each lane. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="118" bodyend="-1"/>
+        <referencedby refid="xdppsu__serdes_8h_1a8e083018091fb6116ba6db59cd22b083" compoundref="xdppsu__serdes_8c" startline="91" endline="112">XDpPsu_SetVswingPreemp</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___link_config_1af118e47ec2d9043abc5ffa412bc5a35d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpPsu_LinkConfig::Pattern</definition>
+        <argsstring></argsstring>
+        <name>Pattern</name>
+        <briefdescription>
+<para>The current pattern currently in use over the main link. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information about the main link settings. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="97" bodyend="122"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_psu___link_config_1aa8f2287632a67655c1b1f0e1956068af" prot="public" virt="non-virtual"><scope>XDpPsu_LinkConfig</scope><name>DownspreadControl</name></member>
+      <member refid="struct_x_dp_psu___link_config_1aab19db4a5af65cabf219702e29716368" prot="public" virt="non-virtual"><scope>XDpPsu_LinkConfig</scope><name>EnhancedFramingMode</name></member>
+      <member refid="struct_x_dp_psu___link_config_1a1e61b94ec7a7329b4b7929251b293e79" prot="public" virt="non-virtual"><scope>XDpPsu_LinkConfig</scope><name>LaneCount</name></member>
+      <member refid="struct_x_dp_psu___link_config_1ae1994c57d3126737fc0028f5039b62be" prot="public" virt="non-virtual"><scope>XDpPsu_LinkConfig</scope><name>LinkRate</name></member>
+      <member refid="struct_x_dp_psu___link_config_1a0953d4a5c490da688eb7d4636f918712" prot="public" virt="non-virtual"><scope>XDpPsu_LinkConfig</scope><name>MaxLaneCount</name></member>
+      <member refid="struct_x_dp_psu___link_config_1a7add556a95dbf238f21ae156bfd284f3" prot="public" virt="non-virtual"><scope>XDpPsu_LinkConfig</scope><name>MaxLinkRate</name></member>
+      <member refid="struct_x_dp_psu___link_config_1af118e47ec2d9043abc5ffa412bc5a35d" prot="public" virt="non-virtual"><scope>XDpPsu_LinkConfig</scope><name>Pattern</name></member>
+      <member refid="struct_x_dp_psu___link_config_1a6157c199c9f3129e999c48301926bce9" prot="public" virt="non-virtual"><scope>XDpPsu_LinkConfig</scope><name>PeLevel</name></member>
+      <member refid="struct_x_dp_psu___link_config_1acdbacf632dd479df825fa795e6647250" prot="public" virt="non-virtual"><scope>XDpPsu_LinkConfig</scope><name>ScramblerEn</name></member>
+      <member refid="struct_x_dp_psu___link_config_1a7081564e099efad7b842948efae9eed5" prot="public" virt="non-virtual"><scope>XDpPsu_LinkConfig</scope><name>SupportDownspreadControl</name></member>
+      <member refid="struct_x_dp_psu___link_config_1a4324898c50cc247ccca7ed02e19526ba" prot="public" virt="non-virtual"><scope>XDpPsu_LinkConfig</scope><name>SupportEnhancedFramingMode</name></member>
+      <member refid="struct_x_dp_psu___link_config_1a11df7b48a818526775ed8228e31da551" prot="public" virt="non-virtual"><scope>XDpPsu_LinkConfig</scope><name>VsLevel</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

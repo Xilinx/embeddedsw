@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_d249860536882ba518b702895b6bc79d" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xdppsu__common__example_8c">xdppsu_common_example.c</innerfile>
+    <innerfile refid="xdppsu__common__example_8h">xdppsu_common_example.h</innerfile>
+    <innerfile refid="xdppsu__intr__example_8c">xdppsu_intr_example.c</innerfile>
+    <innerfile refid="xdppsu__poll__example_8c">xdppsu_poll_example.c</innerfile>
+    <innerfile refid="xdppsu__selftest__example_8c">xdppsu_selftest_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/"/>
+  </compounddef>
+</doxygen>

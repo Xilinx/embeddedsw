@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_clock___type_gate" kind="struct" prot="public">
+    <compoundname>XClock_TypeGate</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_clock___type_gate_1a8a26342a3cf41b453401dc86ec58d687" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XClock_TypeGate::BitIndex</definition>
+        <argsstring></argsstring>
+        <name>BitIndex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_gate.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_gate.c" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clock___type_gate_1a9a843d703cc01f958fd7e9516e09161a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XClock_TypeGate::EnableCount</definition>
+        <argsstring></argsstring>
+        <name>EnableCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_gate.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_gate.c" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clock___type_gate_1a3dfc54430e0e01782307d089e4c094e1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XClock_TypeGate::IsInit</definition>
+        <argsstring></argsstring>
+        <name>IsInit</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_gate.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_gate.c" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clock___type_gate_1a5c290c42764a3822498b5c1dae8b1302" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XClock_TypeGate::Parent</definition>
+        <argsstring></argsstring>
+        <name>Parent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_gate.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_gate.c" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clock___type_gate_1af8332465a50834d4b76a1e8f68742486" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XClock_TypeGate::CtrlReg</definition>
+        <argsstring></argsstring>
+        <name>CtrlReg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_gate.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_gate.c" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clock___type_gate_1a614c22f6e4935612794666c8e0e4ac1b" prot="public" static="no" mutable="no">
+        <type>XClockRate</type>
+        <definition>XClockRate XClock_TypeGate::Rate</definition>
+        <argsstring></argsstring>
+        <name>Rate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_gate.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_gate.c" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_gate.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_gate.c" bodystart="58" bodyend="65"/>
+    <listofallmembers>
+      <member refid="struct_x_clock___type_gate_1a8a26342a3cf41b453401dc86ec58d687" prot="public" virt="non-virtual"><scope>XClock_TypeGate</scope><name>BitIndex</name></member>
+      <member refid="struct_x_clock___type_gate_1af8332465a50834d4b76a1e8f68742486" prot="public" virt="non-virtual"><scope>XClock_TypeGate</scope><name>CtrlReg</name></member>
+      <member refid="struct_x_clock___type_gate_1a9a843d703cc01f958fd7e9516e09161a" prot="public" virt="non-virtual"><scope>XClock_TypeGate</scope><name>EnableCount</name></member>
+      <member refid="struct_x_clock___type_gate_1a3dfc54430e0e01782307d089e4c094e1" prot="public" virt="non-virtual"><scope>XClock_TypeGate</scope><name>IsInit</name></member>
+      <member refid="struct_x_clock___type_gate_1a5c290c42764a3822498b5c1dae8b1302" prot="public" virt="non-virtual"><scope>XClock_TypeGate</scope><name>Parent</name></member>
+      <member refid="struct_x_clock___type_gate_1a614c22f6e4935612794666c8e0e4ac1b" prot="public" virt="non-virtual"><scope>XClock_TypeGate</scope><name>Rate</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

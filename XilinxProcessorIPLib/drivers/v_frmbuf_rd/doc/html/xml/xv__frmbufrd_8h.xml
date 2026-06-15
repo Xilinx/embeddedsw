@@ -1,0 +1,1679 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__frmbufrd_8h" kind="file">
+    <compoundname>xv_frmbufrd.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes refid="xv__frmbufrd__hw_8h" local="yes">xv_frmbufrd_hw.h</includes>
+    <includedby refid="xv__frmbufrd_8c" local="yes">xv_frmbufrd.c</includedby>
+    <includedby refid="xv__frmbufrd__g_8c" local="yes">xv_frmbufrd_g.c</includedby>
+    <includedby refid="xv__frmbufrd__l2_8h" local="yes">xv_frmbufrd_l2.h</includedby>
+    <includedby refid="xv__frmbufrd__sinit_8c" local="yes">xv_frmbufrd_sinit.c</includedby>
+    <incdepgraph>
+      <node id="23">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="25">
+        <label>xil_io.h</label>
+      </node>
+      <node id="24">
+        <label>xstatus.h</label>
+      </node>
+      <node id="26">
+        <label>xv_frmbufrd_hw.h</label>
+        <link refid="xv__frmbufrd__hw_8h"/>
+      </node>
+      <node id="21">
+        <label>xv_frmbufrd.h</label>
+        <link refid="xv_frmbufrd.h"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="33">
+        <label>xv_frmbufrd_example.c</label>
+        <link refid="xv__frmbufrd__example_8c"/>
+      </node>
+      <node id="32">
+        <label>xv_frmbufrd_l2_intr.c</label>
+        <link refid="xv__frmbufrd__l2__intr_8c"/>
+      </node>
+      <node id="29">
+        <label>xv_frmbufrd_g.c</label>
+        <link refid="xv__frmbufrd__g_8c"/>
+      </node>
+      <node id="31">
+        <label>xv_frmbufrd_l2.c</label>
+        <link refid="xv__frmbufrd__l2_8c"/>
+      </node>
+      <node id="30">
+        <label>xv_frmbufrd_l2.h</label>
+        <link refid="xv__frmbufrd__l2_8h"/>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>xv_frmbufrd_sinit.c</label>
+        <link refid="xv__frmbufrd__sinit_8c"/>
+      </node>
+      <node id="28">
+        <label>xv_frmbufrd.c</label>
+        <link refid="xv__frmbufrd_8c"/>
+      </node>
+      <node id="27">
+        <label>xv_frmbufrd.h</label>
+        <link refid="xv_frmbufrd.h"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_v__frmbufrd___config" prot="public">XV_frmbufrd_Config</innerclass>
+    <innerclass refid="struct_x_v__frmbufrd" prot="public">XV_frmbufrd</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xv__frmbufrd_8h_1ae0524b811f2db6a3350b38eaa56df294" prot="public" static="no">
+        <name>XV_frmbufrd_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32((BaseAddress) + (RegOffset), (u32)(Data))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufrd_8h_1ac62991c6994717c3981c1b6bacfab95a" prot="public" static="no">
+        <name>XV_frmbufrd_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32((BaseAddress) + (RegOffset))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a5874eb0bc848f5dd08cd408e0115d8f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_frmbufrd_Initialize</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>XV_frmbufrd_Initialize</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Initializes the frame buffer read core instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function looks up the configuration for the frame buffer read core using the provided base address, and initializes the core instance with the found configuration. If the configuration is not found, the function sets the instance as not ready and returns an error code.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance to be initialized. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the device to initialize.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful.</para></listitem><listitem><para>XST_DEVICE_NOT_FOUND if the configuration could not be found. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_sinit.c" bodystart="123" bodyend="137"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd_8c_1ae27c0ffab1b0eba3b0227dfaaf98b329" compoundref="xv__frmbufrd_8c" startline="29" endline="48">XV_frmbufrd_CfgInitialize</references>
+        <references refid="xv__frmbufrd_8h_1a0983221284d2f9d0c561b983667df513" compoundref="xv__frmbufrd__sinit_8c" startline="92" endline="106">XV_frmbufrd_LookupConfig</references>
+        <referencedby refid="group__v__frmbuf__rd_1gadc1c4c534e72cdcf6a19cf837da61470" compoundref="xv__frmbufrd__l2_8c" startline="248" endline="267">XVFrmbufRd_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a0983221284d2f9d0c561b983667df513" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_v__frmbufrd___config" kindref="compound">XV_frmbufrd_Config</ref> *</type>
+        <definition>XV_frmbufrd_Config* XV_frmbufrd_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XV_frmbufrd_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Looks up the configuration for a frame buffer reader instance based on the given base address. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function searches the XV_frmbufrd_ConfigTable for an entry whose BaseAddress matches the specified BaseAddress. If BaseAddress is zero (0), the function returns the first entry in the table. If a matching entry is found, a pointer to its configuration structure is returned. If no matching entry is found, NULL is returned.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base address of the device to look up.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration structure if found, or NULL otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd_sinit.c" bodystart="92" bodyend="106"/>
+        <references refid="struct_x_v__frmbufrd___config_1aa366cec21bbbce04854f5e5c105d7203" compoundref="xv__frmbufrd_8h" startline="54">XV_frmbufrd_Config::Name</references>
+        <referencedby refid="xv__frmbufrd__sinit_8c_1a5874eb0bc848f5dd08cd408e0115d8f7" compoundref="xv__frmbufrd__sinit_8c" startline="123" endline="137">XV_frmbufrd_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1ae27c0ffab1b0eba3b0227dfaaf98b329" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_frmbufrd_CfgInitialize</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr, XV_frmbufrd_Config *ConfigPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XV_frmbufrd_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd___config" kindref="compound">XV_frmbufrd_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>XV_frmbufrd_CfgInitialize - Initializes a <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance to initialize. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the configuration structure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the hardware instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+This function sets up the driver instance with the provided configuration and base address. It also marks the instance as ready for use.</para><para><simplesect kind="return"><para>XST_SUCCESS on successful initialization. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="29" bodyend="48"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd___config_1af971a55ff3abfe64281de555fd74b4b2" compoundref="xv__frmbufrd_8h" startline="115">XV_frmbufrd_Config::IntrId</references>
+        <references refid="struct_x_v__frmbufrd___config_1a60001ae4b1cbf33c20d592be7063b9f0" compoundref="xv__frmbufrd_8h" startline="116">XV_frmbufrd_Config::IntrParent</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <referencedby refid="xv__frmbufrd__sinit_8c_1a5874eb0bc848f5dd08cd408e0115d8f7" compoundref="xv__frmbufrd__sinit_8c" startline="123" endline="137">XV_frmbufrd_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a1a379b724e987de8c348bcc1aa98f2b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_frmbufrd_Start</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr)</argsstring>
+        <name>XV_frmbufrd_Start</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Starts the Frame Buffer Read core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function initiates the operation of the Frame Buffer Read (frmbufrd) hardware core. It asserts that the provided instance pointer is valid and that the core is ready. The function reads the current control register value, preserves the auto-restart bit, and sets the start bit to begin processing.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="61" bodyend="69"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <referencedby refid="group__v__frmbuf__rd_1ga0e9f4473b9679d84441160c08b461d9b" compoundref="xv__frmbufrd__l2_8c" startline="378" endline="383">XVFrmbufRd_Start</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1abf86e764904bb549f09531a0e0c05920" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_frmbufrd_IsDone</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr)</argsstring>
+        <name>XV_frmbufrd_IsDone</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Checks if the Frame Buffer Read core has completed its operation. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads the control register to determine if the hardware core has finished processing. It asserts that the instance pointer is valid and the core is ready, then checks the &apos;done&apos; bit in the control register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 if the operation is done, 0 otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="82" bodyend="90"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a01a5b1ef82670645910c1a8b97ac7400" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_frmbufrd_IsIdle</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr)</argsstring>
+        <name>XV_frmbufrd_IsIdle</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Checks if the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> hardware core is currently idle. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads the control register of the frame buffer read core and extracts the idle status bit. It asserts that the provided instance pointer is not NULL and that the instance is ready before accessing the hardware.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 if the core is idle, 0 otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="104" bodyend="112"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <referencedby refid="group__v__frmbuf__rd_1ga05848286286c2df893b2ef8195167e47" compoundref="xv__frmbufrd__l2_8c" startline="440" endline="459">XVFrmbufRd_WaitForIdle</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a0ce3a7d9c717dbba2ccaab00cc852f8d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_frmbufrd_IsReady</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr)</argsstring>
+        <name>XV_frmbufrd_IsReady</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Checks if the Frame Buffer Read core is ready to accept new input. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads the control register and checks the &apos;ap_start&apos; bit to determine if the hardware core is ready for the next operation. If &apos;ap_start&apos; is not set, the core is ready for new input.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 if the core is ready for new input, 0 otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="125" bodyend="134"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a26c5e20077c1765ae1eb52f03edd6613" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_frmbufrd_EnableAutoRestart</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr)</argsstring>
+        <name>XV_frmbufrd_EnableAutoRestart</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Enables auto-restart mode for the Frame Buffer Read core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function sets the auto-restart bit in the control register, allowing the hardware core to automatically restart its operation after completing the current task. It asserts that the provided instance pointer is valid and that the core is ready.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="146" bodyend="151"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <referencedby refid="group__v__frmbuf__rd_1ga0faa399949f921d9a32ceb8321de756e" compoundref="xv__frmbufrd__l2_8c" startline="357" endline="367">XVFrmbufRd_InterruptDisable</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1ab6e1ff38bf3b874080a426499b1e5fee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_frmbufrd_DisableAutoRestart</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr)</argsstring>
+        <name>XV_frmbufrd_DisableAutoRestart</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Disable the auto-restart feature of the Frame Buffer Read core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function disables the auto-restart capability by writing 0 to the AP_CTRL register of the Frame Buffer Read hardware. When auto-restart is disabled, the core will not automatically restart its operation after completing a frame; instead, it will require explicit re-enablement.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The function asserts that the instance pointer is not NULL and that the core is ready before performing the operation. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="166" bodyend="171"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <referencedby refid="group__v__frmbuf__rd_1ga95f8a0ce5448dc0b3adcaed0365aacfb" compoundref="xv__frmbufrd__l2_8c" startline="331" endline="341">XVFrmbufRd_InterruptEnable</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1gaf95f5597208997861ca3b2de238821e1" compoundref="xv__frmbufrd__l2_8c" startline="401" endline="424">XVFrmbufRd_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a2e61a59d0bdb57043f5739e22d4792d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_frmbufrd_SetFlushbit</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr)</argsstring>
+        <name>XV_frmbufrd_SetFlushbit</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Sets the flush bit in the Frame Buffer Read (frmbufrd) control register. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads the current value of the control register, sets the flush bit, and writes the updated value back to the register. Setting the flush bit typically initiates a flush operation in the hardware, ensuring that any buffered data is processed or cleared as required.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The function asserts that the InstancePtr is not NULL and that the instance is ready before performing the register operations. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="186" bodyend="197"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a4ee2ebdf377baf4ec8aa2d6e8a7d5f09" compoundref="xv__frmbufrd__hw_8h" startline="92">XV_FRMBUFRD_CTRL_BITS_FLUSH_BIT</references>
+        <referencedby refid="group__v__frmbuf__rd_1gaf95f5597208997861ca3b2de238821e1" compoundref="xv__frmbufrd__l2_8c" startline="401" endline="424">XVFrmbufRd_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a1999e22e45ebfc6431c51c09ad6aa1d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_frmbufrd_Get_FlushDone</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr)</argsstring>
+        <name>XV_frmbufrd_Get_FlushDone</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Retrieves the flush done status from the Frame Buffer Read core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads the control register of the Frame Buffer Read (frmbufrd) instance and extracts the flush status bit, indicating whether the flush operation has completed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value of the flush done status bit (non-zero if flush is done, zero otherwise).</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="211" bodyend="220"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a9fae02de916ec8d67f299777ee7a7d7d" compoundref="xv__frmbufrd__hw_8h" startline="98">XV_FRMBUFRD_CTRL_BITS_FLUSH_STATUSBIT</references>
+        <referencedby refid="group__v__frmbuf__rd_1gaf95f5597208997861ca3b2de238821e1" compoundref="xv__frmbufrd__l2_8c" startline="401" endline="424">XVFrmbufRd_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1acbeec84e5c3f0b4270294f24f5627934" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_frmbufrd_Set_HwReg_width</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr, u32 Data)</argsstring>
+        <name>XV_frmbufrd_Set_HwReg_width</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Sets the hardware register value for the frame buffer reader width. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function writes the specified width value to the hardware register associated with the frame buffer reader instance.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The width value to be written to the hardware register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The InstancePtr must be initialized and ready before calling this function. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="233" bodyend="238"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1aa8e31c364077b99f21d4d2a5d6ba706d" compoundref="xv__frmbufrd__hw_8h" startline="110">XV_FRMBUFRD_CTRL_ADDR_HWREG_WIDTH_DATA</references>
+        <referencedby refid="group__v__frmbuf__rd_1ga8d3a4c93e59a529e936c21169f738202" compoundref="xv__frmbufrd__l2_8c" startline="483" endline="788">XVFrmbufRd_SetMemFormat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1aa0aa3db4a7eeabf9a612012b5a8fd163" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_frmbufrd_Get_HwReg_width</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr)</argsstring>
+        <name>XV_frmbufrd_Get_HwReg_width</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Retrieves the hardware register value for the frame buffer reader width. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads the width value from the hardware register associated with the frame buffer reader instance specified by InstancePtr.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The width value read from the hardware register.</para></simplesect>
+<simplesect kind="note"><para>The InstancePtr must be initialized and ready before calling this function. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="252" bodyend="260"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1aa8e31c364077b99f21d4d2a5d6ba706d" compoundref="xv__frmbufrd__hw_8h" startline="110">XV_FRMBUFRD_CTRL_ADDR_HWREG_WIDTH_DATA</references>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a5b220bd0aa23df2701f4d760e26f5401" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_frmbufrd_Set_HwReg_height</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr, u32 Data)</argsstring>
+        <name>XV_frmbufrd_Set_HwReg_height</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Sets the hardware register value for the frame buffer reader&apos;s height parameter. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function writes the specified height value to the HWREG_HEIGHT register of the frame buffer reader hardware. It first asserts that the provided instance pointer is not NULL and that the instance is ready for operation.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The height value to be written to the hardware register. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="272" bodyend="277"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a4116396c8525c85dbbe59cbb5fcf156a" compoundref="xv__frmbufrd__hw_8h" startline="116">XV_FRMBUFRD_CTRL_ADDR_HWREG_HEIGHT_DATA</references>
+        <referencedby refid="group__v__frmbuf__rd_1ga8d3a4c93e59a529e936c21169f738202" compoundref="xv__frmbufrd__l2_8c" startline="483" endline="788">XVFrmbufRd_SetMemFormat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a3f7e8f88b7455cb177d7929c66cd0b7f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_frmbufrd_Get_HwReg_height</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr)</argsstring>
+        <name>XV_frmbufrd_Get_HwReg_height</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Retrieves the value of the hardware register that holds the frame buffer height. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads the height value from the hardware register associated with the frame buffer read IP core. It asserts that the provided instance pointer is not NULL and that the instance is ready before accessing the register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The height value read from the hardware register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="290" bodyend="298"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a4116396c8525c85dbbe59cbb5fcf156a" compoundref="xv__frmbufrd__hw_8h" startline="116">XV_FRMBUFRD_CTRL_ADDR_HWREG_HEIGHT_DATA</references>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a672c2fcee391b91d784d1304eb69ef52" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_frmbufrd_Set_HwReg_stride</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr, u32 Data)</argsstring>
+        <name>XV_frmbufrd_Set_HwReg_stride</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Sets the hardware register stride value for the frame buffer reader instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function writes the specified stride value to the hardware register associated with the frame buffer reader. The stride typically represents the number of bytes between the start of one line of pixels and the next in memory.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The stride value to be set in the hardware register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The instance pointer must be valid and the instance must be ready before calling this function. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="314" bodyend="319"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a4d03cd8782463965fd02df7c1e1b2ede" compoundref="xv__frmbufrd__hw_8h" startline="122">XV_FRMBUFRD_CTRL_ADDR_HWREG_STRIDE_DATA</references>
+        <referencedby refid="group__v__frmbuf__rd_1ga8d3a4c93e59a529e936c21169f738202" compoundref="xv__frmbufrd__l2_8c" startline="483" endline="788">XVFrmbufRd_SetMemFormat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a5006eafa45371fbdd7605d06fda9bbb9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_frmbufrd_Get_HwReg_stride</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr)</argsstring>
+        <name>XV_frmbufrd_Get_HwReg_stride</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Retrieves the current value of the hardware register that specifies the stride (number of bytes per line) for the frame buffer read instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance.<itemizedlist>
+<listitem><para>Must not be NULL.</para></listitem><listitem><para>Instance must be initialized and ready.</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value of the HWREG_STRIDE register.</para></simplesect>
+<simplesect kind="note"><para>This function asserts if the instance pointer is NULL or the instance is not ready. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="333" bodyend="341"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a4d03cd8782463965fd02df7c1e1b2ede" compoundref="xv__frmbufrd__hw_8h" startline="122">XV_FRMBUFRD_CTRL_ADDR_HWREG_STRIDE_DATA</references>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1aa06b29ece58be0e05d014e392eb6643c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_frmbufrd_Set_HwReg_video_format</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr, u32 Data)</argsstring>
+        <name>XV_frmbufrd_Set_HwReg_video_format</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Sets the hardware register for the video format in the Frame Buffer Read core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function writes the specified video format data to the hardware register responsible for configuring the video format of the Frame Buffer Read (frmbufrd) core. It first asserts that the provided instance pointer is not NULL and that the instance is ready before performing the register write.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The video format data to be written to the hardware register. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="354" bodyend="359"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a30e37e4d26c55df1ffc9898ae272de47" compoundref="xv__frmbufrd__hw_8h" startline="128">XV_FRMBUFRD_CTRL_ADDR_HWREG_VIDEO_FORMAT_DATA</references>
+        <referencedby refid="group__v__frmbuf__rd_1ga8d3a4c93e59a529e936c21169f738202" compoundref="xv__frmbufrd__l2_8c" startline="483" endline="788">XVFrmbufRd_SetMemFormat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a1a8810b9f21bbe5b99b9db53782b55de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_frmbufrd_Get_HwReg_video_format</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr)</argsstring>
+        <name>XV_frmbufrd_Get_HwReg_video_format</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Retrieves the current hardware register value for the video format. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads the HWREG_VIDEO_FORMAT register from the frame buffer reader hardware and returns its value. It asserts that the provided instance pointer is not NULL and that the instance is ready before accessing the hardware register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value of the HWREG_VIDEO_FORMAT hardware register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="372" bodyend="380"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a30e37e4d26c55df1ffc9898ae272de47" compoundref="xv__frmbufrd__hw_8h" startline="128">XV_FRMBUFRD_CTRL_ADDR_HWREG_VIDEO_FORMAT_DATA</references>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1ab3bf8afbcf55c0e3cbecac463dfce50d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_frmbufrd_Set_HwReg_frm_buffer_V</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr, u64 Data)</argsstring>
+        <name>XV_frmbufrd_Set_HwReg_frm_buffer_V</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Sets the hardware register for the frame buffer address in the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function writes a 64-bit frame buffer address (Data) to the hardware registers associated with the frame buffer reader. The address is split into two 32-bit values and written to consecutive register addresses.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>64-bit frame buffer address to be set in the hardware register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+Preconditions:<itemizedlist>
+<listitem><para>InstancePtr must not be NULL.</para></listitem><listitem><para>InstancePtr-&gt;IsReady must be set to XIL_COMPONENT_IS_READY. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="396" bodyend="402"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a547eb5e8cd0235b32b5a6bf06ce13721" compoundref="xv__frmbufrd__hw_8h" startline="134">XV_FRMBUFRD_CTRL_ADDR_HWREG_FRM_BUFFER_V_DATA</references>
+        <referencedby refid="group__v__frmbuf__rd_1gab166d212d55646b832a8f7c301e5f2ac" compoundref="xv__frmbufrd__l2_8c" startline="818" endline="842">XVFrmbufRd_SetBufferAddr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a63970856d2aa57c5813606ad78681cf8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u64</type>
+        <definition>u64 XV_frmbufrd_Get_HwReg_frm_buffer_V</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr)</argsstring>
+        <name>XV_frmbufrd_Get_HwReg_frm_buffer_V</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Retrieves the 64-bit value of the HWREG_FRM_BUFFER_V hardware register. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads two 32-bit values from the hardware register at the specified base address and register offset, combines them into a single 64-bit value, and returns it.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance.<itemizedlist>
+<listitem><para>Must not be NULL.</para></listitem><listitem><para>The instance must be initialized and ready.</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 64-bit value read from the HWREG_FRM_BUFFER_V register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="416" bodyend="425"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a547eb5e8cd0235b32b5a6bf06ce13721" compoundref="xv__frmbufrd__hw_8h" startline="134">XV_FRMBUFRD_CTRL_ADDR_HWREG_FRM_BUFFER_V_DATA</references>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1gaeac91da19a88ff2480eae16be554b1f2" compoundref="xv__frmbufrd__l2_8c" startline="853" endline="861">XVFrmbufRd_GetBufferAddr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a1e4e1c536b9b1a1c736fce366441133f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_frmbufrd_Set_HwReg_frm_buffer2_V</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr, u64 Data)</argsstring>
+        <name>XV_frmbufrd_Set_HwReg_frm_buffer2_V</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Sets the hardware register for frame buffer 2 virtual address. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function writes a 64-bit address (Data) to the hardware register associated with frame buffer 2. The address is split into two 32-bit values and written to consecutive register addresses.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>64-bit virtual address to be set for frame buffer 2.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+Preconditions:<itemizedlist>
+<listitem><para>InstancePtr must not be NULL.</para></listitem><listitem><para>InstancePtr-&gt;IsReady must be set to XIL_COMPONENT_IS_READY. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="441" bodyend="447"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a4d6113e6b309d2fc451a85beed47e6b3" compoundref="xv__frmbufrd__hw_8h" startline="140">XV_FRMBUFRD_CTRL_ADDR_HWREG_FRM_BUFFER2_V_DATA</references>
+        <referencedby refid="group__v__frmbuf__rd_1ga395f9c364ef8378189bf0464d2130d59" compoundref="xv__frmbufrd__l2_8c" startline="928" endline="952">XVFrmbufRd_SetChromaBufferAddr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a649ee0bf117af28b8b96ec47304ddce9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u64</type>
+        <definition>u64 XV_frmbufrd_Get_HwReg_frm_buffer2_V</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr)</argsstring>
+        <name>XV_frmbufrd_Get_HwReg_frm_buffer2_V</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Retrieves the 64-bit value from the HWREG_FRM_BUFFER2_V hardware register. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads two consecutive 32-bit registers from the hardware to construct a 64-bit value representing the HWREG_FRM_BUFFER2_V register. It first asserts that the provided instance pointer is valid and that the hardware component is ready before performing the read operations.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 64-bit value read from the HWREG_FRM_BUFFER2_V register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="461" bodyend="470"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a4d6113e6b309d2fc451a85beed47e6b3" compoundref="xv__frmbufrd__hw_8h" startline="140">XV_FRMBUFRD_CTRL_ADDR_HWREG_FRM_BUFFER2_V_DATA</references>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1ga7475f43a7f18a159c1714849fe170c3b" compoundref="xv__frmbufrd__l2_8c" startline="964" endline="972">XVFrmbufRd_GetChromaBufferAddr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1ae07a2825c972396656d4f4b9f6075432" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_frmbufrd_Set_HwReg_frm_buffer3_V</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr, u64 Data)</argsstring>
+        <name>XV_frmbufrd_Set_HwReg_frm_buffer3_V</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Sets the hardware register for frame buffer 3 virtual address. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function writes a 64-bit address (Data) to the hardware register associated with frame buffer 3 in the frame buffer read IP core. The address is split into two 32-bit values and written to consecutive register addresses.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>64-bit virtual address to be set for frame buffer 3.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The InstancePtr must be initialized and ready before calling this function. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="485" bodyend="491"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a6b460896fb2f6040192e22c5920082f6" compoundref="xv__frmbufrd__hw_8h" startline="168">XV_FRMBUFRD_CTRL_ADDR_HWREG_FRM_BUFFER3_V_DATA</references>
+        <referencedby refid="group__v__frmbuf__rd_1ga84c9a6e2049cb53358884cd8e3aafbc2" compoundref="xv__frmbufrd__l2_8c" startline="873" endline="896">XVFrmbufRd_SetVChromaBufferAddr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a97c10de32132230c5d7ea8cd9c15f815" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u64</type>
+        <definition>u64 XV_frmbufrd_Get_HwReg_frm_buffer3_V</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr)</argsstring>
+        <name>XV_frmbufrd_Get_HwReg_frm_buffer3_V</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Retrieves the 64-bit value from the HWREG_FRM_BUFFER3_V hardware register. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads two 32-bit registers from the hardware, combines them into a 64-bit value, and returns the result. It asserts that the provided instance pointer is not NULL and that the instance is ready before performing the read operations.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 64-bit value read from the HWREG_FRM_BUFFER3_V register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="503" bodyend="512"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a6b460896fb2f6040192e22c5920082f6" compoundref="xv__frmbufrd__hw_8h" startline="168">XV_FRMBUFRD_CTRL_ADDR_HWREG_FRM_BUFFER3_V_DATA</references>
+        <referencedby refid="group__v__frmbuf__rd_1ga80af786a199e9d406016cbe77c6cce9a" compoundref="xv__frmbufrd__l2_8c" startline="1155" endline="1229">XVFrmbufRd_DbgReportStatus</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1gacca36af12be280cd3cc168feb0a28bd4" compoundref="xv__frmbufrd__l2_8c" startline="907" endline="915">XVFrmbufRd_GetVChromaBufferAddr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1aebd00f8c2bf1a182e35d6f305010cf03" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_frmbufrd_Set_HwReg_field_id</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr, u32 Data)</argsstring>
+        <name>XV_frmbufrd_Set_HwReg_field_id</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Sets the HWREG_FIELD_ID register for the frame buffer reader instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function writes the specified data value to the hardware register responsible for the field ID in the frame buffer reader. It asserts that the instance pointer is not NULL, the instance is ready, and the configuration is set to interlaced mode before performing the register write.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to be written to the HWREG_FIELD_ID register. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="525" bodyend="531"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd___config_1af39acffd50212a191944b93b31f6f6a7" compoundref="xv__frmbufrd_8h" startline="112">XV_frmbufrd_Config::Interlaced</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a55dbb3fd980746c5dd361faf7ba2714a" compoundref="xv__frmbufrd__hw_8h" startline="146">XV_FRMBUFRD_CTRL_ADDR_HWREG_FIELD_ID_DATA</references>
+        <referencedby refid="group__v__frmbuf__rd_1ga76d715c4caace0c73116230fb3b51a66" compoundref="xv__frmbufrd__l2_8c" startline="986" endline="998">XVFrmbufRd_SetFieldID</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a661491728a53cb282dfba0b79b7ef99f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_frmbufrd_Get_HwReg_field_id</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr)</argsstring>
+        <name>XV_frmbufrd_Get_HwReg_field_id</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Retrieves the value of the HWREG_FIELD_ID register from the frame buffer reader instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function asserts that the provided instance pointer is valid, the instance is ready, and that the configuration is set to interlaced mode. It then reads and returns the value of the HWREG_FIELD_ID register from the hardware.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value of the HWREG_FIELD_ID register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="544" bodyend="553"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd___config_1af39acffd50212a191944b93b31f6f6a7" compoundref="xv__frmbufrd_8h" startline="112">XV_frmbufrd_Config::Interlaced</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a55dbb3fd980746c5dd361faf7ba2714a" compoundref="xv__frmbufrd__hw_8h" startline="146">XV_FRMBUFRD_CTRL_ADDR_HWREG_FIELD_ID_DATA</references>
+        <referencedby refid="group__v__frmbuf__rd_1gaf6aab33970a5d93caf764bddea2c86c4" compoundref="xv__frmbufrd__l2_8c" startline="1010" endline="1019">XVFrmbufRd_GetFieldID</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a1bb79fd0d7dd76bd2edc7e332f3375c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_frmbufrd_Set_HwReg_fidOutMode</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr, u32 Data)</argsstring>
+        <name>XV_frmbufrd_Set_HwReg_fidOutMode</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Sets the value of the HWREG_FIDOUTMODE hardware register for the frame buffer reader. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function writes the specified data value to the HWREG_FIDOUTMODE register of the frame buffer reader hardware instance pointed to by InstancePtr.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The value to be written to the HWREG_FIDOUTMODE register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The InstancePtr must be initialized and ready before calling this function. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="566" bodyend="571"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a7a857f33518857bd1a4839d067845ab1" compoundref="xv__frmbufrd__hw_8h" startline="152">XV_FRMBUFRD_CTRL_ADDR_HWREG_FIDOUTMODE_DATA</references>
+        <referencedby refid="group__v__frmbuf__rd_1ga2b93653c8567e7735888fe5e8c76aabf" compoundref="xv__frmbufrd__l2_8c" startline="1033" endline="1046">XVFrmbufRd_Set_FidOutMode</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a0bca0d4064f5b4ba3b15971402e841be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_frmbufrd_Get_HwReg_fidOutMode</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr)</argsstring>
+        <name>XV_frmbufrd_Get_HwReg_fidOutMode</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Retrieves the value of the HWREG_FIDOUTMODE hardware register for the specified Frame Buffer Read (frmbufrd) instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance.<itemizedlist>
+<listitem><para>Must not be NULL.</para></listitem><listitem><para>The instance must be initialized and ready.</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The current value of the HWREG_FIDOUTMODE register.</para></simplesect>
+<simplesect kind="note"><para>This function asserts if the input pointer is NULL or the instance is not ready. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="587" bodyend="595"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a7a857f33518857bd1a4839d067845ab1" compoundref="xv__frmbufrd__hw_8h" startline="152">XV_FRMBUFRD_CTRL_ADDR_HWREG_FIDOUTMODE_DATA</references>
+        <referencedby refid="group__v__frmbuf__rd_1ga332ca9116cadeb32b1904ce3dde65abc" compoundref="xv__frmbufrd__l2_8c" startline="1059" endline="1069">XVFrmbufRd_Get_FidOutMode</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a5eba385a373817bd6be0679fff7ecb27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_frmbufrd_Get_HwReg_fid_error</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr)</argsstring>
+        <name>XV_frmbufrd_Get_HwReg_fid_error</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Retrieves the value of the HWREG_FID_ERROR register from the frame buffer reader instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads the hardware register that indicates a frame ID error from the specified <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance. It asserts that the instance pointer is not NULL and that the instance is ready before accessing the register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value of the HWREG_FID_ERROR register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="608" bodyend="616"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a2a175bebe477ac16b72b7da55c15a350" compoundref="xv__frmbufrd__hw_8h" startline="158">XV_FRMBUFRD_CTRL_ADDR_HWREG_FID_ERROR_DATA</references>
+        <referencedby refid="group__v__frmbuf__rd_1ga4a2a50eb3122b05363529db59acaa699" compoundref="xv__frmbufrd__l2_8c" startline="1103" endline="1113">XVFrmbufRd_Get_FidErrorCount</referencedby>
+        <referencedby refid="group__v__frmbuf__rd_1gaa7f04dec0da407195c91e99252ba2f4d" compoundref="xv__frmbufrd__l2_8c" startline="1081" endline="1091">XVFrmbufRd_Get_FidErrorOut</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a6c9557b72e05a084b7029c46a5d341f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_frmbufrd_Get_HwReg_field_out</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr)</argsstring>
+        <name>XV_frmbufrd_Get_HwReg_field_out</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Retrieves the value of the HWREG_FIELD_OUT hardware register for the given <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads the value from the HWREG_FIELD_OUT register using the base address specified in the instance&apos;s configuration. It asserts that the instance pointer is not NULL and that the instance is ready before performing the read operation.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read from the HWREG_FIELD_OUT register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="629" bodyend="637"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1ac5ca839e52acc9effa252d6953c81349" compoundref="xv__frmbufrd__hw_8h" startline="164">XV_FRMBUFRD_CTRL_ADDR_HWREG_FIELD_OUT_DATA</references>
+        <referencedby refid="group__v__frmbuf__rd_1gaa3a66d4846e2dc24fef32aa98ac9806c" compoundref="xv__frmbufrd__l2_8c" startline="1128" endline="1138">XVFrmbufRd_Get_FieldOut</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a61a57e27547a69d97383d2b12b123e72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_frmbufrd_InterruptGlobalEnable</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr)</argsstring>
+        <name>XV_frmbufrd_InterruptGlobalEnable</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Enables the global interrupt for the Frame Buffer Read core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function sets the global interrupt enable (GIE) bit in the hardware, allowing the core to generate interrupts. It asserts that the provided instance pointer is valid and that the core is ready before enabling the interrupt.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="648" bodyend="653"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a8090a5431d9367a6cd1a5666242f07c9" compoundref="xv__frmbufrd__hw_8h" startline="101">XV_FRMBUFRD_CTRL_ADDR_GIE</references>
+        <referencedby refid="group__v__frmbuf__rd_1ga95f8a0ce5448dc0b3adcaed0365aacfb" compoundref="xv__frmbufrd__l2_8c" startline="331" endline="341">XVFrmbufRd_InterruptEnable</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1aa0695fe254113d290a71b521089f4d9f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_frmbufrd_InterruptGlobalDisable</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr)</argsstring>
+        <name>XV_frmbufrd_InterruptGlobalDisable</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Disables the global interrupt for the Frame Buffer Read core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function disables all interrupts generated by the Frame Buffer Read hardware by clearing the Global Interrupt Enable (GIE) register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The instance pointer must be valid and the core must be ready before calling this function. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="666" bodyend="671"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a8090a5431d9367a6cd1a5666242f07c9" compoundref="xv__frmbufrd__hw_8h" startline="101">XV_FRMBUFRD_CTRL_ADDR_GIE</references>
+        <referencedby refid="group__v__frmbuf__rd_1ga0faa399949f921d9a32ceb8321de756e" compoundref="xv__frmbufrd__l2_8c" startline="357" endline="367">XVFrmbufRd_InterruptDisable</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a96b5ba079ecb58a66b5abc9ebc470faa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_frmbufrd_InterruptEnable</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr, u32 Mask)</argsstring>
+        <name>XV_frmbufrd_InterruptEnable</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Enables specific interrupts for the Frame Buffer Read core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function sets the bits specified by the Mask parameter in the Interrupt Enable Register (IER) of the Frame Buffer Read hardware. Only the interrupts corresponding to the set bits in Mask will be enabled.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bitmask of interrupts to enable.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The InstancePtr must be initialized and ready before calling this function. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="685" bodyend="693"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a00bdad4144beaa0352a3696dde7030bf" compoundref="xv__frmbufrd__hw_8h" startline="104">XV_FRMBUFRD_CTRL_ADDR_IER</references>
+        <referencedby refid="group__v__frmbuf__rd_1ga95f8a0ce5448dc0b3adcaed0365aacfb" compoundref="xv__frmbufrd__l2_8c" startline="331" endline="341">XVFrmbufRd_InterruptEnable</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a7bbbc3f0d2def57feeeec0695b7ea71d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_frmbufrd_InterruptDisable</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr, u32 Mask)</argsstring>
+        <name>XV_frmbufrd_InterruptDisable</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Disable specific interrupts for the Frame Buffer Read (frmbufrd) instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function disables the interrupts specified by the Mask parameter for the given <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance. It reads the current interrupt enable register, clears the bits specified by Mask, and writes the updated value back to the register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bitmask of interrupts to disable.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The InstancePtr must be initialized and ready before calling this function. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="707" bodyend="715"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a00bdad4144beaa0352a3696dde7030bf" compoundref="xv__frmbufrd__hw_8h" startline="104">XV_FRMBUFRD_CTRL_ADDR_IER</references>
+        <referencedby refid="group__v__frmbuf__rd_1ga0faa399949f921d9a32ceb8321de756e" compoundref="xv__frmbufrd__l2_8c" startline="357" endline="367">XVFrmbufRd_InterruptDisable</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1aec9552b179c61f7d769220de8c3f4be6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_frmbufrd_InterruptClear</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr, u32 Mask)</argsstring>
+        <name>XV_frmbufrd_InterruptClear</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Clears the specified interrupt(s) for the Frame Buffer Read (frmbufrd) instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function writes the provided interrupt mask to the Interrupt Status Register (ISR) to clear the corresponding interrupt(s) for the given <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bitmask indicating which interrupt(s) to clear.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The InstancePtr must be initialized and ready before calling this function. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="728" bodyend="733"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a5f9121871ed4388465ebf6d7accaeb20" compoundref="xv__frmbufrd__hw_8h" startline="107">XV_FRMBUFRD_CTRL_ADDR_ISR</references>
+        <referencedby refid="group__v__frmbuf__rd_1gab2c3dd4bfc1f4acf08353543704c836b" compoundref="xv__frmbufrd__l2__intr_8c" startline="112" endline="143">XVFrmbufRd_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1acd753613ae1ab05183c54f5c0e97e7fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_frmbufrd_InterruptGetEnabled</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr)</argsstring>
+        <name>XV_frmbufrd_InterruptGetEnabled</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Retrieves the interrupt enable register value for the Frame Buffer Read (frmbufrd) instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function checks that the provided instance pointer is valid and that the instance is ready. It then reads and returns the value of the Interrupt Enable Register (IER) from the hardware.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The current value of the Interrupt Enable Register (IER). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="747" bodyend="752"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a00bdad4144beaa0352a3696dde7030bf" compoundref="xv__frmbufrd__hw_8h" startline="104">XV_FRMBUFRD_CTRL_ADDR_IER</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__frmbufrd_8h_1a4a3398981b9176a6eb4c96d0d6fa2b85" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_frmbufrd_InterruptGetStatus</definition>
+        <argsstring>(XV_frmbufrd *InstancePtr)</argsstring>
+        <name>XV_frmbufrd_InterruptGetStatus</name>
+        <param>
+          <type><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Retrieves the interrupt status register value for the Frame Buffer Read (frmbufrd) instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function asserts that the provided instance pointer is valid and that the instance is ready. It then reads and returns the value of the Interrupt Status Register (ISR) from the hardware, indicating which interrupts are currently active.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The current value of the Interrupt Status Register (ISR). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.c" bodystart="766" bodyend="771"/>
+        <references refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" compoundref="xv__frmbufrd_8h" startline="56">XV_frmbufrd_Config::BaseAddress</references>
+        <references refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" compoundref="xv__frmbufrd_8h" startline="125">XV_frmbufrd::Config</references>
+        <references refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" compoundref="xv__frmbufrd_8h" startline="126">XV_frmbufrd::IsReady</references>
+        <references refid="xv__frmbufrd__hw_8h_1a5f9121871ed4388465ebf6d7accaeb20" compoundref="xv__frmbufrd__hw_8h" startline="107">XV_FRMBUFRD_CTRL_ADDR_ISR</references>
+        <referencedby refid="group__v__frmbuf__rd_1gab2c3dd4bfc1f4acf08353543704c836b" compoundref="xv__frmbufrd__l2__intr_8c" startline="112" endline="143">XVFrmbufRd_InterruptHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>==============================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>1986<sp/>-<sp/>2023<sp/>Xilinx<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/>SPDX-License-Identifier:<sp/>MIT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>==============================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor">#ifndef<sp/>XV_FRMBUFRD_H</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_FRMBUFRD_H</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__linux__</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;assert.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;dirent.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;fcntl.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sys/mman.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unistd.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stddef.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__frmbufrd__hw_8h" kindref="compound">xv_frmbufrd_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__linux__</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint8_t<sp/>u8;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint16_t<sp/>u16;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint32_t<sp/>u32;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="50" refid="struct_x_v__frmbufrd___config" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/>u16<sp/>DeviceId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="54" refid="struct_x_v__frmbufrd___config_1aa366cec21bbbce04854f5e5c105d7203" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="struct_x_v__frmbufrd___config_1aa366cec21bbbce04854f5e5c105d7203" kindref="member">Name</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="56" refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_v__frmbufrd___config_1a6229f3b0866dac75bd3f425693f886f4" kindref="member">BaseAddress</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="57" refid="struct_x_v__frmbufrd___config_1acf9e48679e5b62a96773b6e31a06d8db" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1acf9e48679e5b62a96773b6e31a06d8db" kindref="member">PixPerClk</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58" refid="struct_x_v__frmbufrd___config_1afbe098bbde68a92384db2d9268b83bf0" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1afbe098bbde68a92384db2d9268b83bf0" kindref="member">MaxWidth</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59" refid="struct_x_v__frmbufrd___config_1afa7aea81440b723351a3f68eacd2ce65" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1afa7aea81440b723351a3f68eacd2ce65" kindref="member">MaxHeight</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60" refid="struct_x_v__frmbufrd___config_1a92843183639024e2d4aa70796c50c594" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a92843183639024e2d4aa70796c50c594" kindref="member">MaxDataWidth</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="struct_x_v__frmbufrd___config_1a5c264b3bca3a8e49ab5a5fa549e63a22" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a5c264b3bca3a8e49ab5a5fa549e63a22" kindref="member">AXIMMDataWidth</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="struct_x_v__frmbufrd___config_1a598374e63fd95a53f807a0ea6ca643bc" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a598374e63fd95a53f807a0ea6ca643bc" kindref="member">AXIMMAddrWidth</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63" refid="struct_x_v__frmbufrd___config_1ae4d0984d4f7ed39d870cb86ecb323db0" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1ae4d0984d4f7ed39d870cb86ecb323db0" kindref="member">RGBX8En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64" refid="struct_x_v__frmbufrd___config_1a16b91c3aa0927a744150eb3450ff8557" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a16b91c3aa0927a744150eb3450ff8557" kindref="member">YUVX8En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="struct_x_v__frmbufrd___config_1a97ce077fe3e21e5779e1c00e623d7c41" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a97ce077fe3e21e5779e1c00e623d7c41" kindref="member">YUYV8En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66" refid="struct_x_v__frmbufrd___config_1a491416764de129e257f43cc412098c8c" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a491416764de129e257f43cc412098c8c" kindref="member">RGBA8En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67" refid="struct_x_v__frmbufrd___config_1a820a4f365717f19484c2152ab2f3aca0" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a820a4f365717f19484c2152ab2f3aca0" kindref="member">YUVA8En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68" refid="struct_x_v__frmbufrd___config_1a42c8816efe3e98b5e8e328dc84cf0e69" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a42c8816efe3e98b5e8e328dc84cf0e69" kindref="member">BGRA8En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69" refid="struct_x_v__frmbufrd___config_1ae18753e8f48581e9f2c07f3316563ae4" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1ae18753e8f48581e9f2c07f3316563ae4" kindref="member">RGBX10En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="70" refid="struct_x_v__frmbufrd___config_1a61ee96917cf6c65ae74d42b0d12e19b2" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a61ee96917cf6c65ae74d42b0d12e19b2" kindref="member">YUVX10En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="71" refid="struct_x_v__frmbufrd___config_1aed1ba306c17bddb97b1005b2ba2de954" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1aed1ba306c17bddb97b1005b2ba2de954" kindref="member">Y_UV8En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="72" refid="struct_x_v__frmbufrd___config_1a30b0293bfdd550b1757f979f0e7d9517" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a30b0293bfdd550b1757f979f0e7d9517" kindref="member">Y_UV8_420En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73" refid="struct_x_v__frmbufrd___config_1a35b47e21bc2c6a0a0c38adb00f8dbc69" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a35b47e21bc2c6a0a0c38adb00f8dbc69" kindref="member">RGB8En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="74" refid="struct_x_v__frmbufrd___config_1a0f08d1a6abb209e54847fd78ed574cac" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a0f08d1a6abb209e54847fd78ed574cac" kindref="member">YUV8En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75" refid="struct_x_v__frmbufrd___config_1a91ab6c96db15ae2bea46023087a80a72" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a91ab6c96db15ae2bea46023087a80a72" kindref="member">Y_UV10En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76" refid="struct_x_v__frmbufrd___config_1a237956ff2d7b7e3ba9446191a814a0ef" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a237956ff2d7b7e3ba9446191a814a0ef" kindref="member">Y_UV10_420En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77" refid="struct_x_v__frmbufrd___config_1a2be774ba1b959b5db938eb11c82088e5" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a2be774ba1b959b5db938eb11c82088e5" kindref="member">Y8En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="78" refid="struct_x_v__frmbufrd___config_1ae9843a8e3b3cc67104faaee20b511cf6" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1ae9843a8e3b3cc67104faaee20b511cf6" kindref="member">Y10En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79" refid="struct_x_v__frmbufrd___config_1a9e80ff6372f31d24faa6ebbf80882f0a" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a9e80ff6372f31d24faa6ebbf80882f0a" kindref="member">BGRX8En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="80" refid="struct_x_v__frmbufrd___config_1a686a45377a379aab5d7ac54cdbe7199e" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a686a45377a379aab5d7ac54cdbe7199e" kindref="member">UYVY8En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81" refid="struct_x_v__frmbufrd___config_1af2eab7310b1ab55f84a5ae48a4b7a1c6" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1af2eab7310b1ab55f84a5ae48a4b7a1c6" kindref="member">BGR8En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82" refid="struct_x_v__frmbufrd___config_1a33a6f42b78f723e65a6d11010c7d1ddf" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a33a6f42b78f723e65a6d11010c7d1ddf" kindref="member">RGBX12En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83" refid="struct_x_v__frmbufrd___config_1a8eafbda34c7dcfe8e88e63f7eadff463" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a8eafbda34c7dcfe8e88e63f7eadff463" kindref="member">RGB16En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84" refid="struct_x_v__frmbufrd___config_1a22bac40a0615a432160e2babe681df50" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a22bac40a0615a432160e2babe681df50" kindref="member">YUVX12En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="85" refid="struct_x_v__frmbufrd___config_1a4feee426739cfb05746c1f3b4fb77bc6" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a4feee426739cfb05746c1f3b4fb77bc6" kindref="member">Y_UV12En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86" refid="struct_x_v__frmbufrd___config_1a4b91ff5115bff40354e38275d7002773" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a4b91ff5115bff40354e38275d7002773" kindref="member">Y_UV12_420En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87" refid="struct_x_v__frmbufrd___config_1a33a690d459578c94feca9a088f5d24e4" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a33a690d459578c94feca9a088f5d24e4" kindref="member">Y12En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88" refid="struct_x_v__frmbufrd___config_1a63d2add0f85a03b20b9821f5185c5e8a" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a63d2add0f85a03b20b9821f5185c5e8a" kindref="member">YUV16En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="89" refid="struct_x_v__frmbufrd___config_1af195e57736581b63559a880288b657a0" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1af195e57736581b63559a880288b657a0" kindref="member">Y_UV16En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90" refid="struct_x_v__frmbufrd___config_1acc32458a9c17c64e4ba34be13cf3450a" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1acc32458a9c17c64e4ba34be13cf3450a" kindref="member">Y_UV16_420En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91" refid="struct_x_v__frmbufrd___config_1a0289c00ae14478df4c4c6c934d48d71d" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a0289c00ae14478df4c4c6c934d48d71d" kindref="member">Y16En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="92" refid="struct_x_v__frmbufrd___config_1ac5e83943b8d5ce0a4a9cfd94ce826603" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1ac5e83943b8d5ce0a4a9cfd94ce826603" kindref="member">Y_U_V8En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93" refid="struct_x_v__frmbufrd___config_1a146d3832ce11d45ad055eb4e4bbea721" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a146d3832ce11d45ad055eb4e4bbea721" kindref="member">Y_U_V10En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="94" refid="struct_x_v__frmbufrd___config_1af6bb10d500393cb3e58a776de88ccd6a" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1af6bb10d500393cb3e58a776de88ccd6a" kindref="member">Y_U_V8_420En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95" refid="struct_x_v__frmbufrd___config_1a169498c5eb2717170ce05a3f9c452eb3" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a169498c5eb2717170ce05a3f9c452eb3" kindref="member">Y_U_V12En</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96" refid="struct_x_v__frmbufrd___config_1abf3041b1e8a1c0d18a115e7146781226" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1abf3041b1e8a1c0d18a115e7146781226" kindref="member">Y_U_V10_L16LEEn</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97" refid="struct_x_v__frmbufrd___config_1a6b99e790e5150d07a629f4825b600f31" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a6b99e790e5150d07a629f4825b600f31" kindref="member">Y_UV10_L16LEEn</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98" refid="struct_x_v__frmbufrd___config_1ad7ab1a4651c4c64d5e3b554fa03b76cc" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1ad7ab1a4651c4c64d5e3b554fa03b76cc" kindref="member">Y_UV10_420_L16LEEn</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99" refid="struct_x_v__frmbufrd___config_1a2e85f2deda9ae3411f2b392e92e58ea5" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a2e85f2deda9ae3411f2b392e92e58ea5" kindref="member">Y10_L16LEEn</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="100" refid="struct_x_v__frmbufrd___config_1a13ce729d037f775126a995e6df87d3d5" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a13ce729d037f775126a995e6df87d3d5" kindref="member">Y_U_V12_L16LEEn</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="101" refid="struct_x_v__frmbufrd___config_1a95d2115e281b4ed2b10b503dcf6ce533" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a95d2115e281b4ed2b10b503dcf6ce533" kindref="member">Y_UV12_L16LEEn</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="102" refid="struct_x_v__frmbufrd___config_1aa07edb4384068dfa2c2b283e92f9a842" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1aa07edb4384068dfa2c2b283e92f9a842" kindref="member">Y_UV12_420_L16LEEn</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="103" refid="struct_x_v__frmbufrd___config_1a1c19388f438d5f75b851b57317060709" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a1c19388f438d5f75b851b57317060709" kindref="member">Y12_L16LEEn</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104" refid="struct_x_v__frmbufrd___config_1acf1c928a89094fbd2657a99b0393b3ba" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1acf1c928a89094fbd2657a99b0393b3ba" kindref="member">Y_U_V10_M16LEEn</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="105" refid="struct_x_v__frmbufrd___config_1a4716e1b5b60e2403f846e6d9ae0b9fa2" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a4716e1b5b60e2403f846e6d9ae0b9fa2" kindref="member">Y_UV10_M16LEEn</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="106" refid="struct_x_v__frmbufrd___config_1a93a026b7a472f6372f374c31b4735d65" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a93a026b7a472f6372f374c31b4735d65" kindref="member">Y_UV10_420_M16LEEn</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="107" refid="struct_x_v__frmbufrd___config_1af6f4bbfea1c8783c37c32807ada162ed" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1af6f4bbfea1c8783c37c32807ada162ed" kindref="member">Y10_M16LEEn</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108" refid="struct_x_v__frmbufrd___config_1a4e8d0e8f0864e4bbfaea8b2c85e3dd97" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a4e8d0e8f0864e4bbfaea8b2c85e3dd97" kindref="member">Y_U_V12_M16LEEn</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="109" refid="struct_x_v__frmbufrd___config_1a9957edc8681093c533990a7408bc57e6" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1a9957edc8681093c533990a7408bc57e6" kindref="member">Y_UV12_M16LEEn</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110" refid="struct_x_v__frmbufrd___config_1aaf36e22d597f9e7cfbfb24747967e83f" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1aaf36e22d597f9e7cfbfb24747967e83f" kindref="member">Y_UV12_420_M16LEEn</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="111" refid="struct_x_v__frmbufrd___config_1acf2d68187f2df79b9938a8f0eddfd7c2" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1acf2d68187f2df79b9938a8f0eddfd7c2" kindref="member">Y12_M16LEEn</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="112" refid="struct_x_v__frmbufrd___config_1af39acffd50212a191944b93b31f6f6a7" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1af39acffd50212a191944b93b31f6f6a7" kindref="member">Interlaced</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113" refid="struct_x_v__frmbufrd___config_1afa30637712f26c12cff03ca7442e7b03" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1afa30637712f26c12cff03ca7442e7b03" kindref="member">IsTileFormat</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="115" refid="struct_x_v__frmbufrd___config_1af971a55ff3abfe64281de555fd74b4b2" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__frmbufrd___config_1af971a55ff3abfe64281de555fd74b4b2" kindref="member">IntrId</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="116" refid="struct_x_v__frmbufrd___config_1a60001ae4b1cbf33c20d592be7063b9f0" refkind="member"><highlight class="normal"><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_v__frmbufrd___config_1a60001ae4b1cbf33c20d592be7063b9f0" kindref="member">IntrParent</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_x_v__frmbufrd___config" kindref="compound">XV_frmbufrd_Config</ref>;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="124" refid="struct_x_v__frmbufrd" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="125" refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="struct_x_v__frmbufrd___config" kindref="compound">XV_frmbufrd_Config</ref><sp/><ref refid="struct_x_v__frmbufrd_1a41c39d1f57583f4ca8eb0f7bbc9c29fe" kindref="member">Config</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="126" refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" refkind="member"><highlight class="normal"><sp/><sp/>u32<sp/><ref refid="struct_x_v__frmbufrd_1a4eaed8d81587971809682b514a80455a" kindref="member">IsReady</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="127"><highlight class="normal">}<sp/><ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref>;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__linux__</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_frmbufrd_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>Xil_Out32((BaseAddress)<sp/>+<sp/>(RegOffset),<sp/>(u32)(Data))</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_frmbufrd_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>Xil_In32((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_frmbufrd_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>*(volatile<sp/>u32*)((BaseAddress)<sp/>+<sp/>(RegOffset))<sp/>=<sp/>(u32)(Data)</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_frmbufrd_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>*(volatile<sp/>u32*)((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Xil_AssertVoid(expr)<sp/><sp/><sp/><sp/>assert(expr)</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>Xil_AssertNonvoid(expr)<sp/>assert(expr)</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XST_SUCCESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XST_DEVICE_NOT_FOUND<sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XST_OPEN_DEVICE_FAILED<sp/><sp/>3</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIL_COMPONENT_IS_READY<sp/><sp/>1</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__linux__</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8h_1a5874eb0bc848f5dd08cd408e0115d8f7" kindref="member">XV_frmbufrd_Initialize</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><ref refid="struct_x_v__frmbufrd___config" kindref="compound">XV_frmbufrd_Config</ref>*<sp/><ref refid="xv__frmbufrd_8h_1a0983221284d2f9d0c561b983667df513" kindref="member">XV_frmbufrd_LookupConfig</ref>(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8h_1a5874eb0bc848f5dd08cd408e0115d8f7" kindref="member">XV_frmbufrd_Initialize</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><ref refid="struct_x_v__frmbufrd___config" kindref="compound">XV_frmbufrd_Config</ref>*<sp/><ref refid="xv__frmbufrd_8h_1a0983221284d2f9d0c561b983667df513" kindref="member">XV_frmbufrd_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8c_1ae27c0ffab1b0eba3b0227dfaaf98b329" kindref="member">XV_frmbufrd_CfgInitialize</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v__frmbufrd___config" kindref="compound">XV_frmbufrd_Config</ref><sp/>*ConfigPtr,</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8h_1a5874eb0bc848f5dd08cd408e0115d8f7" kindref="member">XV_frmbufrd_Initialize</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>InstanceName);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XV_frmbufrd_Release(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8c_1a1a379b724e987de8c348bcc1aa98f2b9" kindref="member">XV_frmbufrd_Start</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal">u32<sp/><ref refid="xv__frmbufrd_8c_1abf86e764904bb549f09531a0e0c05920" kindref="member">XV_frmbufrd_IsDone</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal">u32<sp/><ref refid="xv__frmbufrd_8c_1a01a5b1ef82670645910c1a8b97ac7400" kindref="member">XV_frmbufrd_IsIdle</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal">u32<sp/><ref refid="xv__frmbufrd_8c_1a0ce3a7d9c717dbba2ccaab00cc852f8d" kindref="member">XV_frmbufrd_IsReady</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8c_1a26c5e20077c1765ae1eb52f03edd6613" kindref="member">XV_frmbufrd_EnableAutoRestart</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8c_1ab6e1ff38bf3b874080a426499b1e5fee" kindref="member">XV_frmbufrd_DisableAutoRestart</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8c_1a2e61a59d0bdb57043f5739e22d4792d8" kindref="member">XV_frmbufrd_SetFlushbit</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal">u32<sp/><ref refid="xv__frmbufrd_8c_1a1999e22e45ebfc6431c51c09ad6aa1d0" kindref="member">XV_frmbufrd_Get_FlushDone</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8c_1acbeec84e5c3f0b4270294f24f5627934" kindref="member">XV_frmbufrd_Set_HwReg_width</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal">u32<sp/><ref refid="xv__frmbufrd_8c_1aa0aa3db4a7eeabf9a612012b5a8fd163" kindref="member">XV_frmbufrd_Get_HwReg_width</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8c_1a5b220bd0aa23df2701f4d760e26f5401" kindref="member">XV_frmbufrd_Set_HwReg_height</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal">u32<sp/><ref refid="xv__frmbufrd_8c_1a3f7e8f88b7455cb177d7929c66cd0b7f" kindref="member">XV_frmbufrd_Get_HwReg_height</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8c_1a672c2fcee391b91d784d1304eb69ef52" kindref="member">XV_frmbufrd_Set_HwReg_stride</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal">u32<sp/><ref refid="xv__frmbufrd_8c_1a5006eafa45371fbdd7605d06fda9bbb9" kindref="member">XV_frmbufrd_Get_HwReg_stride</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8c_1aa06b29ece58be0e05d014e392eb6643c" kindref="member">XV_frmbufrd_Set_HwReg_video_format</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal">u32<sp/><ref refid="xv__frmbufrd_8c_1a1a8810b9f21bbe5b99b9db53782b55de" kindref="member">XV_frmbufrd_Get_HwReg_video_format</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8c_1ab3bf8afbcf55c0e3cbecac463dfce50d" kindref="member">XV_frmbufrd_Set_HwReg_frm_buffer_V</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr,<sp/>u64<sp/>Data);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal">u64<sp/><ref refid="xv__frmbufrd_8c_1a63970856d2aa57c5813606ad78681cf8" kindref="member">XV_frmbufrd_Get_HwReg_frm_buffer_V</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8c_1a1e4e1c536b9b1a1c736fce366441133f" kindref="member">XV_frmbufrd_Set_HwReg_frm_buffer2_V</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr,<sp/>u64<sp/>Data);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">u64<sp/><ref refid="xv__frmbufrd_8c_1a649ee0bf117af28b8b96ec47304ddce9" kindref="member">XV_frmbufrd_Get_HwReg_frm_buffer2_V</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8c_1ae07a2825c972396656d4f4b9f6075432" kindref="member">XV_frmbufrd_Set_HwReg_frm_buffer3_V</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr,<sp/>u64<sp/>Data);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal">u64<sp/><ref refid="xv__frmbufrd_8c_1a97c10de32132230c5d7ea8cd9c15f815" kindref="member">XV_frmbufrd_Get_HwReg_frm_buffer3_V</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8c_1aebd00f8c2bf1a182e35d6f305010cf03" kindref="member">XV_frmbufrd_Set_HwReg_field_id</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal">u32<sp/><ref refid="xv__frmbufrd_8c_1a661491728a53cb282dfba0b79b7ef99f" kindref="member">XV_frmbufrd_Get_HwReg_field_id</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8c_1a1bb79fd0d7dd76bd2edc7e332f3375c9" kindref="member">XV_frmbufrd_Set_HwReg_fidOutMode</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal">u32<sp/><ref refid="xv__frmbufrd_8c_1a0bca0d4064f5b4ba3b15971402e841be" kindref="member">XV_frmbufrd_Get_HwReg_fidOutMode</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal">u32<sp/><ref refid="xv__frmbufrd_8c_1a5eba385a373817bd6be0679fff7ecb27" kindref="member">XV_frmbufrd_Get_HwReg_fid_error</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal">u32<sp/><ref refid="xv__frmbufrd_8c_1a6c9557b72e05a084b7029c46a5d341f9" kindref="member">XV_frmbufrd_Get_HwReg_field_out</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8c_1a61a57e27547a69d97383d2b12b123e72" kindref="member">XV_frmbufrd_InterruptGlobalEnable</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8c_1aa0695fe254113d290a71b521089f4d9f" kindref="member">XV_frmbufrd_InterruptGlobalDisable</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8c_1a96b5ba079ecb58a66b5abc9ebc470faa" kindref="member">XV_frmbufrd_InterruptEnable</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8c_1a7bbbc3f0d2def57feeeec0695b7ea71d" kindref="member">XV_frmbufrd_InterruptDisable</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__frmbufrd_8c_1aec9552b179c61f7d769220de8c3f4be6" kindref="member">XV_frmbufrd_InterruptClear</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal">u32<sp/><ref refid="xv__frmbufrd_8c_1acd753613ae1ab05183c54f5c0e97e7fb" kindref="member">XV_frmbufrd_InterruptGetEnabled</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal">u32<sp/><ref refid="xv__frmbufrd_8c_1a4a3398981b9176a6eb4c96d0d6fa2b85" kindref="member">XV_frmbufrd_InterruptGetStatus</ref>(<ref refid="struct_x_v__frmbufrd" kindref="compound">XV_frmbufrd</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/src/xv_frmbufrd.h"/>
+  </compounddef>
+</doxygen>

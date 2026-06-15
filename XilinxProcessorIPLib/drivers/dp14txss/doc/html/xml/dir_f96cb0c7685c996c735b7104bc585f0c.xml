@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_f96cb0c7685c996c735b7104bc585f0c" kind="dir">
+    <compoundname>dats_dp14</compoundname>
+    <innerfile refid="dats__dp14_2clk__set_8c">dats_dp14/clk_set.c</innerfile>
+    <innerfile refid="dats__dp14_2clk__set_8h">dats_dp14/clk_set.h</innerfile>
+    <innerfile refid="dats__dp14_2idt__8t49n24x_8c">dats_dp14/idt_8t49n24x.c</innerfile>
+    <innerfile refid="dats__dp14_2idt__8t49n24x_8h">dats_dp14/idt_8t49n24x.h</innerfile>
+    <innerfile refid="dats__dp14_2menus_8c">dats_dp14/menus.c</innerfile>
+    <innerfile refid="dats__dp14_2ti__lmk03318_8c">dats_dp14/ti_lmk03318.c</innerfile>
+    <innerfile refid="dats__dp14_2ti__lmk03318_8h">dats_dp14/ti_lmk03318.h</innerfile>
+    <innerfile refid="dats__dp14_2videofmc__defs_8h">dats_dp14/videofmc_defs.h</innerfile>
+    <innerfile refid="xdptxss__zcu102__tx_8c">xdptxss_zcu102_tx.c</innerfile>
+    <innerfile refid="xdptxss__zcu102__tx_8h">xdptxss_zcu102_tx.h</innerfile>
+    <innerfile refid="dats__dp14_2xvid__pat__gen_8c">dats_dp14/xvid_pat_gen.c</innerfile>
+    <innerfile refid="dats__dp14_2xvidframe__crc_8c">dats_dp14/xvidframe_crc.c</innerfile>
+    <innerfile refid="dats__dp14_2xvidframe__crc_8h">dats_dp14/xvidframe_crc.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/"/>
+  </compounddef>
+</doxygen>

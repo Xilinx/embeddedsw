@@ -1,0 +1,996 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdprxss__mcdp6000_8h" kind="file">
+    <compoundname>xdprxss_mcdp6000.h</compoundname>
+    <includes local="yes">xvidc.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xdprxss_8h" local="yes">xdprxss.h</includes>
+    <includedby refid="xdprxss_8c" local="yes">xdprxss.c</includedby>
+    <includedby refid="xdprxss__mcdp6000_8c" local="yes">xdprxss_mcdp6000.c</includedby>
+    <includedby refid="xdprxss__dp14__rx_8c" local="no">xdprxss_dp14_rx.c</includedby>
+    <incdepgraph>
+      <node id="562">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="566">
+        <label>xdprxss_iic.h</label>
+        <link refid="xdprxss__iic_8h"/>
+      </node>
+      <node id="561">
+        <label>xil_io.h</label>
+      </node>
+      <node id="555">
+        <label>xdprxss_mcdp6000.h</label>
+        <link refid="xdprxss_mcdp6000.h"/>
+        <childnode refid="556" relation="include">
+        </childnode>
+        <childnode refid="557" relation="include">
+        </childnode>
+        <childnode refid="558" relation="include">
+        </childnode>
+        <childnode refid="559" relation="include">
+        </childnode>
+      </node>
+      <node id="565">
+        <label>xdp.h</label>
+      </node>
+      <node id="560">
+        <label>xdprxss_hw.h</label>
+        <link refid="xdprxss__hw_8h"/>
+        <childnode refid="561" relation="include">
+        </childnode>
+      </node>
+      <node id="563">
+        <label>xstatus.h</label>
+      </node>
+      <node id="556">
+        <label>xvidc.h</label>
+      </node>
+      <node id="564">
+        <label>xdprxss_dprx.h</label>
+        <link refid="xdprxss__dprx_8h"/>
+        <childnode refid="565" relation="include">
+        </childnode>
+      </node>
+      <node id="558">
+        <label>xil_types.h</label>
+      </node>
+      <node id="559">
+        <label>xdprxss.h</label>
+        <link refid="xdprxss_8h"/>
+        <childnode refid="560" relation="include">
+        </childnode>
+        <childnode refid="562" relation="include">
+        </childnode>
+        <childnode refid="563" relation="include">
+        </childnode>
+        <childnode refid="564" relation="include">
+        </childnode>
+        <childnode refid="566" relation="include">
+        </childnode>
+        <childnode refid="567" relation="include">
+        </childnode>
+      </node>
+      <node id="557">
+        <label>xparameters.h</label>
+      </node>
+      <node id="567">
+        <label>xdprxss_hdcp1x.h</label>
+        <link refid="xdprxss__hdcp1x_8h"/>
+        <childnode refid="557" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="570">
+        <label>xdprxss_mcdp6000.c</label>
+        <link refid="xdprxss__mcdp6000_8c"/>
+      </node>
+      <node id="568">
+        <label>xdprxss_mcdp6000.h</label>
+        <link refid="xdprxss_mcdp6000.h"/>
+        <childnode refid="569" relation="include">
+        </childnode>
+        <childnode refid="570" relation="include">
+        </childnode>
+        <childnode refid="571" relation="include">
+        </childnode>
+      </node>
+      <node id="569">
+        <label>xdprxss.c</label>
+        <link refid="xdprxss_8c"/>
+      </node>
+      <node id="571">
+        <label>xdprxss_dp14_rx.c</label>
+        <link refid="xdprxss__dp14__rx_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__dprxss_1ga0176191d4642ae11c179f5def88c3887" prot="public" static="no">
+        <name>XDPRXSS_MCDP6000_IIC_SLAVE</name>
+        <initializer>0x14</initializer>
+        <briefdescription>
+<para>MCDP6000 slave device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.h" bodystart="48" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga9cdb547f48349408f016e6c376655a69" compoundref="xdprxss_8c" startline="2324" endline="2333">XDpRxSs_McDp6000_init</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dprxss_1gaf145b1c5e127172d6ff73a868817a0a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDpRxSs_MCDP6000_GetRegister</definition>
+        <argsstring>(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress, u16 RegisterAddress)</argsstring>
+        <name>XDpRxSs_MCDP6000_GetRegister</name>
+        <param>
+          <type><ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> *</type>
+          <declname>DpRxSsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>RegisterAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function reads a single 32b word from the MCDP6000 device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DpRxSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegisterAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 16-bit register address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>The read 32b data.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" bodystart="71" bodyend="154"/>
+        <references refid="struct_x_dp_rx_ss_1a38c927311884c9c247ce6bb7299b8f5d" compoundref="xdprxss_8h" startline="474">XDpRxSs::Config</references>
+        <referencedby refid="xdprxss__dp14__rx_8c_1a7a7e1872b93baf4572e9a5bd71b0daed" compoundref="xdprxss__dp14__rx_8c" startline="1657" endline="1739">DpRxSs_AccessErrorCounterHandler</referencedby>
+        <referencedby refid="xdprxss__dp14__rx_8c_1a9c7565cc1ee7c14291a1da9c02a1513f" compoundref="xdprxss__dp14__rx_8c" startline="563" endline="868">DpRxSs_Main</referencedby>
+        <referencedby refid="group__dprxss_1gafca110f05ff1e680e822960573af9a80" compoundref="xdprxss__mcdp6000_8c" startline="973" endline="986">XDpRxSs_MCDP6000_ClearCounter</referencedby>
+        <referencedby refid="group__dprxss_1ga48be20263df54d1fc8a8ce9d6a095ee3" compoundref="xdprxss__mcdp6000_8c" startline="906" endline="925">XDpRxSs_MCDP6000_DisablePrbs7_Rx</referencedby>
+        <referencedby refid="group__dprxss_1ga7c54f8deece28a8e3c14815a6d75240e" compoundref="xdprxss__mcdp6000_8c" startline="294" endline="594">XDpRxSs_MCDP6000_DpInit</referencedby>
+        <referencedby refid="group__dprxss_1ga6f56d4c89760d3287b4c4e42ee5383cf" compoundref="xdprxss__mcdp6000_8c" startline="942" endline="956">XDpRxSs_MCDP6000_EnableCounter</referencedby>
+        <referencedby refid="group__dprxss_1ga1d6c79355a94eb1eddca3bb333a1d8a9" compoundref="xdprxss__mcdp6000_8c" startline="868" endline="888">XDpRxSs_MCDP6000_EnablePrbs7_Rx</referencedby>
+        <referencedby refid="group__dprxss_1ga6fede23b07b8ae95b3d4b3d68608765f" compoundref="xdprxss__mcdp6000_8c" startline="252" endline="276">XDpRxSs_MCDP6000_ModifyRegister</referencedby>
+        <referencedby refid="group__dprxss_1gae3926dbba6129e540fc6992caf10454d" compoundref="xdprxss__mcdp6000_8c" startline="1003" endline="1068">XDpRxSs_MCDP6000_Read_ErrorCounters</referencedby>
+        <referencedby refid="group__dprxss_1ga510291a8978fa551e946d412013b0fd8" compoundref="xdprxss__mcdp6000_8c" startline="1082" endline="1127">XDpRxSs_MCDP6000_RegisterDump</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dprxss_1gaeb46c7b9635b6e691ea90e8ce700ccbd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDpRxSs_MCDP6000_SetRegister</definition>
+        <argsstring>(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress, u16 RegisterAddress, u32 Value)</argsstring>
+        <name>XDpRxSs_MCDP6000_SetRegister</name>
+        <param>
+          <type><ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> *</type>
+          <declname>DpRxSsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>RegisterAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>This function writes a single 32b word to the MCDP6000 device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DpRxSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegisterAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 16-bit register address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32b word to write</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Register write was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" bodystart="173" bodyend="232"/>
+        <references refid="struct_x_dp_rx_ss_1a38c927311884c9c247ce6bb7299b8f5d" compoundref="xdprxss_8h" startline="474">XDpRxSs::Config</references>
+        <referencedby refid="group__dprxss_1ga4970577bafd19eb94bc8490a187892ab" compoundref="xdprxss__mcdp6000_8c" startline="1219" endline="1241">XDpRxSs_MCDP6000_AccessLaneSet</referencedby>
+        <referencedby refid="group__dprxss_1gafca110f05ff1e680e822960573af9a80" compoundref="xdprxss__mcdp6000_8c" startline="973" endline="986">XDpRxSs_MCDP6000_ClearCounter</referencedby>
+        <referencedby refid="group__dprxss_1ga48be20263df54d1fc8a8ce9d6a095ee3" compoundref="xdprxss__mcdp6000_8c" startline="906" endline="925">XDpRxSs_MCDP6000_DisablePrbs7_Rx</referencedby>
+        <referencedby refid="group__dprxss_1ga7c54f8deece28a8e3c14815a6d75240e" compoundref="xdprxss__mcdp6000_8c" startline="294" endline="594">XDpRxSs_MCDP6000_DpInit</referencedby>
+        <referencedby refid="group__dprxss_1ga6f56d4c89760d3287b4c4e42ee5383cf" compoundref="xdprxss__mcdp6000_8c" startline="942" endline="956">XDpRxSs_MCDP6000_EnableCounter</referencedby>
+        <referencedby refid="group__dprxss_1ga1d6c79355a94eb1eddca3bb333a1d8a9" compoundref="xdprxss__mcdp6000_8c" startline="868" endline="888">XDpRxSs_MCDP6000_EnablePrbs7_Rx</referencedby>
+        <referencedby refid="group__dprxss_1ga32d7c67923e07295e86e026e1f4f60c2" compoundref="xdprxss__mcdp6000_8c" startline="801" endline="850">XDpRxSs_MCDP6000_EnablePrbs7_Tx</referencedby>
+        <referencedby refid="group__dprxss_1ga7f384a8a143cd65960a892d501d08159" compoundref="xdprxss__mcdp6000_8c" startline="612" endline="703">XDpRxSs_MCDP6000_IbertInit</referencedby>
+        <referencedby refid="group__dprxss_1ga6fede23b07b8ae95b3d4b3d68608765f" compoundref="xdprxss__mcdp6000_8c" startline="252" endline="276">XDpRxSs_MCDP6000_ModifyRegister</referencedby>
+        <referencedby refid="group__dprxss_1gae3926dbba6129e540fc6992caf10454d" compoundref="xdprxss__mcdp6000_8c" startline="1003" endline="1068">XDpRxSs_MCDP6000_Read_ErrorCounters</referencedby>
+        <referencedby refid="group__dprxss_1ga8ca411d895805a7a67bbb2c44c818672" compoundref="xdprxss__mcdp6000_8c" startline="761" endline="784">XDpRxSs_MCDP6000_ResetDpPath</referencedby>
+        <referencedby refid="group__dprxss_1ga3ba90086f4d5090175fc750044210aa6" compoundref="xdprxss__mcdp6000_8c" startline="1144" endline="1163">XDpRxSs_MCDP6000_TransparentMode</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dprxss_1ga6fede23b07b8ae95b3d4b3d68608765f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDpRxSs_MCDP6000_ModifyRegister</definition>
+        <argsstring>(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress, u16 RegisterAddress, u32 Value, u32 Mask)</argsstring>
+        <name>XDpRxSs_MCDP6000_ModifyRegister</name>
+        <param>
+          <type><ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> *</type>
+          <declname>DpRxSsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>RegisterAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function modifies a single 32b word from the MCDP6000 device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DpRxSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegisterAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 16-bit register address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32b word to write </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32b mask</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Modification was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" line="252" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" bodystart="252" bodyend="276"/>
+        <references refid="group__dprxss_1gaf145b1c5e127172d6ff73a868817a0a0" compoundref="xdprxss__mcdp6000_8c" startline="71" endline="154">XDpRxSs_MCDP6000_GetRegister</references>
+        <references refid="group__dprxss_1gaeb46c7b9635b6e691ea90e8ce700ccbd" compoundref="xdprxss__mcdp6000_8c" startline="173" endline="232">XDpRxSs_MCDP6000_SetRegister</references>
+        <referencedby refid="group__dprxss_1gadcb896d0709e385a37949c676141f31a" compoundref="xdprxss__mcdp6000_8c" startline="1180" endline="1202">XDpRxSs_MCDP6000_BWchange</referencedby>
+        <referencedby refid="group__dprxss_1gadb4ee0977b10f8c316e1cefca3f92267" compoundref="xdprxss__mcdp6000_8c" startline="720" endline="743">XDpRxSs_MCDP6000_ResetCrPath</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dprxss_1ga7c54f8deece28a8e3c14815a6d75240e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDpRxSs_MCDP6000_DpInit</definition>
+        <argsstring>(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress)</argsstring>
+        <name>XDpRxSs_MCDP6000_DpInit</name>
+        <param>
+          <type><ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> *</type>
+          <declname>DpRxSsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the MCDP6000 device with default values for DP use with the Video FMC. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DpRxSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" bodystart="294" bodyend="594"/>
+        <references refid="group__dprxss_1gaf145b1c5e127172d6ff73a868817a0a0" compoundref="xdprxss__mcdp6000_8c" startline="71" endline="154">XDpRxSs_MCDP6000_GetRegister</references>
+        <references refid="group__dprxss_1gaeb46c7b9635b6e691ea90e8ce700ccbd" compoundref="xdprxss__mcdp6000_8c" startline="173" endline="232">XDpRxSs_MCDP6000_SetRegister</references>
+        <referencedby refid="group__dprxss_1ga9cdb547f48349408f016e6c376655a69" compoundref="xdprxss_8c" startline="2324" endline="2333">XDpRxSs_McDp6000_init</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dprxss_1ga7f384a8a143cd65960a892d501d08159" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDpRxSs_MCDP6000_IbertInit</definition>
+        <argsstring>(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress)</argsstring>
+        <name>XDpRxSs_MCDP6000_IbertInit</name>
+        <param>
+          <type><ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> *</type>
+          <declname>DpRxSsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the MCDP6000 device with default values for IBERT use with the Video FMC. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DpRxSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" line="612" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" bodystart="612" bodyend="703"/>
+        <references refid="group__dprxss_1gaeb46c7b9635b6e691ea90e8ce700ccbd" compoundref="xdprxss__mcdp6000_8c" startline="173" endline="232">XDpRxSs_MCDP6000_SetRegister</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dprxss_1ga8ca411d895805a7a67bbb2c44c818672" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDpRxSs_MCDP6000_ResetDpPath</definition>
+        <argsstring>(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress)</argsstring>
+        <name>XDpRxSs_MCDP6000_ResetDpPath</name>
+        <param>
+          <type><ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> *</type>
+          <declname>DpRxSsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function requests a reset of the DP path of the MCDP6000 device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DpRxSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Reset request was successful.</para></listitem><listitem><para>XST_FAILURE I2C error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" line="761" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" bodystart="761" bodyend="784"/>
+        <references refid="group__dprxss_1gaeb46c7b9635b6e691ea90e8ce700ccbd" compoundref="xdprxss__mcdp6000_8c" startline="173" endline="232">XDpRxSs_MCDP6000_SetRegister</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dprxss_1gadb4ee0977b10f8c316e1cefca3f92267" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDpRxSs_MCDP6000_ResetCrPath</definition>
+        <argsstring>(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress)</argsstring>
+        <name>XDpRxSs_MCDP6000_ResetCrPath</name>
+        <param>
+          <type><ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> *</type>
+          <declname>DpRxSsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function requests a reset of the CR path of the MCDP6000 device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DpRxSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Reset request was successful.</para></listitem><listitem><para>XST_FAILURE I2C error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" line="720" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" bodystart="720" bodyend="743"/>
+        <references refid="group__dprxss_1ga6fede23b07b8ae95b3d4b3d68608765f" compoundref="xdprxss__mcdp6000_8c" startline="252" endline="276">XDpRxSs_MCDP6000_ModifyRegister</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dprxss_1ga32d7c67923e07295e86e026e1f4f60c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDpRxSs_MCDP6000_EnablePrbs7_Tx</definition>
+        <argsstring>(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress)</argsstring>
+        <name>XDpRxSs_MCDP6000_EnablePrbs7_Tx</name>
+        <param>
+          <type><ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> *</type>
+          <declname>DpRxSsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the PRBS7 output of the MCDP6000 device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DpRxSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Enable request was successful.</para></listitem><listitem><para>XST_FAILURE I2C error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" line="801" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" bodystart="801" bodyend="850"/>
+        <references refid="group__dprxss_1gaeb46c7b9635b6e691ea90e8ce700ccbd" compoundref="xdprxss__mcdp6000_8c" startline="173" endline="232">XDpRxSs_MCDP6000_SetRegister</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dprxss_1ga1d6c79355a94eb1eddca3bb333a1d8a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDpRxSs_MCDP6000_EnablePrbs7_Rx</definition>
+        <argsstring>(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress)</argsstring>
+        <name>XDpRxSs_MCDP6000_EnablePrbs7_Rx</name>
+        <param>
+          <type><ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> *</type>
+          <declname>DpRxSsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the PRBS7 counter mode in MC Rx path Used in DP PHY compliance mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DpRxSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Enable request was successful.</para></listitem><listitem><para>XST_FAILURE I2C error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" line="868" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" bodystart="868" bodyend="888"/>
+        <references refid="group__dprxss_1gaf145b1c5e127172d6ff73a868817a0a0" compoundref="xdprxss__mcdp6000_8c" startline="71" endline="154">XDpRxSs_MCDP6000_GetRegister</references>
+        <references refid="group__dprxss_1gaeb46c7b9635b6e691ea90e8ce700ccbd" compoundref="xdprxss__mcdp6000_8c" startline="173" endline="232">XDpRxSs_MCDP6000_SetRegister</references>
+        <referencedby refid="xdprxss__dp14__rx_8c_1a88f0129928e83c4b26f158d806c7e3bb" compoundref="xdprxss__dp14__rx_8c" startline="1591" endline="1643">DpRxSs_AccessLinkQualHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dprxss_1ga48be20263df54d1fc8a8ce9d6a095ee3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDpRxSs_MCDP6000_DisablePrbs7_Rx</definition>
+        <argsstring>(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress)</argsstring>
+        <name>XDpRxSs_MCDP6000_DisablePrbs7_Rx</name>
+        <param>
+          <type><ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> *</type>
+          <declname>DpRxSsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function Disables the PRBS7 counter mode in MC Rx path Used in DP PHY compliance mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DpRxSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Enable request was successful.</para></listitem><listitem><para>XST_FAILURE I2C error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" line="906" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" bodystart="906" bodyend="925"/>
+        <references refid="group__dprxss_1gaf145b1c5e127172d6ff73a868817a0a0" compoundref="xdprxss__mcdp6000_8c" startline="71" endline="154">XDpRxSs_MCDP6000_GetRegister</references>
+        <references refid="group__dprxss_1gaeb46c7b9635b6e691ea90e8ce700ccbd" compoundref="xdprxss__mcdp6000_8c" startline="173" endline="232">XDpRxSs_MCDP6000_SetRegister</references>
+        <referencedby refid="xdprxss__dp14__rx_8c_1a88f0129928e83c4b26f158d806c7e3bb" compoundref="xdprxss__dp14__rx_8c" startline="1591" endline="1643">DpRxSs_AccessLinkQualHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dprxss_1gae3926dbba6129e540fc6992caf10454d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDpRxSs_MCDP6000_Read_ErrorCounters</definition>
+        <argsstring>(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress)</argsstring>
+        <name>XDpRxSs_MCDP6000_Read_ErrorCounters</name>
+        <param>
+          <type><ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> *</type>
+          <declname>DpRxSsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function reads error counters for all lanes. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DpRxSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Enable request was successful.</para></listitem><listitem><para>XST_FAILURE I2C error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" line="1003" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" bodystart="1003" bodyend="1068"/>
+        <references refid="group__dprxss_1gaf145b1c5e127172d6ff73a868817a0a0" compoundref="xdprxss__mcdp6000_8c" startline="71" endline="154">XDpRxSs_MCDP6000_GetRegister</references>
+        <references refid="group__dprxss_1gaeb46c7b9635b6e691ea90e8ce700ccbd" compoundref="xdprxss__mcdp6000_8c" startline="173" endline="232">XDpRxSs_MCDP6000_SetRegister</references>
+        <referencedby refid="xdprxss__dp14__rx_8c_1a7a7e1872b93baf4572e9a5bd71b0daed" compoundref="xdprxss__dp14__rx_8c" startline="1657" endline="1739">DpRxSs_AccessErrorCounterHandler</referencedby>
+        <referencedby refid="xdprxss__dp14__rx_8c_1a9c7565cc1ee7c14291a1da9c02a1513f" compoundref="xdprxss__dp14__rx_8c" startline="563" endline="868">DpRxSs_Main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dprxss_1ga6f56d4c89760d3287b4c4e42ee5383cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDpRxSs_MCDP6000_EnableCounter</definition>
+        <argsstring>(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress)</argsstring>
+        <name>XDpRxSs_MCDP6000_EnableCounter</name>
+        <param>
+          <type><ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> *</type>
+          <declname>DpRxSsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function enables symbol counter. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DpRxSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Enable request was successful.</para></listitem><listitem><para>XST_FAILURE I2C error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" line="942" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" bodystart="942" bodyend="956"/>
+        <references refid="group__dprxss_1gaf145b1c5e127172d6ff73a868817a0a0" compoundref="xdprxss__mcdp6000_8c" startline="71" endline="154">XDpRxSs_MCDP6000_GetRegister</references>
+        <references refid="group__dprxss_1gaeb46c7b9635b6e691ea90e8ce700ccbd" compoundref="xdprxss__mcdp6000_8c" startline="173" endline="232">XDpRxSs_MCDP6000_SetRegister</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dprxss_1gafca110f05ff1e680e822960573af9a80" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDpRxSs_MCDP6000_ClearCounter</definition>
+        <argsstring>(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress)</argsstring>
+        <name>XDpRxSs_MCDP6000_ClearCounter</name>
+        <param>
+          <type><ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> *</type>
+          <declname>DpRxSsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function clears symbol counter. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DpRxSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Enable request was successful.</para></listitem><listitem><para>XST_FAILURE I2C error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" line="973" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" bodystart="973" bodyend="986"/>
+        <references refid="group__dprxss_1gaf145b1c5e127172d6ff73a868817a0a0" compoundref="xdprxss__mcdp6000_8c" startline="71" endline="154">XDpRxSs_MCDP6000_GetRegister</references>
+        <references refid="group__dprxss_1gaeb46c7b9635b6e691ea90e8ce700ccbd" compoundref="xdprxss__mcdp6000_8c" startline="173" endline="232">XDpRxSs_MCDP6000_SetRegister</references>
+        <referencedby refid="xdprxss__dp14__rx_8c_1a88f0129928e83c4b26f158d806c7e3bb" compoundref="xdprxss__dp14__rx_8c" startline="1591" endline="1643">DpRxSs_AccessLinkQualHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dprxss_1ga510291a8978fa551e946d412013b0fd8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpRxSs_MCDP6000_RegisterDump</definition>
+        <argsstring>(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress)</argsstring>
+        <name>XDpRxSs_MCDP6000_RegisterDump</name>
+        <param>
+          <type><ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> *</type>
+          <declname>DpRxSsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function displays a registerdump of the MCDP6000 device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DpRxSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" line="1082" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" bodystart="1082" bodyend="1127"/>
+        <references refid="group__dprxss_1gaf145b1c5e127172d6ff73a868817a0a0" compoundref="xdprxss__mcdp6000_8c" startline="71" endline="154">XDpRxSs_MCDP6000_GetRegister</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dprxss_1ga3ba90086f4d5090175fc750044210aa6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDpRxSs_MCDP6000_TransparentMode</definition>
+        <argsstring>(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress)</argsstring>
+        <name>XDpRxSs_MCDP6000_TransparentMode</name>
+        <param>
+          <type><ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> *</type>
+          <declname>DpRxSsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the transparent mode of the MCDP6000 device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DpRxSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS transparent mode was set.</para></listitem><listitem><para>XST_FAILURE setting transparent mode failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" line="1144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" bodystart="1144" bodyend="1163"/>
+        <references refid="group__dprxss_1gaeb46c7b9635b6e691ea90e8ce700ccbd" compoundref="xdprxss__mcdp6000_8c" startline="173" endline="232">XDpRxSs_MCDP6000_SetRegister</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dprxss_1gadcb896d0709e385a37949c676141f31a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDpRxSs_MCDP6000_BWchange</definition>
+        <argsstring>(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress)</argsstring>
+        <name>XDpRxSs_MCDP6000_BWchange</name>
+        <param>
+          <type><ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> *</type>
+          <declname>DpRxSsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function changes the bandwidth of the MCDP6000 device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DpRxSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS BW change successful.</para></listitem><listitem><para>XST_FAILURE BW change failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" line="1180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" bodystart="1180" bodyend="1202"/>
+        <references refid="group__dprxss_1ga6fede23b07b8ae95b3d4b3d68608765f" compoundref="xdprxss__mcdp6000_8c" startline="252" endline="276">XDpRxSs_MCDP6000_ModifyRegister</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dprxss_1ga4970577bafd19eb94bc8490a187892ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDpRxSs_MCDP6000_AccessLaneSet</definition>
+        <argsstring>(XDpRxSs *DpRxSsPtr, u8 I2CSlaveAddress)</argsstring>
+        <name>XDpRxSs_MCDP6000_AccessLaneSet</name>
+        <param>
+          <type><ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> *</type>
+          <declname>DpRxSsPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the access lane register of the MCDP6000 device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DpRxSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS access lane set successful.</para></listitem><listitem><para>XST_FAILURE setting access lane failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" line="1219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.c" bodystart="1219" bodyend="1241"/>
+        <references refid="group__dprxss_1gaeb46c7b9635b6e691ea90e8ce700ccbd" compoundref="xdprxss__mcdp6000_8c" startline="173" endline="232">XDpRxSs_MCDP6000_SetRegister</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2023<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor">#ifndef<sp/>XDPRXSS_MCDP6000_H_</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Prevent<sp/>circular<sp/>inclusions<sp/>by<sp/>using<sp/>protection<sp/>macros.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDPRXSS_MCDP6000_H_</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdprxss_8h" kindref="compound">xdprxss.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XIICPS_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiicps.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>XPAR_XIICPS_NUM_INSTANCES<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XIIC_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>XPAR_XIIC_NUM_INSTANCES<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="group__dprxss_1ga0176191d4642ae11c179f5def88c3887" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDPRXSS_MCDP6000_IIC_SLAVE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x14<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal">u32<sp/><ref refid="group__dprxss_1gaf145b1c5e127172d6ff73a868817a0a0" kindref="member">XDpRxSs_MCDP6000_GetRegister</ref>(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*DpRxSsPtr,<sp/>u8<sp/>I2CSlaveAddress,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>RegisterAddress);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1gaeb46c7b9635b6e691ea90e8ce700ccbd" kindref="member">XDpRxSs_MCDP6000_SetRegister</ref>(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*DpRxSsPtr,<sp/>u8<sp/>I2CSlaveAddress,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>RegisterAddress,<sp/>u32<sp/>Value);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1ga6fede23b07b8ae95b3d4b3d68608765f" kindref="member">XDpRxSs_MCDP6000_ModifyRegister</ref>(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*DpRxSsPtr,<sp/>u8<sp/>I2CSlaveAddress,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>RegisterAddress,<sp/>u32<sp/>Value,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1ga7c54f8deece28a8e3c14815a6d75240e" kindref="member">XDpRxSs_MCDP6000_DpInit</ref>(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*DpRxSsPtr,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1ga7f384a8a143cd65960a892d501d08159" kindref="member">XDpRxSs_MCDP6000_IbertInit</ref>(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*DpRxSsPtr,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1ga8ca411d895805a7a67bbb2c44c818672" kindref="member">XDpRxSs_MCDP6000_ResetDpPath</ref>(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*DpRxSsPtr,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1gadb4ee0977b10f8c316e1cefca3f92267" kindref="member">XDpRxSs_MCDP6000_ResetCrPath</ref>(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*DpRxSsPtr,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1ga32d7c67923e07295e86e026e1f4f60c2" kindref="member">XDpRxSs_MCDP6000_EnablePrbs7_Tx</ref>(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*DpRxSsPtr,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1ga1d6c79355a94eb1eddca3bb333a1d8a9" kindref="member">XDpRxSs_MCDP6000_EnablePrbs7_Rx</ref>(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*DpRxSsPtr,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1ga48be20263df54d1fc8a8ce9d6a095ee3" kindref="member">XDpRxSs_MCDP6000_DisablePrbs7_Rx</ref>(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*DpRxSsPtr,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1gae3926dbba6129e540fc6992caf10454d" kindref="member">XDpRxSs_MCDP6000_Read_ErrorCounters</ref>(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*DpRxSsPtr,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1ga6f56d4c89760d3287b4c4e42ee5383cf" kindref="member">XDpRxSs_MCDP6000_EnableCounter</ref>(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*DpRxSsPtr,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1gafca110f05ff1e680e822960573af9a80" kindref="member">XDpRxSs_MCDP6000_ClearCounter</ref>(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*DpRxSsPtr,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1ga510291a8978fa551e946d412013b0fd8" kindref="member">XDpRxSs_MCDP6000_RegisterDump</ref>(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*DpRxSsPtr,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1ga3ba90086f4d5090175fc750044210aa6" kindref="member">XDpRxSs_MCDP6000_TransparentMode</ref>(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*DpRxSsPtr,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1gadcb896d0709e385a37949c676141f31a" kindref="member">XDpRxSs_MCDP6000_BWchange</ref>(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*DpRxSsPtr,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dprxss_1ga4970577bafd19eb94bc8490a187892ab" kindref="member">XDpRxSs_MCDP6000_AccessLaneSet</ref>(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*InstancePtr,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss_mcdp6000.h"/>
+  </compounddef>
+</doxygen>

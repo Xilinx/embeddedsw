@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_mi_buf_offset__s" kind="struct" prot="public">
+    <compoundname>CamDeviceMiBufOffset_s</compoundname>
+    <includes local="no">cam_device_common.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_mi_buf_offset__s_1a426d691a027dffd2e215a409ce645a27" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceMiBufOffset_s::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_mi_buf_offset__s_1a9bcd96a8be13667b7496b508c9050b31" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceMiBufOffset_s::u</definition>
+        <argsstring></argsstring>
+        <name>u</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_mi_buf_offset__s_1af44dd76c4e02c4de814016d3f1107cb8" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceMiBufOffset_s::v</definition>
+        <argsstring></argsstring>
+        <name>v</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_mi_buf_offset__s_1a5eb59112dcc086702d9f3511771d2147" prot="public" static="no" mutable="no">
+        <type>struct CamDeviceMiBufOffset_s::@3</type>
+        <definition>struct CamDeviceMiBufOffset_s::@3  CamDeviceMiBufOffset_s::yuvOffset</definition>
+        <argsstring></argsstring>
+        <name>yuvOffset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" line="230" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_mi_buf_offset__s_1abe5fe041682742e4b410223ee15b74b2" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceMiBufOffset_s::rawOffset</definition>
+        <argsstring></argsstring>
+        <name>rawOffset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure type to specify the RAW and YUV buffer offset. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_common.h" bodystart="225" bodyend="232"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_mi_buf_offset__s_1abe5fe041682742e4b410223ee15b74b2" prot="public" virt="non-virtual"><scope>CamDeviceMiBufOffset_s</scope><name>rawOffset</name></member>
+      <member refid="struct_cam_device_mi_buf_offset__s_1a9bcd96a8be13667b7496b508c9050b31" prot="public" virt="non-virtual"><scope>CamDeviceMiBufOffset_s</scope><name>u</name></member>
+      <member refid="struct_cam_device_mi_buf_offset__s_1af44dd76c4e02c4de814016d3f1107cb8" prot="public" virt="non-virtual"><scope>CamDeviceMiBufOffset_s</scope><name>v</name></member>
+      <member refid="struct_cam_device_mi_buf_offset__s_1a426d691a027dffd2e215a409ce645a27" prot="public" virt="non-virtual"><scope>CamDeviceMiBufOffset_s</scope><name>y</name></member>
+      <member refid="struct_cam_device_mi_buf_offset__s_1a5eb59112dcc086702d9f3511771d2147" prot="public" virt="non-virtual"><scope>CamDeviceMiBufOffset_s</scope><name>yuvOffset</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

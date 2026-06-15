@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_mix___internal_d_u_c_d_d_c_cfg" kind="struct" prot="public">
+    <compoundname>XDfeMix_InternalDUCDDCCfg</compoundname>
+    <includes local="no">xdfemix.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_mix___internal_d_u_c_d_d_c_cfg_1a87ab8e6957391c4623caf25aa31bb2f5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_InternalDUCDDCCfg::NCOIdx</definition>
+        <argsstring></argsstring>
+        <name>NCOIdx</name>
+        <briefdescription>
+<para>[0-7] DUC/DDC NCO assignment </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="383" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="383" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga1aaa2f28256b404ea1626f18ba1f2552" compoundref="xdfemix_8c" startline="2444" endline="2485">XDfeMix_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfemix_1ga83fb621d29c58d22bb1078e1cb43f16a" compoundref="xdfemix_8c" startline="2362" endline="2388">XDfeMix_GetCarrierCfgAndNCO</referencedby>
+        <referencedby refid="group__dfemix_1ga5a3170046f6a8e1669f14053119569a2" compoundref="xdfemix_8c" startline="3066" endline="3111">XDfeMix_UpdateCC</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___internal_d_u_c_d_d_c_cfg_1aff86ddad939180301220559424eb5c7f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_InternalDUCDDCCfg::Rate</definition>
+        <argsstring></argsstring>
+        <name>Rate</name>
+        <briefdescription>
+<para>[0-5].Interpolation/decimation rate: </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>0: This CCID is disabled</para></listitem><listitem><para>1: 1x interpolation/decimation</para></listitem><listitem><para>2: 2x interpolation/decimation</para></listitem><listitem><para>3: 4x interpolation/decimation</para></listitem><listitem><para>4: 8x interpolation/decimation</para></listitem><listitem><para>5: 16x interpolation/decimation </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="384" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="384" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1gae90385e9162730111e9f19d29c18e68a" compoundref="xdfemix_8c" startline="2905" endline="2933">XDfeMix_RemoveCC</referencedby>
+        <referencedby refid="group__dfemix_1ga4156eaf9d772037fcf6b51ef6703f32b" compoundref="xdfemix_8c" startline="2500" endline="2511">XDfeMix_RemoveCCfromCCCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___internal_d_u_c_d_d_c_cfg_1a35f112e0cf99001a05032b33d1f9923c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_InternalDUCDDCCfg::CCGain</definition>
+        <argsstring></argsstring>
+        <name>CCGain</name>
+        <briefdescription>
+<para>[0-3] Adjust gain of CCID after mixing (applies to all antennas for that CCID). </para>        </briefdescription>
+        <detaileddescription>
+<para>Only applicable to downlink.<itemizedlist>
+<listitem><para>0 = MINUS18DB: Apply -18dB gain.</para></listitem><listitem><para>1 = MINUS12DB: Apply -12dB gain.</para></listitem><listitem><para>2 = MINUS6DB: Apply -6dB gain.</para></listitem><listitem><para>3 = ZERODB: Apply -0dB gain. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="391" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga83fb621d29c58d22bb1078e1cb43f16a" compoundref="xdfemix_8c" startline="2362" endline="2388">XDfeMix_GetCarrierCfgAndNCO</referencedby>
+        <referencedby refid="group__dfemix_1ga5a3170046f6a8e1669f14053119569a2" compoundref="xdfemix_8c" startline="3066" endline="3111">XDfeMix_UpdateCC</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Defines settings for internal single CC&apos;s DUC/DDC. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="382" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="382" bodyend="397"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_mix___internal_d_u_c_d_d_c_cfg_1a35f112e0cf99001a05032b33d1f9923c" prot="public" virt="non-virtual"><scope>XDfeMix_InternalDUCDDCCfg</scope><name>CCGain</name></member>
+      <member refid="struct_x_dfe_mix___internal_d_u_c_d_d_c_cfg_1a87ab8e6957391c4623caf25aa31bb2f5" prot="public" virt="non-virtual"><scope>XDfeMix_InternalDUCDDCCfg</scope><name>NCOIdx</name></member>
+      <member refid="struct_x_dfe_mix___internal_d_u_c_d_d_c_cfg_1aff86ddad939180301220559424eb5c7f" prot="public" virt="non-virtual"><scope>XDfeMix_InternalDUCDDCCfg</scope><name>Rate</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

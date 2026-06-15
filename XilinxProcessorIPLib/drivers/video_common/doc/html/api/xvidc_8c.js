@@ -1,0 +1,25 @@
+var xvidc_8c =
+[
+    [ "XVidC_Get3DFormatStr", "xvidc_8c.html#ga1d00a23344bac2c8f31661ed59e8c573", null ],
+    [ "XVidC_GetColorFormatStr", "xvidc_8c.html#ga8b0d0986815d88136d4ffae6118325e5", null ],
+    [ "XVidC_GetFrameRate", "xvidc_8c.html#ga5359c410dfcc1bb7a851f77f0b92b287", null ],
+    [ "XVidC_GetFrameRateStr", "xvidc_8c.html#ga3a1ddd84b3b0115149c1b0820c6ba6f4", null ],
+    [ "XVidC_GetPixelClockHzByHVFr", "xvidc_8c.html#ga8b9e588104dbb1c2859fa29afee60d65", null ],
+    [ "XVidC_GetPixelClockHzByVmId", "xvidc_8c.html#gae37000ca466121ef99a1e1fd4b587d91", null ],
+    [ "XVidC_GetTimingInfo", "xvidc_8c.html#ga88a549f52e28fcf7b3e249f42e847bc1", null ],
+    [ "XVidC_GetVideoFormat", "xvidc_8c.html#ga7b982d86111b66608e263b5ecd639e42", null ],
+    [ "XVidC_GetVideoModeData", "xvidc_8c.html#ga3be40034baa818fc42e861f7f033afe8", null ],
+    [ "XVidC_GetVideoModeId", "xvidc_8c.html#ga0a1cda75da460feccd4ab2c2ee712fa5", null ],
+    [ "XVidC_GetVideoModeIdExtensive", "xvidc_8c.html#ga268ce8ec4d2d07109eb7795073e04cbb", null ],
+    [ "XVidC_GetVideoModeIdRb", "xvidc_8c.html#ga4377fff1a8e427e5f7bb642c5b115046", null ],
+    [ "XVidC_GetVideoModeIdWBlanking", "xvidc_8c.html#ga562322a65704c3d6a2617b9f5e5d1717", null ],
+    [ "XVidC_GetVideoModeStr", "xvidc_8c.html#ga536ee41269fe7c0519dc8c3838af2d93", null ],
+    [ "XVidC_IsInterlaced", "xvidc_8c.html#ga0bea011c3bea29cbae6263599ca9ff06", null ],
+    [ "XVidC_RegisterCustomTimingModes", "xvidc_8c.html#ga687eb5fbcb487fa34c66099941b7a8f0", null ],
+    [ "XVidC_ReportStreamInfo", "xvidc_8c.html#ga6a1bb6f49090b265fa2ae843c65f33b2", null ],
+    [ "XVidC_ReportTiming", "xvidc_8c.html#ga420d4dcb3a706e55bd00d8b3522e9336", null ],
+    [ "XVidC_Set3DVideoStream", "xvidc_8c.html#gac16f1d37cc0fd40e467411ca816fc9ef", null ],
+    [ "XVidC_SetVideoStream", "xvidc_8c.html#ga39b8b95d5bd27e43c55e7af11265c7e0", null ],
+    [ "XVidC_UnregisterCustomTimingModes", "xvidc_8c.html#gafd582f23dd41945cf74df9d9bf364f55", null ],
+    [ "XVidC_VideoTimingModes", "xvidc_8c.html#ga9000d50f752d484b1cc9aadb61e5da94", null ]
+];

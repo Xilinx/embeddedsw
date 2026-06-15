@@ -1,0 +1,901 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xmpegtsmux_8h" kind="file">
+    <compoundname>xmpegtsmux.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes refid="xmpegtsmux__hw_8h" local="yes">xmpegtsmux_hw.h</includes>
+    <includedby refid="xmpegtsmux_8c" local="yes">xmpegtsmux.c</includedby>
+    <includedby refid="xmpegtsmux__g_8c" local="yes">xmpegtsmux_g.c</includedby>
+    <includedby refid="xmpegtsmux__intr_8c" local="yes">xmpegtsmux_intr.c</includedby>
+    <includedby refid="xmpegtsmux__sinit_8c" local="yes">xmpegtsmux_sinit.c</includedby>
+    <incdepgraph>
+      <node id="10">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="12">
+        <label>xil_io.h</label>
+      </node>
+      <node id="11">
+        <label>xstatus.h</label>
+      </node>
+      <node id="13">
+        <label>xmpegtsmux_hw.h</label>
+      </node>
+      <node id="9">
+        <label>xil_types.h</label>
+      </node>
+      <node id="8">
+        <label>xmpegtsmux.h</label>
+        <link refid="xmpegtsmux.h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="18">
+        <label>xmpegtsmux_sinit.c</label>
+      </node>
+      <node id="16">
+        <label>xmpegtsmux_g.c</label>
+      </node>
+      <node id="15">
+        <label>xmpegtsmux.c</label>
+      </node>
+      <node id="14">
+        <label>xmpegtsmux.h</label>
+        <link refid="xmpegtsmux.h"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>xmpegtsmux_intr.c</label>
+        <link refid="xmpegtsmux__intr_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_mpegtsmux___config" prot="public">XMpegtsmux_Config</innerclass>
+    <innerclass refid="struct_x_mpegtsmux" prot="public">XMpegtsmux</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xmpegtsmux_8h_1af3139eb88950a010103e2a49284ee543" prot="public" static="no">
+        <name>XMpegtsmux_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32((BaseAddress) + (RegOffset), (u32)(Data))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmpegtsmux_8h_1ab54d740365fb0b9f3b6d8496b216b70e" prot="public" static="no">
+        <name>XMpegtsmux_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32((BaseAddress) + (RegOffset))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xmpegtsmux_8h_1a3f885dce47371a2670dda43dbd541a84" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XMpegTsMux_Callback)(void *CallbackRef)</definition>
+        <argsstring>)(void *CallbackRef)</argsstring>
+        <name>XMpegTsMux_Callback</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xmpegtsmux_8h_1aaf63d839a06b4f4b1e6b635ff1b1da0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XMpegtsmux_Initialize</definition>
+        <argsstring>(XMpegtsmux *InstancePtr, u16 DeviceId)</argsstring>
+        <name>XMpegtsmux_Initialize</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux_sinit.c" bodystart="29" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1aa7b85b77cef2a255cb30a3f096aedacd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XMpegtsmux_Config *</type>
+        <definition>XMpegtsmux_Config* XMpegtsmux_LookupConfig</definition>
+        <argsstring>(u16 DeviceId)</argsstring>
+        <name>XMpegtsmux_LookupConfig</name>
+        <param>
+          <type>u16</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux_sinit.c" bodystart="14" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1addde68004ca2bfffbf78975d5dde9b20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XMpegtsmux_CfgInitialize</definition>
+        <argsstring>(XMpegtsmux *InstancePtr, XMpegtsmux_Config *ConfigPtr)</argsstring>
+        <name>XMpegtsmux_CfgInitialize</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XMpegtsmux_Config *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="11" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1a130d01b0d4cb6ab168e7c3adb73c7c46" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMpegtsmux_Start</definition>
+        <argsstring>(XMpegtsmux *InstancePtr)</argsstring>
+        <name>XMpegtsmux_Start</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="22" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1a2accec0e82176988b6ad7fc72785f799" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMpegtsmux_IsDone</definition>
+        <argsstring>(XMpegtsmux *InstancePtr)</argsstring>
+        <name>XMpegtsmux_IsDone</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="30" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1a03c9766baacf19b31d692e164edc6d58" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMpegtsmux_IsIdle</definition>
+        <argsstring>(XMpegtsmux *InstancePtr)</argsstring>
+        <name>XMpegtsmux_IsIdle</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="40" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1a4f30984516aca635f574752c191e17ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMpegtsmux_IsReady</definition>
+        <argsstring>(XMpegtsmux *InstancePtr)</argsstring>
+        <name>XMpegtsmux_IsReady</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="50" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1aa1362f426c6ada41938e0d90e73cb087" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMpegtsmux_EnableAutoRestart</definition>
+        <argsstring>(XMpegtsmux *InstancePtr)</argsstring>
+        <name>XMpegtsmux_EnableAutoRestart</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="61" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1a744f57b2f2839764a161d5db5309abd5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMpegtsmux_Stop</definition>
+        <argsstring>(XMpegtsmux *InstancePtr)</argsstring>
+        <name>XMpegtsmux_Stop</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="69" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1a6bfec0e9db58b8c125e41694e42dae8e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u64</type>
+        <definition>u64 XMpegtsmux_Get_status</definition>
+        <argsstring>(XMpegtsmux *InstancePtr)</argsstring>
+        <name>XMpegtsmux_Get_status</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="76" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1a22901ea4d35764395605627a69b5de29" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMpegtsmux_Set_mux_context</definition>
+        <argsstring>(XMpegtsmux *InstancePtr, u64 Data)</argsstring>
+        <name>XMpegtsmux_Set_mux_context</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="87" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1ae813f92a28998d140fcb4e2e46ad9d36" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u64</type>
+        <definition>u64 XMpegtsmux_Get_mux_context</definition>
+        <argsstring>(XMpegtsmux *InstancePtr)</argsstring>
+        <name>XMpegtsmux_Get_mux_context</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="95" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1a9237b4212bdd9a76e48ad7f75babffbd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMpegtsmux_Set_stream_context</definition>
+        <argsstring>(XMpegtsmux *InstancePtr, u64 Data)</argsstring>
+        <name>XMpegtsmux_Set_stream_context</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="106" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1ae477cdd49f65ca5ffe758d1adc1fdea2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u64</type>
+        <definition>u64 XMpegtsmux_Get_stream_context</definition>
+        <argsstring>(XMpegtsmux *InstancePtr)</argsstring>
+        <name>XMpegtsmux_Get_stream_context</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="114" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1ae148375e35eb36926dbfd4d2d9447a93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMpegtsmux_Set_data_in</definition>
+        <argsstring>(XMpegtsmux *InstancePtr, u32 Data)</argsstring>
+        <name>XMpegtsmux_Set_data_in</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="125" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1a7b4d2f20859f71bda252dbfc40f415c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMpegtsmux_Get_data_in</definition>
+        <argsstring>(XMpegtsmux *InstancePtr)</argsstring>
+        <name>XMpegtsmux_Get_data_in</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="132" bodyend="140"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1a28c364b6f4abeed89cfe0fcf85004418" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMpegtsmux_Set_data_out_byte_inf</definition>
+        <argsstring>(XMpegtsmux *InstancePtr, u32 Data)</argsstring>
+        <name>XMpegtsmux_Set_data_out_byte_inf</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="142" bodyend="147"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1a6faa8fb63088ff71ea4e4867a9b0b2a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMpegtsmux_Get_data_out_byte_inf</definition>
+        <argsstring>(XMpegtsmux *InstancePtr)</argsstring>
+        <name>XMpegtsmux_Get_data_out_byte_inf</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="149" bodyend="157"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1a83d13802f064383c3fadbe75c1076a28" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMpegtsmux_Set_num_desc</definition>
+        <argsstring>(XMpegtsmux *InstancePtr, u32 Data)</argsstring>
+        <name>XMpegtsmux_Set_num_desc</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="159" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1acdf641d123c74bd520a86c2f433e8abc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMpegtsmux_Get_num_desc</definition>
+        <argsstring>(XMpegtsmux *InstancePtr)</argsstring>
+        <name>XMpegtsmux_Get_num_desc</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="166" bodyend="174"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1a5132e4e65e5c5da57a64f0527d80e90b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMpegtsmux_Set_stream_id_table</definition>
+        <argsstring>(XMpegtsmux *InstancePtr, u64 Data)</argsstring>
+        <name>XMpegtsmux_Set_stream_id_table</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="176" bodyend="182"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1a796da3380ba8ed6359b49a76af68f256" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u64</type>
+        <definition>u64 XMpegtsmux_Get_stream_id_table</definition>
+        <argsstring>(XMpegtsmux *InstancePtr)</argsstring>
+        <name>XMpegtsmux_Get_stream_id_table</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="184" bodyend="193"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1a516bd2c0b04062cfb270991f591b7cdb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMpegtsmux_Set_num_streams_table</definition>
+        <argsstring>(XMpegtsmux *InstancePtr, u64 Data)</argsstring>
+        <name>XMpegtsmux_Set_num_streams_table</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="195" bodyend="201"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1aa591e756848c4942395fff8ef7ba5810" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u64</type>
+        <definition>u64 XMpegtsmux_Get_num_streams_table</definition>
+        <argsstring>(XMpegtsmux *InstancePtr)</argsstring>
+        <name>XMpegtsmux_Get_num_streams_table</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="203" bodyend="212"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1a8fba206d6ae929dc46534da77826603f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMpegtsmux_InterruptGlobalEnable</definition>
+        <argsstring>(XMpegtsmux *InstancePtr)</argsstring>
+        <name>XMpegtsmux_InterruptGlobalEnable</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="214" bodyend="219"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1aa4693f4bda0e8353602890f43c5db8af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMpegtsmux_InterruptGlobalDisable</definition>
+        <argsstring>(XMpegtsmux *InstancePtr)</argsstring>
+        <name>XMpegtsmux_InterruptGlobalDisable</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="221" bodyend="226"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1a70da3680437bcf8991a39aee33426be9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMpegtsmux_InterruptEnable</definition>
+        <argsstring>(XMpegtsmux *InstancePtr, u32 Mask)</argsstring>
+        <name>XMpegtsmux_InterruptEnable</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="228" bodyend="236"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1a22ca2ac4a4287c6d819c751aa1b30d98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMpegtsmux_InterruptDisable</definition>
+        <argsstring>(XMpegtsmux *InstancePtr, u32 Mask)</argsstring>
+        <name>XMpegtsmux_InterruptDisable</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="238" bodyend="246"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1a2d328ec53e24e81274ce2e3781328043" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMpegtsmux_InterruptClear</definition>
+        <argsstring>(XMpegtsmux *InstancePtr, u32 Mask)</argsstring>
+        <name>XMpegtsmux_InterruptClear</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="248" bodyend="253"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1a3d64df5d656d066bf9359afb3b978037" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMpegtsmux_InterruptGetEnabled</definition>
+        <argsstring>(XMpegtsmux *InstancePtr)</argsstring>
+        <name>XMpegtsmux_InterruptGetEnabled</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="255" bodyend="260"/>
+      </memberdef>
+      <memberdef kind="function" id="xmpegtsmux_8h_1a1793971c6cdfecfbdc3c71437ed29d85" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMpegtsmux_InterruptGetStatus</definition>
+        <argsstring>(XMpegtsmux *InstancePtr)</argsstring>
+        <name>XMpegtsmux_InterruptGetStatus</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.c" bodystart="262" bodyend="267"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mpegtsmux_1gaa848f85c1c5a5b89ce2839bf5e8a8fb1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* XMpegTsMuxIntrHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XMpegTsMuxIntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the MPEG TS MUX core driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler clears the pending interrupt and determines if the source is frame done signal. If yes, calls the registered callback function.</para><para>The application is responsible for connecting this function to the interrupt system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance that just interrupted.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux_intr.c" bodystart="73" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mpegtsmux_1ga4587003bc60d57251bf8ec4fdaa9d415" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMpegTsMux_SetCallback</definition>
+        <argsstring>(XMpegtsmux *InstancePtr, void *CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XMpegTsMux_SetCallback</name>
+        <param>
+          <type>XMpegtsmux *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function installs an asynchronous callback function: </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the MPEG TS MUX IP instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Invoking this function for a handler that already has been installed replaces it with the new handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux_intr.c" bodystart="42" bodyend="52"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XMPEGTSMUX_H</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMPEGTSMUX_H</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__linux__</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;assert.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;dirent.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;fcntl.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sys/mman.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unistd.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stddef.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xmpegtsmux_hw.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__linux__</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint8_t<sp/>u8;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint16_t<sp/>u16;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint32_t<sp/>u32;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>DeviceId;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>u64<sp/>Ctrl_BaseAddress;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">}<sp/>XMpegtsmux_Config;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*XMpegTsMux_Callback)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>u64<sp/>Ctrl_BaseAddress;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>IsReady;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>XMpegTsMux_Callback<sp/>Callback;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">}<sp/>XMpegtsmux;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__linux__</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMpegtsmux_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>Xil_Out32((BaseAddress)<sp/>+<sp/>(RegOffset),<sp/>(u32)(Data))</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMpegtsmux_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>Xil_In32((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMpegtsmux_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>*(volatile<sp/>u32*)((BaseAddress)<sp/>+<sp/>(RegOffset))<sp/>=<sp/>(u32)(Data)</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMpegtsmux_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>*(volatile<sp/>u32*)((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Xil_AssertVoid(expr)<sp/><sp/><sp/><sp/>assert(expr)</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>Xil_AssertNonvoid(expr)<sp/>assert(expr)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XST_SUCCESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XST_DEVICE_NOT_FOUND<sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XST_OPEN_DEVICE_FAILED<sp/><sp/>3</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIL_COMPONENT_IS_READY<sp/><sp/>1</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__linux__</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XMpegtsmux_Initialize(XMpegtsmux<sp/>*InstancePtr,<sp/>u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">XMpegtsmux_Config*<sp/>XMpegtsmux_LookupConfig(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XMpegtsmux_CfgInitialize(XMpegtsmux<sp/>*InstancePtr,<sp/>XMpegtsmux_Config<sp/>*ConfigPtr);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XMpegtsmux_Initialize(XMpegtsmux<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>InstanceName);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XMpegtsmux_Release(XMpegtsmux<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XMpegtsmux_Start(XMpegtsmux<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">u32<sp/>XMpegtsmux_IsDone(XMpegtsmux<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">u32<sp/>XMpegtsmux_IsIdle(XMpegtsmux<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">u32<sp/>XMpegtsmux_IsReady(XMpegtsmux<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XMpegtsmux_EnableAutoRestart(XMpegtsmux<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XMpegtsmux_Stop(XMpegtsmux<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal">u64<sp/>XMpegtsmux_Get_status(XMpegtsmux<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XMpegtsmux_Set_mux_context(XMpegtsmux<sp/>*InstancePtr,<sp/>u64<sp/>Data);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">u64<sp/>XMpegtsmux_Get_mux_context(XMpegtsmux<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XMpegtsmux_Set_stream_context(XMpegtsmux<sp/>*InstancePtr,<sp/>u64<sp/>Data);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">u64<sp/>XMpegtsmux_Get_stream_context(XMpegtsmux<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XMpegtsmux_Set_data_in(XMpegtsmux<sp/>*InstancePtr,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">u32<sp/>XMpegtsmux_Get_data_in(XMpegtsmux<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XMpegtsmux_Set_data_out_byte_inf(XMpegtsmux<sp/>*InstancePtr,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">u32<sp/>XMpegtsmux_Get_data_out_byte_inf(XMpegtsmux<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XMpegtsmux_Set_num_desc(XMpegtsmux<sp/>*InstancePtr,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">u32<sp/>XMpegtsmux_Get_num_desc(XMpegtsmux<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XMpegtsmux_Set_stream_id_table(XMpegtsmux<sp/>*InstancePtr,<sp/>u64<sp/>Data);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">u64<sp/>XMpegtsmux_Get_stream_id_table(XMpegtsmux<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XMpegtsmux_Set_num_streams_table(XMpegtsmux<sp/>*InstancePtr,<sp/>u64<sp/>Data);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">u64<sp/>XMpegtsmux_Get_num_streams_table(XMpegtsmux<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XMpegtsmux_InterruptGlobalEnable(XMpegtsmux<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XMpegtsmux_InterruptGlobalDisable(XMpegtsmux<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XMpegtsmux_InterruptEnable(XMpegtsmux<sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XMpegtsmux_InterruptDisable(XMpegtsmux<sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XMpegtsmux_InterruptClear(XMpegtsmux<sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">u32<sp/>XMpegtsmux_InterruptGetEnabled(XMpegtsmux<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal">u32<sp/>XMpegtsmux_InterruptGetStatus(XMpegtsmux<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="group__mpegtsmux_1gaa848f85c1c5a5b89ce2839bf5e8a8fb1" kindref="member">XMpegTsMuxIntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mpegtsmux_1ga4587003bc60d57251bf8ec4fdaa9d415" kindref="member">XMpegTsMux_SetCallback</ref>(XMpegtsmux<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/xmpegtsmux.h"/>
+  </compounddef>
+</doxygen>

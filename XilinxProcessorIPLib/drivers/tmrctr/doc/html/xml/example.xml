@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use tmrctr driver.</para><sect1 id="example_1ex1">
+<title>xtmrctr_fast_intr_example.c</title>
+<para>Contains an example on how to use the XTmrctr driver directly. This example shows the usage of the timer counter driver(XTmCtr) and hardware device using fast interrupt mode.</para><para>For details, see <ref refid="xtmrctr__fast__intr__example_8c" kindref="compound">xtmrctr_fast_intr_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xtmrctr_intr_64bit_example.c</title>
+<para>Contains an example on how to use the XTmrctr driver directly. This example shows the usage of the timer counter driver(XTmCtr) and hardware device using interrupt mode with the counters configured in cascasde mode for a 64 bit operation. Both the timers should enabled in HW configuration for the cascade mode of operation.</para><para>For details, see <ref refid="xtmrctr__intr__64bit__example_8c" kindref="compound">xtmrctr_intr_64bit_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xtmrctr_intr_example.c</title>
+<para>Contains an example on how to use the XTmrctr driver directly. This example shows the usage of the timer counter driver(XTmCtr) and hardware device using interrupt mode.</para><para>For details, see <ref refid="xtmrctr__intr__example_8c" kindref="compound">xtmrctr_intr_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex4">
+<title>xtmrctr_low_level_example.c</title>
+<para>Contains an example on how to use the XTmrctr driver directly. This example shows the usage of the Timer Counter(XTmrCtr) low level driver and hardware device in a polled mode.</para><para>For details, see <ref refid="xtmrctr__low__level__example_8c" kindref="compound">xtmrctr_low_level_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex5">
+<title>xtmrctr_polled_example.c</title>
+<para>Contains an example on how to use the XTmrctr driver directly. This example shows the usage of the Timer Counter driver(XTmrCtr) and hardware device in a polled mode.</para><para>For details, see <ref refid="xtmrctr__polled__example_8c" kindref="compound">xtmrctr_polled_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex6">
+<title>xtmrctr_selftest_example.c</title>
+<para>Contains an example on how to use the XTmrctr driver directly. This example performs the selftest using the timer counter driver.</para><para>For details, see <ref refid="xtmrctr__selftest__example_8c" kindref="compound">xtmrctr_selftest_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex7">
+<title>xtmrctr_pwm_example.c</title>
+<para>Contains an example on how to use the XTmrctr driver directly. This example shows the usage of tmrctr PWM APIs to generate PWM output. The example configures PWM to operate at specific duty cycle. After every certain number of cycles the duty cycle is incremented until maximum duty cycle is achieved.</para><para>For details, see <ref refid="xtmrctr__pwm__example_8c" kindref="compound">xtmrctr_pwm_example.c</ref>. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

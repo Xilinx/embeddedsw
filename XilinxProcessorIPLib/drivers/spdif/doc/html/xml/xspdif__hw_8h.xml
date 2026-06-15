@@ -1,0 +1,755 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xspdif__hw_8h" kind="file">
+    <compoundname>xspdif_hw.h</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xspdif_8h" local="yes">xspdif.h</includedby>
+    <includedby refid="xspdif_8c" local="yes">xspdif.c</includedby>
+    <includedby refid="xspdif__chsts_8c" local="yes">xspdif_chsts.c</includedby>
+    <includedby refid="xspdif__selftest_8c" local="yes">xspdif_selftest.c</includedby>
+    <includedby refid="xspdif__intr__example_8c" local="yes">xspdif_intr_example.c</includedby>
+    <incdepgraph>
+      <node id="56">
+        <label>xil_io.h</label>
+      </node>
+      <node id="55">
+        <label>xspdif_hw.h</label>
+        <link refid="xspdif_hw.h"/>
+        <childnode refid="56" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="65">
+        <label>xspdif_sinit.c</label>
+        <link refid="xspdif__sinit_8c"/>
+      </node>
+      <node id="63">
+        <label>xspdif_intr.c</label>
+        <link refid="xspdif__intr_8c"/>
+      </node>
+      <node id="61">
+        <label>xspdif_chsts.c</label>
+        <link refid="xspdif__chsts_8c"/>
+      </node>
+      <node id="60">
+        <label>xspdif_chsts.h</label>
+        <link refid="xspdif__chsts_8h"/>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+      </node>
+      <node id="59">
+        <label>xspdif.c</label>
+        <link refid="xspdif_8c"/>
+      </node>
+      <node id="58">
+        <label>xspdif.h</label>
+        <link refid="xspdif_8h"/>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+      </node>
+      <node id="66">
+        <label>xspdif_intr_example.c</label>
+      </node>
+      <node id="57">
+        <label>xspdif_hw.h</label>
+        <link refid="xspdif_hw.h"/>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+      </node>
+      <node id="64">
+        <label>xspdif_selftest.c</label>
+        <link refid="xspdif__selftest_8c"/>
+      </node>
+      <node id="62">
+        <label>xspdif_g.c</label>
+      </node>
+      <node id="67">
+        <label>xspdif_selftest_example.c</label>
+        <link refid="xspdif__selftest__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Register Map</header>
+      <description><para>Register offsets for the <ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> device. </para></description>
+      <memberdef kind="define" id="group__spdif_1ga54e62f082a103141123492ce62a09a44" prot="public" static="no">
+        <name>XSPDIF_GLOBAL_INTERRUPT_ENABLE_OFFSET</name>
+        <initializer>0x1C</initializer>
+        <briefdescription>
+<para>Device Global interrupt enable register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1gafecdc424bebe7cf1f779fc5d479c48c3" prot="public" static="no">
+        <name>XSPDIF_INTERRUPT_STATUS_REGISTER_OFFSET</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>IP Interrupt Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="44" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1ga2e873c24b76b1f0c5ea5e2067fe96127" prot="public" static="no">
+        <name>XSPDIF_INTERRUPT_ENABLE_REGISTER_OFFSET</name>
+        <initializer>0x28</initializer>
+        <briefdescription>
+<para>IP interrupt enable Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="47" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1gafcc4d1467e4b02bb63d8ed3ca103c384" prot="public" static="no">
+        <name>XSPDIF_SOFT_RESET_REGISTER_OFFSET</name>
+        <initializer>0x40</initializer>
+        <briefdescription>
+<para>Soft Reset Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__spdif_1gae803b59eab34cf53ffcfb147b367f88f" compoundref="xspdif_8c" startline="132" endline="138">XSpdif_SoftReset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1ga2fc47b801ec55e2dd7bcebb2bf117422" prot="public" static="no">
+        <name>XSPDIF_CONTROL_REGISTER_OFFSET</name>
+        <initializer>0x44</initializer>
+        <briefdescription>
+<para>Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga1c7b903ef4c7052aa0f3b11350946594" compoundref="xspdif_8c" startline="106" endline="123">XSpdif_Enable</referencedby>
+        <referencedby refid="group__spdif_1gabe3f017617a1beda897955974c20fc9d" compoundref="xspdif_8c" startline="147" endline="162">XSpdif_ResetFifo</referencedby>
+        <referencedby refid="group__spdif_1gab68e148095ed0fec2cccdea00c9a5169" compoundref="xspdif__selftest_8c" startline="54" endline="69">XSpdif_SelfTest</referencedby>
+        <referencedby refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" compoundref="xspdif_8c" startline="173" endline="220">XSpdif_SetClkConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1ga0dcf2448b7e5e551ec1989723967e4b9" prot="public" static="no">
+        <name>XSPDIF_STATUS_REGISTER_OFFSET</name>
+        <initializer>0x48</initializer>
+        <briefdescription>
+<para>Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__spdif_1gaf65b0871fbd61f85bff84b47ab5fc397" compoundref="xspdif_8c" startline="231" endline="239">XSpdif_GetFs</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1ga52d7b2b64993516fbb98d29dd8878be6" prot="public" static="no">
+        <name>XSPDIF_CHANNEL_STATUS_REGISTER0_OFFSET</name>
+        <initializer>0x4C</initializer>
+        <briefdescription>
+<para>Audio Channel Status bits 0 to 31. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga6cc58a923df8991119d2ae9d894b5225" compoundref="xspdif_8c" startline="249" endline="263">XSpdif_Rx_GetChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1ga657a7152cbcaf8adee25c4dc9fb6f299" prot="public" static="no">
+        <name>XSPDIF_CHANNEL_A_USER_DATA_REGISTER0_OFFSET</name>
+        <initializer>0x64</initializer>
+        <briefdescription>
+<para>Channel A user data bits 0 to 31. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__spdif_1gab42041ee833dc5963d3d87f83bb05197" compoundref="xspdif_8c" startline="273" endline="287">XSpdif_Rx_GetChA_UserData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1ga1711efa0e12d7e74ddfbc21e4ffd519d" prot="public" static="no">
+        <name>XSPDIF_CHANNEL_B_USER_DATA_REGISTER0_OFFSET</name>
+        <initializer>0x7C</initializer>
+        <briefdescription>
+<para>Channel B user data bits 0 to 31. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga838302566560f7a0aeae1f154b2b615f" compoundref="xspdif_8c" startline="297" endline="312">XSpdif_Rx_GetChB_UserData</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Core Configuration Register masks and shifts</header>
+      <memberdef kind="define" id="group__spdif_1ga14a20b080d40043f2e576a964ea7d703" prot="public" static="no">
+        <name>XSPDIF_CORE_ENABLE_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Is XSPDIF Core Enable bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1ga6c809f933049ee2d66fb43f023c3bb32" prot="public" static="no">
+        <name>XSPDIF_CORE_ENABLE_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__spdif_1ga14a20b080d40043f2e576a964ea7d703" kindref="member">XSPDIF_CORE_ENABLE_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>Is XSPDIF Core Enable bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga1c7b903ef4c7052aa0f3b11350946594" compoundref="xspdif_8c" startline="106" endline="123">XSpdif_Enable</referencedby>
+        <referencedby refid="group__spdif_1gabe3f017617a1beda897955974c20fc9d" compoundref="xspdif_8c" startline="147" endline="162">XSpdif_ResetFifo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1gab233d15fdfb78d5162efc06e57a706c6" prot="public" static="no">
+        <name>XSPDIF_FIFO_FLUSH_SHIFT</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>Is XSPDIF Reset FIFO bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1ga44d793540b399f583b32940d41614389" prot="public" static="no">
+        <name>XSPDIF_FIFO_FLUSH_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__spdif_1gab233d15fdfb78d5162efc06e57a706c6" kindref="member">XSPDIF_FIFO_FLUSH_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>Is XSPDIF Reset FIFO bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1gac175833095028d13a1fb8704219cb01f" prot="public" static="no">
+        <name>XSPDIF_CLOCK_CONFIG_BITS_SHIFT</name>
+        <initializer>(2)</initializer>
+        <briefdescription>
+<para>Is XSPDIF clock configuration bits shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="85" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" compoundref="xspdif_8c" startline="173" endline="220">XSpdif_SetClkConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1ga69580f92443ed12502c008a1457fe1be" prot="public" static="no">
+        <name>XSPDIF_CLOCK_CONFIG_BITS_MASK</name>
+        <initializer>((0xF) &lt;&lt; XSPDIF_CLOCK_CONFIG_BITS_SHIFT)</initializer>
+        <briefdescription>
+<para>Is XSPDIF clock configuration bits mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="88" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" compoundref="xspdif_8c" startline="173" endline="220">XSpdif_SetClkConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1ga964ad8ea66a86a6ce4c7cf7ff2450dde" prot="public" static="no">
+        <name>XSPDIF_SAMPLE_CLOCK_COUNT_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>XSPDIF sample clock count shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1ga20f9c3bca0884af7fdfa9bf0c5f2d86f" prot="public" static="no">
+        <name>XSPDIF_SAMPLE_CLOCK_COUNT_MASK</name>
+        <initializer>((0X3FF) &lt;&lt; XSPDIF_SAMPLE_CLOCK_COUNT_SHIFT)</initializer>
+        <briefdescription>
+<para>XSPDIF sample clock count mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="93" bodyend="-1"/>
+        <referencedby refid="group__spdif_1gaf65b0871fbd61f85bff84b47ab5fc397" compoundref="xspdif_8c" startline="231" endline="239">XSpdif_GetFs</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt masks and shifts</header>
+      <memberdef kind="define" id="group__spdif_1ga1d9df862b59ee96e3e02de1aae228086" prot="public" static="no">
+        <name>XSPDIF_TX_OR_RX_FIFO_FULL_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Transmitter or Receiver FIFO Full Interrupt bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1gabe00ee416b556177d910c3e17fb9e873" prot="public" static="no">
+        <name>XSPDIF_TX_OR_RX_FIFO_FULL_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__spdif_1ga1d9df862b59ee96e3e02de1aae228086" kindref="member">XSPDIF_TX_OR_RX_FIFO_FULL_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>Transmitter or Receiver FIFO Full Interrupt bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="103" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1gade30ebd0405e416cd787ad39b6f3c1cc" prot="public" static="no">
+        <name>XSPDIF_TX_OR_RX_FIFO_EMPTY_SHIFT</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>Transmitter or Receiver FIFO Empty Interrupt bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1ga01764f0f8e04b295b8ec379e1c039190" prot="public" static="no">
+        <name>XSPDIF_TX_OR_RX_FIFO_EMPTY_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__spdif_1gade30ebd0405e416cd787ad39b6f3c1cc" kindref="member">XSPDIF_TX_OR_RX_FIFO_EMPTY_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>Transmitter or Receiver FIFO Empty Interrupt bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="109" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1ga0480d1e28525b52c86770476d5199ea8" prot="public" static="no">
+        <name>XSPDIF_START_OF_BLOCK_SHIFT</name>
+        <initializer>(2)</initializer>
+        <briefdescription>
+<para>Start of Block Interrupt bit mask ( in Receive mode) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1ga85ffec35bf477ccfe1e0cfc949ff7b26" prot="public" static="no">
+        <name>XSPDIF_START_OF_BLOCK_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__spdif_1ga0480d1e28525b52c86770476d5199ea8" kindref="member">XSPDIF_START_OF_BLOCK_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>Transmitter or Receiver FIFO Full Interrupt bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="115" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1gacac3ea9e141b8c41d6af146219a01ee2" prot="public" static="no">
+        <name>XSPDIF_BMC_ERROR_SHIFT</name>
+        <initializer>(3)</initializer>
+        <briefdescription>
+<para>BMC Error Interrupt bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1gaa68d454f0f8827129c0ec744fbf3138f" prot="public" static="no">
+        <name>XSPDIF_BMC_ERROR_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__spdif_1gacac3ea9e141b8c41d6af146219a01ee2" kindref="member">XSPDIF_BMC_ERROR_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>BMC Error Interrupt bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="121" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1ga50e1fd9807c67cd494b043712940edb6" prot="public" static="no">
+        <name>XSPDIF_PREAMBLE_ERROR_SHIFT</name>
+        <initializer>(4)</initializer>
+        <briefdescription>
+<para>Preamble error Interrupt bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1ga4a060f08a718b7727555715810fb6caf" prot="public" static="no">
+        <name>XSPDIF_PREAMBLE_ERROR_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__spdif_1ga50e1fd9807c67cd494b043712940edb6" kindref="member">XSPDIF_PREAMBLE_ERROR_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>Preamble error Interrupt bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="127" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1gad16dc8a77dde55e1265c9a1f5b09d459" prot="public" static="no">
+        <name>XSPDIF_GINTR_ENABLE_SHIFT</name>
+        <initializer>(31)</initializer>
+        <briefdescription>
+<para>Global interrupt enable bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1gad0e21f07fb89aa3b362e4083ca5630dd" prot="public" static="no">
+        <name>XSPDIF_GINTR_ENABLE_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__spdif_1gad16dc8a77dde55e1265c9a1f5b09d459" kindref="member">XSPDIF_GINTR_ENABLE_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>Global interrupt enable bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register access macro definition</header>
+      <memberdef kind="define" id="group__spdif_1gac83864972173c1015d34ed8020bf634c" prot="public" static="no">
+        <name>XSpdif_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+<para>Input Operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1gaed24ea3d35e70dcda7745d333425cd1c" prot="public" static="no">
+        <name>XSpdif_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+<para>Output Operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1ga8a5504bdf152f4699dda951a971b5ce5" prot="public" static="no">
+        <name>XSpdif_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer><ref refid="group__spdif_1gac83864972173c1015d34ed8020bf634c" kindref="member">XSpdif_In32</ref>((BaseAddress) + ((u32)RegOffset))</initializer>
+        <briefdescription>
+<para>This macro reads a value from a <ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> register. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32 bit read is performed. If the component is implemented in a smaller width, only the least significant data is read from the register. The most significant data will be read as 0.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the <ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register (defined at the top of this file).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__spdif_1ga8a5504bdf152f4699dda951a971b5ce5" kindref="member">XSpdif_ReadReg(u32 BaseAddress, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="179" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga1c7b903ef4c7052aa0f3b11350946594" compoundref="xspdif_8c" startline="106" endline="123">XSpdif_Enable</referencedby>
+        <referencedby refid="group__spdif_1gaf65b0871fbd61f85bff84b47ab5fc397" compoundref="xspdif_8c" startline="231" endline="239">XSpdif_GetFs</referencedby>
+        <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
+        <referencedby refid="group__spdif_1gabe3f017617a1beda897955974c20fc9d" compoundref="xspdif_8c" startline="147" endline="162">XSpdif_ResetFifo</referencedby>
+        <referencedby refid="group__spdif_1gab42041ee833dc5963d3d87f83bb05197" compoundref="xspdif_8c" startline="273" endline="287">XSpdif_Rx_GetChA_UserData</referencedby>
+        <referencedby refid="group__spdif_1ga838302566560f7a0aeae1f154b2b615f" compoundref="xspdif_8c" startline="297" endline="312">XSpdif_Rx_GetChB_UserData</referencedby>
+        <referencedby refid="group__spdif_1ga6cc58a923df8991119d2ae9d894b5225" compoundref="xspdif_8c" startline="249" endline="263">XSpdif_Rx_GetChStat</referencedby>
+        <referencedby refid="group__spdif_1gab68e148095ed0fec2cccdea00c9a5169" compoundref="xspdif__selftest_8c" startline="54" endline="69">XSpdif_SelfTest</referencedby>
+        <referencedby refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" compoundref="xspdif_8c" startline="173" endline="220">XSpdif_SetClkConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1ga315b6c9b02574277d0f5e66f6bb55888" prot="public" static="no">
+        <name>XSpdif_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer><ref refid="group__spdif_1gaed24ea3d35e70dcda7745d333425cd1c" kindref="member">XSpdif_Out32</ref>((BaseAddress) + ((u32)RegOffset), (u32)(Data))</initializer>
+        <briefdescription>
+<para>This macro writes a value to a <ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> register. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32 bit write is performed. If the component is implemented in a smaller width, only the least significant data is written.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the <ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register (defined at the top of this file) to be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write into the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__spdif_1ga315b6c9b02574277d0f5e66f6bb55888" kindref="member">XSpdif_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="201" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="201" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga1c7b903ef4c7052aa0f3b11350946594" compoundref="xspdif_8c" startline="106" endline="123">XSpdif_Enable</referencedby>
+        <referencedby refid="group__spdif_1gabe3f017617a1beda897955974c20fc9d" compoundref="xspdif_8c" startline="147" endline="162">XSpdif_ResetFifo</referencedby>
+        <referencedby refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" compoundref="xspdif_8c" startline="173" endline="220">XSpdif_SetClkConfig</referencedby>
+        <referencedby refid="group__spdif_1gae803b59eab34cf53ffcfb147b367f88f" compoundref="xspdif_8c" startline="132" endline="138">XSpdif_SoftReset</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__spdif_1gab9e50bd11dea15481ab6f1c7d89083a8" prot="public" static="no">
+        <name>XSPDIF_CLK_4</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Clock divide by 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="136" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" compoundref="xspdif_8c" startline="173" endline="220">XSpdif_SetClkConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1gae02f06715593696d6dd15f3a2428bfac" prot="public" static="no">
+        <name>XSPDIF_CLK_8</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Clock divide by 8. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="138" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" compoundref="xspdif_8c" startline="173" endline="220">XSpdif_SetClkConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1ga8f58bf3843cffb58c16ba3c37b6f1a43" prot="public" static="no">
+        <name>XSPDIF_CLK_16</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Clock divide by 16. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="140" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" compoundref="xspdif_8c" startline="173" endline="220">XSpdif_SetClkConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1gacc90df3f63b69ba547aef9449439bdeb" prot="public" static="no">
+        <name>XSPDIF_CLK_24</name>
+        <initializer>24</initializer>
+        <briefdescription>
+<para>Clock divide by 24. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="142" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" compoundref="xspdif_8c" startline="173" endline="220">XSpdif_SetClkConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1ga76f09af6af8a8a42a954d4f3c3b4ead1" prot="public" static="no">
+        <name>XSPDIF_CLK_32</name>
+        <initializer>32</initializer>
+        <briefdescription>
+<para>Clock divide by 32. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="144" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" compoundref="xspdif_8c" startline="173" endline="220">XSpdif_SetClkConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1ga2b1a583d97411e32ac6d37a13c749d0b" prot="public" static="no">
+        <name>XSPDIF_CLK_48</name>
+        <initializer>48</initializer>
+        <briefdescription>
+<para>Clock divide by 48. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="146" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" compoundref="xspdif_8c" startline="173" endline="220">XSpdif_SetClkConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spdif_1ga4c885709bc23885156fa806853159a42" prot="public" static="no">
+        <name>XSPDIF_CLK_64</name>
+        <initializer>64</initializer>
+        <briefdescription>
+<para>Clock divide by 64. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h" bodystart="148" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" compoundref="xspdif_8c" startline="173" endline="220">XSpdif_SetClkConfig</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor">#ifndef<sp/>XSPDIF_HW_H</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_HW_H</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Prevent<sp/>circular<sp/>inclusions<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="41" refid="group__spdif_1ga54e62f082a103141123492ce62a09a44" refkind="member"><highlight class="preprocessor">#define<sp/>XSPDIF_GLOBAL_INTERRUPT_ENABLE_OFFSET<sp/>0x1C</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44" refid="group__spdif_1gafecdc424bebe7cf1f779fc5d479c48c3" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_INTERRUPT_STATUS_REGISTER_OFFSET<sp/>0x20</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="group__spdif_1ga2e873c24b76b1f0c5ea5e2067fe96127" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_INTERRUPT_ENABLE_REGISTER_OFFSET<sp/>0x28</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50" refid="group__spdif_1gafcc4d1467e4b02bb63d8ed3ca103c384" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_SOFT_RESET_REGISTER_OFFSET<sp/><sp/><sp/>0x40</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53" refid="group__spdif_1ga2fc47b801ec55e2dd7bcebb2bf117422" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_CONTROL_REGISTER_OFFSET<sp/><sp/><sp/>0x44</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56" refid="group__spdif_1ga0dcf2448b7e5e551ec1989723967e4b9" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_STATUS_REGISTER_OFFSET<sp/><sp/><sp/><sp/>0x48</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59" refid="group__spdif_1ga52d7b2b64993516fbb98d29dd8878be6" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_CHANNEL_STATUS_REGISTER0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x4C</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62" refid="group__spdif_1ga657a7152cbcaf8adee25c4dc9fb6f299" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_CHANNEL_A_USER_DATA_REGISTER0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x64</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65" refid="group__spdif_1ga1711efa0e12d7e74ddfbc21e4ffd519d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_CHANNEL_B_USER_DATA_REGISTER0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x7C</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="73" refid="group__spdif_1ga14a20b080d40043f2e576a964ea7d703" refkind="member"><highlight class="preprocessor">#define<sp/>XSPDIF_CORE_ENABLE_SHIFT<sp/>(0)</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76" refid="group__spdif_1ga6c809f933049ee2d66fb43f023c3bb32" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_CORE_ENABLE_MASK<sp/><sp/>(1<sp/>&lt;&lt;<sp/>XSPDIF_CORE_ENABLE_SHIFT)</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79" refid="group__spdif_1gab233d15fdfb78d5162efc06e57a706c6" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_FIFO_FLUSH_SHIFT<sp/>(1)</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82" refid="group__spdif_1ga44d793540b399f583b32940d41614389" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_FIFO_FLUSH_MASK<sp/><sp/>(1<sp/>&lt;&lt;<sp/>XSPDIF_FIFO_FLUSH_SHIFT)</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85" refid="group__spdif_1gac175833095028d13a1fb8704219cb01f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_CLOCK_CONFIG_BITS_SHIFT<sp/>(2)</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88" refid="group__spdif_1ga69580f92443ed12502c008a1457fe1be" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_CLOCK_CONFIG_BITS_MASK<sp/>((0xF)<sp/>&lt;&lt;<sp/>XSPDIF_CLOCK_CONFIG_BITS_SHIFT)</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91" refid="group__spdif_1ga964ad8ea66a86a6ce4c7cf7ff2450dde" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_SAMPLE_CLOCK_COUNT_SHIFT<sp/>(0)</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_SAMPLE_CLOCK_COUNT_MASK<sp/>((0X3FF)<sp/>&lt;&lt;<sp/>XSPDIF_SAMPLE_CLOCK_COUNT_SHIFT)</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="100" refid="group__spdif_1ga1d9df862b59ee96e3e02de1aae228086" refkind="member"><highlight class="preprocessor">#define<sp/>XSPDIF_TX_OR_RX_FIFO_FULL_SHIFT<sp/>(0)</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103" refid="group__spdif_1gabe00ee416b556177d910c3e17fb9e873" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_TX_OR_RX_FIFO_FULL_MASK<sp/><sp/>(1<sp/>&lt;&lt;<sp/>XSPDIF_TX_OR_RX_FIFO_FULL_SHIFT)</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106" refid="group__spdif_1gade30ebd0405e416cd787ad39b6f3c1cc" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_TX_OR_RX_FIFO_EMPTY_SHIFT<sp/>(1)</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109" refid="group__spdif_1ga01764f0f8e04b295b8ec379e1c039190" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_TX_OR_RX_FIFO_EMPTY_MASK<sp/><sp/>(1<sp/>&lt;&lt;<sp/>XSPDIF_TX_OR_RX_FIFO_EMPTY_SHIFT)</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112" refid="group__spdif_1ga0480d1e28525b52c86770476d5199ea8" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_START_OF_BLOCK_SHIFT<sp/>(2)</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115" refid="group__spdif_1ga85ffec35bf477ccfe1e0cfc949ff7b26" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_START_OF_BLOCK_MASK<sp/><sp/>(1<sp/>&lt;&lt;<sp/>XSPDIF_START_OF_BLOCK_SHIFT)</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118" refid="group__spdif_1gacac3ea9e141b8c41d6af146219a01ee2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_BMC_ERROR_SHIFT<sp/>(3)</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121" refid="group__spdif_1gaa68d454f0f8827129c0ec744fbf3138f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_BMC_ERROR_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSPDIF_BMC_ERROR_SHIFT)</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124" refid="group__spdif_1ga50e1fd9807c67cd494b043712940edb6" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_PREAMBLE_ERROR_SHIFT<sp/>(4)</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127" refid="group__spdif_1ga4a060f08a718b7727555715810fb6caf" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_PREAMBLE_ERROR_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSPDIF_PREAMBLE_ERROR_SHIFT)</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130" refid="group__spdif_1gad16dc8a77dde55e1265c9a1f5b09d459" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_GINTR_ENABLE_SHIFT<sp/>(31)</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133" refid="group__spdif_1gad0e21f07fb89aa3b362e4083ca5630dd" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_GINTR_ENABLE_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSPDIF_GINTR_ENABLE_SHIFT)</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="136" refid="group__spdif_1gab9e50bd11dea15481ab6f1c7d89083a8" refkind="member"><highlight class="preprocessor">#define<sp/>XSPDIF_CLK_4<sp/>4</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_CLK_8<sp/>8</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_CLK_16<sp/>16</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_CLK_24<sp/>24</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_CLK_32<sp/>32</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_CLK_48<sp/>48</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSPDIF_CLK_64<sp/>64</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157" refid="group__spdif_1gac83864972173c1015d34ed8020bf634c" refkind="member"><highlight class="preprocessor">#define<sp/>XSpdif_In32<sp/><sp/><sp/>Xil_In32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="158" refid="group__spdif_1gaed24ea3d35e70dcda7745d333425cd1c" refkind="member"><highlight class="preprocessor">#define<sp/>XSpdif_Out32<sp/><sp/>Xil_Out32<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="179" refid="group__spdif_1ga8a5504bdf152f4699dda951a971b5ce5" refkind="member"><highlight class="preprocessor">#define<sp/>XSpdif_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSpdif_In32((BaseAddress)<sp/>+<sp/>((u32)RegOffset))</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="201" refid="group__spdif_1ga315b6c9b02574277d0f5e66f6bb55888" refkind="member"><highlight class="preprocessor">#define<sp/>XSpdif_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSpdif_Out32((BaseAddress)<sp/>+<sp/>((u32)RegOffset),<sp/>(u32)(Data))</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="206"><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSPDIF_HW_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_hw.h"/>
+  </compounddef>
+</doxygen>

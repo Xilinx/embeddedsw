@@ -1,0 +1,583 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xusbps__ch9__storage_8h" kind="file">
+    <compoundname>xusbps_ch9_storage.h</compoundname>
+    <includes refid="xusbps__hw_8h" local="yes">xusbps_hw.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includedby refid="xusbps__ch9__storage_8c" local="yes">xusbps_ch9_storage.c</includedby>
+    <includedby refid="xusbps__class__storage_8c" local="yes">xusbps_class_storage.c</includedby>
+    <includedby refid="xusbps__class__storage_8h" local="yes">xusbps_class_storage.h</includedby>
+    <incdepgraph>
+      <node id="133">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="134">
+        <label>xil_io.h</label>
+      </node>
+      <node id="135">
+        <label>xstatus.h</label>
+      </node>
+      <node id="132">
+        <label>xil_types.h</label>
+      </node>
+      <node id="130">
+        <label>xusbps_ch9_storage.h</label>
+        <link refid="xusbps_ch9_storage.h"/>
+        <childnode refid="131" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
+        <childnode refid="135" relation="include">
+        </childnode>
+      </node>
+      <node id="131">
+        <label>xusbps_hw.h</label>
+        <link refid="xusbps__hw_8h"/>
+        <childnode refid="132" relation="include">
+        </childnode>
+        <childnode refid="133" relation="include">
+        </childnode>
+        <childnode refid="134" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="138">
+        <label>xusbps_class_storage.c</label>
+        <link refid="xusbps__class__storage_8c"/>
+      </node>
+      <node id="139">
+        <label>xusbps_class_storage.h</label>
+        <link refid="xusbps__class__storage_8h"/>
+        <childnode refid="138" relation="include">
+        </childnode>
+        <childnode refid="140" relation="include">
+        </childnode>
+      </node>
+      <node id="140">
+        <label>xusbps_intr_example.c</label>
+        <link refid="xusbps__intr__example_8c"/>
+      </node>
+      <node id="137">
+        <label>xusbps_ch9_storage.c</label>
+        <link refid="xusbps__ch9__storage_8c"/>
+      </node>
+      <node id="136">
+        <label>xusbps_ch9_storage.h</label>
+        <link refid="xusbps_ch9_storage.h"/>
+        <childnode refid="137" relation="include">
+        </childnode>
+        <childnode refid="138" relation="include">
+        </childnode>
+        <childnode refid="139" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xusbps__ch9__storage_8h_1ae4ad75a7f1933dd84023d554f49267d2" prot="public" static="no">
+        <name>be2le</name>
+        <param><defname>val</defname></param>
+        <initializer>(u32)(val)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_storage.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_storage.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xusbps__ch9__storage_8h_1adef8521a1dcd1b2e4eaa90c52f502d3c" prot="public" static="no">
+        <name>be2les</name>
+        <param><defname>x</defname></param>
+        <initializer>(u16) (x)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_storage.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_storage.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xusbps__ch9__storage_8h_1a8135b2c24ee2a9f4bce9c36060c76d16" prot="public" static="no">
+        <name>htonl</name>
+        <param><defname>val</defname></param>
+        <initializer>((((u32)(val) &amp; 0x000000FF)&lt;&lt;24) |	\
+			 (((u32)(val) &amp; 0x0000FF00)&lt;&lt;8)  |	\
+			 (((u32)(val) &amp; 0x00FF0000)&gt;&gt;8)  |	\
+			 (((u32)(val) &amp; 0xFF000000)&gt;&gt;24))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_storage.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_storage.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xusbps__ch9__storage_8h_1a51799f5ebb4c7228ef7e95c247030f42" prot="public" static="no">
+        <name>htons</name>
+        <param><defname>x</defname></param>
+        <initializer>(u16) ((((u16)(x))&lt;&lt;8) | (((u16)(x))&gt;&gt;8))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_storage.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_storage.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xusbps__ch9__storage_8h_1a135fc516ea82eb4231418c28d36a0b4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUsbPs_Ch9SetupDevDescReply</definition>
+        <argsstring>(u8 *BufPtr, u32 BufLen)</argsstring>
+        <name>XUsbPs_Ch9SetupDevDescReply</name>
+        <param>
+          <type>u8 *</type>
+          <declname>BufPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BufLen</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the device descriptor for the device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Usb_DevData instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the buffer that is to be filled with the descriptor. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the size of the provided buffer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Length of the descriptor in the buffer on success. 0 on error.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BufPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the buffer that is to be filled with the descriptor. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the size of the provided buffer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Length of the descriptor in the buffer on success. 0 on error. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_storage.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.c" bodystart="670" bodyend="684"/>
+      </memberdef>
+      <memberdef kind="function" id="xusbps__ch9__storage_8h_1a6f03702dc3627ef29d13543b7f5eb351" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUsbPs_Ch9SetupCfgDescReply</definition>
+        <argsstring>(u8 *BufPtr, u32 BufLen)</argsstring>
+        <name>XUsbPs_Ch9SetupCfgDescReply</name>
+        <param>
+          <type>u8 *</type>
+          <declname>BufPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BufLen</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the configuration descriptor for the device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Usb_DevData instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the buffer that is to be filled with the descriptor. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the size of the provided buffer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Length of the descriptor in the buffer on success. 0 on error.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BufPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the buffer that is to be filled with the descriptor. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the size of the provided buffer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Length of the descriptor in the buffer on success. 0 on error. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_storage.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.c" bodystart="700" bodyend="724"/>
+      </memberdef>
+      <memberdef kind="function" id="xusbps__ch9__storage_8h_1a6c178fd005bf89027556067cd952cc62" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUsbPs_Ch9SetupStrDescReply</definition>
+        <argsstring>(u8 *BufPtr, u32 BufLen, u8 Index)</argsstring>
+        <name>XUsbPs_Ch9SetupStrDescReply</name>
+        <param>
+          <type>u8 *</type>
+          <declname>BufPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BufLen</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Index</declname>
+        </param>
+        <briefdescription>
+<para>This function returns a string descriptor for the given index. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Usb_DevData instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the buffer that is to be filled with the descriptor. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the size of the provided buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the index of the string for which the descriptor is requested.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Length of the descriptor in the buffer on success. 0 on error.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BufPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the buffer that is to be filled with the descriptor. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the size of the provided buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the index of the string for which the descriptor is requested.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Length of the descriptor in the buffer on success. 0 on error. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_storage.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.c" bodystart="743" bodyend="798"/>
+      </memberdef>
+      <memberdef kind="function" id="xusbps__ch9__storage_8h_1a72238ee80cba8facd72277ab2ec271de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUsbPs_SetConfiguration</definition>
+        <argsstring>(XUsbPs *InstancePtr, int ConfigIdx)</argsstring>
+        <name>XUsbPs_SetConfiguration</name>
+        <param>
+          <type><ref refid="struct_x_usb_ps" kindref="compound">XUsbPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ConfigIdx</declname>
+        </param>
+        <briefdescription>
+<para>Changes State of Core to USB configured State. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Usb_DevData instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Ctrl</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Setup packet data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS else XST_FAILURE</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+Changes State of Core to USB configured State.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to <ref refid="struct_x_usb_ps" kindref="compound">XUsbPs</ref> instance of the controller. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigIdx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Index of the desired configuration.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_storage.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.c" bodystart="812" bodyend="836"/>
+        <references refid="group__usbps_1ga0f21b0f7da084c22abc4f0a9bf425bc7" compoundref="xusbps_8h" startline="224">XUSBPS_EP_DIRECTION_IN</references>
+        <references refid="group__usbps_1ga86e363bb35c38123a924bd2af954ceab" compoundref="xusbps_8h" startline="225">XUSBPS_EP_DIRECTION_OUT</references>
+        <references refid="group__usbps_1ga102e27fd21789376f375b89fb3094d85" compoundref="xusbps__hw_8h" startline="125">XUSBPS_EPCR1_OFFSET</references>
+        <references refid="group__usbps_1ga9645d41ecd7e18e997368c2fb90abd1e" compoundref="xusbps__hw_8h" startline="173">XUSBPS_EPCR_RXR_MASK</references>
+        <references refid="group__usbps_1gafaa776284ac5e56996ab387ab825888b" compoundref="xusbps__hw_8h" startline="169">XUSBPS_EPCR_RXT_BULK_MASK</references>
+        <references refid="group__usbps_1gaec7cf9ddd4b206b68e8a6856c2393c53" compoundref="xusbps__hw_8h" startline="161">XUSBPS_EPCR_TXR_MASK</references>
+        <references refid="group__usbps_1ga14f191015affc97b3a9c990c2d68de4c" compoundref="xusbps__hw_8h" startline="157">XUSBPS_EPCR_TXT_BULK_MASK</references>
+        <references refid="xusbps_8h_1ad5dcc2f75c336bb6ea4c9697b0d88c1d" compoundref="xusbps_8h" startline="762">XUsbPs_EpEnable</references>
+        <references refid="group__usbps_1gaba0ae2eac9c6b402e32e401333a5b105" compoundref="xusbps__endpoint_8c" startline="766" endline="793">XUsbPs_EpPrime</references>
+        <references refid="xusbps_8h_1ab3136c0894811be3b4406dff0d7634f8" compoundref="xusbps_8h" startline="1028">XUsbPs_SetBits</references>
+        <references refid="xusbps__ch9_8c_1abf899592bb832acdf774bc2445598f38" compoundref="xusbps__ch9_8c" startline="698" endline="701">XUsbPs_SetConfigDone</references>
+      </memberdef>
+      <memberdef kind="function" id="xusbps__ch9__storage_8h_1a6f3de0049101ffbf7d6c92a55442e226" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUsbPs_SetConfigurationApp</definition>
+        <argsstring>(XUsbPs *InstancePtr, XUsbPs_SetupData *SetupData)</argsstring>
+        <name>XUsbPs_SetConfigurationApp</name>
+        <param>
+          <type><ref refid="struct_x_usb_ps" kindref="compound">XUsbPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_usb_ps___setup_data" kindref="compound">XUsbPs_SetupData</ref> *</type>
+          <declname>SetupData</declname>
+        </param>
+        <briefdescription>
+<para>This function is called by Chapter9 handler when SET_CONFIGURATION command is received from Host. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to Usb_DevData instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SetupData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the setup packet received from Host.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful,</para></listitem><listitem><para>XST_FAILURE if unsuccessful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Non control endpoints must be enabled after SET_CONFIGURATION command since hardware clears all previously enabled endpoints except control endpoints when this command is received.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to <ref refid="struct_x_usb_ps" kindref="compound">XUsbPs</ref> instance of the controller. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SetupData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the setup packet received from Host.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful,</para></listitem><listitem><para>XST_FAILURE if unsuccessful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Non control endpoints must be enabled after SET_CONFIGURATION command since hardware clears all previously enabled endpoints except control endpoints when this command is received. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_storage.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.c" bodystart="856" bodyend="872"/>
+        <references refid="struct_x_usb_ps___setup_data_1a78686691b1ec4cc04a89d25383e71a9e" compoundref="xusbps_8h" startline="456">XUsbPs_SetupData::wValue</references>
+        <references refid="group__usbps_1ga0f21b0f7da084c22abc4f0a9bf425bc7" compoundref="xusbps_8h" startline="224">XUSBPS_EP_DIRECTION_IN</references>
+        <references refid="group__usbps_1ga86e363bb35c38123a924bd2af954ceab" compoundref="xusbps_8h" startline="225">XUSBPS_EP_DIRECTION_OUT</references>
+        <references refid="xusbps_8h_1a5b9a6534a546a278e48e31c0f3f53cbf" compoundref="xusbps_8h" startline="783">XUsbPs_EpDisable</references>
+        <references refid="xusbps__ch9_8c_1abf899592bb832acdf774bc2445598f38" compoundref="xusbps__ch9_8c" startline="698" endline="701">XUsbPs_SetConfigDone</references>
+      </memberdef>
+      <memberdef kind="function" id="xusbps__ch9__storage_8h_1a4942a94ee10ae5832b33125aa184f9ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUsbPs_SetInterfaceHandler</definition>
+        <argsstring>(XUsbPs *InstancePtr, XUsbPs_SetupData *SetupData)</argsstring>
+        <name>XUsbPs_SetInterfaceHandler</name>
+        <param>
+          <type><ref refid="struct_x_usb_ps" kindref="compound">XUsbPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_usb_ps___setup_data" kindref="compound">XUsbPs_SetupData</ref> *</type>
+          <declname>SetupData</declname>
+        </param>
+        <briefdescription>
+<para>This function is called by Chapter9 handler when SET_CONFIGURATION command or SET_INTERFACE command is received from Host. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to Usb_DevData instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SetupData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the setup packet received from Host.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>Non control endpoints must be enabled after SET_INTERFACE command since hardware clears all previously enabled endpoints except control endpoints when this command is received.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to <ref refid="struct_x_usb_ps" kindref="compound">XUsbPs</ref> instance of the controller. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SetupData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the setup packet received from Host.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_storage.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.c" bodystart="888" bodyend="1011"/>
+        <references refid="struct_x_usb_ps___setup_data_1ad085f8a84571f2df12ce9e5bc90facae" compoundref="xusbps_8h" startline="457">XUsbPs_SetupData::wIndex</references>
+        <references refid="struct_x_usb_ps___setup_data_1a78686691b1ec4cc04a89d25383e71a9e" compoundref="xusbps_8h" startline="456">XUsbPs_SetupData::wValue</references>
+        <references refid="group__usbps_1ga0f21b0f7da084c22abc4f0a9bf425bc7" compoundref="xusbps_8h" startline="224">XUSBPS_EP_DIRECTION_IN</references>
+        <references refid="group__usbps_1ga86e363bb35c38123a924bd2af954ceab" compoundref="xusbps_8h" startline="225">XUSBPS_EP_DIRECTION_OUT</references>
+        <references refid="xusbps_8h_1a5b9a6534a546a278e48e31c0f3f53cbf" compoundref="xusbps_8h" startline="783">XUsbPs_EpDisable</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains definitions used in the chapter 9 code. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00a wgr  10/10/10 First release
+2.5      pm   02/20/20 Added SetConfigurationApp and SetInterfaceHandler API
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor">#ifndef<sp/>XUSBPS_CH9_STORAGE_H</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUSBPS_CH9_STORAGE_H</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xusbps__hw_8h" kindref="compound">xusbps_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Check<sp/>where<sp/>these<sp/>defines<sp/>need<sp/>to<sp/>go<sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>be2le(val)<sp/><sp/><sp/><sp/><sp/><sp/>(u32)(val)</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>be2les(x)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u16)<sp/>(x)</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>htonl(val)<sp/><sp/><sp/><sp/><sp/><sp/>((((u32)(val)<sp/>&amp;<sp/>0x000000FF)&lt;&lt;24)<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)(val)<sp/>&amp;<sp/>0x0000FF00)&lt;&lt;8)<sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)(val)<sp/>&amp;<sp/>0x00FF0000)&gt;&gt;8)<sp/><sp/>|<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)(val)<sp/>&amp;<sp/>0xFF000000)&gt;&gt;24))</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>htons(x)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u16)<sp/>((((u16)(x))&lt;&lt;8)<sp/>|<sp/>(((u16)(x))&gt;&gt;8))</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal">u32<sp/><ref refid="xusbps__ch9_8c_1a135fc516ea82eb4231418c28d36a0b4f" kindref="member">XUsbPs_Ch9SetupDevDescReply</ref>(u8<sp/>*BufPtr,<sp/>u32<sp/>BufLen);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">u32<sp/><ref refid="xusbps__ch9_8c_1a6f03702dc3627ef29d13543b7f5eb351" kindref="member">XUsbPs_Ch9SetupCfgDescReply</ref>(u8<sp/>*BufPtr,<sp/>u32<sp/>BufLen);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">u32<sp/><ref refid="xusbps__ch9_8c_1a6c178fd005bf89027556067cd952cc62" kindref="member">XUsbPs_Ch9SetupStrDescReply</ref>(u8<sp/>*BufPtr,<sp/>u32<sp/>BufLen,<sp/>u8<sp/>Index);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusbps__ch9_8c_1a72238ee80cba8facd72277ab2ec271de" kindref="member">XUsbPs_SetConfiguration</ref>(<ref refid="struct_x_usb_ps" kindref="compound">XUsbPs</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ConfigIdx);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusbps__ch9_8c_1a6f3de0049101ffbf7d6c92a55442e226" kindref="member">XUsbPs_SetConfigurationApp</ref>(<ref refid="struct_x_usb_ps" kindref="compound">XUsbPs</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_usb_ps___setup_data" kindref="compound">XUsbPs_SetupData</ref><sp/>*SetupData);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusbps__ch9_8c_1a4942a94ee10ae5832b33125aa184f9ab" kindref="member">XUsbPs_SetInterfaceHandler</ref>(<ref refid="struct_x_usb_ps" kindref="compound">XUsbPs</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_usb_ps___setup_data" kindref="compound">XUsbPs_SetupData</ref><sp/>*SetupData);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XUSBPS_CH9_STORAGE_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_storage.h"/>
+  </compounddef>
+</doxygen>

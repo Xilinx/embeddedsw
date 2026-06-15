@@ -1,0 +1,307 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_vid_c___video_stream" kind="struct" prot="public">
+    <compoundname>XVidC_VideoStream</compoundname>
+    <includes local="no">xvidc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_vid_c___video_stream_1ae575f1e1d68b4eb591241299ccdbb67c" prot="public" static="no" mutable="no">
+        <type><ref refid="group__video__common_1gaa562703f77eeee8ef4a222f1b99c8633" kindref="member">XVidC_ColorFormat</ref></type>
+        <definition>XVidC_ColorFormat XVidC_VideoStream::ColorFormatId</definition>
+        <argsstring></argsstring>
+        <name>ColorFormatId</name>
+        <briefdescription>
+<para>Color format identifier. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="620" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="620" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga6a1bb6f49090b265fa2ae843c65f33b2" compoundref="xvidc_8c" startline="1069" endline="1124">XVidC_ReportStreamInfo</referencedby>
+        <referencedby refid="group__video__common_1ga39b8b95d5bd27e43c55e7af11265c7e0" compoundref="xvidc_8c" startline="930" endline="971">XVidC_SetVideoStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_stream_1ab50612daece9ef890191e7493ffe908d" prot="public" static="no" mutable="no">
+        <type><ref refid="group__video__common_1ga8006bc80e39c26ee0081647990b9fedc" kindref="member">XVidC_ColorDepth</ref></type>
+        <definition>XVidC_ColorDepth XVidC_VideoStream::ColorDepth</definition>
+        <argsstring></argsstring>
+        <name>ColorDepth</name>
+        <briefdescription>
+<para>Color depth in bits per component. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="621" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="621" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga6a1bb6f49090b265fa2ae843c65f33b2" compoundref="xvidc_8c" startline="1069" endline="1124">XVidC_ReportStreamInfo</referencedby>
+        <referencedby refid="group__video__common_1ga39b8b95d5bd27e43c55e7af11265c7e0" compoundref="xvidc_8c" startline="930" endline="971">XVidC_SetVideoStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_stream_1ab2b2dfc64bde4faf495aed8364d78b97" prot="public" static="no" mutable="no">
+        <type><ref refid="group__video__common_1ga37beb8afba8203e270e2df7e67f720ec" kindref="member">XVidC_PixelsPerClock</ref></type>
+        <definition>XVidC_PixelsPerClock XVidC_VideoStream::PixPerClk</definition>
+        <argsstring></argsstring>
+        <name>PixPerClk</name>
+        <briefdescription>
+<para>Pixels per clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="622" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="622" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga6a1bb6f49090b265fa2ae843c65f33b2" compoundref="xvidc_8c" startline="1069" endline="1124">XVidC_ReportStreamInfo</referencedby>
+        <referencedby refid="group__video__common_1ga39b8b95d5bd27e43c55e7af11265c7e0" compoundref="xvidc_8c" startline="930" endline="971">XVidC_SetVideoStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_stream_1a02dfa353a4ad5082efbb94306c522df1" prot="public" static="no" mutable="no">
+        <type><ref refid="group__video__common_1gac192cb9c275d8ef2c985646f420c1a4e" kindref="member">XVidC_FrameRate</ref></type>
+        <definition>XVidC_FrameRate XVidC_VideoStream::FrameRate</definition>
+        <argsstring></argsstring>
+        <name>FrameRate</name>
+        <briefdescription>
+<para>Frame rate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="623" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="623" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga6a1bb6f49090b265fa2ae843c65f33b2" compoundref="xvidc_8c" startline="1069" endline="1124">XVidC_ReportStreamInfo</referencedby>
+        <referencedby refid="group__video__common_1ga39b8b95d5bd27e43c55e7af11265c7e0" compoundref="xvidc_8c" startline="930" endline="971">XVidC_SetVideoStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_stream_1a5b9270e419598fd311ac6293438a48b7" prot="public" static="no" mutable="no">
+        <type><ref refid="group__video__common_1ga22adc237b6c47579463b366d25180172" kindref="member">XVidC_AspectRatio</ref></type>
+        <definition>XVidC_AspectRatio XVidC_VideoStream::AspectRatio</definition>
+        <argsstring></argsstring>
+        <name>AspectRatio</name>
+        <briefdescription>
+<para>Aspect ratio. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="624" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="624" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_stream_1a16408cb1cde3598c948c53192e4d719d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVidC_VideoStream::IsInterlaced</definition>
+        <argsstring></argsstring>
+        <name>IsInterlaced</name>
+        <briefdescription>
+<para>Interlaced flag (0=progressive, 1=interlaced) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="625" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="625" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga6a1bb6f49090b265fa2ae843c65f33b2" compoundref="xvidc_8c" startline="1069" endline="1124">XVidC_ReportStreamInfo</referencedby>
+        <referencedby refid="group__video__common_1gac16f1d37cc0fd40e467411ca816fc9ef" compoundref="xvidc_8c" startline="993" endline="1058">XVidC_Set3DVideoStream</referencedby>
+        <referencedby refid="group__video__common_1ga39b8b95d5bd27e43c55e7af11265c7e0" compoundref="xvidc_8c" startline="930" endline="971">XVidC_SetVideoStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_stream_1ab82a270c1be5d1d39e69212079c46cd2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVidC_VideoStream::Is3D</definition>
+        <argsstring></argsstring>
+        <name>Is3D</name>
+        <briefdescription>
+<para>3D flag (0=2D, 1=3D) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="626" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="626" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga6a1bb6f49090b265fa2ae843c65f33b2" compoundref="xvidc_8c" startline="1069" endline="1124">XVidC_ReportStreamInfo</referencedby>
+        <referencedby refid="group__video__common_1gac16f1d37cc0fd40e467411ca816fc9ef" compoundref="xvidc_8c" startline="993" endline="1058">XVidC_Set3DVideoStream</referencedby>
+        <referencedby refid="group__video__common_1ga39b8b95d5bd27e43c55e7af11265c7e0" compoundref="xvidc_8c" startline="930" endline="971">XVidC_SetVideoStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_stream_1a66d78164ca6820b287633525e3f545ef" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_vid_c__3_d_info" kindref="compound">XVidC_3DInfo</ref></type>
+        <definition>XVidC_3DInfo XVidC_VideoStream::Info_3D</definition>
+        <argsstring></argsstring>
+        <name>Info_3D</name>
+        <briefdescription>
+<para>3D format information </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="627" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="627" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga6a1bb6f49090b265fa2ae843c65f33b2" compoundref="xvidc_8c" startline="1069" endline="1124">XVidC_ReportStreamInfo</referencedby>
+        <referencedby refid="group__video__common_1gac16f1d37cc0fd40e467411ca816fc9ef" compoundref="xvidc_8c" startline="993" endline="1058">XVidC_Set3DVideoStream</referencedby>
+        <referencedby refid="group__video__common_1ga39b8b95d5bd27e43c55e7af11265c7e0" compoundref="xvidc_8c" startline="930" endline="971">XVidC_SetVideoStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_stream_1abb58e9650c97a696fcf17e6eabcd15cd" prot="public" static="no" mutable="no">
+        <type><ref refid="group__video__common_1ga562f08faf2fc329b1cd7147b3d66ef53" kindref="member">XVidC_VideoMode</ref></type>
+        <definition>XVidC_VideoMode XVidC_VideoStream::VmId</definition>
+        <argsstring></argsstring>
+        <name>VmId</name>
+        <briefdescription>
+<para>Video mode identifier. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="628" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="628" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga6a1bb6f49090b265fa2ae843c65f33b2" compoundref="xvidc_8c" startline="1069" endline="1124">XVidC_ReportStreamInfo</referencedby>
+        <referencedby refid="group__video__common_1ga39b8b95d5bd27e43c55e7af11265c7e0" compoundref="xvidc_8c" startline="930" endline="971">XVidC_SetVideoStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_stream_1a7a694a21c5c650dd168fe1e171556ff5" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_vid_c___video_timing" kindref="compound">XVidC_VideoTiming</ref></type>
+        <definition>XVidC_VideoTiming XVidC_VideoStream::Timing</definition>
+        <argsstring></argsstring>
+        <name>Timing</name>
+        <briefdescription>
+<para>Video timing parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="629" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="629" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga6a1bb6f49090b265fa2ae843c65f33b2" compoundref="xvidc_8c" startline="1069" endline="1124">XVidC_ReportStreamInfo</referencedby>
+        <referencedby refid="group__video__common_1gac16f1d37cc0fd40e467411ca816fc9ef" compoundref="xvidc_8c" startline="993" endline="1058">XVidC_Set3DVideoStream</referencedby>
+        <referencedby refid="group__video__common_1ga39b8b95d5bd27e43c55e7af11265c7e0" compoundref="xvidc_8c" startline="930" endline="971">XVidC_SetVideoStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_stream_1ad6d7b94a2aabfeb422b6ac88d273ac54" prot="public" static="no" mutable="no">
+        <type><ref refid="group__video__common_1gae3a2bcd6e9ee30dfff64cd236b6841bf" kindref="member">XVidC_Eotf</ref></type>
+        <definition>XVidC_Eotf XVidC_VideoStream::Eotf</definition>
+        <argsstring></argsstring>
+        <name>Eotf</name>
+        <briefdescription>
+<para>Electro-optical transfer function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="630" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="630" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_stream_1a0fb529a5a935411590dc929051aae2de" prot="public" static="no" mutable="no">
+        <type><ref refid="group__video__common_1gabde81f3f568095c842d4669a4c62ed88" kindref="member">XVidC_ColorStd</ref></type>
+        <definition>XVidC_ColorStd XVidC_VideoStream::ColorStd</definition>
+        <argsstring></argsstring>
+        <name>ColorStd</name>
+        <briefdescription>
+<para>Color standard/space. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="631" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="631" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_stream_1a06b578228587200220f623f67fe87941" prot="public" static="no" mutable="no">
+        <type><ref refid="group__video__common_1gac192cb9c275d8ef2c985646f420c1a4e" kindref="member">XVidC_FrameRate</ref></type>
+        <definition>XVidC_FrameRate XVidC_VideoStream::BaseFrameRate</definition>
+        <argsstring></argsstring>
+        <name>BaseFrameRate</name>
+        <briefdescription>
+<para>Base frame rate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="632" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="632" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_stream_1ad815af821e679765ee65919aebb9c3c2" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_vid_c___video_timing" kindref="compound">XVidC_VideoTiming</ref></type>
+        <definition>XVidC_VideoTiming XVidC_VideoStream::BaseTiming</definition>
+        <argsstring></argsstring>
+        <name>BaseTiming</name>
+        <briefdescription>
+<para>Base timing parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="633" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="633" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_stream_1a448a041d8bb596614807a6727cf736b8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVidC_VideoStream::IsDSCompressed</definition>
+        <argsstring></argsstring>
+        <name>IsDSCompressed</name>
+        <briefdescription>
+<para>DSC compression flag (0=uncompressed, 1=compressed) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="635" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="635" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga6a1bb6f49090b265fa2ae843c65f33b2" compoundref="xvidc_8c" startline="1069" endline="1124">XVidC_ReportStreamInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_stream_1a9c902472fef98d8dcf59d70da00b15de" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVidC_VideoStream::DynamicRange</definition>
+        <argsstring></argsstring>
+        <name>DynamicRange</name>
+        <briefdescription>
+<para>Dynamic range. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="636" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="636" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_stream_1a985fe9717d5fecbd5966dc730136d1ba" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_vid_c___video_timing" kindref="compound">XVidC_VideoTiming</ref></type>
+        <definition>XVidC_VideoTiming XVidC_VideoStream::UncompressedTiming</definition>
+        <argsstring></argsstring>
+        <name>UncompressedTiming</name>
+        <briefdescription>
+<para>Uncompressed timing for DSC streams. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="637" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="637" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga6a1bb6f49090b265fa2ae843c65f33b2" compoundref="xvidc_8c" startline="1069" endline="1124">XVidC_ReportStreamInfo</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Video stream structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="20">
+        <label>XVidC_3DSamplingInfo</label>
+        <link refid="struct_x_vid_c__3_d_sampling_info"/>
+      </node>
+      <node id="19">
+        <label>XVidC_3DInfo</label>
+        <link refid="struct_x_vid_c__3_d_info"/>
+        <childnode refid="20" relation="usage">
+          <edgelabel>Sampling</edgelabel>
+        </childnode>
+      </node>
+      <node id="17">
+        <label>XVidC_VideoStream</label>
+        <link refid="struct_x_vid_c___video_stream"/>
+        <childnode refid="18" relation="usage">
+          <edgelabel>BaseTiming</edgelabel>
+          <edgelabel>Timing</edgelabel>
+          <edgelabel>UncompressedTiming</edgelabel>
+        </childnode>
+        <childnode refid="19" relation="usage">
+          <edgelabel>Info_3D</edgelabel>
+        </childnode>
+      </node>
+      <node id="18">
+        <label>XVidC_VideoTiming</label>
+        <link refid="struct_x_vid_c___video_timing"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="619" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="619" bodyend="638"/>
+    <listofallmembers>
+      <member refid="struct_x_vid_c___video_stream_1a5b9270e419598fd311ac6293438a48b7" prot="public" virt="non-virtual"><scope>XVidC_VideoStream</scope><name>AspectRatio</name></member>
+      <member refid="struct_x_vid_c___video_stream_1a06b578228587200220f623f67fe87941" prot="public" virt="non-virtual"><scope>XVidC_VideoStream</scope><name>BaseFrameRate</name></member>
+      <member refid="struct_x_vid_c___video_stream_1ad815af821e679765ee65919aebb9c3c2" prot="public" virt="non-virtual"><scope>XVidC_VideoStream</scope><name>BaseTiming</name></member>
+      <member refid="struct_x_vid_c___video_stream_1ab50612daece9ef890191e7493ffe908d" prot="public" virt="non-virtual"><scope>XVidC_VideoStream</scope><name>ColorDepth</name></member>
+      <member refid="struct_x_vid_c___video_stream_1ae575f1e1d68b4eb591241299ccdbb67c" prot="public" virt="non-virtual"><scope>XVidC_VideoStream</scope><name>ColorFormatId</name></member>
+      <member refid="struct_x_vid_c___video_stream_1a0fb529a5a935411590dc929051aae2de" prot="public" virt="non-virtual"><scope>XVidC_VideoStream</scope><name>ColorStd</name></member>
+      <member refid="struct_x_vid_c___video_stream_1a9c902472fef98d8dcf59d70da00b15de" prot="public" virt="non-virtual"><scope>XVidC_VideoStream</scope><name>DynamicRange</name></member>
+      <member refid="struct_x_vid_c___video_stream_1ad6d7b94a2aabfeb422b6ac88d273ac54" prot="public" virt="non-virtual"><scope>XVidC_VideoStream</scope><name>Eotf</name></member>
+      <member refid="struct_x_vid_c___video_stream_1a02dfa353a4ad5082efbb94306c522df1" prot="public" virt="non-virtual"><scope>XVidC_VideoStream</scope><name>FrameRate</name></member>
+      <member refid="struct_x_vid_c___video_stream_1a66d78164ca6820b287633525e3f545ef" prot="public" virt="non-virtual"><scope>XVidC_VideoStream</scope><name>Info_3D</name></member>
+      <member refid="struct_x_vid_c___video_stream_1ab82a270c1be5d1d39e69212079c46cd2" prot="public" virt="non-virtual"><scope>XVidC_VideoStream</scope><name>Is3D</name></member>
+      <member refid="struct_x_vid_c___video_stream_1a448a041d8bb596614807a6727cf736b8" prot="public" virt="non-virtual"><scope>XVidC_VideoStream</scope><name>IsDSCompressed</name></member>
+      <member refid="struct_x_vid_c___video_stream_1a16408cb1cde3598c948c53192e4d719d" prot="public" virt="non-virtual"><scope>XVidC_VideoStream</scope><name>IsInterlaced</name></member>
+      <member refid="struct_x_vid_c___video_stream_1ab2b2dfc64bde4faf495aed8364d78b97" prot="public" virt="non-virtual"><scope>XVidC_VideoStream</scope><name>PixPerClk</name></member>
+      <member refid="struct_x_vid_c___video_stream_1a7a694a21c5c650dd168fe1e171556ff5" prot="public" virt="non-virtual"><scope>XVidC_VideoStream</scope><name>Timing</name></member>
+      <member refid="struct_x_vid_c___video_stream_1a985fe9717d5fecbd5966dc730136d1ba" prot="public" virt="non-virtual"><scope>XVidC_VideoStream</scope><name>UncompressedTiming</name></member>
+      <member refid="struct_x_vid_c___video_stream_1abb58e9650c97a696fcf17e6eabcd15cd" prot="public" virt="non-virtual"><scope>XVidC_VideoStream</scope><name>VmId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

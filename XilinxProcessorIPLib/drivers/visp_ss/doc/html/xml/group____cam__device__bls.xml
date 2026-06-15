@@ -1,0 +1,214 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group____cam__device__bls" kind="group">
+    <compoundname>_cam_device_bls</compoundname>
+    <title>VsCamDevice E01C12 Device_BLS Definitions</title>
+    <innerclass refid="struct_cam_device_bls_auto_config__s" prot="public">CamDeviceBlsAutoConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_bls_manual_config__s" prot="public">CamDeviceBlsManualConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_bls_config__s" prot="public">CamDeviceBlsConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_bls_status__s" prot="public">CamDeviceBlsStatus_s</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__bls_1gab72204d2dc57735aba9840e636b25ed9" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_bls_auto_config__s" kindref="compound">CamDeviceBlsAutoConfig_s</ref></type>
+        <definition>typedef struct CamDeviceBlsAutoConfig_s CamDeviceBlsAutoConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceBlsAutoConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice BLS auto configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="56" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__bls_1ga71e647ae01b03930b5c86212146fdbfa" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_bls_manual_config__s" kindref="compound">CamDeviceBlsManualConfig_s</ref></type>
+        <definition>typedef struct CamDeviceBlsManualConfig_s CamDeviceBlsManualConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceBlsManualConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice BLS manual configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="68" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__bls_1ga887c7ac2b9dc883340e17bc6d3f75cd3" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_bls_config__s" kindref="compound">CamDeviceBlsConfig_s</ref></type>
+        <definition>typedef struct CamDeviceBlsConfig_s CamDeviceBlsConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceBlsConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice BLS configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="80" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__bls_1ga108d941bdf6b8590e87c69737664d4df" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_bls_status__s" kindref="compound">CamDeviceBlsStatus_s</ref></type>
+        <definition>typedef struct CamDeviceBlsStatus_s CamDeviceBlsStatus_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceBlsStatus_t</name>
+        <briefdescription>
+<para>VsCamDevice BLS status structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="92" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__bls_1ga1bb318542b66bad9960ec818df6076eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceBlsSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceBlsConfig_t *pBlsCfg)</argsstring>
+        <name>VsiCamDeviceBlsSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__bls_1ga887c7ac2b9dc883340e17bc6d3f75cd3" kindref="member">CamDeviceBlsConfig_t</ref> *</type>
+          <declname>pBlsCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/bls/cam_device_bls_api.c" bodystart="19" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__bls_1gaa30356ce58aa129921059af5fe445db3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceBlsGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceBlsConfig_t *pBlsCfg)</argsstring>
+        <name>VsiCamDeviceBlsGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__bls_1ga887c7ac2b9dc883340e17bc6d3f75cd3" kindref="member">CamDeviceBlsConfig_t</ref> *</type>
+          <declname>pBlsCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/bls/cam_device_bls_api.c" bodystart="62" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__bls_1ga54fa81582f998cffb0f10ce274347900" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceBlsSetBitWidth</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint8_t blsBitWidth)</argsstring>
+        <name>VsiCamDeviceBlsSetBitWidth</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>blsBitWidth</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/bls/cam_device_bls_api.c" bodystart="103" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__bls_1ga10af84b4897999ca58222b9ab1df0b63" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceBlsGetBitWidth</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint8_t *blsBitWidth)</argsstring>
+        <name>VsiCamDeviceBlsGetBitWidth</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>blsBitWidth</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/bls/cam_device_bls_api.c" bodystart="145" bodyend="182"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__bls_1gadeebefa3cd728b5b4299512d50472aa1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceBlsGetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceBlsStatus_t *pStatus)</argsstring>
+        <name>VsiCamDeviceBlsGetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__bls_1ga108d941bdf6b8590e87c69737664d4df" kindref="member">CamDeviceBlsStatus_t</ref> *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/bls/cam_device_bls_api.c" bodystart="185" bodyend="223"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__bls_1ga484902012a5d0d017153989f42b71112" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceBlsReset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceBlsReset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/bls/cam_device_bls_api.c" bodystart="226" bodyend="259"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__bls_1gaa27e9eebc70e9692674aabd350e0334e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceBlsGetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceBlsGetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/bls/cam_device_bls_api.c" bodystart="263" bodyend="302"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Provides interfaces for controlling the black level subtraction module working in the ISP pipeline. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

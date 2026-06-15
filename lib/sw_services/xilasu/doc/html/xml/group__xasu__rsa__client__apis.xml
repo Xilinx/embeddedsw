@@ -1,0 +1,513 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xasu__rsa__client__apis" kind="group">
+    <compoundname>xasu_rsa_client_apis</compoundname>
+    <title>RSA Client APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__rsa__client__apis_1gaa85dcefff8e7e30465bf6a5e5d20e7fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_RsaEnc</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientParamPtr)</argsstring>
+        <name>XAsu_RsaEnc</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref> *</type>
+          <declname>RsaClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to perform RSA encryption on the provided data by using specified public key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RsaClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref> structure which holds the parameters of RSA input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validations of inputs.</para><para>Validate InputDataAddr and that exactly one of KeyCompAddr or KeyId is provided.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" bodystart="64" bodyend="130"/>
+        <references refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" compoundref="xasu__rsainfo_8h" startline="154">XAsu_RsaParams::KeySize</references>
+        <references refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" compoundref="xasu__rsainfo_8h" startline="150">XAsu_RsaParams::Len</references>
+        <references refid="struct_x_asu___rsa_params_1a4d1e5191bc0b3870ab1dc8a58ebc539f" compoundref="xasu__rsainfo_8h" startline="143">XAsu_RsaParams::OutputDataAddr</references>
+        <references refid="struct_x_asu___rsa_params_1a1abf4a87c26e0d8113367be1832373fe" compoundref="xasu__rsainfo_8h" startline="151">XAsu_RsaParams::OutputDataLen</references>
+        <references refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" compoundref="xasu__rsainfo_8h" startline="148">XAsu_RsaParams::OutputLenAddr</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" compoundref="xasu__def_8h" startline="54">XASU_MODULE_RSA_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__common__defs_1ga244bab817f8c6f8eedd5698e26b772d7" compoundref="xasu__rsainfo_8h" startline="77">XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1gaaa08cb3f7d74f46248a0628c8608dd4e" compoundref="xasu__rsainfo_8h" startline="48">XASU_RSA_PUB_ENC_CMD_ID</references>
+        <references refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" compoundref="xasu__rsa__common_8c" startline="57" endline="70">XAsu_RsaValidateInputParams</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+        <referencedby refid="group__xasufw__rsa__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__rsa__example_8c" startline="234" endline="367">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__rsa__client__apis_1ga8d99c3659893b5b77683b6bc3ee3abf8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_RsaDec</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientParamPtr)</argsstring>
+        <name>XAsu_RsaDec</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref> *</type>
+          <declname>RsaClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends command to ASUFW to perform RSA decryption on the provided data by using specified private key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RsaClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref> structure which holds the parameters of RSA input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validations of inputs.</para><para>Validate InputDataAddr and that exactly one of KeyCompAddr or KeyId is provided.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" bodystart="148" bodyend="214"/>
+        <references refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" compoundref="xasu__rsainfo_8h" startline="154">XAsu_RsaParams::KeySize</references>
+        <references refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" compoundref="xasu__rsainfo_8h" startline="150">XAsu_RsaParams::Len</references>
+        <references refid="struct_x_asu___rsa_params_1a4d1e5191bc0b3870ab1dc8a58ebc539f" compoundref="xasu__rsainfo_8h" startline="143">XAsu_RsaParams::OutputDataAddr</references>
+        <references refid="struct_x_asu___rsa_params_1a1abf4a87c26e0d8113367be1832373fe" compoundref="xasu__rsainfo_8h" startline="151">XAsu_RsaParams::OutputDataLen</references>
+        <references refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" compoundref="xasu__rsainfo_8h" startline="148">XAsu_RsaParams::OutputLenAddr</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" compoundref="xasu__def_8h" startline="54">XASU_MODULE_RSA_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__common__defs_1ga244bab817f8c6f8eedd5698e26b772d7" compoundref="xasu__rsainfo_8h" startline="77">XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1ga1e4840ada393e62fadbcb459dda61154" compoundref="xasu__rsainfo_8h" startline="49">XASU_RSA_PVT_DEC_CMD_ID</references>
+        <references refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" compoundref="xasu__rsa__common_8c" startline="57" endline="70">XAsu_RsaValidateInputParams</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+        <referencedby refid="group__xasufw__rsa__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__rsa__example_8c" startline="234" endline="367">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__rsa__client__apis_1gaa738d6a05293f677e9fdd1fd137cc912" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_RsaCrtDec</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientParamPtr)</argsstring>
+        <name>XAsu_RsaCrtDec</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref> *</type>
+          <declname>RsaClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends command to ASUFW to perform RSA decryption using CRT algorithm for the provided message by using specified private key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RsaClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref> structure which holds the parameters of RSA input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Validate InputDataAddr and that exactly one of KeyCompAddr or KeyId is provided.</para><para>Generate unique ID and register the callback.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" bodystart="233" bodyend="299"/>
+        <references refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" compoundref="xasu__rsainfo_8h" startline="154">XAsu_RsaParams::KeySize</references>
+        <references refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" compoundref="xasu__rsainfo_8h" startline="150">XAsu_RsaParams::Len</references>
+        <references refid="struct_x_asu___rsa_params_1a4d1e5191bc0b3870ab1dc8a58ebc539f" compoundref="xasu__rsainfo_8h" startline="143">XAsu_RsaParams::OutputDataAddr</references>
+        <references refid="struct_x_asu___rsa_params_1a1abf4a87c26e0d8113367be1832373fe" compoundref="xasu__rsainfo_8h" startline="151">XAsu_RsaParams::OutputDataLen</references>
+        <references refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" compoundref="xasu__rsainfo_8h" startline="148">XAsu_RsaParams::OutputLenAddr</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" compoundref="xasu__def_8h" startline="54">XASU_MODULE_RSA_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__common__defs_1ga244bab817f8c6f8eedd5698e26b772d7" compoundref="xasu__rsainfo_8h" startline="77">XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1ga77e251196592abb4501a5f44e6904efc" compoundref="xasu__rsainfo_8h" startline="50">XASU_RSA_PVT_CRT_DEC_CMD_ID</references>
+        <references refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" compoundref="xasu__rsa__common_8c" startline="57" endline="70">XAsu_RsaValidateInputParams</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__rsa__client__apis_1ga32fd59ce2f1c0da67ca9217a224a4626" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_RsaOaepEnc</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_RsaOaepPaddingParams *RsaClientParamPtr)</argsstring>
+        <name>XAsu_RsaOaepEnc</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___rsa_oaep_padding_params" kindref="compound">XAsu_RsaOaepPaddingParams</ref> *</type>
+          <declname>RsaClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends command to ASUFW to perform encoding using RSA OAEP padding algorithm by using the specified RSA key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RsaClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___rsa_oaep_padding_params" kindref="compound">XAsu_RsaOaepPaddingParams</ref> structure which holds the parameters of RSA input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Validations of inputs.</para><para>Generate Unique ID and register the callback.</para><para>Set the command ID based on the selected SHA type.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" bodystart="318" bodyend="399"/>
+        <references refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" compoundref="xasu__rsainfo_8h" startline="154">XAsu_RsaParams::KeySize</references>
+        <references refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" compoundref="xasu__rsainfo_8h" startline="150">XAsu_RsaParams::Len</references>
+        <references refid="struct_x_asu___rsa_oaep_padding_params_1a9ea8551bd7f02de893a2bd8b633d42f0" compoundref="xasu__rsainfo_8h" startline="179">XAsu_RsaOaepPaddingParams::OptionalLabelAddr</references>
+        <references refid="struct_x_asu___rsa_params_1a4d1e5191bc0b3870ab1dc8a58ebc539f" compoundref="xasu__rsainfo_8h" startline="143">XAsu_RsaParams::OutputDataAddr</references>
+        <references refid="struct_x_asu___rsa_params_1a1abf4a87c26e0d8113367be1832373fe" compoundref="xasu__rsainfo_8h" startline="151">XAsu_RsaParams::OutputDataLen</references>
+        <references refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" compoundref="xasu__rsainfo_8h" startline="148">XAsu_RsaParams::OutputLenAddr</references>
+        <references refid="struct_x_asu___rsa_oaep_padding_params_1abaffccd03d581705cd3a9be40dc7ad8b" compoundref="xasu__rsainfo_8h" startline="182">XAsu_RsaOaepPaddingParams::ShaMode</references>
+        <references refid="struct_x_asu___rsa_oaep_padding_params_1ae09922eadcfe378ccb74fbda3e11094d" compoundref="xasu__rsainfo_8h" startline="181">XAsu_RsaOaepPaddingParams::ShaType</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" compoundref="xasu__def_8h" startline="54">XASU_MODULE_RSA_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__common__defs_1gae9e00748dcd61fab9b96a551cccd7463" compoundref="xasu__rsainfo_8h" startline="53">XASU_RSA_OAEP_ENC_SHA2_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1ga5a4a3265632fdf2a9397dcd01e34a45f" compoundref="xasu__rsainfo_8h" startline="55">XASU_RSA_OAEP_ENC_SHA3_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1ga244bab817f8c6f8eedd5698e26b772d7" compoundref="xasu__rsainfo_8h" startline="77">XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES</references>
+        <references refid="struct_x_asu___rsa_oaep_padding_params_1af7270c6b61dded1f64850612185a62e4" compoundref="xasu__rsainfo_8h" startline="178">XAsu_RsaOaepPaddingParams::XAsu_RsaOpComp</references>
+        <references refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" compoundref="xasu__rsa__common_8c" startline="57" endline="70">XAsu_RsaValidateInputParams</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="57">XASU_SHA2_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__rsa__client__apis_1gaf459c9f8ebb4d33247bbd8b6ab591809" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_RsaOaepDec</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_RsaOaepPaddingParams *RsaClientParamPtr)</argsstring>
+        <name>XAsu_RsaOaepDec</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___rsa_oaep_padding_params" kindref="compound">XAsu_RsaOaepPaddingParams</ref> *</type>
+          <declname>RsaClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to perform decoding using RSA OAEP padding algorithm of the provided message by using the specified key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RsaClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___rsa_oaep_padding_params" kindref="compound">XAsu_RsaOaepPaddingParams</ref> structure which holds the parameters of RSA input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Validations of inputs.</para><para>Generate unique ID and register the callback.</para><para>Set the command ID based on the selected SHA type.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" line="418" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" bodystart="418" bodyend="499"/>
+        <references refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" compoundref="xasu__rsainfo_8h" startline="154">XAsu_RsaParams::KeySize</references>
+        <references refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" compoundref="xasu__rsainfo_8h" startline="150">XAsu_RsaParams::Len</references>
+        <references refid="struct_x_asu___rsa_oaep_padding_params_1a9ea8551bd7f02de893a2bd8b633d42f0" compoundref="xasu__rsainfo_8h" startline="179">XAsu_RsaOaepPaddingParams::OptionalLabelAddr</references>
+        <references refid="struct_x_asu___rsa_params_1a4d1e5191bc0b3870ab1dc8a58ebc539f" compoundref="xasu__rsainfo_8h" startline="143">XAsu_RsaParams::OutputDataAddr</references>
+        <references refid="struct_x_asu___rsa_params_1a1abf4a87c26e0d8113367be1832373fe" compoundref="xasu__rsainfo_8h" startline="151">XAsu_RsaParams::OutputDataLen</references>
+        <references refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" compoundref="xasu__rsainfo_8h" startline="148">XAsu_RsaParams::OutputLenAddr</references>
+        <references refid="struct_x_asu___rsa_oaep_padding_params_1abaffccd03d581705cd3a9be40dc7ad8b" compoundref="xasu__rsainfo_8h" startline="182">XAsu_RsaOaepPaddingParams::ShaMode</references>
+        <references refid="struct_x_asu___rsa_oaep_padding_params_1ae09922eadcfe378ccb74fbda3e11094d" compoundref="xasu__rsainfo_8h" startline="181">XAsu_RsaOaepPaddingParams::ShaType</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" compoundref="xasu__def_8h" startline="54">XASU_MODULE_RSA_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__common__defs_1gabfb400e0730a77cdf78539a1bb2aa40f" compoundref="xasu__rsainfo_8h" startline="54">XASU_RSA_OAEP_DEC_SHA2_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1gae2d0d4cdb898536ce9b81fb427fbe66f" compoundref="xasu__rsainfo_8h" startline="56">XASU_RSA_OAEP_DEC_SHA3_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1ga244bab817f8c6f8eedd5698e26b772d7" compoundref="xasu__rsainfo_8h" startline="77">XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES</references>
+        <references refid="struct_x_asu___rsa_oaep_padding_params_1af7270c6b61dded1f64850612185a62e4" compoundref="xasu__rsainfo_8h" startline="178">XAsu_RsaOaepPaddingParams::XAsu_RsaOpComp</references>
+        <references refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" compoundref="xasu__rsa__common_8c" startline="57" endline="70">XAsu_RsaValidateInputParams</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="57">XASU_SHA2_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__rsa__client__apis_1gaceff65cb28ac22b56121a047dbb53aa9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_RsaPssSignGen</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams *RsaClientParamPtr)</argsstring>
+        <name>XAsu_RsaPssSignGen</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___rsa_padding_params" kindref="compound">XAsu_RsaPaddingParams</ref> *</type>
+          <declname>RsaClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to generate signature using RSA PSS padding on provided message by using the specified key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RsaClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___rsa_padding_params" kindref="compound">XAsu_RsaPaddingParams</ref> structure which holds the parameters of RSA input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Validations of inputs.</para><para>Generate unique ID and register the callback.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" line="518" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" bodystart="518" bodyend="601"/>
+        <references refid="struct_x_asu___rsa_padding_params_1afa1caad52128e98d9e481af3fc96626c" compoundref="xasu__rsainfo_8h" startline="170">XAsu_RsaPaddingParams::InputDataType</references>
+        <references refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" compoundref="xasu__rsainfo_8h" startline="154">XAsu_RsaParams::KeySize</references>
+        <references refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" compoundref="xasu__rsainfo_8h" startline="150">XAsu_RsaParams::Len</references>
+        <references refid="struct_x_asu___rsa_params_1a4d1e5191bc0b3870ab1dc8a58ebc539f" compoundref="xasu__rsainfo_8h" startline="143">XAsu_RsaParams::OutputDataAddr</references>
+        <references refid="struct_x_asu___rsa_params_1a1abf4a87c26e0d8113367be1832373fe" compoundref="xasu__rsainfo_8h" startline="151">XAsu_RsaParams::OutputDataLen</references>
+        <references refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" compoundref="xasu__rsainfo_8h" startline="148">XAsu_RsaParams::OutputLenAddr</references>
+        <references refid="struct_x_asu___rsa_padding_params_1a1c007736fb6e25858b9dcfaf2f952369" compoundref="xasu__rsainfo_8h" startline="167">XAsu_RsaPaddingParams::ShaMode</references>
+        <references refid="struct_x_asu___rsa_padding_params_1a4b962e1d08fb88965e9dcb6805769c34" compoundref="xasu__rsainfo_8h" startline="166">XAsu_RsaPaddingParams::ShaType</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" compoundref="xasu__def_8h" startline="54">XASU_MODULE_RSA_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__common__defs_1ga49f5d87d707175ade5c12f09f2062ba0" compoundref="xasu__rsainfo_8h" startline="89">XASU_RSA_HASHED_INPUT_DATA</references>
+        <references refid="group__xasu__common__defs_1ga244bab817f8c6f8eedd5698e26b772d7" compoundref="xasu__rsainfo_8h" startline="77">XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1ga0326c60f03f41427f495cae1b16bfaea" compoundref="xasu__rsainfo_8h" startline="57">XASU_RSA_PSS_SIGN_GEN_SHA2_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1gafe66a48f7bc8613f847b950a4527d90d" compoundref="xasu__rsainfo_8h" startline="63">XASU_RSA_PSS_SIGN_GEN_SHA3_CMD_ID</references>
+        <references refid="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" compoundref="xasu__rsainfo_8h" startline="160">XAsu_RsaPaddingParams::XAsu_RsaOpComp</references>
+        <references refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" compoundref="xasu__rsa__common_8c" startline="57" endline="70">XAsu_RsaValidateInputParams</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="57">XASU_SHA2_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga03b4e128752ecabe8915b7c8a8a4d73f" compoundref="xasu__shainfo_8h" startline="62">XASU_SHA_384_HASH_LEN</references>
+        <references refid="group__xasu__common__defs_1ga2f1dce4b9423d6e10cd1914f67a70178" compoundref="xasu__shainfo_8h" startline="63">XASU_SHA_512_HASH_LEN</references>
+        <references refid="group__xasu__common__defs_1gaac7d78d75140a49311500aeecaeb857f" compoundref="xasu__shainfo_8h" startline="61">XASU_SHA_SHAKE_256_HASH_LEN</references>
+        <references refid="group__xasu__common__defs_1ga76b2a99254d75adbf6f36f2cfbb39964" compoundref="xasu__shainfo_8h" startline="64">XASU_SHAKE_256_MAX_HASH_LEN</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__rsa__client__apis_1ga3a33eba68b96c49e0dcb8ca6abfd7b89" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_RsaPssSignVer</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_RsaPaddingParams *RsaClientParamPtr)</argsstring>
+        <name>XAsu_RsaPssSignVer</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___rsa_padding_params" kindref="compound">XAsu_RsaPaddingParams</ref> *</type>
+          <declname>RsaClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends request to ASUFW to verify the specified signature by using RSA PSS padding by using the provided key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RsaClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___rsa_padding_params" kindref="compound">XAsu_RsaPaddingParams</ref> structure which holds the parameters of RSA input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Validations of inputs.</para><para>Generate unique ID and register the callback.</para><para>Select the command ID based on SHA type.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" line="620" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" bodystart="620" bodyend="701"/>
+        <references refid="struct_x_asu___rsa_padding_params_1afa1caad52128e98d9e481af3fc96626c" compoundref="xasu__rsainfo_8h" startline="170">XAsu_RsaPaddingParams::InputDataType</references>
+        <references refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" compoundref="xasu__rsainfo_8h" startline="154">XAsu_RsaParams::KeySize</references>
+        <references refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" compoundref="xasu__rsainfo_8h" startline="150">XAsu_RsaParams::Len</references>
+        <references refid="struct_x_asu___rsa_padding_params_1a1c007736fb6e25858b9dcfaf2f952369" compoundref="xasu__rsainfo_8h" startline="167">XAsu_RsaPaddingParams::ShaMode</references>
+        <references refid="struct_x_asu___rsa_padding_params_1a4b962e1d08fb88965e9dcb6805769c34" compoundref="xasu__rsainfo_8h" startline="166">XAsu_RsaPaddingParams::ShaType</references>
+        <references refid="struct_x_asu___rsa_padding_params_1adcdbd318ffffe4d16dd53a354d64b510" compoundref="xasu__rsainfo_8h" startline="161">XAsu_RsaPaddingParams::SignatureDataAddr</references>
+        <references refid="struct_x_asu___rsa_padding_params_1a835f488b95ca9c9ae8cc9ae3e8732c5d" compoundref="xasu__rsainfo_8h" startline="164">XAsu_RsaPaddingParams::SignatureLen</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" compoundref="xasu__def_8h" startline="54">XASU_MODULE_RSA_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__common__defs_1ga49f5d87d707175ade5c12f09f2062ba0" compoundref="xasu__rsainfo_8h" startline="89">XASU_RSA_HASHED_INPUT_DATA</references>
+        <references refid="group__xasu__common__defs_1ga63ed6f5157f1f8058157a323d86de0a3" compoundref="xasu__rsainfo_8h" startline="60">XASU_RSA_PSS_SIGN_VER_SHA2_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1gabdaa92632a989db821db9bd361430159" compoundref="xasu__rsainfo_8h" startline="66">XASU_RSA_PSS_SIGN_VER_SHA3_CMD_ID</references>
+        <references refid="struct_x_asu___rsa_padding_params_1a001cec06d90f3e3b8eca87c24a1c7ea7" compoundref="xasu__rsainfo_8h" startline="160">XAsu_RsaPaddingParams::XAsu_RsaOpComp</references>
+        <references refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" compoundref="xasu__rsa__common_8c" startline="57" endline="70">XAsu_RsaValidateInputParams</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="57">XASU_SHA2_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga03b4e128752ecabe8915b7c8a8a4d73f" compoundref="xasu__shainfo_8h" startline="62">XASU_SHA_384_HASH_LEN</references>
+        <references refid="group__xasu__common__defs_1ga2f1dce4b9423d6e10cd1914f67a70178" compoundref="xasu__shainfo_8h" startline="63">XASU_SHA_512_HASH_LEN</references>
+        <references refid="group__xasu__common__defs_1gaac7d78d75140a49311500aeecaeb857f" compoundref="xasu__shainfo_8h" startline="61">XASU_SHA_SHAKE_256_HASH_LEN</references>
+        <references refid="group__xasu__common__defs_1ga76b2a99254d75adbf6f36f2cfbb39964" compoundref="xasu__shainfo_8h" startline="64">XASU_SHAKE_256_MAX_HASH_LEN</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__rsa__client__apis_1ga5d24241387d6859603f7de3270205d0a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_RsaOaepEncDecKat</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr)</argsstring>
+        <name>XAsu_RsaOaepEncDecKat</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to perform RSA OAEP encrypt and decrypt Known Answer Tests (KAT&apos;s). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Generate unique ID and register callback.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" line="718" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" bodystart="718" bodyend="747"/>
+        <references refid="group__xasu__client__info_1gae954c6c287fd8516f1cf18672f6b0eba" compoundref="xasu__client_8h" startline="51">XASU_CMD_LEN_ZERO</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" compoundref="xasu__def_8h" startline="54">XASU_MODULE_RSA_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__common__defs_1ga76cafee9cd51795f3a81afec4eeb570f" compoundref="xasu__rsainfo_8h" startline="69">XASU_RSA_OAEP_ENC_DEC_KAT_CMD_ID</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__rsa__client__apis_1ga0e3fbf80fd0254640e9938019e3b9ee1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_RsaPssSignGenAndVerKat</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr)</argsstring>
+        <name>XAsu_RsaPssSignGenAndVerKat</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to perform RSA PSS sign generation and verification Known Answer Tests (KAT&apos;s). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Generate unique ID and register callback.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" line="764" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_rsa.c" bodystart="764" bodyend="793"/>
+        <references refid="group__xasu__client__info_1gae954c6c287fd8516f1cf18672f6b0eba" compoundref="xasu__client_8h" startline="51">XASU_CMD_LEN_ZERO</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga7417118b4fb39a720481891774b4672f" compoundref="xasu__def_8h" startline="54">XASU_MODULE_RSA_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__common__defs_1ga8e3e63880bd11293a0ff07490dc00efe" compoundref="xasu__rsainfo_8h" startline="72">XASU_RSA_PSS_SIGN_GEN_VER_KAT_CMD_ID</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

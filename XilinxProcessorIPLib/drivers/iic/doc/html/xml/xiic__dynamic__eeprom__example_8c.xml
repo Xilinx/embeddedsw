@@ -1,0 +1,1119 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xiic__dynamic__eeprom__example_8c" kind="file">
+    <compoundname>xiic_dynamic_eeprom_example.c</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes refid="xiic_8h" local="yes">xiic.h</includes>
+    <includes local="yes">xil_sutil.h</includes>
+    <includes local="yes">xil_exception.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xinterrupt_wrap.h</includes>
+    <incdepgraph>
+      <node id="59">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="62">
+        <label>xil_io.h</label>
+      </node>
+      <node id="63">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="61">
+        <label>xiic_l.h</label>
+        <link refid="xiic__l_8h"/>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
+        <label>xiic_dynamic_eeprom_example.c</label>
+        <link refid="xiic_dynamic_eeprom_example.c"/>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+      </node>
+      <node id="66">
+        <label>xinterrupt_wrap.h</label>
+      </node>
+      <node id="60">
+        <label>xstatus.h</label>
+      </node>
+      <node id="64">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="58">
+        <label>xil_types.h</label>
+      </node>
+      <node id="56">
+        <label>xparameters.h</label>
+      </node>
+      <node id="65">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="57">
+        <label>xiic.h</label>
+        <link refid="xiic_8h"/>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xiic__dynamic__eeprom__example_8c_1a028d21c1d779d7c992e41b11d876de26" prot="public" static="no">
+        <name>XIIC_BASEADDRESS</name>
+        <initializer>XPAR_XIIC_0_BASEADDR</initializer>
+        <briefdescription>
+<para>The following constants map to the XPAR parameters created in the xparameters.h file. </para>        </briefdescription>
+        <detaileddescription>
+<para>They are defined here such that a user can easily change all the needed parameters in one place. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" line="114" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" bodystart="114" bodyend="-1"/>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" compoundref="xiic__dynamic__eeprom__example_8c" startline="261" endline="413">IicDynEepromExample</referencedby>
+        <referencedby refid="xiic__selftest__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xiic__selftest__example_8c" startline="90" endline="111">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xiic__dynamic__eeprom__example_8c_1aaa6cf79c8db30749fdc1022ee5f673e5" prot="public" static="no">
+        <name>EEPROM_ADDRESS</name>
+        <initializer>0x54	/* 0xA0 as an 8 bit number. */</initializer>
+        <briefdescription>
+<para>The following constant defines the address of the IIC Slave device on the IIC bus. </para>        </briefdescription>
+        <detaileddescription>
+<para>Note that since the address is only 7 bits, this constant is the address divided by 2. The 7 bit IIC Slave address of the IIC EEPROM on the ML300/ML310/ML403/ML510/ ML501/ML505/ML507/ML510/SCU200 boards is 0x50. The 7 bit IIC Slave address of the IIC EEPROM on the ML605/SP601/SP605 boards is 0x54. Please refer the User Guide&apos;s of the respective boards for further information about the IIC slave address of IIC EEPROM&apos;s. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" bodystart="141" bodyend="-1"/>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" compoundref="xiic__dynamic__eeprom__example_8c" startline="261" endline="413">IicDynEepromExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xiic__dynamic__eeprom__example_8c_1a7d467c1d283fdfa1f2081ba1e0d01b6e" prot="public" static="no">
+        <name>PAGE_SIZE</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>The page size determines how much data should be written at a time. </para>        </briefdescription>
+        <detaileddescription>
+<para>The ML310/ML300/SCU200/SCU35 board supports a page size of 32 and 16. The write function should be called with this as a maximum byte count. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" bodystart="148" bodyend="-1"/>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" compoundref="xiic__dynamic__eeprom__example_8c" startline="261" endline="413">IicDynEepromExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xiic__dynamic__eeprom__example_8c_1a3c5640ff6004aae96a9046d3d7c0619e" prot="public" static="no">
+        <name>EEPROM_TEST_START_ADDRESS</name>
+        <initializer>128</initializer>
+        <briefdescription>
+<para>The Starting address in the IIC EEPROM on which this test is performed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" bodystart="153" bodyend="-1"/>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1a7e1f2a0abc21a277ec8be8199c50169c" compoundref="xiic__dynamic__eeprom__example_8c" startline="522" endline="578">DynEepromReadData</referencedby>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" compoundref="xiic__dynamic__eeprom__example_8c" startline="261" endline="413">IicDynEepromExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xiic__dynamic__eeprom__example_8c_1a02055aef4b0f9a801005ebdc7b556157" prot="public" static="no">
+        <name>MAX_DELAY_CNT</name>
+        <initializer>10000</initializer>
+        <briefdescription>
+<para>Maximum delay count used for timeout handling. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" bodystart="158" bodyend="-1"/>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1a7e1f2a0abc21a277ec8be8199c50169c" compoundref="xiic__dynamic__eeprom__example_8c" startline="522" endline="578">DynEepromReadData</referencedby>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1a4a76229cbb6ce631f3271eb592b69d0f" compoundref="xiic__dynamic__eeprom__example_8c" startline="428" endline="508">DynEepromWriteData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xiic__dynamic__eeprom__example_8c_1a6f6955c7e0d854dfae76ca64d9861d06" prot="public" static="no">
+        <name>EventMask</name>
+        <initializer>0xFF</initializer>
+        <briefdescription>
+<para>Internal IIC event mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" bodystart="163" bodyend="-1"/>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1a7e1f2a0abc21a277ec8be8199c50169c" compoundref="xiic__dynamic__eeprom__example_8c" startline="522" endline="578">DynEepromReadData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xiic__dynamic__eeprom__example_8c_1a3289fc3b552e479f461cd4cb762b1c9f" prot="public" static="no">
+        <name>Event_Value</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Internal event value used for IIC event checking. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" bodystart="168" bodyend="-1"/>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1a7e1f2a0abc21a277ec8be8199c50169c" compoundref="xiic__dynamic__eeprom__example_8c" startline="522" endline="578">DynEepromReadData</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xiic__dynamic__eeprom__example_8c_1a9d1fe969ebbb8e1f148b165f2af4a17a" prot="public" static="no">
+        <type>u8</type>
+        <definition>typedef u8 AddressType</definition>
+        <argsstring></argsstring>
+        <name>AddressType</name>
+        <briefdescription>
+<para>The AddressType for ML300/ML310/ML410/ML510/SCU200/SCU35 boards should be u16 as the address pointer in the on board EEPROM is 2 bytes. </para>        </briefdescription>
+        <detaileddescription>
+<para>The AddressType for ML403/ML501/ML505/ML507/ML605/SP601/SP605 boards should be u8 as the address pointer in the on board EEPROM is 1 bytes. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xiic__dynamic__eeprom__example_8c_1a82ac42ea08442144b4d372ff9f7740c0" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_iic" kindref="compound">XIic</ref></type>
+        <definition>XIic IicInstance</definition>
+        <argsstring></argsstring>
+        <name>IicInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xiic__dynamic__eeprom__example_8c_1a301b988b2453fda0d2780ed4d82c8450" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 WriteBuffer[sizeof(AddressType)+PAGE_SIZE]</definition>
+        <argsstring>[sizeof(AddressType)+PAGE_SIZE]</argsstring>
+        <name>WriteBuffer</name>
+        <briefdescription>
+<para>The instance of the IIC device. </para>        </briefdescription>
+        <detaileddescription>
+<para>Write buffer for writing a page. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" bodystart="210" bodyend="-1"/>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1a4a76229cbb6ce631f3271eb592b69d0f" compoundref="xiic__dynamic__eeprom__example_8c" startline="428" endline="508">DynEepromWriteData</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1a72f47aa22ac802f95eaec2691bf7ccb5" compoundref="xiic__eeprom__example_8c" startline="578" endline="642">EepromReadData</referencedby>
+        <referencedby refid="xiic__low__level__dynamic__eeprom__example_8c_1a50f19b8762ac4b72ca5740da9b4c3690" compoundref="xiic__low__level__dynamic__eeprom__example_8c" startline="281" endline="319">EepromWriteByte</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1a40d92867ead2dc8efe06207b8b0f3494" compoundref="xiic__eeprom__example_8c" startline="485" endline="564">EepromWriteData</referencedby>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" compoundref="xiic__dynamic__eeprom__example_8c" startline="261" endline="413">IicDynEepromExample</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1aa0f15e4ae2ab31c19f1268a81acdfe23" compoundref="xiic__eeprom__example_8c" startline="311" endline="470">IicEepromExample</referencedby>
+        <referencedby refid="xiic__low__level__dynamic__eeprom__example_8c_1a76f70b5862fd4646780c6432ca02529e" compoundref="xiic__low__level__dynamic__eeprom__example_8c" startline="198" endline="264">IicLowLevelDynEeprom</referencedby>
+        <referencedby refid="xiic__multi__master__example_8c_1a1910a4a03c18e6dcc001ad0880af0782" compoundref="xiic__multi__master__example_8c" startline="237" endline="405">IicMultiMasterExample</referencedby>
+        <referencedby refid="xiic__repeated__start__example_8c_1ad711cc13c49a8ea279600d27dd1148c1" compoundref="xiic__repeated__start__example_8c" startline="187" endline="269">IicRepeatedStartExample</referencedby>
+        <referencedby refid="xiic__slave__example_8c_1a7f5dc26ef1947d1825780346d26d5f70" compoundref="xiic__slave__example_8c" startline="185" endline="265">IicSlaveExample</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1ab4e612135486e268a4db49b75f625f52" compoundref="xiic__tenbitaddr__example_8c" startline="186" endline="270">IicTenBitAddrExample</referencedby>
+        <referencedby refid="xiic__low__level__eeprom__example_8c_1ad3c29e4ee8b1f6749a579636a178c069" compoundref="xiic__low__level__eeprom__example_8c" startline="288" endline="344">ReadWriteVerify</referencedby>
+        <referencedby refid="xiic__slave__example_8c_1a0f41d940d34ed71035e6f6aeb24bdf67" compoundref="xiic__slave__example_8c" startline="348" endline="400">SlaveWriteData</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1a2e451cd59da6f2b702a42a4fcb21a362" compoundref="xiic__tenbitaddr__example_8c" startline="353" endline="404">TenBitAddrWriteData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="xiic__dynamic__eeprom__example_8c_1af87b2a3712f19c0723e6b945b30cd2cc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 ReadBuffer[PAGE_SIZE]</definition>
+        <argsstring>[PAGE_SIZE]</argsstring>
+        <name>ReadBuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xiic__dynamic__eeprom__example_8c_1a19d9dd848a431a459bff8db6e3eb2985" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 TransmitComplete</definition>
+        <argsstring></argsstring>
+        <name>TransmitComplete</name>
+        <briefdescription>
+<para>Read buffer for reading a page. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" bodystart="214" bodyend="-1"/>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1a4a76229cbb6ce631f3271eb592b69d0f" compoundref="xiic__dynamic__eeprom__example_8c" startline="428" endline="508">DynEepromWriteData</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1a40d92867ead2dc8efe06207b8b0f3494" compoundref="xiic__eeprom__example_8c" startline="485" endline="564">EepromWriteData</referencedby>
+        <referencedby refid="xiic__multi__master__example_8c_1a1910a4a03c18e6dcc001ad0880af0782" compoundref="xiic__multi__master__example_8c" startline="237" endline="405">IicMultiMasterExample</referencedby>
+        <referencedby refid="xiic__slave__example_8c_1a0f41d940d34ed71035e6f6aeb24bdf67" compoundref="xiic__slave__example_8c" startline="348" endline="400">SlaveWriteData</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1a2e451cd59da6f2b702a42a4fcb21a362" compoundref="xiic__tenbitaddr__example_8c" startline="353" endline="404">TenBitAddrWriteData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="xiic__dynamic__eeprom__example_8c_1a9f1fae969d865449aacad8208e70ce16" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 ReceiveComplete</definition>
+        <argsstring></argsstring>
+        <name>ReceiveComplete</name>
+        <briefdescription>
+<para>Flag to check completion of Transmission. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" bodystart="215" bodyend="-1"/>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1a7e1f2a0abc21a277ec8be8199c50169c" compoundref="xiic__dynamic__eeprom__example_8c" startline="522" endline="578">DynEepromReadData</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1a72f47aa22ac802f95eaec2691bf7ccb5" compoundref="xiic__eeprom__example_8c" startline="578" endline="642">EepromReadData</referencedby>
+        <referencedby refid="xiic__slave__example_8c_1a91e062862cf2b2bf6c6f8120baa882be" compoundref="xiic__slave__example_8c" startline="280" endline="333">SlaveReadData</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1adc9d7e63c6a7961710a9ae7df6b824d7" compoundref="xiic__tenbitaddr__example_8c" startline="285" endline="338">TenBitAddrReadData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="xiic__dynamic__eeprom__example_8c_1a76e91838aa728d2227d7a2f3107616a9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 EepromIicAddr</definition>
+        <argsstring></argsstring>
+        <name>EepromIicAddr</name>
+        <briefdescription>
+<para>Flag to check completion of Reception. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" bodystart="217" bodyend="-1"/>
+        <referencedby refid="xiic__low__level__dynamic__eeprom__example_8c_1abba11ec65dfd42f39bf87a648921c752" compoundref="xiic__low__level__dynamic__eeprom__example_8c" startline="338" endline="382">EepromReadByte</referencedby>
+        <referencedby refid="xiic__low__level__dynamic__eeprom__example_8c_1a50f19b8762ac4b72ca5740da9b4c3690" compoundref="xiic__low__level__dynamic__eeprom__example_8c" startline="281" endline="319">EepromWriteByte</referencedby>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" compoundref="xiic__dynamic__eeprom__example_8c" startline="261" endline="413">IicDynEepromExample</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1aa0f15e4ae2ab31c19f1268a81acdfe23" compoundref="xiic__eeprom__example_8c" startline="311" endline="470">IicEepromExample</referencedby>
+        <referencedby refid="xiic__low__level__dynamic__eeprom__example_8c_1a76f70b5862fd4646780c6432ca02529e" compoundref="xiic__low__level__dynamic__eeprom__example_8c" startline="198" endline="264">IicLowLevelDynEeprom</referencedby>
+        <referencedby refid="xiic__low__level__eeprom__example_8c_1a1a461e4394cdfd3d87c337f9c5933583" compoundref="xiic__low__level__eeprom__example_8c" startline="212" endline="272">IicLowLevelEeprom</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int IicDynEepromExample</definition>
+        <argsstring>(void)</argsstring>
+        <name>IicDynEepromExample</name>
+        <briefdescription>
+<para>This function writes, reads, and verifies the data to the IIC EEPROM in Dynamic controller mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>It does the write as a single page write, performs a buffered read.</para><para><simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Pointer to configuration data </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" bodystart="261" bodyend="413"/>
+        <references refid="struct_x_iic___config_1ae783f76b6713be6d9b77060d77328102" compoundref="xiic_8h" startline="393">XIic_Config::BaseAddress</references>
+        <references refid="xiic__dynamic__eeprom__example_8c_1a7e1f2a0abc21a277ec8be8199c50169c" compoundref="xiic__dynamic__eeprom__example_8c" startline="522" endline="578">DynEepromReadData</references>
+        <references refid="xiic__dynamic__eeprom__example_8c_1a4a76229cbb6ce631f3271eb592b69d0f" compoundref="xiic__dynamic__eeprom__example_8c" startline="428" endline="508">DynEepromWriteData</references>
+        <references refid="xiic__dynamic__eeprom__example_8c_1aaa6cf79c8db30749fdc1022ee5f673e5" compoundref="xiic__dynamic__eeprom__example_8c" startline="141">EEPROM_ADDRESS</references>
+        <references refid="xiic__dynamic__eeprom__example_8c_1a3c5640ff6004aae96a9046d3d7c0619e" compoundref="xiic__dynamic__eeprom__example_8c" startline="153">EEPROM_TEST_START_ADDRESS</references>
+        <references refid="xiic__dynamic__eeprom__example_8c_1a76e91838aa728d2227d7a2f3107616a9" compoundref="xiic__dynamic__eeprom__example_8c" startline="217">EepromIicAddr</references>
+        <references refid="struct_x_iic___config_1acab9a6750ed1288bc87868653feaf70e" compoundref="xiic_8h" startline="397">XIic_Config::IntrId</references>
+        <references refid="struct_x_iic___config_1a30b5d6af72a05a175b7af553f8eef939" compoundref="xiic_8h" startline="399">XIic_Config::IntrParent</references>
+        <references refid="xiic__dynamic__eeprom__example_8c_1a7d467c1d283fdfa1f2081ba1e0d01b6e" compoundref="xiic__dynamic__eeprom__example_8c" startline="148">PAGE_SIZE</references>
+        <references refid="xiic__dynamic__eeprom__example_8c_1a301b988b2453fda0d2780ed4d82c8450" compoundref="xiic__dynamic__eeprom__example_8c" startline="210">WriteBuffer</references>
+        <references refid="group___overview_1gace6af337aea33e4f162897b40591e0ac" compoundref="xiic_8h" startline="379">XII_ADDR_TO_SEND_TYPE</references>
+        <references refid="xiic__dynamic__eeprom__example_8c_1a028d21c1d779d7c992e41b11d876de26" compoundref="xiic__dynamic__eeprom__example_8c" startline="114">XIIC_BASEADDRESS</references>
+        <references refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</references>
+        <references refid="group___overview_1ga50c5aa4448e8993c80ef7b6a87b1aaea" compoundref="xiic__intr_8c" startline="109" endline="228">XIic_InterruptHandler</references>
+        <references refid="group___overview_1ga7e448669953bf36074837f174726814d" compoundref="xiic__sinit_8c" startline="93" endline="107">XIic_LookupConfig</references>
+        <references refid="group___overview_1gad944f42c3d9972fc2c986a7eed726297" compoundref="xiic_8c" startline="397" endline="437">XIic_SetAddress</references>
+        <references refid="group___overview_1ga86b4b2b307df26df2ecac39337c78bed" compoundref="xiic_8c" startline="619" endline="628">XIic_SetRecvHandler</references>
+        <references refid="group___overview_1gad33428830e9016ef50c1deae59d1e604" compoundref="xiic_8c" startline="648" endline="657">XIic_SetSendHandler</references>
+        <references refid="group___overview_1gaa74a6884f6dfc826a10768d7d0333991" compoundref="xiic_8c" startline="678" endline="687">XIic_SetStatusHandler</references>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xiic__dynamic__eeprom__example_8c" startline="232" endline="247">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xiic__dynamic__eeprom__example_8c_1a4a76229cbb6ce631f3271eb592b69d0f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int DynEepromWriteData</definition>
+        <argsstring>(u16 ByteCount)</argsstring>
+        <name>DynEepromWriteData</name>
+        <param>
+          <type>u16</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>This function writes a buffer of data to the IIC serial EEPROM. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the number of bytes in the buffer to be written.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>The Byte count should not exceed the page size of the EEPROM as noted by the constant PAGE_SIZE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" bodystart="428" bodyend="508"/>
+        <references refid="xiic__dynamic__eeprom__example_8c_1a02055aef4b0f9a801005ebdc7b556157" compoundref="xiic__dynamic__eeprom__example_8c" startline="158">MAX_DELAY_CNT</references>
+        <references refid="struct_x_iic_1a823a2f7407e2c6990f1eb507ea742e85" compoundref="xiic_8h" startline="465">XIic::Stats</references>
+        <references refid="xiic__dynamic__eeprom__example_8c_1a19d9dd848a431a459bff8db6e3eb2985" compoundref="xiic__dynamic__eeprom__example_8c" startline="214">TransmitComplete</references>
+        <references refid="struct_x_iic_stats_1a35580c344011980f77137d9957a8e308" compoundref="xiic_8h" startline="455">XIicStats::TxErrors</references>
+        <references refid="xiic__dynamic__eeprom__example_8c_1a301b988b2453fda0d2780ed4d82c8450" compoundref="xiic__dynamic__eeprom__example_8c" startline="210">WriteBuffer</references>
+        <references refid="group___overview_1gac4c6388d0db3b08ddcd47f0b2459ff3c" compoundref="xiic__dyn__master_8c" startline="92" endline="178">XIic_DynMasterSend</references>
+        <references refid="group___overview_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="109" endline="215">XIic_MasterSend</references>
+        <references refid="group___overview_1ga5f4e497710a9c3719f27d40faa74a10f" compoundref="xiic_8c" startline="223" endline="265">XIic_Start</references>
+        <references refid="group___overview_1gaaa989e0128057bf11803825d774d496f" compoundref="xiic_8c" startline="294" endline="324">XIic_Stop</references>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1a7e1f2a0abc21a277ec8be8199c50169c" compoundref="xiic__dynamic__eeprom__example_8c" startline="522" endline="578">DynEepromReadData</referencedby>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" compoundref="xiic__dynamic__eeprom__example_8c" startline="261" endline="413">IicDynEepromExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xiic__dynamic__eeprom__example_8c_1a7e1f2a0abc21a277ec8be8199c50169c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int DynEepromReadData</definition>
+        <argsstring>(u8 *BufferPtr, u16 ByteCount)</argsstring>
+        <name>DynEepromReadData</name>
+        <param>
+          <type>u8 *</type>
+          <declname>BufferPtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>This function reads data from the IIC serial EEPROM into a specified buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the address of the data buffer to be filled. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the number of bytes in the buffer to be read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" bodystart="522" bodyend="578"/>
+        <references refid="xiic__dynamic__eeprom__example_8c_1a4a76229cbb6ce631f3271eb592b69d0f" compoundref="xiic__dynamic__eeprom__example_8c" startline="428" endline="508">DynEepromWriteData</references>
+        <references refid="xiic__dynamic__eeprom__example_8c_1a3c5640ff6004aae96a9046d3d7c0619e" compoundref="xiic__dynamic__eeprom__example_8c" startline="153">EEPROM_TEST_START_ADDRESS</references>
+        <references refid="xiic__dynamic__eeprom__example_8c_1a3289fc3b552e479f461cd4cb762b1c9f" compoundref="xiic__dynamic__eeprom__example_8c" startline="168">Event_Value</references>
+        <references refid="xiic__dynamic__eeprom__example_8c_1a6f6955c7e0d854dfae76ca64d9861d06" compoundref="xiic__dynamic__eeprom__example_8c" startline="163">EventMask</references>
+        <references refid="xiic__dynamic__eeprom__example_8c_1a02055aef4b0f9a801005ebdc7b556157" compoundref="xiic__dynamic__eeprom__example_8c" startline="158">MAX_DELAY_CNT</references>
+        <references refid="xiic__dynamic__eeprom__example_8c_1a9f1fae969d865449aacad8208e70ce16" compoundref="xiic__dynamic__eeprom__example_8c" startline="215">ReceiveComplete</references>
+        <references refid="group___overview_1ga4d7985d95cd029ab0b0f2a5ccc614793" compoundref="xiic__dyn__master_8c" startline="303" endline="422">XIic_DynMasterRecv</references>
+        <references refid="group___overview_1ga5f4e497710a9c3719f27d40faa74a10f" compoundref="xiic_8c" startline="223" endline="265">XIic_Start</references>
+        <references refid="group___overview_1gaaa989e0128057bf11803825d774d496f" compoundref="xiic_8c" startline="294" endline="324">XIic_Stop</references>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" compoundref="xiic__dynamic__eeprom__example_8c" startline="261" endline="413">IicDynEepromExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xiic__dynamic__eeprom__example_8c_1a57de3959580ef5d13fe44fe36ee6dd6f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void SendHandler</definition>
+        <argsstring>(void *CallBackRef, int ByteCount)</argsstring>
+        <name>SendHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>This Send handler is called asynchronously from an interrupt context and indicates that data in the specified buffer has been sent. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the IIC device instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of bytes sent.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" bodystart="713" bodyend="719"/>
+      </memberdef>
+      <memberdef kind="function" id="xiic__dynamic__eeprom__example_8c_1a2dc42043eaab1d3701336fda406b9dab" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void ReceiveHandler</definition>
+        <argsstring>(void *CallBackRef, int ByteCount)</argsstring>
+        <name>ReceiveHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>This Receive handler is called asynchronously from an interrupt context and indicates that data in the specified buffer has been received. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the IIC device instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of bytes received.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" bodystart="733" bodyend="739"/>
+      </memberdef>
+      <memberdef kind="function" id="xiic__dynamic__eeprom__example_8c_1a781f83a72ac373b2b192ec99f4561084" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void StatusHandler</definition>
+        <argsstring>(XIic *InstancePtr, int Event)</argsstring>
+        <name>StatusHandler</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Event</declname>
+        </param>
+        <briefdescription>
+<para>This Status handler is called asynchronously from an interrupt context and indicates the events that have occurred. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the IIC driver instance for which the handler is being called for. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates the condition that has occurred.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" bodystart="755" bodyend="760"/>
+      </memberdef>
+      <memberdef kind="function" id="xiic__dynamic__eeprom__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Variable for storing Eeprom IIC address. </para>        </briefdescription>
+        <detaileddescription>
+<para>Main function to call the Dynamic EEPROM example.</para><para><simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c" bodystart="232" bodyend="247"/>
+        <references refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" compoundref="xiic__dynamic__eeprom__example_8c" startline="261" endline="413">IicDynEepromExample</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file consists of a Interrupt mode design example which uses the Xilinx IIC device and <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver to exercise the EEPROM in Dynamic controller mode. </para>    </briefdescription>
+    <detaileddescription>
+<para>The <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver uses the complete FIFO functionality to transmit/receive data.</para><para>This example writes/reads from the lower 256 bytes of the IIC EEPROMS. Please refer to the datasheets of the IIC EEPROM&apos;s for details about the internal addressing and page size of these devices.</para><para>The <ref refid="group___overview_1gac4c6388d0db3b08ddcd47f0b2459ff3c" kindref="member">XIic_DynMasterSend()</ref> API is used to transmit the data and <ref refid="group___overview_1ga4d7985d95cd029ab0b0f2a5ccc614793" kindref="member">XIic_DynMasterRecv()</ref> API is used to receive the data.</para><para>This example is tested on ML300/ML310/ML403/ML501/ML507/ML510/ML605/SP601 and SP605 Xilinx boards.</para><para>The ML310/ML410/ML510/SCU35 boards have a on-board 64 Kb serial IIC EEPROM (Microchip 24LC64A). The WP pin of the IIC EEPROM is hardwired to ground on this board.</para><para>The ML300 board has an on-board 32 Kb serial IIC EEPROM(Microchip 24LC32A). The WP pin of the IIC EEPROM has to be connected to ground for this example. The WP is connected to pin Y3 of the FPGA.</para><para>The ML403 board has an on-board 4 Kb serial IIC EEPROM(Microchip 24LC04A). The WP pin of the IIC EEPROM is hardwired to ground on this board.</para><para>The ML501/ML505/ML507/ML605/SP601/SP605 boards have an on-board 8 Kb serial IIC EEPROM(STM M24C08). The WP pin of the IIC EEPROM is hardwired to ground on these boards.</para><para>The AddressType for ML300/ML310/ML410/ML510/SCU200/SCU35 boards should be u16 as the address pointer in the on board EEPROM is 2 bytes.</para><para>The AddressType for ML403/ML501/ML505/ML507/ML605/SP601/SP605 boards should be u8 as the address pointer for the on board EEPROM is 1 byte.</para><para>The 7 bit IIC Slave address of the IIC EEPROM on the ML300/ML310/ML403/ML410/ ML501/ML505/ML507/ML510/SCU200 boards is 0x50. The 7 bit IIC Slave address of the IIC EEPROM on the ML605/SP601/SP605 boards is 0x54. Refer to the User Guide&apos;s of the respective boards for further information about the IIC slave address of IIC EEPROM&apos;s.</para><para>The define EEPROM_ADDRESS in this file needs to be changed depending on the board on which this example is to be run.</para><para>This code assumes that no Operating System is being used.</para><para><simplesect kind="note"><para></para></simplesect>
+None.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  Changes
+<hruler/>
+
+1.00a mta  04/13/06 Created.
+2.00a ktn  11/17/09 Updated to use the HAL APIs.
+2.01a ktn  03/17/10 Updated the information about the EEPROM&apos;s used on
+              ML605/SP601/SP605 boards. Updated the example so that it
+              can be used to access the entire IIC EEPROM for devices
+              like M24C04/M24C08 that use LSB bits of the IIC device
+              select code (IIC slave address) to specify the higher
+              address bits of the EEPROM internal address.
+3.4   ms   01/23/17 Added xil_printf statement in main function to
+                    ensure that &quot;Successfully ran&quot; and &quot;Failed&quot; strings
+                    are available in all examples. This is a fix for
+                    CR-965028.
+3.10  gm   07/09/23 Added SDT support
+3.15  vlt  02/11/26 Updated comment lines for SCU200 and SCU35 EEPROM address,
+                    page size, and address type used for testing.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2006<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="86"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiic_8h" kindref="compound">xiic.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_sutil.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_INTC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xintc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xscugic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_exception.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xinterrupt_wrap.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IIC_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_IIC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="114" refid="xiic__dynamic__eeprom__example_8c_1a028d21c1d779d7c992e41b11d876de26" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIIC_BASEADDRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XIIC_0_BASEADDR</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_INTC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INTC_DEVICE_ID<sp/><sp/>XPAR_INTC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IIC_INTR_ID<sp/><sp/><sp/><sp/><sp/>XPAR_INTC_0_IIC_0_VEC_ID</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INTC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIntc</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INTC_HANDLER<sp/><sp/><sp/><sp/>XIntc_InterruptHandler</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INTC_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_SCUGIC_SINGLE_DEVICE_ID</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IIC_INTR_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_FABRIC_IIC_0_VEC_ID</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INTC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INTC_HANDLER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic_InterruptHandler</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="141" refid="xiic__dynamic__eeprom__example_8c_1aaa6cf79c8db30749fdc1022ee5f673e5" refkind="member"><highlight class="preprocessor">#define<sp/>EEPROM_ADDRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x54<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>0xA0<sp/>as<sp/>an<sp/>8<sp/>bit<sp/>number.<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="148" refid="xiic__dynamic__eeprom__example_8c_1a7d467c1d283fdfa1f2081ba1e0d01b6e" refkind="member"><highlight class="preprocessor">#define<sp/>PAGE_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="153" refid="xiic__dynamic__eeprom__example_8c_1a3c5640ff6004aae96a9046d3d7c0619e" refkind="member"><highlight class="preprocessor">#define<sp/>EEPROM_TEST_START_ADDRESS<sp/><sp/><sp/>128</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="158" refid="xiic__dynamic__eeprom__example_8c_1a02055aef4b0f9a801005ebdc7b556157" refkind="member"><highlight class="preprocessor">#define<sp/>MAX_DELAY_CNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>10000</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="163" refid="xiic__dynamic__eeprom__example_8c_1a6f6955c7e0d854dfae76ca64d9861d06" refkind="member"><highlight class="preprocessor">#define<sp/>EventMask<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="168" refid="xiic__dynamic__eeprom__example_8c_1a3289fc3b552e479f461cd4cb762b1c9f" refkind="member"><highlight class="preprocessor">#define<sp/>Event_Value<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178" refid="xiic__dynamic__eeprom__example_8c_1a9d1fe969ebbb8e1f148b165f2af4a17a" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>u8<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a9d1fe969ebbb8e1f148b165f2af4a17a" kindref="member">AddressType</ref>;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" kindref="member">IicDynEepromExample</ref>();</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a4a76229cbb6ce631f3271eb592b69d0f" kindref="member">DynEepromWriteData</ref>(u16<sp/>ByteCount);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a7e1f2a0abc21a277ec8be8199c50169c" kindref="member">DynEepromReadData</ref>(u8<sp/>*BufferPtr,<sp/>u16<sp/>ByteCount);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SetupInterruptSystem(<ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>*IicInstPtr);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SendHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ByteCount);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReceiveHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ByteCount);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>StatusHandler(<ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Event);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>IicInstance;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"></highlight><highlight class="normal">INTC<sp/>Intc;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="210" refid="xiic__dynamic__eeprom__example_8c_1a301b988b2453fda0d2780ed4d82c8450" refkind="member"><highlight class="normal">u8<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a301b988b2453fda0d2780ed4d82c8450" kindref="member">WriteBuffer</ref>[</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="xiic__dynamic__eeprom__example_8c_1a9d1fe969ebbb8e1f148b165f2af4a17a" kindref="member">AddressType</ref>)<sp/>+<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a7d467c1d283fdfa1f2081ba1e0d01b6e" kindref="member">PAGE_SIZE</ref>];</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal">u8<sp/>ReadBuffer[<ref refid="xiic__dynamic__eeprom__example_8c_1a7d467c1d283fdfa1f2081ba1e0d01b6e" kindref="member">PAGE_SIZE</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="214" refid="xiic__dynamic__eeprom__example_8c_1a19d9dd848a431a459bff8db6e3eb2985" refkind="member"><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u8<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a19d9dd848a431a459bff8db6e3eb2985" kindref="member">TransmitComplete</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="215" refid="xiic__dynamic__eeprom__example_8c_1a9f1fae969d865449aacad8208e70ce16" refkind="member"><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u8<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a9f1fae969d865449aacad8208e70ce16" kindref="member">ReceiveComplete</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="217" refid="xiic__dynamic__eeprom__example_8c_1a76e91838aa728d2227d7a2f3107616a9" refkind="member"><highlight class="normal">u8<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a76e91838aa728d2227d7a2f3107616a9" kindref="member">EepromIicAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="219"><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="232" refid="xiic__dynamic__eeprom__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="233"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="237"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Run<sp/>the<sp/>Dynamic<sp/>EEPROM<sp/>example.</highlight></codeline>
+<codeline lineno="238"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" kindref="member">IicDynEepromExample</ref>();</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;IIC<sp/>dynamic<sp/>eeprom<sp/>Example<sp/>Failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>IIC<sp/>dynamic<sp/>eeprom<sp/>Example\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="261" refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" kindref="member">IicDynEepromExample</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="262"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Index;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_iic___config" kindref="compound">XIic_Config</ref><sp/>*ConfigPtr;<sp/></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a9d1fe969ebbb8e1f148b165f2af4a17a" kindref="member">AddressType</ref><sp/>Address<sp/>=<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a3c5640ff6004aae96a9046d3d7c0619e" kindref="member">EEPROM_TEST_START_ADDRESS</ref>;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a76e91838aa728d2227d7a2f3107616a9" kindref="member">EepromIicAddr</ref><sp/>=<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1aaa6cf79c8db30749fdc1022ee5f673e5" kindref="member">EEPROM_ADDRESS</ref>;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="270"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>IIC<sp/>driver<sp/>so<sp/>that<sp/>it<sp/>is<sp/>ready<sp/>to<sp/>use.</highlight></codeline>
+<codeline lineno="271"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="273"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="group___overview_1ga7e448669953bf36074837f174726814d" kindref="member">XIic_LookupConfig</ref>(IIC_DEVICE_ID);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="275"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="group___overview_1ga7e448669953bf36074837f174726814d" kindref="member">XIic_LookupConfig</ref>(<ref refid="xiic__dynamic__eeprom__example_8c_1a028d21c1d779d7c992e41b11d876de26" kindref="member">XIIC_BASEADDRESS</ref>);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="277"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ConfigPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" kindref="member">XIic_CfgInitialize</ref>(&amp;IicInstance,<sp/>ConfigPtr,</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr-&gt;<ref refid="struct_x_iic___config_1ae783f76b6713be6d9b77060d77328102" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="287"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>Dynamic<sp/>IIC<sp/>core.</highlight></codeline>
+<codeline lineno="288"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIic_DynamicInitialize(&amp;IicInstance);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="295"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Setup<sp/>the<sp/>Interrupt<sp/>System.</highlight></codeline>
+<codeline lineno="296"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="298"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>SetupInterruptSystem(&amp;IicInstance);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="300"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XSetupInterruptSystem(&amp;IicInstance,<sp/>&amp;<ref refid="group___overview_1ga50c5aa4448e8993c80ef7b6a87b1aaea" kindref="member">XIic_InterruptHandler</ref>,</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr-&gt;<ref refid="struct_x_iic___config_1acab9a6750ed1288bc87868653feaf70e" kindref="member">IntrId</ref>,<sp/>ConfigPtr-&gt;<ref refid="struct_x_iic___config_1a30b5d6af72a05a175b7af553f8eef939" kindref="member">IntrParent</ref>,</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XINTERRUPT_DEFAULT_PRIORITY);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="304"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="309"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>Handlers<sp/>for<sp/>transmit<sp/>and<sp/>reception.</highlight></codeline>
+<codeline lineno="310"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gad33428830e9016ef50c1deae59d1e604" kindref="member">XIic_SetSendHandler</ref>(&amp;IicInstance,<sp/>&amp;IicInstance,</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group___overview_1ga85db866c44d23a4c6e985f2c6c647053" kindref="member">XIic_Handler</ref>)<sp/>SendHandler);</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga86b4b2b307df26df2ecac39337c78bed" kindref="member">XIic_SetRecvHandler</ref>(&amp;IicInstance,<sp/>&amp;IicInstance,</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group___overview_1ga85db866c44d23a4c6e985f2c6c647053" kindref="member">XIic_Handler</ref>)<sp/>ReceiveHandler);</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gaa74a6884f6dfc826a10768d7d0333991" kindref="member">XIic_SetStatusHandler</ref>(&amp;IicInstance,<sp/>&amp;IicInstance,</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group___overview_1gac96e3f6975be1bdb8fe5956812855962" kindref="member">XIic_StatusHandler</ref>)<sp/>StatusHandler);</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="320"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>data<sp/>to<sp/>write<sp/>and<sp/>the<sp/>read<sp/>buffer.</highlight></codeline>
+<codeline lineno="321"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Address)<sp/>==<sp/>1)<sp/>{</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a301b988b2453fda0d2780ed4d82c8450" kindref="member">WriteBuffer</ref>[0]<sp/>=<sp/>(u8)<sp/>(<ref refid="xiic__dynamic__eeprom__example_8c_1a3c5640ff6004aae96a9046d3d7c0619e" kindref="member">EEPROM_TEST_START_ADDRESS</ref>);</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a76e91838aa728d2227d7a2f3107616a9" kindref="member">EepromIicAddr</ref><sp/>|=<sp/>(<ref refid="xiic__dynamic__eeprom__example_8c_1a3c5640ff6004aae96a9046d3d7c0619e" kindref="member">EEPROM_TEST_START_ADDRESS</ref><sp/>&gt;&gt;<sp/>8)<sp/>&amp;<sp/>0x7;</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a301b988b2453fda0d2780ed4d82c8450" kindref="member">WriteBuffer</ref>[0]<sp/>=<sp/>(u8)<sp/>(<ref refid="xiic__dynamic__eeprom__example_8c_1a3c5640ff6004aae96a9046d3d7c0619e" kindref="member">EEPROM_TEST_START_ADDRESS</ref><sp/>&gt;&gt;<sp/>8);</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a301b988b2453fda0d2780ed4d82c8450" kindref="member">WriteBuffer</ref>[1]<sp/>=<sp/>(u8)<sp/>(<ref refid="xiic__dynamic__eeprom__example_8c_1a3c5640ff6004aae96a9046d3d7c0619e" kindref="member">EEPROM_TEST_START_ADDRESS</ref>);</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a7d467c1d283fdfa1f2081ba1e0d01b6e" kindref="member">PAGE_SIZE</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a301b988b2453fda0d2780ed4d82c8450" kindref="member">WriteBuffer</ref>[</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Address)<sp/>+<sp/>Index]<sp/>=<sp/>0xFF;</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadBuffer[Index]<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="336"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>Slave<sp/>address.</highlight></codeline>
+<codeline lineno="337"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1gad944f42c3d9972fc2c986a7eed726297" kindref="member">XIic_SetAddress</ref>(&amp;IicInstance,<sp/><ref refid="group___overview_1gace6af337aea33e4f162897b40591e0ac" kindref="member">XII_ADDR_TO_SEND_TYPE</ref>,</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a76e91838aa728d2227d7a2f3107616a9" kindref="member">EepromIicAddr</ref>);</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="345"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>to<sp/>the<sp/>EEPROM.</highlight></codeline>
+<codeline lineno="346"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a4a76229cbb6ce631f3271eb592b69d0f" kindref="member">DynEepromWriteData</ref>(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Address)<sp/>+<sp/>PAGE_SIZE);</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="353"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>from<sp/>the<sp/>EEPROM.</highlight></codeline>
+<codeline lineno="354"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a7e1f2a0abc21a277ec8be8199c50169c" kindref="member">DynEepromReadData</ref>(ReadBuffer,<sp/>PAGE_SIZE);</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"></highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="361"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Verify<sp/>the<sp/>data<sp/>read<sp/>against<sp/>the<sp/>data<sp/>written.</highlight></codeline>
+<codeline lineno="362"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a7d467c1d283fdfa1f2081ba1e0d01b6e" kindref="member">PAGE_SIZE</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ReadBuffer[Index]<sp/>!=<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a301b988b2453fda0d2780ed4d82c8450" kindref="member">WriteBuffer</ref>[Index<sp/>+<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Address)])<sp/>{</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadBuffer[Index]<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="372"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>data<sp/>to<sp/>write<sp/>and<sp/>the<sp/>read<sp/>buffer.</highlight></codeline>
+<codeline lineno="373"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Address)<sp/>==<sp/>1)<sp/>{</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a301b988b2453fda0d2780ed4d82c8450" kindref="member">WriteBuffer</ref>[0]<sp/>=<sp/>(u8)<sp/>(<ref refid="xiic__dynamic__eeprom__example_8c_1a3c5640ff6004aae96a9046d3d7c0619e" kindref="member">EEPROM_TEST_START_ADDRESS</ref>);</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a301b988b2453fda0d2780ed4d82c8450" kindref="member">WriteBuffer</ref>[0]<sp/>=<sp/>(u8)<sp/>(<ref refid="xiic__dynamic__eeprom__example_8c_1a3c5640ff6004aae96a9046d3d7c0619e" kindref="member">EEPROM_TEST_START_ADDRESS</ref><sp/>&gt;&gt;<sp/>8);</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a301b988b2453fda0d2780ed4d82c8450" kindref="member">WriteBuffer</ref>[1]<sp/>=<sp/>(u8)<sp/>(<ref refid="xiic__dynamic__eeprom__example_8c_1a3c5640ff6004aae96a9046d3d7c0619e" kindref="member">EEPROM_TEST_START_ADDRESS</ref>);</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"></highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a7d467c1d283fdfa1f2081ba1e0d01b6e" kindref="member">PAGE_SIZE</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a301b988b2453fda0d2780ed4d82c8450" kindref="member">WriteBuffer</ref>[</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Address)<sp/>+<sp/>Index]<sp/>=<sp/>Index;</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"></highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="386"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>to<sp/>the<sp/>EEPROM.</highlight></codeline>
+<codeline lineno="387"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a4a76229cbb6ce631f3271eb592b69d0f" kindref="member">DynEepromWriteData</ref>(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Address)<sp/>+<sp/>PAGE_SIZE);</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="394"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>from<sp/>the<sp/>EEPROM.</highlight></codeline>
+<codeline lineno="395"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a7e1f2a0abc21a277ec8be8199c50169c" kindref="member">DynEepromReadData</ref>(ReadBuffer,<sp/>PAGE_SIZE);</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"></highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="402"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Verify<sp/>the<sp/>data<sp/>read<sp/>against<sp/>the<sp/>data<sp/>written.</highlight></codeline>
+<codeline lineno="403"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a7d467c1d283fdfa1f2081ba1e0d01b6e" kindref="member">PAGE_SIZE</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ReadBuffer[Index]<sp/>!=<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a301b988b2453fda0d2780ed4d82c8450" kindref="member">WriteBuffer</ref>[Index<sp/>+<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Address)])<sp/>{</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"></highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadBuffer[Index]<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"></highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="413"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"></highlight></codeline>
+<codeline lineno="415"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="428" refid="xiic__dynamic__eeprom__example_8c_1a4a76229cbb6ce631f3271eb592b69d0f" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a4a76229cbb6ce631f3271eb592b69d0f" kindref="member">DynEepromWriteData</ref>(u16<sp/>ByteCount)</highlight></codeline>
+<codeline lineno="429"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Timeout<sp/>=<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a02055aef4b0f9a801005ebdc7b556157" kindref="member">MAX_DELAY_CNT</ref>;</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"></highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="434"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>defaults.</highlight></codeline>
+<codeline lineno="435"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a19d9dd848a431a459bff8db6e3eb2985" kindref="member">TransmitComplete</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IicInstance.<ref refid="struct_x_iic_1a823a2f7407e2c6990f1eb507ea742e85" kindref="member">Stats</ref>.<ref refid="struct_x_iic_stats_1a35580c344011980f77137d9957a8e308" kindref="member">TxErrors</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"></highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="440"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Start<sp/>the<sp/>IIC<sp/>device.</highlight></codeline>
+<codeline lineno="441"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1ga5f4e497710a9c3719f27d40faa74a10f" kindref="member">XIic_Start</ref>(&amp;IicInstance);</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"></highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="448"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Send<sp/>the<sp/>Data.</highlight></codeline>
+<codeline lineno="449"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1gac4c6388d0db3b08ddcd47f0b2459ff3c" kindref="member">XIic_DynMasterSend</ref>(&amp;IicInstance,<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a301b988b2453fda0d2780ed4d82c8450" kindref="member">WriteBuffer</ref>,<sp/>ByteCount);</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"></highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="456"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Wait<sp/>till<sp/>the<sp/>transmission<sp/>is<sp/>completed.</highlight></codeline>
+<codeline lineno="457"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((<ref refid="xiic__dynamic__eeprom__example_8c_1a19d9dd848a431a459bff8db6e3eb2985" kindref="member">TransmitComplete</ref>)<sp/>||<sp/>(XIic_IsIicBusy(&amp;IicInstance)<sp/>==<sp/>TRUE))<sp/>{</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Timeout<sp/>--<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>timeout<sp/>exit<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="463"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>This<sp/>condition<sp/>is<sp/>required<sp/>to<sp/>be<sp/>checked<sp/>in<sp/>the<sp/>case<sp/>where<sp/>we</highlight></codeline>
+<codeline lineno="464"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>are<sp/>writing<sp/>two<sp/>consecutive<sp/>buffers<sp/>of<sp/>data<sp/>to<sp/>the<sp/>EEPROM.</highlight></codeline>
+<codeline lineno="465"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>The<sp/>EEPROM<sp/>takes<sp/>about<sp/>2<sp/>milliseconds<sp/>time<sp/>to<sp/>update<sp/>the<sp/>data</highlight></codeline>
+<codeline lineno="466"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>internally<sp/>after<sp/>a<sp/>STOP<sp/>has<sp/>been<sp/>sent<sp/>on<sp/>the<sp/>bus.</highlight></codeline>
+<codeline lineno="467"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>A<sp/>NACK<sp/>will<sp/>be<sp/>generated<sp/>in<sp/>the<sp/>case<sp/>of<sp/>a<sp/>second<sp/>write<sp/>before</highlight></codeline>
+<codeline lineno="468"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>EEPROM<sp/>updates<sp/>the<sp/>data<sp/>internally<sp/>resulting<sp/>in<sp/>a</highlight></codeline>
+<codeline lineno="469"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Transmission<sp/>Error.</highlight></codeline>
+<codeline lineno="470"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IicInstance.<ref refid="struct_x_iic_1a823a2f7407e2c6990f1eb507ea742e85" kindref="member">Stats</ref>.<ref refid="struct_x_iic_stats_1a35580c344011980f77137d9957a8e308" kindref="member">TxErrors</ref><sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"></highlight></codeline>
+<codeline lineno="473"><highlight class="normal"></highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="475"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>the<sp/>IIC<sp/>device.</highlight></codeline>
+<codeline lineno="476"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1ga5f4e497710a9c3719f27d40faa74a10f" kindref="member">XIic_Start</ref>(&amp;IicInstance);</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"></highlight></codeline>
+<codeline lineno="482"><highlight class="normal"></highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!XIic_IsIicBusy(&amp;IicInstance))<sp/>{</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="485"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Send<sp/>the<sp/>Data.</highlight></codeline>
+<codeline lineno="486"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1ga977382e8a20bd5e690229f82af2e7603" kindref="member">XIic_MasterSend</ref>(&amp;IicInstance,</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a301b988b2453fda0d2780ed4d82c8450" kindref="member">WriteBuffer</ref>,</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ByteCount);</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IicInstance.<ref refid="struct_x_iic_1a823a2f7407e2c6990f1eb507ea742e85" kindref="member">Stats</ref>.<ref refid="struct_x_iic_stats_1a35580c344011980f77137d9957a8e308" kindref="member">TxErrors</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"></highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"></highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="500"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Stop<sp/>the<sp/>IIC<sp/>device.</highlight></codeline>
+<codeline lineno="501"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1gaaa989e0128057bf11803825d774d496f" kindref="member">XIic_Stop</ref>(&amp;IicInstance);</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="506"><highlight class="normal"></highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="508"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="509"><highlight class="normal"></highlight></codeline>
+<codeline lineno="510"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="522" refid="xiic__dynamic__eeprom__example_8c_1a7e1f2a0abc21a277ec8be8199c50169c" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a7e1f2a0abc21a277ec8be8199c50169c" kindref="member">DynEepromReadData</ref>(u8<sp/>*BufferPtr,<sp/>u16<sp/>ByteCount)</highlight></codeline>
+<codeline lineno="523"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a9d1fe969ebbb8e1f148b165f2af4a17a" kindref="member">AddressType</ref><sp/>Address<sp/>=<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a3c5640ff6004aae96a9046d3d7c0619e" kindref="member">EEPROM_TEST_START_ADDRESS</ref>;</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="527"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>Defaults.</highlight></codeline>
+<codeline lineno="528"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a9f1fae969d865449aacad8208e70ce16" kindref="member">ReceiveComplete</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"></highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="532"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Position<sp/>the<sp/>Pointer<sp/>in<sp/>EEPROM.</highlight></codeline>
+<codeline lineno="533"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a4a76229cbb6ce631f3271eb592b69d0f" kindref="member">DynEepromWriteData</ref>(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Address));</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"></highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="540"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Start<sp/>the<sp/>IIC<sp/>device.</highlight></codeline>
+<codeline lineno="541"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1ga5f4e497710a9c3719f27d40faa74a10f" kindref="member">XIic_Start</ref>(&amp;IicInstance);</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"></highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="548"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Receive<sp/>the<sp/>Data.</highlight></codeline>
+<codeline lineno="549"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1ga4d7985d95cd029ab0b0f2a5ccc614793" kindref="member">XIic_DynMasterRecv</ref>(&amp;IicInstance,<sp/>BufferPtr,<sp/>ByteCount);</highlight></codeline>
+<codeline lineno="551"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="553"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"></highlight></codeline>
+<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="556"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Wait<sp/>for<sp/>receive<sp/>completion.</highlight></codeline>
+<codeline lineno="557"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="558"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>The<sp/>ReceiveComplete<sp/>flag<sp/>is<sp/>set<sp/>to<sp/>0<sp/>by<sp/>the<sp/>receive<sp/>interrupt<sp/>handler</highlight></codeline>
+<codeline lineno="559"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>once<sp/>all<sp/>requested<sp/>bytes<sp/>are<sp/>successfully<sp/>received.<sp/>Xil_WaitForEvent()</highlight></codeline>
+<codeline lineno="560"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>polls<sp/>this<sp/>software<sp/>flag<sp/>until<sp/>it<sp/>matches<sp/>the<sp/>expected<sp/>completion<sp/>value</highlight></codeline>
+<codeline lineno="561"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>or<sp/>the<sp/>timeout<sp/>expires,<sp/>preventing<sp/>an<sp/>infinite<sp/>wait<sp/>in<sp/>case<sp/>the<sp/>interrupt</highlight></codeline>
+<codeline lineno="562"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>not<sp/>serviced.</highlight></codeline>
+<codeline lineno="563"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_WaitForEvent((UINTPTR)&amp;<ref refid="xiic__dynamic__eeprom__example_8c_1a9f1fae969d865449aacad8208e70ce16" kindref="member">ReceiveComplete</ref>,<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a6f6955c7e0d854dfae76ca64d9861d06" kindref="member">EventMask</ref>,<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a3289fc3b552e479f461cd4cb762b1c9f" kindref="member">Event_Value</ref>,<sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a02055aef4b0f9a801005ebdc7b556157" kindref="member">MAX_DELAY_CNT</ref>);</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"></highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="570"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Stop<sp/>the<sp/>IIC<sp/>device.</highlight></codeline>
+<codeline lineno="571"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1gaaa989e0128057bf11803825d774d496f" kindref="member">XIic_Stop</ref>(&amp;IicInstance);</highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"></highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="578"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="579"><highlight class="normal"></highlight></codeline>
+<codeline lineno="580"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="581"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="597"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SetupInterruptSystem(<ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>*IicInstPtr)</highlight></codeline>
+<codeline lineno="598"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="600"><highlight class="normal"></highlight></codeline>
+<codeline lineno="601"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_INTC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="602"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="603"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="604"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>interrupt<sp/>controller<sp/>driver<sp/>so<sp/>that<sp/>it&apos;s<sp/>ready<sp/>to<sp/>use.</highlight></codeline>
+<codeline lineno="605"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIntc_Initialize(&amp;Intc,<sp/>INTC_DEVICE_ID);</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"></highlight></codeline>
+<codeline lineno="608"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"></highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="613"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Connect<sp/>the<sp/>device<sp/>driver<sp/>handler<sp/>that<sp/>will<sp/>be<sp/>called<sp/>when<sp/>an</highlight></codeline>
+<codeline lineno="614"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>interrupt<sp/>for<sp/>the<sp/>device<sp/>occurs,<sp/>the<sp/>handler<sp/>defined<sp/>above<sp/>performs</highlight></codeline>
+<codeline lineno="615"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>specific<sp/>interrupt<sp/>processing<sp/>for<sp/>the<sp/>device.</highlight></codeline>
+<codeline lineno="616"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="617"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIntc_Connect(&amp;Intc,<sp/>IIC_INTR_ID,</highlight></codeline>
+<codeline lineno="618"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XInterruptHandler)<sp/><ref refid="group___overview_1ga50c5aa4448e8993c80ef7b6a87b1aaea" kindref="member">XIic_InterruptHandler</ref>,</highlight></codeline>
+<codeline lineno="619"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IicInstPtr);</highlight></codeline>
+<codeline lineno="620"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="622"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="623"><highlight class="normal"></highlight></codeline>
+<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="625"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Start<sp/>the<sp/>interrupt<sp/>controller<sp/>so<sp/>interrupts<sp/>are<sp/>enabled<sp/>for<sp/>all</highlight></codeline>
+<codeline lineno="626"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>devices<sp/>that<sp/>cause<sp/>interrupts.</highlight></codeline>
+<codeline lineno="627"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="628"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIntc_Start(&amp;Intc,<sp/>XIN_REAL_MODE);</highlight></codeline>
+<codeline lineno="629"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="630"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="631"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="632"><highlight class="normal"></highlight></codeline>
+<codeline lineno="633"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="634"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>the<sp/>interrupts<sp/>for<sp/>the<sp/>IIC<sp/>device.</highlight></codeline>
+<codeline lineno="635"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="636"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIntc_Enable(&amp;Intc,<sp/>IIC_INTR_ID);</highlight></codeline>
+<codeline lineno="637"><highlight class="normal"></highlight></codeline>
+<codeline lineno="638"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="639"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="640"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic_Config<sp/>*IntcConfig;</highlight></codeline>
+<codeline lineno="641"><highlight class="normal"></highlight></codeline>
+<codeline lineno="642"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="643"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>interrupt<sp/>controller<sp/>driver<sp/>so<sp/>that<sp/>it<sp/>is<sp/>ready<sp/>to</highlight></codeline>
+<codeline lineno="644"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>use.</highlight></codeline>
+<codeline lineno="645"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="646"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntcConfig<sp/>=<sp/>XScuGic_LookupConfig(INTC_DEVICE_ID);</highlight></codeline>
+<codeline lineno="647"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>IntcConfig)<sp/>{</highlight></codeline>
+<codeline lineno="648"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="649"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="650"><highlight class="normal"></highlight></codeline>
+<codeline lineno="651"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XScuGic_CfgInitialize(&amp;Intc,<sp/>IntcConfig,</highlight></codeline>
+<codeline lineno="652"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntcConfig-&gt;CpuBaseAddress);</highlight></codeline>
+<codeline lineno="653"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="654"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="655"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="656"><highlight class="normal"></highlight></codeline>
+<codeline lineno="657"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic_SetPriorityTriggerType(&amp;Intc,<sp/>IIC_INTR_ID,</highlight></codeline>
+<codeline lineno="658"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xA0,<sp/>0x3);</highlight></codeline>
+<codeline lineno="659"><highlight class="normal"></highlight></codeline>
+<codeline lineno="660"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="661"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Connect<sp/>the<sp/>interrupt<sp/>handler<sp/>that<sp/>will<sp/>be<sp/>called<sp/>when<sp/>an</highlight></codeline>
+<codeline lineno="662"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>interrupt<sp/>occurs<sp/>for<sp/>the<sp/>device.</highlight></codeline>
+<codeline lineno="663"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="664"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XScuGic_Connect(&amp;Intc,<sp/>IIC_INTR_ID,</highlight></codeline>
+<codeline lineno="665"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_InterruptHandler)<ref refid="group___overview_1ga50c5aa4448e8993c80ef7b6a87b1aaea" kindref="member">XIic_InterruptHandler</ref>,</highlight></codeline>
+<codeline lineno="666"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IicInstPtr);</highlight></codeline>
+<codeline lineno="667"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="668"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="669"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="670"><highlight class="normal"></highlight></codeline>
+<codeline lineno="671"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="672"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>the<sp/>interrupt<sp/>for<sp/>the<sp/>IIC<sp/>device.</highlight></codeline>
+<codeline lineno="673"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="674"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic_Enable(&amp;Intc,<sp/>IIC_INTR_ID);</highlight></codeline>
+<codeline lineno="675"><highlight class="normal"></highlight></codeline>
+<codeline lineno="676"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="677"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="678"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="679"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>exception<sp/>table.</highlight></codeline>
+<codeline lineno="680"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="681"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionInit();</highlight></codeline>
+<codeline lineno="682"><highlight class="normal"></highlight></codeline>
+<codeline lineno="683"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="684"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Register<sp/>the<sp/>interrupt<sp/>controller<sp/>handler<sp/>with<sp/>the<sp/>exception<sp/>table.</highlight></codeline>
+<codeline lineno="685"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="686"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,</highlight></codeline>
+<codeline lineno="687"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_ExceptionHandler)<sp/>INTC_HANDLER,</highlight></codeline>
+<codeline lineno="688"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;Intc);</highlight></codeline>
+<codeline lineno="689"><highlight class="normal"></highlight></codeline>
+<codeline lineno="690"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="691"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>non-critical<sp/>exceptions.</highlight></codeline>
+<codeline lineno="692"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="693"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionEnable();</highlight></codeline>
+<codeline lineno="694"><highlight class="normal"></highlight></codeline>
+<codeline lineno="695"><highlight class="normal"></highlight></codeline>
+<codeline lineno="696"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="697"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="698"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="699"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="700"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="713"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SendHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ByteCount)</highlight></codeline>
+<codeline lineno="714"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="715"><highlight class="normal"><sp/><sp/><sp/><sp/>(void)ByteCount;</highlight></codeline>
+<codeline lineno="716"><highlight class="normal"><sp/><sp/><sp/><sp/>(void)CallBackRef;</highlight></codeline>
+<codeline lineno="717"><highlight class="normal"></highlight></codeline>
+<codeline lineno="718"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a19d9dd848a431a459bff8db6e3eb2985" kindref="member">TransmitComplete</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="719"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="720"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="733"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ReceiveHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ByteCount)</highlight></codeline>
+<codeline lineno="734"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="735"><highlight class="normal"><sp/><sp/><sp/><sp/>(void)CallBackRef;</highlight></codeline>
+<codeline lineno="736"><highlight class="normal"><sp/><sp/><sp/><sp/>(void)ByteCount;</highlight></codeline>
+<codeline lineno="737"><highlight class="normal"></highlight></codeline>
+<codeline lineno="738"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a9f1fae969d865449aacad8208e70ce16" kindref="member">ReceiveComplete</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="739"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="740"><highlight class="normal"></highlight></codeline>
+<codeline lineno="741"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="755"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>StatusHandler(<ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Event)</highlight></codeline>
+<codeline lineno="756"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="757"><highlight class="normal"></highlight></codeline>
+<codeline lineno="758"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>(void)InstancePtr;</highlight></codeline>
+<codeline lineno="759"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>(void)Event;</highlight></codeline>
+<codeline lineno="760"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_dynamic_eeprom_example.c"/>
+  </compounddef>
+</doxygen>

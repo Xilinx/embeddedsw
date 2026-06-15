@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_tmr_ctr_stats" kind="struct" prot="public">
+    <compoundname>XTmrCtrStats</compoundname>
+    <includes local="no">xtmrctr.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_tmr_ctr_stats_1a3e3996ef053ba44bc8720616f3f4c397" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTmrCtrStats::Interrupts</definition>
+        <argsstring></argsstring>
+        <name>Interrupts</name>
+        <briefdescription>
+<para>The number of interrupts that have occurred. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" line="251" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" bodystart="251" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga220874785f096cc5f38b3bec907a008c" compoundref="xtmrctr_8c" startline="96" endline="115">XTmrCtr_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga6f51d8030e9d1a4edc588b0846e22e49" compoundref="xtmrctr__stats_8c" startline="83" endline="89">XTmrCtr_ClearStats</referencedby>
+        <referencedby refid="group___overview_1ga3c99744f99aef2a019616e712206f1b0" compoundref="xtmrctr__stats_8c" startline="62" endline="69">XTmrCtr_GetStats</referencedby>
+        <referencedby refid="group___overview_1ga2c00e99b19f58b5821c5541069ffb20b" compoundref="xtmrctr__intr_8c" startline="100" endline="210">XTmrCtr_InterruptHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Timer/Counter statistics. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" bodystart="250" bodyend="252"/>
+    <listofallmembers>
+      <member refid="struct_x_tmr_ctr_stats_1a3e3996ef053ba44bc8720616f3f4c397" prot="public" virt="non-virtual"><scope>XTmrCtrStats</scope><name>Interrupts</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1334 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__pmonpsv" kind="group">
+    <compoundname>pmonpsv</compoundname>
+    <title>Overview</title>
+    <innerclass refid="struct_x_pmon_psv___config" prot="public">XPmonPsv_Config</innerclass>
+    <innerclass refid="struct_x_pmon_psv" prot="public">XPmonPsv</innerclass>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__pmonpsv_1ga86e2d702d03cd2df46dc4ba492d255a6" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pmon_psv___config" kindref="compound">XPmonPsv_Config</ref></type>
+        <definition>XPmonPsv_Config XPmonPsv_ConfigTable[XPAR_XPMONPSV_NUM_INSTANCES]</definition>
+        <argsstring>[XPAR_XPMONPSV_NUM_INSTANCES]</argsstring>
+        <name>XPmonPsv_ConfigTable</name>
+        <initializer>=
+{
+	{
+		XPAR_PSU_CORESIGHT_FPD_ATM_DEVICE_ID,
+		XPAR_PSU_CORESIGHT_FPD_ATM_S_AXI_BASEADDR
+	},
+	{
+		XPAR_PSU_CORESIGHT_LPD_ATM_DEVICE_ID,
+		XPAR_PSU_CORESIGHT_LPD_ATM_S_AXI_BASEADDR
+	}
+}</initializer>
+        <briefdescription>
+<para>This table contains configuration information for each System Monitor/ADC device in the system. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_g.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_g.c" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__pmonpsv_1ga86e2d702d03cd2df46dc4ba492d255a6" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pmon_psv___config" kindref="compound">XPmonPsv_Config</ref></type>
+        <definition>XPmonPsv_Config XPmonPsv_ConfigTable[XPAR_XPMONPSV_NUM_INSTANCES]</definition>
+        <argsstring>[XPAR_XPMONPSV_NUM_INSTANCES]</argsstring>
+        <name>XPmonPsv_ConfigTable</name>
+        <briefdescription>
+<para>This table contains configuration information for each System Monitor/ADC device in the system. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_sint.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_g.c" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__pmonpsv_1gaa7d16fcb54dcbc93fddc2b4f64a9c5bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmonPsv_CfgInitialize</definition>
+        <argsstring>(XPmonPsv *InstancePtr, const XPmonPsv_Config *ConfigPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XPmonPsv_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_pmon_psv___config" kindref="compound">XPmonPsv_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes a specific <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> device/instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>Functions in <ref refid="xpmonpsv_8c" kindref="compound">xpmonpsv.c</ref>.</para><para>This function must be called prior to using the Performance Monitor device.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> device configuration structure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device base address in the virtual memory address space. If the address translation is not used then the physical address is passed. Unexpected errors may occur if the address mapping is changed after this function is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_DEVICE_IS_STARTED if the device is already started.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>The user needs to first call the <ref refid="group__pmonpsv_1gadf7106c6ca8857f9661ba1f7b9411dde" kindref="member">XPmonPsv_LookupConfig()</ref> API which returns the Configuration structure pointer which is passed as a parameter to the <ref refid="group__pmonpsv_1gaa7d16fcb54dcbc93fddc2b4f64a9c5bf" kindref="member">XPmonPsv_CfgInitialize()</ref> API. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="70" bodyend="91"/>
+        <references refid="struct_x_pmon_psv___config_1aee8231396f1c20f55574db0bdbb2ed0b" compoundref="xpmonpsv_8h" startline="91">XPmonPsv_Config::BaseAddress</references>
+        <references refid="struct_x_pmon_psv_1ae534fae5285ed3b2a68b0c965f0bcb9a" compoundref="xpmonpsv_8h" startline="101">XPmonPsv::Config</references>
+        <references refid="struct_x_pmon_psv___config_1a2dc96cc2c6bced6d3f145221d7e0a369" compoundref="xpmonpsv_8h" startline="90">XPmonPsv_Config::DeviceId</references>
+        <references refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" compoundref="xpmonpsv_8h" startline="102">XPmonPsv::IsReady</references>
+        <references refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" compoundref="xpmonpsv_8h" startline="103">XPmonPsv::RequestedCounters</references>
+      </memberdef>
+      <memberdef kind="function" id="group__pmonpsv_1gaf9da08c69ce00c2dd67828196f443a51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmonPsv_ResetCounter</definition>
+        <argsstring>(const XPmonPsv *InstancePtr, u32 Domain, u32 CounterNum)</argsstring>
+        <name>XPmonPsv_ResetCounter</name>
+        <param>
+          <type>const <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Domain</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CounterNum</declname>
+        </param>
+        <briefdescription>
+<para>This function resets the specified counter. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Domain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is one of the counter like lpd_main or r5_domain eg XPMONPSV_R5_DOMAIN, XPMONPSV_LPD_MAIN_DOMAIN </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CounterNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Counter Number. The valid values are 0 to 9.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success XST_FAILURE on failure</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="111" bodyend="150"/>
+        <references refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" compoundref="xpmonpsv_8h" startline="102">XPmonPsv::IsReady</references>
+        <references refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" compoundref="xpmonpsv_8h" startline="103">XPmonPsv::RequestedCounters</references>
+        <references refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" compoundref="xpmonpsv__hw_8h" startline="124">XPmonPsv_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__pmonpsv_1gae01033d281536814a9a0578e6029ed4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmonPsv_SetMetrics</definition>
+        <argsstring>(const XPmonPsv *InstancePtr, u32 StatPeriod, u32 Domain, u32 CounterNum)</argsstring>
+        <name>XPmonPsv_SetMetrics</name>
+        <param>
+          <type>const <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>StatPeriod</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Domain</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CounterNum</declname>
+        </param>
+        <briefdescription>
+<para>This function sets Metrics for specified Counter in the corresponding Metric Selector Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>StatPeriod</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the period for which specified counter has to be connected. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Domain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is one of the counter like lpd_main or r5_domain </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CounterNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Counter Number. The valid values are 0 to 9.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success XST_FAILURE on failure</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="171" bodyend="202"/>
+        <references refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" compoundref="xpmonpsv_8h" startline="103">XPmonPsv::RequestedCounters</references>
+        <references refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" compoundref="xpmonpsv__hw_8h" startline="124">XPmonPsv_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__pmonpsv_1ga8969db0e19b31ea48690fb6f8e8c0208" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmonPsv_GetMetrics</definition>
+        <argsstring>(const XPmonPsv *InstancePtr, u32 CounterNum, u8 *MainCtl, u8 *StatPeriod, u32 Domain)</argsstring>
+        <name>XPmonPsv_GetMetrics</name>
+        <param>
+          <type>const <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CounterNum</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>MainCtl</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>StatPeriod</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Domain</declname>
+        </param>
+        <briefdescription>
+<para>This function returns Metrics in the specified Counter from the corresponding Metric Selector Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CounterNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Counter Number. The valid values are 0 to 9. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MainCtl</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a reference parameter from application where mainctrl of specified counter is filled. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>StatPeriod</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the reference parameter from application where the StatPeriod is filled. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Domain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is one of the counter like lpd_main or r5_domain </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if Success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="221" bodyend="252"/>
+        <references refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" compoundref="xpmonpsv_8h" startline="102">XPmonPsv::IsReady</references>
+        <references refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" compoundref="xpmonpsv_8h" startline="103">XPmonPsv::RequestedCounters</references>
+        <references refid="group__pmonpsv_1gacc0ae31abca813a507dc900990c7f133" compoundref="xpmonpsv__hw_8h" startline="107">XPmonPsv_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__pmonpsv_1ga57d5aae6b20218e6fbca2ce9e90e3c12" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmonPsv_GetWriteCounter</definition>
+        <argsstring>(const XPmonPsv *InstancePtr, u32 *WriteRequestValue, u32 *WriteRespValue, u32 Domain, u32 CounterNum)</argsstring>
+        <name>XPmonPsv_GetWriteCounter</name>
+        <param>
+          <type>const <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>WriteRequestValue</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>WriteRespValue</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Domain</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CounterNum</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the contents of the Write response and request Counter Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WriteRequestValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the user space pointer with<itemizedlist>
+<listitem><para>which the value of Write Request Count has to be filled </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WriteRespValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the user space pointer with<itemizedlist>
+<listitem><para>which the value of Write Response Count has to be filled </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Domain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is one of the counter like lpd_main or r5_domain </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CounterNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Counter Number. The valid values are 0 to 9.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success XST_FAILURE on failure</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="275" bodyend="300"/>
+        <references refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" compoundref="xpmonpsv_8h" startline="102">XPmonPsv::IsReady</references>
+        <references refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" compoundref="xpmonpsv_8h" startline="103">XPmonPsv::RequestedCounters</references>
+        <references refid="group__pmonpsv_1gacc0ae31abca813a507dc900990c7f133" compoundref="xpmonpsv__hw_8h" startline="107">XPmonPsv_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__pmonpsv_1gac1987e1331e4725102fb21b7d813045b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmonPsv_RequestCounter</definition>
+        <argsstring>(XPmonPsv *InstancePtr, u32 Domain, u32 *CounterNum)</argsstring>
+        <name>XPmonPsv_RequestCounter</name>
+        <param>
+          <type><ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Domain</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>CounterNum</declname>
+        </param>
+        <briefdescription>
+<para>This function returns success if a free counter was found and request was granted. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance. which the value of Write Request Count has to be filled </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Domain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is one of the counter like lpd_main or r5_domain </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CounterNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to get Counter Number.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Granted counter number. XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="318" bodyend="336"/>
+        <references refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" compoundref="xpmonpsv_8h" startline="102">XPmonPsv::IsReady</references>
+        <references refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" compoundref="xpmonpsv_8h" startline="103">XPmonPsv::RequestedCounters</references>
+      </memberdef>
+      <memberdef kind="function" id="group__pmonpsv_1ga1ddd643de28219ab0c50aab729ddd058" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmonPsv_GetReadCounter</definition>
+        <argsstring>(const XPmonPsv *InstancePtr, u32 *ReadRequestValue, u32 *ReadRespValue, u32 Domain, u32 CounterNum)</argsstring>
+        <name>XPmonPsv_GetReadCounter</name>
+        <param>
+          <type>const <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>ReadRequestValue</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>ReadRespValue</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Domain</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CounterNum</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the contents of the Read response and request Counter Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReadRequestValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the user space pointer with which the value of Write Request Count has to be filled </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReadRespValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the user space pointer with which the value of Write Response Count has to be filled </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Domain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is one of the counter like lpd_main or r5_domain </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CounterNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Counter Number. The valid values are 0 to 9.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success XST_FAILURE on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="356" bodyend="382"/>
+        <references refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" compoundref="xpmonpsv_8h" startline="102">XPmonPsv::IsReady</references>
+        <references refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" compoundref="xpmonpsv_8h" startline="103">XPmonPsv::RequestedCounters</references>
+        <references refid="group__pmonpsv_1gacc0ae31abca813a507dc900990c7f133" compoundref="xpmonpsv__hw_8h" startline="107">XPmonPsv_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__pmonpsv_1gadb59f26ba546912f1adb10aaa315148c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmonPsv_EnableCounters</definition>
+        <argsstring>(const XPmonPsv *InstancePtr, u32 Domain, u32 CounterNum)</argsstring>
+        <name>XPmonPsv_EnableCounters</name>
+        <param>
+          <type>const <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Domain</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CounterNum</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the following in the Performance Monitor: </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>Global clock counter</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance. SampleInterval is the sample interval for the sampled metric counters </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Domain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is one of the counter like lpd_main or r5_domain </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CounterNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Counter Number to be enabled.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success XST_FAILURE on failure</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Setting register field GlobalEn to 1 enables the tracing and statistics collection subsystems of the packet probe.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="400" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="400" bodyend="431"/>
+        <references refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" compoundref="xpmonpsv_8h" startline="102">XPmonPsv::IsReady</references>
+        <references refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" compoundref="xpmonpsv_8h" startline="103">XPmonPsv::RequestedCounters</references>
+        <references refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" compoundref="xpmonpsv__hw_8h" startline="124">XPmonPsv_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__pmonpsv_1ga10df3b03dcc3e64fb7b8b8bb98ff42d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPmonPsv_Unlock</definition>
+        <argsstring>(const XPmonPsv *InstancePtr)</argsstring>
+        <name>XPmonPsv_Unlock</name>
+        <param>
+          <type>const <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function unlocks the PmonPsv. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="444" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="444" bodyend="450"/>
+        <references refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" compoundref="xpmonpsv_8h" startline="102">XPmonPsv::IsReady</references>
+        <references refid="group__pmonpsv_1gaf75c12bc9c0d7c1edbbe3f9623243d07" compoundref="xpmonpsv__hw_8h" startline="50">PMONPSV_APM0_LAR</references>
+        <references refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" compoundref="xpmonpsv__hw_8h" startline="124">XPmonPsv_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__pmonpsv_1ga84fcdf6169d586181aaea1223a82bce1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPmonPsv_Lock</definition>
+        <argsstring>(const XPmonPsv *InstancePtr)</argsstring>
+        <name>XPmonPsv_Lock</name>
+        <param>
+          <type>const <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function locks the PmonPsv. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="462" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="462" bodyend="468"/>
+        <references refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" compoundref="xpmonpsv_8h" startline="102">XPmonPsv::IsReady</references>
+        <references refid="group__pmonpsv_1gaf75c12bc9c0d7c1edbbe3f9623243d07" compoundref="xpmonpsv__hw_8h" startline="50">PMONPSV_APM0_LAR</references>
+        <references refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" compoundref="xpmonpsv__hw_8h" startline="124">XPmonPsv_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__pmonpsv_1gaea617c99cf28bd06a05856209b6e0ae1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmonPsv_StopCounter</definition>
+        <argsstring>(const XPmonPsv *InstancePtr, u32 Domain, u32 CounterNum)</argsstring>
+        <name>XPmonPsv_StopCounter</name>
+        <param>
+          <type>const <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Domain</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CounterNum</declname>
+        </param>
+        <briefdescription>
+<para>This function disables the following in the Performance Monitor: </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>Global clock counter</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Domain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is one of the counter like lpd_main or r5_domain </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CounterNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Counter Number. The valid values are 0 to 9.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success XST_FAILURE on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="484" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="484" bodyend="511"/>
+        <references refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" compoundref="xpmonpsv_8h" startline="102">XPmonPsv::IsReady</references>
+        <references refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" compoundref="xpmonpsv_8h" startline="103">XPmonPsv::RequestedCounters</references>
+        <references refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" compoundref="xpmonpsv__hw_8h" startline="124">XPmonPsv_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__pmonpsv_1ga7e7371e8483b02cd647f795976658040" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmonPsv_SetSrc</definition>
+        <argsstring>(const XPmonPsv *InstancePtr, u32 SrcSel, u32 Domain, u32 CounterNum)</argsstring>
+        <name>XPmonPsv_SetSrc</name>
+        <param>
+          <type>const <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SrcSel</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Domain</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CounterNum</declname>
+        </param>
+        <briefdescription>
+<para>This function selects the Source to be monitored. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SrcSel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value of the sourceselect.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Domain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is one of the counter like lpd_main or r5_domain </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CounterNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Counter Number. The valid values are 0 to 9.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success XST_FAILURE on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Set the source 000 - OFF Counter disabled. 001 - CYCLE8 Probe clock cycles. 002 - IDLE Idle cycles during which no packet data is observed. 003 - XFER Transfer cycles during which packet data is transferred. 004 - BUSY Busy cycles during which the packet data is made available by the transmitting agent but the receiving agent is not ready to receive it. 005 - WAIT Wait cycles during a packet in which the transmitting agent suspends the transfer of packet data. 006 - PKT Packets. 007 - LUT1 Packets selected by the LUT. 008 - BYTE2 Total number of payload bytes.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="530" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="530" bodyend="566"/>
+        <references refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" compoundref="xpmonpsv_8h" startline="102">XPmonPsv::IsReady</references>
+        <references refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" compoundref="xpmonpsv_8h" startline="103">XPmonPsv::RequestedCounters</references>
+        <references refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" compoundref="xpmonpsv__hw_8h" startline="124">XPmonPsv_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__pmonpsv_1gace779962fd5f79ca06427ec1340d553c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPmonPsv_SetPort</definition>
+        <argsstring>(const XPmonPsv *InstancePtr, u32 PortSel, u32 Domain, u32 CounterNum)</argsstring>
+        <name>XPmonPsv_SetPort</name>
+        <param>
+          <type>const <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PortSel</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Domain</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CounterNum</declname>
+        </param>
+        <briefdescription>
+<para>This function selects the Port to be monitored. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PortSel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value of the portselect. eg:for lpd_main 0: lpd_fpd_axi 1: prot_xppu for r5_domain 0 : lpd_afifs_axi 1 : lpd_ocm 2 : lpd_ocmext 3 : lpd_pmc_rpu_axi0</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Domain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is one of the counter like lpd_main or r5_domain </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CounterNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Counter Number. The valid values are 0 to 9.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success XST_FAILURE on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" line="592" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.c" bodystart="592" bodyend="613"/>
+        <references refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" compoundref="xpmonpsv_8h" startline="102">XPmonPsv::IsReady</references>
+        <references refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" compoundref="xpmonpsv_8h" startline="103">XPmonPsv::RequestedCounters</references>
+        <references refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" compoundref="xpmonpsv__hw_8h" startline="124">XPmonPsv_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__pmonpsv_1gadf7106c6ca8857f9661ba1f7b9411dde" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_pmon_psv___config" kindref="compound">XPmonPsv_Config</ref> *</type>
+        <definition>XPmonPsv_Config * XPmonPsv_LookupConfig</definition>
+        <argsstring>(u16 DeviceId)</argsstring>
+        <name>XPmonPsv_LookupConfig</name>
+        <param>
+          <type>u16</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>Functions in xpmonpsv_sinit.c. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function looks up the device configuration based on the unique device ID.</para><para>The table XPmonPsv_ConfigTable contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the ID of the device for which the device configuration pointer is to be returned.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>A pointer to the configuration found.</para></listitem><listitem><para>NULL if the specified device ID was not found.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_sint.c" bodystart="63" bodyend="76"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__pmonpsv_1gaa99a92760884b62d8a91c45730b2d26a" prot="public" static="no">
+        <name>XPSVPMON_H</name>
+        <initializer>/* by using protection macros  */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gab2e66267031a905fe68e1722b4138117" prot="public" static="no">
+        <name>XPMONPSV_R5_DOMAIN</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gaeedd4ca889f1dd7113c4a9fe9a0287e2" prot="public" static="no">
+        <name>XPMONPSV_LPD_MAIN_DOMAIN</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga376e5106c40a05f090b345f937ff2171" prot="public" static="no">
+        <name>XPMONPSV_MAX_COUNTERS</name>
+        <initializer>10U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gadbf8851a8507632a05e64fba2b406697" prot="public" static="no">
+        <name>XPMONPSV_HW_H</name>
+        <initializer>/* by using protection macros  */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gaf75c12bc9c0d7c1edbbe3f9623243d07" prot="public" static="no">
+        <name>PMONPSV_APM0_LAR</name>
+        <initializer>0x0FB0U</initializer>
+        <briefdescription>
+<para>Performance Monitor Register offsets. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__pmonpsv_1ga84fcdf6169d586181aaea1223a82bce1" compoundref="xpmonpsv_8c" startline="462" endline="468">XPmonPsv_Lock</referencedby>
+        <referencedby refid="group__pmonpsv_1ga10df3b03dcc3e64fb7b8b8bb98ff42d0" compoundref="xpmonpsv_8c" startline="444" endline="450">XPmonPsv_Unlock</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga68de29de7f0adbb2fc40d67b5309b584" prot="public" static="no">
+        <name>PMONPSV_APM0_LSR</name>
+        <initializer>0x0FB4U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga6678637b98dfd977d52c42dcaa1f3b45" prot="public" static="no">
+        <name>LPD_MAIN_OFFSET</name>
+        <initializer>0x4000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gad34518198726d61bfb36472a952a2082" prot="public" static="no">
+        <name>PMONPSV_PROBE1_MAINCTRL</name>
+        <initializer>0x3008U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga44f06612e8a60529c72ff7ca5afd504e" prot="public" static="no">
+        <name>PMONPSV_WR_REQ_COUNTER0_PORTSEL</name>
+        <initializer>0x3134U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga6e787cab62561f68e0cadb7391d4327e" prot="public" static="no">
+        <name>PMONPSV_WR_REQ_COUNTER0_SRC</name>
+        <initializer>0x3138U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga5627994e831f8956d8fcc074f3d251ed" prot="public" static="no">
+        <name>PMONPSV_PROBE1_STATPERIOD</name>
+        <initializer>0x3024U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gab8cc6babd278874ddc41422d9c8da75f" prot="public" static="no">
+        <name>PMONPSV_PROBE1_CFGCTRL</name>
+        <initializer>0X300CU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gada385628398e80e890fd063455d16254" prot="public" static="no">
+        <name>PMONPSV_WR_REQ_COUNTER0_VAL</name>
+        <initializer>0X313CU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gae85fcbcfd0719d913401c6acaf40bed4" prot="public" static="no">
+        <name>PMONPSV_PROBE2_MAINCTRL</name>
+        <initializer>0X4008U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga65cfa55bf6599753d75a64b194b12bb5" prot="public" static="no">
+        <name>PMONPSV_WR_RESP_COUNTER0_PORTSEL</name>
+        <initializer>0x4134U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gacf55676c46c32a1e7d18d2e3b7603258" prot="public" static="no">
+        <name>PMONPSV_WR_RESP_COUNTER0_SRC</name>
+        <initializer>0x4138U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga49e74dd6ce6d81c0169604fa9b5b001c" prot="public" static="no">
+        <name>PMONPSV_PROBE2_STATPERIOD</name>
+        <initializer>0x4024U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gabc05deb616ba6a4b6dead96026d10f4a" prot="public" static="no">
+        <name>PMONPSV_PROBE2_CFGCTRL</name>
+        <initializer>0x400CU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga63e565bc4dd71de7a3f3e3be22131874" prot="public" static="no">
+        <name>PMONPSV_WR_RESP_COUNTER0_VAL</name>
+        <initializer>0x413CU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gae6cc92cc40dfca11975461f90d008bb2" prot="public" static="no">
+        <name>PMONPSV_PROBE3_MAINCTRL</name>
+        <initializer>0X1008U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gad708e6ec8435452f270211602a3cd504" prot="public" static="no">
+        <name>PMONPSV_RD_REQ_COUNTER0_PORTSEL</name>
+        <initializer>0x1134U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gadfcff0c6802f5cad5fc0e25429cd56a4" prot="public" static="no">
+        <name>PMONPSV_RD_REQ_COUNTER0_SRC</name>
+        <initializer>0x1138U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga19871fe800e9df3002f76446364fedd8" prot="public" static="no">
+        <name>PMONPSV_RD_REQ_COUNTER0_VAL</name>
+        <initializer>0x113CU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga35d981e6d7d8ce5dc3a57d649c9ee6a9" prot="public" static="no">
+        <name>PMONPSV_PROBE3_STATPERIOD</name>
+        <initializer>0x1024U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga982bfd8805f794bd95ac5c25852e372e" prot="public" static="no">
+        <name>PMONPSV_PROBE3_CFGCTRL</name>
+        <initializer>0x100CU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gad056f0ecde3a36a2f434a137a9e76f94" prot="public" static="no">
+        <name>PMONPSV_PROBE4_MAINCTRL</name>
+        <initializer>0X2008U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga0738db8d6b200a56d3bc6ee5c9573b3b" prot="public" static="no">
+        <name>PMONPSV_RD_RESP_COUNTER0_PORTSEL</name>
+        <initializer>0x2134U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gae69f73958274c482e7393830efdfdf20" prot="public" static="no">
+        <name>PMONPSV_RD_RESP_COUNTER0_SRC</name>
+        <initializer>0x2138U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga3a93fe8fb222c60ca06c3cfe7af0dbf2" prot="public" static="no">
+        <name>PMONPSV_RD_RESP_COUNTER0_VAL</name>
+        <initializer>0x213CU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gab9066949f0ab93e2ec18b4663d395719" prot="public" static="no">
+        <name>PMONPSV_PROBE4_STATPERIOD</name>
+        <initializer>0x2024U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gae4f36d6fd6da1d3b13d7054f84ee8e21" prot="public" static="no">
+        <name>PMONPSV_PROBE4_CFGCTRL</name>
+        <initializer>0x200CU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga200bb94ffe88c1d209e8d6c699358b70" prot="public" static="no">
+        <name>XPMONPSV_COUNTER_OFFSET</name>
+        <initializer>0x14U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga6227dd1bf6ecbd51b437b388c74cf97f" prot="public" static="no">
+        <name>MAINCTRL_STATEN_MASK</name>
+        <initializer>0x8U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gad877bbddae9599417380e654d411a266" prot="public" static="no">
+        <name>MAINCTRL_STATCONDDUMP_MASK</name>
+        <initializer>0x20U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gab8ab442321e2ab5659d900afb6d1284f" prot="public" static="no">
+        <name>STATPERIOD_PERIOD_MASK</name>
+        <initializer>0x1FU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga9d0acac532b649b16481a883ffbfa480" prot="public" static="no">
+        <name>CFGCTRL_GLOBALEN_MASK</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga69ff4f438bc221a2944477fafe519577" prot="public" static="no">
+        <name>CFGCTRL_ACTIVE_MASK</name>
+        <initializer>0x2U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gacc0ae31abca813a507dc900990c7f133" prot="public" static="no">
+        <name>XPmonPsv_ReadReg</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>(Xil_In32((InstancePtr-&gt;Config.BaseAddress) + (RegOffset)))</initializer>
+        <briefdescription>
+<para>Read a register of the Performance Monitor device. </para>        </briefdescription>
+        <detaileddescription>
+<para>This macro provides register access to all registers using the register offsets defined above.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains Instance pointer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the offset of the register to read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The contents of the register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="107" bodyend="-1"/>
+        <referencedby refid="group__pmonpsv_1ga8969db0e19b31ea48690fb6f8e8c0208" compoundref="xpmonpsv_8c" startline="221" endline="252">XPmonPsv_GetMetrics</referencedby>
+        <referencedby refid="group__pmonpsv_1ga1ddd643de28219ab0c50aab729ddd058" compoundref="xpmonpsv_8c" startline="356" endline="382">XPmonPsv_GetReadCounter</referencedby>
+        <referencedby refid="group__pmonpsv_1ga57d5aae6b20218e6fbca2ce9e90e3c12" compoundref="xpmonpsv_8c" startline="275" endline="300">XPmonPsv_GetWriteCounter</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" prot="public" static="no">
+        <name>XPmonPsv_WriteReg</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>(Xil_Out32( InstancePtr-&gt;Config.BaseAddress +  (RegOffset), (Data)))</initializer>
+        <briefdescription>
+<para>Write a register of the Performance Monitor device. </para>        </briefdescription>
+        <detaileddescription>
+<para>This macro provides register access to all registers using the register offsets defined above.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains Instance pointer contains the Baseaddress. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the offset of the register to write. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to write to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="124" bodyend="-1"/>
+        <referencedby refid="group__pmonpsv_1gadb59f26ba546912f1adb10aaa315148c" compoundref="xpmonpsv_8c" startline="400" endline="431">XPmonPsv_EnableCounters</referencedby>
+        <referencedby refid="group__pmonpsv_1ga84fcdf6169d586181aaea1223a82bce1" compoundref="xpmonpsv_8c" startline="462" endline="468">XPmonPsv_Lock</referencedby>
+        <referencedby refid="group__pmonpsv_1gaf9da08c69ce00c2dd67828196f443a51" compoundref="xpmonpsv_8c" startline="111" endline="150">XPmonPsv_ResetCounter</referencedby>
+        <referencedby refid="group__pmonpsv_1gae01033d281536814a9a0578e6029ed4f" compoundref="xpmonpsv_8c" startline="171" endline="202">XPmonPsv_SetMetrics</referencedby>
+        <referencedby refid="group__pmonpsv_1gace779962fd5f79ca06427ec1340d553c" compoundref="xpmonpsv_8c" startline="592" endline="613">XPmonPsv_SetPort</referencedby>
+        <referencedby refid="group__pmonpsv_1ga7e7371e8483b02cd647f795976658040" compoundref="xpmonpsv_8c" startline="530" endline="566">XPmonPsv_SetSrc</referencedby>
+        <referencedby refid="group__pmonpsv_1gaea617c99cf28bd06a05856209b6e0ae1" compoundref="xpmonpsv_8c" startline="484" endline="511">XPmonPsv_StopCounter</referencedby>
+        <referencedby refid="group__pmonpsv_1ga10df3b03dcc3e64fb7b8b8bb98ff42d0" compoundref="xpmonpsv_8c" startline="444" endline="450">XPmonPsv_Unlock</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the driver API functions that can be used to access the Performance Monitor device. </para>    </briefdescription>
+    <detaileddescription>
+<para>This file contains the implementation of the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> driver&apos;s static initialization functionality.</para><para>This header file contains identifiers and basic driver functions (or macros) that can be used to access the Performance Monitor.</para><para>This file contains a configuration table that specifies the configuration of Coresight PMon devices in the system.</para><para>}</para><para>Refer to the <ref refid="xpmonpsv_8h" kindref="compound">xpmonpsv.h</ref> header file for more information about this driver.</para><para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.0 sd   01/20/19  First release
+    sd   03/05/19  Fix the counter check
+2.0 sd   04/22/20  Rename the APIs
+</preformatted></para><para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.0 sd   01/20/19 First release
+2.0 sd   04/22/20  Rename the APIs
+</preformatted></para><para>Refer to the device specification for more information about this driver.</para><para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.0 sd    01/20/19 First release
+2.0 sd    04/22/20  Rename the APIs
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

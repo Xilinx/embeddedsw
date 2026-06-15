@@ -1,0 +1,831 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xiic__i_8h" kind="file">
+    <compoundname>xiic_i.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xiic_8h" local="yes">xiic.h</includes>
+    <includedby refid="xiic_8c" local="yes">xiic.c</includedby>
+    <includedby refid="xiic__dyn__master_8c" local="yes">xiic_dyn_master.c</includedby>
+    <includedby refid="xiic__intr_8c" local="yes">xiic_intr.c</includedby>
+    <includedby refid="xiic__master_8c" local="yes">xiic_master.c</includedby>
+    <includedby refid="xiic__multi__master_8c" local="yes">xiic_multi_master.c</includedby>
+    <includedby refid="xiic__options_8c" local="yes">xiic_options.c</includedby>
+    <includedby refid="xiic__selftest_8c" local="yes">xiic_selftest.c</includedby>
+    <includedby refid="xiic__sinit_8c" local="yes">xiic_sinit.c</includedby>
+    <includedby refid="xiic__slave_8c" local="yes">xiic_slave.c</includedby>
+    <includedby refid="xiic__stats_8c" local="yes">xiic_stats.c</includedby>
+    <incdepgraph>
+      <node id="92">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="96">
+        <label>xil_io.h</label>
+      </node>
+      <node id="95">
+        <label>xiic_l.h</label>
+        <link refid="xiic__l_8h"/>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+      </node>
+      <node id="90">
+        <label>xiic_i.h</label>
+        <link refid="xiic_i.h"/>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+      </node>
+      <node id="93">
+        <label>xstatus.h</label>
+      </node>
+      <node id="91">
+        <label>xil_types.h</label>
+      </node>
+      <node id="94">
+        <label>xiic.h</label>
+        <link refid="xiic_8h"/>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="100">
+        <label>xiic_intr.c</label>
+        <link refid="xiic__intr_8c"/>
+      </node>
+      <node id="99">
+        <label>xiic_dyn_master.c</label>
+        <link refid="xiic__dyn__master_8c"/>
+      </node>
+      <node id="104">
+        <label>xiic_selftest.c</label>
+        <link refid="xiic__selftest_8c"/>
+      </node>
+      <node id="102">
+        <label>xiic_multi_master.c</label>
+        <link refid="xiic__multi__master_8c"/>
+      </node>
+      <node id="106">
+        <label>xiic_slave.c</label>
+        <link refid="xiic__slave_8c"/>
+      </node>
+      <node id="97">
+        <label>xiic_i.h</label>
+        <link refid="xiic_i.h"/>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+      </node>
+      <node id="101">
+        <label>xiic_master.c</label>
+        <link refid="xiic__master_8c"/>
+      </node>
+      <node id="107">
+        <label>xiic_stats.c</label>
+        <link refid="xiic__stats_8c"/>
+      </node>
+      <node id="105">
+        <label>xiic_sinit.c</label>
+        <link refid="xiic__sinit_8c"/>
+      </node>
+      <node id="98">
+        <label>xiic.c</label>
+        <link refid="xiic_8c"/>
+      </node>
+      <node id="103">
+        <label>xiic_options.c</label>
+        <link refid="xiic__options_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___overview_1ga4f1e39bbd5eaa59824abf5d7904e053f" prot="public" static="no">
+        <name>XIIC_I_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga2001584e918a36a4bfdad231b445d99b" prot="public" static="no">
+        <name>XIic_Send10BitAddrByte1</name>
+        <param><defname>SlaveAddress</defname></param>
+        <param><defname>Operation</defname></param>
+        <initializer>{									\
+	u8 LocalAddr = (u8)((SlaveAddress) &gt;&gt; 7);			\
+	LocalAddr = (LocalAddr &amp; 0xF6) | 0xF0 | (Operation);		\
+	XIic_WriteReg(InstancePtr-&gt;BaseAddress, XIIC_DTR_REG_OFFSET,	\
+			(u32) LocalAddr);				\
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga19cce81b13c7a687ae09311c79918ee0" prot="public" static="no">
+        <name>XIic_Send10BitAddrByte2</name>
+        <param><defname>SlaveAddress</defname></param>
+        <initializer><ref refid="xiic__l_8h_1a7a9318f43afc81c1dbd30a27587ba51d" kindref="member">XIic_WriteReg</ref>(InstancePtr-&gt;BaseAddress, <ref refid="group___overview_1ga63ef537f0fba0aa0c68f9be05516c6c9" kindref="member">XIIC_DTR_REG_OFFSET</ref>,	\
+			(u32)(SlaveAddress));				\</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga0479da320de8a400d6d40748655111ac" prot="public" static="no">
+        <name>XIic_Send7BitAddr</name>
+        <param><defname>SlaveAddress</defname></param>
+        <param><defname>Operation</defname></param>
+        <initializer>{									\
+	u8 LocalAddr = (u8)(SlaveAddress &lt;&lt; 1);			\
+	LocalAddr = (LocalAddr &amp; 0xFE) | (Operation);			\
+	XIic_WriteReg(InstancePtr-&gt;BaseAddress, XIIC_DTR_REG_OFFSET,	\
+			(u32) LocalAddr); 				\
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga8a0957e678ee52796740e343c783ba63" prot="public" static="no">
+        <name>XIic_DisableIntr</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>InterruptMask</defname></param>
+        <initializer><ref refid="xiic__l_8h_1a2f926a076e9a6b80bea46664d2e55ee9" kindref="member">XIic_WriteIier</ref>((BaseAddress),					\
+		<ref refid="xiic__l_8h_1aee17ffc86a8270abeb1319e8c67ccce5" kindref="member">XIic_ReadIier</ref>(BaseAddress) &amp; ~(InterruptMask))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga4240b23da2af69b3241bfad09012121d" prot="public" static="no">
+        <name>XIic_EnableIntr</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>InterruptMask</defname></param>
+        <initializer><ref refid="xiic__l_8h_1a2f926a076e9a6b80bea46664d2e55ee9" kindref="member">XIic_WriteIier</ref>((BaseAddress),					\
+		<ref refid="xiic__l_8h_1aee17ffc86a8270abeb1319e8c67ccce5" kindref="member">XIic_ReadIier</ref>(BaseAddress) | (InterruptMask))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gabdc7dde7268b381e056c38ebb760fed5" prot="public" static="no">
+        <name>XIic_ClearIntr</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>InterruptMask</defname></param>
+        <initializer><ref refid="xiic__l_8h_1a3bc448908013aceb690c84fdbb7d66a8" kindref="member">XIic_WriteIisr</ref>((BaseAddress),					\
+		<ref refid="xiic__l_8h_1af69a6487ad62b105aa3bb8d0e25b7fe7" kindref="member">XIic_ReadIisr</ref>(BaseAddress) &amp; (InterruptMask))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga538db75a9a83f1f886fa07d4fcabaf75" prot="public" static="no">
+        <name>XIic_ClearEnableIntr</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>InterruptMask</defname></param>
+        <initializer>{									\
+	<ref refid="xiic__l_8h_1a3bc448908013aceb690c84fdbb7d66a8" kindref="member">XIic_WriteIisr</ref>(BaseAddress,					\
+		(<ref refid="xiic__l_8h_1af69a6487ad62b105aa3bb8d0e25b7fe7" kindref="member">XIic_ReadIisr</ref>(BaseAddress) &amp; (InterruptMask))); 	\
+									\
+	<ref refid="xiic__l_8h_1a2f926a076e9a6b80bea46664d2e55ee9" kindref="member">XIic_WriteIier</ref>(BaseAddress,					\
+		(<ref refid="xiic__l_8h_1aee17ffc86a8270abeb1319e8c67ccce5" kindref="member">XIic_ReadIier</ref>(BaseAddress) | (InterruptMask)));	\
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" line="212" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga3bc2f28ee08572ad4b7ee2c60ec1c51f" prot="public" static="no">
+        <name>XIic_FlushRxFifo</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>{									\
+	int LoopCnt;							\
+	u8 BytesToRead = <ref refid="xiic__l_8h_1ab28be58b11c65ecc54fc2f0c300412c1" kindref="member">XIic_ReadReg</ref>(InstancePtr-&gt;BaseAddress,	\
+				<ref refid="group___overview_1gabe647af8022928553f2fd3bb05bfa80a" kindref="member">XIIC_RFO_REG_OFFSET</ref>) + 1;		\
+	for(LoopCnt = 0; LoopCnt &lt; BytesToRead; LoopCnt++)		\
+	{								\
+		 <ref refid="xiic__l_8h_1ab28be58b11c65ecc54fc2f0c300412c1" kindref="member">XIic_ReadReg</ref>(InstancePtr-&gt;BaseAddress,	\
+					  <ref refid="group___overview_1ga8b1aea0734d4d8fc3d883ef2d6d63494" kindref="member">XIIC_DRR_REG_OFFSET</ref>);		\
+	}								\
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" line="235" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gadd812aa67876ac9ca0b296b4bb2596bc" prot="public" static="no">
+        <name>XIic_FlushTxFifo</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>;					\
+{									\
+	u32 CntlReg = <ref refid="xiic__l_8h_1ab28be58b11c65ecc54fc2f0c300412c1" kindref="member">XIic_ReadReg</ref>(InstancePtr-&gt;BaseAddress,		\
+					<ref refid="group___overview_1ga03585e458e3c5adf56986e7c2c3d9d42" kindref="member">XIIC_CR_REG_OFFSET</ref>);		\
+	<ref refid="xiic__l_8h_1a7a9318f43afc81c1dbd30a27587ba51d" kindref="member">XIic_WriteReg</ref>(InstancePtr-&gt;BaseAddress, <ref refid="group___overview_1ga03585e458e3c5adf56986e7c2c3d9d42" kindref="member">XIIC_CR_REG_OFFSET</ref>,	\
+			CntlReg | <ref refid="xiic__l_8h_1a2342662b2911c5aea24b397e17be7e41" kindref="member">XIIC_CR_TX_FIFO_RESET_MASK</ref>);		\
+	<ref refid="xiic__l_8h_1a7a9318f43afc81c1dbd30a27587ba51d" kindref="member">XIic_WriteReg</ref>(InstancePtr-&gt;BaseAddress, <ref refid="group___overview_1ga03585e458e3c5adf56986e7c2c3d9d42" kindref="member">XIIC_CR_REG_OFFSET</ref>,	\
+			CntlReg);					\
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" line="261" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gab4f1c072a81640b2ef39e018be0fd1e9" prot="public" static="no">
+        <name>XIic_ReadRecvByte</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>{									\
+	*InstancePtr-&gt;RecvBufferPtr++ =					\
+	<ref refid="xiic__l_8h_1ab28be58b11c65ecc54fc2f0c300412c1" kindref="member">XIic_ReadReg</ref>(InstancePtr-&gt;BaseAddress, <ref refid="group___overview_1ga8b1aea0734d4d8fc3d883ef2d6d63494" kindref="member">XIIC_DRR_REG_OFFSET</ref>);	\
+	InstancePtr-&gt;RecvByteCount--;					\
+	InstancePtr-&gt;Stats.RecvBytes++;					\
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" line="284" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga82d6f149b715c8f236cd26eeae2efeac" prot="public" static="no">
+        <name>XIic_WriteSendByte</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>{									\
+	<ref refid="xiic__l_8h_1a7a9318f43afc81c1dbd30a27587ba51d" kindref="member">XIic_WriteReg</ref>(InstancePtr-&gt;BaseAddress, <ref refid="group___overview_1ga63ef537f0fba0aa0c68f9be05516c6c9" kindref="member">XIIC_DTR_REG_OFFSET</ref>,	\
+		*InstancePtr-&gt;SendBufferPtr++);				\
+	InstancePtr-&gt;SendByteCount--;					\
+	InstancePtr-&gt;Stats.SendBytes++;					\
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" line="305" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga5b8c330e8cacc286d9cd1ddee97bf8b0" prot="public" static="no">
+        <name>XIic_SetControlRegister</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>ControlRegister</defname></param>
+        <param><defname>ByteCount</defname></param>
+        <initializer>{									      \
+	(ControlRegister) &amp;= ~(<ref refid="xiic__l_8h_1a79990adaa6f077302644d7b787b19c53" kindref="member">XIIC_CR_NO_ACK_MASK</ref> | <ref refid="xiic__l_8h_1aefca9cb59ce820ea4fbb4c35f5a1fa55" kindref="member">XIIC_CR_DIR_IS_TX_MASK</ref>); \
+	if (InstancePtr-&gt;Options &amp; XII_SEND_10_BIT_OPTION) {		\
+		(ControlRegister) |= <ref refid="xiic__l_8h_1aefca9cb59ce820ea4fbb4c35f5a1fa55" kindref="member">XIIC_CR_DIR_IS_TX_MASK</ref>;		\
+	} else {							\
+		if ((ByteCount) == 1)					\
+		{							\
+			(ControlRegister) |= <ref refid="xiic__l_8h_1a79990adaa6f077302644d7b787b19c53" kindref="member">XIIC_CR_NO_ACK_MASK</ref>;	\
+		}							\
+	}								\
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" line="332" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" bodystart="332" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group___overview_1ga1650420711273450b9b406d43f10dd0d" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_iic___config" kindref="compound">XIic_Config</ref></type>
+        <definition>XIic_Config XIic_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XIic_ConfigTable</name>
+        <briefdescription>
+<para>The IIC configuration table, sized by the number of instances defined in xparameters.h. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" line="347" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_g.c" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga7e448669953bf36074837f174726814d" compoundref="xiic__sinit_8c" startline="93" endline="107">XIic_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1gae0a9428943356b0a3fdd428904a04415" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* XIic_AddrAsSlaveFuncPtr)(XIic *InstancePtr)</definition>
+        <argsstring>)(XIic *InstancePtr)</argsstring>
+        <name>XIic_AddrAsSlaveFuncPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" line="353" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_intr.c" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga43a27550587a3a53182047c3baf7e144" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* XIic_NotAddrAsSlaveFuncPtr)(XIic *InstancePtr)</definition>
+        <argsstring>)(XIic *InstancePtr)</argsstring>
+        <name>XIic_NotAddrAsSlaveFuncPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_intr.c" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga7de04d074363f55a605c5201dfcd0628" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* XIic_RecvSlaveFuncPtr)(XIic *InstancePtr)</definition>
+        <argsstring>)(XIic *InstancePtr)</argsstring>
+        <name>XIic_RecvSlaveFuncPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_intr.c" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga6ce5bf203786118954ba78ee8ab8fbd2" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* XIic_SendSlaveFuncPtr)(XIic *InstancePtr)</definition>
+        <argsstring>)(XIic *InstancePtr)</argsstring>
+        <name>XIic_SendSlaveFuncPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_intr.c" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga6fcd6cf98cb6c668f7b325b1d11bf80b" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* XIic_RecvMasterFuncPtr)(XIic *InstancePtr)</definition>
+        <argsstring>)(XIic *InstancePtr)</argsstring>
+        <name>XIic_RecvMasterFuncPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_intr.c" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga6affd51ad0369eabd5457cea02923379" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* XIic_SendMasterFuncPtr)(XIic *InstancePtr)</definition>
+        <argsstring>)(XIic *InstancePtr)</argsstring>
+        <name>XIic_SendMasterFuncPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_intr.c" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga16ab453a908fe5adb46e264b55741581" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* XIic_ArbLostFuncPtr)(XIic *InstancePtr)</definition>
+        <argsstring>)(XIic *InstancePtr)</argsstring>
+        <name>XIic_ArbLostFuncPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_intr.c" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1gad00810955d6e3be6995b674d3776f627" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* XIic_BusNotBusyFuncPtr)(XIic *InstancePtr)</definition>
+        <argsstring>)(XIic *InstancePtr)</argsstring>
+        <name>XIic_BusNotBusyFuncPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_intr.c" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___overview_1gab68f6a977445ce2895c94be4a0654ec1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIic_TransmitFifoFill</definition>
+        <argsstring>(XIic *InstancePtr, int Role)</argsstring>
+        <name>XIic_TransmitFifoFill</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Role</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h" line="362" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_intr.c" bodystart="247" bodyend="282"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor">#ifndef<sp/>XIIC_I_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIIC_I_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiic_8h" kindref="compound">xiic.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="74"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="75"><highlight class="comment">*<sp/>This<sp/>macro<sp/>sends<sp/>the<sp/>first<sp/>byte<sp/>of<sp/>the<sp/>address<sp/>for<sp/>a<sp/>10<sp/>bit<sp/>address<sp/>during</highlight></codeline>
+<codeline lineno="76"><highlight class="comment">*<sp/>both<sp/>read<sp/>and<sp/>write<sp/>operations.<sp/>It<sp/>takes<sp/>care<sp/>of<sp/>the<sp/>details<sp/>to<sp/>format<sp/>the</highlight></codeline>
+<codeline lineno="77"><highlight class="comment">*<sp/>address<sp/>correctly.</highlight></codeline>
+<codeline lineno="78"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="79"><highlight class="comment">*<sp/>address<sp/>=<sp/>1111_0xxD<sp/><sp/><sp/>xx<sp/>=<sp/>address<sp/>MSBits</highlight></codeline>
+<codeline lineno="80"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>D<sp/>=<sp/>Tx<sp/>direction<sp/>=<sp/>0<sp/>=<sp/>write</highlight></codeline>
+<codeline lineno="81"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="82"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SlaveAddress<sp/>contains<sp/>the<sp/>address<sp/>of<sp/>the<sp/>slave<sp/>to<sp/>send<sp/>to.</highlight></codeline>
+<codeline lineno="83"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Operation<sp/>indicates<sp/>XIIC_READ_OPERATION<sp/>or<sp/>XIIC_WRITE_OPERATION</highlight></codeline>
+<codeline lineno="84"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="85"><highlight class="comment">*<sp/>@return<sp/><sp/><sp/><sp/><sp/><sp/><sp/>None.</highlight></codeline>
+<codeline lineno="86"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="87"><highlight class="comment">*<sp/>@note<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Signature:</highlight></codeline>
+<codeline lineno="88"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>XIic_Send10BitAddrByte1(u16<sp/>SlaveAddress,<sp/>u8<sp/>Operation);</highlight></codeline>
+<codeline lineno="89"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="90"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIic_Send10BitAddrByte1(SlaveAddress,<sp/>Operation)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor">{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>LocalAddr<sp/>=<sp/>(u8)((SlaveAddress)<sp/>&gt;&gt;<sp/>7);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LocalAddr<sp/>=<sp/>(LocalAddr<sp/>&amp;<sp/>0xF6)<sp/>|<sp/>0xF0<sp/>|<sp/>(Operation);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_WriteReg(InstancePtr-&gt;BaseAddress,<sp/>XIIC_DTR_REG_OFFSET,<sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<sp/>LocalAddr);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor">}</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="100"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="101"><highlight class="comment">*<sp/>This<sp/>macro<sp/>sends<sp/>the<sp/>second<sp/>byte<sp/>of<sp/>the<sp/>address<sp/>for<sp/>a<sp/>10<sp/>bit<sp/>address<sp/>during</highlight></codeline>
+<codeline lineno="102"><highlight class="comment">*<sp/>both<sp/>read<sp/>and<sp/>write<sp/>operations.<sp/>It<sp/>takes<sp/>care<sp/>of<sp/>the<sp/>details<sp/>to<sp/>format<sp/>the</highlight></codeline>
+<codeline lineno="103"><highlight class="comment">*<sp/>address<sp/>correctly.</highlight></codeline>
+<codeline lineno="104"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="105"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SlaveAddress<sp/>contains<sp/>the<sp/>address<sp/>of<sp/>the<sp/>slave<sp/>to<sp/>send<sp/>to.</highlight></codeline>
+<codeline lineno="106"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="107"><highlight class="comment">*<sp/>@return<sp/><sp/><sp/><sp/><sp/><sp/><sp/>None.</highlight></codeline>
+<codeline lineno="108"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="109"><highlight class="comment">*<sp/>@note<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Signature:<sp/>void<sp/>XIic_Send10BitAddrByte2(u16<sp/>SlaveAddress,</highlight></codeline>
+<codeline lineno="110"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Operation);</highlight></codeline>
+<codeline lineno="111"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="112"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIic_Send10BitAddrByte2(SlaveAddress)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_WriteReg(InstancePtr-&gt;BaseAddress,<sp/>XIIC_DTR_REG_OFFSET,<sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(SlaveAddress));<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="118"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="119"><highlight class="comment">*<sp/>This<sp/>macro<sp/>sends<sp/>the<sp/>address<sp/>for<sp/>a<sp/>7<sp/>bit<sp/>address<sp/>during<sp/>both<sp/>read<sp/>and<sp/>write</highlight></codeline>
+<codeline lineno="120"><highlight class="comment">*<sp/>operations.<sp/>It<sp/>takes<sp/>care<sp/>of<sp/>the<sp/>details<sp/>to<sp/>format<sp/>the<sp/>address<sp/>correctly.</highlight></codeline>
+<codeline lineno="121"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="122"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SlaveAddress<sp/>contains<sp/>the<sp/>address<sp/>of<sp/>the<sp/>slave<sp/>to<sp/>send<sp/>to.</highlight></codeline>
+<codeline lineno="123"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Operation<sp/>indicates<sp/>XIIC_READ_OPERATION<sp/>or<sp/>XIIC_WRITE_OPERATION</highlight></codeline>
+<codeline lineno="124"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="125"><highlight class="comment">*<sp/>@return<sp/><sp/><sp/><sp/><sp/><sp/><sp/>None.</highlight></codeline>
+<codeline lineno="126"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="127"><highlight class="comment">*<sp/>@note<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Signature:</highlight></codeline>
+<codeline lineno="128"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>XIic_Send7BitAddr(u16<sp/>SlaveAddress,<sp/>u8<sp/>Operation);</highlight></codeline>
+<codeline lineno="129"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="130"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIic_Send7BitAddr(SlaveAddress,<sp/>Operation)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor">{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>LocalAddr<sp/>=<sp/>(u8)(SlaveAddress<sp/>&lt;&lt;<sp/>1);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LocalAddr<sp/>=<sp/>(LocalAddr<sp/>&amp;<sp/>0xFE)<sp/>|<sp/>(Operation);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_WriteReg(InstancePtr-&gt;BaseAddress,<sp/>XIIC_DTR_REG_OFFSET,<sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<sp/>LocalAddr);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor">}</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="140"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="141"><highlight class="comment">*<sp/>This<sp/>macro<sp/>disables<sp/>the<sp/>specified<sp/>interrupts<sp/>in<sp/>the<sp/>Interrupt<sp/>enable</highlight></codeline>
+<codeline lineno="142"><highlight class="comment">*<sp/>register.<sp/><sp/>It<sp/>is<sp/>non-destructive<sp/>in<sp/>that<sp/>the<sp/>register<sp/>is<sp/>read<sp/>and<sp/>only<sp/>the</highlight></codeline>
+<codeline lineno="143"><highlight class="comment">*<sp/>interrupts<sp/>specified<sp/>is<sp/>changed.</highlight></codeline>
+<codeline lineno="144"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="145"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddress<sp/>is<sp/>the<sp/>base<sp/>address<sp/>of<sp/>the<sp/>IIC<sp/>device.</highlight></codeline>
+<codeline lineno="146"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InterruptMask<sp/>contains<sp/>the<sp/>interrupts<sp/>to<sp/>be<sp/>disabled</highlight></codeline>
+<codeline lineno="147"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="148"><highlight class="comment">*<sp/>@return<sp/><sp/><sp/><sp/><sp/><sp/><sp/>None.</highlight></codeline>
+<codeline lineno="149"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="150"><highlight class="comment">*<sp/>@note<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Signature:</highlight></codeline>
+<codeline lineno="151"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>XIic_DisableIntr(u32<sp/>BaseAddress,<sp/>u32<sp/>InterruptMask);</highlight></codeline>
+<codeline lineno="152"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="153"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIic_DisableIntr(BaseAddress,<sp/>InterruptMask)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_WriteIier((BaseAddress),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_ReadIier(BaseAddress)<sp/>&amp;<sp/>~(InterruptMask))</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="159"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="160"><highlight class="comment">*<sp/>This<sp/>macro<sp/>enables<sp/>the<sp/>specified<sp/>interrupts<sp/>in<sp/>the<sp/>Interrupt<sp/>enable</highlight></codeline>
+<codeline lineno="161"><highlight class="comment">*<sp/>register.<sp/><sp/>It<sp/>is<sp/>non-destructive<sp/>in<sp/>that<sp/>the<sp/>register<sp/>is<sp/>read<sp/>and<sp/>only<sp/>the</highlight></codeline>
+<codeline lineno="162"><highlight class="comment">*<sp/>interrupts<sp/>specified<sp/>is<sp/>changed.</highlight></codeline>
+<codeline lineno="163"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="164"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddress<sp/>is<sp/>the<sp/>base<sp/>address<sp/>of<sp/>the<sp/>IIC<sp/>device.</highlight></codeline>
+<codeline lineno="165"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InterruptMask<sp/>contains<sp/>the<sp/>interrupts<sp/>to<sp/>be<sp/>disabled</highlight></codeline>
+<codeline lineno="166"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="167"><highlight class="comment">*<sp/>@return<sp/><sp/><sp/><sp/><sp/><sp/><sp/>None.</highlight></codeline>
+<codeline lineno="168"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="169"><highlight class="comment">*<sp/>@note<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Signature:</highlight></codeline>
+<codeline lineno="170"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>XIic_EnableIntr(u32<sp/>BaseAddress,<sp/>u32<sp/>InterruptMask);</highlight></codeline>
+<codeline lineno="171"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="172"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIic_EnableIntr(BaseAddress,<sp/>InterruptMask)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_WriteIier((BaseAddress),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_ReadIier(BaseAddress)<sp/>|<sp/>(InterruptMask))</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="178"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="179"><highlight class="comment">*<sp/>This<sp/>macro<sp/>clears<sp/>the<sp/>specified<sp/>interrupt<sp/>in<sp/>the<sp/>Interrupt<sp/>status</highlight></codeline>
+<codeline lineno="180"><highlight class="comment">*<sp/>register.<sp/><sp/>It<sp/>is<sp/>non-destructive<sp/>in<sp/>that<sp/>the<sp/>register<sp/>is<sp/>read<sp/>and<sp/>only<sp/>the</highlight></codeline>
+<codeline lineno="181"><highlight class="comment">*<sp/>interrupt<sp/>specified<sp/>is<sp/>cleared.<sp/><sp/>Clearing<sp/>an<sp/>interrupt<sp/>acknowledges<sp/>it.</highlight></codeline>
+<codeline lineno="182"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="183"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddress<sp/>is<sp/>the<sp/>base<sp/>address<sp/>of<sp/>the<sp/>IIC<sp/>device.</highlight></codeline>
+<codeline lineno="184"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InterruptMask<sp/>contains<sp/>the<sp/>interrupts<sp/>to<sp/>be<sp/>disabled</highlight></codeline>
+<codeline lineno="185"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="186"><highlight class="comment">*<sp/>@return<sp/><sp/><sp/><sp/><sp/><sp/><sp/>None.</highlight></codeline>
+<codeline lineno="187"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="188"><highlight class="comment">*<sp/>@note<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Signature:</highlight></codeline>
+<codeline lineno="189"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>XIic_ClearIntr(u32<sp/>BaseAddress,<sp/>u32<sp/>InterruptMask);</highlight></codeline>
+<codeline lineno="190"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="191"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIic_ClearIntr(BaseAddress,<sp/>InterruptMask)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_WriteIisr((BaseAddress),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_ReadIisr(BaseAddress)<sp/>&amp;<sp/>(InterruptMask))</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="197"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="198"><highlight class="comment">*<sp/>This<sp/>macro<sp/>clears<sp/>and<sp/>enables<sp/>the<sp/>specified<sp/>interrupt<sp/>in<sp/>the<sp/>Interrupt</highlight></codeline>
+<codeline lineno="199"><highlight class="comment">*<sp/>status<sp/>and<sp/>enable<sp/>registers.<sp/><sp/>It<sp/>is<sp/>non-destructive<sp/>in<sp/>that<sp/>the<sp/>registers<sp/>are</highlight></codeline>
+<codeline lineno="200"><highlight class="comment">*<sp/>read<sp/>and<sp/>only<sp/>the<sp/>interrupt<sp/>specified<sp/>is<sp/>modified.</highlight></codeline>
+<codeline lineno="201"><highlight class="comment">*<sp/>Clearing<sp/>an<sp/>interrupt<sp/>acknowledges<sp/>it.</highlight></codeline>
+<codeline lineno="202"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="203"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddress<sp/>is<sp/>the<sp/>base<sp/>address<sp/>of<sp/>the<sp/>IIC<sp/>device.</highlight></codeline>
+<codeline lineno="204"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InterruptMask<sp/>contains<sp/>the<sp/>interrupts<sp/>to<sp/>be<sp/>cleared<sp/>and<sp/>enabled</highlight></codeline>
+<codeline lineno="205"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="206"><highlight class="comment">*<sp/>@return<sp/><sp/><sp/><sp/><sp/><sp/><sp/>None.</highlight></codeline>
+<codeline lineno="207"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="208"><highlight class="comment">*<sp/>@note<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Signature:</highlight></codeline>
+<codeline lineno="209"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>XIic_ClearEnableIntr(u32<sp/>BaseAddress,<sp/>u32<sp/>InterruptMask);</highlight></codeline>
+<codeline lineno="210"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="211"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIic_ClearEnableIntr(BaseAddress,<sp/>InterruptMask)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor">{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_WriteIisr(BaseAddress,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XIic_ReadIisr(BaseAddress)<sp/>&amp;<sp/>(InterruptMask)));<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_WriteIier(BaseAddress,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XIic_ReadIier(BaseAddress)<sp/>|<sp/>(InterruptMask)));<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor">}</highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="222"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="223"><highlight class="comment">*<sp/>This<sp/>macro<sp/>flushes<sp/>the<sp/>receive<sp/>FIFO<sp/>such<sp/>that<sp/>all<sp/>bytes<sp/>contained<sp/>within<sp/>it</highlight></codeline>
+<codeline lineno="224"><highlight class="comment">*<sp/>are<sp/>discarded.</highlight></codeline>
+<codeline lineno="225"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="226"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr<sp/>is<sp/>a<sp/>pointer<sp/>to<sp/>the<sp/>IIC<sp/>instance<sp/>containing<sp/>the<sp/>FIFO</highlight></codeline>
+<codeline lineno="227"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>to<sp/>be<sp/>flushed.</highlight></codeline>
+<codeline lineno="228"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="229"><highlight class="comment">*<sp/>@return<sp/><sp/><sp/><sp/><sp/><sp/><sp/>None.</highlight></codeline>
+<codeline lineno="230"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="231"><highlight class="comment">*<sp/>@note<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Signature:</highlight></codeline>
+<codeline lineno="232"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>XIic_FlushRxFifo(XIic<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="233"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="234"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIic_FlushRxFifo(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor">{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int<sp/>LoopCnt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="238"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>BytesToRead<sp/>=<sp/>XIic_ReadReg(InstancePtr-&gt;BaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIIC_RFO_REG_OFFSET)<sp/>+<sp/>1;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="240"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>for(LoopCnt<sp/>=<sp/>0;<sp/>LoopCnt<sp/>&lt;<sp/>BytesToRead;<sp/>LoopCnt++)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="242"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_ReadReg(InstancePtr-&gt;BaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIIC_DRR_REG_OFFSET);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="244"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="245"><highlight class="preprocessor">}</highlight></codeline>
+<codeline lineno="246"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="248"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="249"><highlight class="comment">*<sp/>This<sp/>macro<sp/>flushes<sp/>the<sp/>transmit<sp/>FIFO<sp/>such<sp/>that<sp/>all<sp/>bytes<sp/>contained<sp/>within<sp/>it</highlight></codeline>
+<codeline lineno="250"><highlight class="comment">*<sp/>are<sp/>discarded.</highlight></codeline>
+<codeline lineno="251"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="252"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr<sp/>is<sp/>a<sp/>pointer<sp/>to<sp/>the<sp/>IIC<sp/>instance<sp/>containing<sp/>the<sp/>FIFO</highlight></codeline>
+<codeline lineno="253"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>to<sp/>be<sp/>flushed.</highlight></codeline>
+<codeline lineno="254"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="255"><highlight class="comment">*<sp/>@return<sp/><sp/><sp/><sp/><sp/><sp/><sp/>None.</highlight></codeline>
+<codeline lineno="256"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="257"><highlight class="comment">*<sp/>@note<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Signature:</highlight></codeline>
+<codeline lineno="258"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>XIic_FlushTxFifo(XIic<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="259"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="260"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIic_FlushTxFifo(InstancePtr);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="262"><highlight class="preprocessor">{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="263"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CntlReg<sp/>=<sp/>XIic_ReadReg(InstancePtr-&gt;BaseAddress,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="264"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIIC_CR_REG_OFFSET);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="265"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_WriteReg(InstancePtr-&gt;BaseAddress,<sp/>XIIC_CR_REG_OFFSET,<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="266"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CntlReg<sp/>|<sp/>XIIC_CR_TX_FIFO_RESET_MASK);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_WriteReg(InstancePtr-&gt;BaseAddress,<sp/>XIIC_CR_REG_OFFSET,<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="268"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CntlReg);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="269"><highlight class="preprocessor">}</highlight></codeline>
+<codeline lineno="270"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="272"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="273"><highlight class="comment">*<sp/>This<sp/>macro<sp/>reads<sp/>the<sp/>next<sp/>available<sp/>received<sp/>byte<sp/>from<sp/>the<sp/>receive<sp/>FIFO</highlight></codeline>
+<codeline lineno="274"><highlight class="comment">*<sp/>and<sp/>updates<sp/>all<sp/>the<sp/>data<sp/>structures<sp/>to<sp/>reflect<sp/>it.</highlight></codeline>
+<codeline lineno="275"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="276"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr<sp/>is<sp/>a<sp/>pointer<sp/>to<sp/>the<sp/>IIC<sp/>instance<sp/>to<sp/>be<sp/>operated<sp/>on.</highlight></codeline>
+<codeline lineno="277"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="278"><highlight class="comment">*<sp/>@return<sp/><sp/><sp/><sp/><sp/><sp/><sp/>None.</highlight></codeline>
+<codeline lineno="279"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="280"><highlight class="comment">*<sp/>@note<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Signature:</highlight></codeline>
+<codeline lineno="281"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>XIic_ReadRecvByte(XIic<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="282"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="283"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIic_ReadRecvByte(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="285"><highlight class="preprocessor">{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="286"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*InstancePtr-&gt;RecvBufferPtr++<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="287"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_ReadReg(InstancePtr-&gt;BaseAddress,<sp/>XIIC_DRR_REG_OFFSET);<sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="288"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;RecvByteCount--;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="289"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Stats.RecvBytes++;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="290"><highlight class="preprocessor">}</highlight></codeline>
+<codeline lineno="291"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="293"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="294"><highlight class="comment">*<sp/>This<sp/>macro<sp/>writes<sp/>the<sp/>next<sp/>byte<sp/>to<sp/>be<sp/>sent<sp/>to<sp/>the<sp/>transmit<sp/>FIFO</highlight></codeline>
+<codeline lineno="295"><highlight class="comment">*<sp/>and<sp/>updates<sp/>all<sp/>the<sp/>data<sp/>structures<sp/>to<sp/>reflect<sp/>it.</highlight></codeline>
+<codeline lineno="296"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="297"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr<sp/>is<sp/>a<sp/>pointer<sp/>to<sp/>the<sp/>IIC<sp/>instance<sp/>to<sp/>be<sp/>operated<sp/>on.</highlight></codeline>
+<codeline lineno="298"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="299"><highlight class="comment">*<sp/>@return<sp/><sp/><sp/><sp/><sp/><sp/><sp/>None.</highlight></codeline>
+<codeline lineno="300"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="301"><highlight class="comment">*<sp/>@note<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Signature:</highlight></codeline>
+<codeline lineno="302"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>XIic_WriteSendByte(XIic<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="303"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="304"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIic_WriteSendByte(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="306"><highlight class="preprocessor">{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="307"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_WriteReg(InstancePtr-&gt;BaseAddress,<sp/>XIIC_DTR_REG_OFFSET,<sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="308"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*InstancePtr-&gt;SendBufferPtr++);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="309"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;SendByteCount--;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="310"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Stats.SendBytes++;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="311"><highlight class="preprocessor">}</highlight></codeline>
+<codeline lineno="312"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="314"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="315"><highlight class="comment">*<sp/>This<sp/>macro<sp/>sets<sp/>up<sp/>the<sp/>control<sp/>register<sp/>for<sp/>a<sp/>master<sp/>receive<sp/>operation.</highlight></codeline>
+<codeline lineno="316"><highlight class="comment">*<sp/>A<sp/>write<sp/>is<sp/>necessary<sp/>if<sp/>a<sp/>10<sp/>bit<sp/>operation<sp/>is<sp/>being<sp/>performed.</highlight></codeline>
+<codeline lineno="317"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="318"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr<sp/>is<sp/>a<sp/>pointer<sp/>to<sp/>the<sp/>IIC<sp/>instance<sp/>to<sp/>be<sp/>operated<sp/>on.</highlight></codeline>
+<codeline lineno="319"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ControlRegister<sp/>contains<sp/>the<sp/>contents<sp/>of<sp/>the<sp/>IIC<sp/>device<sp/>control</highlight></codeline>
+<codeline lineno="320"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>register</highlight></codeline>
+<codeline lineno="321"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ByteCount<sp/>contains<sp/>the<sp/>number<sp/>of<sp/>bytes<sp/>to<sp/>be<sp/>received<sp/>for<sp/>the</highlight></codeline>
+<codeline lineno="322"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>master<sp/>receive<sp/>operation</highlight></codeline>
+<codeline lineno="323"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="324"><highlight class="comment">*<sp/>@return<sp/><sp/><sp/><sp/><sp/><sp/><sp/>None.</highlight></codeline>
+<codeline lineno="325"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="326"><highlight class="comment">*<sp/>@note<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Signature:</highlight></codeline>
+<codeline lineno="327"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>XIic_SetControlRegister(XIic<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="328"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ControlRegister,</highlight></codeline>
+<codeline lineno="329"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int<sp/>ByteCount);</highlight></codeline>
+<codeline lineno="330"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="331"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIic_SetControlRegister(InstancePtr,<sp/>ControlRegister,<sp/>ByteCount)<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="333"><highlight class="preprocessor">{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="334"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(ControlRegister)<sp/>&amp;=<sp/>~(XIIC_CR_NO_ACK_MASK<sp/>|<sp/>XIIC_CR_DIR_IS_TX_MASK);<sp/>\</highlight></codeline>
+<codeline lineno="335"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(InstancePtr-&gt;Options<sp/>&amp;<sp/>XII_SEND_10_BIT_OPTION)<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="336"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(ControlRegister)<sp/>|=<sp/>XIIC_CR_DIR_IS_TX_MASK;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="337"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>else<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="338"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>((ByteCount)<sp/>==<sp/>1)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="339"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="340"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(ControlRegister)<sp/>|=<sp/>XIIC_CR_NO_ACK_MASK;<sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="341"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="342"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="343"><highlight class="preprocessor">}</highlight></codeline>
+<codeline lineno="344"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="346"><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_iic___config" kindref="compound">XIic_Config</ref><sp/><ref refid="group___overview_1gabf1a99c517996564a1bfa7ccecd1e6f5" kindref="member">XIic_ConfigTable</ref>[];</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>The<sp/>following<sp/>variables<sp/>are<sp/>shared<sp/>across<sp/>files<sp/>of<sp/>the<sp/>driver<sp/>and</highlight></codeline>
+<codeline lineno="350"><highlight class="comment"><sp/>*<sp/>are<sp/>function<sp/>pointers<sp/>that<sp/>are<sp/>necessary<sp/>to<sp/>break<sp/>dependencies<sp/>allowing</highlight></codeline>
+<codeline lineno="351"><highlight class="comment"><sp/>*<sp/>optional<sp/>parts<sp/>of<sp/>the<sp/>driver<sp/>to<sp/>be<sp/>used<sp/>without<sp/>condition<sp/>compilation</highlight></codeline>
+<codeline lineno="352"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="353"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>void<sp/>(*XIic_AddrAsSlaveFuncPtr)<sp/>(<ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>void<sp/>(*XIic_NotAddrAsSlaveFuncPtr)<sp/>(<ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>void<sp/>(*XIic_RecvSlaveFuncPtr)<sp/>(<ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>void<sp/>(*XIic_SendSlaveFuncPtr)<sp/>(<ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>void<sp/>(*XIic_RecvMasterFuncPtr)<sp/>(<ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>void<sp/>(*XIic_SendMasterFuncPtr)<sp/>(<ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>void<sp/>(*XIic_ArbLostFuncPtr)<sp/>(<ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>void<sp/>(*XIic_BusNotBusyFuncPtr)<sp/>(<ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XIic_TransmitFifoFill(<ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Role);</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="365"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="367"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="369"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_i.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ospi_psv___config" kind="struct" prot="public">
+    <compoundname>XOspiPsv_Config</compoundname>
+    <includes local="no">xospipsv.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ospi_psv___config_1ab5a009ae1bfba2b4fe671ec185637fd0" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XOspiPsv_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="132" bodyend="-1"/>
+        <referencedby refid="group__ospipsv__api_1gab96043a4ed792c49c8f839b522ac95a1" compoundref="xospipsv__sinit_8c" startline="84" endline="96">XOspiPsv_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XOspiPsv_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base address of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="134" bodyend="-1"/>
+        <referencedby refid="group__ospipsv__api_1gabef79236b8c8e5ada4f6ddb58132e35c" compoundref="xospipsv__hw_8c" startline="696" endline="780">XOspiPsv_CalculateRxTap</referencedby>
+        <referencedby refid="group__ospipsv__api_1gae5a31f79cc2df46027e4b9f26cad97ad" compoundref="xospipsv_8c" startline="106" endline="201">XOspiPsv_CfgInitialize</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga816c6bf2a419d38bd2e4d51a266a6d3b" compoundref="xospipsv_8c" startline="550" endline="598">XOspiPsv_CheckDmaDone</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga289baf1466add8dfa4a70a3952354cd7" compoundref="xospipsv__control_8c" startline="413" endline="428">XOspiPsv_CheckOspiIdle</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga7dd7305678eaea4774657b38046cc5e4" compoundref="xospipsv__hw_8c" startline="545" endline="597">XOspiPsv_Config_Dma</referencedby>
+        <referencedby refid="group__ospipsv__api_1gae199f0006d6d3282aad2a18c4e87d479" compoundref="xospipsv__hw_8c" startline="513" endline="532">XOspiPsv_Config_IndirectAhb</referencedby>
+        <referencedby refid="group__ospipsv__api_1gabba4009ea62fb0b8c856a8582ed9f77b" compoundref="xospipsv_8c" startline="957" endline="982">XOspiPsv_ConfigDualByteOpcode</referencedby>
+        <referencedby refid="group__ospipsv__api_1gaec5aab7a4cee335804494e31429b53ec" compoundref="xospipsv__options_8c" startline="453" endline="482">XOspiPsv_ConfigureAutoPolling</referencedby>
+        <referencedby refid="group__ospipsv__api_1gacb2c9597040e54b985ddf380365af639" compoundref="xospipsv__control_8c" startline="379" endline="398">XOspiPsv_ConfigureTaps</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga26ffa91c5d5d79028535a2e3381174e6" compoundref="xospipsv_8c" startline="303" endline="335">XOspiPsv_DeviceResetViaOspi</referencedby>
+        <referencedby refid="group__ospipsv__api_1gaa2f584dfcca76360b59188e58c60b770" compoundref="xospipsv__hw_8c" startline="611" endline="646">XOspiPsv_Exec_Dma</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga8bb2848b91c02f54adca66fae6820e7e" compoundref="xospipsv__hw_8c" startline="128" endline="150">XOspiPsv_Exec_Flash_Cmd</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga3ac73304cb055f7184181eb4b176637e" compoundref="xospipsv__control_8c" startline="320" endline="362">XOspiPsv_ExecuteRxTuning</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga621f2c47a2e8fdf59de28b2333d6da6f" compoundref="xospipsv__hw_8c" startline="165" endline="181">XOspiPsv_FifoRead</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga54d82d31820cd30d9c32055380e0ab04" compoundref="xospipsv__hw_8c" startline="198" endline="216">XOspiPsv_FifoWrite</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga19324f8c6c1156b26c84cc9d413a4801" compoundref="xospipsv__options_8c" startline="228" endline="250">XOspiPsv_GetOptions</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga8400388c80d471a4535fa7357104f07b" compoundref="xospipsv__control_8c" startline="442" endline="493">XOspiPsv_IDac_Write</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga70d2c317de32d39ddab3b585c9da5d69" compoundref="xospipsv_8c" startline="785" endline="803">XOspiPsv_Idle</referencedby>
+        <referencedby refid="group__ospipsv__api_1gaa415227de8c6663e478041a82887dd5b" compoundref="xospipsv_8c" startline="678" endline="769">XOspiPsv_IntrHandler</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga15aade843d6401d997e3d67afcd0a2cc" compoundref="xospipsv__xfer_8c" startline="108" endline="139">XOspiPsv_IntrRecvData</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga065d5ced624e31f2a9699482cc6aa743" compoundref="xospipsv__xfer_8c" startline="152" endline="185">XOspiPsv_IntrSendData</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga808cc2759798221d0d4f44eef27c0629" compoundref="xospipsv_8c" startline="404" endline="464">XOspiPsv_PollTransfer</referencedby>
+        <referencedby refid="group__ospipsv__api_1gab43ba912b750cce29cef9d5d652e11af" compoundref="xospipsv_8c" startline="216" endline="226">XOspiPsv_Reset</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga45c51bcfa1e2d996298847c2b7910ba6" compoundref="xospipsv__options_8c" startline="268" endline="310">XOspiPsv_SetClkPrescaler</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga3946ea37da6d9ce478f29eca239b597b" compoundref="xospipsv_8c" startline="820" endline="944">XOspiPsv_SetDllDelay</referencedby>
+        <referencedby refid="group__ospipsv__api_1gab47df170b16816d4cc11dee6c3008e3c" compoundref="xospipsv__options_8c" startline="99" endline="212">XOspiPsv_SetOptions</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga74efb98d92b16935c3ea41e4f77cecea" compoundref="xospipsv__options_8c" startline="325" endline="396">XOspiPsv_SetSdrDdrMode</referencedby>
+        <referencedby refid="group__ospipsv__api_1gaf618dd1d9a3b5fe6a60feedd9cfca12b" compoundref="xospipsv__hw_8c" startline="351" endline="451">XOspiPsv_Setup_Dev_Read_Instr_Reg</referencedby>
+        <referencedby refid="group__ospipsv__api_1gaa347217a72ad5240a86eb29dacec9270" compoundref="xospipsv__hw_8c" startline="233" endline="334">XOspiPsv_Setup_Dev_Write_Instr_Reg</referencedby>
+        <referencedby refid="group__ospipsv__api_1gab0a1fd4b1edb33eeb7f14588f09a8355" compoundref="xospipsv__hw_8c" startline="464" endline="478">XOspiPsv_Setup_Devsize</referencedby>
+        <referencedby refid="group__ospipsv__api_1gafb4ad780fc9faa2f91aa7208ceb91583" compoundref="xospipsv__hw_8c" startline="72" endline="111">XOspiPsv_Setup_Stig_Ctrl</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga4eb9614740f6df4c7a372d9125d5b5e1" compoundref="xospipsv__hw_8c" startline="490" endline="500">XOspiPsv_Start_Indr_RdTransfer</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga4fe1250ba300d83c1acb4291301429f9" compoundref="xospipsv_8c" startline="480" endline="536">XOspiPsv_StartDmaTransfer</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga6af9f098248cd39891e92d9caa1d75c8" compoundref="xospipsv__control_8c" startline="68" endline="111">XOspiPsv_Stig_Read</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga1b1a6b7fd20d9183ad58f84d3303eeec" compoundref="xospipsv__control_8c" startline="128" endline="169">XOspiPsv_Stig_Write</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga943852604b61a80a53f42a143bf87241" compoundref="xospipsv__hw_8c" startline="662" endline="677">XOspiPsv_WaitForLock</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___config_1ab430e00fabad15b40526f2cc33b66501" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XOspiPsv_Config::InputClockHz</definition>
+        <argsstring></argsstring>
+        <name>InputClockHz</name>
+        <briefdescription>
+<para>Input clock frequency. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="135" bodyend="-1"/>
+        <referencedby refid="group__ospipsv__api_1gabef79236b8c8e5ada4f6ddb58132e35c" compoundref="xospipsv__hw_8c" startline="696" endline="780">XOspiPsv_CalculateRxTap</referencedby>
+        <referencedby refid="group__ospipsv__api_1gae5a31f79cc2df46027e4b9f26cad97ad" compoundref="xospipsv_8c" startline="106" endline="201">XOspiPsv_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___config_1a215dbf976af5b97426b6ac5638c06607" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XOspiPsv_Config::IsCacheCoherent</definition>
+        <argsstring></argsstring>
+        <name>IsCacheCoherent</name>
+        <briefdescription>
+<para>If OSPI is Cache Coherent or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="136" bodyend="-1"/>
+        <referencedby refid="group__ospipsv__api_1gae5a31f79cc2df46027e4b9f26cad97ad" compoundref="xospipsv_8c" startline="106" endline="201">XOspiPsv_CfgInitialize</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga816c6bf2a419d38bd2e4d51a266a6d3b" compoundref="xospipsv_8c" startline="550" endline="598">XOspiPsv_CheckDmaDone</referencedby>
+        <referencedby refid="group__ospipsv__api_1ga7dd7305678eaea4774657b38046cc5e4" compoundref="xospipsv__hw_8c" startline="545" endline="597">XOspiPsv_Config_Dma</referencedby>
+        <referencedby refid="group__ospipsv__api_1gab882c01ec4fd29b29a58e0a07075414d" compoundref="xospipsv__control_8c" startline="184" endline="241">XOspiPsv_Dma_Read</referencedby>
+        <referencedby refid="group__ospipsv__api_1gaa415227de8c6663e478041a82887dd5b" compoundref="xospipsv_8c" startline="678" endline="769">XOspiPsv_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___config_1a5ca4fb3ed8b0107599596c5cbf8e8591" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XOspiPsv_Config::ConnectionMode</definition>
+        <argsstring></argsstring>
+        <name>ConnectionMode</name>
+        <briefdescription>
+<para>OSPI connection mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="137" bodyend="-1"/>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a6d28e30d23e136e4af00a436d43c9923" compoundref="xospipsv__flash__intr__example_8c" startline="770" endline="997">FlashErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a1355d0e2c6bb04d1f65ca815d71d5996" compoundref="xospipsv__flash__intr__example_8c" startline="1017" endline="1092">FlashRead</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1ae08db22955675661860c9008890b0138" compoundref="xospipsv__flash__intr__example_8c" startline="1974" endline="1988">GetRealAddr</referencedby>
+        <referencedby refid="xospipsv__flash__non__blocking__read__example_8c_1aeca8b1ed044f11310838d4e024ca3323" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="225" endline="407">OspiPsvFlashNonBlockingReadExample</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1ad601c2031bc6aa962fda586ed44872a9" compoundref="xospipsv__flash__intr__example_8c" startline="256" endline="450">OspiPsvInterruptFlashExample</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a1fd69bc7caf0af026a8b73f2d51ba479" compoundref="xospipsv__flash__polled__example_8c" startline="234" endline="424">OspiPsvPolledFlashExample</referencedby>
+        <referencedby refid="group__ospipsv__api_1gae5a31f79cc2df46027e4b9f26cad97ad" compoundref="xospipsv_8c" startline="106" endline="201">XOspiPsv_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___config_1ae3d666bb9400e8b4021f9ac29d80e9bd" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XOspiPsv_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="139" bodyend="-1"/>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1725" endline="1956">FlashSetSDRDDRMode</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1ad601c2031bc6aa962fda586ed44872a9" compoundref="xospipsv__flash__intr__example_8c" startline="256" endline="450">OspiPsvInterruptFlashExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___config_1a9c0bea7ff7f36a48b8383e2200ea4025" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XOspiPsv_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="141" bodyend="-1"/>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1725" endline="1956">FlashSetSDRDDRMode</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1ad601c2031bc6aa962fda586ed44872a9" compoundref="xospipsv__flash__intr__example_8c" startline="256" endline="450">OspiPsvInterruptFlashExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ospi_psv___config_1a0579fd6e0f6634462512b623e29beb45" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XOspiPsv_Config::BusWidth</definition>
+        <argsstring></argsstring>
+        <name>BusWidth</name>
+        <briefdescription>
+<para>Bus width available on board. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="144" bodyend="-1"/>
+        <referencedby refid="group__ospipsv__api_1gae5a31f79cc2df46027e4b9f26cad97ad" compoundref="xospipsv_8c" startline="106" endline="201">XOspiPsv_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" bodystart="128" bodyend="145"/>
+    <listofallmembers>
+      <member refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" prot="public" virt="non-virtual"><scope>XOspiPsv_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_ospi_psv___config_1a0579fd6e0f6634462512b623e29beb45" prot="public" virt="non-virtual"><scope>XOspiPsv_Config</scope><name>BusWidth</name></member>
+      <member refid="struct_x_ospi_psv___config_1a5ca4fb3ed8b0107599596c5cbf8e8591" prot="public" virt="non-virtual"><scope>XOspiPsv_Config</scope><name>ConnectionMode</name></member>
+      <member refid="struct_x_ospi_psv___config_1ab430e00fabad15b40526f2cc33b66501" prot="public" virt="non-virtual"><scope>XOspiPsv_Config</scope><name>InputClockHz</name></member>
+      <member refid="struct_x_ospi_psv___config_1ae3d666bb9400e8b4021f9ac29d80e9bd" prot="public" virt="non-virtual"><scope>XOspiPsv_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_ospi_psv___config_1a9c0bea7ff7f36a48b8383e2200ea4025" prot="public" virt="non-virtual"><scope>XOspiPsv_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_ospi_psv___config_1a215dbf976af5b97426b6ac5638c06607" prot="public" virt="non-virtual"><scope>XOspiPsv_Config</scope><name>IsCacheCoherent</name></member>
+      <member refid="struct_x_ospi_psv___config_1ab5a009ae1bfba2b4fe671ec185637fd0" prot="public" virt="non-virtual"><scope>XOspiPsv_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

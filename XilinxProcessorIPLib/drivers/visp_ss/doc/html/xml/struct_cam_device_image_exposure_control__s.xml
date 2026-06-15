@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_image_exposure_control__s" kind="struct" prot="public">
+    <compoundname>CamDeviceImageExposureControl_s</compoundname>
+    <includes local="no">cam_device_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_image_exposure_control__s_1aeeaa9aec77ce4de16a6f155e4f51d591" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceImageExposureControl_s::frameIndex</definition>
+        <argsstring></argsstring>
+        <name>frameIndex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_image_exposure_control__s_1a3c80355e895ab1d6d97e03b9b1ced300" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceImageExposureControl_s::imageGain[CAMDEV_IMAGE_EXP_NUM_MAX]</definition>
+        <argsstring>[CAMDEV_IMAGE_EXP_NUM_MAX]</argsstring>
+        <name>imageGain</name>
+        <briefdescription>
+<para>In linear mode or native HDR mode:<linebreak/>
+ imageGain[0] is image gain<linebreak/>
+In stitch HDR mode:<linebreak/>
+imageGain[0]: L image gain<linebreak/>
+imageGain[1]: S image gain<linebreak/>
+imageGain[2]: VS image gain<linebreak/>
+imageGain[3]: ES image gain. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_image_exposure_control__s_1a81a4b32e160ec3d19b9ee5f0fd4676ad" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceImageExposureControl_s::imageIntTime[CAMDEV_IMAGE_EXP_NUM_MAX]</definition>
+        <argsstring>[CAMDEV_IMAGE_EXP_NUM_MAX]</argsstring>
+        <name>imageIntTime</name>
+        <briefdescription>
+<para><verbatim>In linear mode or native HDR mode:\n imageIntTime[0] is image integration time\n
+</verbatim> In stitch HDR mode:<linebreak/>
+imageIntTime[0]: L image integration time<linebreak/>
+imageIntTime[1]: S image integration time<linebreak/>
+imageIntTime[2]: VS image integration time<linebreak/>
+imageIntTime[3]: ES image integration time </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to configure image exposure control information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="233" bodyend="249"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_image_exposure_control__s_1aeeaa9aec77ce4de16a6f155e4f51d591" prot="public" virt="non-virtual"><scope>CamDeviceImageExposureControl_s</scope><name>frameIndex</name></member>
+      <member refid="struct_cam_device_image_exposure_control__s_1a3c80355e895ab1d6d97e03b9b1ced300" prot="public" virt="non-virtual"><scope>CamDeviceImageExposureControl_s</scope><name>imageGain</name></member>
+      <member refid="struct_cam_device_image_exposure_control__s_1a81a4b32e160ec3d19b9ee5f0fd4676ad" prot="public" virt="non-virtual"><scope>CamDeviceImageExposureControl_s</scope><name>imageIntTime</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

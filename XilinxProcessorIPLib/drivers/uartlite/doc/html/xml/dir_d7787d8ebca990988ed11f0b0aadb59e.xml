@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_d7787d8ebca990988ed11f0b0aadb59e" kind="dir">
+    <compoundname>uartlite</compoundname>
+    <innerdir refid="dir_da858b87b3e9568e0fb85abf277a6ce5">examples</innerdir>
+    <innerdir refid="dir_5afd8f270136ee7e5a495b7f5136c1a8">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/"/>
+  </compounddef>
+</doxygen>

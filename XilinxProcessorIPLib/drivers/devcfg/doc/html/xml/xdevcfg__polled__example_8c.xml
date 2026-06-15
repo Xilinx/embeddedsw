@@ -1,0 +1,526 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdevcfg__polled__example_8c" kind="file">
+    <compoundname>xdevcfg_polled_example.c</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes refid="xdevcfg_8h" local="yes">xdevcfg.h</includes>
+    <incdepgraph>
+      <node id="83">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="76">
+        <label>xdevcfg_polled_example.c</label>
+        <link refid="xdevcfg_polled_example.c"/>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+      </node>
+      <node id="81">
+        <label>xil_io.h</label>
+      </node>
+      <node id="78">
+        <label>xdevcfg.h</label>
+        <link refid="xdevcfg_8h"/>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+      </node>
+      <node id="82">
+        <label>xstatus.h</label>
+      </node>
+      <node id="80">
+        <label>xil_types.h</label>
+      </node>
+      <node id="79">
+        <label>xdevcfg_hw.h</label>
+        <link refid="xdevcfg__hw_8h"/>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xdevcfg__polled__example_8c_1a67a2fbc2125fc90af98dd7d97ec3f725" prot="public" static="no">
+        <name>DCFG_BASEADDR</name>
+        <initializer>XPAR_XDEVCFG_0_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" line="63" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdevcfg__polled__example_8c_1a7b87590e39f8ac8fffae0dc459fb3c05" prot="public" static="no">
+        <name>BIT_STREAM_LOCATION</name>
+        <initializer>0x00400001	/* Bitstream location */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdevcfg__polled__example_8c_1a9c14e4ac03dc46ce4aded928e8f6e69a" prot="public" static="no">
+        <name>BIT_STREAM_SIZE_WORDS</name>
+        <initializer>0xF6EC0		/* Size in Words (32 bit)*/</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdevcfg__polled__example_8c_1a286f17de7ab3285f143c9aab3fc26da4" prot="public" static="no">
+        <name>SLCR_LOCK</name>
+        <initializer>0xF8000004</initializer>
+        <briefdescription>
+<para>SLCR Write Protection Lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" bodystart="81" bodyend="-1"/>
+        <referencedby refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" compoundref="xdevcfg__polled__example_8c" startline="164" endline="286">XDcfgPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xdevcfg__polled__example_8c_1a83fcf6f141c914ab6b8b683fb62232b4" prot="public" static="no">
+        <name>SLCR_UNLOCK</name>
+        <initializer>0xF8000008</initializer>
+        <briefdescription>
+<para>SLCR Write Protection Unlock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" bodystart="82" bodyend="-1"/>
+        <referencedby refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" compoundref="xdevcfg__polled__example_8c" startline="164" endline="286">XDcfgPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xdevcfg__polled__example_8c_1af11ce8b1924394e9c6d481b9f4fd45dd" prot="public" static="no">
+        <name>SLCR_LVL_SHFTR_EN</name>
+        <initializer>0xF8000900</initializer>
+        <briefdescription>
+<para>SLCR Level Shifters Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" bodystart="83" bodyend="-1"/>
+        <referencedby refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" compoundref="xdevcfg__polled__example_8c" startline="164" endline="286">XDcfgPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xdevcfg__polled__example_8c_1a4bb19a9df26550ba4c6fcaaddf516f18" prot="public" static="no">
+        <name>SLCR_PCAP_CLK_CTRL</name>
+        <initializer>XPAR_SLCR_BASEADDR + 0x168</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" line="87" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdevcfg__polled__example_8c_1ad27635598053402ce23ccbceb515c647" prot="public" static="no">
+        <name>SLCR_PCAP_CLK_CTRL_EN_MASK</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdevcfg__polled__example_8c_1a2f724ddb3f8831fb78ff2983e38ffb87" prot="public" static="no">
+        <name>SLCR_LOCK_VAL</name>
+        <initializer>0x767B</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdevcfg__polled__example_8c_1aacdff5dfa96fd913a5923d9ae2971e1a" prot="public" static="no">
+        <name>SLCR_UNLOCK_VAL</name>
+        <initializer>0xDF0D</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xdevcfg__polled__example_8c_1afb273da6d4c264246251988487138124" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref></type>
+        <definition>XDcfg DcfgInstance</definition>
+        <argsstring></argsstring>
+        <name>DcfgInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDcfgPolledExample</definition>
+        <argsstring>(XDcfg *DcfgInstPtr, UINTPTR BaseAddress)</argsstring>
+        <name>XDcfgPolledExample</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>DcfgInstance</declname>
+          <defname>DcfgInstPtr</defname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function downloads the Non secure bit stream to the FPGA fabric using the Device Configuration Interface. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DcfgInstPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance of <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> driver. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique device id of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful</para></listitem><listitem><para>XST_FAILURE if unsuccessful</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" bodystart="164" bodyend="286"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="xdevcfg__polled__example_8c_1a286f17de7ab3285f143c9aab3fc26da4" compoundref="xdevcfg__polled__example_8c" startline="81">SLCR_LOCK</references>
+        <references refid="xdevcfg__polled__example_8c_1af11ce8b1924394e9c6d481b9f4fd45dd" compoundref="xdevcfg__polled__example_8c" startline="83">SLCR_LVL_SHFTR_EN</references>
+        <references refid="xdevcfg__polled__example_8c_1a83fcf6f141c914ab6b8b683fb62232b4" compoundref="xdevcfg__polled__example_8c" startline="82">SLCR_UNLOCK</references>
+        <references refid="group__devcfg_1gafcaaa8ac67cf7316c54d1cba36e83e08" compoundref="xdevcfg_8c" startline="109" endline="149">XDcfg_CfgInitialize</references>
+        <references refid="group__devcfg_1gaac84a7176f99dc0e1d66a53673053228" compoundref="xdevcfg__hw_8h" startline="86">XDCFG_CTRL_PCAP_PR_MASK</references>
+        <references refid="group__devcfg_1ga40ccdd2b121359e65b1f95e5f32be3d8" compoundref="xdevcfg__hw_8h" startline="405">XDCFG_DMA_INVALID_ADDRESS</references>
+        <references refid="group__devcfg_1gabb2094cb7d36f83c4c150a3b18e8aad0" compoundref="xdevcfg_8c" startline="167" endline="183">XDcfg_EnablePCAP</references>
+        <references refid="group__devcfg_1gafff047d176ced3a255248219c1278e3b" compoundref="xdevcfg__intr_8c" startline="195" endline="207">XDcfg_IntrClear</references>
+        <references refid="group__devcfg_1ga9ed5382e8c80a2277816a4db98a1ec6f" compoundref="xdevcfg__intr_8c" startline="163" endline="176">XDcfg_IntrGetStatus</references>
+        <references refid="group__devcfg_1gae46a37df60109876c5f96d62dc6b9f78" compoundref="xdevcfg__hw_8h" startline="255">XDCFG_IXR_D_P_DONE_MASK</references>
+        <references refid="group__devcfg_1ga219beab8ecbdaa4e74c8d130b94e4ae0" compoundref="xdevcfg__hw_8h" startline="254">XDCFG_IXR_DMA_DONE_MASK</references>
+        <references refid="group__devcfg_1ga39c7e70832ef5a30a251342bf831f088" compoundref="xdevcfg__hw_8h" startline="269">XDCFG_IXR_PCFG_DONE_MASK</references>
+        <references refid="group__devcfg_1ga6f1dabd32e61821d2c089f77aa80f7f4" compoundref="xdevcfg__sinit_8c" startline="74" endline="89">XDcfg_LookupConfig</references>
+        <references refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" compoundref="xdevcfg__hw_8h" startline="432">XDcfg_ReadReg</references>
+        <references refid="group__devcfg_1ga2c24756b9d6f8e81b620d27a86379e15" compoundref="xdevcfg__selftest_8c" startline="58" endline="88">XDcfg_SelfTest</references>
+        <references refid="group__devcfg_1gacc8c10b5cc877595c1ade09e1a589296" compoundref="xdevcfg_8c" startline="230" endline="246">XDcfg_SetControlRegister</references>
+        <references refid="group__devcfg_1ga48a0c155d061c98656101cb19a87f0a0" compoundref="xdevcfg__hw_8h" startline="301">XDCFG_STATUS_DMA_CMD_Q_F_MASK</references>
+        <references refid="group__devcfg_1ga6646b7874a5c9cc7bcdba6072bb4ff72" compoundref="xdevcfg__hw_8h" startline="58">XDCFG_STATUS_OFFSET</references>
+        <references refid="group__devcfg_1ga5a7a69cfe6e10770f82089bdd277955d" compoundref="xdevcfg_8c" startline="767" endline="921">XDcfg_Transfer</references>
+        <referencedby refid="xdevcfg__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xdevcfg__polled__example_8c" startline="124" endline="144">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdevcfg__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function to call the polled mode example. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful</para></listitem><listitem><para>XST_FAILURE if unsuccessful</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c" bodystart="124" bodyend="144"/>
+        <references refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" compoundref="xdevcfg__polled__example_8c" startline="164" endline="286">XDcfgPolledExample</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains a polled mode design example for the Device Configuration Interface. </para>    </briefdescription>
+    <detaileddescription>
+<para>This example downloads a given bitstream to the FPGA fabric.</para><para>BIT_STREAM_LOCATION specifies the memory location of the bitstream. BIT_STREAM_SIZE_WORDS specifies the size of the bitstream in words. User has to define these correctly for this example to work.</para><para><simplesect kind="note"><para>None.</para></simplesect>
+MODIFICATION HISTORY:</para><para><preformatted>
+  Ver   Who  Date     Changes
+<hruler/>
+
+  1.00a hvm  11/19/10 First release
+  1.00a nm   11/26/11 Holding FPGA in reset before download and
+                      releasing it after bitstream download. This code
+                      is not checking bitstream download errors.
+  2.00a nm   05/31/12 Updated the notes in the example for CR 660139 to add
+                      information that the 2 LSBs of the Source/Destination
+                      address when equal to 2�b01 indicate the last DMA command
+                      of an overall transfer.
+                      Updated the example for CR 660835 so that input length for
+                      source/destination to the XDcfg_Transfer APIs is words
+                      (32 bit) and not bytes.
+  2.01a nm   11/21/12 Fixed CR# 688146. Modified the bitstream address.
+  2.02a nm   01/31/13 Fixed CR# 679335.
+                      Removed disabling and enabling AXI interface.
+                      Clearing the interrupts before the transfer.
+                      Added support for partial reconfiguration.
+  3.00a kpc  02/20/14 Renamed the DcfgInstance variable name to DcfgInstPtr
+  3.1   kpc  04/22/14 Fixed CR#780203. Enable the pcap clock if it is not set.
+        ms   04/10/17 Modified filename tag to include the file in doxygen
+                      examples.
+  3.8   Nava 06/21/23 Added support for system device-tree flow.
+*</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="49"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdevcfg_8h" kindref="compound">xdevcfg.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="56"><highlight class="comment"><sp/>*<sp/>The<sp/>following<sp/>constants<sp/>map<sp/>to<sp/>the<sp/>XPAR<sp/>parameters<sp/>created<sp/>in<sp/>the</highlight></codeline>
+<codeline lineno="57"><highlight class="comment"><sp/>*<sp/>xparameters.h<sp/>file.<sp/>They<sp/>are<sp/>only<sp/>defined<sp/>here<sp/>such<sp/>that<sp/>a<sp/>user<sp/>can<sp/>easily</highlight></codeline>
+<codeline lineno="58"><highlight class="comment"><sp/>*<sp/>change<sp/>all<sp/>the<sp/>needed<sp/>parameters<sp/>in<sp/>one<sp/>place.</highlight></codeline>
+<codeline lineno="59"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DCFG_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XDCFG_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DCFG_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XDEVCFG_0_BASEADDR</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="67"><highlight class="comment"><sp/>*<sp/>The<sp/>BIT_STREAM_LOCATION<sp/>is<sp/>a<sp/>dummy<sp/>address<sp/>and<sp/>BIT_STREAM_SIZE_WORDS<sp/>is<sp/>a</highlight></codeline>
+<codeline lineno="68"><highlight class="comment"><sp/>*<sp/>dummy<sp/>size.<sp/>This<sp/>has<sp/>to<sp/>replaced<sp/>with<sp/>the<sp/>actual<sp/>location/size<sp/>of<sp/>the<sp/>bitstream.</highlight></codeline>
+<codeline lineno="69"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="70"><highlight class="comment"><sp/>*<sp/>The<sp/>2<sp/>LSBs<sp/>of<sp/>the<sp/>Source/Destination<sp/>address<sp/>when<sp/>equal<sp/>to<sp/>2�b01<sp/>indicate</highlight></codeline>
+<codeline lineno="71"><highlight class="comment"><sp/>*<sp/>the<sp/>last<sp/>DMA<sp/>command<sp/>of<sp/>an<sp/>overall<sp/>transfer.</highlight></codeline>
+<codeline lineno="72"><highlight class="comment"><sp/>*<sp/>The<sp/>2<sp/>LSBs<sp/>of<sp/>the<sp/>BIT_STREAM_LOCATION<sp/>in<sp/>this<sp/>example<sp/>is<sp/>set<sp/>to<sp/>2b01</highlight></codeline>
+<codeline lineno="73"><highlight class="comment"><sp/>*<sp/>indicating<sp/>that<sp/>this<sp/>is<sp/>the<sp/>last<sp/>DMA<sp/>transfer<sp/>(and<sp/>the<sp/>only<sp/>one).</highlight></codeline>
+<codeline lineno="74"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BIT_STREAM_LOCATION<sp/><sp/><sp/><sp/><sp/>0x00400001<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Bitstream<sp/>location<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BIT_STREAM_SIZE_WORDS<sp/><sp/><sp/>0xF6EC0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Size<sp/>in<sp/>Words<sp/>(32<sp/>bit)*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="79"><highlight class="comment"><sp/>*<sp/>SLCR<sp/>registers</highlight></codeline>
+<codeline lineno="80"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81" refid="xdevcfg__polled__example_8c_1a286f17de7ab3285f143c9aab3fc26da4" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SLCR_LOCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF8000004<sp/></highlight></codeline>
+<codeline lineno="82" refid="xdevcfg__polled__example_8c_1a83fcf6f141c914ab6b8b683fb62232b4" refkind="member"><highlight class="preprocessor">#define<sp/>SLCR_UNLOCK<sp/><sp/><sp/><sp/><sp/>0xF8000008<sp/></highlight></codeline>
+<codeline lineno="83" refid="xdevcfg__polled__example_8c_1af11ce8b1924394e9c6d481b9f4fd45dd" refkind="member"><highlight class="preprocessor">#define<sp/>SLCR_LVL_SHFTR_EN<sp/>0xF8000900<sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SLCR_PCAP_CLK_CTRL<sp/>XPAR_PS7_SLCR_0_S_AXI_BASEADDR<sp/>+<sp/>0x168<sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SLCR_PCAP_CLK_CTRL<sp/>XPAR_SLCR_BASEADDR<sp/>+<sp/>0x168</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SLCR_PCAP_CLK_CTRL_EN_MASK<sp/>0x1</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SLCR_LOCK_VAL<sp/><sp/><sp/>0x767B</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SLCR_UNLOCK_VAL<sp/>0xDF0D</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" kindref="member">XDcfgPolledExample</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*DcfgInstance,<sp/>u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" kindref="member">XDcfgPolledExample</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*DcfgInstance,<sp/>UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>DcfgInstance;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Device<sp/>Configuration<sp/>Interface<sp/>Instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="124" refid="xdevcfg__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdevcfg__interrupt__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="129"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Call<sp/>the<sp/>example<sp/>,<sp/>specify<sp/>the<sp/>device<sp/>ID<sp/>that<sp/>is<sp/>generated<sp/>in</highlight></codeline>
+<codeline lineno="130"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>xparameters.h.</highlight></codeline>
+<codeline lineno="131"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" kindref="member">XDcfgPolledExample</ref>(&amp;DcfgInstance,<sp/>DCFG_DEVICE_ID);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" kindref="member">XDcfgPolledExample</ref>(&amp;DcfgInstance,<sp/>DCFG_BASEADDR);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Dcfg<sp/>Polled<sp/>Example<sp/>Test<sp/>Failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>Dcfg<sp/>Polled<sp/>Example<sp/>Test\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" kindref="member">XDcfgPolledExample</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*DcfgInstPtr,<sp/>u16<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="164" refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" refkind="member"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" kindref="member">XDcfgPolledExample</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*DcfgInstPtr,<sp/>UINTPTR<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrStsReg<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StatusReg;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PartialCfg<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dcfg___config" kindref="compound">XDcfg_Config</ref><sp/>*ConfigPtr;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="175"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>Device<sp/>Configuration<sp/>Interface<sp/>driver.</highlight></codeline>
+<codeline lineno="176"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="group__devcfg_1ga6f1dabd32e61821d2c089f77aa80f7f4" kindref="member">XDcfg_LookupConfig</ref>(DeviceId);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="group__devcfg_1ga6f1dabd32e61821d2c089f77aa80f7f4" kindref="member">XDcfg_LookupConfig</ref>(BaseAddress);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="184"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>This<sp/>is<sp/>where<sp/>the<sp/>virtual<sp/>address<sp/>would<sp/>be<sp/>used,<sp/>this<sp/>example</highlight></codeline>
+<codeline lineno="185"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>uses<sp/>physical<sp/>address.</highlight></codeline>
+<codeline lineno="186"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__devcfg_1gafcaaa8ac67cf7316c54d1cba36e83e08" kindref="member">XDcfg_CfgInitialize</ref>(DcfgInstPtr,<sp/>ConfigPtr,</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr-&gt;<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__devcfg_1ga2c24756b9d6f8e81b620d27a86379e15" kindref="member">XDcfg_SelfTest</ref>(DcfgInstPtr);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="200"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Check<sp/>first<sp/>time<sp/>configuration<sp/>or<sp/>partial<sp/>reconfiguration</highlight></codeline>
+<codeline lineno="201"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStsReg<sp/>=<sp/><ref refid="group__devcfg_1ga9ed5382e8c80a2277816a4db98a1ec6f" kindref="member">XDcfg_IntrGetStatus</ref>(DcfgInstPtr);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStsReg<sp/>&amp;<sp/><ref refid="group__devcfg_1ga219beab8ecbdaa4e74c8d130b94e4ae0" kindref="member">XDCFG_IXR_DMA_DONE_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PartialCfg<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="208"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>the<sp/>pcap<sp/>clock.</highlight></codeline>
+<codeline lineno="209"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusReg<sp/>=<sp/>Xil_In32(SLCR_PCAP_CLK_CTRL);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!(StatusReg<sp/>&amp;<sp/>SLCR_PCAP_CLK_CTRL_EN_MASK))<sp/>{</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(<ref refid="xdevcfg__polled__example_8c_1a83fcf6f141c914ab6b8b683fb62232b4" kindref="member">SLCR_UNLOCK</ref>,<sp/>SLCR_UNLOCK_VAL);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(SLCR_PCAP_CLK_CTRL,</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(StatusReg<sp/>|<sp/>SLCR_PCAP_CLK_CTRL_EN_MASK));</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(<ref refid="xdevcfg__polled__example_8c_1a83fcf6f141c914ab6b8b683fb62232b4" kindref="member">SLCR_UNLOCK</ref>,<sp/>SLCR_LOCK_VAL);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="219"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Disable<sp/>the<sp/>level-shifters<sp/>from<sp/>PS<sp/>to<sp/>PL.</highlight></codeline>
+<codeline lineno="220"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!PartialCfg)<sp/>{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(<ref refid="xdevcfg__polled__example_8c_1a83fcf6f141c914ab6b8b683fb62232b4" kindref="member">SLCR_UNLOCK</ref>,<sp/>SLCR_UNLOCK_VAL);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(<ref refid="xdevcfg__polled__example_8c_1af11ce8b1924394e9c6d481b9f4fd45dd" kindref="member">SLCR_LVL_SHFTR_EN</ref>,<sp/>0xA);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(<ref refid="xdevcfg__polled__example_8c_1a286f17de7ab3285f143c9aab3fc26da4" kindref="member">SLCR_LOCK</ref>,<sp/>SLCR_LOCK_VAL);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="228"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Select<sp/>PCAP<sp/>interface<sp/>for<sp/>partial<sp/>reconfiguration</highlight></codeline>
+<codeline lineno="229"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PartialCfg)<sp/>{</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1gabb2094cb7d36f83c4c150a3b18e8aad0" kindref="member">XDcfg_EnablePCAP</ref>(DcfgInstPtr);</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1gacc8c10b5cc877595c1ade09e1a589296" kindref="member">XDcfg_SetControlRegister</ref>(DcfgInstPtr,<sp/><ref refid="group__devcfg_1gaac84a7176f99dc0e1d66a53673053228" kindref="member">XDCFG_CTRL_PCAP_PR_MASK</ref>);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="236"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clear<sp/>the<sp/>interrupt<sp/>status<sp/>bits</highlight></codeline>
+<codeline lineno="237"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1gafff047d176ced3a255248219c1278e3b" kindref="member">XDcfg_IntrClear</ref>(DcfgInstPtr,<sp/>(<ref refid="group__devcfg_1ga39c7e70832ef5a30a251342bf831f088" kindref="member">XDCFG_IXR_PCFG_DONE_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1gae46a37df60109876c5f96d62dc6b9f78" kindref="member">XDCFG_IXR_D_P_DONE_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCFG_IXR_DMA_DONE_MASK));</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>DMA<sp/>command<sp/>queue<sp/>is<sp/>full<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusReg<sp/>=<sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(DcfgInstPtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga6646b7874a5c9cc7bcdba6072bb4ff72" kindref="member">XDCFG_STATUS_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((StatusReg<sp/>&amp;<sp/><ref refid="group__devcfg_1ga48a0c155d061c98656101cb19a87f0a0" kindref="member">XDCFG_STATUS_DMA_CMD_Q_F_MASK</ref>)<sp/>==</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCFG_STATUS_DMA_CMD_Q_F_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="251"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Download<sp/>bitstream<sp/>in<sp/>non<sp/>secure<sp/>mode</highlight></codeline>
+<codeline lineno="252"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga5a7a69cfe6e10770f82089bdd277955d" kindref="member">XDcfg_Transfer</ref>(DcfgInstPtr,<sp/>(u8<sp/>*)BIT_STREAM_LOCATION,</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT_STREAM_SIZE_WORDS,</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8<sp/>*)<ref refid="group__devcfg_1ga40ccdd2b121359e65b1f95e5f32be3d8" kindref="member">XDCFG_DMA_INVALID_ADDRESS</ref>,</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0,<sp/>XDCFG_NON_SECURE_PCAP_WRITE);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Poll<sp/>IXR_DMA_DONE<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStsReg<sp/>=<sp/><ref refid="group__devcfg_1ga9ed5382e8c80a2277816a4db98a1ec6f" kindref="member">XDcfg_IntrGetStatus</ref>(DcfgInstPtr);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((IntrStsReg<sp/>&amp;<sp/>XDCFG_IXR_DMA_DONE_MASK)<sp/>!=</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCFG_IXR_DMA_DONE_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStsReg<sp/>=<sp/><ref refid="group__devcfg_1ga9ed5382e8c80a2277816a4db98a1ec6f" kindref="member">XDcfg_IntrGetStatus</ref>(DcfgInstPtr);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PartialCfg)<sp/>{</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Poll<sp/>IXR_D_P_DONE<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((IntrStsReg<sp/>&amp;<sp/><ref refid="group__devcfg_1gae46a37df60109876c5f96d62dc6b9f78" kindref="member">XDCFG_IXR_D_P_DONE_MASK</ref>)<sp/>!=</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCFG_IXR_D_P_DONE_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStsReg<sp/>=<sp/><ref refid="group__devcfg_1ga9ed5382e8c80a2277816a4db98a1ec6f" kindref="member">XDcfg_IntrGetStatus</ref>(DcfgInstPtr);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Poll<sp/>IXR_PCFG_DONE<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((IntrStsReg<sp/>&amp;<sp/><ref refid="group__devcfg_1ga39c7e70832ef5a30a251342bf831f088" kindref="member">XDCFG_IXR_PCFG_DONE_MASK</ref>)<sp/>!=</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCFG_IXR_PCFG_DONE_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStsReg<sp/>=<sp/><ref refid="group__devcfg_1ga9ed5382e8c80a2277816a4db98a1ec6f" kindref="member">XDcfg_IntrGetStatus</ref>(DcfgInstPtr);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="278"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>the<sp/>level-shifters<sp/>from<sp/>PS<sp/>to<sp/>PL.</highlight></codeline>
+<codeline lineno="279"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(<ref refid="xdevcfg__polled__example_8c_1a83fcf6f141c914ab6b8b683fb62232b4" kindref="member">SLCR_UNLOCK</ref>,<sp/>SLCR_UNLOCK_VAL);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(<ref refid="xdevcfg__polled__example_8c_1af11ce8b1924394e9c6d481b9f4fd45dd" kindref="member">SLCR_LVL_SHFTR_EN</ref>,<sp/>0xF);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(<ref refid="xdevcfg__polled__example_8c_1a286f17de7ab3285f143c9aab3fc26da4" kindref="member">SLCR_LOCK</ref>,<sp/>SLCR_LOCK_VAL);</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="286"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/examples/xdevcfg_polled_example.c"/>
+  </compounddef>
+</doxygen>

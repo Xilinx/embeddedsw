@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_r_fdc___mixer___settings" kind="struct" prot="public">
+    <compoundname>XRFdc_Mixer_Settings</compoundname>
+    <includes local="no">xrfdc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_r_fdc___mixer___settings_1ab05edb3bb68a196df225a34d32df27f9" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double XRFdc_Mixer_Settings::Freq</definition>
+        <argsstring></argsstring>
+        <name>Freq</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="492" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="492" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___mixer___settings_1ae9628b38377904b85f8c5b0201d039b8" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double XRFdc_Mixer_Settings::PhaseOffset</definition>
+        <argsstring></argsstring>
+        <name>PhaseOffset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="493" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="493" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___mixer___settings_1a82a52d9be038efa08f16313610644090" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_Mixer_Settings::EventSource</definition>
+        <argsstring></argsstring>
+        <name>EventSource</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="494" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="494" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___mixer___settings_1a1734d33c2170cbb75214c868f3c8561c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_Mixer_Settings::CoarseMixFreq</definition>
+        <argsstring></argsstring>
+        <name>CoarseMixFreq</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="495" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="495" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___mixer___settings_1a77dfcebb742d36ce87fddd23b4b33e57" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_Mixer_Settings::MixerMode</definition>
+        <argsstring></argsstring>
+        <name>MixerMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="496" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="496" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___mixer___settings_1a510b8f7fe1d5568f32e317331fb898ba" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XRFdc_Mixer_Settings::FineMixerScale</definition>
+        <argsstring></argsstring>
+        <name>FineMixerScale</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="497" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="497" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___mixer___settings_1ab58d26d5e3b0fcf4f71d8d342b97581b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XRFdc_Mixer_Settings::MixerType</definition>
+        <argsstring></argsstring>
+        <name>MixerType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="498" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="498" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Mixer settings. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="491" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="491" bodyend="499"/>
+    <listofallmembers>
+      <member refid="struct_x_r_fdc___mixer___settings_1a1734d33c2170cbb75214c868f3c8561c" prot="public" virt="non-virtual"><scope>XRFdc_Mixer_Settings</scope><name>CoarseMixFreq</name></member>
+      <member refid="struct_x_r_fdc___mixer___settings_1a82a52d9be038efa08f16313610644090" prot="public" virt="non-virtual"><scope>XRFdc_Mixer_Settings</scope><name>EventSource</name></member>
+      <member refid="struct_x_r_fdc___mixer___settings_1a510b8f7fe1d5568f32e317331fb898ba" prot="public" virt="non-virtual"><scope>XRFdc_Mixer_Settings</scope><name>FineMixerScale</name></member>
+      <member refid="struct_x_r_fdc___mixer___settings_1ab05edb3bb68a196df225a34d32df27f9" prot="public" virt="non-virtual"><scope>XRFdc_Mixer_Settings</scope><name>Freq</name></member>
+      <member refid="struct_x_r_fdc___mixer___settings_1a77dfcebb742d36ce87fddd23b4b33e57" prot="public" virt="non-virtual"><scope>XRFdc_Mixer_Settings</scope><name>MixerMode</name></member>
+      <member refid="struct_x_r_fdc___mixer___settings_1ab58d26d5e3b0fcf4f71d8d342b97581b" prot="public" virt="non-virtual"><scope>XRFdc_Mixer_Settings</scope><name>MixerType</name></member>
+      <member refid="struct_x_r_fdc___mixer___settings_1ae9628b38377904b85f8c5b0201d039b8" prot="public" virt="non-virtual"><scope>XRFdc_Mixer_Settings</scope><name>PhaseOffset</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

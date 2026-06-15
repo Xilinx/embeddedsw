@@ -1,0 +1,1318 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xspi__l_8h" kind="file">
+    <compoundname>xspi_l.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xspi_8h" local="yes">xspi.h</includedby>
+    <includedby refid="xspi__i_8h" local="yes">xspi_i.h</includedby>
+    <includedby refid="xspi__low__level__example_8c" local="yes">xspi_low_level_example.c</includedby>
+    <includedby refid="xspi__polled__example_8c" local="yes">xspi_polled_example.c</includedby>
+    <includedby refid="xspi__selftest__example_8c" local="yes">xspi_selftest_example.c</includedby>
+    <incdepgraph>
+      <node id="111">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="112">
+        <label>xil_io.h</label>
+      </node>
+      <node id="109">
+        <label>xspi_l.h</label>
+        <link refid="xspi_l.h"/>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+      </node>
+      <node id="110">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="118">
+        <label>xspi_selftest.c</label>
+        <link refid="xspi__selftest_8c"/>
+      </node>
+      <node id="113">
+        <label>xspi_l.h</label>
+        <link refid="xspi_l.h"/>
+        <childnode refid="114" relation="include">
+        </childnode>
+        <childnode refid="133" relation="include">
+        </childnode>
+        <childnode refid="134" relation="include">
+        </childnode>
+        <childnode refid="126" relation="include">
+        </childnode>
+        <childnode refid="127" relation="include">
+        </childnode>
+      </node>
+      <node id="121">
+        <label>xspi_atmel_flash_example.c</label>
+        <link refid="xspi__atmel__flash__example_8c"/>
+      </node>
+      <node id="125">
+        <label>xspi_numonyx_flash_quad_example.c</label>
+        <link refid="xspi__numonyx__flash__quad__example_8c"/>
+      </node>
+      <node id="120">
+        <label>xspi_stats.c</label>
+        <link refid="xspi__stats_8c"/>
+      </node>
+      <node id="115">
+        <label>xspi.c</label>
+        <link refid="xspi_8c"/>
+      </node>
+      <node id="114">
+        <label>xspi.h</label>
+        <link refid="xspi_8h"/>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="118" relation="include">
+        </childnode>
+        <childnode refid="119" relation="include">
+        </childnode>
+        <childnode refid="120" relation="include">
+        </childnode>
+        <childnode refid="121" relation="include">
+        </childnode>
+        <childnode refid="122" relation="include">
+        </childnode>
+        <childnode refid="123" relation="include">
+        </childnode>
+        <childnode refid="124" relation="include">
+        </childnode>
+        <childnode refid="125" relation="include">
+        </childnode>
+        <childnode refid="126" relation="include">
+        </childnode>
+        <childnode refid="127" relation="include">
+        </childnode>
+        <childnode refid="128" relation="include">
+        </childnode>
+        <childnode refid="129" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="131" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
+      </node>
+      <node id="130">
+        <label>xspi_stm_flash_example.c</label>
+        <link refid="xspi__stm__flash__example_8c"/>
+      </node>
+      <node id="116">
+        <label>xspi_g.c</label>
+        <link refid="xspi__g_8c"/>
+      </node>
+      <node id="127">
+        <label>xspi_selftest_example.c</label>
+        <link refid="xspi__selftest__example_8c"/>
+      </node>
+      <node id="117">
+        <label>xspi_options.c</label>
+        <link refid="xspi__options_8c"/>
+      </node>
+      <node id="129">
+        <label>xspi_slave_polled_example.c</label>
+        <link refid="xspi__slave__polled__example_8c"/>
+      </node>
+      <node id="132">
+        <label>xspi_winbond_flash_xip_example.c</label>
+        <link refid="xspi__winbond__flash__xip__example_8c"/>
+      </node>
+      <node id="128">
+        <label>xspi_slave_intr_example.c</label>
+        <link refid="xspi__slave__intr__example_8c"/>
+      </node>
+      <node id="119">
+        <label>xspi_sinit.c</label>
+        <link refid="xspi__sinit_8c"/>
+      </node>
+      <node id="122">
+        <label>xspi_eeprom_example.c</label>
+        <link refid="xspi__eeprom__example_8c"/>
+      </node>
+      <node id="124">
+        <label>xspi_intr_example.c</label>
+        <link refid="xspi__intr__example_8c"/>
+      </node>
+      <node id="123">
+        <label>xspi_intel_flash_example.c</label>
+        <link refid="xspi__intel__flash__example_8c"/>
+      </node>
+      <node id="126">
+        <label>xspi_polled_example.c</label>
+        <link refid="xspi__polled__example_8c"/>
+      </node>
+      <node id="134">
+        <label>xspi_low_level_example.c</label>
+        <link refid="xspi__low__level__example_8c"/>
+      </node>
+      <node id="133">
+        <label>xspi_i.h</label>
+        <link refid="xspi__i_8h"/>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="118" relation="include">
+        </childnode>
+        <childnode refid="120" relation="include">
+        </childnode>
+      </node>
+      <node id="131">
+        <label>xspi_winbond_flash_quad_example.c</label>
+        <link refid="xspi__winbond__flash__quad__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Register Map</header>
+      <description><para>XSPI register offsets</para><para>Register offsets for the <ref refid="struct_x_spi" kindref="compound">XSpi</ref> device. </para></description>
+      <memberdef kind="define" id="group__spi_1ga3a66b8345fe53a19c2da1a8162dc366d" prot="public" static="no">
+        <name>XSP_DGIER_OFFSET</name>
+        <initializer>0x1C</initializer>
+        <briefdescription>
+<para>Global Intr Enable Reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga2bc4dc18547b8bdd05c5eb2b73c9ff7d" prot="public" static="no">
+        <name>XSP_IISR_OFFSET</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>Interrupt status Reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1gace876b867131a62e5407d440c73d6693" prot="public" static="no">
+        <name>XSP_IIER_OFFSET</name>
+        <initializer>0x28</initializer>
+        <briefdescription>
+<para>Interrupt Enable Reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1gaa82028ecd15bcffd8ab361c0c523a7a9" prot="public" static="no">
+        <name>XSP_SRR_OFFSET</name>
+        <initializer>0x40</initializer>
+        <briefdescription>
+<para>Software Reset register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="group__spi_1ga343938fcdf672bec329d876a146178cd" compoundref="xspi_8c" startline="444" endline="466">XSpi_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga3a63aa98328d40e3221901143e128da1" prot="public" static="no">
+        <name>XSP_CR_OFFSET</name>
+        <initializer>0x60</initializer>
+        <briefdescription>
+<para>Control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="114" bodyend="-1"/>
+        <referencedby refid="group__spi_1ga44a2dc795761b35ed0ebdd6989675022" compoundref="xspi_8c" startline="1381" endline="1423">XSpi_Abort</referencedby>
+        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="152" endline="285">XSpi_CfgInitialize</referencedby>
+        <referencedby refid="xspi__low__level__example_8c_1a84062f5eec2674a89353f5679b0928a2" compoundref="xspi__low__level__example_8c" startline="133" endline="208">XSpi_LowLevelExample</referencedby>
+        <referencedby refid="group__spi_1ga87fdaad742a2669200c9b2617e5c86ea" compoundref="xspi_8c" startline="306" endline="358">XSpi_Start</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1gae4915bf726554a2abf5922129f88542b" prot="public" static="no">
+        <name>XSP_SR_OFFSET</name>
+        <initializer>0x64</initializer>
+        <briefdescription>
+<para>Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="115" bodyend="-1"/>
+        <referencedby refid="xspi__low__level__example_8c_1a84062f5eec2674a89353f5679b0928a2" compoundref="xspi__low__level__example_8c" startline="133" endline="208">XSpi_LowLevelExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga02929309d91a658ac28746aee48d0c04" prot="public" static="no">
+        <name>XSP_DTR_OFFSET</name>
+        <initializer>0x68</initializer>
+        <briefdescription>
+<para>Data transmit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="116" bodyend="-1"/>
+        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="152" endline="285">XSpi_CfgInitialize</referencedby>
+        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1110" endline="1362">XSpi_InterruptHandler</referencedby>
+        <referencedby refid="xspi__low__level__example_8c_1a84062f5eec2674a89353f5679b0928a2" compoundref="xspi__low__level__example_8c" startline="133" endline="208">XSpi_LowLevelExample</referencedby>
+        <referencedby refid="group__spi_1ga4c44c082ef2d2b9cf4ba3db8bcebd954" compoundref="xspi_8c" startline="551" endline="861">XSpi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga078846fea7538049312959d15b44a9dd" prot="public" static="no">
+        <name>XSP_DRR_OFFSET</name>
+        <initializer>0x6C</initializer>
+        <briefdescription>
+<para>Data receive. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="117" bodyend="-1"/>
+        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="152" endline="285">XSpi_CfgInitialize</referencedby>
+        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1110" endline="1362">XSpi_InterruptHandler</referencedby>
+        <referencedby refid="xspi__low__level__example_8c_1a84062f5eec2674a89353f5679b0928a2" compoundref="xspi__low__level__example_8c" startline="133" endline="208">XSpi_LowLevelExample</referencedby>
+        <referencedby refid="group__spi_1ga4c44c082ef2d2b9cf4ba3db8bcebd954" compoundref="xspi_8c" startline="551" endline="861">XSpi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga34c2ab4de85d2a3a5659e5446235942c" prot="public" static="no">
+        <name>XSP_SSR_OFFSET</name>
+        <initializer>0x70</initializer>
+        <briefdescription>
+<para>32-bit slave select </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1gaf06c80c0767e40c86b2e3fc18457d680" prot="public" static="no">
+        <name>XSP_TFO_OFFSET</name>
+        <initializer>0x74</initializer>
+        <briefdescription>
+<para>Tx FIFO occupancy. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="119" bodyend="-1"/>
+        <referencedby refid="group__spi_1ga11b6ebdb6f69c6939176e05600b10e3e" compoundref="xspi__selftest_8c" startline="87" endline="180">XSpi_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga4e120064bd2a34a145d54608ccef4107" prot="public" static="no">
+        <name>XSP_RFO_OFFSET</name>
+        <initializer>0x78</initializer>
+        <briefdescription>
+<para>Rx FIFO occupancy. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="120" bodyend="-1"/>
+        <referencedby refid="group__spi_1ga11b6ebdb6f69c6939176e05600b10e3e" compoundref="xspi__selftest_8c" startline="87" endline="180">XSpi_SelfTest</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Global Interrupt Enable Register (GIER) mask(s)</header>
+      <memberdef kind="define" id="group__spi_1ga492a1b3f6bb367fbb9e88b514722b13c" prot="public" static="no">
+        <name>XSP_GINTR_ENABLE_MASK</name>
+        <initializer>0x80000000</initializer>
+        <briefdescription>
+<para>Global interrupt enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>SPI Device Interrupt Status/Enable Registers</header>
+      <description><para><bold> Interrupt Status Register (IPISR) </bold></para><para>This register holds the interrupt status flags for the Spi device.</para><para><bold> Interrupt Enable Register (IPIER) </bold></para><para>This register is used to enable interrupt sources for the Spi device. Writing a &apos;1&apos; to a bit in this register enables the corresponding Interrupt. Writing a &apos;0&apos; to a bit in this register disables the corresponding Interrupt.</para><para>ISR/IER registers have the same bit definitions and are only defined once. </para></description>
+      <memberdef kind="define" id="group__spi_1gae1c1ffa1846ef388873861bf017aec7a" prot="public" static="no">
+        <name>XSP_INTR_MODE_FAULT_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Mode fault error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="149" bodyend="-1"/>
+        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1110" endline="1362">XSpi_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1gad8f8c52684a188989df6463cfa44e90f" prot="public" static="no">
+        <name>XSP_INTR_SLAVE_MODE_FAULT_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Selected as slave while disabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="150" bodyend="-1"/>
+        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1110" endline="1362">XSpi_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1gaa8ec3c2cf6ffb5824012e63935fe94cf" prot="public" static="no">
+        <name>XSP_INTR_TX_EMPTY_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>DTR/TxFIFO is empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="153" bodyend="-1"/>
+        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1110" endline="1362">XSpi_InterruptHandler</referencedby>
+        <referencedby refid="group__spi_1ga4c44c082ef2d2b9cf4ba3db8bcebd954" compoundref="xspi_8c" startline="551" endline="861">XSpi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga9a7a08185e86401169c2f810642f08ec" prot="public" static="no">
+        <name>XSP_INTR_TX_UNDERRUN_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>DTR/TxFIFO underrun. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="154" bodyend="-1"/>
+        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1110" endline="1362">XSpi_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga154fc50d2dfa52ec08b03a202484f8b0" prot="public" static="no">
+        <name>XSP_INTR_RX_FULL_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>DRR/RxFIFO is full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1gae4313597b27da75830905e5510d6c7ba" prot="public" static="no">
+        <name>XSP_INTR_RX_OVERRUN_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>DRR/RxFIFO overrun. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="156" bodyend="-1"/>
+        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1110" endline="1362">XSpi_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga17b6c5a44bb267e1d71293adfc225cc4" prot="public" static="no">
+        <name>XSP_INTR_TX_HALF_EMPTY_MASK</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>TxFIFO is half empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="157" bodyend="-1"/>
+        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1110" endline="1362">XSpi_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1gaaac9322f55b43ad653b2dd630df73ac6" prot="public" static="no">
+        <name>XSP_INTR_SLAVE_MODE_MASK</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>Slave select mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="158" bodyend="-1"/>
+        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1110" endline="1362">XSpi_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1gaf4fa2bf85266797c3806a885144f0a67" prot="public" static="no">
+        <name>XSP_INTR_RX_NOT_EMPTY_MASK</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+<para>RxFIFO not empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="159" bodyend="-1"/>
+        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1110" endline="1362">XSpi_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga4411b96eab10163334a172e8c7fff16e" prot="public" static="no">
+        <name>XSP_INTR_CPOL_CPHA_ERR_MASK</name>
+        <initializer>0x00000200</initializer>
+        <briefdescription>
+<para>The following bits are available only in axi_qspi Interrupt Status and Interrupt Enable registers. </para>        </briefdescription>
+        <detaileddescription>
+<para>CPOL/CPHA error </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga02214d826551eaa28053bbe31961d7d8" prot="public" static="no">
+        <name>XSP_INTR_SLAVE_MODE_ERR_MASK</name>
+        <initializer>0x00000400</initializer>
+        <briefdescription>
+<para>Slave mode error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1gadab0807b07832514f750466433646109" prot="public" static="no">
+        <name>XSP_INTR_MSB_ERR_MASK</name>
+        <initializer>0x00000800</initializer>
+        <briefdescription>
+<para>MSB Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1gab391120a5227047af0568687b386bee9" prot="public" static="no">
+        <name>XSP_INTR_LOOP_BACK_ERR_MASK</name>
+        <initializer>0x00001000</initializer>
+        <briefdescription>
+<para>Loop back error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga78efad507778d0d5fe669486d4ac8558" prot="public" static="no">
+        <name>XSP_INTR_CMD_ERR_MASK</name>
+        <initializer>0x00002000</initializer>
+        <briefdescription>
+<para>&apos;Invalid cmd&apos; error </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="169" bodyend="-1"/>
+        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1110" endline="1362">XSpi_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1gaf2c321040c3a93daa19aa3fcc77c86e8" prot="public" static="no">
+        <name>XSP_INTR_ALL</name>
+        <initializer>(<ref refid="group__spi_1gae1c1ffa1846ef388873861bf017aec7a" kindref="member">XSP_INTR_MODE_FAULT_MASK</ref> | \
+				 <ref refid="group__spi_1gad8f8c52684a188989df6463cfa44e90f" kindref="member">XSP_INTR_SLAVE_MODE_FAULT_MASK</ref> | \
+				 <ref refid="group__spi_1gaa8ec3c2cf6ffb5824012e63935fe94cf" kindref="member">XSP_INTR_TX_EMPTY_MASK</ref> | \
+				 <ref refid="group__spi_1ga9a7a08185e86401169c2f810642f08ec" kindref="member">XSP_INTR_TX_UNDERRUN_MASK</ref> | \
+				 <ref refid="group__spi_1ga154fc50d2dfa52ec08b03a202484f8b0" kindref="member">XSP_INTR_RX_FULL_MASK</ref> | \
+				 <ref refid="group__spi_1ga17b6c5a44bb267e1d71293adfc225cc4" kindref="member">XSP_INTR_TX_HALF_EMPTY_MASK</ref> | \
+				 <ref refid="group__spi_1gae4313597b27da75830905e5510d6c7ba" kindref="member">XSP_INTR_RX_OVERRUN_MASK</ref> | \
+				 <ref refid="group__spi_1gaaac9322f55b43ad653b2dd630df73ac6" kindref="member">XSP_INTR_SLAVE_MODE_MASK</ref> | \
+				 <ref refid="group__spi_1gaf4fa2bf85266797c3806a885144f0a67" kindref="member">XSP_INTR_RX_NOT_EMPTY_MASK</ref> | \
+				 <ref refid="group__spi_1ga78efad507778d0d5fe669486d4ac8558" kindref="member">XSP_INTR_CMD_ERR_MASK</ref> | \
+				 <ref refid="group__spi_1gab391120a5227047af0568687b386bee9" kindref="member">XSP_INTR_LOOP_BACK_ERR_MASK</ref> | \
+				 <ref refid="group__spi_1gadab0807b07832514f750466433646109" kindref="member">XSP_INTR_MSB_ERR_MASK</ref> | \
+				 <ref refid="group__spi_1ga02214d826551eaa28053bbe31961d7d8" kindref="member">XSP_INTR_SLAVE_MODE_ERR_MASK</ref> | \
+				 <ref refid="group__spi_1ga4411b96eab10163334a172e8c7fff16e" kindref="member">XSP_INTR_CPOL_CPHA_ERR_MASK</ref>)</initializer>
+        <briefdescription>
+<para>Mask for all the interrupts in the IP Interrupt Registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga99707579afa353242a403526ddebcb6d" prot="public" static="no">
+        <name>XSP_INTR_DFT_MASK</name>
+        <initializer>(<ref refid="group__spi_1gae1c1ffa1846ef388873861bf017aec7a" kindref="member">XSP_INTR_MODE_FAULT_MASK</ref> |	\
+				 <ref refid="group__spi_1ga9a7a08185e86401169c2f810642f08ec" kindref="member">XSP_INTR_TX_UNDERRUN_MASK</ref> |	\
+				 <ref refid="group__spi_1gae4313597b27da75830905e5510d6c7ba" kindref="member">XSP_INTR_RX_OVERRUN_MASK</ref> |	\
+				 <ref refid="group__spi_1gad8f8c52684a188989df6463cfa44e90f" kindref="member">XSP_INTR_SLAVE_MODE_FAULT_MASK</ref> | \
+				 <ref refid="group__spi_1ga78efad507778d0d5fe669486d4ac8558" kindref="member">XSP_INTR_CMD_ERR_MASK</ref>)</initializer>
+        <briefdescription>
+<para>The interrupts we want at startup. </para>        </briefdescription>
+        <detaileddescription>
+<para>We add the TX_EMPTY interrupt in later when we&apos;re getting ready to transfer data. The others we don&apos;t care about for now. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="193" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="194" bodyend="-1"/>
+        <referencedby refid="group__spi_1ga87fdaad742a2669200c9b2617e5c86ea" compoundref="xspi_8c" startline="306" endline="358">XSpi_Start</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>SPI Control Register (CR) masks</header>
+      <memberdef kind="define" id="group__spi_1ga6a060df48208ca7e56572762233ceadb" prot="public" static="no">
+        <name>XSP_CR_LOOPBACK_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Local loopback mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="211" bodyend="-1"/>
+        <referencedby refid="xspi__low__level__example_8c_1a84062f5eec2674a89353f5679b0928a2" compoundref="xspi__low__level__example_8c" startline="133" endline="208">XSpi_LowLevelExample</referencedby>
+        <referencedby refid="group__spi_1ga4c44c082ef2d2b9cf4ba3db8bcebd954" compoundref="xspi_8c" startline="551" endline="861">XSpi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga1c10904273bbeb8fb8fc502c5cc9cdf6" prot="public" static="no">
+        <name>XSP_CR_ENABLE_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>System enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="211" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="212" bodyend="-1"/>
+        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="152" endline="285">XSpi_CfgInitialize</referencedby>
+        <referencedby refid="xspi__low__level__example_8c_1a84062f5eec2674a89353f5679b0928a2" compoundref="xspi__low__level__example_8c" startline="133" endline="208">XSpi_LowLevelExample</referencedby>
+        <referencedby refid="group__spi_1ga87fdaad742a2669200c9b2617e5c86ea" compoundref="xspi_8c" startline="306" endline="358">XSpi_Start</referencedby>
+        <referencedby refid="group__spi_1gad4bb67cfcfe73844ffb1917b11d5284c" compoundref="xspi_8c" startline="394" endline="423">XSpi_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga25aabcaa1db090de7cf4aaf3cb05ea6b" prot="public" static="no">
+        <name>XSP_CR_MASTER_MODE_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Enable master mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="212" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="213" bodyend="-1"/>
+        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="152" endline="285">XSpi_CfgInitialize</referencedby>
+        <referencedby refid="xspi__low__level__example_8c_1a84062f5eec2674a89353f5679b0928a2" compoundref="xspi__low__level__example_8c" startline="133" endline="208">XSpi_LowLevelExample</referencedby>
+        <referencedby refid="group__spi_1ga4c44c082ef2d2b9cf4ba3db8bcebd954" compoundref="xspi_8c" startline="551" endline="861">XSpi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga522187d5fb382dfa512f02be7fe0068b" prot="public" static="no">
+        <name>XSP_CR_CLK_POLARITY_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Clock polarity high or low. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="214" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga87d555bd447b511847632a2fe19b8b04" prot="public" static="no">
+        <name>XSP_CR_CLK_PHASE_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>Clock phase 0 or 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="215" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1gab7796329c185988f906256394bc9372f" prot="public" static="no">
+        <name>XSP_CR_TXFIFO_RESET_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>Reset transmit FIFO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="216" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="218" bodyend="-1"/>
+        <referencedby refid="group__spi_1ga44a2dc795761b35ed0ebdd6989675022" compoundref="xspi_8c" startline="1381" endline="1423">XSpi_Abort</referencedby>
+        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="152" endline="285">XSpi_CfgInitialize</referencedby>
+        <referencedby refid="group__spi_1ga87fdaad742a2669200c9b2617e5c86ea" compoundref="xspi_8c" startline="306" endline="358">XSpi_Start</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga5b5e5793f12d648025e58f716862bb3e" prot="public" static="no">
+        <name>XSP_CR_RXFIFO_RESET_MASK</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>Reset receive FIFO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="217" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="219" bodyend="-1"/>
+        <referencedby refid="group__spi_1ga44a2dc795761b35ed0ebdd6989675022" compoundref="xspi_8c" startline="1381" endline="1423">XSpi_Abort</referencedby>
+        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="152" endline="285">XSpi_CfgInitialize</referencedby>
+        <referencedby refid="group__spi_1ga87fdaad742a2669200c9b2617e5c86ea" compoundref="xspi_8c" startline="306" endline="358">XSpi_Start</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga68b5a025e603ab87d7987e2220507e6c" prot="public" static="no">
+        <name>XSP_CR_MANUAL_SS_MASK</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>Manual slave select assert. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="219" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga2d045067441152dbf5729d4dce64032b" prot="public" static="no">
+        <name>XSP_CR_TRANS_INHIBIT_MASK</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+<para>Master transaction inhibit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="221" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="223" bodyend="-1"/>
+        <referencedby refid="group__spi_1ga44a2dc795761b35ed0ebdd6989675022" compoundref="xspi_8c" startline="1381" endline="1423">XSpi_Abort</referencedby>
+        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="152" endline="285">XSpi_CfgInitialize</referencedby>
+        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1110" endline="1362">XSpi_InterruptHandler</referencedby>
+        <referencedby refid="xspi__low__level__example_8c_1a84062f5eec2674a89353f5679b0928a2" compoundref="xspi__low__level__example_8c" startline="133" endline="208">XSpi_LowLevelExample</referencedby>
+        <referencedby refid="group__spi_1ga4c44c082ef2d2b9cf4ba3db8bcebd954" compoundref="xspi_8c" startline="551" endline="861">XSpi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga17631cb22711b70ec4da7741e0ac648f" prot="public" static="no">
+        <name>XSP_CR_RESET_DONE_MASK</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+<para>FIFO reset complete. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="222" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="226" bodyend="-1"/>
+        <referencedby refid="group__spi_1ga44a2dc795761b35ed0ebdd6989675022" compoundref="xspi_8c" startline="1381" endline="1423">XSpi_Abort</referencedby>
+        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="152" endline="285">XSpi_CfgInitialize</referencedby>
+        <referencedby refid="group__spi_1ga87fdaad742a2669200c9b2617e5c86ea" compoundref="xspi_8c" startline="306" endline="358">XSpi_Start</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga9af1189aa0cf7ba871c47201d0721683" prot="public" static="no">
+        <name>XSP_CR_LSB_MSB_FIRST_MASK</name>
+        <initializer>0x00000200</initializer>
+        <briefdescription>
+<para>LSB/MSB first data format select. </para>        </briefdescription>
+        <detaileddescription>
+<para>The default data format is MSB first. The LSB first data format is not available in all versions of the Xilinx Spi Device whereas the MSB first data format is supported by all the versions of the Xilinx Spi Devices. Please check the HW specification to see if this feature is supported or not. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="231" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>SPI Control Register (CR) masks for XIP Mode</header>
+      <memberdef kind="define" id="group__spi_1ga8b1a0aa05d64095856c125f38acb55bf" prot="public" static="no">
+        <name>XSP_CR_XIP_CLK_PHASE_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Clock phase 0 or 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="239" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="243" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga9e07ebf282cf0dee542bd5a3b9f41641" prot="public" static="no">
+        <name>XSP_CR_XIP_CLK_POLARITY_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Clock polarity high or low. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="241" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Status Register (SR) masks</header>
+      <memberdef kind="define" id="group__spi_1ga25dfccf25bae24caa237ec3b75825438" prot="public" static="no">
+        <name>XSP_SR_RX_EMPTY_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Receive Reg/FIFO is empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="252" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="257" bodyend="-1"/>
+        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="152" endline="285">XSpi_CfgInitialize</referencedby>
+        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1110" endline="1362">XSpi_InterruptHandler</referencedby>
+        <referencedby refid="xspi__low__level__example_8c_1a84062f5eec2674a89353f5679b0928a2" compoundref="xspi__low__level__example_8c" startline="133" endline="208">XSpi_LowLevelExample</referencedby>
+        <referencedby refid="group__spi_1ga4c44c082ef2d2b9cf4ba3db8bcebd954" compoundref="xspi_8c" startline="551" endline="861">XSpi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1gaf3c8077ca32c93bbd7ee52a6a9ab33e1" prot="public" static="no">
+        <name>XSP_SR_RX_FULL_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Receive Reg/FIFO is full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="253" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1gaaa5946629075b285ce0c4b90a87f4fec" prot="public" static="no">
+        <name>XSP_SR_TX_EMPTY_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Transmit Reg/FIFO is empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="255" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="259" bodyend="-1"/>
+        <referencedby refid="xspi__low__level__example_8c_1a84062f5eec2674a89353f5679b0928a2" compoundref="xspi__low__level__example_8c" startline="133" endline="208">XSpi_LowLevelExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga2666d211089b037853ee6d1f80130ae7" prot="public" static="no">
+        <name>XSP_SR_TX_FULL_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Transmit Reg/FIFO is full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="256" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="262" bodyend="-1"/>
+        <referencedby refid="xspi__low__level__example_8c_1a84062f5eec2674a89353f5679b0928a2" compoundref="xspi__low__level__example_8c" startline="133" endline="208">XSpi_LowLevelExample</referencedby>
+        <referencedby refid="group__spi_1ga4c44c082ef2d2b9cf4ba3db8bcebd954" compoundref="xspi_8c" startline="551" endline="861">XSpi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga5ab61ff6d56a82f18573abe33958b27e" prot="public" static="no">
+        <name>XSP_SR_MODE_FAULT_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>Mode fault error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="257" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1gaf6ed84865dc8c3e3d2cb7835b4007159" prot="public" static="no">
+        <name>XSP_SR_SLAVE_MODE_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>Slave mode select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="258" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga2aeb63586150ee640f93d38bf611e583" prot="public" static="no">
+        <name>XSP_SR_CPOL_CPHA_ERR_MASK</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>CPOL/CPHA error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="263" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="269" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga5d08afc5481f3746c444b682aa7b1de1" prot="public" static="no">
+        <name>XSP_SR_SLAVE_MODE_ERR_MASK</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>Slave mode error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="264" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="270" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga3da5f67ae5a952127614beec3b1556eb" prot="public" static="no">
+        <name>XSP_SR_MSB_ERR_MASK</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+<para>MSB Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="265" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="271" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga5affffc9ae318a0d1187235d4df45d3b" prot="public" static="no">
+        <name>XSP_SR_LOOP_BACK_ERR_MASK</name>
+        <initializer>0x00000200</initializer>
+        <briefdescription>
+<para>Loop back error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="266" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="272" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga05d94bc7a9205d80dd3024783f0cde82" prot="public" static="no">
+        <name>XSP_SR_CMD_ERR_MASK</name>
+        <initializer>0x00000400</initializer>
+        <briefdescription>
+<para>&apos;Invalid cmd&apos; error </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="267" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="273" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Status Register (SR) masks for XIP Mode</header>
+      <memberdef kind="define" id="group__spi_1ga03c4fc141be312d0f92ea72ba89cac12" prot="public" static="no">
+        <name>XSP_SR_XIP_RX_EMPTY_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Receive Reg/FIFO is empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="276" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga9cbb3b1a05ab5e38813e5ba66f63b751" prot="public" static="no">
+        <name>XSP_SR_XIP_RX_FULL_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Receive Reg/FIFO is full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="278" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga82d05e2bede7d12b74e6994d8bfaaab8" prot="public" static="no">
+        <name>XSP_SR_XIP_MASTER_MODF_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Receive Reg/FIFO is full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="280" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="287" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga894c3b5bd8cd47deb1aa84303733d97c" prot="public" static="no">
+        <name>XSP_SR_XIP_CPHPL_ERROR_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Clock Phase,Clock Polarity Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="282" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga7cabf5324694e10915a45cabf9872a28" prot="public" static="no">
+        <name>XSP_SR_XIP_AXI_ERROR_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>AXI Transaction Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="284" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="293" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>SPI Transmit FIFO Occupancy (TFO) mask</header>
+      <memberdef kind="define" id="group__spi_1ga44ccf60002ad8192685bdbb409b1eac5" prot="public" static="no">
+        <name>XSP_TFO_MASK</name>
+        <initializer>0x0000001F</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="294" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>SPI Receive FIFO Occupancy (RFO) mask</header>
+      <memberdef kind="define" id="group__spi_1gaac20d42377c8de368527a37e39121666" prot="public" static="no">
+        <name>XSP_RFO_MASK</name>
+        <initializer>0x0000001F</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="303" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="314" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Data Width Definitions</header>
+      <memberdef kind="define" id="group__spi_1ga7c85879d831cff400f3919c3283089dc" prot="public" static="no">
+        <name>XSP_DATAWIDTH_BYTE</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Tx/Rx Reg is Byte Wide. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="311" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="322" bodyend="-1"/>
+        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="152" endline="285">XSpi_CfgInitialize</referencedby>
+        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1110" endline="1362">XSpi_InterruptHandler</referencedby>
+        <referencedby refid="group__spi_1ga4c44c082ef2d2b9cf4ba3db8bcebd954" compoundref="xspi_8c" startline="551" endline="861">XSpi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1gabd886cf61eba8074e747ebec9df258dd" prot="public" static="no">
+        <name>XSP_DATAWIDTH_HALF_WORD</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Tx/Rx Reg is Half Word (16 bit) Wide. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="313" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="323" bodyend="-1"/>
+        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1110" endline="1362">XSpi_InterruptHandler</referencedby>
+        <referencedby refid="group__spi_1ga4c44c082ef2d2b9cf4ba3db8bcebd954" compoundref="xspi_8c" startline="551" endline="861">XSpi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1gace732a635dfcd0b6258449945444b31c" prot="public" static="no">
+        <name>XSP_DATAWIDTH_WORD</name>
+        <initializer>32</initializer>
+        <briefdescription>
+<para>Tx/Rx Reg is Word (32 bit) Wide. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="314" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="326" bodyend="-1"/>
+        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1110" endline="1362">XSpi_InterruptHandler</referencedby>
+        <referencedby refid="group__spi_1ga4c44c082ef2d2b9cf4ba3db8bcebd954" compoundref="xspi_8c" startline="551" endline="861">XSpi_Transfer</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>SPI Modes</header>
+      <description><para>The following constants define the modes in which qxi_qspi operates. </para></description>
+      <memberdef kind="define" id="group__spi_1gadb9526c0fe208894f41ac9a75a4ae33b" prot="public" static="no">
+        <name>XSP_STANDARD_MODE</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="324" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="336" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga2ffc4a0643a5b408ddc5865cd932679b" prot="public" static="no">
+        <name>XSP_DUAL_MODE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="325" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="337" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga65123199589f10eb456ffc73a0473d10" prot="public" static="no">
+        <name>XSP_QUAD_MODE</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="326" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="338" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__spi_1ga9536362eea6676fffeff0553704c3e2c" prot="public" static="no">
+        <name>XSPI_L_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga17b475ddce41f86d28f8e82fbfeea7d8" prot="public" static="no">
+        <name>XSpi_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga2193543c644c3205b8314c06d1861e1c" prot="public" static="no">
+        <name>XSpi_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga5e55891344ab473841b6eefc2bda35a2" prot="public" static="no">
+        <name>XSpi_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>XSpi_In32((BaseAddress) + (RegOffset))</initializer>
+        <briefdescription>
+<para>Read from the specified Spi device register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the offset from the 1st register of the device to select the specific register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read from the register.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: u32 <ref refid="group__spi_1ga5e55891344ab473841b6eefc2bda35a2" kindref="member">XSpi_ReadReg(u32 BaseAddress, u32 RegOffset)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="152" endline="285">XSpi_CfgInitialize</referencedby>
+        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1110" endline="1362">XSpi_InterruptHandler</referencedby>
+        <referencedby refid="xspi__low__level__example_8c_1a84062f5eec2674a89353f5679b0928a2" compoundref="xspi__low__level__example_8c" startline="133" endline="208">XSpi_LowLevelExample</referencedby>
+        <referencedby refid="group__spi_1ga11b6ebdb6f69c6939176e05600b10e3e" compoundref="xspi__selftest_8c" startline="87" endline="180">XSpi_SelfTest</referencedby>
+        <referencedby refid="group__spi_1ga4c44c082ef2d2b9cf4ba3db8bcebd954" compoundref="xspi_8c" startline="551" endline="861">XSpi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga32e741800118678aa060ef2a13661e31" prot="public" static="no">
+        <name>XSpi_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>RegisterValue</defname></param>
+        <initializer>XSpi_Out32((BaseAddress) + (RegOffset), (RegisterValue))</initializer>
+        <briefdescription>
+<para>Write to the specified Spi device register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the offset from the 1st register of the device to select the specific register. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegisterValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to be written to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: void XSpi_WriteReg(u32 BaseAddress, u32 RegOffset, u32 RegisterValue); </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="95" bodyend="-1"/>
+        <referencedby refid="group__spi_1ga858155b42d5a1da8efe06c9098e40b2d" compoundref="xspi_8c" startline="152" endline="285">XSpi_CfgInitialize</referencedby>
+        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1110" endline="1362">XSpi_InterruptHandler</referencedby>
+        <referencedby refid="xspi__low__level__example_8c_1a84062f5eec2674a89353f5679b0928a2" compoundref="xspi__low__level__example_8c" startline="133" endline="208">XSpi_LowLevelExample</referencedby>
+        <referencedby refid="group__spi_1ga343938fcdf672bec329d876a146178cd" compoundref="xspi_8c" startline="444" endline="466">XSpi_Reset</referencedby>
+        <referencedby refid="group__spi_1ga4c44c082ef2d2b9cf4ba3db8bcebd954" compoundref="xspi_8c" startline="551" endline="861">XSpi_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__spi_1ga48fdfb116f37c7f14403bed57b556c4c" prot="public" static="no">
+        <name>XSP_SRR_RESET_MASK</name>
+        <initializer>0x0000000A</initializer>
+        <briefdescription>
+<para>SPI Software Reset Register (SRR) mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" line="203" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h" bodystart="204" bodyend="-1"/>
+        <referencedby refid="group__spi_1ga343938fcdf672bec329d876a146178cd" compoundref="xspi_8c" startline="444" endline="466">XSpi_Reset</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2001<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor">#ifndef<sp/>XSPI_L_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSPI_L_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSpi_In32<sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSpi_Out32<sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="76" refid="group__spi_1ga5e55891344ab473841b6eefc2bda35a2" refkind="member"><highlight class="preprocessor">#define<sp/>XSpi_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSpi_In32((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/***************************************************************************/</highlight></codeline>
+<codeline lineno="95" refid="group__spi_1ga32e741800118678aa060ef2a13661e31" refkind="member"><highlight class="preprocessor">#define<sp/>XSpi_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>RegisterValue)<sp/>\</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSpi_Out32((BaseAddress)<sp/>+<sp/>(RegOffset),<sp/>(RegisterValue))</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110" refid="group__spi_1ga3a66b8345fe53a19c2da1a8162dc366d" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_DGIER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1C<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="111" refid="group__spi_1ga2bc4dc18547b8bdd05c5eb2b73c9ff7d" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_IISR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="112" refid="group__spi_1gace876b867131a62e5407d440c73d6693" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_IIER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x28<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113" refid="group__spi_1gaa82028ecd15bcffd8ab361c0c523a7a9" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_SRR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114" refid="group__spi_1ga3a63aa98328d40e3221901143e128da1" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_CR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x60<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115" refid="group__spi_1gae4915bf726554a2abf5922129f88542b" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_SR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x64<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="116" refid="group__spi_1ga02929309d91a658ac28746aee48d0c04" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_DTR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x68<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="117" refid="group__spi_1ga078846fea7538049312959d15b44a9dd" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_DRR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x6C<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="118" refid="group__spi_1ga34c2ab4de85d2a3a5659e5446235942c" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_SSR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x70<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="119" refid="group__spi_1gaf06c80c0767e40c86b2e3fc18457d680" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_TFO_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x74<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="120" refid="group__spi_1ga4e120064bd2a34a145d54608ccef4107" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_RFO_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x78<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129" refid="group__spi_1ga492a1b3f6bb367fbb9e88b514722b13c" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_GINTR_ENABLE_MASK<sp/><sp/><sp/>0x80000000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149" refid="group__spi_1gae1c1ffa1846ef388873861bf017aec7a" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_INTR_MODE_FAULT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="150" refid="group__spi_1gad8f8c52684a188989df6463cfa44e90f" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_INTR_SLAVE_MODE_FAULT_MASK<sp/><sp/>0x00000002<sp/></highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor">#define<sp/>XSP_INTR_TX_EMPTY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="153" refid="group__spi_1gaa8ec3c2cf6ffb5824012e63935fe94cf" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_INTR_TX_UNDERRUN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/></highlight></codeline>
+<codeline lineno="154" refid="group__spi_1ga9a7a08185e86401169c2f810642f08ec" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_INTR_RX_FULL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010<sp/></highlight></codeline>
+<codeline lineno="155" refid="group__spi_1ga154fc50d2dfa52ec08b03a202484f8b0" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_INTR_RX_OVERRUN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020<sp/></highlight></codeline>
+<codeline lineno="156" refid="group__spi_1gae4313597b27da75830905e5510d6c7ba" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_INTR_TX_HALF_EMPTY_MASK<sp/><sp/><sp/><sp/><sp/>0x00000040<sp/></highlight></codeline>
+<codeline lineno="157" refid="group__spi_1ga17b6c5a44bb267e1d71293adfc225cc4" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_INTR_SLAVE_MODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000080<sp/></highlight></codeline>
+<codeline lineno="158" refid="group__spi_1gaaac9322f55b43ad653b2dd630df73ac6" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_INTR_RX_NOT_EMPTY_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000100<sp/></highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor">#define<sp/>XSP_INTR_CPOL_CPHA_ERR_MASK<sp/><sp/><sp/><sp/><sp/>0x00000200<sp/></highlight></codeline>
+<codeline lineno="165" refid="group__spi_1ga4411b96eab10163334a172e8c7fff16e" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_INTR_SLAVE_MODE_ERR_MASK<sp/><sp/><sp/><sp/>0x00000400<sp/></highlight></codeline>
+<codeline lineno="166" refid="group__spi_1ga02214d826551eaa28053bbe31961d7d8" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_INTR_MSB_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000800<sp/></highlight></codeline>
+<codeline lineno="167" refid="group__spi_1gadab0807b07832514f750466433646109" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_INTR_LOOP_BACK_ERR_MASK<sp/><sp/><sp/><sp/><sp/>0x00001000<sp/></highlight></codeline>
+<codeline lineno="168" refid="group__spi_1gab391120a5227047af0568687b386bee9" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_INTR_CMD_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00002000<sp/></highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor">#define<sp/>XSP_INTR_ALL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSP_INTR_MODE_FAULT_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="174" refid="group__spi_1gaf2c321040c3a93daa19aa3fcc77c86e8" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSP_INTR_SLAVE_MODE_FAULT_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSP_INTR_TX_EMPTY_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSP_INTR_TX_UNDERRUN_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSP_INTR_RX_FULL_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSP_INTR_TX_HALF_EMPTY_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSP_INTR_RX_OVERRUN_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSP_INTR_SLAVE_MODE_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSP_INTR_RX_NOT_EMPTY_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSP_INTR_CMD_ERR_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSP_INTR_LOOP_BACK_ERR_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSP_INTR_MSB_ERR_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSP_INTR_SLAVE_MODE_ERR_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSP_INTR_CPOL_CPHA_ERR_MASK)</highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor">#define<sp/>XSP_INTR_DFT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSP_INTR_MODE_FAULT_MASK<sp/>|<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="194" refid="group__spi_1ga99707579afa353242a403526ddebcb6d" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSP_INTR_TX_UNDERRUN_MASK<sp/>|<sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSP_INTR_RX_OVERRUN_MASK<sp/>|<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSP_INTR_SLAVE_MODE_FAULT_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSP_INTR_CMD_ERR_MASK)</highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor">#define<sp/>XSP_SRR_RESET_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000000A</highlight></codeline>
+<codeline lineno="204" refid="group__spi_1ga48fdfb116f37c7f14403bed57b556c4c" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor">#define<sp/>XSP_CR_LOOPBACK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="211" refid="group__spi_1ga6a060df48208ca7e56572762233ceadb" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_CR_ENABLE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/></highlight></codeline>
+<codeline lineno="212" refid="group__spi_1ga1c10904273bbeb8fb8fc502c5cc9cdf6" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_CR_MASTER_MODE_MASK<sp/><sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="213" refid="group__spi_1ga25aabcaa1db090de7cf4aaf3cb05ea6b" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_CR_CLK_POLARITY_MASK<sp/><sp/><sp/>0x00000008<sp/></highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor">#define<sp/>XSP_CR_CLK_PHASE_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000010<sp/></highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor">#define<sp/>XSP_CR_TXFIFO_RESET_MASK<sp/><sp/><sp/>0x00000020<sp/></highlight></codeline>
+<codeline lineno="217" refid="group__spi_1ga87d555bd447b511847632a2fe19b8b04" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_CR_RXFIFO_RESET_MASK<sp/><sp/><sp/>0x00000040<sp/></highlight></codeline>
+<codeline lineno="218" refid="group__spi_1gab7796329c185988f906256394bc9372f" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_CR_MANUAL_SS_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000080<sp/></highlight></codeline>
+<codeline lineno="220" refid="group__spi_1ga68b5a025e603ab87d7987e2220507e6c" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_CR_TRANS_INHIBIT_MASK<sp/><sp/>0x00000100<sp/></highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor">#define<sp/>XSP_CR_RESET_DONE_MASK<sp/><sp/><sp/><sp/><sp/>0x00000000<sp/></highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor">#define<sp/>XSP_CR_LSB_MSB_FIRST_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000200</highlight></codeline>
+<codeline lineno="232"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor">#define<sp/>XSP_CR_XIP_CLK_PHASE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="240"><highlight class="preprocessor">#define<sp/>XSP_CR_XIP_CLK_POLARITY_MASK<sp/><sp/><sp/><sp/>0x00000002<sp/></highlight></codeline>
+<codeline lineno="243" refid="group__spi_1ga8b1a0aa05d64095856c125f38acb55bf" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="244" refid="group__spi_1ga9e07ebf282cf0dee542bd5a3b9f41641" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="preprocessor">#define<sp/>XSP_SR_RX_EMPTY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor">#define<sp/>XSP_SR_RX_FULL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/></highlight></codeline>
+<codeline lineno="254"><highlight class="preprocessor">#define<sp/>XSP_SR_TX_EMPTY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="256"><highlight class="preprocessor">#define<sp/>XSP_SR_TX_FULL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/></highlight></codeline>
+<codeline lineno="257" refid="group__spi_1ga25dfccf25bae24caa237ec3b75825438" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_SR_MODE_FAULT_MASK<sp/><sp/><sp/><sp/><sp/>0x00000010<sp/></highlight></codeline>
+<codeline lineno="258" refid="group__spi_1gaf3c8077ca32c93bbd7ee52a6a9ab33e1" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_SR_SLAVE_MODE_MASK<sp/><sp/><sp/><sp/><sp/>0x00000020<sp/></highlight></codeline>
+<codeline lineno="260"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="261"><highlight class="comment"><sp/>*<sp/>The<sp/>following<sp/>bits<sp/>are<sp/>available<sp/>only<sp/>in<sp/>axi_qspi<sp/>Status<sp/>register.</highlight></codeline>
+<codeline lineno="262" refid="group__spi_1ga2666d211089b037853ee6d1f80130ae7" refkind="member"><highlight class="comment"><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="263" refid="group__spi_1ga5ab61ff6d56a82f18573abe33958b27e" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSP_SR_CPOL_CPHA_ERR_MASK<sp/><sp/>0x00000040<sp/></highlight></codeline>
+<codeline lineno="264" refid="group__spi_1gaf6ed84865dc8c3e3d2cb7835b4007159" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_SR_SLAVE_MODE_ERR_MASK<sp/>0x00000080<sp/></highlight></codeline>
+<codeline lineno="265"><highlight class="preprocessor">#define<sp/>XSP_SR_MSB_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000100<sp/></highlight></codeline>
+<codeline lineno="266"><highlight class="preprocessor">#define<sp/>XSP_SR_LOOP_BACK_ERR_MASK<sp/><sp/>0x00000200<sp/></highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor">#define<sp/>XSP_SR_CMD_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000400<sp/></highlight></codeline>
+<codeline lineno="269" refid="group__spi_1ga2aeb63586150ee640f93d38bf611e583" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="270" refid="group__spi_1ga5d08afc5481f3746c444b682aa7b1de1" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="275"><highlight class="preprocessor">#define<sp/>XSP_SR_XIP_RX_EMPTY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="277"><highlight class="preprocessor">#define<sp/>XSP_SR_XIP_RX_FULL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/></highlight></codeline>
+<codeline lineno="279"><highlight class="preprocessor">#define<sp/>XSP_SR_XIP_MASTER_MODF_MASK<sp/><sp/><sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="281" refid="group__spi_1ga03c4fc141be312d0f92ea72ba89cac12" refkind="member"><highlight class="preprocessor">#define<sp/>XSP_SR_XIP_CPHPL_ERROR_MASK<sp/><sp/><sp/><sp/><sp/>0x00000008<sp/></highlight></codeline>
+<codeline lineno="283"><highlight class="preprocessor">#define<sp/>XSP_SR_XIP_AXI_ERROR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010<sp/></highlight></codeline>
+<codeline lineno="286"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="287" refid="group__spi_1ga82d05e2bede7d12b74e6994d8bfaaab8" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="293" refid="group__spi_1ga7cabf5324694e10915a45cabf9872a28" refkind="member"><highlight class="comment">/*<sp/>The<sp/>binary<sp/>value<sp/>plus<sp/>one<sp/>yields<sp/>the<sp/>occupancy.*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSP_TFO_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000001F</highlight></codeline>
+<codeline lineno="295"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="comment">/*<sp/>The<sp/>binary<sp/>value<sp/>plus<sp/>one<sp/>yields<sp/>the<sp/>occupancy.*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSP_RFO_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000001F</highlight></codeline>
+<codeline lineno="304"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="preprocessor">#define<sp/>XSP_DATAWIDTH_BYTE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/><sp/></highlight></codeline>
+<codeline lineno="312"><highlight class="preprocessor">#define<sp/>XSP_DATAWIDTH_HALF_WORD<sp/>16<sp/><sp/></highlight></codeline>
+<codeline lineno="314"><highlight class="preprocessor">#define<sp/>XSP_DATAWIDTH_WORD<sp/><sp/><sp/><sp/><sp/><sp/>32<sp/><sp/></highlight></codeline>
+<codeline lineno="316"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="317"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="324"><highlight class="preprocessor">#define<sp/>XSP_STANDARD_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="325"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSP_DUAL_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="326" refid="group__spi_1gace732a635dfcd0b6258449945444b31c" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSP_QUAD_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="327"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="329"><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="336"><highlight class="normal"></highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="338"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="340"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="342"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_l.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1601 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group___i_d_t__8_t49_n24x" kind="group">
+    <compoundname>IDT_8T49N24x</compoundname>
+    <title>IDT_8T49N24x</title>
+    <innerclass refid="struct_i_d_t__8_t49_n24x___settings" prot="public">IDT_8T49N24x_Settings</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gaef7b4e447854f7d16f0a760b2aea2ceb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int ceil_func</definition>
+        <argsstring>(double x)</argsstring>
+        <name>ceil_func</name>
+        <param>
+          <type>double</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="2370" bodyend="2372"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga0be119ef66e18a84cf41164589631dc9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int floor_func</definition>
+        <argsstring>(double x)</argsstring>
+        <name>floor_func</name>
+        <param>
+          <type>double</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="2374" bodyend="2376"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga5fc0d0762cca8bd333f7f391704bc9d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int round_func</definition>
+        <argsstring>(double number)</argsstring>
+        <name>round_func</name>
+        <param>
+          <type>double</type>
+          <declname>number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="2378" bodyend="2381"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gab6e3a37b11c5d76e8d2295a6b35be9d1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>static u8 IDT_8T49N24x_GetRegister</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress)</argsstring>
+        <name>IDT_8T49N24x_GetRegister</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>RegisterAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function reads a single byte to the IDT 8T49N24x. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="73" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gad924db5e1e681d75e0dc309ec177d1aa" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int IDT_8T49N24x_SetRegister</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress, u8 Value)</argsstring>
+        <name>IDT_8T49N24x_SetRegister</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>RegisterAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>This function send a single byte to the IDT 8T49N24x. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="134" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga6dd2d2324e4f51af7759ef10a60241b5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int IDT_8T49N24x_ModifyRegister</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress, u8 Value, u8 Mask)</argsstring>
+        <name>IDT_8T49N24x_ModifyRegister</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>RegisterAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Value</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function modifies a single byte to the IDT 8T49N24x. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="178" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gae43a56cd699c16c76459f8b47a73fc67" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int IDT_8T49N24x_CheckDeviceID</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress)</argsstring>
+        <name>IDT_8T49N24x_CheckDeviceID</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function checks the IDT 8T49N24x device ID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="213" bodyend="251"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gab10b8562ea39e2965d50680d94fe54be" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int IDT_8T49N24x_GetIntDivTable</definition>
+        <argsstring>(int FOut, int *DivTable, u8 Bypass)</argsstring>
+        <name>IDT_8T49N24x_GetIntDivTable</name>
+        <param>
+          <type>int</type>
+          <declname>FOut</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>DivTable</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Bypass</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="254" bodyend="319"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gaf47b5fc8bb6c82a48b39151842114708" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int IDT_8T49N24x_CalculateSettings</definition>
+        <argsstring>(int FIn, int FOut, IDT_8T49N24x_Settings *RegSettings)</argsstring>
+        <name>IDT_8T49N24x_CalculateSettings</name>
+        <param>
+          <type>int</type>
+          <declname>FIn</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>FOut</declname>
+        </param>
+        <param>
+          <type>IDT_8T49N24x_Settings *</type>
+          <declname>RegSettings</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates the settings. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="336" bodyend="527"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga0c56d8545c64ae78a3423b7ce782676f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int IDT_8T49N24x_SetClock</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, int FIn, int FOut, u8 FreeRun)</argsstring>
+        <name>IDT_8T49N24x_SetClock</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>FIn</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>FOut</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>FreeRun</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates and sets the IDT 8TN49N24x device with the given clock configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FIn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the input frequency. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FOut</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the output frequency. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FreeRun</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies if the operation mode is locked/synthesizer mode.<itemizedlist>
+<listitem><para>TRUE Synthesizer mode (Fout only)</para></listitem><listitem><para>FALSE Locked mode (Fout locked to Fin)</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error or incorrect parameters detected.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="550" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="550" bodyend="643"/>
+        <references refid="group___i_d_t__8_t49_n24x_1ga1b4b5da52bb6a4a1d86f35f945bafbaa" compoundref="dats__dp14_2idt__8t49n24x_8h" startline="205">IDT_8T49N24X_FIN_MAX</references>
+        <references refid="group___i_d_t__8_t49_n24x_1ga68638a8f1d4d7b9caebaaae6159e166d" compoundref="dats__dp14_2idt__8t49n24x_8h" startline="206">IDT_8T49N24X_FIN_MIN</references>
+        <references refid="group___i_d_t__8_t49_n24x_1ga27480ad3ebbfe934bade1ad6cbbb3bf2" compoundref="dats__dp14_2idt__8t49n24x_8h" startline="202">IDT_8T49N24X_FOUT_MAX</references>
+        <references refid="group___i_d_t__8_t49_n24x_1ga1555f1aaadca4eeebe6d097ea6088b73" compoundref="dats__dp14_2idt__8t49n24x_8h" startline="203">IDT_8T49N24X_FOUT_MIN</references>
+        <referencedby refid="xdprxss__dp14__rx_8c_1a26fb3eace6447299bbdedd12b314a6a8" compoundref="xdprxss__dp14__rx_8c" startline="885" endline="911">DpRxSs_PlatformInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga28e95021d29c685dec7c612f63a2eb89" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int IDT_8T49N24x_PreDivider</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, u32 Value, u8 Input)</argsstring>
+        <name>IDT_8T49N24x_PreDivider</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Input</declname>
+        </param>
+        <briefdescription>
+<para>This function set the pre-divider. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="843" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="843" bodyend="867"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga353db29e9fb61f530045dc295e879b6b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int IDT_8T49N24x_M1Feedback</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, u32 Value, u8 Input)</argsstring>
+        <name>IDT_8T49N24x_M1Feedback</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Input</declname>
+        </param>
+        <briefdescription>
+<para>This function set the M1 feedback. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="884" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="884" bodyend="908"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gaab24d279ca6ce30a4b5b922e3cf462dd" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int IDT_8T49N24x_DSMInteger</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 Value)</argsstring>
+        <name>IDT_8T49N24x_DSMInteger</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>This function set the DSM integer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="925" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="925" bodyend="939"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga88cbdf4c2fc9f2e6de831b7250e99952" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int IDT_8T49N24x_DSMFractional</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, u32 Value)</argsstring>
+        <name>IDT_8T49N24x_DSMFractional</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>This function set the DSM fractional. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="956" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="956" bodyend="974"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga5c450a6051d71c779fb6a2a5f33ae645" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int IDT_8T49N24x_OutputDividerInteger</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, u32 Value, u8 Output)</argsstring>
+        <name>IDT_8T49N24x_OutputDividerInteger</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Output</declname>
+        </param>
+        <briefdescription>
+<para>This function set the Output divider integer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="991" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="991" bodyend="1021"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gad0912c49e68a512010b7ccafc7030f1a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int IDT_8T49N24x_OutputDividerFractional</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, u32 Value, u8 Output)</argsstring>
+        <name>IDT_8T49N24x_OutputDividerFractional</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Output</declname>
+        </param>
+        <briefdescription>
+<para>This function set the Output divider fractional. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="1038" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="1038" bodyend="1072"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gab23c9cd4f92ef47455dc8d3360eee95f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int IDT_8T49N24x_Mode</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 Synthesizer)</argsstring>
+        <name>IDT_8T49N24x_Mode</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Synthesizer</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the mode (jitter attenuator / synthesizer) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="1089" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="1089" bodyend="1123"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga2e7a801e9b36b897dcc7625b52eb4dad" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int IDT_8T49N24x_ReferenceInput</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 Input, u8 Enable)</argsstring>
+        <name>IDT_8T49N24x_ReferenceInput</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Input</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+<para>This function sets disables / enables the reference inputs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="1139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="1139" bodyend="1167"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga9ae2e1751edb228a776fd05ecdd82e60" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int IDT_8T49N24x_Enable</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 Enable)</argsstring>
+        <name>IDT_8T49N24x_Enable</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+<para>This function enables/disables the DPLL and APLL calibration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="1184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="1184" bodyend="1199"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga2336db1744544bd70c2fd0d99d957031" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int IDT_8T49N24x_GPIO</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress)</argsstring>
+        <name>IDT_8T49N24x_GPIO</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function set the GPIO outputs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="1216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="1216" bodyend="1244"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gad7ff6a898430d800a1cb85fcfdd1ae27" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int IDT_8T49N24x_SelectInputReference</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 Input)</argsstring>
+        <name>IDT_8T49N24x_SelectInputReference</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Input</declname>
+        </param>
+        <briefdescription>
+<para>This function set the input reference. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="1261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="1261" bodyend="1284"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gae201f565c0c60528378abc3429b552b6" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int IDT_8T49N24x_OutputDriver</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 Output, u8 Enable)</argsstring>
+        <name>IDT_8T49N24x_OutputDriver</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Output</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+<para>This function set the output drivers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="1301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="1301" bodyend="1362"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga27134316e8adcbc2c801c58968f6b73c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int IDT_8T49N24x_LockMode</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress)</argsstring>
+        <name>IDT_8T49N24x_LockMode</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the lock mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="1379" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="1379" bodyend="1390"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga8682f371519c86ef2e8880298dd12e54" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int IDT_8T49N24x_Init</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress)</argsstring>
+        <name>IDT_8T49N24x_Init</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the IDT 8TN49N24x with default values for use with the Video FMC. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function set the GPIO outputs.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function set the input reference</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function set the output drivers</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function sets the lock mode</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function initializes the IDT 8TN49N24x with default values for use with the Video FMC.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem></listitem><listitem></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="1408" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="1408" bodyend="1467"/>
+        <referencedby refid="xdprxss__dp14__rx_8c_1a83b1170da398be3c53b87955c0a5b6a3" compoundref="xdptxss__zcu102__tx_8c" startline="1672" endline="1748">VideoFMC_Init</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gae6025ec06d2574a2f0a1b191d543fbfa" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int IDT_8T49N24x_Configure</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress)</argsstring>
+        <name>IDT_8T49N24x_Configure</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function the IDT 8TN49N24x device with the data from the configuration table. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="1579" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="1579" bodyend="1594"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1gac552621512f0c1dec056d06005dbfcb1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int IDT_8T49N24x_Configure_JA</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress)</argsstring>
+        <name>IDT_8T49N24x_Configure_JA</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="1596" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="1596" bodyend="1610"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga2796e9b401d92b3f0fecc0417d5ade75" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void IDT_8T49N24x_RegisterDump</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress)</argsstring>
+        <name>IDT_8T49N24x_RegisterDump</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function displays a registerdump of the IDT 8TN49N24x device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" line="1625" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="1625" bodyend="1663"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga5087444c7834c03e743b466138a36859" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int IDT_8T49N24x_SetGPOut</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 PortID, u8 Set)</argsstring>
+        <name>IDT_8T49N24x_SetGPOut</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>PortID</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Set</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" line="242" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga6403c7712c3aa59fb5be84a064b81ac8" prot="public" static="no">
+        <name>IDT_8T49N24X_H</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1gaebc93de546f7e0b0780636a51d607de7" prot="public" static="no">
+        <name>IDT_8T49N24X_REVID</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+<para>Device Revision. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" line="194" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1gade98dea2877c91639d8d22fb41095d03" prot="public" static="no">
+        <name>IDT_8T49N24X_DEVID</name>
+        <initializer>0x0607</initializer>
+        <briefdescription>
+<para>Device ID Code. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" line="195" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga3d51ead033effe62e67b40f38304f49d" prot="public" static="no">
+        <name>IDT_8T49N24X_XTAL_FREQ</name>
+        <initializer>40000000</initializer>
+        <briefdescription>
+<para>The frequency of the crystal in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" line="197" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga2d83e1558736400d007a80a5349cf0d1" prot="public" static="no">
+        <name>IDT_8T49N24X_FVCO_MAX</name>
+        <initializer>4000000000</initializer>
+        <briefdescription>
+<para>Maximum VCO Operating Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" line="199" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1gaf9ad5b298900a22c9ebc37a486af6684" prot="public" static="no">
+        <name>IDT_8T49N24X_FVCO_MIN</name>
+        <initializer>3000000000</initializer>
+        <briefdescription>
+<para>Minimum VCO Operating Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" line="200" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga27480ad3ebbfe934bade1ad6cbbb3bf2" prot="public" static="no">
+        <name>IDT_8T49N24X_FOUT_MAX</name>
+        <initializer>400000000</initializer>
+        <briefdescription>
+<para>Maximum Output Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" line="202" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" bodystart="202" bodyend="-1"/>
+        <referencedby refid="group___i_d_t__8_t49_n24x_1ga0c56d8545c64ae78a3423b7ce782676f" compoundref="dats__dp14_2idt__8t49n24x_8c" startline="550" endline="643">IDT_8T49N24x_SetClock</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga1555f1aaadca4eeebe6d097ea6088b73" prot="public" static="no">
+        <name>IDT_8T49N24X_FOUT_MIN</name>
+        <initializer>8000</initializer>
+        <briefdescription>
+<para>Minimum Output Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" line="203" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" bodystart="203" bodyend="-1"/>
+        <referencedby refid="group___i_d_t__8_t49_n24x_1ga0c56d8545c64ae78a3423b7ce782676f" compoundref="dats__dp14_2idt__8t49n24x_8c" startline="550" endline="643">IDT_8T49N24x_SetClock</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga1b4b5da52bb6a4a1d86f35f945bafbaa" prot="public" static="no">
+        <name>IDT_8T49N24X_FIN_MAX</name>
+        <initializer>875000000</initializer>
+        <briefdescription>
+<para>Maximum Input Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" line="205" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" bodystart="205" bodyend="-1"/>
+        <referencedby refid="group___i_d_t__8_t49_n24x_1ga0c56d8545c64ae78a3423b7ce782676f" compoundref="dats__dp14_2idt__8t49n24x_8c" startline="550" endline="643">IDT_8T49N24x_SetClock</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga68638a8f1d4d7b9caebaaae6159e166d" prot="public" static="no">
+        <name>IDT_8T49N24X_FIN_MIN</name>
+        <initializer>8000</initializer>
+        <briefdescription>
+<para>Minimum Input Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" line="206" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" bodystart="206" bodyend="-1"/>
+        <referencedby refid="group___i_d_t__8_t49_n24x_1ga0c56d8545c64ae78a3423b7ce782676f" compoundref="dats__dp14_2idt__8t49n24x_8c" startline="550" endline="643">IDT_8T49N24x_SetClock</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga4cea3fac38189fc8f029806786a8e4b5" prot="public" static="no">
+        <name>IDT_8T49N24X_FPD_MAX</name>
+        <initializer>128000</initializer>
+        <briefdescription>
+<para>Maximum Phase Detector Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" line="209" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga76e9e95139c5da228ab4dcbc956454b9" prot="public" static="no">
+        <name>IDT_8T49N24X_FPD_MIN</name>
+        <initializer>8000</initializer>
+        <briefdescription>
+<para>Minimum Phase Detector Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga50a1385556eb7661136cb84909dd75ef" prot="public" static="no">
+        <name>IDT_8T49N24X_P_MAX</name>
+        <initializer>pow(2,22)</initializer>
+        <briefdescription>
+<para>Maximum P divider value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" line="212" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1gab6d58c9a27a80b943dc2712b7d0509b6" prot="public" static="no">
+        <name>IDT_8T49N24X_M_MAX</name>
+        <initializer>pow(2,24)</initializer>
+        <briefdescription>
+<para>Maximum M multiplier value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" line="213" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/idt_8t49n24x.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga1ac41480eb2e4aadd52252ee550b630a" prot="public" static="no">
+        <name>new</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.c" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.c" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga6403c7712c3aa59fb5be84a064b81ac8" prot="public" static="no">
+        <name>IDT_8T49N24X_H</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1gaebc93de546f7e0b0780636a51d607de7" prot="public" static="no">
+        <name>IDT_8T49N24X_REVID</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+<para>Device Revision. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1gade98dea2877c91639d8d22fb41095d03" prot="public" static="no">
+        <name>IDT_8T49N24X_DEVID</name>
+        <initializer>0x0607</initializer>
+        <briefdescription>
+<para>Device ID Code. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga3d51ead033effe62e67b40f38304f49d" prot="public" static="no">
+        <name>IDT_8T49N24X_XTAL_FREQ</name>
+        <initializer>40000000</initializer>
+        <briefdescription>
+<para>The frequency of the crystal in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga2d83e1558736400d007a80a5349cf0d1" prot="public" static="no">
+        <name>IDT_8T49N24X_FVCO_MAX</name>
+        <initializer>4000000000</initializer>
+        <briefdescription>
+<para>Maximum VCO Operating Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1gaf9ad5b298900a22c9ebc37a486af6684" prot="public" static="no">
+        <name>IDT_8T49N24X_FVCO_MIN</name>
+        <initializer>3000000000</initializer>
+        <briefdescription>
+<para>Minimum VCO Operating Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga27480ad3ebbfe934bade1ad6cbbb3bf2" prot="public" static="no">
+        <name>IDT_8T49N24X_FOUT_MAX</name>
+        <initializer>400000000</initializer>
+        <briefdescription>
+<para>Maximum Output Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga1555f1aaadca4eeebe6d097ea6088b73" prot="public" static="no">
+        <name>IDT_8T49N24X_FOUT_MIN</name>
+        <initializer>8000</initializer>
+        <briefdescription>
+<para>Minimum Output Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga1b4b5da52bb6a4a1d86f35f945bafbaa" prot="public" static="no">
+        <name>IDT_8T49N24X_FIN_MAX</name>
+        <initializer>875000000</initializer>
+        <briefdescription>
+<para>Maximum Input Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga68638a8f1d4d7b9caebaaae6159e166d" prot="public" static="no">
+        <name>IDT_8T49N24X_FIN_MIN</name>
+        <initializer>8000</initializer>
+        <briefdescription>
+<para>Minimum Input Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga4cea3fac38189fc8f029806786a8e4b5" prot="public" static="no">
+        <name>IDT_8T49N24X_FPD_MAX</name>
+        <initializer>128000</initializer>
+        <briefdescription>
+<para>Maximum Phase Detector Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" line="188" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga76e9e95139c5da228ab4dcbc956454b9" prot="public" static="no">
+        <name>IDT_8T49N24X_FPD_MIN</name>
+        <initializer>8000</initializer>
+        <briefdescription>
+<para>Minimum Phase Detector Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" line="189" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga50a1385556eb7661136cb84909dd75ef" prot="public" static="no">
+        <name>IDT_8T49N24X_P_MAX</name>
+        <initializer>pow(2,22)</initializer>
+        <briefdescription>
+<para>Maximum P divider value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" line="191" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1gab6d58c9a27a80b943dc2712b7d0509b6" prot="public" static="no">
+        <name>IDT_8T49N24X_M_MAX</name>
+        <initializer>pow(2,24)</initializer>
+        <briefdescription>
+<para>Maximum M multiplier value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/rx_only/idt_8t49n24x.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+Copyright (c) 2016 Adeas B.V. All rights reserved.</preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+X.XX  XX     YY/MM/DD
+1.00  RHe    16/06/20 Initial release. A ported version from the
+                      8T49N28X-FrequencyProgrammingGuide-register-calculations.py script
+2.00  MG     16/08/15 Major update
+</preformatted></para><para><preformatted>
+Copyright (c) 2016 Adeas B.V. All rights reserved.</preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+X.XX  XX     YY/MM/DD
+1.00  RHe    16/06/20 Initial release. A ported version from the
+                      8T49N28X-FrequencyProgrammingGuide-register-calculations.py script
+</preformatted></para><para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+X.XX  XX     YY/MM/DD
+1.00  RHe    16/06/20 Initial release. A ported version from the
+                      8T49N28X-FrequencyProgrammingGuide-register-calculations.py script
+2.00  MG     16/08/15 Major update
+</preformatted></para><para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+X.XX  XX     YY/MM/DD
+1.00  RHe    16/06/20 Initial release. A ported version from the
+                      8T49N28X-FrequencyProgrammingGuide-register-calculations.py script
+2.00  MG     16/08/16 Major update
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

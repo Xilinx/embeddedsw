@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___elliptic_sign" kind="struct" prot="public">
+    <compoundname>XSecure_EllipticSign</compoundname>
+    <includes local="no">xsecure_elliptic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___elliptic_sign_1a39f9f985b86ee5bbf8f301fca4a004f3" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XSecure_EllipticSign::SignR</definition>
+        <argsstring></argsstring>
+        <name>SignR</name>
+        <briefdescription>
+<para>The signature component R. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" bodystart="91" bodyend="-1"/>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gacfb2a9d041a4b449a47874add5f01547" compoundref="xsecure__elliptic_8c" startline="414" endline="459">XSecure_EllipticGenerateSignature</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga75b2f22f2f6c3bdb9529025c8ecf58f2" compoundref="xsecure__kat_8c" startline="1216" endline="1263">XSecure_EllipticSignGenerateKat</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga7d2dfbb593a38b3bb47d1ab26fb0cfea" compoundref="xsecure__elliptic_8c" startline="756" endline="800">XSecure_EllipticVerifySign</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga0bc8cabf909b4a457656573b4b701c3a" compoundref="xsecure__kat_8c" startline="1174" endline="1201">XSecure_EllipticVerifySignKat</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga769778c653dd202471b5eec4249b1f25" compoundref="xsecure__kat_8c" startline="533" endline="546">XSecure_GetKatEccExpSign</referencedby>
+        <referencedby refid="xilsecure__versal__ecdsa__server__example_8c_1a747e722a3e8f46bc1eb8095e18b88b7f" compoundref="xilsecure__versal__ecdsa__server__example_8c" startline="137" endline="249">XSecure_TestP384</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___elliptic_sign_1a1378dc1cc131e69d07290a9f3e750a8a" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XSecure_EllipticSign::SignS</definition>
+        <argsstring></argsstring>
+        <name>SignS</name>
+        <briefdescription>
+<para>The signature component S. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" bodystart="92" bodyend="-1"/>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gacfb2a9d041a4b449a47874add5f01547" compoundref="xsecure__elliptic_8c" startline="414" endline="459">XSecure_EllipticGenerateSignature</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga75b2f22f2f6c3bdb9529025c8ecf58f2" compoundref="xsecure__kat_8c" startline="1216" endline="1263">XSecure_EllipticSignGenerateKat</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga7d2dfbb593a38b3bb47d1ab26fb0cfea" compoundref="xsecure__elliptic_8c" startline="756" endline="800">XSecure_EllipticVerifySign</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga0bc8cabf909b4a457656573b4b701c3a" compoundref="xsecure__kat_8c" startline="1174" endline="1201">XSecure_EllipticVerifySignKat</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga769778c653dd202471b5eec4249b1f25" compoundref="xsecure__kat_8c" startline="533" endline="546">XSecure_GetKatEccExpSign</referencedby>
+        <referencedby refid="xilsecure__versal__ecdsa__server__example_8c_1a747e722a3e8f46bc1eb8095e18b88b7f" compoundref="xilsecure__versal__ecdsa__server__example_8c" startline="137" endline="249">XSecure_TestP384</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for pointers of signature components. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" bodystart="90" bodyend="93"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___elliptic_sign_1a39f9f985b86ee5bbf8f301fca4a004f3" prot="public" virt="non-virtual"><scope>XSecure_EllipticSign</scope><name>SignR</name></member>
+      <member refid="struct_x_secure___elliptic_sign_1a1378dc1cc131e69d07290a9f3e750a8a" prot="public" virt="non-virtual"><scope>XSecure_EllipticSign</scope><name>SignS</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

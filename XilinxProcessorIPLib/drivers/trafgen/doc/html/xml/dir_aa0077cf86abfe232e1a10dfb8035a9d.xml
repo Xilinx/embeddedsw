@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_aa0077cf86abfe232e1a10dfb8035a9d" kind="dir">
+    <compoundname>trafgen</compoundname>
+    <innerdir refid="dir_cfdcdf00a0c03ad03c830eaeba8d0086">examples</innerdir>
+    <innerdir refid="dir_a8a806c130ffd294e87deb1f798c9d19">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/"/>
+  </compounddef>
+</doxygen>

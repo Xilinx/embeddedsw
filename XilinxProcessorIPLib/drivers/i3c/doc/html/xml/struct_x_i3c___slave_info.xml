@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_i3c___slave_info" kind="struct" prot="public">
+    <compoundname>XI3c_SlaveInfo</compoundname>
+    <includes local="no">xi3c.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_i3c___slave_info_1a66a7ea44945d908fb3a1e4a1fad04256" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XI3c_SlaveInfo::DynaAddr</definition>
+        <argsstring></argsstring>
+        <name>DynaAddr</name>
+        <briefdescription>
+<para>Dynamic Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="768" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" bodystart="768" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga87d285dd413cf579d43a6eda306619ce" compoundref="xi3c_8c" startline="338" endline="402">XI3c_DynaAddrAssign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c___slave_info_1a51a5fff2dd7aea2bd28bc3e1cdbaade2" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XI3c_SlaveInfo::Id</definition>
+        <argsstring></argsstring>
+        <name>Id</name>
+        <briefdescription>
+<para>Slave Id. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="769" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" bodystart="769" bodyend="-1"/>
+        <referencedby refid="xi3c__daa__example_8c_1a5bd66a6a4087eae244cffceab25badea" compoundref="xi3c__daa__example_8c" startline="113" endline="250">I3cMasterDaaExample</referencedby>
+        <referencedby refid="group___overview_1ga87d285dd413cf579d43a6eda306619ce" compoundref="xi3c_8c" startline="338" endline="402">XI3c_DynaAddrAssign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c___slave_info_1a77ddc55dd4734e372a1926b5de098a1b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XI3c_SlaveInfo::Bcr</definition>
+        <argsstring></argsstring>
+        <name>Bcr</name>
+        <briefdescription>
+<para>Bus Characteristic Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="770" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" bodystart="770" bodyend="-1"/>
+        <referencedby refid="xi3c__daa__example_8c_1a5bd66a6a4087eae244cffceab25badea" compoundref="xi3c__daa__example_8c" startline="113" endline="250">I3cMasterDaaExample</referencedby>
+        <referencedby refid="group___overview_1ga87d285dd413cf579d43a6eda306619ce" compoundref="xi3c_8c" startline="338" endline="402">XI3c_DynaAddrAssign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c___slave_info_1af7262efd435d0749c002fedd6008d9ec" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XI3c_SlaveInfo::Dcr</definition>
+        <argsstring></argsstring>
+        <name>Dcr</name>
+        <briefdescription>
+<para>Device Characteristic Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="771" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" bodystart="771" bodyend="-1"/>
+        <referencedby refid="xi3c__daa__example_8c_1a5bd66a6a4087eae244cffceab25badea" compoundref="xi3c__daa__example_8c" startline="113" endline="250">I3cMasterDaaExample</referencedby>
+        <referencedby refid="group___overview_1ga87d285dd413cf579d43a6eda306619ce" compoundref="xi3c_8c" startline="338" endline="402">XI3c_DynaAddrAssign</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_i3c" kindref="compound">XI3c</ref> slave data. </para>    </briefdescription>
+    <detaileddescription>
+<para><ref refid="struct_x_i3c" kindref="compound">XI3c</ref> driver reads from slave devices during DAA and fills these values. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="767" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" bodystart="767" bodyend="772"/>
+    <listofallmembers>
+      <member refid="struct_x_i3c___slave_info_1a77ddc55dd4734e372a1926b5de098a1b" prot="public" virt="non-virtual"><scope>XI3c_SlaveInfo</scope><name>Bcr</name></member>
+      <member refid="struct_x_i3c___slave_info_1af7262efd435d0749c002fedd6008d9ec" prot="public" virt="non-virtual"><scope>XI3c_SlaveInfo</scope><name>Dcr</name></member>
+      <member refid="struct_x_i3c___slave_info_1a66a7ea44945d908fb3a1e4a1fad04256" prot="public" virt="non-virtual"><scope>XI3c_SlaveInfo</scope><name>DynaAddr</name></member>
+      <member refid="struct_x_i3c___slave_info_1a51a5fff2dd7aea2bd28bc3e1cdbaade2" prot="public" virt="non-virtual"><scope>XI3c_SlaveInfo</scope><name>Id</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

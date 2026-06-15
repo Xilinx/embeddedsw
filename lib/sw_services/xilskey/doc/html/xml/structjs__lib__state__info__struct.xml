@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structjs__lib__state__info__struct" kind="struct" prot="public">
+    <compoundname>js_lib_state_info_struct</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structjs__lib__state__info__struct_1ac22f43a322dcf7037b100e7add478f43" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* js_lib_state_info_struct::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+<para>Name of state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjs__lib__state__info__struct_1a6ea0e5e92f6748a1cffc06a0e49cc862" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char js_lib_state_info_struct::state_tms[JS_STATE_MAX]</definition>
+        <argsstring>[JS_STATE_MAX]</argsstring>
+        <name>state_tms</name>
+        <briefdescription>
+<para>TMS bits to move to other state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjs__lib__state__info__struct_1aa168fb8ae537123c8694af6b7ac306dc" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char js_lib_state_info_struct::state_clk[JS_STATE_MAX]</definition>
+        <argsstring>[JS_STATE_MAX]</argsstring>
+        <name>state_clk</name>
+        <briefdescription>
+<para>Clocks to move to other state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjs__lib__state__info__struct_1ac5e75f21c00d0b6163e909c74e8df40a" prot="public" static="no" mutable="no">
+        <type>js_state_t</type>
+        <definition>js_state_t js_lib_state_info_struct::stable_state</definition>
+        <argsstring></argsstring>
+        <name>stable_state</name>
+        <briefdescription>
+<para>Nearest stable state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" bodystart="170" bodyend="182"/>
+    <listofallmembers>
+      <member refid="structjs__lib__state__info__struct_1ac22f43a322dcf7037b100e7add478f43" prot="public" virt="non-virtual"><scope>js_lib_state_info_struct</scope><name>name</name></member>
+      <member refid="structjs__lib__state__info__struct_1ac5e75f21c00d0b6163e909c74e8df40a" prot="public" virt="non-virtual"><scope>js_lib_state_info_struct</scope><name>stable_state</name></member>
+      <member refid="structjs__lib__state__info__struct_1aa168fb8ae537123c8694af6b7ac306dc" prot="public" virt="non-virtual"><scope>js_lib_state_info_struct</scope><name>state_clk</name></member>
+      <member refid="structjs__lib__state__info__struct_1a6ea0e5e92f6748a1cffc06a0e49cc862" prot="public" virt="non-virtual"><scope>js_lib_state_info_struct</scope><name>state_tms</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

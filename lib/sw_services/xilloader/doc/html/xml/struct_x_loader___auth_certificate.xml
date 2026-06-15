@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_loader___auth_certificate" kind="struct" prot="public">
+    <compoundname>XLoader_AuthCertificate</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_loader___auth_certificate_1a6422388a5f39db38f49da3fd094cce3c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_AuthCertificate::AuthHdr</definition>
+        <argsstring></argsstring>
+        <name>AuthHdr</name>
+        <briefdescription>
+<para>Authentication Header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="566" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="566" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___auth_certificate_1a68212f6116f0eccd020df813d52b1f50" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_AuthCertificate::SpkId</definition>
+        <argsstring></argsstring>
+        <name>SpkId</name>
+        <briefdescription>
+<para>SPK ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="567" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="567" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___auth_certificate_1a45524838410352efaf014ee394b06a3e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_AuthCertificate::UserData[14U]</definition>
+        <argsstring>[14U]</argsstring>
+        <name>UserData</name>
+        <briefdescription>
+<para>User data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="568" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="568" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___auth_certificate_1a2bcede3c3a9ebbc0ed07024f97e7ad65" prot="public" static="no" mutable="no">
+        <type>XLoader_AuthKey</type>
+        <definition>XLoader_AuthKey XLoader_AuthCertificate::Ppk</definition>
+        <argsstring></argsstring>
+        <name>Ppk</name>
+        <briefdescription>
+<para>PPK. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="569" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="569" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___auth_certificate_1addfbec2dfcc5d283f6faac089102bb21" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_AuthCertificate::PPKPadding[3U]</definition>
+        <argsstring>[3U]</argsstring>
+        <name>PPKPadding</name>
+        <briefdescription>
+<para>PPK padding. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="570" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="570" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___auth_certificate_1a8bfe30a696c47fed523c3b91d41a9bf3" prot="public" static="no" mutable="no">
+        <type>XLoader_AuthKey</type>
+        <definition>XLoader_AuthKey XLoader_AuthCertificate::Spk</definition>
+        <argsstring></argsstring>
+        <name>Spk</name>
+        <briefdescription>
+<para>SPK. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="571" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="571" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___auth_certificate_1a864624929f68d59e6b2fc98c8826f8bf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_AuthCertificate::SPKPadding</definition>
+        <argsstring></argsstring>
+        <name>SPKPadding</name>
+        <briefdescription>
+<para>SPK padding. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="572" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="572" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___auth_certificate_1a84e5e9e480452163f180020e2b83dc08" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_AuthCertificate::Alignment1[2U]</definition>
+        <argsstring>[2U]</argsstring>
+        <name>Alignment1</name>
+        <briefdescription>
+<para>Alignment gap. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="573" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="573" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___auth_certificate_1a2f2f28329a31328bbfa140c196d5a4e0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_AuthCertificate::SPKSignature[128U]</definition>
+        <argsstring>[128U]</argsstring>
+        <name>SPKSignature</name>
+        <briefdescription>
+<para>SPK signature. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="574" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="574" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___auth_certificate_1adf1cea116cda5d579413722b56d4c56c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_AuthCertificate::IHTSignature[128U]</definition>
+        <argsstring>[128U]</argsstring>
+        <name>IHTSignature</name>
+        <briefdescription>
+<para>Image Header Table signature. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="575" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="575" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___auth_certificate_1a078fc9aeda414a21e1fae19d5757f968" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_AuthCertificate::ImgSignature[128U]</definition>
+        <argsstring>[128U]</argsstring>
+        <name>ImgSignature</name>
+        <briefdescription>
+<para>Image signature. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="576" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="576" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="565" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="565" bodyend="577"/>
+    <listofallmembers>
+      <member refid="struct_x_loader___auth_certificate_1a84e5e9e480452163f180020e2b83dc08" prot="public" virt="non-virtual"><scope>XLoader_AuthCertificate</scope><name>Alignment1</name></member>
+      <member refid="struct_x_loader___auth_certificate_1a6422388a5f39db38f49da3fd094cce3c" prot="public" virt="non-virtual"><scope>XLoader_AuthCertificate</scope><name>AuthHdr</name></member>
+      <member refid="struct_x_loader___auth_certificate_1adf1cea116cda5d579413722b56d4c56c" prot="public" virt="non-virtual"><scope>XLoader_AuthCertificate</scope><name>IHTSignature</name></member>
+      <member refid="struct_x_loader___auth_certificate_1a078fc9aeda414a21e1fae19d5757f968" prot="public" virt="non-virtual"><scope>XLoader_AuthCertificate</scope><name>ImgSignature</name></member>
+      <member refid="struct_x_loader___auth_certificate_1a2bcede3c3a9ebbc0ed07024f97e7ad65" prot="public" virt="non-virtual"><scope>XLoader_AuthCertificate</scope><name>Ppk</name></member>
+      <member refid="struct_x_loader___auth_certificate_1addfbec2dfcc5d283f6faac089102bb21" prot="public" virt="non-virtual"><scope>XLoader_AuthCertificate</scope><name>PPKPadding</name></member>
+      <member refid="struct_x_loader___auth_certificate_1a8bfe30a696c47fed523c3b91d41a9bf3" prot="public" virt="non-virtual"><scope>XLoader_AuthCertificate</scope><name>Spk</name></member>
+      <member refid="struct_x_loader___auth_certificate_1a68212f6116f0eccd020df813d52b1f50" prot="public" virt="non-virtual"><scope>XLoader_AuthCertificate</scope><name>SpkId</name></member>
+      <member refid="struct_x_loader___auth_certificate_1a864624929f68d59e6b2fc98c8826f8bf" prot="public" virt="non-virtual"><scope>XLoader_AuthCertificate</scope><name>SPKPadding</name></member>
+      <member refid="struct_x_loader___auth_certificate_1a2f2f28329a31328bbfa140c196d5a4e0" prot="public" virt="non-virtual"><scope>XLoader_AuthCertificate</scope><name>SPKSignature</name></member>
+      <member refid="struct_x_loader___auth_certificate_1a45524838410352efaf014ee394b06a3e" prot="public" virt="non-virtual"><scope>XLoader_AuthCertificate</scope><name>UserData</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

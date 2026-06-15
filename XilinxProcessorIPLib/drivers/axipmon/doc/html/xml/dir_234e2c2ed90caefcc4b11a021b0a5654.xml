@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_234e2c2ed90caefcc4b11a021b0a5654" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xaxipmon_8c">xaxipmon.c</innerfile>
+    <innerfile refid="xaxipmon_8h">xaxipmon.h</innerfile>
+    <innerfile refid="xaxipmon__g_8c">xaxipmon_g.c</innerfile>
+    <innerfile refid="xaxipmon__hw_8h">xaxipmon_hw.h</innerfile>
+    <innerfile refid="xaxipmon__selftest_8c">xaxipmon_selftest.c</innerfile>
+    <innerfile refid="xaxipmon__sinit_8c">xaxipmon_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/"/>
+  </compounddef>
+</doxygen>

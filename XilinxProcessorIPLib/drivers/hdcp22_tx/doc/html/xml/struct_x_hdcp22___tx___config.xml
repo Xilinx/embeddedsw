@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___tx___config" kind="struct" prot="public">
+    <compoundname>XHdcp22_Tx_Config</compoundname>
+    <includes local="no">xhdcp22_tx.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___config_1ab511a1bd9e49968c41ca7ccc6008b61b" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XHdcp22_Tx_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___config_1afdbf092be84bf484059d11a6c91430e5" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XHdcp22_Tx_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base Address is the physical base address of the device&apos;s registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="261" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1ga58d674b66a469567b4d75eea6f02fd25" compoundref="xhdcp22__tx_8c" startline="286" endline="396">XHdcp22Tx_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___config_1a73873d8deb069712e28006e459234863" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XHdcp22_Tx_Config::Protocol</definition>
+        <argsstring></argsstring>
+        <name>Protocol</name>
+        <briefdescription>
+<para>HDMI or DP (Always HDCP22_TX_HDMI: Currently DP is not supported). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___config_1afd6e6ba10009d9e572590013303bbe14" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XHdcp22_Tx_Config::Mode</definition>
+        <argsstring></argsstring>
+        <name>Mode</name>
+        <briefdescription>
+<para>Future expansion. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="265" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1ga7274984807782d5875e72806ebbca53d" compoundref="xhdcp22__tx_8c" startline="1232" endline="1237">XHdcp22Tx_IsRepeater</referencedby>
+        <referencedby refid="group__hdcp22__tx_1gadb7cd328bf4728b91678482c13224e5c" compoundref="xhdcp22__tx_8c" startline="3965" endline="3994">XHdcp22Tx_RevokeReceiverId</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga7c58391609e18d5cbd899e5ed069a037" compoundref="xhdcp22__tx_8c" startline="1249" endline="1257">XHdcp22Tx_SetRepeater</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___config_1a55dd054bbd6a6ffc07a3dc4725b9ec7e" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XHdcp22_Tx_Config::TimerDeviceAddress</definition>
+        <argsstring></argsstring>
+        <name>TimerDeviceAddress</name>
+        <briefdescription>
+<para>DeviceId of the internal used timer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___config_1a85f495a5fcebe96cce88dd3e53e0c44b" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XHdcp22_Tx_Config::CipherAddress</definition>
+        <argsstring></argsstring>
+        <name>CipherAddress</name>
+        <briefdescription>
+<para>Address of the used cipher. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___config_1afd14dbd599c5107677f1b8c3f4ce98e7" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XHdcp22_Tx_Config::RngAddress</definition>
+        <argsstring></argsstring>
+        <name>RngAddress</name>
+        <briefdescription>
+<para>Address Id of the random generator. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="252" bodyend="281"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___tx___config_1afdbf092be84bf484059d11a6c91430e5" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_hdcp22___tx___config_1a85f495a5fcebe96cce88dd3e53e0c44b" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_Config</scope><name>CipherAddress</name></member>
+      <member refid="struct_x_hdcp22___tx___config_1afd6e6ba10009d9e572590013303bbe14" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_Config</scope><name>Mode</name></member>
+      <member refid="struct_x_hdcp22___tx___config_1ab511a1bd9e49968c41ca7ccc6008b61b" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_Config</scope><name>Name</name></member>
+      <member refid="struct_x_hdcp22___tx___config_1a73873d8deb069712e28006e459234863" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_Config</scope><name>Protocol</name></member>
+      <member refid="struct_x_hdcp22___tx___config_1afd14dbd599c5107677f1b8c3f4ce98e7" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_Config</scope><name>RngAddress</name></member>
+      <member refid="struct_x_hdcp22___tx___config_1a55dd054bbd6a6ffc07a3dc4725b9ec7e" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_Config</scope><name>TimerDeviceAddress</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

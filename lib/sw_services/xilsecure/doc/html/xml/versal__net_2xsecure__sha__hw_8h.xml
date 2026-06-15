@@ -1,0 +1,309 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="versal__net_2xsecure__sha__hw_8h" kind="file">
+    <compoundname>versal_net/xsecure_sha_hw.h</compoundname>
+    <includes local="yes">xsecure_utils.h</includes>
+    <includedby refid="versal__net_2xsecure__plat_8c" local="yes">xsecure_plat.c</includedby>
+    <includedby refid="versal__net_2xsecure__plat_8h" local="yes">xsecure_plat.h</includedby>
+    <incdepgraph>
+      <node id="4094">
+        <label>xsecure_utils.h</label>
+      </node>
+      <node id="4093">
+        <label>xsecure_sha_hw.h</label>
+        <link refid="versal_net/xsecure_sha_hw.h"/>
+        <childnode refid="4094" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4099">
+        <label>xsecure_plat_rsa.c</label>
+        <link refid="xsecure__plat__rsa_8c"/>
+      </node>
+      <node id="4110">
+        <label>xilsecure_spartanup_lms_hss_server_example.c</label>
+        <link refid="xilsecure__spartanup__lms__hss__server__example_8c"/>
+      </node>
+      <node id="4102">
+        <label>xsecure_rsa_core.c</label>
+        <link refid="core_2rsa_2xsecure__rsa__core_8c"/>
+      </node>
+      <node id="4098">
+        <label>xsecure_elliptic.c</label>
+        <link refid="xsecure__elliptic_8c"/>
+      </node>
+      <node id="4101">
+        <label>xsecure_rsa_q.c</label>
+        <link refid="xsecure__rsa__q_8c"/>
+      </node>
+      <node id="4108">
+        <label>xsecure_utils.c</label>
+        <link refid="core_2util_2xsecure__utils_8c"/>
+      </node>
+      <node id="4096">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__net_2xsecure__plat_8c"/>
+      </node>
+      <node id="4097">
+        <label>xsecure_plat.h</label>
+        <link refid="versal__net_2xsecure__plat_8h"/>
+        <childnode refid="4098" relation="include">
+        </childnode>
+        <childnode refid="4099" relation="include">
+        </childnode>
+        <childnode refid="4100" relation="include">
+        </childnode>
+        <childnode refid="4101" relation="include">
+        </childnode>
+        <childnode refid="4102" relation="include">
+        </childnode>
+        <childnode refid="4103" relation="include">
+        </childnode>
+        <childnode refid="4104" relation="include">
+        </childnode>
+        <childnode refid="4105" relation="include">
+        </childnode>
+        <childnode refid="4106" relation="include">
+        </childnode>
+        <childnode refid="4108" relation="include">
+        </childnode>
+        <childnode refid="4109" relation="include">
+        </childnode>
+        <childnode refid="4110" relation="include">
+        </childnode>
+        <childnode refid="4111" relation="include">
+        </childnode>
+      </node>
+      <node id="4100">
+        <label>xsecure_mldsa.c</label>
+        <link refid="xsecure__mldsa_8c"/>
+      </node>
+      <node id="4105">
+        <label>xsecure_trng.c</label>
+        <link refid="trngpsx_2xsecure__trng_8c"/>
+      </node>
+      <node id="4103">
+        <label>xsecure_sha.c</label>
+        <link refid="core_2sha_2sha__pmx_2xsecure__sha_8c"/>
+      </node>
+      <node id="4104">
+        <label>xsecure_trng.c</label>
+        <link refid="trngpsv_2xsecure__trng_8c"/>
+      </node>
+      <node id="4107">
+        <label>xsecure_sss.c</label>
+        <link refid="core_2util_2xsecure__sss_8c"/>
+      </node>
+      <node id="4106">
+        <label>xsecure_sss.h</label>
+        <link refid="core_2util_2xsecure__sss_8h"/>
+        <childnode refid="4107" relation="include">
+        </childnode>
+      </node>
+      <node id="4109">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="net_2xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="4111">
+        <label>xilsecure_spartanup_sha_server_example.c</label>
+        <link refid="xilsecure__spartanup__sha__server__example_8c"/>
+      </node>
+      <node id="4095">
+        <label>xsecure_sha_hw.h</label>
+        <link refid="versal_net/xsecure_sha_hw.h"/>
+        <childnode refid="4096" relation="include">
+        </childnode>
+        <childnode refid="4097" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Register Map</header>
+      <description><para>Register offsets for the SHA module. </para></description>
+      <memberdef kind="define" id="versal__net_2xsecure__sha__hw_8h_1a8e05d980d495f87046b5d83a1bececc8" prot="public" static="no">
+        <name>XSECURE_SHA3_START_OFFSET</name>
+        <initializer>(0x00U)</initializer>
+        <briefdescription>
+<para>SHA start message. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_sha_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_sha_hw.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__net_2xsecure__sha__hw_8h_1aa515a3b9b62a6133e3fef54a222e3648" prot="public" static="no">
+        <name>XSECURE_SHA3_RESET_OFFSET</name>
+        <initializer>(0x04U)</initializer>
+        <briefdescription>
+<para>Reset Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_sha_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_sha_hw.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__net_2xsecure__sha__hw_8h_1a80843b6c15630dcf0efcc4f1e65c9f6e" prot="public" static="no">
+        <name>XSECURE_SHA3_DONE_OFFSET</name>
+        <initializer>(0x08U)</initializer>
+        <briefdescription>
+<para>SHA Done Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_sha_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_sha_hw.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__net_2xsecure__sha__hw_8h_1a1ffe9f20b6ce16ca34499136c70b47ac" prot="public" static="no">
+        <name>XSECURE_SHA3_DIGEST_0_OFFSET</name>
+        <initializer>(0x10U)</initializer>
+        <briefdescription>
+<para>SHA3 Digest: Reg 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_sha_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_sha_hw.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="versal__net_2xsecure__sha__hw_8h_1a06ec48a82b7566a2764ede3a7d35a51c" prot="public" static="no">
+        <name>XSECURE_SHA3_NUM_OF_INSTANCES</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Number of instances. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_sha_hw.h" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_sha_hw.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__net_2xsecure__sha__hw_8h_1a20b9a0d810aec45fb949b752d3540a1a" prot="public" static="no">
+        <name>XSECURE_SHA_NUM_OF_INSTANCES</name>
+        <initializer>(<ref refid="versal__net_2xsecure__sha__hw_8h_1a06ec48a82b7566a2764ede3a7d35a51c" kindref="member">XSECURE_SHA3_NUM_OF_INSTANCES</ref>)</initializer>
+        <briefdescription>
+<para>Number of instances. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_sha_hw.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_sha_hw.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__net_2xsecure__sha__hw_8h_1adcfcf6879b0181b7016d27ac4e1ffe76" prot="public" static="no">
+        <name>XSECURE_SHA3_0_BASE_ADDRESS</name>
+        <initializer>(0xF1210000U)</initializer>
+        <briefdescription>
+<para>SHA3 0 base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_sha_hw.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_sha_hw.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__net_2xsecure__sha__hw_8h_1ab8429394a569eeb59dba721688b00a49" prot="public" static="no">
+        <name>XSECURE_SHA3_0_DEVICE_ID</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>SHA3 0 device id. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_sha_hw.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_sha_hw.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__net_2xsecure__sha__hw_8h_1af79a1c27cb514c731ad63272a74c0434" prot="public" static="no">
+        <name>XSECURE_SHA3_1_BASE_ADDRESS</name>
+        <initializer>(0xF1800000U)</initializer>
+        <briefdescription>
+<para>SHA3 1 base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_sha_hw.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_sha_hw.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__net_2xsecure__sha__hw_8h_1a160be019698487306a0f44524305e261" prot="public" static="no">
+        <name>XSECURE_SHA3_1_DEVICE_ID</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>SHA3 1 device id. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_sha_hw.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_sha_hw.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__net_2xsecure__sha__hw_8h_1a809692bfb3b5d91eb2e4b3eb722d4f83" prot="public" static="no">
+        <name>XSECURE_SHA_0_DEVICE_ID</name>
+        <initializer>(<ref refid="versal__net_2xsecure__sha__hw_8h_1ab8429394a569eeb59dba721688b00a49" kindref="member">XSECURE_SHA3_0_DEVICE_ID</ref>)</initializer>
+        <briefdescription>
+<para>SHA 0 device id. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_sha_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_sha_hw.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__net_2xsecure__sha__hw_8h_1ae88a494ef68a7549d515d5afbc7727e5" prot="public" static="no">
+        <name>XSECURE_SHA_1_DEVICE_ID</name>
+        <initializer>(<ref refid="versal__net_2xsecure__sha__hw_8h_1a160be019698487306a0f44524305e261" kindref="member">XSECURE_SHA3_1_DEVICE_ID</ref>)</initializer>
+        <briefdescription>
+<para>SHA 1 device id. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_sha_hw.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_sha_hw.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains SHA3 core hardware definitions for Versalnet. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+5.0   bm   07/06/22 Initial release
+5.4   tri  09/25/24 Added maximum supported hash size macro</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor">#ifndef<sp/>XSECURE_SHA_HW_H</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_SHA_HW_H</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_utils.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37" refid="versal__net_2xsecure__sha__hw_8h_1a06ec48a82b7566a2764ede3a7d35a51c" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_SHA3_NUM_OF_INSTANCES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="39" refid="versal__net_2xsecure__sha__hw_8h_1a20b9a0d810aec45fb949b752d3540a1a" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SHA_NUM_OF_INSTANCES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_SHA3_NUM_OF_INSTANCES)</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="42" refid="versal__net_2xsecure__sha__hw_8h_1adcfcf6879b0181b7016d27ac4e1ffe76" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SHA3_0_BASE_ADDRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF1210000U)<sp/></highlight></codeline>
+<codeline lineno="44" refid="versal__net_2xsecure__sha__hw_8h_1ab8429394a569eeb59dba721688b00a49" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SHA3_0_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="46" refid="versal__net_2xsecure__sha__hw_8h_1af79a1c27cb514c731ad63272a74c0434" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SHA3_1_BASE_ADDRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF1800000U)<sp/></highlight></codeline>
+<codeline lineno="48" refid="versal__net_2xsecure__sha__hw_8h_1a160be019698487306a0f44524305e261" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SHA3_1_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="50" refid="versal__net_2xsecure__sha__hw_8h_1a809692bfb3b5d91eb2e4b3eb722d4f83" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SHA_0_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_SHA3_0_DEVICE_ID)<sp/></highlight></codeline>
+<codeline lineno="52" refid="versal__net_2xsecure__sha__hw_8h_1ae88a494ef68a7549d515d5afbc7727e5" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SHA_1_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_SHA3_1_DEVICE_ID)<sp/></highlight></codeline>
+<codeline lineno="59" refid="versal__net_2xsecure__sha__hw_8h_1a8e05d980d495f87046b5d83a1bececc8" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SHA3_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00U)<sp/></highlight></codeline>
+<codeline lineno="60" refid="versal__net_2xsecure__sha__hw_8h_1aa515a3b9b62a6133e3fef54a222e3648" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SHA3_RESET_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x04U)<sp/></highlight></codeline>
+<codeline lineno="61" refid="versal__net_2xsecure__sha__hw_8h_1a80843b6c15630dcf0efcc4f1e65c9f6e" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SHA3_DONE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x08U)<sp/></highlight></codeline>
+<codeline lineno="62" refid="versal__net_2xsecure__sha__hw_8h_1a1ffe9f20b6ce16ca34499136c70b47ac" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SHA3_DIGEST_0_OFFSET<sp/><sp/><sp/><sp/>(0x10U)<sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_SHA_HW_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_sha_hw.h"/>
+  </compounddef>
+</doxygen>

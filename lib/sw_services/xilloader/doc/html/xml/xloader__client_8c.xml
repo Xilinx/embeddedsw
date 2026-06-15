@@ -1,0 +1,1185 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xloader__client_8c" kind="file">
+    <compoundname>xloader_client.c</compoundname>
+    <includes refid="xloader__client_8h" local="yes">xloader_client.h</includes>
+    <includes refid="xloader__generic_8h" local="yes">xloader_generic.h</includes>
+    <incdepgraph>
+      <node id="420">
+        <label>xloader_generic.h</label>
+        <link refid="xloader__generic_8h"/>
+        <childnode refid="413" relation="include">
+        </childnode>
+        <childnode refid="414" relation="include">
+        </childnode>
+      </node>
+      <node id="414">
+        <label>xloader_mailbox.h</label>
+        <link refid="xloader__mailbox_8h"/>
+        <childnode refid="415" relation="include">
+        </childnode>
+        <childnode refid="416" relation="include">
+        </childnode>
+        <childnode refid="417" relation="include">
+        </childnode>
+      </node>
+      <node id="411">
+        <label>xloader_client.c</label>
+        <link refid="xloader_client.c"/>
+        <childnode refid="412" relation="include">
+        </childnode>
+        <childnode refid="420" relation="include">
+        </childnode>
+      </node>
+      <node id="412">
+        <label>xloader_client.h</label>
+        <link refid="xloader__client_8h"/>
+        <childnode refid="413" relation="include">
+        </childnode>
+        <childnode refid="414" relation="include">
+        </childnode>
+        <childnode refid="417" relation="include">
+        </childnode>
+        <childnode refid="419" relation="include">
+        </childnode>
+      </node>
+      <node id="417">
+        <label>xloader_defs.h</label>
+        <link refid="xloader__defs_8h"/>
+        <childnode refid="418" relation="include">
+        </childnode>
+        <childnode refid="413" relation="include">
+        </childnode>
+      </node>
+      <node id="415">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="413">
+        <label>xil_types.h</label>
+      </node>
+      <node id="416">
+        <label>xparameters.h</label>
+      </node>
+      <node id="418">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="419">
+        <label>xloader_bsp_config.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xloader__client__apis_1gabd3e6b81339122b2fc4ecad981f1a9cd" prot="public" static="no">
+        <name>XLOADER_ADDR_HIGH_SHIFT</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>Shift value to get higher 32 bit address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" bodystart="43" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1ga63d94db8c3d206242d0527631c38c5fa" compoundref="xloader__client_8c" startline="293" endline="307">XLoader_AddImageStorePdi</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gaabb2d5baeb7ebd06f2743edc48b28674" compoundref="xloader__client_8c" startline="387" endline="416">XLoader_CfiSelectiveReadback</referencedby>
+        <referencedby refid="group__xloader__client__apis_1ga6e571b298df7278911edeb130a4917c6" compoundref="xloader__client_8c" startline="230" endline="246">XLoader_ExtractMetaheader</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gaf07025194b841bfa9aa96bdb87cb48c8" compoundref="xloader__client_8c" startline="349" endline="372">XLoader_GetATFHandOffParams</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gac4737ad97892352c05d25dc687aa87a1" compoundref="xloader__client_8c" startline="180" endline="214">XLoader_GetImageInfoList</referencedby>
+        <referencedby refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" compoundref="xloader__client_8c" startline="456" endline="492">XLoader_GetOptionalData</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gaa46059a11b24bca179cdb16cec9d5e03" compoundref="xloader__client_8c" startline="74" endline="96">XLoader_LoadPartialPdi</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__client__apis_1gade1f63d75c755d641d0db91afbaa3303" prot="public" static="no">
+        <name>XLOADER_MSB_MASK</name>
+        <initializer>(0x80000000)</initializer>
+        <briefdescription>
+<para>Mask for MSB bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" bodystart="44" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gac4737ad97892352c05d25dc687aa87a1" compoundref="xloader__client_8c" startline="180" endline="214">XLoader_GetImageInfoList</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__client__apis_1ga1ff0ecf425161c5cd6d009e4c0c7c5b3" prot="public" static="no">
+        <name>XLOADER_SELREADBACK_ROW_START_POS</name>
+        <initializer>(23U)</initializer>
+        <briefdescription>
+<para>Row field start bit position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" bodystart="46" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gaabb2d5baeb7ebd06f2743edc48b28674" compoundref="xloader__client_8c" startline="387" endline="416">XLoader_CfiSelectiveReadback</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__client__apis_1ga38517dc1fcd808ed89bb3ff902350b86" prot="public" static="no">
+        <name>XLOADER_SELREADBACK_BLKTYPE_START_POS</name>
+        <initializer>(20U)</initializer>
+        <briefdescription>
+<para>Block type field start bit position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" bodystart="47" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gaabb2d5baeb7ebd06f2743edc48b28674" compoundref="xloader__client_8c" startline="387" endline="416">XLoader_CfiSelectiveReadback</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__client__apis_1gaa39ad3db38cb7d477accd3ed0534c201" prot="public" static="no">
+        <name>XLOADER_SELREADBACK_ROW_MASK</name>
+        <initializer>(0x7800000U)</initializer>
+        <briefdescription>
+<para>Mask for row. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" bodystart="48" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1gaed8ea42231382fe5a5a155bd327b15ff" compoundref="xloader__cfi_8c" startline="370" endline="469">XLoader_CfiSelectiveRead</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gaabb2d5baeb7ebd06f2743edc48b28674" compoundref="xloader__client_8c" startline="387" endline="416">XLoader_CfiSelectiveReadback</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__client__apis_1ga5f713bcb041139fafb878896da388a2f" prot="public" static="no">
+        <name>XLOADER_SLEREADBACK_BLKTYPE_MASK</name>
+        <initializer>(0X700000U)</initializer>
+        <briefdescription>
+<para>Mask for block type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gaabb2d5baeb7ebd06f2743edc48b28674" compoundref="xloader__client_8c" startline="387" endline="416">XLoader_CfiSelectiveReadback</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__client__apis_1ga2c9d32fc15da21624de8de627d96a867" prot="public" static="no">
+        <name>XLOADER_SLEREADBACK_FRAMEADDR_MASK</name>
+        <initializer>(0xFFFFFU)</initializer>
+        <briefdescription>
+<para>Mask for frame address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gaabb2d5baeb7ebd06f2743edc48b28674" compoundref="xloader__client_8c" startline="387" endline="416">XLoader_CfiSelectiveReadback</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xloader__client__apis_1gaa46059a11b24bca179cdb16cec9d5e03" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_LoadPartialPdi</definition>
+        <argsstring>(XLoader_ClientInstance *InstancePtr, XLoader_PdiSrc PdiSrc, u64 PdiAddr, u32 *PlmErrStatus)</argsstring>
+        <name>XLoader_LoadPartialPdi</name>
+        <param>
+          <type><ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xloader__client_8h_1a80466c7a413948d606d725278a61df96" kindref="member">XLoader_PdiSrc</ref></type>
+          <declname>PdiSrc</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>PdiAddr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>PlmErrStatus</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to provides PDI execution. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PdiSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boot Mode values, DDR, PCIe. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PdiAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>64bit PDI address located in the Source. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PlmErrStatus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Used to store the plm error status.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Performs input parameters validation</para><para>Fill Payload</para><para>Send request using generic API </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" bodystart="74" bodyend="96"/>
+        <references refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xloader__mailbox_8h" startline="50">PAYLOAD_ARG_CNT</references>
+        <references refid="group__xloader__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" compoundref="xloader__mailbox_8h" startline="52">RESPONSE_ARG_CNT</references>
+        <references refid="group__xloader__client__apis_1gabd3e6b81339122b2fc4ecad981f1a9cd" compoundref="xloader__client_8c" startline="43">XLOADER_ADDR_HIGH_SHIFT</references>
+        <references refid="xloader__defs_8h_1a8099a890fe7caae377dca7aed1b52f25" compoundref="xloader__defs_8h" startline="44">XLOADER_CMD_ID_LOAD_SUBSYSTEM_PDI</references>
+        <references refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" compoundref="xloader__generic_8c" startline="65" endline="113">XLoader_SendRequest</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__client__apis_1ga05ffa5255e46703e2b3762b3841104bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_LoadImage</definition>
+        <argsstring>(XLoader_ClientInstance *InstancePtr, u32 NodeId, u32 FunctionId)</argsstring>
+        <name>XLoader_LoadImage</name>
+        <param>
+          <type><ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>FunctionId</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to Load image. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node id of ddr copied image. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FunctionId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>To verify with the FuncID of the image copied to DDR.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Fill Payload</para><para>Send request using generic API </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" bodystart="111" bodyend="123"/>
+        <references refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xloader__mailbox_8h" startline="50">PAYLOAD_ARG_CNT</references>
+        <references refid="xloader__defs_8h_1a0069db58c58ff5355cb8bf0e0d0390c1" compoundref="xloader__defs_8h" startline="45">XLOADER_CMD_ID_LOAD_DDRCPY_IMG</references>
+        <references refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" compoundref="xloader__generic_8c" startline="65" endline="113">XLoader_SendRequest</references>
+        <referencedby refid="group__xloader__server__apis_1ga8ceadff6112bda923ba5f400913f04d0" compoundref="2ve__2vm_2server_2xloader__plat_8c" startline="1874" endline="1918">XLoader_LoadAsuImage</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga3ceca49125b11c6e3a58844b216886fa" compoundref="net_2server_2xloader__plat_8c" startline="1850" endline="1893">XLoader_LoadLpdAndPsmElf</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__client__apis_1gac98e60c304d3cc096b362373ae9eb29e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_GetImageInfo</definition>
+        <argsstring>(XLoader_ClientInstance *InstancePtr, u32 NodeId, XLoader_ImageInfo *ImageInfo)</argsstring>
+        <name>XLoader_GetImageInfo</name>
+        <param>
+          <type><ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_loader___image_info" kindref="compound">XLoader_ImageInfo</ref> *</type>
+          <declname>ImageInfo</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to get image information. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Node id of ddr copied image. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ImageInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the structure <ref refid="struct_x_loader___image_info" kindref="compound">XLoader_ImageInfo</ref> which is used to store the image information.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Performs input parameters validation</para><para>Fill Payload</para><para>Send request using generic API </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" bodystart="139" bodyend="164"/>
+        <references refid="struct_x_loader___image_info_1ad037c834d77ba07cbd0b20938616cfa8" compoundref="xloader__defs_8h" startline="120">XLoader_ImageInfo::FuncID</references>
+        <references refid="struct_x_loader___image_info_1aa4c8bf28a4fead4fde475250a08697c4" compoundref="xloader__defs_8h" startline="117">XLoader_ImageInfo::ImgID</references>
+        <references refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xloader__mailbox_8h" startline="50">PAYLOAD_ARG_CNT</references>
+        <references refid="struct_x_loader___image_info_1a38b817f7c4b1e0f88c6d0e88d03a18eb" compoundref="xloader__defs_8h" startline="119">XLoader_ImageInfo::PUID</references>
+        <references refid="group__xloader__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" compoundref="xloader__mailbox_8h" startline="52">RESPONSE_ARG_CNT</references>
+        <references refid="struct_x_loader___image_info_1a24424adf798e7660c138eda532397b7d" compoundref="xloader__defs_8h" startline="118">XLoader_ImageInfo::UID</references>
+        <references refid="xloader__defs_8h_1a65cddc7649a2371b0ef26022cd9569aa" compoundref="xloader__defs_8h" startline="46">XLOADER_CMD_ID_GET_IMAGE_INFO</references>
+        <references refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" compoundref="xloader__generic_8c" startline="65" endline="113">XLoader_SendRequest</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__client__apis_1gac4737ad97892352c05d25dc687aa87a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_GetImageInfoList</definition>
+        <argsstring>(XLoader_ClientInstance *InstancePtr, u64 Buff_Addr, u32 Maxsize, u32 *NumEntries)</argsstring>
+        <name>XLoader_GetImageInfoList</name>
+        <param>
+          <type><ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Buff_Addr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Maxsize</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>NumEntries</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to gets ImageInfo Table. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Buff_Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer address to copy the ImageInfo. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Maxsize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum size requires in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumEntries</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>To get the number of entries returned.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Performs input parameters validation</para><para><itemizedlist>
+<listitem><para>Typically be Continue[31 bit] set to 0, In case the first call indicated that more entries are available then this can be set to 1 present we are not supporting more entries , So returning XST_FAILURE if continue parameter is 1.</para></listitem></itemizedlist>
+</para><para>Fill Payload</para><para>Send request using generic API </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" bodystart="180" bodyend="214"/>
+        <references refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xloader__mailbox_8h" startline="50">PAYLOAD_ARG_CNT</references>
+        <references refid="group__xloader__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" compoundref="xloader__mailbox_8h" startline="52">RESPONSE_ARG_CNT</references>
+        <references refid="group__xloader__client__apis_1gabd3e6b81339122b2fc4ecad981f1a9cd" compoundref="xloader__client_8c" startline="43">XLOADER_ADDR_HIGH_SHIFT</references>
+        <references refid="xloader__defs_8h_1ac25ddbc76c0198a2b15781bd07046a48" compoundref="xloader__defs_8h" startline="48">XLOADER_CMD_ID_GET_IMAGE_INFO_LIST</references>
+        <references refid="group__xloader__client__apis_1gade1f63d75c755d641d0db91afbaa3303" compoundref="xloader__client_8c" startline="44">XLOADER_MSB_MASK</references>
+        <references refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" compoundref="xloader__generic_8c" startline="65" endline="113">XLoader_SendRequest</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__client__apis_1ga6e571b298df7278911edeb130a4917c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_ExtractMetaheader</definition>
+        <argsstring>(XLoader_ClientInstance *InstancePtr, u64 PdiSrcAddr, u64 DestBuffAddr, u32 DestBuffSize)</argsstring>
+        <name>XLoader_ExtractMetaheader</name>
+        <param>
+          <type><ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>PdiSrcAddr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>DestBuffAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DestBuffSize</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to Extract meta header. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PdiSrcAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the pdi. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DestBuffAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address to export the pdi. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DestBuffSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>size of the destination buffer in bytes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Fill Payload</para><para>Send request using generic API </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" bodystart="230" bodyend="246"/>
+        <references refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xloader__mailbox_8h" startline="50">PAYLOAD_ARG_CNT</references>
+        <references refid="group__xloader__client__apis_1gabd3e6b81339122b2fc4ecad981f1a9cd" compoundref="xloader__client_8c" startline="43">XLOADER_ADDR_HIGH_SHIFT</references>
+        <references refid="xloader__defs_8h_1ac4785681ba6e8f76e6532b7e45efbdfd" compoundref="xloader__defs_8h" startline="49">XLOADER_CMD_ID_EXTRACT_METAHEADER</references>
+        <references refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" compoundref="xloader__generic_8c" startline="65" endline="113">XLoader_SendRequest</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__client__apis_1ga29c0d281ad005ea2b4a987b8c1008694" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_UpdateMultiboot</definition>
+        <argsstring>(XLoader_ClientInstance *InstancePtr, XLoader_PdiSrc BootMode, XLoader_FlashType Type, u32 ImageLocation)</argsstring>
+        <name>XLoader_UpdateMultiboot</name>
+        <param>
+          <type><ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xloader__client_8h_1a80466c7a413948d606d725278a61df96" kindref="member">XLoader_PdiSrc</ref></type>
+          <declname>BootMode</declname>
+        </param>
+        <param>
+          <type><ref refid="xloader__client_8h_1a3bfb7027b81951f1f5d157b1de5ce15c" kindref="member">XLoader_FlashType</ref></type>
+          <declname>Type</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ImageLocation</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to update multiboot. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BootMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pdi boot source </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flash type </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ImageLocation</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Location of Image in the boot device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Fill Payload</para><para>Send request using generic API </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" bodystart="263" bodyend="277"/>
+        <references refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xloader__mailbox_8h" startline="50">PAYLOAD_ARG_CNT</references>
+        <references refid="xloader__defs_8h_1a8e2aa430151c9d076afe93c3d469474e" compoundref="xloader__defs_8h" startline="51">XLOADER_CMD_ID_UPDATE_MULTIBOOT</references>
+        <references refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" compoundref="xloader__generic_8c" startline="65" endline="113">XLoader_SendRequest</references>
+        <referencedby refid="xilloader__update__multiboot__client__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xilloader__update__multiboot__client__example_8c" startline="74" endline="112">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__client__apis_1ga63d94db8c3d206242d0527631c38c5fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_AddImageStorePdi</definition>
+        <argsstring>(XLoader_ClientInstance *InstancePtr, u32 PdiId, const u64 PdiAddr, u32 PdiSize)</argsstring>
+        <name>XLoader_AddImageStorePdi</name>
+        <param>
+          <type><ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PdiId</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>PdiAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PdiSize</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to add Image store pdi. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PdiId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Id of the pdi. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PdiAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address to store Image store pdi&apos;s maintained by PLM. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PdiSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of pdi in words.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Fill Payload</para><para>Send request using generic API </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" bodystart="293" bodyend="307"/>
+        <references refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xloader__mailbox_8h" startline="50">PAYLOAD_ARG_CNT</references>
+        <references refid="group__xloader__client__apis_1gabd3e6b81339122b2fc4ecad981f1a9cd" compoundref="xloader__client_8c" startline="43">XLOADER_ADDR_HIGH_SHIFT</references>
+        <references refid="xloader__defs_8h_1abb1ea6d731c2660afd18539f084c1c0d" compoundref="xloader__defs_8h" startline="52">XLOADER_CMD_ID_ADD_IMAGESTORE_PDI</references>
+        <references refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" compoundref="xloader__generic_8c" startline="65" endline="113">XLoader_SendRequest</references>
+        <referencedby refid="group__xloader__client__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilloader__add__pdi__to__image__store__client__example_8c" startline="82" endline="120">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__client__apis_1ga2027ee38324a120aa3f23eb6a1f3476f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_RemoveImageStorePdi</definition>
+        <argsstring>(XLoader_ClientInstance *InstancePtr, u32 PdiId)</argsstring>
+        <name>XLoader_RemoveImageStorePdi</name>
+        <param>
+          <type><ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PdiId</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to remove Image store pdi. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PdiId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Id of the PDI to be removed from Image Store.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Fill Payload</para><para>Send request using generic API </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" bodystart="321" bodyend="333"/>
+        <references refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xloader__mailbox_8h" startline="50">PAYLOAD_ARG_CNT</references>
+        <references refid="xloader__defs_8h_1a08ab6030bc9495dd34115fda44b32487" compoundref="xloader__defs_8h" startline="53">XLOADER_CMD_ID_REMOVE_IMAGESTORE_PDI</references>
+        <references refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" compoundref="xloader__generic_8c" startline="65" endline="113">XLoader_SendRequest</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__client__apis_1gaf07025194b841bfa9aa96bdb87cb48c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_GetATFHandOffParams</definition>
+        <argsstring>(XLoader_ClientInstance *InstancePtr, u64 BuffAddr, u32 Size, u32 *BufferSize)</argsstring>
+        <name>XLoader_GetATFHandOffParams</name>
+        <param>
+          <type><ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>BuffAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>BufferSize</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to get ATF Handoff parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance (Input). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BuffAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address to store the handoff parameter information (Input). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum number of bytes that can be stored in the buffer (Input). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufferSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>To get the size of the buffer in bytes (Output).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Performs input parameters validation</para><para>Fill Payload</para><para>Send request using generic API </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" bodystart="349" bodyend="372"/>
+        <references refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xloader__mailbox_8h" startline="50">PAYLOAD_ARG_CNT</references>
+        <references refid="group__xloader__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" compoundref="xloader__mailbox_8h" startline="52">RESPONSE_ARG_CNT</references>
+        <references refid="group__xloader__client__apis_1gabd3e6b81339122b2fc4ecad981f1a9cd" compoundref="xloader__client_8c" startline="43">XLOADER_ADDR_HIGH_SHIFT</references>
+        <references refid="xloader__defs_8h_1ac47b1de83196aaa4ad120472deb2d9fc" compoundref="xloader__defs_8h" startline="54">XLOADER_CMD_ID_GET_ATF_HANDOFF_PARAMS</references>
+        <references refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" compoundref="xloader__generic_8c" startline="65" endline="113">XLoader_SendRequest</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__client__apis_1gaabb2d5baeb7ebd06f2743edc48b28674" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_CfiSelectiveReadback</definition>
+        <argsstring>(XLoader_ClientInstance *InstancePtr, XLoader_CfiSelReadbackParams *SelectiveReadbackPtr)</argsstring>
+        <name>XLoader_CfiSelectiveReadback</name>
+        <param>
+          <type><ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_loader___cfi_sel_readback_params" kindref="compound">XLoader_CfiSelReadbackParams</ref> *</type>
+          <declname>SelectiveReadbackPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to read selective frames from configuration memory. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SelectiveReadbackPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to structure which contains parameters of CFI selective readback command</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Performs input parameters validation</para><para>Include SLR index in API ID</para><para>Fill Payload</para><para>Send request using generic API </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" line="387" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" bodystart="387" bodyend="416"/>
+        <references refid="struct_x_loader___cfi_sel_readback_params_1af880338814342b61b9a73295a5c0e952" compoundref="xloader__client_8h" startline="94">XLoader_CfiSelReadbackParams::Blocktype</references>
+        <references refid="struct_x_loader___cfi_sel_readback_params_1a26014e4d4738f3ad7b07c81ee04160ad" compoundref="xloader__client_8h" startline="92">XLoader_CfiSelReadbackParams::DestAddr</references>
+        <references refid="struct_x_loader___cfi_sel_readback_params_1a43e09d939eb10b296b0ade7ba72a1032" compoundref="xloader__client_8h" startline="95">XLoader_CfiSelReadbackParams::FrameAddr</references>
+        <references refid="struct_x_loader___cfi_sel_readback_params_1ad3e54e16c731da894e13568026cdc2be" compoundref="xloader__client_8h" startline="96">XLoader_CfiSelReadbackParams::FrameCnt</references>
+        <references refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xloader__mailbox_8h" startline="50">PAYLOAD_ARG_CNT</references>
+        <references refid="struct_x_loader___cfi_sel_readback_params_1a4dd97a4905462c0ea899092a8d849c70" compoundref="xloader__client_8h" startline="93">XLoader_CfiSelReadbackParams::Row</references>
+        <references refid="struct_x_loader___client_instance_1aeefcd87082cd08d88aaa1bbf15b2fa88" compoundref="xloader__mailbox_8h" startline="100">XLoader_ClientInstance::SlrIndex</references>
+        <references refid="group__xloader__client__apis_1gabd3e6b81339122b2fc4ecad981f1a9cd" compoundref="xloader__client_8c" startline="43">XLOADER_ADDR_HIGH_SHIFT</references>
+        <references refid="xloader__defs_8h_1a54d872b87e11572aa56efe1aa586240e" compoundref="xloader__defs_8h" startline="64">XLOADER_CFI_SEL_READBACK_ID</references>
+        <references refid="group__xloader__client__apis_1ga38517dc1fcd808ed89bb3ff902350b86" compoundref="xloader__client_8c" startline="47">XLOADER_SELREADBACK_BLKTYPE_START_POS</references>
+        <references refid="group__xloader__client__apis_1gaa39ad3db38cb7d477accd3ed0534c201" compoundref="xloader__client_8c" startline="48">XLOADER_SELREADBACK_ROW_MASK</references>
+        <references refid="group__xloader__client__apis_1ga1ff0ecf425161c5cd6d009e4c0c7c5b3" compoundref="xloader__client_8c" startline="46">XLOADER_SELREADBACK_ROW_START_POS</references>
+        <references refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" compoundref="xloader__generic_8c" startline="65" endline="113">XLoader_SendRequest</references>
+        <references refid="group__xloader__client__apis_1ga5f713bcb041139fafb878896da388a2f" compoundref="xloader__client_8c" startline="49">XLOADER_SLEREADBACK_BLKTYPE_MASK</references>
+        <references refid="group__xloader__client__apis_1ga2c9d32fc15da21624de8de627d96a867" compoundref="xloader__client_8c" startline="50">XLOADER_SLEREADBACK_FRAMEADDR_MASK</references>
+        <references refid="xloader__client_8h_1a763acba7e7932449564354fc2b968da0" compoundref="xloader__client_8h" startline="51">XLOADER_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__client__apis_1ga048d2ad178b4c29a0f491b49f9e5788f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_InputSlrIndex</definition>
+        <argsstring>(XLoader_ClientInstance *InstancePtr, u32 SlrIndex)</argsstring>
+        <name>XLoader_InputSlrIndex</name>
+        <param>
+          <type><ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SlrIndex</declname>
+        </param>
+        <briefdescription>
+<para>Adds the SLR Index. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to instance <ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SlrIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- SLR index number</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS - On valid input SlrIndex.<itemizedlist>
+<listitem><para>XST_FAILURE - On non valid input SlrIndex </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" line="429" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" bodystart="429" bodyend="439"/>
+        <references refid="struct_x_loader___client_instance_1aeefcd87082cd08d88aaa1bbf15b2fa88" compoundref="xloader__mailbox_8h" startline="100">XLoader_ClientInstance::SlrIndex</references>
+        <references refid="xloader__client_8h_1a476a2b42c45582de2fb802c603fbb2f6" compoundref="xloader__client_8h" startline="57">XLOADER_SLR_INDEX_3</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_GetOptionalData</definition>
+        <argsstring>(XLoader_ClientInstance *InstancePtr, const XLoader_OptionalDataInfo *OptionalDataInfo, u64 DestAddr, u32 *DestSize)</argsstring>
+        <name>XLoader_GetOptionalData</name>
+        <param>
+          <type><ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_loader___optional_data_info" kindref="compound">XLoader_OptionalDataInfo</ref> *</type>
+          <declname>OptionalDataInfo</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>DestAddr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DestSize</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to get optional data from the PDI available in DDR or Image Store. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OptionalDataInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_loader___optional_data_info" kindref="compound">XLoader_OptionalDataInfo</ref> structure </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DestAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the output buffer wheren optional data shall be copied </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DestSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of destination buffer in bytes</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Performs input parameters validation</para><para>Send request using generic API </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" line="456" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c" bodystart="456" bodyend="492"/>
+        <references refid="struct_x_loader___optional_data_info_1a488545c629c3a5a10f4bd741f3403e1f" compoundref="xloader__defs_8h" startline="130">XLoader_OptionalDataInfo::DataId</references>
+        <references refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" compoundref="xloader__mailbox_8h" startline="50">PAYLOAD_ARG_CNT</references>
+        <references refid="struct_x_loader___optional_data_info_1ac69c1742ff22dd1d167c1d310ac13bcb" compoundref="xloader__defs_8h" startline="129">XLoader_OptionalDataInfo::PdiAddrHigh</references>
+        <references refid="struct_x_loader___optional_data_info_1a0092f8adfca951f360f264297732acff" compoundref="xloader__defs_8h" startline="128">XLoader_OptionalDataInfo::PdiAddrLow</references>
+        <references refid="struct_x_loader___optional_data_info_1a5083a680af3e731db8af73f2722ebaa7" compoundref="xloader__defs_8h" startline="131">XLoader_OptionalDataInfo::PdiId</references>
+        <references refid="struct_x_loader___optional_data_info_1a0e20785ce19e07778921a7c6bac03915" compoundref="xloader__defs_8h" startline="127">XLoader_OptionalDataInfo::PdiSrc</references>
+        <references refid="group__xloader__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" compoundref="xloader__mailbox_8h" startline="52">RESPONSE_ARG_CNT</references>
+        <references refid="group__xloader__client__apis_1gabd3e6b81339122b2fc4ecad981f1a9cd" compoundref="xloader__client_8c" startline="43">XLOADER_ADDR_HIGH_SHIFT</references>
+        <references refid="xloader__defs_8h_1ac4785681ba6e8f76e6532b7e45efbdfd" compoundref="xloader__defs_8h" startline="49">XLOADER_CMD_ID_EXTRACT_METAHEADER</references>
+        <references refid="xloader__defs_8h_1a9849c69818df75599877328a2c15c297" compoundref="xloader__defs_8h" startline="90">XLOADER_DATA_ID_SHIFT</references>
+        <references refid="xloader__defs_8h_1ae6a2be2a534dfe2bac3f3575d37d6436" compoundref="xloader__defs_8h" startline="88">XLOADER_GET_OPT_DATA_FLAG</references>
+        <references refid="xloader__client_8h_1af14fcbd99f3aaf94c6ecc1f3689b8485" compoundref="xloader__client_8h" startline="101">XLOADER_PDI_SRC_DDR</references>
+        <references refid="xloader__client_8h_1a8bf2f25bb888f10360209991f0fa866a" compoundref="xloader__client_8h" startline="102">XLOADER_PDI_SRC_IS</references>
+        <references refid="xloader__client_8h_1a39654fd8892eb35afd1eab65d7df8caa" compoundref="xloader__client_8h" startline="100">XLOADER_PDI_SRC_OSPI</references>
+        <references refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" compoundref="xloader__generic_8c" startline="65" endline="113">XLoader_SendRequest</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the implementation of the client interface functions. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00  dd   01/09/24 Initial release
+      har  03/05/24 Fixed doxygen warnings
+      pre  08/22/24 Added XLoader_CfiSelectiveReadback, XLoader_InputSlrIndex functions
+      pre  10/26/24 Removed XLoader_LoadReadBackPdi API
+      pre  09/30/25 Updated comments for rtf docs
+2.4   tbk  02/10/26 Added SMC call support
+      gnr  03/18/26 Updated the Payload assignments with XLOADER_PACK_PAYLOAD macros
+      vm   03/30/26 Added support for OSPI as pdi source to get the optional data</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="36"><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xloader__client_8h" kindref="compound">xloader_client.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xloader__generic_8h" kindref="compound">xloader_generic.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="group__xloader__client__apis_1gabd3e6b81339122b2fc4ecad981f1a9cd" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_ADDR_HIGH_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(32U)<sp/></highlight></codeline>
+<codeline lineno="44" refid="group__xloader__client__apis_1gade1f63d75c755d641d0db91afbaa3303" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_MSB_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x80000000)<sp/></highlight></codeline>
+<codeline lineno="46" refid="group__xloader__client__apis_1ga1ff0ecf425161c5cd6d009e4c0c7c5b3" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_SELREADBACK_ROW_START_POS<sp/><sp/><sp/><sp/><sp/>(23U)<sp/></highlight></codeline>
+<codeline lineno="47" refid="group__xloader__client__apis_1ga38517dc1fcd808ed89bb3ff902350b86" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_SELREADBACK_BLKTYPE_START_POS<sp/>(20U)<sp/></highlight></codeline>
+<codeline lineno="48" refid="group__xloader__client__apis_1gaa39ad3db38cb7d477accd3ed0534c201" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_SELREADBACK_ROW_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x7800000U)<sp/></highlight></codeline>
+<codeline lineno="49" refid="group__xloader__client__apis_1ga5f713bcb041139fafb878896da388a2f" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_SLEREADBACK_BLKTYPE_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0X700000U)<sp/></highlight></codeline>
+<codeline lineno="50" refid="group__xloader__client__apis_1ga2c9d32fc15da21624de8de627d96a867" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_SLEREADBACK_FRAMEADDR_MASK<sp/><sp/><sp/><sp/>(0xFFFFFU)<sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="74" refid="group__xloader__client__apis_1gaa46059a11b24bca179cdb16cec9d5e03" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__client__apis_1gaa46059a11b24bca179cdb16cec9d5e03" kindref="member">XLoader_LoadPartialPdi</ref>(<ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref><sp/>*InstancePtr,<sp/><ref refid="xloader__client_8h_1a80466c7a413948d606d725278a61df96" kindref="member">XLoader_PdiSrc</ref><sp/>PdiSrc,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>PdiAddr,<sp/>u32<sp/>*PlmErrStatus)</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[<ref refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Response[<ref refid="group__xloader__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" kindref="member">RESPONSE_ARG_CNT</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PlmErrStatus<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLOADER_PACK_PAYLOAD3(Payload,<sp/>(u32)<ref refid="xloader__defs_8h_1a8099a890fe7caae377dca7aed1b52f25" kindref="member">XLOADER_CMD_ID_LOAD_SUBSYSTEM_PDI</ref>,<sp/>PdiSrc,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(PdiAddr<sp/>&gt;&gt;<sp/><ref refid="group__xloader__client__apis_1gabd3e6b81339122b2fc4ecad981f1a9cd" kindref="member">XLOADER_ADDR_HIGH_SHIFT</ref>),<sp/>(u32)(PdiAddr));</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" kindref="member">XLoader_SendRequest</ref>(InstancePtr,<sp/>Payload,<sp/>(u32)<ref refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>,<sp/>Response,<sp/>(u32)<ref refid="group__xloader__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" kindref="member">RESPONSE_ARG_CNT</ref>);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*PlmErrStatus<sp/>=<sp/>Response[0U];</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="111" refid="group__xloader__client__apis_1ga05ffa5255e46703e2b3762b3841104bc" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__client__apis_1ga05ffa5255e46703e2b3762b3841104bc" kindref="member">XLoader_LoadImage</ref>(<ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref><sp/>*InstancePtr,<sp/>u32<sp/>NodeId,<sp/>u32<sp/>FunctionId)</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[<ref refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLOADER_PACK_PAYLOAD2(Payload,<sp/>(u32)<ref refid="xloader__defs_8h_1a0069db58c58ff5355cb8bf0e0d0390c1" kindref="member">XLOADER_CMD_ID_LOAD_DDRCPY_IMG</ref>,<sp/>NodeId,<sp/>FunctionId);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" kindref="member">XLoader_SendRequest</ref>(InstancePtr,<sp/>Payload,<sp/>(u32)<ref refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>,<sp/>NULL,<sp/>0U);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="139" refid="group__xloader__client__apis_1gac98e60c304d3cc096b362373ae9eb29e" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__client__apis_1gac98e60c304d3cc096b362373ae9eb29e" kindref="member">XLoader_GetImageInfo</ref>(<ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref><sp/>*InstancePtr,<sp/>u32<sp/>NodeId,</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_loader___image_info" kindref="compound">XLoader_ImageInfo</ref><sp/>*ImageInfo)</highlight></codeline>
+<codeline lineno="141"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[<ref refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Response[<ref refid="group__xloader__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" kindref="member">RESPONSE_ARG_CNT</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ImageInfo<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLOADER_PACK_PAYLOAD1(Payload,<sp/>(u32)<ref refid="xloader__defs_8h_1a65cddc7649a2371b0ef26022cd9569aa" kindref="member">XLOADER_CMD_ID_GET_IMAGE_INFO</ref>,<sp/>NodeId);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" kindref="member">XLoader_SendRequest</ref>(InstancePtr,<sp/>Payload,<sp/>(u32)<ref refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>,<sp/>Response,<sp/>(u32)<ref refid="group__xloader__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" kindref="member">RESPONSE_ARG_CNT</ref>);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ImageInfo-&gt;<ref refid="struct_x_loader___image_info_1aa4c8bf28a4fead4fde475250a08697c4" kindref="member">ImgID</ref><sp/>=<sp/>NodeId;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ImageInfo-&gt;<ref refid="struct_x_loader___image_info_1a24424adf798e7660c138eda532397b7d" kindref="member">UID</ref><sp/>=<sp/>Response[0U];</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ImageInfo-&gt;<ref refid="struct_x_loader___image_info_1a38b817f7c4b1e0f88c6d0e88d03a18eb" kindref="member">PUID</ref><sp/>=<sp/>Response[1U];</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ImageInfo-&gt;<ref refid="struct_x_loader___image_info_1ad037c834d77ba07cbd0b20938616cfa8" kindref="member">FuncID</ref><sp/>=<sp/>Response[2U];</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="180" refid="group__xloader__client__apis_1gac4737ad97892352c05d25dc687aa87a1" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__client__apis_1gac4737ad97892352c05d25dc687aa87a1" kindref="member">XLoader_GetImageInfoList</ref>(<ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref><sp/>*InstancePtr,<sp/>u64<sp/>Buff_Addr,u32<sp/>Maxsize,</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*NumEntries)</highlight></codeline>
+<codeline lineno="182"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[<ref refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Response[<ref refid="group__xloader__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" kindref="member">RESPONSE_ARG_CNT</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Continue<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NumEntries<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Continue<sp/>=<sp/>((Maxsize<sp/>&amp;<sp/><ref refid="group__xloader__client__apis_1gade1f63d75c755d641d0db91afbaa3303" kindref="member">XLOADER_MSB_MASK</ref>)<sp/>&gt;&gt;<sp/>31);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Continue<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLOADER_PACK_PAYLOAD3(Payload,<sp/>(u32)<ref refid="xloader__defs_8h_1ac25ddbc76c0198a2b15781bd07046a48" kindref="member">XLOADER_CMD_ID_GET_IMAGE_INFO_LIST</ref>,</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(Buff_Addr<sp/>&gt;&gt;<sp/><ref refid="group__xloader__client__apis_1gabd3e6b81339122b2fc4ecad981f1a9cd" kindref="member">XLOADER_ADDR_HIGH_SHIFT</ref>),<sp/>(u32)(Buff_Addr),<sp/>Maxsize);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" kindref="member">XLoader_SendRequest</ref>(InstancePtr,<sp/>Payload,<sp/>(u32)<ref refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>,<sp/>Response,<sp/>(u32)<ref refid="group__xloader__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" kindref="member">RESPONSE_ARG_CNT</ref>);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*NumEntries<sp/>=<sp/>Response[0U];</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="230" refid="group__xloader__client__apis_1ga6e571b298df7278911edeb130a4917c6" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__client__apis_1ga6e571b298df7278911edeb130a4917c6" kindref="member">XLoader_ExtractMetaheader</ref>(<ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref><sp/>*InstancePtr,<sp/>u64<sp/>PdiSrcAddr,</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DestBuffAddr,<sp/>u32<sp/>DestBuffSize)</highlight></codeline>
+<codeline lineno="232"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[<ref refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLOADER_PACK_PAYLOAD5(Payload,<sp/>(u32)<ref refid="xloader__defs_8h_1ac4785681ba6e8f76e6532b7e45efbdfd" kindref="member">XLOADER_CMD_ID_EXTRACT_METAHEADER</ref>,</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(PdiSrcAddr<sp/>&gt;&gt;<sp/><ref refid="group__xloader__client__apis_1gabd3e6b81339122b2fc4ecad981f1a9cd" kindref="member">XLOADER_ADDR_HIGH_SHIFT</ref>),<sp/>(u32)(PdiSrcAddr),</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(DestBuffAddr<sp/>&gt;&gt;<sp/><ref refid="group__xloader__client__apis_1gabd3e6b81339122b2fc4ecad981f1a9cd" kindref="member">XLOADER_ADDR_HIGH_SHIFT</ref>),</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(DestBuffAddr),<sp/>DestBuffSize);</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" kindref="member">XLoader_SendRequest</ref>(InstancePtr,<sp/>Payload,<sp/>(u32)<ref refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>,<sp/>NULL,<sp/>0U);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="263" refid="group__xloader__client__apis_1ga29c0d281ad005ea2b4a987b8c1008694" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__client__apis_1ga29c0d281ad005ea2b4a987b8c1008694" kindref="member">XLoader_UpdateMultiboot</ref>(<ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref><sp/>*InstancePtr,<sp/><ref refid="xloader__client_8h_1a80466c7a413948d606d725278a61df96" kindref="member">XLoader_PdiSrc</ref><sp/>BootMode,</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xloader__client_8h_1a3bfb7027b81951f1f5d157b1de5ce15c" kindref="member">XLoader_FlashType</ref><sp/>Type,<sp/>u32<sp/>ImageLocation)</highlight></codeline>
+<codeline lineno="265"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[<ref refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BootModeType<sp/>=<sp/>Type<sp/>|<sp/>BootMode<sp/>&lt;&lt;<sp/>8;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLOADER_PACK_PAYLOAD2(Payload,<sp/>(u32)<ref refid="xloader__defs_8h_1a8e2aa430151c9d076afe93c3d469474e" kindref="member">XLOADER_CMD_ID_UPDATE_MULTIBOOT</ref>,<sp/>BootModeType,<sp/>ImageLocation);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" kindref="member">XLoader_SendRequest</ref>(InstancePtr,<sp/>Payload,<sp/>(u32)<ref refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>,<sp/>NULL,<sp/>0U);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="293" refid="group__xloader__client__apis_1ga63d94db8c3d206242d0527631c38c5fa" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__client__apis_1ga63d94db8c3d206242d0527631c38c5fa" kindref="member">XLoader_AddImageStorePdi</ref>(<ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref><sp/>*InstancePtr,<sp/>u32<sp/>PdiId,</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>PdiAddr,<sp/>u32<sp/>PdiSize)</highlight></codeline>
+<codeline lineno="295"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[<ref refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLOADER_PACK_PAYLOAD4(Payload,<sp/>(u32)<ref refid="xloader__defs_8h_1abb1ea6d731c2660afd18539f084c1c0d" kindref="member">XLOADER_CMD_ID_ADD_IMAGESTORE_PDI</ref>,<sp/>PdiId,</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(PdiAddr<sp/>&gt;&gt;<sp/><ref refid="group__xloader__client__apis_1gabd3e6b81339122b2fc4ecad981f1a9cd" kindref="member">XLOADER_ADDR_HIGH_SHIFT</ref>),<sp/>(u32)(PdiAddr),<sp/>PdiSize);</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" kindref="member">XLoader_SendRequest</ref>(InstancePtr,<sp/>Payload,<sp/>(u32)<ref refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>,<sp/>NULL,<sp/>0U);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="307"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="321" refid="group__xloader__client__apis_1ga2027ee38324a120aa3f23eb6a1f3476f" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__client__apis_1ga2027ee38324a120aa3f23eb6a1f3476f" kindref="member">XLoader_RemoveImageStorePdi</ref>(<ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref><sp/>*InstancePtr,<sp/>u32<sp/>PdiId)</highlight></codeline>
+<codeline lineno="322"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[<ref refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLOADER_PACK_PAYLOAD1(Payload,<sp/>(u32)<ref refid="xloader__defs_8h_1a08ab6030bc9495dd34115fda44b32487" kindref="member">XLOADER_CMD_ID_REMOVE_IMAGESTORE_PDI</ref>,<sp/>PdiId);</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" kindref="member">XLoader_SendRequest</ref>(InstancePtr,<sp/>Payload,<sp/>(u32)<ref refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>,<sp/>NULL,<sp/>0U);</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="333"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="349" refid="group__xloader__client__apis_1gaf07025194b841bfa9aa96bdb87cb48c8" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__client__apis_1gaf07025194b841bfa9aa96bdb87cb48c8" kindref="member">XLoader_GetATFHandOffParams</ref>(<ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref><sp/>*InstancePtr,<sp/>u64<sp/>BuffAddr,<sp/>u32<sp/>Size,</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*BufferSize)</highlight></codeline>
+<codeline lineno="351"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[<ref refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Response[<ref refid="group__xloader__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" kindref="member">RESPONSE_ARG_CNT</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"></highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(BufferSize<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLOADER_PACK_PAYLOAD3(Payload,<sp/>(u32)<ref refid="xloader__defs_8h_1ac47b1de83196aaa4ad120472deb2d9fc" kindref="member">XLOADER_CMD_ID_GET_ATF_HANDOFF_PARAMS</ref>,</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(BuffAddr<sp/>&gt;&gt;<sp/><ref refid="group__xloader__client__apis_1gabd3e6b81339122b2fc4ecad981f1a9cd" kindref="member">XLOADER_ADDR_HIGH_SHIFT</ref>),</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(BuffAddr),<sp/>Size);</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" kindref="member">XLoader_SendRequest</ref>(InstancePtr,<sp/>Payload,<sp/>(u32)<ref refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>,<sp/>Response,<sp/>(u32)<ref refid="group__xloader__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" kindref="member">RESPONSE_ARG_CNT</ref>);</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*BufferSize<sp/>=<sp/>Response[0U];</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="372"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="387" refid="group__xloader__client__apis_1gaabb2d5baeb7ebd06f2743edc48b28674" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__client__apis_1gaabb2d5baeb7ebd06f2743edc48b28674" kindref="member">XLoader_CfiSelectiveReadback</ref>(<ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_loader___cfi_sel_readback_params" kindref="compound">XLoader_CfiSelReadbackParams</ref><sp/>*SelectiveReadbackPtr)</highlight></codeline>
+<codeline lineno="389"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[<ref refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ApiId<sp/>=<sp/>(u32)<ref refid="xloader__defs_8h_1a54d872b87e11572aa56efe1aa586240e" kindref="member">XLOADER_CFI_SEL_READBACK_ID</ref>;</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((SelectiveReadbackPtr<sp/>==<sp/>NULL)<sp/>||<sp/>(InstancePtr<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"></highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApiId<sp/>|=<sp/>(InstancePtr-&gt;<ref refid="struct_x_loader___client_instance_1aeefcd87082cd08d88aaa1bbf15b2fa88" kindref="member">SlrIndex</ref><sp/>&lt;&lt;<sp/><ref refid="xloader__client_8h_1a763acba7e7932449564354fc2b968da0" kindref="member">XLOADER_SLR_INDEX_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"></highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLOADER_PACK_PAYLOAD4(Payload,<sp/>ApiId,</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((SelectiveReadbackPtr-&gt;<ref refid="struct_x_loader___cfi_sel_readback_params_1a4dd97a4905462c0ea899092a8d849c70" kindref="member">Row</ref><sp/>&lt;&lt;<sp/><ref refid="group__xloader__client__apis_1ga1ff0ecf425161c5cd6d009e4c0c7c5b3" kindref="member">XLOADER_SELREADBACK_ROW_START_POS</ref>)<sp/>&amp;<sp/><ref refid="group__xloader__client__apis_1gaa39ad3db38cb7d477accd3ed0534c201" kindref="member">XLOADER_SELREADBACK_ROW_MASK</ref>)|</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((SelectiveReadbackPtr-&gt;<ref refid="struct_x_loader___cfi_sel_readback_params_1af880338814342b61b9a73295a5c0e952" kindref="member">Blocktype</ref><sp/>&lt;&lt;<sp/><ref refid="group__xloader__client__apis_1ga38517dc1fcd808ed89bb3ff902350b86" kindref="member">XLOADER_SELREADBACK_BLKTYPE_START_POS</ref>)<sp/>&amp;<sp/><ref refid="group__xloader__client__apis_1ga5f713bcb041139fafb878896da388a2f" kindref="member">XLOADER_SLEREADBACK_BLKTYPE_MASK</ref>)<sp/>|</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((SelectiveReadbackPtr-&gt;<ref refid="struct_x_loader___cfi_sel_readback_params_1a43e09d939eb10b296b0ade7ba72a1032" kindref="member">FrameAddr</ref>)<sp/>&amp;<sp/><ref refid="group__xloader__client__apis_1ga2c9d32fc15da21624de8de627d96a867" kindref="member">XLOADER_SLEREADBACK_FRAMEADDR_MASK</ref>),</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SelectiveReadbackPtr-&gt;<ref refid="struct_x_loader___cfi_sel_readback_params_1ad3e54e16c731da894e13568026cdc2be" kindref="member">FrameCnt</ref>,</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(SelectiveReadbackPtr-&gt;<ref refid="struct_x_loader___cfi_sel_readback_params_1a26014e4d4738f3ad7b07c81ee04160ad" kindref="member">DestAddr</ref><sp/>&gt;&gt;<sp/><ref refid="group__xloader__client__apis_1gabd3e6b81339122b2fc4ecad981f1a9cd" kindref="member">XLOADER_ADDR_HIGH_SHIFT</ref>),<sp/>(u32)SelectiveReadbackPtr-&gt;<ref refid="struct_x_loader___cfi_sel_readback_params_1a26014e4d4738f3ad7b07c81ee04160ad" kindref="member">DestAddr</ref>);</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"></highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" kindref="member">XLoader_SendRequest</ref>(InstancePtr,<sp/>Payload,<sp/>(u32)<ref refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>,<sp/>NULL,<sp/>0U);</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"></highlight></codeline>
+<codeline lineno="414"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="416"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"></highlight></codeline>
+<codeline lineno="418"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="429" refid="group__xloader__client__apis_1ga048d2ad178b4c29a0f491b49f9e5788f" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__client__apis_1ga048d2ad178b4c29a0f491b49f9e5788f" kindref="member">XLoader_InputSlrIndex</ref>(<ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref><sp/>*InstancePtr,<sp/>u32<sp/>SlrIndex)</highlight></codeline>
+<codeline lineno="430"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"></highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SlrIndex<sp/>&lt;=<sp/><ref refid="xloader__client_8h_1a476a2b42c45582de2fb802c603fbb2f6" kindref="member">XLOADER_SLR_INDEX_3</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_loader___client_instance_1aeefcd87082cd08d88aaa1bbf15b2fa88" kindref="member">SlrIndex</ref><sp/>=<sp/>SlrIndex;</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"></highlight></codeline>
+<codeline lineno="438"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="439"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="440"><highlight class="normal"></highlight></codeline>
+<codeline lineno="441"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="456" refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" kindref="member">XLoader_GetOptionalData</ref>(<ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_loader___optional_data_info" kindref="compound">XLoader_OptionalDataInfo</ref>*<sp/>OptionalDataInfo,<sp/>u64<sp/>DestAddr,<sp/>u32<sp/>*DestSize)</highlight></codeline>
+<codeline lineno="458"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[<ref refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Response[<ref refid="group__xloader__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" kindref="member">RESPONSE_ARG_CNT</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"></highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((OptionalDataInfo<sp/>==<sp/>NULL)<sp/>||<sp/>(DestSize<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"></highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((OptionalDataInfo-&gt;<ref refid="struct_x_loader___optional_data_info_1a0e20785ce19e07778921a7c6bac03915" kindref="member">PdiSrc</ref><sp/>==<sp/><ref refid="xloader__client_8h_1af14fcbd99f3aaf94c6ecc1f3689b8485" kindref="member">XLOADER_PDI_SRC_DDR</ref>)<sp/>||<sp/>(OptionalDataInfo-&gt;<ref refid="struct_x_loader___optional_data_info_1a0e20785ce19e07778921a7c6bac03915" kindref="member">PdiSrc</ref><sp/>==<sp/><ref refid="xloader__client_8h_1a39654fd8892eb35afd1eab65d7df8caa" kindref="member">XLOADER_PDI_SRC_OSPI</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLOADER_PACK_PAYLOAD6(Payload,<sp/>(u32)<ref refid="xloader__defs_8h_1ac4785681ba6e8f76e6532b7e45efbdfd" kindref="member">XLOADER_CMD_ID_EXTRACT_METAHEADER</ref>,<sp/>(OptionalDataInfo-&gt;<ref refid="struct_x_loader___optional_data_info_1ac69c1742ff22dd1d167c1d310ac13bcb" kindref="member">PdiAddrHigh</ref>),</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(OptionalDataInfo-&gt;<ref refid="struct_x_loader___optional_data_info_1a0092f8adfca951f360f264297732acff" kindref="member">PdiAddrLow</ref>),</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(DestAddr<sp/>&gt;&gt;<sp/><ref refid="group__xloader__client__apis_1gabd3e6b81339122b2fc4ecad981f1a9cd" kindref="member">XLOADER_ADDR_HIGH_SHIFT</ref>),<sp/>(u32)(DestAddr),<sp/>*DestSize,</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(OptionalDataInfo-&gt;<ref refid="struct_x_loader___optional_data_info_1a488545c629c3a5a10f4bd741f3403e1f" kindref="member">DataId</ref><sp/>&lt;&lt;<sp/><ref refid="xloader__defs_8h_1a9849c69818df75599877328a2c15c297" kindref="member">XLOADER_DATA_ID_SHIFT</ref>)<sp/>|<sp/>(<ref refid="xloader__defs_8h_1ae6a2be2a534dfe2bac3f3575d37d6436" kindref="member">XLOADER_GET_OPT_DATA_FLAG</ref><sp/>|</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OptionalDataInfo-&gt;<ref refid="struct_x_loader___optional_data_info_1a0e20785ce19e07778921a7c6bac03915" kindref="member">PdiSrc</ref>));</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(OptionalDataInfo-&gt;<ref refid="struct_x_loader___optional_data_info_1a0e20785ce19e07778921a7c6bac03915" kindref="member">PdiSrc</ref><sp/>==<sp/><ref refid="xloader__client_8h_1a8bf2f25bb888f10360209991f0fa866a" kindref="member">XLOADER_PDI_SRC_IS</ref>){</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLOADER_PACK_PAYLOAD6(Payload,<sp/>(u32)<ref refid="xloader__defs_8h_1ac4785681ba6e8f76e6532b7e45efbdfd" kindref="member">XLOADER_CMD_ID_EXTRACT_METAHEADER</ref>,<sp/>OptionalDataInfo-&gt;<ref refid="struct_x_loader___optional_data_info_1a5083a680af3e731db8af73f2722ebaa7" kindref="member">PdiId</ref>,<sp/>0x0U,</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(DestAddr<sp/>&gt;&gt;<sp/><ref refid="group__xloader__client__apis_1gabd3e6b81339122b2fc4ecad981f1a9cd" kindref="member">XLOADER_ADDR_HIGH_SHIFT</ref>),<sp/>(u32)(DestAddr),<sp/>*DestSize,</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(OptionalDataInfo-&gt;<ref refid="struct_x_loader___optional_data_info_1a488545c629c3a5a10f4bd741f3403e1f" kindref="member">DataId</ref><sp/>&lt;&lt;<sp/><ref refid="xloader__defs_8h_1a9849c69818df75599877328a2c15c297" kindref="member">XLOADER_DATA_ID_SHIFT</ref>)<sp/>|<sp/>(<ref refid="xloader__defs_8h_1ae6a2be2a534dfe2bac3f3575d37d6436" kindref="member">XLOADER_GET_OPT_DATA_FLAG</ref><sp/>|</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OptionalDataInfo-&gt;<ref refid="struct_x_loader___optional_data_info_1a0e20785ce19e07778921a7c6bac03915" kindref="member">PdiSrc</ref>));</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"></highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" kindref="member">XLoader_SendRequest</ref>(InstancePtr,<sp/>Payload,<sp/>(u32)<ref refid="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>,<sp/>Response,<sp/>(u32)<ref refid="group__xloader__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" kindref="member">RESPONSE_ARG_CNT</ref>);</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*DestSize<sp/>=<sp/>Response[0U];</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"></highlight></codeline>
+<codeline lineno="490"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="492"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_client.c"/>
+  </compounddef>
+</doxygen>

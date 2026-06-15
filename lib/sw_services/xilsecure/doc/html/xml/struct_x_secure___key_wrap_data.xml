@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___key_wrap_data" kind="struct" prot="public">
+    <compoundname>XSecure_KeyWrapData</compoundname>
+    <includes local="no">xsecure_plat_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___key_wrap_data_1a0a05d1878b7e0de78a277e45d387849f" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_secure___key_meta_data" kindref="compound">XSecure_KeyMetaData</ref></type>
+        <definition>XSecure_KeyMetaData XSecure_KeyWrapData::KeyMetaData</definition>
+        <argsstring></argsstring>
+        <name>KeyMetaData</name>
+        <briefdescription>
+<para>Key Meta data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_net/xsecure_plat_defs.h" line="325" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_net/xsecure_plat_defs.h" bodystart="325" bodyend="-1"/>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___key_wrap_data_1a857f11d7fff5dfda00d6720ca658fdd4" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_KeyWrapData::KeyWrapAddr</definition>
+        <argsstring></argsstring>
+        <name>KeyWrapAddr</name>
+        <briefdescription>
+<para>Key Wrap address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_net/xsecure_plat_defs.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_net/xsecure_plat_defs.h" bodystart="326" bodyend="-1"/>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___key_wrap_data_1ae0859090b231e6cdb8541514ace52cff" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_KeyWrapData::TotalWrappedKeySize</definition>
+        <argsstring></argsstring>
+        <name>TotalWrappedKeySize</name>
+        <briefdescription>
+<para>Total Wrapped key size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_net/xsecure_plat_defs.h" line="327" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_net/xsecure_plat_defs.h" bodystart="327" bodyend="-1"/>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Input and output parameters for Key wrap. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="67">
+        <label>XSecure_KeyMetaData</label>
+        <link refid="struct_x_secure___key_meta_data"/>
+      </node>
+      <node id="66">
+        <label>XSecure_KeyWrapData</label>
+        <link refid="struct_x_secure___key_wrap_data"/>
+        <childnode refid="67" relation="usage">
+          <edgelabel>KeyMetaData</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_net/xsecure_plat_defs.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_net/xsecure_plat_defs.h" bodystart="324" bodyend="328"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___key_wrap_data_1a0a05d1878b7e0de78a277e45d387849f" prot="public" virt="non-virtual"><scope>XSecure_KeyWrapData</scope><name>KeyMetaData</name></member>
+      <member refid="struct_x_secure___key_wrap_data_1a857f11d7fff5dfda00d6720ca658fdd4" prot="public" virt="non-virtual"><scope>XSecure_KeyWrapData</scope><name>KeyWrapAddr</name></member>
+      <member refid="struct_x_secure___key_wrap_data_1ae0859090b231e6cdb8541514ace52cff" prot="public" virt="non-virtual"><scope>XSecure_KeyWrapData</scope><name>TotalWrappedKeySize</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

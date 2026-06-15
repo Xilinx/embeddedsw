@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sem___descriptor_data" kind="struct" prot="public">
+    <compoundname>XSem_DescriptorData</compoundname>
+    <includes local="no">xsem_client_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_sem___descriptor_data_1a2d5a9bcef8329ea2bdf6a73e223aab8e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_DescriptorData::DescriptorCount</definition>
+        <argsstring></argsstring>
+        <name>DescriptorCount</name>
+        <briefdescription>
+<para>Current Total Descriptor Count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="360" bodyend="-1"/>
+        <referencedby refid="xsem__npi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__npi__example_8c" startline="475" endline="685">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem___descriptor_data_1aecdf40f2327e85bf153559619dcadb47" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_sem___descriptor_info" kindref="compound">XSem_DescriptorInfo</ref></type>
+        <definition>XSem_DescriptorInfo XSem_DescriptorData::DescriptorInfo[NPI_MAX_DESCRIPTORS]</definition>
+        <argsstring>[NPI_MAX_DESCRIPTORS]</argsstring>
+        <name>DescriptorInfo</name>
+        <briefdescription>
+<para><verbatim>                                             Descriptor
+</verbatim> information: Contains descriptor attributes and golden SHA value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="361" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="361" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure contains descriptor information used during SEM NPI scan. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="6">
+        <label>XSem_DescriptorInfo</label>
+        <link refid="struct_x_sem___descriptor_info"/>
+      </node>
+      <node id="5">
+        <label>XSem_DescriptorData</label>
+        <link refid="struct_x_sem___descriptor_data"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>DescriptorInfo</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="359" bodyend="363"/>
+    <listofallmembers>
+      <member refid="struct_x_sem___descriptor_data_1a2d5a9bcef8329ea2bdf6a73e223aab8e" prot="public" virt="non-virtual"><scope>XSem_DescriptorData</scope><name>DescriptorCount</name></member>
+      <member refid="struct_x_sem___descriptor_data_1aecdf40f2327e85bf153559619dcadb47" prot="public" virt="non-virtual"><scope>XSem_DescriptorData</scope><name>DescriptorInfo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

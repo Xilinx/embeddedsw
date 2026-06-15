@@ -1,0 +1,319 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group____cam__device__afm" kind="group">
+    <compoundname>_cam_device_afm</compoundname>
+    <title>VsCamDevice E01C01_AFM Definitions</title>
+    <innerclass refid="struct_cam_device_afm_measure_result__s" prot="public">CamDeviceAfmMeasureResult_s</innerclass>
+    <innerclass refid="struct_cam_device_afm_window_config__s" prot="public">CamDeviceAfmWindowConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_afm_status__s" prot="public">CamDeviceAfmStatus_s</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group____cam__device__afm_1ga361dc052d8584d86b1ec5849ae0f53a0" prot="public" static="no">
+        <name>CamDeviceAfmWindowId_e</name>
+        <enumvalue id="group____cam__device__afm_1gga361dc052d8584d86b1ec5849ae0f53a0a23b6992357eedd4ecfee49ff61a99252" prot="public">
+          <name>CAMDEV_AFM_WINDOW_INVALID</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Lower border (only for an internal evaluation) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__afm_1gga361dc052d8584d86b1ec5849ae0f53a0af1bc55cf40244d3f43801096bb711b04" prot="public">
+          <name>CAMDEV_AFM_WINDOW_A</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Window A (1st window) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__afm_1gga361dc052d8584d86b1ec5849ae0f53a0a9aa2d3babcf8de0dcfcbe1af8b088398" prot="public">
+          <name>CAMDEV_AFM_WINDOW_B</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Window B (2nd window) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__afm_1gga361dc052d8584d86b1ec5849ae0f53a0a2fea20cf189bd171969aeee076e037eb" prot="public">
+          <name>CAMDEV_AFM_WINDOW_C</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>Window C (3rd window) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__afm_1gga361dc052d8584d86b1ec5849ae0f53a0a5aa943610e4707feafc28ddc26b72561" prot="public">
+          <name>CAMDEV_AFM_WINDOW_MAX</name>
+          <briefdescription>
+<para>Upper border (only for an internal evaluation) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Enumeration type to identify the AF measuring window. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" bodystart="49" bodyend="56"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__afm_1gaf1ffcafccec16483d2bb086e5789c94c" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__afm_1ga361dc052d8584d86b1ec5849ae0f53a0" kindref="member">CamDeviceAfmWindowId_e</ref></type>
+        <definition>typedef enum CamDeviceAfmWindowId_e  CamDeviceAfmWindowId_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAfmWindowId_t</name>
+        <briefdescription>
+<para>Enumeration type to identify the AF measuring window. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="56" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__afm_1ga2c625f296e27f9afebbb3389da01f762" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_afm_measure_result__s" kindref="compound">CamDeviceAfmMeasureResult_s</ref></type>
+        <definition>typedef struct CamDeviceAfmMeasureResult_s  CamDeviceAfmMeasureResult_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAfmMeasureResult_t</name>
+        <briefdescription>
+<para>VsCamDevice AFM measure results structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="77" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__afm_1gae69f39457cf4ec6dfd76f284f09efa52" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_afm_window_config__s" kindref="compound">CamDeviceAfmWindowConfig_s</ref></type>
+        <definition>typedef struct CamDeviceAfmWindowConfig_s  CamDeviceAfmWindowConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAfmWindowConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice AFM window configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="88" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__afm_1ga1542868975102d5b950d08f4a7f90f5b" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_afm_status__s" kindref="compound">CamDeviceAfmStatus_s</ref></type>
+        <definition>typedef struct CamDeviceAfmStatus_s  CamDeviceAfmStatus_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAfmStatus_t</name>
+        <briefdescription>
+<para>VsCamDevice AFM status structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="98" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__afm_1ga13dad173f5a8fe6e8b03b36b858e4305" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAfmSetThreshold</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, const uint32_t threshold)</argsstring>
+        <name>VsiCamDeviceAfmSetThreshold</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>const uint32_t</type>
+          <declname>threshold</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_afm_api.c" bodystart="18" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__afm_1gad2e1823ab363816714099d24a8441e28" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAfmGetThreshold</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pThreshold)</argsstring>
+        <name>VsiCamDeviceAfmGetThreshold</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pThreshold</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_afm_api.c" bodystart="28" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__afm_1ga709f4cc124a324b42e599edd082e5cb0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAfmGetStatistics</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceAfmMeasureResult_t *pResult)</argsstring>
+        <name>VsiCamDeviceAfmGetStatistics</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__afm_1ga2c625f296e27f9afebbb3389da01f762" kindref="member">CamDeviceAfmMeasureResult_t</ref> *</type>
+          <declname>pResult</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="176" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__afm_1gab5c68a678bcc032a1e33d2f7b3393f16" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAfmSetMeasureWindow</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceAfmWindowConfig_t *pWindow)</argsstring>
+        <name>VsiCamDeviceAfmSetMeasureWindow</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__afm_1gae69f39457cf4ec6dfd76f284f09efa52" kindref="member">CamDeviceAfmWindowConfig_t</ref> *</type>
+          <declname>pWindow</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_afm_api.c" bodystart="48" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__afm_1gacc5bd36f0eaa1bc82026c829c6b5b070" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAfmGetMeasureWindow</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceAfmWindowConfig_t *pWindow)</argsstring>
+        <name>VsiCamDeviceAfmGetMeasureWindow</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__afm_1gae69f39457cf4ec6dfd76f284f09efa52" kindref="member">CamDeviceAfmWindowConfig_t</ref> *</type>
+          <declname>pWindow</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_afm_api.c" bodystart="58" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__afm_1ga436c93cabe8d42168c517950394a1e9e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAfmEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceAfmEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_afm_api.c" bodystart="68" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__afm_1ga5e6aa3952750abc45e27329e0fc47bb5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAfmDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceAfmDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_afm_api.c" bodystart="77" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__afm_1ga150c2d7d8361915d6086a807004d244f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAfmGetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceAfmStatus_t *pStatus)</argsstring>
+        <name>VsiCamDeviceAfmGetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__afm_1ga1542868975102d5b950d08f4a7f90f5b" kindref="member">CamDeviceAfmStatus_t</ref> *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_afm_api.c" bodystart="86" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__afm_1gafcc0cbb68d0c06052921f4bb412ece2b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAfmGetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceAfmGetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_afm_api.c" bodystart="96" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__afm_1ga826e1a92a1b02db8f8a19eac93510255" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAfmReset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceAfmReset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_afm_api.c" bodystart="106" bodyend="112"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

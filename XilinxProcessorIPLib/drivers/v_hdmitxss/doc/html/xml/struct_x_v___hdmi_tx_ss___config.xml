@@ -1,0 +1,251 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___hdmi_tx_ss___config" kind="struct" prot="public">
+    <compoundname>XV_HdmiTxSs_Config</compoundname>
+    <includes local="no">xv_hdmitxss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss___config_1ae3dc24f137120bf9d2e388025102ea26" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XV_HdmiTxSs_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="326" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss___config_1a52882efb633aff03ac341a4e10c60cbf" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_HdmiTxSs_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>BaseAddress is the physical base address of the subsystem address range. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="328" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="328" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1ad8bb4a3d734b44a7618529c52a433cc5" compoundref="xv__hdmitxss_8c" startline="488" endline="614">XV_HdmiTxSs_CfgInitialize</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a674063f73906951bbd7558f6643b8ea3" compoundref="xv__hdmitxss_8c" startline="3171" endline="3194">XV_HdmiTxSS_SetHpdTolerance</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss___config_1ae8d24e2790d29a5deb80e9fe5db4be9f" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_HdmiTxSs_Config::HighAddress</definition>
+        <argsstring></argsstring>
+        <name>HighAddress</name>
+        <briefdescription>
+<para>HighAddress is the physical MAX address of the subsystem address range. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="331" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="331" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss___config_1a9b69c2ce3b482768577982803318a1fe" prot="public" static="no" mutable="no">
+        <type>XVidC_PixelsPerClock</type>
+        <definition>XVidC_PixelsPerClock XV_HdmiTxSs_Config::Ppc</definition>
+        <argsstring></argsstring>
+        <name>Ppc</name>
+        <briefdescription>
+<para>Supported Pixel per Clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="334" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1ac6a551d06d519bdc50552ac8a3479bd5" compoundref="xv__hdmitxss_8c" startline="2905" endline="2913">XV_HdmiTxSs_SetDefaultPpc</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a21e9e6ec102c13e90db7c1681031eb37" compoundref="xv__hdmitxss_8c" startline="2928" endline="2931">XV_HdmiTxSs_SetPpc</referencedby>
+        <referencedby refid="xv__hdmitxss_8h_1a893af41ef8123dbcc6c697e211656d6e" compoundref="xv__hdmitxss_8c" startline="2328" endline="2350">XV_HdmiTxSs_SetStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss___config_1a0abdd1f7bd87e78a588d1dbb1222aeda" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTxSs_Config::MaxBitsPerPixel</definition>
+        <argsstring></argsstring>
+        <name>MaxBitsPerPixel</name>
+        <briefdescription>
+<para>Maximum Supported Color Depth. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="335" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss___config_1a588dd87bd0c671a996701b9e2166affb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTxSs_Config::LowResolutionSupp</definition>
+        <argsstring></argsstring>
+        <name>LowResolutionSupp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="336" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss___config_1a70d8615039ab1e7679ebdd6e2dcd02bf" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTxSs_Config::YUV420Supp</definition>
+        <argsstring></argsstring>
+        <name>YUV420Supp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="337" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss___config_1a8f0f2c7dd28420c2940eeb225f65c70d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_HdmiTxSs_Config::AxiLiteClkFreq</definition>
+        <argsstring></argsstring>
+        <name>AxiLiteClkFreq</name>
+        <briefdescription>
+<para>AXI Lite Clock Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="338" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="338" bodyend="-1"/>
+        <referencedby refid="xv__hdmitxss_8h_1ad8bb4a3d734b44a7618529c52a433cc5" compoundref="xv__hdmitxss_8c" startline="488" endline="614">XV_HdmiTxSs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss___config_1ab40463bab7c2d5c2964a863b9e66d68b" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v___hdmi_tx_ss___sub_core" kindref="compound">XV_HdmiTxSs_SubCore</ref></type>
+        <definition>XV_HdmiTxSs_SubCore XV_HdmiTxSs_Config::HdcpTimer</definition>
+        <argsstring></argsstring>
+        <name>HdcpTimer</name>
+        <briefdescription>
+<para>Sub-core instance configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="339" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss___config_1a318133034b909518b4f0b3aa36ded344" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v___hdmi_tx_ss___sub_core" kindref="compound">XV_HdmiTxSs_SubCore</ref></type>
+        <definition>XV_HdmiTxSs_SubCore XV_HdmiTxSs_Config::Hdcp14</definition>
+        <argsstring></argsstring>
+        <name>Hdcp14</name>
+        <briefdescription>
+<para>Sub-core instance configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="340" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss___config_1a69dac18d3c498ab36209848026908bb4" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v___hdmi_tx_ss___sub_core" kindref="compound">XV_HdmiTxSs_SubCore</ref></type>
+        <definition>XV_HdmiTxSs_SubCore XV_HdmiTxSs_Config::Hdcp22</definition>
+        <argsstring></argsstring>
+        <name>Hdcp22</name>
+        <briefdescription>
+<para>Sub-core instance configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="341" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss___config_1a8501750fab6e81cc2c7fb19e0e0a2126" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v___hdmi_tx_ss___sub_core" kindref="compound">XV_HdmiTxSs_SubCore</ref></type>
+        <definition>XV_HdmiTxSs_SubCore XV_HdmiTxSs_Config::HdmiTx</definition>
+        <argsstring></argsstring>
+        <name>HdmiTx</name>
+        <briefdescription>
+<para>Sub-core instance configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="342" bodyend="-1"/>
+        <referencedby refid="group__v__hdmitxss_1ga23588544c59439321e952b7b4a2c6445" compoundref="xv__hdmitxss__coreinit_8c" startline="72" endline="108">XV_HdmiTxSs_SubcoreInitHdmiTx</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss___config_1a88af4667c06827b97fd7165c8d4be157" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v___hdmi_tx_ss___sub_core" kindref="compound">XV_HdmiTxSs_SubCore</ref></type>
+        <definition>XV_HdmiTxSs_SubCore XV_HdmiTxSs_Config::Vtc</definition>
+        <argsstring></argsstring>
+        <name>Vtc</name>
+        <briefdescription>
+<para>Sub-core instance configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="343" bodyend="-1"/>
+        <referencedby refid="group__v__hdmitxss_1ga2c1e0df6df7d8d7618d3bdde8eb86923" compoundref="xv__hdmitxss__coreinit_8c" startline="119" endline="152">XV_HdmiTxSs_SubcoreInitVtc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss___config_1ad990ac4a2d1db1f0d8b3793ca76d4ab0" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_HdmiTxSs_Config::IntrId[5]</definition>
+        <argsstring>[5]</argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Interrupt ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="345" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="345" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss___config_1ad70330195ff69df6f066a2cbb92ba5aa" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_HdmiTxSs_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="346" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Video Processing Subsystem configuration structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>Each subsystem device should have a configuration structure associated that defines the MAX supported sub-cores within subsystem </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="36">
+        <label>XV_HdmiTxSs_SubCore</label>
+        <link refid="struct_x_v___hdmi_tx_ss___sub_core"/>
+      </node>
+      <node id="35">
+        <label>XV_HdmiTxSs_Config</label>
+        <link refid="struct_x_v___hdmi_tx_ss___config"/>
+        <childnode refid="36" relation="usage">
+          <edgelabel>Vtc</edgelabel>
+          <edgelabel>Hdcp22</edgelabel>
+          <edgelabel>HdmiTx</edgelabel>
+          <edgelabel>Hdcp14</edgelabel>
+          <edgelabel>HdcpTimer</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.h" bodystart="320" bodyend="349"/>
+    <listofallmembers>
+      <member refid="struct_x_v___hdmi_tx_ss___config_1a8f0f2c7dd28420c2940eeb225f65c70d" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs_Config</scope><name>AxiLiteClkFreq</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss___config_1a52882efb633aff03ac341a4e10c60cbf" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss___config_1a318133034b909518b4f0b3aa36ded344" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs_Config</scope><name>Hdcp14</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss___config_1a69dac18d3c498ab36209848026908bb4" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs_Config</scope><name>Hdcp22</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss___config_1ab40463bab7c2d5c2964a863b9e66d68b" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs_Config</scope><name>HdcpTimer</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss___config_1a8501750fab6e81cc2c7fb19e0e0a2126" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs_Config</scope><name>HdmiTx</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss___config_1ae8d24e2790d29a5deb80e9fe5db4be9f" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs_Config</scope><name>HighAddress</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss___config_1ad990ac4a2d1db1f0d8b3793ca76d4ab0" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss___config_1ad70330195ff69df6f066a2cbb92ba5aa" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss___config_1a588dd87bd0c671a996701b9e2166affb" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs_Config</scope><name>LowResolutionSupp</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss___config_1a0abdd1f7bd87e78a588d1dbb1222aeda" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs_Config</scope><name>MaxBitsPerPixel</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss___config_1ae3dc24f137120bf9d2e388025102ea26" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs_Config</scope><name>Name</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss___config_1a9b69c2ce3b482768577982803318a1fe" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs_Config</scope><name>Ppc</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss___config_1a88af4667c06827b97fd7165c8d4be157" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs_Config</scope><name>Vtc</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss___config_1a70d8615039ab1e7679ebdd6e2dcd02bf" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs_Config</scope><name>YUV420Supp</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

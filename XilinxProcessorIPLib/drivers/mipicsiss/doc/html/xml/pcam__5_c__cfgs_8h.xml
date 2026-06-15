@@ -1,0 +1,231 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="pcam__5_c__cfgs_8h" kind="file">
+    <compoundname>pcam_5C_cfgs.h</compoundname>
+    <includedby refid="function__prototype_8c" local="yes">function_prototype.c</includedby>
+    <includedby refid="pcam__5_c__cfgs_8c" local="yes">pcam_5C_cfgs.c</includedby>
+    <includedby refid="xmipi__sp701__example_8c" local="yes">xmipi_sp701_example.c</includedby>
+    <invincdepgraph>
+      <node id="447">
+        <label>pcam_5C_cfgs.c</label>
+        <link refid="pcam__5_c__cfgs_8c"/>
+      </node>
+      <node id="445">
+        <label>pcam_5C_cfgs.h</label>
+        <link refid="pcam_5C_cfgs.h"/>
+        <childnode refid="446" relation="include">
+        </childnode>
+        <childnode refid="447" relation="include">
+        </childnode>
+        <childnode refid="448" relation="include">
+        </childnode>
+      </node>
+      <node id="446">
+        <label>function_prototype.c</label>
+        <link refid="function__prototype_8c"/>
+      </node>
+      <node id="448">
+        <label>xmipi_sp701_example.c</label>
+        <link refid="xmipi__sp701__example_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structregval__list" prot="public">regval_list</innerclass>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="pcam__5_c__cfgs_8h_1acd07809e958dd899503fb83bf9077471" prot="public" static="no" mutable="no">
+        <type>struct regval_list</type>
+        <definition>struct regval_list  regval_list</definition>
+        <argsstring></argsstring>
+        <name>regval_list</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.h" line="25" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pcam__5_c__cfgs_8h_1af769070ed38bad431a26b0f1e38b7320" prot="public" static="no" mutable="no">
+        <type>struct regval_list</type>
+        <definition>struct regval_list sensor_pre[]</definition>
+        <argsstring>[]</argsstring>
+        <name>sensor_pre</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.h" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.c" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pcam__5_c__cfgs_8h_1af065de649f5039c37cf9cb95901a5ff3" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int length_sensor_pre</definition>
+        <argsstring></argsstring>
+        <name>length_sensor_pre</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.c" bodystart="267" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pcam__5_c__cfgs_8h_1afcfe44452f84f6bc3542cd960de717f3" prot="public" static="no" mutable="no">
+        <type>struct regval_list</type>
+        <definition>struct regval_list pcam5c_mode1[]</definition>
+        <argsstring>[]</argsstring>
+        <name>pcam5c_mode1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.c" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pcam__5_c__cfgs_8h_1a1e0e31a7ca7b785dfd8f480eeda3ac1c" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int length_pcam5c_mode1</definition>
+        <argsstring></argsstring>
+        <name>length_pcam5c_mode1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.c" bodystart="270" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pcam__5_c__cfgs_8h_1a04969350e74261bdd50ac32bdac3ba17" prot="public" static="no" mutable="no">
+        <type>struct regval_list</type>
+        <definition>struct regval_list seq_shrt[]</definition>
+        <argsstring>[]</argsstring>
+        <name>seq_shrt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.h" line="31" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pcam__5_c__cfgs_8h_1a7218c65df1dbbd3ac1e80b8756cec755" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int length_seq_shrt</definition>
+        <argsstring></argsstring>
+        <name>length_seq_shrt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.h" line="34" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pcam__5_c__cfgs_8h_1a66e2afe3ad92b122635c989b1573ec1d" prot="public" static="no" mutable="no">
+        <type>struct regval_list</type>
+        <definition>struct regval_list sensor_list[]</definition>
+        <argsstring>[]</argsstring>
+        <name>sensor_list</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.h" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.c" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pcam__5_c__cfgs_8h_1ad03e1a1fb7eb32f21e30b2baa7113be0" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int length_sensor_list</definition>
+        <argsstring></argsstring>
+        <name>length_sensor_list</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.c" bodystart="273" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pcam__5_c__cfgs_8h_1a776a76aabc391ce514aa37b583b46481" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int size_sensor_list</definition>
+        <argsstring></argsstring>
+        <name>size_sensor_list</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.h" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.c" bodystart="274" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pcam__5_c__cfgs_8h_1ad5d9ddafbbb070e2f1db54d11c212d87" prot="public" static="no" mutable="no">
+        <type>struct regval_list</type>
+        <definition>struct regval_list seq[]</definition>
+        <argsstring>[]</argsstring>
+        <name>seq</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.h" line="38" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="pcam__5_c__cfgs_8h_1a49492cd2157e68be5ba65a604558f600" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int length_seq</definition>
+        <argsstring></argsstring>
+        <name>length_seq</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.h" line="41" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+X.XX  XX     YY/MM/DD
+1.00  RHe    19/09/20 Initial release.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="22"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">regval_list<sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/>u16<sp/>Address;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/>u16<sp/><sp/>Data;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">}<sp/>regval_list;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">regval_list<sp/>sensor_pre[];</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length_sensor_pre;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">regval_list<sp/>pcam5c_mode1[];</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length_pcam5c_mode1;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">regval_list<sp/>seq_shrt[];</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length_seq_shrt;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">regval_list<sp/>sensor_list[];</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length_sensor_list;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>size_sensor_list;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">regval_list<sp/>seq[];</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length_seq;</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/pcam_5C_cfgs.h"/>
+  </compounddef>
+</doxygen>

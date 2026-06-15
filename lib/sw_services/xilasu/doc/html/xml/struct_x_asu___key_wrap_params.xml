@@ -1,0 +1,286 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___key_wrap_params" kind="struct" prot="public">
+    <compoundname>XAsu_KeyWrapParams</compoundname>
+    <includes local="no">xasu_keywrapinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___key_wrap_params_1a7e975623b5d478db1451042b05b662ea" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_KeyWrapParams::InputDataAddr</definition>
+        <argsstring></argsstring>
+        <name>InputDataAddr</name>
+        <briefdescription>
+<para>Address of the input data buffer which holds: Plain key for key wrap or wrapped key for key unwrap. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+        <referencedby refid="group__xasu__keywrap__common__apis_1gaa4a3001cea810588543c533c8116e07b" compoundref="xasu__keywrap__common_8c" startline="63" endline="119">XAsu_KeyWrapUnwrapValidateInputParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_wrap_params_1aa7cbcf8280698e9df3458951df9959ec" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_KeyWrapParams::OutputDataAddr</definition>
+        <argsstring></argsstring>
+        <name>OutputDataAddr</name>
+        <briefdescription>
+<para>Address of the output buffer to store: the wrapped key for key wrap or unwrapped key for key unwrap. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+        <referencedby refid="group__xasu__keywrap__common__apis_1gaa4a3001cea810588543c533c8116e07b" compoundref="xasu__keywrap__common_8c" startline="63" endline="119">XAsu_KeyWrapUnwrapValidateInputParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_wrap_params_1a994f49dc1b961429ba8cb8170d8bc0ba" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_KeyWrapParams::ExpoCompAddr</definition>
+        <argsstring></argsstring>
+        <name>ExpoCompAddr</name>
+        <briefdescription>
+<para>Address of the RSA exponent data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_wrap_params_1ac1f5e0fc07b7e1b19fcccfe352442269" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_KeyWrapParams::KeyCompAddr</definition>
+        <argsstring></argsstring>
+        <name>KeyCompAddr</name>
+        <briefdescription>
+<para>RSA key component address of type: <ref refid="struct_x_asu___rsa_pub_key_comp" kindref="compound">XAsu_RsaPubKeyComp</ref> for key wrap and <ref refid="struct_x_asu___rsa_pvt_key_comp" kindref="compound">XAsu_RsaPvtKeyComp</ref> for key unwrap. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+        <referencedby refid="group__xasu__keywrap__common__apis_1gaa4a3001cea810588543c533c8116e07b" compoundref="xasu__keywrap__common_8c" startline="63" endline="119">XAsu_KeyWrapUnwrapValidateInputParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_wrap_params_1a35bf5a34cf3e2325bdcf3100f82af618" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_KeyWrapParams::OptionalLabelAddr</definition>
+        <argsstring></argsstring>
+        <name>OptionalLabelAddr</name>
+        <briefdescription>
+<para>RSA optional label address for OAEP padding. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+        <referencedby refid="group__xasu__keywrap__common__apis_1gaa4a3001cea810588543c533c8116e07b" compoundref="xasu__keywrap__common_8c" startline="63" endline="119">XAsu_KeyWrapUnwrapValidateInputParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_wrap_params_1a680fae798d0ff51fca68a4871f1568d9" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_KeyWrapParams::ActualOutputDataLenAddr</definition>
+        <argsstring></argsstring>
+        <name>ActualOutputDataLenAddr</name>
+        <briefdescription>
+<para>Actual output data length which is returned from key wrap/unwrap operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+        <referencedby refid="group__xasu__keywrap__client__apis_1ga5182a3df4600b1e0c78db02eab118fe7" compoundref="xasu__keywrap_8c" startline="129" endline="178">XAsu_KeyUnwrap</referencedby>
+        <referencedby refid="group__xasu__keywrap__client__apis_1gad64883d138efba842bfc4961b3c8ee0f" compoundref="xasu__keywrap_8c" startline="61" endline="110">XAsu_KeyWrap</referencedby>
+        <referencedby refid="group__xasu__keywrap__common__apis_1gaa4a3001cea810588543c533c8116e07b" compoundref="xasu__keywrap__common_8c" startline="63" endline="119">XAsu_KeyWrapUnwrapValidateInputParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_wrap_params_1a776bcc1fcddaf0b9d9b4323f4051ee85" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_KeyWrapParams::InputDataLen</definition>
+        <argsstring></argsstring>
+        <name>InputDataLen</name>
+        <briefdescription>
+<para>Input data Len. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+        <referencedby refid="group__xasu__keywrap__common__apis_1gaa4a3001cea810588543c533c8116e07b" compoundref="xasu__keywrap__common_8c" startline="63" endline="119">XAsu_KeyWrapUnwrapValidateInputParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_wrap_params_1a38fcf90cf3ca3349320ec043a58e065b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_KeyWrapParams::RsaKeySize</definition>
+        <argsstring></argsstring>
+        <name>RsaKeySize</name>
+        <briefdescription>
+<para>RSA Key Size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+        <referencedby refid="group__xasu__keywrap__common__apis_1gaa4a3001cea810588543c533c8116e07b" compoundref="xasu__keywrap__common_8c" startline="63" endline="119">XAsu_KeyWrapUnwrapValidateInputParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_wrap_params_1abf6549ec448bea10512c895abf9baf07" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_KeyWrapParams::OptionalLabelSize</definition>
+        <argsstring></argsstring>
+        <name>OptionalLabelSize</name>
+        <briefdescription>
+<para>RSA optional label size for OAEP padding. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_wrap_params_1aa700f9f3d7b11950e1b932fd2f2ddefe" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_KeyWrapParams::OutputDataLen</definition>
+        <argsstring></argsstring>
+        <name>OutputDataLen</name>
+        <briefdescription>
+<para>Output Data Len is an input from user which specifies the output wrapped key length in wrap operation and in unwrap operation it is the size of output buffer which should be equal or greater than the size of the unwrapped input. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+        <referencedby refid="group__xasu__keywrap__common__apis_1gaa4a3001cea810588543c533c8116e07b" compoundref="xasu__keywrap__common_8c" startline="63" endline="119">XAsu_KeyWrapUnwrapValidateInputParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_wrap_params_1ac335e1a7457b3dfa31bfb6ad2f7a40e7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_KeyWrapParams::AesKeyId</definition>
+        <argsstring></argsstring>
+        <name>AesKeyId</name>
+        <briefdescription>
+<para>AES Key ID, if the AES key to be used from ASU key vault. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_wrap_params_1ab5d016c0e32be8c69f03308ef2491508" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_KeyWrapParams::RsaKeyId</definition>
+        <argsstring></argsstring>
+        <name>RsaKeyId</name>
+        <briefdescription>
+<para>RSA Key ID, if the RSA key to be used from ASU key vault. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+        <referencedby refid="group__xasu__keywrap__common__apis_1gaa4a3001cea810588543c533c8116e07b" compoundref="xasu__keywrap__common_8c" startline="63" endline="119">XAsu_KeyWrapUnwrapValidateInputParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_wrap_params_1aadaa548059c19c40a13624d158c4efd4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_KeyWrapParams::AesKeySize</definition>
+        <argsstring></argsstring>
+        <name>AesKeySize</name>
+        <briefdescription>
+<para>AES Key Size - 128 Bit: XASU_AES_KEY_SIZE_128_BITS or 256 Bit : XASU_AES_KEY_SIZE_256_BITS. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+        <referencedby refid="group__xasu__keywrap__common__apis_1gaa4a3001cea810588543c533c8116e07b" compoundref="xasu__keywrap__common_8c" startline="63" endline="119">XAsu_KeyWrapUnwrapValidateInputParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_wrap_params_1abb2a09abd19af9c8165f7dadf6b365ab" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_KeyWrapParams::ShaType</definition>
+        <argsstring></argsstring>
+        <name>ShaType</name>
+        <briefdescription>
+<para>Hash family type (XASU_SHA2_TYPE / XASU_SHA3_TYPE) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+        <referencedby refid="group__xasu__keywrap__client__apis_1ga5182a3df4600b1e0c78db02eab118fe7" compoundref="xasu__keywrap_8c" startline="129" endline="178">XAsu_KeyUnwrap</referencedby>
+        <referencedby refid="group__xasu__keywrap__client__apis_1gad64883d138efba842bfc4961b3c8ee0f" compoundref="xasu__keywrap_8c" startline="61" endline="110">XAsu_KeyWrap</referencedby>
+        <referencedby refid="group__xasu__keywrap__common__apis_1gaa4a3001cea810588543c533c8116e07b" compoundref="xasu__keywrap__common_8c" startline="63" endline="119">XAsu_KeyWrapUnwrapValidateInputParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_wrap_params_1a3d2c47719c3dab4ce5dd8222487751b8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_KeyWrapParams::ShaMode</definition>
+        <argsstring></argsstring>
+        <name>ShaMode</name>
+        <briefdescription>
+<para><verbatim>       SHA Mode, where XASU_SHA_MODE_SHAKE256 is valid only for SHA3 Type
+</verbatim> (XASU_SHA_MODE_256 / XASU_SHA_MODE_384 / XASU_SHA_MODE_512 / XASU_SHA_MODE_SHAKE256) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+        <referencedby refid="group__xasu__keywrap__common__apis_1gaa4a3001cea810588543c533c8116e07b" compoundref="xasu__keywrap__common_8c" startline="63" endline="119">XAsu_KeyWrapUnwrapValidateInputParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_wrap_params_1a87ad71f120c99397f1559d22902a5261" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_KeyWrapParams::Reserved</definition>
+        <argsstring></argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Reserved for future use. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_wrap_params_1ade80a9a3ccf6e0c133a504040ada805e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_KeyWrapParams::Reserved2[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Reserved2</name>
+        <briefdescription>
+<para>Explicit padding to ensure consistent struct size across architectures. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains Key wrap unwrap params info. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" bodystart="56" bodyend="84"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___key_wrap_params_1a680fae798d0ff51fca68a4871f1568d9" prot="public" virt="non-virtual"><scope>XAsu_KeyWrapParams</scope><name>ActualOutputDataLenAddr</name></member>
+      <member refid="struct_x_asu___key_wrap_params_1ac335e1a7457b3dfa31bfb6ad2f7a40e7" prot="public" virt="non-virtual"><scope>XAsu_KeyWrapParams</scope><name>AesKeyId</name></member>
+      <member refid="struct_x_asu___key_wrap_params_1aadaa548059c19c40a13624d158c4efd4" prot="public" virt="non-virtual"><scope>XAsu_KeyWrapParams</scope><name>AesKeySize</name></member>
+      <member refid="struct_x_asu___key_wrap_params_1a994f49dc1b961429ba8cb8170d8bc0ba" prot="public" virt="non-virtual"><scope>XAsu_KeyWrapParams</scope><name>ExpoCompAddr</name></member>
+      <member refid="struct_x_asu___key_wrap_params_1a7e975623b5d478db1451042b05b662ea" prot="public" virt="non-virtual"><scope>XAsu_KeyWrapParams</scope><name>InputDataAddr</name></member>
+      <member refid="struct_x_asu___key_wrap_params_1a776bcc1fcddaf0b9d9b4323f4051ee85" prot="public" virt="non-virtual"><scope>XAsu_KeyWrapParams</scope><name>InputDataLen</name></member>
+      <member refid="struct_x_asu___key_wrap_params_1ac1f5e0fc07b7e1b19fcccfe352442269" prot="public" virt="non-virtual"><scope>XAsu_KeyWrapParams</scope><name>KeyCompAddr</name></member>
+      <member refid="struct_x_asu___key_wrap_params_1a35bf5a34cf3e2325bdcf3100f82af618" prot="public" virt="non-virtual"><scope>XAsu_KeyWrapParams</scope><name>OptionalLabelAddr</name></member>
+      <member refid="struct_x_asu___key_wrap_params_1abf6549ec448bea10512c895abf9baf07" prot="public" virt="non-virtual"><scope>XAsu_KeyWrapParams</scope><name>OptionalLabelSize</name></member>
+      <member refid="struct_x_asu___key_wrap_params_1aa7cbcf8280698e9df3458951df9959ec" prot="public" virt="non-virtual"><scope>XAsu_KeyWrapParams</scope><name>OutputDataAddr</name></member>
+      <member refid="struct_x_asu___key_wrap_params_1aa700f9f3d7b11950e1b932fd2f2ddefe" prot="public" virt="non-virtual"><scope>XAsu_KeyWrapParams</scope><name>OutputDataLen</name></member>
+      <member refid="struct_x_asu___key_wrap_params_1a87ad71f120c99397f1559d22902a5261" prot="public" virt="non-virtual"><scope>XAsu_KeyWrapParams</scope><name>Reserved</name></member>
+      <member refid="struct_x_asu___key_wrap_params_1ade80a9a3ccf6e0c133a504040ada805e" prot="public" virt="non-virtual"><scope>XAsu_KeyWrapParams</scope><name>Reserved2</name></member>
+      <member refid="struct_x_asu___key_wrap_params_1ab5d016c0e32be8c69f03308ef2491508" prot="public" virt="non-virtual"><scope>XAsu_KeyWrapParams</scope><name>RsaKeyId</name></member>
+      <member refid="struct_x_asu___key_wrap_params_1a38fcf90cf3ca3349320ec043a58e065b" prot="public" virt="non-virtual"><scope>XAsu_KeyWrapParams</scope><name>RsaKeySize</name></member>
+      <member refid="struct_x_asu___key_wrap_params_1a3d2c47719c3dab4ce5dd8222487751b8" prot="public" virt="non-virtual"><scope>XAsu_KeyWrapParams</scope><name>ShaMode</name></member>
+      <member refid="struct_x_asu___key_wrap_params_1abb2a09abd19af9c8165f7dadf6b365ab" prot="public" virt="non-virtual"><scope>XAsu_KeyWrapParams</scope><name>ShaType</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

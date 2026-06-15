@@ -1,0 +1,560 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__hdmitxss1__log_8c" kind="file">
+    <compoundname>xv_hdmitxss1_log.c</compoundname>
+    <includes refid="xv__hdmitxss1_8h" local="yes">xv_hdmitxss1.h</includes>
+    <incdepgraph>
+      <node id="734">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="727">
+        <label>xv_hdmic_vsif.h</label>
+      </node>
+      <node id="729">
+        <label>xvidc_edid_ext.h</label>
+      </node>
+      <node id="728">
+        <label>xvidc_edid.h</label>
+      </node>
+      <node id="730">
+        <label>xv_hdmitx1.h</label>
+      </node>
+      <node id="732">
+        <label>xv_hdmitxss1_frl.h</label>
+        <link refid="xv__hdmitxss1__frl_8h"/>
+        <childnode refid="733" relation="include">
+        </childnode>
+        <childnode refid="734" relation="include">
+        </childnode>
+        <childnode refid="724" relation="include">
+        </childnode>
+      </node>
+      <node id="721">
+        <label>xv_hdmitxss1_log.c</label>
+        <link refid="xv_hdmitxss1_log.c"/>
+        <childnode refid="722" relation="include">
+        </childnode>
+      </node>
+      <node id="724">
+        <label>xstatus.h</label>
+      </node>
+      <node id="725">
+        <label>xvidc.h</label>
+      </node>
+      <node id="733">
+        <label>xil_types.h</label>
+      </node>
+      <node id="726">
+        <label>xv_hdmic.h</label>
+      </node>
+      <node id="723">
+        <label>xparameters.h</label>
+      </node>
+      <node id="731">
+        <label>xvtc.h</label>
+      </node>
+      <node id="722">
+        <label>xv_hdmitxss1.h</label>
+        <link refid="xv__hdmitxss1_8h"/>
+        <childnode refid="723" relation="include">
+        </childnode>
+        <childnode refid="724" relation="include">
+        </childnode>
+        <childnode refid="725" relation="include">
+        </childnode>
+        <childnode refid="726" relation="include">
+        </childnode>
+        <childnode refid="727" relation="include">
+        </childnode>
+        <childnode refid="728" relation="include">
+        </childnode>
+        <childnode refid="729" relation="include">
+        </childnode>
+        <childnode refid="730" relation="include">
+        </childnode>
+        <childnode refid="731" relation="include">
+        </childnode>
+        <childnode refid="732" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xv__hdmitxss1__log_8c_1a2c2352dc54100975c45f106b42f4cd03" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HdmiTxSs1_LogReset</definition>
+        <argsstring>(XV_HdmiTxSs1 *InstancePtr)</argsstring>
+        <name>XV_HdmiTxSs1_LogReset</name>
+        <param>
+          <type><ref refid="struct_x_v___hdmi_tx_ss1" kindref="compound">XV_HdmiTxSs1</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will reset the driver&apos;s logging mechanism. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the xv_hdmitxss1 core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c" bodystart="45" bodyend="52"/>
+        <references refid="struct_x_v___hdmi_tx_ss1___log_1acffe7a884e4c8745e46927ec1a7b47c3" compoundref="xv__hdmitxss1_8h" startline="153">XV_HdmiTxSs1_Log::HeadIndex</references>
+        <references refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" compoundref="xv__hdmitxss1_8h" startline="407">XV_HdmiTxSs1::Log</references>
+        <references refid="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" compoundref="xv__hdmitxss1_8h" startline="155">XV_HdmiTxSs1_Log::TailIndex</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__hdmitxss1__log_8c_1a0c9023e762552ac6d46bddeaaa1ea40b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HdmiTxSs1_LogWrite</definition>
+        <argsstring>(XV_HdmiTxSs1 *InstancePtr, XV_HdmiTxSs1_LogEvent Evt, u8 Data)</argsstring>
+        <name>XV_HdmiTxSs1_LogWrite</name>
+        <param>
+          <type><ref refid="struct_x_v___hdmi_tx_ss1" kindref="compound">XV_HdmiTxSs1</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194" kindref="member">XV_HdmiTxSs1_LogEvent</ref></type>
+          <declname>Evt</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function will insert an event in the driver&apos;s logginc mechanism. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v___hdmi_tx_ss1" kindref="compound">XV_HdmiTxSs1</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Evt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the event type to log. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the associated data for the event.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c" bodystart="67" bodyend="106"/>
+        <references refid="struct_x_v___hdmi_tx_ss1___log_1a532fe0a3c2815fcd3331395034b0e4b1" compoundref="xv__hdmitxss1_8h" startline="151">XV_HdmiTxSs1_Log::DataBuffer</references>
+        <references refid="struct_x_v___hdmi_tx_ss1___log_1acffe7a884e4c8745e46927ec1a7b47c3" compoundref="xv__hdmitxss1_8h" startline="153">XV_HdmiTxSs1_Log::HeadIndex</references>
+        <references refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" compoundref="xv__hdmitxss1_8h" startline="407">XV_HdmiTxSs1::Log</references>
+        <references refid="struct_x_v___hdmi_tx_ss1_1aa04f4b9697d324e1fad31da9f414186f" compoundref="xv__hdmitxss1_8h" startline="460">XV_HdmiTxSs1::LogWriteCallback</references>
+        <references refid="struct_x_v___hdmi_tx_ss1_1ae5499d63499710c85a1c2040ccb50435" compoundref="xv__hdmitxss1_8h" startline="461">XV_HdmiTxSs1::LogWriteRef</references>
+        <references refid="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" compoundref="xv__hdmitxss1_8h" startline="155">XV_HdmiTxSs1_Log::TailIndex</references>
+        <references refid="struct_x_v___hdmi_tx_ss1___log_1a549f6f3f078ebab3bcb93848ca9a6775" compoundref="xv__hdmitxss1_8h" startline="152">XV_HdmiTxSs1_Log::TimeRecord</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194af927e6926684df592bce30a715e59a22" compoundref="xv__hdmitxss1_8h" startline="144">XV_HDMITXSS1_LOG_EVT_DUMMY</references>
+        <referencedby refid="xv__hdmitxss1_8h_1ac57d46d00c0560d30074c0cddb499340" compoundref="xv__hdmitxss1_8c" startline="2419" endline="2434">XV_HdmiTxSs1_AudioMute</referencedby>
+        <referencedby refid="xv__hdmitxss1_8h_1a793b1339e8400d44c8bed3a3a578728f" compoundref="xv__hdmitxss1_8c" startline="670" endline="691">XV_HdmiTxSs1_Reset</referencedby>
+        <referencedby refid="xv__hdmitxss1_8h_1a6d8b0db4c832b47b4bd39d85d7b349e2" compoundref="xv__hdmitxss1_8c" startline="2393" endline="2404">XV_HdmiTxSs1_SetAudioChannels</referencedby>
+        <referencedby refid="xv__hdmitxss1_8h_1ad4c9a6490f1c9497cb14ebf803e1b154" compoundref="xv__hdmitxss1_8c" startline="2525" endline="2570">XV_HdmiTxSs1_SetSampleFrequency</referencedby>
+        <referencedby refid="xv__hdmitxss1_8h_1a706164018c12104b9b425ea36c7fb38f" compoundref="xv__hdmitxss1_8c" startline="2680" endline="2806">XV_HdmiTxSs1_SetStream</referencedby>
+        <referencedby refid="xv__hdmitxss1_8h_1ab5fe79e1483f941b8310cc0ad340d780" compoundref="xv__hdmitxss1_8c" startline="621" endline="630">XV_HdmiTxSs1_Start</referencedby>
+        <referencedby refid="xv__hdmitxss1_8h_1a8016b341785251b3d59949739f6813f1" compoundref="xv__hdmitxss1_8c" startline="642" endline="656">XV_HdmiTxSs1_Stop</referencedby>
+        <referencedby refid="xv__hdmitxss1_8h_1a414900ff658f64331801d78cb586e0d2" compoundref="xv__hdmitxss1_8c" startline="2197" endline="2230">XV_HdmiTxSs1_StreamStart</referencedby>
+        <referencedby refid="group__v__hdmitxss1_1gac555201d618cc9e05b73a417f77701b2" compoundref="xv__hdmitxss1__coreinit_8c" startline="55" endline="98">XV_HdmiTxSs1_SubcoreInitHdmiTx1</referencedby>
+        <referencedby refid="group__v__hdmitxss1_1ga64a794defc59694de323c4b239088906" compoundref="xv__hdmitxss1__coreinit_8c" startline="109" endline="145">XV_HdmiTxSs1_SubcoreInitVtc</referencedby>
+        <referencedby refid="xv__hdmitxss1__frl_8h_1af7e151cc4c1da01d3b581db188725f12" compoundref="xv__hdmitxss1__frl_8c" startline="237" endline="249">XV_HdmiTxSs1_TmdsConfigCallback</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__hdmitxss1__log_8c_1ac884bd9e77df975e8e1a762081c13607" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u16</type>
+        <definition>u16 XV_HdmiTxSs1_LogRead</definition>
+        <argsstring>(XV_HdmiTxSs1 *InstancePtr)</argsstring>
+        <name>XV_HdmiTxSs1_LogRead</name>
+        <param>
+          <type><ref refid="struct_x_v___hdmi_tx_ss1" kindref="compound">XV_HdmiTxSs1</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will read the last event from the log. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v___hdmi_tx_ss1" kindref="compound">XV_HdmiTxSs1</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The log data.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c" bodystart="119" bodyend="144"/>
+        <references refid="struct_x_v___hdmi_tx_ss1___log_1a532fe0a3c2815fcd3331395034b0e4b1" compoundref="xv__hdmitxss1_8h" startline="151">XV_HdmiTxSs1_Log::DataBuffer</references>
+        <references refid="struct_x_v___hdmi_tx_ss1___log_1acffe7a884e4c8745e46927ec1a7b47c3" compoundref="xv__hdmitxss1_8h" startline="153">XV_HdmiTxSs1_Log::HeadIndex</references>
+        <references refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" compoundref="xv__hdmitxss1_8h" startline="407">XV_HdmiTxSs1::Log</references>
+        <references refid="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" compoundref="xv__hdmitxss1_8h" startline="155">XV_HdmiTxSs1_Log::TailIndex</references>
+        <referencedby refid="xv__hdmitxss1__log_8c_1a8198201051910096470956c1040019e8" compoundref="xv__hdmitxss1__log_8c" startline="157" endline="330">XV_HdmiTxSs1_LogDisplay</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__hdmitxss1__log_8c_1a8198201051910096470956c1040019e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HdmiTxSs1_LogDisplay</definition>
+        <argsstring>(XV_HdmiTxSs1 *InstancePtr)</argsstring>
+        <name>XV_HdmiTxSs1_LogDisplay</name>
+        <param>
+          <type><ref refid="struct_x_v___hdmi_tx_ss1" kindref="compound">XV_HdmiTxSs1</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will print the entire log. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v___hdmi_tx_ss1" kindref="compound">XV_HdmiTxSs1</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c" bodystart="157" bodyend="330"/>
+        <references refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" compoundref="xv__hdmitxss1_8h" startline="407">XV_HdmiTxSs1::Log</references>
+        <references refid="struct_x_v___hdmi_tx_ss1_1aa04f4b9697d324e1fad31da9f414186f" compoundref="xv__hdmitxss1_8h" startline="460">XV_HdmiTxSs1::LogWriteCallback</references>
+        <references refid="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" compoundref="xv__hdmitxss1_8h" startline="155">XV_HdmiTxSs1_Log::TailIndex</references>
+        <references refid="struct_x_v___hdmi_tx_ss1___log_1a549f6f3f078ebab3bcb93848ca9a6775" compoundref="xv__hdmitxss1_8h" startline="152">XV_HdmiTxSs1_Log::TimeRecord</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a528bac26f2b8c837408002ac0d8585ad" compoundref="xv__hdmitxss1_8h" startline="123">XV_HDMITXSS1_LOG_EVT_AUDIOINVALIDSAMPRATE</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a234af83a647787d55f370e3a79a15813" compoundref="xv__hdmitxss1_8h" startline="121">XV_HDMITXSS1_LOG_EVT_AUDIOMUTE</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a354a534f998dd4363b911c957a0af56f" compoundref="xv__hdmitxss1_8h" startline="122">XV_HDMITXSS1_LOG_EVT_AUDIOUNMUTE</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a8b93e92cded00d1b93fa61212cd2163a" compoundref="xv__hdmitxss1_8h" startline="132">XV_HDMITXSS1_LOG_EVT_BRDG_LOCKED</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a9a7ca5e6f48bbf35ce1cf5e6eb9f8343" compoundref="xv__hdmitxss1_8h" startline="133">XV_HDMITXSS1_LOG_EVT_BRDG_UNLOCKED</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ac930f1fc9257c1da958d67b03444c0d0" compoundref="xv__hdmitxss1_8h" startline="114">XV_HDMITXSS1_LOG_EVT_CONNECT</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a053e688b709b25b89758bc93c9136a7f" compoundref="xv__hdmitxss1_8h" startline="116">XV_HDMITXSS1_LOG_EVT_DISCONNECT</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194afc70a2fee8b8c6a16bd55a994ecdf9a2" compoundref="xv__hdmitxss1_8h" startline="136">XV_HDMITXSS1_LOG_EVT_FRL_CFG</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ab092edcc43dc4cfafe5fdeda63c6d419" compoundref="xv__hdmitxss1_8h" startline="135">XV_HDMITXSS1_LOG_EVT_FRL_LT_PASS</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ad9b5a045dc775b00f814c3bbd5b3d7ea" compoundref="xv__hdmitxss1_8h" startline="134">XV_HDMITXSS1_LOG_EVT_FRL_START</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ace22b4eab03167367ac29945fda4eae6" compoundref="xv__hdmitxss1_8h" startline="126">XV_HDMITXSS1_LOG_EVT_HDCP14_AUTHREQ</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a7c8943a13a3c3d6312ed2a209053625e" compoundref="xv__hdmitxss1_8h" startline="107">XV_HDMITXSS1_LOG_EVT_HDCP14_INIT</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ae6028a0e316af27cf053cca09746ad5b" compoundref="xv__hdmitxss1_8h" startline="127">XV_HDMITXSS1_LOG_EVT_HDCP22_AUTHREQ</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a8b64cc43e15154910bdbae8fe0996165" compoundref="xv__hdmitxss1_8h" startline="108">XV_HDMITXSS1_LOG_EVT_HDCP22_INIT</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a887d1b62c780925e370aa7b9b9a6dc85" compoundref="xv__hdmitxss1_8h" startline="106">XV_HDMITXSS1_LOG_EVT_HDCPTIMER_INIT</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a0b16619b4646eb99a2e88ead03e48c5b" compoundref="xv__hdmitxss1_8h" startline="104">XV_HDMITXSS1_LOG_EVT_HDMITX1_INIT</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a866496865355f8f425396ffcfed82013" compoundref="xv__hdmitxss1_8h" startline="103">XV_HDMITXSS1_LOG_EVT_NONE</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a1e3c8f08230dbabe9352b74ed1fe9b0b" compoundref="xv__hdmitxss1_8h" startline="128">XV_HDMITXSS1_LOG_EVT_PIX_REPEAT_ERR</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194aa76ec71708386984f5f4fea5acc931cf" compoundref="xv__hdmitxss1_8h" startline="113">XV_HDMITXSS1_LOG_EVT_RESET</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a2d48220e23a699da5867d80635d0bba4" compoundref="xv__hdmitxss1_8h" startline="120">XV_HDMITXSS1_LOG_EVT_SETAUDIOCHANNELS</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a39d7665d5e5f22c57708000628278891" compoundref="xv__hdmitxss1_8h" startline="125">XV_HDMITXSS1_LOG_EVT_SETSTREAM</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194aa87456980697e1644c7bb078cdb8133d" compoundref="xv__hdmitxss1_8h" startline="111">XV_HDMITXSS1_LOG_EVT_START</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194acca316c46a14ae90bc9f061ad3237532" compoundref="xv__hdmitxss1_8h" startline="112">XV_HDMITXSS1_LOG_EVT_STOP</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194aa11ffa509dca45f524be5f1581fa9abe" compoundref="xv__hdmitxss1_8h" startline="118">XV_HDMITXSS1_LOG_EVT_STREAMDOWN</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194abe1911338db298a23ec713716866e18b" compoundref="xv__hdmitxss1_8h" startline="119">XV_HDMITXSS1_LOG_EVT_STREAMSTART</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a4bcb4867aceecc187b9a5f6d47f53f24" compoundref="xv__hdmitxss1_8h" startline="117">XV_HDMITXSS1_LOG_EVT_STREAMUP</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a521bdc151a83e9587a1d73afbc691502" compoundref="xv__hdmitxss1_8h" startline="137">XV_HDMITXSS1_LOG_EVT_TMDS_START</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a2f4d6c3af1944f8a49a8c07432d436ad" compoundref="xv__hdmitxss1_8h" startline="115">XV_HDMITXSS1_LOG_EVT_TOGGLE</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ae69bc0ec2857088237ad39aef1e68b86" compoundref="xv__hdmitxss1_8h" startline="105">XV_HDMITXSS1_LOG_EVT_VTC_INIT</references>
+        <references refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194abcc147bc9e9f384ec1ca08fbac8b87e7" compoundref="xv__hdmitxss1_8h" startline="130">XV_HDMITXSS1_LOG_EVT_VTC_RES_ERR</references>
+        <references refid="xv__hdmitxss1_8h_1ac884bd9e77df975e8e1a762081c13607" compoundref="xv__hdmitxss1__log_8c" startline="119" endline="144">XV_HdmiTxSs1_LogRead</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00  EB   22/05/18 Initial release.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>–<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2023-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__hdmitxss1_8h" kindref="compound">xv_hdmitxss1.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor">#ifdef<sp/>XV_HDMITXSS1_LOG_ENABLE</highlight></codeline>
+<codeline lineno="45" refid="xv__hdmitxss1__log_8c_1a2c2352dc54100975c45f106b42f4cd03" refkind="member"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__hdmitxss1_8h_1a2c2352dc54100975c45f106b42f4cd03" kindref="member">XV_HdmiTxSs1_LogReset</ref>(<ref refid="struct_x_v___hdmi_tx_ss1" kindref="compound">XV_HdmiTxSs1</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1acffe7a884e4c8745e46927ec1a7b47c3" kindref="member">HeadIndex</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" kindref="member">TailIndex</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="67" refid="xv__hdmitxss1__log_8c_1a0c9023e762552ac6d46bddeaaa1ea40b" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__hdmitxss1_8h_1a0c9023e762552ac6d46bddeaaa1ea40b" kindref="member">XV_HdmiTxSs1_LogWrite</ref>(<ref refid="struct_x_v___hdmi_tx_ss1" kindref="compound">XV_HdmiTxSs1</ref><sp/>*InstancePtr,<sp/><ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194" kindref="member">XV_HdmiTxSs1_LogEvent</ref><sp/>Evt,<sp/>u8<sp/>Data)</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>TimeUnit<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1aa04f4b9697d324e1fad31da9f414186f" kindref="member">LogWriteCallback</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimeUnit<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1aa04f4b9697d324e1fad31da9f414186f" kindref="member">LogWriteCallback</ref>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1ae5499d63499710c85a1c2040ccb50435" kindref="member">LogWriteRef</ref>);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Evt<sp/>&lt;=<sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194af927e6926684df592bce30a715e59a22" kindref="member">XV_HDMITXSS1_LOG_EVT_DUMMY</ref>));</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>data<sp/>and<sp/>event<sp/>into<sp/>log<sp/>buffer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1a532fe0a3c2815fcd3331395034b0e4b1" kindref="member">DataBuffer</ref>[InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1acffe7a884e4c8745e46927ec1a7b47c3" kindref="member">HeadIndex</ref>]<sp/>=</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Data<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>Evt;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1a549f6f3f078ebab3bcb93848ca9a6775" kindref="member">TimeRecord</ref>[InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1acffe7a884e4c8745e46927ec1a7b47c3" kindref="member">HeadIndex</ref>]<sp/>=<sp/>TimeUnit;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Update<sp/>head<sp/>pointer<sp/>if<sp/>reached<sp/>to<sp/>end<sp/>of<sp/>the<sp/>buffer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1acffe7a884e4c8745e46927ec1a7b47c3" kindref="member">HeadIndex</ref><sp/>==</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)((</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1a532fe0a3c2815fcd3331395034b0e4b1" kindref="member">DataBuffer</ref>)<sp/>/<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1a532fe0a3c2815fcd3331395034b0e4b1" kindref="member">DataBuffer</ref>[0]))<sp/>-<sp/>1))<sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>pointer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1acffe7a884e4c8745e46927ec1a7b47c3" kindref="member">HeadIndex</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Increment<sp/>pointer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1acffe7a884e4c8745e46927ec1a7b47c3" kindref="member">HeadIndex</ref>++;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>tail<sp/>pointer.<sp/>When<sp/>the<sp/>two<sp/>pointer<sp/>are<sp/>equal,<sp/>then<sp/>the<sp/>buffer</highlight></codeline>
+<codeline lineno="95"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>full.<sp/>In<sp/>this<sp/>case<sp/>then<sp/>increment<sp/>the<sp/>tail<sp/>pointer<sp/>as<sp/>well<sp/>to</highlight></codeline>
+<codeline lineno="96"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>remove<sp/>the<sp/>oldest<sp/>entry<sp/>from<sp/>the<sp/>buffer.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" kindref="member">TailIndex</ref><sp/>==<sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1acffe7a884e4c8745e46927ec1a7b47c3" kindref="member">HeadIndex</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" kindref="member">TailIndex</ref><sp/>==</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)((</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1a532fe0a3c2815fcd3331395034b0e4b1" kindref="member">DataBuffer</ref>)<sp/>/<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1a532fe0a3c2815fcd3331395034b0e4b1" kindref="member">DataBuffer</ref>[0]))<sp/>-<sp/>1))<sp/>{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" kindref="member">TailIndex</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" kindref="member">TailIndex</ref>++;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="119" refid="xv__hdmitxss1__log_8c_1ac884bd9e77df975e8e1a762081c13607" refkind="member"><highlight class="normal">u16<sp/><ref refid="xv__hdmitxss1_8h_1ac884bd9e77df975e8e1a762081c13607" kindref="member">XV_HdmiTxSs1_LogRead</ref>(<ref refid="struct_x_v___hdmi_tx_ss1" kindref="compound">XV_HdmiTxSs1</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Log;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>argument.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>there<sp/>is<sp/>any<sp/>data<sp/>in<sp/>the<sp/>log<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" kindref="member">TailIndex</ref><sp/>==<sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1acffe7a884e4c8745e46927ec1a7b47c3" kindref="member">HeadIndex</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Log<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Log<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1a532fe0a3c2815fcd3331395034b0e4b1" kindref="member">DataBuffer</ref>[InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" kindref="member">TailIndex</ref>];</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Increment<sp/>tail<sp/>pointer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" kindref="member">TailIndex</ref><sp/>==</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)((</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1a532fe0a3c2815fcd3331395034b0e4b1" kindref="member">DataBuffer</ref>)<sp/>/<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1a532fe0a3c2815fcd3331395034b0e4b1" kindref="member">DataBuffer</ref>[0]))<sp/>-<sp/>1))<sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" kindref="member">TailIndex</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" kindref="member">TailIndex</ref>++;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Log;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="157" refid="xv__hdmitxss1__log_8c_1a8198201051910096470956c1040019e8" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__hdmitxss1_8h_1a8198201051910096470956c1040019e8" kindref="member">XV_HdmiTxSs1_LogDisplay</ref>(<ref refid="struct_x_v___hdmi_tx_ss1" kindref="compound">XV_HdmiTxSs1</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="158"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XV_HDMITXSS1_LOG_ENABLE</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Log;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Evt;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Data;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>TimeUnit;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>argument.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n\r\nHDMI<sp/>TX<sp/>log\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;------\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>time<sp/>record<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimeUnit<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1a549f6f3f078ebab3bcb93848ca9a6775" kindref="member">TimeRecord</ref>[InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" kindref="member">TailIndex</ref>];</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>log<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Log<sp/>=<sp/><ref refid="xv__hdmitxss1_8h_1ac884bd9e77df975e8e1a762081c13607" kindref="member">XV_HdmiTxSs1_LogRead</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(Log<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Event<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Evt<sp/>=<sp/>Log<sp/>&amp;<sp/>0xff;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>(Log<sp/>&gt;&gt;<sp/>8)<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1aa04f4b9697d324e1fad31da9f414186f" kindref="member">LogWriteCallback</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Printing<sp/>of<sp/>TimeUnit*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;0x%08X%08X:<sp/>TXSS<sp/>-<sp/>&quot;</highlight><highlight class="normal">,<sp/>(u32)((TimeUnit<sp/>&gt;&gt;<sp/>32)<sp/>&amp;<sp/>0xFFFFFFFF),<sp/>(u32)(TimeUnit<sp/>&amp;<sp/>0xFFFFFFFF));</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(Evt)<sp/>{</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a866496865355f8f425396ffcfed82013" kindref="member">XV_HDMITXSS1_LOG_EVT_NONE</ref>):</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Log<sp/>end\r\n-------&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a0b16619b4646eb99a2e88ead03e48c5b" kindref="member">XV_HDMITXSS1_LOG_EVT_HDMITX1_INIT</ref>):</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Initializing<sp/>HDMI<sp/>TX<sp/>core....&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ae69bc0ec2857088237ad39aef1e68b86" kindref="member">XV_HDMITXSS1_LOG_EVT_VTC_INIT</ref>):</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Initializing<sp/>VTC<sp/>core....&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a887d1b62c780925e370aa7b9b9a6dc85" kindref="member">XV_HDMITXSS1_LOG_EVT_HDCPTIMER_INIT</ref>):</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Initializing<sp/>AXI<sp/>Timer<sp/>core....&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a7c8943a13a3c3d6312ed2a209053625e" kindref="member">XV_HDMITXSS1_LOG_EVT_HDCP14_INIT</ref>):</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Initializing<sp/>HDCP<sp/>1.4<sp/>core....&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a8b64cc43e15154910bdbae8fe0996165" kindref="member">XV_HDMITXSS1_LOG_EVT_HDCP22_INIT</ref>):</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Initializing<sp/>HDCP<sp/>2.2<sp/>core....&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194aa87456980697e1644c7bb078cdb8133d" kindref="member">XV_HDMITXSS1_LOG_EVT_START</ref>):</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Start<sp/>HDMI<sp/>TX<sp/>Subsystem....&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194acca316c46a14ae90bc9f061ad3237532" kindref="member">XV_HDMITXSS1_LOG_EVT_STOP</ref>):</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Stop<sp/>HDMI<sp/>TX<sp/>Subsystem....&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194aa76ec71708386984f5f4fea5acc931cf" kindref="member">XV_HDMITXSS1_LOG_EVT_RESET</ref>):</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Reset<sp/>HDMI<sp/>TX<sp/>Subsystem....&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ac930f1fc9257c1da958d67b03444c0d0" kindref="member">XV_HDMITXSS1_LOG_EVT_CONNECT</ref>):</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Cable<sp/>is<sp/>connected....&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a053e688b709b25b89758bc93c9136a7f" kindref="member">XV_HDMITXSS1_LOG_EVT_DISCONNECT</ref>):</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Cable<sp/>is<sp/>disconnected....&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a2f4d6c3af1944f8a49a8c07432d436ad" kindref="member">XV_HDMITXSS1_LOG_EVT_TOGGLE</ref>):</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Cable<sp/>is<sp/>toggled....&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a4bcb4867aceecc187b9a5f6d47f53f24" kindref="member">XV_HDMITXSS1_LOG_EVT_STREAMUP</ref>):</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Stream<sp/>is<sp/>Up&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194aa11ffa509dca45f524be5f1581fa9abe" kindref="member">XV_HDMITXSS1_LOG_EVT_STREAMDOWN</ref>):</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Stream<sp/>is<sp/>Down&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194abe1911338db298a23ec713716866e18b" kindref="member">XV_HDMITXSS1_LOG_EVT_STREAMSTART</ref>):</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Stream<sp/>Start&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a2d48220e23a699da5867d80635d0bba4" kindref="member">XV_HDMITXSS1_LOG_EVT_SETAUDIOCHANNELS</ref>):</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Set<sp/>Audio<sp/>Channels<sp/>(%0d)&quot;</highlight><highlight class="normal">,<sp/>Data);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a234af83a647787d55f370e3a79a15813" kindref="member">XV_HDMITXSS1_LOG_EVT_AUDIOMUTE</ref>):</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Audio<sp/>Muted&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a354a534f998dd4363b911c957a0af56f" kindref="member">XV_HDMITXSS1_LOG_EVT_AUDIOUNMUTE</ref>):</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Audio<sp/>Unmuted&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a528bac26f2b8c837408002ac0d8585ad" kindref="member">XV_HDMITXSS1_LOG_EVT_AUDIOINVALIDSAMPRATE</ref>):</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Invalid<sp/>Audio<sp/>Sampling<sp/>Rate&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a39d7665d5e5f22c57708000628278891" kindref="member">XV_HDMITXSS1_LOG_EVT_SETSTREAM</ref>):</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Set<sp/>Stream&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ace22b4eab03167367ac29945fda4eae6" kindref="member">XV_HDMITXSS1_LOG_EVT_HDCP14_AUTHREQ</ref>):</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;HDCP<sp/>1.4<sp/>authentication<sp/>request&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ae6028a0e316af27cf053cca09746ad5b" kindref="member">XV_HDMITXSS1_LOG_EVT_HDCP22_AUTHREQ</ref>):</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;HDCP<sp/>2.2<sp/>authentication<sp/>request&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a1e3c8f08230dbabe9352b74ed1fe9b0b" kindref="member">XV_HDMITXSS1_LOG_EVT_PIX_REPEAT_ERR</ref>):</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(ANSI_COLOR_RED<sp/></highlight><highlight class="stringliteral">&quot;Unsupported<sp/>Pixel<sp/>Repetition:<sp/>%d&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ANSI_COLOR_RESET,<sp/>Data);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194abcc147bc9e9f384ec1ca08fbac8b87e7" kindref="member">XV_HDMITXSS1_LOG_EVT_VTC_RES_ERR</ref>):</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(ANSI_COLOR_RED<sp/></highlight><highlight class="stringliteral">&quot;Unsupported<sp/>Video<sp/>by<sp/>VTC&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ANSI_COLOR_RESET,<sp/>Data);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a8b93e92cded00d1b93fa61212cd2163a" kindref="member">XV_HDMITXSS1_LOG_EVT_BRDG_LOCKED</ref>):</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;VID<sp/>Bridge<sp/>Locked&quot;</highlight><highlight class="normal">,<sp/>Data);</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a9a7ca5e6f48bbf35ce1cf5e6eb9f8343" kindref="member">XV_HDMITXSS1_LOG_EVT_BRDG_UNLOCKED</ref>):</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;VID<sp/>Bridge<sp/>Unlocked&quot;</highlight><highlight class="normal">,<sp/>Data);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ad9b5a045dc775b00f814c3bbd5b3d7ea" kindref="member">XV_HDMITXSS1_LOG_EVT_FRL_START</ref>):</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;FRL<sp/>Start<sp/>Training<sp/>(MaxFrlRate:<sp/>%d)&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194ab092edcc43dc4cfafe5fdeda63c6d419" kindref="member">XV_HDMITXSS1_LOG_EVT_FRL_LT_PASS</ref>):</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;FRL<sp/>LT<sp/>Pass&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194afc70a2fee8b8c6a16bd55a994ecdf9a2" kindref="member">XV_HDMITXSS1_LOG_EVT_FRL_CFG</ref>):</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;FRL<sp/>Config&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__hdmitxss1_8h_1a3235ae792b21ddbc07efb7b78edde194a521bdc151a83e9587a1d73afbc691502" kindref="member">XV_HDMITXSS1_LOG_EVT_TMDS_START</ref>):</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;TMDS<sp/>Start&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(XV_HDMITXSS1_LOG_EVT_FRL_LTS1):</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;FRL<sp/>LTS:1&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(XV_HDMITXSS1_LOG_EVT_FRL_LTS2):</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;FRL<sp/>LTS:2<sp/>(FRL_Rate:<sp/>%d<sp/>FFE_Levels:<sp/>%d)&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Data<sp/>&amp;<sp/>0xF),<sp/>(Data<sp/>&gt;&gt;<sp/>4));</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(XV_HDMITXSS1_LOG_EVT_FRL_LTS3):</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;FRL<sp/>LTS:3<sp/>(&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>==<sp/>0xF0)<sp/>{</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;LT<sp/>Pass&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>==<sp/>0xFF)<sp/>{</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Rate<sp/>Drop<sp/>Requested&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>==<sp/>0xFA)<sp/>{</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Timeout&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;LTP:<sp/>0x%X&quot;</highlight><highlight class="normal">,<sp/>Data);</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;)&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(XV_HDMITXSS1_LOG_EVT_FRL_LTS4):</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;FRL<sp/>LTS:4<sp/>(FRL_Rate:<sp/>%d<sp/>FFE_Levels:<sp/>%d)&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Data<sp/>&amp;<sp/>0xF),<sp/>(Data<sp/>&gt;&gt;<sp/>4));</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(XV_HDMITXSS1_LOG_EVT_FRL_LTSP):</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;FRL<sp/>LTS:P<sp/>(LT<sp/>passed)&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/>[DBG<sp/>Code:<sp/>%d]&quot;</highlight><highlight class="normal">,<sp/>Data);</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(XV_HDMITXSS1_LOG_EVT_FRL_LTSL):</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;FRL<sp/>LTS:L&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Unknown<sp/>event&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>log<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimeUnit<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1a549f6f3f078ebab3bcb93848ca9a6775" kindref="member">TimeRecord</ref>[InstancePtr-&gt;<ref refid="struct_x_v___hdmi_tx_ss1_1a9f2370fd645e54c2b326362da0f32bd5" kindref="member">Log</ref>.<ref refid="struct_x_v___hdmi_tx_ss1___log_1abb791571d8a2ddd322c0df08c346bbd6" kindref="member">TailIndex</ref>];</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Log<sp/>=<sp/><ref refid="xv__hdmitxss1_8h_1ac884bd9e77df975e8e1a762081c13607" kindref="member">XV_HdmiTxSs1_LogRead</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="328"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n<sp/>INFO::<sp/>HDMITXSS1<sp/>Log<sp/>Feature<sp/>is<sp/>Disabled<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="330"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/src/xv_hdmitxss1_log.c"/>
+  </compounddef>
+</doxygen>

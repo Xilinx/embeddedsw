@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dc___video_timing" kind="struct" prot="public">
+    <compoundname>XDc_VideoTiming</compoundname>
+    <includes local="no">xdc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dc___video_timing_1acccd95e39200e9d9af3c742a41a903d6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDc_VideoTiming::HTotal</definition>
+        <argsstring></argsstring>
+        <name>HTotal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="367" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="367" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___video_timing_1ad3030d4c8baff5360f4c1bb2782da2a0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDc_VideoTiming::HSWidth</definition>
+        <argsstring></argsstring>
+        <name>HSWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="368" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="368" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___video_timing_1a4fab1edc20b3b15ee564e1561f4a05d1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDc_VideoTiming::HRes</definition>
+        <argsstring></argsstring>
+        <name>HRes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="369" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___video_timing_1a0a3ab100f35713f8bf8f83775736672f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDc_VideoTiming::HStart</definition>
+        <argsstring></argsstring>
+        <name>HStart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="370" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="370" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___video_timing_1add7e73e9726da01aa747013cc776454e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDc_VideoTiming::VTotal</definition>
+        <argsstring></argsstring>
+        <name>VTotal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="372" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="372" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___video_timing_1a188154a99d4b8d43c8be34d45fd303c2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDc_VideoTiming::VSWidth</definition>
+        <argsstring></argsstring>
+        <name>VSWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="373" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="373" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___video_timing_1aba4f707e8cb97d323a9d6233bc390a68" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDc_VideoTiming::VRes</definition>
+        <argsstring></argsstring>
+        <name>VRes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="374" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="374" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___video_timing_1a87e91891483f3707e5094d5c98b8842f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDc_VideoTiming::VStart</definition>
+        <argsstring></argsstring>
+        <name>VStart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="375" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="375" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure stores the XDC Timing configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="365" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="365" bodyend="377"/>
+    <listofallmembers>
+      <member refid="struct_x_dc___video_timing_1a4fab1edc20b3b15ee564e1561f4a05d1" prot="public" virt="non-virtual"><scope>XDc_VideoTiming</scope><name>HRes</name></member>
+      <member refid="struct_x_dc___video_timing_1a0a3ab100f35713f8bf8f83775736672f" prot="public" virt="non-virtual"><scope>XDc_VideoTiming</scope><name>HStart</name></member>
+      <member refid="struct_x_dc___video_timing_1ad3030d4c8baff5360f4c1bb2782da2a0" prot="public" virt="non-virtual"><scope>XDc_VideoTiming</scope><name>HSWidth</name></member>
+      <member refid="struct_x_dc___video_timing_1acccd95e39200e9d9af3c742a41a903d6" prot="public" virt="non-virtual"><scope>XDc_VideoTiming</scope><name>HTotal</name></member>
+      <member refid="struct_x_dc___video_timing_1aba4f707e8cb97d323a9d6233bc390a68" prot="public" virt="non-virtual"><scope>XDc_VideoTiming</scope><name>VRes</name></member>
+      <member refid="struct_x_dc___video_timing_1a87e91891483f3707e5094d5c98b8842f" prot="public" virt="non-virtual"><scope>XDc_VideoTiming</scope><name>VStart</name></member>
+      <member refid="struct_x_dc___video_timing_1a188154a99d4b8d43c8be34d45fd303c2" prot="public" virt="non-virtual"><scope>XDc_VideoTiming</scope><name>VSWidth</name></member>
+      <member refid="struct_x_dc___video_timing_1add7e73e9726da01aa747013cc776454e" prot="public" virt="non-virtual"><scope>XDc_VideoTiming</scope><name>VTotal</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

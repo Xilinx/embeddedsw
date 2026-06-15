@@ -1,0 +1,1287 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__demosaic_8h" kind="file">
+    <compoundname>xv_demosaic.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes refid="xv__demosaic__hw_8h" local="yes">xv_demosaic_hw.h</includes>
+    <includedby refid="xv__demosaic_8c" local="yes">xv_demosaic.c</includedby>
+    <includedby refid="xv__demosaic__g_8c" local="yes">xv_demosaic_g.c</includedby>
+    <includedby refid="xv__demosaic__intr_8c" local="yes">xv_demosaic_intr.c</includedby>
+    <includedby refid="xv__demosaic__sinit_8c" local="yes">xv_demosaic_sinit.c</includedby>
+    <includedby refid="main_8c" local="yes">main.c</includedby>
+    <incdepgraph>
+      <node id="29">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="31">
+        <label>xil_io.h</label>
+      </node>
+      <node id="27">
+        <label>xv_demosaic.h</label>
+        <link refid="xv_demosaic.h"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>xstatus.h</label>
+      </node>
+      <node id="28">
+        <label>xil_types.h</label>
+      </node>
+      <node id="32">
+        <label>xv_demosaic_hw.h</label>
+        <link refid="xv__demosaic__hw_8h"/>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="34">
+        <label>xv_demosaic.c</label>
+        <link refid="xv__demosaic_8c"/>
+      </node>
+      <node id="33">
+        <label>xv_demosaic.h</label>
+        <link refid="xv_demosaic.h"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>xv_demosaic_intr.c</label>
+        <link refid="xv__demosaic__intr_8c"/>
+      </node>
+      <node id="37">
+        <label>xv_demosaic_sinit.c</label>
+        <link refid="xv__demosaic__sinit_8c"/>
+      </node>
+      <node id="35">
+        <label>xv_demosaic_g.c</label>
+        <link refid="xv__demosaic__g_8c"/>
+      </node>
+      <node id="38">
+        <label>main.c</label>
+        <link refid="main_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_v__demosaic___config" prot="public">XV_demosaic_Config</innerclass>
+    <innerclass refid="struct_x_v__demosaic" prot="public">XV_demosaic</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xv__demosaic_8h_1a3c788dd3373066d3529afd6dc9cbfdc0" prot="public" static="no">
+        <name>XVDEMOSAIC_IRQ_DONE_MASK</name>
+        <initializer>(0x01)</initializer>
+        <briefdescription>
+<para>Interrupt mask for frame processing done event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="42" bodyend="-1"/>
+        <referencedby refid="group__v__demosaic_1gaec49738eff318af31f6412423d884cde" compoundref="xv__demosaic__intr_8c" startline="96" endline="126">XVDemosaic_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__demosaic_8h_1a80585d23495da0cf76c416fec07ddac3" prot="public" static="no">
+        <name>XVDEMOSAIC_IRQ_READY_MASK</name>
+        <initializer>(0x02)</initializer>
+        <briefdescription>
+<para>Interrupt mask for frame ready event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="45" bodyend="-1"/>
+        <referencedby refid="group__v__demosaic_1gaec49738eff318af31f6412423d884cde" compoundref="xv__demosaic__intr_8c" startline="96" endline="126">XVDemosaic_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" prot="public" static="no">
+        <name>XV_demosaic_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32((BaseAddress) + (RegOffset), (u32)(Data))</initializer>
+        <briefdescription>
+<para>Writes a value to a Demosaic IP register (bare-metal/RTOS) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="111" bodyend="-1"/>
+        <referencedby refid="xv__demosaic_8h_1af01e921cbe12a3628cc237f090ac0bcd" compoundref="xv__demosaic_8c" startline="188" endline="193">XV_demosaic_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a5f0761b2c3d98c221e6b3d1a3153bd23" compoundref="xv__demosaic_8c" startline="166" endline="171">XV_demosaic_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a7158f8e24e9a182c264a876013681193" compoundref="xv__demosaic_8c" startline="448" endline="453">XV_demosaic_InterruptClear</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a4f0de1734d2a54e682d620f06514049f" compoundref="xv__demosaic_8c" startline="421" endline="429">XV_demosaic_InterruptDisable</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a69fa1f851aa2f2d43ad537ccbdb9260d" compoundref="xv__demosaic_8c" startline="395" endline="403">XV_demosaic_InterruptEnable</referencedby>
+        <referencedby refid="xv__demosaic_8h_1aa71214d873527ed1af928e50b252affb" compoundref="xv__demosaic_8c" startline="371" endline="376">XV_demosaic_InterruptGlobalDisable</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a6891f3d35c268cddf40987470001ef6c" compoundref="xv__demosaic_8c" startline="349" endline="354">XV_demosaic_InterruptGlobalEnable</referencedby>
+        <referencedby refid="xv__demosaic_8h_1adfe6297757130862d4d2fd25ff4c413f" compoundref="xv__demosaic_8c" startline="303" endline="308">XV_demosaic_Set_HwReg_bayer_phase</referencedby>
+        <referencedby refid="xv__demosaic_8h_1aa40e36caefa57c07fe9b9e068f9c8493" compoundref="xv__demosaic_8c" startline="256" endline="261">XV_demosaic_Set_HwReg_height</referencedby>
+        <referencedby refid="xv__demosaic_8h_1ac238328090e6c339df7e342215984be8" compoundref="xv__demosaic_8c" startline="210" endline="215">XV_demosaic_Set_HwReg_width</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a41dc5cdfde882e8bed16965d5f5f5f86" compoundref="xv__demosaic_8c" startline="67" endline="75">XV_demosaic_Start</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" prot="public" static="no">
+        <name>XV_demosaic_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32((BaseAddress) + (RegOffset))</initializer>
+        <briefdescription>
+<para>Reads a value from a Demosaic IP register (bare-metal/RTOS) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="115" bodyend="-1"/>
+        <referencedby refid="xv__demosaic_8h_1aad5daf24f3e5183eb540c7e9558f0345" compoundref="xv__demosaic_8c" startline="324" endline="332">XV_demosaic_Get_HwReg_bayer_phase</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a8cad5ce63900772b821e46d6c60ead88" compoundref="xv__demosaic_8c" startline="277" endline="285">XV_demosaic_Get_HwReg_height</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a21bc9ff12055b15575178d906a131e31" compoundref="xv__demosaic_8c" startline="231" endline="239">XV_demosaic_Get_HwReg_width</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a4f0de1734d2a54e682d620f06514049f" compoundref="xv__demosaic_8c" startline="421" endline="429">XV_demosaic_InterruptDisable</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a69fa1f851aa2f2d43ad537ccbdb9260d" compoundref="xv__demosaic_8c" startline="395" endline="403">XV_demosaic_InterruptEnable</referencedby>
+        <referencedby refid="xv__demosaic_8h_1aa538f7cb79b4692a6584beaf89e6afb7" compoundref="xv__demosaic_8c" startline="469" endline="474">XV_demosaic_InterruptGetEnabled</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a5543702ffe2eca8a81cbcc4c004e88df" compoundref="xv__demosaic_8c" startline="491" endline="496">XV_demosaic_InterruptGetStatus</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a5e3a407d7833c2bc549928d745bd32b1" compoundref="xv__demosaic_8c" startline="91" endline="99">XV_demosaic_IsDone</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a3e78dd875d5342088e53634681f22d8a" compoundref="xv__demosaic_8c" startline="115" endline="123">XV_demosaic_IsIdle</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a591e5c37e9e274122fab9a763eca2a5b" compoundref="xv__demosaic_8c" startline="140" endline="149">XV_demosaic_IsReady</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a41dc5cdfde882e8bed16965d5f5f5f86" compoundref="xv__demosaic_8c" startline="67" endline="75">XV_demosaic_Start</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xv__demosaic_8h_1a2f58fe6c1acbed02cb5ab0bcc3f860ef" prot="public" static="no">
+        <name>XVDEMOSAIC_HandlerType</name>
+        <enumvalue id="xv__demosaic_8h_1a2f58fe6c1acbed02cb5ab0bcc3f860efa1f7fcccfd95b90f778d734ac63b90d94" prot="public">
+          <name>XVDEMOSAIC_HANDLER_DONE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Handler for processing done event (ap_done) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__demosaic_8h_1a2f58fe6c1acbed02cb5ab0bcc3f860efa22fa321977dbe1bf0953f8e7cd41d846" prot="public">
+          <name>XVDEMOSAIC_HANDLER_READY</name>
+          <briefdescription>
+<para>Handler for ready event (ap_ready) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Interrupt handler types for Demosaic IP. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="63" bodyend="66"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xv__demosaic_8h_1ad9bd8e937eb2be1722715aae1c60cd51" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XVDemosaic_Callback)(void *InstancePtr)</definition>
+        <argsstring>)(void *InstancePtr)</argsstring>
+        <name>XVDemosaic_Callback</name>
+        <briefdescription>
+<para>Callback function type for Demosaic interrupt events. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xv__demosaic_8h_1a395e8e7efdf053e79d5b9a14d90f6767" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_demosaic_Initialize</definition>
+        <argsstring>(XV_demosaic *InstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>XV_demosaic_Initialize</name>
+        <param>
+          <type><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Initializes a Demosaic instance using the base address (SDT). </para>        </briefdescription>
+        <detaileddescription>
+<para>This function looks up the configuration for the specified base address and calls the CfgInitialize function to initialize the Demosaic instance. The instance is initialized with the configuration data, including hardware parameters. This version is used in SDT-based builds.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> instance to initialize. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base address of the Demosaic instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if initialization is successful, XST_DEVICE_NOT_FOUND if the device configuration cannot be found.</para></simplesect>
+<simplesect kind="note"><para>This function is used in SDT builds. The instance must be properly allocated before calling this function. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic_sinit.c" bodystart="152" bodyend="165"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <references refid="xv__demosaic_8c_1a602f8a7aadb48c2e10b3748a9d33de06" compoundref="xv__demosaic_8c" startline="35" endline="50">XV_demosaic_CfgInitialize</references>
+        <references refid="xv__demosaic_8h_1a357663e2a0c965194d856bfda50d4291" compoundref="xv__demosaic__sinit_8c" startline="117" endline="131">XV_demosaic_LookupConfig</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__demosaic_8h_1a357663e2a0c965194d856bfda50d4291" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_v__demosaic___config" kindref="compound">XV_demosaic_Config</ref> *</type>
+        <definition>XV_demosaic_Config* XV_demosaic_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XV_demosaic_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Looks up the device configuration based on the base address (SDT). </para>        </briefdescription>
+        <detaileddescription>
+<para>This function searches the configuration table for a Demosaic device matching the specified base address. If BaseAddress is 0, it returns the first available configuration. This function is used in SDT-based builds where device lookup is done by base address instead of device ID.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base address of the Demosaic instance, or 0 to return the first available configuration.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to the configuration structure if found, NULL otherwise.</para></simplesect>
+<simplesect kind="note"><para>This function is used in SDT builds. For non-SDT builds, use the device ID variant of this function. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic_sinit.c" bodystart="117" bodyend="131"/>
+        <references refid="struct_x_v__demosaic___config_1aab59673ef07b56714fe8652a83e176f4" compoundref="xv__demosaic_8h" startline="78">XV_demosaic_Config::Name</references>
+        <referencedby refid="main_8c_1aca6c8ac5234bd20fc964dc5c20a427e4" compoundref="main_8c" startline="62" endline="118">driverInit</referencedby>
+        <referencedby refid="xv__demosaic__sinit_8c_1a395e8e7efdf053e79d5b9a14d90f6767" compoundref="xv__demosaic__sinit_8c" startline="152" endline="165">XV_demosaic_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__demosaic_8h_1a602f8a7aadb48c2e10b3748a9d33de06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_demosaic_CfgInitialize</definition>
+        <argsstring>(XV_demosaic *InstancePtr, XV_demosaic_Config *ConfigPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XV_demosaic_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_v__demosaic___config" kindref="compound">XV_demosaic_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>Initializes the Demosaic IP instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function initializes the Demosaic instance by copying the configuration data and setting the effective base address for register access. It marks the instance as ready after successful initialization.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> instance to initialize. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the configuration structure containing IP parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The effective base address for the IP registers.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on successful initialization.</para></simplesect>
+<simplesect kind="note"><para>This function is used in bare-metal and RTOS environments (not Linux). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="35" bodyend="50"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <referencedby refid="main_8c_1aca6c8ac5234bd20fc964dc5c20a427e4" compoundref="main_8c" startline="62" endline="118">driverInit</referencedby>
+        <referencedby refid="xv__demosaic__sinit_8c_1a395e8e7efdf053e79d5b9a14d90f6767" compoundref="xv__demosaic__sinit_8c" startline="152" endline="165">XV_demosaic_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__demosaic_8h_1a41dc5cdfde882e8bed16965d5f5f5f86" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_demosaic_Start</definition>
+        <argsstring>(XV_demosaic *InstancePtr)</argsstring>
+        <name>XV_demosaic_Start</name>
+        <param>
+          <type><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Starts the Demosaic IP core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function triggers the Demosaic IP to start processing by setting the AP_START bit in the control register while preserving the auto-restart bit.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The instance must be initialized and ready before calling this function. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="67" bodyend="75"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <references refid="xv__demosaic__hw_8h_1a2bfb12f2f2756d9621565a8d278d560b" compoundref="xv__demosaic__hw_8h" startline="53">XV_DEMOSAIC_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="115">XV_demosaic_ReadReg</references>
+        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="111">XV_demosaic_WriteReg</references>
+        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="134" endline="168">videoIpConfig</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__demosaic_8h_1a5e3a407d7833c2bc549928d745bd32b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_demosaic_IsDone</definition>
+        <argsstring>(XV_demosaic *InstancePtr)</argsstring>
+        <name>XV_demosaic_IsDone</name>
+        <param>
+          <type><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Checks if the Demosaic IP has completed processing. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads the control register and checks the AP_DONE bit to determine if the IP core has finished processing the current frame.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 if processing is done, 0 otherwise.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="91" bodyend="99"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <references refid="xv__demosaic__hw_8h_1a2bfb12f2f2756d9621565a8d278d560b" compoundref="xv__demosaic__hw_8h" startline="53">XV_DEMOSAIC_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="115">XV_demosaic_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__demosaic_8h_1a3e78dd875d5342088e53634681f22d8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_demosaic_IsIdle</definition>
+        <argsstring>(XV_demosaic *InstancePtr)</argsstring>
+        <name>XV_demosaic_IsIdle</name>
+        <param>
+          <type><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Checks if the Demosaic IP is idle. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads the control register and checks the AP_IDLE bit to determine if the IP core is in idle state (not processing).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 if the IP is idle, 0 otherwise.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="115" bodyend="123"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <references refid="xv__demosaic__hw_8h_1a2bfb12f2f2756d9621565a8d278d560b" compoundref="xv__demosaic__hw_8h" startline="53">XV_DEMOSAIC_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="115">XV_demosaic_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__demosaic_8h_1a591e5c37e9e274122fab9a763eca2a5b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_demosaic_IsReady</definition>
+        <argsstring>(XV_demosaic *InstancePtr)</argsstring>
+        <name>XV_demosaic_IsReady</name>
+        <param>
+          <type><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Checks if the Demosaic IP is ready for new input. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function checks the AP_START bit to determine if the IP core is ready to accept a new frame for processing. The IP is ready when the AP_START bit is not set.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 if the IP is ready for next input, 0 otherwise.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="140" bodyend="149"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <references refid="xv__demosaic__hw_8h_1a2bfb12f2f2756d9621565a8d278d560b" compoundref="xv__demosaic__hw_8h" startline="53">XV_DEMOSAIC_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="115">XV_demosaic_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__demosaic_8h_1a5f0761b2c3d98c221e6b3d1a3153bd23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_demosaic_EnableAutoRestart</definition>
+        <argsstring>(XV_demosaic *InstancePtr)</argsstring>
+        <name>XV_demosaic_EnableAutoRestart</name>
+        <param>
+          <type><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Enables auto-restart mode for the Demosaic IP. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function enables the auto-restart feature, which causes the IP to automatically restart processing after completing each frame without requiring explicit start commands.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Auto-restart is useful for continuous video stream processing. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="166" bodyend="171"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <references refid="xv__demosaic__hw_8h_1a2bfb12f2f2756d9621565a8d278d560b" compoundref="xv__demosaic__hw_8h" startline="53">XV_DEMOSAIC_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="111">XV_demosaic_WriteReg</references>
+        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="134" endline="168">videoIpConfig</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__demosaic_8h_1af01e921cbe12a3628cc237f090ac0bcd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_demosaic_DisableAutoRestart</definition>
+        <argsstring>(XV_demosaic *InstancePtr)</argsstring>
+        <name>XV_demosaic_DisableAutoRestart</name>
+        <param>
+          <type><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Disables auto-restart mode for the Demosaic IP. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function disables the auto-restart feature. The IP will stop after completing each frame and require an explicit start command for the next frame.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="188" bodyend="193"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <references refid="xv__demosaic__hw_8h_1a2bfb12f2f2756d9621565a8d278d560b" compoundref="xv__demosaic__hw_8h" startline="53">XV_DEMOSAIC_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="111">XV_demosaic_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__demosaic_8h_1ac238328090e6c339df7e342215984be8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_demosaic_Set_HwReg_width</definition>
+        <argsstring>(XV_demosaic *InstancePtr, u32 Data)</argsstring>
+        <name>XV_demosaic_Set_HwReg_width</name>
+        <param>
+          <type><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Sets the frame width for the Demosaic IP. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function configures the active image width in pixels that the Demosaic IP will process.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The frame width in pixels.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The width must not exceed the MAX_COLS configured in hardware. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="210" bodyend="215"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <references refid="xv__demosaic__hw_8h_1a3f23644d8fafc72b93437c7a5f530365" compoundref="xv__demosaic__hw_8h" startline="61">XV_DEMOSAIC_CTRL_ADDR_HWREG_WIDTH_DATA</references>
+        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="111">XV_demosaic_WriteReg</references>
+        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="134" endline="168">videoIpConfig</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__demosaic_8h_1a21bc9ff12055b15575178d906a131e31" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_demosaic_Get_HwReg_width</definition>
+        <argsstring>(XV_demosaic *InstancePtr)</argsstring>
+        <name>XV_demosaic_Get_HwReg_width</name>
+        <param>
+          <type><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Gets the configured frame width from the Demosaic IP. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads the current frame width configuration in pixels from the Demosaic IP hardware register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The configured frame width in pixels.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="231" bodyend="239"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <references refid="xv__demosaic__hw_8h_1a3f23644d8fafc72b93437c7a5f530365" compoundref="xv__demosaic__hw_8h" startline="61">XV_DEMOSAIC_CTRL_ADDR_HWREG_WIDTH_DATA</references>
+        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="115">XV_demosaic_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__demosaic_8h_1aa40e36caefa57c07fe9b9e068f9c8493" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_demosaic_Set_HwReg_height</definition>
+        <argsstring>(XV_demosaic *InstancePtr, u32 Data)</argsstring>
+        <name>XV_demosaic_Set_HwReg_height</name>
+        <param>
+          <type><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Sets the frame height for the Demosaic IP. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function configures the active image height in lines that the Demosaic IP will process.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The frame height in lines.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The height must not exceed the MAX_ROWS configured in hardware. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="256" bodyend="261"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <references refid="xv__demosaic__hw_8h_1a91dd566f8b602311771e5ace5d8a32b1" compoundref="xv__demosaic__hw_8h" startline="65">XV_DEMOSAIC_CTRL_ADDR_HWREG_HEIGHT_DATA</references>
+        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="111">XV_demosaic_WriteReg</references>
+        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="134" endline="168">videoIpConfig</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__demosaic_8h_1a8cad5ce63900772b821e46d6c60ead88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_demosaic_Get_HwReg_height</definition>
+        <argsstring>(XV_demosaic *InstancePtr)</argsstring>
+        <name>XV_demosaic_Get_HwReg_height</name>
+        <param>
+          <type><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Gets the configured frame height from the Demosaic IP. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads the current frame height configuration in lines from the Demosaic IP hardware register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The configured frame height in lines.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="277" bodyend="285"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <references refid="xv__demosaic__hw_8h_1a91dd566f8b602311771e5ace5d8a32b1" compoundref="xv__demosaic__hw_8h" startline="65">XV_DEMOSAIC_CTRL_ADDR_HWREG_HEIGHT_DATA</references>
+        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="115">XV_demosaic_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__demosaic_8h_1adfe6297757130862d4d2fd25ff4c413f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_demosaic_Set_HwReg_bayer_phase</definition>
+        <argsstring>(XV_demosaic *InstancePtr, u32 Data)</argsstring>
+        <name>XV_demosaic_Set_HwReg_bayer_phase</name>
+        <param>
+          <type><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Sets the Bayer pattern phase for the Demosaic IP. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function configures the starting phase of the Bayer color filter array pattern. The phase determines which color (R, G, or B) is at the top-left pixel position.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The Bayer phase value (0-3 representing different RGGB patterns).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Valid Bayer phases are typically: 0=RGGB, 1=GRBG, 2=GBRG, 3=BGGR. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="303" bodyend="308"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <references refid="xv__demosaic__hw_8h_1a87fd4a55330e607271bdb57c6a2693e9" compoundref="xv__demosaic__hw_8h" startline="69">XV_DEMOSAIC_CTRL_ADDR_HWREG_BAYER_PHASE_DATA</references>
+        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="111">XV_demosaic_WriteReg</references>
+        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="134" endline="168">videoIpConfig</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__demosaic_8h_1aad5daf24f3e5183eb540c7e9558f0345" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_demosaic_Get_HwReg_bayer_phase</definition>
+        <argsstring>(XV_demosaic *InstancePtr)</argsstring>
+        <name>XV_demosaic_Get_HwReg_bayer_phase</name>
+        <param>
+          <type><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Gets the configured Bayer pattern phase from the Demosaic IP. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads the current Bayer phase configuration from the Demosaic IP hardware register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The configured Bayer phase value (0-3).</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="324" bodyend="332"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <references refid="xv__demosaic__hw_8h_1a87fd4a55330e607271bdb57c6a2693e9" compoundref="xv__demosaic__hw_8h" startline="69">XV_DEMOSAIC_CTRL_ADDR_HWREG_BAYER_PHASE_DATA</references>
+        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="115">XV_demosaic_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__demosaic_8h_1a6891f3d35c268cddf40987470001ef6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_demosaic_InterruptGlobalEnable</definition>
+        <argsstring>(XV_demosaic *InstancePtr)</argsstring>
+        <name>XV_demosaic_InterruptGlobalEnable</name>
+        <param>
+          <type><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Enables global interrupts for the Demosaic IP. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function sets the Global Interrupt Enable (GIE) bit, allowing the IP core to generate interrupt signals to the processor.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Individual interrupt sources must also be enabled using <ref refid="xv__demosaic_8c_1a69fa1f851aa2f2d43ad537ccbdb9260d" kindref="member">XV_demosaic_InterruptEnable()</ref>. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="349" bodyend="354"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <references refid="xv__demosaic__hw_8h_1a1c8bb7b95181af267da4e355c97f5142" compoundref="xv__demosaic__hw_8h" startline="55">XV_DEMOSAIC_CTRL_ADDR_GIE</references>
+        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="111">XV_demosaic_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__demosaic_8h_1aa71214d873527ed1af928e50b252affb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_demosaic_InterruptGlobalDisable</definition>
+        <argsstring>(XV_demosaic *InstancePtr)</argsstring>
+        <name>XV_demosaic_InterruptGlobalDisable</name>
+        <param>
+          <type><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Disables global interrupts for the Demosaic IP. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function clears the Global Interrupt Enable (GIE) bit, preventing the IP core from generating interrupt signals to the processor.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>This disables all interrupt generation regardless of individual interrupt enable settings. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="371" bodyend="376"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <references refid="xv__demosaic__hw_8h_1a1c8bb7b95181af267da4e355c97f5142" compoundref="xv__demosaic__hw_8h" startline="55">XV_DEMOSAIC_CTRL_ADDR_GIE</references>
+        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="111">XV_demosaic_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__demosaic_8h_1a69fa1f851aa2f2d43ad537ccbdb9260d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_demosaic_InterruptEnable</definition>
+        <argsstring>(XV_demosaic *InstancePtr, u32 Mask)</argsstring>
+        <name>XV_demosaic_InterruptEnable</name>
+        <param>
+          <type><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Enables specific interrupt sources for the Demosaic IP. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function sets bits in the Interrupt Enable Register (IER) to enable specific interrupt sources. Multiple interrupts can be enabled by using a bitwise OR of interrupt masks.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bit mask of interrupts to enable.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Global interrupts must also be enabled using <ref refid="xv__demosaic_8c_1a6891f3d35c268cddf40987470001ef6c" kindref="member">XV_demosaic_InterruptGlobalEnable()</ref>. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="395" bodyend="403"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <references refid="xv__demosaic__hw_8h_1a0829ebf75f074f4937a267cfebe3a67d" compoundref="xv__demosaic__hw_8h" startline="57">XV_DEMOSAIC_CTRL_ADDR_IER</references>
+        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="115">XV_demosaic_ReadReg</references>
+        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="111">XV_demosaic_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__demosaic_8h_1a4f0de1734d2a54e682d620f06514049f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_demosaic_InterruptDisable</definition>
+        <argsstring>(XV_demosaic *InstancePtr, u32 Mask)</argsstring>
+        <name>XV_demosaic_InterruptDisable</name>
+        <param>
+          <type><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Disables specific interrupt sources for the Demosaic IP. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function clears bits in the Interrupt Enable Register (IER) to disable specific interrupt sources. Multiple interrupts can be disabled by using a bitwise OR of interrupt masks.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bit mask of interrupts to disable.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="421" bodyend="429"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <references refid="xv__demosaic__hw_8h_1a0829ebf75f074f4937a267cfebe3a67d" compoundref="xv__demosaic__hw_8h" startline="57">XV_DEMOSAIC_CTRL_ADDR_IER</references>
+        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="115">XV_demosaic_ReadReg</references>
+        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="111">XV_demosaic_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__demosaic_8h_1a7158f8e24e9a182c264a876013681193" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_demosaic_InterruptClear</definition>
+        <argsstring>(XV_demosaic *InstancePtr, u32 Mask)</argsstring>
+        <name>XV_demosaic_InterruptClear</name>
+        <param>
+          <type><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Clears pending interrupt flags for the Demosaic IP. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function clears the specified interrupt status bits by writing to the Interrupt Status Register (ISR). This acknowledges the interrupt and allows new interrupts of the same type to be generated.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bit mask of interrupt flags to clear.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>This should be called in the interrupt handler after servicing the interrupt. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="448" bodyend="453"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <references refid="xv__demosaic__hw_8h_1a1fa1c5b1b3ae2d33548d4b422ab0c5b8" compoundref="xv__demosaic__hw_8h" startline="59">XV_DEMOSAIC_CTRL_ADDR_ISR</references>
+        <references refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" compoundref="xv__demosaic_8h" startline="111">XV_demosaic_WriteReg</references>
+        <referencedby refid="group__v__demosaic_1gaec49738eff318af31f6412423d884cde" compoundref="xv__demosaic__intr_8c" startline="96" endline="126">XVDemosaic_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__demosaic_8h_1aa538f7cb79b4692a6584beaf89e6afb7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_demosaic_InterruptGetEnabled</definition>
+        <argsstring>(XV_demosaic *InstancePtr)</argsstring>
+        <name>XV_demosaic_InterruptGetEnabled</name>
+        <param>
+          <type><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Gets the enabled interrupt sources for the Demosaic IP. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads the Interrupt Enable Register (IER) to determine which interrupt sources are currently enabled.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Bit mask of currently enabled interrupts.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="469" bodyend="474"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <references refid="xv__demosaic__hw_8h_1a0829ebf75f074f4937a267cfebe3a67d" compoundref="xv__demosaic__hw_8h" startline="57">XV_DEMOSAIC_CTRL_ADDR_IER</references>
+        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="115">XV_demosaic_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__demosaic_8h_1a5543702ffe2eca8a81cbcc4c004e88df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_demosaic_InterruptGetStatus</definition>
+        <argsstring>(XV_demosaic *InstancePtr)</argsstring>
+        <name>XV_demosaic_InterruptGetStatus</name>
+        <param>
+          <type><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Gets the current interrupt status for the Demosaic IP. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads the Interrupt Status Register (ISR) to determine which interrupts are currently pending/active.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Bit mask of currently pending/active interrupts.</para></simplesect>
+<simplesect kind="note"><para>The returned status should be checked and interrupts cleared using <ref refid="xv__demosaic_8c_1a7158f8e24e9a182c264a876013681193" kindref="member">XV_demosaic_InterruptClear()</ref> in the interrupt handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.c" bodystart="491" bodyend="496"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
+        <references refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" compoundref="xv__demosaic_8h" startline="100">XV_demosaic::Config</references>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <references refid="xv__demosaic__hw_8h_1a1fa1c5b1b3ae2d33548d4b422ab0c5b8" compoundref="xv__demosaic__hw_8h" startline="59">XV_DEMOSAIC_CTRL_ADDR_ISR</references>
+        <references refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" compoundref="xv__demosaic_8h" startline="115">XV_demosaic_ReadReg</references>
+        <referencedby refid="group__v__demosaic_1gaec49738eff318af31f6412423d884cde" compoundref="xv__demosaic__intr_8c" startline="96" endline="126">XVDemosaic_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__v__demosaic_1ga8adc7ef231a300187bbdb466e5d4a280" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVDemosaic_SetCallback</definition>
+        <argsstring>(XV_demosaic *InstancePtr, u32 HandlerType, void *CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XVDemosaic_SetCallback</name>
+        <param>
+          <type><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HandlerType</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>Installs an asynchronous callback function for the given handler type. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function registers callback functions for different interrupt events. Supported handler types include frame done (XVDEMOSAIC_HANDLER_DONE) and frame ready (XVDEMOSAIC_HANDLER_READY) events.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Demosaic IP instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HandlerType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of handler (XVDEMOSAIC_HANDLER_DONE or XVDEMOSAIC_HANDLER_READY). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the callback function to be invoked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>User data item passed to the callback function when invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Invoking this function for a handler that already has been installed replaces it with the new handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic_intr.c" bodystart="50" bodyend="77"/>
+        <references refid="xv__demosaic_8h_1a2f58fe6c1acbed02cb5ab0bcc3f860efa1f7fcccfd95b90f778d734ac63b90d94" compoundref="xv__demosaic_8h" startline="64">XVDEMOSAIC_HANDLER_DONE</references>
+        <references refid="struct_x_v__demosaic_1a61215273533f816611a2cf3bc499d757" compoundref="xv__demosaic_8h" startline="102">XV_demosaic::FrameDoneCallback</references>
+        <references refid="struct_x_v__demosaic_1abfde826222c9c106cd340bd9b5c1a697" compoundref="xv__demosaic_8h" startline="103">XV_demosaic::CallbackDoneRef</references>
+        <references refid="xv__demosaic_8h_1a2f58fe6c1acbed02cb5ab0bcc3f860efa22fa321977dbe1bf0953f8e7cd41d846" compoundref="xv__demosaic_8h" startline="65">XVDEMOSAIC_HANDLER_READY</references>
+        <references refid="struct_x_v__demosaic_1ac7e57098af4daf4c2f4b292ac06afaa2" compoundref="xv__demosaic_8h" startline="104">XV_demosaic::FrameReadyCallback</references>
+        <references refid="struct_x_v__demosaic_1a1b1f0a19c1b1ea77b8e6a4cc6f35bed8" compoundref="xv__demosaic_8h" startline="105">XV_demosaic::CallbackReadyRef</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__demosaic_1gaec49738eff318af31f6412423d884cde" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVDemosaic_InterruptHandler</definition>
+        <argsstring>(XV_demosaic *InstancePtr)</argsstring>
+        <name>XVDemosaic_InterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Interrupt handler for the Demosaic IP core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler clears pending interrupts and determines if the source is a frame done or frame ready signal. If the interrupt is valid, it calls the registered callback function for the corresponding event.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Demosaic IP instance that just interrupted.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The application is responsible for connecting this function to the interrupt system and providing callbacks using <ref refid="group__v__demosaic_1ga8adc7ef231a300187bbdb466e5d4a280" kindref="member">XVDemosaic_SetCallback()</ref> during initialization phase. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic_intr.c" bodystart="96" bodyend="126"/>
+        <references refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" compoundref="xv__demosaic_8h" startline="101">XV_demosaic::IsReady</references>
+        <references refid="xv__demosaic_8c_1a5543702ffe2eca8a81cbcc4c004e88df" compoundref="xv__demosaic_8c" startline="491" endline="496">XV_demosaic_InterruptGetStatus</references>
+        <references refid="xv__demosaic_8h_1a3c788dd3373066d3529afd6dc9cbfdc0" compoundref="xv__demosaic_8h" startline="42">XVDEMOSAIC_IRQ_DONE_MASK</references>
+        <references refid="xv__demosaic_8c_1a7158f8e24e9a182c264a876013681193" compoundref="xv__demosaic_8c" startline="448" endline="453">XV_demosaic_InterruptClear</references>
+        <references refid="struct_x_v__demosaic_1a61215273533f816611a2cf3bc499d757" compoundref="xv__demosaic_8h" startline="102">XV_demosaic::FrameDoneCallback</references>
+        <references refid="struct_x_v__demosaic_1abfde826222c9c106cd340bd9b5c1a697" compoundref="xv__demosaic_8h" startline="103">XV_demosaic::CallbackDoneRef</references>
+        <references refid="xv__demosaic_8h_1a80585d23495da0cf76c416fec07ddac3" compoundref="xv__demosaic_8h" startline="45">XVDEMOSAIC_IRQ_READY_MASK</references>
+        <references refid="struct_x_v__demosaic_1ac7e57098af4daf4c2f4b292ac06afaa2" compoundref="xv__demosaic_8h" startline="104">XV_demosaic::FrameReadyCallback</references>
+        <references refid="struct_x_v__demosaic_1a1b1f0a19c1b1ea77b8e6a4cc6f35bed8" compoundref="xv__demosaic_8h" startline="105">XV_demosaic::CallbackReadyRef</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>==============================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>1986<sp/>-<sp/>2021<sp/>Xilinx<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/>SPDX-License-Identifier:<sp/>MIT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>==============================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor">#ifndef<sp/>XV_DEMOSAIC_H</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_DEMOSAIC_H</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__linux__</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;assert.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;dirent.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;fcntl.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sys/mman.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unistd.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stddef.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__demosaic__hw_8h" kindref="compound">xv_demosaic_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__linux__</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="42" refid="xv__demosaic_8h_1a3c788dd3373066d3529afd6dc9cbfdc0" refkind="member"><highlight class="preprocessor">#define<sp/>XVDEMOSAIC_IRQ_DONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01)</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="45" refid="xv__demosaic_8h_1a80585d23495da0cf76c416fec07ddac3" refkind="member"><highlight class="preprocessor">#define<sp/>XVDEMOSAIC_IRQ_READY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x02)</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__linux__</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="51"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint8_t<sp/>u8;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint16_t<sp/>u16;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint32_t<sp/>u32;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="60" refid="xv__demosaic_8h_1ad9bd8e937eb2be1722715aae1c60cd51" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*<ref refid="xv__demosaic_8h_1ad9bd8e937eb2be1722715aae1c60cd51" kindref="member">XVDemosaic_Callback</ref>)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63" refid="xv__demosaic_8h_1a2f58fe6c1acbed02cb5ab0bcc3f860ef" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="64" refid="xv__demosaic_8h_1a2f58fe6c1acbed02cb5ab0bcc3f860efa1f7fcccfd95b90f778d734ac63b90d94" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="xv__demosaic_8h_1a2f58fe6c1acbed02cb5ab0bcc3f860efa1f7fcccfd95b90f778d734ac63b90d94" kindref="member">XVDEMOSAIC_HANDLER_DONE</ref><sp/>=<sp/>1,<sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="xv__demosaic_8h_1a2f58fe6c1acbed02cb5ab0bcc3f860efa22fa321977dbe1bf0953f8e7cd41d846" refkind="member"><highlight class="normal"><sp/><sp/><ref refid="xv__demosaic_8h_1a2f58fe6c1acbed02cb5ab0bcc3f860efa22fa321977dbe1bf0953f8e7cd41d846" kindref="member">XVDEMOSAIC_HANDLER_READY</ref><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="normal">}<sp/><ref refid="xv__demosaic_8h_1a2f58fe6c1acbed02cb5ab0bcc3f860ef" kindref="member">XVDEMOSAIC_HandlerType</ref>;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74" refid="struct_x_v__demosaic___config" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/>u16<sp/>DeviceId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="78" refid="struct_x_v__demosaic___config_1aab59673ef07b56714fe8652a83e176f4" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="struct_x_v__demosaic___config_1aab59673ef07b56714fe8652a83e176f4" kindref="member">Name</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="80" refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" kindref="member">BaseAddress</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81" refid="struct_x_v__demosaic___config_1af09ffebc8586404cb984f29417c2b073" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__demosaic___config_1af09ffebc8586404cb984f29417c2b073" kindref="member">PixPerClk</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82" refid="struct_x_v__demosaic___config_1a791fe13c7b8bf55c68a8ce3b963ea65c" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__demosaic___config_1a791fe13c7b8bf55c68a8ce3b963ea65c" kindref="member">MaxWidth</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83" refid="struct_x_v__demosaic___config_1a4acacb419d07407516fc8009779a2e47" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__demosaic___config_1a4acacb419d07407516fc8009779a2e47" kindref="member">MaxHeight</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84" refid="struct_x_v__demosaic___config_1a619e45306e63fe3a426439ee9ea2561d" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__demosaic___config_1a619e45306e63fe3a426439ee9ea2561d" kindref="member">MaxDataWidth</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="85" refid="struct_x_v__demosaic___config_1a87e02e1799d7bcc346bccf80a78e17e9" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__demosaic___config_1a87e02e1799d7bcc346bccf80a78e17e9" kindref="member">Algorithm</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="87" refid="struct_x_v__demosaic___config_1a0e478147ba877fbdeaf758ead2079858" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_v__demosaic___config_1a0e478147ba877fbdeaf758ead2079858" kindref="member">IntrId</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88" refid="struct_x_v__demosaic___config_1ae971c8ee16963c044eaffb51c6c23847" refkind="member"><highlight class="normal"><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_v__demosaic___config_1ae971c8ee16963c044eaffb51c6c23847" kindref="member">IntrParent</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_x_v__demosaic___config" kindref="compound">XV_demosaic_Config</ref>;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="99" refid="struct_x_v__demosaic" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="100" refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_x_v__demosaic___config" kindref="compound">XV_demosaic_Config</ref><sp/><ref refid="struct_x_v__demosaic_1aaa6abec510a55e8d0400663b308884a4" kindref="member">Config</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="101" refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v__demosaic_1a2e6892bddb002533a0ebc4cd3ad7bfe0" kindref="member">IsReady</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="102" refid="struct_x_v__demosaic_1a61215273533f816611a2cf3bc499d757" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__demosaic_8h_1ad9bd8e937eb2be1722715aae1c60cd51" kindref="member">XVDemosaic_Callback</ref><sp/><ref refid="struct_x_v__demosaic_1a61215273533f816611a2cf3bc499d757" kindref="member">FrameDoneCallback</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="103" refid="struct_x_v__demosaic_1abfde826222c9c106cd340bd9b5c1a697" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="struct_x_v__demosaic_1abfde826222c9c106cd340bd9b5c1a697" kindref="member">CallbackDoneRef</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104" refid="struct_x_v__demosaic_1ac7e57098af4daf4c2f4b292ac06afaa2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__demosaic_8h_1ad9bd8e937eb2be1722715aae1c60cd51" kindref="member">XVDemosaic_Callback</ref><sp/><ref refid="struct_x_v__demosaic_1ac7e57098af4daf4c2f4b292ac06afaa2" kindref="member">FrameReadyCallback</ref>;<sp/></highlight></codeline>
+<codeline lineno="105" refid="struct_x_v__demosaic_1a1b1f0a19c1b1ea77b8e6a4cc6f35bed8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="struct_x_v__demosaic_1a1b1f0a19c1b1ea77b8e6a4cc6f35bed8" kindref="member">CallbackReadyRef</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="106"><highlight class="normal">}<sp/><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref>;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__linux__</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="111" refid="xv__demosaic_8h_1aa38ba1f902b94e08f2cc6391a1691a4e" refkind="member"><highlight class="preprocessor">#define<sp/>XV_demosaic_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>Xil_Out32((BaseAddress)<sp/>+<sp/>(RegOffset),<sp/>(u32)(Data))</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="115" refid="xv__demosaic_8h_1a36a7c251b12bd89ab6cc2a0d75157137" refkind="member"><highlight class="preprocessor">#define<sp/>XV_demosaic_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>Xil_In32((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor">#define<sp/>XV_demosaic_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>*(volatile<sp/>u32*)((BaseAddress)<sp/>+<sp/>(RegOffset))<sp/>=<sp/>(u32)(Data)</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor">#define<sp/>XV_demosaic_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>*(volatile<sp/>u32*)((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor">#define<sp/>Xil_AssertVoid(expr)<sp/><sp/><sp/><sp/>assert(expr)</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor">#define<sp/>Xil_AssertNonvoid(expr)<sp/>assert(expr)</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor">#define<sp/>XST_SUCCESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor">#define<sp/>XST_DEVICE_NOT_FOUND<sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor">#define<sp/>XST_OPEN_DEVICE_FAILED<sp/><sp/>3</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor">#define<sp/>XIL_COMPONENT_IS_READY<sp/><sp/>1</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__linux__</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__demosaic_8h_1a395e8e7efdf053e79d5b9a14d90f6767" kindref="member">XV_demosaic_Initialize</ref>(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><ref refid="struct_x_v__demosaic___config" kindref="compound">XV_demosaic_Config</ref>*<sp/><ref refid="xv__demosaic_8h_1a357663e2a0c965194d856bfda50d4291" kindref="member">XV_demosaic_LookupConfig</ref>(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__demosaic_8h_1a395e8e7efdf053e79d5b9a14d90f6767" kindref="member">XV_demosaic_Initialize</ref>(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><ref refid="struct_x_v__demosaic___config" kindref="compound">XV_demosaic_Config</ref>*<sp/><ref refid="xv__demosaic_8h_1a357663e2a0c965194d856bfda50d4291" kindref="member">XV_demosaic_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__demosaic_8c_1a602f8a7aadb48c2e10b3748a9d33de06" kindref="member">XV_demosaic_CfgInitialize</ref>(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v__demosaic___config" kindref="compound">XV_demosaic_Config</ref><sp/>*ConfigPtr,</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__demosaic_8h_1a395e8e7efdf053e79d5b9a14d90f6767" kindref="member">XV_demosaic_Initialize</ref>(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>InstanceName);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XV_demosaic_Release(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__demosaic_8c_1a41dc5cdfde882e8bed16965d5f5f5f86" kindref="member">XV_demosaic_Start</ref>(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal">u32<sp/><ref refid="xv__demosaic_8c_1a5e3a407d7833c2bc549928d745bd32b1" kindref="member">XV_demosaic_IsDone</ref>(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">u32<sp/><ref refid="xv__demosaic_8c_1a3e78dd875d5342088e53634681f22d8a" kindref="member">XV_demosaic_IsIdle</ref>(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">u32<sp/><ref refid="xv__demosaic_8c_1a591e5c37e9e274122fab9a763eca2a5b" kindref="member">XV_demosaic_IsReady</ref>(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__demosaic_8c_1a5f0761b2c3d98c221e6b3d1a3153bd23" kindref="member">XV_demosaic_EnableAutoRestart</ref>(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__demosaic_8c_1af01e921cbe12a3628cc237f090ac0bcd" kindref="member">XV_demosaic_DisableAutoRestart</ref>(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__demosaic_8c_1ac238328090e6c339df7e342215984be8" kindref="member">XV_demosaic_Set_HwReg_width</ref>(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal">u32<sp/><ref refid="xv__demosaic_8c_1a21bc9ff12055b15575178d906a131e31" kindref="member">XV_demosaic_Get_HwReg_width</ref>(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__demosaic_8c_1aa40e36caefa57c07fe9b9e068f9c8493" kindref="member">XV_demosaic_Set_HwReg_height</ref>(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal">u32<sp/><ref refid="xv__demosaic_8c_1a8cad5ce63900772b821e46d6c60ead88" kindref="member">XV_demosaic_Get_HwReg_height</ref>(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__demosaic_8c_1adfe6297757130862d4d2fd25ff4c413f" kindref="member">XV_demosaic_Set_HwReg_bayer_phase</ref>(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal">u32<sp/><ref refid="xv__demosaic_8c_1aad5daf24f3e5183eb540c7e9558f0345" kindref="member">XV_demosaic_Get_HwReg_bayer_phase</ref>(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__demosaic_8c_1a6891f3d35c268cddf40987470001ef6c" kindref="member">XV_demosaic_InterruptGlobalEnable</ref>(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__demosaic_8c_1aa71214d873527ed1af928e50b252affb" kindref="member">XV_demosaic_InterruptGlobalDisable</ref>(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__demosaic_8c_1a69fa1f851aa2f2d43ad537ccbdb9260d" kindref="member">XV_demosaic_InterruptEnable</ref>(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__demosaic_8c_1a4f0de1734d2a54e682d620f06514049f" kindref="member">XV_demosaic_InterruptDisable</ref>(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__demosaic_8c_1a7158f8e24e9a182c264a876013681193" kindref="member">XV_demosaic_InterruptClear</ref>(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal">u32<sp/><ref refid="xv__demosaic_8c_1aa538f7cb79b4692a6584beaf89e6afb7" kindref="member">XV_demosaic_InterruptGetEnabled</ref>(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal">u32<sp/><ref refid="xv__demosaic_8c_1a5543702ffe2eca8a81cbcc4c004e88df" kindref="member">XV_demosaic_InterruptGetStatus</ref>(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__demosaic_1ga8adc7ef231a300187bbdb466e5d4a280" kindref="member">XVDemosaic_SetCallback</ref>(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr,<sp/>u32<sp/>HandlerType,</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__demosaic_1gaec49738eff318af31f6412423d884cde" kindref="member">XVDemosaic_InterruptHandler</ref>(<ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h"/>
+  </compounddef>
+</doxygen>

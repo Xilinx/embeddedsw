@@ -1,0 +1,419 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xsecure__mgf__server__apis" kind="group">
+    <compoundname>xsecure_mgf_server_apis</compoundname>
+    <title>XilSecure MGF Server APIs</title>
+    <innerclass refid="struct_x_secure___hash_alg_info" prot="public">XSecure_HashAlgInfo</innerclass>
+    <innerclass refid="struct_x_secure___mgf_input" prot="public">XSecure_MgfInput</innerclass>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xsecure__mgf__server__apis_1gac97d426051b6e8b32c8448cfe136cf84" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_secure___hash_alg_info" kindref="compound">XSecure_HashAlgInfo</ref></type>
+        <definition>XSecure_HashAlgInfo XSecure_MgfHashList[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XSecure_MgfHashList</name>
+        <initializer>=
+{{<ref refid="group__xsecure__sha__example__apis_1gab861d4c865c5fd4a955a54426cce4522" kindref="member">XSECURE_SHA3_384</ref>, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, XSecure_ShaMgfStart, XSecure_ShaMgfUpdate, XSecure_ShaMgfFinish, XSecure_ShaMgfDigest},
+ {XSECURE_SHA2_384, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, XSecure_ShaMgfStart, XSecure_ShaMgfUpdate, XSecure_ShaMgfFinish, XSecure_ShaMgfDigest}}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.c" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__mgf__server__apis_1ga08912d63a3b521b4008fd1ea1daa66aa" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_ShaMgfStart</definition>
+        <argsstring>(XSecure_ShaMode Shatype, void *InstancePtr)</argsstring>
+        <name>XSecure_ShaMgfStart</name>
+        <param>
+          <type>XSecure_ShaMode</type>
+          <declname>Shatype</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function starts the sha engine. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Shatype</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>holds the XSecure_ShaMode value of chosen sha algo. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to SHA algorithm used.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success.</para></listitem><listitem><para>XST_FAILURE On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.c" bodystart="70" bodyend="84"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__mgf__server__apis_1ga9766b9b21f613a09e7d0f201d20b2a73" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_ShaMgfUpdate</definition>
+        <argsstring>(XSecure_ShaMode Shatype, void *InstancePtr, u64 InDataAddr, u32 Size)</argsstring>
+        <name>XSecure_ShaMgfUpdate</name>
+        <param>
+          <type>XSecure_ShaMode</type>
+          <declname>Shatype</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>InDataAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+<para>This function updates the data to SHA algorithm. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Shatype</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>holds the XSecure_ShaMode value of chosen sha algo. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to SHA algorithm used. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the input data address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the size of the input data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success.</para></listitem><listitem><para>XST_FAILURE On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.c" bodystart="100" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__mgf__server__apis_1ga2d9dc05abb0e12595fa2790a38c3f899" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_ShaMgfFinish</definition>
+        <argsstring>(XSecure_ShaMode Shatype, void *InstancePtr, u64 HashAddr)</argsstring>
+        <name>XSecure_ShaMgfFinish</name>
+        <param>
+          <type>XSecure_ShaMode</type>
+          <declname>Shatype</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>HashAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function updates SHA engine with final data which includes SHA padding and reads final hash on complete data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Shatype</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>holds the XSecure_ShaMode value of chosen sha algo. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to SHA algorithm used. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address where the hash is stored.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success.</para></listitem><listitem><para>XST_FAILURE On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.c" bodystart="129" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__mgf__server__apis_1gac7ad973353f958077791a0ffc96c8da1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_ShaMgfDigest</definition>
+        <argsstring>(XSecure_ShaMode Shatype, void *InstancePtr, u64 InputDataAddr, u32 Size, u64 HashAddr)</argsstring>
+        <name>XSecure_ShaMgfDigest</name>
+        <param>
+          <type>XSecure_ShaMode</type>
+          <declname>Shatype</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>InputDataAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>HashAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function updates and calculates sha digest on data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Shatype</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>holds the XSecure_ShaMode value of chosen sha algo. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to SHA algorithm used. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InputDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the input data address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the size of the input data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address where the hash is stored.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success.</para></listitem><listitem><para>XST_FAILURE On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.c" bodystart="159" bodyend="172"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__mgf__server__apis_1gafd6c464fcaee9c2fda2c0df8e99b4d8d" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_I2Osp</definition>
+        <argsstring>(u32 Integer, u32 Size, u8 *Convert)</argsstring>
+        <name>XSecure_I2Osp</name>
+        <param>
+          <type>u32</type>
+          <declname>Integer</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Convert</declname>
+        </param>
+        <briefdescription>
+<para>This function converts a non-negative integer to an octet string of a specified length. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Integer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the variable in which input should be provided. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>holds the required size. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Convert</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer in which output will be updated. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.c" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.c" bodystart="184" bodyend="189"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__mgf__server__apis_1ga3528d2ff2183bb3aab43e4d408ee6760" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_secure___hash_alg_info" kindref="compound">XSecure_HashAlgInfo</ref> *</type>
+        <definition>XSecure_HashAlgInfo * XSecure_GetHashInstance</definition>
+        <argsstring>(XSecure_ShaMode Shatype)</argsstring>
+        <name>XSecure_GetHashInstance</name>
+        <param>
+          <type>XSecure_ShaMode</type>
+          <declname>Shatype</declname>
+        </param>
+        <briefdescription>
+<para>This function returns hash function list of user specified hash algorithm. </para>        </briefdescription>
+        <detaileddescription>
+<para>Get Hash Instance function.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Shatype</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>holds the XSecure_ShaMode value of chosen sha algo.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Pointer to <ref refid="struct_x_secure___hash_alg_info" kindref="compound">XSecure_HashAlgInfo</ref> instance</para></listitem><listitem><para>NULL Otherwise </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.c" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.c" bodystart="203" bodyend="212"/>
+        <references refid="group__xsecure__sha__example__apis_1gab861d4c865c5fd4a955a54426cce4522" compoundref="xilsecure__spartanup__sha__server__example_8c" startline="70">XSECURE_SHA3_384</references>
+        <referencedby refid="group__xsecure__mgf__server__apis_1ga51accda21580807193b7f1309a153c52" compoundref="xsecure__mgf_8c" startline="230" endline="301">XSecure_MaskGenFunc</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__mgf__server__apis_1ga51accda21580807193b7f1309a153c52" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_MaskGenFunc</definition>
+        <argsstring>(XSecure_ShaMode ShaType, void *InstancePtr, XSecure_MgfInput *MgfInput)</argsstring>
+        <name>XSecure_MaskGenFunc</name>
+        <param>
+          <type>XSecure_ShaMode</type>
+          <declname>ShaType</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_secure___mgf_input" kindref="compound">XSecure_MgfInput</ref> *</type>
+          <declname>MgfInput</declname>
+        </param>
+        <briefdescription>
+<para>This function takes an input of variable length and a desired output length as input, and provides fixed output mask using cryptographic hash function. </para>        </briefdescription>
+        <detaileddescription>
+<para>Mask Generation function.</para><para>i.e. Mask Generation Function(MGF).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ShaType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is of type XSecure_ShaMode. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the sha instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MgfInput</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to <ref refid="struct_x_secure___mgf_input" kindref="compound">XSecure_MgfInput</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success.</para></listitem><listitem><para>XST_INVALID_PARAM If any input parameter is invalid</para></listitem><listitem><para>XST_FAILURE On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.c" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.c" bodystart="230" bodyend="301"/>
+        <references refid="struct_x_secure___hash_alg_info_1a2d651b4f8029fd1bde167f52f7b0a680" compoundref="xsecure__mgf_8h" startline="51">XSecure_HashAlgInfo::HashLen</references>
+        <references refid="struct_x_secure___mgf_input_1a3df7726c093f8481f8649de0fbbad69b" compoundref="xsecure__mgf_8h" startline="61">XSecure_MgfInput::Output</references>
+        <references refid="struct_x_secure___mgf_input_1a7ef2ac3615a3516392e8f3e7af2301c2" compoundref="xsecure__mgf_8h" startline="63">XSecure_MgfInput::OutputLen</references>
+        <references refid="struct_x_secure___mgf_input_1a75315a260d2fc303f4e09f6115da6ba8" compoundref="xsecure__mgf_8h" startline="60">XSecure_MgfInput::Seed</references>
+        <references refid="struct_x_secure___mgf_input_1a4b5d243ace02a92433f2a3b7593480a3" compoundref="xsecure__mgf_8h" startline="62">XSecure_MgfInput::SeedLen</references>
+        <references refid="struct_x_secure___hash_alg_info_1a1252ac9d152a5cbb5731d66d19e6f634" compoundref="xsecure__mgf_8h" startline="54">XSecure_HashAlgInfo::ShaFinish</references>
+        <references refid="struct_x_secure___hash_alg_info_1a6c89a5bf973d16144020ebece7415504" compoundref="xsecure__mgf_8h" startline="52">XSecure_HashAlgInfo::ShaStart</references>
+        <references refid="struct_x_secure___hash_alg_info_1ae3302b269d249878b73bb94363200795" compoundref="xsecure__mgf_8h" startline="50">XSecure_HashAlgInfo::Shatype</references>
+        <references refid="struct_x_secure___hash_alg_info_1aaec31389331a3137f07364a5852286c0" compoundref="xsecure__mgf_8h" startline="53">XSecure_HashAlgInfo::ShaUpdate</references>
+        <references refid="group__xsecure__mgf__server__apis_1ga3528d2ff2183bb3aab43e4d408ee6760" compoundref="xsecure__mgf_8c" startline="203" endline="212">XSecure_GetHashInstance</references>
+        <references refid="group__xsecure__mgf__server__apis_1ga40f95b0f59b06abf8ee6dda379447069" compoundref="xsecure__mgf_8h" startline="44">XSECURE_SHA3_HASH_LENGTH_IN_BYTES</references>
+        <references refid="group__xsecure__generic__server__apis_1ga014b8298824e67a2e9fe8a5c8719f59a" compoundref="core_2util_2xsecure__utils_8h" startline="52">XSECURE_WORD_SIZE</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__mgf__server__apis_1gaa02bc7c1534754656c639d206cce86df" prot="public" static="no">
+        <name>XSECURE_I2OSP_LIMIT</name>
+        <initializer>(256U)</initializer>
+        <briefdescription>
+<para>Integer to octet stream primitive limit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.c" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__mgf__server__apis_1ga40f95b0f59b06abf8ee6dda379447069" prot="public" static="no">
+        <name>XSECURE_SHA3_HASH_LENGTH_IN_BYTES</name>
+        <initializer>(48U)</initializer>
+        <briefdescription>
+<para>SHA3 Hash length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" bodystart="44" bodyend="-1"/>
+        <referencedby refid="group__xsecure__mgf__server__apis_1ga51accda21580807193b7f1309a153c52" compoundref="xsecure__mgf_8c" startline="230" endline="301">XSecure_MaskGenFunc</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

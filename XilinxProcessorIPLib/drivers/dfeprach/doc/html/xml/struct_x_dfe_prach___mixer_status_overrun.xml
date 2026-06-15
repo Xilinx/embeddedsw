@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_prach___mixer_status_overrun" kind="struct" prot="public">
+    <compoundname>XDfePrach_MixerStatusOverrun</compoundname>
+    <includes local="no">xdfeprach.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_prach___mixer_status_overrun_1a358fd57897502c4765c2f240830df772" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_MixerStatusOverrun::MixerOverrun</definition>
+        <argsstring></argsstring>
+        <name>MixerOverrun</name>
+        <briefdescription>
+<para><verbatim>           [0-1] MixerOverrun=1 when an overrun has
+</verbatim> occurred in the mixer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="595" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="595" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga67d87d838df3a1d518499c94716316fe" compoundref="xdfeprach_8c" startline="3260" endline="3329">XDfePrach_GetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___mixer_status_overrun_1a926c7505c592e4bbf6e28dd83598ba0c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_MixerStatusOverrun::FirstAntennaOverruning</definition>
+        <argsstring></argsstring>
+        <name>FirstAntennaOverruning</name>
+        <briefdescription>
+<para><verbatim>                     [0-7] Lowest antenna number on which
+</verbatim> mixer overrun occurred. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="597" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="597" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga67d87d838df3a1d518499c94716316fe" compoundref="xdfeprach_8c" startline="3260" endline="3329">XDfePrach_GetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___mixer_status_overrun_1a33edd6b28dee76df184770c51a4a362b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_MixerStatusOverrun::FirstRCIdOverruning</definition>
+        <argsstring></argsstring>
+        <name>FirstRCIdOverruning</name>
+        <briefdescription>
+<para><verbatim>                  [0-15] Lowest physical mixer number
+</verbatim> on which first mixer overrun occurred. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="599" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="599" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga67d87d838df3a1d518499c94716316fe" compoundref="xdfeprach_8c" startline="3260" endline="3329">XDfePrach_GetStatus</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>PRACH mixer overflow status. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="594" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="594" bodyend="601"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_prach___mixer_status_overrun_1a926c7505c592e4bbf6e28dd83598ba0c" prot="public" virt="non-virtual"><scope>XDfePrach_MixerStatusOverrun</scope><name>FirstAntennaOverruning</name></member>
+      <member refid="struct_x_dfe_prach___mixer_status_overrun_1a33edd6b28dee76df184770c51a4a362b" prot="public" virt="non-virtual"><scope>XDfePrach_MixerStatusOverrun</scope><name>FirstRCIdOverruning</name></member>
+      <member refid="struct_x_dfe_prach___mixer_status_overrun_1a358fd57897502c4765c2f240830df772" prot="public" virt="non-virtual"><scope>XDfePrach_MixerStatusOverrun</scope><name>MixerOverrun</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

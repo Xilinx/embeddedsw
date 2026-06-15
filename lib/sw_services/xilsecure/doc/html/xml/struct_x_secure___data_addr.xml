@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___data_addr" kind="struct" prot="public">
+    <compoundname>XSecure_DataAddr</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___data_addr_1a21c83d5725cc193b52e59fc3052cdc8a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_DataAddr::AddrHigh</definition>
+        <argsstring></argsstring>
+        <name>AddrHigh</name>
+        <briefdescription>
+<para>Partition address high. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___data_addr_1a4bb19d64c185dd7394bba60f1e63eb90" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_DataAddr::AddrLow</definition>
+        <argsstring></argsstring>
+        <name>AddrLow</name>
+        <briefdescription>
+<para>Partition address low. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="255" bodyend="258"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___data_addr_1a21c83d5725cc193b52e59fc3052cdc8a" prot="public" virt="non-virtual"><scope>XSecure_DataAddr</scope><name>AddrHigh</name></member>
+      <member refid="struct_x_secure___data_addr_1a4bb19d64c185dd7394bba60f1e63eb90" prot="public" virt="non-virtual"><scope>XSecure_DataAddr</scope><name>AddrLow</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_6e678f4c23564b26652bd8c2eaa58f47" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xdppsu_8c">xdppsu.c</innerfile>
+    <innerfile refid="xdppsu_8h">xdppsu.h</innerfile>
+    <innerfile refid="xdppsu__edid_8c">xdppsu_edid.c</innerfile>
+    <innerfile refid="xdppsu__g_8c">xdppsu_g.c</innerfile>
+    <innerfile refid="xdppsu__hw_8h">xdppsu_hw.h</innerfile>
+    <innerfile refid="xdppsu__intr_8c">xdppsu_intr.c</innerfile>
+    <innerfile refid="xdppsu__selftest_8c">xdppsu_selftest.c</innerfile>
+    <innerfile refid="xdppsu__serdes_8c">xdppsu_serdes.c</innerfile>
+    <innerfile refid="xdppsu__serdes_8h">xdppsu_serdes.h</innerfile>
+    <innerfile refid="xdppsu__sinit_8c">xdppsu_sinit.c</innerfile>
+    <innerfile refid="xdppsu__spm_8c">xdppsu_spm.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/"/>
+  </compounddef>
+</doxygen>

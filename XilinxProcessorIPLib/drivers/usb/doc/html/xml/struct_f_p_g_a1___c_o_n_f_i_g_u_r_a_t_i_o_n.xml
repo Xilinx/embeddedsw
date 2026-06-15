@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_f_p_g_a1___c_o_n_f_i_g_u_r_a_t_i_o_n" kind="struct" prot="public">
+    <compoundname>FPGA1_CONFIGURATION</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_f_p_g_a1___c_o_n_f_i_g_u_r_a_t_i_o_n_1aadd8cbb281872a9f323023628519c206" prot="public" static="no" mutable="no">
+        <type>USB_STD_CFG_DESC</type>
+        <definition>USB_STD_CFG_DESC FPGA1_CONFIGURATION::stdCfg</definition>
+        <argsstring></argsstring>
+        <name>stdCfg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="452" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="452" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_p_g_a1___c_o_n_f_i_g_u_r_a_t_i_o_n_1a6e5b5a875a4173489939c8579295a955" prot="public" static="no" mutable="no">
+        <type>USB_STD_IF_DESC</type>
+        <definition>USB_STD_IF_DESC FPGA1_CONFIGURATION::ifCfg</definition>
+        <argsstring></argsstring>
+        <name>ifCfg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="453" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="453" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_p_g_a1___c_o_n_f_i_g_u_r_a_t_i_o_n_1ae31c1f8f3f05208623b6339335d8a440" prot="public" static="no" mutable="no">
+        <type>USB_STD_EP_DESC</type>
+        <definition>USB_STD_EP_DESC FPGA1_CONFIGURATION::epCfg1</definition>
+        <argsstring></argsstring>
+        <name>epCfg1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="454" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="454" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_p_g_a1___c_o_n_f_i_g_u_r_a_t_i_o_n_1a466c8b2da5d561144169f624d0201d99" prot="public" static="no" mutable="no">
+        <type>USB_STD_EP_DESC</type>
+        <definition>USB_STD_EP_DESC FPGA1_CONFIGURATION::epCfg2</definition>
+        <argsstring></argsstring>
+        <name>epCfg2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="455" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="455" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="451" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="451" bodyend="456"/>
+    <listofallmembers>
+      <member refid="struct_f_p_g_a1___c_o_n_f_i_g_u_r_a_t_i_o_n_1ae31c1f8f3f05208623b6339335d8a440" prot="public" virt="non-virtual"><scope>FPGA1_CONFIGURATION</scope><name>epCfg1</name></member>
+      <member refid="struct_f_p_g_a1___c_o_n_f_i_g_u_r_a_t_i_o_n_1a466c8b2da5d561144169f624d0201d99" prot="public" virt="non-virtual"><scope>FPGA1_CONFIGURATION</scope><name>epCfg2</name></member>
+      <member refid="struct_f_p_g_a1___c_o_n_f_i_g_u_r_a_t_i_o_n_1a6e5b5a875a4173489939c8579295a955" prot="public" virt="non-virtual"><scope>FPGA1_CONFIGURATION</scope><name>ifCfg</name></member>
+      <member refid="struct_f_p_g_a1___c_o_n_f_i_g_u_r_a_t_i_o_n_1aadd8cbb281872a9f323023628519c206" prot="public" virt="non-virtual"><scope>FPGA1_CONFIGURATION</scope><name>stdCfg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

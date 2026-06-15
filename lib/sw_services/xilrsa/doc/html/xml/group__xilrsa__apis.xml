@@ -1,0 +1,305 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xilrsa__apis" kind="group">
+    <compoundname>xilrsa_apis</compoundname>
+    <title>XilRSA APIs and Descriptions</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilrsa__apis_1ga94cb0e9ea77ca68a380c25b42910fa8e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rsa2048_exp</definition>
+        <argsstring>(const unsigned char *base, const unsigned char *modular, const unsigned char *modular_ext, const unsigned char *exponent, unsigned char *result)</argsstring>
+        <name>rsa2048_exp</name>
+        <param>
+          <type>const unsigned char *</type>
+          <declname>base</declname>
+        </param>
+        <param>
+          <type>const unsigned char *</type>
+          <declname>modular</declname>
+        </param>
+        <param>
+          <type>const unsigned char *</type>
+          <declname>modular_ext</declname>
+        </param>
+        <param>
+          <type>const unsigned char *</type>
+          <declname>exponent</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>result</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to encrypt the data using 2048 bit private key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>modular</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A char pointer which contains the key modulus </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>modular_ext</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A char pointer which contains the key modulus extension </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>exponent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A char pointer which contains the private key exponent </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>result</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A char pointer which contains the encrypted data</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilrsa/src/include/xilrsa.h" line="135" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilrsa__apis_1ga810797c1bab84cda9d48b734ba8b0405" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rsa2048_pubexp</definition>
+        <argsstring>(RSA_NUMBER a, RSA_NUMBER x, unsigned long e, RSA_NUMBER m, RSA_NUMBER rrm)</argsstring>
+        <name>rsa2048_pubexp</name>
+        <param>
+          <type>RSA_NUMBER</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>RSA_NUMBER</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type>RSA_NUMBER</type>
+          <declname>m</declname>
+        </param>
+        <param>
+          <type>RSA_NUMBER</type>
+          <declname>rrm</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to decrypt the data using 2048 bit public key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>a</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>RSA_NUMBER containing the decrypted data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>RSA_NUMBER containing the input data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>e</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Unsigned number containing the public key exponent </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>m</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>RSA_NUMBER containing the public key modulus </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rrm</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>RSA_NUMBER containing the public key modulus extension.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilrsa/src/include/xilrsa.h" line="152" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilrsa__apis_1ga735718f1bf2a30893d3e854d439c69fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void sha_256</definition>
+        <argsstring>(const unsigned char *in, const unsigned int size, unsigned char *out)</argsstring>
+        <name>sha_256</name>
+        <param>
+          <type>const unsigned char *</type>
+          <declname>in</declname>
+        </param>
+        <param>
+          <type>const unsigned int</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates the hash for the input data using SHA-256 algorithm. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function internally calls the sha2_init, updates and finishes functions and updates the result.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>In</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Char pointer which contains the input data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the input data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to location where resulting hash will be written.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilrsa/src/include/xilrsa.h" line="173" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilrsa__apis_1gaaa0bff1f1bcda10be83c3bf2f3af690b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void sha2_starts</definition>
+        <argsstring>(sha2_context *ctx)</argsstring>
+        <name>sha2_starts</name>
+        <param>
+          <type>sha2_context *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the SHA2 context. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to sha2_context structure that stores status and buffer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilrsa/src/include/xilrsa.h" line="185" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilrsa__apis_1gad03b4e01ae41a4b91888ab05a307bcfe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void sha2_update</definition>
+        <argsstring>(sha2_context *ctx, unsigned char *input, unsigned int ilen)</argsstring>
+        <name>sha2_update</name>
+        <param>
+          <type>sha2_context *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>input</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>ilen</declname>
+        </param>
+        <briefdescription>
+<para>This function adds the input data to SHA256 calculation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to sha2_context structure that stores status and buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the data to add. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the input data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilrsa/src/include/xilrsa.h" line="199" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilrsa__apis_1ga4dbd38a93b5b61c637a8a29dd0e850f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void sha2_finish</definition>
+        <argsstring>(sha2_context *ctx, unsigned char *output)</argsstring>
+        <name>sha2_finish</name>
+        <param>
+          <type>sha2_context *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>output</declname>
+        </param>
+        <briefdescription>
+<para>This function finishes the SHA calculation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to sha2_context structure that stores status and buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>output</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the calculated hash data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilrsa/src/include/xilrsa.h" line="213" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

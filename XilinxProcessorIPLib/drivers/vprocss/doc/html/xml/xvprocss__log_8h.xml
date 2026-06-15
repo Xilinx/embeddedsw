@@ -1,0 +1,1152 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xvprocss__log_8h" kind="file">
+    <compoundname>xvprocss_log.h</compoundname>
+    <includedby refid="xvprocss_8h" local="yes">xvprocss.h</includedby>
+    <invincdepgraph>
+      <node id="240">
+        <label>system.c</label>
+        <link refid="system_8c"/>
+      </node>
+      <node id="239">
+        <label>system.h</label>
+        <link refid="system_8h"/>
+        <childnode refid="240" relation="include">
+        </childnode>
+        <childnode refid="232" relation="include">
+        </childnode>
+      </node>
+      <node id="237">
+        <label>xvprocss_log.c</label>
+        <link refid="xvprocss__log_8c"/>
+      </node>
+      <node id="226">
+        <label>xvprocss_log.h</label>
+        <link refid="xvprocss_log.h"/>
+        <childnode refid="227" relation="include">
+        </childnode>
+      </node>
+      <node id="230">
+        <label>xvprocss.c</label>
+        <link refid="xvprocss_8c"/>
+      </node>
+      <node id="227">
+        <label>xvprocss.h</label>
+        <link refid="xvprocss_8h"/>
+        <childnode refid="228" relation="include">
+        </childnode>
+        <childnode refid="230" relation="include">
+        </childnode>
+        <childnode refid="233" relation="include">
+        </childnode>
+        <childnode refid="234" relation="include">
+        </childnode>
+        <childnode refid="236" relation="include">
+        </childnode>
+        <childnode refid="237" relation="include">
+        </childnode>
+        <childnode refid="238" relation="include">
+        </childnode>
+        <childnode refid="239" relation="include">
+        </childnode>
+      </node>
+      <node id="238">
+        <label>xvprocss_sinit.c</label>
+        <link refid="xvprocss__sinit_8c"/>
+      </node>
+      <node id="235">
+        <label>xvprocss_coreinit.c</label>
+        <link refid="xvprocss__coreinit_8c"/>
+      </node>
+      <node id="234">
+        <label>xvprocss_coreinit.h</label>
+        <link refid="xvprocss__coreinit_8h"/>
+        <childnode refid="230" relation="include">
+        </childnode>
+        <childnode refid="235" relation="include">
+        </childnode>
+      </node>
+      <node id="232">
+        <label>xv_procss_example.c</label>
+        <link refid="xv__procss__example_8c"/>
+      </node>
+      <node id="231">
+        <label>xvprocss_router.c</label>
+        <link refid="xvprocss__router_8c"/>
+      </node>
+      <node id="233">
+        <label>xvprocss_router.h</label>
+        <link refid="xvprocss__router_8h"/>
+        <childnode refid="230" relation="include">
+        </childnode>
+        <childnode refid="231" relation="include">
+        </childnode>
+      </node>
+      <node id="229">
+        <label>xvprocss_vdma.c</label>
+        <link refid="xvprocss__vdma_8c"/>
+      </node>
+      <node id="228">
+        <label>xvprocss_vdma.h</label>
+        <link refid="xvprocss__vdma_8h"/>
+        <childnode refid="229" relation="include">
+        </childnode>
+        <childnode refid="230" relation="include">
+        </childnode>
+        <childnode refid="231" relation="include">
+        </childnode>
+        <childnode refid="232" relation="include">
+        </childnode>
+      </node>
+      <node id="236">
+        <label>xvprocss_g.c</label>
+        <link refid="xvprocss__g_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_vproc_ss___log" prot="public">XVprocSs_Log</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xvprocss__log_8h_1a09b5aca39b98e5dd8f5aa4beeaf83fc8" prot="public" static="no">
+        <name>XVPROCSS_LOG_H</name>
+        <briefdescription>
+<para>&lt; prevent circular inclusions by using protection macros </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="31" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a1aef66d22ea6b28d00e4061ff0c9e7eb" prot="public" static="no">
+        <name>XV_VPROCSS_LOG_ENABLE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a463361d1b27cc99ddbad5d50e1385afa" prot="public" static="no">
+        <name>XVPROCSS_EVT_BUFFSIZE</name>
+        <initializer>256</initializer>
+        <briefdescription>
+<para>Data structure for the event logging mechanism for debug. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="85" bodyend="-1"/>
+        <referencedby refid="xvprocss__log_8c_1adf3fd2ffbed19ddf48ee19ef9368e5ac" compoundref="xvprocss__log_8c" startline="120" endline="146">XVprocSs_LogRead</referencedby>
+        <referencedby refid="xvprocss__log_8c_1a477ddfa18fa5fda8658ec72fb29a2d25" compoundref="xvprocss__log_8c" startline="72" endline="103">XVprocSs_LogWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1abeba7bd429b2f9f668ddf656a0c7ba3f" prot="public" static="no">
+        <name>XVPROCSS_EDAT_SUCCESS</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+<para>Event Log status codes. </para>        </briefdescription>
+        <detaileddescription>
+<para>These are the event data values.</para><para>0x00 - 0x0F : Successful events - applicable to VPSS and subcores 0xF0 - 0xFF : Error events - applicable to VPSS and subcores</para><para>0x10 ... : Successful events - applicable to particular subcores ... 0xEF : Error events - applicable to particular subcores </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="106" bodyend="-1"/>
+        <referencedby refid="xvprocss_8h_1a55d0807b3f476d2608a8c49b44388fec" compoundref="xvprocss_8c" startline="999" endline="1025">XVprocSs_GetZoomPipWindow</referencedby>
+        <referencedby refid="xvprocss__log_8c_1a7b5f492aa1f70696ace6462ac901c137" compoundref="xvprocss__log_8c" startline="157" endline="752">XVprocSs_LogDisplay</referencedby>
+        <referencedby refid="xvprocss_8h_1ab65fda7ce63456d82274a463a4d4b72a" compoundref="xvprocss_8c" startline="747" endline="777">XVprocSs_Reset</referencedby>
+        <referencedby refid="xvprocss_8h_1a8293d3dc637bc8c481b205d2272b4fc2" compoundref="xvprocss_8c" startline="923" endline="983">XVprocSs_SetZoomPipWindow</referencedby>
+        <referencedby refid="xvprocss_8h_1a0f673d448bb7702661b702519de94fd9" compoundref="xvprocss_8c" startline="643" endline="683">XVprocSs_Start</referencedby>
+        <referencedby refid="xvprocss_8h_1a1f28821282af5defa07408d1c00c2bfe" compoundref="xvprocss_8c" startline="693" endline="726">XVprocSs_Stop</referencedby>
+        <referencedby refid="xvprocss_8h_1a4bdc6a00278cb1c847429d7498f8505e" compoundref="xvprocss_8c" startline="874" endline="907">XVprocSs_UpdateZoomPipWindow</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a6a9cfd0745beadfc430291af4c1f8dff" prot="public" static="no">
+        <name>XVPROCSS_EDAT_FAILURE</name>
+        <initializer>0xFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a70da85e79c26a1df2ee759677fd455b6" prot="public" static="no">
+        <name>XVPROCSS_EDAT_OFF</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1aeb04c71a060576ff45a64fc33eff37cd" prot="public" static="no">
+        <name>XVPROCSS_EDAT_ON</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a14d160e4b9b0db5e0390b93edd0ca2d1" prot="public" static="no">
+        <name>XVPROCSS_EDAT_BEGIN</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a7b0e83d8e68033f51897f959c1537772" prot="public" static="no">
+        <name>XVPROCSS_EDAT_END</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a560e3b39eee033c12b8e8191597ebb65" prot="public" static="no">
+        <name>XVPROCSS_EDAT_VALID</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a4d7c85408d0b260a8ee4ba06393438d8" prot="public" static="no">
+        <name>XVPROCSS_EDAT_INITOK</name>
+        <initializer>0x03</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a8901bf3a596f4ce5f69397f97af2406e" prot="public" static="no">
+        <name>XVPROCSS_EDAT_SETUPOK</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a6b0ba895385994f2541eee7d8b3a8aa5" prot="public" static="no">
+        <name>XVPROCSS_EDAT_LDCOEF</name>
+        <initializer>0x05</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1acb8806191935af85b1a420a36e8da0f8" prot="public" static="no">
+        <name>XVPROCSS_EDAT_INITFAIL</name>
+        <initializer>0xF0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a4164d268f12f91c7a5b149d3c12b6a6c" prot="public" static="no">
+        <name>XVPROCSS_EDAT_IPABSENT</name>
+        <initializer>0xF1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1ae2b8830a3187f1c4bc0d1613987b3a39" prot="public" static="no">
+        <name>XVPROCSS_EDAT_CFABSENT</name>
+        <initializer>0xF2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a31fa0ca4e3539091a4f9b4534f99b57c" prot="public" static="no">
+        <name>XVPROCSS_EDAT_BADADDR</name>
+        <initializer>0xF3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a104a03d390963eaf1c5d9a50ca317c4f" prot="public" static="no">
+        <name>XVPROCSS_EDAT_IGNORE</name>
+        <initializer>0xF4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a8c586bb796ed2a734ac099918adedf56" prot="public" static="no">
+        <name>XVPROCSS_EDAT_IODIFF</name>
+        <initializer>0xF5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1afc73ff20841e57d88694f0b6b66614b7" prot="public" static="no">
+        <name>XVPROCSS_EDAT_VMDIFF</name>
+        <initializer>0xF6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a78e5e09708b7566532a9e988b4be5802" prot="public" static="no">
+        <name>XVPROCSS_EDAT_CDIFF</name>
+        <initializer>0xF7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a9dd2a5274f313508d90990cd3ee28d64" prot="public" static="no">
+        <name>XVPROCSS_EDAT_HDIFF</name>
+        <initializer>0xF8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1abba15f837b348c327ae1e1379f500829" prot="public" static="no">
+        <name>XVPROCSS_EDAT_VDIFF</name>
+        <initializer>0xF9</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a25fc3ea5f5aed7959907d70b698ae262" prot="public" static="no">
+        <name>XVPROCSS_EDAT_INTPRG</name>
+        <initializer>0xFA</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a50f3c06276fbf38dd8afc99dfda7930d" prot="public" static="no">
+        <name>XVPROCSS_EDAT_NO420</name>
+        <initializer>0xFB</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a16f28f8ce4a9185fbf20b954004304af" prot="public" static="no">
+        <name>XVPROCSS_EDAT_NO422</name>
+        <initializer>0xFC</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1afabde0c2382c5a94578146c8ecd47c9f" prot="public" static="no">
+        <name>XVPROCSS_EDAT_CFIN</name>
+        <initializer>0xFD</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a10fa40954372147efdc35cc2c01c7fa6" prot="public" static="no">
+        <name>XVPROCSS_EDAT_CFOUT</name>
+        <initializer>0xFE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a29cb0803a09a3906f4d1730ebbcf3087" prot="public" static="no">
+        <name>XVPROCSS_EDAT_CSC_SETWIN</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1aca9056dbc66ff127f05a0dd5ab5e110e" prot="public" static="no">
+        <name>XVPROCSS_EDAT_CSC_BADWIN</name>
+        <initializer>0xEF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a81667f71f3bf8a3d3054cf82369e2148" prot="public" static="no">
+        <name>XVPROCSS_EDAT_MAX_TABLEOK</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a676225f73688cb089c504f0bf42e4fa9" prot="public" static="no">
+        <name>XVPROCSS_EDAT_MAX_DFLOWOK</name>
+        <initializer>0x11</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a98df884794a0daf67488c9d15a484ef4" prot="public" static="no">
+        <name>XVPROCSS_EDAT_MAX_ROUTEOK</name>
+        <initializer>0x12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a3792afb77d82cbba94f0c671a9ac6827" prot="public" static="no">
+        <name>XVPROCSS_EDAT_MAX_SCALE11</name>
+        <initializer>0x13</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a14c19505b9e9a62a90717f526e6ab51b" prot="public" static="no">
+        <name>XVPROCSS_EDAT_MAX_SCALEUP</name>
+        <initializer>0x14</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a9aa76171e3db43a53e5d672679d1fd3f" prot="public" static="no">
+        <name>XVPROCSS_EDAT_MAX_SCALEDN</name>
+        <initializer>0x15</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a4d2f0bfdf64998e0f62edabba0f63104" prot="public" static="no">
+        <name>XVPROCSS_EDAT_MAX_WRWINBAD</name>
+        <initializer>0xED</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a3a9c2ee62a65a0721bb008afac54c982" prot="public" static="no">
+        <name>XVPROCSS_EDAT_MAX_RDWINBAD</name>
+        <initializer>0xEE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a72ae2118968ea9874f98a266602913ae" prot="public" static="no">
+        <name>XVPROCSS_EDAT_MAX_SCALEBAD</name>
+        <initializer>0xEF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a7e0d52022b66297c5a3501e8b38fd593" prot="public" static="no">
+        <name>XVPROCSS_EDAT_VPSS_FRDIFF</name>
+        <initializer>0xE5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a57811ce8e81c45a13d0dc90eabee7860" prot="public" static="no">
+        <name>XVPROCSS_EDAT_VPSS_IVRANGE</name>
+        <initializer>0xE6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a28e29b27b4135c77e24a68bcbd2eacbd" prot="public" static="no">
+        <name>XVPROCSS_EDAT_VPSS_OVRANGE</name>
+        <initializer>0xE7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1af3cda4a66c8534924222fceda93fe649" prot="public" static="no">
+        <name>XVPROCSS_EDAT_VPSS_WIDBAD</name>
+        <initializer>0xE8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a74a8558cd04a4bfd0f1156b1c6be46d3" prot="public" static="no">
+        <name>XVPROCSS_EDAT_VPSS_RESBAD</name>
+        <initializer>0xE9</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1aff82c603bc659d0d11b19183fd15667a" prot="public" static="no">
+        <name>XVPROCSS_EDAT_VPSS_WIDODD</name>
+        <initializer>0xEA</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a13aa8c918a12ce12d870f5cad12a1abb" prot="public" static="no">
+        <name>XVPROCSS_EDAT_VPSS_SIZODD</name>
+        <initializer>0xEB</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1af65a0a883d84cb457037177f7c5f9154" prot="public" static="no">
+        <name>XVPROCSS_EDAT_VPSS_NOHCR</name>
+        <initializer>0xEC</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1aaf49dbd4dfbc872be7b69b8366128bea" prot="public" static="no">
+        <name>XVPROCSS_EDAT_VPSS_NOVCRI</name>
+        <initializer>0xED</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="160" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a0c5302e95221da97022c86a975a42ce6" prot="public" static="no">
+        <name>XVPROCSS_EDAT_VPSS_NOVCRO</name>
+        <initializer>0xEE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a0fc8d59978ac0c0b1475fcc5d2e7d3ca" prot="public" static="no">
+        <name>XVPROCSS_EDAT_VPSS_NODEIN</name>
+        <initializer>0xEF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a856924a24602ab931938e9bd61e1d9a0" prot="public" static="no">
+        <name>XVPROCSS_EDAT_VDMA_WRCFG</name>
+        <initializer>0xE8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1aa271448843eb7cae5d835fa4bdbe11b0" prot="public" static="no">
+        <name>XVPROCSS_EDAT_VDMA_RDCFG</name>
+        <initializer>0xE9</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1ab4a624cec990fe32c47604e7b8be77c3" prot="public" static="no">
+        <name>XVPROCSS_EDAT_VDMA_WRADR</name>
+        <initializer>0xEA</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a9b0fe5301d2bf6fa94648e0e1c967543" prot="public" static="no">
+        <name>XVPROCSS_EDAT_VDMA_RDADR</name>
+        <initializer>0xEB</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a21f3672a823321642ccdaebe3971f835" prot="public" static="no">
+        <name>XVPROCSS_EDAT_VDMA_WRXFR</name>
+        <initializer>0xEC</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a1ddc942623128d8d8e881b4467e5c237" prot="public" static="no">
+        <name>XVPROCSS_EDAT_VDMA_RDXFR</name>
+        <initializer>0xED</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a34fbcecfbb0f99b9850c3fa341b6f39f" prot="public" static="no">
+        <name>XVPROCSS_EDAT_VDMA_WRRES</name>
+        <initializer>0xEE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="171" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1aca694e05b9b2474ed0ec943ef058b771" prot="public" static="no">
+        <name>XVPROCSS_EDAT_VDMA_RDRES</name>
+        <initializer>0xEF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="172" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1ad637ce5fb3d61e01d2b5c5dca483bb86" prot="public" static="no">
+        <name>XVPROCSS_EDAT_BGND_SET</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvprocss__log_8h_1a1cb9bce24100684b354e8f4b7526bfd9" prot="public" static="no">
+        <name>XVPROCSS_EDAT_LBOX_ABSENT</name>
+        <initializer>0xEF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9" prot="public" static="no">
+        <name>XVprocSs_LogEvent</name>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a3ba0825358703c04ed25a3745c47a192" prot="public">
+          <name>XVPROCSS_EVT_NONE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Log event none. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9acc9fe81f5f5652e44b0769a046a02490" prot="public">
+          <name>XVPROCSS_EVT_INIT</name>
+          <briefdescription>
+<para>Log event init. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a304e31ecbdc687845d0b702c919188c5" prot="public">
+          <name>XVPROCSS_EVT_INIT_RESAXIS</name>
+          <briefdescription>
+<para>Log event init status of Reset Axis subcore. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a85020f2589cda4a8ad9bf8fce8b043bc" prot="public">
+          <name>XVPROCSS_EVT_INIT_RESAXIM</name>
+          <briefdescription>
+<para>Log event init status of Reset Aximm subcore. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a8fb36e2d02ae8e0438c8e67791fe388c" prot="public">
+          <name>XVPROCSS_EVT_INIT_ROUTER</name>
+          <briefdescription>
+<para>Log event init status of Router subcore. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a2816ccbb3f218ce27a57bf6539570d40" prot="public">
+          <name>XVPROCSS_EVT_INIT_LBOX</name>
+          <briefdescription>
+<para>Log event init status of Letterbox subcore. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9ab119fb162d69df3ab5da8f8e0b96763e" prot="public">
+          <name>XVPROCSS_EVT_INIT_VDMA</name>
+          <briefdescription>
+<para>Log event init status of VDMA subcore. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa8ac981b143e5cbdd3109631b1788b30" prot="public">
+          <name>XVPROCSS_EVT_CFGERR_VDMA</name>
+          <briefdescription>
+<para>Log event VDMA configuration error. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9ae5ccb3686b40801af76a470a6b74b208" prot="public">
+          <name>XVPROCSS_EVT_OPERR_VDMA</name>
+          <briefdescription>
+<para>Log event VDMA operation error. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9afdaaf23d284f472e2236b3c39a544262" prot="public">
+          <name>XVPROCSS_EVT_CFG_HSCALER</name>
+          <briefdescription>
+<para>Log event Scaler config status. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9abc5ae18af47d9b7409f1ba41612f5b15" prot="public">
+          <name>XVPROCSS_EVT_CFG_VSCALER</name>
+          <briefdescription>
+<para>Log event Scaler config status. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a69ed478af62bfb13c0e68251ca18b3da" prot="public">
+          <name>XVPROCSS_EVT_CFG_CSC</name>
+          <briefdescription>
+<para>Log event Csc config status. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a6a8c4711e68ded9fb3d4c64b74a94b22" prot="public">
+          <name>XVPROCSS_EVT_CFG_DEINT</name>
+          <briefdescription>
+<para>Log event Deinterlacer config status. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a730776a8501e9615a0710c25ee779450" prot="public">
+          <name>XVPROCSS_EVT_CFG_VCRI</name>
+          <briefdescription>
+<para>Log event VCResampler config status. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9ad7b48ab5518ddc0f71d4e620450d76a9" prot="public">
+          <name>XVPROCSS_EVT_CFG_VCRO</name>
+          <briefdescription>
+<para>Log event VCResampler config status. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a2bc1af33195315cf16b38d7b11e872bd" prot="public">
+          <name>XVPROCSS_EVT_CFG_HCR</name>
+          <briefdescription>
+<para>Log event HCResampler config status. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" prot="public">
+          <name>XVPROCSS_EVT_CFG_MAX</name>
+          <briefdescription>
+<para>Log event Full Fledged config status. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9abda5efa3b8a91c89e006631e59bea90a" prot="public">
+          <name>XVPROCSS_EVT_CFG_VPSS</name>
+          <briefdescription>
+<para>Log event VPSS config status. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a54ab50f0d2e7e4a55cc54245d6facabb" prot="public">
+          <name>XVPROCSS_EVT_CHK_TOPO</name>
+          <briefdescription>
+<para>Log event check Topology. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a203a442aec1615b0fe26d4586e23fc5a" prot="public">
+          <name>XVPROCSS_EVT_CHK_BASEADDR</name>
+          <briefdescription>
+<para>Log event check Frame buffer base address. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a59c1a12d3255327b3fd10fe3c6e1cbd7" prot="public">
+          <name>XVPROCSS_EVT_SET_PIPMODE</name>
+          <briefdescription>
+<para>Log event Set Pip Mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a558e3ec01039cf251147be690d2bd9ec" prot="public">
+          <name>XVPROCSS_EVT_SET_ZOOMMODE</name>
+          <briefdescription>
+<para>Log event Set Zoom Mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a54b4e1dc8b52c05a12e3e3cd9f4f8c18" prot="public">
+          <name>XVPROCSS_EVT_SET_PIPWIN</name>
+          <briefdescription>
+<para>Log event Set Pip window. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a0a17a2771f447b75dd3c1236bc1bb298" prot="public">
+          <name>XVPROCSS_EVT_SET_ZOOMWIN</name>
+          <briefdescription>
+<para>Log event Set Zoom window. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a6da55aee92eef69c31de0744ed118d0a" prot="public">
+          <name>XVPROCSS_EVT_GET_ZPWIN</name>
+          <briefdescription>
+<para>Log event Get Zoom/Pip window. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9af2ff6134491d7c3675540e4cec7d2cbb" prot="public">
+          <name>XVPROCSS_EVT_UPDATE_ZPWIN</name>
+          <briefdescription>
+<para>Log event Update Zoom/Pip window status. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a6b5ae254ff201393e86716ec62425f29" prot="public">
+          <name>XVPROCSS_EVT_RESET_VPSS</name>
+          <briefdescription>
+<para>Log event Reset the VPSS. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a3bcee1ee986b5f86f45468e2e9fac5f6" prot="public">
+          <name>XVPROCSS_EVT_START_VPSS</name>
+          <briefdescription>
+<para>Log event Start the VPSS. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a7f440bf73b91e8287f25032ff2b63020" prot="public">
+          <name>XVPROCSS_EVT_STOP_VPSS</name>
+          <briefdescription>
+<para>Log event Stop the VPSS. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9ad0f8885a219b90be8a513ad6665c130d" prot="public">
+          <name>XVPROCSS_EVT_LAST_ENUM</name>
+          <briefdescription>
+<para>(dummy event: marks last enum) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef contains the Event Log identifiers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h" bodystart="49" bodyend="80"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor">#ifndef<sp/>XVPROCSS_LOG_H<sp/></highlight></codeline>
+<codeline lineno="31" refid="xvprocss__log_8h_1a09b5aca39b98e5dd8f5aa4beeaf83fc8" refkind="member"><highlight class="preprocessor">#define<sp/>XVPROCSS_LOG_H</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined(XV_CONFIG_LOG_VPRCOSS_DISABLE)<sp/>&amp;&amp;<sp/>!defined(XV_CONFIG_LOG_DISABLE_ALL)</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_VPROCSS_LOG_ENABLE</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XV_VPROCSS_LOG_ENABLE</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight></codeline>
+<codeline lineno="49" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="50" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a3ba0825358703c04ed25a3745c47a192" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a3ba0825358703c04ed25a3745c47a192" kindref="member">XVPROCSS_EVT_NONE</ref><sp/>=<sp/>1,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="51" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9acc9fe81f5f5652e44b0769a046a02490" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9acc9fe81f5f5652e44b0769a046a02490" kindref="member">XVPROCSS_EVT_INIT</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a304e31ecbdc687845d0b702c919188c5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a304e31ecbdc687845d0b702c919188c5" kindref="member">XVPROCSS_EVT_INIT_RESAXIS</ref>,<sp/></highlight></codeline>
+<codeline lineno="53" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a85020f2589cda4a8ad9bf8fce8b043bc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a85020f2589cda4a8ad9bf8fce8b043bc" kindref="member">XVPROCSS_EVT_INIT_RESAXIM</ref>,<sp/></highlight></codeline>
+<codeline lineno="54" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a8fb36e2d02ae8e0438c8e67791fe388c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a8fb36e2d02ae8e0438c8e67791fe388c" kindref="member">XVPROCSS_EVT_INIT_ROUTER</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="55" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a2816ccbb3f218ce27a57bf6539570d40" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a2816ccbb3f218ce27a57bf6539570d40" kindref="member">XVPROCSS_EVT_INIT_LBOX</ref>,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9ab119fb162d69df3ab5da8f8e0b96763e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9ab119fb162d69df3ab5da8f8e0b96763e" kindref="member">XVPROCSS_EVT_INIT_VDMA</ref>,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="57" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa8ac981b143e5cbdd3109631b1788b30" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa8ac981b143e5cbdd3109631b1788b30" kindref="member">XVPROCSS_EVT_CFGERR_VDMA</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="58" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9ae5ccb3686b40801af76a470a6b74b208" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9ae5ccb3686b40801af76a470a6b74b208" kindref="member">XVPROCSS_EVT_OPERR_VDMA</ref>,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9afdaaf23d284f472e2236b3c39a544262" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9afdaaf23d284f472e2236b3c39a544262" kindref="member">XVPROCSS_EVT_CFG_HSCALER</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="60" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9abc5ae18af47d9b7409f1ba41612f5b15" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9abc5ae18af47d9b7409f1ba41612f5b15" kindref="member">XVPROCSS_EVT_CFG_VSCALER</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a69ed478af62bfb13c0e68251ca18b3da" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a69ed478af62bfb13c0e68251ca18b3da" kindref="member">XVPROCSS_EVT_CFG_CSC</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a6a8c4711e68ded9fb3d4c64b74a94b22" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a6a8c4711e68ded9fb3d4c64b74a94b22" kindref="member">XVPROCSS_EVT_CFG_DEINT</ref>,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a730776a8501e9615a0710c25ee779450" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a730776a8501e9615a0710c25ee779450" kindref="member">XVPROCSS_EVT_CFG_VCRI</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9ad7b48ab5518ddc0f71d4e620450d76a9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9ad7b48ab5518ddc0f71d4e620450d76a9" kindref="member">XVPROCSS_EVT_CFG_VCRO</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a2bc1af33195315cf16b38d7b11e872bd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a2bc1af33195315cf16b38d7b11e872bd" kindref="member">XVPROCSS_EVT_CFG_HCR</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" kindref="member">XVPROCSS_EVT_CFG_MAX</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9abda5efa3b8a91c89e006631e59bea90a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9abda5efa3b8a91c89e006631e59bea90a" kindref="member">XVPROCSS_EVT_CFG_VPSS</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a54ab50f0d2e7e4a55cc54245d6facabb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a54ab50f0d2e7e4a55cc54245d6facabb" kindref="member">XVPROCSS_EVT_CHK_TOPO</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a203a442aec1615b0fe26d4586e23fc5a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a203a442aec1615b0fe26d4586e23fc5a" kindref="member">XVPROCSS_EVT_CHK_BASEADDR</ref>,<sp/></highlight></codeline>
+<codeline lineno="70" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a59c1a12d3255327b3fd10fe3c6e1cbd7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a59c1a12d3255327b3fd10fe3c6e1cbd7" kindref="member">XVPROCSS_EVT_SET_PIPMODE</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="71" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a558e3ec01039cf251147be690d2bd9ec" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a558e3ec01039cf251147be690d2bd9ec" kindref="member">XVPROCSS_EVT_SET_ZOOMMODE</ref>,<sp/></highlight></codeline>
+<codeline lineno="72" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a54b4e1dc8b52c05a12e3e3cd9f4f8c18" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a54b4e1dc8b52c05a12e3e3cd9f4f8c18" kindref="member">XVPROCSS_EVT_SET_PIPWIN</ref>,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a0a17a2771f447b75dd3c1236bc1bb298" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a0a17a2771f447b75dd3c1236bc1bb298" kindref="member">XVPROCSS_EVT_SET_ZOOMWIN</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="74" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a6da55aee92eef69c31de0744ed118d0a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a6da55aee92eef69c31de0744ed118d0a" kindref="member">XVPROCSS_EVT_GET_ZPWIN</ref>,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9af2ff6134491d7c3675540e4cec7d2cbb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9af2ff6134491d7c3675540e4cec7d2cbb" kindref="member">XVPROCSS_EVT_UPDATE_ZPWIN</ref>,<sp/></highlight></codeline>
+<codeline lineno="76" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a6b5ae254ff201393e86716ec62425f29" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a6b5ae254ff201393e86716ec62425f29" kindref="member">XVPROCSS_EVT_RESET_VPSS</ref>,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a3bcee1ee986b5f86f45468e2e9fac5f6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a3bcee1ee986b5f86f45468e2e9fac5f6" kindref="member">XVPROCSS_EVT_START_VPSS</ref>,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="78" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a7f440bf73b91e8287f25032ff2b63020" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a7f440bf73b91e8287f25032ff2b63020" kindref="member">XVPROCSS_EVT_STOP_VPSS</ref>,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79" refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9ad0f8885a219b90be8a513ad6665c130d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9ad0f8885a219b90be8a513ad6665c130d" kindref="member">XVPROCSS_EVT_LAST_ENUM</ref><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="80"><highlight class="normal">}<sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9" kindref="member">XVprocSs_LogEvent</ref>;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85" refid="xvprocss__log_8h_1a463361d1b27cc99ddbad5d50e1385afa" refkind="member"><highlight class="preprocessor">#define<sp/>XVPROCSS_EVT_BUFFSIZE<sp/>256</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DataBuffer[<ref refid="xvprocss__log_8h_1a463361d1b27cc99ddbad5d50e1385afa" kindref="member">XVPROCSS_EVT_BUFFSIZE</ref>];<sp/></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>HeadIndex;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>TailIndex;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93"><highlight class="normal">}<sp/>XVprocSs_Log;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Constants<sp/>************************************/</highlight></codeline>
+<codeline lineno="105"><highlight class="comment">//<sp/>General<sp/>codes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106" refid="xvprocss__log_8h_1abeba7bd429b2f9f668ddf656a0c7ba3f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_SUCCESS<sp/><sp/><sp/><sp/><sp/><sp/>0x00</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_FAILURE<sp/><sp/><sp/><sp/><sp/><sp/>0xFF</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_OFF<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_ON<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_BEGIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_END<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="comment">//<sp/>These<sp/>codes<sp/>apply<sp/>to<sp/>several<sp/>subcores</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_VALID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_INITOK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x03</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_SETUPOK<sp/><sp/><sp/><sp/><sp/><sp/>0x04</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_LDCOEF<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x05</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_INITFAIL<sp/><sp/><sp/><sp/><sp/>0xF0</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_IPABSENT<sp/><sp/><sp/><sp/><sp/>0xF1</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_CFABSENT<sp/><sp/><sp/><sp/><sp/>0xF2</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_BADADDR<sp/><sp/><sp/><sp/><sp/><sp/>0xF3</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_IGNORE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF4</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_IODIFF<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF5</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_VMDIFF<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF6</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_CDIFF<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF7</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_HDIFF<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF8</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_VDIFF<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF9</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_INTPRG<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFA</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_NO420<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFB</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_NO422<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFC</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_CFIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFD</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_CFOUT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFE</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="comment">//<sp/>These<sp/>codes<sp/>are<sp/>specific<sp/>to<sp/>CSC-only<sp/>mode</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_CSC_SETWIN<sp/><sp/><sp/>0x10</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_CSC_BADWIN<sp/><sp/><sp/>0xEF</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="comment">//<sp/>These<sp/>codes<sp/>are<sp/>specific<sp/>to<sp/>Max<sp/>(Full)<sp/>mode</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_MAX_TABLEOK<sp/><sp/>0x10</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_MAX_DFLOWOK<sp/><sp/>0x11</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_MAX_ROUTEOK<sp/><sp/>0x12</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_MAX_SCALE11<sp/><sp/>0x13</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_MAX_SCALEUP<sp/><sp/>0x14</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_MAX_SCALEDN<sp/><sp/>0x15</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_MAX_WRWINBAD<sp/>0xED</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_MAX_RDWINBAD<sp/>0xEE</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_MAX_SCALEBAD<sp/>0xEF</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="comment">//<sp/>These<sp/>codes<sp/>are<sp/>specific<sp/>to<sp/>VPSS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_VPSS_FRDIFF<sp/><sp/>0xE5</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_VPSS_IVRANGE<sp/>0xE6</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_VPSS_OVRANGE<sp/>0xE7</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_VPSS_WIDBAD<sp/><sp/>0xE8</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_VPSS_RESBAD<sp/><sp/>0xE9</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_VPSS_WIDODD<sp/><sp/>0xEA</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_VPSS_SIZODD<sp/><sp/>0xEB</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_VPSS_NOHCR<sp/><sp/><sp/>0xEC</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_VPSS_NOVCRI<sp/><sp/>0xED</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_VPSS_NOVCRO<sp/><sp/>0xEE</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_VPSS_NODEIN<sp/><sp/>0xEF</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="comment">//<sp/>These<sp/>codes<sp/>are<sp/>specific<sp/>to<sp/>VDMA</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_VDMA_WRCFG<sp/><sp/><sp/>0xE8</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_VDMA_RDCFG<sp/><sp/><sp/>0xE9</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_VDMA_WRADR<sp/><sp/><sp/>0xEA</highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_VDMA_RDADR<sp/><sp/><sp/>0xEB</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_VDMA_WRXFR<sp/><sp/><sp/>0xEC</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_VDMA_RDXFR<sp/><sp/><sp/>0xED</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_VDMA_WRRES<sp/><sp/><sp/>0xEE</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_VDMA_RDRES<sp/><sp/><sp/>0xEF</highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight><highlight class="comment">//<sp/>These<sp/>codes<sp/>are<sp/>specific<sp/>to<sp/>PIP<sp/>setup</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_BGND_SET<sp/><sp/><sp/><sp/><sp/>0x10</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_EDAT_LBOX_ABSENT<sp/><sp/>0xEF</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//XV_VPROCSS_LOG_ENABLE</highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_log.h"/>
+  </compounddef>
+</doxygen>

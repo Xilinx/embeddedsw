@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_i_o_module___timer___stats" kind="struct" prot="public">
+    <compoundname>XIOModule_Timer_Stats</compoundname>
+    <includes local="no">xiomodule.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_i_o_module___timer___stats_1aeea5691ebbd34f15b36be34b1bcf5cc5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIOModule_Timer_Stats::Interrupts</definition>
+        <argsstring></argsstring>
+        <name>Interrupts</name>
+        <briefdescription>
+<para>Number of timer interrupts that have occurred. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="424" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="424" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1ga035df6e086b5235a837f8b9d8da14508" compoundref="xiomodule_8c" startline="909" endline="992">XIOModule_Timer_Initialize</referencedby>
+        <referencedby refid="group__iomodule_1ga431eb19a0f6aeab9bab0cdb09fdc30ce" compoundref="xiomodule__intr_8c" startline="232" endline="291">XIOModule_Timer_InterruptHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Programmable Interval Timer statistics. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" bodystart="423" bodyend="425"/>
+    <listofallmembers>
+      <member refid="struct_x_i_o_module___timer___stats_1aeea5691ebbd34f15b36be34b1bcf5cc5" prot="public" virt="non-virtual"><scope>XIOModule_Timer_Stats</scope><name>Interrupts</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___aes_dma_cfg" kind="struct" prot="public">
+    <compoundname>XSecure_AesDmaCfg</compoundname>
+    <includes local="no">xsecure_plat.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___aes_dma_cfg_1a6d92d93e3aeab86b9dbb80ff284846b5" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_AesDmaCfg::SrcDataAddr</definition>
+        <argsstring></argsstring>
+        <name>SrcDataAddr</name>
+        <briefdescription>
+<para>Address of source buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.h" bodystart="230" bodyend="-1"/>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga9224168b6fa6d11f59c50046f2221d11" compoundref="spartanup_2xsecure__plat_8c" startline="326" endline="378">XSecure_AesPlatPmcDmaCfgAndXfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___aes_dma_cfg_1a55052d177d8fb06fc47ca7b9d448ae30" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_AesDmaCfg::DestDataAddr</definition>
+        <argsstring></argsstring>
+        <name>DestDataAddr</name>
+        <briefdescription>
+<para>Address of destination buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.h" bodystart="231" bodyend="-1"/>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga9224168b6fa6d11f59c50046f2221d11" compoundref="spartanup_2xsecure__plat_8c" startline="326" endline="378">XSecure_AesPlatPmcDmaCfgAndXfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___aes_dma_cfg_1ad8b73674b1779c43cb36c933d588d300" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_AesDmaCfg::SrcChannelCfg</definition>
+        <argsstring></argsstring>
+        <name>SrcChannelCfg</name>
+        <briefdescription>
+<para>DMA Source channel configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.h" bodystart="232" bodyend="-1"/>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga9224168b6fa6d11f59c50046f2221d11" compoundref="spartanup_2xsecure__plat_8c" startline="326" endline="378">XSecure_AesPlatPmcDmaCfgAndXfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___aes_dma_cfg_1a037773022fccd544566ba4063a4c6ee4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_AesDmaCfg::DestChannelCfg</definition>
+        <argsstring></argsstring>
+        <name>DestChannelCfg</name>
+        <briefdescription>
+<para>DMA destination channel configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.h" bodystart="233" bodyend="-1"/>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga9224168b6fa6d11f59c50046f2221d11" compoundref="spartanup_2xsecure__plat_8c" startline="326" endline="378">XSecure_AesPlatPmcDmaCfgAndXfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___aes_dma_cfg_1ad6d3b3ad5e06cb4e78275514f64ca5a7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_AesDmaCfg::IsLastChunkSrc</definition>
+        <argsstring></argsstring>
+        <name>IsLastChunkSrc</name>
+        <briefdescription>
+<para>Flag for last update in source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.h" bodystart="234" bodyend="-1"/>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga9224168b6fa6d11f59c50046f2221d11" compoundref="spartanup_2xsecure__plat_8c" startline="326" endline="378">XSecure_AesPlatPmcDmaCfgAndXfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___aes_dma_cfg_1a1400e7b647c5a5835f78999f6634272d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_AesDmaCfg::IsLastChunkDest</definition>
+        <argsstring></argsstring>
+        <name>IsLastChunkDest</name>
+        <briefdescription>
+<para>Flag for last update in destination. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.h" bodystart="235" bodyend="-1"/>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga9224168b6fa6d11f59c50046f2221d11" compoundref="spartanup_2xsecure__plat_8c" startline="326" endline="378">XSecure_AesPlatPmcDmaCfgAndXfer</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains parameters to configure DMA for AES. </para>    </briefdescription>
+    <detaileddescription>
+<para>Data structure contains parameters to configure DMA for AES. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_plat.h" bodystart="229" bodyend="236"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___aes_dma_cfg_1a037773022fccd544566ba4063a4c6ee4" prot="public" virt="non-virtual"><scope>XSecure_AesDmaCfg</scope><name>DestChannelCfg</name></member>
+      <member refid="struct_x_secure___aes_dma_cfg_1a55052d177d8fb06fc47ca7b9d448ae30" prot="public" virt="non-virtual"><scope>XSecure_AesDmaCfg</scope><name>DestDataAddr</name></member>
+      <member refid="struct_x_secure___aes_dma_cfg_1a1400e7b647c5a5835f78999f6634272d" prot="public" virt="non-virtual"><scope>XSecure_AesDmaCfg</scope><name>IsLastChunkDest</name></member>
+      <member refid="struct_x_secure___aes_dma_cfg_1ad6d3b3ad5e06cb4e78275514f64ca5a7" prot="public" virt="non-virtual"><scope>XSecure_AesDmaCfg</scope><name>IsLastChunkSrc</name></member>
+      <member refid="struct_x_secure___aes_dma_cfg_1ad8b73674b1779c43cb36c933d588d300" prot="public" virt="non-virtual"><scope>XSecure_AesDmaCfg</scope><name>SrcChannelCfg</name></member>
+      <member refid="struct_x_secure___aes_dma_cfg_1a6d92d93e3aeab86b9dbb80ff284846b5" prot="public" virt="non-virtual"><scope>XSecure_AesDmaCfg</scope><name>SrcDataAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

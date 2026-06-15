@@ -1,0 +1,226 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___mix__l2" kind="struct" prot="public">
+    <compoundname>XV_Mix_l2</compoundname>
+    <includes local="no">xv_mix_l2.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___mix__l2_1ac5a8467e514ea5628de7784f2bbe36ad" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__mix" kindref="compound">XV_mix</ref></type>
+        <definition>XV_mix XV_Mix_l2::Mix</definition>
+        <argsstring></argsstring>
+        <name>Mix</name>
+        <briefdescription>
+<para>Mixer Layer 1 instance data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" bodystart="304" bodyend="-1"/>
+        <referencedby refid="xv__mix__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__mix__example_8c" startline="1055" endline="1212">main</referencedby>
+        <referencedby refid="group__v__mix_1ga723b99028777cdecd1a2f4102ce9b792" compoundref="xv__mix__l2_8c" startline="1739" endline="1859">XVMix_DbgLayerInfo</referencedby>
+        <referencedby refid="group__v__mix_1ga805ce6cc52eaecc97361e4680b4a51b3" compoundref="xv__mix__l2_8c" startline="1683" endline="1717">XVMix_DbgReportStatus</referencedby>
+        <referencedby refid="group__v__mix_1ga5cc8135e34ef1c998256c207a80dd8a8" compoundref="xv__mix__l2_8c" startline="1034" endline="1064">XVMix_GetLayerAlpha</referencedby>
+        <referencedby refid="group__v__mix_1ga72b288cda2c49d1fb09245622d9e58c6" compoundref="xv__mix__l2_8c" startline="1226" endline="1245">XVMix_GetLayerBufferAddr</referencedby>
+        <referencedby refid="group__v__mix_1ga3279f35b6a870f57e9d89a013bcf28fc" compoundref="xv__mix__l2_8c" startline="1414" endline="1434">XVMix_GetLayerChromaBuffer2Addr</referencedby>
+        <referencedby refid="group__v__mix_1ga3056dab3a16bc61cffee350544b862fa" compoundref="xv__mix__l2_8c" startline="1315" endline="1335">XVMix_GetLayerChromaBufferAddr</referencedby>
+        <referencedby refid="group__v__mix_1gaba881e5eeabde22ab7c02aee78d320a0" compoundref="xv__mix__l2_8c" startline="1125" endline="1160">XVMix_GetLayerColorFormat</referencedby>
+        <referencedby refid="group__v__mix_1ga694fb356c5458509b2ceb615a0cb4008" compoundref="xv__mix__l2_8c" startline="936" endline="966">XVMix_GetLayerScaleFactor</referencedby>
+        <referencedby refid="group__v__mix_1ga7294d87809e7c940e83234bf6d0730db" compoundref="xv__mix__l2_8c" startline="711" endline="770">XVMix_GetLayerWindow</referencedby>
+        <referencedby refid="group__v__mix_1gaca5e7221f1af27ee75c91d68d407ea11" compoundref="xv__mix__l2_8c" startline="1491" endline="1514">XVMix_GetLogoColorKey</referencedby>
+        <referencedby refid="group__v__mix_1gab7ebc26eaf614e09344e1df2c97f3954" compoundref="xv__mix__l2_8c" startline="147" endline="160">XVMix_Initialize</referencedby>
+        <referencedby refid="group__v__mix_1ga730ead6b1406bec7411131a76556f63b" compoundref="xv__mix__l2_8c" startline="269" endline="279">XVMix_InterruptDisable</referencedby>
+        <referencedby refid="group__v__mix_1ga349918aa3590f7bac1257e8fade0ee4c" compoundref="xv__mix__l2_8c" startline="245" endline="255">XVMix_InterruptEnable</referencedby>
+        <referencedby refid="group__v__mix_1ga11c3c9f8be66807a720a0043195e5382" compoundref="xv__mix__l2__intr_8c" startline="83" endline="106">XVMix_InterruptHandler</referencedby>
+        <referencedby refid="group__v__mix_1ga9b28f400c6cd002f3371b36c215d6211" compoundref="xv__mix__l2_8c" startline="503" endline="516">XVMix_IsLayerEnabled</referencedby>
+        <referencedby refid="group__v__mix_1ga2c30f02312e3bac225fbf4cd02ed9923" compoundref="xv__mix__l2_8c" startline="463" endline="490">XVMix_LayerDisable</referencedby>
+        <referencedby refid="group__v__mix_1ga486fc2f3495d74d4a4ad9b66ea50f1cc" compoundref="xv__mix__l2_8c" startline="421" endline="449">XVMix_LayerEnable</referencedby>
+        <referencedby refid="group__v__mix_1gad3be6015739c08069d22cb45910d9df9" compoundref="xv__mix__l2_8c" startline="1544" endline="1606">XVMix_LoadLogo</referencedby>
+        <referencedby refid="group__v__mix_1gad7d9ee2b4aeabf501f0a0dd0703543d5" compoundref="xv__mix__l2_8c" startline="1622" endline="1662">XVMix_LoadLogoPixelAlpha</referencedby>
+        <referencedby refid="group__v__mix_1ga8a30c176c1bc5810577622e42d102ec6" compoundref="xv__mix__l2_8c" startline="787" endline="857">XVMix_MoveLayerWindow</referencedby>
+        <referencedby refid="group__v__mix_1ga945667e7c19dfcecad7c289f0517f242" compoundref="xv__mix__l2_8c" startline="530" endline="562">XVMix_SetBackgndColor</referencedby>
+        <referencedby refid="group__v__mix_1ga283cb29bb936ce5d0539782422ff3c3e" compoundref="xv__mix__l2_8c" startline="981" endline="1020">XVMix_SetLayerAlpha</referencedby>
+        <referencedby refid="group__v__mix_1ga8d317845835bcbcc2b9f877ce0274691" compoundref="xv__mix__l2_8c" startline="1175" endline="1212">XVMix_SetLayerBufferAddr</referencedby>
+        <referencedby refid="group__v__mix_1gaaf18b72d5323b64b3c7d58703918bb2c" compoundref="xv__mix__l2_8c" startline="1360" endline="1397">XVMix_SetLayerChromaBuffer2Addr</referencedby>
+        <referencedby refid="group__v__mix_1ga7be832e27e45da5630205217381207a3" compoundref="xv__mix__l2_8c" startline="1262" endline="1299">XVMix_SetLayerChromaBufferAddr</referencedby>
+        <referencedby refid="group__v__mix_1ga8ed68eed5c7d6441ef98894f658deb1d" compoundref="xv__mix__l2_8c" startline="872" endline="922">XVMix_SetLayerScaleFactor</referencedby>
+        <referencedby refid="group__v__mix_1gaae184b6a71616c3b4c0a61a0d0e007b1" compoundref="xv__mix__l2_8c" startline="583" endline="696">XVMix_SetLayerWindow</referencedby>
+        <referencedby refid="group__v__mix_1gae610d77dd58ce485da3d0e616aa0a4ea" compoundref="xv__mix__l2_8c" startline="1451" endline="1474">XVMix_SetLogoColorKey</referencedby>
+        <referencedby refid="group__v__mix_1ga372774be70d11a2e394d8f0d7d8c1b1e" compoundref="xv__mix__l2_8c" startline="390" endline="407">XVMix_SetVidStream</referencedby>
+        <referencedby refid="group__v__mix_1ga32026175776d49f1fe5fc7f7be21b9da" compoundref="xv__mix__l2_8c" startline="292" endline="297">XVMix_Start</referencedby>
+        <referencedby refid="group__v__mix_1ga9b703df7e560fd02b33376d630a53773" compoundref="xv__mix__l2_8c" startline="316" endline="337">XVMix_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___mix__l2_1ae7f8572bd90632d268180e01c836b069" prot="public" static="no" mutable="no">
+        <type><ref refid="group__v__mix_1ga547d67e8ebe67c5c6f124464fa5d5783" kindref="member">XVMix_Callback</ref></type>
+        <definition>XVMix_Callback XV_Mix_l2::FrameDoneCallback</definition>
+        <argsstring></argsstring>
+        <name>FrameDoneCallback</name>
+        <briefdescription>
+<para>Callback for frame processing done. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" bodystart="307" bodyend="-1"/>
+        <referencedby refid="group__v__mix_1ga11c3c9f8be66807a720a0043195e5382" compoundref="xv__mix__l2__intr_8c" startline="83" endline="106">XVMix_InterruptHandler</referencedby>
+        <referencedby refid="group__v__mix_1gad12afb12681e1426a8129e35fa729046" compoundref="xv__mix__l2__intr_8c" startline="50" endline="61">XVMix_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___mix__l2_1ad374a97b3230791c2c55271d063aef54" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_Mix_l2::CallbackRef</definition>
+        <argsstring></argsstring>
+        <name>CallbackRef</name>
+        <briefdescription>
+<para>To be passed to the connect interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" bodystart="308" bodyend="-1"/>
+        <referencedby refid="group__v__mix_1ga11c3c9f8be66807a720a0043195e5382" compoundref="xv__mix__l2__intr_8c" startline="83" endline="106">XVMix_InterruptHandler</referencedby>
+        <referencedby refid="group__v__mix_1gad12afb12681e1426a8129e35fa729046" compoundref="xv__mix__l2__intr_8c" startline="50" endline="61">XVMix_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___mix__l2_1a1864eceb4bb616f4c59ff70139dcb8a6" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v_mix___layer" kindref="compound">XVMix_Layer</ref></type>
+        <definition>XVMix_Layer XV_Mix_l2::Layer[XVMIX_MAX_SUPPORTED_LAYERS]</definition>
+        <argsstring>[XVMIX_MAX_SUPPORTED_LAYERS]</argsstring>
+        <name>Layer</name>
+        <briefdescription>
+<para>Layer configuration structure for master and overlay layers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" bodystart="311" bodyend="-1"/>
+        <referencedby refid="group__v__mix_1ga8a30c176c1bc5810577622e42d102ec6" compoundref="xv__mix__l2_8c" startline="787" endline="857">XVMix_MoveLayerWindow</referencedby>
+        <referencedby refid="group__v__mix_1ga8d317845835bcbcc2b9f877ce0274691" compoundref="xv__mix__l2_8c" startline="1175" endline="1212">XVMix_SetLayerBufferAddr</referencedby>
+        <referencedby refid="group__v__mix_1gaaf18b72d5323b64b3c7d58703918bb2c" compoundref="xv__mix__l2_8c" startline="1360" endline="1397">XVMix_SetLayerChromaBuffer2Addr</referencedby>
+        <referencedby refid="group__v__mix_1ga7be832e27e45da5630205217381207a3" compoundref="xv__mix__l2_8c" startline="1262" endline="1299">XVMix_SetLayerChromaBufferAddr</referencedby>
+        <referencedby refid="group__v__mix_1gaae184b6a71616c3b4c0a61a0d0e007b1" compoundref="xv__mix__l2_8c" startline="583" endline="696">XVMix_SetLayerWindow</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___mix__l2_1a19d5294a4f8d215129b23edd280ea5f8" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v_mix___layer" kindref="compound">XVMix_Layer</ref></type>
+        <definition>XVMix_Layer XV_Mix_l2::LogoLayer</definition>
+        <argsstring></argsstring>
+        <name>LogoLayer</name>
+        <briefdescription>
+<para>Logo layer configuration structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="314" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" bodystart="314" bodyend="-1"/>
+        <referencedby refid="group__v__mix_1gad3be6015739c08069d22cb45910d9df9" compoundref="xv__mix__l2_8c" startline="1544" endline="1606">XVMix_LoadLogo</referencedby>
+        <referencedby refid="group__v__mix_1ga8a30c176c1bc5810577622e42d102ec6" compoundref="xv__mix__l2_8c" startline="787" endline="857">XVMix_MoveLayerWindow</referencedby>
+        <referencedby refid="group__v__mix_1gaae184b6a71616c3b4c0a61a0d0e007b1" compoundref="xv__mix__l2_8c" startline="583" endline="696">XVMix_SetLayerWindow</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___mix__l2_1a989434a2b8fa88862a7e46d113bff518" prot="public" static="no" mutable="no">
+        <type><ref refid="group__v__mix_1ga987d8db7bc81e9007661ca8d9457b94b" kindref="member">XVMix_BackgroundId</ref></type>
+        <definition>XVMix_BackgroundId XV_Mix_l2::BkgndColor</definition>
+        <argsstring></argsstring>
+        <name>BkgndColor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" bodystart="315" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___mix__l2_1a4c4efe88134e13a32a87ba1bc899b9c2" prot="public" static="no" mutable="no">
+        <type>XVidC_VideoStream</type>
+        <definition>XVidC_VideoStream XV_Mix_l2::Stream</definition>
+        <argsstring></argsstring>
+        <name>Stream</name>
+        <briefdescription>
+<para>Input AXIS. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" bodystart="317" bodyend="-1"/>
+        <referencedby refid="group__v__mix_1ga723b99028777cdecd1a2f4102ce9b792" compoundref="xv__mix__l2_8c" startline="1739" endline="1859">XVMix_DbgLayerInfo</referencedby>
+        <referencedby refid="group__v__mix_1ga8a30c176c1bc5810577622e42d102ec6" compoundref="xv__mix__l2_8c" startline="787" endline="857">XVMix_MoveLayerWindow</referencedby>
+        <referencedby refid="group__v__mix_1ga8ed68eed5c7d6441ef98894f658deb1d" compoundref="xv__mix__l2_8c" startline="872" endline="922">XVMix_SetLayerScaleFactor</referencedby>
+        <referencedby refid="group__v__mix_1gaae184b6a71616c3b4c0a61a0d0e007b1" compoundref="xv__mix__l2_8c" startline="583" endline="696">XVMix_SetLayerWindow</referencedby>
+        <referencedby refid="group__v__mix_1ga372774be70d11a2e394d8f0d7d8c1b1e" compoundref="xv__mix__l2_8c" startline="390" endline="407">XVMix_SetVidStream</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Mixer driver Layer 2 data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every mixer device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="19">
+        <label>XV_mix_Config</label>
+        <link refid="struct_x_v__mix___config"/>
+        <childnode refid="20" relation="usage">
+          <edgelabel>ScaleFlag</edgelabel>
+        </childnode>
+        <childnode refid="21" relation="usage">
+          <edgelabel>AlphaFlag</edgelabel>
+        </childnode>
+        <childnode refid="22" relation="usage">
+          <edgelabel>LyrIntfType</edgelabel>
+        </childnode>
+        <childnode refid="23" relation="usage">
+          <edgelabel>LyrMaxWidth</edgelabel>
+        </childnode>
+        <childnode refid="24" relation="usage">
+          <edgelabel>LyrColorFmt</edgelabel>
+        </childnode>
+      </node>
+      <node id="22">
+        <label>XVMix_LayerIntfType</label>
+        <link refid="struct_x_v_mix___layer_intf_type"/>
+      </node>
+      <node id="18">
+        <label>XV_mix</label>
+        <link refid="struct_x_v__mix"/>
+        <childnode refid="19" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="23">
+        <label>XVMix_LayerMaxWidth</label>
+        <link refid="struct_x_v_mix___layer_max_width"/>
+      </node>
+      <node id="16">
+        <label>XV_Mix_l2</label>
+        <link refid="struct_x_v___mix__l2"/>
+        <childnode refid="17" relation="usage">
+          <edgelabel>LogoLayer</edgelabel>
+          <edgelabel>Layer</edgelabel>
+        </childnode>
+        <childnode refid="18" relation="usage">
+          <edgelabel>Mix</edgelabel>
+        </childnode>
+      </node>
+      <node id="20">
+        <label>XVMix_ScaleFlag</label>
+        <link refid="struct_x_v_mix___scale_flag"/>
+      </node>
+      <node id="21">
+        <label>XVMix_AlphaFlag</label>
+        <link refid="struct_x_v_mix___alpha_flag"/>
+      </node>
+      <node id="24">
+        <label>XVMix_LayerColorFormat</label>
+        <link refid="struct_x_v_mix___layer_color_format"/>
+      </node>
+      <node id="17">
+        <label>XVMix_Layer</label>
+        <link refid="struct_x_v_mix___layer"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" bodystart="303" bodyend="318"/>
+    <listofallmembers>
+      <member refid="struct_x_v___mix__l2_1a989434a2b8fa88862a7e46d113bff518" prot="public" virt="non-virtual"><scope>XV_Mix_l2</scope><name>BkgndColor</name></member>
+      <member refid="struct_x_v___mix__l2_1ad374a97b3230791c2c55271d063aef54" prot="public" virt="non-virtual"><scope>XV_Mix_l2</scope><name>CallbackRef</name></member>
+      <member refid="struct_x_v___mix__l2_1ae7f8572bd90632d268180e01c836b069" prot="public" virt="non-virtual"><scope>XV_Mix_l2</scope><name>FrameDoneCallback</name></member>
+      <member refid="struct_x_v___mix__l2_1a1864eceb4bb616f4c59ff70139dcb8a6" prot="public" virt="non-virtual"><scope>XV_Mix_l2</scope><name>Layer</name></member>
+      <member refid="struct_x_v___mix__l2_1a19d5294a4f8d215129b23edd280ea5f8" prot="public" virt="non-virtual"><scope>XV_Mix_l2</scope><name>LogoLayer</name></member>
+      <member refid="struct_x_v___mix__l2_1ac5a8467e514ea5628de7784f2bbe36ad" prot="public" virt="non-virtual"><scope>XV_Mix_l2</scope><name>Mix</name></member>
+      <member refid="struct_x_v___mix__l2_1a4c4efe88134e13a32a87ba1bc899b9c2" prot="public" virt="non-virtual"><scope>XV_Mix_l2</scope><name>Stream</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

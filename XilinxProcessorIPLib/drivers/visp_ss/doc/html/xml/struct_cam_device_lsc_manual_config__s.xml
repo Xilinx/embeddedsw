@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_lsc_manual_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceLscManualConfig_s</compoundname>
+    <includes local="no">cam_device_lsc_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_lsc_manual_config__s_1a40d2512b3a4891ab5e08ca090b9a877a" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceLscManualConfig_s::matrix[CAMDEV_RAW_CHANNEL_NUM][CAMDEV_LSC_V_POINT_NUM][CAMDEV_LSC_H_POINT_NUM]</definition>
+        <argsstring>[CAMDEV_RAW_CHANNEL_NUM][CAMDEV_LSC_V_POINT_NUM][CAMDEV_LSC_H_POINT_NUM]</argsstring>
+        <name>matrix</name>
+        <briefdescription>
+<para>4 channel(r, gr, gb, b) 33*33 grids </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_lsc_manual_config__s_1aefe1735eebc52bc29dc1bc7cb18d8306" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceLscManualConfig_s::xSize[CAMDEV_LSC_H_BLOCK_NUM]</definition>
+        <argsstring>[CAMDEV_LSC_H_BLOCK_NUM]</argsstring>
+        <name>xSize</name>
+        <briefdescription>
+<para>LSC V3 int array for x axis size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_lsc_manual_config__s_1aa066421b3206e5f670ce93a98937085f" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceLscManualConfig_s::ySize[CAMDEV_LSC_V_BLOCK_NUM/2U]</definition>
+        <argsstring>[CAMDEV_LSC_V_BLOCK_NUM/2U]</argsstring>
+        <name>ySize</name>
+        <briefdescription>
+<para>LSC V3 int array for y axis size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice LSC V3 current configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" bodystart="69" bodyend="73"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_lsc_manual_config__s_1a40d2512b3a4891ab5e08ca090b9a877a" prot="public" virt="non-virtual"><scope>CamDeviceLscManualConfig_s</scope><name>matrix</name></member>
+      <member refid="struct_cam_device_lsc_manual_config__s_1aefe1735eebc52bc29dc1bc7cb18d8306" prot="public" virt="non-virtual"><scope>CamDeviceLscManualConfig_s</scope><name>xSize</name></member>
+      <member refid="struct_cam_device_lsc_manual_config__s_1aa066421b3206e5f670ce93a98937085f" prot="public" virt="non-virtual"><scope>CamDeviceLscManualConfig_s</scope><name>ySize</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

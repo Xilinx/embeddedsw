@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="union_x_secure___lms_ots_public_key__" kind="union" prot="public">
+    <compoundname>XSecure_LmsOtsPublicKey_</compoundname>
+    <includes local="no">xsecure_lms_ots.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="union_x_secure___lms_ots_public_key___1aa1132e1f52aa698943f9e9254dd8cd6c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_LmsOtsPublicKey_::Buff[XSECURE_LMS_OTS_PUB_KEY_TOTAL_SIZE]</definition>
+        <argsstring>[XSECURE_LMS_OTS_PUB_KEY_TOTAL_SIZE]</argsstring>
+        <name>Buff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="310" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_secure___lms_ots_public_key___1abda6846781722b0ecaad05dad79ca81a" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xsecure__lms__server__apis_1gac44fed4428b1bce22f588c3c913818fd" kindref="member">XSecure_LmsOtsType</ref></type>
+        <definition>XSecure_LmsOtsType XSecure_LmsOtsPublicKey_::Type</definition>
+        <argsstring></argsstring>
+        <name>Type</name>
+        <briefdescription>
+<para>Type XSecure_LmsOtsType Size - 4 bytes, 0 to 3 bytes in public key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="316" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_secure___lms_ots_public_key___1a5a6f682a25293c27b43500503caf525c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_LmsOtsPublicKey_::I[XSECURE_LMS_I_FIELD_SIZE]</definition>
+        <argsstring>[XSECURE_LMS_I_FIELD_SIZE]</argsstring>
+        <name>I</name>
+        <briefdescription>
+<para>I - Merkle Tree&apos;s unique identifier (uniformly random 16-byte string) Size - 16 bytes, 4 to 19 bytes in public key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="321" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_secure___lms_ots_public_key___1a9822d021b0efee41bc1bd06794c8149b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_LmsOtsPublicKey_::q</definition>
+        <argsstring></argsstring>
+        <name>q</name>
+        <briefdescription>
+<para>q - The leaf number q, goes from 0 on left most leaf to right most (2^h -1), in a single tree Size - 4 bytes, 20 to 23 bytes in public key </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="326" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_secure___lms_ots_public_key___1a7f7e44e160def6c6f7630c0df3953377" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_LmsOtsPublicKey_::K[XSECURE_LMS_OTS_PUB_KEY_K_FIELD_SIZE]</definition>
+        <argsstring>[XSECURE_LMS_OTS_PUB_KEY_K_FIELD_SIZE]</argsstring>
+        <name>K</name>
+        <briefdescription>
+<para>K - H(I || u32str(q) || u16str(D_PBLC) || y[0] || ... </para>        </briefdescription>
+        <detaileddescription>
+<para>|| y[p-1]) H is a hash function, ROM supports only SHA2-256 and SHAKE-256 both are of 32Byte output len I &amp; q remain same as described above D_PBLC is a constant XSECURE_D_PBLC y[0] to y[p-1] is calculated from private key </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="334" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_secure___lms_ots_public_key___1aac60502850ae382849dcb17ef0420476" prot="public" static="no" mutable="no">
+        <type>struct XSecure_LmsOtsPublicKey_::@2</type>
+        <definition>struct XSecure_LmsOtsPublicKey_::@2  XSecure_LmsOtsPublicKey_::Fields</definition>
+        <argsstring></argsstring>
+        <name>Fields</name>
+        <briefdescription>
+<para>Fields of LMS OTS public key structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="335" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>LMS OTS Public key structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>Size = 4 + 16 + 4 + H Len (32) = 56 Bytes </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="309" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="309" bodyend="336"/>
+    <listofallmembers>
+      <member refid="union_x_secure___lms_ots_public_key___1aa1132e1f52aa698943f9e9254dd8cd6c" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsPublicKey_</scope><name>Buff</name></member>
+      <member refid="union_x_secure___lms_ots_public_key___1aac60502850ae382849dcb17ef0420476" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsPublicKey_</scope><name>Fields</name></member>
+      <member refid="union_x_secure___lms_ots_public_key___1a5a6f682a25293c27b43500503caf525c" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsPublicKey_</scope><name>I</name></member>
+      <member refid="union_x_secure___lms_ots_public_key___1a7f7e44e160def6c6f7630c0df3953377" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsPublicKey_</scope><name>K</name></member>
+      <member refid="union_x_secure___lms_ots_public_key___1a9822d021b0efee41bc1bd06794c8149b" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsPublicKey_</scope><name>q</name></member>
+      <member refid="union_x_secure___lms_ots_public_key___1abda6846781722b0ecaad05dad79ca81a" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsPublicKey_</scope><name>Type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

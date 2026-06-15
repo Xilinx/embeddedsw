@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_rx_ss___hdcp1x_sub_core" kind="struct" prot="public">
+    <compoundname>XDpRxSs_Hdcp1xSubCore</compoundname>
+    <includes local="no">xdprxss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___hdcp1x_sub_core_1a4b04482ae7d3822fc38c1ec37be206d7" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDpRxSs_Hdcp1xSubCore::IsPresent</definition>
+        <argsstring></argsstring>
+        <name>IsPresent</name>
+        <briefdescription>
+<para>Flag to hold the presence of HDCP core. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="446" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" bodystart="446" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___hdcp1x_sub_core_1a3cb5335239a75153592f7894c8e5b1b4" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp_rx_ss___sub_core_config" kindref="compound">XDpRxSs_SubCoreConfig</ref></type>
+        <definition>XDpRxSs_SubCoreConfig XDpRxSs_Hdcp1xSubCore::Hdcp1xConfig</definition>
+        <argsstring></argsstring>
+        <name>Hdcp1xConfig</name>
+        <briefdescription>
+<para><verbatim> HDCP core configuration
+</verbatim> information </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="447" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" bodystart="447" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="328" endline="687">XDpRxSs_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>High-Bandwidth Content Protection (HDCP) Sub-core structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="51">
+        <label>XDpRxSs_SubCoreConfig</label>
+        <link refid="struct_x_dp_rx_ss___sub_core_config"/>
+      </node>
+      <node id="50">
+        <label>XDpRxSs_Hdcp1xSubCore</label>
+        <link refid="struct_x_dp_rx_ss___hdcp1x_sub_core"/>
+        <childnode refid="51" relation="usage">
+          <edgelabel>Hdcp1xConfig</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="445" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" bodystart="445" bodyend="449"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_rx_ss___hdcp1x_sub_core_1a3cb5335239a75153592f7894c8e5b1b4" prot="public" virt="non-virtual"><scope>XDpRxSs_Hdcp1xSubCore</scope><name>Hdcp1xConfig</name></member>
+      <member refid="struct_x_dp_rx_ss___hdcp1x_sub_core_1a4b04482ae7d3822fc38c1ec37be206d7" prot="public" virt="non-virtual"><scope>XDpRxSs_Hdcp1xSubCore</scope><name>IsPresent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

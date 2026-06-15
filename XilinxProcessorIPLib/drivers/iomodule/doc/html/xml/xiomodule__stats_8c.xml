@@ -1,0 +1,232 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xiomodule__stats_8c" kind="file">
+    <compoundname>xiomodule_stats.c</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes refid="xiomodule_8h" local="yes">xiomodule.h</includes>
+    <includes refid="xiomodule__i_8h" local="yes">xiomodule_i.h</includes>
+    <incdepgraph>
+      <node id="197">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="202">
+        <label>xil_io.h</label>
+      </node>
+      <node id="203">
+        <label>xiomodule_i.h</label>
+        <link refid="xiomodule__i_8h"/>
+        <childnode refid="198" relation="include">
+        </childnode>
+      </node>
+      <node id="198">
+        <label>xiomodule.h</label>
+        <link refid="xiomodule_8h"/>
+        <childnode refid="199" relation="include">
+        </childnode>
+        <childnode refid="200" relation="include">
+        </childnode>
+        <childnode refid="196" relation="include">
+        </childnode>
+      </node>
+      <node id="199">
+        <label>xstatus.h</label>
+      </node>
+      <node id="196">
+        <label>xil_types.h</label>
+      </node>
+      <node id="195">
+        <label>xiomodule_stats.c</label>
+        <link refid="xiomodule_stats.c"/>
+        <childnode refid="196" relation="include">
+        </childnode>
+        <childnode refid="197" relation="include">
+        </childnode>
+        <childnode refid="198" relation="include">
+        </childnode>
+        <childnode refid="203" relation="include">
+        </childnode>
+      </node>
+      <node id="200">
+        <label>xiomodule_l.h</label>
+        <link refid="xiomodule__l_8h"/>
+        <childnode refid="199" relation="include">
+        </childnode>
+        <childnode refid="201" relation="include">
+        </childnode>
+      </node>
+      <node id="201">
+        <label>xiomodule_io.h</label>
+        <link refid="xiomodule__io_8h"/>
+        <childnode refid="202" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__iomodule_1ga42ada8bd0fb0d16976254c228a8924a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIOModule_GetStats</definition>
+        <argsstring>(XIOModule *InstancePtr, XIOModule_Uart_Stats *StatsPtr)</argsstring>
+        <name>XIOModule_GetStats</name>
+        <param>
+          <type><ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_i_o_module___uart___stats" kindref="compound">XIOModule_Uart_Stats</ref> *</type>
+          <declname>StatsPtr</declname>
+        </param>
+        <briefdescription>
+<para>Returns a snapshot of the current statistics in the structure specified. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>StatsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a <ref refid="struct_x_i_o_module___uart___stats" kindref="compound">XIOModule_Uart_Stats</ref> structure to where the statistics are to be copied.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="544" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_stats.c" bodystart="61" bodyend="86"/>
+        <references refid="struct_x_i_o_module___uart___stats_1a6007db24145bcd77eea843689a894999" compoundref="xiomodule_8h" startline="389">XIOModule_Uart_Stats::CharactersReceived</references>
+        <references refid="struct_x_i_o_module___uart___stats_1a0e5ff03c225123a482235e43ba8b60f0" compoundref="xiomodule_8h" startline="388">XIOModule_Uart_Stats::CharactersTransmitted</references>
+        <references refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" compoundref="xiomodule_8h" startline="434">XIOModule::IsReady</references>
+        <references refid="struct_x_i_o_module___uart___stats_1af4fe5a6370521fcd8eb7cad5644f84a1" compoundref="xiomodule_8h" startline="392">XIOModule_Uart_Stats::ReceiveFramingErrors</references>
+        <references refid="struct_x_i_o_module___uart___stats_1a129217276becb44353a60f4d4dafb1c7" compoundref="xiomodule_8h" startline="387">XIOModule_Uart_Stats::ReceiveInterrupts</references>
+        <references refid="struct_x_i_o_module___uart___stats_1a8c4abe366c5215270523d5df0d9e1b71" compoundref="xiomodule_8h" startline="390">XIOModule_Uart_Stats::ReceiveOverrunErrors</references>
+        <references refid="struct_x_i_o_module___uart___stats_1a8c46d3426903c6709de209550b6286c3" compoundref="xiomodule_8h" startline="391">XIOModule_Uart_Stats::ReceiveParityErrors</references>
+        <references refid="struct_x_i_o_module___uart___stats_1ad2939bb3e9f8fc089a2b0168425b4369" compoundref="xiomodule_8h" startline="386">XIOModule_Uart_Stats::TransmitInterrupts</references>
+        <references refid="struct_x_i_o_module_1a012d912c3ca44ef12ff3e9877950912d" compoundref="xiomodule_8h" startline="438">XIOModule::Uart_Stats</references>
+      </memberdef>
+      <memberdef kind="function" id="group__iomodule_1ga61a582e9785291f7c6e0b91c19c46bd8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIOModule_ClearStats</definition>
+        <argsstring>(XIOModule *InstancePtr)</argsstring>
+        <name>XIOModule_ClearStats</name>
+        <param>
+          <type><ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function zeros the statistics for the given instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="546" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_stats.c" bodystart="100" bodyend="115"/>
+        <references refid="struct_x_i_o_module___uart___stats_1a6007db24145bcd77eea843689a894999" compoundref="xiomodule_8h" startline="389">XIOModule_Uart_Stats::CharactersReceived</references>
+        <references refid="struct_x_i_o_module___uart___stats_1a0e5ff03c225123a482235e43ba8b60f0" compoundref="xiomodule_8h" startline="388">XIOModule_Uart_Stats::CharactersTransmitted</references>
+        <references refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" compoundref="xiomodule_8h" startline="434">XIOModule::IsReady</references>
+        <references refid="struct_x_i_o_module___uart___stats_1af4fe5a6370521fcd8eb7cad5644f84a1" compoundref="xiomodule_8h" startline="392">XIOModule_Uart_Stats::ReceiveFramingErrors</references>
+        <references refid="struct_x_i_o_module___uart___stats_1a129217276becb44353a60f4d4dafb1c7" compoundref="xiomodule_8h" startline="387">XIOModule_Uart_Stats::ReceiveInterrupts</references>
+        <references refid="struct_x_i_o_module___uart___stats_1a8c4abe366c5215270523d5df0d9e1b71" compoundref="xiomodule_8h" startline="390">XIOModule_Uart_Stats::ReceiveOverrunErrors</references>
+        <references refid="struct_x_i_o_module___uart___stats_1a8c46d3426903c6709de209550b6286c3" compoundref="xiomodule_8h" startline="391">XIOModule_Uart_Stats::ReceiveParityErrors</references>
+        <references refid="struct_x_i_o_module___uart___stats_1ad2939bb3e9f8fc089a2b0168425b4369" compoundref="xiomodule_8h" startline="386">XIOModule_Uart_Stats::TransmitInterrupts</references>
+        <references refid="struct_x_i_o_module_1a012d912c3ca44ef12ff3e9877950912d" compoundref="xiomodule_8h" startline="438">XIOModule::Uart_Stats</references>
+        <referencedby refid="group__iomodule_1gaff025dd804b08ec80047b8b17273da84" compoundref="xiomodule__uart_8c" startline="97" endline="139">XIOModule_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2011<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiomodule_8h" kindref="compound">xiomodule.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiomodule__i_8h" kindref="compound">xiomodule_i.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="61" refid="group__iomodule_1ga42ada8bd0fb0d16976254c228a8924a2" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__iomodule_1ga42ada8bd0fb0d16976254c228a8924a2" kindref="member">XIOModule_GetStats</ref>(<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_i_o_module___uart___stats" kindref="compound">XIOModule_Uart_Stats</ref><sp/>*StatsPtr)</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="64"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="65"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(StatsPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>the<sp/>stats<sp/>from<sp/>the<sp/>instance<sp/>to<sp/>the<sp/>specified<sp/>stats<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatsPtr-&gt;<ref refid="struct_x_i_o_module___uart___stats_1ad2939bb3e9f8fc089a2b0168425b4369" kindref="member">TransmitInterrupts</ref><sp/>=</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a012d912c3ca44ef12ff3e9877950912d" kindref="member">Uart_Stats</ref>.<ref refid="struct_x_i_o_module___uart___stats_1ad2939bb3e9f8fc089a2b0168425b4369" kindref="member">TransmitInterrupts</ref>;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatsPtr-&gt;<ref refid="struct_x_i_o_module___uart___stats_1a129217276becb44353a60f4d4dafb1c7" kindref="member">ReceiveInterrupts</ref><sp/>=</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a012d912c3ca44ef12ff3e9877950912d" kindref="member">Uart_Stats</ref>.<ref refid="struct_x_i_o_module___uart___stats_1a129217276becb44353a60f4d4dafb1c7" kindref="member">ReceiveInterrupts</ref>;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatsPtr-&gt;<ref refid="struct_x_i_o_module___uart___stats_1a0e5ff03c225123a482235e43ba8b60f0" kindref="member">CharactersTransmitted</ref><sp/>=</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a012d912c3ca44ef12ff3e9877950912d" kindref="member">Uart_Stats</ref>.<ref refid="struct_x_i_o_module___uart___stats_1a0e5ff03c225123a482235e43ba8b60f0" kindref="member">CharactersTransmitted</ref>;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatsPtr-&gt;<ref refid="struct_x_i_o_module___uart___stats_1a6007db24145bcd77eea843689a894999" kindref="member">CharactersReceived</ref><sp/>=</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a012d912c3ca44ef12ff3e9877950912d" kindref="member">Uart_Stats</ref>.<ref refid="struct_x_i_o_module___uart___stats_1a6007db24145bcd77eea843689a894999" kindref="member">CharactersReceived</ref>;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatsPtr-&gt;<ref refid="struct_x_i_o_module___uart___stats_1a8c4abe366c5215270523d5df0d9e1b71" kindref="member">ReceiveOverrunErrors</ref><sp/>=</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a012d912c3ca44ef12ff3e9877950912d" kindref="member">Uart_Stats</ref>.<ref refid="struct_x_i_o_module___uart___stats_1a8c4abe366c5215270523d5df0d9e1b71" kindref="member">ReceiveOverrunErrors</ref>;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatsPtr-&gt;<ref refid="struct_x_i_o_module___uart___stats_1af4fe5a6370521fcd8eb7cad5644f84a1" kindref="member">ReceiveFramingErrors</ref><sp/>=</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a012d912c3ca44ef12ff3e9877950912d" kindref="member">Uart_Stats</ref>.<ref refid="struct_x_i_o_module___uart___stats_1af4fe5a6370521fcd8eb7cad5644f84a1" kindref="member">ReceiveFramingErrors</ref>;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatsPtr-&gt;<ref refid="struct_x_i_o_module___uart___stats_1a8c46d3426903c6709de209550b6286c3" kindref="member">ReceiveParityErrors</ref><sp/>=</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a012d912c3ca44ef12ff3e9877950912d" kindref="member">Uart_Stats</ref>.<ref refid="struct_x_i_o_module___uart___stats_1a8c46d3426903c6709de209550b6286c3" kindref="member">ReceiveParityErrors</ref>;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="100" refid="group__iomodule_1ga61a582e9785291f7c6e0b91c19c46bd8" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__iomodule_1ga61a582e9785291f7c6e0b91c19c46bd8" kindref="member">XIOModule_ClearStats</ref>(<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="103"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="104"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a012d912c3ca44ef12ff3e9877950912d" kindref="member">Uart_Stats</ref>.<ref refid="struct_x_i_o_module___uart___stats_1ad2939bb3e9f8fc089a2b0168425b4369" kindref="member">TransmitInterrupts</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a012d912c3ca44ef12ff3e9877950912d" kindref="member">Uart_Stats</ref>.<ref refid="struct_x_i_o_module___uart___stats_1a129217276becb44353a60f4d4dafb1c7" kindref="member">ReceiveInterrupts</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a012d912c3ca44ef12ff3e9877950912d" kindref="member">Uart_Stats</ref>.<ref refid="struct_x_i_o_module___uart___stats_1a0e5ff03c225123a482235e43ba8b60f0" kindref="member">CharactersTransmitted</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a012d912c3ca44ef12ff3e9877950912d" kindref="member">Uart_Stats</ref>.<ref refid="struct_x_i_o_module___uart___stats_1a6007db24145bcd77eea843689a894999" kindref="member">CharactersReceived</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a012d912c3ca44ef12ff3e9877950912d" kindref="member">Uart_Stats</ref>.<ref refid="struct_x_i_o_module___uart___stats_1a8c4abe366c5215270523d5df0d9e1b71" kindref="member">ReceiveOverrunErrors</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a012d912c3ca44ef12ff3e9877950912d" kindref="member">Uart_Stats</ref>.<ref refid="struct_x_i_o_module___uart___stats_1a8c46d3426903c6709de209550b6286c3" kindref="member">ReceiveParityErrors</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a012d912c3ca44ef12ff3e9877950912d" kindref="member">Uart_Stats</ref>.<ref refid="struct_x_i_o_module___uart___stats_1af4fe5a6370521fcd8eb7cad5644f84a1" kindref="member">ReceiveFramingErrors</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_stats.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,195 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dma_ps___chan_ctrl" kind="struct" prot="public">
+    <compoundname>XDmaPs_ChanCtrl</compoundname>
+    <includes local="no">xdmaps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dma_ps___chan_ctrl_1ab4afe06f49cc4f916ef106f1e9e367f2" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int XDmaPs_ChanCtrl::EndianSwapSize</definition>
+        <argsstring></argsstring>
+        <name>EndianSwapSize</name>
+        <briefdescription>
+<para>Endian swap size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="group__dmaps_1ga68a8d4fbf7cf6154ad2c58df0479d329" compoundref="xdmaps_8c" startline="835" endline="884">XDmaPs_ToCCRValue</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps___chan_ctrl_1a39c795a67feb2cee1761d7a968e233f3" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int XDmaPs_ChanCtrl::DstCacheCtrl</definition>
+        <argsstring></argsstring>
+        <name>DstCacheCtrl</name>
+        <briefdescription>
+<para>Destination cache control. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="114" bodyend="-1"/>
+        <referencedby refid="group__dmaps_1ga68a8d4fbf7cf6154ad2c58df0479d329" compoundref="xdmaps_8c" startline="835" endline="884">XDmaPs_ToCCRValue</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps___chan_ctrl_1ad3dc23d0ec01d4f49debed893cffa52d" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int XDmaPs_ChanCtrl::DstProtCtrl</definition>
+        <argsstring></argsstring>
+        <name>DstProtCtrl</name>
+        <briefdescription>
+<para>Destination protection control. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="115" bodyend="-1"/>
+        <referencedby refid="group__dmaps_1ga68a8d4fbf7cf6154ad2c58df0479d329" compoundref="xdmaps_8c" startline="835" endline="884">XDmaPs_ToCCRValue</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps___chan_ctrl_1a853e35c04d6373b1c91b4d3b85fd21ab" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int XDmaPs_ChanCtrl::DstBurstLen</definition>
+        <argsstring></argsstring>
+        <name>DstBurstLen</name>
+        <briefdescription>
+<para>Destination burst length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="116" bodyend="-1"/>
+        <referencedby refid="xdmaps__example__w__intr_8c_1af60b7fc382748cf2c2d6d4b246f47b74" compoundref="xdmaps__example__w__intr_8c" startline="176" endline="332">XDmaPs_Example_W_Intr</referencedby>
+        <referencedby refid="group__dmaps_1gabc2e04f69037f0bdba33275ae017af8a" compoundref="xdmaps_8c" startline="1337" endline="1396">XDmaPs_GenDmaProg</referencedby>
+        <referencedby refid="group__dmaps_1ga68a8d4fbf7cf6154ad2c58df0479d329" compoundref="xdmaps_8c" startline="835" endline="884">XDmaPs_ToCCRValue</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps___chan_ctrl_1a35b7ed4be966942dca1a4732494068e5" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int XDmaPs_ChanCtrl::DstBurstSize</definition>
+        <argsstring></argsstring>
+        <name>DstBurstSize</name>
+        <briefdescription>
+<para>Destination burst size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="117" bodyend="-1"/>
+        <referencedby refid="xdmaps__example__w__intr_8c_1af60b7fc382748cf2c2d6d4b246f47b74" compoundref="xdmaps__example__w__intr_8c" startline="176" endline="332">XDmaPs_Example_W_Intr</referencedby>
+        <referencedby refid="group__dmaps_1gabc2e04f69037f0bdba33275ae017af8a" compoundref="xdmaps_8c" startline="1337" endline="1396">XDmaPs_GenDmaProg</referencedby>
+        <referencedby refid="group__dmaps_1ga68a8d4fbf7cf6154ad2c58df0479d329" compoundref="xdmaps_8c" startline="835" endline="884">XDmaPs_ToCCRValue</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps___chan_ctrl_1ae02d61b30e6bf2940560c5719cf78ea9" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int XDmaPs_ChanCtrl::DstInc</definition>
+        <argsstring></argsstring>
+        <name>DstInc</name>
+        <briefdescription>
+<para>Destination incrementing or fixed address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="118" bodyend="-1"/>
+        <referencedby refid="xdmaps__example__w__intr_8c_1af60b7fc382748cf2c2d6d4b246f47b74" compoundref="xdmaps__example__w__intr_8c" startline="176" endline="332">XDmaPs_Example_W_Intr</referencedby>
+        <referencedby refid="group__dmaps_1gabc2e04f69037f0bdba33275ae017af8a" compoundref="xdmaps_8c" startline="1337" endline="1396">XDmaPs_GenDmaProg</referencedby>
+        <referencedby refid="group__dmaps_1ga3691ba115c788c4f68a05cf05c486eeb" compoundref="xdmaps_8c" startline="1464" endline="1526">XDmaPs_Start</referencedby>
+        <referencedby refid="group__dmaps_1ga68a8d4fbf7cf6154ad2c58df0479d329" compoundref="xdmaps_8c" startline="835" endline="884">XDmaPs_ToCCRValue</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps___chan_ctrl_1a792a21894718b12c8ccf1fa97318dbbf" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int XDmaPs_ChanCtrl::SrcCacheCtrl</definition>
+        <argsstring></argsstring>
+        <name>SrcCacheCtrl</name>
+        <briefdescription>
+<para>Source cache control. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="120" bodyend="-1"/>
+        <referencedby refid="group__dmaps_1ga68a8d4fbf7cf6154ad2c58df0479d329" compoundref="xdmaps_8c" startline="835" endline="884">XDmaPs_ToCCRValue</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps___chan_ctrl_1a3dd33f6f79803e204573e5ca5d88d9d9" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int XDmaPs_ChanCtrl::SrcProtCtrl</definition>
+        <argsstring></argsstring>
+        <name>SrcProtCtrl</name>
+        <briefdescription>
+<para>Source protection control. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="121" bodyend="-1"/>
+        <referencedby refid="group__dmaps_1ga68a8d4fbf7cf6154ad2c58df0479d329" compoundref="xdmaps_8c" startline="835" endline="884">XDmaPs_ToCCRValue</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps___chan_ctrl_1af1c78aea07f0790355317bd311ebb3ff" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int XDmaPs_ChanCtrl::SrcBurstLen</definition>
+        <argsstring></argsstring>
+        <name>SrcBurstLen</name>
+        <briefdescription>
+<para>Source burst length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="122" bodyend="-1"/>
+        <referencedby refid="xdmaps__example__w__intr_8c_1af60b7fc382748cf2c2d6d4b246f47b74" compoundref="xdmaps__example__w__intr_8c" startline="176" endline="332">XDmaPs_Example_W_Intr</referencedby>
+        <referencedby refid="group__dmaps_1gabc2e04f69037f0bdba33275ae017af8a" compoundref="xdmaps_8c" startline="1337" endline="1396">XDmaPs_GenDmaProg</referencedby>
+        <referencedby refid="group__dmaps_1ga68a8d4fbf7cf6154ad2c58df0479d329" compoundref="xdmaps_8c" startline="835" endline="884">XDmaPs_ToCCRValue</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps___chan_ctrl_1a17ee9116237a176efec405cb12461288" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int XDmaPs_ChanCtrl::SrcBurstSize</definition>
+        <argsstring></argsstring>
+        <name>SrcBurstSize</name>
+        <briefdescription>
+<para>Source burst size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="123" bodyend="-1"/>
+        <referencedby refid="xdmaps__example__w__intr_8c_1af60b7fc382748cf2c2d6d4b246f47b74" compoundref="xdmaps__example__w__intr_8c" startline="176" endline="332">XDmaPs_Example_W_Intr</referencedby>
+        <referencedby refid="group__dmaps_1gabc2e04f69037f0bdba33275ae017af8a" compoundref="xdmaps_8c" startline="1337" endline="1396">XDmaPs_GenDmaProg</referencedby>
+        <referencedby refid="group__dmaps_1ga68a8d4fbf7cf6154ad2c58df0479d329" compoundref="xdmaps_8c" startline="835" endline="884">XDmaPs_ToCCRValue</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps___chan_ctrl_1a3585627ef02899b75c5f2f716d3ab52f" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int XDmaPs_ChanCtrl::SrcInc</definition>
+        <argsstring></argsstring>
+        <name>SrcInc</name>
+        <briefdescription>
+<para>Source incrementing or fixed address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="124" bodyend="-1"/>
+        <referencedby refid="xdmaps__example__w__intr_8c_1af60b7fc382748cf2c2d6d4b246f47b74" compoundref="xdmaps__example__w__intr_8c" startline="176" endline="332">XDmaPs_Example_W_Intr</referencedby>
+        <referencedby refid="group__dmaps_1gabc2e04f69037f0bdba33275ae017af8a" compoundref="xdmaps_8c" startline="1337" endline="1396">XDmaPs_GenDmaProg</referencedby>
+        <referencedby refid="group__dmaps_1ga3691ba115c788c4f68a05cf05c486eeb" compoundref="xdmaps_8c" startline="1464" endline="1526">XDmaPs_Start</referencedby>
+        <referencedby refid="group__dmaps_1ga68a8d4fbf7cf6154ad2c58df0479d329" compoundref="xdmaps_8c" startline="835" endline="884">XDmaPs_ToCCRValue</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>DMA channel control structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>It&apos;s for AXI bus transaction. This struct will be translated into a 32-bit channel control register value. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="112" bodyend="126"/>
+    <listofallmembers>
+      <member refid="struct_x_dma_ps___chan_ctrl_1a853e35c04d6373b1c91b4d3b85fd21ab" prot="public" virt="non-virtual"><scope>XDmaPs_ChanCtrl</scope><name>DstBurstLen</name></member>
+      <member refid="struct_x_dma_ps___chan_ctrl_1a35b7ed4be966942dca1a4732494068e5" prot="public" virt="non-virtual"><scope>XDmaPs_ChanCtrl</scope><name>DstBurstSize</name></member>
+      <member refid="struct_x_dma_ps___chan_ctrl_1a39c795a67feb2cee1761d7a968e233f3" prot="public" virt="non-virtual"><scope>XDmaPs_ChanCtrl</scope><name>DstCacheCtrl</name></member>
+      <member refid="struct_x_dma_ps___chan_ctrl_1ae02d61b30e6bf2940560c5719cf78ea9" prot="public" virt="non-virtual"><scope>XDmaPs_ChanCtrl</scope><name>DstInc</name></member>
+      <member refid="struct_x_dma_ps___chan_ctrl_1ad3dc23d0ec01d4f49debed893cffa52d" prot="public" virt="non-virtual"><scope>XDmaPs_ChanCtrl</scope><name>DstProtCtrl</name></member>
+      <member refid="struct_x_dma_ps___chan_ctrl_1ab4afe06f49cc4f916ef106f1e9e367f2" prot="public" virt="non-virtual"><scope>XDmaPs_ChanCtrl</scope><name>EndianSwapSize</name></member>
+      <member refid="struct_x_dma_ps___chan_ctrl_1af1c78aea07f0790355317bd311ebb3ff" prot="public" virt="non-virtual"><scope>XDmaPs_ChanCtrl</scope><name>SrcBurstLen</name></member>
+      <member refid="struct_x_dma_ps___chan_ctrl_1a17ee9116237a176efec405cb12461288" prot="public" virt="non-virtual"><scope>XDmaPs_ChanCtrl</scope><name>SrcBurstSize</name></member>
+      <member refid="struct_x_dma_ps___chan_ctrl_1a792a21894718b12c8ccf1fa97318dbbf" prot="public" virt="non-virtual"><scope>XDmaPs_ChanCtrl</scope><name>SrcCacheCtrl</name></member>
+      <member refid="struct_x_dma_ps___chan_ctrl_1a3585627ef02899b75c5f2f716d3ab52f" prot="public" virt="non-virtual"><scope>XDmaPs_ChanCtrl</scope><name>SrcInc</name></member>
+      <member refid="struct_x_dma_ps___chan_ctrl_1a3dd33f6f79803e204573e5ca5d88d9d9" prot="public" virt="non-virtual"><scope>XDmaPs_ChanCtrl</scope><name>SrcProtCtrl</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

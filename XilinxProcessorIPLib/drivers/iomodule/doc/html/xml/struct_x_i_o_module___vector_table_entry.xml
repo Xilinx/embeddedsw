@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_i_o_module___vector_table_entry" kind="struct" prot="public">
+    <compoundname>XIOModule_VectorTableEntry</compoundname>
+    <includes local="no">xiomodule_l.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_i_o_module___vector_table_entry_1a48dc3684c70bd12fd9a1fd46c604750a" prot="public" static="no" mutable="no">
+        <type>XInterruptHandler</type>
+        <definition>XInterruptHandler XIOModule_VectorTableEntry::Handler</definition>
+        <argsstring></argsstring>
+        <name>Handler</name>
+        <briefdescription>
+<para>Holds the Interrupt handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_l.h" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_l.h" bodystart="220" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1ga437b891061d1b16758b5e104e7535e6e" compoundref="xiomodule_8c" startline="384" endline="402">XIOModule_Connect</referencedby>
+        <referencedby refid="group__iomodule_1gab8717545acaa871a5d9ed89702f9173c" compoundref="xiomodule_8c" startline="686" endline="747">XIOModule_ConnectFastHandler</referencedby>
+        <referencedby refid="group__iomodule_1ga2e47bfda481c3ceab60d758f049758ef" compoundref="xiomodule__l_8c" startline="143" endline="219">XIOModule_DeviceInterruptHandler</referencedby>
+        <referencedby refid="group__iomodule_1ga241c2c08f867ee4d03e96248c4a133da" compoundref="xiomodule_8c" startline="422" endline="452">XIOModule_Disconnect</referencedby>
+        <referencedby refid="group__iomodule_1ga964f5bae2572929b40d1f630118e36ac" compoundref="xiomodule_8c" startline="258" endline="293">XIOModule_HandlerTable_Initialize</referencedby>
+        <referencedby refid="group__iomodule_1gab55e07c2159c0c0b469503bfac8e20b0" compoundref="xiomodule__l_8c" startline="285" endline="295">XIOModule_RegisterHandler</referencedby>
+        <referencedby refid="group__iomodule_1gab2e5ac3f9e5a286fd376120cb27f545d" compoundref="xiomodule__intr_8c" startline="197" endline="215">XIOModule_SetHandler</referencedby>
+        <referencedby refid="group__iomodule_1gab4ddcaf38d655ca70d916c1d5ba96240" compoundref="xiomodule_8c" startline="768" endline="827">XIOModule_SetNormalIntrMode</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i_o_module___vector_table_entry_1a6b66994a547223b1df1886a49562b2a7" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XIOModule_VectorTableEntry::CallBackRef</definition>
+        <argsstring></argsstring>
+        <name>CallBackRef</name>
+        <briefdescription>
+<para>Data to be passed while invoking handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_l.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_l.h" bodystart="221" bodyend="-1"/>
+        <referencedby refid="group__iomodule_1ga437b891061d1b16758b5e104e7535e6e" compoundref="xiomodule_8c" startline="384" endline="402">XIOModule_Connect</referencedby>
+        <referencedby refid="group__iomodule_1gab8717545acaa871a5d9ed89702f9173c" compoundref="xiomodule_8c" startline="686" endline="747">XIOModule_ConnectFastHandler</referencedby>
+        <referencedby refid="group__iomodule_1ga2e47bfda481c3ceab60d758f049758ef" compoundref="xiomodule__l_8c" startline="143" endline="219">XIOModule_DeviceInterruptHandler</referencedby>
+        <referencedby refid="group__iomodule_1ga241c2c08f867ee4d03e96248c4a133da" compoundref="xiomodule_8c" startline="422" endline="452">XIOModule_Disconnect</referencedby>
+        <referencedby refid="group__iomodule_1ga964f5bae2572929b40d1f630118e36ac" compoundref="xiomodule_8c" startline="258" endline="293">XIOModule_HandlerTable_Initialize</referencedby>
+        <referencedby refid="group__iomodule_1gab55e07c2159c0c0b469503bfac8e20b0" compoundref="xiomodule__l_8c" startline="285" endline="295">XIOModule_RegisterHandler</referencedby>
+        <referencedby refid="group__iomodule_1gab4ddcaf38d655ca70d916c1d5ba96240" compoundref="xiomodule_8c" startline="768" endline="827">XIOModule_SetNormalIntrMode</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Defines the number of timer counters within a single hardware device. </para>    </briefdescription>
+    <detaileddescription>
+<para>This number is not currently parameterized in the hardware but may be in the future. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_l.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_l.h" bodystart="219" bodyend="222"/>
+    <listofallmembers>
+      <member refid="struct_x_i_o_module___vector_table_entry_1a6b66994a547223b1df1886a49562b2a7" prot="public" virt="non-virtual"><scope>XIOModule_VectorTableEntry</scope><name>CallBackRef</name></member>
+      <member refid="struct_x_i_o_module___vector_table_entry_1a48dc3684c70bd12fd9a1fd46c604750a" prot="public" virt="non-virtual"><scope>XIOModule_VectorTableEntry</scope><name>Handler</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

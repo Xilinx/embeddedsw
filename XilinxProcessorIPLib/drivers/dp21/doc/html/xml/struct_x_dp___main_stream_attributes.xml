@@ -1,0 +1,380 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp___main_stream_attributes" kind="struct" prot="public">
+    <compoundname>XDp_MainStreamAttributes</compoundname>
+    <includes local="no">xdp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1a16a2992aa58e241ad9be2cc25827b656" prot="public" static="no" mutable="no">
+        <type>XVidC_VideoTimingMode</type>
+        <definition>XVidC_VideoTimingMode XDp_MainStreamAttributes::Vtm</definition>
+        <argsstring></argsstring>
+        <name>Vtm</name>
+        <briefdescription>
+<para>The video timing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="728" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="728" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1a24aa1cd9f6f462dd5e6c9de9081a903e" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XDp_MainStreamAttributes::PixelClockHz</definition>
+        <argsstring></argsstring>
+        <name>PixelClockHz</name>
+        <briefdescription>
+<para>The pixel clock of the stream (in Hz). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="729" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="729" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1ad9e093eba2a21c4b057c0c84179ccc93" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDp_MainStreamAttributes::HStart</definition>
+        <argsstring></argsstring>
+        <name>HStart</name>
+        <briefdescription>
+<para>Horizontal blank start (in pixels). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="731" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="731" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1a14f259692b35ff96db728761e85d572f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDp_MainStreamAttributes::VStart</definition>
+        <argsstring></argsstring>
+        <name>VStart</name>
+        <briefdescription>
+<para>Vertical blank start (in lines). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="733" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="733" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1af64840fb7208def07d2610f84654b673" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDp_MainStreamAttributes::Misc0</definition>
+        <argsstring></argsstring>
+        <name>Misc0</name>
+        <briefdescription>
+<para>Miscellaneous stream attributes 0 as specified by the DisplayPort 1.2 specification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="734" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="734" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1a054077e7afd00b9ab8734aafb08474f1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDp_MainStreamAttributes::Misc1</definition>
+        <argsstring></argsstring>
+        <name>Misc1</name>
+        <briefdescription>
+<para>Miscellaneous stream attributes 1 as specified by the DisplayPort 1.2 specification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="737" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="737" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1a77ed306c796d3397a0b61451eaa3bbd9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDp_MainStreamAttributes::NVid</definition>
+        <argsstring></argsstring>
+        <name>NVid</name>
+        <briefdescription>
+<para>N value for the video stream. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="740" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="740" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1a08181cd7a136c70650c8aff78d5272c4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDp_MainStreamAttributes::MVid</definition>
+        <argsstring></argsstring>
+        <name>MVid</name>
+        <briefdescription>
+<para>M value used to recover the video clock from the link clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="741" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="741" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1aa3130e47370d6842d3689b22747cef35" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDp_MainStreamAttributes::UserPixelWidth</definition>
+        <argsstring></argsstring>
+        <name>UserPixelWidth</name>
+        <briefdescription>
+<para>The width of the user data input port. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="743" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="743" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1a878400561826ae6d85de8ba19300a691" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDp_MainStreamAttributes::DataPerLane</definition>
+        <argsstring></argsstring>
+        <name>DataPerLane</name>
+        <briefdescription>
+<para>Used to translate the number of pixels per line to the native internal 16-bit datapath. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="745" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="745" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1a9be28c21cb47bcf04840b40220aeb29c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDp_MainStreamAttributes::AvgBytesPerTU</definition>
+        <argsstring></argsstring>
+        <name>AvgBytesPerTU</name>
+        <briefdescription>
+<para>Average number of bytes per transfer unit, scaled up by a factor of 1000. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="748" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="748" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1a9a56174aaddcd141a18782bf95994f16" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_MainStreamAttributes::TransferUnitSize</definition>
+        <argsstring></argsstring>
+        <name>TransferUnitSize</name>
+        <briefdescription>
+<para>Size of the transfer unit in the framing logic. </para>        </briefdescription>
+        <detaileddescription>
+<para>In MST mode, this is also the number of time slots that are allotted in the payload ID table. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="751" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="751" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1a437bc0484222ab3fd1084402ff345e41" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDp_MainStreamAttributes::StartTs</definition>
+        <argsstring></argsstring>
+        <name>StartTs</name>
+        <briefdescription>
+<para>Starting timeslot for payload allocation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="756" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="756" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1acfd1b3fde6533ecde9fe0350dbbf20dd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDp_MainStreamAttributes::InitWait</definition>
+        <argsstring></argsstring>
+        <name>InitWait</name>
+        <briefdescription>
+<para>Number of initial wait cycles at the start of a new line by the framing logic. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="758" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="758" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1ac388c5211901a98ece8cafc08e0f32af" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDp_MainStreamAttributes::BitsPerColor</definition>
+        <argsstring></argsstring>
+        <name>BitsPerColor</name>
+        <briefdescription>
+<para>Number of bits per color component. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="761" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="761" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1a239892926ad6ec5b643c95233662d63c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_MainStreamAttributes::ComponentFormat</definition>
+        <argsstring></argsstring>
+        <name>ComponentFormat</name>
+        <briefdescription>
+<para>The component format currently in use by the video stream. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="763" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="763" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1a7f6480bdc32ee41d82fb5173cbe405bd" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_MainStreamAttributes::DynamicRange</definition>
+        <argsstring></argsstring>
+        <name>DynamicRange</name>
+        <briefdescription>
+<para>The dynamic range currently in use by the video stream. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="765" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="765" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1a2fe9fb684e1b4cac203ab07a0f70c2c3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_MainStreamAttributes::YCbCrColorimetry</definition>
+        <argsstring></argsstring>
+        <name>YCbCrColorimetry</name>
+        <briefdescription>
+<para>The YCbCr colorimetry currently in use by the video stream. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="767" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="767" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1ae52e079fafc27fc0c34167f88cef73ae" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_MainStreamAttributes::SynchronousClockMode</definition>
+        <argsstring></argsstring>
+        <name>SynchronousClockMode</name>
+        <briefdescription>
+<para>Synchronous clock mode is currently in use by the video stream. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="769" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="769" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1ae0d6631d70a54f78d9afdee07e65d61e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_MainStreamAttributes::OverrideUserPixelWidth</definition>
+        <argsstring></argsstring>
+        <name>OverrideUserPixelWidth</name>
+        <briefdescription>
+<para>If set to 1, the value stored for UserPixelWidth will be used as the pixel width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="771" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="771" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1a7645bb893717633b25f25845a722fabc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_MainStreamAttributes::OverrideSyncPolarity</definition>
+        <argsstring></argsstring>
+        <name>OverrideSyncPolarity</name>
+        <briefdescription>
+<para>Overrides the Horizontal and vertical sync polarity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="774" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="774" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1af487688930da7c8673f429cf8d2c1a08" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XDp_MainStreamAttributes::VFreq</definition>
+        <argsstring></argsstring>
+        <name>VFreq</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="776" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="776" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1ab24f514436abfe5879ae276f6f73ddca" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_MainStreamAttributes::IsRxDp21</definition>
+        <argsstring></argsstring>
+        <name>IsRxDp21</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="777" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="777" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1a8d6ac66682904c356a5efc73285aeca1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDp_MainStreamAttributes::AudioMAud</definition>
+        <argsstring></argsstring>
+        <name>AudioMAud</name>
+        <briefdescription>
+<para>M value of audio stream (DP 1.4) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="778" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="778" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1a7ebb0258202472e85b60b49ca04bef28" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDp_MainStreamAttributes::AudioNAud</definition>
+        <argsstring></argsstring>
+        <name>AudioNAud</name>
+        <briefdescription>
+<para>N value of audio stream (DP 1.4) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="779" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="779" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___main_stream_attributes_1a230cf3a07d762cf31c335c359d5b322e" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XDp_MainStreamAttributes::AudioAFreq</definition>
+        <argsstring></argsstring>
+        <name>AudioAFreq</name>
+        <briefdescription>
+<para>Audio Frequency in Hz (DP 2.1 - 128b/132b only) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="780" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="780" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the main stream attributes which determine how the video will be displayed. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="727" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="727" bodyend="781"/>
+    <listofallmembers>
+      <member refid="struct_x_dp___main_stream_attributes_1a230cf3a07d762cf31c335c359d5b322e" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>AudioAFreq</name></member>
+      <member refid="struct_x_dp___main_stream_attributes_1a8d6ac66682904c356a5efc73285aeca1" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>AudioMAud</name></member>
+      <member refid="struct_x_dp___main_stream_attributes_1a7ebb0258202472e85b60b49ca04bef28" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>AudioNAud</name></member>
+      <member refid="struct_x_dp___main_stream_attributes_1a9be28c21cb47bcf04840b40220aeb29c" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>AvgBytesPerTU</name></member>
+      <member refid="struct_x_dp___main_stream_attributes_1ac388c5211901a98ece8cafc08e0f32af" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>BitsPerColor</name></member>
+      <member refid="struct_x_dp___main_stream_attributes_1a239892926ad6ec5b643c95233662d63c" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>ComponentFormat</name></member>
+      <member refid="struct_x_dp___main_stream_attributes_1a878400561826ae6d85de8ba19300a691" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>DataPerLane</name></member>
+      <member refid="struct_x_dp___main_stream_attributes_1a7f6480bdc32ee41d82fb5173cbe405bd" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>DynamicRange</name></member>
+      <member refid="struct_x_dp___main_stream_attributes_1ad9e093eba2a21c4b057c0c84179ccc93" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>HStart</name></member>
+      <member refid="struct_x_dp___main_stream_attributes_1acfd1b3fde6533ecde9fe0350dbbf20dd" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>InitWait</name></member>
+      <member refid="struct_x_dp___main_stream_attributes_1ab24f514436abfe5879ae276f6f73ddca" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>IsRxDp21</name></member>
+      <member refid="struct_x_dp___main_stream_attributes_1af64840fb7208def07d2610f84654b673" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>Misc0</name></member>
+      <member refid="struct_x_dp___main_stream_attributes_1a054077e7afd00b9ab8734aafb08474f1" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>Misc1</name></member>
+      <member refid="struct_x_dp___main_stream_attributes_1a08181cd7a136c70650c8aff78d5272c4" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>MVid</name></member>
+      <member refid="struct_x_dp___main_stream_attributes_1a77ed306c796d3397a0b61451eaa3bbd9" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>NVid</name></member>
+      <member refid="struct_x_dp___main_stream_attributes_1a7645bb893717633b25f25845a722fabc" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>OverrideSyncPolarity</name></member>
+      <member refid="struct_x_dp___main_stream_attributes_1ae0d6631d70a54f78d9afdee07e65d61e" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>OverrideUserPixelWidth</name></member>
+      <member refid="struct_x_dp___main_stream_attributes_1a24aa1cd9f6f462dd5e6c9de9081a903e" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>PixelClockHz</name></member>
+      <member refid="struct_x_dp___main_stream_attributes_1a437bc0484222ab3fd1084402ff345e41" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>StartTs</name></member>
+      <member refid="struct_x_dp___main_stream_attributes_1ae52e079fafc27fc0c34167f88cef73ae" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>SynchronousClockMode</name></member>
+      <member refid="struct_x_dp___main_stream_attributes_1a9a56174aaddcd141a18782bf95994f16" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>TransferUnitSize</name></member>
+      <member refid="struct_x_dp___main_stream_attributes_1aa3130e47370d6842d3689b22747cef35" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>UserPixelWidth</name></member>
+      <member refid="struct_x_dp___main_stream_attributes_1af487688930da7c8673f429cf8d2c1a08" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>VFreq</name></member>
+      <member refid="struct_x_dp___main_stream_attributes_1a14f259692b35ff96db728761e85d572f" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>VStart</name></member>
+      <member refid="struct_x_dp___main_stream_attributes_1a16a2992aa58e241ad9be2cc25827b656" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>Vtm</name></member>
+      <member refid="struct_x_dp___main_stream_attributes_1a2fe9fb684e1b4cac203ab07a0f70c2c3" prot="public" virt="non-virtual"><scope>XDp_MainStreamAttributes</scope><name>YCbCrColorimetry</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

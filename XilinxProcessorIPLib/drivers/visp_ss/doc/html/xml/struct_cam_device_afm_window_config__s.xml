@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_afm_window_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceAfmWindowConfig_s</compoundname>
+    <includes local="no">cam_device_afm_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_afm_window_config__s_1a31f040464abe18146c999a38bb7cd4a2" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga6507b5dc7e317b5d3395ee90b3d95adc" kindref="member">CamDeviceWindow_t</ref></type>
+        <definition>CamDeviceWindow_t CamDeviceAfmWindowConfig_s::window</definition>
+        <argsstring></argsstring>
+        <name>window</name>
+        <briefdescription>
+<para>AFM window. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_afm_window_config__s_1a062d2a925926fd3a3481812ab056b041" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__afm_1gaf1ffcafccec16483d2bb086e5789c94c" kindref="member">CamDeviceAfmWindowId_t</ref></type>
+        <definition>CamDeviceAfmWindowId_t CamDeviceAfmWindowConfig_s::id</definition>
+        <argsstring></argsstring>
+        <name>id</name>
+        <briefdescription>
+<para>AFM window index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice AFM window configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="76">
+        <label>CamDeviceWindow_s</label>
+        <link refid="struct_cam_device_window__s"/>
+      </node>
+      <node id="75">
+        <label>CamDeviceAfmWindowConfig_s</label>
+        <link refid="struct_cam_device_afm_window_config__s"/>
+        <childnode refid="76" relation="usage">
+          <edgelabel>window</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" bodystart="84" bodyend="88"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_afm_window_config__s_1a062d2a925926fd3a3481812ab056b041" prot="public" virt="non-virtual"><scope>CamDeviceAfmWindowConfig_s</scope><name>id</name></member>
+      <member refid="struct_cam_device_afm_window_config__s_1a31f040464abe18146c999a38bb7cd4a2" prot="public" virt="non-virtual"><scope>CamDeviceAfmWindowConfig_s</scope><name>window</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

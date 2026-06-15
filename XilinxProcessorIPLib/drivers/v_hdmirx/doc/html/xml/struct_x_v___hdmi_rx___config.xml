@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___hdmi_rx___config" kind="struct" prot="public">
+    <compoundname>XV_HdmiRx_Config</compoundname>
+    <includes local="no">xv_hdmirx.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx___config_1a3b417501882cc992a9cef4ac895e586d" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XV_HdmiRx_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx.h" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx.h" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx___config_1af7bfcbc5394a19ebdb89c10cb8622d39" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_HdmiRx_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>BaseAddress is the physical base address of the core&apos;s registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx.h" bodystart="229" bodyend="-1"/>
+        <referencedby refid="xv__hdmirx_8h_1a35f897045a59a453923ce248b1eb8183" compoundref="xv__hdmirx_8c" startline="102" endline="284">XV_HdmiRx_CfgInitialize</referencedby>
+        <referencedby refid="xv__hdmirx_8h_1ac1b7e27bd3874e33114b2e0210f54d4c" compoundref="xv__hdmirx_8c" startline="758" endline="768">XV_HdmiRx_ClearLinkStatus</referencedby>
+        <referencedby refid="xv__hdmirx_8c_1a0ede81f7ab3357d5fe81c8df0f125e27" compoundref="xv__hdmirx_8c" startline="834" endline="846">XV_HdmiRx_DdcGetEdidWords</referencedby>
+        <referencedby refid="xv__hdmirx_8h_1a257f8ee397eb2b80be3bd776c4120320" compoundref="xv__hdmirx_8c" startline="1041" endline="1053">XV_HdmiRx_DdcGetHdcpReadMessageBufferWords</referencedby>
+        <referencedby refid="xv__hdmirx_8h_1a5d6a4d5464644a04891aaa68c3343edb" compoundref="xv__hdmirx_8c" startline="984" endline="996">XV_HdmiRx_DdcGetHdcpWriteMessageBufferWords</referencedby>
+        <referencedby refid="xv__hdmirx_8h_1a6118306bb3bc6821b5a87640a34cafcc" compoundref="xv__hdmirx_8c" startline="1070" endline="1083">XV_HdmiRx_DdcIsHdcpReadMessageBufferEmpty</referencedby>
+        <referencedby refid="xv__hdmirx_8h_1a974d5daca9913663c9752972d3953ba4" compoundref="xv__hdmirx_8c" startline="1013" endline="1026">XV_HdmiRx_DdcIsHdcpWriteMessageBufferEmpty</referencedby>
+        <referencedby refid="xv__hdmirx_8h_1a15aff8e40535d72186c05dcdd2e5aa93" compoundref="xv__hdmirx_8c" startline="864" endline="896">XV_HdmiRx_DdcLoadEdid</referencedby>
+        <referencedby refid="xv__hdmirx_8h_1ae3dcd032d351867697f19280fdeb1eeb" compoundref="xv__hdmirx_8c" startline="783" endline="794">XV_HdmiRx_GetAcrCts</referencedby>
+        <referencedby refid="xv__hdmirx_8h_1a0b9483d540e72c619bcc9ba5d516ebe8" compoundref="xv__hdmirx_8c" startline="808" endline="819">XV_HdmiRx_GetAcrN</referencedby>
+        <referencedby refid="xv__hdmirx_8h_1a4b2650f744a2a244482124697e632863" compoundref="xv__hdmirx_8c" startline="1250" endline="1281">XV_HdmiRx_GetAviColorSpace</referencedby>
+        <referencedby refid="xv__hdmirx_8h_1afaa89bbc453b2d7e1446140c73b7baee" compoundref="xv__hdmirx_8c" startline="1224" endline="1236">XV_HdmiRx_GetAviVic</referencedby>
+        <referencedby refid="xv__hdmirx_8h_1a87e0904b6a6167f3cde2e7fcc0843e1d" compoundref="xv__hdmirx_8c" startline="1295" endline="1326">XV_HdmiRx_GetGcpColorDepth</referencedby>
+        <referencedby refid="xv__hdmirx_8h_1aad02ea3d99f0ac3a7f4a0b18f88d62e8" compoundref="xv__hdmirx_8c" startline="698" endline="709">XV_HdmiRx_GetLinkStatus</referencedby>
+        <referencedby refid="xv__hdmirx_8h_1a36bca352ee91492da1392cae5ddcfa6c" compoundref="xv__hdmirx_8c" startline="1197" endline="1210">XV_HdmiRx_GetTmdsClockRatio</referencedby>
+        <referencedby refid="xv__hdmirx_8h_1a6f74899b52dfbb8e0e554bbdea04bd29" compoundref="xv__hdmirx_8c" startline="1391" endline="1447">XV_HdmiRx_GetVideoProperties</referencedby>
+        <referencedby refid="xv__hdmirx_8h_1a9e11e21cff30c73785c0a2f63944ccd0" compoundref="xv__hdmirx_8c" startline="1461" endline="1781">XV_HdmiRx_GetVideoTiming</referencedby>
+        <referencedby refid="xv__hdmirx__intr_8c_1a1af2b06988bf558daf78a4ffb7df8838" compoundref="xv__hdmirx__intr_8c" startline="103" endline="174">XV_HdmiRx_IntrHandler</referencedby>
+        <referencedby refid="xv__hdmirx_8h_1a70bb5419e7285a268518668fda1d70cd" compoundref="xv__hdmirx_8c" startline="726" endline="744">XV_HdmiRx_IsLinkStatusErrMax</referencedby>
+        <referencedby refid="xv__hdmirx__selftest_8c_1a6b25b29eebf53f7084b6a154ad89a66f" compoundref="xv__hdmirx__selftest_8c" startline="59" endline="78">XV_HdmiRx_SelfTest</referencedby>
+        <referencedby refid="xv__hdmirx_8h_1a72457c11b43becc2fd5bffc1b748bf30" compoundref="xv__hdmirx_8c" startline="586" endline="617">XV_HdmiRx_SetColorFormat</referencedby>
+        <referencedby refid="xv__hdmirx_8h_1a8601d159dffdd4fd77d05d248b366a54" compoundref="xv__hdmirx_8c" startline="634" endline="654">XV_HdmiRx_SetHpd</referencedby>
+        <referencedby refid="xv__hdmirx_8h_1ab48ac8ab5eeddd6197c6220db1ac8ee5" compoundref="xv__hdmirx_8c" startline="541" endline="572">XV_HdmiRx_SetPixelRate</referencedby>
+        <referencedby refid="xv__hdmirx_8h_1a1f3aba5c534ac78d74315a5f8bd6fa62" compoundref="xv__hdmirx_8c" startline="671" endline="680">XV_HdmiRx_WriteScdcRegister</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx___config_1abc98c4ee5d4f9bc390ebd071f3474bcb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_HdmiRx_Config::AxiLiteClkFreq</definition>
+        <argsstring></argsstring>
+        <name>AxiLiteClkFreq</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx.h" bodystart="232" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the HDMI RX core. </para>    </briefdescription>
+    <detaileddescription>
+<para>Each HDMI RX device should have a configuration structure associated. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx.h" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx.h" bodystart="223" bodyend="233"/>
+    <listofallmembers>
+      <member refid="struct_x_v___hdmi_rx___config_1abc98c4ee5d4f9bc390ebd071f3474bcb" prot="public" virt="non-virtual"><scope>XV_HdmiRx_Config</scope><name>AxiLiteClkFreq</name></member>
+      <member refid="struct_x_v___hdmi_rx___config_1af7bfcbc5394a19ebdb89c10cb8622d39" prot="public" virt="non-virtual"><scope>XV_HdmiRx_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_v___hdmi_rx___config_1a3b417501882cc992a9cef4ac895e586d" prot="public" virt="non-virtual"><scope>XV_HdmiRx_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

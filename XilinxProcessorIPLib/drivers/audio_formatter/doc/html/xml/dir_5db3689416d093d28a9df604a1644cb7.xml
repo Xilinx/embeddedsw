@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_5db3689416d093d28a9df604a1644cb7" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xaudioformatter_8c">xaudioformatter.c</innerfile>
+    <innerfile refid="xaudioformatter_8h">xaudioformatter.h</innerfile>
+    <innerfile refid="xaudioformatter__g_8c">xaudioformatter_g.c</innerfile>
+    <innerfile refid="xaudioformatter__hw_8h">xaudioformatter_hw.h</innerfile>
+    <innerfile refid="xaudioformatter__intr_8c">xaudioformatter_intr.c</innerfile>
+    <innerfile refid="xaudioformatter__sinit_8c">xaudioformatter_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/"/>
+  </compounddef>
+</doxygen>

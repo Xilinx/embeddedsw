@@ -1,0 +1,199 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v_warp_init___input_configs" kind="struct" prot="public">
+    <compoundname>XVWarpInit_InputConfigs</compoundname>
+    <includes local="no">xv_warp_init_l2.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v_warp_init___input_configs_1a5ce99f81668c470d1f5e36e3bba96de1" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVWarpInit_InputConfigs::width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <briefdescription>
+<para>Frame width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" bodystart="144" bodyend="-1"/>
+        <referencedby refid="xv__warp__init__l2_8h_1a912662f3c8acfec1e8fda7fc3a5721fe" compoundref="xv__warp__init__l2_8c" startline="168" endline="223">XVWarpInit_ProgramDescriptor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_warp_init___input_configs_1a254587748a4abd630d69fcf479fff9b4" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVWarpInit_InputConfigs::height</definition>
+        <argsstring></argsstring>
+        <name>height</name>
+        <briefdescription>
+<para>Frame height. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" bodystart="145" bodyend="-1"/>
+        <referencedby refid="xv__warp__init__l2_8h_1a912662f3c8acfec1e8fda7fc3a5721fe" compoundref="xv__warp__init__l2_8c" startline="168" endline="223">XVWarpInit_ProgramDescriptor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_warp_init___input_configs_1a0e3666b652f93bd7a687cc491d67252b" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVWarpInit_InputConfigs::bytes_per_pixel</definition>
+        <argsstring></argsstring>
+        <name>bytes_per_pixel</name>
+        <briefdescription>
+<para>Bytes per pixel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" bodystart="146" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+        <referencedby refid="xv__warp__init__l2_8h_1a912662f3c8acfec1e8fda7fc3a5721fe" compoundref="xv__warp__init__l2_8c" startline="168" endline="223">XVWarpInit_ProgramDescriptor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_warp_init___input_configs_1aafc3e8a32f10e450dad63801eb65dfce" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVWarpInit_InputConfigs::warp_type</definition>
+        <argsstring></argsstring>
+        <name>warp_type</name>
+        <briefdescription>
+<para>Warp type selector. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" bodystart="147" bodyend="-1"/>
+        <referencedby refid="xv__warp__init__l2_8h_1a912662f3c8acfec1e8fda7fc3a5721fe" compoundref="xv__warp__init__l2_8c" startline="168" endline="223">XVWarpInit_ProgramDescriptor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_warp_init___input_configs_1a327f0e9612b072e51260589df1a18bfb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVWarpInit_InputConfigs::num_ctrl_pts</definition>
+        <argsstring></argsstring>
+        <name>num_ctrl_pts</name>
+        <briefdescription>
+<para>Number of control points. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" bodystart="148" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+        <referencedby refid="xv__warp__init__l2_8h_1a912662f3c8acfec1e8fda7fc3a5721fe" compoundref="xv__warp__init__l2_8c" startline="168" endline="223">XVWarpInit_ProgramDescriptor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_warp_init___input_configs_1ae49478d4f3a671d6f4c78fbbda10adf0" prot="public" static="no" mutable="no">
+        <type>s16</type>
+        <definition>s16 XVWarpInit_InputConfigs::k_pre</definition>
+        <argsstring></argsstring>
+        <name>k_pre</name>
+        <briefdescription>
+<para>Pre-distortion coefficient. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" bodystart="149" bodyend="-1"/>
+        <referencedby refid="xv__warp__init__l2_8h_1a912662f3c8acfec1e8fda7fc3a5721fe" compoundref="xv__warp__init__l2_8c" startline="168" endline="223">XVWarpInit_ProgramDescriptor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_warp_init___input_configs_1acfb9dc289f86ab91a631eebfd49df6a6" prot="public" static="no" mutable="no">
+        <type>s16</type>
+        <definition>s16 XVWarpInit_InputConfigs::k_post</definition>
+        <argsstring></argsstring>
+        <name>k_post</name>
+        <briefdescription>
+<para>Post-distortion coefficient. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" bodystart="150" bodyend="-1"/>
+        <referencedby refid="xv__warp__init__l2_8h_1a912662f3c8acfec1e8fda7fc3a5721fe" compoundref="xv__warp__init__l2_8c" startline="168" endline="223">XVWarpInit_ProgramDescriptor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_warp_init___input_configs_1a8ab20778cfd842ba513eb54cfc88006b" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>s32 XVWarpInit_InputConfigs::h[9]</definition>
+        <argsstring>[9]</argsstring>
+        <name>h</name>
+        <briefdescription>
+<para>3x3 homography matrix </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" bodystart="151" bodyend="-1"/>
+        <referencedby refid="xv__warp__init__l2_8h_1a912662f3c8acfec1e8fda7fc3a5721fe" compoundref="xv__warp__init__l2_8c" startline="168" endline="223">XVWarpInit_ProgramDescriptor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_warp_init___input_configs_1ab43b6d68fe91fca8c43173562b897de7" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XVWarpInit_InputConfigs::filter_table_addr_0</definition>
+        <argsstring></argsstring>
+        <name>filter_table_addr_0</name>
+        <briefdescription>
+<para>Filter table address 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" bodystart="152" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+        <referencedby refid="xv__warp__init__l2_8h_1a912662f3c8acfec1e8fda7fc3a5721fe" compoundref="xv__warp__init__l2_8c" startline="168" endline="223">XVWarpInit_ProgramDescriptor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_warp_init___input_configs_1ad29aa01703029664de0877d6b6e0d742" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XVWarpInit_InputConfigs::filter_table_addr_1</definition>
+        <argsstring></argsstring>
+        <name>filter_table_addr_1</name>
+        <briefdescription>
+<para>Filter table address 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" bodystart="153" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+        <referencedby refid="xv__warp__init__l2_8h_1a912662f3c8acfec1e8fda7fc3a5721fe" compoundref="xv__warp__init__l2_8c" startline="168" endline="223">XVWarpInit_ProgramDescriptor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_warp_init___input_configs_1a316536999948eb25abb836a2f2335255" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v_warp_init___arb_param___mesh_info" kindref="compound">XVWarpInit_ArbParam_MeshInfo</ref> *</type>
+        <definition>XVWarpInit_ArbParam_MeshInfo* XVWarpInit_InputConfigs::ctr_pts</definition>
+        <argsstring></argsstring>
+        <name>ctr_pts</name>
+        <briefdescription>
+<para>Pointer to mesh control points. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" bodystart="154" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+        <referencedby refid="xv__warp__init__l2_8h_1a912662f3c8acfec1e8fda7fc3a5721fe" compoundref="xv__warp__init__l2_8c" startline="168" endline="223">XVWarpInit_ProgramDescriptor</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Input configuration structure for warp initialization. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="38">
+        <label>XVWarpInit_ArbParam_MeshInfo</label>
+        <link refid="struct_x_v_warp_init___arb_param___mesh_info"/>
+      </node>
+      <node id="37">
+        <label>XVWarpInit_InputConfigs</label>
+        <link refid="struct_x_v_warp_init___input_configs"/>
+        <childnode refid="38" relation="usage">
+          <edgelabel>ctr_pts</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" bodystart="143" bodyend="155"/>
+    <listofallmembers>
+      <member refid="struct_x_v_warp_init___input_configs_1a0e3666b652f93bd7a687cc491d67252b" prot="public" virt="non-virtual"><scope>XVWarpInit_InputConfigs</scope><name>bytes_per_pixel</name></member>
+      <member refid="struct_x_v_warp_init___input_configs_1a316536999948eb25abb836a2f2335255" prot="public" virt="non-virtual"><scope>XVWarpInit_InputConfigs</scope><name>ctr_pts</name></member>
+      <member refid="struct_x_v_warp_init___input_configs_1ab43b6d68fe91fca8c43173562b897de7" prot="public" virt="non-virtual"><scope>XVWarpInit_InputConfigs</scope><name>filter_table_addr_0</name></member>
+      <member refid="struct_x_v_warp_init___input_configs_1ad29aa01703029664de0877d6b6e0d742" prot="public" virt="non-virtual"><scope>XVWarpInit_InputConfigs</scope><name>filter_table_addr_1</name></member>
+      <member refid="struct_x_v_warp_init___input_configs_1a8ab20778cfd842ba513eb54cfc88006b" prot="public" virt="non-virtual"><scope>XVWarpInit_InputConfigs</scope><name>h</name></member>
+      <member refid="struct_x_v_warp_init___input_configs_1a254587748a4abd630d69fcf479fff9b4" prot="public" virt="non-virtual"><scope>XVWarpInit_InputConfigs</scope><name>height</name></member>
+      <member refid="struct_x_v_warp_init___input_configs_1acfb9dc289f86ab91a631eebfd49df6a6" prot="public" virt="non-virtual"><scope>XVWarpInit_InputConfigs</scope><name>k_post</name></member>
+      <member refid="struct_x_v_warp_init___input_configs_1ae49478d4f3a671d6f4c78fbbda10adf0" prot="public" virt="non-virtual"><scope>XVWarpInit_InputConfigs</scope><name>k_pre</name></member>
+      <member refid="struct_x_v_warp_init___input_configs_1a327f0e9612b072e51260589df1a18bfb" prot="public" virt="non-virtual"><scope>XVWarpInit_InputConfigs</scope><name>num_ctrl_pts</name></member>
+      <member refid="struct_x_v_warp_init___input_configs_1aafc3e8a32f10e450dad63801eb65dfce" prot="public" virt="non-virtual"><scope>XVWarpInit_InputConfigs</scope><name>warp_type</name></member>
+      <member refid="struct_x_v_warp_init___input_configs_1a5ce99f81668c470d1f5e36e3bba96de1" prot="public" virt="non-virtual"><scope>XVWarpInit_InputConfigs</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

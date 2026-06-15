@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_c20508edf52f6e95c9b96619fcd6e693" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xilloader__add__pdi__to__image__store__client__example_8c">xilloader_add_pdi_to_image_store_client_example.c</innerfile>
+    <innerfile refid="xilloader__cfi__selective__readback__example_8c">xilloader_cfi_selective_readback_example.c</innerfile>
+    <innerfile refid="xilloader__configure__jtag__status__client__example_8c">xilloader_configure_jtag_status_client_example.c</innerfile>
+    <innerfile refid="xilloader__extract__metaheader__client__example_8c">xilloader_extract_metaheader_client_example.c</innerfile>
+    <innerfile refid="xilloader__get__atf__handoff__params__client__example_8c">xilloader_get_atf_handoff_params_client_example.c</innerfile>
+    <innerfile refid="xilloader__get__image__info__client__example_8c">xilloader_get_image_info_client_example.c</innerfile>
+    <innerfile refid="xilloader__get__image__info__list__client__example_8c">xilloader_get_image_info_list_client_example.c</innerfile>
+    <innerfile refid="xilloader__get__opt__data__example_8c">xilloader_get_opt_data_example.c</innerfile>
+    <innerfile refid="xilloader__image__store__pdi__client__example_8c">xilloader_image_store_pdi_client_example.c</innerfile>
+    <innerfile refid="xilloader__load__image__client__example_8c">xilloader_load_image_client_example.c</innerfile>
+    <innerfile refid="xilloader__load__pdi__client__example_8c">xilloader_load_pdi_client_example.c</innerfile>
+    <innerfile refid="xilloader__read__ddr__crypto__perf__counters__client__example_8c">xilloader_read_ddr_crypto_perf_counters_client_example.c</innerfile>
+    <innerfile refid="xilloader__remove__pdi__from__image__store__client__example_8c">xilloader_remove_pdi_from_image_store_client_example.c</innerfile>
+    <innerfile refid="xilloader__update__multiboot__client__example_8c">xilloader_update_multiboot_client_example.c</innerfile>
+    <innerfile refid="xilloader__validate__pdi__auth__example_8c">xilloader_validate_pdi_auth_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/examples/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v__gamma__lut___config" kind="struct" prot="public">
+    <compoundname>XV_gamma_lut_Config</compoundname>
+    <includes local="no">xv_gamma_lut.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v__gamma__lut___config_1a7c670d4882d16c253ac41d62109bf48d" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XV_gamma_lut_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Device name string. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" bodystart="81" bodyend="-1"/>
+        <referencedby refid="xv__gamma__lut__sinit_8c_1a656c427e3d56cdb144273fdc287ef3d2" compoundref="xv__gamma__lut__sinit_8c" startline="108" endline="122">XV_gamma_lut_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__gamma__lut___config_1aa4b12f6dc99b6b4e93a991c90b13ac1f" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_gamma_lut_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>The base address of the core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" bodystart="83" bodyend="-1"/>
+        <referencedby refid="main_8c_1aca6c8ac5234bd20fc964dc5c20a427e4" compoundref="main_8c" startline="59" endline="115">driverInit</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a164a423eb45d21fc5b1b248a252ce87d" compoundref="xv__gamma__lut_8c" startline="34" endline="49">XV_gamma_lut_CfgInitialize</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a2726379ae52a28d785d63ad03888ca86" compoundref="xv__gamma__lut_8c" startline="184" endline="189">XV_gamma_lut_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1af9d354156571f095ce9ee4b3a9b5d635" compoundref="xv__gamma__lut_8c" startline="163" endline="168">XV_gamma_lut_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a2eb9b2ebe12a5ca8c64e4d4d514ac6ad" compoundref="xv__gamma__lut_8c" startline="336" endline="341">XV_gamma_lut_Get_HwReg_gamma_lut_0_BaseAddress</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a4d69867260cd0eae4da1686aa18efa4a" compoundref="xv__gamma__lut_8c" startline="356" endline="361">XV_gamma_lut_Get_HwReg_gamma_lut_0_HighAddress</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1afd451f6cf961583ff14e8a9a41e6aafe" compoundref="xv__gamma__lut_8c" startline="564" endline="569">XV_gamma_lut_Get_HwReg_gamma_lut_1_BaseAddress</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1aba1b7e96c6d891c3251c25ff86051323" compoundref="xv__gamma__lut_8c" startline="584" endline="589">XV_gamma_lut_Get_HwReg_gamma_lut_1_HighAddress</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a4ce16daf750141d2f775224169320dc2" compoundref="xv__gamma__lut_8c" startline="792" endline="797">XV_gamma_lut_Get_HwReg_gamma_lut_2_BaseAddress</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a21bca0c11221800a291cd8069bacf9f9" compoundref="xv__gamma__lut_8c" startline="812" endline="817">XV_gamma_lut_Get_HwReg_gamma_lut_2_HighAddress</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1ae996e7c956baaab7fe9098bee29b0bbf" compoundref="xv__gamma__lut_8c" startline="269" endline="277">XV_gamma_lut_Get_HwReg_height</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a37b9f9621c4fa5f685a447cd9df6ac25" compoundref="xv__gamma__lut_8c" startline="313" endline="321">XV_gamma_lut_Get_HwReg_video_format</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a3ef5ea680899bdd9eccaddd900217630" compoundref="xv__gamma__lut_8c" startline="225" endline="233">XV_gamma_lut_Get_HwReg_width</referencedby>
+        <referencedby refid="xv__gamma__lut__sinit_8c_1acb100c811b3a1c4b53556b97f16a9873" compoundref="xv__gamma__lut__sinit_8c" startline="141" endline="154">XV_gamma_lut_Initialize</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a8f0e77edeb5c76e0fc6c11229bf01c37" compoundref="xv__gamma__lut_8c" startline="1114" endline="1119">XV_gamma_lut_InterruptClear</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a24a1b9e45c5dfee0d0be454cfd4d3889" compoundref="xv__gamma__lut_8c" startline="1089" endline="1097">XV_gamma_lut_InterruptDisable</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1adcfd346f8d93324de3fd3de13fcacb35" compoundref="xv__gamma__lut_8c" startline="1064" endline="1072">XV_gamma_lut_InterruptEnable</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1ac4567ab095b1ad518950902178df1a20" compoundref="xv__gamma__lut_8c" startline="1135" endline="1140">XV_gamma_lut_InterruptGetEnabled</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1adef3bebf8837172be781276ae3cc2f3c" compoundref="xv__gamma__lut_8c" startline="1156" endline="1161">XV_gamma_lut_InterruptGetStatus</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a91801c03efa81b2735df746f78af304b" compoundref="xv__gamma__lut_8c" startline="1042" endline="1047">XV_gamma_lut_InterruptGlobalDisable</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a852d3416d88d0c3ee8549fab7a858874" compoundref="xv__gamma__lut_8c" startline="1021" endline="1026">XV_gamma_lut_InterruptGlobalEnable</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a52915a27b7eac019117945f2d810a053" compoundref="xv__gamma__lut_8c" startline="90" endline="98">XV_gamma_lut_IsDone</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a4c5427f99d99e0976e9e37a005c08e9d" compoundref="xv__gamma__lut_8c" startline="114" endline="122">XV_gamma_lut_IsIdle</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a9b36bd64f8c0453f467f3447df6096d6" compoundref="xv__gamma__lut_8c" startline="138" endline="147">XV_gamma_lut_IsReady</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a4159c7b30c6cbb75a5665a5bcb4057f3" compoundref="xv__gamma__lut_8c" startline="536" endline="549">XV_gamma_lut_Read_HwReg_gamma_lut_0_Bytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a5a1499d9419d21a34ed895bc4a6eb47f" compoundref="xv__gamma__lut_8c" startline="472" endline="485">XV_gamma_lut_Read_HwReg_gamma_lut_0_Words</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a9d76de6cb0b75c7233c5326d5ae99429" compoundref="xv__gamma__lut_8c" startline="764" endline="777">XV_gamma_lut_Read_HwReg_gamma_lut_1_Bytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a8e0117c2bea8920555b4599b5018fc82" compoundref="xv__gamma__lut_8c" startline="700" endline="713">XV_gamma_lut_Read_HwReg_gamma_lut_1_Words</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a62770a2f54caf64c6b72c0f0484258dc" compoundref="xv__gamma__lut_8c" startline="992" endline="1005">XV_gamma_lut_Read_HwReg_gamma_lut_2_Bytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a20fb8d0329cd56f1616050bc44f6bd59" compoundref="xv__gamma__lut_8c" startline="928" endline="941">XV_gamma_lut_Read_HwReg_gamma_lut_2_Words</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1ab68e6dc2105db15892a302f72bddff7d" compoundref="xv__gamma__lut_8c" startline="249" endline="254">XV_gamma_lut_Set_HwReg_height</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a09c698fc18c2242ebeca7df9bea9772d" compoundref="xv__gamma__lut_8c" startline="293" endline="298">XV_gamma_lut_Set_HwReg_video_format</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1acc4c0596f2ca39395fcfbd74372bc684" compoundref="xv__gamma__lut_8c" startline="205" endline="210">XV_gamma_lut_Set_HwReg_width</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a3435176f56514a6d31d37b96280eede1" compoundref="xv__gamma__lut_8c" startline="66" endline="74">XV_gamma_lut_Start</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1ade451aeecc028b05d1993aca3f404d29" compoundref="xv__gamma__lut_8c" startline="504" endline="517">XV_gamma_lut_Write_HwReg_gamma_lut_0_Bytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1ae59b641d2ee3ea018c4236c448b4451f" compoundref="xv__gamma__lut_8c" startline="440" endline="453">XV_gamma_lut_Write_HwReg_gamma_lut_0_Words</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a8c32c2137d41ca4ef6691aa4e3a6b93b" compoundref="xv__gamma__lut_8c" startline="732" endline="745">XV_gamma_lut_Write_HwReg_gamma_lut_1_Bytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1abc94054a3bc15dd3f88ef9f633725a8c" compoundref="xv__gamma__lut_8c" startline="668" endline="681">XV_gamma_lut_Write_HwReg_gamma_lut_1_Words</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a79f4ef13e9b8e610de156b742e753c07" compoundref="xv__gamma__lut_8c" startline="960" endline="973">XV_gamma_lut_Write_HwReg_gamma_lut_2_Bytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a4d0d36eb81f07e1f276ad5290e00d3da" compoundref="xv__gamma__lut_8c" startline="896" endline="909">XV_gamma_lut_Write_HwReg_gamma_lut_2_Words</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__gamma__lut___config_1aaefbc5af603e4cae5505a29665da14a1" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_gamma_lut_Config::PixPerClk</definition>
+        <argsstring></argsstring>
+        <name>PixPerClk</name>
+        <briefdescription>
+<para>Samples Per Clock supported by core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__gamma__lut___config_1a6dee95d2ebd3c5cae2633d5894d219ca" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_gamma_lut_Config::MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>MaxWidth</name>
+        <briefdescription>
+<para>Maximum columns supported by core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__gamma__lut___config_1af3de00dbd374e9e93c1a1590a68699a0" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_gamma_lut_Config::MaxHeight</definition>
+        <argsstring></argsstring>
+        <name>MaxHeight</name>
+        <briefdescription>
+<para>Maximum rows supported by core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__gamma__lut___config_1a9f01ac51de9fbce91ef32917e87e739d" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_gamma_lut_Config::MaxDataWidth</definition>
+        <argsstring></argsstring>
+        <name>MaxDataWidth</name>
+        <briefdescription>
+<para>Maximum Data width of each channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__gamma__lut___config_1a55500406089653101936e4d6c11d575a" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_gamma_lut_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Interrupt ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__gamma__lut___config_1a6d67db9c6e65b9b111eb3543b143fec3" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_gamma_lut_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the gamma lut core Each core instance should have a configuration structure associated. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut.h" bodystart="77" bodyend="92"/>
+    <listofallmembers>
+      <member refid="struct_x_v__gamma__lut___config_1aa4b12f6dc99b6b4e93a991c90b13ac1f" prot="public" virt="non-virtual"><scope>XV_gamma_lut_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_v__gamma__lut___config_1a55500406089653101936e4d6c11d575a" prot="public" virt="non-virtual"><scope>XV_gamma_lut_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_v__gamma__lut___config_1a6d67db9c6e65b9b111eb3543b143fec3" prot="public" virt="non-virtual"><scope>XV_gamma_lut_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_v__gamma__lut___config_1a9f01ac51de9fbce91ef32917e87e739d" prot="public" virt="non-virtual"><scope>XV_gamma_lut_Config</scope><name>MaxDataWidth</name></member>
+      <member refid="struct_x_v__gamma__lut___config_1af3de00dbd374e9e93c1a1590a68699a0" prot="public" virt="non-virtual"><scope>XV_gamma_lut_Config</scope><name>MaxHeight</name></member>
+      <member refid="struct_x_v__gamma__lut___config_1a6dee95d2ebd3c5cae2633d5894d219ca" prot="public" virt="non-virtual"><scope>XV_gamma_lut_Config</scope><name>MaxWidth</name></member>
+      <member refid="struct_x_v__gamma__lut___config_1a7c670d4882d16c253ac41d62109bf48d" prot="public" virt="non-virtual"><scope>XV_gamma_lut_Config</scope><name>Name</name></member>
+      <member refid="struct_x_v__gamma__lut___config_1aaefbc5af603e4cae5505a29665da14a1" prot="public" virt="non-virtual"><scope>XV_gamma_lut_Config</scope><name>PixPerClk</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,233 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_timer_tag" kind="struct" prot="public">
+    <compoundname>XTimerTag</compoundname>
+    <includes local="no">xiltimer.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_timer_tag_1a1596156ea70229b14ebdb8776e890fea" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* XTimerTag::XTimer_ModifyInterval)(struct XTimerTag *InstancePtr, u32 delay, XTimer_DelayType Delaytype)</definition>
+        <argsstring>)(struct XTimerTag *InstancePtr, u32 delay, XTimer_DelayType Delaytype)</argsstring>
+        <name>XTimer_ModifyInterval</name>
+        <briefdescription>
+<para>Modifies the timer interval. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" bodystart="103" bodyend="-1"/>
+        <referencedby refid="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" compoundref="xiltimer_8c" startline="101" endline="108">XilTimer_Sleep</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_timer_tag_1a789426610fee231cacc16560c831bc42" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* XTimerTag::XTimer_TickIntrHandler)(struct XTimerTag *InstancePtr, u8 Priority)</definition>
+        <argsstring>)(struct XTimerTag *InstancePtr, u8 Priority)</argsstring>
+        <name>XTimer_TickIntrHandler</name>
+        <briefdescription>
+<para>Tick interrupt handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" bodystart="105" bodyend="-1"/>
+        <referencedby refid="group__xiltimer__api_1ga6395671177518353e3ab5ded9609eb1e" compoundref="xiltimer_8c" startline="138" endline="150">XTimer_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_timer_tag_1aa0931e9c88867714880e5d22aeca89b0" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* XTimerTag::XTimer_TickInterval)(struct XTimerTag *InstancePtr, u32 Delay)</definition>
+        <argsstring>)(struct XTimerTag *InstancePtr, u32 Delay)</argsstring>
+        <name>XTimer_TickInterval</name>
+        <briefdescription>
+<para>Configures the tick interval. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" bodystart="107" bodyend="-1"/>
+        <referencedby refid="group__xiltimer__api_1gac2d61518eafb79f1bad01cecb9503d6c" compoundref="xiltimer_8c" startline="185" endline="192">XTimer_SetInterval</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_timer_tag_1a08c800b5458109d2b26ad3b8b82d2582" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* XTimerTag::XSleepTimer_Stop)(struct XTimerTag *InstancePtr)</definition>
+        <argsstring>)(struct XTimerTag *InstancePtr)</argsstring>
+        <name>XSleepTimer_Stop</name>
+        <briefdescription>
+<para>Stops the sleep timer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_timer_tag_1aa6b45555673e3e0e07a63a43625dea63" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* XTimerTag::XTickTimer_Stop)(struct XTimerTag *InstancePtr)</definition>
+        <argsstring>)(struct XTimerTag *InstancePtr)</argsstring>
+        <name>XTickTimer_Stop</name>
+        <briefdescription>
+<para>Stops the tick timer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_timer_tag_1a65213463c513915b2057907b0548a7a1" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* XTimerTag::XTickTimer_ClearInterrupt)(struct XTimerTag *InstancePtr)</definition>
+        <argsstring>)(struct XTimerTag *InstancePtr)</argsstring>
+        <name>XTickTimer_ClearInterrupt</name>
+        <briefdescription>
+<para>Clears the Tick timer interrupt status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="group__xiltimer__api_1ga30d16ade92d9b5d61797f69f06bdd7bb" compoundref="xiltimer_8c" startline="204" endline="211">XTimer_ClearTickInterrupt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_timer_tag_1a3e4c875a87fc8e4158293010a729bb2f" prot="public" static="no" mutable="no">
+        <type>XTimer_TickHandler</type>
+        <definition>XTimer_TickHandler XTimerTag::Handler</definition>
+        <argsstring></argsstring>
+        <name>Handler</name>
+        <briefdescription>
+<para>Callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" bodystart="115" bodyend="-1"/>
+        <referencedby refid="group__xiltimer__api_1ga6395671177518353e3ab5ded9609eb1e" compoundref="xiltimer_8c" startline="138" endline="150">XTimer_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_timer_tag_1a5ba807967063169be63cde744354d0a8" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XTimerTag::CallBackRef</definition>
+        <argsstring></argsstring>
+        <name>CallBackRef</name>
+        <briefdescription>
+<para>Callback reference for handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" bodystart="116" bodyend="-1"/>
+        <referencedby refid="group__xiltimer__api_1ga6395671177518353e3ab5ded9609eb1e" compoundref="xiltimer_8c" startline="138" endline="150">XTimer_SetHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to the XFpga instance. </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>XTimer_ModifyInterval</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Modifies the timer interval </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>XTimer_TickIntrHandler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Tick interrupt handler </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>XTimer_TickInterval</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Configures the tick interval </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>XSleepTimer_Stop</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Stops the sleep timer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>XTickTimer_Stop</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Stops the tick timer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>XTickTimer_ClearInterrupt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Clears the Tick timer interrupt status </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Handler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Tick Handler </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Callback reference for handler </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AxiTimer_SleepInst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sleep Instance for AxiTimer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AxiTimer_TickInst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Tick Instance for AxiTimer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TtcPs_SleepInst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sleep Instance for TTCPS </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TtcPs_TickInst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Tick Instance for TTCPS </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ScuTimer_SleepInst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sleep Instance for Scutimer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ScuTimer_TickInst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Tick Instance for Scutimer </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.h" bodystart="102" bodyend="145"/>
+    <listofallmembers>
+      <member refid="struct_x_timer_tag_1a5ba807967063169be63cde744354d0a8" prot="public" virt="non-virtual"><scope>XTimerTag</scope><name>CallBackRef</name></member>
+      <member refid="struct_x_timer_tag_1a3e4c875a87fc8e4158293010a729bb2f" prot="public" virt="non-virtual"><scope>XTimerTag</scope><name>Handler</name></member>
+      <member refid="struct_x_timer_tag_1a08c800b5458109d2b26ad3b8b82d2582" prot="public" virt="non-virtual"><scope>XTimerTag</scope><name>XSleepTimer_Stop</name></member>
+      <member refid="struct_x_timer_tag_1a65213463c513915b2057907b0548a7a1" prot="public" virt="non-virtual"><scope>XTimerTag</scope><name>XTickTimer_ClearInterrupt</name></member>
+      <member refid="struct_x_timer_tag_1aa6b45555673e3e0e07a63a43625dea63" prot="public" virt="non-virtual"><scope>XTimerTag</scope><name>XTickTimer_Stop</name></member>
+      <member refid="struct_x_timer_tag_1a1596156ea70229b14ebdb8776e890fea" prot="public" virt="non-virtual"><scope>XTimerTag</scope><name>XTimer_ModifyInterval</name></member>
+      <member refid="struct_x_timer_tag_1aa0931e9c88867714880e5d22aeca89b0" prot="public" virt="non-virtual"><scope>XTimerTag</scope><name>XTimer_TickInterval</name></member>
+      <member refid="struct_x_timer_tag_1a789426610fee231cacc16560c831bc42" prot="public" virt="non-virtual"><scope>XTimerTag</scope><name>XTimer_TickIntrHandler</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

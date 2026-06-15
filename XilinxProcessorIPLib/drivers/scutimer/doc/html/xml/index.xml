@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="struct_x_scu_timer" kind="struct"><name>XScuTimer</name>
+    <member refid="struct_x_scu_timer_1a6dfa00cf1df32f581332123902bd2e0e" kind="variable"><name>Config</name></member>
+    <member refid="struct_x_scu_timer_1a348e1922cf71c91c233629655acaef32" kind="variable"><name>IsReady</name></member>
+    <member refid="struct_x_scu_timer_1aa0f089c744abd0bbd2e9b86e494241a5" kind="variable"><name>IsStarted</name></member>
+  </compound>
+  <compound refid="struct_x_scu_timer___config" kind="struct"><name>XScuTimer_Config</name>
+    <member refid="struct_x_scu_timer___config_1aa1ec79c2029eb32a06f0da70ba116e84" kind="variable"><name>Name</name></member>
+    <member refid="struct_x_scu_timer___config_1a53dc49c2ec07c2bc40cd0c0b29d49bc0" kind="variable"><name>BaseAddr</name></member>
+  </compound>
+  <compound refid="_c_make_lists_8txt" kind="file"><name>CMakeLists.txt</name>
+  </compound>
+  <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
+  </compound>
+  <compound refid="xscutimer_8c" kind="file"><name>xscutimer.c</name>
+    <member refid="group__scutimer_1ga59badd651be237aab4099cedd96621d2" kind="function"><name>XScuTimer_CfgInitialize</name></member>
+    <member refid="group__scutimer_1gabf24fad576d3adab4b53eebdef424bde" kind="function"><name>XScuTimer_Start</name></member>
+    <member refid="group__scutimer_1gaac0376fbfeb5c29bb44403d6fefd0843" kind="function"><name>XScuTimer_Stop</name></member>
+    <member refid="group__scutimer_1gac6cd65141b00c0d1940d0b8f2a081faf" kind="function"><name>XScuTimer_SetPrescaler</name></member>
+    <member refid="group__scutimer_1ga56d8c36e4aa28168de3ba5d7f87feb2d" kind="function"><name>XScuTimer_GetPrescaler</name></member>
+  </compound>
+  <compound refid="xscutimer_8h" kind="file"><name>xscutimer.h</name>
+    <member refid="group__scutimer_1ga0e6142d11b3ee5ef331787855f179762" kind="define"><name>XSCUTIMER_H</name></member>
+    <member refid="group__scutimer_1gaac033729416a2ae86fec784a89a4c653" kind="define"><name>XScuTimer_IsExpired</name></member>
+    <member refid="group__scutimer_1gaf1976650946668999ca5107fef691e53" kind="define"><name>XScuTimer_RestartTimer</name></member>
+    <member refid="group__scutimer_1ga94fbce5d53f983ec5cf675cfc97f4f78" kind="define"><name>XScuTimer_LoadTimer</name></member>
+    <member refid="group__scutimer_1ga494afe8a54f75991a1e63fcef913df41" kind="define"><name>XScuTimer_GetCounterValue</name></member>
+    <member refid="group__scutimer_1ga54fc490ff5bdcfa76eddddf5fc5dc5bf" kind="define"><name>XScuTimer_EnableAutoReload</name></member>
+    <member refid="group__scutimer_1ga29b90dcea87e70190d47c53e89977c8a" kind="define"><name>XScuTimer_DisableAutoReload</name></member>
+    <member refid="group__scutimer_1ga41e184373a4d02ce8a9aec1601a52c04" kind="define"><name>XScuTimer_EnableInterrupt</name></member>
+    <member refid="group__scutimer_1gac3ea67683ec802381c4aef819d04768b" kind="define"><name>XScuTimer_DisableInterrupt</name></member>
+    <member refid="group__scutimer_1gab653a0c97cfb913f3cabeaa3a9167586" kind="define"><name>XScuTimer_GetInterruptStatus</name></member>
+    <member refid="group__scutimer_1gadc11e29fe8f755683fbc6edc883e0a4d" kind="define"><name>XScuTimer_ClearInterruptStatus</name></member>
+    <member refid="group__scutimer_1ga58903096d235b860a31f50c4ab70c853" kind="function"><name>XScuTimer_LookupConfig</name></member>
+    <member refid="group__scutimer_1gac3036b3f9f6e7735d3e6a6eb74a28e95" kind="function"><name>XScuTimer_SelfTest</name></member>
+    <member refid="group__scutimer_1ga59badd651be237aab4099cedd96621d2" kind="function"><name>XScuTimer_CfgInitialize</name></member>
+    <member refid="group__scutimer_1gabf24fad576d3adab4b53eebdef424bde" kind="function"><name>XScuTimer_Start</name></member>
+    <member refid="group__scutimer_1gaac0376fbfeb5c29bb44403d6fefd0843" kind="function"><name>XScuTimer_Stop</name></member>
+    <member refid="group__scutimer_1gac6cd65141b00c0d1940d0b8f2a081faf" kind="function"><name>XScuTimer_SetPrescaler</name></member>
+    <member refid="group__scutimer_1ga56d8c36e4aa28168de3ba5d7f87feb2d" kind="function"><name>XScuTimer_GetPrescaler</name></member>
+  </compound>
+  <compound refid="xscutimer__g_8c" kind="file"><name>xscutimer_g.c</name>
+    <member refid="group__scutimer_1gac54aa07186803163582a0d3c4f96a686" kind="variable"><name>XScuTimer_ConfigTable</name></member>
+  </compound>
+  <compound refid="xscutimer__hw_8h" kind="file"><name>xscutimer_hw.h</name>
+    <member refid="group__scutimer_1gae86109b8ee86ede103995c458720c743" kind="define"><name>XSCUTIMER_LOAD_OFFSET</name></member>
+    <member refid="group__scutimer_1gaa96f9778b3fb95bb968793b504bee53e" kind="define"><name>XSCUTIMER_COUNTER_OFFSET</name></member>
+    <member refid="group__scutimer_1ga8f0a12cb3bfff490af76bc9a3ffca4be" kind="define"><name>XSCUTIMER_CONTROL_OFFSET</name></member>
+    <member refid="group__scutimer_1ga79f4aab3a1968e66ae1fadb846e7b8c8" kind="define"><name>XSCUTIMER_ISR_OFFSET</name></member>
+    <member refid="group__scutimer_1ga867b2da6f5e9b1d921c34a925d4b498a" kind="define"><name>XSCUTIMER_CONTROL_PRESCALER_MASK</name></member>
+    <member refid="group__scutimer_1ga31316fbcb2292f6d29c39a025bbd9821" kind="define"><name>XSCUTIMER_CONTROL_PRESCALER_SHIFT</name></member>
+    <member refid="group__scutimer_1ga62c9d23e23b5329976291d26cc36c6a6" kind="define"><name>XSCUTIMER_CONTROL_IRQ_ENABLE_MASK</name></member>
+    <member refid="group__scutimer_1gaeaf7add0552b3b0c5ab78b6668a88d6a" kind="define"><name>XSCUTIMER_CONTROL_AUTO_RELOAD_MASK</name></member>
+    <member refid="group__scutimer_1ga242deea9cc62049619bdfd97e7a731f4" kind="define"><name>XSCUTIMER_CONTROL_ENABLE_MASK</name></member>
+    <member refid="group__scutimer_1gafa21717c99e101943a7075d4e2e30ca1" kind="define"><name>XSCUTIMER_ISR_EVENT_FLAG_MASK</name></member>
+    <member refid="group__scutimer_1ga9cdd1aa68f5988c97573b70f60dc5d08" kind="define"><name>XSCUTIMER_HW_H</name></member>
+    <member refid="group__scutimer_1gae3cd5f68d2ce17dd72a4abaf4afe06a6" kind="define"><name>XScuTimer_SetLoadReg</name></member>
+    <member refid="group__scutimer_1ga3eedf4e335232d3303b1fd3927f10213" kind="define"><name>XScuTimer_GetLoadReg</name></member>
+    <member refid="group__scutimer_1ga162738ee853ef5fc9c4fa35bf9c2bb8d" kind="define"><name>XScuTimer_SetCounterReg</name></member>
+    <member refid="group__scutimer_1ga65cf8fca671de7e21a9944c43bf7cd8a" kind="define"><name>XScuTimer_GetCounterReg</name></member>
+    <member refid="group__scutimer_1gae0b71c6aa97a846b93c4a5fa2092be9e" kind="define"><name>XScuTimer_SetControlReg</name></member>
+    <member refid="group__scutimer_1ga1427e7cc324917e9bc062ea9cc1976ac" kind="define"><name>XScuTimer_GetControlReg</name></member>
+    <member refid="group__scutimer_1gaffc9febb953169fb57818c4c58fd68fc" kind="define"><name>XScuTimer_SetIntrReg</name></member>
+    <member refid="group__scutimer_1ga48d158b4cc15416e7d4a62867720b79a" kind="define"><name>XScuTimer_GetIntrReg</name></member>
+    <member refid="group__scutimer_1gae4c784baaac425e11d6a1184ae44b349" kind="define"><name>XScuTimer_ReadReg</name></member>
+    <member refid="group__scutimer_1ga6f29815a4f21529bfc3d009932d3c2fe" kind="define"><name>XScuTimer_WriteReg</name></member>
+  </compound>
+  <compound refid="xscutimer__intr__example_8c" kind="file"><name>xscutimer_intr_example.c</name>
+    <member refid="xscutimer__intr__example_8c_1a3a689d923f2be2269d806e822e940c41" kind="define"><name>TIMER_LOAD_VALUE</name></member>
+    <member refid="xscutimer__intr__example_8c_1a6f038bba4e7b5464e4ca19703ea55508" kind="variable"><name>TimerInstance</name></member>
+    <member refid="xscutimer__intr__example_8c_1a11216f6bbbf7254b35ddcb1216f6f50a" kind="variable"><name>TimerExpired</name></member>
+    <member refid="xscutimer__intr__example_8c_1a2dcd3e996abdecd4e3f09b92f23c061b" kind="function"><name>ScuTimerIntrExample</name></member>
+    <member refid="xscutimer__intr__example_8c_1a0fc48a7fcdbd8bac9537a754828f77f8" kind="function"><name>TimerIntrHandler</name></member>
+    <member refid="xscutimer__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xscutimer__polled__example_8c" kind="file"><name>xscutimer_polled_example.c</name>
+    <member refid="xscutimer__polled__example_8c_1a3a689d923f2be2269d806e822e940c41" kind="define"><name>TIMER_LOAD_VALUE</name></member>
+    <member refid="xscutimer__polled__example_8c_1add55d82a9a9dadba05af9add8d75cc16" kind="variable"><name>Timer</name></member>
+    <member refid="xscutimer__polled__example_8c_1aa213e9998cf3ba30efe084cf14c79da8" kind="function"><name>ScuTimerPolledExample</name></member>
+    <member refid="xscutimer__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xscutimer__selftest_8c" kind="file"><name>xscutimer_selftest.c</name>
+    <member refid="group__scutimer_1ga2795253b5bea39b3ca8e8bf96bec03f5" kind="define"><name>XSCUTIMER_SELFTEST_VALUE</name></member>
+    <member refid="group__scutimer_1gac3036b3f9f6e7735d3e6a6eb74a28e95" kind="function"><name>XScuTimer_SelfTest</name></member>
+  </compound>
+  <compound refid="xscutimer__sinit_8c" kind="file"><name>xscutimer_sinit.c</name>
+    <member refid="group__scutimer_1ga9febed8a77260c454addc6434dbeeb38" kind="variable"><name>XScuTimer_ConfigTable</name></member>
+    <member refid="group__scutimer_1ga58903096d235b860a31f50c4ab70c853" kind="function"><name>XScuTimer_LookupConfig</name></member>
+  </compound>
+  <compound refid="group__scutimer" kind="group"><name>scutimer</name>
+    <member refid="group__scutimer_1gae86109b8ee86ede103995c458720c743" kind="define"><name>XSCUTIMER_LOAD_OFFSET</name></member>
+    <member refid="group__scutimer_1gaa96f9778b3fb95bb968793b504bee53e" kind="define"><name>XSCUTIMER_COUNTER_OFFSET</name></member>
+    <member refid="group__scutimer_1ga8f0a12cb3bfff490af76bc9a3ffca4be" kind="define"><name>XSCUTIMER_CONTROL_OFFSET</name></member>
+    <member refid="group__scutimer_1ga79f4aab3a1968e66ae1fadb846e7b8c8" kind="define"><name>XSCUTIMER_ISR_OFFSET</name></member>
+    <member refid="group__scutimer_1ga867b2da6f5e9b1d921c34a925d4b498a" kind="define"><name>XSCUTIMER_CONTROL_PRESCALER_MASK</name></member>
+    <member refid="group__scutimer_1ga31316fbcb2292f6d29c39a025bbd9821" kind="define"><name>XSCUTIMER_CONTROL_PRESCALER_SHIFT</name></member>
+    <member refid="group__scutimer_1ga62c9d23e23b5329976291d26cc36c6a6" kind="define"><name>XSCUTIMER_CONTROL_IRQ_ENABLE_MASK</name></member>
+    <member refid="group__scutimer_1gaeaf7add0552b3b0c5ab78b6668a88d6a" kind="define"><name>XSCUTIMER_CONTROL_AUTO_RELOAD_MASK</name></member>
+    <member refid="group__scutimer_1ga242deea9cc62049619bdfd97e7a731f4" kind="define"><name>XSCUTIMER_CONTROL_ENABLE_MASK</name></member>
+    <member refid="group__scutimer_1gafa21717c99e101943a7075d4e2e30ca1" kind="define"><name>XSCUTIMER_ISR_EVENT_FLAG_MASK</name></member>
+    <member refid="group__scutimer_1gac54aa07186803163582a0d3c4f96a686" kind="variable"><name>XScuTimer_ConfigTable</name></member>
+    <member refid="group__scutimer_1ga9febed8a77260c454addc6434dbeeb38" kind="variable"><name>XScuTimer_ConfigTable</name></member>
+    <member refid="group__scutimer_1ga59badd651be237aab4099cedd96621d2" kind="function"><name>XScuTimer_CfgInitialize</name></member>
+    <member refid="group__scutimer_1gabf24fad576d3adab4b53eebdef424bde" kind="function"><name>XScuTimer_Start</name></member>
+    <member refid="group__scutimer_1gaac0376fbfeb5c29bb44403d6fefd0843" kind="function"><name>XScuTimer_Stop</name></member>
+    <member refid="group__scutimer_1gac6cd65141b00c0d1940d0b8f2a081faf" kind="function"><name>XScuTimer_SetPrescaler</name></member>
+    <member refid="group__scutimer_1ga56d8c36e4aa28168de3ba5d7f87feb2d" kind="function"><name>XScuTimer_GetPrescaler</name></member>
+    <member refid="group__scutimer_1ga58903096d235b860a31f50c4ab70c853" kind="function"><name>XScuTimer_LookupConfig</name></member>
+    <member refid="group__scutimer_1gac3036b3f9f6e7735d3e6a6eb74a28e95" kind="function"><name>XScuTimer_SelfTest</name></member>
+    <member refid="group__scutimer_1ga0e6142d11b3ee5ef331787855f179762" kind="define"><name>XSCUTIMER_H</name></member>
+    <member refid="group__scutimer_1gaac033729416a2ae86fec784a89a4c653" kind="define"><name>XScuTimer_IsExpired</name></member>
+    <member refid="group__scutimer_1gaf1976650946668999ca5107fef691e53" kind="define"><name>XScuTimer_RestartTimer</name></member>
+    <member refid="group__scutimer_1ga94fbce5d53f983ec5cf675cfc97f4f78" kind="define"><name>XScuTimer_LoadTimer</name></member>
+    <member refid="group__scutimer_1ga494afe8a54f75991a1e63fcef913df41" kind="define"><name>XScuTimer_GetCounterValue</name></member>
+    <member refid="group__scutimer_1ga54fc490ff5bdcfa76eddddf5fc5dc5bf" kind="define"><name>XScuTimer_EnableAutoReload</name></member>
+    <member refid="group__scutimer_1ga29b90dcea87e70190d47c53e89977c8a" kind="define"><name>XScuTimer_DisableAutoReload</name></member>
+    <member refid="group__scutimer_1ga41e184373a4d02ce8a9aec1601a52c04" kind="define"><name>XScuTimer_EnableInterrupt</name></member>
+    <member refid="group__scutimer_1gac3ea67683ec802381c4aef819d04768b" kind="define"><name>XScuTimer_DisableInterrupt</name></member>
+    <member refid="group__scutimer_1gab653a0c97cfb913f3cabeaa3a9167586" kind="define"><name>XScuTimer_GetInterruptStatus</name></member>
+    <member refid="group__scutimer_1gadc11e29fe8f755683fbc6edc883e0a4d" kind="define"><name>XScuTimer_ClearInterruptStatus</name></member>
+    <member refid="group__scutimer_1ga9cdd1aa68f5988c97573b70f60dc5d08" kind="define"><name>XSCUTIMER_HW_H</name></member>
+    <member refid="group__scutimer_1gae3cd5f68d2ce17dd72a4abaf4afe06a6" kind="define"><name>XScuTimer_SetLoadReg</name></member>
+    <member refid="group__scutimer_1ga3eedf4e335232d3303b1fd3927f10213" kind="define"><name>XScuTimer_GetLoadReg</name></member>
+    <member refid="group__scutimer_1ga162738ee853ef5fc9c4fa35bf9c2bb8d" kind="define"><name>XScuTimer_SetCounterReg</name></member>
+    <member refid="group__scutimer_1ga65cf8fca671de7e21a9944c43bf7cd8a" kind="define"><name>XScuTimer_GetCounterReg</name></member>
+    <member refid="group__scutimer_1gae0b71c6aa97a846b93c4a5fa2092be9e" kind="define"><name>XScuTimer_SetControlReg</name></member>
+    <member refid="group__scutimer_1ga1427e7cc324917e9bc062ea9cc1976ac" kind="define"><name>XScuTimer_GetControlReg</name></member>
+    <member refid="group__scutimer_1gaffc9febb953169fb57818c4c58fd68fc" kind="define"><name>XScuTimer_SetIntrReg</name></member>
+    <member refid="group__scutimer_1ga48d158b4cc15416e7d4a62867720b79a" kind="define"><name>XScuTimer_GetIntrReg</name></member>
+    <member refid="group__scutimer_1gae4c784baaac425e11d6a1184ae44b349" kind="define"><name>XScuTimer_ReadReg</name></member>
+    <member refid="group__scutimer_1ga6f29815a4f21529bfc3d009932d3c2fe" kind="define"><name>XScuTimer_WriteReg</name></member>
+    <member refid="group__scutimer_1ga2795253b5bea39b3ca8e8bf96bec03f5" kind="define"><name>XSCUTIMER_SELFTEST_VALUE</name></member>
+  </compound>
+  <compound refid="example" kind="page"><name>example</name>
+  </compound>
+  <compound refid="dir_b605b453f870463da40a43a169d3b1e1" kind="dir"><name>examples</name>
+  </compound>
+  <compound refid="dir_5a2fe69a7a9f5997edfd32b71ae4665b" kind="dir"><name>scutimer</name>
+  </compound>
+  <compound refid="dir_0c0ebd2721e7f2e1723af093c7dab0b2" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

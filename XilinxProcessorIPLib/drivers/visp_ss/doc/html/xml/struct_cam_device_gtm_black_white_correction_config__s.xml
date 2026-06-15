@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_gtm_black_white_correction_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceGtmBlackWhiteCorrectionConfig_s</compoundname>
+    <includes local="no">cam_device_gtm_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_gtm_black_white_correction_config__s_1a8a1e3a2798158c3d2fe993c9ed4aae4b" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__gtm_1gab5a41d29daf16533c3e77d13f2dc931a" kindref="member">CamDeviceBlackWhiteCorMode_t</ref></type>
+        <definition>CamDeviceBlackWhiteCorMode_t CamDeviceGtmBlackWhiteCorrectionConfig_s::bwcorMode</definition>
+        <argsstring></argsstring>
+        <name>bwcorMode</name>
+        <briefdescription>
+<para>Mode value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_black_white_correction_config__s_1ad37b83ceb9009d17222881e5f382133c" prot="public" static="no" mutable="no">
+        <type>float64_t</type>
+        <definition>float64_t CamDeviceGtmBlackWhiteCorrectionConfig_s::bwcorMinLog</definition>
+        <argsstring></argsstring>
+        <name>bwcorMinLog</name>
+        <briefdescription>
+<para>Black white Correction min log. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_black_white_correction_config__s_1a5035fcea09566b788d2d6864fce0626a" prot="public" static="no" mutable="no">
+        <type>float64_t</type>
+        <definition>float64_t CamDeviceGtmBlackWhiteCorrectionConfig_s::bwcorMaxLog</definition>
+        <argsstring></argsstring>
+        <name>bwcorMaxLog</name>
+        <briefdescription>
+<para>Black white Correction max log. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_black_white_correction_config__s_1ac347f3036f5a4f8f171b3713d826f1fe" prot="public" static="no" mutable="no">
+        <type>float64_t</type>
+        <definition>float64_t CamDeviceGtmBlackWhiteCorrectionConfig_s::bwcorDampCoef</definition>
+        <argsstring></argsstring>
+        <name>bwcorDampCoef</name>
+        <briefdescription>
+<para>Black white Correction damp coefficient. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice GTM black white correction configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="134" bodyend="140"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_gtm_black_white_correction_config__s_1ac347f3036f5a4f8f171b3713d826f1fe" prot="public" virt="non-virtual"><scope>CamDeviceGtmBlackWhiteCorrectionConfig_s</scope><name>bwcorDampCoef</name></member>
+      <member refid="struct_cam_device_gtm_black_white_correction_config__s_1a5035fcea09566b788d2d6864fce0626a" prot="public" virt="non-virtual"><scope>CamDeviceGtmBlackWhiteCorrectionConfig_s</scope><name>bwcorMaxLog</name></member>
+      <member refid="struct_cam_device_gtm_black_white_correction_config__s_1ad37b83ceb9009d17222881e5f382133c" prot="public" virt="non-virtual"><scope>CamDeviceGtmBlackWhiteCorrectionConfig_s</scope><name>bwcorMinLog</name></member>
+      <member refid="struct_cam_device_gtm_black_white_correction_config__s_1a8a1e3a2798158c3d2fe993c9ed4aae4b" prot="public" virt="non-virtual"><scope>CamDeviceGtmBlackWhiteCorrectionConfig_s</scope><name>bwcorMode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

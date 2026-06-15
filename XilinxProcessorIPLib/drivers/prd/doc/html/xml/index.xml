@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="struct_x_prd" kind="struct"><name>XPrd</name>
+    <member refid="struct_x_prd_1a56436a9e781a4203a9cb2f63c75fff80" kind="variable"><name>Config</name></member>
+    <member refid="struct_x_prd_1ae394be32476d0fb74f270326b8d73743" kind="variable"><name>IsReady</name></member>
+  </compound>
+  <compound refid="struct_x_prd___config" kind="struct"><name>XPrd_Config</name>
+    <member refid="struct_x_prd___config_1aaa926300191adcddd2969d887dae8296" kind="variable"><name>Name</name></member>
+    <member refid="struct_x_prd___config_1a09c72a50cdb1b9045a19430569fd40bc" kind="variable"><name>BaseAddress</name></member>
+  </compound>
+  <compound refid="_c_make_lists_8txt" kind="file"><name>CMakeLists.txt</name>
+  </compound>
+  <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
+  </compound>
+  <compound refid="xprd_8c" kind="file"><name>xprd.c</name>
+    <member refid="group__prd_1ga424f5c8b2cad657a5aea953ba959be55" kind="function"><name>XPrd_CfgInitialize</name></member>
+    <member refid="group__prd_1gacb64d55940567d71186233e1e230c0d0" kind="function"><name>XPrd_SetDecouplerState</name></member>
+    <member refid="group__prd_1gad37688cbdb9d0b50c481132f6f05cee0" kind="function"><name>XPrd_GetDecouplerState</name></member>
+  </compound>
+  <compound refid="xprd_8h" kind="file"><name>xprd.h</name>
+    <member refid="group__prd_1ga31ac7a2c3af52e568498eac547c7f3c3" kind="define"><name>XPRD_H_</name></member>
+    <member refid="group__prd_1ga0535d78c352329f7600250c0936ffc21" kind="enum"><name>XPrd_State</name></member>
+    <member refid="group__prd_1gga0535d78c352329f7600250c0936ffc21ac14eedee45ec9f0d49f1bd9c395177f2" kind="enumvalue"><name>XPRD_DECOUPLER_OFF</name></member>
+    <member refid="group__prd_1gga0535d78c352329f7600250c0936ffc21a91d1acd860924ac7a0255af3fd3fbb30" kind="enumvalue"><name>XPRD_DECOUPLER_ON</name></member>
+    <member refid="group__prd_1ga980c446b57a2dd8bb4158762fe671e6b" kind="function"><name>XPrd_LookupConfig</name></member>
+    <member refid="group__prd_1ga424f5c8b2cad657a5aea953ba959be55" kind="function"><name>XPrd_CfgInitialize</name></member>
+    <member refid="group__prd_1gacb64d55940567d71186233e1e230c0d0" kind="function"><name>XPrd_SetDecouplerState</name></member>
+    <member refid="group__prd_1gad37688cbdb9d0b50c481132f6f05cee0" kind="function"><name>XPrd_GetDecouplerState</name></member>
+    <member refid="group__prd_1gaf18335c2976ab9b7c9d12a5a0c0a450c" kind="function"><name>XPrd_SelfTest</name></member>
+  </compound>
+  <compound refid="xprd__example_8c" kind="file"><name>xprd_example.c</name>
+    <member refid="xprd__example_8c_1a2f42016cbd9da6b58d8e75a1b5f7d853" kind="define"><name>PRD_BASEADDR</name></member>
+    <member refid="xprd__example_8c_1af5340e99a520f8b64f36bcbae8074dea" kind="define"><name>XGPIO_BASEADDR</name></member>
+    <member refid="xprd__example_8c_1a0e7769ae2ba2dc364543cddcd358e15b" kind="variable"><name>Prd</name></member>
+    <member refid="xprd__example_8c_1a0be6b2318e2ad4f307f868f0eb84ad2e" kind="function"><name>XPrd_Example</name></member>
+    <member refid="xprd__example_8c_1a7d27eeac5a2c92eea613b73500530488" kind="function"><name>XPrd_TestDecouplerState</name></member>
+    <member refid="xprd__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xprd__g_8c" kind="file"><name>xprd_g.c</name>
+    <member refid="group__prd_1ga42be70c609282a5682c3cf7c66b83553" kind="variable"><name>XPrd_ConfigTable</name></member>
+  </compound>
+  <compound refid="xprd__hw_8h" kind="file"><name>xprd_hw.h</name>
+    <member refid="group__prd_1ga822c5f24e18d6a6b7b1c23cfbf640693" kind="define"><name>XPRD_CTRL_OFFSET</name></member>
+    <member refid="group__prd_1ga73f34d1bb856e71aedea43644e2da1db" kind="define"><name>XPRD_CTRL_DECOUPLER_MASK</name></member>
+    <member refid="group__prd_1ga441af12b649f69397a518ca341e2298f" kind="define"><name>XPRD_HW_H_</name></member>
+    <member refid="group__prd_1gaffb12c25656847672ed8f5cb804467f3" kind="define"><name>XPrd_ReadReg</name></member>
+    <member refid="group__prd_1ga93e7e75f1c667dcddcdb0a1a43230415" kind="define"><name>XPrd_WriteReg</name></member>
+  </compound>
+  <compound refid="xprd__selftest_8c" kind="file"><name>xprd_selftest.c</name>
+    <member refid="group__prd_1gaf18335c2976ab9b7c9d12a5a0c0a450c" kind="function"><name>XPrd_SelfTest</name></member>
+  </compound>
+  <compound refid="xprd__selftest__example_8c" kind="file"><name>xprd_selftest_example.c</name>
+    <member refid="xprd__selftest__example_8c_1a2f42016cbd9da6b58d8e75a1b5f7d853" kind="define"><name>PRD_BASEADDR</name></member>
+    <member refid="xprd__selftest__example_8c_1a0e7769ae2ba2dc364543cddcd358e15b" kind="variable"><name>Prd</name></member>
+    <member refid="xprd__selftest__example_8c_1a2a19849e01a0a6fcd64136354d7bbe9c" kind="function"><name>XPrd_SelfTestExample</name></member>
+    <member refid="xprd__selftest__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xprd__sinit_8c" kind="file"><name>xprd_sinit.c</name>
+    <member refid="group__prd_1ga42be70c609282a5682c3cf7c66b83553" kind="variable"><name>XPrd_ConfigTable</name></member>
+    <member refid="group__prd_1ga980c446b57a2dd8bb4158762fe671e6b" kind="function"><name>XPrd_LookupConfig</name></member>
+  </compound>
+  <compound refid="group__prd" kind="group"><name>prd</name>
+    <member refid="group__prd_1ga822c5f24e18d6a6b7b1c23cfbf640693" kind="define"><name>XPRD_CTRL_OFFSET</name></member>
+    <member refid="group__prd_1ga73f34d1bb856e71aedea43644e2da1db" kind="define"><name>XPRD_CTRL_DECOUPLER_MASK</name></member>
+    <member refid="group__prd_1ga0535d78c352329f7600250c0936ffc21" kind="enum"><name>XPrd_State</name></member>
+    <member refid="group__prd_1gga0535d78c352329f7600250c0936ffc21ac14eedee45ec9f0d49f1bd9c395177f2" kind="enumvalue"><name>XPRD_DECOUPLER_OFF</name></member>
+    <member refid="group__prd_1gga0535d78c352329f7600250c0936ffc21a91d1acd860924ac7a0255af3fd3fbb30" kind="enumvalue"><name>XPRD_DECOUPLER_ON</name></member>
+    <member refid="group__prd_1ga42be70c609282a5682c3cf7c66b83553" kind="variable"><name>XPrd_ConfigTable</name></member>
+    <member refid="group__prd_1ga424f5c8b2cad657a5aea953ba959be55" kind="function"><name>XPrd_CfgInitialize</name></member>
+    <member refid="group__prd_1gacb64d55940567d71186233e1e230c0d0" kind="function"><name>XPrd_SetDecouplerState</name></member>
+    <member refid="group__prd_1gad37688cbdb9d0b50c481132f6f05cee0" kind="function"><name>XPrd_GetDecouplerState</name></member>
+    <member refid="group__prd_1ga980c446b57a2dd8bb4158762fe671e6b" kind="function"><name>XPrd_LookupConfig</name></member>
+    <member refid="group__prd_1gaf18335c2976ab9b7c9d12a5a0c0a450c" kind="function"><name>XPrd_SelfTest</name></member>
+    <member refid="group__prd_1ga31ac7a2c3af52e568498eac547c7f3c3" kind="define"><name>XPRD_H_</name></member>
+    <member refid="group__prd_1ga441af12b649f69397a518ca341e2298f" kind="define"><name>XPRD_HW_H_</name></member>
+    <member refid="group__prd_1gaffb12c25656847672ed8f5cb804467f3" kind="define"><name>XPrd_ReadReg</name></member>
+    <member refid="group__prd_1ga93e7e75f1c667dcddcdb0a1a43230415" kind="define"><name>XPrd_WriteReg</name></member>
+  </compound>
+  <compound refid="example" kind="page"><name>example</name>
+  </compound>
+  <compound refid="dir_a0d7d4a922cfe1c2a72be548f8e9871f" kind="dir"><name>examples</name>
+  </compound>
+  <compound refid="dir_aeb8aa3387e28f5ac1f2e98d59a79f16" kind="dir"><name>prd</name>
+  </compound>
+  <compound refid="dir_7cbe979e32c93f5ae6ea60e751498dbd" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

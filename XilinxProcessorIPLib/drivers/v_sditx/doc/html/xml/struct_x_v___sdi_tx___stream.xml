@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___sdi_tx___stream" kind="struct" prot="public">
+    <compoundname>XV_SdiTx_Stream</compoundname>
+    <includes local="no">xv_sditx.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___sdi_tx___stream_1a67d1eca335b783a62a02761cd4c6f3d4" prot="public" static="no" mutable="no">
+        <type>XVidC_VideoStream</type>
+        <definition>XVidC_VideoStream XV_SdiTx_Stream::Video</definition>
+        <argsstring></argsstring>
+        <name>Video</name>
+        <briefdescription>
+<para>Video stream for SDI TX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="196" bodyend="-1"/>
+        <referencedby refid="xv__sditx_8h_1a10230ff75d66b2ce63cc987ccb288d06" compoundref="xv__sditx_8c" startline="1466" endline="1591">XV_SdiTx_DebugInfo</referencedby>
+        <referencedby refid="xv__sditx_8h_1a2202194b60677f0f09a5348faaf601ec" compoundref="xv__sditx_8c" startline="795" endline="883">XV_SdiTx_GetPayload</referencedby>
+        <referencedby refid="xv__sditx_8h_1afd533c42c55560f3844b5631606a0bfa" compoundref="xv__sditx_8c" startline="253" endline="343">XV_SdiTx_SetStream</referencedby>
+        <referencedby refid="xv__sditx_8h_1aac2a887b9e8db796240c9018c311f2ab" compoundref="xv__sditx_8c" startline="1084" endline="1135">XV_SdiTx_StartSdi</referencedby>
+        <referencedby refid="xv__sditx_8h_1a8ad731d07be9932825ca0ef037ae2299" compoundref="xv__sditx_8c" startline="957" endline="1068">XV_SdiTx_StreamStart</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_tx___stream_1ad9a069b29d57ca75afd4864fc4696e8b" prot="public" static="no" mutable="no">
+        <type>XSdiVid_Standard</type>
+        <definition>XSdiVid_Standard XV_SdiTx_Stream::Standard</definition>
+        <argsstring></argsstring>
+        <name>Standard</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_tx___stream_1ae3df0570890107ecf9c3915d22ee3c12" prot="public" static="no" mutable="no">
+        <type>XVidC_VideoFormat</type>
+        <definition>XVidC_VideoFormat XV_SdiTx_Stream::IsStreamInterlaced</definition>
+        <argsstring></argsstring>
+        <name>IsStreamInterlaced</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_tx___stream_1a1e86fffcd6bda6812cd1906277c394d0" prot="public" static="no" mutable="no">
+        <type>XSdiVid_ChannelAssignment</type>
+        <definition>XSdiVid_ChannelAssignment XV_SdiTx_Stream::CAssignment</definition>
+        <argsstring></argsstring>
+        <name>CAssignment</name>
+        <briefdescription>
+<para>Channel assignment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="199" bodyend="-1"/>
+        <referencedby refid="xv__sditx_8h_1a2202194b60677f0f09a5348faaf601ec" compoundref="xv__sditx_8c" startline="795" endline="883">XV_SdiTx_GetPayload</referencedby>
+        <referencedby refid="xv__sditx_8h_1afd533c42c55560f3844b5631606a0bfa" compoundref="xv__sditx_8c" startline="253" endline="343">XV_SdiTx_SetStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_tx___stream_1afa57e7d2d4a8d7306bedf4de1cf563e8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_SdiTx_Stream::PayloadId</definition>
+        <argsstring></argsstring>
+        <name>PayloadId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_tx___stream_1a0a13c4abec533b00bdb4d866243faad9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_SdiTx_Stream::IsPsF</definition>
+        <argsstring></argsstring>
+        <name>IsPsF</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains SDI TX stream specific data structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx.h" bodystart="195" bodyend="202"/>
+    <listofallmembers>
+      <member refid="struct_x_v___sdi_tx___stream_1a1e86fffcd6bda6812cd1906277c394d0" prot="public" virt="non-virtual"><scope>XV_SdiTx_Stream</scope><name>CAssignment</name></member>
+      <member refid="struct_x_v___sdi_tx___stream_1a0a13c4abec533b00bdb4d866243faad9" prot="public" virt="non-virtual"><scope>XV_SdiTx_Stream</scope><name>IsPsF</name></member>
+      <member refid="struct_x_v___sdi_tx___stream_1ae3df0570890107ecf9c3915d22ee3c12" prot="public" virt="non-virtual"><scope>XV_SdiTx_Stream</scope><name>IsStreamInterlaced</name></member>
+      <member refid="struct_x_v___sdi_tx___stream_1afa57e7d2d4a8d7306bedf4de1cf563e8" prot="public" virt="non-virtual"><scope>XV_SdiTx_Stream</scope><name>PayloadId</name></member>
+      <member refid="struct_x_v___sdi_tx___stream_1ad9a069b29d57ca75afd4864fc4696e8b" prot="public" virt="non-virtual"><scope>XV_SdiTx_Stream</scope><name>Standard</name></member>
+      <member refid="struct_x_v___sdi_tx___stream_1a67d1eca335b783a62a02761cd4c6f3d4" prot="public" virt="non-virtual"><scope>XV_SdiTx_Stream</scope><name>Video</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

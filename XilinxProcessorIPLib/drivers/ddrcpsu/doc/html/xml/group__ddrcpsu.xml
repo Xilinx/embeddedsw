@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__ddrcpsu" kind="group">
+    <compoundname>ddrcpsu</compoundname>
+    <title>Overview</title>
+    <innerclass refid="struct_x_ddrcpsu___config" prot="public">XDdrcpsu_Config</innerclass>
+    <innerclass refid="struct_x_ddrc_psu" prot="public">XDdrcPsu</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__ddrcpsu_1ga294dc99cc6579e486ecc5380765f7a0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XDdrcPsu_CfgInitialize</definition>
+        <argsstring>(XDdrcPsu *InstancePtr, XDdrcpsu_Config *CfgPtr)</argsstring>
+        <name>XDdrcPsu_CfgInitialize</name>
+        <param>
+          <type>XDdrcPsu *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDdrcpsu_Config *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XCsuDma instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a reference to a structure containing information about a specific XCsuDma instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.c" bodystart="52" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ddrcpsu_1ga1cc26f10017fedf7f24aebdecc0e863f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XDdrcpsu_Config *</type>
+        <definition>XDdrcpsu_Config * XDdrcPsu_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XDdrcPsu_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>XDdrcPsu_LookupConfig returns a reference to an XDdrcpsu_Config structure based on the unique device id, <emphasis>DeviceId</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>The return value will refer to an entry in the device configuration table defined in the xddrcpsu_g.c file.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique base address of the device for the lookup operation.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>CfgPtr is a reference to a config record in the configuration table (in xddrcpsu_g.c) corresponding to <emphasis>BaseAddress</emphasis>, or NULL if no match is found.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu_sinit.c" bodystart="63" bodyend="79"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the implementation of the interface functions for DDRCPSU driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>}</para><para>Refer to the header file xddrcpsu.h for more detailed information.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+1.5     ht      08/03/23 Added support for system device-tree flow.
+1.6   rma     01/12/23 Update driver sources to fix compilation warnings
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+1.5     ht      08/03/2023 Added support for system device-tree flow.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,185 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_trngpsv" kind="struct" prot="public">
+    <compoundname>XTrngpsv</compoundname>
+    <includes local="no">xtrngpsv.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_trngpsv_1a3ba7560aeac4c4ed6153ba04ba5dd82e" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_trngpsv___config" kindref="compound">XTrngpsv_Config</ref></type>
+        <definition>XTrngpsv_Config XTrngpsv::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" bodystart="261" bodyend="-1"/>
+        <referencedby refid="group__trngpsv__api_1ga2d5b1c7182c8de3767e0345a3435ffe5" compoundref="xtrngpsv_8c" startline="450" endline="627">XTrngpsv_Generate</referencedby>
+        <referencedby refid="group__trngpsv__api_1gad0c8b58adb37a766661ca12aa302ed53" compoundref="xtrngpsv_8c" startline="644" endline="692">XTrngpsv_Uninstantiate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_trngpsv_1a974456bec09f1acf2e6af3d0f740d522" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_trngpsv___usr_cfg" kindref="compound">XTrngpsv_UsrCfg</ref></type>
+        <definition>XTrngpsv_UsrCfg XTrngpsv::UsrCfg</definition>
+        <argsstring></argsstring>
+        <name>UsrCfg</name>
+        <briefdescription>
+<para>Configuration from the user. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" bodystart="262" bodyend="-1"/>
+        <referencedby refid="group__trngpsv__api_1ga2d5b1c7182c8de3767e0345a3435ffe5" compoundref="xtrngpsv_8c" startline="450" endline="627">XTrngpsv_Generate</referencedby>
+        <referencedby refid="group__trngpsv__api_1ga7b6a82053b11bedbd37a2a82dd0ba14d" compoundref="xtrngpsv_8c" startline="183" endline="326">XTrngpsv_Instantiate</referencedby>
+        <referencedby refid="group__trngpsv__api_1ga7740e9622a48052d5ebb9ddf10165138" compoundref="xtrngpsv_8c" startline="354" endline="419">XTrngpsv_Reseed</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_trngpsv_1a7c99eebf7f585a808a719cd7756b370d" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_trngpsv___stats" kindref="compound">XTrngpsv_Stats</ref></type>
+        <definition>XTrngpsv_Stats XTrngpsv::TrngStats</definition>
+        <argsstring></argsstring>
+        <name>TrngStats</name>
+        <briefdescription>
+<para>TRNGPSV Statistics. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" bodystart="263" bodyend="-1"/>
+        <referencedby refid="group__trngpsv__api_1ga2d5b1c7182c8de3767e0345a3435ffe5" compoundref="xtrngpsv_8c" startline="450" endline="627">XTrngpsv_Generate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_trngpsv_1ab22153570392b48cb8218cec9ee9e6c0" prot="public" static="no" mutable="no">
+        <type><ref refid="group__trngpsv__api_1ga09343136ce617c1b5f78773c5c76a65c" kindref="member">XTrngpsv_State</ref></type>
+        <definition>XTrngpsv_State XTrngpsv::State</definition>
+        <argsstring></argsstring>
+        <name>State</name>
+        <briefdescription>
+<para><verbatim>                      takes one of the possible
+</verbatim> values indicated by XTrngpsv_State </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" bodystart="264" bodyend="-1"/>
+        <referencedby refid="group__trngpsv__api_1ga2d5b1c7182c8de3767e0345a3435ffe5" compoundref="xtrngpsv_8c" startline="450" endline="627">XTrngpsv_Generate</referencedby>
+        <referencedby refid="group__trngpsv__api_1ga7b6a82053b11bedbd37a2a82dd0ba14d" compoundref="xtrngpsv_8c" startline="183" endline="326">XTrngpsv_Instantiate</referencedby>
+        <referencedby refid="group__trngpsv__api_1ga7740e9622a48052d5ebb9ddf10165138" compoundref="xtrngpsv_8c" startline="354" endline="419">XTrngpsv_Reseed</referencedby>
+        <referencedby refid="group__trngpsv__api_1gab3d40fb1f24910ed5c246968ac462b69" compoundref="xtrngpsv__tests_8c" startline="74" endline="124">XTrngpsv_RunHealthTest</referencedby>
+        <referencedby refid="group__trngpsv__api_1ga4db54d9685d0ac834bf95023fe659a0d" compoundref="xtrngpsv__tests_8c" startline="143" endline="263">XTrngpsv_RunKAT</referencedby>
+        <referencedby refid="group__trngpsv__api_1gad0c8b58adb37a766661ca12aa302ed53" compoundref="xtrngpsv_8c" startline="644" endline="692">XTrngpsv_Uninstantiate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_trngpsv_1a3f6cb3797bf89815f8ccef94e4bc4d53" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrngpsv::RandBitBuf[RAND_BUF_LEN]</definition>
+        <argsstring>[RAND_BUF_LEN]</argsstring>
+        <name>RandBitBuf</name>
+        <briefdescription>
+<para><verbatim>                buffer of random bits to minimize
+</verbatim> latency </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" bodystart="266" bodyend="-1"/>
+        <referencedby refid="group__trngpsv__api_1ga7b6a82053b11bedbd37a2a82dd0ba14d" compoundref="xtrngpsv_8c" startline="183" endline="326">XTrngpsv_Instantiate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_trngpsv_1a5b23c8db1c1054d6092883111badf3dd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrngpsv::EntropySize</definition>
+        <argsstring></argsstring>
+        <name>EntropySize</name>
+        <briefdescription>
+<para>actual size (in bytes) of seed </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" bodystart="268" bodyend="-1"/>
+        <referencedby refid="group__trngpsv__api_1ga385580225d449ba49c6425fc61836092" compoundref="xtrngpsv__df_8c" startline="76" endline="238">XTrngpsv_DF</referencedby>
+        <referencedby refid="group__trngpsv__api_1ga2d5b1c7182c8de3767e0345a3435ffe5" compoundref="xtrngpsv_8c" startline="450" endline="627">XTrngpsv_Generate</referencedby>
+        <referencedby refid="group__trngpsv__api_1ga7740e9622a48052d5ebb9ddf10165138" compoundref="xtrngpsv_8c" startline="354" endline="419">XTrngpsv_Reseed</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_trngpsv___d_f_input" kindref="compound">XTrngpsv_DFInput</ref></type>
+        <definition>XTrngpsv_DFInput XTrngpsv::DFInput</definition>
+        <argsstring></argsstring>
+        <name>DFInput</name>
+        <briefdescription>
+<para><verbatim>                          data structure which is input
+</verbatim> to the DF operation </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" bodystart="269" bodyend="-1"/>
+        <referencedby refid="group__trngpsv__api_1ga385580225d449ba49c6425fc61836092" compoundref="xtrngpsv__df_8c" startline="76" endline="238">XTrngpsv_DF</referencedby>
+        <referencedby refid="group__trngpsv__api_1ga2d5b1c7182c8de3767e0345a3435ffe5" compoundref="xtrngpsv_8c" startline="450" endline="627">XTrngpsv_Generate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_trngpsv_1a118f7a90d025a4c5ccc554a5d56b1a13" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XTrngpsv::DFOutput[XTRNGPSV_SEED_LEN_BYTES]</definition>
+        <argsstring>[XTRNGPSV_SEED_LEN_BYTES]</argsstring>
+        <name>DFOutput</name>
+        <briefdescription>
+<para><verbatim>             Output of the DF operation
+</verbatim> (contains updated seed or random number) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="271" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" bodystart="271" bodyend="-1"/>
+        <referencedby refid="group__trngpsv__api_1ga385580225d449ba49c6425fc61836092" compoundref="xtrngpsv__df_8c" startline="76" endline="238">XTrngpsv_DF</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains all the data and state information for a TRNGPSV device instance. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>XTrngpsv</label>
+        <link refid="struct_x_trngpsv"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>DFInput</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>UsrCfg</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>TrngStats</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XTrngpsv_Config</label>
+        <link refid="struct_x_trngpsv___config"/>
+      </node>
+      <node id="5">
+        <label>XTrngpsv_Stats</label>
+        <link refid="struct_x_trngpsv___stats"/>
+      </node>
+      <node id="3">
+        <label>XTrngpsv_DFInput</label>
+        <link refid="struct_x_trngpsv___d_f_input"/>
+      </node>
+      <node id="4">
+        <label>XTrngpsv_UsrCfg</label>
+        <link refid="struct_x_trngpsv___usr_cfg"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" bodystart="260" bodyend="273"/>
+    <listofallmembers>
+      <member refid="struct_x_trngpsv_1a3ba7560aeac4c4ed6153ba04ba5dd82e" prot="public" virt="non-virtual"><scope>XTrngpsv</scope><name>Config</name></member>
+      <member refid="struct_x_trngpsv_1af69ec3e87920ff6e7d8b8140666bedce" prot="public" virt="non-virtual"><scope>XTrngpsv</scope><name>DFInput</name></member>
+      <member refid="struct_x_trngpsv_1a118f7a90d025a4c5ccc554a5d56b1a13" prot="public" virt="non-virtual"><scope>XTrngpsv</scope><name>DFOutput</name></member>
+      <member refid="struct_x_trngpsv_1a5b23c8db1c1054d6092883111badf3dd" prot="public" virt="non-virtual"><scope>XTrngpsv</scope><name>EntropySize</name></member>
+      <member refid="struct_x_trngpsv_1a3f6cb3797bf89815f8ccef94e4bc4d53" prot="public" virt="non-virtual"><scope>XTrngpsv</scope><name>RandBitBuf</name></member>
+      <member refid="struct_x_trngpsv_1ab22153570392b48cb8218cec9ee9e6c0" prot="public" virt="non-virtual"><scope>XTrngpsv</scope><name>State</name></member>
+      <member refid="struct_x_trngpsv_1a7c99eebf7f585a808a719cd7756b370d" prot="public" virt="non-virtual"><scope>XTrngpsv</scope><name>TrngStats</name></member>
+      <member refid="struct_x_trngpsv_1a974456bec09f1acf2e6af3d0f740d522" prot="public" virt="non-virtual"><scope>XTrngpsv</scope><name>UsrCfg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

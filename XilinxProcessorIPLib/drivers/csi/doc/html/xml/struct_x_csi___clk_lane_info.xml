@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_csi___clk_lane_info" kind="struct" prot="public">
+    <compoundname>XCsi_ClkLaneInfo</compoundname>
+    <includes local="no">xcsi.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_csi___clk_lane_info_1aea0b10f785b55afa41e11d3a6408bab4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCsi_ClkLaneInfo::StopState</definition>
+        <argsstring></argsstring>
+        <name>StopState</name>
+        <briefdescription>
+<para>Clock Lane is in Stop State. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="174" bodyend="-1"/>
+        <referencedby refid="group__csi_1ga2588fe696b38dd330514a55fd839965a" compoundref="xcsi_8c" startline="379" endline="392">XCsi_GetClkLaneInfo</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Clock Lane information structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure contains the information about the Clock Lane. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="173" bodyend="175"/>
+    <listofallmembers>
+      <member refid="struct_x_csi___clk_lane_info_1aea0b10f785b55afa41e11d3a6408bab4" prot="public" virt="non-virtual"><scope>XCsi_ClkLaneInfo</scope><name>StopState</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

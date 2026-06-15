@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_b254c5694ff8f2c532418dcbcd59262e" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xi3c_8c">xi3c.c</innerfile>
+    <innerfile refid="xi3c_8h">xi3c.h</innerfile>
+    <innerfile refid="xi3c__g_8c">xi3c_g.c</innerfile>
+    <innerfile refid="xi3c__hw_8h">xi3c_hw.h</innerfile>
+    <innerfile refid="xi3c__master_8c">xi3c_master.c</innerfile>
+    <innerfile refid="xi3c__options_8c">xi3c_options.c</innerfile>
+    <innerfile refid="xi3c__sinit_8c">xi3c_sinit.c</innerfile>
+    <innerfile refid="xi3c__slave_8c">xi3c_slave.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/"/>
+  </compounddef>
+</doxygen>

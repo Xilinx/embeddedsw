@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdmi___menu" kind="struct" prot="public">
+    <compoundname>XHdmi_Menu</compoundname>
+    <includes local="no">xhdmi_menu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdmi___menu_1a5a53ccfb6d566b7f2f35687ff68c1521" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdmi___menu_config" kindref="compound">XHdmi_MenuConfig</ref></type>
+        <definition>XHdmi_MenuConfig XHdmi_Menu::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>HDMI menu configuration data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi___menu_1a638ef2416724847ef77c5f624b1eb160" prot="public" static="no" mutable="no">
+        <type>XHdmi_MenuType</type>
+        <definition>XHdmi_MenuType XHdmi_Menu::CurrentMenu</definition>
+        <argsstring></argsstring>
+        <name>CurrentMenu</name>
+        <briefdescription>
+<para>Current menu. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi___menu_1a3afec6a5e8194f75f7c5972a2ab5e883" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdmi_Menu::UartBaseAddress</definition>
+        <argsstring></argsstring>
+        <name>UartBaseAddress</name>
+        <briefdescription>
+<para>Uart base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi___menu_1aab8ef085202660c5ff4fd1148fefc6ce" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmi_Menu::Value</definition>
+        <argsstring></argsstring>
+        <name>Value</name>
+        <briefdescription>
+<para>Sub menu value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi___menu_1a96c641667bec1da4d8a3b838585c7670" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmi_Menu::WaitForColorbar</definition>
+        <argsstring></argsstring>
+        <name>WaitForColorbar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi___menu_1ab6cc3f1a9a63bc58afdfb61bde868191" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdmi___menu___ex_des___ctrlr" kindref="compound">XHdmi_Menu_ExDes_Ctrlr</ref></type>
+        <definition>XHdmi_Menu_ExDes_Ctrlr XHdmi_Menu::ExDesCtrlr</definition>
+        <argsstring></argsstring>
+        <name>ExDesCtrlr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi___menu_1adb809e54198cb8a17a1eaf81a2e6aae5" prot="public" static="no" mutable="no">
+        <type>XVidC_ColorDepth</type>
+        <definition>XVidC_ColorDepth XHdmi_Menu::AdvColorDepth</definition>
+        <argsstring></argsstring>
+        <name>AdvColorDepth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi___menu_1a8aee1e464065f5778f65c216a496e373" prot="public" static="no" mutable="no">
+        <type>XVidC_ColorFormat</type>
+        <definition>XVidC_ColorFormat XHdmi_Menu::AdvColorSpace</definition>
+        <argsstring></argsstring>
+        <name>AdvColorSpace</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The HDMI menu instance data. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="34">
+        <label>XHdmi_MenuConfig</label>
+        <link refid="struct_x_hdmi___menu_config"/>
+      </node>
+      <node id="32">
+        <label>XHdmi_Menu</label>
+        <link refid="struct_x_hdmi___menu"/>
+        <childnode refid="33" relation="usage">
+          <edgelabel>ExDesCtrlr</edgelabel>
+        </childnode>
+        <childnode refid="34" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="33">
+        <label>XHdmi_Menu_ExDes_Ctrlr</label>
+        <link refid="struct_x_hdmi___menu___ex_des___ctrlr"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" bodystart="194" bodyend="205"/>
+    <listofallmembers>
+      <member refid="struct_x_hdmi___menu_1adb809e54198cb8a17a1eaf81a2e6aae5" prot="public" virt="non-virtual"><scope>XHdmi_Menu</scope><name>AdvColorDepth</name></member>
+      <member refid="struct_x_hdmi___menu_1a8aee1e464065f5778f65c216a496e373" prot="public" virt="non-virtual"><scope>XHdmi_Menu</scope><name>AdvColorSpace</name></member>
+      <member refid="struct_x_hdmi___menu_1a5a53ccfb6d566b7f2f35687ff68c1521" prot="public" virt="non-virtual"><scope>XHdmi_Menu</scope><name>Config</name></member>
+      <member refid="struct_x_hdmi___menu_1a638ef2416724847ef77c5f624b1eb160" prot="public" virt="non-virtual"><scope>XHdmi_Menu</scope><name>CurrentMenu</name></member>
+      <member refid="struct_x_hdmi___menu_1ab6cc3f1a9a63bc58afdfb61bde868191" prot="public" virt="non-virtual"><scope>XHdmi_Menu</scope><name>ExDesCtrlr</name></member>
+      <member refid="struct_x_hdmi___menu_1a3afec6a5e8194f75f7c5972a2ab5e883" prot="public" virt="non-virtual"><scope>XHdmi_Menu</scope><name>UartBaseAddress</name></member>
+      <member refid="struct_x_hdmi___menu_1aab8ef085202660c5ff4fd1148fefc6ce" prot="public" virt="non-virtual"><scope>XHdmi_Menu</scope><name>Value</name></member>
+      <member refid="struct_x_hdmi___menu_1a96c641667bec1da4d8a3b838585c7670" prot="public" virt="non-virtual"><scope>XHdmi_Menu</scope><name>WaitForColorbar</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

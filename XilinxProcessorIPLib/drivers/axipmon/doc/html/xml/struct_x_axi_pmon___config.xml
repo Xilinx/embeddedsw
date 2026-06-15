@@ -1,0 +1,373 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_axi_pmon___config" kind="struct" prot="public">
+    <compoundname>XAxiPmon_Config</compoundname>
+    <includes local="no">xaxipmon.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_axi_pmon___config_1aea24a19d6deb80241e15cdd0a697cd36" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XAxiPmon_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" line="435" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" bodystart="435" bodyend="-1"/>
+        <referencedby refid="group__axipmon_1ga5e458d0ea6c0a458eb3bdd4b638be748" compoundref="xaxipmon__sinit_8c" startline="87" endline="101">XAxiPmon_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_pmon___config_1aaaf3e726cc3af1648c88b8a3052252db" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XAxiPmon_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Device base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" line="437" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" bodystart="437" bodyend="-1"/>
+        <referencedby refid="xaxipmon__intr__example_8c_1a09802d0ef0597cec23b941db2278abc2" compoundref="xaxipmon__intr__example_8c" startline="204" endline="320">AxiPmonInterruptExample</referencedby>
+        <referencedby refid="xaxipmon__polled__example_8c_1ab8484e23152708879d1d2e286d3bb0bd" compoundref="xaxipmon__polled__example_8c" startline="168" endline="252">AxiPmonPolledExample</referencedby>
+        <referencedby refid="xaxipmon__ocm__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xaxipmon__ocm__example_8c" startline="93" endline="137">main</referencedby>
+        <referencedby refid="group__axipmon_1gafc3c070e08d80f970b4e84c74ca6b37e" compoundref="xaxipmon_8c" startline="141" endline="218">XAxiPmon_CfgInitialize</referencedby>
+        <referencedby refid="group__axipmon_1ga2baaab02251ef05f8702a5cf208a1a31" compoundref="xaxipmon_8c" startline="1368" endline="1384">XAxiPmon_DisableEventLogTrigger</referencedby>
+        <referencedby refid="group__axipmon_1gaa9254b523e9bd235a399b25bd357884e" compoundref="xaxipmon_8c" startline="1307" endline="1323">XAxiPmon_DisableMetricCounterTrigger</referencedby>
+        <referencedby refid="group__axipmon_1ga339b500e3f165daf5b7b8f943eee0437" compoundref="xaxipmon_8c" startline="1124" endline="1142">XAxiPmon_DisableMetricsCounter</referencedby>
+        <referencedby refid="group__axipmon_1ga66a4533d4fa95ed53bd99c6112f27537" compoundref="xaxipmon_8c" startline="1245" endline="1262">XAxiPmon_EnableEventLog</referencedby>
+        <referencedby refid="group__axipmon_1gaf2e621c00a8df721ca64ae370648d07a" compoundref="xaxipmon_8c" startline="1338" endline="1353">XAxiPmon_EnableEventLogTrigger</referencedby>
+        <referencedby refid="group__axipmon_1gabb60d4a3d4bb6085fe90717879ebba8c" compoundref="xaxipmon_8c" startline="1277" endline="1292">XAxiPmon_EnableMetricCounterTrigger</referencedby>
+        <referencedby refid="group__axipmon_1ga12595840082105ce722b8b36d910443a" compoundref="xaxipmon_8c" startline="1094" endline="1111">XAxiPmon_EnableMetricsCounter</referencedby>
+        <referencedby refid="group__axipmon_1gae2541fcba5770808bfce1bf006e62a11" compoundref="xaxipmon_8c" startline="785" endline="802">XAxiPmon_GetIncrementer</referencedby>
+        <referencedby refid="group__axipmon_1ga9dbb1046b25b47bc8e59e68f0f5039d8" compoundref="xaxipmon_8c" startline="410" endline="428">XAxiPmon_GetIncrementerRange</referencedby>
+        <referencedby refid="group__axipmon_1ga4dea38a6a1a6f00e9a62e92b9fafc3c2" compoundref="xaxipmon_8c" startline="1212" endline="1231">XAxiPmon_GetLogEnableRanges</referencedby>
+        <referencedby refid="group__axipmon_1ga5450238f0ff52df5a447c26199e9dd4d" compoundref="xaxipmon_8c" startline="684" endline="715">XAxiPmon_GetMetricCounter</referencedby>
+        <referencedby refid="group__axipmon_1ga343be016daf2c353c95c66fa5d4f3869" compoundref="xaxipmon_8c" startline="591" endline="623">XAxiPmon_GetMetrics</referencedby>
+        <referencedby refid="group__axipmon_1gab07171f0bdc3e88155dd354889d269e4" compoundref="xaxipmon_8c" startline="1893" endline="1912">XAxiPmon_GetRdLatencyEnd</referencedby>
+        <referencedby refid="group__axipmon_1gad3fc8333fb0a3e594a77da7483d7261b" compoundref="xaxipmon_8c" startline="1859" endline="1878">XAxiPmon_GetRdLatencyStart</referencedby>
+        <referencedby refid="group__axipmon_1ga2864d8855faca3dbb48f3ec703d3cc02" compoundref="xaxipmon_8c" startline="1605" endline="1627">XAxiPmon_GetReadId</referencedby>
+        <referencedby refid="group__axipmon_1ga626c97b8b159047052b6ca6308c43c7a" compoundref="xaxipmon_8c" startline="2045" endline="2067">XAxiPmon_GetReadIdMask</referencedby>
+        <referencedby refid="group__axipmon_1ga1dfca23c8c1305ce240bf3ca6f69d8e4" compoundref="xaxipmon_8c" startline="821" endline="838">XAxiPmon_GetSampledIncrementer</referencedby>
+        <referencedby refid="group__axipmon_1ga0e28b087aa82e6744dbfc7c5a6da6303" compoundref="xaxipmon_8c" startline="733" endline="766">XAxiPmon_GetSampledMetricCounter</referencedby>
+        <referencedby refid="group__axipmon_1gaaa5f655100b693586e08eed5aa01ecf9" compoundref="xaxipmon_8c" startline="475" endline="490">XAxiPmon_GetSampleInterval</referencedby>
+        <referencedby refid="group__axipmon_1gabc734c192a6eb5cf8ae1d76322a84d2e" compoundref="xaxipmon_8c" startline="880" endline="896">XAxiPmon_GetSwDataReg</referencedby>
+        <referencedby refid="group__axipmon_1ga1c271dbbf7f4149f6b5e6156a49462a6" compoundref="xaxipmon_8c" startline="1567" endline="1588">XAxiPmon_GetWriteId</referencedby>
+        <referencedby refid="group__axipmon_1ga4e79500a048a04d8fda8fcdcb4798d37" compoundref="xaxipmon_8c" startline="2006" endline="2027">XAxiPmon_GetWriteIdMask</referencedby>
+        <referencedby refid="group__axipmon_1ga81175e1827d1ae0b95742638f19f0347" compoundref="xaxipmon_8c" startline="1826" endline="1844">XAxiPmon_GetWrLatencyEnd</referencedby>
+        <referencedby refid="group__axipmon_1ga5d7d29017bfc83bfe141657c924788cd" compoundref="xaxipmon_8c" startline="1793" endline="1811">XAxiPmon_GetWrLatencyStart</referencedby>
+        <referencedby refid="group__axipmon_1ga8da3b49d3fc16437858d5a61905981ae" compoundref="xaxipmon_8c" startline="316" endline="350">XAxiPmon_ResetFifo</referencedby>
+        <referencedby refid="group__axipmon_1ga25191e9280ab4a1dcffae7afd08ae599" compoundref="xaxipmon_8c" startline="275" endline="302">XAxiPmon_ResetGlobalClkCounter</referencedby>
+        <referencedby refid="group__axipmon_1ga34106e1380f932cb94c74e1bea3a34b3" compoundref="xaxipmon_8c" startline="234" endline="261">XAxiPmon_ResetMetricCounter</referencedby>
+        <referencedby refid="group__axipmon_1gad07bb2139c9b16d6f46f49b02b0200ae" compoundref="xaxipmon_8c" startline="368" endline="390">XAxiPmon_SetIncrementerRange</referencedby>
+        <referencedby refid="group__axipmon_1ga25951731ad41378f658e67a9f13c8f65" compoundref="xaxipmon_8c" startline="1164" endline="1187">XAxiPmon_SetLogEnableRanges</referencedby>
+        <referencedby refid="group__axipmon_1gaa14a3b36f2558ecbc47d81d4b3c3fd9d" compoundref="xaxipmon_8c" startline="512" endline="570">XAxiPmon_SetMetrics</referencedby>
+        <referencedby refid="group__axipmon_1ga46ab2d475ae5c53bfefa0988de38c768" compoundref="xaxipmon_8c" startline="1757" endline="1778">XAxiPmon_SetRdLatencyEnd</referencedby>
+        <referencedby refid="group__axipmon_1ga89b245a99d7e28e5f580ea5598e9b9ee" compoundref="xaxipmon_8c" startline="1719" endline="1740">XAxiPmon_SetRdLatencyStart</referencedby>
+        <referencedby refid="group__axipmon_1ga6635143a2756fb62e690a10bf5a009d2" compoundref="xaxipmon_8c" startline="1530" endline="1550">XAxiPmon_SetReadId</referencedby>
+        <referencedby refid="group__axipmon_1ga65ee407db0c82828a01ed5c1b9eb8590" compoundref="xaxipmon_8c" startline="1968" endline="1988">XAxiPmon_SetReadIdMask</referencedby>
+        <referencedby refid="group__axipmon_1gaf3c20b8c69cc5ba64b78f8bae9eb34d8" compoundref="xaxipmon_8c" startline="443" endline="459">XAxiPmon_SetSampleInterval</referencedby>
+        <referencedby refid="group__axipmon_1ga0de2a5e1665cf6c5e58e12d5e337058b" compoundref="xaxipmon_8c" startline="853" endline="866">XAxiPmon_SetSwDataReg</referencedby>
+        <referencedby refid="group__axipmon_1gabb328badebe7340a658d6e70e09870a4" compoundref="xaxipmon_8c" startline="1492" endline="1512">XAxiPmon_SetWriteId</referencedby>
+        <referencedby refid="group__axipmon_1ga3de9a6a45d022e8a996b10c275b1ec55" compoundref="xaxipmon_8c" startline="1930" endline="1950">XAxiPmon_SetWriteIdMask</referencedby>
+        <referencedby refid="group__axipmon_1ga1f146b7a32bcb5b00ffeae5b66fd49bd" compoundref="xaxipmon_8c" startline="1681" endline="1702">XAxiPmon_SetWrLatencyEnd</referencedby>
+        <referencedby refid="group__axipmon_1gada26dab07f2fece5d9f2bbaa2b663f06" compoundref="xaxipmon_8c" startline="1643" endline="1664">XAxiPmon_SetWrLatencyStart</referencedby>
+        <referencedby refid="group__axipmon_1ga086eebc115587aab4f5613ed99a28314" compoundref="xaxipmon_8c" startline="1001" endline="1035">XAxiPmon_StartCounters</referencedby>
+        <referencedby refid="group__axipmon_1ga76a82f8825aabafd3f154f991a75d9e1" compoundref="xaxipmon_8c" startline="916" endline="945">XAxiPmon_StartEventLog</referencedby>
+        <referencedby refid="group__axipmon_1ga700e821cca7fea12dfe83c0364d3ec90" compoundref="xaxipmon_8c" startline="1051" endline="1080">XAxiPmon_StopCounters</referencedby>
+        <referencedby refid="group__axipmon_1ga8b84005bda937d328475b648d94ae258" compoundref="xaxipmon_8c" startline="960" endline="983">XAxiPmon_StopEventLog</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_pmon___config_1addc7b2bfdd7b3252b178c662005af86f" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>s32 XAxiPmon_Config::GlobalClkCounterWidth</definition>
+        <argsstring></argsstring>
+        <name>GlobalClkCounterWidth</name>
+        <briefdescription>
+<para>Global Clock Counter Width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" line="438" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" bodystart="438" bodyend="-1"/>
+        <referencedby refid="group__axipmon_1gafc3c070e08d80f970b4e84c74ca6b37e" compoundref="xaxipmon_8c" startline="141" endline="218">XAxiPmon_CfgInitialize</referencedby>
+        <referencedby refid="group__axipmon_1ga833edad9f6bdc75777eca3247940931f" compoundref="xaxipmon_8c" startline="641" endline="667">XAxiPmon_GetGlobalClkCounter</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_pmon___config_1a62f2ea85841df7c3f1bcc774a202b3ad" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>s32 XAxiPmon_Config::MetricSampleCounterWidth</definition>
+        <argsstring></argsstring>
+        <name>MetricSampleCounterWidth</name>
+        <briefdescription>
+<para>Metric Sample Counters Width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" line="439" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" bodystart="439" bodyend="-1"/>
+        <referencedby refid="group__axipmon_1gafc3c070e08d80f970b4e84c74ca6b37e" compoundref="xaxipmon_8c" startline="141" endline="218">XAxiPmon_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_pmon___config_1a5ec6b9f8df296e554b495627bcd70950" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiPmon_Config::IsEventCount</definition>
+        <argsstring></argsstring>
+        <name>IsEventCount</name>
+        <briefdescription>
+<para>Event Count Enabled 1 - enabled 0 - not enabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" line="440" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" bodystart="440" bodyend="-1"/>
+        <referencedby refid="group__axipmon_1gafc3c070e08d80f970b4e84c74ca6b37e" compoundref="xaxipmon_8c" startline="141" endline="218">XAxiPmon_CfgInitialize</referencedby>
+        <referencedby refid="group__axipmon_1ga339b500e3f165daf5b7b8f943eee0437" compoundref="xaxipmon_8c" startline="1124" endline="1142">XAxiPmon_DisableMetricsCounter</referencedby>
+        <referencedby refid="group__axipmon_1ga12595840082105ce722b8b36d910443a" compoundref="xaxipmon_8c" startline="1094" endline="1111">XAxiPmon_EnableMetricsCounter</referencedby>
+        <referencedby refid="group__axipmon_1gae2541fcba5770808bfce1bf006e62a11" compoundref="xaxipmon_8c" startline="785" endline="802">XAxiPmon_GetIncrementer</referencedby>
+        <referencedby refid="group__axipmon_1ga4dea38a6a1a6f00e9a62e92b9fafc3c2" compoundref="xaxipmon_8c" startline="1212" endline="1231">XAxiPmon_GetLogEnableRanges</referencedby>
+        <referencedby refid="group__axipmon_1ga1dfca23c8c1305ce240bf3ca6f69d8e4" compoundref="xaxipmon_8c" startline="821" endline="838">XAxiPmon_GetSampledIncrementer</referencedby>
+        <referencedby refid="group__axipmon_1ga25951731ad41378f658e67a9f13c8f65" compoundref="xaxipmon_8c" startline="1164" endline="1187">XAxiPmon_SetLogEnableRanges</referencedby>
+        <referencedby refid="group__axipmon_1ga086eebc115587aab4f5613ed99a28314" compoundref="xaxipmon_8c" startline="1001" endline="1035">XAxiPmon_StartCounters</referencedby>
+        <referencedby refid="group__axipmon_1ga700e821cca7fea12dfe83c0364d3ec90" compoundref="xaxipmon_8c" startline="1051" endline="1080">XAxiPmon_StopCounters</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_pmon___config_1a8a7183f804420e10dda13463afa4799f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiPmon_Config::NumberofSlots</definition>
+        <argsstring></argsstring>
+        <name>NumberofSlots</name>
+        <briefdescription>
+<para>Number of Monitor Slots. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" line="442" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" bodystart="442" bodyend="-1"/>
+        <referencedby refid="group__axipmon_1gafc3c070e08d80f970b4e84c74ca6b37e" compoundref="xaxipmon_8c" startline="141" endline="218">XAxiPmon_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_pmon___config_1a25a80a58c943a780400009cd4216d529" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiPmon_Config::NumberofCounters</definition>
+        <argsstring></argsstring>
+        <name>NumberofCounters</name>
+        <briefdescription>
+<para>Number of Counters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" line="443" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" bodystart="443" bodyend="-1"/>
+        <referencedby refid="group__axipmon_1gafc3c070e08d80f970b4e84c74ca6b37e" compoundref="xaxipmon_8c" startline="141" endline="218">XAxiPmon_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_pmon___config_1a9534df49b2e8964d20255cd5e928dea6" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiPmon_Config::HaveSampledCounters</definition>
+        <argsstring></argsstring>
+        <name>HaveSampledCounters</name>
+        <briefdescription>
+<para>Have Sampled Counters 1 - present 0 - Not present. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" line="444" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" bodystart="444" bodyend="-1"/>
+        <referencedby refid="group__axipmon_1gafc3c070e08d80f970b4e84c74ca6b37e" compoundref="xaxipmon_8c" startline="141" endline="218">XAxiPmon_CfgInitialize</referencedby>
+        <referencedby refid="group__axipmon_1ga1dfca23c8c1305ce240bf3ca6f69d8e4" compoundref="xaxipmon_8c" startline="821" endline="838">XAxiPmon_GetSampledIncrementer</referencedby>
+        <referencedby refid="group__axipmon_1ga0e28b087aa82e6744dbfc7c5a6da6303" compoundref="xaxipmon_8c" startline="733" endline="766">XAxiPmon_GetSampledMetricCounter</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_pmon___config_1ad31d04da158d85c4f4c3c7464d96262d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiPmon_Config::IsEventLog</definition>
+        <argsstring></argsstring>
+        <name>IsEventLog</name>
+        <briefdescription>
+<para>Event Logging Enabled 1 - enabled 0 - Not enabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" line="446" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" bodystart="446" bodyend="-1"/>
+        <referencedby refid="group__axipmon_1gafc3c070e08d80f970b4e84c74ca6b37e" compoundref="xaxipmon_8c" startline="141" endline="218">XAxiPmon_CfgInitialize</referencedby>
+        <referencedby refid="group__axipmon_1ga66a4533d4fa95ed53bd99c6112f27537" compoundref="xaxipmon_8c" startline="1245" endline="1262">XAxiPmon_EnableEventLog</referencedby>
+        <referencedby refid="group__axipmon_1ga8da3b49d3fc16437858d5a61905981ae" compoundref="xaxipmon_8c" startline="316" endline="350">XAxiPmon_ResetFifo</referencedby>
+        <referencedby refid="group__axipmon_1ga76a82f8825aabafd3f154f991a75d9e1" compoundref="xaxipmon_8c" startline="916" endline="945">XAxiPmon_StartEventLog</referencedby>
+        <referencedby refid="group__axipmon_1ga8b84005bda937d328475b648d94ae258" compoundref="xaxipmon_8c" startline="960" endline="983">XAxiPmon_StopEventLog</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_pmon___config_1a7b8da44fdfa6cc1549d05fb8cde33272" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAxiPmon_Config::FifoDepth</definition>
+        <argsstring></argsstring>
+        <name>FifoDepth</name>
+        <briefdescription>
+<para>Event Log FIFO Depth. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" bodystart="448" bodyend="-1"/>
+        <referencedby refid="group__axipmon_1gafc3c070e08d80f970b4e84c74ca6b37e" compoundref="xaxipmon_8c" startline="141" endline="218">XAxiPmon_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_pmon___config_1ac4070ba83d966fa528333daa2a163811" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAxiPmon_Config::FifoWidth</definition>
+        <argsstring></argsstring>
+        <name>FifoWidth</name>
+        <briefdescription>
+<para>Event Log FIFO Width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" line="449" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" bodystart="449" bodyend="-1"/>
+        <referencedby refid="group__axipmon_1gafc3c070e08d80f970b4e84c74ca6b37e" compoundref="xaxipmon_8c" startline="141" endline="218">XAxiPmon_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_pmon___config_1a21e19c0ae8abd982c976de6657e03fd6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAxiPmon_Config::TidWidth</definition>
+        <argsstring></argsstring>
+        <name>TidWidth</name>
+        <briefdescription>
+<para>Streaming Interface TID Width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" line="450" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" bodystart="450" bodyend="-1"/>
+        <referencedby refid="group__axipmon_1gafc3c070e08d80f970b4e84c74ca6b37e" compoundref="xaxipmon_8c" startline="141" endline="218">XAxiPmon_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_pmon___config_1ad97bc135c81de4aef241c6c64c463bf8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiPmon_Config::ScaleFactor</definition>
+        <argsstring></argsstring>
+        <name>ScaleFactor</name>
+        <briefdescription>
+<para>Event Count Scaling factor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" line="451" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" bodystart="451" bodyend="-1"/>
+        <referencedby refid="group__axipmon_1gafc3c070e08d80f970b4e84c74ca6b37e" compoundref="xaxipmon_8c" startline="141" endline="218">XAxiPmon_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_pmon___config_1a6c145f90521c22917f93fd305a3f3325" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiPmon_Config::ModeAdvanced</definition>
+        <argsstring></argsstring>
+        <name>ModeAdvanced</name>
+        <briefdescription>
+<para>Advanced Mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" line="452" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" bodystart="452" bodyend="-1"/>
+        <referencedby refid="group__axipmon_1gafc3c070e08d80f970b4e84c74ca6b37e" compoundref="xaxipmon_8c" startline="141" endline="218">XAxiPmon_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_pmon___config_1a26c953ea44edd624c684e79436e1e660" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiPmon_Config::ModeProfile</definition>
+        <argsstring></argsstring>
+        <name>ModeProfile</name>
+        <briefdescription>
+<para>Profile Mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" line="453" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" bodystart="453" bodyend="-1"/>
+        <referencedby refid="group__axipmon_1gafc3c070e08d80f970b4e84c74ca6b37e" compoundref="xaxipmon_8c" startline="141" endline="218">XAxiPmon_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_pmon___config_1a4c2b5b198a5e9cef4965d0a8b3837a84" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiPmon_Config::ModeTrace</definition>
+        <argsstring></argsstring>
+        <name>ModeTrace</name>
+        <briefdescription>
+<para>Trace Mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" line="454" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" bodystart="454" bodyend="-1"/>
+        <referencedby refid="group__axipmon_1gafc3c070e08d80f970b4e84c74ca6b37e" compoundref="xaxipmon_8c" startline="141" endline="218">XAxiPmon_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_pmon___config_1aa5bc50b092179302cc0c48ecb840c7d7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiPmon_Config::Is32BitFiltering</definition>
+        <argsstring></argsstring>
+        <name>Is32BitFiltering</name>
+        <briefdescription>
+<para>32 bit filtering enabled </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" line="455" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" bodystart="455" bodyend="-1"/>
+        <referencedby refid="group__axipmon_1gafc3c070e08d80f970b4e84c74ca6b37e" compoundref="xaxipmon_8c" startline="141" endline="218">XAxiPmon_CfgInitialize</referencedby>
+        <referencedby refid="group__axipmon_1ga2864d8855faca3dbb48f3ec703d3cc02" compoundref="xaxipmon_8c" startline="1605" endline="1627">XAxiPmon_GetReadId</referencedby>
+        <referencedby refid="group__axipmon_1ga626c97b8b159047052b6ca6308c43c7a" compoundref="xaxipmon_8c" startline="2045" endline="2067">XAxiPmon_GetReadIdMask</referencedby>
+        <referencedby refid="group__axipmon_1ga1c271dbbf7f4149f6b5e6156a49462a6" compoundref="xaxipmon_8c" startline="1567" endline="1588">XAxiPmon_GetWriteId</referencedby>
+        <referencedby refid="group__axipmon_1ga4e79500a048a04d8fda8fcdcb4798d37" compoundref="xaxipmon_8c" startline="2006" endline="2027">XAxiPmon_GetWriteIdMask</referencedby>
+        <referencedby refid="group__axipmon_1ga6635143a2756fb62e690a10bf5a009d2" compoundref="xaxipmon_8c" startline="1530" endline="1550">XAxiPmon_SetReadId</referencedby>
+        <referencedby refid="group__axipmon_1ga65ee407db0c82828a01ed5c1b9eb8590" compoundref="xaxipmon_8c" startline="1968" endline="1988">XAxiPmon_SetReadIdMask</referencedby>
+        <referencedby refid="group__axipmon_1gabb328badebe7340a658d6e70e09870a4" compoundref="xaxipmon_8c" startline="1492" endline="1512">XAxiPmon_SetWriteId</referencedby>
+        <referencedby refid="group__axipmon_1ga3de9a6a45d022e8a996b10c275b1ec55" compoundref="xaxipmon_8c" startline="1930" endline="1950">XAxiPmon_SetWriteIdMask</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_pmon___config_1a02858f198ec3f30601b90e3560144ba8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAxiPmon_Config::IntId</definition>
+        <argsstring></argsstring>
+        <name>IntId</name>
+        <briefdescription>
+<para>Interrupt ID on GIC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" line="457" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" bodystart="457" bodyend="-1"/>
+        <referencedby refid="xaxipmon__intr__example_8c_1a09802d0ef0597cec23b941db2278abc2" compoundref="xaxipmon__intr__example_8c" startline="204" endline="320">AxiPmonInterruptExample</referencedby>
+        <referencedby refid="group__axipmon_1gafc3c070e08d80f970b4e84c74ca6b37e" compoundref="xaxipmon_8c" startline="141" endline="218">XAxiPmon_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_pmon___config_1ab50047383a04cfa500e6684400399855" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XAxiPmon_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" line="458" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" bodystart="458" bodyend="-1"/>
+        <referencedby refid="xaxipmon__intr__example_8c_1a09802d0ef0597cec23b941db2278abc2" compoundref="xaxipmon__intr__example_8c" startline="204" endline="320">AxiPmonInterruptExample</referencedby>
+        <referencedby refid="group__axipmon_1gafc3c070e08d80f970b4e84c74ca6b37e" compoundref="xaxipmon_8c" startline="141" endline="218">XAxiPmon_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the AXI Performance Monitor device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" line="431" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" bodystart="431" bodyend="461"/>
+    <listofallmembers>
+      <member refid="struct_x_axi_pmon___config_1aaaf3e726cc3af1648c88b8a3052252db" prot="public" virt="non-virtual"><scope>XAxiPmon_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_axi_pmon___config_1a7b8da44fdfa6cc1549d05fb8cde33272" prot="public" virt="non-virtual"><scope>XAxiPmon_Config</scope><name>FifoDepth</name></member>
+      <member refid="struct_x_axi_pmon___config_1ac4070ba83d966fa528333daa2a163811" prot="public" virt="non-virtual"><scope>XAxiPmon_Config</scope><name>FifoWidth</name></member>
+      <member refid="struct_x_axi_pmon___config_1addc7b2bfdd7b3252b178c662005af86f" prot="public" virt="non-virtual"><scope>XAxiPmon_Config</scope><name>GlobalClkCounterWidth</name></member>
+      <member refid="struct_x_axi_pmon___config_1a9534df49b2e8964d20255cd5e928dea6" prot="public" virt="non-virtual"><scope>XAxiPmon_Config</scope><name>HaveSampledCounters</name></member>
+      <member refid="struct_x_axi_pmon___config_1a02858f198ec3f30601b90e3560144ba8" prot="public" virt="non-virtual"><scope>XAxiPmon_Config</scope><name>IntId</name></member>
+      <member refid="struct_x_axi_pmon___config_1ab50047383a04cfa500e6684400399855" prot="public" virt="non-virtual"><scope>XAxiPmon_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_axi_pmon___config_1aa5bc50b092179302cc0c48ecb840c7d7" prot="public" virt="non-virtual"><scope>XAxiPmon_Config</scope><name>Is32BitFiltering</name></member>
+      <member refid="struct_x_axi_pmon___config_1a5ec6b9f8df296e554b495627bcd70950" prot="public" virt="non-virtual"><scope>XAxiPmon_Config</scope><name>IsEventCount</name></member>
+      <member refid="struct_x_axi_pmon___config_1ad31d04da158d85c4f4c3c7464d96262d" prot="public" virt="non-virtual"><scope>XAxiPmon_Config</scope><name>IsEventLog</name></member>
+      <member refid="struct_x_axi_pmon___config_1a62f2ea85841df7c3f1bcc774a202b3ad" prot="public" virt="non-virtual"><scope>XAxiPmon_Config</scope><name>MetricSampleCounterWidth</name></member>
+      <member refid="struct_x_axi_pmon___config_1a6c145f90521c22917f93fd305a3f3325" prot="public" virt="non-virtual"><scope>XAxiPmon_Config</scope><name>ModeAdvanced</name></member>
+      <member refid="struct_x_axi_pmon___config_1a26c953ea44edd624c684e79436e1e660" prot="public" virt="non-virtual"><scope>XAxiPmon_Config</scope><name>ModeProfile</name></member>
+      <member refid="struct_x_axi_pmon___config_1a4c2b5b198a5e9cef4965d0a8b3837a84" prot="public" virt="non-virtual"><scope>XAxiPmon_Config</scope><name>ModeTrace</name></member>
+      <member refid="struct_x_axi_pmon___config_1aea24a19d6deb80241e15cdd0a697cd36" prot="public" virt="non-virtual"><scope>XAxiPmon_Config</scope><name>Name</name></member>
+      <member refid="struct_x_axi_pmon___config_1a25a80a58c943a780400009cd4216d529" prot="public" virt="non-virtual"><scope>XAxiPmon_Config</scope><name>NumberofCounters</name></member>
+      <member refid="struct_x_axi_pmon___config_1a8a7183f804420e10dda13463afa4799f" prot="public" virt="non-virtual"><scope>XAxiPmon_Config</scope><name>NumberofSlots</name></member>
+      <member refid="struct_x_axi_pmon___config_1ad97bc135c81de4aef241c6c64c463bf8" prot="public" virt="non-virtual"><scope>XAxiPmon_Config</scope><name>ScaleFactor</name></member>
+      <member refid="struct_x_axi_pmon___config_1a21e19c0ae8abd982c976de6657e03fd6" prot="public" virt="non-virtual"><scope>XAxiPmon_Config</scope><name>TidWidth</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

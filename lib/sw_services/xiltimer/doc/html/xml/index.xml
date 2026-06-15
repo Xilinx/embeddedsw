@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="struct_x_timer_tag" kind="struct"><name>XTimerTag</name>
+    <member refid="struct_x_timer_tag_1a1596156ea70229b14ebdb8776e890fea" kind="variable"><name>XTimer_ModifyInterval</name></member>
+    <member refid="struct_x_timer_tag_1a789426610fee231cacc16560c831bc42" kind="variable"><name>XTimer_TickIntrHandler</name></member>
+    <member refid="struct_x_timer_tag_1aa0931e9c88867714880e5d22aeca89b0" kind="variable"><name>XTimer_TickInterval</name></member>
+    <member refid="struct_x_timer_tag_1a08c800b5458109d2b26ad3b8b82d2582" kind="variable"><name>XSleepTimer_Stop</name></member>
+    <member refid="struct_x_timer_tag_1aa6b45555673e3e0e07a63a43625dea63" kind="variable"><name>XTickTimer_Stop</name></member>
+    <member refid="struct_x_timer_tag_1a65213463c513915b2057907b0548a7a1" kind="variable"><name>XTickTimer_ClearInterrupt</name></member>
+    <member refid="struct_x_timer_tag_1a3e4c875a87fc8e4158293010a729bb2f" kind="variable"><name>Handler</name></member>
+    <member refid="struct_x_timer_tag_1a5ba807967063169be63cde744354d0a8" kind="variable"><name>CallBackRef</name></member>
+  </compound>
+  <compound refid="axi__timer_8c" kind="file"><name>axi_timer.c</name>
+    <member refid="group__xiltimer__api_1ga6abf0c162fa52c76c94d067a1baadd81" kind="function"><name>XAxiTimer_Init</name></member>
+  </compound>
+  <compound refid="_c_make_lists_8txt" kind="file"><name>CMakeLists.txt</name>
+  </compound>
+  <compound refid="core_2axi__timer_2_c_make_lists_8txt" kind="file"><name>core/axi_timer/CMakeLists.txt</name>
+  </compound>
+  <compound refid="core_2_c_make_lists_8txt" kind="file"><name>core/CMakeLists.txt</name>
+  </compound>
+  <compound refid="core_2default__timer_2_c_make_lists_8txt" kind="file"><name>core/default_timer/CMakeLists.txt</name>
+    <member refid="core_2default__timer_2_c_make_lists_8txt_1ae9e45733bfebc1adc2a763f2383f9c0c" kind="function"><name>if</name></member>
+    <member refid="core_2default__timer_2_c_make_lists_8txt_1a7da938b0e5caaaf71ba0d26269e2dc56" kind="function"><name>OR</name></member>
+    <member refid="core_2default__timer_2_c_make_lists_8txt_1a34a00bbf298dffb25efbf69b33fe8582" kind="function"><name>OR</name></member>
+  </compound>
+  <compound refid="core_2scutimer_2_c_make_lists_8txt" kind="file"><name>core/scutimer/CMakeLists.txt</name>
+  </compound>
+  <compound refid="core_2ttcps_2_c_make_lists_8txt" kind="file"><name>core/ttcps/CMakeLists.txt</name>
+  </compound>
+  <compound refid="cortexr5__sleep_8c" kind="file"><name>cortexr5_sleep.c</name>
+  </compound>
+  <compound refid="globaltimer__sleep_8c" kind="file"><name>globaltimer_sleep.c</name>
+  </compound>
+  <compound refid="globaltimer__sleep__zynq_8c" kind="file"><name>globaltimer_sleep_zynq.c</name>
+  </compound>
+  <compound refid="microblaze__riscv__sleep_8c" kind="file"><name>microblaze_riscv_sleep.c</name>
+  </compound>
+  <compound refid="microblaze__sleep_8c" kind="file"><name>microblaze_sleep.c</name>
+  </compound>
+  <compound refid="scutimer_8c" kind="file"><name>scutimer.c</name>
+    <member refid="group__xiltimer__api_1gae14eaaed1fe7cdf491da54a714c426b3" kind="define"><name>MAX_COUNT</name></member>
+    <member refid="group__xiltimer__api_1ga2c391113ad85cc4d13b89397d9d77dc1" kind="function"><name>XTimer_ScutimerInit</name></member>
+  </compound>
+  <compound refid="sleep_8h" kind="file"><name>sleep.h</name>
+    <member refid="sleep_8h_1ab3f37ae3880d8b5eacf85928293f2cee" kind="define"><name>Xil_poll_timeout</name></member>
+    <member refid="group__xiltimer__api_1ga068447b060a14715c07173bba411eb75" kind="function"><name>usleep</name></member>
+    <member refid="group__xiltimer__api_1ga5b18907cf69292caad8910f3667e48fd" kind="function"><name>msleep</name></member>
+    <member refid="group__xiltimer__api_1gafc060fb73e66e0f4493f7417ef6e4047" kind="function"><name>sleep</name></member>
+  </compound>
+  <compound refid="ttcps_8c" kind="file"><name>ttcps.c</name>
+    <member refid="group__xiltimer__api_1gaca6f06685ab6904b49da2f41d3c7b46b" kind="define"><name>REG_SHIFT</name></member>
+    <member refid="group__xiltimer__api_1ga82aee0f8087831dfc46f2d5c884d1b0e" kind="define"><name>XCntrVal</name></member>
+    <member refid="group__xiltimer__api_1gaffc16d6c4c44f42d4dad9d9a183f4098" kind="function"><name>XTimer_TtcInit</name></member>
+  </compound>
+  <compound refid="xiltimer_8c" kind="file"><name>xiltimer.c</name>
+    <member refid="group__xiltimer__api_1gad566619236e065d2120ff35bf4069666" kind="variable"><name>TimerInst</name></member>
+    <member refid="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" kind="function"><name>XilTimer_Sleep</name></member>
+    <member refid="group__xiltimer__api_1gafc060fb73e66e0f4493f7417ef6e4047" kind="function"><name>sleep</name></member>
+    <member refid="group__xiltimer__api_1ga5b18907cf69292caad8910f3667e48fd" kind="function"><name>msleep</name></member>
+    <member refid="group__xiltimer__api_1ga068447b060a14715c07173bba411eb75" kind="function"><name>usleep</name></member>
+    <member refid="group__xiltimer__api_1gaf69e1968c5c23ab54bbe16685f28eec2" kind="function"><name>xtimerinit</name></member>
+    <member refid="group__xiltimer__api_1ga6395671177518353e3ab5ded9609eb1e" kind="function"><name>XTimer_SetHandler</name></member>
+    <member refid="group__xiltimer__api_1gac2d61518eafb79f1bad01cecb9503d6c" kind="function"><name>XTimer_SetInterval</name></member>
+    <member refid="group__xiltimer__api_1ga30d16ade92d9b5d61797f69f06bdd7bb" kind="function"><name>XTimer_ClearTickInterrupt</name></member>
+  </compound>
+  <compound refid="xiltimer_8h" kind="file"><name>xiltimer.h</name>
+    <member refid="xiltimer_8h_1ad79fa109a0f7f136716e43b8931c468e" kind="define"><name>XTIMER_MAJOR_VERSION</name></member>
+    <member refid="xiltimer_8h_1a372f9a921d5b640234b2a63a60f2a608" kind="define"><name>XTIMER_MINOR_VERSION</name></member>
+    <member refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adb" kind="enum"><name>XTimer_DelayType</name></member>
+    <member refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adba560abaa29cb456b69114f70412ecfb97" kind="enumvalue"><name>XTIMER_DELAY_SEC</name></member>
+    <member refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adba4300457c5c502155d5683873c208873d" kind="enumvalue"><name>XTIMER_DELAY_MSEC</name></member>
+    <member refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adbaf87fdb94b9c9f134efde527a38db6048" kind="enumvalue"><name>XTIMER_DELAY_USEC</name></member>
+    <member refid="xiltimer_8h_1adf78c896aa8018bb63e6aa315e24223b" kind="typedef"><name>XTimer_TickHandler</name></member>
+    <member refid="xiltimer_8h_1a7ba0892098f95e0c742e64b51e97319b" kind="typedef"><name>XTimer</name></member>
+    <member refid="xiltimer_8h_1ab09e5fc8d3f2b44bee5841db91a81913" kind="typedef"><name>XTime</name></member>
+    <member refid="group__xiltimer__api_1gad566619236e065d2120ff35bf4069666" kind="variable"><name>TimerInst</name></member>
+    <member refid="xiltimer_8h_1a5c770b03515ead8c3c2949952c2b3410" kind="function"><name>XTimer_GetLibVersion</name></member>
+    <member refid="xiltimer_8h_1ae6ae23d2e575f47dcdd374cac14947ee" kind="function"><name>XilSleepTimer_Init</name></member>
+    <member refid="xiltimer_8h_1a261d2e800b7b82eb41e3b8f8043a5c52" kind="function"><name>XilTickTimer_Init</name></member>
+    <member refid="xiltimer_8h_1a6d069e6cf82031c469818523a5d7ab82" kind="function"><name>XTime_GetTime</name></member>
+    <member refid="group__xiltimer__api_1gac2d61518eafb79f1bad01cecb9503d6c" kind="function"><name>XTimer_SetInterval</name></member>
+    <member refid="group__xiltimer__api_1ga6395671177518353e3ab5ded9609eb1e" kind="function"><name>XTimer_SetHandler</name></member>
+    <member refid="group__xiltimer__api_1ga30d16ade92d9b5d61797f69f06bdd7bb" kind="function"><name>XTimer_ClearTickInterrupt</name></member>
+  </compound>
+  <compound refid="group__xiltimer__api" kind="group"><name>xiltimer_api</name>
+    <member refid="group__xiltimer__api_1gad566619236e065d2120ff35bf4069666" kind="variable"><name>TimerInst</name></member>
+    <member refid="group__xiltimer__api_1ga6abf0c162fa52c76c94d067a1baadd81" kind="function"><name>XAxiTimer_Init</name></member>
+    <member refid="group__xiltimer__api_1ga2c391113ad85cc4d13b89397d9d77dc1" kind="function"><name>XTimer_ScutimerInit</name></member>
+    <member refid="group__xiltimer__api_1gaffc16d6c4c44f42d4dad9d9a183f4098" kind="function"><name>XTimer_TtcInit</name></member>
+    <member refid="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" kind="function"><name>XilTimer_Sleep</name></member>
+    <member refid="group__xiltimer__api_1gafc060fb73e66e0f4493f7417ef6e4047" kind="function"><name>sleep</name></member>
+    <member refid="group__xiltimer__api_1ga5b18907cf69292caad8910f3667e48fd" kind="function"><name>msleep</name></member>
+    <member refid="group__xiltimer__api_1ga068447b060a14715c07173bba411eb75" kind="function"><name>usleep</name></member>
+    <member refid="group__xiltimer__api_1gaf69e1968c5c23ab54bbe16685f28eec2" kind="function"><name>xtimerinit</name></member>
+    <member refid="group__xiltimer__api_1ga6395671177518353e3ab5ded9609eb1e" kind="function"><name>XTimer_SetHandler</name></member>
+    <member refid="group__xiltimer__api_1gac2d61518eafb79f1bad01cecb9503d6c" kind="function"><name>XTimer_SetInterval</name></member>
+    <member refid="group__xiltimer__api_1ga30d16ade92d9b5d61797f69f06bdd7bb" kind="function"><name>XTimer_ClearTickInterrupt</name></member>
+    <member refid="group__xiltimer__api_1gae14eaaed1fe7cdf491da54a714c426b3" kind="define"><name>MAX_COUNT</name></member>
+    <member refid="group__xiltimer__api_1gaca6f06685ab6904b49da2f41d3c7b46b" kind="define"><name>REG_SHIFT</name></member>
+    <member refid="group__xiltimer__api_1ga82aee0f8087831dfc46f2d5c884d1b0e" kind="define"><name>XCntrVal</name></member>
+  </compound>
+  <compound refid="dir_0fc1c240c1b6b338d2ce4ad4bc357654" kind="dir"><name>axi_timer</name>
+  </compound>
+  <compound refid="dir_ef42a25df4dfceecfc4ab455590d928e" kind="dir"><name>core</name>
+  </compound>
+  <compound refid="dir_fff204d255b0b707be313e499be7a2a2" kind="dir"><name>default_timer</name>
+  </compound>
+  <compound refid="dir_704673d772530f768a0c4fc2780108cb" kind="dir"><name>scutimer</name>
+  </compound>
+  <compound refid="dir_b962931b3837546191ef775319e01edf" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="dir_c4f167a52760193652137602112b6643" kind="dir"><name>ttcps</name>
+  </compound>
+  <compound refid="dir_3dda850c922c33147aa27273f78095b3" kind="dir"><name>xiltimer</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

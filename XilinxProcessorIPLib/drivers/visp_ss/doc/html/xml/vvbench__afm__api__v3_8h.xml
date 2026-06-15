@@ -1,0 +1,412 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="vvbench__afm__api__v3_8h" kind="file">
+    <compoundname>vvbench_afm_api_v3.h</compoundname>
+    <includes refid="vvdevice__common_8h" local="yes">vvdevice_common.h</includes>
+    <includes refid="c_j_s_o_n_8h" local="yes">cJSON.h</includes>
+    <includedby refid="submodule__def_8h" local="yes">submodule_def.h</includedby>
+    <includedby refid="vvbench__af__api__v4_8c" local="yes">vvbench_af_api_v4.c</includedby>
+    <includedby refid="vvbench__afm__api__v3__dummy_8c" local="yes">vvbench_afm_api_v3_dummy.c</includedby>
+    <incdepgraph>
+      <node id="8974">
+        <label>stdbool.h</label>
+      </node>
+      <node id="8957">
+        <label>vvdevice_common.h</label>
+        <childnode refid="8958" relation="include">
+        </childnode>
+        <childnode refid="8966" relation="include">
+        </childnode>
+        <childnode refid="8990" relation="include">
+        </childnode>
+      </node>
+      <node id="8977">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="8964">
+        <label>oslayer.h</label>
+        <link refid="oslayer_8h"/>
+        <childnode refid="8965" relation="include">
+        </childnode>
+        <childnode refid="8971" relation="include">
+        </childnode>
+      </node>
+      <node id="8973">
+        <label>stdint.h</label>
+      </node>
+      <node id="8989">
+        <label>system_module.h</label>
+        <childnode refid="8966" relation="include">
+        </childnode>
+      </node>
+      <node id="8963">
+        <label>stdlib.h</label>
+      </node>
+      <node id="8975">
+        <label>cam_device_api.h</label>
+        <childnode refid="8976" relation="include">
+        </childnode>
+        <childnode refid="8983" relation="include">
+        </childnode>
+        <childnode refid="8984" relation="include">
+        </childnode>
+        <childnode refid="8985" relation="include">
+        </childnode>
+      </node>
+      <node id="8983">
+        <label>cam_device_calibration.h</label>
+        <childnode refid="8966" relation="include">
+        </childnode>
+      </node>
+      <node id="8960">
+        <label>vvterminal.h</label>
+      </node>
+      <node id="8979">
+        <label>sensor_cmd.h</label>
+        <childnode refid="8980" relation="include">
+        </childnode>
+        <childnode refid="8977" relation="include">
+        </childnode>
+      </node>
+      <node id="8986">
+        <label>cam_device_buffer_api.h</label>
+        <childnode refid="8966" relation="include">
+        </childnode>
+        <childnode refid="8977" relation="include">
+        </childnode>
+        <childnode refid="8964" relation="include">
+        </childnode>
+        <childnode refid="8975" relation="include">
+        </childnode>
+        <childnode refid="8978" relation="include">
+        </childnode>
+      </node>
+      <node id="8969">
+        <label>stddef.h</label>
+      </node>
+      <node id="8990">
+        <label>cJSON.h</label>
+        <childnode refid="8969" relation="include">
+        </childnode>
+        <childnode refid="8974" relation="include">
+        </childnode>
+      </node>
+      <node id="8968">
+        <label>limits.h</label>
+      </node>
+      <node id="8976">
+        <label>cam_device_common.h</label>
+        <childnode refid="8966" relation="include">
+        </childnode>
+        <childnode refid="8977" relation="include">
+        </childnode>
+        <childnode refid="8965" relation="include">
+        </childnode>
+        <childnode refid="8978" relation="include">
+        </childnode>
+        <childnode refid="8979" relation="include">
+        </childnode>
+      </node>
+      <node id="8978">
+        <label>buf_defs.h</label>
+        <childnode refid="8966" relation="include">
+        </childnode>
+      </node>
+      <node id="8980">
+        <label>mbox_api.h</label>
+        <childnode refid="8974" relation="include">
+        </childnode>
+        <childnode refid="8973" relation="include">
+        </childnode>
+        <childnode refid="8981" relation="include">
+        </childnode>
+      </node>
+      <node id="8970">
+        <label>string.h</label>
+      </node>
+      <node id="8981">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="8974" relation="include">
+        </childnode>
+        <childnode refid="8982" relation="include">
+        </childnode>
+      </node>
+      <node id="8988">
+        <label>cam_device_isp_system_api.h</label>
+        <childnode refid="8966" relation="include">
+        </childnode>
+        <childnode refid="8977" relation="include">
+        </childnode>
+        <childnode refid="8976" relation="include">
+        </childnode>
+        <childnode refid="8989" relation="include">
+        </childnode>
+      </node>
+      <node id="8987">
+        <label>cam_device_sensor_api.h</label>
+        <childnode refid="8975" relation="include">
+        </childnode>
+      </node>
+      <node id="8972">
+        <label>cam_common_api.h</label>
+        <childnode refid="8973" relation="include">
+        </childnode>
+        <childnode refid="8974" relation="include">
+        </childnode>
+      </node>
+      <node id="8958">
+        <label>vvdevice.h</label>
+        <childnode refid="8959" relation="include">
+        </childnode>
+        <childnode refid="8960" relation="include">
+        </childnode>
+        <childnode refid="8961" relation="include">
+        </childnode>
+        <childnode refid="8972" relation="include">
+        </childnode>
+        <childnode refid="8975" relation="include">
+        </childnode>
+        <childnode refid="8986" relation="include">
+        </childnode>
+        <childnode refid="8976" relation="include">
+        </childnode>
+        <childnode refid="8987" relation="include">
+        </childnode>
+        <childnode refid="8988" relation="include">
+        </childnode>
+        <childnode refid="8978" relation="include">
+        </childnode>
+        <childnode refid="8965" relation="include">
+        </childnode>
+      </node>
+      <node id="8956">
+        <label>vvbench_afm_api_v3.h</label>
+        <link refid="vvbench_afm_api_v3.h"/>
+        <childnode refid="8957" relation="include">
+        </childnode>
+        <childnode refid="8990" relation="include">
+        </childnode>
+      </node>
+      <node id="8982">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="8971">
+        <label>ff.h</label>
+      </node>
+      <node id="8984">
+        <label>offline_trace.h</label>
+        <link refid="offline__trace_8h"/>
+        <childnode refid="8967" relation="include">
+        </childnode>
+        <childnode refid="8966" relation="include">
+        </childnode>
+        <childnode refid="8977" relation="include">
+        </childnode>
+      </node>
+      <node id="8966">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="8967" relation="include">
+        </childnode>
+        <childnode refid="8968" relation="include">
+        </childnode>
+        <childnode refid="8969" relation="include">
+        </childnode>
+      </node>
+      <node id="8985">
+        <label>cam_device_ccm_api.h</label>
+        <childnode refid="8976" relation="include">
+        </childnode>
+      </node>
+      <node id="8959">
+        <label>vvbase.h</label>
+      </node>
+      <node id="8961">
+        <label>vlog.h</label>
+        <childnode refid="8962" relation="include">
+        </childnode>
+        <childnode refid="8963" relation="include">
+        </childnode>
+        <childnode refid="8964" relation="include">
+        </childnode>
+      </node>
+      <node id="8965">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="8966" relation="include">
+        </childnode>
+        <childnode refid="8970" relation="include">
+        </childnode>
+      </node>
+      <node id="8962">
+        <label>stdio.h</label>
+      </node>
+      <node id="8967">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="8962" relation="include">
+        </childnode>
+        <childnode refid="8963" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="8994">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="8995">
+        <label>vvbench_af_api_v4.c</label>
+      </node>
+      <node id="8992">
+        <label>submodule_def.h</label>
+        <childnode refid="8993" relation="include">
+        </childnode>
+        <childnode refid="8994" relation="include">
+        </childnode>
+      </node>
+      <node id="8993">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="8991">
+        <label>vvbench_afm_api_v3.h</label>
+        <link refid="vvbench_afm_api_v3.h"/>
+        <childnode refid="8992" relation="include">
+        </childnode>
+        <childnode refid="8995" relation="include">
+        </childnode>
+        <childnode refid="8996" relation="include">
+        </childnode>
+      </node>
+      <node id="8996">
+        <label>vvbench_afm_api_v3_dummy.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="vvbench__afm__api__v3_8h_1a3534c52265ddf64ecab1be571106d286" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchParseAfmv3Info</definition>
+        <argsstring>(cJSON *afmv3Info, VvbenchModuleCfg_t *afmv3Ctrl)</argsstring>
+        <name>VsiVvbenchParseAfmv3Info</name>
+        <param>
+          <type>cJSON *</type>
+          <declname>afmv3Info</declname>
+        </param>
+        <param>
+          <type>VvbenchModuleCfg_t *</type>
+          <declname>afmv3Ctrl</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/submodules/vvbench_afm_api_v3.h" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_afm_api_v3_dummy.c" bodystart="35" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbench__afm__api__v3_8h_1a784d32532773fc8329701ddb51cf6ec2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchAfmv3Func</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, VvbenchVvdev_t *caseCtx, int index)</argsstring>
+        <name>VsiVvbenchAfmv3Func</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>VvbenchVvdev_t *</type>
+          <declname>caseCtx</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/submodules/vvbench_afm_api_v3.h" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_afm_api_v3_dummy.c" bodystart="52" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbench__afm__api__v3_8h_1a2e750288bf556a5c855d2ad5a8459bb2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchAfmv3GetStatistic</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiVvbenchAfmv3GetStatistic</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/submodules/vvbench_afm_api_v3.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_afm_api_v3_dummy.c" bodystart="62" bodyend="67"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2026<sp/>Vivantec<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__VVDEV_AFMV3_D_H__</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__VVDEV_AFMV3_D_H__</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;vvdevice_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cJSON.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchParseAfmv3Info</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cJSON<sp/>*afmv3Info,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VvbenchModuleCfg_t<sp/>*afmv3Ctrl</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchAfmv3Func</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VvbenchVvdev_t<sp/>*caseCtx,</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchAfmv3GetStatistic</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//__VVDEV_AFMV3_D_H__</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/submodules/vvbench_afm_api_v3.h"/>
+  </compounddef>
+</doxygen>

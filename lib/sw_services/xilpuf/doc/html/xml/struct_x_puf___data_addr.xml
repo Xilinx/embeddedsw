@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_puf___data_addr" kind="struct" prot="public">
+    <compoundname>XPuf_DataAddr</compoundname>
+    <includes local="no">xpuf_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_puf___data_addr_1a0fdab1c23c9f2a4f65672daf02e9399e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPuf_DataAddr::PufOperation</definition>
+        <argsstring></argsstring>
+        <name>PufOperation</name>
+        <briefdescription>
+<para>PUF Registration/ Regeneration On Demand/ ID only regeneration) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_puf___data_addr_1a0b76ec76c8932158e42d0f0a852b12a3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPuf_DataAddr::GlobalVarFilter</definition>
+        <argsstring></argsstring>
+        <name>GlobalVarFilter</name>
+        <briefdescription>
+<para>Global variable filter setting. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_puf___data_addr_1a3f5acbcdeff298e09a3fcb3be52ca844" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPuf_DataAddr::ReadOption</definition>
+        <argsstring></argsstring>
+        <name>ReadOption</name>
+        <briefdescription>
+<para>Read helper data from eFuse Cache/DDR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_puf___data_addr_1aef88f59b36abf6c14b5d42c42fd223fe" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPuf_DataAddr::ShutterValue</definition>
+        <argsstring></argsstring>
+        <name>ShutterValue</name>
+        <briefdescription>
+<para>Shutter value for PUF registration or regeneration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_puf___data_addr_1a477d66215592b26953fd6254cd699fbd" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XPuf_DataAddr::SyndromeDataAddr</definition>
+        <argsstring></argsstring>
+        <name>SyndromeDataAddr</name>
+        <briefdescription>
+<para>Address for syndrome data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_puf___data_addr_1a7aa4bee6328404ae00c65a97f1d0c094" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XPuf_DataAddr::ChashAddr</definition>
+        <argsstring></argsstring>
+        <name>ChashAddr</name>
+        <briefdescription>
+<para>Address for chash data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_puf___data_addr_1af3de1e4d6617ae2cf96fc7cdf5db3680" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XPuf_DataAddr::AuxAddr</definition>
+        <argsstring></argsstring>
+        <name>AuxAddr</name>
+        <briefdescription>
+<para>Address for auxiliary data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_puf___data_addr_1ad8a1971c928cfa94df02ce67162932ef" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XPuf_DataAddr::PufIDAddr</definition>
+        <argsstring></argsstring>
+        <name>PufIDAddr</name>
+        <briefdescription>
+<para>Address for PUF ID data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_puf___data_addr_1aaa293b3f5c4d35e0da4d4b66b7d10611" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XPuf_DataAddr::SyndromeAddr</definition>
+        <argsstring></argsstring>
+        <name>SyndromeAddr</name>
+        <briefdescription>
+<para>Address for syndrome data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_puf___data_addr_1a90181bc52778e8bfdf7eafc90ec09b3b" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XPuf_DataAddr::EfuseSynDataAddr</definition>
+        <argsstring></argsstring>
+        <name>EfuseSynDataAddr</name>
+        <briefdescription>
+<para>Address for eFuse syndrome data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>PUF Data configuration parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="110" bodyend="125"/>
+    <listofallmembers>
+      <member refid="struct_x_puf___data_addr_1af3de1e4d6617ae2cf96fc7cdf5db3680" prot="public" virt="non-virtual"><scope>XPuf_DataAddr</scope><name>AuxAddr</name></member>
+      <member refid="struct_x_puf___data_addr_1a7aa4bee6328404ae00c65a97f1d0c094" prot="public" virt="non-virtual"><scope>XPuf_DataAddr</scope><name>ChashAddr</name></member>
+      <member refid="struct_x_puf___data_addr_1a90181bc52778e8bfdf7eafc90ec09b3b" prot="public" virt="non-virtual"><scope>XPuf_DataAddr</scope><name>EfuseSynDataAddr</name></member>
+      <member refid="struct_x_puf___data_addr_1a0b76ec76c8932158e42d0f0a852b12a3" prot="public" virt="non-virtual"><scope>XPuf_DataAddr</scope><name>GlobalVarFilter</name></member>
+      <member refid="struct_x_puf___data_addr_1ad8a1971c928cfa94df02ce67162932ef" prot="public" virt="non-virtual"><scope>XPuf_DataAddr</scope><name>PufIDAddr</name></member>
+      <member refid="struct_x_puf___data_addr_1a0fdab1c23c9f2a4f65672daf02e9399e" prot="public" virt="non-virtual"><scope>XPuf_DataAddr</scope><name>PufOperation</name></member>
+      <member refid="struct_x_puf___data_addr_1a3f5acbcdeff298e09a3fcb3be52ca844" prot="public" virt="non-virtual"><scope>XPuf_DataAddr</scope><name>ReadOption</name></member>
+      <member refid="struct_x_puf___data_addr_1aef88f59b36abf6c14b5d42c42fd223fe" prot="public" virt="non-virtual"><scope>XPuf_DataAddr</scope><name>ShutterValue</name></member>
+      <member refid="struct_x_puf___data_addr_1aaa293b3f5c4d35e0da4d4b66b7d10611" prot="public" virt="non-virtual"><scope>XPuf_DataAddr</scope><name>SyndromeAddr</name></member>
+      <member refid="struct_x_puf___data_addr_1a477d66215592b26953fd6254cd699fbd" prot="public" virt="non-virtual"><scope>XPuf_DataAddr</scope><name>SyndromeDataAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

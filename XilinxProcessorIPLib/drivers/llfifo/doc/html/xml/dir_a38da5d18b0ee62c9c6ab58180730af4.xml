@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_a38da5d18b0ee62c9c6ab58180730af4" kind="dir">
+    <compoundname>llfifo</compoundname>
+    <innerdir refid="dir_ddc501535938b7f622a50e759ed93936">examples</innerdir>
+    <innerdir refid="dir_f9b605e680b721d3d3d8c8db15f4705f">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/"/>
+  </compounddef>
+</doxygen>

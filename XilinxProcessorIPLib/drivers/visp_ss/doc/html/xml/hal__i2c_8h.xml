@@ -1,0 +1,605 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="hal__i2c_8h" kind="file">
+    <compoundname>hal_i2c.h</compoundname>
+    <includes refid="return__codes_8h" local="no">return_codes.h</includes>
+    <includes refid="types_8h" local="no">types.h</includes>
+    <includes refid="oslayer_8h" local="no">oslayer.h</includes>
+    <includes refid="dct__assert_8h" local="no">dct_assert.h</includes>
+    <includes refid="buf__defs_8h" local="no">buf_defs.h</includes>
+    <includes refid="hal__api_8h" local="yes">hal_api.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includedby refid="hal__i2c_8c" local="yes">hal_i2c.c</includedby>
+    <includedby refid="hal__axi__i2c_8h" local="no">hal_axi_i2c.h</includedby>
+    <includedby refid="hal__ps__i2c_8h" local="no">hal_ps_i2c.h</includedby>
+    <includedby refid="max9296_8h" local="yes">max9296.h</includedby>
+    <includedby refid="isi__fmc_8h" local="yes">isi_fmc.h</includedby>
+    <includedby refid="vvdevice_8c" local="yes">vvdevice.c</includedby>
+    <incdepgraph>
+      <node id="5423">
+        <label>hal_api.h</label>
+        <childnode refid="5424" relation="include">
+        </childnode>
+        <childnode refid="5425" relation="include">
+        </childnode>
+        <childnode refid="5426" relation="include">
+        </childnode>
+        <childnode refid="5427" relation="include">
+        </childnode>
+        <childnode refid="5421" relation="include">
+        </childnode>
+      </node>
+      <node id="5424">
+        <label>stdbool.h</label>
+      </node>
+      <node id="5410">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="5417">
+        <label>oslayer.h</label>
+        <link refid="oslayer_8h"/>
+        <childnode refid="5418" relation="include">
+        </childnode>
+        <childnode refid="5420" relation="include">
+        </childnode>
+      </node>
+      <node id="5414">
+        <label>stdlib.h</label>
+      </node>
+      <node id="5416">
+        <label>stddef.h</label>
+      </node>
+      <node id="5415">
+        <label>limits.h</label>
+      </node>
+      <node id="5422">
+        <label>buf_defs.h</label>
+        <childnode refid="5411" relation="include">
+        </childnode>
+      </node>
+      <node id="5419">
+        <label>string.h</label>
+      </node>
+      <node id="5427">
+        <label>xil_types.h</label>
+      </node>
+      <node id="5425">
+        <label>xiicps.h</label>
+      </node>
+      <node id="5420">
+        <label>ff.h</label>
+      </node>
+      <node id="5428">
+        <label>xparameters.h</label>
+      </node>
+      <node id="5426">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="5411">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="5412" relation="include">
+        </childnode>
+        <childnode refid="5415" relation="include">
+        </childnode>
+        <childnode refid="5416" relation="include">
+        </childnode>
+      </node>
+      <node id="5409">
+        <label>hal_i2c.h</label>
+        <link refid="hal_i2c.h"/>
+        <childnode refid="5410" relation="include">
+        </childnode>
+        <childnode refid="5411" relation="include">
+        </childnode>
+        <childnode refid="5417" relation="include">
+        </childnode>
+        <childnode refid="5421" relation="include">
+        </childnode>
+        <childnode refid="5422" relation="include">
+        </childnode>
+        <childnode refid="5423" relation="include">
+        </childnode>
+        <childnode refid="5428" relation="include">
+        </childnode>
+      </node>
+      <node id="5418">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="5411" relation="include">
+        </childnode>
+        <childnode refid="5419" relation="include">
+        </childnode>
+      </node>
+      <node id="5413">
+        <label>stdio.h</label>
+      </node>
+      <node id="5421">
+        <label>dct_assert.h</label>
+        <link refid="dct__assert_8h"/>
+        <childnode refid="5411" relation="include">
+        </childnode>
+      </node>
+      <node id="5412">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="5413" relation="include">
+        </childnode>
+        <childnode refid="5414" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="5441">
+        <label>ox05b1s.c</label>
+      </node>
+      <node id="5432">
+        <label>hal_ps_i2c.h</label>
+        <childnode refid="5430" relation="include">
+        </childnode>
+        <childnode refid="5433" relation="include">
+        </childnode>
+      </node>
+      <node id="5434">
+        <label>max9296.h</label>
+        <childnode refid="5435" relation="include">
+        </childnode>
+      </node>
+      <node id="5443">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="5431">
+        <label>hal_axi_i2c.h</label>
+        <childnode refid="5430" relation="include">
+        </childnode>
+      </node>
+      <node id="5438">
+        <label>max9295.c</label>
+      </node>
+      <node id="5442">
+        <label>ox08b40.c</label>
+      </node>
+      <node id="5430">
+        <label>hal_i2c.c</label>
+      </node>
+      <node id="5435">
+        <label>max9296.c</label>
+      </node>
+      <node id="5436">
+        <label>isi_fmc.h</label>
+        <childnode refid="5437" relation="include">
+        </childnode>
+        <childnode refid="5434" relation="include">
+        </childnode>
+        <childnode refid="5439" relation="include">
+        </childnode>
+        <childnode refid="5440" relation="include">
+        </childnode>
+        <childnode refid="5441" relation="include">
+        </childnode>
+        <childnode refid="5442" relation="include">
+        </childnode>
+      </node>
+      <node id="5433">
+        <label>hal_ps_i2c.c</label>
+      </node>
+      <node id="5440">
+        <label>ox03f10.c</label>
+      </node>
+      <node id="5439">
+        <label>ms_fw.c</label>
+      </node>
+      <node id="5437">
+        <label>max9295.h</label>
+        <childnode refid="5438" relation="include">
+        </childnode>
+      </node>
+      <node id="5429">
+        <label>hal_i2c.h</label>
+        <link refid="hal_i2c.h"/>
+        <childnode refid="5430" relation="include">
+        </childnode>
+        <childnode refid="5431" relation="include">
+        </childnode>
+        <childnode refid="5432" relation="include">
+        </childnode>
+        <childnode refid="5434" relation="include">
+        </childnode>
+        <childnode refid="5436" relation="include">
+        </childnode>
+        <childnode refid="5443" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_hal_i2c_config__s" prot="public">HalI2cConfig_s</innerclass>
+    <innerclass refid="struct_hal_i2c_context__s" prot="public">HalI2cContext_s</innerclass>
+    <innerclass refid="struct_hal_i2c_api_ops__s" prot="public">HalI2cApiOps_s</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="hal__i2c_8h_1ab47c477605ceeaeb1565f1f04513046b" prot="public" static="no">
+        <name>HalI2cMode_e</name>
+        <enumvalue id="hal__i2c_8h_1ab47c477605ceeaeb1565f1f04513046ba18e66fe57db1745345f1b51e1fb60570" prot="public">
+          <name>HAL_AXI_I2C_MODE</name>
+          <initializer>= 0x0000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="hal__i2c_8h_1ab47c477605ceeaeb1565f1f04513046ba1530338e76f563bbdefd677caedc5a1a" prot="public">
+          <name>HAL_PS_I2C_MODE</name>
+          <initializer>= 0x0001</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="hal__i2c_8h_1ab47c477605ceeaeb1565f1f04513046ba01ef7793f87bfe03250d8ef2f53751f8" prot="public">
+          <name>DUMMY_HAL_I2C_MODE</name>
+          <initializer>= 0xDEADFEED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" bodystart="24" bodyend="28"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="hal__i2c_8h_1a7349c3d07d66e621366170f1c5a7de3a" prot="public" static="no">
+        <type>enum HalI2cMode_e</type>
+        <definition>typedef enum HalI2cMode_e  HalI2cMode_t</definition>
+        <argsstring></argsstring>
+        <name>HalI2cMode_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="28" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="hal__i2c_8h_1abf8103e6b7a12c63bb302ffa9f412779" prot="public" static="no">
+        <type>struct HalI2cConfig_s</type>
+        <definition>typedef struct HalI2cConfig_s  HalI2cConfig_t</definition>
+        <argsstring></argsstring>
+        <name>HalI2cConfig_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="34" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="hal__i2c_8h_1ae647034c43cc3171b6c15ba1396c07e2" prot="public" static="no">
+        <type>struct HalI2cApiOps_s</type>
+        <definition>typedef struct HalI2cApiOps_s HalI2cApiOps_t</definition>
+        <argsstring></argsstring>
+        <name>HalI2cApiOps_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="hal__i2c_8h_1a4233b3e76b7a6691207bd52c246f4fda" prot="public" static="no">
+        <type>void *</type>
+        <definition>typedef void* HalI2cHandle_t</definition>
+        <argsstring></argsstring>
+        <name>HalI2cHandle_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="hal__i2c_8h_1a132c5bcd522c48a6ca974844a14bcc52" prot="public" static="no">
+        <type>struct <ref refid="struct_hal_i2c_context__s" kindref="compound">HalI2cContext_s</ref></type>
+        <definition>typedef struct HalI2cContext_s  HalI2cContext_t</definition>
+        <argsstring></argsstring>
+        <name>HalI2cContext_t</name>
+        <briefdescription>
+<para>hal I2C configuration struct </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="55" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="hal__i2c_8h_1ae2f8d761244fe08230c897f1118549fb" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* HalI2cInit_t)(uint8_t bus_num)</definition>
+        <argsstring>)(uint8_t bus_num)</argsstring>
+        <name>HalI2cInit_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="hal__i2c_8h_1a3815190bd48bc2c55a831596987708b4" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* HalI2cDeInit_t)(uint8_t bus_num)</definition>
+        <argsstring>)(uint8_t bus_num)</argsstring>
+        <name>HalI2cDeInit_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="hal__i2c_8h_1a173b9f90dae60800832f5d64ca2870b8" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* HalI2cReadReg_t)(u8 bus_num, u8 slave_addr, u32 reg_address, u8 reg_addr_size, void *preg_value, u8 datacount)</definition>
+        <argsstring>)(u8 bus_num, u8 slave_addr, u32 reg_address, u8 reg_addr_size, void *preg_value, u8 datacount)</argsstring>
+        <name>HalI2cReadReg_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="hal__i2c_8h_1a53a280b73589804368801af02f99a8cf" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(* HalI2cWriteReg_t)(u8 bus_num, u8 slave_addr, u16 reg_address, u8 reg_addr_size, u8 reg_value, u32 databytes)</definition>
+        <argsstring>)(u8 bus_num, u8 slave_addr, u16 reg_address, u8 reg_addr_size, u8 reg_value, u32 databytes)</argsstring>
+        <name>HalI2cWriteReg_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="hal__i2c_8h_1a9e0f46f2957a0110c52b072fb56c95fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT HalI2cApuInit</definition>
+        <argsstring>(HalI2cConfig_t *pConfig)</argsstring>
+        <name>HalI2cApuInit</name>
+        <param>
+          <type>HalI2cConfig_t *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/hal_i2c.c" bodystart="69" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__i2c_8h_1af9ace5c011ea6704560248618745f19d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT HalI2cInit</definition>
+        <argsstring>(HalI2cConfig_t *pConfig)</argsstring>
+        <name>HalI2cInit</name>
+        <param>
+          <type>HalI2cConfig_t *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/hal_i2c.c" bodystart="136" bodyend="155"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__i2c_8h_1adb0772bcd881d73ffd97a05791e6feed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT HalI2cDeInit</definition>
+        <argsstring>(uint8_t i2cBusId)</argsstring>
+        <name>HalI2cDeInit</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>i2cBusId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/hal_i2c.c" bodystart="101" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__i2c_8h_1a2417413959b7d376c91373d0b1d13978" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT HalReadI2CReg</definition>
+        <argsstring>(uint8_t i2cBusId, uint8_t slaveAddr, uint16_t regAddr, uint8_t regWidth, uint16_t *data, uint8_t dataWidth)</argsstring>
+        <name>HalReadI2CReg</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>i2cBusId</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>slaveAddr</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>regAddr</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>regWidth</declname>
+        </param>
+        <param>
+          <type>uint16_t *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>dataWidth</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/hal_i2c.c" bodystart="158" bodyend="177"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__i2c_8h_1a61b03223b9968fcf10d02f670212f1ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT HalWriteI2CReg</definition>
+        <argsstring>(uint8_t i2cBusId, uint8_t slaveAddr, uint16_t regAddr, uint8_t regWidth, uint16_t data, uint8_t dataWidth)</argsstring>
+        <name>HalWriteI2CReg</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>i2cBusId</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>slaveAddr</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>regAddr</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>regWidth</declname>
+        </param>
+        <param>
+          <type>uint16_t</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>dataWidth</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/hal_i2c.c" bodystart="179" bodyend="201"/>
+      </memberdef>
+      <memberdef kind="function" id="hal__i2c_8h_1a5243efb8e0589969667a3fb53fb4e1fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void vTaskDelay</definition>
+        <argsstring>(u16 time_slice)</argsstring>
+        <name>vTaskDelay</name>
+        <param>
+          <type>u16</type>
+          <declname>time_slice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/hal_i2c.c" bodystart="251" bodyend="257"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>_HALI2CAPI_H_</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_HALI2CAPI_H_</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="return__codes_8h" kindref="compound">return_codes.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="types_8h" kindref="compound">types.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="oslayer_8h" kindref="compound">oslayer.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="dct__assert_8h" kindref="compound">dct_assert.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;buf_defs.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;hal_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>FMC_PS_IIC</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>IIC_DEVICE_ID<sp/>XPAR_XIICPS_1_DEVICE_ID</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>IIC_MUX_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x74</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>IIC_MUX_FMC_CHANNEL<sp/>0x6</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>FMC_AXI_IIC</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>IIC_DEVICE_ID<sp/>XPAR_DEVICE_ID</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>AXI_IIC_MUX_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x71</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>AXI_IIC_MUX_FMC_CHANNEL<sp/>0x2</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>IIC_INTR_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>127</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>HalI2cMode_e<sp/>{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HAL_AXI_I2C_MODE<sp/>=<sp/>0x0000,</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HAL_PS_I2C_MODE<sp/>=<sp/>0x0001,</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_HAL_I2C_MODE<sp/>=<sp/>0xDEADFEED</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">}<sp/>HalI2cMode_t;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">HalI2cConfig_s<sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*hHalI2c;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>i2cBusId;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HalI2cMode_t<sp/>HalI2cMode;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">}<sp/>HalI2cConfig_t;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">HalI2cApiOps_s<sp/>HalI2cApiOps_t;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*HalI2cHandle_t;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="44" refid="struct_hal_i2c_context__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_hal_i2c_context__s" kindref="compound">HalI2cContext_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>i2cBusId;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>slaveAddr;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>regWidth;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>dataWidth;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int32_t<sp/>fd;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>refCount;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>osMutex<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>refMutex;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HalI2cApiOps_t<sp/>*pHalI2c;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HalI2cApiOps_t<sp/>*pHalI2cApiOps;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*pPrivateCtx;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">}<sp/><ref refid="struct_hal_i2c_context__s" kindref="compound">HalI2cContext_t</ref>;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>RESULT<sp/>(*HalI2cInit_t)<sp/>(uint8_t<sp/>bus_num);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>RESULT<sp/>(*HalI2cDeInit_t)<sp/>(uint8_t<sp/>bus_num);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>RESULT<sp/>(*HalI2cReadReg_t)<sp/>(u8<sp/>bus_num,<sp/>u8<sp/>slave_addr,<sp/>u32<sp/>reg_address,<sp/>u8<sp/>reg_addr_size,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*preg_value,<sp/>u8<sp/>datacount);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>RESULT<sp/>(*HalI2cWriteReg_t)<sp/>(u8<sp/>bus_num,<sp/>u8<sp/>slave_addr,<sp/>u16<sp/>reg_address,<sp/>u8<sp/>reg_addr_size,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>reg_value,<sp/>u32<sp/>databytes);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">HalI2cApiOps_s<sp/>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*pi2cName;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HalI2cInit_t<sp/>pHalI2cInit;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HalI2cDeInit_t<sp/>pHalI2cDeInit;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HalI2cReadReg_t<sp/>pHalI2cReadReg;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HalI2cWriteReg_t<sp/>pHalI2cWriteReg;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal">RESULT<sp/>HalI2cApuInit(HalI2cConfig_t<sp/>*pConfig);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">RESULT<sp/>HalI2cInit<sp/>(HalI2cConfig_t<sp/>*pConfig);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">RESULT<sp/>HalI2cDeInit<sp/>(uint8_t<sp/>i2cBusId);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">RESULT<sp/>HalReadI2CReg<sp/>(uint8_t<sp/>i2cBusId,<sp/>uint8_t<sp/>slaveAddr,<sp/>uint16_t<sp/>regAddr,<sp/>uint8_t<sp/>regWidth,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>*data,<sp/>uint8_t<sp/>dataWidth);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">RESULT<sp/>HalWriteI2CReg<sp/>(uint8_t<sp/>i2cBusId,<sp/>uint8_t<sp/>slaveAddr,<sp/>uint16_t<sp/>regAddr,<sp/>uint8_t<sp/>regWidth,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>data,<sp/>uint8_t<sp/>dataWidth);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>vTaskDelay(u16<sp/>time_slice);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h"/>
+  </compounddef>
+</doxygen>

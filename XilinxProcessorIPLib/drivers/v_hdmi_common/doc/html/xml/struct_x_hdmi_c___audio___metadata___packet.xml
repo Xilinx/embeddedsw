@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdmi_c___audio___metadata___packet" kind="struct" prot="public">
+    <compoundname>XHdmiC_Audio_Metadata_Packet</compoundname>
+    <includes local="no">xv_hdmic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdmi_c___audio___metadata___packet_1aeb39e81a6b4b67085b3fc3cfa6ee5eae" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiC_Audio_Metadata_Packet::Audio3D</definition>
+        <argsstring></argsstring>
+        <name>Audio3D</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="531" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="531" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c___audio___metadata___packet_1a4050514a02815ebf28db30f2fd3d5e64" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiC_Audio_Metadata_Packet::Num_Audio_Str</definition>
+        <argsstring></argsstring>
+        <name>Num_Audio_Str</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="532" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="532" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c___audio___metadata___packet_1a6e29f380d2542fd60f1784c3b9339c7c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiC_Audio_Metadata_Packet::Num_Views</definition>
+        <argsstring></argsstring>
+        <name>Num_Views</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="533" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="533" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c___audio___metadata___packet_1abc3db549d22ecf3bb547047d576586e3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiC_Audio_Metadata_Packet::Audio3D_ChannelCount</definition>
+        <argsstring></argsstring>
+        <name>Audio3D_ChannelCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="534" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="534" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c___audio___metadata___packet_1a52dd46f81732a648956284aebbdd8c00" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiC_Audio_Metadata_Packet::ACAT</definition>
+        <argsstring></argsstring>
+        <name>ACAT</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="535" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="535" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c___audio___metadata___packet_1a20efce45ff2e4023730a22f2151fe5be" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiC_Audio_Metadata_Packet::Audio3D_ChannelAllocation</definition>
+        <argsstring></argsstring>
+        <name>Audio3D_ChannelAllocation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="536" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="536" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the data structure for Audio Metadata Infoframe. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="530" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="530" bodyend="537"/>
+    <listofallmembers>
+      <member refid="struct_x_hdmi_c___audio___metadata___packet_1a52dd46f81732a648956284aebbdd8c00" prot="public" virt="non-virtual"><scope>XHdmiC_Audio_Metadata_Packet</scope><name>ACAT</name></member>
+      <member refid="struct_x_hdmi_c___audio___metadata___packet_1aeb39e81a6b4b67085b3fc3cfa6ee5eae" prot="public" virt="non-virtual"><scope>XHdmiC_Audio_Metadata_Packet</scope><name>Audio3D</name></member>
+      <member refid="struct_x_hdmi_c___audio___metadata___packet_1a20efce45ff2e4023730a22f2151fe5be" prot="public" virt="non-virtual"><scope>XHdmiC_Audio_Metadata_Packet</scope><name>Audio3D_ChannelAllocation</name></member>
+      <member refid="struct_x_hdmi_c___audio___metadata___packet_1abc3db549d22ecf3bb547047d576586e3" prot="public" virt="non-virtual"><scope>XHdmiC_Audio_Metadata_Packet</scope><name>Audio3D_ChannelCount</name></member>
+      <member refid="struct_x_hdmi_c___audio___metadata___packet_1a4050514a02815ebf28db30f2fd3d5e64" prot="public" virt="non-virtual"><scope>XHdmiC_Audio_Metadata_Packet</scope><name>Num_Audio_Str</name></member>
+      <member refid="struct_x_hdmi_c___audio___metadata___packet_1a6e29f380d2542fd60f1784c3b9339c7c" prot="public" virt="non-virtual"><scope>XHdmiC_Audio_Metadata_Packet</scope><name>Num_Views</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

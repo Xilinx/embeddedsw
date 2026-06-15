@@ -1,0 +1,448 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mbox__hardware_8h" kind="file">
+    <compoundname>mbox_hardware.h</compoundname>
+    <includes refid="mbox__fifo_8h" local="yes">mbox_fifo.h</includes>
+    <includedby refid="mbox__cmd_8h" local="yes">mbox_cmd.h</includedby>
+    <incdepgraph>
+      <node id="6644">
+        <label>stdbool.h</label>
+      </node>
+      <node id="6642">
+        <label>mbox_hardware.h</label>
+        <link refid="mbox_hardware.h"/>
+        <childnode refid="6643" relation="include">
+        </childnode>
+      </node>
+      <node id="6643">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="6644" relation="include">
+        </childnode>
+        <childnode refid="6645" relation="include">
+        </childnode>
+      </node>
+      <node id="6645">
+        <label>sys/_stdint.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="6648">
+        <label>apu_to_rpu_ipi.c</label>
+      </node>
+      <node id="6646">
+        <label>mbox_hardware.h</label>
+        <link refid="mbox_hardware.h"/>
+        <childnode refid="6647" relation="include">
+        </childnode>
+      </node>
+      <node id="6650">
+        <label>sensor_drv.c</label>
+        <link refid="sensor__drv_8c"/>
+      </node>
+      <node id="6652">
+        <label>visp_common.c</label>
+      </node>
+      <node id="6651">
+        <label>visp_common.h</label>
+        <childnode refid="6652" relation="include">
+        </childnode>
+      </node>
+      <node id="6655">
+        <label>oba.c</label>
+      </node>
+      <node id="6654">
+        <label>cam_device_api.c</label>
+      </node>
+      <node id="6653">
+        <label>iba.c</label>
+      </node>
+      <node id="6647">
+        <label>mbox_cmd.h</label>
+        <link refid="mbox__cmd_8h"/>
+        <childnode refid="6648" relation="include">
+        </childnode>
+        <childnode refid="6649" relation="include">
+        </childnode>
+        <childnode refid="6650" relation="include">
+        </childnode>
+        <childnode refid="6651" relation="include">
+        </childnode>
+        <childnode refid="6653" relation="include">
+        </childnode>
+        <childnode refid="6654" relation="include">
+        </childnode>
+        <childnode refid="6655" relation="include">
+        </childnode>
+      </node>
+      <node id="6649">
+        <label>mbox_cmd.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structmailbox__reg__s" prot="public">mailbox_reg_s</innerclass>
+    <innerclass refid="structmailbox__reg__msg" prot="public">mailbox_reg_msg</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="mbox__hardware_8h_1a95783f39eac8c040b6ed7e7437ab03d6" prot="public" static="no">
+        <name>MboxIOCFlag</name>
+        <enumvalue id="mbox__hardware_8h_1a95783f39eac8c040b6ed7e7437ab03d6abd3c3ff70f9ce269f70fc339c27f2836" prot="public">
+          <name>MAILBOXIOC_WRITE_REG</name>
+          <initializer>= 0x100</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__hardware_8h_1a95783f39eac8c040b6ed7e7437ab03d6abdb361d2ce195150a4427307c397934b" prot="public">
+          <name>MAILBOXIOC_READ_REG</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__hardware_8h_1a95783f39eac8c040b6ed7e7437ab03d6a62bb54cba6f69eca13b6a540819ebe3a" prot="public">
+          <name>MAILBOXIOC_TRI_INT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__hardware_8h_1a95783f39eac8c040b6ed7e7437ab03d6ab0fb35bcb9be73ab81bd179f1ca05cf8" prot="public">
+          <name>MAILBOXIOC_WRITE_MSG_REG</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__hardware_8h_1a95783f39eac8c040b6ed7e7437ab03d6ad956a019c373f7d6684771af95e60618" prot="public">
+          <name>MAILBOXIOC_READ_MSG_REG</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__hardware_8h_1a95783f39eac8c040b6ed7e7437ab03d6ac30e02e0f928b6d56eb9a7281ab9f3ad" prot="public">
+          <name>DUMMY_MboxIOCFlag</name>
+          <initializer>= 0xDEADFEED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_hardware.h" line="15" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_hardware.h" bodystart="15" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="enum" id="mbox__hardware_8h_1ace76cb5bce70592a80dbc15401d6e14d" prot="public" static="no">
+        <name>MboxFifoFlag</name>
+        <enumvalue id="mbox__hardware_8h_1ace76cb5bce70592a80dbc15401d6e14da960770ad1bf92b662b0986ccfe9176ee" prot="public">
+          <name>MAILBOXFIFO_BUFFER</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__hardware_8h_1ace76cb5bce70592a80dbc15401d6e14da5b34999b17c5bd7ff0afb97517f2359a" prot="public">
+          <name>MAILBOXFIFO_ITEM_SIZE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__hardware_8h_1ace76cb5bce70592a80dbc15401d6e14da9dbff22e04c5fc5e10412c8c126e4d7b" prot="public">
+          <name>MAILBOXFIFO_ITEM_TOTAL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__hardware_8h_1ace76cb5bce70592a80dbc15401d6e14daec9b44806b4d6e229c6c7dc1da0901c8" prot="public">
+          <name>MAILBOXFIFO_BUFFER_SIZE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__hardware_8h_1ace76cb5bce70592a80dbc15401d6e14da5d18d27b3e0062eecda6d377252e0c58" prot="public">
+          <name>MAILBOXFIFO_ITEM_STORED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__hardware_8h_1ace76cb5bce70592a80dbc15401d6e14daad255c8e7123c79d9ebf00b1996083e7" prot="public">
+          <name>MAILBOXFIFO_READ_OFFSET</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__hardware_8h_1ace76cb5bce70592a80dbc15401d6e14da2450d3c4d5801c6ce9f7bafa50cf8171" prot="public">
+          <name>MAILBOXFIFO_WRITE_OFFSET</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__hardware_8h_1ace76cb5bce70592a80dbc15401d6e14da568d217c03f71a388bfa30f080ca96b1" prot="public">
+          <name>DUMMY_MAILBOXFIFO</name>
+          <initializer>= 0xDEADFEED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_hardware.h" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_hardware.h" bodystart="24" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="enum" id="mbox__hardware_8h_1abee3a7914c89f7b3af534c0e96650862" prot="public" static="no">
+        <name>MboxMsgFlag</name>
+        <enumvalue id="mbox__hardware_8h_1abee3a7914c89f7b3af534c0e96650862ac7efd99d077d67f6b8f2166f85fb9c5b" prot="public">
+          <name>MAILBOXMSG_GROUP_ID</name>
+          <initializer>= 0x10</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__hardware_8h_1abee3a7914c89f7b3af534c0e96650862ac65e8b0641d137a63f6af447e8142b02" prot="public">
+          <name>MAILBOXMSG_MSG_ID</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__hardware_8h_1abee3a7914c89f7b3af534c0e96650862a6bf0d87205cc82779e088d187dd22c04" prot="public">
+          <name>MAILBOXMSG_ACK</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__hardware_8h_1abee3a7914c89f7b3af534c0e96650862a8313b2d55bb9fd97e624b995c644af40" prot="public">
+          <name>MAILBOXMSG_FLAGS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__hardware_8h_1abee3a7914c89f7b3af534c0e96650862af00cc805437efa87ce8a9f1dea97544e" prot="public">
+          <name>MAILBOXMSG_SIZE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__hardware_8h_1abee3a7914c89f7b3af534c0e96650862a384148f0c0c6008a26cc0b8845882fd9" prot="public">
+          <name>MAILBOXMSG_PAYLOAD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__hardware_8h_1abee3a7914c89f7b3af534c0e96650862aefdb09063de711cdd467f344c96bf9a5" prot="public">
+          <name>DUMMY_MAILBOXMSG</name>
+          <initializer>= 0xDEADFEED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_hardware.h" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_hardware.h" bodystart="35" bodyend="43"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="mbox__hardware_8h_1a54c9d9d186466735d1475b348c3c4f22" prot="public" static="no">
+        <type>enum MboxIOCFlag</type>
+        <definition>typedef enum MboxIOCFlag  MboxIOCFlag</definition>
+        <argsstring></argsstring>
+        <name>MboxIOCFlag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_hardware.h" line="22" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="mbox__hardware_8h_1ab6a90908698108314e5774f00802454f" prot="public" static="no">
+        <type>enum MboxFifoFlag</type>
+        <definition>typedef enum MboxFifoFlag  MboxFifoFlag</definition>
+        <argsstring></argsstring>
+        <name>MboxFifoFlag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_hardware.h" line="33" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="mbox__hardware_8h_1a0e1b4474fb154317fd0ea6a9c5472745" prot="public" static="no">
+        <type>enum MboxMsgFlag</type>
+        <definition>typedef enum MboxMsgFlag  MboxMsgFlag</definition>
+        <argsstring></argsstring>
+        <name>MboxMsgFlag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_hardware.h" line="43" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="mbox__hardware_8h_1a94f320bbba146fdc0e961d85fffa74f5" prot="public" static="no">
+        <type>struct mailbox_reg_s</type>
+        <definition>typedef struct mailbox_reg_s  mailbox_reg_t</definition>
+        <argsstring></argsstring>
+        <name>mailbox_reg_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_hardware.h" line="49" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="mbox__hardware_8h_1ab14521488ca1863ad6ab2146fe66dcdc" prot="public" static="no">
+        <type>struct mailbox_reg_msg</type>
+        <definition>typedef struct mailbox_reg_msg  mailbox_reg_msg_t</definition>
+        <argsstring></argsstring>
+        <name>mailbox_reg_msg_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_hardware.h" line="55" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="mbox__hardware_8h_1ad5226d31e100dc7cbde0614a378a74a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mailbox_write_msg</definition>
+        <argsstring>(MboxPostMsg *msg, FifoControl *fifo, int fd)</argsstring>
+        <name>mailbox_write_msg</name>
+        <param>
+          <type><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_fifo_control" kindref="compound">FifoControl</ref> *</type>
+          <declname>fifo</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>fd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_hardware.h" line="58" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__hardware_8h_1a0c37a0dbf2603477abd869cc7041d42f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int mailbox_resd_msg</definition>
+        <argsstring>(MboxPostMsg *msg, FifoControl *fifo, int fd)</argsstring>
+        <name>mailbox_resd_msg</name>
+        <param>
+          <type><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_fifo_control" kindref="compound">FifoControl</ref> *</type>
+          <declname>fifo</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>fd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_hardware.h" line="59" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="10"><highlight class="preprocessor">#ifndef<sp/>_MBOX_HARDWARE_H_</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_MBOX_HARDWARE_H_</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mbox__fifo_8h" kindref="compound">mbox_fifo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>MboxIOCFlag<sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAILBOXIOC_WRITE_REG<sp/>=<sp/>0x100,</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAILBOXIOC_READ_REG,</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAILBOXIOC_TRI_INT,</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAILBOXIOC_WRITE_MSG_REG,</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAILBOXIOC_READ_MSG_REG,</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_MboxIOCFlag<sp/>=<sp/>0xDEADFEED,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">}<sp/>MboxIOCFlag;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>MboxFifoFlag<sp/>{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAILBOXFIFO_BUFFER,</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAILBOXFIFO_ITEM_SIZE,</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAILBOXFIFO_ITEM_TOTAL,</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAILBOXFIFO_BUFFER_SIZE,</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAILBOXFIFO_ITEM_STORED,</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAILBOXFIFO_READ_OFFSET,</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAILBOXFIFO_WRITE_OFFSET,</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_MAILBOXFIFO<sp/>=<sp/>0xDEADFEED,</highlight></codeline>
+<codeline lineno="33"><highlight class="normal">}<sp/>MboxFifoFlag;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>MboxMsgFlag<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAILBOXMSG_GROUP_ID<sp/>=<sp/>0x10,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAILBOXMSG_MSG_ID,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAILBOXMSG_ACK,</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAILBOXMSG_FLAGS,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAILBOXMSG_SIZE,</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAILBOXMSG_PAYLOAD,<sp/></highlight><highlight class="comment">//MAILBOXMSG_PAYLOAD<sp/>must<sp/>be<sp/>the<sp/>last<sp/>one</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_MAILBOXMSG<sp/>=<sp/>0xDEADFEED,</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">}<sp/>MboxMsgFlag;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">mailbox_reg_s<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>val;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_fifo_control" kindref="compound">FifoControl</ref><sp/>*fifo;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MboxFifoFlag<sp/>fifoflag;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">}<sp/>mailbox_reg_t;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">mailbox_reg_msg<sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>val;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_fifo_control" kindref="compound">FifoControl</ref><sp/>*fifo;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MboxMsgFlag<sp/>msgflag;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">}<sp/>mailbox_reg_msg_t;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>mailbox_write_msg(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*msg,<sp/><ref refid="struct_fifo_control" kindref="compound">FifoControl</ref><sp/>*fifo,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>fd);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>mailbox_resd_msg(<ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*msg,<sp/><ref refid="struct_fifo_control" kindref="compound">FifoControl</ref><sp/>*fifo,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>fd);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_hardware.h"/>
+  </compounddef>
+</doxygen>

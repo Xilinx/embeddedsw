@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_4c55e3b13bdfb4dea352bb8c7573dcd5" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerdir refid="dir_d8b18553cf4a200ce09b82f2452704ad">hdcp_key_utility</innerdir>
+    <innerdir refid="dir_be499670f18bd6b47a921be292256804">platforms</innerdir>
+    <innerdir refid="dir_0d117d8514659df0f6a6e2af7e320353">xhdmi_example</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_isi_exp_decompose_param__s" kind="struct" prot="public">
+    <compoundname>IsiExpDecomposeParam_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_isi_exp_decompose_param__s_1afcf472c476a2e1b4eb8416b12f4108f5" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t IsiExpDecomposeParam_s::gain</definition>
+        <argsstring></argsstring>
+        <name>gain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="230" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_exp_decompose_param__s_1ab0dc19e2c8f6a4035e81589860ed6c9f" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t IsiExpDecomposeParam_s::integrationTime</definition>
+        <argsstring></argsstring>
+        <name>integrationTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_exp_decompose_param__s_1a1da2328872efafe8df1ae19d82ef2601" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t IsiExpDecomposeParam_s::ispRatio[ISI_EXP_NUM_MAX-1]</definition>
+        <argsstring>[ISI_EXP_NUM_MAX-1]</argsstring>
+        <name>ispRatio</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="232" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="229" bodyend="233"/>
+    <listofallmembers>
+      <member refid="struct_isi_exp_decompose_param__s_1afcf472c476a2e1b4eb8416b12f4108f5" prot="public" virt="non-virtual"><scope>IsiExpDecomposeParam_s</scope><name>gain</name></member>
+      <member refid="struct_isi_exp_decompose_param__s_1ab0dc19e2c8f6a4035e81589860ed6c9f" prot="public" virt="non-virtual"><scope>IsiExpDecomposeParam_s</scope><name>integrationTime</name></member>
+      <member refid="struct_isi_exp_decompose_param__s_1a1da2328872efafe8df1ae19d82ef2601" prot="public" virt="non-virtual"><scope>IsiExpDecomposeParam_s</scope><name>ispRatio</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

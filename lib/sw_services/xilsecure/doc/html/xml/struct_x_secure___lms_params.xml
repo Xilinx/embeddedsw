@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___lms_params" kind="struct" prot="public">
+    <compoundname>XSecure_LmsParams</compoundname>
+    <includes local="no">xsecure_plat_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___lms_params_1a902ea48dc1461f94578611f26e074aa6" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_LmsParams::DataAddr</definition>
+        <argsstring></argsstring>
+        <name>DataAddr</name>
+        <briefdescription>
+<para>Address of buffer to store data which is signed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_params_1aaea2ccaa21fa24feb95d1df3837dd604" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_LmsParams::LmsSignAddr</definition>
+        <argsstring></argsstring>
+        <name>LmsSignAddr</name>
+        <briefdescription>
+<para>Address of buffer to store signature to be verified. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_params_1a791210466bc3c6dbb158e93f4d03ea3a" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_LmsParams::ExpectedPubKeyAddr</definition>
+        <argsstring></argsstring>
+        <name>ExpectedPubKeyAddr</name>
+        <briefdescription>
+<para>Address of buffer to store expected public key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_params_1a72588b6b55bf11a3b629a1399e822a17" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_LmsParams::DataLen</definition>
+        <argsstring></argsstring>
+        <name>DataLen</name>
+        <briefdescription>
+<para>Length of data which is signed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_params_1a71f4782f6b27f20546b82e19d790d10a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_LmsParams::LmsSignLen</definition>
+        <argsstring></argsstring>
+        <name>LmsSignLen</name>
+        <briefdescription>
+<para>Length of signature to be verified. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_params_1a4b0b1884b07038ad9197fcb6aacc510f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_LmsParams::PubKeyLen</definition>
+        <argsstring></argsstring>
+        <name>PubKeyLen</name>
+        <briefdescription>
+<para>Length of public key to verify signature. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_params_1a762a8d0928dd32db2e08d4f206e0e184" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_LmsParams::HashAlgo</definition>
+        <argsstring></argsstring>
+        <name>HashAlgo</name>
+        <briefdescription>
+<para>Hash algorithm to be used for LMS signature verification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_params_1aa3a10b368a49bf1e568d63620c749ffe" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_LmsParams::PreHashedMsg</definition>
+        <argsstring></argsstring>
+        <name>PreHashedMsg</name>
+        <briefdescription>
+<para>Flag to indicate if data is prehashed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_params_1ad548bda55b269ecd0daa9c450bef27af" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_LmsParams::Reserved[2U]</definition>
+        <argsstring>[2U]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Explicit padding for alignment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for LMS Signature verification parameters (portable across 32/64-bit) </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="91" bodyend="105"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___lms_params_1a902ea48dc1461f94578611f26e074aa6" prot="public" virt="non-virtual"><scope>XSecure_LmsParams</scope><name>DataAddr</name></member>
+      <member refid="struct_x_secure___lms_params_1a72588b6b55bf11a3b629a1399e822a17" prot="public" virt="non-virtual"><scope>XSecure_LmsParams</scope><name>DataLen</name></member>
+      <member refid="struct_x_secure___lms_params_1a791210466bc3c6dbb158e93f4d03ea3a" prot="public" virt="non-virtual"><scope>XSecure_LmsParams</scope><name>ExpectedPubKeyAddr</name></member>
+      <member refid="struct_x_secure___lms_params_1a762a8d0928dd32db2e08d4f206e0e184" prot="public" virt="non-virtual"><scope>XSecure_LmsParams</scope><name>HashAlgo</name></member>
+      <member refid="struct_x_secure___lms_params_1aaea2ccaa21fa24feb95d1df3837dd604" prot="public" virt="non-virtual"><scope>XSecure_LmsParams</scope><name>LmsSignAddr</name></member>
+      <member refid="struct_x_secure___lms_params_1a71f4782f6b27f20546b82e19d790d10a" prot="public" virt="non-virtual"><scope>XSecure_LmsParams</scope><name>LmsSignLen</name></member>
+      <member refid="struct_x_secure___lms_params_1aa3a10b368a49bf1e568d63620c749ffe" prot="public" virt="non-virtual"><scope>XSecure_LmsParams</scope><name>PreHashedMsg</name></member>
+      <member refid="struct_x_secure___lms_params_1a4b0b1884b07038ad9197fcb6aacc510f" prot="public" virt="non-virtual"><scope>XSecure_LmsParams</scope><name>PubKeyLen</name></member>
+      <member refid="struct_x_secure___lms_params_1ad548bda55b269ecd0daa9c450bef27af" prot="public" virt="non-virtual"><scope>XSecure_LmsParams</scope><name>Reserved</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

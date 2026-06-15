@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>cpu_cortexa9</title>
+    <detaileddescription>
+<para>dummy file MODIFICATION HISTORY: Ver Who Date Changes <hruler/>
+ 2.5 ms 04/18/17 Modified tcl file to add suffix U for XPAR_CPU_ID parameter of cpu_cortexa9 in xparameters.h <heading level="1">2.7 mus 07/03/18 Updated tcl to not to add default flags forcefully into</heading>
+</para><para><heading level="1">extra compiler flags. Now, user can remove default flags</heading>
+</para><para><heading level="1">from extra compiler flags. It fixes CR#998768.</heading>
+</para>    </detaileddescription>
+  </compounddef>
+</doxygen>

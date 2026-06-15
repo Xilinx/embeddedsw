@@ -1,0 +1,718 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__axis__switch" kind="group">
+    <compoundname>axis_switch</compoundname>
+    <title>Overview</title>
+    <innerclass refid="struct_x_axis___switch___config" prot="public">XAxis_Switch_Config</innerclass>
+    <innerclass refid="struct_x_axis___switch" prot="public">XAxis_Switch</innerclass>
+      <sectiondef kind="user-defined">
+      <header>MI MUX register offsets</header>
+      <memberdef kind="define" id="group__axis__switch_1ga05c58dacf3ab036292d57faac0bc1cca" prot="public" static="no">
+        <name>XAXIS_SCR_CTRL_OFFSET</name>
+        <initializer>0x000</initializer>
+        <briefdescription>
+<para>Control Register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_hw.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axis__switch_1ga009bec9091359e44e8bf434e3528c2eb" prot="public" static="no">
+        <name>XAXIS_SCR_MI_MUX_START_OFFSET</name>
+        <initializer>0x040</initializer>
+        <briefdescription>
+<para>Start of MI MUX Register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_hw.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__axis__switch_1ga993cbd838dd30de44a943c7f4a046101" compoundref="xaxis__switch_8c" startline="238" endline="259">XAxisScr_IsMiPortDisabled</referencedby>
+        <referencedby refid="group__axis__switch_1ga35ef34ba6c57b57506741b4a04f87e75" compoundref="xaxis__switch_8c" startline="188" endline="220">XAxisScr_IsMiPortEnabled</referencedby>
+        <referencedby refid="group__axis__switch_1ga1fcba7107d4ecb9955aa302c1b798729" compoundref="xaxis__switch_8c" startline="154" endline="168">XAxisScr_MiPortDisable</referencedby>
+        <referencedby refid="group__axis__switch_1ga84a532ac4e377199c15802d84b43256e" compoundref="xaxis__switch_8c" startline="274" endline="290">XAxisScr_MiPortDisableAll</referencedby>
+        <referencedby refid="group__axis__switch_1ga943a402b210b5f2901b6d6e7ae323d50" compoundref="xaxis__switch_8c" startline="121" endline="136">XAxisScr_MiPortEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axis__switch_1ga227adbe778b570746da42ea0437261a1" prot="public" static="no">
+        <name>XAXIS_SCR_MI_MUX_END_OFFSET</name>
+        <initializer>0x07C</initializer>
+        <briefdescription>
+<para>End of MI MUX Register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_hw.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>MI MUX Control register mask</header>
+      <memberdef kind="define" id="group__axis__switch_1ga61bbd9728daef6347dc32ae4234f19de" prot="public" static="no">
+        <name>XAXIS_SCR_CTRL_REG_UPDATE_MASK</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>Register Update mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_hw.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>MI MUX register mask</header>
+      <description><para>It is applicable for MI[0...15] registers. </para></description>
+      <memberdef kind="define" id="group__axis__switch_1ga32f8940e49e11e5b238d5613ae4f667a" prot="public" static="no">
+        <name>XAXIS_SCR_MI_X_MUX_MASK</name>
+        <initializer>0x0F</initializer>
+        <briefdescription>
+<para>MI MUX mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_hw.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__axis__switch_1ga35ef34ba6c57b57506741b4a04f87e75" compoundref="xaxis__switch_8c" startline="188" endline="220">XAxisScr_IsMiPortEnabled</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axis__switch_1ga34b4d7358d3edcf4103e2aa5e18d1e1f" prot="public" static="no">
+        <name>XAXIS_SCR_MI_X_DISABLE_MASK</name>
+        <initializer>0x80000000</initializer>
+        <briefdescription>
+<para>MI Disable mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_hw.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__axis__switch_1ga1fcba7107d4ecb9955aa302c1b798729" compoundref="xaxis__switch_8c" startline="154" endline="168">XAxisScr_MiPortDisable</referencedby>
+        <referencedby refid="group__axis__switch_1ga84a532ac4e377199c15802d84b43256e" compoundref="xaxis__switch_8c" startline="274" endline="290">XAxisScr_MiPortDisableAll</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axis__switch_1ga06b31a381d36b949c68bbfaf92610bc3" prot="public" static="no">
+        <name>XAXIS_SCR_MI_X_DISABLE_SHIFT</name>
+        <initializer>31</initializer>
+        <briefdescription>
+<para>MI Disable shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_hw.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="group__axis__switch_1ga993cbd838dd30de44a943c7f4a046101" compoundref="xaxis__switch_8c" startline="238" endline="259">XAxisScr_IsMiPortDisabled</referencedby>
+        <referencedby refid="group__axis__switch_1ga35ef34ba6c57b57506741b4a04f87e75" compoundref="xaxis__switch_8c" startline="188" endline="220">XAxisScr_IsMiPortEnabled</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register access macro definition</header>
+      <memberdef kind="define" id="group__axis__switch_1ga81d5f42ceeea6429358b40a24b990421" prot="public" static="no">
+        <name>XAxisScr_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+<para>Input Operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_hw.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axis__switch_1gaca96433d3b19296beb0a781e5428a5f6" prot="public" static="no">
+        <name>XAxisScr_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+<para>Output Operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_hw.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_hw.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axis__switch_1ga68fcd4f0df5a838b218c7ebde0e6b152" prot="public" static="no">
+        <name>XAxisScr_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer><ref refid="group__axis__switch_1ga81d5f42ceeea6429358b40a24b990421" kindref="member">XAxisScr_In32</ref>((BaseAddress) + ((u32)RegOffset))</initializer>
+        <briefdescription>
+<para>This macro reads a value from a AXI4-Stream Switch register. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32 bit read is performed. If the component is implemented in a smaller width, only the least significant data is read from the register. The most significant data will be read as 0.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the <ref refid="struct_x_axis___switch" kindref="compound">XAxis_Switch</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register (defined at the top of this file).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__axis__switch_1ga68fcd4f0df5a838b218c7ebde0e6b152" kindref="member">XAxisScr_ReadReg(u32 BaseAddress, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_hw.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_hw.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="group__axis__switch_1ga993cbd838dd30de44a943c7f4a046101" compoundref="xaxis__switch_8c" startline="238" endline="259">XAxisScr_IsMiPortDisabled</referencedby>
+        <referencedby refid="group__axis__switch_1ga35ef34ba6c57b57506741b4a04f87e75" compoundref="xaxis__switch_8c" startline="188" endline="220">XAxisScr_IsMiPortEnabled</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axis__switch_1ga993bec85cbffd929a7f8418e65f293de" prot="public" static="no">
+        <name>XAxisScr_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer><ref refid="group__axis__switch_1gaca96433d3b19296beb0a781e5428a5f6" kindref="member">XAxisScr_Out32</ref>((BaseAddress) + ((u32)RegOffset), (u32)(Data))</initializer>
+        <briefdescription>
+<para>This macro writes a value to a AXI4-Stream Switch register. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32 bit write is performed. If the component is implemented in a smaller width, only the least significant data is written.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the <ref refid="struct_x_axis___switch" kindref="compound">XAxis_Switch</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register (defined at the top of this file) to be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write into the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void XAxisScr_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_hw.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_hw.h" bodystart="131" bodyend="-1"/>
+        <referencedby refid="group__axis__switch_1ga1fcba7107d4ecb9955aa302c1b798729" compoundref="xaxis__switch_8c" startline="154" endline="168">XAxisScr_MiPortDisable</referencedby>
+        <referencedby refid="group__axis__switch_1ga84a532ac4e377199c15802d84b43256e" compoundref="xaxis__switch_8c" startline="274" endline="290">XAxisScr_MiPortDisableAll</referencedby>
+        <referencedby refid="group__axis__switch_1ga943a402b210b5f2901b6d6e7ae323d50" compoundref="xaxis__switch_8c" startline="121" endline="136">XAxisScr_MiPortEnable</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__axis__switch_1ga14e1f6044fd4c0876c1f531cc32053a6" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_axis___switch___config" kindref="compound">XAxis_Switch_Config</ref></type>
+        <definition>XAxis_Switch_Config XAxis_Switch_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XAxis_Switch_ConfigTable</name>
+        <initializer>=
+{
+	{
+
+
+
+
+
+
+	}
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_g.c" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_g.c" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__axis__switch_1ga91d899fe6d8456f8460acd4a122dce64" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAxisScr_CfgInitialize</definition>
+        <argsstring>(XAxis_Switch *InstancePtr, XAxis_Switch_Config *CfgPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XAxisScr_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_axis___switch" kindref="compound">XAxis_Switch</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_axis___switch___config" kindref="compound">XAxis_Switch_Config</ref> *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the AXI4-Stream Switch core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function must be called prior to using the core. Initialization of the core includes setting up the instance data and ensuring the hardware is in a quiescent state.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_axis___switch" kindref="compound">XAxis_Switch</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the configuration structure associated with the AXI4-Stream Switch core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. If address translation is being used, then this parameter must reflect the virtual base address. Otherwise, the physical address should be used.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if XAxisScr_CfgInitialize was successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Axis_Switch core connects up to 16 masters to 16 slaves. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch.c" bodystart="80" bodyend="101"/>
+        <references refid="struct_x_axis___switch___config_1aae0afeb8540a529d8080e73280ab5109" compoundref="xaxis__switch_8h" startline="111">XAxis_Switch_Config::BaseAddress</references>
+        <references refid="struct_x_axis___switch_1a972eb32655a31bf486774848eb2c408d" compoundref="xaxis__switch_8h" startline="122">XAxis_Switch::Config</references>
+        <references refid="struct_x_axis___switch_1aa6fb801f6e169f44fb21f53317b36f1f" compoundref="xaxis__switch_8h" startline="123">XAxis_Switch::IsReady</references>
+        <references refid="group__axis__switch_1ga84a532ac4e377199c15802d84b43256e" compoundref="xaxis__switch_8c" startline="274" endline="290">XAxisScr_MiPortDisableAll</references>
+        <referencedby refid="xaxis__switch__example_8c_1a2f2888c4ad40580a4c7aeff37fe1314e" compoundref="xaxis__switch__example_8c" startline="119" endline="179">AxisSwitch_Example</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axis__switch_1ga943a402b210b5f2901b6d6e7ae323d50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxisScr_MiPortEnable</definition>
+        <argsstring>(XAxis_Switch *InstancePtr, u8 MiIndex, u8 SiIndex)</argsstring>
+        <name>XAxisScr_MiPortEnable</name>
+        <param>
+          <type><ref refid="struct_x_axis___switch" kindref="compound">XAxis_Switch</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>MiIndex</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>SiIndex</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the MUX port specified by a MI index and links with desired SI, indicated by a SiIndex. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_axis___switch" kindref="compound">XAxis_Switch</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MiIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies an index that will be used for enabling MUX which is within the range [0 to 15]. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SiIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies an index that will be used as a source to MUX. The range is [0 to 15].</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>MUX[MiIndex] is sourced from SI[SiIndex]. Axis_Switch core connects up to 16 masters to 16 slaves. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch.c" bodystart="121" bodyend="136"/>
+        <references refid="struct_x_axis___switch___config_1aae0afeb8540a529d8080e73280ab5109" compoundref="xaxis__switch_8h" startline="111">XAxis_Switch_Config::BaseAddress</references>
+        <references refid="struct_x_axis___switch_1a972eb32655a31bf486774848eb2c408d" compoundref="xaxis__switch_8h" startline="122">XAxis_Switch::Config</references>
+        <references refid="group__axis__switch_1ga009bec9091359e44e8bf434e3528c2eb" compoundref="xaxis__switch__hw_8h" startline="51">XAXIS_SCR_MI_MUX_START_OFFSET</references>
+        <references refid="group__axis__switch_1ga993bec85cbffd929a7f8418e65f293de" compoundref="xaxis__switch__hw_8h" startline="131">XAxisScr_WriteReg</references>
+        <referencedby refid="xaxis__switch__example_8c_1a2f2888c4ad40580a4c7aeff37fe1314e" compoundref="xaxis__switch__example_8c" startline="119" endline="179">AxisSwitch_Example</referencedby>
+        <referencedby refid="group__axis__switch_1gad9c646b6e8d7f5d6c431c2985592fb4b" compoundref="xaxis__switch__selftest_8c" startline="62" endline="87">XAxisScr_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axis__switch_1ga1fcba7107d4ecb9955aa302c1b798729" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxisScr_MiPortDisable</definition>
+        <argsstring>(XAxis_Switch *InstancePtr, u8 MiIndex)</argsstring>
+        <name>XAxisScr_MiPortDisable</name>
+        <param>
+          <type><ref refid="struct_x_axis___switch" kindref="compound">XAxis_Switch</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>MiIndex</declname>
+        </param>
+        <briefdescription>
+<para>This function disables the MUX port specified by a MI index and un-link SI, set previously. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_axis___switch" kindref="compound">XAxis_Switch</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MiIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies an index that will be used for disabling MUX which is within the range [0 to 15].</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>MUX[MiIndex] is removed for SI[SiIndex]. Axis_Switch core connects up to 16 masters to 16 slaves. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch.c" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch.c" bodystart="154" bodyend="168"/>
+        <references refid="struct_x_axis___switch___config_1aae0afeb8540a529d8080e73280ab5109" compoundref="xaxis__switch_8h" startline="111">XAxis_Switch_Config::BaseAddress</references>
+        <references refid="struct_x_axis___switch_1a972eb32655a31bf486774848eb2c408d" compoundref="xaxis__switch_8h" startline="122">XAxis_Switch::Config</references>
+        <references refid="group__axis__switch_1ga009bec9091359e44e8bf434e3528c2eb" compoundref="xaxis__switch__hw_8h" startline="51">XAXIS_SCR_MI_MUX_START_OFFSET</references>
+        <references refid="group__axis__switch_1ga34b4d7358d3edcf4103e2aa5e18d1e1f" compoundref="xaxis__switch__hw_8h" startline="74">XAXIS_SCR_MI_X_DISABLE_MASK</references>
+        <references refid="group__axis__switch_1ga993bec85cbffd929a7f8418e65f293de" compoundref="xaxis__switch__hw_8h" startline="131">XAxisScr_WriteReg</references>
+        <referencedby refid="xaxis__switch__example_8c_1a2f2888c4ad40580a4c7aeff37fe1314e" compoundref="xaxis__switch__example_8c" startline="119" endline="179">AxisSwitch_Example</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axis__switch_1ga35ef34ba6c57b57506741b4a04f87e75" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAxisScr_IsMiPortEnabled</definition>
+        <argsstring>(XAxis_Switch *InstancePtr, u8 MiIndex, u8 SiIndex)</argsstring>
+        <name>XAxisScr_IsMiPortEnabled</name>
+        <param>
+          <type><ref refid="struct_x_axis___switch" kindref="compound">XAxis_Switch</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>MiIndex</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>SiIndex</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the status of whether MUX is sourced from desired SI. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_axis___switch" kindref="compound">XAxis_Switch</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MiIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies an index that will be used for addressing the MUX which is within the range [0 to 15]. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SiIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies an index that will be used to identify, whether it is sourced. The range is [0 to 15].</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>TRUE, if MUX is sourced from SI.</para></listitem><listitem><para>FALSE, if MUX is not sourced from SI.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Axis_Switch core connects up to 16 masters to 16 slaves. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch.c" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch.c" bodystart="188" bodyend="220"/>
+        <references refid="struct_x_axis___switch___config_1aae0afeb8540a529d8080e73280ab5109" compoundref="xaxis__switch_8h" startline="111">XAxis_Switch_Config::BaseAddress</references>
+        <references refid="struct_x_axis___switch_1a972eb32655a31bf486774848eb2c408d" compoundref="xaxis__switch_8h" startline="122">XAxis_Switch::Config</references>
+        <references refid="group__axis__switch_1ga009bec9091359e44e8bf434e3528c2eb" compoundref="xaxis__switch__hw_8h" startline="51">XAXIS_SCR_MI_MUX_START_OFFSET</references>
+        <references refid="group__axis__switch_1ga06b31a381d36b949c68bbfaf92610bc3" compoundref="xaxis__switch__hw_8h" startline="75">XAXIS_SCR_MI_X_DISABLE_SHIFT</references>
+        <references refid="group__axis__switch_1ga32f8940e49e11e5b238d5613ae4f667a" compoundref="xaxis__switch__hw_8h" startline="73">XAXIS_SCR_MI_X_MUX_MASK</references>
+        <references refid="group__axis__switch_1ga68fcd4f0df5a838b218c7ebde0e6b152" compoundref="xaxis__switch__hw_8h" startline="108">XAxisScr_ReadReg</references>
+        <referencedby refid="xaxis__switch__example_8c_1a2f2888c4ad40580a4c7aeff37fe1314e" compoundref="xaxis__switch__example_8c" startline="119" endline="179">AxisSwitch_Example</referencedby>
+        <referencedby refid="group__axis__switch_1gad9c646b6e8d7f5d6c431c2985592fb4b" compoundref="xaxis__switch__selftest_8c" startline="62" endline="87">XAxisScr_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axis__switch_1ga993cbd838dd30de44a943c7f4a046101" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAxisScr_IsMiPortDisabled</definition>
+        <argsstring>(XAxis_Switch *InstancePtr, u8 MiIndex)</argsstring>
+        <name>XAxisScr_IsMiPortDisabled</name>
+        <param>
+          <type><ref refid="struct_x_axis___switch" kindref="compound">XAxis_Switch</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>MiIndex</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the status of whether MUX is disabled. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_axis___switch" kindref="compound">XAxis_Switch</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MiIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies an index that will be used for addressing the MUX which is within the range [0 to 15].</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>TRUE, if MUX is disabled.</para></listitem><listitem><para>FALSE, if MUX is enabled.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Axis_Switch core connects up to 16 masters to 16 slaves. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch.c" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch.c" bodystart="238" bodyend="259"/>
+        <references refid="struct_x_axis___switch___config_1aae0afeb8540a529d8080e73280ab5109" compoundref="xaxis__switch_8h" startline="111">XAxis_Switch_Config::BaseAddress</references>
+        <references refid="struct_x_axis___switch_1a972eb32655a31bf486774848eb2c408d" compoundref="xaxis__switch_8h" startline="122">XAxis_Switch::Config</references>
+        <references refid="group__axis__switch_1ga009bec9091359e44e8bf434e3528c2eb" compoundref="xaxis__switch__hw_8h" startline="51">XAXIS_SCR_MI_MUX_START_OFFSET</references>
+        <references refid="group__axis__switch_1ga06b31a381d36b949c68bbfaf92610bc3" compoundref="xaxis__switch__hw_8h" startline="75">XAXIS_SCR_MI_X_DISABLE_SHIFT</references>
+        <references refid="group__axis__switch_1ga68fcd4f0df5a838b218c7ebde0e6b152" compoundref="xaxis__switch__hw_8h" startline="108">XAxisScr_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axis__switch_1ga84a532ac4e377199c15802d84b43256e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxisScr_MiPortDisableAll</definition>
+        <argsstring>(XAxis_Switch *InstancePtr)</argsstring>
+        <name>XAxisScr_MiPortDisableAll</name>
+        <param>
+          <type><ref refid="struct_x_axis___switch" kindref="compound">XAxis_Switch</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function disables all the MUX port, in turn removes association with desired SI. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_axis___switch" kindref="compound">XAxis_Switch</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Axis_Switch core connects up to 16 masters to 16 slaves. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch.c" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch.c" bodystart="274" bodyend="290"/>
+        <references refid="struct_x_axis___switch___config_1aae0afeb8540a529d8080e73280ab5109" compoundref="xaxis__switch_8h" startline="111">XAxis_Switch_Config::BaseAddress</references>
+        <references refid="struct_x_axis___switch_1a972eb32655a31bf486774848eb2c408d" compoundref="xaxis__switch_8h" startline="122">XAxis_Switch::Config</references>
+        <references refid="struct_x_axis___switch___config_1a053a1f2027b8c3c2f81f6eaee1e5f824" compoundref="xaxis__switch_8h" startline="114">XAxis_Switch_Config::MaxNumMI</references>
+        <references refid="group__axis__switch_1ga009bec9091359e44e8bf434e3528c2eb" compoundref="xaxis__switch__hw_8h" startline="51">XAXIS_SCR_MI_MUX_START_OFFSET</references>
+        <references refid="group__axis__switch_1ga34b4d7358d3edcf4103e2aa5e18d1e1f" compoundref="xaxis__switch__hw_8h" startline="74">XAXIS_SCR_MI_X_DISABLE_MASK</references>
+        <references refid="group__axis__switch_1ga993bec85cbffd929a7f8418e65f293de" compoundref="xaxis__switch__hw_8h" startline="131">XAxisScr_WriteReg</references>
+        <referencedby refid="xaxis__switch__example_8c_1a2f2888c4ad40580a4c7aeff37fe1314e" compoundref="xaxis__switch__example_8c" startline="119" endline="179">AxisSwitch_Example</referencedby>
+        <referencedby refid="group__axis__switch_1ga91d899fe6d8456f8460acd4a122dce64" compoundref="xaxis__switch_8c" startline="80" endline="101">XAxisScr_CfgInitialize</referencedby>
+        <referencedby refid="group__axis__switch_1gad9c646b6e8d7f5d6c431c2985592fb4b" compoundref="xaxis__switch__selftest_8c" startline="62" endline="87">XAxisScr_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axis__switch_1gac2d1165dcc6dd3f7ef777b77c7752c0d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_axis___switch___config" kindref="compound">XAxis_Switch_Config</ref> *</type>
+        <definition>XAxis_Switch_Config * XAxisScr_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XAxisScr_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Looks up the device configuration based on the unique device ID/BaseAddress. </para>        </briefdescription>
+        <detaileddescription>
+<para>The XAxis_Switch_ConfigTable[] contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration found or NULL if the specified device ID/BaseAddress was not found. See <ref refid="xaxis__switch_8h" kindref="compound">xaxis_switch.h</ref> for the definition of <ref refid="struct_x_axis___switch___config" kindref="compound">XAxis_Switch_Config</ref>.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_sinit.c" bodystart="104" bodyend="126"/>
+        <references refid="struct_x_axis___switch___config_1abbfd77eacb26d69b401ee9e587e9197c" compoundref="xaxis__switch_8h" startline="109">XAxis_Switch_Config::Name</references>
+        <referencedby refid="xaxis__switch__example_8c_1a2f2888c4ad40580a4c7aeff37fe1314e" compoundref="xaxis__switch__example_8c" startline="119" endline="179">AxisSwitch_Example</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axis__switch_1gad9c646b6e8d7f5d6c431c2985592fb4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAxisScr_SelfTest</definition>
+        <argsstring>(XAxis_Switch *InstancePtr)</argsstring>
+        <name>XAxisScr_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_axis___switch" kindref="compound">XAxis_Switch</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function performs self test on AXI4-Stream Switch core registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_axis___switch" kindref="compound">XAxis_Switch</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>TRUE if self test passed.</para></listitem><listitem><para>FALSE if self test failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_selftest.c" bodystart="62" bodyend="87"/>
+        <references refid="group__axis__switch_1ga35ef34ba6c57b57506741b4a04f87e75" compoundref="xaxis__switch_8c" startline="188" endline="220">XAxisScr_IsMiPortEnabled</references>
+        <references refid="group__axis__switch_1ga84a532ac4e377199c15802d84b43256e" compoundref="xaxis__switch_8c" startline="274" endline="290">XAxisScr_MiPortDisableAll</references>
+        <references refid="group__axis__switch_1ga943a402b210b5f2901b6d6e7ae323d50" compoundref="xaxis__switch_8c" startline="121" endline="136">XAxisScr_MiPortEnable</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__axis__switch_1ga19b5f68d74238e0c11856dbe5e566237" prot="public" static="no">
+        <name>XAXIS_SWITCH_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axis__switch_1gaa82658cbc43e600c53a429fce04d3a4c" prot="public" static="no">
+        <name>XAxisScr_RegUpdateEnable</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__axis__switch_1ga993bec85cbffd929a7f8418e65f293de" kindref="member">XAxisScr_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+		<ref refid="group__axis__switch_1ga05c58dacf3ab036292d57faac0bc1cca" kindref="member">XAXIS_SCR_CTRL_OFFSET</ref>, \
+		<ref refid="group__axis__switch_1ga68fcd4f0df5a838b218c7ebde0e6b152" kindref="member">XAxisScr_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+			<ref refid="group__axis__switch_1ga05c58dacf3ab036292d57faac0bc1cca" kindref="member">XAXIS_SCR_CTRL_OFFSET</ref>) | \
+				<ref refid="group__axis__switch_1ga61bbd9728daef6347dc32ae4234f19de" kindref="member">XAXIS_SCR_CTRL_REG_UPDATE_MASK</ref>)</initializer>
+        <briefdescription>
+<para>This macro enables register updates. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_axis___switch" kindref="compound">XAxis_Switch</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__axis__switch_1gaa82658cbc43e600c53a429fce04d3a4c" kindref="member">XAxisScr_RegUpdateEnable(XAxis_Switch *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch.h" bodystart="142" bodyend="-1"/>
+        <referencedby refid="xaxis__switch__example_8c_1a2f2888c4ad40580a4c7aeff37fe1314e" compoundref="xaxis__switch__example_8c" startline="119" endline="179">AxisSwitch_Example</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axis__switch_1gafc168e986cd2b401045578c06bc90869" prot="public" static="no">
+        <name>XAxisScr_RegUpdateDisable</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__axis__switch_1ga993bec85cbffd929a7f8418e65f293de" kindref="member">XAxisScr_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+		<ref refid="group__axis__switch_1ga05c58dacf3ab036292d57faac0bc1cca" kindref="member">XAXIS_SCR_CTRL_OFFSET</ref>, \
+		<ref refid="group__axis__switch_1ga68fcd4f0df5a838b218c7ebde0e6b152" kindref="member">XAxisScr_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+			<ref refid="group__axis__switch_1ga05c58dacf3ab036292d57faac0bc1cca" kindref="member">XAXIS_SCR_CTRL_OFFSET</ref>) &amp; \
+				(~<ref refid="group__axis__switch_1ga61bbd9728daef6347dc32ae4234f19de" kindref="member">XAXIS_SCR_CTRL_REG_UPDATE_MASK</ref>))</initializer>
+        <briefdescription>
+<para>This macro disables register updates. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_axis___switch" kindref="compound">XAxis_Switch</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__axis__switch_1gafc168e986cd2b401045578c06bc90869" kindref="member">XAxisScr_RegUpdateDisable(XAxis_Switch *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch.h" bodystart="162" bodyend="-1"/>
+        <referencedby refid="xaxis__switch__example_8c_1a2f2888c4ad40580a4c7aeff37fe1314e" compoundref="xaxis__switch__example_8c" startline="119" endline="179">AxisSwitch_Example</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axis__switch_1ga5a9a509c0aec471d47a841f955c087c5" prot="public" static="no">
+        <name>XAXIS_SWITCH_HW_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_hw.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_hw.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axis__switch_1gae64dba69ade8dab5a90245ef7b7e21fd" prot="public" static="no">
+        <name>XPAR_XAXIS_SWITCH_NUM_INSTANCES</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_sinit.c" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axis_switch/src/xaxis_switch_sinit.c" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is the main file for Xilinx AXI4-Stream Switch Control Router core. </para>    </briefdescription>
+    <detaileddescription>
+<para>This file contains static initialization method for Xilinx AXI4-Stream Source Control Router core.</para><para>This file contains self test function for the AXI4-Stream Source Control Router core.</para><para>This header file contains identifiers and register-level core functions (or macros) that can be used to access the Xilinx AXI4-Stream Switch Control Router core.</para><para>This file gets generated automatically by HSI.</para><para>}</para><para>Please see <ref refid="xaxis__switch_8h" kindref="compound">xaxis_switch.h</ref> for more details of the driver.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
+<hruler/>
+
+1.00  sha 01/28/15 Initial release.
+1.1   sk  08/16/16 Used UINTPTR instead of u32 for Baseaddress as part of
+                   adding 64 bit support. CR# 867425.
+                   Changed the prototype of XAxisScr_CfgInitialize API.
+1.5   asa 08/25/22 Remove the incorrect check in the API
+                   XAxisScr_IsMiPortEnabled. Because of the incorrect check
+                   the API can return a false TRUE for an failure case.
+                   As an example, if a MI is configured for SI[7] and the
+                   API is called to check if the MI is configured for SI[3],
+                   the API will return TRUE.
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date     Changes
+<hruler/>
+
+1.00 sha 07/15/15 Added XPAR_XAXIS_SWITCH_NUM_INSTANCES macro to control
+                  config table parameters. Modified copyright header.
+                  Added doxygen tag and modification history.
+</preformatted></para><para>For more information about the operation of this core see the hardware specification and documentation in the higher level driver <ref refid="xaxis__switch_8h" kindref="compound">xaxis_switch.h</ref> file.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
+<hruler/>
+
+1.00  sha 01/28/15 Initial release.
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
+<hruler/>
+
+1.00  sha 01/28/15 Initial release.
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
+<hruler/>
+
+1.00  sha 01/28/15 Initial release.
+1.00  sha 07/15/15 Defined macro XPAR_XAXIS_SWITCH_NUM_INSTANCES if not
+                   defined in xparameters.h
+1.2   ms  02/20/17 Fixed compilation warning. This is a fix for CR-969126.
+1.8  vlt  12/12/25 Update Doxygen comments to include SDT flow details.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_s_c_s_i___c_a_p___l_i_s_t" kind="struct" prot="public">
+    <compoundname>SCSI_CAP_LIST</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_s_c_s_i___c_a_p___l_i_s_t_1a85bb33f6c7fc372b71c2a9c676b868f8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_CAP_LIST::reserved[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>reserved</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_c_s_i___c_a_p___l_i_s_t_1ab923cfde707c34f7855750c45ed890e7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_CAP_LIST::listLength</definition>
+        <argsstring></argsstring>
+        <name>listLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_c_s_i___c_a_p___l_i_s_t_1a9a8be112b6b508080d6b08f0833102d2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 SCSI_CAP_LIST::numBlocks</definition>
+        <argsstring></argsstring>
+        <name>numBlocks</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_c_s_i___c_a_p___l_i_s_t_1a50b97c43ed5d1e79022dedde9258d0dc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_CAP_LIST::descCode</definition>
+        <argsstring></argsstring>
+        <name>descCode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_c_s_i___c_a_p___l_i_s_t_1a034a658c9fd49fc7727bf1593c10b3fc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_CAP_LIST::blockLengthMSB</definition>
+        <argsstring></argsstring>
+        <name>blockLengthMSB</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_c_s_i___c_a_p___l_i_s_t_1a7fd0758e2e4c736ee830d0d58d9e8ab3" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 SCSI_CAP_LIST::blockLength</definition>
+        <argsstring></argsstring>
+        <name>blockLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="127" bodyend="138"/>
+    <listofallmembers>
+      <member refid="struct_s_c_s_i___c_a_p___l_i_s_t_1a7fd0758e2e4c736ee830d0d58d9e8ab3" prot="public" virt="non-virtual"><scope>SCSI_CAP_LIST</scope><name>blockLength</name></member>
+      <member refid="struct_s_c_s_i___c_a_p___l_i_s_t_1a034a658c9fd49fc7727bf1593c10b3fc" prot="public" virt="non-virtual"><scope>SCSI_CAP_LIST</scope><name>blockLengthMSB</name></member>
+      <member refid="struct_s_c_s_i___c_a_p___l_i_s_t_1a50b97c43ed5d1e79022dedde9258d0dc" prot="public" virt="non-virtual"><scope>SCSI_CAP_LIST</scope><name>descCode</name></member>
+      <member refid="struct_s_c_s_i___c_a_p___l_i_s_t_1ab923cfde707c34f7855750c45ed890e7" prot="public" virt="non-virtual"><scope>SCSI_CAP_LIST</scope><name>listLength</name></member>
+      <member refid="struct_s_c_s_i___c_a_p___l_i_s_t_1a9a8be112b6b508080d6b08f0833102d2" prot="public" virt="non-virtual"><scope>SCSI_CAP_LIST</scope><name>numBlocks</name></member>
+      <member refid="struct_s_c_s_i___c_a_p___l_i_s_t_1a85bb33f6c7fc372b71c2a9c676b868f8" prot="public" virt="non-virtual"><scope>SCSI_CAP_LIST</scope><name>reserved</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

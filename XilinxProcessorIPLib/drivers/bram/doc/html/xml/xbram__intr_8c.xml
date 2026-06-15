@@ -1,0 +1,355 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xbram__intr_8c" kind="file">
+    <compoundname>xbram_intr.c</compoundname>
+    <includes refid="xbram_8h" local="yes">xbram.h</includes>
+    <incdepgraph>
+      <node id="63">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="66">
+        <label>xil_io.h</label>
+      </node>
+      <node id="65">
+        <label>xbram_hw.h</label>
+        <link refid="xbram__hw_8h"/>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+      </node>
+      <node id="60">
+        <label>xbram_intr.c</label>
+        <link refid="xbram_intr.c"/>
+        <childnode refid="61" relation="include">
+        </childnode>
+      </node>
+      <node id="64">
+        <label>xstatus.h</label>
+      </node>
+      <node id="62">
+        <label>xil_types.h</label>
+      </node>
+      <node id="61">
+        <label>xbram.h</label>
+        <link refid="xbram_8h"/>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__bram_1ga4210a263bd85db259a74c20cd0b0176c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XBram_InterruptEnable</definition>
+        <argsstring>(XBram *InstancePtr, u32 Mask)</argsstring>
+        <name>XBram_InterruptEnable</name>
+        <param>
+          <type><ref refid="struct_x_bram" kindref="compound">XBram</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Enable interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function will assert if the hardware device has not been built with interrupt capabilities.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the BRAM instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the mask to enable. Bit positions of 1 are enabled. This mask is formed by OR&apos;ing bits from XBRAM_IR* bits which are contained in <ref refid="xbram__hw_8h" kindref="compound">xbram_hw.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_intr.c" bodystart="62" bodyend="79"/>
+        <references refid="struct_x_bram___config_1ae96ce11672cf82713b994dc80a1a05aa" compoundref="xbram_8h" startline="162">XBram_Config::CtrlBaseAddress</references>
+        <references refid="group__bram_1ga1bd9b2cad381c89b81b18e4784b357d3" compoundref="xbram__hw_8h" startline="49">XBRAM_ECC_EN_IRQ_OFFSET</references>
+        <references refid="group__bram_1gaa1021011d8c25fa885737c6ca9695742" compoundref="xbram__hw_8h" startline="494">XBram_ReadReg</references>
+        <references refid="group__bram_1ga65c3e2f96ab713a71079e4597c3d4b3b" compoundref="xbram__hw_8h" startline="477">XBram_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__bram_1ga9ce680e885511fdd26b6818b71b145c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XBram_InterruptDisable</definition>
+        <argsstring>(XBram *InstancePtr, u32 Mask)</argsstring>
+        <name>XBram_InterruptDisable</name>
+        <param>
+          <type><ref refid="struct_x_bram" kindref="compound">XBram</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Disable interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function allows each specific interrupt to be disabled. This function will assert if the hardware device has not been built with interrupt capabilities.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the BRAM instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the mask to disable. Bits set to 1 are disabled. This mask is formed by OR&apos;ing bits from XBRAM_IR* bits which are contained in <ref refid="xbram__hw_8h" kindref="compound">xbram_hw.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_intr.c" bodystart="98" bodyend="115"/>
+        <references refid="struct_x_bram___config_1ae96ce11672cf82713b994dc80a1a05aa" compoundref="xbram_8h" startline="162">XBram_Config::CtrlBaseAddress</references>
+        <references refid="group__bram_1ga1bd9b2cad381c89b81b18e4784b357d3" compoundref="xbram__hw_8h" startline="49">XBRAM_ECC_EN_IRQ_OFFSET</references>
+        <references refid="group__bram_1gaa1021011d8c25fa885737c6ca9695742" compoundref="xbram__hw_8h" startline="494">XBram_ReadReg</references>
+        <references refid="group__bram_1ga65c3e2f96ab713a71079e4597c3d4b3b" compoundref="xbram__hw_8h" startline="477">XBram_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__bram_1gaa4ac1ca5c9c05eabbdea77f35ba9ac5a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XBram_InterruptClear</definition>
+        <argsstring>(XBram *InstancePtr, u32 Mask)</argsstring>
+        <name>XBram_InterruptClear</name>
+        <param>
+          <type><ref refid="struct_x_bram" kindref="compound">XBram</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Clear pending interrupts with the provided mask. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function should be called after the software has serviced the interrupts that are pending. This function will assert if the hardware device has not been built with interrupt capabilities.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the BRAM instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the mask to clear pending interrupts for. Bit positions of 1 are cleared. This mask is formed by OR&apos;ing bits from XBRAM_IR* bits which are contained in <ref refid="xbram__hw_8h" kindref="compound">xbram_hw.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_intr.c" bodystart="135" bodyend="156"/>
+        <references refid="struct_x_bram___config_1ae96ce11672cf82713b994dc80a1a05aa" compoundref="xbram_8h" startline="162">XBram_Config::CtrlBaseAddress</references>
+        <references refid="group__bram_1gab88ad395282af43eaf6890c73e1a767d" compoundref="xbram__hw_8h" startline="48">XBRAM_ECC_STATUS_OFFSET</references>
+        <references refid="group__bram_1gaa1021011d8c25fa885737c6ca9695742" compoundref="xbram__hw_8h" startline="494">XBram_ReadReg</references>
+        <references refid="group__bram_1ga65c3e2f96ab713a71079e4597c3d4b3b" compoundref="xbram__hw_8h" startline="477">XBram_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__bram_1gafec7418ceae662672c03a938290da9dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XBram_InterruptGetEnabled</definition>
+        <argsstring>(XBram *InstancePtr)</argsstring>
+        <name>XBram_InterruptGetEnabled</name>
+        <param>
+          <type><ref refid="struct_x_bram" kindref="compound">XBram</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Returns the interrupt enable mask. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function will assert if the hardware device has not been built with interrupt capabilities.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the BRAM instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A mask of bits made from XBRAM_IR* bits which are contained in <ref refid="xbram__hw_8h" kindref="compound">xbram_hw.h</ref>.</para><simplesectsep/><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_intr.c" bodystart="174" bodyend="182"/>
+        <references refid="struct_x_bram___config_1ae96ce11672cf82713b994dc80a1a05aa" compoundref="xbram_8h" startline="162">XBram_Config::CtrlBaseAddress</references>
+        <references refid="group__bram_1ga1bd9b2cad381c89b81b18e4784b357d3" compoundref="xbram__hw_8h" startline="49">XBRAM_ECC_EN_IRQ_OFFSET</references>
+        <references refid="group__bram_1gaa1021011d8c25fa885737c6ca9695742" compoundref="xbram__hw_8h" startline="494">XBram_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__bram_1ga3880bb684ad362c6bd289f3e76a98b59" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XBram_InterruptGetStatus</definition>
+        <argsstring>(XBram *InstancePtr)</argsstring>
+        <name>XBram_InterruptGetStatus</name>
+        <param>
+          <type><ref refid="struct_x_bram" kindref="compound">XBram</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Returns the status of interrupt signals. </para>        </briefdescription>
+        <detaileddescription>
+<para>Any bit in the mask set to 1 indicates that the channel associated with the bit has asserted an interrupt condition. This function will assert if the hardware device has not been built with interrupt capabilities.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the BRAM instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to a mask of bits made from XBRAM_IR* bits which are contained in <ref refid="xbram__hw_8h" kindref="compound">xbram_hw.h</ref>.</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+The interrupt status indicates the status of the device regardless if the interrupts from the devices have been enabled or not through <ref refid="group__bram_1ga4210a263bd85db259a74c20cd0b0176c" kindref="member">XBram_InterruptEnable()</ref>. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_intr.c" bodystart="204" bodyend="212"/>
+        <references refid="struct_x_bram___config_1ae96ce11672cf82713b994dc80a1a05aa" compoundref="xbram_8h" startline="162">XBram_Config::CtrlBaseAddress</references>
+        <references refid="group__bram_1ga1bd9b2cad381c89b81b18e4784b357d3" compoundref="xbram__hw_8h" startline="49">XBRAM_ECC_EN_IRQ_OFFSET</references>
+        <references refid="group__bram_1gaa1021011d8c25fa885737c6ca9695742" compoundref="xbram__hw_8h" startline="494">XBram_ReadReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="32"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xbram_8h" kindref="compound">xbram.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="62" refid="group__bram_1ga4210a263bd85db259a74c20cd0b0176c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__bram_1ga4210a263bd85db259a74c20cd0b0176c" kindref="member">XBram_InterruptEnable</ref>(<ref refid="struct_x_bram" kindref="compound">XBram</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Register;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;IsReady<sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1ae96ce11672cf82713b994dc80a1a05aa" kindref="member">CtrlBaseAddress</ref><sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="71"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>interrupt<sp/>enable<sp/>register<sp/>and<sp/>only<sp/>enable<sp/>the<sp/>specified</highlight></codeline>
+<codeline lineno="72"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>interrupts<sp/>without<sp/>disabling<sp/>or<sp/>enabling<sp/>any<sp/>others.</highlight></codeline>
+<codeline lineno="73"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>=<sp/><ref refid="group__bram_1gaa1021011d8c25fa885737c6ca9695742" kindref="member">XBram_ReadReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1ae96ce11672cf82713b994dc80a1a05aa" kindref="member">CtrlBaseAddress</ref>,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__bram_1ga1bd9b2cad381c89b81b18e4784b357d3" kindref="member">XBRAM_ECC_EN_IRQ_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__bram_1ga65c3e2f96ab713a71079e4597c3d4b3b" kindref="member">XBram_WriteReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1ae96ce11672cf82713b994dc80a1a05aa" kindref="member">CtrlBaseAddress</ref>,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__bram_1ga1bd9b2cad381c89b81b18e4784b357d3" kindref="member">XBRAM_ECC_EN_IRQ_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>|<sp/>Mask);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="98" refid="group__bram_1ga9ce680e885511fdd26b6818b71b145c4" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__bram_1ga9ce680e885511fdd26b6818b71b145c4" kindref="member">XBram_InterruptDisable</ref>(<ref refid="struct_x_bram" kindref="compound">XBram</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Register;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;IsReady<sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1ae96ce11672cf82713b994dc80a1a05aa" kindref="member">CtrlBaseAddress</ref><sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="107"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>interrupt<sp/>enable<sp/>register<sp/>and<sp/>only<sp/>disable<sp/>the<sp/>specified</highlight></codeline>
+<codeline lineno="108"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>interrupts<sp/>without<sp/>enabling<sp/>or<sp/>disabling<sp/>any<sp/>others.</highlight></codeline>
+<codeline lineno="109"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>=<sp/><ref refid="group__bram_1gaa1021011d8c25fa885737c6ca9695742" kindref="member">XBram_ReadReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1ae96ce11672cf82713b994dc80a1a05aa" kindref="member">CtrlBaseAddress</ref>,</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__bram_1ga1bd9b2cad381c89b81b18e4784b357d3" kindref="member">XBRAM_ECC_EN_IRQ_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__bram_1ga65c3e2f96ab713a71079e4597c3d4b3b" kindref="member">XBram_WriteReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1ae96ce11672cf82713b994dc80a1a05aa" kindref="member">CtrlBaseAddress</ref>,</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__bram_1ga1bd9b2cad381c89b81b18e4784b357d3" kindref="member">XBRAM_ECC_EN_IRQ_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>&amp;<sp/>(~Mask));</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="135" refid="group__bram_1gaa4ac1ca5c9c05eabbdea77f35ba9ac5a" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__bram_1gaa4ac1ca5c9c05eabbdea77f35ba9ac5a" kindref="member">XBram_InterruptClear</ref>(<ref refid="struct_x_bram" kindref="compound">XBram</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Register;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;IsReady<sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1ae96ce11672cf82713b994dc80a1a05aa" kindref="member">CtrlBaseAddress</ref><sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="144"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>interrupt<sp/>status<sp/>register<sp/>and<sp/>only<sp/>clear<sp/>the<sp/>interrupts</highlight></codeline>
+<codeline lineno="145"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>that<sp/>are<sp/>specified<sp/>without<sp/>affecting<sp/>any<sp/>others.<sp/><sp/>Since<sp/>the<sp/>register</highlight></codeline>
+<codeline lineno="146"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>a<sp/>toggle<sp/>on<sp/>write,<sp/>make<sp/>sure<sp/>any<sp/>bits<sp/>to<sp/>be<sp/>written<sp/>are<sp/>already</highlight></codeline>
+<codeline lineno="147"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>set.</highlight></codeline>
+<codeline lineno="148"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>=<sp/><ref refid="group__bram_1gaa1021011d8c25fa885737c6ca9695742" kindref="member">XBram_ReadReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1ae96ce11672cf82713b994dc80a1a05aa" kindref="member">CtrlBaseAddress</ref>,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__bram_1gab88ad395282af43eaf6890c73e1a767d" kindref="member">XBRAM_ECC_STATUS_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__bram_1ga65c3e2f96ab713a71079e4597c3d4b3b" kindref="member">XBram_WriteReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1ae96ce11672cf82713b994dc80a1a05aa" kindref="member">CtrlBaseAddress</ref>,</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__bram_1gab88ad395282af43eaf6890c73e1a767d" kindref="member">XBRAM_ECC_STATUS_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>&amp;<sp/>Mask);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="174" refid="group__bram_1gafec7418ceae662672c03a938290da9dd" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__bram_1gafec7418ceae662672c03a938290da9dd" kindref="member">XBram_InterruptGetEnabled</ref>(<ref refid="struct_x_bram" kindref="compound">XBram</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="175"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;IsReady<sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1ae96ce11672cf82713b994dc80a1a05aa" kindref="member">CtrlBaseAddress</ref><sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__bram_1gaa1021011d8c25fa885737c6ca9695742" kindref="member">XBram_ReadReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1ae96ce11672cf82713b994dc80a1a05aa" kindref="member">CtrlBaseAddress</ref>,</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__bram_1ga1bd9b2cad381c89b81b18e4784b357d3" kindref="member">XBRAM_ECC_EN_IRQ_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="204" refid="group__bram_1ga3880bb684ad362c6bd289f3e76a98b59" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__bram_1ga3880bb684ad362c6bd289f3e76a98b59" kindref="member">XBram_InterruptGetStatus</ref>(<ref refid="struct_x_bram" kindref="compound">XBram</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="205"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;IsReady<sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1ae96ce11672cf82713b994dc80a1a05aa" kindref="member">CtrlBaseAddress</ref><sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__bram_1gaa1021011d8c25fa885737c6ca9695742" kindref="member">XBram_ReadReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_bram___config_1ae96ce11672cf82713b994dc80a1a05aa" kindref="member">CtrlBaseAddress</ref>,</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__bram_1ga1bd9b2cad381c89b81b18e4784b357d3" kindref="member">XBRAM_ECC_EN_IRQ_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_intr.c"/>
+  </compounddef>
+</doxygen>

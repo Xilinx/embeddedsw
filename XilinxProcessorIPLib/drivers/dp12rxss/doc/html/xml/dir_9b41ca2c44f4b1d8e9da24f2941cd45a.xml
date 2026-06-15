@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_9b41ca2c44f4b1d8e9da24f2941cd45a" kind="dir">
+    <compoundname>src</compoundname>
+    <innerdir refid="dir_04b3b7b667c7c91e3d147448a1e8aede">dp</innerdir>
+    <innerdir refid="dir_ba91970775a2fe2efdaf1dc674bbee36">hdcp1x</innerdir>
+    <innerdir refid="dir_41c7ab06995f1a320dce7fc9c578ce35">iic</innerdir>
+    <innerfile refid="xdprxss_8c">xdprxss.c</innerfile>
+    <innerfile refid="xdprxss_8h">xdprxss.h</innerfile>
+    <innerfile refid="xdprxss__dbg_8c">xdprxss_dbg.c</innerfile>
+    <innerfile refid="xdprxss__dp159_8c">xdprxss_dp159.c</innerfile>
+    <innerfile refid="xdprxss__dp159_8h">xdprxss_dp159.h</innerfile>
+    <innerfile refid="xdprxss__g_8c">xdprxss_g.c</innerfile>
+    <innerfile refid="xdprxss__hw_8h">xdprxss_hw.h</innerfile>
+    <innerfile refid="xdprxss__intr_8c">xdprxss_intr.c</innerfile>
+    <innerfile refid="xdprxss__selftest_8c">xdprxss_selftest.c</innerfile>
+    <innerfile refid="xdprxss__sinit_8c">xdprxss_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/"/>
+  </compounddef>
+</doxygen>

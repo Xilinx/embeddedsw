@@ -1,0 +1,296 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_vid_c___video_timing" kind="struct" prot="public">
+    <compoundname>XVidC_VideoTiming</compoundname>
+    <includes local="no">xvidc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_vid_c___video_timing_1ab54a81d1484f2c87552b1565cbfa469e" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVidC_VideoTiming::HActive</definition>
+        <argsstring></argsstring>
+        <name>HActive</name>
+        <briefdescription>
+<para>Horizontal active pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="567" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="567" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga0a1cda75da460feccd4ab2c2ee712fa5" compoundref="xvidc_8c" startline="314" endline="417">XVidC_GetVideoModeId</referencedby>
+        <referencedby refid="group__video__common_1ga268ce8ec4d2d07109eb7795073e04cbb" compoundref="xvidc_8c" startline="439" endline="594">XVidC_GetVideoModeIdExtensive</referencedby>
+        <referencedby refid="group__video__common_1ga4377fff1a8e427e5f7bb642c5b115046" compoundref="xvidc_8c" startline="617" endline="649">XVidC_GetVideoModeIdRb</referencedby>
+        <referencedby refid="group__video__common_1ga562322a65704c3d6a2617b9f5e5d1717" compoundref="xvidc_8c" startline="259" endline="295">XVidC_GetVideoModeIdWBlanking</referencedby>
+        <referencedby refid="group__video__common_1ga6a1bb6f49090b265fa2ae843c65f33b2" compoundref="xvidc_8c" startline="1069" endline="1124">XVidC_ReportStreamInfo</referencedby>
+        <referencedby refid="group__video__common_1ga420d4dcb3a706e55bd00d8b3522e9336" compoundref="xvidc_8c" startline="1137" endline="1166">XVidC_ReportTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_timing_1aaceba502bd74127f7310af857f8ed276" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVidC_VideoTiming::HFrontPorch</definition>
+        <argsstring></argsstring>
+        <name>HFrontPorch</name>
+        <briefdescription>
+<para>Horizontal front porch pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="568" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="568" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga268ce8ec4d2d07109eb7795073e04cbb" compoundref="xvidc_8c" startline="439" endline="594">XVidC_GetVideoModeIdExtensive</referencedby>
+        <referencedby refid="group__video__common_1ga562322a65704c3d6a2617b9f5e5d1717" compoundref="xvidc_8c" startline="259" endline="295">XVidC_GetVideoModeIdWBlanking</referencedby>
+        <referencedby refid="group__video__common_1ga420d4dcb3a706e55bd00d8b3522e9336" compoundref="xvidc_8c" startline="1137" endline="1166">XVidC_ReportTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_timing_1a8a02fc87c92b1e68f97ee68f1f70d875" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVidC_VideoTiming::HSyncWidth</definition>
+        <argsstring></argsstring>
+        <name>HSyncWidth</name>
+        <briefdescription>
+<para>Horizontal sync width pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="569" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="569" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga268ce8ec4d2d07109eb7795073e04cbb" compoundref="xvidc_8c" startline="439" endline="594">XVidC_GetVideoModeIdExtensive</referencedby>
+        <referencedby refid="group__video__common_1ga562322a65704c3d6a2617b9f5e5d1717" compoundref="xvidc_8c" startline="259" endline="295">XVidC_GetVideoModeIdWBlanking</referencedby>
+        <referencedby refid="group__video__common_1ga420d4dcb3a706e55bd00d8b3522e9336" compoundref="xvidc_8c" startline="1137" endline="1166">XVidC_ReportTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_timing_1aeb6bf1c2c10600b27d0c274b6ed3246c" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVidC_VideoTiming::HBackPorch</definition>
+        <argsstring></argsstring>
+        <name>HBackPorch</name>
+        <briefdescription>
+<para>Horizontal back porch pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="570" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="570" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga562322a65704c3d6a2617b9f5e5d1717" compoundref="xvidc_8c" startline="259" endline="295">XVidC_GetVideoModeIdWBlanking</referencedby>
+        <referencedby refid="group__video__common_1ga420d4dcb3a706e55bd00d8b3522e9336" compoundref="xvidc_8c" startline="1137" endline="1166">XVidC_ReportTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_timing_1acaaa9bf4d2623a4d25af02f9ba8f5eef" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVidC_VideoTiming::HTotal</definition>
+        <argsstring></argsstring>
+        <name>HTotal</name>
+        <briefdescription>
+<para>Horizontal total pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="571" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="571" bodyend="-1"/>
+        <referencedby refid="group__video__common_1gae37000ca466121ef99a1e1fd4b587d91" compoundref="xvidc_8c" startline="155" endline="187">XVidC_GetPixelClockHzByVmId</referencedby>
+        <referencedby refid="group__video__common_1ga268ce8ec4d2d07109eb7795073e04cbb" compoundref="xvidc_8c" startline="439" endline="594">XVidC_GetVideoModeIdExtensive</referencedby>
+        <referencedby refid="group__video__common_1ga562322a65704c3d6a2617b9f5e5d1717" compoundref="xvidc_8c" startline="259" endline="295">XVidC_GetVideoModeIdWBlanking</referencedby>
+        <referencedby refid="group__video__common_1ga6a1bb6f49090b265fa2ae843c65f33b2" compoundref="xvidc_8c" startline="1069" endline="1124">XVidC_ReportStreamInfo</referencedby>
+        <referencedby refid="group__video__common_1ga420d4dcb3a706e55bd00d8b3522e9336" compoundref="xvidc_8c" startline="1137" endline="1166">XVidC_ReportTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_timing_1a0594a4f70f3e7407bb7f724e980bf543" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVidC_VideoTiming::HSyncPolarity</definition>
+        <argsstring></argsstring>
+        <name>HSyncPolarity</name>
+        <briefdescription>
+<para>Horizontal sync polarity (0=negative, 1=positive) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="572" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="572" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga420d4dcb3a706e55bd00d8b3522e9336" compoundref="xvidc_8c" startline="1137" endline="1166">XVidC_ReportTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_timing_1a497b50f5ae89eee52cad7c9457373f06" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVidC_VideoTiming::VActive</definition>
+        <argsstring></argsstring>
+        <name>VActive</name>
+        <briefdescription>
+<para>Vertical active lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="573" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="573" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga0a1cda75da460feccd4ab2c2ee712fa5" compoundref="xvidc_8c" startline="314" endline="417">XVidC_GetVideoModeId</referencedby>
+        <referencedby refid="group__video__common_1ga268ce8ec4d2d07109eb7795073e04cbb" compoundref="xvidc_8c" startline="439" endline="594">XVidC_GetVideoModeIdExtensive</referencedby>
+        <referencedby refid="group__video__common_1ga4377fff1a8e427e5f7bb642c5b115046" compoundref="xvidc_8c" startline="617" endline="649">XVidC_GetVideoModeIdRb</referencedby>
+        <referencedby refid="group__video__common_1ga562322a65704c3d6a2617b9f5e5d1717" compoundref="xvidc_8c" startline="259" endline="295">XVidC_GetVideoModeIdWBlanking</referencedby>
+        <referencedby refid="group__video__common_1ga6a1bb6f49090b265fa2ae843c65f33b2" compoundref="xvidc_8c" startline="1069" endline="1124">XVidC_ReportStreamInfo</referencedby>
+        <referencedby refid="group__video__common_1ga420d4dcb3a706e55bd00d8b3522e9336" compoundref="xvidc_8c" startline="1137" endline="1166">XVidC_ReportTiming</referencedby>
+        <referencedby refid="group__video__common_1gac16f1d37cc0fd40e467411ca816fc9ef" compoundref="xvidc_8c" startline="993" endline="1058">XVidC_Set3DVideoStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_timing_1ad17904a2a9d64c58b7b7d91fdba1bbd9" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVidC_VideoTiming::F0PVFrontPorch</definition>
+        <argsstring></argsstring>
+        <name>F0PVFrontPorch</name>
+        <briefdescription>
+<para>Field 0/Progressive vertical front porch lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="574" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="574" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga268ce8ec4d2d07109eb7795073e04cbb" compoundref="xvidc_8c" startline="439" endline="594">XVidC_GetVideoModeIdExtensive</referencedby>
+        <referencedby refid="group__video__common_1ga562322a65704c3d6a2617b9f5e5d1717" compoundref="xvidc_8c" startline="259" endline="295">XVidC_GetVideoModeIdWBlanking</referencedby>
+        <referencedby refid="group__video__common_1ga420d4dcb3a706e55bd00d8b3522e9336" compoundref="xvidc_8c" startline="1137" endline="1166">XVidC_ReportTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_timing_1ad850c888c1a3f914c59238ee87d5135d" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVidC_VideoTiming::F0PVSyncWidth</definition>
+        <argsstring></argsstring>
+        <name>F0PVSyncWidth</name>
+        <briefdescription>
+<para>Field 0/Progressive vertical sync width lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="575" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="575" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga268ce8ec4d2d07109eb7795073e04cbb" compoundref="xvidc_8c" startline="439" endline="594">XVidC_GetVideoModeIdExtensive</referencedby>
+        <referencedby refid="group__video__common_1ga562322a65704c3d6a2617b9f5e5d1717" compoundref="xvidc_8c" startline="259" endline="295">XVidC_GetVideoModeIdWBlanking</referencedby>
+        <referencedby refid="group__video__common_1ga420d4dcb3a706e55bd00d8b3522e9336" compoundref="xvidc_8c" startline="1137" endline="1166">XVidC_ReportTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_timing_1a5f74e298b0f9a325a8befa885ef77791" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVidC_VideoTiming::F0PVBackPorch</definition>
+        <argsstring></argsstring>
+        <name>F0PVBackPorch</name>
+        <briefdescription>
+<para>Field 0/Progressive vertical back porch lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="576" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="576" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga562322a65704c3d6a2617b9f5e5d1717" compoundref="xvidc_8c" startline="259" endline="295">XVidC_GetVideoModeIdWBlanking</referencedby>
+        <referencedby refid="group__video__common_1ga420d4dcb3a706e55bd00d8b3522e9336" compoundref="xvidc_8c" startline="1137" endline="1166">XVidC_ReportTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_timing_1a61c0c626b5f2eb72614a088c58cefdfe" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVidC_VideoTiming::F0PVTotal</definition>
+        <argsstring></argsstring>
+        <name>F0PVTotal</name>
+        <briefdescription>
+<para>Field 0/Progressive vertical total lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="577" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="577" bodyend="-1"/>
+        <referencedby refid="group__video__common_1gae37000ca466121ef99a1e1fd4b587d91" compoundref="xvidc_8c" startline="155" endline="187">XVidC_GetPixelClockHzByVmId</referencedby>
+        <referencedby refid="group__video__common_1ga268ce8ec4d2d07109eb7795073e04cbb" compoundref="xvidc_8c" startline="439" endline="594">XVidC_GetVideoModeIdExtensive</referencedby>
+        <referencedby refid="group__video__common_1ga562322a65704c3d6a2617b9f5e5d1717" compoundref="xvidc_8c" startline="259" endline="295">XVidC_GetVideoModeIdWBlanking</referencedby>
+        <referencedby refid="group__video__common_1ga6a1bb6f49090b265fa2ae843c65f33b2" compoundref="xvidc_8c" startline="1069" endline="1124">XVidC_ReportStreamInfo</referencedby>
+        <referencedby refid="group__video__common_1ga420d4dcb3a706e55bd00d8b3522e9336" compoundref="xvidc_8c" startline="1137" endline="1166">XVidC_ReportTiming</referencedby>
+        <referencedby refid="group__video__common_1gac16f1d37cc0fd40e467411ca816fc9ef" compoundref="xvidc_8c" startline="993" endline="1058">XVidC_Set3DVideoStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_timing_1a6be3d7779e76204b3a1893ef7ab72788" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVidC_VideoTiming::F1VFrontPorch</definition>
+        <argsstring></argsstring>
+        <name>F1VFrontPorch</name>
+        <briefdescription>
+<para>Field 1 vertical front porch lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="578" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="578" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga268ce8ec4d2d07109eb7795073e04cbb" compoundref="xvidc_8c" startline="439" endline="594">XVidC_GetVideoModeIdExtensive</referencedby>
+        <referencedby refid="group__video__common_1ga420d4dcb3a706e55bd00d8b3522e9336" compoundref="xvidc_8c" startline="1137" endline="1166">XVidC_ReportTiming</referencedby>
+        <referencedby refid="group__video__common_1gac16f1d37cc0fd40e467411ca816fc9ef" compoundref="xvidc_8c" startline="993" endline="1058">XVidC_Set3DVideoStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_timing_1a2780cc16d2660326a2f47cd4c40df76d" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVidC_VideoTiming::F1VSyncWidth</definition>
+        <argsstring></argsstring>
+        <name>F1VSyncWidth</name>
+        <briefdescription>
+<para>Field 1 vertical sync width lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="579" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="579" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga268ce8ec4d2d07109eb7795073e04cbb" compoundref="xvidc_8c" startline="439" endline="594">XVidC_GetVideoModeIdExtensive</referencedby>
+        <referencedby refid="group__video__common_1ga420d4dcb3a706e55bd00d8b3522e9336" compoundref="xvidc_8c" startline="1137" endline="1166">XVidC_ReportTiming</referencedby>
+        <referencedby refid="group__video__common_1gac16f1d37cc0fd40e467411ca816fc9ef" compoundref="xvidc_8c" startline="993" endline="1058">XVidC_Set3DVideoStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_timing_1a08416df9e9331986fd06486516500487" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVidC_VideoTiming::F1VBackPorch</definition>
+        <argsstring></argsstring>
+        <name>F1VBackPorch</name>
+        <briefdescription>
+<para>Field 1 vertical back porch lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="580" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="580" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga420d4dcb3a706e55bd00d8b3522e9336" compoundref="xvidc_8c" startline="1137" endline="1166">XVidC_ReportTiming</referencedby>
+        <referencedby refid="group__video__common_1gac16f1d37cc0fd40e467411ca816fc9ef" compoundref="xvidc_8c" startline="993" endline="1058">XVidC_Set3DVideoStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_timing_1a500751aa1021ab9583b14b877442e318" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVidC_VideoTiming::F1VTotal</definition>
+        <argsstring></argsstring>
+        <name>F1VTotal</name>
+        <briefdescription>
+<para>Field 1 vertical total lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="581" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="581" bodyend="-1"/>
+        <referencedby refid="group__video__common_1gae37000ca466121ef99a1e1fd4b587d91" compoundref="xvidc_8c" startline="155" endline="187">XVidC_GetPixelClockHzByVmId</referencedby>
+        <referencedby refid="group__video__common_1ga7b982d86111b66608e263b5ecd639e42" compoundref="xvidc_8c" startline="203" endline="217">XVidC_GetVideoFormat</referencedby>
+        <referencedby refid="group__video__common_1ga268ce8ec4d2d07109eb7795073e04cbb" compoundref="xvidc_8c" startline="439" endline="594">XVidC_GetVideoModeIdExtensive</referencedby>
+        <referencedby refid="group__video__common_1ga420d4dcb3a706e55bd00d8b3522e9336" compoundref="xvidc_8c" startline="1137" endline="1166">XVidC_ReportTiming</referencedby>
+        <referencedby refid="group__video__common_1gac16f1d37cc0fd40e467411ca816fc9ef" compoundref="xvidc_8c" startline="993" endline="1058">XVidC_Set3DVideoStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c___video_timing_1a9dba369368f2e0355fae5597d577fb5d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVidC_VideoTiming::VSyncPolarity</definition>
+        <argsstring></argsstring>
+        <name>VSyncPolarity</name>
+        <briefdescription>
+<para>Vertical sync polarity (0=negative, 1=positive) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="582" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="582" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga268ce8ec4d2d07109eb7795073e04cbb" compoundref="xvidc_8c" startline="439" endline="594">XVidC_GetVideoModeIdExtensive</referencedby>
+        <referencedby refid="group__video__common_1ga420d4dcb3a706e55bd00d8b3522e9336" compoundref="xvidc_8c" startline="1137" endline="1166">XVidC_ReportTiming</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Video timing structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="566" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="566" bodyend="583"/>
+    <listofallmembers>
+      <member refid="struct_x_vid_c___video_timing_1a5f74e298b0f9a325a8befa885ef77791" prot="public" virt="non-virtual"><scope>XVidC_VideoTiming</scope><name>F0PVBackPorch</name></member>
+      <member refid="struct_x_vid_c___video_timing_1ad17904a2a9d64c58b7b7d91fdba1bbd9" prot="public" virt="non-virtual"><scope>XVidC_VideoTiming</scope><name>F0PVFrontPorch</name></member>
+      <member refid="struct_x_vid_c___video_timing_1ad850c888c1a3f914c59238ee87d5135d" prot="public" virt="non-virtual"><scope>XVidC_VideoTiming</scope><name>F0PVSyncWidth</name></member>
+      <member refid="struct_x_vid_c___video_timing_1a61c0c626b5f2eb72614a088c58cefdfe" prot="public" virt="non-virtual"><scope>XVidC_VideoTiming</scope><name>F0PVTotal</name></member>
+      <member refid="struct_x_vid_c___video_timing_1a08416df9e9331986fd06486516500487" prot="public" virt="non-virtual"><scope>XVidC_VideoTiming</scope><name>F1VBackPorch</name></member>
+      <member refid="struct_x_vid_c___video_timing_1a6be3d7779e76204b3a1893ef7ab72788" prot="public" virt="non-virtual"><scope>XVidC_VideoTiming</scope><name>F1VFrontPorch</name></member>
+      <member refid="struct_x_vid_c___video_timing_1a2780cc16d2660326a2f47cd4c40df76d" prot="public" virt="non-virtual"><scope>XVidC_VideoTiming</scope><name>F1VSyncWidth</name></member>
+      <member refid="struct_x_vid_c___video_timing_1a500751aa1021ab9583b14b877442e318" prot="public" virt="non-virtual"><scope>XVidC_VideoTiming</scope><name>F1VTotal</name></member>
+      <member refid="struct_x_vid_c___video_timing_1ab54a81d1484f2c87552b1565cbfa469e" prot="public" virt="non-virtual"><scope>XVidC_VideoTiming</scope><name>HActive</name></member>
+      <member refid="struct_x_vid_c___video_timing_1aeb6bf1c2c10600b27d0c274b6ed3246c" prot="public" virt="non-virtual"><scope>XVidC_VideoTiming</scope><name>HBackPorch</name></member>
+      <member refid="struct_x_vid_c___video_timing_1aaceba502bd74127f7310af857f8ed276" prot="public" virt="non-virtual"><scope>XVidC_VideoTiming</scope><name>HFrontPorch</name></member>
+      <member refid="struct_x_vid_c___video_timing_1a0594a4f70f3e7407bb7f724e980bf543" prot="public" virt="non-virtual"><scope>XVidC_VideoTiming</scope><name>HSyncPolarity</name></member>
+      <member refid="struct_x_vid_c___video_timing_1a8a02fc87c92b1e68f97ee68f1f70d875" prot="public" virt="non-virtual"><scope>XVidC_VideoTiming</scope><name>HSyncWidth</name></member>
+      <member refid="struct_x_vid_c___video_timing_1acaaa9bf4d2623a4d25af02f9ba8f5eef" prot="public" virt="non-virtual"><scope>XVidC_VideoTiming</scope><name>HTotal</name></member>
+      <member refid="struct_x_vid_c___video_timing_1a497b50f5ae89eee52cad7c9457373f06" prot="public" virt="non-virtual"><scope>XVidC_VideoTiming</scope><name>VActive</name></member>
+      <member refid="struct_x_vid_c___video_timing_1a9dba369368f2e0355fae5597d577fb5d" prot="public" virt="non-virtual"><scope>XVidC_VideoTiming</scope><name>VSyncPolarity</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

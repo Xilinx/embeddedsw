@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__v__sditx" kind="group">
+    <compoundname>v_sditx</compoundname>
+    <title>Overview</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__v__sditx_1gaa7428ce551f68c93d42b13e2d347456f" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref></type>
+        <definition>XV_SdiTx Sdi</definition>
+        <argsstring></argsstring>
+        <name>Sdi</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/examples/xv_sditx_example_selftest.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/examples/xv_sditx_example_selftest.c" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__v__sditx_1gae535cd30cd5fd6414bf89142bc937e4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_SdiTx_SelfTest</definition>
+        <argsstring>(XV_SdiTx *InstancePtr)</argsstring>
+        <name>XV_SdiTx_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Runs a self-test on the driver/device. </para>        </briefdescription>
+        <detaileddescription>
+<para>This test checks if the mode control register values have the default values.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if self-test was successful</para></listitem><listitem><para>XST_FAILURE if the read value was not equal to _g.c file</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_selftest.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_selftest.c" bodystart="62" bodyend="86"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
+        <references refid="struct_x_v___sdi_tx_1a2a0526f675950b59123a845abe25a463" compoundref="xv__sditx_8h" startline="224">XV_SdiTx::IsReady</references>
+        <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
+        <references refid="xv__sditx_8c_1a3bb43320e53ea983eb94f8e020ac1606" compoundref="xv__sditx_8c" startline="1151" endline="1166">XV_SdiTx_StopSdi</references>
+        <referencedby refid="group__v__sditx_1ga48e58a19917b8a9574dcfccb31c205cd" compoundref="xv__sditx__example__selftest_8c" startline="118" endline="148">XV_SdiTxSelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__v__sditx_1ga48e58a19917b8a9574dcfccb31c205cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_SdiTxSelfTestExample</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XV_SdiTxSelfTestExample</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function checks if the Tx core initialization is successful and the default register values are matching. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> Controller Device id.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if Tx initialixation and self test are successsful</para></listitem><listitem><para>XST_FAILURE if either Tx initialixation and self test fails</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/examples/xv_sditx_example_selftest.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/examples/xv_sditx_example_selftest.c" bodystart="118" bodyend="148"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="xv__sditx_8c_1a5b95fdd396bc9efc992f3f9ed217cfc2" compoundref="xv__sditx_8c" startline="130" endline="186">XV_SdiTx_CfgInitialize</references>
+        <references refid="xv__sditx_8h_1a9060bcef0b67971e31632b83f7f70e64" compoundref="xv__sditx__sinit_8c" startline="89" endline="108">XV_SdiTx_LookupConfig</references>
+        <references refid="group__v__sditx_1gae535cd30cd5fd6414bf89142bc937e4a" compoundref="xv__sditx__selftest_8c" startline="62" endline="86">XV_SdiTx_SelfTest</references>
+        <referencedby refid="group__v__sditx_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__sditx__example__selftest_8c" startline="77" endline="98">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__v__sditx_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>The entry point for this example. </para>        </briefdescription>
+        <detaileddescription>
+<para>It invokes the example function, and reports the execution status.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if example finishes successfully</para></listitem><listitem><para>XST_FAILURE if example fails.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/examples/xv_sditx_example_selftest.c" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/examples/xv_sditx_example_selftest.c" bodystart="77" bodyend="98"/>
+        <references refid="group__v__sditx_1ga48e58a19917b8a9574dcfccb31c205cd" compoundref="xv__sditx__example__selftest_8c" startline="118" endline="148">XV_SdiTxSelfTestExample</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__v__sditx_1ga582736d716c6c884ff747d329a0c9377" prot="public" static="no">
+        <name>SDITX_RST_CTRL_DEFAULT</name>
+        <initializer>0x000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_selftest.c" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_selftest.c" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__sditx_1gae1433f7b2c79eaf57cd3ca8343200640" prot="public" static="no">
+        <name>SDITX_MDL_CTRL_DEFAULT</name>
+        <initializer>0x117000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_selftest.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_selftest.c" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains diagnostic/self-test functions for the SDI Tx Controller core. </para>    </briefdescription>
+    <detaileddescription>
+<para>This file contains a design example using the <ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> driver.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver Who Date     Changes
+<hruler/>
+
+1.0 jsr 07/17/17 Initial release
+</preformatted></para><para>It performs a self test on the SDI Tx driver that will test its sub-cores self test functions.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver Who Date     Changes
+<hruler/>
+
+1.0 jsr 07/17/17 Initial release
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

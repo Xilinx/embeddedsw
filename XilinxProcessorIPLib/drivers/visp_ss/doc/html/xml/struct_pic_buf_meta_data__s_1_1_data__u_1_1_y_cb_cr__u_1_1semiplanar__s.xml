@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_pic_buf_meta_data__s_1_1_data__u_1_1_y_cb_cr__u_1_1semiplanar__s" kind="struct" prot="public">
+    <compoundname>PicBufMetaData_s::Data_u::YCbCr_u::semiplanar_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_pic_buf_meta_data__s_1_1_data__u_1_1_y_cb_cr__u_1_1semiplanar__s_1a6c5ebe9f9ad867fb59b2b57b939f5428" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_pic_buf_plane__s" kindref="compound">PicBufPlane_t</ref></type>
+        <definition>PicBufPlane_t PicBufMetaData_s::Data_u::YCbCr_u::semiplanar_s::Y</definition>
+        <argsstring></argsstring>
+        <name>Y</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="626" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="626" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pic_buf_meta_data__s_1_1_data__u_1_1_y_cb_cr__u_1_1semiplanar__s_1aad518bdf765d7c20cb5cab544a897b84" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_pic_buf_plane__s" kindref="compound">PicBufPlane_t</ref></type>
+        <definition>PicBufPlane_t PicBufMetaData_s::Data_u::YCbCr_u::semiplanar_s::CbCr</definition>
+        <argsstring></argsstring>
+        <name>CbCr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="627" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="627" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="995">
+        <label>PicBufMetaData_s::Data_u::YCbCr_u::semiplanar_s</label>
+        <childnode refid="996" relation="usage">
+          <edgelabel>Y</edgelabel>
+          <edgelabel>CbCr</edgelabel>
+        </childnode>
+      </node>
+      <node id="996">
+        <label>PicBufPlane_s</label>
+        <link refid="struct_pic_buf_plane__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="625" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="625" bodyend="628"/>
+    <listofallmembers>
+      <member refid="struct_pic_buf_meta_data__s_1_1_data__u_1_1_y_cb_cr__u_1_1semiplanar__s_1aad518bdf765d7c20cb5cab544a897b84" prot="public" virt="non-virtual"><scope>PicBufMetaData_s::Data_u::YCbCr_u::semiplanar_s</scope><name>CbCr</name></member>
+      <member refid="struct_pic_buf_meta_data__s_1_1_data__u_1_1_y_cb_cr__u_1_1semiplanar__s_1a6c5ebe9f9ad867fb59b2b57b939f5428" prot="public" virt="non-virtual"><scope>PicBufMetaData_s::Data_u::YCbCr_u::semiplanar_s</scope><name>Y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

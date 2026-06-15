@@ -1,0 +1,629 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xiic__pmbus__polled__example_8c" kind="file">
+    <compoundname>xiic_pmbus_polled_example.c</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes refid="xiic_8h" local="yes">xiic.h</includes>
+    <includes refid="xiic__l_8h" local="yes">xiic_l.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <incdepgraph>
+      <node id="241">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="244">
+        <label>xil_io.h</label>
+      </node>
+      <node id="243">
+        <label>xiic_l.h</label>
+        <link refid="xiic__l_8h"/>
+        <childnode refid="240" relation="include">
+        </childnode>
+        <childnode refid="241" relation="include">
+        </childnode>
+        <childnode refid="242" relation="include">
+        </childnode>
+        <childnode refid="244" relation="include">
+        </childnode>
+      </node>
+      <node id="242">
+        <label>xstatus.h</label>
+      </node>
+      <node id="240">
+        <label>xil_types.h</label>
+      </node>
+      <node id="238">
+        <label>xparameters.h</label>
+      </node>
+      <node id="245">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="237">
+        <label>xiic_pmbus_polled_example.c</label>
+        <link refid="xiic_pmbus_polled_example.c"/>
+        <childnode refid="238" relation="include">
+        </childnode>
+        <childnode refid="239" relation="include">
+        </childnode>
+        <childnode refid="243" relation="include">
+        </childnode>
+        <childnode refid="245" relation="include">
+        </childnode>
+        <childnode refid="240" relation="include">
+        </childnode>
+      </node>
+      <node id="239">
+        <label>xiic.h</label>
+        <link refid="xiic_8h"/>
+        <childnode refid="240" relation="include">
+        </childnode>
+        <childnode refid="241" relation="include">
+        </childnode>
+        <childnode refid="242" relation="include">
+        </childnode>
+        <childnode refid="243" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xiic__pmbus__polled__example_8c_1a028d21c1d779d7c992e41b11d876de26" prot="public" static="no">
+        <name>XIIC_BASEADDRESS</name>
+        <initializer>XPAR_XIIC_0_BASEADDR</initializer>
+        <briefdescription>
+<para>The following constants map to the XPAR parameters created in the xparameters.h file. </para>        </briefdescription>
+        <detaileddescription>
+<para>They are defined here such that a user can easily change all the needed parameters in one place. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" bodystart="51" bodyend="-1"/>
+        <referencedby refid="xiic__pmbus__polled__example_8c_1a1cbeb6a6d6f83cb76edb5febefb39caf" compoundref="xiic__pmbus__polled__example_8c" startline="179" endline="252">IicPmbusPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__polled__example_8c_1a8ad02ab61f37d20ecedd7acfbc5c42ed" prot="public" static="no">
+        <name>IIC_MUX_ADDRESS</name>
+        <initializer>0x75</initializer>
+        <briefdescription>
+<para>The ZCU102 and ZCU106 boards use a PMBus MUX address of 0x75 with channel address 0x05 and PMBus slave address 0x13. </para>        </briefdescription>
+        <detaileddescription>
+<para>The ZC702 and ZC706 boards use a PMBus MUX address of 0x74 with channel address 0x80 and PMBus slave address 0x52.</para><para>The KCU105 board uses a PMBus MUX address of 0x74 or 0x75 with channel address 0x04 and PMBus slave address 0x0A. Please refer to the User Guide of the respective board and the PMBus device datasheet for further information about the correct addresses and channel to use for PMBus communication. The defines below must be updated to match the board in use. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__polled__example_8c_1a01f188bacaad2ee1cc6049eb600c9f86" prot="public" static="no">
+        <name>IIC_PMBUS_CHANNEL</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__polled__example_8c_1a872f2f314f8e720ab639f76056ea1e7c" prot="public" static="no">
+        <name>PMBUS_SLAVE_ADDR</name>
+        <initializer>0x0A</initializer>
+        <briefdescription>
+<para>The following constant defines the address of the PMBus device on the IIC bus. </para>        </briefdescription>
+        <detaileddescription>
+<para>Note that this is a 7-bit address. The PMBus slave address may vary depending on the board and the PMBus device used. For example, the KCU105 board uses 0x0A as the PMBus slave address for its power controller. Please refer to the User Guide of the respective board and the PMBus device datasheet for further information about the correct slave address to use. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__polled__example_8c_1aca2c06eb8e2fb046f1eebf52436db999" prot="public" static="no">
+        <name>IIC_MUX_ENABLE</name>
+        <briefdescription>
+<para>This define should be uncommented if there is an IIC MUX on the board to which the PMBus device is connected. </para>        </briefdescription>
+        <detaileddescription>
+<para>For example, the KCU105 board uses an IIC MUX to access PMBus devices. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__polled__example_8c_1ad345bccf457826be9f894cb922452219" prot="public" static="no">
+        <name>PMBUS_CMD_READ_VOUT</name>
+        <initializer>0x8B	/** Command to read output voltage (VOUT) */</initializer>
+        <briefdescription>
+<para>PMBus command definitions: </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>READ_VOUT uses the Linear16 data format as defined by the PMBus specification.</para></listitem><listitem><para>All other read commands (current, temperature, and frequency) use the Linear11 data format. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" bodystart="96" bodyend="-1"/>
+        <referencedby refid="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" compoundref="xiic__pmbus__intr__example_8c" startline="198" endline="306">IicPmbusInterruptSdtExample</referencedby>
+        <referencedby refid="xiic__pmbus__polled__example_8c_1a1cbeb6a6d6f83cb76edb5febefb39caf" compoundref="xiic__pmbus__polled__example_8c" startline="179" endline="252">IicPmbusPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__polled__example_8c_1aef5a773ba971f9637cdc57c2c5f037ff" prot="public" static="no">
+        <name>PMBUS_CMD_READ_TEMP</name>
+        <initializer>0x8D	/** Command to read temperature (TEMP) */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__polled__example_8c_1ac21613290ae2c73274231e4c78ddc09f" prot="public" static="no">
+        <name>PMBUS_VOUT_EXPONENT</name>
+        <initializer>(-12)	/** Exponent used in the calculation of vout voltage.*/</initializer>
+        <briefdescription>
+<para>PMBus READ_VOUT uses LINEAR16 format. </para>        </briefdescription>
+        <detaileddescription>
+<para>As per PMBus specification, the exponent is defined by VOUT_MODE. For the PMBus device used in this example, VOUT_MODE exponent is fixed at -12 (device/board specific). </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" bodystart="105" bodyend="-1"/>
+        <referencedby refid="xiic__pmbus__polled__example_8c_1a1cbeb6a6d6f83cb76edb5febefb39caf" compoundref="xiic__pmbus__polled__example_8c" startline="179" endline="252">IicPmbusPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__polled__example_8c_1aa79883d73882e4c7ca5840f7aab09b3e" prot="public" static="no">
+        <name>EXPONENT_SHIFT</name>
+        <initializer>11</initializer>
+        <briefdescription>
+<para>Shift to get exponent bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__polled__example_8c_1afe45c5697f427cf50fd6887cd59b741e" prot="public" static="no">
+        <name>EXPONENT_MASK</name>
+        <initializer>0x1F</initializer>
+        <briefdescription>
+<para>Mask for 5-bit exponent. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__polled__example_8c_1af02e9117e403fe139271f62523bcb397" prot="public" static="no">
+        <name>MANTISSA_MASK</name>
+        <initializer>0x7FF</initializer>
+        <briefdescription>
+<para>Mask for 11-bit mantissa. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__polled__example_8c_1a18961e00dd694882c467b4e54a6fba67" prot="public" static="no">
+        <name>EXP_SIGN_BIT</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>Exponent sign bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xiic__pmbus__polled__example_8c_1a8deb5e5623a9a97cbef6f05e35a9ec6f" prot="public" static="no">
+        <name>MANT_SIGN_BIT</name>
+        <initializer>0x400</initializer>
+        <briefdescription>
+<para>Mantissa sign bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xiic__pmbus__polled__example_8c_1a82ac42ea08442144b4d372ff9f7740c0" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_iic" kindref="compound">XIic</ref></type>
+        <definition>XIic IicInstance</definition>
+        <argsstring></argsstring>
+        <name>IicInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xiic__pmbus__polled__example_8c_1ab4c3dc0a686a17bcb61c1a454588f62b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 ReadBuffer[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>ReadBuffer</name>
+        <briefdescription>
+<para>The instance of the IIC device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xiic__pmbus__polled__example_8c_1aae1713080685e3ed951c18fd5a7fc4e8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>static float Pmbus_Linear11_ToFloat</definition>
+        <argsstring>(u16 Raw)</argsstring>
+        <name>Pmbus_Linear11_ToFloat</name>
+        <param>
+          <type>u16</type>
+          <declname>Raw</declname>
+        </param>
+        <briefdescription>
+<para>This function converts a PMBus Linear11 formatted value to float. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Raw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 16-bit raw value from the PMBus device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Floating point value after conversion.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Step 1: Extract the exponent and mantissa fields.</para><para>LINEAR11 format: Bits[15:11] : 5-bit signed exponent Bits[10:0] : 11-bit signed mantissa</para><para>Step 2: Sign-extend the 5-bit exponent. Bit[4] (0x10) is the sign bit of the exponent(2&apos;s complement).</para><para>Step 3: Sign-extend the 11-bit mantissa. Bit[10] (0x400) is the sign bit of the mantissa(2&apos;s complement).</para><para>Step 4: Apply the Linear11 conversion formula. Value = Mantissa × 2^Exponent</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" bodystart="337" bodyend="371"/>
+      </memberdef>
+      <memberdef kind="function" id="xiic__pmbus__polled__example_8c_1aec7aa7fd9459730d5e366491a8038756" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>static float Pmbus_Linear16_ToFloat</definition>
+        <argsstring>(u16 Raw, int Vout_Exp)</argsstring>
+        <name>Pmbus_Linear16_ToFloat</name>
+        <param>
+          <type>u16</type>
+          <declname>Raw</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Vout_Exp</declname>
+        </param>
+        <briefdescription>
+<para>This function converts a PMBus Linear16 formatted value to float. </para>        </briefdescription>
+        <detaileddescription>
+<para>Used for voltage (READ_VOUT).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Raw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 16-bit raw value from the PMBus device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Vout_Exp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the exponent for VOUT.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Floating point value after conversion.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Step 1: Convert the 5‑bit exponent to a signed integer. Bit[4] (0x10) is the sign bit in a 5‑bit two&apos;s‑complement exponent.</para><para>Step 2: Apply the Linear16 conversion formula. Value = Raw × 2^Exponent</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" bodystart="386" bodyend="404"/>
+      </memberdef>
+      <memberdef kind="function" id="xiic__pmbus__polled__example_8c_1ad3c161587f68a17194eaff6b27633b53" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int MuxInitPolled</definition>
+        <argsstring>(void)</argsstring>
+        <name>MuxInitPolled</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function initializes the IIC MUX to select the PMBus channel in polled mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Send the channel selection value to the IIC MUX</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" bodystart="265" bodyend="283"/>
+      </memberdef>
+      <memberdef kind="function" id="xiic__pmbus__polled__example_8c_1ab8cec0f4986e59adc3ddaa59fb133f64" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int Pmbus_ReadWord_Polled</definition>
+        <argsstring>(u8 Cmd, u8 *ReadBuf)</argsstring>
+        <name>Pmbus_ReadWord_Polled</name>
+        <param>
+          <type>u8</type>
+          <declname>Cmd</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ReadBuf</declname>
+        </param>
+        <briefdescription>
+<para>This function reads a 16-bit word from the PMBus device using polled IIC. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the PMBus command code to send. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReadBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the buffer to store the 2 bytes read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Ensure the IIC bus is free before starting a transaction</para><para>Send the PMBus command byte with a repeated-start</para><para>Read 2 data bytes from the PMBus device and terminate with STOP</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" bodystart="298" bodyend="324"/>
+      </memberdef>
+      <memberdef kind="function" id="xiic__pmbus__polled__example_8c_1a1cbeb6a6d6f83cb76edb5febefb39caf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int IicPmbusPolledExample</definition>
+        <argsstring>(void)</argsstring>
+        <name>IicPmbusPolledExample</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function demonstrates PMBus polled access: initializes IIC, selects MUX (if enabled), and reads VOUT, TEMP, from the PMBus device, printing results. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Initialize the IIC driver so that it is ready to use.</para><para>Start the IIC device.</para><para>Initialize the IIC MUX on boards where the PMBus devices are connected through the MUX.</para><para>Combine the two bytes into a 16-bit raw value, convert it to voltage using Linear16 format, scale it to centivolts, and print the result.</para><para>Convert raw PMBus temperature data (Linear11) to centi-degrees Celsius and print</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" bodystart="179" bodyend="252"/>
+        <references refid="struct_x_iic___config_1ae783f76b6713be6d9b77060d77328102" compoundref="xiic_8h" startline="393">XIic_Config::BaseAddress</references>
+        <references refid="xiic__pmbus__polled__example_8c_1ad345bccf457826be9f894cb922452219" compoundref="xiic__pmbus__polled__example_8c" startline="96">PMBUS_CMD_READ_VOUT</references>
+        <references refid="xiic__pmbus__polled__example_8c_1ac21613290ae2c73274231e4c78ddc09f" compoundref="xiic__pmbus__polled__example_8c" startline="105">PMBUS_VOUT_EXPONENT</references>
+        <references refid="xiic__pmbus__polled__example_8c_1a028d21c1d779d7c992e41b11d876de26" compoundref="xiic__pmbus__polled__example_8c" startline="51">XIIC_BASEADDRESS</references>
+        <references refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</references>
+        <references refid="group___overview_1ga7e448669953bf36074837f174726814d" compoundref="xiic__sinit_8c" startline="93" endline="107">XIic_LookupConfig</references>
+        <references refid="group___overview_1ga5f4e497710a9c3719f27d40faa74a10f" compoundref="xiic_8c" startline="223" endline="265">XIic_Start</references>
+        <referencedby refid="xiic__pmbus__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xiic__pmbus__polled__example_8c" startline="153" endline="167">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xiic__pmbus__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Buffer used to store data read from the PMBus device. </para>        </briefdescription>
+        <detaileddescription>
+<para>Main function to call the PMBus polled example.</para><para><simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Run the PMBus example.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c" bodystart="153" bodyend="167"/>
+        <references refid="xiic__pmbus__polled__example_8c_1a1cbeb6a6d6f83cb76edb5febefb39caf" compoundref="xiic__pmbus__polled__example_8c" startline="179" endline="252">IicPmbusPolledExample</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file consists of a polled mode design example which uses the Xilinx IIC device and low-level driver to communicate with a PMBus device. </para>    </briefdescription>
+    <detaileddescription>
+<para>The example demonstrates how to read voltage and temperature from a PMBus-compliant device using the IIC interface. It includes conversion routines for PMBus Linear11 and Linear16 formats.</para><para>The <ref refid="group___overview_1ga907c577b53407fb0bfc98d0ca37ee221" kindref="member">XIic_Send()</ref> API is used to transmit the data and <ref refid="group___overview_1ga7a848238d75ff57837afa5a58f11f326" kindref="member">XIic_Recv()</ref> API is used to receive the data.</para><para>The define PMBUS_SLAVE_ADDR in this file needs to be changed depending on the PMBus device and board configuration on which this example is to be run.</para><para>This code assumes that no Operating System is being used.</para><para><simplesect kind="note"><para>None</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+3.15  vlt  02/18/26    Initial version
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="37"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiic_8h" kindref="compound">xiic.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiic__l_8h" kindref="compound">xiic_l.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="xiic__pmbus__polled__example_8c_1a028d21c1d779d7c992e41b11d876de26" refkind="member"><highlight class="preprocessor">#define<sp/>XIIC_BASEADDRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XIIC_0_BASEADDR</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="67" refid="xiic__pmbus__polled__example_8c_1a8ad02ab61f37d20ecedd7acfbc5c42ed" refkind="member"><highlight class="preprocessor">#define<sp/>IIC_MUX_ADDRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x75</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IIC_PMBUS_CHANNEL<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="79" refid="xiic__pmbus__polled__example_8c_1a872f2f314f8e720ab639f76056ea1e7c" refkind="member"><highlight class="preprocessor">#define<sp/>PMBUS_SLAVE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0A</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="87" refid="xiic__pmbus__polled__example_8c_1aca2c06eb8e2fb046f1eebf52436db999" refkind="member"><highlight class="preprocessor">#define<sp/>IIC_MUX_ENABLE</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96" refid="xiic__pmbus__polled__example_8c_1ad345bccf457826be9f894cb922452219" refkind="member"><highlight class="preprocessor">#define<sp/>PMBUS_CMD_READ_VOUT<sp/><sp/><sp/><sp/><sp/>0x8B<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor">#define<sp/>PMBUS_CMD_READ_TEMP<sp/><sp/><sp/><sp/><sp/>0x8D<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="105" refid="xiic__pmbus__polled__example_8c_1ac21613290ae2c73274231e4c78ddc09f" refkind="member"><highlight class="preprocessor">#define<sp/>PMBUS_VOUT_EXPONENT<sp/><sp/><sp/><sp/><sp/>(-12)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108" refid="xiic__pmbus__polled__example_8c_1aa79883d73882e4c7ca5840f7aab09b3e" refkind="member"><highlight class="preprocessor">#define<sp/>EXPONENT_SHIFT<sp/><sp/><sp/>11</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="111" refid="xiic__pmbus__polled__example_8c_1afe45c5697f427cf50fd6887cd59b741e" refkind="member"><highlight class="preprocessor">#define<sp/>EXPONENT_MASK<sp/><sp/><sp/><sp/>0x1F</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="114" refid="xiic__pmbus__polled__example_8c_1af02e9117e403fe139271f62523bcb397" refkind="member"><highlight class="preprocessor">#define<sp/>MANTISSA_MASK<sp/><sp/><sp/><sp/>0x7FF</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="117" refid="xiic__pmbus__polled__example_8c_1a18961e00dd694882c467b4e54a6fba67" refkind="member"><highlight class="preprocessor">#define<sp/>EXP_SIGN_BIT<sp/><sp/><sp/><sp/>0x10</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="120" refid="xiic__pmbus__polled__example_8c_1a8deb5e5623a9a97cbef6f05e35a9ec6f" refkind="member"><highlight class="preprocessor">#define<sp/>MANT_SIGN_BIT<sp/><sp/><sp/>0x400</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>Pmbus_Linear11_ToFloat(u16<sp/>Raw);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>Pmbus_Linear16_ToFloat(u16<sp/>Raw,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Vout_Exp);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>IIC_MUX_ENABLE</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>MuxInitPolled(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Pmbus_ReadWord_Polled(u8<sp/>Cmd,<sp/>u8<sp/>*ReadBuf);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xiic__pmbus__polled__example_8c_1a1cbeb6a6d6f83cb76edb5febefb39caf" kindref="member">IicPmbusPolledExample</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>IicInstance;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="138" refid="xiic__pmbus__polled__example_8c_1ab4c3dc0a686a17bcb61c1a454588f62b" refkind="member"><highlight class="normal">u8<sp/>ReadBuffer[2];<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="140"><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="153" refid="xiic__pmbus__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xiic__dynamic__eeprom__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="154"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;IIC<sp/>PMBus<sp/>POLLED<sp/>Example\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xiic__pmbus__polled__example_8c_1a1cbeb6a6d6f83cb76edb5febefb39caf" kindref="member">IicPmbusPolledExample</ref>();</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;IIC<sp/>PMBus<sp/>Example<sp/>Failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>IIC<sp/>PMBus<sp/>Example\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="179" refid="xiic__pmbus__polled__example_8c_1a1cbeb6a6d6f83cb76edb5febefb39caf" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xiic__pmbus__polled__example_8c_1a1cbeb6a6d6f83cb76edb5febefb39caf" kindref="member">IicPmbusPolledExample</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="180"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_iic___config" kindref="compound">XIic_Config</ref><sp/>*ConfigPtr;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>RawData;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>Voltage;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>Temperature;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Centi;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="group___overview_1ga7e448669953bf36074837f174726814d" kindref="member">XIic_LookupConfig</ref>(<ref refid="xiic__pmbus__polled__example_8c_1a028d21c1d779d7c992e41b11d876de26" kindref="member">XIIC_BASEADDRESS</ref>);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ConfigPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" kindref="member">XIic_CfgInitialize</ref>(&amp;IicInstance,<sp/>ConfigPtr,<sp/>ConfigPtr-&gt;<ref refid="struct_x_iic___config_1ae783f76b6713be6d9b77060d77328102" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group___overview_1ga5f4e497710a9c3719f27d40faa74a10f" kindref="member">XIic_Start</ref>(&amp;IicInstance);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>IIC_MUX_ENABLE</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>MuxInitPolled();</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Pmbus_ReadWord_Polled(<ref refid="xiic__pmbus__polled__example_8c_1ad345bccf457826be9f894cb922452219" kindref="member">PMBUS_CMD_READ_VOUT</ref>,<sp/>ReadBuffer);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RawData<sp/>=<sp/>((u16)ReadBuffer[1]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>ReadBuffer[0];</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Voltage<sp/>=<sp/>Pmbus_Linear16_ToFloat(RawData,<ref refid="xiic__pmbus__polled__example_8c_1ac21613290ae2c73274231e4c78ddc09f" kindref="member">PMBUS_VOUT_EXPONENT</ref>);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Centi<sp/>=<sp/>(int)(Voltage<sp/>*<sp/>100<sp/>+<sp/>0.5f);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;VOUT:<sp/>RAW<sp/>=<sp/>0x%04X,<sp/>Voltage<sp/>=<sp/>%d.%02d<sp/>V\r\n&quot;</highlight><highlight class="normal">,RawData,<sp/>Centi<sp/>/<sp/>100,<sp/>Centi<sp/>%<sp/>100);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Pmbus_ReadWord_Polled(PMBUS_CMD_READ_TEMP,<sp/>ReadBuffer);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RawData<sp/>=<sp/>((u16)ReadBuffer[1]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>ReadBuffer[0];</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temperature<sp/>=<sp/>Pmbus_Linear11_ToFloat(RawData);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Temperature<sp/>&gt;=<sp/>0.0f)<sp/>{</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Centi<sp/>=<sp/>(int)(Temperature<sp/>*<sp/>100.0f<sp/>+<sp/>0.5f);</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Centi<sp/>=<sp/>(int)(Temperature<sp/>*<sp/>100.0f<sp/>-<sp/>0.5f);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>TempWhole<sp/>=<sp/>Centi<sp/>/<sp/>100;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>TempFrac<sp/><sp/>=<sp/>Centi<sp/>%<sp/>100;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TempFrac<sp/>&lt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TempFrac<sp/>=<sp/>-TempFrac;</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;TEMP:<sp/>RAW<sp/>=<sp/>0x%04X,<sp/>Temperature<sp/>=<sp/>%d.%02d<sp/>C\r\n&quot;</highlight><highlight class="normal">,RawData,<sp/>TempWhole,<sp/>TempFrac);</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>IIC_MUX_ENABLE</highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="265"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>MuxInitPolled(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="266"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Bytes;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>MuxVal;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MuxVal<sp/>=<sp/>IIC_PMBUS_CHANNEL;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Ensure<sp/>the<sp/>IIC<sp/>bus<sp/>is<sp/>free<sp/>before<sp/>accessing<sp/>the<sp/>IIC<sp/>MUX<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group___overview_1ga90f3806cf4817250596f6f68f2c066a3" kindref="member">XIic_WaitBusFree</ref>(IicInstance.<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref>)<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Bytes<sp/>=<sp/><ref refid="group___overview_1ga907c577b53407fb0bfc98d0ca37ee221" kindref="member">XIic_Send</ref>(IicInstance.<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref>,<sp/><ref refid="xiic__pmbus__polled__example_8c_1a8ad02ab61f37d20ecedd7acfbc5c42ed" kindref="member">IIC_MUX_ADDRESS</ref>,<sp/>&amp;MuxVal,<sp/>1,<sp/><ref refid="xiic__l_8h_1acdf6b790e752c7f789c81ee4721bafe8" kindref="member">XIIC_STOP</ref>);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Bytes<sp/>!=<sp/>1)<sp/>{</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="283"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="285"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="298"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Pmbus_ReadWord_Polled(u8<sp/>Cmd,<sp/>u8<sp/>*ReadBuf)</highlight></codeline>
+<codeline lineno="299"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Bytes;</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group___overview_1ga90f3806cf4817250596f6f68f2c066a3" kindref="member">XIic_WaitBusFree</ref>(IicInstance.<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref>)<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Bytes<sp/>=<sp/><ref refid="group___overview_1ga907c577b53407fb0bfc98d0ca37ee221" kindref="member">XIic_Send</ref>(IicInstance.<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref>,<sp/><ref refid="xiic__pmbus__polled__example_8c_1a872f2f314f8e720ab639f76056ea1e7c" kindref="member">PMBUS_SLAVE_ADDR</ref>,<sp/>&amp;Cmd,<sp/>1,<sp/><ref refid="xiic__l_8h_1ae2c7104aa187b965ff0adbe3d4e1bccb" kindref="member">XIIC_REPEATED_START</ref>);</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Bytes<sp/>!=<sp/>1)<sp/>{</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Bytes<sp/>=<sp/><ref refid="group___overview_1ga7a848238d75ff57837afa5a58f11f326" kindref="member">XIic_Recv</ref>(IicInstance.<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref>,<sp/><ref refid="xiic__pmbus__polled__example_8c_1a872f2f314f8e720ab639f76056ea1e7c" kindref="member">PMBUS_SLAVE_ADDR</ref>,<sp/>ReadBuf,<sp/>2,<sp/><ref refid="xiic__l_8h_1acdf6b790e752c7f789c81ee4721bafe8" kindref="member">XIIC_STOP</ref>);</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Bytes<sp/>!=<sp/>2)<sp/>{</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="324"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="337"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>Pmbus_Linear11_ToFloat(u16<sp/>Raw)</highlight></codeline>
+<codeline lineno="338"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Exponent<sp/><sp/>=<sp/>(Raw<sp/>&gt;&gt;<sp/><ref refid="xiic__pmbus__polled__example_8c_1aa79883d73882e4c7ca5840f7aab09b3e" kindref="member">EXPONENT_SHIFT</ref><sp/>)<sp/>&amp;<sp/><ref refid="xiic__pmbus__polled__example_8c_1afe45c5697f427cf50fd6887cd59b741e" kindref="member">EXPONENT_MASK</ref>;</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Mantissa<sp/><sp/>=<sp/>Raw<sp/>&amp;<sp/><ref refid="xiic__pmbus__polled__example_8c_1af02e9117e403fe139271f62523bcb397" kindref="member">MANTISSA_MASK</ref>;</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Exponent<sp/>&amp;<sp/><ref refid="xiic__pmbus__polled__example_8c_1a18961e00dd694882c467b4e54a6fba67" kindref="member">EXP_SIGN_BIT</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Exponent<sp/>|=<sp/>~<ref refid="xiic__pmbus__polled__example_8c_1afe45c5697f427cf50fd6887cd59b741e" kindref="member">EXPONENT_MASK</ref>;</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mantissa<sp/>&amp;<sp/><ref refid="xiic__pmbus__polled__example_8c_1a8deb5e5623a9a97cbef6f05e35a9ec6f" kindref="member">MANT_SIGN_BIT</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mantissa<sp/>|=<sp/>~MANTISSA_MASK;</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Exponent<sp/>&gt;=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">)Mantissa<sp/>*<sp/>(float)(1<sp/>&lt;&lt;<sp/>Exponent);</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">)Mantissa<sp/>/<sp/>(float)(1<sp/>&lt;&lt;<sp/>(-Exponent));</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="371"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="386"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>Pmbus_Linear16_ToFloat(u16<sp/>Raw,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Vout_Exp)</highlight></codeline>
+<codeline lineno="387"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Vout_Exp<sp/>&amp;<sp/>EXP_SIGN_BIT)<sp/>{</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Vout_Exp<sp/>|=<sp/>~<ref refid="xiic__pmbus__polled__example_8c_1afe45c5697f427cf50fd6887cd59b741e" kindref="member">EXPONENT_MASK</ref>;</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Vout_Exp<sp/>&gt;=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">)Raw<sp/>*<sp/>(float)(1<sp/>&lt;&lt;<sp/>Vout_Exp);</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">)Raw<sp/>/<sp/>(float)(1<sp/>&lt;&lt;<sp/>(-Vout_Exp));</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="404"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/examples/xiic_pmbus_polled_example.c"/>
+  </compounddef>
+</doxygen>

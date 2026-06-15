@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_173d197e527cf64c5a767dccf95f0a96" kind="dir">
+    <compoundname>com</compoundname>
+    <innerfile refid="xhdcp1x__debug_8c">xhdcp1x_debug.c</innerfile>
+    <innerfile refid="xhdcp1x__debug_8h">xhdcp1x_debug.h</innerfile>
+    <innerfile refid="xhdcp1x__example_8c">xhdcp1x_example.c</innerfile>
+    <innerfile refid="xhdcp1x__example_8h">xhdcp1x_example.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/com/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_u_s_b___s_t_d___d_e_v_i_c_e___c_a_p__10_b_y_t_e" kind="struct" prot="public">
+    <compoundname>USB_STD_DEVICE_CAP_10BYTE</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___d_e_v_i_c_e___c_a_p__10_b_y_t_e_1a75d454871a9db4012ad59957bd16935c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_STD_DEVICE_CAP_10BYTE::bLength</definition>
+        <argsstring></argsstring>
+        <name>bLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="285" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___d_e_v_i_c_e___c_a_p__10_b_y_t_e_1a4046a15e8aab86bf2de2be8c643da605" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_STD_DEVICE_CAP_10BYTE::bDescriptorType</definition>
+        <argsstring></argsstring>
+        <name>bDescriptorType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___d_e_v_i_c_e___c_a_p__10_b_y_t_e_1ac62aa84f18905aa1862568e890d70c32" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_STD_DEVICE_CAP_10BYTE::bDevCapabiltyType</definition>
+        <argsstring></argsstring>
+        <name>bDevCapabiltyType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="287" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="287" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___d_e_v_i_c_e___c_a_p__10_b_y_t_e_1ab68f89f6500b022ca465bce5d6fe9f72" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_STD_DEVICE_CAP_10BYTE::bmAttributes</definition>
+        <argsstring></argsstring>
+        <name>bmAttributes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___d_e_v_i_c_e___c_a_p__10_b_y_t_e_1a0658f1a82467869f932665872984e94a" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 USB_STD_DEVICE_CAP_10BYTE::wSpeedsSupported</definition>
+        <argsstring></argsstring>
+        <name>wSpeedsSupported</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___d_e_v_i_c_e___c_a_p__10_b_y_t_e_1a65d28f5862f6c7b0b9af64c5eac3d20d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_STD_DEVICE_CAP_10BYTE::bFunctionalitySupport</definition>
+        <argsstring></argsstring>
+        <name>bFunctionalitySupport</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___d_e_v_i_c_e___c_a_p__10_b_y_t_e_1a6b4f774a419bd99b1ee60a4ae5a61998" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_STD_DEVICE_CAP_10BYTE::bU1DevExitLat</definition>
+        <argsstring></argsstring>
+        <name>bU1DevExitLat</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___d_e_v_i_c_e___c_a_p__10_b_y_t_e_1a20155a370eeea52adff2af8842926c5a" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 USB_STD_DEVICE_CAP_10BYTE::wU2DevExitLat</definition>
+        <argsstring></argsstring>
+        <name>wU2DevExitLat</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="292" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="284" bodyend="293"/>
+    <listofallmembers>
+      <member refid="struct_u_s_b___s_t_d___d_e_v_i_c_e___c_a_p__10_b_y_t_e_1a4046a15e8aab86bf2de2be8c643da605" prot="public" virt="non-virtual"><scope>USB_STD_DEVICE_CAP_10BYTE</scope><name>bDescriptorType</name></member>
+      <member refid="struct_u_s_b___s_t_d___d_e_v_i_c_e___c_a_p__10_b_y_t_e_1ac62aa84f18905aa1862568e890d70c32" prot="public" virt="non-virtual"><scope>USB_STD_DEVICE_CAP_10BYTE</scope><name>bDevCapabiltyType</name></member>
+      <member refid="struct_u_s_b___s_t_d___d_e_v_i_c_e___c_a_p__10_b_y_t_e_1a65d28f5862f6c7b0b9af64c5eac3d20d" prot="public" virt="non-virtual"><scope>USB_STD_DEVICE_CAP_10BYTE</scope><name>bFunctionalitySupport</name></member>
+      <member refid="struct_u_s_b___s_t_d___d_e_v_i_c_e___c_a_p__10_b_y_t_e_1a75d454871a9db4012ad59957bd16935c" prot="public" virt="non-virtual"><scope>USB_STD_DEVICE_CAP_10BYTE</scope><name>bLength</name></member>
+      <member refid="struct_u_s_b___s_t_d___d_e_v_i_c_e___c_a_p__10_b_y_t_e_1ab68f89f6500b022ca465bce5d6fe9f72" prot="public" virt="non-virtual"><scope>USB_STD_DEVICE_CAP_10BYTE</scope><name>bmAttributes</name></member>
+      <member refid="struct_u_s_b___s_t_d___d_e_v_i_c_e___c_a_p__10_b_y_t_e_1a6b4f774a419bd99b1ee60a4ae5a61998" prot="public" virt="non-virtual"><scope>USB_STD_DEVICE_CAP_10BYTE</scope><name>bU1DevExitLat</name></member>
+      <member refid="struct_u_s_b___s_t_d___d_e_v_i_c_e___c_a_p__10_b_y_t_e_1a0658f1a82467869f932665872984e94a" prot="public" virt="non-virtual"><scope>USB_STD_DEVICE_CAP_10BYTE</scope><name>wSpeedsSupported</name></member>
+      <member refid="struct_u_s_b___s_t_d___d_e_v_i_c_e___c_a_p__10_b_y_t_e_1a20155a370eeea52adff2af8842926c5a" prot="public" virt="non-virtual"><scope>USB_STD_DEVICE_CAP_10BYTE</scope><name>wU2DevExitLat</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

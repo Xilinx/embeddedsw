@@ -1,0 +1,2251 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__llfifo" kind="group">
+    <compoundname>llfifo</compoundname>
+    <title>Overview</title>
+    <innerclass refid="struct_x_ll_fifo" prot="public">XLlFifo</innerclass>
+    <innerclass refid="struct_x_ll_fifo___config" prot="public">XLlFifo_Config</innerclass>
+    <innerclass refid="union_x_strm___aligned_buffer_type" prot="public">XStrm_AlignedBufferType</innerclass>
+    <innerclass refid="struct_x_strm___rx_fifo_streamer" prot="public">XStrm_RxFifoStreamer</innerclass>
+    <innerclass refid="struct_x_strm___tx_fifo_streamer" prot="public">XStrm_TxFifoStreamer</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Registers</header>
+      <memberdef kind="define" id="group__llfifo_1ga90a5fafb06870a7ff8043d3a34bf54cc" prot="public" static="no">
+        <name>XLLF_ISR_OFFSET</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+<para>Interrupt Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gac34e090e52a9ef5cdf4337cae6ca717c" prot="public" static="no">
+        <name>XLLF_IER_OFFSET</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Interrupt Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gaa55be9e9452783cde92cd70a33e31e56" prot="public" static="no">
+        <name>XLLF_TDFR_OFFSET</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Transmit Reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gab77ae26c2fe9b0ac15ebdbf0c6c30960" prot="public" static="no">
+        <name>XLLF_TDFV_OFFSET</name>
+        <initializer>0x0000000c</initializer>
+        <briefdescription>
+<para>Transmit Vacancy. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1gac02405b23499d780e7bc1dfe371281a6" compoundref="xllfifo_8c" startline="197" endline="203">XLlFifo_iTxVacancy</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gaeca8c86badc0df67426442f9bb6a5195" prot="public" static="no">
+        <name>XLLF_TDFD_OFFSET</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>Transmit Data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga29654d755dce84b861022179c99ca7a3" compoundref="xllfifo_8c" startline="415" endline="424">XLlFifo_TxPutWord</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga7a72ef43b9e2ca7e28a9e939012f1044" prot="public" static="no">
+        <name>XLLF_AXI4_TDFD_OFFSET</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+<para>Axi4 Transmit Data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga29654d755dce84b861022179c99ca7a3" compoundref="xllfifo_8c" startline="415" endline="424">XLlFifo_TxPutWord</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gac14e6d7e1116f9a43c0adfbe93422fa7" prot="public" static="no">
+        <name>XLLF_TLF_OFFSET</name>
+        <initializer>0x00000014</initializer>
+        <briefdescription>
+<para>Transmit Length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1gaa49ecc1529434fd932d8a65d63a1a04d" compoundref="xllfifo_8c" startline="223" endline="229">XLlFifo_iTxSetLen</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gae1533e466df30729597a1b44ed1059ed" prot="public" static="no">
+        <name>XLLF_RDFR_OFFSET</name>
+        <initializer>0x00000018</initializer>
+        <briefdescription>
+<para>Receive Reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga9c4bbf51bc4b0410b61ef3933776a63c" prot="public" static="no">
+        <name>XLLF_RDFO_OFFSET</name>
+        <initializer>0x0000001c</initializer>
+        <briefdescription>
+<para>Receive Occupancy. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1gae2da9fa947a6e50edd41375ddc4c9964" compoundref="xllfifo_8c" startline="99" endline="105">XLlFifo_iRxOccupancy</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga93e049a21e43548bf03161b4a4394440" prot="public" static="no">
+        <name>XLLF_RDFD_OFFSET</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>Receive Data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1gaed3ae31c8c24f46139fbd709027329ec" compoundref="xllfifo_8c" startline="389" endline="397">XLlFifo_RxGetWord</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga256c51f97ca57cc89c9b51449f3601e1" prot="public" static="no">
+        <name>XLLF_AXI4_RDFD_OFFSET</name>
+        <initializer>0x00001000</initializer>
+        <briefdescription>
+<para>Axi4 Receive Data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1gaed3ae31c8c24f46139fbd709027329ec" compoundref="xllfifo_8c" startline="389" endline="397">XLlFifo_RxGetWord</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga267285e6015808291ef6671038cba888" prot="public" static="no">
+        <name>XLLF_RLF_OFFSET</name>
+        <initializer>0x00000024</initializer>
+        <briefdescription>
+<para>Receive Length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1gaad292ddf2a2c9dde261b93da802c8080" compoundref="xllfifo_8c" startline="122" endline="128">XLlFifo_iRxGetLen</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga5331d2736e9b1b516b4262d8e3f11690" prot="public" static="no">
+        <name>XLLF_LLR_OFFSET</name>
+        <initializer>0x00000028</initializer>
+        <briefdescription>
+<para>Local Link Reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga5c691ac1237fb77b8e356a7d2b0b8b54" prot="public" static="no">
+        <name>XLLF_TDR_OFFSET</name>
+        <initializer>0x0000002C</initializer>
+        <briefdescription>
+<para>Transmit Destination. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gaf0240fc89cce2e27e1943d2e23a5af25" prot="public" static="no">
+        <name>XLLF_RDR_OFFSET</name>
+        <initializer>0x00000030</initializer>
+        <briefdescription>
+<para>Receive Destination. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt bits</header>
+      <description><para>These bits are associated with the XLLF_IER_OFFSET and XLLF_ISR_OFFSET registers. </para></description>
+      <memberdef kind="define" id="group__llfifo_1gab34174dc4dc0d42aa610f51bcf2cb492" prot="public" static="no">
+        <name>XLLF_INT_RPURE_MASK</name>
+        <initializer>0x80000000</initializer>
+        <briefdescription>
+<para>Receive under-read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga98ccef60e66cffea379deead95c3084e" prot="public" static="no">
+        <name>XLLF_INT_RPORE_MASK</name>
+        <initializer>0x40000000</initializer>
+        <briefdescription>
+<para>Receive over-read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga2c30251a44596328ec255b652e20f15a" prot="public" static="no">
+        <name>XLLF_INT_RPUE_MASK</name>
+        <initializer>0x20000000</initializer>
+        <briefdescription>
+<para>Receive underrun (empty) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga44becb1eedec6a7d02293d1f088d30c7" prot="public" static="no">
+        <name>XLLF_INT_TPOE_MASK</name>
+        <initializer>0x10000000</initializer>
+        <briefdescription>
+<para>Transmit overrun. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gabca5de4c7fc02bcad56912a2919319ae" prot="public" static="no">
+        <name>XLLF_INT_TC_MASK</name>
+        <initializer>0x08000000</initializer>
+        <briefdescription>
+<para>Transmit complete. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga838f0b2d56bffea01160c141b0c1de67" prot="public" static="no">
+        <name>XLLF_INT_RC_MASK</name>
+        <initializer>0x04000000</initializer>
+        <briefdescription>
+<para>Receive complete. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga77c2faac5f93834b0a6f7b9da529c5ad" prot="public" static="no">
+        <name>XLLF_INT_TSE_MASK</name>
+        <initializer>0x02000000</initializer>
+        <briefdescription>
+<para>Transmit length mismatch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga08cda800d1468726a65844d40100b9cb" prot="public" static="no">
+        <name>XLLF_INT_TRC_MASK</name>
+        <initializer>0x01000000</initializer>
+        <briefdescription>
+<para>Transmit reset complete. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gaaa9d308d7b3224c47b619467c2384754" prot="public" static="no">
+        <name>XLLF_INT_RRC_MASK</name>
+        <initializer>0x00800000</initializer>
+        <briefdescription>
+<para>Receive reset complete. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga8b6dae752508cc137eb13b88561f88a5" prot="public" static="no">
+        <name>XLLF_INT_TFPF_MASK</name>
+        <initializer>0x00400000</initializer>
+        <briefdescription>
+<para>Tx FIFO Programmable Full, AXI FIFO MM2S Only. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga7e06f24d66d729c445ebb72dde652aad" prot="public" static="no">
+        <name>XLLF_INT_TFPE_MASK</name>
+        <initializer>0x00200000</initializer>
+        <briefdescription>
+<para>Tx FIFO Programmable Empty AXI FIFO MM2S Only. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gacb37ede3ec3b10522a8bf3c597747331" prot="public" static="no">
+        <name>XLLF_INT_RFPF_MASK</name>
+        <initializer>0x00100000</initializer>
+        <briefdescription>
+<para>Rx FIFO Programmable Full AXI FIFO MM2S Only. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gabeef1be2532662b2b6aa865057e30b48" prot="public" static="no">
+        <name>XLLF_INT_RFPE_MASK</name>
+        <initializer>0x00080000</initializer>
+        <briefdescription>
+<para>Rx FIFO Programmable Empty AXI FIFO MM2S Only. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gae3bfcad24428233d9e2a8a861e2d9eed" prot="public" static="no">
+        <name>XLLF_INT_ALL_MASK</name>
+        <initializer>0xfff80000</initializer>
+        <briefdescription>
+<para>All the ints. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="110" bodyend="-1"/>
+        <referencedby refid="xllfifo__interrupt__example_8c_1ad6e0b8d034840adde059c0f167cc04ef" compoundref="xllfifo__interrupt__example_8c" startline="227" endline="331">XLlFifoInterruptExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga97d0964de7c5721e6856a9d7ccb22ebd" prot="public" static="no">
+        <name>XLLF_INT_ERROR_MASK</name>
+        <initializer>0xf2000000</initializer>
+        <briefdescription>
+<para>Error status ints. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga2e6b02f445993c00ec77914e3696fd9a" prot="public" static="no">
+        <name>XLLF_INT_RXERROR_MASK</name>
+        <initializer>0xe0000000</initializer>
+        <briefdescription>
+<para>Receive Error status ints. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga417b7cfe9d44e8154311f8d7c5cef577" prot="public" static="no">
+        <name>XLLF_INT_TXERROR_MASK</name>
+        <initializer>0x12000000</initializer>
+        <briefdescription>
+<para>Transmit Error status ints. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Reset register values</header>
+      <description><para>These bits are associated with the XLLF_TDFR_OFFSET and XLLF_RDFR_OFFSET reset registers. </para></description>
+      <memberdef kind="define" id="group__llfifo_1ga11c4da53ae9b166832186f9a817fba6d" prot="public" static="no">
+        <name>XLLF_RDFR_RESET_MASK</name>
+        <initializer>0x000000a5</initializer>
+        <briefdescription>
+<para>receive reset value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="121" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gaf7b4bcf41280c1fb01684b6706603420" prot="public" static="no">
+        <name>XLLF_TDFR_RESET_MASK</name>
+        <initializer>0x000000a5</initializer>
+        <briefdescription>
+<para>Transmit reset value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gad8b59856939038963e68acf4e2e2c47c" prot="public" static="no">
+        <name>XLLF_LLR_RESET_MASK</name>
+        <initializer>0x000000a5</initializer>
+        <briefdescription>
+<para>Local Link reset value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__llfifo_1ga89057d90d6eacdbe8adc766f53f60ed7" prot="public" static="no">
+        <type>struct <ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref></type>
+        <definition>typedef struct XLlFifo  XLlFifo</definition>
+        <argsstring></argsstring>
+        <name>XLlFifo</name>
+        <briefdescription>
+<para>This typedef defines a run-time instance of an <ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="219" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__llfifo_1ga169cf0ae9f9a362801cc280613a5e2df" prot="public" static="no">
+        <type>struct XLlFifo_Config</type>
+        <definition>typedef struct XLlFifo_Config XLlFifo_Config</definition>
+        <argsstring></argsstring>
+        <name>XLlFifo_Config</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="235" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__llfifo_1ga2b6ed316a48db32e9569b2ff8b992c4d" prot="public" static="no">
+        <type>int(*</type>
+        <definition>typedef int(* XStrm_XferFnType)(void *FifoInstance, void *BufPtr, unsigned WordCount)</definition>
+        <argsstring>)(void *FifoInstance, void *BufPtr, unsigned WordCount)</argsstring>
+        <name>XStrm_XferFnType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__llfifo_1ga967adc3a060d1799795857d4e1ab0397" prot="public" static="no">
+        <type>u32(*</type>
+        <definition>typedef u32(* XStrm_GetLenFnType)(void *FifoInstance)</definition>
+        <argsstring>)(void *FifoInstance)</argsstring>
+        <name>XStrm_GetLenFnType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__llfifo_1ga353349b163baa3064b69277a3dbcb96c" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XStrm_SetLenFnType)(void *FifoInstance, u32 ByteCount)</definition>
+        <argsstring>)(void *FifoInstance, u32 ByteCount)</argsstring>
+        <name>XStrm_SetLenFnType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__llfifo_1ga63293ed02cfb43a6207cd1eb888a8a21" prot="public" static="no">
+        <type>u32(*</type>
+        <definition>typedef u32(* XStrm_GetOccupancyFnType)(void *FifoInstance)</definition>
+        <argsstring>)(void *FifoInstance)</argsstring>
+        <name>XStrm_GetOccupancyFnType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__llfifo_1ga5f92d41a20196392c2f4f61ec8757e85" prot="public" static="no">
+        <type>u32(*</type>
+        <definition>typedef u32(* XStrm_GetVacancyFnType)(void *FifoInstance)</definition>
+        <argsstring>)(void *FifoInstance)</argsstring>
+        <name>XStrm_GetVacancyFnType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__llfifo_1ga4f27ac6f38ad77d7b92014a52eb5c16b" prot="public" static="no">
+        <type>struct <ref refid="struct_x_strm___rx_fifo_streamer" kindref="compound">XStrm_RxFifoStreamer</ref></type>
+        <definition>typedef struct XStrm_RxFifoStreamer  XStrm_RxFifoStreamer</definition>
+        <argsstring></argsstring>
+        <name>XStrm_RxFifoStreamer</name>
+        <briefdescription>
+<para>This typedef defines a run-time instance of a receive byte-streamer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" line="162" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__llfifo_1ga3d1351f115d97cbce95da390d0ea4033" prot="public" static="no">
+        <type>struct <ref refid="struct_x_strm___tx_fifo_streamer" kindref="compound">XStrm_TxFifoStreamer</ref></type>
+        <definition>typedef struct XStrm_TxFifoStreamer  XStrm_TxFifoStreamer</definition>
+        <argsstring></argsstring>
+        <name>XStrm_TxFifoStreamer</name>
+        <briefdescription>
+<para>This typedef defines a run-time instance of a transmit byte-streamer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" line="190" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__llfifo_1ga8d8699cda15349615b0a3073547ff70b" prot="public" static="no" mutable="no">
+        <type>XLlFifo_Config</type>
+        <definition>XLlFifo_Config XLlFifo_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XLlFifo_ConfigTable</name>
+        <initializer>=
+{
+	{
+		XPAR_AXI_FIFO_MM_S_1_DEVICE_ID,
+		XPAR_AXI_FIFO_MM_S_1_BASEADDR,
+		XPAR_AXI_FIFO_MM_S_1_AXI4_BASEADDR,
+		XPAR_AXI_FIFO_MM_S_1_DATA_INTERFACE_TYPE
+	}
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_g.c" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_g.c" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__llfifo_1gae2da9fa947a6e50edd41375ddc4c9964" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XLlFifo_iRxOccupancy</definition>
+        <argsstring>(XLlFifo *InstancePtr)</argsstring>
+        <name>XLlFifo_iRxOccupancy</name>
+        <param>
+          <type><ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XLlFifo_iRxOccupancy returns the number of 32-bit words available (occupancy) to be read from the receive channel of the FIFO, specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XLlFifo_iRxOccupancy returns the occupancy count in 32-bit words for the specified FIFO. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" bodystart="99" bodyend="105"/>
+        <references refid="struct_x_ll_fifo_1a458030a162537427b617cbb204a701fd" compoundref="xllfifo_8h" startline="193">XLlFifo::BaseAddress</references>
+        <references refid="group__llfifo_1ga9c4bbf51bc4b0410b61ef3933776a63c" compoundref="xllfifo__hw_8h" startline="68">XLLF_RDFO_OFFSET</references>
+        <references refid="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" compoundref="xllfifo__hw_8h" startline="182">XLlFifo_ReadReg</references>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__llfifo_1gaad292ddf2a2c9dde261b93da802c8080" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XLlFifo_iRxGetLen</definition>
+        <argsstring>(XLlFifo *InstancePtr)</argsstring>
+        <name>XLlFifo_iRxGetLen</name>
+        <param>
+          <type><ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XLlFifo_iRxGetLen notifies the hardware that the program is ready to receive the next frame from the receive channel of the FIFO specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>Note that the program must first call XLlFifo_iRxGetLen before pulling data out of the receive channel of the FIFO with XLlFifo_Read.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XLlFifo_iRxGetLen returns the number of bytes available in the next frame. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" bodystart="122" bodyend="128"/>
+        <references refid="struct_x_ll_fifo_1a458030a162537427b617cbb204a701fd" compoundref="xllfifo_8h" startline="193">XLlFifo::BaseAddress</references>
+        <references refid="group__llfifo_1ga267285e6015808291ef6671038cba888" compoundref="xllfifo__hw_8h" startline="71">XLLF_RLF_OFFSET</references>
+        <references refid="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" compoundref="xllfifo__hw_8h" startline="182">XLlFifo_ReadReg</references>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__llfifo_1ga18bc620d388cbca83d63cc1c6ef33225" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLlFifo_iRead_Aligned</definition>
+        <argsstring>(XLlFifo *InstancePtr, void *BufPtr, unsigned WordCount)</argsstring>
+        <name>XLlFifo_iRead_Aligned</name>
+        <param>
+          <type><ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>BufPtr</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>WordCount</declname>
+        </param>
+        <briefdescription>
+<para>XLlFifo_iRead_Aligned reads, <emphasis>WordCount</emphasis>, words from the FIFO referenced by <emphasis>InstancePtr</emphasis> to the block of memory, referenced by <emphasis>BufPtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>XLlFifo_iRead_Aligned assumes that <emphasis>BufPtr</emphasis> is already aligned according to the following hardware limitations: ppc - aligned on 32 bit boundaries to avoid performance penalties from unaligned exception handling. microblaze - aligned on 32 bit boundaries as microblaze does not handle unaligned transfers.</para><para>Care must be taken to ensure that the number of words read with one or more calls to <ref refid="group__llfifo_1gaadc3685592b060c0d864850e86be5c03" kindref="member">XLlFifo_Read()</ref> does not exceed the number of bytes (rounded up to the nearest whole 32 bit word) available given from the last call to <ref refid="group__llfifo_1ga53af32ae6901462cc8d6fb9adc04655e" kindref="member">XLlFifo_RxGetLen()</ref>.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the memory address to place the data read.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WordCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the number of 32 bit words to read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XLlFifo_iRead_Aligned always returns XST_SUCCESS. Error handling is otherwise handled through hardware exceptions and interrupts. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" bodystart="158" bodyend="183"/>
+        <references refid="group__llfifo_1gaed3ae31c8c24f46139fbd709027329ec" compoundref="xllfifo_8c" startline="389" endline="397">XLlFifo_RxGetWord</references>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__llfifo_1gac02405b23499d780e7bc1dfe371281a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XLlFifo_iTxVacancy</definition>
+        <argsstring>(XLlFifo *InstancePtr)</argsstring>
+        <name>XLlFifo_iTxVacancy</name>
+        <param>
+          <type><ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XLlFifo_iTxVacancy returns the number of unused 32 bit words available (vacancy) in the send channel of the FIFO, specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XLlFifo_iTxVacancy returns the vacancy count in 32-bit words for the specified FIFO. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" bodystart="197" bodyend="203"/>
+        <references refid="struct_x_ll_fifo_1a458030a162537427b617cbb204a701fd" compoundref="xllfifo_8h" startline="193">XLlFifo::BaseAddress</references>
+        <references refid="group__llfifo_1gab77ae26c2fe9b0ac15ebdbf0c6c30960" compoundref="xllfifo__hw_8h" startline="62">XLLF_TDFV_OFFSET</references>
+        <references refid="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" compoundref="xllfifo__hw_8h" startline="182">XLlFifo_ReadReg</references>
+        <referencedby refid="xllfifo__interrupt__example_8c_1a38cd37c9e86c6d514d731db7bc520a0b" compoundref="xllfifo__interrupt__example_8c" startline="351" endline="378">TxSend</referencedby>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__llfifo_1gaa49ecc1529434fd932d8a65d63a1a04d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XLlFifo_iTxSetLen</definition>
+        <argsstring>(XLlFifo *InstancePtr, u32 Bytes)</argsstring>
+        <name>XLlFifo_iTxSetLen</name>
+        <param>
+          <type><ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Bytes</declname>
+        </param>
+        <briefdescription>
+<para>XLlFifo_iTxSetLen begins a hardware transfer of data out of the transmit channel of the FIFO, specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><emphasis>Bytes</emphasis> specifies the number of bytes in the frame to transmit.</para><para>Note that <emphasis>Bytes</emphasis> (rounded up to the nearest whole 32 bit word) must be same number of words just written using one or more calls to <ref refid="group__llfifo_1ga9be5556d593980195e43a31ffb37e0fe" kindref="member">XLlFifo_iWrite_Aligned()</ref></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the number of bytes to transmit.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" bodystart="223" bodyend="229"/>
+        <references refid="struct_x_ll_fifo_1a458030a162537427b617cbb204a701fd" compoundref="xllfifo_8h" startline="193">XLlFifo::BaseAddress</references>
+        <references refid="group__llfifo_1gac14e6d7e1116f9a43c0adfbe93422fa7" compoundref="xllfifo__hw_8h" startline="65">XLLF_TLF_OFFSET</references>
+        <references refid="group__llfifo_1gacd283ce73981f7f9eab94f8bb421bc78" compoundref="xllfifo__hw_8h" startline="214">XLlFifo_WriteReg</references>
+        <referencedby refid="xllfifo__interrupt__example_8c_1a38cd37c9e86c6d514d731db7bc520a0b" compoundref="xllfifo__interrupt__example_8c" startline="351" endline="378">TxSend</referencedby>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__llfifo_1ga9be5556d593980195e43a31ffb37e0fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLlFifo_iWrite_Aligned</definition>
+        <argsstring>(XLlFifo *InstancePtr, void *BufPtr, unsigned WordCount)</argsstring>
+        <name>XLlFifo_iWrite_Aligned</name>
+        <param>
+          <type><ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>BufPtr</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>WordCount</declname>
+        </param>
+        <briefdescription>
+<para>XLlFifo_iWrite_Aligned writes, <emphasis>WordCount</emphasis>, words to the FIFO referenced by <emphasis>InstancePtr</emphasis> from the block of memory, referenced by <emphasis>BufPtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>XLlFifo_iWrite_Aligned assumes that <emphasis>BufPtr</emphasis> is already aligned according to the following hardware limitations: ppc - aligned on 32 bit boundaries to avoid performance penalties from unaligned exception handling. microblaze - aligned on 32 bit boundaries as microblaze does not handle unaligned transfers.</para><para>Care must be taken to ensure that the number of words written with one or more calls to <ref refid="group__llfifo_1ga9be5556d593980195e43a31ffb37e0fe" kindref="member">XLlFifo_iWrite_Aligned()</ref> matches the number of bytes (rounded up to the nearest whole 32 bit word) given in the next call to <ref refid="group__llfifo_1gaa49ecc1529434fd932d8a65d63a1a04d" kindref="member">XLlFifo_iTxSetLen()</ref>.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the memory address to place the data read.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WordCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the number of 32 bit words to read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XLlFifo_iWrite_Aligned always returns XST_SUCCESS. Error handling is otherwise handled through hardware exceptions and interrupts.</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+C Signature: int XLlFifo_iWrite_Aligned(<ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> *InstancePtr, void *BufPtr, unsigned WordCount); </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" bodystart="264" bodyend="290"/>
+        <references refid="group__llfifo_1ga29654d755dce84b861022179c99ca7a3" compoundref="xllfifo_8c" startline="415" endline="424">XLlFifo_TxPutWord</references>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__llfifo_1ga874c22807476dc0ffec670c38f452443" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLlFifo_CfgInitialize</definition>
+        <argsstring>(XLlFifo *InstancePtr, XLlFifo_Config *Config, UINTPTR EffectiveAddress)</argsstring>
+        <name>XLlFifo_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XLlFifo_Config *</type>
+          <declname>Config</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddress</declname>
+        </param>
+        <briefdescription>
+<para>XLlFifo_CfgInitialize initializes an XPS_ll_Fifo device along with the <emphasis>InstancePtr</emphasis> that references it. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Axi Streaming FIFO instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the structure holding the hardware configuration for the Axi Streaming FIFO core to initialize. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, use Config-&gt;BaseAddress for this parameters, passing the physical address instead.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" line="314" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" bodystart="314" bodyend="368"/>
+        <references refid="struct_x_ll_fifo_1a593dff237ef5044964cbf10333c04aa3" compoundref="xllfifo_8h" startline="201">XLlFifo::Axi4BaseAddress</references>
+        <references refid="struct_x_ll_fifo_1a458030a162537427b617cbb204a701fd" compoundref="xllfifo_8h" startline="193">XLlFifo::BaseAddress</references>
+        <references refid="struct_x_ll_fifo_1a9e2342496ea8183c012567d7c89851b3" compoundref="xllfifo_8h" startline="205">XLlFifo::Datainterface</references>
+        <references refid="struct_x_ll_fifo_1a69af28eeb0077b9960d636cc57a646ae" compoundref="xllfifo_8h" startline="215">XLlFifo::IntId</references>
+        <references refid="struct_x_ll_fifo_1a1b4a31737951ce9c8cc86d11d03616f4" compoundref="xllfifo_8h" startline="216">XLlFifo::IntrParent</references>
+        <references refid="struct_x_ll_fifo_1abe388bb422699248b26a9d76652474b1" compoundref="xllfifo_8h" startline="197">XLlFifo::IsReady</references>
+        <references refid="struct_x_ll_fifo_1a456fbf87ce23b1334c67b386722b1434" compoundref="xllfifo_8h" startline="208">XLlFifo::RxStreamer</references>
+        <references refid="struct_x_ll_fifo_1a13363fb4d5d45a5725b7427b36c44817" compoundref="xllfifo_8h" startline="211">XLlFifo::TxStreamer</references>
+        <references refid="group__llfifo_1ga5331d2736e9b1b516b4262d8e3f11690" compoundref="xllfifo__hw_8h" startline="72">XLLF_LLR_OFFSET</references>
+        <references refid="group__llfifo_1ga11c4da53ae9b166832186f9a817fba6d" compoundref="xllfifo__hw_8h" startline="121">XLLF_RDFR_RESET_MASK</references>
+        <references refid="group__llfifo_1ga18bc620d388cbca83d63cc1c6ef33225" compoundref="xllfifo_8c" startline="158" endline="183">XLlFifo_iRead_Aligned</references>
+        <references refid="group__llfifo_1gaad292ddf2a2c9dde261b93da802c8080" compoundref="xllfifo_8c" startline="122" endline="128">XLlFifo_iRxGetLen</references>
+        <references refid="group__llfifo_1gae2da9fa947a6e50edd41375ddc4c9964" compoundref="xllfifo_8c" startline="99" endline="105">XLlFifo_iRxOccupancy</references>
+        <references refid="group__llfifo_1gaa49ecc1529434fd932d8a65d63a1a04d" compoundref="xllfifo_8c" startline="223" endline="229">XLlFifo_iTxSetLen</references>
+        <references refid="group__llfifo_1gac02405b23499d780e7bc1dfe371281a6" compoundref="xllfifo_8c" startline="197" endline="203">XLlFifo_iTxVacancy</references>
+        <references refid="group__llfifo_1ga9be5556d593980195e43a31ffb37e0fe" compoundref="xllfifo_8c" startline="264" endline="290">XLlFifo_iWrite_Aligned</references>
+        <references refid="group__llfifo_1gaf3739a78b92f17cead0d831757b3a134" compoundref="xllfifo_8h" startline="416">XLlFifo_RxReset</references>
+        <references refid="group__llfifo_1ga922419fdcd342fa709fb07ec1a9e5577" compoundref="xllfifo_8h" startline="536">XLlFifo_TxReset</references>
+        <references refid="group__llfifo_1gacd283ce73981f7f9eab94f8bb421bc78" compoundref="xllfifo__hw_8h" startline="214">XLlFifo_WriteReg</references>
+        <references refid="group__llfifo_1ga52ec29cc3b758b6a2b857d883ac69d4a" compoundref="xstreamer_8c" startline="170" endline="184">XStrm_RxInitialize</references>
+        <references refid="group__llfifo_1ga8a67c77f811a505b658e06642eb9c964" compoundref="xstreamer_8c" startline="214" endline="228">XStrm_TxInitialize</references>
+        <referencedby refid="xllfifo__interrupt__example_8c_1ad6e0b8d034840adde059c0f167cc04ef" compoundref="xllfifo__interrupt__example_8c" startline="227" endline="331">XLlFifoInterruptExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__llfifo_1gaed3ae31c8c24f46139fbd709027329ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XLlFifo_RxGetWord</definition>
+        <argsstring>(XLlFifo *InstancePtr)</argsstring>
+        <name>XLlFifo_RxGetWord</name>
+        <param>
+          <type><ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XLlFifo_RxGetWord reads one 32 bit word from the FIFO specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>XLlFifo_RxGetLen or XLlFifo_iRxGetLen must be called before calling XLlFifo_RxGetWord. Otherwise, the hardware will raise an <emphasis>Over Read Exception</emphasis>.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XLlFifo_RxGetWord returns the 32 bit word read from the FIFO.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__llfifo_1gaed3ae31c8c24f46139fbd709027329ec" kindref="member">XLlFifo_RxGetWord(XLlFifo *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" line="389" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" bodystart="389" bodyend="397"/>
+        <references refid="struct_x_ll_fifo_1a9e2342496ea8183c012567d7c89851b3" compoundref="xllfifo_8h" startline="205">XLlFifo::Datainterface</references>
+        <references refid="group__llfifo_1ga256c51f97ca57cc89c9b51449f3601e1" compoundref="xllfifo__hw_8h" startline="70">XLLF_AXI4_RDFD_OFFSET</references>
+        <references refid="group__llfifo_1ga93e049a21e43548bf03161b4a4394440" compoundref="xllfifo__hw_8h" startline="69">XLLF_RDFD_OFFSET</references>
+        <references refid="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" compoundref="xllfifo__hw_8h" startline="182">XLlFifo_ReadReg</references>
+        <referencedby refid="group__llfifo_1ga18bc620d388cbca83d63cc1c6ef33225" compoundref="xllfifo_8c" startline="158" endline="183">XLlFifo_iRead_Aligned</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__llfifo_1ga29654d755dce84b861022179c99ca7a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XLlFifo_TxPutWord</definition>
+        <argsstring>(XLlFifo *InstancePtr, u32 Word)</argsstring>
+        <name>XLlFifo_TxPutWord</name>
+        <param>
+          <type><ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Word</declname>
+        </param>
+        <briefdescription>
+<para>XLlFifo_TxPutWord writes the 32 bit word, <emphasis>Word</emphasis> to the FIFO specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Word</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the data word to be written to FIFO.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__llfifo_1ga29654d755dce84b861022179c99ca7a3" kindref="member">XLlFifo_TxPutWord(XLlFifo *InstancePtr, u32 Word)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" bodystart="415" bodyend="424"/>
+        <references refid="struct_x_ll_fifo_1a9e2342496ea8183c012567d7c89851b3" compoundref="xllfifo_8h" startline="205">XLlFifo::Datainterface</references>
+        <references refid="group__llfifo_1ga7a72ef43b9e2ca7e28a9e939012f1044" compoundref="xllfifo__hw_8h" startline="64">XLLF_AXI4_TDFD_OFFSET</references>
+        <references refid="group__llfifo_1gaeca8c86badc0df67426442f9bb6a5195" compoundref="xllfifo__hw_8h" startline="63">XLLF_TDFD_OFFSET</references>
+        <references refid="group__llfifo_1gacd283ce73981f7f9eab94f8bb421bc78" compoundref="xllfifo__hw_8h" startline="214">XLlFifo_WriteReg</references>
+        <referencedby refid="xllfifo__interrupt__example_8c_1a38cd37c9e86c6d514d731db7bc520a0b" compoundref="xllfifo__interrupt__example_8c" startline="351" endline="378">TxSend</referencedby>
+        <referencedby refid="group__llfifo_1ga9be5556d593980195e43a31ffb37e0fe" compoundref="xllfifo_8c" startline="264" endline="290">XLlFifo_iWrite_Aligned</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XLlFifo_Initialize</definition>
+        <argsstring>(XLlFifo *InstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>XLlFifo_Initialize</name>
+        <param>
+          <type><ref refid="struct_x_ll_fifo" kindref="compound">XLlFifo</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>XLlFifo_Initialize initializes an XPS_ll_Fifo device along with the <emphasis>InstancePtr</emphasis> that references it. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the memory instance to be associated with the FIFO device upon initialization.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the processor address used to access the base address of the Fifo device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" line="441" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" bodystart="441" bodyend="479"/>
+        <references refid="struct_x_ll_fifo_1a593dff237ef5044964cbf10333c04aa3" compoundref="xllfifo_8h" startline="201">XLlFifo::Axi4BaseAddress</references>
+        <references refid="struct_x_ll_fifo_1a458030a162537427b617cbb204a701fd" compoundref="xllfifo_8h" startline="193">XLlFifo::BaseAddress</references>
+        <references refid="struct_x_ll_fifo_1abe388bb422699248b26a9d76652474b1" compoundref="xllfifo_8h" startline="197">XLlFifo::IsReady</references>
+        <references refid="struct_x_ll_fifo_1a456fbf87ce23b1334c67b386722b1434" compoundref="xllfifo_8h" startline="208">XLlFifo::RxStreamer</references>
+        <references refid="struct_x_ll_fifo_1a13363fb4d5d45a5725b7427b36c44817" compoundref="xllfifo_8h" startline="211">XLlFifo::TxStreamer</references>
+        <references refid="group__llfifo_1ga5331d2736e9b1b516b4262d8e3f11690" compoundref="xllfifo__hw_8h" startline="72">XLLF_LLR_OFFSET</references>
+        <references refid="group__llfifo_1ga11c4da53ae9b166832186f9a817fba6d" compoundref="xllfifo__hw_8h" startline="121">XLLF_RDFR_RESET_MASK</references>
+        <references refid="group__llfifo_1ga18bc620d388cbca83d63cc1c6ef33225" compoundref="xllfifo_8c" startline="158" endline="183">XLlFifo_iRead_Aligned</references>
+        <references refid="group__llfifo_1gaad292ddf2a2c9dde261b93da802c8080" compoundref="xllfifo_8c" startline="122" endline="128">XLlFifo_iRxGetLen</references>
+        <references refid="group__llfifo_1gae2da9fa947a6e50edd41375ddc4c9964" compoundref="xllfifo_8c" startline="99" endline="105">XLlFifo_iRxOccupancy</references>
+        <references refid="group__llfifo_1gaa49ecc1529434fd932d8a65d63a1a04d" compoundref="xllfifo_8c" startline="223" endline="229">XLlFifo_iTxSetLen</references>
+        <references refid="group__llfifo_1gac02405b23499d780e7bc1dfe371281a6" compoundref="xllfifo_8c" startline="197" endline="203">XLlFifo_iTxVacancy</references>
+        <references refid="group__llfifo_1ga9be5556d593980195e43a31ffb37e0fe" compoundref="xllfifo_8c" startline="264" endline="290">XLlFifo_iWrite_Aligned</references>
+        <references refid="group__llfifo_1gaf3739a78b92f17cead0d831757b3a134" compoundref="xllfifo_8h" startline="416">XLlFifo_RxReset</references>
+        <references refid="group__llfifo_1ga922419fdcd342fa709fb07ec1a9e5577" compoundref="xllfifo_8h" startline="536">XLlFifo_TxReset</references>
+        <references refid="group__llfifo_1gacd283ce73981f7f9eab94f8bb421bc78" compoundref="xllfifo__hw_8h" startline="214">XLlFifo_WriteReg</references>
+        <references refid="group__llfifo_1ga52ec29cc3b758b6a2b857d883ac69d4a" compoundref="xstreamer_8c" startline="170" endline="184">XStrm_RxInitialize</references>
+        <references refid="group__llfifo_1ga8a67c77f811a505b658e06642eb9c964" compoundref="xstreamer_8c" startline="214" endline="228">XStrm_TxInitialize</references>
+      </memberdef>
+      <memberdef kind="function" id="group__llfifo_1gaa21dcb81e0c71adba8248cc59d5cf506" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XLlFifo_Config *</type>
+        <definition>XLlFifo_Config * XLlFfio_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XLlFfio_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Looks up the device configuration based on the unique device ID/BaseAddress. </para>        </briefdescription>
+        <detaileddescription>
+<para>The XLlFifo_ConfigTable[] contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration found or NULL if the specified device ID/BaseAddress was not found. See <ref refid="xllfifo_8h" kindref="compound">xllfifo.h</ref> for the definition of XLlFifo_Config.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="719" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_sinit.c" bodystart="76" bodyend="93"/>
+        <referencedby refid="xllfifo__interrupt__example_8c_1ad6e0b8d034840adde059c0f167cc04ef" compoundref="xllfifo__interrupt__example_8c" startline="227" endline="331">XLlFifoInterruptExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__llfifo_1ga52ec29cc3b758b6a2b857d883ac69d4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XStrm_RxInitialize</definition>
+        <argsstring>(XStrm_RxFifoStreamer *InstancePtr, unsigned FifoWidth, void *FifoInstance, XStrm_XferFnType ReadFn, XStrm_GetLenFnType GetLenFn, XStrm_GetOccupancyFnType GetOccupancyFn)</argsstring>
+        <name>XStrm_RxInitialize</name>
+        <param>
+          <type><ref refid="struct_x_strm___rx_fifo_streamer" kindref="compound">XStrm_RxFifoStreamer</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>FifoWidth</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>FifoInstance</declname>
+        </param>
+        <param>
+          <type>XStrm_XferFnType</type>
+          <declname>ReadFn</declname>
+        </param>
+        <param>
+          <type>XStrm_GetLenFnType</type>
+          <declname>GetLenFn</declname>
+        </param>
+        <param>
+          <type>XStrm_GetOccupancyFnType</type>
+          <declname>GetOccupancyFn</declname>
+        </param>
+        <briefdescription>
+<para>XStrm_RxInitialize initializes the <ref refid="struct_x_strm___rx_fifo_streamer" kindref="compound">XStrm_RxFifoStreamer</ref> object referenced by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the tx streamer on which to operate.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FifoWidth</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the FIFO keyhole size in bytes.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FifoInstance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO driver instance that this streamer object should use to transfer data into the the actual fifo.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReadFn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies a routine to use to read data from the actual FIFO. It is assumed that this read routine will handle only reads from an aligned buffer. (Otherwise, why are we using this streamer driver?)</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>GetLenFn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies a routine to use to initiate a receive on the actual FIFO.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>GetOccupancyFn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies a routine to use to retrieve the occupancy in the actual FIFO. The true occupancy value needs to come through this streamer driver because it holds some of the bytes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.c" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.c" bodystart="170" bodyend="184"/>
+        <references refid="struct_x_strm___rx_fifo_streamer_1ab278ceaef035943f8a3a8b85a8cab99d" compoundref="xstreamer_8h" startline="146">XStrm_RxFifoStreamer::FifoInstance</references>
+        <references refid="struct_x_strm___rx_fifo_streamer_1a3ad4cdd1ad14dcecfaf5f923850289fb" compoundref="xstreamer_8h" startline="141">XStrm_RxFifoStreamer::FifoWidth</references>
+        <references refid="struct_x_strm___rx_fifo_streamer_1a01fa1cc2098388ac9371beb090c0c212" compoundref="xstreamer_8h" startline="153">XStrm_RxFifoStreamer::GetLenFn</references>
+        <references refid="struct_x_strm___rx_fifo_streamer_1a8d552e42f58c3230de010178832b41b1" compoundref="xstreamer_8h" startline="157">XStrm_RxFifoStreamer::GetOccupancyFn</references>
+        <references refid="struct_x_strm___rx_fifo_streamer_1a6321ab6bf1a1f3979c0771618a4aba7c" compoundref="xstreamer_8h" startline="138">XStrm_RxFifoStreamer::HeadIndex</references>
+        <references refid="struct_x_strm___rx_fifo_streamer_1af3bfc974fd88c7b707edf680b3c9aed2" compoundref="xstreamer_8h" startline="150">XStrm_RxFifoStreamer::ReadFn</references>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__llfifo_1ga8a67c77f811a505b658e06642eb9c964" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XStrm_TxInitialize</definition>
+        <argsstring>(XStrm_TxFifoStreamer *InstancePtr, unsigned FifoWidth, void *FifoInstance, XStrm_XferFnType WriteFn, XStrm_SetLenFnType SetLenFn, XStrm_GetVacancyFnType GetVacancyFn)</argsstring>
+        <name>XStrm_TxInitialize</name>
+        <param>
+          <type><ref refid="struct_x_strm___tx_fifo_streamer" kindref="compound">XStrm_TxFifoStreamer</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>FifoWidth</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>FifoInstance</declname>
+        </param>
+        <param>
+          <type>XStrm_XferFnType</type>
+          <declname>WriteFn</declname>
+        </param>
+        <param>
+          <type>XStrm_SetLenFnType</type>
+          <declname>SetLenFn</declname>
+        </param>
+        <param>
+          <type>XStrm_GetVacancyFnType</type>
+          <declname>GetVacancyFn</declname>
+        </param>
+        <briefdescription>
+<para>XStrm_TxInitialize initializes the <ref refid="struct_x_strm___tx_fifo_streamer" kindref="compound">XStrm_TxFifoStreamer</ref> object referenced by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the tx streamer on which to operate.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FifoWidth</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the FIFO keyhole size in bytes.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FifoInstance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO driver instance that this streamer object should use to transfer data into the the actual fifo.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WriteFn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies a routine to use to write data into the actual FIFO. It is assumed that this write routine will handle only writes from an aligned buffer. (Otherwise, why are we using this streamer driver?)</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SetLenFn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies a routine to use to initiate a transmit on the actual FIFO.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>GetVacancyFn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies a routine to use to retrieve the vacancy in the actual FIFO. The true vacancy value needs to come through this streamer driver because it holds some of the bytes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.c" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.c" bodystart="214" bodyend="228"/>
+        <references refid="struct_x_strm___tx_fifo_streamer_1ac20fde8a3090fddfc01f8b2900fd9051" compoundref="xstreamer_8h" startline="175">XStrm_TxFifoStreamer::FifoInstance</references>
+        <references refid="struct_x_strm___tx_fifo_streamer_1a474cf91d66d43f716a34299d4ab9b9b2" compoundref="xstreamer_8h" startline="172">XStrm_TxFifoStreamer::FifoWidth</references>
+        <references refid="struct_x_strm___tx_fifo_streamer_1ab33212eea0a6327f2c6b1173510170a9" compoundref="xstreamer_8h" startline="186">XStrm_TxFifoStreamer::GetVacancyFn</references>
+        <references refid="struct_x_strm___tx_fifo_streamer_1aa315e740022ccc81ef9cccfe7c82022d" compoundref="xstreamer_8h" startline="182">XStrm_TxFifoStreamer::SetLenFn</references>
+        <references refid="struct_x_strm___tx_fifo_streamer_1a265500391a387c5354a14fea79a1b446" compoundref="xstreamer_8h" startline="169">XStrm_TxFifoStreamer::TailIndex</references>
+        <references refid="struct_x_strm___tx_fifo_streamer_1abaed83d1259485a6deadbf4644b0be1b" compoundref="xstreamer_8h" startline="179">XStrm_TxFifoStreamer::WriteFn</references>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__llfifo_1ga479d2eb3193ad0a5efc3c3b432a78381" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XStrm_RxGetLen</definition>
+        <argsstring>(XStrm_RxFifoStreamer *InstancePtr)</argsstring>
+        <name>XStrm_RxGetLen</name>
+        <param>
+          <type><ref refid="struct_x_strm___rx_fifo_streamer" kindref="compound">XStrm_RxFifoStreamer</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XStrm_RxGetLen notifies the hardware that the program is ready to receive the next frame from the receive channel of the FIFO, specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>Note that the program must first call XStrm_RxGetLen before pulling data out of the receive channel of the FIFO with XStrm_Read.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XStrm_RxGetLen returns the number of bytes available in the next frame. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.c" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.c" bodystart="246" bodyend="254"/>
+        <references refid="struct_x_strm___rx_fifo_streamer_1ab278ceaef035943f8a3a8b85a8cab99d" compoundref="xstreamer_8h" startline="146">XStrm_RxFifoStreamer::FifoInstance</references>
+        <references refid="struct_x_strm___rx_fifo_streamer_1a3ad4cdd1ad14dcecfaf5f923850289fb" compoundref="xstreamer_8h" startline="141">XStrm_RxFifoStreamer::FifoWidth</references>
+        <references refid="struct_x_strm___rx_fifo_streamer_1a9fa74d02f4fa2607e78b11de059be837" compoundref="xstreamer_8h" startline="143">XStrm_RxFifoStreamer::FrmByteCnt</references>
+        <references refid="struct_x_strm___rx_fifo_streamer_1a01fa1cc2098388ac9371beb090c0c212" compoundref="xstreamer_8h" startline="153">XStrm_RxFifoStreamer::GetLenFn</references>
+        <references refid="struct_x_strm___rx_fifo_streamer_1a6321ab6bf1a1f3979c0771618a4aba7c" compoundref="xstreamer_8h" startline="138">XStrm_RxFifoStreamer::HeadIndex</references>
+      </memberdef>
+      <memberdef kind="function" id="group__llfifo_1ga915d68a9cce0f2464fc7644383cb887a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XStrm_Read</definition>
+        <argsstring>(XStrm_RxFifoStreamer *InstancePtr, void *BufPtr, unsigned Bytes)</argsstring>
+        <name>XStrm_Read</name>
+        <param>
+          <type><ref refid="struct_x_strm___rx_fifo_streamer" kindref="compound">XStrm_RxFifoStreamer</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>BufPtr</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>Bytes</declname>
+        </param>
+        <briefdescription>
+<para>XStrm_Read reads <emphasis>Bytes</emphasis> bytes from the FIFO specified by <emphasis>InstancePtr</emphasis> to the block of memory, referenced by <emphasis>BufPtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>Care must be taken to ensure that the number of bytes read with one or more calls to <ref refid="group__llfifo_1ga915d68a9cce0f2464fc7644383cb887a" kindref="member">XStrm_Read()</ref> does not exceed the number of bytes available given from the last call to <ref refid="group__llfifo_1ga479d2eb3193ad0a5efc3c3b432a78381" kindref="member">XStrm_RxGetLen()</ref>.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the memory address to place the data read.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the number of bytes to read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.c" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.c" bodystart="275" bodyend="355"/>
+        <references refid="struct_x_strm___rx_fifo_streamer_1ab278ceaef035943f8a3a8b85a8cab99d" compoundref="xstreamer_8h" startline="146">XStrm_RxFifoStreamer::FifoInstance</references>
+        <references refid="struct_x_strm___rx_fifo_streamer_1a3ad4cdd1ad14dcecfaf5f923850289fb" compoundref="xstreamer_8h" startline="141">XStrm_RxFifoStreamer::FifoWidth</references>
+        <references refid="struct_x_strm___rx_fifo_streamer_1a9fa74d02f4fa2607e78b11de059be837" compoundref="xstreamer_8h" startline="143">XStrm_RxFifoStreamer::FrmByteCnt</references>
+        <references refid="struct_x_strm___rx_fifo_streamer_1a6321ab6bf1a1f3979c0771618a4aba7c" compoundref="xstreamer_8h" startline="138">XStrm_RxFifoStreamer::HeadIndex</references>
+        <references refid="struct_x_strm___rx_fifo_streamer_1af3bfc974fd88c7b707edf680b3c9aed2" compoundref="xstreamer_8h" startline="150">XStrm_RxFifoStreamer::ReadFn</references>
+      </memberdef>
+      <memberdef kind="function" id="group__llfifo_1ga1e99fb51e0cfab7d0e8de5e93c27fd9c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XStrm_TxSetLen</definition>
+        <argsstring>(XStrm_TxFifoStreamer *InstancePtr, u32 Bytes)</argsstring>
+        <name>XStrm_TxSetLen</name>
+        <param>
+          <type><ref refid="struct_x_strm___tx_fifo_streamer" kindref="compound">XStrm_TxFifoStreamer</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Bytes</declname>
+        </param>
+        <briefdescription>
+<para>XStrm_TxSetLen flushes to the FIFO, specified by <emphasis>InstancePtr</emphasis>, any bytes remaining in internal buffers and begins a hardware transfer of data out of the transmit channel of the FIFO. </para>        </briefdescription>
+        <detaileddescription>
+<para><emphasis>Bytes</emphasis> specifies the number of bytes in the frame to transmit.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO Streamer on which to operate.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the frame length in bytes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.c" line="372" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.c" bodystart="372" bodyend="388"/>
+        <references refid="struct_x_strm___tx_fifo_streamer_1ac20fde8a3090fddfc01f8b2900fd9051" compoundref="xstreamer_8h" startline="175">XStrm_TxFifoStreamer::FifoInstance</references>
+        <references refid="struct_x_strm___tx_fifo_streamer_1a265500391a387c5354a14fea79a1b446" compoundref="xstreamer_8h" startline="169">XStrm_TxFifoStreamer::TailIndex</references>
+        <references refid="struct_x_strm___tx_fifo_streamer_1abaed83d1259485a6deadbf4644b0be1b" compoundref="xstreamer_8h" startline="179">XStrm_TxFifoStreamer::WriteFn</references>
+      </memberdef>
+      <memberdef kind="function" id="group__llfifo_1ga1f43ea833af99162745ceef66849b666" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XStrm_Write</definition>
+        <argsstring>(XStrm_TxFifoStreamer *InstancePtr, void *BufPtr, unsigned Bytes)</argsstring>
+        <name>XStrm_Write</name>
+        <param>
+          <type><ref refid="struct_x_strm___tx_fifo_streamer" kindref="compound">XStrm_TxFifoStreamer</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>BufPtr</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>Bytes</declname>
+        </param>
+        <briefdescription>
+<para>XStrm_Write writes <emphasis>Bytes</emphasis> bytes of the block of memory, referenced by <emphasis>BufPtr</emphasis>, to the transmit channel of the FIFO referenced by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>Care must be taken to ensure that the number of bytes written with one or more calls to <ref refid="group__llfifo_1ga1f43ea833af99162745ceef66849b666" kindref="member">XStrm_Write()</ref> matches the number of bytes given in the next call to <ref refid="group__llfifo_1ga1e99fb51e0cfab7d0e8de5e93c27fd9c" kindref="member">XStrm_TxSetLen()</ref>.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the memory address of data to write.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the number of bytes to write.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.c" line="410" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.c" bodystart="410" bodyend="493"/>
+        <references refid="struct_x_strm___tx_fifo_streamer_1ac20fde8a3090fddfc01f8b2900fd9051" compoundref="xstreamer_8h" startline="175">XStrm_TxFifoStreamer::FifoInstance</references>
+        <references refid="struct_x_strm___tx_fifo_streamer_1a474cf91d66d43f716a34299d4ab9b9b2" compoundref="xstreamer_8h" startline="172">XStrm_TxFifoStreamer::FifoWidth</references>
+        <references refid="struct_x_strm___tx_fifo_streamer_1a265500391a387c5354a14fea79a1b446" compoundref="xstreamer_8h" startline="169">XStrm_TxFifoStreamer::TailIndex</references>
+        <references refid="struct_x_strm___tx_fifo_streamer_1abaed83d1259485a6deadbf4644b0be1b" compoundref="xstreamer_8h" startline="179">XStrm_TxFifoStreamer::WriteFn</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__llfifo_1ga9ab678f3af0afefab24bc4f670a50bf6" prot="public" static="no">
+        <name>FIFO_WIDTH_BYTES</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.c" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gae7e2d915a0bab3a686ef155a6523690c" prot="public" static="no">
+        <name>XLLFIFO_H</name>
+        <initializer>/* by using preprocessor symbols */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gace8f47c03f1818797c152cb27296df7c" prot="public" static="no">
+        <name>XLlFifo_Reset</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__llfifo_1gacd283ce73981f7f9eab94f8bb421bc78" kindref="member">XLlFifo_WriteReg</ref>((InstancePtr)-&gt;BaseAddress, <ref refid="group__llfifo_1ga5331d2736e9b1b516b4262d8e3f11690" kindref="member">XLLF_LLR_OFFSET</ref>, \
+			<ref refid="group__llfifo_1gad8b59856939038963e68acf4e2e2c47c" kindref="member">XLLF_LLR_RESET_MASK</ref>)</initializer>
+        <briefdescription>
+<para>XLlFifo_Reset resets both the Tx and Rx channels and the local link interface the FIFO specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>XLlFifo_TxReset resets also sends a reset pulse to the downstream device (e.g. TEMAC). XLlFifo_Reset drops any bytes in the FIFO not yet retrieved. XLlFifo_Reset drops any bytes in the FIFO not yet transmitted.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__llfifo_1gace8f47c03f1818797c152cb27296df7c" kindref="member">XLlFifo_Reset(XLlFifo *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="255" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga095f3e0f8571dc02959852e38237f23e" prot="public" static="no">
+        <name>XLlFifo_Status</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" kindref="member">XLlFifo_ReadReg</ref>((InstancePtr)-&gt;BaseAddress, <ref refid="group__llfifo_1ga90a5fafb06870a7ff8043d3a34bf54cc" kindref="member">XLLF_ISR_OFFSET</ref>)</initializer>
+        <briefdescription>
+<para>XLlFifo_Status returns a bit mask of the interrupt status register (ISR) for the FIFO specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>XLlFifo_Status can be used to query the status of the FIFO without having to have interrupts enabled.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XLlFifo_IntStatus returns a bit mask of the status conditions. The mask will be a set of bitwise or&apos;d values from the <computeroutput>XLLF_INT_*_MASK</computeroutput> preprocessor symbols.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 XLlFifo_IntStatus(XLlFifo *InstancePtr) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="278" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="278" bodyend="-1"/>
+        <referencedby refid="xllfifo__interrupt__example_8c_1ad6e0b8d034840adde059c0f167cc04ef" compoundref="xllfifo__interrupt__example_8c" startline="227" endline="331">XLlFifoInterruptExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gae65ece5c6c9cce1ccdcf9d404fd8f463" prot="public" static="no">
+        <name>XLlFifo_IntEnable</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>Mask</defname></param>
+        <initializer>{ \
+	u32 Reg = <ref refid="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" kindref="member">XLlFifo_ReadReg</ref>((InstancePtr)-&gt;BaseAddress, \
+			<ref refid="group__llfifo_1gac34e090e52a9ef5cdf4337cae6ca717c" kindref="member">XLLF_IER_OFFSET</ref>); \
+	Reg |= ((Mask) &amp; <ref refid="group__llfifo_1gae3bfcad24428233d9e2a8a861e2d9eed" kindref="member">XLLF_INT_ALL_MASK</ref>);                    \
+	<ref refid="group__llfifo_1gacd283ce73981f7f9eab94f8bb421bc78" kindref="member">XLlFifo_WriteReg</ref>((InstancePtr)-&gt;BaseAddress, <ref refid="group__llfifo_1gac34e090e52a9ef5cdf4337cae6ca717c" kindref="member">XLLF_IER_OFFSET</ref>, \
+			Reg); \
+}</initializer>
+        <briefdescription>
+<para>XLlFifo_IntEnable enables the interrupts specified in <emphasis>Mask</emphasis> for the FIFO specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>The corresponding interrupt for each bit set to 1 in <emphasis>Mask</emphasis>, will be enabled.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains a bit mask of the interrupts to enable. The mask can be formed using a set of bitwise or&apos;d values from the <computeroutput>XLLF_INT_*_MASK</computeroutput> preprocessor symbols.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__llfifo_1gae65ece5c6c9cce1ccdcf9d404fd8f463" kindref="member">XLlFifo_IntEnable(XLlFifo *InstancePtr, u32 Mask)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="301" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="301" bodyend="-1"/>
+        <referencedby refid="xllfifo__interrupt__example_8c_1ad6e0b8d034840adde059c0f167cc04ef" compoundref="xllfifo__interrupt__example_8c" startline="227" endline="331">XLlFifoInterruptExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gabff8f5ef31f09865808da90055e29d42" prot="public" static="no">
+        <name>XLlFifo_IntDisable</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>Mask</defname></param>
+        <initializer>{ \
+	u32 Reg = <ref refid="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" kindref="member">XLlFifo_ReadReg</ref>((InstancePtr)-&gt;BaseAddress, \
+			<ref refid="group__llfifo_1gac34e090e52a9ef5cdf4337cae6ca717c" kindref="member">XLLF_IER_OFFSET</ref>); \
+	Reg &amp;= ~((Mask) &amp; <ref refid="group__llfifo_1gae3bfcad24428233d9e2a8a861e2d9eed" kindref="member">XLLF_INT_ALL_MASK</ref>);  \
+	<ref refid="group__llfifo_1gacd283ce73981f7f9eab94f8bb421bc78" kindref="member">XLlFifo_WriteReg</ref>((InstancePtr)-&gt;BaseAddress, <ref refid="group__llfifo_1gac34e090e52a9ef5cdf4337cae6ca717c" kindref="member">XLLF_IER_OFFSET</ref>, \
+			Reg); \
+}</initializer>
+        <briefdescription>
+<para>XLlFifo_IntDisable disables the interrupts specified in <emphasis>Mask</emphasis> for the FIFO specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>The corresponding interrupt for each bit set to 1 in <emphasis>Mask</emphasis>, will be disabled. In other words, XLlFifo_IntDisable uses the &quot;set a bit to clear it&quot; scheme.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains a bit mask of the interrupts to disable. The mask can be formed using a set of bitwise or&apos;d values from the <computeroutput>XLLF_INT_*_MASK</computeroutput> preprocessor symbols.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__llfifo_1gabff8f5ef31f09865808da90055e29d42" kindref="member">XLlFifo_IntDisable(XLlFifo *InstancePtr, u32 Mask)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="331" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="331" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gac356d3e8d55aa6e82753400f0bd026a1" prot="public" static="no">
+        <name>XLlFifo_IntPending</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>(<ref refid="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" kindref="member">XLlFifo_ReadReg</ref>((InstancePtr)-&gt;BaseAddress, <ref refid="group__llfifo_1gac34e090e52a9ef5cdf4337cae6ca717c" kindref="member">XLLF_IER_OFFSET</ref>) &amp;  \
+	 <ref refid="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" kindref="member">XLlFifo_ReadReg</ref>((InstancePtr)-&gt;BaseAddress, <ref refid="group__llfifo_1ga90a5fafb06870a7ff8043d3a34bf54cc" kindref="member">XLLF_ISR_OFFSET</ref>))</initializer>
+        <briefdescription>
+<para>XLlFifo_IntPending returns a bit mask of the pending interrupts for the FIFO specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>Each bit set to 1 in the return value represents a pending interrupt.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XLlFifo_IntPending returns a bit mask of the interrupts that are pending. The mask will be a set of bitwise or&apos;d values from the <computeroutput>XLLF_INT_*_MASK</computeroutput> preprocessor symbols.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__llfifo_1gac356d3e8d55aa6e82753400f0bd026a1" kindref="member">XLlFifo_IntPending(XLlFifo *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="368" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="368" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gac712eea89e9d7fa37d095003c927c61e" prot="public" static="no">
+        <name>XLlFifo_IntClear</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>Mask</defname></param>
+        <initializer><ref refid="group__llfifo_1gacd283ce73981f7f9eab94f8bb421bc78" kindref="member">XLlFifo_WriteReg</ref>((InstancePtr)-&gt;BaseAddress, <ref refid="group__llfifo_1ga90a5fafb06870a7ff8043d3a34bf54cc" kindref="member">XLLF_ISR_OFFSET</ref>, \
+			((Mask) &amp; <ref refid="group__llfifo_1gae3bfcad24428233d9e2a8a861e2d9eed" kindref="member">XLLF_INT_ALL_MASK</ref>))</initializer>
+        <briefdescription>
+<para>XLlFifo_IntClear clears pending interrupts specified in <emphasis>Mask</emphasis> for the FIFO specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>The corresponding pending interrupt for each bit set to 1 in <emphasis>Mask</emphasis>, will be cleared. In other words, XLlFifo_IntClear uses the &quot;set a bit to clear it&quot; scheme.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains a bit mask of the pending interrupts to clear. The mask can be formed using a set of bitwise or&apos;d values from the <computeroutput>XLLF_INT_*_MASK</computeroutput> preprocessor symbols.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__llfifo_1gac712eea89e9d7fa37d095003c927c61e" kindref="member">XLlFifo_IntClear(XLlFifo *InstancePtr, u32 Mask)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="392" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="392" bodyend="-1"/>
+        <referencedby refid="xllfifo__interrupt__example_8c_1ad6e0b8d034840adde059c0f167cc04ef" compoundref="xllfifo__interrupt__example_8c" startline="227" endline="331">XLlFifoInterruptExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gaf3739a78b92f17cead0d831757b3a134" prot="public" static="no">
+        <name>XLlFifo_RxReset</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__llfifo_1gacd283ce73981f7f9eab94f8bb421bc78" kindref="member">XLlFifo_WriteReg</ref>((InstancePtr)-&gt;BaseAddress, <ref refid="group__llfifo_1gae1533e466df30729597a1b44ed1059ed" kindref="member">XLLF_RDFR_OFFSET</ref>, \
+			<ref refid="group__llfifo_1ga11c4da53ae9b166832186f9a817fba6d" kindref="member">XLLF_RDFR_RESET_MASK</ref>)</initializer>
+        <briefdescription>
+<para>XLlFifo_RxReset resets the receive channel of the FIFO specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>XLlFifo_RxReset drops any bytes in the FIFO not yet retrieved.</para><para>The calling software may want to test for the completion of the reset by reading the interrupt status (IS) register and testing for the Rx Reset complete (RRC) bit.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__llfifo_1gaf3739a78b92f17cead0d831757b3a134" kindref="member">XLlFifo_RxReset(XLlFifo *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="416" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="416" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gaba876eb888126638848fb2f89a9b4436" prot="public" static="no">
+        <name>XLlFifo_IsRxEmpty</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((<ref refid="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" kindref="member">XLlFifo_ReadReg</ref>((InstancePtr)-&gt;BaseAddress, <ref refid="group__llfifo_1ga9c4bbf51bc4b0410b61ef3933776a63c" kindref="member">XLLF_RDFO_OFFSET</ref>) == 0) \
+							? TRUE : FALSE)</initializer>
+        <briefdescription>
+<para>XLlFifo_IsRxEmpty returns true if the receive channel of the FIFO, specified by <emphasis>InstancePtr</emphasis>, is empty. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XLlFifo_IsRxEmpty returns TRUE when the receive channel of the FIFO is empty. Otherwise, XLlFifo_IsRxEmpty returns FALSE.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: int <ref refid="group__llfifo_1gaba876eb888126638848fb2f89a9b4436" kindref="member">XLlFifo_IsRxEmpty(XLlFifo *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="436" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="436" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga12da547aa1c9a85e2b0b151f438ff9d5" prot="public" static="no">
+        <name>XLlFifo_RxOccupancy</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>XStrm_RxOccupancy(&amp;((InstancePtr)-&gt;RxStreamer))</initializer>
+        <briefdescription>
+<para>XLlFifo_RxOccupancy returns the number of 32-bit words available (occupancy) to be read from the receive channel of the FIFO, specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>The xps_ll_fifo core uses the same fifo to store data values and frame length values. Upon initialization, the XLlFifo_RxOccupancy will give the value of 1, which means one length value (a reserved fifo location) and no data values.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XLlFifo_RxOccupancy returns the occupancy count for the specified packet FIFO.</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+C Signature: u32 <ref refid="group__llfifo_1ga12da547aa1c9a85e2b0b151f438ff9d5" kindref="member">XLlFifo_RxOccupancy(XLlFifo *InstancePtr)</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="462" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="462" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga53af32ae6901462cc8d6fb9adc04655e" prot="public" static="no">
+        <name>XLlFifo_RxGetLen</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__llfifo_1ga479d2eb3193ad0a5efc3c3b432a78381" kindref="member">XStrm_RxGetLen</ref>(&amp;((InstancePtr)-&gt;RxStreamer))</initializer>
+        <briefdescription>
+<para>XLlFifo_RxGetLen notifies the hardware that the program is ready to receive the next frame from the receive channel of the FIFO, specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>Note that the program must first call XLlFifo_RxGetLen before pulling data out of the receive channel of the FIFO with XLlFifo_Read.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XLlFifo_RxGetLen returns the number of bytes available in the next frame.</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+C Signature: u32 <ref refid="group__llfifo_1ga53af32ae6901462cc8d6fb9adc04655e" kindref="member">XLlFifo_RxGetLen(XLlFifo *InstancePtr)</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="485" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="485" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gaadc3685592b060c0d864850e86be5c03" prot="public" static="no">
+        <name>XLlFifo_Read</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>BufPtr</defname></param>
+        <param><defname>Bytes</defname></param>
+        <initializer><ref refid="group__llfifo_1ga915d68a9cce0f2464fc7644383cb887a" kindref="member">XStrm_Read</ref>(&amp;((InstancePtr)-&gt;RxStreamer), (BufPtr), (Bytes))</initializer>
+        <briefdescription>
+<para>XLlFifo_Read reads <emphasis>Bytes</emphasis> bytes from the receive channel of the FIFO referenced by <emphasis>InstancePtr</emphasis> to the block of memory, referenced by <emphasis>BufPtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>Care must be taken to ensure that the number of bytes read with one or more calls to <ref refid="group__llfifo_1gaadc3685592b060c0d864850e86be5c03" kindref="member">XLlFifo_Read()</ref> does not exceed the number of bytes available given from the last call to <ref refid="group__llfifo_1ga53af32ae6901462cc8d6fb9adc04655e" kindref="member">XLlFifo_RxGetLen()</ref>.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the memory address to place the data read.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the number of bytes to read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A</para></simplesect>
+<simplesect kind="note"><para>Error handling is handled through hardware exceptions and interrupts.</para></simplesect>
+C Signature: void <ref refid="group__llfifo_1gaadc3685592b060c0d864850e86be5c03" kindref="member">XLlFifo_Read(XLlFifo *InstancePtr, void *BufPtr, unsigned Bytes)</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="513" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="513" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga922419fdcd342fa709fb07ec1a9e5577" prot="public" static="no">
+        <name>XLlFifo_TxReset</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__llfifo_1gacd283ce73981f7f9eab94f8bb421bc78" kindref="member">XLlFifo_WriteReg</ref>((InstancePtr)-&gt;BaseAddress, <ref refid="group__llfifo_1gaa55be9e9452783cde92cd70a33e31e56" kindref="member">XLLF_TDFR_OFFSET</ref>, \
+			<ref refid="group__llfifo_1gaf7b4bcf41280c1fb01684b6706603420" kindref="member">XLLF_TDFR_RESET_MASK</ref>)</initializer>
+        <briefdescription>
+<para>XLlFifo_TxReset resets the transmit channel of the FIFO specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>XLlFifo_TxReset drops any bytes in the FIFO not yet transmitted.</para><para>The calling software may want to test for the completion of the reset by reading the interrupt status (IS) register and testing for the Tx Reset complete (TRC) bit.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__llfifo_1ga922419fdcd342fa709fb07ec1a9e5577" kindref="member">XLlFifo_TxReset(XLlFifo *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="536" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="536" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga869bc4c1072da021e747a0a179bfe2da" prot="public" static="no">
+        <name>XLlFifo_IsTxDone</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((<ref refid="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" kindref="member">XLlFifo_ReadReg</ref>((InstancePtr)-&gt;BaseAddress, <ref refid="group__llfifo_1ga90a5fafb06870a7ff8043d3a34bf54cc" kindref="member">XLLF_ISR_OFFSET</ref>) &amp; \
+		<ref refid="group__llfifo_1gabca5de4c7fc02bcad56912a2919319ae" kindref="member">XLLF_INT_TC_MASK</ref>) \
+		? TRUE : FALSE)</initializer>
+        <briefdescription>
+<para>XLlFifo_IsTxDone returns true if the transmission in the transmit channel of the FIFO, specified by <emphasis>InstancePtr</emphasis>, is complete. </para>        </briefdescription>
+        <detaileddescription>
+<para>XLlFifo_IsTxDone works only if the TC bit in the IS register is cleared before sending a frame.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XLlFifo_IsTxDone returns TRUE when the transmit channel of the FIFO is complete. Otherwise, XLlFifo_IsTxDone returns FALSE.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: int <ref refid="group__llfifo_1ga869bc4c1072da021e747a0a179bfe2da" kindref="member">XLlFifo_IsTxDone(XLlFifo *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="558" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="558" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga556524c17aee71ae8407540a5e2cd65f" prot="public" static="no">
+        <name>XLlFifo_IsRxDone</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((<ref refid="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" kindref="member">XLlFifo_ReadReg</ref>((InstancePtr)-&gt;BaseAddress, <ref refid="group__llfifo_1ga90a5fafb06870a7ff8043d3a34bf54cc" kindref="member">XLLF_ISR_OFFSET</ref>) &amp; \
+		<ref refid="group__llfifo_1ga838f0b2d56bffea01160c141b0c1de67" kindref="member">XLLF_INT_RC_MASK</ref>) \
+		? TRUE : FALSE)</initializer>
+        <briefdescription>
+<para>XLlFifo_IsRxDone returns true if the reception in the receive channel of the FIFO, specified by <emphasis>InstancePtr</emphasis>, is complete. </para>        </briefdescription>
+        <detaileddescription>
+<para>XLlFifo_IsRxDone works only if the RC bit in the ISR register is cleared before receiving a frame.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XLlFifo_IsRxDone returns TRUE when the receive channel of the FIFO is complete. Otherwise, XLlFifo_IsRxDone returns FALSE.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: int <ref refid="group__llfifo_1ga556524c17aee71ae8407540a5e2cd65f" kindref="member">XLlFifo_IsRxDone(XLlFifo *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="581" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="581" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gaf2884c49ae41dc5c5317c2ef6df45a28" prot="public" static="no">
+        <name>XLlFifo_TxVacancy</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>XStrm_TxVacancy(&amp;((InstancePtr)-&gt;TxStreamer))</initializer>
+        <briefdescription>
+<para>XLlFifo_TxVacancy returns the number of unused 32 bit words available (vacancy) in the send channel of the FIFO specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>The xps_ll_fifo core uses tXLLF_he same fifo to store data values and frame length values. Upon initialization, the XLlFifo_TxVacancy will give the value of FIFO_WIDTH - 1, which means one length value used (a reserved fifo location) and no data values yet present.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XLlFifo_TxVacancy returns the vacancy count in 32-bit words for the specified FIFO.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__llfifo_1gaf2884c49ae41dc5c5317c2ef6df45a28" kindref="member">XLlFifo_TxVacancy(XLlFifo *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="607" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="607" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gacd09ed5189e0b85994901102655964f7" prot="public" static="no">
+        <name>XLlFifo_TxSetLen</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>Bytes</defname></param>
+        <initializer><ref refid="group__llfifo_1ga1e99fb51e0cfab7d0e8de5e93c27fd9c" kindref="member">XStrm_TxSetLen</ref>(&amp;((InstancePtr)-&gt;TxStreamer), (Bytes))</initializer>
+        <briefdescription>
+<para>XLlFifo_TxSetLen begins a hardware transfer of <emphasis>Bytes</emphasis> bytes out of the transmit channel of the FIFO specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the frame length in bytes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+C Signature: void <ref refid="group__llfifo_1gacd09ed5189e0b85994901102655964f7" kindref="member">XLlFifo_TxSetLen(XLlFifo *InstancePtr, u32 Bytes)</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="627" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="627" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga1fa93f486abaaf35c7d599a8cd91b295" prot="public" static="no">
+        <name>XLlFifo_Write</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>BufPtr</defname></param>
+        <param><defname>Bytes</defname></param>
+        <initializer><ref refid="group__llfifo_1ga1f43ea833af99162745ceef66849b666" kindref="member">XStrm_Write</ref>(&amp;((InstancePtr)-&gt;TxStreamer), (BufPtr), (Bytes))</initializer>
+        <briefdescription>
+<para>XLlFifo_Write writes <emphasis>Bytes</emphasis> bytes of the block of memory, referenced by <emphasis>BufPtr</emphasis>, to the transmit channel of the FIFO referenced by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>Care must be taken to ensure that the number of bytes written with one or more calls to <ref refid="group__llfifo_1ga1fa93f486abaaf35c7d599a8cd91b295" kindref="member">XLlFifo_Write()</ref> matches the number of bytes given in the next call to <ref refid="group__llfifo_1gacd09ed5189e0b85994901102655964f7" kindref="member">XLlFifo_TxSetLen()</ref>.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the memory address of data to write.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the number of bytes to write.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A</para></simplesect>
+<simplesect kind="note"><para>Error handling is handled through hardware exceptions and interrupts.</para></simplesect>
+C Signature: void <ref refid="group__llfifo_1ga1fa93f486abaaf35c7d599a8cd91b295" kindref="member">XLlFifo_Write(XLlFifo *InstancePtr, void *BufPtr, unsigned Bytes)</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="655" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="655" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga105828f79f13c07d571db218c5837fae" prot="public" static="no">
+        <name>XLlFifo_WriteTdr</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>Tdest</defname></param>
+        <initializer><ref refid="group__llfifo_1gacd283ce73981f7f9eab94f8bb421bc78" kindref="member">XLlFifo_WriteReg</ref>((InstancePtr)-&gt;BaseAddress, <ref refid="group__llfifo_1ga5c691ac1237fb77b8e356a7d2b0b8b54" kindref="member">XLLF_TDR_OFFSET</ref>, \
+			  Tdest &amp; 0xF)</initializer>
+        <briefdescription>
+<para>XLlFifo_WriteTdr writes to the Transmit Destination Register (TDR) </para>        </briefdescription>
+        <detaileddescription>
+<para>The TDR stores the destination address corresponding to the packet to be transmitted. When presenting a transmit packet to the AXI4-Stream FIFO core the following sequence should be followed<itemizedlist>
+<listitem><para>Write the destination address into TDR first,</para></listitem><listitem><para>Write the packet data to the Transmit Data FIFO next</para></listitem><listitem><para>Write the length of the packet into the Transmit Length Register.</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Tdest</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Transmit Destination address to be written to TDR.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A</para></simplesect>
+<simplesect kind="note"><para>C Signature: void <ref refid="group__llfifo_1ga105828f79f13c07d571db218c5837fae" kindref="member">XLlFifo_WriteTdr(XLlFifo *InstancePtr, u32 Tdest)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="680" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="680" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga59307ef23e5b4b71d0d01cef8e06e247" prot="public" static="no">
+        <name>XLlFifo_ReadRdr</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" kindref="member">XLlFifo_ReadReg</ref>((InstancePtr)-&gt;BaseAddress, <ref refid="group__llfifo_1gaf0240fc89cce2e27e1943d2e23a5af25" kindref="member">XLLF_RDR_OFFSET</ref>)</initializer>
+        <briefdescription>
+<para>XLlFifo_ReadTdr returns the contents of the Receive Destination Register(RDR). </para>        </briefdescription>
+        <detaileddescription>
+<para>The RDR contains destination address corresponding to the valid packet that is received. The RDR should only be read when a receive packet is available for processing (the receive occupancy is not zero). Once the RDR is read, the receive packet data should be read from the receive data FIFO before the RDR is read again. The RDR values are stored in the receive data FIFO by the AXI4-Stream FIFO core with the data of each packet. The RDR value for the subsequent packet to be processed is moved to the RDR when the previous RDR value has been read.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the FIFO on which to operate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The Receive Destination address read from the RDR.</para></simplesect>
+<simplesect kind="note"><para>C Signature: u32 <ref refid="group__llfifo_1ga59307ef23e5b4b71d0d01cef8e06e247" kindref="member">XLlFifo_ReadRdr(XLlFifo *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="706" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="706" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga21ece87fb4445617bfa12ac6396cff9d" prot="public" static="no">
+        <name>XLLFIFO_HW_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gaf61ed2e41013c8f487f5337e3731014c" prot="public" static="no">
+        <name>XLlFifo_reg_name</name>
+        <param><defname>RegOffset</defname></param>
+        <initializer>(((RegOffset) == <ref refid="group__llfifo_1ga90a5fafb06870a7ff8043d3a34bf54cc" kindref="member">XLLF_ISR_OFFSET</ref>) ? &quot;ISR&quot;: \
+	((RegOffset) == <ref refid="group__llfifo_1gac34e090e52a9ef5cdf4337cae6ca717c" kindref="member">XLLF_IER_OFFSET</ref>) ? &quot;IER&quot;: \
+	((RegOffset) == <ref refid="group__llfifo_1gaa55be9e9452783cde92cd70a33e31e56" kindref="member">XLLF_TDFR_OFFSET</ref>) ? &quot;TDFR {tx reset}&quot;: \
+	((RegOffset) == <ref refid="group__llfifo_1gab77ae26c2fe9b0ac15ebdbf0c6c30960" kindref="member">XLLF_TDFV_OFFSET</ref>) ? &quot;TDFV {tx vacancy}&quot;: \
+	((RegOffset) == <ref refid="group__llfifo_1gaeca8c86badc0df67426442f9bb6a5195" kindref="member">XLLF_TDFD_OFFSET</ref>) ? &quot;TDFD {tx data}&quot;: \
+	((RegOffset) == <ref refid="group__llfifo_1gac14e6d7e1116f9a43c0adfbe93422fa7" kindref="member">XLLF_TLF_OFFSET</ref>) ? &quot;TLF {tx length}&quot;: \
+	((RegOffset) == <ref refid="group__llfifo_1gae1533e466df30729597a1b44ed1059ed" kindref="member">XLLF_RDFR_OFFSET</ref>) ? &quot;RDFR {rx reset}&quot;: \
+	((RegOffset) == <ref refid="group__llfifo_1ga9c4bbf51bc4b0410b61ef3933776a63c" kindref="member">XLLF_RDFO_OFFSET</ref>) ? &quot;RDFO {rx occupancy}&quot;: \
+	((RegOffset) == <ref refid="group__llfifo_1ga93e049a21e43548bf03161b4a4394440" kindref="member">XLLF_RDFD_OFFSET</ref>) ? &quot;RDFD {rx data}&quot;: \
+	((RegOffset) == <ref refid="group__llfifo_1ga267285e6015808291ef6671038cba888" kindref="member">XLLF_RLF_OFFSET</ref>) ? &quot;RLF {rx length}&quot;: \
+	&quot;unknown&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gaccd84dea11dd4d1e8b267efed7c17a0c" prot="public" static="no">
+        <name>XLlFifo_print_reg_o</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Value</defname></param>
+        <initializer>xdbg_printf(XDBG_DEBUG_FIFO_REG, &quot;0x%08x -&gt; %s(0x%08x)\n&quot;, (Value), \
+			  XLlFifo_reg_name(RegOffset), \
+			 (RegOffset) + (BaseAddress))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga01a5e222565f9ccbd6d4d560ffac13b3" prot="public" static="no">
+        <name>XLlFifo_print_reg_i</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Value</defname></param>
+        <initializer>xdbg_printf(XDBG_DEBUG_FIFO_REG, &quot;%s(0x%08x) -&gt; 0x%08x\n&quot;, \
+			 XLlFifo_reg_name(RegOffset), \
+			(RegOffset) + (BaseAddress), (Value))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" prot="public" static="no">
+        <name>XLlFifo_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>(Xil_In32((BaseAddress) + (RegOffset)))</initializer>
+        <briefdescription>
+<para>XLlFifo_ReadReg returns the value of the register at the offset, <emphasis>RegOffset</emphasis>, from the memory mapped base address, <emphasis>BaseAddress</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the base address of the device.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the offset from BaseAddress.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XLlFifo_ReadReg returns the value of the specified register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" kindref="member">XLlFifo_ReadReg(u32 BaseAddress, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="178" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="182" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1gaad292ddf2a2c9dde261b93da802c8080" compoundref="xllfifo_8c" startline="122" endline="128">XLlFifo_iRxGetLen</referencedby>
+        <referencedby refid="group__llfifo_1gae2da9fa947a6e50edd41375ddc4c9964" compoundref="xllfifo_8c" startline="99" endline="105">XLlFifo_iRxOccupancy</referencedby>
+        <referencedby refid="group__llfifo_1gac02405b23499d780e7bc1dfe371281a6" compoundref="xllfifo_8c" startline="197" endline="203">XLlFifo_iTxVacancy</referencedby>
+        <referencedby refid="group__llfifo_1gaed3ae31c8c24f46139fbd709027329ec" compoundref="xllfifo_8c" startline="389" endline="397">XLlFifo_RxGetWord</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gacd283ce73981f7f9eab94f8bb421bc78" prot="public" static="no">
+        <name>XLlFifo_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Value</defname></param>
+        <initializer>((Xil_Out32((BaseAddress) + (RegOffset), (Value))))</initializer>
+        <briefdescription>
+<para>XLlFifo_WriteReg writes the value, <emphasis>Value</emphasis>, to the register at the offset, <emphasis>RegOffset</emphasis>, from the memory mapped base address, <emphasis>BaseAddress</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the base address of the device.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the offset from BaseAddress.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is value to write to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__llfifo_1gacd283ce73981f7f9eab94f8bb421bc78" kindref="member">XLlFifo_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Value)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="210" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="214" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+        <referencedby refid="group__llfifo_1gaa49ecc1529434fd932d8a65d63a1a04d" compoundref="xllfifo_8c" startline="223" endline="229">XLlFifo_iTxSetLen</referencedby>
+        <referencedby refid="group__llfifo_1ga29654d755dce84b861022179c99ca7a3" compoundref="xllfifo_8c" startline="415" endline="424">XLlFifo_TxPutWord</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gabb702d8b501669a23aa0ab3b281b9384" prot="public" static="no">
+        <name>min</name>
+        <param><defname>x</defname></param>
+        <param><defname>y</defname></param>
+        <initializer>(((x) &lt; (y)) ? (x) : (y))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.c" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.c" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gab615f7de0f7b5b69b912da2f24c0f4b9" prot="public" static="no">
+        <name>XSTREAMER_H</name>
+        <initializer>/* by using preprocessor symbols */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga4a3e97b47b47ea3b883952f58cb9deb9" prot="public" static="no">
+        <name>LARGEST_FIFO_KEYHOLE_SIZE_WORDS</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga7c2fa1c0b560f90b656aaac27721769c" prot="public" static="no">
+        <name>XStrm_TxVacancy</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>(((*(InstancePtr)-&gt;GetVacancyFn)((InstancePtr)-&gt;FifoInstance)) - \
+			(((InstancePtr)-&gt;TailIndex + 3) / 4))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" line="213" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga52d6c5d159859cfcf8e43daf7d54ad07" prot="public" static="no">
+        <name>XStrm_RxOccupancy</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>( \
+	  ((*(InstancePtr)-&gt;GetOccupancyFn)((InstancePtr)-&gt;FifoInstance)) + \
+	  ( \
+	    ((InstancePtr)-&gt;FrmByteCnt) ? \
+	      ((InstancePtr)-&gt;FifoWidth - (InstancePtr)-&gt;HeadIndex) : \
+	      0 \
+	  ) \
+	)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" line="252" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga2357fcad0c03d6b706d5ad71c4d7b749" prot="public" static="no">
+        <name>XStrm_IsRxInternalEmpty</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>(((InstancePtr)-&gt;FrmByteCnt == 0) ? TRUE : FALSE)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" line="282" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The Xilinx local link FIFO driver component. </para>    </briefdescription>
+    <detaileddescription>
+<para>The Xilinx byte streamer for packet FIFOs.</para><para>See xtreamer.h for a description on how to use this driver.</para><para>This file contains static initialization functionality for Axi Streaming FIFO driver.</para><para>This header file contains identifiers and low-level driver functions (or macros) that can be used to access the xps_ll_fifo core.</para><para>Provide a template for user to define their own hardware settings.</para><para>}</para><para>This driver supports the Xilinx xps_ll_fifo core.</para><para><preformatted>
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who  Date     Changes
+<hruler/>
+
+ 1.00a jvb  10/13/06 First release
+ 1.00a xd   12/17/07 Added type casting to fix CR #456850
+ 1.02a jz   12/04/09  Hal phase 1 support
+ 2.00a hbm  01/20/10  Hal phase 1 support, bump up major release
+ 2.01a asa  09/17/10  Added code for resetting Streaming interface
+                        for CR574868
+ 3.00a adk  08/10/13  Added support for AXI4 Datainterface.Updated
+                        XLlFifo_RxGetWord, XLlFifo_TxPutword inorder to
+                        handle AXI4 Datainterface. Added Config
+                        initialization for the driver.
+ 5.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+                     Changed the prototypes of XLlFifo_CfgInitialize,
+                     XLlFifo_Initialize APIs.
+ 5.5   sk   06/15/20 In XLlFifo_iRead_Aligned and XLlFifo_iWrite_Aligned add
+                       type casting to fix gcc warnings.
+ 5.6   sd   07/7/23  Add system devicetree support.
+ </preformatted></para><para>If using XPS, this file will be automatically generated.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+3.00a adk 9/10/2013 initial release
+</preformatted></para><para>High-level driver functions are defined in xpfifo.h.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00a jvb  10/16/06 First release.
+1.02a jz   12/04/09  Hal phase 1 support
+2.00a hbm  01/20/10  Hal phase 1 support, bump up major release
+2.03a asa  14/08/12  Added XLLF_TDR_OFFSET, XLLF_RDR_OFFSET
+               defines for the new registers, and XLLF_INT_TFPF_MASK,
+               XLLF_INT_TFPE_MASK, XLLF_INT_RFPF_MASK and
+               XLLF_INT_RFPE_MASK for the new version of the
+               AXI4-Stream FIFO core (v2.01a and later)
+6.1  vlt   01/22/26  Fixed codespell issues
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+3.00a adk 9/10/2013 initial release
+6.1   vlt 12/12/25 Update Doxygen comments to include SDT flow details.
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00a jvb  10/13/06 First release - based on Robert McGee&apos;s streaming packet
+                    fifo driver.
+1.02a jz   12/04/09  Hal phase 1 support
+2.00a hbm  01/20/10  Hal phase 1 support, bump up major release
+2.02a asa  12/28/11  The function XStrm_Read is changed to reset HeadIndex
+               to zero when all the bytes are read.
+5.5   sk   06/15/20  In XStrm_Read and XStrm_Write add type casting to fix
+               gcc warnings.
+</preformatted></para><para><heading level="2">Driver Description</heading>
+</para><para>This driver enables higher layer software to access a hardware FIFO using any alignment in the data buffers while preserving alignment for the hardware FIFO access.</para><para>This driver treats send and receive channels separately, using different types of instance objects for each.</para><para>This driver makes use of another FIFO driver to access the specific FIFO hardware through use of the routines passed into the Tx/RxInitialize routines.</para><para><heading level="2">Initialization</heading>
+</para><para>Send and receive channels are initialized separately. The receive channel is initiailzed using <ref refid="group__llfifo_1ga52ec29cc3b758b6a2b857d883ac69d4a" kindref="member">XStrm_RxInitialize()</ref>. The send channel is initialized using <ref refid="group__llfifo_1ga8a67c77f811a505b658e06642eb9c964" kindref="member">XStrm_TxInitialize()</ref>.</para><para><heading level="2">Usage</heading>
+</para><para>It is fairly simple to use the API provided by this byte streamer driver. The only somewhat tricky part is that the calling code must correctly call a couple routines in the right sequence for receive and transmit. <verbatim>   This sequence is described here. Check the routine functional
+</verbatim> descriptions for information on how to use a specific API routine.</para><para><heading level="3">Receive</heading>
+</para><para>A frame is received by using the following sequence:<linebreak/>
+ 1) call <ref refid="group__llfifo_1ga479d2eb3193ad0a5efc3c3b432a78381" kindref="member">XStrm_RxGetLen()</ref> to get the length of the next incoming frame.<linebreak/>
+ 2) call <ref refid="group__llfifo_1ga915d68a9cce0f2464fc7644383cb887a" kindref="member">XStrm_Read()</ref> one or more times to read the number of bytes reported by <ref refid="group__llfifo_1ga479d2eb3193ad0a5efc3c3b432a78381" kindref="member">XStrm_RxGetLen()</ref>.<linebreak/>
+</para><para>For example: <preformatted>
+        frame_len = XStrm_RxGetLen(&amp;RxInstance);
+        while (frame_len) {
+                unsigned bytes = min(sizeof(buffer), frame_len);
+                XStrm_Read(&amp;RxInstance, buffer, bytes);
+                // do something with buffer here
+                frame_len -= bytes;
+        }
+ </preformatted></para><para>Other restrictions on the sequence of API calls may apply depending on the specific FIFO driver used by this byte streamer driver.</para><para><heading level="3">Transmit</heading>
+</para><para>A frame is transmittted by using the following sequence:<linebreak/>
+ 1) call <ref refid="group__llfifo_1ga1f43ea833af99162745ceef66849b666" kindref="member">XStrm_Write()</ref> one or more times to write all the of bytes in the next frame.<linebreak/>
+ 2) call <ref refid="group__llfifo_1ga1e99fb51e0cfab7d0e8de5e93c27fd9c" kindref="member">XStrm_TxSetLen()</ref> to begin the transmission of frame just written.<linebreak/>
+</para><para>For example: <preformatted>
+        frame_left = frame_len;
+        while (frame_left) {
+                unsigned bytes = min(sizeof(buffer), frame_left);
+                XStrm_Write(&amp;TxInstance, buffer, bytes);
+                // do something here to refill buffer
+        }
+        XStrm_TxSetLen(&amp;RxInstance, frame_len);
+ </preformatted></para><para>Other restrictions on the sequence of API calls may apply depending on the specific FIFO driver used by this byte streamer driver.</para><para><preformatted>
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who  Date     Changes
+<hruler/>
+
+ 1.00a jvb  10/12/06 First release
+ 1.02a jz   12/04/09  Hal phase 1 support
+ 2.00a hbm  01/20/10  Hal phase 1 support, bump up major release
+ 2.02a asa  12/28/11  The macro XStrm_IsRxInternalEmpty is changed to use
+                        FrmByteCnt instead of HeadIndex.
+ </preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

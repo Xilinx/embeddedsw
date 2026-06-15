@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xaxipmon__selftest_8c" kind="file">
+    <compoundname>xaxipmon_selftest.c</compoundname>
+    <includes refid="xaxipmon_8h" local="yes">xaxipmon.h</includes>
+    <incdepgraph>
+      <node id="85">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="83">
+        <label>xaxipmon.h</label>
+        <link refid="xaxipmon_8h"/>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+      </node>
+      <node id="88">
+        <label>xil_io.h</label>
+      </node>
+      <node id="82">
+        <label>xaxipmon_selftest.c</label>
+        <link refid="xaxipmon_selftest.c"/>
+        <childnode refid="83" relation="include">
+        </childnode>
+      </node>
+      <node id="86">
+        <label>xstatus.h</label>
+      </node>
+      <node id="84">
+        <label>xil_types.h</label>
+      </node>
+      <node id="87">
+        <label>xaxipmon_hw.h</label>
+        <link refid="xaxipmon__hw_8h"/>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__axipmon_1ga4f444751901886f7243faa73c3d4c269" prot="public" static="no">
+        <name>XAPM_TEST_RANGEUPPER_VALUE</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+<para>Test Value for Upper Range. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon_selftest.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon_selftest.c" bodystart="46" bodyend="-1"/>
+        <referencedby refid="group__axipmon_1ga5d9aca319722f5632647d1d08931382c" compoundref="xaxipmon__selftest_8c" startline="79" endline="126">XAxiPmon_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipmon_1ga7f77ac67a638eb17c38b88efd804e3a9" prot="public" static="no">
+        <name>XAPM_TEST_RANGELOWER_VALUE</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Test Value for Lower Range. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon_selftest.c" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon_selftest.c" bodystart="47" bodyend="-1"/>
+        <referencedby refid="group__axipmon_1ga5d9aca319722f5632647d1d08931382c" compoundref="xaxipmon__selftest_8c" startline="79" endline="126">XAxiPmon_SelfTest</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__axipmon_1ga5d9aca319722f5632647d1d08931382c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAxiPmon_SelfTest</definition>
+        <argsstring>(XAxiPmon *InstancePtr)</argsstring>
+        <name>XAxiPmon_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_axi_pmon" kindref="compound">XAxiPmon</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Functions in <ref refid="xaxipmon__selftest_8c" kindref="compound">xaxipmon_selftest.c</ref>. </para>        </briefdescription>
+        <detaileddescription>
+<para>Run a self-test on the driver/device.</para><para>The test<itemizedlist>
+<listitem><para>Resets the device,</para></listitem><listitem><para>Writes a value into the Range Registers of Incrementer 0 and reads it back for comparison.</para></listitem><listitem><para>Resets the device again.</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_axi_pmon" kindref="compound">XAxiPmon</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the value read from the Range Register of Incrementer 0 is the same as the value written.</para></listitem><listitem><para>XST_FAILURE Otherwise</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This is a destructive test in that resets of the device are performed. Refer to the device specification for the device status after the reset operation. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon.h" line="937" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon_selftest.c" bodystart="79" bodyend="126"/>
+        <references refid="struct_x_axi_pmon_1ac1850f54d71babaa6ae9c2fa19ede701" compoundref="xaxipmon_8h" startline="471">XAxiPmon::IsReady</references>
+        <references refid="group__axipmon_1ga100cefd307b44e6bd50767efc4105599" compoundref="xaxipmon_8h" startline="298">XAPM_INCREMENTER_0</references>
+        <references refid="group__axipmon_1ga7f77ac67a638eb17c38b88efd804e3a9" compoundref="xaxipmon__selftest_8c" startline="47">XAPM_TEST_RANGELOWER_VALUE</references>
+        <references refid="group__axipmon_1ga4f444751901886f7243faa73c3d4c269" compoundref="xaxipmon__selftest_8c" startline="46">XAPM_TEST_RANGEUPPER_VALUE</references>
+        <references refid="group__axipmon_1ga9dbb1046b25b47bc8e59e68f0f5039d8" compoundref="xaxipmon_8c" startline="410" endline="428">XAxiPmon_GetIncrementerRange</references>
+        <references refid="group__axipmon_1ga25191e9280ab4a1dcffae7afd08ae599" compoundref="xaxipmon_8c" startline="275" endline="302">XAxiPmon_ResetGlobalClkCounter</references>
+        <references refid="group__axipmon_1ga34106e1380f932cb94c74e1bea3a34b3" compoundref="xaxipmon_8c" startline="234" endline="261">XAxiPmon_ResetMetricCounter</references>
+        <references refid="group__axipmon_1gad07bb2139c9b16d6f46f49b02b0200ae" compoundref="xaxipmon_8c" startline="368" endline="390">XAxiPmon_SetIncrementerRange</references>
+        <referencedby refid="xaxipmon__intr__example_8c_1a09802d0ef0597cec23b941db2278abc2" compoundref="xaxipmon__intr__example_8c" startline="204" endline="320">AxiPmonInterruptExample</referencedby>
+        <referencedby refid="xaxipmon__polled__example_8c_1ab8484e23152708879d1d2e286d3bb0bd" compoundref="xaxipmon__polled__example_8c" startline="168" endline="252">AxiPmonPolledExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2012<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="35"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xaxipmon_8h" kindref="compound">xaxipmon.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="42"><highlight class="comment"><sp/>*<sp/>The<sp/>following<sp/>constant<sp/>defines<sp/>the<sp/>test<sp/>value<sp/>to<sp/>be<sp/>written</highlight></codeline>
+<codeline lineno="43"><highlight class="comment"><sp/>*<sp/>to<sp/>the<sp/>Range<sp/>Registers<sp/>of<sp/>Incrementers</highlight></codeline>
+<codeline lineno="44"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46" refid="group__axipmon_1ga4f444751901886f7243faa73c3d4c269" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XAPM_TEST_RANGEUPPER_VALUE<sp/><sp/><sp/><sp/><sp/><sp/>16U<sp/></highlight></codeline>
+<codeline lineno="47" refid="group__axipmon_1ga7f77ac67a638eb17c38b88efd804e3a9" refkind="member"><highlight class="preprocessor">#define<sp/>XAPM_TEST_RANGELOWER_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U<sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="79" refid="group__axipmon_1ga5d9aca319722f5632647d1d08931382c" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__axipmon_1ga5d9aca319722f5632647d1d08931382c" kindref="member">XAxiPmon_SelfTest</ref>(<ref refid="struct_x_axi_pmon" kindref="compound">XAxiPmon</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="80"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>RangeUpper<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>RangeLower<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="86"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>argument</highlight></codeline>
+<codeline lineno="87"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_axi_pmon_1ac1850f54d71babaa6ae9c2fa19ede701" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="93"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Reset<sp/>the<sp/>device<sp/>to<sp/>get<sp/>it<sp/>back<sp/>to<sp/>its<sp/>default<sp/>state</highlight></codeline>
+<codeline lineno="94"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<ref refid="group__axipmon_1ga34106e1380f932cb94c74e1bea3a34b3" kindref="member">XAxiPmon_ResetMetricCounter</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axipmon_1ga25191e9280ab4a1dcffae7afd08ae599" kindref="member">XAxiPmon_ResetGlobalClkCounter</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="99"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>a<sp/>value<sp/>into<sp/>the<sp/>Incrementer<sp/>register<sp/>and</highlight></codeline>
+<codeline lineno="100"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>read<sp/>it<sp/>back,<sp/>and<sp/>do<sp/>the<sp/>comparison</highlight></codeline>
+<codeline lineno="101"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axipmon_1gad07bb2139c9b16d6f46f49b02b0200ae" kindref="member">XAxiPmon_SetIncrementerRange</ref>(InstancePtr,<sp/><ref refid="group__axipmon_1ga100cefd307b44e6bd50767efc4105599" kindref="member">XAPM_INCREMENTER_0</ref>,</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axipmon_1ga4f444751901886f7243faa73c3d4c269" kindref="member">XAPM_TEST_RANGEUPPER_VALUE</ref>,</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axipmon_1ga7f77ac67a638eb17c38b88efd804e3a9" kindref="member">XAPM_TEST_RANGELOWER_VALUE</ref>);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axipmon_1ga9dbb1046b25b47bc8e59e68f0f5039d8" kindref="member">XAxiPmon_GetIncrementerRange</ref>(InstancePtr,<sp/><ref refid="group__axipmon_1ga100cefd307b44e6bd50767efc4105599" kindref="member">XAPM_INCREMENTER_0</ref>,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;RangeUpper,<sp/>&amp;RangeLower);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RangeUpper<sp/>==<sp/><ref refid="group__axipmon_1ga4f444751901886f7243faa73c3d4c269" kindref="member">XAPM_TEST_RANGEUPPER_VALUE</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RangeLower<sp/>==<sp/><ref refid="group__axipmon_1ga7f77ac67a638eb17c38b88efd804e3a9" kindref="member">XAPM_TEST_RANGELOWER_VALUE</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="117"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Reset<sp/>the<sp/>device<sp/>again<sp/>to<sp/>its<sp/>default<sp/>state.</highlight></codeline>
+<codeline lineno="118"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<ref refid="group__axipmon_1ga34106e1380f932cb94c74e1bea3a34b3" kindref="member">XAxiPmon_ResetMetricCounter</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axipmon_1ga25191e9280ab4a1dcffae7afd08ae599" kindref="member">XAxiPmon_ResetGlobalClkCounter</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="123"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Return<sp/>the<sp/>test<sp/>result.</highlight></codeline>
+<codeline lineno="124"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipmon/src/xaxipmon_selftest.c"/>
+  </compounddef>
+</doxygen>

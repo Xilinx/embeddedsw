@@ -1,0 +1,348 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__warp__init__utils_8h" kind="file">
+    <compoundname>xv_warp_init_utils.h</compoundname>
+    <includedby refid="xv__warp__init__l2_8c" local="yes">xv_warp_init_l2.c</includedby>
+    <includedby refid="xv__warp__init__utils_8c" local="yes">xv_warp_init_utils.c</includedby>
+    <invincdepgraph>
+      <node id="114">
+        <label>xv_warp_init_utils.c</label>
+        <link refid="xv__warp__init__utils_8c"/>
+      </node>
+      <node id="112">
+        <label>xv_warp_init_utils.h</label>
+        <link refid="xv_warp_init_utils.h"/>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
+      </node>
+      <node id="113">
+        <label>xv_warp_init_l2.c</label>
+        <link refid="xv__warp__init__l2_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xv__warp__init__utils_8h_1af5ce9b7640a8ed45df83f83868fe5950" prot="public" static="no">
+        <name>USE_BUILTIN_CLZ</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Use built-in compiler intrinsic for count leading zeros (0=disabled, 1=enabled) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_utils.h" line="16" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_utils.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__warp__init__utils_8h_1af55149bc1f05cf18af067a302e31e3f9" prot="public" static="no">
+        <name>DATA_SIZE</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Number of bits for x and y coordinates. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_utils.h" line="19" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_utils.h" bodystart="19" bodyend="-1"/>
+        <referencedby refid="xv__warp__init__utils_8h_1a656803ca44f8eac5bf9fa7b165dac48c" compoundref="xv__warp__init__utils_8c" startline="1151" endline="1169">XVWarpInit_Inverse</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__warp__init__utils_8h_1a6cbe93c45fdfcc3d87e8e65673c46b5d" prot="public" static="no">
+        <name>LUT_BITS</name>
+        <initializer>12</initializer>
+        <briefdescription>
+<para>Look up table size = 2^LUT_BITS. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_utils.h" line="22" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_utils.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__warp__init__utils_8h_1aef9ced63ad26e871456d84016df6a58e" prot="public" static="no">
+        <name>INV_BIT_SHIFT</name>
+        <initializer><ref refid="xv__warp__init__utils_8h_1af55149bc1f05cf18af067a302e31e3f9" kindref="member">DATA_SIZE</ref> - <ref refid="xv__warp__init__utils_8h_1a6cbe93c45fdfcc3d87e8e65673c46b5d" kindref="member">LUT_BITS</ref> - 1</initializer>
+        <briefdescription>
+<para>Inverse bit shift calculation for lookup table indexing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_utils.h" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_utils.h" bodystart="25" bodyend="-1"/>
+        <referencedby refid="xv__warp__init__utils_8h_1a656803ca44f8eac5bf9fa7b165dac48c" compoundref="xv__warp__init__utils_8c" startline="1151" endline="1169">XVWarpInit_Inverse</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__warp__init__utils_8h_1a09002b61ad87b03f8a39b3c7f9a7296b" prot="public" static="no">
+        <name>LOOP_COUNT</name>
+        <initializer>0x7E9000</initializer>
+        <briefdescription>
+<para>Loop count for 3840x2160 resolution. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_utils.h" line="28" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_utils.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xv__warp__init__utils_8h_1a74b387e069a47b101db243c28692d24b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int XVWarpInit_ExponentialPos</definition>
+        <argsstring>(unsigned short gval)</argsstring>
+        <name>XVWarpInit_ExponentialPos</name>
+        <param>
+          <type>unsigned short</type>
+          <declname>gval</declname>
+        </param>
+        <briefdescription>
+<para>Compute exponential of positive values in fixed-point Q12 format. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function computes e^x for positive values where x is represented in Q12 fixed-point format. Uses lookup tables for fast calculation.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>gval</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Positive short value of x represented in Q12 format</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Positive integer in Q22 fixed-point format representing e^x</para></simplesect>
+<simplesect kind="note"><para>Input range is limited to prevent overflow (maximum ~6.9) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_utils.h" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_utils.c" bodystart="898" bodyend="923"/>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init__utils_8h_1a317d0c1a00abc9c40d752d5802f030fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int XVWarpInit_ExponentialNeg</definition>
+        <argsstring>(unsigned short gval)</argsstring>
+        <name>XVWarpInit_ExponentialNeg</name>
+        <param>
+          <type>unsigned short</type>
+          <declname>gval</declname>
+        </param>
+        <briefdescription>
+<para>Compute exponential of negative values in fixed-point Q12 format. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function computes e^(-x) for negative values where x is represented in Q12 fixed-point format. Uses lookup tables for fast calculation.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>gval</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Positive short value of -x represented in Q12 format</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Positive integer in Q31 fixed-point format representing e^(-x)</para></simplesect>
+<simplesect kind="note"><para>Input range is limited to prevent underflow (maximum -11) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_utils.h" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_utils.c" bodystart="942" bodyend="968"/>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init__utils_8h_1a30071faf9ba12da039d52c310c669158" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int XVWarpInit_Sqrt</definition>
+        <argsstring>(unsigned int v)</argsstring>
+        <name>XVWarpInit_Sqrt</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>v</declname>
+        </param>
+        <briefdescription>
+<para>Compute square root of a positive integer. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function computes the square root of a positive integer using a digit-by-digit calculation algorithm for integer values.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Integer value for calculating square root</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Square root of input v</para></simplesect>
+<simplesect kind="note"><para>Uses iterative binary search algorithm for 16-bit precision </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_utils.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_utils.c" bodystart="1185" bodyend="1203"/>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init__utils_8h_1a069ee1b320f2278379781850378621a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char</type>
+        <definition>unsigned char XVWarpInit_DominantBit</definition>
+        <argsstring>(unsigned int val)</argsstring>
+        <name>XVWarpInit_DominantBit</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+<para>Count leading zeros in a positive integer. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function counts the number of leading zeros in the given positive integer value, effectively finding the position of the most significant bit.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Integer value to analyze</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Number of leading zeros (0-32)</para></simplesect>
+<simplesect kind="note"><para>Can use built-in compiler intrinsic if USE_BUILTIN_CLZ is defined </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_utils.h" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_utils.c" bodystart="1044" bodyend="1133"/>
+        <referencedby refid="xv__warp__init__utils_8h_1a656803ca44f8eac5bf9fa7b165dac48c" compoundref="xv__warp__init__utils_8c" startline="1151" endline="1169">XVWarpInit_Inverse</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init__utils_8h_1a656803ca44f8eac5bf9fa7b165dac48c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned short</type>
+        <definition>unsigned short XVWarpInit_Inverse</definition>
+        <argsstring>(unsigned short x, int M, char *N)</argsstring>
+        <name>XVWarpInit_Inverse</name>
+        <param>
+          <type>unsigned short</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>M</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>N</declname>
+        </param>
+        <briefdescription>
+<para>Compute inverse of a positive short value. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function computes 1/x for positive short values in fixed-point format using a lookup table for efficient calculation.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Integer value for calculating 1/x in QM.(16-M) fixed-point format </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>M</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Integer part bit count of value x </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>N</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to return fractional bits in result</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Inverse of value x in Q(16-N).N fixed-point format</para></simplesect>
+<simplesect kind="note"><para>Returns maximum value from lookup table if x is zero </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_utils.h" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_utils.c" bodystart="1151" bodyend="1169"/>
+        <references refid="xv__warp__init__utils_8h_1af55149bc1f05cf18af067a302e31e3f9" compoundref="xv__warp__init__utils_8h" startline="19">DATA_SIZE</references>
+        <references refid="xv__warp__init__utils_8h_1aef9ced63ad26e871456d84016df6a58e" compoundref="xv__warp__init__utils_8h" startline="25">INV_BIT_SHIFT</references>
+        <references refid="xv__warp__init__utils_8c_1a069ee1b320f2278379781850378621a0" compoundref="xv__warp__init__utils_8c" startline="1044" endline="1133">XVWarpInit_DominantBit</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init__utils_8h_1ade359e69c19e07ac134ee026f034ddc0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int XVWarpInit_ExponentialFact</definition>
+        <argsstring>(unsigned exp_value, short k_type, unsigned int Q_fact, char *Q_exp)</argsstring>
+        <name>XVWarpInit_ExponentialFact</name>
+        <param>
+          <type>unsigned</type>
+          <declname>exp_value</declname>
+        </param>
+        <param>
+          <type>short</type>
+          <declname>k_type</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>Q_fact</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>Q_exp</declname>
+        </param>
+        <briefdescription>
+<para>Compute exponential of fractional number in fixed-point format. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function computes e^x for fractional numbers given in fixed-point format. Handles both positive and negative exponents.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>exp_value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Integer value for calculating e^x in Q_fact fixed-point </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>k_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Exponent type: positive (+ve) or negative (-ve) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Q_fact</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Fixed-point format of exp_value </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Q_exp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to return the fixed-point format of result</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Positive integer in Q_exp fixed-point format representing e^x</para></simplesect>
+<simplesect kind="note"><para>Function automatically clamps input values to valid range </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_utils.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_utils.c" bodystart="987" bodyend="1028"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor">#ifndef<sp/>__XV_WARP_INIT_UTILS_H__</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__XV_WARP_INIT_UTILS_H__</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="16" refid="xv__warp__init__utils_8h_1af5ce9b7640a8ed45df83f83868fe5950" refkind="member"><highlight class="preprocessor">#define<sp/>USE_BUILTIN_CLZ<sp/>0</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="19" refid="xv__warp__init__utils_8h_1af55149bc1f05cf18af067a302e31e3f9" refkind="member"><highlight class="preprocessor">#define<sp/>DATA_SIZE<sp/>16</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="22" refid="xv__warp__init__utils_8h_1a6cbe93c45fdfcc3d87e8e65673c46b5d" refkind="member"><highlight class="preprocessor">#define<sp/>LUT_BITS<sp/>12</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="25" refid="xv__warp__init__utils_8h_1aef9ced63ad26e871456d84016df6a58e" refkind="member"><highlight class="preprocessor">#define<sp/>INV_BIT_SHIFT<sp/>DATA_SIZE<sp/>-<sp/>LUT_BITS<sp/>-<sp/>1</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="28" refid="xv__warp__init__utils_8h_1a09002b61ad87b03f8a39b3c7f9a7296b" refkind="member"><highlight class="preprocessor">#define<sp/>LOOP_COUNT<sp/><sp/><sp/><sp/><sp/><sp/>0x7E9000</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init__utils_8c_1a74b387e069a47b101db243c28692d24b" kindref="member">XVWarpInit_ExponentialPos</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>gval);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init__utils_8c_1a317d0c1a00abc9c40d752d5802f030fb" kindref="member">XVWarpInit_ExponentialNeg</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>gval);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init__utils_8c_1a30071faf9ba12da039d52c310c669158" kindref="member">XVWarpInit_Sqrt</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>v);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init__utils_8c_1a069ee1b320f2278379781850378621a0" kindref="member">XVWarpInit_DominantBit</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>val);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init__utils_8c_1a656803ca44f8eac5bf9fa7b165dac48c" kindref="member">XVWarpInit_Inverse</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>M,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>N);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init__utils_8c_1ade359e69c19e07ac134ee026f034ddc0" kindref="member">XVWarpInit_ExponentialFact</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>exp_value,<sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>k_type,</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Q_fact,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Q_exp);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>__XV_WARP_INIT_UTILS_H__<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_utils.h"/>
+  </compounddef>
+</doxygen>

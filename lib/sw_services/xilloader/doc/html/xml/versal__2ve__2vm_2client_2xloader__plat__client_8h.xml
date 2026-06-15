@@ -1,0 +1,339 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="versal__2ve__2vm_2client_2xloader__plat__client_8h" kind="file">
+    <compoundname>versal_2ve_2vm/client/xloader_plat_client.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xloader__mailbox_8h" local="yes">xloader_mailbox.h</includes>
+    <includedby refid="versal__2ve__2vm_2client_2xloader__plat__client_8c" local="yes">xloader_plat_client.c</includedby>
+    <incdepgraph>
+      <node id="1102">
+        <label>xloader_plat_client.h</label>
+        <link refid="versal_2ve_2vm/client/xloader_plat_client.h"/>
+        <childnode refid="1103" relation="include">
+        </childnode>
+        <childnode refid="1104" relation="include">
+        </childnode>
+      </node>
+      <node id="1104">
+        <label>xloader_mailbox.h</label>
+        <link refid="xloader__mailbox_8h"/>
+        <childnode refid="1105" relation="include">
+        </childnode>
+        <childnode refid="1106" relation="include">
+        </childnode>
+        <childnode refid="1107" relation="include">
+        </childnode>
+      </node>
+      <node id="1107">
+        <label>xloader_defs.h</label>
+        <link refid="xloader__defs_8h"/>
+        <childnode refid="1108" relation="include">
+        </childnode>
+        <childnode refid="1103" relation="include">
+        </childnode>
+      </node>
+      <node id="1105">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="1103">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1106">
+        <label>xparameters.h</label>
+      </node>
+      <node id="1108">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1109">
+        <label>xloader_plat_client.h</label>
+        <link refid="versal_2ve_2vm/client/xloader_plat_client.h"/>
+        <childnode refid="1110" relation="include">
+        </childnode>
+      </node>
+      <node id="1110">
+        <label>xloader_plat_client.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_loader___d_d_r_counters" prot="public">XLoader_DDRCounters</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="versal__2ve__2vm_2client_2xloader__plat__client_8h_1af14fcbd99f3aaf94c6ecc1f3689b8485" prot="public" static="no">
+        <name>XLOADER_PDI_SRC_DDR</name>
+        <initializer>(0xF)</initializer>
+        <briefdescription>
+<para>Source of PDI is DDR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__2ve__2vm_2client_2xloader__plat__client_8h_1a8bf2f25bb888f10360209991f0fa866a" prot="public" static="no">
+        <name>XLOADER_PDI_SRC_IS</name>
+        <initializer>(0x10)</initializer>
+        <briefdescription>
+<para>Source of PDI is Image Store. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__2ve__2vm_2client_2xloader__plat__client_8h_1a1652b4d0eb7aed02ead9dc01a2308f01" prot="public" static="no">
+        <name>XLOADER_PDI_TYPE_FULL</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+<para>PDI type full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__2ve__2vm_2client_2xloader__plat__client_8h_1a32a5a2918cb9e891e72c3501ea804e6c" prot="public" static="no">
+        <name>XLOADER_PDI_TYPE_PARTIAL</name>
+        <initializer>(0x2U)</initializer>
+        <briefdescription>
+<para>PDI type partial. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xloader__client__apis_1gae203b8b034ef118a5152903c58269878" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_ConfigureJtagState</definition>
+        <argsstring>(XLoader_ClientInstance *InstancePtr, u32 Flag)</argsstring>
+        <name>XLoader_ConfigureJtagState</name>
+        <param>
+          <type><ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Flag</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to configure jtag status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Flag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>To enable / disable jtag.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameters validation. Return XST_FAILURE if input parameters are invalid</para></listitem></itemizedlist>
+</para><para>Fill IPI Payload</para><para><itemizedlist>
+<listitem><para>Send an IPI request to the PLM by using the XLoader_ConfigureJtagState CDO command Wait for IPI response from PLM with a timeout.</para></listitem><listitem><para>If the timeout exceeds then error is returned otherwise it returns the status of the IPI response.</para></listitem><listitem><para>Perform input parameters validation. Return XST_FAILURE if input parameters are invalid</para></listitem></itemizedlist>
+</para><para>Fill IPI Payload</para><para><itemizedlist>
+<listitem><para>Send an IPI request to the PLM by using the XLoader_ConfigureJtagState CDO command Wait for IPI response from PLM with a timeout.</para></listitem><listitem><para>If the timeout exceeds then error is returned otherwise it returns the status of the IPI response.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="256" bodyend="281"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__client__apis_1gacc2cbcde55040cd535bd94e0e3f89ca7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_ReadDdrCryptoPerfCounters</definition>
+        <argsstring>(XLoader_ClientInstance *InstancePtr, u32 NodeId, XLoader_DDRCounters *CryptoCounters)</argsstring>
+        <name>XLoader_ReadDdrCryptoPerfCounters</name>
+        <param>
+          <type><ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_loader___d_d_r_counters" kindref="compound">XLoader_DDRCounters</ref> *</type>
+          <declname>CryptoCounters</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to read DDR crypto performance counters. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>DDR device id. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CryptoCounters</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>To read DDR crypto counters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameters validation. Return XST_FAILURE if input parameters are invalid</para></listitem></itemizedlist>
+</para><para>Fill IPI Payload</para><para><itemizedlist>
+<listitem><para>Send an IPI request to the PLM by using the XLoader_ReadDdrCryptoPerfCounters CDO command Wait for IPI response from PLM with a timeout.</para></listitem><listitem><para>If the timeout exceeds then error is returned otherwise it returns the status of the IPI response.</para></listitem><listitem><para>Perform input parameters validation. Return XST_FAILURE if input parameters are invalid</para></listitem></itemizedlist>
+</para><para>Fill IPI Payload</para><para><itemizedlist>
+<listitem><para>Send an IPI request to the PLM by using the XLoader_ReadDdrCryptoPerfCounters CDO command Wait for IPI response from PLM with a timeout.</para></listitem><listitem><para>If the timeout exceeds then error is returned otherwise it returns the status of the IPI response.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="296" bodyend="326"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__client__apis_1gaaff698654e9776729055a8cdd661afa9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_ValidatePdiAuth</definition>
+        <argsstring>(XLoader_ClientInstance *InstancePtr, const u64 PdiAddr, const u32 PdiType)</argsstring>
+        <name>XLoader_ValidatePdiAuth</name>
+        <param>
+          <type><ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>PdiAddr</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>PdiType</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to validate authenticated PDI based on PDI type. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PdiAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address where authenticated PDI is present </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PdiType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to indicate full or partial PDI</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success and error code on failure</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function has external linkage and is declared in xloader_plat_client.h for use by application code.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to <ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PdiAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Address where authenticated PDI is present </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PdiType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Value to indicate Full or Partial PDI</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success and error code on failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>For full PDI Partition 0 is PLM. Hence Idx starts from 1 for PLM loadable partitions</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="878" bodyend="943"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor">#ifndef<sp/>XLOADER_PLAT_CLIENT_H</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_PLAT_CLIENT_H</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xloader__mailbox_8h" kindref="compound">xloader_mailbox.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight></codeline>
+<codeline lineno="43" refid="struct_x_loader___d_d_r_counters" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="44" refid="struct_x_loader___d_d_r_counters_1adbd31efe7b49dc75aa6ba53b0e8047bf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_loader___d_d_r_counters_1adbd31efe7b49dc75aa6ba53b0e8047bf" kindref="member">DDRCounter0</ref>;<sp/></highlight></codeline>
+<codeline lineno="45" refid="struct_x_loader___d_d_r_counters_1ad68ee807f5dd25fabb2fdf9aa768c329" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_loader___d_d_r_counters_1ad68ee807f5dd25fabb2fdf9aa768c329" kindref="member">DDRCounter1</ref>;<sp/></highlight></codeline>
+<codeline lineno="46" refid="struct_x_loader___d_d_r_counters_1ac2f0ad90270f7cc5999949c23e491db6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_loader___d_d_r_counters_1ac2f0ad90270f7cc5999949c23e491db6" kindref="member">DDRCounter2</ref>;<sp/></highlight></codeline>
+<codeline lineno="47" refid="struct_x_loader___d_d_r_counters_1a42efe31bd40c709885dfb64810e3857c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_loader___d_d_r_counters_1a42efe31bd40c709885dfb64810e3857c" kindref="member">DDRCounter3</ref>;<sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="normal">}<sp/><ref refid="struct_x_loader___d_d_r_counters" kindref="compound">XLoader_DDRCounters</ref>;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_PDI_SRC_DDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor">#define<sp/>XLOADER_PDI_SRC_IS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x10)<sp/><sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor">#define<sp/>XLOADER_PDI_TYPE_FULL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)<sp/><sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor">#define<sp/>XLOADER_PDI_TYPE_PARTIAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2U)<sp/><sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="2vp_2server_2xloader__plat_8h_1a29e4550c196dd134eb5b971b06987fd4" kindref="member">XLoader_ConfigureJtagState</ref>(<ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref><sp/>*InstancePtr,<sp/>u32<sp/>Flag);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__client__apis_1gacc2cbcde55040cd535bd94e0e3f89ca7" kindref="member">XLoader_ReadDdrCryptoPerfCounters</ref>(<ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref><sp/>*InstancePtr,<sp/>u32<sp/>NodeId,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_loader___d_d_r_counters" kindref="compound">XLoader_DDRCounters</ref><sp/>*CryptoCounters);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__client__apis_1gaaff698654e9776729055a8cdd661afa9" kindref="member">XLoader_ValidatePdiAuth</ref>(<ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>PdiAddr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>PdiType);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XLOADER_PLAT_CLIENT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.h"/>
+  </compounddef>
+</doxygen>

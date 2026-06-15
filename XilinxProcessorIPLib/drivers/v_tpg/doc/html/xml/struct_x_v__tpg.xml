@@ -1,0 +1,261 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v__tpg" kind="struct" prot="public">
+    <compoundname>XV_tpg</compoundname>
+    <includes local="no">xv_tpg.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v__tpg_1ad6e5c5b7d9015c37ef3e423da70dab9a" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__tpg___config" kindref="compound">XV_tpg_Config</ref></type>
+        <definition>XV_tpg_Config XV_tpg::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg.h" bodystart="136" bodyend="-1"/>
+        <referencedby refid="main_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="main_8c" startline="330" endline="422">main</referencedby>
+        <referencedby refid="main_8c_1aac2df9e08924d4dadbc4684d516a0002" compoundref="main_8c" startline="214" endline="290">videoClockConfig</referencedby>
+        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="156" endline="196">videoIpConfig</referencedby>
+        <referencedby refid="xv__tpg_8h_1af42029c0f17098968f38dbd9c6156606" compoundref="xv__tpg_8c" startline="35" endline="54">XV_tpg_CfgInitialize</referencedby>
+        <referencedby refid="xv__tpg_8h_1a0710d7b18784721813624cd13250ec82" compoundref="xv__tpg_8c" startline="188" endline="193">XV_tpg_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__tpg_8h_1a53f4c200ddf20d449782114460d5e75b" compoundref="xv__tpg_8c" startline="168" endline="173">XV_tpg_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__tpg_8h_1abbb6088dbc145371ec9165a1f8039052" compoundref="xv__tpg_8c" startline="317" endline="325">XV_tpg_Get_bckgndId</referencedby>
+        <referencedby refid="xv__tpg_8h_1ab11c565f1957fba21107a7ba4247e74e" compoundref="xv__tpg_8c" startline="1008" endline="1016">XV_tpg_Get_boxColorB</referencedby>
+        <referencedby refid="xv__tpg_8h_1a4800acd329ec6e8e1c98ac3f85d59c25" compoundref="xv__tpg_8c" startline="962" endline="970">XV_tpg_Get_boxColorG</referencedby>
+        <referencedby refid="xv__tpg_8h_1a3871bca7c41d923f2bbea0abb03022ca" compoundref="xv__tpg_8c" startline="916" endline="924">XV_tpg_Get_boxColorR</referencedby>
+        <referencedby refid="xv__tpg_8h_1a4b2cd6a251cc59b1609f9d2ee7568eb5" compoundref="xv__tpg_8c" startline="870" endline="878">XV_tpg_Get_boxSize</referencedby>
+        <referencedby refid="xv__tpg_8h_1a9a76a448c305b899e6c84700e24fdbb4" compoundref="xv__tpg_8c" startline="545" endline="553">XV_tpg_Get_colorFormat</referencedby>
+        <referencedby refid="xv__tpg_8h_1ac102ec896dac38f19bb2aefd359413fe" compoundref="xv__tpg_8c" startline="589" endline="597">XV_tpg_Get_crossHairX</referencedby>
+        <referencedby refid="xv__tpg_8h_1a68a4431c78d0cccf050ae3a36d6b093d" compoundref="xv__tpg_8c" startline="634" endline="642">XV_tpg_Get_crossHairY</referencedby>
+        <referencedby refid="xv__tpg_8h_1ae05b0e58a01e66dc595c4f70073a5b16" compoundref="xv__tpg_8c" startline="1289" endline="1297">XV_tpg_Get_dpDynamicRange</referencedby>
+        <referencedby refid="xv__tpg_8h_1a30fb205197036c236a92b25685ad50e4" compoundref="xv__tpg_8c" startline="1331" endline="1339">XV_tpg_Get_dpYUVCoef</referencedby>
+        <referencedby refid="xv__tpg_8h_1ab4e2c2deebb2d27758e8d828b3c83baf" compoundref="xv__tpg_8c" startline="1064" endline="1072">XV_tpg_Get_enableInput</referencedby>
+        <referencedby refid="xv__tpg_8h_1a59aed58e902be18c3e35c50a678cb14e" compoundref="xv__tpg_8c" startline="1404" endline="1413">XV_tpg_Get_fieldId</referencedby>
+        <referencedby refid="xv__tpg_8h_1a739b182d1356f55b1f8bda0e7fe81a1d" compoundref="xv__tpg_8c" startline="229" endline="237">XV_tpg_Get_height</referencedby>
+        <referencedby refid="xv__tpg_8h_1a7da99320e50c64a9e05506e22b333787" compoundref="xv__tpg_8c" startline="456" endline="464">XV_tpg_Get_maskId</referencedby>
+        <referencedby refid="xv__tpg_8h_1a19280e192b6ac835111b214911d7f427" compoundref="xv__tpg_8c" startline="366" endline="376">XV_tpg_Get_motionEnStatus</referencedby>
+        <referencedby refid="xv__tpg_8h_1a3aff00d58c8a412d3bd6c8498930aaef" compoundref="xv__tpg_8c" startline="501" endline="509">XV_tpg_Get_motionSpeed</referencedby>
+        <referencedby refid="xv__tpg_8h_1a2703902445cd3532554bdc0c3dc6abf7" compoundref="xv__tpg_8c" startline="411" endline="419">XV_tpg_Get_ovrlayId</referencedby>
+        <referencedby refid="xv__tpg_8h_1ab24cf3b6a9a95ee0f48575af5e5ca18d" compoundref="xv__tpg_8c" startline="1201" endline="1209">XV_tpg_Get_passthruEndX</referencedby>
+        <referencedby refid="xv__tpg_8h_1a815a3075ad35d41b1a8a13e32653f79c" compoundref="xv__tpg_8c" startline="1247" endline="1255">XV_tpg_Get_passthruEndY</referencedby>
+        <referencedby refid="xv__tpg_8h_1ab4241c27324c2aec639136e87bad221b" compoundref="xv__tpg_8c" startline="1109" endline="1117">XV_tpg_Get_passthruStartX</referencedby>
+        <referencedby refid="xv__tpg_8h_1a592bfaa2f67b8b53888fac69ae7b2fc0" compoundref="xv__tpg_8c" startline="1155" endline="1163">XV_tpg_Get_passthruStartY</referencedby>
+        <referencedby refid="xv__tpg_8h_1a968ff052a46af4aa96ad16ab5163b065" compoundref="xv__tpg_8c" startline="273" endline="281">XV_tpg_Get_width</referencedby>
+        <referencedby refid="xv__tpg_8h_1a1001d39f912cf1d831fd3ea30aecc725" compoundref="xv__tpg_8c" startline="729" endline="737">XV_tpg_Get_ZplateHorContDelta</referencedby>
+        <referencedby refid="xv__tpg_8h_1ac8ca072b7aca4fd064216aca460abe93" compoundref="xv__tpg_8c" startline="681" endline="689">XV_tpg_Get_ZplateHorContStart</referencedby>
+        <referencedby refid="xv__tpg_8h_1a90adb54f1ee8353eaddf6dc60bc67876" compoundref="xv__tpg_8c" startline="824" endline="832">XV_tpg_Get_ZplateVerContDelta</referencedby>
+        <referencedby refid="xv__tpg_8h_1a012fb925b3f0ed403f8fa057d512135b" compoundref="xv__tpg_8c" startline="777" endline="785">XV_tpg_Get_ZplateVerContStart</referencedby>
+        <referencedby refid="xv__tpg_8h_1a040b3a764510bf1fa38ebec2c5969f9d" compoundref="xv__tpg_8c" startline="1512" endline="1517">XV_tpg_InterruptClear</referencedby>
+        <referencedby refid="xv__tpg_8h_1a1e09e90ae3da2793efbf9ea8066da231" compoundref="xv__tpg_8c" startline="1489" endline="1497">XV_tpg_InterruptDisable</referencedby>
+        <referencedby refid="xv__tpg_8h_1ad538c750b5304b2d37810bdaac7f0c3f" compoundref="xv__tpg_8c" startline="1466" endline="1474">XV_tpg_InterruptEnable</referencedby>
+        <referencedby refid="xv__tpg_8h_1a9ad0ab35ea9aff0480fdad5e3f37fdbc" compoundref="xv__tpg_8c" startline="1531" endline="1536">XV_tpg_InterruptGetEnabled</referencedby>
+        <referencedby refid="xv__tpg_8h_1a7aa0c0ee7f93c3fce3d846ce8ae54c3f" compoundref="xv__tpg_8c" startline="1550" endline="1555">XV_tpg_InterruptGetStatus</referencedby>
+        <referencedby refid="xv__tpg_8h_1ad04b6fd3929d98d0442e55f3bffb766d" compoundref="xv__tpg_8c" startline="1446" endline="1451">XV_tpg_InterruptGlobalDisable</referencedby>
+        <referencedby refid="xv__tpg_8h_1aee1642ec2f3b5595bcb707c0a94ae53b" compoundref="xv__tpg_8c" startline="1427" endline="1432">XV_tpg_InterruptGlobalEnable</referencedby>
+        <referencedby refid="xv__tpg_8h_1a737fe83d9fa19d5f595d80a47a32dda5" compoundref="xv__tpg_8c" startline="95" endline="103">XV_tpg_IsDone</referencedby>
+        <referencedby refid="xv__tpg_8h_1a407bc3c4e343d3c633a35f238e88af4b" compoundref="xv__tpg_8c" startline="119" endline="127">XV_tpg_IsIdle</referencedby>
+        <referencedby refid="xv__tpg_8h_1ad5694119272643dde7c71ef6acf87a07" compoundref="xv__tpg_8c" startline="143" endline="152">XV_tpg_IsReady</referencedby>
+        <referencedby refid="xv__tpg_8h_1aad885dc589ff60dd75ce0c2ac4d70aa3" compoundref="xv__tpg_8c" startline="297" endline="302">XV_tpg_Set_bckgndId</referencedby>
+        <referencedby refid="xv__tpg_8h_1a5f5a03787377af65f128fe01497a9c6a" compoundref="xv__tpg_8c" startline="987" endline="992">XV_tpg_Set_boxColorB</referencedby>
+        <referencedby refid="xv__tpg_8h_1acc6327ad5512a33627459a14f15902f3" compoundref="xv__tpg_8c" startline="941" endline="946">XV_tpg_Set_boxColorG</referencedby>
+        <referencedby refid="xv__tpg_8h_1adcf03960c66a74275f9551c667c16a8b" compoundref="xv__tpg_8c" startline="895" endline="900">XV_tpg_Set_boxColorR</referencedby>
+        <referencedby refid="xv__tpg_8h_1a402a6afc7158445679c7cbe4df7e8cfa" compoundref="xv__tpg_8c" startline="849" endline="854">XV_tpg_Set_boxSize</referencedby>
+        <referencedby refid="xv__tpg_8h_1a9c318702b4faa413bbec6985b72cf779" compoundref="xv__tpg_8c" startline="525" endline="530">XV_tpg_Set_colorFormat</referencedby>
+        <referencedby refid="xv__tpg_8h_1a667f3ea3507cb79b22273cae49f4e3b1" compoundref="xv__tpg_8c" startline="569" endline="574">XV_tpg_Set_crossHairX</referencedby>
+        <referencedby refid="xv__tpg_8h_1ad4e6c6a2c7461d52b3b83c92ea929071" compoundref="xv__tpg_8c" startline="614" endline="619">XV_tpg_Set_crossHairY</referencedby>
+        <referencedby refid="xv__tpg_8h_1a290ea26e8407150cb25ad5bea11d634c" compoundref="xv__tpg_8c" startline="1270" endline="1275">XV_tpg_Set_dpDynamicRange</referencedby>
+        <referencedby refid="xv__tpg_8h_1adfc8208e8bfd7844cf2b28eed079250c" compoundref="xv__tpg_8c" startline="1312" endline="1317">XV_tpg_Set_dpYUVCoef</referencedby>
+        <referencedby refid="xv__tpg_8h_1a51651c1fb260ef58ddeefc7a585aa6db" compoundref="xv__tpg_8c" startline="1032" endline="1049">XV_tpg_Set_enableInput</referencedby>
+        <referencedby refid="xv__tpg_8h_1a42e89a263dc07b42e934bb965ffd0f51" compoundref="xv__tpg_8c" startline="209" endline="214">XV_tpg_Set_height</referencedby>
+        <referencedby refid="xv__tpg_8h_1a58bd0619f6505ad4277a52032044d45f" compoundref="xv__tpg_8c" startline="1354" endline="1365">XV_tpg_Set_Interlaced</referencedby>
+        <referencedby refid="xv__tpg_8h_1a113802fe4bddb4f3e9f40061189dd343" compoundref="xv__tpg_8c" startline="436" endline="441">XV_tpg_Set_maskId</referencedby>
+        <referencedby refid="xv__tpg_8h_1aa73442c409283c381a174372bd5b0d43" compoundref="xv__tpg_8c" startline="341" endline="351">XV_tpg_Set_motionEn</referencedby>
+        <referencedby refid="xv__tpg_8h_1a4f1373f1321fec30f38002291191a247" compoundref="xv__tpg_8c" startline="481" endline="486">XV_tpg_Set_motionSpeed</referencedby>
+        <referencedby refid="xv__tpg_8h_1a991203bc922de754035b8c77625d8301" compoundref="xv__tpg_8c" startline="391" endline="396">XV_tpg_Set_ovrlayId</referencedby>
+        <referencedby refid="xv__tpg_8h_1a50e71e4254ff1f09fe7742e375c29b18" compoundref="xv__tpg_8c" startline="1180" endline="1185">XV_tpg_Set_passthruEndX</referencedby>
+        <referencedby refid="xv__tpg_8h_1a234da76ca286967d289418a3590bc97c" compoundref="xv__tpg_8c" startline="1226" endline="1231">XV_tpg_Set_passthruEndY</referencedby>
+        <referencedby refid="xv__tpg_8h_1a549c38a347ae21dffb0207a5f8f58510" compoundref="xv__tpg_8c" startline="1088" endline="1093">XV_tpg_Set_passthruStartX</referencedby>
+        <referencedby refid="xv__tpg_8h_1aae89a9eaded73af117f261249cfcce81" compoundref="xv__tpg_8c" startline="1134" endline="1139">XV_tpg_Set_passthruStartY</referencedby>
+        <referencedby refid="xv__tpg_8h_1ac2caf6243e2bd84d1aaca7c0d5b6245d" compoundref="xv__tpg_8c" startline="1379" endline="1391">XV_tpg_Set_Polarity</referencedby>
+        <referencedby refid="xv__tpg_8h_1aad95dacaba16b6d51a477afbe9a0e6cd" compoundref="xv__tpg_8c" startline="253" endline="258">XV_tpg_Set_width</referencedby>
+        <referencedby refid="xv__tpg_8h_1a27a71108edc5092ea13102bdf7677306" compoundref="xv__tpg_8c" startline="708" endline="713">XV_tpg_Set_ZplateHorContDelta</referencedby>
+        <referencedby refid="xv__tpg_8h_1a1b4f1f93e0f77e5e2f03a3f660b85fbb" compoundref="xv__tpg_8c" startline="660" endline="665">XV_tpg_Set_ZplateHorContStart</referencedby>
+        <referencedby refid="xv__tpg_8h_1a93f17c36c5931a709ea0c4d53f7c539d" compoundref="xv__tpg_8c" startline="803" endline="808">XV_tpg_Set_ZplateVerContDelta</referencedby>
+        <referencedby refid="xv__tpg_8h_1a5d704c9b4c730213f9931dda29de6b51" compoundref="xv__tpg_8c" startline="756" endline="761">XV_tpg_Set_ZplateVerContStart</referencedby>
+        <referencedby refid="xv__tpg_8h_1a98832a9d13c63339d9c6ea040e27ea23" compoundref="xv__tpg_8c" startline="71" endline="79">XV_tpg_Start</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__tpg_1a90433a42547a648492ef277251bd376e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_tpg::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg.h" bodystart="137" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1af42029c0f17098968f38dbd9c6156606" compoundref="xv__tpg_8c" startline="35" endline="54">XV_tpg_CfgInitialize</referencedby>
+        <referencedby refid="xv__tpg_8h_1a0710d7b18784721813624cd13250ec82" compoundref="xv__tpg_8c" startline="188" endline="193">XV_tpg_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__tpg_8h_1a53f4c200ddf20d449782114460d5e75b" compoundref="xv__tpg_8c" startline="168" endline="173">XV_tpg_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__tpg_8h_1abbb6088dbc145371ec9165a1f8039052" compoundref="xv__tpg_8c" startline="317" endline="325">XV_tpg_Get_bckgndId</referencedby>
+        <referencedby refid="xv__tpg_8h_1ab11c565f1957fba21107a7ba4247e74e" compoundref="xv__tpg_8c" startline="1008" endline="1016">XV_tpg_Get_boxColorB</referencedby>
+        <referencedby refid="xv__tpg_8h_1a4800acd329ec6e8e1c98ac3f85d59c25" compoundref="xv__tpg_8c" startline="962" endline="970">XV_tpg_Get_boxColorG</referencedby>
+        <referencedby refid="xv__tpg_8h_1a3871bca7c41d923f2bbea0abb03022ca" compoundref="xv__tpg_8c" startline="916" endline="924">XV_tpg_Get_boxColorR</referencedby>
+        <referencedby refid="xv__tpg_8h_1a4b2cd6a251cc59b1609f9d2ee7568eb5" compoundref="xv__tpg_8c" startline="870" endline="878">XV_tpg_Get_boxSize</referencedby>
+        <referencedby refid="xv__tpg_8h_1a9a76a448c305b899e6c84700e24fdbb4" compoundref="xv__tpg_8c" startline="545" endline="553">XV_tpg_Get_colorFormat</referencedby>
+        <referencedby refid="xv__tpg_8h_1ac102ec896dac38f19bb2aefd359413fe" compoundref="xv__tpg_8c" startline="589" endline="597">XV_tpg_Get_crossHairX</referencedby>
+        <referencedby refid="xv__tpg_8h_1a68a4431c78d0cccf050ae3a36d6b093d" compoundref="xv__tpg_8c" startline="634" endline="642">XV_tpg_Get_crossHairY</referencedby>
+        <referencedby refid="xv__tpg_8h_1ae05b0e58a01e66dc595c4f70073a5b16" compoundref="xv__tpg_8c" startline="1289" endline="1297">XV_tpg_Get_dpDynamicRange</referencedby>
+        <referencedby refid="xv__tpg_8h_1a30fb205197036c236a92b25685ad50e4" compoundref="xv__tpg_8c" startline="1331" endline="1339">XV_tpg_Get_dpYUVCoef</referencedby>
+        <referencedby refid="xv__tpg_8h_1ab4e2c2deebb2d27758e8d828b3c83baf" compoundref="xv__tpg_8c" startline="1064" endline="1072">XV_tpg_Get_enableInput</referencedby>
+        <referencedby refid="xv__tpg_8h_1a59aed58e902be18c3e35c50a678cb14e" compoundref="xv__tpg_8c" startline="1404" endline="1413">XV_tpg_Get_fieldId</referencedby>
+        <referencedby refid="xv__tpg_8h_1a739b182d1356f55b1f8bda0e7fe81a1d" compoundref="xv__tpg_8c" startline="229" endline="237">XV_tpg_Get_height</referencedby>
+        <referencedby refid="xv__tpg_8h_1a7da99320e50c64a9e05506e22b333787" compoundref="xv__tpg_8c" startline="456" endline="464">XV_tpg_Get_maskId</referencedby>
+        <referencedby refid="xv__tpg_8h_1a19280e192b6ac835111b214911d7f427" compoundref="xv__tpg_8c" startline="366" endline="376">XV_tpg_Get_motionEnStatus</referencedby>
+        <referencedby refid="xv__tpg_8h_1a3aff00d58c8a412d3bd6c8498930aaef" compoundref="xv__tpg_8c" startline="501" endline="509">XV_tpg_Get_motionSpeed</referencedby>
+        <referencedby refid="xv__tpg_8h_1a2703902445cd3532554bdc0c3dc6abf7" compoundref="xv__tpg_8c" startline="411" endline="419">XV_tpg_Get_ovrlayId</referencedby>
+        <referencedby refid="xv__tpg_8h_1ab24cf3b6a9a95ee0f48575af5e5ca18d" compoundref="xv__tpg_8c" startline="1201" endline="1209">XV_tpg_Get_passthruEndX</referencedby>
+        <referencedby refid="xv__tpg_8h_1a815a3075ad35d41b1a8a13e32653f79c" compoundref="xv__tpg_8c" startline="1247" endline="1255">XV_tpg_Get_passthruEndY</referencedby>
+        <referencedby refid="xv__tpg_8h_1ab4241c27324c2aec639136e87bad221b" compoundref="xv__tpg_8c" startline="1109" endline="1117">XV_tpg_Get_passthruStartX</referencedby>
+        <referencedby refid="xv__tpg_8h_1a592bfaa2f67b8b53888fac69ae7b2fc0" compoundref="xv__tpg_8c" startline="1155" endline="1163">XV_tpg_Get_passthruStartY</referencedby>
+        <referencedby refid="xv__tpg_8h_1a968ff052a46af4aa96ad16ab5163b065" compoundref="xv__tpg_8c" startline="273" endline="281">XV_tpg_Get_width</referencedby>
+        <referencedby refid="xv__tpg_8h_1a1001d39f912cf1d831fd3ea30aecc725" compoundref="xv__tpg_8c" startline="729" endline="737">XV_tpg_Get_ZplateHorContDelta</referencedby>
+        <referencedby refid="xv__tpg_8h_1ac8ca072b7aca4fd064216aca460abe93" compoundref="xv__tpg_8c" startline="681" endline="689">XV_tpg_Get_ZplateHorContStart</referencedby>
+        <referencedby refid="xv__tpg_8h_1a90adb54f1ee8353eaddf6dc60bc67876" compoundref="xv__tpg_8c" startline="824" endline="832">XV_tpg_Get_ZplateVerContDelta</referencedby>
+        <referencedby refid="xv__tpg_8h_1a012fb925b3f0ed403f8fa057d512135b" compoundref="xv__tpg_8c" startline="777" endline="785">XV_tpg_Get_ZplateVerContStart</referencedby>
+        <referencedby refid="xv__tpg__sinit_8c_1a93690c845306795e0d1e39c14dbe5ed3" compoundref="xv__tpg__sinit_8c" startline="145" endline="159">XV_tpg_Initialize</referencedby>
+        <referencedby refid="xv__tpg_8h_1a040b3a764510bf1fa38ebec2c5969f9d" compoundref="xv__tpg_8c" startline="1512" endline="1517">XV_tpg_InterruptClear</referencedby>
+        <referencedby refid="xv__tpg_8h_1a1e09e90ae3da2793efbf9ea8066da231" compoundref="xv__tpg_8c" startline="1489" endline="1497">XV_tpg_InterruptDisable</referencedby>
+        <referencedby refid="xv__tpg_8h_1ad538c750b5304b2d37810bdaac7f0c3f" compoundref="xv__tpg_8c" startline="1466" endline="1474">XV_tpg_InterruptEnable</referencedby>
+        <referencedby refid="xv__tpg_8h_1a9ad0ab35ea9aff0480fdad5e3f37fdbc" compoundref="xv__tpg_8c" startline="1531" endline="1536">XV_tpg_InterruptGetEnabled</referencedby>
+        <referencedby refid="xv__tpg_8h_1a7aa0c0ee7f93c3fce3d846ce8ae54c3f" compoundref="xv__tpg_8c" startline="1550" endline="1555">XV_tpg_InterruptGetStatus</referencedby>
+        <referencedby refid="xv__tpg_8h_1ad04b6fd3929d98d0442e55f3bffb766d" compoundref="xv__tpg_8c" startline="1446" endline="1451">XV_tpg_InterruptGlobalDisable</referencedby>
+        <referencedby refid="xv__tpg_8h_1aee1642ec2f3b5595bcb707c0a94ae53b" compoundref="xv__tpg_8c" startline="1427" endline="1432">XV_tpg_InterruptGlobalEnable</referencedby>
+        <referencedby refid="xv__tpg_8h_1a737fe83d9fa19d5f595d80a47a32dda5" compoundref="xv__tpg_8c" startline="95" endline="103">XV_tpg_IsDone</referencedby>
+        <referencedby refid="xv__tpg_8h_1a407bc3c4e343d3c633a35f238e88af4b" compoundref="xv__tpg_8c" startline="119" endline="127">XV_tpg_IsIdle</referencedby>
+        <referencedby refid="xv__tpg_8h_1ad5694119272643dde7c71ef6acf87a07" compoundref="xv__tpg_8c" startline="143" endline="152">XV_tpg_IsReady</referencedby>
+        <referencedby refid="xv__tpg_8h_1aad885dc589ff60dd75ce0c2ac4d70aa3" compoundref="xv__tpg_8c" startline="297" endline="302">XV_tpg_Set_bckgndId</referencedby>
+        <referencedby refid="xv__tpg_8h_1a5f5a03787377af65f128fe01497a9c6a" compoundref="xv__tpg_8c" startline="987" endline="992">XV_tpg_Set_boxColorB</referencedby>
+        <referencedby refid="xv__tpg_8h_1acc6327ad5512a33627459a14f15902f3" compoundref="xv__tpg_8c" startline="941" endline="946">XV_tpg_Set_boxColorG</referencedby>
+        <referencedby refid="xv__tpg_8h_1adcf03960c66a74275f9551c667c16a8b" compoundref="xv__tpg_8c" startline="895" endline="900">XV_tpg_Set_boxColorR</referencedby>
+        <referencedby refid="xv__tpg_8h_1a402a6afc7158445679c7cbe4df7e8cfa" compoundref="xv__tpg_8c" startline="849" endline="854">XV_tpg_Set_boxSize</referencedby>
+        <referencedby refid="xv__tpg_8h_1a9c318702b4faa413bbec6985b72cf779" compoundref="xv__tpg_8c" startline="525" endline="530">XV_tpg_Set_colorFormat</referencedby>
+        <referencedby refid="xv__tpg_8h_1a667f3ea3507cb79b22273cae49f4e3b1" compoundref="xv__tpg_8c" startline="569" endline="574">XV_tpg_Set_crossHairX</referencedby>
+        <referencedby refid="xv__tpg_8h_1ad4e6c6a2c7461d52b3b83c92ea929071" compoundref="xv__tpg_8c" startline="614" endline="619">XV_tpg_Set_crossHairY</referencedby>
+        <referencedby refid="xv__tpg_8h_1a290ea26e8407150cb25ad5bea11d634c" compoundref="xv__tpg_8c" startline="1270" endline="1275">XV_tpg_Set_dpDynamicRange</referencedby>
+        <referencedby refid="xv__tpg_8h_1adfc8208e8bfd7844cf2b28eed079250c" compoundref="xv__tpg_8c" startline="1312" endline="1317">XV_tpg_Set_dpYUVCoef</referencedby>
+        <referencedby refid="xv__tpg_8h_1a51651c1fb260ef58ddeefc7a585aa6db" compoundref="xv__tpg_8c" startline="1032" endline="1049">XV_tpg_Set_enableInput</referencedby>
+        <referencedby refid="xv__tpg_8h_1a42e89a263dc07b42e934bb965ffd0f51" compoundref="xv__tpg_8c" startline="209" endline="214">XV_tpg_Set_height</referencedby>
+        <referencedby refid="xv__tpg_8h_1a58bd0619f6505ad4277a52032044d45f" compoundref="xv__tpg_8c" startline="1354" endline="1365">XV_tpg_Set_Interlaced</referencedby>
+        <referencedby refid="xv__tpg_8h_1a113802fe4bddb4f3e9f40061189dd343" compoundref="xv__tpg_8c" startline="436" endline="441">XV_tpg_Set_maskId</referencedby>
+        <referencedby refid="xv__tpg_8h_1aa73442c409283c381a174372bd5b0d43" compoundref="xv__tpg_8c" startline="341" endline="351">XV_tpg_Set_motionEn</referencedby>
+        <referencedby refid="xv__tpg_8h_1a4f1373f1321fec30f38002291191a247" compoundref="xv__tpg_8c" startline="481" endline="486">XV_tpg_Set_motionSpeed</referencedby>
+        <referencedby refid="xv__tpg_8h_1a991203bc922de754035b8c77625d8301" compoundref="xv__tpg_8c" startline="391" endline="396">XV_tpg_Set_ovrlayId</referencedby>
+        <referencedby refid="xv__tpg_8h_1a50e71e4254ff1f09fe7742e375c29b18" compoundref="xv__tpg_8c" startline="1180" endline="1185">XV_tpg_Set_passthruEndX</referencedby>
+        <referencedby refid="xv__tpg_8h_1a234da76ca286967d289418a3590bc97c" compoundref="xv__tpg_8c" startline="1226" endline="1231">XV_tpg_Set_passthruEndY</referencedby>
+        <referencedby refid="xv__tpg_8h_1a549c38a347ae21dffb0207a5f8f58510" compoundref="xv__tpg_8c" startline="1088" endline="1093">XV_tpg_Set_passthruStartX</referencedby>
+        <referencedby refid="xv__tpg_8h_1aae89a9eaded73af117f261249cfcce81" compoundref="xv__tpg_8c" startline="1134" endline="1139">XV_tpg_Set_passthruStartY</referencedby>
+        <referencedby refid="xv__tpg_8h_1ac2caf6243e2bd84d1aaca7c0d5b6245d" compoundref="xv__tpg_8c" startline="1379" endline="1391">XV_tpg_Set_Polarity</referencedby>
+        <referencedby refid="xv__tpg_8h_1aad95dacaba16b6d51a477afbe9a0e6cd" compoundref="xv__tpg_8c" startline="253" endline="258">XV_tpg_Set_width</referencedby>
+        <referencedby refid="xv__tpg_8h_1a27a71108edc5092ea13102bdf7677306" compoundref="xv__tpg_8c" startline="708" endline="713">XV_tpg_Set_ZplateHorContDelta</referencedby>
+        <referencedby refid="xv__tpg_8h_1a1b4f1f93e0f77e5e2f03a3f660b85fbb" compoundref="xv__tpg_8c" startline="660" endline="665">XV_tpg_Set_ZplateHorContStart</referencedby>
+        <referencedby refid="xv__tpg_8h_1a93f17c36c5931a709ea0c4d53f7c539d" compoundref="xv__tpg_8c" startline="803" endline="808">XV_tpg_Set_ZplateVerContDelta</referencedby>
+        <referencedby refid="xv__tpg_8h_1a5d704c9b4c730213f9931dda29de6b51" compoundref="xv__tpg_8c" startline="756" endline="761">XV_tpg_Set_ZplateVerContStart</referencedby>
+        <referencedby refid="xv__tpg_8h_1a98832a9d13c63339d9c6ea040e27ea23" compoundref="xv__tpg_8c" startline="71" endline="79">XV_tpg_Start</referencedby>
+        <referencedby refid="group__v__tpg_1ga180b4f0e1e275d80ae2eceadb2beb5db" compoundref="xv__tpg__intr_8c" startline="109" endline="139">XVTpg_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__tpg_1aab3ba76174d3031fd0f5cef793b7ac22" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__tpg_8h_1aa2fa8471937129e0d6008d3a2855fb77" kindref="member">XVTpg_Callback</ref></type>
+        <definition>XVTpg_Callback XV_tpg::FrameDoneCallback</definition>
+        <argsstring></argsstring>
+        <name>FrameDoneCallback</name>
+        <briefdescription>
+<para>Callback for frame done event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg.h" bodystart="138" bodyend="-1"/>
+        <referencedby refid="group__v__tpg_1ga180b4f0e1e275d80ae2eceadb2beb5db" compoundref="xv__tpg__intr_8c" startline="109" endline="139">XVTpg_InterruptHandler</referencedby>
+        <referencedby refid="group__v__tpg_1gac9207dd8927429257e206456a1a7596d" compoundref="xv__tpg__intr_8c" startline="58" endline="85">XVTpg_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__tpg_1adc4f70ea792295cdd91c354300b315aa" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_tpg::CallbackDoneRef</definition>
+        <argsstring></argsstring>
+        <name>CallbackDoneRef</name>
+        <briefdescription>
+<para>To be passed to the connect interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg.h" bodystart="139" bodyend="-1"/>
+        <referencedby refid="group__v__tpg_1ga180b4f0e1e275d80ae2eceadb2beb5db" compoundref="xv__tpg__intr_8c" startline="109" endline="139">XVTpg_InterruptHandler</referencedby>
+        <referencedby refid="group__v__tpg_1gac9207dd8927429257e206456a1a7596d" compoundref="xv__tpg__intr_8c" startline="58" endline="85">XVTpg_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__tpg_1a9a5f5641d776936c9e860151a9c9ce10" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__tpg_8h_1aa2fa8471937129e0d6008d3a2855fb77" kindref="member">XVTpg_Callback</ref></type>
+        <definition>XVTpg_Callback XV_tpg::FrameReadyCallback</definition>
+        <argsstring></argsstring>
+        <name>FrameReadyCallback</name>
+        <briefdescription>
+<para>Callback for frame ready event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg.h" bodystart="141" bodyend="-1"/>
+        <referencedby refid="group__v__tpg_1ga180b4f0e1e275d80ae2eceadb2beb5db" compoundref="xv__tpg__intr_8c" startline="109" endline="139">XVTpg_InterruptHandler</referencedby>
+        <referencedby refid="group__v__tpg_1gac9207dd8927429257e206456a1a7596d" compoundref="xv__tpg__intr_8c" startline="58" endline="85">XVTpg_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__tpg_1a73ee4af9e17526a0fb6ac1f53f69fe50" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_tpg::CallbackReadyRef</definition>
+        <argsstring></argsstring>
+        <name>CallbackReadyRef</name>
+        <briefdescription>
+<para><verbatim>To be passed to the connect interrupt
+</verbatim> callback </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg.h" bodystart="142" bodyend="-1"/>
+        <referencedby refid="group__v__tpg_1ga180b4f0e1e275d80ae2eceadb2beb5db" compoundref="xv__tpg__intr_8c" startline="109" endline="139">XVTpg_InterruptHandler</referencedby>
+        <referencedby refid="group__v__tpg_1gac9207dd8927429257e206456a1a7596d" compoundref="xv__tpg__intr_8c" startline="58" endline="85">XVTpg_SetCallback</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>An instance must be allocated for each core in use. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>XV_tpg</label>
+        <link refid="struct_x_v__tpg"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XV_tpg_Config</label>
+        <link refid="struct_x_v__tpg___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg.h" bodystart="135" bodyend="144"/>
+    <listofallmembers>
+      <member refid="struct_x_v__tpg_1adc4f70ea792295cdd91c354300b315aa" prot="public" virt="non-virtual"><scope>XV_tpg</scope><name>CallbackDoneRef</name></member>
+      <member refid="struct_x_v__tpg_1a73ee4af9e17526a0fb6ac1f53f69fe50" prot="public" virt="non-virtual"><scope>XV_tpg</scope><name>CallbackReadyRef</name></member>
+      <member refid="struct_x_v__tpg_1ad6e5c5b7d9015c37ef3e423da70dab9a" prot="public" virt="non-virtual"><scope>XV_tpg</scope><name>Config</name></member>
+      <member refid="struct_x_v__tpg_1aab3ba76174d3031fd0f5cef793b7ac22" prot="public" virt="non-virtual"><scope>XV_tpg</scope><name>FrameDoneCallback</name></member>
+      <member refid="struct_x_v__tpg_1a9a5f5641d776936c9e860151a9c9ce10" prot="public" virt="non-virtual"><scope>XV_tpg</scope><name>FrameReadyCallback</name></member>
+      <member refid="struct_x_v__tpg_1a90433a42547a648492ef277251bd376e" prot="public" virt="non-virtual"><scope>XV_tpg</scope><name>IsReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

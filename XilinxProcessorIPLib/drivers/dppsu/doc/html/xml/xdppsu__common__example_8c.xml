@@ -1,0 +1,456 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdppsu__common__example_8c" kind="file">
+    <compoundname>xdppsu_common_example.c</compoundname>
+    <includes refid="xdppsu__common__example_8h" local="yes">xdppsu_common_example.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <incdepgraph>
+      <node id="36">
+        <label>xdppsu.h</label>
+        <link refid="xdppsu_8h"/>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>xil_io.h</label>
+      </node>
+      <node id="37">
+        <label>xdppsu_hw.h</label>
+        <link refid="xdppsu__hw_8h"/>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>xdppsu_common_example.c</label>
+        <link refid="xdppsu_common_example.c"/>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>xstatus.h</label>
+      </node>
+      <node id="35">
+        <label>xdppsu_common_example.h</label>
+        <link refid="xdppsu__common__example_8h"/>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>xvidc.h</label>
+      </node>
+      <node id="39">
+        <label>xil_types.h</label>
+      </node>
+      <node id="42">
+        <label>xparameters.h</label>
+      </node>
+      <node id="41">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xdppsu__common__example_8c_1a1ec7e1c46f984c377eba84ec2f597e23" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void DpPsu_StartVideoStream</definition>
+        <argsstring>(XDpPsu *InstancePtr)</argsstring>
+        <name>DpPsu_StartVideoStream</name>
+        <param>
+          <type><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will start sending a video stream over the main link. </para>        </briefdescription>
+        <detaileddescription>
+<para>The settings to be used are as follows:<itemizedlist>
+<listitem><para>8 bits per color.</para></listitem><listitem><para>Video timing and screen resolution used:</para></listitem><listitem><para>The connected monitor&apos;s preferred timing is used to determine the video resolution (and associated timings) for the stream.</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>The DpPsu_StreamSrc* are intentionally left for the user to implement since configuration of the stream source is application-specific. </para><simplesectsep/><para>The Extended Display Identification Data (EDID) is read in order to obtain the video resolution and timings. If this read fails, a resolution of 640x480 is used at a refresh rate of 60Hz. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.c" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.c" bodystart="232" bodyend="302"/>
+      </memberdef>
+      <memberdef kind="function" id="xdppsu__common__example_8c_1a05b560a8593f7a81eee6df4151d8ba4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 DpPsu_Run</definition>
+        <argsstring>(XDpPsu *InstancePtr)</argsstring>
+        <name>DpPsu_Run</name>
+        <param>
+          <type><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will configure and establish a link with the receiver device, afterwards, a video stream will start to be sent over the main link. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if main link was successfully established.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.c" bodystart="51" bodyend="66"/>
+        <references refid="xdppsu__common__example_8c_1a64d2267afa217a44aa3bf09bcd51e409" compoundref="xdppsu__common__example_8c" startline="130" endline="209">DpPsu_StartLink</references>
+      </memberdef>
+      <memberdef kind="function" id="xdppsu__common__example_8c_1a31ed0302fb945e5748d9e7c182533786" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 DpPsu_SetupExample</definition>
+        <argsstring>(XDpPsu *InstancePtr, u32 BaseAddress)</argsstring>
+        <name>DpPsu_SetupExample</name>
+        <param>
+          <type><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function will setup and initialize the DisplayPort TX core. </para>        </briefdescription>
+        <detaileddescription>
+<para>The core&apos;s configuration parameters will be retrieved based on the configuration to the DisplayPort TX core instance with the specified device ID.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique device ID of the DisplayPort TX core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the device configuration was found and obtained and if the main link was successfully established.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.c" bodystart="89" bodyend="115"/>
+        <references refid="struct_x_dp_psu___config_1a59991a74d33038e382665a3460a669ee" compoundref="xdppsu_8h" startline="63">XDpPsu_Config::BaseAddr</references>
+        <references refid="xdppsu_8c_1a619d7de707e733f244b8eeaf8dbc8377" compoundref="xdppsu_8c" startline="1348" endline="1365">XDpPsu_CfgInitialize</references>
+        <references refid="xdppsu_8c_1a2602de9c767cd981896326433a3c2570" compoundref="xdppsu_8c" startline="1284" endline="1328">XDpPsu_InitializeTx</references>
+        <references refid="xdppsu_8h_1a516998e367c2732f5a99802c776e13f4" compoundref="xdppsu__sinit_8c" startline="78" endline="91">XDpPsu_LookupConfig</references>
+        <referencedby refid="xdppsu__intr__example_8c_1a9888aea9ec2327cd631da76a364dad83" compoundref="xdppsu__intr__example_8c" startline="148" endline="183">DpPsu_IntrExample</referencedby>
+        <referencedby refid="xdppsu__poll__example_8c_1ad78dc9982ab43622fc66f25b16eb6b6b" compoundref="xdppsu__poll__example_8c" startline="103" endline="127">DpPsu_PollExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdppsu__common__example_8c_1a64d2267afa217a44aa3bf09bcd51e409" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 DpPsu_StartLink</definition>
+        <argsstring>(XDpPsu *InstancePtr)</argsstring>
+        <name>DpPsu_StartLink</name>
+        <param>
+          <type><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will configure and establish a link with the receiver device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS the if main link was successfully established.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.c" bodystart="130" bodyend="209"/>
+        <references refid="struct_x_dp_psu___config_1a59991a74d33038e382665a3460a669ee" compoundref="xdppsu_8h" startline="63">XDpPsu_Config::BaseAddr</references>
+        <references refid="struct_x_dp_psu_1a95a9619caa3d18b50a4562de54d57704" compoundref="xdppsu_8h" startline="239">XDpPsu::Config</references>
+        <references refid="struct_x_dp_psu___link_config_1a1e61b94ec7a7329b4b7929251b293e79" compoundref="xdppsu_8h" startline="98">XDpPsu_LinkConfig::LaneCount</references>
+        <references refid="struct_x_dp_psu_1a37e28c28f46f7e08ce4738a9232a0678" compoundref="xdppsu_8h" startline="244">XDpPsu::LinkConfig</references>
+        <references refid="struct_x_dp_psu___link_config_1ae1994c57d3126737fc0028f5039b62be" compoundref="xdppsu_8h" startline="100">XDpPsu_LinkConfig::LinkRate</references>
+        <references refid="struct_x_dp_psu___link_config_1a0953d4a5c490da688eb7d4636f918712" compoundref="xdppsu_8h" startline="108">XDpPsu_LinkConfig::MaxLaneCount</references>
+        <references refid="struct_x_dp_psu___link_config_1a7add556a95dbf238f21ae156bfd284f3" compoundref="xdppsu_8h" startline="110">XDpPsu_LinkConfig::MaxLinkRate</references>
+        <references refid="xdppsu_8c_1a3d4cefedd9d272f58c7927b72add609d" compoundref="xdppsu_8c" startline="1438" endline="1459">XDpPsu_CfgMainLinkMax</references>
+        <references refid="xdppsu_8c_1ae723bbc24a4dbce124cdd92979af27af" compoundref="xdppsu_8c" startline="1545" endline="1572">XDpPsu_CheckLinkStatus</references>
+        <references refid="xdppsu_8c_1abe31bd9b101b094a40eff13ef032ea44" compoundref="xdppsu_8c" startline="1477" endline="1524">XDpPsu_EstablishLink</references>
+        <references refid="xdppsu_8c_1a0a935cce246619f8f43ea0794ed9fa8e" compoundref="xdppsu_8c" startline="1383" endline="1421">XDpPsu_GetRxCapabilities</references>
+        <references refid="xdppsu__hw_8h_1a39533d8f8e18fce7b13f84d440b6b176" compoundref="xdppsu__hw_8h" startline="52">XDPPSU_LINK_BW_SET</references>
+        <references refid="xdppsu__hw_8h_1a236d6b24b5cf2e0e8ac65a4079ae93bc" compoundref="xdppsu__hw_8h" startline="1424">XDpPsu_ReadReg</references>
+        <references refid="xdppsu_8c_1a7836168f290562156a24fb51762acde4" compoundref="xdppsu_8c" startline="1864" endline="1900">XDpPsu_SetDownspread</references>
+        <references refid="xdppsu_8c_1a2ec5ae4af1f5232fc86116d457045997" compoundref="xdppsu_8c" startline="1920" endline="1957">XDpPsu_SetEnhancedFrameMode</references>
+        <references refid="xdppsu_8c_1a868ca9bd2184707f3929e6f7e695cc93" compoundref="xdppsu_8c" startline="1975" endline="2009">XDpPsu_SetLaneCount</references>
+        <references refid="xdppsu_8c_1a68384c6a808dff1f2e68e7611057a548" compoundref="xdppsu_8c" startline="2031" endline="2078">XDpPsu_SetLinkRate</references>
+        <referencedby refid="xdppsu__common__example_8h_1a05b560a8593f7a81eee6df4151d8ba4f" compoundref="xdppsu__common__example_8c" startline="51" endline="66">DpPsu_Run</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains a design example using the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>It performs a self test on the DisplayPort TX core by training the main link at the maximum common capabilities between the TX and RX and checking the lane status.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   aad  09/17/17 Initial creation.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdppsu__common__example_8h" kindref="compound">xdppsu_common_example.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>DpPsu_StartVideoStream(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="51" refid="xdppsu__common__example_8h_1a05b560a8593f7a81eee6df4151d8ba4f" refkind="member"><highlight class="normal">u32<sp/><ref refid="xdppsu__common__example_8c_1a05b560a8593f7a81eee6df4151d8ba4f" kindref="member">DpPsu_Run</ref>(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>and<sp/>establish<sp/>a<sp/>link.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdppsu__common__example_8c_1a64d2267afa217a44aa3bf09bcd51e409" kindref="member">DpPsu_StartLink</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Start<sp/>the<sp/>video<sp/>stream.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DpPsu_StartVideoStream(InstancePtr);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;&lt;--<sp/>Failed<sp/>to<sp/>establish/train<sp/>the<sp/>link.\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="xdppsu__common__example_8c_1a31ed0302fb945e5748d9e7c182533786" kindref="member">DpPsu_SetupExample</ref>(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="89" refid="xdppsu__common__example_8h_1a31ed0302fb945e5748d9e7c182533786" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="xdppsu__common__example_8c_1a31ed0302fb945e5748d9e7c182533786" kindref="member">DpPsu_SetupExample</ref>(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr,<sp/>u32<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dp_psu___config" kindref="compound">XDpPsu_Config</ref><sp/>*ConfigPtr;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Obtain<sp/>the<sp/>device<sp/>configuration<sp/>for<sp/>the<sp/>DisplayPort<sp/>TX<sp/>core.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="xdppsu_8h_1a516998e367c2732f5a99802c776e13f4" kindref="member">XDpPsu_LookupConfig</ref>(DeviceId);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="xdppsu_8h_1a516998e367c2732f5a99802c776e13f4" kindref="member">XDpPsu_LookupConfig</ref>(BaseAddress);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!ConfigPtr)<sp/>{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>the<sp/>device<sp/>configuration<sp/>into<sp/>the<sp/>InstancePtr&apos;s<sp/>Config</highlight></codeline>
+<codeline lineno="105"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>structure.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu_8c_1a619d7de707e733f244b8eeaf8dbc8377" kindref="member">XDpPsu_CfgInitialize</ref>(InstancePtr,<sp/>ConfigPtr,<sp/>ConfigPtr-&gt;<ref refid="struct_x_dp_psu___config_1a59991a74d33038e382665a3460a669ee" kindref="member">BaseAddr</ref>);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>DisplayPort<sp/>TX<sp/>core.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdppsu_8c_1a2602de9c767cd981896326433a3c2570" kindref="member">XDpPsu_InitializeTx</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="130" refid="xdppsu__common__example_8h_1a64d2267afa217a44aa3bf09bcd51e409" refkind="member"><highlight class="normal">u32<sp/><ref refid="xdppsu__common__example_8c_1a64d2267afa217a44aa3bf09bcd51e409" kindref="member">DpPsu_StartLink</ref>(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>VsLevelTx;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PeLevelTx;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>LaneCount;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>LinkRate;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Obtain<sp/>the<sp/>capabilities<sp/>of<sp/>the<sp/>RX<sp/>device<sp/>by<sp/>reading<sp/>the<sp/>monitor&apos;s</highlight></codeline>
+<codeline lineno="139"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>DPCD.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdppsu_8c_1a0a935cce246619f8f43ea0794ed9fa8e" kindref="member">XDpPsu_GetRxCapabilities</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(TRAIN_USE_MAX_LINK<sp/>==<sp/>1)</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LaneCount<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_dp_psu_1a37e28c28f46f7e08ce4738a9232a0678" kindref="member">LinkConfig</ref>.<ref refid="struct_x_dp_psu___link_config_1a0953d4a5c490da688eb7d4636f918712" kindref="member">MaxLaneCount</ref>;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LinkRate<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_dp_psu_1a37e28c28f46f7e08ce4738a9232a0678" kindref="member">LinkConfig</ref>.<ref refid="struct_x_dp_psu___link_config_1a7add556a95dbf238f21ae156bfd284f3" kindref="member">MaxLinkRate</ref>;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LaneCount<sp/>=<sp/>TRAIN_USE_LANE_COUNT;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LinkRate<sp/>=<sp/>TRAIN_USE_LINK_RATE;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>the<sp/>link<sp/>is<sp/>already<sp/>trained<sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdppsu_8c_1ae723bbc24a4dbce124cdd92979af27af" kindref="member">XDpPsu_CheckLinkStatus</ref>(InstancePtr,<sp/>LaneCount);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;-&gt;<sp/>Link<sp/>is<sp/>already<sp/>trained<sp/>on<sp/>%d<sp/>lanes.\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LaneCount);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="xdppsu__hw_8h_1a236d6b24b5cf2e0e8ac65a4079ae93bc" kindref="member">XDpPsu_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dp_psu_1a95a9619caa3d18b50a4562de54d57704" kindref="member">Config</ref>.<ref refid="struct_x_dp_psu___config_1a59991a74d33038e382665a3460a669ee" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu__hw_8h_1a39533d8f8e18fce7b13f84d440b6b176" kindref="member">XDPPSU_LINK_BW_SET</ref>)<sp/>==<sp/>LinkRate)<sp/>{</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;-&gt;<sp/>Link<sp/>needs<sp/>to<sp/>be<sp/>re-trained<sp/>%d<sp/>Mbps.\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(270<sp/>*<sp/>LinkRate));</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;-&gt;<sp/>Link<sp/>is<sp/>already<sp/>trained<sp/>at<sp/>%d<sp/>Mbps.\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(270<sp/>*<sp/>LinkRate));</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_FAILURE)<sp/>{</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;-&gt;<sp/>Needs<sp/>training.\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Either<sp/>a<sp/>connection<sp/>does<sp/>not<sp/>exist<sp/>or<sp/>the<sp/>supplied<sp/>lane<sp/>count</highlight></codeline>
+<codeline lineno="174"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>invalid.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;-&gt;<sp/>Error<sp/>checking<sp/>link<sp/>status.\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu_8c_1a2ec5ae4af1f5232fc86116d457045997" kindref="member">XDpPsu_SetEnhancedFrameMode</ref>(InstancePtr,<sp/>1);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu_8c_1a7836168f290562156a24fb51762acde4" kindref="member">XDpPsu_SetDownspread</ref>(InstancePtr,<sp/>0);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(TRAIN_USE_MAX_LINK<sp/>==<sp/>1)</highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>the<sp/>main<sp/>link<sp/>based<sp/>on<sp/>the<sp/>maximum<sp/>common<sp/>capabilities<sp/>of</highlight></codeline>
+<codeline lineno="184"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>DisplayPort<sp/>TX<sp/>core<sp/>and<sp/>the<sp/>receiver<sp/>device.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdppsu_8c_1a3d4cefedd9d272f58c7927b72add609d" kindref="member">XDpPsu_CfgMainLinkMax</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu_8c_1a68384c6a808dff1f2e68e7611057a548" kindref="member">XDpPsu_SetLinkRate</ref>(InstancePtr,<sp/>LinkRate);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu_8c_1a868ca9bd2184707f3929e6f7e695cc93" kindref="member">XDpPsu_SetLaneCount</ref>(InstancePtr,<sp/>LaneCount);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Train<sp/>the<sp/>link.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;******************************************\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdppsu_8c_1abe31bd9b101b094a40eff13ef032ea44" kindref="member">XDpPsu_EstablishLink</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;!!!<sp/>Training<sp/>failed<sp/>!!!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;******************************************\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;!!!<sp/>Training<sp/>passed<sp/>at<sp/>LR:0x%02lx<sp/>LC:%d<sp/>!!!\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dp_psu_1a37e28c28f46f7e08ce4738a9232a0678" kindref="member">LinkConfig</ref>.<ref refid="struct_x_dp_psu___link_config_1ae1994c57d3126737fc0028f5039b62be" kindref="member">LinkRate</ref>,</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dp_psu_1a37e28c28f46f7e08ce4738a9232a0678" kindref="member">LinkConfig</ref>.<ref refid="struct_x_dp_psu___link_config_1a1e61b94ec7a7329b4b7929251b293e79" kindref="member">LaneCount</ref>);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;******************************************\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="232"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>DpPsu_StartVideoStream(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="233"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Edid[XDPPSU_EDID_BLOCK_SIZE];</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>bits<sp/>per<sp/>color.<sp/>If<sp/>not<sp/>set,<sp/>the<sp/>default<sp/>is<sp/>6.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu_8h_1af59b28d1d599ee7d265c7ab0badf1e19" kindref="member">XDpPsu_CfgMsaSetBpc</ref>(InstancePtr,<sp/>8);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>synchronous<sp/>clock<sp/>mode.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu_8h_1a288a08c1d83e4f66f0217cab4d695544" kindref="member">XDpPsu_CfgMsaEnSynchClkMode</ref>(InstancePtr,<sp/>1);</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Choose<sp/>a<sp/>method<sp/>for<sp/>selecting<sp/>the<sp/>video<sp/>mode.<sp/>There<sp/>are<sp/>3<sp/>ways<sp/>to<sp/>do<sp/>this:</highlight></codeline>
+<codeline lineno="244"><highlight class="comment"><sp/>*<sp/>1)<sp/>Use<sp/>the<sp/>preferred<sp/>timing<sp/>from<sp/>the<sp/>monitor&apos;s<sp/>EDID:</highlight></codeline>
+<codeline lineno="245"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Edid[XDPPSU_EDID_BLOCK_SIZE];</highlight></codeline>
+<codeline lineno="246"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>XDpPsu_GetEdid(InstancePtr,<sp/>Edid);</highlight></codeline>
+<codeline lineno="247"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>XDpPsu_CfgMsaUseEdidPreferredTiming(InstancePtr,<sp/>Edid);</highlight></codeline>
+<codeline lineno="248"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="249"><highlight class="comment"><sp/>*<sp/>2)<sp/>Use<sp/>a<sp/>standard<sp/>video<sp/>timing<sp/>mode<sp/>(see<sp/>mode_table.h):</highlight></codeline>
+<codeline lineno="250"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>XDpPsu_CfgMsaUseStandardVideoMode(InstancePtr,<sp/>XVIDC_VM_640x480_60_P);</highlight></codeline>
+<codeline lineno="251"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="252"><highlight class="comment"><sp/>*<sp/>3)<sp/>Use<sp/>a<sp/>custom<sp/>configuration<sp/>for<sp/>the<sp/>main<sp/>stream<sp/>attributes<sp/>(MSA):</highlight></codeline>
+<codeline lineno="253"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>XDpPsu_MainStreamAttributes<sp/>MsaConfigCustom;</highlight></codeline>
+<codeline lineno="254"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>MsaConfigCustom.Dmt.HResolution<sp/>=<sp/>1280;</highlight></codeline>
+<codeline lineno="255"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>MsaConfigCustom.Dmt.VResolution<sp/>=<sp/>1024;</highlight></codeline>
+<codeline lineno="256"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>MsaConfigCustom.Dmt.PixelClkKhz<sp/>=<sp/>108000;</highlight></codeline>
+<codeline lineno="257"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>MsaConfigCustom.Dmt.HSyncPolarity<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="258"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>MsaConfigCustom.Dmt.VSyncPolarity<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="259"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>MsaConfigCustom.Dmt.HFrontPorch<sp/>=<sp/>48;</highlight></codeline>
+<codeline lineno="260"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>MsaConfigCustom.Dmt.HSyncPulseWidth<sp/>=<sp/>112;</highlight></codeline>
+<codeline lineno="261"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>MsaConfigCustom.Dmt.HBackPorch<sp/>=<sp/>248;</highlight></codeline>
+<codeline lineno="262"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>MsaConfigCustom.Dmt.VFrontPorch<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="263"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>MsaConfigCustom.Dmt.VSyncPulseWidth<sp/>=<sp/>3;</highlight></codeline>
+<codeline lineno="264"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>MsaConfigCustom.Dmt.VBackPorch<sp/>=<sp/>38;</highlight></codeline>
+<codeline lineno="265"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>XDpPsu_CfgMsaUseCustom(InstancePtr,<sp/>XDPPSU_STREAM_ID1,</highlight></codeline>
+<codeline lineno="266"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;MsaConfigCustom,<sp/>1);</highlight></codeline>
+<codeline lineno="267"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="268"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>Then,<sp/>use<sp/>one<sp/>of<sp/>the<sp/>methods<sp/>above<sp/>to<sp/>calculate<sp/>the<sp/>rest<sp/>of<sp/>the<sp/>MSA.</highlight></codeline>
+<codeline lineno="269"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdppsu_8h_1abd0fa16cc316a99a72bab32753d48cd3" kindref="member">XDpPsu_GetEdid</ref>(InstancePtr,<sp/>Edid);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu_8h_1af4a2bfe8c203d186833dd3f1590bc262" kindref="member">XDpPsu_CfgMsaUseEdidPreferredTiming</ref>(InstancePtr,<sp/>Edid);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu_8h_1a5c17c2d8df179f32a3da77787a81f0fc" kindref="member">XDpPsu_CfgMsaUseStandardVideoMode</ref>(InstancePtr,<sp/>XVIDC_VM_640x480_60_P);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>main<sp/>stream<sp/>to<sp/>force<sp/>sending<sp/>of<sp/>IDLE<sp/>patterns.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu_8c_1ad113ed848850849d07fae7ce163a8a62" kindref="member">XDpPsu_EnableMainLink</ref>(InstancePtr,<sp/>0);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reset<sp/>the<sp/>transmitter.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu__hw_8h_1a823328e4a95aa3ba27553603940a7ba8" kindref="member">XDpPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dp_psu_1a95a9619caa3d18b50a4562de54d57704" kindref="member">Config</ref>.<ref refid="struct_x_dp_psu___config_1a59991a74d33038e382665a3460a669ee" kindref="member">BaseAddr</ref>,<sp/><ref refid="xdppsu__hw_8h_1a71f335fd19c1b8f3bc3eb9a3fbf4644c" kindref="member">XDPPSU_SOFT_RESET</ref>,<sp/>0x1);</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu__hw_8h_1a823328e4a95aa3ba27553603940a7ba8" kindref="member">XDpPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dp_psu_1a95a9619caa3d18b50a4562de54d57704" kindref="member">Config</ref>.<ref refid="struct_x_dp_psu___config_1a59991a74d33038e382665a3460a669ee" kindref="member">BaseAddr</ref>,<sp/><ref refid="xdppsu__hw_8h_1a71f335fd19c1b8f3bc3eb9a3fbf4644c" kindref="member">XDPPSU_SOFT_RESET</ref>,<sp/>0x0);</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>DisplayPort<sp/>TX<sp/>video<sp/>mode.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu_8h_1a4aade3b1675942175dbb3300e2c9d0c0" kindref="member">XDpPsu_SetVideoMode</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>VPLL<sp/>is<sp/>being<sp/>used<sp/>for<sp/>Video<sp/>Pixel<sp/>clock,<sp/>use<sp/>the<sp/>APIs<sp/>from</highlight></codeline>
+<codeline lineno="289"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>AVBUF<sp/>driver<sp/>to<sp/>set<sp/>the<sp/>clock.</highlight></codeline>
+<codeline lineno="290"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>video<sp/>stream<sp/>source<sp/>or<sp/>generator<sp/>here.<sp/>These<sp/>function<sp/>need</highlight></codeline>
+<codeline lineno="293"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>to<sp/>be<sp/>implemented<sp/>in<sp/>order<sp/>for<sp/>video<sp/>to<sp/>be<sp/>displayed<sp/>and<sp/>is<sp/>hardware</highlight></codeline>
+<codeline lineno="294"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>system<sp/>specific.<sp/>It<sp/>is<sp/>up<sp/>to<sp/>the<sp/>user<sp/>to<sp/>implement<sp/>these</highlight></codeline>
+<codeline lineno="295"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>functions.<sp/>These<sp/>functions<sp/>are<sp/>available<sp/>in<sp/>AVBuf<sp/>driver<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DpPsu_StreamSrcSetup(InstancePtr);</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DpPsu_StreamSrcConfigure(InstancePtr);</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DpPsu_StreamSrcSync(InstancePtr);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu_8c_1ad113ed848850849d07fae7ce163a8a62" kindref="member">XDpPsu_EnableMainLink</ref>(InstancePtr,<sp/>1);</highlight></codeline>
+<codeline lineno="302"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.c"/>
+  </compounddef>
+</doxygen>

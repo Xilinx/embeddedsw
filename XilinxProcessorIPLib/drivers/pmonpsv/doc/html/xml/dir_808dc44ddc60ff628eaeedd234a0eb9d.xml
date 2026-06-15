@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_808dc44ddc60ff628eaeedd234a0eb9d" kind="dir">
+    <compoundname>pmonpsv</compoundname>
+    <innerdir refid="dir_48de7f17282ffe6eaed6d67a90fb1a13">examples</innerdir>
+    <innerdir refid="dir_126b0a4b8793ab25287d959e8971e482">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/"/>
+  </compounddef>
+</doxygen>

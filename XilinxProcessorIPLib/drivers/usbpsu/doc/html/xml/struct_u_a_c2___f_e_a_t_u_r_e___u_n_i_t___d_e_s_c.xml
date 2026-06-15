@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_u_a_c2___f_e_a_t_u_r_e___u_n_i_t___d_e_s_c" kind="struct" prot="public">
+    <compoundname>UAC2_FEATURE_UNIT_DESC</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_u_a_c2___f_e_a_t_u_r_e___u_n_i_t___d_e_s_c_1a948703183b030e50fd73932b8fd5479b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC2_FEATURE_UNIT_DESC::bLength</definition>
+        <argsstring></argsstring>
+        <name>bLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c2___f_e_a_t_u_r_e___u_n_i_t___d_e_s_c_1a506bfc803607f66ed812447794d81bff" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC2_FEATURE_UNIT_DESC::bDescriptorType</definition>
+        <argsstring></argsstring>
+        <name>bDescriptorType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c2___f_e_a_t_u_r_e___u_n_i_t___d_e_s_c_1a10374e9cdf16d8a8a16332bb0981f4d0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC2_FEATURE_UNIT_DESC::bDescriptorSubtype</definition>
+        <argsstring></argsstring>
+        <name>bDescriptorSubtype</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c2___f_e_a_t_u_r_e___u_n_i_t___d_e_s_c_1a9dd03117acf17025ae8d94e4c3bdd01c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC2_FEATURE_UNIT_DESC::bUnitID</definition>
+        <argsstring></argsstring>
+        <name>bUnitID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="243" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c2___f_e_a_t_u_r_e___u_n_i_t___d_e_s_c_1a2694ac86f577ab0700d36eecd81e6588" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC2_FEATURE_UNIT_DESC::bSourceID</definition>
+        <argsstring></argsstring>
+        <name>bSourceID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c2___f_e_a_t_u_r_e___u_n_i_t___d_e_s_c_1adb4f5832bd10c3745d3ac213415f0992" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 UAC2_FEATURE_UNIT_DESC::bmaControls</definition>
+        <argsstring>[AUDIO_CHANNEL_NUM+1]</argsstring>
+        <name>bmaControls</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c2___f_e_a_t_u_r_e___u_n_i_t___d_e_s_c_1ab2b59e678acf4ec3c3cec196d21c905d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC2_FEATURE_UNIT_DESC::iFeature</definition>
+        <argsstring></argsstring>
+        <name>iFeature</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="239" bodyend="251"/>
+    <listofallmembers>
+      <member refid="struct_u_a_c2___f_e_a_t_u_r_e___u_n_i_t___d_e_s_c_1a10374e9cdf16d8a8a16332bb0981f4d0" prot="public" virt="non-virtual"><scope>UAC2_FEATURE_UNIT_DESC</scope><name>bDescriptorSubtype</name></member>
+      <member refid="struct_u_a_c2___f_e_a_t_u_r_e___u_n_i_t___d_e_s_c_1a506bfc803607f66ed812447794d81bff" prot="public" virt="non-virtual"><scope>UAC2_FEATURE_UNIT_DESC</scope><name>bDescriptorType</name></member>
+      <member refid="struct_u_a_c2___f_e_a_t_u_r_e___u_n_i_t___d_e_s_c_1a948703183b030e50fd73932b8fd5479b" prot="public" virt="non-virtual"><scope>UAC2_FEATURE_UNIT_DESC</scope><name>bLength</name></member>
+      <member refid="struct_u_a_c2___f_e_a_t_u_r_e___u_n_i_t___d_e_s_c_1adb4f5832bd10c3745d3ac213415f0992" prot="public" virt="non-virtual"><scope>UAC2_FEATURE_UNIT_DESC</scope><name>bmaControls</name></member>
+      <member refid="struct_u_a_c2___f_e_a_t_u_r_e___u_n_i_t___d_e_s_c_1a2694ac86f577ab0700d36eecd81e6588" prot="public" virt="non-virtual"><scope>UAC2_FEATURE_UNIT_DESC</scope><name>bSourceID</name></member>
+      <member refid="struct_u_a_c2___f_e_a_t_u_r_e___u_n_i_t___d_e_s_c_1a9dd03117acf17025ae8d94e4c3bdd01c" prot="public" virt="non-virtual"><scope>UAC2_FEATURE_UNIT_DESC</scope><name>bUnitID</name></member>
+      <member refid="struct_u_a_c2___f_e_a_t_u_r_e___u_n_i_t___d_e_s_c_1ab2b59e678acf4ec3c3cec196d21c905d" prot="public" virt="non-virtual"><scope>UAC2_FEATURE_UNIT_DESC</scope><name>iFeature</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

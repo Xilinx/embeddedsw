@@ -1,0 +1,607 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsrio_8c" kind="file">
+    <compoundname>xsrio.c</compoundname>
+    <includes refid="xsrio_8h" local="yes">xsrio.h</includes>
+    <incdepgraph>
+      <node id="8">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="9">
+        <label>xsrio_hw.h</label>
+        <link refid="xsrio__hw_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>xil_io.h</label>
+      </node>
+      <node id="6">
+        <label>string.h</label>
+      </node>
+      <node id="7">
+        <label>xstatus.h</label>
+      </node>
+      <node id="10">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4">
+        <label>xsrio.c</label>
+        <link refid="xsrio.c"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>xsrio.h</label>
+        <link refid="xsrio_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__srio_1gae4e21d1e48b45bc2694bb9a62845d01a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSrio_CfgInitialize</definition>
+        <argsstring>(XSrio *InstancePtr, XSrio_Config *Config, UINTPTR EffectiveAddress)</argsstring>
+        <name>XSrio_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_srio" kindref="compound">XSrio</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_srio___config" kindref="compound">XSrio_Config</ref> *</type>
+          <declname>Config</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddress</declname>
+        </param>
+        <briefdescription>
+<para>Initialize the <ref refid="struct_x_srio" kindref="compound">XSrio</ref> instance provided by the caller based on the given Config structure. </para>        </briefdescription>
+        <detaileddescription>
+<para>Initialization and Control functions in <ref refid="xsrio_8c" kindref="compound">xsrio.c</ref>.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_srio" kindref="compound">XSrio</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device configuration structure containing information about a specific SRIO Device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Physical address of the hardware in a Virtual Memory operating system environment.It is the Base Address in a stand alone environment.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" bodystart="56" bodyend="82"/>
+        <references refid="struct_x_srio___config_1a79e384b5dc276c5479f6c17852b5886f" compoundref="xsrio_8h" startline="177">XSrio_Config::BaseAddress</references>
+        <references refid="struct_x_srio_1a488646036c48d69dad92b9c251f6865d" compoundref="xsrio_8h" startline="185">XSrio::Config</references>
+        <references refid="struct_x_srio_1ace213b237a319af359f46fee4ea92b1a" compoundref="xsrio_8h" startline="186">XSrio::IsReady</references>
+        <references refid="struct_x_srio_1a142f0ed613e326b59ccee2e72b8e20cc" compoundref="xsrio_8h" startline="187">XSrio::PortWidth</references>
+        <references refid="group__srio_1gafe2d28961f5aa630a30dc2916262d02b" compoundref="xsrio__hw_8h" startline="120">XSRIO_PORT_N_CTL_CSR_OFFSET</references>
+        <references refid="group__srio_1ga250610669bf930864ff1feb24457cc03" compoundref="xsrio__hw_8h" startline="601">XSRIO_PORT_N_CTL_CSR_PW_MASK</references>
+        <references refid="group__srio_1ga758e575a915495f7a319fd4e89eeae14" compoundref="xsrio__hw_8h" startline="613">XSRIO_PORT_N_CTL_CSR_PW_SHIFT</references>
+        <references refid="group__srio_1ga88e5d3fa1470e0fef0ae45c4956f1fa3" compoundref="xsrio__hw_8h" startline="831">XSrio_ReadReg</references>
+        <referencedby refid="xsrio__dma__loopback__example_8c_1ad5a0716eca6398c19a481d1d58e45bdc" compoundref="xsrio__dma__loopback__example_8c" startline="154" endline="315">XSrioDmaLoopbackExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__srio_1gacbd49fb630e7f2d7c8533d12607ef105" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSrio_GetPortStatus</definition>
+        <argsstring>(XSrio *InstancePtr)</argsstring>
+        <name>XSrio_GetPortStatus</name>
+        <param>
+          <type><ref refid="struct_x_srio" kindref="compound">XSrio</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XSrio_GetPortStatus will check the status of the port and returns the status of the port to the user. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_srio" kindref="compound">XSrio</ref> instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XSRIO_PORT_OK Port is initialized with no errors.</para></listitem><listitem><para>XSRIO_PORT_UNINITIALIZED Port is not initialized. No Serial Rapidio link is present.</para></listitem><listitem><para>XSRIO_PORT_HAS_ERRORS Port is initialized but has errors.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>: None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" bodystart="100" bodyend="117"/>
+        <references refid="struct_x_srio___config_1a79e384b5dc276c5479f6c17852b5886f" compoundref="xsrio_8h" startline="177">XSrio_Config::BaseAddress</references>
+        <references refid="struct_x_srio_1a488646036c48d69dad92b9c251f6865d" compoundref="xsrio_8h" startline="185">XSrio::Config</references>
+        <references refid="group__srio_1ga86e8b638b0295f135b4dfea25bcefce4" compoundref="xsrio_8h" startline="160">XSRIO_PORT_HAS_ERRORS</references>
+        <references refid="group__srio_1gaa9bc2b856e9b7dcb4cd5781ec1df9681" compoundref="xsrio__hw_8h" startline="115">XSRIO_PORT_N_ERR_STS_CSR_OFFSET</references>
+        <references refid="group__srio_1gae032e5dfd92bf02d69d6418fdec726ac" compoundref="xsrio__hw_8h" startline="477">XSRIO_PORT_N_ERR_STS_CSR_PERR_MASK</references>
+        <references refid="group__srio_1gadcf7a7ca097eec0183f276bf5c1f4404" compoundref="xsrio__hw_8h" startline="476">XSRIO_PORT_N_ERR_STS_CSR_POK_MASK</references>
+        <references refid="group__srio_1ga234db9291dc39e328f3ff1bebf917fa2" compoundref="xsrio__hw_8h" startline="471">XSRIO_PORT_N_ERR_STS_CSR_PUINT_MASK</references>
+        <references refid="group__srio_1gabc16a98ad67644dbb4dc653fafe590bb" compoundref="xsrio_8h" startline="158">XSRIO_PORT_OK</references>
+        <references refid="group__srio_1gaf20e9fbfb23bbe3e1c9c201609a93352" compoundref="xsrio_8h" startline="159">XSRIO_PORT_UNINITIALIZED</references>
+        <references refid="group__srio_1ga88e5d3fa1470e0fef0ae45c4956f1fa3" compoundref="xsrio__hw_8h" startline="831">XSrio_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__srio_1ga753aded6db30e1c042e7c7ee43b2a483" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSrio_GetPEType</definition>
+        <argsstring>(XSrio *InstancePtr)</argsstring>
+        <name>XSrio_GetPEType</name>
+        <param>
+          <type><ref refid="struct_x_srio" kindref="compound">XSrio</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XSrio_GetPEType API will check for the Processing Element type and return the type of type of Processing Element. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_srio" kindref="compound">XSrio</ref> instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XSRIO_IS_MEMORY if the core is configured as a memory<itemizedlist>
+<listitem><para>XSRIO_IS_PROCESSOR if the core is configured as a processor</para></listitem><listitem><para>XSRIO_IS_BRIDGE if the core is configured as a bridge.</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>: None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" bodystart="134" bodyend="151"/>
+        <references refid="struct_x_srio___config_1a79e384b5dc276c5479f6c17852b5886f" compoundref="xsrio_8h" startline="177">XSrio_Config::BaseAddress</references>
+        <references refid="struct_x_srio_1a488646036c48d69dad92b9c251f6865d" compoundref="xsrio_8h" startline="185">XSrio::Config</references>
+        <references refid="group__srio_1ga5c084f9424ee6edbc6c9c94db2dac6f8" compoundref="xsrio_8h" startline="122">XSRIO_IS_BRIDGE</references>
+        <references refid="group__srio_1gabea6ccdc70412fa41b6d45785ff2d287" compoundref="xsrio_8h" startline="112">XSRIO_IS_MEMORY</references>
+        <references refid="group__srio_1gada8228136dc485b32c5a1e8ea9f0c1ee" compoundref="xsrio_8h" startline="117">XSRIO_IS_PROCESSOR</references>
+        <references refid="group__srio_1gafa5c4fef269eeda1a92245050eaef59c" compoundref="xsrio__hw_8h" startline="222">XSRIO_PEF_CAR_BRIDGE_MASK</references>
+        <references refid="group__srio_1ga2b13843464edf06633294d148150830d" compoundref="xsrio__hw_8h" startline="221">XSRIO_PEF_CAR_MEMORY_MASK</references>
+        <references refid="group__srio_1ga1570a90db90ab3215174f7e6c40afebe" compoundref="xsrio__hw_8h" startline="54">XSRIO_PEF_CAR_OFFSET</references>
+        <references refid="group__srio_1ga621c66a2f36ea07e5b82ba99f57f03d6" compoundref="xsrio__hw_8h" startline="220">XSRIO_PEF_CAR_PROCESSOR_MASK</references>
+        <references refid="group__srio_1ga88e5d3fa1470e0fef0ae45c4956f1fa3" compoundref="xsrio__hw_8h" startline="831">XSrio_ReadReg</references>
+        <referencedby refid="xsrio__dma__loopback__example_8c_1ad5a0716eca6398c19a481d1d58e45bdc" compoundref="xsrio__dma__loopback__example_8c" startline="154" endline="315">XSrioDmaLoopbackExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__srio_1gafce174875d087f4b3cc4713a1df5446d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSrio_IsOperationSupported</definition>
+        <argsstring>(XSrio *InstancePtr, u8 Operation, u8 Direction)</argsstring>
+        <name>XSrio_IsOperationSupported</name>
+        <param>
+          <type><ref refid="struct_x_srio" kindref="compound">XSrio</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Operation</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Direction</declname>
+        </param>
+        <briefdescription>
+<para>XSrio_IsOperationSupported tells whether the operation is supported by the SRIO Gen2 core or not. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the SRIO Gen2 instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Operation</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type is the operation type of the SRIO Packet </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Direction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the operation is supported by the core.<itemizedlist>
+<listitem><para>XST_FAILURE if the operation is not supported by the core.</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" bodystart="171" bodyend="224"/>
+        <references refid="group__srio_1ga30c7873d0765851288036067362c5b7e" compoundref="xsrio_8h" startline="163">XSRIO_DIR_TX</references>
+        <references refid="group__srio_1gac0c9b8d9ebb9191a8314f93225bd59a8" compoundref="xsrio_8h" startline="151">XSRIO_OP_MODE_ATOMIC</references>
+        <references refid="group__srio_1ga01882d64861c721fafb08cc63dc7e589" compoundref="xsrio_8h" startline="141">XSRIO_OP_MODE_DATA_MESSAGE</references>
+        <references refid="group__srio_1ga246f138414b507e094ebbfb196350805" compoundref="xsrio_8h" startline="146">XSRIO_OP_MODE_DOORBELL</references>
+        <references refid="group__srio_1gafadc09b23898c51bba7c5167f439000d" compoundref="xsrio_8h" startline="129">XSRIO_OP_MODE_NREAD</references>
+        <references refid="group__srio_1ga5bcffc7047fbbb505c256fa15062ec9e" compoundref="xsrio_8h" startline="130">XSRIO_OP_MODE_NWRITE</references>
+        <references refid="group__srio_1gab4e13bb3d8eeb614bdc2f655cbc4ba16" compoundref="xsrio_8h" startline="136">XSRIO_OP_MODE_NWRITE_R</references>
+        <references refid="group__srio_1ga17ddc9d36a51e2a63e6b7e8b1d6ca204" compoundref="xsrio_8h" startline="131">XSRIO_OP_MODE_SWRITE</references>
+        <references refid="group__srio_1gae7326b439df172403f28fcc0fa38e992" compoundref="xsrio_8h" startline="381">XSrio_ReadDstOps</references>
+        <references refid="group__srio_1gada1a2bfecf3f5afca7be3d94df46290a" compoundref="xsrio_8h" startline="363">XSrio_ReadSrcOps</references>
+        <references refid="group__srio_1gabf5a63a4034d3c3814841ad90a75bfe4" compoundref="xsrio__hw_8h" startline="245">XSRIO_SRCDST_OPS_CAR_ATOMIC_SET_MASK</references>
+        <references refid="group__srio_1gaf9a8a2832415e8c971d2041493565717" compoundref="xsrio__hw_8h" startline="271">XSRIO_SRCDST_OPS_CAR_DATA_MSG_MASK</references>
+        <references refid="group__srio_1gad4b33820d42c378851f2dbdd566d49bd" compoundref="xsrio__hw_8h" startline="270">XSRIO_SRCDST_OPS_CAR_DOORBELL_MASK</references>
+        <references refid="group__srio_1ga22a5bbcfc74d7e895fc806b26a648a62" compoundref="xsrio__hw_8h" startline="287">XSRIO_SRCDST_OPS_CAR_READ_MASK</references>
+        <references refid="group__srio_1ga3d9cbc1037e2dd1ab3a902699e12e5a1" compoundref="xsrio__hw_8h" startline="281">XSRIO_SRCDST_OPS_CAR_SWRITE_MASK</references>
+        <references refid="group__srio_1ga368e473b38c87a7845e43ed0b83c4bb4" compoundref="xsrio__hw_8h" startline="286">XSRIO_SRCDST_OPS_CAR_WRITE_MASK</references>
+        <references refid="group__srio_1ga8a3f3c7eac1bf613ee6357d54c871f18" compoundref="xsrio__hw_8h" startline="276">XSRIO_SRCDST_OPS_CAR_WRITE_RESPONSE_MASK</references>
+        <referencedby refid="xsrio__dma__loopback__example_8c_1ad5a0716eca6398c19a481d1d58e45bdc" compoundref="xsrio__dma__loopback__example_8c" startline="154" endline="315">XSrioDmaLoopbackExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__srio_1ga9cb7fbc368f16113382c2a9b4556b601" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSrio_SetWaterMark</definition>
+        <argsstring>(XSrio *InstancePtr, u8 WaterMark0, u8 WaterMark1, u8 WaterMark2)</argsstring>
+        <name>XSrio_SetWaterMark</name>
+        <param>
+          <type><ref refid="struct_x_srio" kindref="compound">XSrio</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>WaterMark0</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>WaterMark1</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>WaterMark2</declname>
+        </param>
+        <briefdescription>
+<para>XSrio_SetWaterMark Configures the watermark to transfer a priority packet. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the SRIO Gen2 instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WaterMark0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the water mark value to transfer a priority 0 packet. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WaterMark1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the water mark value to transfer a priority 1 packet. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WaterMark2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the water mark value to transfer a priority 2 packet.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" bodystart="244" bodyend="278"/>
+        <references refid="struct_x_srio___config_1a79e384b5dc276c5479f6c17852b5886f" compoundref="xsrio_8h" startline="177">XSrio_Config::BaseAddress</references>
+        <references refid="struct_x_srio_1a488646036c48d69dad92b9c251f6865d" compoundref="xsrio_8h" startline="185">XSrio::Config</references>
+        <references refid="group__srio_1gaed9939e0409d3c884a5d6040818f30f5" compoundref="xsrio__hw_8h" startline="140">XSRIO_IMP_WCSR_OFFSET</references>
+        <references refid="group__srio_1ga614ee4a2172a0c12d709b002a20fbeef" compoundref="xsrio__hw_8h" startline="762">XSRIO_IMP_WCSR_WM0_MASK</references>
+        <references refid="group__srio_1ga06ccd785f2726efe3a060c0a914c66cd" compoundref="xsrio__hw_8h" startline="761">XSRIO_IMP_WCSR_WM1_MASK</references>
+        <references refid="group__srio_1ga00a76a62641f17c8c9e4d76f2b1e6168" compoundref="xsrio__hw_8h" startline="763">XSRIO_IMP_WCSR_WM1_SHIFT</references>
+        <references refid="group__srio_1ga53adbebbf16c0da5ca8d90167e9b9c57" compoundref="xsrio__hw_8h" startline="760">XSRIO_IMP_WCSR_WM2_MASK</references>
+        <references refid="group__srio_1ga238f24ec2ccd7043d83fbd04edcad4bc" compoundref="xsrio__hw_8h" startline="764">XSRIO_IMP_WCSR_WM2_SHIFT</references>
+        <references refid="group__srio_1ga88e5d3fa1470e0fef0ae45c4956f1fa3" compoundref="xsrio__hw_8h" startline="831">XSrio_ReadReg</references>
+        <references refid="group__srio_1ga7f54b6fbef6410f2c375bde9e7bf09bd" compoundref="xsrio__hw_8h" startline="850">XSrio_WriteReg</references>
+        <referencedby refid="xsrio__dma__loopback__example_8c_1ad5a0716eca6398c19a481d1d58e45bdc" compoundref="xsrio__dma__loopback__example_8c" startline="154" endline="315">XSrioDmaLoopbackExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__srio_1ga9eb82f808fa01a1679ed60a026a2a2c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSrio_GetWaterMark</definition>
+        <argsstring>(XSrio *InstancePtr, u8 *WaterMark0, u8 *WaterMark1, u8 *WaterMark2)</argsstring>
+        <name>XSrio_GetWaterMark</name>
+        <param>
+          <type><ref refid="struct_x_srio" kindref="compound">XSrio</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>WaterMark0</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>WaterMark1</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>WaterMark2</declname>
+        </param>
+        <briefdescription>
+<para>XSrio_GetWaterMark API reads the water mark values. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_srio" kindref="compound">XSrio</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WaterMark0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable where the driver will pass back the water mark 0 value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WaterMark1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable where the driver will pass back the water mark 1 value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WaterMark2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable where the driver will pass back the water mark 2 value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>: None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c" bodystart="297" bodyend="312"/>
+        <references refid="struct_x_srio___config_1a79e384b5dc276c5479f6c17852b5886f" compoundref="xsrio_8h" startline="177">XSrio_Config::BaseAddress</references>
+        <references refid="struct_x_srio_1a488646036c48d69dad92b9c251f6865d" compoundref="xsrio_8h" startline="185">XSrio::Config</references>
+        <references refid="group__srio_1gaed9939e0409d3c884a5d6040818f30f5" compoundref="xsrio__hw_8h" startline="140">XSRIO_IMP_WCSR_OFFSET</references>
+        <references refid="group__srio_1ga614ee4a2172a0c12d709b002a20fbeef" compoundref="xsrio__hw_8h" startline="762">XSRIO_IMP_WCSR_WM0_MASK</references>
+        <references refid="group__srio_1ga06ccd785f2726efe3a060c0a914c66cd" compoundref="xsrio__hw_8h" startline="761">XSRIO_IMP_WCSR_WM1_MASK</references>
+        <references refid="group__srio_1ga00a76a62641f17c8c9e4d76f2b1e6168" compoundref="xsrio__hw_8h" startline="763">XSRIO_IMP_WCSR_WM1_SHIFT</references>
+        <references refid="group__srio_1ga53adbebbf16c0da5ca8d90167e9b9c57" compoundref="xsrio__hw_8h" startline="760">XSRIO_IMP_WCSR_WM2_MASK</references>
+        <references refid="group__srio_1ga238f24ec2ccd7043d83fbd04edcad4bc" compoundref="xsrio__hw_8h" startline="764">XSRIO_IMP_WCSR_WM2_SHIFT</references>
+        <references refid="group__srio_1ga88e5d3fa1470e0fef0ae45c4956f1fa3" compoundref="xsrio__hw_8h" startline="831">XSrio_ReadReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2014<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsrio_8h" kindref="compound">xsrio.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="56" refid="group__srio_1gae4e21d1e48b45bc2694bb9a62845d01a" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__srio_1gae4e21d1e48b45bc2694bb9a62845d01a" kindref="member">XSrio_CfgInitialize</ref>(<ref refid="struct_x_srio" kindref="compound">XSrio</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_srio___config" kindref="compound">XSrio_Config</ref><sp/>*Config,<sp/>UINTPTR<sp/>EffectiveAddress)</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Portwidth;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_srio_1ace213b237a319af359f46fee4ea92b1a" kindref="member">IsReady</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>the<sp/>instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(InstancePtr,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_srio" kindref="compound">XSrio</ref>));</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_srio_1a488646036c48d69dad92b9c251f6865d" kindref="member">Config</ref>.<ref refid="struct_x_srio___config_1a79e384b5dc276c5479f6c17852b5886f" kindref="member">BaseAddress</ref><sp/>=<sp/>EffectiveAddress;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_srio_1a488646036c48d69dad92b9c251f6865d" kindref="member">Config</ref>.DeviceId<sp/>=<sp/>Config-&gt;DeviceId;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Config;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Port<sp/>width<sp/>for<sp/>the<sp/>Device<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Portwidth<sp/>=<sp/><ref refid="group__srio_1ga88e5d3fa1470e0fef0ae45c4956f1fa3" kindref="member">XSrio_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_srio_1a488646036c48d69dad92b9c251f6865d" kindref="member">Config</ref>.<ref refid="struct_x_srio___config_1a79e384b5dc276c5479f6c17852b5886f" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__srio_1gafe2d28961f5aa630a30dc2916262d02b" kindref="member">XSRIO_PORT_N_CTL_CSR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_srio_1a142f0ed613e326b59ccee2e72b8e20cc" kindref="member">PortWidth</ref><sp/>=<sp/>((Portwidth<sp/>&amp;<sp/><ref refid="group__srio_1ga250610669bf930864ff1feb24457cc03" kindref="member">XSRIO_PORT_N_CTL_CSR_PW_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__srio_1ga758e575a915495f7a319fd4e89eeae14" kindref="member">XSRIO_PORT_N_CTL_CSR_PW_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialization<sp/>is<sp/>successful<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_srio_1ace213b237a319af359f46fee4ea92b1a" kindref="member">IsReady</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="100" refid="group__srio_1gacbd49fb630e7f2d7c8533d12607ef105" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__srio_1gacbd49fb630e7f2d7c8533d12607ef105" kindref="member">XSrio_GetPortStatus</ref>(<ref refid="struct_x_srio" kindref="compound">XSrio</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Result;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result<sp/>=<sp/><ref refid="group__srio_1ga88e5d3fa1470e0fef0ae45c4956f1fa3" kindref="member">XSrio_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_srio_1a488646036c48d69dad92b9c251f6865d" kindref="member">Config</ref>.<ref refid="struct_x_srio___config_1a79e384b5dc276c5479f6c17852b5886f" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__srio_1gaa9bc2b856e9b7dcb4cd5781ec1df9681" kindref="member">XSRIO_PORT_N_ERR_STS_CSR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Result<sp/>&amp;<sp/><ref refid="group__srio_1gadcf7a7ca097eec0183f276bf5c1f4404" kindref="member">XSRIO_PORT_N_ERR_STS_CSR_POK_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result<sp/>=<sp/><ref refid="group__srio_1gabc16a98ad67644dbb4dc653fafe590bb" kindref="member">XSRIO_PORT_OK</ref>;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Result<sp/>&amp;<sp/><ref refid="group__srio_1ga234db9291dc39e328f3ff1bebf917fa2" kindref="member">XSRIO_PORT_N_ERR_STS_CSR_PUINT_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result<sp/>=<sp/><ref refid="group__srio_1gaf20e9fbfb23bbe3e1c9c201609a93352" kindref="member">XSRIO_PORT_UNINITIALIZED</ref>;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Result<sp/>&amp;<sp/><ref refid="group__srio_1gae032e5dfd92bf02d69d6418fdec726ac" kindref="member">XSRIO_PORT_N_ERR_STS_CSR_PERR_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result<sp/>=<sp/><ref refid="group__srio_1ga86e8b638b0295f135b4dfea25bcefce4" kindref="member">XSRIO_PORT_HAS_ERRORS</ref>;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Result;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="134" refid="group__srio_1ga753aded6db30e1c042e7c7ee43b2a483" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__srio_1ga753aded6db30e1c042e7c7ee43b2a483" kindref="member">XSrio_GetPEType</ref>(<ref refid="struct_x_srio" kindref="compound">XSrio</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Result;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result<sp/>=<sp/><ref refid="group__srio_1ga88e5d3fa1470e0fef0ae45c4956f1fa3" kindref="member">XSrio_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_srio_1a488646036c48d69dad92b9c251f6865d" kindref="member">Config</ref>.<ref refid="struct_x_srio___config_1a79e384b5dc276c5479f6c17852b5886f" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__srio_1ga1570a90db90ab3215174f7e6c40afebe" kindref="member">XSRIO_PEF_CAR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Result<sp/>&amp;<sp/><ref refid="group__srio_1ga2b13843464edf06633294d148150830d" kindref="member">XSRIO_PEF_CAR_MEMORY_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result<sp/>=<sp/><ref refid="group__srio_1gabea6ccdc70412fa41b6d45785ff2d287" kindref="member">XSRIO_IS_MEMORY</ref>;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Result<sp/>&amp;<sp/><ref refid="group__srio_1ga621c66a2f36ea07e5b82ba99f57f03d6" kindref="member">XSRIO_PEF_CAR_PROCESSOR_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result<sp/>=<sp/><ref refid="group__srio_1gada8228136dc485b32c5a1e8ea9f0c1ee" kindref="member">XSRIO_IS_PROCESSOR</ref>;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Result<sp/>&amp;<sp/><ref refid="group__srio_1gafa5c4fef269eeda1a92245050eaef59c" kindref="member">XSRIO_PEF_CAR_BRIDGE_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result<sp/>=<sp/><ref refid="group__srio_1ga5c084f9424ee6edbc6c9c94db2dac6f8" kindref="member">XSRIO_IS_BRIDGE</ref>;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Result;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="171" refid="group__srio_1gafce174875d087f4b3cc4713a1df5446d" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__srio_1gafce174875d087f4b3cc4713a1df5446d" kindref="member">XSrio_IsOperationSupported</ref>(<ref refid="struct_x_srio" kindref="compound">XSrio</ref><sp/>*InstancePtr,<sp/>u8<sp/>Operation,<sp/>u8<sp/>Direction)</highlight></codeline>
+<codeline lineno="172"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OperationCar;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Direction<sp/>&amp;<sp/><ref refid="group__srio_1ga30c7873d0765851288036067362c5b7e" kindref="member">XSRIO_DIR_TX</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OperationCar<sp/>=<sp/><ref refid="group__srio_1gada1a2bfecf3f5afca7be3d94df46290a" kindref="member">XSrio_ReadSrcOps</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OperationCar<sp/>=<sp/><ref refid="group__srio_1gae7326b439df172403f28fcc0fa38e992" kindref="member">XSrio_ReadDstOps</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(Operation)<sp/>{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__srio_1gafadc09b23898c51bba7c5167f439000d" kindref="member">XSRIO_OP_MODE_NREAD</ref>:</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(OperationCar<sp/>&amp;<sp/><ref refid="group__srio_1ga22a5bbcfc74d7e895fc806b26a648a62" kindref="member">XSRIO_SRCDST_OPS_CAR_READ_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__srio_1ga5bcffc7047fbbb505c256fa15062ec9e" kindref="member">XSRIO_OP_MODE_NWRITE</ref>:</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(OperationCar<sp/>&amp;<sp/><ref refid="group__srio_1ga368e473b38c87a7845e43ed0b83c4bb4" kindref="member">XSRIO_SRCDST_OPS_CAR_WRITE_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__srio_1ga17ddc9d36a51e2a63e6b7e8b1d6ca204" kindref="member">XSRIO_OP_MODE_SWRITE</ref>:</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(OperationCar<sp/>&amp;<sp/><ref refid="group__srio_1ga3d9cbc1037e2dd1ab3a902699e12e5a1" kindref="member">XSRIO_SRCDST_OPS_CAR_SWRITE_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__srio_1gab4e13bb3d8eeb614bdc2f655cbc4ba16" kindref="member">XSRIO_OP_MODE_NWRITE_R</ref>:</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(OperationCar<sp/>&amp;<sp/><ref refid="group__srio_1ga8a3f3c7eac1bf613ee6357d54c871f18" kindref="member">XSRIO_SRCDST_OPS_CAR_WRITE_RESPONSE_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__srio_1ga01882d64861c721fafb08cc63dc7e589" kindref="member">XSRIO_OP_MODE_DATA_MESSAGE</ref>:</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(OperationCar<sp/>&amp;<sp/><ref refid="group__srio_1gaf9a8a2832415e8c971d2041493565717" kindref="member">XSRIO_SRCDST_OPS_CAR_DATA_MSG_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__srio_1ga246f138414b507e094ebbfb196350805" kindref="member">XSRIO_OP_MODE_DOORBELL</ref>:</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(OperationCar<sp/>&amp;<sp/><ref refid="group__srio_1gad4b33820d42c378851f2dbdd566d49bd" kindref="member">XSRIO_SRCDST_OPS_CAR_DOORBELL_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__srio_1gac0c9b8d9ebb9191a8314f93225bd59a8" kindref="member">XSRIO_OP_MODE_ATOMIC</ref>:</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(OperationCar<sp/>&amp;<sp/><ref refid="group__srio_1gabf5a63a4034d3c3814841ad90a75bfe4" kindref="member">XSRIO_SRCDST_OPS_CAR_ATOMIC_SET_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="244" refid="group__srio_1ga9cb7fbc368f16113382c2a9b4556b601" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__srio_1ga9cb7fbc368f16113382c2a9b4556b601" kindref="member">XSrio_SetWaterMark</ref>(<ref refid="struct_x_srio" kindref="compound">XSrio</ref><sp/>*InstancePtr,<sp/>u8<sp/>WaterMark0,<sp/>u8<sp/>WaterMark1,</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>WaterMark2)</highlight></codeline>
+<codeline lineno="246"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Regval;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(WaterMark0<sp/>&gt;<sp/>WaterMark1);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(WaterMark1<sp/>&gt;<sp/>WaterMark2);</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(WaterMark2<sp/>&gt;<sp/>0);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Regval<sp/>=<sp/><ref refid="group__srio_1ga88e5d3fa1470e0fef0ae45c4956f1fa3" kindref="member">XSrio_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_srio_1a488646036c48d69dad92b9c251f6865d" kindref="member">Config</ref>.<ref refid="struct_x_srio___config_1a79e384b5dc276c5479f6c17852b5886f" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__srio_1gaed9939e0409d3c884a5d6040818f30f5" kindref="member">XSRIO_IMP_WCSR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(WaterMark0<sp/>&gt;<sp/>WaterMark1)<sp/>{</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Regval<sp/>=<sp/>((Regval<sp/>&amp;<sp/>~<ref refid="group__srio_1ga614ee4a2172a0c12d709b002a20fbeef" kindref="member">XSRIO_IMP_WCSR_WM0_MASK</ref>)<sp/>|</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(WaterMark0<sp/>&amp;<sp/><ref refid="group__srio_1ga614ee4a2172a0c12d709b002a20fbeef" kindref="member">XSRIO_IMP_WCSR_WM0_MASK</ref>));</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__srio_1ga7f54b6fbef6410f2c375bde9e7bf09bd" kindref="member">XSrio_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress,</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__srio_1gaed9939e0409d3c884a5d6040818f30f5" kindref="member">XSRIO_IMP_WCSR_OFFSET</ref>,<sp/>Regval);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(WaterMark1<sp/>&gt;<sp/>WaterMark2)<sp/>{</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Regval<sp/>=<sp/>((Regval<sp/>&amp;<sp/>~<ref refid="group__srio_1ga06ccd785f2726efe3a060c0a914c66cd" kindref="member">XSRIO_IMP_WCSR_WM1_MASK</ref>)<sp/>|</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((WaterMark1<sp/>&lt;&lt;<sp/><ref refid="group__srio_1ga00a76a62641f17c8c9e4d76f2b1e6168" kindref="member">XSRIO_IMP_WCSR_WM1_SHIFT</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__srio_1ga06ccd785f2726efe3a060c0a914c66cd" kindref="member">XSRIO_IMP_WCSR_WM1_MASK</ref>));</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__srio_1ga7f54b6fbef6410f2c375bde9e7bf09bd" kindref="member">XSrio_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress,</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__srio_1gaed9939e0409d3c884a5d6040818f30f5" kindref="member">XSRIO_IMP_WCSR_OFFSET</ref>,<sp/>Regval);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(WaterMark2<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Regval<sp/>=<sp/>((Regval<sp/>&amp;<sp/>~<ref refid="group__srio_1ga53adbebbf16c0da5ca8d90167e9b9c57" kindref="member">XSRIO_IMP_WCSR_WM2_MASK</ref>)<sp/>|</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((WaterMark2<sp/>&lt;&lt;<sp/><ref refid="group__srio_1ga238f24ec2ccd7043d83fbd04edcad4bc" kindref="member">XSRIO_IMP_WCSR_WM2_SHIFT</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__srio_1ga53adbebbf16c0da5ca8d90167e9b9c57" kindref="member">XSRIO_IMP_WCSR_WM2_MASK</ref>));</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__srio_1ga7f54b6fbef6410f2c375bde9e7bf09bd" kindref="member">XSrio_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress,</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__srio_1gaed9939e0409d3c884a5d6040818f30f5" kindref="member">XSRIO_IMP_WCSR_OFFSET</ref>,<sp/>Regval);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="278"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="297" refid="group__srio_1ga9eb82f808fa01a1679ed60a026a2a2c7" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__srio_1ga9eb82f808fa01a1679ed60a026a2a2c7" kindref="member">XSrio_GetWaterMark</ref>(<ref refid="struct_x_srio" kindref="compound">XSrio</ref><sp/>*InstancePtr,<sp/>u8<sp/>*WaterMark0,<sp/>u8<sp/>*WaterMark1,</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*WaterMark2)</highlight></codeline>
+<codeline lineno="299"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Regval;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Regval<sp/>=<sp/><ref refid="group__srio_1ga88e5d3fa1470e0fef0ae45c4956f1fa3" kindref="member">XSrio_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_srio_1a488646036c48d69dad92b9c251f6865d" kindref="member">Config</ref>.<ref refid="struct_x_srio___config_1a79e384b5dc276c5479f6c17852b5886f" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__srio_1gaed9939e0409d3c884a5d6040818f30f5" kindref="member">XSRIO_IMP_WCSR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*WaterMark0<sp/>=<sp/>(Regval<sp/>&amp;<sp/><ref refid="group__srio_1ga614ee4a2172a0c12d709b002a20fbeef" kindref="member">XSRIO_IMP_WCSR_WM0_MASK</ref>);</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*WaterMark1<sp/>=<sp/>((Regval<sp/>&amp;<sp/><ref refid="group__srio_1ga06ccd785f2726efe3a060c0a914c66cd" kindref="member">XSRIO_IMP_WCSR_WM1_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__srio_1ga00a76a62641f17c8c9e4d76f2b1e6168" kindref="member">XSRIO_IMP_WCSR_WM1_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*WaterMark2<sp/>=<sp/>((Regval<sp/>&amp;<sp/><ref refid="group__srio_1ga53adbebbf16c0da5ca8d90167e9b9c57" kindref="member">XSRIO_IMP_WCSR_WM2_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__srio_1ga238f24ec2ccd7043d83fbd04edcad4bc" kindref="member">XSRIO_IMP_WCSR_WM2_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.c"/>
+  </compounddef>
+</doxygen>

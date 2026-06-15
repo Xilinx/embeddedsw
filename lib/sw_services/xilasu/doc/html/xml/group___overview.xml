@@ -1,0 +1,1997 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group___overview" kind="group">
+    <compoundname>Overview</compoundname>
+    <title>Overview</title>
+    <innerclass refid="struct_x_asu___callback_context" prot="public">XAsu_CallbackContext</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group___overview_1ga53b2ec787c60896250305dfdd5b8363e" prot="public" static="no">
+        <name>XAsu_OperationType</name>
+        <enumvalue id="group___overview_1gga53b2ec787c60896250305dfdd5b8363ea533daf325262a3d15584b7a8a8b8a484" prot="public">
+          <name>XASU_OP_SHA2_HASH</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>SHA2 hash operation. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___overview_1gga53b2ec787c60896250305dfdd5b8363ea20c459ae07c90eacb44a4deaf10ade8d" prot="public">
+          <name>XASU_OP_AES_ENCRYPT</name>
+          <briefdescription>
+<para>AES encryption operation. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___overview_1gga53b2ec787c60896250305dfdd5b8363ea189f530239a8b60d71b9429d69eb2557" prot="public">
+          <name>XASU_OP_AES_DECRYPT</name>
+          <briefdescription>
+<para>AES decryption operation. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___overview_1gga53b2ec787c60896250305dfdd5b8363ea4fe9763323b174f0554cf6270341accc" prot="public">
+          <name>XASU_OP_ECC_SIGN_GEN</name>
+          <briefdescription>
+<para>ECC signature generation operation. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___overview_1gga53b2ec787c60896250305dfdd5b8363ea16f67c87f128e7ebd9627bb53f1b7de6" prot="public">
+          <name>XASU_OP_RSA_PSS_SIGN_GEN</name>
+          <briefdescription>
+<para>RSA PSS signature generation operation. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___overview_1gga53b2ec787c60896250305dfdd5b8363ea26fded74b689f1c8e4d5ce248c1a1630" prot="public">
+          <name>XASU_OP_RSA_PSS_SIGN_VER</name>
+          <briefdescription>
+<para>RSA PSS signature verification operation. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group___overview_1gga53b2ec787c60896250305dfdd5b8363eaaba69bbcce0950d7ce71de9b86e184f9" prot="public">
+          <name>XASU_OP_MAX</name>
+          <briefdescription>
+<para>Maximum number of operations. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Operation identifiers for tracking different crypto operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="104" bodyend="112"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group___overview_1ga315ddbeb6389e59317a5f0f31da0a70c" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_AesInputData[XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES]</argsstring>
+        <name>XAsu_AesInputData</name>
+        <initializer>= {
+	0x2FU, 0xBFU, 0x02U, 0x9EU, 0xE9U, 0xFBU, 0xD6U, 0x11U,
+	0xC2U, 0x4DU, 0x81U, 0x4EU, 0x6AU, 0xFFU, 0x26U, 0x77U,
+	0xC3U, 0x5AU, 0x83U, 0xBCU, 0xE5U, 0x63U, 0x2CU, 0xE7U,
+	0x89U, 0x43U, 0x6CU, 0x68U, 0x82U, 0xCAU, 0x1CU, 0x71U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga37bd171a0804489bb837f2ee62acbf29" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_AesAad[XASU_AES_AAD_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_AES_AAD_LEN_IN_BYTES]</argsstring>
+        <name>XAsu_AesAad</name>
+        <initializer>= {
+	0x9AU, 0x7BU, 0x86U, 0xE7U, 0x82U, 0xCCU, 0xAAU, 0x6AU,
+	0xB2U, 0x21U, 0xBDU, 0x03U, 0x47U, 0x0BU, 0xDCU, 0x2EU
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga51e6491afb6be758c3e4d5318eb2a671" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_AesKey[XASU_AES_KEY_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_AES_KEY_LEN_IN_BYTES]</argsstring>
+        <name>XAsu_AesKey</name>
+        <initializer>= {
+	0xD4U, 0x16U, 0xA6U, 0x93U, 0x1DU, 0x52U, 0xE0U, 0xF5U,
+	0x0AU, 0xA0U, 0x89U, 0xA7U, 0x57U, 0xB1U, 0x1AU, 0x89U,
+	0x1CU, 0xBDU, 0x1BU, 0x83U, 0x84U, 0x7DU, 0x4BU, 0xEDU,
+	0x9EU, 0x29U, 0x38U, 0xCDU, 0x4CU, 0x54U, 0xA8U, 0xBAU
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga4c183d27e617a32771552ef17bb577ce" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_AesIv[XASU_AES_IV_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_AES_IV_LEN_IN_BYTES]</argsstring>
+        <name>XAsu_AesIv</name>
+        <initializer>= {
+	0x85U, 0x36U, 0x5FU, 0x88U, 0xB0U, 0xB5U,
+	0x62U, 0x98U, 0xDFU, 0xEAU, 0x5AU, 0xB2U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga0042294fe417e7be457c9c6272b7f9ea" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_AesGcmExpCt[XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES]</argsstring>
+        <name>XAsu_AesGcmExpCt</name>
+        <initializer>= {
+	0x59U, 0x8CU, 0xD1U, 0x9FU, 0x16U, 0x83U, 0xB4U, 0x1BU,
+	0x4CU, 0x59U, 0xE1U, 0xC1U, 0x57U, 0xD4U, 0x15U, 0x01U,
+	0xA3U, 0xC0U, 0x89U, 0x02U, 0xF0U, 0xEAU, 0x3AU, 0x37U,
+	0x6AU, 0x8BU, 0x0DU, 0x99U, 0x88U, 0xCFU, 0xF8U, 0xC1U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga12a06f68aab124c62f2e673d2c7afb02" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_AesCtrExpCt[XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES]</argsstring>
+        <name>XAsu_AesCtrExpCt</name>
+        <initializer>= {
+	0x40U, 0x67U, 0x04U, 0x6BU, 0x20U, 0x74U, 0x83U, 0xC5U,
+	0x86U, 0x7FU, 0x3DU, 0x1DU, 0xFDU, 0x6BU, 0x27U, 0xF3U,
+	0x5CU, 0x07U, 0x75U, 0xCEU, 0xEEU, 0x85U, 0x6DU, 0xE7U,
+	0x0EU, 0xD8U, 0x20U, 0xBAU, 0xC3U, 0x72U, 0xBBU, 0x2FU
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga1a1b7137cfc5578574a2bcab6e31bea3" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_AesGcmExpTag[XASU_AES_TAG_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_AES_TAG_LEN_IN_BYTES]</argsstring>
+        <name>XAsu_AesGcmExpTag</name>
+        <initializer>= {
+	0xADU, 0xCEU, 0xFEU, 0x2FU, 0x6EU, 0xE4U, 0xC7U, 0x06U,
+	0x0EU, 0x44U, 0xAAU, 0x5EU, 0xDFU, 0x0DU, 0xBEU, 0xBCU
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1gaffec5c672f5c4e79e2b54f94d29dcb7a" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_AesTag[XASU_AES_TAG_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_AES_TAG_LEN_IN_BYTES]</argsstring>
+        <name>XAsu_AesTag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1gace5113e8fece048c6d53cda5369b7a54" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_AesEncData[XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES]</argsstring>
+        <name>XAsu_AesEncData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1gab8901c6943082334b4fbecc78336d8bf" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_AesDecData[XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES]</argsstring>
+        <name>XAsu_AesDecData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga3c904c6c8f2cb359b6847af0df908e64" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 Notify</definition>
+        <argsstring></argsstring>
+        <name>Notify</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>To notify the call back from client library. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga3591e7229af48e5dff4f20081887cf09" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 ErrorStatus</definition>
+        <argsstring></argsstring>
+        <name>ErrorStatus</name>
+        <initializer>= XST_FAILURE</initializer>
+        <briefdescription>
+<para>Variable holds the status of the AES operation from client library and gets updated during callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga545d53ac061e8de57fb59d7070a8cd5b" prot="public" static="yes" mutable="no">
+        <type>const char</type>
+        <definition>const char XAsu_Sha2Data[XASU_SHA2_INPUT_DATA_LEN+1U]</definition>
+        <argsstring>[XASU_SHA2_INPUT_DATA_LEN+1U]</argsstring>
+        <name>XAsu_Sha2Data</name>
+        <initializer>= &quot;HELLO&quot;</initializer>
+        <briefdescription>
+<para>SHA2 input data for hashing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga32ce63711ba7badf8d13dac1ba050fd4" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_Sha2Hash[XASU_SHA2_HASH_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_SHA2_HASH_LEN_IN_BYTES]</argsstring>
+        <name>XAsu_Sha2Hash</name>
+        <briefdescription>
+<para>SHA2 hash output buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga978c28446d173f43b65d36da847704a1" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XAsu_Sha2ExpHash[XASU_SHA2_HASH_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_SHA2_HASH_LEN_IN_BYTES]</argsstring>
+        <name>XAsu_Sha2ExpHash</name>
+        <initializer>= {
+	0x37, 0x33, 0xCD, 0x97, 0x7F, 0xF8, 0xEB, 0x18,
+	0xB9, 0x87, 0x35, 0x7E, 0x22, 0xCE, 0xD9, 0x9F,
+	0x46, 0x09, 0x7F, 0x31, 0xEC, 0xB2, 0x39, 0xE8,
+	0x78, 0xAE, 0x63, 0x76, 0x0E, 0x83, 0xE4, 0xD5
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga315ddbeb6389e59317a5f0f31da0a70c" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_AesInputData[XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES]</argsstring>
+        <name>XAsu_AesInputData</name>
+        <initializer>= {
+	0x2FU, 0xBFU, 0x02U, 0x9EU, 0xE9U, 0xFBU, 0xD6U, 0x11U,
+	0xC2U, 0x4DU, 0x81U, 0x4EU, 0x6AU, 0xFFU, 0x26U, 0x77U,
+	0xC3U, 0x5AU, 0x83U, 0xBCU, 0xE5U, 0x63U, 0x2CU, 0xE7U,
+	0x89U, 0x43U, 0x6CU, 0x68U, 0x82U, 0xCAU, 0x1CU, 0x71U
+}</initializer>
+        <briefdescription>
+<para>AES plaintext data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga37bd171a0804489bb837f2ee62acbf29" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_AesAad[XASU_AES_AAD_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_AES_AAD_LEN_IN_BYTES]</argsstring>
+        <name>XAsu_AesAad</name>
+        <initializer>= {
+	0x9AU, 0x7BU, 0x86U, 0xE7U, 0x82U, 0xCCU, 0xAAU, 0x6AU,
+	0xB2U, 0x21U, 0xBDU, 0x03U, 0x47U, 0x0BU, 0xDCU, 0x2EU
+}</initializer>
+        <briefdescription>
+<para>AES AAD data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga51e6491afb6be758c3e4d5318eb2a671" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_AesKey[XASU_AES_KEY_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_AES_KEY_LEN_IN_BYTES]</argsstring>
+        <name>XAsu_AesKey</name>
+        <initializer>= {
+	0xD4U, 0x16U, 0xA6U, 0x93U, 0x1DU, 0x52U, 0xE0U, 0xF5U,
+	0x0AU, 0xA0U, 0x89U, 0xA7U, 0x57U, 0xB1U, 0x1AU, 0x89U,
+	0x1CU, 0xBDU, 0x1BU, 0x83U, 0x84U, 0x7DU, 0x4BU, 0xEDU,
+	0x9EU, 0x29U, 0x38U, 0xCDU, 0x4CU, 0x54U, 0xA8U, 0xBAU
+}</initializer>
+        <briefdescription>
+<para>AES key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga4c183d27e617a32771552ef17bb577ce" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_AesIv[XASU_AES_IV_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_AES_IV_LEN_IN_BYTES]</argsstring>
+        <name>XAsu_AesIv</name>
+        <initializer>= {
+	0x85U, 0x36U, 0x5FU, 0x88U, 0xB0U, 0xB5U,
+	0x62U, 0x98U, 0xDFU, 0xEAU, 0x5AU, 0xB2U
+}</initializer>
+        <briefdescription>
+<para>AES IV. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga0042294fe417e7be457c9c6272b7f9ea" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_AesGcmExpCt[XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES]</argsstring>
+        <name>XAsu_AesGcmExpCt</name>
+        <initializer>= {
+	0x59U, 0x8CU, 0xD1U, 0x9FU, 0x16U, 0x83U, 0xB4U, 0x1BU,
+	0x4CU, 0x59U, 0xE1U, 0xC1U, 0x57U, 0xD4U, 0x15U, 0x01U,
+	0xA3U, 0xC0U, 0x89U, 0x02U, 0xF0U, 0xEAU, 0x3AU, 0x37U,
+	0x6AU, 0x8BU, 0x0DU, 0x99U, 0x88U, 0xCFU, 0xF8U, 0xC1U
+}</initializer>
+        <briefdescription>
+<para>AES-GCM expected CipherText. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga1a1b7137cfc5578574a2bcab6e31bea3" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_AesGcmExpTag[XASU_AES_TAG_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_AES_TAG_LEN_IN_BYTES]</argsstring>
+        <name>XAsu_AesGcmExpTag</name>
+        <initializer>= {
+	0xADU, 0xCEU, 0xFEU, 0x2FU, 0x6EU, 0xE4U, 0xC7U, 0x06U,
+	0x0EU, 0x44U, 0xAAU, 0x5EU, 0xDFU, 0x0DU, 0xBEU, 0xBCU
+}</initializer>
+        <briefdescription>
+<para>AES-GCM expected Tag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="243" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1gaffec5c672f5c4e79e2b54f94d29dcb7a" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_AesTag[XASU_AES_TAG_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_AES_TAG_LEN_IN_BYTES]</argsstring>
+        <name>XAsu_AesTag</name>
+        <briefdescription>
+<para>AES Tag output buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1gace5113e8fece048c6d53cda5369b7a54" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_AesEncData[XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES]</argsstring>
+        <name>XAsu_AesEncData</name>
+        <briefdescription>
+<para>AES Encrypted data output buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1gab8901c6943082334b4fbecc78336d8bf" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_AesDecData[XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES]</argsstring>
+        <name>XAsu_AesDecData</name>
+        <briefdescription>
+<para>AES Decrypted data output buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1gad548e0c82238b4a3c2172b8c90d6f439" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XAsu_EccPrivKey[XASU_ECC_P256_KEY_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_ECC_P256_KEY_SIZE_IN_BYTES]</argsstring>
+        <name>XAsu_EccPrivKey</name>
+        <initializer>= {
+	0xC4U, 0x77U, 0xF9U, 0xF6U, 0x5CU, 0x22U, 0xCCU, 0xE2U,
+	0x06U, 0x57U, 0xFAU, 0xA5U, 0xB2U, 0xD1U, 0xD8U, 0x12U,
+	0x23U, 0x36U, 0xF8U, 0x51U, 0xA5U, 0x08U, 0xA1U, 0xEDU,
+	0x04U, 0xE4U, 0x79U, 0xC3U, 0x49U, 0x85U, 0xBFU, 0x96U
+}</initializer>
+        <briefdescription>
+<para>ECC P256 private key for sign generation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga7855da0ea4997bb5014c3940631a44d0" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XAsu_EccHash[XASU_ECC_P256_KEY_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_ECC_P256_KEY_SIZE_IN_BYTES]</argsstring>
+        <name>XAsu_EccHash</name>
+        <initializer>= {
+	0xA4U, 0x1AU, 0x41U, 0xA1U, 0x2AU, 0x79U, 0x95U, 0x48U,
+	0x21U, 0x1CU, 0x41U, 0x0CU, 0x65U, 0xD8U, 0x13U, 0x3AU,
+	0xFDU, 0xE3U, 0x4DU, 0x28U, 0xBDU, 0xD5U, 0x42U, 0xE4U,
+	0xB6U, 0x80U, 0xCFU, 0x28U, 0x99U, 0xC8U, 0xA8U, 0xC4U
+}</initializer>
+        <briefdescription>
+<para>ECC hash/digest input for sign generation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="271" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="272" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1gaf897be8e6f81f29e73a9bad15b120bcb" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_EccSign[XASU_ECC_DOUBLE_P256_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_ECC_DOUBLE_P256_SIZE_IN_BYTES]</argsstring>
+        <name>XAsu_EccSign</name>
+        <briefdescription>
+<para>ECC signature output buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga146347299d535d17450df89fc21a8ded" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XAsu_RsaModulus[XASU_RSA_2048_KEY_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_RSA_2048_KEY_SIZE_IN_BYTES]</argsstring>
+        <name>XAsu_RsaModulus</name>
+        <briefdescription>
+<para>RSA modulus (2048 bits) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1gac8e4173949c492998b78918073daa6c0" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XAsu_RsaPvtExp[XASU_RSA_2048_KEY_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_RSA_2048_KEY_SIZE_IN_BYTES]</argsstring>
+        <name>XAsu_RsaPvtExp</name>
+        <briefdescription>
+<para>RSA private exponent. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="323" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1gac0cf66ff32e334445bcac8e2b7c66cd3" prot="public" static="yes" mutable="no">
+        <type>const u32</type>
+        <definition>const u32 XAsu_RsaPublicExp</definition>
+        <argsstring></argsstring>
+        <name>XAsu_RsaPublicExp</name>
+        <initializer>= 0x1000100U</initializer>
+        <briefdescription>
+<para>RSA public exponent. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="360" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1gaeab3c08e2d0d4f4382399766824f4c0b" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XAsu_RsaInputData[XASU_RSA_INPUT_DATA_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_RSA_INPUT_DATA_LEN_IN_BYTES]</argsstring>
+        <name>XAsu_RsaInputData</name>
+        <initializer>= {
+	0x05U, 0x95U, 0x87U, 0x3FU, 0xA5U, 0x76U, 0x50U, 0xBFU,
+	0x76U, 0x6FU, 0x2CU, 0xB3U, 0x97U, 0x80U, 0x8BU, 0x7BU,
+	0x99U, 0xE8U, 0x56U, 0x2FU, 0x4BU, 0xCDU, 0x66U, 0x25U,
+	0x6FU, 0xA9U, 0x51U, 0x7CU, 0x42U, 0x57U, 0x95U, 0x95U,
+	0x6AU, 0xF0U, 0xF8U, 0x7EU, 0x56U, 0x0DU, 0x28U, 0x07U,
+	0xE7U, 0x1CU, 0x7CU, 0xD8U, 0x9EU, 0xF2U, 0xD6U, 0x37U,
+	0xE8U, 0x7AU, 0x5AU, 0xDBU, 0xA5U, 0xB5U, 0xD2U, 0x93U,
+	0xFAU, 0x29U, 0x28U, 0x76U, 0xB8U, 0xCEU, 0xC3U, 0x66U,
+	0xFFU, 0x15U, 0xFBU, 0x28U, 0x3BU, 0xC2U, 0x82U, 0x32U,
+	0xB7U, 0x5FU, 0xE4U, 0xD5U, 0x54U, 0x8EU, 0xE5U, 0x43U
+}</initializer>
+        <briefdescription>
+<para>RSA input data for signing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="363" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="364" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1gafc60c09d62a4997bf23017f9e0cea868" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_RsaSignature[XASU_RSA_2048_KEY_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_RSA_2048_KEY_SIZE_IN_BYTES]</argsstring>
+        <name>XAsu_RsaSignature</name>
+        <briefdescription>
+<para>RSA PSS signature output buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="378" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="379" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1gaeecc9dbb1fb273bcca3e760c97ae19d9" prot="public" static="yes" mutable="no">
+        <type>XAsu_CallbackContext</type>
+        <definition>XAsu_CallbackContext XAsu_OpContexts[XASU_OP_MAX]</definition>
+        <argsstring>[XASU_OP_MAX]</argsstring>
+        <name>XAsu_OpContexts</name>
+        <initializer>= {
+	{ .OpType = <ref refid="group___overview_1gga53b2ec787c60896250305dfdd5b8363ea533daf325262a3d15584b7a8a8b8a484" kindref="member">XASU_OP_SHA2_HASH</ref>,    .Status = XST_FAILURE, .IsCompleted = FALSE,
+	  .OpName = &quot;SHA2 Hash (LOW priority)&quot; },
+	{ .OpType = <ref refid="group___overview_1gga53b2ec787c60896250305dfdd5b8363ea20c459ae07c90eacb44a4deaf10ade8d" kindref="member">XASU_OP_AES_ENCRYPT</ref>,  .Status = XST_FAILURE, .IsCompleted = FALSE,
+	  .OpName = &quot;AES-GCM Encrypt (HIGH priority)&quot; },
+	{ .OpType = <ref refid="group___overview_1gga53b2ec787c60896250305dfdd5b8363ea189f530239a8b60d71b9429d69eb2557" kindref="member">XASU_OP_AES_DECRYPT</ref>,  .Status = XST_FAILURE, .IsCompleted = FALSE,
+	  .OpName = &quot;AES-GCM Decrypt (HIGH priority)&quot; },
+	{ .OpType = <ref refid="group___overview_1gga53b2ec787c60896250305dfdd5b8363ea4fe9763323b174f0554cf6270341accc" kindref="member">XASU_OP_ECC_SIGN_GEN</ref>, .Status = XST_FAILURE, .IsCompleted = FALSE,
+	  .OpName = &quot;ECC Sign Gen (HIGH priority)&quot; },
+	{ .OpType = <ref refid="group___overview_1gga53b2ec787c60896250305dfdd5b8363ea16f67c87f128e7ebd9627bb53f1b7de6" kindref="member">XASU_OP_RSA_PSS_SIGN_GEN</ref>, .Status = XST_FAILURE, .IsCompleted = FALSE,
+	  .OpName = &quot;RSA PSS Sign Gen (LOW priority)&quot; },
+	{ .OpType = <ref refid="group___overview_1gga53b2ec787c60896250305dfdd5b8363ea26fded74b689f1c8e4d5ce248c1a1630" kindref="member">XASU_OP_RSA_PSS_SIGN_VER</ref>, .Status = XST_FAILURE, .IsCompleted = FALSE,
+	  .OpName = &quot;RSA PSS Sign Ver (HIGH priority)&quot; }
+}</initializer>
+        <briefdescription>
+<para>Array of callback contexts, one for each crypto operation. </para>        </briefdescription>
+        <detaileddescription>
+<para>These contexts allow the callback function to identify which operation completed. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="386" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="386" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga5af94c5df547ec9deead3ea76504825f" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 XAsu_CompletedOpsCount</definition>
+        <argsstring></argsstring>
+        <name>XAsu_CompletedOpsCount</name>
+        <initializer>= 0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="402" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="402" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1gaa165589ff890273a47aefe46d953c578" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 X509Cert[XOCP_X509_CERT_BUF_SIZE]</definition>
+        <argsstring>[XOCP_X509_CERT_BUF_SIZE]</argsstring>
+        <name>X509Cert</name>
+        <briefdescription>
+<para>&lt; X.509 certificate buffer </para>        </briefdescription>
+        <detaileddescription>
+<para>Actual size of certificate </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1gaee8120f5f176a163cdd5f287fdd63a10" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 ActualCertSize</definition>
+        <argsstring></argsstring>
+        <name>ActualCertSize</name>
+        <briefdescription>
+<para>ECC signature buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga6a66c2644eee1344dfc30f743e64fcc7" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 Signature[XOCP_ECC_SIGN_TOTAL_LEN]</definition>
+        <argsstring>[XOCP_ECC_SIGN_TOTAL_LEN]</argsstring>
+        <name>Signature</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga3c904c6c8f2cb359b6847af0df908e64" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 Notify</definition>
+        <argsstring></argsstring>
+        <name>Notify</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>To notify the call back from client library. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga3591e7229af48e5dff4f20081887cf09" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 ErrorStatus</definition>
+        <argsstring></argsstring>
+        <name>ErrorStatus</name>
+        <initializer>= XST_FAILURE</initializer>
+        <briefdescription>
+<para>Variable holds the status of the OCP operation from client library and gets updated during callback. </para>        </briefdescription>
+        <detaileddescription>
+<para>Attestation data </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1gafdca66da4d2a33937c9a6732de148b5d" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 AttestData[XOCP_ATTEST_DATA_SIZE]</definition>
+        <argsstring>[XOCP_ATTEST_DATA_SIZE]</argsstring>
+        <name>AttestData</name>
+        <initializer>=
+						{0x70, 0x69, 0x77, 0x35, 0x0b, 0x93,
+						0x92, 0xa0, 0x48, 0x2c, 0xd8, 0x23,
+						0x38, 0x47, 0xd2, 0xd9, 0x2d, 0x1a,
+						0x95, 0x0c, 0xad, 0xa8, 0x60, 0xc0,
+						0x9b, 0x70, 0xc6, 0xad, 0x6e, 0xf1,
+						0x5d, 0x49, 0x68, 0xa3, 0x50, 0x75,
+						0x06, 0xbb, 0x0b, 0x9b, 0x03, 0x7d,
+						0xd5, 0x93, 0x76, 0x50, 0xdb, 0xd4}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga3c904c6c8f2cb359b6847af0df908e64" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 Notify</definition>
+        <argsstring></argsstring>
+        <name>Notify</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>To notify the call back from client library. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_ude_example.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_ude_example.c" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga3591e7229af48e5dff4f20081887cf09" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 ErrorStatus</definition>
+        <argsstring></argsstring>
+        <name>ErrorStatus</name>
+        <initializer>= XST_FAILURE</initializer>
+        <briefdescription>
+<para>Variable holds the status of the OCP-UDE operation from client library and gets updated during callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_ude_example.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_ude_example.c" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga8ee09933e9d78c3e735c4932d80d4ebd" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 NonceBuff[XASU_OCP_UDE_NONCE_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_OCP_UDE_NONCE_SIZE_IN_BYTES]</argsstring>
+        <name>NonceBuff</name>
+        <initializer>=
+{
+	0x70,0x69,0x77,0x35,0x0b,0x93,
+	0x92,0xa0,0x48,0x2c,0xd8,0x23,
+	0x38,0x47,0xd2,0xd9,0x2d,0x1a,
+	0x95,0x0c,0xad,0xa8,0x60,0xc0,
+	0x9b,0x70,0xc6,0xad,0x6e,0xf1,
+	0x5d,0x49
+}</initializer>
+        <briefdescription>
+<para>Nonce buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_ude_example.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_ude_example.c" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga3c904c6c8f2cb359b6847af0df908e64" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 Notify</definition>
+        <argsstring></argsstring>
+        <name>Notify</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>To notify the call back from client library. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_example.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_example.c" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga3591e7229af48e5dff4f20081887cf09" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 ErrorStatus</definition>
+        <argsstring></argsstring>
+        <name>ErrorStatus</name>
+        <initializer>= XST_FAILURE</initializer>
+        <briefdescription>
+<para>Variable holds the status of the OCP-UDE operation from client library and gets updated during callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_example.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_example.c" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1gaaaaf0970204e6325ed4195def5dd7534" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 EncUdeKey[XASU_OCP_UDE_KEY_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_OCP_UDE_KEY_SIZE_IN_BYTES]</argsstring>
+        <name>EncUdeKey</name>
+        <briefdescription>
+<para>Encrypted UDE private key buffer for storing encrypted output. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_example.c" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_example.c" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___overview_1gaff99947b37ae00ff05c4351b80a74dd4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_AesGcmExample</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_AesGcmExample</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function performs AES encryption and decryption operation on a given data using AES-GCM engine mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>Verify the additional status if operation flag is set to XASU_FINISH.<itemizedlist>
+<listitem><para>XASU_AES_TAG_READ, if encryption operation successfully done.</para></listitem><listitem><para>XASU_AES_TAG_MATCHED, if decryption operation successfully done.</para></listitem><listitem><para>Any other value shall be treated as failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Verify additional status as well if operation flag set to XASU_FINISH to know operation is successful.</para><para>Verify additional status as well if operation flag set to XASU_FINISH to know operation is successful.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" bodystart="221" bodyend="370"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga3b1a1985f309df46ceeda85c4b3ac0ad" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_AesCtrExample</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_AesCtrExample</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function performs AES encryption and decryption operation on a given data using AES-CTR engine mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" bodystart="378" bodyend="496"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga213287339a779505d2ac8c49b2563fdc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_AesPrintData</definition>
+        <argsstring>(const u8 *Data, u32 DataLen)</argsstring>
+        <name>XAsu_AesPrintData</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>Data</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DataLen</declname>
+        </param>
+        <briefdescription>
+<para>This function prints the data from given array on the console. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to data array </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the data to be printed on console </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" bodystart="506" bodyend="514"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga682e45cf9ea4bbbc5a82bf6d25aeda91" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_AesCallBackRef</definition>
+        <argsstring>(void *CallBackRef, u32 Status)</argsstring>
+        <name>XAsu_AesCallBackRef</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Call back function which will be registered with library to notify the completion of request. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the call back reference. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Status of the request will be passed as an argument during callback<itemizedlist>
+<listitem><para>0 Upon success</para></listitem><listitem><para>Error code from ASUFW application upon any error </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" bodystart="527" bodyend="535"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This main function to call the XAsu_AesExample function to perform AES encryption and decryption operation on given payload data. </para>        </briefdescription>
+        <detaileddescription>
+<para>This main function to perform UDE private keys encryption and updates to efuses.</para><para>This main function to call the OCP example functions to perform DevAk attestation and generate the X.509 certificate for device keys.</para><para>Main function to demonstrate multi-crypto queue operations.</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>Upon successful encryption and decryption operation, it returns XASUFW_SUCCESS.</para></listitem><listitem><para>Error code on failure.</para></listitem></itemizedlist>
+</para><simplesectsep/><para><itemizedlist>
+<listitem><para>XST_SUCCESS if all operations complete successfully.</para></listitem><listitem><para>XST_FAILURE if any operation fails.</para></listitem></itemizedlist>
+</para><simplesectsep/><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if example is run successfully.</para></listitem><listitem><para>XST_FAILURE, in case of failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Initialize mailbox instance.</para><para>Initialize mailbox instance.</para><para>Initialize mailbox instance.</para><para>Initialize the client instance.</para><para>Wait for device identity and attestation key generation.</para><para>Generate X.509 DevIk certificate.</para><para>Generate X.509 DevAk certificate.</para><para>Generate X.509 DevIk CSR(Certificate Signing Request).</para><para>Initialize mailbox instance.</para><para>Initialize the client instance.</para><para>Generate UDE Response.</para><para>Initialize mailbox instance.</para><para>Initialize the client instance. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" bodystart="175" bodyend="208"/>
+        <references refid="group__xasu__client__info_1ga3dc785000c560adedbb23beb0404beee" compoundref="xasu__client_8c" startline="127" endline="177">XAsu_ClientInit</references>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga04e5ef7538e3dc01146bc688794a0879" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_MultiCryptoExample</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_MultiCryptoExample</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Executes the multi-crypto example demonstrating concurrent queue operations. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function demonstrates how to:<orderedlist>
+<listitem><para>Send multiple crypto commands simultaneously with different priorities</para></listitem><listitem><para>Use unique callback contexts to track which operation completed</para></listitem><listitem><para>Wait for all operations to complete</para></listitem><listitem><para>Verify results from each operation</para></listitem></orderedlist>
+</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if all operations complete successfully.</para></listitem><listitem><para>XST_FAILURE if any operation fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="482" bodyend="513"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga23f57a4659b479cacefeb9233fedfbb7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_SendCryptoRequestsSet1</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_SendCryptoRequestsSet1</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Sends crypto requests Set 1 and waits for completion. </para>        </briefdescription>
+        <detaileddescription>
+<para>Set 1 operations:<itemizedlist>
+<listitem><para>SHA2 hash with LOW priority</para></listitem><listitem><para>AES encryption with HIGH priority</para></listitem><listitem><para>ECC signature generation with HIGH priority</para></listitem><listitem><para>RSA PSS signature generation with LOW priority</para></listitem></itemizedlist>
+</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if all operations complete successfully.</para></listitem><listitem><para>XST_FAILURE if any operation fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="530" bodyend="727"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga563789543ea96906320ae6a76f0629fa" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_SendCryptoRequestsSet2</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_SendCryptoRequestsSet2</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Sends crypto requests Set 2 and waits for completion. </para>        </briefdescription>
+        <detaileddescription>
+<para>Set 2 operations (dependent on Set 1 results):<itemizedlist>
+<listitem><para>AES decryption with HIGH priority (uses encryption output from Set 1)</para></listitem><listitem><para>RSA PSS signature verification with HIGH priority (uses signature from Set 1)</para></listitem></itemizedlist>
+</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if all operations complete successfully.</para></listitem><listitem><para>XST_FAILURE if any operation fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="742" bodyend="891"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gac536328a2e4cdb0aa27c555a7a3dd106" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_MultiCryptoCallBack</definition>
+        <argsstring>(void *CallBackRef, u32 Status)</argsstring>
+        <name>XAsu_MultiCryptoCallBack</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Unified callback function for all crypto operations. </para>        </briefdescription>
+        <detaileddescription>
+<para>This callback function demonstrates how to identify which operation completed when multiple operations are pending. The CallBackRef points to the unique XAsu_CallbackContext structure for each operation.</para><para>NOTE: Each operation passes its own context structure as CallBackRefPtr. When the callback is triggered, we cast CallBackRef back to XAsu_CallbackContext to identify which specific operation completed and update its status.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the callback context (XAsu_CallbackContext) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Status of the completed operation </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="909" bodyend="925"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga6f6a27df02ec9b4de4e10e8a23af2ae2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_PrintResults</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_PrintResults</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Prints and verifies the results of all crypto operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="932" bodyend="1039"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gade2d8a3fc066ab8e49870211f8ba1755" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_PrintData</definition>
+        <argsstring>(const u8 *Data, u32 DataLen, const char *Label)</argsstring>
+        <name>XAsu_PrintData</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>Data</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DataLen</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>Label</declname>
+        </param>
+        <briefdescription>
+<para>Prints data array with a label. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to data array </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Label</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Label string to print before data </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="1050" bodyend="1062"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga7e600a038439e0e0d4f2b73e5a06129c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_OcpCallBackRef</definition>
+        <argsstring>(void *CallBackRef, u32 Status)</argsstring>
+        <name>XAsu_OcpCallBackRef</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Callback function which is registered with library to get request completion request. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the callback reference. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Status of the request is passed as an argument during callback. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" bodystart="454" bodyend="462"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga306bafd8b847934b6d0fd1eee700fd8e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XOcp_GetX509DevIK</definition>
+        <argsstring>(void)</argsstring>
+        <name>XOcp_GetX509DevIK</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function sends request to ASUFW to get the DevIk X.509 certificate. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    The purpose of this is to illustrate how to use ASUFW client API for DevIk
+    certificate generation.
+</verbatim></para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if DevIk certificate is retrieved successfully.</para></listitem><listitem><para>XST_FAILURE, in case of failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" bodystart="191" bodyend="241"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga356bb3979e7cea991eaec5e2f242501c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XOcp_GetX509DevAK</definition>
+        <argsstring>(void)</argsstring>
+        <name>XOcp_GetX509DevAK</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function sends request to ASUFW to get the DevAk X.509 certificate. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    The purpose of this is to illustrate how to use ASUFW client API for DevAk
+    certificate generation.
+</verbatim></para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if DevAk certificate is retrieved successfully.</para></listitem><listitem><para>XST_FAILURE, in case of failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" bodystart="254" bodyend="303"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gac400309a7560907c86510d858e4d6bb3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XOcp_GetX509DevIkCsr</definition>
+        <argsstring>(void)</argsstring>
+        <name>XOcp_GetX509DevIkCsr</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function sends request to ASUFW to get the DevIk CSR. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    The purpose of this is to illustrate how to use ASUFW client API for DevIk CSR
+    generation.
+</verbatim></para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if CSR is retrieved successfully.</para></listitem><listitem><para>XST_FAILURE, in case of failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" bodystart="316" bodyend="365"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gada077e2a9238558df97b4f9d1532b341" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XAsu_OcpAttestation</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_OcpAttestation</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function sends attestation request to ASUFW sign the data using device attestation key. </para>        </briefdescription>
+        <detaileddescription>
+<para>The purpose of this is to illustrate how to use ASU client API for data attestation.</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if attestation is run successfully.</para></listitem><listitem><para>XST_FAILURE, in case of failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" bodystart="378" bodyend="424"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga1ada62cb11e694366eee96aac37146af" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_OcpPrintData</definition>
+        <argsstring>(const u8 *Data, u32 DataLen, const char *BufName)</argsstring>
+        <name>XAsu_OcpPrintData</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>Data</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DataLen</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>BufName</declname>
+        </param>
+        <briefdescription>
+<para>This function prints the data from given array on the console. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to data array. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the data to be printed on console. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufName</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name/description of the buffer </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" bodystart="434" bodyend="443"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga9fa99dfd2afa43e8abcb64e131eca849" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_OcpUdeCallBackRef</definition>
+        <argsstring>(void *CallBackRef, u32 Status)</argsstring>
+        <name>XAsu_OcpUdeCallBackRef</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Callback function which is registered with library to get request completion request. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the callback reference. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Status of the request is passed as an argument during callback. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_ude_example.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_ude_example.c" bodystart="196" bodyend="204"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gab01386dc7565e04e5ecd169f74b67beb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_OcpUdePrintData</definition>
+        <argsstring>(const u8 *Data, u32 DataLen, const char *BufName)</argsstring>
+        <name>XAsu_OcpUdePrintData</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>Data</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DataLen</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>BufName</declname>
+        </param>
+        <briefdescription>
+<para>This function prints the data from given array on the console. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to data array. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the data to be printed on console. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufName</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name/description of the buffer </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_ude_example.c" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_ude_example.c" bodystart="176" bodyend="185"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gaea094cd15a8810439fd8daae1993432c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_OcpUdeKeyCallBackRef</definition>
+        <argsstring>(void *CallBackRef, u32 Status)</argsstring>
+        <name>XAsu_OcpUdeKeyCallBackRef</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Callback function which is registered with library to get request completion request. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the callback reference. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Status of the request is passed as an argument during callback. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_example.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_example.c" bodystart="298" bodyend="306"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gaa7fcc9f6ccd6658496fadac704540832" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_OcpUdeKeyPrintData</definition>
+        <argsstring>(const u8 *Data, u32 DataLen)</argsstring>
+        <name>XAsu_OcpUdeKeyPrintData</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>Data</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DataLen</declname>
+        </param>
+        <briefdescription>
+<para>This function prints the data from given array on the console. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to data array. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the data to be printed on console. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_example.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_example.c" bodystart="280" bodyend="287"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga78d15b1a29fa60cfd34f0836121f7baf" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_OcpUdeEncryptData</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, u32 DataLen, u8 *OutputData, u32 UdeKeyId)</argsstring>
+        <name>XAsu_OcpUdeEncryptData</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DataLen</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>OutputData</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>UdeKeyId</declname>
+        </param>
+        <briefdescription>
+<para>This function encrypts the data using UDE KEK in ASUFW. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to XAsu_ClientParams instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of data to be encrypted in bytes </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutputData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to buffer where encrypted data will be stored </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>UdeKeyId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Identifier for the UDE key</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - if encryption was successful</para></listitem><listitem><para>XST_FAILURE - On failure of AES Encrypt Initialization, AES Encrypt data. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Generate UDE encrypted keys. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_example.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_example.c" bodystart="238" bodyend="270"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga62b65012a7afda9700eafa65acc628c2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_OcpUdeEncNdPrgmUdeKey</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XNvm_ClientInstance *NvmClientInstancePtr, u8 EncFlag, u8 PrgmFlag, u8 UdeKeyId)</argsstring>
+        <name>XAsu_OcpUdeEncNdPrgmUdeKey</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type>XNvm_ClientInstance *</type>
+          <declname>NvmClientInstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>EncFlag</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>PrgmFlag</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>UdeKeyId</declname>
+        </param>
+        <briefdescription>
+<para>This function encrypts the UDE private keys and program them to efuses. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NvmClientInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to XilNvm client instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EncFlag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag to indicate whether to encrypt the key. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PrgmFlag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag to indicate whether to program the key. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>UdeKeyId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of the UDE key.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On successfully programming encrypted UDE private keys</para></listitem><listitem><para>XST_FAILURE - On Failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_example.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_example.c" bodystart="194" bodyend="221"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___overview_1ga40d07cb103c046284694b485ac9836a2" prot="public" static="no">
+        <name>XASU_DISABLE_CACHE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga60a516f77e0bd6a1fb6bc726cfd96b26" prot="public" static="no">
+        <name>XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>AES payload data length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga01c3567e6b1c34e7b293e5f406c2edfd" prot="public" static="no">
+        <name>XASU_AES_AAD_LEN_IN_BYTES</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>AES AAD length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga2b4ad5ce60dbfd140a825c98fc65edf5" prot="public" static="no">
+        <name>XASU_AES_KEY_LEN_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>AES Key length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga5c3541f3588a3b7b59d6292d740d5432" prot="public" static="no">
+        <name>XASU_AES_IV_LEN_IN_BYTES</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>AES Iv length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga941734069b6c9ae1e70c330f7ba414ea" prot="public" static="no">
+        <name>XASU_AES_TAG_LEN_IN_BYTES</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>AES Tag length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_aes_example.c" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga40d07cb103c046284694b485ac9836a2" prot="public" static="no">
+        <name>XASU_DISABLE_CACHE</name>
+        <briefdescription>
+<para>Disable data cache for shared memory access. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga05a690e0d16d1f09df8de21e803565fe" prot="public" static="no">
+        <name>XAsu_WaitForEvent</name>
+        <param></param>
+        <initializer>do { } while (0)</initializer>
+        <briefdescription>
+<para>Wait for Event - efficient low-power wait for interrupt/event. </para>        </briefdescription>
+        <detaileddescription>
+<para>Uses architecture-specific wait instruction to put CPU in low-power state until an event occurs. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga60a516f77e0bd6a1fb6bc726cfd96b26" prot="public" static="no">
+        <name>XASU_AES_PAYLOAD_DATA_LEN_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>AES payload data length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga2b4ad5ce60dbfd140a825c98fc65edf5" prot="public" static="no">
+        <name>XASU_AES_KEY_LEN_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>AES Key length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga5c3541f3588a3b7b59d6292d740d5432" prot="public" static="no">
+        <name>XASU_AES_IV_LEN_IN_BYTES</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>AES IV length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga941734069b6c9ae1e70c330f7ba414ea" prot="public" static="no">
+        <name>XASU_AES_TAG_LEN_IN_BYTES</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>AES Tag length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga01c3567e6b1c34e7b293e5f406c2edfd" prot="public" static="no">
+        <name>XASU_AES_AAD_LEN_IN_BYTES</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>AES AAD length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaf10f1384745f0bd09745b676143fa528" prot="public" static="no">
+        <name>XASU_SHA2_HASH_LEN_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>SHA2 hash length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaa4f6229c37ec5ad766ecdfd652bfdf3b" prot="public" static="no">
+        <name>XASU_SHA2_INPUT_DATA_LEN</name>
+        <initializer>(5U)</initializer>
+        <briefdescription>
+<para>SHA2 input data length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="160" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaa43ec12e65f3f42920fa44859e822710" prot="public" static="no">
+        <name>XASU_ECC_P256_KEY_SIZE_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>ECC P256 key size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gadc52933fddb6f65af79d043de9c0cd83" prot="public" static="no">
+        <name>XASU_ECC_DOUBLE_P256_SIZE_IN_BYTES</name>
+        <initializer>(64U)</initializer>
+        <briefdescription>
+<para>Double ECC P256 size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gad47a9ff98be5670184274d700b9a2e37" prot="public" static="no">
+        <name>XASU_RSA_2048_KEY_SIZE_IN_BYTES</name>
+        <initializer>(256U)</initializer>
+        <briefdescription>
+<para>RSA 2048 key size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga91c6cd74ef396202127fb005b5030231" prot="public" static="no">
+        <name>XASU_RSA_PSS_SALT_LEN_IN_BYTES</name>
+        <initializer>(20U)</initializer>
+        <briefdescription>
+<para>RSA PSS salt length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga3d9b9f79f412e600f75d56a32c1046ef" prot="public" static="no">
+        <name>XASU_RSA_INPUT_DATA_LEN_IN_BYTES</name>
+        <initializer>(80U)</initializer>
+        <briefdescription>
+<para>RSA input data length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga7b4461cc9f7c941a7e80d98c480ee6cc" prot="public" static="no">
+        <name>XASU_SET1_OPS_COUNT</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Set 1: SHA2, AES Encrypt, ECC Sign, RSA Sign. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="172" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gad009724e34661e0dc7ffc2595a0ab630" prot="public" static="no">
+        <name>XASU_CACHE_DISABLE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaa793e608f54a259455e6c30d2f8524b1" prot="public" static="no">
+        <name>XOCP_X509_CERT_BUF_SIZE</name>
+        <initializer>(2048U)</initializer>
+        <briefdescription>
+<para>X.509 certificate buffer size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga9c4d77a667c17ee325979f314551254f" prot="public" static="no">
+        <name>XOCP_ATTEST_DATA_SIZE</name>
+        <initializer>(48U)</initializer>
+        <briefdescription>
+<para>Attestation data size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga383dd93080ce48cb88a305cc5179ed6b" prot="public" static="no">
+        <name>XOCP_ECC_SIGN_TOTAL_LEN</name>
+        <initializer>(96U)</initializer>
+        <briefdescription>
+<para>ECC signature length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_example.c" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gad009724e34661e0dc7ffc2595a0ab630" prot="public" static="no">
+        <name>XASU_CACHE_DISABLE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_ude_example.c" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ocp_ude_example.c" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gad009724e34661e0dc7ffc2595a0ab630" prot="public" static="no">
+        <name>XASU_CACHE_DISABLE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_example.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_example.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gabdaf966d8e5994c70298b9ba78c671d0" prot="public" static="no">
+        <name>XASU_VALUE_TWO</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Value Two. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_example.c" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_example.c" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gad82f6a61da70621fd0d0dbed465052b5" prot="public" static="no">
+        <name>XASU_VALUE_EIGHT</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Value Eight. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_example.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_example.c" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This example illustrates the usage of ASU AES client APIs for AES GCM and CTR engine modes. </para>    </briefdescription>
+    <detaileddescription>
+<para>This example illustrates the usage of ASU OCP-UDE challenge request client APIs.</para><para>This example illustrates the usage of ASU OCP client APIs.</para><para>This example demonstrates how to use the ASU&apos;s queueing mechanism to send multiple cryptographic commands with different priorities and different crypto functions.</para><para>Encrypt the input data with provided key and IV, the output result is then decrypted back to get original data and verifies the GCM tag. The test fails, if decryption does not produce the original data or mismatch in GCM tag.</para><para><heading level="2">Procedure to link and compile the example for the default ddr less designs </heading>
+</para><para>The default linker settings places a software stack, heap and data in DDR memory. For this example to work, any data shared between client running on A78/R52/PL and server running on ASU, should be placed in area which is accessible to both client and server.</para><para>Following is the procedure to compile the example on any memory region which can be accessed by the server. <verbatim> 1. Open ASU application linker script(lscript.ld) and there will be an memory
+    mapping section which should be updated to point all the required sections
+    to shared memory using a memory region selection
+
+                                 OR
+
+ 1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
+         .sharedmemory : {
+         . = ALIGN(4);
+         __sharedmemory_start = .;
+         *(.sharedmemory)
+         *(.sharedmemory.*)
+         *(.gnu.linkonce.d.*)
+         __sharedmemory_end = .;
+         } &gt; Shared_memory_area
+
+ 2. In this example &quot;.data&quot; section elements that are passed by reference to the server-side
+    should be stored in the above shared memory section.
+    Replace &quot;.data&quot; in attribute section with &quot;.sharedmemory&quot;, as shown below-
+ static u8 Data __attribute__ ((aligned (64U)) __attribute__ ((section (&quot;.data.Data&quot;)));
+                         should be changed to
+ static u8 Data __attribute__ ((aligned (64U)) __attribute__ ((section (&quot;.sharedmemory.Data&quot;)));
+</verbatim></para><para>To keep things simple, by default the cache is disabled in this example using XASU_ENABLE_CACHE macro.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   am   07/10/24 Initial release
+      am   08/25/24 Added XASU_DISABLE_CACHE macro
+      am   09/24/24 Added SDT support</preformatted></para><para><preformatted></preformatted></para><para>It illustrates:<orderedlist>
+<listitem><para>Sending multiple concurrent commands to the ASU using different priorities</para></listitem><listitem><para>Using different crypto functions (AES, SHA2, RSA, and ECC/ECDSA)</para></listitem><listitem><para>Tracking which response corresponds to which request using unique callback contexts</para></listitem><listitem><para>Proper handling of the ASU queue scheduler with mixed priority operations</para></listitem></orderedlist>
+</para><para>The example sends multiple crypto operations simultaneously:<itemizedlist>
+<listitem><para>SHA2 hash operation (LOW priority)</para></listitem><listitem><para>AES encryption operation (HIGH priority)</para></listitem><listitem><para>ECC sign generation operation (HIGH priority)</para></listitem><listitem><para>RSA PSS sign generation operation (LOW priority)</para></listitem><listitem><para>AES decryption operation (HIGH priority) - depends on encryption result</para></listitem><listitem><para>RSA PSS sign verification operation (HIGH priority) - depends on sign generation result</para></listitem></itemizedlist>
+</para><para>Each operation uses a unique callback context structure to identify which operation completed when the callback is triggered. This demonstrates the proper way to handle multiple concurrent requests in the ASU architecture.</para><para><heading level="2">Procedure to link and compile the example for the default ddr less designs </heading>
+</para><para>The default linker settings places a software stack, heap and data in DDR memory. For this example to work, any data shared between client running on A78/R52/PL and server running on ASU, should be placed in area which is accessible to both client and server.</para><para>Following is the procedure to compile the example on any memory region which can be accessed by the server. <verbatim> 1. Open ASU application linker script(lscript.ld) and there will be a memory
+    mapping section which should be updated to point all the required sections
+    to shared memory using a memory region selection
+
+                                 OR
+
+ 1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
+         .sharedmemory : {
+         . = ALIGN(4);
+         __sharedmemory_start = .;
+         *(.sharedmemory)
+         *(.sharedmemory.*)
+         *(.gnu.linkonce.d.*)
+         __sharedmemory_end = .;
+         } &gt; Shared_memory_area
+
+ 2. In this example &quot;.data&quot; section elements that are passed by reference to the server-side
+    should be stored in the above shared memory section.
+    Replace &quot;.data&quot; in attribute section with &quot;.sharedmemory&quot;, as shown below-
+ static u8 Data __attribute__ ((aligned (64U)) __attribute__ ((section (&quot;.data.Data&quot;)));
+                         should be changed to
+ static u8 Data __attribute__ ((aligned (64U)) __attribute__ ((section (&quot;.sharedmemory.Data&quot;)));
+</verbatim></para><para>To keep things simple, by default the cache is disabled in this example using XASU_DISABLE_CACHE macro.</para><para>NOTE: This example is for demonstration purposes only. The test data and keys used here are not intended for production use.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   kp   01/28/26 Initial release - Multi-crypto queue example</preformatted></para><para><preformatted></preformatted></para><para><heading level="2">Procedure to link and compile the example for the default ddr less designs </heading>
+</para><para>The default linker settings places a software stack, heap and data in DDR memory. For this example to work, any data shared between client running on A78/R52/PL and server running on ASU, should be placed in area which is accessible to both client and server.</para><para>Following is the procedure to compile the example on any memory region which can be accessed by the server. <verbatim> 1. Open ASU application linker script(lscript.ld) and there will be an memory
+    mapping section which should be updated to point all the required sections
+    to shared memory using a memory region selection
+
+                                 OR
+
+ 1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
+         .sharedmemory : {
+         . = ALIGN(4);
+         __sharedmemory_start = .;
+         *(.sharedmemory)
+         *(.sharedmemory.*)
+         *(.gnu.linkonce.d.*)
+         __sharedmemory_end = .;
+         } &gt; Shared_memory_area
+
+ 2. In this example &quot;.data&quot; section elements that are passed by reference to the server-side
+    should be stored in the above shared memory section.
+    Replace &quot;.data&quot; in attribute section with &quot;.sharedmemory&quot;, as shown below-
+ static u8 Data __attribute__ ((aligned (64U)) __attribute__ ((section (&quot;.data.Data&quot;)));
+                         should be changed to
+ static u8 Data __attribute__ ((aligned (64U))
+                                    __attribute__ ((section (&quot;.sharedmemory.Data&quot;)));
+</verbatim></para><para>To keep things simple, by default the cache is disabled in this example using XASU_ENABLE_CACHE macro.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   rmv  08/04/25 Initial release
+      rmv  09/08/25 Fixed missing initialization of SignatureBufLen in OcpDevAkAttestParam</preformatted></para><para><preformatted></preformatted></para><para><heading level="2">Procedure to link and compile the example for the default ddr less designs </heading>
+</para><para>The default linker settings places a software stack, heap and data in DDR memory. For this example to work, any data shared between client running on A78/R52/PL and server running on ASU, should be placed in area which is accessible to both client and server.</para><para>Following is the procedure to compile the example on any memory region which can be accessed by the server. <verbatim> 1. Open ASU application linker script(lscript.ld) and there will be an memory
+    mapping section which should be updated to point all the required sections
+    to shared memory using a memory region selection
+
+                                 OR
+
+ 1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
+         .sharedmemory : {
+         . = ALIGN(4);
+         __sharedmemory_start = .;
+         *(.sharedmemory)
+         *(.sharedmemory.*)
+         *(.gnu.linkonce.d.*)
+         __sharedmemory_end = .;
+         } &gt; Shared_memory_area
+
+ 2. In this example &quot;.data&quot; section elements that are passed by reference to the server-side
+    should be stored in the above shared memory section.
+    Replace &quot;.data&quot; in attribute section with &quot;.sharedmemory&quot;, as shown below-
+ static u8 Data __attribute__ ((aligned (64U)) __attribute__ ((section (&quot;.data.Data&quot;)));
+                         should be changed to
+ static u8 Data __attribute__ ((aligned (64U))
+                                    __attribute__ ((section (&quot;.sharedmemory.Data&quot;)));
+</verbatim></para><para>To keep things simple, by default the cache is disabled in this example using XASU_ENABLE_CACHE macro.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   yog  08/20/25 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

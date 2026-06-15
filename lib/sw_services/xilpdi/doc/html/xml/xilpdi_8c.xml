@@ -1,0 +1,1099 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilpdi_8c" kind="file">
+    <compoundname>xilpdi.c</compoundname>
+    <includes refid="xilpdi_8h" local="yes">xilpdi.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <incdepgraph>
+      <node id="17">
+        <label>xil_io.h</label>
+      </node>
+      <node id="19">
+        <label>xil_util.h</label>
+      </node>
+      <node id="12">
+        <label>xilpdi.c</label>
+        <link refid="xilpdi.c"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>xilpdi.h</label>
+        <link refid="xilpdi_8h"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>xstatus.h</label>
+      </node>
+      <node id="14">
+        <label>xil_types.h</label>
+      </node>
+      <node id="16">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="18">
+        <label>xilpdi_plat.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xilpdi__apis_1gae284d479dc26f7eaf10c544b88b31ce2" prot="public" static="no">
+        <name>XILPDI_PDI_TYPE_PARTIAL_METAHEADER</name>
+        <initializer>(0x5U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpdi__apis_1gab2efc9caae5b45150e579dddc12bd225" prot="public" static="no">
+        <name>XILPDI_PDI_TYPE_PARTIAL</name>
+        <initializer>(0x2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilpdi__apis_1gacf4b60f3bfd29d0d200e4f218b74dcdf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilPdi_ValidateChecksum</definition>
+        <argsstring>(const void *Buffer, u32 Length)</argsstring>
+        <name>XilPdi_ValidateChecksum</name>
+        <param>
+          <type>const void *</type>
+          <declname>Buffer</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Length</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to validate the word checksum for the Image Header table and Partition Headers. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>            Checksum is based on the formula
+            Checksum = ~ (X1 + X2 + X3 + .... + Xn)
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to the data for which checksum should be calculated </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of the buffer for which checksum should be calculated. Last word is taken as expected checksum.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS for successful checksum validation.</para></listitem><listitem><para>XST_FAILURE if checksum validation fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Verify the buffer is not empty and has at least 2 values. Otherwise, return XST_FAILURE</para></listitem><listitem><para>Calculate the checksum with the formula below Checksum = ~ (X1 + X2 + X3 + .... + Xn) where X1, X2, ...Xn are data words for which checksum should be calculated</para></listitem><listitem><para>Verify the calculated checksum with the last word (expected checksum) in buffer. If the checksum matches, return XST_SUCCESS. Otherwise, return XST_FAILURE.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="111" bodyend="157"/>
+        <references refid="xilpdi_8h_1a2aadc896b8c367654a52c3de7d830e43" compoundref="xilpdi_8h" startline="224">XILPDI_CHECKSUM_MIN_BUF_LEN</references>
+        <references refid="xilpdi_8h_1a84ae0b3fa3d2f28040e775618d16ce93" compoundref="xilpdi_8h" startline="229">XILPDI_INVERT_CHECKSUM</references>
+        <referencedby refid="group__xilpdi__apis_1ga3bac0965e4b613497a5126a4e34feae1" compoundref="xilpdi_8c" startline="453" endline="548">XilPdi_StoreDigestTable</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga797b37ca16b6096549489adff97e5dfc" compoundref="xilpdi_8c" startline="176" endline="213">XilPdi_ValidateImgHdrTbl</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga3351549fd88876c437726037b8bd5ca3" compoundref="xilpdi_8c" startline="738" endline="761">XilPdi_VerifyImgHdrs</referencedby>
+        <referencedby refid="group__xilpdi__apis_1gab201600dc6af30b8ca72b6fd0109767c" compoundref="xilpdi_8c" startline="702" endline="725">XilPdi_VerifyPrtnHdrs</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1ga797b37ca16b6096549489adff97e5dfc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilPdi_ValidateImgHdrTbl</definition>
+        <argsstring>(const XilPdi_ImgHdrTbl *ImgHdrTbl)</argsstring>
+        <name>XilPdi_ValidateImgHdrTbl</name>
+        <param>
+          <type>const <ref refid="struct_xil_pdi___img_hdr_tbl" kindref="compound">XilPdi_ImgHdrTbl</ref> *</type>
+          <declname>ImgHdrTbl</declname>
+        </param>
+        <briefdescription>
+<para>This function checks the fields of the Image Header Table and validates them. </para>        </briefdescription>
+        <detaileddescription>
+<para>Image Header Table contains the fields that are common across all the partitions and images.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ImgHdrTbl</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to the Image Header Table</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful Image Header Table validation.</para></listitem><listitem><para>XILPDI_ERR_IHT_CHECKSUM if checksum validation fails.</para></listitem><listitem><para>XILPDI_ERR_NO_OF_IMGS if number of images is less than 0 or more than 32.</para></listitem><listitem><para>XILPDI_ERR_NO_OF_PRTNS if number of partitions is less than 0 or more than 32. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Calculate the checksum of Image Header Table and compare it with the expected checksum in Image Header Table. If checksum does not match, return XILPDI_ERR_IHT_CHECKSUM error.</para></listitem><listitem><para>Verify the number of images is greater than zero and less than or equal to 32. Otherwise, return XILPDI_ERR_NO_OF_IMAGES error.</para></listitem><listitem><para>Verify the number of partitions is greater than zero and less than or equal to 32. If verification passes, return XST_SUCCESS. Otherwise, return XILPDI_ERR_NO_OF_PRTNS error.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="176" bodyend="213"/>
+        <references refid="struct_xil_pdi___img_hdr_tbl_1a0bbcb045b71c8d6f86224e4bbd0e58a4" compoundref="xilpdi__plat_8h" startline="195">XilPdi_ImgHdrTbl::NoOfImgs</references>
+        <references refid="struct_xil_pdi___img_hdr_tbl_1a305d63ece76563b3e113b38817608210" compoundref="xilpdi__plat_8h" startline="197">XilPdi_ImgHdrTbl::NoOfPrtns</references>
+        <references refid="xilpdi_8h_1a1d569af531389c06604431461dcd6206" compoundref="xilpdi_8h" startline="130">XIH_IHT_LEN</references>
+        <references refid="xilpdi_8h_1a7aa874dd9eccde3869f9ca7a99fb96f9" compoundref="xilpdi_8h" startline="194">XILPDI_ERR_IHT_CHECKSUM</references>
+        <references refid="group__xilpdi__apis_1gacf4b60f3bfd29d0d200e4f218b74dcdf" compoundref="xilpdi_8c" startline="111" endline="157">XilPdi_ValidateChecksum</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1ga68f9d9d52845d0060f3a12877e54e1cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilPdi_ValidatePrtnHdr</definition>
+        <argsstring>(const XilPdi_PrtnHdr *PrtnHdr)</argsstring>
+        <name>XilPdi_ValidatePrtnHdr</name>
+        <param>
+          <type>const <ref refid="struct_xil_pdi___prtn_hdr" kindref="compound">XilPdi_PrtnHdr</ref> *</type>
+          <declname>PrtnHdr</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the Partition Header. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PrtnHdr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to Partition Header</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful Partition Header validation.</para></listitem><listitem><para>XILPDI_ERR_ZERO_LENGTH if partition length is 0.</para></listitem><listitem><para>XILPDI_ERR_TOTAL_LENGTH if total length does not match encoded and unencoded word length.</para></listitem><listitem><para>XILPDI_ERR_PRTN_TYPE if partition type is other than elf, cdo, raw, raw_elf, cfi_gsc and cfi_gsc_unmask. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Verify that the partition length is not zero. Otherwise, return XILPDI_ERR_ZERO_LENGTH error.</para></listitem><listitem><para>Verify the total partition length is not less than the encrypted data word and unencrypted data word length. Otherwise, return XILPDI_ERR_TOTAL_LENGTH error.</para></listitem><listitem><para>Verify that the partition type is one of elf, cdo, raw raw_elf, cfi_gsc or cfi_gsc_unmask. If verification passes, return XST_SUCCESS. Otherwise, return XILPDI_ERR_PRTN_TYPE error.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="230" bodyend="274"/>
+        <references refid="struct_xil_pdi___prtn_hdr_1a895970f87fc8414aa672ad99914e5b6e" compoundref="xilpdi__plat_8h" startline="220">XilPdi_PrtnHdr::EncDataWordLen</references>
+        <references refid="struct_xil_pdi___prtn_hdr_1acf49ffc72ab5ba2487058e156c127bbc" compoundref="xilpdi__plat_8h" startline="222">XilPdi_PrtnHdr::TotalDataWordLen</references>
+        <references refid="struct_xil_pdi___prtn_hdr_1af9e907e03b6e473919d71225e9c01cc3" compoundref="xilpdi__plat_8h" startline="221">XilPdi_PrtnHdr::UnEncDataWordLen</references>
+        <references refid="xilpdi_8h_1ad2b34f8a94535a70a9cf14898261181f" compoundref="xilpdi_8h" startline="174">XIH_PH_ATTRB_PRTN_TYPE_RSVD</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1gab95449e9eb9805839f99e2b4aa107313" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XilPdi_ReadBootHdr</definition>
+        <argsstring>(const XilPdi_BootHdr **BootHdrPtr)</argsstring>
+        <name>XilPdi_ReadBootHdr</name>
+        <param>
+          <type>const <ref refid="struct_xil_pdi___boot_hdr" kindref="compound">XilPdi_BootHdr</ref> **</type>
+          <declname>BootHdrPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the boot header. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BootHdrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the address of Boot Header </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Copy boot header to local variable from PRAM address </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="283" bodyend="287"/>
+        <references refid="xilpdi__plat_8h_1ad49a1171235ff234ce6053c13c341363" compoundref="xilpdi__plat_8h" startline="147">XIH_BH_PRAM_ADDR</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1ga0e8b30c329673e17c9068780d5039b62" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilPdi_ReadImgHdrTbl</definition>
+        <argsstring>(XilPdi_MetaHdr *MetaHdrPtr)</argsstring>
+        <name>XilPdi_ReadImgHdrTbl</name>
+        <param>
+          <type><ref refid="struct_xil_pdi___meta_hdr" kindref="compound">XilPdi_MetaHdr</ref> *</type>
+          <declname>MetaHdrPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function Reads the Image Header Table. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MetaHdrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to Meta Header table</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful read.</para></listitem><listitem><para>Error code on unsuccessful copy of image header table. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Read the Image header table of 64 bytes and update the Image Header Table structure. Return error code if the reading is unsuccessful.</para></listitem><listitem><para>Copy image header table. If copy is successful, return XST_SUCCESS. Otherwise, return error code. Discard or ignore SMAP header when detected in partial PDIs.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="300" bodyend="346"/>
+        <references refid="struct_xil_pdi___meta_hdr_1af4c05505d849cc9cb018b43c8f848776" compoundref="xilpdi_8h" startline="309">XilPdi_MetaHdr::DeviceCopy</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a7aedb1bc8b9897f706301f22ed7a1725" compoundref="xilpdi_8h" startline="307">XilPdi_MetaHdr::FlashOfstAddr</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" compoundref="xilpdi_8h" startline="301">XilPdi_MetaHdr::ImgHdrTbl</references>
+        <references refid="struct_xil_pdi___meta_hdr_1adce12a2a74474eccb3d8cce3040a6ac9" compoundref="xilpdi_8h" startline="308">XilPdi_MetaHdr::MetaHdrOfst</references>
+        <references refid="xilpdi_8h_1a107d5dada2af10ad48a8c87f60da4fdb" compoundref="xilpdi_8h" startline="121">SMAP_BUS_WIDTH_LENGTH</references>
+        <references refid="xilpdi_8h_1a1d569af531389c06604431461dcd6206" compoundref="xilpdi_8h" startline="130">XIH_IHT_LEN</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1gaf79c8f43bf8b64976d3fffe442108861" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilPdi_ReadIhtAndOptionalData</definition>
+        <argsstring>(const XilPdi_MetaHdr *MetaHdrPtr, u8 PdiType)</argsstring>
+        <name>XilPdi_ReadIhtAndOptionalData</name>
+        <param>
+          <type>const <ref refid="struct_xil_pdi___meta_hdr" kindref="compound">XilPdi_MetaHdr</ref> *</type>
+          <declname>MetaHdrPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>PdiType</declname>
+        </param>
+        <briefdescription>
+<para>This function reads IHT and optional data in Image Header Table. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MetaHdrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to Meta Header table.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful read.</para></listitem><listitem><para>Error code on unsuccessful read. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Clear 2KB PMC RAM which is allocated to store IHT OPTIONAL DATA. If failed to clear, return XST_FAILURE error.</para></listitem><listitem><para>Read the IHT from Meta header. If reading fails, return XST_FAILURE error.</para></listitem><listitem><para>Read optional data. If reading is successful, return XST_SUCCESS. Otherwise, return error code.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="359" bodyend="390"/>
+        <references refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" compoundref="xilpdi_8h" startline="301">XilPdi_MetaHdr::ImgHdrTbl</references>
+        <references refid="xilpdi_8h_1a1d569af531389c06604431461dcd6206" compoundref="xilpdi_8h" startline="130">XIH_IHT_LEN</references>
+        <references refid="xilpdi_8h_1aed1210cba3367f72a3ae1a0a8d34f981" compoundref="xilpdi_8h" startline="239">XIH_PMC_RAM_IHT_OP_DATA_STORE_ADDR</references>
+        <references refid="group__xilpdi__apis_1ga0174729e4271ff3ed60e891b111a80fb" compoundref="xilpdi_8c" startline="404" endline="440">XilPdi_ReadOptionalData</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1ga0174729e4271ff3ed60e891b111a80fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilPdi_ReadOptionalData</definition>
+        <argsstring>(const XilPdi_MetaHdr *MetaHdrPtr, u8 PdiType)</argsstring>
+        <name>XilPdi_ReadOptionalData</name>
+        <param>
+          <type>const <ref refid="struct_xil_pdi___meta_hdr" kindref="compound">XilPdi_MetaHdr</ref> *</type>
+          <declname>MetaHdrPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>PdiType</declname>
+        </param>
+        <briefdescription>
+<para>This function reads optional data in Image Header Table. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MetaHdrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to Meta Header table. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PdiType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is type of PDI for which optional data is being read</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful read.</para></listitem><listitem><para>Error code on unsuccessful copy. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Read the IHT Optional data from Meta header</para></listitem><listitem><para>Verify that the length of optional data is less than or equal to 15872 bytes. Otherwise, return XILPDI_ERR_OVER_FLOW_OPTIONAL_DATA error.</para></listitem><listitem><para>Copy optional data. If copy is successful, return XST_SUCCESS. Otherwise, return error code.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="404" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="404" bodyend="440"/>
+        <references refid="struct_xil_pdi___meta_hdr_1af4c05505d849cc9cb018b43c8f848776" compoundref="xilpdi_8h" startline="309">XilPdi_MetaHdr::DeviceCopy</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a7aedb1bc8b9897f706301f22ed7a1725" compoundref="xilpdi_8h" startline="307">XilPdi_MetaHdr::FlashOfstAddr</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" compoundref="xilpdi_8h" startline="301">XilPdi_MetaHdr::ImgHdrTbl</references>
+        <references refid="struct_xil_pdi___meta_hdr_1adce12a2a74474eccb3d8cce3040a6ac9" compoundref="xilpdi_8h" startline="308">XilPdi_MetaHdr::MetaHdrOfst</references>
+        <references refid="struct_xil_pdi___img_hdr_tbl_1a576c524d2e5b2d8d99621a90d0ead74f" compoundref="xilpdi__plat_8h" startline="210">XilPdi_ImgHdrTbl::OptionalDataLen</references>
+        <references refid="xilpdi_8h_1a107d5dada2af10ad48a8c87f60da4fdb" compoundref="xilpdi_8h" startline="121">SMAP_BUS_WIDTH_LENGTH</references>
+        <references refid="xilpdi_8h_1a1d569af531389c06604431461dcd6206" compoundref="xilpdi_8h" startline="130">XIH_IHT_LEN</references>
+        <references refid="xilpdi_8h_1a339a46932d4db4aff7ddc1c922b1cf32" compoundref="xilpdi_8h" startline="252">XILPDI_OPTIONAL_DATA_MAX_SIZE_16K_BYTES</references>
+        <referencedby refid="group__xilpdi__apis_1gaf79c8f43bf8b64976d3fffe442108861" compoundref="xilpdi_8c" startline="359" endline="390">XilPdi_ReadIhtAndOptionalData</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1ga3bac0965e4b613497a5126a4e34feae1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilPdi_StoreDigestTable</definition>
+        <argsstring>(XilPdi_MetaHdr *MetaHdrPtr)</argsstring>
+        <name>XilPdi_StoreDigestTable</name>
+        <param>
+          <type><ref refid="struct_xil_pdi___meta_hdr" kindref="compound">XilPdi_MetaHdr</ref> *</type>
+          <declname>MetaHdrPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function stores digest table for given data Id. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MetaHdrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to Meta Header table.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful read.</para></listitem><listitem><para>Error code on any failure while reading. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate optional data length. If length is less than 4 words, return XILPDI_ERR_NO_VALID_OPTIONAL_DATA error and if length is greater than 2048 bytes, return XILPDI_ERR_OVER_FLOW_OPTIONAL_DATA_AT_DATA_ID_3 error</para></listitem></itemizedlist>
+</para><para><verbatim>IHT Optional data format:
+-------------------------------------------------------------------------
+|    0x00    |            Size (31:16)            |    Data Id (15:0)   |
+-------------------------------------------------------------------------
+|    0x04    |            Data (Size in words)                          |
+-------------------------------------------------------------------------
+|    Last    |            Checksum (Sum of previous words in DS)        |
+-------------------------------------------------------------------------
+DigestTableSize is size of Data except first(0x00) and last word(Last)</verbatim></para><para><itemizedlist>
+<listitem><para>Verify that the digest table size is multiples of 52bytes (since each entry in digest table consists of a partition number of size 4bytes and a hash of size 48bytes). Otherwise, return XILPDI_ERR_INVALID_DIGEST_TABLE_SIZE error.</para></listitem><listitem><para>Verify checksum of data structure info. If checksum does not match, return XILPDI_ERR_OPTIONAL_DATA_CHECKSUM_FAILED error.</para></listitem><listitem><para>Copy digest table to 0xF201D200U in PMC RAM. If copy fails, return error code. Otherwise, return XST_SUCCESS</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="453" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="453" bodyend="548"/>
+        <references refid="struct_xil_pdi___meta_hdr_1ab03eaa6f8cf7f87eb494327f7243f8ba" compoundref="xilpdi_8h" startline="311">XilPdi_MetaHdr::DigestTableSize</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" compoundref="xilpdi_8h" startline="301">XilPdi_MetaHdr::ImgHdrTbl</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a34b97ff1d32e9192968c2dbe87218e1e" compoundref="xilpdi_8h" startline="312">XilPdi_MetaHdr::IsAuthOptimized</references>
+        <references refid="struct_xil_pdi___img_hdr_tbl_1a576c524d2e5b2d8d99621a90d0ead74f" compoundref="xilpdi__plat_8h" startline="210">XilPdi_ImgHdrTbl::OptionalDataLen</references>
+        <references refid="xilpdi_8h_1aed1210cba3367f72a3ae1a0a8d34f981" compoundref="xilpdi_8h" startline="239">XIH_PMC_RAM_IHT_OP_DATA_STORE_ADDR</references>
+        <references refid="xilpdi_8h_1ac7dd901f5a4647ca8a8b5540a6dd421c" compoundref="xilpdi_8h" startline="244">XILPDI_OPTIONAL_DATA_WORD_LEN</references>
+        <references refid="xilpdi_8h_1acc7c7bce644442453baceece73a280ee" compoundref="xilpdi_8h" startline="234">XILPDI_PARTITION_HASH_DATA_ID</references>
+        <references refid="group__xilpdi__apis_1ga99aeeb01dc13465959103fa29625923a" compoundref="xilpdi_8c" startline="563" endline="583">XilPdi_SearchOptionalData</references>
+        <references refid="group__xilpdi__apis_1gacf4b60f3bfd29d0d200e4f218b74dcdf" compoundref="xilpdi_8c" startline="111" endline="157">XilPdi_ValidateChecksum</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1ga99aeeb01dc13465959103fa29625923a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u64</type>
+        <definition>u64 XilPdi_SearchOptionalData</definition>
+        <argsstring>(u64 StartAddress, u64 EndAddress, u32 DataId)</argsstring>
+        <name>XilPdi_SearchOptionalData</name>
+        <param>
+          <type>u64</type>
+          <declname>StartAddress</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>EndAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DataId</declname>
+        </param>
+        <briefdescription>
+<para>This function searches for optional data address based on given Data ID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>StartAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is start address of IHT optional data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EndAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is end address of IHT optional data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is to identify type of data in data structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Address of desired optional data if given data ID is found</para></listitem><listitem><para>End address of IHT optional data if given data ID is not found. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Search for the data ID given and return optional data address if data ID is found. Otherwise, return end address of IHT optional data.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="563" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="563" bodyend="583"/>
+        <referencedby refid="group__xilpdi__apis_1ga3bac0965e4b613497a5126a4e34feae1" compoundref="xilpdi_8c" startline="453" endline="548">XilPdi_StoreDigestTable</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1gab4d2ba6eeeac98dd13665d92c892a5ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_xil_pdi___prtn_hash_info" kindref="compound">XilPdi_PrtnHashInfo</ref> *</type>
+        <definition>XilPdi_PrtnHashInfo* XilPdi_IsPrtnHashPresent</definition>
+        <argsstring>(u32 PrtnNum, u32 HashTableSize)</argsstring>
+        <name>XilPdi_IsPrtnHashPresent</name>
+        <param>
+          <type>u32</type>
+          <declname>PrtnNum</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HashTableSize</declname>
+        </param>
+        <briefdescription>
+<para>This function returns address of hash entry for the given partition number. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PrtnNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of partition for which hash entry is requested</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashTableSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of hash table</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Address of hash entry for the given partition number (to skip authentication) if it present in the hash table.</para></listitem><listitem><para>NULL if hash entry is not present for the given partition number (to authenticate the signature as regular flow). </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Search for the given partition num in hash table and return address of its entry if found. Otherwise, return NULL.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="600" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="600" bodyend="625"/>
+        <references refid="xilpdi_8h_1aed1210cba3367f72a3ae1a0a8d34f981" compoundref="xilpdi_8h" startline="239">XIH_PMC_RAM_IHT_OP_DATA_STORE_ADDR</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1gaab206394653dbbd10d5fbdbb41832c8e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilPdi_ReadImgHdrs</definition>
+        <argsstring>(const XilPdi_MetaHdr *MetaHdrPtr)</argsstring>
+        <name>XilPdi_ReadImgHdrs</name>
+        <param>
+          <type>const <ref refid="struct_xil_pdi___meta_hdr" kindref="compound">XilPdi_MetaHdr</ref> *</type>
+          <declname>MetaHdrPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the Image Headers from the pdi stored in device (flash/SBI buffer/DDR/SD) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MetaHdrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to Meta Header</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful read.</para></listitem><listitem><para>Error code on unsuccessful read. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Read the Image headers of 64 bytes and update the Image Header structure for all images. If reading is successful, return XST_SUCCESS. Otherwise, return error code.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="639" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="639" bodyend="658"/>
+        <references refid="struct_xil_pdi___meta_hdr_1af4c05505d849cc9cb018b43c8f848776" compoundref="xilpdi_8h" startline="309">XilPdi_MetaHdr::DeviceCopy</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a7aedb1bc8b9897f706301f22ed7a1725" compoundref="xilpdi_8h" startline="307">XilPdi_MetaHdr::FlashOfstAddr</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a11507d2e756a50021cb7b1ad8c1560f1" compoundref="xilpdi_8h" startline="302">XilPdi_MetaHdr::ImgHdr</references>
+        <references refid="struct_xil_pdi___img_hdr_tbl_1aa39dc2024cd839b96cc35bd8911f3b70" compoundref="xilpdi__plat_8h" startline="196">XilPdi_ImgHdrTbl::ImgHdrAddr</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" compoundref="xilpdi_8h" startline="301">XilPdi_MetaHdr::ImgHdrTbl</references>
+        <references refid="struct_xil_pdi___img_hdr_tbl_1a0bbcb045b71c8d6f86224e4bbd0e58a4" compoundref="xilpdi__plat_8h" startline="195">XilPdi_ImgHdrTbl::NoOfImgs</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1ga34716af70cf4846e312a414d760d9e1b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilPdi_ReadPrtnHdrs</definition>
+        <argsstring>(const XilPdi_MetaHdr *MetaHdrPtr)</argsstring>
+        <name>XilPdi_ReadPrtnHdrs</name>
+        <param>
+          <type>const <ref refid="struct_xil_pdi___meta_hdr" kindref="compound">XilPdi_MetaHdr</ref> *</type>
+          <declname>MetaHdrPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the Partition Headers from the pdi stored in device (flash/SBI buffer/DDR/SD) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MetaHdrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to Meta Header</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful read.</para></listitem><listitem><para>Error code on unsuccessful read. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Read the Partition headers of 64 bytes and update the Image Header structure for all images. If reading is successful, return XST_SUCCESS. Otherwise, return error code.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="672" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="672" bodyend="689"/>
+        <references refid="struct_xil_pdi___meta_hdr_1af4c05505d849cc9cb018b43c8f848776" compoundref="xilpdi_8h" startline="309">XilPdi_MetaHdr::DeviceCopy</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a7aedb1bc8b9897f706301f22ed7a1725" compoundref="xilpdi_8h" startline="307">XilPdi_MetaHdr::FlashOfstAddr</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" compoundref="xilpdi_8h" startline="301">XilPdi_MetaHdr::ImgHdrTbl</references>
+        <references refid="struct_xil_pdi___img_hdr_tbl_1a305d63ece76563b3e113b38817608210" compoundref="xilpdi__plat_8h" startline="197">XilPdi_ImgHdrTbl::NoOfPrtns</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a1e1fdee165b368455fd4a57f2dc9310a" compoundref="xilpdi_8h" startline="303">XilPdi_MetaHdr::PrtnHdr</references>
+        <references refid="struct_xil_pdi___img_hdr_tbl_1aaaf8539351352d20a9bbb77265c408a9" compoundref="xilpdi__plat_8h" startline="198">XilPdi_ImgHdrTbl::PrtnHdrAddr</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1gab201600dc6af30b8ca72b6fd0109767c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilPdi_VerifyPrtnHdrs</definition>
+        <argsstring>(const XilPdi_MetaHdr *MetaHdrPtr)</argsstring>
+        <name>XilPdi_VerifyPrtnHdrs</name>
+        <param>
+          <type>const <ref refid="struct_xil_pdi___meta_hdr" kindref="compound">XilPdi_MetaHdr</ref> *</type>
+          <declname>MetaHdrPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function verifies Partition Headers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MetaHdrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to Meta Header table</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XILPDI_ERR_PH_CHECKSUM on checksum fail. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Verify checksum of all Partition Headers. If verification is passed, return XST_SUCCESS. Otherwise, return XILPDI_ERR_PH_CHECKSUM error.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="702" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="702" bodyend="725"/>
+        <references refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" compoundref="xilpdi_8h" startline="301">XilPdi_MetaHdr::ImgHdrTbl</references>
+        <references refid="struct_xil_pdi___img_hdr_tbl_1a305d63ece76563b3e113b38817608210" compoundref="xilpdi__plat_8h" startline="197">XilPdi_ImgHdrTbl::NoOfPrtns</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a1e1fdee165b368455fd4a57f2dc9310a" compoundref="xilpdi_8h" startline="303">XilPdi_MetaHdr::PrtnHdr</references>
+        <references refid="group__xilpdi__apis_1gacf4b60f3bfd29d0d200e4f218b74dcdf" compoundref="xilpdi_8c" startline="111" endline="157">XilPdi_ValidateChecksum</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1ga3351549fd88876c437726037b8bd5ca3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilPdi_VerifyImgHdrs</definition>
+        <argsstring>(const XilPdi_MetaHdr *MetaHdrPtr)</argsstring>
+        <name>XilPdi_VerifyImgHdrs</name>
+        <param>
+          <type>const <ref refid="struct_xil_pdi___meta_hdr" kindref="compound">XilPdi_MetaHdr</ref> *</type>
+          <declname>MetaHdrPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function verifies Image headers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MetaHdrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to Meta Header table.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful image validation.</para></listitem><listitem><para>XILPDI_ERR_IH_CHECKSUM on checksum fail. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Verify checksum of all image Headers. If verification is passed, return XST_SUCCESS. Otherwise, return XILPDI_ERR_IH_CHECKSUM error.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="738" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="738" bodyend="761"/>
+        <references refid="struct_xil_pdi___meta_hdr_1a11507d2e756a50021cb7b1ad8c1560f1" compoundref="xilpdi_8h" startline="302">XilPdi_MetaHdr::ImgHdr</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" compoundref="xilpdi_8h" startline="301">XilPdi_MetaHdr::ImgHdrTbl</references>
+        <references refid="struct_xil_pdi___img_hdr_tbl_1a0bbcb045b71c8d6f86224e4bbd0e58a4" compoundref="xilpdi__plat_8h" startline="195">XilPdi_ImgHdrTbl::NoOfImgs</references>
+        <references refid="group__xilpdi__apis_1gacf4b60f3bfd29d0d200e4f218b74dcdf" compoundref="xilpdi_8c" startline="111" endline="157">XilPdi_ValidateChecksum</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is the C file which contains APIs for reading PDI image. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+1.00  kc   12/21/2017 Initial release
+1.01  bsv  04/08/2019 Added support for secondary boot device parameters
+      bsv  07/30/2019 Renamed XilPdi_ReadAndValidateImgHdrTbl to
+                                                XilPdi_ReadImgHdrTbl
+      rm   28/08/2019 Added APIs for retrieving delay load and delay handoff
+                                        params
+1.02  bsv  29/11/2019 Added support for smap bus width word in partial pdis
+      vnsl 26/02/2020 Added support to read DPA CM Enable field in meta headers
+      vnsl 01/03/2020 Added support to read PufHeader from Meta Headers and
+                                        partition headers
+      vnsl 12/04/2020 Added support to read BootHdr Auth Enable field in
+                                        boot header
+1.03  bsv  07/29/2020 Updated function headers
+      kpt  07/30/2020 Added check to validate number of images
+      bm   09/29/2020 Code cleanup
+      kpt  10/19/2020 Added support to validate checksum of image headers and
+                      partition headers
+1.04  td   11/23/2020 Coverity Warning Fixes
+      bm   02/12/2021 Updated logic to use BootHdr directly from PMC RAM
+      ma   03/24/2021 Redirect XilPdi prints to XilLoader
+1.05  bm   07/08/2021 Code cleanup
+      bsv  08/17/2021 Code clean up
+1.06  kpt  12/13/2021 Replaced Xil_SecureMemCpy with Xil_SMemCpy
+      kpt  02/01/2022 Updated XilPdi_ReadBootHdr prototype
+1.07  skd  04/21/2022 Misra-C violation Rule 14.3 fixed
+      bsv  07/06/2022 Added API to read Optional data from Metaheader
+      bsv  07/08/2022 Code changes related to Optional data in IHT
+      bm   07/13/2022 Added compatibility check for In-Place PLM Update
+1.08  ng   11/11/2022 Updated doxygen comments
+      dd   03/16/2023 Misra-C violation Rule 17.8 fixed
+      dd   03/28/2023 Updated doxygen comments
+      ng   03/30/2023 Updated algorithm and return values in doxygen comments
+      sk   05/31/2023 Updated Xilpdi_ReadImgHdrTbl to use MetaHdrOfst from
+                      MetaHdr structure
+      am   07/03/2023 Updated XilPdi_ReadIhtAndOptionalData to store partition hashes
+      dd   09/08/2023 Misra-C violation Rule 12.1 fixed
+      har  02/16/2024 Modified XilPdi_SearchOptionalData as non-static function
+      am   03/02/2024 Updated MH optimization changes to XilPdi_StoreDigestTable
+      sk   03/13/2024 Fixed doxygen comments format
+1.10  ng   04/30/2024 Fixed doxygen grouping
+      ng   07/02/2024 Removed dependency on xilplmi library
+      kpt  10/25/2024 Add SMAP_BUS_WIDTH_LENGTH while calculationg optional data
+                      start address
+1.11  kpt  11/05/2024 Add XilPdi_ReadOptionalData to read optional data
+      pre  12/09/2024 use PMC RAM for PDI instance instead of PPU1 RAM
+1.12  prt  06/04/2025 Fixed Misra-C R8.13 and R15.7 Violations
+                abh      07/16/2025 Fixed GCC warnings
+      pre  09/16/2025 Updated comments for rtf doc</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2017<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2025,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="77"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xilpdi_8h" kindref="compound">xilpdi.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XILPDI_PDI_TYPE_PARTIAL_METAHEADER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x5U)</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XILPDI_PDI_TYPE_PARTIAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2U)</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="111" refid="group__xilpdi__apis_1gacf4b60f3bfd29d0d200e4f218b74dcdf" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilpdi__apis_1gacf4b60f3bfd29d0d200e4f218b74dcdf" kindref="member">XilPdi_ValidateChecksum</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Buffer,<sp/>u32<sp/>Length)</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Checksum<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Count;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Len<sp/>=<sp/>Length;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*BufferPtr<sp/>=<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*)Buffer;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Len<sp/>&gt;&gt;=<sp/>XIH_PRTN_WORD_LEN_SHIFT;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Len<sp/>&lt;<sp/><ref refid="xilpdi_8h_1a2aadc896b8c367654a52c3de7d830e43" kindref="member">XILPDI_CHECKSUM_MIN_BUF_LEN</ref>)</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>--Len;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Count<sp/>=<sp/>0U;<sp/>Count<sp/>&lt;<sp/>Len;<sp/>Count++)<sp/>{</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="136"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>each<sp/>word<sp/>from<sp/>the<sp/>buffer<sp/>and<sp/>add<sp/>to<sp/>checksum</highlight></codeline>
+<codeline lineno="137"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Checksum<sp/>+=<sp/>BufferPtr[Count];</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Invert<sp/>checksum<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Checksum<sp/>^=<sp/><ref refid="xilpdi_8h_1a84ae0b3fa3d2f28040e775618d16ce93" kindref="member">XILPDI_INVERT_CHECKSUM</ref>;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(BufferPtr[Len]<sp/>!=<sp/>Checksum)<sp/>{</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilPdi_Printf(</highlight><highlight class="stringliteral">&quot;Error:<sp/>Checksum<sp/>0x%0lx<sp/>!=<sp/>%0lx\r\n&quot;</highlight><highlight class="normal">,<sp/>Checksum,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BufferPtr[Len]);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="176" refid="group__xilpdi__apis_1ga797b37ca16b6096549489adff97e5dfc" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilpdi__apis_1ga797b37ca16b6096549489adff97e5dfc" kindref="member">XilPdi_ValidateImgHdrTbl</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_xil_pdi___img_hdr_tbl" kindref="compound">XilPdi_ImgHdrTbl</ref><sp/>*<sp/>ImgHdrTbl)</highlight></codeline>
+<codeline lineno="177"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilpdi__apis_1gacf4b60f3bfd29d0d200e4f218b74dcdf" kindref="member">XilPdi_ValidateChecksum</ref>(ImgHdrTbl,<sp/><ref refid="xilpdi_8h_1a1d569af531389c06604431461dcd6206" kindref="member">XIH_IHT_LEN</ref>);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xilpdi_8h_1a7aa874dd9eccde3869f9ca7a99fb96f9" kindref="member">XILPDI_ERR_IHT_CHECKSUM</ref>;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilPdi_Printf(</highlight><highlight class="stringliteral">&quot;XILPDI_ERR_IHT_CHECKSUM\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ImgHdrTbl-&gt;<ref refid="struct_xil_pdi___img_hdr_tbl_1a0bbcb045b71c8d6f86224e4bbd0e58a4" kindref="member">NoOfImgs</ref><sp/>&lt;<sp/>XIH_MIN_IMGS)<sp/>||</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(ImgHdrTbl-&gt;<ref refid="struct_xil_pdi___img_hdr_tbl_1a0bbcb045b71c8d6f86224e4bbd0e58a4" kindref="member">NoOfImgs</ref><sp/>&gt;<sp/>XIH_MAX_IMGS))<sp/>{</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XILPDI_ERR_NO_OF_IMGS;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilPdi_Printf(</highlight><highlight class="stringliteral">&quot;XILPDI_ERR_NO_OF_IMAGES\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ImgHdrTbl-&gt;<ref refid="struct_xil_pdi___img_hdr_tbl_1a305d63ece76563b3e113b38817608210" kindref="member">NoOfPrtns</ref><sp/>&lt;<sp/>XIH_MIN_PRTNS)<sp/>||</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(ImgHdrTbl-&gt;<ref refid="struct_xil_pdi___img_hdr_tbl_1a305d63ece76563b3e113b38817608210" kindref="member">NoOfPrtns</ref><sp/>&gt;<sp/>XIH_MAX_PRTNS))<sp/>{</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XILPDI_ERR_NO_OF_PRTNS;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilPdi_Printf(</highlight><highlight class="stringliteral">&quot;XILPDI_ERR_NO_OF_PRTNS\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="230" refid="group__xilpdi__apis_1ga68f9d9d52845d0060f3a12877e54e1cf" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilpdi__apis_1ga68f9d9d52845d0060f3a12877e54e1cf" kindref="member">XilPdi_ValidatePrtnHdr</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_xil_pdi___prtn_hdr" kindref="compound">XilPdi_PrtnHdr</ref><sp/>*<sp/>PrtnHdr)</highlight></codeline>
+<codeline lineno="231"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PrtnType;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PrtnHdr-&gt;<ref refid="struct_xil_pdi___prtn_hdr_1af9e907e03b6e473919d71225e9c01cc3" kindref="member">UnEncDataWordLen</ref><sp/>==<sp/>0U)<sp/>||<sp/>(PrtnHdr-&gt;<ref refid="struct_xil_pdi___prtn_hdr_1a895970f87fc8414aa672ad99914e5b6e" kindref="member">EncDataWordLen</ref><sp/>==<sp/>0U)</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||<sp/>(PrtnHdr-&gt;<ref refid="struct_xil_pdi___prtn_hdr_1acf49ffc72ab5ba2487058e156c127bbc" kindref="member">TotalDataWordLen</ref><sp/>==<sp/>0U))<sp/>{</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilPdi_Printf(</highlight><highlight class="stringliteral">&quot;Error:<sp/>Zero<sp/>length<sp/>field<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XILPDI_ERR_ZERO_LENGTH;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PrtnHdr-&gt;<ref refid="struct_xil_pdi___prtn_hdr_1acf49ffc72ab5ba2487058e156c127bbc" kindref="member">TotalDataWordLen</ref><sp/>&lt;<sp/>PrtnHdr-&gt;<ref refid="struct_xil_pdi___prtn_hdr_1af9e907e03b6e473919d71225e9c01cc3" kindref="member">UnEncDataWordLen</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PrtnHdr-&gt;<ref refid="struct_xil_pdi___prtn_hdr_1acf49ffc72ab5ba2487058e156c127bbc" kindref="member">TotalDataWordLen</ref><sp/>&lt;<sp/>PrtnHdr-&gt;<ref refid="struct_xil_pdi___prtn_hdr_1a895970f87fc8414aa672ad99914e5b6e" kindref="member">EncDataWordLen</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilPdi_Printf(</highlight><highlight class="stringliteral">&quot;Error:<sp/>Incorrect<sp/>total<sp/>length<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><sp/>XILPDI_ERR_TOTAL_LENGTH;</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnType<sp/>=<sp/>XilPdi_GetPrtnType(PrtnHdr);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PrtnType<sp/>==<sp/><ref refid="xilpdi_8h_1ad2b34f8a94535a70a9cf14898261181f" kindref="member">XIH_PH_ATTRB_PRTN_TYPE_RSVD</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PrtnType<sp/>&gt;<sp/>XIH_PH_ATTRB_PRTN_TYPE_CFI_GSC_UNMASK))<sp/>{</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilPdi_Printf(</highlight><highlight class="stringliteral">&quot;Error:<sp/>Invalid<sp/>partition<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XILPDI_ERR_PRTN_TYPE;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="274"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="283" refid="group__xilpdi__apis_1gab95449e9eb9805839f99e2b4aa107313" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilpdi__apis_1gab95449e9eb9805839f99e2b4aa107313" kindref="member">XilPdi_ReadBootHdr</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_xil_pdi___boot_hdr" kindref="compound">XilPdi_BootHdr</ref><sp/>**BootHdrPtr)</highlight></codeline>
+<codeline lineno="284"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*BootHdrPtr<sp/>=<sp/>(<ref refid="struct_xil_pdi___boot_hdr" kindref="compound">XilPdi_BootHdr</ref><sp/>*)(UINTPTR)<ref refid="xilpdi__plat_8h_1ad49a1171235ff234ce6053c13c341363" kindref="member">XIH_BH_PRAM_ADDR</ref>;</highlight></codeline>
+<codeline lineno="287"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="300" refid="group__xilpdi__apis_1ga0e8b30c329673e17c9068780d5039b62" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilpdi__apis_1ga0e8b30c329673e17c9068780d5039b62" kindref="member">XilPdi_ReadImgHdrTbl</ref>(<ref refid="struct_xil_pdi___meta_hdr" kindref="compound">XilPdi_MetaHdr</ref><sp/>*<sp/>MetaHdrPtr)</highlight></codeline>
+<codeline lineno="301"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SmapBusWidthCheck[SMAP_BUS_WIDTH_WORD_LEN];</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Offset;</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1af4c05505d849cc9cb018b43c8f848776" kindref="member">DeviceCopy</ref>(MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1a7aedb1bc8b9897f706301f22ed7a1725" kindref="member">FlashOfstAddr</ref><sp/>+<sp/>MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1adce12a2a74474eccb3d8cce3040a6ac9" kindref="member">MetaHdrOfst</ref>,</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u64)(UINTPTR)SmapBusWidthCheck,<sp/><ref refid="xilpdi_8h_1a107d5dada2af10ad48a8c87f60da4fdb" kindref="member">SMAP_BUS_WIDTH_LENGTH</ref>,<sp/>0x0U);</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilPdi_Printf(</highlight><highlight class="stringliteral">&quot;Device<sp/>Copy<sp/>Failed\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((SMAP_BUS_WIDTH_8_WORD1<sp/>==<sp/>SmapBusWidthCheck[0U])<sp/>||</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(SMAP_BUS_WIDTH_16_WORD1<sp/>==<sp/>SmapBusWidthCheck[0U])<sp/>||</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(SMAP_BUS_WIDTH_32_WORD1<sp/>==<sp/>SmapBusWidthCheck[0U]))<sp/>{</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SMemCpy((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)&amp;MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" kindref="member">ImgHdrTbl</ref>,</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xilpdi_8h_1a107d5dada2af10ad48a8c87f60da4fdb" kindref="member">SMAP_BUS_WIDTH_LENGTH</ref>,<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)SmapBusWidthCheck,</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xilpdi_8h_1a107d5dada2af10ad48a8c87f60da4fdb" kindref="member">SMAP_BUS_WIDTH_LENGTH</ref>,<sp/><ref refid="xilpdi_8h_1a107d5dada2af10ad48a8c87f60da4fdb" kindref="member">SMAP_BUS_WIDTH_LENGTH</ref>);</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilPdi_Printf(</highlight><highlight class="stringliteral">&quot;Image<sp/>Header<sp/>Table<sp/>memcpy<sp/>failed\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/><ref refid="xilpdi_8h_1a107d5dada2af10ad48a8c87f60da4fdb" kindref="member">SMAP_BUS_WIDTH_LENGTH</ref>;</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1af4c05505d849cc9cb018b43c8f848776" kindref="member">DeviceCopy</ref>(MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1a7aedb1bc8b9897f706301f22ed7a1725" kindref="member">FlashOfstAddr</ref><sp/>+</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1adce12a2a74474eccb3d8cce3040a6ac9" kindref="member">MetaHdrOfst</ref><sp/>+<sp/><ref refid="xilpdi_8h_1a107d5dada2af10ad48a8c87f60da4fdb" kindref="member">SMAP_BUS_WIDTH_LENGTH</ref>,</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u64)(UINTPTR)&amp;MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" kindref="member">ImgHdrTbl</ref><sp/>+<sp/>Offset,</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xilpdi_8h_1a1d569af531389c06604431461dcd6206" kindref="member">XIH_IHT_LEN</ref><sp/>-<sp/>Offset,<sp/>0x0U);</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilPdi_Printf(</highlight><highlight class="stringliteral">&quot;Device<sp/>Copy<sp/>Failed\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight></codeline>
+<codeline lineno="344"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="346"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="359" refid="group__xilpdi__apis_1gaf79c8f43bf8b64976d3fffe442108861" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilpdi__apis_1gaf79c8f43bf8b64976d3fffe442108861" kindref="member">XilPdi_ReadIhtAndOptionalData</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_xil_pdi___meta_hdr" kindref="compound">XilPdi_MetaHdr</ref><sp/>*<sp/>MetaHdrPtr,<sp/>u8<sp/>PdiType)</highlight></codeline>
+<codeline lineno="360"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SecureZeroize((u8*)(UINTPTR)<ref refid="xilpdi_8h_1aed1210cba3367f72a3ae1a0a8d34f981" kindref="member">XIH_PMC_RAM_IHT_OP_DATA_STORE_ADDR</ref>,</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XILPDI_OPTIONAL_DATA_ID_3_MAX_SIZE_2K_BYTES);</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilPdi_Printf(</highlight><highlight class="stringliteral">&quot;IHT<sp/>Optional<sp/>data<sp/>Zeroize<sp/>Failed<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SecureMemCpy((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)(UINTPTR)XILPDI_PMCRAM_IHT_COPY_ADDR,</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xilpdi_8h_1a1d569af531389c06604431461dcd6206" kindref="member">XIH_IHT_LEN</ref>,<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*)&amp;MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" kindref="member">ImgHdrTbl</ref>,<sp/><ref refid="xilpdi_8h_1a1d569af531389c06604431461dcd6206" kindref="member">XIH_IHT_LEN</ref>);</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilPdi_Printf(</highlight><highlight class="stringliteral">&quot;Device<sp/>Copy<sp/>Failed<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"></highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilpdi__apis_1ga0174729e4271ff3ed60e891b111a80fb" kindref="member">XilPdi_ReadOptionalData</ref>(MetaHdrPtr,<sp/>PdiType);</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"></highlight></codeline>
+<codeline lineno="388"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="390"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight></codeline>
+<codeline lineno="392"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="404" refid="group__xilpdi__apis_1ga0174729e4271ff3ed60e891b111a80fb" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilpdi__apis_1ga0174729e4271ff3ed60e891b111a80fb" kindref="member">XilPdi_ReadOptionalData</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_xil_pdi___meta_hdr" kindref="compound">XilPdi_MetaHdr</ref><sp/>*<sp/>MetaHdrPtr,<sp/>u8<sp/>PdiType)</highlight></codeline>
+<codeline lineno="405"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>OptionalDataStartAddress;</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"></highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OptionalDataStartAddress<sp/>=<sp/>MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1a7aedb1bc8b9897f706301f22ed7a1725" kindref="member">FlashOfstAddr</ref><sp/>+<sp/>MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1adce12a2a74474eccb3d8cce3040a6ac9" kindref="member">MetaHdrOfst</ref><sp/>+<sp/><ref refid="xilpdi_8h_1a1d569af531389c06604431461dcd6206" kindref="member">XIH_IHT_LEN</ref>;</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PdiType<sp/>==<sp/>XILPDI_PDI_TYPE_PARTIAL_METAHEADER)<sp/>||</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PdiType<sp/>==<sp/>XILPDI_PDI_TYPE_PARTIAL))<sp/>{</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OptionalDataStartAddress<sp/>+=<sp/><ref refid="xilpdi_8h_1a107d5dada2af10ad48a8c87f60da4fdb" kindref="member">SMAP_BUS_WIDTH_LENGTH</ref>;</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"></highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" kindref="member">ImgHdrTbl</ref>.<ref refid="struct_xil_pdi___img_hdr_tbl_1a576c524d2e5b2d8d99621a90d0ead74f" kindref="member">OptionalDataLen</ref><sp/>&gt;<sp/><ref refid="xilpdi_8h_1a339a46932d4db4aff7ddc1c922b1cf32" kindref="member">XILPDI_OPTIONAL_DATA_MAX_SIZE_16K_BYTES</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XILPDI_ERR_OVER_FLOW_OPTIONAL_DATA;</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilPdi_Printf(</highlight><highlight class="stringliteral">&quot;Failed,<sp/>IHT<sp/>Optional<sp/>data<sp/>overflow<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"></highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1af4c05505d849cc9cb018b43c8f848776" kindref="member">DeviceCopy</ref>(OptionalDataStartAddress,<sp/>XILPDI_PMCRAM_IHT_DATA_ADDR,</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" kindref="member">ImgHdrTbl</ref>.<ref refid="struct_xil_pdi___img_hdr_tbl_1a576c524d2e5b2d8d99621a90d0ead74f" kindref="member">OptionalDataLen</ref><sp/>&lt;&lt;<sp/>XILPDI_WORD_LEN_SHIFT),<sp/>0U);</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilPdi_Printf(</highlight><highlight class="stringliteral">&quot;Device<sp/>Copy<sp/>Failed<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"></highlight></codeline>
+<codeline lineno="438"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="440"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"></highlight></codeline>
+<codeline lineno="442"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="453" refid="group__xilpdi__apis_1ga3bac0965e4b613497a5126a4e34feae1" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilpdi__apis_1ga3bac0965e4b613497a5126a4e34feae1" kindref="member">XilPdi_StoreDigestTable</ref>(<ref refid="struct_xil_pdi___meta_hdr" kindref="compound">XilPdi_MetaHdr</ref><sp/>*<sp/>MetaHdrPtr)</highlight></codeline>
+<codeline lineno="454"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>StatusTmp<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OptionalDataStartAddr;</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OptionalDataEndAddr;</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OptionalDataLen;</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Offset;</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"></highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OptionalDataStartAddr<sp/>=<sp/>XILPDI_PMCRAM_IHT_DATA_ADDR;</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OptionalDataEndAddr<sp/>=<sp/>OptionalDataStartAddr<sp/>+<sp/>(MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" kindref="member">ImgHdrTbl</ref>.<ref refid="struct_xil_pdi___img_hdr_tbl_1a576c524d2e5b2d8d99621a90d0ead74f" kindref="member">OptionalDataLen</ref><sp/>&lt;&lt;<sp/>XILPDI_WORD_LEN_SHIFT);</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"></highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1a34b97ff1d32e9192968c2dbe87218e1e" kindref="member">IsAuthOptimized</ref><sp/>=<sp/>(u32)FALSE;</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"></highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>-<sp/>Search<sp/>for<sp/>data<sp/>ID<sp/>=<sp/>3(digest<sp/>table)<sp/>and<sp/>get<sp/>optional<sp/>data<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>(u32)<ref refid="group__xilpdi__apis_1ga99aeeb01dc13465959103fa29625923a" kindref="member">XilPdi_SearchOptionalData</ref>(OptionalDataStartAddr,<sp/>OptionalDataEndAddr,</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xilpdi_8h_1acc7c7bce644442453baceece73a280ee" kindref="member">XILPDI_PARTITION_HASH_DATA_ID</ref>);</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>-<sp/>Proceed<sp/>if<sp/>optional<sp/>data<sp/>address<sp/>is<sp/>less<sp/>than<sp/>end<sp/>address<sp/>of<sp/>IHT<sp/>optional<sp/>data.<sp/>Otherwise,<sp/>return<sp/>XST_SUCCESS<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Offset<sp/>&lt;<sp/>OptionalDataEndAddr)<sp/>{</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OptionalDataLen<sp/>=<sp/>((Xil_In32(Offset)<sp/>&amp;<sp/>XIH_OPT_DATA_HDR_LEN_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIH_OPT_DATA_LEN_SHIFT)<sp/>&lt;&lt;<sp/>XIH_PRTN_WORD_LEN_SHIFT;</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(OptionalDataLen<sp/>&lt;<sp/><ref refid="xilpdi_8h_1ac7dd901f5a4647ca8a8b5540a6dd421c" kindref="member">XILPDI_OPTIONAL_DATA_WORD_LEN</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XILPDI_ERR_NO_VALID_OPTIONAL_DATA;</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(OptionalDataLen<sp/>&gt;<sp/>XILPDI_OPTIONAL_DATA_ID_3_MAX_SIZE_2K_BYTES)<sp/>{</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XILPDI_ERR_OVER_FLOW_OPTIONAL_DATA_AT_DATA_ID_3;</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Misra-C<sp/>Compliance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"></highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1ab03eaa6f8cf7f87eb494327f7243f8ba" kindref="member">DigestTableSize</ref><sp/>=<sp/>OptionalDataLen<sp/>-<sp/>XILPDI_OPTIONAL_DATA_DOUBLE_WORD_LEN;</highlight></codeline>
+<codeline lineno="509"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1ab03eaa6f8cf7f87eb494327f7243f8ba" kindref="member">DigestTableSize</ref><sp/>%<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_xil_pdi___prtn_hash_info" kindref="compound">XilPdi_PrtnHashInfo</ref>))<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XILPDI_ERR_INVALID_DIGEST_TABLE_SIZE;</highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilPdi_Printf(</highlight><highlight class="stringliteral">&quot;Invalid<sp/>digest<sp/>table<sp/>size<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"></highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_REDUNDANT_CALL(Status,<sp/>StatusTmp,<sp/><ref refid="group__xilpdi__apis_1gacf4b60f3bfd29d0d200e4f218b74dcdf" kindref="member">XilPdi_ValidateChecksum</ref>,<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)(UINTPTR)Offset,</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OptionalDataLen);</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Status<sp/>!=<sp/>XST_SUCCESS)<sp/>||<sp/>(StatusTmp<sp/>!=<sp/>XST_SUCCESS))<sp/>{</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XILPDI_ERR_OPTIONAL_DATA_CHECKSUM_FAILED;</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilPdi_Printf(</highlight><highlight class="stringliteral">&quot;optional<sp/>data<sp/>Checksum<sp/>failed<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"></highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SMemCpy((u8<sp/>*)(UINTPTR)<ref refid="xilpdi_8h_1aed1210cba3367f72a3ae1a0a8d34f981" kindref="member">XIH_PMC_RAM_IHT_OP_DATA_STORE_ADDR</ref>,</highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1ab03eaa6f8cf7f87eb494327f7243f8ba" kindref="member">DigestTableSize</ref>,<sp/>(u8<sp/>*)(UINTPTR)(Offset</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/><ref refid="xilpdi_8h_1ac7dd901f5a4647ca8a8b5540a6dd421c" kindref="member">XILPDI_OPTIONAL_DATA_WORD_LEN</ref>),<sp/>MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1ab03eaa6f8cf7f87eb494327f7243f8ba" kindref="member">DigestTableSize</ref>,</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1ab03eaa6f8cf7f87eb494327f7243f8ba" kindref="member">DigestTableSize</ref>);</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilPdi_Printf(</highlight><highlight class="stringliteral">&quot;Partition<sp/>data<sp/>memcpy<sp/>failed\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Partition<sp/>number<sp/>count<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1ab03eaa6f8cf7f87eb494327f7243f8ba" kindref="member">DigestTableSize</ref><sp/>/=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_xil_pdi___prtn_hash_info" kindref="compound">XilPdi_PrtnHashInfo</ref>);</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Authentication<sp/>is<sp/>optimized<sp/>by<sp/>the<sp/>user<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1a34b97ff1d32e9192968c2dbe87218e1e" kindref="member">IsAuthOptimized</ref><sp/>=<sp/>(u32)TRUE;</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"></highlight></codeline>
+<codeline lineno="546"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="548"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="549"><highlight class="normal"></highlight></codeline>
+<codeline lineno="550"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="563" refid="group__xilpdi__apis_1ga99aeeb01dc13465959103fa29625923a" refkind="member"><highlight class="normal">u64<sp/><ref refid="group__xilpdi__apis_1ga99aeeb01dc13465959103fa29625923a" kindref="member">XilPdi_SearchOptionalData</ref>(u64<sp/>StartAddress,<sp/>u64<sp/>EndAddress,<sp/>u32<sp/>DataId)</highlight></codeline>
+<codeline lineno="564"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Offset<sp/>=<sp/>StartAddress;</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"></highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(Offset<sp/>&lt;<sp/>EndAddress)<sp/>{</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Xil_In64((UINTPTR)Offset)<sp/>&amp;<sp/>XIH_OPT_DATA_HDR_ID_MASK)<sp/>!=</highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DataId)<sp/>{</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>+=<sp/>((Xil_In64((UINTPTR)Offset)<sp/>&amp;<sp/>XIH_OPT_DATA_HDR_LEN_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIH_OPT_DATA_LEN_SHIFT)<sp/>&lt;&lt;<sp/>XILPDI_WORD_LEN_SHIFT;</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="579"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="581"><highlight class="normal"></highlight></codeline>
+<codeline lineno="582"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Offset;</highlight></codeline>
+<codeline lineno="583"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="584"><highlight class="normal"></highlight></codeline>
+<codeline lineno="585"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="600" refid="group__xilpdi__apis_1gab4d2ba6eeeac98dd13665d92c892a5ac" refkind="member"><highlight class="normal"><ref refid="struct_xil_pdi___prtn_hash_info" kindref="compound">XilPdi_PrtnHashInfo</ref>*<sp/><ref refid="group__xilpdi__apis_1gab4d2ba6eeeac98dd13665d92c892a5ac" kindref="member">XilPdi_IsPrtnHashPresent</ref>(u32<sp/>PrtnNum,<sp/>u32<sp/>HashTableSize)</highlight></codeline>
+<codeline lineno="601"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_xil_pdi___prtn_hash_info" kindref="compound">XilPdi_PrtnHashInfo</ref><sp/>*HashEntry<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="603"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_xil_pdi___prtn_hash_info" kindref="compound">XilPdi_PrtnHashInfo</ref><sp/>*HashTbl<sp/>=<sp/>(<ref refid="struct_xil_pdi___prtn_hash_info" kindref="compound">XilPdi_PrtnHashInfo</ref><sp/>*)(UINTPTR)<ref refid="xilpdi_8h_1aed1210cba3367f72a3ae1a0a8d34f981" kindref="member">XIH_PMC_RAM_IHT_OP_DATA_STORE_ADDR</ref>;</highlight></codeline>
+<codeline lineno="604"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="605"><highlight class="normal"></highlight></codeline>
+<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="607"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Bootgen<sp/>will<sp/>place<sp/>Digest<sp/>table<sp/>in<sp/>the<sp/>following<sp/>format:</highlight></codeline>
+<codeline lineno="608"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>-------------------------------------------------------------------------</highlight></codeline>
+<codeline lineno="609"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>|<sp/><sp/><sp/><sp/>Partition<sp/>index<sp/>(32<sp/>bits)<sp/><sp/><sp/><sp/><sp/>|<sp/><sp/><sp/><sp/>Partition<sp/>Digest(384<sp/>bits)<sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline lineno="610"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>-------------------------------------------------------------------------</highlight></codeline>
+<codeline lineno="611"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="612"><highlight class="normal"></highlight></codeline>
+<codeline lineno="617"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/>HashTableSize;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="618"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(HashTbl[Index].PrtnNum<sp/>==<sp/>PrtnNum)<sp/>{</highlight></codeline>
+<codeline lineno="619"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HashEntry<sp/>=<sp/>&amp;HashTbl[Index];</highlight></codeline>
+<codeline lineno="620"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="622"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="623"><highlight class="normal"></highlight></codeline>
+<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>HashEntry;</highlight></codeline>
+<codeline lineno="625"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="626"><highlight class="normal"></highlight></codeline>
+<codeline lineno="627"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="639" refid="group__xilpdi__apis_1gaab206394653dbbd10d5fbdbb41832c8e" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilpdi__apis_1gaab206394653dbbd10d5fbdbb41832c8e" kindref="member">XilPdi_ReadImgHdrs</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_xil_pdi___meta_hdr" kindref="compound">XilPdi_MetaHdr</ref><sp/>*<sp/>MetaHdrPtr)</highlight></codeline>
+<codeline lineno="640"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="641"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="642"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TotalLen<sp/>=<sp/>MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" kindref="member">ImgHdrTbl</ref>.<ref refid="struct_xil_pdi___img_hdr_tbl_1a0bbcb045b71c8d6f86224e4bbd0e58a4" kindref="member">NoOfImgs</ref><sp/>*<sp/>XIH_IH_LEN;</highlight></codeline>
+<codeline lineno="643"><highlight class="normal"></highlight></codeline>
+<codeline lineno="648"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1af4c05505d849cc9cb018b43c8f848776" kindref="member">DeviceCopy</ref>(MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1a7aedb1bc8b9897f706301f22ed7a1725" kindref="member">FlashOfstAddr</ref><sp/>+</highlight></codeline>
+<codeline lineno="649"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u64)MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" kindref="member">ImgHdrTbl</ref>.<ref refid="struct_xil_pdi___img_hdr_tbl_1aa39dc2024cd839b96cc35bd8911f3b70" kindref="member">ImgHdrAddr</ref><sp/>*<sp/>XIH_PRTN_WORD_LEN),</highlight></codeline>
+<codeline lineno="650"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u64)(UINTPTR)MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1a11507d2e756a50021cb7b1ad8c1560f1" kindref="member">ImgHdr</ref>,<sp/>TotalLen,<sp/>0x0U);</highlight></codeline>
+<codeline lineno="651"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="652"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilPdi_Printf(</highlight><highlight class="stringliteral">&quot;Device<sp/>Copy<sp/>Failed\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="653"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="654"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="655"><highlight class="normal"></highlight></codeline>
+<codeline lineno="656"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="657"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="658"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="659"><highlight class="normal"></highlight></codeline>
+<codeline lineno="660"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="672" refid="group__xilpdi__apis_1ga34716af70cf4846e312a414d760d9e1b" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilpdi__apis_1ga34716af70cf4846e312a414d760d9e1b" kindref="member">XilPdi_ReadPrtnHdrs</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_xil_pdi___meta_hdr" kindref="compound">XilPdi_MetaHdr</ref><sp/>*<sp/>MetaHdrPtr)</highlight></codeline>
+<codeline lineno="673"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="674"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="675"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TotalLen<sp/>=<sp/>MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" kindref="member">ImgHdrTbl</ref>.<ref refid="struct_xil_pdi___img_hdr_tbl_1a305d63ece76563b3e113b38817608210" kindref="member">NoOfPrtns</ref><sp/>*<sp/>XIH_PH_LEN;</highlight></codeline>
+<codeline lineno="676"><highlight class="normal"></highlight></codeline>
+<codeline lineno="681"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1af4c05505d849cc9cb018b43c8f848776" kindref="member">DeviceCopy</ref>(MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1a7aedb1bc8b9897f706301f22ed7a1725" kindref="member">FlashOfstAddr</ref><sp/>+</highlight></codeline>
+<codeline lineno="682"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u64)MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" kindref="member">ImgHdrTbl</ref>.<ref refid="struct_xil_pdi___img_hdr_tbl_1aaaf8539351352d20a9bbb77265c408a9" kindref="member">PrtnHdrAddr</ref><sp/>*<sp/>XIH_PRTN_WORD_LEN),</highlight></codeline>
+<codeline lineno="683"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u64)(UINTPTR)MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1a1e1fdee165b368455fd4a57f2dc9310a" kindref="member">PrtnHdr</ref>,<sp/>TotalLen,<sp/>0x0U);</highlight></codeline>
+<codeline lineno="684"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="685"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilPdi_Printf(</highlight><highlight class="stringliteral">&quot;Device<sp/>Copy<sp/>Failed\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="686"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="687"><highlight class="normal"></highlight></codeline>
+<codeline lineno="688"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="689"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="690"><highlight class="normal"></highlight></codeline>
+<codeline lineno="691"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="702" refid="group__xilpdi__apis_1gab201600dc6af30b8ca72b6fd0109767c" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilpdi__apis_1gab201600dc6af30b8ca72b6fd0109767c" kindref="member">XilPdi_VerifyPrtnHdrs</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_xil_pdi___meta_hdr" kindref="compound">XilPdi_MetaHdr</ref><sp/>*<sp/>MetaHdrPtr)</highlight></codeline>
+<codeline lineno="703"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="704"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="705"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PrtnIndex;</highlight></codeline>
+<codeline lineno="706"><highlight class="normal"></highlight></codeline>
+<codeline lineno="711"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(PrtnIndex<sp/>=<sp/>0U;<sp/>PrtnIndex<sp/>&lt;<sp/>MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" kindref="member">ImgHdrTbl</ref>.<ref refid="struct_xil_pdi___img_hdr_tbl_1a305d63ece76563b3e113b38817608210" kindref="member">NoOfPrtns</ref>;</highlight></codeline>
+<codeline lineno="712"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrtnIndex++)<sp/>{</highlight></codeline>
+<codeline lineno="713"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilpdi__apis_1gacf4b60f3bfd29d0d200e4f218b74dcdf" kindref="member">XilPdi_ValidateChecksum</ref>(&amp;MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1a1e1fdee165b368455fd4a57f2dc9310a" kindref="member">PrtnHdr</ref>[PrtnIndex],</highlight></codeline>
+<codeline lineno="714"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIH_PH_LEN);</highlight></codeline>
+<codeline lineno="715"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="716"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XILPDI_ERR_PH_CHECKSUM;</highlight></codeline>
+<codeline lineno="717"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="718"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="719"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="720"><highlight class="normal"></highlight></codeline>
+<codeline lineno="721"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="722"><highlight class="normal"></highlight></codeline>
+<codeline lineno="723"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="724"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="725"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="726"><highlight class="normal"></highlight></codeline>
+<codeline lineno="727"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************/</highlight></codeline>
+<codeline lineno="738" refid="group__xilpdi__apis_1ga3351549fd88876c437726037b8bd5ca3" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilpdi__apis_1ga3351549fd88876c437726037b8bd5ca3" kindref="member">XilPdi_VerifyImgHdrs</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_xil_pdi___meta_hdr" kindref="compound">XilPdi_MetaHdr</ref><sp/>*<sp/>MetaHdrPtr)</highlight></codeline>
+<codeline lineno="739"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="740"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="741"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ImgIndex;</highlight></codeline>
+<codeline lineno="742"><highlight class="normal"></highlight></codeline>
+<codeline lineno="747"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(ImgIndex<sp/>=<sp/>0U;<sp/>ImgIndex<sp/>&lt;<sp/>MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" kindref="member">ImgHdrTbl</ref>.<ref refid="struct_xil_pdi___img_hdr_tbl_1a0bbcb045b71c8d6f86224e4bbd0e58a4" kindref="member">NoOfImgs</ref>;</highlight></codeline>
+<codeline lineno="748"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ImgIndex++)<sp/>{</highlight></codeline>
+<codeline lineno="749"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilpdi__apis_1gacf4b60f3bfd29d0d200e4f218b74dcdf" kindref="member">XilPdi_ValidateChecksum</ref>(&amp;MetaHdrPtr-&gt;<ref refid="struct_xil_pdi___meta_hdr_1a11507d2e756a50021cb7b1ad8c1560f1" kindref="member">ImgHdr</ref>[ImgIndex],</highlight></codeline>
+<codeline lineno="750"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIH_IH_LEN);</highlight></codeline>
+<codeline lineno="751"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="752"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XILPDI_ERR_IH_CHECKSUM;</highlight></codeline>
+<codeline lineno="753"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="754"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="755"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="756"><highlight class="normal"></highlight></codeline>
+<codeline lineno="757"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="758"><highlight class="normal"></highlight></codeline>
+<codeline lineno="759"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="760"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="761"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c"/>
+  </compounddef>
+</doxygen>

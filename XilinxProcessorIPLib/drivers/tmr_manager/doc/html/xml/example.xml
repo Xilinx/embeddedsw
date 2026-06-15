@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use tmr_manager driver.</para><sect1 id="example_1ex1">
+<title>xtmr_manager_selftest_example.c</title>
+<para>Contains an example on how to use the XTmr_manager driver directly. This example performs the basic selftest using the driver.</para><para>For details, see <ref refid="xtmr__manager__selftest__example_8c" kindref="compound">xtmr_manager_selftest_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xtmr_manager_intr_example.c</title>
+<para>Contains an example on how to use the XTmr_manager driver directly. This example shows the usage of the driver in interrupt mode.</para><para>For details, see <ref refid="xtmr__manager__intr__example_8c" kindref="compound">xtmr_manager_intr_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xtmr_manager_intr_tapp_example.c</title>
+<para>Contains an example on how to use the XTmr_manager driver directly. This example shows the usage of the driver in interrupt mode for transmission of the data.</para><para>For details, see <ref refid="xtmr__manager__intr__tapp__example_8c" kindref="compound">xtmr_manager_intr_tapp_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex4">
+<title>xtmr_manager_low_level_example.c</title>
+<para>Contains an example on how to use the XTmr_manager driver directly. This example shows the usage of the low-level driver functions and macros of the driver.</para><para>For details, see <ref refid="xtmr__manager__low__level__example_8c" kindref="compound">xtmr_manager_low_level_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex5">
+<title>xtmr_manager_polled_example.c</title>
+<para>Contains an example on how to use the XTmr_manager driver directly. This example shows the usage of the driver in polled mode.</para><para>For details, see <ref refid="xtmr__manager__polled__example_8c" kindref="compound">xtmr_manager_polled_example.c</ref>. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

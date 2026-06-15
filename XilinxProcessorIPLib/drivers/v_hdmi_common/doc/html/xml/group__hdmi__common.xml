@@ -1,0 +1,2992 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__hdmi__common" kind="group">
+    <compoundname>hdmi_common</compoundname>
+    <title>Overview</title>
+    <innerclass refid="struct_x_hdmi_c___f_r_l___c_t_s___n___table__t" prot="public">XHdmiC_FRL_CTS_N_Table_t</innerclass>
+    <innerclass refid="struct_x_hdmi_c___vic_table" prot="public">XHdmiC_VicTable</innerclass>
+    <innerclass refid="union_x_hdmi_c___aux_header" prot="public">XHdmiC_AuxHeader</innerclass>
+    <innerclass refid="union_x_hdmi_c___aux_data" prot="public">XHdmiC_AuxData</innerclass>
+    <innerclass refid="struct_x_hdmi_c___aux" prot="public">XHdmiC_Aux</innerclass>
+    <innerclass refid="union_x_hdmi_c___dsc_pps_data" prot="public">XHdmiC_DscPpsData</innerclass>
+    <innerclass refid="struct_x_hdmi_c___f_r_l___c_t_s___n___val" prot="public">XHdmiC_FRL_CTS_N_Val</innerclass>
+    <innerclass refid="struct_x_hdmi_c___t_m_d_s___n___table" prot="public">XHdmiC_TMDS_N_Table</innerclass>
+    <innerclass refid="struct_x_hdmi_c___frl_rate" prot="public">XHdmiC_FrlRate</innerclass>
+    <innerclass refid="struct_x_h_d_m_i_c___a_v_i___info_frame" prot="public">XHDMIC_AVI_InfoFrame</innerclass>
+    <innerclass refid="struct_x_hdmi_c___g_c_p___packet" prot="public">XHdmiC_GCP_Packet</innerclass>
+    <innerclass refid="struct_x_hdmi_c___audio___info_frame" prot="public">XHdmiC_Audio_InfoFrame</innerclass>
+    <innerclass refid="struct_x_hdmi_c___audio___metadata___packet" prot="public">XHdmiC_Audio_Metadata_Packet</innerclass>
+    <innerclass refid="struct_x_hdmi_c___s_p_d___info_frame" prot="public">XHdmiC_SPD_InfoFrame</innerclass>
+    <innerclass refid="struct_x_hdmi_c___d_r_m___info_frame" prot="public">XHdmiC_DRM_InfoFrame</innerclass>
+    <innerclass refid="struct_x_v___hdmi_c___video_timing_ext_meta" prot="public">XV_HdmiC_VideoTimingExtMeta</innerclass>
+    <innerclass refid="struct_x_v___hdmi_c___free_sync" prot="public">XV_HdmiC_FreeSync</innerclass>
+    <innerclass refid="struct_x_v___hdmi_c___free_sync_pro" prot="public">XV_HdmiC_FreeSyncPro</innerclass>
+    <innerclass refid="union_x_v___hdmi_c___src_prod_desc_i_f" prot="public">XV_HdmiC_SrcProdDescIF</innerclass>
+    <innerclass refid="struct_x_v___hdmi_c___vrr_info_frame" prot="public">XV_HdmiC_VrrInfoFrame</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__hdmi__common_1ga5560783b48cec42ab0d279ecebd4d7cd" prot="public" static="no">
+        <name>XVMaskColorId</name>
+        <enumvalue id="group__hdmi__common_1gga5560783b48cec42ab0d279ecebd4d7cdaa98dfb2e4cdab289fd803c18748b3c39" prot="public">
+          <name>XV_BKGND_BLACK</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5560783b48cec42ab0d279ecebd4d7cdac67c2a500bb3d2c6283e05386763a292" prot="public">
+          <name>XV_BKGND_WHITE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5560783b48cec42ab0d279ecebd4d7cdae2da29fb2efbf1aafb4fcd73aeb9e41f" prot="public">
+          <name>XV_BKGND_RED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5560783b48cec42ab0d279ecebd4d7cda8703f3dd3dc38bdd474a4edea5c32d97" prot="public">
+          <name>XV_BKGND_GREEN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5560783b48cec42ab0d279ecebd4d7cda447a2e6f9899f0720c7f82413cf3eec8" prot="public">
+          <name>XV_BKGND_BLUE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5560783b48cec42ab0d279ecebd4d7cdaa67dd31fe2f71aa00c52868635d73d15" prot="public">
+          <name>XV_BKGND_NOISE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5560783b48cec42ab0d279ecebd4d7cda5450651a8a174e508b6b7d0b8fb898be" prot="public">
+          <name>XV_BKGND_LAST</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef contains the different background colors available. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="66" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1ga364c90224725c9e995d2b4298619b24f" prot="public" static="no">
+        <name>XHdmiC_PicAspectRatio</name>
+        <enumvalue id="group__hdmi__common_1gga364c90224725c9e995d2b4298619b24face5d0743b0392fa64a281ef68632b87e" prot="public">
+          <name>XHDMIC_PIC_ASPECT_RATIO_NA</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga364c90224725c9e995d2b4298619b24fada72a8985171dfd5ab79d528d188e41b" prot="public">
+          <name>XHDMIC_PIC_ASPECT_RATIO_4_3</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga364c90224725c9e995d2b4298619b24fae7b84c9d27326f1f3af90224770b2632" prot="public">
+          <name>XHDMIC_PIC_ASPECT_RATIO_16_9</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga364c90224725c9e995d2b4298619b24fab05f405c65c1b33a54a8d57e33325b54" prot="public">
+          <name>XHDMIC_PIC_ASPECT_RATIO_64_27</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga364c90224725c9e995d2b4298619b24fad0150bcab8d3e9a0c64949ae2d536bbb" prot="public">
+          <name>XHDMIC_PIC_ASPECT_RATIO_256_135</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga364c90224725c9e995d2b4298619b24fa9a8b1bb92fa06b1b8db45011b2d12afc" prot="public">
+          <name>XHDMIC_PIC_ASPECT_RATIO_RESERVED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef contains Video identification information in tabular form. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="80" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1ga3c35d86d383b349827da726125764677" prot="public" static="no">
+        <name>XHdmiC_FrameRateCode</name>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677a5711a375780dff57f6fdb6388b3887ce" prot="public">
+          <name>XHDMIC_FR_NO_DATA</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677a404de6b8beaa36980178d54658ff72cf" prot="public">
+          <name>XHDMIC_FR_23_98Hz</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677af95ba7a5eb92a48e7a1e3003896f08e3" prot="public">
+          <name>XHDMIC_FR_24Hz</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677adb5a425177d2a232c7d0762d7193154a" prot="public">
+          <name>XHDMIC_FR_25Hz</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677ae4eb9ce29f0c48bb7b59727a74fd9cb8" prot="public">
+          <name>XHDMIC_FR_29_97Hz</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677af4e29541019952ef75a9d33a2def4c9b" prot="public">
+          <name>XHDMIC_FR_30Hz</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677ab287d0c8aa3d65cf5fa7d9198014ed87" prot="public">
+          <name>XHDMIC_FR_47_95Hz</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677ac9450ae643911d782f737ae6083dc375" prot="public">
+          <name>XHDMIC_FR_48Hz</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677a32475f52ae1913b3d7ddfefbf03e0a66" prot="public">
+          <name>XHDMIC_FR_50Hz</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677a35b079a33ed1779865d135207744cb2a" prot="public">
+          <name>XHDMIC_FR_59_94Hz</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677aa3b3a4df7b419054d4b93723df2ade1b" prot="public">
+          <name>XHDMIC_FR_60Hz</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677a77e1a9f8222b76667f32899132acb99e" prot="public">
+          <name>XHDMIC_FR_100Hz</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677ab8fa7becee928c64bae29cd3d0f5e5cf" prot="public">
+          <name>XHDMIC_FR_119_88Hz</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677aba8e9e4b870ce8f24144b113547162cb" prot="public">
+          <name>XHDMIC_FR_120Hz</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677ad7daab81683ff9958ab4cc5e98585bc5" prot="public">
+          <name>XHDMIC_FR_143_86Hz</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677a27fe4da9130c03e2deb2f8a9961f1c31" prot="public">
+          <name>XHDMIC_FR_144Hz</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677af7e141a49645d1fe03229e71012f6d5d" prot="public">
+          <name>XHDMIC_FR_200Hz</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677a3ab0df2d660efe4c8cbcd8dda5593f4e" prot="public">
+          <name>XHDMIC_FR_239_76Hz</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677a37e04215b818e9c83bcd1ce1267a5d7b" prot="public">
+          <name>XHDMIC_FR_240Hz</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677a927e8d7c60931d396e51250a4cb0199b" prot="public">
+          <name>XHDMIC_FR_300Hz</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677a08b317c0a24b083f861ab4c571f6e523" prot="public">
+          <name>XHDMIC_FR_359_64Hz</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677a934424a3b55a18d7227be32201ee70b1" prot="public">
+          <name>XHDMIC_FR_360Hz</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677a87e02a70a184bf77fad03474244f56f5" prot="public">
+          <name>XHDMIC_FR_400Hz</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677a5023684b493183a73b6961dcd21ae9b4" prot="public">
+          <name>XHDMIC_FR_479_52Hz</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677a485b13f309d22755e8f7f29fa47bf92e" prot="public">
+          <name>XHDMIC_FR_480Hz</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga3c35d86d383b349827da726125764677ae0a9a005a616656291314f3ace4d2e91" prot="public">
+          <name>XHDMIC_FR_RESERVED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef contains FrameRate code information as per the HDMI 2.1b spec. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="92" bodyend="119"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1gaa865ece14535d6c9327b7dd57b829ae1" prot="public" static="no">
+        <name>XHdmiC_ResolutionID</name>
+        <enumvalue id="group__hdmi__common_1ggaa865ece14535d6c9327b7dd57b829ae1af6818dedc3c94b76c4d42d0b02f00deb" prot="public">
+          <name>XHDMIC_VM_1280x720P</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa865ece14535d6c9327b7dd57b829ae1a31c4dd1c770917188880d9a99d7558b6" prot="public">
+          <name>XHDMIC_VM_1680x720P</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa865ece14535d6c9327b7dd57b829ae1ad4ab0233244b73a31c43a36012dd2564" prot="public">
+          <name>XHDMIC_VM_1920x1080P</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa865ece14535d6c9327b7dd57b829ae1ab8c0af1675c727333f85f342b5d8ff50" prot="public">
+          <name>XHDMIC_VM_2560x1080P</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa865ece14535d6c9327b7dd57b829ae1af83a89ce31c848d3368b217048a3ada9" prot="public">
+          <name>XHDMIC_VM_3840x1080P</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa865ece14535d6c9327b7dd57b829ae1a126eddfd5a068c71e7a8b844857a0e50" prot="public">
+          <name>XHDMIC_VM_2560x1440P</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa865ece14535d6c9327b7dd57b829ae1a65a2e5c16a4288a31cc47dec11eb274e" prot="public">
+          <name>XHDMIC_VM_3440x1440P</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa865ece14535d6c9327b7dd57b829ae1ae68dd7a71accbddf974d4fdd6515cfca" prot="public">
+          <name>XHDMIC_VM_5120x1440P</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa865ece14535d6c9327b7dd57b829ae1a026fbe32b714002b6155cfd7e4dcdf19" prot="public">
+          <name>XHDMIC_VM_3840x2160P</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa865ece14535d6c9327b7dd57b829ae1aa2be9864b671bea9f8be0c46c6ce6f8e" prot="public">
+          <name>XHDMIC_VM_5120x2160P</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa865ece14535d6c9327b7dd57b829ae1a9d325a05caea40abe311708bafc649d0" prot="public">
+          <name>XHDMIC_VM_7680x2160P</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa865ece14535d6c9327b7dd57b829ae1aec5e6d77b698446fed97c0bc16797e41" prot="public">
+          <name>XHDMIC_VM_5120x2880P</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa865ece14535d6c9327b7dd57b829ae1a6bc011aa35923b36009895dac44f820b" prot="public">
+          <name>XHDMIC_VM_6880x2880P</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa865ece14535d6c9327b7dd57b829ae1ae9307a88e17d79abeb6d9b45ff7e0951" prot="public">
+          <name>XHDMIC_VM_10240x2880P</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa865ece14535d6c9327b7dd57b829ae1ad8abb29dcc4d19b4d9aef1478e907604" prot="public">
+          <name>XHDMIC_VM_7680x4320P</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa865ece14535d6c9327b7dd57b829ae1ae9f16ac7e79adf5ade0bca7d10c7afc9" prot="public">
+          <name>XHDMIC_VM_10240x4320P</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa865ece14535d6c9327b7dd57b829ae1a488c5f2a958e44cd16ad018becb4abdf" prot="public">
+          <name>XHDMIC_VM_15360x4320P</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa865ece14535d6c9327b7dd57b829ae1a0afc8c75e315f62684d99901c422bdd8" prot="public">
+          <name>XHDMIC_VM_11520x6480P</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa865ece14535d6c9327b7dd57b829ae1a15d5adb467d589062d3bc8bc4c4bb1a0" prot="public">
+          <name>XHDMIC_VM_15360x6480P</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa865ece14535d6c9327b7dd57b829ae1a9fa0e77d715af996dec31c03a9cdfcea" prot="public">
+          <name>XHDMIC_VM_15360x8640P</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa865ece14535d6c9327b7dd57b829ae1a10b7e5de1158e0fe098d61acbd15db1a" prot="public">
+          <name>XHDMIC_VM_20480x8640P</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef contains Resolution ID&apos;s information as per the HDMI 2.1b spec. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="124" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1gaa43dceac5eee488e35c57a5616f705db" prot="public" static="no">
+        <name>XHdmiC_Colorspace</name>
+        <enumvalue id="group__hdmi__common_1ggaa43dceac5eee488e35c57a5616f705dba56298d6f80ce3cc8453f50f59f244e82" prot="public">
+          <name>XHDMIC_COLORSPACE_RGB</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa43dceac5eee488e35c57a5616f705dbac1f40d9c4d2390584ee15076f33281d5" prot="public">
+          <name>XHDMIC_COLORSPACE_YUV422</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa43dceac5eee488e35c57a5616f705dba02a4d7a675f03fb0440f411986fa3d70" prot="public">
+          <name>XHDMIC_COLORSPACE_YUV444</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa43dceac5eee488e35c57a5616f705dbaf58dbf25b748d7074aab4f8b3b3721e6" prot="public">
+          <name>XHDMIC_COLORSPACE_YUV420</name>
+          <briefdescription>
+<para>Version 3 AVI InfoFrame. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa43dceac5eee488e35c57a5616f705dba9ffe2dd31bf61a1d609cb07b852eb79e" prot="public">
+          <name>XHDMIC_COLORSPACE_RESERVED4</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa43dceac5eee488e35c57a5616f705dba74019d59b96604d249e76e307bc987e5" prot="public">
+          <name>XHDMIC_COLORSPACE_RESERVED5</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa43dceac5eee488e35c57a5616f705dba46f8b3d23db689077518ccafceff0807" prot="public">
+          <name>XHDMIC_COLORSPACE_RESERVED6</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa43dceac5eee488e35c57a5616f705dba4225471de58cffb0076f8e7b21e8052f" prot="public">
+          <name>XHDMIC_COLORSPACE_IDO_DEFINED</name>
+          <initializer>= 7</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="174" bodyend="183"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1gac5e74ca8b3bbd9c0fe1dfc668fcded51" prot="public" static="no">
+        <name>XHdmiC_ActiveAspectRatio</name>
+        <enumvalue id="group__hdmi__common_1ggac5e74ca8b3bbd9c0fe1dfc668fcded51a84a42618a87548d519fef56242d8b2b5" prot="public">
+          <name>XHDMIC_ACTIVE_ASPECT_16_9_TOP</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggac5e74ca8b3bbd9c0fe1dfc668fcded51acb24a636cff4ec3f9909e7f51c8a2e29" prot="public">
+          <name>XHDMIC_ACTIVE_ASPECT_14_9_TOP</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggac5e74ca8b3bbd9c0fe1dfc668fcded51ada9ea0900a82cf9ab8e6e35df493a5c7" prot="public">
+          <name>XHDMIC_ACTIVE_ASPECT_16_9_CENTER</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggac5e74ca8b3bbd9c0fe1dfc668fcded51ae14e4fa6565b14f40e1c3b723a2aa361" prot="public">
+          <name>XHDMIC_ACTIVE_ASPECT_PICTURE</name>
+          <initializer>= 8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggac5e74ca8b3bbd9c0fe1dfc668fcded51a5924bdae0ec3787ae887f3a356e3d836" prot="public">
+          <name>XHDMIC_ACTIVE_ASPECT_4_3</name>
+          <initializer>= 9</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggac5e74ca8b3bbd9c0fe1dfc668fcded51ac64cd8cd27b635356cf5661bea03fff9" prot="public">
+          <name>XHDMIC_ACTIVE_ASPECT_16_9</name>
+          <initializer>= 10</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggac5e74ca8b3bbd9c0fe1dfc668fcded51a77ad40a6d9304619b6e07a80273e8c59" prot="public">
+          <name>XHDMIC_ACTIVE_ASPECT_14_9</name>
+          <initializer>= 11</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggac5e74ca8b3bbd9c0fe1dfc668fcded51ae3f0bf38a50c4e0c4a41267365f3bed1" prot="public">
+          <name>XHDMIC_ACTIVE_ASPECT_4_3_SP_14_9</name>
+          <initializer>= 13</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggac5e74ca8b3bbd9c0fe1dfc668fcded51a1a34a2e0f9a7ff379bca62a18eb14f3c" prot="public">
+          <name>XHDMIC_ACTIVE_ASPECT_16_9_SP_14_9</name>
+          <initializer>= 14</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggac5e74ca8b3bbd9c0fe1dfc668fcded51af039a7745c2d23a534227d7ab5754c82" prot="public">
+          <name>XHDMIC_ACTIVE_ASPECT_16_9_SP_4_3</name>
+          <initializer>= 15</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="185" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1gaa2083561c13662cfe2e3cccac0abc586" prot="public" static="no">
+        <name>XHdmiC_BarInfo</name>
+        <enumvalue id="group__hdmi__common_1ggaa2083561c13662cfe2e3cccac0abc586af80ea83299fc74a3f6ef29055e2586d5" prot="public">
+          <name>XHDMIC_BAR_INFO_NA</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa2083561c13662cfe2e3cccac0abc586a9cb8b8f9600e9145d77d3a8a31772aac" prot="public">
+          <name>XHDMIC_BAR_INFO_VERT_BAR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa2083561c13662cfe2e3cccac0abc586af3edf7801622e29d55b1f1f48a5dfc59" prot="public">
+          <name>XHDMIC_BAR_INFO_HORI_BAR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa2083561c13662cfe2e3cccac0abc586a5cb1aa4b76f0f5a104f884c34b3b75c6" prot="public">
+          <name>XHDMIC_BAR_INFO_VERT_AND_HORI_BAR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="198" bodyend="203"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1gae636b0193b02adc7b7af3386b8016f4c" prot="public" static="no">
+        <name>XHdmiC_ScanInfo</name>
+        <enumvalue id="group__hdmi__common_1ggae636b0193b02adc7b7af3386b8016f4ca1aa3d1e6a413b8c590620f4fa3ae0f72" prot="public">
+          <name>XHDMIC_SCAN_INFO_NA</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggae636b0193b02adc7b7af3386b8016f4cac38519e8f88fdfbd086f456e4d33d8af" prot="public">
+          <name>XHDMIC_SCAN_INFO_OVERSCAN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggae636b0193b02adc7b7af3386b8016f4ca9e633f2d3ca765d28abfdf35df306e4c" prot="public">
+          <name>XHDMIC_SCAN_INFO_UNDERSCAN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggae636b0193b02adc7b7af3386b8016f4cad37f116458247f73e3f479509a51dd6b" prot="public">
+          <name>XHDMIC_SCAN_INFO_RESERVED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="205" bodyend="210"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1ga639f612cc38eb6fe0068254e0ccc6946" prot="public" static="no">
+        <name>XHdmiC_Colorimetry</name>
+        <enumvalue id="group__hdmi__common_1gga639f612cc38eb6fe0068254e0ccc6946ab0283fe944237ca14b24a9e5980290a0" prot="public">
+          <name>XHDMIC_COLORIMETRY_NA</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga639f612cc38eb6fe0068254e0ccc6946a5714169fabdedd1679b2fb2e7cd0c118" prot="public">
+          <name>XHDMIC_COLORIMETRY_ITU_601</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga639f612cc38eb6fe0068254e0ccc6946a0f1f6635a6abcbfe02702a22388b6dee" prot="public">
+          <name>XHDMIC_COLORIMETRY_ITU709</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga639f612cc38eb6fe0068254e0ccc6946a83bb66f00ff67d6a8f9d1ad4aa882548" prot="public">
+          <name>XHDMIC_COLORIMETRY_EXTENDED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="212" bodyend="217"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1gabde0bfd8fafbf9fb50104fc1dc107e7c" prot="public" static="no">
+        <name>XHdmiC_ExtendedColorimetry</name>
+        <enumvalue id="group__hdmi__common_1ggabde0bfd8fafbf9fb50104fc1dc107e7cad99a1bd363f7fa3f25ae5839f5c5585d" prot="public">
+          <name>XHDMIC_EXTENDED_COLORIMETRY_YCC_601</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggabde0bfd8fafbf9fb50104fc1dc107e7cabce7523ed4ef8cd86adcc158c0e6bce2" prot="public">
+          <name>XHDMIC_EXTENDED_COLORIMETRY_YCC_709</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggabde0bfd8fafbf9fb50104fc1dc107e7ca0e6d816016c57223160e9bd96d4b2581" prot="public">
+          <name>XHDMIC_EXTENDED_COLORIMETRY_S_YCC_601</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggabde0bfd8fafbf9fb50104fc1dc107e7cab77313f9d537d6dd2dc7ce3d78052bc2" prot="public">
+          <name>XHDMIC_EXTENDED_COLORIMETRY_ADOBE_YCC_601</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggabde0bfd8fafbf9fb50104fc1dc107e7ca26fb0ce87971ebff103de899042c43ea" prot="public">
+          <name>XHDMIC_EXTENDED_COLORIMETRY_ADOBE_RGB</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggabde0bfd8fafbf9fb50104fc1dc107e7ca4471c5c73fba6cfec9c42e32c36dc4ef" prot="public">
+          <name>XHDMIC_EXTENDED_COLORIMETRY_RESERVED_1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggabde0bfd8fafbf9fb50104fc1dc107e7ca6b6bc5d1beb7b0bd2db613be368c0226" prot="public">
+          <name>XHDMIC_EXTENDED_COLORIMETRY_RESERVED_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggabde0bfd8fafbf9fb50104fc1dc107e7ca7b0bf03710e10be04d276f69506b6f30" prot="public">
+          <name>XHDMIC_EXTENDED_COLORIMETRY_RESERVED_3</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="219" bodyend="228"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1ga650416040ba8a555cdbfe2cc6926df65" prot="public" static="no">
+        <name>XHdmiC_AdditionalColorimetryExtension</name>
+        <enumvalue id="group__hdmi__common_1gga650416040ba8a555cdbfe2cc6926df65aadc91350361be030192ec6b1a437864d" prot="public">
+          <name>XHDMIC_ADD_EXTENDED_COLORIMETRY_P3D65</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga650416040ba8a555cdbfe2cc6926df65a95968c45c99d93239374012295d20120" prot="public">
+          <name>XHDMIC_ADD_EXTENDED_COLORIMETRY_P3DCI</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga650416040ba8a555cdbfe2cc6926df65a68754852d48dca4706a6e09c767b5bfd" prot="public">
+          <name>XHDMIC_ADD_EXTENDED_COLORIMETRY_ICTCP</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga650416040ba8a555cdbfe2cc6926df65a2badc4f3b91b7255a3d274ee1e0fc558" prot="public">
+          <name>XHDMIC_ADD_EXTENDED_COLORIMETRY_STANDARD_RGB</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga650416040ba8a555cdbfe2cc6926df65a3ac40d8a3887b440c3c5f8b485d0e1b9" prot="public">
+          <name>XHDMIC_ADD_EXTENDED_COLORIMETRY_DEFAULT_RGB</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga650416040ba8a555cdbfe2cc6926df65a164d6225fff2f07fc5f85805049d4f0d" prot="public">
+          <name>XHDMIC_ADD_EXTENDED_COLORIMETRY_RESERVED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="230" bodyend="237"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1gaa987e581dc986c8abc3284ce6ba682fb" prot="public" static="no">
+        <name>XHdmiC_RGBQuantizationRange</name>
+        <enumvalue id="group__hdmi__common_1ggaa987e581dc986c8abc3284ce6ba682fba6c71049a0c3decfaa7780648a9263cbd" prot="public">
+          <name>XHDMIC_RGB_QUANTIZATION_RANGE_DEFAULT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa987e581dc986c8abc3284ce6ba682fba8c12681b934b510e79aa0e3c3da4c4d9" prot="public">
+          <name>XHDMIC_RGB_QUANTIZATION_RANGE_LIMITED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaa987e581dc986c8abc3284ce6ba682fbacb19e41caca187e27f8dfa6e1abc7bce" prot="public">
+          <name>XHDMIC_RGB_QUANTIZATION_RANGE_FULL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="239" bodyend="243"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1ga11bfbcf3722049bd753b7a27cd7e50b5" prot="public" static="no">
+        <name>XHdmiC_PixelRepetitionFactor</name>
+        <enumvalue id="group__hdmi__common_1gga11bfbcf3722049bd753b7a27cd7e50b5a9288435610754269595ee127fcb29305" prot="public">
+          <name>XHDMIC_PIXEL_REPETITION_FACTOR_1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga11bfbcf3722049bd753b7a27cd7e50b5a598d0e9b9af708bb3046c41f09536083" prot="public">
+          <name>XHDMIC_PIXEL_REPETITION_FACTOR_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga11bfbcf3722049bd753b7a27cd7e50b5ac4400d9606f3e76a6b855571558e7e89" prot="public">
+          <name>XHDMIC_PIXEL_REPETITION_FACTOR_3</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga11bfbcf3722049bd753b7a27cd7e50b5ae79f7a5dc2c8636498bfa7d59d318d45" prot="public">
+          <name>XHDMIC_PIXEL_REPETITION_FACTOR_4</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga11bfbcf3722049bd753b7a27cd7e50b5ab81ead78e24afadcd05fbd135164ec12" prot="public">
+          <name>XHDMIC_PIXEL_REPETITION_FACTOR_5</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga11bfbcf3722049bd753b7a27cd7e50b5af616f9f6f29794fe0dd20379417a9a4e" prot="public">
+          <name>XHDMIC_PIXEL_REPETITION_FACTOR_6</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga11bfbcf3722049bd753b7a27cd7e50b5afe3889f407a97f8ca210d07d05f9b5f0" prot="public">
+          <name>XHDMIC_PIXEL_REPETITION_FACTOR_7</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga11bfbcf3722049bd753b7a27cd7e50b5a31a4f45c2ff4a6a8691e2999b97ea47c" prot="public">
+          <name>XHDMIC_PIXEL_REPETITION_FACTOR_8</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga11bfbcf3722049bd753b7a27cd7e50b5a39ffa263df525cad7acbc7278cd5a84c" prot="public">
+          <name>XHDMIC_PIXEL_REPETITION_FACTOR_9</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga11bfbcf3722049bd753b7a27cd7e50b5addbd778be77e78ac5e39a830f020964f" prot="public">
+          <name>XHDMIC_PIXEL_REPETITION_FACTOR_10</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="245" bodyend="256"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1ga05da39e6b015ff2965c9f5aef34d9af8" prot="public" static="no">
+        <name>XHdmiC_YccQuantizationRange</name>
+        <enumvalue id="group__hdmi__common_1gga05da39e6b015ff2965c9f5aef34d9af8a9f17c3a8619976b55bd84c4ffc3a3074" prot="public">
+          <name>XHDMIC_YCC_QUANTIZATION_RANGE_LIMITED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga05da39e6b015ff2965c9f5aef34d9af8a8cacc9a16011179674ea3edf2e0d9461" prot="public">
+          <name>XHDMIC_YCC_QUANTIZATION_RANGE_FULL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga05da39e6b015ff2965c9f5aef34d9af8a9fb87d751f40aa6fbd561f8aae67fe1f" prot="public">
+          <name>XHDMIC_YCC_QUANTIZATION_RANGE_RESERVED_1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga05da39e6b015ff2965c9f5aef34d9af8aa7aee270ff0aa72a21358266eaebbb0d" prot="public">
+          <name>XHDMIC_YCC_QUANTIZATION_RANGE_RESERVED_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="258" bodyend="263"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1ga8eebe3e28e13d0f594aeda573e6c32ef" prot="public" static="no">
+        <name>XHdmiC_NonUniformPictureScaling</name>
+        <enumvalue id="group__hdmi__common_1gga8eebe3e28e13d0f594aeda573e6c32efa89ed9513dd58a099a245caa31a8a6232" prot="public">
+          <name>XHDMIC_NON_UNIFORM_PICTURE_SCALING_NA</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga8eebe3e28e13d0f594aeda573e6c32efab5f25504ab5d88dd9101e8b2ba955918" prot="public">
+          <name>XHDMIC_NON_UNIFORM_PICTURE_SCALING_HORI</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga8eebe3e28e13d0f594aeda573e6c32efa5bffbcbda3d3e5eb866f7dc297f33284" prot="public">
+          <name>XHDMIC_NON_UNIFORM_PICTURE_SCALING_VERT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga8eebe3e28e13d0f594aeda573e6c32efac8ab8bb87cc0f028cae669079facbef5" prot="public">
+          <name>XHDMIC_NON_UNIFORM_PICTURE_SCALING_VERT_AND_HORI_SCALING</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="265" bodyend="270"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1gaed8157400a498d7fe0bf9aa57edb7a5e" prot="public" static="no">
+        <name>XHdmiC_ContentType</name>
+        <enumvalue id="group__hdmi__common_1ggaed8157400a498d7fe0bf9aa57edb7a5ea0414ddc9c56e4e447136cbf1b34ccf07" prot="public">
+          <name>XHDMIC_CONTENT_TYPE_GRAPHICS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaed8157400a498d7fe0bf9aa57edb7a5ea2d5a27c89a3da0ad8ec48c7a1f15464e" prot="public">
+          <name>XHDMIC_CONTENT_TYPE_PHOTO</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaed8157400a498d7fe0bf9aa57edb7a5ea53d034acc261d5744051dfe73da99980" prot="public">
+          <name>XHDMIC_CONTENT_TYPE_CINEMA</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaed8157400a498d7fe0bf9aa57edb7a5ea30d7eb5e390f3b08001ad5a7283f3053" prot="public">
+          <name>XHDMIC_CONTENT_TYPE_GAME</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="272" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="272" bodyend="277"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1ga4795f70ff5bb6a41099831c0cd5ac9c3" prot="public" static="no">
+        <name>XHdmiC_ColorDepth</name>
+        <enumvalue id="group__hdmi__common_1gga4795f70ff5bb6a41099831c0cd5ac9c3a88d648f2970a7b4350a0dab5053a4dac" prot="public">
+          <name>XHDMIC_COLORDEPTH_NOT_INDICATED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga4795f70ff5bb6a41099831c0cd5ac9c3a9ec7ce7c5b55c75ad21220ae5d07cb55" prot="public">
+          <name>XHDMIC_COLORDEPTH_24</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga4795f70ff5bb6a41099831c0cd5ac9c3aeca3a7591fa5531a390a1b7c176313cd" prot="public">
+          <name>XHDMIC_COLORDEPTH_30</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga4795f70ff5bb6a41099831c0cd5ac9c3aae9509a4f9dc6310676b166e87ac2d6d" prot="public">
+          <name>XHDMIC_COLORDEPTH_36</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga4795f70ff5bb6a41099831c0cd5ac9c3ad12150ae65479dd9297a1759a1d7a1be" prot="public">
+          <name>XHDMIC_COLORDEPTH_48</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="279" bodyend="285"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1ga805fd105c2cf35bcbf8f3b1670f94d91" prot="public" static="no">
+        <name>XHdmiC_PixelPackingPhase</name>
+        <enumvalue id="group__hdmi__common_1gga805fd105c2cf35bcbf8f3b1670f94d91a7da57b101311a0583eceef7ffb49e166" prot="public">
+          <name>XHDMIC_PIXELPACKINGPHASE_4</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga805fd105c2cf35bcbf8f3b1670f94d91a14128d4b51f4a4e8eb20e885f9329543" prot="public">
+          <name>XHDMIC_PIXELPACKINGPHASE_1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga805fd105c2cf35bcbf8f3b1670f94d91adfeeb0646cd2a42ea4a36a81659e3347" prot="public">
+          <name>XHDMIC_PIXELPACKINGPHASE_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga805fd105c2cf35bcbf8f3b1670f94d91afbaea88ea615801e372932be0b27bb27" prot="public">
+          <name>XHDMIC_PIXELPACKINGPHASE_3</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="287" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="287" bodyend="292"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1ga5641ac7f5e28250d899ed602e12e8eee" prot="public" static="no">
+        <name>XHdmiC_SamplingFrequency</name>
+        <enumvalue id="group__hdmi__common_1gga5641ac7f5e28250d899ed602e12e8eeeaa484a306cddc1c2ee1b4a7a5a0f88f1c" prot="public">
+          <name>XHDMIC_SAMPLING_FREQUENCY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5641ac7f5e28250d899ed602e12e8eeeada8c74042feaa7d43a05e298e9d93fba" prot="public">
+          <name>XHDMIC_SAMPLING_FREQUENCY_32K</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5641ac7f5e28250d899ed602e12e8eeea2b9e6351509783996b2460f49fc8f8ad" prot="public">
+          <name>XHDMIC_SAMPLING_FREQUENCY_44_1K</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5641ac7f5e28250d899ed602e12e8eeea9e0997b88722e1ea14783d0f9e9ccdac" prot="public">
+          <name>XHDMIC_SAMPLING_FREQUENCY_48K</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5641ac7f5e28250d899ed602e12e8eeea63a994c0626a4871fefee78b356b8951" prot="public">
+          <name>XHDMIC_SAMPLING_FREQUENCY_88_2K</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5641ac7f5e28250d899ed602e12e8eeeadf8456284ca800303e1bfcd703ae4e9b" prot="public">
+          <name>XHDMIC_SAMPLING_FREQUENCY_96K</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5641ac7f5e28250d899ed602e12e8eeea8254edf2cfc55771ee0360de5212db73" prot="public">
+          <name>XHDMIC_SAMPLING_FREQUENCY_176_4K</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5641ac7f5e28250d899ed602e12e8eeea3c9397076681705f5a36c667c7032f91" prot="public">
+          <name>XHDMIC_SAMPLING_FREQUENCY_192K</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="294" bodyend="303"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1gad5c1c5c508c94adb7f3cca2b631f2f66" prot="public" static="no">
+        <name>XHdmiC_SamplingFrequencyVal</name>
+        <enumvalue id="group__hdmi__common_1ggad5c1c5c508c94adb7f3cca2b631f2f66a6423c12d39b625a234e7a139e750f047" prot="public">
+          <name>XHDMIC_SAMPLING_FREQ</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggad5c1c5c508c94adb7f3cca2b631f2f66abc8ffddf68b0fed3eb80dd336f5135ae" prot="public">
+          <name>XHDMIC_SAMPLING_FREQ_32K</name>
+          <initializer>= 32000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggad5c1c5c508c94adb7f3cca2b631f2f66ad07c60f61f18c2a75c0abfe5a20f50e0" prot="public">
+          <name>XHDMIC_SAMPLING_FREQ_64K</name>
+          <initializer>= 32000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggad5c1c5c508c94adb7f3cca2b631f2f66a136f9667ffcfa043ea37d037e6913db8" prot="public">
+          <name>XHDMIC_SAMPLING_FREQ_128K</name>
+          <initializer>= 128000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggad5c1c5c508c94adb7f3cca2b631f2f66aff4933d4c5714293596c66fb0293fa6e" prot="public">
+          <name>XHDMIC_SAMPLING_FREQ_256K</name>
+          <initializer>= 128000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggad5c1c5c508c94adb7f3cca2b631f2f66a25a020ceb77653f22a94454b1ab14b96" prot="public">
+          <name>XHDMIC_SAMPLING_FREQ_512K</name>
+          <initializer>= 128000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggad5c1c5c508c94adb7f3cca2b631f2f66ae4b63997609f535604e9241ff6ef1d6c" prot="public">
+          <name>XHDMIC_SAMPLING_FREQ_1024K</name>
+          <initializer>= 1024000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggad5c1c5c508c94adb7f3cca2b631f2f66a64de948ad49b493ddddd840c632b7c31" prot="public">
+          <name>XHDMIC_SAMPLING_FREQ_44_1K</name>
+          <initializer>= 44100</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggad5c1c5c508c94adb7f3cca2b631f2f66a11f9e3efe4fc3cba50dc35b8d6769364" prot="public">
+          <name>XHDMIC_SAMPLING_FREQ_88_2K</name>
+          <initializer>= 88200</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggad5c1c5c508c94adb7f3cca2b631f2f66abf92514f66517f1e5ec39f34c9122a70" prot="public">
+          <name>XHDMIC_SAMPLING_FREQ_176_4K</name>
+          <initializer>= 176400</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggad5c1c5c508c94adb7f3cca2b631f2f66acf7a666d726611340174cf5684f5670d" prot="public">
+          <name>XHDMIC_SAMPLING_FREQ_352_8K</name>
+          <initializer>= 352800</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggad5c1c5c508c94adb7f3cca2b631f2f66a7568df52d05d4dc5ec5e6b20da639454" prot="public">
+          <name>XHDMIC_SAMPLING_FREQ_705_6K</name>
+          <initializer>= 705600</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggad5c1c5c508c94adb7f3cca2b631f2f66ae8106147d8386f47ba3f349519d38685" prot="public">
+          <name>XHDMIC_SAMPLING_FREQ_1411_2K</name>
+          <initializer>= 1411200</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggad5c1c5c508c94adb7f3cca2b631f2f66a4a36a467cab378661cab55282c398824" prot="public">
+          <name>XHDMIC_SAMPLING_FREQ_48K</name>
+          <initializer>= 48000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggad5c1c5c508c94adb7f3cca2b631f2f66a256127c4f2b0566ff372f96f1993cfbc" prot="public">
+          <name>XHDMIC_SAMPLING_FREQ_96K</name>
+          <initializer>= 96000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggad5c1c5c508c94adb7f3cca2b631f2f66a56cd266fd2571e03904e8014644e2104" prot="public">
+          <name>XHDMIC_SAMPLING_FREQ_192K</name>
+          <initializer>= 192000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggad5c1c5c508c94adb7f3cca2b631f2f66ab63b610729acff0ae09b25beb9d85386" prot="public">
+          <name>XHDMIC_SAMPLING_FREQ_384K</name>
+          <initializer>= 384000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggad5c1c5c508c94adb7f3cca2b631f2f66a16d3562f07fee2d283396f79dce67efd" prot="public">
+          <name>XHDMIC_SAMPLING_FREQ_768K</name>
+          <initializer>= 768000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggad5c1c5c508c94adb7f3cca2b631f2f66ae02ae43d3305cf5334f1d4f0f0ee19b9" prot="public">
+          <name>XHDMIC_SAMPLING_FREQ_1536K</name>
+          <initializer>= 1536000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="305" bodyend="327"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1gaf1d3843d98a93509de45ca8eb7a4024f" prot="public" static="no">
+        <name>XHdmiC_SampleSize</name>
+        <enumvalue id="group__hdmi__common_1ggaf1d3843d98a93509de45ca8eb7a4024fa1f291e42f68b78b144e3fdedfec813eb" prot="public">
+          <name>XHDMIC_SAMPLE_SIZE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaf1d3843d98a93509de45ca8eb7a4024fa43b1d9f08460d6b0a4bef8a172a110d8" prot="public">
+          <name>XHDMIC_SAMPLE_SIZE_16</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaf1d3843d98a93509de45ca8eb7a4024fa2065b5be3769c32625f0edaac51153ab" prot="public">
+          <name>XHDMIC_SAMPLE_SIZE_20</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaf1d3843d98a93509de45ca8eb7a4024fa24d9336d7845efb1d062fc5d39efe58a" prot="public">
+          <name>XHDMIC_SAMPLE_SIZE_24</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="329" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="329" bodyend="334"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1gaccf1c725cd3f8b301b37ca428798d7ae" prot="public" static="no">
+        <name>XHdmiC_AudioCodingType</name>
+        <enumvalue id="group__hdmi__common_1ggaccf1c725cd3f8b301b37ca428798d7aea74cfcc6348c657695c87847b83994a5e" prot="public">
+          <name>XHDMIC_AUDIO_CODING_TYPE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaccf1c725cd3f8b301b37ca428798d7aea1a5b4f8771a6eecbf5563bcc7df6b07b" prot="public">
+          <name>XHDMIC_AUDIO_CODING_TYPE_PCM</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaccf1c725cd3f8b301b37ca428798d7aeae75a07ff3d641ca2bfebd5e1ad49213f" prot="public">
+          <name>XHDMIC_AUDIO_CODING_TYPE_AC3</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaccf1c725cd3f8b301b37ca428798d7aeaaa77dec8a120545995e425ff136100d2" prot="public">
+          <name>XHDMIC_AUDIO_CODING_TYPE_MPEG1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaccf1c725cd3f8b301b37ca428798d7aead1fe9000b03e835572a7e362f3b3501f" prot="public">
+          <name>XHDMIC_AUDIO_CODING_TYPE_MP3</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaccf1c725cd3f8b301b37ca428798d7aea7eeeb8014a057902cabf0f8833137861" prot="public">
+          <name>XHDMIC_AUDIO_CODING_TYPE_MPEG2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaccf1c725cd3f8b301b37ca428798d7aea82b9b0add8f71f2ca05a621aea77212b" prot="public">
+          <name>XHDMIC_AUDIO_CODING_TYPE_AAC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaccf1c725cd3f8b301b37ca428798d7aea22e1840b4dc101845ef6716f453e3c07" prot="public">
+          <name>XHDMIC_AUDIO_CODING_TYPE_DTS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaccf1c725cd3f8b301b37ca428798d7aeae6d880432f1810127e58ae1415d3f97b" prot="public">
+          <name>XHDMIC_AUDIO_CODING_TYPE_ATRAC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaccf1c725cd3f8b301b37ca428798d7aea6ce4fadeff071eaa6edc98def2554756" prot="public">
+          <name>XHDMIC_AUDIO_CODING_TYPE_ONE_BIT_AUDIO</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaccf1c725cd3f8b301b37ca428798d7aea76b338b66d50ac840eb7b91ca311c78b" prot="public">
+          <name>XHDMIC_AUDIO_CODING_TYPE_DOLBY_DIGITAL_PLUS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaccf1c725cd3f8b301b37ca428798d7aeaa85e4fd1c0ccb309f82425413900642a" prot="public">
+          <name>XHDMIC_AUDIO_CODING_TYPE_DTS_HD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaccf1c725cd3f8b301b37ca428798d7aeada287c2ec544a9c3718f69dd858999c9" prot="public">
+          <name>XHDMIC_AUDIO_CODING_TYPE_MAT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaccf1c725cd3f8b301b37ca428798d7aea2bc41ad9d3402de0479b2b6791886943" prot="public">
+          <name>XHDMIC_AUDIO_CODING_TYPE_DST</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggaccf1c725cd3f8b301b37ca428798d7aeafe72341d04e425c2f5106c2250df5875" prot="public">
+          <name>XHDMIC_AUDIO_CODING_TYPE_WMA_PRO</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="336" bodyend="352"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1ga5aa2a531c2b1c52ff6df50b2d77bcb71" prot="public" static="no">
+        <name>XHdmiC_AudioChannelCount</name>
+        <enumvalue id="group__hdmi__common_1gga5aa2a531c2b1c52ff6df50b2d77bcb71aad645e1530ac9425496f3cd82979a524" prot="public">
+          <name>XHDMIC_AUDIO_CHANNEL_COUNT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5aa2a531c2b1c52ff6df50b2d77bcb71ab5777572100275f38b97e4dc394653cf" prot="public">
+          <name>XHDMIC_AUDIO_CHANNEL_COUNT_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5aa2a531c2b1c52ff6df50b2d77bcb71ad026191d62eab47c89505a74b9fd089e" prot="public">
+          <name>XHDMIC_AUDIO_CHANNEL_COUNT_3</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5aa2a531c2b1c52ff6df50b2d77bcb71ab22fca85462671c44f1d6a615589b37d" prot="public">
+          <name>XHDMIC_AUDIO_CHANNEL_COUNT_4</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5aa2a531c2b1c52ff6df50b2d77bcb71a23df55c7aa9c385cf493445e5ae2ee21" prot="public">
+          <name>XHDMIC_AUDIO_CHANNEL_COUNT_5</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5aa2a531c2b1c52ff6df50b2d77bcb71ad6aecedad62d1e155cfe3f8f4175ff61" prot="public">
+          <name>XHDMIC_AUDIO_CHANNEL_COUNT_6</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5aa2a531c2b1c52ff6df50b2d77bcb71ad74264281e85a4410b86daa3922b4035" prot="public">
+          <name>XHDMIC_AUDIO_CHANNEL_COUNT_7</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5aa2a531c2b1c52ff6df50b2d77bcb71abefcf555b9b8a547bdd57815005a7211" prot="public">
+          <name>XHDMIC_AUDIO_CHANNEL_COUNT_8</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="354" bodyend="363"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1gad788373a2f5d78ddc05684239d2e7d3d" prot="public" static="no">
+        <name>XHdmiC_LFEPlaybackLevel</name>
+        <enumvalue id="group__hdmi__common_1ggad788373a2f5d78ddc05684239d2e7d3da183c2bef3085421916b921eec71c1c91" prot="public">
+          <name>XHDMIC_LFEPBL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggad788373a2f5d78ddc05684239d2e7d3da2da1915d94aec02e2e42bcb34fba947d" prot="public">
+          <name>XHDMIC_LFEPBL_0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1ggad788373a2f5d78ddc05684239d2e7d3dafa20976c4fb6430f2c2927a1cfd46470" prot="public">
+          <name>XHDMIC_LFEPBL_10</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="365" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="365" bodyend="369"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1ga5416347f1b4073a486fe3fa74d6b7010" prot="public" static="no">
+        <name>XHdmiC_LevelShiftValue</name>
+        <enumvalue id="group__hdmi__common_1gga5416347f1b4073a486fe3fa74d6b7010a349084e1ca636900c754a6c97321f0a6" prot="public">
+          <name>XHDMIC_LSV_0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5416347f1b4073a486fe3fa74d6b7010a287651ad01b932ffdf7fa6ec759107d0" prot="public">
+          <name>XHDMIC_LSV_1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5416347f1b4073a486fe3fa74d6b7010a847b95cae91d4ea2a11754c3788d7461" prot="public">
+          <name>XHDMIC_LSV_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5416347f1b4073a486fe3fa74d6b7010ab0e71b67a6f72691246526b24a79b335" prot="public">
+          <name>XHDMIC_LSV_3</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5416347f1b4073a486fe3fa74d6b7010a33fb5b052241f608c888fd4e6b70fd58" prot="public">
+          <name>XHDMIC_LSV_4</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5416347f1b4073a486fe3fa74d6b7010a2bdeb0e1d36bddc7d616c3826bff58b0" prot="public">
+          <name>XHDMIC_LSV_5</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5416347f1b4073a486fe3fa74d6b7010afe199e8e6d8003b71b37ad34444436a1" prot="public">
+          <name>XHDMIC_LSV_6</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5416347f1b4073a486fe3fa74d6b7010ad13649017c7024652575d79a1059e3f7" prot="public">
+          <name>XHDMIC_LSV_7</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5416347f1b4073a486fe3fa74d6b7010ae07bf40709aff650768dca7277fb2e31" prot="public">
+          <name>XHDMIC_LSV_8</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5416347f1b4073a486fe3fa74d6b7010a4e3e4e8f5a47e7fd5363d18cd391ef34" prot="public">
+          <name>XHDMIC_LSV_9</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5416347f1b4073a486fe3fa74d6b7010af925b0d59acd96da18ee67e0992eb438" prot="public">
+          <name>XHDMIC_LSV_10</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5416347f1b4073a486fe3fa74d6b7010ac2f431c26637a149ecf1fb042ec386d2" prot="public">
+          <name>XHDMIC_LSV_11</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5416347f1b4073a486fe3fa74d6b7010aaea66cfa019ef6da02be36afa6952ff2" prot="public">
+          <name>XHDMIC_LSV_12</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5416347f1b4073a486fe3fa74d6b7010aa8fd3d1a5d02c57f3d6a7eb507b23a6b" prot="public">
+          <name>XHDMIC_LSV_13</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5416347f1b4073a486fe3fa74d6b7010a1abdbbebb5fa358c350de0c9e7059e11" prot="public">
+          <name>XHDMIC_LSV_14</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga5416347f1b4073a486fe3fa74d6b7010aadb4ded604ea8a2b2a9c12a604c104c6" prot="public">
+          <name>XHDMIC_LSV_15</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="371" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="371" bodyend="388"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1ga6e404939307b039508d3f33af8455869" prot="public" static="no">
+        <name>XHdmiC_FRLCharRate</name>
+        <enumvalue id="group__hdmi__common_1gga6e404939307b039508d3f33af8455869a4ad42343c7b0378c7b5d2fd213a1cc51" prot="public">
+          <name>R_166_667</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga6e404939307b039508d3f33af8455869a5f408b3a0ad328a896aead2ba1f88d1a" prot="public">
+          <name>R_333_333</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga6e404939307b039508d3f33af8455869aff82e5a25fe6eb7d787799c7dd49c435" prot="public">
+          <name>R_444_444</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga6e404939307b039508d3f33af8455869a630db8c8abddd3a7519975be50066aa5" prot="public">
+          <name>R_555_556</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga6e404939307b039508d3f33af8455869a0f9747c9a97f6dd07c6a32c3d2873ec9" prot="public">
+          <name>R_666_667</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga6e404939307b039508d3f33af8455869af3a14103af23499adde831e2ce535dd6" prot="public">
+          <name>XHDMIC_FRLCHARRATE_SIZE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>FRL Character Rate Enumeration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="393" bodyend="400"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1ga8e0058531c83eb8e78fc88c99f589c47" prot="public" static="no">
+        <name>XHdmiC_MaxFrlRate</name>
+        <enumvalue id="group__hdmi__common_1gga8e0058531c83eb8e78fc88c99f589c47a677ec32919d7b3a1b1bd90af14d9f29e" prot="public">
+          <name>XHDMIC_MAXFRLRATE_NOT_SUPPORTED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga8e0058531c83eb8e78fc88c99f589c47a2fe1764bf967260007df7280e0beb461" prot="public">
+          <name>XHDMIC_MAXFRLRATE_3X3GBITSPS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga8e0058531c83eb8e78fc88c99f589c47af5abd9fb2c11b135bd09d9386247c0b3" prot="public">
+          <name>XHDMIC_MAXFRLRATE_3X6GBITSPS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga8e0058531c83eb8e78fc88c99f589c47a0e8bf7e94d876f11108cd93e59f894ea" prot="public">
+          <name>XHDMIC_MAXFRLRATE_4X6GBITSPS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga8e0058531c83eb8e78fc88c99f589c47a52303e6ca63508353013bc018f426dd0" prot="public">
+          <name>XHDMIC_MAXFRLRATE_4X8GBITSPS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga8e0058531c83eb8e78fc88c99f589c47ade8e442464e45ebfdaa106bd7d1d6ee4" prot="public">
+          <name>XHDMIC_MAXFRLRATE_4X10GBITSPS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga8e0058531c83eb8e78fc88c99f589c47aec43b93e351dea04d1f0eb56e8360e91" prot="public">
+          <name>XHDMIC_MAXFRLRATE_4X12GBITSPS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga8e0058531c83eb8e78fc88c99f589c47aca5f3af94d882de976c94793d16a36a6" prot="public">
+          <name>XHDMIC_MAXFRLRATE_SIZE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga8e0058531c83eb8e78fc88c99f589c47ada265df1152bdb079c693a533ab9745a" prot="public">
+          <name>XHDMIC_MAXFRLRATE_TMDSONLY</name>
+          <initializer>= XHDMIC_MAXFRLRATE_NOT_SUPPORTED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>FRL Rate Enumeration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="405" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="405" bodyend="415"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1ga6a3632043eb078ced566a566bedcef1e" prot="public" static="no">
+        <name>XHdmiC_SPD_SourceInfo</name>
+        <enumvalue id="group__hdmi__common_1gga6a3632043eb078ced566a566bedcef1eaded96fe7bc3ced8c53a8a64eca42e55d" prot="public">
+          <name>XHDMIC_SPD_UNKNOWN</name>
+          <initializer>= 0x0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga6a3632043eb078ced566a566bedcef1ea40ee3744250c74662c2c3b85f7ca6d56" prot="public">
+          <name>XHDMIC_SPD_DIGITAL_STB</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga6a3632043eb078ced566a566bedcef1ea52937cb20dada0dda0c4d9f7b8a6cad7" prot="public">
+          <name>XHDMIC_SPD_DVD_PLAYER</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga6a3632043eb078ced566a566bedcef1eaae950fe744c88b89fd4bdd8a6785fae2" prot="public">
+          <name>XHDMIC_SPD_DVHS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga6a3632043eb078ced566a566bedcef1ea6891ed453669a7920c799196fddfc743" prot="public">
+          <name>XHDMIC_SPD_HDD_VIDEORECORDER</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga6a3632043eb078ced566a566bedcef1ea4b1352dbf4e53ed964eda989050d9420" prot="public">
+          <name>XHDMIC_SPD_DVC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga6a3632043eb078ced566a566bedcef1ead1a9f5591b39baa88fb92f99b424bcab" prot="public">
+          <name>XHDMIC_SPD_DSC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga6a3632043eb078ced566a566bedcef1ea295ba21c58d9954d2c9b6a5741ac4de6" prot="public">
+          <name>XHDMIC_SPD_VIDEOCD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga6a3632043eb078ced566a566bedcef1ea8e293cce9e86e310b81efbd499869d73" prot="public">
+          <name>XHDMIC_SPD_GAME</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga6a3632043eb078ced566a566bedcef1eaccf47419cfa03384eeb27a3a88913d5f" prot="public">
+          <name>XHDMIC_SPD_PC_GENERAL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga6a3632043eb078ced566a566bedcef1eaf934d5128ecc32519c314f0edc144e29" prot="public">
+          <name>XHDMIC_SPD_BLURAY_DISC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga6a3632043eb078ced566a566bedcef1ea4f614ffc487708d57ddbc93f9d347039" prot="public">
+          <name>XHDMIC_SPD_SUPER_AUDIO_CD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga6a3632043eb078ced566a566bedcef1eaba855f93202ac6637d5084f2df2ecff1" prot="public">
+          <name>XHDMIC_SPD_HD_DVD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga6a3632043eb078ced566a566bedcef1eaaf34a0fbbf4ea0dd4ecbac9d02c07a48" prot="public">
+          <name>XHDMIC_SPD_PMP</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="441" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="441" bodyend="456"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1ga334fc1404d679df405f2b8e3802cadd5" prot="public" static="no">
+        <name>XHdmiC_DRM_EOTF</name>
+        <enumvalue id="group__hdmi__common_1gga334fc1404d679df405f2b8e3802cadd5a3ce6d61992ee9117a233382e4efbabe1" prot="public">
+          <name>XHDMIC_DRM_TRADITIONAL_GAMMA_SDR</name>
+          <initializer>= 0x0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga334fc1404d679df405f2b8e3802cadd5a5c81b8e2738e092360db20412d0ad286" prot="public">
+          <name>XHDMIC_DRM_TRADITIONAL_GAMMA_HDR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga334fc1404d679df405f2b8e3802cadd5a0d1495974f2102afc4e417fe182c1a30" prot="public">
+          <name>XHDMIC_DRM_SMPTE_ST_2084</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga334fc1404d679df405f2b8e3802cadd5aed37d00c104de53455789fb9b80c1bf9" prot="public">
+          <name>XHDMIC_DRM_HLG</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="458" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="458" bodyend="463"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1ga4748f52532fc5e94cf6299597da9f308" prot="public" static="no">
+        <name>XHdmiC_DRM_Static_Metadata_Descp_Id</name>
+        <enumvalue id="group__hdmi__common_1gga4748f52532fc5e94cf6299597da9f308ac78bb18d21254fd940a88e06bebc5293" prot="public">
+          <name>XHDMIC_DRM_STATIC_METADATA_TYPE1</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="465" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="465" bodyend="467"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__hdmi__common_1ga1c9ba73cbeb9c28aa60663f683e4ae16" prot="public" static="no">
+        <name>XV_HdmiC_VrrInfoframeType</name>
+        <enumvalue id="group__hdmi__common_1gga1c9ba73cbeb9c28aa60663f683e4ae16a56afea23702bf261dffac1fce2bee405" prot="public">
+          <name>XV_HDMIC_VRRINFO_TYPE_NONE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga1c9ba73cbeb9c28aa60663f683e4ae16a2288b9f39286e6e9d00882cab1ee62f2" prot="public">
+          <name>XV_HDMIC_VRRINFO_TYPE_VTEM</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__hdmi__common_1gga1c9ba73cbeb9c28aa60663f683e4ae16a59ceff004aa7a3474c23fbca0cd8b29e" prot="public">
+          <name>XV_HDMIC_VRRINFO_TYPE_SPDIF</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="637" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="637" bodyend="641"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__hdmi__common_1ga1e7df7cffb821e6456671097b78499f6" prot="public" static="no">
+        <type>struct <ref refid="struct_x_h_d_m_i_c___a_v_i___info_frame" kindref="compound">XHDMIC_AVI_InfoFrame</ref></type>
+        <definition>typedef struct XHDMIC_AVI_InfoFrame  XHdmiC_AVI_InfoFrame</definition>
+        <argsstring></argsstring>
+        <name>XHdmiC_AVI_InfoFrame</name>
+        <briefdescription>
+<para>This typedef contains the data structure for Auxiliary Video Information Info frame. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="498" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__hdmi__common_1ga771769db5c5d4504c37ddc770088df09" prot="public" static="no">
+        <type>struct <ref refid="struct_x_hdmi_c___g_c_p___packet" kindref="compound">XHdmiC_GCP_Packet</ref></type>
+        <definition>typedef struct XHdmiC_GCP_Packet  XHdmiC_GeneralControlPacket</definition>
+        <argsstring></argsstring>
+        <name>XHdmiC_GeneralControlPacket</name>
+        <briefdescription>
+<para>This typedef contains the data structure for General Control Packet. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="509" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__hdmi__common_1gadd1f7b3c3bc3cd4fd48f6bb1a519e44d" prot="public" static="no">
+        <type>struct <ref refid="struct_x_hdmi_c___audio___info_frame" kindref="compound">XHdmiC_Audio_InfoFrame</ref></type>
+        <definition>typedef struct XHdmiC_Audio_InfoFrame  XHdmiC_AudioInfoFrame</definition>
+        <argsstring></argsstring>
+        <name>XHdmiC_AudioInfoFrame</name>
+        <briefdescription>
+<para>This typedef contains the data structure for Audio Infoframe. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="525" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__hdmi__common_1ga6053a84a6ce1bff4f4fee5f6ab6af2f5" prot="public" static="no">
+        <type>struct <ref refid="struct_x_hdmi_c___audio___metadata___packet" kindref="compound">XHdmiC_Audio_Metadata_Packet</ref></type>
+        <definition>typedef struct XHdmiC_Audio_Metadata_Packet  XHdmiC_AudioMetadata</definition>
+        <argsstring></argsstring>
+        <name>XHdmiC_AudioMetadata</name>
+        <briefdescription>
+<para>This typedef contains the data structure for Audio Metadata Infoframe. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="537" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__hdmi__common_1gad6b8399d61c1df4d2f43a9f8beae3929" prot="public" static="no">
+        <type>struct <ref refid="struct_x_hdmi_c___s_p_d___info_frame" kindref="compound">XHdmiC_SPD_InfoFrame</ref></type>
+        <definition>typedef struct XHdmiC_SPD_InfoFrame  XHdmiC_SPDInfoFrame</definition>
+        <argsstring></argsstring>
+        <name>XHdmiC_SPDInfoFrame</name>
+        <briefdescription>
+<para>This typedef contains the data structure for Source Product Descriptor Infoframe. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="570" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__hdmi__common_1gad015340b7446f0ee717fad548b74c316" prot="public" static="no">
+        <type>struct <ref refid="struct_x_hdmi_c___d_r_m___info_frame" kindref="compound">XHdmiC_DRM_InfoFrame</ref></type>
+        <definition>typedef struct XHdmiC_DRM_InfoFrame  XHdmiC_DRMInfoFrame</definition>
+        <argsstring></argsstring>
+        <name>XHdmiC_DRMInfoFrame</name>
+        <briefdescription>
+<para>This typedef contains the data structure for Dynamic Range and Mastering Infoframe. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="589" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__hdmi__common_1ga3ce8488141159167af137c6fd75a2319" prot="public" static="no" mutable="no">
+        <type>const XHdmiC_VicTable</type>
+        <definition>const XHdmiC_VicTable VicTable[VICTABLE_SIZE]</definition>
+        <argsstring>[VICTABLE_SIZE]</argsstring>
+        <name>VicTable</name>
+        <briefdescription>
+<para>This table contains the attributes for various standard resolutions. </para>        </briefdescription>
+        <detaileddescription>
+<para>Each entry is of the format: 1) Resolution ID 2) Video Identification Code. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__hdmi__common_1ga03c6484b37c30805484c437cd4cda400" prot="public" static="no" mutable="no">
+        <type>const <ref refid="struct_x_hdmi_c___frl_rate" kindref="compound">XHdmiC_FrlRate</ref></type>
+        <definition>const XHdmiC_FrlRate FrlRateTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>FrlRateTable</name>
+        <initializer>= {
+    {3, 0},
+    {3, 3},
+    {3, 6},
+    {4, 6},
+    {4, 8},
+    {4, 10},
+    {4, 12},
+}</initializer>
+        <briefdescription>
+<para>This table contains the attributes for various FRL Rate. </para>        </briefdescription>
+        <detaileddescription>
+<para>Each entry is of the format: 1) Number of lanes 2) Line Rate. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__hdmi__common_1ga408456dc0301bdfc2332d514f0b10619" prot="public" static="no" mutable="no">
+        <type>const <ref refid="struct_x_hdmi_c___t_m_d_s___n___table" kindref="compound">XHdmiC_TMDS_N_Table</ref></type>
+        <definition>const XHdmiC_TMDS_N_Table TMDSChar_N_Table[]</definition>
+        <argsstring>[]</argsstring>
+        <name>TMDSChar_N_Table</name>
+        <initializer>=
+{
+
+	{        0, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
+	{ 25200000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
+	{ 27000000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
+	{ 31500000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
+	{ 33750000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
+	{ 37800000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
+	{ 40500000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
+	{ 50400000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
+	{ 54000000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
+	{ 67500000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
+	{ 74250000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
+	{ 81000000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
+	{ 92812500, { 8192, 6272, 12288, 12544, 24576, 25088, 49152}},
+	{108000000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
+	{111375000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
+	{148500000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
+	{185625000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
+	{222750000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
+	{297000000, { 3072, 4704,  5120,  9408, 10240, 18816, 20480}},
+	{371250000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
+	{445500000, { 4096, 6272,  6144, 12544, 12288, 25088, 24576}},
+	{594000000, { 3072, 9408,  6144, 18816, 12288, 37632, 24576}}
+}</initializer>
+        <briefdescription>
+<para>This table contains the CTS and N value of each TMDS character rate. </para>        </briefdescription>
+        <detaileddescription>
+<para>Each entry is of the format: 1) Sample Frequency TMDS CLk, (32kHz, 44.1kHz, and 48kHz) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="240" bodyend="-1"/>
+        <referencedby refid="group__hdmi__common_1ga1b7793b7e86b20c67830f7693c15cd52" compoundref="xv__hdmic_8c" startline="305" endline="362">XHdmiC_TMDS_GetAudSampFreq</referencedby>
+        <referencedby refid="group__hdmi__common_1ga56cb0d46a7b567d7193cd28f2ffee1df" compoundref="xv__hdmic_8c" startline="271" endline="297">XHdmiC_TMDS_GetNVal</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__hdmi__common_1gac7f4c0dc7f1f00be3fcfebf493de5ec9" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdmi_c___f_r_l___c_t_s___n___val" kindref="compound">XHdmiC_FRL_CTS_N_Val</ref></type>
+        <definition>XHdmiC_FRL_CTS_N_Val XHdmiC_FRL_CTS_N_Table_t::CTS_NVal[5]</definition>
+        <argsstring>[5]</argsstring>
+        <name>CTS_NVal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="369" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__hdmi__common_1ga567039c29024b46839c4d34a8ac11f9e" prot="public" static="no" mutable="no">
+        <type>const XHdmiC_FRL_CTS_N_Table_t</type>
+        <definition>const XHdmiC_FRL_CTS_N_Table_t FRL_CTS_N_Table[]</definition>
+        <argsstring>[]</argsstring>
+        <name>FRL_CTS_N_Table</name>
+        <briefdescription>
+<para>This table contains the CTS and N value of each FRL character rate. </para>        </briefdescription>
+        <detaileddescription>
+<para>Each entry is of the format: 1) Sample Frequency (32kHz, 44.1kHz, and 48kHz) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="378" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="378" bodyend="-1"/>
+        <referencedby refid="group__hdmi__common_1gacca30ce011e378d78be159c4c11905eb" compoundref="xv__hdmic_8c" startline="486" endline="519">XHdmiC_FRL_GetAudSampFreq</referencedby>
+        <referencedby refid="group__hdmi__common_1ga980446cc43c26684b9ee7ca7e36d121f" compoundref="xv__hdmic_8c" startline="416" endline="480">XHdmiC_FRL_GetNVal</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__hdmi__common_1ga3ce8488141159167af137c6fd75a2319" prot="public" static="no" mutable="no">
+        <type>const XHdmiC_VicTable</type>
+        <definition>const XHdmiC_VicTable VicTable[VICTABLE_SIZE]</definition>
+        <argsstring>[VICTABLE_SIZE]</argsstring>
+        <name>VicTable</name>
+        <briefdescription>
+<para>This table contains the attributes for various standard resolutions. </para>        </briefdescription>
+        <detaileddescription>
+<para>Each entry is of the format: 1) Resolution ID 2) Video Identification Code. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="652" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__hdmi__common_1ga03c6484b37c30805484c437cd4cda400" prot="public" static="no" mutable="no">
+        <type>const <ref refid="struct_x_hdmi_c___frl_rate" kindref="compound">XHdmiC_FrlRate</ref></type>
+        <definition>const XHdmiC_FrlRate FrlRateTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>FrlRateTable</name>
+        <briefdescription>
+<para>This table contains the attributes for various FRL Rate. </para>        </briefdescription>
+        <detaileddescription>
+<para>Each entry is of the format: 1) Number of lanes 2) Line Rate. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="653" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__hdmi__common_1ga56cb0d46a7b567d7193cd28f2ffee1df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdmiC_TMDS_GetNVal</definition>
+        <argsstring>(u32 TMDSCharRate, XHdmiC_SamplingFrequency AudSampleFreq)</argsstring>
+        <name>XHdmiC_TMDS_GetNVal</name>
+        <param>
+          <type>u32</type>
+          <declname>TMDSCharRate</declname>
+        </param>
+        <param>
+          <type>XHdmiC_SamplingFrequency</type>
+          <declname>AudSampleFreq</declname>
+        </param>
+        <briefdescription>
+<para>This returns the the N Value based Audio Sampling Rate and TMDS Character Rate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="271" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="271" bodyend="297"/>
+        <references refid="group__hdmi__common_1ga408456dc0301bdfc2332d514f0b10619" compoundref="xv__hdmic_8c" startline="240">TMDSChar_N_Table</references>
+      </memberdef>
+      <memberdef kind="function" id="group__hdmi__common_1ga1b7793b7e86b20c67830f7693c15cd52" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XHdmiC_SamplingFrequency</type>
+        <definition>XHdmiC_SamplingFrequency XHdmiC_TMDS_GetAudSampFreq</definition>
+        <argsstring>(u32 TMDSCharRate, u32 N, u32 CTSVal)</argsstring>
+        <name>XHdmiC_TMDS_GetAudSampFreq</name>
+        <param>
+          <type>u32</type>
+          <declname>TMDSCharRate</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>N</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CTSVal</declname>
+        </param>
+        <briefdescription>
+<para>This returns the Audio Sampling Rate and TMDS Character Rate. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is not expected to be called for CTS/N as 0. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="305" bodyend="362"/>
+        <references refid="group__hdmi__common_1ga408456dc0301bdfc2332d514f0b10619" compoundref="xv__hdmic_8c" startline="240">TMDSChar_N_Table</references>
+      </memberdef>
+      <memberdef kind="function" id="group__hdmi__common_1ga980446cc43c26684b9ee7ca7e36d121f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdmiC_FRL_GetNVal</definition>
+        <argsstring>(XHdmiC_FRLCharRate FRLCharRate, XHdmiC_SamplingFrequencyVal AudSampleFreqVal)</argsstring>
+        <name>XHdmiC_FRL_GetNVal</name>
+        <param>
+          <type><ref refid="group__hdmi__common_1ga6e404939307b039508d3f33af8455869" kindref="member">XHdmiC_FRLCharRate</ref></type>
+          <declname>FRLCharRate</declname>
+        </param>
+        <param>
+          <type>XHdmiC_SamplingFrequencyVal</type>
+          <declname>AudSampleFreqVal</declname>
+        </param>
+        <briefdescription>
+<para>This returns the N value in FRL mode based on its Audio Sample Frequency. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="416" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="416" bodyend="480"/>
+        <references refid="group__hdmi__common_1ga567039c29024b46839c4d34a8ac11f9e" compoundref="xv__hdmic_8c" startline="378">FRL_CTS_N_Table</references>
+      </memberdef>
+      <memberdef kind="function" id="group__hdmi__common_1gacca30ce011e378d78be159c4c11905eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XHdmiC_SamplingFrequencyVal</type>
+        <definition>XHdmiC_SamplingFrequencyVal XHdmiC_FRL_GetAudSampFreq</definition>
+        <argsstring>(XHdmiC_FRLCharRate FRLCharRate, u32 CTS, u32 N)</argsstring>
+        <name>XHdmiC_FRL_GetAudSampFreq</name>
+        <param>
+          <type><ref refid="group__hdmi__common_1ga6e404939307b039508d3f33af8455869" kindref="member">XHdmiC_FRLCharRate</ref></type>
+          <declname>FRLCharRate</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CTS</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>N</declname>
+        </param>
+        <briefdescription>
+<para>This returns the Audio Sample Frequency for FRL. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="486" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="486" bodyend="519"/>
+        <references refid="group__hdmi__common_1ga567039c29024b46839c4d34a8ac11f9e" compoundref="xv__hdmic_8c" startline="378">FRL_CTS_N_Table</references>
+      </memberdef>
+      <memberdef kind="function" id="group__hdmi__common_1gadedfe27d385f30a0918deea8db39107e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XHdmiC_SamplingFrequency</type>
+        <definition>XHdmiC_SamplingFrequency XHdmiC_GetAudIFSampFreq</definition>
+        <argsstring>(XHdmiC_SamplingFrequencyVal AudSampFreqVal)</argsstring>
+        <name>XHdmiC_GetAudIFSampFreq</name>
+        <param>
+          <type>XHdmiC_SamplingFrequencyVal</type>
+          <declname>AudSampFreqVal</declname>
+        </param>
+        <briefdescription>
+<para>This converts the Aud. </para>        </briefdescription>
+        <detaileddescription>
+<para>Sampling Freq. Value to Audio Info-frame Sampling Freq. Format. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="526" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="526" bodyend="573"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdmi__common_1ga22f7bdff21611d718f0842e2e2cb1b69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XHdmiC_SamplingFrequencyVal</type>
+        <definition>XHdmiC_SamplingFrequencyVal XHdmiC_GetAudSampFreqVal</definition>
+        <argsstring>(XHdmiC_SamplingFrequency AudSampFreqVal)</argsstring>
+        <name>XHdmiC_GetAudSampFreqVal</name>
+        <param>
+          <type>XHdmiC_SamplingFrequency</type>
+          <declname>AudSampFreqVal</declname>
+        </param>
+        <briefdescription>
+<para>This converts the Audio Info-frame Sampling Freq. </para>        </briefdescription>
+        <detaileddescription>
+<para>Format. to Audio Sampling Freq. Value. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="580" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="580" bodyend="627"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdmi__common_1ga3825c903911981964d8782372a02eedb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HdmiC_GenerateCvtem</definition>
+        <argsstring>(XHdmiC_Aux *DscAuxFifo, XHdmiC_DscPpsData *DscPpsPtr, u16 HCact_Bytes, u16 HFrontPorch, u16 HBackPorch, u16 HSyncWidth)</argsstring>
+        <name>XV_HdmiC_GenerateCvtem</name>
+        <param>
+          <type>XHdmiC_Aux *</type>
+          <declname>DscAuxFifo</declname>
+        </param>
+        <param>
+          <type>XHdmiC_DscPpsData *</type>
+          <declname>DscPpsPtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>HCact_Bytes</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>HFrontPorch</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>HBackPorch</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>HSyncWidth</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to Generate CVTEM Packet. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>@return</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>None</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="641" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="641" bodyend="711"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdmi__common_1ga733dff91b92b0fae2218cf01456ef402" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HdmiC_ParseAVIInfoFrame</definition>
+        <argsstring>(XHdmiC_Aux *AuxPtr, XHdmiC_AVI_InfoFrame *infoFramePtr)</argsstring>
+        <name>XV_HdmiC_ParseAVIInfoFrame</name>
+        <param>
+          <type>XHdmiC_Aux *</type>
+          <declname>AuxPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__hdmi__common_1ga1e7df7cffb821e6456671097b78499f6" kindref="member">XHdmiC_AVI_InfoFrame</ref> *</type>
+          <declname>infoFramePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function retrieves the Auxiliary Video Information Info Frame. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="725" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="725" bodyend="781"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdmi__common_1gaccd59fa98f04c67259636ad94210a2df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HdmiC_ParseGCP</definition>
+        <argsstring>(XHdmiC_Aux *AuxPtr, XHdmiC_GeneralControlPacket *GcpPtr)</argsstring>
+        <name>XV_HdmiC_ParseGCP</name>
+        <param>
+          <type>XHdmiC_Aux *</type>
+          <declname>AuxPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__hdmi__common_1ga771769db5c5d4504c37ddc770088df09" kindref="member">XHdmiC_GeneralControlPacket</ref> *</type>
+          <declname>GcpPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function retrieves the General Control Packet. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="795" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="795" bodyend="810"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdmi__common_1ga913be1d343b1120ac73e586123029950" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HdmiC_ParseAudioInfoFrame</definition>
+        <argsstring>(XHdmiC_Aux *AuxPtr, XHdmiC_AudioInfoFrame *AudIFPtr)</argsstring>
+        <name>XV_HdmiC_ParseAudioInfoFrame</name>
+        <param>
+          <type>XHdmiC_Aux *</type>
+          <declname>AuxPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__hdmi__common_1gadd1f7b3c3bc3cd4fd48f6bb1a519e44d" kindref="member">XHdmiC_AudioInfoFrame</ref> *</type>
+          <declname>AudIFPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function retrieves the Audio Info Frame. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="824" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="824" bodyend="848"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdmi__common_1gaf78bf1f84599b853d1ea68945732bea4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HdmiC_ParseAudioMetadata</definition>
+        <argsstring>(XHdmiC_Aux *AuxPtr, XHdmiC_AudioMetadata *AudMetadata)</argsstring>
+        <name>XV_HdmiC_ParseAudioMetadata</name>
+        <param>
+          <type>XHdmiC_Aux *</type>
+          <declname>AuxPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__hdmi__common_1ga6053a84a6ce1bff4f4fee5f6ab6af2f5" kindref="member">XHdmiC_AudioMetadata</ref> *</type>
+          <declname>AudMetadata</declname>
+        </param>
+        <briefdescription>
+<para>This function retrieves the Audio Metadata. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="862" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="862" bodyend="885"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdmi__common_1ga79cef776b730305feab45c6a19dfb10a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HdmiC_ParseSPDIF</definition>
+        <argsstring>(XHdmiC_Aux *AuxPtr, XHdmiC_SPDInfoFrame *SPDInfoFrame)</argsstring>
+        <name>XV_HdmiC_ParseSPDIF</name>
+        <param>
+          <type>XHdmiC_Aux *</type>
+          <declname>AuxPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__hdmi__common_1gad6b8399d61c1df4d2f43a9f8beae3929" kindref="member">XHdmiC_SPDInfoFrame</ref> *</type>
+          <declname>SPDInfoFrame</declname>
+        </param>
+        <briefdescription>
+<para>This function retrieves the SPD Infoframes. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="899" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="899" bodyend="936"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdmi__common_1gabd1005bd244b1fc5c39f3378624524f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HdmiC_ParseDRMIF</definition>
+        <argsstring>(XHdmiC_Aux *AuxPtr, XHdmiC_DRMInfoFrame *DRMInfoFrame)</argsstring>
+        <name>XV_HdmiC_ParseDRMIF</name>
+        <param>
+          <type>XHdmiC_Aux *</type>
+          <declname>AuxPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__hdmi__common_1gad015340b7446f0ee717fad548b74c316" kindref="member">XHdmiC_DRMInfoFrame</ref> *</type>
+          <declname>DRMInfoFrame</declname>
+        </param>
+        <briefdescription>
+<para>This function retrieves the DRM Infoframes. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="950" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="950" bodyend="1008"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdmi__common_1ga9564cf5146bc722ba8f7e5bc22c32edd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XHdmiC_Aux</type>
+        <definition>XHdmiC_Aux XV_HdmiC_AVIIF_GeneratePacket</definition>
+        <argsstring>(XHdmiC_AVI_InfoFrame *infoFramePtr)</argsstring>
+        <name>XV_HdmiC_AVIIF_GeneratePacket</name>
+        <param>
+          <type><ref refid="group__hdmi__common_1ga1e7df7cffb821e6456671097b78499f6" kindref="member">XHdmiC_AVI_InfoFrame</ref> *</type>
+          <declname>infoFramePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function generates and sends Auxiliary Video Infoframes. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the HDMI TX Subsystem instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="1022" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="1022" bodyend="1152"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdmi__common_1ga33f0117552be5c9dd1f524734d6c6342" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XHdmiC_Aux</type>
+        <definition>XHdmiC_Aux XV_HdmiC_AudioIF_GeneratePacket</definition>
+        <argsstring>(XHdmiC_AudioInfoFrame *AudioInfoFrame)</argsstring>
+        <name>XV_HdmiC_AudioIF_GeneratePacket</name>
+        <param>
+          <type><ref refid="group__hdmi__common_1gadd1f7b3c3bc3cd4fd48f6bb1a519e44d" kindref="member">XHdmiC_AudioInfoFrame</ref> *</type>
+          <declname>AudioInfoFrame</declname>
+        </param>
+        <briefdescription>
+<para>This function generates and sends Audio Infoframes. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the HDMI TX Subsystem instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="1166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="1166" bodyend="1230"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdmi__common_1gacaa45c5624b2ddf0cd59bbed007a860a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XHdmiC_Aux</type>
+        <definition>XHdmiC_Aux XV_HdmiC_AudioMetadata_GeneratePacket</definition>
+        <argsstring>(XHdmiC_AudioMetadata *AudMetadata)</argsstring>
+        <name>XV_HdmiC_AudioMetadata_GeneratePacket</name>
+        <param>
+          <type><ref refid="group__hdmi__common_1ga6053a84a6ce1bff4f4fee5f6ab6af2f5" kindref="member">XHdmiC_AudioMetadata</ref> *</type>
+          <declname>AudMetadata</declname>
+        </param>
+        <briefdescription>
+<para>This function generates and sends Audio Metadata Packet. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the HDMI TX Subsystem instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="1244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="1244" bodyend="1278"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdmi__common_1gaaaf85234d177f1e83dacb616b40e744b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XHdmiC_Aux</type>
+        <definition>XHdmiC_Aux XV_HdmiC_SPDIF_GeneratePacket</definition>
+        <argsstring>(XHdmiC_SPDInfoFrame *SPDInfoFrame)</argsstring>
+        <name>XV_HdmiC_SPDIF_GeneratePacket</name>
+        <param>
+          <type><ref refid="group__hdmi__common_1gad6b8399d61c1df4d2f43a9f8beae3929" kindref="member">XHdmiC_SPDInfoFrame</ref> *</type>
+          <declname>SPDInfoFrame</declname>
+        </param>
+        <briefdescription>
+<para>This function generates and sends SPD Infoframes. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the HDMI TX Subsystem instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="1292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="1292" bodyend="1366"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdmi__common_1ga95f65ea159bdedfc87d998e98e7e53cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HdmiC_DRMIF_GeneratePacket</definition>
+        <argsstring>(XHdmiC_DRMInfoFrame *DRMInfoFrame, XHdmiC_Aux *aux)</argsstring>
+        <name>XV_HdmiC_DRMIF_GeneratePacket</name>
+        <param>
+          <type><ref refid="group__hdmi__common_1gad015340b7446f0ee717fad548b74c316" kindref="member">XHdmiC_DRMInfoFrame</ref> *</type>
+          <declname>DRMInfoFrame</declname>
+        </param>
+        <param>
+          <type>XHdmiC_Aux *</type>
+          <declname>aux</declname>
+        </param>
+        <briefdescription>
+<para>This function generates and sends DRM Infoframes. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the HDMI TX Subsystem instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="1380" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="1380" bodyend="1461"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdmi__common_1ga802b31cd86479d6c5b24afded80bf7c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__hdmi__common_1gaa43dceac5eee488e35c57a5616f705db" kindref="member">XHdmiC_Colorspace</ref></type>
+        <definition>XHdmiC_Colorspace XV_HdmiC_XVidC_To_IfColorformat</definition>
+        <argsstring>(XVidC_ColorFormat ColorFormat)</argsstring>
+        <name>XV_HdmiC_XVidC_To_IfColorformat</name>
+        <param>
+          <type>XVidC_ColorFormat</type>
+          <declname>ColorFormat</declname>
+        </param>
+        <briefdescription>
+<para>This function converts the XVidC_ColorFormat to XHdmiC_Colorspace. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ColorFormat</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the XVidC_ColorFormat value to be converted</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XHdmiC_Colorspace value.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="1475" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="1475" bodyend="1501"/>
+        <references refid="group__hdmi__common_1ggaa43dceac5eee488e35c57a5616f705dbaf58dbf25b748d7074aab4f8b3b3721e6" compoundref="xv__hdmic_8h" startline="178">XHDMIC_COLORSPACE_YUV420</references>
+      </memberdef>
+      <memberdef kind="function" id="group__hdmi__common_1ga2fe510c1663120f24d8baaa61b4396ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XVidC_AspectRatio</type>
+        <definition>XVidC_AspectRatio XV_HdmiC_IFAspectRatio_To_XVidC</definition>
+        <argsstring>(XHdmiC_PicAspectRatio AR)</argsstring>
+        <name>XV_HdmiC_IFAspectRatio_To_XVidC</name>
+        <param>
+          <type><ref refid="group__hdmi__common_1ga364c90224725c9e995d2b4298619b24f" kindref="member">XHdmiC_PicAspectRatio</ref></type>
+          <declname>AR</declname>
+        </param>
+        <briefdescription>
+<para>This function converts the XVidC_ColorDepth to XHdmiC_ColorDepth. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Bpc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the XVidC_ColorDepth value to be converted</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XHdmiC_ColorDepth value.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="1515" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="1515" bodyend="1533"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__hdmi__common_1ga5bf76c0231ad8ad5c83d29ff2c1a7398" prot="public" static="no">
+        <name>VICTABLE_SIZE</name>
+        <initializer>166</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdmi__common_1ga985651dd379585bc93a97ac8f34eb789" prot="public" static="no">
+        <name>AUX_VSIF_TYPE</name>
+        <initializer>0x81</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdmi__common_1ga37fd5b73d1875e9d2f47d016601bf376" prot="public" static="no">
+        <name>AUX_AVI_INFOFRAME_TYPE</name>
+        <initializer>0x82</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdmi__common_1ga8d472706c4172a0fa97d646cf3c3aa4a" prot="public" static="no">
+        <name>AUX_GENERAL_CONTROL_PACKET_TYPE</name>
+        <initializer>0x3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdmi__common_1ga96430d6937f5b1cb0298443022ac7150" prot="public" static="no">
+        <name>AUX_AUDIO_INFOFRAME_TYPE</name>
+        <initializer>0x84</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdmi__common_1ga6d1ac91af01b56811034cbcc4dd13784" prot="public" static="no">
+        <name>AUX_AUDIO_METADATA_PACKET_TYPE</name>
+        <initializer>0x0D</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdmi__common_1gac551da542e313e50990e842591561f54" prot="public" static="no">
+        <name>AUX_SPD_INFOFRAME_TYPE</name>
+        <initializer>0x83</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdmi__common_1ga4e89e30213bbb67fdfe4db7100dea056" prot="public" static="no">
+        <name>AUX_DRM_INFOFRAME_TYPE</name>
+        <initializer>0x87</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains common utility functions that are typically used by hdmi-related drivers and applications. </para>    </briefdescription>
+    <detaileddescription>
+<para>}</para><para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   EB  21/12/17 Initial release.
+1.1   EB  10/04/18 Fixed a bug in XV_HdmiC_ParseAudioInfoFrame
+1.2   EB   15/08/19 Added enumeration for HDMI 2.1 Support
+      mmo  15/08/19 Updated the VIC table to support HDMI 2.1 Resolution
+                    Added Audio ACR CTS/N Enumeration and Library
+1.3   EB  29/10/19 Fixed a bug where XV_HdmiC_AVIIF_GeneratePacket and
+                       XV_HdmiC_AudioIF_GeneratePacket return incorrect Aux
+          02/12/19 Added 3D Audio Enumerations and APIs
+1.6   kp  15/07/21 Updated the VIC table as per latest CTA spec
+          30/08/21 Added missing video resolution IDs
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,291 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xhdmi__edid_8h" kind="file">
+    <compoundname>xhdmi_edid.h</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">stdlib.h</includes>
+    <includes local="yes">xvidc_edid_ext.h</includes>
+    <includedby refid="xhdmi__edid_8c" local="yes">xhdmi_edid.c</includedby>
+    <incdepgraph>
+      <node id="11896">
+        <label>stdlib.h</label>
+      </node>
+      <node id="11897">
+        <label>xvidc_edid_ext.h</label>
+      </node>
+      <node id="11893">
+        <label>xhdmi_edid.h</label>
+        <link refid="xhdmi_edid.h"/>
+        <childnode refid="11894" relation="include">
+        </childnode>
+        <childnode refid="11895" relation="include">
+        </childnode>
+        <childnode refid="11896" relation="include">
+        </childnode>
+        <childnode refid="11897" relation="include">
+        </childnode>
+      </node>
+      <node id="11894">
+        <label>xparameters.h</label>
+      </node>
+      <node id="11895">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="11899">
+        <label>xhdmi_edid.c</label>
+        <link refid="xhdmi__edid_8c"/>
+      </node>
+      <node id="11898">
+        <label>xhdmi_edid.h</label>
+        <link refid="xhdmi_edid.h"/>
+        <childnode refid="11899" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xhdmi__edid_8h_1a89011d5a06daa5f37bfee23cce604b1e" prot="public" static="no">
+        <name>_XHDMI_EDID_H_</name>
+        <briefdescription>
+<para>prevent circular inclusions by using protection macros </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xhdmi_edid.h" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xhdmi_edid.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains set of EDID demonstrates different capability. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00  EB     22/05/18 Initial release.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>–<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor">#ifndef<sp/>_XHDMI_EDID_H_</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="24" refid="xhdmi__edid_8h_1a89011d5a06daa5f37bfee23cce604b1e" refkind="member"><highlight class="preprocessor">#define<sp/>_XHDMI_EDID_H_</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidc_edid_ext.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HDMIRXSS1_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_hdmirxss1.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HDMITXSS1_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_hdmitxss1.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HDMITXSS1_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="comment">/*Magic<sp/>Number:<sp/>Maximum<sp/>Number<sp/>of<sp/>Retries<sp/>for<sp/>EDID<sp/>Read*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>READEDIDRETRY<sp/>5</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="comment">/*Magic<sp/>Number:<sp/>Maximum<sp/>Number<sp/>of<sp/>Retries<sp/>for<sp/>SCDC<sp/>Read*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>READSCDCRETRY<sp/>5</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="comment">/*Magic<sp/>Number:<sp/>Maximum<sp/>Number<sp/>of<sp/>Retries<sp/>for<sp/>EDID<sp/>Read<sp/>Interval*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>READINTERVAL<sp/>25000</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor">#define<sp/>XV_HDMI_SINK_NO_WARNINGS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_HDMI_SINK_EDID_SCDC_MISMATCH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Sink&apos;s<sp/>EDID<sp/>indicates<sp/>supported<sp/>TMDS<sp/>more<sp/>than<sp/>340Mbps</highlight></codeline>
+<codeline lineno="57"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>and<sp/>the<sp/>HF-VSDB<sp/>HDMI<sp/>2.0<sp/>is<sp/>available<sp/>but<sp/>the</highlight></codeline>
+<codeline lineno="58"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>RR_Capable/Read<sp/>Ready<sp/>is<sp/>not<sp/>asserted<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XV_HDMI_SINK_EDID_20_VSDB20_NA_SCDC_PASS<sp/><sp/>0x02</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Sink&apos;s<sp/>EDID<sp/>indicates<sp/>supported<sp/>TMDS<sp/>more<sp/>than<sp/>340Mbps</highlight></codeline>
+<codeline lineno="61"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>and<sp/>the<sp/>HF-VSDB<sp/>HDMI<sp/>2.0<sp/>is<sp/>not<sp/>available<sp/>but<sp/>the<sp/>SCDC</highlight></codeline>
+<codeline lineno="62"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>accessible*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XV_HDMI_SINK_EDID_20_VSDB20_ACC_SCDC_FAIL<sp/>0x04</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Sink&apos;s<sp/>EDID<sp/>indicates<sp/>supported<sp/>TMDS<sp/>more<sp/>than<sp/>340Mbps</highlight></codeline>
+<codeline lineno="65"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>and<sp/>the<sp/>HF-VSDB<sp/>HDMI<sp/>2.0<sp/>is<sp/>available<sp/>but<sp/>the<sp/>SCDC</highlight></codeline>
+<codeline lineno="66"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>not<sp/>accessible*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XV_HDMI_SINK_EDID_14_SCDC_PASS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Sink&apos;s<sp/>EDID<sp/>indicates<sp/>supported<sp/>TMDS<sp/>less<sp/>than<sp/>340Mbps</highlight></codeline>
+<codeline lineno="69"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>(HDMI<sp/>1.4)<sp/>but<sp/>the<sp/>SCDC<sp/>Register<sp/>is<sp/>accessible*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XV_HDMI_SINK_20_NOT_CAPABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Sink<sp/>not<sp/>HDMI<sp/>2.0<sp/>Capable<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XV_HDMI_SINK_DEEP_COLOR_10_NOT_SUPP<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Deep<sp/>Color<sp/>10bpc<sp/>is<sp/>not<sp/>supported<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XV_HDMI_SINK_DEEP_COLOR_12_NOT_SUPP<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Deep<sp/>Color<sp/>12bpc<sp/>is<sp/>not<sp/>supported<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XV_HDMI_SINK_DEEP_COLOR_16_NOT_SUPP<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Deep<sp/>Color<sp/>16bpc<sp/>is<sp/>not<sp/>supported<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XV_SINK_NOT_HDMI<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x100</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Sink<sp/>is<sp/>not<sp/>HDMI<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="comment">/*EDID<sp/>Parsing<sp/>Data<sp/>Structure<sp/>(Application)*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_VidC_EdidCntrlParam<sp/>EdidCtrlParam;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Control<sp/>Parameter<sp/>from<sp/>the<sp/>EDID<sp/>Driver*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HdmiSinkWarningFlag;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Hdmi<sp/>Sink<sp/>Warning<sp/>Flag*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Scratch<sp/>Pad<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>EdidCableConnectRead;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Flag<sp/>indicate<sp/>EDID<sp/>Read<sp/>during<sp/>cable</highlight></codeline>
+<codeline lineno="92"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>connect</highlight></codeline>
+<codeline lineno="93"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IsReReadSinkEdid;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Status<sp/>Flag<sp/>for<sp/>Re-Read<sp/>EDID*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IsReReadSCDC;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Status<sp/>Flag<sp/>for<sp/>Re-Read<sp/>SCDC*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IsHDMI20SinkCapable;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Status<sp/>Flag<sp/>for<sp/>HDMI<sp/>2.0<sp/>Capable*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SinkCheckRetryCount;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Counter<sp/>for<sp/>Re-Read<sp/>EDID<sp/>Interval</highlight></codeline>
+<codeline lineno="102"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>(Magic<sp/>Number)*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IsReReadSinkEdidRetry;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Counter<sp/>for<sp/>Flag<sp/>for<sp/>Re-Read<sp/>EDID<sp/>Retry*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IsReReadScdcRetry;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Counter<sp/>for<sp/>Re-Read<sp/>SCDC<sp/>of<sp/>Sink<sp/>Retry</highlight></codeline>
+<codeline lineno="107"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>(Non-EDID<sp/>related)*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal">}<sp/>EdidHdmi;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>EdidHdmi<sp/>EdidHdmi_t;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HDMIRXSS1_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="114"><highlight class="comment"><sp/><sp/>EDID</highlight></codeline>
+<codeline lineno="115"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Default<sp/>EDID<sp/>for<sp/>HDMI<sp/>2.1<sp/>RX<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>SampleEdid[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0x00,<sp/>0x61,<sp/>0x98,<sp/>0x34,<sp/>0x12,<sp/>0x78,<sp/>0x56,<sp/>0x34,<sp/>0x12,</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x17,<sp/>0x1D,<sp/>0x01,<sp/>0x03,<sp/>0x80,<sp/>0xA0,<sp/>0x5A,<sp/>0x78,<sp/>0x0A,<sp/>0xEE,<sp/>0x91,<sp/>0xA3,<sp/>0x54,<sp/>0x4C,<sp/>0x99,<sp/>0x26,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0F,<sp/>0x50,<sp/>0x54,<sp/>0x21,<sp/>0x00,<sp/>0x00,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x08,<sp/>0xE8,<sp/>0x00,<sp/>0x30,<sp/>0xF2,<sp/>0x70,<sp/>0x5A,<sp/>0x80,<sp/>0xB0,<sp/>0x58,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x8A,<sp/>0x00,<sp/>0x20,<sp/>0xC2,<sp/>0x31,<sp/>0x00,<sp/>0x00,<sp/>0x1E,<sp/>0x02,<sp/>0x3A,<sp/>0x80,<sp/>0x18,<sp/>0x71,<sp/>0x38,<sp/>0x2D,<sp/>0x40,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x58,<sp/>0x2C,<sp/>0x45,<sp/>0x00,<sp/>0x20,<sp/>0xC2,<sp/>0x31,<sp/>0x00,<sp/>0x00,<sp/>0x1E,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0xFD,<sp/>0x00,<sp/>0x18,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x90,<sp/>0x0F,<sp/>0x8C,<sp/>0x77,<sp/>0x00,<sp/>0x0A,<sp/>0x20,<sp/>0x20,<sp/>0x20,<sp/>0x20,<sp/>0x20,<sp/>0x20,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0xFC,</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00,<sp/>0x58,<sp/>0x49,<sp/>0x4C,<sp/>0x49,<sp/>0x4E,<sp/>0x58,<sp/>0x20,<sp/>0x48,<sp/>0x44,<sp/>0x4D,<sp/>0x49,<sp/>0x32,<sp/>0x31,<sp/>0x01,<sp/>0x18,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02,<sp/>0x03,<sp/>0x46,<sp/>0xF5,<sp/>0x58,<sp/>0xC4,<sp/>0xC3,<sp/>0xC2,<sp/>0xD4,<sp/>0xD7,<sp/>0xD6,<sp/>0xC1,<sp/>0x7F,<sp/>0x7E,<sp/>0x7D,<sp/>0xDB,</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xDA,<sp/>0x66,<sp/>0x65,<sp/>0x76,<sp/>0x75,<sp/>0x61,<sp/>0x60,<sp/>0x3F,<sp/>0x40,<sp/>0x10,<sp/>0x1F,<sp/>0xC7,<sp/>0xC6,<sp/>0x2C,<sp/>0x0F,<sp/>0x7F,</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x07,<sp/>0x5F,<sp/>0x7C,<sp/>0x01,<sp/>0x57,<sp/>0x06,<sp/>0x03,<sp/>0x67,<sp/>0x7E,<sp/>0x03,<sp/>0x6B,<sp/>0x03,<sp/>0x0C,<sp/>0x00,<sp/>0x10,<sp/>0x00,</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x78,<sp/>0x3C,<sp/>0x20,<sp/>0x00,<sp/>0x20,<sp/>0x03,<sp/>0x67,<sp/>0xD8,<sp/>0x5D,<sp/>0xC4,<sp/>0x01,<sp/>0x78,<sp/>0x80,<sp/>0x63,<sp/>0xE4,<sp/>0x0F,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF,<sp/>0xFF,<sp/>0xC3,<sp/>0xE2,<sp/>0x00,<sp/>0xCF,<sp/>0x08,<sp/>0xE8,<sp/>0x00,<sp/>0x30,<sp/>0xF2,<sp/>0x70,<sp/>0x5A,<sp/>0x80,<sp/>0xB0,<sp/>0x58,</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x8A,<sp/>0x00,<sp/>0x20,<sp/>0xC2,<sp/>0x31,<sp/>0x00,<sp/>0x00,<sp/>0x1E,<sp/>0x04,<sp/>0x74,<sp/>0x00,<sp/>0x30,<sp/>0xF2,<sp/>0x70,<sp/>0x5A,<sp/>0x80,</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xB0,<sp/>0x58,<sp/>0x8A,<sp/>0x00,<sp/>0x20,<sp/>0xC2,<sp/>0x31,<sp/>0x00,<sp/>0x00,<sp/>0x1E,<sp/>0x02,<sp/>0x3A,<sp/>0x80,<sp/>0x18,<sp/>0x71,<sp/>0x38,</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2D,<sp/>0x40,<sp/>0x58,<sp/>0x2C,<sp/>0x45,<sp/>0x00,<sp/>0x20,<sp/>0xC2,<sp/>0x31,<sp/>0x00,<sp/>0x00,<sp/>0x1E,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0xCB</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>HDMI<sp/>2.1<sp/>RX<sp/><sp/>-<sp/>VRR<sp/>+<sp/>FRL*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>SampleEdid_1[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0x00,<sp/>0x61,<sp/>0x98,<sp/>0x34,<sp/>0x12,<sp/>0x78,<sp/>0x56,<sp/>0x34,<sp/>0x12,</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x17,<sp/>0x1D,<sp/>0x01,<sp/>0x03,<sp/>0x80,<sp/>0xA0,<sp/>0x5A,<sp/>0x78,<sp/>0x0A,<sp/>0xEE,<sp/>0x91,<sp/>0xA3,<sp/>0x54,<sp/>0x4C,<sp/>0x99,<sp/>0x26,</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0F,<sp/>0x50,<sp/>0x54,<sp/>0x21,<sp/>0x00,<sp/>0x00,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x08,<sp/>0xE8,<sp/>0x00,<sp/>0x30,<sp/>0xF2,<sp/>0x70,<sp/>0x5A,<sp/>0x80,<sp/>0xB0,<sp/>0x58,</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x8A,<sp/>0x00,<sp/>0x20,<sp/>0xC2,<sp/>0x31,<sp/>0x00,<sp/>0x00,<sp/>0x1E,<sp/>0x02,<sp/>0x3A,<sp/>0x80,<sp/>0x18,<sp/>0x71,<sp/>0x38,<sp/>0x2D,<sp/>0x40,</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x58,<sp/>0x2C,<sp/>0x45,<sp/>0x00,<sp/>0x20,<sp/>0xC2,<sp/>0x31,<sp/>0x00,<sp/>0x00,<sp/>0x1E,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0xFD,<sp/>0x00,<sp/>0x18,</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x90,<sp/>0x0F,<sp/>0x8C,<sp/>0x3C,<sp/>0x00,<sp/>0x0A,<sp/>0x20,<sp/>0x20,<sp/>0x20,<sp/>0x20,<sp/>0x20,<sp/>0x20,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0xFC,</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00,<sp/>0x58,<sp/>0x49,<sp/>0x4C,<sp/>0x49,<sp/>0x4E,<sp/>0x58,<sp/>0x20,<sp/>0x48,<sp/>0x44,<sp/>0x4D,<sp/>0x49,<sp/>0x32,<sp/>0x31,<sp/>0x01,<sp/>0x53,</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02,<sp/>0x03,<sp/>0x4B,<sp/>0xF4,<sp/>0x52,<sp/>0xC4,<sp/>0xC3,<sp/>0xC2,<sp/>0xDB,<sp/>0xDA,<sp/>0x66,<sp/>0x65,<sp/>0x76,<sp/>0x75,<sp/>0x61,<sp/>0x60,</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3F,<sp/>0x40,<sp/>0x10,<sp/>0x1F,<sp/>0x21,<sp/>0xC7,<sp/>0xC6,<sp/>0x2C,<sp/>0x0F,<sp/>0x7F,<sp/>0x07,<sp/>0x5F,<sp/>0x7C,<sp/>0x01,<sp/>0x57,<sp/>0x06,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x03,<sp/>0x67,<sp/>0x7E,<sp/>0x03,<sp/>0x6B,<sp/>0x03,<sp/>0x0C,<sp/>0x00,<sp/>0x10,<sp/>0x00,<sp/>0x38,<sp/>0x3C,<sp/>0x20,<sp/>0x00,<sp/>0x20,<sp/>0x03,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x6A,<sp/>0xD8,<sp/>0x5D,<sp/>0xC4,<sp/>0x01,<sp/>0x78,<sp/>0x80,<sp/>0x63,<sp/>0x1E,<sp/>0x18,<sp/>0x78,<sp/>0xE4,<sp/>0x0F,<sp/>0xFF,<sp/>0xFF,<sp/>0x01,</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xE2,<sp/>0x00,<sp/>0xCF,<sp/>0xE3,<sp/>0x06,<sp/>0x0D,<sp/>0x01,<sp/>0xE3,<sp/>0x05,<sp/>0xE0,<sp/>0x00,<sp/>0x08,<sp/>0xE8,<sp/>0x00,<sp/>0x30,<sp/>0xF2,</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x70,<sp/>0x5A,<sp/>0x80,<sp/>0xB0,<sp/>0x58,<sp/>0x8A,<sp/>0x00,<sp/>0x20,<sp/>0xC2,<sp/>0x31,<sp/>0x00,<sp/>0x00,<sp/>0x1E,<sp/>0x02,<sp/>0x3A,<sp/>0x80,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x18,<sp/>0x71,<sp/>0x38,<sp/>0x2D,<sp/>0x40,<sp/>0x58,<sp/>0x2C,<sp/>0x4A,<sp/>0x00,<sp/>0x20,<sp/>0xC2,<sp/>0x31,<sp/>0x00,<sp/>0x00,<sp/>0x1E,<sp/>0x00,</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x9C</highlight></codeline>
+<codeline lineno="155"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>HDMI<sp/>2.1<sp/>RX<sp/><sp/>-<sp/>VRR<sp/>+<sp/>FREE<sp/>SYNC*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>SampleEdid_2[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0x00,<sp/>0x61,<sp/>0x98,<sp/>0x34,<sp/>0x12,<sp/>0x78,<sp/>0x56,<sp/>0x34,<sp/>0x12,</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0E,<sp/>0x1C,<sp/>0x01,<sp/>0x03,<sp/>0x80,<sp/>0xA0,<sp/>0x5A,<sp/>0x78,<sp/>0x0A,<sp/>0xEE,<sp/>0x91,<sp/>0xA3,<sp/>0x54,<sp/>0x4C,<sp/>0x99,<sp/>0x26,</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0F,<sp/>0x50,<sp/>0x54,<sp/>0x21,<sp/>0x08,<sp/>0x00,<sp/>0x71,<sp/>0x4F,<sp/>0x81,<sp/>0xC0,<sp/>0x81,<sp/>0x00,<sp/>0x81,<sp/>0x80,<sp/>0x95,<sp/>0x00,</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xA9,<sp/>0xC0,<sp/>0xB3,<sp/>0x00,<sp/>0x01,<sp/>0x01,<sp/>0x08,<sp/>0xE8,<sp/>0x00,<sp/>0x30,<sp/>0xF2,<sp/>0x70,<sp/>0x5A,<sp/>0x80,<sp/>0xB0,<sp/>0x58,</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x8A,<sp/>0x00,<sp/>0x40,<sp/>0x84,<sp/>0x63,<sp/>0x00,<sp/>0x00,<sp/>0x1E,<sp/>0x02,<sp/>0x3A,<sp/>0x80,<sp/>0x18,<sp/>0x71,<sp/>0x38,<sp/>0x2D,<sp/>0x40,</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x58,<sp/>0x2C,<sp/>0x45,<sp/>0x00,<sp/>0x40,<sp/>0x84,<sp/>0x63,<sp/>0x00,<sp/>0x00,<sp/>0x1E,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0xFD,<sp/>0x00,<sp/>0x18,</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4B,<sp/>0x0F,<sp/>0x8C,<sp/>0x3C,<sp/>0x00,<sp/>0x0A,<sp/>0x20,<sp/>0x20,<sp/>0x20,<sp/>0x20,<sp/>0x20,<sp/>0x20,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0xFC,</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00,<sp/>0x58,<sp/>0x49,<sp/>0x4C,<sp/>0x49,<sp/>0x4E,<sp/>0x58,<sp/>0x20,<sp/>0x48,<sp/>0x44,<sp/>0x4D,<sp/>0x49,<sp/>0x0A,<sp/>0x20,<sp/>0x01,<sp/>0x85,</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02,<sp/>0x03,<sp/>0x51,<sp/>0xF4,<sp/>0x57,<sp/>0x61,<sp/>0x10,<sp/>0x1F,<sp/>0x04,<sp/>0x13,<sp/>0x05,<sp/>0x14,<sp/>0x20,<sp/>0x21,<sp/>0x22,<sp/>0x5D,</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x5E,<sp/>0x5F,<sp/>0x60,<sp/>0x65,<sp/>0x66,<sp/>0x62,<sp/>0x63,<sp/>0x64,<sp/>0x07,<sp/>0x16,<sp/>0x03,<sp/>0x12,<sp/>0x23,<sp/>0x09,<sp/>0x07,<sp/>0x07,</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x6B,<sp/>0x03,<sp/>0x0C,<sp/>0x00,<sp/>0x10,<sp/>0x00,<sp/>0x78,<sp/>0x3C,<sp/>0x20,<sp/>0x00,<sp/>0x20,<sp/>0x03,<sp/>0x67,<sp/>0xD8,<sp/>0x5D,<sp/>0xC4,</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01,<sp/>0x78,<sp/>0x80,<sp/>0x07,<sp/>0x6D,<sp/>0x1A,<sp/>0x00,<sp/>0x00,<sp/>0x02,<sp/>0x1B,<sp/>0x1E,<sp/>0x90,<sp/>0x00,<sp/>0x04,<sp/>0x64,<sp/>0x32,</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x14,<sp/>0x00,<sp/>0xE3,<sp/>0x0F,<sp/>0x01,<sp/>0xE0,<sp/>0xE2,<sp/>0x00,<sp/>0xCF,<sp/>0xE3,<sp/>0x06,<sp/>0x0D,<sp/>0x01,<sp/>0xE3,<sp/>0x05,<sp/>0xE0,</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00,<sp/>0x02,<sp/>0x3A,<sp/>0x80,<sp/>0x18,<sp/>0x71,<sp/>0x38,<sp/>0x2D,<sp/>0x40,<sp/>0x58,<sp/>0x2C,<sp/>0x45,<sp/>0x00,<sp/>0x20,<sp/>0xC2,<sp/>0x31,</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00,<sp/>0x00,<sp/>0x1E,<sp/>0x08,<sp/>0xE8,<sp/>0x00,<sp/>0x30,<sp/>0xF2,<sp/>0x70,<sp/>0x5A,<sp/>0x80,<sp/>0xB0,<sp/>0x58,<sp/>0x8A,<sp/>0x00,<sp/>0x20,</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xC2,<sp/>0x31,<sp/>0x00,<sp/>0x00,<sp/>0x1E,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x3B</highlight></codeline>
+<codeline lineno="177"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>HDMI<sp/>2.1<sp/>RX<sp/><sp/>-<sp/>VRR<sp/>+<sp/>TMDS*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>SampleEdid_3[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="180"><highlight class="normal">0x00,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0x00,<sp/>0x61,<sp/>0x98,<sp/>0x34,<sp/>0x12,<sp/>0x78,<sp/>0x56,<sp/>0x34,<sp/>0x12,</highlight></codeline>
+<codeline lineno="181"><highlight class="normal">0x17,<sp/>0x1D,<sp/>0x01,<sp/>0x03,<sp/>0x80,<sp/>0xA0,<sp/>0x5A,<sp/>0x78,<sp/>0x0A,<sp/>0xEE,<sp/>0x91,<sp/>0xA3,<sp/>0x54,<sp/>0x4C,<sp/>0x99,<sp/>0x26,</highlight></codeline>
+<codeline lineno="182"><highlight class="normal">0x0F,<sp/>0x50,<sp/>0x54,<sp/>0x21,<sp/>0x00,<sp/>0x00,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,</highlight></codeline>
+<codeline lineno="183"><highlight class="normal">0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x08,<sp/>0xE8,<sp/>0x00,<sp/>0x30,<sp/>0xF2,<sp/>0x70,<sp/>0x5A,<sp/>0x80,<sp/>0xB0,<sp/>0x58,</highlight></codeline>
+<codeline lineno="184"><highlight class="normal">0x8A,<sp/>0x00,<sp/>0x20,<sp/>0xC2,<sp/>0x31,<sp/>0x00,<sp/>0x00,<sp/>0x1E,<sp/>0x02,<sp/>0x3A,<sp/>0x80,<sp/>0x18,<sp/>0x71,<sp/>0x38,<sp/>0x2D,<sp/>0x40,</highlight></codeline>
+<codeline lineno="185"><highlight class="normal">0x58,<sp/>0x2C,<sp/>0x45,<sp/>0x00,<sp/>0x20,<sp/>0xC2,<sp/>0x31,<sp/>0x00,<sp/>0x00,<sp/>0x1E,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0xFD,<sp/>0x00,<sp/>0x18,</highlight></codeline>
+<codeline lineno="186"><highlight class="normal">0x90,<sp/>0x0F,<sp/>0x8C,<sp/>0x3C,<sp/>0x00,<sp/>0x0A,<sp/>0x20,<sp/>0x20,<sp/>0x20,<sp/>0x20,<sp/>0x20,<sp/>0x20,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0xFC,</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">0x00,<sp/>0x58,<sp/>0x49,<sp/>0x4C,<sp/>0x49,<sp/>0x4E,<sp/>0x58,<sp/>0x20,<sp/>0x48,<sp/>0x44,<sp/>0x4D,<sp/>0x49,<sp/>0x32,<sp/>0x31,<sp/>0x01,<sp/>0x53,</highlight></codeline>
+<codeline lineno="188"><highlight class="normal">0x02,<sp/>0x03,<sp/>0x4B,<sp/>0xF4,<sp/>0x52,<sp/>0xC4,<sp/>0xC3,<sp/>0xC2,<sp/>0xDB,<sp/>0xDA,<sp/>0x66,<sp/>0x65,<sp/>0x76,<sp/>0x75,<sp/>0x61,<sp/>0x60,</highlight></codeline>
+<codeline lineno="189"><highlight class="normal">0x3F,<sp/>0x40,<sp/>0x10,<sp/>0x1F,<sp/>0x21,<sp/>0xC7,<sp/>0xC6,<sp/>0x2C,<sp/>0x0F,<sp/>0x7F,<sp/>0x07,<sp/>0x5F,<sp/>0x7C,<sp/>0x01,<sp/>0x57,<sp/>0x06,</highlight></codeline>
+<codeline lineno="190"><highlight class="normal">0x03,<sp/>0x67,<sp/>0x7E,<sp/>0x03,<sp/>0x6B,<sp/>0x03,<sp/>0x0C,<sp/>0x00,<sp/>0x10,<sp/>0x00,<sp/>0x38,<sp/>0x3C,<sp/>0x20,<sp/>0x00,<sp/>0x20,<sp/>0x03,</highlight></codeline>
+<codeline lineno="191"><highlight class="normal">0x6A,<sp/>0xD8,<sp/>0x5D,<sp/>0xC4,<sp/>0x01,<sp/>0x78,<sp/>0x80,<sp/>0x03,<sp/>0x1E,<sp/>0x18,<sp/>0x78,<sp/>0xE4,<sp/>0x0F,<sp/>0xFF,<sp/>0xFF,<sp/>0x01,</highlight></codeline>
+<codeline lineno="192"><highlight class="normal">0xE2,<sp/>0x00,<sp/>0xCF,<sp/>0xE3,<sp/>0x06,<sp/>0x0D,<sp/>0x01,<sp/>0xE3,<sp/>0x05,<sp/>0xE0,<sp/>0x00,<sp/>0x08,<sp/>0xE8,<sp/>0x00,<sp/>0x30,<sp/>0xF2,</highlight></codeline>
+<codeline lineno="193"><highlight class="normal">0x70,<sp/>0x5A,<sp/>0x80,<sp/>0xB0,<sp/>0x58,<sp/>0x8A,<sp/>0x00,<sp/>0x20,<sp/>0xC2,<sp/>0x31,<sp/>0x00,<sp/>0x00,<sp/>0x1E,<sp/>0x02,<sp/>0x3A,<sp/>0x80,</highlight></codeline>
+<codeline lineno="194"><highlight class="normal">0x18,<sp/>0x71,<sp/>0x38,<sp/>0x2D,<sp/>0x40,<sp/>0x58,<sp/>0x2C,<sp/>0x4A,<sp/>0x00,<sp/>0x20,<sp/>0xC2,<sp/>0x31,<sp/>0x00,<sp/>0x00,<sp/>0x1E,<sp/>0x00,</highlight></codeline>
+<codeline lineno="195"><highlight class="normal">0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0xFC</highlight></codeline>
+<codeline lineno="196"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>HDMI<sp/>2.1<sp/>RX<sp/>DSC<sp/>EDID<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>SampleEdid_4[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="199"><highlight class="normal">0x00,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0x00,<sp/>0x61,<sp/>0x98,<sp/>0x34,<sp/>0x12,<sp/>0x78,<sp/>0x56,<sp/>0x34,<sp/>0x12,</highlight></codeline>
+<codeline lineno="200"><highlight class="normal">0x17,<sp/>0x1D,<sp/>0x01,<sp/>0x03,<sp/>0x80,<sp/>0xA0,<sp/>0x5A,<sp/>0x78,<sp/>0x0A,<sp/>0xEE,<sp/>0x91,<sp/>0xA3,<sp/>0x54,<sp/>0x4C,<sp/>0x99,<sp/>0x26,</highlight></codeline>
+<codeline lineno="201"><highlight class="normal">0x0F,<sp/>0x50,<sp/>0x54,<sp/>0x21,<sp/>0x00,<sp/>0x00,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,</highlight></codeline>
+<codeline lineno="202"><highlight class="normal">0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x01,<sp/>0x08,<sp/>0xE8,<sp/>0x00,<sp/>0x30,<sp/>0xF2,<sp/>0x70,<sp/>0x5A,<sp/>0x80,<sp/>0xB0,<sp/>0x58,</highlight></codeline>
+<codeline lineno="203"><highlight class="normal">0x8A,<sp/>0x00,<sp/>0x20,<sp/>0xC2,<sp/>0x31,<sp/>0x00,<sp/>0x00,<sp/>0x1E,<sp/>0x02,<sp/>0x3A,<sp/>0x80,<sp/>0x18,<sp/>0x71,<sp/>0x38,<sp/>0x2D,<sp/>0x40,</highlight></codeline>
+<codeline lineno="204"><highlight class="normal">0x58,<sp/>0x2C,<sp/>0x45,<sp/>0x00,<sp/>0x20,<sp/>0xC2,<sp/>0x31,<sp/>0x00,<sp/>0x00,<sp/>0x1E,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0xFD,<sp/>0x00,<sp/>0x18,</highlight></codeline>
+<codeline lineno="205"><highlight class="normal">0x90,<sp/>0x0F,<sp/>0x8C,<sp/>0xF0,<sp/>0x00,<sp/>0x0A,<sp/>0x20,<sp/>0x20,<sp/>0x20,<sp/>0x20,<sp/>0x20,<sp/>0x20,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0xFC,</highlight></codeline>
+<codeline lineno="206"><highlight class="normal">0x00,<sp/>0x58,<sp/>0x49,<sp/>0x4C,<sp/>0x49,<sp/>0x4E,<sp/>0x58,<sp/>0x20,<sp/>0x48,<sp/>0x44,<sp/>0x4D,<sp/>0x49,<sp/>0x32,<sp/>0x31,<sp/>0x01,<sp/>0x9F,</highlight></codeline>
+<codeline lineno="207"><highlight class="normal">0x02,<sp/>0x03,<sp/>0x43,<sp/>0xF5,<sp/>0x52,<sp/>0xCF,<sp/>0xCE,<sp/>0xCC,<sp/>0xCB,<sp/>0xCA,<sp/>0x78,<sp/>0xC9,<sp/>0xD0,<sp/>0x7E,<sp/>0x7D,<sp/>0xDB,</highlight></codeline>
+<codeline lineno="208"><highlight class="normal">0xDA,<sp/>0x66,<sp/>0x65,<sp/>0x76,<sp/>0x75,<sp/>0x61,<sp/>0x60,<sp/>0x2C,<sp/>0x0F,<sp/>0x7F,<sp/>0x07,<sp/>0x5F,<sp/>0x7C,<sp/>0x01,<sp/>0x57,<sp/>0x06,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal">0x03,<sp/>0x67,<sp/>0x7E,<sp/>0x03,<sp/>0x6B,<sp/>0x03,<sp/>0x0C,<sp/>0x00,<sp/>0x10,<sp/>0x00,<sp/>0x38,<sp/>0x3C,<sp/>0x20,<sp/>0x00,<sp/>0x20,<sp/>0x03,</highlight></codeline>
+<codeline lineno="210"><highlight class="normal">0x6D,<sp/>0xD8,<sp/>0x5D,<sp/>0xC4,<sp/>0x01,<sp/>0x78,<sp/>0x80,<sp/>0x63,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0xCB,<sp/>0x67,<sp/>0x3F,<sp/>0xE4,<sp/>0x0F,</highlight></codeline>
+<codeline lineno="211"><highlight class="normal">0x09,<sp/>0xCC,<sp/>0x00,<sp/>0x09,<sp/>0xCC,<sp/>0x00,<sp/>0xE2,<sp/>0x00,<sp/>0xCF,<sp/>0x08,<sp/>0xE8,<sp/>0x00,<sp/>0x30,<sp/>0xF2,<sp/>0x70,<sp/>0x5A,</highlight></codeline>
+<codeline lineno="212"><highlight class="normal">0x80,<sp/>0xB0,<sp/>0x58,<sp/>0x8A,<sp/>0x00,<sp/>0x20,<sp/>0xC2,<sp/>0x31,<sp/>0x00,<sp/>0x00,<sp/>0x1E,<sp/>0x04,<sp/>0x74,<sp/>0x00,<sp/>0x30,<sp/>0xF2,</highlight></codeline>
+<codeline lineno="213"><highlight class="normal">0x70,<sp/>0x5A,<sp/>0x80,<sp/>0xB0,<sp/>0x58,<sp/>0x8A,<sp/>0x00,<sp/>0x20,<sp/>0xC2,<sp/>0x31,<sp/>0x00,<sp/>0x00,<sp/>0x1E,<sp/>0x02,<sp/>0x3A,<sp/>0x80,</highlight></codeline>
+<codeline lineno="214"><highlight class="normal">0x18,<sp/>0x71,<sp/>0x38,<sp/>0x2D,<sp/>0x40,<sp/>0x58,<sp/>0x2C,<sp/>0x45,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x1B</highlight></codeline>
+<codeline lineno="215"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HDMITXSS1_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>EdidScdcCheck(XV_HdmiTxSs1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*HdmiTxSs1Ptr,</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EdidHdmi<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*CheckHdmi20Param);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal">u8<sp/>SinkReadyCheck<sp/>(XV_HdmiTxSs1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*HdmiTxSs1Ptr,</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EdidHdmi<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*CheckHdmi20Param);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>EDIDConnectInit(EdidHdmi<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*CheckHdmi20Param);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SinkCapWarningMsg(EdidHdmi<sp/>*CheckHdmi20Param);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SinkCapabilityCheck(EdidHdmi<sp/>*CheckHdmi20Param);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="232"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="233"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="235"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>_XHDMI_EDID_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/xhdmi_edid.h"/>
+  </compounddef>
+</doxygen>

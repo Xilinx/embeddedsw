@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xsecure__trng__example__apis" kind="group">
+    <compoundname>xsecure_trng_example_apis</compoundname>
+    <title>XilSecure TRNG API Example Usage</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xsecure__trng__example__apis_1gafb9a566691bc4a5f365513e2070912a4" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 RandBuf[XSECURE_TRNG_SEC_STRENGTH_IN_BYTES]</definition>
+        <argsstring>[XSECURE_TRNG_SEC_STRENGTH_IN_BYTES]</argsstring>
+        <name>RandBuf</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_trng_client_example.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_trng_client_example.c" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__trng__example__apis_1gac224568f5cacf0f916ad5185bd5f5a71" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_TrngPrintRandomNum</definition>
+        <argsstring>(const u8 *Randnum)</argsstring>
+        <name>XSecure_TrngPrintRandomNum</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>Randnum</declname>
+        </param>
+        <briefdescription>
+<para>This function prints the given random number on the console. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Randnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to Random buffer </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_trng_client_example.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_trng_client_example.c" bodystart="152" bodyend="160"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__trng__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function to call the XSecure_TrngGenerareRandNum to generate random number. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On successful generation of random number</para></listitem><listitem><para>Errorcode - On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_trng_client_example.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_trng_client_example.c" bodystart="96" bodyend="143"/>
+        <references refid="group__xsecure__mailbox__apis_1ga14ac66445aa924c4c0bd9b91b9744af9" compoundref="xsecure__mailbox_8c" startline="119" endline="134">XSecure_ClientInit</references>
+        <references refid="group__xsecure__trng__client__apis_1gafaf6b2f4582742d4fb15beafb4875378" compoundref="xsecure__trngclient_8h" startline="46">XSECURE_TRNG_SEC_STRENGTH_IN_BYTES</references>
+        <references refid="group__xsecure__trng__client__apis_1ga7d6de56d442c1199e990cfa01d45411c" compoundref="xsecure__trngclient_8c" startline="53" endline="82">XSecure_TrngGenerateRandNum</references>
+        <references refid="group__xsecure__kat__client__apis_1ga7b74e15ff3cab4a891179ef46efe576f" compoundref="versal__2ve__2vm_2xsecure__plat__katclient_8c" startline="57" endline="78">XSecure_TrngKat</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This example illustrates the generation of random number using TRNG core. </para>    </briefdescription>
+    <detaileddescription>
+<para>To build this application, xilmailbox library must be included in BSP and xilsecure must be in client mode This example is supported for Versal Net and Versal_2Ve_2Vm devices.</para><para><simplesect kind="note"><para><heading level="2">Procedure to link and compile the example for the default ddr less designs </heading>
+</para></simplesect>
+The default linker settings places a software stack, heap and data in DDR memory. For this example to work, any data shared between client running on A72/R5/PL and server running on PMC, should be placed in area which is accessible to both client and server.</para><para>Following is the procedure to compile the example on OCM or any memory region which can be accessed by server <verbatim>    1. Open example linker script(lscript.ld) in Vitis project and section to memory mapping should
+            be updated to point all the required sections to shared memory(OCM or TCM)
+            using a memory region drop down selection
+
+                                    OR
+
+    1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
+            .sharedmemory : {
+                    . = ALIGN(4);
+                    __sharedmemory_start = .;
+                    *(.sharedmemory)
+                    *(.sharedmemory.*)
+                    *(.gnu.linkonce.d.*)
+                    __sharedmemory_end = .;
+                    } &gt; versal_cips_0_pspmc_0_psv_ocm_ram_0_psv_ocm_ram_0
+
+            2. In this example &quot;.data&quot; section elements that are passed by reference to the server-side should
+               be stored in the above shared memory section. To make it happen in below example,
+       replace &quot;.data&quot; in attribute section with &quot;.sharedmemory&quot;. For example,
+               static const char RandBuf[XSECURE_TRNG_SEC_STRENGTH_IN_BYTES] __attribute__ ((section (&quot;.data.RandBuf&quot;)));
+                                    should be changed to
+               static const char RandBuf[XSECURE_TRNG_SEC_STRENGTH_IN_BYTES] __attribute__ ((section (&quot;.sharedmemory.RandBuf&quot;)));
+</verbatim></para><para>By default the cache is enabled for this example</para><para>MODIFICATION HISTORY: <preformatted>
+Ver   Who    Date     Changes
+<hruler/>
+
+1.0   am     06/13/22 Initial release
+5.2   am     07/31/23 Fixed compilation error
+      yog    08/07/23 Added Xil_DCacheInvalidateRange before
+                      XSecure_TrngGenerareRandNum function call
+      yog    09/05/23 Added Xil_DCacheInvalidateRange before
+                      XSecure_TrngPrintRandomNum function call</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,804 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsem__reformat__ebdcfi_8c" kind="file">
+    <compoundname>xsem_reformat_ebdcfi.c</compoundname>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">stdlib.h</includes>
+    <includes local="no">malloc.h</includes>
+    <includes local="no">string.h</includes>
+    <includes refid="xsem__ebdintern_8h" local="yes">xsem_ebdintern.h</includes>
+    <incdepgraph>
+      <node id="200">
+        <label>xilsem_types.h</label>
+        <link refid="xilsem__types_8h"/>
+      </node>
+      <node id="196">
+        <label>stdlib.h</label>
+      </node>
+      <node id="194">
+        <label>xsem_reformat_ebdcfi.c</label>
+        <link refid="xsem_reformat_ebdcfi.c"/>
+        <childnode refid="195" relation="include">
+        </childnode>
+        <childnode refid="196" relation="include">
+        </childnode>
+        <childnode refid="197" relation="include">
+        </childnode>
+        <childnode refid="198" relation="include">
+        </childnode>
+        <childnode refid="199" relation="include">
+        </childnode>
+      </node>
+      <node id="197">
+        <label>malloc.h</label>
+      </node>
+      <node id="198">
+        <label>string.h</label>
+      </node>
+      <node id="199">
+        <label>xsem_ebdintern.h</label>
+        <link refid="xsem__ebdintern_8h"/>
+        <childnode refid="200" relation="include">
+        </childnode>
+      </node>
+      <node id="195">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="struct_eb_db" prot="public">EbDb</innerclass>
+    <innerclass refid="struct_ebd_mask" prot="public">EbdMask</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xsem__reformat__ebdcfi_8c_1a3b94af9dcb0358f28d175d80eed98330" prot="public" static="no">
+        <name>MAX_ROWS</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsem__reformat__ebdcfi_8c_1ae39a50b1f2d1ec6884c12881ef12ddae" prot="public" static="no">
+        <name>MAX_BLOCK_TYPES</name>
+        <initializer>6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xsem__reformat__ebdcfi_8c_1a140957c199ba128c1bc8b0d58b1d0956" prot="public" static="no">
+        <type>struct EbdMask</type>
+        <definition>typedef struct EbdMask  EbdMask</definition>
+        <argsstring></argsstring>
+        <name>EbdMask</name>
+        <briefdescription>
+<para>EbdMask - EBD Mask structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="94" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1a961250ef08fde0becfb09e0f461945fe" prot="public" static="no" mutable="no">
+        <type>XSem_EbdSet</type>
+        <definition>XSem_EbdSet EbdSetBT0Row0[XSEM_BT0ROW0_FRAMES]</definition>
+        <argsstring>[XSEM_BT0ROW0_FRAMES]</argsstring>
+        <name>EbdSetBT0Row0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="37" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1a6cedc90a13176c466d4ef87d01bb50b2" prot="public" static="no" mutable="no">
+        <type>XSem_EbdSet</type>
+        <definition>XSem_EbdSet EbdSetBT0Row1[XSEM_BT0ROW1_FRAMES]</definition>
+        <argsstring>[XSEM_BT0ROW1_FRAMES]</argsstring>
+        <name>EbdSetBT0Row1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="38" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1a416a64dc020fa7f22160f295007b8092" prot="public" static="no" mutable="no">
+        <type>XSem_EbdSet</type>
+        <definition>XSem_EbdSet EbdSetBT0Row2[XSEM_BT0ROW2_FRAMES]</definition>
+        <argsstring>[XSEM_BT0ROW2_FRAMES]</argsstring>
+        <name>EbdSetBT0Row2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="39" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1ae291e6ee8b7b990c29fd561efc4bf37f" prot="public" static="no" mutable="no">
+        <type>XSem_EbdSet</type>
+        <definition>XSem_EbdSet EbdSetBT0Row3[XSEM_BT0ROW3_FRAMES]</definition>
+        <argsstring>[XSEM_BT0ROW3_FRAMES]</argsstring>
+        <name>EbdSetBT0Row3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="40" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1aee69d25b95e110b9d04cc066148c2d1a" prot="public" static="no" mutable="no">
+        <type>XSem_EbdSet</type>
+        <definition>XSem_EbdSet EbdSetBT3Row0[XSEM_BT3ROW0_FRAMES]</definition>
+        <argsstring>[XSEM_BT3ROW0_FRAMES]</argsstring>
+        <name>EbdSetBT3Row0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="41" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1a0cf55db7996fd018ead16c6460e6ebb8" prot="public" static="no" mutable="no">
+        <type>XSem_EbdSet</type>
+        <definition>XSem_EbdSet EbdSetBT3Row1[XSEM_BT3ROW1_FRAMES]</definition>
+        <argsstring>[XSEM_BT3ROW1_FRAMES]</argsstring>
+        <name>EbdSetBT3Row1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="42" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1a6c3e312f6af993ee92243f615ac476d1" prot="public" static="no" mutable="no">
+        <type>XSem_EbdSet</type>
+        <definition>XSem_EbdSet EbdSetBT3Row2[XSEM_BT3ROW2_FRAMES]</definition>
+        <argsstring>[XSEM_BT3ROW2_FRAMES]</argsstring>
+        <name>EbdSetBT3Row2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="43" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1af94e19fc5912c8adebb2e58a4d0e9e77" prot="public" static="no" mutable="no">
+        <type>XSem_EbdSet</type>
+        <definition>XSem_EbdSet EbdSetBT3Row3[XSEM_BT3ROW3_FRAMES]</definition>
+        <argsstring>[XSEM_BT3ROW3_FRAMES]</argsstring>
+        <name>EbdSetBT3Row3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="44" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1a5bdf350d3b3967c6b581bd2e1f59426c" prot="public" static="no" mutable="no">
+        <type>XSem_EbdSet</type>
+        <definition>XSem_EbdSet EbdSetBT4Row0[XSEM_BT4ROW0_FRAMES]</definition>
+        <argsstring>[XSEM_BT4ROW0_FRAMES]</argsstring>
+        <name>EbdSetBT4Row0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="45" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1ae3782bec57602963cc91589b695f9802" prot="public" static="no" mutable="no">
+        <type>XSem_EbdSet</type>
+        <definition>XSem_EbdSet EbdSetBT4Row1[XSEM_BT4ROW1_FRAMES]</definition>
+        <argsstring>[XSEM_BT4ROW1_FRAMES]</argsstring>
+        <name>EbdSetBT4Row1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="46" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1abaae64c549834e4916b54878c48c5a8b" prot="public" static="no" mutable="no">
+        <type>XSem_EbdSet</type>
+        <definition>XSem_EbdSet EbdSetBT4Row2[XSEM_BT4ROW2_FRAMES]</definition>
+        <argsstring>[XSEM_BT4ROW2_FRAMES]</argsstring>
+        <name>EbdSetBT4Row2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="47" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1a1f082da2810544828fbeb3100b63312f" prot="public" static="no" mutable="no">
+        <type>XSem_EbdSet</type>
+        <definition>XSem_EbdSet EbdSetBT4Row3[XSEM_BT4ROW3_FRAMES]</definition>
+        <argsstring>[XSEM_BT4ROW3_FRAMES]</argsstring>
+        <name>EbdSetBT4Row3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="48" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1a820b1f831e9401eb7d52816d44dc6fe2" prot="public" static="no" mutable="no">
+        <type>XSem_EbdSet</type>
+        <definition>XSem_EbdSet EbdSetBT5Row0[XSEM_BT5ROW0_FRAMES]</definition>
+        <argsstring>[XSEM_BT5ROW0_FRAMES]</argsstring>
+        <name>EbdSetBT5Row0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="49" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1a6b5377423ae089ffdf303a183b8c6d7b" prot="public" static="no" mutable="no">
+        <type>XSem_EbdSet</type>
+        <definition>XSem_EbdSet EbdSetBT5Row1[XSEM_BT5ROW1_FRAMES]</definition>
+        <argsstring>[XSEM_BT5ROW1_FRAMES]</argsstring>
+        <name>EbdSetBT5Row1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="50" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1a9742f475f5b26d90bc5d3f1c77c9c3e3" prot="public" static="no" mutable="no">
+        <type>XSem_EbdSet</type>
+        <definition>XSem_EbdSet EbdSetBT5Row2[XSEM_BT5ROW2_FRAMES]</definition>
+        <argsstring>[XSEM_BT5ROW2_FRAMES]</argsstring>
+        <name>EbdSetBT5Row2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="51" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1adbd0ef6e94dd2899c46a3a16e921ea92" prot="public" static="no" mutable="no">
+        <type>XSem_EbdSet</type>
+        <definition>XSem_EbdSet EbdSetBT5Row3[XSEM_BT5ROW3_FRAMES]</definition>
+        <argsstring>[XSEM_BT5ROW3_FRAMES]</argsstring>
+        <name>EbdSetBT5Row3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="52" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1a14f8d67ad5a74d4bc8e430234946e39e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 bt</definition>
+        <argsstring></argsstring>
+        <name>bt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1aa0f6601144ef0e08f7d51740e3aee764" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 row</definition>
+        <argsstring></argsstring>
+        <name>row</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1a9d374449513ce93c2619f78d992eb40b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 frames</definition>
+        <argsstring></argsstring>
+        <name>frames</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1a0a7735dda7c7fe47369fd17b56ecf432" prot="public" static="no" mutable="no">
+        <type>XSem_EbdSet *</type>
+        <definition>XSem_EbdSet* sets</definition>
+        <argsstring></argsstring>
+        <name>sets</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1a5067d4ce24a01c275e5bb5745edaf070" prot="public" static="no" mutable="no">
+        <type>struct @0</type>
+        <definition>struct @0  input_tables[]</definition>
+        <argsstring>[]</argsstring>
+        <name>input_tables</name>
+        <initializer>= {
+    { 0, 0, XSEM_BT0ROW0_FRAMES, EbdSetBT0Row0 },
+    { 0, 1, XSEM_BT0ROW1_FRAMES, EbdSetBT0Row1 },
+    { 0, 2, XSEM_BT0ROW2_FRAMES, EbdSetBT0Row2 },
+    { 0, 3, XSEM_BT0ROW3_FRAMES, EbdSetBT0Row3 },
+    { 3, 0, XSEM_BT3ROW0_FRAMES, EbdSetBT3Row0 },
+    { 3, 1, XSEM_BT3ROW1_FRAMES, EbdSetBT3Row1 },
+    { 3, 2, XSEM_BT3ROW2_FRAMES, EbdSetBT3Row2 },
+    { 3, 3, XSEM_BT3ROW3_FRAMES, EbdSetBT3Row3 },
+    { 4, 0, XSEM_BT4ROW0_FRAMES, EbdSetBT4Row0 },
+    { 4, 1, XSEM_BT4ROW1_FRAMES, EbdSetBT4Row1 },
+    { 4, 2, XSEM_BT4ROW2_FRAMES, EbdSetBT4Row2 },
+    { 4, 3, XSEM_BT4ROW3_FRAMES, EbdSetBT4Row3 },
+    { 5, 0, XSEM_BT5ROW0_FRAMES, EbdSetBT5Row0 },
+    { 5, 1, XSEM_BT5ROW1_FRAMES, EbdSetBT5Row1 },
+    { 5, 2, XSEM_BT5ROW2_FRAMES, EbdSetBT5Row2 },
+    { 5, 3, XSEM_BT5ROW3_FRAMES, EbdSetBT5Row3 },
+}</initializer>
+        <briefdescription>
+<para>input_tables - input tables structure </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="79" column="1"/>
+        <referencedby refid="xsem__reformat__ebdcfi_8c_1a0ddf1224851353fc92bfbff6f499fa97" compoundref="xsem__reformat__ebdcfi_8c" startline="222" endline="272">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1a6614262abd0dd2a3333ff36207997fc7" prot="public" static="no" mutable="no">
+        <type>struct EbDb</type>
+        <definition>struct EbDb  ebdb[MAX_BLOCK_TYPES][MAX_ROWS]</definition>
+        <argsstring>[MAX_BLOCK_TYPES][MAX_ROWS]</argsstring>
+        <name>ebdb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="87" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1ae9fde74ecb33cd62b4151cb42dfa4cb4" prot="public" static="no" mutable="no">
+        <type><ref refid="xsem__reformat__ebdcfi_8c_1a140957c199ba128c1bc8b0d58b1d0956" kindref="member">EbdMask</ref> *</type>
+        <definition>EbdMask* mask_list</definition>
+        <argsstring></argsstring>
+        <name>mask_list</name>
+        <initializer>= (void *)0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1ad656f8c41d363d9b8e153b2f1ca4642e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 mask_index</definition>
+        <argsstring></argsstring>
+        <name>mask_index</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1ac2fb75f406ccfd59a95881d10d9bcde4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 mask_capacity</definition>
+        <argsstring></argsstring>
+        <name>mask_capacity</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1ad7c1a278e4dd90d603f19345c31948bd" prot="public" static="no" mutable="no">
+        <type>u32 *</type>
+        <definition>u32* map_list</definition>
+        <argsstring></argsstring>
+        <name>map_list</name>
+        <initializer>= (void *)0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1a320fb3f116b2b5c16cf28632f9c4c663" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 map_index</definition>
+        <argsstring></argsstring>
+        <name>map_index</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xsem__reformat__ebdcfi_8c_1aed3315b6c637cf2c3ca4939dad56b86e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 map_capacity</definition>
+        <argsstring></argsstring>
+        <name>map_capacity</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xsem__reformat__ebdcfi_8c_1ab71b8a5b98aaeade4b8c35193d539e93" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 find_or_create_unique_output_mask</definition>
+        <argsstring>(XSem_EbdSet *set)</argsstring>
+        <name>find_or_create_unique_output_mask</name>
+        <param>
+          <type>XSem_EbdSet *</type>
+          <declname>set</declname>
+        </param>
+        <briefdescription>
+<para>This function finds and creates unique frame masks of all frames. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>set[In]</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Set of Essential bit data of each row of a blocktype</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>i : Buffer Index </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" bodystart="116" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="function" id="xsem__reformat__ebdcfi_8c_1a662023bab552a76acf3a3bdda0590a62" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void print_ebdb</definition>
+        <argsstring>(FILE *OutFptr, u32 BlockTypes, u32 Rows)</argsstring>
+        <name>print_ebdb</name>
+        <param>
+          <type>FILE *</type>
+          <declname>OutFptr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BlockTypes</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Rows</declname>
+        </param>
+        <briefdescription>
+<para>This function generates xsem_ebdgoldendata.c file with XSem_EbdBuffer loaded with frame map offset, frame maps and unique frame masks. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>OutFptr[In]</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: file pointer BlockTypes[In] : Block type index Rows[In] : Row index </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" bodystart="146" bodyend="215"/>
+        <referencedby refid="xsem__reformat__ebdcfi_8c_1a0ddf1224851353fc92bfbff6f499fa97" compoundref="xsem__reformat__ebdcfi_8c" startline="222" endline="272">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xsem__reformat__ebdcfi_8c_1a0ddf1224851353fc92bfbff6f499fa97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(int argc, char *argv[])</argsstring>
+        <name>main</name>
+        <param>
+          <type>int</type>
+          <declname>argc</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>argv</declname>
+          <array>[]</array>
+        </param>
+        <briefdescription>
+<para>Main function, reformats essential bit info from xsem_ebdintern.c. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" bodystart="222" bodyend="272"/>
+        <references refid="xsem__reformat__ebdcfi_8c_1a5067d4ce24a01c275e5bb5745edaf070">input_tables</references>
+        <references refid="xsem__reformat__ebdcfi_8c_1a662023bab552a76acf3a3bdda0590a62" compoundref="xsem__reformat__ebdcfi_8c" startline="146" endline="215">print_ebdb</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file reformats the structured essential bit data in xsem_ebdintern.c file by mapping only unique frame data in to XSem_EbdBuffer and generates file &quot;xsem_edbgoldendata.c&quot;. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who   Date        Changes
+<hruler/>
+
+0.1   hv    06/27/2022  Initial Creation
+0.2      anv   05/10/2023  Modified to add copyright information in
+                        xsem_ebdgoldendata.c
+0.3   anv   02/25/2025  Added support for SSIT devices.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>(c)<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;malloc.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsem__ebdintern_8h" kindref="compound">xsem_ebdintern.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Macro<sp/>definitions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_ROWS<sp/>4</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MAX_BLOCK_TYPES<sp/>6</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Global<sp/>Variables<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XSem_EbdSet<sp/>EbdSetBT0Row0[XSEM_BT0ROW0_FRAMES];</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XSem_EbdSet<sp/>EbdSetBT0Row1[XSEM_BT0ROW1_FRAMES];</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XSem_EbdSet<sp/>EbdSetBT0Row2[XSEM_BT0ROW2_FRAMES];</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XSem_EbdSet<sp/>EbdSetBT0Row3[XSEM_BT0ROW3_FRAMES];</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XSem_EbdSet<sp/>EbdSetBT3Row0[XSEM_BT3ROW0_FRAMES];</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XSem_EbdSet<sp/>EbdSetBT3Row1[XSEM_BT3ROW1_FRAMES];</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XSem_EbdSet<sp/>EbdSetBT3Row2[XSEM_BT3ROW2_FRAMES];</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XSem_EbdSet<sp/>EbdSetBT3Row3[XSEM_BT3ROW3_FRAMES];</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XSem_EbdSet<sp/>EbdSetBT4Row0[XSEM_BT4ROW0_FRAMES];</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XSem_EbdSet<sp/>EbdSetBT4Row1[XSEM_BT4ROW1_FRAMES];</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XSem_EbdSet<sp/>EbdSetBT4Row2[XSEM_BT4ROW2_FRAMES];</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XSem_EbdSet<sp/>EbdSetBT4Row3[XSEM_BT4ROW3_FRAMES];</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XSem_EbdSet<sp/>EbdSetBT5Row0[XSEM_BT5ROW0_FRAMES];</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XSem_EbdSet<sp/>EbdSetBT5Row1[XSEM_BT5ROW1_FRAMES];</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XSem_EbdSet<sp/>EbdSetBT5Row2[XSEM_BT5ROW2_FRAMES];</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XSem_EbdSet<sp/>EbdSetBT5Row3[XSEM_BT5ROW3_FRAMES];</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>bt;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>row;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>frames;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>XSem_EbdSet<sp/>*sets;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">}<sp/><ref refid="xsem__reformat__ebdcfi_8c_1a5067d4ce24a01c275e5bb5745edaf070" kindref="member">input_tables</ref>[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>{<sp/>0,<sp/>0,<sp/>XSEM_BT0ROW0_FRAMES,<sp/>EbdSetBT0Row0<sp/>},</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>{<sp/>0,<sp/>1,<sp/>XSEM_BT0ROW1_FRAMES,<sp/>EbdSetBT0Row1<sp/>},</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>{<sp/>0,<sp/>2,<sp/>XSEM_BT0ROW2_FRAMES,<sp/>EbdSetBT0Row2<sp/>},</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>{<sp/>0,<sp/>3,<sp/>XSEM_BT0ROW3_FRAMES,<sp/>EbdSetBT0Row3<sp/>},</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>{<sp/>3,<sp/>0,<sp/>XSEM_BT3ROW0_FRAMES,<sp/>EbdSetBT3Row0<sp/>},</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>{<sp/>3,<sp/>1,<sp/>XSEM_BT3ROW1_FRAMES,<sp/>EbdSetBT3Row1<sp/>},</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>{<sp/>3,<sp/>2,<sp/>XSEM_BT3ROW2_FRAMES,<sp/>EbdSetBT3Row2<sp/>},</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/>{<sp/>3,<sp/>3,<sp/>XSEM_BT3ROW3_FRAMES,<sp/>EbdSetBT3Row3<sp/>},</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>{<sp/>4,<sp/>0,<sp/>XSEM_BT4ROW0_FRAMES,<sp/>EbdSetBT4Row0<sp/>},</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>{<sp/>4,<sp/>1,<sp/>XSEM_BT4ROW1_FRAMES,<sp/>EbdSetBT4Row1<sp/>},</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>{<sp/>4,<sp/>2,<sp/>XSEM_BT4ROW2_FRAMES,<sp/>EbdSetBT4Row2<sp/>},</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>{<sp/>4,<sp/>3,<sp/>XSEM_BT4ROW3_FRAMES,<sp/>EbdSetBT4Row3<sp/>},</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>{<sp/>5,<sp/>0,<sp/>XSEM_BT5ROW0_FRAMES,<sp/>EbdSetBT5Row0<sp/>},</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>{<sp/>5,<sp/>1,<sp/>XSEM_BT5ROW1_FRAMES,<sp/>EbdSetBT5Row1<sp/>},</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>{<sp/>5,<sp/>2,<sp/>XSEM_BT5ROW2_FRAMES,<sp/>EbdSetBT5Row2<sp/>},</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>{<sp/>5,<sp/>3,<sp/>XSEM_BT5ROW3_FRAMES,<sp/>EbdSetBT5Row3<sp/>},</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="keyword">struct<sp/></highlight><highlight class="normal">EbDb<sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>frames;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>offset;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">}<sp/>ebdb[MAX_BLOCK_TYPES][MAX_ROWS];</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="xsem__reformat__ebdcfi_8c_1a140957c199ba128c1bc8b0d58b1d0956" kindref="member">EbdMask</ref><sp/>{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>words[25][4];</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">}<sp/><ref refid="xsem__reformat__ebdcfi_8c_1a140957c199ba128c1bc8b0d58b1d0956" kindref="member">EbdMask</ref>;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><ref refid="xsem__reformat__ebdcfi_8c_1a140957c199ba128c1bc8b0d58b1d0956" kindref="member">EbdMask</ref><sp/>*<sp/>mask_list<sp/>=<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)0;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">u32<sp/>mask_index<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">u32<sp/>mask_capacity<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal">u32<sp/>*<sp/>map_list<sp/>=<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)0;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">u32<sp/>map_index<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">u32<sp/>map_capacity<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XILSEM_ENABLE_SSIT</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/>Slr_Id<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="116"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>find_or_create_unique_output_mask(XSem_EbdSet<sp/>*set)<sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>i;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>mask_index;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(memcmp(mask_list[i].words,<sp/>set-&gt;words,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal"><sp/>set-&gt;words)<sp/>==<sp/>0)<sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(i<sp/>==<sp/>mask_index)<sp/>{</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(i<sp/>==<sp/>mask_capacity)<sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mask_capacity<sp/>=<sp/>mask_capacity<sp/>?<sp/>mask_capacity<sp/>*<sp/>2<sp/>:<sp/>1;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mask_list<sp/>=<sp/>realloc(mask_list,<sp/>mask_capacity<sp/>*<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal"><sp/>*mask_list);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(mask_list<sp/>==<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)0)<sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>perror(</highlight><highlight class="stringliteral">&quot;malloc&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>exit(1);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(mask_list[mask_index].words,<sp/>set-&gt;words,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal"><sp/>set-&gt;words);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mask_index++;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>i;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="146" refid="xsem__reformat__ebdcfi_8c_1a662023bab552a76acf3a3bdda0590a62" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xsem__reformat__ebdcfi_8c_1a662023bab552a76acf3a3bdda0590a62" kindref="member">print_ebdb</ref>(FILE<sp/>*<sp/>OutFptr,<sp/>u32<sp/>BlockTypes,<sp/>u32<sp/>Rows)<sp/>{</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>bt;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>row;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>hdr_offset<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>index_offset<sp/>=<sp/>hdr_offset<sp/>+<sp/>2;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>map_offset<sp/>=<sp/>index_offset<sp/>+<sp/>BlockTypes*Rows*2;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>mask_offset<sp/>=<sp/>map_offset<sp/>+<sp/>map_index;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>i;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;/*<sp/>Total<sp/>frames:<sp/>%u<sp/>*/\n&quot;</highlight><highlight class="normal">,<sp/>map_index);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;/*<sp/>Unique<sp/>frames:<sp/>%u<sp/>*/\n&quot;</highlight><highlight class="normal">,<sp/>mask_index);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XILSEM_ENABLE_SSIT</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;Generating<sp/>goldendata<sp/>for<sp/>SSIT<sp/>device\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Slr_Id<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;volatile<sp/>int<sp/>XSem_EbdBuffer0[]<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Slr_Id<sp/>==<sp/>1U)<sp/>{</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;volatile<sp/>int<sp/>XSem_EbdBuffer1[]<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Slr_Id<sp/>==<sp/>2U)<sp/>{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;volatile<sp/>int<sp/>XSem_EbdBuffer2[]<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Slr_Id<sp/>==<sp/>3U)<sp/>{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;volatile<sp/>int<sp/>XSem_EbdBuffer3[]<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;print_ebd<sp/>:Invalid<sp/>SLR<sp/>ID<sp/>\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;Generating<sp/>goldendata<sp/>for<sp/>Mono<sp/>device\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;volatile<sp/>int<sp/>XSem_EbdBuffer[]<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fprintf(OutFptr,<sp/></highlight><highlight class="stringliteral">&quot;%s&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;%c&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;%s&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;%c&quot;</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;%s&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>__attribute__((section<sp/>(&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="charliteral">&apos;&quot;&apos;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;.sem_ebddata&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="charliteral">&apos;&quot;&apos;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;)))<sp/>__attribute__((no_reorder))<sp/>=<sp/>{\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;<sp/><sp/>/*<sp/>%u:<sp/>Header<sp/>*/\n&quot;</highlight><highlight class="normal">,<sp/>hdr_offset);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;<sp/><sp/>%u,<sp/>/*<sp/>Number<sp/>of<sp/>block<sp/>types<sp/>*/\n&quot;</highlight><highlight class="normal">,<sp/>BlockTypes);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;<sp/><sp/>%u,<sp/>/*<sp/>Number<sp/>of<sp/>rows<sp/>*/\n&quot;</highlight><highlight class="normal">,<sp/>Rows);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;<sp/><sp/>/*<sp/>%u:<sp/>(Block<sp/>type,<sp/>row<sp/>index)<sp/>-&gt;<sp/>(frame<sp/>count,<sp/>frame<sp/>map<sp/>offset)<sp/>*/\n&quot;</highlight><highlight class="normal">,<sp/>index_offset);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(bt<sp/>=<sp/>0;<sp/>bt<sp/>&lt;<sp/>BlockTypes;<sp/>bt++)<sp/>{</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(row<sp/>=<sp/>0;<sp/>row<sp/>&lt;<sp/>Rows;<sp/>row++)<sp/>{</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>frames<sp/>=<sp/>ebdb[bt][row].frames;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>offset<sp/>=<sp/>frames<sp/>?<sp/>ebdb[bt][row].offset<sp/>+<sp/>map_offset<sp/>:<sp/>0;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;<sp/><sp/>%6u,<sp/>%6u,<sp/>/*<sp/>BT<sp/>%u<sp/>Row<sp/>%u<sp/>(frames,<sp/>offset)<sp/>*/\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>frames,<sp/>offset,<sp/>bt,<sp/>row);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;<sp/><sp/>/*<sp/>Frame<sp/>maps<sp/>*/\n&quot;</highlight><highlight class="normal">,<sp/>map_offset);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>map_index;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((i<sp/>%<sp/>8)<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(i<sp/>!=<sp/>0)<sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;<sp/><sp/>/*<sp/>%6u<sp/>*/&quot;</highlight><highlight class="normal">,<sp/>i<sp/>+<sp/>map_offset);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;<sp/>%6u,&quot;</highlight><highlight class="normal">,<sp/>map_list[i]*25*4<sp/>+<sp/>mask_offset);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;<sp/><sp/>/*<sp/>Frame<sp/>masks<sp/>*/\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>mask_index;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>j;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;<sp/><sp/>/*<sp/>%6u<sp/>*/\n&quot;</highlight><highlight class="normal">,<sp/>i*25*4<sp/>+<sp/>mask_offset);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>25;<sp/>j++)<sp/>{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>k;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;<sp/><sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>4;<sp/>k++)<sp/>{</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;<sp/>0x%08x,&quot;</highlight><highlight class="normal">,<sp/>mask_list[i].words[j][k]);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/>fprintf(OutFptr,</highlight><highlight class="stringliteral">&quot;};\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="222" refid="xsem__reformat__ebdcfi_8c_1a0ddf1224851353fc92bfbff6f499fa97" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xsem__decode__ebdcfi_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kindref="member">main</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*argv[])<sp/>{</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>block_types<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>rows<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>i;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FILE<sp/>*fptr;</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XILSEM_ENABLE_SSIT</highlight></codeline>
+<codeline lineno="229"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Slr_Id<sp/>=<sp/>atoi(argv[1]);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;Updating<sp/>reformated<sp/>Essential<sp/>bit<sp/>data<sp/>for<sp/>SSIT<sp/>device\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Slr_Id<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fptr<sp/>=<sp/>fopen(</highlight><highlight class="stringliteral">&quot;xsem_ebdgoldendata0.c&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;w&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Slr_Id<sp/>==<sp/>1U)<sp/>{</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fptr<sp/>=<sp/>fopen(</highlight><highlight class="stringliteral">&quot;xsem_ebdgoldendata1.c&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;w&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Slr_Id<sp/>==<sp/>2U)<sp/>{</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fptr<sp/>=<sp/>fopen(</highlight><highlight class="stringliteral">&quot;xsem_ebdgoldendata2.c&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;w&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Slr_Id<sp/>==<sp/>2U)<sp/>{</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fptr<sp/>=<sp/>fopen(</highlight><highlight class="stringliteral">&quot;xsem_ebdgoldendata3.c&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;w&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;Invalid<sp/>SLR<sp/>ID<sp/>\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;Updating<sp/>reformated<sp/>Essential<sp/>bit<sp/>data<sp/>for<sp/>Mono<sp/>device\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fptr<sp/>=<sp/>fopen(</highlight><highlight class="stringliteral">&quot;xsem_ebdgoldendata.c&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;w&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="246"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fprintf(fptr,<sp/></highlight><highlight class="stringliteral">&quot;%s&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;/******************************************************************************\n*<sp/>(c)<sp/>Copyright<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.\n*<sp/>(c)<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.\n*<sp/>SPDX-License-Identifier:<sp/>MIT\n******************************************************************************/\n\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fprintf(fptr,<sp/></highlight><highlight class="stringliteral">&quot;%s&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;#if<sp/>defined<sp/>(__ICCARM__)<sp/>\n#pragma<sp/>language=save<sp/>\n#pragma<sp/>language=extended<sp/>\n#endif\n\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal"><sp/><ref refid="xsem__reformat__ebdcfi_8c_1a5067d4ce24a01c275e5bb5745edaf070" kindref="member">input_tables</ref>/</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal"><sp/>*<ref refid="xsem__reformat__ebdcfi_8c_1a5067d4ce24a01c275e5bb5745edaf070" kindref="member">input_tables</ref>;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>bt<sp/>=<sp/><ref refid="xsem__reformat__ebdcfi_8c_1a5067d4ce24a01c275e5bb5745edaf070" kindref="member">input_tables</ref>[i].bt;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>row<sp/>=<sp/><ref refid="xsem__reformat__ebdcfi_8c_1a5067d4ce24a01c275e5bb5745edaf070" kindref="member">input_tables</ref>[i].row;</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>frames<sp/>=<sp/><ref refid="xsem__reformat__ebdcfi_8c_1a5067d4ce24a01c275e5bb5745edaf070" kindref="member">input_tables</ref>[i].frames;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSem_EbdSet<sp/>*set<sp/>=<sp/><ref refid="xsem__reformat__ebdcfi_8c_1a5067d4ce24a01c275e5bb5745edaf070" kindref="member">input_tables</ref>[i].sets;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(block_types<sp/>&lt;=<sp/>bt)<sp/>block_types<sp/>=<sp/>bt<sp/>+<sp/>1;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(rows<sp/>&lt;=<sp/>row)<sp/>rows<sp/>=<sp/>row<sp/>+<sp/>1;</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ebdb[bt][row].frames<sp/>=<sp/>frames;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ebdb[bt][row].offset<sp/>=<sp/>map_index;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(map_index<sp/>+<sp/>frames<sp/>&gt;<sp/>map_capacity)<sp/>{</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>map_capacity<sp/>=<sp/>map_capacity<sp/>?<sp/>map_capacity<sp/>*<sp/>2<sp/>:<sp/>1;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal">(map_index<sp/>+<sp/>frames<sp/>&gt;<sp/>map_capacity);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>map_list<sp/>=<sp/>realloc(map_list,<sp/>map_capacity<sp/>*<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal"><sp/>*map_list);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(frames<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>map_list[map_index++]<sp/>=<sp/>find_or_create_unique_output_mask(set);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>set++;</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>frames--;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xsem__reformat__ebdcfi_8c_1a662023bab552a76acf3a3bdda0590a62" kindref="member">print_ebdb</ref>(fptr,<sp/>block_types,<sp/>rows);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fclose(fptr);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c"/>
+  </compounddef>
+</doxygen>

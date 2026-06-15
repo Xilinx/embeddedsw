@@ -1,0 +1,427 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdppsu__common__example_8h" kind="file">
+    <compoundname>xdppsu_common_example.h</compoundname>
+    <includes refid="xdppsu_8h" local="yes">xdppsu.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includedby refid="xdppsu__common__example_8c" local="yes">xdppsu_common_example.c</includedby>
+    <includedby refid="xdppsu__intr__example_8c" local="yes">xdppsu_intr_example.c</includedby>
+    <includedby refid="xdppsu__poll__example_8c" local="yes">xdppsu_poll_example.c</includedby>
+    <includedby refid="xdppsu__selftest__example_8c" local="yes">xdppsu_selftest_example.c</includedby>
+    <incdepgraph>
+      <node id="46">
+        <label>xdppsu.h</label>
+        <link refid="xdppsu_8h"/>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>xil_io.h</label>
+      </node>
+      <node id="47">
+        <label>xdppsu_hw.h</label>
+        <link refid="xdppsu__hw_8h"/>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+      </node>
+      <node id="53">
+        <label>xstatus.h</label>
+      </node>
+      <node id="45">
+        <label>xdppsu_common_example.h</label>
+        <link refid="xdppsu_common_example.h"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>xvidc.h</label>
+      </node>
+      <node id="49">
+        <label>xil_types.h</label>
+      </node>
+      <node id="52">
+        <label>xparameters.h</label>
+      </node>
+      <node id="51">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="56">
+        <label>xdppsu_intr_example.c</label>
+        <link refid="xdppsu__intr__example_8c"/>
+      </node>
+      <node id="57">
+        <label>xdppsu_poll_example.c</label>
+        <link refid="xdppsu__poll__example_8c"/>
+      </node>
+      <node id="58">
+        <label>xdppsu_selftest_example.c</label>
+        <link refid="xdppsu__selftest__example_8c"/>
+      </node>
+      <node id="55">
+        <label>xdppsu_common_example.c</label>
+        <link refid="xdppsu__common__example_8c"/>
+      </node>
+      <node id="54">
+        <label>xdppsu_common_example.h</label>
+        <link refid="xdppsu_common_example.h"/>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xdppsu__common__example_8h_1a5227989fea6fd439a73aefdaab501e41" prot="public" static="no">
+        <name>DPPSU_BASEADDR</name>
+        <initializer>XPAR_XDPPSU_0_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.h" line="45" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdppsu__common__example_8h_1a8c116f0c77b7cab84e572a9dad412394" prot="public" static="no">
+        <name>TRAIN_USE_LINK_RATE</name>
+        <initializer><ref refid="xdppsu__hw_8h_1ab01ff3802386be5d138cf5a9af031783" kindref="member">XDPPSU_LINK_BW_SET_540GBPS</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdppsu__common__example_8h_1ad110fc73dcd0444efeadebed42d528a4" prot="public" static="no">
+        <name>TRAIN_USE_LANE_COUNT</name>
+        <initializer>XDPPSU_DPCD_LANE_COUNT_SET_2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdppsu__common__example_8h_1a40aad80e2a1afd1fdb8b5a9ac04f7414" prot="public" static="no">
+        <name>TRAIN_USE_MAX_LINK</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xdppsu__common__example_8h_1a02425dbf420c3d7e94ef17e783249fa7" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref></type>
+        <definition>XDpPsu DpPsuInstance</definition>
+        <argsstring></argsstring>
+        <name>DpPsuInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.h" line="81" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xdppsu__common__example_8h_1a7386e44e956d4e783e345ca361326df0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 DpPsu_PlatformInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>DpPsu_PlatformInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.h" line="66" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xdppsu__common__example_8h_1a625233c5d04622e106246bce7a5432a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 DpPsu_StreamSrcSync</definition>
+        <argsstring>(XDpPsu *InstancePtr)</argsstring>
+        <name>DpPsu_StreamSrcSync</name>
+        <param>
+          <type><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.h" line="67" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xdppsu__common__example_8h_1a867f66d113cb90c1b0d155b0d3ac6db9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 DpPsu_StreamSrcSetup</definition>
+        <argsstring>(XDpPsu *InstancePtr)</argsstring>
+        <name>DpPsu_StreamSrcSetup</name>
+        <param>
+          <type><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.h" line="68" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xdppsu__common__example_8h_1a8de1d859acd2736a7cf7976b858748b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 DpPsu_StreamSrcConfigure</definition>
+        <argsstring>(XDpPsu *InstancePtr)</argsstring>
+        <name>DpPsu_StreamSrcConfigure</name>
+        <param>
+          <type><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.h" line="69" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xdppsu__common__example_8h_1a31ed0302fb945e5748d9e7c182533786" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 DpPsu_SetupExample</definition>
+        <argsstring>(XDpPsu *InstancePtr, u32 BaseAddress)</argsstring>
+        <name>DpPsu_SetupExample</name>
+        <param>
+          <type><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function will setup and initialize the DisplayPort TX core. </para>        </briefdescription>
+        <detaileddescription>
+<para>The core&apos;s configuration parameters will be retrieved based on the configuration to the DisplayPort TX core instance with the specified device ID.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique device ID of the DisplayPort TX core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the device configuration was found and obtained and if the main link was successfully established.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.c" bodystart="89" bodyend="115"/>
+        <references refid="struct_x_dp_psu___config_1a59991a74d33038e382665a3460a669ee" compoundref="xdppsu_8h" startline="63">XDpPsu_Config::BaseAddr</references>
+        <references refid="xdppsu_8c_1a619d7de707e733f244b8eeaf8dbc8377" compoundref="xdppsu_8c" startline="1348" endline="1365">XDpPsu_CfgInitialize</references>
+        <references refid="xdppsu_8c_1a2602de9c767cd981896326433a3c2570" compoundref="xdppsu_8c" startline="1284" endline="1328">XDpPsu_InitializeTx</references>
+        <references refid="xdppsu_8h_1a516998e367c2732f5a99802c776e13f4" compoundref="xdppsu__sinit_8c" startline="78" endline="91">XDpPsu_LookupConfig</references>
+        <referencedby refid="xdppsu__intr__example_8c_1a9888aea9ec2327cd631da76a364dad83" compoundref="xdppsu__intr__example_8c" startline="148" endline="183">DpPsu_IntrExample</referencedby>
+        <referencedby refid="xdppsu__poll__example_8c_1ad78dc9982ab43622fc66f25b16eb6b6b" compoundref="xdppsu__poll__example_8c" startline="103" endline="127">DpPsu_PollExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdppsu__common__example_8h_1a64d2267afa217a44aa3bf09bcd51e409" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 DpPsu_StartLink</definition>
+        <argsstring>(XDpPsu *InstancePtr)</argsstring>
+        <name>DpPsu_StartLink</name>
+        <param>
+          <type><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will configure and establish a link with the receiver device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS the if main link was successfully established.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.c" bodystart="130" bodyend="209"/>
+        <references refid="struct_x_dp_psu___config_1a59991a74d33038e382665a3460a669ee" compoundref="xdppsu_8h" startline="63">XDpPsu_Config::BaseAddr</references>
+        <references refid="struct_x_dp_psu_1a95a9619caa3d18b50a4562de54d57704" compoundref="xdppsu_8h" startline="239">XDpPsu::Config</references>
+        <references refid="struct_x_dp_psu___link_config_1a1e61b94ec7a7329b4b7929251b293e79" compoundref="xdppsu_8h" startline="98">XDpPsu_LinkConfig::LaneCount</references>
+        <references refid="struct_x_dp_psu_1a37e28c28f46f7e08ce4738a9232a0678" compoundref="xdppsu_8h" startline="244">XDpPsu::LinkConfig</references>
+        <references refid="struct_x_dp_psu___link_config_1ae1994c57d3126737fc0028f5039b62be" compoundref="xdppsu_8h" startline="100">XDpPsu_LinkConfig::LinkRate</references>
+        <references refid="struct_x_dp_psu___link_config_1a0953d4a5c490da688eb7d4636f918712" compoundref="xdppsu_8h" startline="108">XDpPsu_LinkConfig::MaxLaneCount</references>
+        <references refid="struct_x_dp_psu___link_config_1a7add556a95dbf238f21ae156bfd284f3" compoundref="xdppsu_8h" startline="110">XDpPsu_LinkConfig::MaxLinkRate</references>
+        <references refid="xdppsu_8c_1a3d4cefedd9d272f58c7927b72add609d" compoundref="xdppsu_8c" startline="1438" endline="1459">XDpPsu_CfgMainLinkMax</references>
+        <references refid="xdppsu_8c_1ae723bbc24a4dbce124cdd92979af27af" compoundref="xdppsu_8c" startline="1545" endline="1572">XDpPsu_CheckLinkStatus</references>
+        <references refid="xdppsu_8c_1abe31bd9b101b094a40eff13ef032ea44" compoundref="xdppsu_8c" startline="1477" endline="1524">XDpPsu_EstablishLink</references>
+        <references refid="xdppsu_8c_1a0a935cce246619f8f43ea0794ed9fa8e" compoundref="xdppsu_8c" startline="1383" endline="1421">XDpPsu_GetRxCapabilities</references>
+        <references refid="xdppsu__hw_8h_1a39533d8f8e18fce7b13f84d440b6b176" compoundref="xdppsu__hw_8h" startline="52">XDPPSU_LINK_BW_SET</references>
+        <references refid="xdppsu__hw_8h_1a236d6b24b5cf2e0e8ac65a4079ae93bc" compoundref="xdppsu__hw_8h" startline="1424">XDpPsu_ReadReg</references>
+        <references refid="xdppsu_8c_1a7836168f290562156a24fb51762acde4" compoundref="xdppsu_8c" startline="1864" endline="1900">XDpPsu_SetDownspread</references>
+        <references refid="xdppsu_8c_1a2ec5ae4af1f5232fc86116d457045997" compoundref="xdppsu_8c" startline="1920" endline="1957">XDpPsu_SetEnhancedFrameMode</references>
+        <references refid="xdppsu_8c_1a868ca9bd2184707f3929e6f7e695cc93" compoundref="xdppsu_8c" startline="1975" endline="2009">XDpPsu_SetLaneCount</references>
+        <references refid="xdppsu_8c_1a68384c6a808dff1f2e68e7611057a548" compoundref="xdppsu_8c" startline="2031" endline="2078">XDpPsu_SetLinkRate</references>
+        <referencedby refid="xdppsu__common__example_8h_1a05b560a8593f7a81eee6df4151d8ba4f" compoundref="xdppsu__common__example_8c" startline="51" endline="66">DpPsu_Run</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdppsu__common__example_8h_1a05b560a8593f7a81eee6df4151d8ba4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 DpPsu_Run</definition>
+        <argsstring>(XDpPsu *InstancePtr)</argsstring>
+        <name>DpPsu_Run</name>
+        <param>
+          <type><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will configure and establish a link with the receiver device, afterwards, a video stream will start to be sent over the main link. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if main link was successfully established.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.c" bodystart="51" bodyend="66"/>
+        <references refid="xdppsu__common__example_8c_1a64d2267afa217a44aa3bf09bcd51e409" compoundref="xdppsu__common__example_8c" startline="130" endline="209">DpPsu_StartLink</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains a design example using the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>It performs a self test on the DisplayPort TX core by training the main link at the maximum common capabilities between the TX and RX and checking the lane status.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   aad  09/17/17 Initial creation.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor">#ifndef<sp/>XDPPSU_COMMON_EXAMPLE_H_</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Prevent<sp/>circular<sp/>inclusions<sp/>by<sp/>using<sp/>protection<sp/>macros.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDPPSU_COMMON_EXAMPLE_H_</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdppsu_8h" kindref="compound">xdppsu.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>The<sp/>unique<sp/>device<sp/>ID<sp/>of<sp/>the<sp/>DisplayPort<sp/>TX<sp/>core<sp/>instance<sp/>to<sp/>be<sp/>used<sp/>with<sp/>the</highlight></codeline>
+<codeline lineno="41"><highlight class="comment"><sp/>*<sp/>examples.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DPPSU_DEVICE_ID<sp/>XPAR_PSU_DP_DEVICE_ID</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DPPSU_BASEADDR<sp/>XPAR_XDPPSU_0_BASEADDR</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>The<sp/>link<sp/>rate<sp/>setting<sp/>to<sp/>begin<sp/>link<sp/>training<sp/>with.<sp/>Valid<sp/>values<sp/>are:</highlight></codeline>
+<codeline lineno="49"><highlight class="comment"><sp/>*<sp/>XDPPSU_LINK_BW_SET_540GBPS,<sp/>XDPPSU_LINK_BW_SET_270GBPS,<sp/>and</highlight></codeline>
+<codeline lineno="50"><highlight class="comment"><sp/>*<sp/>XDPPSU_LINK_BW_SET_162GBPS.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TRAIN_USE_LINK_RATE<sp/>XDPPSU_LINK_BW_SET_540GBPS</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>The<sp/>lane<sp/>count<sp/>setting<sp/>to<sp/>begin<sp/>link<sp/>training<sp/>with.<sp/>Valid<sp/>values<sp/>are:</highlight></codeline>
+<codeline lineno="53"><highlight class="comment"><sp/>*<sp/>XDPPSU_LANE_COUNT_SET_4,<sp/>XDPPSU_LANE_COUNT_SET_2,<sp/>and</highlight></codeline>
+<codeline lineno="54"><highlight class="comment"><sp/>*<sp/>XDPPSU_LANE_COUNT_SET_1.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TRAIN_USE_LANE_COUNT<sp/>XDPPSU_DPCD_LANE_COUNT_SET_2</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>If<sp/>set<sp/>to<sp/>1,<sp/>TRAIN_USE_LINK_RATE<sp/>and<sp/>TRAIN_USE_LANE_COUNT<sp/>will<sp/>be<sp/>ignored.</highlight></codeline>
+<codeline lineno="57"><highlight class="comment"><sp/>*<sp/>Instead,<sp/>the<sp/>maximum<sp/>common<sp/>link<sp/>capabilities<sp/>between<sp/>the<sp/>DisplayPort<sp/>TX<sp/>core</highlight></codeline>
+<codeline lineno="58"><highlight class="comment"><sp/>*<sp/>and<sp/>the<sp/>RX<sp/>device<sp/>will<sp/>be<sp/>used<sp/>when<sp/>establishing<sp/>a<sp/>link.</highlight></codeline>
+<codeline lineno="59"><highlight class="comment"><sp/>*<sp/>If<sp/>set<sp/>to<sp/>0,<sp/>TRAIN_USE_LINK_RATE<sp/>and<sp/>TRAIN_USE_LANE_COUNT<sp/>will<sp/>determine<sp/>the</highlight></codeline>
+<codeline lineno="60"><highlight class="comment"><sp/>*<sp/>link<sp/>rate<sp/>and<sp/>lane<sp/>count<sp/>settings<sp/>that<sp/>the<sp/>link<sp/>training<sp/>process<sp/>will<sp/>begin</highlight></codeline>
+<codeline lineno="61"><highlight class="comment"><sp/>*<sp/>with.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TRAIN_USE_MAX_LINK<sp/>1</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>DpPsu_PlatformInit(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>DpPsu_StreamSrcSync(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>DpPsu_StreamSrcSetup(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>DpPsu_StreamSrcConfigure(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="xdppsu__common__example_8c_1a31ed0302fb945e5748d9e7c182533786" kindref="member">DpPsu_SetupExample</ref>(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="xdppsu__common__example_8c_1a31ed0302fb945e5748d9e7c182533786" kindref="member">DpPsu_SetupExample</ref>(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr,<sp/>u32<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="xdppsu__common__example_8c_1a64d2267afa217a44aa3bf09bcd51e409" kindref="member">DpPsu_StartLink</ref>(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">u32<sp/><ref refid="xdppsu__common__example_8c_1a05b560a8593f7a81eee6df4151d8ba4f" kindref="member">DpPsu_Run</ref>(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>DpPsuInstance;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XDPPSU_COMMON_EXAMPLE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_common_example.h"/>
+  </compounddef>
+</doxygen>

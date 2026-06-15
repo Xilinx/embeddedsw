@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___mgf_input" kind="struct" prot="public">
+    <compoundname>XSecure_MgfInput</compoundname>
+    <includes local="no">xsecure_mgf.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___mgf_input_1a75315a260d2fc303f4e09f6115da6ba8" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XSecure_MgfInput::Seed</definition>
+        <argsstring></argsstring>
+        <name>Seed</name>
+        <briefdescription>
+<para>Input seed on which mask should be generated. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__xsecure__mgf__server__apis_1ga51accda21580807193b7f1309a153c52" compoundref="xsecure__mgf_8c" startline="230" endline="301">XSecure_MaskGenFunc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___mgf_input_1a3df7726c093f8481f8649de0fbbad69b" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XSecure_MgfInput::Output</definition>
+        <argsstring></argsstring>
+        <name>Output</name>
+        <briefdescription>
+<para>Buffer to store the mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__xsecure__mgf__server__apis_1ga51accda21580807193b7f1309a153c52" compoundref="xsecure__mgf_8c" startline="230" endline="301">XSecure_MaskGenFunc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___mgf_input_1a4b5d243ace02a92433f2a3b7593480a3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_MgfInput::SeedLen</definition>
+        <argsstring></argsstring>
+        <name>SeedLen</name>
+        <briefdescription>
+<para>Seed length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__xsecure__mgf__server__apis_1ga51accda21580807193b7f1309a153c52" compoundref="xsecure__mgf_8c" startline="230" endline="301">XSecure_MaskGenFunc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___mgf_input_1a7ef2ac3615a3516392e8f3e7af2301c2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_MgfInput::OutputLen</definition>
+        <argsstring></argsstring>
+        <name>OutputLen</name>
+        <briefdescription>
+<para>Buffer length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__xsecure__mgf__server__apis_1ga51accda21580807193b7f1309a153c52" compoundref="xsecure__mgf_8c" startline="230" endline="301">XSecure_MaskGenFunc</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure has input and output parameters used for MGF. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_mgf.h" bodystart="59" bodyend="64"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___mgf_input_1a3df7726c093f8481f8649de0fbbad69b" prot="public" virt="non-virtual"><scope>XSecure_MgfInput</scope><name>Output</name></member>
+      <member refid="struct_x_secure___mgf_input_1a7ef2ac3615a3516392e8f3e7af2301c2" prot="public" virt="non-virtual"><scope>XSecure_MgfInput</scope><name>OutputLen</name></member>
+      <member refid="struct_x_secure___mgf_input_1a75315a260d2fc303f4e09f6115da6ba8" prot="public" virt="non-virtual"><scope>XSecure_MgfInput</scope><name>Seed</name></member>
+      <member refid="struct_x_secure___mgf_input_1a4b5d243ace02a92433f2a3b7593480a3" prot="public" virt="non-virtual"><scope>XSecure_MgfInput</scope><name>SeedLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

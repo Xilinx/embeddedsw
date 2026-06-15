@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xasu__sha3__client__apis" kind="group">
+    <compoundname>xasu_sha3_client_apis</compoundname>
+    <title>SHA3 Client APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__sha3__client__apis_1ga522f701ac29ec343d5ad2d90ebac4a2a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_Sha3Operation</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_ShaOperationCmd *ShaClientParamPtr)</argsstring>
+        <name>XAsu_Sha3Operation</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___sha_operation_cmd" kindref="compound">XAsu_ShaOperationCmd</ref> *</type>
+          <declname>ShaClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to generate the digest for the provided input message using the specified SHA algorithm. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds client input arguments. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ShaClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_asu___sha_operation_cmd" kindref="compound">XAsu_ShaOperationCmd</ref> structure which holds parameters of sha input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails.</para></listitem><listitem><para>XASU_REQUEST_INPROGRESS, if split request already in progress.</para></listitem><listitem><para>XASU_CLIENT_CTX_NOT_CREATED, if client context is not created.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.</para></listitem><listitem><para>XASU_FAIL_SAVE_CTX, if saving context fails.</para></listitem><listitem><para>XASU_FREE_CTX_FAIL, if freeing context fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>The maximum length of input data should be less than 0x1FFFFFFC bytes, which is the ASU DMA&apos;s maximum supported data transfer length.</para><para>Handle context operation.</para><para>Cleanup on FINISH operation.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_sha3.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_sha3.c" bodystart="69" bodyend="154"/>
+        <references refid="struct_x_asu___sha_operation_cmd_1a0c80fb45a77e0d8703c26624f7880384" compoundref="xasu__shainfo_8h" startline="70">XAsu_ShaOperationCmd::DataAddr</references>
+        <references refid="struct_x_asu___sha_operation_cmd_1a158287b66e45758c02fa6738afad4716" compoundref="xasu__shainfo_8h" startline="72">XAsu_ShaOperationCmd::DataSize</references>
+        <references refid="struct_x_asu___sha_operation_cmd_1a5a46d5d9f4cbfa657beb34d64989fb93" compoundref="xasu__shainfo_8h" startline="71">XAsu_ShaOperationCmd::HashAddr</references>
+        <references refid="struct_x_asu___sha_operation_cmd_1afc4e0234d282f65f5a863173f5003624" compoundref="xasu__shainfo_8h" startline="73">XAsu_ShaOperationCmd::HashBufSize</references>
+        <references refid="struct_x_asu___sha_operation_cmd_1afac49d6bc5df4eb5cfcc97cdfd808436" compoundref="xasu__shainfo_8h" startline="77">XAsu_ShaOperationCmd::IsLast</references>
+        <references refid="struct_x_asu___sha_operation_cmd_1a3e45916a5f844bc83a5607e5f836cd5a" compoundref="xasu__shainfo_8h" startline="80">XAsu_ShaOperationCmd::OperationFlags</references>
+        <references refid="struct_x_asu___sha_operation_cmd_1a156f2363c44178819cae2f58e1fdab5c" compoundref="xasu__shainfo_8h" startline="74">XAsu_ShaOperationCmd::ShaMode</references>
+        <references refid="group__xasu__common__defs_1ga76ecdcdf1b1ad4bda09eac3baa13282f" compoundref="xasu__def_8h" startline="66">XASU_ASU_DMA_MAX_TRANSFER_LENGTH</references>
+        <references refid="group__xasu__client__info_1ga4af0f185b2f94cd5a55c39bd9eede12e" compoundref="xasu__client_8c" startline="821" endline="845">XAsu_CleanupFinishOperation</references>
+        <references refid="group__xasu__common__defs_1ga4ed1b3c195cb21e5e43ab8926dbfe39e" compoundref="xasu__def_8h" startline="44">XASU_FALSE</references>
+        <references refid="group__xasu__common__defs_1gaa31a05872c26a658a8da800ee649dbe9" compoundref="xasu__def_8h" startline="72">XASU_FINISH</references>
+        <references refid="group__xasu__client__info_1ga9fc6bcf48e27561e61e8fd79931a363f" compoundref="xasu__client_8c" startline="736" endline="802">XAsu_HandleContextOperation</references>
+        <references refid="group__xasu__common__defs_1gae3a9e9118884ccc0feae9e4728394e3d" compoundref="xasu__def_8h" startline="70">XASU_INIT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__common__defs_1gab2ea82483072fe1f10f4d5dfb9ffde8c" compoundref="xasu__def_8h" startline="52">XASU_MODULE_SHA3_ID</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga7af115dffedb0e4d090e6fa4561a0693" compoundref="xasu__shainfo_8h" startline="58">XASU_SHA3_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga219220a0d5563c2fc911864cd15a8d96" compoundref="xasu__shainfo_8h" startline="46">XASU_SHA_OPERATION_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga74c866f4c9240345e465c2c9e666d9a1" compoundref="xasu__def_8h" startline="71">XASU_UPDATE</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__sha3__client__apis_1ga6bee0e4d744e4febdfbb84efd76ae207" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_Sha3Kat</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr)</argsstring>
+        <name>XAsu_Sha3Kat</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to run the SHA3 Known Answer Tests (KAT&apos;s). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Generate unique ID and register the callback.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_sha3.c" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_sha3.c" bodystart="171" bodyend="199"/>
+        <references refid="group__xasu__client__info_1gae954c6c287fd8516f1cf18672f6b0eba" compoundref="xasu__client_8h" startline="51">XASU_CMD_LEN_ZERO</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gab2ea82483072fe1f10f4d5dfb9ffde8c" compoundref="xasu__def_8h" startline="52">XASU_MODULE_SHA3_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1gaf93a04d434eb1a5f7cf9f5c4cd2f717a" compoundref="xasu__shainfo_8h" startline="47">XASU_SHA_KAT_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

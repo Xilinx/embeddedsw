@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_3b6de03431c9be44dd16ef17af0884f9" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xddrcpsu_8c">xddrcpsu.c</innerfile>
+    <innerfile refid="xddrcpsu_8h">xddrcpsu.h</innerfile>
+    <innerfile refid="xddrcpsu__sinit_8c">xddrcpsu_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/"/>
+  </compounddef>
+</doxygen>

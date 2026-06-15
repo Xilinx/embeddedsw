@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_intc___vector_table_entry" kind="struct" prot="public">
+    <compoundname>XIntc_VectorTableEntry</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_intc___vector_table_entry_1a509bc8e96a0777dd929fdece614fe611" prot="public" static="no" mutable="no">
+        <type>XInterruptHandler</type>
+        <definition>XInterruptHandler XIntc_VectorTableEntry::Handler</definition>
+        <argsstring></argsstring>
+        <name>Handler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_intc___vector_table_entry_1a8badf1d4125bbca6d53404610eb813bc" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XIntc_VectorTableEntry::CallBackRef</definition>
+        <argsstring></argsstring>
+        <name>CallBackRef</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="149" bodyend="152"/>
+    <listofallmembers>
+      <member refid="struct_x_intc___vector_table_entry_1a8badf1d4125bbca6d53404610eb813bc" prot="public" virt="non-virtual"><scope>XIntc_VectorTableEntry</scope><name>CallBackRef</name></member>
+      <member refid="struct_x_intc___vector_table_entry_1a509bc8e96a0777dd929fdece614fe611" prot="public" virt="non-virtual"><scope>XIntc_VectorTableEntry</scope><name>Handler</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

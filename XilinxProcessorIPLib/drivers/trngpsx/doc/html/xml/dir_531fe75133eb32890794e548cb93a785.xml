@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_531fe75133eb32890794e548cb93a785" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xtrngpsx_8c">xtrngpsx.c</innerfile>
+    <innerfile refid="xtrngpsx_8h">xtrngpsx.h</innerfile>
+    <innerfile refid="xtrngpsx__alginfo_8h">xtrngpsx_alginfo.h</innerfile>
+    <innerfile refid="xtrngpsx__g_8c">xtrngpsx_g.c</innerfile>
+    <innerfile refid="xtrngpsx__hw_8h">xtrngpsx_hw.h</innerfile>
+    <innerfile refid="xtrngpsx__sinit_8c">xtrngpsx_sinit.c</innerfile>
+    <innerfile refid="xtrngpsx__tests_8c">xtrngpsx_tests.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/"/>
+  </compounddef>
+</doxygen>

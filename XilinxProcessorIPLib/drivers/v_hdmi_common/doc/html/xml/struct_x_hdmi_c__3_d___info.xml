@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdmi_c__3_d___info" kind="struct" prot="public">
+    <compoundname>XHdmiC_3D_Info</compoundname>
+    <includes local="no">xv_hdmic_vsif.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdmi_c__3_d___info_1a149da3b445b91db7099daa229b21a353" prot="public" static="no" mutable="no">
+        <type>XVidC_3DInfo</type>
+        <definition>XVidC_3DInfo XHdmiC_3D_Info::Stream</definition>
+        <argsstring></argsstring>
+        <name>Stream</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic_vsif.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic_vsif.h" bodystart="233" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c__3_d___info_1a45b07a52b53080ea9258b4ee4a1c2105" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdmi_c__3_d___meta_data" kindref="compound">XHdmiC_3D_MetaData</ref></type>
+        <definition>XHdmiC_3D_MetaData XHdmiC_3D_Info::MetaData</definition>
+        <argsstring></argsstring>
+        <name>MetaData</name>
+        <briefdescription>
+<para>3D Metadata </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic_vsif.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic_vsif.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c__3_d___info_1ad4ba67bc68d0ff1bd46668424ab2e253" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdmi_c__3_d___disparity_data" kindref="compound">XHdmiC_3D_DisparityData</ref></type>
+        <definition>XHdmiC_3D_DisparityData XHdmiC_3D_Info::DisparityData</definition>
+        <argsstring></argsstring>
+        <name>DisparityData</name>
+        <briefdescription>
+<para>3D Disparity Data </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic_vsif.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic_vsif.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c__3_d___info_1a4586cfd66d078930692698248e54fd75" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdmi_c__3_d___additional_info" kindref="compound">XHdmiC_3D_AdditionalInfo</ref></type>
+        <definition>XHdmiC_3D_AdditionalInfo XHdmiC_3D_Info::Additionalinfo</definition>
+        <argsstring></argsstring>
+        <name>Additionalinfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic_vsif.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic_vsif.h" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure containing 3D information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="7">
+        <label>XHdmiC_3D_AdditionalInfo</label>
+        <link refid="struct_x_hdmi_c__3_d___additional_info"/>
+      </node>
+      <node id="8">
+        <label>XHdmiC_3D_DisparityData</label>
+        <link refid="struct_x_hdmi_c__3_d___disparity_data"/>
+      </node>
+      <node id="6">
+        <label>XHdmiC_3D_MetaData</label>
+        <link refid="struct_x_hdmi_c__3_d___meta_data"/>
+      </node>
+      <node id="5">
+        <label>XHdmiC_3D_Info</label>
+        <link refid="struct_x_hdmi_c__3_d___info"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>MetaData</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>Additionalinfo</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>DisparityData</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic_vsif.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic_vsif.h" bodystart="232" bodyend="237"/>
+    <listofallmembers>
+      <member refid="struct_x_hdmi_c__3_d___info_1a4586cfd66d078930692698248e54fd75" prot="public" virt="non-virtual"><scope>XHdmiC_3D_Info</scope><name>Additionalinfo</name></member>
+      <member refid="struct_x_hdmi_c__3_d___info_1ad4ba67bc68d0ff1bd46668424ab2e253" prot="public" virt="non-virtual"><scope>XHdmiC_3D_Info</scope><name>DisparityData</name></member>
+      <member refid="struct_x_hdmi_c__3_d___info_1a45b07a52b53080ea9258b4ee4a1c2105" prot="public" virt="non-virtual"><scope>XHdmiC_3D_Info</scope><name>MetaData</name></member>
+      <member refid="struct_x_hdmi_c__3_d___info_1a149da3b445b91db7099daa229b21a353" prot="public" virt="non-virtual"><scope>XHdmiC_3D_Info</scope><name>Stream</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,379 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_xil_loader___img_hdr_tbl" kind="struct" prot="public">
+    <compoundname>XilLoader_ImgHdrTbl</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a581e811177466948e07f7623eef8e1d5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::Version</definition>
+        <argsstring></argsstring>
+        <name>Version</name>
+        <briefdescription>
+<para>PDI version used. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a7767b66da779692e71775cd8600c3b45" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::NoOfImgs</definition>
+        <argsstring></argsstring>
+        <name>NoOfImgs</name>
+        <briefdescription>
+<para>No of images present. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a7e04b9b54d83b9ff692dcec5e3813233" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::ImgHdrAddr</definition>
+        <argsstring></argsstring>
+        <name>ImgHdrAddr</name>
+        <briefdescription>
+<para>Address to start of 1st Image header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a3e7ee7eed92e13fb7bad860a2bb740b5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::NoOfPrtns</definition>
+        <argsstring></argsstring>
+        <name>NoOfPrtns</name>
+        <briefdescription>
+<para>No of partitions present. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a443d850a278a97bbba5b4dfaa566fadd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::PrtnHdrAddr</definition>
+        <argsstring></argsstring>
+        <name>PrtnHdrAddr</name>
+        <briefdescription>
+<para>Address to start of 1st partition header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a423a792ec4ede155ebe678c8b16f0181" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::SBDAddr</definition>
+        <argsstring></argsstring>
+        <name>SBDAddr</name>
+        <briefdescription>
+<para>Secondary Boot device address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a81307911c9f352bbd5f2155e2d8d0cbc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::Idcode</definition>
+        <argsstring></argsstring>
+        <name>Idcode</name>
+        <briefdescription>
+<para>Device ID Code. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1ab6dc917391e6077892ef3ba62c96cd1f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::Attr</definition>
+        <argsstring></argsstring>
+        <name>Attr</name>
+        <briefdescription>
+<para>Attributes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1ad9df9cd8b2fb523cdc141cfacef54d5c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::PdiId</definition>
+        <argsstring></argsstring>
+        <name>PdiId</name>
+        <briefdescription>
+<para>PDI ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1ae7a0051781887804bdd4341936150b0c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::Rsrvd</definition>
+        <argsstring>[3U]</argsstring>
+        <name>Rsrvd</name>
+        <briefdescription>
+<para>Reserved for future use. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a11ec3c551ff66232a184d8e9ef22873f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::TotalHdrLen</definition>
+        <argsstring></argsstring>
+        <name>TotalHdrLen</name>
+        <briefdescription>
+<para>Total size of Meta header AC + encryption overload. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a416c36eae25d391cbb04793137c0bd90" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::IvMetaHdr</definition>
+        <argsstring>[3U]</argsstring>
+        <name>IvMetaHdr</name>
+        <briefdescription>
+<para>Iv for decrypting SH of meta header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a87d799ad047d5a4e474430e019be6601" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::EncKeySrc</definition>
+        <argsstring></argsstring>
+        <name>EncKeySrc</name>
+        <briefdescription>
+<para>Encryption key source for decrypting SH of headers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a67bcfbfb8c0ab0610f6d5700125a5264" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::ExtIdCode</definition>
+        <argsstring></argsstring>
+        <name>ExtIdCode</name>
+        <briefdescription>
+<para>Extended ID Code. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1aad5454ad4c295d9a3fb25fff64db69ca" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::AcOffset</definition>
+        <argsstring></argsstring>
+        <name>AcOffset</name>
+        <briefdescription>
+<para>AC offset of Meta header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a3e53055492ae88866f865cb14e9ec83e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::KekIv</definition>
+        <argsstring>[3U]</argsstring>
+        <name>KekIv</name>
+        <briefdescription>
+<para>Kek IV for meta header decryption. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1abe6094823191d54ca32f25afab22a69b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::OptionalDataLen</definition>
+        <argsstring></argsstring>
+        <name>OptionalDataLen</name>
+        <briefdescription>
+<para>Len in words of OptionalData. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a35501aa5c6da19fb91ed5f050d3cf138" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::AuthenticationHdr</definition>
+        <argsstring></argsstring>
+        <name>AuthenticationHdr</name>
+        <briefdescription>
+<para>Authentication Header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a668def1b7e92c7ee2dcee1e284d337a2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::HashBlockSize</definition>
+        <argsstring></argsstring>
+        <name>HashBlockSize</name>
+        <briefdescription>
+<para>HashBlock Size in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a696392c408c6f2bab3cc2c44a7f376d1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::HashBlockOffset</definition>
+        <argsstring></argsstring>
+        <name>HashBlockOffset</name>
+        <briefdescription>
+<para>HashBlock word offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a61722a32854b3518304869b73a29f07f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::TotalPpkSize</definition>
+        <argsstring></argsstring>
+        <name>TotalPpkSize</name>
+        <briefdescription>
+<para>Total PPK size including alignment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a9e690d7a9e4c8ca28668ab2f4838c1e6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::ActualPpkSize</definition>
+        <argsstring></argsstring>
+        <name>ActualPpkSize</name>
+        <briefdescription>
+<para>Actual PPK size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1ae4a1f72330d272b459ca084e4dfcf4a3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::TotalHBSignSize</definition>
+        <argsstring></argsstring>
+        <name>TotalHBSignSize</name>
+        <briefdescription>
+<para>Total HashBlock signature size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1ad1e27854c3a50840d3ab81b8af06d479" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::ActualHBSignSize</definition>
+        <argsstring></argsstring>
+        <name>ActualHBSignSize</name>
+        <briefdescription>
+<para>Actual HashBlock signature size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a35fa6a8cac4d1cd3015720372813c253" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::Rsvd</definition>
+        <argsstring></argsstring>
+        <name>Rsvd</name>
+        <briefdescription>
+<para>Reserved. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___img_hdr_tbl_1a1cef594231fe9b5c494a77559427c6bf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_ImgHdrTbl::Checksum</definition>
+        <argsstring></argsstring>
+        <name>Checksum</name>
+        <briefdescription>
+<para>Checksum of the image header table. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to store the image header table details. </para>    </briefdescription>
+    <detaileddescription>
+<para>It contains all the information of image header table in order. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="115" bodyend="142"/>
+    <listofallmembers>
+      <member refid="struct_xil_loader___img_hdr_tbl_1aad5454ad4c295d9a3fb25fff64db69ca" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>AcOffset</name></member>
+      <member refid="struct_xil_loader___img_hdr_tbl_1ad1e27854c3a50840d3ab81b8af06d479" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>ActualHBSignSize</name></member>
+      <member refid="struct_xil_loader___img_hdr_tbl_1a9e690d7a9e4c8ca28668ab2f4838c1e6" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>ActualPpkSize</name></member>
+      <member refid="struct_xil_loader___img_hdr_tbl_1ab6dc917391e6077892ef3ba62c96cd1f" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>Attr</name></member>
+      <member refid="struct_xil_loader___img_hdr_tbl_1a35501aa5c6da19fb91ed5f050d3cf138" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>AuthenticationHdr</name></member>
+      <member refid="struct_xil_loader___img_hdr_tbl_1a1cef594231fe9b5c494a77559427c6bf" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>Checksum</name></member>
+      <member refid="struct_xil_loader___img_hdr_tbl_1a87d799ad047d5a4e474430e019be6601" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>EncKeySrc</name></member>
+      <member refid="struct_xil_loader___img_hdr_tbl_1a67bcfbfb8c0ab0610f6d5700125a5264" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>ExtIdCode</name></member>
+      <member refid="struct_xil_loader___img_hdr_tbl_1a696392c408c6f2bab3cc2c44a7f376d1" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>HashBlockOffset</name></member>
+      <member refid="struct_xil_loader___img_hdr_tbl_1a668def1b7e92c7ee2dcee1e284d337a2" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>HashBlockSize</name></member>
+      <member refid="struct_xil_loader___img_hdr_tbl_1a81307911c9f352bbd5f2155e2d8d0cbc" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>Idcode</name></member>
+      <member refid="struct_xil_loader___img_hdr_tbl_1a7e04b9b54d83b9ff692dcec5e3813233" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>ImgHdrAddr</name></member>
+      <member refid="struct_xil_loader___img_hdr_tbl_1a416c36eae25d391cbb04793137c0bd90" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>IvMetaHdr</name></member>
+      <member refid="struct_xil_loader___img_hdr_tbl_1a3e53055492ae88866f865cb14e9ec83e" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>KekIv</name></member>
+      <member refid="struct_xil_loader___img_hdr_tbl_1a7767b66da779692e71775cd8600c3b45" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>NoOfImgs</name></member>
+      <member refid="struct_xil_loader___img_hdr_tbl_1a3e7ee7eed92e13fb7bad860a2bb740b5" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>NoOfPrtns</name></member>
+      <member refid="struct_xil_loader___img_hdr_tbl_1abe6094823191d54ca32f25afab22a69b" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>OptionalDataLen</name></member>
+      <member refid="struct_xil_loader___img_hdr_tbl_1ad9df9cd8b2fb523cdc141cfacef54d5c" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>PdiId</name></member>
+      <member refid="struct_xil_loader___img_hdr_tbl_1a443d850a278a97bbba5b4dfaa566fadd" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>PrtnHdrAddr</name></member>
+      <member refid="struct_xil_loader___img_hdr_tbl_1ae7a0051781887804bdd4341936150b0c" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>Rsrvd</name></member>
+      <member refid="struct_xil_loader___img_hdr_tbl_1a35fa6a8cac4d1cd3015720372813c253" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>Rsvd</name></member>
+      <member refid="struct_xil_loader___img_hdr_tbl_1a423a792ec4ede155ebe678c8b16f0181" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>SBDAddr</name></member>
+      <member refid="struct_xil_loader___img_hdr_tbl_1ae4a1f72330d272b459ca084e4dfcf4a3" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>TotalHBSignSize</name></member>
+      <member refid="struct_xil_loader___img_hdr_tbl_1a11ec3c551ff66232a184d8e9ef22873f" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>TotalHdrLen</name></member>
+      <member refid="struct_xil_loader___img_hdr_tbl_1a61722a32854b3518304869b73a29f07f" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>TotalPpkSize</name></member>
+      <member refid="struct_xil_loader___img_hdr_tbl_1a581e811177466948e07f7623eef8e1d5" prot="public" virt="non-virtual"><scope>XilLoader_ImgHdrTbl</scope><name>Version</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

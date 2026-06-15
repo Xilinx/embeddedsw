@@ -1,0 +1,1263 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xufspsxc__control_8h" kind="file">
+    <compoundname>xufspsxc_control.h</compoundname>
+    <includes refid="xufspsxc_8h" local="yes">xufspsxc.h</includes>
+    <includedby refid="xufspsxc_8c" local="yes">xufspsxc.c</includedby>
+    <includedby refid="xufspsxc__hw_8c" local="yes">xufspsxc_hw.c</includedby>
+    <includedby refid="xufspsxc__init_8c" local="yes">xufspsxc_init.c</includedby>
+    <includedby refid="xufspsxc__setluncfg__example_8c" local="yes">xufspsxc_setluncfg_example.c</includedby>
+    <incdepgraph>
+      <node id="30">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="26">
+        <label>xufspsxc_control.h</label>
+        <link refid="xufspsxc_control.h"/>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>xufspsxc_hw.h</label>
+        <link refid="xufspsxc__hw_8h"/>
+      </node>
+      <node id="31">
+        <label>xil_util.h</label>
+      </node>
+      <node id="27">
+        <label>xufspsxc.h</label>
+        <link refid="xufspsxc_8h"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>xstatus.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="32">
+        <label>xufspsxc_control.h</label>
+        <link refid="xufspsxc_control.h"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>xufspsxc_setluncfg_example.c</label>
+        <link refid="xufspsxc__setluncfg__example_8c"/>
+      </node>
+      <node id="34">
+        <label>xufspsxc_hw.c</label>
+        <link refid="xufspsxc__hw_8c"/>
+      </node>
+      <node id="33">
+        <label>xufspsxc.c</label>
+        <link refid="xufspsxc_8c"/>
+      </node>
+      <node id="35">
+        <label>xufspsxc_init.c</label>
+        <link refid="xufspsxc__init_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__ufspsxc_1ga281e93b3445e60af8166923832e56789" prot="public" static="no">
+        <name>XUFSPSXC_LOWLEVEL_H_</name>
+        <briefdescription>
+<para>&lt; prevent circular inclusions </para>        </briefdescription>
+        <detaileddescription>
+<para>by using protection macros </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__ufspsxc_1ga3466d6c88ad459aef56d2d686ff077c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_SendUICCmd</definition>
+        <argsstring>(const XUfsPsxc *InstancePtr, XUfsPsxc_UicCmd *UicCmdPtr)</argsstring>
+        <name>XUfsPsxc_SendUICCmd</name>
+        <param>
+          <type>const <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc___uic_cmd" kindref="compound">XUfsPsxc_UicCmd</ref> *</type>
+          <declname>UicCmdPtr</declname>
+        </param>
+        <briefdescription>
+<para>Send UIC Command. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>UicCmdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc___uic_cmd" kindref="compound">XUfsPsxc_UicCmd</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Refer UIC Error Codes in <ref refid="xufspsxc_8h" kindref="compound">xufspsxc.h</ref> file. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_hw.c" bodystart="59" bodyend="131"/>
+        <references refid="struct_x_ufs_psxc___config_1a4a3f9ad972b6dcab5ae62033e59571a1" compoundref="xufspsxc_8h" startline="67">XUfsPsxc_Config::BaseAddress</references>
+        <referencedby refid="group__ufspsxc_1ga9d5217db85b9198686faa9f2dabd07b4" compoundref="xufspsxc__init_8c" startline="747" endline="889">XUfsPsxc_ConfigureTxRxAttributes</referencedby>
+        <referencedby refid="group__ufspsxc_1ga46c30f50e646ad1e1a080ef88b80eb70" compoundref="xufspsxc__init_8c" startline="663" endline="732">XUfsPsxc_EnableMPhy</referencedby>
+        <referencedby refid="group__ufspsxc_1gae0db9d094adbe197913f6c107e0f02ef" compoundref="xufspsxc__init_8c" startline="60" endline="192">XUfsPsxc_HostInitialize</referencedby>
+        <referencedby refid="group__ufspsxc_1ga35add787c05c073b7b1a404d54425f78" compoundref="xufspsxc__init_8c" startline="560" endline="609">XUfsPsxc_ReadPhyReg</referencedby>
+        <referencedby refid="group__ufspsxc_1ga186554489b15b12e4d3e6d07669f317f" compoundref="xufspsxc__init_8c" startline="621" endline="651">XUfsPsxc_SetRmmiConfig</referencedby>
+        <referencedby refid="group__ufspsxc_1ga506adfb0eda2bedee784c7abee535397" compoundref="xufspsxc__init_8c" startline="502" endline="545">XUfsPsxc_WritePhyReg</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ufspsxc_1ga9d2af8ff970bc14578e9b35d1969d460" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_SetHce</definition>
+        <argsstring>(const XUfsPsxc *InstancePtr, u32 Value)</argsstring>
+        <name>XUfsPsxc_SetHce</name>
+        <param>
+          <type>const <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>Perform the Host Controller Enable/Disable. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is used to enable/disable Host Controller.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XUFSPSXC_SUCCESS for Success XUFSPSXC_FAILURE for failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_hw.c" bodystart="145" bodyend="162"/>
+        <references refid="struct_x_ufs_psxc___config_1a4a3f9ad972b6dcab5ae62033e59571a1" compoundref="xufspsxc_8h" startline="67">XUfsPsxc_Config::BaseAddress</references>
+        <referencedby refid="group__ufspsxc_1gae0db9d094adbe197913f6c107e0f02ef" compoundref="xufspsxc__init_8c" startline="60" endline="192">XUfsPsxc_HostInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ufspsxc_1ga033076869a57d47e1742f555bb6a0276" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUfsPsxc_FillNopOutUpiu</definition>
+        <argsstring>(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr)</argsstring>
+        <name>XUfsPsxc_FillNopOutUpiu</name>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref> *</type>
+          <declname>CmdDescPtr</declname>
+        </param>
+        <briefdescription>
+<para>This API Fill the transfer request descriptor for NOP-OUT UPIU. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdDescPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_hw.c" bodystart="175" bodyend="190"/>
+        <references refid="struct_x_ufs_psxc___xfer___cmd_desc_1a20533afb5b19b888e50009bc077eac41" compoundref="xufspsxc_8h" startline="179">XUfsPsxc_Xfer_CmdDesc::RespUpiu</references>
+        <referencedby refid="group__ufspsxc_1gafa5f97c1a585f348eb57d7cfa82b5080" compoundref="xufspsxc__init_8c" startline="205" endline="257">XUfsPsxc_CardInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ufspsxc_1gafd68bf712ad71a509ba5e9715d8b2827" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUfsPsxc_FillTestUnitRdyUpiu</definition>
+        <argsstring>(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr)</argsstring>
+        <name>XUfsPsxc_FillTestUnitRdyUpiu</name>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref> *</type>
+          <declname>CmdDescPtr</declname>
+        </param>
+        <briefdescription>
+<para>This API Fill the transfer request descriptor for TEST UNIT READY Command. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdDescPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_hw.c" bodystart="203" bodyend="221"/>
+        <references refid="struct_x_ufs_psxc___xfer___cmd_desc_1a20533afb5b19b888e50009bc077eac41" compoundref="xufspsxc_8h" startline="179">XUfsPsxc_Xfer_CmdDesc::RespUpiu</references>
+        <referencedby refid="group__ufspsxc_1ga7c68d7e7d43d9d3f3c327c4ea3d58dd6" compoundref="xufspsxc_8c" startline="338" endline="416">XUfsPsxc_ReadPolled</referencedby>
+        <referencedby refid="group__ufspsxc_1ga5b503a6cef357e029c87ab07e4354763" compoundref="xufspsxc_8c" startline="432" endline="501">XUfsPsxc_WritePolled</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ufspsxc_1ga12ee1bec882160b1a0f4d273ad4af0e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUfsPsxc_FillReadCmdUpiu</definition>
+        <argsstring>(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr, u64 Address, u32 BlkCnt, const u8 *Buff)</argsstring>
+        <name>XUfsPsxc_FillReadCmdUpiu</name>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref> *</type>
+          <declname>CmdDescPtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BlkCnt</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Buff</declname>
+        </param>
+        <briefdescription>
+<para>This API Fill the transfer request descriptor for READ Command. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdDescPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the first logical block accessed by this command. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BlkCnt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of blocks to be read. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Buff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the destination data buffer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_hw.c" bodystart="237" bodyend="303"/>
+        <references refid="struct_x_ufs_psxc___xfer___cmd_desc_1af59555926e2c77d9dd831659abdcb0a4" compoundref="xufspsxc_8h" startline="180">XUfsPsxc_Xfer_CmdDesc::Prdt</references>
+        <references refid="struct_x_ufs_psxc___xfer___cmd_desc_1a9618b038e5147f227c486520fae4f2fb" compoundref="xufspsxc_8h" startline="178">XUfsPsxc_Xfer_CmdDesc::ReqUpiu</references>
+        <references refid="struct_x_ufs_psxc___xfer___cmd_desc_1a20533afb5b19b888e50009bc077eac41" compoundref="xufspsxc_8h" startline="179">XUfsPsxc_Xfer_CmdDesc::RespUpiu</references>
+        <referencedby refid="group__ufspsxc_1ga7c68d7e7d43d9d3f3c327c4ea3d58dd6" compoundref="xufspsxc_8c" startline="338" endline="416">XUfsPsxc_ReadPolled</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ufspsxc_1ga5c93689c07193dfa1a85d9b093596b0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_ProcessUpiu</definition>
+        <argsstring>(const XUfsPsxc *InstancePtr, const XUfsPsxc_Xfer_CmdDesc *CmdDescPtr)</argsstring>
+        <name>XUfsPsxc_ProcessUpiu</name>
+        <param>
+          <type>const <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref> *</type>
+          <declname>CmdDescPtr</declname>
+        </param>
+        <briefdescription>
+<para>This API send the UPIU to the UFS device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdDescPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Refer OCS in <ref refid="xufspsxc_8h" kindref="compound">xufspsxc.h</ref> file, XUFSPSXC_FAILURE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_hw.c" bodystart="535" bodyend="656"/>
+        <references refid="struct_x_ufs_psxc___config_1a4a3f9ad972b6dcab5ae62033e59571a1" compoundref="xufspsxc_8h" startline="67">XUfsPsxc_Config::BaseAddress</references>
+        <references refid="struct_x_ufs_psxc___xfer___req_desc_1abca8317dcaf712479f79c9bcc8bbcea9" compoundref="xufspsxc_8h" startline="190">XUfsPsxc_Xfer_ReqDesc::DW2_Ocs</references>
+        <references refid="struct_x_ufs_psxc___config_1a9ca68c44716762c73f53c17f35cf7eea" compoundref="xufspsxc_8h" startline="71">XUfsPsxc_Config::IsCacheCoherent</references>
+        <references refid="struct_x_ufs_psxc___xfer___cmd_desc_1af59555926e2c77d9dd831659abdcb0a4" compoundref="xufspsxc_8h" startline="180">XUfsPsxc_Xfer_CmdDesc::Prdt</references>
+        <references refid="struct_x_ufs_psxc___xfer___cmd_desc_1a9618b038e5147f227c486520fae4f2fb" compoundref="xufspsxc_8h" startline="178">XUfsPsxc_Xfer_CmdDesc::ReqUpiu</references>
+        <references refid="struct_x_ufs_psxc___xfer___cmd_desc_1a20533afb5b19b888e50009bc077eac41" compoundref="xufspsxc_8h" startline="179">XUfsPsxc_Xfer_CmdDesc::RespUpiu</references>
+        <references refid="group__ufspsxc_1ga5f89f5e1828c893eaeadf6ff46bfcdff" compoundref="xufspsxc_8h" startline="296">XUFSPSXC_SCSI_GOOD</references>
+        <referencedby refid="group__ufspsxc_1gafa5f97c1a585f348eb57d7cfa82b5080" compoundref="xufspsxc__init_8c" startline="205" endline="257">XUfsPsxc_CardInitialize</referencedby>
+        <referencedby refid="group__ufspsxc_1ga353f784dcc8a50185ea407bc0dcb4768" compoundref="xufspsxc__init_8c" startline="360" endline="436">XUfsPsxc_GetLUNInfo</referencedby>
+        <referencedby refid="group__ufspsxc_1ga029d0b5ef73c6cd4daaf455d82afbd57" compoundref="xufspsxc__init_8c" startline="270" endline="346">XUfsPsxc_ReadDeviceInfo</referencedby>
+        <referencedby refid="group__ufspsxc_1ga7c68d7e7d43d9d3f3c327c4ea3d58dd6" compoundref="xufspsxc_8c" startline="338" endline="416">XUfsPsxc_ReadPolled</referencedby>
+        <referencedby refid="group__ufspsxc_1ga13fea34df11f07626308ad42623497ff" compoundref="xufspsxc__init_8c" startline="449" endline="487">XUfsPsxc_Set4KBlkSize</referencedby>
+        <referencedby refid="group__ufspsxc_1ga6e5ad67b7055e0c5174028c2bdd464c0" compoundref="xufspsxc_8c" startline="264" endline="322">XUfsPsxc_SwitchBootLUN</referencedby>
+        <referencedby refid="group__ufspsxc_1ga5b503a6cef357e029c87ab07e4354763" compoundref="xufspsxc_8c" startline="432" endline="501">XUfsPsxc_WritePolled</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ufspsxc_1ga4f01785053f7c891ffceab509d137b1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUfsPsxc_FillFlagUpiu</definition>
+        <argsstring>(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr, u32 IsRead, u32 FlagIDn)</argsstring>
+        <name>XUfsPsxc_FillFlagUpiu</name>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref> *</type>
+          <declname>CmdDescPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IsRead</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>FlagIDn</declname>
+        </param>
+        <briefdescription>
+<para>This API Fill the transfer request descriptor for READ/SET FLAG Command. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdDescPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsRead</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a flag to indicate whether the operation is read or write. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FlagIDn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a Flag Identification number.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_hw.c" bodystart="391" bodyend="424"/>
+        <references refid="struct_x_ufs_psxc___xfer___cmd_desc_1a20533afb5b19b888e50009bc077eac41" compoundref="xufspsxc_8h" startline="179">XUfsPsxc_Xfer_CmdDesc::RespUpiu</references>
+        <references refid="struct_x_ufs_psxc___trans_spec_flds_1a437caa37722a261cba1a2ef6cacfef23" compoundref="xufspsxc_8h" startline="110">XUfsPsxc_TransSpecFlds::Value</references>
+        <referencedby refid="group__ufspsxc_1gafa5f97c1a585f348eb57d7cfa82b5080" compoundref="xufspsxc__init_8c" startline="205" endline="257">XUfsPsxc_CardInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ufspsxc_1gac6c05905f6fcef83ac0da3b72887164b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUfsPsxc_FillDescUpiu</definition>
+        <argsstring>(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr, u32 Tsf_DW0, u32 IsRead, u32 Length)</argsstring>
+        <name>XUfsPsxc_FillDescUpiu</name>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref> *</type>
+          <declname>CmdDescPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Tsf_DW0</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IsRead</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Length</declname>
+        </param>
+        <briefdescription>
+<para>This API Fill the transfer request descriptor for read or write Descriptor Command. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdDescPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Tsf_DW0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains information about Description identification Number(3rd byte), Index(2nd byte) and Selector(1st byte). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsRead</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a flag to indicate whether the operation is read or write descriptor. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of bytes to read the descriptor.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_hw.c" bodystart="442" bodyend="475"/>
+        <references refid="struct_x_ufs_psxc___xfer___cmd_desc_1a20533afb5b19b888e50009bc077eac41" compoundref="xufspsxc_8h" startline="179">XUfsPsxc_Xfer_CmdDesc::RespUpiu</references>
+        <referencedby refid="group__ufspsxc_1ga353f784dcc8a50185ea407bc0dcb4768" compoundref="xufspsxc__init_8c" startline="360" endline="436">XUfsPsxc_GetLUNInfo</referencedby>
+        <referencedby refid="group__ufspsxc_1ga029d0b5ef73c6cd4daaf455d82afbd57" compoundref="xufspsxc__init_8c" startline="270" endline="346">XUfsPsxc_ReadDeviceInfo</referencedby>
+        <referencedby refid="group__ufspsxc_1ga13fea34df11f07626308ad42623497ff" compoundref="xufspsxc__init_8c" startline="449" endline="487">XUfsPsxc_Set4KBlkSize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ufspsxc_1ga88763b7077bb9b4880c84156663dc1cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUfsPsxc_FillAttrUpiu</definition>
+        <argsstring>(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr, u32 IsRead, u32 AttrIDn, u32 Value)</argsstring>
+        <name>XUfsPsxc_FillAttrUpiu</name>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref> *</type>
+          <declname>CmdDescPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IsRead</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>AttrIDn</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>This API Fill the transfer request descriptor for read or write Attribute Command. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdDescPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsRead</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a flag to indicate whether the operation is read or write descriptor. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AttrIDn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a Attribute Identification number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is value to be written to the attributes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_hw.c" bodystart="492" bodyend="522"/>
+        <references refid="struct_x_ufs_psxc___xfer___cmd_desc_1a20533afb5b19b888e50009bc077eac41" compoundref="xufspsxc_8h" startline="179">XUfsPsxc_Xfer_CmdDesc::RespUpiu</references>
+        <referencedby refid="group__ufspsxc_1ga353f784dcc8a50185ea407bc0dcb4768" compoundref="xufspsxc__init_8c" startline="360" endline="436">XUfsPsxc_GetLUNInfo</referencedby>
+        <referencedby refid="group__ufspsxc_1ga6e5ad67b7055e0c5174028c2bdd464c0" compoundref="xufspsxc_8c" startline="264" endline="322">XUfsPsxc_SwitchBootLUN</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ufspsxc_1gae0db9d094adbe197913f6c107e0f02ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_HostInitialize</definition>
+        <argsstring>(XUfsPsxc *InstancePtr)</argsstring>
+        <name>XUfsPsxc_HostInitialize</name>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Initializes the Host Controller. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XUFSPSXC_SUCCESS, XUFSPSXC_FAILURE, UIC Error Codes in <ref refid="xufspsxc_8h" kindref="compound">xufspsxc.h</ref> file. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_init.c" bodystart="60" bodyend="192"/>
+        <references refid="struct_x_ufs_psxc___config_1a4a3f9ad972b6dcab5ae62033e59571a1" compoundref="xufspsxc_8h" startline="67">XUfsPsxc_Config::BaseAddress</references>
+        <references refid="struct_x_ufs_psxc___config_1a9e08ed8c5c8ba0b3b67ce267134a9ee4" compoundref="xufspsxc_8h" startline="69">XUfsPsxc_Config::CfgClkFreqHz</references>
+        <references refid="struct_x_ufs_psxc___config_1ab6fd32d5fd25f5b32edf2b4f69875e67" compoundref="xufspsxc_8h" startline="68">XUfsPsxc_Config::InputClockHz</references>
+        <references refid="struct_x_ufs_psxc___config_1ac3e9e067157d1afa16f87784578dd1f9" compoundref="xufspsxc_8h" startline="70">XUfsPsxc_Config::RefPadClk</references>
+        <references refid="group__ufspsxc_1ga2c5da410d2eefa54129eb56efb13bc3f" compoundref="xufspsxc__hw_8c" startline="669" endline="783">XUfsPsxc_PhyInit</references>
+        <references refid="group__ufspsxc_1ga3466d6c88ad459aef56d2d686ff077c8" compoundref="xufspsxc__hw_8c" startline="59" endline="131">XUfsPsxc_SendUICCmd</references>
+        <references refid="group__ufspsxc_1ga9d2af8ff970bc14578e9b35d1969d460" compoundref="xufspsxc__hw_8c" startline="145" endline="162">XUfsPsxc_SetHce</references>
+        <referencedby refid="group__ufspsxc_1ga615ad820fd1faa16ebd1ad620f2837e5" compoundref="xufspsxc_8c" startline="94" endline="120">XUfsPsxc_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ufspsxc_1gafa5f97c1a585f348eb57d7cfa82b5080" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_CardInitialize</definition>
+        <argsstring>(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr)</argsstring>
+        <name>XUfsPsxc_CardInitialize</name>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref> *</type>
+          <declname>CmdDescPtr</declname>
+        </param>
+        <briefdescription>
+<para>This API Partially Initialize the UFS device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdDescPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XUFSPSXC_SUCCESS, XUFSPSXC_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_init.c" bodystart="205" bodyend="257"/>
+        <references refid="struct_x_ufs_psxc___xfer___cmd_desc_1a20533afb5b19b888e50009bc077eac41" compoundref="xufspsxc_8h" startline="179">XUfsPsxc_Xfer_CmdDesc::RespUpiu</references>
+        <references refid="struct_x_ufs_psxc___trans_spec_flds_1a437caa37722a261cba1a2ef6cacfef23" compoundref="xufspsxc_8h" startline="110">XUfsPsxc_TransSpecFlds::Value</references>
+        <references refid="group__ufspsxc_1ga4f01785053f7c891ffceab509d137b1e" compoundref="xufspsxc__hw_8c" startline="391" endline="424">XUfsPsxc_FillFlagUpiu</references>
+        <references refid="group__ufspsxc_1ga033076869a57d47e1742f555bb6a0276" compoundref="xufspsxc__hw_8c" startline="175" endline="190">XUfsPsxc_FillNopOutUpiu</references>
+        <references refid="group__ufspsxc_1ga5c93689c07193dfa1a85d9b093596b0e" compoundref="xufspsxc__hw_8c" startline="535" endline="656">XUfsPsxc_ProcessUpiu</references>
+        <referencedby refid="group__ufspsxc_1ga615ad820fd1faa16ebd1ad620f2837e5" compoundref="xufspsxc_8c" startline="94" endline="120">XUfsPsxc_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ufspsxc_1ga353f784dcc8a50185ea407bc0dcb4768" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_GetLUNInfo</definition>
+        <argsstring>(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr)</argsstring>
+        <name>XUfsPsxc_GetLUNInfo</name>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref> *</type>
+          <declname>CmdDescPtr</declname>
+        </param>
+        <briefdescription>
+<para>This API update the Logical Unit information structure by reading the configuration descriptor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdDescPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XUFSPSXC_SUCCESS, XUFSPSXC_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_init.c" bodystart="360" bodyend="436"/>
+        <references refid="struct_x_ufs_psxc___xfer___cmd_desc_1a20533afb5b19b888e50009bc077eac41" compoundref="xufspsxc_8h" startline="179">XUfsPsxc_Xfer_CmdDesc::RespUpiu</references>
+        <references refid="struct_x_ufs_psxc___trans_spec_flds_1a437caa37722a261cba1a2ef6cacfef23" compoundref="xufspsxc_8h" startline="110">XUfsPsxc_TransSpecFlds::Value</references>
+        <references refid="group__ufspsxc_1ga88763b7077bb9b4880c84156663dc1cb" compoundref="xufspsxc__hw_8c" startline="492" endline="522">XUfsPsxc_FillAttrUpiu</references>
+        <references refid="group__ufspsxc_1gac6c05905f6fcef83ac0da3b72887164b" compoundref="xufspsxc__hw_8c" startline="442" endline="475">XUfsPsxc_FillDescUpiu</references>
+        <references refid="group__ufspsxc_1ga5c93689c07193dfa1a85d9b093596b0e" compoundref="xufspsxc__hw_8c" startline="535" endline="656">XUfsPsxc_ProcessUpiu</references>
+        <referencedby refid="group__ufspsxc_1ga615ad820fd1faa16ebd1ad620f2837e5" compoundref="xufspsxc_8c" startline="94" endline="120">XUfsPsxc_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ufspsxc_1ga506adfb0eda2bedee784c7abee535397" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_WritePhyReg</definition>
+        <argsstring>(const XUfsPsxc *InstancePtr, XUfsPsxc_UicCmd *UicCmdPtr, u32 Address, u32 Value)</argsstring>
+        <name>XUfsPsxc_WritePhyReg</name>
+        <param>
+          <type>const <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc___uic_cmd" kindref="compound">XUfsPsxc_UicCmd</ref> *</type>
+          <declname>UicCmdPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>This API does PHY register write with the required sequence. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>UicCmdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc___uic_cmd" kindref="compound">XUfsPsxc_UicCmd</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Address of the PHy register. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Value to be written to the PHY register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XUFSPSXC_SUCCESS or Error codes. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_init.c" bodystart="502" bodyend="545"/>
+        <references refid="group__ufspsxc_1ga3466d6c88ad459aef56d2d686ff077c8" compoundref="xufspsxc__hw_8c" startline="59" endline="131">XUfsPsxc_SendUICCmd</references>
+        <referencedby refid="group__ufspsxc_1ga9d5217db85b9198686faa9f2dabd07b4" compoundref="xufspsxc__init_8c" startline="747" endline="889">XUfsPsxc_ConfigureTxRxAttributes</referencedby>
+        <referencedby refid="group__ufspsxc_1ga16fd74d7320f10b5240412d467ff82c6" compoundref="xufspsxc__hw_8c" startline="797" endline="852">XUfsPsxc_OverridePhyRxReq</referencedby>
+        <referencedby refid="group__ufspsxc_1ga2c5da410d2eefa54129eb56efb13bc3f" compoundref="xufspsxc__hw_8c" startline="669" endline="783">XUfsPsxc_PhyInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ufspsxc_1ga35add787c05c073b7b1a404d54425f78" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_ReadPhyReg</definition>
+        <argsstring>(const XUfsPsxc *InstancePtr, XUfsPsxc_UicCmd *UicCmdPtr, u32 Address, u32 *Value)</argsstring>
+        <name>XUfsPsxc_ReadPhyReg</name>
+        <param>
+          <type>const <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc___uic_cmd" kindref="compound">XUfsPsxc_UicCmd</ref> *</type>
+          <declname>UicCmdPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>This API does PHY register read with the required sequence. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>UicCmdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc___uic_cmd" kindref="compound">XUfsPsxc_UicCmd</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Address of the PHy register. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to store the PHY register data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XUFSPSXC_SUCCESS or Error codes. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_init.c" bodystart="560" bodyend="609"/>
+        <references refid="group__ufspsxc_1ga3466d6c88ad459aef56d2d686ff077c8" compoundref="xufspsxc__hw_8c" startline="59" endline="131">XUfsPsxc_SendUICCmd</references>
+        <referencedby refid="group__ufspsxc_1ga9d5217db85b9198686faa9f2dabd07b4" compoundref="xufspsxc__init_8c" startline="747" endline="889">XUfsPsxc_ConfigureTxRxAttributes</referencedby>
+        <referencedby refid="group__ufspsxc_1ga16fd74d7320f10b5240412d467ff82c6" compoundref="xufspsxc__hw_8c" startline="797" endline="852">XUfsPsxc_OverridePhyRxReq</referencedby>
+        <referencedby refid="group__ufspsxc_1ga2c5da410d2eefa54129eb56efb13bc3f" compoundref="xufspsxc__hw_8c" startline="669" endline="783">XUfsPsxc_PhyInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ufspsxc_1ga13fea34df11f07626308ad42623497ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_Set4KBlkSize</definition>
+        <argsstring>(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr)</argsstring>
+        <name>XUfsPsxc_Set4KBlkSize</name>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref> *</type>
+          <declname>CmdDescPtr</declname>
+        </param>
+        <briefdescription>
+<para>This API set the block size to 4K for Boot LUN. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdDescPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XUFSPSXC_SUCCESS, XUFSPSXC_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_init.c" bodystart="449" bodyend="487"/>
+        <references refid="struct_x_ufs_psxc___xfer___cmd_desc_1a9618b038e5147f227c486520fae4f2fb" compoundref="xufspsxc_8h" startline="178">XUfsPsxc_Xfer_CmdDesc::ReqUpiu</references>
+        <references refid="group__ufspsxc_1gac6c05905f6fcef83ac0da3b72887164b" compoundref="xufspsxc__hw_8c" startline="442" endline="475">XUfsPsxc_FillDescUpiu</references>
+        <references refid="group__ufspsxc_1ga5c93689c07193dfa1a85d9b093596b0e" compoundref="xufspsxc__hw_8c" startline="535" endline="656">XUfsPsxc_ProcessUpiu</references>
+        <referencedby refid="group__ufspsxc_1ga1e4078f7061f73d5ccd64eafe59c13ee" compoundref="xufspsxc_8c" startline="209" endline="251">XUfsPsxc_CheckBootReq</referencedby>
+        <referencedby refid="group__ufspsxc_1ga6e5ad67b7055e0c5174028c2bdd464c0" compoundref="xufspsxc_8c" startline="264" endline="322">XUfsPsxc_SwitchBootLUN</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ufspsxc_1ga2c5da410d2eefa54129eb56efb13bc3f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_PhyInit</definition>
+        <argsstring>(const XUfsPsxc *InstancePtr)</argsstring>
+        <name>XUfsPsxc_PhyInit</name>
+        <param>
+          <type>const <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This API does PHY Initialization sequence. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>UicCmdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc___uic_cmd" kindref="compound">XUfsPsxc_UicCmd</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XUFSPSXC_SUCCESS or Error codes. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_hw.c" bodystart="669" bodyend="783"/>
+        <references refid="group__ufspsxc_1ga46c30f50e646ad1e1a080ef88b80eb70" compoundref="xufspsxc__init_8c" startline="663" endline="732">XUfsPsxc_EnableMPhy</references>
+        <references refid="group__ufspsxc_1ga35add787c05c073b7b1a404d54425f78" compoundref="xufspsxc__init_8c" startline="560" endline="609">XUfsPsxc_ReadPhyReg</references>
+        <references refid="group__ufspsxc_1ga186554489b15b12e4d3e6d07669f317f" compoundref="xufspsxc__init_8c" startline="621" endline="651">XUfsPsxc_SetRmmiConfig</references>
+        <references refid="group__ufspsxc_1ga506adfb0eda2bedee784c7abee535397" compoundref="xufspsxc__init_8c" startline="502" endline="545">XUfsPsxc_WritePhyReg</references>
+        <referencedby refid="group__ufspsxc_1gae0db9d094adbe197913f6c107e0f02ef" compoundref="xufspsxc__init_8c" startline="60" endline="192">XUfsPsxc_HostInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ufspsxc_1ga186554489b15b12e4d3e6d07669f317f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_SetRmmiConfig</definition>
+        <argsstring>(const XUfsPsxc *InstancePtr)</argsstring>
+        <name>XUfsPsxc_SetRmmiConfig</name>
+        <param>
+          <type>const <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This API setup RMMI configurations. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XUFSPSXC_SUCCESS or Error codes. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_init.c" bodystart="621" bodyend="651"/>
+        <references refid="group__ufspsxc_1ga3466d6c88ad459aef56d2d686ff077c8" compoundref="xufspsxc__hw_8c" startline="59" endline="131">XUfsPsxc_SendUICCmd</references>
+        <referencedby refid="group__ufspsxc_1ga2c5da410d2eefa54129eb56efb13bc3f" compoundref="xufspsxc__hw_8c" startline="669" endline="783">XUfsPsxc_PhyInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ufspsxc_1ga46c30f50e646ad1e1a080ef88b80eb70" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_EnableMPhy</definition>
+        <argsstring>(const XUfsPsxc *InstancePtr)</argsstring>
+        <name>XUfsPsxc_EnableMPhy</name>
+        <param>
+          <type>const <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This API enable the MPHY and wait for Rx/Tx busy de-assertion. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XUFSPSXC_SUCCESS or Error codes. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_init.c" bodystart="663" bodyend="732"/>
+        <references refid="group__ufspsxc_1ga3466d6c88ad459aef56d2d686ff077c8" compoundref="xufspsxc__hw_8c" startline="59" endline="131">XUfsPsxc_SendUICCmd</references>
+        <referencedby refid="group__ufspsxc_1ga2c5da410d2eefa54129eb56efb13bc3f" compoundref="xufspsxc__hw_8c" startline="669" endline="783">XUfsPsxc_PhyInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ufspsxc_1ga16fd74d7320f10b5240412d467ff82c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_OverridePhyRxReq</definition>
+        <argsstring>(const XUfsPsxc *InstancePtr, u32 RxReq, u32 NumLanes)</argsstring>
+        <name>XUfsPsxc_OverridePhyRxReq</name>
+        <param>
+          <type>const <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RxReq</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumLanes</declname>
+        </param>
+        <briefdescription>
+<para>This API Overrides the PHY rx_req. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RxReq</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates PHY should be receiver mode or not </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumLanes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates Number of connected lanes</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XUFSPSXC_SUCCESS or Error codes. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_hw.c" bodystart="797" bodyend="852"/>
+        <references refid="group__ufspsxc_1ga35add787c05c073b7b1a404d54425f78" compoundref="xufspsxc__init_8c" startline="560" endline="609">XUfsPsxc_ReadPhyReg</references>
+        <references refid="group__ufspsxc_1ga506adfb0eda2bedee784c7abee535397" compoundref="xufspsxc__init_8c" startline="502" endline="545">XUfsPsxc_WritePhyReg</references>
+        <referencedby refid="group__ufspsxc_1ga9d5217db85b9198686faa9f2dabd07b4" compoundref="xufspsxc__init_8c" startline="747" endline="889">XUfsPsxc_ConfigureTxRxAttributes</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ufspsxc_1ga9d5217db85b9198686faa9f2dabd07b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_ConfigureTxRxAttributes</definition>
+        <argsstring>(const XUfsPsxc *InstancePtr, u32 SpeedGear, u32 RxTermCap, u32 TxTermCap)</argsstring>
+        <name>XUfsPsxc_ConfigureTxRxAttributes</name>
+        <param>
+          <type>const <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SpeedGear</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RxTermCap</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TxTermCap</declname>
+        </param>
+        <briefdescription>
+<para>This API Configures the Tx/Rx Attributes. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SpeedGear</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Power Mode value to be set. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RxTermCap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Rx Termination Capability. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TxTermCap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Tx Termination Capability.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XUFSPSXC_SUCCESS or Error codes. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_init.c" bodystart="747" bodyend="889"/>
+        <references refid="group__ufspsxc_1ga16fd74d7320f10b5240412d467ff82c6" compoundref="xufspsxc__hw_8c" startline="797" endline="852">XUfsPsxc_OverridePhyRxReq</references>
+        <references refid="group__ufspsxc_1ga35add787c05c073b7b1a404d54425f78" compoundref="xufspsxc__init_8c" startline="560" endline="609">XUfsPsxc_ReadPhyReg</references>
+        <references refid="group__ufspsxc_1ga3466d6c88ad459aef56d2d686ff077c8" compoundref="xufspsxc__hw_8c" startline="59" endline="131">XUfsPsxc_SendUICCmd</references>
+        <references refid="group__ufspsxc_1ga506adfb0eda2bedee784c7abee535397" compoundref="xufspsxc__init_8c" startline="502" endline="545">XUfsPsxc_WritePhyReg</references>
+        <referencedby refid="group__ufspsxc_1ga76dd7620ac6f336d4a9aaa5108e009d6" compoundref="xufspsxc_8c" startline="134" endline="197">XUfsPsxc_ConfigureSpeedGear</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ufspsxc_1ga029d0b5ef73c6cd4daaf455d82afbd57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_ReadDeviceInfo</definition>
+        <argsstring>(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr)</argsstring>
+        <name>XUfsPsxc_ReadDeviceInfo</name>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref> *</type>
+          <declname>CmdDescPtr</declname>
+        </param>
+        <briefdescription>
+<para>This API read the UFS device information. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdDescPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XUFSPSXC_SUCCESS, XUFSPSXC_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_init.c" bodystart="270" bodyend="346"/>
+        <references refid="struct_x_ufs_psxc___xfer___cmd_desc_1a20533afb5b19b888e50009bc077eac41" compoundref="xufspsxc_8h" startline="179">XUfsPsxc_Xfer_CmdDesc::RespUpiu</references>
+        <references refid="group__ufspsxc_1gac6c05905f6fcef83ac0da3b72887164b" compoundref="xufspsxc__hw_8c" startline="442" endline="475">XUfsPsxc_FillDescUpiu</references>
+        <references refid="group__ufspsxc_1ga5c93689c07193dfa1a85d9b093596b0e" compoundref="xufspsxc__hw_8c" startline="535" endline="656">XUfsPsxc_ProcessUpiu</references>
+        <referencedby refid="group__ufspsxc_1ga615ad820fd1faa16ebd1ad620f2837e5" compoundref="xufspsxc_8c" startline="94" endline="120">XUfsPsxc_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ufspsxc_1ga3c13cdebf8362d85f77b3b15fe52d2c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUfsPsxc_FillWriteCmdUpiu</definition>
+        <argsstring>(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr, u64 Address, u32 BlkCnt, const u8 *Buff)</argsstring>
+        <name>XUfsPsxc_FillWriteCmdUpiu</name>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref> *</type>
+          <declname>CmdDescPtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BlkCnt</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Buff</declname>
+        </param>
+        <briefdescription>
+<para>This API Fill the transfer request descriptor for WRITE Command. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdDescPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the first logical block accessed by this command. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BlkCnt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of blocks to write. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Buff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the destination data buffer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_hw.c" bodystart="319" bodyend="376"/>
+        <references refid="struct_x_ufs_psxc___xfer___cmd_desc_1af59555926e2c77d9dd831659abdcb0a4" compoundref="xufspsxc_8h" startline="180">XUfsPsxc_Xfer_CmdDesc::Prdt</references>
+        <references refid="struct_x_ufs_psxc___xfer___cmd_desc_1a9618b038e5147f227c486520fae4f2fb" compoundref="xufspsxc_8h" startline="178">XUfsPsxc_Xfer_CmdDesc::ReqUpiu</references>
+        <references refid="struct_x_ufs_psxc___xfer___cmd_desc_1a20533afb5b19b888e50009bc077eac41" compoundref="xufspsxc_8h" startline="179">XUfsPsxc_Xfer_CmdDesc::RespUpiu</references>
+        <referencedby refid="group__ufspsxc_1ga5b503a6cef357e029c87ab07e4354763" compoundref="xufspsxc_8c" startline="432" endline="501">XUfsPsxc_WritePolled</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor">#ifndef<sp/>XUFSPSXC_LOWLEVEL_H_<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="27" refid="group__ufspsxc_1ga281e93b3445e60af8166923832e56789" refkind="member"><highlight class="preprocessor">#define<sp/>XUFSPSXC_LOWLEVEL_H_<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xufspsxc_8h" kindref="compound">xufspsxc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal">u32<sp/><ref refid="group__ufspsxc_1ga3466d6c88ad459aef56d2d686ff077c8" kindref="member">XUfsPsxc_SendUICCmd</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ufs_psxc___uic_cmd" kindref="compound">XUfsPsxc_UicCmd</ref><sp/>*UicCmdPtr);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal">u32<sp/><ref refid="group__ufspsxc_1ga9d2af8ff970bc14578e9b35d1969d460" kindref="member">XUfsPsxc_SetHce</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr,<sp/>u32<sp/>Value);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__ufspsxc_1ga033076869a57d47e1742f555bb6a0276" kindref="member">XUfsPsxc_FillNopOutUpiu</ref>(<ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref><sp/>*CmdDescPtr);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__ufspsxc_1gafd68bf712ad71a509ba5e9715d8b2827" kindref="member">XUfsPsxc_FillTestUnitRdyUpiu</ref>(<ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref><sp/>*CmdDescPtr);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__ufspsxc_1ga12ee1bec882160b1a0f4d273ad4af0e3" kindref="member">XUfsPsxc_FillReadCmdUpiu</ref>(<ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref><sp/>*CmdDescPtr,<sp/>u64<sp/>Address,<sp/>u32<sp/>BlkCnt,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Buff);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">u32<sp/><ref refid="group__ufspsxc_1ga5c93689c07193dfa1a85d9b093596b0e" kindref="member">XUfsPsxc_ProcessUpiu</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref><sp/>*CmdDescPtr);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__ufspsxc_1ga4f01785053f7c891ffceab509d137b1e" kindref="member">XUfsPsxc_FillFlagUpiu</ref>(<ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref><sp/>*CmdDescPtr,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsRead,<sp/>u32<sp/>FlagIDn);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__ufspsxc_1gac6c05905f6fcef83ac0da3b72887164b" kindref="member">XUfsPsxc_FillDescUpiu</ref>(<ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref><sp/>*CmdDescPtr,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Tsf_DW0,<sp/>u32<sp/>IsRead,<sp/>u32<sp/>Length);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__ufspsxc_1ga88763b7077bb9b4880c84156663dc1cb" kindref="member">XUfsPsxc_FillAttrUpiu</ref>(<ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref><sp/>*CmdDescPtr,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsRead,<sp/>u32<sp/>AttrIDn,<sp/>u32<sp/>Value);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">u32<sp/><ref refid="group__ufspsxc_1gae0db9d094adbe197913f6c107e0f02ef" kindref="member">XUfsPsxc_HostInitialize</ref>(<ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">u32<sp/><ref refid="group__ufspsxc_1gafa5f97c1a585f348eb57d7cfa82b5080" kindref="member">XUfsPsxc_CardInitialize</ref>(<ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref><sp/>*CmdDescPtr);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">u32<sp/><ref refid="group__ufspsxc_1ga353f784dcc8a50185ea407bc0dcb4768" kindref="member">XUfsPsxc_GetLUNInfo</ref>(<ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref><sp/>*CmdDescPtr);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">u32<sp/><ref refid="group__ufspsxc_1ga506adfb0eda2bedee784c7abee535397" kindref="member">XUfsPsxc_WritePhyReg</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ufs_psxc___uic_cmd" kindref="compound">XUfsPsxc_UicCmd</ref><sp/>*UicCmdPtr,<sp/>u32<sp/>Address,<sp/>u32<sp/>Value);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">u32<sp/><ref refid="group__ufspsxc_1ga35add787c05c073b7b1a404d54425f78" kindref="member">XUfsPsxc_ReadPhyReg</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ufs_psxc___uic_cmd" kindref="compound">XUfsPsxc_UicCmd</ref><sp/>*UicCmdPtr,</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Address,<sp/>u32<sp/>*Value);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">u32<sp/><ref refid="group__ufspsxc_1ga13fea34df11f07626308ad42623497ff" kindref="member">XUfsPsxc_Set4KBlkSize</ref>(<ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref><sp/>*CmdDescPtr);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">u32<sp/><ref refid="group__ufspsxc_1ga2c5da410d2eefa54129eb56efb13bc3f" kindref="member">XUfsPsxc_PhyInit</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">u32<sp/><ref refid="group__ufspsxc_1ga186554489b15b12e4d3e6d07669f317f" kindref="member">XUfsPsxc_SetRmmiConfig</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">u32<sp/><ref refid="group__ufspsxc_1ga46c30f50e646ad1e1a080ef88b80eb70" kindref="member">XUfsPsxc_EnableMPhy</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">u32<sp/><ref refid="group__ufspsxc_1ga16fd74d7320f10b5240412d467ff82c6" kindref="member">XUfsPsxc_OverridePhyRxReq</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr,<sp/>u32<sp/>RxReq,<sp/>u32<sp/>NumLanes);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">u32<sp/><ref refid="group__ufspsxc_1ga9d5217db85b9198686faa9f2dabd07b4" kindref="member">XUfsPsxc_ConfigureTxRxAttributes</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr,<sp/>u32<sp/>SpeedGear,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RxTermCap,<sp/>u32<sp/>TxTermCap);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">u32<sp/><ref refid="group__ufspsxc_1ga029d0b5ef73c6cd4daaf455d82afbd57" kindref="member">XUfsPsxc_ReadDeviceInfo</ref>(<ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref><sp/>*CmdDescPtr);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__ufspsxc_1ga3c13cdebf8362d85f77b3b15fe52d2c3" kindref="member">XUfsPsxc_FillWriteCmdUpiu</ref>(<ref refid="struct_x_ufs_psxc" kindref="compound">XUfsPsxc</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_ufs_psxc___xfer___cmd_desc" kindref="compound">XUfsPsxc_Xfer_CmdDesc</ref><sp/>*CmdDescPtr,<sp/>u64<sp/>Address,<sp/>u32<sp/>BlkCnt,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Buff);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XUFSPSXC_LOWLEVEL_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc_control.h"/>
+  </compounddef>
+</doxygen>

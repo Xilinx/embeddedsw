@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_ae_mode__s" kind="struct" prot="public">
+    <compoundname>CamDeviceAeMode_s</compoundname>
+    <includes local="no">cam_device_ae_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_ae_mode__s_1afd7c7e675f6cd6caaad3ec5a71a83265" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__ae_1gac44fed19fa4237bdd5fa35a62ca464eb" kindref="member">CamDeviceAeSemMode_t</ref></type>
+        <definition>CamDeviceAeSemMode_t CamDeviceAeMode_s::semMode</definition>
+        <argsstring></argsstring>
+        <name>semMode</name>
+        <briefdescription>
+<para>AE scene evaluation mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_ae_mode__s_1ac3f2c9895ef92f57158d232ea26aa16c" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__ae_1ga45306511c485bb5821ed85ede489aef6" kindref="member">CamDeviceAeFlickerMode_t</ref></type>
+        <definition>CamDeviceAeFlickerMode_t CamDeviceAeMode_s::antiFlickerMode</definition>
+        <argsstring></argsstring>
+        <name>antiFlickerMode</name>
+        <briefdescription>
+<para>AE flicker mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice AE mode parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="64">
+        <label>CamDeviceAeFlickerMode_s</label>
+        <link refid="struct_cam_device_ae_flicker_mode__s"/>
+      </node>
+      <node id="63">
+        <label>CamDeviceAeMode_s</label>
+        <link refid="struct_cam_device_ae_mode__s"/>
+        <childnode refid="64" relation="usage">
+          <edgelabel>antiFlickerMode</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" bodystart="208" bodyend="211"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_ae_mode__s_1ac3f2c9895ef92f57158d232ea26aa16c" prot="public" virt="non-virtual"><scope>CamDeviceAeMode_s</scope><name>antiFlickerMode</name></member>
+      <member refid="struct_cam_device_ae_mode__s_1afd7c7e675f6cd6caaad3ec5a71a83265" prot="public" virt="non-virtual"><scope>CamDeviceAeMode_s</scope><name>semMode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

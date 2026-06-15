@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_xilinx_ctrl" kind="struct" prot="public">
+    <compoundname>XNvm_EfuseXilinxCtrl</compoundname>
+    <includes local="no">xnvm_efuse.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_xilinx_ctrl_1ae2e799437f8e2fa40fe44411ffa7de09" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseXilinxCtrl::PrgmPufHDInvld</definition>
+        <argsstring></argsstring>
+        <name>PrgmPufHDInvld</name>
+        <briefdescription>
+<para>Program PUFHD_INVLD. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="291" bodyend="-1"/>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gad2d063eb2e3a1c33bb5e98fe6c28cf48" compoundref="spartanup_2xnvm__efuse_8c" startline="656" endline="688">XNvm_EfuseReadXilinxCtrl</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_xilinx_ctrl_1a529e91d2f61fa8db0f393713e69aa0fd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseXilinxCtrl::PrgmDisSJtag</definition>
+        <argsstring></argsstring>
+        <name>PrgmDisSJtag</name>
+        <briefdescription>
+<para>Program Disable Secure JTAG. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="292" bodyend="-1"/>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gad2d063eb2e3a1c33bb5e98fe6c28cf48" compoundref="spartanup_2xnvm__efuse_8c" startline="656" endline="688">XNvm_EfuseReadXilinxCtrl</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_xilinx_ctrl_1a5f22590046cf14ea2a558e52b031f5b8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseXilinxCtrl::PrgmOspiResetRecoveryDelayCtrl</definition>
+        <argsstring></argsstring>
+        <name>PrgmOspiResetRecoveryDelayCtrl</name>
+        <briefdescription>
+<para>Program OSPI Reset Recovery Delay Control. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="293" bodyend="-1"/>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gad2d063eb2e3a1c33bb5e98fe6c28cf48" compoundref="spartanup_2xnvm__efuse_8c" startline="656" endline="688">XNvm_EfuseReadXilinxCtrl</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_xilinx_ctrl_1a18e48229a88b1b1da95a22abf9fc1ce4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseXilinxCtrl::PrgmRomRsvdOspiDevResetChoice</definition>
+        <argsstring></argsstring>
+        <name>PrgmRomRsvdOspiDevResetChoice</name>
+        <briefdescription>
+<para>Program ROM RSVD OSPI Device Reset Choice. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="294" bodyend="-1"/>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gad2d063eb2e3a1c33bb5e98fe6c28cf48" compoundref="spartanup_2xnvm__efuse_8c" startline="656" endline="688">XNvm_EfuseReadXilinxCtrl</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_xilinx_ctrl_1a108758706d92fd8378caf9c85ed17726" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseXilinxCtrl::PrgmRomOspiCmdSeqCtrl</definition>
+        <argsstring></argsstring>
+        <name>PrgmRomOspiCmdSeqCtrl</name>
+        <briefdescription>
+<para>Program ROM OSPI Command Sequence Control. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="295" bodyend="-1"/>
+        <referencedby refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gad2d063eb2e3a1c33bb5e98fe6c28cf48" compoundref="spartanup_2xnvm__efuse_8c" startline="656" endline="688">XNvm_EfuseReadXilinxCtrl</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>eFuse Xilinx control </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="290" bodyend="296"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_xilinx_ctrl_1a529e91d2f61fa8db0f393713e69aa0fd" prot="public" virt="non-virtual"><scope>XNvm_EfuseXilinxCtrl</scope><name>PrgmDisSJtag</name></member>
+      <member refid="struct_x_nvm___efuse_xilinx_ctrl_1a5f22590046cf14ea2a558e52b031f5b8" prot="public" virt="non-virtual"><scope>XNvm_EfuseXilinxCtrl</scope><name>PrgmOspiResetRecoveryDelayCtrl</name></member>
+      <member refid="struct_x_nvm___efuse_xilinx_ctrl_1ae2e799437f8e2fa40fe44411ffa7de09" prot="public" virt="non-virtual"><scope>XNvm_EfuseXilinxCtrl</scope><name>PrgmPufHDInvld</name></member>
+      <member refid="struct_x_nvm___efuse_xilinx_ctrl_1a108758706d92fd8378caf9c85ed17726" prot="public" virt="non-virtual"><scope>XNvm_EfuseXilinxCtrl</scope><name>PrgmRomOspiCmdSeqCtrl</name></member>
+      <member refid="struct_x_nvm___efuse_xilinx_ctrl_1a18e48229a88b1b1da95a22abf9fc1ce4" prot="public" virt="non-virtual"><scope>XNvm_EfuseXilinxCtrl</scope><name>PrgmRomRsvdOspiDevResetChoice</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

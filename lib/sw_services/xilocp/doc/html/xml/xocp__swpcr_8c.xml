@@ -1,0 +1,433 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xocp__swpcr_8c" kind="file">
+    <compoundname>xocp_swpcr.c</compoundname>
+    <includes refid="xocp__swpcr_8h" local="yes">xocp_swpcr.h</includes>
+    <incdepgraph>
+      <node id="356">
+        <label>xocp_common.h</label>
+        <link refid="xocp__common_8h"/>
+        <childnode refid="357" relation="include">
+        </childnode>
+      </node>
+      <node id="354">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="355">
+        <label>xilocp_bsp_config.h</label>
+      </node>
+      <node id="350">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="346">
+        <label>xocp_swpcr.c</label>
+        <link refid="xocp_swpcr.c"/>
+        <childnode refid="347" relation="include">
+        </childnode>
+      </node>
+      <node id="347">
+        <label>xocp_swpcr.h</label>
+        <link refid="xocp__swpcr_8h"/>
+        <childnode refid="348" relation="include">
+        </childnode>
+        <childnode refid="349" relation="include">
+        </childnode>
+        <childnode refid="352" relation="include">
+        </childnode>
+        <childnode refid="356" relation="include">
+        </childnode>
+      </node>
+      <node id="357">
+        <label>xstatus.h</label>
+      </node>
+      <node id="348">
+        <label>xil_types.h</label>
+      </node>
+      <node id="349">
+        <label>xocp_mailbox.h</label>
+        <link refid="xocp__mailbox_8h"/>
+        <childnode refid="350" relation="include">
+        </childnode>
+        <childnode refid="351" relation="include">
+        </childnode>
+      </node>
+      <node id="351">
+        <label>xparameters.h</label>
+      </node>
+      <node id="353">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="352">
+        <label>xocp_def.h</label>
+        <link refid="xocp__def_8h"/>
+        <childnode refid="353" relation="include">
+        </childnode>
+        <childnode refid="348" relation="include">
+        </childnode>
+        <childnode refid="354" relation="include">
+        </childnode>
+        <childnode refid="355" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xocp__swpcr__client__apis_1gab8fbe7fbfcb136e816374b295b769972" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XOcp_ExtendSwPcr</definition>
+        <argsstring>(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrExtendParams *ExtendParams)</argsstring>
+        <name>XOcp_ExtendSwPcr</name>
+        <param>
+          <type><ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ocp___sw_pcr_extend_params" kindref="compound">XOcp_SwPcrExtendParams</ref> *</type>
+          <declname>ExtendParams</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to extend the SW PCR with provided hash/data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ExtendParams</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the <ref refid="struct_x_ocp___sw_pcr_extend_params" kindref="compound">XOcp_SwPcrExtendParams</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If PCR extend is success</para></listitem><listitem><para>XST_FAILURE - Upon any failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters</para></listitem><listitem><para>Fill IPI payload for XOCP_API_EXTEND_SWPCR command and send the request to Server </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/swpcr/xocp_swpcr.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/swpcr/xocp_swpcr.c" bodystart="59" bodyend="92"/>
+        <references refid="struct_x_ocp___sw_pcr_extend_params_1afa1f351c212e71494fa38c06ed97a98e" compoundref="xocp__common_8h" startline="155">XOcp_SwPcrExtendParams::DataAddr</references>
+        <references refid="struct_x_ocp___sw_pcr_extend_params_1a4c22e941f32e615bfc2e84f87cb64cf1" compoundref="xocp__common_8h" startline="153">XOcp_SwPcrExtendParams::DataSize</references>
+        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="95">XOcp_ClientInstance::MailboxPtr</references>
+        <references refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" compoundref="xocp__def_8h" startline="83">XOCP_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a802d68e4fc35a8bb08e4e79fd2a5aa48" compoundref="xocp__def_8h" startline="113">XOCP_API_EXTEND_SWPCR</references>
+        <references refid="group__xocp__definitions_1ga7365d3fa2793edeb5a50ca16d130f019" compoundref="xocp__def_8h" startline="77">XOCP_EXTENDED_HASH_SIZE_IN_BYTES</references>
+        <references refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" compoundref="xocp__mailbox_8c" startline="65" endline="94">XOcp_ProcessMailbox</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xocp__swpcr__client__apis_1gaaca4f4567e961877901f3ed298ed01e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XOcp_GetSwPcr</definition>
+        <argsstring>(XOcp_ClientInstance *InstancePtr, u32 PcrMask, u8 *PcrBuf, u32 PcrBufSize)</argsstring>
+        <name>XOcp_GetSwPcr</name>
+        <param>
+          <type><ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PcrMask</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>PcrBuf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PcrBufSize</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to get the SW PCR value from requested PCR. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PcrMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Mask that tells which PCR to be read based on the bits set (bit 0 corresponds to PCR 0)and how many PCRs to be read using the number of bits set. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PcrBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the PCR buffer to store the requested PCR contents </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PcrBufSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Buffer size to read the PCR values</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If PCR contents are copied</para></listitem><listitem><para>XST_FAILURE - Upon any failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters</para></listitem><listitem><para>Fill IPI payload for XOCP_API_GET_SWPCR command and send the request to Server </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/swpcr/xocp_swpcr.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/swpcr/xocp_swpcr.c" bodystart="112" bodyend="141"/>
+        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="95">XOcp_ClientInstance::MailboxPtr</references>
+        <references refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" compoundref="xocp__def_8h" startline="83">XOCP_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0d48b20c276c35c9e253b2756aa9f1ac" compoundref="xocp__def_8h" startline="114">XOCP_API_GET_SWPCR</references>
+        <references refid="group__xocp__definitions_1gab776f2dc0dab2b429fa8987f08b181dd" compoundref="xocp__common_8h" startline="75">XOCP_GET_ALL_PCR_MASK</references>
+        <references refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" compoundref="xocp__mailbox_8c" startline="65" endline="94">XOcp_ProcessMailbox</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xocp__swpcr__client__apis_1ga71a4d8aea262fc732fa812829dd891ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XOcp_GetSwPcrLog</definition>
+        <argsstring>(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrLogReadData *LogParams)</argsstring>
+        <name>XOcp_GetSwPcrLog</name>
+        <param>
+          <type><ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ocp___sw_pcr_log_read_data" kindref="compound">XOcp_SwPcrLogReadData</ref> *</type>
+          <declname>LogParams</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to get the SW PCR log. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LogParams</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the <ref refid="struct_x_ocp___sw_pcr_log_read_data" kindref="compound">XOcp_SwPcrLogReadData</ref> structure. It cannot be NULL.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If PCR contents are copied</para></listitem><listitem><para>XST_FAILURE - Upon any failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters</para></listitem><listitem><para>Fill IPI payload for XOCP_API_GET_SWPCRLOG command and send the request to Server </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/swpcr/xocp_swpcr.c" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/swpcr/xocp_swpcr.c" bodystart="155" bodyend="181"/>
+        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="95">XOcp_ClientInstance::MailboxPtr</references>
+        <references refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" compoundref="xocp__def_8h" startline="83">XOCP_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a4e737b47477267f9e7b792a237c388d0" compoundref="xocp__def_8h" startline="115">XOCP_API_GET_SWPCRLOG</references>
+        <references refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" compoundref="xocp__mailbox_8c" startline="65" endline="94">XOcp_ProcessMailbox</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xocp__swpcr__client__apis_1gaa9d5159f23ac4215dff07b1a16a0e2e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XOcp_GetSwPcrData</definition>
+        <argsstring>(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrReadData *DataParams)</argsstring>
+        <name>XOcp_GetSwPcrData</name>
+        <param>
+          <type><ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ocp___sw_pcr_read_data" kindref="compound">XOcp_SwPcrReadData</ref> *</type>
+          <declname>DataParams</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to get the SW PCR data for the specified PCR. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataParams</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer of the <ref refid="struct_x_ocp___sw_pcr_read_data" kindref="compound">XOcp_SwPcrReadData</ref> structure. It cannot be NULL.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If PCR contents are copied</para></listitem><listitem><para>XST_FAILURE - Upon any failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters</para></listitem><listitem><para>Fill IPI payload for XOCP_API_GET_SWPCRDATA command and send the request to Server </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/swpcr/xocp_swpcr.c" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/swpcr/xocp_swpcr.c" bodystart="196" bodyend="222"/>
+        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="95">XOcp_ClientInstance::MailboxPtr</references>
+        <references refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" compoundref="xocp__def_8h" startline="83">XOCP_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a6ad39f4af276b8893ca0e8975a6f8f6f" compoundref="xocp__def_8h" startline="116">XOCP_API_GET_SWPCRDATA</references>
+        <references refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" compoundref="xocp__mailbox_8c" startline="65" endline="94">XOcp_ProcessMailbox</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the implementation of the client interface functions for Software PCR APIs. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+----- ---- -------- ------------------------------------------------------------------------------
+1.7   rpu  02/18/26 Initial release
+      rpu  03/11/26 Validate input parameters
+</preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="31"><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>********************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xocp__swpcr_8h" kindref="compound">xocp_swpcr.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Function<sp/>Prototypes<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Variable<sp/>Definitions<sp/>**************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Function<sp/>Definitions<sp/>**************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="59" refid="group__xocp__swpcr__client__apis_1gab8fbe7fbfcb136e816374b295b769972" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xocp__swpcr__client__apis_1gab8fbe7fbfcb136e816374b295b769972" kindref="member">XOcp_ExtendSwPcr</ref>(<ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ocp___sw_pcr_extend_params" kindref="compound">XOcp_SwPcrExtendParams</ref><sp/>*ExtendParams)</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[PAYLOAD_ARG_CNT];</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>ExtendParamsAddr;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr<sp/>==<sp/>NULL)<sp/>||<sp/>(ExtendParams<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr-&gt;<ref refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" kindref="member">MailboxPtr</ref><sp/>==<sp/>NULL)<sp/>||<sp/>(ExtendParams-&gt;<ref refid="struct_x_ocp___sw_pcr_extend_params_1afa1f351c212e71494fa38c06ed97a98e" kindref="member">DataAddr</ref><sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(ExtendParams-&gt;<ref refid="struct_x_ocp___sw_pcr_extend_params_1a4c22e941f32e615bfc2e84f87cb64cf1" kindref="member">DataSize</ref><sp/>==<sp/>0U))<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ExtendParamsAddr<sp/>=<sp/>(u64)(UINTPTR)ExtendParams;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ExtendParams-&gt;<ref refid="struct_x_ocp___sw_pcr_extend_params_1a4c22e941f32e615bfc2e84f87cb64cf1" kindref="member">DataSize</ref><sp/>&gt;<sp/><ref refid="group__xocp__definitions_1ga7365d3fa2793edeb5a50ca16d130f019" kindref="member">XOCP_EXTENDED_HASH_SIZE_IN_BYTES</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((u32)(ExtendParams-&gt;<ref refid="struct_x_ocp___sw_pcr_extend_params_1afa1f351c212e71494fa38c06ed97a98e" kindref="member">DataAddr</ref><sp/>&gt;&gt;<sp/>32U))<sp/>!=<sp/>0x00U)<sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOCP_PACK_PAYLOAD2(Payload,<sp/><ref refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a802d68e4fc35a8bb08e4e79fd2a5aa48" kindref="member">XOCP_API_EXTEND_SWPCR</ref>,<sp/>ExtendParamsAddr,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(ExtendParamsAddr<sp/>&gt;&gt;<sp/><ref refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" kindref="member">XOCP_ADDR_HIGH_SHIFT</ref>));</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" kindref="member">XOcp_ProcessMailbox</ref>(InstancePtr-&gt;<ref refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" kindref="member">MailboxPtr</ref>,<sp/>Payload,<sp/>PAYLOAD_ARG_CNT);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="112" refid="group__xocp__swpcr__client__apis_1gaaca4f4567e961877901f3ed298ed01e9" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xocp__swpcr__client__apis_1gaaca4f4567e961877901f3ed298ed01e9" kindref="member">XOcp_GetSwPcr</ref>(<ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref><sp/>*InstancePtr,<sp/>u32<sp/>PcrMask,<sp/>u8<sp/>*PcrBuf,</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PcrBufSize)</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[PAYLOAD_ARG_CNT];</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>PcrBufAddr;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr<sp/>==<sp/>NULL)<sp/>||<sp/>(PcrBuf<sp/>==<sp/>NULL)<sp/>||<sp/>(PcrMask<sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PcrMask<sp/>&gt;<sp/><ref refid="group__xocp__definitions_1gab776f2dc0dab2b429fa8987f08b181dd" kindref="member">XOCP_GET_ALL_PCR_MASK</ref>)<sp/>||<sp/>(PcrBufSize<sp/>==<sp/>0U))<sp/>{</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" kindref="member">MailboxPtr</ref><sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PcrBufAddr<sp/>=<sp/>(u64)(UINTPTR)PcrBuf;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOCP_PACK_PAYLOAD4(Payload,<sp/><ref refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0d48b20c276c35c9e253b2756aa9f1ac" kindref="member">XOCP_API_GET_SWPCR</ref>,<sp/>PcrMask,<sp/>PcrBufAddr,</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PcrBufAddr<sp/>&gt;&gt;<sp/><ref refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" kindref="member">XOCP_ADDR_HIGH_SHIFT</ref>),</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PcrBufSize);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" kindref="member">XOcp_ProcessMailbox</ref>(InstancePtr-&gt;<ref refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" kindref="member">MailboxPtr</ref>,<sp/>Payload,<sp/><sp/>PAYLOAD_ARG_CNT);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="155" refid="group__xocp__swpcr__client__apis_1ga71a4d8aea262fc732fa812829dd891ae" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xocp__swpcr__client__apis_1ga71a4d8aea262fc732fa812829dd891ae" kindref="member">XOcp_GetSwPcrLog</ref>(<ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ocp___sw_pcr_log_read_data" kindref="compound">XOcp_SwPcrLogReadData</ref><sp/>*LogParams)</highlight></codeline>
+<codeline lineno="156"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[PAYLOAD_ARG_CNT];</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>LogBufAddr;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr<sp/>==<sp/>NULL)<sp/>||<sp/>(LogParams<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" kindref="member">MailboxPtr</ref><sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LogBufAddr<sp/>=<sp/>(u64)(UINTPTR)LogParams;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOCP_PACK_PAYLOAD2(Payload,<sp/><ref refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a4e737b47477267f9e7b792a237c388d0" kindref="member">XOCP_API_GET_SWPCRLOG</ref>,<sp/>LogBufAddr,</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(LogBufAddr<sp/>&gt;&gt;<sp/><ref refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" kindref="member">XOCP_ADDR_HIGH_SHIFT</ref>));</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" kindref="member">XOcp_ProcessMailbox</ref>(InstancePtr-&gt;<ref refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" kindref="member">MailboxPtr</ref>,<sp/>Payload,<sp/>PAYLOAD_ARG_CNT);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="196" refid="group__xocp__swpcr__client__apis_1gaa9d5159f23ac4215dff07b1a16a0e2e9" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xocp__swpcr__client__apis_1gaa9d5159f23ac4215dff07b1a16a0e2e9" kindref="member">XOcp_GetSwPcrData</ref>(<ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ocp___sw_pcr_read_data" kindref="compound">XOcp_SwPcrReadData</ref><sp/>*DataParams)</highlight></codeline>
+<codeline lineno="197"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[PAYLOAD_ARG_CNT];</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DataBufAddr;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr<sp/>==<sp/>NULL)<sp/>||<sp/>(DataParams<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" kindref="member">MailboxPtr</ref><sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DataBufAddr<sp/>=<sp/>(u64)(UINTPTR)DataParams;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOCP_PACK_PAYLOAD2(Payload,<sp/><ref refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a6ad39f4af276b8893ca0e8975a6f8f6f" kindref="member">XOCP_API_GET_SWPCRDATA</ref>,<sp/>DataBufAddr,</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(DataBufAddr<sp/>&gt;&gt;<sp/><ref refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" kindref="member">XOCP_ADDR_HIGH_SHIFT</ref>));</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" kindref="member">XOcp_ProcessMailbox</ref>(InstancePtr-&gt;<ref refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" kindref="member">MailboxPtr</ref>,<sp/>Payload,<sp/>PAYLOAD_ARG_CNT);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/swpcr/xocp_swpcr.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___ecc_private_key_params" kind="struct" prot="public">
+    <compoundname>XSecure_EccPrivateKeyParams</compoundname>
+    <includes local="no">xsecure_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___ecc_private_key_params_1acc6de4fef760214395151def51246735" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_EccPrivateKeyParams::PrivKeyAddr</definition>
+        <argsstring></argsstring>
+        <name>PrivKeyAddr</name>
+        <briefdescription>
+<para>Private key address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___ecc_private_key_params_1a1d9c65d37d5dc6ec90667c281f548654" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_EccPrivateKeyParams::PrivKeyLen</definition>
+        <argsstring></argsstring>
+        <name>PrivKeyLen</name>
+        <briefdescription>
+<para>Length of private key in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___ecc_private_key_params_1a65750ef5788b20e5da3f6e893a937e53" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_EccPrivateKeyParams::Reserved[4U]</definition>
+        <argsstring>[4U]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Explicit padding for alignment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for ECC private key generation parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="197" bodyend="201"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___ecc_private_key_params_1acc6de4fef760214395151def51246735" prot="public" virt="non-virtual"><scope>XSecure_EccPrivateKeyParams</scope><name>PrivKeyAddr</name></member>
+      <member refid="struct_x_secure___ecc_private_key_params_1a1d9c65d37d5dc6ec90667c281f548654" prot="public" virt="non-virtual"><scope>XSecure_EccPrivateKeyParams</scope><name>PrivKeyLen</name></member>
+      <member refid="struct_x_secure___ecc_private_key_params_1a65750ef5788b20e5da3f6e893a937e53" prot="public" virt="non-virtual"><scope>XSecure_EccPrivateKeyParams</scope><name>Reserved</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

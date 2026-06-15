@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pmon_psv" kind="struct" prot="public">
+    <compoundname>XPmonPsv</compoundname>
+    <includes local="no">xpmonpsv.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pmon_psv_1ae534fae5285ed3b2a68b0c965f0bcb9a" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_pmon_psv___config" kindref="compound">XPmonPsv_Config</ref></type>
+        <definition>XPmonPsv_Config XPmonPsv::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para><ref refid="struct_x_pmon_psv___config" kindref="compound">XPmonPsv_Config</ref> of current device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.h" bodystart="101" bodyend="-1"/>
+        <referencedby refid="group__pmonpsv_1gaa7d16fcb54dcbc93fddc2b4f64a9c5bf" compoundref="xpmonpsv_8c" startline="70" endline="91">XPmonPsv_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmonPsv::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.h" bodystart="102" bodyend="-1"/>
+        <referencedby refid="group__pmonpsv_1gaa7d16fcb54dcbc93fddc2b4f64a9c5bf" compoundref="xpmonpsv_8c" startline="70" endline="91">XPmonPsv_CfgInitialize</referencedby>
+        <referencedby refid="group__pmonpsv_1gadb59f26ba546912f1adb10aaa315148c" compoundref="xpmonpsv_8c" startline="400" endline="431">XPmonPsv_EnableCounters</referencedby>
+        <referencedby refid="group__pmonpsv_1ga8969db0e19b31ea48690fb6f8e8c0208" compoundref="xpmonpsv_8c" startline="221" endline="252">XPmonPsv_GetMetrics</referencedby>
+        <referencedby refid="group__pmonpsv_1ga1ddd643de28219ab0c50aab729ddd058" compoundref="xpmonpsv_8c" startline="356" endline="382">XPmonPsv_GetReadCounter</referencedby>
+        <referencedby refid="group__pmonpsv_1ga57d5aae6b20218e6fbca2ce9e90e3c12" compoundref="xpmonpsv_8c" startline="275" endline="300">XPmonPsv_GetWriteCounter</referencedby>
+        <referencedby refid="group__pmonpsv_1ga84fcdf6169d586181aaea1223a82bce1" compoundref="xpmonpsv_8c" startline="462" endline="468">XPmonPsv_Lock</referencedby>
+        <referencedby refid="group__pmonpsv_1gac1987e1331e4725102fb21b7d813045b" compoundref="xpmonpsv_8c" startline="318" endline="336">XPmonPsv_RequestCounter</referencedby>
+        <referencedby refid="group__pmonpsv_1gaf9da08c69ce00c2dd67828196f443a51" compoundref="xpmonpsv_8c" startline="111" endline="150">XPmonPsv_ResetCounter</referencedby>
+        <referencedby refid="group__pmonpsv_1gace779962fd5f79ca06427ec1340d553c" compoundref="xpmonpsv_8c" startline="592" endline="613">XPmonPsv_SetPort</referencedby>
+        <referencedby refid="group__pmonpsv_1ga7e7371e8483b02cd647f795976658040" compoundref="xpmonpsv_8c" startline="530" endline="566">XPmonPsv_SetSrc</referencedby>
+        <referencedby refid="group__pmonpsv_1gaea617c99cf28bd06a05856209b6e0ae1" compoundref="xpmonpsv_8c" startline="484" endline="511">XPmonPsv_StopCounter</referencedby>
+        <referencedby refid="group__pmonpsv_1ga10df3b03dcc3e64fb7b8b8bb98ff42d0" compoundref="xpmonpsv_8c" startline="444" endline="450">XPmonPsv_Unlock</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPmonPsv::RequestedCounters[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>RequestedCounters</name>
+        <briefdescription>
+<para>Number of counters requested in each domain. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.h" bodystart="103" bodyend="-1"/>
+        <referencedby refid="group__pmonpsv_1gaa7d16fcb54dcbc93fddc2b4f64a9c5bf" compoundref="xpmonpsv_8c" startline="70" endline="91">XPmonPsv_CfgInitialize</referencedby>
+        <referencedby refid="group__pmonpsv_1gadb59f26ba546912f1adb10aaa315148c" compoundref="xpmonpsv_8c" startline="400" endline="431">XPmonPsv_EnableCounters</referencedby>
+        <referencedby refid="group__pmonpsv_1ga8969db0e19b31ea48690fb6f8e8c0208" compoundref="xpmonpsv_8c" startline="221" endline="252">XPmonPsv_GetMetrics</referencedby>
+        <referencedby refid="group__pmonpsv_1ga1ddd643de28219ab0c50aab729ddd058" compoundref="xpmonpsv_8c" startline="356" endline="382">XPmonPsv_GetReadCounter</referencedby>
+        <referencedby refid="group__pmonpsv_1ga57d5aae6b20218e6fbca2ce9e90e3c12" compoundref="xpmonpsv_8c" startline="275" endline="300">XPmonPsv_GetWriteCounter</referencedby>
+        <referencedby refid="group__pmonpsv_1gac1987e1331e4725102fb21b7d813045b" compoundref="xpmonpsv_8c" startline="318" endline="336">XPmonPsv_RequestCounter</referencedby>
+        <referencedby refid="group__pmonpsv_1gaf9da08c69ce00c2dd67828196f443a51" compoundref="xpmonpsv_8c" startline="111" endline="150">XPmonPsv_ResetCounter</referencedby>
+        <referencedby refid="group__pmonpsv_1gae01033d281536814a9a0578e6029ed4f" compoundref="xpmonpsv_8c" startline="171" endline="202">XPmonPsv_SetMetrics</referencedby>
+        <referencedby refid="group__pmonpsv_1gace779962fd5f79ca06427ec1340d553c" compoundref="xpmonpsv_8c" startline="592" endline="613">XPmonPsv_SetPort</referencedby>
+        <referencedby refid="group__pmonpsv_1ga7e7371e8483b02cd647f795976658040" compoundref="xpmonpsv_8c" startline="530" endline="566">XPmonPsv_SetSrc</referencedby>
+        <referencedby refid="group__pmonpsv_1gaea617c99cf28bd06a05856209b6e0ae1" compoundref="xpmonpsv_8c" startline="484" endline="511">XPmonPsv_StopCounter</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The driver&apos;s instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every Performance Monitor device in system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>XPmonPsv</label>
+        <link refid="struct_x_pmon_psv"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XPmonPsv_Config</label>
+        <link refid="struct_x_pmon_psv___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv.h" bodystart="100" bodyend="104"/>
+    <listofallmembers>
+      <member refid="struct_x_pmon_psv_1ae534fae5285ed3b2a68b0c965f0bcb9a" prot="public" virt="non-virtual"><scope>XPmonPsv</scope><name>Config</name></member>
+      <member refid="struct_x_pmon_psv_1ac23eb8ba0289615366075b998a188f08" prot="public" virt="non-virtual"><scope>XPmonPsv</scope><name>IsReady</name></member>
+      <member refid="struct_x_pmon_psv_1af4fb27e4fe3b66198bbb27094d262b9b" prot="public" virt="non-virtual"><scope>XPmonPsv</scope><name>RequestedCounters</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,343 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xnvm__bbram__server__apis" kind="group">
+    <compoundname>xnvm_bbram_server_apis</compoundname>
+    <title>XilNvm BBRAM Server APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xnvm__bbram__server__apis_1gae9458eb4c933dd9769cf0c0e2252dee7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XNvm_BbramReadReg</definition>
+        <argsstring>(u32 Offset)</argsstring>
+        <name>XNvm_BbramReadReg</name>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Performs Reading the BBRAM register at the given offset</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" bodystart="93" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__bbram__server__apis_1ga396e827ab5f1f56def33f03621da3290" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XNvm_BbramWriteReg</definition>
+        <argsstring>(u32 Offset, u32 Data)</argsstring>
+        <name>XNvm_BbramWriteReg</name>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function writes the value into the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the register. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Writes the data in to BBRAM register at given offset</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" bodystart="109" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__bbram__server__apis_1ga98ba40768aa9f879dfc0640a20ffa0c4" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XNvm_BbramEnablePgmMode</definition>
+        <argsstring>(void)</argsstring>
+        <name>XNvm_BbramEnablePgmMode</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function enables the BBRAM programming mode by writing to the BBRAM_PGM_MODE register with the required value. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Enabled programming mode.</para></listitem><listitem><para>XNVM_BBRAM_ERROR_PGM_MODE_ENABLE_TIMEOUT On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Write PassCode 0x757BDF0DU to BBRAM_PGM_MODE register to enable programming mode. Wait for BBRAM_PGM_MODE_DONE bit to set in BBRAM_STATUS register with timeout of 1 second. If timed out return timeout error else Return XST_SUCCESS.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" bodystart="396" bodyend="417"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__bbram__server__apis_1gad3194f417aa1aaf0aa1a4921bb9fcc9a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XNvm_BbramDisablePgmMode</definition>
+        <argsstring>(void)</argsstring>
+        <name>XNvm_BbramDisablePgmMode</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function disables the programming mode of the BBRAM by writing to 0 BBRAM_PGM_MODE register. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Disabled programming mode.</para></listitem><listitem><para>XST_FAILURE On failure in disabling programming mode. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Write 0x0 to BBRAM_PGM_MODE register.</para></listitem><listitem><para>Read back and verify that 0x0 is written to BBRAM_PGM_MODE register.</para></listitem><listitem><para>If PGM_MODE is disabled return XST_SUCCESS else XST_FAILURE.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" bodystart="429" bodyend="448"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__bbram__server__apis_1gaa453dbd4f39cd744f682eb99e84ca1b4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XNvm_BbramValidateAesKeyCrc</definition>
+        <argsstring>(const u32 *Key)</argsstring>
+        <name>XNvm_BbramValidateAesKeyCrc</name>
+        <param>
+          <type>const u32 *</type>
+          <declname>Key</declname>
+        </param>
+        <briefdescription>
+<para>Validates CRC of the key stored in BBRAM with CRC of input key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to key which is to be matched with key stored in BBRAM.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS CRC matched</para></listitem><listitem><para>XNVM_BBRAM_ERROR_AES_CRC_DONE_TIMEOUT CRC validation check timed out.</para></listitem><listitem><para>XNVM_BBRAM_ERROR_AES_CRC_MISMATCH CRC mismatch </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Calculate the 32 bit CRC of the input key.</para></listitem><listitem><para>Write that CRC to BBRAM_AES_CRC_REG register.</para></listitem><listitem><para>Wait for BBRAM_AES_CRC_DONE to set in BBRAM_STATUS register with timeout of 1 second. If timed out return timeout error else Check for CRC_PASS.</para></listitem><listitem><para>Check for BBRAM_AES_CRC_PASS bit in BBRAM_STATUS register. If set return XST_SUCCESS else return XNVM_BBRAM_ERROR_AES_CRC_MISMATCH error.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" bodystart="463" bodyend="504"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__bbram__server__apis_1ga01a33fa4cb5828071708928968629728" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XNvm_BbramWriteBbram8</definition>
+        <argsstring>(u32 Data)</argsstring>
+        <name>XNvm_BbramWriteBbram8</name>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Programs BBRAM_8 register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- 32-bit data to be written to BBRAM_8 register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Successfully programmed data in BBRAM_8 register</para></listitem><listitem><para>XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED Failure since write is locked for the register </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Check for BBRAM Lock register for Lock. If it Locked then return XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED</para></listitem></itemizedlist>
+</para><para>-Else write user data to BBRAM and Return XST_SUCCESS</para><para><itemizedlist>
+<listitem><para>Read back the user data to verify if the data is correctly programmed. For versal_2ve_2vm devices, the data should be written in BBRAM_8 register and read from BBRAM_8_MEM register.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" bodystart="258" bodyend="294"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__bbram__server__apis_1ga85d604d634dbf207503a9128fee84a50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_BbramWriteAesKey</definition>
+        <argsstring>(const u8 *Key, u16 KeyLen)</argsstring>
+        <name>XNvm_BbramWriteAesKey</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>Key</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>KeyLen</declname>
+        </param>
+        <briefdescription>
+<para>This function does programming of key provided into BBRAM and validates CRC of the key stored in BBRAM with CRC of input key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to hex buffer which is pointing to key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- XNVM_256_BITS_AES_KEY_LEN_IN_BYTES for 256-bit AES key</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Key is written to BBRAM.</para></listitem><listitem><para>XST_INVALID_PARAM Invalid parameter passed.</para></listitem><listitem><para>XNVM_BBRAM_ERROR_PGM_MODE_ENABLE_TIMEOUT Timeout during enabling programming mode.</para></listitem><listitem><para>XNVM_BBRAM_ERROR_PGM_MODE_DISABLE_TIMEOUT Timeout during disabling programming mode.</para></listitem><listitem><para>XNVM_BBRAM_ERROR_AES_CRC_DONE_TIMEOUT CRC validation check timed out.</para></listitem><listitem><para>XNVM_BBRAM_ERROR_AES_CRC_MISMATCH CRC mismatch. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation. Return appropriate error code if input parameters are invalid.</para></listitem><listitem><para>Assign the key address to local pointer.</para></listitem><listitem><para>Bring BBRAM to programming mode by writing Magic Word 0x757BDF0D to PGM_MODE register.</para></listitem><listitem><para>Write 256-bit AES Key to BBRAM registers BBRAM_0 to BBRAM_7.</para></listitem><listitem><para>Calculate CRC on input AES Key and write it to BBRAM_AES_CRC which triggers BBRAM CRC integrity check. Wait for AES_CRC_DONE bit to set in BBRAM_STATUS register with timeout of 1 second. If timed out return timeout error. If AES_CRC_PASS bit is set in BBRAM_STATUS register, return XST_SUCCESS else return CRC mismatch error.</para></listitem><listitem><para>Disable BBRAM programming mode by writing 0x00 to PGM_MODE register.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" bodystart="146" bodyend="214"/>
+        <references refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gaec82562ab864eeb29b8aabf22976c4d0" compoundref="xilnvm__efuse__spartan__ultrascale__plus__example_8c" startline="60">XNVM_256_BITS_AES_KEY_LEN_IN_BYTES</references>
+        <references refid="xnvm__bbram__hw_8h_1a46ecbf17de00ceb1955a2d0d44412533" compoundref="xnvm__bbram__hw_8h" startline="56">XNVM_BBRAM_0_REG</references>
+        <references refid="xnvm__bbram_8h_1a3201b971919b08d8190b4927bd3da3ec" compoundref="xnvm__bbram_8h" startline="50">XNVM_BBRAM_AES_KEY_SIZE_IN_WORDS</references>
+        <references refid="group__xnvm__bbram__client__api_1gae4085a2c2243377cae4029f3236684e7" compoundref="xnvm__bbramclient_8c" startline="108" endline="131">XNvm_BbramZeroize</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__bbram__server__apis_1ga3d264db9b87c4fe29a755a02f0bad72f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_BbramLockUsrDataWrite</definition>
+        <argsstring>(void)</argsstring>
+        <name>XNvm_BbramLockUsrDataWrite</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function locks the user data written in BBRAM_8 that is making user data written in BBRAM as read only. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Success in locking the BBRAM user data.</para></listitem><listitem><para>XNVM_BBRAM_ERROR_LOCK_USR_DATA_WRITE Failure to lock BBRAM user data. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Write to BBRAM Lock register and readback to confirm if lock is successful. Return the status of the lock, Success if the lock is done else error.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" line="226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" bodystart="226" bodyend="245"/>
+        <references refid="xnvm__bbram_8h_1abe4a861137aa2ba239f599b20a23612c" compoundref="xnvm__bbram_8h" startline="65">XNVM_BBRAM_ERROR_LOCK_USR_DATA_WRITE</references>
+        <references refid="xnvm__bbram__hw_8h_1a6d26b912dbfc8709d217f9dc3b0f6b15" compoundref="xnvm__bbram__hw_8h" startline="93">XNVM_BBRAM_MSW_LOCK</references>
+        <references refid="xnvm__bbram__hw_8h_1aaab0eca5f9f09e58de06085d9208b118" compoundref="xnvm__bbram__hw_8h" startline="58">XNVM_BBRAM_MSW_LOCK_REG</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__bbram__server__apis_1gade0b7ce1639f068fb871c52eccfef0b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_BbramWriteUsrData</definition>
+        <argsstring>(u32 GeneralPurposeData)</argsstring>
+        <name>XNvm_BbramWriteUsrData</name>
+        <param>
+          <type>u32</type>
+          <declname>GeneralPurposeData</declname>
+        </param>
+        <briefdescription>
+<para>Writes user provided 32-bit data to BBRAM. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>GeneralPurposeData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- 32-bit user data to be written to BBRAM</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS User data written to BBRAM</para></listitem><listitem><para>XNVM_BBRAM_INVALID_PARAM Invalid input parameter</para></listitem><listitem><para>XNVM_BBRAM_ERROR_USR_DATA_WRITE_LOCKED Failure since write is locked for the register</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Provisoning of general purpose data is allowed only if Symmetric/Asymeetric HWRoT boot is not enabled for Versal Gen 2 devices </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" bodystart="311" bodyend="333"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__bbram__server__apis_1gafcee46d7df5018a118844238cf4e3f65" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XNvm_BbramReadUsrData</definition>
+        <argsstring>(void)</argsstring>
+        <name>XNvm_BbramReadUsrData</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function reads 32-bit user data from BBRAM_8 register. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>32-bit user data stored in BBRAM_8 register </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Read the 32 bit user data from the BBRAM_8 register and return it</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" bodystart="342" bodyend="353"/>
+        <references refid="xnvm__bbram__hw_8h_1a9bef32696aa67987c3325cb363a13272" compoundref="xnvm__bbram__hw_8h" startline="57">XNVM_BBRAM_8_REG</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__bbram__server__apis_1ga689df607f805a008e64d9c2a181b2f17" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XNvm_BbramZeroize</definition>
+        <argsstring>(void)</argsstring>
+        <name>XNvm_BbramZeroize</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function zeroizes the BBRAM. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Success in Zeroization of BBRAM.</para></listitem><listitem><para>XNVM_BBRAM_ERROR_ZEROIZE_TIMEOUT If Timed out during BBRAM zeroization </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Write 1 to BBRAM_CTRL register. Wait for BBRAM_ZEROIZED bit to set in BBRAM_STATUS register with timeout of 1 second. If timed out return timeout error. Return XST_SUCCESS.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" bodystart="364" bodyend="384"/>
+        <references refid="xnvm__bbram__hw_8h_1a791e4d21765eb196c6e2819bea01c443" compoundref="xnvm__bbram__hw_8h" startline="45">XNVM_BBRAM_BASE_ADDR</references>
+        <references refid="xnvm__bbram__hw_8h_1ac5e2f0fb82509488c3d0e6f0417bc96e" compoundref="xnvm__bbram__hw_8h" startline="53">XNVM_BBRAM_CTRL_REG</references>
+        <references refid="xnvm__bbram__hw_8h_1a065b3b8d7d6be2ebeffb4974df61863f" compoundref="xnvm__bbram__hw_8h" startline="79">XNVM_BBRAM_CTRL_START_ZEROIZE</references>
+        <references refid="xnvm__bbram_8h_1aa9a7eb5fa36c8914dda4fa5fd858c363" compoundref="xnvm__bbram_8h" startline="74">XNVM_BBRAM_ERROR_ZEROIZE_TIMEOUT</references>
+        <references refid="xnvm__bbram__hw_8h_1a7caf87ce570f0ba169e55ce0bd3faf69" compoundref="xnvm__bbram__hw_8h" startline="52">XNVM_BBRAM_STATUS_REG</references>
+        <references refid="xnvm__bbram__hw_8h_1a52c1541a393d73c7029173c875f805e3" compoundref="xnvm__bbram__hw_8h" startline="70">XNVM_BBRAM_STATUS_ZEROIZED</references>
+        <references refid="xnvm__bbram__hw_8h_1ae0eba09038fae11350f11f17bd2348f9" compoundref="xnvm__bbram__hw_8h" startline="102">XNVM_BBRAM_ZEROIZE_TIMEOUT_VAL</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xnvm__bbram__server__apis_1ga6ebc086461092546789c62ddbd362948" prot="public" static="no">
+        <name>REVERSE_POLYNOMIAL</name>
+        <initializer>(0x82F63B78U)</initializer>
+        <briefdescription>
+<para>Polynomial used for CRC calculation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/xnvm_bbram.c" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__xnvm__util__apis_1ga05857cc7a1c346b57ab04e5f1fb0edb5" compoundref="spartanup_2xnvm__utils_8c" startline="451" endline="496">XNvm_AesCrcCalc</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

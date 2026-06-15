@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mipi___rx___phy" kind="struct" prot="public">
+    <compoundname>XMipi_Rx_Phy</compoundname>
+    <includes local="no">xmipi_rx_phy.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_mipi___rx___phy___config" kindref="compound">XMipi_Rx_Phy_Config</ref></type>
+        <definition>XMipi_Rx_Phy_Config XMipi_Rx_Phy::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="297" bodyend="-1"/>
+        <referencedby refid="group__mipi__rx__phy_1ga0ac6ef589b022c2aa02bc6e234cc7433" compoundref="xmipi__rx__phy_8c" startline="576" endline="600">XMipi_Rx_Phy_Activate</referencedby>
+        <referencedby refid="group__mipi__rx__phy_1gadd043232c820116d069c13766ce1d432" compoundref="xmipi__rx__phy_8c" startline="61" endline="77">XMipi_Rx_Phy_CfgInitialize</referencedby>
+        <referencedby refid="group__mipi__rx__phy_1gac84fac31ab197bd3198dd11ca3896435" compoundref="xmipi__rx__phy_8c" startline="363" endline="378">XMipi_Rx_Phy_ClearDataLane</referencedby>
+        <referencedby refid="group__mipi__rx__phy_1ga60a0033eef09e3af1f3d38b2642bc990" compoundref="xmipi__rx__phy_8c" startline="95" endline="182">XMipi_Rx_Phy_Configure</referencedby>
+        <referencedby refid="group__mipi__rx__phy_1ga2e429c448748bd186ad8563e23df7e4f" compoundref="xmipi__rx__phy_8c" startline="624" endline="678">XMipi_Rx_Phy_DynamicLineRateConfig</referencedby>
+        <referencedby refid="group__mipi__rx__phy_1ga0c21c9093da86aa4159da50ded9b27c5" compoundref="xmipi__rx__phy_8c" startline="413" endline="425">XMipi_Rx_Phy_GetClkLaneMode</referencedby>
+        <referencedby refid="group__mipi__rx__phy_1gafa9a8618d0efffc43b5001c4456dec8c" compoundref="xmipi__rx__phy_8c" startline="391" endline="401">XMipi_Rx_Phy_GetClkLaneStatus</referencedby>
+        <referencedby refid="group__mipi__rx__phy_1gaca06750514da41ca96625aeebf2cee64" compoundref="xmipi__rx__phy_8c" startline="501" endline="513">XMipi_Rx_Phy_GetDataLaneMode</referencedby>
+        <referencedby refid="group__mipi__rx__phy_1gaed445ca4dc94ebbb7ed5b8035a7e914b" compoundref="xmipi__rx__phy_8c" startline="439" endline="448">XMipi_Rx_Phy_GetDataLaneStatus</referencedby>
+        <referencedby refid="group__mipi__rx__phy_1ga54671eb4258647bce4fc9cfe2cfa04b1" compoundref="xmipi__rx__phy_8c" startline="463" endline="488">XMipi_Rx_Phy_GetDLCalibStatus</referencedby>
+        <referencedby refid="group__mipi__rx__phy_1ga4149681aae67882912df4493b8e7d66e" compoundref="xmipi__rx__phy_8c" startline="216" endline="302">XMipi_Rx_Phy_GetInfo</referencedby>
+        <referencedby refid="group__mipi__rx__phy_1ga451ed3af91fc85637ee4d1ab5de28da3" compoundref="xmipi__rx__phy_8c" startline="527" endline="542">XMipi_Rx_Phy_GetPacketCount</referencedby>
+        <referencedby refid="group__mipi__rx__phy_1gad74a27324b8cc55c67a21a9c2c7a2436" compoundref="xmipi__rx__phy_8c" startline="197" endline="203">XMipi_Rx_Phy_GetRegIntfcPresent</referencedby>
+        <referencedby refid="group__mipi__rx__phy_1gafeeea99a20ac3bb4b3c05f64064feb86" compoundref="xmipi__rx__phy_8c" startline="554" endline="563">XMipi_Rx_Phy_GetVersionReg</referencedby>
+        <referencedby refid="group__mipi__rx__phy_1ga52f42a2ed7b0acf4df27211b76708ab4" compoundref="xmipi__rx__phy_8c" startline="315" endline="348">XMipi_Rx_Phy_Reset</referencedby>
+        <referencedby refid="group__mipi__rx__phy_1ga73cfbe4a911c72bccdea37f91d5829d6" compoundref="xmipi__rx__phy__selftest_8c" startline="61" endline="73">XMipi_Rx_Phy_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mipi___rx___phy_1abe4cd40c02e009828af28a8482bdbaf9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMipi_Rx_Phy::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Driver is ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="298" bodyend="-1"/>
+        <referencedby refid="group__mipi__rx__phy_1gadd043232c820116d069c13766ce1d432" compoundref="xmipi__rx__phy_8c" startline="61" endline="77">XMipi_Rx_Phy_CfgInitialize</referencedby>
+        <referencedby refid="group__mipi__rx__phy_1ga52f42a2ed7b0acf4df27211b76708ab4" compoundref="xmipi__rx__phy_8c" startline="315" endline="348">XMipi_Rx_Phy_Reset</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The Xmipi_rx_phy Controller driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every Xmipi_rx_phy device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>XMipi_Rx_Phy</label>
+        <link refid="struct_x_mipi___rx___phy"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XMipi_Rx_Phy_Config</label>
+        <link refid="struct_x_mipi___rx___phy___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" bodystart="296" bodyend="299"/>
+    <listofallmembers>
+      <member refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" prot="public" virt="non-virtual"><scope>XMipi_Rx_Phy</scope><name>Config</name></member>
+      <member refid="struct_x_mipi___rx___phy_1abe4cd40c02e009828af28a8482bdbaf9" prot="public" virt="non-virtual"><scope>XMipi_Rx_Phy</scope><name>IsReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

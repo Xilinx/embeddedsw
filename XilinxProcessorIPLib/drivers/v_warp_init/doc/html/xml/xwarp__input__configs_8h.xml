@@ -1,0 +1,475 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xwarp__input__configs_8h" kind="file">
+    <compoundname>xwarp_input_configs.h</compoundname>
+    <includes refid="xv__warp__init__l2_8h" local="yes">xv_warp_init_l2.h</includes>
+    <includes local="yes">xv_warp_filter_l2.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="inputs_8h" local="yes">inputs.h</includedby>
+    <includedby refid="xwarp__example_8c" local="yes">xwarp_example.c</includedby>
+    <includedby refid="xwarp__input__configs_8c" local="yes">xwarp_input_configs.c</includedby>
+    <incdepgraph>
+      <node id="153">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="155">
+        <label>xil_io.h</label>
+      </node>
+      <node id="151">
+        <label>xv_warp_init.h</label>
+        <link refid="xv__warp__init_8h"/>
+        <childnode refid="152" relation="include">
+        </childnode>
+        <childnode refid="153" relation="include">
+        </childnode>
+        <childnode refid="154" relation="include">
+        </childnode>
+        <childnode refid="155" relation="include">
+        </childnode>
+        <childnode refid="156" relation="include">
+        </childnode>
+      </node>
+      <node id="157">
+        <label>xv_warp_filter_l2.h</label>
+      </node>
+      <node id="150">
+        <label>xv_warp_init_l2.h</label>
+        <link refid="xv__warp__init__l2_8h"/>
+        <childnode refid="151" relation="include">
+        </childnode>
+      </node>
+      <node id="149">
+        <label>xwarp_input_configs.h</label>
+        <link refid="xwarp_input_configs.h"/>
+        <childnode refid="150" relation="include">
+        </childnode>
+        <childnode refid="157" relation="include">
+        </childnode>
+        <childnode refid="152" relation="include">
+        </childnode>
+      </node>
+      <node id="154">
+        <label>xstatus.h</label>
+      </node>
+      <node id="156">
+        <label>xv_warp_init_hw.h</label>
+        <link refid="xv__warp__init__hw_8h"/>
+      </node>
+      <node id="152">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="161">
+        <label>xwarp_input_configs.c</label>
+        <link refid="xwarp__input__configs_8c"/>
+      </node>
+      <node id="158">
+        <label>xwarp_input_configs.h</label>
+        <link refid="xwarp_input_configs.h"/>
+        <childnode refid="159" relation="include">
+        </childnode>
+        <childnode refid="160" relation="include">
+        </childnode>
+        <childnode refid="161" relation="include">
+        </childnode>
+      </node>
+      <node id="160">
+        <label>xwarp_example.c</label>
+        <link refid="xwarp__example_8c"/>
+      </node>
+      <node id="159">
+        <label>inputs.h</label>
+        <link refid="inputs_8h"/>
+        <childnode refid="160" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_lens__params__fl" prot="public">Lens_params_fl</innerclass>
+    <innerclass refid="struct_keystone__params__fl" prot="public">Keystone_params_fl</innerclass>
+    <innerclass refid="structaffine__param__fl" prot="public">affine_param_fl</innerclass>
+    <innerclass refid="struct_arbitrary__param__fl" prot="public">Arbitrary_param_fl</innerclass>
+    <innerclass refid="struct_geometric__info__fl" prot="public">Geometric_info_fl</innerclass>
+    <innerclass refid="struct_geo__trans__param" prot="public">Geo_trans_param</innerclass>
+    <innerclass refid="struct_geometric__info" prot="public">Geometric_info</innerclass>
+    <innerclass refid="struct_w_a_r_p___c_f_g" prot="public">WARP_CFG</innerclass>
+    <innerclass refid="structwarp__driver___configs" prot="public">warp_driver_Configs</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xwarp__input__configs_8h_1a62c41896785fc322b9990171b31057fa" prot="public" static="no">
+        <name>JB_CHANGES</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Enable JB-specific code changes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xwarp__input__configs_8h_1a9b69b8ed632cff8ed700d273a81731e1" prot="public" static="no">
+        <name>REMAP_VECT_0_ADDR_0</name>
+        <initializer>0x10000000</initializer>
+        <briefdescription>
+<para>Base address for remap vector descriptor 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="30" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="30" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xwarp__input__configs_8h_1a9b042802602481f0590b10ab02d865f5" prot="public" static="no">
+        <name>REMAP_VECT_0_ADDR_1</name>
+        <initializer>0x1219e400</initializer>
+        <briefdescription>
+<para>Secondary address for remap vector descriptor 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="35" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xwarp__input__configs_8h_1a8244199ec97f768b97c85794c23b2342" prot="public" static="no">
+        <name>SRC_BUF_START_ADDR</name>
+        <initializer>0x30000000</initializer>
+        <briefdescription>
+<para>Start address for source buffer in memory. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="40" bodyend="-1"/>
+        <referencedby refid="xwarp__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xwarp__example_8c" startline="136" endline="336">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xwarp__input__configs_8h_1a799965409e6a785083e57ef01d4e6930" prot="public" static="no">
+        <name>DST_BUF_START_ADDR</name>
+        <initializer>0x40000000</initializer>
+        <briefdescription>
+<para>Start address for destination buffer in memory. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="45" bodyend="-1"/>
+        <referencedby refid="xwarp__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xwarp__example_8c" startline="136" endline="336">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xwarp__input__configs_8h_1acd09355bc34c2ca5152d440d57665eb9" prot="public" static="no">
+        <name>MAX_SIZE_OF_4K_FRAME_IN_MEM</name>
+        <initializer>0x04000000</initializer>
+        <briefdescription>
+<para>Maximum size allocated for 4K frame in memory. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xwarp__input__configs_8h_1ab75d1f58ae51247b71204f145592cd79" prot="public" static="no">
+        <name>_1920_1080_FRAME_SIZE</name>
+        <initializer>6220800</initializer>
+        <briefdescription>
+<para>Frame size in bytes for 1920x1080 resolution. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xwarp__input__configs_8h_1afd5ab69b485f308970855b5eb030a04d" prot="public" static="no">
+        <name>_4K_FRAME_SIZE</name>
+        <initializer>24883200</initializer>
+        <briefdescription>
+<para>Frame size in bytes for 4K resolution. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xwarp__input__configs_8h_1ac2e3b06e0cbbd5f8ab61cc56070c25d4" prot="public" static="no">
+        <name>BUFF_QUEUE_SIZE</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>Size of buffer queue. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xwarp__input__configs_8h_1a33f688aac615be97fcb7cc29747003ef" prot="public" static="no">
+        <name>WI_PI</name>
+        <initializer>3.14159265358979</initializer>
+        <briefdescription>
+<para>Value of Pi constant for warp initialization. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xwarp__input__configs_8h_1a430ed1fbe79f6856e740155740d18d76" prot="public" static="no">
+        <name>LENS_DIST_SHIFT</name>
+        <initializer>12</initializer>
+        <briefdescription>
+<para>Shift value for lens distortion fixed-point conversion. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void get_init_vect_input_configs</definition>
+        <argsstring>(warp_driver_Configs *drvconfigs, WARP_CFG *InputConfigs)</argsstring>
+        <name>get_init_vect_input_configs</name>
+        <param>
+          <type><ref refid="structwarp__driver___configs" kindref="compound">warp_driver_Configs</ref> *</type>
+          <declname>drvconfigs</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_w_a_r_p___c_f_g" kindref="compound">WARP_CFG</ref> *</type>
+          <declname>InputConfigs</declname>
+        </param>
+        <briefdescription>
+<para>Get initialization vector input configurations. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function converts user-provided warp configuration parameters into driver-specific configuration format for both warp initialization and warp filter operations.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>drvconfigs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to driver configuration structure </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InputConfigs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to input warp configuration</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.c" bodystart="498" bodyend="543"/>
+        <references refid="struct_geometric__info__fl_1a387ed06dba506aa1f2953dee5b0f0fa4" compoundref="xwarp__input__configs_8h" startline="159">Geometric_info_fl::affine_param</references>
+        <references refid="struct_x_v_warp_init___input_configs_1a0e3666b652f93bd7a687cc491d67252b" compoundref="xv__warp__init__l2_8h" startline="146">XVWarpInit_InputConfigs::bytes_per_pixel</references>
+        <references refid="struct_x_v_warp_init___input_configs_1a316536999948eb25abb836a2f2335255" compoundref="xv__warp__init__l2_8h" startline="154">XVWarpInit_InputConfigs::ctr_pts</references>
+        <references refid="struct_w_a_r_p___c_f_g_1a0a000b38be5c2aaa0a7f862e246f8216" compoundref="xwarp__input__configs_8h" startline="224">WARP_CFG::ctrl_pts</references>
+        <references refid="struct_x_v_warp_init___input_configs_1ab43b6d68fe91fca8c43173562b897de7" compoundref="xv__warp__init__l2_8h" startline="152">XVWarpInit_InputConfigs::filter_table_addr_0</references>
+        <references refid="struct_x_v_warp_init___input_configs_1ad29aa01703029664de0877d6b6e0d742" compoundref="xv__warp__init__l2_8h" startline="153">XVWarpInit_InputConfigs::filter_table_addr_1</references>
+        <references refid="structwarp__driver___configs_1ad3d9ede18ec69c8bce625aad2671c557" compoundref="xwarp__input__configs_8h" startline="235">warp_driver_Configs::filterConfigs</references>
+        <references refid="struct_geometric__info__fl_1adb4bdb58c4eee21947e197ee954941ed" compoundref="xwarp__input__configs_8h" startline="164">Geometric_info_fl::fr_height</references>
+        <references refid="struct_geometric__info__fl_1a88f5b1fc0f7f1994638781b13448c510" compoundref="xwarp__input__configs_8h" startline="163">Geometric_info_fl::fr_width</references>
+        <references refid="struct_w_a_r_p___c_f_g_1a9d51777d3f53c1d7333f8cf7b1e74b41" compoundref="xwarp__input__configs_8h" startline="205">WARP_CFG::frame_height</references>
+        <references refid="struct_w_a_r_p___c_f_g_1ab4239c249e47a8b479e59e147789a3ca" compoundref="xwarp__input__configs_8h" startline="204">WARP_CFG::frame_width</references>
+        <references refid="structwarp__driver___configs_1af3255beeb911221220314d8f848f7926" compoundref="xwarp__input__configs_8h" startline="236">warp_driver_Configs::golden_crc</references>
+        <references refid="structwarp__driver___configs_1aea6b2a040cb69d214f056082c7e070b6" compoundref="xwarp__input__configs_8h" startline="234">warp_driver_Configs::initVectConfigs</references>
+        <references refid="struct_lens__params__fl_1ac896b280ff99180169955c04b5b0940f" compoundref="xwarp__input__configs_8h" startline="87">Lens_params_fl::k_post</references>
+        <references refid="struct_lens__params__fl_1a4c3608b43520d7f2efbbdef5cf86c2cf" compoundref="xwarp__input__configs_8h" startline="86">Lens_params_fl::k_pre</references>
+        <references refid="struct_geometric__info__fl_1aefa001f725de8751928539e8691ca08f" compoundref="xwarp__input__configs_8h" startline="158">Geometric_info_fl::keystone_params</references>
+        <references refid="struct_keystone__params__fl_1ae3d6f4cbcbfc70f5235da5f96b313f4d" compoundref="xwarp__input__configs_8h" startline="101">Keystone_params_fl::left_bottom_x</references>
+        <references refid="struct_w_a_r_p___c_f_g_1ab09435015efe72646fc3eaf622661719" compoundref="xwarp__input__configs_8h" startline="213">WARP_CFG::left_bottom_x</references>
+        <references refid="struct_keystone__params__fl_1a81ab38acc935aa47ebab0d71e04da7f8" compoundref="xwarp__input__configs_8h" startline="102">Keystone_params_fl::left_bottom_y</references>
+        <references refid="struct_w_a_r_p___c_f_g_1a2f32e71015672fe6a4db03af3d348c81" compoundref="xwarp__input__configs_8h" startline="214">WARP_CFG::left_bottom_y</references>
+        <references refid="struct_keystone__params__fl_1ac07fafdda9d9211d49ef855eacec22ad" compoundref="xwarp__input__configs_8h" startline="97">Keystone_params_fl::left_top_x</references>
+        <references refid="struct_w_a_r_p___c_f_g_1ad63163209554cf2aaf1d5e4283c95ec2" compoundref="xwarp__input__configs_8h" startline="209">WARP_CFG::left_top_x</references>
+        <references refid="struct_keystone__params__fl_1a6be474c50e4920ac368b0a50e97adf72" compoundref="xwarp__input__configs_8h" startline="98">Keystone_params_fl::left_top_y</references>
+        <references refid="struct_w_a_r_p___c_f_g_1af1c907db480697f7ce023c4e18448d91" compoundref="xwarp__input__configs_8h" startline="210">WARP_CFG::left_top_y</references>
+        <references refid="struct_geometric__info__fl_1a1cacce90d568a22e5b9c47d90d61481f" compoundref="xwarp__input__configs_8h" startline="157">Geometric_info_fl::lens_params</references>
+        <references refid="struct_x_v_warp_init___input_configs_1a327f0e9612b072e51260589df1a18bfb" compoundref="xv__warp__init__l2_8h" startline="148">XVWarpInit_InputConfigs::num_ctrl_pts</references>
+        <references refid="struct_w_a_r_p___c_f_g_1ab8dc5a0bb81f769ed569e46176ad6013" compoundref="xwarp__input__configs_8h" startline="223">WARP_CFG::num_ctrl_pts</references>
+        <references refid="struct_w_a_r_p___c_f_g_1a80fa488d7588e677909886f75d7cf4b5" compoundref="xwarp__input__configs_8h" startline="208">WARP_CFG::post_fisheye</references>
+        <references refid="struct_w_a_r_p___c_f_g_1a30e15f45f75b60e8ffee3ba004f090b3" compoundref="xwarp__input__configs_8h" startline="207">WARP_CFG::pre_fisheye</references>
+        <references refid="xwarp__input__configs_8h_1a9b69b8ed632cff8ed700d273a81731e1" compoundref="xwarp__input__configs_8h" startline="30">REMAP_VECT_0_ADDR_0</references>
+        <references refid="xwarp__input__configs_8h_1a9b042802602481f0590b10ab02d865f5" compoundref="xwarp__input__configs_8h" startline="35">REMAP_VECT_0_ADDR_1</references>
+        <references refid="struct_keystone__params__fl_1a11302f58b2dabd5410f0bb3faebc687e" compoundref="xwarp__input__configs_8h" startline="103">Keystone_params_fl::right_bottom_x</references>
+        <references refid="struct_w_a_r_p___c_f_g_1a39fa671844a799f2595033769431b820" compoundref="xwarp__input__configs_8h" startline="215">WARP_CFG::right_bottom_x</references>
+        <references refid="struct_keystone__params__fl_1a4b005166ada22b122aca7dff2fa6e96e" compoundref="xwarp__input__configs_8h" startline="104">Keystone_params_fl::right_bottom_y</references>
+        <references refid="struct_w_a_r_p___c_f_g_1ad377f0afc309f84664d7866ae21b69dc" compoundref="xwarp__input__configs_8h" startline="216">WARP_CFG::right_bottom_y</references>
+        <references refid="struct_keystone__params__fl_1aef08be7f52d4d7aefc374ceeb46e5306" compoundref="xwarp__input__configs_8h" startline="99">Keystone_params_fl::right_top_x</references>
+        <references refid="struct_w_a_r_p___c_f_g_1a82a309c21217a06dd76092c5c3cc98e5" compoundref="xwarp__input__configs_8h" startline="211">WARP_CFG::right_top_x</references>
+        <references refid="struct_keystone__params__fl_1ad1b245d21cebf23426dce3b1a3a9ab6f" compoundref="xwarp__input__configs_8h" startline="100">Keystone_params_fl::right_top_y</references>
+        <references refid="struct_w_a_r_p___c_f_g_1aa86ad5f5f8de80fee11b76f922dc474b" compoundref="xwarp__input__configs_8h" startline="212">WARP_CFG::right_top_y</references>
+        <references refid="structaffine__param__fl_1ada5d2bee25361b714a07a1e9472f4078" compoundref="xwarp__input__configs_8h" startline="116">affine_param_fl::rot_angle</references>
+        <references refid="struct_w_a_r_p___c_f_g_1a47a3e69feb1e63a6168510c3dc4a30eb" compoundref="xwarp__input__configs_8h" startline="219">WARP_CFG::rotation</references>
+        <references refid="structaffine__param__fl_1a5f337e8d70109ef1cc09e838044fc808" compoundref="xwarp__input__configs_8h" startline="114">affine_param_fl::scale_x</references>
+        <references refid="struct_w_a_r_p___c_f_g_1a887cb8fe3e714434d1cf3af9f2dc3dfb" compoundref="xwarp__input__configs_8h" startline="217">WARP_CFG::scale_x</references>
+        <references refid="structaffine__param__fl_1ad38efae54e9f9f73cb3919f3960a309d" compoundref="xwarp__input__configs_8h" startline="115">affine_param_fl::scale_y</references>
+        <references refid="struct_w_a_r_p___c_f_g_1a44aeef20a2574c63cac5a3aa5f3c3896" compoundref="xwarp__input__configs_8h" startline="218">WARP_CFG::scale_y</references>
+        <references refid="structaffine__param__fl_1a5e0acda1e20830b51c8f52246817f3d5" compoundref="xwarp__input__configs_8h" startline="117">affine_param_fl::trans_x</references>
+        <references refid="struct_w_a_r_p___c_f_g_1acca13ebab45dbf363a31ade1d21a916e" compoundref="xwarp__input__configs_8h" startline="220">WARP_CFG::trans_x</references>
+        <references refid="structaffine__param__fl_1ac02518c882a21fff4af176379244de6c" compoundref="xwarp__input__configs_8h" startline="118">affine_param_fl::trans_y</references>
+        <references refid="struct_w_a_r_p___c_f_g_1a218e440969b5e5e788059b05bf77704a" compoundref="xwarp__input__configs_8h" startline="221">WARP_CFG::trans_y</references>
+        <references refid="struct_geometric__info__fl_1a9b16d2c7c9f363993cd14e324e0bf14d" compoundref="xwarp__input__configs_8h" startline="161">Geometric_info_fl::warp_type</references>
+        <references refid="struct_w_a_r_p___c_f_g_1ad8c5de51420ebb662a53037607636bef" compoundref="xwarp__input__configs_8h" startline="206">WARP_CFG::warp_type</references>
+        <references refid="structaffine__param__fl_1a07e351516fc973242914b1fbac9d6347" compoundref="xwarp__input__configs_8h" startline="119">affine_param_fl::zoom</references>
+        <references refid="struct_w_a_r_p___c_f_g_1a79c1cf2964498cb5323d2e84e2380b28" compoundref="xwarp__input__configs_8h" startline="222">WARP_CFG::zoom</references>
+        <referencedby refid="xwarp__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xwarp__example_8c" startline="136" endline="336">main</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2008<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022-2026,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor">#ifndef<sp/>XWARP_INPUT_CONFIGS_H_</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XWARP_INPUT_CONFIGS_H_</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__warp__init__l2_8h" kindref="compound">xv_warp_init_l2.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_warp_filter_l2.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25" refid="xwarp__input__configs_8h_1a62c41896785fc322b9990171b31057fa" refkind="member"><highlight class="preprocessor">#define<sp/>JB_CHANGES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="30" refid="xwarp__input__configs_8h_1a9b69b8ed632cff8ed700d273a81731e1" refkind="member"><highlight class="preprocessor">#define<sp/>REMAP_VECT_0_ADDR_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10000000</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="35" refid="xwarp__input__configs_8h_1a9b042802602481f0590b10ab02d865f5" refkind="member"><highlight class="preprocessor">#define<sp/>REMAP_VECT_0_ADDR_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1219e400</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="40" refid="xwarp__input__configs_8h_1a8244199ec97f768b97c85794c23b2342" refkind="member"><highlight class="preprocessor">#define<sp/>SRC_BUF_START_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x30000000</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="45" refid="xwarp__input__configs_8h_1a799965409e6a785083e57ef01d4e6930" refkind="member"><highlight class="preprocessor">#define<sp/>DST_BUF_START_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40000000</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="50" refid="xwarp__input__configs_8h_1acd09355bc34c2ca5152d440d57665eb9" refkind="member"><highlight class="preprocessor">#define<sp/>MAX_SIZE_OF_4K_FRAME_IN_MEM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04000000</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="55" refid="xwarp__input__configs_8h_1ab75d1f58ae51247b71204f145592cd79" refkind="member"><highlight class="preprocessor">#define<sp/>_1920_1080_FRAME_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>6220800</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="60" refid="xwarp__input__configs_8h_1afd5ab69b485f308970855b5eb030a04d" refkind="member"><highlight class="preprocessor">#define<sp/>_4K_FRAME_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>24883200</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="65" refid="xwarp__input__configs_8h_1ac2e3b06e0cbbd5f8ab61cc56070c25d4" refkind="member"><highlight class="preprocessor">#define<sp/>BUFF_QUEUE_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="70" refid="xwarp__input__configs_8h_1a33f688aac615be97fcb7cc29747003ef" refkind="member"><highlight class="preprocessor">#define<sp/>WI_PI<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3.14159265358979</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="75" refid="xwarp__input__configs_8h_1a430ed1fbe79f6856e740155740d18d76" refkind="member"><highlight class="preprocessor">#define<sp/>LENS_DIST_SHIFT<sp/>12</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85" refid="struct_lens__params__fl" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_lens__params__fl" kindref="compound">Lens_params_fl</ref><sp/>{</highlight></codeline>
+<codeline lineno="86" refid="struct_lens__params__fl_1a4c3608b43520d7f2efbbdef5cf86c2cf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_lens__params__fl_1a4c3608b43520d7f2efbbdef5cf86c2cf" kindref="member">k_pre</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87" refid="struct_lens__params__fl_1ac896b280ff99180169955c04b5b0940f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_lens__params__fl_1ac896b280ff99180169955c04b5b0940f" kindref="member">k_post</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="88"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96" refid="struct_keystone__params__fl" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_keystone__params__fl" kindref="compound">Keystone_params_fl</ref><sp/>{</highlight></codeline>
+<codeline lineno="97" refid="struct_keystone__params__fl_1ac07fafdda9d9211d49ef855eacec22ad" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><ref refid="struct_keystone__params__fl_1ac07fafdda9d9211d49ef855eacec22ad" kindref="member">left_top_x</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98" refid="struct_keystone__params__fl_1a6be474c50e4920ac368b0a50e97adf72" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><ref refid="struct_keystone__params__fl_1a6be474c50e4920ac368b0a50e97adf72" kindref="member">left_top_y</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99" refid="struct_keystone__params__fl_1aef08be7f52d4d7aefc374ceeb46e5306" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><ref refid="struct_keystone__params__fl_1aef08be7f52d4d7aefc374ceeb46e5306" kindref="member">right_top_x</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="100" refid="struct_keystone__params__fl_1ad1b245d21cebf23426dce3b1a3a9ab6f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><ref refid="struct_keystone__params__fl_1ad1b245d21cebf23426dce3b1a3a9ab6f" kindref="member">right_top_y</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="101" refid="struct_keystone__params__fl_1ae3d6f4cbcbfc70f5235da5f96b313f4d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><ref refid="struct_keystone__params__fl_1ae3d6f4cbcbfc70f5235da5f96b313f4d" kindref="member">left_bottom_x</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="102" refid="struct_keystone__params__fl_1a81ab38acc935aa47ebab0d71e04da7f8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><ref refid="struct_keystone__params__fl_1a81ab38acc935aa47ebab0d71e04da7f8" kindref="member">left_bottom_y</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="103" refid="struct_keystone__params__fl_1a11302f58b2dabd5410f0bb3faebc687e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><ref refid="struct_keystone__params__fl_1a11302f58b2dabd5410f0bb3faebc687e" kindref="member">right_bottom_x</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="104" refid="struct_keystone__params__fl_1a4b005166ada22b122aca7dff2fa6e96e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><ref refid="struct_keystone__params__fl_1a4b005166ada22b122aca7dff2fa6e96e" kindref="member">right_bottom_y</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113" refid="structaffine__param__fl" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structaffine__param__fl" kindref="compound">affine_param_fl</ref><sp/>{</highlight></codeline>
+<codeline lineno="114" refid="structaffine__param__fl_1a5f337e8d70109ef1cc09e838044fc808" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="structaffine__param__fl_1a5f337e8d70109ef1cc09e838044fc808" kindref="member">scale_x</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115" refid="structaffine__param__fl_1ad38efae54e9f9f73cb3919f3960a309d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="structaffine__param__fl_1ad38efae54e9f9f73cb3919f3960a309d" kindref="member">scale_y</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="116" refid="structaffine__param__fl_1ada5d2bee25361b714a07a1e9472f4078" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="structaffine__param__fl_1ada5d2bee25361b714a07a1e9472f4078" kindref="member">rot_angle</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="117" refid="structaffine__param__fl_1a5e0acda1e20830b51c8f52246817f3d5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="structaffine__param__fl_1a5e0acda1e20830b51c8f52246817f3d5" kindref="member">trans_x</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="118" refid="structaffine__param__fl_1ac02518c882a21fff4af176379244de6c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="structaffine__param__fl_1ac02518c882a21fff4af176379244de6c" kindref="member">trans_y</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="119" refid="structaffine__param__fl_1a07e351516fc973242914b1fbac9d6347" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="structaffine__param__fl_1a07e351516fc973242914b1fbac9d6347" kindref="member">zoom</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="120"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128" refid="struct_arbitrary__param__fl" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_arbitrary__param__fl" kindref="compound">Arbitrary_param_fl</ref><sp/>{</highlight></codeline>
+<codeline lineno="129" refid="struct_arbitrary__param__fl_1abfc5fabc01f500e043e763a0f85f3b60" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_arbitrary__param__fl_1abfc5fabc01f500e043e763a0f85f3b60" kindref="member">grid_size</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="130" refid="struct_arbitrary__param__fl_1a64d4590a6a48ee0189d50f2dd937cde0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_arbitrary__param__fl_1a64d4590a6a48ee0189d50f2dd937cde0" kindref="member">num_ctrl_pts</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="131" refid="struct_arbitrary__param__fl_1a8d008f714643ae8ae822e6bdb225bd74" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>*<ref refid="struct_arbitrary__param__fl_1a8d008f714643ae8ae822e6bdb225bd74" kindref="member">dst_ctrl_x_pts</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="132" refid="struct_arbitrary__param__fl_1ac26286703189484647304f626c72a259" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>*<ref refid="struct_arbitrary__param__fl_1ac26286703189484647304f626c72a259" kindref="member">dst_ctrl_y_pts</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="133" refid="struct_arbitrary__param__fl_1a56709f3d34647a1649ea067abf11b273" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>*<ref refid="struct_arbitrary__param__fl_1a56709f3d34647a1649ea067abf11b273" kindref="member">src_ctrl_x_pts</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="134" refid="struct_arbitrary__param__fl_1a281449a76736e6d19c9ec49fd22b2157" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>*<ref refid="struct_arbitrary__param__fl_1a281449a76736e6d19c9ec49fd22b2157" kindref="member">src_ctrl_y_pts</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="135" refid="struct_arbitrary__param__fl_1a3933ef2b2f82af364890d06079043067" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>*<ref refid="struct_arbitrary__param__fl_1a3933ef2b2f82af364890d06079043067" kindref="member">update_x</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="136" refid="struct_arbitrary__param__fl_1ade00cdaab18eb92cb7fc6946f2280d0b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>*<ref refid="struct_arbitrary__param__fl_1ade00cdaab18eb92cb7fc6946f2280d0b" kindref="member">update_y</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="137" refid="struct_arbitrary__param__fl_1a766cab504e95b152db7cb33784512e92" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>*<ref refid="struct_arbitrary__param__fl_1a766cab504e95b152db7cb33784512e92" kindref="member">update_blk_x</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="138" refid="struct_arbitrary__param__fl_1ab8e699f31e474bd392d7a3176cfa44b1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>*<ref refid="struct_arbitrary__param__fl_1ab8e699f31e474bd392d7a3176cfa44b1" kindref="member">update_blk_y</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="139" refid="struct_arbitrary__param__fl_1ac93cf1948c1152cb31b5cc52f22cc3ec" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>*<ref refid="struct_arbitrary__param__fl_1ac93cf1948c1152cb31b5cc52f22cc3ec" kindref="member">src_tangents_x</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="140" refid="struct_arbitrary__param__fl_1abc8d2c5dce275b10338975b25957a68a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>*<ref refid="struct_arbitrary__param__fl_1abc8d2c5dce275b10338975b25957a68a" kindref="member">src_tangents_y</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="141" refid="struct_arbitrary__param__fl_1a335e8ff20cd144a4bc547d153d7aa091" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>*<ref refid="struct_arbitrary__param__fl_1a335e8ff20cd144a4bc547d153d7aa091" kindref="member">knots_x</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="142" refid="struct_arbitrary__param__fl_1ac0123cd704229d332de69ca6b5c83fd0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>*<ref refid="struct_arbitrary__param__fl_1ac0123cd704229d332de69ca6b5c83fd0" kindref="member">knots_y</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="143" refid="struct_arbitrary__param__fl_1ab8593768eee1254a54987f63bc8bb3da" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>*<ref refid="struct_arbitrary__param__fl_1ab8593768eee1254a54987f63bc8bb3da" kindref="member">temp_row</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="144" refid="struct_arbitrary__param__fl_1ab7d45d0c4185383b3b0cb00921486406" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>*<ref refid="struct_arbitrary__param__fl_1ab7d45d0c4185383b3b0cb00921486406" kindref="member">interm_x</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="145" refid="struct_arbitrary__param__fl_1a169d71864cdea40da5ea8aa0dd2c5d71" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>*<ref refid="struct_arbitrary__param__fl_1a169d71864cdea40da5ea8aa0dd2c5d71" kindref="member">interm_y</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="146" refid="struct_arbitrary__param__fl_1a04f8a80ef44ab09ac6e90c07295e1cab" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>*<ref refid="struct_arbitrary__param__fl_1a04f8a80ef44ab09ac6e90c07295e1cab" kindref="member">remap_blk</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="147"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156" refid="struct_geometric__info__fl" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_geometric__info__fl" kindref="compound">Geometric_info_fl</ref><sp/>{</highlight></codeline>
+<codeline lineno="157" refid="struct_geometric__info__fl_1a1cacce90d568a22e5b9c47d90d61481f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_lens__params__fl" kindref="compound">Lens_params_fl</ref><sp/><ref refid="struct_geometric__info__fl_1a1cacce90d568a22e5b9c47d90d61481f" kindref="member">lens_params</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="158" refid="struct_geometric__info__fl_1aefa001f725de8751928539e8691ca08f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_keystone__params__fl" kindref="compound">Keystone_params_fl</ref><sp/><ref refid="struct_geometric__info__fl_1aefa001f725de8751928539e8691ca08f" kindref="member">keystone_params</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="159" refid="struct_geometric__info__fl_1a387ed06dba506aa1f2953dee5b0f0fa4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structaffine__param__fl" kindref="compound">affine_param_fl</ref><sp/><ref refid="struct_geometric__info__fl_1a387ed06dba506aa1f2953dee5b0f0fa4" kindref="member">affine_param</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="160" refid="struct_geometric__info__fl_1a2d9205dc01aeccb2024161cb7564998e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_arbitrary__param__fl" kindref="compound">Arbitrary_param_fl</ref><sp/><ref refid="struct_geometric__info__fl_1a2d9205dc01aeccb2024161cb7564998e" kindref="member">arbitrary_param</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="161" refid="struct_geometric__info__fl_1a9b16d2c7c9f363993cd14e324e0bf14d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><ref refid="struct_geometric__info__fl_1a9b16d2c7c9f363993cd14e324e0bf14d" kindref="member">warp_type</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="162" refid="struct_geometric__info__fl_1a89aa8bc398d2735ab5842ad1fb376c90" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_geometric__info__fl_1a89aa8bc398d2735ab5842ad1fb376c90" kindref="member">proj_trans</ref>[9];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="163" refid="struct_geometric__info__fl_1a88f5b1fc0f7f1994638781b13448c510" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><ref refid="struct_geometric__info__fl_1a88f5b1fc0f7f1994638781b13448c510" kindref="member">fr_width</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="164" refid="struct_geometric__info__fl_1adb4bdb58c4eee21947e197ee954941ed" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><ref refid="struct_geometric__info__fl_1adb4bdb58c4eee21947e197ee954941ed" kindref="member">fr_height</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="165" refid="struct_geometric__info__fl_1ae92d1da89d0ad23d29e4519d8c0c8faa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>*<ref refid="struct_geometric__info__fl_1ae92d1da89d0ad23d29e4519d8c0c8faa" kindref="member">remap_xy</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="166"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174" refid="struct_geo__trans__param" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_geo__trans__param" kindref="compound">Geo_trans_param</ref><sp/>{</highlight></codeline>
+<codeline lineno="175" refid="struct_geo__trans__param_1acdc862092d832165429a8bcb950ebc5e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_geo__trans__param_1acdc862092d832165429a8bcb950ebc5e" kindref="member">k_pre</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="176" refid="struct_geo__trans__param_1aad1e522be38467418aad649ef8caee52" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_geo__trans__param_1aad1e522be38467418aad649ef8caee52" kindref="member">k_post</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="177" refid="struct_geo__trans__param_1a723a436d47522d5ca5384762cf21da48" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_geo__trans__param_1a723a436d47522d5ca5384762cf21da48" kindref="member">h</ref>[9];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="178"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186" refid="struct_geometric__info" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_geometric__info" kindref="compound">Geometric_info</ref><sp/>{</highlight></codeline>
+<codeline lineno="187" refid="struct_geometric__info_1addf6fc0c6c323956c8e420dd606506eb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_geo__trans__param" kindref="compound">Geo_trans_param</ref><sp/><ref refid="struct_geometric__info_1addf6fc0c6c323956c8e420dd606506eb" kindref="member">geo_trans_params</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="188" refid="struct_geometric__info_1a66b1dfd1b40d9d6fd7043d25302bcb32" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v_warp_init___arb_param" kindref="compound">XVWarpInit_ArbParam</ref><sp/><ref refid="struct_geometric__info_1a66b1dfd1b40d9d6fd7043d25302bcb32" kindref="member">arbitrary_param</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="189" refid="struct_geometric__info_1a13f86f659cd42b54ff1cd19a600f1d80" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><ref refid="struct_geometric__info_1a13f86f659cd42b54ff1cd19a600f1d80" kindref="member">fr_width</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="190" refid="struct_geometric__info_1a61e9e7ac943052b02e955ee0ee82808b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><ref refid="struct_geometric__info_1a61e9e7ac943052b02e955ee0ee82808b" kindref="member">fr_height</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="191" refid="struct_geometric__info_1aa886a44da8ab09eea848265bd4d4fd88" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="struct_geometric__info_1aa886a44da8ab09eea848265bd4d4fd88" kindref="member">remap_xy</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="192" refid="struct_geometric__info_1ab9d6a5ef30da1a187fece3870df459fa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="struct_geometric__info_1ab9d6a5ef30da1a187fece3870df459fa" kindref="member">remap_xy_sort</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="193" refid="struct_geometric__info_1a393a99d0cd326f8f18a56a3d8fb84379" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><ref refid="struct_geometric__info_1a393a99d0cd326f8f18a56a3d8fb84379" kindref="member">warp_type</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="194"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203" refid="struct_w_a_r_p___c_f_g" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="204" refid="struct_w_a_r_p___c_f_g_1ab4239c249e47a8b479e59e147789a3ca" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_w_a_r_p___c_f_g_1ab4239c249e47a8b479e59e147789a3ca" kindref="member">frame_width</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="205" refid="struct_w_a_r_p___c_f_g_1a9d51777d3f53c1d7333f8cf7b1e74b41" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_w_a_r_p___c_f_g_1a9d51777d3f53c1d7333f8cf7b1e74b41" kindref="member">frame_height</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="206" refid="struct_w_a_r_p___c_f_g_1ad8c5de51420ebb662a53037607636bef" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_w_a_r_p___c_f_g_1ad8c5de51420ebb662a53037607636bef" kindref="member">warp_type</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="207" refid="struct_w_a_r_p___c_f_g_1a30e15f45f75b60e8ffee3ba004f090b3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_w_a_r_p___c_f_g_1a30e15f45f75b60e8ffee3ba004f090b3" kindref="member">pre_fisheye</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="208" refid="struct_w_a_r_p___c_f_g_1a80fa488d7588e677909886f75d7cf4b5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_w_a_r_p___c_f_g_1a80fa488d7588e677909886f75d7cf4b5" kindref="member">post_fisheye</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="209" refid="struct_w_a_r_p___c_f_g_1ad63163209554cf2aaf1d5e4283c95ec2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_w_a_r_p___c_f_g_1ad63163209554cf2aaf1d5e4283c95ec2" kindref="member">left_top_x</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="210" refid="struct_w_a_r_p___c_f_g_1af1c907db480697f7ce023c4e18448d91" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_w_a_r_p___c_f_g_1af1c907db480697f7ce023c4e18448d91" kindref="member">left_top_y</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="211" refid="struct_w_a_r_p___c_f_g_1a82a309c21217a06dd76092c5c3cc98e5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_w_a_r_p___c_f_g_1a82a309c21217a06dd76092c5c3cc98e5" kindref="member">right_top_x</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="212" refid="struct_w_a_r_p___c_f_g_1aa86ad5f5f8de80fee11b76f922dc474b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_w_a_r_p___c_f_g_1aa86ad5f5f8de80fee11b76f922dc474b" kindref="member">right_top_y</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="213" refid="struct_w_a_r_p___c_f_g_1ab09435015efe72646fc3eaf622661719" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_w_a_r_p___c_f_g_1ab09435015efe72646fc3eaf622661719" kindref="member">left_bottom_x</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="214" refid="struct_w_a_r_p___c_f_g_1a2f32e71015672fe6a4db03af3d348c81" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_w_a_r_p___c_f_g_1a2f32e71015672fe6a4db03af3d348c81" kindref="member">left_bottom_y</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="215" refid="struct_w_a_r_p___c_f_g_1a39fa671844a799f2595033769431b820" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_w_a_r_p___c_f_g_1a39fa671844a799f2595033769431b820" kindref="member">right_bottom_x</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="216" refid="struct_w_a_r_p___c_f_g_1ad377f0afc309f84664d7866ae21b69dc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_w_a_r_p___c_f_g_1ad377f0afc309f84664d7866ae21b69dc" kindref="member">right_bottom_y</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="217" refid="struct_w_a_r_p___c_f_g_1a887cb8fe3e714434d1cf3af9f2dc3dfb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_w_a_r_p___c_f_g_1a887cb8fe3e714434d1cf3af9f2dc3dfb" kindref="member">scale_x</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="218" refid="struct_w_a_r_p___c_f_g_1a44aeef20a2574c63cac5a3aa5f3c3896" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_w_a_r_p___c_f_g_1a44aeef20a2574c63cac5a3aa5f3c3896" kindref="member">scale_y</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="219" refid="struct_w_a_r_p___c_f_g_1a47a3e69feb1e63a6168510c3dc4a30eb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_w_a_r_p___c_f_g_1a47a3e69feb1e63a6168510c3dc4a30eb" kindref="member">rotation</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="220" refid="struct_w_a_r_p___c_f_g_1acca13ebab45dbf363a31ade1d21a916e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_w_a_r_p___c_f_g_1acca13ebab45dbf363a31ade1d21a916e" kindref="member">trans_x</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="221" refid="struct_w_a_r_p___c_f_g_1a218e440969b5e5e788059b05bf77704a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_w_a_r_p___c_f_g_1a218e440969b5e5e788059b05bf77704a" kindref="member">trans_y</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="222" refid="struct_w_a_r_p___c_f_g_1a79c1cf2964498cb5323d2e84e2380b28" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_w_a_r_p___c_f_g_1a79c1cf2964498cb5323d2e84e2380b28" kindref="member">zoom</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="223" refid="struct_w_a_r_p___c_f_g_1ab8dc5a0bb81f769ed569e46176ad6013" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_w_a_r_p___c_f_g_1ab8dc5a0bb81f769ed569e46176ad6013" kindref="member">num_ctrl_pts</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="224" refid="struct_w_a_r_p___c_f_g_1a0a000b38be5c2aaa0a7f862e246f8216" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v_warp_init___arb_param___mesh_info" kindref="compound">XVWarpInit_ArbParam_MeshInfo</ref><sp/>*<ref refid="struct_w_a_r_p___c_f_g_1a0a000b38be5c2aaa0a7f862e246f8216" kindref="member">ctrl_pts</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="225"><highlight class="normal">}<sp/><ref refid="struct_w_a_r_p___c_f_g" kindref="compound">WARP_CFG</ref>;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233" refid="structwarp__driver___configs" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="234" refid="structwarp__driver___configs_1aea6b2a040cb69d214f056082c7e070b6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v_warp_init___input_configs" kindref="compound">XVWarpInit_InputConfigs</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structwarp__driver___configs_1aea6b2a040cb69d214f056082c7e070b6" kindref="member">initVectConfigs</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="235" refid="structwarp__driver___configs_1ad3d9ede18ec69c8bce625aad2671c557" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVWarpFilter_InputConfigs<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structwarp__driver___configs_1ad3d9ede18ec69c8bce625aad2671c557" kindref="member">filterConfigs</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="236" refid="structwarp__driver___configs_1af3255beeb911221220314d8f848f7926" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structwarp__driver___configs_1af3255beeb911221220314d8f848f7926" kindref="member">golden_crc</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="237"><highlight class="normal">}<ref refid="structwarp__driver___configs" kindref="compound">warp_driver_Configs</ref>;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xwarp__input__configs_8c_1abca1da10f59dbbedfea288b1adf12b6b" kindref="member">get_init_vect_input_configs</ref>(<ref refid="structwarp__driver___configs" kindref="compound">warp_driver_Configs</ref><sp/>*drvconfigs,<sp/><ref refid="struct_w_a_r_p___c_f_g" kindref="compound">WARP_CFG</ref><sp/>*InputConfigs);</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h"/>
+  </compounddef>
+</doxygen>

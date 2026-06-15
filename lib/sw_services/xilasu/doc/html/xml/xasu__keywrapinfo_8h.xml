@@ -1,0 +1,223 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__keywrapinfo_8h" kind="file">
+    <compoundname>xasu_keywrapinfo.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xasu_bsp_config.h</includes>
+    <includedby refid="xasu__keywrap_8h" local="yes">xasu_keywrap.h</includedby>
+    <includedby refid="xasu__keywrap__common_8h" local="yes">xasu_keywrap_common.h</includedby>
+    <incdepgraph>
+      <node id="709">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="707">
+        <label>xasu_keywrapinfo.h</label>
+        <link refid="xasu_keywrapinfo.h"/>
+        <childnode refid="708" relation="include">
+        </childnode>
+        <childnode refid="709" relation="include">
+        </childnode>
+      </node>
+      <node id="708">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="712">
+        <label>xasu_keywrap.c</label>
+        <link refid="xasu__keywrap_8c"/>
+      </node>
+      <node id="711">
+        <label>xasu_keywrap.h</label>
+        <link refid="xasu__keywrap_8h"/>
+        <childnode refid="712" relation="include">
+        </childnode>
+        <childnode refid="713" relation="include">
+        </childnode>
+      </node>
+      <node id="715">
+        <label>xasu_keywrap_common.c</label>
+        <link refid="xasu__keywrap__common_8c"/>
+      </node>
+      <node id="714">
+        <label>xasu_keywrap_common.h</label>
+        <link refid="xasu__keywrap__common_8h"/>
+        <childnode refid="712" relation="include">
+        </childnode>
+        <childnode refid="715" relation="include">
+        </childnode>
+      </node>
+      <node id="713">
+        <label>xasu_keywrap_example.c</label>
+        <link refid="xasu__keywrap__example_8c"/>
+      </node>
+      <node id="710">
+        <label>xasu_keywrapinfo.h</label>
+        <link refid="xasu_keywrapinfo.h"/>
+        <childnode refid="711" relation="include">
+        </childnode>
+        <childnode refid="714" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_asu___key_wrap_params" prot="public">XAsu_KeyWrapParams</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__common__defs_1gaf994407bbd31072ddf9632b6f1009bad" prot="public" static="no">
+        <name>XASU_KEYWRAP_KEY_WRAP_SHA2_CMD_ID</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Command ID for Key wrap using SHA2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" bodystart="45" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__apis_1gad64883d138efba842bfc4961b3c8ee0f" compoundref="xasu__keywrap_8c" startline="61" endline="110">XAsu_KeyWrap</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gadbb8738e0fe939de04cff2314bf4672d" prot="public" static="no">
+        <name>XASU_KEYWRAP_KEY_WRAP_SHA3_CMD_ID</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Command ID for Key wrap using SHA3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" bodystart="46" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__apis_1gad64883d138efba842bfc4961b3c8ee0f" compoundref="xasu__keywrap_8c" startline="61" endline="110">XAsu_KeyWrap</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga56442e1209d51b52921ba2ba20aefc1d" prot="public" static="no">
+        <name>XASU_KEYWRAP_KEY_UNWRAP_SHA2_CMD_ID</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Command ID for Key unwrap using SHA2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" bodystart="47" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__apis_1ga5182a3df4600b1e0c78db02eab118fe7" compoundref="xasu__keywrap_8c" startline="129" endline="178">XAsu_KeyUnwrap</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaa4b44d2055942f4cbfc5ce755ce747e4" prot="public" static="no">
+        <name>XASU_KEYWRAP_KEY_UNWRAP_SHA3_CMD_ID</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Command ID for Key unwrap using SHA3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" bodystart="48" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__apis_1ga5182a3df4600b1e0c78db02eab118fe7" compoundref="xasu__keywrap_8c" startline="129" endline="178">XAsu_KeyUnwrap</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga5bf4170d38665f804177399b3958016f" prot="public" static="no">
+        <name>XASU_KEYWRAP_KAT_CMD_ID</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Command ID for Key wrap unwrap KAT. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__apis_1gaec0ce35e1cab18b618bb1a6a11ebd2da" compoundref="xasu__keywrap_8c" startline="195" endline="224">XAsu_KeyWrapKat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga741801d371ff6dddfacc74f09f872b8d" prot="public" static="no">
+        <name>XASU_KEYWRAP_MAX_CMDS</name>
+        <initializer>(5U)</initializer>
+        <briefdescription>
+<para>Maximum number of commands supported by Key wrap unwrap module. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga45ea427515a0e7053f42a3862ea1400a" prot="public" static="no">
+        <name>XASU_KEYWRAP_OUTPUT_LEN_SIZE_IN_BYTES</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Key wrap unwrap output length size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__apis_1ga5182a3df4600b1e0c78db02eab118fe7" compoundref="xasu__keywrap_8c" startline="129" endline="178">XAsu_KeyUnwrap</referencedby>
+        <referencedby refid="group__xasu__keywrap__client__apis_1gad64883d138efba842bfc4961b3c8ee0f" compoundref="xasu__keywrap_8c" startline="61" endline="110">XAsu_KeyWrap</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the Key wrap and unwrap definitions which are common across the client and server. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   ss   02/24/25 Initial release
+      yog  01/28/26 Added RSA key ID parameter to key wrap structures.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor">#ifndef<sp/>XASU_KEYWRAPINFO_H_</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_KEYWRAPINFO_H_</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xasu_bsp_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Key<sp/>Wrap<sp/>Unwrap<sp/>module<sp/>command<sp/>IDs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="group__xasu__common__defs_1gaf994407bbd31072ddf9632b6f1009bad" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XASU_KEYWRAP_KEY_WRAP_SHA2_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="46" refid="group__xasu__common__defs_1gadbb8738e0fe939de04cff2314bf4672d" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_KEYWRAP_KEY_WRAP_SHA3_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="47" refid="group__xasu__common__defs_1ga56442e1209d51b52921ba2ba20aefc1d" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_KEYWRAP_KEY_UNWRAP_SHA2_CMD_ID<sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="48" refid="group__xasu__common__defs_1gaa4b44d2055942f4cbfc5ce755ce747e4" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_KEYWRAP_KEY_UNWRAP_SHA3_CMD_ID<sp/><sp/><sp/><sp/><sp/>(3U)<sp/></highlight></codeline>
+<codeline lineno="49" refid="group__xasu__common__defs_1ga5bf4170d38665f804177399b3958016f" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_KEYWRAP_KAT_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="50" refid="group__xasu__common__defs_1ga741801d371ff6dddfacc74f09f872b8d" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_KEYWRAP_MAX_CMDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(5U)<sp/></highlight></codeline>
+<codeline lineno="52" refid="group__xasu__common__defs_1ga45ea427515a0e7053f42a3862ea1400a" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_KEYWRAP_OUTPUT_LEN_SIZE_IN_BYTES<sp/><sp/><sp/>(4U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="56" refid="struct_x_asu___key_wrap_params" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="57" refid="struct_x_asu___key_wrap_params_1a7e975623b5d478db1451042b05b662ea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___key_wrap_params_1a7e975623b5d478db1451042b05b662ea" kindref="member">InputDataAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59" refid="struct_x_asu___key_wrap_params_1aa7cbcf8280698e9df3458951df9959ec" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___key_wrap_params_1aa7cbcf8280698e9df3458951df9959ec" kindref="member">OutputDataAddr</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="struct_x_asu___key_wrap_params_1a994f49dc1b961429ba8cb8170d8bc0ba" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___key_wrap_params_1a994f49dc1b961429ba8cb8170d8bc0ba" kindref="member">ExpoCompAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="struct_x_asu___key_wrap_params_1ac1f5e0fc07b7e1b19fcccfe352442269" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___key_wrap_params_1ac1f5e0fc07b7e1b19fcccfe352442269" kindref="member">KeyCompAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64" refid="struct_x_asu___key_wrap_params_1a35bf5a34cf3e2325bdcf3100f82af618" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___key_wrap_params_1a35bf5a34cf3e2325bdcf3100f82af618" kindref="member">OptionalLabelAddr</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="struct_x_asu___key_wrap_params_1a680fae798d0ff51fca68a4871f1568d9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___key_wrap_params_1a680fae798d0ff51fca68a4871f1568d9" kindref="member">ActualOutputDataLenAddr</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67" refid="struct_x_asu___key_wrap_params_1a776bcc1fcddaf0b9d9b4323f4051ee85" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___key_wrap_params_1a776bcc1fcddaf0b9d9b4323f4051ee85" kindref="member">InputDataLen</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68" refid="struct_x_asu___key_wrap_params_1a38fcf90cf3ca3349320ec043a58e065b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___key_wrap_params_1a38fcf90cf3ca3349320ec043a58e065b" kindref="member">RsaKeySize</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69" refid="struct_x_asu___key_wrap_params_1abf6549ec448bea10512c895abf9baf07" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___key_wrap_params_1abf6549ec448bea10512c895abf9baf07" kindref="member">OptionalLabelSize</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="70" refid="struct_x_asu___key_wrap_params_1aa700f9f3d7b11950e1b932fd2f2ddefe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___key_wrap_params_1aa700f9f3d7b11950e1b932fd2f2ddefe" kindref="member">OutputDataLen</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="74" refid="struct_x_asu___key_wrap_params_1ac335e1a7457b3dfa31bfb6ad2f7a40e7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___key_wrap_params_1ac335e1a7457b3dfa31bfb6ad2f7a40e7" kindref="member">AesKeyId</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75" refid="struct_x_asu___key_wrap_params_1ab5d016c0e32be8c69f03308ef2491508" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___key_wrap_params_1ab5d016c0e32be8c69f03308ef2491508" kindref="member">RsaKeyId</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76" refid="struct_x_asu___key_wrap_params_1aadaa548059c19c40a13624d158c4efd4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_asu___key_wrap_params_1aadaa548059c19c40a13624d158c4efd4" kindref="member">AesKeySize</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="78" refid="struct_x_asu___key_wrap_params_1abb2a09abd19af9c8165f7dadf6b365ab" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_asu___key_wrap_params_1abb2a09abd19af9c8165f7dadf6b365ab" kindref="member">ShaType</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79" refid="struct_x_asu___key_wrap_params_1a3d2c47719c3dab4ce5dd8222487751b8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_asu___key_wrap_params_1a3d2c47719c3dab4ce5dd8222487751b8" kindref="member">ShaMode</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82" refid="struct_x_asu___key_wrap_params_1a87ad71f120c99397f1559d22902a5261" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_asu___key_wrap_params_1a87ad71f120c99397f1559d22902a5261" kindref="member">Reserved</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83" refid="struct_x_asu___key_wrap_params_1ade80a9a3ccf6e0c133a504040ada805e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Reserved2[4];<sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="normal">}<sp/><ref refid="struct_x_asu___key_wrap_params" kindref="compound">XAsu_KeyWrapParams</ref>;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XASU_KEYWRAPINFO_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keywrapinfo.h"/>
+  </compounddef>
+</doxygen>

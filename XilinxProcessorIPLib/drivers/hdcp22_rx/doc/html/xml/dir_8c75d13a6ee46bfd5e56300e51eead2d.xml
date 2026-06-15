@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_8c75d13a6ee46bfd5e56300e51eead2d" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xhdcp22__rx_8c">xhdcp22_rx.c</innerfile>
+    <innerfile refid="xhdcp22__rx_8h">xhdcp22_rx.h</innerfile>
+    <innerfile refid="xhdcp22__rx__crypt_8c">xhdcp22_rx_crypt.c</innerfile>
+    <innerfile refid="xhdcp22__rx__g_8c">xhdcp22_rx_g.c</innerfile>
+    <innerfile refid="xhdcp22__rx__i_8h">xhdcp22_rx_i.h</innerfile>
+    <innerfile refid="xhdcp22__rx__sinit_8c">xhdcp22_rx_sinit.c</innerfile>
+    <innerfile refid="xhdcp22__rx__test_8c">xhdcp22_rx_test.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/"/>
+  </compounddef>
+</doxygen>

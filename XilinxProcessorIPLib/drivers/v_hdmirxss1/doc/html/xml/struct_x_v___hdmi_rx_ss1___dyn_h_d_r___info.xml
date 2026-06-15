@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___hdmi_rx_ss1___dyn_h_d_r___info" kind="struct" prot="public">
+    <compoundname>XV_HdmiRxSs1_DynHDR_Info</compoundname>
+    <includes local="no">xv_hdmirxss1.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1___dyn_h_d_r___info_1adc3cb048aba809d76e5914ee9527efe7" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirxss1_8h_1ae766c84955f1aa0085a770d1c1b12804" kindref="member">XV_HdmiRxSs1_DynHdrErrType</ref></type>
+        <definition>XV_HdmiRxSs1_DynHdrErrType XV_HdmiRxSs1_DynHDR_Info::err</definition>
+        <argsstring></argsstring>
+        <name>err</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="571" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="571" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1___dyn_h_d_r___info_1a192f875a9a9b461b896440249c1bfe0b" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_HdmiRxSs1_DynHDR_Info::pkt_type</definition>
+        <argsstring></argsstring>
+        <name>pkt_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="572" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="572" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1___dyn_h_d_r___info_1ae3b7e35745ed5d8ea2f39512314471e7" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_HdmiRxSs1_DynHDR_Info::pkt_length</definition>
+        <argsstring></argsstring>
+        <name>pkt_length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="573" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="573" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx_ss1___dyn_h_d_r___info_1a2401b1c865593591fac6ca07cdfd01a0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiRxSs1_DynHDR_Info::gof</definition>
+        <argsstring></argsstring>
+        <name>gof</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="574" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="574" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains HDMI RX stream specific Dynamic HDR info. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" line="570" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1.h" bodystart="570" bodyend="575"/>
+    <listofallmembers>
+      <member refid="struct_x_v___hdmi_rx_ss1___dyn_h_d_r___info_1adc3cb048aba809d76e5914ee9527efe7" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1_DynHDR_Info</scope><name>err</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1___dyn_h_d_r___info_1a2401b1c865593591fac6ca07cdfd01a0" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1_DynHDR_Info</scope><name>gof</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1___dyn_h_d_r___info_1ae3b7e35745ed5d8ea2f39512314471e7" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1_DynHDR_Info</scope><name>pkt_length</name></member>
+      <member refid="struct_x_v___hdmi_rx_ss1___dyn_h_d_r___info_1a192f875a9a9b461b896440249c1bfe0b" prot="public" virt="non-virtual"><scope>XV_HdmiRxSs1_DynHDR_Info</scope><name>pkt_type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

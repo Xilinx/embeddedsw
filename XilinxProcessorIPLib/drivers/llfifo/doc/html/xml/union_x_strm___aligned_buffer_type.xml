@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="union_x_strm___aligned_buffer_type" kind="union" prot="public">
+    <compoundname>XStrm_AlignedBufferType</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="union_x_strm___aligned_buffer_type_1a459bdbeb843b8316832b438cd7b217c0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XStrm_AlignedBufferType::_words[LARGEST_FIFO_KEYHOLE_SIZE_WORDS]</definition>
+        <argsstring>[LARGEST_FIFO_KEYHOLE_SIZE_WORDS]</argsstring>
+        <name>_words</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_strm___aligned_buffer_type_1ade878ac1f429178b76fa7c27e5d3ed0e" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char XStrm_AlignedBufferType::bytes[LARGEST_FIFO_KEYHOLE_SIZE_WORDS *4]</definition>
+        <argsstring>[LARGEST_FIFO_KEYHOLE_SIZE_WORDS *4]</argsstring>
+        <name>bytes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xstreamer.h" bodystart="120" bodyend="123"/>
+    <listofallmembers>
+      <member refid="union_x_strm___aligned_buffer_type_1a459bdbeb843b8316832b438cd7b217c0" prot="public" virt="non-virtual"><scope>XStrm_AlignedBufferType</scope><name>_words</name></member>
+      <member refid="union_x_strm___aligned_buffer_type_1ade878ac1f429178b76fa7c27e5d3ed0e" prot="public" virt="non-virtual"><scope>XStrm_AlignedBufferType</scope><name>bytes</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

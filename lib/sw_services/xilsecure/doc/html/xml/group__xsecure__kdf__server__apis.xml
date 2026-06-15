@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xsecure__kdf__server__apis" kind="group">
+    <compoundname>xsecure_kdf_server_apis</compoundname>
+    <title>Xilsecure KDF Server APIs</title>
+    <innerclass refid="struct_x_secure___kdf_params" prot="public">XSecure_KdfParams</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__kdf__server__apis_1ga4ce6b83111541227a82cb8f566a02106" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_Hkdf</definition>
+        <argsstring>(XSecure_KdfParams *InDataPtr, u8 *KdfOut, u32 KdfOutLen)</argsstring>
+        <name>XSecure_Hkdf</name>
+        <param>
+          <type><ref refid="struct_x_secure___kdf_params" kindref="compound">XSecure_KdfParams</ref> *</type>
+          <declname>InDataPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>KdfOut</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>KdfOutLen</declname>
+        </param>
+        <briefdescription>
+<para>This function performs the HMAC based KDF. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InDataPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_secure___kdf_params" kindref="compound">XSecure_KdfParams</ref> instance. one should initialize the structure with following parameters before calling this API.<itemizedlist>
+<listitem><para>Key - Is a pointer to the key<itemizedlist>
+<listitem><para>KeyLen - length of key pointer</para></listitem><listitem><para>Context - Is a pointer to the context for KDF</para></listitem><listitem><para>ContextLen - Specifies the length of the context pointer. </para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KdfOut</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to output storage. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KdfOutLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the size of output.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_ERR_HKDF_INVALID_PARAM - If input parameters are invalid</para></listitem><listitem><para>XST_FAILURE - On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters.</para></listitem><listitem><para>Calculate number of iterations based on HKDF output key length and SHA hash length.</para></listitem><listitem><para>Calculate HMAC and form KdfInput</para></listitem><listitem><para>Update block index of 1 byte to HMAC.</para></listitem><listitem><para>Update Context</para></listitem><listitem><para>Get final HMAC</para></listitem><listitem><para>HMAC output size is the SHA algorithm hash length. HKDF key output can be any length.</para></listitem><listitem><para>In the last iteration, data to be copied to the destination can be less than or equal to SHA algorithm hash length which varies based on the requested key output length.</para></listitem><listitem><para>Copy the final HMAC of each iteration to the destination key output buffer.</para></listitem><listitem><para>Verify loop index is within expected bounds </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.c" bodystart="59" bodyend="161"/>
+        <references refid="struct_x_secure___kdf_params_1a0ff6b6d4c1005ca38fccbe178c91e191" compoundref="xsecure__kdf_8h" startline="46">XSecure_KdfParams::Context</references>
+        <references refid="struct_x_secure___kdf_params_1ad38bce1bc74ef8860f762791cfb2c17b" compoundref="xsecure__kdf_8h" startline="47">XSecure_KdfParams::ContextLen</references>
+        <references refid="struct_x_secure___kdf_params_1a9ca8f93ad9bce513d1e8fdfc4940ec06" compoundref="xsecure__kdf_8h" startline="48">XSecure_KdfParams::Key</references>
+        <references refid="struct_x_secure___kdf_params_1a3fe9e4b9b80c44784c02548f2e384fca" compoundref="xsecure__kdf_8h" startline="49">XSecure_KdfParams::KeyLen</references>
+        <references refid="versal__2vp_2xsecure__error_8h_1a385c44f6fb256e5716a2302a5b940388a9b599f0a2489846588637ca0b4b997a2" compoundref="versal__2vp_2xsecure__error_8h" startline="179">XSECURE_ERR_HKDF_INVALID_PARAM</references>
+        <references refid="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" compoundref="xsecure__init_8c" startline="189" endline="192">XSecure_GetSha3Instance</references>
+        <references refid="group__xsecure__kdf__server__apis_1ga020b57c7fea18820e9caa9a3ba5ad1cb" compoundref="xsecure__kdf_8h" startline="40">XSECURE_HKDF_BLOCK_INDEX_LENGTH</references>
+        <references refid="group__xsecure__kdf__server__apis_1ga15237f8d6eba1d098909fdb0b783d72b" compoundref="xsecure__kdf_8h" startline="39">XSECURE_HKDF_MAX_ITERATIONS</references>
+        <references refid="group__xsecure__hmac__apis_1ga19b58a827d01b838233e4b98fb95b0f7" compoundref="xsecure__hmac_8c" startline="190" endline="251">XSecure_HmacFinal</references>
+        <references refid="group__xsecure__hmac__apis_1ga326185e9709790ef9dc6d0eb61da6ab9" compoundref="xsecure__hmac_8c" startline="75" endline="128">XSecure_HmacInit</references>
+        <references refid="group__xsecure__hmac__apis_1gaec1f83f5e69e2ba5d879cd97eab498eb" compoundref="xsecure__hmac_8c" startline="146" endline="170">XSecure_HmacUpdate</references>
+        <references refid="versal_2xsecure__sha__hw_8h_1a809692bfb3b5d91eb2e4b3eb722d4f83" compoundref="versal_2xsecure__sha__hw_8h" startline="50">XSECURE_SHA_0_DEVICE_ID</references>
+        <references refid="group__xsecure__generic__server__apis_1ga014b8298824e67a2e9fe8a5c8719f59a" compoundref="core_2util_2xsecure__utils_8h" startline="52">XSECURE_WORD_SIZE</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__kdf__server__apis_1gad08b62a3393772d42f729e390c57fe36" prot="public" static="no">
+        <name>XSECURE_HKDF_MAX_CONTEXT_LEN</name>
+        <initializer>(1024U)</initializer>
+        <briefdescription>
+<para>Maximum context length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__kdf__server__apis_1ga15237f8d6eba1d098909fdb0b783d72b" prot="public" static="no">
+        <name>XSECURE_HKDF_MAX_ITERATIONS</name>
+        <initializer>(0xFFU)</initializer>
+        <briefdescription>
+<para>Maximum iterations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" bodystart="39" bodyend="-1"/>
+        <referencedby refid="group__xsecure__kdf__server__apis_1ga4ce6b83111541227a82cb8f566a02106" compoundref="xsecure__kdf_8c" startline="59" endline="161">XSecure_Hkdf</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__kdf__server__apis_1ga020b57c7fea18820e9caa9a3ba5ad1cb" prot="public" static="no">
+        <name>XSECURE_HKDF_BLOCK_INDEX_LENGTH</name>
+        <initializer>(0x01U)</initializer>
+        <briefdescription>
+<para>Block index length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" bodystart="40" bodyend="-1"/>
+        <referencedby refid="group__xsecure__kdf__server__apis_1ga4ce6b83111541227a82cb8f566a02106" compoundref="xsecure__kdf_8c" startline="59" endline="161">XSecure_Hkdf</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

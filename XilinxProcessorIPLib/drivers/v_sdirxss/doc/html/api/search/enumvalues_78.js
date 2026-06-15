@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['xv_5fsdirxss_5fhandler_5foverflow',['XV_SDIRXSS_HANDLER_OVERFLOW',['../xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aa8ab2a3880e6098ce868fbab44c229c7b',1,'xv_sdirxss.h']]],
+  ['xv_5fsdirxss_5fhandler_5fstream_5fdown',['XV_SDIRXSS_HANDLER_STREAM_DOWN',['../xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aad6257bbb5378ebec6138b4dbf23cc110',1,'xv_sdirxss.h']]],
+  ['xv_5fsdirxss_5fhandler_5fstream_5fup',['XV_SDIRXSS_HANDLER_STREAM_UP',['../xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aad1b227af4ef5b379fc2f057c18e0cc5d',1,'xv_sdirxss.h']]],
+  ['xv_5fsdirxss_5fhandler_5funderflow',['XV_SDIRXSS_HANDLER_UNDERFLOW',['../xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aa80bd522dd02c8deffbe9a1fc5585a9a8',1,'xv_sdirxss.h']]],
+  ['xv_5fsdirxss_5fhandler_5fvsync',['XV_SDIRXSS_HANDLER_VSYNC',['../xv__sdirxss_8h.html#a71eb8685e51a780aecf07c5fb886de7aaac802805650e3aed2d81f7d34965d77c',1,'xv_sdirxss.h']]],
+  ['xv_5fsdirxss_5flog_5fevt_5fdummy',['XV_SDIRXSS_LOG_EVT_DUMMY',['../xv__sdirxss_8h.html#ade9ffd7c4cd3343a53668c77788e00baa51fc4231632e2b7294e582fe600c6ef9',1,'xv_sdirxss.h']]],
+  ['xv_5fsdirxss_5flog_5fevt_5fnone',['XV_SDIRXSS_LOG_EVT_NONE',['../xv__sdirxss_8h.html#ade9ffd7c4cd3343a53668c77788e00baac87b23eb6dafee43b46fa934dbe65383',1,'xv_sdirxss.h']]],
+  ['xv_5fsdirxss_5flog_5fevt_5foverflow',['XV_SDIRXSS_LOG_EVT_OVERFLOW',['../xv__sdirxss_8h.html#ade9ffd7c4cd3343a53668c77788e00baa6cbf56745454fffbcc6154ef9ac79225',1,'xv_sdirxss.h']]],
+  ['xv_5fsdirxss_5flog_5fevt_5freset',['XV_SDIRXSS_LOG_EVT_RESET',['../xv__sdirxss_8h.html#ade9ffd7c4cd3343a53668c77788e00baa827f33ac2529c5f4cf3945835dcb1ce6',1,'xv_sdirxss.h']]],
+  ['xv_5fsdirxss_5flog_5fevt_5fsdirx_5finit',['XV_SDIRXSS_LOG_EVT_SDIRX_INIT',['../xv__sdirxss_8h.html#ade9ffd7c4cd3343a53668c77788e00baab255967dc5490db2cd7f57f778aec61e',1,'xv_sdirxss.h']]],
+  ['xv_5fsdirxss_5flog_5fevt_5fsetstream',['XV_SDIRXSS_LOG_EVT_SETSTREAM',['../xv__sdirxss_8h.html#ade9ffd7c4cd3343a53668c77788e00baa0080e57f6d625f1dd01a1c0e2f54bc8a',1,'xv_sdirxss.h']]],
+  ['xv_5fsdirxss_5flog_5fevt_5fstart',['XV_SDIRXSS_LOG_EVT_START',['../xv__sdirxss_8h.html#ade9ffd7c4cd3343a53668c77788e00baa97ea48bfa51c0ef66411f6ed68ab812c',1,'xv_sdirxss.h']]],
+  ['xv_5fsdirxss_5flog_5fevt_5fstop',['XV_SDIRXSS_LOG_EVT_STOP',['../xv__sdirxss_8h.html#ade9ffd7c4cd3343a53668c77788e00baa4da3f2426afca1983efd63a9214b6bfe',1,'xv_sdirxss.h']]],
+  ['xv_5fsdirxss_5flog_5fevt_5fstreamdown',['XV_SDIRXSS_LOG_EVT_STREAMDOWN',['../xv__sdirxss_8h.html#ade9ffd7c4cd3343a53668c77788e00baa1209a2edefec80b648ea7ce60d862ea9',1,'xv_sdirxss.h']]],
+  ['xv_5fsdirxss_5flog_5fevt_5fstreamstart',['XV_SDIRXSS_LOG_EVT_STREAMSTART',['../xv__sdirxss_8h.html#ade9ffd7c4cd3343a53668c77788e00baa3b50bef7159196dcf349504a79797a01',1,'xv_sdirxss.h']]],
+  ['xv_5fsdirxss_5flog_5fevt_5fstreamup',['XV_SDIRXSS_LOG_EVT_STREAMUP',['../xv__sdirxss_8h.html#ade9ffd7c4cd3343a53668c77788e00baa9fcf3692334b29076b633a9eb7db3fbc',1,'xv_sdirxss.h']]],
+  ['xv_5fsdirxss_5flog_5fevt_5funderflow',['XV_SDIRXSS_LOG_EVT_UNDERFLOW',['../xv__sdirxss_8h.html#ade9ffd7c4cd3343a53668c77788e00baa4dd4d4fa56c1ee97d5ace1b7c3543eb1',1,'xv_sdirxss.h']]]
+];

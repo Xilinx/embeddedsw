@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="union_x_hdmi_c___dsc_pps_data" kind="union" prot="public">
+    <compoundname>XHdmiC_DscPpsData</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="union_x_hdmi_c___dsc_pps_data_1ac717aaea523243e0ccc21124f890d36b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdmiC_DscPpsData::Data[32]</definition>
+        <argsstring>[32]</argsstring>
+        <name>Data</name>
+        <briefdescription>
+<para>PPS data field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_hdmi_c___dsc_pps_data_1a3014903e78dcc8ea89823164baf87dfa" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiC_DscPpsData::Byte[128]</definition>
+        <argsstring>[128]</argsstring>
+        <name>Byte</name>
+        <briefdescription>
+<para>PPS data byte field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="169" bodyend="172"/>
+    <listofallmembers>
+      <member refid="union_x_hdmi_c___dsc_pps_data_1a3014903e78dcc8ea89823164baf87dfa" prot="public" virt="non-virtual"><scope>XHdmiC_DscPpsData</scope><name>Byte</name></member>
+      <member refid="union_x_hdmi_c___dsc_pps_data_1ac717aaea523243e0ccc21124f890d36b" prot="public" virt="non-virtual"><scope>XHdmiC_DscPpsData</scope><name>Data</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

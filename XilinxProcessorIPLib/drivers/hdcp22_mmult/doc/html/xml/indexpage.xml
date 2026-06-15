@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>hdcp22_mmult</title>
+    <detaileddescription>
+<para>This file contains the main implementation of the driver associated with the Xilinx HDCP 2.2 Montgomery Multiplier core.<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00  MH     12/07/15 Initial release.
+1.01  MH     08/04/16 Added 64 bit address support.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,491 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_isi_ae_base_info__s" kind="struct" prot="public">
+    <compoundname>IsiAeBaseInfo_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1a14884d169b3e6c77ee44677cf688e123" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t IsiAeBaseInfo_s::aecCurGain</definition>
+        <argsstring></argsstring>
+        <name>aecCurGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1af188e045f5c7fbf7ee29f2c09aa0c637" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t IsiAeBaseInfo_s::aecCurIntTime</definition>
+        <argsstring></argsstring>
+        <name>aecCurIntTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1a49b5c29f9835fed90d00a2d111eb93de" prot="public" static="no" mutable="no">
+        <type>IsiSensorGain_t</type>
+        <definition>IsiSensorGain_t IsiAeBaseInfo_s::curGain</definition>
+        <argsstring></argsstring>
+        <name>curGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1ae47bfee18fd268079df22e737e3d43b3" prot="public" static="no" mutable="no">
+        <type>IsiSensorIntTime_t</type>
+        <definition>IsiSensorIntTime_t IsiAeBaseInfo_s::curIntTime</definition>
+        <argsstring></argsstring>
+        <name>curIntTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1a9b63db4161f06ec46591865aafe25367" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t IsiAeBaseInfo_s::aecGainStep</definition>
+        <argsstring></argsstring>
+        <name>aecGainStep</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1a432f7e4322e8f7209dc0999fa0cd48ac" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t IsiAeBaseInfo_s::aecIntTimeStep</definition>
+        <argsstring></argsstring>
+        <name>aecIntTimeStep</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1ac40285d7295b7b2005a24ff7406fb649" prot="public" static="no" mutable="no">
+        <type>IsiSensorStitchingMode_t</type>
+        <definition>IsiSensorStitchingMode_t IsiAeBaseInfo_s::stitchingMode</definition>
+        <argsstring></argsstring>
+        <name>stitchingMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1ad86af9b747cfbacc94ab395ce6218a13" prot="public" static="no" mutable="no">
+        <type>IsiSensorNativeMode_t</type>
+        <definition>IsiSensorNativeMode_t IsiAeBaseInfo_s::nativeMode</definition>
+        <argsstring></argsstring>
+        <name>nativeMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1af2281b55e048f27e7450511b79ba06e4" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t IsiAeBaseInfo_s::nativeHdrRatio[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>nativeHdrRatio</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1ace87c15652f4d421fe2348c47152ec49" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t IsiAeBaseInfo_s::conversionGainDCG</definition>
+        <argsstring></argsstring>
+        <name>conversionGainDCG</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1ae38a0125437569b21469cab910728938" prot="public" static="no" mutable="no">
+        <type>IsiRange_t</type>
+        <definition>IsiRange_t IsiAeBaseInfo_s::longGain</definition>
+        <argsstring></argsstring>
+        <name>longGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1a9ad4530955bf9f0610062ec333cdb4bd" prot="public" static="no" mutable="no">
+        <type>IsiRange_t</type>
+        <definition>IsiRange_t IsiAeBaseInfo_s::shortGain</definition>
+        <argsstring></argsstring>
+        <name>shortGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1a61b567bdca1792c71082ef12e5c2abba" prot="public" static="no" mutable="no">
+        <type>IsiRange_t</type>
+        <definition>IsiRange_t IsiAeBaseInfo_s::vsGain</definition>
+        <argsstring></argsstring>
+        <name>vsGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1a4ea4b2dae1727041001c864f5d0e9ecd" prot="public" static="no" mutable="no">
+        <type>IsiRange_t</type>
+        <definition>IsiRange_t IsiAeBaseInfo_s::vvsGain</definition>
+        <argsstring></argsstring>
+        <name>vvsGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1ac03773f6ff8f1b49601e5929ff3d4d49" prot="public" static="no" mutable="no">
+        <type>IsiRange_t</type>
+        <definition>IsiRange_t IsiAeBaseInfo_s::gain</definition>
+        <argsstring></argsstring>
+        <name>gain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1a4133dbc4a22ea612313a3be62c2cbf30" prot="public" static="no" mutable="no">
+        <type>IsiRange_t</type>
+        <definition>IsiRange_t IsiAeBaseInfo_s::longIntTime</definition>
+        <argsstring></argsstring>
+        <name>longIntTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1a74dbe2ebab2da0585099549616a3b741" prot="public" static="no" mutable="no">
+        <type>IsiRange_t</type>
+        <definition>IsiRange_t IsiAeBaseInfo_s::shortIntTime</definition>
+        <argsstring></argsstring>
+        <name>shortIntTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1acddab2026ca8058eecd97dda4c0ac8d0" prot="public" static="no" mutable="no">
+        <type>IsiRange_t</type>
+        <definition>IsiRange_t IsiAeBaseInfo_s::vsIntTime</definition>
+        <argsstring></argsstring>
+        <name>vsIntTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1a1d08b5fab235d4527c3380f937fcd9a3" prot="public" static="no" mutable="no">
+        <type>IsiRange_t</type>
+        <definition>IsiRange_t IsiAeBaseInfo_s::vvsIntTime</definition>
+        <argsstring></argsstring>
+        <name>vvsIntTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1ad5276bc33945033f5b214280ebc39242" prot="public" static="no" mutable="no">
+        <type>IsiRange_t</type>
+        <definition>IsiRange_t IsiAeBaseInfo_s::intTime</definition>
+        <argsstring></argsstring>
+        <name>intTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1af88cf844615a07dca4d7ef291bca2bcd" prot="public" static="no" mutable="no">
+        <type>IsiGainInfo_t</type>
+        <definition>IsiGainInfo_t IsiAeBaseInfo_s::aLongGain</definition>
+        <argsstring></argsstring>
+        <name>aLongGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1a90901bed3a5f1956cc844a8c653ac8f9" prot="public" static="no" mutable="no">
+        <type>IsiGainInfo_t</type>
+        <definition>IsiGainInfo_t IsiAeBaseInfo_s::aShortGain</definition>
+        <argsstring></argsstring>
+        <name>aShortGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1a873f5c582dbec2eb1d068f31b43df533" prot="public" static="no" mutable="no">
+        <type>IsiGainInfo_t</type>
+        <definition>IsiGainInfo_t IsiAeBaseInfo_s::aVSGain</definition>
+        <argsstring></argsstring>
+        <name>aVSGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1a56f9a1431e50f12fc891b6d7139c82aa" prot="public" static="no" mutable="no">
+        <type>IsiGainInfo_t</type>
+        <definition>IsiGainInfo_t IsiAeBaseInfo_s::aVVSGain</definition>
+        <argsstring></argsstring>
+        <name>aVVSGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1a723d26a652cb8d74949cbb97fbb76f2e" prot="public" static="no" mutable="no">
+        <type>IsiGainInfo_t</type>
+        <definition>IsiGainInfo_t IsiAeBaseInfo_s::aGain</definition>
+        <argsstring></argsstring>
+        <name>aGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1a437b5f6aa16e424ecaac14a49f6599c4" prot="public" static="no" mutable="no">
+        <type>IsiGainInfo_t</type>
+        <definition>IsiGainInfo_t IsiAeBaseInfo_s::dLongGain</definition>
+        <argsstring></argsstring>
+        <name>dLongGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1ae99ff025cc914823e2d79e256316653e" prot="public" static="no" mutable="no">
+        <type>IsiGainInfo_t</type>
+        <definition>IsiGainInfo_t IsiAeBaseInfo_s::dShortGain</definition>
+        <argsstring></argsstring>
+        <name>dShortGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1aa7ff832730798ecb460de9363601c61a" prot="public" static="no" mutable="no">
+        <type>IsiGainInfo_t</type>
+        <definition>IsiGainInfo_t IsiAeBaseInfo_s::dVSGain</definition>
+        <argsstring></argsstring>
+        <name>dVSGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1ae6b78694509eea3a81f471da4650dc4a" prot="public" static="no" mutable="no">
+        <type>IsiGainInfo_t</type>
+        <definition>IsiGainInfo_t IsiAeBaseInfo_s::dVVSGain</definition>
+        <argsstring></argsstring>
+        <name>dVVSGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1ad5d8ac1a9817c31e03d424eaf0031913" prot="public" static="no" mutable="no">
+        <type>IsiGainInfo_t</type>
+        <definition>IsiGainInfo_t IsiAeBaseInfo_s::dGain</definition>
+        <argsstring></argsstring>
+        <name>dGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1a29fd4dc5aacc0105871b3644bc082147" prot="public" static="no" mutable="no">
+        <type>IsiIrLightExp_t</type>
+        <definition>IsiIrLightExp_t IsiAeBaseInfo_s::aecIrLightExp</definition>
+        <argsstring></argsstring>
+        <name>aecIrLightExp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1a23ff066f77e54396b9aa267d68c8e3f9" prot="public" static="no" mutable="no">
+        <type>IsiIrLightInfo_t</type>
+        <definition>IsiIrLightInfo_t IsiAeBaseInfo_s::aecIrLightInfo</definition>
+        <argsstring></argsstring>
+        <name>aecIrLightInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1a513d4be3ab22b18176bdef31bc2cf007" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t IsiAeBaseInfo_s::normGainSupport</definition>
+        <argsstring></argsstring>
+        <name>normGainSupport</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_ae_base_info__s_1a0ce8a7573c1d8879cab9c8e1e45520eb" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t IsiAeBaseInfo_s::normGain</definition>
+        <argsstring></argsstring>
+        <name>normGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="201" bodyend="226"/>
+    <listofallmembers>
+      <member refid="struct_isi_ae_base_info__s_1a14884d169b3e6c77ee44677cf688e123" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>aecCurGain</name></member>
+      <member refid="struct_isi_ae_base_info__s_1af188e045f5c7fbf7ee29f2c09aa0c637" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>aecCurIntTime</name></member>
+      <member refid="struct_isi_ae_base_info__s_1a9b63db4161f06ec46591865aafe25367" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>aecGainStep</name></member>
+      <member refid="struct_isi_ae_base_info__s_1a432f7e4322e8f7209dc0999fa0cd48ac" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>aecIntTimeStep</name></member>
+      <member refid="struct_isi_ae_base_info__s_1a29fd4dc5aacc0105871b3644bc082147" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>aecIrLightExp</name></member>
+      <member refid="struct_isi_ae_base_info__s_1a23ff066f77e54396b9aa267d68c8e3f9" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>aecIrLightInfo</name></member>
+      <member refid="struct_isi_ae_base_info__s_1a723d26a652cb8d74949cbb97fbb76f2e" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>aGain</name></member>
+      <member refid="struct_isi_ae_base_info__s_1af88cf844615a07dca4d7ef291bca2bcd" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>aLongGain</name></member>
+      <member refid="struct_isi_ae_base_info__s_1a90901bed3a5f1956cc844a8c653ac8f9" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>aShortGain</name></member>
+      <member refid="struct_isi_ae_base_info__s_1a873f5c582dbec2eb1d068f31b43df533" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>aVSGain</name></member>
+      <member refid="struct_isi_ae_base_info__s_1a56f9a1431e50f12fc891b6d7139c82aa" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>aVVSGain</name></member>
+      <member refid="struct_isi_ae_base_info__s_1ace87c15652f4d421fe2348c47152ec49" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>conversionGainDCG</name></member>
+      <member refid="struct_isi_ae_base_info__s_1a49b5c29f9835fed90d00a2d111eb93de" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>curGain</name></member>
+      <member refid="struct_isi_ae_base_info__s_1ae47bfee18fd268079df22e737e3d43b3" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>curIntTime</name></member>
+      <member refid="struct_isi_ae_base_info__s_1ad5d8ac1a9817c31e03d424eaf0031913" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>dGain</name></member>
+      <member refid="struct_isi_ae_base_info__s_1a437b5f6aa16e424ecaac14a49f6599c4" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>dLongGain</name></member>
+      <member refid="struct_isi_ae_base_info__s_1ae99ff025cc914823e2d79e256316653e" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>dShortGain</name></member>
+      <member refid="struct_isi_ae_base_info__s_1aa7ff832730798ecb460de9363601c61a" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>dVSGain</name></member>
+      <member refid="struct_isi_ae_base_info__s_1ae6b78694509eea3a81f471da4650dc4a" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>dVVSGain</name></member>
+      <member refid="struct_isi_ae_base_info__s_1ac03773f6ff8f1b49601e5929ff3d4d49" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>gain</name></member>
+      <member refid="struct_isi_ae_base_info__s_1ad5276bc33945033f5b214280ebc39242" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>intTime</name></member>
+      <member refid="struct_isi_ae_base_info__s_1ae38a0125437569b21469cab910728938" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>longGain</name></member>
+      <member refid="struct_isi_ae_base_info__s_1a4133dbc4a22ea612313a3be62c2cbf30" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>longIntTime</name></member>
+      <member refid="struct_isi_ae_base_info__s_1af2281b55e048f27e7450511b79ba06e4" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>nativeHdrRatio</name></member>
+      <member refid="struct_isi_ae_base_info__s_1ad86af9b747cfbacc94ab395ce6218a13" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>nativeMode</name></member>
+      <member refid="struct_isi_ae_base_info__s_1a0ce8a7573c1d8879cab9c8e1e45520eb" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>normGain</name></member>
+      <member refid="struct_isi_ae_base_info__s_1a513d4be3ab22b18176bdef31bc2cf007" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>normGainSupport</name></member>
+      <member refid="struct_isi_ae_base_info__s_1a9ad4530955bf9f0610062ec333cdb4bd" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>shortGain</name></member>
+      <member refid="struct_isi_ae_base_info__s_1a74dbe2ebab2da0585099549616a3b741" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>shortIntTime</name></member>
+      <member refid="struct_isi_ae_base_info__s_1ac40285d7295b7b2005a24ff7406fb649" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>stitchingMode</name></member>
+      <member refid="struct_isi_ae_base_info__s_1a61b567bdca1792c71082ef12e5c2abba" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>vsGain</name></member>
+      <member refid="struct_isi_ae_base_info__s_1acddab2026ca8058eecd97dda4c0ac8d0" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>vsIntTime</name></member>
+      <member refid="struct_isi_ae_base_info__s_1a4ea4b2dae1727041001c864f5d0e9ecd" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>vvsGain</name></member>
+      <member refid="struct_isi_ae_base_info__s_1a1d08b5fab235d4527c3380f937fcd9a3" prot="public" virt="non-virtual"><scope>IsiAeBaseInfo_s</scope><name>vvsIntTime</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

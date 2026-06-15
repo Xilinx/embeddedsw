@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdevcfg__hw_8c" kind="file">
+    <compoundname>xdevcfg_hw.c</compoundname>
+    <includes refid="xdevcfg__hw_8h" local="yes">xdevcfg_hw.h</includes>
+    <incdepgraph>
+      <node id="40">
+        <label>xil_io.h</label>
+      </node>
+      <node id="39">
+        <label>xil_types.h</label>
+      </node>
+      <node id="37">
+        <label>xdevcfg_hw.c</label>
+        <link refid="xdevcfg_hw.c"/>
+        <childnode refid="38" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>xdevcfg_hw.h</label>
+        <link refid="xdevcfg__hw_8h"/>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__devcfg_1ga995fb32dbac8a7899c9be66a8bf7d3d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcfg_ResetHw</definition>
+        <argsstring>(u32 BaseAddr)</argsstring>
+        <name>XDcfg_ResetHw</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function perform the reset sequence to the given devcfg interface by configuring the appropriate control bits in the devcfg specific registers the devcfg reset sequence involves the following steps Disable all the interrupts Clear the status Update relevant config registers with reset values Disable the loopback mode and pcap rate enable. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of the interface</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A</para></simplesect>
+<simplesect kind="note"><para>This function will not modify the slcr registers that are relevant for devcfg controller </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.c" bodystart="59" bodyend="89"/>
+        <references refid="group__devcfg_1ga3fafe11b95af8da04f385c9313a6958b" compoundref="xdevcfg__hw_8h" startline="55">XDCFG_CFG_OFFSET</references>
+        <references refid="group__devcfg_1gaf9a1d48578faa2caf085c0d8d7f48897" compoundref="xdevcfg__hw_8h" startline="412">XDCFG_CONFIG_RESET_VALUE</references>
+        <references refid="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" compoundref="xdevcfg__hw_8h" startline="53">XDCFG_CTRL_OFFSET</references>
+        <references refid="group__devcfg_1ga16cb1e4072240a97799a685fad35234f" compoundref="xdevcfg__hw_8h" startline="88">XDCFG_CTRL_PCAP_RATE_EN_MASK</references>
+        <references refid="group__devcfg_1ga24e1d08d2aa66c6fe2a8be9086ef9a41" compoundref="xdevcfg__hw_8h" startline="60">XDCFG_DMA_DEST_ADDR_OFFSET</references>
+        <references refid="group__devcfg_1gaffc13cbb412f77e54b0ecf2f25e205ee" compoundref="xdevcfg__hw_8h" startline="62">XDCFG_DMA_DEST_LEN_OFFSET</references>
+        <references refid="group__devcfg_1ga18c6f2aab3a27da352296a1324ed73b4" compoundref="xdevcfg__hw_8h" startline="59">XDCFG_DMA_SRC_ADDR_OFFSET</references>
+        <references refid="group__devcfg_1gaaf9fa64a65762a428ba36bd38a80ab80" compoundref="xdevcfg__hw_8h" startline="61">XDCFG_DMA_SRC_LEN_OFFSET</references>
+        <references refid="group__devcfg_1ga15552ab3878c35ec94749ebed5247fe5" compoundref="xdevcfg__hw_8h" startline="57">XDCFG_INT_MASK_OFFSET</references>
+        <references refid="group__devcfg_1ga5abc2123bae0a1d3512d41be98ca477c" compoundref="xdevcfg__hw_8h" startline="56">XDCFG_INT_STS_OFFSET</references>
+        <references refid="group__devcfg_1ga80ad10863ac12916d347046e8263f5b2" compoundref="xdevcfg__hw_8h" startline="67">XDCFG_MCTRL_OFFSET</references>
+        <references refid="group__devcfg_1gaa5d7d25bc3d66e24bce45553e863b731" compoundref="xdevcfg__hw_8h" startline="390">XDCFG_MCTRL_PCAP_LPBK_MASK</references>
+        <references refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" compoundref="xdevcfg__hw_8h" startline="432">XDcfg_ReadReg</references>
+        <references refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" compoundref="xdevcfg__hw_8h" startline="450">XDcfg_WriteReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdevcfg__hw_8h" kindref="compound">xdevcfg_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="59" refid="group__devcfg_1ga995fb32dbac8a7899c9be66a8bf7d3d1" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__devcfg_1ga995fb32dbac8a7899c9be66a8bf7d3d1" kindref="member">XDcfg_ResetHw</ref>(u32<sp/>BaseAddr)</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Regval<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Mask<sp/>the<sp/>interrupts<sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(BaseAddr,<sp/><ref refid="group__devcfg_1ga15552ab3878c35ec94749ebed5247fe5" kindref="member">XDCFG_INT_MASK_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCFG_IXR_ALL_MASK);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>interrupt<sp/>status<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Regval<sp/>=<sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(BaseAddr,<sp/><ref refid="group__devcfg_1ga5abc2123bae0a1d3512d41be98ca477c" kindref="member">XDCFG_INT_STS_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(BaseAddr,<sp/><ref refid="group__devcfg_1ga5abc2123bae0a1d3512d41be98ca477c" kindref="member">XDCFG_INT_STS_OFFSET</ref>,<sp/>Regval);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>source<sp/>address<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(BaseAddr,<sp/><ref refid="group__devcfg_1ga18c6f2aab3a27da352296a1324ed73b4" kindref="member">XDCFG_DMA_SRC_ADDR_OFFSET</ref>,<sp/>0x0);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>destination<sp/>address<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(BaseAddr,<sp/><ref refid="group__devcfg_1ga24e1d08d2aa66c6fe2a8be9086ef9a41" kindref="member">XDCFG_DMA_DEST_ADDR_OFFSET</ref>,<sp/>0x0);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>source<sp/>length<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(BaseAddr,<sp/><ref refid="group__devcfg_1gaaf9fa64a65762a428ba36bd38a80ab80" kindref="member">XDCFG_DMA_SRC_LEN_OFFSET</ref>,<sp/>0x0);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>destination<sp/>length<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(BaseAddr,<sp/><ref refid="group__devcfg_1gaffc13cbb412f77e54b0ecf2f25e205ee" kindref="member">XDCFG_DMA_DEST_LEN_OFFSET</ref>,<sp/>0x0);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>loopback<sp/>enable<sp/>bit<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Regval<sp/>=<sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(BaseAddr,<sp/><ref refid="group__devcfg_1ga80ad10863ac12916d347046e8263f5b2" kindref="member">XDCFG_MCTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Regval<sp/>=<sp/>Regval<sp/>&amp;<sp/>~<ref refid="group__devcfg_1gaa5d7d25bc3d66e24bce45553e863b731" kindref="member">XDCFG_MCTRL_PCAP_LPBK_MASK</ref>;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(BaseAddr,<sp/><ref refid="group__devcfg_1ga80ad10863ac12916d347046e8263f5b2" kindref="member">XDCFG_MCTRL_OFFSET</ref>,<sp/>Regval);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Reset<sp/>the<sp/>configuration<sp/>register<sp/>to<sp/>reset<sp/>value<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(BaseAddr,<sp/><ref refid="group__devcfg_1ga3fafe11b95af8da04f385c9313a6958b" kindref="member">XDCFG_CFG_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1gaf9a1d48578faa2caf085c0d8d7f48897" kindref="member">XDCFG_CONFIG_RESET_VALUE</ref>);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Disable<sp/>the<sp/>PCAP<sp/>rate<sp/>enable<sp/>bit<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Regval<sp/>=<sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(BaseAddr,<sp/><ref refid="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" kindref="member">XDCFG_CTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Regval<sp/>=<sp/>Regval<sp/>&amp;<sp/>~<ref refid="group__devcfg_1ga16cb1e4072240a97799a685fad35234f" kindref="member">XDCFG_CTRL_PCAP_RATE_EN_MASK</ref>;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(BaseAddr,<sp/><ref refid="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" kindref="member">XDCFG_CTRL_OFFSET</ref>,<sp/>Regval);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.c"/>
+  </compounddef>
+</doxygen>

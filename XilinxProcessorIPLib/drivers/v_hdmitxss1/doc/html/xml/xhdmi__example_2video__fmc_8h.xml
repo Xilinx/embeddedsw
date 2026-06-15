@@ -1,0 +1,994 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xhdmi__example_2video__fmc_8h" kind="file">
+    <compoundname>xhdmi_example/video_fmc.h</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xiic.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <includes local="yes">xgpio.h</includes>
+    <includes refid="xhdmi__example_2idt__8t49n24x_8h" local="yes">idt_8t49n24x.h</includes>
+    <includes refid="xhdmi__example_2ti__lmk03318_8h" local="yes">ti_lmk03318.h</includes>
+    <includes refid="onsemi__nb7nq621m_8h" local="yes">onsemi_nb7nq621m.h</includes>
+    <includes refid="si5344drv_8h" local="yes">si5344drv.h</includes>
+    <includedby refid="xhdmi__menu_8h" local="yes">xhdmi_menu.h</includedby>
+    <includedby refid="xhdmi__example_8h" local="yes">xhdmi_example.h</includedby>
+    <includedby refid="xhdmi__example_2video__fmc_8c" local="yes">video_fmc.c</includedby>
+    <incdepgraph>
+      <node id="379">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="372">
+        <label>video_fmc.h</label>
+        <link refid="xhdmi_example/video_fmc.h"/>
+        <childnode refid="373" relation="include">
+        </childnode>
+        <childnode refid="374" relation="include">
+        </childnode>
+        <childnode refid="375" relation="include">
+        </childnode>
+        <childnode refid="376" relation="include">
+        </childnode>
+        <childnode refid="377" relation="include">
+        </childnode>
+        <childnode refid="378" relation="include">
+        </childnode>
+        <childnode refid="382" relation="include">
+        </childnode>
+        <childnode refid="383" relation="include">
+        </childnode>
+        <childnode refid="384" relation="include">
+        </childnode>
+      </node>
+      <node id="376">
+        <label>sleep.h</label>
+      </node>
+      <node id="381">
+        <label>stdlib.h</label>
+      </node>
+      <node id="383">
+        <label>onsemi_nb7nq621m.h</label>
+        <link refid="onsemi__nb7nq621m_8h"/>
+        <childnode refid="373" relation="include">
+        </childnode>
+        <childnode refid="374" relation="include">
+        </childnode>
+        <childnode refid="376" relation="include">
+        </childnode>
+        <childnode refid="375" relation="include">
+        </childnode>
+      </node>
+      <node id="377">
+        <label>xgpio.h</label>
+      </node>
+      <node id="378">
+        <label>idt_8t49n24x.h</label>
+        <childnode refid="373" relation="include">
+        </childnode>
+        <childnode refid="374" relation="include">
+        </childnode>
+        <childnode refid="379" relation="include">
+        </childnode>
+        <childnode refid="380" relation="include">
+        </childnode>
+        <childnode refid="376" relation="include">
+        </childnode>
+        <childnode refid="381" relation="include">
+        </childnode>
+        <childnode refid="375" relation="include">
+        </childnode>
+      </node>
+      <node id="382">
+        <label>ti_lmk03318.h</label>
+        <childnode refid="373" relation="include">
+        </childnode>
+        <childnode refid="374" relation="include">
+        </childnode>
+        <childnode refid="376" relation="include">
+        </childnode>
+        <childnode refid="375" relation="include">
+        </childnode>
+      </node>
+      <node id="380">
+        <label>xstatus.h</label>
+      </node>
+      <node id="374">
+        <label>xil_types.h</label>
+      </node>
+      <node id="384">
+        <label>si5344drv.h</label>
+        <link refid="si5344drv_8h"/>
+        <childnode refid="373" relation="include">
+        </childnode>
+        <childnode refid="374" relation="include">
+        </childnode>
+        <childnode refid="379" relation="include">
+        </childnode>
+        <childnode refid="380" relation="include">
+        </childnode>
+        <childnode refid="376" relation="include">
+        </childnode>
+        <childnode refid="381" relation="include">
+        </childnode>
+        <childnode refid="375" relation="include">
+        </childnode>
+      </node>
+      <node id="373">
+        <label>xparameters.h</label>
+      </node>
+      <node id="375">
+        <label>xiic.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="390">
+        <label>video_fmc.c</label>
+      </node>
+      <node id="385">
+        <label>video_fmc.h</label>
+        <link refid="xhdmi_example/video_fmc.h"/>
+        <childnode refid="386" relation="include">
+        </childnode>
+        <childnode refid="387" relation="include">
+        </childnode>
+        <childnode refid="390" relation="include">
+        </childnode>
+      </node>
+      <node id="389">
+        <label>xhdmi_menu.c</label>
+        <link refid="xhdmi__menu_8c"/>
+      </node>
+      <node id="386">
+        <label>xhdmi_menu.h</label>
+        <link refid="xhdmi__menu_8h"/>
+        <childnode refid="387" relation="include">
+        </childnode>
+        <childnode refid="389" relation="include">
+        </childnode>
+      </node>
+      <node id="388">
+        <label>xhdmi_example.c</label>
+        <link refid="xhdmi__example_8c"/>
+      </node>
+      <node id="387">
+        <label>xhdmi_example.h</label>
+        <link refid="xhdmi__example_8h"/>
+        <childnode refid="388" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_vfmc" prot="public">XVfmc</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xhdmi__example_2video__fmc_8h_1ab316c45bb592b6fd34074daac3949acf" prot="public" static="no">
+        <name>VFMC_GPIO_TX_CH4_DATASRC_SEL_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="69" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xhdmi__example_2video__fmc_8h_1a9df9c6ed4667419ac3ab7c8472e86530" prot="public" static="no">
+        <name>VFMC_GPIO_RX_CH4_DATASRC_SEL_MASK</name>
+        <initializer>0x00040000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xhdmi__example_2video__fmc_8h_1ad93e8ea5d1ae0a852f281aae4c1df5ec" prot="public" static="no">
+        <name>XVfmc_Location</name>
+        <enumvalue id="xhdmi__example_2video__fmc_8h_1ad93e8ea5d1ae0a852f281aae4c1df5eca3d51c63439784264a95c6b61a881beb1" prot="public">
+          <name>VFMC_HPC0</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xhdmi__example_2video__fmc_8h_1ad93e8ea5d1ae0a852f281aae4c1df5ecaf29c4a0b2c9c87328787d57877589124" prot="public">
+          <name>VFMC_HCP1</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xhdmi__example_2video__fmc_8h_1ad93e8ea5d1ae0a852f281aae4c1df5ecaa16a8dd1ce4599e883016142d48da5e0" prot="public">
+          <name>VFMC_LOC_INVALID</name>
+          <initializer>= 99</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" bodystart="73" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="enum" id="xhdmi__example_2video__fmc_8h_1a2459e64cae772ff5d8f9c9a708638034" prot="public" static="no">
+        <name>XVfmc_MezzType</name>
+        <enumvalue id="xhdmi__example_2video__fmc_8h_1a2459e64cae772ff5d8f9c9a708638034a87cfc0b275a6c8507c41a711ff4be1e2" prot="public">
+          <name>VFMC_MEZZ_HDMI_PASSIVE</name>
+          <initializer>= 0x70000001</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xhdmi__example_2video__fmc_8h_1a2459e64cae772ff5d8f9c9a708638034ac1b39409eed5fd584913bdc24f8de0d8" prot="public">
+          <name>VFMC_MEZZ_HDMI_ONSEMI_R0</name>
+          <initializer>= 0x70000100</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xhdmi__example_2video__fmc_8h_1a2459e64cae772ff5d8f9c9a708638034a7a6af7664e4c7e91b52e9df75dae0538" prot="public">
+          <name>VFMC_MEZZ_HDMI_ONSEMI_R1</name>
+          <initializer>= 0x70000101</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xhdmi__example_2video__fmc_8h_1a2459e64cae772ff5d8f9c9a708638034afcc73c33c3a17e83efde07caf7fb53b5" prot="public">
+          <name>VFMC_MEZZ_HDMI_ONSEMI_R2</name>
+          <initializer>= 0x70000102</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xhdmi__example_2video__fmc_8h_1a2459e64cae772ff5d8f9c9a708638034a05d2054fb41a4fbfa740fcec804f44fb" prot="public">
+          <name>VFMC_MEZZ_HDMI_ONSEMI_R3</name>
+          <initializer>= 0x70000103</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xhdmi__example_2video__fmc_8h_1a2459e64cae772ff5d8f9c9a708638034a9e5df2bf64aedb292ac64cefd313946f" prot="public">
+          <name>VFMC_MEZZ_HDMI_TI_R0</name>
+          <initializer>= 0x70000200</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xhdmi__example_2video__fmc_8h_1a2459e64cae772ff5d8f9c9a708638034a10e25a003fef2cbf7db0b0eee9bc46a4" prot="public">
+          <name>VFMC_MEZZ_HDMI_TI_R1</name>
+          <initializer>= 0x70000201</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xhdmi__example_2video__fmc_8h_1a2459e64cae772ff5d8f9c9a708638034ad404a2b1fa6b77365edfd0488f488665" prot="public">
+          <name>VFMC_MEZZ_HDMI_TI_R3</name>
+          <initializer>= 0x70000201</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xhdmi__example_2video__fmc_8h_1a2459e64cae772ff5d8f9c9a708638034ab961a1babf8e254842f53a54a243aac8" prot="public">
+          <name>VFMC_MEZZ_INVALID</name>
+          <initializer>= 0x70000999</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" bodystart="79" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="enum" id="xhdmi__example_2video__fmc_8h_1a18a1983ae9cd39aa2debecb7002fd7db" prot="public" static="no">
+        <name>XVfmc_Gpio_Led</name>
+        <enumvalue id="hdcp__key__utility_2video__fmc_8h_1a18a1983ae9cd39aa2debecb7002fd7dba74799d7762203195209648b5e8e5710e" prot="public">
+          <name>VFMC_GPIO_TX_LED0</name>
+          <initializer>= 0x00000001</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="hdcp__key__utility_2video__fmc_8h_1a18a1983ae9cd39aa2debecb7002fd7dba7be58bcfc9c959cbba74595f747e929c" prot="public">
+          <name>VFMC_GPIO_TX_LED1</name>
+          <initializer>= 0x00000002</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="hdcp__key__utility_2video__fmc_8h_1a18a1983ae9cd39aa2debecb7002fd7dba48c816cf7d8ef37716f01784655d4baf" prot="public">
+          <name>VFMC_GPIO_RX_LED0</name>
+          <initializer>= 0x00010000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="hdcp__key__utility_2video__fmc_8h_1a18a1983ae9cd39aa2debecb7002fd7dba7fb93652418b73761fa345fdd8292bf7" prot="public">
+          <name>VFMC_GPIO_RX_LED1</name>
+          <initializer>= 0x00020000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xhdmi__example_2video__fmc_8h_1a18a1983ae9cd39aa2debecb7002fd7dba74799d7762203195209648b5e8e5710e" prot="public">
+          <name>VFMC_GPIO_TX_LED0</name>
+          <initializer>= 0x00000001</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xhdmi__example_2video__fmc_8h_1a18a1983ae9cd39aa2debecb7002fd7dba7be58bcfc9c959cbba74595f747e929c" prot="public">
+          <name>VFMC_GPIO_TX_LED1</name>
+          <initializer>= 0x00000002</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xhdmi__example_2video__fmc_8h_1a18a1983ae9cd39aa2debecb7002fd7dba48c816cf7d8ef37716f01784655d4baf" prot="public">
+          <name>VFMC_GPIO_RX_LED0</name>
+          <initializer>= 0x00010000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xhdmi__example_2video__fmc_8h_1a18a1983ae9cd39aa2debecb7002fd7dba7fb93652418b73761fa345fdd8292bf7" prot="public">
+          <name>VFMC_GPIO_RX_LED1</name>
+          <initializer>= 0x00020000</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" bodystart="91" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="enum" id="xhdmi__example_2video__fmc_8h_1ab990867b65184f886b2f563110e9b086" prot="public" static="no">
+        <name>XVfmc_Gpio_Ch4_DataClkSel</name>
+        <enumvalue id="hdcp__key__utility_2video__fmc_8h_1ab990867b65184f886b2f563110e9b086aa6cd0391188cf241d04a5b045c4ecbab" prot="public">
+          <name>VFMC_GPIO_TX_CH4_As_DataAndClock</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="hdcp__key__utility_2video__fmc_8h_1ab990867b65184f886b2f563110e9b086ae089687842ad49468e1abee9884ff261" prot="public">
+          <name>VFMC_GPIO_TX_CH4_As_ClockOut</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="hdcp__key__utility_2video__fmc_8h_1ab990867b65184f886b2f563110e9b086a058e484a0efccb1d616227c48753e7d3" prot="public">
+          <name>VFMC_GPIO_RX_CH4_As_Data</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="hdcp__key__utility_2video__fmc_8h_1ab990867b65184f886b2f563110e9b086a5a23af408642330192a9935647712f90" prot="public">
+          <name>VFMC_GPIO_RX_CH4_As_Clock</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xhdmi__example_2video__fmc_8h_1ab990867b65184f886b2f563110e9b086aa6cd0391188cf241d04a5b045c4ecbab" prot="public">
+          <name>VFMC_GPIO_TX_CH4_As_DataAndClock</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xhdmi__example_2video__fmc_8h_1ab990867b65184f886b2f563110e9b086ae089687842ad49468e1abee9884ff261" prot="public">
+          <name>VFMC_GPIO_TX_CH4_As_ClockOut</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xhdmi__example_2video__fmc_8h_1ab990867b65184f886b2f563110e9b086a058e484a0efccb1d616227c48753e7d3" prot="public">
+          <name>VFMC_GPIO_RX_CH4_As_Data</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xhdmi__example_2video__fmc_8h_1ab990867b65184f886b2f563110e9b086a5a23af408642330192a9935647712f90" prot="public">
+          <name>VFMC_GPIO_RX_CH4_As_Clock</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" bodystart="98" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="enum" id="xhdmi__example_2video__fmc_8h_1a60ad3c8d798a3232a7cf48235bdd8c7f" prot="public" static="no">
+        <name>XVfmc_Mezz_RxRefClkSel</name>
+        <enumvalue id="xhdmi__example_2video__fmc_8h_1a60ad3c8d798a3232a7cf48235bdd8c7fa4e42c3bbb5ae9a960c9cd12b3c79d265" prot="public">
+          <name>VFMC_MEZZ_RxRefclk_From_Si5344</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xhdmi__example_2video__fmc_8h_1a60ad3c8d798a3232a7cf48235bdd8c7fa811c2102375017e151ed1467f4c79aea" prot="public">
+          <name>VFMC_MEZZ_RxRefclk_From_Cable</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" bodystart="105" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="enum" id="xhdmi__example_2video__fmc_8h_1afcdea81c17351398f85f9d3785e2ed5e" prot="public" static="no">
+        <name>XVfmc_Mezz_TxRefClkSel</name>
+        <enumvalue id="xhdmi__example_2video__fmc_8h_1afcdea81c17351398f85f9d3785e2ed5ea8a793d2d090f76cbb77b8526331ebcd7" prot="public">
+          <name>VFMC_MEZZ_TxRefclk_From_IDT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xhdmi__example_2video__fmc_8h_1afcdea81c17351398f85f9d3785e2ed5eae47366950144bb1a7e8afd49d30eafca" prot="public">
+          <name>VFMC_MEZZ_TxRefclk_From_Si5344</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" bodystart="110" bodyend="113"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xhdmi__example_2video__fmc_8h_1ad158ff23e42b9598483f2c8b56e27385" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Vfmc_I2cMuxSelect</definition>
+        <argsstring>(XVfmc *VfmcPtr)</argsstring>
+        <name>Vfmc_I2cMuxSelect</name>
+        <param>
+          <type><ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref> *</type>
+          <declname>VfmcPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function setup the IIC MUX to select the VFMC on the HPC header. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of bytes sent.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.c" bodystart="275" bodyend="349"/>
+      </memberdef>
+      <memberdef kind="function" id="xhdmi__example_2video__fmc_8h_1a46f8baf472e73d905fcf6c7bef55dd8e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 Vfmc_HdmiInit</definition>
+        <argsstring>(XVfmc *VfmcPtr, UINTPTR GpioBaseAddr, void *IicPtr, XVfmc_Location Loc)</argsstring>
+        <name>Vfmc_HdmiInit</name>
+        <param>
+          <type><ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref> *</type>
+          <declname>VfmcPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>GpioBaseAddr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>IicPtr</declname>
+        </param>
+        <param>
+          <type>XVfmc_Location</type>
+          <declname>Loc</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the Video FMC clock generator and clock MUXs for HDMI operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.c" bodystart="367" bodyend="635"/>
+      </memberdef>
+      <memberdef kind="function" id="xhdmi__example_2video__fmc_8h_1abb27ec363e083e6fa87746641fa55b61" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Vfmc_PowerDownTiLMK03318</definition>
+        <argsstring>(XVfmc *VfmcPtr, u8 Powerdown)</argsstring>
+        <name>Vfmc_PowerDownTiLMK03318</name>
+        <param>
+          <type><ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref> *</type>
+          <declname>VfmcPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Powerdown</declname>
+        </param>
+        <briefdescription>
+<para>This function en/disables the power up pin of TI LMK03318 clock generator. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PowerDown</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>true =power down / false= power up.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of bytes sent.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.c" bodystart="649" bodyend="673"/>
+      </memberdef>
+      <memberdef kind="function" id="xhdmi__example_2video__fmc_8h_1a89b2373315e38e8b23c34b66e19c54fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Vfmc_Gpio_Led_On</definition>
+        <argsstring>(XVfmc *VfmcPtr, XVfmc_Gpio_Led Led, u8 On)</argsstring>
+        <name>Vfmc_Gpio_Led_On</name>
+        <param>
+          <type><ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref> *</type>
+          <declname>VfmcPtr</declname>
+        </param>
+        <param>
+          <type>XVfmc_Gpio_Led</type>
+          <declname>Led</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>On</declname>
+        </param>
+        <briefdescription>
+<para>This function Turns on or off the VFMC LED. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Led</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- LED position based on XVfmc_Gpio_Led typedef. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>On</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- TRUE=On ; FALSE=Off.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>LED0 - Init Done LED1 - Ch4 as Data </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.c" bodystart="689" bodyend="702"/>
+      </memberdef>
+      <memberdef kind="function" id="xhdmi__example_2video__fmc_8h_1ab21a72b56d26ee2e464747b0c3e735b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Vfmc_Gpio_Ch4_DataClock_Sel</definition>
+        <argsstring>(XVfmc *VfmcPtr, XVfmc_Gpio_Ch4_DataClkSel DataClkSel)</argsstring>
+        <name>Vfmc_Gpio_Ch4_DataClock_Sel</name>
+        <param>
+          <type><ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref> *</type>
+          <declname>VfmcPtr</declname>
+        </param>
+        <param>
+          <type>XVfmc_Gpio_Ch4_DataClkSel</type>
+          <declname>DataClkSel</declname>
+        </param>
+        <briefdescription>
+<para>This function Sets the clock or data selection for channel 4 of the TX or RX mezzanine cards. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DataClkSel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Ch4 Selection based on XVfmc_Gpio_Ch4_DataClkSel typedef. TX <ndash/>&gt; VFMC_GPIO_TX_CH4_As_DataAndClock <ndash/>&gt; VFMC_GPIO_TX_CH4_As_ClockOut RX <ndash/>&gt; VFMC_GPIO_RX_CH4_As_Data <ndash/>&gt; VFMC_GPIO_RX_CH4_As_Clock</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>- LED1 - ON Ch4 as Data ; OFF- Clock<itemizedlist>
+<listitem><para>Ignore configuration of TxMezz is Active type </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.c" bodystart="725" bodyend="753"/>
+      </memberdef>
+      <memberdef kind="function" id="xhdmi__example_2video__fmc_8h_1ab2456847cbd01e548e319ab9249245a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Vfmc_Gpio_Mezz_HdmiTxDriver_Enable</definition>
+        <argsstring>(XVfmc *VfmcPtr, u8 Enable)</argsstring>
+        <name>Vfmc_Gpio_Mezz_HdmiTxDriver_Enable</name>
+        <param>
+          <type><ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref> *</type>
+          <declname>VfmcPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+<para>This function Enables or Disables the ONSEMI NB7NQ621M on the TX MEZZ slot. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- TRUE / FALSE</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.c" bodystart="767" bodyend="781"/>
+      </memberdef>
+      <memberdef kind="function" id="xhdmi__example_2video__fmc_8h_1a2e04d56e49a753345fe2a44f0fa5d6c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Vfmc_Gpio_Mezz_HdmiRxEqualizer_Enable</definition>
+        <argsstring>(XVfmc *VfmcPtr, u8 Enable)</argsstring>
+        <name>Vfmc_Gpio_Mezz_HdmiRxEqualizer_Enable</name>
+        <param>
+          <type><ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref> *</type>
+          <declname>VfmcPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+<para>This function Enables or Disables the ONSEMI NB7NQ621M on the RX MEZZ slot. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- TRUE / FALSE</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.c" bodystart="794" bodyend="808"/>
+      </memberdef>
+      <memberdef kind="function" id="xhdmi__example_2video__fmc_8h_1a92ddcb049ab8317759be870417f2689a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Vfmc_Gpio_Mezz_HdmiTxDriver_Reconfig</definition>
+        <argsstring>(XVfmc *VfmcPtr, u8 IsFRL, u64 LineRate, u8 Lanes)</argsstring>
+        <name>Vfmc_Gpio_Mezz_HdmiTxDriver_Reconfig</name>
+        <param>
+          <type><ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref> *</type>
+          <declname>VfmcPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>IsFRL</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>LineRate</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Lanes</declname>
+        </param>
+        <briefdescription>
+<para>This function Enables or Disables the ONSEMI NB7NQ621M on the TX MEZZ slot. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- TRUE / FALSE</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.c" bodystart="821" bodyend="845"/>
+      </memberdef>
+      <memberdef kind="function" id="xhdmi__example_2video__fmc_8h_1afd16aad73e7d400b643f33a2d5ef3b8f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Vfmc_Gpio_Mezz_HdmiRxDriver_Reconfig</definition>
+        <argsstring>(XVfmc *VfmcPtr, u8 IsFRL, u64 LineRate, u8 Lanes)</argsstring>
+        <name>Vfmc_Gpio_Mezz_HdmiRxDriver_Reconfig</name>
+        <param>
+          <type><ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref> *</type>
+          <declname>VfmcPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>IsFRL</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>LineRate</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Lanes</declname>
+        </param>
+        <briefdescription>
+<para>This function Enables or Disables the ONSEMI NB7NQ621M on the RX MEZZ slot. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- TRUE / FALSE</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.c" bodystart="858" bodyend="885"/>
+      </memberdef>
+      <memberdef kind="function" id="xhdmi__example_2video__fmc_8h_1ad810963ea396d4fe69cecca9d14e14b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 Vfmc_Mezz_HdmiRxRefClock_Sel</definition>
+        <argsstring>(XVfmc *VfmcPtr, XVfmc_Mezz_RxRefClkSel Sel)</argsstring>
+        <name>Vfmc_Mezz_HdmiRxRefClock_Sel</name>
+        <param>
+          <type><ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref> *</type>
+          <declname>VfmcPtr</declname>
+        </param>
+        <param>
+          <type>XVfmc_Mezz_RxRefClkSel</type>
+          <declname>Sel</declname>
+        </param>
+        <briefdescription>
+<para>This function en/disables the power up pin of TI LMK03318 clock generator. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PowerDown</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>true =power down / false= power up.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of bytes sent.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.c" bodystart="899" bodyend="918"/>
+      </memberdef>
+      <memberdef kind="function" id="xhdmi__example_2video__fmc_8h_1a7d02306bc40334704e4cce92b74025bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 Vfmc_Mezz_HdmiTxRefClock_Sel</definition>
+        <argsstring>(XVfmc *VfmcPtr, XVfmc_Mezz_TxRefClkSel Sel)</argsstring>
+        <name>Vfmc_Mezz_HdmiTxRefClock_Sel</name>
+        <param>
+          <type><ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref> *</type>
+          <declname>VfmcPtr</declname>
+        </param>
+        <param>
+          <type>XVfmc_Mezz_TxRefClkSel</type>
+          <declname>Sel</declname>
+        </param>
+        <briefdescription>
+<para>This function selects the TX ref clock on GTYE4 devices. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of ref clock</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the ref clock source is successfully set. XST_FAILURE otherwise.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.c" bodystart="933" bodyend="959"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>–<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor">#ifndef<sp/>VIDEO_FMC_H_</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VIDEO_FMC_H_</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPS_BOARD_ZCU102)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_ZCU104)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_ZCU106)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_VCK190)</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiicps.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xgpio.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;idt_8t49n24x.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;ti_lmk03318.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="onsemi__nb7nq621m_8h" kindref="compound">onsemi_nb7nq621m.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="si5344drv_8h" kindref="compound">si5344drv.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPS_BOARD_VEK280_ES)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_VEK280_ES_REVB)</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPS_BOARD_VEK280</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPS_BOARD_VEK385)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_VEK385_1)</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPS_BOARD_VEK385</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPS_BOARD_VEK280)</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="ti__tmds1204_8h" kindref="compound">ti_tmds1204.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="rc21008adrv_8h" kindref="compound">rc21008adrv.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>defined<sp/>(XPS_BOARD_VEK385)</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="ti__tmds1204_8h" kindref="compound">ti_tmds1204.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>(XPAR_HDMIPHY1_0_TRANSCEIVER<sp/>==<sp/>6)<sp/></highlight><highlight class="comment">/*GTYE4*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPS_BOARD_VCU118</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Place-holder<sp/>for<sp/>other<sp/>boards<sp/>in<sp/>future<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VFMC_GPIO_TX_CH4_DATASRC_SEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>VFMC_GPIO_RX_CH4_DATASRC_SEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00040000</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VFMC_HPC0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VFMC_HCP1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>2,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VFMC_LOC_INVALID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>99,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}<sp/>XVfmc_Location;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VFMC_MEZZ_HDMI_PASSIVE<sp/><sp/><sp/><sp/><sp/>=<sp/>0x70000001,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VFMC_MEZZ_HDMI_ONSEMI_R0<sp/><sp/><sp/>=<sp/>0x70000100,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>ONSEMI<sp/>Pass<sp/>1<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VFMC_MEZZ_HDMI_ONSEMI_R1<sp/><sp/><sp/>=<sp/>0x70000101,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>ONSEMI<sp/>Pass<sp/>2<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VFMC_MEZZ_HDMI_ONSEMI_R2<sp/><sp/><sp/>=<sp/>0x70000102,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>ONSEMI<sp/>Pass<sp/>3<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VFMC_MEZZ_HDMI_ONSEMI_R3<sp/><sp/><sp/>=<sp/>0x70000103,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>ONSEMI<sp/>Pass<sp/>4<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VFMC_MEZZ_HDMI_TI_R0<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0x70000200,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>TI<sp/>Dummy<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VFMC_MEZZ_HDMI_TI_R1<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0x70000201,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>TI<sp/>Rev1<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VFMC_MEZZ_HDMI_TI_R3<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0x70000201,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>TI<sp/>Rev1<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VFMC_MEZZ_INVALID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0x70000999,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">}<sp/>XVfmc_MezzType;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VFMC_GPIO_TX_LED0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0x00000001,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VFMC_GPIO_TX_LED1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0x00000002,</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VFMC_GPIO_RX_LED0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0x00010000,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VFMC_GPIO_RX_LED1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0x00020000,</highlight></codeline>
+<codeline lineno="96"><highlight class="normal">}<sp/>XVfmc_Gpio_Led;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VFMC_GPIO_TX_CH4_As_DataAndClock,</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VFMC_GPIO_TX_CH4_As_ClockOut,</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VFMC_GPIO_RX_CH4_As_Data,</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VFMC_GPIO_RX_CH4_As_Clock,</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">}<sp/>XVfmc_Gpio_Ch4_DataClkSel;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VFMC_MEZZ_RxRefclk_From_Si5344,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VFMC_MEZZ_RxRefclk_From_Cable,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal">}<sp/>XVfmc_Mezz_RxRefClkSel;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VFMC_MEZZ_TxRefclk_From_IDT,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VFMC_MEZZ_TxRefclk_From_Si5344,</highlight></codeline>
+<codeline lineno="113"><highlight class="normal">}<sp/>XVfmc_Mezz_TxRefClkSel;</highlight></codeline>
+<codeline lineno="117" refid="struct_x_vfmc" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="118" refid="struct_x_vfmc_1a2e542a34afc33792f5d9c0b7cea10728" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="struct_x_vfmc_1a2e542a34afc33792f5d9c0b7cea10728" kindref="member">IicPtr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="119" refid="struct_x_vfmc_1ab615c8e760efea704bfa76a50850e0c1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XGpio<sp/><ref refid="struct_x_vfmc_1ab615c8e760efea704bfa76a50850e0c1" kindref="member">Gpio</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="120" refid="struct_x_vfmc_1a353d96b482245f6bf2b3f28bac16747d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVfmc_Location<sp/><ref refid="struct_x_vfmc_1a353d96b482245f6bf2b3f28bac16747d" kindref="member">Loc</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="121" refid="struct_x_vfmc_1a3400c592e8ec87884042f09a2df8f7b0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVfmc_MezzType<sp/><ref refid="struct_x_vfmc_1a3400c592e8ec87884042f09a2df8f7b0" kindref="member">TxMezzType</ref>;<sp/></highlight></codeline>
+<codeline lineno="122" refid="struct_x_vfmc_1ace6fd2245e217ddfa948db79b072f0a7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVfmc_MezzType<sp/><ref refid="struct_x_vfmc_1ace6fd2245e217ddfa948db79b072f0a7" kindref="member">RxMezzType</ref>;<sp/></highlight></codeline>
+<codeline lineno="123" refid="struct_x_vfmc_1a5e845436cda2c251cfec8e7e00a7a856" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_vfmc_1a5e845436cda2c251cfec8e7e00a7a856" kindref="member">IsReady</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>isTxTi;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>isRxTi;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal">}<sp/><ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref>;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Vfmc_I2cMuxSelect(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/>Vfmc_HdmiInit(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>u16<sp/>GpioDeviceId,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*IicPtr,</highlight></codeline>
+<codeline lineno="132"><highlight class="normal">#</highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal">u32<sp/>Vfmc_HdmiInit(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>UINTPTR<sp/>GpioBaseAddr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*IicPtr,</highlight></codeline>
+<codeline lineno="134"><highlight class="normal">#endif</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVfmc_Location<sp/>Loc);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Vfmc_PowerDownTiLMK03318(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>u8<sp/>Powerdown);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Vfmc_Gpio_Led_On(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>XVfmc_Gpio_Led<sp/>Led,<sp/>u8<sp/>On);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Vfmc_Gpio_Ch4_DataClock_Sel(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVfmc_Gpio_Ch4_DataClkSel<sp/>DataClkSel);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Vfmc_Gpio_Mezz_HdmiTxDriver_Enable(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>u8<sp/>Enable);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Vfmc_Gpio_Mezz_HdmiRxEqualizer_Enable(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>u8<sp/>Enable);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Vfmc_Gpio_Mezz_HdmiTxDriver_Reconfig(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>u8<sp/>IsFRL,</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>LineRate,<sp/>u8<sp/>Lanes);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Vfmc_Gpio_Mezz_HdmiRxDriver_Reconfig(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>u8<sp/>IsFRL,</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>LineRate,<sp/>u8<sp/>Lanes);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal">u32<sp/>Vfmc_Mezz_HdmiRxRefClock_Sel(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>XVfmc_Mezz_RxRefClkSel<sp/>Sel);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">u32<sp/>Vfmc_Mezz_HdmiTxRefClock_Sel(<ref refid="struct_x_vfmc" kindref="compound">XVfmc</ref><sp/>*VfmcPtr,<sp/>XVfmc_Mezz_TxRefClkSel<sp/>Sel);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>VIDEO_FMC_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/xhdmi_example/video_fmc.h"/>
+  </compounddef>
+</doxygen>

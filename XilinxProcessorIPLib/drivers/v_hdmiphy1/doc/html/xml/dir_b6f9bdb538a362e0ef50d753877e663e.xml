@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_b6f9bdb538a362e0ef50d753877e663e" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xhdmiphy1_8c">xhdmiphy1.c</innerfile>
+    <innerfile refid="xhdmiphy1_8h">xhdmiphy1.h</innerfile>
+    <innerfile refid="xhdmiphy1__dplle5_8c">xhdmiphy1_dplle5.c</innerfile>
+    <innerfile refid="xhdmiphy1__g_8c">xhdmiphy1_g.c</innerfile>
+    <innerfile refid="xhdmiphy1__gt_8h">xhdmiphy1_gt.h</innerfile>
+    <innerfile refid="xhdmiphy1__gthe4_8c">xhdmiphy1_gthe4.c</innerfile>
+    <innerfile refid="xhdmiphy1__gtye4_8c">xhdmiphy1_gtye4.c</innerfile>
+    <innerfile refid="xhdmiphy1__gtye5_8c">xhdmiphy1_gtye5.c</innerfile>
+    <innerfile refid="xhdmiphy1__gtyp_8c">xhdmiphy1_gtyp.c</innerfile>
+    <innerfile refid="xhdmiphy1__hdmi_8c">xhdmiphy1_hdmi.c</innerfile>
+    <innerfile refid="xhdmiphy1__hdmi_8h">xhdmiphy1_hdmi.h</innerfile>
+    <innerfile refid="xhdmiphy1__hdmi__intr_8c">xhdmiphy1_hdmi_intr.c</innerfile>
+    <innerfile refid="xhdmiphy1__hw_8h">xhdmiphy1_hw.h</innerfile>
+    <innerfile refid="xhdmiphy1__i_8c">xhdmiphy1_i.c</innerfile>
+    <innerfile refid="xhdmiphy1__i_8h">xhdmiphy1_i.h</innerfile>
+    <innerfile refid="xhdmiphy1__intr_8c">xhdmiphy1_intr.c</innerfile>
+    <innerfile refid="xhdmiphy1__log_8c">xhdmiphy1_log.c</innerfile>
+    <innerfile refid="xhdmiphy1__mmcme4_8c">xhdmiphy1_mmcme4.c</innerfile>
+    <innerfile refid="xhdmiphy1__mmcme5_8c">xhdmiphy1_mmcme5.c</innerfile>
+    <innerfile refid="xhdmiphy1__selftest_8c">xhdmiphy1_selftest.c</innerfile>
+    <innerfile refid="xhdmiphy1__sinit_8c">xhdmiphy1_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/"/>
+  </compounddef>
+</doxygen>

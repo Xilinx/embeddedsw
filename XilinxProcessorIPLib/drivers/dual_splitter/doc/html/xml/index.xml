@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="struct_x_dual_splitter" kind="struct"><name>XDualSplitter</name>
+    <member refid="struct_x_dual_splitter_1aeded47f9b34da5e26741ef05f5278843" kind="variable"><name>Config</name></member>
+    <member refid="struct_x_dual_splitter_1abefb52f749cdb12c05f0a5f6458ca51b" kind="variable"><name>IsReady</name></member>
+    <member refid="struct_x_dual_splitter_1ab03d3f613e60a8638a8d5c2a8328e599" kind="variable"><name>ErrCallback</name></member>
+    <member refid="struct_x_dual_splitter_1a5bd5757ddb107dd4981cfaa9ccac9efa" kind="variable"><name>ErrRef</name></member>
+  </compound>
+  <compound refid="struct_x_dual_splitter___config" kind="struct"><name>XDualSplitter_Config</name>
+    <member refid="struct_x_dual_splitter___config_1ad7c003d67af4f89cb1267568bf400c15" kind="variable"><name>Name</name></member>
+    <member refid="struct_x_dual_splitter___config_1a3da7ad4f8e876ab73acc8c72274ea0f6" kind="variable"><name>BaseAddress</name></member>
+    <member refid="struct_x_dual_splitter___config_1a5767a958a21deb63eca5e479e249260c" kind="variable"><name>ActiveCols</name></member>
+    <member refid="struct_x_dual_splitter___config_1a85c7e13225c5a5522b3907806bdc9491" kind="variable"><name>ActiveRows</name></member>
+    <member refid="struct_x_dual_splitter___config_1afeb1fef1827c6345854ee71667748f1a" kind="variable"><name>MaxSegments</name></member>
+    <member refid="struct_x_dual_splitter___config_1a3ecbce61afe25996389837f7d416254f" kind="variable"><name>MaxTDataWidth</name></member>
+    <member refid="struct_x_dual_splitter___config_1a947ea9cc89838d114c897275288054a8" kind="variable"><name>MaxITDataSamples</name></member>
+    <member refid="struct_x_dual_splitter___config_1a154df5a421e0802875ef0f8ce09bcf4d" kind="variable"><name>MaxOTDataSamples</name></member>
+    <member refid="struct_x_dual_splitter___config_1ad14700785f7760d0aa6fac84b851fd6a" kind="variable"><name>MaxOverlap</name></member>
+    <member refid="struct_x_dual_splitter___config_1a08b7e0195efc167381ad64ef46932d65" kind="variable"><name>MaxSampleWidth</name></member>
+    <member refid="struct_x_dual_splitter___config_1aeb4b36b9c35d5c299f37c65b3cc4aa79" kind="variable"><name>HasAxi4Lite</name></member>
+    <member refid="struct_x_dual_splitter___config_1a0a9073578b8b05a9d3c3ae49f1b7ac7f" kind="variable"><name>HasIntrReq</name></member>
+  </compound>
+  <compound refid="_c_make_lists_8txt" kind="file"><name>CMakeLists.txt</name>
+  </compound>
+  <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
+  </compound>
+  <compound refid="xdualsplitter_8c" kind="file"><name>xdualsplitter.c</name>
+    <member refid="group__dual__splitter_1ga940fa1ae7db63021ffaed876ec0f7230" kind="function"><name>StubErrCallback</name></member>
+    <member refid="group__dual__splitter_1gae802302ea4de37154e36cbe0993e8cfd" kind="function"><name>XDualSplitter_CfgInitialize</name></member>
+    <member refid="group__dual__splitter_1ga9cb1484d45dfd8caeba7b82f3cb57d26" kind="function"><name>XDualSplitter_Reset</name></member>
+    <member refid="group__dual__splitter_1ga134facdfb0255d7de8f17cccf404349b" kind="function"><name>XDualSplitter_SetImageSize</name></member>
+    <member refid="group__dual__splitter_1gaabda56798dc29e25c03eb5098ba60850" kind="function"><name>XDualSplitter_GetImageSize</name></member>
+    <member refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" kind="function"><name>XDualSplitter_SetImgParam</name></member>
+    <member refid="group__dual__splitter_1gaf9b807d631f1491dcd23add904e40049" kind="function"><name>XDualSplitter_GetImgParam</name></member>
+  </compound>
+  <compound refid="xdualsplitter_8h" kind="file"><name>xdualsplitter.h</name>
+    <member refid="group__dual__splitter_1ga646f9c7bc69fb73d163dfa4c51f3bcb7" kind="define"><name>XDUALSPLITTER_H_</name></member>
+    <member refid="group__dual__splitter_1gafb8113e70018b7f234641aa6bbc2f4ea" kind="define"><name>XPAR_XDUALSPLITTER_NUM_INSTANCES</name></member>
+    <member refid="group__dual__splitter_1gaf2f686812173fe2783ef0a1792e24445" kind="define"><name>XDUSP_MAX_INPUT_SAMPLES</name></member>
+    <member refid="group__dual__splitter_1ga4d2b6db38eefeb1db343a3137e461b06" kind="define"><name>XDUSP_MAX_OUTPUT_SAMPLES</name></member>
+    <member refid="group__dual__splitter_1gad1e29e05b39310fad77c21ba1b08206f" kind="define"><name>XDUSP_MAX_SEGMENTS</name></member>
+    <member refid="group__dual__splitter_1gab07b0fb78a641280e191c7dbaead0cb4" kind="define"><name>XDUSP_MAX_IMG_WIDTH</name></member>
+    <member refid="group__dual__splitter_1ga946445995eef0824f326b64323609e31" kind="define"><name>XDUSP_MAX_IMG_HEIGHT</name></member>
+    <member refid="group__dual__splitter_1ga9436f877783ccefb508aa8dceb3e4f51" kind="define"><name>XDualSplitter_RegUpdateEnable</name></member>
+    <member refid="group__dual__splitter_1ga80e7605f293b4f935ed78a86232777ba" kind="define"><name>XDualSplitter_RegUpdateDisable</name></member>
+    <member refid="group__dual__splitter_1gab5e16cc8824c65a7f9072d6ae226cd7e" kind="define"><name>XDualSplitter_Enable</name></member>
+    <member refid="group__dual__splitter_1ga9a85a55698682175aecc7e28e0fbf9a1" kind="define"><name>XDualSplitter_Disable</name></member>
+    <member refid="group__dual__splitter_1ga644e3a71b19d5dce82895bbc1c4302a0" kind="define"><name>XDualSplitter_IntrEnable</name></member>
+    <member refid="group__dual__splitter_1ga8f6ef9dbc7567a51fa936c3313c6831c" kind="define"><name>XDualSplitter_IntrDisable</name></member>
+    <member refid="group__dual__splitter_1ga5443342ec7cb733071f68a3011846490" kind="define"><name>XDualSplitter_IntrGetPending</name></member>
+    <member refid="group__dual__splitter_1gade3b45e32122663dce6a7671a2963054" kind="define"><name>XDualSplitter_IntrClear</name></member>
+    <member refid="group__dual__splitter_1ga873e8f9016fe93ebb39e59dcfd4a1c2b" kind="typedef"><name>XDualSplitter_ErrCallback</name></member>
+    <member refid="group__dual__splitter_1ga2d3c807cc8cb5d2425b784b9864d35e6" kind="function"><name>XDualSplitter_LookupConfig</name></member>
+    <member refid="group__dual__splitter_1gae802302ea4de37154e36cbe0993e8cfd" kind="function"><name>XDualSplitter_CfgInitialize</name></member>
+    <member refid="group__dual__splitter_1ga9cb1484d45dfd8caeba7b82f3cb57d26" kind="function"><name>XDualSplitter_Reset</name></member>
+    <member refid="group__dual__splitter_1ga134facdfb0255d7de8f17cccf404349b" kind="function"><name>XDualSplitter_SetImageSize</name></member>
+    <member refid="group__dual__splitter_1gaabda56798dc29e25c03eb5098ba60850" kind="function"><name>XDualSplitter_GetImageSize</name></member>
+    <member refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" kind="function"><name>XDualSplitter_SetImgParam</name></member>
+    <member refid="group__dual__splitter_1gaf9b807d631f1491dcd23add904e40049" kind="function"><name>XDualSplitter_GetImgParam</name></member>
+    <member refid="group__dual__splitter_1gaa58ddb5fa4bc7b31d0b10f49ef9550eb" kind="function"><name>XDualSplitter_SelfTest</name></member>
+    <member refid="group__dual__splitter_1ga040c43cf8292cad54fad4111a7af19c3" kind="function"><name>XDualSplitter_IntrHandler</name></member>
+    <member refid="group__dual__splitter_1ga6d470b5b39f29a4635707b69290898f4" kind="function"><name>XDualSplitter_SetCallback</name></member>
+  </compound>
+  <compound refid="xdualsplitter__example_8c" kind="file"><name>xdualsplitter_example.c</name>
+    <member refid="xdualsplitter__example_8c_1af0db7818cd069fc5b9421828c8f5f1e2" kind="define"><name>XDUALSPLITTER_DEVICE_ID</name></member>
+    <member refid="xdualsplitter__example_8c_1a8fc2fbe2788dd2b39f2b86b5e513c325" kind="variable"><name>DualSplitterInst</name></member>
+    <member refid="xdualsplitter__example_8c_1a42e5da16cadf070754de53ee38e934b2" kind="function"><name>XDualSplitterExample</name></member>
+    <member refid="xdualsplitter__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xdualsplitter__g_8c" kind="file"><name>xdualsplitter_g.c</name>
+    <member refid="xdualsplitter__g_8c_1a563c9218322d2a9eb3c9fca99b1c6f03" kind="variable"><name>XDualSplitter_ConfigTable</name></member>
+  </compound>
+  <compound refid="xdualsplitter__hw_8h" kind="file"><name>xdualsplitter_hw.h</name>
+    <member refid="group__dual__splitter_1ga9aa22487fb466a14cd0ba59a0cb68839" kind="define"><name>XDUSP_GENR_CTL_OFFSET</name></member>
+    <member refid="group__dual__splitter_1gae0d2add2d78533708bab0984ddb23131" kind="define"><name>XDUSP_GENR_ERR_OFFSET</name></member>
+    <member refid="group__dual__splitter_1ga9a56efd4e26a05c36598f24949094dda" kind="define"><name>XDUSP_IRQ_EN_OFFSET</name></member>
+    <member refid="group__dual__splitter_1gad649caaa67afb83491e3f52f4ae9f86d" kind="define"><name>XDUSP_TIME_CTL_OFFSET</name></member>
+    <member refid="group__dual__splitter_1ga3853f0c033aa888b7d81c83d2f5f9599" kind="define"><name>XDUSP_CORE_CTL_OFFSET</name></member>
+    <member refid="group__dual__splitter_1ga409aff15607ec53867669d1a1bc04f13" kind="define"><name>XDUSP_GENR_CTL_EN_MASK</name></member>
+    <member refid="group__dual__splitter_1ga8c493f7fecb3dcc8cfd270eac6fd68b5" kind="define"><name>XDUSP_GENR_CTL_RUE_MASK</name></member>
+    <member refid="group__dual__splitter_1ga3643ee94cd6200a619faed8ca73a5b3f" kind="define"><name>XDUSP_GENR_CTL_RST_MASK</name></member>
+    <member refid="group__dual__splitter_1ga5bc1b1b7233576abbb54e8880d10c21b" kind="define"><name>XDUSP_ERR_EOL_EARLY_MASK</name></member>
+    <member refid="group__dual__splitter_1gaa3083e69b468e8b018f3af6d495d1c9a" kind="define"><name>XDUSP_ERR_EOL_LATE_MASK</name></member>
+    <member refid="group__dual__splitter_1gad5c3df0fa33c98e366e3721e5e41e005" kind="define"><name>XDUSP_ERR_SOF_EARLY_MASK</name></member>
+    <member refid="group__dual__splitter_1gaaa0cbd7bfe18600c16d01397267ca09a" kind="define"><name>XDUSP_ERR_SOF_LATE_MASK</name></member>
+    <member refid="group__dual__splitter_1ga9702539641dd20a1668e5ca074de7f25" kind="define"><name>XDUSP_ALL_ERR_MASK</name></member>
+    <member refid="group__dual__splitter_1ga54161faf9be861f7f7a13aef50eb000b" kind="define"><name>XDUSP_TIME_CTL_WIDTH_MASK</name></member>
+    <member refid="group__dual__splitter_1ga37b7b7c851b06e75cc1f5ae389a0e8de" kind="define"><name>XDUSP_TIME_CTL_HEIGHT_MASK</name></member>
+    <member refid="group__dual__splitter_1ga064f0f56cff150e7c031d151a1ceadbd" kind="define"><name>XDUSP_TIME_CTL_HEIGHT_SHIFT</name></member>
+    <member refid="group__dual__splitter_1ga2cff3acfb111c7e366565f719680edd3" kind="define"><name>XDUSP_CORE_CTL_IN_SAMPLES_MASK</name></member>
+    <member refid="group__dual__splitter_1gad365e0bf9914979373862e2b0247ab9e" kind="define"><name>XDUSP_CORE_CTL_OUT_SAMPLES_MASK</name></member>
+    <member refid="group__dual__splitter_1gaf78ad6b596b92871ae752278c0b2f68f" kind="define"><name>XDUSP_CORE_CTL_IMG_SEG_MASK</name></member>
+    <member refid="group__dual__splitter_1ga22ef43326e4ba226883fa319353cf978" kind="define"><name>XDUSP_CORE_CTL_OVRLAP_SEG_MASK</name></member>
+    <member refid="group__dual__splitter_1gabc53d9a930e928bda2434053abf9214e" kind="define"><name>XDUSP_CORE_CTL_OUT_SAMPLES_SHIFT</name></member>
+    <member refid="group__dual__splitter_1ga2f6afd079b92c498a29e2aff60dfee6f" kind="define"><name>XDUSP_CORE_CTL_IMG_SEG_SHIFT</name></member>
+    <member refid="group__dual__splitter_1gac37e45ef0d15293e4144c6317e66ce4d" kind="define"><name>XDUSP_CORE_CTL_OVRLAP_SEG_SHIFT</name></member>
+    <member refid="group__dual__splitter_1ga837e3f05114107c687608ee56e01bfad" kind="define"><name>XDualSplitter_In32</name></member>
+    <member refid="group__dual__splitter_1ga7d7f7a7af0fd9de6643900e9371dccdd" kind="define"><name>XDualSplitter_Out32</name></member>
+    <member refid="group__dual__splitter_1ga44eddc0730f101cf5dbe56e4c1095a57" kind="define"><name>XDualSplitter_ReadReg</name></member>
+    <member refid="group__dual__splitter_1gaf9746d088835a772833e7d5482adcdfd" kind="define"><name>XDualSplitter_WriteReg</name></member>
+    <member refid="group__dual__splitter_1gad75ea00710a7538df61fcdf5a8a8e3cb" kind="define"><name>XDUALSPLITTER_HW_H_</name></member>
+  </compound>
+  <compound refid="xdualsplitter__intr_8c" kind="file"><name>xdualsplitter_intr.c</name>
+    <member refid="group__dual__splitter_1ga040c43cf8292cad54fad4111a7af19c3" kind="function"><name>XDualSplitter_IntrHandler</name></member>
+    <member refid="group__dual__splitter_1ga6d470b5b39f29a4635707b69290898f4" kind="function"><name>XDualSplitter_SetCallback</name></member>
+  </compound>
+  <compound refid="xdualsplitter__selftest_8c" kind="file"><name>xdualsplitter_selftest.c</name>
+    <member refid="group__dual__splitter_1gaa58ddb5fa4bc7b31d0b10f49ef9550eb" kind="function"><name>XDualSplitter_SelfTest</name></member>
+  </compound>
+  <compound refid="xdualsplitter__sinit_8c" kind="file"><name>xdualsplitter_sinit.c</name>
+    <member refid="group__dual__splitter_1ga58ed2317b90d75f1fc251c126342f5f1" kind="define"><name>XPAR_XDUAL_SPLITTER_NUM_INSTANCES</name></member>
+    <member refid="group__dual__splitter_1ga2d3c807cc8cb5d2425b784b9864d35e6" kind="function"><name>XDualSplitter_LookupConfig</name></member>
+  </compound>
+  <compound refid="group__dual__splitter" kind="group"><name>dual_splitter</name>
+    <member refid="group__dual__splitter_1ga9aa22487fb466a14cd0ba59a0cb68839" kind="define"><name>XDUSP_GENR_CTL_OFFSET</name></member>
+    <member refid="group__dual__splitter_1gae0d2add2d78533708bab0984ddb23131" kind="define"><name>XDUSP_GENR_ERR_OFFSET</name></member>
+    <member refid="group__dual__splitter_1ga9a56efd4e26a05c36598f24949094dda" kind="define"><name>XDUSP_IRQ_EN_OFFSET</name></member>
+    <member refid="group__dual__splitter_1gad649caaa67afb83491e3f52f4ae9f86d" kind="define"><name>XDUSP_TIME_CTL_OFFSET</name></member>
+    <member refid="group__dual__splitter_1ga3853f0c033aa888b7d81c83d2f5f9599" kind="define"><name>XDUSP_CORE_CTL_OFFSET</name></member>
+    <member refid="group__dual__splitter_1ga409aff15607ec53867669d1a1bc04f13" kind="define"><name>XDUSP_GENR_CTL_EN_MASK</name></member>
+    <member refid="group__dual__splitter_1ga8c493f7fecb3dcc8cfd270eac6fd68b5" kind="define"><name>XDUSP_GENR_CTL_RUE_MASK</name></member>
+    <member refid="group__dual__splitter_1ga3643ee94cd6200a619faed8ca73a5b3f" kind="define"><name>XDUSP_GENR_CTL_RST_MASK</name></member>
+    <member refid="group__dual__splitter_1ga5bc1b1b7233576abbb54e8880d10c21b" kind="define"><name>XDUSP_ERR_EOL_EARLY_MASK</name></member>
+    <member refid="group__dual__splitter_1gaa3083e69b468e8b018f3af6d495d1c9a" kind="define"><name>XDUSP_ERR_EOL_LATE_MASK</name></member>
+    <member refid="group__dual__splitter_1gad5c3df0fa33c98e366e3721e5e41e005" kind="define"><name>XDUSP_ERR_SOF_EARLY_MASK</name></member>
+    <member refid="group__dual__splitter_1gaaa0cbd7bfe18600c16d01397267ca09a" kind="define"><name>XDUSP_ERR_SOF_LATE_MASK</name></member>
+    <member refid="group__dual__splitter_1ga9702539641dd20a1668e5ca074de7f25" kind="define"><name>XDUSP_ALL_ERR_MASK</name></member>
+    <member refid="group__dual__splitter_1ga54161faf9be861f7f7a13aef50eb000b" kind="define"><name>XDUSP_TIME_CTL_WIDTH_MASK</name></member>
+    <member refid="group__dual__splitter_1ga37b7b7c851b06e75cc1f5ae389a0e8de" kind="define"><name>XDUSP_TIME_CTL_HEIGHT_MASK</name></member>
+    <member refid="group__dual__splitter_1ga064f0f56cff150e7c031d151a1ceadbd" kind="define"><name>XDUSP_TIME_CTL_HEIGHT_SHIFT</name></member>
+    <member refid="group__dual__splitter_1ga2cff3acfb111c7e366565f719680edd3" kind="define"><name>XDUSP_CORE_CTL_IN_SAMPLES_MASK</name></member>
+    <member refid="group__dual__splitter_1gad365e0bf9914979373862e2b0247ab9e" kind="define"><name>XDUSP_CORE_CTL_OUT_SAMPLES_MASK</name></member>
+    <member refid="group__dual__splitter_1gaf78ad6b596b92871ae752278c0b2f68f" kind="define"><name>XDUSP_CORE_CTL_IMG_SEG_MASK</name></member>
+    <member refid="group__dual__splitter_1ga22ef43326e4ba226883fa319353cf978" kind="define"><name>XDUSP_CORE_CTL_OVRLAP_SEG_MASK</name></member>
+    <member refid="group__dual__splitter_1gabc53d9a930e928bda2434053abf9214e" kind="define"><name>XDUSP_CORE_CTL_OUT_SAMPLES_SHIFT</name></member>
+    <member refid="group__dual__splitter_1ga2f6afd079b92c498a29e2aff60dfee6f" kind="define"><name>XDUSP_CORE_CTL_IMG_SEG_SHIFT</name></member>
+    <member refid="group__dual__splitter_1gac37e45ef0d15293e4144c6317e66ce4d" kind="define"><name>XDUSP_CORE_CTL_OVRLAP_SEG_SHIFT</name></member>
+    <member refid="group__dual__splitter_1ga837e3f05114107c687608ee56e01bfad" kind="define"><name>XDualSplitter_In32</name></member>
+    <member refid="group__dual__splitter_1ga7d7f7a7af0fd9de6643900e9371dccdd" kind="define"><name>XDualSplitter_Out32</name></member>
+    <member refid="group__dual__splitter_1ga44eddc0730f101cf5dbe56e4c1095a57" kind="define"><name>XDualSplitter_ReadReg</name></member>
+    <member refid="group__dual__splitter_1gaf9746d088835a772833e7d5482adcdfd" kind="define"><name>XDualSplitter_WriteReg</name></member>
+    <member refid="group__dual__splitter_1ga873e8f9016fe93ebb39e59dcfd4a1c2b" kind="typedef"><name>XDualSplitter_ErrCallback</name></member>
+    <member refid="group__dual__splitter_1ga940fa1ae7db63021ffaed876ec0f7230" kind="function"><name>StubErrCallback</name></member>
+    <member refid="group__dual__splitter_1gae802302ea4de37154e36cbe0993e8cfd" kind="function"><name>XDualSplitter_CfgInitialize</name></member>
+    <member refid="group__dual__splitter_1ga9cb1484d45dfd8caeba7b82f3cb57d26" kind="function"><name>XDualSplitter_Reset</name></member>
+    <member refid="group__dual__splitter_1ga134facdfb0255d7de8f17cccf404349b" kind="function"><name>XDualSplitter_SetImageSize</name></member>
+    <member refid="group__dual__splitter_1gaabda56798dc29e25c03eb5098ba60850" kind="function"><name>XDualSplitter_GetImageSize</name></member>
+    <member refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" kind="function"><name>XDualSplitter_SetImgParam</name></member>
+    <member refid="group__dual__splitter_1gaf9b807d631f1491dcd23add904e40049" kind="function"><name>XDualSplitter_GetImgParam</name></member>
+    <member refid="group__dual__splitter_1ga2d3c807cc8cb5d2425b784b9864d35e6" kind="function"><name>XDualSplitter_LookupConfig</name></member>
+    <member refid="group__dual__splitter_1gaa58ddb5fa4bc7b31d0b10f49ef9550eb" kind="function"><name>XDualSplitter_SelfTest</name></member>
+    <member refid="group__dual__splitter_1ga040c43cf8292cad54fad4111a7af19c3" kind="function"><name>XDualSplitter_IntrHandler</name></member>
+    <member refid="group__dual__splitter_1ga6d470b5b39f29a4635707b69290898f4" kind="function"><name>XDualSplitter_SetCallback</name></member>
+    <member refid="group__dual__splitter_1ga646f9c7bc69fb73d163dfa4c51f3bcb7" kind="define"><name>XDUALSPLITTER_H_</name></member>
+    <member refid="group__dual__splitter_1gafb8113e70018b7f234641aa6bbc2f4ea" kind="define"><name>XPAR_XDUALSPLITTER_NUM_INSTANCES</name></member>
+    <member refid="group__dual__splitter_1gaf2f686812173fe2783ef0a1792e24445" kind="define"><name>XDUSP_MAX_INPUT_SAMPLES</name></member>
+    <member refid="group__dual__splitter_1ga4d2b6db38eefeb1db343a3137e461b06" kind="define"><name>XDUSP_MAX_OUTPUT_SAMPLES</name></member>
+    <member refid="group__dual__splitter_1gad1e29e05b39310fad77c21ba1b08206f" kind="define"><name>XDUSP_MAX_SEGMENTS</name></member>
+    <member refid="group__dual__splitter_1gab07b0fb78a641280e191c7dbaead0cb4" kind="define"><name>XDUSP_MAX_IMG_WIDTH</name></member>
+    <member refid="group__dual__splitter_1ga946445995eef0824f326b64323609e31" kind="define"><name>XDUSP_MAX_IMG_HEIGHT</name></member>
+    <member refid="group__dual__splitter_1ga9436f877783ccefb508aa8dceb3e4f51" kind="define"><name>XDualSplitter_RegUpdateEnable</name></member>
+    <member refid="group__dual__splitter_1ga80e7605f293b4f935ed78a86232777ba" kind="define"><name>XDualSplitter_RegUpdateDisable</name></member>
+    <member refid="group__dual__splitter_1gab5e16cc8824c65a7f9072d6ae226cd7e" kind="define"><name>XDualSplitter_Enable</name></member>
+    <member refid="group__dual__splitter_1ga9a85a55698682175aecc7e28e0fbf9a1" kind="define"><name>XDualSplitter_Disable</name></member>
+    <member refid="group__dual__splitter_1ga644e3a71b19d5dce82895bbc1c4302a0" kind="define"><name>XDualSplitter_IntrEnable</name></member>
+    <member refid="group__dual__splitter_1ga8f6ef9dbc7567a51fa936c3313c6831c" kind="define"><name>XDualSplitter_IntrDisable</name></member>
+    <member refid="group__dual__splitter_1ga5443342ec7cb733071f68a3011846490" kind="define"><name>XDualSplitter_IntrGetPending</name></member>
+    <member refid="group__dual__splitter_1gade3b45e32122663dce6a7671a2963054" kind="define"><name>XDualSplitter_IntrClear</name></member>
+    <member refid="group__dual__splitter_1gad75ea00710a7538df61fcdf5a8a8e3cb" kind="define"><name>XDUALSPLITTER_HW_H_</name></member>
+    <member refid="group__dual__splitter_1ga58ed2317b90d75f1fc251c126342f5f1" kind="define"><name>XPAR_XDUAL_SPLITTER_NUM_INSTANCES</name></member>
+  </compound>
+  <compound refid="example" kind="page"><name>example</name>
+  </compound>
+  <compound refid="dir_830149b30fb9e4335ea152f109be7eb3" kind="dir"><name>dual_splitter</name>
+  </compound>
+  <compound refid="dir_5e52dc07423697446764b994f991e81b" kind="dir"><name>examples</name>
+  </compound>
+  <compound refid="dir_7e4d41841d6402cad4743468b2ab22c8" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

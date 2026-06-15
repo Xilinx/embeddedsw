@@ -1,0 +1,199 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xsecure__slhdsa__example__apis" kind="group">
+    <compoundname>xsecure_slhdsa_example_apis</compoundname>
+    <title>XilSecure SLHDSA API Example Usage</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xsecure__slhdsa__example__apis_1ga1adbe8ae56c0b53ee034f96a2a058730" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 SharedMem[XSECURE_SHARED_TOTAL_MEM_SIZE]</definition>
+        <argsstring>[XSECURE_SHARED_TOTAL_MEM_SIZE]</argsstring>
+        <name>SharedMem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_slhdsa_client_example.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_slhdsa_client_example.c" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__slhdsa__example__apis_1ga38e89c0f21bb0a202e023b9017da5e70" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_secure___slhdsa_input_params" kindref="compound">XSecure_SlhdsaInputParams</ref></type>
+        <definition>XSecure_SlhdsaInputParams SignVerifyParams</definition>
+        <argsstring></argsstring>
+        <name>SignVerifyParams</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_slhdsa_client_example.c" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_slhdsa_client_example.c" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__slhdsa__example__apis_1gaae36d0b6ed35a6f3d887a6bad64a20be" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 TestMessage[]</definition>
+        <argsstring>[]</argsstring>
+        <name>TestMessage</name>
+        <initializer>=
+	{0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	 0xC0, 0x46, 0x9E, 0x4A, 0x0C, 0x5D, 0x6C, 0x67, 0xF1, 0x7D, 0x2A, 0xB3, 0x42, 0xB6, 0x72, 0x46,
+	 0xBD, 0x75, 0x32, 0xD3, 0xC2, 0x11, 0xAF, 0xD3, 0xB7, 0x01, 0xF4, 0x4B, 0x6E, 0xD8, 0x5E, 0x0F,
+	 0x09, 0xB2, 0x57, 0x90, 0x46, 0x74, 0x15, 0x11, 0xF6, 0x7D, 0x7C, 0xD6, 0x93, 0xCB, 0x0A, 0xA1,
+	 0x0C, 0x41, 0x04, 0x99, 0x93, 0xC1, 0x71, 0xD8, 0x40, 0x8C, 0x2C, 0xFE, 0xDD, 0xE0, 0x61, 0x5F}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_slhdsa_client_example.c" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_slhdsa_client_example.c" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__slhdsa__example__apis_1ga7815367a2c9850e21199f1f04bc55a8e" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 slhdsa_shake256s_pub_key[64]</definition>
+        <argsstring>[64]</argsstring>
+        <name>slhdsa_shake256s_pub_key</name>
+        <initializer>= {0x93,
+	0xB6, 0x85, 0x55, 0x04, 0xF5, 0xA9, 0x52, 0xA5, 0xF3, 0x68, 0x6C, 0x93, 0x55, 0xED, 0x09, 0xB9,
+	0x59, 0xD7, 0x90, 0xFC, 0xFF, 0x3F, 0xC1, 0x3D, 0x13, 0x24, 0x93, 0xA7, 0x6D, 0x6F, 0x40, 0x0E,
+	0xCE, 0x29, 0x2E, 0x8A, 0x90, 0xCA, 0x11, 0x67, 0x88, 0xB2, 0x8E, 0x8D, 0x12, 0x14, 0x13, 0xE7,
+	0x09, 0xD6, 0xCD, 0x17, 0xCB, 0x6D, 0x4C, 0xC5, 0xF6, 0x62, 0xF5, 0x8A, 0xE1, 0x68, 0x97}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_slhdsa_client_example.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_slhdsa_client_example.c" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__slhdsa__example__apis_1ga00a6a51ee3e2684aa4d0ce1e1432bdd3" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 slhdsa_shake256s_signature[XSECURE_SLHDSA_SHAKE_256S_SIGN_LEN]</definition>
+        <argsstring>[XSECURE_SLHDSA_SHAKE_256S_SIGN_LEN]</argsstring>
+        <name>slhdsa_shake256s_signature</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_slhdsa_client_example.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_slhdsa_client_example.c" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__slhdsa__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function to call the SLHDSA client example. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if example runs successfully</para></listitem><listitem><para>Error code if the example fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_slhdsa_client_example.c" line="1992" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_slhdsa_client_example.c" bodystart="1992" bodyend="2077"/>
+        <references refid="struct_x_secure___slhdsa_input_params_1ae8a51b1e40a0c78413605e095823f04b" compoundref="xsecure__defs_8h" startline="276">XSecure_SlhdsaInputParams::ContextAddr</references>
+        <references refid="struct_x_secure___slhdsa_input_params_1ab17b5f2290c32bb3ee8f833b5bec261b" compoundref="xsecure__defs_8h" startline="281">XSecure_SlhdsaInputParams::ContextLen</references>
+        <references refid="struct_x_secure___slhdsa_input_params_1a2e2c7f27b31f66a93190aba3c703ef8c" compoundref="xsecure__defs_8h" startline="274">XSecure_SlhdsaInputParams::DataAddr</references>
+        <references refid="struct_x_secure___slhdsa_input_params_1ab4d122d457d715a6ed35b089989ccafe" compoundref="xsecure__defs_8h" startline="278">XSecure_SlhdsaInputParams::DataLen</references>
+        <references refid="struct_x_secure___slhdsa_input_params_1a060cca9d05f0c32d876967aa5d1918e6" compoundref="xsecure__defs_8h" startline="277">XSecure_SlhdsaInputParams::PublicKeyAddr</references>
+        <references refid="struct_x_secure___slhdsa_input_params_1a2a1f1257299e40adaecba573284c53cb" compoundref="xsecure__defs_8h" startline="280">XSecure_SlhdsaInputParams::PublicKeyLen</references>
+        <references refid="struct_x_secure___slhdsa_input_params_1a00bd10ffa362cb92ad88faf259d78e51" compoundref="xsecure__defs_8h" startline="275">XSecure_SlhdsaInputParams::SignatureAddr</references>
+        <references refid="struct_x_secure___slhdsa_input_params_1adf6708fff83be8aa2c009a22b454bf21" compoundref="xsecure__defs_8h" startline="279">XSecure_SlhdsaInputParams::SignatureLen</references>
+        <references refid="group__xsecure__mailbox__apis_1ga14ac66445aa924c4c0bd9b91b9744af9" compoundref="xsecure__mailbox_8c" startline="119" endline="134">XSecure_ClientInit</references>
+        <references refid="group__xsecure__slhdsa__example__apis_1ga44c154ab6a19e567ab5ce22b0c4def6d" compoundref="xilsecure__slhdsa__client__example_8c" startline="78">XSECURE_SLHDSA_SHAKE_256S_PK_LEN</references>
+        <references refid="group__xsecure__slhdsa__example__apis_1gabb9e6e9af58cc35f07a4e60eed1ce209" compoundref="xilsecure__slhdsa__client__example_8c" startline="79">XSECURE_SLHDSA_SHAKE_256S_SIGN_LEN</references>
+        <references refid="group__xsecure__slhdsa__client__apis_1ga971403d14ffa4f9b062864a62895b2b8" compoundref="xsecure__slhdsaclient_8c" startline="42" endline="69">XSecure_SlhdsaSignVerifyClient</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__slhdsa__example__apis_1gae737b24abf32c5906097070ead86c05a" prot="public" static="no">
+        <name>SLR_INDEX</name>
+        <initializer>XSECURE_SLR_INDEX_0 /* Change this for other SLRs */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_slhdsa_client_example.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_slhdsa_client_example.c" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__slhdsa__example__apis_1ga44c154ab6a19e567ab5ce22b0c4def6d" prot="public" static="no">
+        <name>XSECURE_SLHDSA_SHAKE_256S_PK_LEN</name>
+        <initializer>(64U)</initializer>
+        <briefdescription>
+<para>Public key length for SHAKE-256s. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_slhdsa_client_example.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_slhdsa_client_example.c" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__slhdsa__client__example_8c" startline="1992" endline="2077">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__slhdsa__example__apis_1gabb9e6e9af58cc35f07a4e60eed1ce209" prot="public" static="no">
+        <name>XSECURE_SLHDSA_SHAKE_256S_SIGN_LEN</name>
+        <initializer>(29792U)</initializer>
+        <briefdescription>
+<para>Signature length for SHAKE-256s. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_slhdsa_client_example.c" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_slhdsa_client_example.c" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__slhdsa__client__example_8c" startline="1992" endline="2077">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__slhdsa__example__apis_1ga95b2be104c44b45a4e891dd41f732d50" prot="public" static="no">
+        <name>XSECURE_SHARED_TOTAL_MEM_SIZE</name>
+        <initializer>(XSECURE_SHARED_MEM_SIZE)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_slhdsa_client_example.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_slhdsa_client_example.c" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This example illustrates the SLHDSA signature verification using client APIs. </para>    </briefdescription>
+    <detaileddescription>
+<para>To build this application, xilmailbox library must be included in BSP and xilsecure must be in client mode. This example is supported for Versal_2VP_P devices.</para><para><simplesect kind="note"><para><heading level="2">Procedure to link and compile the example for the default ddr less designs </heading>
+</para></simplesect>
+The default linker settings places a software stack, heap and data in DDR memory. For this example to work, any data shared between client running on A72/R5/PL and server running on PMC, should be placed in area which is accessible to both client and server.</para><para>Following is the procedure to compile the example on OCM or any memory region which can be accessed by server <verbatim>  1. Open example linker script(lscript.ld) in Vitis project and section to memory mapping
+     should be updated to point all the required sections to shared memory(OCM or TCM)
+     using a memory region drop down selection
+
+                            OR
+
+  1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
+    .sharedmemory : {
+            . = ALIGN(4);
+            __sharedmemory_start = .;
+            *(.sharedmemory)
+            *(.sharedmemory.*)
+            *(.gnu.linkonce.d.*)
+            __sharedmemory_end = .;
+            } &gt; versal_cips_0_pspmc_0_psv_ocm_ram_0_psv_ocm_ram_0
+
+    2. In this example &quot;.data&quot; section elements that are passed by reference to the server-side
+       should be stored in the above shared memory section. To make it happen in below example,
+     replace &quot;.data&quot; in attribute section with &quot;.sharedmemory&quot;. For example,
+       static const u8 TestMessage[] __attribute__ ((section (&quot;.data.TestMessage&quot;)))
+                            should be changed to
+       static const u8 TestMessage[] __attribute__ ((section (&quot;.sharedmemory.TestMessage&quot;)))
+</verbatim></para><para>To keep things simple, by default the cache is disabled for this example</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+5.7   tvp  03/20/26 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

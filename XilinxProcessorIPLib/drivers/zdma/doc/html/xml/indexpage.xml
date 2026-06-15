@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>zdma</title>
+    <detaileddescription>
+<para>ZDMA is a general purpose DMA designed to support memory to memory and memory to IO buffer transfers. ZynqMP has two instance of general purpose ZDMA. One is located in FPD (full power domain) which is GDMA and other is located in LPD (low power domain) which is ADMA.</para><para>GMDA &amp; ADMA are configured each with 8 DMA channels and and each channel can be programmed secure or non-secure. Each channel is divided into two functional sides, Source (Read) and Destination (Write). Each DMA channel can be independently programmed in one of following DMA modes.<itemizedlist>
+<listitem><para>Simple DMA<itemizedlist>
+<listitem><para>Normal data transfer from source to destination.</para></listitem><listitem><para>Write Only mode.</para></listitem><listitem><para>Read Only mode.</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Scatter Gather DMA<itemizedlist>
+<listitem><para>Only Normal mode it can&apos;t support other two modes. In Scatter gather descriptor can be of 3 types</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Linear descriptor.</para></listitem><listitem><para>Linked list descriptor</para></listitem><listitem><para>Hybrid descriptor (Combination of both Linear and Linked list) Our driver will not support Hybrid type of descriptor.</para></listitem></itemizedlist>
+</para><para><bold>Initialization &amp; Configuration</bold></para><para>The device driver enables higher layer software (e.g., an application) to communicate to the ZDMA core.</para><para><ref refid="group__zdma_1gad882e6d7430871e5b71643c8be2512d5" kindref="member">XZDma_CfgInitialize()</ref> API is used to initialize the ZDMA core. The user needs to first call the <ref refid="group__zdma_1gaa84a02e7db7d9bdaa524419fae6e50b9" kindref="member">XZDma_LookupConfig()</ref> API which returns the Configuration structure pointer which is passed as a parameter to the <ref refid="group__zdma_1gad882e6d7430871e5b71643c8be2512d5" kindref="member">XZDma_CfgInitialize()</ref> API.</para><para><bold> Interrupts </bold> The driver provides an interrupt handler XZDma_IntrHandler for handling the interrupt from the ZDMA core. The users of this driver have to register this handler with the interrupt system and provide the callback functions by using XZDma_SetCallBack API. In this version Descriptor done option is disabled.</para><para><bold> Virtual Memory </bold></para><para>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space.</para><para><bold> Threads </bold></para><para>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</para><para><bold> Asserts </bold></para><para>Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining, at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that users leave asserts on during development.</para><para><bold> Building the driver </bold></para><para>The <ref refid="struct_x_z_dma" kindref="compound">XZDma</ref> driver is composed of several source files. This allows the user to build and link only those parts of the driver that are necessary.</para><para>This header file contains identifiers and register-level driver functions (or macros), range macros, structure typedefs that can be used to access the Xilinx ZDMA core instance.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+1.0   vns     2/27/15  First release
+1.1   vns    15/02/16  Corrected Destination descriptor address calculation
+                       in XZDma_CreateBDList API
+                       Modified XZDma_SetMode to return XST_FAILURE on
+                       selecting DMA mode other than normal mode in
+                       scatter gather mode data transfer and corrected
+                       XZDma_SetChDataConfig API to set over fetch and
+                       src issue parameters correctly.
+      ms     03/17/17  Added readme.txt file in examples folder for doxygen
+                       generation.
+      ms     04/05/17  Modified comment lines notation in functions of zdma
+                       examples to avoid unnecessary description to get
+                       displayed while generating doxygen and also changed
+                       filename tag to include the readonly mode example file
+                       in doxygen.
+1.3   mus     08/14/17 Update cache coherency information of the interface in
+                       its config structure.
+1.4   adk       11/02/17 Updated examples to fix compilation errors for IAR
+                 compiler.
+1.5   adk     11/22/17 Added peripheral test app support for ZDMA driver.
+        12/11/17 Fixed peripheral test app generation issues when dma
+                 buffers are configured on OCM memory(CR#990806).
+1.6   adk     13/07/18 Fixed doxygen warnings in the driver(CR#1006353)
+                 Fixed cppcheck warnings and coverity tool reported
+                 errors in the driver(CR#1006353).
+        19/07/18 Fixed cppcheck warning in the driver.
+1.6   aru     08/18/18 Resolved MISRA-C mandatory violations.
+1.7     adk     08/03/19 Added support for versal IP.
+1.7   adk     18/03/19 Updated the writeonly mode example data verification
+                 check to support versal adma IP.
+1.10  hk      04/29/20 Enable Scatter Gather setup and Enable APIs for use
+                       in applications directly.
+1.14    adk     03/15/22 Fixed syntax errors in zdma_tapp.tcl file, when stdout
+                         is configured as none.
+1.20    gn      16/06/25 Add the declaration for the stop API.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

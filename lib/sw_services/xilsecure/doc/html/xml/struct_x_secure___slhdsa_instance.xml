@@ -1,0 +1,275 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___slhdsa_instance" kind="struct" prot="public">
+    <compoundname>XSecure_SlhdsaInstance</compoundname>
+    <includes local="no">xsecure_slhdsa_instance.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___slhdsa_instance_1ab63a47abcc83e7c80c42544c729e204e" prot="public" static="no" mutable="no">
+        <type>ADRS *</type>
+        <definition>ADRS* XSecure_SlhdsaInstance::Addr</definition>
+        <argsstring></argsstring>
+        <name>Addr</name>
+        <briefdescription>
+<para>&lt; Address structure for domain separation and tree navigation in hash functions </para>        </briefdescription>
+        <detaileddescription>
+<para>Pointer to SLH-DSA parameter set configuration (SHAKE-256s, etc.) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="222" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga6586ad2f5162ae29b200089cc571ba8e" compoundref="xsecure__slhdsa__fors_8c" startline="221" endline="324">XSecure_SlhdsaForsPkFromSig</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" compoundref="xsecure__slhdsa__instance_8c" startline="51" endline="102">XSecure_SlhdsaGetInstance</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga63a83a36cf727551fc0e1f69fef4e9b6" compoundref="xsecure__slhdsa__ht_8c" startline="194" endline="290">XSecure_SlhdsaHtVerify</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gaaa866ce6d1c865f26afda73bc6a2003b" compoundref="xsecure__slhdsa__hash_8c" startline="197" endline="258">XSecure_SlhdsaShake256sChain</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga2ff07fcdbe3cb7ae4dbb53308394c080" compoundref="xsecure__slhdsa__hash_8c" startline="131" endline="178">XSecure_SlhdsaShake256sHashF</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gad836abaf83f14c844a4b30fcca05992b" compoundref="xsecure__slhdsa__hash_8c" startline="341" endline="395">XSecure_SlhdsaShake256sHashH</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga97c714ead98479888556f73faf3d1dfb" compoundref="xsecure__slhdsa__hash_8c" startline="276" endline="323">XSecure_SlhdsaShake256sHashTl</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gaf6e4f612fb9bedd0adc25a5e5d6828c1" compoundref="xsecure__slhdsa__wots_8c" startline="214" endline="282">XSecure_SlhdsaWotsPkFromSign</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gae2f63765bb0a4b550407c200d2715a1c" compoundref="xsecure__slhdsa__xmss_8c" startline="189" endline="287">XSecure_SlhdsaXmssPkFromSign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_secure___slhdsa_param" kindref="compound">XSecure_SlhdsaParam</ref> *</type>
+        <definition>XSecure_SlhdsaParam* XSecure_SlhdsaInstance::Param</definition>
+        <argsstring></argsstring>
+        <name>Param</name>
+        <briefdescription>
+<para>Pointer to SHA instance to be used for SLH-DSA Driver. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="225" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga6586ad2f5162ae29b200089cc571ba8e" compoundref="xsecure__slhdsa__fors_8c" startline="221" endline="324">XSecure_SlhdsaForsPkFromSig</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" compoundref="xsecure__slhdsa__instance_8c" startline="51" endline="102">XSecure_SlhdsaGetInstance</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga63a83a36cf727551fc0e1f69fef4e9b6" compoundref="xsecure__slhdsa__ht_8c" startline="194" endline="290">XSecure_SlhdsaHtVerify</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gaaa866ce6d1c865f26afda73bc6a2003b" compoundref="xsecure__slhdsa__hash_8c" startline="197" endline="258">XSecure_SlhdsaShake256sChain</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga2ff07fcdbe3cb7ae4dbb53308394c080" compoundref="xsecure__slhdsa__hash_8c" startline="131" endline="178">XSecure_SlhdsaShake256sHashF</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gad836abaf83f14c844a4b30fcca05992b" compoundref="xsecure__slhdsa__hash_8c" startline="341" endline="395">XSecure_SlhdsaShake256sHashH</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga4f9fb47928190c4aaf68df51efac1382" compoundref="xsecure__slhdsa__hash_8c" startline="53" endline="114">XSecure_SlhdsaShake256sHashMsg</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga97c714ead98479888556f73faf3d1dfb" compoundref="xsecure__slhdsa__hash_8c" startline="276" endline="323">XSecure_SlhdsaShake256sHashTl</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gad8b325c7b6c17a9c088bd30b04027423" compoundref="xsecure__slhdsa_8c" startline="250" endline="322">XSecure_SlhdsaVerify</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gaf6e4f612fb9bedd0adc25a5e5d6828c1" compoundref="xsecure__slhdsa__wots_8c" startline="214" endline="282">XSecure_SlhdsaWotsPkFromSign</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gae2f63765bb0a4b550407c200d2715a1c" compoundref="xsecure__slhdsa__xmss_8c" startline="189" endline="287">XSecure_SlhdsaXmssPkFromSign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___slhdsa_instance_1abd301830d66fff840b500e526bc66d2a" prot="public" static="no" mutable="no">
+        <type>XSecure_Sha *</type>
+        <definition>XSecure_Sha* XSecure_SlhdsaInstance::ShaInstance</definition>
+        <argsstring></argsstring>
+        <name>ShaInstance</name>
+        <briefdescription>
+<para>Data instance containing all working buffers for signature verification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="228" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gaaa866ce6d1c865f26afda73bc6a2003b" compoundref="xsecure__slhdsa__hash_8c" startline="197" endline="258">XSecure_SlhdsaShake256sChain</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga2ff07fcdbe3cb7ae4dbb53308394c080" compoundref="xsecure__slhdsa__hash_8c" startline="131" endline="178">XSecure_SlhdsaShake256sHashF</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gad836abaf83f14c844a4b30fcca05992b" compoundref="xsecure__slhdsa__hash_8c" startline="341" endline="395">XSecure_SlhdsaShake256sHashH</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga4f9fb47928190c4aaf68df51efac1382" compoundref="xsecure__slhdsa__hash_8c" startline="53" endline="114">XSecure_SlhdsaShake256sHashMsg</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga97c714ead98479888556f73faf3d1dfb" compoundref="xsecure__slhdsa__hash_8c" startline="276" endline="323">XSecure_SlhdsaShake256sHashTl</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gad8b325c7b6c17a9c088bd30b04027423" compoundref="xsecure__slhdsa_8c" startline="250" endline="322">XSecure_SlhdsaVerify</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___slhdsa_instance_1adbeb1e96e43abbd2f601f01fc1f77ae4" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_SlhdsaInstance::DataAddr</definition>
+        <argsstring></argsstring>
+        <name>DataAddr</name>
+        <briefdescription>
+<para>Address of the input data to be verified. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="231" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga4f9fb47928190c4aaf68df51efac1382" compoundref="xsecure__slhdsa__hash_8c" startline="53" endline="114">XSecure_SlhdsaShake256sHashMsg</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gad8b325c7b6c17a9c088bd30b04027423" compoundref="xsecure__slhdsa_8c" startline="250" endline="322">XSecure_SlhdsaVerify</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___slhdsa_instance_1a5e847e8ef27559ec5878e125cff29750" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_SlhdsaInstance::DataLen</definition>
+        <argsstring></argsstring>
+        <name>DataLen</name>
+        <briefdescription>
+<para>Length of the input data in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="232" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga4f9fb47928190c4aaf68df51efac1382" compoundref="xsecure__slhdsa__hash_8c" startline="53" endline="114">XSecure_SlhdsaShake256sHashMsg</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gad8b325c7b6c17a9c088bd30b04027423" compoundref="xsecure__slhdsa_8c" startline="250" endline="322">XSecure_SlhdsaVerify</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___slhdsa_instance_1a767aaa310aca5f5f2e4de06e801a2b93" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_SlhdsaInstance::SignatureAddr</definition>
+        <argsstring></argsstring>
+        <name>SignatureAddr</name>
+        <briefdescription>
+<para>Address of the signature buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="233" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga4f9fb47928190c4aaf68df51efac1382" compoundref="xsecure__slhdsa__hash_8c" startline="53" endline="114">XSecure_SlhdsaShake256sHashMsg</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gad8b325c7b6c17a9c088bd30b04027423" compoundref="xsecure__slhdsa_8c" startline="250" endline="322">XSecure_SlhdsaVerify</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___slhdsa_instance_1ab4bff74f0c1eec2336a3155d60ac839d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_SlhdsaInstance::SignatureLen</definition>
+        <argsstring></argsstring>
+        <name>SignatureLen</name>
+        <briefdescription>
+<para>Length of the signature. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="234" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gad8b325c7b6c17a9c088bd30b04027423" compoundref="xsecure__slhdsa_8c" startline="250" endline="322">XSecure_SlhdsaVerify</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___slhdsa_instance_1a8ea400cc718dc8ffab6d5403182df2b9" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_SlhdsaInstance::PublicKeyAddr</definition>
+        <argsstring></argsstring>
+        <name>PublicKeyAddr</name>
+        <briefdescription>
+<para>Address of the public key buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="235" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga4f9fb47928190c4aaf68df51efac1382" compoundref="xsecure__slhdsa__hash_8c" startline="53" endline="114">XSecure_SlhdsaShake256sHashMsg</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gad8b325c7b6c17a9c088bd30b04027423" compoundref="xsecure__slhdsa_8c" startline="250" endline="322">XSecure_SlhdsaVerify</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___slhdsa_instance_1a9e8012429ea8cd259bcd4b67a106fb62" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XSecure_SlhdsaInstance::Data1</definition>
+        <argsstring></argsstring>
+        <name>Data1</name>
+        <briefdescription>
+<para>General-purpose buffer for SLH-DSA intermediate computations. </para>        </briefdescription>
+        <detaileddescription>
+<para>Size: 67 * 32 = 2,144 bytes (16-byte aligned)</para><para>Usage:<itemizedlist>
+<listitem><para>FORS: Store 22 tree roots (704 bytes)</para></listitem><listitem><para>WOTS+: Store 67 chain values (2,144 bytes)</para></listitem><listitem><para>XMSS: Store single node value (32 bytes)</para></listitem><listitem><para>Hypertree: Store layer root (32 bytes) </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="247" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga6586ad2f5162ae29b200089cc571ba8e" compoundref="xsecure__slhdsa__fors_8c" startline="221" endline="324">XSecure_SlhdsaForsPkFromSig</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" compoundref="xsecure__slhdsa__instance_8c" startline="51" endline="102">XSecure_SlhdsaGetInstance</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga4f9fb47928190c4aaf68df51efac1382" compoundref="xsecure__slhdsa__hash_8c" startline="53" endline="114">XSecure_SlhdsaShake256sHashMsg</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gad8b325c7b6c17a9c088bd30b04027423" compoundref="xsecure__slhdsa_8c" startline="250" endline="322">XSecure_SlhdsaVerify</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gaf6e4f612fb9bedd0adc25a5e5d6828c1" compoundref="xsecure__slhdsa__wots_8c" startline="214" endline="282">XSecure_SlhdsaWotsPkFromSign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___slhdsa_instance_1acda367f1dbceb62bbbf0e7aa62a40ff2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_SlhdsaInstance::Data1Len</definition>
+        <argsstring></argsstring>
+        <name>Data1Len</name>
+        <briefdescription>
+<para>Current length of Data1 buffer in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="248" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga4f9fb47928190c4aaf68df51efac1382" compoundref="xsecure__slhdsa__hash_8c" startline="53" endline="114">XSecure_SlhdsaShake256sHashMsg</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gad8b325c7b6c17a9c088bd30b04027423" compoundref="xsecure__slhdsa_8c" startline="250" endline="322">XSecure_SlhdsaVerify</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___slhdsa_instance_1a9e6922723973aa1dd51c704f92c54c18" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XSecure_SlhdsaInstance::Data2</definition>
+        <argsstring></argsstring>
+        <name>Data2</name>
+        <briefdescription>
+<para>Secondary buffer for hash outputs and base conversions. </para>        </briefdescription>
+        <detaileddescription>
+<para>Size: 99 bytes (4-byte aligned)</para><para>Usage:<itemizedlist>
+<listitem><para>Message digest: Store 47-byte digest</para></listitem><listitem><para>Hash operations: Store concatenated inputs (up to 64 bytes) </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="258" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" compoundref="xsecure__slhdsa__instance_8c" startline="51" endline="102">XSecure_SlhdsaGetInstance</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga4f9fb47928190c4aaf68df51efac1382" compoundref="xsecure__slhdsa__hash_8c" startline="53" endline="114">XSecure_SlhdsaShake256sHashMsg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___slhdsa_instance_1aaf8104f2de7cb18b6f93286705f3d172" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XSecure_SlhdsaInstance::Data3</definition>
+        <argsstring></argsstring>
+        <name>Data3</name>
+        <briefdescription>
+<para>Tertiary buffer for single hash outputs. </para>        </briefdescription>
+        <detaileddescription>
+<para>Size: 32 bytes (4-byte aligned)</para><para>Usage:<itemizedlist>
+<listitem><para>Single hash outputs (F, H, T functions)</para></listitem><listitem><para>Tree node computations</para></listitem><listitem><para>Public key derivation results</para></listitem><listitem><para>Serialized address structure </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="270" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" compoundref="xsecure__slhdsa__instance_8c" startline="51" endline="102">XSecure_SlhdsaGetInstance</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga63a83a36cf727551fc0e1f69fef4e9b6" compoundref="xsecure__slhdsa__ht_8c" startline="194" endline="290">XSecure_SlhdsaHtVerify</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___slhdsa_instance_1a73299ad6a573bb74f7247581a6a0c4cf" prot="public" static="no" mutable="no">
+        <type>u32 *</type>
+        <definition>u32* XSecure_SlhdsaInstance::Data4</definition>
+        <argsstring></argsstring>
+        <name>Data4</name>
+        <briefdescription>
+<para>Generic buffer for storing digits. </para>        </briefdescription>
+        <detaileddescription>
+<para>Size: 268 bytes</para><para>Usage:<itemizedlist>
+<listitem><para>in WOTS: 67 * 4 = 268 Bytes</para></listitem><listitem><para>in FORS: k (22) * 4 = 88 Bytes </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="280" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga6586ad2f5162ae29b200089cc571ba8e" compoundref="xsecure__slhdsa__fors_8c" startline="221" endline="324">XSecure_SlhdsaForsPkFromSig</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" compoundref="xsecure__slhdsa__instance_8c" startline="51" endline="102">XSecure_SlhdsaGetInstance</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gaf6e4f612fb9bedd0adc25a5e5d6828c1" compoundref="xsecure__slhdsa__wots_8c" startline="214" endline="282">XSecure_SlhdsaWotsPkFromSign</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Main SLH-DSA instance structure containing all required components for signature verification. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure encapsulates the complete SLH-DSA verification context including address management, parameter configuration, hardware instances, and data buffers. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="155">
+        <label>XSecure_SlhdsaInstance</label>
+        <link refid="struct_x_secure___slhdsa_instance"/>
+        <childnode refid="156" relation="usage">
+          <edgelabel>Param</edgelabel>
+        </childnode>
+      </node>
+      <node id="156">
+        <label>XSecure_SlhdsaParam</label>
+        <link refid="struct_x_secure___slhdsa_param"/>
+        <childnode refid="157" relation="usage">
+          <edgelabel>ChecksumParams</edgelabel>
+        </childnode>
+      </node>
+      <node id="157">
+        <label>XSecure_ChecksumParam</label>
+        <link refid="struct_x_secure___checksum_param"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_instance.h" bodystart="220" bodyend="282"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___slhdsa_instance_1ab63a47abcc83e7c80c42544c729e204e" prot="public" virt="non-virtual"><scope>XSecure_SlhdsaInstance</scope><name>Addr</name></member>
+      <member refid="struct_x_secure___slhdsa_instance_1a9e8012429ea8cd259bcd4b67a106fb62" prot="public" virt="non-virtual"><scope>XSecure_SlhdsaInstance</scope><name>Data1</name></member>
+      <member refid="struct_x_secure___slhdsa_instance_1acda367f1dbceb62bbbf0e7aa62a40ff2" prot="public" virt="non-virtual"><scope>XSecure_SlhdsaInstance</scope><name>Data1Len</name></member>
+      <member refid="struct_x_secure___slhdsa_instance_1a9e6922723973aa1dd51c704f92c54c18" prot="public" virt="non-virtual"><scope>XSecure_SlhdsaInstance</scope><name>Data2</name></member>
+      <member refid="struct_x_secure___slhdsa_instance_1aaf8104f2de7cb18b6f93286705f3d172" prot="public" virt="non-virtual"><scope>XSecure_SlhdsaInstance</scope><name>Data3</name></member>
+      <member refid="struct_x_secure___slhdsa_instance_1a73299ad6a573bb74f7247581a6a0c4cf" prot="public" virt="non-virtual"><scope>XSecure_SlhdsaInstance</scope><name>Data4</name></member>
+      <member refid="struct_x_secure___slhdsa_instance_1adbeb1e96e43abbd2f601f01fc1f77ae4" prot="public" virt="non-virtual"><scope>XSecure_SlhdsaInstance</scope><name>DataAddr</name></member>
+      <member refid="struct_x_secure___slhdsa_instance_1a5e847e8ef27559ec5878e125cff29750" prot="public" virt="non-virtual"><scope>XSecure_SlhdsaInstance</scope><name>DataLen</name></member>
+      <member refid="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" prot="public" virt="non-virtual"><scope>XSecure_SlhdsaInstance</scope><name>Param</name></member>
+      <member refid="struct_x_secure___slhdsa_instance_1a8ea400cc718dc8ffab6d5403182df2b9" prot="public" virt="non-virtual"><scope>XSecure_SlhdsaInstance</scope><name>PublicKeyAddr</name></member>
+      <member refid="struct_x_secure___slhdsa_instance_1abd301830d66fff840b500e526bc66d2a" prot="public" virt="non-virtual"><scope>XSecure_SlhdsaInstance</scope><name>ShaInstance</name></member>
+      <member refid="struct_x_secure___slhdsa_instance_1a767aaa310aca5f5f2e4de06e801a2b93" prot="public" virt="non-virtual"><scope>XSecure_SlhdsaInstance</scope><name>SignatureAddr</name></member>
+      <member refid="struct_x_secure___slhdsa_instance_1ab4bff74f0c1eec2336a3155d60ac839d" prot="public" virt="non-virtual"><scope>XSecure_SlhdsaInstance</scope><name>SignatureLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

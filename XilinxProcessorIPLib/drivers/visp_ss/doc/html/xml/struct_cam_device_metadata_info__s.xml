@@ -1,0 +1,403 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_metadata_info__s" kind="struct" prot="public">
+    <compoundname>CamDeviceMetadataInfo_s</compoundname>
+    <includes local="no">cam_device_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_metadata_info__s_1af04cecbb39e5b4f5b8225c41ab19f166" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceMetadataInfo_s::chipId</definition>
+        <argsstring></argsstring>
+        <name>chipId</name>
+        <briefdescription>
+<para>ISP platform chip ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_info__s_1a8a1b5ecdb27106d98f65b5c4546dfd67" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t CamDeviceMetadataInfo_s::frameCount</definition>
+        <argsstring></argsstring>
+        <name>frameCount</name>
+        <briefdescription>
+<para>Frame count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_info__s_1ad125e6e3de962d79df9b1a0ead1f77c5" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceMetadataInfo_s::apertureSize</definition>
+        <argsstring></argsstring>
+        <name>apertureSize</name>
+        <briefdescription>
+<para>Aperture size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_info__s_1ad157b06b6c7ac00a6efc07c9c04b86b0" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceMetadataInfo_s::isoStrength</definition>
+        <argsstring></argsstring>
+        <name>isoStrength</name>
+        <briefdescription>
+<para>ISO strength. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_info__s_1aa95c1c24c1427c7a1bc1090c4117d706" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceMetadataInfo_s::junctionTemperature</definition>
+        <argsstring></argsstring>
+        <name>junctionTemperature</name>
+        <briefdescription>
+<para>Junction temperature. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="308" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_info__s_1a943f5125974cfe2da11d5bd06b84fe77" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceMetadataInfo_s::blackLevelPedestal</definition>
+        <argsstring></argsstring>
+        <name>blackLevelPedestal</name>
+        <briefdescription>
+<para>Black level pedestal. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="309" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="309" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_info__s_1acc80ca4afe88cea3d398512900579e5d" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceMetadataInfo_s::exposureNum</definition>
+        <argsstring></argsstring>
+        <name>exposureNum</name>
+        <briefdescription>
+<para>The number of exposures. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="311" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_info__s_1a01ea18e91f39deae285d771e27b23a6d" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceMetadataInfo_s::integrationTime[CAMDEV_EXPOSURE_FRAME_MAX]</definition>
+        <argsstring>[CAMDEV_EXPOSURE_FRAME_MAX]</argsstring>
+        <name>integrationTime</name>
+        <briefdescription>
+<para>Exposure time(unit: us) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="312" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_info__s_1a73fbb6d59114be2a39bc7202eee0d200" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gaea09b4e659fd05f8077d66de406243a2" kindref="member">CamDeviceIntegerRange_t</ref></type>
+        <definition>CamDeviceIntegerRange_t CamDeviceMetadataInfo_s::integrationTimeRange[CAMDEV_EXPOSURE_FRAME_MAX]</definition>
+        <argsstring>[CAMDEV_EXPOSURE_FRAME_MAX]</argsstring>
+        <name>integrationTimeRange</name>
+        <briefdescription>
+<para>Exposure time(unit: us) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="313" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="313" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_info__s_1aa4f8911bb80fd5b3b1e04e0ba74cb482" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceMetadataInfo_s::analogGain[CAMDEV_EXPOSURE_FRAME_MAX]</definition>
+        <argsstring>[CAMDEV_EXPOSURE_FRAME_MAX]</argsstring>
+        <name>analogGain</name>
+        <briefdescription>
+<para>Analog gain. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="315" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_info__s_1a91ef9b60b4843cecfcf7773bded92016" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga871ddbb27b4dd8683f8492d3cfecbb31" kindref="member">CamDeviceFloatRange_t</ref></type>
+        <definition>CamDeviceFloatRange_t CamDeviceMetadataInfo_s::analogGainRange[CAMDEV_EXPOSURE_FRAME_MAX]</definition>
+        <argsstring>[CAMDEV_EXPOSURE_FRAME_MAX]</argsstring>
+        <name>analogGainRange</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="316" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_info__s_1a575df3251d90aceb880a8fed1d4731bb" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceMetadataInfo_s::digitalGain[CAMDEV_EXPOSURE_FRAME_MAX]</definition>
+        <argsstring>[CAMDEV_EXPOSURE_FRAME_MAX]</argsstring>
+        <name>digitalGain</name>
+        <briefdescription>
+<para>Digital gain. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="317" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_info__s_1a74233ad17eb1585327e211084cd4ebda" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga871ddbb27b4dd8683f8492d3cfecbb31" kindref="member">CamDeviceFloatRange_t</ref></type>
+        <definition>CamDeviceFloatRange_t CamDeviceMetadataInfo_s::digitalGainRange[CAMDEV_EXPOSURE_FRAME_MAX]</definition>
+        <argsstring>[CAMDEV_EXPOSURE_FRAME_MAX]</argsstring>
+        <name>digitalGainRange</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="318" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_info__s_1a3a5280eabc6cf733cf9c67f6ea6a24a1" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gac1dc479b349b409bd00205c175291e71" kindref="member">CamDeviceRawChannelFloat_t</ref></type>
+        <definition>CamDeviceRawChannelFloat_t CamDeviceMetadataInfo_s::wbGain[CAMDEV_EXPOSURE_FRAME_MAX]</definition>
+        <argsstring>[CAMDEV_EXPOSURE_FRAME_MAX]</argsstring>
+        <name>wbGain</name>
+        <briefdescription>
+<para>White balance gain. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="319" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_info__s_1ac9b931210371dc97300a15346a0db873" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceMetadataInfo_s::dualConvGain[CAMDEV_EXPOSURE_FRAME_MAX]</definition>
+        <argsstring>[CAMDEV_EXPOSURE_FRAME_MAX]</argsstring>
+        <name>dualConvGain</name>
+        <briefdescription>
+<para>Dual conversion gain. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="320" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_info__s_1a198513162cea81da6117e9781d0fb923" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gac1dc479b349b409bd00205c175291e71" kindref="member">CamDeviceRawChannelFloat_t</ref></type>
+        <definition>CamDeviceRawChannelFloat_t CamDeviceMetadataInfo_s::ispDgain</definition>
+        <argsstring></argsstring>
+        <name>ispDgain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="322" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_info__s_1acb273afb20bdfccb5ba20591e1bcfca2" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gac1dc479b349b409bd00205c175291e71" kindref="member">CamDeviceRawChannelFloat_t</ref></type>
+        <definition>CamDeviceRawChannelFloat_t CamDeviceMetadataInfo_s::ispWbGain</definition>
+        <argsstring></argsstring>
+        <name>ispWbGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="323" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_info__s_1ae2a2a67d33461b2a2593d20270c07903" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceMetadataInfo_s::luxIndex</definition>
+        <argsstring></argsstring>
+        <name>luxIndex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="325" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="325" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_info__s_1a55e6597081b7a36a0dd9a119720e8080" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceMetadataInfo_s::totalGain</definition>
+        <argsstring></argsstring>
+        <name>totalGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="326" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_info__s_1a864aaf7a714aa53d9a08c687ed0a7be8" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__ccm_1ga2fee4ff01088ce10c3da7ae6937ee2b9" kindref="member">CamDeviceCcmStatus_t</ref></type>
+        <definition>CamDeviceCcmStatus_t CamDeviceMetadataInfo_s::ccmConfig</definition>
+        <argsstring></argsstring>
+        <name>ccmConfig</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="327" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="327" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_info__s_1a8b5e4d196afb693204e5b4021abf58e3" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gac92e5207f3171145f5565244df4d0b91" kindref="member">CamDeviceMetadataHist_t</ref></type>
+        <definition>CamDeviceMetadataHist_t CamDeviceMetadataInfo_s::histBins[CAMDEV_EXPOSURE_FRAME_MAX]</definition>
+        <argsstring>[CAMDEV_EXPOSURE_FRAME_MAX]</argsstring>
+        <name>histBins</name>
+        <briefdescription>
+<para>(Reserved) Histogram statistics </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="329" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="329" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_info__s_1a7f05423924c3364fadb150e33a09a520" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gabeb9ab80f8371d52c19fab7eb858ff58" kindref="member">CamDeviceMetadataMeanLuma_t</ref></type>
+        <definition>CamDeviceMetadataMeanLuma_t CamDeviceMetadataInfo_s::meanLuma[CAMDEV_EXPOSURE_FRAME_MAX]</definition>
+        <argsstring>[CAMDEV_EXPOSURE_FRAME_MAX]</argsstring>
+        <name>meanLuma</name>
+        <briefdescription>
+<para>Reserved) Mean luminance array. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="330" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="330" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Metadata exposure information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="499">
+        <label>CamDeviceMetadataHist_s</label>
+        <link refid="struct_cam_device_metadata_hist__s"/>
+        <childnode refid="500" relation="usage">
+          <edgelabel>gbChannelBins</edgelabel>
+          <edgelabel>grChannelBins</edgelabel>
+          <edgelabel>redChannelBins</edgelabel>
+          <edgelabel>totalBins</edgelabel>
+          <edgelabel>blueChannelBins</edgelabel>
+        </childnode>
+        <childnode refid="493" relation="usage">
+          <edgelabel>histRoiWin</edgelabel>
+        </childnode>
+      </node>
+      <node id="494">
+        <label>CamDeviceFloatRange_s</label>
+        <link refid="struct_cam_device_float_range__s"/>
+      </node>
+      <node id="492">
+        <label>CamDeviceMetadataMeanLuma_s</label>
+        <link refid="struct_cam_device_metadata_mean_luma__s"/>
+        <childnode refid="493" relation="usage">
+          <edgelabel>meanRoiWin</edgelabel>
+        </childnode>
+      </node>
+      <node id="496">
+        <label>CamDeviceCcmManualConfig_s</label>
+        <link refid="struct_cam_device_ccm_manual_config__s"/>
+      </node>
+      <node id="495">
+        <label>CamDeviceCcmStatus_s</label>
+        <link refid="struct_cam_device_ccm_status__s"/>
+        <childnode refid="496" relation="usage">
+          <edgelabel>currentCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="498">
+        <label>CamDeviceIntegerRange_s</label>
+        <link refid="struct_cam_device_integer_range__s"/>
+      </node>
+      <node id="497">
+        <label>CamDeviceRawChannelFloat_s</label>
+        <link refid="struct_cam_device_raw_channel_float__s"/>
+      </node>
+      <node id="493">
+        <label>CamDeviceWindow_s</label>
+        <link refid="struct_cam_device_window__s"/>
+      </node>
+      <node id="491">
+        <label>CamDeviceMetadataInfo_s</label>
+        <link refid="struct_cam_device_metadata_info__s"/>
+        <childnode refid="492" relation="usage">
+          <edgelabel>meanLuma</edgelabel>
+        </childnode>
+        <childnode refid="494" relation="usage">
+          <edgelabel>analogGainRange</edgelabel>
+          <edgelabel>digitalGainRange</edgelabel>
+        </childnode>
+        <childnode refid="495" relation="usage">
+          <edgelabel>ccmConfig</edgelabel>
+        </childnode>
+        <childnode refid="497" relation="usage">
+          <edgelabel>ispDgain</edgelabel>
+          <edgelabel>ispWbGain</edgelabel>
+          <edgelabel>wbGain</edgelabel>
+        </childnode>
+        <childnode refid="498" relation="usage">
+          <edgelabel>integrationTimeRange</edgelabel>
+        </childnode>
+        <childnode refid="499" relation="usage">
+          <edgelabel>histBins</edgelabel>
+        </childnode>
+      </node>
+      <node id="500">
+        <label>CamDeviceHistBins_s</label>
+        <link refid="struct_cam_device_hist_bins__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="302" bodyend="332"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_metadata_info__s_1aa4f8911bb80fd5b3b1e04e0ba74cb482" prot="public" virt="non-virtual"><scope>CamDeviceMetadataInfo_s</scope><name>analogGain</name></member>
+      <member refid="struct_cam_device_metadata_info__s_1a91ef9b60b4843cecfcf7773bded92016" prot="public" virt="non-virtual"><scope>CamDeviceMetadataInfo_s</scope><name>analogGainRange</name></member>
+      <member refid="struct_cam_device_metadata_info__s_1ad125e6e3de962d79df9b1a0ead1f77c5" prot="public" virt="non-virtual"><scope>CamDeviceMetadataInfo_s</scope><name>apertureSize</name></member>
+      <member refid="struct_cam_device_metadata_info__s_1a943f5125974cfe2da11d5bd06b84fe77" prot="public" virt="non-virtual"><scope>CamDeviceMetadataInfo_s</scope><name>blackLevelPedestal</name></member>
+      <member refid="struct_cam_device_metadata_info__s_1a864aaf7a714aa53d9a08c687ed0a7be8" prot="public" virt="non-virtual"><scope>CamDeviceMetadataInfo_s</scope><name>ccmConfig</name></member>
+      <member refid="struct_cam_device_metadata_info__s_1af04cecbb39e5b4f5b8225c41ab19f166" prot="public" virt="non-virtual"><scope>CamDeviceMetadataInfo_s</scope><name>chipId</name></member>
+      <member refid="struct_cam_device_metadata_info__s_1a575df3251d90aceb880a8fed1d4731bb" prot="public" virt="non-virtual"><scope>CamDeviceMetadataInfo_s</scope><name>digitalGain</name></member>
+      <member refid="struct_cam_device_metadata_info__s_1a74233ad17eb1585327e211084cd4ebda" prot="public" virt="non-virtual"><scope>CamDeviceMetadataInfo_s</scope><name>digitalGainRange</name></member>
+      <member refid="struct_cam_device_metadata_info__s_1ac9b931210371dc97300a15346a0db873" prot="public" virt="non-virtual"><scope>CamDeviceMetadataInfo_s</scope><name>dualConvGain</name></member>
+      <member refid="struct_cam_device_metadata_info__s_1acc80ca4afe88cea3d398512900579e5d" prot="public" virt="non-virtual"><scope>CamDeviceMetadataInfo_s</scope><name>exposureNum</name></member>
+      <member refid="struct_cam_device_metadata_info__s_1a8a1b5ecdb27106d98f65b5c4546dfd67" prot="public" virt="non-virtual"><scope>CamDeviceMetadataInfo_s</scope><name>frameCount</name></member>
+      <member refid="struct_cam_device_metadata_info__s_1a8b5e4d196afb693204e5b4021abf58e3" prot="public" virt="non-virtual"><scope>CamDeviceMetadataInfo_s</scope><name>histBins</name></member>
+      <member refid="struct_cam_device_metadata_info__s_1a01ea18e91f39deae285d771e27b23a6d" prot="public" virt="non-virtual"><scope>CamDeviceMetadataInfo_s</scope><name>integrationTime</name></member>
+      <member refid="struct_cam_device_metadata_info__s_1a73fbb6d59114be2a39bc7202eee0d200" prot="public" virt="non-virtual"><scope>CamDeviceMetadataInfo_s</scope><name>integrationTimeRange</name></member>
+      <member refid="struct_cam_device_metadata_info__s_1ad157b06b6c7ac00a6efc07c9c04b86b0" prot="public" virt="non-virtual"><scope>CamDeviceMetadataInfo_s</scope><name>isoStrength</name></member>
+      <member refid="struct_cam_device_metadata_info__s_1a198513162cea81da6117e9781d0fb923" prot="public" virt="non-virtual"><scope>CamDeviceMetadataInfo_s</scope><name>ispDgain</name></member>
+      <member refid="struct_cam_device_metadata_info__s_1acb273afb20bdfccb5ba20591e1bcfca2" prot="public" virt="non-virtual"><scope>CamDeviceMetadataInfo_s</scope><name>ispWbGain</name></member>
+      <member refid="struct_cam_device_metadata_info__s_1aa95c1c24c1427c7a1bc1090c4117d706" prot="public" virt="non-virtual"><scope>CamDeviceMetadataInfo_s</scope><name>junctionTemperature</name></member>
+      <member refid="struct_cam_device_metadata_info__s_1ae2a2a67d33461b2a2593d20270c07903" prot="public" virt="non-virtual"><scope>CamDeviceMetadataInfo_s</scope><name>luxIndex</name></member>
+      <member refid="struct_cam_device_metadata_info__s_1a7f05423924c3364fadb150e33a09a520" prot="public" virt="non-virtual"><scope>CamDeviceMetadataInfo_s</scope><name>meanLuma</name></member>
+      <member refid="struct_cam_device_metadata_info__s_1a55e6597081b7a36a0dd9a119720e8080" prot="public" virt="non-virtual"><scope>CamDeviceMetadataInfo_s</scope><name>totalGain</name></member>
+      <member refid="struct_cam_device_metadata_info__s_1a3a5280eabc6cf733cf9c67f6ea6a24a1" prot="public" virt="non-virtual"><scope>CamDeviceMetadataInfo_s</scope><name>wbGain</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

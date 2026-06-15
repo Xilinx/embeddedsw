@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdmi_c___aux" kind="struct" prot="public">
+    <compoundname>XHdmiC_Aux</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdmi_c___aux_1aac4210a21fd62e2148570d954d935701" prot="public" static="no" mutable="no">
+        <type>XHdmiC_AuxHeader</type>
+        <definition>XHdmiC_AuxHeader XHdmiC_Aux::Header</definition>
+        <argsstring></argsstring>
+        <name>Header</name>
+        <briefdescription>
+<para>AUX header field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c___aux_1a0059b142aa39e4adc43fc6c260bed059" prot="public" static="no" mutable="no">
+        <type>XHdmiC_AuxData</type>
+        <definition>XHdmiC_AuxData XHdmiC_Aux::Data</definition>
+        <argsstring></argsstring>
+        <name>Data</name>
+        <briefdescription>
+<para>AUX data field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="164" bodyend="167"/>
+    <listofallmembers>
+      <member refid="struct_x_hdmi_c___aux_1a0059b142aa39e4adc43fc6c260bed059" prot="public" virt="non-virtual"><scope>XHdmiC_Aux</scope><name>Data</name></member>
+      <member refid="struct_x_hdmi_c___aux_1aac4210a21fd62e2148570d954d935701" prot="public" virt="non-virtual"><scope>XHdmiC_Aux</scope><name>Header</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

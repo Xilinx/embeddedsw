@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_stream_mode_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceStreamModeConfig_s</compoundname>
+    <includes local="no">cam_device_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_stream_mode_config__s_1a7e3266ae1641e626e4343e4f0140776c" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga6fc575a3e3510f772912fe0c28b6e77a" kindref="member">CamDeviceStreamPortId_t</ref></type>
+        <definition>CamDeviceStreamPortId_t CamDeviceStreamModeConfig_s::portId</definition>
+        <argsstring></argsstring>
+        <name>portId</name>
+        <briefdescription>
+<para>Port index of MCM which indicates the sensor hardware connect position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to configure stream mode parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="66" bodyend="68"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_stream_mode_config__s_1a7e3266ae1641e626e4343e4f0140776c" prot="public" virt="non-virtual"><scope>CamDeviceStreamModeConfig_s</scope><name>portId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

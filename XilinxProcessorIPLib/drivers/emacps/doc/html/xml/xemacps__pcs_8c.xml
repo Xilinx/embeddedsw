@@ -1,0 +1,274 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xemacps__pcs_8c" kind="file">
+    <compoundname>xemacps_pcs.c</compoundname>
+    <includes local="no">stdlib.h</includes>
+    <includes refid="xemacps__pcs_8h" local="yes">xemacps_pcs.h</includes>
+    <includes local="yes">xil_sutil.h</includes>
+    <incdepgraph>
+      <node id="216">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="213">
+        <label>stdbool.h</label>
+      </node>
+      <node id="219">
+        <label>xil_io.h</label>
+      </node>
+      <node id="223">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="220">
+        <label>xemacps_bd.h</label>
+        <link refid="xemacps__bd_8h"/>
+        <childnode refid="221" relation="include">
+        </childnode>
+        <childnode refid="215" relation="include">
+        </childnode>
+        <childnode refid="216" relation="include">
+        </childnode>
+      </node>
+      <node id="211">
+        <label>stdlib.h</label>
+      </node>
+      <node id="222">
+        <label>xemacps_bdring.h</label>
+        <link refid="xemacps__bdring_8h"/>
+      </node>
+      <node id="210">
+        <label>xemacps_pcs.c</label>
+        <link refid="xemacps_pcs.c"/>
+        <childnode refid="211" relation="include">
+        </childnode>
+        <childnode refid="212" relation="include">
+        </childnode>
+        <childnode refid="223" relation="include">
+        </childnode>
+      </node>
+      <node id="212">
+        <label>xemacps_pcs.h</label>
+        <link refid="xemacps__pcs_8h"/>
+        <childnode refid="213" relation="include">
+        </childnode>
+        <childnode refid="214" relation="include">
+        </childnode>
+        <childnode refid="218" relation="include">
+        </childnode>
+      </node>
+      <node id="218">
+        <label>xemacps_hw.h</label>
+        <link refid="xemacps__hw_8h"/>
+        <childnode refid="215" relation="include">
+        </childnode>
+        <childnode refid="216" relation="include">
+        </childnode>
+        <childnode refid="219" relation="include">
+        </childnode>
+      </node>
+      <node id="221">
+        <label>string.h</label>
+      </node>
+      <node id="217">
+        <label>xstatus.h</label>
+      </node>
+      <node id="214">
+        <label>xemacps.h</label>
+        <link refid="xemacps_8h"/>
+        <childnode refid="215" relation="include">
+        </childnode>
+        <childnode refid="216" relation="include">
+        </childnode>
+        <childnode refid="217" relation="include">
+        </childnode>
+        <childnode refid="218" relation="include">
+        </childnode>
+        <childnode refid="220" relation="include">
+        </childnode>
+        <childnode refid="222" relation="include">
+        </childnode>
+      </node>
+      <node id="215">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__emacps_1ga9301f41bfe2a17a4add6f0dc7f239487" prot="public" static="no">
+        <name>POLL_TIMEOUT</name>
+        <initializer>2000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_pcs.c" line="29" column="12" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_pcs.c" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__emacps_1ga59068c475e39ab63193369fdf252a999" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XEmacPs_SetupPCS</definition>
+        <argsstring>(XEmacPs *EmacPsInstancePtr)</argsstring>
+        <name>XEmacPs_SetupPCS</name>
+        <param>
+          <type><ref refid="group__emacps_1ga7510da8ed2cb292c5abdbcc18cc26c67" kindref="member">XEmacPs</ref> *</type>
+          <declname>EmacPsInstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Set up PCS as follows for every given speed: </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>Configure HS_MAC register for given speed</para></listitem><listitem><para>Configure serdes rate and speed in USX_CONTROL register</para></listitem><listitem><para>Assert Rx reset signal for GT reset</para></listitem><listitem><para>Wait for PCS_BLOCK_LOCK</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_pcs.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_pcs.c" bodystart="44" bodyend="72"/>
+        <references refid="struct_x_emac_ps___config_1a96d8fef7452fcad2bb1831e39751bb96" compoundref="xemacps_8h" startline="522">XEmacPs_Config::BaseAddress</references>
+        <references refid="group__emacps_1gaa73686ecb4c8560dd37d813fe4e51b1f" compoundref="xemacps__hw_8h" startline="521">XEMACPS_NWSR_MDIOIDLE_MASK</references>
+        <references refid="group__emacps_1ga372948c9677f6859b62e87504fb2460e" compoundref="xemacps__hw_8h" startline="902">XEmacPs_WriteReg</references>
+        <referencedby refid="group__emacps_1gadd5f487c873ef70ab8fda69b4ec3938e" compoundref="xemacps_8c" startline="324" endline="491">XEmacPs_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__emacps_1gaa1f18f2a92625e6defa38cf285408231" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool XEmacPs_USXPCSGetState</definition>
+        <argsstring>(UINTPTR BaseAddr)</argsstring>
+        <name>XEmacPs_USXPCSGetState</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddr</declname>
+        </param>
+        <briefdescription>
+<para>Get USX synchronisation status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>true if block synchronization achieved</para></listitem><listitem><para>false if block is out of sync </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_pcs.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_pcs.c" bodystart="85" bodyend="92"/>
+        <references refid="group__emacps_1ga81a4d6db864dea35b8ddd690f7615539" compoundref="xemacps__hw_8h" startline="881">XEmacPs_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__emacps_1ga93fbf442aff0cbef6046bdf24906391b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool XEmacPs_IsHighSpeedPCS</definition>
+        <argsstring>(UINTPTR BaseAddr)</argsstring>
+        <name>XEmacPs_IsHighSpeedPCS</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddr</declname>
+        </param>
+        <briefdescription>
+<para>Detect if the device supports High Speeds ( 5G, 10G ) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>true if the device support High Speed</para></listitem><listitem><para>false if the device doesn&apos;t support High Speed </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_pcs.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_pcs.c" bodystart="105" bodyend="116"/>
+        <references refid="group__emacps_1ga81a4d6db864dea35b8ddd690f7615539" compoundref="xemacps__hw_8h" startline="881">XEmacPs_ReadReg</references>
+        <referencedby refid="group__emacps_1gadd5f487c873ef70ab8fda69b4ec3938e" compoundref="xemacps_8c" startline="324" endline="491">XEmacPs_Reset</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xemacps__pcs_8h" kindref="compound">xemacps_pcs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_sutil.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>POLL_TIMEOUT<sp/><sp/><sp/><sp/>2000000</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="44" refid="group__emacps_1ga59068c475e39ab63193369fdf252a999" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__emacps_1ga59068c475e39ab63193369fdf252a999" kindref="member">XEmacPs_SetupPCS</ref>(<ref refid="struct_x_emac_ps___instance" kindref="compound">XEmacPs</ref><sp/>*EmacPsInstancePtr)</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BaseAddr<sp/>=<sp/>EmacPsInstancePtr-&gt;Config.<ref refid="struct_x_emac_ps___config_1a96d8fef7452fcad2bb1831e39751bb96" kindref="member">BaseAddress</ref>;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>UsxCntrl,<sp/>Status;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(EmacPsInstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(EmacPsInstancePtr-&gt;Config.<ref refid="struct_x_emac_ps___config_1a96d8fef7452fcad2bb1831e39751bb96" kindref="member">BaseAddress</ref><sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1ga372948c9677f6859b62e87504fb2460e" kindref="member">XEmacPs_WriteReg</ref>(BaseAddr,<sp/>XEMACPS_REG(HS_MAC_CONFIG),<sp/>SPEED_10G);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>USX<sp/>Control<sp/>Register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsxCntrl<sp/>=<sp/>XEMACPS_BFINS(SERDES_RATE,<sp/>SERDES_RATE_10G,<sp/>0);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsxCntrl<sp/>=<sp/>XEMACPS_BFINS(USX_SPEED,<sp/>SPEED_10G,<sp/>UsxCntrl);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsxCntrl<sp/>|=<sp/>XEMACPS_BIT(RX_SYNC_RESET);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsxCntrl<sp/>&amp;=<sp/>~(XEMACPS_BIT(TX_SCR_BYPASS)<sp/>|<sp/>XEMACPS_BIT(RX_SCR_BYPASS));</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1ga372948c9677f6859b62e87504fb2460e" kindref="member">XEmacPs_WriteReg</ref>(BaseAddr,<sp/>XEMACPS_REG(USX_CONTROL),<sp/>UsxCntrl);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsxCntrl<sp/>|=<sp/>(XEMACPS_BIT(SIGNAL_OK)<sp/>|<sp/>XEMACPS_BIT(TX_EN));</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsxCntrl<sp/>&amp;=<sp/>~XEMACPS_BIT(RX_SYNC_RESET);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1ga372948c9677f6859b62e87504fb2460e" kindref="member">XEmacPs_WriteReg</ref>(BaseAddr,<sp/>XEMACPS_REG(USX_CONTROL),<sp/>UsxCntrl);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Xil_WaitForEvent(BaseAddr<sp/>+<sp/>XEMACPS_REG(NWSR),<sp/>~0,<sp/><ref refid="group__emacps_1gaa73686ecb4c8560dd37d813fe4e51b1f" kindref="member">XEMACPS_NWSR_MDIOIDLE_MASK</ref>,</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>POLL_TIMEOUT)<sp/>!=<sp/>(u32)XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;ERROR:<sp/>TIMEOUT:<sp/>PCS<sp/>Link<sp/>not<sp/>Up..\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>exit(Status);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>return<sp/>;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="85" refid="group__emacps_1gaa1f18f2a92625e6defa38cf285408231" refkind="member"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="group__emacps_1gaa1f18f2a92625e6defa38cf285408231" kindref="member">XEmacPs_USXPCSGetState</ref>(UINTPTR<sp/>BaseAddr)</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reg;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(BaseAddr<sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/><ref refid="group__emacps_1ga81a4d6db864dea35b8ddd690f7615539" kindref="member">XEmacPs_ReadReg</ref>(BaseAddr,<sp/>XEMACPS_REG(USX_STATUS));</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>!!(Reg<sp/>&amp;<sp/>XEMACPS_BIT(USX_BLOCK_LOCK));</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="105" refid="group__emacps_1ga93fbf442aff0cbef6046bdf24906391b" refkind="member"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="group__emacps_1ga93fbf442aff0cbef6046bdf24906391b" kindref="member">XEmacPs_IsHighSpeedPCS</ref>(UINTPTR<sp/>BaseAddr)</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reg_cfg1;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reg_cfg12;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(BaseAddr<sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg_cfg1<sp/>=<sp/><ref refid="group__emacps_1ga81a4d6db864dea35b8ddd690f7615539" kindref="member">XEmacPs_ReadReg</ref>(BaseAddr,<sp/>XEMACPS_REG(DCFG1));</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg_cfg12<sp/>=<sp/><ref refid="group__emacps_1ga81a4d6db864dea35b8ddd690f7615539" kindref="member">XEmacPs_ReadReg</ref>(BaseAddr,<sp/>XEMACPS_REG(DCFG12));</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>!!(!XEMACPS_BFEXT(NO_PCS,<sp/>Reg_cfg1)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XEMACPS_BFEXT(HIGH_SPEED,<sp/>Reg_cfg12));</highlight></codeline>
+<codeline lineno="116"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_pcs.c"/>
+  </compounddef>
+</doxygen>

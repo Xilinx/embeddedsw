@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__hdmirxss1__frl_8c" kind="file">
+    <compoundname>xv_hdmirxss1_frl.c</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xv__hdmirxss1__frl_8h" local="yes">xv_hdmirxss1_frl.h</includes>
+    <includes refid="xv__hdmirxss1_8h" local="yes">xv_hdmirxss1.h</includes>
+    <incdepgraph>
+      <node id="645">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="651">
+        <label>xv_hdmic_vsif.h</label>
+      </node>
+      <node id="643">
+        <label>xv_hdmirxss1_frl.c</label>
+        <link refid="xv_hdmirxss1_frl.c"/>
+        <childnode refid="644" relation="include">
+        </childnode>
+        <childnode refid="645" relation="include">
+        </childnode>
+        <childnode refid="646" relation="include">
+        </childnode>
+        <childnode refid="647" relation="include">
+        </childnode>
+        <childnode refid="648" relation="include">
+        </childnode>
+      </node>
+      <node id="647">
+        <label>xv_hdmirxss1_frl.h</label>
+        <link refid="xv__hdmirxss1__frl_8h"/>
+        <childnode refid="644" relation="include">
+        </childnode>
+        <childnode refid="645" relation="include">
+        </childnode>
+        <childnode refid="646" relation="include">
+        </childnode>
+      </node>
+      <node id="648">
+        <label>xv_hdmirxss1.h</label>
+        <link refid="xv__hdmirxss1_8h"/>
+        <childnode refid="649" relation="include">
+        </childnode>
+        <childnode refid="646" relation="include">
+        </childnode>
+        <childnode refid="650" relation="include">
+        </childnode>
+        <childnode refid="651" relation="include">
+        </childnode>
+        <childnode refid="647" relation="include">
+        </childnode>
+      </node>
+      <node id="650">
+        <label>xv_hdmirx1.h</label>
+      </node>
+      <node id="646">
+        <label>xstatus.h</label>
+      </node>
+      <node id="644">
+        <label>xil_types.h</label>
+      </node>
+      <node id="649">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xv__hdmirxss1__frl_8c_1add011f95edda7fe781095a43d89484c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HdmiRxSs1_TmdsConfigCallback</definition>
+        <argsstring>(void *CallbackRef)</argsstring>
+        <name>XV_HdmiRxSs1_TmdsConfigCallback</name>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function is called when during FRL link training, it is decided to fallback to the legacy HDMI TMDS mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the callback reference.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_frl.c" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_frl.c" bodystart="206" bodyend="214"/>
+        <references refid="struct_x_v___hdmi_rx_ss1_1acf69d50ff508fc32360005a369f4b691" compoundref="xv__hdmirxss1_8h" startline="473">XV_HdmiRxSs1::TmdsConfigCallback</references>
+        <references refid="struct_x_v___hdmi_rx_ss1_1acd7b5a4741af92eee50cafa7e55f86d3" compoundref="xv__hdmirxss1_8h" startline="474">XV_HdmiRxSs1::TmdsConfigRef</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is main code of Xilinx HDMI Transmitter Subsystem device driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>Please see <ref refid="xv__hdmirxss1_8h" kindref="compound">xv_hdmirxss1.h</ref> for more details of the driver.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00  EB   22/05/18 Initial release.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>–<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2024-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__hdmirxss1__frl_8h" kindref="compound">xv_hdmirxss1_frl.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__hdmirxss1_8h" kindref="compound">xv_hdmirxss1.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HDMI_RX_FRL_ENABLE</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definition<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="53"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_HdmiRxSs1_FrlConfigCallback(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v___hdmi_rx_ss1" kindref="compound">XV_HdmiRxSs1</ref><sp/>*HdmiRxSs1Ptr<sp/>=<sp/>(<ref refid="struct_x_v___hdmi_rx_ss1" kindref="compound">XV_HdmiRxSs1</ref><sp/>*)CallbackRef;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>user<sp/>callback<sp/>has<sp/>been<sp/>registered<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(HdmiRxSs1Ptr-&gt;<ref refid="struct_x_v___hdmi_rx_ss1_1adde74c1981e154069d71b4fd1f36484c" kindref="member">FrlConfigCallback</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HdmiRxSs1Ptr-&gt;<ref refid="struct_x_v___hdmi_rx_ss1_1adde74c1981e154069d71b4fd1f36484c" kindref="member">FrlConfigCallback</ref>(HdmiRxSs1Ptr-&gt;<ref refid="struct_x_v___hdmi_rx_ss1_1a42eb4deed48ed2ba81855d3f5ffd2e5c" kindref="member">FrlConfigRef</ref>);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="78"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_HdmiRxSs1_FrlStartCallback(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v___hdmi_rx_ss1" kindref="compound">XV_HdmiRxSs1</ref><sp/>*HdmiRxSs1Ptr<sp/>=<sp/>(<ref refid="struct_x_v___hdmi_rx_ss1" kindref="compound">XV_HdmiRxSs1</ref><sp/>*)CallbackRef;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XV_HDMIRXSS1_LOG_ENABLE</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmirxss1_8h_1a7d0b053f82c85248f45171523ef784e5" kindref="member">XV_HdmiRxSs1_LogWrite</ref>(HdmiRxSs1Ptr,<sp/>XV_HDMIRXSS1_LOG_EVT_FRL_START,<sp/>0);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>user<sp/>callback<sp/>has<sp/>been<sp/>registered<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(HdmiRxSs1Ptr-&gt;<ref refid="struct_x_v___hdmi_rx_ss1_1a5ea46631510f443365665426e2b2bf70" kindref="member">FrlStartCallback</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HdmiRxSs1Ptr-&gt;<ref refid="struct_x_v___hdmi_rx_ss1_1a5ea46631510f443365665426e2b2bf70" kindref="member">FrlStartCallback</ref>(HdmiRxSs1Ptr-&gt;<ref refid="struct_x_v___hdmi_rx_ss1_1ad0c54d632c1b244ddedfa1ea263d2a24" kindref="member">FrlStartRef</ref>);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="108"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_HdmiRxSs1_FrlLinkRetrain(<ref refid="struct_x_v___hdmi_rx_ss1" kindref="compound">XV_HdmiRxSs1</ref><sp/>*InstancePtr,<sp/>u8<sp/>LtpThreshold,</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_HdmiRx1_FrlLtp<sp/>DefaultLtp)</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_HdmiRx1_FrlLinkRetrain(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_rx_ss1_1a51fe864b06a7b80a949a9c65d0f8ec54" kindref="member">HdmiRx1Ptr</ref>,<sp/>LtpThreshold,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DefaultLtp);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="136"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_HdmiRxSs1_FrlModeEnable(<ref refid="struct_x_v___hdmi_rx_ss1" kindref="compound">XV_HdmiRxSs1</ref><sp/>*InstancePtr,<sp/>u8<sp/>LtpThreshold,</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_HdmiRx1_FrlLtp<sp/>DefaultLtp,<sp/>u8<sp/>FfeSuppFlag)</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_HdmiRx1_FrlModeEnable(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_rx_ss1_1a51fe864b06a7b80a949a9c65d0f8ec54" kindref="member">HdmiRx1Ptr</ref>,<sp/>LtpThreshold,</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DefaultLtp,<sp/>FfeSuppFlag);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="155"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XV_HdmiRxSs1_ExecFrlState(<ref refid="struct_x_v___hdmi_rx_ss1" kindref="compound">XV_HdmiRxSs1</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="156"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XV_HdmiRx1_ExecFrlState(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_rx_ss1_1a51fe864b06a7b80a949a9c65d0f8ec54" kindref="member">HdmiRx1Ptr</ref>);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="172"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__hdmirxss1_8h_1acb13d437c0a987faed6f8265bf2b6dbc" kindref="member">XV_HdmiRxSs1_SetFrlFltNoTimeout</ref>(<ref refid="struct_x_v___hdmi_rx_ss1" kindref="compound">XV_HdmiRxSs1</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="173"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_HdmiRx1_SetFrlFltNoTimeout(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_rx_ss1_1a51fe864b06a7b80a949a9c65d0f8ec54" kindref="member">HdmiRx1Ptr</ref>);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="187"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__hdmirxss1_8h_1a86735a99598aee991732b8247300d5c9" kindref="member">XV_HdmiRxSs1_ClearFrlFltNoTimeout</ref>(<ref refid="struct_x_v___hdmi_rx_ss1" kindref="compound">XV_HdmiRxSs1</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="188"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_HdmiRx1_ClearFrlFltNoTimeout(InstancePtr-&gt;<ref refid="struct_x_v___hdmi_rx_ss1_1a51fe864b06a7b80a949a9c65d0f8ec54" kindref="member">HdmiRx1Ptr</ref>);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPAR_XV_HDMI_RX_FRL_ENABLE<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="206" refid="xv__hdmirxss1__frl_8h_1add011f95edda7fe781095a43d89484c4" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__hdmirxss1__frl_8c_1add011f95edda7fe781095a43d89484c4" kindref="member">XV_HdmiRxSs1_TmdsConfigCallback</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="207"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v___hdmi_rx_ss1" kindref="compound">XV_HdmiRxSs1</ref><sp/>*HdmiRxSs1Ptr<sp/>=<sp/>(<ref refid="struct_x_v___hdmi_rx_ss1" kindref="compound">XV_HdmiRxSs1</ref><sp/>*)CallbackRef;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>user<sp/>callback<sp/>has<sp/>been<sp/>registered<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(HdmiRxSs1Ptr-&gt;<ref refid="struct_x_v___hdmi_rx_ss1_1acf69d50ff508fc32360005a369f4b691" kindref="member">TmdsConfigCallback</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HdmiRxSs1Ptr-&gt;<ref refid="struct_x_v___hdmi_rx_ss1_1acf69d50ff508fc32360005a369f4b691" kindref="member">TmdsConfigCallback</ref>(HdmiRxSs1Ptr-&gt;<ref refid="struct_x_v___hdmi_rx_ss1_1acd7b5a4741af92eee50cafa7e55f86d3" kindref="member">TmdsConfigRef</ref>);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="214"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/src/xv_hdmirxss1_frl.c"/>
+  </compounddef>
+</doxygen>

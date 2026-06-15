@@ -1,0 +1,315 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mmi__dp__intr_8h" kind="file">
+    <compoundname>mmi_dp_intr.h</compoundname>
+    <includes refid="mmi__dc__nonlive__test_8h" local="yes">mmi_dc_nonlive_test.h</includes>
+    <includedby refid="mmi__dp__init_8c" local="yes">mmi_dp_init.c</includedby>
+    <includedby refid="mmi__dp__intr_8c" local="yes">mmi_dp_intr.c</includedby>
+    <includedby refid="mmi__dpdc__platform_8c" local="yes">mmi_dpdc_platform.c</includedby>
+    <incdepgraph>
+      <node id="344">
+        <label>xclk_wiz.h</label>
+      </node>
+      <node id="352">
+        <label>mmi_dpdc_example.h</label>
+        <link refid="mmi__dpdc__example_8h"/>
+        <childnode refid="346" relation="include">
+        </childnode>
+        <childnode refid="349" relation="include">
+        </childnode>
+        <childnode refid="345" relation="include">
+        </childnode>
+        <childnode refid="351" relation="include">
+        </childnode>
+        <childnode refid="353" relation="include">
+        </childnode>
+      </node>
+      <node id="348">
+        <label>xil_io.h</label>
+      </node>
+      <node id="342">
+        <label>mmi_dc_nonlive_test.h</label>
+        <link refid="mmi__dc__nonlive__test_8h"/>
+        <childnode refid="343" relation="include">
+        </childnode>
+        <childnode refid="344" relation="include">
+        </childnode>
+        <childnode refid="345" relation="include">
+        </childnode>
+        <childnode refid="351" relation="include">
+        </childnode>
+        <childnode refid="352" relation="include">
+        </childnode>
+      </node>
+      <node id="345">
+        <label>xdcsub.h</label>
+        <link refid="xdcsub_8h"/>
+        <childnode refid="346" relation="include">
+        </childnode>
+        <childnode refid="349" relation="include">
+        </childnode>
+      </node>
+      <node id="346">
+        <label>xdc.h</label>
+        <link refid="xdc_8h"/>
+        <childnode refid="347" relation="include">
+        </childnode>
+      </node>
+      <node id="343">
+        <label>xinterrupt_wrap.h</label>
+      </node>
+      <node id="351">
+        <label>xmmidp.h</label>
+      </node>
+      <node id="347">
+        <label>xdc_hw.h</label>
+        <link refid="xdc__hw_8h"/>
+        <childnode refid="348" relation="include">
+        </childnode>
+      </node>
+      <node id="341">
+        <label>mmi_dp_intr.h</label>
+        <link refid="mmi_dp_intr.h"/>
+        <childnode refid="342" relation="include">
+        </childnode>
+      </node>
+      <node id="353">
+        <label>xparameters.h</label>
+      </node>
+      <node id="350">
+        <label>xdcdma_hw.h</label>
+        <link refid="xdcdma__hw_8h"/>
+        <childnode refid="348" relation="include">
+        </childnode>
+      </node>
+      <node id="349">
+        <label>xdcdma.h</label>
+        <link refid="xdcdma_8h"/>
+        <childnode refid="350" relation="include">
+        </childnode>
+        <childnode refid="346" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="356">
+        <label>mmi_dp_intr.c</label>
+        <link refid="mmi__dp__intr_8c"/>
+      </node>
+      <node id="354">
+        <label>mmi_dp_intr.h</label>
+        <link refid="mmi_dp_intr.h"/>
+        <childnode refid="355" relation="include">
+        </childnode>
+        <childnode refid="356" relation="include">
+        </childnode>
+        <childnode refid="357" relation="include">
+        </childnode>
+      </node>
+      <node id="357">
+        <label>mmi_dpdc_platform.c</label>
+        <link refid="mmi__dpdc__platform_8c"/>
+      </node>
+      <node id="355">
+        <label>mmi_dp_init.c</label>
+        <link refid="mmi__dp__init_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="mmi__dp__intr_8h_1a73abe61ea2c8dcfb0e0188cc2a072ca5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_HpdHotplugHandler</definition>
+        <argsstring>(void *CallbackRef)</argsstring>
+        <name>XDpDc_HpdHotplugHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function is the HPD hot plug (connect) callback. </para>        </briefdescription>
+        <detaileddescription>
+<para>It reads sink capabilities, runs link training, and sets up the video stream.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_run_config" kindref="compound">RunConfig</ref> structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.h" line="23" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.c" bodystart="59" bodyend="85"/>
+        <references refid="struct_run_config_1a0919eff7fd55f675afb7235c6c9936c0" compoundref="mmi__dpdc__example_8h" startline="117">RunConfig::AudioEnable</references>
+        <references refid="struct_run_config_1af9e1945098c92c6e03c086ac3d0c4a3c" compoundref="mmi__dpdc__example_8h" startline="85">RunConfig::DpPsuPtr</references>
+        <references refid="struct_run_config_1a6c31fb2de76478d7c5a9e545a297866d" compoundref="mmi__dpdc__example_8h" startline="147">RunConfig::MaxLaneCount</references>
+        <references refid="struct_run_config_1ad55f7cc55ffd5f98018cd819f5d09407" compoundref="mmi__dpdc__example_8h" startline="148">RunConfig::MaxLinkRate</references>
+        <references refid="struct_run_config_1a032bc36376350b1ba5419e18d1f357ec" compoundref="mmi__dpdc__example_8h" startline="119">RunConfig::SdpEnable</references>
+        <references refid="mmi__dp__intr_8c_1a7087d4d5edd912c0fdb6e28038643536" compoundref="mmi__dp__intr_8c" startline="38" endline="45">XDpDc_DisableDpAudioSdpStreams</references>
+        <references refid="mmi__dp__init_8c_1a04602a40acdc79b6203e0add5c7774d5" compoundref="mmi__dp__init_8c" startline="352" endline="388">XMmiDp_SetupAudioStream</references>
+        <references refid="mmi__dp__init_8c_1a71d704d64c98127c07711223063b8a1f" compoundref="mmi__dp__init_8c" startline="310" endline="337">XMmiDp_SetupVideoStream</references>
+        <references refid="mmi__dp__init_8c_1a80c2b0a6ccdf64ae0b6bc60b7297ee07" compoundref="mmi__dp__init_8c" startline="124" endline="132">XMmiDp_SinkPowerUp</references>
+        <references refid="mmi__dp__init_8c_1ad5774015fbf8628ffdbb3746da70b28b" compoundref="mmi__dp__init_8c" startline="515" endline="593">XMmiDp_StartFullLinkTrainingCapped</references>
+        <referencedby refid="mmi__dp__intr_8h_1ad5a8cd4236c7a991497612d68cbd6a95" compoundref="mmi__dp__intr_8c" startline="203" endline="223">XDpDc_SetupDpInterrupts</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dp__intr_8h_1ab9d0c9085b15a70c514ac40836fec9cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_HpdHotunplugHandler</definition>
+        <argsstring>(void *CallbackRef)</argsstring>
+        <name>XDpDc_HpdHotunplugHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function is the HPD hot unplug (disconnect) callback. </para>        </briefdescription>
+        <detaileddescription>
+<para>It disables the video stream and logs the disconnect event.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_run_config" kindref="compound">RunConfig</ref> structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.h" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.c" bodystart="99" bodyend="109"/>
+        <references refid="struct_run_config_1af9e1945098c92c6e03c086ac3d0c4a3c" compoundref="mmi__dpdc__example_8h" startline="85">RunConfig::DpPsuPtr</references>
+        <referencedby refid="mmi__dp__intr_8h_1ad5a8cd4236c7a991497612d68cbd6a95" compoundref="mmi__dp__intr_8c" startline="203" endline="223">XDpDc_SetupDpInterrupts</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dp__intr_8h_1a472e38536a80269b21c42c25c0a9f65a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_HpdIrqHandler</definition>
+        <argsstring>(void *CallbackRef)</argsstring>
+        <name>XDpDc_HpdIrqHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function is the HPD IRQ (short pulse / sink request) callback. </para>        </briefdescription>
+        <detaileddescription>
+<para>It reads the DPCD Device Service IRQ Vector and Link Service IRQ Vector to determine the cause of the interrupt and takes appropriate action.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_run_config" kindref="compound">RunConfig</ref> structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.c" bodystart="124" bodyend="190"/>
+        <references refid="struct_run_config_1a0919eff7fd55f675afb7235c6c9936c0" compoundref="mmi__dpdc__example_8h" startline="117">RunConfig::AudioEnable</references>
+        <references refid="struct_run_config_1af9e1945098c92c6e03c086ac3d0c4a3c" compoundref="mmi__dpdc__example_8h" startline="85">RunConfig::DpPsuPtr</references>
+        <references refid="struct_run_config_1a6c31fb2de76478d7c5a9e545a297866d" compoundref="mmi__dpdc__example_8h" startline="147">RunConfig::MaxLaneCount</references>
+        <references refid="struct_run_config_1ad55f7cc55ffd5f98018cd819f5d09407" compoundref="mmi__dpdc__example_8h" startline="148">RunConfig::MaxLinkRate</references>
+        <references refid="struct_run_config_1a032bc36376350b1ba5419e18d1f357ec" compoundref="mmi__dpdc__example_8h" startline="119">RunConfig::SdpEnable</references>
+        <references refid="mmi__dp__intr_8c_1a7087d4d5edd912c0fdb6e28038643536" compoundref="mmi__dp__intr_8c" startline="38" endline="45">XDpDc_DisableDpAudioSdpStreams</references>
+        <references refid="mmi__dp__init_8c_1a04602a40acdc79b6203e0add5c7774d5" compoundref="mmi__dp__init_8c" startline="352" endline="388">XMmiDp_SetupAudioStream</references>
+        <references refid="mmi__dp__init_8c_1a71d704d64c98127c07711223063b8a1f" compoundref="mmi__dp__init_8c" startline="310" endline="337">XMmiDp_SetupVideoStream</references>
+        <references refid="mmi__dp__init_8c_1ad5774015fbf8628ffdbb3746da70b28b" compoundref="mmi__dp__init_8c" startline="515" endline="593">XMmiDp_StartFullLinkTrainingCapped</references>
+        <referencedby refid="mmi__dp__intr_8h_1ad5a8cd4236c7a991497612d68cbd6a95" compoundref="mmi__dp__intr_8c" startline="203" endline="223">XDpDc_SetupDpInterrupts</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dp__intr_8h_1a7087d4d5edd912c0fdb6e28038643536" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_DisableDpAudioSdpStreams</definition>
+        <argsstring>(XMmiDp *DpPtr)</argsstring>
+        <name>XDpDc_DisableDpAudioSdpStreams</name>
+        <param>
+          <type>XMmiDp *</type>
+          <declname>DpPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function disables DP-side audio SDP/timestamp streams. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DpPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XMmiDp instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.c" bodystart="38" bodyend="45"/>
+        <referencedby refid="mmi__dp__intr_8h_1a73abe61ea2c8dcfb0e0188cc2a072ca5" compoundref="mmi__dp__intr_8c" startline="59" endline="85">XDpDc_HpdHotplugHandler</referencedby>
+        <referencedby refid="mmi__dp__intr_8h_1a472e38536a80269b21c42c25c0a9f65a" compoundref="mmi__dp__intr_8c" startline="124" endline="190">XDpDc_HpdIrqHandler</referencedby>
+        <referencedby refid="mmi__dp__init_8h_1ad006bfc4aa600e15be560f77afbe3870" compoundref="mmi__dp__init_8c" startline="646" endline="670">XDpDc_InitDpPsuSubsystem</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dp__intr_8h_1ad5a8cd4236c7a991497612d68cbd6a95" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_SetupDpInterrupts</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_SetupDpInterrupts</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function registers HPD callbacks and connects the DP interrupt to the GIC. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the application configuration structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.h" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.c" bodystart="203" bodyend="223"/>
+        <references refid="struct_run_config_1af9e1945098c92c6e03c086ac3d0c4a3c" compoundref="mmi__dpdc__example_8h" startline="85">RunConfig::DpPsuPtr</references>
+        <references refid="mmi__dp__intr_8c_1a73abe61ea2c8dcfb0e0188cc2a072ca5" compoundref="mmi__dp__intr_8c" startline="59" endline="85">XDpDc_HpdHotplugHandler</references>
+        <references refid="mmi__dp__intr_8c_1ab9d0c9085b15a70c514ac40836fec9cb" compoundref="mmi__dp__intr_8c" startline="99" endline="109">XDpDc_HpdHotunplugHandler</references>
+        <references refid="mmi__dp__intr_8c_1a472e38536a80269b21c42c25c0a9f65a" compoundref="mmi__dp__intr_8c" startline="124" endline="190">XDpDc_HpdIrqHandler</references>
+        <referencedby refid="mmi__dpdc__platform_8h_1a2efea0d32fd034fe7ec8bd0710d0d8c3" compoundref="mmi__dpdc__platform_8c" startline="312" endline="323">XDpDc_SetupInterrupts</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Declares DisplayPort HPD interrupt handler and setup interfaces. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor">#ifndef<sp/>__MMI_DP_INTR_H__</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__MMI_DP_INTR_H__</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mmi__dc__nonlive__test_8h" kindref="compound">mmi_dc_nonlive_test.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dp__intr_8c_1a73abe61ea2c8dcfb0e0188cc2a072ca5" kindref="member">XDpDc_HpdHotplugHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dp__intr_8c_1ab9d0c9085b15a70c514ac40836fec9cb" kindref="member">XDpDc_HpdHotunplugHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dp__intr_8c_1a472e38536a80269b21c42c25c0a9f65a" kindref="member">XDpDc_HpdIrqHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dp__intr_8c_1a7087d4d5edd912c0fdb6e28038643536" kindref="member">XDpDc_DisableDpAudioSdpStreams</ref>(XMmiDp<sp/>*DpPtr);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dp__intr_8c_1ad5a8cd4236c7a991497612d68cbd6a95" kindref="member">XDpDc_SetupDpInterrupts</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>__MMI_DP_INTR_H__<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_intr.h"/>
+  </compounddef>
+</doxygen>

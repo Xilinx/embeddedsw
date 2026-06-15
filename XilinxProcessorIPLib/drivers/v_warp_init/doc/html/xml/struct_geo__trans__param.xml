@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_geo__trans__param" kind="struct" prot="public">
+    <compoundname>Geo_trans_param</compoundname>
+    <includes local="no">xwarp_input_configs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_geo__trans__param_1acdc862092d832165429a8bcb950ebc5e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Geo_trans_param::k_pre</definition>
+        <argsstring></argsstring>
+        <name>k_pre</name>
+        <briefdescription>
+<para>Pre-distortion coefficient in fixed-point. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_geo__trans__param_1aad1e522be38467418aad649ef8caee52" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Geo_trans_param::k_post</definition>
+        <argsstring></argsstring>
+        <name>k_post</name>
+        <briefdescription>
+<para>Post-distortion coefficient in fixed-point. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_geo__trans__param_1a723a436d47522d5ca5384762cf21da48" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Geo_trans_param::h[9]</definition>
+        <argsstring>[9]</argsstring>
+        <name>h</name>
+        <briefdescription>
+<para>3x3 homography matrix in fixed-point </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Geometric transformation parameters in fixed-point format. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure contains lens distortion coefficients and homography matrix in fixed-point representation for hardware processing. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="174" bodyend="178"/>
+    <listofallmembers>
+      <member refid="struct_geo__trans__param_1a723a436d47522d5ca5384762cf21da48" prot="public" virt="non-virtual"><scope>Geo_trans_param</scope><name>h</name></member>
+      <member refid="struct_geo__trans__param_1aad1e522be38467418aad649ef8caee52" prot="public" virt="non-virtual"><scope>Geo_trans_param</scope><name>k_post</name></member>
+      <member refid="struct_geo__trans__param_1acdc862092d832165429a8bcb950ebc5e" prot="public" virt="non-virtual"><scope>Geo_trans_param</scope><name>k_pre</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

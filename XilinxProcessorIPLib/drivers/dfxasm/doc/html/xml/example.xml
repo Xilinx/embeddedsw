@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use dfxasm driver.</para><sect1 id="example_1ex1">
+<title>xdfxasm_example.c</title>
+<para>Contains an example on how to use the dfxasm driver directly. This example shows the usage of the driver to test the registers.</para><para>For details, see <ref refid="xdfxasm__example_8c" kindref="compound">xdfxasm_example.c</ref>. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1226 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="cam__device__gtm__api_8h" kind="file">
+    <compoundname>cam_device_gtm_api.h</compoundname>
+    <includes refid="cam__device__common_8h" local="yes">cam_device_common.h</includes>
+    <includedby refid="cam__device__module__api_8h" local="yes">cam_device_module_api.h</includedby>
+    <includedby refid="vvbench__gtm__api_8h" local="yes">vvbench_gtm_api.h</includedby>
+    <incdepgraph>
+      <node id="3547">
+        <label>stdbool.h</label>
+      </node>
+      <node id="3541">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="3548">
+        <label>stdint.h</label>
+      </node>
+      <node id="3538">
+        <label>stdlib.h</label>
+      </node>
+      <node id="3545">
+        <label>sensor_cmd.h</label>
+        <childnode refid="3546" relation="include">
+        </childnode>
+        <childnode refid="3541" relation="include">
+        </childnode>
+      </node>
+      <node id="3533">
+        <label>cam_device_gtm_api.h</label>
+        <link refid="cam_device_gtm_api.h"/>
+        <childnode refid="3534" relation="include">
+        </childnode>
+      </node>
+      <node id="3540">
+        <label>stddef.h</label>
+      </node>
+      <node id="3539">
+        <label>limits.h</label>
+      </node>
+      <node id="3534">
+        <label>cam_device_common.h</label>
+        <childnode refid="3535" relation="include">
+        </childnode>
+        <childnode refid="3541" relation="include">
+        </childnode>
+        <childnode refid="3542" relation="include">
+        </childnode>
+        <childnode refid="3544" relation="include">
+        </childnode>
+        <childnode refid="3545" relation="include">
+        </childnode>
+      </node>
+      <node id="3544">
+        <label>buf_defs.h</label>
+        <childnode refid="3535" relation="include">
+        </childnode>
+      </node>
+      <node id="3546">
+        <label>mbox_api.h</label>
+        <childnode refid="3547" relation="include">
+        </childnode>
+        <childnode refid="3548" relation="include">
+        </childnode>
+        <childnode refid="3549" relation="include">
+        </childnode>
+      </node>
+      <node id="3543">
+        <label>string.h</label>
+      </node>
+      <node id="3549">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="3547" relation="include">
+        </childnode>
+        <childnode refid="3550" relation="include">
+        </childnode>
+      </node>
+      <node id="3550">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="3535">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="3536" relation="include">
+        </childnode>
+        <childnode refid="3539" relation="include">
+        </childnode>
+        <childnode refid="3540" relation="include">
+        </childnode>
+      </node>
+      <node id="3542">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="3535" relation="include">
+        </childnode>
+        <childnode refid="3543" relation="include">
+        </childnode>
+      </node>
+      <node id="3537">
+        <label>stdio.h</label>
+      </node>
+      <node id="3536">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="3537" relation="include">
+        </childnode>
+        <childnode refid="3538" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3596">
+        <label>vvbench_gtm_api.c</label>
+      </node>
+      <node id="3585">
+        <label>cam_device_rgbir_api_v2.c</label>
+      </node>
+      <node id="3583">
+        <label>cam_device_hist64_api.c</label>
+      </node>
+      <node id="3582">
+        <label>cam_device_hist256_api.c</label>
+      </node>
+      <node id="3586">
+        <label>cam_device_tpg_api.c</label>
+      </node>
+      <node id="3552">
+        <label>cam_device_module_api.h</label>
+        <childnode refid="3553" relation="include">
+        </childnode>
+      </node>
+      <node id="3590">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="3554">
+        <label>control.h</label>
+        <childnode refid="3555" relation="include">
+        </childnode>
+      </node>
+      <node id="3580">
+        <label>cam_device_ge_api.c</label>
+      </node>
+      <node id="3588">
+        <label>cam_device_wdr_api_v5_2.c</label>
+      </node>
+      <node id="3566">
+        <label>cam_device_cpd_api.c</label>
+      </node>
+      <node id="3574">
+        <label>cam_device_cnr_api.c</label>
+      </node>
+      <node id="3568">
+        <label>cam_device_dg_api.c</label>
+      </node>
+      <node id="3572">
+        <label>cam_device_af_api.c</label>
+      </node>
+      <node id="3594">
+        <label>submodule_def.h</label>
+        <childnode refid="3595" relation="include">
+        </childnode>
+        <childnode refid="3590" relation="include">
+        </childnode>
+      </node>
+      <node id="3564">
+        <label>cam_device_bls_api.c</label>
+      </node>
+      <node id="3560">
+        <label>cam_device_sensor_api.c</label>
+      </node>
+      <node id="3551">
+        <label>cam_device_gtm_api.h</label>
+        <link refid="cam_device_gtm_api.h"/>
+        <childnode refid="3552" relation="include">
+        </childnode>
+        <childnode refid="3593" relation="include">
+        </childnode>
+      </node>
+      <node id="3559">
+        <label>cam_device_buffer_api.c</label>
+      </node>
+      <node id="3595">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="3575">
+        <label>cam_device_hdr_api.c</label>
+      </node>
+      <node id="3567">
+        <label>cam_device_cproc_api.c</label>
+      </node>
+      <node id="3570">
+        <label>cam_device_dpcc_api.c</label>
+      </node>
+      <node id="3573">
+        <label>cam_device_afm_api.c</label>
+      </node>
+      <node id="3557">
+        <label>cam_device.c</label>
+      </node>
+      <node id="3565">
+        <label>cam_device_ccm_api.c</label>
+      </node>
+      <node id="3563">
+        <label>cam_device_awb_api.c</label>
+      </node>
+      <node id="3553">
+        <label>cam_device_app.h</label>
+        <childnode refid="3554" relation="include">
+        </childnode>
+        <childnode refid="3555" relation="include">
+        </childnode>
+        <childnode refid="3556" relation="include">
+        </childnode>
+        <childnode refid="3557" relation="include">
+        </childnode>
+        <childnode refid="3558" relation="include">
+        </childnode>
+        <childnode refid="3559" relation="include">
+        </childnode>
+        <childnode refid="3560" relation="include">
+        </childnode>
+        <childnode refid="3561" relation="include">
+        </childnode>
+        <childnode refid="3562" relation="include">
+        </childnode>
+        <childnode refid="3563" relation="include">
+        </childnode>
+        <childnode refid="3564" relation="include">
+        </childnode>
+        <childnode refid="3565" relation="include">
+        </childnode>
+        <childnode refid="3566" relation="include">
+        </childnode>
+        <childnode refid="3567" relation="include">
+        </childnode>
+        <childnode refid="3568" relation="include">
+        </childnode>
+        <childnode refid="3569" relation="include">
+        </childnode>
+        <childnode refid="3570" relation="include">
+        </childnode>
+        <childnode refid="3571" relation="include">
+        </childnode>
+        <childnode refid="3572" relation="include">
+        </childnode>
+        <childnode refid="3573" relation="include">
+        </childnode>
+        <childnode refid="3574" relation="include">
+        </childnode>
+        <childnode refid="3575" relation="include">
+        </childnode>
+        <childnode refid="3576" relation="include">
+        </childnode>
+        <childnode refid="3577" relation="include">
+        </childnode>
+        <childnode refid="3578" relation="include">
+        </childnode>
+        <childnode refid="3579" relation="include">
+        </childnode>
+        <childnode refid="3580" relation="include">
+        </childnode>
+        <childnode refid="3581" relation="include">
+        </childnode>
+        <childnode refid="3582" relation="include">
+        </childnode>
+        <childnode refid="3583" relation="include">
+        </childnode>
+        <childnode refid="3584" relation="include">
+        </childnode>
+        <childnode refid="3585" relation="include">
+        </childnode>
+        <childnode refid="3586" relation="include">
+        </childnode>
+        <childnode refid="3587" relation="include">
+        </childnode>
+        <childnode refid="3588" relation="include">
+        </childnode>
+        <childnode refid="3589" relation="include">
+        </childnode>
+        <childnode refid="3590" relation="include">
+        </childnode>
+        <childnode refid="3591" relation="include">
+        </childnode>
+      </node>
+      <node id="3555">
+        <label>control.c</label>
+      </node>
+      <node id="3587">
+        <label>cam_device_wb_api.c</label>
+      </node>
+      <node id="3584">
+        <label>cam_device_lsc_api_v3.c</label>
+      </node>
+      <node id="3593">
+        <label>vvbench_gtm_api.h</label>
+        <childnode refid="3594" relation="include">
+        </childnode>
+        <childnode refid="3596" relation="include">
+        </childnode>
+      </node>
+      <node id="3576">
+        <label>cam_device_ee_api_v2.c</label>
+      </node>
+      <node id="3577">
+        <label>cam_device_exp_api_v2.c</label>
+      </node>
+      <node id="3578">
+        <label>cam_device_fusa_api.c</label>
+      </node>
+      <node id="3589">
+        <label>oba.c</label>
+      </node>
+      <node id="3558">
+        <label>cam_device_api.c</label>
+      </node>
+      <node id="3579">
+        <label>cam_device_gc_api.c</label>
+      </node>
+      <node id="3581">
+        <label>cam_device_gtm_api_v1.c</label>
+      </node>
+      <node id="3556">
+        <label>iba.c</label>
+      </node>
+      <node id="3569">
+        <label>cam_device_dmsc_api_v2.c</label>
+      </node>
+      <node id="3561">
+        <label>cam_device_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="3571">
+        <label>cam_device_3dnr_api.c</label>
+      </node>
+      <node id="3592">
+        <label>xvisp_ss_example.c</label>
+      </node>
+      <node id="3591">
+        <label>xvisp_ss_example.h</label>
+        <childnode refid="3592" relation="include">
+        </childnode>
+      </node>
+      <node id="3562">
+        <label>cam_device_ae_api.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_cam_device_gtm_histogram__s" prot="public">CamDeviceGtmHistogram_s</innerclass>
+    <innerclass refid="struct_cam_device_gtm_color_weight_config__s" prot="public">CamDeviceGtmColorWeightConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_gtm_black_white_correction_config__s" prot="public">CamDeviceGtmBlackWhiteCorrectionConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_gtm_curve_config__s" prot="public">CamDeviceGtmCurveConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_gtm_curve_info_config__s" prot="public">CamDeviceGtmCurveInfoConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_gtm_manual_config__s" prot="public">CamDeviceGtmManualConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_gtm_auto_config__s" prot="public">CamDeviceGtmAutoConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_gtm_config__s" prot="public">CamDeviceGtmConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_gtm_status__s" prot="public">CamDeviceGtmStatus_s</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group____cam__device__gtm_1ga2a92e1c71198a716fdcc42cf180f1b5d" prot="public" static="no">
+        <name>CAMDEV_GTM_RGB_COEF_SIZE</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__gtm_1ga39698aafc8b19823acabe9ec1e513459" prot="public" static="no">
+        <name>CAMDEV_GTM_COLOR_WEIGHT_SIZE</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__gtm_1ga42e93e5b59bb0ce50a949a62f2d44133" prot="public" static="no">
+        <name>CAMDEV_GTM_HIST_LUMA_SIZE</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__gtm_1ga02bb4f72f04b76605c1aad79a5018dae" prot="public" static="no">
+        <name>CAMDEV_GTM_USER_CURVE_SIZE</name>
+        <initializer>129</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__gtm_1ga7cf2c9406027c61b9e5dd401080912ef" prot="public" static="no">
+        <name>CAMDEV_GTM_HIST_BINS</name>
+        <initializer>128</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group____cam__device__gtm_1gaacbe9b807f7939eeaa48b78326baced7" prot="public" static="no">
+        <name>CamDeviceGtmCurveMode_e</name>
+        <enumvalue id="group____cam__device__gtm_1ggaacbe9b807f7939eeaa48b78326baced7abfac7065033680eaf7cd0f6f822022c8" prot="public">
+          <name>CAMDEV_GTM_INTERPOLATION_CURVE_MODE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Interpolation mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1ggaacbe9b807f7939eeaa48b78326baced7a497bfe40dba188f26c2e0a63bca80c0d" prot="public">
+          <name>CAMDEV_GTM_HISTOGRAM_CURVE_MODE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Histogram mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1ggaacbe9b807f7939eeaa48b78326baced7ad40fb987ce805fc0e747a3c3d93cd224" prot="public">
+          <name>CAMDEV_GTM_INTERPOLATION_HISTOGRAM_CURVE_MODE</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Interpolation and histogram mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1ggaacbe9b807f7939eeaa48b78326baced7aa1bbee2935985dde3eefe6843b3cf78e" prot="public">
+          <name>CAMDEV_GTM_CURVE_MODE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice GTM curve mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="57" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__gtm_1gaeb8cc293c3043bf8a1468b7abcb32d32" prot="public" static="no">
+        <name>CamDeviceGtmCurveSelect_e</name>
+        <enumvalue id="group____cam__device__gtm_1ggaeb8cc293c3043bf8a1468b7abcb32d32a59b6a4b2a2ee83680fecaec09c1ceb8d" prot="public">
+          <name>CAMDEV_GTM_LINEAR_SHIFT</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Linear shift mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1ggaeb8cc293c3043bf8a1468b7abcb32d32a0bd988a828972280ecb5d40df94b2aec" prot="public">
+          <name>CAMDEV_GTM_PIECE_WISE_LINEAR</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Piece wise linear mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1ggaeb8cc293c3043bf8a1468b7abcb32d32ab5a125fc5c379ed310f310f82493d30b" prot="public">
+          <name>CAMDEV_GTM_LOGARITHM_COMPRESSION</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Logarithm compression mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1ggaeb8cc293c3043bf8a1468b7abcb32d32a9cea944605f6f8559f377fa084c87af0" prot="public">
+          <name>CAMDEV_GTM_USER_CURVE</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>User curve mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1ggaeb8cc293c3043bf8a1468b7abcb32d32a74ac3ce822253b2c33bccc4c4c04d3fa" prot="public">
+          <name>CAMDEV_GTM_CURVE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice GTM curve select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="70" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__gtm_1ga3e0fb8e9c90f8df9b0af2c6c6272786e" prot="public" static="no">
+        <name>CamDeviceBlackWhiteCorMode_e</name>
+        <enumvalue id="group____cam__device__gtm_1gga3e0fb8e9c90f8df9b0af2c6c6272786ea926dd6e276ad1add7980151916517d57" prot="public">
+          <name>CAMDEV_BW_COR_MODE0</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Manual mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1gga3e0fb8e9c90f8df9b0af2c6c6272786ea5938b7b0d8b1a64ed5a0b80223e9f2bc" prot="public">
+          <name>CAMDEV_BW_COR_MODE1</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Black white correction auto mode use previous frame statistics. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1gga3e0fb8e9c90f8df9b0af2c6c6272786ea06ebe07826cd214b5041777b89069fe5" prot="public">
+          <name>CAMDEV_BW_COR_MODE2</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>White correction auto mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1gga3e0fb8e9c90f8df9b0af2c6c6272786ea733506c75c9051070a83eb9896a9ee17" prot="public">
+          <name>CAMDEV_BW_COR_MODE_MAX</name>
+          <briefdescription>
+<para>Maximum border. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice GTM black white correction mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="84" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__gtm_1gafb0407fd64d11a37679209dc7f0f050d" prot="public" static="no">
+        <name>CamDeviceLinearShiftBit_e</name>
+        <enumvalue id="group____cam__device__gtm_1ggafb0407fd64d11a37679209dc7f0f050da5dab984d9017bd68dc678dbc21cbc13f" prot="public">
+          <name>CAMDEV_SHIFT_BIT_0</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Output 0-19 bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1ggafb0407fd64d11a37679209dc7f0f050dacc225c85f77773d307f52d5fe946fe37" prot="public">
+          <name>CAMDEV_SHIFT_BIT_1</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Output 1-20 bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1ggafb0407fd64d11a37679209dc7f0f050da4102338e0e58e62e669148d83b67962f" prot="public">
+          <name>CAMDEV_SHIFT_BIT_2</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Output 2-21bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1ggafb0407fd64d11a37679209dc7f0f050da207997d8ee48b7753bc980d9d142f10c" prot="public">
+          <name>CAMDEV_SHIFT_BIT_3</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>Output 3-22bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1ggafb0407fd64d11a37679209dc7f0f050da1389557295e943f7d94e0fd23d2dcbcc" prot="public">
+          <name>CAMDEV_SHIFT_BIT_4</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+<para>Output 4-23bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1ggafb0407fd64d11a37679209dc7f0f050dabeb3644e5969caea5f7229f6d5b8bc2f" prot="public">
+          <name>CAMDEV_SHIFT_BIT_MAX</name>
+          <briefdescription>
+<para>Maximum border. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice GTM linear shift bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="96" bodyend="103"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__gtm_1gad81edcb4b2d4733897fb0907910da77e" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__gtm_1gaacbe9b807f7939eeaa48b78326baced7" kindref="member">CamDeviceGtmCurveMode_e</ref></type>
+        <definition>typedef enum CamDeviceGtmCurveMode_e  CamDeviceGtmCurveMode_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceGtmCurveMode_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM curve mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="63" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__gtm_1gaeeb6ce20008f05716956fde624f84820" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__gtm_1gaeb8cc293c3043bf8a1468b7abcb32d32" kindref="member">CamDeviceGtmCurveSelect_e</ref></type>
+        <definition>typedef enum CamDeviceGtmCurveSelect_e  CamDeviceGtmCurveSelect_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceGtmCurveSelect_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM curve select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="77" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__gtm_1gab5a41d29daf16533c3e77d13f2dc931a" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__gtm_1ga3e0fb8e9c90f8df9b0af2c6c6272786e" kindref="member">CamDeviceBlackWhiteCorMode_e</ref></type>
+        <definition>typedef enum CamDeviceBlackWhiteCorMode_e  CamDeviceBlackWhiteCorMode_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceBlackWhiteCorMode_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM black white correction mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="89" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__gtm_1ga1e5b5e876a2fce4bdfb9f014c464c7ed" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__gtm_1gafb0407fd64d11a37679209dc7f0f050d" kindref="member">CamDeviceLinearShiftBit_e</ref></type>
+        <definition>typedef enum CamDeviceLinearShiftBit_e  CamDeviceLinearShiftBit_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceLinearShiftBit_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM linear shift bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="103" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__gtm_1ga8b20f6d1e3c78b03047d4bcf3282d125" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_gtm_histogram__s" kindref="compound">CamDeviceGtmHistogram_s</ref></type>
+        <definition>typedef struct CamDeviceGtmHistogram_s  CamDeviceGtmHistogram_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceGtmHistogram_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM histogram state structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="115" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__gtm_1gadeab7ed41f03538aa35a4165cdc63cfc" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_gtm_color_weight_config__s" kindref="compound">CamDeviceGtmColorWeightConfig_s</ref></type>
+        <definition>typedef struct CamDeviceGtmColorWeightConfig_s  CamDeviceGtmColorWeightConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceGtmColorWeightConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM color weight structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="127" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__gtm_1ga58f6b592bd0e7cb071072ba6c918e547" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_gtm_black_white_correction_config__s" kindref="compound">CamDeviceGtmBlackWhiteCorrectionConfig_s</ref></type>
+        <definition>typedef struct CamDeviceGtmBlackWhiteCorrectionConfig_s  CamDeviceGtmBlackWhiteCorrectionConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceGtmBlackWhiteCorrectionConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM black white correction configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="140" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__gtm_1ga02b73b28514819d177bf6d4e1f5979a4" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_gtm_curve_config__s" kindref="compound">CamDeviceGtmCurveConfig_s</ref></type>
+        <definition>typedef struct CamDeviceGtmCurveConfig_s  CamDeviceGtmCurveConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceGtmCurveConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM curve configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="158" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__gtm_1ga5f0a8d33118351a930208d68e5a37a87" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_gtm_curve_info_config__s" kindref="compound">CamDeviceGtmCurveInfoConfig_s</ref></type>
+        <definition>typedef struct CamDeviceGtmCurveInfoConfig_s  CamDeviceGtmCurveInfoConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceGtmCurveInfoConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM curve histogram information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="180" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__gtm_1gab71b89fcc5475b6c127c5fb55261ab43" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_gtm_manual_config__s" kindref="compound">CamDeviceGtmManualConfig_s</ref></type>
+        <definition>typedef struct CamDeviceGtmManualConfig_s  CamDeviceGtmManualConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceGtmManualConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM current configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="192" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__gtm_1ga797e9642fc4c4057bb1a21005fda7db7" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_gtm_auto_config__s" kindref="compound">CamDeviceGtmAutoConfig_s</ref></type>
+        <definition>typedef struct CamDeviceGtmAutoConfig_s  CamDeviceGtmAutoConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceGtmAutoConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM auto configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="219" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__gtm_1ga16270dc84a60d693ad982718b5464c38" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_gtm_config__s" kindref="compound">CamDeviceGtmConfig_s</ref></type>
+        <definition>typedef struct CamDeviceGtmConfig_s  CamDeviceGtmConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceGtmConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="231" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__gtm_1gab37bd00f1d91877358e63c88cbe4455b" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_gtm_status__s" kindref="compound">CamDeviceGtmStatus_s</ref></type>
+        <definition>typedef struct CamDeviceGtmStatus_s  CamDeviceGtmStatus_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceGtmStatus_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM status structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="244" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__gtm_1gad5876795d667373aadb6f4f8d520c45b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceGtmSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceGtmConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceGtmSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__gtm_1ga16270dc84a60d693ad982718b5464c38" kindref="member">CamDeviceGtmConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/gtm/cam_device_gtm_api_v1.c" bodystart="19" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__gtm_1ga9196d329dddacba3d27bad5a0536b83e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceGtmGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceGtmConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceGtmGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__gtm_1ga16270dc84a60d693ad982718b5464c38" kindref="member">CamDeviceGtmConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/gtm/cam_device_gtm_api_v1.c" bodystart="61" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__gtm_1ga756ff31040cf37ea502da10f6da3356c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceGtmEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceGtmEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/gtm/cam_device_gtm_api_v1.c" bodystart="103" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__gtm_1ga6eb8133b0c8538c2517ff11b1195fec4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceGtmDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceGtmDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/gtm/cam_device_gtm_api_v1.c" bodystart="140" bodyend="174"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__gtm_1ga0120b7e17a66fe12c5cea7c2cc7a1692" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceGtmBlackWhiteCorrectionEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceGtmBlackWhiteCorrectionEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/gtm/cam_device_gtm_api_v1.c" bodystart="177" bodyend="211"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__gtm_1gafa3be5432d566c87bfa6118b29499fbf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceGtmBlackWhiteCorrectionDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceGtmBlackWhiteCorrectionDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="385" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/gtm/cam_device_gtm_api_v1.c" bodystart="214" bodyend="248"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__gtm_1ga97b1e5f63f1532bb8b2626d74e7790f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceGtmBlackWhiteCorrectionEnGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, bool_t *pBwCorEnable)</argsstring>
+        <name>VsiCamDeviceGtmBlackWhiteCorrectionEnGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>bool_t *</type>
+          <declname>pBwCorEnable</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="412" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/gtm/cam_device_gtm_api_v1.c" bodystart="251" bodyend="290"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__gtm_1gacb1f8016691da596c85e99091f9afcbe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceGtmGetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceGtmStatus_t *pStatus)</argsstring>
+        <name>VsiCamDeviceGtmGetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__gtm_1gab37bd00f1d91877358e63c88cbe4455b" kindref="member">CamDeviceGtmStatus_t</ref> *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="440" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/gtm/cam_device_gtm_api_v1.c" bodystart="293" bodyend="332"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__gtm_1ga20a2003d4e1a541e18a27773ebe774e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceGtmGetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceGtmGetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="462" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/gtm/cam_device_gtm_api_v1.c" bodystart="335" bodyend="374"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__gtm_1ga4a3440693ae4f2de3cb27378241d0854" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceGtmReset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceGtmReset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="490" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/gtm/cam_device_gtm_api_v1.c" bodystart="377" bodyend="411"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2022<sp/>Vivante<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>CAMDEV_GTM_API_H</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CAMDEV_GTM_API_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cam_device_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor">#define<sp/>CAMDEV_GTM_RGB_COEF_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>3</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CAMDEV_GTM_COLOR_WEIGHT_SIZE<sp/><sp/><sp/>3</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CAMDEV_GTM_HIST_LUMA_SIZE<sp/><sp/><sp/><sp/><sp/><sp/>4</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CAMDEV_GTM_USER_CURVE_SIZE<sp/><sp/><sp/><sp/><sp/>129</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CAMDEV_GTM_HIST_BINS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>128</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="57" refid="group____cam__device__gtm_1gaacbe9b807f7939eeaa48b78326baced7" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="group____cam__device__gtm_1gaacbe9b807f7939eeaa48b78326baced7" kindref="member">CamDeviceGtmCurveMode_e</ref></highlight></codeline>
+<codeline lineno="58"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="59" refid="group____cam__device__gtm_1ggaacbe9b807f7939eeaa48b78326baced7abfac7065033680eaf7cd0f6f822022c8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__gtm_1ggaacbe9b807f7939eeaa48b78326baced7abfac7065033680eaf7cd0f6f822022c8" kindref="member">CAMDEV_GTM_INTERPOLATION_CURVE_MODE</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60" refid="group____cam__device__gtm_1ggaacbe9b807f7939eeaa48b78326baced7a497bfe40dba188f26c2e0a63bca80c0d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__gtm_1ggaacbe9b807f7939eeaa48b78326baced7a497bfe40dba188f26c2e0a63bca80c0d" kindref="member">CAMDEV_GTM_HISTOGRAM_CURVE_MODE</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>1,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="group____cam__device__gtm_1ggaacbe9b807f7939eeaa48b78326baced7ad40fb987ce805fc0e747a3c3d93cd224" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__gtm_1ggaacbe9b807f7939eeaa48b78326baced7ad40fb987ce805fc0e747a3c3d93cd224" kindref="member">CAMDEV_GTM_INTERPOLATION_HISTOGRAM_CURVE_MODE</ref><sp/>=<sp/>2,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>CAMDEV_GTM_CURVE_MODE_MAX</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">}<sp/><ref refid="group____cam__device__gtm_1gad81edcb4b2d4733897fb0907910da77e" kindref="member">CamDeviceGtmCurveMode_t</ref>;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="70" refid="group____cam__device__gtm_1gaeb8cc293c3043bf8a1468b7abcb32d32" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="group____cam__device__gtm_1gaeb8cc293c3043bf8a1468b7abcb32d32" kindref="member">CamDeviceGtmCurveSelect_e</ref></highlight></codeline>
+<codeline lineno="71"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="72" refid="group____cam__device__gtm_1ggaeb8cc293c3043bf8a1468b7abcb32d32a59b6a4b2a2ee83680fecaec09c1ceb8d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__gtm_1ggaeb8cc293c3043bf8a1468b7abcb32d32a59b6a4b2a2ee83680fecaec09c1ceb8d" kindref="member">CAMDEV_GTM_LINEAR_SHIFT</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73" refid="group____cam__device__gtm_1ggaeb8cc293c3043bf8a1468b7abcb32d32a0bd988a828972280ecb5d40df94b2aec" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__gtm_1ggaeb8cc293c3043bf8a1468b7abcb32d32a0bd988a828972280ecb5d40df94b2aec" kindref="member">CAMDEV_GTM_PIECE_WISE_LINEAR</ref><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>1,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="74" refid="group____cam__device__gtm_1ggaeb8cc293c3043bf8a1468b7abcb32d32ab5a125fc5c379ed310f310f82493d30b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__gtm_1ggaeb8cc293c3043bf8a1468b7abcb32d32ab5a125fc5c379ed310f310f82493d30b" kindref="member">CAMDEV_GTM_LOGARITHM_COMPRESSION</ref><sp/><sp/>=<sp/>2,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75" refid="group____cam__device__gtm_1ggaeb8cc293c3043bf8a1468b7abcb32d32a9cea944605f6f8559f377fa084c87af0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__gtm_1ggaeb8cc293c3043bf8a1468b7abcb32d32a9cea944605f6f8559f377fa084c87af0" kindref="member">CAMDEV_GTM_USER_CURVE</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>3,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>CAMDEV_GTM_CURVE_MAX</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}<sp/><ref refid="group____cam__device__gtm_1gaeeb6ce20008f05716956fde624f84820" kindref="member">CamDeviceGtmCurveSelect_t</ref>;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="84" refid="group____cam__device__gtm_1ga3e0fb8e9c90f8df9b0af2c6c6272786e" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="group____cam__device__gtm_1ga3e0fb8e9c90f8df9b0af2c6c6272786e" kindref="member">CamDeviceBlackWhiteCorMode_e</ref><sp/>{</highlight></codeline>
+<codeline lineno="85" refid="group____cam__device__gtm_1gga3e0fb8e9c90f8df9b0af2c6c6272786ea926dd6e276ad1add7980151916517d57" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__gtm_1gga3e0fb8e9c90f8df9b0af2c6c6272786ea926dd6e276ad1add7980151916517d57" kindref="member">CAMDEV_BW_COR_MODE0</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86" refid="group____cam__device__gtm_1gga3e0fb8e9c90f8df9b0af2c6c6272786ea5938b7b0d8b1a64ed5a0b80223e9f2bc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__gtm_1gga3e0fb8e9c90f8df9b0af2c6c6272786ea5938b7b0d8b1a64ed5a0b80223e9f2bc" kindref="member">CAMDEV_BW_COR_MODE1</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>1,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87" refid="group____cam__device__gtm_1gga3e0fb8e9c90f8df9b0af2c6c6272786ea06ebe07826cd214b5041777b89069fe5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__gtm_1gga3e0fb8e9c90f8df9b0af2c6c6272786ea06ebe07826cd214b5041777b89069fe5" kindref="member">CAMDEV_BW_COR_MODE2</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>2,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88" refid="group____cam__device__gtm_1gga3e0fb8e9c90f8df9b0af2c6c6272786ea733506c75c9051070a83eb9896a9ee17" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__gtm_1gga3e0fb8e9c90f8df9b0af2c6c6272786ea733506c75c9051070a83eb9896a9ee17" kindref="member">CAMDEV_BW_COR_MODE_MAX</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="89"><highlight class="normal">}<sp/><ref refid="group____cam__device__gtm_1gab5a41d29daf16533c3e77d13f2dc931a" kindref="member">CamDeviceBlackWhiteCorMode_t</ref>;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="96" refid="group____cam__device__gtm_1gafb0407fd64d11a37679209dc7f0f050d" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="group____cam__device__gtm_1gafb0407fd64d11a37679209dc7f0f050d" kindref="member">CamDeviceLinearShiftBit_e</ref><sp/>{</highlight></codeline>
+<codeline lineno="97" refid="group____cam__device__gtm_1ggafb0407fd64d11a37679209dc7f0f050da5dab984d9017bd68dc678dbc21cbc13f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__gtm_1ggafb0407fd64d11a37679209dc7f0f050da5dab984d9017bd68dc678dbc21cbc13f" kindref="member">CAMDEV_SHIFT_BIT_0</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98" refid="group____cam__device__gtm_1ggafb0407fd64d11a37679209dc7f0f050dacc225c85f77773d307f52d5fe946fe37" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__gtm_1ggafb0407fd64d11a37679209dc7f0f050dacc225c85f77773d307f52d5fe946fe37" kindref="member">CAMDEV_SHIFT_BIT_1</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>1,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99" refid="group____cam__device__gtm_1ggafb0407fd64d11a37679209dc7f0f050da4102338e0e58e62e669148d83b67962f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__gtm_1ggafb0407fd64d11a37679209dc7f0f050da4102338e0e58e62e669148d83b67962f" kindref="member">CAMDEV_SHIFT_BIT_2</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>2,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="100" refid="group____cam__device__gtm_1ggafb0407fd64d11a37679209dc7f0f050da207997d8ee48b7753bc980d9d142f10c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__gtm_1ggafb0407fd64d11a37679209dc7f0f050da207997d8ee48b7753bc980d9d142f10c" kindref="member">CAMDEV_SHIFT_BIT_3</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>3,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="101" refid="group____cam__device__gtm_1ggafb0407fd64d11a37679209dc7f0f050da1389557295e943f7d94e0fd23d2dcbcc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__gtm_1ggafb0407fd64d11a37679209dc7f0f050da1389557295e943f7d94e0fd23d2dcbcc" kindref="member">CAMDEV_SHIFT_BIT_4</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>4,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="102" refid="group____cam__device__gtm_1ggafb0407fd64d11a37679209dc7f0f050dabeb3644e5969caea5f7229f6d5b8bc2f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__gtm_1ggafb0407fd64d11a37679209dc7f0f050dabeb3644e5969caea5f7229f6d5b8bc2f" kindref="member">CAMDEV_SHIFT_BIT_MAX</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="103"><highlight class="normal">}<sp/><ref refid="group____cam__device__gtm_1ga1e5b5e876a2fce4bdfb9f014c464c7ed" kindref="member">CamDeviceLinearShiftBit_t</ref>;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="110" refid="struct_cam_device_gtm_histogram__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_gtm_histogram__s" kindref="compound">CamDeviceGtmHistogram_s</ref></highlight></codeline>
+<codeline lineno="111"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="112" refid="struct_cam_device_gtm_histogram__s_1ab07afe7ac1e3a82e1dc2539affc4189e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_gtm_histogram__s_1ab07afe7ac1e3a82e1dc2539affc4189e" kindref="member">min</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113" refid="struct_cam_device_gtm_histogram__s_1a293f0801bf3fe82c4b722ef4d0452004" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_gtm_histogram__s_1a293f0801bf3fe82c4b722ef4d0452004" kindref="member">max</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114" refid="struct_cam_device_gtm_histogram__s_1ab090a005bfb9d3ddc10dc2e2305b9e41" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_gtm_histogram__s_1ab090a005bfb9d3ddc10dc2e2305b9e41" kindref="member">hist</ref>[CAMDEV_GTM_HIST_BINS];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115"><highlight class="normal">}<sp/><ref refid="group____cam__device__gtm_1ga8b20f6d1e3c78b03047d4bcf3282d125" kindref="member">CamDeviceGtmHistogram_t</ref>;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="122" refid="struct_cam_device_gtm_color_weight_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_gtm_color_weight_config__s" kindref="compound">CamDeviceGtmColorWeightConfig_s</ref></highlight></codeline>
+<codeline lineno="123"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="124" refid="struct_cam_device_gtm_color_weight_config__s_1ac55a5efadf2ba6a07aa47aca808bdf19" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_gtm_color_weight_config__s_1ac55a5efadf2ba6a07aa47aca808bdf19" kindref="member">gtmRgbCoef</ref>[CAMDEV_GTM_RGB_COEF_SIZE];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="125" refid="struct_cam_device_gtm_color_weight_config__s_1a2a10d4f5e4a0aec99e2bccc1c07d7886" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_gtm_color_weight_config__s_1a2a10d4f5e4a0aec99e2bccc1c07d7886" kindref="member">gtmLightnessWeight</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="126" refid="struct_cam_device_gtm_color_weight_config__s_1a400699f9f640816918990b6ef77eda50" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_gtm_color_weight_config__s_1a400699f9f640816918990b6ef77eda50" kindref="member">gtmColorWeight</ref>[CAMDEV_GTM_COLOR_WEIGHT_SIZE];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="127"><highlight class="normal">}<sp/><ref refid="group____cam__device__gtm_1gadeab7ed41f03538aa35a4165cdc63cfc" kindref="member">CamDeviceGtmColorWeightConfig_t</ref>;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="134" refid="struct_cam_device_gtm_black_white_correction_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_gtm_black_white_correction_config__s" kindref="compound">CamDeviceGtmBlackWhiteCorrectionConfig_s</ref></highlight></codeline>
+<codeline lineno="135"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="136" refid="struct_cam_device_gtm_black_white_correction_config__s_1a8a1e3a2798158c3d2fe993c9ed4aae4b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__gtm_1gab5a41d29daf16533c3e77d13f2dc931a" kindref="member">CamDeviceBlackWhiteCorMode_t</ref><sp/><ref refid="struct_cam_device_gtm_black_white_correction_config__s_1a8a1e3a2798158c3d2fe993c9ed4aae4b" kindref="member">bwcorMode</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="137" refid="struct_cam_device_gtm_black_white_correction_config__s_1ad37b83ceb9009d17222881e5f382133c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float64_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_gtm_black_white_correction_config__s_1ad37b83ceb9009d17222881e5f382133c" kindref="member">bwcorMinLog</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="138" refid="struct_cam_device_gtm_black_white_correction_config__s_1a5035fcea09566b788d2d6864fce0626a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float64_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_gtm_black_white_correction_config__s_1a5035fcea09566b788d2d6864fce0626a" kindref="member">bwcorMaxLog</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="139" refid="struct_cam_device_gtm_black_white_correction_config__s_1ac347f3036f5a4f8f171b3713d826f1fe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float64_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_gtm_black_white_correction_config__s_1ac347f3036f5a4f8f171b3713d826f1fe" kindref="member">bwcorDampCoef</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="140"><highlight class="normal">}<sp/><ref refid="group____cam__device__gtm_1ga58f6b592bd0e7cb071072ba6c918e547" kindref="member">CamDeviceGtmBlackWhiteCorrectionConfig_t</ref>;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="147" refid="struct_cam_device_gtm_curve_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_gtm_curve_config__s" kindref="compound">CamDeviceGtmCurveConfig_s</ref></highlight></codeline>
+<codeline lineno="148"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="149" refid="struct_cam_device_gtm_curve_config__s_1a38569bf6380663f8d265e9980d7fe7cd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__gtm_1gaeeb6ce20008f05716956fde624f84820" kindref="member">CamDeviceGtmCurveSelect_t</ref><sp/><ref refid="struct_cam_device_gtm_curve_config__s_1a38569bf6380663f8d265e9980d7fe7cd" kindref="member">gtmCurveSelect</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="150" refid="struct_cam_device_gtm_curve_config__s_1a326c78382d9cc80c89a82b4d6e7aaf69" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__gtm_1ga1e5b5e876a2fce4bdfb9f014c464c7ed" kindref="member">CamDeviceLinearShiftBit_t</ref><sp/><ref refid="struct_cam_device_gtm_curve_config__s_1a326c78382d9cc80c89a82b4d6e7aaf69" kindref="member">shiftBit</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="151" refid="struct_cam_device_gtm_curve_config__s_1ae36e7341c4de516526357be00b26f93b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float64_t<sp/><ref refid="struct_cam_device_gtm_curve_config__s_1ae36e7341c4de516526357be00b26f93b" kindref="member">pwlKneeXLog</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="152" refid="struct_cam_device_gtm_curve_config__s_1a7bad1283321cf743b64097b358b908f3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float64_t<sp/><ref refid="struct_cam_device_gtm_curve_config__s_1a7bad1283321cf743b64097b358b908f3" kindref="member">pwlKneeYLog</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="153" refid="struct_cam_device_gtm_curve_config__s_1a222510cbb3163da0ba8ad9737cb35f11" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float64_t<sp/><ref refid="struct_cam_device_gtm_curve_config__s_1a222510cbb3163da0ba8ad9737cb35f11" kindref="member">pwlMaxLog</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="154" refid="struct_cam_device_gtm_curve_config__s_1a56a327ae9142dfd90c229dd2175dc91a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float64_t<sp/><ref refid="struct_cam_device_gtm_curve_config__s_1a56a327ae9142dfd90c229dd2175dc91a" kindref="member">pwlMinLog</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="155" refid="struct_cam_device_gtm_curve_config__s_1a006fa24060a5aaddec8bd35797ab038c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_gtm_curve_config__s_1a006fa24060a5aaddec8bd35797ab038c" kindref="member">logKneeXLog</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="156" refid="struct_cam_device_gtm_curve_config__s_1a1a31a02758c9890f94927e1a297b2643" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_gtm_curve_config__s_1a1a31a02758c9890f94927e1a297b2643" kindref="member">logKneeSlope</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="157" refid="struct_cam_device_gtm_curve_config__s_1a5a81aa309ae1df7c8ac2430ffd0be347" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_gtm_curve_config__s_1a5a81aa309ae1df7c8ac2430ffd0be347" kindref="member">userCurve</ref>[CAMDEV_GTM_USER_CURVE_SIZE];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="158"><highlight class="normal">}<sp/><ref refid="group____cam__device__gtm_1ga02b73b28514819d177bf6d4e1f5979a4" kindref="member">CamDeviceGtmCurveConfig_t</ref>;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="165" refid="struct_cam_device_gtm_curve_info_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_gtm_curve_info_config__s" kindref="compound">CamDeviceGtmCurveInfoConfig_s</ref></highlight></codeline>
+<codeline lineno="166"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="167" refid="struct_cam_device_gtm_curve_info_config__s_1a650c74c75eed8afb676f5d4b8cfed43b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__gtm_1gad81edcb4b2d4733897fb0907910da77e" kindref="member">CamDeviceGtmCurveMode_t</ref><sp/><ref refid="struct_cam_device_gtm_curve_info_config__s_1a650c74c75eed8afb676f5d4b8cfed43b" kindref="member">gtmCurveMode</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="168" refid="struct_cam_device_gtm_curve_info_config__s_1a758c7d24b26a78164ea1276746b6f2b4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><ref refid="struct_cam_device_gtm_curve_info_config__s_1a758c7d24b26a78164ea1276746b6f2b4" kindref="member">userCurveEn</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="170" refid="struct_cam_device_gtm_curve_info_config__s_1a0adcb72b23673eba30d1fe402118d427" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_gtm_curve_info_config__s_1a0adcb72b23673eba30d1fe402118d427" kindref="member">histContrastLimitLevel</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="171" refid="struct_cam_device_gtm_curve_info_config__s_1a427694703e3d8f4458483f5e6475439e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_gtm_curve_info_config__s_1a427694703e3d8f4458483f5e6475439e" kindref="member">histLumaThrLog</ref>[CAMDEV_GTM_HIST_LUMA_SIZE];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="172" refid="struct_cam_device_gtm_curve_info_config__s_1a5f3a068814b3c342f89d1a90a59553c1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_gtm_curve_info_config__s_1a5f3a068814b3c342f89d1a90a59553c1" kindref="member">histLumaWeight</ref>[CAMDEV_GTM_HIST_LUMA_SIZE];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="173" refid="struct_cam_device_gtm_curve_info_config__s_1a6d8a3ec2c624b4f8c7add8e7207f3012" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_gtm_curve_info_config__s_1a6d8a3ec2c624b4f8c7add8e7207f3012" kindref="member">histHlcFactor</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="174" refid="struct_cam_device_gtm_curve_info_config__s_1a04d578acc1d95b71a7ce4915d4a30ea2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_gtm_curve_info_config__s_1a04d578acc1d95b71a7ce4915d4a30ea2" kindref="member">histLumaPresWeight</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="175" refid="struct_cam_device_gtm_curve_info_config__s_1ad35f0fdb8a6923442bc8d6e23cfc2d4f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_gtm_curve_info_config__s_1ad35f0fdb8a6923442bc8d6e23cfc2d4f" kindref="member">histCompressWeight</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="176" refid="struct_cam_device_gtm_curve_info_config__s_1a0a1ded726e5499e20f6116b7f54bb92b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_gtm_curve_info_config__s_1a0a1ded726e5499e20f6116b7f54bb92b" kindref="member">histMaxGain</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="177" refid="struct_cam_device_gtm_curve_info_config__s_1a88199ea92851d184588e51829b7fbb7e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_gtm_curve_info_config__s_1a88199ea92851d184588e51829b7fbb7e" kindref="member">histMinGain</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="178" refid="struct_cam_device_gtm_curve_info_config__s_1a8b166c8c4c8b32eceb79ff292c7a6ed3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_gtm_curve_info_config__s_1a8b166c8c4c8b32eceb79ff292c7a6ed3" kindref="member">histStrength</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="179" refid="struct_cam_device_gtm_curve_info_config__s_1ae1ad696e22a84e7ba365edce7ca8f02b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_gtm_curve_info_config__s_1ae1ad696e22a84e7ba365edce7ca8f02b" kindref="member">histDampCoef</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="180"><highlight class="normal">}<sp/><ref refid="group____cam__device__gtm_1ga5f0a8d33118351a930208d68e5a37a87" kindref="member">CamDeviceGtmCurveInfoConfig_t</ref>;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="187" refid="struct_cam_device_gtm_manual_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_gtm_manual_config__s" kindref="compound">CamDeviceGtmManualConfig_s</ref></highlight></codeline>
+<codeline lineno="188"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="189" refid="struct_cam_device_gtm_manual_config__s_1a6ba63f55c95d12e3716bcae2a49ed7d3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_gtm_color_weight_config__s" kindref="compound">CamDeviceGtmColorWeightConfig_t</ref><sp/><ref refid="struct_cam_device_gtm_manual_config__s_1a6ba63f55c95d12e3716bcae2a49ed7d3" kindref="member">colorWeightCfg</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="190" refid="struct_cam_device_gtm_manual_config__s_1a8b4eff94b42dc668f1e652894c49a443" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_gtm_black_white_correction_config__s" kindref="compound">CamDeviceGtmBlackWhiteCorrectionConfig_t</ref><sp/><ref refid="struct_cam_device_gtm_manual_config__s_1a8b4eff94b42dc668f1e652894c49a443" kindref="member">blackWhiteCorrectionCfg</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="191" refid="struct_cam_device_gtm_manual_config__s_1ae345b6d1c7b36247e1c6bfef78305a4c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_gtm_curve_config__s" kindref="compound">CamDeviceGtmCurveConfig_t</ref><sp/><ref refid="struct_cam_device_gtm_manual_config__s_1ae345b6d1c7b36247e1c6bfef78305a4c" kindref="member">curveCfg</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="192"><highlight class="normal">}<sp/><ref refid="group____cam__device__gtm_1gab71b89fcc5475b6c127c5fb55261ab43" kindref="member">CamDeviceGtmManualConfig_t</ref>;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="199" refid="struct_cam_device_gtm_auto_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_gtm_auto_config__s" kindref="compound">CamDeviceGtmAutoConfig_s</ref></highlight></codeline>
+<codeline lineno="200"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="201" refid="struct_cam_device_gtm_auto_config__s_1ad22f2ebf1f7b952157e69fce33fe4bc0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_gtm_auto_config__s_1ad22f2ebf1f7b952157e69fce33fe4bc0" kindref="member">autoLevel</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="202" refid="struct_cam_device_gtm_auto_config__s_1a37cf574c5177a866ab064e21ea563a45" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_gtm_auto_config__s_1a37cf574c5177a866ab064e21ea563a45" kindref="member">gain</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="203" refid="struct_cam_device_gtm_auto_config__s_1a1d0afe30680b23e1a160416d21fc35d6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_gtm_auto_config__s_1a1d0afe30680b23e1a160416d21fc35d6" kindref="member">bwcorMinLog</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="204" refid="struct_cam_device_gtm_auto_config__s_1a4fb725632e87f2d779228657fe8d784d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_gtm_auto_config__s_1a4fb725632e87f2d779228657fe8d784d" kindref="member">bwcorMaxLog</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="205" refid="struct_cam_device_gtm_auto_config__s_1af38bb4e9d66afde88b805ad6ff138786" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_gtm_auto_config__s_1af38bb4e9d66afde88b805ad6ff138786" kindref="member">histContrastLimitLevel</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="206" refid="struct_cam_device_gtm_auto_config__s_1ae72c8e970fc23794e45204abe7300821" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_gtm_auto_config__s_1ae72c8e970fc23794e45204abe7300821" kindref="member">histHlcFactor</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="207" refid="struct_cam_device_gtm_auto_config__s_1a83d03f7987929a77caa652027e7a1d72" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_gtm_auto_config__s_1a83d03f7987929a77caa652027e7a1d72" kindref="member">histLumaPreserveWeight</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="208" refid="struct_cam_device_gtm_auto_config__s_1a81ef6080085348a40d398fbdceed87b7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_gtm_auto_config__s_1a81ef6080085348a40d398fbdceed87b7" kindref="member">histMaxGain</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="209" refid="struct_cam_device_gtm_auto_config__s_1a5164907bd6cebb4bf2c8c2c50a9b60dd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_gtm_auto_config__s_1a5164907bd6cebb4bf2c8c2c50a9b60dd" kindref="member">histMinGain</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="210" refid="struct_cam_device_gtm_auto_config__s_1a9bdc3b0927919d542305a3acb778745b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_gtm_auto_config__s_1a9bdc3b0927919d542305a3acb778745b" kindref="member">histStrength</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>][<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="212" refid="struct_cam_device_gtm_auto_config__s_1a772a7105f53f9984db8c0a9b00a1ee58" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_gtm_auto_config__s_1a772a7105f53f9984db8c0a9b00a1ee58" kindref="member">gtmColorWeight</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>][CAMDEV_GTM_COLOR_WEIGHT_SIZE];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="213" refid="struct_cam_device_gtm_auto_config__s_1a7021b145c0c847d26ea469e48299a924" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_gtm_auto_config__s_1a7021b145c0c847d26ea469e48299a924" kindref="member">histLumaWeight</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>][CAMDEV_GTM_HIST_LUMA_SIZE];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="214" refid="struct_cam_device_gtm_auto_config__s_1a915d70387c059e81cdb85ed97798b07d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_gtm_auto_config__s_1a915d70387c059e81cdb85ed97798b07d" kindref="member">userCurve</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>][CAMDEV_GTM_USER_CURVE_SIZE];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="215" refid="struct_cam_device_gtm_auto_config__s_1ae0f6acbdf0ac0589c6be34f83e2280bd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_gtm_curve_info_config__s" kindref="compound">CamDeviceGtmCurveInfoConfig_t</ref><sp/><ref refid="struct_cam_device_gtm_auto_config__s_1ae0f6acbdf0ac0589c6be34f83e2280bd" kindref="member">gtmCurveInfo</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="217" refid="struct_cam_device_gtm_auto_config__s_1a16a26366de59cb78ee4c94299ab622e8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_gtm_auto_config__s_1a16a26366de59cb78ee4c94299ab622e8" kindref="member">edrLevel</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="218" refid="struct_cam_device_gtm_auto_config__s_1a263a582d54c49cc7fe523ae8d1c2f8a5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_gtm_auto_config__s_1a263a582d54c49cc7fe523ae8d1c2f8a5" kindref="member">edr</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="219"><highlight class="normal">}<sp/><ref refid="group____cam__device__gtm_1ga797e9642fc4c4057bb1a21005fda7db7" kindref="member">CamDeviceGtmAutoConfig_t</ref>;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="226" refid="struct_cam_device_gtm_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_gtm_config__s" kindref="compound">CamDeviceGtmConfig_s</ref></highlight></codeline>
+<codeline lineno="227"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="228" refid="struct_cam_device_gtm_config__s_1a51c229895a3faec8f9cab47529becb0b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1ga7a54f95af23ab3af59d485ffaec2ae60" kindref="member">CamDeviceConfigMode_t</ref><sp/><ref refid="struct_cam_device_gtm_config__s_1a51c229895a3faec8f9cab47529becb0b" kindref="member">configMode</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="229" refid="struct_cam_device_gtm_config__s_1aad00b6fe233a56307238ae18617ae792" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_gtm_auto_config__s" kindref="compound">CamDeviceGtmAutoConfig_t</ref><sp/><ref refid="struct_cam_device_gtm_config__s_1aad00b6fe233a56307238ae18617ae792" kindref="member">autoCfg</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="230" refid="struct_cam_device_gtm_config__s_1a560778846d911f9827d15b414ee0c38d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_gtm_manual_config__s" kindref="compound">CamDeviceGtmManualConfig_t</ref><sp/><ref refid="struct_cam_device_gtm_config__s_1a560778846d911f9827d15b414ee0c38d" kindref="member">manualCfg</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="231"><highlight class="normal">}<sp/><ref refid="group____cam__device__gtm_1ga16270dc84a60d693ad982718b5464c38" kindref="member">CamDeviceGtmConfig_t</ref>;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="238" refid="struct_cam_device_gtm_status__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_gtm_status__s" kindref="compound">CamDeviceGtmStatus_s</ref></highlight></codeline>
+<codeline lineno="239"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="240" refid="struct_cam_device_gtm_status__s_1ac76928271a293ef74da5d09aefab1ea8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><sp/><ref refid="struct_cam_device_gtm_status__s_1ac76928271a293ef74da5d09aefab1ea8" kindref="member">enable</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="241" refid="struct_cam_device_gtm_status__s_1a959aa6ee7ef793e12b89f8e3bfe83fc8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><sp/><ref refid="struct_cam_device_gtm_status__s_1a959aa6ee7ef793e12b89f8e3bfe83fc8" kindref="member">bwCorrectEnable</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="242" refid="struct_cam_device_gtm_status__s_1a2a0d93d1f1ef65af3a35b48bd7df72bd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1ga7a54f95af23ab3af59d485ffaec2ae60" kindref="member">CamDeviceConfigMode_t</ref><sp/><ref refid="struct_cam_device_gtm_status__s_1a2a0d93d1f1ef65af3a35b48bd7df72bd" kindref="member">currentMode</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="243" refid="struct_cam_device_gtm_status__s_1a7ec794633801c3c824adafa79bd73819" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_gtm_manual_config__s" kindref="compound">CamDeviceGtmManualConfig_t</ref><sp/><ref refid="struct_cam_device_gtm_status__s_1a7ec794633801c3c824adafa79bd73819" kindref="member">currentCfg</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="244"><highlight class="normal">}<sp/><ref refid="group____cam__device__gtm_1gab37bd00f1d91877358e63c88cbe4455b" kindref="member">CamDeviceGtmStatus_t</ref>;</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="269"><highlight class="normal">RESULT<sp/>VsiCamDeviceGtmSetConfig</highlight></codeline>
+<codeline lineno="270"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_gtm_config__s" kindref="compound">CamDeviceGtmConfig_t</ref><sp/>*pConfig</highlight></codeline>
+<codeline lineno="273"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="298"><highlight class="normal">RESULT<sp/>VsiCamDeviceGtmGetConfig</highlight></codeline>
+<codeline lineno="299"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_gtm_config__s" kindref="compound">CamDeviceGtmConfig_t</ref><sp/>*pConfig</highlight></codeline>
+<codeline lineno="302"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="321"><highlight class="normal">RESULT<sp/>VsiCamDeviceGtmEnable</highlight></codeline>
+<codeline lineno="322"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice</highlight></codeline>
+<codeline lineno="324"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="343"><highlight class="normal">RESULT<sp/>VsiCamDeviceGtmDisable</highlight></codeline>
+<codeline lineno="344"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice</highlight></codeline>
+<codeline lineno="346"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="364"><highlight class="normal">RESULT<sp/>VsiCamDeviceGtmBlackWhiteCorrectionEnable</highlight></codeline>
+<codeline lineno="365"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice</highlight></codeline>
+<codeline lineno="367"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"></highlight></codeline>
+<codeline lineno="369"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="385"><highlight class="normal">RESULT<sp/>VsiCamDeviceGtmBlackWhiteCorrectionDisable</highlight></codeline>
+<codeline lineno="386"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice</highlight></codeline>
+<codeline lineno="388"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"></highlight></codeline>
+<codeline lineno="390"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="412"><highlight class="normal">RESULT<sp/>VsiCamDeviceGtmBlackWhiteCorrectionEnGetConfig</highlight></codeline>
+<codeline lineno="413"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/>*pBwCorEnable</highlight></codeline>
+<codeline lineno="416"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"></highlight></codeline>
+<codeline lineno="418"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="440"><highlight class="normal">RESULT<sp/>VsiCamDeviceGtmGetStatus</highlight></codeline>
+<codeline lineno="441"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_gtm_status__s" kindref="compound">CamDeviceGtmStatus_t</ref><sp/>*pStatus</highlight></codeline>
+<codeline lineno="444"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"></highlight></codeline>
+<codeline lineno="446"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="462"><highlight class="normal">RESULT<sp/>VsiCamDeviceGtmGetVersion</highlight></codeline>
+<codeline lineno="463"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pVersion</highlight></codeline>
+<codeline lineno="466"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"></highlight></codeline>
+<codeline lineno="468"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="490"><highlight class="normal">RESULT<sp/>VsiCamDeviceGtmReset</highlight></codeline>
+<codeline lineno="491"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="493"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"></highlight></codeline>
+<codeline lineno="497"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="498"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="500"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="501"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h"/>
+  </compounddef>
+</doxygen>

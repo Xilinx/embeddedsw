@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_metadata_buf_info__s" kind="struct" prot="public">
+    <compoundname>MetadataBufInfo_s</compoundname>
+    <includes local="no">buf_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_metadata_buf_info__s_1a6e4b6df05acaf517430bf7a8912fcd19" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t MetadataBufInfo_s::winNum</definition>
+        <argsstring></argsstring>
+        <name>winNum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="552" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="552" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_metadata_buf_info__s_1af2f6cb4bc1427154eb63b53894607da2" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t MetadataBufInfo_s::pBuffer[METADATA_MAX_NUM]</definition>
+        <argsstring>[METADATA_MAX_NUM]</argsstring>
+        <name>pBuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="553" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="553" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_metadata_buf_info__s_1a3a0e4961791ecbe107b5026d2baa9bc8" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t MetadataBufInfo_s::address[METADATA_MAX_NUM]</definition>
+        <argsstring>[METADATA_MAX_NUM]</argsstring>
+        <name>address</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="554" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="554" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_metadata_buf_info__s_1aa0ffa1daeb243d79e7aea3e2f68b6204" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t MetadataBufInfo_s::bufferSize[METADATA_MAX_NUM]</definition>
+        <argsstring>[METADATA_MAX_NUM]</argsstring>
+        <name>bufferSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="555" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="555" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>MetadataBufInfo_t. </para>    </briefdescription>
+    <detaileddescription>
+<para>metadata windows buffer info. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="551" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="551" bodyend="556"/>
+    <listofallmembers>
+      <member refid="struct_metadata_buf_info__s_1a3a0e4961791ecbe107b5026d2baa9bc8" prot="public" virt="non-virtual"><scope>MetadataBufInfo_s</scope><name>address</name></member>
+      <member refid="struct_metadata_buf_info__s_1aa0ffa1daeb243d79e7aea3e2f68b6204" prot="public" virt="non-virtual"><scope>MetadataBufInfo_s</scope><name>bufferSize</name></member>
+      <member refid="struct_metadata_buf_info__s_1af2f6cb4bc1427154eb63b53894607da2" prot="public" virt="non-virtual"><scope>MetadataBufInfo_s</scope><name>pBuffer</name></member>
+      <member refid="struct_metadata_buf_info__s_1a6e4b6df05acaf517430bf7a8912fcd19" prot="public" virt="non-virtual"><scope>MetadataBufInfo_s</scope><name>winNum</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_b24cef1c61f2294b5dac8e2a38e4858d" kind="dir">
+    <compoundname>client</compoundname>
+    <innerfile refid="xplmi__client_8c">xplmi_client.c</innerfile>
+    <innerfile refid="xplmi__client_8h">xplmi_client.h</innerfile>
+    <innerfile refid="client_2xplmi__generic_8c">client/xplmi_generic.c</innerfile>
+    <innerfile refid="client_2xplmi__generic_8h">client/xplmi_generic.h</innerfile>
+    <innerfile refid="xplmi__glitchdetector_8c">xplmi_glitchdetector.c</innerfile>
+    <innerfile refid="xplmi__glitchdetector_8h">xplmi_glitchdetector.h</innerfile>
+    <innerfile refid="xplmi__mailbox_8c">xplmi_mailbox.c</innerfile>
+    <innerfile refid="xplmi__mailbox_8h">xplmi_mailbox.h</innerfile>
+    <innerfile refid="xplmi__smc_8c">xplmi_smc.c</innerfile>
+    <innerfile refid="xplmi__smc_8h">xplmi_smc.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/"/>
+  </compounddef>
+</doxygen>

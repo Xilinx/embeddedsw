@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_fu_sa_mis_val__s" kind="struct" prot="public">
+    <compoundname>CamDeviceFuSaMisVal_s</compoundname>
+    <includes local="no">cam_device_fusa_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_fu_sa_mis_val__s_1ad1895505f139c6ca9ac2d63f2567cc6b" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceFuSaMisVal_s::fusaEcc1MisVal</definition>
+        <argsstring></argsstring>
+        <name>fusaEcc1MisVal</name>
+        <briefdescription>
+<para>ECC1 masked interrupt status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_fu_sa_mis_val__s_1af30e95e8f70e043f5cae54786be21de2" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceFuSaMisVal_s::fusaEcc2MisVal</definition>
+        <argsstring></argsstring>
+        <name>fusaEcc2MisVal</name>
+        <briefdescription>
+<para>ECC2 masked interrupt status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_fu_sa_mis_val__s_1a61afecc8a881a67d945e8337ad94d303" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceFuSaMisVal_s::fusaEcc3MisVal</definition>
+        <argsstring></argsstring>
+        <name>fusaEcc3MisVal</name>
+        <briefdescription>
+<para>ECC3 masked interrupt status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_fu_sa_mis_val__s_1aa96ef1b1e549cdf782d3d303f2bd6076" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceFuSaMisVal_s::fusaEcc4MisVal</definition>
+        <argsstring></argsstring>
+        <name>fusaEcc4MisVal</name>
+        <briefdescription>
+<para>ECC4 masked interrupt status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_fu_sa_mis_val__s_1a45a195f823682b506e71dbf71606f299" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceFuSaMisVal_s::fusaEcc5MisVal</definition>
+        <argsstring></argsstring>
+        <name>fusaEcc5MisVal</name>
+        <briefdescription>
+<para>ECC5 masked interrupt status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_fu_sa_mis_val__s_1a313b4ed474883f96447bae97076678a1" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceFuSaMisVal_s::fusaEcc6MisVal</definition>
+        <argsstring></argsstring>
+        <name>fusaEcc6MisVal</name>
+        <briefdescription>
+<para>ECC6 masked interrupt status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_fu_sa_mis_val__s_1a2adac99a55a7c69a2eeda1ab192c76c8" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceFuSaMisVal_s::fusaDupMisVal</definition>
+        <argsstring></argsstring>
+        <name>fusaDupMisVal</name>
+        <briefdescription>
+<para>Dump masked interrupt status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_fu_sa_mis_val__s_1a82e2f6cc731d46d3b931dd2658081b02" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceFuSaMisVal_s::fusaParityMisVal</definition>
+        <argsstring></argsstring>
+        <name>fusaParityMisVal</name>
+        <briefdescription>
+<para>Parity masked interrupt status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_fu_sa_mis_val__s_1ac116248ab5042b83a412b8a35f78a970" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceFuSaMisVal_s::fusaLv1MisVal</definition>
+        <argsstring></argsstring>
+        <name>fusaLv1MisVal</name>
+        <briefdescription>
+<para>Level 1 masked interrupt status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice FuSa masked interrupt status. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="63" bodyend="73"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_fu_sa_mis_val__s_1a2adac99a55a7c69a2eeda1ab192c76c8" prot="public" virt="non-virtual"><scope>CamDeviceFuSaMisVal_s</scope><name>fusaDupMisVal</name></member>
+      <member refid="struct_cam_device_fu_sa_mis_val__s_1ad1895505f139c6ca9ac2d63f2567cc6b" prot="public" virt="non-virtual"><scope>CamDeviceFuSaMisVal_s</scope><name>fusaEcc1MisVal</name></member>
+      <member refid="struct_cam_device_fu_sa_mis_val__s_1af30e95e8f70e043f5cae54786be21de2" prot="public" virt="non-virtual"><scope>CamDeviceFuSaMisVal_s</scope><name>fusaEcc2MisVal</name></member>
+      <member refid="struct_cam_device_fu_sa_mis_val__s_1a61afecc8a881a67d945e8337ad94d303" prot="public" virt="non-virtual"><scope>CamDeviceFuSaMisVal_s</scope><name>fusaEcc3MisVal</name></member>
+      <member refid="struct_cam_device_fu_sa_mis_val__s_1aa96ef1b1e549cdf782d3d303f2bd6076" prot="public" virt="non-virtual"><scope>CamDeviceFuSaMisVal_s</scope><name>fusaEcc4MisVal</name></member>
+      <member refid="struct_cam_device_fu_sa_mis_val__s_1a45a195f823682b506e71dbf71606f299" prot="public" virt="non-virtual"><scope>CamDeviceFuSaMisVal_s</scope><name>fusaEcc5MisVal</name></member>
+      <member refid="struct_cam_device_fu_sa_mis_val__s_1a313b4ed474883f96447bae97076678a1" prot="public" virt="non-virtual"><scope>CamDeviceFuSaMisVal_s</scope><name>fusaEcc6MisVal</name></member>
+      <member refid="struct_cam_device_fu_sa_mis_val__s_1ac116248ab5042b83a412b8a35f78a970" prot="public" virt="non-virtual"><scope>CamDeviceFuSaMisVal_s</scope><name>fusaLv1MisVal</name></member>
+      <member refid="struct_cam_device_fu_sa_mis_val__s_1a82e2f6cc731d46d3b931dd2658081b02" prot="public" virt="non-virtual"><scope>CamDeviceFuSaMisVal_s</scope><name>fusaParityMisVal</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

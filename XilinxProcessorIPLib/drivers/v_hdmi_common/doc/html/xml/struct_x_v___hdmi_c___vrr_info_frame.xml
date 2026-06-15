@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___hdmi_c___vrr_info_frame" kind="struct" prot="public">
+    <compoundname>XV_HdmiC_VrrInfoFrame</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___hdmi_c___vrr_info_frame_1a4b4aac9fd827c9ced573249cf75d378d" prot="public" static="no" mutable="no">
+        <type>XV_HdmiC_VrrInfoframeType</type>
+        <definition>XV_HdmiC_VrrInfoframeType XV_HdmiC_VrrInfoFrame::VrrIfType</definition>
+        <argsstring></argsstring>
+        <name>VrrIfType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="644" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="644" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_c___vrr_info_frame_1a046a2c039dafbf3410cda64e0195be4b" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v___hdmi_c___video_timing_ext_meta" kindref="compound">XV_HdmiC_VideoTimingExtMeta</ref></type>
+        <definition>XV_HdmiC_VideoTimingExtMeta XV_HdmiC_VrrInfoFrame::VidTimingExtMeta</definition>
+        <argsstring></argsstring>
+        <name>VidTimingExtMeta</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="646" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="646" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_c___vrr_info_frame_1ab773206480b036a36187bb1f11fa529a" prot="public" static="no" mutable="no">
+        <type><ref refid="union_x_v___hdmi_c___src_prod_desc_i_f" kindref="compound">XV_HdmiC_SrcProdDescIF</ref></type>
+        <definition>XV_HdmiC_SrcProdDescIF XV_HdmiC_VrrInfoFrame::SrcProdDescIF</definition>
+        <argsstring></argsstring>
+        <name>SrcProdDescIF</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="647" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="647" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_c___vrr_info_frame_1a8a27cd6149827faf9a95076fdae4a2f1" prot="public" static="no" mutable="no">
+        <type>union XV_HdmiC_VrrInfoFrame::@2</type>
+        <definition>union XV_HdmiC_VrrInfoFrame::@2 XV_HdmiC_VrrInfoFrame::@3</definition>
+        <argsstring></argsstring>
+        <name>@3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="648" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="58">
+        <label>XV_HdmiC_SrcProdDescIF</label>
+        <link refid="union_x_v___hdmi_c___src_prod_desc_i_f"/>
+      </node>
+      <node id="59">
+        <label>XV_HdmiC_VideoTimingExtMeta</label>
+        <link refid="struct_x_v___hdmi_c___video_timing_ext_meta"/>
+      </node>
+      <node id="57">
+        <label>XV_HdmiC_VrrInfoFrame</label>
+        <childnode refid="58" relation="usage">
+          <edgelabel>SrcProdDescIF</edgelabel>
+        </childnode>
+        <childnode refid="59" relation="usage">
+          <edgelabel>VidTimingExtMeta</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="643" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="643" bodyend="649"/>
+    <listofallmembers>
+      <member refid="struct_x_v___hdmi_c___vrr_info_frame_1ab773206480b036a36187bb1f11fa529a" prot="public" virt="non-virtual"><scope>XV_HdmiC_VrrInfoFrame</scope><name>SrcProdDescIF</name></member>
+      <member refid="struct_x_v___hdmi_c___vrr_info_frame_1a046a2c039dafbf3410cda64e0195be4b" prot="public" virt="non-virtual"><scope>XV_HdmiC_VrrInfoFrame</scope><name>VidTimingExtMeta</name></member>
+      <member refid="struct_x_v___hdmi_c___vrr_info_frame_1a4b4aac9fd827c9ced573249cf75d378d" prot="public" virt="non-virtual"><scope>XV_HdmiC_VrrInfoFrame</scope><name>VrrIfType</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

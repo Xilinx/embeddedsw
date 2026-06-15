@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use axivdma driver.</para><sect1 id="example_1ex1">
+<title>xaxivdma_example_selftest.c</title>
+<para>Contains an example on how to use the XAxivdma driver directly. This example performs the basic selftest using the driver.</para><para>For details, see <ref refid="xaxivdma__example__selftest_8c" kindref="compound">xaxivdma_example_selftest.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xaxivdma_example_intr.c</title>
+<para>Contains an example on how to use the XAxivdma driver directly. This example shows the usage of AXI Video DMA with other video IPs to do video frame transfers. This example does not work by itself. It needs two other Video IPs, one for writing video frames to the memory and one for reading video frames from the memory.</para><para>For details, see <ref refid="xaxivdma__example__intr_8c" kindref="compound">xaxivdma_example_intr.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>axivdma triple buffer example</title>
+<para>Contains an example on how to use the XAxivdma triple buffer API. This example contains 2 files. <ref refid="vdma__api_8c" kindref="compound">vdma_api.c</ref> - This file has high level API&apos;s to configure and start the VDMA transfer. <ref refid="vdma_8c" kindref="compound">vdma.c</ref> - This file comprises sample application to the usage of VDMA API&apos;s in <ref refid="vdma__api_8c" kindref="compound">vdma_api.c</ref>.</para><para>For details, see <ref refid="vdma_8c" kindref="compound">vdma.c</ref>. For details, see <ref refid="vdma__api_8c" kindref="compound">vdma_api.c</ref>.</para><para>NOTE: These examples assumes that the design has VDMA with both MM2S and S2MM path enable. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

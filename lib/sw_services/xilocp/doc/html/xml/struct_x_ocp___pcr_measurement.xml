@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ocp___pcr_measurement" kind="struct" prot="public">
+    <compoundname>XOcp_PcrMeasurement</compoundname>
+    <includes local="no">xocp_common.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ocp___pcr_measurement_1a20859a5d025254cf41a00e6ea48d142c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XOcp_PcrMeasurement::EventId</definition>
+        <argsstring></argsstring>
+        <name>EventId</name>
+        <briefdescription>
+<para>Event Id. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ocp___pcr_measurement_1a45f5b83bcf22035cf4c484fafb85f92e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XOcp_PcrMeasurement::Version</definition>
+        <argsstring></argsstring>
+        <name>Version</name>
+        <briefdescription>
+<para>Version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ocp___pcr_measurement_1aaf74f03e37bcbd23a61600ec240387d4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XOcp_PcrMeasurement::DataLength</definition>
+        <argsstring></argsstring>
+        <name>DataLength</name>
+        <briefdescription>
+<para>Data length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ocp___pcr_measurement_1ad4137c176c5fbe053cc70cbb1e8b417f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XOcp_PcrMeasurement::HashOfData[XOCP_PCR_SIZE_BYTES]</definition>
+        <argsstring>[XOCP_PCR_SIZE_BYTES]</argsstring>
+        <name>HashOfData</name>
+        <briefdescription>
+<para>Hash of the data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ocp___pcr_measurement_1ab85c801a97b79ef8b2db75d0498f5027" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XOcp_PcrMeasurement::MeasuredData[XOCP_PCR_SIZE_BYTES]</definition>
+        <argsstring>[XOCP_PCR_SIZE_BYTES]</argsstring>
+        <name>MeasuredData</name>
+        <briefdescription>
+<para>PCR measurement with N-1 digest. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Software PCR Measurement structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="173" bodyend="179"/>
+    <listofallmembers>
+      <member refid="struct_x_ocp___pcr_measurement_1aaf74f03e37bcbd23a61600ec240387d4" prot="public" virt="non-virtual"><scope>XOcp_PcrMeasurement</scope><name>DataLength</name></member>
+      <member refid="struct_x_ocp___pcr_measurement_1a20859a5d025254cf41a00e6ea48d142c" prot="public" virt="non-virtual"><scope>XOcp_PcrMeasurement</scope><name>EventId</name></member>
+      <member refid="struct_x_ocp___pcr_measurement_1ad4137c176c5fbe053cc70cbb1e8b417f" prot="public" virt="non-virtual"><scope>XOcp_PcrMeasurement</scope><name>HashOfData</name></member>
+      <member refid="struct_x_ocp___pcr_measurement_1ab85c801a97b79ef8b2db75d0498f5027" prot="public" virt="non-virtual"><scope>XOcp_PcrMeasurement</scope><name>MeasuredData</name></member>
+      <member refid="struct_x_ocp___pcr_measurement_1a45f5b83bcf22035cf4c484fafb85f92e" prot="public" virt="non-virtual"><scope>XOcp_PcrMeasurement</scope><name>Version</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

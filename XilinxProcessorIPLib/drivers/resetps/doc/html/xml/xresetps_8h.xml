@@ -1,0 +1,1727 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xresetps_8h" kind="file">
+    <compoundname>xresetps.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xresetps__hw_8h" local="yes">xresetps_hw.h</includes>
+    <includedby refid="xresetps_8c" local="yes">xresetps.c</includedby>
+    <includedby refid="xresetps__g_8c" local="yes">xresetps_g.c</includedby>
+    <includedby refid="xresetps__sinit_8c" local="yes">xresetps_sinit.c</includedby>
+    <includedby refid="xresetps__example_8c" local="yes">xresetps_example.c</includedby>
+    <incdepgraph>
+      <node id="16">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="19">
+        <label>xil_io.h</label>
+      </node>
+      <node id="14">
+        <label>xresetps.h</label>
+        <link refid="xresetps.h"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>xresetps_hw.h</label>
+        <link refid="xresetps__hw_8h"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>xstatus.h</label>
+      </node>
+      <node id="15">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="21">
+        <label>xresetps.c</label>
+        <link refid="xresetps_8c"/>
+      </node>
+      <node id="20">
+        <label>xresetps.h</label>
+        <link refid="xresetps.h"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>xresetps_sinit.c</label>
+        <link refid="xresetps__sinit_8c"/>
+      </node>
+      <node id="22">
+        <label>xresetps_g.c</label>
+        <link refid="xresetps__g_8c"/>
+      </node>
+      <node id="24">
+        <label>xresetps_example.c</label>
+        <link refid="xresetps__example_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_reset_ps___config" prot="public">XResetPs_Config</innerclass>
+    <innerclass refid="struct_x_reset_ps" prot="public">XResetPs</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__resetps_1ga03f2d9839e1a10b7fcd0f346f201a80b" prot="public" static="no">
+        <name>XRESETPS_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__resetps_1gae2b7824db50dc2343030f7640e4a4244" prot="public" static="no">
+        <name>XRESETPS_SUP</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__resetps_1gada067b524f80e6460f153c1b5542d4e8" prot="public" static="no">
+        <name>XRESETPS_NOSUP</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__resetps_1gac84616329b152d481719ec191489af72" prot="public" static="no">
+        <name>XRESETPS_SUPPORTED_ACT</name>
+        <param><defname>ResetSupport</defname></param>
+        <param><defname>PulseSupport</defname></param>
+        <param><defname>AssertSupport</defname></param>
+        <initializer>((ResetSupport &lt;&lt; 2) | (PulseSupport &lt;&lt; 1) | AssertSupport)</initializer>
+        <briefdescription>
+<para>Set supported reset action. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ResetSupport</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates if reset status check is supported </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PulseSupport</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates if pulse reset action is supported </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AssertSupport</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates if reset assert/deassert is supported</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Supported reset actions</para></simplesect>
+<simplesect kind="note"><para>Here bit fields are used decide supported actions as defined below: BIT 1 - Assert/Deassert BIT 2 - Pulse BIT 3 - Reset status Bit set indicates corresponding action is supported and vice versa. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" line="277" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__resetps_1gabf462cbc24020a687d206a711e8d0a82" prot="public" static="no">
+        <name>XRESETPS_CHK_ASSERT_SUPPORT</name>
+        <param><defname>Actions</defname></param>
+        <initializer>((Actions &amp; 0x1))</initializer>
+        <briefdescription>
+<para>Check if assert/dessert reset is supported. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Actions</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is supported reset actions</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 - Supported 0 - Not Supported</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" line="293" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" bodystart="293" bodyend="-1"/>
+        <referencedby refid="group__resetps_1ga65cfe2715d69c8cd2f34300478107501" compoundref="xresetps_8c" startline="968" endline="1010">XResetPs_ResetAssert</referencedby>
+        <referencedby refid="group__resetps_1ga4bddc4ee235a6971cc1e488cc265fb77" compoundref="xresetps_8c" startline="1027" endline="1069">XResetPs_ResetDeassert</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__resetps_1ga4e0e8086d2165c87d0e772870efb69ca" prot="public" static="no">
+        <name>XRESETPS_CHK_PULSE_SUPPORT</name>
+        <param><defname>Actions</defname></param>
+        <initializer>((Actions &amp; 0x2) &gt;&gt; 1)</initializer>
+        <briefdescription>
+<para>Check if pulse reset is supported. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Actions</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is supported reset actions</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 - Supported 0 - Not Supported</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" line="308" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" bodystart="308" bodyend="-1"/>
+        <referencedby refid="group__resetps_1gad814235db40b178bbd7834e8c95e6da3" compoundref="xresetps_8c" startline="1086" endline="1171">XResetPs_ResetPulse</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__resetps_1ga3448c0dcb52799633e53c8cfd8d3dca9" prot="public" static="no">
+        <name>XRESETPS_CHK_STATUS_SUPPORT</name>
+        <param><defname>Actions</defname></param>
+        <initializer>((Actions &amp; 0x4) &gt;&gt; 2)</initializer>
+        <briefdescription>
+<para>Check if Status check is supported. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Actions</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is supported reset actions</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 - Supported 0 - Not Supported</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" line="323" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" bodystart="323" bodyend="-1"/>
+        <referencedby refid="group__resetps_1ga235e646a14d31e1136808857810947ab" compoundref="xresetps_8c" startline="1190" endline="1245">XResetPs_ResetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__resetps_1gaaa78ef37a8192ac9c0473ffccc38eb65" prot="public" static="no">
+        <name>XResetPs_ReadReg</name>
+        <param><defname>RegAddress</defname></param>
+        <initializer>Xil_In32((u32)RegAddress)</initializer>
+        <briefdescription>
+<para>Read the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RegAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the register to read</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" line="337" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" bodystart="337" bodyend="-1"/>
+        <referencedby refid="group__resetps_1ga65cfe2715d69c8cd2f34300478107501" compoundref="xresetps_8c" startline="968" endline="1010">XResetPs_ResetAssert</referencedby>
+        <referencedby refid="group__resetps_1ga4bddc4ee235a6971cc1e488cc265fb77" compoundref="xresetps_8c" startline="1027" endline="1069">XResetPs_ResetDeassert</referencedby>
+        <referencedby refid="group__resetps_1gad814235db40b178bbd7834e8c95e6da3" compoundref="xresetps_8c" startline="1086" endline="1171">XResetPs_ResetPulse</referencedby>
+        <referencedby refid="group__resetps_1ga235e646a14d31e1136808857810947ab" compoundref="xresetps_8c" startline="1190" endline="1245">XResetPs_ResetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__resetps_1ga50fdb585f27cbd1efa5730724431c2fc" prot="public" static="no">
+        <name>XResetPs_WriteReg</name>
+        <param><defname>RegAddress</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32((u32)RegAddress, (u32)Data)</initializer>
+        <briefdescription>
+<para>Write the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RegAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the register to write </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" line="353" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" bodystart="353" bodyend="-1"/>
+        <referencedby refid="group__resetps_1ga65cfe2715d69c8cd2f34300478107501" compoundref="xresetps_8c" startline="968" endline="1010">XResetPs_ResetAssert</referencedby>
+        <referencedby refid="group__resetps_1ga4bddc4ee235a6971cc1e488cc265fb77" compoundref="xresetps_8c" startline="1027" endline="1069">XResetPs_ResetDeassert</referencedby>
+        <referencedby refid="group__resetps_1gad814235db40b178bbd7834e8c95e6da3" compoundref="xresetps_8c" startline="1086" endline="1171">XResetPs_ResetPulse</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__resetps_1ga5a52351208e345e52c54b29dffa0b8ee" prot="public" static="no">
+        <name>XResetPs_PulseTypes</name>
+        <enumvalue id="group__resetps_1gga5a52351208e345e52c54b29dffa0b8eeaa0e91ee18fb22a245a877ca80d29bfe1" prot="public">
+          <name>XRESETPS_PT_NO_DLY_NO_PSCHK</name>
+          <briefdescription>
+<para>No delay, no power state check. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1gga5a52351208e345e52c54b29dffa0b8eeab6e96b8f5d634a986618625a0e71b3df" prot="public">
+          <name>XRESETPS_PT_DLY_NO_PSCHK</name>
+          <briefdescription>
+<para>Delay, no power state check. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1gga5a52351208e345e52c54b29dffa0b8eea4c848b7744fa9748cf956d5db1166475" prot="public">
+          <name>XRESETPS_PT_DLY_PSCHK</name>
+          <briefdescription>
+<para>Delay, power state check. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1gga5a52351208e345e52c54b29dffa0b8eea6a552c4d472e802f81447c916b2b8473" prot="public">
+          <name>XRESETPS_PT_INVALID</name>
+          <briefdescription>
+<para>Invalid pulse type. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef defines type of pulse reset to be executed for peripherals. </para>        </briefdescription>
+        <detaileddescription>
+<para>3 type of pulse reset are possible:<orderedlist>
+<listitem><para>Pulse with no delay and no power state validation</para></listitem><listitem><para>Pulse with delay but no power state validation</para></listitem><listitem><para>Pulse with delay and power state validation </para></listitem></orderedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" bodystart="108" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__resetps_1gabeeb630168989c49bd8a960c0527041c" prot="public" static="no">
+        <name>XresetPs_ResetAction</name>
+        <enumvalue id="group__resetps_1ggabeeb630168989c49bd8a960c0527041cac6b22900cd9686138c79c8a8d7b79ab8" prot="public">
+          <name>XRESETPS_RSTACT_RELEASE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggabeeb630168989c49bd8a960c0527041ca9df4311bc1ca842eaa79fb10da3f54cc" prot="public">
+          <name>XRESETPS_RSTACT_ASSERT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggabeeb630168989c49bd8a960c0527041ca71ac06f3edb50fffbfaab54f21ced17c" prot="public">
+          <name>XRESETPS_RSTACT_PULSE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef defines reset actions on the peripherals. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" bodystart="118" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__resetps_1gae2a8fda4fe9a2b1b31fc9bab21478b42" prot="public" static="no">
+        <name>XResetPs_RstId</name>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42aa71707817415c66cf6b78a7788c8e4a1" prot="public">
+          <name>XRESETPS_RSTID_START</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a331956ed1d4fcc10ed6b5cc4a0c71255" prot="public">
+          <name>XRESETPS_RSTID_PCIE_CFG</name>
+          <initializer>= XRESETPS_RSTID_START</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a045c9740263e326d701a9769e8ee0f32" prot="public">
+          <name>XRESETPS_RSTID_PCIE_BRIDGE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42ab6d522cd2c63cf070af911e42b963465" prot="public">
+          <name>XRESETPS_RSTID_PCIE_CTRL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a8c7cf2f5bbd75db2b1711f1e2b8cda2e" prot="public">
+          <name>XRESETPS_RSTID_DP</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a277f0b63a6431c5fa0e2c774d75455ce" prot="public">
+          <name>XRESETPS_RSTID_SWDT_CRF</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a5d5b86ebf28f1f5a1f2d241fc07efa61" prot="public">
+          <name>XRESETPS_RSTID_AFI_FM5</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a721d2e4aea4364fd9b7f3e10bc613903" prot="public">
+          <name>XRESETPS_RSTID_AFI_FM4</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a976068b592728ed1533c29c6454d89a1" prot="public">
+          <name>XRESETPS_RSTID_AFI_FM3</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a9c5690e34a02a0a50f5f41b245c918e9" prot="public">
+          <name>XRESETPS_RSTID_AFI_FM2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42aad02243f77cd012ebbabb4cebfb0c3b9" prot="public">
+          <name>XRESETPS_RSTID_AFI_FM1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42ac7246e3741b5c41d79840697768dc05a" prot="public">
+          <name>XRESETPS_RSTID_AFI_FM0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a55a2f429f964ac9ae11547e1360079bb" prot="public">
+          <name>XRESETPS_RSTID_GDMA</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a064cfcca15a5654fcfe741bbfc26a59e" prot="public">
+          <name>XRESETPS_RSTID_GPU_PP1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a8d81cc5cd8955377b964e7924c5280d0" prot="public">
+          <name>XRESETPS_RSTID_GPU_PP0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42aa2176b727fdc59589b8c44c86fd4aab7" prot="public">
+          <name>XRESETPS_RSTID_GPU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42ad602aac6b5ca2b2d3214825e376d3b71" prot="public">
+          <name>XRESETPS_RSTID_GT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42ace8f9aafa6f3ac632ad7af07f5d7438d" prot="public">
+          <name>XRESETPS_RSTID_SATA</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a2ecc7c04b3f98ff572ff7817a3b6cd8e" prot="public">
+          <name>XRESETPS_RSTID_ACPU3_PWRON</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a6927fc5a5e1b5f2a31178ac54c1a35fd" prot="public">
+          <name>XRESETPS_RSTID_ACPU2_PWRON</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42ae11ef63468202a8e9d1be4a4a669a337" prot="public">
+          <name>XRESETPS_RSTID_ACPU1_PWRON</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a4769a57b7e2569a26d721a84085c3d19" prot="public">
+          <name>XRESETPS_RSTID_ACPU0_PWRON</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a1c2135d28650cca6b57725039a0a6ffa" prot="public">
+          <name>XRESETPS_RSTID_APU_L2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42ac930f382868a4cf747be69094b88dd06" prot="public">
+          <name>XRESETPS_RSTID_ACPU3</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a7b079abaf46334570d81048a2537a52c" prot="public">
+          <name>XRESETPS_RSTID_ACPU2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a2c7fc2e4902dc9e30006aa4b5d5f8e3c" prot="public">
+          <name>XRESETPS_RSTID_ACPU1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a01d595a74d83cd9dd41f576b31792ae4" prot="public">
+          <name>XRESETPS_RSTID_ACPU0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a3544175d0df54550175c7c7a0dacd789" prot="public">
+          <name>XRESETPS_RSTID_DDR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a92f6ffd96a0cc4e580abc2ae864ac9c4" prot="public">
+          <name>XRESETPS_RSTID_APM_FPD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a06c8826ef044f727484f705835b80fe3" prot="public">
+          <name>XRESETPS_RSTID_SOFT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42aaecef929ad434ad67e4b7fdf820f6d06" prot="public">
+          <name>XRESETPS_RSTID_GEM0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a4ccf56ceef998076f37abd1b4fb08bd9" prot="public">
+          <name>XRESETPS_RSTID_GEM1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a98f0b5a4876a6b6ce6450bf586e41972" prot="public">
+          <name>XRESETPS_RSTID_GEM2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a81bd3ae295504a701f3abd198c1d2e93" prot="public">
+          <name>XRESETPS_RSTID_GEM3</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a3876c8e3a652bce78a821f3ce2e8b138" prot="public">
+          <name>XRESETPS_RSTID_QSPI</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a41b8eb970d64fed9a1a23e953629d382" prot="public">
+          <name>XRESETPS_RSTID_UART0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42ac253be438cd763eea8df5ee17463c11c" prot="public">
+          <name>XRESETPS_RSTID_UART1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a2bda9fcb59ee878632e21747323cfbc2" prot="public">
+          <name>XRESETPS_RSTID_SPI0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42aaa0e836166c569ba82d3fafe1132d9af" prot="public">
+          <name>XRESETPS_RSTID_SPI1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a0666e4045585745dc4e83fe03708f901" prot="public">
+          <name>XRESETPS_RSTID_SDIO0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a6f5c8856f5b700fb5f619ea08b6db094" prot="public">
+          <name>XRESETPS_RSTID_SDIO1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a84c2a54ce8759bbbc11afd617533c978" prot="public">
+          <name>XRESETPS_RSTID_CAN0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a25b0878c1009a2360f11eafc6cb34649" prot="public">
+          <name>XRESETPS_RSTID_CAN1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a17e6c4aa022d6139953d48d0fed5a813" prot="public">
+          <name>XRESETPS_RSTID_I2C0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a309723528f554943d14b58af6ad21898" prot="public">
+          <name>XRESETPS_RSTID_I2C1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a7f402ad7fa1916738e79a01c59c5c69f" prot="public">
+          <name>XRESETPS_RSTID_TTC0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42ad19ff44c3c8c1971a457011140c9133a" prot="public">
+          <name>XRESETPS_RSTID_TTC1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a62dc766432e94dc9451e7a905e8220ea" prot="public">
+          <name>XRESETPS_RSTID_TTC2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a2585279b39b8ce7b8b4673ca6f8c7dd2" prot="public">
+          <name>XRESETPS_RSTID_TTC3</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42acdcfdc4cf651462c8a0508232f8ee2f9" prot="public">
+          <name>XRESETPS_RSTID_SWDT_CRL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42abca5be59a635d065b4acda8068995858" prot="public">
+          <name>XRESETPS_RSTID_NAND</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42abe583d0159fb3439fa5c94a6d45c4e0c" prot="public">
+          <name>XRESETPS_RSTID_ADMA</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a4338d19689d4cff794c551aefa4139d2" prot="public">
+          <name>XRESETPS_RSTID_GPIO</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a17cdf62aea0a369b7ea7744cd4f47c95" prot="public">
+          <name>XRESETPS_RSTID_IOU_CC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a81e151cbabc8c5391b91e4595527ac07" prot="public">
+          <name>XRESETPS_RSTID_TIMESTAMP</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a710c77123df2fdce87ed8975eb7454e7" prot="public">
+          <name>XRESETPS_RSTID_RPU_R50</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a7bb593e1954dd1baaa15337d6f3360d5" prot="public">
+          <name>XRESETPS_RSTID_RPU_R51</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a9a0ebfc08f678741199a6bd9066e5b8d" prot="public">
+          <name>XRESETPS_RSTID_RPU_AMBA</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a4541006c8743e3e815a5bd988ed893e0" prot="public">
+          <name>XRESETPS_RSTID_OCM</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42ae52237b4d410aef12ca135878dedd59e" prot="public">
+          <name>XRESETPS_RSTID_RPU_PGE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a593b952aec9220bfae4c627383f4d60e" prot="public">
+          <name>XRESETPS_RSTID_USB0_CORERESET</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a4e9a65666f95119c756d130394ce08f5" prot="public">
+          <name>XRESETPS_RSTID_USB1_CORERESET</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a908cb884a635efe07b5ed9d1b5d4ef97" prot="public">
+          <name>XRESETPS_RSTID_USB0_HIBERRESET</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a35e14b43d5bffde46484fbc8ee468f78" prot="public">
+          <name>XRESETPS_RSTID_USB1_HIBERRESET</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a90d411561720ffc0f06bcd07fcb724db" prot="public">
+          <name>XRESETPS_RSTID_USB0_APB</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a2dd39ed280ddf557e928f87cf630722b" prot="public">
+          <name>XRESETPS_RSTID_USB1_APB</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42af37484b4abee39f36379acf0ad39181d" prot="public">
+          <name>XRESETPS_RSTID_IPI</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a60b17da4539da994178484e49f25054c" prot="public">
+          <name>XRESETPS_RSTID_APM_LPD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42ade4d2fb522f6a5e7280a41f7edcca999" prot="public">
+          <name>XRESETPS_RSTID_RTC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a09e9bd171573d0382c407d3750660e9d" prot="public">
+          <name>XRESETPS_RSTID_SYSMON</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a4243836763e46478b9ce2d34d281469d" prot="public">
+          <name>XRESETPS_RSTID_AFI_FM6</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a2c767cb0f4c3772213b3ef2ce9db72b7" prot="public">
+          <name>XRESETPS_RSTID_LPD_SWDT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a48bf492f16eaf5821431b76ed21554ea" prot="public">
+          <name>XRESETPS_RSTID_FPD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a7970c81a36f87c4c99b4632a281cbeeb" prot="public">
+          <name>XRESETPS_RSTID_RPU_DBG1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a1f981b246b059bc4de59170a87ace2d0" prot="public">
+          <name>XRESETPS_RSTID_RPU_DBG0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42ac5ebb825a3aca061d8783d13e729f13a" prot="public">
+          <name>XRESETPS_RSTID_DBG_LPD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a64a8bacb817706d897297412c91378ab" prot="public">
+          <name>XRESETPS_RSTID_DBG_FPD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a6f8d4bd6fae432dba7eb1c69b10ad0c7" prot="public">
+          <name>XRESETPS_RSTID_APLL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a85e2d36ae0d3a230e1053529663a7a87" prot="public">
+          <name>XRESETPS_RSTID_DPLL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42aaaaa99b45c17d4da270bede9bef0af3a" prot="public">
+          <name>XRESETPS_RSTID_VPLL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42aac37549912c861294d721cb0e83f730c" prot="public">
+          <name>XRESETPS_RSTID_IOPLL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42af47a48c1f523f2397d29abb63baf593f" prot="public">
+          <name>XRESETPS_RSTID_RPLL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42ab405fbe72b9fe43a34a215bd0b641cc5" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL0</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42aa463b291df864e75893812ebce20de34" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42aa1f81b64a2667d75b9667a22fc23ec99" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a2910d2fcced1715fe1d496d648efbba6" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL3</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42aa149fe5e99b6184df5eba7732966f4b3" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL4</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a96a4a36731377022f4e91a411d912bb2" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL5</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42ad7ae64bb135d445d40772289b64a18be" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL6</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42afef2712ea4c59e14091791a3bf657192" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL7</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a7871ad5b8bec83bbbc5ba8a67e33f3f8" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL8</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42aff897dbaa3631388b3c2b0721c7ecfaa" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL9</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a7c61d8920009562e50ae3e248ad8f29d" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL10</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a664ffcab191cb7a906a9c24a947b5ada" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL11</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a31ddeb2a165227fa40c1b524a68a220a" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL12</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42ae57f54d86527057e9edeeccc3b01739c" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL13</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a0edc29e8381efc906755364bee833e68" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL14</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a2fd4421af8dac4599783d5eb1a441cc0" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL15</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42ad3d8d73f6a614103106f1fae7965595b" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL16</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42af6b3ead846650221f920a9b33e97f7e1" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL17</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42afae60f3f58d61b7f58a4dc5f12d0a51b" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL18</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a5bd6453c177a3e7a8662ce49292b50d1" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL19</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a6737d2f4969cef1d9a7899658c03e64e" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL20</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42ae2be450ab548548385274e8a1cc24163" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL21</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a221b13d07f213de8bc6d9cb220aeb566" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL22</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a7150f29469b232a97df535128f3a7ee1" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL23</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a8fb9b2d3731d773589f6003f2358396b" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL24</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42aba2a00a89a2a634c9f3ec2c05e9eef9a" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL25</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42afebe8708bd75e14fb433ed13ca4ff1d2" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL26</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a9bcc683c26eeb71629114dfbc72ab7a7" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL27</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42acd2f74cbb8e9c16d41fb464b500f794c" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL28</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a7a1ea0f489e238bd66cb19d7ac3855f2" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL29</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a9332b848d5f73bb0857fb0b3d63e7768" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL30</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a52e07a3f50a6b835b424d20b72131e22" prot="public">
+          <name>XRESETPS_RSTID_GPO3PL31</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a0be853e267ed44d18ae9f266fef10c60" prot="public">
+          <name>XRESETPS_RSTID_RPU_LS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a455463f3aa62ae8cf7483c35503ee934" prot="public">
+          <name>XRESETPS_RSTID_PS_ONLY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42a68ecfe0fca3328236555afcaa7f50de8" prot="public">
+          <name>XRESETPS_RSTID_PL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1ggae2a8fda4fe9a2b1b31fc9bab21478b42ae3dd426e958d640c06788e77a9a1f63b" prot="public">
+          <name>XRESETPS_RSTID_END</name>
+          <initializer>= XRESETPS_RSTID_PL</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef defines resetIDs of peripherals maps to PMUFW resetIDs. </para>        </briefdescription>
+        <detaileddescription>
+<para>This resetIDs are not offsetted by 1000 and are relative. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" bodystart="128" bodyend="247"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__resetps_1ga817684309b117563ee54a4237f505ad6" prot="public" static="no">
+        <name>XResetPs_RstStatus</name>
+        <enumvalue id="group__resetps_1gga817684309b117563ee54a4237f505ad6a31df5b27898098eb4cbc12e5972f98c8" prot="public">
+          <name>XRESETPS_RESETRELEASED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__resetps_1gga817684309b117563ee54a4237f505ad6a074922f86cd6a23cef5df26dffaf0074" prot="public">
+          <name>XRESETPS_RESETASSERTED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef defines possible values for reset status of peripherals. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" line="252" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" bodystart="252" bodyend="255"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__resetps_1ga05e84b1c4dcc3e8df420fd6ea2813bd6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_reset_ps___config" kindref="compound">XResetPs_Config</ref> *</type>
+        <definition>XResetPs_Config * XResetPs_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XResetPs_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Looks up the device configuration based on the unique device ID/BaseAddress. </para>        </briefdescription>
+        <detaileddescription>
+<para>The XResetPs_ConfigTable[] contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration found or NULL if the specified device ID/BaseAddress was not found. See <ref refid="xresetps_8h" kindref="compound">xresetps.h</ref> for the definition of <ref refid="struct_x_reset_ps___config" kindref="compound">XResetPs_Config</ref>.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps_sinit.c" bodystart="91" bodyend="104"/>
+        <references refid="struct_x_reset_ps___config_1a912ea9d78a90bbb6c7bc4e9077139483" compoundref="xresetps_8h" startline="86">XResetPs_Config::Name</references>
+      </memberdef>
+      <memberdef kind="function" id="group__resetps_1gaa07a2af5abb40332c21bb77963841dcd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XResetPs_CfgInitialize</definition>
+        <argsstring>(XResetPs *InstancePtr, XResetPs_Config *ConfigPtr)</argsstring>
+        <name>XResetPs_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_reset_ps" kindref="compound">XResetPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_reset_ps___config" kindref="compound">XResetPs_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <briefdescription>
+<para>Initialize a specific reset controller instance/driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function must be called before other functions of the driver are called.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_reset_ps" kindref="compound">XResetPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the config structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.c" line="661" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.c" bodystart="661" bodyend="676"/>
+        <references refid="struct_x_reset_ps___config_1a4dd62d2391d1f27e2361e0cbb0d69c82" compoundref="xresetps_8h" startline="87">XResetPs_Config::BaseAddress</references>
+        <references refid="struct_x_reset_ps_1a300e175ee1267ca7e41e57e698649c44" compoundref="xresetps_8h" startline="98">XResetPs::Config</references>
+      </memberdef>
+      <memberdef kind="function" id="group__resetps_1ga65cfe2715d69c8cd2f34300478107501" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XResetPs_ResetAssert</definition>
+        <argsstring>(XResetPs *InstancePtr, const XResetPs_RstId ResetID)</argsstring>
+        <name>XResetPs_ResetAssert</name>
+        <param>
+          <type><ref refid="struct_x_reset_ps" kindref="compound">XResetPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group__resetps_1gae2a8fda4fe9a2b1b31fc9bab21478b42" kindref="member">XResetPs_RstId</ref></type>
+          <declname>ResetID</declname>
+        </param>
+        <briefdescription>
+<para>Assert reset for specific peripheral based on reset ID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_reset_ps" kindref="compound">XResetPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ResetID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the ID of the peripheral.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if reset assertion was successful.</para></listitem><listitem><para>Error Code otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.c" line="968" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.c" bodystart="968" bodyend="1010"/>
+        <references refid="group__resetps_1gabf462cbc24020a687d206a711e8d0a82" compoundref="xresetps_8h" startline="293">XRESETPS_CHK_ASSERT_SUPPORT</references>
+        <references refid="group__resetps_1gaaa78ef37a8192ac9c0473ffccc38eb65" compoundref="xresetps_8h" startline="337">XResetPs_ReadReg</references>
+        <references refid="group__resetps_1ga50fdb585f27cbd1efa5730724431c2fc" compoundref="xresetps_8h" startline="353">XResetPs_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__resetps_1ga4bddc4ee235a6971cc1e488cc265fb77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XResetPs_ResetDeassert</definition>
+        <argsstring>(XResetPs *InstancePtr, const XResetPs_RstId ResetID)</argsstring>
+        <name>XResetPs_ResetDeassert</name>
+        <param>
+          <type><ref refid="struct_x_reset_ps" kindref="compound">XResetPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group__resetps_1gae2a8fda4fe9a2b1b31fc9bab21478b42" kindref="member">XResetPs_RstId</ref></type>
+          <declname>ResetID</declname>
+        </param>
+        <briefdescription>
+<para>Deassert reset for specific peripheral based on reset ID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_reset_ps" kindref="compound">XResetPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ResetID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the ID of the peripheral.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if reset deassertion was successful.</para></listitem><listitem><para>Error Code otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.c" line="1027" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.c" bodystart="1027" bodyend="1069"/>
+        <references refid="group__resetps_1gabf462cbc24020a687d206a711e8d0a82" compoundref="xresetps_8h" startline="293">XRESETPS_CHK_ASSERT_SUPPORT</references>
+        <references refid="group__resetps_1gaaa78ef37a8192ac9c0473ffccc38eb65" compoundref="xresetps_8h" startline="337">XResetPs_ReadReg</references>
+        <references refid="group__resetps_1ga50fdb585f27cbd1efa5730724431c2fc" compoundref="xresetps_8h" startline="353">XResetPs_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__resetps_1gad814235db40b178bbd7834e8c95e6da3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XResetPs_ResetPulse</definition>
+        <argsstring>(XResetPs *InstancePtr, const XResetPs_RstId ResetID)</argsstring>
+        <name>XResetPs_ResetPulse</name>
+        <param>
+          <type><ref refid="struct_x_reset_ps" kindref="compound">XResetPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group__resetps_1gae2a8fda4fe9a2b1b31fc9bab21478b42" kindref="member">XResetPs_RstId</ref></type>
+          <declname>ResetID</declname>
+        </param>
+        <briefdescription>
+<para>Pulse reset for specific peripheral based on reset ID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_reset_ps" kindref="compound">XResetPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ResetID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the ID of the peripheral.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if pulse reset was successful.</para></listitem><listitem><para>Error Code otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.c" line="1086" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.c" bodystart="1086" bodyend="1171"/>
+        <references refid="group__resetps_1ga4e0e8086d2165c87d0e772870efb69ca" compoundref="xresetps_8h" startline="308">XRESETPS_CHK_PULSE_SUPPORT</references>
+        <references refid="group__resetps_1gga5a52351208e345e52c54b29dffa0b8eea4c848b7744fa9748cf956d5db1166475" compoundref="xresetps_8h" startline="111">XRESETPS_PT_DLY_PSCHK</references>
+        <references refid="group__resetps_1gga5a52351208e345e52c54b29dffa0b8eeaa0e91ee18fb22a245a877ca80d29bfe1" compoundref="xresetps_8h" startline="109">XRESETPS_PT_NO_DLY_NO_PSCHK</references>
+        <references refid="group__resetps_1gaaa78ef37a8192ac9c0473ffccc38eb65" compoundref="xresetps_8h" startline="337">XResetPs_ReadReg</references>
+        <references refid="group__resetps_1ga50fdb585f27cbd1efa5730724431c2fc" compoundref="xresetps_8h" startline="353">XResetPs_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__resetps_1ga235e646a14d31e1136808857810947ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XResetPs_ResetStatus</definition>
+        <argsstring>(XResetPs *InstancePtr, const XResetPs_RstId ResetID, XResetPs_RstStatus *Status)</argsstring>
+        <name>XResetPs_ResetStatus</name>
+        <param>
+          <type><ref refid="struct_x_reset_ps" kindref="compound">XResetPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group__resetps_1gae2a8fda4fe9a2b1b31fc9bab21478b42" kindref="member">XResetPs_RstId</ref></type>
+          <declname>ResetID</declname>
+        </param>
+        <param>
+          <type><ref refid="group__resetps_1ga817684309b117563ee54a4237f505ad6" kindref="member">XResetPs_RstStatus</ref> *</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Get reset status for specific peripheral based on reset ID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_reset_ps" kindref="compound">XResetPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ResetID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the ID of the peripheral. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the status of reset for ResetID. 1 if asserted and 0 if released</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if status fetched successful.</para></listitem><listitem><para>Error Code otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.c" line="1190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.c" bodystart="1190" bodyend="1245"/>
+        <references refid="group__resetps_1ga3448c0dcb52799633e53c8cfd8d3dca9" compoundref="xresetps_8h" startline="323">XRESETPS_CHK_STATUS_SUPPORT</references>
+        <references refid="group__resetps_1gaaa78ef37a8192ac9c0473ffccc38eb65" compoundref="xresetps_8h" startline="337">XResetPs_ReadReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor">#ifndef<sp/>XRESETPS_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRESETPS_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xresetps__hw_8h" kindref="compound">xresetps_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(__aarch64__)</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_smc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="64"><highlight class="comment"><sp/>*<sp/>Device<sp/>ID<sp/>and<sp/>Num<sp/>Instances<sp/>defines<sp/>for<sp/>resetps.<sp/>Resetps<sp/>uses<sp/>common</highlight></codeline>
+<codeline lineno="65"><highlight class="comment"><sp/>*<sp/>hardware<sp/>with<sp/>other<sp/>driver<sp/>and<sp/>hence<sp/>this<sp/>wrapper<sp/>defines<sp/>are<sp/>required</highlight></codeline>
+<codeline lineno="66"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_XRESETPS_NUM_INSTANCES<sp/><sp/><sp/><sp/>(XPAR_XCRPSU_NUM_INSTANCES)</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_XRESETPS_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPAR_XCRPSU_0_DEVICE_ID)</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="73"><highlight class="comment"><sp/>*<sp/>Constants<sp/>for<sp/>supported/Not<sp/>supported<sp/>reset<sp/>actions</highlight></codeline>
+<codeline lineno="74"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XRESETPS_SUP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRESETPS_NOSUP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="82" refid="struct_x_reset_ps___config" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DeviceId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="86" refid="struct_x_reset_ps___config_1a912ea9d78a90bbb6c7bc4e9077139483" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="struct_x_reset_ps___config_1a912ea9d78a90bbb6c7bc4e9077139483" kindref="member">Name</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87" refid="struct_x_reset_ps___config_1a4dd62d2391d1f27e2361e0cbb0d69c82" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_reset_ps___config_1a4dd62d2391d1f27e2361e0cbb0d69c82" kindref="member">BaseAddress</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_x_reset_ps___config" kindref="compound">XResetPs_Config</ref>;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97" refid="struct_x_reset_ps" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="98" refid="struct_x_reset_ps_1a300e175ee1267ca7e41e57e698649c44" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_reset_ps___config" kindref="compound">XResetPs_Config</ref><sp/><ref refid="struct_x_reset_ps_1a300e175ee1267ca7e41e57e698649c44" kindref="member">Config</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99"><highlight class="normal">}<sp/><ref refid="struct_x_reset_ps" kindref="compound">XResetPs</ref>;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108" refid="group__resetps_1ga5a52351208e345e52c54b29dffa0b8ee" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="109" refid="group__resetps_1gga5a52351208e345e52c54b29dffa0b8eeaa0e91ee18fb22a245a877ca80d29bfe1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__resetps_1gga5a52351208e345e52c54b29dffa0b8eeaa0e91ee18fb22a245a877ca80d29bfe1" kindref="member">XRESETPS_PT_NO_DLY_NO_PSCHK</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110" refid="group__resetps_1gga5a52351208e345e52c54b29dffa0b8eeab6e96b8f5d634a986618625a0e71b3df" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__resetps_1gga5a52351208e345e52c54b29dffa0b8eeab6e96b8f5d634a986618625a0e71b3df" kindref="member">XRESETPS_PT_DLY_NO_PSCHK</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="111" refid="group__resetps_1gga5a52351208e345e52c54b29dffa0b8eea4c848b7744fa9748cf956d5db1166475" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__resetps_1gga5a52351208e345e52c54b29dffa0b8eea4c848b7744fa9748cf956d5db1166475" kindref="member">XRESETPS_PT_DLY_PSCHK</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="112" refid="group__resetps_1gga5a52351208e345e52c54b29dffa0b8eea6a552c4d472e802f81447c916b2b8473" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__resetps_1gga5a52351208e345e52c54b29dffa0b8eea6a552c4d472e802f81447c916b2b8473" kindref="member">XRESETPS_PT_INVALID</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113"><highlight class="normal">}<sp/><ref refid="group__resetps_1ga5a52351208e345e52c54b29dffa0b8ee" kindref="member">XResetPs_PulseTypes</ref>;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118" refid="group__resetps_1gabeeb630168989c49bd8a960c0527041c" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTACT_RELEASE,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTACT_ASSERT,</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTACT_PULSE,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal">}<sp/><ref refid="group__resetps_1gabeeb630168989c49bd8a960c0527041c" kindref="member">XresetPs_ResetAction</ref>;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128" refid="group__resetps_1gae2a8fda4fe9a2b1b31fc9bab21478b42" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_START,</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_PCIE_CFG<sp/>=<sp/>XRESETPS_RSTID_START,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_PCIE_BRIDGE,</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_PCIE_CTRL,</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_DP,</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_SWDT_CRF,</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_AFI_FM5,</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_AFI_FM4,</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_AFI_FM3,</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_AFI_FM2,</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_AFI_FM1,</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_AFI_FM0,</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GDMA,</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPU_PP1,</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPU_PP0,</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPU,</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GT,</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_SATA,</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_ACPU3_PWRON,</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_ACPU2_PWRON,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_ACPU1_PWRON,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_ACPU0_PWRON,</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_APU_L2,</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_ACPU3,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_ACPU2,</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_ACPU1,</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_ACPU0,</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_DDR,</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_APM_FPD,</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_SOFT,</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GEM0,</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GEM1,</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GEM2,</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GEM3,</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_QSPI,</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_UART0,</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_UART1,</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_SPI0,</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_SPI1,</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_SDIO0,</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_SDIO1,</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_CAN0,</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_CAN1,</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_I2C0,</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_I2C1,</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_TTC0,</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_TTC1,</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_TTC2,</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_TTC3,</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_SWDT_CRL,</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_NAND,</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_ADMA,</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPIO,</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_IOU_CC,</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_TIMESTAMP,</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_RPU_R50,</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_RPU_R51,</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_RPU_AMBA,</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_OCM,</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_RPU_PGE,</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_USB0_CORERESET,</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_USB1_CORERESET,</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_USB0_HIBERRESET,</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_USB1_HIBERRESET,</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_USB0_APB,</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_USB1_APB,</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_IPI,</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_APM_LPD,</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_RTC,</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_SYSMON,</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_AFI_FM6,</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_LPD_SWDT,</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_FPD,</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_RPU_DBG1,</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_RPU_DBG0,</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_DBG_LPD,</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_DBG_FPD,</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_APLL,</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_DPLL,</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_VPLL,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_IOPLL,</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_RPLL,</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL0,</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL1,</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL2,</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL3,</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL4,</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL5,</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL6,</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL7,</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL8,</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL9,</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL10,</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL11,</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL12,</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL13,</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL14,</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL15,</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL16,</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL17,</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL18,</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL19,</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL20,</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL21,</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL22,</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL23,</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL24,</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL25,</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL26,</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL27,</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL28,</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL29,</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL30,</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_GPO3PL31,</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_RPU_LS,</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_PS_ONLY,</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_PL,</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RSTID_END<sp/>=<sp/>XRESETPS_RSTID_PL,</highlight></codeline>
+<codeline lineno="247"><highlight class="normal">}<sp/><ref refid="group__resetps_1gae2a8fda4fe9a2b1b31fc9bab21478b42" kindref="member">XResetPs_RstId</ref>;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252" refid="group__resetps_1ga817684309b117563ee54a4237f505ad6" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RESETRELEASED,</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRESETPS_RESETASSERTED</highlight></codeline>
+<codeline lineno="255"><highlight class="normal">}<sp/><ref refid="group__resetps_1ga817684309b117563ee54a4237f505ad6" kindref="member">XResetPs_RstStatus</ref>;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="277" refid="group__resetps_1gac84616329b152d481719ec191489af72" refkind="member"><highlight class="preprocessor">#define<sp/>XRESETPS_SUPPORTED_ACT(ResetSupport,<sp/>PulseSupport,<sp/>AssertSupport)<sp/>\</highlight></codeline>
+<codeline lineno="278"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((ResetSupport<sp/>&lt;&lt;<sp/>2)<sp/>|<sp/>(PulseSupport<sp/>&lt;&lt;<sp/>1)<sp/>|<sp/>AssertSupport)</highlight></codeline>
+<codeline lineno="279"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="293" refid="group__resetps_1gabf462cbc24020a687d206a711e8d0a82" refkind="member"><highlight class="preprocessor">#define<sp/>XRESETPS_CHK_ASSERT_SUPPORT(Actions)<sp/>((Actions<sp/>&amp;<sp/>0x1))</highlight></codeline>
+<codeline lineno="294"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="308" refid="group__resetps_1ga4e0e8086d2165c87d0e772870efb69ca" refkind="member"><highlight class="preprocessor">#define<sp/>XRESETPS_CHK_PULSE_SUPPORT(Actions)<sp/><sp/>((Actions<sp/>&amp;<sp/>0x2)<sp/>&gt;&gt;<sp/>1)</highlight></codeline>
+<codeline lineno="309"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="323" refid="group__resetps_1ga3448c0dcb52799633e53c8cfd8d3dca9" refkind="member"><highlight class="preprocessor">#define<sp/>XRESETPS_CHK_STATUS_SUPPORT(Actions)<sp/>((Actions<sp/>&amp;<sp/>0x4)<sp/>&gt;&gt;<sp/>2)</highlight></codeline>
+<codeline lineno="324"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="337" refid="group__resetps_1gaaa78ef37a8192ac9c0473ffccc38eb65" refkind="member"><highlight class="preprocessor">#define<sp/>XResetPs_ReadReg(RegAddress)<sp/>\</highlight></codeline>
+<codeline lineno="338"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32((u32)RegAddress)</highlight></codeline>
+<codeline lineno="339"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="353" refid="group__resetps_1ga50fdb585f27cbd1efa5730724431c2fc" refkind="member"><highlight class="preprocessor">#define<sp/>XResetPs_WriteReg(RegAddress,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="354"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32((u32)RegAddress,<sp/>(u32)Data)</highlight></codeline>
+<codeline lineno="355"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="356"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="359"><highlight class="comment"><sp/>*<sp/>Lookup<sp/>configuration<sp/>in<sp/>xresetps_sinit.c.</highlight></codeline>
+<codeline lineno="360"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="362"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_reset_ps___config" kindref="compound">XResetPs_Config</ref><sp/>*<ref refid="group__resetps_1ga05e84b1c4dcc3e8df420fd6ea2813bd6" kindref="member">XResetPs_LookupConfig</ref>(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="364"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_reset_ps___config" kindref="compound">XResetPs_Config</ref><sp/>*<ref refid="group__resetps_1ga05e84b1c4dcc3e8df420fd6ea2813bd6" kindref="member">XResetPs_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="366"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="368"><highlight class="comment"><sp/>*<sp/>Interface<sp/>functions<sp/>in<sp/>xresetps.c</highlight></codeline>
+<codeline lineno="369"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal">XStatus<sp/><ref refid="group__resetps_1gaa07a2af5abb40332c21bb77963841dcd" kindref="member">XResetPs_CfgInitialize</ref>(<ref refid="struct_x_reset_ps" kindref="compound">XResetPs</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_reset_ps___config" kindref="compound">XResetPs_Config</ref><sp/>*ConfigPtr);</highlight></codeline>
+<codeline lineno="372"><highlight class="normal">XStatus<sp/><ref refid="group__resetps_1ga65cfe2715d69c8cd2f34300478107501" kindref="member">XResetPs_ResetAssert</ref>(<ref refid="struct_x_reset_ps" kindref="compound">XResetPs</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="group__resetps_1gae2a8fda4fe9a2b1b31fc9bab21478b42" kindref="member">XResetPs_RstId</ref><sp/>ResetID);</highlight></codeline>
+<codeline lineno="374"><highlight class="normal">XStatus<sp/><ref refid="group__resetps_1ga4bddc4ee235a6971cc1e488cc265fb77" kindref="member">XResetPs_ResetDeassert</ref>(<ref refid="struct_x_reset_ps" kindref="compound">XResetPs</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="group__resetps_1gae2a8fda4fe9a2b1b31fc9bab21478b42" kindref="member">XResetPs_RstId</ref><sp/>ResetID);</highlight></codeline>
+<codeline lineno="376"><highlight class="normal">XStatus<sp/><ref refid="group__resetps_1gad814235db40b178bbd7834e8c95e6da3" kindref="member">XResetPs_ResetPulse</ref>(<ref refid="struct_x_reset_ps" kindref="compound">XResetPs</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="group__resetps_1gae2a8fda4fe9a2b1b31fc9bab21478b42" kindref="member">XResetPs_RstId</ref><sp/>ResetID);</highlight></codeline>
+<codeline lineno="378"><highlight class="normal">XStatus<sp/><ref refid="group__resetps_1ga235e646a14d31e1136808857810947ab" kindref="member">XResetPs_ResetStatus</ref>(<ref refid="struct_x_reset_ps" kindref="compound">XResetPs</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="group__resetps_1gae2a8fda4fe9a2b1b31fc9bab21478b42" kindref="member">XResetPs_RstId</ref><sp/>ResetID,<sp/><ref refid="group__resetps_1ga817684309b117563ee54a4237f505ad6" kindref="member">XResetPs_RstStatus</ref><sp/>*Status);</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"></highlight></codeline>
+<codeline lineno="381"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="382"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="384"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="385"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h"/>
+  </compounddef>
+</doxygen>

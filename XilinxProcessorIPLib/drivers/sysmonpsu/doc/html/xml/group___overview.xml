@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group___overview" kind="group">
+    <compoundname>Overview</compoundname>
+    <title>Overview</title>
+    <briefdescription>
+<para>Functions in this file are the minimum required functions for the <ref refid="struct_x_sys_mon_psu" kindref="compound">XSysMonPsu</ref> driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>This file contains the implementation of the <ref refid="struct_x_sys_mon_psu" kindref="compound">XSysMonPsu</ref> driver&apos;s static initialization functionality.</para><para>This file contains a diagnostic self test function for the XSysMon driver.</para><para>This file contains functions related to SYSMONPSU interrupt handling.</para><para>This header file contains the identifiers and basic driver functions (or macros) that can be used to access the device.</para><para>This file contains a configuration table that specifies the configuration of SYSMON devices in the system.</para><para>The XSysMon driver supports the Xilinx System Monitor device.</para><para>See <ref refid="xsysmonpsu_8h" kindref="compound">xsysmonpsu.h</ref> for a detailed description of the driver.</para><para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date           Changes
+<hruler/>
+
+1.0   kvn    12/15/15 First release.
+             02/15/16 Corrected Assert function call in
+                      XSysMonPsu_GetMonitorStatus API.
+             03/03/16 Added Temperature remote channel for Setsingle
+                      channel API. Also corrected external mux channel
+                      numbers.
+1.1   kvn    05/05/16 Modified code for MISRA-C:2012 Compliance.
+2.0   vns    08/14/16 Fixed CR #956780, added support for enabling/disabling
+                      SEQ_CH2 and SEQ_AVG2 registers, modified function
+                      prototypes of XSysMonPsu_GetSeqAvgEnables,
+                      XSysMonPsu_SetSeqAvgEnables, XSysMonPsu_SetSeqChEnables,
+                      XSysMonPsu_GetSeqChEnables,
+                      XSysMonPsu_SetSeqInputMode, XSysMonPsu_GetSeqInputMode,
+                      XSysMonPsu_SetSeqAcqTime
+                      and XSysMonPsu_GetSeqAcqTime to provide support for
+                      set/get 64 bit value.
+2.1   sk     03/03/16 Check for PL reset before doing PL Sysmon reset.
+2.3   mn     12/13/17 Correct the AMS block channel numbers
+      mn     03/08/18 Update Clock Divisor to the proper value
+2.4   mn     04/20/18 Remove looping check for PL accessible bit
+2.5   mn     07/06/18 Fixed Cppcheck warnings
+      mn     07/31/18 Modified code for MISRA-C:2012 Compliance.
+2.7   aad    10/21/20 Modified code for MISRA-C:2012 Compliance.
+2.8   cog    10/21/20 Fixed isues where ADCCLK divisor was not updated.
+2.9   cog    07/20/23 Added support for SDT flow.
+3.0   cog    03/20/24 Refactored XSysMonPsu_UpdateAdcClkDivisor for more
+                      robust error handling, this required the API prototype
+                      to be changed.
+      se     07/22/24 Alarm threshold set and get functions updated to adapt
+                      of Lower alarm registers thresholds mode bit masking.
+      se     07/30/24 OT Upper Alarm threshold requires 12-bit value update
+                      to enable over-temperature default value override.
+      se     08/08/24 Missing null pointer assert check added on
+                      XSysMonPsu_UpdateAdcClkDivisor.
+3.1   sa     12/10/24 Modified code for MISRA-C:2012 Compliance
+3.3   dc     02/18/26 Correct spelling errors
+</preformatted></para><para>The System Monitor device has the following features:<itemizedlist>
+<listitem><para>PL Sysmon instance has 10-bit, 200-KSPS (kilo samples per second) Analog-to-Digital Converter (ADC)</para></listitem><listitem><para>PS Sysmon instance has 10-bit, 1000-KSPS ADC.</para></listitem><listitem><para>Monitoring of on-chip supply voltages and temperature</para></listitem><listitem><para>1 dedicated differential analog-input pair and 16 auxiliary differential analog-input pairs</para></listitem><listitem><para>Automatic alarms based on user defined limits for the on-chip supply voltages and temperature</para></listitem><listitem><para>Automatic Channel Sequencer, programmable averaging, programmable acquisition time for the external inputs, unipolar or differential input selection for the external inputs</para></listitem><listitem><para>Inbuilt Calibration</para></listitem><listitem><para>Optional interrupt request generation</para></listitem><listitem><para>External Mux</para></listitem></itemizedlist>
+</para><para>The user should refer to the hardware device specification for detailed information about the device.</para><para>This header file contains the prototypes of driver functions that can be used to access the System Monitor device.</para><para><bold> System Monitor Channel Sequencer Modes </bold></para><para>The System Monitor Channel Sequencer supports the following operating modes:</para><para><itemizedlist>
+<listitem><para><bold> Default </bold>: This is the default mode after power up. In this mode of operation the System Monitor operates in a sequence mode, monitoring the on chip sensors: Temperature, VCCINT, and VCCAUX.</para></listitem><listitem><para><bold> One pass through sequence </bold>: In this mode the System Monitor converts the channels enabled in the Sequencer Channel Enable registers for a single pass and then stops.</para></listitem><listitem><para><bold> Continuous cycling of sequence </bold>: In this mode the System Monitor converts the channels enabled in the Sequencer Channel Enable registers continuously.</para></listitem><listitem><para><bold> Single channel mode</bold>: In this mode the System Monitor Channel Sequencer is disabled and the System Monitor operates in a Single Channel Mode. The System Monitor can operate either in a Continuous or Event driven sampling mode in the single channel mode.</para></listitem></itemizedlist>
+</para><para><bold> Initialization and Configuration </bold></para><para>The device driver enables higher layer software (e.g., an application) to communicate to the System Monitor device.</para><para><ref refid="xsysmonpsu_8c_1a8cd0584410c0931f931aa4da1e3e151b" kindref="member">XSysMonPsu_CfgInitialize()</ref> API is used to initialize the System Monitor device. The user needs to first call the <ref refid="xsysmonpsu_8h_1a58103c6523a6624346c905932a73d71b" kindref="member">XSysMonPsu_LookupConfig()</ref> API which returns the Configuration structure pointer which is passed as a parameter to the <ref refid="xsysmonpsu_8c_1a8cd0584410c0931f931aa4da1e3e151b" kindref="member">XSysMonPsu_CfgInitialize()</ref> API.</para><para><bold>Interrupts</bold></para><para>The System Monitor device supports interrupt driven mode and the default operation mode is polling mode.</para><para>This driver does not provide a Interrupt Service Routine (ISR) for the device. It is the responsibility of the application to provide one if needed. Refer to the interrupt example provided with this driver for details on using the device in interrupt mode.</para><para><bold> Virtual Memory </bold></para><para>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space.</para><para><bold> Threads </bold></para><para>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</para><para><bold> Asserts </bold></para><para>Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining, at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that users leave asserts on during development.</para><para><bold> Building the driver </bold></para><para>The <ref refid="struct_x_sys_mon_psu" kindref="compound">XSysMonPsu</ref> driver is composed of several source files. This allows the user to build and link only those parts of the driver that are necessary.</para><para><bold> Limitations of the driver </bold></para><para>System Monitor device can be accessed through the JTAG port and the AXI interface. The driver implementation does not support the simultaneous access of the device by both these interfaces. The user has to take care of this situation in the user application code.</para><para><linebreak/>
+<linebreak/>
+</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date       Changes
+<hruler/>
+
+1.00  kvn    12/15/15 First release
+             02/15/16 Corrected Assert function call in
+                      XSysMonPsu_GetMonitorStatus API.
+             03/03/16 Added Temperature remote channel for Setsingle
+                      channel API. Also corrected external mux channel
+                      numbers.
+1.1   kvn    05/05/16 Modified code for MISRA-C:2012 Compliance.
+2.0   vns    08/14/16 Fixed CR #956780, added support for enabling/disabling
+                      SEQ_CH2 and SEQ_AVG2 registers, modified function
+                      prototypes of XSysMonPsu_GetSeqAvgEnables,
+                      XSysMonPsu_SetSeqAvgEnables, XSysMonPsu_SetSeqChEnables,
+                      XSysMonPsu_GetSeqChEnables,
+                      XSysMonPsu_SetSeqInputMode, XSysMonPsu_GetSeqInputMode,
+                      XSysMonPsu_SetSeqAcqTime
+                      and XSysMonPsu_GetSeqAcqTime to provide support for
+                      set/get 64 bit value.
+                      Added constants XSM_CFR_ALM_SUPPLY*(8-31)_MASKs to
+                      provide support for enabling extra PS alarams.
+2.1   sk     03/03/16 Check for PL reset before doing PL Sysmon reset.
+      ms     03/17/17 Added readme.txt file in examples folder for doxygen
+                      generation.
+      ms     04/05/17 Modified Comment lines in functions of sysmonpsu
+                      examples to recognize it as documentation block
+                      for doxygen generation.
+2.2   sk     04/14/17 Corrected temperature conversion formulas.
+2.3   mn     12/11/17 Added missing closing bracket error when C++ is used
+      mn     12/12/17 Added Conversion Support for voltages having Range of
+                      1 Volt
+      mn     12/13/17 Correct the AMS block channel numbers
+      ms     12/15/17 Added peripheral test support.
+      ms     01/04/18 Provided conditional checks for interrupt example
+                      in sysmonpsu_header.h
+      mn     03/08/18 Update Clock Divisor to the proper value
+2.4   mn     04/20/18 Remove looping check for PL accessible bit
+2.6   aad    11/18/19 Fixed typo in alarm macro comments
+2.7   aad    10/21/20 Modified code for MISRA-C:2012 Compliance.
+      aad    17/12/20 Removed undefined function.
+2.9   cog    07/20/23 Added support for SDT flow.
+3.0   cog    03/20/24 Refactored XSysMonPsu_UpdateAdcClkDivisor for more
+                      robust error handling, this required the API prototype
+                      to be changed.
+      se     07/30/24 OT Upper Alarm threshold requires 12-bit value update
+                      to enable over-temperature default value override.
+3.3   dc     02/18/26 Correct spelling errors</preformatted></para><para><preformatted></preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date       Changes
+<hruler/>
+
+1.0   kvn  04/21/15 First release.
+2.5   mn     07/06/18 Added Input Clock Frequency Information
+</preformatted></para><para>Other driver functions are defined in <ref refid="xsysmonpsu_8h" kindref="compound">xsysmonpsu.h</ref>.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date       Changes
+<hruler/>
+
+1.0   kvn         12/15/15 First release
+2.0   vns    08/14/16  Added CFG_REG3, SEQ_INPUT_MODE2, SEQ_ACQ2,
+                       SEQ_CH2 and SEQ_AVG2 offsets and bit masks
+2.1   sk     03/03/16 Check for PL reset before doing PL Sysmon reset.
+2.9   cog    07/20/23 Added support for SDT flow.
+3.0   se     07/30/24 OT Upper Alarm threshold requires 12-bit value update
+                      to enable over-temperature default value override.
+3.1   sa     12/10/24 Modified code for MISRA-C:2012 Compliance
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date       Changes
+<hruler/>
+
+1.0   kvn    12/15/15 First release
+</preformatted></para><para>The self test function does a simple read/write test of the Alarm Threshold Register.</para><para>See <ref refid="xsysmonpsu_8h" kindref="compound">xsysmonpsu.h</ref> for more information.</para><para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.0   kvn    12/15/15 First release
+2.5   mn     07/06/18 Fixed Doxygen warnings
+2.7   aad    10/21/20 Modified code for MISRA-C:2012 Compliance.</preformatted></para><para><preformatted></preformatted></para><para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date           Changes
+<hruler/>
+
+1.0   kvn    12/15/15 First release.
+2.9   cog    07/20/23 Added support for SDT flow.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

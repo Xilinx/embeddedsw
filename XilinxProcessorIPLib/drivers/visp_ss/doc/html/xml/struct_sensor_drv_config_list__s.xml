@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_sensor_drv_config_list__s" kind="struct" prot="public">
+    <compoundname>SensorDrvConfigList_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_sensor_drv_config_list__s_1a29b4f37e80cefa67b7e1d6a20e06beaf" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* SensorDrvConfigList_s::pSensorName</definition>
+        <argsstring></argsstring>
+        <name>pSensorName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_sensor_drv_config_list__s_1ad5f3668d8b1b63c3322e75c7842af768" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SensorDrvConfigList_s::slaveAddr</definition>
+        <argsstring></argsstring>
+        <name>slaveAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_sensor_drv_config_list__s_1a80a569352d54acc6b8696ee249eec039" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t SensorDrvConfigList_s::regWidth</definition>
+        <argsstring></argsstring>
+        <name>regWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_sensor_drv_config_list__s_1a5725127869efa4df6a707c93eaee5ec7" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t SensorDrvConfigList_s::dataWidth</definition>
+        <argsstring></argsstring>
+        <name>dataWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_sensor_drv_config_list__s_1ad9b565cad309caaa5a87bad59c28ef11" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t SensorDrvConfigList_s::regAddr[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>regAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_sensor_drv_config_list__s_1a1bd47f038929bda122c6a347541925e3" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t SensorDrvConfigList_s::sensorId</definition>
+        <argsstring></argsstring>
+        <name>sensorId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="61" bodyend="69"/>
+    <listofallmembers>
+      <member refid="struct_sensor_drv_config_list__s_1a5725127869efa4df6a707c93eaee5ec7" prot="public" virt="non-virtual"><scope>SensorDrvConfigList_s</scope><name>dataWidth</name></member>
+      <member refid="struct_sensor_drv_config_list__s_1a29b4f37e80cefa67b7e1d6a20e06beaf" prot="public" virt="non-virtual"><scope>SensorDrvConfigList_s</scope><name>pSensorName</name></member>
+      <member refid="struct_sensor_drv_config_list__s_1ad9b565cad309caaa5a87bad59c28ef11" prot="public" virt="non-virtual"><scope>SensorDrvConfigList_s</scope><name>regAddr</name></member>
+      <member refid="struct_sensor_drv_config_list__s_1a80a569352d54acc6b8696ee249eec039" prot="public" virt="non-virtual"><scope>SensorDrvConfigList_s</scope><name>regWidth</name></member>
+      <member refid="struct_sensor_drv_config_list__s_1a1bd47f038929bda122c6a347541925e3" prot="public" virt="non-virtual"><scope>SensorDrvConfigList_s</scope><name>sensorId</name></member>
+      <member refid="struct_sensor_drv_config_list__s_1ad5f3668d8b1b63c3322e75c7842af768" prot="public" virt="non-virtual"><scope>SensorDrvConfigList_s</scope><name>slaveAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

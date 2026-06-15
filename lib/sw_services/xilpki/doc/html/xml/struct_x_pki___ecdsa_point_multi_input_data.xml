@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pki___ecdsa_point_multi_input_data" kind="struct" prot="public">
+    <compoundname>XPki_EcdsaPointMultiInputData</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pki___ecdsa_point_multi_input_data_1a06f1e4803fafadb66cee83622c7b01f0" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xilpki-api_1ga17397319ffdcb8c105f8aaa731eac7fa" kindref="member">XPki_EcdsaCrvType</ref></type>
+        <definition>XPki_EcdsaCrvType XPki_EcdsaPointMultiInputData::CrvType</definition>
+        <argsstring></argsstring>
+        <name>CrvType</name>
+        <briefdescription>
+<para>ECC Curve type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pki___ecdsa_point_multi_input_data_1a78d5f4b29e6796f22e9d18b1e4077c8f" prot="public" static="no" mutable="no">
+        <type>XPki_EcdsaGpoint</type>
+        <definition>XPki_EcdsaGpoint XPki_EcdsaPointMultiInputData::Gpoint</definition>
+        <argsstring></argsstring>
+        <name>Gpoint</name>
+        <briefdescription>
+<para>Structure to the ECC generator points. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pki___ecdsa_point_multi_input_data_1aa9aa6a8e31eb85564f0a28f8b0f5751e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPki_EcdsaPointMultiInputData::Dlen</definition>
+        <argsstring></argsstring>
+        <name>Dlen</name>
+        <briefdescription>
+<para>ECC Private key length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pki___ecdsa_point_multi_input_data_1ac9b4ad812c3cf07c1bd88915d6372dbf" prot="public" static="no" mutable="no">
+        <type>const u8 *</type>
+        <definition>const u8* XPki_EcdsaPointMultiInputData::D</definition>
+        <argsstring></argsstring>
+        <name>D</name>
+        <briefdescription>
+<para>Pointer to the private key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="110" bodyend="115"/>
+    <listofallmembers>
+      <member refid="struct_x_pki___ecdsa_point_multi_input_data_1a06f1e4803fafadb66cee83622c7b01f0" prot="public" virt="non-virtual"><scope>XPki_EcdsaPointMultiInputData</scope><name>CrvType</name></member>
+      <member refid="struct_x_pki___ecdsa_point_multi_input_data_1ac9b4ad812c3cf07c1bd88915d6372dbf" prot="public" virt="non-virtual"><scope>XPki_EcdsaPointMultiInputData</scope><name>D</name></member>
+      <member refid="struct_x_pki___ecdsa_point_multi_input_data_1aa9aa6a8e31eb85564f0a28f8b0f5751e" prot="public" virt="non-virtual"><scope>XPki_EcdsaPointMultiInputData</scope><name>Dlen</name></member>
+      <member refid="struct_x_pki___ecdsa_point_multi_input_data_1a78d5f4b29e6796f22e9d18b1e4077c8f" prot="public" virt="non-virtual"><scope>XPki_EcdsaPointMultiInputData</scope><name>Gpoint</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

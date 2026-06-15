@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mmi_dp___aux_transaction" kind="struct" prot="public">
+    <compoundname>XMmiDp_AuxTransaction</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mmi_dp___aux_transaction_1a135540fa96be471f663b32fe7bde871e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMmiDp_AuxTransaction::Address</definition>
+        <argsstring></argsstring>
+        <name>Address</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_phy.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_phy.c" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___aux_transaction_1a5dcc9211815a75841f11766989074e6a" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XMmiDp_AuxTransaction::Data</definition>
+        <argsstring></argsstring>
+        <name>Data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_phy.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_phy.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___aux_transaction_1a703f35adebe42a2405815d61153ef752" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XMmiDp_AuxTransaction::Cmd</definition>
+        <argsstring></argsstring>
+        <name>Cmd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_phy.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_phy.c" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___aux_transaction_1aa2471528bd41637dc8b3d5e9bca5339c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_AuxTransaction::NumBytes</definition>
+        <argsstring></argsstring>
+        <name>NumBytes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_phy.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_phy.c" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef describes an AUX transaction. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_phy.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp_phy.c" bodystart="53" bodyend="58"/>
+    <listofallmembers>
+      <member refid="struct_x_mmi_dp___aux_transaction_1a135540fa96be471f663b32fe7bde871e" prot="public" virt="non-virtual"><scope>XMmiDp_AuxTransaction</scope><name>Address</name></member>
+      <member refid="struct_x_mmi_dp___aux_transaction_1a703f35adebe42a2405815d61153ef752" prot="public" virt="non-virtual"><scope>XMmiDp_AuxTransaction</scope><name>Cmd</name></member>
+      <member refid="struct_x_mmi_dp___aux_transaction_1a5dcc9211815a75841f11766989074e6a" prot="public" virt="non-virtual"><scope>XMmiDp_AuxTransaction</scope><name>Data</name></member>
+      <member refid="struct_x_mmi_dp___aux_transaction_1aa2471528bd41637dc8b3d5e9bca5339c" prot="public" virt="non-virtual"><scope>XMmiDp_AuxTransaction</scope><name>NumBytes</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

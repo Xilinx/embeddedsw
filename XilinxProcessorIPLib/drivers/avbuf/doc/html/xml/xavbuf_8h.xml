@@ -1,0 +1,1837 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xavbuf_8h" kind="file">
+    <compoundname>xavbuf.h</compoundname>
+    <includes refid="xavbuf__hw_8h" local="yes">xavbuf_hw.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <includedby refid="xavbuf_8c" local="yes">xavbuf.c</includedby>
+    <includedby refid="xavbuf__videoformats_8c" local="yes">xavbuf_videoformats.c</includedby>
+    <incdepgraph>
+      <node id="12">
+        <label>xil_io.h</label>
+      </node>
+      <node id="14">
+        <label>sleep.h</label>
+      </node>
+      <node id="11">
+        <label>xavbuf_hw.h</label>
+        <link refid="xavbuf__hw_8h"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>xavbuf.h</label>
+        <link refid="xavbuf.h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="16">
+        <label>xavbuf.c</label>
+        <link refid="xavbuf_8c"/>
+      </node>
+      <node id="15">
+        <label>xavbuf.h</label>
+        <link refid="xavbuf.h"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>xavbuf_videoformats.c</label>
+        <link refid="xavbuf__videoformats_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_a_v_buf___video_attribute" prot="public">XAVBuf_VideoAttribute</innerclass>
+    <innerclass refid="struct_x_a_v_buf___audio_attribute" prot="public">XAVBuf_AudioAttribute</innerclass>
+    <innerclass refid="struct_x_a_v_buf___a_v_modes" prot="public">XAVBuf_AVModes</innerclass>
+    <innerclass refid="struct_x_a_v_buf___blender_bg_clr" prot="public">XAVBuf_BlenderBgClr</innerclass>
+    <innerclass refid="struct_x_a_v_buf___config" prot="public">XAVBuf_Config</innerclass>
+    <innerclass refid="struct_x_a_v_buf___blender" prot="public">XAVBuf_Blender</innerclass>
+    <innerclass refid="struct_x_a_v_buf" prot="public">XAVBuf</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1" prot="public" static="no">
+        <name>XAVBuf_VideoFormat</name>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a57afc2345b2a7f37620148de9a3fcf9e" prot="public">
+          <name>CbY0CrY1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1aaa5757d27d83ff4655f2bae48442bc10" prot="public">
+          <name>CrY0CbY1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a9d390e724852d4aca417c9ee77388a54" prot="public">
+          <name>Y0CrY1Cb</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a8b23a1b2498f06d12cd6c68de423b9d0" prot="public">
+          <name>Y0CbY1Cr</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a75e8f615103c0dbf54f191f3ffe4c02a" prot="public">
+          <name>YV16</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1aa64b445d36a77efef304ce62985323c4" prot="public">
+          <name>YV24</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a6a28b9db9d8f4f4f347c750c4d3c0cf4" prot="public">
+          <name>YV16Ci</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1aa7b433fc53995466fb26c5a3565b55b7" prot="public">
+          <name>MONOCHROME</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1afb93bd8929d6230e33c3cda86f5ab358" prot="public">
+          <name>YV16Ci2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a523b094e008f914e9e01af828090df0c" prot="public">
+          <name>YUV444</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1acbcf87c79628b8c7fed02f39f7cbd15f" prot="public">
+          <name>RGB888</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a8f153b361bf0893ecb329fa3d10c4498" prot="public">
+          <name>RGBA8880</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1afdbe7f6942b0d14db26535db396ffd14" prot="public">
+          <name>RGB888_10BPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a6957891794ec2d097fa8b2628f5ff747" prot="public">
+          <name>YUV444_10BPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a3584258da42f404dd52fe96de586633a" prot="public">
+          <name>YV16Ci2_10BPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a3924f695d64830c42b3fb3fbe21a1ba9" prot="public">
+          <name>YV16Ci_10BPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a0077cec2e1bf396af23a3692deed1f90" prot="public">
+          <name>YV16_10BPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a6f4e3b2c71d55488bf7ac43626219c99" prot="public">
+          <name>YV24_10BPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a03b071de893c524b7f15c29c4bd72455" prot="public">
+          <name>MONOCHROME_10BPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a436ccf93af6de14a92171f7f43b7baa6" prot="public">
+          <name>YV16_420</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1aeac30f36e36f1ab0e83c82578f09c2e4" prot="public">
+          <name>YV16Ci_420</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a713761b0eb09bc62032816f98b6eee2f" prot="public">
+          <name>YV16Ci2_420</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a435b8185617a6fa569e050120e4ee3cc" prot="public">
+          <name>YV16_420_10BPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a086742816814e39b411d0c7645926235" prot="public">
+          <name>YV16Ci_420_10BPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a9286bedbc5ee289644f2a095750d88d5" prot="public">
+          <name>YV16Ci2_420_10BPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1aa7c8962521c58548a2b8aed16d397d01" prot="public">
+          <name>RGBA8888</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1adb1b146d65c52857a5a4af54e5006101" prot="public">
+          <name>ABGR8888</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a6cfdbc78732d1b9fc88a708ec40ae5e4" prot="public">
+          <name>RGB888_GFX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1ae8e2937a2b5585fb3bf5a8d36b7bf790" prot="public">
+          <name>BGR888</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1af9ec1813cac3087252e8073c42c7733b" prot="public">
+          <name>RGBA5551</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a8ec5297bd3545790ed9b81c83152c21d" prot="public">
+          <name>RGBA4444</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a183737a1f19f772782bc5e24cfd662e7" prot="public">
+          <name>RGB565</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1aa7c18c3ea819ffedfd230e0697eac30a" prot="public">
+          <name>BPP8</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1af1e90c657902ec79ddad0e7c3e94096c" prot="public">
+          <name>BPP4</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a43904e6a355b6a0159c0e8b82158a66c" prot="public">
+          <name>BPP2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a72e4214f92c5025412f7cc7c35783ed7" prot="public">
+          <name>BPP1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1af95cc5446c6345daadf349ccd299a2f5" prot="public">
+          <name>YUV422</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1af53d2baf69c80533aed8b9f0d243fe3f" prot="public">
+          <name>YOnly</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1adf51c3a937b299caf6a77a40025cb722" prot="public">
+          <name>RGB_6BPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1acacab2d80b072c9a9d4fcd39f3175817" prot="public">
+          <name>RGB_8BPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a9b29acd7e31b703951af968d8b6812d7" prot="public">
+          <name>RGB_10BPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1ae9a62461200048827598c9ffd198b265" prot="public">
+          <name>RGB_12BPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a8dfa7c7dd6d052cab71c89330163d356" prot="public">
+          <name>YCbCr444_6BPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1aacfcc0dc52787bc15d14d601f038de6d" prot="public">
+          <name>YCbCr444_8BPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a6acf55b842a7f867a99395c288445588" prot="public">
+          <name>YCbCr444_10BPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1aede716ac2a5b7e4fe7c930104ffb0b05" prot="public">
+          <name>YCbCr444_12BPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1ad2cdac8b9f9c6cd256b1aa1a1a6f3a17" prot="public">
+          <name>YCbCr422_8BPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1aba1eb0cf1f3400cd686c5c3c942c3ba8" prot="public">
+          <name>YCbCr422_10BPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a9c7cdcd004c403e7a306d7e95b5b2356" prot="public">
+          <name>YCbCr422_12BPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a856ef105f5284f24d884363b146d390f" prot="public">
+          <name>YOnly_8BPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1a88ba234c41ffbdd2740de01191c77736" prot="public">
+          <name>YOnly_10BPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1ae9f0f219a0045417043f3c75bc8626a7" prot="public">
+          <name>YOnly_12BPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef describes all the Video Formats supported by the driver. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="46" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="enum" id="xavbuf_8h_1a857e29fcef629dadffdec7c5c2bcc7da" prot="public" static="no">
+        <name>XAVBuf_VideoModes</name>
+        <enumvalue id="xavbuf_8h_1a857e29fcef629dadffdec7c5c2bcc7daa363f75554323f5925506f40dec855d35" prot="public">
+          <name>Interleaved</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a857e29fcef629dadffdec7c5c2bcc7daabb25db2c86e95dd7ac75cb8e63783a2c" prot="public">
+          <name>SemiPlanar</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a857e29fcef629dadffdec7c5c2bcc7daa90a3c61646d9f66020c7cf1d4cf71794" prot="public">
+          <name>Planar</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This data structure describes video planes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="109" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="enum" id="xavbuf_8h_1a00178d9299a9bc55688188074b9f8451" prot="public" static="no">
+        <name>XAVBuf_VideoStream</name>
+        <enumvalue id="xavbuf_8h_1a00178d9299a9bc55688188074b9f8451a673bcf773807493922ebeb5da6343aac" prot="public">
+          <name>XAVBUF_VIDSTREAM1_LIVE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a00178d9299a9bc55688188074b9f8451a3376906070234f58f52c7671b900f60e" prot="public">
+          <name>XAVBUF_VIDSTREAM1_NONLIVE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a00178d9299a9bc55688188074b9f8451afa33bf347eb1047133bea5cac477c1c0" prot="public">
+          <name>XAVBUF_VIDSTREAM1_TPG</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a00178d9299a9bc55688188074b9f8451a042eb9102fd8f1544b09d437cdc4eacd" prot="public">
+          <name>XAVBUF_VIDSTREAM1_NONE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef describes the video source list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="118" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="enum" id="xavbuf_8h_1ab2e5d15b72ebd1736f0bc533d9e555de" prot="public" static="no">
+        <name>XAVBuf_GfxStream</name>
+        <enumvalue id="xavbuf_8h_1ab2e5d15b72ebd1736f0bc533d9e555deace79429b2be84f35fd63b7f851270bdc" prot="public">
+          <name>XAVBUF_VIDSTREAM2_DISABLEGFX</name>
+          <initializer>= 0x0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1ab2e5d15b72ebd1736f0bc533d9e555dea6957df2641d99bf7d38c0f400f3a5b9f" prot="public">
+          <name>XAVBUF_VIDSTREAM2_NONLIVE_GFX</name>
+          <initializer>= 0x4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1ab2e5d15b72ebd1736f0bc533d9e555dea0ad357b77217f0ad8ab473c6a4817b37" prot="public">
+          <name>XAVBUF_VIDSTREAM2_LIVE_GFX</name>
+          <initializer>= 0x8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1ab2e5d15b72ebd1736f0bc533d9e555deadb25efc65436ed6de99bfd4e280152f9" prot="public">
+          <name>XAVBUF_VIDSTREAM2_NONE</name>
+          <initializer>= 0xC0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef describes the graphics source list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="128" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="enum" id="xavbuf_8h_1a4f8416931907a94349455e4c334683d1" prot="public" static="no">
+        <name>XAVBuf_AudioStream1</name>
+        <enumvalue id="xavbuf_8h_1a4f8416931907a94349455e4c334683d1a98317106440872ed37c858bcd1c24b87" prot="public">
+          <name>XAVBUF_AUDSTREAM1_LIVE</name>
+          <initializer>= 0x00</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a4f8416931907a94349455e4c334683d1ab9aec21bce8e0d71df94d5b3e8cad50e" prot="public">
+          <name>XAVBUF_AUDSTREAM1_NONLIVE</name>
+          <initializer>= 0x10</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a4f8416931907a94349455e4c334683d1a21a678044ed37880b8adfa3020c88288" prot="public">
+          <name>XAVBUF_AUDSTREAM1_TPG</name>
+          <initializer>= 0x20</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a4f8416931907a94349455e4c334683d1ac71a3ea95bc4083bd7b5e1c10a543180" prot="public">
+          <name>XAVBUF_AUDSTREAM1_NO_AUDIO</name>
+          <initializer>= 0x30</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef describes the audio stream 1 source list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="138" bodyend="143"/>
+      </memberdef>
+      <memberdef kind="enum" id="xavbuf_8h_1a19f79530d9cf1e82cf7fc14bd1cf2aaf" prot="public" static="no">
+        <name>XAVBuf_AudioStream2</name>
+        <enumvalue id="xavbuf_8h_1a19f79530d9cf1e82cf7fc14bd1cf2aafaf5ff6a246a92eaf4ac448a503cb448bd" prot="public">
+          <name>XAVBUF_AUDSTREAM2_NO_AUDIO</name>
+          <initializer>= 0X00</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf_8h_1a19f79530d9cf1e82cf7fc14bd1cf2aafa49e4dd39b1b635f49cfe76b57869c3d7" prot="public">
+          <name>XAVBUF_AUDSTREAM2_AUDIOGFX</name>
+          <initializer>= 0X40</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef describes the audio stream 2 source list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="148" bodyend="151"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xavbuf_8h_1a7fee983431a0ca99aee37ed6014d360a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAVBuf_CfgInitialize</definition>
+        <argsstring>(XAVBuf *InstancePtr, u32 BaseAddr)</argsstring>
+        <name>XAVBuf_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the configuration for the AVBuf Instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sets the base address of the AVBuf instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the id of the device from the design.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Base address and DeviceId is same as the DP Core driver. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.c" bodystart="370" bodyend="379"/>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf_8h_1a851d07f684e377a0401cc5e3d877e239" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAVBuf_InputVideoSelect</definition>
+        <argsstring>(XAVBuf *InstancePtr, XAVBuf_VideoStream VidStream, XAVBuf_GfxStream GfxStream)</argsstring>
+        <name>XAVBuf_InputVideoSelect</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xavbuf_8h_1a00178d9299a9bc55688188074b9f8451" kindref="member">XAVBuf_VideoStream</ref></type>
+          <declname>VidStream</declname>
+        </param>
+        <param>
+          <type><ref refid="xavbuf_8h_1ab2e5d15b72ebd1736f0bc533d9e555de" kindref="member">XAVBuf_GfxStream</ref></type>
+          <declname>GfxStream</declname>
+        </param>
+        <briefdescription>
+<para>This function selects the source for the Video and Graphics streams that are passed on to the blender block. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VidStream</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>selects the stream coming from the video sources </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>GfxStream</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>selects the stream coming from the graphics sources</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.c" bodystart="428" bodyend="453"/>
+        <references refid="xavbuf__hw_8h_1aa71fc12e040d5f0f82f78a1332eca538" compoundref="xavbuf__hw_8h" startline="803">XAVBUF_BUF_OUTPUT_AUD_VID_SELECT</references>
+        <references refid="xavbuf__hw_8h_1acc9ef500a33218ad23ee1078c452c219" compoundref="xavbuf__hw_8h" startline="1623">XAVBuf_ReadReg</references>
+        <references refid="xavbuf__hw_8h_1a16e7e43c2dcc226a26d5e567d6a7dd6e" compoundref="xavbuf__hw_8h" startline="1640">XAVBuf_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf_8h_1af34a9cb2a35480db96a8fe84ddd07c5b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAVBuf_InputAudioSelect</definition>
+        <argsstring>(XAVBuf *InstancePtr, XAVBuf_AudioStream1 AudStream, XAVBuf_AudioStream2 AudioStream2)</argsstring>
+        <name>XAVBuf_InputAudioSelect</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xavbuf_8h_1a4f8416931907a94349455e4c334683d1" kindref="member">XAVBuf_AudioStream1</ref></type>
+          <declname>AudStream</declname>
+          <defname>AudStream1</defname>
+        </param>
+        <param>
+          <type><ref refid="xavbuf_8h_1a19f79530d9cf1e82cf7fc14bd1cf2aaf" kindref="member">XAVBuf_AudioStream2</ref></type>
+          <declname>AudioStream2</declname>
+          <defname>AudStream2</defname>
+        </param>
+        <briefdescription>
+<para>This function selects the source for audio streams corresponding to the Video and Graphics streams that are passed on to the blender. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AudStream1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>selects the audio stream source corresponding to the video source selected </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AudStream2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>selects the audio stream source corresponding to the graphics source selected.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.c" bodystart="856" bodyend="875"/>
+        <references refid="xavbuf__hw_8h_1aa71fc12e040d5f0f82f78a1332eca538" compoundref="xavbuf__hw_8h" startline="803">XAVBUF_BUF_OUTPUT_AUD_VID_SELECT</references>
+        <references refid="xavbuf__hw_8h_1acc9ef500a33218ad23ee1078c452c219" compoundref="xavbuf__hw_8h" startline="1623">XAVBuf_ReadReg</references>
+        <references refid="xavbuf__hw_8h_1a16e7e43c2dcc226a26d5e567d6a7dd6e" compoundref="xavbuf__hw_8h" startline="1640">XAVBuf_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf_8h_1a13bd54c5d3414d4c77383f081232b4d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAVBuf_SetInputNonLiveVideoFormat</definition>
+        <argsstring>(XAVBuf *InstancePtr, XAVBuf_VideoFormat Format)</argsstring>
+        <name>XAVBuf_SetInputNonLiveVideoFormat</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1" kindref="member">XAVBuf_VideoFormat</ref></type>
+          <declname>Format</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the video format for the non-live video. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Format</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the enum for the non-live video format</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the correct format has been set. XST_FAILURE if the format is invalid.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.c" bodystart="467" bodyend="478"/>
+        <references refid="xavbuf_8c_1a6702407d9c075c1a956ba4c86a755a2e" compoundref="xavbuf_8c" startline="686" endline="698">XAVBuf_GetNLiveVideoAttribute</references>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf_8h_1a8ff75d802f1de7e76dafd3accad6c9ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAVBuf_SetInputNonLiveGraphicsFormat</definition>
+        <argsstring>(XAVBuf *InstancePtr, XAVBuf_VideoFormat Format)</argsstring>
+        <name>XAVBuf_SetInputNonLiveGraphicsFormat</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1" kindref="member">XAVBuf_VideoFormat</ref></type>
+          <declname>Format</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the graphics format for the non-live video. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Format</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the enum for the non-live video format</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the correct format has been set. XST_FAILURE if the format is invalid.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.c" bodystart="492" bodyend="504"/>
+        <references refid="xavbuf_8c_1a9f152e09bebf8b6d4ff758893802f34d" compoundref="xavbuf_8c" startline="712" endline="726">XAVBuf_GetNLGraphicsAttribute</references>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf_8h_1a1eee05c210cea29032460c7bb45d280f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAVBuf_SetInputLiveVideoFormat</definition>
+        <argsstring>(XAVBuf *InstancePtr, XAVBuf_VideoFormat Format)</argsstring>
+        <name>XAVBuf_SetInputLiveVideoFormat</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1" kindref="member">XAVBuf_VideoFormat</ref></type>
+          <declname>Format</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the video format for the live video. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Format</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the enum for the non-live video format</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the correct format has been set. XST_FAILURE if the format is invalid.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.c" bodystart="518" bodyend="529"/>
+        <references refid="xavbuf_8c_1a226a30c6c6c1094c5ed9942982925fb5" compoundref="xavbuf_8c" startline="659" endline="672">XAVBuf_GetLiveVideoAttribute</references>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf_8h_1a38fd85d70a04c7151b0739af9aad16fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAVBuf_SetInputLiveGraphicsFormat</definition>
+        <argsstring>(XAVBuf *InstancePtr, XAVBuf_VideoFormat Format)</argsstring>
+        <name>XAVBuf_SetInputLiveGraphicsFormat</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1" kindref="member">XAVBuf_VideoFormat</ref></type>
+          <declname>Format</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the graphics format for the live video. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Format</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the enum for the non-live video format</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the correct format has been set. XST_FAILURE if the format is invalid.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.c" bodystart="543" bodyend="555"/>
+        <references refid="xavbuf_8c_1a226a30c6c6c1094c5ed9942982925fb5" compoundref="xavbuf_8c" startline="659" endline="672">XAVBuf_GetLiveVideoAttribute</references>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf_8h_1a675e0417710abf7fa03fce7df6611541" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAVBuf_SetOutputVideoFormat</definition>
+        <argsstring>(XAVBuf *InstancePtr, XAVBuf_VideoFormat Format)</argsstring>
+        <name>XAVBuf_SetOutputVideoFormat</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1" kindref="member">XAVBuf_VideoFormat</ref></type>
+          <declname>Format</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the Output Video Format. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Format</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the enum for the non-live video format</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the correct format has been set. XST_FAILURE if the format is invalid.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.c" bodystart="569" bodyend="580"/>
+        <references refid="xavbuf_8c_1a226a30c6c6c1094c5ed9942982925fb5" compoundref="xavbuf_8c" startline="659" endline="672">XAVBuf_GetLiveVideoAttribute</references>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf_8h_1a226a30c6c6c1094c5ed9942982925fb5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_a_v_buf___video_attribute" kindref="compound">XAVBuf_VideoAttribute</ref> *</type>
+        <definition>XAVBuf_VideoAttribute* XAVBuf_GetLiveVideoAttribute</definition>
+        <argsstring>(XAVBuf_VideoFormat Format)</argsstring>
+        <name>XAVBuf_GetLiveVideoAttribute</name>
+        <param>
+          <type><ref refid="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1" kindref="member">XAVBuf_VideoFormat</ref></type>
+          <declname>Format</declname>
+        </param>
+        <briefdescription>
+<para>This function looks up if the video format is valid or not for the non-live video datapath and returns a pointer to the attributes of the video. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Format</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>takes in the video format for which attributes are being requested.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the structure <ref refid="struct_x_a_v_buf___video_attribute" kindref="compound">XAVBuf_VideoAttribute</ref> if the video format is valid, else returns NULL. </para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.c" bodystart="659" bodyend="672"/>
+        <referencedby refid="xavbuf_8h_1a38fd85d70a04c7151b0739af9aad16fc" compoundref="xavbuf_8c" startline="543" endline="555">XAVBuf_SetInputLiveGraphicsFormat</referencedby>
+        <referencedby refid="xavbuf_8h_1a1eee05c210cea29032460c7bb45d280f" compoundref="xavbuf_8c" startline="518" endline="529">XAVBuf_SetInputLiveVideoFormat</referencedby>
+        <referencedby refid="xavbuf_8h_1a675e0417710abf7fa03fce7df6611541" compoundref="xavbuf_8c" startline="569" endline="580">XAVBuf_SetOutputVideoFormat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf_8h_1a6702407d9c075c1a956ba4c86a755a2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_a_v_buf___video_attribute" kindref="compound">XAVBuf_VideoAttribute</ref> *</type>
+        <definition>XAVBuf_VideoAttribute* XAVBuf_GetNLiveVideoAttribute</definition>
+        <argsstring>(XAVBuf_VideoFormat Format)</argsstring>
+        <name>XAVBuf_GetNLiveVideoAttribute</name>
+        <param>
+          <type><ref refid="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1" kindref="member">XAVBuf_VideoFormat</ref></type>
+          <declname>Format</declname>
+        </param>
+        <briefdescription>
+<para>This function looks up if the video format is valid or not and returns a pointer to the attributes of the video. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Format</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>takes in the video format for which attributes are being requested.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the structure <ref refid="struct_x_a_v_buf___video_attribute" kindref="compound">XAVBuf_VideoAttribute</ref> if the video format is valid, else returns NULL. </para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.c" bodystart="686" bodyend="698"/>
+        <referencedby refid="xavbuf_8h_1a13bd54c5d3414d4c77383f081232b4d6" compoundref="xavbuf_8c" startline="467" endline="478">XAVBuf_SetInputNonLiveVideoFormat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf_8h_1a9f152e09bebf8b6d4ff758893802f34d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_a_v_buf___video_attribute" kindref="compound">XAVBuf_VideoAttribute</ref> *</type>
+        <definition>XAVBuf_VideoAttribute* XAVBuf_GetNLGraphicsAttribute</definition>
+        <argsstring>(XAVBuf_VideoFormat Format)</argsstring>
+        <name>XAVBuf_GetNLGraphicsAttribute</name>
+        <param>
+          <type><ref refid="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1" kindref="member">XAVBuf_VideoFormat</ref></type>
+          <declname>Format</declname>
+        </param>
+        <briefdescription>
+<para>This function looks up if the video format is valid or not and returns a pointer to the attributes of the video. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Format</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>takes in the video format for which attributes are being requested.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the structure <ref refid="struct_x_a_v_buf___video_attribute" kindref="compound">XAVBuf_VideoAttribute</ref> if the video format is valid, else returns NULL. </para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.c" bodystart="712" bodyend="726"/>
+        <referencedby refid="xavbuf_8h_1a8ff75d802f1de7e76dafd3accad6c9ca" compoundref="xavbuf_8c" startline="492" endline="504">XAVBuf_SetInputNonLiveGraphicsFormat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf_8h_1a34995878c5a7b469921b64e462f55edd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAVBuf_SetAudioVideoClkSrc</definition>
+        <argsstring>(XAVBuf *InstancePtr, u8 VideoClk, u8 AudioClk)</argsstring>
+        <name>XAVBuf_SetAudioVideoClkSrc</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>VideoClk</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>AudioClk</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the Audio and Video Clock Source and the video timing source. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VideoClk</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>selects the Video Clock Source </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AudioClk</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>selects the Audio Clock Source</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>System uses PL Clock for Video when Live source is in use. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.c" bodystart="596" bodyend="625"/>
+        <references refid="xavbuf__hw_8h_1a68c414b27012805a06a20c65258620f9" compoundref="xavbuf__hw_8h" startline="955">XAVBUF_BUF_AUD_VID_CLK_SOURCE</references>
+        <references refid="xavbuf_8c_1af18126619d9c9b2ffae8595df2448d01" compoundref="xavbuf_8c" startline="638" endline="645">XAVBuf_SoftReset</references>
+        <references refid="xavbuf__hw_8h_1a16e7e43c2dcc226a26d5e567d6a7dd6e" compoundref="xavbuf__hw_8h" startline="1640">XAVBuf_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf_8h_1a15d07fa625f1a4c7f2993e800f655a0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAVBuf_ConfigureVideoPipeline</definition>
+        <argsstring>(XAVBuf *InstancePtr)</argsstring>
+        <name>XAVBuf_ConfigureVideoPipeline</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the Video Pipeline. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an pointer to the <ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> Instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="273" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.c" bodystart="738" bodyend="743"/>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf_8h_1af8e87bfbe013d580f97fa1f0ed8d053c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAVBuf_ConfigureGraphicsPipeline</definition>
+        <argsstring>(XAVBuf *InstancePtr)</argsstring>
+        <name>XAVBuf_ConfigureGraphicsPipeline</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the Graphics Pipeline. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an pointer to the <ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> Instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.c" bodystart="755" bodyend="759"/>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf_8h_1aa10d2d81056ad9fb8121b349592fe394" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAVBuf_BlendSetBgColor</definition>
+        <argsstring>(XAVBuf *InstancePtr, XAVBuf_BlenderBgClr *Color)</argsstring>
+        <name>XAVBuf_BlendSetBgColor</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_a_v_buf___blender_bg_clr" kindref="compound">XAVBuf_BlenderBgClr</ref> *</type>
+          <declname>Color</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the blender background color. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an pointer to the <ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> Instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Color</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the structure <ref refid="struct_x_a_v_buf___blender_bg_clr" kindref="compound">XAVBuf_BlenderBgClr</ref></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.c" bodystart="772" bodyend="783"/>
+        <references refid="xavbuf__hw_8h_1aeb513ed772a90ab5f779bac96e965f34" compoundref="xavbuf__hw_8h" startline="50">XAVBUF_V_BLEND_BG_CLR_0</references>
+        <references refid="xavbuf__hw_8h_1a86bb86997a2dfab43afee1a419e19f34" compoundref="xavbuf__hw_8h" startline="59">XAVBUF_V_BLEND_BG_CLR_1</references>
+        <references refid="xavbuf__hw_8h_1a67e22e9366895c08b74231992a1aac6c" compoundref="xavbuf__hw_8h" startline="68">XAVBUF_V_BLEND_BG_CLR_2</references>
+        <references refid="xavbuf__hw_8h_1a16e7e43c2dcc226a26d5e567d6a7dd6e" compoundref="xavbuf__hw_8h" startline="1640">XAVBuf_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf_8h_1ab888f7066ef5e33da06231015e4b221c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAVBuf_SetBlenderAlpha</definition>
+        <argsstring>(XAVBuf *InstancePtr, u8 Alpha, u8 Enable)</argsstring>
+        <name>XAVBuf_SetBlenderAlpha</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Alpha</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+<para>This function enables or disables global alpha. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an pointer to the <ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> Instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sets a software flag for global alpha </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Alpha</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sets the value for the global alpha blending</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>GlobalAlphaEn = 1, enables the global alpha. GlobalAlphaEn = 0, disables the global alpha. Alpha = 0, passes stream2 Alpha = 255, passes stream1 </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="278" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.c" bodystart="800" bodyend="814"/>
+        <references refid="xavbuf__hw_8h_1a9744829139c80e2bc07a5439cfa30f76" compoundref="xavbuf__hw_8h" startline="77">XAVBUF_V_BLEND_SET_GLOBAL_ALPHA_REG</references>
+        <references refid="xavbuf__hw_8h_1a16e7e43c2dcc226a26d5e567d6a7dd6e" compoundref="xavbuf__hw_8h" startline="1640">XAVBuf_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf_8h_1af18126619d9c9b2ffae8595df2448d01" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAVBuf_SoftReset</definition>
+        <argsstring>(XAVBuf *InstancePtr)</argsstring>
+        <name>XAVBuf_SoftReset</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function applies a soft reset to the Audio Video pipeline. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.c" bodystart="638" bodyend="645"/>
+        <references refid="xavbuf__hw_8h_1af293f6e24faeb0c5e5c8a86898928352" compoundref="xavbuf__hw_8h" startline="972">XAVBUF_BUF_SRST_REG</references>
+        <references refid="xavbuf__hw_8h_1a16e7e43c2dcc226a26d5e567d6a7dd6e" compoundref="xavbuf__hw_8h" startline="1640">XAVBuf_WriteReg</references>
+        <referencedby refid="xavbuf_8h_1a34995878c5a7b469921b64e462f55edd" compoundref="xavbuf_8c" startline="596" endline="625">XAVBuf_SetAudioVideoClkSrc</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf_8h_1a74e953883c5cb3dac530a1ac2ee89e0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XABuf_LineResetDisable</definition>
+        <argsstring>(XAVBuf *InstancePtr, u8 Disable)</argsstring>
+        <name>XABuf_LineResetDisable</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Disable</declname>
+        </param>
+        <briefdescription>
+<para>This function enables End of Line Reset for reduced blanking resolutions. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> Instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Disable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is to be set while using Reduced Blanking Resolutions.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.c" bodystart="939" bodyend="952"/>
+        <references refid="xavbuf__hw_8h_1a58b91865437fac43712fd667e238d14e" compoundref="xavbuf__hw_8h" startline="1329">XAVBUF_AUD_SOFT_RST</references>
+        <references refid="xavbuf__hw_8h_1acc9ef500a33218ad23ee1078c452c219" compoundref="xavbuf__hw_8h" startline="1623">XAVBuf_ReadReg</references>
+        <references refid="xavbuf__hw_8h_1a16e7e43c2dcc226a26d5e567d6a7dd6e" compoundref="xavbuf__hw_8h" startline="1640">XAVBuf_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf_8h_1aeb5fef36526fe911b5c640d70e9bb598" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAVBuf_ConfigureOutputVideo</definition>
+        <argsstring>(XAVBuf *InstancePtr)</argsstring>
+        <name>XAVBuf_ConfigureOutputVideo</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the Output of the Video Pipeline. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an pointer to the <ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> Instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.c" bodystart="826" bodyend="838"/>
+        <references refid="xavbuf__hw_8h_1ac3d148ccdb89e7f1e6769a99231abaea" compoundref="xavbuf__hw_8h" startline="90">XAVBUF_V_BLEND_OUTPUT_VID_FORMAT</references>
+        <references refid="xavbuf__hw_8h_1a16e7e43c2dcc226a26d5e567d6a7dd6e" compoundref="xavbuf__hw_8h" startline="1640">XAVBuf_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf_8h_1aa319befa1c0951846a814c6d48a6db82" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAVBuf_AudioSoftReset</definition>
+        <argsstring>(XAVBuf *InstancePtr)</argsstring>
+        <name>XAVBuf_AudioSoftReset</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function resets the Audio Pipe. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> Instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Needed when non-live audio is disabled. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.c" bodystart="915" bodyend="925"/>
+        <references refid="xavbuf__hw_8h_1a58b91865437fac43712fd667e238d14e" compoundref="xavbuf__hw_8h" startline="1329">XAVBUF_AUD_SOFT_RST</references>
+        <references refid="xavbuf__hw_8h_1acc9ef500a33218ad23ee1078c452c219" compoundref="xavbuf__hw_8h" startline="1623">XAVBuf_ReadReg</references>
+        <references refid="xavbuf__hw_8h_1a16e7e43c2dcc226a26d5e567d6a7dd6e" compoundref="xavbuf__hw_8h" startline="1640">XAVBuf_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf_8h_1abff93765afd4cd6e693f116335e123d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAVBuf_AudioMixerVolumeControl</definition>
+        <argsstring>(XAVBuf *InstancePtr, u8 Channel0Volume, u8 Channel1Volume)</argsstring>
+        <name>XAVBuf_AudioMixerVolumeControl</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Channel0Volume</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Channel1Volume</declname>
+        </param>
+        <briefdescription>
+<para>This function sets up the scaling factor for Audio Mixer Volume Control. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel0Volume</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the volume to be set for Audio from Channel0 </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel1Volume</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the volume to be set for Audio from Channel1</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.c" bodystart="891" bodyend="901"/>
+        <references refid="xavbuf__hw_8h_1a02c6da1091344780b81aca5937e39ebd" compoundref="xavbuf__hw_8h" startline="1145">XAVBUF_AUD_MIXER_VOLUME_CONTROL</references>
+        <references refid="xavbuf__hw_8h_1a16e7e43c2dcc226a26d5e567d6a7dd6e" compoundref="xavbuf__hw_8h" startline="1640">XAVBuf_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf_8h_1a49967c789a4200b19cdd7fec9a682849" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAVBuf_EnableGraphicsBuffers</definition>
+        <argsstring>(XAVBuf *InstancePtr, u8 Enable)</argsstring>
+        <name>XAVBuf_EnableGraphicsBuffers</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the graphics interface between the DPDMA and the AVBuf. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> Instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sets the corresponding buffers.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.c" bodystart="1001" bodyend="1014"/>
+        <references refid="xavbuf__hw_8h_1a1a3dd730034220e6fa04af4aebe473c3" compoundref="xavbuf__hw_8h" startline="622">XAVBUF_CHBUF3</references>
+        <references refid="xavbuf__hw_8h_1a16e7e43c2dcc226a26d5e567d6a7dd6e" compoundref="xavbuf__hw_8h" startline="1640">XAVBuf_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf_8h_1a2004460db3c2de4802ff6fb705ac1dc3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAVBuf_EnableVideoBuffers</definition>
+        <argsstring>(XAVBuf *InstancePtr, u8 Enable)</argsstring>
+        <name>XAVBuf_EnableVideoBuffers</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the video channel interface between the DPDMA and the AVBuf. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> Instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sets the corresponding buffers.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.c" bodystart="967" bodyend="988"/>
+        <references refid="xavbuf__hw_8h_1a12830ee62296d3e874dabbd21271ff8a" compoundref="xavbuf__hw_8h" startline="571">XAVBUF_CHBUF0</references>
+        <references refid="xavbuf__hw_8h_1a16e7e43c2dcc226a26d5e567d6a7dd6e" compoundref="xavbuf__hw_8h" startline="1640">XAVBuf_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf_8h_1acaf5675e224edcee8083ab9f2c4d82e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAVBuf_EnableAudio0Buffers</definition>
+        <argsstring>(XAVBuf *InstancePtr, u8 Enable)</argsstring>
+        <name>XAVBuf_EnableAudio0Buffers</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the audio interface between the DPDMA and the AVBuf. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> Instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sets the corresponding buffers.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.c" bodystart="1028" bodyend="1041"/>
+        <references refid="xavbuf__hw_8h_1a10e16d5358eeaf7b615aabe14367a3f0" compoundref="xavbuf__hw_8h" startline="639">XAVBUF_CHBUF4</references>
+        <references refid="xavbuf__hw_8h_1a16e7e43c2dcc226a26d5e567d6a7dd6e" compoundref="xavbuf__hw_8h" startline="1640">XAVBuf_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf_8h_1a741396967470cfe189d309962e87e4c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAVBuf_EnableAudio1Buffers</definition>
+        <argsstring>(XAVBuf *InstancePtr, u8 Enable)</argsstring>
+        <name>XAVBuf_EnableAudio1Buffers</name>
+        <param>
+          <type><ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the audio interface between the DPDMA and the AVBuf. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> Instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sets the corresponding buffers.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.c" bodystart="1055" bodyend="1068"/>
+        <references refid="xavbuf__hw_8h_1a8bc3638c078896bac034dfd6e3c4633d" compoundref="xavbuf__hw_8h" startline="656">XAVBUF_CHBUF5</references>
+        <references refid="xavbuf__hw_8h_1a16e7e43c2dcc226a26d5e567d6a7dd6e" compoundref="xavbuf__hw_8h" startline="1640">XAVBuf_WriteReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file implements all the functions related to the Video Pipeline of the DisplayPort Subsystem. </para>    </briefdescription>
+    <detaileddescription>
+<para>Features supported by this driver<itemizedlist>
+<listitem><para>Live Video and Graphics input.</para></listitem><listitem><para>Non-Live Video Graphics input.</para></listitem><listitem><para>Output Formats Supported - RGB, YUV444, YUV4222.</para></listitem></itemizedlist>
+</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   aad  06/24/17 Initial release.
+2.0   aad  10/07/17 Added Enums for Video and Audio sources.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor">#ifndef<sp/>XAVBUF_H_</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Prevent<sp/>circular<sp/>inclusions<sp/>by<sp/>using<sp/>protection<sp/>macros.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XAVBUF_H_</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xavbuf__hw_8h" kindref="compound">xavbuf_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight></codeline>
+<codeline lineno="46" refid="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Non-Live<sp/>Video<sp/>Formats</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CbY0CrY1,</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CrY0CbY1,</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Y0CrY1Cb,</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Y0CbY1Cr,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YV16,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YV24,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YV16Ci,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MONOCHROME,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YV16Ci2,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YUV444,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RGB888,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RGBA8880,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RGB888_10BPC,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YUV444_10BPC,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YV16Ci2_10BPC,</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YV16Ci_10BPC,</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YV16_10BPC,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YV24_10BPC,</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MONOCHROME_10BPC,</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YV16_420,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YV16Ci_420,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YV16Ci2_420,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YV16_420_10BPC,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YV16Ci_420_10BPC,</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YV16Ci2_420_10BPC,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Non-Live<sp/>Graphics<sp/>formats</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RGBA8888,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ABGR8888,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RGB888_GFX,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BGR888,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RGBA5551,</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RGBA4444,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RGB565,</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BPP8,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BPP4,</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BPP2,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BPP1,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YUV422,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YOnly,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Live<sp/>Input/Output<sp/>Video/Graphics<sp/>Formats</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RGB_6BPC,</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RGB_8BPC,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RGB_10BPC,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RGB_12BPC,</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YCbCr444_6BPC,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YCbCr444_8BPC,</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YCbCr444_10BPC,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YCbCr444_12BPC,</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YCbCr422_8BPC,</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YCbCr422_10BPC,</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YCbCr422_12BPC,</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YOnly_8BPC,</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YOnly_10BPC,</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YOnly_12BPC,</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">}<sp/><ref refid="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1" kindref="member">XAVBuf_VideoFormat</ref>;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109" refid="xavbuf_8h_1a857e29fcef629dadffdec7c5c2bcc7da" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Interleaved,</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SemiPlanar,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Planar</highlight></codeline>
+<codeline lineno="113"><highlight class="normal">}<sp/><ref refid="xavbuf_8h_1a857e29fcef629dadffdec7c5c2bcc7da" kindref="member">XAVBuf_VideoModes</ref>;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118" refid="xavbuf_8h_1a00178d9299a9bc55688188074b9f8451" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_VIDSTREAM1_LIVE,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_VIDSTREAM1_NONLIVE,</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_VIDSTREAM1_TPG,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_VIDSTREAM1_NONE,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">}<sp/><ref refid="xavbuf_8h_1a00178d9299a9bc55688188074b9f8451" kindref="member">XAVBuf_VideoStream</ref>;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128" refid="xavbuf_8h_1ab2e5d15b72ebd1736f0bc533d9e555de" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_VIDSTREAM2_DISABLEGFX<sp/>=<sp/>0x0,</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_VIDSTREAM2_NONLIVE_GFX<sp/>=<sp/>0x4,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_VIDSTREAM2_LIVE_GFX<sp/>=<sp/>0x8,</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_VIDSTREAM2_NONE<sp/>=<sp/>0xC0,</highlight></codeline>
+<codeline lineno="133"><highlight class="normal">}<sp/><ref refid="xavbuf_8h_1ab2e5d15b72ebd1736f0bc533d9e555de" kindref="member">XAVBuf_GfxStream</ref>;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138" refid="xavbuf_8h_1a4f8416931907a94349455e4c334683d1" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_AUDSTREAM1_LIVE<sp/>=<sp/>0x00,</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_AUDSTREAM1_NONLIVE<sp/>=<sp/>0x10,</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_AUDSTREAM1_TPG<sp/>=<sp/>0x20,</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_AUDSTREAM1_NO_AUDIO<sp/>=<sp/>0x30,</highlight></codeline>
+<codeline lineno="143"><highlight class="normal">}<sp/><ref refid="xavbuf_8h_1a4f8416931907a94349455e4c334683d1" kindref="member">XAVBuf_AudioStream1</ref>;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148" refid="xavbuf_8h_1a19f79530d9cf1e82cf7fc14bd1cf2aaf" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_AUDSTREAM2_NO_AUDIO<sp/>=<sp/>0X00,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAVBUF_AUDSTREAM2_AUDIOGFX<sp/>=<sp/>0X40,</highlight></codeline>
+<codeline lineno="151"><highlight class="normal">}<sp/><ref refid="xavbuf_8h_1a19f79530d9cf1e82cf7fc14bd1cf2aaf" kindref="member">XAVBuf_AudioStream2</ref>;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156" refid="struct_x_a_v_buf___video_attribute" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1" kindref="member">XAVBuf_VideoFormat</ref><sp/>VideoFormat;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Value;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavbuf_8h_1a857e29fcef629dadffdec7c5c2bcc7da" kindref="member">XAVBuf_VideoModes</ref><sp/>Mode;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SF[3];</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>SamplingEn;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IsRGB;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Swap;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>BPP;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">}<sp/><ref refid="struct_x_a_v_buf___video_attribute" kindref="compound">XAVBuf_VideoAttribute</ref>;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170" refid="struct_x_a_v_buf___audio_attribute" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Volume;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>SwapLR;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal">}<sp/><ref refid="struct_x_a_v_buf___audio_attribute" kindref="compound">XAVBuf_AudioAttribute</ref>;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178" refid="struct_x_a_v_buf___a_v_modes" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_a_v_buf___video_attribute" kindref="compound">XAVBuf_VideoAttribute</ref><sp/>*NonLiveVideo,<sp/>*NonLiveGraphics;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_a_v_buf___video_attribute" kindref="compound">XAVBuf_VideoAttribute</ref><sp/>*LiveVideo,<sp/>*LiveGraphics;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_a_v_buf___audio_attribute" kindref="compound">XAVBuf_AudioAttribute</ref><sp/>*Audio,<sp/>*GraphicsAudio;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavbuf_8h_1a00178d9299a9bc55688188074b9f8451" kindref="member">XAVBuf_VideoStream</ref><sp/>VideoSrc;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavbuf_8h_1ab2e5d15b72ebd1736f0bc533d9e555de" kindref="member">XAVBuf_GfxStream</ref><sp/>GraphicsSrc;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavbuf_8h_1a4f8416931907a94349455e4c334683d1" kindref="member">XAVBuf_AudioStream1</ref><sp/>AudioSrc1;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavbuf_8h_1a19f79530d9cf1e82cf7fc14bd1cf2aaf" kindref="member">XAVBuf_AudioStream2</ref><sp/>AudioSrc2;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>AudioClk,<sp/>VideoClk;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">}<sp/><ref refid="struct_x_a_v_buf___a_v_modes" kindref="compound">XAVBuf_AVModes</ref>;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192" refid="struct_x_a_v_buf___blender_bg_clr" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>RCr;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>GY;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>BCb;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal">}<sp/><ref refid="struct_x_a_v_buf___blender_bg_clr" kindref="compound">XAVBuf_BlenderBgClr</ref>;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201" refid="struct_x_a_v_buf___config" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DeviceId;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BaseAddr;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>IntrId;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="211" refid="struct_x_a_v_buf___config_1af4060045f46ffb574b9d1445d07f3750" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_a_v_buf___config_1af4060045f46ffb574b9d1445d07f3750" kindref="member">IntrParent</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_x_a_v_buf___config" kindref="compound">XAVBuf_Config</ref>;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220" refid="struct_x_a_v_buf___blender" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>GlobalAlphaEn;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Alpha;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_a_v_buf___video_attribute" kindref="compound">XAVBuf_VideoAttribute</ref><sp/>*OutputVideo;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal">}<sp/><ref refid="struct_x_a_v_buf___blender" kindref="compound">XAVBuf_Blender</ref>;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231" refid="struct_x_a_v_buf" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_a_v_buf___config" kindref="compound">XAVBuf_Config</ref><sp/>Config;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_a_v_buf___a_v_modes" kindref="compound">XAVBuf_AVModes</ref><sp/>AVMode;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_a_v_buf___blender" kindref="compound">XAVBuf_Blender</ref><sp/>Blender;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal">}<sp/><ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref>;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>xavbuf.c:<sp/>Setup<sp/>and<sp/>initialization<sp/>functions.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="242"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavbuf_8c_1a7fee983431a0ca99aee37ed6014d360a" kindref="member">XAVBuf_CfgInitialize</ref>(<ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref><sp/>*InstancePtr,<sp/>u32<sp/>BaseAddr,<sp/>u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="244"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavbuf_8c_1a7fee983431a0ca99aee37ed6014d360a" kindref="member">XAVBuf_CfgInitialize</ref>(<ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref><sp/>*InstancePtr,<sp/>u32<sp/>BaseAddr);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="246"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>xavbuf.c:<sp/>Functions<sp/>to<sp/>setup<sp/>the<sp/>Input<sp/>Video<sp/>and<sp/>Audio<sp/>sources<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavbuf_8c_1a851d07f684e377a0401cc5e3d877e239" kindref="member">XAVBuf_InputVideoSelect</ref>(<ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref><sp/>*InstancePtr,<sp/><ref refid="xavbuf_8h_1a00178d9299a9bc55688188074b9f8451" kindref="member">XAVBuf_VideoStream</ref><sp/>VidStream,</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavbuf_8h_1ab2e5d15b72ebd1736f0bc533d9e555de" kindref="member">XAVBuf_GfxStream</ref><sp/>GfxStream);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavbuf_8c_1aabb02afb0a290df630dcee4b5b170c36" kindref="member">XAVBuf_InputAudioSelect</ref>(<ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref><sp/>*InstancePtr,<sp/><ref refid="xavbuf_8h_1a4f8416931907a94349455e4c334683d1" kindref="member">XAVBuf_AudioStream1</ref><sp/>AudStream,</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavbuf_8h_1a19f79530d9cf1e82cf7fc14bd1cf2aaf" kindref="member">XAVBuf_AudioStream2</ref><sp/>AudioStream2);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>xavbuf.c:<sp/>Functions<sp/>to<sp/>setup<sp/>the<sp/>Video<sp/>Format<sp/>attributes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xavbuf_8c_1a13bd54c5d3414d4c77383f081232b4d6" kindref="member">XAVBuf_SetInputNonLiveVideoFormat</ref>(<ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1" kindref="member">XAVBuf_VideoFormat</ref><sp/>Format);</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xavbuf_8c_1a8ff75d802f1de7e76dafd3accad6c9ca" kindref="member">XAVBuf_SetInputNonLiveGraphicsFormat</ref>(<ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1" kindref="member">XAVBuf_VideoFormat</ref><sp/>Format);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xavbuf_8c_1a1eee05c210cea29032460c7bb45d280f" kindref="member">XAVBuf_SetInputLiveVideoFormat</ref>(<ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1" kindref="member">XAVBuf_VideoFormat</ref><sp/>Format);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xavbuf_8c_1a38fd85d70a04c7151b0739af9aad16fc" kindref="member">XAVBuf_SetInputLiveGraphicsFormat</ref>(<ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1" kindref="member">XAVBuf_VideoFormat</ref><sp/>Format);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xavbuf_8c_1a675e0417710abf7fa03fce7df6611541" kindref="member">XAVBuf_SetOutputVideoFormat</ref>(<ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref><sp/>*InstancePtr,<sp/><ref refid="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1" kindref="member">XAVBuf_VideoFormat</ref><sp/>Format);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><ref refid="struct_x_a_v_buf___video_attribute" kindref="compound">XAVBuf_VideoAttribute</ref><sp/>*<ref refid="xavbuf_8c_1a226a30c6c6c1094c5ed9942982925fb5" kindref="member">XAVBuf_GetLiveVideoAttribute</ref>(<ref refid="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1" kindref="member">XAVBuf_VideoFormat</ref><sp/>Format);</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><ref refid="struct_x_a_v_buf___video_attribute" kindref="compound">XAVBuf_VideoAttribute</ref><sp/>*<ref refid="xavbuf_8c_1a6702407d9c075c1a956ba4c86a755a2e" kindref="member">XAVBuf_GetNLiveVideoAttribute</ref>(<ref refid="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1" kindref="member">XAVBuf_VideoFormat</ref><sp/>Format);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><ref refid="struct_x_a_v_buf___video_attribute" kindref="compound">XAVBuf_VideoAttribute</ref><sp/>*<ref refid="xavbuf_8c_1a9f152e09bebf8b6d4ff758893802f34d" kindref="member">XAVBuf_GetNLGraphicsAttribute</ref>(<ref refid="xavbuf_8h_1a441214e71757582f909cb3ef2e895df1" kindref="member">XAVBuf_VideoFormat</ref><sp/>Format);</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>xavbuf.c:<sp/>Functions<sp/>to<sp/>setup<sp/>the<sp/>clock<sp/>sources<sp/>for<sp/>video<sp/>and<sp/>audio<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavbuf_8c_1a34995878c5a7b469921b64e462f55edd" kindref="member">XAVBuf_SetAudioVideoClkSrc</ref>(<ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref><sp/>*InstancePtr,<sp/>u8<sp/>VideoClk,<sp/>u8<sp/>AudioClk);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>xavbuf.c:<sp/>Functions<sp/>that<sp/>setup<sp/>Video<sp/>and<sp/>Graphics<sp/>pipeline<sp/>depending<sp/>on<sp/>the</highlight></codeline>
+<codeline lineno="271"><highlight class="comment"><sp/>*<sp/>sources<sp/>and<sp/>format<sp/>selected.</highlight></codeline>
+<codeline lineno="272"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavbuf_8c_1a15d07fa625f1a4c7f2993e800f655a0e" kindref="member">XAVBuf_ConfigureVideoPipeline</ref>(<ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavbuf_8c_1af8e87bfbe013d580f97fa1f0ed8d053c" kindref="member">XAVBuf_ConfigureGraphicsPipeline</ref>(<ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Functions<sp/>to<sp/>setup<sp/>Blender<sp/>Properties<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavbuf_8c_1aa10d2d81056ad9fb8121b349592fe394" kindref="member">XAVBuf_BlendSetBgColor</ref>(<ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_a_v_buf___blender_bg_clr" kindref="compound">XAVBuf_BlenderBgClr</ref><sp/>*Color);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavbuf_8c_1ab888f7066ef5e33da06231015e4b221c" kindref="member">XAVBuf_SetBlenderAlpha</ref>(<ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref><sp/>*InstancePtr,<sp/>u8<sp/>Alpha,<sp/>u8<sp/>Enable);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavbuf_8c_1af18126619d9c9b2ffae8595df2448d01" kindref="member">XAVBuf_SoftReset</ref>(<ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavbuf_8c_1a74e953883c5cb3dac530a1ac2ee89e0c" kindref="member">XABuf_LineResetDisable</ref>(<ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref><sp/>*InstancePtr,<sp/>u8<sp/>Disable);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavbuf_8c_1aeb5fef36526fe911b5c640d70e9bb598" kindref="member">XAVBuf_ConfigureOutputVideo</ref>(<ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Audio<sp/>Configuration<sp/>functions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavbuf_8c_1aa319befa1c0951846a814c6d48a6db82" kindref="member">XAVBuf_AudioSoftReset</ref>(<ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavbuf_8c_1abff93765afd4cd6e693f116335e123d9" kindref="member">XAVBuf_AudioMixerVolumeControl</ref>(<ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref><sp/>*InstancePtr,<sp/>u8<sp/>Channel0Volume,</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Channel1Volume);</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>DPDMA<sp/>Interface<sp/>functions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavbuf_8c_1a49967c789a4200b19cdd7fec9a682849" kindref="member">XAVBuf_EnableGraphicsBuffers</ref>(<ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref><sp/>*InstancePtr,<sp/>u8<sp/>Enable);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavbuf_8c_1a2004460db3c2de4802ff6fb705ac1dc3" kindref="member">XAVBuf_EnableVideoBuffers</ref>(<ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref><sp/>*InstancePtr,<sp/>u8<sp/>Enable);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavbuf_8c_1acaf5675e224edcee8083ab9f2c4d82e3" kindref="member">XAVBuf_EnableAudio0Buffers</ref>(<ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref><sp/>*InstancePtr,<sp/>u8<sp/>Enable);</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavbuf_8c_1a741396967470cfe189d309962e87e4c2" kindref="member">XAVBuf_EnableAudio1Buffers</ref>(<ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref><sp/>*InstancePtr,<sp/>u8<sp/>Enable);</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="295"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="297"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//XAVBUF_H_</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h"/>
+  </compounddef>
+</doxygen>

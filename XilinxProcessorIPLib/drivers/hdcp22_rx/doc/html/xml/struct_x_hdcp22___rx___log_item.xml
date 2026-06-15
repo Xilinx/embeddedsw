@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___rx___log_item" kind="struct" prot="public">
+    <compoundname>XHdcp22_Rx_LogItem</compoundname>
+    <includes local="no">xhdcp22_rx.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___log_item_1a6230272315956444704ab7ebf254f95d" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHdcp22_Rx_LogItem::LogEvent</definition>
+        <argsstring></argsstring>
+        <name>LogEvent</name>
+        <briefdescription>
+<para>Event that has been triggered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="414" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="414" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx_1ga0b1930d7283fdc66c712e1ed3d62d060" compoundref="xhdcp22__rx_8c" startline="3914" endline="4139">XHdcp22Rx_LogDisplay</referencedby>
+        <referencedby refid="group__hdcp22__rx_1ga743ad88922a6b15e5aea5e1cb9f04aa0" compoundref="xhdcp22__rx_8c" startline="3871" endline="3902">XHdcp22Rx_LogRd</referencedby>
+        <referencedby refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3811" endline="3856">XHdcp22Rx_LogWr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___log_item_1a1492f7bd3d1f2c4c947b5c27b2bb57bc" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHdcp22_Rx_LogItem::Data</definition>
+        <argsstring></argsstring>
+        <name>Data</name>
+        <briefdescription>
+<para>Optional data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="416" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="416" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx_1ga0b1930d7283fdc66c712e1ed3d62d060" compoundref="xhdcp22__rx_8c" startline="3914" endline="4139">XHdcp22Rx_LogDisplay</referencedby>
+        <referencedby refid="group__hdcp22__rx_1ga743ad88922a6b15e5aea5e1cb9f04aa0" compoundref="xhdcp22__rx_8c" startline="3871" endline="3902">XHdcp22Rx_LogRd</referencedby>
+        <referencedby refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3811" endline="3856">XHdcp22Rx_LogWr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___log_item_1a5320117d6828349f498ff009492237f7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Rx_LogItem::TimeStamp</definition>
+        <argsstring></argsstring>
+        <name>TimeStamp</name>
+        <briefdescription>
+<para>Timestamp on when event occurred. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only used for time critical events </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="418" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="418" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx_1ga0b1930d7283fdc66c712e1ed3d62d060" compoundref="xhdcp22__rx_8c" startline="3914" endline="4139">XHdcp22Rx_LogDisplay</referencedby>
+        <referencedby refid="group__hdcp22__rx_1ga743ad88922a6b15e5aea5e1cb9f04aa0" compoundref="xhdcp22__rx_8c" startline="3871" endline="3902">XHdcp22Rx_LogRd</referencedby>
+        <referencedby refid="group__hdcp22__rx_1ga75e2458da2561aa5143698657aa5e604" compoundref="xhdcp22__rx_8c" startline="3811" endline="3856">XHdcp22Rx_LogWr</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef is used to store logging events. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" line="412" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx.h" bodystart="412" bodyend="419"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___rx___log_item_1a1492f7bd3d1f2c4c947b5c27b2bb57bc" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_LogItem</scope><name>Data</name></member>
+      <member refid="struct_x_hdcp22___rx___log_item_1a6230272315956444704ab7ebf254f95d" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_LogItem</scope><name>LogEvent</name></member>
+      <member refid="struct_x_hdcp22___rx___log_item_1a5320117d6828349f498ff009492237f7" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_LogItem</scope><name>TimeStamp</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

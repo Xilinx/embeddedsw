@@ -1,0 +1,514 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="isi__otp_8h" kind="file">
+    <compoundname>isi_otp.h</compoundname>
+    <includes refid="types_8h" local="no">types.h</includes>
+    <includes refid="isi__common_8h" local="no">isi_common.h</includes>
+    <includedby refid="isi_8h" local="no">isi.h</includedby>
+    <incdepgraph>
+      <node id="5802">
+        <label>stdlib.h</label>
+      </node>
+      <node id="5804">
+        <label>stddef.h</label>
+      </node>
+      <node id="5803">
+        <label>limits.h</label>
+      </node>
+      <node id="5798">
+        <label>isi_otp.h</label>
+        <link refid="isi_otp.h"/>
+        <childnode refid="5799" relation="include">
+        </childnode>
+        <childnode refid="5805" relation="include">
+        </childnode>
+      </node>
+      <node id="5805">
+        <label>isi_common.h</label>
+        <link refid="isi__common_8h"/>
+      </node>
+      <node id="5799">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="5800" relation="include">
+        </childnode>
+        <childnode refid="5803" relation="include">
+        </childnode>
+        <childnode refid="5804" relation="include">
+        </childnode>
+      </node>
+      <node id="5801">
+        <label>stdio.h</label>
+      </node>
+      <node id="5800">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="5801" relation="include">
+        </childnode>
+        <childnode refid="5802" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="5813">
+        <label>isi_iss.h</label>
+        <link refid="isi__iss_8h"/>
+        <childnode refid="5814" relation="include">
+        </childnode>
+        <childnode refid="5810" relation="include">
+        </childnode>
+        <childnode refid="5811" relation="include">
+        </childnode>
+        <childnode refid="5812" relation="include">
+        </childnode>
+        <childnode refid="5817" relation="include">
+        </childnode>
+        <childnode refid="5818" relation="include">
+        </childnode>
+        <childnode refid="5816" relation="include">
+        </childnode>
+      </node>
+      <node id="5811">
+        <label>ox05b1s.c</label>
+      </node>
+      <node id="5820">
+        <label>ox03f10_priv.h</label>
+        <childnode refid="5809" relation="include">
+        </childnode>
+        <childnode refid="5810" relation="include">
+        </childnode>
+      </node>
+      <node id="5821">
+        <label>ox05b1s_priv.h</label>
+        <link refid="ox05b1s__priv_8h"/>
+        <childnode refid="5811" relation="include">
+        </childnode>
+      </node>
+      <node id="5816">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="5822">
+        <label>ox08b40_priv.h</label>
+        <childnode refid="5812" relation="include">
+        </childnode>
+      </node>
+      <node id="5817">
+        <label>cam_device_sensor_api.c</label>
+      </node>
+      <node id="5819">
+        <label>isi_priv.h</label>
+        <link refid="isi__priv_8h"/>
+        <childnode refid="5820" relation="include">
+        </childnode>
+        <childnode refid="5821" relation="include">
+        </childnode>
+        <childnode refid="5822" relation="include">
+        </childnode>
+        <childnode refid="5810" relation="include">
+        </childnode>
+        <childnode refid="5811" relation="include">
+        </childnode>
+        <childnode refid="5812" relation="include">
+        </childnode>
+        <childnode refid="5818" relation="include">
+        </childnode>
+      </node>
+      <node id="5812">
+        <label>ox08b40.c</label>
+      </node>
+      <node id="5815">
+        <label>sensor_drv.c</label>
+        <link refid="sensor__drv_8c"/>
+      </node>
+      <node id="5807">
+        <label>isi.h</label>
+        <link refid="isi_8h"/>
+        <childnode refid="5808" relation="include">
+        </childnode>
+        <childnode refid="5809" relation="include">
+        </childnode>
+        <childnode refid="5810" relation="include">
+        </childnode>
+        <childnode refid="5811" relation="include">
+        </childnode>
+        <childnode refid="5812" relation="include">
+        </childnode>
+        <childnode refid="5813" relation="include">
+        </childnode>
+        <childnode refid="5819" relation="include">
+        </childnode>
+        <childnode refid="5818" relation="include">
+        </childnode>
+      </node>
+      <node id="5806">
+        <label>isi_otp.h</label>
+        <link refid="isi_otp.h"/>
+        <childnode refid="5807" relation="include">
+        </childnode>
+      </node>
+      <node id="5808">
+        <label>isi_control.c</label>
+        <link refid="isi__control_8c"/>
+      </node>
+      <node id="5810">
+        <label>ox03f10.c</label>
+      </node>
+      <node id="5818">
+        <label>isi.c</label>
+        <link refid="isi_8c"/>
+      </node>
+      <node id="5814">
+        <label>sensor_drv.h</label>
+        <childnode refid="5808" relation="include">
+        </childnode>
+        <childnode refid="5815" relation="include">
+        </childnode>
+        <childnode refid="5816" relation="include">
+        </childnode>
+      </node>
+      <node id="5809">
+        <label>ms_fw.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_isi_o_t_p_l_s_c__s" prot="public">IsiOTPLSC_s</innerclass>
+    <innerclass refid="struct_isi_o_t_p_a_w_b__s" prot="public">IsiOTPAWB_s</innerclass>
+    <innerclass refid="struct_isi_o_t_p_light_source__s" prot="public">IsiOTPLightSource_s</innerclass>
+    <innerclass refid="struct_isi_o_t_p_cdaf__s" prot="public">IsiOTPCdaf_s</innerclass>
+    <innerclass refid="struct_isi_o_t_p_pdaf__s" prot="public">IsiOTPPdaf_s</innerclass>
+    <innerclass refid="struct_isi_o_t_p_a_f_data__s" prot="public">IsiOTPAFData_s</innerclass>
+    <innerclass refid="struct_isi_o_t_p_module_information__s" prot="public">IsiOTPModuleInformation_s</innerclass>
+    <innerclass refid="struct_isi_o_t_p__s" prot="public">IsiOTP_s</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="isi__otp_8h_1abac9f07b67ac504a4fdd89c1a945be4b" prot="public" static="no">
+        <name>ISI_OTP_LSC_TABLE_NUM</name>
+        <initializer>33</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="32" column="19" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="isi__otp_8h_1a270d469b70ab189984fca4fb8170e433" prot="public" static="no">
+        <name>PDAF_OTP_FOCAL_SIZE</name>
+        <initializer>48</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="isi__otp_8h_1a0566c6265a54ec272fac5ea9362ee990" prot="public" static="no">
+        <name>IsiColorTemperature_e</name>
+        <enumvalue id="isi__otp_8h_1a0566c6265a54ec272fac5ea9362ee990a87fa07b33838b8b2da8c9348a0057e0c" prot="public">
+          <name>ISI_COLOR_TEMPERATURE_3100K</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="isi__otp_8h_1a0566c6265a54ec272fac5ea9362ee990a46e6ad06a9ce4ca36a28fcee6760b8ce" prot="public">
+          <name>ISI_COLOR_TEMPERATURE_4000K</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="isi__otp_8h_1a0566c6265a54ec272fac5ea9362ee990a4ee490837901a0ac4ee2a9f7568f0520" prot="public">
+          <name>ISI_COLOR_TEMPERATURE_5800K</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="isi__otp_8h_1a0566c6265a54ec272fac5ea9362ee990a0424317a016059cd7a53a83e915a338c" prot="public">
+          <name>ISI_COLOR_TEMPERATURE_MAX</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="isi__otp_8h_1a0566c6265a54ec272fac5ea9362ee990aa2d6c4225cc8cd5fdd3eec2ae35f85b4" prot="public">
+          <name>DUMMY_ISI_009</name>
+          <initializer>= 0xdeadfeed</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="40" bodyend="46"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="isi__otp_8h_1a2660f9a3e3fcc5fb6a7cf2356fe524d0" prot="public" static="no">
+        <type>enum IsiColorTemperature_e</type>
+        <definition>typedef enum IsiColorTemperature_e  IsiColorTemperature_t</definition>
+        <argsstring></argsstring>
+        <name>IsiColorTemperature_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="46" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="isi__otp_8h_1ab8087b39c2be37b5eb522c17a0cfb62b" prot="public" static="no">
+        <type>struct IsiOTPLSC_s</type>
+        <definition>typedef struct IsiOTPLSC_s  IsiOTPLSC_t</definition>
+        <argsstring></argsstring>
+        <name>IsiOTPLSC_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="53" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="isi__otp_8h_1a78638e1fba821b40829a1aa8a06c95b6" prot="public" static="no">
+        <type>struct IsiOTPAWB_s</type>
+        <definition>typedef struct IsiOTPAWB_s  IsiOTPAWB_t</definition>
+        <argsstring></argsstring>
+        <name>IsiOTPAWB_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="62" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="isi__otp_8h_1aa2520a5fb4f8c228eae93e32bb12f8c3" prot="public" static="no">
+        <type>struct IsiOTPLightSource_s</type>
+        <definition>typedef struct IsiOTPLightSource_s  IsiOTPLightSource_t</definition>
+        <argsstring></argsstring>
+        <name>IsiOTPLightSource_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="69" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="isi__otp_8h_1a0e40c3a18c6dc22e39bace1816831551" prot="public" static="no">
+        <type>struct IsiOTPCdaf_s</type>
+        <definition>typedef struct IsiOTPCdaf_s  IsiOTPCdaf_t</definition>
+        <argsstring></argsstring>
+        <name>IsiOTPCdaf_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="74" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="isi__otp_8h_1a67a229e71992b6f467f4401a3a010c10" prot="public" static="no">
+        <type>struct IsiOTPPdaf_s</type>
+        <definition>typedef struct IsiOTPPdaf_s  IsiOTPPdaf_t</definition>
+        <argsstring></argsstring>
+        <name>IsiOTPPdaf_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="78" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="isi__otp_8h_1aced7296da669bb693184c2975af7ab18" prot="public" static="no">
+        <type>struct IsiOTPAFData_s</type>
+        <definition>typedef struct IsiOTPAFData_s  IsiOTPAFData_t</definition>
+        <argsstring></argsstring>
+        <name>IsiOTPAFData_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="84" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="isi__otp_8h_1aa68886f8e793fb99bd66c8ac56087af1" prot="public" static="no">
+        <type>struct IsiOTPModuleInformation_s</type>
+        <definition>typedef struct IsiOTPModuleInformation_s  IsiOTPModuleInformation_t</definition>
+        <argsstring></argsstring>
+        <name>IsiOTPModuleInformation_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="107" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="isi__otp_8h_1ab9a5eca107eddc4b61d29e4394be5e24" prot="public" static="no">
+        <type>struct IsiOTP_s</type>
+        <definition>typedef struct IsiOTP_s  IsiOTP_t</definition>
+        <argsstring></argsstring>
+        <name>IsiOTP_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="124" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2022<sp/>Vivante<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__ISI_OTP_H__</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__ISI_OTP_H__</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="types_8h" kindref="compound">types.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="isi__common_8h" kindref="compound">isi_common.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ISI_OTP_LSC_TABLE_NUM<sp/>33</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PDAF_OTP_FOCAL_SIZE<sp/>48</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>IsiColorTemperature_e<sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISI_COLOR_TEMPERATURE_3100K<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISI_COLOR_TEMPERATURE_4000K<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISI_COLOR_TEMPERATURE_5800K<sp/>=<sp/>2,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISI_COLOR_TEMPERATURE_MAX<sp/>=<sp/>3,</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_ISI_009<sp/>=<sp/>0xdeadfeed</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">}<sp/>IsiColorTemperature_t;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">IsiOTPLSC_s<sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsiColorTemperature_t<sp/>colorTemperature;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>r[ISI_OTP_LSC_TABLE_NUM][ISI_OTP_LSC_TABLE_NUM];</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>gr[ISI_OTP_LSC_TABLE_NUM][ISI_OTP_LSC_TABLE_NUM];</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>gb[ISI_OTP_LSC_TABLE_NUM][ISI_OTP_LSC_TABLE_NUM];</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>b[ISI_OTP_LSC_TABLE_NUM][ISI_OTP_LSC_TABLE_NUM];</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}<sp/>IsiOTPLSC_t;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">IsiOTPAWB_s<sp/>{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsiColorTemperature_t<sp/>colorTemperature;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>r;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>gr;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>gb;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>b;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>rgRatio;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>bgRatio;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">}<sp/>IsiOTPAWB_t;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">IsiOTPLightSource_s<sp/>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsiColorTemperature_t<sp/>colorTemperature;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>xCIE;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>yCIE;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>intensity;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">}<sp/>IsiOTPLightSource_t;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">IsiOTPCdaf_s<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>minFocal;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>maxFocal;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">}<sp/>IsiOTPCdaf_t;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">IsiOTPPdaf_s<sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>pdFocal[PDAF_OTP_FOCAL_SIZE];</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">}<sp/>IsiOTPPdaf_t;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">IsiOTPAFData_s<sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>otpVersion;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>otpFocusEnable;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsiOTPCdaf_t<sp/>cdafOtp;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsiOTPPdaf_t<sp/>pdafOtp;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">}<sp/>IsiOTPAFData_t;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">IsiOTPModuleInformation_s<sp/>{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>hwVersion;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>eepromRevision;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>sensorRevision;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>tlensRevision;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>ircfRevision;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>lensRevision;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>caRevision;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>moduleInteID;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>factoryID;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>mirrorFlip;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>tlensSlaveID;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>eepromSlaveID;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>sensorSlaveID;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>sensorID[11];</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>manuDateYear;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>manuDateMonth;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>manuDateDay;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>barcodeModuleSN[12];</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>mapTotalSize;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal">}<sp/>IsiOTPModuleInformation_t;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">IsiOTP_s<sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsiOTPModuleInformation_t<sp/>otpInformation;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>otpLSCEnable;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>otpAwbEnable;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>otpLightSourceEnable;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>otpFocusEnable;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>lscNum;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>awbNum;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>goldenAwbNum;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>lightSourceNum;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsiOTPLSC_t<sp/>*pLscData;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsiOTPAWB_t<sp/>*pAwbData;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsiOTPAWB_t<sp/>*pGoldenAwbData;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsiOTPLightSource_t<sp/>*pLightSourceData;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsiOTPAFData_t<sp/>focus;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal">}<sp/>IsiOTP_t;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h"/>
+  </compounddef>
+</doxygen>

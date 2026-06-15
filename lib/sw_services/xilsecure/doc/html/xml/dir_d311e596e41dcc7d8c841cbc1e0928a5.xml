@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_d311e596e41dcc7d8c841cbc1e0928a5" kind="dir">
+    <compoundname>mldsa</compoundname>
+    <innerfile refid="xsecure__mldsa_8c">xsecure_mldsa.c</innerfile>
+    <innerfile refid="xsecure__mldsa_8h">xsecure_mldsa.h</innerfile>
+    <innerfile refid="xsecure__mldsa__hw_8h">xsecure_mldsa_hw.h</innerfile>
+    <innerfile refid="xsecure__mldsa__ipihandler_8c">xsecure_mldsa_ipihandler.c</innerfile>
+    <innerfile refid="xsecure__mldsa__ipihandler_8h">xsecure_mldsa_ipihandler.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/mldsa/"/>
+  </compounddef>
+</doxygen>

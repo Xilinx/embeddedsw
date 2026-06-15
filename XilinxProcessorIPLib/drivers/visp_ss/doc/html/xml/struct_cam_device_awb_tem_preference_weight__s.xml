@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_awb_tem_preference_weight__s" kind="struct" prot="public">
+    <compoundname>CamDeviceAwbTemPreferenceWeight_s</compoundname>
+    <includes local="no">cam_device_awb_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_awb_tem_preference_weight__s_1a6bd00cbd9af4fc9f47d5116a703eef90" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceAwbTemPreferenceWeight_s::temptureEnbale</definition>
+        <argsstring></argsstring>
+        <name>temptureEnbale</name>
+        <briefdescription>
+<para>Temperature weight enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_tem_preference_weight__s_1acc5f56048516bb4d121389d7ca4ddc03" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceAwbTemPreferenceWeight_s::preferenceD65</definition>
+        <argsstring></argsstring>
+        <name>preferenceD65</name>
+        <briefdescription>
+<para>High temperature preference parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_tem_preference_weight__s_1ae297753d4658d8cfc19d55f4d64a9b3c" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceAwbTemPreferenceWeight_s::preferenceCwf</definition>
+        <argsstring></argsstring>
+        <name>preferenceCwf</name>
+        <briefdescription>
+<para>Median temperature preference parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_tem_preference_weight__s_1a656abd0c396a799b5a00c91da8ffc221" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceAwbTemPreferenceWeight_s::preferenceA</definition>
+        <argsstring></argsstring>
+        <name>preferenceA</name>
+        <briefdescription>
+<para>Low temperature preference parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice AWB temperature preference weight parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="106" bodyend="111"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_awb_tem_preference_weight__s_1a656abd0c396a799b5a00c91da8ffc221" prot="public" virt="non-virtual"><scope>CamDeviceAwbTemPreferenceWeight_s</scope><name>preferenceA</name></member>
+      <member refid="struct_cam_device_awb_tem_preference_weight__s_1ae297753d4658d8cfc19d55f4d64a9b3c" prot="public" virt="non-virtual"><scope>CamDeviceAwbTemPreferenceWeight_s</scope><name>preferenceCwf</name></member>
+      <member refid="struct_cam_device_awb_tem_preference_weight__s_1acc5f56048516bb4d121389d7ca4ddc03" prot="public" virt="non-virtual"><scope>CamDeviceAwbTemPreferenceWeight_s</scope><name>preferenceD65</name></member>
+      <member refid="struct_cam_device_awb_tem_preference_weight__s_1a6bd00cbd9af4fc9f47d5116a703eef90" prot="public" virt="non-virtual"><scope>CamDeviceAwbTemPreferenceWeight_s</scope><name>temptureEnbale</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

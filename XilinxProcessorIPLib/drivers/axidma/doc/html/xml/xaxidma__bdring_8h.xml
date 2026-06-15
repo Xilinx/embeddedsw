@@ -1,0 +1,1791 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xaxidma__bdring_8h" kind="file">
+    <compoundname>xaxidma_bdring.h</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xaxidma__bd_8h" local="yes">xaxidma_bd.h</includes>
+    <includes local="no">stdlib.h</includes>
+    <includedby refid="xaxidma_8h" local="yes">xaxidma.h</includedby>
+    <includedby refid="xaxidma__bdring_8c" local="yes">xaxidma_bdring.c</includedby>
+    <incdepgraph>
+      <node id="93">
+        <label>xil_io.h</label>
+      </node>
+      <node id="97">
+        <label>stdlib.h</label>
+      </node>
+      <node id="90">
+        <label>xaxidma_bd.h</label>
+        <link refid="xaxidma__bd_8h"/>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+      </node>
+      <node id="95">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="94">
+        <label>xdebug.h</label>
+      </node>
+      <node id="91">
+        <label>xaxidma_hw.h</label>
+        <link refid="xaxidma__hw_8h"/>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+      </node>
+      <node id="96">
+        <label>string.h</label>
+      </node>
+      <node id="88">
+        <label>xaxidma_bdring.h</label>
+        <link refid="xaxidma_bdring.h"/>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+      </node>
+      <node id="89">
+        <label>xstatus.h</label>
+      </node>
+      <node id="92">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="102">
+        <label>xaxidma_selftest.c</label>
+        <link refid="xaxidma__selftest_8c"/>
+      </node>
+      <node id="103">
+        <label>xaxidma_sinit.c</label>
+        <link refid="xaxidma__sinit_8c"/>
+      </node>
+      <node id="108">
+        <label>xaxidma_example_sgcyclic_intr.c</label>
+        <link refid="xaxidma__example__sgcyclic__intr_8c"/>
+      </node>
+      <node id="101">
+        <label>xaxidma_g.c</label>
+        <link refid="xaxidma__g_8c"/>
+      </node>
+      <node id="107">
+        <label>xaxidma_example_sg_poll.c</label>
+        <link refid="xaxidma__example__sg__poll_8c"/>
+      </node>
+      <node id="105">
+        <label>xaxidma_example_selftest.c</label>
+        <link refid="xaxidma__example__selftest_8c"/>
+      </node>
+      <node id="104">
+        <label>xaxidma_example_poll_multi_pkts.c</label>
+        <link refid="xaxidma__example__poll__multi__pkts_8c"/>
+      </node>
+      <node id="111">
+        <label>xaxidma_bdring.c</label>
+        <link refid="xaxidma__bdring_8c"/>
+      </node>
+      <node id="98">
+        <label>xaxidma_bdring.h</label>
+        <link refid="xaxidma_bdring.h"/>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+      </node>
+      <node id="109">
+        <label>xaxidma_example_simple_intr.c</label>
+        <link refid="xaxidma__example__simple__intr_8c"/>
+      </node>
+      <node id="106">
+        <label>xaxidma_example_sg_intr.c</label>
+        <link refid="xaxidma__example__sg__intr_8c"/>
+      </node>
+      <node id="100">
+        <label>xaxidma.c</label>
+        <link refid="xaxidma_8c"/>
+      </node>
+      <node id="99">
+        <label>xaxidma.h</label>
+        <link refid="xaxidma_8h"/>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+      </node>
+      <node id="110">
+        <label>xaxidma_example_simple_poll.c</label>
+        <link refid="xaxidma__example__simple__poll_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_axi_dma___bd_ring" prot="public">XAxiDma_BdRing</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1ga94d376725afa0b373e31e85f69081271" prot="public" static="no">
+        <name>AXIDMA_CHANNEL_NOT_HALTED</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1gac281cf1898e8266f428beb61cc11fa89" prot="public" static="no">
+        <name>AXIDMA_CHANNEL_HALTED</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1gad2e258eb7a32ca9200f4a62656d2a308" prot="public" static="no">
+        <name>XAXIDMA_NO_CHANGE</name>
+        <initializer>0xFFFFFFFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1ga2338d6954aea3060f431a0e8d9a55885" prot="public" static="no">
+        <name>XAXIDMA_ALL_BDS</name>
+        <initializer>0x0FFFFFFF /* 268 Million */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1ga5c87fcb74fe669b5998e53d0a4b35127" prot="public" static="no">
+        <name>XAxiDma_BdRingCntCalc</name>
+        <param><defname>Alignment</defname></param>
+        <param><defname>Bytes</defname></param>
+        <initializer>(uint32_t)((Bytes)/((sizeof(<ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref>)+((Alignment)-1))&amp;~((Alignment)-1)))</initializer>
+        <briefdescription>
+<para>Use this macro at initialization time to determine how many BDs will fit within the given memory constraints. </para>        </briefdescription>
+        <detaileddescription>
+<para>The results of this macro can be provided to <ref refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" kindref="member">XAxiDma_BdRingCreate()</ref>.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Alignment</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies what byte alignment the BDs must fall on and must be a power of 2 to get an accurate calculation (32, 64, 126,...) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of bytes to be used to store BDs.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Number of BDs that can fit in the given memory area</para></simplesect>
+<simplesect kind="note"><para>C-style signature: int <ref refid="group___a_x_i_d_m_a_1ga5c87fcb74fe669b5998e53d0a4b35127" kindref="member">XAxiDma_BdRingCntCalc(u32 Alignment, u32 Bytes)</ref> This function is used only when system is configured as SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1ga6899085c400b8f453381b305ac5521d9" prot="public" static="no">
+        <name>XAxiDma_BdRingMemCalc</name>
+        <param><defname>Alignment</defname></param>
+        <param><defname>NumBd</defname></param>
+        <initializer>(int)((sizeof(<ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref>)+((Alignment)-1)) &amp; ~((Alignment)-1))*(NumBd)</initializer>
+        <briefdescription>
+<para>Use this macro at initialization time to determine how many bytes of memory are required to contain a given number of BDs at a given alignment. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Alignment</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies what byte alignment the BDs must fall on. This parameter must be a power of 2 to get an accurate calculation (32, 64,128,...) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumBd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of BDs to calculate memory size requirements</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of bytes of memory required to create a BD list with the given memory constraints.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: int <ref refid="group___a_x_i_d_m_a_1ga6899085c400b8f453381b305ac5521d9" kindref="member">XAxiDma_BdRingMemCalc(u32 Alignment, u32 NumBd)</ref> This function is used only when system is configured as SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1gac62389e25e6775026cf1be6c383e665b" prot="public" static="no">
+        <name>XAxiDma_BdRingGetCnt</name>
+        <param><defname>RingPtr</defname></param>
+        <initializer>((RingPtr)-&gt;AllCnt)</initializer>
+        <briefdescription>
+<para>Return the total number of BDs allocated by this channel with <ref refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" kindref="member">XAxiDma_BdRingCreate()</ref>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the BD ring to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The total number of BDs allocated for this channel.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: int <ref refid="group___a_x_i_d_m_a_1gac62389e25e6775026cf1be6c383e665b" kindref="member">XAxiDma_BdRingGetCnt(XAxiDma_BdRing* RingPtr)</ref> This function is used only when system is configured as SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1ga415cf0c379fef0104f9f52881ead13a7" prot="public" static="no">
+        <name>XAxiDma_BdRingGetFreeCnt</name>
+        <param><defname>RingPtr</defname></param>
+        <initializer>((RingPtr)-&gt;FreeCnt)</initializer>
+        <briefdescription>
+<para>Return the number of BDs allocatable with <ref refid="group___a_x_i_d_m_a_1ga44003cd704b7d4868d1dc00bb433a91f" kindref="member">XAxiDma_BdRingAlloc()</ref> for pre- processing. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the BD ring to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of BDs currently allocatable.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: int <ref refid="group___a_x_i_d_m_a_1ga415cf0c379fef0104f9f52881ead13a7" kindref="member">XAxiDma_BdRingGetFreeCnt(XAxiDma_BdRing* RingPtr)</ref> This function is used only when system is configured as SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="196" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1ga0d79253861939c76e6d440ecde2b6edd" prot="public" static="no">
+        <name>XAxiDma_BdRingSnapShotCurrBd</name>
+        <param><defname>RingPtr</defname></param>
+        <briefdescription>
+<para>Snap shot the latest BD a BD ring is processing. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the BD ring to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group___a_x_i_d_m_a_1ga0d79253861939c76e6d440ecde2b6edd" kindref="member">XAxiDma_BdRingSnapShotCurrBd(XAxiDma_BdRing* RingPtr)</ref> This function is used only when system is configured as SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="213" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="213" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5b7d1248ef065915fd8c9e8d5e00640f" compoundref="xaxidma_8c" startline="287" endline="338">XAxiDma_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1gadd32e45591597a4bfa84b66dffc98913" prot="public" static="no">
+        <name>XAxiDma_BdRingGetCurrBd</name>
+        <param><defname>RingPtr</defname></param>
+        <initializer>RingPtr-&gt;Addr_ext ? ((<ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref> *)                                    \
+			     ((<ref refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" kindref="member">XAxiDma_ReadReg</ref>((RingPtr)-&gt;ChanBase,		                       \
+					       <ref refid="group___a_x_i_d_m_a_1ga24b47801eed2ab0ba326b8b40d24f2b1" kindref="member">XAXIDMA_CDESC_OFFSET</ref>)) | (LEFT_SHIFT_BY_32_BITS                        \
+							       (<ref refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" kindref="member">XAxiDma_ReadReg</ref>((RingPtr)-&gt;ChanBase, <ref refid="group___a_x_i_d_m_a_1ga00ee7a235750d8795961223455407051" kindref="member">XAXIDMA_CDESC_MSB_OFFSET</ref>))))) :  \
+	((<ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref> *)<ref refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" kindref="member">XAxiDma_ReadReg</ref>((RingPtr)-&gt;ChanBase,                    \
+				       <ref refid="group___a_x_i_d_m_a_1ga24b47801eed2ab0ba326b8b40d24f2b1" kindref="member">XAXIDMA_CDESC_OFFSET</ref>));</initializer>
+        <briefdescription>
+<para>Get the BD a BD ring is processing. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the BD ring to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The current BD that the BD ring is working on</para></simplesect>
+<simplesect kind="note"><para>C-style signature: XAxiDma_Bd * <ref refid="group___a_x_i_d_m_a_1gadd32e45591597a4bfa84b66dffc98913" kindref="member">XAxiDma_BdRingGetCurrBd(XAxiDma_BdRing* RingPtr)</ref> This function is used only when system is configured as SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="282" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1ga4b7e75d1acf86428bd79fcd0d1c13745" prot="public" static="no">
+        <name>XAxiDma_BdRingNext</name>
+        <param><defname>RingPtr</defname></param>
+        <param><defname>BdPtr</defname></param>
+        <initializer>(((UINTPTR)(BdPtr) &gt;= (RingPtr)-&gt;LastBdAddr) ?	\
+	 (UINTPTR)(RingPtr)-&gt;FirstBdAddr :	\
+	 (UINTPTR)((UINTPTR)(BdPtr) + (RingPtr)-&gt;Separation))</initializer>
+        <briefdescription>
+<para>Return the next BD in the ring. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the BD ring to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the current BD.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The next BD in the ring relative to the BdPtr parameter.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: XAxiDma_Bd <emphasis>XAxiDma_BdRingNext(<ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref></emphasis> RingPtr, XAxiDma_Bd *BdPtr) This function is used only when system is configured as SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="306" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="306" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga1e5d328b4d4a247d1530fac3efe4c59c" compoundref="xaxidma__bdring_8c" startline="1213" endline="1314">XAxiDma_BdRingFromHw</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gaac81111b373e373be7dd3989fffffe7b" compoundref="xaxidma__bdring_8c" startline="992" endline="1139">XAxiDma_BdRingToHw</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga39ee7d89e4453276d615849acad27fde" compoundref="xaxidma__bdring_8c" startline="164" endline="275">XAxiDma_UpdateBdRingCDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1ga86c6d4b9c4f8766634d46a3078eadc8a" prot="public" static="no">
+        <name>XAxiDma_BdRingPrev</name>
+        <param><defname>RingPtr</defname></param>
+        <param><defname>BdPtr</defname></param>
+        <initializer>(((u32)(BdPtr) &lt;= (RingPtr)-&gt;FirstBdAddr) ?		\
+	 (<ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref>*)(RingPtr)-&gt;LastBdAddr :		\
+	 (<ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref>*)((u32)(BdPtr) - (RingPtr)-&gt;Separation))</initializer>
+        <briefdescription>
+<para>Return the previous BD in the ring. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the DMA channel to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the current BD.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The previous BD in the ring relative to the BdPtr parameter.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: XAxiDma_Bd <emphasis>XAxiDma_BdRingPrev(<ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref></emphasis> RingPtr, XAxiDma_Bd *BdPtr) This function is used only when system is configured as SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="327" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="327" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1ga740fa349c7811de2b7bae5cf83eb445e" prot="public" static="no">
+        <name>XAxiDma_BdRingGetSr</name>
+        <param><defname>RingPtr</defname></param>
+        <initializer><ref refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" kindref="member">XAxiDma_ReadReg</ref>((RingPtr)-&gt;ChanBase, <ref refid="group___a_x_i_d_m_a_1ga50d6957f8447d4eab9e444666730f692" kindref="member">XAXIDMA_SR_OFFSET</ref>)</initializer>
+        <briefdescription>
+<para>Retrieve the contents of the channel status register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current contents of status register</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group___a_x_i_d_m_a_1ga740fa349c7811de2b7bae5cf83eb445e" kindref="member">XAxiDma_BdRingGetSr(XAxiDma_BdRing* RingPtr)</ref> This function is used only when system is configured as SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="346" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="346" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1ga24cd47cdbfac0813e0d9caf966a1a3d2" prot="public" static="no">
+        <name>XAxiDma_BdRingGetError</name>
+        <param><defname>RingPtr</defname></param>
+        <initializer>(<ref refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" kindref="member">XAxiDma_ReadReg</ref>((RingPtr)-&gt;ChanBase, <ref refid="group___a_x_i_d_m_a_1ga50d6957f8447d4eab9e444666730f692" kindref="member">XAXIDMA_SR_OFFSET</ref>) \
+	 &amp; <ref refid="group___a_x_i_d_m_a_1ga4102192c408420feb5b7db14d47c6d5c" kindref="member">XAXIDMA_ERR_ALL_MASK</ref>)</initializer>
+        <briefdescription>
+<para>Get error bits of a DMA channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Error bits in the status register, they should be interpreted with XAXIDMA_ERR_*_MASK defined in <ref refid="xaxidma__hw_8h" kindref="compound">xaxidma_hw.h</ref></para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group___a_x_i_d_m_a_1ga24cd47cdbfac0813e0d9caf966a1a3d2" kindref="member">XAxiDma_BdRingGetError(XAxiDma_BdRing* RingPtr)</ref> This function is used only when system is configured as SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="364" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="364" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1ga766bed2454969636d827fb79faeeee97" prot="public" static="no">
+        <name>XAxiDma_BdRingHwIsStarted</name>
+        <param><defname>RingPtr</defname></param>
+        <initializer>((<ref refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" kindref="member">XAxiDma_ReadReg</ref>((RingPtr)-&gt;ChanBase, <ref refid="group___a_x_i_d_m_a_1ga50d6957f8447d4eab9e444666730f692" kindref="member">XAXIDMA_SR_OFFSET</ref>) \
+	  &amp; <ref refid="group___a_x_i_d_m_a_1ga70671c3d8cd1e51c56723e298d268cce" kindref="member">XAXIDMA_HALTED_MASK</ref>) ? FALSE : TRUE)</initializer>
+        <briefdescription>
+<para>Check whether a DMA channel is started, meaning the channel is not halted. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>1 if channel is started</para></listitem><listitem><para>0 otherwise</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>C-style signature: int <ref refid="group___a_x_i_d_m_a_1ga766bed2454969636d827fb79faeeee97" kindref="member">XAxiDma_BdRingHwIsStarted(XAxiDma_BdRing* RingPtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="383" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="383" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga7b38bc9220c391823219937580bd816f" compoundref="xaxidma__bdring_8c" startline="550" endline="620">XAxiDma_StartBdRingHw</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga39ee7d89e4453276d615849acad27fde" compoundref="xaxidma__bdring_8c" startline="164" endline="275">XAxiDma_UpdateBdRingCDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1gaf7c291190c92ce93d72f95c5b04ef1d4" prot="public" static="no">
+        <name>XAxiDma_BdRingBusy</name>
+        <param><defname>RingPtr</defname></param>
+        <initializer>(<ref refid="group___a_x_i_d_m_a_1ga766bed2454969636d827fb79faeeee97" kindref="member">XAxiDma_BdRingHwIsStarted</ref>(RingPtr) &amp;&amp;		\
+	 ((<ref refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" kindref="member">XAxiDma_ReadReg</ref>((RingPtr)-&gt;ChanBase, <ref refid="group___a_x_i_d_m_a_1ga50d6957f8447d4eab9e444666730f692" kindref="member">XAXIDMA_SR_OFFSET</ref>) \
+	   &amp; <ref refid="group___a_x_i_d_m_a_1gaa3538e8c2a6e024641259c85368667f0" kindref="member">XAXIDMA_IDLE_MASK</ref>) ? FALSE : TRUE))</initializer>
+        <briefdescription>
+<para>Check if the current DMA channel is busy with a DMA operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>1 if the DMA is busy.</para></listitem><listitem><para>0 otherwise</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>C-style signature: int <ref refid="group___a_x_i_d_m_a_1gaf7c291190c92ce93d72f95c5b04ef1d4" kindref="member">XAxiDma_BdRingBusy(XAxiDma_BdRing* RingPtr)</ref> This function is used only when system is configured as SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="403" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="403" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1ga2518030938ab80081f6896fc5589682c" prot="public" static="no">
+        <name>XAxiDma_BdRingIntEnable</name>
+        <param><defname>RingPtr</defname></param>
+        <param><defname>Mask</defname></param>
+        <initializer>(<ref refid="group___a_x_i_d_m_a_1ga73dabf09bac8a209e0cc367f6ccdf44b" kindref="member">XAxiDma_WriteReg</ref>((RingPtr)-&gt;ChanBase, <ref refid="group___a_x_i_d_m_a_1ga8534b07ed878f92d2062dc1680fb0391" kindref="member">XAXIDMA_CR_OFFSET</ref>, \
+			  <ref refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" kindref="member">XAxiDma_ReadReg</ref>((RingPtr)-&gt;ChanBase, <ref refid="group___a_x_i_d_m_a_1ga8534b07ed878f92d2062dc1680fb0391" kindref="member">XAXIDMA_CR_OFFSET</ref>) \
+			  | ((Mask) &amp; <ref refid="group___a_x_i_d_m_a_1ga8347e41a5c01bdabefce9c8484a7ced1" kindref="member">XAXIDMA_IRQ_ALL_MASK</ref>)))</initializer>
+        <briefdescription>
+<para>Set interrupt enable bits for a channel. </para>        </briefdescription>
+        <detaileddescription>
+<para>This operation will modify the XAXIDMA_CR_OFFSET register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>consists of the interrupt signals to enable.Bits not specified in the mask are not affected.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group___a_x_i_d_m_a_1ga2518030938ab80081f6896fc5589682c" kindref="member">XAxiDma_BdRingIntEnable(XAxiDma_BdRing* RingPtr, u32 Mask)</ref> This function is used only when system is configured as SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="423" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="423" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1gadbb17169213d8af8b50e6dee7f7b6d8b" prot="public" static="no">
+        <name>XAxiDma_BdRingIntGetEnabled</name>
+        <param><defname>RingPtr</defname></param>
+        <initializer>(<ref refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" kindref="member">XAxiDma_ReadReg</ref>((RingPtr)-&gt;ChanBase, <ref refid="group___a_x_i_d_m_a_1ga8534b07ed878f92d2062dc1680fb0391" kindref="member">XAXIDMA_CR_OFFSET</ref>) \
+	 &amp; <ref refid="group___a_x_i_d_m_a_1ga8347e41a5c01bdabefce9c8484a7ced1" kindref="member">XAXIDMA_IRQ_ALL_MASK</ref>)</initializer>
+        <briefdescription>
+<para>Get enabled interrupts of a channel. </para>        </briefdescription>
+        <detaileddescription>
+<para>It is in XAXIDMA_CR_OFFSET register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel instance to operate on. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Enabled interrupts of a channel. Use XAXIDMA_IRQ_* defined in <ref refid="xaxidma__hw_8h" kindref="compound">xaxidma_hw.h</ref> to interpret this returned value.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group___a_x_i_d_m_a_1gadbb17169213d8af8b50e6dee7f7b6d8b" kindref="member">XAxiDma_BdRingIntGetEnabled(XAxiDma_BdRing* RingPtr)</ref> This function is used only when system is configured as SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="442" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="442" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1ga0269e07693c731cf7721c6f19f8eb69b" prot="public" static="no">
+        <name>XAxiDma_BdRingIntDisable</name>
+        <param><defname>RingPtr</defname></param>
+        <param><defname>Mask</defname></param>
+        <initializer>(<ref refid="group___a_x_i_d_m_a_1ga73dabf09bac8a209e0cc367f6ccdf44b" kindref="member">XAxiDma_WriteReg</ref>((RingPtr)-&gt;ChanBase, <ref refid="group___a_x_i_d_m_a_1ga8534b07ed878f92d2062dc1680fb0391" kindref="member">XAXIDMA_CR_OFFSET</ref>, \
+			  <ref refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" kindref="member">XAxiDma_ReadReg</ref>((RingPtr)-&gt;ChanBase, <ref refid="group___a_x_i_d_m_a_1ga8534b07ed878f92d2062dc1680fb0391" kindref="member">XAXIDMA_CR_OFFSET</ref>) &amp; \
+			  ~((Mask) &amp; <ref refid="group___a_x_i_d_m_a_1ga8347e41a5c01bdabefce9c8484a7ced1" kindref="member">XAXIDMA_IRQ_ALL_MASK</ref>)))</initializer>
+        <briefdescription>
+<para>Clear interrupt enable bits for a channel. </para>        </briefdescription>
+        <detaileddescription>
+<para>It modifies the XAXIDMA_CR_OFFSET register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>consists of the interrupt signals to disable.Bits not specified in the Mask are not affected.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: void XAxiDma_BdRingIntDisable(XAxiDma_BdRing* RingPtr, u32 Mask) This function is used only when system is configured as SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="462" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="462" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1ga7a9d2103e6d09fc3850b34a6386dc803" prot="public" static="no">
+        <name>XAxiDma_BdRingGetIrq</name>
+        <param><defname>RingPtr</defname></param>
+        <initializer>(<ref refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" kindref="member">XAxiDma_ReadReg</ref>((RingPtr)-&gt;ChanBase, <ref refid="group___a_x_i_d_m_a_1ga50d6957f8447d4eab9e444666730f692" kindref="member">XAXIDMA_SR_OFFSET</ref>) \
+	 &amp; <ref refid="group___a_x_i_d_m_a_1ga8347e41a5c01bdabefce9c8484a7ced1" kindref="member">XAXIDMA_IRQ_ALL_MASK</ref>)</initializer>
+        <briefdescription>
+<para>Retrieve the contents of the channel&apos;s IRQ register XAXIDMA_SR_OFFSET. </para>        </briefdescription>
+        <detaileddescription>
+<para>This operation can be used to see which interrupts are pending.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current contents of the IRQ_OFFSET register. Use XAXIDMA_IRQ_*** values defined in <ref refid="xaxidma__hw_8h" kindref="compound">xaxidma_hw.h</ref> to interpret the returned value.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group___a_x_i_d_m_a_1ga7a9d2103e6d09fc3850b34a6386dc803" kindref="member">XAxiDma_BdRingGetIrq(XAxiDma_BdRing* RingPtr)</ref> This function is used only when system is configured as SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="484" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="484" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1ga9e782e3715c1d2dd03e5d03434f47319" prot="public" static="no">
+        <name>XAxiDma_BdRingAckIrq</name>
+        <param><defname>RingPtr</defname></param>
+        <param><defname>Mask</defname></param>
+        <initializer><ref refid="group___a_x_i_d_m_a_1ga73dabf09bac8a209e0cc367f6ccdf44b" kindref="member">XAxiDma_WriteReg</ref>((RingPtr)-&gt;ChanBase, <ref refid="group___a_x_i_d_m_a_1ga50d6957f8447d4eab9e444666730f692" kindref="member">XAXIDMA_SR_OFFSET</ref>,\
+			 (Mask) &amp; <ref refid="group___a_x_i_d_m_a_1ga8347e41a5c01bdabefce9c8484a7ced1" kindref="member">XAXIDMA_IRQ_ALL_MASK</ref>)</initializer>
+        <briefdescription>
+<para>Acknowledge asserted interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>It modifies XAXIDMA_SR_OFFSET register. A mask bit set for an unasserted interrupt has no effect.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>are the interrupt signals to acknowledge</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group___a_x_i_d_m_a_1ga9e782e3715c1d2dd03e5d03434f47319" kindref="member">XAxiDma_BdRingAckIrq(XAxiDma_BdRing* RingPtr)</ref> This function is used only when system is configured as SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="502" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="502" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___a_x_i_d_m_a_1gaa44d5f8239080614bb5c180c169e2334" prot="public" static="no">
+        <name>XAxiDma_BdRingEnableCyclicDMA</name>
+        <param><defname>RingPtr</defname></param>
+        <initializer>(RingPtr-&gt;Cyclic = 1)</initializer>
+        <briefdescription>
+<para>Enable Cyclic DMA Mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group___a_x_i_d_m_a_1gaa44d5f8239080614bb5c180c169e2334" kindref="member">XAxiDma_BdRingEnableCyclicDMA(XAxiDma_BdRing* RingPtr)</ref> This function is used only when system is configured as SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="518" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="518" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1ga7b38bc9220c391823219937580bd816f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiDma_StartBdRingHw</definition>
+        <argsstring>(XAxiDma_BdRing *RingPtr)</argsstring>
+        <name>XAxiDma_StartBdRingHw</name>
+        <param>
+          <type><ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref> *</type>
+          <declname>RingPtr</declname>
+        </param>
+        <briefdescription>
+<para>Start a DMA channel and Allow DMA transactions to commence on a given channel if descriptors are ready to be processed. </para>        </briefdescription>
+        <detaileddescription>
+<para>After a DMA channel is started, it is not halted, and it is idle (no active DMA transfers).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Channel instance to be worked on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS upon success</para></listitem><listitem><para>XST_DMA_ERROR if no valid BD available to put into current BD register</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function can be used only when DMA is in SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" line="550" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" bodystart="550" bodyend="620"/>
+        <references refid="struct_x_axi_dma___bd_ring_1a203421a70ece72a3757fb690dd4ee75a" compoundref="xaxidma__bdring_8h" startline="84">XAxiDma_BdRing::ChanBase</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a369f1add66b35ca594404126f3cb55be" compoundref="xaxidma__bdring_8h" startline="113">XAxiDma_BdRing::Cyclic</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a7a6a7d28a2416f896e51ce7a80334911" compoundref="xaxidma__bdring_8h" startline="106">XAxiDma_BdRing::CyclicBd</references>
+        <references refid="struct_x_axi_dma___bd_ring_1ab49406dd2d9ec65e3f38d1cc3c880391" compoundref="xaxidma__bdring_8h" startline="109">XAxiDma_BdRing::HwCnt</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a7abe8351de43377407c579cd158f2448" compoundref="xaxidma__bdring_8h" startline="103">XAxiDma_BdRing::HwTail</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a912bf38e61c8b03995ece842426b3ccf" compoundref="xaxidma__bdring_8h" startline="86">XAxiDma_BdRing::IsRxChannel</references>
+        <references refid="struct_x_axi_dma___bd_ring_1ac14f09fcd00f1869c8194d790f73d791" compoundref="xaxidma__bdring_8h" startline="112">XAxiDma_BdRing::RingIndex</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a443e5c48e677e9a1a4e85a383eefc2be" compoundref="xaxidma__bdring_8h" startline="87">XAxiDma_BdRing::RunState</references>
+        <references refid="group___a_x_i_d_m_a_1gadb7c73caf5e5007dcb56ea029d7390ba" compoundref="xaxidma__hw_8h" startline="250">XAXIDMA_BD_STS_COMPLETE_MASK</references>
+        <references refid="group___a_x_i_d_m_a_1gac71ad6cd79fc11e699bc10e3736fa08c" compoundref="xaxidma__hw_8h" startline="204">XAXIDMA_BD_STS_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1gaa738ffd392c7ae1e844fab340ba50fee" compoundref="xaxidma__bd_8h" startline="147">XAxiDma_BdRead</references>
+        <references refid="group___a_x_i_d_m_a_1ga766bed2454969636d827fb79faeeee97" compoundref="xaxidma__bdring_8h" startline="383">XAxiDma_BdRingHwIsStarted</references>
+        <references refid="group___a_x_i_d_m_a_1ga8534b07ed878f92d2062dc1680fb0391" compoundref="xaxidma__hw_8h" startline="102">XAXIDMA_CR_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1gab0ebdf6b7776e79941efe1325aac5aa9" compoundref="xaxidma__hw_8h" startline="130">XAXIDMA_CR_RUNSTOP_MASK</references>
+        <references refid="group___a_x_i_d_m_a_1ga170ce0e12eb12686a03e006610e2acd2" compoundref="xaxidma__hw_8h" startline="237">XAXIDMA_DESC_LSB_MASK</references>
+        <references refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" compoundref="xaxidma__hw_8h" startline="308">XAxiDma_ReadReg</references>
+        <references refid="group___a_x_i_d_m_a_1ga6fc559cbc93b62195de6ecaf25492467" compoundref="xaxidma__hw_8h" startline="124">XAXIDMA_RX_NDESC_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1gaa9b5991af857e7bac763311fd917978d" compoundref="xaxidma__hw_8h" startline="123">XAXIDMA_RX_TDESC0_MSB_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1gadfa4d02f0dd1fd005c695e9977457722" compoundref="xaxidma__hw_8h" startline="122">XAXIDMA_RX_TDESC0_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga6063ffb7cb46cdca589e6f31069f7758" compoundref="xaxidma__hw_8h" startline="107">XAXIDMA_TDESC_MSB_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1gac8626fb2bed7230a2c82a7e1db0ddd35" compoundref="xaxidma__hw_8h" startline="106">XAXIDMA_TDESC_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga73dabf09bac8a209e0cc367f6ccdf44b" compoundref="xaxidma__hw_8h" startline="327">XAxiDma_WriteReg</references>
+        <referencedby refid="group___a_x_i_d_m_a_1gaafd18a1df185c30b4745c147e3295ac3" compoundref="xaxidma__bdring_8c" startline="641" endline="660">XAxiDma_BdRingStart</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1ga39ee7d89e4453276d615849acad27fde" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiDma_UpdateBdRingCDesc</definition>
+        <argsstring>(XAxiDma_BdRing *RingPtr)</argsstring>
+        <name>XAxiDma_UpdateBdRingCDesc</name>
+        <param>
+          <type><ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref> *</type>
+          <declname>RingPtr</declname>
+        </param>
+        <briefdescription>
+<para>Update Current Descriptor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Channel instance to be worked on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS upon success</para></listitem><listitem><para>XST_DMA_ERROR if no valid BD available to put into current BD register</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function can be used only when DMA is in SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" bodystart="164" bodyend="275"/>
+        <references refid="struct_x_axi_dma___bd_ring_1a3c928d2f36e8daf845a70afdae2573a4" compoundref="xaxidma__bdring_8h" startline="111">XAxiDma_BdRing::AllCnt</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a2519fd626856e7ab0d822adc46aab7d8" compoundref="xaxidma__bdring_8h" startline="105">XAxiDma_BdRing::BdaRestart</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a203421a70ece72a3757fb690dd4ee75a" compoundref="xaxidma__bdring_8h" startline="84">XAxiDma_BdRing::ChanBase</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a912bf38e61c8b03995ece842426b3ccf" compoundref="xaxidma__bdring_8h" startline="86">XAxiDma_BdRing::IsRxChannel</references>
+        <references refid="struct_x_axi_dma___bd_ring_1ac14f09fcd00f1869c8194d790f73d791" compoundref="xaxidma__bdring_8h" startline="112">XAxiDma_BdRing::RingIndex</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a443e5c48e677e9a1a4e85a383eefc2be" compoundref="xaxidma__bdring_8h" startline="87">XAxiDma_BdRing::RunState</references>
+        <references refid="group___a_x_i_d_m_a_1ga844fc6b60315598387d17c8148a891e4" compoundref="xaxidma__bd_8h" startline="332">XAxiDma_BdHwCompleted</references>
+        <references refid="group___a_x_i_d_m_a_1ga766bed2454969636d827fb79faeeee97" compoundref="xaxidma__bdring_8h" startline="383">XAxiDma_BdRingHwIsStarted</references>
+        <references refid="group___a_x_i_d_m_a_1ga4b7e75d1acf86428bd79fcd0d1c13745" compoundref="xaxidma__bdring_8h" startline="306">XAxiDma_BdRingNext</references>
+        <references refid="group___a_x_i_d_m_a_1ga00ee7a235750d8795961223455407051" compoundref="xaxidma__hw_8h" startline="105">XAXIDMA_CDESC_MSB_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga24b47801eed2ab0ba326b8b40d24f2b1" compoundref="xaxidma__hw_8h" startline="104">XAXIDMA_CDESC_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga170ce0e12eb12686a03e006610e2acd2" compoundref="xaxidma__hw_8h" startline="237">XAXIDMA_DESC_LSB_MASK</references>
+        <references refid="group___a_x_i_d_m_a_1gad80414a88feceb1da4b9f77096d1d590" compoundref="xaxidma__hw_8h" startline="121">XAXIDMA_RX_CDESC0_MSB_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga79d2eca90f2554b8c893b2f9a70c795c" compoundref="xaxidma__hw_8h" startline="120">XAXIDMA_RX_CDESC0_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga6fc559cbc93b62195de6ecaf25492467" compoundref="xaxidma__hw_8h" startline="124">XAXIDMA_RX_NDESC_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga73dabf09bac8a209e0cc367f6ccdf44b" compoundref="xaxidma__hw_8h" startline="327">XAxiDma_WriteReg</references>
+        <referencedby refid="group___a_x_i_d_m_a_1gaafd18a1df185c30b4745c147e3295ac3" compoundref="xaxidma__bdring_8c" startline="641" endline="660">XAxiDma_BdRingStart</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAxiDma_BdRingCreate</definition>
+        <argsstring>(XAxiDma_BdRing *RingPtr, UINTPTR PhysAddr, UINTPTR VirtAddr, u32 Alignment, int BdCount)</argsstring>
+        <name>XAxiDma_BdRingCreate</name>
+        <param>
+          <type><ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref> *</type>
+          <declname>RingPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>PhysAddr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>VirtAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Alignment</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>BdCount</declname>
+        </param>
+        <briefdescription>
+<para>Using a memory segment allocated by the caller, This fundtion creates and setup the BD ring. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the BD ring instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PhysAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the physical base address of application memory region. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VirtAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the virtual base address of the application memory region.If address translation is not being utilized, then VirtAddr should be equivalent to PhysAddr. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Alignment</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>governs the byte alignment of individual BDs. This function will enforce a minimum alignment of XAXIDMA_BD_MINIMUM_ALIGNMENT bytes with no maximum as long as it is specified as a power of 2. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BdCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of BDs to setup in the application memory region. It is assumed the region is large enough to contain the BDs.Refer to the &quot;SGDMA Ring Creation&quot; section in <ref refid="xaxidma_8h" kindref="compound">xaxidma.h</ref> for more information. The minimum valid value for this parameter is 1.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful<itemizedlist>
+<listitem><para>XST_NO_FEATURE if the provided instance is a non SGDMA type of DMA channel.</para></listitem></itemizedlist>
+</para></listitem><listitem><para>XST_INVALID_PARAM under any of the following conditions: 1) BdCount is not positive</para></listitem></itemizedlist>
+</para></simplesect>
+2) PhysAddr and/or VirtAddr are not aligned to the given Alignment parameter;</para><para>3) Alignment parameter does not meet minimum requirements or is not a power of 2 value.</para><para><itemizedlist>
+<listitem><para>XST_DMA_SG_LIST_ERROR if the memory segment containing the list spans over address 0x00000000 in virtual address space.</para></listitem></itemizedlist>
+</para><para><simplesect kind="note"><para>This function can be used only when DMA is in SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" bodystart="317" bodyend="450"/>
+        <references refid="struct_x_axi_dma___bd_ring_1a3c928d2f36e8daf845a70afdae2573a4" compoundref="xaxidma__bdring_8h" startline="111">XAxiDma_BdRing::AllCnt</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a2519fd626856e7ab0d822adc46aab7d8" compoundref="xaxidma__bdring_8h" startline="105">XAxiDma_BdRing::BdaRestart</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a369f1add66b35ca594404126f3cb55be" compoundref="xaxidma__bdring_8h" startline="113">XAxiDma_BdRing::Cyclic</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a7a6a7d28a2416f896e51ce7a80334911" compoundref="xaxidma__bdring_8h" startline="106">XAxiDma_BdRing::CyclicBd</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a6d41078607d5a8165e67d6483e40e9ab" compoundref="xaxidma__bdring_8h" startline="95">XAxiDma_BdRing::FirstBdAddr</references>
+        <references refid="struct_x_axi_dma___bd_ring_1add2c7d765c8d95eeb9d0f94a54775528" compoundref="xaxidma__bdring_8h" startline="94">XAxiDma_BdRing::FirstBdPhysAddr</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a51ec0929002582a900d404502e9a1622" compoundref="xaxidma__bdring_8h" startline="107">XAxiDma_BdRing::FreeCnt</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a3e067ffdf2820a816f2d6dda6e3f9114" compoundref="xaxidma__bdring_8h" startline="100">XAxiDma_BdRing::FreeHead</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a7d35cb00bb50fff2e24c15f7d7d8dae0" compoundref="xaxidma__bdring_8h" startline="88">XAxiDma_BdRing::HasStsCntrlStrm</references>
+        <references refid="struct_x_axi_dma___bd_ring_1ab49406dd2d9ec65e3f38d1cc3c880391" compoundref="xaxidma__bdring_8h" startline="109">XAxiDma_BdRing::HwCnt</references>
+        <references refid="struct_x_axi_dma___bd_ring_1af097be199cf9d1d62cf32f775309a4f3" compoundref="xaxidma__bdring_8h" startline="102">XAxiDma_BdRing::HwHead</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a7abe8351de43377407c579cd158f2448" compoundref="xaxidma__bdring_8h" startline="103">XAxiDma_BdRing::HwTail</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a3743d05f930d7c04abb0693f2ef0b271" compoundref="xaxidma__bdring_8h" startline="96">XAxiDma_BdRing::LastBdAddr</references>
+        <references refid="struct_x_axi_dma___bd_ring_1af0b3fe5c9b9123209b3000e0d95193ed" compoundref="xaxidma__bdring_8h" startline="97">XAxiDma_BdRing::Length</references>
+        <references refid="struct_x_axi_dma___bd_ring_1afd4e1620895f91a829354e131432d2b3" compoundref="xaxidma__bdring_8h" startline="110">XAxiDma_BdRing::PostCnt</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a92668e60e10a940428e68f816c64eab6" compoundref="xaxidma__bdring_8h" startline="104">XAxiDma_BdRing::PostHead</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a68e8042d227f7a40821a478deb063215" compoundref="xaxidma__bdring_8h" startline="108">XAxiDma_BdRing::PreCnt</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a8a2958fb6be370d3cc29972f57203952" compoundref="xaxidma__bdring_8h" startline="101">XAxiDma_BdRing::PreHead</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a443e5c48e677e9a1a4e85a383eefc2be" compoundref="xaxidma__bdring_8h" startline="87">XAxiDma_BdRing::RunState</references>
+        <references refid="struct_x_axi_dma___bd_ring_1aafd8e01bf65c7950235d8f21cf225e12" compoundref="xaxidma__bdring_8h" startline="98">XAxiDma_BdRing::Separation</references>
+        <references refid="group___a_x_i_d_m_a_1ga932a4ab54f38046e6635b9b87a584c79" compoundref="xaxidma__hw_8h" startline="214">XAXIDMA_BD_HAS_DRE_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1gac15dd4e956aa14d53a6f92544db468d1" compoundref="xaxidma__hw_8h" startline="219">XAXIDMA_BD_HAS_DRE_SHIFT</references>
+        <references refid="group___a_x_i_d_m_a_1ga819b1b14cd4d386e588679105a8738a6" compoundref="xaxidma__hw_8h" startline="213">XAXIDMA_BD_HAS_STSCNTRL_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga7957d90570574e9c7a7ee308b290ecab" compoundref="xaxidma__hw_8h" startline="58">XAXIDMA_BD_MINIMUM_ALIGNMENT</references>
+        <references refid="group___a_x_i_d_m_a_1ga730aa200407e3c7e38e6fad914ad1eb0" compoundref="xaxidma__hw_8h" startline="198">XAXIDMA_BD_NDESC_MSB_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga64e86b7df328bc7209a28152f86fd609" compoundref="xaxidma__hw_8h" startline="197">XAXIDMA_BD_NDESC_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1gab3b7d771208c01701b35bce165332a9f" compoundref="xaxidma__bd_8h" startline="166">XAxiDma_BdWrite</references>
+        <references refid="group___a_x_i_d_m_a_1ga170ce0e12eb12686a03e006610e2acd2" compoundref="xaxidma__hw_8h" startline="237">XAXIDMA_DESC_LSB_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1gad044df5bd676a71226411ba7f78ef20b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiDma_BdRingClone</definition>
+        <argsstring>(XAxiDma_BdRing *RingPtr, XAxiDma_Bd *SrcBdPtr)</argsstring>
+        <name>XAxiDma_BdRingClone</name>
+        <param>
+          <type><ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref> *</type>
+          <declname>RingPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref> *</type>
+          <declname>SrcBdPtr</declname>
+        </param>
+        <briefdescription>
+<para>Clone the given BD into every BD in the ring. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only the fields offset from XAXIDMA_BD_START_CLEAR are copied, for XAXIDMA_BD_BYTES_TO_CLEAR bytes. This covers: BufferAddr, Control/Buffer length, status, APP words 0 - 4, and software ID fields.</para><para>This function can be called only when all BDs are in the free group such as immediately after creation of the ring. This prevents modification of BDs while they are in use by hardware or the application.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the BD ring instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SrcBdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the source BD template to be cloned into the list.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the list was modified.</para></listitem><listitem><para>XST_DMA_SG_NO_LIST if a list has not been created.</para></listitem><listitem><para>XST_DEVICE_IS_STARTED if the DMA channel has not been stopped.</para></listitem><listitem><para>XST_DMA_SG_LIST_ERROR if some of the BDs in this channel are under hardware or application control.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function can be used only when DMA is in SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" line="476" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" bodystart="476" bodyend="529"/>
+        <references refid="struct_x_axi_dma___bd_ring_1a3c928d2f36e8daf845a70afdae2573a4" compoundref="xaxidma__bdring_8h" startline="111">XAxiDma_BdRing::AllCnt</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a6d41078607d5a8165e67d6483e40e9ab" compoundref="xaxidma__bdring_8h" startline="95">XAxiDma_BdRing::FirstBdAddr</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a51ec0929002582a900d404502e9a1622" compoundref="xaxidma__bdring_8h" startline="107">XAxiDma_BdRing::FreeCnt</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a443e5c48e677e9a1a4e85a383eefc2be" compoundref="xaxidma__bdring_8h" startline="87">XAxiDma_BdRing::RunState</references>
+        <references refid="struct_x_axi_dma___bd_ring_1aafd8e01bf65c7950235d8f21cf225e12" compoundref="xaxidma__bdring_8h" startline="98">XAxiDma_BdRing::Separation</references>
+        <references refid="group___a_x_i_d_m_a_1ga97ec6974f990aef9ea2298c1df5d72c3" compoundref="xaxidma__hw_8h" startline="223">XAXIDMA_BD_BYTES_TO_CLEAR</references>
+        <references refid="group___a_x_i_d_m_a_1ga9eac2b100bcdf0aa763d1575f43c822b" compoundref="xaxidma__hw_8h" startline="222">XAXIDMA_BD_START_CLEAR</references>
+        <references refid="group___a_x_i_d_m_a_1gadb7c73caf5e5007dcb56ea029d7390ba" compoundref="xaxidma__hw_8h" startline="250">XAXIDMA_BD_STS_COMPLETE_MASK</references>
+        <references refid="group___a_x_i_d_m_a_1gac71ad6cd79fc11e699bc10e3736fa08c" compoundref="xaxidma__hw_8h" startline="204">XAXIDMA_BD_STS_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1gaa738ffd392c7ae1e844fab340ba50fee" compoundref="xaxidma__bd_8h" startline="147">XAxiDma_BdRead</references>
+        <references refid="group___a_x_i_d_m_a_1gab3b7d771208c01701b35bce165332a9f" compoundref="xaxidma__bd_8h" startline="166">XAxiDma_BdWrite</references>
+      </memberdef>
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1ga44003cd704b7d4868d1dc00bb433a91f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiDma_BdRingAlloc</definition>
+        <argsstring>(XAxiDma_BdRing *RingPtr, int NumBd, XAxiDma_Bd **BdSetPtr)</argsstring>
+        <name>XAxiDma_BdRingAlloc</name>
+        <param>
+          <type><ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref> *</type>
+          <declname>RingPtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>NumBd</declname>
+        </param>
+        <param>
+          <type><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref> **</type>
+          <declname>BdSetPtr</declname>
+        </param>
+        <briefdescription>
+<para>Reserve locations in the BD ring. </para>        </briefdescription>
+        <detaileddescription>
+<para>The set of returned BDs may be modified in preparation for future DMA transactions. Once the BDs are ready to be submitted to hardware, the application must call <ref refid="group___a_x_i_d_m_a_1gaac81111b373e373be7dd3989fffffe7b" kindref="member">XAxiDma_BdRingToHw()</ref> in the same order which they were allocated here. Example:</para><para><preformatted>
+       NumBd = 2;
+       Status = XDsma_RingBdAlloc(MyRingPtr, NumBd, &amp;MyBdSet);</preformatted></para><para><preformatted>       if (Status != XST_SUCCESS)
+       {
+           // Not enough BDs available for the request
+       }</preformatted></para><para><preformatted>       CurBd = MyBdSet;
+       for (i=0; i&lt;NumBd; i++)
+       {
+           // Prepare CurBd.....</preformatted></para><para><preformatted>           // Onto next BD
+           CurBd = <ref refid="group___a_x_i_d_m_a_1ga4b7e75d1acf86428bd79fcd0d1c13745" kindref="member">XAxiDma_BdRingNext(MyRingPtr, CurBd)</ref>;
+       }</preformatted></para><para><preformatted>       // Give list to hardware
+       Status = XAxiDma_BdRingToHw(MyRingPtr, NumBd, MyBdSet);
+</preformatted></para><para>A more advanced use of this function may allocate multiple sets of BDs. They must be allocated and given to hardware in the correct sequence: <preformatted>
+       // Legal
+       XAxiDma_BdRingAlloc(MyRingPtr, NumBd1, &amp;MySet1);
+       XAxiDma_BdRingToHw(MyRingPtr, NumBd1, MySet1);</preformatted></para><para><preformatted>       // Legal
+       XAxiDma_BdRingAlloc(MyRingPtr, NumBd1, &amp;MySet1);
+       XAxiDma_BdRingAlloc(MyRingPtr, NumBd2, &amp;MySet2);
+       XAxiDma_BdRingToHw(MyRingPtr, NumBd1, MySet1);
+       XAxiDma_BdRingToHw(MyRingPtr, NumBd2, MySet2);</preformatted></para><para><preformatted>       // Not legal
+       XAxiDma_BdRingAlloc(MyRingPtr, NumBd1, &amp;MySet1);
+       XAxiDma_BdRingAlloc(MyRingPtr, NumBd2, &amp;MySet2);
+       XAxiDma_BdRingToHw(MyRingPtr, NumBd2, MySet2);
+       XAxiDma_BdRingToHw(MyRingPtr, NumBd1, MySet1);
+</preformatted></para><para>Use the API defined in xaxidmabd.h to modify individual BDs. Traversal of the BD set can be done using <ref refid="group___a_x_i_d_m_a_1ga4b7e75d1acf86428bd79fcd0d1c13745" kindref="member">XAxiDma_BdRingNext()</ref> and <ref refid="group___a_x_i_d_m_a_1ga86c6d4b9c4f8766634d46a3078eadc8a" kindref="member">XAxiDma_BdRingPrev()</ref>.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the descriptor ring instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumBd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of BDs to allocate </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BdSetPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an output parameter, it points to the first BD available for modification.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the requested number of BDs were returned in the BdSetPtr parameter.</para></listitem><listitem><para>XST_INVALID_PARAM if passed in NumBd is not positive</para></listitem><listitem><para>XST_FAILURE if there were not enough free BDs to satisfy the request.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function should not be preempted by another <ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref> function call that modifies the BD space. It is the caller&apos;s responsibility to provide a mutual exclusion mechanism.</para></simplesect>
+Do not modify more BDs than the number requested with the NumBd parameter. Doing so will lead to data corruption and system instability.</para><para>This function can be used only when DMA is in SG mode </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" line="825" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" bodystart="825" bodyend="851"/>
+        <references refid="struct_x_axi_dma___bd_ring_1a51ec0929002582a900d404502e9a1622" compoundref="xaxidma__bdring_8h" startline="107">XAxiDma_BdRing::FreeCnt</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a3e067ffdf2820a816f2d6dda6e3f9114" compoundref="xaxidma__bdring_8h" startline="100">XAxiDma_BdRing::FreeHead</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a68e8042d227f7a40821a478deb063215" compoundref="xaxidma__bdring_8h" startline="108">XAxiDma_BdRing::PreCnt</references>
+      </memberdef>
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1gac58b1ab7a89890142baf67211772d3ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiDma_BdRingUnAlloc</definition>
+        <argsstring>(XAxiDma_BdRing *RingPtr, int NumBd, XAxiDma_Bd *BdSetPtr)</argsstring>
+        <name>XAxiDma_BdRingUnAlloc</name>
+        <param>
+          <type><ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref> *</type>
+          <declname>RingPtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>NumBd</declname>
+        </param>
+        <param>
+          <type><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref> *</type>
+          <declname>BdSetPtr</declname>
+        </param>
+        <briefdescription>
+<para>Fully or partially undo an <ref refid="group___a_x_i_d_m_a_1ga44003cd704b7d4868d1dc00bb433a91f" kindref="member">XAxiDma_BdRingAlloc()</ref> operation. </para>        </briefdescription>
+        <detaileddescription>
+<para>Use this function if all the BDs allocated by <ref refid="group___a_x_i_d_m_a_1ga44003cd704b7d4868d1dc00bb433a91f" kindref="member">XAxiDma_BdRingAlloc()</ref> could not be transferred to hardware with <ref refid="group___a_x_i_d_m_a_1gaac81111b373e373be7dd3989fffffe7b" kindref="member">XAxiDma_BdRingToHw()</ref>.</para><para>This function releases the BDs after they have been allocated but before they have been given to hardware.</para><para>This function is not the same as <ref refid="group___a_x_i_d_m_a_1gad2ac76e5a39486896cd484e51d2898c7" kindref="member">XAxiDma_BdRingFree()</ref>. The Free function returns BDs to the free list after they have been processed by hardware, while UnAlloc returns them before being processed by hardware.</para><para>There are two scenarios where this function can be used. Full UnAlloc or Partial UnAlloc. A Full UnAlloc means all the BDs Alloc&apos;d will be returned:</para><para><preformatted>
+   Status = XAxiDma_BdRingAlloc(MyRingPtr, 10, &amp;BdPtr);
+       ...
+       ...
+   if (Error)
+   {
+       Status = XAxiDma_BdRingUnAlloc(MyRingPtr, 10, &amp;BdPtr);
+   }
+</preformatted></para><para>A partial UnAlloc means some of the BDs Alloc&apos;d will be returned:</para><para><preformatted>
+   Status = XAxiDma_BdRingAlloc(MyRingPtr, 10, &amp;BdPtr);
+   BdsLeft = 10;
+   CurBdPtr = BdPtr;</preformatted></para><para><preformatted>   while (BdsLeft)
+   {
+      if (Error)
+      {
+         Status = XAxiDma_BdRingUnAlloc(MyRingPtr, BdsLeft, CurBdPtr);
+      }</preformatted></para><para><preformatted>      CurBdPtr = <ref refid="group___a_x_i_d_m_a_1ga4b7e75d1acf86428bd79fcd0d1c13745" kindref="member">XAxiDma_BdRingNext(MyRingPtr, CurBdPtr)</ref>;
+      BdsLeft--;
+   }
+</preformatted></para><para>A partial UnAlloc must include the last BD in the list that was Alloc&apos;d.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the descriptor ring instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumBd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of BDs to unallocate </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BdSetPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the first of the BDs to be returned.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the BDs were unallocated.</para></listitem><listitem><para>XST_INVALID_PARAM if passed in NumBd is negative</para></listitem><listitem><para>XST_FAILURE if NumBd parameter was greater that the number of BDs in the preprocessing state.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function should not be preempted by another <ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref> ring function call that modifies the BD space. It is the caller&apos;s responsibility to provide a mutual exclusion mechanism.</para></simplesect>
+This function can be used only when DMA is in SG mode </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" line="917" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" bodystart="917" bodyend="958"/>
+        <references refid="struct_x_axi_dma___bd_ring_1a51ec0929002582a900d404502e9a1622" compoundref="xaxidma__bdring_8h" startline="107">XAxiDma_BdRing::FreeCnt</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a3e067ffdf2820a816f2d6dda6e3f9114" compoundref="xaxidma__bdring_8h" startline="100">XAxiDma_BdRing::FreeHead</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a68e8042d227f7a40821a478deb063215" compoundref="xaxidma__bdring_8h" startline="108">XAxiDma_BdRing::PreCnt</references>
+      </memberdef>
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1gaac81111b373e373be7dd3989fffffe7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiDma_BdRingToHw</definition>
+        <argsstring>(XAxiDma_BdRing *RingPtr, int NumBd, XAxiDma_Bd *BdSetPtr)</argsstring>
+        <name>XAxiDma_BdRingToHw</name>
+        <param>
+          <type><ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref> *</type>
+          <declname>RingPtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>NumBd</declname>
+        </param>
+        <param>
+          <type><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref> *</type>
+          <declname>BdSetPtr</declname>
+        </param>
+        <briefdescription>
+<para>Enqueue a set of BDs to hardware that were previously allocated by <ref refid="group___a_x_i_d_m_a_1ga44003cd704b7d4868d1dc00bb433a91f" kindref="member">XAxiDma_BdRingAlloc()</ref>. </para>        </briefdescription>
+        <detaileddescription>
+<para>Once this function returns, the argument BD set goes under hardware control. Changes to these BDs should be held until they are finished by hardware to avoid data corruption and system instability.</para><para>For transmit, the set will be rejected if the last BD of the set does not mark the end of a packet or the first BD does not mark the start of a packet.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the descriptor ring instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumBd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of BDs in the set. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BdSetPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the first BD of the set to commit to hardware.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the set of BDs was accepted and enqueued to hardware</para></listitem><listitem><para>XST_INVALID_PARAM if passed in NumBd is negative</para></listitem><listitem><para>XST_FAILURE if the set of BDs was rejected because the first BD does not have its start-of-packet bit set, or the last BD does not have its end-of-packet bit set, or any one of the BDs has 0 length.</para></listitem><listitem><para>XST_DMA_SG_LIST_ERROR if this function was called out of sequence with <ref refid="group___a_x_i_d_m_a_1ga44003cd704b7d4868d1dc00bb433a91f" kindref="member">XAxiDma_BdRingAlloc()</ref></para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function should not be preempted by another <ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref> ring function call that modifies the BD space. It is the caller&apos;s responsibility to provide a mutual exclusion mechanism.</para></simplesect>
+This function can be used only when DMA is in SG mode </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" line="992" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" bodystart="992" bodyend="1139"/>
+        <references refid="struct_x_axi_dma___bd_ring_1a203421a70ece72a3757fb690dd4ee75a" compoundref="xaxidma__bdring_8h" startline="84">XAxiDma_BdRing::ChanBase</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a369f1add66b35ca594404126f3cb55be" compoundref="xaxidma__bdring_8h" startline="113">XAxiDma_BdRing::Cyclic</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a7a6a7d28a2416f896e51ce7a80334911" compoundref="xaxidma__bdring_8h" startline="106">XAxiDma_BdRing::CyclicBd</references>
+        <references refid="struct_x_axi_dma___bd_ring_1ab49406dd2d9ec65e3f38d1cc3c880391" compoundref="xaxidma__bdring_8h" startline="109">XAxiDma_BdRing::HwCnt</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a7abe8351de43377407c579cd158f2448" compoundref="xaxidma__bdring_8h" startline="103">XAxiDma_BdRing::HwTail</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a912bf38e61c8b03995ece842426b3ccf" compoundref="xaxidma__bdring_8h" startline="86">XAxiDma_BdRing::IsRxChannel</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a68e8042d227f7a40821a478deb063215" compoundref="xaxidma__bdring_8h" startline="108">XAxiDma_BdRing::PreCnt</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a8a2958fb6be370d3cc29972f57203952" compoundref="xaxidma__bdring_8h" startline="101">XAxiDma_BdRing::PreHead</references>
+        <references refid="struct_x_axi_dma___bd_ring_1ac14f09fcd00f1869c8194d790f73d791" compoundref="xaxidma__bdring_8h" startline="112">XAxiDma_BdRing::RingIndex</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a443e5c48e677e9a1a4e85a383eefc2be" compoundref="xaxidma__bdring_8h" startline="87">XAxiDma_BdRing::RunState</references>
+        <references refid="group___a_x_i_d_m_a_1gac3372d0a1625537d5b637f40ca20f52c" compoundref="xaxidma__hw_8h" startline="203">XAXIDMA_BD_CTRL_LEN_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1gae9f4d328b9fb0bbdcadd6dc4c09fd4fa" compoundref="xaxidma__hw_8h" startline="243">XAXIDMA_BD_CTRL_TXEOF_MASK</references>
+        <references refid="group___a_x_i_d_m_a_1gac279d381208f7f123ac07736702f8ff1" compoundref="xaxidma__hw_8h" startline="242">XAXIDMA_BD_CTRL_TXSOF_MASK</references>
+        <references refid="group___a_x_i_d_m_a_1gadb7c73caf5e5007dcb56ea029d7390ba" compoundref="xaxidma__hw_8h" startline="250">XAXIDMA_BD_STS_COMPLETE_MASK</references>
+        <references refid="group___a_x_i_d_m_a_1gac71ad6cd79fc11e699bc10e3736fa08c" compoundref="xaxidma__hw_8h" startline="204">XAXIDMA_BD_STS_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga495e780d704ecf548d3536b3bb8961a5" compoundref="xaxidma__bd_8h" startline="219">XAxiDma_BdGetCtrl</references>
+        <references refid="group___a_x_i_d_m_a_1gadaf226acada2c1d857d29205ce4c2a58" compoundref="xaxidma__bd_8h" startline="257">XAxiDma_BdGetLength</references>
+        <references refid="group___a_x_i_d_m_a_1ga8a0271e5255b139cc63e08e46b9c473a" compoundref="xaxidma__bd_8h" startline="236">XAxiDma_BdGetSts</references>
+        <references refid="group___a_x_i_d_m_a_1gaa738ffd392c7ae1e844fab340ba50fee" compoundref="xaxidma__bd_8h" startline="147">XAxiDma_BdRead</references>
+        <references refid="group___a_x_i_d_m_a_1ga4b7e75d1acf86428bd79fcd0d1c13745" compoundref="xaxidma__bdring_8h" startline="306">XAxiDma_BdRingNext</references>
+        <references refid="group___a_x_i_d_m_a_1gab3b7d771208c01701b35bce165332a9f" compoundref="xaxidma__bd_8h" startline="166">XAxiDma_BdWrite</references>
+        <references refid="group___a_x_i_d_m_a_1ga170ce0e12eb12686a03e006610e2acd2" compoundref="xaxidma__hw_8h" startline="237">XAXIDMA_DESC_LSB_MASK</references>
+        <references refid="group___a_x_i_d_m_a_1ga6fc559cbc93b62195de6ecaf25492467" compoundref="xaxidma__hw_8h" startline="124">XAXIDMA_RX_NDESC_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1gaa9b5991af857e7bac763311fd917978d" compoundref="xaxidma__hw_8h" startline="123">XAXIDMA_RX_TDESC0_MSB_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1gadfa4d02f0dd1fd005c695e9977457722" compoundref="xaxidma__hw_8h" startline="122">XAXIDMA_RX_TDESC0_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga6063ffb7cb46cdca589e6f31069f7758" compoundref="xaxidma__hw_8h" startline="107">XAXIDMA_TDESC_MSB_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1gac8626fb2bed7230a2c82a7e1db0ddd35" compoundref="xaxidma__hw_8h" startline="106">XAXIDMA_TDESC_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga73dabf09bac8a209e0cc367f6ccdf44b" compoundref="xaxidma__hw_8h" startline="327">XAxiDma_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1ga1e5d328b4d4a247d1530fac3efe4c59c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiDma_BdRingFromHw</definition>
+        <argsstring>(XAxiDma_BdRing *RingPtr, int BdLimit, XAxiDma_Bd **BdSetPtr)</argsstring>
+        <name>XAxiDma_BdRingFromHw</name>
+        <param>
+          <type><ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref> *</type>
+          <declname>RingPtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>BdLimit</declname>
+        </param>
+        <param>
+          <type><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref> **</type>
+          <declname>BdSetPtr</declname>
+        </param>
+        <briefdescription>
+<para>Returns a set of BD(s) that have been processed by hardware. </para>        </briefdescription>
+        <detaileddescription>
+<para>The returned BDs may be examined by the application to determine the outcome of the DMA transactions. Once the BDs have been examined, the application must call <ref refid="group___a_x_i_d_m_a_1gad2ac76e5a39486896cd484e51d2898c7" kindref="member">XAxiDma_BdRingFree()</ref> in the same order which they were retrieved here.</para><para>Example:</para><para><preformatted>
+       NumBd = XAxiDma_BdRingFromHw(MyRingPtr, XAXIDMA_ALL_BDS, &amp;MyBdSet);</preformatted></para><para><preformatted>       if (NumBd == 0)
+       {
+          // hardware has nothing ready for us yet
+       }</preformatted></para><para><preformatted>       CurBd = MyBdSet;
+       for (i=0; i&lt;NumBd; i++)
+       {
+          // Examine CurBd for post processing.....</preformatted></para><para><preformatted>          // Onto next BD
+          CurBd = <ref refid="group___a_x_i_d_m_a_1ga4b7e75d1acf86428bd79fcd0d1c13745" kindref="member">XAxiDma_BdRingNext(MyRingPtr, CurBd)</ref>;
+       }</preformatted></para><para><preformatted>       XAxiDma_BdRingFree(MyRingPtr, NumBd, MyBdSet); // Return the list
+</preformatted></para><para>A more advanced use of this function may allocate multiple sets of BDs. They must be retrieved from hardware and freed in the correct sequence: <preformatted>
+       // Legal
+       XAxiDma_BdRingFromHw(MyRingPtr, NumBd1, &amp;MySet1);
+       XAxiDma_BdRingFree(MyRingPtr, NumBd1, MySet1);</preformatted></para><para><preformatted>       // Legal
+       XAxiDma_BdRingFromHw(MyRingPtr, NumBd1, &amp;MySet1);
+       XAxiDma_BdRingFromHw(MyRingPtr, NumBd2, &amp;MySet2);
+       XAxiDma_BdRingFree(MyRingPtr, NumBd1, MySet1);
+       XAxiDma_BdRingFree(MyRingPtr, NumBd2, MySet2);</preformatted></para><para><preformatted>       // Not legal
+       XAxiDma_BdRingFromHw(MyRingPtr, NumBd1, &amp;MySet1);
+       XAxiDma_BdRingFromHw(MyRingPtr, NumBd2, &amp;MySet2);
+       XAxiDma_BdRingFree(MyRingPtr, NumBd2, MySet2);
+       XAxiDma_BdRingFree(MyRingPtr, NumBd1, MySet1);
+</preformatted></para><para>If hardware has partially completed a packet spanning multiple BDs, then none of the BDs for that packet will be included in the results.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the descriptor ring instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BdLimit</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the maximum number of BDs to return in the set. Use XAXIDMA_ALL_BDS to return all BDs that have been processed. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BdSetPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an output parameter, it points to the first BD available for examination.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of BDs processed by hardware. A value of 0 indicates that no data is available. No more than BdLimit BDs will be returned.</para></simplesect>
+<simplesect kind="note"><para>Treat BDs returned by this function as read-only. <verbatim>            This function should not be preempted by another XAxiDma ring
+    function call that modifies the BD space. It is the caller&apos;s
+    responsibility to provide a mutual exclusion mechanism.
+
+    This function can be used only when DMA is in SG mode</verbatim> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" line="1213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" bodystart="1213" bodyend="1314"/>
+        <references refid="struct_x_axi_dma___bd_ring_1a369f1add66b35ca594404126f3cb55be" compoundref="xaxidma__bdring_8h" startline="113">XAxiDma_BdRing::Cyclic</references>
+        <references refid="struct_x_axi_dma___bd_ring_1ab49406dd2d9ec65e3f38d1cc3c880391" compoundref="xaxidma__bdring_8h" startline="109">XAxiDma_BdRing::HwCnt</references>
+        <references refid="struct_x_axi_dma___bd_ring_1af097be199cf9d1d62cf32f775309a4f3" compoundref="xaxidma__bdring_8h" startline="102">XAxiDma_BdRing::HwHead</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a7abe8351de43377407c579cd158f2448" compoundref="xaxidma__bdring_8h" startline="103">XAxiDma_BdRing::HwTail</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a912bf38e61c8b03995ece842426b3ccf" compoundref="xaxidma__bdring_8h" startline="86">XAxiDma_BdRing::IsRxChannel</references>
+        <references refid="struct_x_axi_dma___bd_ring_1afd4e1620895f91a829354e131432d2b3" compoundref="xaxidma__bdring_8h" startline="110">XAxiDma_BdRing::PostCnt</references>
+        <references refid="group___a_x_i_d_m_a_1gac3372d0a1625537d5b637f40ca20f52c" compoundref="xaxidma__hw_8h" startline="203">XAXIDMA_BD_CTRL_LEN_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1gae9f4d328b9fb0bbdcadd6dc4c09fd4fa" compoundref="xaxidma__hw_8h" startline="243">XAXIDMA_BD_CTRL_TXEOF_MASK</references>
+        <references refid="group___a_x_i_d_m_a_1gadb7c73caf5e5007dcb56ea029d7390ba" compoundref="xaxidma__hw_8h" startline="250">XAXIDMA_BD_STS_COMPLETE_MASK</references>
+        <references refid="group___a_x_i_d_m_a_1gac71ad6cd79fc11e699bc10e3736fa08c" compoundref="xaxidma__hw_8h" startline="204">XAXIDMA_BD_STS_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga91b0504c621f6c06b0df4752fe65ee3a" compoundref="xaxidma__hw_8h" startline="256">XAXIDMA_BD_STS_RXEOF_MASK</references>
+        <references refid="group___a_x_i_d_m_a_1gaa738ffd392c7ae1e844fab340ba50fee" compoundref="xaxidma__bd_8h" startline="147">XAxiDma_BdRead</references>
+        <references refid="group___a_x_i_d_m_a_1ga4b7e75d1acf86428bd79fcd0d1c13745" compoundref="xaxidma__bdring_8h" startline="306">XAxiDma_BdRingNext</references>
+        <references refid="group___a_x_i_d_m_a_1gab3b7d771208c01701b35bce165332a9f" compoundref="xaxidma__bd_8h" startline="166">XAxiDma_BdWrite</references>
+      </memberdef>
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1gad2ac76e5a39486896cd484e51d2898c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiDma_BdRingFree</definition>
+        <argsstring>(XAxiDma_BdRing *RingPtr, int NumBd, XAxiDma_Bd *BdSetPtr)</argsstring>
+        <name>XAxiDma_BdRingFree</name>
+        <param>
+          <type><ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref> *</type>
+          <declname>RingPtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>NumBd</declname>
+        </param>
+        <param>
+          <type><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref> *</type>
+          <declname>BdSetPtr</declname>
+        </param>
+        <briefdescription>
+<para>Frees a set of BDs that had been previously retrieved with <ref refid="group___a_x_i_d_m_a_1ga1e5d328b4d4a247d1530fac3efe4c59c" kindref="member">XAxiDma_BdRingFromHw()</ref>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the descriptor ring instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumBd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of BDs to free. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BdSetPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the head of a list of BDs returned by <ref refid="group___a_x_i_d_m_a_1ga1e5d328b4d4a247d1530fac3efe4c59c" kindref="member">XAxiDma_BdRingFromHw()</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the set of BDs was freed.</para></listitem><listitem><para>XST_INVALID_PARAM if NumBd is negative</para></listitem><listitem><para>XST_DMA_SG_LIST_ERROR if this function was called out of sequence with <ref refid="group___a_x_i_d_m_a_1ga1e5d328b4d4a247d1530fac3efe4c59c" kindref="member">XAxiDma_BdRingFromHw()</ref>.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function should not be preempted by another <ref refid="struct_x_axi_dma" kindref="compound">XAxiDma</ref> function call that modifies the BD space. It is the caller&apos;s responsibility to ensure mutual exclusion.</para></simplesect>
+This function can be used only when DMA is in SG mode </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" line="1339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" bodystart="1339" bodyend="1374"/>
+        <references refid="struct_x_axi_dma___bd_ring_1a51ec0929002582a900d404502e9a1622" compoundref="xaxidma__bdring_8h" startline="107">XAxiDma_BdRing::FreeCnt</references>
+        <references refid="struct_x_axi_dma___bd_ring_1afd4e1620895f91a829354e131432d2b3" compoundref="xaxidma__bdring_8h" startline="110">XAxiDma_BdRing::PostCnt</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a92668e60e10a940428e68f816c64eab6" compoundref="xaxidma__bdring_8h" startline="104">XAxiDma_BdRing::PostHead</references>
+      </memberdef>
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1gaafd18a1df185c30b4745c147e3295ac3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiDma_BdRingStart</definition>
+        <argsstring>(XAxiDma_BdRing *RingPtr)</argsstring>
+        <name>XAxiDma_BdRingStart</name>
+        <param>
+          <type><ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref> *</type>
+          <declname>RingPtr</declname>
+        </param>
+        <briefdescription>
+<para>Start a DMA channel, updates current descriptors and Allow DMA transactions to commence on a given channel if descriptors are ready to be processed. </para>        </briefdescription>
+        <detaileddescription>
+<para>After a DMA channel is started, it is not halted, and it is idle (no active DMA transfers).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Channel instance to be worked on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS upon success</para></listitem><listitem><para>XST_DMA_ERROR if no valid BD available to put into current BD register</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function can be used only when DMA is in SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" line="641" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" bodystart="641" bodyend="660"/>
+        <references refid="group___a_x_i_d_m_a_1ga7b38bc9220c391823219937580bd816f" compoundref="xaxidma__bdring_8c" startline="550" endline="620">XAxiDma_StartBdRingHw</references>
+        <references refid="group___a_x_i_d_m_a_1ga39ee7d89e4453276d615849acad27fde" compoundref="xaxidma__bdring_8c" startline="164" endline="275">XAxiDma_UpdateBdRingCDesc</references>
+        <referencedby refid="group___a_x_i_d_m_a_1ga847cd9a0255fcb444bce58b945de8574" compoundref="xaxidma_8c" startline="578" endline="644">XAxiDma_Resume</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1gaaebba5c661e04485582e887e74dbeb94" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiDma_BdRingSetCoalesce</definition>
+        <argsstring>(XAxiDma_BdRing *RingPtr, u32 Counter, u32 Timer)</argsstring>
+        <name>XAxiDma_BdRingSetCoalesce</name>
+        <param>
+          <type><ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref> *</type>
+          <declname>RingPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Counter</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Timer</declname>
+        </param>
+        <briefdescription>
+<para>Set interrupt coalescing parameters for the given descriptor ring channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the descriptor ring instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Counter</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sets the packet counter on the channel. Valid range is<itemizedlist>
+<listitem><para>1..255.</para></listitem><listitem><para>XAXIDMA_NO_CHANGE to leave this setting unchanged. </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Timer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sets the waitbound timer on the channel. Valid range is<itemizedlist>
+<listitem><para>0..255.</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<itemizedlist>
+<listitem><para>XAXIDMA_NO_CHANGE to leave this setting unchanged. Each unit depend on hardware building parameter C_DLYTMR_RESOLUTION,which is in the range from 0 to 100,000 clock cycles. A value of 0 disables the delay interrupt.</para></listitem></itemizedlist>
+</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if interrupt coalescing settings updated</para></listitem><listitem><para>XST_FAILURE if Counter or Timer parameters are out of range</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function can be used only when DMA is in SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" line="685" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" bodystart="685" bodyend="719"/>
+        <references refid="struct_x_axi_dma___bd_ring_1a203421a70ece72a3757fb690dd4ee75a" compoundref="xaxidma__bdring_8h" startline="84">XAxiDma_BdRing::ChanBase</references>
+        <references refid="group___a_x_i_d_m_a_1ga280fd988ea7ec3fadfe7cf1293f39e36" compoundref="xaxidma__hw_8h" startline="181">XAXIDMA_COALESCE_MASK</references>
+        <references refid="group___a_x_i_d_m_a_1ga8534b07ed878f92d2062dc1680fb0391" compoundref="xaxidma__hw_8h" startline="102">XAXIDMA_CR_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1gae3ad7ae6b5814b99de67bba06ec77ed1" compoundref="xaxidma__hw_8h" startline="178">XAXIDMA_DELAY_MASK</references>
+        <references refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" compoundref="xaxidma__hw_8h" startline="308">XAxiDma_ReadReg</references>
+        <references refid="group___a_x_i_d_m_a_1ga73dabf09bac8a209e0cc367f6ccdf44b" compoundref="xaxidma__hw_8h" startline="327">XAxiDma_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1ga0d3794bbccf028da8e94407d061dfc68" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiDma_BdRingGetCoalesce</definition>
+        <argsstring>(XAxiDma_BdRing *RingPtr, u32 *CounterPtr, u32 *TimerPtr)</argsstring>
+        <name>XAxiDma_BdRingGetCoalesce</name>
+        <param>
+          <type><ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref> *</type>
+          <declname>RingPtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>CounterPtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TimerPtr</declname>
+        </param>
+        <briefdescription>
+<para>Retrieve current interrupt coalescing parameters from the given descriptor ring channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the descriptor ring instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CounterPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to a memory location where the current packet counter will be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TimerPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to a memory location where the current waitbound timer will be written.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The passed in parameters, CounterPtr and TimerPtr, holds the references to the return values.</para></simplesect>
+<simplesect kind="note"><para>This function can be used only when DMA is in SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" line="738" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" bodystart="738" bodyend="747"/>
+        <references refid="struct_x_axi_dma___bd_ring_1a203421a70ece72a3757fb690dd4ee75a" compoundref="xaxidma__bdring_8h" startline="84">XAxiDma_BdRing::ChanBase</references>
+        <references refid="group___a_x_i_d_m_a_1ga280fd988ea7ec3fadfe7cf1293f39e36" compoundref="xaxidma__hw_8h" startline="181">XAXIDMA_COALESCE_MASK</references>
+        <references refid="group___a_x_i_d_m_a_1ga8534b07ed878f92d2062dc1680fb0391" compoundref="xaxidma__hw_8h" startline="102">XAXIDMA_CR_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1gae3ad7ae6b5814b99de67bba06ec77ed1" compoundref="xaxidma__hw_8h" startline="178">XAXIDMA_DELAY_MASK</references>
+        <references refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" compoundref="xaxidma__hw_8h" startline="308">XAxiDma_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1ga64cf3c732bc803da742c256ab6372e0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiDma_BdRingCheck</definition>
+        <argsstring>(XAxiDma_BdRing *RingPtr)</argsstring>
+        <name>XAxiDma_BdRingCheck</name>
+        <param>
+          <type><ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref> *</type>
+          <declname>RingPtr</declname>
+        </param>
+        <briefdescription>
+<para>Check the internal data structures of the BD ring for the provided channel. </para>        </briefdescription>
+        <detaileddescription>
+<para>The following checks are made: <verbatim> - The BD ring is linked correctly in physical address space.
+ - The internal pointers point to BDs in the ring.
+ - The internal counters add up.
+</verbatim></para><para>The channel should be stopped (through <ref refid="group___a_x_i_d_m_a_1gadb572b623215a7df62b1e0468e3bd68c" kindref="member">XAxiDma_Pause()</ref> or <ref refid="group___a_x_i_d_m_a_1ga5b7d1248ef065915fd8c9e8d5e00640f" kindref="member">XAxiDma_Reset()</ref>) prior to calling this function.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the descriptor ring to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if no errors were found.</para></listitem><listitem><para>XST_DMA_SG_NO_LIST if the ring has not been created.</para></listitem><listitem><para>XST_IS_STARTED if the channel is not stopped.</para></listitem><listitem><para>XST_DMA_SG_LIST_ERROR if a problem is found with the internal data structures. If this value is returned, the channel should be reset,and the BD ring should be recreated through <ref refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" kindref="member">XAxiDma_BdRingCreate()</ref> to avoid data corruption or system instability.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function can be used only when DMA is in SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" line="1402" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" bodystart="1402" bodyend="1545"/>
+        <references refid="struct_x_axi_dma___bd_ring_1a3c928d2f36e8daf845a70afdae2573a4" compoundref="xaxidma__bdring_8h" startline="111">XAxiDma_BdRing::AllCnt</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a6d41078607d5a8165e67d6483e40e9ab" compoundref="xaxidma__bdring_8h" startline="95">XAxiDma_BdRing::FirstBdAddr</references>
+        <references refid="struct_x_axi_dma___bd_ring_1add2c7d765c8d95eeb9d0f94a54775528" compoundref="xaxidma__bdring_8h" startline="94">XAxiDma_BdRing::FirstBdPhysAddr</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a51ec0929002582a900d404502e9a1622" compoundref="xaxidma__bdring_8h" startline="107">XAxiDma_BdRing::FreeCnt</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a3e067ffdf2820a816f2d6dda6e3f9114" compoundref="xaxidma__bdring_8h" startline="100">XAxiDma_BdRing::FreeHead</references>
+        <references refid="struct_x_axi_dma___bd_ring_1ab49406dd2d9ec65e3f38d1cc3c880391" compoundref="xaxidma__bdring_8h" startline="109">XAxiDma_BdRing::HwCnt</references>
+        <references refid="struct_x_axi_dma___bd_ring_1af097be199cf9d1d62cf32f775309a4f3" compoundref="xaxidma__bdring_8h" startline="102">XAxiDma_BdRing::HwHead</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a7abe8351de43377407c579cd158f2448" compoundref="xaxidma__bdring_8h" startline="103">XAxiDma_BdRing::HwTail</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a3743d05f930d7c04abb0693f2ef0b271" compoundref="xaxidma__bdring_8h" startline="96">XAxiDma_BdRing::LastBdAddr</references>
+        <references refid="struct_x_axi_dma___bd_ring_1afd4e1620895f91a829354e131432d2b3" compoundref="xaxidma__bdring_8h" startline="110">XAxiDma_BdRing::PostCnt</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a92668e60e10a940428e68f816c64eab6" compoundref="xaxidma__bdring_8h" startline="104">XAxiDma_BdRing::PostHead</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a68e8042d227f7a40821a478deb063215" compoundref="xaxidma__bdring_8h" startline="108">XAxiDma_BdRing::PreCnt</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a8a2958fb6be370d3cc29972f57203952" compoundref="xaxidma__bdring_8h" startline="101">XAxiDma_BdRing::PreHead</references>
+        <references refid="struct_x_axi_dma___bd_ring_1a443e5c48e677e9a1a4e85a383eefc2be" compoundref="xaxidma__bdring_8h" startline="87">XAxiDma_BdRing::RunState</references>
+        <references refid="struct_x_axi_dma___bd_ring_1aafd8e01bf65c7950235d8f21cf225e12" compoundref="xaxidma__bdring_8h" startline="98">XAxiDma_BdRing::Separation</references>
+        <references refid="group___a_x_i_d_m_a_1ga64e86b7df328bc7209a28152f86fd609" compoundref="xaxidma__hw_8h" startline="197">XAXIDMA_BD_NDESC_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1gaa738ffd392c7ae1e844fab340ba50fee" compoundref="xaxidma__bd_8h" startline="147">XAxiDma_BdRead</references>
+      </memberdef>
+      <memberdef kind="function" id="group___a_x_i_d_m_a_1gaffa661a9a2467c1e274842c147531cea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiDma_BdRingDumpRegs</definition>
+        <argsstring>(XAxiDma_BdRing *RingPtr)</argsstring>
+        <name>XAxiDma_BdRingDumpRegs</name>
+        <param>
+          <type><ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref> *</type>
+          <declname>RingPtr</declname>
+        </param>
+        <briefdescription>
+<para>Dump the registers for a channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RingPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the descriptor ring to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>This function can be used only when DMA is in SG mode </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" line="1557" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.c" bodystart="1557" bodyend="1585"/>
+        <references refid="struct_x_axi_dma___bd_ring_1a203421a70ece72a3757fb690dd4ee75a" compoundref="xaxidma__bdring_8h" startline="84">XAxiDma_BdRing::ChanBase</references>
+        <references refid="struct_x_axi_dma___bd_ring_1ac14f09fcd00f1869c8194d790f73d791" compoundref="xaxidma__bdring_8h" startline="112">XAxiDma_BdRing::RingIndex</references>
+        <references refid="group___a_x_i_d_m_a_1ga24b47801eed2ab0ba326b8b40d24f2b1" compoundref="xaxidma__hw_8h" startline="104">XAXIDMA_CDESC_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga8534b07ed878f92d2062dc1680fb0391" compoundref="xaxidma__hw_8h" startline="102">XAXIDMA_CR_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1gadea426ef26fc5473a78723cd2b92aba5" compoundref="xaxidma__hw_8h" startline="308">XAxiDma_ReadReg</references>
+        <references refid="group___a_x_i_d_m_a_1ga79d2eca90f2554b8c893b2f9a70c795c" compoundref="xaxidma__hw_8h" startline="120">XAXIDMA_RX_CDESC0_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga6fc559cbc93b62195de6ecaf25492467" compoundref="xaxidma__hw_8h" startline="124">XAXIDMA_RX_NDESC_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1gadfa4d02f0dd1fd005c695e9977457722" compoundref="xaxidma__hw_8h" startline="122">XAXIDMA_RX_TDESC0_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1ga50d6957f8447d4eab9e444666730f692" compoundref="xaxidma__hw_8h" startline="103">XAXIDMA_SR_OFFSET</references>
+        <references refid="group___a_x_i_d_m_a_1gac8626fb2bed7230a2c82a7e1db0ddd35" compoundref="xaxidma__hw_8h" startline="106">XAXIDMA_TDESC_OFFSET</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor">#ifndef<sp/>XAXIDMA_BDRING_H_<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAXIDMA_BDRING_H_</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xaxidma__bd_8h" kindref="compound">xaxidma_bd.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>State<sp/>of<sp/>a<sp/>DMA<sp/>channel</highlight></codeline>
+<codeline lineno="68"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AXIDMA_CHANNEL_NOT_HALTED<sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AXIDMA_CHANNEL_HALTED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Argument<sp/>constant<sp/>to<sp/>simplify<sp/>argument<sp/>setting</highlight></codeline>
+<codeline lineno="73"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XAXIDMA_NO_CHANGE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFFFFFF</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAXIDMA_ALL_BDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0FFFFFFF<sp/></highlight><highlight class="comment">/*<sp/>268<sp/>Million<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83" refid="struct_x_axi_dma___bd_ring" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="84" refid="struct_x_axi_dma___bd_ring_1a203421a70ece72a3757fb690dd4ee75a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_axi_dma___bd_ring_1a203421a70ece72a3757fb690dd4ee75a" kindref="member">ChanBase</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86" refid="struct_x_axi_dma___bd_ring_1a912bf38e61c8b03995ece842426b3ccf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma___bd_ring_1a912bf38e61c8b03995ece842426b3ccf" kindref="member">IsRxChannel</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87" refid="struct_x_axi_dma___bd_ring_1a443e5c48e677e9a1a4e85a383eefc2be" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma___bd_ring_1a443e5c48e677e9a1a4e85a383eefc2be" kindref="member">RunState</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="88" refid="struct_x_axi_dma___bd_ring_1a7d35cb00bb50fff2e24c15f7d7d8dae0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma___bd_ring_1a7d35cb00bb50fff2e24c15f7d7d8dae0" kindref="member">HasStsCntrlStrm</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>HasDRE;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>DataWidth;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Addr_ext;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MaxTransferLen;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94" refid="struct_x_axi_dma___bd_ring_1add2c7d765c8d95eeb9d0f94a54775528" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_axi_dma___bd_ring_1add2c7d765c8d95eeb9d0f94a54775528" kindref="member">FirstBdPhysAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95" refid="struct_x_axi_dma___bd_ring_1a6d41078607d5a8165e67d6483e40e9ab" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_axi_dma___bd_ring_1a6d41078607d5a8165e67d6483e40e9ab" kindref="member">FirstBdAddr</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96" refid="struct_x_axi_dma___bd_ring_1a3743d05f930d7c04abb0693f2ef0b271" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_axi_dma___bd_ring_1a3743d05f930d7c04abb0693f2ef0b271" kindref="member">LastBdAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97" refid="struct_x_axi_dma___bd_ring_1af0b3fe5c9b9123209b3000e0d95193ed" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_axi_dma___bd_ring_1af0b3fe5c9b9123209b3000e0d95193ed" kindref="member">Length</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98" refid="struct_x_axi_dma___bd_ring_1aafd8e01bf65c7950235d8f21cf225e12" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_axi_dma___bd_ring_1aafd8e01bf65c7950235d8f21cf225e12" kindref="member">Separation</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="100" refid="struct_x_axi_dma___bd_ring_1a3e067ffdf2820a816f2d6dda6e3f9114" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref><sp/>*<ref refid="struct_x_axi_dma___bd_ring_1a3e067ffdf2820a816f2d6dda6e3f9114" kindref="member">FreeHead</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="101" refid="struct_x_axi_dma___bd_ring_1a8a2958fb6be370d3cc29972f57203952" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref><sp/>*<ref refid="struct_x_axi_dma___bd_ring_1a8a2958fb6be370d3cc29972f57203952" kindref="member">PreHead</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="102" refid="struct_x_axi_dma___bd_ring_1af097be199cf9d1d62cf32f775309a4f3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref><sp/>*<ref refid="struct_x_axi_dma___bd_ring_1af097be199cf9d1d62cf32f775309a4f3" kindref="member">HwHead</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="103" refid="struct_x_axi_dma___bd_ring_1a7abe8351de43377407c579cd158f2448" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref><sp/>*<ref refid="struct_x_axi_dma___bd_ring_1a7abe8351de43377407c579cd158f2448" kindref="member">HwTail</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104" refid="struct_x_axi_dma___bd_ring_1a92668e60e10a940428e68f816c64eab6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref><sp/>*<ref refid="struct_x_axi_dma___bd_ring_1a92668e60e10a940428e68f816c64eab6" kindref="member">PostHead</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="105" refid="struct_x_axi_dma___bd_ring_1a2519fd626856e7ab0d822adc46aab7d8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref><sp/>*<ref refid="struct_x_axi_dma___bd_ring_1a2519fd626856e7ab0d822adc46aab7d8" kindref="member">BdaRestart</ref>;<sp/></highlight></codeline>
+<codeline lineno="106" refid="struct_x_axi_dma___bd_ring_1a7a6a7d28a2416f896e51ce7a80334911" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref><sp/>*<ref refid="struct_x_axi_dma___bd_ring_1a7a6a7d28a2416f896e51ce7a80334911" kindref="member">CyclicBd</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="107" refid="struct_x_axi_dma___bd_ring_1a51ec0929002582a900d404502e9a1622" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma___bd_ring_1a51ec0929002582a900d404502e9a1622" kindref="member">FreeCnt</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108" refid="struct_x_axi_dma___bd_ring_1a68e8042d227f7a40821a478deb063215" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma___bd_ring_1a68e8042d227f7a40821a478deb063215" kindref="member">PreCnt</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="109" refid="struct_x_axi_dma___bd_ring_1ab49406dd2d9ec65e3f38d1cc3c880391" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma___bd_ring_1ab49406dd2d9ec65e3f38d1cc3c880391" kindref="member">HwCnt</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110" refid="struct_x_axi_dma___bd_ring_1afd4e1620895f91a829354e131432d2b3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma___bd_ring_1afd4e1620895f91a829354e131432d2b3" kindref="member">PostCnt</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="111" refid="struct_x_axi_dma___bd_ring_1a3c928d2f36e8daf845a70afdae2573a4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma___bd_ring_1a3c928d2f36e8daf845a70afdae2573a4" kindref="member">AllCnt</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="112" refid="struct_x_axi_dma___bd_ring_1ac14f09fcd00f1869c8194d790f73d791" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma___bd_ring_1ac14f09fcd00f1869c8194d790f73d791" kindref="member">RingIndex</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113" refid="struct_x_axi_dma___bd_ring_1a369f1add66b35ca594404126f3cb55be" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_x_axi_dma___bd_ring_1a369f1add66b35ca594404126f3cb55be" kindref="member">Cyclic</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114"><highlight class="normal">}<sp/><ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref>;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="138" refid="group___a_x_i_d_m_a_1ga5c87fcb74fe669b5998e53d0a4b35127" refkind="member"><highlight class="preprocessor">#define<sp/>XAxiDma_BdRingCntCalc(Alignment,<sp/>Bytes)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(uint32_t)((Bytes)/((sizeof(XAxiDma_Bd)+((Alignment)-1))&amp;~((Alignment)-1)))</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="161" refid="group___a_x_i_d_m_a_1ga6899085c400b8f453381b305ac5521d9" refkind="member"><highlight class="preprocessor">#define<sp/>XAxiDma_BdRingMemCalc(Alignment,<sp/>NumBd)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(int)((sizeof(XAxiDma_Bd)+((Alignment)-1))<sp/>&amp;<sp/>~((Alignment)-1))*(NumBd)</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="179" refid="group___a_x_i_d_m_a_1gac62389e25e6775026cf1be6c383e665b" refkind="member"><highlight class="preprocessor">#define<sp/>XAxiDma_BdRingGetCnt(RingPtr)<sp/>((RingPtr)-&gt;AllCnt)</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="196" refid="group___a_x_i_d_m_a_1ga415cf0c379fef0104f9f52881ead13a7" refkind="member"><highlight class="preprocessor">#define<sp/>XAxiDma_BdRingGetFreeCnt(RingPtr)<sp/><sp/>((RingPtr)-&gt;FreeCnt)</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="213" refid="group___a_x_i_d_m_a_1ga0d79253861939c76e6d440ecde2b6edd" refkind="member"><highlight class="preprocessor">#define<sp/>XAxiDma_BdRingSnapShotCurrBd(RingPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(!RingPtr-&gt;IsRxChannel)<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(!(RingPtr-&gt;Addr_ext))<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RingPtr)-&gt;BdaRestart<sp/>=<sp/>(XAxiDma_Bd<sp/>*)(<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR)XAxiDma_ReadReg((RingPtr)-&gt;ChanBase,<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAXIDMA_CDESC_OFFSET);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>else<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RingPtr)-&gt;BdaRestart<sp/><sp/>=<sp/>(XAxiDma_Bd<sp/>*)((<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiDma_ReadReg((RingPtr)-&gt;ChanBase,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="223"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAXIDMA_CDESC_OFFSET))<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(LEFT_SHIFT_BY_32_BITS<sp/>(XAxiDma_ReadReg(<sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RingPtr)-&gt;ChanBase,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAXIDMA_CDESC_MSB_OFFSET))));<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="227"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>else<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="229"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(!RingPtr-&gt;RingIndex)<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="230"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(!(RingPtr-&gt;Addr_ext))<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RingPtr)-&gt;BdaRestart<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="232"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAxiDma_Bd<sp/>*)(UINTPTR)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="233"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiDma_ReadReg((RingPtr)-&gt;ChanBase,<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="234"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAXIDMA_CDESC_OFFSET);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="235"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>else<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RingPtr)-&gt;BdaRestart<sp/><sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAxiDma_Bd<sp/>*)((XAxiDma_ReadReg(<sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="238"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RingPtr)-&gt;ChanBase,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAXIDMA_CDESC_OFFSET))<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="240"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(LEFT_SHIFT_BY_32_BITS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAxiDma_ReadReg((RingPtr)-&gt;ChanBase,<sp/><sp/>\</highlight></codeline>
+<codeline lineno="242"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAXIDMA_CDESC_MSB_OFFSET))));<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="244"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>else<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="245"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(!(RingPtr-&gt;Addr_ext))<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="246"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RingPtr)-&gt;BdaRestart<sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="247"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAxiDma_Bd<sp/>*)(UINTPTR)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="248"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiDma_ReadReg((RingPtr)-&gt;ChanBase,<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="249"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAXIDMA_RX_CDESC0_OFFSET<sp/>+<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RingPtr-&gt;RingIndex<sp/>-<sp/>1)<sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAXIDMA_RX_NDESC_OFFSET));<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="252"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>else<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RingPtr)-&gt;BdaRestart<sp/><sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="254"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAxiDma_Bd<sp/>*)((XAxiDma_ReadReg(<sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RingPtr)-&gt;ChanBase,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="256"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAXIDMA_CDESC_OFFSET))<sp/>|<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="257"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(LEFT_SHIFT_BY_32_BITS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="258"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAxiDma_ReadReg(<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="259"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RingPtr)-&gt;ChanBase,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="260"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAXIDMA_RX_CDESC0_MSB_OFFSET<sp/>+<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="261"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RingPtr-&gt;RingIndex<sp/>-<sp/>1)<sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="262"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAXIDMA_RX_NDESC_OFFSET)))));<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="263"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="264"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="265"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="266"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="282" refid="group___a_x_i_d_m_a_1gadd32e45591597a4bfa84b66dffc98913" refkind="member"><highlight class="preprocessor">#define<sp/>XAxiDma_BdRingGetCurrBd(RingPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="283"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RingPtr-&gt;Addr_ext<sp/>?<sp/>((XAxiDma_Bd<sp/>*)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="284"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XAxiDma_ReadReg((RingPtr)-&gt;ChanBase,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="285"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAXIDMA_CDESC_OFFSET))<sp/>|<sp/>(LEFT_SHIFT_BY_32_BITS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="286"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAxiDma_ReadReg((RingPtr)-&gt;ChanBase,<sp/>XAXIDMA_CDESC_MSB_OFFSET)))))<sp/>:<sp/><sp/>\</highlight></codeline>
+<codeline lineno="287"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XAxiDma_Bd<sp/>*)XAxiDma_ReadReg((RingPtr)-&gt;ChanBase,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="288"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAXIDMA_CDESC_OFFSET));</highlight></codeline>
+<codeline lineno="289"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="306" refid="group___a_x_i_d_m_a_1ga4b7e75d1acf86428bd79fcd0d1c13745" refkind="member"><highlight class="preprocessor">#define<sp/>XAxiDma_BdRingNext(RingPtr,<sp/>BdPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="307"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((UINTPTR)(BdPtr)<sp/>&gt;=<sp/>(RingPtr)-&gt;LastBdAddr)<sp/>?<sp/><sp/>\</highlight></codeline>
+<codeline lineno="308"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(UINTPTR)(RingPtr)-&gt;FirstBdAddr<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="309"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(UINTPTR)((UINTPTR)(BdPtr)<sp/>+<sp/>(RingPtr)-&gt;Separation))</highlight></codeline>
+<codeline lineno="310"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="327" refid="group___a_x_i_d_m_a_1ga86c6d4b9c4f8766634d46a3078eadc8a" refkind="member"><highlight class="preprocessor">#define<sp/>XAxiDma_BdRingPrev(RingPtr,<sp/>BdPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="328"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)(BdPtr)<sp/>&lt;=<sp/>(RingPtr)-&gt;FirstBdAddr)<sp/>?<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="329"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAxiDma_Bd*)(RingPtr)-&gt;LastBdAddr<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="330"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAxiDma_Bd*)((u32)(BdPtr)<sp/>-<sp/>(RingPtr)-&gt;Separation))</highlight></codeline>
+<codeline lineno="331"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="346" refid="group___a_x_i_d_m_a_1ga740fa349c7811de2b7bae5cf83eb445e" refkind="member"><highlight class="preprocessor">#define<sp/>XAxiDma_BdRingGetSr(RingPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="347"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiDma_ReadReg((RingPtr)-&gt;ChanBase,<sp/>XAXIDMA_SR_OFFSET)</highlight></codeline>
+<codeline lineno="348"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="364" refid="group___a_x_i_d_m_a_1ga24cd47cdbfac0813e0d9caf966a1a3d2" refkind="member"><highlight class="preprocessor">#define<sp/>XAxiDma_BdRingGetError(RingPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="365"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAxiDma_ReadReg((RingPtr)-&gt;ChanBase,<sp/>XAXIDMA_SR_OFFSET)<sp/>\</highlight></codeline>
+<codeline lineno="366"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>XAXIDMA_ERR_ALL_MASK)</highlight></codeline>
+<codeline lineno="367"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="383" refid="group___a_x_i_d_m_a_1ga766bed2454969636d827fb79faeeee97" refkind="member"><highlight class="preprocessor">#define<sp/>XAxiDma_BdRingHwIsStarted(RingPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="384"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XAxiDma_ReadReg((RingPtr)-&gt;ChanBase,<sp/>XAXIDMA_SR_OFFSET)<sp/>\</highlight></codeline>
+<codeline lineno="385"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>XAXIDMA_HALTED_MASK)<sp/>?<sp/>FALSE<sp/>:<sp/>TRUE)</highlight></codeline>
+<codeline lineno="386"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="387"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="403" refid="group___a_x_i_d_m_a_1gaf7c291190c92ce93d72f95c5b04ef1d4" refkind="member"><highlight class="preprocessor">#define<sp/>XAxiDma_BdRingBusy(RingPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="404"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAxiDma_BdRingHwIsStarted(RingPtr)<sp/>&amp;&amp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="405"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XAxiDma_ReadReg((RingPtr)-&gt;ChanBase,<sp/>XAXIDMA_SR_OFFSET)<sp/>\</highlight></codeline>
+<codeline lineno="406"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>XAXIDMA_IDLE_MASK)<sp/>?<sp/>FALSE<sp/>:<sp/>TRUE))</highlight></codeline>
+<codeline lineno="407"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="408"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="423" refid="group___a_x_i_d_m_a_1ga2518030938ab80081f6896fc5589682c" refkind="member"><highlight class="preprocessor">#define<sp/>XAxiDma_BdRingIntEnable(RingPtr,<sp/>Mask)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="424"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAxiDma_WriteReg((RingPtr)-&gt;ChanBase,<sp/>XAXIDMA_CR_OFFSET,<sp/>\</highlight></codeline>
+<codeline lineno="425"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiDma_ReadReg((RingPtr)-&gt;ChanBase,<sp/>XAXIDMA_CR_OFFSET)<sp/>\</highlight></codeline>
+<codeline lineno="426"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((Mask)<sp/>&amp;<sp/>XAXIDMA_IRQ_ALL_MASK)))</highlight></codeline>
+<codeline lineno="427"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="428"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="442" refid="group___a_x_i_d_m_a_1gadbb17169213d8af8b50e6dee7f7b6d8b" refkind="member"><highlight class="preprocessor">#define<sp/>XAxiDma_BdRingIntGetEnabled(RingPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="443"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAxiDma_ReadReg((RingPtr)-&gt;ChanBase,<sp/>XAXIDMA_CR_OFFSET)<sp/>\</highlight></codeline>
+<codeline lineno="444"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>XAXIDMA_IRQ_ALL_MASK)</highlight></codeline>
+<codeline lineno="445"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="446"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="462" refid="group___a_x_i_d_m_a_1ga0269e07693c731cf7721c6f19f8eb69b" refkind="member"><highlight class="preprocessor">#define<sp/>XAxiDma_BdRingIntDisable(RingPtr,<sp/>Mask)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="463"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAxiDma_WriteReg((RingPtr)-&gt;ChanBase,<sp/>XAXIDMA_CR_OFFSET,<sp/>\</highlight></codeline>
+<codeline lineno="464"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiDma_ReadReg((RingPtr)-&gt;ChanBase,<sp/>XAXIDMA_CR_OFFSET)<sp/>&amp;<sp/>\</highlight></codeline>
+<codeline lineno="465"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~((Mask)<sp/>&amp;<sp/>XAXIDMA_IRQ_ALL_MASK)))</highlight></codeline>
+<codeline lineno="466"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="467"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="484" refid="group___a_x_i_d_m_a_1ga7a9d2103e6d09fc3850b34a6386dc803" refkind="member"><highlight class="preprocessor">#define<sp/>XAxiDma_BdRingGetIrq(RingPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="485"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XAxiDma_ReadReg((RingPtr)-&gt;ChanBase,<sp/>XAXIDMA_SR_OFFSET)<sp/>\</highlight></codeline>
+<codeline lineno="486"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>XAXIDMA_IRQ_ALL_MASK)</highlight></codeline>
+<codeline lineno="487"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="488"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="502" refid="group___a_x_i_d_m_a_1ga9e782e3715c1d2dd03e5d03434f47319" refkind="member"><highlight class="preprocessor">#define<sp/>XAxiDma_BdRingAckIrq(RingPtr,<sp/>Mask)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="503"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiDma_WriteReg((RingPtr)-&gt;ChanBase,<sp/>XAXIDMA_SR_OFFSET,\</highlight></codeline>
+<codeline lineno="504"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Mask)<sp/>&amp;<sp/>XAXIDMA_IRQ_ALL_MASK)</highlight></codeline>
+<codeline lineno="505"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="506"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="518" refid="group___a_x_i_d_m_a_1gaa44d5f8239080614bb5c180c169e2334" refkind="member"><highlight class="preprocessor">#define<sp/>XAxiDma_BdRingEnableCyclicDMA(RingPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="519"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RingPtr-&gt;Cyclic<sp/>=<sp/>1)</highlight></codeline>
+<codeline lineno="520"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="521"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="522"><highlight class="normal"></highlight></codeline>
+<codeline lineno="523"><highlight class="normal"></highlight><highlight class="comment">/*************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="524"><highlight class="normal"></highlight></codeline>
+<codeline lineno="525"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="526"><highlight class="comment"><sp/>*<sp/>Descriptor<sp/>ring<sp/>functions<sp/>xaxidma_bdring.c</highlight></codeline>
+<codeline lineno="527"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="528"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1ga7b38bc9220c391823219937580bd816f" kindref="member">XAxiDma_StartBdRingHw</ref>(<ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref><sp/>*RingPtr);</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1ga39ee7d89e4453276d615849acad27fde" kindref="member">XAxiDma_UpdateBdRingCDesc</ref>(<ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref><sp/>*RingPtr);</highlight></codeline>
+<codeline lineno="530"><highlight class="normal">u32<sp/><ref refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" kindref="member">XAxiDma_BdRingCreate</ref>(<ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref><sp/>*RingPtr,<sp/>UINTPTR<sp/>PhysAddr,</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>VirtAddr,<sp/>u32<sp/>Alignment,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>BdCount);</highlight></codeline>
+<codeline lineno="532"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1gad044df5bd676a71226411ba7f78ef20b" kindref="member">XAxiDma_BdRingClone</ref>(<ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref><sp/>*RingPtr,<sp/><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref><sp/>*SrcBdPtr);</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1ga44003cd704b7d4868d1dc00bb433a91f" kindref="member">XAxiDma_BdRingAlloc</ref>(<ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref><sp/>*RingPtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>NumBd,</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref><sp/>**BdSetPtr);</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1gac58b1ab7a89890142baf67211772d3ce" kindref="member">XAxiDma_BdRingUnAlloc</ref>(<ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref><sp/>*RingPtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>NumBd,</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref><sp/>*BdSetPtr);</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1gaac81111b373e373be7dd3989fffffe7b" kindref="member">XAxiDma_BdRingToHw</ref>(<ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref><sp/>*RingPtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>NumBd,</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref><sp/>*BdSetPtr);</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1ga1e5d328b4d4a247d1530fac3efe4c59c" kindref="member">XAxiDma_BdRingFromHw</ref>(<ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref><sp/>*RingPtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>BdLimit,</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref><sp/>**BdSetPtr);</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1gad2ac76e5a39486896cd484e51d2898c7" kindref="member">XAxiDma_BdRingFree</ref>(<ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref><sp/>*RingPtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>NumBd,</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref><sp/>*BdSetPtr);</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1gaafd18a1df185c30b4745c147e3295ac3" kindref="member">XAxiDma_BdRingStart</ref>(<ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref><sp/>*RingPtr);</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1gaaebba5c661e04485582e887e74dbeb94" kindref="member">XAxiDma_BdRingSetCoalesce</ref>(<ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref><sp/>*RingPtr,<sp/>u32<sp/>Counter,<sp/>u32<sp/>Timer);</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1ga0d3794bbccf028da8e94407d061dfc68" kindref="member">XAxiDma_BdRingGetCoalesce</ref>(<ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref><sp/>*RingPtr,</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*CounterPtr,<sp/>u32<sp/>*TimerPtr);</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"></highlight></codeline>
+<codeline lineno="548"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>The<sp/>following<sp/>functions<sp/>are<sp/>for<sp/>debug<sp/>only</highlight></codeline>
+<codeline lineno="549"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="550"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1ga64cf3c732bc803da742c256ab6372e0e" kindref="member">XAxiDma_BdRingCheck</ref>(<ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref><sp/>*RingPtr);</highlight></codeline>
+<codeline lineno="551"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___a_x_i_d_m_a_1gaffa661a9a2467c1e274842c147531cea" kindref="member">XAxiDma_BdRingDumpRegs</ref>(<ref refid="struct_x_axi_dma___bd_ring" kindref="compound">XAxiDma_BdRing</ref><sp/>*RingPtr);</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="553"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="555"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="556"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="557"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h"/>
+  </compounddef>
+</doxygen>

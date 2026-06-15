@@ -1,0 +1,440 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__ellipticplat_8h" kind="file">
+    <compoundname>xsecure_ellipticplat.h</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes refid="xsecure__ellipticcrvs_8h" local="yes">xsecure_ellipticcrvs.h</includes>
+    <includes local="yes">xsecure_trng.h</includes>
+    <includedby refid="xsecure__ellipticplat_8c" local="yes">xsecure_ellipticplat.c</includedby>
+    <includedby refid="xsecure__plat__elliptic__ipihandler_8c" local="yes">xsecure_plat_elliptic_ipihandler.c</includedby>
+    <incdepgraph>
+      <node id="1503">
+        <label>xsecure_ellipticplat.h</label>
+        <link refid="xsecure_ellipticplat.h"/>
+        <childnode refid="1504" relation="include">
+        </childnode>
+        <childnode refid="1505" relation="include">
+        </childnode>
+        <childnode refid="1513" relation="include">
+        </childnode>
+      </node>
+      <node id="1510">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="1507">
+        <label>Ecdsa.h</label>
+      </node>
+      <node id="1511">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="1508">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure__defs_8h"/>
+        <childnode refid="1509" relation="include">
+        </childnode>
+        <childnode refid="1506" relation="include">
+        </childnode>
+        <childnode refid="1510" relation="include">
+        </childnode>
+        <childnode refid="1511" relation="include">
+        </childnode>
+        <childnode refid="1512" relation="include">
+        </childnode>
+      </node>
+      <node id="1505">
+        <label>xsecure_ellipticcrvs.h</label>
+        <link refid="xsecure__ellipticcrvs_8h"/>
+        <childnode refid="1504" relation="include">
+        </childnode>
+        <childnode refid="1506" relation="include">
+        </childnode>
+        <childnode refid="1507" relation="include">
+        </childnode>
+        <childnode refid="1508" relation="include">
+        </childnode>
+      </node>
+      <node id="1513">
+        <label>xsecure_trng.h</label>
+      </node>
+      <node id="1512">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="1506">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1504">
+        <label>xparameters.h</label>
+      </node>
+      <node id="1509">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1515">
+        <label>xsecure_ellipticplat.c</label>
+        <link refid="xsecure__ellipticplat_8c"/>
+      </node>
+      <node id="1514">
+        <label>xsecure_ellipticplat.h</label>
+        <link refid="xsecure_ellipticplat.h"/>
+        <childnode refid="1515" relation="include">
+        </childnode>
+        <childnode refid="1516" relation="include">
+        </childnode>
+      </node>
+      <node id="1516">
+        <label>xsecure_plat_elliptic_ipihandler.c</label>
+        <link refid="xsecure__plat__elliptic__ipihandler_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_secure___elliptc_private_key_gen" prot="public">XSecure_ElliptcPrivateKeyGen</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_EllipticPrvtKeyGenerate</definition>
+        <argsstring>(XSecure_EllipticCrvTyp CrvType, XSecure_ElliptcPrivateKeyGen *PrivateKey)</argsstring>
+        <name>XSecure_EllipticPrvtKeyGenerate</name>
+        <param>
+          <type><ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref></type>
+          <declname>CrvType</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_secure___elliptc_private_key_gen" kindref="compound">XSecure_ElliptcPrivateKeyGen</ref> *</type>
+          <declname>PrivateKey</declname>
+        </param>
+        <briefdescription>
+<para>This function generates 48-byte key for P-384 curve using TRNG. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CrvType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the type of the ECC curve. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PrivateKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to <ref refid="struct_x_secure___elliptc_private_key_gen" kindref="compound">XSecure_ElliptcPrivateKeyGen</ref></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_ELLIPTIC_INVALID_PARAM - If any input parameter is invalid</para></listitem><listitem><para>XST_FAILURE - On failure</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This API expects TRNG HW to be in HEALTHY state, This can be achieved by running preoperational health tests. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>The random ephimeral/Private key should be between 1 to ecc order of the curve. EK can be obtained by using mod operation over 384-bits random number. However to reduce bias associated with mod operation, standard recommends of using additional 64-bits i.e. 384 + 64 = 448-bits. Third-Party library has option to perform 448-bit mod operation however it treats MSB as sign bit. So to overcome the issue, new function added to third-party library uses next available large number operation that hardware can handle is selected, 480-bits (60 bytes). Below code takes 448 bits from random number generated remaining MSB bits are set to 0x00.</para></listitem><listitem><para>Take ECDSA core out if reset</para></listitem><listitem><para>Third-Party library expects MSB bit to be 0 always </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecc_keypair/xsecure_ellipticplat.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecc_keypair/xsecure_ellipticplat.c" bodystart="85" bodyend="166"/>
+        <references refid="struct_x_secure___elliptc_private_key_gen_1abf373a41e326c758ccd44e650f173135" compoundref="xsecure__ellipticplat_8h" startline="54">XSecure_ElliptcPrivateKeyGen::KeyOutPutAddr</references>
+        <references refid="struct_x_secure___elliptc_private_key_gen_1a822ceb194e0af5db1a3f428efee56557" compoundref="xsecure__ellipticplat_8h" startline="53">XSecure_ElliptcPrivateKeyGen::PerStringAddr</references>
+        <references refid="struct_x_secure___elliptc_private_key_gen_1a98b763c33a4aacfda6714c4cccc506cf" compoundref="xsecure__ellipticplat_8h" startline="51">XSecure_ElliptcPrivateKeyGen::SeedAddr</references>
+        <references refid="struct_x_secure___elliptc_private_key_gen_1a97c99bbe053b33d57b196f9ef54e316e" compoundref="xsecure__ellipticplat_8h" startline="52">XSecure_ElliptcPrivateKeyGen::SeedLength</references>
+        <references refid="group__xsecure__generic__server__apis_1ga33e027f1d24fdea13798141323edeae5" compoundref="core_2util_2xsecure__utils_8h" startline="58">XSECURE_CLEAR_BIT</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a96b467bb47305585cbcb31f93d527407" compoundref="xsecure__defs_8h" startline="234">XSECURE_ECC_NIST_P384</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" compoundref="xsecure__defs_8h" startline="235">XSECURE_ECC_NIST_P521</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga2a9ae41886d6bd60c8b8a0f896847e58" compoundref="xsecure__elliptic_8h" startline="65">XSECURE_ECC_P384_SIZE_IN_BYTES</references>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57ae33c163e61619dd45351bc33c6fe3cd3" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="340">XSECURE_ECC_PRVT_KEY_GEN_ERR</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga4b82c9f2c323f6a642a469b883a85bef" compoundref="xsecure__ellipticplat_8c" startline="59">XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN</references>
+        <references refid="xsecure__ecdsa__rsa__hw_8h_1a9f0671ce55189d7783c0abaf1f001c55" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="45">XSECURE_ECDSA_RSA_BASEADDR</references>
+        <references refid="xsecure__ecdsa__rsa__hw_8h_1a88ec30cbcee985ead897eabfeace1549" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="94">XSECURE_ECDSA_RSA_RESET_OFFSET</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da85dc080b8ec968eb80f0638d2d2027ec" compoundref="spartanup_2xsecure__error_8h" startline="241">XSECURE_ELLIPTIC_INVALID_PARAM</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga0219841abd9a6a67cd5e80f8a5ec0d30" compoundref="xsecure__elliptic_8c" startline="812" endline="836">XSecure_EllipticGetCrvData</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga4b04814c049951cd68c6f1a32ffcb707" compoundref="xsecure__elliptic_8c" startline="877" endline="894">XSecure_GetData</references>
+        <references refid="group__xsecure__trng__server__apis_1ga4cfae3189327a2de74505744d07bf464" compoundref="trngpsv_2xsecure__trng_8c" startline="62" endline="67">XSecure_GetTrngInstance</references>
+        <references refid="group__xsecure__generic__server__apis_1ga448da91f94630d83a52c21b895455ebf" compoundref="core_2util_2xsecure__utils_8c" startline="47" endline="54">XSecure_ReleaseReset</references>
+        <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
+        <references refid="group__xsecure__trng__server__apis_1gga2bd87e5d7e3fc02e8f0e0e783a390305a5088d989982ebce7fcd8d5a3c0b965e6" compoundref="trngpsv_2xsecure__trng_8h" startline="75">XSECURE_TRNG_DRNG_MODE</references>
+        <references refid="group__xsecure__trng__client__apis_1gafaf6b2f4582742d4fb15beafb4875378" compoundref="xsecure__trngclient_8h" startline="46">XSECURE_TRNG_SEC_STRENGTH_IN_BYTES</references>
+        <references refid="group__xsecure__trng__server__apis_1ga1c2995e2c8fd44bb1d66f698cda7d51c" compoundref="trngpsx_2xsecure__trng_8h" startline="61">XSecure_TrngGenerate</references>
+        <references refid="group__xsecure__trng__server__apis_1ga47d5d39c195cbbcb803bc61f4f078516" compoundref="trngpsv_2xsecure__trng_8c" startline="78" endline="148">XSecure_TrngInitNCfgMode</references>
+        <references refid="group__xsecure__trng__server__apis_1ga03ced7fffd85b330260e4f88bf1b93c3" compoundref="trngpsv_2xsecure__trng_8h" startline="60">XSecure_Uninstantiate</references>
+        <references refid="group__xsecure__helper__server__apis_1ga0ecbeca74fb66d967b6872c46aac2a44" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="154" endline="161">XSecure_UpdateTrngCryptoStatus</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__ecdsa__server__apis_1ga9566bee278ec58acd705a67ee9d58766" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_EllipticGenerateEphemeralKey</definition>
+        <argsstring>(XSecure_EllipticCrvTyp CrvType, u32 EphemeralKeyAddr)</argsstring>
+        <name>XSecure_EllipticGenerateEphemeralKey</name>
+        <param>
+          <type><ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref></type>
+          <declname>CrvType</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EphemeralKeyAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function generates 48-byte ephemeral key for P-384 curve using TRNG. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CrvType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Specifies the type of the ECC curve. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EphemeralKeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of ephemeral key</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_ELLIPTIC_INVALID_PARAM - If any input parameter is invalid</para></listitem><listitem><para>XST_FAILURE - On failure</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This API expects TRNG HW to be in HEALTHY state, This can be achieved by running preoperational health tests. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Take ECDSA core out if reset</para></listitem><listitem><para>Third-Party library expects MSB bit to be 0 always </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecc_keypair/xsecure_ellipticplat.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecc_keypair/xsecure_ellipticplat.c" bodystart="185" bodyend="226"/>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a96b467bb47305585cbcb31f93d527407" compoundref="xsecure__defs_8h" startline="234">XSECURE_ECC_NIST_P384</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" compoundref="xsecure__defs_8h" startline="235">XSECURE_ECC_NIST_P521</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga2a9ae41886d6bd60c8b8a0f896847e58" compoundref="xsecure__elliptic_8h" startline="65">XSECURE_ECC_P384_SIZE_IN_BYTES</references>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57ae33c163e61619dd45351bc33c6fe3cd3" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="340">XSECURE_ECC_PRVT_KEY_GEN_ERR</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga4b82c9f2c323f6a642a469b883a85bef" compoundref="xsecure__ellipticplat_8c" startline="59">XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN</references>
+        <references refid="xsecure__ecdsa__rsa__hw_8h_1a9f0671ce55189d7783c0abaf1f001c55" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="45">XSECURE_ECDSA_RSA_BASEADDR</references>
+        <references refid="xsecure__ecdsa__rsa__hw_8h_1a88ec30cbcee985ead897eabfeace1549" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="94">XSECURE_ECDSA_RSA_RESET_OFFSET</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da85dc080b8ec968eb80f0638d2d2027ec" compoundref="spartanup_2xsecure__error_8h" startline="241">XSECURE_ELLIPTIC_INVALID_PARAM</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga0219841abd9a6a67cd5e80f8a5ec0d30" compoundref="xsecure__elliptic_8c" startline="812" endline="836">XSecure_EllipticGetCrvData</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga4b04814c049951cd68c6f1a32ffcb707" compoundref="xsecure__elliptic_8c" startline="877" endline="894">XSecure_GetData</references>
+        <references refid="group__xsecure__trng__server__apis_1ga57bbf2056be52d8c1d21154930ae0751" compoundref="versal__2vp_2xsecure__plat_8c" startline="304" endline="366">XSecure_GetRandomNum</references>
+        <references refid="group__xsecure__generic__server__apis_1ga448da91f94630d83a52c21b895455ebf" compoundref="core_2util_2xsecure__utils_8c" startline="47" endline="54">XSecure_ReleaseReset</references>
+        <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gae456632737631e0943f3a473c1642f35" compoundref="xsecure__ellipticplat_8c" startline="244" endline="288">XSecure_EllipticGenEphemeralNSign</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__ecdsa__server__apis_1gae456632737631e0943f3a473c1642f35" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_EllipticGenEphemeralNSign</definition>
+        <argsstring>(XSecure_EllipticCrvTyp CrvType, const u8 *Hash, u32 HashLen, u8 *PrvtKey, u8 *Signature)</argsstring>
+        <name>XSecure_EllipticGenEphemeralNSign</name>
+        <param>
+          <type><ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref></type>
+          <declname>CrvType</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Hash</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HashLen</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>PrvtKey</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Signature</declname>
+        </param>
+        <briefdescription>
+<para>This function generates the signature on provided hash using ecc. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CrvType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the type of the ECC curve. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Hash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the hash of the data to be signed </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the length of the hash. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PrvtKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to ECC private key. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Signature</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the buffer where the ECC signature shall be stored. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_ELLIPTIC_INVALID_PARAM - If any input parameter is invalid</para></listitem><listitem><para>XST_FAILURE - On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Generate Ephemeral Key using TRNG for generating ECDSA signature</para></listitem><listitem><para>Generate Signature using Private Key to the provided hash</para></listitem><listitem><para>Clear ephemeral key and private key</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecc_keypair/xsecure_ellipticplat.c" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecc_keypair/xsecure_ellipticplat.c" bodystart="244" bodyend="288"/>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" compoundref="xsecure__defs_8h" startline="235">XSECURE_ECC_NIST_P521</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga2a9ae41886d6bd60c8b8a0f896847e58" compoundref="xsecure__elliptic_8h" startline="65">XSECURE_ECC_P384_SIZE_IN_BYTES</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da85dc080b8ec968eb80f0638d2d2027ec" compoundref="spartanup_2xsecure__error_8h" startline="241">XSECURE_ELLIPTIC_INVALID_PARAM</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga9566bee278ec58acd705a67ee9d58766" compoundref="xsecure__ellipticplat_8c" startline="185" endline="226">XSecure_EllipticGenerateEphemeralKey</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1gacfb2a9d041a4b449a47874add5f01547" compoundref="xsecure__elliptic_8c" startline="414" endline="459">XSecure_EllipticGenerateSignature</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__ecdsa__server__apis_1gab3835b878d2947b3f94ba4cd555dd641" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_EcdhGetSecret</definition>
+        <argsstring>(XSecure_EllipticCrvTyp CrvType, u64 PrvtKeyAddr, u64 PubKeyAddr, u64 SharedSecretAddr)</argsstring>
+        <name>XSecure_EcdhGetSecret</name>
+        <param>
+          <type><ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref></type>
+          <declname>CrvType</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>PrvtKeyAddr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>PubKeyAddr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>SharedSecretAddr</declname>
+        </param>
+        <briefdescription>
+<para>This is a wrapper function which calls the third-party API to perform ECDH and generate shared secret. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CrvType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Curve Type of the keys used to generate shared secret </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PrvtKeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>64-bit address of the private key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PubKeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>64-bit address of public key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SharedSecretAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>64-bit address of buffer for storing shared secret</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_ELLIPTIC_INVALID_PARAM - If any input parameter is invalid</para></listitem><listitem><para>XSECURE_ELLIPTIC_NON_SUPPORTED_CRV - If elliptic curve data received is NULL</para></listitem><listitem><para>XST_FAILURE - On failure</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Shared secret is calculated by performing scalar multiplication on public key and private key provided as input. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Zeroize local copy of key</para></listitem><listitem><para>Zeroize local copy of shared secret</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecc_keypair/xsecure_ellipticplat.c" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecc_keypair/xsecure_ellipticplat.c" bodystart="310" bodyend="400"/>
+        <references refid="struct_x_secure___elliptic_key_addr_1a1431fb313924c44d173d0df2c8f01b5b" compoundref="xsecure__elliptic_8h" startline="97">XSecure_EllipticKeyAddr::Qx</references>
+        <references refid="struct_x_secure___elliptic_key_addr_1a78bfd8086c63862b2329ec26e7448e9d" compoundref="xsecure__elliptic_8h" startline="98">XSecure_EllipticKeyAddr::Qy</references>
+        <references refid="group__xsecure__helper__server__apis_1gga4a4bd32908fec3ffc005880c1fd38ce0a8fd1af87ffbefaeca194e706837cc248" compoundref="core_2generic_2xsecure__cryptochk_8h" startline="50">XSECURE_CORE_RSA_ECC</references>
+        <references refid="group__xsecure__generic__server__apis_1ga4900fde0f315a9807c11bf73a2e8d90d" compoundref="core_2generic_2xsecure__cryptochk_8c" startline="54" endline="80">XSecure_CryptoCheck</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a4887100b873751c7ab11f3c25971da31" compoundref="xsecure__defs_8h" startline="233">XSECURE_ECC_NIST_P256</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a96b467bb47305585cbcb31f93d527407" compoundref="xsecure__defs_8h" startline="234">XSECURE_ECC_NIST_P384</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" compoundref="xsecure__defs_8h" startline="235">XSECURE_ECC_NIST_P521</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1gae3028dc8cdad7058c8a68feca364f6df" compoundref="xsecure__elliptic_8h" startline="69">XSECURE_ECC_P256_SIZE_IN_BYTES</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga2a9ae41886d6bd60c8b8a0f896847e58" compoundref="xsecure__elliptic_8h" startline="65">XSECURE_ECC_P384_SIZE_IN_BYTES</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1gad7f0fdd86e7cf849e595e156156b7804" compoundref="xsecure__elliptic_8h" startline="67">XSECURE_ECC_P521_SIZE_IN_BYTES</references>
+        <references refid="group__xsecure__helper__server__apis_1ga7ceaf28c4b557ab6cefc96402262ecc0" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="478" endline="510">XSecure_ECCRandInit</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga2617ad08234f40b7da71060fd6eb9ec7" compoundref="xsecure__elliptic_8h" startline="75">XSECURE_ECDSA_P521_ALIGN_BYTES</references>
+        <references refid="xsecure__ecdsa__rsa__hw_8h_1a9f0671ce55189d7783c0abaf1f001c55" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="45">XSECURE_ECDSA_RSA_BASEADDR</references>
+        <references refid="xsecure__ecdsa__rsa__hw_8h_1a88ec30cbcee985ead897eabfeace1549" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="94">XSECURE_ECDSA_RSA_RESET_OFFSET</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da85dc080b8ec968eb80f0638d2d2027ec" compoundref="spartanup_2xsecure__error_8h" startline="241">XSECURE_ELLIPTIC_INVALID_PARAM</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga0219841abd9a6a67cd5e80f8a5ec0d30" compoundref="xsecure__elliptic_8c" startline="812" endline="836">XSecure_EllipticGetCrvData</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga4b04814c049951cd68c6f1a32ffcb707" compoundref="xsecure__elliptic_8c" startline="877" endline="894">XSecure_GetData</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1gaeae4245a96b56ed57680a2df01da5944" compoundref="xsecure__elliptic_8c" startline="848" endline="865">XSecure_PutData</references>
+        <references refid="group__xsecure__generic__server__apis_1ga448da91f94630d83a52c21b895455ebf" compoundref="core_2util_2xsecure__utils_8c" startline="47" endline="54">XSecure_ReleaseReset</references>
+        <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the macros and types related to elliptic curve information which are specific to Versal Net. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+5.0   dc   07/09/22 Initial version
+5.1   har  01/06/23 Added prototype for XSecure_EllipticGenerateEphemeralKey
+5.4   yog  04/29/24 Fixed doxygen warnings.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2023<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor">#ifndef<sp/>XSECURE_ELLIPTIC_PLAT_H_</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_ELLIPTIC_PLAT_H_</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_ECDSA_EXCLUDE</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__ellipticcrvs_8h" kindref="compound">xsecure_ellipticcrvs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_trng.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Type<sp/>Definitions<sp/>********************************/</highlight></codeline>
+<codeline lineno="50" refid="struct_x_secure___elliptc_private_key_gen" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="51" refid="struct_x_secure___elliptc_private_key_gen_1a98b763c33a4aacfda6714c4cccc506cf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___elliptc_private_key_gen_1a98b763c33a4aacfda6714c4cccc506cf" kindref="member">SeedAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52" refid="struct_x_secure___elliptc_private_key_gen_1a97c99bbe053b33d57b196f9ef54e316e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___elliptc_private_key_gen_1a97c99bbe053b33d57b196f9ef54e316e" kindref="member">SeedLength</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53" refid="struct_x_secure___elliptc_private_key_gen_1a822ceb194e0af5db1a3f428efee56557" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___elliptc_private_key_gen_1a822ceb194e0af5db1a3f428efee56557" kindref="member">PerStringAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54" refid="struct_x_secure___elliptc_private_key_gen_1abf373a41e326c758ccd44e650f173135" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___elliptc_private_key_gen_1abf373a41e326c758ccd44e650f173135" kindref="member">KeyOutPutAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55"><highlight class="normal">}<ref refid="struct_x_secure___elliptc_private_key_gen" kindref="compound">XSecure_ElliptcPrivateKeyGen</ref>;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Function<sp/>Prototypes<sp/>***************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" kindref="member">XSecure_EllipticPrvtKeyGenerate</ref>(<ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref><sp/>CrvType,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___elliptc_private_key_gen" kindref="compound">XSecure_ElliptcPrivateKeyGen</ref><sp/>*PrivateKey);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__ecdsa__server__apis_1ga9566bee278ec58acd705a67ee9d58766" kindref="member">XSecure_EllipticGenerateEphemeralKey</ref>(<ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref><sp/>CrvType,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EphemeralKeyAddr);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__ecdsa__server__apis_1gae456632737631e0943f3a473c1642f35" kindref="member">XSecure_EllipticGenEphemeralNSign</ref>(<ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref><sp/>CrvType,</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Hash,<sp/>u32<sp/>HashLen,<sp/>u8<sp/>*PrvtKey,<sp/>u8*<sp/>Signature);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__ecdsa__server__apis_1gab3835b878d2947b3f94ba4cd555dd641" kindref="member">XSecure_EcdhGetSecret</ref>(<ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref><sp/>CrvType,<sp/>u64<sp/>PrvtKeyAddr,<sp/>u64<sp/>PubKeyAddr,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>SharedSecretAddr);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_ELLIPTIC_PLAT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecc_keypair/xsecure_ellipticplat.h"/>
+  </compounddef>
+</doxygen>

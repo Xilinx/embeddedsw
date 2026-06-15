@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___tx___a_k_e_no_stored_km" kind="struct" prot="public">
+    <compoundname>XHdcp22_Tx_AKENoStoredKm</compoundname>
+    <includes local="no">xhdcp22_tx_i.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___a_k_e_no_stored_km_1a3b6c7ca62c76224ea50154f39468d8bc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_AKENoStoredKm::MsgId</definition>
+        <argsstring></argsstring>
+        <name>MsgId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" bodystart="349" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___a_k_e_no_stored_km_1ac46e9b5522ecbe5535c975668104e02b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_AKENoStoredKm::EKpubKm[XHDCP22_TX_E_KPUB_KM_SIZE]</definition>
+        <argsstring>[XHDCP22_TX_E_KPUB_KM_SIZE]</argsstring>
+        <name>EKpubKm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" bodystart="351" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the transmitted AKE_No_Stored_km message definition. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" line="348" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" bodystart="347" bodyend="352"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___tx___a_k_e_no_stored_km_1ac46e9b5522ecbe5535c975668104e02b" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_AKENoStoredKm</scope><name>EKpubKm</name></member>
+      <member refid="struct_x_hdcp22___tx___a_k_e_no_stored_km_1a3b6c7ca62c76224ea50154f39468d8bc" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_AKENoStoredKm</scope><name>MsgId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

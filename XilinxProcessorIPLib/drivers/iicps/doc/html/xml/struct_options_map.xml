@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_options_map" kind="struct" prot="public">
+    <compoundname>OptionsMap</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_options_map_1a802f63f679817760b3c4c1b8a72f229f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 OptionsMap::Option</definition>
+        <argsstring></argsstring>
+        <name>Option</name>
+        <briefdescription>
+<para>Option to select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_options.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_options.c" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_options_map_1a15a0d89a22cb9514acce100647e9d7e1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 OptionsMap::Mask</definition>
+        <argsstring></argsstring>
+        <name>Mask</name>
+        <briefdescription>
+<para>Mask to select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_options.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_options.c" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Create the table of options which are processed to get/set the device options. </para>    </briefdescription>
+    <detaileddescription>
+<para>These options are table driven to allow easy maintenance and expansion of the options. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_options.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_options.c" bodystart="63" bodyend="66"/>
+    <listofallmembers>
+      <member refid="struct_options_map_1a15a0d89a22cb9514acce100647e9d7e1" prot="public" virt="non-virtual"><scope>OptionsMap</scope><name>Mask</name></member>
+      <member refid="struct_options_map_1a802f63f679817760b3c4c1b8a72f229f" prot="public" virt="non-virtual"><scope>OptionsMap</scope><name>Option</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

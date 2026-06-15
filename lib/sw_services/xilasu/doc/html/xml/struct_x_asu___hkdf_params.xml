@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___hkdf_params" kind="struct" prot="public">
+    <compoundname>XAsu_HkdfParams</compoundname>
+    <includes local="no">xasu_kdfinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___hkdf_params_1a420289ab8875be97825a029d1b116014" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___kdf_params" kindref="compound">XAsu_KdfParams</ref></type>
+        <definition>XAsu_KdfParams XAsu_HkdfParams::KdfParams</definition>
+        <argsstring></argsstring>
+        <name>KdfParams</name>
+        <briefdescription>
+<para>KDF Parameters for HKDF operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="group__xasu__kdf__client__apis_1ga013f9791db5b7cc455ec31a399952fc8" compoundref="xasu__kdf_8c" startline="217" endline="269">XAsu_HKdfGenerate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___hkdf_params_1ad6ab0e1a6e903d59fa96cd9e9ecb1ca5" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_HkdfParams::SaltAddr</definition>
+        <argsstring></argsstring>
+        <name>SaltAddr</name>
+        <briefdescription>
+<para>Address of the buffer holding salt which is optional. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___hkdf_params_1a4ab54d454f8c92ecf89cb6744b890098" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_HkdfParams::SaltLen</definition>
+        <argsstring></argsstring>
+        <name>SaltLen</name>
+        <briefdescription>
+<para>Length of the Salt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___hkdf_params_1a1d2c3da4ede5a13dd8c53a12451b3f37" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_HkdfParams::Reserved[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Reserved for 8-byte alignment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains HKDF params info. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="62">
+        <label>XAsu_HkdfParams</label>
+        <link refid="struct_x_asu___hkdf_params"/>
+        <childnode refid="63" relation="usage">
+          <edgelabel>KdfParams</edgelabel>
+        </childnode>
+      </node>
+      <node id="64">
+        <label>XAsu_KdfHmacKeyObject</label>
+        <link refid="struct_x_asu___kdf_hmac_key_object"/>
+      </node>
+      <node id="63">
+        <label>XAsu_KdfParams</label>
+        <link refid="struct_x_asu___kdf_params"/>
+        <childnode refid="64" relation="usage">
+          <edgelabel>KeyObject</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="74" bodyend="79"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___hkdf_params_1a420289ab8875be97825a029d1b116014" prot="public" virt="non-virtual"><scope>XAsu_HkdfParams</scope><name>KdfParams</name></member>
+      <member refid="struct_x_asu___hkdf_params_1a1d2c3da4ede5a13dd8c53a12451b3f37" prot="public" virt="non-virtual"><scope>XAsu_HkdfParams</scope><name>Reserved</name></member>
+      <member refid="struct_x_asu___hkdf_params_1ad6ab0e1a6e903d59fa96cd9e9ecb1ca5" prot="public" virt="non-virtual"><scope>XAsu_HkdfParams</scope><name>SaltAddr</name></member>
+      <member refid="struct_x_asu___hkdf_params_1a4ab54d454f8c92ecf89cb6744b890098" prot="public" virt="non-virtual"><scope>XAsu_HkdfParams</scope><name>SaltLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

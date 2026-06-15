@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_d50434c5b3875aacaf99619e5f056e89" kind="dir">
+    <compoundname>i3cpsx</compoundname>
+    <innerdir refid="dir_3570c137ac00cc4f4246a610b35f1e13">examples</innerdir>
+    <innerdir refid="dir_b250ee47f76369296af96ef805bfa66a">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/"/>
+  </compounddef>
+</doxygen>

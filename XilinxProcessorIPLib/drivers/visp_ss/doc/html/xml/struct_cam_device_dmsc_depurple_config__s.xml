@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_dmsc_depurple_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceDmscDepurpleConfig_s</compoundname>
+    <includes local="no">cam_device_dmsc_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_dmsc_depurple_config__s_1a47079c1bff02f81b3684c3197dd6ee24" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__dmsc_1ga46cab60dc72de62eda4d8882b2669a59" kindref="member">CamDeviceDepurCbCrMode_t</ref></type>
+        <definition>CamDeviceDepurCbCrMode_t CamDeviceDmscDepurpleConfig_s::dmscDepurpleCbcrMode</definition>
+        <argsstring></argsstring>
+        <name>dmscDepurpleCbcrMode</name>
+        <briefdescription>
+<para>Purple fringe and red fringe remove enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_depurple_config__s_1a60e2f9f9d72ce6fd8ba97893b560a21c" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceDmscDepurpleConfig_s::dmscDepurpleSatShrink</definition>
+        <argsstring></argsstring>
+        <name>dmscDepurpleSatShrink</name>
+        <briefdescription>
+<para>Forced saturation compression in the purple fringing area. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_depurple_config__s_1ac1b55925d13e478f055f48e06f483f58" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceDmscDepurpleConfig_s::dmscDepurpleThr</definition>
+        <argsstring></argsstring>
+        <name>dmscDepurpleThr</name>
+        <briefdescription>
+<para>Judgment threshold of purple fringe area. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice DMSC depurple configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="143" bodyend="148"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_dmsc_depurple_config__s_1a47079c1bff02f81b3684c3197dd6ee24" prot="public" virt="non-virtual"><scope>CamDeviceDmscDepurpleConfig_s</scope><name>dmscDepurpleCbcrMode</name></member>
+      <member refid="struct_cam_device_dmsc_depurple_config__s_1a60e2f9f9d72ce6fd8ba97893b560a21c" prot="public" virt="non-virtual"><scope>CamDeviceDmscDepurpleConfig_s</scope><name>dmscDepurpleSatShrink</name></member>
+      <member refid="struct_cam_device_dmsc_depurple_config__s_1ac1b55925d13e478f055f48e06f483f58" prot="public" virt="non-virtual"><scope>CamDeviceDmscDepurpleConfig_s</scope><name>dmscDepurpleThr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_vvbench_sensor_gain__s" kind="struct" prot="public">
+    <compoundname>VvbenchSensorGain_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_vvbench_sensor_gain__s_1a519ffdb0b6ce0eee3887518556c3c140" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float VvbenchSensorGain_s::aGain</definition>
+        <argsstring></argsstring>
+        <name>aGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_sensor_gain__s_1a9f9c2dc8619e3be84abf639c58f2bd51" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float VvbenchSensorGain_s::dGain</definition>
+        <argsstring></argsstring>
+        <name>dGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="115" bodyend="118"/>
+    <listofallmembers>
+      <member refid="struct_vvbench_sensor_gain__s_1a519ffdb0b6ce0eee3887518556c3c140" prot="public" virt="non-virtual"><scope>VvbenchSensorGain_s</scope><name>aGain</name></member>
+      <member refid="struct_vvbench_sensor_gain__s_1a9f9c2dc8619e3be84abf639c58f2bd51" prot="public" virt="non-virtual"><scope>VvbenchSensorGain_s</scope><name>dGain</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

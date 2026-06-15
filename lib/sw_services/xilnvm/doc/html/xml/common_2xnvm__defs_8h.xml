@@ -1,0 +1,758 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="common_2xnvm__defs_8h" kind="file">
+    <compoundname>common/xnvm_defs.h</compoundname>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xnvm__common__defs_8h" local="yes">xnvm_common_defs.h</includes>
+    <incdepgraph>
+      <node id="232">
+        <label>xnvm_defs.h</label>
+        <link refid="common/xnvm_defs.h"/>
+        <childnode refid="233" relation="include">
+        </childnode>
+        <childnode refid="234" relation="include">
+        </childnode>
+        <childnode refid="235" relation="include">
+        </childnode>
+      </node>
+      <node id="234">
+        <label>xil_types.h</label>
+      </node>
+      <node id="235">
+        <label>xnvm_common_defs.h</label>
+        <link refid="xnvm__common__defs_8h"/>
+        <childnode refid="234" relation="include">
+        </childnode>
+        <childnode refid="236" relation="include">
+        </childnode>
+      </node>
+      <node id="236">
+        <label>xilnvm_bsp_config.h</label>
+      </node>
+      <node id="233">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xnvm__def__api__ids_1gafefb58b4bc539bff958b4da2dbdfdd15" prot="public" static="no">
+        <name>XNvm_ApiId</name>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15aafdebd82312f6c4f787e6d36785f0a6f" prot="public">
+          <name>XNVM_API_FEATURES</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>0U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a63f341a70acf2369ab0c59f6d739a076" prot="public">
+          <name>XNVM_API_ID_BBRAM_WRITE_AES_KEY</name>
+          <briefdescription>
+<para>1U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15adb948dbf0612c47405ce1a41cf129085" prot="public">
+          <name>XNVM_API_ID_BBRAM_ZEROIZE</name>
+          <briefdescription>
+<para>2U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a24a0115494a63b9142244840b17516af" prot="public">
+          <name>XNVM_API_ID_BBRAM_WRITE_USER_DATA</name>
+          <briefdescription>
+<para>3U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ad8bb87510818d4f4fbf77feb219ab94f" prot="public">
+          <name>XNVM_API_ID_BBRAM_READ_USER_DATA</name>
+          <briefdescription>
+<para>4U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ac6fecda349caa64872cc3355f9ce80e4" prot="public">
+          <name>XNVM_API_ID_BBRAM_LOCK_WRITE_USER_DATA</name>
+          <briefdescription>
+<para>5U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15af801fea29fd664f33d2499795991be50" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE</name>
+          <briefdescription>
+<para>6U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15aa8264a14c55ac3cfa81b0bcf2d04c7cc" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_PUF</name>
+          <briefdescription>
+<para>7U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a9967f64e323ca19b3bf9b7e1c4873e57" prot="public">
+          <name>XNVM_API_ID_EFUSE_PUF_USER_FUSE_WRITE</name>
+          <briefdescription>
+<para>8U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a86a108201c274229518f66caef1d9d05" prot="public">
+          <name>XNVM_API_ID_EFUSE_READ_IV</name>
+          <briefdescription>
+<para>9U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a5eaf576c3b00d23c6750333f5960211d" prot="public">
+          <name>XNVM_API_ID_EFUSE_READ_REVOCATION_ID</name>
+          <briefdescription>
+<para>10U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ab4a9b4f2c0e6dd2e74fd03816b70d127" prot="public">
+          <name>XNVM_API_ID_EFUSE_READ_OFFCHIP_REVOCATION_ID</name>
+          <briefdescription>
+<para>11U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15aae258f735541002955695d49852baf08" prot="public">
+          <name>XNVM_API_ID_EFUSE_READ_USER_FUSES</name>
+          <briefdescription>
+<para>12U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a07d2fb536ecefa505fae791760cd6794" prot="public">
+          <name>XNVM_API_ID_EFUSE_READ_MISC_CTRL_BITS</name>
+          <briefdescription>
+<para>13U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ab262c355b25fcadb900261ffc1002a70" prot="public">
+          <name>XNVM_API_ID_EFUSE_READ_SEC_CTRL_BITS</name>
+          <briefdescription>
+<para>14U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a688ce960e05abcaa2305ba3ac62388d4" prot="public">
+          <name>XNVM_API_ID_EFUSE_READ_SEC_MISC1_BITS</name>
+          <briefdescription>
+<para>15U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15abe1ec7b0512577f37350a4482c9dc09a" prot="public">
+          <name>XNVM_API_ID_EFUSE_READ_BOOT_ENV_CTRL_BITS</name>
+          <briefdescription>
+<para>16U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a0944844aa13b7f24ba401f8e53e6a120" prot="public">
+          <name>XNVM_API_ID_EFUSE_READ_PUF_SEC_CTRL_BITS</name>
+          <briefdescription>
+<para>17U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a9ede9ca1e9dc57f447ac91e8961901b9" prot="public">
+          <name>XNVM_API_ID_EFUSE_READ_PPK_HASH</name>
+          <briefdescription>
+<para>18U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a1989104225a5241285be4ec426d7472d" prot="public">
+          <name>XNVM_API_ID_EFUSE_READ_DEC_EFUSE_ONLY</name>
+          <briefdescription>
+<para>19U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a6dc404249dd00d07a0863d8e948f47bd" prot="public">
+          <name>XNVM_API_ID_EFUSE_READ_DNA</name>
+          <briefdescription>
+<para>20U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a515e6914e927d4a6e5dd2ccead44b3f8" prot="public">
+          <name>XNVM_API_ID_EFUSE_READ_PUF_USER_FUSE</name>
+          <briefdescription>
+<para>21U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a2d1b4af1814790948d3f5b077957b00b" prot="public">
+          <name>XNVM_API_ID_EFUSE_READ_PUF</name>
+          <briefdescription>
+<para>22U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a8db47157038f71979e028423c293ca0e" prot="public">
+          <name>XNVM_API_ID_EFUSE_READ_CACHE</name>
+          <briefdescription>
+<para>23U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ab05c0140af4298a671591dbed86f8514" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_IV</name>
+          <briefdescription>
+<para>24U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ace2901cbe0b736e38e6958161d9ba5fc" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_SECURITY_MISC1</name>
+          <briefdescription>
+<para>25U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a6efcb129729bd6b54f6c52f8ac553389" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_PUF_DATA</name>
+          <briefdescription>
+<para>26U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a477d8125de62e942f0b5823844bb234c" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_OFF_CHIP_ID</name>
+          <briefdescription>
+<para>27U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a50aa24f739fefc165aebf0f19e991683" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_USER_EFUSE</name>
+          <briefdescription>
+<para>28U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15abd64d3bff4f827a0a23549d44a192373" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_REVOCATION_ID</name>
+          <briefdescription>
+<para>29U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a53851f6deb8a6837fcc7debb0e4ce873" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_PPK_HASH</name>
+          <briefdescription>
+<para>30U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15aecddc72bac59516cc769dda852017157" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_ANLG_TRIM</name>
+          <briefdescription>
+<para>31U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a28ed9cc3138fc35093f2004868275364" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_BOOT_ENV_CTRL</name>
+          <briefdescription>
+<para>32U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a8b35490fdaea3479ae7d054e7e217c24" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_MISC_CTRL</name>
+          <briefdescription>
+<para>33U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a4d072fe03f63cd499542ef304af53121" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_SECURITY_CTRL</name>
+          <briefdescription>
+<para>34U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a6c0b595bf2932232e62126355d336eae" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_SECURITY_MISC0_CTRL</name>
+          <briefdescription>
+<para>35U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a6b79967088daec42e5b7ac52e890ac5f" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_AES_KEYS</name>
+          <briefdescription>
+<para>36U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a15352ecb21ac56b5375b06495b8b4276" prot="public">
+          <name>XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC</name>
+          <briefdescription>
+<para>37U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a353dbe511da9f52611b3a6ffd79d099c" prot="public">
+          <name>XNVM_API_MAX</name>
+          <briefdescription>
+<para>38U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15aafdebd82312f6c4f787e6d36785f0a6f" prot="public">
+          <name>XNVM_API_FEATURES</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a63f341a70acf2369ab0c59f6d739a076" prot="public">
+          <name>XNVM_API_ID_BBRAM_WRITE_AES_KEY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15adb948dbf0612c47405ce1a41cf129085" prot="public">
+          <name>XNVM_API_ID_BBRAM_ZEROIZE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a24a0115494a63b9142244840b17516af" prot="public">
+          <name>XNVM_API_ID_BBRAM_WRITE_USER_DATA</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ad8bb87510818d4f4fbf77feb219ab94f" prot="public">
+          <name>XNVM_API_ID_BBRAM_READ_USER_DATA</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ac6fecda349caa64872cc3355f9ce80e4" prot="public">
+          <name>XNVM_API_ID_BBRAM_LOCK_WRITE_USER_DATA</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a8748e07c224780042093480567a8cf93" prot="public">
+          <name>XNVM_API_ID_BBRAM_WRITE_AES_KEY_FROM_PLOAD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a7212d26c99c0810695e45ec6b48f34e1" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_AES_KEY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ae25c356c13b79b263eb269e2191f42f0" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_AES_KEY_FROM_PLOAD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a53851f6deb8a6837fcc7debb0e4ce873" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_PPK_HASH</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a3b2f389a3d33ca6abaf45aafd9c74296" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_PPK_HASH_FROM_PLOAD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ab05c0140af4298a671591dbed86f8514" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_IV</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a19cdf5bc5d7aa179fb36a520f534e9bf" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_IV_FROM_PLOAD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a3929bdf2dc1fdef7db8f705621857be6" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_GLITCH_CONFIG</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a5b15a40b3a0d71df9278464a23aa236e" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_DEC_ONLY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15abd64d3bff4f827a0a23549d44a192373" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_REVOCATION_ID</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15afdf555af5feca827e67d6dcb3f5f20f5" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_OFFCHIP_REVOKE_ID</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a41a645cb2178a4dc169d17294f739e9b" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_MISC_CTRL_BITS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ad3fca9ac8f7c47d7c2a38f37950e93a8" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_SEC_CTRL_BITS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a287a7a85e3200bc2b11465aa98d866b7" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_MISC1_CTRL_BITS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a02287b5739263e701bf2c35c9b30e7a8" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_BOOT_ENV_CTRL_BITS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ae2d61071fc1e5a577397554c746efbf2" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_FIPS_INFO</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a121c17b28abfafc848b571e9d487ebdc" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_UDS_FROM_PLOAD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a84c2aa2e3b72ff551b86992d5b50c24d" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_DME_KEY_FROM_PLOAD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a4c429b32a7aab3ac9a706ae166451249" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_DME_REVOKE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ad9af34915fb47a9e74e704caf2927723" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_PLM_UPDATE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a9f65d04ce2d1d063a24120938ab0eca4" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_BOOT_MODE_DISABLE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15abf2e771d54d71945bbd26916a8769bff" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_CRC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a08f18944c1fc03cf95679ffb70418fae" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_DME_MODE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a0b113cc3a0673fbd3b7638c3862a455c" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_PUF_HD_FROM_PLOAD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15aa8264a14c55ac3cfa81b0bcf2d04c7cc" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_PUF</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a7f62826b77f1897856771767d0bbac65" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_ROM_RSVD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15afb06cb428ff5ba58a0372fde2e686528" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_PUF_CTRL_BITS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a8db47157038f71979e028423c293ca0e" prot="public">
+          <name>XNVM_API_ID_EFUSE_READ_CACHE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ae1f862c94ca5ce77a2d6fcd9b5bcbf5c" prot="public">
+          <name>XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a61aa1dc84965cb5e77c63c4b3b6b617b" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_UDS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a39814e7a61f4c4a350c9f4efadcb6a03" prot="public">
+          <name>XNVM_API_ID_EFUSE_WRITE_DME_KEY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a15352ecb21ac56b5375b06495b8b4276" prot="public">
+          <name>XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a353dbe511da9f52611b3a6ffd79d099c" prot="public">
+          <name>XNVM_API_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>API ids, IDs ranging from an enum value of 24 to 35 are used by IPI. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/common/xnvm_defs.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/common/xnvm_defs.h" bodystart="146" bodyend="186"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the xilnvm API IDs. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   kal  07/05/21 Initial release
+      kal  07/25/21 Added eFUSE IPI API_IDs and common structures between
+                    client and server
+      kpt  08/27/21 Added client-server support for puf helper data efuse
+                    programming
+1.1   kpt  11/29/21 Added macro XNvm_DCacheFlushRange
+      har  01/03/22 Renamed NumOfPufFuses as NumOfPufFusesRows
+      am   02/28/22 Fixed MISRA C violation rule 4.5
+      kpt  03/03/22 Fixed alignment issue in XNvm_EfusePufFuseAddr
+                    by rearranging the structure elements
+3.1   skg  10/28/22 Added comments
+3.3     vss  02/23/24 Added IPI support for eFuse read and write
+      vss  05/20/24 Added IPI support for AES key write
+      ng   11/22/24 Fixed doxygen grouping
+3.7   mb   12/31/25 Added API ID for XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2021<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor">#ifndef<sp/>XNVM_DEFS_H</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_DEFS_H</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xnvm__common__defs_8h" kindref="compound">xnvm_common_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor">#define<sp/>XNVM_DEBUG<sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor">#if<sp/>(XNVM_DEBUG)</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_DEBUG_GENERAL<sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_DEBUG_GENERAL<sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNvm_Printf(DebugType,<sp/>...)<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>((DebugType)<sp/>==<sp/>1U)<sp/>{xil_printf<sp/>(__VA_ARGS__);}<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor">#ifndef<sp/>XNVM_CACHE_DISABLE</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#if<sp/>defined(__microblaze__)</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>XNvm_DCacheFlushRange(SrcAddr,<sp/>Len)<sp/>Xil_DCacheFlushRange((UINTPTR)SrcAddr,<sp/>Len)</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#else</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>XNvm_DCacheFlushRange(SrcAddr,<sp/>Len)<sp/>Xil_DCacheFlushRange((INTPTR)SrcAddr,<sp/>Len)</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>XNvm_DCacheFlushRange(SrcAddr,<sp/>Len)<sp/>{}</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor">#define<sp/>XNVM_API(ApiId)<sp/>((u32)ApiId)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor">#define<sp/>XNVM_API_ID_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFU)<sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XNVM_ACCESS_PUF_USER_DATA</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="93"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>PufFuseDataAddr;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StartPufFuseRow;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumOfPufFusesRows;<sp/><sp/></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>EnvMonitorDis;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PrgmPufFuse;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99"><highlight class="normal">}<sp/>XNvm_EfusePufFuseAddr;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="104"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_nvm___efuse_puf_sec_ctrl_bits" kindref="compound">XNvm_EfusePufSecCtrlBits</ref><sp/>PufSecCtrlBits;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PrgmPufHelperData;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PrgmPufSecCtrlBits;<sp/><sp/></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>EnvMonitorDis;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EfuseSynData[<ref refid="group__xnvm__def__api__ids_1ga93c0329067f591b0540f4d1e5bb27673" kindref="member">XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS</ref>];<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Chash;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Aux;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="112"><highlight class="normal">}XNvm_EfusePufHdAddr;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XNVM_WRITE_SECURITY_CRITICAL_EFUSE</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="119"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Chash;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Aux;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EfuseSynData[<ref refid="group__xnvm__def__api__ids_1ga93c0329067f591b0540f4d1e5bb27673" kindref="member">XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS</ref>];</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">}<sp/>XNvm_EfusePufData;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XNVM_EN_ADD_PPKS</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="130"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PrgmPpk3Hash;<sp/></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PrgmPpk4Hash;<sp/></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Ppk3Hash[<ref refid="group__xnvm__def__api__ids_1ga77d5f99272bcd933950fca66031e544a" kindref="member">XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS</ref>];<sp/></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Ppk4Hash[<ref refid="group__xnvm__def__api__ids_1ga77d5f99272bcd933950fca66031e544a" kindref="member">XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS</ref>];<sp/></highlight></codeline>
+<codeline lineno="135"><highlight class="normal">}<sp/>XNvm_EfuseAdditionalPpkHash;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="146" refid="group__xnvm__def__api__ids_1gafefb58b4bc539bff958b4da2dbdfdd15" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="147" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15aafdebd82312f6c4f787e6d36785f0a6f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15aafdebd82312f6c4f787e6d36785f0a6f" kindref="member">XNVM_API_FEATURES</ref><sp/>=<sp/>0,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="148" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a63f341a70acf2369ab0c59f6d739a076" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a63f341a70acf2369ab0c59f6d739a076" kindref="member">XNVM_API_ID_BBRAM_WRITE_AES_KEY</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="149" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15adb948dbf0612c47405ce1a41cf129085" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15adb948dbf0612c47405ce1a41cf129085" kindref="member">XNVM_API_ID_BBRAM_ZEROIZE</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="150" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a24a0115494a63b9142244840b17516af" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a24a0115494a63b9142244840b17516af" kindref="member">XNVM_API_ID_BBRAM_WRITE_USER_DATA</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="151" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ad8bb87510818d4f4fbf77feb219ab94f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ad8bb87510818d4f4fbf77feb219ab94f" kindref="member">XNVM_API_ID_BBRAM_READ_USER_DATA</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="152" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ac6fecda349caa64872cc3355f9ce80e4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ac6fecda349caa64872cc3355f9ce80e4" kindref="member">XNVM_API_ID_BBRAM_LOCK_WRITE_USER_DATA</ref>,<sp/></highlight></codeline>
+<codeline lineno="153" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15af801fea29fd664f33d2499795991be50" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15af801fea29fd664f33d2499795991be50" kindref="member">XNVM_API_ID_EFUSE_WRITE</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="154" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15aa8264a14c55ac3cfa81b0bcf2d04c7cc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15aa8264a14c55ac3cfa81b0bcf2d04c7cc" kindref="member">XNVM_API_ID_EFUSE_WRITE_PUF</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="155" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a9967f64e323ca19b3bf9b7e1c4873e57" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a9967f64e323ca19b3bf9b7e1c4873e57" kindref="member">XNVM_API_ID_EFUSE_PUF_USER_FUSE_WRITE</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="156" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a86a108201c274229518f66caef1d9d05" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a86a108201c274229518f66caef1d9d05" kindref="member">XNVM_API_ID_EFUSE_READ_IV</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="157" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a5eaf576c3b00d23c6750333f5960211d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a5eaf576c3b00d23c6750333f5960211d" kindref="member">XNVM_API_ID_EFUSE_READ_REVOCATION_ID</ref>,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="158" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ab4a9b4f2c0e6dd2e74fd03816b70d127" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ab4a9b4f2c0e6dd2e74fd03816b70d127" kindref="member">XNVM_API_ID_EFUSE_READ_OFFCHIP_REVOCATION_ID</ref>,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="159" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15aae258f735541002955695d49852baf08" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15aae258f735541002955695d49852baf08" kindref="member">XNVM_API_ID_EFUSE_READ_USER_FUSES</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="160" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a07d2fb536ecefa505fae791760cd6794" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a07d2fb536ecefa505fae791760cd6794" kindref="member">XNVM_API_ID_EFUSE_READ_MISC_CTRL_BITS</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="161" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ab262c355b25fcadb900261ffc1002a70" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ab262c355b25fcadb900261ffc1002a70" kindref="member">XNVM_API_ID_EFUSE_READ_SEC_CTRL_BITS</ref>,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="162" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a688ce960e05abcaa2305ba3ac62388d4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a688ce960e05abcaa2305ba3ac62388d4" kindref="member">XNVM_API_ID_EFUSE_READ_SEC_MISC1_BITS</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="163" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15abe1ec7b0512577f37350a4482c9dc09a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15abe1ec7b0512577f37350a4482c9dc09a" kindref="member">XNVM_API_ID_EFUSE_READ_BOOT_ENV_CTRL_BITS</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="164" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a0944844aa13b7f24ba401f8e53e6a120" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a0944844aa13b7f24ba401f8e53e6a120" kindref="member">XNVM_API_ID_EFUSE_READ_PUF_SEC_CTRL_BITS</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="165" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a9ede9ca1e9dc57f447ac91e8961901b9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a9ede9ca1e9dc57f447ac91e8961901b9" kindref="member">XNVM_API_ID_EFUSE_READ_PPK_HASH</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="166" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a1989104225a5241285be4ec426d7472d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a1989104225a5241285be4ec426d7472d" kindref="member">XNVM_API_ID_EFUSE_READ_DEC_EFUSE_ONLY</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="167" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a6dc404249dd00d07a0863d8e948f47bd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a6dc404249dd00d07a0863d8e948f47bd" kindref="member">XNVM_API_ID_EFUSE_READ_DNA</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="168" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a515e6914e927d4a6e5dd2ccead44b3f8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a515e6914e927d4a6e5dd2ccead44b3f8" kindref="member">XNVM_API_ID_EFUSE_READ_PUF_USER_FUSE</ref>,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="169" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a2d1b4af1814790948d3f5b077957b00b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a2d1b4af1814790948d3f5b077957b00b" kindref="member">XNVM_API_ID_EFUSE_READ_PUF</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="170" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a8db47157038f71979e028423c293ca0e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a8db47157038f71979e028423c293ca0e" kindref="member">XNVM_API_ID_EFUSE_READ_CACHE</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="171" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ab05c0140af4298a671591dbed86f8514" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ab05c0140af4298a671591dbed86f8514" kindref="member">XNVM_API_ID_EFUSE_WRITE_IV</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="172" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ace2901cbe0b736e38e6958161d9ba5fc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15ace2901cbe0b736e38e6958161d9ba5fc" kindref="member">XNVM_API_ID_EFUSE_WRITE_SECURITY_MISC1</ref>,<sp/></highlight></codeline>
+<codeline lineno="173" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a6efcb129729bd6b54f6c52f8ac553389" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a6efcb129729bd6b54f6c52f8ac553389" kindref="member">XNVM_API_ID_EFUSE_WRITE_PUF_DATA</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="174" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a477d8125de62e942f0b5823844bb234c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a477d8125de62e942f0b5823844bb234c" kindref="member">XNVM_API_ID_EFUSE_WRITE_OFF_CHIP_ID</ref>,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="175" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a50aa24f739fefc165aebf0f19e991683" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a50aa24f739fefc165aebf0f19e991683" kindref="member">XNVM_API_ID_EFUSE_WRITE_USER_EFUSE</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="176" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15abd64d3bff4f827a0a23549d44a192373" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15abd64d3bff4f827a0a23549d44a192373" kindref="member">XNVM_API_ID_EFUSE_WRITE_REVOCATION_ID</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="177" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a53851f6deb8a6837fcc7debb0e4ce873" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a53851f6deb8a6837fcc7debb0e4ce873" kindref="member">XNVM_API_ID_EFUSE_WRITE_PPK_HASH</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="178" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15aecddc72bac59516cc769dda852017157" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15aecddc72bac59516cc769dda852017157" kindref="member">XNVM_API_ID_EFUSE_WRITE_ANLG_TRIM</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="179" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a28ed9cc3138fc35093f2004868275364" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a28ed9cc3138fc35093f2004868275364" kindref="member">XNVM_API_ID_EFUSE_WRITE_BOOT_ENV_CTRL</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="180" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a8b35490fdaea3479ae7d054e7e217c24" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a8b35490fdaea3479ae7d054e7e217c24" kindref="member">XNVM_API_ID_EFUSE_WRITE_MISC_CTRL</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="181" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a4d072fe03f63cd499542ef304af53121" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a4d072fe03f63cd499542ef304af53121" kindref="member">XNVM_API_ID_EFUSE_WRITE_SECURITY_CTRL</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="182" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a6c0b595bf2932232e62126355d336eae" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a6c0b595bf2932232e62126355d336eae" kindref="member">XNVM_API_ID_EFUSE_WRITE_SECURITY_MISC0_CTRL</ref>,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="183" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a6b79967088daec42e5b7ac52e890ac5f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a6b79967088daec42e5b7ac52e890ac5f" kindref="member">XNVM_API_ID_EFUSE_WRITE_AES_KEYS</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="184" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a15352ecb21ac56b5375b06495b8b4276" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a15352ecb21ac56b5375b06495b8b4276" kindref="member">XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="185" refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a353dbe511da9f52611b3a6ffd79d099c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__def__api__ids_1ggafefb58b4bc539bff958b4da2dbdfdd15a353dbe511da9f52611b3a6ffd79d099c" kindref="member">XNVM_API_MAX</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="186"><highlight class="normal">}<sp/><ref refid="group__xnvm__def__api__ids_1gafefb58b4bc539bff958b4da2dbdfdd15" kindref="member">XNvm_ApiId</ref>;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XNVM_DEFS_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/common/xnvm_defs.h"/>
+  </compounddef>
+</doxygen>

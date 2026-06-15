@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_73013ec7e403bda0a256cacabab7916d" kind="dir">
+    <compoundname>ufspsxc</compoundname>
+    <innerdir refid="dir_78d6e41cf5423ed15a3a425348318bb6">examples</innerdir>
+    <innerdir refid="dir_6e34033d30a819e3a4341e96e6b7d929">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/"/>
+  </compounddef>
+</doxygen>

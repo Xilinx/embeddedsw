@@ -1,0 +1,304 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_clk___wiz" kind="struct" prot="public">
+    <compoundname>XClk_Wiz</compoundname>
+    <includes local="no">xclk_wiz.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_clk___wiz_1a28ae78d16753f81178e32cdbb0758e52" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_clk___wiz___config" kindref="compound">XClk_Wiz_Config</ref></type>
+        <definition>XClk_Wiz_Config XClk_Wiz::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>GUI Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" bodystart="209" bodyend="-1"/>
+        <referencedby refid="xclk__wiz__intr__example_8c_1a4317fcb0dd04f5e8a7ea459815115c12" compoundref="xclk__wiz__intr__example_8c" startline="563" endline="661">ClkWiz_IntrExample</referencedby>
+        <referencedby refid="group___overview_1ga96e21929b605502ed7b693c0a2132b4e" compoundref="xclk__wiz_8c" startline="86" endline="115">XClk_Wiz_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gac6b82e8b7e00bc66dd233345a4cb5c41" compoundref="xclk__wiz_8c" startline="952" endline="978">XClk_Wiz_DisableClock</referencedby>
+        <referencedby refid="group___overview_1ga0965f9b5b43c453ca70e8b43f03490ca" compoundref="xclk__wiz_8c" startline="911" endline="938">XClk_Wiz_EnableClock</referencedby>
+        <referencedby refid="group___overview_1ga7c7165398cf3a2578d5dfd1c3947b43c" compoundref="xclk__wiz_8c" startline="1049" endline="1067">XClk_Wiz_GetInputRate</referencedby>
+        <referencedby refid="group___overview_1ga5da48627691e7e979b7c4fbcb608796a" compoundref="xclk__wiz_8c" startline="737" endline="795">XClk_Wiz_GetRate</referencedby>
+        <referencedby refid="group___overview_1ga0456881555560b358b47fb336542a4d3" compoundref="xclk__wiz_8c" startline="1012" endline="1036">XClk_Wiz_SetInputRate</referencedby>
+        <referencedby refid="group___overview_1gadaf78e2da6e9c9dc9bd7a86f97d6b79e" compoundref="xclk__wiz_8c" startline="860" endline="898">XClk_Wiz_SetRate</referencedby>
+        <referencedby refid="group___overview_1ga0408e2c4fba6d9237aeb72db5c38164b" compoundref="xclk__wiz_8c" startline="632" endline="674">XClk_Wiz_SetRateHz</referencedby>
+        <referencedby refid="group___overview_1gacf581607624ee4f19e501ff7802101db" compoundref="xclk__wiz_8c" startline="991" endline="999">XClk_Wiz_WaitForLock</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clk___wiz_1a6f13187ddd0c7ff4e949d9fba7368a2a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XClk_Wiz::ClkWizIntrStatus</definition>
+        <argsstring></argsstring>
+        <name>ClkWizIntrStatus</name>
+        <briefdescription>
+<para>Clock Stop, Clock Overrun, Clock Underrun, Clock Glitch Interrupt Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" bodystart="210" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga3ad6007a242ec441ccb612d7ff2050c0" compoundref="xclk__wiz_8c" startline="1078" endline="1088">XClk_Wiz_GetInterruptSettings</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clk___wiz_1a46c660b9cf4d9720d60887b9a02677ae" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XClk_Wiz::ClkIntrEnable</definition>
+        <argsstring></argsstring>
+        <name>ClkIntrEnable</name>
+        <briefdescription>
+<para>Interrupt enable for Clock Stop, Clock Overrun, Clock Underrun, Clock Glitch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" bodystart="213" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga3ad6007a242ec441ccb612d7ff2050c0" compoundref="xclk__wiz_8c" startline="1078" endline="1088">XClk_Wiz_GetInterruptSettings</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clk___wiz_1aa0ca3d6f96f2224007f40552048eb747" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga96bd226f11dc053a8db6732c1c0e2001" kindref="member">XClk_Wiz_CallBack</ref></type>
+        <definition>XClk_Wiz_CallBack XClk_Wiz::ClkOutOfRangeCallBack</definition>
+        <argsstring></argsstring>
+        <name>ClkOutOfRangeCallBack</name>
+        <briefdescription>
+<para>Callback for Clock out of range Under flow .or over flow. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" bodystart="216" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga96e21929b605502ed7b693c0a2132b4e" compoundref="xclk__wiz_8c" startline="86" endline="115">XClk_Wiz_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gab4d4ca4b2b5d036b0e0df621692135f6" compoundref="xclk__wiz__intr_8c" startline="261" endline="310">XClk_Wiz_IntrHandler</referencedby>
+        <referencedby refid="group___overview_1ga57d65e65942c50b405b79dacf4704339" compoundref="xclk__wiz__intr_8c" startline="207" endline="237">XClk_Wiz_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clk___wiz_1adc84e5f595cf0448bfe4573f3b9095bd" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XClk_Wiz::ClkOutOfRangeRef</definition>
+        <argsstring></argsstring>
+        <name>ClkOutOfRangeRef</name>
+        <briefdescription>
+<para>To be passed to the clock out of range call back. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" bodystart="219" bodyend="-1"/>
+        <referencedby refid="group___overview_1gab4d4ca4b2b5d036b0e0df621692135f6" compoundref="xclk__wiz__intr_8c" startline="261" endline="310">XClk_Wiz_IntrHandler</referencedby>
+        <referencedby refid="group___overview_1ga57d65e65942c50b405b79dacf4704339" compoundref="xclk__wiz__intr_8c" startline="207" endline="237">XClk_Wiz_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clk___wiz_1a006de5f883be8c8025c870a326f1daff" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga96bd226f11dc053a8db6732c1c0e2001" kindref="member">XClk_Wiz_CallBack</ref></type>
+        <definition>XClk_Wiz_CallBack XClk_Wiz::ClkGlitchCallBack</definition>
+        <argsstring></argsstring>
+        <name>ClkGlitchCallBack</name>
+        <briefdescription>
+<para>Callback for Clock Glitch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" bodystart="221" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga96e21929b605502ed7b693c0a2132b4e" compoundref="xclk__wiz_8c" startline="86" endline="115">XClk_Wiz_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gab4d4ca4b2b5d036b0e0df621692135f6" compoundref="xclk__wiz__intr_8c" startline="261" endline="310">XClk_Wiz_IntrHandler</referencedby>
+        <referencedby refid="group___overview_1ga57d65e65942c50b405b79dacf4704339" compoundref="xclk__wiz__intr_8c" startline="207" endline="237">XClk_Wiz_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clk___wiz_1a91ba0b071bb596329ac28cb31f149596" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XClk_Wiz::ClkGlitchRef</definition>
+        <argsstring></argsstring>
+        <name>ClkGlitchRef</name>
+        <briefdescription>
+<para>To be passed to the clock glitch call back. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" bodystart="223" bodyend="-1"/>
+        <referencedby refid="group___overview_1gab4d4ca4b2b5d036b0e0df621692135f6" compoundref="xclk__wiz__intr_8c" startline="261" endline="310">XClk_Wiz_IntrHandler</referencedby>
+        <referencedby refid="group___overview_1ga57d65e65942c50b405b79dacf4704339" compoundref="xclk__wiz__intr_8c" startline="207" endline="237">XClk_Wiz_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clk___wiz_1a48c00841fd4a6cfff0c50c9ec204458e" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga96bd226f11dc053a8db6732c1c0e2001" kindref="member">XClk_Wiz_CallBack</ref></type>
+        <definition>XClk_Wiz_CallBack XClk_Wiz::ClkStopCallBack</definition>
+        <argsstring></argsstring>
+        <name>ClkStopCallBack</name>
+        <briefdescription>
+<para>Callback for Clock stop. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" bodystart="225" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga96e21929b605502ed7b693c0a2132b4e" compoundref="xclk__wiz_8c" startline="86" endline="115">XClk_Wiz_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gab4d4ca4b2b5d036b0e0df621692135f6" compoundref="xclk__wiz__intr_8c" startline="261" endline="310">XClk_Wiz_IntrHandler</referencedby>
+        <referencedby refid="group___overview_1ga57d65e65942c50b405b79dacf4704339" compoundref="xclk__wiz__intr_8c" startline="207" endline="237">XClk_Wiz_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clk___wiz_1a874f6dfbb1c2fb1a35fb30f1035f6918" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XClk_Wiz::ClkStopRef</definition>
+        <argsstring></argsstring>
+        <name>ClkStopRef</name>
+        <briefdescription>
+<para>To be passed to the clock stop call back. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" line="226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" bodystart="226" bodyend="-1"/>
+        <referencedby refid="group___overview_1gab4d4ca4b2b5d036b0e0df621692135f6" compoundref="xclk__wiz__intr_8c" startline="261" endline="310">XClk_Wiz_IntrHandler</referencedby>
+        <referencedby refid="group___overview_1ga57d65e65942c50b405b79dacf4704339" compoundref="xclk__wiz__intr_8c" startline="207" endline="237">XClk_Wiz_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clk___wiz_1a492db8cdab7648eb930008b5caa3db72" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga96bd226f11dc053a8db6732c1c0e2001" kindref="member">XClk_Wiz_CallBack</ref></type>
+        <definition>XClk_Wiz_CallBack XClk_Wiz::ErrorCallBack</definition>
+        <argsstring></argsstring>
+        <name>ErrorCallBack</name>
+        <briefdescription>
+<para>Call back function for rest all errors. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" bodystart="228" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga96e21929b605502ed7b693c0a2132b4e" compoundref="xclk__wiz_8c" startline="86" endline="115">XClk_Wiz_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga57d65e65942c50b405b79dacf4704339" compoundref="xclk__wiz__intr_8c" startline="207" endline="237">XClk_Wiz_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clk___wiz_1a7c805aa6c9f8561dcdc3922f076f3416" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XClk_Wiz::ErrRef</definition>
+        <argsstring></argsstring>
+        <name>ErrRef</name>
+        <briefdescription>
+<para>To be passed to the Error Call back. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" bodystart="230" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga57d65e65942c50b405b79dacf4704339" compoundref="xclk__wiz__intr_8c" startline="207" endline="237">XClk_Wiz_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clk___wiz_1a8d30680f0e4edf48a59f5391aeb4df29" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XClk_Wiz::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Driver is ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" bodystart="231" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga96e21929b605502ed7b693c0a2132b4e" compoundref="xclk__wiz_8c" startline="86" endline="115">XClk_Wiz_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gac6b82e8b7e00bc66dd233345a4cb5c41" compoundref="xclk__wiz_8c" startline="952" endline="978">XClk_Wiz_DisableClock</referencedby>
+        <referencedby refid="group___overview_1ga0965f9b5b43c453ca70e8b43f03490ca" compoundref="xclk__wiz_8c" startline="911" endline="938">XClk_Wiz_EnableClock</referencedby>
+        <referencedby refid="group___overview_1ga7c7165398cf3a2578d5dfd1c3947b43c" compoundref="xclk__wiz_8c" startline="1049" endline="1067">XClk_Wiz_GetInputRate</referencedby>
+        <referencedby refid="group___overview_1gab4d4ca4b2b5d036b0e0df621692135f6" compoundref="xclk__wiz__intr_8c" startline="261" endline="310">XClk_Wiz_IntrHandler</referencedby>
+        <referencedby refid="group___overview_1ga57d65e65942c50b405b79dacf4704339" compoundref="xclk__wiz__intr_8c" startline="207" endline="237">XClk_Wiz_SetCallBack</referencedby>
+        <referencedby refid="group___overview_1ga0456881555560b358b47fb336542a4d3" compoundref="xclk__wiz_8c" startline="1012" endline="1036">XClk_Wiz_SetInputRate</referencedby>
+        <referencedby refid="group___overview_1gad966194a45d93fa34d0eb8ab8c2de08d" compoundref="xclk__wiz_8c" startline="810" endline="846">XClk_Wiz_SetLeafRateHz</referencedby>
+        <referencedby refid="group___overview_1ga7cee7daf22c90c1209ffb89da7dbc5bb" compoundref="xclk__wiz_8c" startline="317" endline="322">XClk_Wiz_SetMinErr</referencedby>
+        <referencedby refid="group___overview_1gadaf78e2da6e9c9dc9bd7a86f97d6b79e" compoundref="xclk__wiz_8c" startline="860" endline="898">XClk_Wiz_SetRate</referencedby>
+        <referencedby refid="group___overview_1ga0408e2c4fba6d9237aeb72db5c38164b" compoundref="xclk__wiz_8c" startline="632" endline="674">XClk_Wiz_SetRateHz</referencedby>
+        <referencedby refid="group___overview_1gacf581607624ee4f19e501ff7802101db" compoundref="xclk__wiz_8c" startline="991" endline="999">XClk_Wiz_WaitForLock</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clk___wiz_1a4b5f785c07b9d45d32df162cae89c3d7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XClk_Wiz::MVal</definition>
+        <argsstring></argsstring>
+        <name>MVal</name>
+        <briefdescription>
+<para>Multiplier valuer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" bodystart="232" bodyend="-1"/>
+        <referencedby refid="group___overview_1gadaf78e2da6e9c9dc9bd7a86f97d6b79e" compoundref="xclk__wiz_8c" startline="860" endline="898">XClk_Wiz_SetRate</referencedby>
+        <referencedby refid="group___overview_1ga0408e2c4fba6d9237aeb72db5c38164b" compoundref="xclk__wiz_8c" startline="632" endline="674">XClk_Wiz_SetRateHz</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clk___wiz_1afcbfe3c6e0b10684473f4c18735cac6e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XClk_Wiz::DVal</definition>
+        <argsstring></argsstring>
+        <name>DVal</name>
+        <briefdescription>
+<para>Divisor value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" bodystart="233" bodyend="-1"/>
+        <referencedby refid="group___overview_1gadaf78e2da6e9c9dc9bd7a86f97d6b79e" compoundref="xclk__wiz_8c" startline="860" endline="898">XClk_Wiz_SetRate</referencedby>
+        <referencedby refid="group___overview_1ga0408e2c4fba6d9237aeb72db5c38164b" compoundref="xclk__wiz_8c" startline="632" endline="674">XClk_Wiz_SetRateHz</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clk___wiz_1a899ce57b2d5dd51fa3f441b39913fb43" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XClk_Wiz::OVal</definition>
+        <argsstring></argsstring>
+        <name>OVal</name>
+        <briefdescription>
+<para>Output Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" bodystart="234" bodyend="-1"/>
+        <referencedby refid="group___overview_1gad966194a45d93fa34d0eb8ab8c2de08d" compoundref="xclk__wiz_8c" startline="810" endline="846">XClk_Wiz_SetLeafRateHz</referencedby>
+        <referencedby refid="group___overview_1gadaf78e2da6e9c9dc9bd7a86f97d6b79e" compoundref="xclk__wiz_8c" startline="860" endline="898">XClk_Wiz_SetRate</referencedby>
+        <referencedby refid="group___overview_1ga0408e2c4fba6d9237aeb72db5c38164b" compoundref="xclk__wiz_8c" startline="632" endline="674">XClk_Wiz_SetRateHz</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clk___wiz_1ad01ebb53709ced8418af9b21e9495d96" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XClk_Wiz::MinErr</definition>
+        <argsstring></argsstring>
+        <name>MinErr</name>
+        <briefdescription>
+<para>Min Error that is acceptable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" bodystart="235" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga96e21929b605502ed7b693c0a2132b4e" compoundref="xclk__wiz_8c" startline="86" endline="115">XClk_Wiz_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga7cee7daf22c90c1209ffb89da7dbc5bb" compoundref="xclk__wiz_8c" startline="317" endline="322">XClk_Wiz_SetMinErr</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_clk___wiz" kindref="compound">XClk_Wiz</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>An instance must be allocated for each CLK_WIZ in use. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>XClk_Wiz</label>
+        <link refid="struct_x_clk___wiz"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XClk_Wiz_Config</label>
+        <link refid="struct_x_clk___wiz___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.h" bodystart="207" bodyend="236"/>
+    <listofallmembers>
+      <member refid="struct_x_clk___wiz_1a006de5f883be8c8025c870a326f1daff" prot="public" virt="non-virtual"><scope>XClk_Wiz</scope><name>ClkGlitchCallBack</name></member>
+      <member refid="struct_x_clk___wiz_1a91ba0b071bb596329ac28cb31f149596" prot="public" virt="non-virtual"><scope>XClk_Wiz</scope><name>ClkGlitchRef</name></member>
+      <member refid="struct_x_clk___wiz_1a46c660b9cf4d9720d60887b9a02677ae" prot="public" virt="non-virtual"><scope>XClk_Wiz</scope><name>ClkIntrEnable</name></member>
+      <member refid="struct_x_clk___wiz_1aa0ca3d6f96f2224007f40552048eb747" prot="public" virt="non-virtual"><scope>XClk_Wiz</scope><name>ClkOutOfRangeCallBack</name></member>
+      <member refid="struct_x_clk___wiz_1adc84e5f595cf0448bfe4573f3b9095bd" prot="public" virt="non-virtual"><scope>XClk_Wiz</scope><name>ClkOutOfRangeRef</name></member>
+      <member refid="struct_x_clk___wiz_1a48c00841fd4a6cfff0c50c9ec204458e" prot="public" virt="non-virtual"><scope>XClk_Wiz</scope><name>ClkStopCallBack</name></member>
+      <member refid="struct_x_clk___wiz_1a874f6dfbb1c2fb1a35fb30f1035f6918" prot="public" virt="non-virtual"><scope>XClk_Wiz</scope><name>ClkStopRef</name></member>
+      <member refid="struct_x_clk___wiz_1a6f13187ddd0c7ff4e949d9fba7368a2a" prot="public" virt="non-virtual"><scope>XClk_Wiz</scope><name>ClkWizIntrStatus</name></member>
+      <member refid="struct_x_clk___wiz_1a28ae78d16753f81178e32cdbb0758e52" prot="public" virt="non-virtual"><scope>XClk_Wiz</scope><name>Config</name></member>
+      <member refid="struct_x_clk___wiz_1afcbfe3c6e0b10684473f4c18735cac6e" prot="public" virt="non-virtual"><scope>XClk_Wiz</scope><name>DVal</name></member>
+      <member refid="struct_x_clk___wiz_1a492db8cdab7648eb930008b5caa3db72" prot="public" virt="non-virtual"><scope>XClk_Wiz</scope><name>ErrorCallBack</name></member>
+      <member refid="struct_x_clk___wiz_1a7c805aa6c9f8561dcdc3922f076f3416" prot="public" virt="non-virtual"><scope>XClk_Wiz</scope><name>ErrRef</name></member>
+      <member refid="struct_x_clk___wiz_1a8d30680f0e4edf48a59f5391aeb4df29" prot="public" virt="non-virtual"><scope>XClk_Wiz</scope><name>IsReady</name></member>
+      <member refid="struct_x_clk___wiz_1ad01ebb53709ced8418af9b21e9495d96" prot="public" virt="non-virtual"><scope>XClk_Wiz</scope><name>MinErr</name></member>
+      <member refid="struct_x_clk___wiz_1a4b5f785c07b9d45d32df162cae89c3d7" prot="public" virt="non-virtual"><scope>XClk_Wiz</scope><name>MVal</name></member>
+      <member refid="struct_x_clk___wiz_1a899ce57b2d5dd51fa3f441b39913fb43" prot="public" virt="non-virtual"><scope>XClk_Wiz</scope><name>OVal</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

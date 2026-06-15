@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['tdc_5fmax_5foffset',['TDC_MAX_OFFSET',['../group__canfd.html#gadf5708fc6031ada151a091150e8436c4',1,'xcanfd_hw.h']]],
+  ['tdc_5fshift',['TDC_SHIFT',['../group__canfd.html#ga84269be413b89906d77c0034abe39bca',1,'xcanfd_hw.h']]],
+  ['test_5fbrpr_5fbaud_5fprescalar',['TEST_BRPR_BAUD_PRESCALAR',['../group__canfd.html#ga40b93f102dc8a0ae0f87092bc96087f1',1,'xcanfd_selftest.c']]],
+  ['test_5fbtr_5ffirst_5ftimesegment',['TEST_BTR_FIRST_TIMESEGMENT',['../group__canfd.html#ga413d190032b595cee3eaad35f5ff0f95',1,'xcanfd_selftest.c']]],
+  ['test_5fbtr_5fsecond_5ftimesegment',['TEST_BTR_SECOND_TIMESEGMENT',['../group__canfd.html#ga963822e22ff13542adf1ca249fb11e1e',1,'xcanfd_selftest.c']]],
+  ['test_5fbtr_5fsyncjumpwidth',['TEST_BTR_SYNCJUMPWIDTH',['../group__canfd.html#gaa2f0504cb1cf0584ff8d7532b91d17f3',1,'xcanfd_selftest.c']]],
+  ['test_5fcanfd_5fdlc',['TEST_CANFD_DLC',['../group__canfd.html#gadb1bcd1838bd92a866794184116a4bbf',1,'xcanfd_selftest.c']]],
+  ['test_5ffbrpr_5fbaud_5fprescalar',['TEST_FBRPR_BAUD_PRESCALAR',['../group__canfd.html#ga474988275e3a9563fd011d79425deb90',1,'xcanfd_selftest.c']]],
+  ['test_5ffbtr_5ffirst_5ftimesegment',['TEST_FBTR_FIRST_TIMESEGMENT',['../group__canfd.html#gad96e9ba070cc4dd19846492c373ba0b9',1,'xcanfd_selftest.c']]],
+  ['test_5ffbtr_5fsecond_5ftimesegment',['TEST_FBTR_SECOND_TIMESEGMENT',['../group__canfd.html#gadcd8382bc86aa05dd490d5ccdd3878c8',1,'xcanfd_selftest.c']]],
+  ['test_5ffbtr_5fsyncjumpwidth',['TEST_FBTR_SYNCJUMPWIDTH',['../group__canfd.html#ga5d1f49839781fd8c867b2ff25bf54705',1,'xcanfd_selftest.c']]],
+  ['test_5fmail_5fbox_5fmask',['TEST_MAIL_BOX_MASK',['../group__canfd.html#ga71ec86ad20d81329ef69e8572d9bc452',1,'xcanfd_selftest.c']]],
+  ['test_5fmessage_5fid',['TEST_MESSAGE_ID',['../group__canfd.html#ga8402ffb273c0d8a8e72f2a845d96b269',1,'xcanfd_selftest.c']]],
+  ['trr_5finit_5fval',['TRR_INIT_VAL',['../group__canfd.html#ga247c403d9c40c654a1404c9f91bcd8cc',1,'xcanfd_hw.h']]],
+  ['trr_5fmask_5finit_5fval',['TRR_MASK_INIT_VAL',['../group__canfd.html#ga99df15f1758ac47b81b9b4d64e730faf',1,'xcanfd_hw.h']]],
+  ['trr_5fpos_5fmask',['TRR_POS_MASK',['../group__canfd.html#ga062aad7eb4fdea3cec922a897f60d9e0',1,'xcanfd_hw.h']]]
+];

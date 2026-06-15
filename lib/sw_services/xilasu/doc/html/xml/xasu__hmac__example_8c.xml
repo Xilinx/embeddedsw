@@ -1,0 +1,578 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__hmac__example_8c" kind="file">
+    <compoundname>xasu_hmac_example.c</compoundname>
+    <includes local="yes">xil_cache.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <includes refid="xasu__client_8h" local="yes">xasu_client.h</includes>
+    <includes refid="xasu__hmac_8h" local="yes">xasu_hmac.h</includes>
+    <incdepgraph>
+      <node id="451">
+        <label>xasu_shainfo.h</label>
+        <link refid="xasu__shainfo_8h"/>
+        <childnode refid="443" relation="include">
+        </childnode>
+        <childnode refid="452" relation="include">
+        </childnode>
+      </node>
+      <node id="448">
+        <label>xasu_def.h</label>
+        <link refid="xasu__def_8h"/>
+        <childnode refid="443" relation="include">
+        </childnode>
+      </node>
+      <node id="449">
+        <label>xasu_hmac.h</label>
+        <link refid="xasu__hmac_8h"/>
+        <childnode refid="443" relation="include">
+        </childnode>
+        <childnode refid="441" relation="include">
+        </childnode>
+        <childnode refid="450" relation="include">
+        </childnode>
+        <childnode refid="451" relation="include">
+        </childnode>
+      </node>
+      <node id="442">
+        <label>xasu_sharedmem.h</label>
+        <link refid="xasu__sharedmem_8h"/>
+        <childnode refid="443" relation="include">
+        </childnode>
+      </node>
+      <node id="439">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="441">
+        <label>xasu_client.h</label>
+        <link refid="xasu__client_8h"/>
+        <childnode refid="442" relation="include">
+        </childnode>
+        <childnode refid="444" relation="include">
+        </childnode>
+        <childnode refid="445" relation="include">
+        </childnode>
+        <childnode refid="447" relation="include">
+        </childnode>
+        <childnode refid="448" relation="include">
+        </childnode>
+      </node>
+      <node id="440">
+        <label>xil_util.h</label>
+      </node>
+      <node id="446">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="444">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="445">
+        <label>xasu_perf.h</label>
+        <link refid="xasu__perf_8h"/>
+        <childnode refid="443" relation="include">
+        </childnode>
+        <childnode refid="446" relation="include">
+        </childnode>
+      </node>
+      <node id="452">
+        <label>xstatus.h</label>
+      </node>
+      <node id="443">
+        <label>xil_types.h</label>
+      </node>
+      <node id="450">
+        <label>xasu_hmacinfo.h</label>
+        <link refid="xasu__hmacinfo_8h"/>
+        <childnode refid="443" relation="include">
+        </childnode>
+        <childnode refid="446" relation="include">
+        </childnode>
+      </node>
+      <node id="438">
+        <label>xasu_hmac_example.c</label>
+        <link refid="xasu_hmac_example.c"/>
+        <childnode refid="439" relation="include">
+        </childnode>
+        <childnode refid="440" relation="include">
+        </childnode>
+        <childnode refid="441" relation="include">
+        </childnode>
+        <childnode refid="449" relation="include">
+        </childnode>
+      </node>
+      <node id="447">
+        <label>xasu_status.h</label>
+        <link refid="xasu__status_8h"/>
+        <childnode refid="443" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__hmac__client__example_1ga970db3253bcdb665fb87caacae1d0725" prot="public" static="no">
+        <name>ASU_CACHE_DISABLE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__hmac__client__example_1gad7c826de3a851b64e1ecfd0cf7fdb870" prot="public" static="no">
+        <name>ASU_HMAC_LEN_IN_BYTES</name>
+        <initializer>(64U)</initializer>
+        <briefdescription>
+<para>ASU HMAC length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__hmac__client__example_1ga96cea7b1923f2465a0107ad82fada1fb" prot="public" static="no">
+        <name>ASU_HMAC_KEY_LEN_IN_BYTES</name>
+        <initializer>(64U)</initializer>
+        <briefdescription>
+<para>ASU Key length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__hmac__client__example_1gaffaed05c64999e43d43fbca5b139c8c8" prot="public" static="no">
+        <name>ASU_HMAC_MSG_LEN_IN_BYTES</name>
+        <initializer>(128U)</initializer>
+        <briefdescription>
+<para>ASU Message length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xasu__hmac__client__example_1gaffa3c6cc62211ed3b3ee55a0c50cf36b" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 Message[]</definition>
+        <argsstring>[]</argsstring>
+        <name>Message</name>
+        <initializer>= {
+	0xFCU, 0xD6U, 0xD9U, 0x8BU, 0xEFU, 0x45U, 0xEDU, 0x68U,
+	0x50U, 0x80U, 0x6EU, 0x96U, 0xF2U, 0x55U, 0xFAU, 0x0CU,
+	0x81U, 0x14U, 0xB7U, 0x28U, 0x73U, 0xABU, 0xE8U, 0xF4U,
+	0x3CU, 0x10U, 0xBEU, 0xA7U, 0xC1U, 0xDFU, 0x70U, 0x6FU,
+	0x10U, 0x45U, 0x8EU, 0x6DU, 0x4EU, 0x1CU, 0x92U, 0x01U,
+	0xF0U, 0x57U, 0xB8U, 0x49U, 0x2FU, 0xA1U, 0x0FU, 0xE4U,
+	0xB5U, 0x41U, 0xD0U, 0xFCU, 0x9DU, 0x41U, 0xEFU, 0x83U,
+	0x9AU, 0xCFU, 0xF1U, 0xBCU, 0x76U, 0xE3U, 0xFDU, 0xFEU,
+	0xBFU, 0x22U, 0x35U, 0xB5U, 0xBDU, 0x03U, 0x47U, 0xA9U,
+	0xA6U, 0x30U, 0x3EU, 0x83U, 0x15U, 0x2FU, 0x9FU, 0x8DU,
+	0xB9U, 0x41U, 0xB1U, 0xB9U, 0x4AU, 0x8AU, 0x1CU, 0xE5U,
+	0xC2U, 0x73U, 0xB5U, 0x5DU, 0xC9U, 0x4DU, 0x99U, 0xA1U,
+	0x71U, 0x37U, 0x79U, 0x69U, 0x23U, 0x41U, 0x34U, 0xE7U,
+	0xDAU, 0xD1U, 0xABU, 0x4CU, 0x8EU, 0x46U, 0xD1U, 0x8DU,
+	0xF4U, 0xDCU, 0x01U, 0x67U, 0x64U, 0xCFU, 0x95U, 0xA1U,
+	0x1AU, 0xC4U, 0xB4U, 0x91U, 0xA2U, 0x64U, 0x6BU, 0xE1U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__hmac__client__example_1ga13dc92fe1791e6afc788e4836dadf90a" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 Key[]</definition>
+        <argsstring>[]</argsstring>
+        <name>Key</name>
+        <initializer>= {
+	0xA0U, 0x44U, 0x73U, 0xEFU, 0x55U, 0x08U, 0xA4U, 0xEDU,
+	0xCBU, 0xECU, 0x57U, 0x74U, 0x9DU, 0x29U, 0x73U, 0xABU,
+	0x3EU, 0xB2U, 0xC2U, 0xAFU, 0x4CU, 0x54U, 0x74U, 0x8CU,
+	0x33U, 0x96U, 0xC5U, 0xC0U, 0xB2U, 0x83U, 0x09U, 0x05U,
+	0x47U, 0xE7U, 0x15U, 0xD2U, 0xFEU, 0x66U, 0x0DU, 0xA2U,
+	0x7FU, 0xD3U, 0xFFU, 0xAFU, 0x09U, 0x27U, 0x73U, 0x60U,
+	0xA4U, 0xC3U, 0x72U, 0x65U, 0x33U, 0x44U, 0x49U, 0x4BU,
+	0xA2U, 0xA2U, 0x40U, 0x5AU, 0x39U, 0x1AU, 0x1DU, 0xEAU
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__hmac__client__example_1ga28a832af2623d3241a9f4927f5f98e86" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 HmacOutput[ASU_HMAC_LEN_IN_BYTES]</definition>
+        <argsstring>[ASU_HMAC_LEN_IN_BYTES]</argsstring>
+        <name>HmacOutput</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__hmac__client__example_1ga292c8b8d3d2b4d0c7bffba593724d95f" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 ExpHmac[ASU_HMAC_LEN_IN_BYTES]</definition>
+        <argsstring>[ASU_HMAC_LEN_IN_BYTES]</argsstring>
+        <name>ExpHmac</name>
+        <initializer>= {
+	0x6EU, 0xD8U, 0xB5U, 0xCAU, 0x72U, 0x5BU, 0xD7U, 0xABU,
+	0x36U, 0xCCU, 0x23U, 0x4CU, 0xBAU, 0x31U, 0x5AU, 0x55U,
+	0xCAU, 0x00U, 0xF0U, 0xD4U, 0x27U, 0xC8U, 0x00U, 0x8BU,
+	0x9BU, 0x1EU, 0x21U, 0x0AU, 0xA8U, 0x76U, 0x18U, 0xB5U,
+	0x55U, 0x23U, 0x9EU, 0x3FU, 0xF9U, 0x6DU, 0x4FU, 0x97U,
+	0xB2U, 0xE7U, 0xEEU, 0x45U, 0x4CU, 0xF9U, 0x8CU, 0x3DU,
+	0x52U, 0x30U, 0x92U, 0x7BU, 0x99U, 0x17U, 0x48U, 0x2EU,
+	0x34U, 0x55U, 0x95U, 0x53U, 0x1DU, 0xD9U, 0xC1U, 0xAEU
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__hmac__client__example_1ga15547568239beb028a917f170b866338" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 Notify</definition>
+        <argsstring></argsstring>
+        <name>Notify</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>To notify the call back from client library. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__hmac__client__example_1ga89bdef12ea1ad95bf3acb2ef59e4d299" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 ErrorStatus</definition>
+        <argsstring></argsstring>
+        <name>ErrorStatus</name>
+        <initializer>= XST_FAILURE</initializer>
+        <briefdescription>
+<para>Status variable to store the error returned from server. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__hmac__client__example_1gab65aafdaa7761ed9ddc3c86d901d63ff" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 Asu_HmacExample</definition>
+        <argsstring>(void)</argsstring>
+        <name>Asu_HmacExample</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function uses input key and message and calculates HMAC. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>            The purpose of this function is to illustrate how to use the ASU HMAC client APIs.
+</verbatim></para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if HMAC successfully generated for given inputS.</para></listitem><listitem><para>XST_FAILURE, if the HMAC generation fails.//! [HMAC example] </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Initialize mailbox instance. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" bodystart="169" bodyend="232"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__hmac__client__example_1gab758ffb31df3119ae6d16a284a4c5490" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_HmacCallBackRef</definition>
+        <argsstring>(void *CallBackRef, u32 Status)</argsstring>
+        <name>XAsu_HmacCallBackRef</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Call back function which will be registered with library to notify the completion of request. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the call back reference. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Status of the request will be passed as an argument during callback<itemizedlist>
+<listitem><para>0 Upon success</para></listitem><listitem><para>Error code from ASUFW application upon any error </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" bodystart="262" bodyend="285"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__hmac__client__example_1ga6c9b419be41c52f95b5b676f5addb4c1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Asu_PrintHmac</definition>
+        <argsstring>(const u8 *Hmac)</argsstring>
+        <name>Asu_PrintHmac</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>Hmac</declname>
+        </param>
+        <briefdescription>
+<para>This function prints the given hmac on the console. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Hmac</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to given array. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" bodystart="241" bodyend="249"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__hmac__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function to call the Asu_HmacExample. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if HMAC successfully generated for given inputs.</para></listitem><listitem><para>XST_FAILURE, if the HMAC generation fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c" bodystart="140" bodyend="156"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="62"><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cache.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__client_8h" kindref="compound">xasu_client.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__hmac_8h" kindref="compound">xasu_hmac.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ASU_CACHE_DISABLE</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74" refid="group__xasu__hmac__client__example_1gad7c826de3a851b64e1ecfd0cf7fdb870" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ASU_HMAC_LEN_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(64U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75" refid="group__xasu__hmac__client__example_1ga96cea7b1923f2465a0107ad82fada1fb" refkind="member"><highlight class="preprocessor">#define<sp/>ASU_HMAC_KEY_LEN_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(64U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76" refid="group__xasu__hmac__client__example_1gaffaed05c64999e43d43fbca5b139c8c8" refkind="member"><highlight class="preprocessor">#define<sp/>ASU_HMAC_MSG_LEN_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(128U)<sp/><sp/></highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>s32<sp/>Asu_HmacExample(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XAsu_HmacCallBackRef(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u32<sp/>Status);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Asu_PrintHmac(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Hmac);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>Message[]<sp/>__attribute__<sp/>((section<sp/>(</highlight><highlight class="stringliteral">&quot;.data.Message&quot;</highlight><highlight class="normal">)))<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFCU,<sp/>0xD6U,<sp/>0xD9U,<sp/>0x8BU,<sp/>0xEFU,<sp/>0x45U,<sp/>0xEDU,<sp/>0x68U,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x50U,<sp/>0x80U,<sp/>0x6EU,<sp/>0x96U,<sp/>0xF2U,<sp/>0x55U,<sp/>0xFAU,<sp/>0x0CU,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x81U,<sp/>0x14U,<sp/>0xB7U,<sp/>0x28U,<sp/>0x73U,<sp/>0xABU,<sp/>0xE8U,<sp/>0xF4U,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3CU,<sp/>0x10U,<sp/>0xBEU,<sp/>0xA7U,<sp/>0xC1U,<sp/>0xDFU,<sp/>0x70U,<sp/>0x6FU,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10U,<sp/>0x45U,<sp/>0x8EU,<sp/>0x6DU,<sp/>0x4EU,<sp/>0x1CU,<sp/>0x92U,<sp/>0x01U,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF0U,<sp/>0x57U,<sp/>0xB8U,<sp/>0x49U,<sp/>0x2FU,<sp/>0xA1U,<sp/>0x0FU,<sp/>0xE4U,</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xB5U,<sp/>0x41U,<sp/>0xD0U,<sp/>0xFCU,<sp/>0x9DU,<sp/>0x41U,<sp/>0xEFU,<sp/>0x83U,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x9AU,<sp/>0xCFU,<sp/>0xF1U,<sp/>0xBCU,<sp/>0x76U,<sp/>0xE3U,<sp/>0xFDU,<sp/>0xFEU,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xBFU,<sp/>0x22U,<sp/>0x35U,<sp/>0xB5U,<sp/>0xBDU,<sp/>0x03U,<sp/>0x47U,<sp/>0xA9U,</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xA6U,<sp/>0x30U,<sp/>0x3EU,<sp/>0x83U,<sp/>0x15U,<sp/>0x2FU,<sp/>0x9FU,<sp/>0x8DU,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xB9U,<sp/>0x41U,<sp/>0xB1U,<sp/>0xB9U,<sp/>0x4AU,<sp/>0x8AU,<sp/>0x1CU,<sp/>0xE5U,</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xC2U,<sp/>0x73U,<sp/>0xB5U,<sp/>0x5DU,<sp/>0xC9U,<sp/>0x4DU,<sp/>0x99U,<sp/>0xA1U,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x71U,<sp/>0x37U,<sp/>0x79U,<sp/>0x69U,<sp/>0x23U,<sp/>0x41U,<sp/>0x34U,<sp/>0xE7U,</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xDAU,<sp/>0xD1U,<sp/>0xABU,<sp/>0x4CU,<sp/>0x8EU,<sp/>0x46U,<sp/>0xD1U,<sp/>0x8DU,</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF4U,<sp/>0xDCU,<sp/>0x01U,<sp/>0x67U,<sp/>0x64U,<sp/>0xCFU,<sp/>0x95U,<sp/>0xA1U,</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1AU,<sp/>0xC4U,<sp/>0xB4U,<sp/>0x91U,<sp/>0xA2U,<sp/>0x64U,<sp/>0x6BU,<sp/>0xE1U</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>Key[]<sp/>__attribute__<sp/>((section<sp/>(</highlight><highlight class="stringliteral">&quot;.data.Key&quot;</highlight><highlight class="normal">)))<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xA0U,<sp/>0x44U,<sp/>0x73U,<sp/>0xEFU,<sp/>0x55U,<sp/>0x08U,<sp/>0xA4U,<sp/>0xEDU,</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xCBU,<sp/>0xECU,<sp/>0x57U,<sp/>0x74U,<sp/>0x9DU,<sp/>0x29U,<sp/>0x73U,<sp/>0xABU,</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3EU,<sp/>0xB2U,<sp/>0xC2U,<sp/>0xAFU,<sp/>0x4CU,<sp/>0x54U,<sp/>0x74U,<sp/>0x8CU,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x33U,<sp/>0x96U,<sp/>0xC5U,<sp/>0xC0U,<sp/>0xB2U,<sp/>0x83U,<sp/>0x09U,<sp/>0x05U,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x47U,<sp/>0xE7U,<sp/>0x15U,<sp/>0xD2U,<sp/>0xFEU,<sp/>0x66U,<sp/>0x0DU,<sp/>0xA2U,</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7FU,<sp/>0xD3U,<sp/>0xFFU,<sp/>0xAFU,<sp/>0x09U,<sp/>0x27U,<sp/>0x73U,<sp/>0x60U,</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xA4U,<sp/>0xC3U,<sp/>0x72U,<sp/>0x65U,<sp/>0x33U,<sp/>0x44U,<sp/>0x49U,<sp/>0x4BU,</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xA2U,<sp/>0xA2U,<sp/>0x40U,<sp/>0x5AU,<sp/>0x39U,<sp/>0x1AU,<sp/>0x1DU,<sp/>0xEAU</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>HmacOutput[<ref refid="group__xasu__hmac__client__example_1gad7c826de3a851b64e1ecfd0cf7fdb870" kindref="member">ASU_HMAC_LEN_IN_BYTES</ref>]<sp/>__attribute__<sp/>((section<sp/>(</highlight><highlight class="stringliteral">&quot;.data.HmacOutput&quot;</highlight><highlight class="normal">)));</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>ExpHmac[<ref refid="group__xasu__hmac__client__example_1gad7c826de3a851b64e1ecfd0cf7fdb870" kindref="member">ASU_HMAC_LEN_IN_BYTES</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x6EU,<sp/>0xD8U,<sp/>0xB5U,<sp/>0xCAU,<sp/>0x72U,<sp/>0x5BU,<sp/>0xD7U,<sp/>0xABU,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x36U,<sp/>0xCCU,<sp/>0x23U,<sp/>0x4CU,<sp/>0xBAU,<sp/>0x31U,<sp/>0x5AU,<sp/>0x55U,</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xCAU,<sp/>0x00U,<sp/>0xF0U,<sp/>0xD4U,<sp/>0x27U,<sp/>0xC8U,<sp/>0x00U,<sp/>0x8BU,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x9BU,<sp/>0x1EU,<sp/>0x21U,<sp/>0x0AU,<sp/>0xA8U,<sp/>0x76U,<sp/>0x18U,<sp/>0xB5U,</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x55U,<sp/>0x23U,<sp/>0x9EU,<sp/>0x3FU,<sp/>0xF9U,<sp/>0x6DU,<sp/>0x4FU,<sp/>0x97U,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xB2U,<sp/>0xE7U,<sp/>0xEEU,<sp/>0x45U,<sp/>0x4CU,<sp/>0xF9U,<sp/>0x8CU,<sp/>0x3DU,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x52U,<sp/>0x30U,<sp/>0x92U,<sp/>0x7BU,<sp/>0x99U,<sp/>0x17U,<sp/>0x48U,<sp/>0x2EU,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x34U,<sp/>0x55U,<sp/>0x95U,<sp/>0x53U,<sp/>0x1DU,<sp/>0xD9U,<sp/>0xC1U,<sp/>0xAEU</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127" refid="group__xasu__hmac__client__example_1ga15547568239beb028a917f170b866338" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u8<sp/><ref refid="group__xasufw__ecc__client__example_1ga15547568239beb028a917f170b866338" kindref="member">Notify</ref><sp/>=<sp/>0;<sp/></highlight></codeline>
+<codeline lineno="128" refid="group__xasu__hmac__client__example_1ga89bdef12ea1ad95bf3acb2ef59e4d299" refkind="member"><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/><ref refid="group__xasufw__ecc__client__example_1ga89bdef12ea1ad95bf3acb2ef59e4d299" kindref="member">ErrorStatus</ref><sp/>=<sp/>XST_FAILURE;<sp/></highlight></codeline>
+<codeline lineno="131"><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="140" refid="group__xasu__hmac__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="141"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>ASU_CACHE_DISABLE</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheDisable();</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Asu_HmacExample();</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>HMAC<sp/>example&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;HMAC<sp/>Example<sp/>failed&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="169"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>s32<sp/>Asu_HmacExample(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="170"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAsu_ClientParams<sp/>ClientParam<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___hmac_params" kindref="compound">XAsu_HmacParams</ref><sp/>HmacClientParam<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMailbox<sp/>MailboxInstance;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XMailbox_Initialize(&amp;MailboxInstance,<sp/>XPAR_XIPIPSU_0_BASEADDR);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;Mailbox<sp/>initialize<sp/>failed:<sp/>%08x<sp/>\r\n&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>client<sp/>instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1ga3dc785000c560adedbb23beb0404beee" kindref="member">XAsu_ClientInit</ref>(&amp;MailboxInstance);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;Client<sp/>initialize<sp/>failed:%08x<sp/>\r\n&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>ASU_CACHE_DISABLE</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheFlushRange((UINTPTR)Message,<sp/><ref refid="group__xasu__hmac__client__example_1gaffaed05c64999e43d43fbca5b139c8c8" kindref="member">ASU_HMAC_MSG_LEN_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheFlushRange((UINTPTR)Key,<sp/><ref refid="group__xasu__hmac__client__example_1ga96cea7b1923f2465a0107ad82fada1fb" kindref="member">ASU_HMAC_KEY_LEN_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheInvalidateRange((UINTPTR)HmacOutput,<sp/><ref refid="group__xasu__hmac__client__example_1gad7c826de3a851b64e1ecfd0cf7fdb870" kindref="member">ASU_HMAC_LEN_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Inputs<sp/>of<sp/>client<sp/>request<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParam.Priority<sp/>=<sp/><ref refid="group__xasu__client__info_1gaf4bee00214accc868d4697e6745d83ca" kindref="member">XASU_PRIORITY_HIGH</ref>;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParam.SecureFlag<sp/>=<sp/><ref refid="group__xasu__common__defs_1ga2ce83e6be7ef8a6dc0ec9067b7e8f396" kindref="member">XASU_CMD_SECURE</ref>;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParam.CallBackFuncPtr<sp/>=<sp/>(<ref refid="group__xasu__client__info_1gab35273f00eccc22237ed1fa5cffda558" kindref="member">XAsuClient_ResponseHandler</ref>)((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)XAsu_HmacCallBackRef);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParam.CallBackRefPtr<sp/>=<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)&amp;ClientParam;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorStatus<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HmacClientParam.<ref refid="struct_x_asu___hmac_params_1a88cff332a0caa94bdd7f7951243b8235" kindref="member">ShaType</ref><sp/>=<sp/>(u8)<ref refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" kindref="member">XASU_SHA2_TYPE</ref>;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HmacClientParam.<ref refid="struct_x_asu___hmac_params_1a1ac844d8a769624d98bbd4a1403d60f2" kindref="member">ShaMode</ref><sp/>=<sp/>(u8)<ref refid="group__xasu__common__defs_1ga4047c862b722198278f8856b50525be0" kindref="member">XASU_SHA_MODE_512</ref>;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HmacClientParam.<ref refid="struct_x_asu___hmac_params_1a8ed434b3d836170df4b69125ed09f29a" kindref="member">IsLast</ref><sp/>=<sp/>(u8)TRUE;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HmacClientParam.<ref refid="struct_x_asu___hmac_params_1af681757f8d870f564596fbcaccc1de81" kindref="member">OperationFlags</ref><sp/>=<sp/>(u8)(<ref refid="group__xasu__common__defs_1gae3a9e9118884ccc0feae9e4728394e3d" kindref="member">XASU_INIT</ref><sp/>|<sp/><ref refid="group__xasu__common__defs_1ga74c866f4c9240345e465c2c9e666d9a1" kindref="member">XASU_UPDATE</ref><sp/>|<sp/><ref refid="group__xasu__common__defs_1gaa31a05872c26a658a8da800ee649dbe9" kindref="member">XASU_FINISH</ref>);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HmacClientParam.<ref refid="struct_x_asu___hmac_params_1a8283775aca99141cf13a9cf47117706b" kindref="member">KeyObject</ref>.<ref refid="struct_x_asu___kdf_hmac_key_object_1a6478bb66b6eb171e9d3d1d439bcbef61" kindref="member">KeyInAddr</ref><sp/>=<sp/>(u64)(UINTPTR)Key;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HmacClientParam.<ref refid="struct_x_asu___hmac_params_1a8283775aca99141cf13a9cf47117706b" kindref="member">KeyObject</ref>.<ref refid="struct_x_asu___kdf_hmac_key_object_1aa99618d3506017ef8945a10063ccfe3e" kindref="member">KeyInLen</ref><sp/>=<sp/><ref refid="group__xasu__hmac__client__example_1ga96cea7b1923f2465a0107ad82fada1fb" kindref="member">ASU_HMAC_KEY_LEN_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HmacClientParam.<ref refid="struct_x_asu___hmac_params_1a8283775aca99141cf13a9cf47117706b" kindref="member">KeyObject</ref>.<ref refid="struct_x_asu___kdf_hmac_key_object_1ae1828d9c928fb0b79910e3f06e3f18c3" kindref="member">KeyId</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HmacClientParam.<ref refid="struct_x_asu___hmac_params_1a8651415dc1db7c9bdbbc0f328a379d67" kindref="member">MsgBufferAddr</ref><sp/>=<sp/>(u64)(UINTPTR)Message;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HmacClientParam.<ref refid="struct_x_asu___hmac_params_1af7c9b754f239713e21a41d6f61b1e61b" kindref="member">MsgLen</ref><sp/>=<sp/><ref refid="group__xasu__hmac__client__example_1gaffaed05c64999e43d43fbca5b139c8c8" kindref="member">ASU_HMAC_MSG_LEN_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HmacClientParam.<ref refid="struct_x_asu___hmac_params_1a852eebbd400e71ec9f3e384bf4258151" kindref="member">HmacAddr</ref><sp/>=<sp/>(u64)(UINTPTR)HmacOutput;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HmacClientParam.<ref refid="struct_x_asu___hmac_params_1a8b51dbfd52ff462a642848d0d2150c14" kindref="member">HmacLen</ref><sp/>=<sp/><ref refid="group__xasu__hmac__client__example_1gad7c826de3a851b64e1ecfd0cf7fdb870" kindref="member">ASU_HMAC_LEN_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__hmac__client__apis_1ga4a51b82f829ed68f456efc5d0fb30a8c" kindref="member">XAsu_HmacCompute</ref>(&amp;ClientParam,<sp/>&amp;HmacClientParam);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;Calculation<sp/>of<sp/>HMAC<sp/>failed,<sp/>Status<sp/>=<sp/>%x<sp/>\n\r&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(!Notify);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n<sp/>HMAC<sp/>client<sp/>example<sp/>failed<sp/>with<sp/>Status<sp/>=<sp/>%08x&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ErrorStatus<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n<sp/>HMAC<sp/>client<sp/>example<sp/>failed<sp/>with<sp/>error<sp/>from<sp/>server<sp/>=<sp/>%08x&quot;</highlight><highlight class="normal">,<sp/>ErrorStatus);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n<sp/>Successfully<sp/>ran<sp/>HMAC<sp/>client<sp/>example<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="241"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Asu_PrintHmac(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Hmac)</highlight></codeline>
+<codeline lineno="242"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/><ref refid="group__xasu__hmac__client__example_1gad7c826de3a851b64e1ecfd0cf7fdb870" kindref="member">ASU_HMAC_LEN_IN_BYTES</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;%02x<sp/>&quot;</highlight><highlight class="normal">,<sp/>Hmac[Index]);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;<sp/>\r\n<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="262"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XAsu_HmacCallBackRef(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u32<sp/>Status)</highlight></codeline>
+<codeline lineno="263"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)CallBackRef;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorStatus<sp/>=<sp/>Status;</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;Example:<sp/>Received<sp/>response\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>0x0U)<sp/>{</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;HMAC<sp/>example<sp/>is<sp/>failed<sp/>with<sp/>the<sp/>response<sp/>%x\n\r&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;Calculated<sp/>HMAC<sp/>\r\n<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Asu_PrintHmac((u8<sp/>*)(UINTPTR)&amp;HmacOutput);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SMemCmp_CT(ExpHmac,<sp/><ref refid="group__xasu__hmac__client__example_1gad7c826de3a851b64e1ecfd0cf7fdb870" kindref="member">ASU_HMAC_LEN_IN_BYTES</ref>,<sp/>HmacOutput,<sp/><ref refid="group__xasu__hmac__client__example_1gad7c826de3a851b64e1ecfd0cf7fdb870" kindref="member">ASU_HMAC_LEN_IN_BYTES</ref>,</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__hmac__client__example_1gad7c826de3a851b64e1ecfd0cf7fdb870" kindref="member">ASU_HMAC_LEN_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;Expected<sp/>Hmac<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Asu_PrintHmac(ExpHmac);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;Hmac<sp/>Example<sp/>Failed<sp/>at<sp/>HMAC<sp/>Comparison<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="281"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Update<sp/>the<sp/>variable<sp/>to<sp/>notify<sp/>the<sp/>callback<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Notify<sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_hmac_example.c"/>
+  </compounddef>
+</doxygen>

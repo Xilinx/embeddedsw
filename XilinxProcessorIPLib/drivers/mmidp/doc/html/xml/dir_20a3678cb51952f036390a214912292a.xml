@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_20a3678cb51952f036390a214912292a" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xmmidp_8h">xmmidp.h</innerfile>
+    <innerfile refid="xmmidp__hw_8h">xmmidp_hw.h</innerfile>
+    <innerfile refid="xmmidp__intr_8c">xmmidp_intr.c</innerfile>
+    <innerfile refid="xmmidp__link_8c">xmmidp_link.c</innerfile>
+    <innerfile refid="xmmidp__phy_8c">xmmidp_phy.c</innerfile>
+    <innerfile refid="xmmidp__stream_8c">xmmidp_stream.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/"/>
+  </compounddef>
+</doxygen>

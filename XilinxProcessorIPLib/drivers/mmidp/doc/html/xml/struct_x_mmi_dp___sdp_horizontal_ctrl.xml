@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mmi_dp___sdp_horizontal_ctrl" kind="struct" prot="public">
+    <compoundname>XMmiDp_SdpHorizontalCtrl</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mmi_dp___sdp_horizontal_ctrl_1af7d5a30f7c4e9dae36f79aa1beda104f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMmiDp_SdpHorizontalCtrl::EnHorizontalSdp</definition>
+        <argsstring></argsstring>
+        <name>EnHorizontalSdp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="374" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="374" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___sdp_horizontal_ctrl_1ab61d94305fd246a834ffdf3db937566f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_SdpHorizontalCtrl::FixedPriorityArb</definition>
+        <argsstring></argsstring>
+        <name>FixedPriorityArb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="375" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="375" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___sdp_horizontal_ctrl_1a6c4bd9786dde7f504f48964233a327b7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_SdpHorizontalCtrl::EnAudioStreamSdp</definition>
+        <argsstring></argsstring>
+        <name>EnAudioStreamSdp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="376" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="376" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___sdp_horizontal_ctrl_1af3a56b87454fe423b4979ecf86c579ca" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_SdpHorizontalCtrl::EnAudioTimeStampSdp</definition>
+        <argsstring></argsstring>
+        <name>EnAudioTimeStampSdp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="377" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="377" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___sdp_horizontal_ctrl_1aa57ca0b49f5e7a829171f18880e9c265" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_SdpHorizontalCtrl::Reserved</definition>
+        <argsstring></argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="378" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="378" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="373" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="373" bodyend="379"/>
+    <listofallmembers>
+      <member refid="struct_x_mmi_dp___sdp_horizontal_ctrl_1a6c4bd9786dde7f504f48964233a327b7" prot="public" virt="non-virtual"><scope>XMmiDp_SdpHorizontalCtrl</scope><name>EnAudioStreamSdp</name></member>
+      <member refid="struct_x_mmi_dp___sdp_horizontal_ctrl_1af3a56b87454fe423b4979ecf86c579ca" prot="public" virt="non-virtual"><scope>XMmiDp_SdpHorizontalCtrl</scope><name>EnAudioTimeStampSdp</name></member>
+      <member refid="struct_x_mmi_dp___sdp_horizontal_ctrl_1af7d5a30f7c4e9dae36f79aa1beda104f" prot="public" virt="non-virtual"><scope>XMmiDp_SdpHorizontalCtrl</scope><name>EnHorizontalSdp</name></member>
+      <member refid="struct_x_mmi_dp___sdp_horizontal_ctrl_1ab61d94305fd246a834ffdf3db937566f" prot="public" virt="non-virtual"><scope>XMmiDp_SdpHorizontalCtrl</scope><name>FixedPriorityArb</name></member>
+      <member refid="struct_x_mmi_dp___sdp_horizontal_ctrl_1aa57ca0b49f5e7a829171f18880e9c265" prot="public" virt="non-virtual"><scope>XMmiDp_SdpHorizontalCtrl</scope><name>Reserved</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

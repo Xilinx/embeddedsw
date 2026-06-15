@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structsi5344__revd" kind="struct" prot="public">
+    <compoundname>si5344_revd</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structsi5344__revd_1a145ca591e5ba2a69dd2575139a335048" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int si5344_revd::address</definition>
+        <argsstring></argsstring>
+        <name>address</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/si5344drv.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/si5344drv.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsi5344__revd_1aad09764978dc5211a9730b34d0b7d007" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char si5344_revd::value</definition>
+        <argsstring></argsstring>
+        <name>value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/si5344drv.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/si5344drv.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/si5344drv.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/si5344drv.h" bodystart="50" bodyend="55"/>
+    <listofallmembers>
+      <member refid="structsi5344__revd_1a145ca591e5ba2a69dd2575139a335048" prot="public" virt="non-virtual"><scope>si5344_revd</scope><name>address</name></member>
+      <member refid="structsi5344__revd_1aad09764978dc5211a9730b34d0b7d007" prot="public" virt="non-virtual"><scope>si5344_revd</scope><name>value</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

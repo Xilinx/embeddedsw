@@ -1,0 +1,646 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__rsainfo_8h" kind="file">
+    <compoundname>xasu_rsainfo.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <includes local="yes">xasu_bsp_config.h</includes>
+    <includedby refid="xasu__rsa_8h" local="yes">xasu_rsa.h</includedby>
+    <includedby refid="xasu__keymanagerinfo_8h" local="yes">xasu_keymanagerinfo.h</includedby>
+    <includedby refid="xasu__keywrap__common_8c" local="yes">xasu_keywrap_common.c</includedby>
+    <includedby refid="xasu__rsa__common_8h" local="yes">xasu_rsa_common.h</includedby>
+    <includedby refid="xasu__keywrap__example_8c" local="yes">xasu_keywrap_example.c</includedby>
+    <incdepgraph>
+      <node id="1022">
+        <label>xil_util.h</label>
+      </node>
+      <node id="1023">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="1021">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1020">
+        <label>xasu_rsainfo.h</label>
+        <link refid="xasu_rsainfo.h"/>
+        <childnode refid="1021" relation="include">
+        </childnode>
+        <childnode refid="1022" relation="include">
+        </childnode>
+        <childnode refid="1023" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1035">
+        <label>xasu_hmac.c</label>
+        <link refid="xasu__hmac_8c"/>
+      </node>
+      <node id="1037">
+        <label>xasu_keymanager_common.c</label>
+        <link refid="xasu__keymanager__common_8c"/>
+      </node>
+      <node id="1032">
+        <label>xasu_keymanager_common.h</label>
+        <link refid="xasu__keymanager__common_8h"/>
+        <childnode refid="1033" relation="include">
+        </childnode>
+        <childnode refid="1034" relation="include">
+        </childnode>
+        <childnode refid="1035" relation="include">
+        </childnode>
+        <childnode refid="1031" relation="include">
+        </childnode>
+        <childnode refid="1036" relation="include">
+        </childnode>
+        <childnode refid="1037" relation="include">
+        </childnode>
+        <childnode refid="1038" relation="include">
+        </childnode>
+        <childnode refid="1039" relation="include">
+        </childnode>
+        <childnode refid="1040" relation="include">
+        </childnode>
+      </node>
+      <node id="1038">
+        <label>xasu_keywrap_common.c</label>
+        <link refid="xasu__keywrap__common_8c"/>
+      </node>
+      <node id="1027">
+        <label>xasu_multi_crypto_example.c</label>
+        <link refid="xasu__multi__crypto__example_8c"/>
+      </node>
+      <node id="1034">
+        <label>xasu_ecc.c</label>
+        <link refid="xasu__ecc_8c"/>
+      </node>
+      <node id="1028">
+        <label>xasu_rsa_example.c</label>
+        <link refid="xasu__rsa__example_8c"/>
+      </node>
+      <node id="1040">
+        <label>xasu_rsa_common.c</label>
+        <link refid="xasu__rsa__common_8c"/>
+      </node>
+      <node id="1041">
+        <label>xasu_rsa_common.h</label>
+        <link refid="xasu__rsa__common_8h"/>
+        <childnode refid="1026" relation="include">
+        </childnode>
+        <childnode refid="1040" relation="include">
+        </childnode>
+      </node>
+      <node id="1042">
+        <label>xasu_keywrap_example.c</label>
+        <link refid="xasu__keywrap__example_8c"/>
+      </node>
+      <node id="1029">
+        <label>xasu_keymanagerinfo.h</label>
+        <link refid="xasu__keymanagerinfo_8h"/>
+        <childnode refid="1030" relation="include">
+        </childnode>
+        <childnode refid="1032" relation="include">
+        </childnode>
+      </node>
+      <node id="1026">
+        <label>xasu_rsa.c</label>
+        <link refid="xasu__rsa_8c"/>
+      </node>
+      <node id="1025">
+        <label>xasu_rsa.h</label>
+        <link refid="xasu__rsa_8h"/>
+        <childnode refid="1026" relation="include">
+        </childnode>
+        <childnode refid="1027" relation="include">
+        </childnode>
+        <childnode refid="1028" relation="include">
+        </childnode>
+      </node>
+      <node id="1033">
+        <label>xasu_aes.c</label>
+        <link refid="xasu__aes_8c"/>
+      </node>
+      <node id="1036">
+        <label>xasu_kdf_common.c</label>
+        <link refid="xasu__kdf__common_8c"/>
+      </node>
+      <node id="1031">
+        <label>xasu_keymanager.c</label>
+        <link refid="xasu__keymanager_8c"/>
+      </node>
+      <node id="1030">
+        <label>xasu_keymanager.h</label>
+        <link refid="xasu__keymanager_8h"/>
+        <childnode refid="1031" relation="include">
+        </childnode>
+      </node>
+      <node id="1024">
+        <label>xasu_rsainfo.h</label>
+        <link refid="xasu_rsainfo.h"/>
+        <childnode refid="1025" relation="include">
+        </childnode>
+        <childnode refid="1029" relation="include">
+        </childnode>
+        <childnode refid="1038" relation="include">
+        </childnode>
+        <childnode refid="1041" relation="include">
+        </childnode>
+        <childnode refid="1042" relation="include">
+        </childnode>
+      </node>
+      <node id="1039">
+        <label>xasu_lms_common.c</label>
+        <link refid="xasu__lms__common_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_asu___rsa_pub_key_comp" prot="public">XAsu_RsaPubKeyComp</innerclass>
+    <innerclass refid="struct_x_asu___rsa_pvt_key_comp" prot="public">XAsu_RsaPvtKeyComp</innerclass>
+    <innerclass refid="struct_x_asu___rsa_crt_key_comp" prot="public">XAsu_RsaCrtKeyComp</innerclass>
+    <innerclass refid="struct_x_asu___rsa_r_r_mod_n" prot="public">XAsu_RsaRRModN</innerclass>
+    <innerclass refid="struct_x_asu___rsa_r_mod_n" prot="public">XAsu_RsaRModN</innerclass>
+    <innerclass refid="struct_x_asu___rsa_params" prot="public">XAsu_RsaParams</innerclass>
+    <innerclass refid="struct_x_asu___rsa_padding_params" prot="public">XAsu_RsaPaddingParams</innerclass>
+    <innerclass refid="struct_x_asu___rsa_oaep_padding_params" prot="public">XAsu_RsaOaepPaddingParams</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__common__defs_1gaaa08cb3f7d74f46248a0628c8608dd4e" prot="public" static="no">
+        <name>XASU_RSA_PUB_ENC_CMD_ID</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Command ID for RSA public encryption. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="48" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaa85dcefff8e7e30465bf6a5e5d20e7fd" compoundref="xasu__rsa_8c" startline="64" endline="130">XAsu_RsaEnc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga1e4840ada393e62fadbcb459dda61154" prot="public" static="no">
+        <name>XASU_RSA_PVT_DEC_CMD_ID</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Command ID for RSA private decryption. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga8d99c3659893b5b77683b6bc3ee3abf8" compoundref="xasu__rsa_8c" startline="148" endline="214">XAsu_RsaDec</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga77e251196592abb4501a5f44e6904efc" prot="public" static="no">
+        <name>XASU_RSA_PVT_CRT_DEC_CMD_ID</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Command ID for RSA private CRT decryption. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaa738d6a05293f677e9fdd1fd137cc912" compoundref="xasu__rsa_8c" startline="233" endline="299">XAsu_RsaCrtDec</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gae9e00748dcd61fab9b96a551cccd7463" prot="public" static="no">
+        <name>XASU_RSA_OAEP_ENC_SHA2_CMD_ID</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Command ID for OAEP encryption with SHA2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga32fd59ce2f1c0da67ca9217a224a4626" compoundref="xasu__rsa_8c" startline="318" endline="399">XAsu_RsaOaepEnc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gabfb400e0730a77cdf78539a1bb2aa40f" prot="public" static="no">
+        <name>XASU_RSA_OAEP_DEC_SHA2_CMD_ID</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Command ID for OAEP decryption with SHA2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaf459c9f8ebb4d33247bbd8b6ab591809" compoundref="xasu__rsa_8c" startline="418" endline="499">XAsu_RsaOaepDec</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga5a4a3265632fdf2a9397dcd01e34a45f" prot="public" static="no">
+        <name>XASU_RSA_OAEP_ENC_SHA3_CMD_ID</name>
+        <initializer>(5U)</initializer>
+        <briefdescription>
+<para>Command ID for OAEP encryption with SHA3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="55" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga32fd59ce2f1c0da67ca9217a224a4626" compoundref="xasu__rsa_8c" startline="318" endline="399">XAsu_RsaOaepEnc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gae2d0d4cdb898536ce9b81fb427fbe66f" prot="public" static="no">
+        <name>XASU_RSA_OAEP_DEC_SHA3_CMD_ID</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>Command ID for OAEP decryption with SHA3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaf459c9f8ebb4d33247bbd8b6ab591809" compoundref="xasu__rsa_8c" startline="418" endline="499">XAsu_RsaOaepDec</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga0326c60f03f41427f495cae1b16bfaea" prot="public" static="no">
+        <name>XASU_RSA_PSS_SIGN_GEN_SHA2_CMD_ID</name>
+        <initializer>(7U)</initializer>
+        <briefdescription>
+<para>Command ID for PSS sign generation with SHA2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaceff65cb28ac22b56121a047dbb53aa9" compoundref="xasu__rsa_8c" startline="518" endline="601">XAsu_RsaPssSignGen</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga63ed6f5157f1f8058157a323d86de0a3" prot="public" static="no">
+        <name>XASU_RSA_PSS_SIGN_VER_SHA2_CMD_ID</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Command ID for PSS sign verification with SHA2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga3a33eba68b96c49e0dcb8ca6abfd7b89" compoundref="xasu__rsa_8c" startline="620" endline="701">XAsu_RsaPssSignVer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gafe66a48f7bc8613f847b950a4527d90d" prot="public" static="no">
+        <name>XASU_RSA_PSS_SIGN_GEN_SHA3_CMD_ID</name>
+        <initializer>(9U)</initializer>
+        <briefdescription>
+<para>Command ID for PSS sign generation with SHA3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaceff65cb28ac22b56121a047dbb53aa9" compoundref="xasu__rsa_8c" startline="518" endline="601">XAsu_RsaPssSignGen</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gabdaa92632a989db821db9bd361430159" prot="public" static="no">
+        <name>XASU_RSA_PSS_SIGN_VER_SHA3_CMD_ID</name>
+        <initializer>(10U)</initializer>
+        <briefdescription>
+<para>Command ID for PSS sign verification with SHA3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga3a33eba68b96c49e0dcb8ca6abfd7b89" compoundref="xasu__rsa_8c" startline="620" endline="701">XAsu_RsaPssSignVer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga76cafee9cd51795f3a81afec4eeb570f" prot="public" static="no">
+        <name>XASU_RSA_OAEP_ENC_DEC_KAT_CMD_ID</name>
+        <initializer>(11U)</initializer>
+        <briefdescription>
+<para>KAT command for RSA OAEP encryption and decryption. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga5d24241387d6859603f7de3270205d0a" compoundref="xasu__rsa_8c" startline="718" endline="747">XAsu_RsaOaepEncDecKat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga8e3e63880bd11293a0ff07490dc00efe" prot="public" static="no">
+        <name>XASU_RSA_PSS_SIGN_GEN_VER_KAT_CMD_ID</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>KAT command for RSA PSS sign generation and verification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga0e3fbf80fd0254640e9938019e3b9ee1" compoundref="xasu__rsa_8c" startline="764" endline="793">XAsu_RsaPssSignGenAndVerKat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gabfec13e61ebeead57a982b90b32828e5" prot="public" static="no">
+        <name>XASU_RSA_MAX_CMDS</name>
+        <initializer>(13U)</initializer>
+        <briefdescription>
+<para>Maximum number of commands supported by RSA module. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga244bab817f8c6f8eedd5698e26b772d7" prot="public" static="no">
+        <name>XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>RSA output data length size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaa738d6a05293f677e9fdd1fd137cc912" compoundref="xasu__rsa_8c" startline="233" endline="299">XAsu_RsaCrtDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga8d99c3659893b5b77683b6bc3ee3abf8" compoundref="xasu__rsa_8c" startline="148" endline="214">XAsu_RsaDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaa85dcefff8e7e30465bf6a5e5d20e7fd" compoundref="xasu__rsa_8c" startline="64" endline="130">XAsu_RsaEnc</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaf459c9f8ebb4d33247bbd8b6ab591809" compoundref="xasu__rsa_8c" startline="418" endline="499">XAsu_RsaOaepDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga32fd59ce2f1c0da67ca9217a224a4626" compoundref="xasu__rsa_8c" startline="318" endline="399">XAsu_RsaOaepEnc</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaceff65cb28ac22b56121a047dbb53aa9" compoundref="xasu__rsa_8c" startline="518" endline="601">XAsu_RsaPssSignGen</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaf03b8841773c39c464177cccbe4a8169" prot="public" static="no">
+        <name>XRSA_2048_KEY_SIZE</name>
+        <initializer>(256U)</initializer>
+        <briefdescription>
+<para>2048 bit key size in bytes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gafd14cee9cb664e2c541e3bac5c7226ae" compoundref="xasu__keymanager__common_8c" startline="129" endline="178">XAsu_KmValidateKeyLength</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga97f2cf29f335afb53c49908a5af0eea4" prot="public" static="no">
+        <name>XRSA_3072_KEY_SIZE</name>
+        <initializer>(384U)</initializer>
+        <briefdescription>
+<para>3072 bit key size in bytes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="80" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gafd14cee9cb664e2c541e3bac5c7226ae" compoundref="xasu__keymanager__common_8c" startline="129" endline="178">XAsu_KmValidateKeyLength</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga476467dcafd680088f426d59235bf7ce" prot="public" static="no">
+        <name>XRSA_4096_KEY_SIZE</name>
+        <initializer>(512U)</initializer>
+        <briefdescription>
+<para>4096 bit key size in bytes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gafd14cee9cb664e2c541e3bac5c7226ae" compoundref="xasu__keymanager__common_8c" startline="129" endline="178">XAsu_KmValidateKeyLength</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gac7df8425838403069e0c562a63fc4532" prot="public" static="no">
+        <name>XRSA_MAX_KEY_SIZE_IN_WORDS</name>
+        <initializer>(<ref refid="group__xasu__common__defs_1ga476467dcafd680088f426d59235bf7ce" kindref="member">XRSA_4096_KEY_SIZE</ref> / 4U)</initializer>
+        <briefdescription>
+<para>RSA max key size in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gad3da6f2be5d0dec3c74e23d9197ba40b" prot="public" static="no">
+        <name>XRSA_MAX_PRIME_SIZE_IN_WORDS</name>
+        <initializer>(64U)</initializer>
+        <briefdescription>
+<para>RSA max prime size in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga49f5d87d707175ade5c12f09f2062ba0" prot="public" static="no">
+        <name>XASU_RSA_HASHED_INPUT_DATA</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Input data hash is already calculated. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="89" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaceff65cb28ac22b56121a047dbb53aa9" compoundref="xasu__rsa_8c" startline="518" endline="601">XAsu_RsaPssSignGen</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga3a33eba68b96c49e0dcb8ca6abfd7b89" compoundref="xasu__rsa_8c" startline="620" endline="701">XAsu_RsaPssSignVer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaeb00624788b48e7f165460b7d35011ce" prot="public" static="no">
+        <name>XASU_RSA_ENCRYPTION</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Encryption operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga5130056c5cf73df4765b426d2024a81b" prot="public" static="no">
+        <name>XASU_RSA_EXPONENTIATION_DECRYPTION</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Exponentiation Decryption operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaf0b522ea0b9ae9c0112509d9dd3b1156" prot="public" static="no">
+        <name>XASU_RSA_SIGN_GENERATION</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Sign generation operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga9ae22a2980ce04fcc4cccf32fd9e9e06" prot="public" static="no">
+        <name>XASU_RSA_SIGN_VERIFICATION</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Sign verification operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xasu__rsainfo_8h_1a0392c112cefd4d88035ffd17ac89cc60" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_RsaValidateKeySize</definition>
+        <argsstring>(u32 Len)</argsstring>
+        <name>XAsu_RsaValidateKeySize</name>
+        <param>
+          <type>u32</type>
+          <declname>Len</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the specified RSA key length. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the RSA key </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="197" bodyend="207"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the RSA definitions which are common across the client and server. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   ss   08/20/24 Initial release
+      ss   09/23/24 Fixed doxygen comments
+      ss   02/04/25 Added client support for RSA padding scheme
+      yog  01/28/26 Added RSA key ID parameter and key pair structures.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor">#ifndef<sp/>XASU_RSAINFO_H_</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_RSAINFO_H_</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xasu_bsp_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>RSA<sp/>module<sp/>command<sp/>IDs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="group__xasu__common__defs_1gaaa08cb3f7d74f46248a0628c8608dd4e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XASU_RSA_PUB_ENC_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="49" refid="group__xasu__common__defs_1ga1e4840ada393e62fadbcb459dda61154" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_RSA_PVT_DEC_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="50" refid="group__xasu__common__defs_1ga77e251196592abb4501a5f44e6904efc" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_RSA_PVT_CRT_DEC_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor">#define<sp/>XASU_RSA_OAEP_ENC_SHA2_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)<sp/></highlight></codeline>
+<codeline lineno="53" refid="group__xasu__common__defs_1gae9e00748dcd61fab9b96a551cccd7463" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_RSA_OAEP_DEC_SHA2_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="54" refid="group__xasu__common__defs_1gabfb400e0730a77cdf78539a1bb2aa40f" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_RSA_OAEP_ENC_SHA3_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(5U)<sp/></highlight></codeline>
+<codeline lineno="55" refid="group__xasu__common__defs_1ga5a4a3265632fdf2a9397dcd01e34a45f" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_RSA_OAEP_DEC_SHA3_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6U)<sp/></highlight></codeline>
+<codeline lineno="56" refid="group__xasu__common__defs_1gae2d0d4cdb898536ce9b81fb427fbe66f" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_RSA_PSS_SIGN_GEN_SHA2_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(7U)<sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor">#define<sp/>XASU_RSA_PSS_SIGN_VER_SHA2_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)<sp/></highlight></codeline>
+<codeline lineno="60" refid="group__xasu__common__defs_1ga63ed6f5157f1f8058157a323d86de0a3" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_RSA_PSS_SIGN_GEN_SHA3_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(9U)<sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor">#define<sp/>XASU_RSA_PSS_SIGN_VER_SHA3_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(10U)<sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor">#define<sp/>XASU_RSA_OAEP_ENC_DEC_KAT_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(11U)<sp/></highlight></codeline>
+<codeline lineno="66" refid="group__xasu__common__defs_1gabdaa92632a989db821db9bd361430159" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_RSA_PSS_SIGN_GEN_VER_KAT_CMD_ID<sp/><sp/><sp/><sp/>(12U)<sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor">#define<sp/>XASU_RSA_MAX_CMDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(13U)<sp/></highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor">#define<sp/>XASU_RSA_OUTPUT_LEN_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>RSA<sp/>key<sp/>size<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="72" refid="group__xasu__common__defs_1ga8e3e63880bd11293a0ff07490dc00efe" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XRSA_2048_KEY_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(256U)<sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor">#define<sp/>XRSA_3072_KEY_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(384U)<sp/></highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor">#define<sp/>XRSA_4096_KEY_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(512U)<sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor">#define<sp/>XRSA_MAX_KEY_SIZE_IN_WORDS<sp/><sp/><sp/><sp/><sp/><sp/>(XRSA_4096_KEY_SIZE<sp/>/<sp/>4U)<sp/></highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor">#define<sp/>XRSA_MAX_PRIME_SIZE_IN_WORDS<sp/><sp/><sp/><sp/>(64U)<sp/></highlight></codeline>
+<codeline lineno="80" refid="group__xasu__common__defs_1ga97f2cf29f335afb53c49908a5af0eea4" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>RSA<sp/>input<sp/>data<sp/>type<sp/>for<sp/>sign<sp/>generation<sp/>or<sp/>verification<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="81" refid="group__xasu__common__defs_1ga476467dcafd680088f426d59235bf7ce" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_RSA_HASHED_INPUT_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>RSA<sp/>operation<sp/>flags<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_RSA_ENCRYPTION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86" refid="group__xasu__common__defs_1gad3da6f2be5d0dec3c74e23d9197ba40b" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_RSA_EXPONENTIATION_DECRYPTION<sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor">#define<sp/>XASU_RSA_SIGN_GENERATION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor">#define<sp/>XASU_RSA_SIGN_VERIFICATION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="93"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="94" refid="group__xasu__common__defs_1gaeb00624788b48e7f165460b7d35011ce" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Keysize;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95" refid="group__xasu__common__defs_1ga5130056c5cf73df4765b426d2024a81b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Modulus[<ref refid="group__xasu__common__defs_1gac7df8425838403069e0c562a63fc4532" kindref="member">XRSA_MAX_KEY_SIZE_IN_WORDS</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96" refid="group__xasu__common__defs_1gaf0b522ea0b9ae9c0112509d9dd3b1156" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PubExp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97" refid="group__xasu__common__defs_1ga9ae22a2980ce04fcc4cccf32fd9e9e06" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_asu___rsa_pub_key_comp" kindref="compound">XAsu_RsaPubKeyComp</ref>;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___rsa_pub_key_comp" kindref="compound">XAsu_RsaPubKeyComp</ref><sp/>PubKeyComp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="102" refid="struct_x_asu___rsa_pub_key_comp" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PvtExp[<ref refid="group__xasu__common__defs_1gac7df8425838403069e0c562a63fc4532" kindref="member">XRSA_MAX_KEY_SIZE_IN_WORDS</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="103" refid="struct_x_asu___rsa_pub_key_comp_1a9ad687d0df69d07e4584833f13049d22" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PrimeCompOrTotient[<ref refid="group__xasu__common__defs_1gac7df8425838403069e0c562a63fc4532" kindref="member">XRSA_MAX_KEY_SIZE_IN_WORDS</ref>];<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="105" refid="struct_x_asu___rsa_pub_key_comp_1a0b396660fe58b779190f084389c92bb4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PrimeCompOrTotientPrsnt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108"><highlight class="normal">}<sp/><ref refid="struct_x_asu___rsa_pvt_key_comp" kindref="compound">XAsu_RsaPvtKeyComp</ref>;</highlight></codeline>
+<codeline lineno="109" refid="struct_x_asu___rsa_pvt_key_comp" refkind="compound"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111" refid="struct_x_asu___rsa_pvt_key_comp_1a062bb63966c303087965d1e37b767428" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="112" refid="struct_x_asu___rsa_pvt_key_comp_1a872aad7bcfa90dd5b032b26199ea05f5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___rsa_pub_key_comp" kindref="compound">XAsu_RsaPubKeyComp</ref><sp/>PubKeyComp;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Prime1[<ref refid="group__xasu__common__defs_1gad3da6f2be5d0dec3c74e23d9197ba40b" kindref="member">XRSA_MAX_PRIME_SIZE_IN_WORDS</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114" refid="struct_x_asu___rsa_pvt_key_comp_1aee026bc85163c5d997042dc1895c48be" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Prime2[<ref refid="group__xasu__common__defs_1gad3da6f2be5d0dec3c74e23d9197ba40b" kindref="member">XRSA_MAX_PRIME_SIZE_IN_WORDS</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DP[<ref refid="group__xasu__common__defs_1gad3da6f2be5d0dec3c74e23d9197ba40b" kindref="member">XRSA_MAX_PRIME_SIZE_IN_WORDS</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DQ[<ref refid="group__xasu__common__defs_1gad3da6f2be5d0dec3c74e23d9197ba40b" kindref="member">XRSA_MAX_PRIME_SIZE_IN_WORDS</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>QInv[<ref refid="group__xasu__common__defs_1gad3da6f2be5d0dec3c74e23d9197ba40b" kindref="member">XRSA_MAX_PRIME_SIZE_IN_WORDS</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="118"><highlight class="normal">}<sp/><ref refid="struct_x_asu___rsa_crt_key_comp" kindref="compound">XAsu_RsaCrtKeyComp</ref>;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121" refid="struct_x_asu___rsa_crt_key_comp_1ab64253249dcabcd849e8af39d9755336" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="122" refid="struct_x_asu___rsa_crt_key_comp_1a20f6fb1389fefdaf5726f4917d8c86b1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RRn[<ref refid="group__xasu__common__defs_1gac7df8425838403069e0c562a63fc4532" kindref="member">XRSA_MAX_KEY_SIZE_IN_WORDS</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="123" refid="struct_x_asu___rsa_crt_key_comp_1a2999db5f4143a2bb320eb52de6d037a5" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_asu___rsa_r_r_mod_n" kindref="compound">XAsu_RsaRRModN</ref>;</highlight></codeline>
+<codeline lineno="124" refid="struct_x_asu___rsa_crt_key_comp_1aa2955a2d6fe0580f87acbe6b1293a96e" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126" refid="struct_x_asu___rsa_crt_key_comp_1a81c2fed4904cf161334b754472f28882" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___rsa_r_r_mod_n" kindref="compound">XAsu_RsaRRModN</ref><sp/>RRModn;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Rn[<ref refid="group__xasu__common__defs_1gac7df8425838403069e0c562a63fc4532" kindref="member">XRSA_MAX_KEY_SIZE_IN_WORDS</ref>];<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="129"><highlight class="normal">}<sp/><ref refid="struct_x_asu___rsa_r_mod_n" kindref="compound">XAsu_RsaRModN</ref>;</highlight></codeline>
+<codeline lineno="130" refid="struct_x_asu___rsa_r_r_mod_n" refkind="compound"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>InputDataAddr;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>OutputDataAddr;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="135" refid="struct_x_asu___rsa_r_mod_n" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>ExpoCompAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="136" refid="struct_x_asu___rsa_r_mod_n_1ab9410bd4d06ed27b2c9b8f27134525d7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>KeyCompAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>OutputLenAddr;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="141" refid="struct_x_asu___rsa_params" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Len;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="142" refid="struct_x_asu___rsa_params_1ae603b7d80dd7b6135fb3b0bef96301c2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OutputDataLen;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="145" refid="struct_x_asu___rsa_params_1a5e18a0a1b467d66aa7570db8a1dadaef" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>KeySize;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>KeyId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="147"><highlight class="normal">}<sp/><ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref>;</highlight></codeline>
+<codeline lineno="148" refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150" refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="151" refid="struct_x_asu___rsa_params_1a1abf4a87c26e0d8113367be1832373fe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref><sp/><sp/>XAsu_RsaOpComp;<sp/></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>SignatureDataAddr;<sp/><sp/></highlight></codeline>
+<codeline lineno="155" refid="struct_x_asu___rsa_params_1a59ac67149bdb6dfd10cc7fcb0033934b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SignatureLen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SaltLen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ShaType;<sp/></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ShaMode;<sp/></highlight></codeline>
+<codeline lineno="161" refid="struct_x_asu___rsa_padding_params_1adcdbd318ffffe4d16dd53a354d64b510" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>InputDataType;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="164" refid="struct_x_asu___rsa_padding_params_1a835f488b95ca9c9ae8cc9ae3e8732c5d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Reserved[5];<sp/></highlight></codeline>
+<codeline lineno="165" refid="struct_x_asu___rsa_padding_params_1a5fd9b8d42bd99b409b469c3cf43e9f9a" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_x_asu___rsa_padding_params" kindref="compound">XAsu_RsaPaddingParams</ref>;</highlight></codeline>
+<codeline lineno="166" refid="struct_x_asu___rsa_padding_params_1a4b962e1d08fb88965e9dcb6805769c34" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref><sp/><sp/>XAsu_RsaOpComp;<sp/></highlight></codeline>
+<codeline lineno="170" refid="struct_x_asu___rsa_padding_params_1afa1caad52128e98d9e481af3fc96626c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>OptionalLabelAddr;<sp/><sp/></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OptionalLabelSize;<sp/><sp/></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ShaType;<sp/></highlight></codeline>
+<codeline lineno="173" refid="struct_x_asu___rsa_padding_params_1af3cac970f043e807fef9f0387d72bbf1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ShaMode;<sp/></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Reserved[2];<sp/></highlight></codeline>
+<codeline lineno="177" refid="struct_x_asu___rsa_oaep_padding_params" refkind="compound"><highlight class="normal">}<sp/><ref refid="struct_x_asu___rsa_oaep_padding_params" kindref="compound">XAsu_RsaOaepPaddingParams</ref>;</highlight></codeline>
+<codeline lineno="178" refid="struct_x_asu___rsa_oaep_padding_params_1af7270c6b61dded1f64850612185a62e4" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179" refid="struct_x_asu___rsa_oaep_padding_params_1a9ea8551bd7f02de893a2bd8b633d42f0" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="180" refid="struct_x_asu___rsa_oaep_padding_params_1a5e62e9078bceb26a646be9ac32a2692d" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181" refid="struct_x_asu___rsa_oaep_padding_params_1ae09922eadcfe378ccb74fbda3e11094d" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="188"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>s32<sp/>XAsu_RsaValidateKeySize(u32<sp/>Len)</highlight></codeline>
+<codeline lineno="189"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Len<sp/>==<sp/><ref refid="group__xasu__common__defs_1gaf03b8841773c39c464177cccbe4a8169" kindref="member">XRSA_2048_KEY_SIZE</ref>)<sp/>||<sp/>(Len<sp/>==<sp/><ref refid="group__xasu__common__defs_1ga97f2cf29f335afb53c49908a5af0eea4" kindref="member">XRSA_3072_KEY_SIZE</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Len<sp/>==<sp/><ref refid="group__xasu__common__defs_1ga476467dcafd680088f426d59235bf7ce" kindref="member">XRSA_4096_KEY_SIZE</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XASU_RSAINFO_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h"/>
+  </compounddef>
+</doxygen>

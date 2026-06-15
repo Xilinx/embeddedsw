@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_reset_ps" kind="struct" prot="public">
+    <compoundname>XResetPs</compoundname>
+    <includes local="no">xresetps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_reset_ps_1a300e175ee1267ca7e41e57e698649c44" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_reset_ps___config" kindref="compound">XResetPs_Config</ref></type>
+        <definition>XResetPs_Config XResetPs::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="group__resetps_1gaa07a2af5abb40332c21bb77963841dcd" compoundref="xresetps_8c" startline="661" endline="676">XResetPs_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_reset_ps" kindref="compound">XResetPs</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every reset controller device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="4">
+        <label>XResetPs_Config</label>
+        <link refid="struct_x_reset_ps___config"/>
+      </node>
+      <node id="3">
+        <label>XResetPs</label>
+        <link refid="struct_x_reset_ps"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/src/xresetps.h" bodystart="97" bodyend="99"/>
+    <listofallmembers>
+      <member refid="struct_x_reset_ps_1a300e175ee1267ca7e41e57e698649c44" prot="public" virt="non-virtual"><scope>XResetPs</scope><name>Config</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

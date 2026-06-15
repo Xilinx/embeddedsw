@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>iicps</title>
+    <detaileddescription>
+<para><preformatted> MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+1.00a drg/jz  01/30/08 First release
+1.00a sdm     09/21/11 Fixed an issue in the XIicPs_SetOptions and
+                 XIicPs_ClearOptions where the InstancePtr-&gt;Options
+                 was not updated correctly.
+                         Updated the InstancePtr-&gt;Options in the
+                 XIicPs_CfgInitialize by calling XIicPs_GetOptions.
+                 Updated the XIicPs_SetupMaster to not check for
+                 Bus Busy condition when the Hold Bit is set.
+                 Removed some unused variables.
+1.01a sg      03/30/12 Fixed an issue in XIicPs_MasterSendPolled where a
+                 check for transfer completion is added, which indicates
+                 the completion of current transfer.
+1.02a sg        08/29/12 Updated the logic to arrive at the best divisors
+                 to achieve I2C clock with minimum error for
+                 CR #674195
+1.03a hk  05/04/13 Initialized BestDivA and BestDivB to 0.
+                 This is fix for CR#704398 to remove warning.
+2.0   hk  03/07/14 Added check for error status in the while loop that
+                   checks for completion.
+                   (XIicPs_MasterSendPolled function). CR# 762244, 764875.
+                   Limited frequency set when 100KHz or 400KHz is
+                   selected. This is a hardware limitation. CR#779290.
+2.1   hk  04/24/14 Fix for CR# 789821 to handle &gt;14 byte transfers.
+                   Explicitly reset CR and clear FIFO in Abort function
+                   and state the same in the comments. CR# 784254.
+                   Fix for CR# 761060 - provision for repeated start.
+2.2   hk  08/23/14 Slave monitor mode changes - clear FIFO, enable
+                   read mode and clear transfer size register.
+                   Disable NACK to avoid interrupts on each retry.
+2.3     sk      10/07/14 Repeated start feature deleted.
+3.0     sk      11/03/14 Modified TimeOut Register value to 0xFF
+                                         in XIicPs_Reset.
+                        12/06/14 Implemented Repeated start feature.
+                01/31/15 Modified the code according to MISRAC 2012 Compliant.
+                02/18/15 Implemented larger data transfer using repeated start
+                                  in Zynq UltraScale MP.
+3.3   kvn 05/05/16 Modified latest code for MISRA-C:2012 Compliance.
+      ms  03/17/17 Added readme.txt file in examples folder for doxygen
+                   generation.
+3.7   ask  04/17/18 Updated the Eeprom scanning mechanism
+                    as per the other examples (CR#997545)
+3.8   ask  08/01/18   Fix for Cppcheck and Doxygen warnings
+3.8   sd 09/06/18  Enable the Timeout interrupt
+3.9   sg 03/09/19  Added arbitration lost support in polled transfer
+3.11  rna  12/23/19 Added 10 bit address support for Master/Slave
+3.11  sd   02/06/20 Added clocking support.
+3.11  rna  02/20/20 Reorganization of driver for modularity.
+              Added new files <ref refid="xiicps__xfer_8c" kindref="compound">xiicps_xfer.c</ref> and <ref refid="xiicps__xfer_8h" kindref="compound">xiicps_xfer.h</ref>.
+              Moved internal data transfer APIs to xiicps_xfer.
+3.13  rna  05/24/21 Fixed Misra-c violations
+3.16  gm   05/10/22 Added support to get the status of receive valid data.
+                      Added support for clock stretching and timeout support.
+3.18  gm   07/14/23 Added SDT support.
+        sd   09/06/23 Compile refclk for SDT
+3.23  vlt  12/12/25 Update Doxygen comments to include SDT flow details.
+3.23  vlt  03/14/26 Updated BaseAddress type from u32 to UINTPTR
+                    to support 64-bit addressing
+      vlt  04/03/26 Added prototype for XIicPs_BusRecovery API.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

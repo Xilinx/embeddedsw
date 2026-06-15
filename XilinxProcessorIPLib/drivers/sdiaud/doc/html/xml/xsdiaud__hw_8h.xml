@@ -1,0 +1,1796 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsdiaud__hw_8h" kind="file">
+    <compoundname>xsdiaud_hw.h</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xsdiaud_8h" local="yes">xsdiaud.h</includedby>
+    <includedby refid="xsdiaud_8c" local="yes">xsdiaud.c</includedby>
+    <includedby refid="xsdiaud__selftest_8c" local="yes">xsdiaud_selftest.c</includedby>
+    <incdepgraph>
+      <node id="33">
+        <label>xil_io.h</label>
+      </node>
+      <node id="32">
+        <label>xsdiaud_hw.h</label>
+        <link refid="xsdiaud_hw.h"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="37">
+        <label>xsdiaud_g.c</label>
+      </node>
+      <node id="36">
+        <label>xsdiaud.c</label>
+        <link refid="xsdiaud_8c"/>
+      </node>
+      <node id="35">
+        <label>xsdiaud.h</label>
+        <link refid="xsdiaud_8h"/>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>xsdiaud_selftest_example.c</label>
+        <link refid="xsdiaud__selftest__example_8c"/>
+      </node>
+      <node id="39">
+        <label>xsdiaud_selftest.c</label>
+        <link refid="xsdiaud__selftest_8c"/>
+      </node>
+      <node id="34">
+        <label>xsdiaud_hw.h</label>
+        <link refid="xsdiaud_hw.h"/>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>xsdiaud_sinit.c</label>
+        <link refid="xsdiaud__sinit_8c"/>
+      </node>
+      <node id="38">
+        <label>xsdiaud_intr.c</label>
+        <link refid="xsdiaud__intr_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Register Map</header>
+      <description><para>Register offsets for the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> Embed/Extract device </para></description>
+      <memberdef kind="define" id="group__sdiaud_1ga1f08582db325cf112b15ab3d0816857b" prot="public" static="no">
+        <name>XSDIAUD_CNTRL_REG_OFFSET</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+<para>SDI Audio Module control register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="47" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1gac73f97119062624890969aa0c926cd51" compoundref="xsdiaud_8c" startline="122" endline="139">XSdiAud_Enable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gaa264a0eb161bcfd0d6226fd6e654e75f" prot="public" static="no">
+        <name>XSDIAUD_SOFT_RST_REG_OFFSET</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>SDI Audio Soft reset register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga532907f495640ca09b27fd5f85ab5f5b" compoundref="xsdiaud_8c" startline="568" endline="580">XSdiAud_ConfigReset</referencedby>
+        <referencedby refid="group__sdiaud_1ga299c4252e92583a5f6d3258d36319e25" compoundref="xsdiaud_8c" startline="592" endline="611">XSdiAud_CoreReset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga4b264279860943cccafa8182b6c87b82" prot="public" static="no">
+        <name>XSDIAUD_INT_EN_REG_OFFSET</name>
+        <initializer>0x0C</initializer>
+        <briefdescription>
+<para>SDI Audio Interrupt enable register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga6cc6d41fbe52f28c3cf35cec94d48e67" prot="public" static="no">
+        <name>XSDIAUD_CORE_VERSION_REG_OFFSET</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>SDI Audio Core version register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1gaa95d3e8ae24010498edb963aefe1944b" compoundref="xsdiaud_8c" startline="175" endline="183">XSdiAud_GetCoreVersion</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gab2b1473b41e24f4514ca318acca41225" prot="public" static="no">
+        <name>XSDIAUD_INT_STS_REG_OFFSET</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>SDI Audio Interrupt status register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga3d3823e317c0d235d0a455bf60e47525" compoundref="xsdiaud_8c" startline="194" endline="202">XSdiAud_GetIntStat</referencedby>
+        <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga0257b8d983e181923b40f100102a6dd2" prot="public" static="no">
+        <name>XSDIAUD_EMB_VID_CNTRL_REG_OFFSET</name>
+        <initializer>0X14</initializer>
+        <briefdescription>
+<para>SDI Audio Embed Video control register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1gabcb02d498819226b22e4da1862f71ccd" compoundref="xsdiaud_8c" startline="360" endline="371">XSdiAud_Emb_EnExtrnLine</referencedby>
+        <referencedby refid="group__sdiaud_1ga2e6fdf2a0ae109374f59cf3a3dea1ac8" compoundref="xsdiaud_8c" startline="318" endline="350">XSdiAud_Emb_SetVidProps</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga2ad7f7a55b3ed67326c1dafc285ff41c" prot="public" static="no">
+        <name>XSDIAUD_AUD_CNTRL_REG_OFFSET</name>
+        <initializer>0x18</initializer>
+        <briefdescription>
+<para>SDI Audio Audio control register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1gaca24393d60284ac66101dacdb90df60c" compoundref="xsdiaud_8c" startline="268" endline="282">XSdiAud_Emb_SetAsx</referencedby>
+        <referencedby refid="group__sdiaud_1gadd6dab74039c2618226942aa8bf7bb41" compoundref="xsdiaud_8c" startline="216" endline="228">XSdiAud_Emb_SetSmpRate</referencedby>
+        <referencedby refid="group__sdiaud_1gad46c468eb0c036b1393060a6e5913426" compoundref="xsdiaud_8c" startline="242" endline="255">XSdiAud_Emb_SetSmpSize</referencedby>
+        <referencedby refid="group__sdiaud_1ga0a3c6462665eba31e7e323b9d57aeb5c" compoundref="xsdiaud_8c" startline="382" endline="393">XSdiAud_Ext_DisableClkPhase</referencedby>
+        <referencedby refid="group__sdiaud_1ga8c138d7bae2ff7770ac0f407e7e8d44c" compoundref="xsdiaud_8c" startline="293" endline="306">XSdiAud_SetAesChPair</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga11bab2fbb639aa280156a6c989fdc272" prot="public" static="no">
+        <name>XSDIAUD_VALID_CH_REG_OFFSET</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>SDI Audio valid channels register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga9abe19eaf798717fe47a41cd05ccf663" compoundref="xsdiaud_8c" startline="432" endline="439">XSdiAud_SetCh</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga2e495d663d19b1fd4cfd26d108e27e54" prot="public" static="no">
+        <name>XSDIAUD_MUTE_CH_REG_OFFSET</name>
+        <initializer>0x30</initializer>
+        <briefdescription>
+<para>SDI Audio mute channels register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1gad3bc0d473b0bb0a4277d9c8f27069e19" compoundref="xsdiaud_8c" startline="449" endline="456">XSdiAud_MuteCh</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gad9a9a72bba9a4ff117315a8c9bae6411" prot="public" static="no">
+        <name>XSDIAUD_ACT_GRP_PRES_REG_OFFSET</name>
+        <initializer>0X40</initializer>
+        <briefdescription>
+<para>SDI Audio group presence register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga8747ab428cfbcbc34013f7dbf8674440" compoundref="xsdiaud_8c" startline="406" endline="420">XSdiAud_GetActGrpStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gad2b9e608a3c085ec358e6975bb862630" prot="public" static="no">
+        <name>XSDIAUD_EXT_FIFO_OVFLW_ST_REG_OFFSET</name>
+        <initializer>0X44</initializer>
+        <briefdescription>
+<para>SDI Audio Extract FIFO overflow status register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga4abd5f9c2cacb3808a4751da71942eae" compoundref="xsdiaud_8c" startline="469" endline="480">XSdiAud_Ext_GetFIFOOvFlwStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga2979a7a1dad335bb0f17585159d2e313" prot="public" static="no">
+        <name>XSDIAUD_EXT_CH_STAT0_REG_OFFSET</name>
+        <initializer>0X48</initializer>
+        <briefdescription>
+<para>SDI Audio Extract channel status register0 offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="80" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1gaf8025951709cb94880cf3a5daf08af2d" compoundref="xsdiaud_8c" startline="149" endline="164">XSdiAud_GetChStat</referencedby>
+        <referencedby refid="group__sdiaud_1ga3c03ed1e987b52e378a370ca98b3295b" compoundref="xsdiaud__selftest_8c" startline="161" endline="285">XSdiAud_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga5f7de194e38c0b3e73ba14f4b8573ca0" prot="public" static="no">
+        <name>XSDIAUD_ACT_CH_STAT_REG_OFFSET</name>
+        <initializer>0X60</initializer>
+        <briefdescription>
+<para>SDI Audio active channel status register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="83" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1gabed8886b7dfe0f70d74d6defdcc6e7fa" compoundref="xsdiaud_8c" startline="492" endline="506">XSdiAud_Ext_GetAcChStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga65453fe22a0cb6e794871f54bf919d8a" prot="public" static="no">
+        <name>XSDIAUD_SR_STAT_REG_OFFSET</name>
+        <initializer>0X70</initializer>
+        <briefdescription>
+<para>SDI Audio sample rate status register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="86" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga9028d81da56317ad520d1563ea523ece" compoundref="xsdiaud_8c" startline="518" endline="531">XSdiAud_Ext_GetSRStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gab89624efecca512d0d257f785a2f1322" prot="public" static="no">
+        <name>XSDIAUD_ASX_STAT_REG_OFFSET</name>
+        <initializer>0X80</initializer>
+        <briefdescription>
+<para>SDI Audio async channel pair status register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="89" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1gae3757b1303567b4ba771ebcb948085aa" compoundref="xsdiaud_8c" startline="545" endline="558">XSdiAud_Ext_GetAsxStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga159dc8b2d1b2f496e63af050464b5d14" prot="public" static="no">
+        <name>XSDIAUD_GUI_PARAM_REG_OFFSET</name>
+        <initializer>0XFC</initializer>
+        <briefdescription>
+<para>SDI Audio GUI parameters register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Core Configuration register masks and shifts of XSdiAud device</header>
+      <memberdef kind="define" id="group__sdiaud_1ga955ac56d3d927ad53ac48048a63fd56b" prot="public" static="no">
+        <name>XSDIAUD_CNTRL_EN_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>SDI Audio Embed enable or Extract enable shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gabdf4a004144a48991762d729111d4a18" prot="public" static="no">
+        <name>XSDIAUD_CNTRL_EN_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1ga955ac56d3d927ad53ac48048a63fd56b" kindref="member">XSDIAUD_CNTRL_EN_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio Embed enable or Extract enable mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="102" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1gac73f97119062624890969aa0c926cd51" compoundref="xsdiaud_8c" startline="122" endline="139">XSdiAud_Enable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga337eb5623f1feade91083420c26df23f" prot="public" static="no">
+        <name>XSDIAUD_SOFT_RST_ACLK_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>SDI Audio Embed soft reset aclk shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga9e767926697356a0bc196ba474322523" prot="public" static="no">
+        <name>XSDIAUD_SOFT_RST_ACLK_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1ga337eb5623f1feade91083420c26df23f" kindref="member">XSDIAUD_SOFT_RST_ACLK_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio Embed soft reset aclk mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="107" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga532907f495640ca09b27fd5f85ab5f5b" compoundref="xsdiaud_8c" startline="568" endline="580">XSdiAud_ConfigReset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga829078fcf7d6a66e0661e22de057ac0c" prot="public" static="no">
+        <name>XSDIAUD_SOFT_RST_SCLK_SHIFT</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>SDI Audio soft reset sclk shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga4cfa9301af60c82345c3e614c1d8a74a" prot="public" static="no">
+        <name>XSDIAUD_SOFT_RST_SCLK_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1ga829078fcf7d6a66e0661e22de057ac0c" kindref="member">XSDIAUD_SOFT_RST_SCLK_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio soft reset sclk mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="112" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga299c4252e92583a5f6d3258d36319e25" compoundref="xsdiaud_8c" startline="592" endline="611">XSdiAud_CoreReset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga60cd75516a51c546551ea7d98f02fff0" prot="public" static="no">
+        <name>XSDIAUD_VER_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>SDI Audio version shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gac089dfff4301a1030a3d38b6c5350677" prot="public" static="no">
+        <name>XSDIAUD_VER_MASK</name>
+        <initializer>(0xFF &lt;&lt; XSDIAUD_VER_SHIFT)</initializer>
+        <briefdescription>
+<para>SDI Audio version mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga3e4b664a5530d0e264fa758957dc7f83" prot="public" static="no">
+        <name>XSDIAUD_EMB_VID_CNT_FAMILY_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>SDI Audio Embed video control family shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="120" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga2e6fdf2a0ae109374f59cf3a3dea1ac8" compoundref="xsdiaud_8c" startline="318" endline="350">XSdiAud_Emb_SetVidProps</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gac749ee59cb93eca33ed3dfbd90a46477" prot="public" static="no">
+        <name>XSDIAUD_EMB_VID_CNT_FAMILY_MASK</name>
+        <initializer>(0xF &lt;&lt; XSDIAUD_EMB_VID_CNT_FAMILY_SHIFT)</initializer>
+        <briefdescription>
+<para>SDI Audio Embed video control family mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="122" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga2e6fdf2a0ae109374f59cf3a3dea1ac8" compoundref="xsdiaud_8c" startline="318" endline="350">XSdiAud_Emb_SetVidProps</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga7b0eb77fd24d0b2ab5320a5d32117602" prot="public" static="no">
+        <name>XSDIAUD_EMB_VID_CNT_RATE_SHIFT</name>
+        <initializer>(4)</initializer>
+        <briefdescription>
+<para>SDI Audio Embed video control rate shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="126" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga2e6fdf2a0ae109374f59cf3a3dea1ac8" compoundref="xsdiaud_8c" startline="318" endline="350">XSdiAud_Emb_SetVidProps</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga5a0971a2abda6198dc2ca87dc7fda332" prot="public" static="no">
+        <name>XSDIAUD_EMB_VID_CNT_RATE_MASK</name>
+        <initializer>(0xF &lt;&lt; XSDIAUD_EMB_VID_CNT_RATE_SHIFT)</initializer>
+        <briefdescription>
+<para>SDI Audio Embed video control rate mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="128" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga2e6fdf2a0ae109374f59cf3a3dea1ac8" compoundref="xsdiaud_8c" startline="318" endline="350">XSdiAud_Emb_SetVidProps</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gaa1bc0f79d572ee442af322281bdc8623" prot="public" static="no">
+        <name>XSDIAUD_EMB_VID_CNT_SCAN_SHIFT</name>
+        <initializer>(8)</initializer>
+        <briefdescription>
+<para>SDI Audio Embed video control scan shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="132" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga2e6fdf2a0ae109374f59cf3a3dea1ac8" compoundref="xsdiaud_8c" startline="318" endline="350">XSdiAud_Emb_SetVidProps</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga3b643780a49dc7c4a38a4f271c62fd78" prot="public" static="no">
+        <name>XSDIAUD_EMB_VID_CNT_SCAN_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1gaa1bc0f79d572ee442af322281bdc8623" kindref="member">XSDIAUD_EMB_VID_CNT_SCAN_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio Embed video control scan mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="134" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga2e6fdf2a0ae109374f59cf3a3dea1ac8" compoundref="xsdiaud_8c" startline="318" endline="350">XSdiAud_Emb_SetVidProps</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga8c966a683b8728719008b7b5a8149465" prot="public" static="no">
+        <name>XSDIAUD_EMB_VID_CNT_ELE_SHIFT</name>
+        <initializer>(16)</initializer>
+        <briefdescription>
+<para>SDI Audio Embed video control external line enable shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="137" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1gabcb02d498819226b22e4da1862f71ccd" compoundref="xsdiaud_8c" startline="360" endline="371">XSdiAud_Emb_EnExtrnLine</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gacf150171fe18f56fd1e761b00c75d436" prot="public" static="no">
+        <name>XSDIAUD_EMB_VID_CNT_ELE_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1ga8c966a683b8728719008b7b5a8149465" kindref="member">XSDIAUD_EMB_VID_CNT_ELE_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio Embed video control external line enable mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="139" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1gabcb02d498819226b22e4da1862f71ccd" compoundref="xsdiaud_8c" startline="360" endline="371">XSdiAud_Emb_EnExtrnLine</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga9b07c3901808641f8eb6bc8dd6089736" prot="public" static="no">
+        <name>XSDIAUD_EMB_AUD_CNT_SR_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>SDI Audio Embed audio control SD sample rate shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga09217b3af8d4facca26f791529de4f0b" prot="public" static="no">
+        <name>XSDIAUD_EMB_AUD_CNT_SR_MASK</name>
+        <initializer>(0x7 &lt;&lt; XSDIAUD_EMB_AUD_CNT_SR_SHIFT)</initializer>
+        <briefdescription>
+<para>SDI Audio Embed audio control SD sample rate mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="144" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1gadd6dab74039c2618226942aa8bf7bb41" compoundref="xsdiaud_8c" startline="216" endline="228">XSdiAud_Emb_SetSmpRate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gac6ebf195f75e217b238fb2da602b413d" prot="public" static="no">
+        <name>XSDIAUD_EMB_AUD_CNT_SS_SHIFT</name>
+        <initializer>(3)</initializer>
+        <briefdescription>
+<para>SDI Audio Embed audio control SD sample size shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="147" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1gad46c468eb0c036b1393060a6e5913426" compoundref="xsdiaud_8c" startline="242" endline="255">XSdiAud_Emb_SetSmpSize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga084fb742dfefc4a7db95c2b698f222f6" prot="public" static="no">
+        <name>XSDIAUD_EMB_AUD_CNT_SS_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1gac6ebf195f75e217b238fb2da602b413d" kindref="member">XSDIAUD_EMB_AUD_CNT_SS_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio Embed audio control SD sample size mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="149" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1gad46c468eb0c036b1393060a6e5913426" compoundref="xsdiaud_8c" startline="242" endline="255">XSdiAud_Emb_SetSmpSize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gaf8c0d1bd73ea277f2b53ec6d89784dba" prot="public" static="no">
+        <name>XSDIAUD_EMB_AUD_CNT_ASX_SHIFT</name>
+        <initializer>(4)</initializer>
+        <briefdescription>
+<para>SDI Audio Embed audio control asynchronous data flag shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="152" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1gaca24393d60284ac66101dacdb90df60c" compoundref="xsdiaud_8c" startline="268" endline="282">XSdiAud_Emb_SetAsx</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gaac1e02272193d665db60e8daac570a0d" prot="public" static="no">
+        <name>XSDIAUD_EMB_AUD_CNT_ASX_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1gaf8c0d1bd73ea277f2b53ec6d89784dba" kindref="member">XSDIAUD_EMB_AUD_CNT_ASX_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio Embed audio control asynchronous data flag mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="154" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1gaca24393d60284ac66101dacdb90df60c" compoundref="xsdiaud_8c" startline="268" endline="282">XSdiAud_Emb_SetAsx</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga8d7d3f4a30794d28d84f9f120bb8f4e4" prot="public" static="no">
+        <name>XSDIAUD_EMB_AUD_CNT_AES_CH_PAIR_SHIFT</name>
+        <initializer>(16)</initializer>
+        <briefdescription>
+<para>SDI Audio Embed audio control aes channel pair shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="157" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga8c138d7bae2ff7770ac0f407e7e8d44c" compoundref="xsdiaud_8c" startline="293" endline="306">XSdiAud_SetAesChPair</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga0a557e06e50ec9a1a0735b09ed686e73" prot="public" static="no">
+        <name>XSDIAUD_EMB_AUD_CNT_AES_CH_PAIR_MASK</name>
+        <initializer>(0xF &lt;&lt; XSDIAUD_EMB_AUD_CNT_AES_CH_PAIR_SHIFT)</initializer>
+        <briefdescription>
+<para>SDI Audio Embed audio control aes channel pair mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="159" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga8c138d7bae2ff7770ac0f407e7e8d44c" compoundref="xsdiaud_8c" startline="293" endline="306">XSdiAud_SetAesChPair</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga64e35911f5696c301e54b461b778cb6e" prot="public" static="no">
+        <name>XSDIAUD_EMB_AXIS_CHCOUNT_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>SDI Audio Embed AXIS channel count shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga079371592a275da3f5e3b3fe8c623e26" prot="public" static="no">
+        <name>XSDIAUD_EMB_AXIS_CHCOUNT_MASK</name>
+        <initializer>(0x1F &lt;&lt; XSDIAUD_EMB_AXIS_CHCOUNT_SHIFT)</initializer>
+        <briefdescription>
+<para>SDI Audio Embed AXIS channel count mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gace2293eea8e97ca0c1efadc3ebb33b4b" prot="public" static="no">
+        <name>XSDIAUD_EMD_MUX_CNT_GS_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>SDI Audio Embed Mux group select shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gac9ac59303e9e495682232d465d1adc6d" prot="public" static="no">
+        <name>XSDIAUD_EMD_MUX_CNT_GS_MASK</name>
+        <initializer>(0x3 &lt;&lt; XSDIAUD_EMD_MUX_CNT_GS_SHIFT)</initializer>
+        <briefdescription>
+<para>SDI Audio Embed Mux group select mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga4b00f8a4f84f5e370399ca99539e6aff" prot="public" static="no">
+        <name>XSDIAUD_GRP_PRESNT_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>SDI Audio group present value shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga990e0e67803f66bff97aed595b1b8c7e" prot="public" static="no">
+        <name>XSDIAUD_GRP_PRESNT_MASK</name>
+        <initializer>(0xFF &lt;&lt; XSDIAUD_GRP_PRESNT_SHIFT)</initializer>
+        <briefdescription>
+<para>SDI Audio group present value mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="175" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga8747ab428cfbcbc34013f7dbf8674440" compoundref="xsdiaud_8c" startline="406" endline="420">XSdiAud_GetActGrpStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga87777ae7502feac1bdf24a8cb4fc47d8" prot="public" static="no">
+        <name>XSDIAUD_GRP_PRESNTV_SHIFT</name>
+        <initializer>(4)</initializer>
+        <briefdescription>
+<para>SDI Audio group present valid shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga4f1239d866bf2f2ce731b41151efe127" prot="public" static="no">
+        <name>XSDIAUD_GRP_PRESNTV_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1ga87777ae7502feac1bdf24a8cb4fc47d8" kindref="member">XSDIAUD_GRP_PRESNTV_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio group present valid mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga69e86a27483fd404ef6a1aef84aac0d9" prot="public" static="no">
+        <name>XSDIAUD_INT_EN_AUD_STAT_UPDATE_SHIFT</name>
+        <initializer>(8)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt status update shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="183" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga941e8e785c68a29342f6f83fa39f8ee4" prot="public" static="no">
+        <name>XSDIAUD_INT_EN_AUD_STAT_UPDATE_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1ga69e86a27483fd404ef6a1aef84aac0d9" kindref="member">XSDIAUD_INT_EN_AUD_STAT_UPDATE_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt status update mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga0f76f36845a0c20ed6f895dea9e3506e" prot="public" static="no">
+        <name>XSDIAUD_INT_EN_GRP_CHANGE_SHIFT</name>
+        <initializer>(9)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt group change detect shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="188" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga7b3c0285858659933a56a59a329f93b1" prot="public" static="no">
+        <name>XSDIAUD_INT_EN_GRP_CHANGE_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1ga0f76f36845a0c20ed6f895dea9e3506e" kindref="member">XSDIAUD_INT_EN_GRP_CHANGE_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt group change detect mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="190" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga6d0bafe2d3389bb669b7227fce04f79b" prot="public" static="no">
+        <name>XSDIAUD_INT_EN_CH_CHANGE_SHIFT</name>
+        <initializer>(10)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt active channel change detect shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="193" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga31edeee619413d6a03ee30e2f2b2f2d2" prot="public" static="no">
+        <name>XSDIAUD_INT_EN_CH_CHANGE_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1ga6d0bafe2d3389bb669b7227fce04f79b" kindref="member">XSDIAUD_INT_EN_CH_CHANGE_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt active channel change detect mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="195" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga083e9d7fbfcbac66f149513e1035b41d" prot="public" static="no">
+        <name>XSDIAUD_INT_EN_SMP_RATE_CHANGE_SHIFT</name>
+        <initializer>(11)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt sample rate change detect shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="198" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga63b8113dc44b47c5c08c1614261535f2" prot="public" static="no">
+        <name>XSDIAUD_INT_EN_SMP_RATE_CHANGE_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1ga083e9d7fbfcbac66f149513e1035b41d" kindref="member">XSDIAUD_INT_EN_SMP_RATE_CHANGE_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt sample rate change detect mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="200" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga0c347654f13df0a46b862ff1040dfeb8" prot="public" static="no">
+        <name>XSDIAUD_INT_EN_ASX_CHANGE_SHIFT</name>
+        <initializer>(12)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt asynchronous data flag value change detect shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="203" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga1ef267f4fdd846290c87df8f491ccd0d" prot="public" static="no">
+        <name>XSDIAUD_INT_EN_ASX_CHANGE_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1ga0c347654f13df0a46b862ff1040dfeb8" kindref="member">XSDIAUD_INT_EN_ASX_CHANGE_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt asynchronous data flag value change detect mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="205" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga3134778ddc685e82cbfeff8d55e62ca3" prot="public" static="no">
+        <name>XSDIAUD_INT_EN_AES_CS_UPDATE_SHIFT</name>
+        <initializer>(16)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt aes channel status value update shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="208" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga1362663658b2e87c15e1c9601bdd0d6d" prot="public" static="no">
+        <name>XSDIAUD_INT_EN_AES_CS_UPDATE_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1ga3134778ddc685e82cbfeff8d55e62ca3" kindref="member">XSDIAUD_INT_EN_AES_CS_UPDATE_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt aes channel status value update mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gaf6dc126c2e810059980839b080da103c" prot="public" static="no">
+        <name>XSDIAUD_INT_EN_AES_CS_CHANGE_SHIFT</name>
+        <initializer>(17)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt aes channel status value change shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="213" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gac3db0720d96188c13484250f50e3bae1" prot="public" static="no">
+        <name>XSDIAUD_INT_EN_AES_CS_CHANGE_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1gaf6dc126c2e810059980839b080da103c" kindref="member">XSDIAUD_INT_EN_AES_CS_CHANGE_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt aes channel status value change mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="215" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gae9cea6f3eda2a51b9ebd445e10657328" prot="public" static="no">
+        <name>XSDIAUD_EXT_INT_EN_VID_PROP_CHANGE_SHIFT</name>
+        <initializer>(3)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract interrupt video properties change detect shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="218" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga04e36819dc26287940d950b17f79359f" prot="public" static="no">
+        <name>XSDIAUD_EXT_INT_EN_VID_PROP_CHANGE_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1gae9cea6f3eda2a51b9ebd445e10657328" kindref="member">XSDIAUD_EXT_INT_EN_VID_PROP_CHANGE_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract interrupt video properties change detect mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="220" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gab44b259a5dd2dec6e5e430c41c82db21" prot="public" static="no">
+        <name>XSDIAUD_EXT_INT_EN_FIFO_OF_SHIFT</name>
+        <initializer>(2)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract interrupt FIFO overflow detect shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="224" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga759de9f5d246ba8852e893bb4c11f0cc" prot="public" static="no">
+        <name>XSDIAUD_EXT_INT_EN_FIFO_OF_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1gab44b259a5dd2dec6e5e430c41c82db21" kindref="member">XSDIAUD_EXT_INT_EN_FIFO_OF_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract interrupt FIFO overflow detect mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="226" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga54c29ed8481e221aeda0119d04b47444" prot="public" static="no">
+        <name>XSDIAUD_EXT_INT_EN_CERR_SHIFT</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract interrupt checksum error detect shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="229" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga0bc22376b99aa1e5f0fff3790e3583b0" prot="public" static="no">
+        <name>XSDIAUD_EXT_INT_EN_CERR_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1ga54c29ed8481e221aeda0119d04b47444" kindref="member">XSDIAUD_EXT_INT_EN_CERR_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract interrupt checksum error detect mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="231" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gac33684b1153b86b1fefb86ae31042f6c" prot="public" static="no">
+        <name>XSDIAUD_EXT_INT_EN_PERR_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract interrupt parity error detect shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="234" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga5eaaf4a1390347eb8aadeae6813b3d73" prot="public" static="no">
+        <name>XSDIAUD_EXT_INT_EN_PERR_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1gac33684b1153b86b1fefb86ae31042f6c" kindref="member">XSDIAUD_EXT_INT_EN_PERR_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract interrupt parity error detect mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="236" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga4b6e2282e6d19253c9119176651656da" prot="public" static="no">
+        <name>XSDIAUD_INT_ST_AUD_STAT_UPDATE_SHIFT</name>
+        <initializer>(8)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt status update shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="239" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga3bc443d92061b2ed0be152aa0e6d2e7e" prot="public" static="no">
+        <name>XSDIAUD_INT_ST_AUD_STAT_UPDATE_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1ga4b6e2282e6d19253c9119176651656da" kindref="member">XSDIAUD_INT_ST_AUD_STAT_UPDATE_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt status update mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="241" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="241" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga2799dd2f155ce7c305e5683bc8f20eaa" prot="public" static="no">
+        <name>XSDIAUD_INT_ST_GRP_CHANGE_SHIFT</name>
+        <initializer>(9)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt status group change detect shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="244" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga93f86d9125cdf1d0c746c90f874af792" prot="public" static="no">
+        <name>XSDIAUD_INT_ST_GRP_CHANGE_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1ga2799dd2f155ce7c305e5683bc8f20eaa" kindref="member">XSDIAUD_INT_ST_GRP_CHANGE_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt status group change detect mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="246" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="246" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga681d8b8cabbd56ac3172b34c891354a1" prot="public" static="no">
+        <name>XSDIAUD_INT_ST_CH_CHANGE_SHIFT</name>
+        <initializer>(10)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt status active channel change detect shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="249" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga03c48765d2055514f96cbc9754e7f1d5" prot="public" static="no">
+        <name>XSDIAUD_INT_ST_CH_CHANGE_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1ga681d8b8cabbd56ac3172b34c891354a1" kindref="member">XSDIAUD_INT_ST_CH_CHANGE_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt status active channel change detect mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="251" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="251" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gafd1658f6dedcd88898a6a5ae2a909b4c" prot="public" static="no">
+        <name>XSDIAUD_INT_ST_SMP_RATE_CHANGE_SHIFT</name>
+        <initializer>(11)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt status sample rate change detect shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="254" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga814dfb23f80699907e305fe112638da0" prot="public" static="no">
+        <name>XSDIAUD_INT_ST_SMP_RATE_CHANGE_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1gafd1658f6dedcd88898a6a5ae2a909b4c" kindref="member">XSDIAUD_INT_ST_SMP_RATE_CHANGE_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt status sample rate change detect mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="256" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="256" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga65b9ce1954cd60e86ffb1140143b1607" prot="public" static="no">
+        <name>XSDIAUD_INT_ST_ASX_CHANGE_SHIFT</name>
+        <initializer>(12)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt status asynchronous data flag value change detect shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="259" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga29f94772194265615b064794ab4054fe" prot="public" static="no">
+        <name>XSDIAUD_INT_ST_ASX_CHANGE_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1ga65b9ce1954cd60e86ffb1140143b1607" kindref="member">XSDIAUD_INT_ST_ASX_CHANGE_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt status asynchronous data flag value change detect mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="261" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="261" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga6e8bf09367b2cbbada71f3f638d29df4" prot="public" static="no">
+        <name>XSDIAUD_INT_ST_AES_CS_UPDATE_SHIFT</name>
+        <initializer>(16)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt status aes channel status value update shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="264" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga6916d34bdca7f3b07e0e1a31fe8c1d74" prot="public" static="no">
+        <name>XSDIAUD_INT_ST_AES_CS_UPDATE_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1ga6e8bf09367b2cbbada71f3f638d29df4" kindref="member">XSDIAUD_INT_ST_AES_CS_UPDATE_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt status aes channel status value update mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="266" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="266" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga362fc8ab6f28e42adc9a155f23bb9cf2" prot="public" static="no">
+        <name>XSDIAUD_INT_ST_AES_CS_CHANGE_SHIFT</name>
+        <initializer>(17)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt status aes channel status value change shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="269" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="269" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga7e813076ae849b757dd730c64fa9e71a" prot="public" static="no">
+        <name>XSDIAUD_INT_ST_AES_CS_CHANGE_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1ga362fc8ab6f28e42adc9a155f23bb9cf2" kindref="member">XSDIAUD_INT_ST_AES_CS_CHANGE_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio interrupt status aes channel status value change mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="271" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="271" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga870f4a50513a5fba5ca7eaf4ab4085db" prot="public" static="no">
+        <name>XSDIAUD_EXT_INT_ST_VID_PROP_CHANGE_SHIFT</name>
+        <initializer>(3)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract interrupt status video properties change detect shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="274" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="274" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga9b3e03c22abfc4528540b212281671fd" prot="public" static="no">
+        <name>XSDIAUD_EXT_INT_ST_VID_PROP_CHANGE_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1ga870f4a50513a5fba5ca7eaf4ab4085db" kindref="member">XSDIAUD_EXT_INT_ST_VID_PROP_CHANGE_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract interrupt status video properties change detect mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="276" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="276" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gad9e6075d05db155b49b5451d9272e905" prot="public" static="no">
+        <name>XSDIAUD_EXT_INT_ST_FIFO_OF_SHIFT</name>
+        <initializer>(2)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract interrupt status FIFO overflow detect shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="280" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gaefec5aa548f604a2c66ed0e79db5fdba" prot="public" static="no">
+        <name>XSDIAUD_EXT_INT_ST_FIFO_OF_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1gad9e6075d05db155b49b5451d9272e905" kindref="member">XSDIAUD_EXT_INT_ST_FIFO_OF_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract interrupt status FIFO overflow detect mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="282" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="282" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga1e973876381120186be23c64f4db02ab" prot="public" static="no">
+        <name>XSDIAUD_EXT_INT_ST_CERR_SHIFT</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract interrupt status checksum error detect shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="285" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="285" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga511ea16bc7c6f769d3b053a4135ca170" prot="public" static="no">
+        <name>XSDIAUD_EXT_INT_ST_CERR_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1ga1e973876381120186be23c64f4db02ab" kindref="member">XSDIAUD_EXT_INT_ST_CERR_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract interrupt status checksum error detect mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="287" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="287" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga1e4aa3a2b7418d5e097865b8b57aac88" prot="public" static="no">
+        <name>XSDIAUD_EXT_INT_ST_PERR_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract interrupt status parity error detect shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="290" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gaa64b08c4abfbb860e47f4bae2be5dd3c" prot="public" static="no">
+        <name>XSDIAUD_EXT_INT_ST_PERR_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1ga1e4aa3a2b7418d5e097865b8b57aac88" kindref="member">XSDIAUD_EXT_INT_ST_PERR_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract interrupt status parity error detect mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="292" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="292" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gaef1123be527142242330daffe04726fb" prot="public" static="no">
+        <name>XSDIAUD_EXT_AUD_CNT_CP_EN_SHIFT</name>
+        <initializer>(29)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract audio clock phase enable shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="295" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="295" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga0a3c6462665eba31e7e323b9d57aeb5c" compoundref="xsdiaud_8c" startline="382" endline="393">XSdiAud_Ext_DisableClkPhase</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gad887c3eaf0345a5cfe8db381c1a15a38" prot="public" static="no">
+        <name>XSDIAUD_EXT_AUD_CNT_CP_EN_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1gaef1123be527142242330daffe04726fb" kindref="member">XSDIAUD_EXT_AUD_CNT_CP_EN_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract audio clock phase enable mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="297" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="297" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga0a3c6462665eba31e7e323b9d57aeb5c" compoundref="xsdiaud_8c" startline="382" endline="393">XSdiAud_Ext_DisableClkPhase</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gad8e7c3c28b78f6b6a8b9e30117803eb3" prot="public" static="no">
+        <name>XSDIAUD_EXT_AXIS_CHCOUNT_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract AXIS channel count shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="300" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga087cd86f5709e4f61b9809263dc8abb9" prot="public" static="no">
+        <name>XSDIAUD_EXT_AXIS_CHCOUNT_MASK</name>
+        <initializer>(0x1F &lt;&lt; XSDIAUD_EXT_AXIS_CHCOUNT_SHIFT)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract AXIS channel count mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="302" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gaaa89f8e758c4cce227b088de7c4efff3" prot="public" static="no">
+        <name>XSDIAUD_EXT_DMUX_GRPS_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract DMux group select shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="305" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga29e054567302158a15497a6c1ad6dba6" prot="public" static="no">
+        <name>XSDIAUD_EXT_DMUX_GRPS_MASK</name>
+        <initializer>(0x3 &lt;&lt; XSDIAUD_EXT_DMUX_GRPS_SHIFT)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract DMux group select mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="307" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gafea8011c7dab79bfa115c2290d3c3036" prot="public" static="no">
+        <name>XSDIAUD_EXT_DMUX_MUTE_SHIFT</name>
+        <initializer>(2)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract DMux mute channel shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="310" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="310" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga6e0976d8334d0e927e3c4e82668cfde9" prot="public" static="no">
+        <name>XSDIAUD_EXT_DMUX_MUTEALL_MASK</name>
+        <initializer>(0xF &lt;&lt; XSDIAUD_EXT_DMUX_MUTE_SHIFT)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract DMux mute all channels mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="312" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="312" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga92df14ea9d11878dc89cea8277d6ad5f" prot="public" static="no">
+        <name>XSDIAUD_EXT_DMUX_MUTE1_MASK</name>
+        <initializer>(0x1 &lt;&lt; XSDIAUD_EXT_DMUX_MUTE_SHIFT)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract Dmux mute channel 1 mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="314" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="314" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gaf8bcef24feec87e4897286198f8faa13" prot="public" static="no">
+        <name>XSDIAUD_EXT_DMUX_MUTE2_MASK</name>
+        <initializer>(0x2 &lt;&lt; XSDIAUD_EXT_DMUX_MUTE_SHIFT)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract Dmux mute channel 2 mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="316" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="316" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga89fe7d522614bef07224df6bd8dceccb" prot="public" static="no">
+        <name>XSDIAUD_EXT_DMUX_MUTE3_MASK</name>
+        <initializer>(0x4 &lt;&lt; XSDIAUD_EXT_DMUX_MUTE_SHIFT)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract Dmux mute channel 3 mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="318" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="318" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga62d91064f1129ecc21e83e77474f9900" prot="public" static="no">
+        <name>XSDIAUD_EXT_DMUX_MUTE4_MASK</name>
+        <initializer>(0x8 &lt;&lt; XSDIAUD_EXT_DMUX_MUTE_SHIFT)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract Dmux mute channel 4 mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="320" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="320" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga536cf5a928c222151a601095efa74b2b" prot="public" static="no">
+        <name>XSDIAUD_EXT_PKTST_SR_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract control packet status sampling rate shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="323" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="323" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga2628d9bae386da7532fbd3884f14cfd5" prot="public" static="no">
+        <name>XSDIAUD_EXT_PKTST_SR_MASK</name>
+        <initializer>(0xFFF &lt;&lt; XSDIAUD_EXT_PKTST_SR_SHIFT)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract control packet status sampling rate mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="325" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="325" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga59bbc10518fb62bf9c554ffbe3ca70d7" prot="public" static="no">
+        <name>XSDIAUD_EXT_PKTST_AC_SHIFT</name>
+        <initializer>(12)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract control packet status group active channel shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="328" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="328" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gac8ae5a8919d663f15dee0feba09e7bb3" prot="public" static="no">
+        <name>XSDIAUD_EXT_PKTST_AC_MASK</name>
+        <initializer>(0xFFFF &lt;&lt; XSDIAUD_EXT_PKTST_AC_SHIFT)</initializer>
+        <briefdescription>
+<para>SDI Audio Extract control packet status group active channel mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="330" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="330" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gaa22ca2f978a724ecbfc180e3b0c7e420" prot="public" static="no">
+        <name>XSDIAUD_GUI_CHAN_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>SDI Audio GUI Channels parameter shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="334" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="334" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gae0ba3136d7955b07c80c6e727e5b602a" prot="public" static="no">
+        <name>XSDIAUD_GUI_CHAN_MASK</name>
+        <initializer>(0xF &lt;&lt; XSDIAUD_GUI_CHAN_SHIFT)</initializer>
+        <briefdescription>
+<para>SDI Audio GUI Channels parameter mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="336" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="336" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga06dea0df2bc1c12f7e6eee7cf14b0292" prot="public" static="no">
+        <name>XSDIAUD_GUI_STD_SHIFT</name>
+        <initializer>(4)</initializer>
+        <briefdescription>
+<para>SDI Audio GUI UHD SDI standard parameter shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="339" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="339" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga050f52e5db0a9d35e7839ef23f207547" prot="public" static="no">
+        <name>XSDIAUD_GUI_STD_MASK</name>
+        <initializer>(0x3 &lt;&lt; XSDIAUD_GUI_STD_SHIFT)</initializer>
+        <briefdescription>
+<para>SDI Audio GUI UHD Standard parameter mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="341" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="341" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga3d6052323d3a7ba0823b1c62afc7816a" prot="public" static="no">
+        <name>XSDIAUD_GUI_AUDF_SHIFT</name>
+        <initializer>(6)</initializer>
+        <briefdescription>
+<para>SDI Audio GUI audio function parameter shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="344" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="344" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga4d5c5d39700ea1286e4bf06c94011956" prot="public" static="no">
+        <name>XSDIAUD_GUI_AUDF_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1ga3d6052323d3a7ba0823b1c62afc7816a" kindref="member">XSDIAUD_GUI_AUDF_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio GUI audio function parameter mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="346" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="346" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gabedd160bbe19d1e2d4e67143ec25bb17" prot="public" static="no">
+        <name>XSDIAUD_GUI_AXIE_SHIFT</name>
+        <initializer>(7)</initializer>
+        <briefdescription>
+<para>SDI Audio GUI AXI-lite enable parameter shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="349" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="349" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga69a0d40caffd68d64d5588a83aa7507c" prot="public" static="no">
+        <name>XSDIAUD_GUI_AXIE_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1gabedd160bbe19d1e2d4e67143ec25bb17" kindref="member">XSDIAUD_GUI_AXIE_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio GUI AXI-lite enable parameter mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="351" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="351" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga2d0142c7e444c4b51075a9aa369e30d0" prot="public" static="no">
+        <name>XSDIAUD_GUI_CHSTAT_EXTR_SHIFT</name>
+        <initializer>(8)</initializer>
+        <briefdescription>
+<para>SDI Audio GUI Channel status extract parameter shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="354" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="354" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gaf688848604120ef98c04d0184ebf2b3c" prot="public" static="no">
+        <name>XSDIAUD_GUI_CHSTAT_EXTR_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__sdiaud_1ga2d0142c7e444c4b51075a9aa369e30d0" kindref="member">XSDIAUD_GUI_CHSTAT_EXTR_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>SDI Audio GUI channel status extract parameter mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="356" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="356" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register access macro definition</header>
+      <memberdef kind="define" id="group__sdiaud_1ga980376815f05b1870323f72b2a6abe8c" prot="public" static="no">
+        <name>XSdiAud_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+<para>Input Operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="366" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="366" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga2b549347e29f15ad99b4e6b8c55987c4" prot="public" static="no">
+        <name>XSdiAud_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+<para>Output Operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="367" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="367" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" prot="public" static="no">
+        <name>XSdiAud_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer><ref refid="group__sdiaud_1ga980376815f05b1870323f72b2a6abe8c" kindref="member">XSdiAud_In32</ref>((BaseAddress) + ((u32)RegOffset))</initializer>
+        <briefdescription>
+<para>Reads a 32-bit value from a register in the SDI Audio hardware. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base address of the SDI Audio device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The offset of the register to read from the base address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value read from the specified register.</para></simplesect>
+<simplesect kind="note"><para>This is a macro that directly accesses hardware registers. Ensure that BaseAddress is valid and RegOffset is within the valid register address range. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="382" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="382" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga532907f495640ca09b27fd5f85ab5f5b" compoundref="xsdiaud_8c" startline="568" endline="580">XSdiAud_ConfigReset</referencedby>
+        <referencedby refid="group__sdiaud_1ga299c4252e92583a5f6d3258d36319e25" compoundref="xsdiaud_8c" startline="592" endline="611">XSdiAud_CoreReset</referencedby>
+        <referencedby refid="group__sdiaud_1gabcb02d498819226b22e4da1862f71ccd" compoundref="xsdiaud_8c" startline="360" endline="371">XSdiAud_Emb_EnExtrnLine</referencedby>
+        <referencedby refid="group__sdiaud_1gaca24393d60284ac66101dacdb90df60c" compoundref="xsdiaud_8c" startline="268" endline="282">XSdiAud_Emb_SetAsx</referencedby>
+        <referencedby refid="group__sdiaud_1gadd6dab74039c2618226942aa8bf7bb41" compoundref="xsdiaud_8c" startline="216" endline="228">XSdiAud_Emb_SetSmpRate</referencedby>
+        <referencedby refid="group__sdiaud_1gad46c468eb0c036b1393060a6e5913426" compoundref="xsdiaud_8c" startline="242" endline="255">XSdiAud_Emb_SetSmpSize</referencedby>
+        <referencedby refid="group__sdiaud_1ga2e6fdf2a0ae109374f59cf3a3dea1ac8" compoundref="xsdiaud_8c" startline="318" endline="350">XSdiAud_Emb_SetVidProps</referencedby>
+        <referencedby refid="group__sdiaud_1gac73f97119062624890969aa0c926cd51" compoundref="xsdiaud_8c" startline="122" endline="139">XSdiAud_Enable</referencedby>
+        <referencedby refid="group__sdiaud_1ga0a3c6462665eba31e7e323b9d57aeb5c" compoundref="xsdiaud_8c" startline="382" endline="393">XSdiAud_Ext_DisableClkPhase</referencedby>
+        <referencedby refid="group__sdiaud_1gabed8886b7dfe0f70d74d6defdcc6e7fa" compoundref="xsdiaud_8c" startline="492" endline="506">XSdiAud_Ext_GetAcChStatus</referencedby>
+        <referencedby refid="group__sdiaud_1gae3757b1303567b4ba771ebcb948085aa" compoundref="xsdiaud_8c" startline="545" endline="558">XSdiAud_Ext_GetAsxStatus</referencedby>
+        <referencedby refid="group__sdiaud_1ga4abd5f9c2cacb3808a4751da71942eae" compoundref="xsdiaud_8c" startline="469" endline="480">XSdiAud_Ext_GetFIFOOvFlwStatus</referencedby>
+        <referencedby refid="group__sdiaud_1ga9028d81da56317ad520d1563ea523ece" compoundref="xsdiaud_8c" startline="518" endline="531">XSdiAud_Ext_GetSRStatus</referencedby>
+        <referencedby refid="group__sdiaud_1ga8747ab428cfbcbc34013f7dbf8674440" compoundref="xsdiaud_8c" startline="406" endline="420">XSdiAud_GetActGrpStatus</referencedby>
+        <referencedby refid="group__sdiaud_1gaf8025951709cb94880cf3a5daf08af2d" compoundref="xsdiaud_8c" startline="149" endline="164">XSdiAud_GetChStat</referencedby>
+        <referencedby refid="group__sdiaud_1gaa95d3e8ae24010498edb963aefe1944b" compoundref="xsdiaud_8c" startline="175" endline="183">XSdiAud_GetCoreVersion</referencedby>
+        <referencedby refid="group__sdiaud_1ga3d3823e317c0d235d0a455bf60e47525" compoundref="xsdiaud_8c" startline="194" endline="202">XSdiAud_GetIntStat</referencedby>
+        <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
+        <referencedby refid="group__sdiaud_1ga3c03ed1e987b52e378a370ca98b3295b" compoundref="xsdiaud__selftest_8c" startline="161" endline="285">XSdiAud_SelfTest</referencedby>
+        <referencedby refid="group__sdiaud_1ga8c138d7bae2ff7770ac0f407e7e8d44c" compoundref="xsdiaud_8c" startline="293" endline="306">XSdiAud_SetAesChPair</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" prot="public" static="no">
+        <name>XSdiAud_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer><ref refid="group__sdiaud_1ga2b549347e29f15ad99b4e6b8c55987c4" kindref="member">XSdiAud_Out32</ref>((BaseAddress) + ((u32)RegOffset), (u32)(Data))</initializer>
+        <briefdescription>
+<para>This function writes a 32-bit value to a register in the SDI Audio hardware. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base address of the SDI Audio device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The offset of the register to write to from the base address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The 32-bit value to write to the specified register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>This is a macro that directly accesses hardware registers. Ensure that BaseAddress is valid and RegOffset is within the valid register address range. This macro does not perform any error checking on the input parameters. Use with caution to avoid unintended side effects on the hardware. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" line="400" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h" bodystart="400" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga532907f495640ca09b27fd5f85ab5f5b" compoundref="xsdiaud_8c" startline="568" endline="580">XSdiAud_ConfigReset</referencedby>
+        <referencedby refid="group__sdiaud_1ga299c4252e92583a5f6d3258d36319e25" compoundref="xsdiaud_8c" startline="592" endline="611">XSdiAud_CoreReset</referencedby>
+        <referencedby refid="group__sdiaud_1gabcb02d498819226b22e4da1862f71ccd" compoundref="xsdiaud_8c" startline="360" endline="371">XSdiAud_Emb_EnExtrnLine</referencedby>
+        <referencedby refid="group__sdiaud_1gaca24393d60284ac66101dacdb90df60c" compoundref="xsdiaud_8c" startline="268" endline="282">XSdiAud_Emb_SetAsx</referencedby>
+        <referencedby refid="group__sdiaud_1gadd6dab74039c2618226942aa8bf7bb41" compoundref="xsdiaud_8c" startline="216" endline="228">XSdiAud_Emb_SetSmpRate</referencedby>
+        <referencedby refid="group__sdiaud_1gad46c468eb0c036b1393060a6e5913426" compoundref="xsdiaud_8c" startline="242" endline="255">XSdiAud_Emb_SetSmpSize</referencedby>
+        <referencedby refid="group__sdiaud_1ga2e6fdf2a0ae109374f59cf3a3dea1ac8" compoundref="xsdiaud_8c" startline="318" endline="350">XSdiAud_Emb_SetVidProps</referencedby>
+        <referencedby refid="group__sdiaud_1gac73f97119062624890969aa0c926cd51" compoundref="xsdiaud_8c" startline="122" endline="139">XSdiAud_Enable</referencedby>
+        <referencedby refid="group__sdiaud_1ga0a3c6462665eba31e7e323b9d57aeb5c" compoundref="xsdiaud_8c" startline="382" endline="393">XSdiAud_Ext_DisableClkPhase</referencedby>
+        <referencedby refid="group__sdiaud_1gad3bc0d473b0bb0a4277d9c8f27069e19" compoundref="xsdiaud_8c" startline="449" endline="456">XSdiAud_MuteCh</referencedby>
+        <referencedby refid="group__sdiaud_1ga8c138d7bae2ff7770ac0f407e7e8d44c" compoundref="xsdiaud_8c" startline="293" endline="306">XSdiAud_SetAesChPair</referencedby>
+        <referencedby refid="group__sdiaud_1ga9abe19eaf798717fe47a41cd05ccf663" compoundref="xsdiaud_8c" startline="432" endline="439">XSdiAud_SetCh</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2017<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor">#ifndef<sp/>XSDIAUD_HW_H</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_HW_H</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Prevent<sp/>circular<sp/>inclusions<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="47" refid="group__sdiaud_1ga1f08582db325cf112b15ab3d0816857b" refkind="member"><highlight class="preprocessor">#define<sp/>XSDIAUD_CNTRL_REG_OFFSET<sp/>0x00</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50" refid="group__sdiaud_1gaa264a0eb161bcfd0d6226fd6e654e75f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_SOFT_RST_REG_OFFSET<sp/>0x04</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53" refid="group__sdiaud_1ga4b264279860943cccafa8182b6c87b82" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_EN_REG_OFFSET<sp/>0x0C</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56" refid="group__sdiaud_1ga6cc6d41fbe52f28c3cf35cec94d48e67" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_CORE_VERSION_REG_OFFSET<sp/>0x08</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59" refid="group__sdiaud_1gab2b1473b41e24f4514ca318acca41225" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_STS_REG_OFFSET<sp/>0x10</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62" refid="group__sdiaud_1ga0257b8d983e181923b40f100102a6dd2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EMB_VID_CNTRL_REG_OFFSET<sp/>0X14</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65" refid="group__sdiaud_1ga2ad7f7a55b3ed67326c1dafc285ff41c" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_AUD_CNTRL_REG_OFFSET<sp/>0x18</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68" refid="group__sdiaud_1ga11bab2fbb639aa280156a6c989fdc272" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_VALID_CH_REG_OFFSET<sp/>0x20</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71" refid="group__sdiaud_1ga2e495d663d19b1fd4cfd26d108e27e54" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_MUTE_CH_REG_OFFSET<sp/>0x30</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74" refid="group__sdiaud_1gad9a9a72bba9a4ff117315a8c9bae6411" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_ACT_GRP_PRES_REG_OFFSET<sp/>0X40</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77" refid="group__sdiaud_1gad2b9e608a3c085ec358e6975bb862630" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_FIFO_OVFLW_ST_REG_OFFSET<sp/>0X44</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80" refid="group__sdiaud_1ga2979a7a1dad335bb0f17585159d2e313" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_CH_STAT0_REG_OFFSET<sp/>0X48</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83" refid="group__sdiaud_1ga5f7de194e38c0b3e73ba14f4b8573ca0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_ACT_CH_STAT_REG_OFFSET<sp/>0X60</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86" refid="group__sdiaud_1ga65453fe22a0cb6e794871f54bf919d8a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_SR_STAT_REG_OFFSET<sp/>0X70</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89" refid="group__sdiaud_1gab89624efecca512d0d257f785a2f1322" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_ASX_STAT_REG_OFFSET<sp/>0X80</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92" refid="group__sdiaud_1ga159dc8b2d1b2f496e63af050464b5d14" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_GUI_PARAM_REG_OFFSET<sp/>0XFC</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="100" refid="group__sdiaud_1ga955ac56d3d927ad53ac48048a63fd56b" refkind="member"><highlight class="preprocessor">#define<sp/>XSDIAUD_CNTRL_EN_SHIFT<sp/>(0)</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_CNTRL_EN_MASK<sp/><sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_CNTRL_EN_SHIFT)</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105" refid="group__sdiaud_1ga337eb5623f1feade91083420c26df23f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_SOFT_RST_ACLK_SHIFT<sp/>(0)</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_SOFT_RST_ACLK_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_SOFT_RST_ACLK_SHIFT)</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110" refid="group__sdiaud_1ga829078fcf7d6a66e0661e22de057ac0c" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_SOFT_RST_SCLK_SHIFT<sp/>(1)</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_SOFT_RST_SCLK_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_SOFT_RST_SCLK_SHIFT)</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115" refid="group__sdiaud_1ga60cd75516a51c546551ea7d98f02fff0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_VER_SHIFT<sp/>(0)</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_VER_MASK<sp/>(0xFF<sp/>&lt;&lt;<sp/>XSDIAUD_VER_SHIFT)</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120" refid="group__sdiaud_1ga3e4b664a5530d0e264fa758957dc7f83" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EMB_VID_CNT_FAMILY_SHIFT<sp/>(0)</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EMB_VID_CNT_FAMILY_MASK<sp/>\</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF<sp/>&lt;&lt;<sp/>XSDIAUD_EMB_VID_CNT_FAMILY_SHIFT)</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126" refid="group__sdiaud_1ga7b0eb77fd24d0b2ab5320a5d32117602" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EMB_VID_CNT_RATE_SHIFT<sp/>(4)</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EMB_VID_CNT_RATE_MASK<sp/>\</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF<sp/>&lt;&lt;<sp/>XSDIAUD_EMB_VID_CNT_RATE_SHIFT)</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132" refid="group__sdiaud_1gaa1bc0f79d572ee442af322281bdc8623" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EMB_VID_CNT_SCAN_SHIFT<sp/>(8)</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EMB_VID_CNT_SCAN_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_EMB_VID_CNT_SCAN_SHIFT)</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137" refid="group__sdiaud_1ga8c966a683b8728719008b7b5a8149465" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EMB_VID_CNT_ELE_SHIFT<sp/>(16)</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EMB_VID_CNT_ELE_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_EMB_VID_CNT_ELE_SHIFT)</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142" refid="group__sdiaud_1ga9b07c3901808641f8eb6bc8dd6089736" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EMB_AUD_CNT_SR_SHIFT<sp/>(0)</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EMB_AUD_CNT_SR_MASK<sp/>(0x7<sp/>&lt;&lt;<sp/>XSDIAUD_EMB_AUD_CNT_SR_SHIFT)</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147" refid="group__sdiaud_1gac6ebf195f75e217b238fb2da602b413d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EMB_AUD_CNT_SS_SHIFT<sp/>(3)</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EMB_AUD_CNT_SS_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_EMB_AUD_CNT_SS_SHIFT)</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152" refid="group__sdiaud_1gaf8c0d1bd73ea277f2b53ec6d89784dba" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EMB_AUD_CNT_ASX_SHIFT<sp/>(4)</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EMB_AUD_CNT_ASX_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_EMB_AUD_CNT_ASX_SHIFT)</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157" refid="group__sdiaud_1ga8d7d3f4a30794d28d84f9f120bb8f4e4" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EMB_AUD_CNT_AES_CH_PAIR_SHIFT<sp/>(16)</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EMB_AUD_CNT_AES_CH_PAIR_MASK<sp/>\</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF<sp/>&lt;&lt;<sp/>XSDIAUD_EMB_AUD_CNT_AES_CH_PAIR_SHIFT)</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163" refid="group__sdiaud_1ga64e35911f5696c301e54b461b778cb6e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EMB_AXIS_CHCOUNT_SHIFT<sp/>(0)</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EMB_AXIS_CHCOUNT_MASK<sp/>(0x1F<sp/>&lt;&lt;<sp/>XSDIAUD_EMB_AXIS_CHCOUNT_SHIFT)</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168" refid="group__sdiaud_1gace2293eea8e97ca0c1efadc3ebb33b4b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EMD_MUX_CNT_GS_SHIFT<sp/>(0)</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EMD_MUX_CNT_GS_MASK<sp/>(0x3<sp/>&lt;&lt;<sp/>XSDIAUD_EMD_MUX_CNT_GS_SHIFT)</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173" refid="group__sdiaud_1ga4b00f8a4f84f5e370399ca99539e6aff" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_GRP_PRESNT_SHIFT<sp/>(0)</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_GRP_PRESNT_MASK<sp/>(0xFF<sp/>&lt;&lt;<sp/>XSDIAUD_GRP_PRESNT_SHIFT)</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178" refid="group__sdiaud_1ga87777ae7502feac1bdf24a8cb4fc47d8" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_GRP_PRESNTV_SHIFT<sp/>(4)</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_GRP_PRESNTV_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_GRP_PRESNTV_SHIFT)</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183" refid="group__sdiaud_1ga69e86a27483fd404ef6a1aef84aac0d9" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_EN_AUD_STAT_UPDATE_SHIFT<sp/>(8)</highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_EN_AUD_STAT_UPDATE_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_INT_EN_AUD_STAT_UPDATE_SHIFT)</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="188" refid="group__sdiaud_1ga0f76f36845a0c20ed6f895dea9e3506e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_EN_GRP_CHANGE_SHIFT<sp/>(9)</highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_EN_GRP_CHANGE_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_INT_EN_GRP_CHANGE_SHIFT)</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193" refid="group__sdiaud_1ga6d0bafe2d3389bb669b7227fce04f79b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_EN_CH_CHANGE_SHIFT<sp/>(10)</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_EN_CH_CHANGE_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_INT_EN_CH_CHANGE_SHIFT)</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198" refid="group__sdiaud_1ga083e9d7fbfcbac66f149513e1035b41d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_EN_SMP_RATE_CHANGE_SHIFT<sp/>(11)</highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_EN_SMP_RATE_CHANGE_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_INT_EN_SMP_RATE_CHANGE_SHIFT)</highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203" refid="group__sdiaud_1ga0c347654f13df0a46b862ff1040dfeb8" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_EN_ASX_CHANGE_SHIFT<sp/>(12)</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_EN_ASX_CHANGE_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_INT_EN_ASX_CHANGE_SHIFT)</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208" refid="group__sdiaud_1ga3134778ddc685e82cbfeff8d55e62ca3" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_EN_AES_CS_UPDATE_SHIFT<sp/>(16)</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_EN_AES_CS_UPDATE_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_INT_EN_AES_CS_UPDATE_SHIFT)</highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213" refid="group__sdiaud_1gaf6dc126c2e810059980839b080da103c" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_EN_AES_CS_CHANGE_SHIFT<sp/>(17)</highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_EN_AES_CS_CHANGE_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_INT_EN_AES_CS_CHANGE_SHIFT)</highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218" refid="group__sdiaud_1gae9cea6f3eda2a51b9ebd445e10657328" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_INT_EN_VID_PROP_CHANGE_SHIFT<sp/>(3)</highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_INT_EN_VID_PROP_CHANGE_MASK<sp/>\</highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_EXT_INT_EN_VID_PROP_CHANGE_SHIFT)</highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="224" refid="group__sdiaud_1gab44b259a5dd2dec6e5e430c41c82db21" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_INT_EN_FIFO_OF_SHIFT<sp/>(2)</highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_INT_EN_FIFO_OF_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_EXT_INT_EN_FIFO_OF_SHIFT)</highlight></codeline>
+<codeline lineno="227"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="229" refid="group__sdiaud_1ga54c29ed8481e221aeda0119d04b47444" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_INT_EN_CERR_SHIFT<sp/>(1)</highlight></codeline>
+<codeline lineno="230"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_INT_EN_CERR_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_EXT_INT_EN_CERR_SHIFT)</highlight></codeline>
+<codeline lineno="232"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="234" refid="group__sdiaud_1gac33684b1153b86b1fefb86ae31042f6c" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_INT_EN_PERR_SHIFT<sp/>(0)</highlight></codeline>
+<codeline lineno="235"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_INT_EN_PERR_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_EXT_INT_EN_PERR_SHIFT)</highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="239" refid="group__sdiaud_1ga4b6e2282e6d19253c9119176651656da" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_ST_AUD_STAT_UPDATE_SHIFT<sp/>(8)</highlight></codeline>
+<codeline lineno="240"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_ST_AUD_STAT_UPDATE_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_INT_ST_AUD_STAT_UPDATE_SHIFT)</highlight></codeline>
+<codeline lineno="242"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="244" refid="group__sdiaud_1ga2799dd2f155ce7c305e5683bc8f20eaa" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_ST_GRP_CHANGE_SHIFT<sp/>(9)</highlight></codeline>
+<codeline lineno="245"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_ST_GRP_CHANGE_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_INT_ST_GRP_CHANGE_SHIFT)</highlight></codeline>
+<codeline lineno="247"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="249" refid="group__sdiaud_1ga681d8b8cabbd56ac3172b34c891354a1" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_ST_CH_CHANGE_SHIFT<sp/>(10)</highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_ST_CH_CHANGE_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_INT_ST_CH_CHANGE_SHIFT)</highlight></codeline>
+<codeline lineno="252"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="254" refid="group__sdiaud_1gafd1658f6dedcd88898a6a5ae2a909b4c" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_ST_SMP_RATE_CHANGE_SHIFT<sp/>(11)</highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_ST_SMP_RATE_CHANGE_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_INT_ST_SMP_RATE_CHANGE_SHIFT)</highlight></codeline>
+<codeline lineno="257"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="259" refid="group__sdiaud_1ga65b9ce1954cd60e86ffb1140143b1607" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_ST_ASX_CHANGE_SHIFT<sp/>(12)</highlight></codeline>
+<codeline lineno="260"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_ST_ASX_CHANGE_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_INT_ST_ASX_CHANGE_SHIFT)</highlight></codeline>
+<codeline lineno="262"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="264" refid="group__sdiaud_1ga6e8bf09367b2cbbada71f3f638d29df4" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_ST_AES_CS_UPDATE_SHIFT<sp/>(16)</highlight></codeline>
+<codeline lineno="265"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_ST_AES_CS_UPDATE_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_INT_ST_AES_CS_UPDATE_SHIFT)</highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="269" refid="group__sdiaud_1ga362fc8ab6f28e42adc9a155f23bb9cf2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_ST_AES_CS_CHANGE_SHIFT<sp/>(17)</highlight></codeline>
+<codeline lineno="270"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_INT_ST_AES_CS_CHANGE_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_INT_ST_AES_CS_CHANGE_SHIFT)</highlight></codeline>
+<codeline lineno="272"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="274" refid="group__sdiaud_1ga870f4a50513a5fba5ca7eaf4ab4085db" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_INT_ST_VID_PROP_CHANGE_SHIFT<sp/>(3)</highlight></codeline>
+<codeline lineno="275"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_INT_ST_VID_PROP_CHANGE_MASK<sp/>\</highlight></codeline>
+<codeline lineno="277"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_EXT_INT_ST_VID_PROP_CHANGE_SHIFT)</highlight></codeline>
+<codeline lineno="278"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="280" refid="group__sdiaud_1gad9e6075d05db155b49b5451d9272e905" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_INT_ST_FIFO_OF_SHIFT<sp/>(2)</highlight></codeline>
+<codeline lineno="281"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_INT_ST_FIFO_OF_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_EXT_INT_ST_FIFO_OF_SHIFT)</highlight></codeline>
+<codeline lineno="283"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="285" refid="group__sdiaud_1ga1e973876381120186be23c64f4db02ab" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_INT_ST_CERR_SHIFT<sp/>(1)</highlight></codeline>
+<codeline lineno="286"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_INT_ST_CERR_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_EXT_INT_ST_CERR_SHIFT)</highlight></codeline>
+<codeline lineno="288"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="290" refid="group__sdiaud_1ga1e4aa3a2b7418d5e097865b8b57aac88" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_INT_ST_PERR_SHIFT<sp/>(0)</highlight></codeline>
+<codeline lineno="291"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_INT_ST_PERR_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_EXT_INT_ST_PERR_SHIFT)</highlight></codeline>
+<codeline lineno="293"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="295" refid="group__sdiaud_1gaef1123be527142242330daffe04726fb" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_AUD_CNT_CP_EN_SHIFT<sp/>(29)</highlight></codeline>
+<codeline lineno="296"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_AUD_CNT_CP_EN_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_EXT_AUD_CNT_CP_EN_SHIFT)</highlight></codeline>
+<codeline lineno="298"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="300" refid="group__sdiaud_1gad8e7c3c28b78f6b6a8b9e30117803eb3" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_AXIS_CHCOUNT_SHIFT<sp/>(0)</highlight></codeline>
+<codeline lineno="301"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_AXIS_CHCOUNT_MASK<sp/>(0x1F<sp/>&lt;&lt;<sp/>XSDIAUD_EXT_AXIS_CHCOUNT_SHIFT)</highlight></codeline>
+<codeline lineno="303"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="305" refid="group__sdiaud_1gaaa89f8e758c4cce227b088de7c4efff3" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_DMUX_GRPS_SHIFT<sp/>(0)</highlight></codeline>
+<codeline lineno="306"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_DMUX_GRPS_MASK<sp/>(0x3<sp/>&lt;&lt;<sp/>XSDIAUD_EXT_DMUX_GRPS_SHIFT)</highlight></codeline>
+<codeline lineno="308"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="310" refid="group__sdiaud_1gafea8011c7dab79bfa115c2290d3c3036" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_DMUX_MUTE_SHIFT<sp/>(2)</highlight></codeline>
+<codeline lineno="311"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_DMUX_MUTEALL_MASK<sp/>(0xF<sp/>&lt;&lt;<sp/>XSDIAUD_EXT_DMUX_MUTE_SHIFT)</highlight></codeline>
+<codeline lineno="313"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_DMUX_MUTE1_MASK<sp/>(0x1<sp/>&lt;&lt;<sp/>XSDIAUD_EXT_DMUX_MUTE_SHIFT)</highlight></codeline>
+<codeline lineno="315"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_DMUX_MUTE2_MASK<sp/>(0x2<sp/>&lt;&lt;<sp/>XSDIAUD_EXT_DMUX_MUTE_SHIFT)</highlight></codeline>
+<codeline lineno="317"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_DMUX_MUTE3_MASK<sp/>(0x4<sp/>&lt;&lt;<sp/>XSDIAUD_EXT_DMUX_MUTE_SHIFT)</highlight></codeline>
+<codeline lineno="319"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_DMUX_MUTE4_MASK<sp/>(0x8<sp/>&lt;&lt;<sp/>XSDIAUD_EXT_DMUX_MUTE_SHIFT)</highlight></codeline>
+<codeline lineno="321"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="323" refid="group__sdiaud_1ga536cf5a928c222151a601095efa74b2b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_PKTST_SR_SHIFT<sp/>(0)</highlight></codeline>
+<codeline lineno="324"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_PKTST_SR_MASK<sp/>(0xFFF<sp/>&lt;&lt;<sp/>XSDIAUD_EXT_PKTST_SR_SHIFT)</highlight></codeline>
+<codeline lineno="326"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="328" refid="group__sdiaud_1ga59bbc10518fb62bf9c554ffbe3ca70d7" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_PKTST_AC_SHIFT<sp/>(12)</highlight></codeline>
+<codeline lineno="329"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_EXT_PKTST_AC_MASK<sp/>(0xFFFF<sp/>&lt;&lt;<sp/>XSDIAUD_EXT_PKTST_AC_SHIFT)</highlight></codeline>
+<codeline lineno="331"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>GUI<sp/>Masks<sp/>and<sp/>Shifts<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="334" refid="group__sdiaud_1gaa22ca2f978a724ecbfc180e3b0c7e420" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_GUI_CHAN_SHIFT<sp/>(0)</highlight></codeline>
+<codeline lineno="335"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_GUI_CHAN_MASK<sp/>(0xF<sp/>&lt;&lt;<sp/>XSDIAUD_GUI_CHAN_SHIFT)</highlight></codeline>
+<codeline lineno="337"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="339" refid="group__sdiaud_1ga06dea0df2bc1c12f7e6eee7cf14b0292" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_GUI_STD_SHIFT<sp/>(4)</highlight></codeline>
+<codeline lineno="340"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_GUI_STD_MASK<sp/>(0x3<sp/>&lt;&lt;<sp/>XSDIAUD_GUI_STD_SHIFT)</highlight></codeline>
+<codeline lineno="342"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="344" refid="group__sdiaud_1ga3d6052323d3a7ba0823b1c62afc7816a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_GUI_AUDF_SHIFT<sp/>(6)</highlight></codeline>
+<codeline lineno="345"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_GUI_AUDF_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_GUI_AUDF_SHIFT)</highlight></codeline>
+<codeline lineno="347"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="349" refid="group__sdiaud_1gabedd160bbe19d1e2d4e67143ec25bb17" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_GUI_AXIE_SHIFT<sp/>(7)</highlight></codeline>
+<codeline lineno="350"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_GUI_AXIE_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_GUI_AXIE_SHIFT)</highlight></codeline>
+<codeline lineno="352"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="354" refid="group__sdiaud_1ga2d0142c7e444c4b51075a9aa369e30d0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_GUI_CHSTAT_EXTR_SHIFT<sp/>(8)</highlight></codeline>
+<codeline lineno="355"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_GUI_CHSTAT_EXTR_MASK<sp/>(1<sp/>&lt;&lt;<sp/>XSDIAUD_GUI_CHSTAT_EXTR_SHIFT)</highlight></codeline>
+<codeline lineno="357"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="359"><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(In-line<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight></codeline>
+<codeline lineno="366" refid="group__sdiaud_1ga980376815f05b1870323f72b2a6abe8c" refkind="member"><highlight class="preprocessor">#define<sp/>XSdiAud_In32<sp/><sp/><sp/>Xil_In32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="367" refid="group__sdiaud_1ga2b549347e29f15ad99b4e6b8c55987c4" refkind="member"><highlight class="preprocessor">#define<sp/>XSdiAud_Out32<sp/><sp/>Xil_Out32<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="368"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="369"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="382" refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" refkind="member"><highlight class="preprocessor">#define<sp/>XSdiAud_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="383"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_In32((BaseAddress)<sp/>+<sp/>((u32)RegOffset))</highlight></codeline>
+<codeline lineno="384"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="385"><highlight class="normal"></highlight></codeline>
+<codeline lineno="386"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="400" refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" refkind="member"><highlight class="preprocessor">#define<sp/>XSdiAud_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="401"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_Out32((BaseAddress)<sp/>+<sp/>((u32)RegOffset),<sp/>(u32)(Data))</highlight></codeline>
+<codeline lineno="402"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="404"><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="405"><highlight class="normal"></highlight></codeline>
+<codeline lineno="406"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="407"><highlight class="normal"></highlight></codeline>
+<codeline lineno="408"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="409"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="411"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="412"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSDIAUD_HW_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="413"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud_hw.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="vgamma__lut__example__kc705_8tcl" kind="file">
+    <compoundname>vgamma_lut_example_kc705.tcl</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="vgamma__lut__example__kc705_8tcl_1a67f2bc01c34e97bf19a8af8aa6184800" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>vgamma_lut_example</definition>
+        <argsstring>args</argsstring>
+        <name>vgamma_lut_example</name>
+        <briefdescription>
+<para>Documented procedure <computeroutput>vgamma_lut_example</computeroutput> . </para>        </briefdescription>
+        <detaileddescription>
+<para>The code is inserted here:</para><para><programlisting><codeline><highlight class="normal">proc<sp/>vgamma_lut_example<sp/>args<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>{[llength<sp/>$args]<sp/>!=<sp/>1}<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>puts<sp/></highlight><highlight class="stringliteral">&quot;error:<sp/>xsa<sp/>file<sp/>name<sp/>missing<sp/>from<sp/>command<sp/>line&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>puts<sp/></highlight><highlight class="stringliteral">&quot;Please<sp/>specify<sp/>xsa<sp/>to<sp/>process&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>puts<sp/></highlight><highlight class="stringliteral">&quot;Example<sp/>Usage:<sp/>vgamma_lut_example.tcl<sp/>design1.xsa&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>set<sp/>xsa<sp/>[lindex<sp/>$args<sp/>0]</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#set<sp/>workspace</highlight></codeline>
+<codeline><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>puts<sp/></highlight><highlight class="stringliteral">&quot;Create<sp/>Workspace&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>setws<sp/>vgamma_lut_example.sdk</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>set<sp/>a<sp/>[getws]</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>set<sp/>app<sp/></highlight><highlight class="stringliteral">&quot;Empty<sp/>Application&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>app<sp/>create<sp/>-name<sp/>vgamma_lut_example_design<sp/>-</highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>${app}<sp/>-hw<sp/>./$xsa<sp/>-os<sp/>standalone<sp/>-proc<sp/>processor_ss_processor</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#copy<sp/>example<sp/>source<sp/>files<sp/>tp<sp/>app<sp/>project</highlight></codeline>
+<codeline><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>puts<sp/></highlight><highlight class="stringliteral">&quot;Get<sp/>Example<sp/>Design<sp/>Source<sp/>Files&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>importsources<sp/>-name<sp/>vgamma_lut_example_design<sp/>-path<sp/>./src</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#build<sp/>project</highlight></codeline>
+<codeline><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>puts<sp/></highlight><highlight class="stringliteral">&quot;Build<sp/>Project&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>app<sp/>build<sp/>-name<sp/>vgamma_lut_example_design</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/examples/vgamma_lut_example_kc705.tcl" line="7" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/examples/vgamma_lut_example_kc705.tcl" bodystart="7" bodyend="33"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="comment">##<sp/>\file<sp/>vgamma_lut_example.tcl<sp/>for<sp/>kc705</highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="comment">#Automates<sp/>the<sp/>process<sp/>of<sp/>generating<sp/>the<sp/>downloadable<sp/>bit<sp/>&amp;<sp/>elf<sp/>files<sp/>from<sp/>the<sp/>provided<sp/>example<sp/>xsa<sp/>file.</highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="comment">##<sp/>Documented<sp/>procedure<sp/>\c<sp/>vgamma_lut_example<sp/>.</highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="comment">#<sp/>The<sp/>code<sp/>is<sp/>inserted<sp/>here:</highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="comment">#\code</highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">proc</highlight><highlight class="normal"><sp/>vgamma_lut_example<sp/>args<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">if</highlight><highlight class="normal"><sp/>{[llength<sp/>$args]<sp/>!=<sp/>1}<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">puts</highlight><highlight class="normal"><sp/>&quot;error:<sp/>xsa<sp/>file<sp/>name<sp/>missing<sp/>from<sp/>command<sp/>line&quot;</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">puts</highlight><highlight class="normal"><sp/>&quot;Please<sp/>specify<sp/>xsa<sp/>to<sp/>process&quot;</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">puts</highlight><highlight class="normal"><sp/>&quot;Example<sp/>Usage:<sp/>vgamma_lut_example.tcl<sp/>design1.xsa&quot;</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keyword">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">set</highlight><highlight class="normal"><sp/>xsa<sp/>[</highlight><highlight class="keyword">lindex</highlight><highlight class="normal"><sp/>$args<sp/>0]</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#set<sp/>workspace</highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">puts</highlight><highlight class="normal"><sp/>&quot;Create<sp/>Workspace&quot;</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>setws<sp/>vgamma_lut_example.sdk</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">set</highlight><highlight class="normal"><sp/>a<sp/>[getws]</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">set</highlight><highlight class="normal"><sp/>app<sp/>&quot;Empty<sp/>Application&quot;</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>app<sp/>create<sp/>-name<sp/>vgamma_lut_example_design<sp/>-template<sp/>${app}<sp/>-hw<sp/>./$xsa<sp/>-os<sp/>standalone<sp/>-proc<sp/>processor_ss_processor</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#copy<sp/>example<sp/>source<sp/>files<sp/>tp<sp/>app<sp/>project</highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">puts</highlight><highlight class="normal"><sp/>&quot;Get<sp/>Example<sp/>Design<sp/>Source<sp/>Files&quot;</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>importsources<sp/>-name<sp/>vgamma_lut_example_design<sp/>-path<sp/>./src</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#build<sp/>project</highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">puts</highlight><highlight class="normal"><sp/>&quot;Build<sp/>Project&quot;</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>app<sp/>build<sp/>-name<sp/>vgamma_lut_example_design</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal">}</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">#\endcode</highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="comment">#<sp/>endoffile</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/examples/vgamma_lut_example_kc705.tcl"/>
+  </compounddef>
+</doxygen>

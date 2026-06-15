@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_ef42a25df4dfceecfc4ab455590d928e" kind="dir">
+    <compoundname>core</compoundname>
+    <innerdir refid="dir_0fc1c240c1b6b338d2ce4ad4bc357654">axi_timer</innerdir>
+    <innerdir refid="dir_fff204d255b0b707be313e499be7a2a2">default_timer</innerdir>
+    <innerdir refid="dir_704673d772530f768a0c4fc2780108cb">scutimer</innerdir>
+    <innerdir refid="dir_c4f167a52760193652137602112b6643">ttcps</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/"/>
+  </compounddef>
+</doxygen>

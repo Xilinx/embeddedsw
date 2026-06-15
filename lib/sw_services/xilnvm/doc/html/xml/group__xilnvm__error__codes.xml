@@ -1,0 +1,1550 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xilnvm__error__codes" kind="group">
+    <compoundname>xilnvm_error_codes</compoundname>
+    <title>XilNvm Error Codes</title>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xilnvm__error__codes_1ga00c7dbe244969a974957cec19d29f1fc" prot="public" static="no">
+        <name>XNvm_EfuseCommonErrorCodes</name>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca19a74cb8ab3a965c6d0654188d7d19c8" prot="public">
+          <name>XNVM_EFUSE_ERR_NONE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>0 - No error. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca9a62e9c5d07c9b4e2dd2c350275e632b" prot="public">
+          <name>XNVM_EFUSE_ERR_INVALID_PARAM</name>
+          <initializer>= 0x2</initializer>
+          <briefdescription>
+<para>0x2 - Passed invalid param. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca1d613bcd068b1a35f323449d19661fe8" prot="public">
+          <name>XNVM_EFUSE_ERR_IN_ZEROIZATION</name>
+          <briefdescription>
+<para>0x3 - Error while reading. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca75c809a0b4329b8574af264cf9ea48c3" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_TIMEOUT</name>
+          <briefdescription>
+<para>0x4 - Read Timeout. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca6dbd3858b81c44129ec5b34b7e2d1733" prot="public">
+          <name>XNVM_EFUSE_ERR_CACHE_PARITY</name>
+          <briefdescription>
+<para>0x5 - Error in Cache reload. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca7a2222f3c14c0a6ae0440a002cd16bb2" prot="public">
+          <name>XNVM_EFUSE_ERR_LOCK</name>
+          <briefdescription>
+<para>0x6 - Error while Locking the controller </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca3fa0a7b61dbaa0bd35d5fd250ee8aade" prot="public">
+          <name>XNVM_EFUSE_ERR_UNLOCK</name>
+          <briefdescription>
+<para>0x7 - Error while Unlocking the controller </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca218c7ba49b992bc20ea5abb2dab7a0b5" prot="public">
+          <name>XNVM_EFUSE_ERR_PGM_VERIFY</name>
+          <briefdescription>
+<para>0x8 - Error in verifying the bit </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca45a13a19bdfa021304e7712fb98d8c2f" prot="public">
+          <name>XNVM_EFUSE_ERR_PGM</name>
+          <briefdescription>
+<para>0x9 - Error in Programming the bit </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca5d5a22c7ae845e5238dd84fcb2fca437" prot="public">
+          <name>XNVM_EFUSE_ERR_PGM_TIMEOUT</name>
+          <briefdescription>
+<para>0xA - Programming timeout happened </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcae9c5b8f4e067beed16673ebb09483586" prot="public">
+          <name>XNVM_EFUSE_ERR_PGM_TBIT_PATTERN</name>
+          <briefdescription>
+<para>0xB - Error in T-Bit pattern </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca891303a2ed51755ec06ecddc159b8984" prot="public">
+          <name>XNVM_EFUSE_ERR_CACHE_LOAD</name>
+          <briefdescription>
+<para>0xC - Error while loading the cache </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcaf2dffe88d7ba95da4c73e9b7b113b73f" prot="public">
+          <name>XNVM_EFUSE_ERR_CRC_VERIFICATION</name>
+          <briefdescription>
+<para>0xD - Error in Crc Verification </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcad7f03ac4a5883f382120b643304ae835" prot="public">
+          <name>XNVM_EFUSE_ERR_ANCHOR_BIT_PATTERN</name>
+          <briefdescription>
+<para>0xE - Error in Anchor bits pattern </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca7965e45dc8b39a233994765d38bff3b3" prot="public">
+          <name>XNVM_EFUSE_ERR_IN_PROTECTION_CHECK</name>
+          <briefdescription>
+<para>0xF - Error in Protection row configuration </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcaffbec4d98a496e2d70446978ad20a639" prot="public">
+          <name>XNVM_EFUSE_ERR_AES_ALREADY_PRGMD</name>
+          <initializer>= 0x10</initializer>
+          <briefdescription>
+<para>0x10 - Aes key is already programmed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca343c83953ac6a424684324fa035bd269" prot="public">
+          <name>XNVM_EFUSE_ERR_USER_KEY0_ALREADY_PRGMD</name>
+          <initializer>= 0x20</initializer>
+          <briefdescription>
+<para>0x20 - User key 0 is already programmed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcad8e5fffc8cef7219a1e9c3955ad1098c" prot="public">
+          <name>XNVM_EFUSE_ERR_USER_KEY1_ALREADY_PRGMD</name>
+          <initializer>= 0x30</initializer>
+          <briefdescription>
+<para>0x30 - User key 1 is already programmed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca97176d037b4c9b5282639b5702c187b4" prot="public">
+          <name>XNVM_EFUSE_ERR_PPK0_HASH_ALREADY_PRGMD</name>
+          <initializer>= 0x40</initializer>
+          <briefdescription>
+<para>0x40 - Ppk hash 0 is already programmed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcad9ba1adf7eadc9b7f4892971196f42b6" prot="public">
+          <name>XNVM_EFUSE_ERR_PPK1_HASH_ALREADY_PRGMD</name>
+          <initializer>= 0x50</initializer>
+          <briefdescription>
+<para>0x50 - Ppk hash 1 is already programmed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca9c79981c2bb2f751c85ae8320cef5441" prot="public">
+          <name>XNVM_EFUSE_ERR_PPK2_HASH_ALREADY_PRGMD</name>
+          <initializer>= 0x60</initializer>
+          <briefdescription>
+<para>0x60 - Ppk hash 2 is already programmed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca7b552bb4aed2e1f3e3dd54f5adeccadf" prot="public">
+          <name>XNVM_EFUSE_ERR_BLK_OBFUS_IV_ALREADY_PRGMD</name>
+          <initializer>= 0x70</initializer>
+          <briefdescription>
+<para>0x70 - BLK_OBFUS_IV is already programmed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca387fc57f32a3a8ec3c211b9a719459e2" prot="public">
+          <name>XNVM_EFUSE_ERR_PUF_SYN_ALREADY_PRGMD</name>
+          <initializer>= 0x80</initializer>
+          <briefdescription>
+<para>0x80 - Puf syndrome is already programmed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca79e49d3af85e9c71eb4f65d85178fd60" prot="public">
+          <name>XNVM_EFUSE_ERR_PUF_CHASH_ALREADY_PRGMD</name>
+          <initializer>= 0x90</initializer>
+          <briefdescription>
+<para>0x90 - Puf chash is already programmed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca612d38e4a8fab77d9392967ab56803d0" prot="public">
+          <name>XNVM_EFUSE_ERR_PUF_AUX_ALREADY_PRGMD</name>
+          <initializer>= 0xA0</initializer>
+          <briefdescription>
+<para>0xA0 - Puf Aux is already programmed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca3c2a740150b50a17409e36446807a068" prot="public">
+          <name>XNVM_EFUSE_ERR_DEC_ONLY_KEY_MUST_BE_PRGMD</name>
+          <initializer>= 0xB0</initializer>
+          <briefdescription>
+<para>0xB0 - Aes key should be programmed for DEC_ONLY eFuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcad04bb27fcceb39d7442293876d59f7f5" prot="public">
+          <name>XNVM_EFUSE_ERR_RSVD_1</name>
+          <initializer>= 0xC0</initializer>
+          <briefdescription>
+<para>0xC0 - Reserved </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcafdeb6ff2f4fc25f2645e87cdc8d512d1" prot="public">
+          <name>XNVM_EFUSE_ERR_DEC_ONLY_ALREADY_PRGMD</name>
+          <initializer>= 0xD0</initializer>
+          <briefdescription>
+<para>0xD0 - Dec only eFuse is already programmed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca4bfb80d2e9ea8ea3f128116953fb5884" prot="public">
+          <name>XNVM_EFUSE_ERR_BOOT_ENV_CTRL_ALREADY_PRGMD</name>
+          <initializer>= 0xE0</initializer>
+          <briefdescription>
+<para>0xE0 - BootEnvCtrl is already programmed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcac0545366db336e916c12b41d86ae3c39" prot="public">
+          <name>XNVM_EFUSE_ERR_BIT_CANT_REVERT</name>
+          <initializer>= 0xF0</initializer>
+          <briefdescription>
+<para>0xF0 - Already programmed eFuse Bit, can&apos;t be reverted </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca29507bfb30c9251f84486c5cd8cb97dd" prot="public">
+          <name>XNVM_EFUSE_ERR_AES_DISABLED</name>
+          <initializer>= 0xF1</initializer>
+          <briefdescription>
+<para>0xF1 - Error during validation of AES key write request as AES engine is disabled </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcacb1186bb45336118df73db9ea430642c" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_AES_KEY</name>
+          <initializer>= 0x8000</initializer>
+          <briefdescription>
+<para>0x8000 - Error in Aes key programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcad6db55c74ad5446105bb9da746b440e6" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_USER_KEY0</name>
+          <initializer>= 0x8100</initializer>
+          <briefdescription>
+<para>0x8100 - Error in Userkey0 programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca69d25f81e3ab43fb323a64f769a2d738" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_USER_KEY1</name>
+          <initializer>= 0x8200</initializer>
+          <briefdescription>
+<para>0x8200 - Error in Userkey1 programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca213e9cea5131d2070dc3f83ed73251e4" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK0_HASH</name>
+          <initializer>= 0x8300</initializer>
+          <briefdescription>
+<para>0x8300 - Error in PPK0hash programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcaf82032e1aee0ad8e966189c2b129926d" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK1_HASH</name>
+          <initializer>= 0x8400</initializer>
+          <briefdescription>
+<para>0x8400 - Error in PPK1hash programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca66516a1d969752091cf92846dbc5c419" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK2_HASH</name>
+          <initializer>= 0x8500</initializer>
+          <briefdescription>
+<para>0x8500 - Error in PPK2hash programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca88670dfdfbd1e23ada1dd185f09a032f" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_DEC_EFUSE_ONLY</name>
+          <initializer>= 0x8600</initializer>
+          <briefdescription>
+<para>0x8600 - Error in DEC_ONLY programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcab47c0ff687faed5330cb07becbabda7b" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_META_HEADER_IV_RANGE</name>
+          <initializer>= 0x8700</initializer>
+          <briefdescription>
+<para>0x8700 - Error in Meta header IV range programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca381b5a3a8d8fdebd901091f6b40df146" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_BLK_IV</name>
+          <initializer>= 0x8800</initializer>
+          <briefdescription>
+<para>0x8800 - Error in Blk Obfus IV programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca2757cb23916a28412131210536572097" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PLM_IV_RANGE</name>
+          <initializer>= 0x8900</initializer>
+          <briefdescription>
+<para>0x8900 - Error in PLM IV programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca791c469f9ee8f808bbbd84dbd9a9e661" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_DATA_PARTITION_IV_RANGE</name>
+          <initializer>= 0x8A00</initializer>
+          <briefdescription>
+<para>0x8A00 - Error in Data Partition IV programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcabae15d0926809cb3804579dea961e4ee" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PUF_HELPER_DATA</name>
+          <initializer>= 0xB000</initializer>
+          <briefdescription>
+<para>0xB000 - Error in Writing Puf helper data efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca107930798ea8a811da851ef48f4fba32" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PUF_SYN_DATA</name>
+          <initializer>= 0xB100</initializer>
+          <briefdescription>
+<para>0xB100 - Error in Puf syndrome data programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcaedce51882be9919700e45a3ab5c1eec8" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PUF_CHASH</name>
+          <initializer>= 0xB200</initializer>
+          <briefdescription>
+<para>0xB200 - Error in Puf Chash efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca28f2ce2494dda5db9650cfb6a0d1f7fe" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PUF_AUX</name>
+          <initializer>= 0xB300</initializer>
+          <briefdescription>
+<para>0xB300 - Error in Puf Aux efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcac8098929a508c982f9e570fccc0cde5e" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PUF_REGEN_DIS</name>
+          <initializer>= 0xB400</initializer>
+          <briefdescription>
+<para>0xB400 - Error in PUF_REGEN_DIS efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcae07ab771a740a4d6713e139a918ce368" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PUF_HD_INVLD</name>
+          <initializer>= 0xB500</initializer>
+          <briefdescription>
+<para>0xB500 - Error in PUF_HD_INVLD efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcac5bfb84c82e6944bbd9c2be50b570238" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PUF_TEST2_DIS</name>
+          <initializer>= 0xB600</initializer>
+          <briefdescription>
+<para>0xB600 - Error in PUF_TEST2_DIS efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcab840e9dcf1ad9419bdd87ba33c85c6ad" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PUF_SYN_LK</name>
+          <initializer>= 0xB700</initializer>
+          <briefdescription>
+<para>0xB700 - Error in PUF_SYN_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca9176802870cf349497717e5231b7a033" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PUF_DIS</name>
+          <initializer>= 0xB800</initializer>
+          <briefdescription>
+<para>0xB800 - Error in PUF_DIS efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca28e10ba4aa293f3d7052bd2e5ce0d628" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_SECURITY_MISC_1</name>
+          <initializer>= 0xBD00</initializer>
+          <briefdescription>
+<para>0xBD00 - Error in SYSMON_MISC_1 efuses programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcaf3d8b746fb7cd55d904c13596ebbf448" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_BOOT_ENV_CTRL</name>
+          <initializer>= 0xBE00</initializer>
+          <briefdescription>
+<para>0xBE00 - Error in BOOT_ENV_CTRL efuses programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca9699e3c65233ddaa7ba7619cb9608635" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_REVOCATION_IDS</name>
+          <initializer>= 0xC000</initializer>
+          <briefdescription>
+<para>0xC000 - Error in REVOCATION_IDS programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcabfe628511dad3c04519d501c8f4ea64a" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_OFFCHIP_REVOKE_IDS</name>
+          <initializer>= 0xC100</initializer>
+          <briefdescription>
+<para>0xC100 - Error in OFFCHIP_REVOKE programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcae6adf4e2c1f56062309804562f0005f0" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PUF_FUSES</name>
+          <initializer>= 0xC200</initializer>
+          <briefdescription>
+<para>0xC200 - Error in Write PUF efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcace0e87d10aefbf259db51b62f4f4cbdc" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_GLITCH_CFG</name>
+          <initializer>= 0xEC00</initializer>
+          <briefdescription>
+<para>0xEC00 - Error in programming of glitch configuration </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca0da58aab9de6ef9bd411d83291bdd7d2" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_GLITCH_WRLK</name>
+          <initializer>= 0xED00</initializer>
+          <briefdescription>
+<para>0xED00 - Error in programming of glitch write lock </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca3a9a956a04c34687c49520e2646fefca" prot="public">
+          <name>XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED</name>
+          <initializer>= 0xF000</initializer>
+          <briefdescription>
+<para>0xF000 - Error in Programming, no data is provided for Programming. </para>          </briefdescription>
+          <detaileddescription>
+<para>All Data pointers are NULL </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca6aed89fc61667e4a2784d0099fd4f769" prot="public">
+          <name>XNVM_EFUSE_ERROR_READ_TMEPERATURE_OUT_OF_RANGE</name>
+          <initializer>= 0xF100</initializer>
+          <briefdescription>
+<para>0xF100 - Error before programming eFuse, Temperature is out of range </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca92857890de785d9496d723d7cbe56ab5" prot="public">
+          <name>XNVM_EFUSE_ERROR_READ_VOLTAGE_OUT_OF_RANGE</name>
+          <initializer>= 0xF200</initializer>
+          <briefdescription>
+<para>0xF200 - Error before programming eFuse, Voltage is out of range </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca5889e498bb62933e403a7c28332ee064" prot="public">
+          <name>XNVM_EFUSE_ERROR_NO_SUPPLIES_ENABLED</name>
+          <initializer>= 0xF300</initializer>
+          <briefdescription>
+<para>0xF300 - Error before programming eFuse, no supplies are enabled </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca8f2f820cef391a9e44e23feb978cca50" prot="public">
+          <name>XNVM_EFUSE_ERROR_SYSMON_NO_NEW_DATA</name>
+          <initializer>= 0xF400</initializer>
+          <briefdescription>
+<para>0xF400 - Error before programming eFuse, new data is not available </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca86ffedf762c2a56f63d1eee2a88c5c17" prot="public">
+          <name>XNVM_EFUSE_ERROR_EFUSE_ACCESS_DISABLED</name>
+          <initializer>= 0xFA00</initializer>
+          <briefdescription>
+<para>0xFA00 - Error when eFuse access, is not enabled </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca2e67b34114355dcc8f9b6528b3db6f3d" prot="public">
+          <name>XNVM_EFUSE_ERROR_INVALID_ADDR_RANGE</name>
+          <initializer>=	0xFB00</initializer>
+          <briefdescription>
+<para>0xFB00 - Error when accessed address range, of eFuse is invalid </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca7ef01e49861cc0ea50b64e8baa298e2f" prot="public">
+          <name>XNVM_EFUSE_ERR_GLITCH_DETECTED</name>
+          <initializer>= 0x20000</initializer>
+          <briefdescription>
+<para>0x20000 Glitch detected, due to which requested eFuses may be partially programmed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fcad266d3a6d6afe7285781c476aa586575" prot="public">
+          <name>XNVM_EFUSE_ERR_FUSE_PROTECTED</name>
+          <initializer>= 0x40000</initializer>
+          <briefdescription>
+<para>0x40000 Requested eFUSE is write protected. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga00c7dbe244969a974957cec19d29f1fca91e4b12e40ef1fd3a78d16279d51d2d0" prot="public">
+          <name>XNVM_EFUSE_ERR_BEFORE_PROGRAMMING</name>
+          <initializer>= 0x80000</initializer>
+          <briefdescription>
+<para>0x80000 Error occurred before programming. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>The following table lists the Versal common eFuse library error codes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_efuse_error.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_efuse_error.h" bodystart="55" bodyend="235"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xilnvm__error__codes_1ga86e3961e656aebaac884575ef08d47ad" prot="public" static="no">
+        <name>XNvm_EfuseVersalErrorCodes</name>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adada86a0e582caaca940c508755ae509b8" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_AES_DIS</name>
+          <initializer>= 0x8B00</initializer>
+          <briefdescription>
+<para>0x8B00 - Error in AES_DIS efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adabad59de0bb30d319b64c2beac8f7b3f7" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_JTAG_ERROUT_DIS</name>
+          <initializer>= 0x8C00</initializer>
+          <briefdescription>
+<para>0x8C00 - Error in JTAG_ERROUT_DIS efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adac9ba9922a12bc4d27e7b2d9a473a6777" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_JTAG_DIS</name>
+          <initializer>= 0x8D00</initializer>
+          <briefdescription>
+<para>0x8D00 - Error in JTAG_DIS efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada1674fa30111df9defcfcf098a33586bd" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_HWTSTBITS_DIS</name>
+          <initializer>= 0x8E00</initializer>
+          <briefdescription>
+<para>0x8E00 - Error in HWTSTBITS_DIS efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada5c31453b697f7605d609b0d8bcfc330c" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_IP_DIS_WR_LK</name>
+          <initializer>= 0x8F00</initializer>
+          <briefdescription>
+<para>0x8F00 - Error in IP_DIS_WR_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adad2f8da33a04b477b707635fe29fd1f7c" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK0_WR_LK</name>
+          <initializer>= 0x9000</initializer>
+          <briefdescription>
+<para>0x9000 - Error in PPK0_WR_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adabb505777b4597fba4105c13c1a6aabb0" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK1_WR_LK</name>
+          <initializer>= 0x9100</initializer>
+          <briefdescription>
+<para>0x9100 - Error in PPK1_WR_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adae0a14a568e33b6ed1bed4f281efe48b2" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK2_WR_LK</name>
+          <initializer>= 0x9200</initializer>
+          <briefdescription>
+<para>0x9200 - Error in PPK2_WR_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaf6106045de82f58fa3d5413aacd0a3d7" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_AES_CRC_LK_BIT_0</name>
+          <initializer>= 0x9300</initializer>
+          <briefdescription>
+<para>0x9300 - Error in AES_CRC_LK_BIT0 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada52a2e1785c800bbab1c9a46ed09fcdbc" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_AES_CRC_LK_BIT_1</name>
+          <initializer>= 0x9400</initializer>
+          <briefdescription>
+<para>0x9400 - Error in AES_CRC_LK_BIT1 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adafdfded83b27e2b02deea22516745ade5" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_AES_WR_LK</name>
+          <initializer>= 0x9500</initializer>
+          <briefdescription>
+<para>0x9500 - Error in AES_WR_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada0056fc3ede5fd26c951a3836b9aa7108" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_USER_KEY0_CRC_LK</name>
+          <initializer>= 0x9600</initializer>
+          <briefdescription>
+<para>0x9600 - Error in USER_KEY0_CRC_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada07e42769ccc225a1ca323f3befb0fa6c" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_USER_KEY0_WR_LK</name>
+          <initializer>= 0x9700</initializer>
+          <briefdescription>
+<para>0x9700 - Error in USER_KEY0_WR_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada90a45b05d8b9d129e28a2b82b04a3d7b" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_USER_KEY1_CRC_LK</name>
+          <initializer>= 0x9800</initializer>
+          <briefdescription>
+<para>0x9800 - Error in USER_KEY1_CRC_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada2072ae8d22249b5790ff5b4a4e9f52e6" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_USER_KEY1_WR_LK</name>
+          <initializer>= 0x9900</initializer>
+          <briefdescription>
+<para>0x9900 - Error in USER_KEY1_WR_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada1d4f0fa167736aa81d49d216c58e0fa1" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_SECDBG_DIS_BIT_0</name>
+          <initializer>= 0x9A00</initializer>
+          <briefdescription>
+<para>0x9A00 - Error in SECDBG_DIS_BIT_0 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada2a0b91b8e8ddeda1a5fa6b1b3c2ec185" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_SECDBG_DIS_BIT_1</name>
+          <initializer>= 0x9B00</initializer>
+          <briefdescription>
+<para>0x9B00 - Error in SECDBG_DIS_BIT_1 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada44f38979f5c15d83e7e103c2ff836fae" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_SECLOCKDBG_DIS_BIT_0</name>
+          <initializer>= 0x9C00</initializer>
+          <briefdescription>
+<para>0x9C00 - Error in SECLOCKDBG_DIS bit0 programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada5e13b83443a3d1ad8e0951927b019390" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_SECLOCKDBG_DIS_BIT_1</name>
+          <initializer>= 0x9D00</initializer>
+          <briefdescription>
+<para>0x9D00 - Error in SECLOCKDBG_DIS bit1 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada78b52195e5f3dedc7b38a74151e1cc0b" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PMC_SC_EN_BIT_0</name>
+          <initializer>= 0x9E00</initializer>
+          <briefdescription>
+<para>0x9E00 - Error in PMC_SC_EN_BIT_0 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada871d08534c13f8f8617026d3fbbe0963" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PMC_SC_EN_BIT_1</name>
+          <initializer>= 0x9F00</initializer>
+          <briefdescription>
+<para>0x9F00 - Error in PMC_SC_EN_BIT_1 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada669f42ad866ee88944595af738eb5381" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PMC_SC_EN_BIT_2</name>
+          <initializer>= 0xA000</initializer>
+          <briefdescription>
+<para>0xA000 - Error in PMC_SC_EN_BIT_2 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada27cbaf0c2122e1f185e96dd7630f5df4" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_SVD_WR_LK</name>
+          <initializer>= 0xA100</initializer>
+          <briefdescription>
+<para>0xA100 - Error in SVD_WR_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada39140e722c55d83e56c2ff705b7b5ad2" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_DNA_WR_LK</name>
+          <initializer>= 0xA200</initializer>
+          <briefdescription>
+<para>0xA200 - Error in DNA_WR_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada6654c1e9086e0413bcf2599152273ebd" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_BOOTENV_WR_LK</name>
+          <initializer>= 0xA300</initializer>
+          <briefdescription>
+<para>0xA300 - Error in BOOTENV_WR_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada3f26dcb9d61a003ad043affa67df38b4" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_CACHE_WR_LK</name>
+          <initializer>= 0xA400</initializer>
+          <briefdescription>
+<para>0xA400 - Error in SVD_WR_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada9a55425330fb4921ed3671ab2efc7cf3" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_REG_INIT_DIS_BIT_0</name>
+          <initializer>= 0xA500</initializer>
+          <briefdescription>
+<para>0xA500 - Error in REG_INIT_DIS_BIT_0 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adabc032456c2fa8e4642faff83458aa3da" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_REG_INIT_DIS_BIT_1</name>
+          <initializer>= 0xA600</initializer>
+          <briefdescription>
+<para>0xA600 - Error in REG_INIT_DIS_BIT_1 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adabb5a630265a4a85abf7a62b8455a84a7" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK0_INVALID_BIT_0</name>
+          <initializer>= 0xA700</initializer>
+          <briefdescription>
+<para>0xA700 - Error in PPK0_INVALID_BIT_0 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaf42635def75167b7cd2fedef97345764" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK0_INVALID_BIT_1</name>
+          <initializer>= 0xA800</initializer>
+          <briefdescription>
+<para>0xA800 - Error in PPK0_INVALID_BIT_1 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada074f18577afa53cb611d20706d75716a" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK1_INVALID_BIT_0</name>
+          <initializer>= 0xA900</initializer>
+          <briefdescription>
+<para>0xA900 - Error in PPK1_INVALID_BIT_0 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adac483606f38efa46b500db730a55743af" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK1_INVALID_BIT_1</name>
+          <initializer>= 0xAA00</initializer>
+          <briefdescription>
+<para>0xAA00 - Error in PPK1_INVALID_BIT_1 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaf9c71d909160b9917e809687fb411a6d" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK2_INVALID_BIT_0</name>
+          <initializer>= 0xAB00</initializer>
+          <briefdescription>
+<para>0xAB00 - Error in PPK2_INVALID_BIT_0 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada126e9d0e30e2cb8d79c02988bbd58028" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK2_INVALID_BIT_1</name>
+          <initializer>= 0xAC00</initializer>
+          <briefdescription>
+<para>0xAC00 - Error in PPK2_INVALID_BIT_1 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adafc391c92e3ba9367030a785251ec4573" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_SAFETY_MISSION_EN</name>
+          <initializer>= 0xAD00</initializer>
+          <briefdescription>
+<para>0xAD00 - Error in SAFETY_MISSION_EN efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adab0efc675d681bf724b684671c4fb99cd" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_LBIST_EN</name>
+          <initializer>= 0xAE00</initializer>
+          <briefdescription>
+<para>0xAE00 - Error in LBIST_EN efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada6b463d239a793d1b3b8d5e656023236e" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_CRYPTO_KAT_EN</name>
+          <initializer>= 0xAF00</initializer>
+          <briefdescription>
+<para>0xAF00 - Error in CRYPTO_KAT_EN efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada66be63ade436b01b6971f7573509e9c8" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK3_HASH</name>
+          <initializer>= 0xC300</initializer>
+          <briefdescription>
+<para>0xC300 - Error in PPK3hash programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada765da31b9215a0d7599eee3b9eb657c4" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK4_HASH</name>
+          <initializer>= 0xC400</initializer>
+          <briefdescription>
+<para>0xC400 - Error in PPK4hash programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaa2a71e6cbe3ab92b745903acaa7922b5" prot="public">
+          <name>XNVM_EFUSE_5_PPKS_FEATURE_NOT_SUPPORTED</name>
+          <initializer>= 0xC500</initializer>
+          <briefdescription>
+<para>0xC500 - Error Additional ppk enable bits are neither programmed/requested </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaeccb4e117d5d928593e39a34274012c6" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK3_INVALID_BIT_0</name>
+          <initializer>= 0xC600</initializer>
+          <briefdescription>
+<para>0xC600 - Error in PPK3_INVALID_BIT_0 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adab05ebacd7f3e494aa35056d91e95779a" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK3_INVALID_BIT_1</name>
+          <initializer>= 0xC700</initializer>
+          <briefdescription>
+<para>0xC700 - Error in PPK3_INVALID_BIT_1 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaa159532a00f2e47b916faaedac9188d1" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK4_INVALID_BIT_0</name>
+          <initializer>= 0xC800</initializer>
+          <briefdescription>
+<para>0xC800 - Error in PPK4_INVALID_BIT_0 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adae57b9c5671a74296ac9d9b50d9f84a45" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK4_INVALID_BIT_1</name>
+          <initializer>= 0xC900</initializer>
+          <briefdescription>
+<para>0xC900 - Error in PPK4_INVALID_BIT_1 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada9e5037f016401dacbcf384ded97ede2e" prot="public">
+          <name>XNVM_EFUSE_ERR_PPK3_HASH_ALREADY_PRGMD</name>
+          <initializer>= 0xCA00</initializer>
+          <briefdescription>
+<para>0xCA00 - Error PPK3 Hash already programmed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada09dbc05b011d26a4745c91122c0b0b9f" prot="public">
+          <name>XNVM_EFUSE_ERR_PPK4_HASH_ALREADY_PRGMD</name>
+          <initializer>= 0xCB00</initializer>
+          <briefdescription>
+<para>0xCB00 - Error PPK4 Hash already programmed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adae9f5a3cdab2d3416bf35b8759d26fe40" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ADD_PPK_EN</name>
+          <initializer>= 0xCC00</initializer>
+          <briefdescription>
+<para>0xCC00 - Error in ADD_PPK_EN efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adae5b11b17b0013450ea394fdeff06c96b" prot="public">
+          <name>XNVM_EFUSE_ERR_USER_FUSE_PGM_NOT_ALLOWED</name>
+          <initializer>= 0xCD00</initializer>
+          <briefdescription>
+<para>0xCD00 - Error while trying to program user efuses 48 to 63 when ADD_PPK_EN bits are programmed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaba38cd9a9610038633e121e27359783b" prot="public">
+          <name>XNVM_EFUSE_ERR_ADD_PPK_PGM_NOT_ALLOWED</name>
+          <initializer>= 0xCE00</initializer>
+          <briefdescription>
+<para>0xCE00 - Error while programming additional PPK&apos;s PPK0/PPK1/PPK2 are neither programmed/requested </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adad40617228ffca822be26187c5b1ec717" prot="public">
+          <name>XNVM_ERR_WRITE_PUF_USER_DATA</name>
+          <initializer>= 0x10000</initializer>
+          <briefdescription>
+<para>0x10000 When user chooses PUF efuses as user efuses data provided for last row i.e row 255 is not valid </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaed3ddeb250ddb0334aec24ee1ed8a9ac" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS</name>
+          <initializer>= 0xD000</initializer>
+          <briefdescription>
+<para>0xD000 - Error in reading Sec Ctrl efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaaa6adb1b92786f9bcff1aa9c2a0f5584" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_MISC_CTRL_BITS</name>
+          <initializer>= 0xD100</initializer>
+          <briefdescription>
+<para>0xD100 - Error in reading in Misc Ctrl efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada6d6568cb5d8762d9e8ff3b544e56d17e" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_PUF_SEC_CTRL</name>
+          <initializer>= 0xD200</initializer>
+          <briefdescription>
+<para>0xD200 - Error in reading in Puf Ctrl efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaaa5e7170328ee8fc4f679752c2cf0acf" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_PUF_SYN_DATA</name>
+          <initializer>= 0xD300</initializer>
+          <briefdescription>
+<para>0xD300 - Error in reading Puf syn efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada0d5d3ee5b425db249a711fcb95fca3a9" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_PUF_CHASH</name>
+          <initializer>= 0xD400</initializer>
+          <briefdescription>
+<para>0xD400 - Error in reading Puf Chash efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adac3c7698327b22dd07918faba3cc7e421" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_PUF_AUX</name>
+          <initializer>= 0xD500</initializer>
+          <briefdescription>
+<para>0xD500 - Error in reading Puf Aux efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada7158ecd15333c9d72b0412715cebc4ad" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_DNA</name>
+          <initializer>= 0xD600</initializer>
+          <briefdescription>
+<para>0xD600 - Error in reading DNA efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada15312fcb92e32c79e7fb9bfd9434cbc2" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_PPK_HASH</name>
+          <initializer>= 0xD700</initializer>
+          <briefdescription>
+<para>0xD700 - Error in reading PPK hash efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada369312727ff9b15d54e9323ef62809d6" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_META_HEADER_IV_RANGE</name>
+          <initializer>= 0xD800</initializer>
+          <briefdescription>
+<para>0xD800 - Error in reading Meta IV efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adacad34a84617f1cec51b66e1dfdb0bae8" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_BLACK_IV</name>
+          <initializer>= 0xD900</initializer>
+          <briefdescription>
+<para>0xD900 - Error in reading Blk IV efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada66546727eb4b34997685f3805ee56efc" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_PLM_IV_RANGE</name>
+          <initializer>= 0xDA00</initializer>
+          <briefdescription>
+<para>0xDA00 - Error in reading PLM Iv efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada8830747f2ba4ae5b542a65bb64710285" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_DATA_PARTITION_IV_RANGE</name>
+          <initializer>= 0xDB00</initializer>
+          <briefdescription>
+<para>0xDB00 - Error in reading Data Partition IV efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada4ab10eb4f7a014c7b68b051ae00a245c" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_DEC_ONLY</name>
+          <initializer>= 0xDC00</initializer>
+          <briefdescription>
+<para>0xDC00 - Error in reading in Dec_only efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada24050f0732a0108a80586db2d697410d" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_USER_FUSES</name>
+          <initializer>= 0xDD00</initializer>
+          <briefdescription>
+<para>0xDD00 - Error in reading User efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaaec4a52f30604357af7338e31d42373d" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_PUF_FUSES</name>
+          <initializer>= 0xDE00</initializer>
+          <briefdescription>
+<para>0xDE00 - Error in reading PUF efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adafef5f66f30d3805efcdf4c37b498b65f" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_37_PROT</name>
+          <initializer>= 0xE000</initializer>
+          <briefdescription>
+<para>0xE000 - Error in ROW_37_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adae7a09e4a8adf94ea02ef5f66c6aea909" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_40_PROT</name>
+          <initializer>= 0xE100</initializer>
+          <briefdescription>
+<para>0xE100 - Error in ROW_40_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adad650adb2974b4c2b27eca78d92bf8d62" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_42_PROT</name>
+          <initializer>= 0xE200</initializer>
+          <briefdescription>
+<para>0xE200 - Error in ROW_42_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada96a07cdc5d08ff2340c3808f437a4b7b" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_43_0_PROT</name>
+          <initializer>= 0xE300</initializer>
+          <briefdescription>
+<para>0xE300 - Error in ROW_43_0_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adac75e229ce02d09f1d53b93e1980663c3" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_43_1_PROT</name>
+          <initializer>= 0xE400</initializer>
+          <briefdescription>
+<para>0xE400 - Error in ROW_43_1_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaae47ca52f421e87d2d820ba1bdebb435" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_57_0_PROT</name>
+          <initializer>= 0xE500</initializer>
+          <briefdescription>
+<para>0xE500 - Error in ROW_57_0_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada1dec60fd8c84861c65f5ce6c88032405" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_57_1_PROT</name>
+          <initializer>= 0xE600</initializer>
+          <briefdescription>
+<para>0xE600 - Error in ROW_57_1_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adacaae07e6c547ca05a6b3f201b32f7c2c" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_58_PROT</name>
+          <initializer>= 0xE700</initializer>
+          <briefdescription>
+<para>0xE700 - Error in ROW_58_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adafc6d45b717282ff57d07c6f7d39225e8" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW64_87_0_PROT</name>
+          <initializer>= 0xE800</initializer>
+          <briefdescription>
+<para>0xE800 - Error in ROW64_87_0_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adad528e5d4134b300db864f80a3509ab15" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW64_87_1_PROT</name>
+          <initializer>= 0xE900</initializer>
+          <briefdescription>
+<para>0xE900 - Error in ROW64_87_1_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada7628044c28ad569ecacb3b49f4888495" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW96_99_0_PROT</name>
+          <initializer>= 0xEA00</initializer>
+          <briefdescription>
+<para>0xEA00 - Error in ROW96_99_0_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adad3bde36455e4a2485c18342203ba02a1" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW96_99_1_PROT</name>
+          <initializer>= 0xEB00</initializer>
+          <briefdescription>
+<para>0xEB00 - Error in ROW96_99_1_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada73a13ec1f08582ba89bb25803def7967" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_GD_ROM_BITS</name>
+          <initializer>= 0xEE00</initializer>
+          <briefdescription>
+<para>0xEE00 - Error in programming of Glitch ROM monitor or glitch halt boot </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaf36999471774859123516296516ba9ed" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_HALT_BOOT_BITS</name>
+          <initializer>= 0xEF00</initializer>
+          <briefdescription>
+<para>0xEF00 - Error in programming of ROM flow control halt boot bits for generic and environment errors </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>The following table lists the Versal eFuse library error codes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/common/xnvm_efuse_error_plat.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/common/xnvm_efuse_error_plat.h" bodystart="49" bodyend="301"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xilnvm__error__codes_1ga30215236c6d8dc87857fb0cee99c658a" prot="public" static="no">
+        <name>XNvm_EfuseVersalNetErrorCodes</name>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa34488f9635226c952a8107df1983203d" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_MISC_CTRL_BITS</name>
+          <initializer>= 0x8B00</initializer>
+          <briefdescription>
+<para>0x8B00 Error in MiscCtrl Bits programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aae67e8c981e6e32b2e6ca93311e5f6bad" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_SEC_CTRL_BITS</name>
+          <initializer>= 0x8C00</initializer>
+          <briefdescription>
+<para>0x8C00 Error in SecCtrl Bits programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa006c16a2366abe20993fab7dd8263e02" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_MISC1_CTRL_BITS</name>
+          <initializer>= 0x8D00</initializer>
+          <briefdescription>
+<para>0x8D00 Error in Misc1Ctrl Bits programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa411ff2ea6e75095af927d7dc8d15a0a3" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_UDS</name>
+          <initializer>= 0x8E00</initializer>
+          <briefdescription>
+<para>0x8E00 Error in Uds programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aadfd9d95fc65282b25fa4826261a22e1b" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PLM_UPDATE</name>
+          <initializer>= 0x8F00</initializer>
+          <briefdescription>
+<para>0x8F00 Error in PLM_UPDATE programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa8d9407dfebf09d048d7a62d5aff60b19" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_BOOT_MODE_DISABLE</name>
+          <initializer>= 0xA000</initializer>
+          <briefdescription>
+<para>0xA000 Error in BootModeDisable programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa0a7f31ccde9a847cc5a2ce1ad9dc8282" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_DME_MODE</name>
+          <initializer>= 0xA100</initializer>
+          <briefdescription>
+<para>0xA100 Error in DmeMode programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa1cfe4bfb939b5109fbd2a137f1fcadaf" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_RO_SWAP</name>
+          <initializer>= 0xA200</initializer>
+          <briefdescription>
+<para>0xA200 Error in RO_SWAP_EN programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa1dfef91bb222440d6349d41d62b0f3ba" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_DME_REVOKE_0</name>
+          <initializer>= 0xA300</initializer>
+          <briefdescription>
+<para>0xA300 Error in DME_REVOKE_0 programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa593e8b9080f79ba7fb6f99309bbac707" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_DME_REVOKE_1</name>
+          <initializer>= 0xA400</initializer>
+          <briefdescription>
+<para>0xA400 Error in DME_REVOKE_1 programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aaa61974f9fc0c47a878568a9fc2d7c6c1" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_DME_REVOKE_2</name>
+          <initializer>= 0xA500</initializer>
+          <briefdescription>
+<para>0xA500 Error in DME_REVOKE_2 programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aaf80ddb712cf9cdff2deaaf16bc1623b4" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_DME_REVOKE_3</name>
+          <initializer>= 0xA600</initializer>
+          <briefdescription>
+<para>0xA600 Error in DME_REVOKE_3 programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa11e635fec53b03b16ec96459be799402" prot="public">
+          <name>XNVM_EFUSE_ERR_DME_MODE_SET</name>
+          <initializer>= 0xA700</initializer>
+          <briefdescription>
+<para>0xA700 Error in DME_MODE programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa4270c335684ddf3f0f8116963f0d2be5" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_DME_KEY_0</name>
+          <initializer>= 0xA800</initializer>
+          <briefdescription>
+<para>0xA800 Error in DME_KEY_0 programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa4195c25056b822003a530d8885b6b8d2" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_DME_KEY_1</name>
+          <initializer>= 0xA900</initializer>
+          <briefdescription>
+<para>0xA900 Error in DME_KEY_1 programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aab02e97ac53749b3a91f8cdb2d3a0bfd8" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_DME_KEY_2</name>
+          <initializer>= 0xAA00</initializer>
+          <briefdescription>
+<para>0xAA00 Error in DME_KEY_2 programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aae283f5114da79cb1485d023e984e2fe8" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_DME_KEY_3</name>
+          <initializer>= 0xAB00</initializer>
+          <briefdescription>
+<para>0xAB00 Error in DME_KEY_3 programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aac1149a7a7a86242e7ad7ca455c18e311" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_CRC_SALT</name>
+          <initializer>= 0xAC00</initializer>
+          <briefdescription>
+<para>0xAC00 Error in CRC_SALT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aae2ba51fe45a286560091261788a77fd0" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_CRC</name>
+          <initializer>= 0xAD00</initializer>
+          <briefdescription>
+<para>0xAD00 Error in CRC programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa29820d6d903178faf158931693bab556" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROM_RSVD_BITS</name>
+          <initializer>= 0xAE00</initializer>
+          <briefdescription>
+<para>0xAE00 Error in ROM Rsvd bits programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aafcfebaaed17c52382ab7b1420d8f7381" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PUF_SEC_CTRL_BITS</name>
+          <initializer>= 0xAF00</initializer>
+          <briefdescription>
+<para>0xAF00 Error in PUF SEC CTRL bits programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa4f9d8d3dc85d4d8ca922b5c2a79249cd" prot="public">
+          <name>XNVM_ERR_DME_KEY_ALREADY_PROGRAMMED</name>
+          <initializer>= 0xBF00</initializer>
+          <briefdescription>
+<para>0xBF00 DME_KEY is already programmed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa0435ee599fa22d435dd794bfd7f8fd3d" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_CTRL_0_PROT</name>
+          <initializer>= 0xC300</initializer>
+          <briefdescription>
+<para>0xC300 Error in SEC_CTRL_0_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aafc0f9107bad44bf37b6bf6d67cdc8eb9" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_CTRL_1_PROT</name>
+          <initializer>= 0xC400</initializer>
+          <briefdescription>
+<para>0xC400 Error in SEC_CTRL_1_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aabb43117ad101bddf72c6be35e83347ce" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_MISC0_0_PROT</name>
+          <initializer>= 0xC500</initializer>
+          <briefdescription>
+<para>0xC500 Error in SEC_MISC0_0_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aaaa1e4a385d62092671ef0ef0cf530d02" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_MISC0_1_PROT</name>
+          <initializer>= 0xC600</initializer>
+          <briefdescription>
+<para>0xC600 Error in SEC_MISC0_1_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa1d22e8b2eacbd4937f7117f412156b9b" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_0_PPK_HASH_0_PROT</name>
+          <initializer>= 0xC700</initializer>
+          <briefdescription>
+<para>0xC700 Error in PPK_HASH_0_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aaa9de7a816de638c2ce133d1e1e7aeccb" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_0_PPK_HASH_1_PROT</name>
+          <initializer>= 0xC800</initializer>
+          <briefdescription>
+<para>0xC800 Error in PPK_HASH_1_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aaef4a6d90f5f6cbd20d37e81a6ee3bb14" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_0_METAHEADER_0_PROT</name>
+          <initializer>= 0xC900</initializer>
+          <briefdescription>
+<para>0xC900 Error in METAHEADER_0_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa6e726a7f7d843293ded10804701244b0" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_0_METAHEADER_1_PROT</name>
+          <initializer>= 0xCA00</initializer>
+          <briefdescription>
+<para>0xCA00 Error in METAHEADER_1_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aaf4a98b2b3b281ca85554875598675214" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_0_CRC_0_PROT</name>
+          <initializer>= 0xCB00</initializer>
+          <briefdescription>
+<para>0xCB00 Error in CRC_0_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa7379bde064b1a5f98f427d5a3bef2468" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_0_CRC_1_PROT</name>
+          <initializer>= 0xCC00</initializer>
+          <briefdescription>
+<para>0xCC00 Error in CRC_1_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aadcb24a9821e1bba0656a3b7d96b35211" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_0_PUF_CHASH_PROT</name>
+          <initializer>= 0xCD00</initializer>
+          <briefdescription>
+<para>0xCD00 Error in PUF_CHASH_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa219cc766f22dca3b240e3db355bc6ff3" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_0_SEC_MISC1_PROT</name>
+          <initializer>= 0xCE00</initializer>
+          <briefdescription>
+<para>0xCE00 Error in SEC_MISC1_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aad7e81cbc8d9ec851bc741918850975ed" prot="public">
+          <name>XNVM_EFUSE_ERROR_SECURE_STATE_MEASUREMENT</name>
+          <initializer>= 0xF500</initializer>
+          <briefdescription>
+<para>0xF500 - Error during secure state measurement </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa22da93291030ce7e6407d1d7d9593d52" prot="public">
+          <name>XNVM_EFUSE_ERR_PLAT_RSVD_1</name>
+          <initializer>= 0xF600</initializer>
+          <briefdescription>
+<para>0xF600 - Error Reserved </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa8429750869af5a79f3cd3a9013cde458" prot="public">
+          <name>XNVM_EFUSE_ERR_PLAT_RSVD_2</name>
+          <initializer>= 0xF700</initializer>
+          <briefdescription>
+<para>0xF700 - Error Reserved </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa82757eac4af0e5c289e46670a797bb4e" prot="public">
+          <name>XNVM_EFUSE_ERR_PLAT_RSVD_3</name>
+          <initializer>= 0xF800</initializer>
+          <briefdescription>
+<para>0xF800 - Error Reserved </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa96a99472d9c7ccfc2e3e33cc1097784d" prot="public">
+          <name>XNVM_EFUSE_ERR_DEC_ONLY_PUF_HD_MUST_BE_PRGMD</name>
+          <initializer>= 0xF900</initializer>
+          <briefdescription>
+<para>0xF900 - Error PUF HELPER DATA should be programmed for DEC_ONLY eFuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa8d569b038be8de9b2f0ec20a11f438e8" prot="public">
+          <name>XNVM_EFUSE_ERROR_DME_MODE_SET</name>
+          <initializer>= 0xFC00</initializer>
+          <briefdescription>
+<para>0xFC00 - Error occurred when DME Mode is set and trying to read User fuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa04b09447ce5e71f8836f7c8211cc41a7" prot="public">
+          <name>XNVM_EFUSE_ERROR_DME_NOT_SUPPORTED</name>
+          <initializer>= 0xFD00</initializer>
+          <briefdescription>
+<para>0xFD00 - Error occurred when DME is not supported for that specific platform </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aa00e58d67dd13be865b06f43684a76f74" prot="public">
+          <name>XNVM_EFUSE_XLNX_MANFAC_BITS_CRC_ERROR</name>
+          <initializer>= 0xFE00</initializer>
+          <briefdescription>
+<para>0xFE00 - Error, CRC value of the xilinx manufactured bits and value written into CRC SALT efuse does not match. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga30215236c6d8dc87857fb0cee99c658aaaec4a52f30604357af7338e31d42373d" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_PUF_FUSES</name>
+          <initializer>= 0xFF00</initializer>
+          <briefdescription>
+<para>0xFF00 Error reading PUF user fuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>The following table lists the Versal common eFuse library error codes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/common/xnvm_efuse_error_plat.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/common/xnvm_efuse_error_plat.h" bodystart="50" bodyend="183"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

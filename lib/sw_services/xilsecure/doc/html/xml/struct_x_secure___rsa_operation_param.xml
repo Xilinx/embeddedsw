@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___rsa_operation_param" kind="struct" prot="public">
+    <compoundname>XSecure_RsaOperationParam</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___rsa_operation_param_1a84b65be23134491786287530d02cf5fa" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_RsaOperationParam::InData[XSECURE_RSA_SIZE_IN_BYTES]</definition>
+        <argsstring>[XSECURE_RSA_SIZE_IN_BYTES]</argsstring>
+        <name>InData</name>
+        <briefdescription>
+<para>Input data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_operation_param_1a18b4965ef19407a4ff9ee9183273121c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_RsaOperationParam::Exp[XSECURE_RSA_SIZE_IN_BYTES]</definition>
+        <argsstring>[XSECURE_RSA_SIZE_IN_BYTES]</argsstring>
+        <name>Exp</name>
+        <briefdescription>
+<para>Exponent. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_operation_param_1ad3d60bdd55546e582c801fb71c5605cd" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_RsaOperationParam::Mod[XSECURE_RSA_SIZE_IN_BYTES]</definition>
+        <argsstring>[XSECURE_RSA_SIZE_IN_BYTES]</argsstring>
+        <name>Mod</name>
+        <briefdescription>
+<para>Modulus. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_operation_param_1a22b08490ded038cd8c10a4245c078408" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_RsaOperationParam::P[XSECURE_PRIME_FACTOR_MAX_P_SIZE]</definition>
+        <argsstring>[XSECURE_PRIME_FACTOR_MAX_P_SIZE]</argsstring>
+        <name>P</name>
+        <briefdescription>
+<para>Prime1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_operation_param_1a59b96acce917fc96bb7c6b771d6b59ac" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_RsaOperationParam::Q[XSECURE_PRIME_FACTOR_MAX_Q_SIZE]</definition>
+        <argsstring>[XSECURE_PRIME_FACTOR_MAX_Q_SIZE]</argsstring>
+        <name>Q</name>
+        <briefdescription>
+<para>Prime2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_operation_param_1a3ae580d02d3fea755ff12128e68ee207" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_RsaOperationParam::DP[XSECURE_PRIME_FACTOR_MAX_P_SIZE]</definition>
+        <argsstring>[XSECURE_PRIME_FACTOR_MAX_P_SIZE]</argsstring>
+        <name>DP</name>
+        <briefdescription>
+<para>Prime1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_operation_param_1af6df8d385ac87733df148ccd875ea311" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_RsaOperationParam::DQ[XSECURE_PRIME_FACTOR_MAX_Q_SIZE]</definition>
+        <argsstring>[XSECURE_PRIME_FACTOR_MAX_Q_SIZE]</argsstring>
+        <name>DQ</name>
+        <briefdescription>
+<para>Prime2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_operation_param_1af340984e1a9670ba461682f2c597f8a6" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_RsaOperationParam::QInv[XSECURE_PRIME_FACTOR_MAX_P_SIZE]</definition>
+        <argsstring>[XSECURE_PRIME_FACTOR_MAX_P_SIZE]</argsstring>
+        <name>QInv</name>
+        <briefdescription>
+<para>Q inverse. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_operation_param_1a444d2b58f45844ee64e0dcfa436367d2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_RsaOperationParam::Tot[XSECURE_RSA_SIZE_IN_BYTES]</definition>
+        <argsstring>[XSECURE_RSA_SIZE_IN_BYTES]</argsstring>
+        <name>Tot</name>
+        <briefdescription>
+<para>Totient. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_operation_param_1a9e36a635656ac68c5695e2ef857523b3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_RsaOperationParam::RN[XSECURE_RSA_SIZE_IN_BYTES]</definition>
+        <argsstring>[XSECURE_RSA_SIZE_IN_BYTES]</argsstring>
+        <name>RN</name>
+        <briefdescription>
+<para>Precalculated modulus. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_operation_param_1a143731ffab18bf235e0d443b6785347a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_RsaOperationParam::RRN[XSECURE_RSA_SIZE_IN_BYTES]</definition>
+        <argsstring>[XSECURE_RSA_SIZE_IN_BYTES]</argsstring>
+        <name>RRN</name>
+        <briefdescription>
+<para>Precalculated modulus. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_operation_param_1a0f55760c6d8c1d03777a2becbffdfaa2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_RsaOperationParam::PubExp</definition>
+        <argsstring></argsstring>
+        <name>PubExp</name>
+        <briefdescription>
+<para>Public Exponent. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" bodystart="59" bodyend="72"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___rsa_operation_param_1a3ae580d02d3fea755ff12128e68ee207" prot="public" virt="non-virtual"><scope>XSecure_RsaOperationParam</scope><name>DP</name></member>
+      <member refid="struct_x_secure___rsa_operation_param_1af6df8d385ac87733df148ccd875ea311" prot="public" virt="non-virtual"><scope>XSecure_RsaOperationParam</scope><name>DQ</name></member>
+      <member refid="struct_x_secure___rsa_operation_param_1a18b4965ef19407a4ff9ee9183273121c" prot="public" virt="non-virtual"><scope>XSecure_RsaOperationParam</scope><name>Exp</name></member>
+      <member refid="struct_x_secure___rsa_operation_param_1a84b65be23134491786287530d02cf5fa" prot="public" virt="non-virtual"><scope>XSecure_RsaOperationParam</scope><name>InData</name></member>
+      <member refid="struct_x_secure___rsa_operation_param_1ad3d60bdd55546e582c801fb71c5605cd" prot="public" virt="non-virtual"><scope>XSecure_RsaOperationParam</scope><name>Mod</name></member>
+      <member refid="struct_x_secure___rsa_operation_param_1a22b08490ded038cd8c10a4245c078408" prot="public" virt="non-virtual"><scope>XSecure_RsaOperationParam</scope><name>P</name></member>
+      <member refid="struct_x_secure___rsa_operation_param_1a0f55760c6d8c1d03777a2becbffdfaa2" prot="public" virt="non-virtual"><scope>XSecure_RsaOperationParam</scope><name>PubExp</name></member>
+      <member refid="struct_x_secure___rsa_operation_param_1a59b96acce917fc96bb7c6b771d6b59ac" prot="public" virt="non-virtual"><scope>XSecure_RsaOperationParam</scope><name>Q</name></member>
+      <member refid="struct_x_secure___rsa_operation_param_1af340984e1a9670ba461682f2c597f8a6" prot="public" virt="non-virtual"><scope>XSecure_RsaOperationParam</scope><name>QInv</name></member>
+      <member refid="struct_x_secure___rsa_operation_param_1a9e36a635656ac68c5695e2ef857523b3" prot="public" virt="non-virtual"><scope>XSecure_RsaOperationParam</scope><name>RN</name></member>
+      <member refid="struct_x_secure___rsa_operation_param_1a143731ffab18bf235e0d443b6785347a" prot="public" virt="non-virtual"><scope>XSecure_RsaOperationParam</scope><name>RRN</name></member>
+      <member refid="struct_x_secure___rsa_operation_param_1a444d2b58f45844ee64e0dcfa436367d2" prot="public" virt="non-virtual"><scope>XSecure_RsaOperationParam</scope><name>Tot</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

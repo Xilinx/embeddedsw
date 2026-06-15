@@ -1,0 +1,688 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="core_2sha_2sha__pmxc_2xsecure__sha_8h" kind="file">
+    <compoundname>core/sha/sha_pmxc/xsecure_sha.h</compoundname>
+    <includes local="yes">xsecure_sss.h</includes>
+    <includes refid="xsecure__sha__common_8h" local="yes">xsecure_sha_common.h</includes>
+    <includes local="yes">xsecure_sha_hw.h</includes>
+    <includes local="yes">xpmcdma.h</includes>
+    <includedby refid="core_2sha_2sha__pmxc_2xsecure__sha_8c" local="yes">xsecure_sha.c</includedby>
+    <includedby refid="_2xsecure__sha__ipihandler_8c" local="yes">xsecure_sha_ipihandler.c</includedby>
+    <incdepgraph>
+      <node id="3808">
+        <label>xsecure_sha_common.h</label>
+        <link refid="xsecure__sha__common_8h"/>
+        <childnode refid="3809" relation="include">
+        </childnode>
+        <childnode refid="3807" relation="include">
+        </childnode>
+        <childnode refid="3810" relation="include">
+        </childnode>
+      </node>
+      <node id="3807">
+        <label>xsecure_sss.h</label>
+      </node>
+      <node id="3810">
+        <label>xsecure_sha_hw.h</label>
+      </node>
+      <node id="3809">
+        <label>xpmcdma.h</label>
+      </node>
+      <node id="3806">
+        <label>xsecure_sha.h</label>
+        <link refid="core/sha/sha_pmxc/xsecure_sha.h"/>
+        <childnode refid="3807" relation="include">
+        </childnode>
+        <childnode refid="3808" relation="include">
+        </childnode>
+        <childnode refid="3810" relation="include">
+        </childnode>
+        <childnode refid="3809" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3813">
+        <label>xsecure_sha_ipihandler.c</label>
+        <link refid="_2xsecure__sha__ipihandler_8c"/>
+      </node>
+      <node id="3812">
+        <label>xsecure_sha.c</label>
+        <link refid="core_2sha_2sha__pmxc_2xsecure__sha_8c"/>
+      </node>
+      <node id="3811">
+        <label>xsecure_sha.h</label>
+        <link refid="core/sha/sha_pmxc/xsecure_sha.h"/>
+        <childnode refid="3812" relation="include">
+        </childnode>
+        <childnode refid="3813" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_secure___sha_plat_config" prot="public">XSecure_ShaPlatConfig</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__apis_1ga65056d1ac6afdf848d22c58cc3515bc4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_ShaInitialize</definition>
+        <argsstring>(XSecure_Sha *const InstancePtr, XPmcDma *DmaPtr)</argsstring>
+        <name>XSecure_ShaInitialize</name>
+        <param>
+          <type>XSecure_Sha *const</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XPmcDma *</type>
+          <declname>DmaPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes SHA instance so that it is ready to be used. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the SHA instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DmaPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the DMA instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - Upon Success.</para></listitem><listitem><para>XST_FAILURE - Upon Failure.</para></listitem><listitem><para>XSECURE_SHA_INVALID_PARAM_ERROR</para></listitem><listitem><para>XSECURE_SHA_SSS_INIT_ERROR </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate the input arguments</para></listitem><listitem><para>Initializes the secure stream switch instance </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.c" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.c" bodystart="144" bodyend="199"/>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dabc98dd8f98d0ffa0dfeece3391655875" compoundref="spartanup_2xsecure__error_8h" startline="55">XSECURE_SHA_INVALID_PARAM</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__apis_1gae0a3acb13de18e2ee7d6f2f54ff477b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_ShaStart</definition>
+        <argsstring>(XSecure_Sha *const InstancePtr, XSecure_ShaMode ShaMode)</argsstring>
+        <name>XSecure_ShaStart</name>
+        <param>
+          <type>XSecure_Sha *const</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XSecure_ShaMode</type>
+          <declname>ShaMode</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the SHA Mode (refer XSecure_ShaMode enum) and configures SSS and start the SHA engine. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the SHA instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ShaMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Indicates SHA3/SHA2 shall be operated in which sha mode that is SHA-384/256/512 </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - Upon Success.</para></listitem><listitem><para>XSECURE_SHA_INVALID_PARAM - Invalid parameter (InstancePtr is NULL or invalid SHA mode)</para></listitem><listitem><para>XSECURE_SHA_STATE_MISMATCH_ERROR - SHA engine is not in initialized state</para></listitem><listitem><para>XST_FAILURE - On crypto check failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate the input arguments</para></listitem><listitem><para>Validate SHA platform configs.</para></listitem><listitem><para>Validate SHA state is initialized or not</para></listitem><listitem><para>Validate the SHA mode and initialize SHA instance based on SHA mode.</para></listitem><listitem><para>Release Reset SHA2/3 engine.</para></listitem><listitem><para>Select SHA Mode based on SHA type.</para></listitem><listitem><para>Enable Auto Hardware Padding.</para></listitem><listitem><para>Start SHA Engine. </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.c" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.c" bodystart="216" bodyend="290"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__apis_1ga573e05dfb7c5e67a48b05764f0820c02" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_ShaUpdate</definition>
+        <argsstring>(XSecure_Sha *const InstancePtr, u64 DataAddr, const u32 DataSize)</argsstring>
+        <name>XSecure_ShaUpdate</name>
+        <param>
+          <type>XSecure_Sha *const</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>DataAddr</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>DataSize</declname>
+        </param>
+        <briefdescription>
+<para>This function updates input data to SHA Engine to calculate Hash. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SHA instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the input data for hashing. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of the input data in bytes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - Upon Success.</para></listitem><listitem><para>XST_FAILURE - Upon Failure.</para></listitem><listitem><para>XSECURE_SHA_INVALID_PARAM_ERROR</para></listitem><listitem><para>XSECURE_SHA_NOT_STARTED_ERROR </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate the input arguments.</para></listitem><listitem><para>Validate SHA state is started or not.</para></listitem><listitem><para>If the input data is of 0 length, do not initiate DMA transfer</para></listitem><listitem><para>Transfer input data to SHA engine using DMA</para></listitem><listitem><para>Set UPDATE_DONE only when IsLastUpdate is TRUE and all data has been DMA&apos;d (PartialLen == 0). If partial data remains, SW NIST padding in ShaFinish will handle the final transfer.</para></listitem><listitem><para>Set SHA2/3 under reset on failure condition </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.c" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.c" bodystart="351" bodyend="406"/>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dabc98dd8f98d0ffa0dfeece3391655875" compoundref="spartanup_2xsecure__error_8h" startline="55">XSECURE_SHA_INVALID_PARAM</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__apis_1ga2a1148f45c70231d1125d1d4a85c0336" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_ShaFinish</definition>
+        <argsstring>(XSecure_Sha *const InstancePtr, u64 HashAddr, u32 HashBufSize)</argsstring>
+        <name>XSecure_ShaFinish</name>
+        <param>
+          <type>XSecure_Sha *const</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>HashAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HashBufSize</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates and reads the final hash of input data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the SHA instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer which holds final hash. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashBufSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Size allocated for Hash Buffer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - Upon Success.</para></listitem><listitem><para>XST_FAILURE - Upon Failure.</para></listitem><listitem><para>XSECURE_SHA_INVALID_PARAM_ERROR - Upon invalid input parameter</para></listitem><listitem><para>XSECURE_SHA_STATE_MISMATCH_ERROR - Upon sha state mismatch </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate the input arguments.</para></listitem><listitem><para>Validate SHA platform configs.</para></listitem><listitem><para>Validate Hash buffer size to avoid buffer overflow.</para></listitem><listitem><para>Validate SHA state</para></listitem></itemizedlist>
+</para><para>Switch padding to SW based padding to address the following scenarios.<itemizedlist>
+<listitem><para>SHA zero-data length use case.</para></listitem><listitem><para>SHA Final call without preceding SHA update call with IsLast set to TRUE use case.</para></listitem><listitem><para>Perform NIST padding and send to SHA engine</para></listitem><listitem><para>Check the SHA2/3 DONE bit.</para></listitem><listitem><para>Read out the Hash and store in Hash Buffer.</para></listitem><listitem><para>Set SHA2/3 under reset. </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.c" line="565" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.c" bodystart="565" bodyend="643"/>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dabc98dd8f98d0ffa0dfeece3391655875" compoundref="spartanup_2xsecure__error_8h" startline="55">XSECURE_SHA_INVALID_PARAM</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__apis_1ga068c54368257715b719d415fb47bb93e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_ShaDigest</definition>
+        <argsstring>(XSecure_Sha *const InstancePtr, XSecure_ShaMode ShaMode, u64 DataAddr, u32 DataSize, u64 HashAddr, u32 HashBufSize)</argsstring>
+        <name>XSecure_ShaDigest</name>
+        <param>
+          <type>XSecure_Sha *const</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XSecure_ShaMode</type>
+          <declname>ShaMode</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>DataAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DataSize</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>HashAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HashBufSize</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates the SHA2/3 digest on the given input data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SHA instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ShaMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indicates SHA3/SHA2 shall be operated in which sha mode that is SHA-384/256/512 </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the input data for hashing. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of the input data in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer which holds final hash. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashBufSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size allocated for Hash Buffer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - Upon Success.</para></listitem><listitem><para>XST_FAILURE - Upon Failure.</para></listitem><listitem><para>XSECURE_SHA_INVALID_PARAM_ERROR</para></listitem><listitem><para>XSECURE_SHA_NOT_INITIALIZED_ERROR </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate the input arguments</para></listitem><listitem><para>Validate SHA platform configs.</para></listitem><listitem><para>Validate the SHA mode and initialize SHA instance based on SHA mode.</para></listitem><listitem><para>Validate SHA state</para></listitem><listitem><para>Configure SSS and start the SHA engine.</para></listitem><listitem><para>Configure Sha last update.</para></listitem><listitem><para>Update input data to SHA Engine to calculate Hash.</para></listitem><listitem><para>Calculate and read the final hash of input data. </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.c" line="825" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.c" bodystart="825" bodyend="888"/>
+        <references refid="group__xsecure__sha__client__apis_1ggad25387a8cba5004407abe70e310752c1ae0d4e37cd66a043951bad56ec54251d1" compoundref="xsecure__shaclient_8h" startline="56">XSECURE_SHA_INITIALIZED</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dabc98dd8f98d0ffa0dfeece3391655875" compoundref="spartanup_2xsecure__error_8h" startline="55">XSECURE_SHA_INVALID_PARAM</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dae69c5f7031aa37e230fac6c9be465699" compoundref="spartanup_2xsecure__error_8h" startline="59">XSECURE_SHA_STATE_MISMATCH_ERROR</references>
+        <references refid="group__xsecure__sha__server__apis_1ga681f3c347149b5d4254611f833ab93cf" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="874" endline="879">XSecure_ShaFinish</references>
+        <references refid="group__xsecure__sha__server__apis_1ga7eb62ddb5d303871b0ca86c77a668d4b" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="851" endline="854">XSecure_ShaLastUpdate</references>
+        <references refid="group__xsecure__sha__server__apis_1ga4ab55c7a66ee2aff3891fb58c6a8c728" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="808" endline="813">XSecure_ShaStart</references>
+        <references refid="group__xsecure__sha__server__apis_1gabb79b8c3a70ce2451a66133bbf18fcc4" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="832" endline="835">XSecure_ShaUpdate</references>
+        <references refid="group__xsecure__apis_1gaf4fe7931a3c30dedeb0b314ae921b2dd" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="558" endline="618">XSecure_ShaValidateModeAndCfgInstance</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__apis_1ga7eb62ddb5d303871b0ca86c77a668d4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_ShaLastUpdate</definition>
+        <argsstring>(XSecure_Sha *InstancePtr)</argsstring>
+        <name>XSecure_ShaLastUpdate</name>
+        <param>
+          <type>XSecure_Sha *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function notifies the SHA driver at the end of the SHA data update. </para>        </briefdescription>
+        <detaileddescription>
+<para>Typically called before last XSecure_ShaUpdate.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Sha instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If last update can be accepted</para></listitem><listitem><para>XSECURE_SHA_INVALID_PARAM - On invalid parameter</para></listitem><listitem><para>XSECURE_SHA_STATE_MISMATCH_ERROR - If State mismatch is occurred </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate the input arguments.</para></listitem><listitem><para>Validate SHA state</para></listitem><listitem><para>Make IsLastUpdate to TRUE </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.c" line="903" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.c" bodystart="903" bodyend="927"/>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dabc98dd8f98d0ffa0dfeece3391655875" compoundref="spartanup_2xsecure__error_8h" startline="55">XSECURE_SHA_INVALID_PARAM</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__apis_1gaf4fe7931a3c30dedeb0b314ae921b2dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_ShaValidateModeAndCfgInstance</definition>
+        <argsstring>(XSecure_Sha *const InstancePtr, XSecure_ShaMode ShaMode)</argsstring>
+        <name>XSecure_ShaValidateModeAndCfgInstance</name>
+        <param>
+          <type>XSecure_Sha *const</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XSecure_ShaMode</type>
+          <declname>ShaMode</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the SHA Mode and initialize SHA instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SHA instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ShaMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SHA Mode</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - Upon success</para></listitem><listitem><para>XSECURE_SHA_INVALID_PARAM - Invalid SHA mode provided</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SHA instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ShaMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SHA Mode.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Upon Success.</para></listitem><listitem><para>XST_FAILURE Upon Failure.</para></listitem><listitem><para>XSECURE_SHA_INVALID_MODE_ERROR In case of invalid sha mode config.</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SHA instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ShaMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SHA Mode.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS - Upon Success. XST_FAILURE - Upon Failure. XSECURE_SHA_INVALID_MODE_ERROR</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SHA instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ShaMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SHA Mode</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - Upon success</para></listitem><listitem><para>XSECURE_SHA_INVALID_PARAM - Invalid SHA mode provided</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SHA instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ShaMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SHA Mode.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Upon Success.</para></listitem><listitem><para>XST_FAILURE Upon Failure.</para></listitem><listitem><para>XSECURE_SHA_INVALID_MODE_ERROR In case of invalid sha mode config. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Initializes the SHA instance based on SHA Mode</para></listitem><listitem><para>SHA2-256 Mode</para></listitem><listitem><para>SHA2-384 Mode</para></listitem><listitem><para>SHA2-512 Mode</para></listitem><listitem><para>SHA3-256 Mode</para></listitem><listitem><para>SHA3-384 Mode</para></listitem><listitem><para>SHAKE-512 Mode</para></listitem><listitem><para>SHAKE-256 Mode</para></listitem><listitem><para>SHAKE-256 SLH-DSA chaining Mode is not supported for Versal_2ve_2vm</para></listitem><listitem><para>SHA invalid mode</para></listitem><listitem><para>Initializes the SHA instance based on SHA Mode</para></listitem><listitem><para>Initializes the SHA instance based on SHA Mode</para></listitem><listitem><para>SHA2-256 Mode</para></listitem><listitem><para>SHA2-384 Mode</para></listitem><listitem><para>SHA2-512 Mode</para></listitem><listitem><para>SHA3-256 Mode</para></listitem><listitem><para>SHA3-384 Mode</para></listitem><listitem><para>SHAKE-512 Mode</para></listitem><listitem><para>SHAKE-256 Mode</para></listitem><listitem><para>SHAKE-256 SLH-DSA chaining Mode is not supported for Versal_2ve_2vm</para></listitem><listitem><para>SHA invalid mode</para></listitem><listitem><para>Initializes the SHA instance based on SHA Mode</para></listitem><listitem><para>SHA2-256 Mode</para></listitem><listitem><para>SHA2-384 Mode</para></listitem><listitem><para>SHA2-512 Mode</para></listitem><listitem><para>SHA3-256 Mode</para></listitem><listitem><para>SHA3-384 Mode</para></listitem><listitem><para>SHAKE-512 Mode</para></listitem><listitem><para>SHAKE-256 Mode</para></listitem><listitem><para>SHAKE-256 SLH-DSA chaining Mode</para></listitem><listitem><para>SHA invalid mode </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_plat.c" bodystart="558" bodyend="618"/>
+        <references refid="group__xsecure__sha__example__apis_1ga05aab58840d59876dbb5766b285514ec" compoundref="xilsecure__spartanup__sha__server__example_8c" startline="72">XSECURE_SHA3_256</references>
+        <references refid="struct_x_secure___sha_plat_config_1a3542ae46ebb059ae83c7e802563efae9" compoundref="core_2sha_2sha__pmxc_2xsecure__sha_8h" startline="73">XSecure_ShaPlatConfig::ShaDigestSize</references>
+        <references refid="group__xsecure__helper__server__apis_1gac46301e6ca1664825a2ceb3a44a484cd" compoundref="spartanup_2xsecure__plat_8h" startline="170">XSECURE_SHA3_256_HASH_LEN</references>
+        <references refid="struct_x_secure___sha_plat_config_1a4c9187d7eda8e453721639fc9baedbad" compoundref="core_2sha_2sha__pmxc_2xsecure__sha_8h" startline="72">XSecure_ShaPlatConfig::ShaMode</references>
+        <references refid="group__xsecure__helper__server__apis_1gabd99fb95a54257a60a23ca3d61d2e4bc" compoundref="spartanup_2xsecure__plat_8h" startline="174">SHA256</references>
+        <references refid="group__xsecure__sha__example__apis_1gad83e90d954ca31ac3d9cc687321cdb2d" compoundref="xilsecure__spartanup__sha__server__example_8c" startline="71">XSECURE_SHAKE_256</references>
+        <references refid="group__xsecure__helper__server__apis_1ga7af13060e1711b13d1d20bdbed3c20f5" compoundref="spartanup_2xsecure__plat_8h" startline="172">XSECURE_SHAKE_256_HASH_LEN</references>
+        <references refid="group__xsecure__helper__server__apis_1ga76e020403a028d387382ee7840a4ff95" compoundref="spartanup_2xsecure__plat_8h" startline="175">SHAKE256</references>
+        <references refid="group__xsecure__sha__example__apis_1gab861d4c865c5fd4a955a54426cce4522" compoundref="xilsecure__spartanup__sha__server__example_8c" startline="70">XSECURE_SHA3_384</references>
+        <references refid="group__xsecure__helper__server__apis_1gaee3bdebb5650cb1c5b0ed21c63c8793d" compoundref="versal__2ve__2vm_2xsecure__plat_8h" startline="113">XSECURE_SHA3_384_HASH_LEN</references>
+        <references refid="group__xsecure__helper__server__apis_1gacbab4da969a8ddc56de5e0e2ec0d9183" compoundref="versal__2ve__2vm_2xsecure__plat_8h" startline="127">SHA384</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dabc98dd8f98d0ffa0dfeece3391655875" compoundref="spartanup_2xsecure__error_8h" startline="55">XSECURE_SHA_INVALID_PARAM</references>
+        <references refid="group__xsecure__helper__server__apis_1ga5738537e51cc4a10f5753b092955c4b0" compoundref="spartanup_2xsecure__plat_8h" startline="171">XSECURE_SHA2_256_HASH_LEN</references>
+        <references refid="group__xsecure__helper__server__apis_1gac3092c065477da04fa26021b22f05e72" compoundref="versal__2ve__2vm_2xsecure__plat_8h" startline="114">XSECURE_SHA2_384_HASH_LEN</references>
+        <references refid="group__xsecure__helper__server__apis_1gaac365bc7552b5a756c262af4cdd93723" compoundref="versal__2ve__2vm_2xsecure__plat_8h" startline="107">XSECURE_SHA_512_HASH_LEN</references>
+        <references refid="group__xsecure__helper__server__apis_1ga9f3266f00e3a908938cac7cad82470fb" compoundref="versal__2ve__2vm_2xsecure__plat_8h" startline="128">SHA512</references>
+        <referencedby refid="group__xsecure__apis_1ga068c54368257715b719d415fb47bb93e" compoundref="core_2sha_2sha__pmxc_2xsecure__sha_8c" startline="825" endline="888">XSecure_ShaDigest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__apis_1ga7a3f9d4fcb7292b40c9d91a0e82d1b22" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_ExtendedShaFinish</definition>
+        <argsstring>(XSecure_Sha *const InstancePtr, u64 HashAddr, u32 HashBufSize, u32 ReqHashSize)</argsstring>
+        <name>XSecure_ExtendedShaFinish</name>
+        <param>
+          <type>XSecure_Sha *const</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>HashAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HashBufSize</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ReqHashSize</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates and reads the final hash of input data with support for variable-length hash output. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the SHA instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer where the final hash will be stored. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashBufSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size allocated for the hash buffer in bytes. Must be at least as large as ReqHashSize to avoid buffer overflow. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReqHashSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Requested hash size in bytes to be read from the SHA digest. Must not exceed XSECURE_MAX_HASH_SIZE_IN_BYTES.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - Upon successful hash calculation and retrieval.</para></listitem><listitem><para>XST_FAILURE - Upon failure during hash completion or digest read.</para></listitem><listitem><para>XSECURE_SHA_INVALID_PARAM - When InstancePtr is NULL or HashBufSize is less than ReqHashSize.</para></listitem><listitem><para>XSECURE_SHA_STATE_MISMATCH_ERROR - When SHA engine is in initialized state without any update.</para></listitem><listitem><para>XSECURE_SHA_NIST_PADDING_ERROR - When NIST padding operation fails.</para></listitem><listitem><para>XSECURE_SHA_MAX_HASH_SIZE_EXCEED_ERROR - When ReqHashSize exceeds XSECURE_MAX_HASH_SIZE_IN_BYTES. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate the input arguments.</para></listitem><listitem><para>Validate Hash buffer size to avoid buffer overflow.</para></listitem><listitem><para>Validate SHA state</para></listitem><listitem><para>Validate SHA platform configs.</para></listitem></itemizedlist>
+</para><para>Switch padding to SW based padding to address the following scenarios.<itemizedlist>
+<listitem><para>SHA zero-data length use case.</para></listitem><listitem><para>SHA Final call without preceding SHA update call with IsLast set to TRUE use case.</para></listitem><listitem><para>Perform NIST padding and send to SHA engine</para></listitem><listitem><para>Check the SHA2/3 DONE bit.</para></listitem><listitem><para>Read the Hash (word-aligned) and store in Hash Buffer.</para></listitem><listitem><para>Handle last partial word if present</para></listitem><listitem><para>Set SHA2/3 under reset. </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.c" line="435" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.c" bodystart="435" bodyend="548"/>
+        <references refid="struct_x_secure___sha_plat_config_1a909b20b88618fc0ef7e2adb4e4a0ac79" compoundref="core_2sha_2sha__pmxc_2xsecure__sha_8h" startline="75">XSecure_ShaPlatConfig::AutoPaddingOffset</references>
+        <references refid="group__xsecure__helper__server__apis_1ga76e020403a028d387382ee7840a4ff95" compoundref="spartanup_2xsecure__plat_8h" startline="175">SHAKE256</references>
+        <references refid="group__xsecure__helper__server__apis_1gaec1502bb1ea3745099bd29967196fe18" compoundref="versal__2vp__p_2xsecure__plat_8h" startline="128">SHAKE256_SLH_DSA_CHAIN</references>
+        <references refid="struct_x_secure___sha_plat_config_1a4c9187d7eda8e453721639fc9baedbad" compoundref="core_2sha_2sha__pmxc_2xsecure__sha_8h" startline="72">XSecure_ShaPlatConfig::ShaMode</references>
+        <references refid="versal__2ve__2vm_2xsecure__sha__hw_8h_1a031e85221e587a7d744961629b204d7e" compoundref="versal__2ve__2vm_2xsecure__sha__hw_8h" startline="52">XSECURE_MAX_HASH_SIZE_IN_BYTES</references>
+        <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
+        <references refid="group__xsecure__sha__client__apis_1ggad25387a8cba5004407abe70e310752c1ae0d4e37cd66a043951bad56ec54251d1" compoundref="xsecure__shaclient_8h" startline="56">XSECURE_SHA_INITIALIZED</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dabc98dd8f98d0ffa0dfeece3391655875" compoundref="spartanup_2xsecure__error_8h" startline="55">XSECURE_SHA_INVALID_PARAM</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da5bbf6086b98a7497000d097fdfeefb26" compoundref="spartanup_2xsecure__error_8h" startline="74">XSECURE_SHA_MAX_HASH_SIZE_EXCEED_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da19400794fb8c83709bd0e717166d72b1" compoundref="spartanup_2xsecure__error_8h" startline="72">XSECURE_SHA_NIST_PADDING_ERROR</references>
+        <references refid="versal__2ve__2vm_2xsecure__sha__hw_8h_1a718dcf34009dc115b3f94e8e29af74b2" compoundref="versal__2ve__2vm_2xsecure__sha__hw_8h" startline="66">XSECURE_SHA_RESET_OFFSET</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dae69c5f7031aa37e230fac6c9be465699" compoundref="spartanup_2xsecure__error_8h" startline="59">XSECURE_SHA_STATE_MISMATCH_ERROR</references>
+        <references refid="group__xsecure__generic__server__apis_1ga014b8298824e67a2e9fe8a5c8719f59a" compoundref="core_2util_2xsecure__utils_8h" startline="52">XSECURE_WORD_SIZE</references>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga4f9fb47928190c4aaf68df51efac1382" compoundref="xsecure__slhdsa__hash_8c" startline="53" endline="114">XSecure_SlhdsaShake256sHashMsg</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__apis_1ga0204d6babc12872e9be472c0d4645901" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSecure_ShaGetBlockLen</definition>
+        <argsstring>(XSecure_ShaMode HashAlgo)</argsstring>
+        <name>XSecure_ShaGetBlockLen</name>
+        <param>
+          <type>XSecure_ShaMode</type>
+          <declname>HashAlgo</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the block length for the given SHA algorithm. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>HashAlgo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SHA algorithm mode.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Block length in bytes, or 0 for invalid algorithm. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.c" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.c" bodystart="301" bodyend="335"/>
+        <references refid="group__xsecure__apis_1ga749a3647f25f82306226a8dc952cf991" compoundref="core_2sha_2sha__pmxc_2xsecure__sha_8c" startline="61">XSECURE_SHA2_256_BLOCK_LEN</references>
+        <references refid="group__xsecure__apis_1ga3dc4819768bd3f04d8511f25348edb5f" compoundref="core_2sha_2sha__pmxc_2xsecure__sha_8c" startline="60">XSECURE_SHA2_384_512_BLOCK_LEN</references>
+        <references refid="group__xsecure__sha__example__apis_1ga05aab58840d59876dbb5766b285514ec" compoundref="xilsecure__spartanup__sha__server__example_8c" startline="72">XSECURE_SHA3_256</references>
+        <references refid="group__xsecure__sha__example__apis_1gab861d4c865c5fd4a955a54426cce4522" compoundref="xilsecure__spartanup__sha__server__example_8c" startline="70">XSECURE_SHA3_384</references>
+        <references refid="group__xsecure__apis_1gab7cb101c2395396f92244f1b3a2d68d8" compoundref="core_2sha_2sha__pmxc_2xsecure__sha_8c" startline="62">XSECURE_SHA3_384_BLOCK_LEN</references>
+        <references refid="group__xsecure__apis_1ga35f1dd6abba7056bcd964dc07b260a37" compoundref="core_2sha_2sha__pmxc_2xsecure__sha_8c" startline="64">XSECURE_SHA3_512_BLOCK_LEN</references>
+        <references refid="group__xsecure__sha__example__apis_1gad83e90d954ca31ac3d9cc687321cdb2d" compoundref="xilsecure__spartanup__sha__server__example_8c" startline="71">XSECURE_SHAKE_256</references>
+        <references refid="group__xsecure__apis_1ga8ada73f0a5ba86ce090fe644fb5e43dd" compoundref="core_2sha_2sha__pmxc_2xsecure__sha_8c" startline="63">XSECURE_SHAKE_SHA3_256_BLOCK_LEN</references>
+        <referencedby refid="group__xsecure__helper__server__apis_1gae3c2624ba0d5bf2bbe227593043acae4" compoundref="spartanup_2xsecure__plat_8c" startline="521" endline="642">XSecure_ShaDmaXfer</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor">#ifndef<sp/>XSECURE_SHA_H_</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_SHA_H_</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_sss.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__sha__common_8h" kindref="compound">xsecure_sha_common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_sha_hw.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpmcdma.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor">#define<sp/>XSECURE_SHA_RESET_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x04U)<sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor">#define<sp/>XSECURE_SHA_DONE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x08U)<sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor">#define<sp/>XSECURE_SHA_START_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor">#define<sp/>XSECURE_SHA_DONE_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor">#define<sp/>XSECURE_SHA_AUTO_MODE_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor">#define<sp/>XSECURE_SHA_AUTO_PADDING_MODE_DISABLE<sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor">#define<sp/>XSECURE_SHA_TIMEOUT_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1FFFFU)<sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor">#define<sp/>XSECURE_SHA_DIGEST_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x10U)<sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************<sp/>Type<sp/>Definitions******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="71" refid="struct_x_secure___sha_plat_config" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="72" refid="struct_x_secure___sha_plat_config_1a4c9187d7eda8e453721639fc9baedbad" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___sha_plat_config_1a4c9187d7eda8e453721639fc9baedbad" kindref="member">ShaMode</ref>;<sp/></highlight></codeline>
+<codeline lineno="73" refid="struct_x_secure___sha_plat_config_1a3542ae46ebb059ae83c7e802563efae9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___sha_plat_config_1a3542ae46ebb059ae83c7e802563efae9" kindref="member">ShaDigestSize</ref>;<sp/></highlight></codeline>
+<codeline lineno="74" refid="struct_x_secure___sha_plat_config_1af3c96d165d5aa9f0c644d1367822343c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___sha_plat_config_1af3c96d165d5aa9f0c644d1367822343c" kindref="member">ModeOffset</ref>;<sp/></highlight></codeline>
+<codeline lineno="75" refid="struct_x_secure___sha_plat_config_1a909b20b88618fc0ef7e2adb4e4a0ac79" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___sha_plat_config_1a909b20b88618fc0ef7e2adb4e4a0ac79" kindref="member">AutoPaddingOffset</ref>;<sp/></highlight></codeline>
+<codeline lineno="76" refid="struct_x_secure___sha_plat_config_1ade16cec2869a9f44274030a759eb71bc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_ShaMode<sp/><ref refid="struct_x_secure___sha_plat_config_1ade16cec2869a9f44274030a759eb71bc" kindref="member">HashAlgo</ref>;<sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}<sp/><ref refid="struct_x_secure___sha_plat_config" kindref="compound">XSecure_ShaPlatConfig</ref>;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Function<sp/>Prototypes<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__sha__server__apis_1gafeb87542b7de2a6f5e62c5fa6c84ff8b" kindref="member">XSecure_ShaInitialize</ref>(XSecure_Sha*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>InstancePtr,<sp/>XPmcDma*<sp/>DmaPtr);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__sha__server__apis_1ga4ab55c7a66ee2aff3891fb58c6a8c728" kindref="member">XSecure_ShaStart</ref>(XSecure_Sha*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>InstancePtr,<sp/>XSecure_ShaMode<sp/>ShaMode);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__sha__server__apis_1gabb79b8c3a70ce2451a66133bbf18fcc4" kindref="member">XSecure_ShaUpdate</ref>(XSecure_Sha*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>InstancePtr,<sp/>u64<sp/>DataAddr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>DataSize);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__sha__server__apis_1ga681f3c347149b5d4254611f833ab93cf" kindref="member">XSecure_ShaFinish</ref>(XSecure_Sha*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>InstancePtr,<sp/>u64<sp/>HashAddr,<sp/>u32<sp/>HashBufSize);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__sha__server__apis_1gacbd073de84e1cdf375ea6d140db14c6e" kindref="member">XSecure_ShaDigest</ref>(XSecure_Sha*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>InstancePtr,<sp/>XSecure_ShaMode<sp/>ShaMode,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>DataAddr,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">u32<sp/>DataSize,<sp/>u64<sp/>HashAddr,<sp/>u32<sp/>HashBufSize);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__sha__server__apis_1ga7eb62ddb5d303871b0ca86c77a668d4b" kindref="member">XSecure_ShaLastUpdate</ref>(XSecure_Sha<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__apis_1gaf4fe7931a3c30dedeb0b314ae921b2dd" kindref="member">XSecure_ShaValidateModeAndCfgInstance</ref>(XSecure_Sha<sp/>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>InstancePtr,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_ShaMode<sp/>ShaMode);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__apis_1ga7a3f9d4fcb7292b40c9d91a0e82d1b22" kindref="member">XSecure_ExtendedShaFinish</ref>(XSecure_Sha*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>InstancePtr,<sp/>u64<sp/>HashAddr,<sp/>u32<sp/>HashBufSize,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ReqHashSize);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">u32<sp/><ref refid="group__xsecure__apis_1ga0204d6babc12872e9be472c0d4645901" kindref="member">XSecure_ShaGetBlockLen</ref>(XSecure_ShaMode<sp/>HashAlgo);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.h"/>
+  </compounddef>
+</doxygen>

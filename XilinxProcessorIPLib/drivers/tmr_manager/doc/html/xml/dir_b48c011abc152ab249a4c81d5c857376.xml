@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_b48c011abc152ab249a4c81d5c857376" kind="dir">
+    <compoundname>tmr_manager</compoundname>
+    <innerdir refid="dir_8b1b9761b53be1e407939dd3dd675dae">examples</innerdir>
+    <innerdir refid="dir_5f0d5997f820435dd66b3bc0dd4e9590">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_manager/"/>
+  </compounddef>
+</doxygen>

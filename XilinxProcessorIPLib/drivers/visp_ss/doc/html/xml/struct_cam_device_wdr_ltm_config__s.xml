@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_wdr_ltm_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceWdrLtmConfig_s</compoundname>
+    <includes local="no">cam_device_wdr_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_wdr_ltm_config__s_1a0334c6e9b97b376a2c55fe70d3e9d4c6" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceWdrLtmConfig_s::flatMode</definition>
+        <argsstring></argsstring>
+        <name>flatMode</name>
+        <briefdescription>
+<para>WDR flat mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_ltm_config__s_1a0a111579bb734699134185b24aa02443" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceWdrLtmConfig_s::flatLevel</definition>
+        <argsstring></argsstring>
+        <name>flatLevel</name>
+        <briefdescription>
+<para>WDR flat level. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_ltm_config__s_1a191d786518b3f97e2fb36f2fb97e24eb" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceWdrLtmConfig_s::flatLevelInc[CAMDEV_WDR_FLAT_LEVEL_CHANNAL_SIZE][CAMDEV_WDR_FLAT_LEVEL_INC_SIZE]</definition>
+        <argsstring>[CAMDEV_WDR_FLAT_LEVEL_CHANNAL_SIZE][CAMDEV_WDR_FLAT_LEVEL_INC_SIZE]</argsstring>
+        <name>flatLevelInc</name>
+        <briefdescription>
+<para>WDR flat level increase. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_ltm_config__s_1adf8a6ee6559399c29d172cfb7fd4c260" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceWdrLtmConfig_s::darkAttentionLevel</definition>
+        <argsstring></argsstring>
+        <name>darkAttentionLevel</name>
+        <briefdescription>
+<para>WDR dark attention level. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice WDR LTM configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="85" bodyend="91"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_wdr_ltm_config__s_1adf8a6ee6559399c29d172cfb7fd4c260" prot="public" virt="non-virtual"><scope>CamDeviceWdrLtmConfig_s</scope><name>darkAttentionLevel</name></member>
+      <member refid="struct_cam_device_wdr_ltm_config__s_1a0a111579bb734699134185b24aa02443" prot="public" virt="non-virtual"><scope>CamDeviceWdrLtmConfig_s</scope><name>flatLevel</name></member>
+      <member refid="struct_cam_device_wdr_ltm_config__s_1a191d786518b3f97e2fb36f2fb97e24eb" prot="public" virt="non-virtual"><scope>CamDeviceWdrLtmConfig_s</scope><name>flatLevelInc</name></member>
+      <member refid="struct_cam_device_wdr_ltm_config__s_1a0334c6e9b97b376a2c55fe70d3e9d4c6" prot="public" virt="non-virtual"><scope>CamDeviceWdrLtmConfig_s</scope><name>flatMode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

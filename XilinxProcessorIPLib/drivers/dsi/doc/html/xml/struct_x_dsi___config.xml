@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dsi___config" kind="struct" prot="public">
+    <compoundname>XDsi_Config</compoundname>
+    <includes local="no">xdsi.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dsi___config_1ad3c73d27722a2d95ef3d3509dcf90d5e" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XDsi_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XDsi_Config::BaseAddr</definition>
+        <argsstring></argsstring>
+        <name>BaseAddr</name>
+        <briefdescription>
+<para>Base address of DSI Controller. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="154" bodyend="-1"/>
+        <referencedby refid="xdsi__example__selftest_8c_1abc2bef82a217b4adf700a597eb510ce6" compoundref="xdsi__example__selftest_8c" startline="110" endline="131">DsiSelfTestExample</referencedby>
+        <referencedby refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" compoundref="xdsi_8c" startline="82" endline="106">XDsi_CfgInitialize</referencedby>
+        <referencedby refid="group__dsi_1gaef3bbf8bd7a39e7154eb3ce1129fdda7" compoundref="xdsi_8c" startline="457" endline="532">XDsi_GetConfigParams</referencedby>
+        <referencedby refid="group__dsi_1ga58a27f9f1a507863325082e43595b4b9" compoundref="xdsi__selftest_8c" startline="63" endline="81">XDsi_SelfTest</referencedby>
+        <referencedby refid="group__dsi_1gad642065adf499f3953713cc5b94a456a" compoundref="xdsi_8c" startline="300" endline="321">XDsi_SendLongPacket</referencedby>
+        <referencedby refid="group__dsi_1gab2cf4f33eff4d4e77d083335025c08f9" compoundref="xdsi_8c" startline="258" endline="274">XDsi_SendShortPacket</referencedby>
+        <referencedby refid="group__dsi_1gab9519a80289d049534bfbafefdc41c4e" compoundref="xdsi_8c" startline="668" endline="738">XDsi_SetCustomVideoInterfaceTiming</referencedby>
+        <referencedby refid="group__dsi_1gad26d8689133a90687735f528ff96b97d" compoundref="xdsi_8c" startline="568" endline="630">XDsi_SetVideoInterfaceTiming</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi___config_1a944ae6c5d834214d92a4c986827258e0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDsi_Config::DsiLanes</definition>
+        <argsstring></argsstring>
+        <name>DsiLanes</name>
+        <briefdescription>
+<para>DSI supported lanes1, 2, 3, 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="155" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga58a27f9f1a507863325082e43595b4b9" compoundref="xdsi__selftest_8c" startline="63" endline="81">XDsi_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi___config_1a1ff0e4c00bcac61234b590aef399eede" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDsi_Config::DataType</definition>
+        <argsstring></argsstring>
+        <name>DataType</name>
+        <briefdescription>
+<para>RGB type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi___config_1ac431b685184340caa5516f5db1caa438" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDsi_Config::DsiByteFifo</definition>
+        <argsstring></argsstring>
+        <name>DsiByteFifo</name>
+        <briefdescription>
+<para>DSI byte FIFO size 128, 256, 512, 1024, 2048, 4096, 8192, 16384. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi___config_1ad51a5b196569da3d237bd429bed7e8ce" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDsi_Config::CrcGen</definition>
+        <argsstring></argsstring>
+        <name>CrcGen</name>
+        <briefdescription>
+<para>CRC Generation enable status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi___config_1adc3ba7f0bd696e7f78ff0f2105d6b276" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDsi_Config::DsiPixel</definition>
+        <argsstring></argsstring>
+        <name>DsiPixel</name>
+        <briefdescription>
+<para>Pixels per beat receive on input stream. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The configuration structure for DSI Controller This structure passes the hardware building information to the driver. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="148" bodyend="161"/>
+    <listofallmembers>
+      <member refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" prot="public" virt="non-virtual"><scope>XDsi_Config</scope><name>BaseAddr</name></member>
+      <member refid="struct_x_dsi___config_1ad51a5b196569da3d237bd429bed7e8ce" prot="public" virt="non-virtual"><scope>XDsi_Config</scope><name>CrcGen</name></member>
+      <member refid="struct_x_dsi___config_1a1ff0e4c00bcac61234b590aef399eede" prot="public" virt="non-virtual"><scope>XDsi_Config</scope><name>DataType</name></member>
+      <member refid="struct_x_dsi___config_1ac431b685184340caa5516f5db1caa438" prot="public" virt="non-virtual"><scope>XDsi_Config</scope><name>DsiByteFifo</name></member>
+      <member refid="struct_x_dsi___config_1a944ae6c5d834214d92a4c986827258e0" prot="public" virt="non-virtual"><scope>XDsi_Config</scope><name>DsiLanes</name></member>
+      <member refid="struct_x_dsi___config_1adc3ba7f0bd696e7f78ff0f2105d6b276" prot="public" virt="non-virtual"><scope>XDsi_Config</scope><name>DsiPixel</name></member>
+      <member refid="struct_x_dsi___config_1ad3c73d27722a2d95ef3d3509dcf90d5e" prot="public" virt="non-virtual"><scope>XDsi_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

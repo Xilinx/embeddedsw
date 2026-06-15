@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_isi_sensor_mean_luma__s" kind="struct" prot="public">
+    <compoundname>IsiSensorMeanLuma_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="group__isi__vvsensor_1gac62c563576fe9ab9554c9cd9ca6775fc" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t IsiSensorMeanLuma_s::roiNum</definition>
+        <argsstring></argsstring>
+        <name>roiNum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__vvsensor_1ga25a1a477ba802097fc845ce4531ae866" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiSensorMeanLuma_s::meanLuma[ISI_SENSOR_EXP_ROI_NUM_MAX]</definition>
+        <argsstring>[ISI_SENSOR_EXP_ROI_NUM_MAX]</argsstring>
+        <name>meanLuma</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__vvsensor_1gad233c84ec018cceb3ac8edf2c105b7c4" prot="public" static="no" mutable="no">
+        <type>IsiSensorWin_t</type>
+        <definition>IsiSensorWin_t IsiSensorMeanLuma_s::roiWin[ISI_SENSOR_EXP_ROI_NUM_MAX]</definition>
+        <argsstring>[ISI_SENSOR_EXP_ROI_NUM_MAX]</argsstring>
+        <name>roiWin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" bodystart="161" bodyend="165"/>
+    <listofallmembers>
+      <member refid="group__isi__vvsensor_1ga25a1a477ba802097fc845ce4531ae866" prot="public" virt="non-virtual"><scope>IsiSensorMeanLuma_s</scope><name>meanLuma</name></member>
+      <member refid="group__isi__vvsensor_1gac62c563576fe9ab9554c9cd9ca6775fc" prot="public" virt="non-virtual"><scope>IsiSensorMeanLuma_s</scope><name>roiNum</name></member>
+      <member refid="group__isi__vvsensor_1gad233c84ec018cceb3ac8edf2c105b7c4" prot="public" virt="non-virtual"><scope>IsiSensorMeanLuma_s</scope><name>roiWin</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

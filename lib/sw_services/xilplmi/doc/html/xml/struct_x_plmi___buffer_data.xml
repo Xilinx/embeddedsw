@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_plmi___buffer_data" kind="struct" prot="public">
+    <compoundname>XPlmi_BufferData</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_plmi___buffer_data_1a4a3f101e179642e2d1ebff2e0e864c9f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_BufferData::Id</definition>
+        <argsstring></argsstring>
+        <name>Id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___buffer_data_1a978cf370e7132e530abbfba69fe5a6f3" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XPlmi_BufferData::Addr</definition>
+        <argsstring></argsstring>
+        <name>Addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="103" bodyend="106"/>
+    <listofallmembers>
+      <member refid="struct_x_plmi___buffer_data_1a978cf370e7132e530abbfba69fe5a6f3" prot="public" virt="non-virtual"><scope>XPlmi_BufferData</scope><name>Addr</name></member>
+      <member refid="struct_x_plmi___buffer_data_1a4a3f101e179642e2d1ebff2e0e864c9f" prot="public" virt="non-virtual"><scope>XPlmi_BufferData</scope><name>Id</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

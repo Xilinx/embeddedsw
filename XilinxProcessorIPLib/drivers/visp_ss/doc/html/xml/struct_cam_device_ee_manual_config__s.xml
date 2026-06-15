@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_ee_manual_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceEeManualConfig_s</compoundname>
+    <includes local="no">cam_device_ee_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_ee_manual_config__s_1a53a21e5742df098650d851c0bc2dcf26" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceEeManualConfig_s::eeEdgeGain</definition>
+        <argsstring></argsstring>
+        <name>eeEdgeGain</name>
+        <briefdescription>
+<para>Gain for detected edge. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_ee_manual_config__s_1aa9d2b3419df2720893a8c4ef0f117d20" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceEeManualConfig_s::eeSrcStrength</definition>
+        <argsstring></argsstring>
+        <name>eeSrcStrength</name>
+        <briefdescription>
+<para>Y channel input image weight. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_ee_manual_config__s_1aeaa46258301b2c17d5b11bc6bd12b3cc" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceEeManualConfig_s::eeStrength</definition>
+        <argsstring></argsstring>
+        <name>eeStrength</name>
+        <briefdescription>
+<para>Weight to merge EE result back to input image. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_ee_manual_config__s_1a538d2f86425a875ac5c132b2c03b9cbe" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceEeManualConfig_s::eeUvGain</definition>
+        <argsstring></argsstring>
+        <name>eeUvGain</name>
+        <briefdescription>
+<para>EE UV gain. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_ee_manual_config__s_1a48a0affba4ea93457862c8b49cf3c947" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceEeManualConfig_s::eeYDownGain</definition>
+        <argsstring></argsstring>
+        <name>eeYDownGain</name>
+        <briefdescription>
+<para>Selected at flatten area. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_ee_manual_config__s_1acd084c3a36a1442a80573a3d158063c2" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceEeManualConfig_s::eeYUpGain</definition>
+        <argsstring></argsstring>
+        <name>eeYUpGain</name>
+        <briefdescription>
+<para>Selected at edge/texture area. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_ee_manual_config__s_1a40c54ba5d46a9b8612f210eb7c86386b" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__ee_1gacf91fb8d7529910c05ad4b58df995fcf" kindref="member">CamDeviceEeCaManualConfig_t</ref></type>
+        <definition>CamDeviceEeCaManualConfig_t CamDeviceEeManualConfig_s::caCfg</definition>
+        <argsstring></argsstring>
+        <name>caCfg</name>
+        <briefdescription>
+<para>EE CA manual configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_ee_manual_config__s_1a9b78d3eddf453ec31a897f84cc8aacd3" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__ee_1gadc18ca0df7426be28d98d6b6f8ca505e" kindref="member">CamDeviceEeDciManualConfig_t</ref></type>
+        <definition>CamDeviceEeDciManualConfig_t CamDeviceEeManualConfig_s::dciCfg</definition>
+        <argsstring></argsstring>
+        <name>dciCfg</name>
+        <briefdescription>
+<para>EE DCI manual configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_ee_manual_config__s_1ad0723ea48f5d8c90d96f9a34370ba511" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__ee_1gac480f2e0b8664af8e57ffbe4059cffef" kindref="member">CamDeviceEeDciCurveConfig_t</ref></type>
+        <definition>CamDeviceEeDciCurveConfig_t CamDeviceEeManualConfig_s::dciCurveCfg</definition>
+        <argsstring></argsstring>
+        <name>dciCurveCfg</name>
+        <briefdescription>
+<para>EE DCI curve configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice EE current configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="331">
+        <label>CamDeviceEeManualConfig_s</label>
+        <link refid="struct_cam_device_ee_manual_config__s"/>
+        <childnode refid="332" relation="usage">
+          <edgelabel>dciCurveCfg</edgelabel>
+        </childnode>
+        <childnode refid="333" relation="usage">
+          <edgelabel>dciCfg</edgelabel>
+        </childnode>
+        <childnode refid="334" relation="usage">
+          <edgelabel>caCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="334">
+        <label>CamDeviceEeCaManualConfig_s</label>
+        <link refid="struct_cam_device_ee_ca_manual_config__s"/>
+      </node>
+      <node id="333">
+        <label>CamDeviceEeDciManualConfig_s</label>
+        <link refid="struct_cam_device_ee_dci_manual_config__s"/>
+      </node>
+      <node id="332">
+        <label>CamDeviceEeDciCurveConfig_s</label>
+        <link refid="struct_cam_device_ee_dci_curve_config__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" bodystart="141" bodyend="151"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_ee_manual_config__s_1a40c54ba5d46a9b8612f210eb7c86386b" prot="public" virt="non-virtual"><scope>CamDeviceEeManualConfig_s</scope><name>caCfg</name></member>
+      <member refid="struct_cam_device_ee_manual_config__s_1a9b78d3eddf453ec31a897f84cc8aacd3" prot="public" virt="non-virtual"><scope>CamDeviceEeManualConfig_s</scope><name>dciCfg</name></member>
+      <member refid="struct_cam_device_ee_manual_config__s_1ad0723ea48f5d8c90d96f9a34370ba511" prot="public" virt="non-virtual"><scope>CamDeviceEeManualConfig_s</scope><name>dciCurveCfg</name></member>
+      <member refid="struct_cam_device_ee_manual_config__s_1a53a21e5742df098650d851c0bc2dcf26" prot="public" virt="non-virtual"><scope>CamDeviceEeManualConfig_s</scope><name>eeEdgeGain</name></member>
+      <member refid="struct_cam_device_ee_manual_config__s_1aa9d2b3419df2720893a8c4ef0f117d20" prot="public" virt="non-virtual"><scope>CamDeviceEeManualConfig_s</scope><name>eeSrcStrength</name></member>
+      <member refid="struct_cam_device_ee_manual_config__s_1aeaa46258301b2c17d5b11bc6bd12b3cc" prot="public" virt="non-virtual"><scope>CamDeviceEeManualConfig_s</scope><name>eeStrength</name></member>
+      <member refid="struct_cam_device_ee_manual_config__s_1a538d2f86425a875ac5c132b2c03b9cbe" prot="public" virt="non-virtual"><scope>CamDeviceEeManualConfig_s</scope><name>eeUvGain</name></member>
+      <member refid="struct_cam_device_ee_manual_config__s_1a48a0affba4ea93457862c8b49cf3c947" prot="public" virt="non-virtual"><scope>CamDeviceEeManualConfig_s</scope><name>eeYDownGain</name></member>
+      <member refid="struct_cam_device_ee_manual_config__s_1acd084c3a36a1442a80573a3d158063c2" prot="public" virt="non-virtual"><scope>CamDeviceEeManualConfig_s</scope><name>eeYUpGain</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

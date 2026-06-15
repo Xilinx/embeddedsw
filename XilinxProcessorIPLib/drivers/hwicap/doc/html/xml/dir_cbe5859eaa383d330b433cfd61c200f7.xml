@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_cbe5859eaa383d330b433cfd61c200f7" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xhwicap_8c">xhwicap.c</innerfile>
+    <innerfile refid="xhwicap_8h">xhwicap.h</innerfile>
+    <innerfile refid="xhwicap__device__read__frame_8c">xhwicap_device_read_frame.c</innerfile>
+    <innerfile refid="xhwicap__device__write__frame_8c">xhwicap_device_write_frame.c</innerfile>
+    <innerfile refid="xhwicap__g_8c">xhwicap_g.c</innerfile>
+    <innerfile refid="xhwicap__i_8h">xhwicap_i.h</innerfile>
+    <innerfile refid="xhwicap__intr_8c">xhwicap_intr.c</innerfile>
+    <innerfile refid="xhwicap__l_8h">xhwicap_l.h</innerfile>
+    <innerfile refid="xhwicap__selftest_8c">xhwicap_selftest.c</innerfile>
+    <innerfile refid="xhwicap__sinit_8c">xhwicap_sinit.c</innerfile>
+    <innerfile refid="xhwicap__srp_8c">xhwicap_srp.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/"/>
+  </compounddef>
+</doxygen>

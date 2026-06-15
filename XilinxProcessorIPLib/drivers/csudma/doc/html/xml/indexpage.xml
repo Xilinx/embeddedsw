@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>csudma</title>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+1.0   vnsld   22/10/14 First release
+1.1   adk     10/05/16 Fixed CR#951040 race condition in the recv path when
+                       source and destination points to the same buffer.
+      ms      03/17/17 Added readme.txt file in examples folder for doxygen
+                       generation.
+      ms      04/10/17 Modified filename tag in <ref refid="xcsudma__selftest__example_8c" kindref="compound">xcsudma_selftest_example.c</ref> to
+                       include the file in doxygen examples.
+1.2   adk     11/22/17 Added peripheral test app support for CSUDMA driver.
+1.4   adk     04/12/17 Added support for PMC DMA.
+      adk     09/03/18 Added new API <ref refid="group__csuma__api_1ga83a1043112b6067b1901d2bdcb29563d" kindref="member">XCsuDma_64BitTransfer()</ref> useful for 64-bit
+                       dma transfers through PMU processor(CR#996201).
+      adk     25/06/18 Move CRP and PMC Global address defines to
+                 xparameters_ps.h file(CR#1002035).
+      adk       08/08/18 Added new API <ref refid="group__csuma__api_1ga73867b4acb189982642e4c1ae4f92fb9" kindref="member">XCsuDma_WaitForDoneTimeout()</ref> useful for
+                 polling dma transfer done.
+      adk     28/08/18 Fixed misra-c required standard violations..
+      Rama      02/26/19 Fixed IAR issue by changing
+                                         &quot;XCsuDma_WaitForDoneTimeout&quot; to function
+      arc     03/26/19 Fixed MISRA-C violations.
+1.7     hk      08/03/20 Reorganize transfer function to accommodate all
+                 processors and cache functionality.
+1.7     sk      08/26/20 Fix MISRA-C violations.
+1.8   nsk     12/14/20 Updated the tcl to not to use the instance names.
+1.9     sk      02/11/21 Add description for the dmatype macros.
+1.9     sk      02/11/21 Remove the prototype of undefined functions.
+1.11    sk      03/03/22 Move addtogroup to starting of the file and replace
+                         driver version with Overview.
+1.11    sk      03/03/22 Update overview section based on review comments.
+1.11    adk     03/15/22 Fixed syntax errors in csudma_tapp.tcl file, when stdout
+                         is configured as none.
+1.14    ab      01/16/23 Added Xil_PlmStubHandler() to XCsuDma_WaitForDone.
+1.14    ab      01/18/23 Added byte-aligned transfer API for VERSAL_NET devices.
+1.14  adk     04/14/23 Added support for system device-tree flow.
+2.0   sd      11/10/25 Added support for VERSAL_2VP_P devices.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

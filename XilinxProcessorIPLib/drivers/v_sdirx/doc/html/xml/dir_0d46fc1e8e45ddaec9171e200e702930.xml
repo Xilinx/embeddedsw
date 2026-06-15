@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_0d46fc1e8e45ddaec9171e200e702930" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xv__sdirx_8c">xv_sdirx.c</innerfile>
+    <innerfile refid="xv__sdirx_8h">xv_sdirx.h</innerfile>
+    <innerfile refid="xv__sdirx__g_8c">xv_sdirx_g.c</innerfile>
+    <innerfile refid="xv__sdirx__hw_8h">xv_sdirx_hw.h</innerfile>
+    <innerfile refid="xv__sdirx__intr_8c">xv_sdirx_intr.c</innerfile>
+    <innerfile refid="xv__sdirx__selftest_8c">xv_sdirx_selftest.c</innerfile>
+    <innerfile refid="xv__sdirx__sinit_8c">xv_sdirx_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirx/src/"/>
+  </compounddef>
+</doxygen>

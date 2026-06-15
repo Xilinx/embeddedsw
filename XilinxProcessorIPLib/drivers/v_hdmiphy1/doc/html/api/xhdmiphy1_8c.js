@@ -1,0 +1,28 @@
+var xhdmiphy1_8c =
+[
+    [ "XHdmiphy1_CfgInitialize", "xhdmiphy1_8c.html#gac17db2af38544c85cb299d147fcdac16", null ],
+    [ "XHdmiphy1_CfgLineRate", "xhdmiphy1_8c.html#ga71a574c5aedf401c9b7c59a173822f8f", null ],
+    [ "XHdmiphy1_Clkout1OBufTdsEnable", "xhdmiphy1_8c.html#gab511031505e9679f2bd243d68eb725f4", null ],
+    [ "XHdmiphy1_DrpRd", "xhdmiphy1_8c.html#ga55c5c6061828e1f986b64d4c0ae9a57b", null ],
+    [ "XHdmiphy1_DrpWr", "xhdmiphy1_8c.html#ga632197e5f773491cdf96f076e7112e0f", null ],
+    [ "XHdmiphy1_GetLineRateHz", "xhdmiphy1_8c.html#ga31263f99c22623f852ea864fba080232", null ],
+    [ "XHdmiphy1_GetPllType", "xhdmiphy1_8c.html#ga97e1d4070dafe5a73d9bf60621382c98", null ],
+    [ "XHdmiphy1_GetVersion", "xhdmiphy1_8c.html#gaf6a4e05c5b6141f00bdfa2ae1f30b15a", null ],
+    [ "XHdmiphy1_IBufDsEnable", "xhdmiphy1_8c.html#ga57aac6b723825d9999dc5419d067bda3", null ],
+    [ "XHdmiphy1_MmcmPowerDown", "xhdmiphy1_8c.html#ga13859cf616b98f6d37336128b9f3f21a", null ],
+    [ "XHdmiphy1_MmcmStart", "xhdmiphy1_8c.html#ga5dc7ec503e2e78570719440c12773984", null ],
+    [ "XHdmiphy1_PllInitialize", "xhdmiphy1_8c.html#ga82f13f4133bdf9ab03d845c8462dc091", null ],
+    [ "XHdmiphy1_RegisterDebug", "xhdmiphy1_8c.html#ga8dc19df05e15d413e62ff62d2c22c023", null ],
+    [ "XHdmiphy1_ResetGtPll", "xhdmiphy1_8c.html#ga7f1f22be7f2029c396c015e322475790", null ],
+    [ "XHdmiphy1_ResetGtTxRx", "xhdmiphy1_8c.html#ga117b1b06a6044a0574731e960e8e304a", null ],
+    [ "XHdmiphy1_SetErrorCallback", "xhdmiphy1_8c.html#ga90147f575dee01a888964ba10cdf4f73", null ],
+    [ "XHdmiphy1_SetLogCallback", "xhdmiphy1_8c.html#ga7efb70724bc3a6fa0d3bd6c9d7d22de4", null ],
+    [ "XHdmiphy1_SetPolarity", "xhdmiphy1_8c.html#ga615fe597062a12b286153f2ee8007e91", null ],
+    [ "XHdmiphy1_SetPrbsSel", "xhdmiphy1_8c.html#ga041ec28c400f1b4cb662d9670e0feff3", null ],
+    [ "XHdmiphy1_SetRxLpm", "xhdmiphy1_8c.html#ga704b9c7161c4ac92beaa07113caaa36c", null ],
+    [ "XHdmiphy1_SetTxPostCursor", "xhdmiphy1_8c.html#ga755a209f0abe848a3508017f83ad4c62", null ],
+    [ "XHdmiphy1_SetTxPreEmphasis", "xhdmiphy1_8c.html#gad9dd0d271c9be7416e55adc535257cea", null ],
+    [ "XHdmiphy1_SetTxVoltageSwing", "xhdmiphy1_8c.html#gaa01b2c0214336ba205fcac3c8fd7675d", null ],
+    [ "XHdmiphy1_TxPrbsForceError", "xhdmiphy1_8c.html#gae474ac8f1f2997229ec25e7584a4b827", null ],
+    [ "XHdmiphy1_WaitUs", "xhdmiphy1_8c.html#gabe478d42590c0365f3e2feb3933321ec", null ]
+];

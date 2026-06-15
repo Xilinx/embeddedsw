@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_metadata_ccm_config__s" kind="struct" prot="public">
+    <compoundname>MetadataCcmConfig_s</compoundname>
+    <includes local="no">buf_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_metadata_ccm_config__s_1adf59e9c720ff3f431e5c727ddc3ea189" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MetadataCcmConfig_s::ccmMatrix[META_CCM_MATRIX_NUM]</definition>
+        <argsstring>[META_CCM_MATRIX_NUM]</argsstring>
+        <name>ccmMatrix</name>
+        <briefdescription>
+<para>Color correction matrix coefficient. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="490" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="490" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_metadata_ccm_config__s_1a568285811a35e165578e3c51e52cd86c" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MetadataCcmConfig_s::ccmOffset[META_CCM_OFFSET_NUM]</definition>
+        <argsstring>[META_CCM_OFFSET_NUM]</argsstring>
+        <name>ccmOffset</name>
+        <briefdescription>
+<para>Color offset coefficient. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="491" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="491" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Cam Engine ccm manual configuration structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="489" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="489" bodyend="492"/>
+    <listofallmembers>
+      <member refid="struct_metadata_ccm_config__s_1adf59e9c720ff3f431e5c727ddc3ea189" prot="public" virt="non-virtual"><scope>MetadataCcmConfig_s</scope><name>ccmMatrix</name></member>
+      <member refid="struct_metadata_ccm_config__s_1a568285811a35e165578e3c51e52cd86c" prot="public" virt="non-virtual"><scope>MetadataCcmConfig_s</scope><name>ccmOffset</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

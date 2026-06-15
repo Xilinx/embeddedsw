@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___rsa_pub_key_comp" kind="struct" prot="public">
+    <compoundname>XAsu_RsaPubKeyComp</compoundname>
+    <includes local="no">xasu_rsainfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___rsa_pub_key_comp_1a9ad687d0df69d07e4584833f13049d22" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaPubKeyComp::Keysize</definition>
+        <argsstring></argsstring>
+        <name>Keysize</name>
+        <briefdescription>
+<para>Key size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="103" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_pub_key_comp_1a227d2fe9cecd9dae88b63cd268a0eebe" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaPubKeyComp::Modulus[XRSA_MAX_KEY_SIZE_IN_WORDS]</definition>
+        <argsstring>[XRSA_MAX_KEY_SIZE_IN_WORDS]</argsstring>
+        <name>Modulus</name>
+        <briefdescription>
+<para>Rsa key Modulus. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="104" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_pub_key_comp_1a0b396660fe58b779190f084389c92bb4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaPubKeyComp::PubExp</definition>
+        <argsstring></argsstring>
+        <name>PubExp</name>
+        <briefdescription>
+<para>Public exponent. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="105" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains RSA public key parameters info. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="102" bodyend="106"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___rsa_pub_key_comp_1a9ad687d0df69d07e4584833f13049d22" prot="public" virt="non-virtual"><scope>XAsu_RsaPubKeyComp</scope><name>Keysize</name></member>
+      <member refid="struct_x_asu___rsa_pub_key_comp_1a227d2fe9cecd9dae88b63cd268a0eebe" prot="public" virt="non-virtual"><scope>XAsu_RsaPubKeyComp</scope><name>Modulus</name></member>
+      <member refid="struct_x_asu___rsa_pub_key_comp_1a0b396660fe58b779190f084389c92bb4" prot="public" virt="non-virtual"><scope>XAsu_RsaPubKeyComp</scope><name>PubExp</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

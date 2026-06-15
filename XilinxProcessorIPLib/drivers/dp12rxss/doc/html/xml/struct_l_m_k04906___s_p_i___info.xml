@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_l_m_k04906___s_p_i___info" kind="struct" prot="public">
+    <compoundname>LMK04906_SPI_Info</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_l_m_k04906___s_p_i___info_1aa9838c185d3c475ef5d0fcfa17d3ced8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 LMK04906_SPI_Info::SPI_BaseAddr</definition>
+        <argsstring></argsstring>
+        <name>SPI_BaseAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/inc/LMK04906.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/inc/LMK04906.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/inc/LMK04906.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/inc/LMK04906.h" bodystart="45" bodyend="47"/>
+    <listofallmembers>
+      <member refid="struct_l_m_k04906___s_p_i___info_1aa9838c185d3c475ef5d0fcfa17d3ced8" prot="public" virt="non-virtual"><scope>LMK04906_SPI_Info</scope><name>SPI_BaseAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_xil_s_key___jtag_slr" kind="struct" prot="public">
+    <compoundname>XilSKey_JtagSlr</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_xil_s_key___jtag_slr_1a3c187384a1e7ac5201d9fc3e4e15f796" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_JtagSlr::NumSlr</definition>
+        <argsstring></argsstring>
+        <name>NumSlr</name>
+        <briefdescription>
+<para>Number of SLRs to iterate through. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbram.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbram.c" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___jtag_slr_1a6dd26c3f1760e114c2f867a3f20f9c71" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_JtagSlr::CurSlr</definition>
+        <argsstring></argsstring>
+        <name>CurSlr</name>
+        <briefdescription>
+<para>Current SLR to iterate through. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbram.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbram.c" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___jtag_slr_1a5618e4756a2409143429c4d99ac7e022" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_JtagSlr::IrLen</definition>
+        <argsstring></argsstring>
+        <name>IrLen</name>
+        <briefdescription>
+<para>Device IR length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbram.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbram.c" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>&lt; XilSKey_JtagSlr structure provides information of JtagSlr&apos;s </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbram.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbram.c" bodystart="95" bodyend="108"/>
+    <listofallmembers>
+      <member refid="struct_xil_s_key___jtag_slr_1a6dd26c3f1760e114c2f867a3f20f9c71" prot="public" virt="non-virtual"><scope>XilSKey_JtagSlr</scope><name>CurSlr</name></member>
+      <member refid="struct_xil_s_key___jtag_slr_1a5618e4756a2409143429c4d99ac7e022" prot="public" virt="non-virtual"><scope>XilSKey_JtagSlr</scope><name>IrLen</name></member>
+      <member refid="struct_xil_s_key___jtag_slr_1a3c187384a1e7ac5201d9fc3e4e15f796" prot="public" virt="non-virtual"><scope>XilSKey_JtagSlr</scope><name>NumSlr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

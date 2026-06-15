@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_a92cec67875d7ceaefa96332c91ee97a" kind="dir">
+    <compoundname>src</compoundname>
+    <innerdir refid="dir_c94e2b0b206b7998dbd89b9306945b9f">mailbox</innerdir>
+    <innerdir refid="dir_511637eca1e96c9fc52a2625edb351b0">sensor</innerdir>
+    <innerdir refid="dir_aed9e36d79ddbfd34c8953ea624ebd4f">visp_ss</innerdir>
+    <innerfile refid="xvisp__ss_8c">xvisp_ss.c</innerfile>
+    <innerfile refid="xvisp__ss_8h">xvisp_ss.h</innerfile>
+    <innerfile refid="xvisp__ss__sinit_8c">xvisp_ss_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/"/>
+  </compounddef>
+</doxygen>

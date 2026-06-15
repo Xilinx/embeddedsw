@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_d0f82bde0eb632716e9eca1b1b2efffa" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xilpuf__client__example_8c">xilpuf_client_example.c</innerfile>
+    <innerfile refid="xilpuf__enc__dec__data__client__example_8c">xilpuf_enc_dec_data_client_example.c</innerfile>
+    <innerfile refid="xilpuf__enc__dec__data__example_8c">xilpuf_enc_dec_data_example.c</innerfile>
+    <innerfile refid="xilpuf__example_8c">xilpuf_example.c</innerfile>
+    <innerfile refid="xilpuf__example_8h">xilpuf_example.h</innerfile>
+    <innerfile refid="xilpuf__spartan__ultrascale__plus__enc__dec__data__example_8c">xilpuf_spartan_ultrascale_plus_enc_dec_data_example.c</innerfile>
+    <innerfile refid="xilpuf__spartan__ultrascale__plus__example_8c">xilpuf_spartan_ultrascale_plus_example.c</innerfile>
+    <innerfile refid="xilpuf__spartan__ultrascale__plus__example_8h">xilpuf_spartan_ultrascale_plus_example.h</innerfile>
+    <innerfile refid="xilpuf__ssit__client__example_8c">xilpuf_ssit_client_example.c</innerfile>
+    <innerfile refid="xilpuf__versal__net__example_8c">xilpuf_versal_net_example.c</innerfile>
+    <innerfile refid="xilpuf__versal__net__example_8h">xilpuf_versal_net_example.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/"/>
+  </compounddef>
+</doxygen>

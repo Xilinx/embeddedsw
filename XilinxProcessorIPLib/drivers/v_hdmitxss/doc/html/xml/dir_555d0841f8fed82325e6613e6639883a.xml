@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_555d0841f8fed82325e6613e6639883a" kind="dir">
+    <compoundname>v_hdmitxss</compoundname>
+    <innerdir refid="dir_4c55e3b13bdfb4dea352bb8c7573dcd5">examples</innerdir>
+    <innerdir refid="dir_334c701c1197ed5767cd5873745a1d72">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/"/>
+  </compounddef>
+</doxygen>

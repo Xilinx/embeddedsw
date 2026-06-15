@@ -1,0 +1,381 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdfeccf__intr_8c" kind="file">
+    <compoundname>xdfeccf_intr.c</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dfeccf_1ga4e155714de12813abe240aad00f33f46" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_GetOverflowStatus</definition>
+        <argsstring>(const XDfeCcf *InstancePtr, XDfeCcf_OverflowStatus *Status)</argsstring>
+        <name>XDfeCcf_GetOverflowStatus</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___overflow_status" kindref="compound">XDfeCcf_OverflowStatus</ref> *</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Gets overflow event status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the channel filter instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to a returned overflow event status. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="504" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_intr.c" bodystart="59" bodyend="91"/>
+        <references refid="struct_x_dfe_ccf___overflow_status_1af6240b052ed9fec1346b03b162adca4c" compoundref="xdfeccf_8h" startline="375">XDfeCcf_OverflowStatus::OverflowAfterGainImag</references>
+        <references refid="struct_x_dfe_ccf___overflow_status_1acd1567bbd77539afc66066770d89c688" compoundref="xdfeccf_8h" startline="373">XDfeCcf_OverflowStatus::OverflowAfterGainReal</references>
+        <references refid="struct_x_dfe_ccf___overflow_status_1a83cd0a44050799fba7c1fa35ad85af49" compoundref="xdfeccf_8h" startline="377">XDfeCcf_OverflowStatus::OverflowAntenna</references>
+        <references refid="struct_x_dfe_ccf___overflow_status_1ae7b33a58ad3a19f8f2aec00749537caf" compoundref="xdfeccf_8h" startline="371">XDfeCcf_OverflowStatus::OverflowBeforeGainImag</references>
+        <references refid="struct_x_dfe_ccf___overflow_status_1aa89876d869cbdbf4e2e2a7a10ccae490" compoundref="xdfeccf_8h" startline="369">XDfeCcf_OverflowStatus::OverflowBeforeGainReal</references>
+        <references refid="struct_x_dfe_ccf___overflow_status_1a0485eecafccd4ef409908a7af80135a8" compoundref="xdfeccf_8h" startline="379">XDfeCcf_OverflowStatus::OverflowCCID</references>
+        <references refid="struct_x_dfe_ccf___overflow_status_1a5bdc515694f470412e13596f2b2548ff" compoundref="xdfeccf_8h" startline="381">XDfeCcf_OverflowStatus::OverflowSwitch</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga5a08588a90ca50aca0e8667e8692618b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_GetEventStatus</definition>
+        <argsstring>(const XDfeCcf *InstancePtr, XDfeCcf_Status *Status)</argsstring>
+        <name>XDfeCcf_GetEventStatus</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___status" kindref="compound">XDfeCcf_Status</ref> *</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Gets event status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the channel filter instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to a returned event status. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="506" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_intr.c" bodystart="102" bodyend="117"/>
+        <references refid="struct_x_dfe_ccf___status_1a18b5b8ebcd0324b23abdda08a124f4b1" compoundref="xdfeccf_8h" startline="397">XDfeCcf_Status::CCSequenceError</references>
+        <references refid="struct_x_dfe_ccf___status_1a64f494d148062c29e4bdfd2eee5a5897" compoundref="xdfeccf_8h" startline="396">XDfeCcf_Status::CCUpdate</references>
+        <references refid="struct_x_dfe_ccf___status_1ab78ac3eb12e3ea828f6dde34c258e8c1" compoundref="xdfeccf_8h" startline="395">XDfeCcf_Status::Overflow</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga6ced5736831794879ad88390a58e6a3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_ClearEventStatus</definition>
+        <argsstring>(const XDfeCcf *InstancePtr, const XDfeCcf_Status *Status)</argsstring>
+        <name>XDfeCcf_ClearEventStatus</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf___status" kindref="compound">XDfeCcf_Status</ref> *</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Clears events status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the channel filter instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Clear event status container.<itemizedlist>
+<listitem><para>0 - does not clear corresponding event status</para></listitem><listitem><para>1 - clears corresponding event status </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="507" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_intr.c" bodystart="130" bodyend="151"/>
+        <references refid="struct_x_dfe_ccf___status_1a18b5b8ebcd0324b23abdda08a124f4b1" compoundref="xdfeccf_8h" startline="397">XDfeCcf_Status::CCSequenceError</references>
+        <references refid="struct_x_dfe_ccf___status_1a64f494d148062c29e4bdfd2eee5a5897" compoundref="xdfeccf_8h" startline="396">XDfeCcf_Status::CCUpdate</references>
+        <references refid="struct_x_dfe_ccf___status_1ab78ac3eb12e3ea828f6dde34c258e8c1" compoundref="xdfeccf_8h" startline="395">XDfeCcf_Status::Overflow</references>
+        <referencedby refid="group__dfeccf_1ga23a4ce2ee3c9bf313b65a3b932c0278b" compoundref="xdfeccf__multi_add_c_c__1x_n_r100__3x_n_r20__example_8c" startline="118" endline="204">XDfeCcf_multiAddCC_1xNR100_3xNR20_Example</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1gaad3c846e9293c67f7b80fd933da9ce77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_SetInterruptMask</definition>
+        <argsstring>(const XDfeCcf *InstancePtr, const XDfeCcf_InterruptMask *Mask)</argsstring>
+        <name>XDfeCcf_SetInterruptMask</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf___status" kindref="compound">XDfeCcf_InterruptMask</ref> *</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Sets interrupt masks. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the channel filter instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt mask value.<itemizedlist>
+<listitem><para>0 - does not mask corresponding interrupt</para></listitem><listitem><para>1 - masks corresponding interrupt </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="509" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_intr.c" bodystart="164" bodyend="196"/>
+        <references refid="struct_x_dfe_ccf___status_1a18b5b8ebcd0324b23abdda08a124f4b1" compoundref="xdfeccf_8h" startline="397">XDfeCcf_Status::CCSequenceError</references>
+        <references refid="struct_x_dfe_ccf___status_1a64f494d148062c29e4bdfd2eee5a5897" compoundref="xdfeccf_8h" startline="396">XDfeCcf_Status::CCUpdate</references>
+        <references refid="struct_x_dfe_ccf___status_1ab78ac3eb12e3ea828f6dde34c258e8c1" compoundref="xdfeccf_8h" startline="395">XDfeCcf_Status::Overflow</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1gab4d92a6803379d258e013f46b5be16a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_GetInterruptMask</definition>
+        <argsstring>(const XDfeCcf *InstancePtr, XDfeCcf_InterruptMask *Mask)</argsstring>
+        <name>XDfeCcf_GetInterruptMask</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___status" kindref="compound">XDfeCcf_InterruptMask</ref> *</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Gets interrupt masks. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the channel filter instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt mask value. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="511" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_intr.c" bodystart="208" bodyend="225"/>
+        <references refid="struct_x_dfe_ccf___status_1a18b5b8ebcd0324b23abdda08a124f4b1" compoundref="xdfeccf_8h" startline="397">XDfeCcf_Status::CCSequenceError</references>
+        <references refid="struct_x_dfe_ccf___status_1a64f494d148062c29e4bdfd2eee5a5897" compoundref="xdfeccf_8h" startline="396">XDfeCcf_Status::CCUpdate</references>
+        <references refid="struct_x_dfe_ccf___status_1ab78ac3eb12e3ea828f6dde34c258e8c1" compoundref="xdfeccf_8h" startline="395">XDfeCcf_Status::Overflow</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains functions related to Channel Filter interrupt handling. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.0   dc     12/10/20 Initial version
+      dc     03/25/21 Device tree item name change
+      dc     04/18/21 Update trigger and event handlers
+      dc     04/20/21 Doxygen documentation update
+1.1   dc     11/26/21 Correct interrupt mask handler api
+1.2   dc     10/29/21 Update doxygen comments
+      dc     11/05/21 Align event handlers
+      dc     11/19/21 Update doxygen documentation
+1.5   dc     09/12/22 Update handling overflow status
+1.10  dc     02/18/26 Correct spelling errors</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2021-2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdfeccf_8h" kindref="compound">xdfeccf.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdfeccf__hw_8h" kindref="compound">xdfeccf_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Macros<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>XDfeCcf_RdBitField(u32<sp/>FieldWidth,<sp/>u32<sp/>FieldOffset,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>XDfeCcf_WrBitField(u32<sp/>FieldWidth,<sp/>u32<sp/>FieldOffset,<sp/>u32<sp/>Data,</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val);</highlight></codeline>
+<codeline lineno="50"><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="59" refid="group__dfeccf_1ga4e155714de12813abe240aad00f33f46" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dfeccf_1ga4e155714de12813abe240aad00f33f46" kindref="member">XDfeCcf_GetOverflowStatus</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_ccf___overflow_status" kindref="compound">XDfeCcf_OverflowStatus</ref><sp/>*Status)</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/>XDfeCcf_ReadReg(InstancePtr,<sp/>XDFECCF_OVERFLOW);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_ccf___overflow_status_1aa89876d869cbdbf4e2e2a7a10ccae490" kindref="member">OverflowBeforeGainReal</ref><sp/>=</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeCcf_RdBitField(XDFECCF_OVERFLOW_BEFORE_GAIN_REAL_WIDTH,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFECCF_OVERFLOW_BEFORE_GAIN_REAL_OFFSET,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_ccf___overflow_status_1ae7b33a58ad3a19f8f2aec00749537caf" kindref="member">OverflowBeforeGainImag</ref><sp/>=</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeCcf_RdBitField(XDFECCF_OVERFLOW_BEFORE_GAIN_IMAG_WIDTH,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFECCF_OVERFLOW_BEFORE_GAIN_IMAG_OFFSET,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_ccf___overflow_status_1acd1567bbd77539afc66066770d89c688" kindref="member">OverflowAfterGainReal</ref><sp/>=</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeCcf_RdBitField(XDFECCF_OVERFLOW_AFTER_GAIN_REAL_WIDTH,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFECCF_OVERFLOW_AFTER_GAIN_REAL_OFFSET,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_ccf___overflow_status_1af6240b052ed9fec1346b03b162adca4c" kindref="member">OverflowAfterGainImag</ref><sp/>=</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeCcf_RdBitField(XDFECCF_OVERFLOW_AFTER_GAIN_IMAG_WIDTH,</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFECCF_OVERFLOW_AFTER_GAIN_IMAG_OFFSET,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_ccf___overflow_status_1a83cd0a44050799fba7c1fa35ad85af49" kindref="member">OverflowAntenna</ref><sp/>=<sp/>XDfeCcf_RdBitField(</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFECCF_ANTENNA_WIDTH,<sp/>XDFECCF_ANTENNA_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_ccf___overflow_status_1a0485eecafccd4ef409908a7af80135a8" kindref="member">OverflowCCID</ref><sp/>=<sp/>XDfeCcf_RdBitField(XDFECCF_CCID_WIDTH,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFECCF_CCID_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_ccf___overflow_status_1a5bdc515694f470412e13596f2b2548ff" kindref="member">OverflowSwitch</ref><sp/>=</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeCcf_RdBitField(XDFECCF_OVERFLOW_SWITCH_WIDTH,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFECCF_OVERFLOW_SWITCH_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="102" refid="group__dfeccf_1ga5a08588a90ca50aca0e8667e8692618b" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dfeccf_1ga5a08588a90ca50aca0e8667e8692618b" kindref="member">XDfeCcf_GetEventStatus</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_dfe_ccf___status" kindref="compound">XDfeCcf_Status</ref><sp/>*Status)</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/>XDfeCcf_ReadReg(InstancePtr,<sp/>XDFECCF_ISR);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_ccf___status_1ab78ac3eb12e3ea828f6dde34c258e8c1" kindref="member">Overflow</ref><sp/>=<sp/>XDfeCcf_RdBitField(XDFECCF_OVERFLOW_WIDTH,</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFECCF_OVERFLOW_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_ccf___status_1a64f494d148062c29e4bdfd2eee5a5897" kindref="member">CCUpdate</ref><sp/>=</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeCcf_RdBitField(XDFECCF_CC_UPDATE_TRIGGERED_WIDTH,</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFECCF_CC_UPDATE_TRIGGERED_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_ccf___status_1a18b5b8ebcd0324b23abdda08a124f4b1" kindref="member">CCSequenceError</ref><sp/>=</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeCcf_RdBitField(XDFECCF_CC_SEQUENCE_ERROR_WIDTH,</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFECCF_CC_SEQUENCE_ERROR_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="130" refid="group__dfeccf_1ga6ced5736831794879ad88390a58e6a3e" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dfeccf_1ga6ced5736831794879ad88390a58e6a3e" kindref="member">XDfeCcf_ClearEventStatus</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dfe_ccf___status" kindref="compound">XDfeCcf_Status</ref><sp/>*Status)</highlight></codeline>
+<codeline lineno="132"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status-&gt;<ref refid="struct_x_dfe_ccf___status_1ab78ac3eb12e3ea828f6dde34c258e8c1" kindref="member">Overflow</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status-&gt;<ref refid="struct_x_dfe_ccf___status_1a64f494d148062c29e4bdfd2eee5a5897" kindref="member">CCUpdate</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status-&gt;<ref refid="struct_x_dfe_ccf___status_1a18b5b8ebcd0324b23abdda08a124f4b1" kindref="member">CCSequenceError</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/>XDfeCcf_WrBitField(XDFECCF_OVERFLOW_WIDTH,</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFECCF_OVERFLOW_OFFSET,<sp/>Val,</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_ccf___status_1ab78ac3eb12e3ea828f6dde34c258e8c1" kindref="member">Overflow</ref>);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/>XDfeCcf_WrBitField(XDFECCF_CC_UPDATE_TRIGGERED_WIDTH,</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFECCF_CC_UPDATE_TRIGGERED_OFFSET,<sp/>Val,</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_ccf___status_1a64f494d148062c29e4bdfd2eee5a5897" kindref="member">CCUpdate</ref>);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/>XDfeCcf_WrBitField(XDFECCF_CC_SEQUENCE_ERROR_WIDTH,</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFECCF_CC_SEQUENCE_ERROR_OFFSET,<sp/>Val,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_ccf___status_1a18b5b8ebcd0324b23abdda08a124f4b1" kindref="member">CCSequenceError</ref>);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeCcf_WriteReg(InstancePtr,<sp/>XDFECCF_ISR,<sp/>Val);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="164" refid="group__dfeccf_1gaad3c846e9293c67f7b80fd933da9ce77" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dfeccf_1gaad3c846e9293c67f7b80fd933da9ce77" kindref="member">XDfeCcf_SetInterruptMask</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dfe_ccf___status" kindref="compound">XDfeCcf_InterruptMask</ref><sp/>*Mask)</highlight></codeline>
+<codeline lineno="166"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ValIER<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ValIDR<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask-&gt;<ref refid="struct_x_dfe_ccf___status_1ab78ac3eb12e3ea828f6dde34c258e8c1" kindref="member">Overflow</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask-&gt;<ref refid="struct_x_dfe_ccf___status_1a64f494d148062c29e4bdfd2eee5a5897" kindref="member">CCUpdate</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask-&gt;<ref refid="struct_x_dfe_ccf___status_1a18b5b8ebcd0324b23abdda08a124f4b1" kindref="member">CCSequenceError</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask-&gt;<ref refid="struct_x_dfe_ccf___status_1ab78ac3eb12e3ea828f6dde34c258e8c1" kindref="member">Overflow</ref><sp/>==<sp/>XDFECCF_IMR_INTERRUPT)<sp/>{</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIER<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFECCF_OVERFLOW_OFFSET);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIDR<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFECCF_OVERFLOW_OFFSET);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask-&gt;<ref refid="struct_x_dfe_ccf___status_1a64f494d148062c29e4bdfd2eee5a5897" kindref="member">CCUpdate</ref><sp/>==<sp/>XDFECCF_IMR_INTERRUPT)<sp/>{</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIER<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFECCF_CC_UPDATE_TRIGGERED_OFFSET);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIDR<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFECCF_CC_UPDATE_TRIGGERED_OFFSET);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask-&gt;<ref refid="struct_x_dfe_ccf___status_1a18b5b8ebcd0324b23abdda08a124f4b1" kindref="member">CCSequenceError</ref><sp/>==<sp/>XDFECCF_IMR_INTERRUPT)<sp/>{</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIER<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFECCF_CC_SEQUENCE_ERROR_OFFSET);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIDR<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFECCF_CC_SEQUENCE_ERROR_OFFSET);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeCcf_WriteReg(InstancePtr,<sp/>XDFECCF_IER,<sp/>ValIER);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeCcf_WriteReg(InstancePtr,<sp/>XDFECCF_IDR,<sp/>ValIDR);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="208" refid="group__dfeccf_1gab4d92a6803379d258e013f46b5be16a0" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dfeccf_1gab4d92a6803379d258e013f46b5be16a0" kindref="member">XDfeCcf_GetInterruptMask</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_ccf___status" kindref="compound">XDfeCcf_InterruptMask</ref><sp/>*Mask)</highlight></codeline>
+<codeline lineno="210"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/>XDfeCcf_ReadReg(InstancePtr,<sp/>XDFECCF_IMR);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask-&gt;<ref refid="struct_x_dfe_ccf___status_1ab78ac3eb12e3ea828f6dde34c258e8c1" kindref="member">Overflow</ref><sp/>=<sp/>XDfeCcf_RdBitField(XDFECCF_OVERFLOW_WIDTH,</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFECCF_OVERFLOW_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask-&gt;<ref refid="struct_x_dfe_ccf___status_1a64f494d148062c29e4bdfd2eee5a5897" kindref="member">CCUpdate</ref><sp/>=</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeCcf_RdBitField(XDFECCF_CC_UPDATE_TRIGGERED_WIDTH,</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFECCF_CC_UPDATE_TRIGGERED_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask-&gt;<ref refid="struct_x_dfe_ccf___status_1a18b5b8ebcd0324b23abdda08a124f4b1" kindref="member">CCSequenceError</ref><sp/>=</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeCcf_RdBitField(XDFECCF_CC_SEQUENCE_ERROR_WIDTH,</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFECCF_CC_SEQUENCE_ERROR_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_intr.c"/>
+  </compounddef>
+</doxygen>

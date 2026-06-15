@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_r_e_q_u_e_s_t___s_e_n_s_e" kind="struct" prot="public">
+    <compoundname>REQUEST_SENSE</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_r_e_q_u_e_s_t___s_e_n_s_e_1a0e966b8a3d355086e7ce6df60ca3ccfe" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 REQUEST_SENSE::error_code</definition>
+        <argsstring></argsstring>
+        <name>error_code</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_r_e_q_u_e_s_t___s_e_n_s_e_1a854d07e6b3a1138935823f517050a97d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 REQUEST_SENSE::padding1</definition>
+        <argsstring></argsstring>
+        <name>padding1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_r_e_q_u_e_s_t___s_e_n_s_e_1aa7c1ef850c3bea83463499c4ad5a92bb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 REQUEST_SENSE::sense_key</definition>
+        <argsstring></argsstring>
+        <name>sense_key</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_r_e_q_u_e_s_t___s_e_n_s_e_1a838af6e644a535014c76228fd8e240a8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 REQUEST_SENSE::information[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>information</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_r_e_q_u_e_s_t___s_e_n_s_e_1a0bc8b7bd8312f2cb5b13d49c67db3624" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 REQUEST_SENSE::additional_sense_length</definition>
+        <argsstring></argsstring>
+        <name>additional_sense_length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_r_e_q_u_e_s_t___s_e_n_s_e_1aabb60651dcb2926cc1351c7c2c8860a5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 REQUEST_SENSE::padding2[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>padding2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_r_e_q_u_e_s_t___s_e_n_s_e_1ab6b067b11d41c5fad67c1fbab11c87c8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 REQUEST_SENSE::additional_sense_code</definition>
+        <argsstring></argsstring>
+        <name>additional_sense_code</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_r_e_q_u_e_s_t___s_e_n_s_e_1a6d41083af27ed6e55896e722b4295d73" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 REQUEST_SENSE::additional_sense_code_qualifier</definition>
+        <argsstring></argsstring>
+        <name>additional_sense_code_qualifier</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_r_e_q_u_e_s_t___s_e_n_s_e_1a491e2a9f6e38ac2a4506004b3a363cd5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 REQUEST_SENSE::padding3[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>padding3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="200" bodyend="211"/>
+    <listofallmembers>
+      <member refid="struct_r_e_q_u_e_s_t___s_e_n_s_e_1ab6b067b11d41c5fad67c1fbab11c87c8" prot="public" virt="non-virtual"><scope>REQUEST_SENSE</scope><name>additional_sense_code</name></member>
+      <member refid="struct_r_e_q_u_e_s_t___s_e_n_s_e_1a6d41083af27ed6e55896e722b4295d73" prot="public" virt="non-virtual"><scope>REQUEST_SENSE</scope><name>additional_sense_code_qualifier</name></member>
+      <member refid="struct_r_e_q_u_e_s_t___s_e_n_s_e_1a0bc8b7bd8312f2cb5b13d49c67db3624" prot="public" virt="non-virtual"><scope>REQUEST_SENSE</scope><name>additional_sense_length</name></member>
+      <member refid="struct_r_e_q_u_e_s_t___s_e_n_s_e_1a0e966b8a3d355086e7ce6df60ca3ccfe" prot="public" virt="non-virtual"><scope>REQUEST_SENSE</scope><name>error_code</name></member>
+      <member refid="struct_r_e_q_u_e_s_t___s_e_n_s_e_1a838af6e644a535014c76228fd8e240a8" prot="public" virt="non-virtual"><scope>REQUEST_SENSE</scope><name>information</name></member>
+      <member refid="struct_r_e_q_u_e_s_t___s_e_n_s_e_1a854d07e6b3a1138935823f517050a97d" prot="public" virt="non-virtual"><scope>REQUEST_SENSE</scope><name>padding1</name></member>
+      <member refid="struct_r_e_q_u_e_s_t___s_e_n_s_e_1aabb60651dcb2926cc1351c7c2c8860a5" prot="public" virt="non-virtual"><scope>REQUEST_SENSE</scope><name>padding2</name></member>
+      <member refid="struct_r_e_q_u_e_s_t___s_e_n_s_e_1a491e2a9f6e38ac2a4506004b3a363cd5" prot="public" virt="non-virtual"><scope>REQUEST_SENSE</scope><name>padding3</name></member>
+      <member refid="struct_r_e_q_u_e_s_t___s_e_n_s_e_1aa7c1ef850c3bea83463499c4ad5a92bb" prot="public" virt="non-virtual"><scope>REQUEST_SENSE</scope><name>sense_key</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

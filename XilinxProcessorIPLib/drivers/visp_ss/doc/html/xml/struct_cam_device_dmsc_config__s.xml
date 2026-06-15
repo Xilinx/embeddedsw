@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_dmsc_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceDmscConfig_s</compoundname>
+    <includes local="no">cam_device_dmsc_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_dmsc_config__s_1a6086b1b2c9dae96ebfa6d264096f1a4f" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga7a54f95af23ab3af59d485ffaec2ae60" kindref="member">CamDeviceConfigMode_t</ref></type>
+        <definition>CamDeviceConfigMode_t CamDeviceDmscConfig_s::configMode</definition>
+        <argsstring></argsstring>
+        <name>configMode</name>
+        <briefdescription>
+<para>The run mode: 0<ndash/>manual, 1<ndash/>auto. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="233" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_config__s_1a1b2b94871bfb17ded2b291d96eada690" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__dmsc_1ga33d0f7e0fb8da9334a37bf38413b89cf" kindref="member">CamDeviceDmscAutoConfig_t</ref></type>
+        <definition>CamDeviceDmscAutoConfig_t CamDeviceDmscConfig_s::autoCfg</definition>
+        <argsstring></argsstring>
+        <name>autoCfg</name>
+        <briefdescription>
+<para>DMSC auto configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_config__s_1a0e36ad295b62c2eabb1b2e24b4bb8a41" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__dmsc_1gae1a4d44b7de4c312cf9bf7c43558316e" kindref="member">CamDeviceDmscManualConfig_t</ref></type>
+        <definition>CamDeviceDmscManualConfig_t CamDeviceDmscConfig_s::manualCfg</definition>
+        <argsstring></argsstring>
+        <name>manualCfg</name>
+        <briefdescription>
+<para>DMSC manual configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice DMSC configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="265">
+        <label>CamDeviceDmscManualConfig_s</label>
+        <link refid="struct_cam_device_dmsc_manual_config__s"/>
+        <childnode refid="266" relation="usage">
+          <edgelabel>sharpenLineCfg</edgelabel>
+        </childnode>
+        <childnode refid="267" relation="usage">
+          <edgelabel>depurpleCfg</edgelabel>
+        </childnode>
+        <childnode refid="268" relation="usage">
+          <edgelabel>cacCfg</edgelabel>
+        </childnode>
+        <childnode refid="269" relation="usage">
+          <edgelabel>demoireCfg</edgelabel>
+        </childnode>
+        <childnode refid="270" relation="usage">
+          <edgelabel>sharpenCfg</edgelabel>
+        </childnode>
+        <childnode refid="271" relation="usage">
+          <edgelabel>skinCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="271">
+        <label>CamDeviceDmscSkinConfig_s</label>
+        <link refid="struct_cam_device_dmsc_skin_config__s"/>
+      </node>
+      <node id="264">
+        <label>CamDeviceDmscConfig_s</label>
+        <link refid="struct_cam_device_dmsc_config__s"/>
+        <childnode refid="265" relation="usage">
+          <edgelabel>manualCfg</edgelabel>
+        </childnode>
+        <childnode refid="272" relation="usage">
+          <edgelabel>autoCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="268">
+        <label>CamDeviceDmscCacConfig_s</label>
+        <link refid="struct_cam_device_dmsc_cac_config__s"/>
+      </node>
+      <node id="270">
+        <label>CamDeviceDmscSharpenConfig_s</label>
+        <link refid="struct_cam_device_dmsc_sharpen_config__s"/>
+      </node>
+      <node id="266">
+        <label>CamDeviceDmscSharpenLineConfig_s</label>
+        <link refid="struct_cam_device_dmsc_sharpen_line_config__s"/>
+      </node>
+      <node id="272">
+        <label>CamDeviceDmscAutoConfig_s</label>
+        <link refid="struct_cam_device_dmsc_auto_config__s"/>
+      </node>
+      <node id="267">
+        <label>CamDeviceDmscDepurpleConfig_s</label>
+        <link refid="struct_cam_device_dmsc_depurple_config__s"/>
+      </node>
+      <node id="269">
+        <label>CamDeviceDmscDemoireConfig_s</label>
+        <link refid="struct_cam_device_dmsc_demoire_config__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="232" bodyend="236"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_dmsc_config__s_1a1b2b94871bfb17ded2b291d96eada690" prot="public" virt="non-virtual"><scope>CamDeviceDmscConfig_s</scope><name>autoCfg</name></member>
+      <member refid="struct_cam_device_dmsc_config__s_1a6086b1b2c9dae96ebfa6d264096f1a4f" prot="public" virt="non-virtual"><scope>CamDeviceDmscConfig_s</scope><name>configMode</name></member>
+      <member refid="struct_cam_device_dmsc_config__s_1a0e36ad295b62c2eabb1b2e24b4bb8a41" prot="public" virt="non-virtual"><scope>CamDeviceDmscConfig_s</scope><name>manualCfg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

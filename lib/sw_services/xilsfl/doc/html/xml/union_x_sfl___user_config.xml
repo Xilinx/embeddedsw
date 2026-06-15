@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="union_x_sfl___user_config" kind="union" prot="public">
+    <compoundname>XSfl_UserConfig</compoundname>
+    <includes local="no">xilsfl.h</includes>
+    <innerclass refid="struct_x_sfl___user_config_1_1_ospi___conig" prot="public">XSfl_UserConfig::Ospi_Conig</innerclass>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="group__xilsfl_1ga855e8533105d7b556117a557705b326f" prot="public" static="no" mutable="no">
+        <type>struct XSfl_UserConfig::Ospi_Conig</type>
+        <definition>struct XSfl_UserConfig::Ospi_Conig  XSfl_UserConfig::Ospi_Config</definition>
+        <argsstring></argsstring>
+        <name>Ospi_Config</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="360" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for a flash/controller device. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type. A variable of this type is then passed to the library API functions. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="354" bodyend="361"/>
+    <listofallmembers>
+      <member refid="group__xilsfl_1ga855e8533105d7b556117a557705b326f" prot="public" virt="non-virtual"><scope>XSfl_UserConfig</scope><name>Ospi_Config</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

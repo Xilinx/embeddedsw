@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp1x___port_phy_if_adaptor_s" kind="struct" prot="public">
+    <compoundname>XHdcp1x_PortPhyIfAdaptorS</compoundname>
+    <includes local="no">xhdcp1x_port.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp1x___port_phy_if_adaptor_s_1a21b4cbbff2e906b18b21ee2a614d6217" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XHdcp1x_PortPhyIfAdaptorS::Init)(XHdcp1x *)</definition>
+        <argsstring>)(XHdcp1x *)</argsstring>
+        <name>Init</name>
+        <briefdescription>
+<para>Initialization function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp1x_1ga72fafe0eef23bbe5dbbc07a260b8d6b3" compoundref="xhdcp1x_8c" startline="482" endline="513">XHdcp1x_Enable</referencedby>
+        <referencedby refid="group__hdcp1x_1ga7ace40ed3ad14f22e3cce4bc8bf6249c" compoundref="xhdcp1x_8c" startline="1049" endline="1075">XHdcp1x_EnableEncryption</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___port_phy_if_adaptor_s_1a57ab492440b7738789d5458d3c2d621c" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XHdcp1x_PortPhyIfAdaptorS::Enable)(XHdcp1x *)</definition>
+        <argsstring>)(XHdcp1x *)</argsstring>
+        <name>Enable</name>
+        <briefdescription>
+<para>Enable function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gafe3971f3a49c69f3a316f3fab58fdf20" compoundref="xhdcp1x__port_8c" startline="147" endline="168">XHdcp1x_PortEnable</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___port_phy_if_adaptor_s_1a3d4d78ac9c53e61be087a3d193e30de5" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XHdcp1x_PortPhyIfAdaptorS::Disable)(XHdcp1x *)</definition>
+        <argsstring>)(XHdcp1x *)</argsstring>
+        <name>Disable</name>
+        <briefdescription>
+<para>Disable function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga152c8d8f9abdee612ce15f6e914a122a" compoundref="xhdcp1x__port_8c" startline="220" endline="241">XHdcp1x_PortDisable</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___port_phy_if_adaptor_s_1ae57bfa58871123955d691a0e764b3e0c" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XHdcp1x_PortPhyIfAdaptorS::Read)(const XHdcp1x *, u8, void *, u32)</definition>
+        <argsstring>)(const XHdcp1x *, u8, void *, u32)</argsstring>
+        <name>Read</name>
+        <briefdescription>
+<para>Reg read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga6e36b9c8a021600e2c9e3766f94b6dc7" compoundref="xhdcp1x__port_8c" startline="393" endline="413">XHdcp1x_PortRead</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___port_phy_if_adaptor_s_1ad9892dcb133381504c00b6db21e3a485" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XHdcp1x_PortPhyIfAdaptorS::Write)(XHdcp1x *, u8, const void *, u32)</definition>
+        <argsstring>)(XHdcp1x *, u8, const void *, u32)</argsstring>
+        <name>Write</name>
+        <briefdescription>
+<para>Reg write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga46da74febe033d53ef2420d318fd63b9" compoundref="xhdcp1x__port_8c" startline="429" endline="449">XHdcp1x_PortWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___port_phy_if_adaptor_s_1ac2c8553a0119a61454b55a636301ac22" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XHdcp1x_PortPhyIfAdaptorS::IsCapable)(const XHdcp1x *)</definition>
+        <argsstring>)(const XHdcp1x *)</argsstring>
+        <name>IsCapable</name>
+        <briefdescription>
+<para>Tests for HDCP capable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gaf1e24817724b0410a9b272343a0ef745" compoundref="xhdcp1x__port_8c" startline="254" endline="271">XHdcp1x_PortIsCapable</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___port_phy_if_adaptor_s_1acffa4b66e65db9e791093cc0b5dd2af6" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XHdcp1x_PortPhyIfAdaptorS::IsRepeater)(const XHdcp1x *)</definition>
+        <argsstring>)(const XHdcp1x *)</argsstring>
+        <name>IsRepeater</name>
+        <briefdescription>
+<para>Tests for repeater. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga41b5285a790690159dece6baa5afadf9" compoundref="xhdcp1x__port_8c" startline="285" endline="302">XHdcp1x_PortIsRepeater</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___port_phy_if_adaptor_s_1a184af78bafe34409e91dd15a96cca351" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XHdcp1x_PortPhyIfAdaptorS::SetRepeater)(XHdcp1x *, u8)</definition>
+        <argsstring>)(XHdcp1x *, u8)</argsstring>
+        <name>SetRepeater</name>
+        <briefdescription>
+<para>Sets repeater. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga4ddc37a110b704b91553dea3646d18e2" compoundref="xhdcp1x__port_8c" startline="318" endline="339">XHdcp1x_PortSetRepeater</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___port_phy_if_adaptor_s_1afbf79bdc45c855b241e5e1302cee98ad" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XHdcp1x_PortPhyIfAdaptorS::GetRepeaterInfo)(const XHdcp1x *, u16 *)</definition>
+        <argsstring>)(const XHdcp1x *, u16 *)</argsstring>
+        <name>GetRepeaterInfo</name>
+        <briefdescription>
+<para>Gets repeater info. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga8865a6a7279587d2a439f603b78bf35c" compoundref="xhdcp1x__port_8c" startline="355" endline="377">XHdcp1x_PortGetRepeaterInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___port_phy_if_adaptor_s_1a5b044a08bc8025741a6a8acc5b54a10d" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* XHdcp1x_PortPhyIfAdaptorS::IntrHandler)(XHdcp1x *, u32)</definition>
+        <argsstring>)(XHdcp1x *, u32)</argsstring>
+        <name>IntrHandler</name>
+        <briefdescription>
+<para>Interrupt handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga5e84960fab8e0598e3dc0ecffd7fa2dc" compoundref="xhdcp1x__port__intr_8c" startline="104" endline="119">XHdcp1x_PortHandleInterrupt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___port_phy_if_adaptor_s_1ae1ffcc9653d3052f365791c00d4f50aa" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* XHdcp1x_PortPhyIfAdaptorS::CallbackHandler)(void *CallbackRef)</definition>
+        <argsstring>)(void *CallbackRef)</argsstring>
+        <name>CallbackHandler</name>
+        <briefdescription>
+<para>Callback handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga8bf591dc879a170beed8edc091ac018f" compoundref="xhdcp1x_8c" startline="1347" endline="1358">XHdcp1x_ProcessAKsv</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___port_phy_if_adaptor_s_1a29464d4bc157416de77ed37b60516636" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XHdcp1x_PortPhyIfAdaptorS::SetEcfSlots)(XHdcp1x *, u64)</definition>
+        <argsstring>)(XHdcp1x *, u64)</argsstring>
+        <name>SetEcfSlots</name>
+        <briefdescription>
+<para>Sets ECF timeslots (DP MST) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gabaa138ac8e69b6b515fc1abf6cf0b83d" compoundref="xhdcp1x__port_8c" startline="185" endline="206">XHdcp1x_SetEcfSlots</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The typedef defines the HDCP port adaptor table. </para>    </briefdescription>
+    <detaileddescription>
+<para>This contains a series of functions that map the external interface of the HDCP port device to the underlying physical interface that it is running over </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" bodystart="61" bodyend="75"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1ae1ffcc9653d3052f365791c00d4f50aa" prot="public" virt="non-virtual"><scope>XHdcp1x_PortPhyIfAdaptorS</scope><name>CallbackHandler</name></member>
+      <member refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a3d4d78ac9c53e61be087a3d193e30de5" prot="public" virt="non-virtual"><scope>XHdcp1x_PortPhyIfAdaptorS</scope><name>Disable</name></member>
+      <member refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a57ab492440b7738789d5458d3c2d621c" prot="public" virt="non-virtual"><scope>XHdcp1x_PortPhyIfAdaptorS</scope><name>Enable</name></member>
+      <member refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1afbf79bdc45c855b241e5e1302cee98ad" prot="public" virt="non-virtual"><scope>XHdcp1x_PortPhyIfAdaptorS</scope><name>GetRepeaterInfo</name></member>
+      <member refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a21b4cbbff2e906b18b21ee2a614d6217" prot="public" virt="non-virtual"><scope>XHdcp1x_PortPhyIfAdaptorS</scope><name>Init</name></member>
+      <member refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a5b044a08bc8025741a6a8acc5b54a10d" prot="public" virt="non-virtual"><scope>XHdcp1x_PortPhyIfAdaptorS</scope><name>IntrHandler</name></member>
+      <member refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1ac2c8553a0119a61454b55a636301ac22" prot="public" virt="non-virtual"><scope>XHdcp1x_PortPhyIfAdaptorS</scope><name>IsCapable</name></member>
+      <member refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1acffa4b66e65db9e791093cc0b5dd2af6" prot="public" virt="non-virtual"><scope>XHdcp1x_PortPhyIfAdaptorS</scope><name>IsRepeater</name></member>
+      <member refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1ae57bfa58871123955d691a0e764b3e0c" prot="public" virt="non-virtual"><scope>XHdcp1x_PortPhyIfAdaptorS</scope><name>Read</name></member>
+      <member refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a29464d4bc157416de77ed37b60516636" prot="public" virt="non-virtual"><scope>XHdcp1x_PortPhyIfAdaptorS</scope><name>SetEcfSlots</name></member>
+      <member refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a184af78bafe34409e91dd15a96cca351" prot="public" virt="non-virtual"><scope>XHdcp1x_PortPhyIfAdaptorS</scope><name>SetRepeater</name></member>
+      <member refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1ad9892dcb133381504c00b6db21e3a485" prot="public" virt="non-virtual"><scope>XHdcp1x_PortPhyIfAdaptorS</scope><name>Write</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

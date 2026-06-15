@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_95ca4bfe2053f1882da5817824112e48" kind="dir">
+    <compoundname>dp21_pt_mst</compoundname>
+    <innerfile refid="mst_2main_8h">mst/main.h</innerfile>
+    <innerfile refid="mst_2menus_8c">mst/menus.c</innerfile>
+    <innerfile refid="mst_2passthrough_8c">mst/passthrough.c</innerfile>
+    <innerfile refid="mst_2rx_8c">mst/rx.c</innerfile>
+    <innerfile refid="mst_2rx_8h">mst/rx.h</innerfile>
+    <innerfile refid="mst_2tx_8c">mst/tx.c</innerfile>
+    <innerfile refid="mst_2tx_8h">mst/tx.h</innerfile>
+    <innerfile refid="dp21__pt__mst_2videofmc__defs_8h">dp21_pt_mst/videofmc_defs.h</innerfile>
+    <innerfile refid="xdprxss__dp21__pt__mst_8c">xdprxss_dp21_pt_mst.c</innerfile>
+    <innerfile refid="mst_2xvid__clk__gen_8c">mst/xvid_clk_gen.c</innerfile>
+    <innerfile refid="xvid__pat__gen_8c">xvid_pat_gen.c</innerfile>
+    <innerfile refid="xvid__pat__gen_8h">xvid_pat_gen.h</innerfile>
+    <innerfile refid="dp21__pt__mst_2xvidframe__crc_8c">dp21_pt_mst/xvidframe_crc.c</innerfile>
+    <innerfile refid="dp21__pt__mst_2xvidframe__crc_8h">dp21_pt_mst/xvidframe_crc.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/"/>
+  </compounddef>
+</doxygen>

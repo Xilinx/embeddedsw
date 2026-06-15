@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device3_dnr_temporal_manual_config__s" kind="struct" prot="public">
+    <compoundname>CamDevice3DnrTemporalManualConfig_s</compoundname>
+    <includes local="no">cam_device_3dnr_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device3_dnr_temporal_manual_config__s_1abf247426935ab9686d0278e3bfe3daaa" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDevice3DnrTemporalManualConfig_s::updateTemporal</definition>
+        <argsstring></argsstring>
+        <name>updateTemporal</name>
+        <briefdescription>
+<para>Temporal update. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device3_dnr_temporal_manual_config__s_1a751bc4a0b3632e3f07d97c2159dd0fb5" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDevice3DnrTemporalManualConfig_s::strengthCurveTemporal</definition>
+        <argsstring></argsstring>
+        <name>strengthCurveTemporal</name>
+        <briefdescription>
+<para>Temporal strength curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device3_dnr_temporal_manual_config__s_1a998a388f98feb4d021dd2b53db0ce00f" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDevice3DnrTemporalManualConfig_s::temporalCurve[CAMDEV_3DNR_TEMPORAL_CURVE_NUM]</definition>
+        <argsstring>[CAMDEV_3DNR_TEMPORAL_CURVE_NUM]</argsstring>
+        <name>temporalCurve</name>
+        <briefdescription>
+<para>Temporal curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device3_dnr_temporal_manual_config__s_1ac49e6d9cdb7aa97b6ee3989ad6b23707" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDevice3DnrTemporalManualConfig_s::rangeT</definition>
+        <argsstring></argsstring>
+        <name>rangeT</name>
+        <briefdescription>
+<para>Temporal range. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice 3DNR temporal manual configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" bodystart="52" bodyend="58"/>
+    <listofallmembers>
+      <member refid="struct_cam_device3_dnr_temporal_manual_config__s_1ac49e6d9cdb7aa97b6ee3989ad6b23707" prot="public" virt="non-virtual"><scope>CamDevice3DnrTemporalManualConfig_s</scope><name>rangeT</name></member>
+      <member refid="struct_cam_device3_dnr_temporal_manual_config__s_1a751bc4a0b3632e3f07d97c2159dd0fb5" prot="public" virt="non-virtual"><scope>CamDevice3DnrTemporalManualConfig_s</scope><name>strengthCurveTemporal</name></member>
+      <member refid="struct_cam_device3_dnr_temporal_manual_config__s_1a998a388f98feb4d021dd2b53db0ce00f" prot="public" virt="non-virtual"><scope>CamDevice3DnrTemporalManualConfig_s</scope><name>temporalCurve</name></member>
+      <member refid="struct_cam_device3_dnr_temporal_manual_config__s_1abf247426935ab9686d0278e3bfe3daaa" prot="public" virt="non-virtual"><scope>CamDevice3DnrTemporalManualConfig_s</scope><name>updateTemporal</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

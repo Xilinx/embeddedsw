@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_u_s_b___s_t_d___e_p___d_e_s_c" kind="struct" prot="public">
+    <compoundname>USB_STD_EP_DESC</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___e_p___d_e_s_c_1aa03b912ec3132cbb392a321e952afb2e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_STD_EP_DESC::bLength</definition>
+        <argsstring></argsstring>
+        <name>bLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="414" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="414" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___e_p___d_e_s_c_1ad02c9938779f72054bedcd28bea30bcc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_STD_EP_DESC::bDescriptorType</definition>
+        <argsstring></argsstring>
+        <name>bDescriptorType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="415" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___e_p___d_e_s_c_1afa14701c45f511f861d164786f1bb694" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_STD_EP_DESC::bEndpointAddress</definition>
+        <argsstring></argsstring>
+        <name>bEndpointAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="416" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="416" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___e_p___d_e_s_c_1aa541c7c3c5765c2ca88fd1f6be402dfd" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_STD_EP_DESC::bmAttributes</definition>
+        <argsstring></argsstring>
+        <name>bmAttributes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="417" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="417" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___e_p___d_e_s_c_1a65981fee58f7e69b816c95bcae6c58e0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_STD_EP_DESC::bMaxPacketSizeL</definition>
+        <argsstring></argsstring>
+        <name>bMaxPacketSizeL</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="418" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="418" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___e_p___d_e_s_c_1a53e606a50375837c74fa99720ab9380c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_STD_EP_DESC::bMaxPacketSizeH</definition>
+        <argsstring></argsstring>
+        <name>bMaxPacketSizeH</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="419" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="419" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___e_p___d_e_s_c_1af4bc4ef390de9eaafe86e90e77556c31" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_STD_EP_DESC::bInterval</definition>
+        <argsstring></argsstring>
+        <name>bInterval</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="420" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="420" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="413" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="413" bodyend="421"/>
+    <listofallmembers>
+      <member refid="struct_u_s_b___s_t_d___e_p___d_e_s_c_1ad02c9938779f72054bedcd28bea30bcc" prot="public" virt="non-virtual"><scope>USB_STD_EP_DESC</scope><name>bDescriptorType</name></member>
+      <member refid="struct_u_s_b___s_t_d___e_p___d_e_s_c_1afa14701c45f511f861d164786f1bb694" prot="public" virt="non-virtual"><scope>USB_STD_EP_DESC</scope><name>bEndpointAddress</name></member>
+      <member refid="struct_u_s_b___s_t_d___e_p___d_e_s_c_1af4bc4ef390de9eaafe86e90e77556c31" prot="public" virt="non-virtual"><scope>USB_STD_EP_DESC</scope><name>bInterval</name></member>
+      <member refid="struct_u_s_b___s_t_d___e_p___d_e_s_c_1aa03b912ec3132cbb392a321e952afb2e" prot="public" virt="non-virtual"><scope>USB_STD_EP_DESC</scope><name>bLength</name></member>
+      <member refid="struct_u_s_b___s_t_d___e_p___d_e_s_c_1aa541c7c3c5765c2ca88fd1f6be402dfd" prot="public" virt="non-virtual"><scope>USB_STD_EP_DESC</scope><name>bmAttributes</name></member>
+      <member refid="struct_u_s_b___s_t_d___e_p___d_e_s_c_1a53e606a50375837c74fa99720ab9380c" prot="public" virt="non-virtual"><scope>USB_STD_EP_DESC</scope><name>bMaxPacketSizeH</name></member>
+      <member refid="struct_u_s_b___s_t_d___e_p___d_e_s_c_1a65981fee58f7e69b816c95bcae6c58e0" prot="public" virt="non-virtual"><scope>USB_STD_EP_DESC</scope><name>bMaxPacketSizeL</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

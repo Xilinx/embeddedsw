@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_58c773283779dc788acd035b9beaa40b" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerdir refid="dir_4e83deeb81129505be8f1f143d8e7432">src</innerdir>
+    <innerfile refid="vgamma__lut__example__kc705_8tcl">vgamma_lut_example_kc705.tcl</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/examples/"/>
+  </compounddef>
+</doxygen>

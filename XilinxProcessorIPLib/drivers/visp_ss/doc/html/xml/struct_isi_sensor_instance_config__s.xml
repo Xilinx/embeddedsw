@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_isi_sensor_instance_config__s" kind="struct" prot="public">
+    <compoundname>IsiSensorInstanceConfig_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_isi_sensor_instance_config__s_1ab489d423e261a6a9dced38b287b1381c" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiSensorInstanceConfig_s::halDevID</definition>
+        <argsstring></argsstring>
+        <name>halDevID</name>
+        <briefdescription>
+<para>HAL device ID of this sensor(reserved). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_sensor_instance_config__s_1aecda82a681cfe62577d6017cf962cd69" prot="public" static="no" mutable="no">
+        <type>IsiBus_t</type>
+        <definition>IsiBus_t IsiSensorInstanceConfig_s::sensorBus</definition>
+        <argsstring></argsstring>
+        <name>sensorBus</name>
+        <briefdescription>
+<para>BUS info of this sensor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_sensor_instance_config__s_1ad9b2d769a133660f5fe1541a52a56fe7" prot="public" static="no" mutable="no">
+        <type>IsiBus_t</type>
+        <definition>IsiBus_t IsiSensorInstanceConfig_s::motorBus</definition>
+        <argsstring></argsstring>
+        <name>motorBus</name>
+        <briefdescription>
+<para>BUS info of this sensor motor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_sensor_instance_config__s_1a37d3a089bee31efbd1c69bfb3efe1557" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiSensorInstanceConfig_s::instanceID</definition>
+        <argsstring></argsstring>
+        <name>instanceID</name>
+        <briefdescription>
+<para>instance ID of this sensor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_sensor_instance_config__s_1a8accd3a53ee254dc0f66850d742fd987" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiSensorInstanceConfig_s::cameraDriverID</definition>
+        <argsstring></argsstring>
+        <name>cameraDriverID</name>
+        <briefdescription>
+<para>camera driver ID of this sensor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_sensor_instance_config__s_1a9dbe266a585bd9e62278f7d2450ccf17" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiSensorInstanceConfig_s::cameraDevId</definition>
+        <argsstring></argsstring>
+        <name>cameraDevId</name>
+        <briefdescription>
+<para>camera device ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_sensor_instance_config__s_1a2ec8a5dcc851b9c130d291b939bad1d8" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_isi_sensor__s" kindref="compound">IsiSensor_t</ref> *</type>
+        <definition>IsiSensor_t* IsiSensorInstanceConfig_s::pSensor</definition>
+        <argsstring></argsstring>
+        <name>pSensor</name>
+        <briefdescription>
+<para>Sensor driver interface. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="867">
+        <label>IsiCaps_s</label>
+        <link refid="struct_isi_caps__s"/>
+      </node>
+      <node id="865">
+        <label>IsiSensorInstanceConfig_s</label>
+        <childnode refid="866" relation="usage">
+          <edgelabel>pSensor</edgelabel>
+        </childnode>
+      </node>
+      <node id="866">
+        <label>IsiSensor_s</label>
+        <link refid="struct_isi_sensor__s"/>
+        <childnode refid="867" relation="usage">
+          <edgelabel>pIsiCaps</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="190" bodyend="198"/>
+    <listofallmembers>
+      <member refid="struct_isi_sensor_instance_config__s_1a9dbe266a585bd9e62278f7d2450ccf17" prot="public" virt="non-virtual"><scope>IsiSensorInstanceConfig_s</scope><name>cameraDevId</name></member>
+      <member refid="struct_isi_sensor_instance_config__s_1a8accd3a53ee254dc0f66850d742fd987" prot="public" virt="non-virtual"><scope>IsiSensorInstanceConfig_s</scope><name>cameraDriverID</name></member>
+      <member refid="struct_isi_sensor_instance_config__s_1ab489d423e261a6a9dced38b287b1381c" prot="public" virt="non-virtual"><scope>IsiSensorInstanceConfig_s</scope><name>halDevID</name></member>
+      <member refid="struct_isi_sensor_instance_config__s_1a37d3a089bee31efbd1c69bfb3efe1557" prot="public" virt="non-virtual"><scope>IsiSensorInstanceConfig_s</scope><name>instanceID</name></member>
+      <member refid="struct_isi_sensor_instance_config__s_1ad9b2d769a133660f5fe1541a52a56fe7" prot="public" virt="non-virtual"><scope>IsiSensorInstanceConfig_s</scope><name>motorBus</name></member>
+      <member refid="struct_isi_sensor_instance_config__s_1a2ec8a5dcc851b9c130d291b939bad1d8" prot="public" virt="non-virtual"><scope>IsiSensorInstanceConfig_s</scope><name>pSensor</name></member>
+      <member refid="struct_isi_sensor_instance_config__s_1aecda82a681cfe62577d6017cf962cd69" prot="public" virt="non-virtual"><scope>IsiSensorInstanceConfig_s</scope><name>sensorBus</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

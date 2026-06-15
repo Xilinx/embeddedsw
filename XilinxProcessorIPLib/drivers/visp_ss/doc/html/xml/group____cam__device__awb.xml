@@ -1,0 +1,760 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group____cam__device__awb" kind="group">
+    <compoundname>_cam_device_awb</compoundname>
+    <title>VsCamDevice E01C05 Device_WBG Definitions</title>
+    <innerclass refid="struct_cam_device_awb_tem_preference_weight__s" prot="public">CamDeviceAwbTemPreferenceWeight_s</innerclass>
+    <innerclass refid="struct_cam_device_awb_confound_position__s" prot="public">CamDeviceAwbConfoundPosition_s</innerclass>
+    <innerclass refid="struct_cam_device_awb_confound_position_custom__s" prot="public">CamDeviceAwbConfoundPositionCustom_s</innerclass>
+    <innerclass refid="struct_cam_device_awb_calib_point__s" prot="public">CamDeviceAwbCalibPoint_s</innerclass>
+    <innerclass refid="struct_cam_device_awb_light_weight_level__s" prot="public">CamDeviceAwbLightWeightLevel_s</innerclass>
+    <innerclass refid="struct_cam_device_awb_preference_gain__s" prot="public">CamDeviceAwbPreferenceGain_s</innerclass>
+    <innerclass refid="struct_cam_device_awb_damping__s" prot="public">CamDeviceAwbDamping_s</innerclass>
+    <innerclass refid="struct_cam_device_awb_config__s" prot="public">CamDeviceAwbConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_awb_result__s" prot="public">CamDeviceAwbResult_s</innerclass>
+    <innerclass refid="struct_cam_device_awb_calib_data__s" prot="public">CamDeviceAwbCalibData_s</innerclass>
+    <innerclass refid="struct_cam_device_awb_front_ground_config__s" prot="public">CamDeviceAwbFrontGroundConfig_s</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group____cam__device__awb_1gacd03de6843998f7b9ff77738567aa47a" prot="public" static="no">
+        <name>CamDeviceAwbState_e</name>
+        <enumvalue id="group____cam__device__awb_1ggacd03de6843998f7b9ff77738567aa47aa72550ed5b80af4a89a7d3784047c9843" prot="public">
+          <name>CAMDEV_AWB_STATE_INVALID</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Invalid status. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__awb_1ggacd03de6843998f7b9ff77738567aa47aa199d30df570e9ba79f783fbb5f11c0d5" prot="public">
+          <name>CAMDEV_AWB_STATE_INITIALIZED</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>AWB initialized. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__awb_1ggacd03de6843998f7b9ff77738567aa47aaf57fe74fa63f4bb47099520a112d6bce" prot="public">
+          <name>CAMDEV_AWB_STATE_STOPPED</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>AWB stopped. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__awb_1ggacd03de6843998f7b9ff77738567aa47aad29d24598774ba7bc6760fd3f837eab1" prot="public">
+          <name>CAMDEV_AWB_STATE_RUNNING</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>AWB running. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__awb_1ggacd03de6843998f7b9ff77738567aa47aa74ef908fa4b61eb8a9da8ee16c0d6121" prot="public">
+          <name>CAMDEV_AWB_STATE_LOCKED</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+<para>AWB locked. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__awb_1ggacd03de6843998f7b9ff77738567aa47aa393d4548c9a1ad8a94bff1ed2c5ebdf7" prot="public">
+          <name>CAMDEV_AWB_STATE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice AWB status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="70" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__awb_1ga5e306defc5e33cdc7c8993c413f6f1ea" prot="public" static="no">
+        <name>CamDeviceAwbMode_e</name>
+        <enumvalue id="group____cam__device__awb_1gga5e306defc5e33cdc7c8993c413f6f1eaa61fec5f3ec2c7e7c7ad3e8c6d995bb33" prot="public">
+          <name>CAMDEV_AWB_MODE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>AWB mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__awb_1gga5e306defc5e33cdc7c8993c413f6f1eaa1ebb63212d18aa44eace244bf0dc0c5d" prot="public">
+          <name>CAMDEV_AWB_METEDATA_MODE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>AWB METADATA MODE. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice AWB mode parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="84" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__awb_1ga2215310598f6154b315db7e6bba1659d" prot="public" static="no">
+        <name>CamDeviceAwbPerformanceOptiMode_s</name>
+        <enumvalue id="group____cam__device__awb_1gga2215310598f6154b315db7e6bba1659daa88b81e426923775dd74fb1f74c2304b" prot="public">
+          <name>CAMDEV_AWB_PERFORMANCE_NO_OPTIMIZATION</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>No optimization mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__awb_1gga2215310598f6154b315db7e6bba1659daee4a22ae7b5f56e7e5fe0b4ec417593b" prot="public">
+          <name>CAMDEV_AWB_PERFORMANCE_GENERAL_OPTIMIZATION</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>General optimization mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__awb_1gga2215310598f6154b315db7e6bba1659dad498eb67dd047564b2e0ffa6c4f91014" prot="public">
+          <name>CAMDEV_AWB_PERFORMANCE_FAST_OPTIMIZATION</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Fast optimization mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice AWB performance optimizationon mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="94" bodyend="99"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__awb_1ga64df5d22a3a640ad9b64a0b00253737f" prot="public" static="no">
+        <type>float32_t</type>
+        <definition>typedef float32_t CamDeviceAwbTemWeight_t[CAMDEV_AWB_COLOR_TEM_WEIGHT_NUM]</definition>
+        <argsstring>[CAMDEV_AWB_COLOR_TEM_WEIGHT_NUM]</argsstring>
+        <name>CamDeviceAwbTemWeight_t</name>
+        <briefdescription>
+<para>AWB color temperature weight of every lighting. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1ga76d00afd58834df8895723db5b05da94" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__awb_1gacd03de6843998f7b9ff77738567aa47a" kindref="member">CamDeviceAwbState_e</ref></type>
+        <definition>typedef enum CamDeviceAwbState_e  CamDeviceAwbState_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbState_t</name>
+        <briefdescription>
+<para>VsCamDevice AWB status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="77" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1ga786edca477934b009ce65b4398da9d18" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__awb_1ga5e306defc5e33cdc7c8993c413f6f1ea" kindref="member">CamDeviceAwbMode_e</ref></type>
+        <definition>typedef enum CamDeviceAwbMode_e  CamDeviceAwbMode_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbMode_t</name>
+        <briefdescription>
+<para>VsCamDevice AWB mode parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="87" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1gacb3999d24043d63198c8e39602625100" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__awb_1ga2215310598f6154b315db7e6bba1659d" kindref="member">CamDeviceAwbPerformanceOptiMode_s</ref></type>
+        <definition>typedef enum CamDeviceAwbPerformanceOptiMode_s  CamDeviceAwbPerformanceOptiMode_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbPerformanceOptiMode_t</name>
+        <briefdescription>
+<para>VsCamDevice AWB performance optimizationon mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="99" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1gaf4b6539be6845d6ec0266f45f2162c40" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_awb_tem_preference_weight__s" kindref="compound">CamDeviceAwbTemPreferenceWeight_s</ref></type>
+        <definition>typedef struct CamDeviceAwbTemPreferenceWeight_s  CamDeviceAwbTemPreferenceWeight_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbTemPreferenceWeight_t</name>
+        <briefdescription>
+<para>VsCamDevice AWB temperature preference weight parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="111" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1ga17a62e806fc7a1bdb367dc33306407d8" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_awb_confound_position__s" kindref="compound">CamDeviceAwbConfoundPosition_s</ref></type>
+        <definition>typedef struct CamDeviceAwbConfoundPosition_s  CamDeviceAwbConfoundPosition_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbConfoundPosition_t</name>
+        <briefdescription>
+<para>VsCamDevice AWB confidence found position parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="123" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1ga9b14710e5df671d82402b88604c21566" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_awb_confound_position_custom__s" kindref="compound">CamDeviceAwbConfoundPositionCustom_s</ref></type>
+        <definition>typedef struct CamDeviceAwbConfoundPositionCustom_s  CamDeviceAwbConfoundPositionCustom_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbConfoundPositionCustom_t</name>
+        <briefdescription>
+<para>CamDeviceAwbConfoundPositionCustom_t. </para>        </briefdescription>
+        <detaileddescription>
+<para>awb button function cutomer function parameters </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="141" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1ga80623346b60656bd4017277782f3f40c" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_awb_calib_point__s" kindref="compound">CamDeviceAwbCalibPoint_s</ref></type>
+        <definition>typedef struct CamDeviceAwbCalibPoint_s  CamDeviceAwbCalibPoint_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbCalibPoint_t</name>
+        <briefdescription>
+<para>CamDeviceAwbCalibPoint_t. </para>        </briefdescription>
+        <detaileddescription>
+<para>awb new calibration area </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="157" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1ga474c60f27af802c358729c4d85375bc8" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_awb_light_weight_level__s" kindref="compound">CamDeviceAwbLightWeightLevel_s</ref></type>
+        <definition>typedef struct CamDeviceAwbLightWeightLevel_s  CamDeviceAwbLightWeightLevel_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbLightWeightLevel_t</name>
+        <briefdescription>
+<para>VsCamDevice AWB light weight level parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="168" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1ga1ebd63c7a189e7e689f21b4df0e9eb8d" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_awb_preference_gain__s" kindref="compound">CamDeviceAwbPreferenceGain_s</ref></type>
+        <definition>typedef struct CamDeviceAwbPreferenceGain_s  CamDeviceAwbPreferenceGain_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbPreferenceGain_t</name>
+        <briefdescription>
+<para>VsCamDevice AWB preference gain parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="180" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1ga868fb2708c37b6aa86c162ccee037ab3" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_awb_damping__s" kindref="compound">CamDeviceAwbDamping_s</ref></type>
+        <definition>typedef struct CamDeviceAwbDamping_s  CamDeviceAwbDamping_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbDamping_t</name>
+        <briefdescription>
+<para>VsCamDevice AWB damping parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="192" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1gabb00ccdf23895233d2546b48caf918ef" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_awb_config__s" kindref="compound">CamDeviceAwbConfig_s</ref></type>
+        <definition>typedef struct CamDeviceAwbConfig_s  CamDeviceAwbConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice AWB control configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="221" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1ga7563a4b851f2d4ee88ba49997c753978" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_awb_result__s" kindref="compound">CamDeviceAwbResult_s</ref></type>
+        <definition>typedef struct CamDeviceAwbResult_s  CamDeviceAwbResult_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbResult_t</name>
+        <briefdescription>
+<para>Cam Device AWB result. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="230" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1gaec71b1e28b5d0eee78d8731886291895" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_awb_calib_data__s" kindref="compound">CamDeviceAwbCalibData_s</ref></type>
+        <definition>typedef struct CamDeviceAwbCalibData_s  CamDeviceAwbCalibData_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbCalibData_t</name>
+        <briefdescription>
+<para>CamDeviceAwbCalibData_t. </para>        </briefdescription>
+        <detaileddescription>
+<para>VsCamDevice AWB calibration configuration which lib calculation need </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="262" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1ga1ecc340073c86fe16ea003647cf54a62" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_awb_front_ground_config__s" kindref="compound">CamDeviceAwbFrontGroundConfig_s</ref></type>
+        <definition>typedef struct CamDeviceAwbFrontGroundConfig_s  CamDeviceAwbFrontGroundConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbFrontGroundConfig_t</name>
+        <briefdescription>
+<para>Cam Device AWB front ground configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="275" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__awb_1ga1d014c176856c6482b8dba8c87ce9c6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceRegisterAwbLib</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, void *pAwbLibHandle)</argsstring>
+        <name>VsiCamDeviceRegisterAwbLib</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>pAwbLibHandle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="19" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1ga2395a8ff9cd3aa505ee9408ef5afec75" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceUnRegisterAwbLib</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceUnRegisterAwbLib</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="62" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1ga65d07709a9b2600528207ff934ccd12c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceAwbConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceAwbSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__awb_1gabb00ccdf23895233d2546b48caf918ef" kindref="member">CamDeviceAwbConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="101" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1gae578bde7bda15a39b2a871522c37d5a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceAwbConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceAwbGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__awb_1gabb00ccdf23895233d2546b48caf918ef" kindref="member">CamDeviceAwbConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="373" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="150" bodyend="190"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1ga6052db48f1eef76630bd1fdadc8cf3ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbSetMode</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, const CamDeviceAwbMode_t *pAwbMode)</argsstring>
+        <name>VsiCamDeviceAwbSetMode</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group____cam__device__awb_1ga786edca477934b009ce65b4398da9d18" kindref="member">CamDeviceAwbMode_t</ref> *</type>
+          <declname>pAwbMode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="398" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="194" bodyend="235"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1ga2a4e891cae5079c274c77be061ec454b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbGetMode</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceAwbMode_t *pAwbMode)</argsstring>
+        <name>VsiCamDeviceAwbGetMode</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__awb_1ga786edca477934b009ce65b4398da9d18" kindref="member">CamDeviceAwbMode_t</ref> *</type>
+          <declname>pAwbMode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="239" bodyend="279"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1ga608e1a07a9f90f04d0db668bbc964997" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbSetCalibData</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, const CamDeviceAwbCalibData_t *pAwbCalib)</argsstring>
+        <name>VsiCamDeviceAwbSetCalibData</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group____cam__device__awb_1gaec71b1e28b5d0eee78d8731886291895" kindref="member">CamDeviceAwbCalibData_t</ref> *</type>
+          <declname>pAwbCalib</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="662" bodyend="703"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1ga799494ad96ad5fb3815047a11f2c41b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbGetCalibData</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceAwbCalibData_t *pAwbCalib)</argsstring>
+        <name>VsiCamDeviceAwbGetCalibData</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__awb_1gaec71b1e28b5d0eee78d8731886291895" kindref="member">CamDeviceAwbCalibData_t</ref> *</type>
+          <declname>pAwbCalib</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="473" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="707" bodyend="747"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1gae4b2648e0784613d99914b8bef8d3542" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbSetRoi</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, const CamDeviceRoi_t *pRoi)</argsstring>
+        <name>VsiCamDeviceAwbSetRoi</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group____cam__device__general_1gaaac58837e9a4bb1ce746a2194f463314" kindref="member">CamDeviceRoi_t</ref> *</type>
+          <declname>pRoi</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="500" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="283" bodyend="324"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1gab6a66a73afa6bf108107352205833b67" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbGetRoi</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceRoi_t *pRoi)</argsstring>
+        <name>VsiCamDeviceAwbGetRoi</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__general_1gaaac58837e9a4bb1ce746a2194f463314" kindref="member">CamDeviceRoi_t</ref> *</type>
+          <declname>pRoi</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="527" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="328" bodyend="368"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1ga4d3a4b97e0419a7118f3724c792bc21a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbGetColorTempWeight</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceAwbTemWeight_t *pAwbTemWeight)</argsstring>
+        <name>VsiCamDeviceAwbGetColorTempWeight</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__awb_1ga64df5d22a3a640ad9b64a0b00253737f" kindref="member">CamDeviceAwbTemWeight_t</ref> *</type>
+          <declname>pAwbTemWeight</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="554" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="371" bodyend="411"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1gaea2973cb11cd6553b52734bcc74a62a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceAwbEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="576" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="415" bodyend="450"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1gab93d69b7ccb906162be4d99d06770198" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceAwbDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="597" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="454" bodyend="489"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1ga646519d335686a35fe062f57e5a89f51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbGetResult</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceAwbResult_t *pCamDeviceAwbResult)</argsstring>
+        <name>VsiCamDeviceAwbGetResult</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__awb_1ga7563a4b851f2d4ee88ba49997c753978" kindref="member">CamDeviceAwbResult_t</ref> *</type>
+          <declname>pCamDeviceAwbResult</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="623" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="619" bodyend="659"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1ga626887705da7f0d95dff0f5226fe6dfd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbGetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceAwbState_t *pAwbStatus)</argsstring>
+        <name>VsiCamDeviceAwbGetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__awb_1ga76d00afd58834df8895723db5b05da94" kindref="member">CamDeviceAwbState_t</ref> *</type>
+          <declname>pAwbStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="650" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="493" bodyend="533"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1gaf8f01574855726a564a4a7b1c738ac7a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbReset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceAwbReset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="676" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="581" bodyend="616"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1ga4aab5b52be35fe3ff8d481167606d07a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbGetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceAwbGetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="697" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="537" bodyend="577"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group____cam__device__awb_1ga37c48f1c0ff8fd80ff416d785e82cf32" prot="public" static="no">
+        <name>CAMDEV_AWB_COLOR_TEM_WEIGHT_NUM</name>
+        <initializer>10U</initializer>
+        <briefdescription>
+<para>The number of AWB color temperature weight. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__awb_1gad5155efec593b2db9b63a40d2b7151c5" prot="public" static="no">
+        <name>CAMDEV_AWB_LIGHT_LEVEL</name>
+        <initializer>18U</initializer>
+        <briefdescription>
+<para>AWB light level. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__awb_1ga2e46fba7b9fc23a6e82051ea46319750" prot="public" static="no">
+        <name>CAMDEV_ILLUPROFILE_NUM</name>
+        <initializer>10U</initializer>
+        <briefdescription>
+<para>The number of illumination profiles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__awb_1gaa0d78683a90279be9a1f7098f2b670e9" prot="public" static="no">
+        <name>CAMDEV_AWB_CONFOUND_POINTS_NUM</name>
+        <initializer>25U</initializer>
+        <briefdescription>
+<para>The AWB new confound function parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__awb_1ga8d4ce2bb07a938f48e257f5c045e4722" prot="public" static="no">
+        <name>AWB_DEVICE_RETENTION_VALUE_MAX</name>
+        <initializer>500U</initializer>
+        <briefdescription>
+<para>The AWB maximum device retention value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__awb_1ga3b0730d6d53671c1f00a0ba1ae7834f7" prot="public" static="no">
+        <name>CAMDEV_AWB_FADE_NUM</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__awb_1gaf033df112d82a8afbcb444f38a145f1c" prot="public" static="no">
+        <name>CAMDEV_AWB_GAINDIST_NUM</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Provides interfaces for controlling the auto white balance module working in the ISP pipeline. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

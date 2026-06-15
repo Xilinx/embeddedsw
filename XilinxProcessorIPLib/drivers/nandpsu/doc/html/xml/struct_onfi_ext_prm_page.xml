@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_onfi_ext_prm_page" kind="struct" prot="public">
+    <compoundname>OnfiExtPrmPage</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_onfi_ext_prm_page_1acf4cf65b6f91a94a3aed8e6c6c26e681" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiExtPrmPage::Crc</definition>
+        <argsstring></argsstring>
+        <name>Crc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="295" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_ext_prm_page_1a598fcfb5e302d2f8c04025ecff32164f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiExtPrmPage::Sig[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Sig</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="296" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_ext_prm_page_1a4b3b0c2d3b8e4672577abc43fac990b3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiExtPrmPage::Reserved1[10]</definition>
+        <argsstring>[10]</argsstring>
+        <name>Reserved1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="297" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_ext_prm_page_1a7c882d64b1f76f4e5241279fc42add4f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiExtPrmPage::Section0Type</definition>
+        <argsstring></argsstring>
+        <name>Section0Type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="298" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_ext_prm_page_1a484975f251b462c4feebdb58b3211a6b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiExtPrmPage::Section0Len</definition>
+        <argsstring></argsstring>
+        <name>Section0Len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="299" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="299" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_ext_prm_page_1a391c1d7271c977fb660de8d9a1dbd8bb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiExtPrmPage::Section1Type</definition>
+        <argsstring></argsstring>
+        <name>Section1Type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_ext_prm_page_1ae985cef634561c35a85291c18d3f0dd8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiExtPrmPage::Section1Len</definition>
+        <argsstring></argsstring>
+        <name>Section1Len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="301" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_ext_prm_page_1a7e0176e3ebafc02cbd0db919e70f190d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiExtPrmPage::ResSection[12]</definition>
+        <argsstring>[12]</argsstring>
+        <name>ResSection</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_ext_prm_page_1a6192974be38fd8ed6e771ae18e4df159" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiExtPrmPage::SectionData[256]</definition>
+        <argsstring>[256]</argsstring>
+        <name>SectionData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="294" bodyend="308"/>
+    <listofallmembers>
+      <member refid="struct_onfi_ext_prm_page_1acf4cf65b6f91a94a3aed8e6c6c26e681" prot="public" virt="non-virtual"><scope>OnfiExtPrmPage</scope><name>Crc</name></member>
+      <member refid="struct_onfi_ext_prm_page_1a4b3b0c2d3b8e4672577abc43fac990b3" prot="public" virt="non-virtual"><scope>OnfiExtPrmPage</scope><name>Reserved1</name></member>
+      <member refid="struct_onfi_ext_prm_page_1a7e0176e3ebafc02cbd0db919e70f190d" prot="public" virt="non-virtual"><scope>OnfiExtPrmPage</scope><name>ResSection</name></member>
+      <member refid="struct_onfi_ext_prm_page_1a484975f251b462c4feebdb58b3211a6b" prot="public" virt="non-virtual"><scope>OnfiExtPrmPage</scope><name>Section0Len</name></member>
+      <member refid="struct_onfi_ext_prm_page_1a7c882d64b1f76f4e5241279fc42add4f" prot="public" virt="non-virtual"><scope>OnfiExtPrmPage</scope><name>Section0Type</name></member>
+      <member refid="struct_onfi_ext_prm_page_1ae985cef634561c35a85291c18d3f0dd8" prot="public" virt="non-virtual"><scope>OnfiExtPrmPage</scope><name>Section1Len</name></member>
+      <member refid="struct_onfi_ext_prm_page_1a391c1d7271c977fb660de8d9a1dbd8bb" prot="public" virt="non-virtual"><scope>OnfiExtPrmPage</scope><name>Section1Type</name></member>
+      <member refid="struct_onfi_ext_prm_page_1a6192974be38fd8ed6e771ae18e4df159" prot="public" virt="non-virtual"><scope>OnfiExtPrmPage</scope><name>SectionData</name></member>
+      <member refid="struct_onfi_ext_prm_page_1a598fcfb5e302d2f8c04025ecff32164f" prot="public" virt="non-virtual"><scope>OnfiExtPrmPage</scope><name>Sig</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

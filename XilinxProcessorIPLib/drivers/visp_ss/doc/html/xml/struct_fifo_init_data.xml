@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_fifo_init_data" kind="struct" prot="public">
+    <compoundname>FifoInitData</compoundname>
+    <includes local="no">mbox_fifo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_fifo_init_data_1a28c51b7904aa2136a5345779eb0d70e5" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t FifoInitData::buffer_addr</definition>
+        <argsstring></argsstring>
+        <name>buffer_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_fifo_init_data_1ae8e08d2443d1929d65e8e4aa421170de" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t FifoInitData::item_size</definition>
+        <argsstring></argsstring>
+        <name>item_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_fifo_init_data_1a411982351521342dc976095535f41b1a" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t FifoInitData::item_total</definition>
+        <argsstring></argsstring>
+        <name>item_total</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_fifo_init_data_1a12f4949cd67c7402d89096a2db42d352" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t FifoInitData::buffer_size</definition>
+        <argsstring></argsstring>
+        <name>buffer_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure of init fifo data. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="70" bodyend="75"/>
+    <listofallmembers>
+      <member refid="struct_fifo_init_data_1a28c51b7904aa2136a5345779eb0d70e5" prot="public" virt="non-virtual"><scope>FifoInitData</scope><name>buffer_addr</name></member>
+      <member refid="struct_fifo_init_data_1a12f4949cd67c7402d89096a2db42d352" prot="public" virt="non-virtual"><scope>FifoInitData</scope><name>buffer_size</name></member>
+      <member refid="struct_fifo_init_data_1ae8e08d2443d1929d65e8e4aa421170de" prot="public" virt="non-virtual"><scope>FifoInitData</scope><name>item_size</name></member>
+      <member refid="struct_fifo_init_data_1a411982351521342dc976095535f41b1a" prot="public" virt="non-virtual"><scope>FifoInitData</scope><name>item_total</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

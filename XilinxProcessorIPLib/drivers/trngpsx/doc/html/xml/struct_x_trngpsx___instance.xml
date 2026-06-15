@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_trngpsx___instance" kind="struct" prot="public">
+    <compoundname>XTrngpsx_Instance</compoundname>
+    <includes local="no">xtrngpsx.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_trngpsx___instance_1a2dbc9278a04d95a6ce941a671cd1e643" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_trngpsx___config" kindref="compound">XTrngpsx_Config</ref></type>
+        <definition>XTrngpsx_Config XTrngpsx_Instance::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Device configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="122" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga6b5653250d7dad396a064b0ba6fa5c34" compoundref="xtrngpsx_8c" startline="331" endline="365">XTrngpsx_CfgInitialize</referencedby>
+        <referencedby refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</referencedby>
+        <referencedby refid="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" compoundref="xtrngpsx_8c" startline="753" endline="784">XTrngpsx_Uninstantiate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_trngpsx___instance_1a35e78a175d954c5c5f6232283996eb42" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_trngpsx___user_config" kindref="compound">XTrngpsx_UserConfig</ref></type>
+        <definition>XTrngpsx_UserConfig XTrngpsx_Instance::UserCfg</definition>
+        <argsstring></argsstring>
+        <name>UserCfg</name>
+        <briefdescription>
+<para>User configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="123" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</referencedby>
+        <referencedby refid="group__trngpsx__api_1ga68da9a334ae46bbed63a36ae6a273745" compoundref="xtrngpsx_8c" startline="398" endline="523">XTrngpsx_Instantiate</referencedby>
+        <referencedby refid="group__trngpsx__api_1ga27d626b65acc3b1e97573f4c2d2ee8e1" compoundref="xtrngpsx_8c" startline="549" endline="600">XTrngpsx_Reseed</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_trngpsx___instance_1a7f41434fe1d6a995b5d7935665c09df5" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_trngpsx___status" kindref="compound">XTrngpsx_Status</ref></type>
+        <definition>XTrngpsx_Status XTrngpsx_Instance::Stats</definition>
+        <argsstring></argsstring>
+        <name>Stats</name>
+        <briefdescription>
+<para>TRNG status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="124" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_trngpsx___instance_1a09306785899052b04da48d650153eb65" prot="public" static="no" mutable="no">
+        <type><ref refid="group__trngpsx__api_1gabf665f37f1800c3d3859681db4fb46c2" kindref="member">XTrngpsx_ErrorState</ref></type>
+        <definition>XTrngpsx_ErrorState XTrngpsx_Instance::ErrorState</definition>
+        <argsstring></argsstring>
+        <name>ErrorState</name>
+        <briefdescription>
+<para>TRNG error state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="125" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga6b5653250d7dad396a064b0ba6fa5c34" compoundref="xtrngpsx_8c" startline="331" endline="365">XTrngpsx_CfgInitialize</referencedby>
+        <referencedby refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</referencedby>
+        <referencedby refid="group__trngpsx__api_1ga68da9a334ae46bbed63a36ae6a273745" compoundref="xtrngpsx_8c" startline="398" endline="523">XTrngpsx_Instantiate</referencedby>
+        <referencedby refid="group__trngpsx__api_1ga27d626b65acc3b1e97573f4c2d2ee8e1" compoundref="xtrngpsx_8c" startline="549" endline="600">XTrngpsx_Reseed</referencedby>
+        <referencedby refid="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" compoundref="xtrngpsx_8c" startline="753" endline="784">XTrngpsx_Uninstantiate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_trngpsx___instance_1a78a6095bc46bd1501992906d51cb0826" prot="public" static="no" mutable="no">
+        <type><ref refid="group__trngpsx__api_1ga1a37c0faa6994f63b7c2c62ffe43562f" kindref="member">XTrngpsx_State</ref></type>
+        <definition>XTrngpsx_State XTrngpsx_Instance::State</definition>
+        <argsstring></argsstring>
+        <name>State</name>
+        <briefdescription>
+<para>TRNG driver state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="126" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1ga6b5653250d7dad396a064b0ba6fa5c34" compoundref="xtrngpsx_8c" startline="331" endline="365">XTrngpsx_CfgInitialize</referencedby>
+        <referencedby refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</referencedby>
+        <referencedby refid="group__trngpsx__api_1ga68da9a334ae46bbed63a36ae6a273745" compoundref="xtrngpsx_8c" startline="398" endline="523">XTrngpsx_Instantiate</referencedby>
+        <referencedby refid="group__trngpsx__api_1ga27d626b65acc3b1e97573f4c2d2ee8e1" compoundref="xtrngpsx_8c" startline="549" endline="600">XTrngpsx_Reseed</referencedby>
+        <referencedby refid="group__trngpsx__api_1ga15ee0bc83b064ce7910792c014c589b1" compoundref="xtrngpsx_8c" startline="753" endline="784">XTrngpsx_Uninstantiate</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains all the information related to TRNG driver. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="4">
+        <label>XTrngpsx_UserConfig</label>
+        <link refid="struct_x_trngpsx___user_config"/>
+      </node>
+      <node id="3">
+        <label>XTrngpsx_Instance</label>
+        <link refid="struct_x_trngpsx___instance"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>UserCfg</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>Stats</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>XTrngpsx_Status</label>
+        <link refid="struct_x_trngpsx___status"/>
+      </node>
+      <node id="5">
+        <label>XTrngpsx_Config</label>
+        <link refid="struct_x_trngpsx___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="121" bodyend="127"/>
+    <listofallmembers>
+      <member refid="struct_x_trngpsx___instance_1a2dbc9278a04d95a6ce941a671cd1e643" prot="public" virt="non-virtual"><scope>XTrngpsx_Instance</scope><name>Config</name></member>
+      <member refid="struct_x_trngpsx___instance_1a09306785899052b04da48d650153eb65" prot="public" virt="non-virtual"><scope>XTrngpsx_Instance</scope><name>ErrorState</name></member>
+      <member refid="struct_x_trngpsx___instance_1a78a6095bc46bd1501992906d51cb0826" prot="public" virt="non-virtual"><scope>XTrngpsx_Instance</scope><name>State</name></member>
+      <member refid="struct_x_trngpsx___instance_1a7f41434fe1d6a995b5d7935665c09df5" prot="public" virt="non-virtual"><scope>XTrngpsx_Instance</scope><name>Stats</name></member>
+      <member refid="struct_x_trngpsx___instance_1a35e78a175d954c5c5f6232283996eb42" prot="public" virt="non-virtual"><scope>XTrngpsx_Instance</scope><name>UserCfg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

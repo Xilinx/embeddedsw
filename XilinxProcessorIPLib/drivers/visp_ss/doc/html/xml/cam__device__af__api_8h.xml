@@ -1,0 +1,994 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="cam__device__af__api_8h" kind="file">
+    <compoundname>cam_device_af_api.h</compoundname>
+    <includes refid="cam__device__common_8h" local="yes">cam_device_common.h</includes>
+    <includedby refid="cam__device__module__api_8h" local="yes">cam_device_module_api.h</includedby>
+    <includedby refid="vvbench__af__api_8h" local="yes">vvbench_af_api.h</includedby>
+    <incdepgraph>
+      <node id="1024">
+        <label>stdbool.h</label>
+      </node>
+      <node id="1018">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="1025">
+        <label>stdint.h</label>
+      </node>
+      <node id="1015">
+        <label>stdlib.h</label>
+      </node>
+      <node id="1022">
+        <label>sensor_cmd.h</label>
+        <childnode refid="1023" relation="include">
+        </childnode>
+        <childnode refid="1018" relation="include">
+        </childnode>
+      </node>
+      <node id="1017">
+        <label>stddef.h</label>
+      </node>
+      <node id="1016">
+        <label>limits.h</label>
+      </node>
+      <node id="1011">
+        <label>cam_device_common.h</label>
+        <childnode refid="1012" relation="include">
+        </childnode>
+        <childnode refid="1018" relation="include">
+        </childnode>
+        <childnode refid="1019" relation="include">
+        </childnode>
+        <childnode refid="1021" relation="include">
+        </childnode>
+        <childnode refid="1022" relation="include">
+        </childnode>
+      </node>
+      <node id="1010">
+        <label>cam_device_af_api.h</label>
+        <link refid="cam_device_af_api.h"/>
+        <childnode refid="1011" relation="include">
+        </childnode>
+      </node>
+      <node id="1021">
+        <label>buf_defs.h</label>
+        <childnode refid="1012" relation="include">
+        </childnode>
+      </node>
+      <node id="1023">
+        <label>mbox_api.h</label>
+        <childnode refid="1024" relation="include">
+        </childnode>
+        <childnode refid="1025" relation="include">
+        </childnode>
+        <childnode refid="1026" relation="include">
+        </childnode>
+      </node>
+      <node id="1020">
+        <label>string.h</label>
+      </node>
+      <node id="1026">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="1024" relation="include">
+        </childnode>
+        <childnode refid="1027" relation="include">
+        </childnode>
+      </node>
+      <node id="1027">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="1012">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="1013" relation="include">
+        </childnode>
+        <childnode refid="1016" relation="include">
+        </childnode>
+        <childnode refid="1017" relation="include">
+        </childnode>
+      </node>
+      <node id="1019">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="1012" relation="include">
+        </childnode>
+        <childnode refid="1020" relation="include">
+        </childnode>
+      </node>
+      <node id="1014">
+        <label>stdio.h</label>
+      </node>
+      <node id="1013">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="1014" relation="include">
+        </childnode>
+        <childnode refid="1015" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1062">
+        <label>cam_device_rgbir_api_v2.c</label>
+      </node>
+      <node id="1060">
+        <label>cam_device_hist64_api.c</label>
+      </node>
+      <node id="1059">
+        <label>cam_device_hist256_api.c</label>
+      </node>
+      <node id="1063">
+        <label>cam_device_tpg_api.c</label>
+      </node>
+      <node id="1029">
+        <label>cam_device_module_api.h</label>
+        <childnode refid="1030" relation="include">
+        </childnode>
+      </node>
+      <node id="1067">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="1073">
+        <label>vvbench_af_api_v4.c</label>
+      </node>
+      <node id="1031">
+        <label>control.h</label>
+        <childnode refid="1032" relation="include">
+        </childnode>
+      </node>
+      <node id="1057">
+        <label>cam_device_ge_api.c</label>
+      </node>
+      <node id="1065">
+        <label>cam_device_wdr_api_v5_2.c</label>
+      </node>
+      <node id="1043">
+        <label>cam_device_cpd_api.c</label>
+      </node>
+      <node id="1051">
+        <label>cam_device_cnr_api.c</label>
+      </node>
+      <node id="1045">
+        <label>cam_device_dg_api.c</label>
+      </node>
+      <node id="1049">
+        <label>cam_device_af_api.c</label>
+      </node>
+      <node id="1071">
+        <label>submodule_def.h</label>
+        <childnode refid="1072" relation="include">
+        </childnode>
+        <childnode refid="1067" relation="include">
+        </childnode>
+      </node>
+      <node id="1041">
+        <label>cam_device_bls_api.c</label>
+      </node>
+      <node id="1037">
+        <label>cam_device_sensor_api.c</label>
+      </node>
+      <node id="1070">
+        <label>vvbench_af_api.h</label>
+        <childnode refid="1071" relation="include">
+        </childnode>
+        <childnode refid="1073" relation="include">
+        </childnode>
+      </node>
+      <node id="1036">
+        <label>cam_device_buffer_api.c</label>
+      </node>
+      <node id="1072">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="1052">
+        <label>cam_device_hdr_api.c</label>
+      </node>
+      <node id="1044">
+        <label>cam_device_cproc_api.c</label>
+      </node>
+      <node id="1047">
+        <label>cam_device_dpcc_api.c</label>
+      </node>
+      <node id="1050">
+        <label>cam_device_afm_api.c</label>
+      </node>
+      <node id="1028">
+        <label>cam_device_af_api.h</label>
+        <link refid="cam_device_af_api.h"/>
+        <childnode refid="1029" relation="include">
+        </childnode>
+        <childnode refid="1070" relation="include">
+        </childnode>
+      </node>
+      <node id="1034">
+        <label>cam_device.c</label>
+      </node>
+      <node id="1042">
+        <label>cam_device_ccm_api.c</label>
+      </node>
+      <node id="1040">
+        <label>cam_device_awb_api.c</label>
+      </node>
+      <node id="1030">
+        <label>cam_device_app.h</label>
+        <childnode refid="1031" relation="include">
+        </childnode>
+        <childnode refid="1032" relation="include">
+        </childnode>
+        <childnode refid="1033" relation="include">
+        </childnode>
+        <childnode refid="1034" relation="include">
+        </childnode>
+        <childnode refid="1035" relation="include">
+        </childnode>
+        <childnode refid="1036" relation="include">
+        </childnode>
+        <childnode refid="1037" relation="include">
+        </childnode>
+        <childnode refid="1038" relation="include">
+        </childnode>
+        <childnode refid="1039" relation="include">
+        </childnode>
+        <childnode refid="1040" relation="include">
+        </childnode>
+        <childnode refid="1041" relation="include">
+        </childnode>
+        <childnode refid="1042" relation="include">
+        </childnode>
+        <childnode refid="1043" relation="include">
+        </childnode>
+        <childnode refid="1044" relation="include">
+        </childnode>
+        <childnode refid="1045" relation="include">
+        </childnode>
+        <childnode refid="1046" relation="include">
+        </childnode>
+        <childnode refid="1047" relation="include">
+        </childnode>
+        <childnode refid="1048" relation="include">
+        </childnode>
+        <childnode refid="1049" relation="include">
+        </childnode>
+        <childnode refid="1050" relation="include">
+        </childnode>
+        <childnode refid="1051" relation="include">
+        </childnode>
+        <childnode refid="1052" relation="include">
+        </childnode>
+        <childnode refid="1053" relation="include">
+        </childnode>
+        <childnode refid="1054" relation="include">
+        </childnode>
+        <childnode refid="1055" relation="include">
+        </childnode>
+        <childnode refid="1056" relation="include">
+        </childnode>
+        <childnode refid="1057" relation="include">
+        </childnode>
+        <childnode refid="1058" relation="include">
+        </childnode>
+        <childnode refid="1059" relation="include">
+        </childnode>
+        <childnode refid="1060" relation="include">
+        </childnode>
+        <childnode refid="1061" relation="include">
+        </childnode>
+        <childnode refid="1062" relation="include">
+        </childnode>
+        <childnode refid="1063" relation="include">
+        </childnode>
+        <childnode refid="1064" relation="include">
+        </childnode>
+        <childnode refid="1065" relation="include">
+        </childnode>
+        <childnode refid="1066" relation="include">
+        </childnode>
+        <childnode refid="1067" relation="include">
+        </childnode>
+        <childnode refid="1068" relation="include">
+        </childnode>
+      </node>
+      <node id="1032">
+        <label>control.c</label>
+      </node>
+      <node id="1064">
+        <label>cam_device_wb_api.c</label>
+      </node>
+      <node id="1061">
+        <label>cam_device_lsc_api_v3.c</label>
+      </node>
+      <node id="1053">
+        <label>cam_device_ee_api_v2.c</label>
+      </node>
+      <node id="1054">
+        <label>cam_device_exp_api_v2.c</label>
+      </node>
+      <node id="1055">
+        <label>cam_device_fusa_api.c</label>
+      </node>
+      <node id="1066">
+        <label>oba.c</label>
+      </node>
+      <node id="1035">
+        <label>cam_device_api.c</label>
+      </node>
+      <node id="1056">
+        <label>cam_device_gc_api.c</label>
+      </node>
+      <node id="1058">
+        <label>cam_device_gtm_api_v1.c</label>
+      </node>
+      <node id="1033">
+        <label>iba.c</label>
+      </node>
+      <node id="1046">
+        <label>cam_device_dmsc_api_v2.c</label>
+      </node>
+      <node id="1038">
+        <label>cam_device_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="1048">
+        <label>cam_device_3dnr_api.c</label>
+      </node>
+      <node id="1069">
+        <label>xvisp_ss_example.c</label>
+      </node>
+      <node id="1068">
+        <label>xvisp_ss_example.h</label>
+        <childnode refid="1069" relation="include">
+        </childnode>
+      </node>
+      <node id="1039">
+        <label>cam_device_ae_api.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_cam_device_af_pcdf_hybrid_config__s" prot="public">CamDeviceAfPcdfHybridConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_af_config__s" prot="public">CamDeviceAfConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_af_status__s" prot="public">CamDeviceAfStatus_s</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group____cam__device__af_1gaa20188df6443a6381075a2a38a33952a" prot="public" static="no">
+        <name>CAMDEV_AF_WINDOWNUM</name>
+        <initializer>9</initializer>
+        <briefdescription>
+<para>The number of AF window. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__af_1ga7004234bd7cc6caee9f150ec3172d52f" prot="public" static="no">
+        <name>CAMDEV_AF_FILTERNUM</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>The number of AF filter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__af_1ga085d933a6ff18feeec04d8f5434a9137" prot="public" static="no">
+        <name>CAMDEV_PD_FOCAL_NUM_MAX</name>
+        <initializer>48</initializer>
+        <briefdescription>
+<para>The number of AF focal PD. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__af_1gabe2297ac941c8a8628fb3ad0a5d3c089" prot="public" static="no">
+        <name>CAMDEV_PD_ROI_INDEX_MAX</name>
+        <initializer>48</initializer>
+        <briefdescription>
+<para>Maximum index of PDAF ROI. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__af_1ga8614d2679970f3e3eaedb884c0a3c294" prot="public" static="no">
+        <name>CAMDEV_AFMV3_BLOCK_NUM</name>
+        <initializer>225</initializer>
+        <briefdescription>
+<para>The number of AFM V3 blocks. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__af_1ga3364b0d2082553da6b77d29ee291a32f" prot="public" static="no">
+        <name>AF_DEVICE_RETENTION_VALUE_MAX</name>
+        <initializer>500</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group____cam__device__af_1ga086028a1331ef9b30ac0f1b1f243bb1e" prot="public" static="no">
+        <name>CamDeviceAfCtrlState_s</name>
+        <enumvalue id="group____cam__device__af_1gga086028a1331ef9b30ac0f1b1f243bb1ea0df1e788871833e9d90b7adc72d7e02c" prot="public">
+          <name>CAMDEV_AF_STATE_INVALID</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Invalid AF status. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__af_1gga086028a1331ef9b30ac0f1b1f243bb1ea7bbe2382f7eb4ed2b472bc9bc7831732" prot="public">
+          <name>CAMDEV_AF_STATE_INITIALIZED</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>AF initialized. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__af_1gga086028a1331ef9b30ac0f1b1f243bb1ea18ddb696cfaf47493e446e00302afea6" prot="public">
+          <name>CAMDEV_AF_STATE_STOPPED</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>AF stopped. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__af_1gga086028a1331ef9b30ac0f1b1f243bb1ea7cbfab5d6173aa0fd75faeb51c6b21a0" prot="public">
+          <name>CAMDEV_AF_STATE_RUNNING</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>AF running. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__af_1gga086028a1331ef9b30ac0f1b1f243bb1ea97d538549b447ef42927b9b16876ab23" prot="public">
+          <name>CAMDEV_AF_STATE_TRACKING</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+<para>AF tracking. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__af_1gga086028a1331ef9b30ac0f1b1f243bb1eaeff8996fb3c7b5d848f878bc3aafc330" prot="public">
+          <name>CAMDEV_AF_STATE_LOCKED</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+<para>AF locked. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__af_1gga086028a1331ef9b30ac0f1b1f243bb1ea5037f0626f454e912112b158aa01d44f" prot="public">
+          <name>CAMDEV_AF_STATE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice AF status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="58" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__af_1ga1e6518936c22a43b07987fa7e678c56c" prot="public" static="no">
+        <name>CamDeviceAfMode_e</name>
+        <enumvalue id="group____cam__device__af_1gga1e6518936c22a43b07987fa7e678c56ca520bdd8842303bca2719d23c9da6a3b5" prot="public">
+          <name>CAMDEV_CDAF_INDIVIDUAL_MODE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>CDAF focus. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__af_1gga1e6518936c22a43b07987fa7e678c56caff1aca8cf5a6b73cd247e36d2addc42f" prot="public">
+          <name>CAMDEV_PDAF_INDIVIDUAL_MODE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>PDAF focus. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__af_1gga1e6518936c22a43b07987fa7e678c56ca628afcc33d3cac38720bcb3c1dea3270" prot="public">
+          <name>CAMDEV_PDAF_CDAF_HYBRID_MODE</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>PDAF and CDAF hybrid. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__af_1gga1e6518936c22a43b07987fa7e678c56cac2b1b31e5ad4554de0f5f2e9060e3230" prot="public">
+          <name>CAMDEV_AF_MODE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice AF mode parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="73" bodyend="78"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__af_1gaec930cef9f3c05c6b7dd81ee400caa27" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__af_1ga086028a1331ef9b30ac0f1b1f243bb1e" kindref="member">CamDeviceAfCtrlState_s</ref></type>
+        <definition>typedef enum CamDeviceAfCtrlState_s  CamDeviceAfState_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAfState_t</name>
+        <briefdescription>
+<para>VsCamDevice AF status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="66" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__af_1ga40f9081a686a1fe9693ece95763cd211" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__af_1ga1e6518936c22a43b07987fa7e678c56c" kindref="member">CamDeviceAfMode_e</ref></type>
+        <definition>typedef enum CamDeviceAfMode_e  CamDeviceAfMode_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAfMode_t</name>
+        <briefdescription>
+<para>VsCamDevice AF mode parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="78" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__af_1gac3dce5d9d3f7cfcaff0c80cd36f46867" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_af_pcdf_hybrid_config__s" kindref="compound">CamDeviceAfPcdfHybridConfig_s</ref></type>
+        <definition>typedef struct CamDeviceAfPcdfHybridConfig_s  CamDeviceAfPcdfHybridConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAfPcdfHybridConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice PDAF and CDAF hybrid focus parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="91" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__af_1ga1213fc8f0a34a13f068e1ada2abebdcd" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_af_config__s" kindref="compound">CamDeviceAfConfig_s</ref></type>
+        <definition>typedef struct CamDeviceAfConfig_s  CamDeviceAfConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAfConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice AF library configuration, which is required by the AF library calculation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="118" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__af_1ga794774f0fb1c55fa067120a67d19f92d" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_af_status__s" kindref="compound">CamDeviceAfStatus_s</ref></type>
+        <definition>typedef struct CamDeviceAfStatus_s  CamDeviceAfStatus_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAfStatus_t</name>
+        <briefdescription>
+<para>VsCamDevice AF status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="127" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__af_1ga4e5ca67e204d4556a098a689d295cdf2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAfRegister</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, void *pAfLibHandle)</argsstring>
+        <name>VsiCamDeviceAfRegister</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>pAfLibHandle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_af_api.c" bodystart="18" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__af_1ga4dce59956f8838013284d08628c5f6b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAfUnRegister</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceAfUnRegister</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_af_api.c" bodystart="27" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__af_1ga8d9b29d4943baf4703ee5cd3177c8bfe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAfSetMode</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceAfMode_t *pMode)</argsstring>
+        <name>VsiCamDeviceAfSetMode</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__af_1ga40f9081a686a1fe9693ece95763cd211" kindref="member">CamDeviceAfMode_t</ref> *</type>
+          <declname>pMode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_af_api.c" bodystart="35" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__af_1ga4c988544d666c0d168183ff6f9a298b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAfGetMode</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceAfMode_t *pMode)</argsstring>
+        <name>VsiCamDeviceAfGetMode</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__af_1ga40f9081a686a1fe9693ece95763cd211" kindref="member">CamDeviceAfMode_t</ref> *</type>
+          <declname>pMode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_af_api.c" bodystart="44" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__af_1ga8e098e3134928984250bc6b6f945b6c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAfSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, const CamDeviceAfConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceAfSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group____cam__device__af_1ga1213fc8f0a34a13f068e1ada2abebdcd" kindref="member">CamDeviceAfConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_af_api.c" bodystart="53" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__af_1gaa511860e9cbe2d1cafbcc4365979c5ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAfGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceAfConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceAfGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__af_1ga1213fc8f0a34a13f068e1ada2abebdcd" kindref="member">CamDeviceAfConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_af_api.c" bodystart="62" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__af_1gab3899379600981c405f13f7333ded8b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAfEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceAfEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_af_api.c" bodystart="81" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__af_1ga3ee673f76605333949f52cd958d867eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAfDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceAfDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_af_api.c" bodystart="89" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__af_1gab4a8475f8fd82cfe174d338b30358715" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAfGetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceAfStatus_t *pStatus)</argsstring>
+        <name>VsiCamDeviceAfGetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__af_1ga794774f0fb1c55fa067120a67d19f92d" kindref="member">CamDeviceAfStatus_t</ref> *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_af_api.c" bodystart="97" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__af_1gaa21f8017b8687fa1d95796a2763978ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAfGetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceAfGetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="366" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_af_api.c" bodystart="106" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__af_1gaeb1a10cd59ad7e1f4bf5a23b9e12df0a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAfReset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceAfReset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="392" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_af_api.c" bodystart="115" bodyend="120"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2023<sp/>Vivante<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>CAMDEV_AF_API_H</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CAMDEV_AF_API_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cam_device_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="46" refid="group____cam__device__af_1gaa20188df6443a6381075a2a38a33952a" refkind="member"><highlight class="preprocessor">#define<sp/>CAMDEV_AF_WINDOWNUM<sp/><sp/><sp/><sp/><sp/>9<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="47" refid="group____cam__device__af_1ga7004234bd7cc6caee9f150ec3172d52f" refkind="member"><highlight class="preprocessor">#define<sp/>CAMDEV_AF_FILTERNUM<sp/><sp/><sp/><sp/><sp/>5<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="48" refid="group____cam__device__af_1ga085d933a6ff18feeec04d8f5434a9137" refkind="member"><highlight class="preprocessor">#define<sp/>CAMDEV_PD_FOCAL_NUM_MAX<sp/>48<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="49" refid="group____cam__device__af_1gabe2297ac941c8a8628fb3ad0a5d3c089" refkind="member"><highlight class="preprocessor">#define<sp/>CAMDEV_PD_ROI_INDEX_MAX<sp/>48<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50" refid="group____cam__device__af_1ga8614d2679970f3e3eaedb884c0a3c294" refkind="member"><highlight class="preprocessor">#define<sp/>CAMDEV_AFMV3_BLOCK_NUM<sp/><sp/>225<sp/><sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor">#define<sp/>AF_DEVICE_RETENTION_VALUE_MAX<sp/><sp/><sp/><sp/><sp/><sp/>500</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="58" refid="group____cam__device__af_1ga086028a1331ef9b30ac0f1b1f243bb1e" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="group____cam__device__af_1ga086028a1331ef9b30ac0f1b1f243bb1e" kindref="member">CamDeviceAfCtrlState_s</ref>{</highlight></codeline>
+<codeline lineno="59" refid="group____cam__device__af_1gga086028a1331ef9b30ac0f1b1f243bb1ea0df1e788871833e9d90b7adc72d7e02c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__af_1gga086028a1331ef9b30ac0f1b1f243bb1ea0df1e788871833e9d90b7adc72d7e02c" kindref="member">CAMDEV_AF_STATE_INVALID</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60" refid="group____cam__device__af_1gga086028a1331ef9b30ac0f1b1f243bb1ea7bbe2382f7eb4ed2b472bc9bc7831732" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__af_1gga086028a1331ef9b30ac0f1b1f243bb1ea7bbe2382f7eb4ed2b472bc9bc7831732" kindref="member">CAMDEV_AF_STATE_INITIALIZED</ref><sp/><sp/><sp/>=<sp/>1,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="group____cam__device__af_1gga086028a1331ef9b30ac0f1b1f243bb1ea18ddb696cfaf47493e446e00302afea6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__af_1gga086028a1331ef9b30ac0f1b1f243bb1ea18ddb696cfaf47493e446e00302afea6" kindref="member">CAMDEV_AF_STATE_STOPPED</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>2,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="group____cam__device__af_1gga086028a1331ef9b30ac0f1b1f243bb1ea7cbfab5d6173aa0fd75faeb51c6b21a0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__af_1gga086028a1331ef9b30ac0f1b1f243bb1ea7cbfab5d6173aa0fd75faeb51c6b21a0" kindref="member">CAMDEV_AF_STATE_RUNNING</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>3,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63" refid="group____cam__device__af_1gga086028a1331ef9b30ac0f1b1f243bb1ea97d538549b447ef42927b9b16876ab23" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__af_1gga086028a1331ef9b30ac0f1b1f243bb1ea97d538549b447ef42927b9b16876ab23" kindref="member">CAMDEV_AF_STATE_TRACKING</ref><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>4,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64" refid="group____cam__device__af_1gga086028a1331ef9b30ac0f1b1f243bb1eaeff8996fb3c7b5d848f878bc3aafc330" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__af_1gga086028a1331ef9b30ac0f1b1f243bb1eaeff8996fb3c7b5d848f878bc3aafc330" kindref="member">CAMDEV_AF_STATE_LOCKED</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>5,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>CAMDEV_AF_STATE_MAX</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">}<sp/><ref refid="group____cam__device__af_1gaec930cef9f3c05c6b7dd81ee400caa27" kindref="member">CamDeviceAfState_t</ref>;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="73" refid="group____cam__device__af_1ga1e6518936c22a43b07987fa7e678c56c" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="group____cam__device__af_1ga1e6518936c22a43b07987fa7e678c56c" kindref="member">CamDeviceAfMode_e</ref>{</highlight></codeline>
+<codeline lineno="74" refid="group____cam__device__af_1gga1e6518936c22a43b07987fa7e678c56ca520bdd8842303bca2719d23c9da6a3b5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__af_1gga1e6518936c22a43b07987fa7e678c56ca520bdd8842303bca2719d23c9da6a3b5" kindref="member">CAMDEV_CDAF_INDIVIDUAL_MODE</ref><sp/><sp/><sp/>=<sp/>0,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75" refid="group____cam__device__af_1gga1e6518936c22a43b07987fa7e678c56caff1aca8cf5a6b73cd247e36d2addc42f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__af_1gga1e6518936c22a43b07987fa7e678c56caff1aca8cf5a6b73cd247e36d2addc42f" kindref="member">CAMDEV_PDAF_INDIVIDUAL_MODE</ref><sp/><sp/><sp/>=<sp/>1,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76" refid="group____cam__device__af_1gga1e6518936c22a43b07987fa7e678c56ca628afcc33d3cac38720bcb3c1dea3270" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__af_1gga1e6518936c22a43b07987fa7e678c56ca628afcc33d3cac38720bcb3c1dea3270" kindref="member">CAMDEV_PDAF_CDAF_HYBRID_MODE</ref><sp/><sp/>=<sp/>2,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>CAMDEV_AF_MODE_MAX</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">}<sp/><ref refid="group____cam__device__af_1ga40f9081a686a1fe9693ece95763cd211" kindref="member">CamDeviceAfMode_t</ref>;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="85" refid="struct_cam_device_af_pcdf_hybrid_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_af_pcdf_hybrid_config__s" kindref="compound">CamDeviceAfPcdfHybridConfig_s</ref></highlight></codeline>
+<codeline lineno="86"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="87" refid="struct_cam_device_af_pcdf_hybrid_config__s_1a6a5e37551cbce1ab4943a987c7c1ad5c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_af_pcdf_hybrid_config__s_1a6a5e37551cbce1ab4943a987c7c1ad5c" kindref="member">defocusFrameNum</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88" refid="struct_cam_device_af_pcdf_hybrid_config__s_1ab204bc78819a4fe3de92a4139f47eb7e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_af_pcdf_hybrid_config__s_1ab204bc78819a4fe3de92a4139f47eb7e" kindref="member">lossConfidenceFrameNum</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="89" refid="struct_cam_device_af_pcdf_hybrid_config__s_1a2914e9a88939fce02dfbc126c5d9b35d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_af_pcdf_hybrid_config__s_1a2914e9a88939fce02dfbc126c5d9b35d" kindref="member">accurateFocusStep</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90" refid="struct_cam_device_af_pcdf_hybrid_config__s_1a810d5411498377829684ba026ee10266" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><sp/><sp/><sp/><ref refid="struct_cam_device_af_pcdf_hybrid_config__s_1a810d5411498377829684ba026ee10266" kindref="member">accurateFocusEnable</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="normal">}<sp/><ref refid="group____cam__device__af_1gac3dce5d9d3f7cfcaff0c80cd36f46867" kindref="member">CamDeviceAfPcdfHybridConfig_t</ref>;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="98" refid="struct_cam_device_af_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_af_config__s" kindref="compound">CamDeviceAfConfig_s</ref></highlight></codeline>
+<codeline lineno="99"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>CDAF<sp/>params</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101" refid="struct_cam_device_af_config__s_1a39d2dcee5dd2ed2c4703f9377a8588d2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><ref refid="struct_cam_device_af_config__s_1a39d2dcee5dd2ed2c4703f9377a8588d2" kindref="member">weightWindow</ref>[<ref refid="group____cam__device__af_1gaa20188df6443a6381075a2a38a33952a" kindref="member">CAMDEV_AF_WINDOWNUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="102" refid="struct_cam_device_af_config__s_1a4cc5e36367bb2e2cf2f1968622323875" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><ref refid="struct_cam_device_af_config__s_1a4cc5e36367bb2e2cf2f1968622323875" kindref="member">cStableTolerance</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="103" refid="struct_cam_device_af_config__s_1a38e825d3f742eb0d03403f0f485c8498" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_af_config__s_1a38e825d3f742eb0d03403f0f485c8498" kindref="member">cPointsOfCurve</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104" refid="struct_cam_device_af_config__s_1a6e16a43fa523967cdd43a03512e546b8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><sp/><sp/><sp/><ref refid="struct_cam_device_af_config__s_1a6e16a43fa523967cdd43a03512e546b8" kindref="member">maxFocal</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="105" refid="struct_cam_device_af_config__s_1aafbe31a9e501000a8ed3c883496e2deb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><sp/><sp/><sp/><ref refid="struct_cam_device_af_config__s_1aafbe31a9e501000a8ed3c883496e2deb" kindref="member">minFocal</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="106" refid="struct_cam_device_af_config__s_1a50ca3961013cb7f4b8a55eff77b98ac1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><ref refid="struct_cam_device_af_config__s_1a50ca3961013cb7f4b8a55eff77b98ac1" kindref="member">cMotionThreshold</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="107" refid="struct_cam_device_af_config__s_1a7fa33cd1dc5cd5bedeb5b685e2a756a3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_af_config__s_1a7fa33cd1dc5cd5bedeb5b685e2a756a3" kindref="member">uphillAllowance</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108" refid="struct_cam_device_af_config__s_1a68e80a9704427e0009b65353edf739e7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_af_config__s_1a68e80a9704427e0009b65353edf739e7" kindref="member">downhillAllowance</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>PDAF<sp/>params</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111" refid="struct_cam_device_af_config__s_1a275b9aced9a6f5211d74bd6554c3a7ec" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><ref refid="struct_cam_device_af_config__s_1a275b9aced9a6f5211d74bd6554c3a7ec" kindref="member">cPdConfThreshold</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="112" refid="struct_cam_device_af_config__s_1ab66e28c50faafa21d67a7e4af9b206e5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><ref refid="struct_cam_device_af_config__s_1ab66e28c50faafa21d67a7e4af9b206e5" kindref="member">pdShiftThreshold</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113" refid="struct_cam_device_af_config__s_1a41b378e3841888db6a9653015047923f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_af_config__s_1a41b378e3841888db6a9653015047923f" kindref="member">pdStableCountMax</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114" refid="struct_cam_device_af_config__s_1a86866785bbbbd7bd1c9c51986a44cbc4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><ref refid="struct_cam_device_af_config__s_1a86866785bbbbd7bd1c9c51986a44cbc4" kindref="member">pdafUnlockThreshold</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>PDAF<sp/>and<sp/>CDAF<sp/>hybrid<sp/>params</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117" refid="struct_cam_device_af_config__s_1a8777adefcc1c9231edc492f9fee7faf0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_af_pcdf_hybrid_config__s" kindref="compound">CamDeviceAfPcdfHybridConfig_t</ref><sp/><ref refid="struct_cam_device_af_config__s_1a8777adefcc1c9231edc492f9fee7faf0" kindref="member">pcdafHybridConfig</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="118"><highlight class="normal">}<sp/><ref refid="group____cam__device__af_1ga1213fc8f0a34a13f068e1ada2abebdcd" kindref="member">CamDeviceAfConfig_t</ref>;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="125" refid="struct_cam_device_af_status__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_af_status__s" kindref="compound">CamDeviceAfStatus_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="126" refid="struct_cam_device_af_status__s_1abfd903f0d5f159f358f0880d34719d84" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__af_1gaec930cef9f3c05c6b7dd81ee400caa27" kindref="member">CamDeviceAfState_t</ref><sp/><ref refid="struct_cam_device_af_status__s_1abfd903f0d5f159f358f0880d34719d84" kindref="member">state</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="127"><highlight class="normal">}<sp/><ref refid="group____cam__device__af_1ga794774f0fb1c55fa067120a67d19f92d" kindref="member">CamDeviceAfStatus_t</ref>;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">RESULT<sp/>VsiCamDeviceAfRegister</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pAfLibHandle</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="172"><highlight class="normal">RESULT<sp/>VsiCamDeviceAfUnRegister</highlight></codeline>
+<codeline lineno="173"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="175"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="196"><highlight class="normal">RESULT<sp/>VsiCamDeviceAfSetMode</highlight></codeline>
+<codeline lineno="197"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__af_1ga40f9081a686a1fe9693ece95763cd211" kindref="member">CamDeviceAfMode_t</ref><sp/><sp/><sp/>*pMode</highlight></codeline>
+<codeline lineno="200"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="221"><highlight class="normal">RESULT<sp/>VsiCamDeviceAfGetMode</highlight></codeline>
+<codeline lineno="222"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__af_1ga40f9081a686a1fe9693ece95763cd211" kindref="member">CamDeviceAfMode_t</ref><sp/><sp/><sp/><sp/>*pMode</highlight></codeline>
+<codeline lineno="225"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="248"><highlight class="normal">RESULT<sp/>VsiCamDeviceAfSetConfig</highlight></codeline>
+<codeline lineno="249"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_af_config__s" kindref="compound">CamDeviceAfConfig_t</ref><sp/><sp/><sp/><sp/><sp/><sp/>*pConfig</highlight></codeline>
+<codeline lineno="252"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="275"><highlight class="normal">RESULT<sp/>VsiCamDeviceAfGetConfig</highlight></codeline>
+<codeline lineno="276"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_af_config__s" kindref="compound">CamDeviceAfConfig_t</ref><sp/><sp/><sp/><sp/><sp/><sp/>*pConfig</highlight></codeline>
+<codeline lineno="279"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="297"><highlight class="normal">RESULT<sp/>VsiCamDeviceAfEnable</highlight></codeline>
+<codeline lineno="298"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="300"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="318"><highlight class="normal">RESULT<sp/>VsiCamDeviceAfDisable</highlight></codeline>
+<codeline lineno="319"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="321"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="344"><highlight class="normal">RESULT<sp/>VsiCamDeviceAfGetStatus</highlight></codeline>
+<codeline lineno="345"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_af_status__s" kindref="compound">CamDeviceAfStatus_t</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pStatus</highlight></codeline>
+<codeline lineno="348"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="366"><highlight class="normal">RESULT<sp/>VsiCamDeviceAfGetVersion</highlight></codeline>
+<codeline lineno="367"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pVersion</highlight></codeline>
+<codeline lineno="370"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"></highlight></codeline>
+<codeline lineno="372"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="392"><highlight class="normal">RESULT<sp/>VsiCamDeviceAfReset</highlight></codeline>
+<codeline lineno="393"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="395"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"></highlight></codeline>
+<codeline lineno="399"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="400"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="402"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="403"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/><sp/>//<sp/>CAMDEV_AF_API_H</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h"/>
+  </compounddef>
+</doxygen>

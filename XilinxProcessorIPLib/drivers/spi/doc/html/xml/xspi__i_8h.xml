@@ -1,0 +1,201 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xspi__i_8h" kind="file">
+    <compoundname>xspi_i.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <includes refid="xspi__l_8h" local="yes">xspi_l.h</includes>
+    <includedby refid="xspi_8c" local="yes">xspi.c</includedby>
+    <includedby refid="xspi__options_8c" local="yes">xspi_options.c</includedby>
+    <includedby refid="xspi__selftest_8c" local="yes">xspi_selftest.c</includedby>
+    <includedby refid="xspi__stats_8c" local="yes">xspi_stats.c</includedby>
+    <incdepgraph>
+      <node id="76">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="79">
+        <label>xil_io.h</label>
+      </node>
+      <node id="78">
+        <label>xspi_l.h</label>
+        <link refid="xspi__l_8h"/>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
+        <label>xil_util.h</label>
+      </node>
+      <node id="75">
+        <label>xil_types.h</label>
+      </node>
+      <node id="74">
+        <label>xspi_i.h</label>
+        <link refid="xspi_i.h"/>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="83">
+        <label>xspi_selftest.c</label>
+        <link refid="xspi__selftest_8c"/>
+      </node>
+      <node id="84">
+        <label>xspi_stats.c</label>
+        <link refid="xspi__stats_8c"/>
+      </node>
+      <node id="81">
+        <label>xspi.c</label>
+        <link refid="xspi_8c"/>
+      </node>
+      <node id="82">
+        <label>xspi_options.c</label>
+        <link refid="xspi__options_8c"/>
+      </node>
+      <node id="80">
+        <label>xspi_i.h</label>
+        <link refid="xspi_i.h"/>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__spi_1gafaa05829322b85cd63068f8cec781c55" prot="public" static="no">
+        <name>XSPI_I_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_i.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_i.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__spi_1ga31f3cf000e45e67f36d374906154ac38" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_spi___config" kindref="compound">XSpi_Config</ref></type>
+        <definition>XSpi_Config XSpi_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XSpi_ConfigTable</name>
+        <briefdescription>
+<para>This table contains configuration information for each SPI device in the system. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_i.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_g.c" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__spi_1ga44a2dc795761b35ed0ebdd6989675022" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSpi_Abort</definition>
+        <argsstring>(XSpi *InstancePtr)</argsstring>
+        <name>XSpi_Abort</name>
+        <param>
+          <type><ref refid="struct_x_spi" kindref="compound">XSpi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Aborts a transfer in progress by setting the stop bit in the control register, then resetting the FIFOs if present. </para>        </briefdescription>
+        <detaileddescription>
+<para>The byte counts are cleared and the busy flag is set to false.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_spi" kindref="compound">XSpi</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+This function does a read/modify/write of the control register. The user of this function needs to take care of critical sections. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.c" bodystart="1381" bodyend="1423"/>
+        <references refid="struct_x_spi_1aa0669158439f14d3a15ab49795b7139f" compoundref="xspi_8h" startline="428">XSpi::BaseAddr</references>
+        <references refid="struct_x_spi_1a67a6dd9a95f3bef8199dc0186dfb039a" compoundref="xspi_8h" startline="431">XSpi::HasFifos</references>
+        <references refid="struct_x_spi_1a35871d4554b45a9078edfabb763cc1a5" compoundref="xspi_8h" startline="443">XSpi::IsBusy</references>
+        <references refid="struct_x_spi_1a883553e7813c71d61fc1f84de68d9bf4" compoundref="xspi_8h" startline="442">XSpi::RemainingBytes</references>
+        <references refid="struct_x_spi_1a1f78cff15e7571d1db3630834d376877" compoundref="xspi_8h" startline="441">XSpi::RequestedBytes</references>
+        <references refid="struct_x_spi_1a0ba738ff1f34e3e5af78c7437df1073f" compoundref="xspi_8h" startline="436">XSpi::SlaveSelectMask</references>
+        <references refid="group__spi_1ga3a63aa98328d40e3221901143e128da1" compoundref="xspi__l_8h" startline="114">XSP_CR_OFFSET</references>
+        <references refid="group__spi_1ga17631cb22711b70ec4da7741e0ac648f" compoundref="xspi__l_8h" startline="226">XSP_CR_RESET_DONE_MASK</references>
+        <references refid="group__spi_1ga5b5e5793f12d648025e58f716862bb3e" compoundref="xspi__l_8h" startline="219">XSP_CR_RXFIFO_RESET_MASK</references>
+        <references refid="group__spi_1ga2d045067441152dbf5729d4dce64032b" compoundref="xspi__l_8h" startline="223">XSP_CR_TRANS_INHIBIT_MASK</references>
+        <references refid="group__spi_1gab7796329c185988f906256394bc9372f" compoundref="xspi__l_8h" startline="218">XSP_CR_TXFIFO_RESET_MASK</references>
+        <references refid="group__spi_1ga7988663ef9d2523ef167413fd6e8ab87" compoundref="xspi_8h" startline="656">XSpi_GetControlReg</references>
+        <references refid="group__spi_1ga3a33f7848a49e60041668c726eb14110" compoundref="xspi_8h" startline="638">XSpi_SetControlReg</references>
+        <references refid="group__spi_1gae93befb10305b5abccc5483b73e60060" compoundref="xspi_8h" startline="747">XSpi_SetSlaveSelectReg</references>
+        <referencedby refid="group__spi_1gaf3863f11d27469d8797424319601c980" compoundref="xspi_8c" startline="1110" endline="1362">XSpi_InterruptHandler</referencedby>
+        <referencedby refid="group__spi_1ga343938fcdf672bec329d876a146178cd" compoundref="xspi_8c" startline="444" endline="466">XSpi_Reset</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2001<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor">#ifndef<sp/>XSPI_I_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSPI_I_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xspi__l_8h" kindref="compound">xspi_l.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__spi_1ga44a2dc795761b35ed0ebdd6989675022" kindref="member">XSpi_Abort</ref>(<ref refid="struct_x_spi" kindref="compound">XSpi</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_spi___config" kindref="compound">XSpi_Config</ref><sp/><ref refid="group__spi_1ga8c36dd59052589f679b9e441507116b2" kindref="member">XSpi_ConfigTable</ref>[];</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_i.h"/>
+  </compounddef>
+</doxygen>

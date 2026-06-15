@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_u_s_b___s_t_d___s_t_r_i_n_g___s_n___d_e_s_c" kind="struct" prot="public">
+    <compoundname>USB_STD_STRING_SN_DESC</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___s_t_r_i_n_g___s_n___d_e_s_c_1a5ffa77fa1b1a73951f7114d0df77c169" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_STD_STRING_SN_DESC::bLength</definition>
+        <argsstring></argsstring>
+        <name>bLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="442" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="442" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___s_t_r_i_n_g___s_n___d_e_s_c_1aa58009a1c7f724337d3216cff5c6bae8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_STD_STRING_SN_DESC::bType</definition>
+        <argsstring></argsstring>
+        <name>bType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="443" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="443" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___s_t_r_i_n_g___s_n___d_e_s_c_1a74e4d55e729a3aaa0ec9f2f5bce0c899" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_STD_STRING_SN_DESC::bString[42]</definition>
+        <argsstring>[42]</argsstring>
+        <name>bString</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="444" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="444" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="441" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="441" bodyend="445"/>
+    <listofallmembers>
+      <member refid="struct_u_s_b___s_t_d___s_t_r_i_n_g___s_n___d_e_s_c_1a5ffa77fa1b1a73951f7114d0df77c169" prot="public" virt="non-virtual"><scope>USB_STD_STRING_SN_DESC</scope><name>bLength</name></member>
+      <member refid="struct_u_s_b___s_t_d___s_t_r_i_n_g___s_n___d_e_s_c_1a74e4d55e729a3aaa0ec9f2f5bce0c899" prot="public" virt="non-virtual"><scope>USB_STD_STRING_SN_DESC</scope><name>bString</name></member>
+      <member refid="struct_u_s_b___s_t_d___s_t_r_i_n_g___s_n___d_e_s_c_1aa58009a1c7f724337d3216cff5c6bae8" prot="public" virt="non-virtual"><scope>USB_STD_STRING_SN_DESC</scope><name>bType</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

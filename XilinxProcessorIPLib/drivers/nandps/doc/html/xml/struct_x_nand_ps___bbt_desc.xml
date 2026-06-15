@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nand_ps___bbt_desc" kind="struct" prot="public">
+    <compoundname>XNandPs_BbtDesc</compoundname>
+    <includes local="no">xnandps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nand_ps___bbt_desc_1a16893430fad70cd5b2121e5fb331bbbb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPs_BbtDesc::PageOffset</definition>
+        <argsstring></argsstring>
+        <name>PageOffset</name>
+        <briefdescription>
+<para>Page offset where BBT resides. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="351" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps___bbt_desc_1aaeafe1d72c4c3c25ef8d81f64cc19370" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPs_BbtDesc::SigOffset</definition>
+        <argsstring></argsstring>
+        <name>SigOffset</name>
+        <briefdescription>
+<para>Signature offset in Spare area. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="352" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps___bbt_desc_1afa8974f0829f8e1f72b6df0ab31002d5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPs_BbtDesc::VerOffset</definition>
+        <argsstring></argsstring>
+        <name>VerOffset</name>
+        <briefdescription>
+<para>Offset of BBT version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="353" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="353" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps___bbt_desc_1a3d91d5bd2b9cb468e2232dbf28339d7f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPs_BbtDesc::SigLength</definition>
+        <argsstring></argsstring>
+        <name>SigLength</name>
+        <briefdescription>
+<para>Length of the signature. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="354" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps___bbt_desc_1ae721a5302b9ed20c4cd4eecd450cd612" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPs_BbtDesc::MaxBlocks</definition>
+        <argsstring></argsstring>
+        <name>MaxBlocks</name>
+        <briefdescription>
+<para>Max blocks to search for BBT. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="355" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps___bbt_desc_1a91b6593abad5f5eeb8e69030110381f4" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char XNandPs_BbtDesc::Signature[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Signature</name>
+        <briefdescription>
+<para>BBT signature. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="356" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps___bbt_desc_1a894c8610ffe5a988185cb7e3dbdd0cf9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNandPs_BbtDesc::Version</definition>
+        <argsstring></argsstring>
+        <name>Version</name>
+        <briefdescription>
+<para>BBT version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="357" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps___bbt_desc_1a08bf6a3876905cc8cd8fb858a29faea4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPs_BbtDesc::Valid</definition>
+        <argsstring></argsstring>
+        <name>Valid</name>
+        <briefdescription>
+<para>BBT descriptor is valid or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="358" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Bad block table descriptor. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="350" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="350" bodyend="359"/>
+    <listofallmembers>
+      <member refid="struct_x_nand_ps___bbt_desc_1ae721a5302b9ed20c4cd4eecd450cd612" prot="public" virt="non-virtual"><scope>XNandPs_BbtDesc</scope><name>MaxBlocks</name></member>
+      <member refid="struct_x_nand_ps___bbt_desc_1a16893430fad70cd5b2121e5fb331bbbb" prot="public" virt="non-virtual"><scope>XNandPs_BbtDesc</scope><name>PageOffset</name></member>
+      <member refid="struct_x_nand_ps___bbt_desc_1a3d91d5bd2b9cb468e2232dbf28339d7f" prot="public" virt="non-virtual"><scope>XNandPs_BbtDesc</scope><name>SigLength</name></member>
+      <member refid="struct_x_nand_ps___bbt_desc_1a91b6593abad5f5eeb8e69030110381f4" prot="public" virt="non-virtual"><scope>XNandPs_BbtDesc</scope><name>Signature</name></member>
+      <member refid="struct_x_nand_ps___bbt_desc_1aaeafe1d72c4c3c25ef8d81f64cc19370" prot="public" virt="non-virtual"><scope>XNandPs_BbtDesc</scope><name>SigOffset</name></member>
+      <member refid="struct_x_nand_ps___bbt_desc_1a08bf6a3876905cc8cd8fb858a29faea4" prot="public" virt="non-virtual"><scope>XNandPs_BbtDesc</scope><name>Valid</name></member>
+      <member refid="struct_x_nand_ps___bbt_desc_1afa8974f0829f8e1f72b6df0ab31002d5" prot="public" virt="non-virtual"><scope>XNandPs_BbtDesc</scope><name>VerOffset</name></member>
+      <member refid="struct_x_nand_ps___bbt_desc_1a894c8610ffe5a988185cb7e3dbdd0cf9" prot="public" virt="non-virtual"><scope>XNandPs_BbtDesc</scope><name>Version</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

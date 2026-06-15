@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_4e45ece768e5060e09e567a3c9e9fabd" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xsysmonpsu__ams__example_8c">xsysmonpsu_ams_example.c</innerfile>
+    <innerfile refid="xsysmonpsu__intr__example_8c">xsysmonpsu_intr_example.c</innerfile>
+    <innerfile refid="xsysmonpsu__low__level__example_8c">xsysmonpsu_low_level_example.c</innerfile>
+    <innerfile refid="xsysmonpsu__polled__example_8c">xsysmonpsu_polled_example.c</innerfile>
+    <innerfile refid="xsysmonpsu__single__ch__intr__example_8c">xsysmonpsu_single_ch_intr_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/examples/"/>
+  </compounddef>
+</doxygen>

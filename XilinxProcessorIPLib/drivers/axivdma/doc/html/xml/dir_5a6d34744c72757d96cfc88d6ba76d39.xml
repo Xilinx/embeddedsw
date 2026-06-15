@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_5a6d34744c72757d96cfc88d6ba76d39" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="vdma_8c">vdma.c</innerfile>
+    <innerfile refid="vdma__api_8c">vdma_api.c</innerfile>
+    <innerfile refid="xaxivdma__example__intr_8c">xaxivdma_example_intr.c</innerfile>
+    <innerfile refid="xaxivdma__example__selftest_8c">xaxivdma_example_selftest.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/examples/"/>
+  </compounddef>
+</doxygen>

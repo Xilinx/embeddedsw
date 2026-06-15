@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___sha_op_params" kind="struct" prot="public">
+    <compoundname>XSecure_ShaOpParams</compoundname>
+    <includes local="no">xsecure_plat_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___sha_op_params_1a4973d75fcc5dd7abec08c1b9401425ca" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_ShaOpParams::DataAddr</definition>
+        <argsstring></argsstring>
+        <name>DataAddr</name>
+        <briefdescription>
+<para>SHA2/3 data address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___sha_op_params_1a805e3821ad5734bf836810d8de18d582" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_ShaOpParams::HashAddr</definition>
+        <argsstring></argsstring>
+        <name>HashAddr</name>
+        <briefdescription>
+<para>SHA2/3 hash address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___sha_op_params_1ac5820caedbcdbe88dde36cd55c67de0b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_ShaOpParams::DataSize</definition>
+        <argsstring></argsstring>
+        <name>DataSize</name>
+        <briefdescription>
+<para>SHA2/3 data size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___sha_op_params_1ae072e3e636a85a19f9ab1d0ba0347010" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_ShaOpParams::HashBufSize</definition>
+        <argsstring></argsstring>
+        <name>HashBufSize</name>
+        <briefdescription>
+<para>SHA2/3 hash buffer size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___sha_op_params_1ad19fe9a3c9abeae8e95cf8d69815a929" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_ShaOpParams::ShaMode</definition>
+        <argsstring></argsstring>
+        <name>ShaMode</name>
+        <briefdescription>
+<para>SHA2/3 mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___sha_op_params_1a63adf22d09a84644f46c1cfbc8d2494c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_ShaOpParams::IsLast</definition>
+        <argsstring></argsstring>
+        <name>IsLast</name>
+        <briefdescription>
+<para>Is last update. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___sha_op_params_1aa20a03f92ccb77f0f70d29072201fefc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_ShaOpParams::OperationFlags</definition>
+        <argsstring></argsstring>
+        <name>OperationFlags</name>
+        <briefdescription>
+<para>SHA2/3 operation flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>SHA operation parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="108" bodyend="116"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___sha_op_params_1a4973d75fcc5dd7abec08c1b9401425ca" prot="public" virt="non-virtual"><scope>XSecure_ShaOpParams</scope><name>DataAddr</name></member>
+      <member refid="struct_x_secure___sha_op_params_1ac5820caedbcdbe88dde36cd55c67de0b" prot="public" virt="non-virtual"><scope>XSecure_ShaOpParams</scope><name>DataSize</name></member>
+      <member refid="struct_x_secure___sha_op_params_1a805e3821ad5734bf836810d8de18d582" prot="public" virt="non-virtual"><scope>XSecure_ShaOpParams</scope><name>HashAddr</name></member>
+      <member refid="struct_x_secure___sha_op_params_1ae072e3e636a85a19f9ab1d0ba0347010" prot="public" virt="non-virtual"><scope>XSecure_ShaOpParams</scope><name>HashBufSize</name></member>
+      <member refid="struct_x_secure___sha_op_params_1a63adf22d09a84644f46c1cfbc8d2494c" prot="public" virt="non-virtual"><scope>XSecure_ShaOpParams</scope><name>IsLast</name></member>
+      <member refid="struct_x_secure___sha_op_params_1aa20a03f92ccb77f0f70d29072201fefc" prot="public" virt="non-virtual"><scope>XSecure_ShaOpParams</scope><name>OperationFlags</name></member>
+      <member refid="struct_x_secure___sha_op_params_1ad19fe9a3c9abeae8e95cf8d69815a929" prot="public" virt="non-virtual"><scope>XSecure_ShaOpParams</scope><name>ShaMode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

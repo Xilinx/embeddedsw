@@ -1,0 +1,192 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_csu_dma___configure" kind="struct" prot="public">
+    <compoundname>XCsuDma_Configure</compoundname>
+    <includes local="no">xcsudma.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_csu_dma___configure_1a524260e03c75bc8745da0e4b7dca71ed" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCsuDma_Configure::SssFifoThesh</definition>
+        <argsstring></argsstring>
+        <name>SssFifoThesh</name>
+        <briefdescription>
+<para>SSS FIFO threshold value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" bodystart="351" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1gaab0b66bca3f38d26d38ff47544fa6b11" compoundref="xcsudma_8c" startline="857" endline="916">XCsuDma_GetConfig</referencedby>
+        <referencedby refid="group__csuma__api_1gac9b6265e467b03cc903cd66781e95e63" compoundref="xcsudma_8c" startline="720" endline="781">XCsuDma_SetConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csu_dma___configure_1a7ca88dbe204c7b24ce7e529da53e1ae2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCsuDma_Configure::ApbErr</definition>
+        <argsstring></argsstring>
+        <name>ApbErr</name>
+        <briefdescription>
+<para>ABP invalid access error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" bodystart="352" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1gaab0b66bca3f38d26d38ff47544fa6b11" compoundref="xcsudma_8c" startline="857" endline="916">XCsuDma_GetConfig</referencedby>
+        <referencedby refid="group__csuma__api_1gac9b6265e467b03cc903cd66781e95e63" compoundref="xcsudma_8c" startline="720" endline="781">XCsuDma_SetConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csu_dma___configure_1a4d1217d471a558f54534c15213bbb264" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCsuDma_Configure::EndianType</definition>
+        <argsstring></argsstring>
+        <name>EndianType</name>
+        <briefdescription>
+<para>Type of endianness. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" line="353" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" bodystart="353" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1gaab0b66bca3f38d26d38ff47544fa6b11" compoundref="xcsudma_8c" startline="857" endline="916">XCsuDma_GetConfig</referencedby>
+        <referencedby refid="group__csuma__api_1gac9b6265e467b03cc903cd66781e95e63" compoundref="xcsudma_8c" startline="720" endline="781">XCsuDma_SetConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csu_dma___configure_1a1aeadd99f4f96da636b9cb0c2be21c09" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCsuDma_Configure::AxiBurstType</definition>
+        <argsstring></argsstring>
+        <name>AxiBurstType</name>
+        <briefdescription>
+<para>Type of AXI bus. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" bodystart="354" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1gaab0b66bca3f38d26d38ff47544fa6b11" compoundref="xcsudma_8c" startline="857" endline="916">XCsuDma_GetConfig</referencedby>
+        <referencedby refid="group__csuma__api_1gac9b6265e467b03cc903cd66781e95e63" compoundref="xcsudma_8c" startline="720" endline="781">XCsuDma_SetConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csu_dma___configure_1af2b9f211561ad313b726a60104afc32e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCsuDma_Configure::TimeoutValue</definition>
+        <argsstring></argsstring>
+        <name>TimeoutValue</name>
+        <briefdescription>
+<para>Time out value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" bodystart="355" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1gaab0b66bca3f38d26d38ff47544fa6b11" compoundref="xcsudma_8c" startline="857" endline="916">XCsuDma_GetConfig</referencedby>
+        <referencedby refid="group__csuma__api_1gac9b6265e467b03cc903cd66781e95e63" compoundref="xcsudma_8c" startline="720" endline="781">XCsuDma_SetConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csu_dma___configure_1af17af84045f926ff8e386509cc0c9aee" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCsuDma_Configure::FifoThresh</definition>
+        <argsstring></argsstring>
+        <name>FifoThresh</name>
+        <briefdescription>
+<para>FIFO threshold value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" bodystart="356" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1gaab0b66bca3f38d26d38ff47544fa6b11" compoundref="xcsudma_8c" startline="857" endline="916">XCsuDma_GetConfig</referencedby>
+        <referencedby refid="group__csuma__api_1gac9b6265e467b03cc903cd66781e95e63" compoundref="xcsudma_8c" startline="720" endline="781">XCsuDma_SetConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csu_dma___configure_1a984f69d8fa925618e85800ba8fd2d155" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCsuDma_Configure::Acache</definition>
+        <argsstring></argsstring>
+        <name>Acache</name>
+        <briefdescription>
+<para>AXI CACHE selection. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" bodystart="357" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1gaab0b66bca3f38d26d38ff47544fa6b11" compoundref="xcsudma_8c" startline="857" endline="916">XCsuDma_GetConfig</referencedby>
+        <referencedby refid="group__csuma__api_1gac9b6265e467b03cc903cd66781e95e63" compoundref="xcsudma_8c" startline="720" endline="781">XCsuDma_SetConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csu_dma___configure_1ac6f8c811d5b1ecf86d37091fc132717e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCsuDma_Configure::RouteBit</definition>
+        <argsstring></argsstring>
+        <name>RouteBit</name>
+        <briefdescription>
+<para>Selection of Route. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" bodystart="358" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1gaab0b66bca3f38d26d38ff47544fa6b11" compoundref="xcsudma_8c" startline="857" endline="916">XCsuDma_GetConfig</referencedby>
+        <referencedby refid="group__csuma__api_1gac9b6265e467b03cc903cd66781e95e63" compoundref="xcsudma_8c" startline="720" endline="781">XCsuDma_SetConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csu_dma___configure_1a2f45ba702e0487ed32152186339d7052" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCsuDma_Configure::TimeoutEn</definition>
+        <argsstring></argsstring>
+        <name>TimeoutEn</name>
+        <briefdescription>
+<para>Enable of time out counters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" bodystart="359" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1gaab0b66bca3f38d26d38ff47544fa6b11" compoundref="xcsudma_8c" startline="857" endline="916">XCsuDma_GetConfig</referencedby>
+        <referencedby refid="group__csuma__api_1gac9b6265e467b03cc903cd66781e95e63" compoundref="xcsudma_8c" startline="720" endline="781">XCsuDma_SetConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csu_dma___configure_1a00365f4d0973fcb3fd39382312775748" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XCsuDma_Configure::TimeoutPre</definition>
+        <argsstring></argsstring>
+        <name>TimeoutPre</name>
+        <briefdescription>
+<para>Pre scaler value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" bodystart="360" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1gaab0b66bca3f38d26d38ff47544fa6b11" compoundref="xcsudma_8c" startline="857" endline="916">XCsuDma_GetConfig</referencedby>
+        <referencedby refid="group__csuma__api_1gac9b6265e467b03cc903cd66781e95e63" compoundref="xcsudma_8c" startline="720" endline="781">XCsuDma_SetConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csu_dma___configure_1acdf6a30da74f891648e17d1ce9bfadae" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCsuDma_Configure::MaxOutCmds</definition>
+        <argsstring></argsstring>
+        <name>MaxOutCmds</name>
+        <briefdescription>
+<para>Maximum number of outstanding commands. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" line="361" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" bodystart="361" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1gaab0b66bca3f38d26d38ff47544fa6b11" compoundref="xcsudma_8c" startline="857" endline="916">XCsuDma_GetConfig</referencedby>
+        <referencedby refid="group__csuma__api_1gac9b6265e467b03cc903cd66781e95e63" compoundref="xcsudma_8c" startline="720" endline="781">XCsuDma_SetConfig</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains all the configuration feilds which must be set before the start of the data transfer. </para>    </briefdescription>
+    <detaileddescription>
+<para>All these feilds of CSU_DMA can be configured by using XCsuDma_SetConfig API. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" line="350" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" bodystart="350" bodyend="363"/>
+    <listofallmembers>
+      <member refid="struct_x_csu_dma___configure_1a984f69d8fa925618e85800ba8fd2d155" prot="public" virt="non-virtual"><scope>XCsuDma_Configure</scope><name>Acache</name></member>
+      <member refid="struct_x_csu_dma___configure_1a7ca88dbe204c7b24ce7e529da53e1ae2" prot="public" virt="non-virtual"><scope>XCsuDma_Configure</scope><name>ApbErr</name></member>
+      <member refid="struct_x_csu_dma___configure_1a1aeadd99f4f96da636b9cb0c2be21c09" prot="public" virt="non-virtual"><scope>XCsuDma_Configure</scope><name>AxiBurstType</name></member>
+      <member refid="struct_x_csu_dma___configure_1a4d1217d471a558f54534c15213bbb264" prot="public" virt="non-virtual"><scope>XCsuDma_Configure</scope><name>EndianType</name></member>
+      <member refid="struct_x_csu_dma___configure_1af17af84045f926ff8e386509cc0c9aee" prot="public" virt="non-virtual"><scope>XCsuDma_Configure</scope><name>FifoThresh</name></member>
+      <member refid="struct_x_csu_dma___configure_1acdf6a30da74f891648e17d1ce9bfadae" prot="public" virt="non-virtual"><scope>XCsuDma_Configure</scope><name>MaxOutCmds</name></member>
+      <member refid="struct_x_csu_dma___configure_1ac6f8c811d5b1ecf86d37091fc132717e" prot="public" virt="non-virtual"><scope>XCsuDma_Configure</scope><name>RouteBit</name></member>
+      <member refid="struct_x_csu_dma___configure_1a524260e03c75bc8745da0e4b7dca71ed" prot="public" virt="non-virtual"><scope>XCsuDma_Configure</scope><name>SssFifoThesh</name></member>
+      <member refid="struct_x_csu_dma___configure_1a2f45ba702e0487ed32152186339d7052" prot="public" virt="non-virtual"><scope>XCsuDma_Configure</scope><name>TimeoutEn</name></member>
+      <member refid="struct_x_csu_dma___configure_1a00365f4d0973fcb3fd39382312775748" prot="public" virt="non-virtual"><scope>XCsuDma_Configure</scope><name>TimeoutPre</name></member>
+      <member refid="struct_x_csu_dma___configure_1af2b9f211561ad313b726a60104afc32e" prot="public" virt="non-virtual"><scope>XCsuDma_Configure</scope><name>TimeoutValue</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

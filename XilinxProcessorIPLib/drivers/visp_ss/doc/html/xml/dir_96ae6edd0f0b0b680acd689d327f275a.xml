@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_96ae6edd0f0b0b680acd689d327f275a" kind="dir">
+    <compoundname>hist</compoundname>
+    <innerfile refid="cam__device__hist256__api_8c">cam_device_hist256_api.c</innerfile>
+    <innerfile refid="cam__device__hist64__api_8c">cam_device_hist64_api.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/hist/"/>
+  </compounddef>
+</doxygen>

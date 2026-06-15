@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___rsa_key_pair_object" kind="struct" prot="public">
+    <compoundname>XAsu_RsaKeyPairObject</compoundname>
+    <includes local="no">xasu_keymanagerinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___rsa_key_pair_object_1ae660ccb6a2029eca503acd6b3e49980a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaKeyPairObject::Modulus[XRSA_MAX_KEY_SIZE_IN_WORDS]</definition>
+        <argsstring>[XRSA_MAX_KEY_SIZE_IN_WORDS]</argsstring>
+        <name>Modulus</name>
+        <briefdescription>
+<para>Modulus buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_key_pair_object_1a8b837880f357bfb3c0f09b53f0e93847" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaKeyPairObject::PvtExp[XRSA_MAX_KEY_SIZE_IN_WORDS]</definition>
+        <argsstring>[XRSA_MAX_KEY_SIZE_IN_WORDS]</argsstring>
+        <name>PvtExp</name>
+        <briefdescription>
+<para>Private exponent buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_key_pair_object_1acc9ae2bf860d284b77a4a4bbba9011cb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaKeyPairObject::Prime1[XRSA_MAX_PRIME_SIZE_IN_WORDS]</definition>
+        <argsstring>[XRSA_MAX_PRIME_SIZE_IN_WORDS]</argsstring>
+        <name>Prime1</name>
+        <briefdescription>
+<para>Prime1 buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_key_pair_object_1a6b07a3a63fd49d5129164cac41363ef2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaKeyPairObject::Prime2[XRSA_MAX_PRIME_SIZE_IN_WORDS]</definition>
+        <argsstring>[XRSA_MAX_PRIME_SIZE_IN_WORDS]</argsstring>
+        <name>Prime2</name>
+        <briefdescription>
+<para>Prime2 buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_key_pair_object_1aa2bce4e142ab94c67c967807ae77610b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaKeyPairObject::DP[XRSA_MAX_PRIME_SIZE_IN_WORDS]</definition>
+        <argsstring>[XRSA_MAX_PRIME_SIZE_IN_WORDS]</argsstring>
+        <name>DP</name>
+        <briefdescription>
+<para>DP buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_key_pair_object_1aed22450199cdcb88b5cc1fb697f03946" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaKeyPairObject::DQ[XRSA_MAX_PRIME_SIZE_IN_WORDS]</definition>
+        <argsstring>[XRSA_MAX_PRIME_SIZE_IN_WORDS]</argsstring>
+        <name>DQ</name>
+        <briefdescription>
+<para>DQ buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_key_pair_object_1a73a2ff9b651cd531778f8d4400e145ef" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaKeyPairObject::QInv[XRSA_MAX_PRIME_SIZE_IN_WORDS]</definition>
+        <argsstring>[XRSA_MAX_PRIME_SIZE_IN_WORDS]</argsstring>
+        <name>QInv</name>
+        <briefdescription>
+<para>QInv buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains the RSA key pair object with modulus, exponents, and CRT parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="204" bodyend="212"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___rsa_key_pair_object_1aa2bce4e142ab94c67c967807ae77610b" prot="public" virt="non-virtual"><scope>XAsu_RsaKeyPairObject</scope><name>DP</name></member>
+      <member refid="struct_x_asu___rsa_key_pair_object_1aed22450199cdcb88b5cc1fb697f03946" prot="public" virt="non-virtual"><scope>XAsu_RsaKeyPairObject</scope><name>DQ</name></member>
+      <member refid="struct_x_asu___rsa_key_pair_object_1ae660ccb6a2029eca503acd6b3e49980a" prot="public" virt="non-virtual"><scope>XAsu_RsaKeyPairObject</scope><name>Modulus</name></member>
+      <member refid="struct_x_asu___rsa_key_pair_object_1acc9ae2bf860d284b77a4a4bbba9011cb" prot="public" virt="non-virtual"><scope>XAsu_RsaKeyPairObject</scope><name>Prime1</name></member>
+      <member refid="struct_x_asu___rsa_key_pair_object_1a6b07a3a63fd49d5129164cac41363ef2" prot="public" virt="non-virtual"><scope>XAsu_RsaKeyPairObject</scope><name>Prime2</name></member>
+      <member refid="struct_x_asu___rsa_key_pair_object_1a8b837880f357bfb3c0f09b53f0e93847" prot="public" virt="non-virtual"><scope>XAsu_RsaKeyPairObject</scope><name>PvtExp</name></member>
+      <member refid="struct_x_asu___rsa_key_pair_object_1a73a2ff9b651cd531778f8d4400e145ef" prot="public" virt="non-virtual"><scope>XAsu_RsaKeyPairObject</scope><name>QInv</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___tx___dp___log" kind="struct" prot="public">
+    <compoundname>XHdcp22_Tx_Dp_Log</compoundname>
+    <includes local="no">xhdcp22_tx_dp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___dp___log_1a161894a0ba08d65b9feee54c64fecb37" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdcp22___tx___dp___log_item" kindref="compound">XHdcp22_Tx_Dp_LogItem</ref></type>
+        <definition>XHdcp22_Tx_Dp_LogItem XHdcp22_Tx_Dp_Log::LogItems[XHDCP22_TX_LOG_BUFFER_SIZE]</definition>
+        <argsstring>[XHDCP22_TX_LOG_BUFFER_SIZE]</argsstring>
+        <name>LogItems</name>
+        <briefdescription>
+<para>Data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" line="467" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" bodystart="467" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx__dp_1ga2fe9ec028ad46162102ff036ce7433ed" compoundref="xhdcp22__tx__dp_8c" startline="4268" endline="4299">XHdcp22Tx_Dp_LogRd</referencedby>
+        <referencedby refid="group__hdcp22__tx__dp_1ga20d897b6bb0d9cc52ca625ac6887f766" compoundref="xhdcp22__tx__dp_8c" startline="4216" endline="4252">XHdcp22Tx_Dp_LogWr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___dp___log_1a9ea1d311b56e0d500e3893e2d2670b84" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHdcp22_Tx_Dp_Log::Tail</definition>
+        <argsstring></argsstring>
+        <name>Tail</name>
+        <briefdescription>
+<para>Tail pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" line="468" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" bodystart="468" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx__dp_1ga2fe9ec028ad46162102ff036ce7433ed" compoundref="xhdcp22__tx__dp_8c" startline="4268" endline="4299">XHdcp22Tx_Dp_LogRd</referencedby>
+        <referencedby refid="group__hdcp22__tx__dp_1gaf0082941696f133ee75605e45ddb81c5" compoundref="xhdcp22__tx__dp_8c" startline="4164" endline="4178">XHdcp22Tx_Dp_LogReset</referencedby>
+        <referencedby refid="group__hdcp22__tx__dp_1ga20d897b6bb0d9cc52ca625ac6887f766" compoundref="xhdcp22__tx__dp_8c" startline="4216" endline="4252">XHdcp22Tx_Dp_LogWr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___dp___log_1ad6afadb9c33f5633556f56b536a405e2" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHdcp22_Tx_Dp_Log::Head</definition>
+        <argsstring></argsstring>
+        <name>Head</name>
+        <briefdescription>
+<para>Head pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" line="469" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" bodystart="469" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx__dp_1ga2fe9ec028ad46162102ff036ce7433ed" compoundref="xhdcp22__tx__dp_8c" startline="4268" endline="4299">XHdcp22Tx_Dp_LogRd</referencedby>
+        <referencedby refid="group__hdcp22__tx__dp_1gaf0082941696f133ee75605e45ddb81c5" compoundref="xhdcp22__tx__dp_8c" startline="4164" endline="4178">XHdcp22Tx_Dp_LogReset</referencedby>
+        <referencedby refid="group__hdcp22__tx__dp_1ga20d897b6bb0d9cc52ca625ac6887f766" compoundref="xhdcp22__tx__dp_8c" startline="4216" endline="4252">XHdcp22Tx_Dp_LogWr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___dp___log_1a0e45f984dabd2d7ca00d03fc699acdcb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_Dp_Log::Verbose</definition>
+        <argsstring></argsstring>
+        <name>Verbose</name>
+        <briefdescription>
+<para>Logging is extended with debug events. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" line="470" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" bodystart="470" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx__dp_1gaf0082941696f133ee75605e45ddb81c5" compoundref="xhdcp22__tx__dp_8c" startline="4164" endline="4178">XHdcp22Tx_Dp_LogReset</referencedby>
+        <referencedby refid="group__hdcp22__tx__dp_1ga20d897b6bb0d9cc52ca625ac6887f766" compoundref="xhdcp22__tx__dp_8c" startline="4216" endline="4252">XHdcp22Tx_Dp_LogWr</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the HDCP22 log list. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="49">
+        <label>XHdcp22_Tx_Dp_LogItem</label>
+        <link refid="struct_x_hdcp22___tx___dp___log_item"/>
+      </node>
+      <node id="48">
+        <label>XHdcp22_Tx_Dp_Log</label>
+        <link refid="struct_x_hdcp22___tx___dp___log"/>
+        <childnode refid="49" relation="usage">
+          <edgelabel>LogItems</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" line="466" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp.h" bodystart="466" bodyend="471"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___tx___dp___log_1ad6afadb9c33f5633556f56b536a405e2" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_Dp_Log</scope><name>Head</name></member>
+      <member refid="struct_x_hdcp22___tx___dp___log_1a161894a0ba08d65b9feee54c64fecb37" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_Dp_Log</scope><name>LogItems</name></member>
+      <member refid="struct_x_hdcp22___tx___dp___log_1a9ea1d311b56e0d500e3893e2d2670b84" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_Dp_Log</scope><name>Tail</name></member>
+      <member refid="struct_x_hdcp22___tx___dp___log_1a0e45f984dabd2d7ca00d03fc699acdcb" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_Dp_Log</scope><name>Verbose</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

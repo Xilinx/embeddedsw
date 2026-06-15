@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_dmsc_demoire_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceDmscDemoireConfig_s</compoundname>
+    <includes local="no">cam_device_dmsc_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_dmsc_demoire_config__s_1acdcb2adb423c67699951d18b0de395f3" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceDmscDemoireConfig_s::dmscDemoireT1</definition>
+        <argsstring></argsstring>
+        <name>dmscDemoireT1</name>
+        <briefdescription>
+<para>Weighting curve of demoire interpolation results in output result. </para>        </briefdescription>
+        <detaileddescription>
+<para>It&apos;s the first point on X axis. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_demoire_config__s_1a5fd1a3b947bdbd15acba27e6d473a070" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceDmscDemoireConfig_s::dmscDemoireT2Shift</definition>
+        <argsstring></argsstring>
+        <name>dmscDemoireT2Shift</name>
+        <briefdescription>
+<para>Weighting curve of demoire interpolation results in output result. </para>        </briefdescription>
+        <detaileddescription>
+<para>It&apos;s the second point on X axis, and represents the left shift value. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_demoire_config__s_1a8c014cd4b6088e9e92c096d30db483ac" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceDmscDemoireConfig_s::dmscDemoireR1</definition>
+        <argsstring></argsstring>
+        <name>dmscDemoireR1</name>
+        <briefdescription>
+<para>Weighting curve of demoire interpolation results in output result. </para>        </briefdescription>
+        <detaileddescription>
+<para>It&apos;s the first point on Y axis. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_demoire_config__s_1aa56e206dea39dcfdcb0575ac1d4cade5" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceDmscDemoireConfig_s::dmscDemoireR2</definition>
+        <argsstring></argsstring>
+        <name>dmscDemoireR2</name>
+        <briefdescription>
+<para>Weighting curve of demoire interpolation results in output result. </para>        </briefdescription>
+        <detaileddescription>
+<para>It&apos;s the second point on Y axis. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_demoire_config__s_1aaa6c436120d84eb8f70d87678d80a376" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceDmscDemoireConfig_s::demoireEdgeR1</definition>
+        <argsstring></argsstring>
+        <name>demoireEdgeR1</name>
+        <briefdescription>
+<para>Weight curve of prefer to find the direction interpolation in the process of demoire interpolation. </para>        </briefdescription>
+        <detaileddescription>
+<para>It&apos;s the first point on Y axis. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_demoire_config__s_1ae0b948352806825800ef1c5e577c2e98" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceDmscDemoireConfig_s::demoireEdgeR2</definition>
+        <argsstring></argsstring>
+        <name>demoireEdgeR2</name>
+        <briefdescription>
+<para>Weight curve of prefer to find the direction interpolation in the Process of demoire interpolation. </para>        </briefdescription>
+        <detaileddescription>
+<para>It&apos;s the second point on Y axis. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_demoire_config__s_1a9e301ba8190c1c243b186a472e590d40" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceDmscDemoireConfig_s::demoireEdgeT1</definition>
+        <argsstring></argsstring>
+        <name>demoireEdgeT1</name>
+        <briefdescription>
+<para>weight curve of prefer to find the direction interpolation in the Process of demoire interpolation. </para>        </briefdescription>
+        <detaileddescription>
+<para>It&apos;s the first point on X axis. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_demoire_config__s_1ae762fc856a26f4b46e15a987000d515b" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceDmscDemoireConfig_s::demoireEdgeT2Shift</definition>
+        <argsstring></argsstring>
+        <name>demoireEdgeT2Shift</name>
+        <briefdescription>
+<para>Weight curve of prefer to find the direction interpolation in the process of demoire interpolation. </para>        </briefdescription>
+        <detaileddescription>
+<para>It&apos;s the second point on X axis, and represents the left shift value. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_demoire_config__s_1adb77ca5053b7b84d460d7f8ad59c4910" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceDmscDemoireConfig_s::dmscDemoireAreaThr</definition>
+        <argsstring></argsstring>
+        <name>dmscDemoireAreaThr</name>
+        <briefdescription>
+<para>Judgment threshold of moire area. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_demoire_config__s_1a0e1bb03ad94b4e77a55661f92c081c77" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceDmscDemoireConfig_s::dmscDemoireSatShrink</definition>
+        <argsstring></argsstring>
+        <name>dmscDemoireSatShrink</name>
+        <briefdescription>
+<para>Moire pixel forced saturation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice DMSC demoire configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="101" bodyend="123"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_dmsc_demoire_config__s_1aaa6c436120d84eb8f70d87678d80a376" prot="public" virt="non-virtual"><scope>CamDeviceDmscDemoireConfig_s</scope><name>demoireEdgeR1</name></member>
+      <member refid="struct_cam_device_dmsc_demoire_config__s_1ae0b948352806825800ef1c5e577c2e98" prot="public" virt="non-virtual"><scope>CamDeviceDmscDemoireConfig_s</scope><name>demoireEdgeR2</name></member>
+      <member refid="struct_cam_device_dmsc_demoire_config__s_1a9e301ba8190c1c243b186a472e590d40" prot="public" virt="non-virtual"><scope>CamDeviceDmscDemoireConfig_s</scope><name>demoireEdgeT1</name></member>
+      <member refid="struct_cam_device_dmsc_demoire_config__s_1ae762fc856a26f4b46e15a987000d515b" prot="public" virt="non-virtual"><scope>CamDeviceDmscDemoireConfig_s</scope><name>demoireEdgeT2Shift</name></member>
+      <member refid="struct_cam_device_dmsc_demoire_config__s_1adb77ca5053b7b84d460d7f8ad59c4910" prot="public" virt="non-virtual"><scope>CamDeviceDmscDemoireConfig_s</scope><name>dmscDemoireAreaThr</name></member>
+      <member refid="struct_cam_device_dmsc_demoire_config__s_1a8c014cd4b6088e9e92c096d30db483ac" prot="public" virt="non-virtual"><scope>CamDeviceDmscDemoireConfig_s</scope><name>dmscDemoireR1</name></member>
+      <member refid="struct_cam_device_dmsc_demoire_config__s_1aa56e206dea39dcfdcb0575ac1d4cade5" prot="public" virt="non-virtual"><scope>CamDeviceDmscDemoireConfig_s</scope><name>dmscDemoireR2</name></member>
+      <member refid="struct_cam_device_dmsc_demoire_config__s_1a0e1bb03ad94b4e77a55661f92c081c77" prot="public" virt="non-virtual"><scope>CamDeviceDmscDemoireConfig_s</scope><name>dmscDemoireSatShrink</name></member>
+      <member refid="struct_cam_device_dmsc_demoire_config__s_1acdcb2adb423c67699951d18b0de395f3" prot="public" virt="non-virtual"><scope>CamDeviceDmscDemoireConfig_s</scope><name>dmscDemoireT1</name></member>
+      <member refid="struct_cam_device_dmsc_demoire_config__s_1a5fd1a3b947bdbd15acba27e6d473a070" prot="public" virt="non-virtual"><scope>CamDeviceDmscDemoireConfig_s</scope><name>dmscDemoireT2Shift</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

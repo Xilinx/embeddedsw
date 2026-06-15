@@ -1,0 +1,1590 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="2vp_2xsecure__plat__defs_8h" kind="file">
+    <compoundname>2vp/xsecure_plat_defs.h</compoundname>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga09ac633955bf536ddd22f13805791a2e" prot="public" static="no">
+        <name>XSECURE_WORD_LEN</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Word length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2vp/xsecure_plat_defs.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2vp/xsecure_plat_defs.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xsecure__common__apis_1ga48921cbba3a5713caf7d975bedbe36ac" prot="public" static="no">
+        <name>XSecure_ApiId</name>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca751d44e2e77d153cff86b478f01d0e72" prot="public">
+          <name>XSECURE_API_FEATURES</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>0U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" prot="public">
+          <name>XSECURE_API_RSA_SIGN_VERIFY</name>
+          <briefdescription>
+<para>1U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca64400e366afc1fa1c96b991d9061dc50" prot="public">
+          <name>XSECURE_API_RSA_PUBLIC_ENCRYPT</name>
+          <briefdescription>
+<para>2U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1106e4714531244afe2851830e51af1b" prot="public">
+          <name>XSECURE_API_RSA_PRIVATE_DECRYPT</name>
+          <briefdescription>
+<para>3U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f" prot="public">
+          <name>XSECURE_API_SHA3_UPDATE</name>
+          <briefdescription>
+<para>4U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaeab0747eb84fba76e285132d85fae1c4" prot="public">
+          <name>XSECURE_API_ELLIPTIC_GENERATE_KEY</name>
+          <briefdescription>
+<para>5U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1eebf4899c7d95eb160c8a83d4c780f8" prot="public">
+          <name>XSECURE_API_ELLIPTIC_GENERATE_SIGN</name>
+          <briefdescription>
+<para>6U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca01c0ab6477c532f187b729665036b0b8" prot="public">
+          <name>XSECURE_API_ELLIPTIC_VALIDATE_KEY</name>
+          <briefdescription>
+<para>7U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0bd0d49b5ae8ddc3957afa1a2e3cc284" prot="public">
+          <name>XSECURE_API_ELLIPTIC_VERIFY_SIGN</name>
+          <briefdescription>
+<para>8U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca02f7a9f0b902d3783d8d7508ef194477" prot="public">
+          <name>XSECURE_API_AES_INIT</name>
+          <briefdescription>
+<para>9U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acabf47c27ddc6dcbdce2694869cea603aa" prot="public">
+          <name>XSECURE_API_AES_OP_INIT</name>
+          <briefdescription>
+<para>10U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6febb16fb9387879f8ffb7c7a51e7064" prot="public">
+          <name>XSECURE_API_AES_UPDATE_AAD</name>
+          <briefdescription>
+<para>11U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad8f88bc04c0bf662cf12324269d81ff2" prot="public">
+          <name>XSECURE_API_AES_ENCRYPT_UPDATE</name>
+          <briefdescription>
+<para>12U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca725ee7839a0af61500722276cdf5fe65" prot="public">
+          <name>XSECURE_API_AES_ENCRYPT_FINAL</name>
+          <briefdescription>
+<para>13U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca45d225b8053c332f20fbdb468b21e436" prot="public">
+          <name>XSECURE_API_AES_DECRYPT_UPDATE</name>
+          <briefdescription>
+<para>14U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18c3a8922609fb6afceea6a068f2baf2" prot="public">
+          <name>XSECURE_API_AES_DECRYPT_FINAL</name>
+          <briefdescription>
+<para>15U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca16f54fa4047812544017288d499c2ddb" prot="public">
+          <name>XSECURE_API_AES_KEY_ZERO</name>
+          <briefdescription>
+<para>16U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab8155ff5779538f3fa2f7b8b2c3c251c" prot="public">
+          <name>XSECURE_API_AES_WRITE_KEY</name>
+          <briefdescription>
+<para>17U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8e1f5af6efb89d6bd03e40a68960158e" prot="public">
+          <name>XSECURE_API_AES_LOCK_USER_KEY</name>
+          <briefdescription>
+<para>18U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad5d672c120603105e990a4a321938cb1" prot="public">
+          <name>XSECURE_API_AES_KEK_DECRYPT</name>
+          <briefdescription>
+<para>19U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acadc717b63c9b0d4b8f7b3a54d932435de" prot="public">
+          <name>XSECURE_API_AES_SET_DPA_CM</name>
+          <briefdescription>
+<para>20U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a" prot="public">
+          <name>XSECURE_API_KAT</name>
+          <briefdescription>
+<para>21U </para>          </briefdescription>
+          <detaileddescription>
+<para>22U reserved for versal_net </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaffa8a13644e65d5e7776e9198365c5cd" prot="public">
+          <name>XSECURE_API_AES_PERFORM_OPERATION</name>
+          <initializer>= 23U</initializer>
+          <briefdescription>
+<para>23U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18eba90f086d185554c0320c951cb660" prot="public">
+          <name>XSECURE_API_MAX</name>
+          <briefdescription>
+<para>24U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca751d44e2e77d153cff86b478f01d0e72" prot="public">
+          <name>XSECURE_API_FEATURES</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>0U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" prot="public">
+          <name>XSECURE_API_RSA_SIGN_VERIFY</name>
+          <briefdescription>
+<para>1U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca64400e366afc1fa1c96b991d9061dc50" prot="public">
+          <name>XSECURE_API_RSA_PUBLIC_ENCRYPT</name>
+          <briefdescription>
+<para>2U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1106e4714531244afe2851830e51af1b" prot="public">
+          <name>XSECURE_API_RSA_PRIVATE_DECRYPT</name>
+          <briefdescription>
+<para>3U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca37c744e7989bc792bb783c8ec670f647" prot="public">
+          <name>XSECURE_API_SHA3_OPERATION</name>
+          <briefdescription>
+<para>4U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaeab0747eb84fba76e285132d85fae1c4" prot="public">
+          <name>XSECURE_API_ELLIPTIC_GENERATE_KEY</name>
+          <briefdescription>
+<para>5U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1eebf4899c7d95eb160c8a83d4c780f8" prot="public">
+          <name>XSECURE_API_ELLIPTIC_GENERATE_SIGN</name>
+          <briefdescription>
+<para>6U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca01c0ab6477c532f187b729665036b0b8" prot="public">
+          <name>XSECURE_API_ELLIPTIC_VALIDATE_KEY</name>
+          <briefdescription>
+<para>7U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0bd0d49b5ae8ddc3957afa1a2e3cc284" prot="public">
+          <name>XSECURE_API_ELLIPTIC_VERIFY_SIGN</name>
+          <briefdescription>
+<para>8U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca02f7a9f0b902d3783d8d7508ef194477" prot="public">
+          <name>XSECURE_API_AES_INIT</name>
+          <briefdescription>
+<para>9U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acabf47c27ddc6dcbdce2694869cea603aa" prot="public">
+          <name>XSECURE_API_AES_OP_INIT</name>
+          <briefdescription>
+<para>10U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6febb16fb9387879f8ffb7c7a51e7064" prot="public">
+          <name>XSECURE_API_AES_UPDATE_AAD</name>
+          <briefdescription>
+<para>11U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad8f88bc04c0bf662cf12324269d81ff2" prot="public">
+          <name>XSECURE_API_AES_ENCRYPT_UPDATE</name>
+          <briefdescription>
+<para>12U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca725ee7839a0af61500722276cdf5fe65" prot="public">
+          <name>XSECURE_API_AES_ENCRYPT_FINAL</name>
+          <briefdescription>
+<para>13U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca45d225b8053c332f20fbdb468b21e436" prot="public">
+          <name>XSECURE_API_AES_DECRYPT_UPDATE</name>
+          <briefdescription>
+<para>14U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18c3a8922609fb6afceea6a068f2baf2" prot="public">
+          <name>XSECURE_API_AES_DECRYPT_FINAL</name>
+          <briefdescription>
+<para>15U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca16f54fa4047812544017288d499c2ddb" prot="public">
+          <name>XSECURE_API_AES_KEY_ZERO</name>
+          <briefdescription>
+<para>16U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab8155ff5779538f3fa2f7b8b2c3c251c" prot="public">
+          <name>XSECURE_API_AES_WRITE_KEY</name>
+          <briefdescription>
+<para>17U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8e1f5af6efb89d6bd03e40a68960158e" prot="public">
+          <name>XSECURE_API_AES_LOCK_USER_KEY</name>
+          <briefdescription>
+<para>18U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad5d672c120603105e990a4a321938cb1" prot="public">
+          <name>XSECURE_API_AES_KEK_DECRYPT</name>
+          <briefdescription>
+<para>19U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acadc717b63c9b0d4b8f7b3a54d932435de" prot="public">
+          <name>XSECURE_API_AES_SET_DPA_CM</name>
+          <briefdescription>
+<para>20U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a" prot="public">
+          <name>XSECURE_API_KAT</name>
+          <briefdescription>
+<para>21U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3" prot="public">
+          <name>XSECURE_API_TRNG_GENERATE</name>
+          <briefdescription>
+<para>22U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaffa8a13644e65d5e7776e9198365c5cd" prot="public">
+          <name>XSECURE_API_AES_PERFORM_OPERATION</name>
+          <briefdescription>
+<para>23U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab281f47d0b6c949e695c0173ff9d0dc7" prot="public">
+          <name>XSECURE_API_GEN_SHARED_SECRET</name>
+          <initializer>= 33U</initializer>
+          <briefdescription>
+<para>33U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca3257b333a47affc1e6d0aedbb2f7e3d8" prot="public">
+          <name>XSECURE_API_RESERVED</name>
+          <initializer>= 36U</initializer>
+          <briefdescription>
+<para>36U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca5dc57e832b3e25778fdd795e7fe19300" prot="public">
+          <name>XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY</name>
+          <briefdescription>
+<para>37U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca7088fcfcdf82fc79ac3ebb1f3450b7ce" prot="public">
+          <name>XSECURE_API_SHA2_OPERATION</name>
+          <briefdescription>
+<para>38U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8f23f62e97bec8e4fbccb0b8bd3ae00b" prot="public">
+          <name>XSECURE_API_HMAC_OPERATION</name>
+          <briefdescription>
+<para>39U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0a4505d6ab4bea1e64042d888ddc21c9" prot="public">
+          <name>XSECURE_API_LMS_SIGN_VERIFY</name>
+          <initializer>= 42U</initializer>
+          <briefdescription>
+<para>42U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6587bb0b0a30f19f162af828a11338c3" prot="public">
+          <name>XSECURE_API_ELLIPTIC_PRIVATE_KEY_GEN</name>
+          <briefdescription>
+<para>43U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18eba90f086d185554c0320c951cb660" prot="public">
+          <name>XSECURE_API_MAX</name>
+          <briefdescription>
+<para>44U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca751d44e2e77d153cff86b478f01d0e72" prot="public">
+          <name>XSECURE_API_FEATURES</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>0U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" prot="public">
+          <name>XSECURE_API_RSA_SIGN_VERIFY</name>
+          <briefdescription>
+<para>1U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca64400e366afc1fa1c96b991d9061dc50" prot="public">
+          <name>XSECURE_API_RSA_PUBLIC_ENCRYPT</name>
+          <briefdescription>
+<para>2U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1106e4714531244afe2851830e51af1b" prot="public">
+          <name>XSECURE_API_RSA_PRIVATE_DECRYPT</name>
+          <briefdescription>
+<para>3U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f" prot="public">
+          <name>XSECURE_API_SHA3_UPDATE</name>
+          <briefdescription>
+<para>4U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaeab0747eb84fba76e285132d85fae1c4" prot="public">
+          <name>XSECURE_API_ELLIPTIC_GENERATE_KEY</name>
+          <briefdescription>
+<para>5U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1eebf4899c7d95eb160c8a83d4c780f8" prot="public">
+          <name>XSECURE_API_ELLIPTIC_GENERATE_SIGN</name>
+          <briefdescription>
+<para>6U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca01c0ab6477c532f187b729665036b0b8" prot="public">
+          <name>XSECURE_API_ELLIPTIC_VALIDATE_KEY</name>
+          <briefdescription>
+<para>7U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0bd0d49b5ae8ddc3957afa1a2e3cc284" prot="public">
+          <name>XSECURE_API_ELLIPTIC_VERIFY_SIGN</name>
+          <briefdescription>
+<para>8U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca02f7a9f0b902d3783d8d7508ef194477" prot="public">
+          <name>XSECURE_API_AES_INIT</name>
+          <briefdescription>
+<para>9U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acabf47c27ddc6dcbdce2694869cea603aa" prot="public">
+          <name>XSECURE_API_AES_OP_INIT</name>
+          <briefdescription>
+<para>10U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6febb16fb9387879f8ffb7c7a51e7064" prot="public">
+          <name>XSECURE_API_AES_UPDATE_AAD</name>
+          <briefdescription>
+<para>11U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad8f88bc04c0bf662cf12324269d81ff2" prot="public">
+          <name>XSECURE_API_AES_ENCRYPT_UPDATE</name>
+          <briefdescription>
+<para>12U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca725ee7839a0af61500722276cdf5fe65" prot="public">
+          <name>XSECURE_API_AES_ENCRYPT_FINAL</name>
+          <briefdescription>
+<para>13U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca45d225b8053c332f20fbdb468b21e436" prot="public">
+          <name>XSECURE_API_AES_DECRYPT_UPDATE</name>
+          <briefdescription>
+<para>14U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18c3a8922609fb6afceea6a068f2baf2" prot="public">
+          <name>XSECURE_API_AES_DECRYPT_FINAL</name>
+          <briefdescription>
+<para>15U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca16f54fa4047812544017288d499c2ddb" prot="public">
+          <name>XSECURE_API_AES_KEY_ZERO</name>
+          <briefdescription>
+<para>16U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab8155ff5779538f3fa2f7b8b2c3c251c" prot="public">
+          <name>XSECURE_API_AES_WRITE_KEY</name>
+          <briefdescription>
+<para>17U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8e1f5af6efb89d6bd03e40a68960158e" prot="public">
+          <name>XSECURE_API_AES_LOCK_USER_KEY</name>
+          <briefdescription>
+<para>18U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad5d672c120603105e990a4a321938cb1" prot="public">
+          <name>XSECURE_API_AES_KEK_DECRYPT</name>
+          <briefdescription>
+<para>19U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acadc717b63c9b0d4b8f7b3a54d932435de" prot="public">
+          <name>XSECURE_API_AES_SET_DPA_CM</name>
+          <briefdescription>
+<para>20U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a" prot="public">
+          <name>XSECURE_API_KAT</name>
+          <briefdescription>
+<para>21U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3" prot="public">
+          <name>XSECURE_API_TRNG_GENERATE</name>
+          <briefdescription>
+<para>22U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaffa8a13644e65d5e7776e9198365c5cd" prot="public">
+          <name>XSECURE_API_AES_PERFORM_OPERATION</name>
+          <initializer>= 23U</initializer>
+          <briefdescription>
+<para>23U </para>          </briefdescription>
+          <detaileddescription>
+<para>24U to 32U reserved for versal_net </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab281f47d0b6c949e695c0173ff9d0dc7" prot="public">
+          <name>XSECURE_API_GEN_SHARED_SECRET</name>
+          <initializer>= 33U</initializer>
+          <briefdescription>
+<para>33U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6587bb0b0a30f19f162af828a11338c3" prot="public">
+          <name>XSECURE_API_ELLIPTIC_PRIVATE_KEY_GEN</name>
+          <initializer>= 43U</initializer>
+          <briefdescription>
+<para>43U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18eba90f086d185554c0320c951cb660" prot="public">
+          <name>XSECURE_API_MAX</name>
+          <briefdescription>
+<para>44U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca751d44e2e77d153cff86b478f01d0e72" prot="public">
+          <name>XSECURE_API_FEATURES</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>0U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" prot="public">
+          <name>XSECURE_API_RSA_SIGN_VERIFY</name>
+          <briefdescription>
+<para>1U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca64400e366afc1fa1c96b991d9061dc50" prot="public">
+          <name>XSECURE_API_RSA_PUBLIC_ENCRYPT</name>
+          <briefdescription>
+<para>2U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1106e4714531244afe2851830e51af1b" prot="public">
+          <name>XSECURE_API_RSA_PRIVATE_DECRYPT</name>
+          <briefdescription>
+<para>3U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca37c744e7989bc792bb783c8ec670f647" prot="public">
+          <name>XSECURE_API_SHA3_OPERATION</name>
+          <briefdescription>
+<para>4U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaeab0747eb84fba76e285132d85fae1c4" prot="public">
+          <name>XSECURE_API_ELLIPTIC_GENERATE_KEY</name>
+          <briefdescription>
+<para>5U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1eebf4899c7d95eb160c8a83d4c780f8" prot="public">
+          <name>XSECURE_API_ELLIPTIC_GENERATE_SIGN</name>
+          <briefdescription>
+<para>6U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca01c0ab6477c532f187b729665036b0b8" prot="public">
+          <name>XSECURE_API_ELLIPTIC_VALIDATE_KEY</name>
+          <briefdescription>
+<para>7U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0bd0d49b5ae8ddc3957afa1a2e3cc284" prot="public">
+          <name>XSECURE_API_ELLIPTIC_VERIFY_SIGN</name>
+          <briefdescription>
+<para>8U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca02f7a9f0b902d3783d8d7508ef194477" prot="public">
+          <name>XSECURE_API_AES_INIT</name>
+          <briefdescription>
+<para>9U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acabf47c27ddc6dcbdce2694869cea603aa" prot="public">
+          <name>XSECURE_API_AES_OP_INIT</name>
+          <briefdescription>
+<para>10U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6febb16fb9387879f8ffb7c7a51e7064" prot="public">
+          <name>XSECURE_API_AES_UPDATE_AAD</name>
+          <briefdescription>
+<para>11U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad8f88bc04c0bf662cf12324269d81ff2" prot="public">
+          <name>XSECURE_API_AES_ENCRYPT_UPDATE</name>
+          <briefdescription>
+<para>12U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca725ee7839a0af61500722276cdf5fe65" prot="public">
+          <name>XSECURE_API_AES_ENCRYPT_FINAL</name>
+          <briefdescription>
+<para>13U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca45d225b8053c332f20fbdb468b21e436" prot="public">
+          <name>XSECURE_API_AES_DECRYPT_UPDATE</name>
+          <briefdescription>
+<para>14U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18c3a8922609fb6afceea6a068f2baf2" prot="public">
+          <name>XSECURE_API_AES_DECRYPT_FINAL</name>
+          <briefdescription>
+<para>15U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca16f54fa4047812544017288d499c2ddb" prot="public">
+          <name>XSECURE_API_AES_KEY_ZERO</name>
+          <briefdescription>
+<para>16U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab8155ff5779538f3fa2f7b8b2c3c251c" prot="public">
+          <name>XSECURE_API_AES_WRITE_KEY</name>
+          <briefdescription>
+<para>17U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8e1f5af6efb89d6bd03e40a68960158e" prot="public">
+          <name>XSECURE_API_AES_LOCK_USER_KEY</name>
+          <briefdescription>
+<para>18U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad5d672c120603105e990a4a321938cb1" prot="public">
+          <name>XSECURE_API_AES_KEK_DECRYPT</name>
+          <briefdescription>
+<para>19U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acadc717b63c9b0d4b8f7b3a54d932435de" prot="public">
+          <name>XSECURE_API_AES_SET_DPA_CM</name>
+          <briefdescription>
+<para>20U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a" prot="public">
+          <name>XSECURE_API_KAT</name>
+          <briefdescription>
+<para>21U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3" prot="public">
+          <name>XSECURE_API_TRNG_GENERATE</name>
+          <briefdescription>
+<para>22U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaffa8a13644e65d5e7776e9198365c5cd" prot="public">
+          <name>XSECURE_API_AES_PERFORM_OPERATION</name>
+          <briefdescription>
+<para>23U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab281f47d0b6c949e695c0173ff9d0dc7" prot="public">
+          <name>XSECURE_API_GEN_SHARED_SECRET</name>
+          <initializer>= 33U</initializer>
+          <briefdescription>
+<para>33U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca3257b333a47affc1e6d0aedbb2f7e3d8" prot="public">
+          <name>XSECURE_API_RESERVED</name>
+          <initializer>= 36U</initializer>
+          <briefdescription>
+<para>36U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca5dc57e832b3e25778fdd795e7fe19300" prot="public">
+          <name>XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY</name>
+          <briefdescription>
+<para>37U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca7088fcfcdf82fc79ac3ebb1f3450b7ce" prot="public">
+          <name>XSECURE_API_SHA2_OPERATION</name>
+          <briefdescription>
+<para>38U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acae7aac48a1aa0f61534e840a3b737b23d" prot="public">
+          <name>XSECURE_API_MLDSA_SIGN_VERIFY</name>
+          <briefdescription>
+<para>39U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca5cd9b1622e532c4e713eefd055a7b708" prot="public">
+          <name>XSECURE_API_MLDSA_SIGN_GENERATE</name>
+          <briefdescription>
+<para>40U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca303eb7689fb59cf72ae8cdc183dd6d6a" prot="public">
+          <name>XSECURE_API_SLHDSA_SIGN_VERIFY</name>
+          <briefdescription>
+<para>41U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6587bb0b0a30f19f162af828a11338c3" prot="public">
+          <name>XSECURE_API_ELLIPTIC_PRIVATE_KEY_GEN</name>
+          <initializer>= 43U</initializer>
+          <briefdescription>
+<para>43U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18eba90f086d185554c0320c951cb660" prot="public">
+          <name>XSECURE_API_MAX</name>
+          <briefdescription>
+<para>44U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca751d44e2e77d153cff86b478f01d0e72" prot="public">
+          <name>XSECURE_API_FEATURES</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>0U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" prot="public">
+          <name>XSECURE_API_RSA_SIGN_VERIFY</name>
+          <briefdescription>
+<para>1U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca64400e366afc1fa1c96b991d9061dc50" prot="public">
+          <name>XSECURE_API_RSA_PUBLIC_ENCRYPT</name>
+          <briefdescription>
+<para>2U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1106e4714531244afe2851830e51af1b" prot="public">
+          <name>XSECURE_API_RSA_PRIVATE_DECRYPT</name>
+          <briefdescription>
+<para>3U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f" prot="public">
+          <name>XSECURE_API_SHA3_UPDATE</name>
+          <briefdescription>
+<para>4U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaeab0747eb84fba76e285132d85fae1c4" prot="public">
+          <name>XSECURE_API_ELLIPTIC_GENERATE_KEY</name>
+          <briefdescription>
+<para>5U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1eebf4899c7d95eb160c8a83d4c780f8" prot="public">
+          <name>XSECURE_API_ELLIPTIC_GENERATE_SIGN</name>
+          <briefdescription>
+<para>6U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca01c0ab6477c532f187b729665036b0b8" prot="public">
+          <name>XSECURE_API_ELLIPTIC_VALIDATE_KEY</name>
+          <briefdescription>
+<para>7U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0bd0d49b5ae8ddc3957afa1a2e3cc284" prot="public">
+          <name>XSECURE_API_ELLIPTIC_VERIFY_SIGN</name>
+          <briefdescription>
+<para>8U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca02f7a9f0b902d3783d8d7508ef194477" prot="public">
+          <name>XSECURE_API_AES_INIT</name>
+          <briefdescription>
+<para>9U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acabf47c27ddc6dcbdce2694869cea603aa" prot="public">
+          <name>XSECURE_API_AES_OP_INIT</name>
+          <briefdescription>
+<para>10U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6febb16fb9387879f8ffb7c7a51e7064" prot="public">
+          <name>XSECURE_API_AES_UPDATE_AAD</name>
+          <briefdescription>
+<para>11U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad8f88bc04c0bf662cf12324269d81ff2" prot="public">
+          <name>XSECURE_API_AES_ENCRYPT_UPDATE</name>
+          <briefdescription>
+<para>12U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca725ee7839a0af61500722276cdf5fe65" prot="public">
+          <name>XSECURE_API_AES_ENCRYPT_FINAL</name>
+          <briefdescription>
+<para>13U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca45d225b8053c332f20fbdb468b21e436" prot="public">
+          <name>XSECURE_API_AES_DECRYPT_UPDATE</name>
+          <briefdescription>
+<para>14U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18c3a8922609fb6afceea6a068f2baf2" prot="public">
+          <name>XSECURE_API_AES_DECRYPT_FINAL</name>
+          <briefdescription>
+<para>15U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca16f54fa4047812544017288d499c2ddb" prot="public">
+          <name>XSECURE_API_AES_KEY_ZERO</name>
+          <briefdescription>
+<para>16U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab8155ff5779538f3fa2f7b8b2c3c251c" prot="public">
+          <name>XSECURE_API_AES_WRITE_KEY</name>
+          <briefdescription>
+<para>17U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8e1f5af6efb89d6bd03e40a68960158e" prot="public">
+          <name>XSECURE_API_AES_LOCK_USER_KEY</name>
+          <briefdescription>
+<para>18U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad5d672c120603105e990a4a321938cb1" prot="public">
+          <name>XSECURE_API_AES_KEK_DECRYPT</name>
+          <briefdescription>
+<para>19U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acadc717b63c9b0d4b8f7b3a54d932435de" prot="public">
+          <name>XSECURE_API_AES_SET_DPA_CM</name>
+          <briefdescription>
+<para>20U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a" prot="public">
+          <name>XSECURE_API_KAT</name>
+          <briefdescription>
+<para>21U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3" prot="public">
+          <name>XSECURE_API_TRNG_GENERATE</name>
+          <briefdescription>
+<para>22U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaffa8a13644e65d5e7776e9198365c5cd" prot="public">
+          <name>XSECURE_API_AES_PERFORM_OPERATION</name>
+          <briefdescription>
+<para>23U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acadac31f02339f8ef8d0e6058c5c40dbbb" prot="public">
+          <name>XSECURE_API_UPDATE_HNIC_CRYPTO_STATUS</name>
+          <briefdescription>
+<para>24U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6b7c229a9a6d706cdfa97a6028cf4d4c" prot="public">
+          <name>XSECURE_API_UPDATE_CPM5N_CRYPTO_STATUS</name>
+          <briefdescription>
+<para>25U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca779769fce2f901b43cc58900383c3e93" prot="public">
+          <name>XSECURE_API_UPDATE_PCIDE_CRYPTO_STATUS</name>
+          <briefdescription>
+<para>26U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaab46c22eae0bfecb0e69dd1f1e6bb939" prot="public">
+          <name>XSECURE_API_UPDATE_PKI_CRYPTO_STATUS</name>
+          <briefdescription>
+<para>27U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acac72b5b1939f0484d1a3848ffd7b97f7b" prot="public">
+          <name>XSECURE_API_UPDATE_DDR_KAT_STATUS</name>
+          <briefdescription>
+<para>28U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca44f09d5b48a831480a1cf114ccb1454c" prot="public">
+          <name>XSECURE_API_UPDATE_HNIC_KAT_STATUS</name>
+          <briefdescription>
+<para>29U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acac08da78d39f6d01df82e295363a7dc51" prot="public">
+          <name>XSECURE_API_UPDATE_CPM5N_KAT_STATUS</name>
+          <briefdescription>
+<para>30U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca9e649e1f6951aa5a6dd65c119eedf6ba" prot="public">
+          <name>XSECURE_API_UPDATE_PCIDE_KAT_STATUS</name>
+          <briefdescription>
+<para>31U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca2c3a03734f8768efe3c23fd7585e332d" prot="public">
+          <name>XSECURE_API_UPDATE_PKI_KAT_STATUS</name>
+          <briefdescription>
+<para>32U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab281f47d0b6c949e695c0173ff9d0dc7" prot="public">
+          <name>XSECURE_API_GEN_SHARED_SECRET</name>
+          <briefdescription>
+<para>33U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca9fb8faab069c0b14121970bc6c5b2424" prot="public">
+          <name>XSECURE_API_KEY_UNWRAP</name>
+          <initializer>= 35</initializer>
+          <briefdescription>
+<para>35U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca3257b333a47affc1e6d0aedbb2f7e3d8" prot="public">
+          <name>XSECURE_API_RESERVED</name>
+          <briefdescription>
+<para>36U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca5dc57e832b3e25778fdd795e7fe19300" prot="public">
+          <name>XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY</name>
+          <briefdescription>
+<para>37U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1f9dbb2720c7e9bcf7e1a7ca6129ac8f" prot="public">
+          <name>XSECURE_API_RSA_RELEASE_KEY</name>
+          <briefdescription>
+<para>38U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8f23f62e97bec8e4fbccb0b8bd3ae00b" prot="public">
+          <name>XSECURE_API_HMAC_OPERATION</name>
+          <briefdescription>
+<para>39U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6587bb0b0a30f19f162af828a11338c3" prot="public">
+          <name>XSECURE_API_ELLIPTIC_PRIVATE_KEY_GEN</name>
+          <initializer>= 43U</initializer>
+          <briefdescription>
+<para>43U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18eba90f086d185554c0320c951cb660" prot="public">
+          <name>XSECURE_API_MAX</name>
+          <briefdescription>
+<para>44U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>XilSecure API ids. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2vp/xsecure_plat_defs.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2vp/xsecure_plat_defs.h" bodystart="49" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xsecure__common__apis_1ga37319402ed20263002a96ca04d74394e" prot="public" static="no">
+        <name>XSecure_KatId</name>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eac036db8b4c037ab3955b93d62513fb6b" prot="public">
+          <name>XSECURE_API_AES_DECRYPT_KAT</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>0U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea2f5dbd303625fc2c0ef8b295c9b3b992" prot="public">
+          <name>XSECURE_API_AES_DECRYPT_CM_KAT</name>
+          <briefdescription>
+<para>1U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ead4e0f42ca445468c1534a1e2a23a3099" prot="public">
+          <name>XSECURE_API_RSA_PUB_ENC_KAT</name>
+          <briefdescription>
+<para>2U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea743c67d281e7028a0a68c3d988db9801" prot="public">
+          <name>XSECURE_API_ELLIPTIC_SIGN_VERIFY_KAT</name>
+          <briefdescription>
+<para>3U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eaa93a792a36e46e604483c25f4fbc877e" prot="public">
+          <name>XSECURE_API_SHA3_KAT</name>
+          <briefdescription>
+<para>4U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eab33a5806407cf829f203f5fb0af1a806" prot="public">
+          <name>XSECURE_API_AES_ENCRYPT_KAT</name>
+          <briefdescription>
+<para>5U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea7157637ce5e02761c76b740352140f97" prot="public">
+          <name>XSECURE_API_RSA_PRIVATE_DEC_KAT</name>
+          <briefdescription>
+<para>6U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea0b59fb6da09265ead7ce0c53fed06d95" prot="public">
+          <name>XSECURE_API_ELLIPTIC_SIGN_GEN_KAT</name>
+          <briefdescription>
+<para>7U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eac036db8b4c037ab3955b93d62513fb6b" prot="public">
+          <name>XSECURE_API_AES_DECRYPT_KAT</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>0U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea2f5dbd303625fc2c0ef8b295c9b3b992" prot="public">
+          <name>XSECURE_API_AES_DECRYPT_CM_KAT</name>
+          <briefdescription>
+<para>1U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ead4e0f42ca445468c1534a1e2a23a3099" prot="public">
+          <name>XSECURE_API_RSA_PUB_ENC_KAT</name>
+          <briefdescription>
+<para>2U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea743c67d281e7028a0a68c3d988db9801" prot="public">
+          <name>XSECURE_API_ELLIPTIC_SIGN_VERIFY_KAT</name>
+          <briefdescription>
+<para>3U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eaa93a792a36e46e604483c25f4fbc877e" prot="public">
+          <name>XSECURE_API_SHA3_KAT</name>
+          <briefdescription>
+<para>4U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eab33a5806407cf829f203f5fb0af1a806" prot="public">
+          <name>XSECURE_API_AES_ENCRYPT_KAT</name>
+          <briefdescription>
+<para>5U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea7157637ce5e02761c76b740352140f97" prot="public">
+          <name>XSECURE_API_RSA_PRIVATE_DEC_KAT</name>
+          <briefdescription>
+<para>6U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea0b59fb6da09265ead7ce0c53fed06d95" prot="public">
+          <name>XSECURE_API_ELLIPTIC_SIGN_GEN_KAT</name>
+          <briefdescription>
+<para>7U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eab2a35ee2e4ab05e7234c2bdc76fc37f6" prot="public">
+          <name>XSECURE_API_TRNG_KAT</name>
+          <briefdescription>
+<para>8U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eae0050ee5c45345bb03e597222cf6b1d8" prot="public">
+          <name>XSECURE_API_UPDATE_KAT_STATUS</name>
+          <briefdescription>
+<para>9U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea50a09b1c94b5825c3eaab53ae9b8da00" prot="public">
+          <name>XSECURE_API_SHA2_KAT</name>
+          <briefdescription>
+<para>10U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eac036db8b4c037ab3955b93d62513fb6b" prot="public">
+          <name>XSECURE_API_AES_DECRYPT_KAT</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>0U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea2f5dbd303625fc2c0ef8b295c9b3b992" prot="public">
+          <name>XSECURE_API_AES_DECRYPT_CM_KAT</name>
+          <briefdescription>
+<para>1U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ead4e0f42ca445468c1534a1e2a23a3099" prot="public">
+          <name>XSECURE_API_RSA_PUB_ENC_KAT</name>
+          <briefdescription>
+<para>2U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea743c67d281e7028a0a68c3d988db9801" prot="public">
+          <name>XSECURE_API_ELLIPTIC_SIGN_VERIFY_KAT</name>
+          <briefdescription>
+<para>3U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eaa93a792a36e46e604483c25f4fbc877e" prot="public">
+          <name>XSECURE_API_SHA3_KAT</name>
+          <briefdescription>
+<para>4U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eab33a5806407cf829f203f5fb0af1a806" prot="public">
+          <name>XSECURE_API_AES_ENCRYPT_KAT</name>
+          <briefdescription>
+<para>5U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea7157637ce5e02761c76b740352140f97" prot="public">
+          <name>XSECURE_API_RSA_PRIVATE_DEC_KAT</name>
+          <briefdescription>
+<para>6U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea0b59fb6da09265ead7ce0c53fed06d95" prot="public">
+          <name>XSECURE_API_ELLIPTIC_SIGN_GEN_KAT</name>
+          <briefdescription>
+<para>7U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eab2a35ee2e4ab05e7234c2bdc76fc37f6" prot="public">
+          <name>XSECURE_API_TRNG_KAT</name>
+          <briefdescription>
+<para>8U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eac036db8b4c037ab3955b93d62513fb6b" prot="public">
+          <name>XSECURE_API_AES_DECRYPT_KAT</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>0U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea2f5dbd303625fc2c0ef8b295c9b3b992" prot="public">
+          <name>XSECURE_API_AES_DECRYPT_CM_KAT</name>
+          <briefdescription>
+<para>1U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ead4e0f42ca445468c1534a1e2a23a3099" prot="public">
+          <name>XSECURE_API_RSA_PUB_ENC_KAT</name>
+          <briefdescription>
+<para>2U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea743c67d281e7028a0a68c3d988db9801" prot="public">
+          <name>XSECURE_API_ELLIPTIC_SIGN_VERIFY_KAT</name>
+          <briefdescription>
+<para>3U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eaa93a792a36e46e604483c25f4fbc877e" prot="public">
+          <name>XSECURE_API_SHA3_KAT</name>
+          <briefdescription>
+<para>4U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eab33a5806407cf829f203f5fb0af1a806" prot="public">
+          <name>XSECURE_API_AES_ENCRYPT_KAT</name>
+          <briefdescription>
+<para>5U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea7157637ce5e02761c76b740352140f97" prot="public">
+          <name>XSECURE_API_RSA_PRIVATE_DEC_KAT</name>
+          <briefdescription>
+<para>6U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea0b59fb6da09265ead7ce0c53fed06d95" prot="public">
+          <name>XSECURE_API_ELLIPTIC_SIGN_GEN_KAT</name>
+          <briefdescription>
+<para>7U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eab2a35ee2e4ab05e7234c2bdc76fc37f6" prot="public">
+          <name>XSECURE_API_TRNG_KAT</name>
+          <briefdescription>
+<para>8U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eae0050ee5c45345bb03e597222cf6b1d8" prot="public">
+          <name>XSECURE_API_UPDATE_KAT_STATUS</name>
+          <briefdescription>
+<para>9U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea50a09b1c94b5825c3eaab53ae9b8da00" prot="public">
+          <name>XSECURE_API_SHA2_KAT</name>
+          <briefdescription>
+<para>10U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eac036db8b4c037ab3955b93d62513fb6b" prot="public">
+          <name>XSECURE_API_AES_DECRYPT_KAT</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>0U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea2f5dbd303625fc2c0ef8b295c9b3b992" prot="public">
+          <name>XSECURE_API_AES_DECRYPT_CM_KAT</name>
+          <briefdescription>
+<para>1U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ead4e0f42ca445468c1534a1e2a23a3099" prot="public">
+          <name>XSECURE_API_RSA_PUB_ENC_KAT</name>
+          <briefdescription>
+<para>2U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea743c67d281e7028a0a68c3d988db9801" prot="public">
+          <name>XSECURE_API_ELLIPTIC_SIGN_VERIFY_KAT</name>
+          <briefdescription>
+<para>3U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eaa93a792a36e46e604483c25f4fbc877e" prot="public">
+          <name>XSECURE_API_SHA3_KAT</name>
+          <briefdescription>
+<para>4U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eab33a5806407cf829f203f5fb0af1a806" prot="public">
+          <name>XSECURE_API_AES_ENCRYPT_KAT</name>
+          <briefdescription>
+<para>5U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea7157637ce5e02761c76b740352140f97" prot="public">
+          <name>XSECURE_API_RSA_PRIVATE_DEC_KAT</name>
+          <briefdescription>
+<para>6U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea0b59fb6da09265ead7ce0c53fed06d95" prot="public">
+          <name>XSECURE_API_ELLIPTIC_SIGN_GEN_KAT</name>
+          <briefdescription>
+<para>7U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eab2a35ee2e4ab05e7234c2bdc76fc37f6" prot="public">
+          <name>XSECURE_API_TRNG_KAT</name>
+          <briefdescription>
+<para>8U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eae0050ee5c45345bb03e597222cf6b1d8" prot="public">
+          <name>XSECURE_API_UPDATE_KAT_STATUS</name>
+          <briefdescription>
+<para>9U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>XilSecure API KAT ids. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2vp/xsecure_plat_defs.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2vp/xsecure_plat_defs.h" bodystart="81" bodyend="91"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the xsecure API IDs for versal_2vp. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+5.6   tvp  07/07/25 Initial release
+      tvp  07/07/25 Added XSECURE_WORD_LEN
+5.7   tvp  11/18/25 Added support for generating shared secret
+      tvp  11/18/25 Added support for trng operations</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor">#ifndef<sp/>XSECURE_PLAT_DEFS_H</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_PLAT_DEFS_H</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>********************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40" refid="group__xsecure__common__apis_1ga09ac633955bf536ddd22f13805791a2e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_WORD_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="group__xsecure__common__apis_1ga48921cbba3a5713caf7d975bedbe36ac" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="50" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca751d44e2e77d153cff86b478f01d0e72" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca751d44e2e77d153cff86b478f01d0e72" kindref="member">XSECURE_API_FEATURES</ref><sp/>=<sp/>0U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="51" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" kindref="member">XSECURE_API_RSA_SIGN_VERIFY</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca64400e366afc1fa1c96b991d9061dc50" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca64400e366afc1fa1c96b991d9061dc50" kindref="member">XSECURE_API_RSA_PUBLIC_ENCRYPT</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1106e4714531244afe2851830e51af1b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1106e4714531244afe2851830e51af1b" kindref="member">XSECURE_API_RSA_PRIVATE_DECRYPT</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f" kindref="member">XSECURE_API_SHA3_UPDATE</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaeab0747eb84fba76e285132d85fae1c4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaeab0747eb84fba76e285132d85fae1c4" kindref="member">XSECURE_API_ELLIPTIC_GENERATE_KEY</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1eebf4899c7d95eb160c8a83d4c780f8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1eebf4899c7d95eb160c8a83d4c780f8" kindref="member">XSECURE_API_ELLIPTIC_GENERATE_SIGN</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="57" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca01c0ab6477c532f187b729665036b0b8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca01c0ab6477c532f187b729665036b0b8" kindref="member">XSECURE_API_ELLIPTIC_VALIDATE_KEY</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0bd0d49b5ae8ddc3957afa1a2e3cc284" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0bd0d49b5ae8ddc3957afa1a2e3cc284" kindref="member">XSECURE_API_ELLIPTIC_VERIFY_SIGN</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca02f7a9f0b902d3783d8d7508ef194477" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca02f7a9f0b902d3783d8d7508ef194477" kindref="member">XSECURE_API_AES_INIT</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acabf47c27ddc6dcbdce2694869cea603aa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acabf47c27ddc6dcbdce2694869cea603aa" kindref="member">XSECURE_API_AES_OP_INIT</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6febb16fb9387879f8ffb7c7a51e7064" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6febb16fb9387879f8ffb7c7a51e7064" kindref="member">XSECURE_API_AES_UPDATE_AAD</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad8f88bc04c0bf662cf12324269d81ff2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad8f88bc04c0bf662cf12324269d81ff2" kindref="member">XSECURE_API_AES_ENCRYPT_UPDATE</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca725ee7839a0af61500722276cdf5fe65" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca725ee7839a0af61500722276cdf5fe65" kindref="member">XSECURE_API_AES_ENCRYPT_FINAL</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca45d225b8053c332f20fbdb468b21e436" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca45d225b8053c332f20fbdb468b21e436" kindref="member">XSECURE_API_AES_DECRYPT_UPDATE</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18c3a8922609fb6afceea6a068f2baf2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18c3a8922609fb6afceea6a068f2baf2" kindref="member">XSECURE_API_AES_DECRYPT_FINAL</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca16f54fa4047812544017288d499c2ddb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca16f54fa4047812544017288d499c2ddb" kindref="member">XSECURE_API_AES_KEY_ZERO</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab8155ff5779538f3fa2f7b8b2c3c251c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab8155ff5779538f3fa2f7b8b2c3c251c" kindref="member">XSECURE_API_AES_WRITE_KEY</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8e1f5af6efb89d6bd03e40a68960158e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8e1f5af6efb89d6bd03e40a68960158e" kindref="member">XSECURE_API_AES_LOCK_USER_KEY</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad5d672c120603105e990a4a321938cb1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad5d672c120603105e990a4a321938cb1" kindref="member">XSECURE_API_AES_KEK_DECRYPT</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="70" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acadc717b63c9b0d4b8f7b3a54d932435de" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acadc717b63c9b0d4b8f7b3a54d932435de" kindref="member">XSECURE_API_AES_SET_DPA_CM</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="71" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a" kindref="member">XSECURE_API_KAT</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="72" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3" kindref="member">XSECURE_API_TRNG_GENERATE</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaffa8a13644e65d5e7776e9198365c5cd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaffa8a13644e65d5e7776e9198365c5cd" kindref="member">XSECURE_API_AES_PERFORM_OPERATION</ref><sp/>=<sp/>23U,<sp/></highlight></codeline>
+<codeline lineno="75" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab281f47d0b6c949e695c0173ff9d0dc7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab281f47d0b6c949e695c0173ff9d0dc7" kindref="member">XSECURE_API_GEN_SHARED_SECRET</ref><sp/>=<sp/>33U,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6587bb0b0a30f19f162af828a11338c3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6587bb0b0a30f19f162af828a11338c3" kindref="member">XSECURE_API_ELLIPTIC_PRIVATE_KEY_GEN</ref><sp/>=<sp/>43U,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77" refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18eba90f086d185554c0320c951cb660" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18eba90f086d185554c0320c951cb660" kindref="member">XSECURE_API_MAX</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="78"><highlight class="normal">}<sp/><ref refid="group__xsecure__common__apis_1ga48921cbba3a5713caf7d975bedbe36ac" kindref="member">XSecure_ApiId</ref>;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81" refid="group__xsecure__common__apis_1ga37319402ed20263002a96ca04d74394e" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="82" refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eac036db8b4c037ab3955b93d62513fb6b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eac036db8b4c037ab3955b93d62513fb6b" kindref="member">XSECURE_API_AES_DECRYPT_KAT</ref><sp/>=<sp/>0U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83" refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea2f5dbd303625fc2c0ef8b295c9b3b992" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea2f5dbd303625fc2c0ef8b295c9b3b992" kindref="member">XSECURE_API_AES_DECRYPT_CM_KAT</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84" refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ead4e0f42ca445468c1534a1e2a23a3099" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ead4e0f42ca445468c1534a1e2a23a3099" kindref="member">XSECURE_API_RSA_PUB_ENC_KAT</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="85" refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea743c67d281e7028a0a68c3d988db9801" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea743c67d281e7028a0a68c3d988db9801" kindref="member">XSECURE_API_ELLIPTIC_SIGN_VERIFY_KAT</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86" refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eaa93a792a36e46e604483c25f4fbc877e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eaa93a792a36e46e604483c25f4fbc877e" kindref="member">XSECURE_API_SHA3_KAT</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87" refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eab33a5806407cf829f203f5fb0af1a806" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eab33a5806407cf829f203f5fb0af1a806" kindref="member">XSECURE_API_AES_ENCRYPT_KAT</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88" refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea7157637ce5e02761c76b740352140f97" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea7157637ce5e02761c76b740352140f97" kindref="member">XSECURE_API_RSA_PRIVATE_DEC_KAT</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="89" refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea0b59fb6da09265ead7ce0c53fed06d95" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394ea0b59fb6da09265ead7ce0c53fed06d95" kindref="member">XSECURE_API_ELLIPTIC_SIGN_GEN_KAT</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90" refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eab2a35ee2e4ab05e7234c2bdc76fc37f6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1gga37319402ed20263002a96ca04d74394eab2a35ee2e4ab05e7234c2bdc76fc37f6" kindref="member">XSECURE_API_TRNG_KAT</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="normal">}<sp/><ref refid="group__xsecure__common__apis_1ga37319402ed20263002a96ca04d74394e" kindref="member">XSecure_KatId</ref>;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XSECURE_PLAT_DEFS_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2vp/xsecure_plat_defs.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___auth_param" kind="struct" prot="public">
+    <compoundname>XSecure_AuthParam</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___auth_param_1a82a8afeebb1fca496c439a794a145e3f" prot="public" static="no" mutable="no">
+        <type>XCsuDma *</type>
+        <definition>XCsuDma* XSecure_AuthParam::CsuDmaInstPtr</definition>
+        <argsstring></argsstring>
+        <name>CsuDmaInstPtr</name>
+        <briefdescription>
+<para>CSUDMA instance pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.c" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.c" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___auth_param_1af3f8776678531ff482dc43adc76f8524" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XSecure_AuthParam::Data</definition>
+        <argsstring></argsstring>
+        <name>Data</name>
+        <briefdescription>
+<para>Data pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.c" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.c" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___auth_param_1a319c3e188a29f5e211290ffd9adeaa14" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_AuthParam::Size</definition>
+        <argsstring></argsstring>
+        <name>Size</name>
+        <briefdescription>
+<para>Size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.c" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.c" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___auth_param_1aa7ffb50a7cb20fad873fcea5c392df97" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XSecure_AuthParam::AuthCertPtr</definition>
+        <argsstring></argsstring>
+        <name>AuthCertPtr</name>
+        <briefdescription>
+<para>Authentication certificate pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.c" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.c" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___auth_param_1acea59b80b96ff5b43104cdc257f77ad5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_AuthParam::SignatureOffset</definition>
+        <argsstring></argsstring>
+        <name>SignatureOffset</name>
+        <briefdescription>
+<para>Signature offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.c" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.c" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___auth_param_1a166ecd4199d9ea8ae8bb3a598f692200" prot="public" static="no" mutable="no">
+        <type>XSecure_Sha3PadType</type>
+        <definition>XSecure_Sha3PadType XSecure_AuthParam::PaddingType</definition>
+        <argsstring></argsstring>
+        <name>PaddingType</name>
+        <briefdescription>
+<para>SHA3 padding type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.c" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.c" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___auth_param_1a88724f494bc70885ae453aa9edf8f7cf" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_AuthParam::AuthIncludingCert</definition>
+        <argsstring></argsstring>
+        <name>AuthIncludingCert</name>
+        <briefdescription>
+<para>Authentication including certificate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.c" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.c" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.c" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.c" bodystart="133" bodyend="141"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___auth_param_1aa7ffb50a7cb20fad873fcea5c392df97" prot="public" virt="non-virtual"><scope>XSecure_AuthParam</scope><name>AuthCertPtr</name></member>
+      <member refid="struct_x_secure___auth_param_1a88724f494bc70885ae453aa9edf8f7cf" prot="public" virt="non-virtual"><scope>XSecure_AuthParam</scope><name>AuthIncludingCert</name></member>
+      <member refid="struct_x_secure___auth_param_1a82a8afeebb1fca496c439a794a145e3f" prot="public" virt="non-virtual"><scope>XSecure_AuthParam</scope><name>CsuDmaInstPtr</name></member>
+      <member refid="struct_x_secure___auth_param_1af3f8776678531ff482dc43adc76f8524" prot="public" virt="non-virtual"><scope>XSecure_AuthParam</scope><name>Data</name></member>
+      <member refid="struct_x_secure___auth_param_1a166ecd4199d9ea8ae8bb3a598f692200" prot="public" virt="non-virtual"><scope>XSecure_AuthParam</scope><name>PaddingType</name></member>
+      <member refid="struct_x_secure___auth_param_1acea59b80b96ff5b43104cdc257f77ad5" prot="public" virt="non-virtual"><scope>XSecure_AuthParam</scope><name>SignatureOffset</name></member>
+      <member refid="struct_x_secure___auth_param_1a319c3e188a29f5e211290ffd9adeaa14" prot="public" virt="non-virtual"><scope>XSecure_AuthParam</scope><name>Size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

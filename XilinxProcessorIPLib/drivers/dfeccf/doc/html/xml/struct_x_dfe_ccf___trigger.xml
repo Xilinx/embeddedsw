@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_ccf___trigger" kind="struct" prot="public">
+    <compoundname>XDfeCcf_Trigger</compoundname>
+    <includes local="no">xdfeccf.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_ccf___trigger_1ad035ee76a341023726114c3487516656" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_Trigger::TriggerEnable</definition>
+        <argsstring></argsstring>
+        <name>TriggerEnable</name>
+        <briefdescription>
+<para>[0,1], Enable Trigger: </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>0 = DISABLED: Trigger Pulse and State outputs are disabled.</para></listitem><listitem><para>1 = ENABLED: Trigger Pulse and State outputs are enabled and follow the settings described below. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="207" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1gab972682f29380a36912ecb49a929f6d0" compoundref="xdfeccf_8c" startline="1879" endline="1959">XDfeCcf_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeccf_1ga7b3d2fde4403c86dc13478fadb4665ab" compoundref="xdfeccf_8c" startline="1970" endline="2076">XDfeCcf_SetTriggersCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___trigger_1ad3425932d5c5d5eeed83626352cff051" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_Trigger::Mode</definition>
+        <argsstring></argsstring>
+        <name>Mode</name>
+        <briefdescription>
+<para>[0-3], Specify Trigger Mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>In TUSER_Single_Shot mode as soon as the TUSER_Edge_level condition is met the State output will be driven to the value specified in STATE_OUTPUT. The Pulse output will pulse high at the same time. No further change will occur until the trigger register is re-written. In TUSER Continuous mode each time a TUSER_Edge_level condition is met the State output will be driven to the value specified in STATE_OUTPUT This will happen continuously until the trigger register is re-written. The pulse output is disabled in Continuous mode:<itemizedlist>
+<listitem><para>0 = IMMEDIATE: Applies the value of STATE_OUTPUT immediatetly the register is written.</para></listitem><listitem><para>1 = TUSER_SINGLE_SHOT: Applies the value of STATE_OUTPUT once when the TUSER_EDGE_LEVEL condition is satisfied.</para></listitem><listitem><para>2 = TUSER_CONTINUOUS: Applies the value of STATE_OUTPUT continually when TUSER_EDGE_LEVEL condition is satisfied.</para></listitem><listitem><para>3 = RESERVED: Reserved - will default to 0 behaviour. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="211" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1gab972682f29380a36912ecb49a929f6d0" compoundref="xdfeccf_8c" startline="1879" endline="1959">XDfeCcf_GetTriggersCfg</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+        <referencedby refid="group__dfeccf_1ga7b3d2fde4403c86dc13478fadb4665ab" compoundref="xdfeccf_8c" startline="1970" endline="2076">XDfeCcf_SetTriggersCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___trigger_1af705f9aaa7971ea54ebccba554007dce" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_Trigger::TuserEdgeLevel</definition>
+        <argsstring></argsstring>
+        <name>TuserEdgeLevel</name>
+        <briefdescription>
+<para><verbatim>             [0-3], Specify either Edge or Level of the TUSER
+</verbatim> input as the source condition of the trigger. </para>        </briefdescription>
+        <detaileddescription>
+<para>Difference between Level and Edge is Level will generate a trigger immediately the TUSER level is detected. Edge will ensure a TUSER transition has come first:<itemizedlist>
+<listitem><para>0 = LOW: Trigger occurs immediately after a low-level is seen on TUSER provided tvalid is high.</para></listitem><listitem><para>1 = HIGH: Trigger occurs immediately after a high-level is seen on TUSER provided tvalid is high.</para></listitem><listitem><para>2 = FALLING: Trigger occurs immediately after a high to low transition on TUSER provided tvalid is high.</para></listitem><listitem><para>3 = RISING: Trigger occurs immediately after a low to high transition on TUSER provided tvalid is high. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="227" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1gab972682f29380a36912ecb49a929f6d0" compoundref="xdfeccf_8c" startline="1879" endline="1959">XDfeCcf_GetTriggersCfg</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+        <referencedby refid="group__dfeccf_1ga7b3d2fde4403c86dc13478fadb4665ab" compoundref="xdfeccf_8c" startline="1970" endline="2076">XDfeCcf_SetTriggersCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___trigger_1a5b5d8daad748d41b77912257f95e57e5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_Trigger::StateOutput</definition>
+        <argsstring></argsstring>
+        <name>StateOutput</name>
+        <briefdescription>
+<para>[0,1], Specify the State output value: </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>0 = DISABLED: Place the State output into the Disabled state.</para></listitem><listitem><para>1 = ENABLED: Place the State output into the Enabled state. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="239" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1gab972682f29380a36912ecb49a929f6d0" compoundref="xdfeccf_8c" startline="1879" endline="1959">XDfeCcf_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeccf_1ga7b3d2fde4403c86dc13478fadb4665ab" compoundref="xdfeccf_8c" startline="1970" endline="2076">XDfeCcf_SetTriggersCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___trigger_1a14a3f0a4e6da803d48d252e6720d352f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_Trigger::TUSERBit</definition>
+        <argsstring></argsstring>
+        <name>TUSERBit</name>
+        <briefdescription>
+<para><verbatim>       [0-255], Specify which DIN TUSER bit to use as the source
+</verbatim> for the trigger when MODE = 1 or 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="242" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1gab972682f29380a36912ecb49a929f6d0" compoundref="xdfeccf_8c" startline="1879" endline="1959">XDfeCcf_GetTriggersCfg</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+        <referencedby refid="group__dfeccf_1ga7b3d2fde4403c86dc13478fadb4665ab" compoundref="xdfeccf_8c" startline="1970" endline="2076">XDfeCcf_SetTriggersCfg</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Trigger configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="206" bodyend="244"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_ccf___trigger_1ad3425932d5c5d5eeed83626352cff051" prot="public" virt="non-virtual"><scope>XDfeCcf_Trigger</scope><name>Mode</name></member>
+      <member refid="struct_x_dfe_ccf___trigger_1a5b5d8daad748d41b77912257f95e57e5" prot="public" virt="non-virtual"><scope>XDfeCcf_Trigger</scope><name>StateOutput</name></member>
+      <member refid="struct_x_dfe_ccf___trigger_1ad035ee76a341023726114c3487516656" prot="public" virt="non-virtual"><scope>XDfeCcf_Trigger</scope><name>TriggerEnable</name></member>
+      <member refid="struct_x_dfe_ccf___trigger_1a14a3f0a4e6da803d48d252e6720d352f" prot="public" virt="non-virtual"><scope>XDfeCcf_Trigger</scope><name>TUSERBit</name></member>
+      <member refid="struct_x_dfe_ccf___trigger_1af705f9aaa7971ea54ebccba554007dce" prot="public" virt="non-virtual"><scope>XDfeCcf_Trigger</scope><name>TuserEdgeLevel</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

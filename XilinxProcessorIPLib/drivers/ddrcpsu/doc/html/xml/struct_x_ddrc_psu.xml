@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ddrc_psu" kind="struct" prot="public">
+    <compoundname>XDdrcPsu</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ddrc_psu_1a68152052d97d1bb3bdd27e4146d8bebd" prot="public" static="no" mutable="no">
+        <type>XDdrcpsu_Config</type>
+        <definition>XDdrcpsu_Config XDdrcPsu::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Configuration structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ddrc_psu_1ac52e5bf675309ebf03b2c44ff8a3fe80" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDdrcPsu::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ddrcpsu/src/xddrcpsu.h" bodystart="74" bodyend="77"/>
+    <listofallmembers>
+      <member refid="struct_x_ddrc_psu_1a68152052d97d1bb3bdd27e4146d8bebd" prot="public" virt="non-virtual"><scope>XDdrcPsu</scope><name>Config</name></member>
+      <member refid="struct_x_ddrc_psu_1ac52e5bf675309ebf03b2c44ff8a3fe80" prot="public" virt="non-virtual"><scope>XDdrcPsu</scope><name>IsReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

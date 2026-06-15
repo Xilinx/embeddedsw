@@ -1,0 +1,1249 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="cam__device__wdr__api_8h" kind="file">
+    <compoundname>cam_device_wdr_api.h</compoundname>
+    <includes refid="cam__device__common_8h" local="yes">cam_device_common.h</includes>
+    <includedby refid="cam__device__module__api_8h" local="yes">cam_device_module_api.h</includedby>
+    <includedby refid="vvbench__wdr__api_8h" local="yes">vvbench_wdr_api.h</includedby>
+    <incdepgraph>
+      <node id="4788">
+        <label>stdbool.h</label>
+      </node>
+      <node id="4782">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="4789">
+        <label>stdint.h</label>
+      </node>
+      <node id="4779">
+        <label>stdlib.h</label>
+      </node>
+      <node id="4786">
+        <label>sensor_cmd.h</label>
+        <childnode refid="4787" relation="include">
+        </childnode>
+        <childnode refid="4782" relation="include">
+        </childnode>
+      </node>
+      <node id="4781">
+        <label>stddef.h</label>
+      </node>
+      <node id="4774">
+        <label>cam_device_wdr_api.h</label>
+        <link refid="cam_device_wdr_api.h"/>
+        <childnode refid="4775" relation="include">
+        </childnode>
+      </node>
+      <node id="4780">
+        <label>limits.h</label>
+      </node>
+      <node id="4775">
+        <label>cam_device_common.h</label>
+        <childnode refid="4776" relation="include">
+        </childnode>
+        <childnode refid="4782" relation="include">
+        </childnode>
+        <childnode refid="4783" relation="include">
+        </childnode>
+        <childnode refid="4785" relation="include">
+        </childnode>
+        <childnode refid="4786" relation="include">
+        </childnode>
+      </node>
+      <node id="4785">
+        <label>buf_defs.h</label>
+        <childnode refid="4776" relation="include">
+        </childnode>
+      </node>
+      <node id="4787">
+        <label>mbox_api.h</label>
+        <childnode refid="4788" relation="include">
+        </childnode>
+        <childnode refid="4789" relation="include">
+        </childnode>
+        <childnode refid="4790" relation="include">
+        </childnode>
+      </node>
+      <node id="4784">
+        <label>string.h</label>
+      </node>
+      <node id="4790">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="4788" relation="include">
+        </childnode>
+        <childnode refid="4791" relation="include">
+        </childnode>
+      </node>
+      <node id="4791">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="4776">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="4777" relation="include">
+        </childnode>
+        <childnode refid="4780" relation="include">
+        </childnode>
+        <childnode refid="4781" relation="include">
+        </childnode>
+      </node>
+      <node id="4783">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="4776" relation="include">
+        </childnode>
+        <childnode refid="4784" relation="include">
+        </childnode>
+      </node>
+      <node id="4778">
+        <label>stdio.h</label>
+      </node>
+      <node id="4777">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="4778" relation="include">
+        </childnode>
+        <childnode refid="4779" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4826">
+        <label>cam_device_rgbir_api_v2.c</label>
+      </node>
+      <node id="4824">
+        <label>cam_device_hist64_api.c</label>
+      </node>
+      <node id="4823">
+        <label>cam_device_hist256_api.c</label>
+      </node>
+      <node id="4827">
+        <label>cam_device_tpg_api.c</label>
+      </node>
+      <node id="4793">
+        <label>cam_device_module_api.h</label>
+        <childnode refid="4794" relation="include">
+        </childnode>
+      </node>
+      <node id="4831">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="4795">
+        <label>control.h</label>
+        <childnode refid="4796" relation="include">
+        </childnode>
+      </node>
+      <node id="4821">
+        <label>cam_device_ge_api.c</label>
+      </node>
+      <node id="4829">
+        <label>cam_device_wdr_api_v5_2.c</label>
+      </node>
+      <node id="4807">
+        <label>cam_device_cpd_api.c</label>
+      </node>
+      <node id="4815">
+        <label>cam_device_cnr_api.c</label>
+      </node>
+      <node id="4809">
+        <label>cam_device_dg_api.c</label>
+      </node>
+      <node id="4813">
+        <label>cam_device_af_api.c</label>
+      </node>
+      <node id="4835">
+        <label>submodule_def.h</label>
+        <childnode refid="4836" relation="include">
+        </childnode>
+        <childnode refid="4831" relation="include">
+        </childnode>
+      </node>
+      <node id="4834">
+        <label>vvbench_wdr_api.h</label>
+        <childnode refid="4835" relation="include">
+        </childnode>
+        <childnode refid="4837" relation="include">
+        </childnode>
+      </node>
+      <node id="4805">
+        <label>cam_device_bls_api.c</label>
+      </node>
+      <node id="4801">
+        <label>cam_device_sensor_api.c</label>
+      </node>
+      <node id="4792">
+        <label>cam_device_wdr_api.h</label>
+        <link refid="cam_device_wdr_api.h"/>
+        <childnode refid="4793" relation="include">
+        </childnode>
+        <childnode refid="4834" relation="include">
+        </childnode>
+      </node>
+      <node id="4800">
+        <label>cam_device_buffer_api.c</label>
+      </node>
+      <node id="4836">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="4816">
+        <label>cam_device_hdr_api.c</label>
+      </node>
+      <node id="4808">
+        <label>cam_device_cproc_api.c</label>
+      </node>
+      <node id="4811">
+        <label>cam_device_dpcc_api.c</label>
+      </node>
+      <node id="4814">
+        <label>cam_device_afm_api.c</label>
+      </node>
+      <node id="4798">
+        <label>cam_device.c</label>
+      </node>
+      <node id="4806">
+        <label>cam_device_ccm_api.c</label>
+      </node>
+      <node id="4804">
+        <label>cam_device_awb_api.c</label>
+      </node>
+      <node id="4794">
+        <label>cam_device_app.h</label>
+        <childnode refid="4795" relation="include">
+        </childnode>
+        <childnode refid="4796" relation="include">
+        </childnode>
+        <childnode refid="4797" relation="include">
+        </childnode>
+        <childnode refid="4798" relation="include">
+        </childnode>
+        <childnode refid="4799" relation="include">
+        </childnode>
+        <childnode refid="4800" relation="include">
+        </childnode>
+        <childnode refid="4801" relation="include">
+        </childnode>
+        <childnode refid="4802" relation="include">
+        </childnode>
+        <childnode refid="4803" relation="include">
+        </childnode>
+        <childnode refid="4804" relation="include">
+        </childnode>
+        <childnode refid="4805" relation="include">
+        </childnode>
+        <childnode refid="4806" relation="include">
+        </childnode>
+        <childnode refid="4807" relation="include">
+        </childnode>
+        <childnode refid="4808" relation="include">
+        </childnode>
+        <childnode refid="4809" relation="include">
+        </childnode>
+        <childnode refid="4810" relation="include">
+        </childnode>
+        <childnode refid="4811" relation="include">
+        </childnode>
+        <childnode refid="4812" relation="include">
+        </childnode>
+        <childnode refid="4813" relation="include">
+        </childnode>
+        <childnode refid="4814" relation="include">
+        </childnode>
+        <childnode refid="4815" relation="include">
+        </childnode>
+        <childnode refid="4816" relation="include">
+        </childnode>
+        <childnode refid="4817" relation="include">
+        </childnode>
+        <childnode refid="4818" relation="include">
+        </childnode>
+        <childnode refid="4819" relation="include">
+        </childnode>
+        <childnode refid="4820" relation="include">
+        </childnode>
+        <childnode refid="4821" relation="include">
+        </childnode>
+        <childnode refid="4822" relation="include">
+        </childnode>
+        <childnode refid="4823" relation="include">
+        </childnode>
+        <childnode refid="4824" relation="include">
+        </childnode>
+        <childnode refid="4825" relation="include">
+        </childnode>
+        <childnode refid="4826" relation="include">
+        </childnode>
+        <childnode refid="4827" relation="include">
+        </childnode>
+        <childnode refid="4828" relation="include">
+        </childnode>
+        <childnode refid="4829" relation="include">
+        </childnode>
+        <childnode refid="4830" relation="include">
+        </childnode>
+        <childnode refid="4831" relation="include">
+        </childnode>
+        <childnode refid="4832" relation="include">
+        </childnode>
+      </node>
+      <node id="4796">
+        <label>control.c</label>
+      </node>
+      <node id="4828">
+        <label>cam_device_wb_api.c</label>
+      </node>
+      <node id="4825">
+        <label>cam_device_lsc_api_v3.c</label>
+      </node>
+      <node id="4817">
+        <label>cam_device_ee_api_v2.c</label>
+      </node>
+      <node id="4818">
+        <label>cam_device_exp_api_v2.c</label>
+      </node>
+      <node id="4819">
+        <label>cam_device_fusa_api.c</label>
+      </node>
+      <node id="4830">
+        <label>oba.c</label>
+      </node>
+      <node id="4799">
+        <label>cam_device_api.c</label>
+      </node>
+      <node id="4820">
+        <label>cam_device_gc_api.c</label>
+      </node>
+      <node id="4837">
+        <label>vvbench_wdr_api_v5_2.c</label>
+      </node>
+      <node id="4822">
+        <label>cam_device_gtm_api_v1.c</label>
+      </node>
+      <node id="4797">
+        <label>iba.c</label>
+      </node>
+      <node id="4810">
+        <label>cam_device_dmsc_api_v2.c</label>
+      </node>
+      <node id="4802">
+        <label>cam_device_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="4812">
+        <label>cam_device_3dnr_api.c</label>
+      </node>
+      <node id="4833">
+        <label>xvisp_ss_example.c</label>
+      </node>
+      <node id="4832">
+        <label>xvisp_ss_example.h</label>
+        <childnode refid="4833" relation="include">
+        </childnode>
+      </node>
+      <node id="4803">
+        <label>cam_device_ae_api.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_cam_device_wdr_strength_config__s" prot="public">CamDeviceWdrStrengthConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_ltm_weight_config__s" prot="public">CamDeviceWdrLtmWeightConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_ltm_config__s" prot="public">CamDeviceWdrLtmConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_gtm_weight_config__s" prot="public">CamDeviceWdrGtmWeightConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_gamma_up_config__s" prot="public">CamDeviceWdrGammaUpConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_gtm_config__s" prot="public">CamDeviceWdrGtmConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_degamma_config__s" prot="public">CamDeviceWdrDegammaConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_gain_limitation_config__s" prot="public">CamDeviceWdrGainLimitationConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_defringe_config__s" prot="public">CamDeviceWdrDefringeConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_saturation_adjustment_config__s" prot="public">CamDeviceWdrSaturationAdjustmentConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_halo_color_fading_config__s" prot="public">CamDeviceWdrHaloColorFadingConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_high_light_config__s" prot="public">CamDeviceWdrHighLightConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_damp_config__s" prot="public">CamDeviceWdrDampConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_color_weight_config__s" prot="public">CamDeviceWdrColorWeightConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_auto_config__s" prot="public">CamDeviceWdrAutoConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_manual_config__s" prot="public">CamDeviceWdrManualConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_config__s" prot="public">CamDeviceWdrConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_status__s" prot="public">CamDeviceWdrStatus_s</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group____cam__device__wdr_1gadbdb15510f458be727039b9f7bad05c8" prot="public" static="no">
+        <name>CAMDEV_WDR_LIGHT_THR_LOG_SIZE</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>bin number of light threshold log size </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__wdr_1gad6efca8f5c3898fe90b4e984fc0847ca" prot="public" static="no">
+        <name>CAMDEV_WDR_FLAT_LEVEL_CHANNAL_SIZE</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Bin number of flat level channal size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__wdr_1gadefab54555dd27b5cfac5872545a200f" prot="public" static="no">
+        <name>CAMDEV_WDR_FLAT_LEVEL_INC_SIZE</name>
+        <initializer>17</initializer>
+        <briefdescription>
+<para>Bin number of flat level size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__wdr_1ga44188b23463d4121a4b7a300d863fb26" prot="public" static="no">
+        <name>CAMDEV_WDR_COLOR_WEIGHT_SIZE</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>Bin number of color weight size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__wdr_1ga44470005c97bbaa5b276cc2d6614b4f6" prot="public" static="no">
+        <name>CAMDEV_WDR_RGB_COEF_SIZE</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>Bin number of RGB coefficient size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__wdr_1ga122389a3fbe76256da92c8cc1b94c44b" prot="public" static="no">
+        <name>CAMDEV_WDR_LEVEL_MAX</name>
+        <initializer>20</initializer>
+        <briefdescription>
+<para>MAX WDR LEVEL. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__wdr_1ga126b5dc6687f439ef7ffa54cc1aefdfc" prot="public" static="no">
+        <name>CAMDEV_WDR_GAMMA_UP_BIN</name>
+        <initializer>65 /** &lt;Bin number of gammaUp Curve */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga68700125b01f01fd95d90d9674bc5e21" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_strength_config__s" kindref="compound">CamDeviceWdrStrengthConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrStrengthConfig_s  CamDeviceWdrStrengthConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrStrengthConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR strength configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="64" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga9ece6995663c1f15ead85f8650da41fb" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_ltm_weight_config__s" kindref="compound">CamDeviceWdrLtmWeightConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrLtmWeightConfig_s  CamDeviceWdrLtmWeightConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrLtmWeightConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR LTM weight configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="78" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga36558e2925a43b6b15c82b0c1109fdc6" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_ltm_config__s" kindref="compound">CamDeviceWdrLtmConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrLtmConfig_s  CamDeviceWdrLtmConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrLtmConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR LTM configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="91" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga4d09d2baff333b210741a723d08b0f28" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_gtm_weight_config__s" kindref="compound">CamDeviceWdrGtmWeightConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrGtmWeightConfig_s  CamDeviceWdrGtmWeightConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrGtmWeightConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR GTM configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="101" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga684a2ee3012861a406318504011ab7ef" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_gamma_up_config__s" kindref="compound">CamDeviceWdrGammaUpConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrGammaUpConfig_s  CamDeviceWdrGammaUpConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrGammaUpConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR gammaUp configurations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="112" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga3644a434ed24556df9f91fea0465815d" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_gtm_config__s" kindref="compound">CamDeviceWdrGtmConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrGtmConfig_s  CamDeviceWdrGtmConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrGtmConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR GTM configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="131" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1gade713c80a8aa4f0ec98a2ccf73e3f33a" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_degamma_config__s" kindref="compound">CamDeviceWdrDegammaConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrDegammaConfig_s  CamDeviceWdrDegammaConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrDegammaConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR degamma configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="141" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga7dc1b09add5763581a82d413cd54b269" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_gain_limitation_config__s" kindref="compound">CamDeviceWdrGainLimitationConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrGainLimitationConfig_s  CamDeviceWdrGainLimitationConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrGainLimitationConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR gain limitation configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="152" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga3744b372259314cb8724be7ab7f6267a" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_defringe_config__s" kindref="compound">CamDeviceWdrDefringeConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrDefringeConfig_s  CamDeviceWdrDefringeConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrDefringeConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR defringe configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="163" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga98675e4c7367e2e65df8b2f4a1af3b5d" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_saturation_adjustment_config__s" kindref="compound">CamDeviceWdrSaturationAdjustmentConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrSaturationAdjustmentConfig_s  CamDeviceWdrSaturationAdjustmentConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrSaturationAdjustmentConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR saturation adjustment configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="175" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga250622d4e96d6be3b441fe42630d3d21" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_halo_color_fading_config__s" kindref="compound">CamDeviceWdrHaloColorFadingConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrHaloColorFadingConfig_s  CamDeviceWdrHaloColorFadingConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrHaloColorFadingConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR halo color fading configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="192" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga145e9d2493642c2f68f635e5a7b97696" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_high_light_config__s" kindref="compound">CamDeviceWdrHighLightConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrHighLightConfig_s  CamDeviceWdrHighLightConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrHighLightConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR high light configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="203" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga3fae2926d243b702ef10595acdcce7a0" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_damp_config__s" kindref="compound">CamDeviceWdrDampConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrDampConfig_s  CamDeviceWdrDampConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrDampConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR dump configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="224" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1gad3bc93bc5ee8d921a42f58ca9c0cd6ab" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_color_weight_config__s" kindref="compound">CamDeviceWdrColorWeightConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrColorWeightConfig_s  CamDeviceWdrColorWeightConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrColorWeightConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR color weight configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="236" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga5f226d263276077f3b8405e378a8d36a" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_auto_config__s" kindref="compound">CamDeviceWdrAutoConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrAutoConfig_s CamDeviceWdrAutoConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrAutoConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR auto configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="280" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga6cf97a71e5ba8a3bc23a4cd1b3c9ed64" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_manual_config__s" kindref="compound">CamDeviceWdrManualConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrManualConfig_s CamDeviceWdrManualConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrManualConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR current configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="302" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1gac1bc658680ee779b992be0143be4e60d" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_config__s" kindref="compound">CamDeviceWdrConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrConfig_s CamDeviceWdrConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="313" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga694e2093f16fa7a4337bfeb8d7619b7c" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_status__s" kindref="compound">CamDeviceWdrStatus_s</ref></type>
+        <definition>typedef struct CamDeviceWdrStatus_s CamDeviceWdrStatus_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrStatus_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR status structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="324" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__wdr_1ga52c9991e5b7a48fb0df6d38b5482cc8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWdrSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceWdrConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceWdrSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__wdr_1gac1bc658680ee779b992be0143be4e60d" kindref="member">CamDeviceWdrConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="19" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wdr_1ga667f196bf8c3e4b59958bd73c49ecc0a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWdrGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceWdrConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceWdrGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__wdr_1gac1bc658680ee779b992be0143be4e60d" kindref="member">CamDeviceWdrConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="378" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="62" bodyend="101"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wdr_1ga777c66ead3e321df402fa3e154b72f90" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWdrSetGammaUpConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceWdrGammaUpConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceWdrSetGammaUpConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__wdr_1ga684a2ee3012861a406318504011ab7ef" kindref="member">CamDeviceWdrGammaUpConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="407" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="373" bodyend="410"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wdr_1gacc348a3d8b62abec72c729b322c6594b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWdrGetGammaUpConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceWdrGammaUpConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceWdrGetGammaUpConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__wdr_1ga684a2ee3012861a406318504011ab7ef" kindref="member">CamDeviceWdrGammaUpConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="435" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="414" bodyend="453"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wdr_1gae0264d925dd0034877c5f1581d489224" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWdrGetGammaUpStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceWdrGammaUpConfig_t *pStatus)</argsstring>
+        <name>VsiCamDeviceWdrGetGammaUpStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__wdr_1ga684a2ee3012861a406318504011ab7ef" kindref="member">CamDeviceWdrGammaUpConfig_t</ref> *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="463" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="457" bodyend="496"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wdr_1ga98e7afd6166e74dd933e8f24a64909c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWdrEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceWdrEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="486" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="104" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wdr_1ga8a6836d247f381966172518fe825d9eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWdrDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceWdrDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="508" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="141" bodyend="175"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wdr_1ga5f7f5b9a4acea550b6d23d345d7eba0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWdrHaloColorFadingEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceWdrHaloColorFadingEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="529" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="178" bodyend="212"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wdr_1ga0f4179d183c60b5e91fd9bfa5025737e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWdrHaloColorFadingDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceWdrHaloColorFadingDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="550" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="215" bodyend="249"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wdr_1ga139bef7b1bbc73358f2514dfc0bcd279" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWdrGetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceWdrStatus_t *pStatus)</argsstring>
+        <name>VsiCamDeviceWdrGetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__wdr_1ga694e2093f16fa7a4337bfeb8d7619b7c" kindref="member">CamDeviceWdrStatus_t</ref> *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="577" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="252" bodyend="291"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wdr_1ga540523769fb55c85de80b3f8712cb5c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWdrGetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceWdrGetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="599" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="294" bodyend="333"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wdr_1gaf9ca2901f02a8c1e672463d3d6285416" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWdrReset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceWdrReset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="627" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="336" bodyend="370"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2022<sp/>Vivante<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>CAMDEV_WDR5_API_H</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CAMDEV_WDR5_API_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cam_device_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="46" refid="group____cam__device__wdr_1gadbdb15510f458be727039b9f7bad05c8" refkind="member"><highlight class="preprocessor">#define<sp/>CAMDEV_WDR_LIGHT_THR_LOG_SIZE<sp/>4<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="47" refid="group____cam__device__wdr_1gad6efca8f5c3898fe90b4e984fc0847ca" refkind="member"><highlight class="preprocessor">#define<sp/>CAMDEV_WDR_FLAT_LEVEL_CHANNAL_SIZE<sp/>4<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="48" refid="group____cam__device__wdr_1gadefab54555dd27b5cfac5872545a200f" refkind="member"><highlight class="preprocessor">#define<sp/>CAMDEV_WDR_FLAT_LEVEL_INC_SIZE<sp/>17<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="49" refid="group____cam__device__wdr_1ga44188b23463d4121a4b7a300d863fb26" refkind="member"><highlight class="preprocessor">#define<sp/>CAMDEV_WDR_COLOR_WEIGHT_SIZE<sp/>3<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50" refid="group____cam__device__wdr_1ga44470005c97bbaa5b276cc2d6614b4f6" refkind="member"><highlight class="preprocessor">#define<sp/>CAMDEV_WDR_RGB_COEF_SIZE<sp/>3<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="51" refid="group____cam__device__wdr_1ga122389a3fbe76256da92c8cc1b94c44b" refkind="member"><highlight class="preprocessor">#define<sp/>CAMDEV_WDR_LEVEL_MAX<sp/>20<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor">#define<sp/>CAMDEV_WDR_GAMMA_UP_BIN<sp/>65<sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="comment">/******************************************************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="59" refid="struct_cam_device_wdr_strength_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_wdr_strength_config__s" kindref="compound">CamDeviceWdrStrengthConfig_s</ref></highlight></codeline>
+<codeline lineno="60"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="61" refid="struct_cam_device_wdr_strength_config__s_1a4255df1dac0e40493ab4a1b6d4214d80" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_strength_config__s_1a4255df1dac0e40493ab4a1b6d4214d80" kindref="member">strength</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="struct_cam_device_wdr_strength_config__s_1a34f01c73404fe20ab29fd5abe1b28ab2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_strength_config__s_1a34f01c73404fe20ab29fd5abe1b28ab2" kindref="member">highStrength</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63" refid="struct_cam_device_wdr_strength_config__s_1a64e36729d09708fdce86266de809b652" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_wdr_strength_config__s_1a64e36729d09708fdce86266de809b652" kindref="member">lowStrength</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="normal">}<sp/><ref refid="group____cam__device__wdr_1ga68700125b01f01fd95d90d9674bc5e21" kindref="member">CamDeviceWdrStrengthConfig_t</ref>;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="71" refid="struct_cam_device_wdr_ltm_weight_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_wdr_ltm_weight_config__s" kindref="compound">CamDeviceWdrLtmWeightConfig_s</ref></highlight></codeline>
+<codeline lineno="72"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="73" refid="struct_cam_device_wdr_ltm_weight_config__s_1af47cb7482de82c7b24317cb9711fa806" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="struct_cam_device_wdr_ltm_weight_config__s_1af47cb7482de82c7b24317cb9711fa806" kindref="member">contrast</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="74" refid="struct_cam_device_wdr_ltm_weight_config__s_1add6f4a9d168402effed7f0202fa5960a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><ref refid="struct_cam_device_wdr_ltm_weight_config__s_1add6f4a9d168402effed7f0202fa5960a" kindref="member">entropyEnable</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75" refid="struct_cam_device_wdr_ltm_weight_config__s_1a9e50bda863677e9352217848f1fecbf7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_wdr_ltm_weight_config__s_1a9e50bda863677e9352217848f1fecbf7" kindref="member">entropyBase</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76" refid="struct_cam_device_wdr_ltm_weight_config__s_1a8d15e6b78438de4b6683f876d845d939" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_wdr_ltm_weight_config__s_1a8d15e6b78438de4b6683f876d845d939" kindref="member">entropySlope</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77" refid="struct_cam_device_wdr_ltm_weight_config__s_1a941759030f74f5bcce1f76a74a769555" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_wdr_ltm_weight_config__s_1a941759030f74f5bcce1f76a74a769555" kindref="member">wdrLumaThr</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="78"><highlight class="normal">}<sp/><ref refid="group____cam__device__wdr_1ga9ece6995663c1f15ead85f8650da41fb" kindref="member">CamDeviceWdrLtmWeightConfig_t</ref>;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="85" refid="struct_cam_device_wdr_ltm_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_wdr_ltm_config__s" kindref="compound">CamDeviceWdrLtmConfig_s</ref></highlight></codeline>
+<codeline lineno="86"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="87" refid="struct_cam_device_wdr_ltm_config__s_1a0334c6e9b97b376a2c55fe70d3e9d4c6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><ref refid="struct_cam_device_wdr_ltm_config__s_1a0334c6e9b97b376a2c55fe70d3e9d4c6" kindref="member">flatMode</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88" refid="struct_cam_device_wdr_ltm_config__s_1a0a111579bb734699134185b24aa02443" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_ltm_config__s_1a0a111579bb734699134185b24aa02443" kindref="member">flatLevel</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="89" refid="struct_cam_device_wdr_ltm_config__s_1a191d786518b3f97e2fb36f2fb97e24eb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_ltm_config__s_1a191d786518b3f97e2fb36f2fb97e24eb" kindref="member">flatLevelInc</ref>[<ref refid="group____cam__device__wdr_1gad6efca8f5c3898fe90b4e984fc0847ca" kindref="member">CAMDEV_WDR_FLAT_LEVEL_CHANNAL_SIZE</ref>][<ref refid="group____cam__device__wdr_1gadefab54555dd27b5cfac5872545a200f" kindref="member">CAMDEV_WDR_FLAT_LEVEL_INC_SIZE</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90" refid="struct_cam_device_wdr_ltm_config__s_1adf8a6ee6559399c29d172cfb7fd4c260" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_ltm_config__s_1adf8a6ee6559399c29d172cfb7fd4c260" kindref="member">darkAttentionLevel</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="normal">}<sp/><ref refid="group____cam__device__wdr_1ga36558e2925a43b6b15c82b0c1109fdc6" kindref="member">CamDeviceWdrLtmConfig_t</ref>;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="98" refid="struct_cam_device_wdr_gtm_weight_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_wdr_gtm_weight_config__s" kindref="compound">CamDeviceWdrGtmWeightConfig_s</ref></highlight></codeline>
+<codeline lineno="99"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="100" refid="struct_cam_device_wdr_gtm_weight_config__s_1a0ebe7c12f2c3cf2ba58e440cd7faa22c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_wdr_gtm_weight_config__s_1a0ebe7c12f2c3cf2ba58e440cd7faa22c" kindref="member">fixedWeight</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="101"><highlight class="normal">}<sp/><ref refid="group____cam__device__wdr_1ga4d09d2baff333b210741a723d08b0f28" kindref="member">CamDeviceWdrGtmWeightConfig_t</ref>;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="108" refid="struct_cam_device_wdr_gamma_up_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_wdr_gamma_up_config__s" kindref="compound">CamDeviceWdrGammaUpConfig_s</ref></highlight></codeline>
+<codeline lineno="109"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>gammaUpCurveX[CAMDEV_WDR_GAMMA_UP_BIN];</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>gammaUpCurveY[CAMDEV_WDR_GAMMA_UP_BIN];</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">}<sp/><ref refid="group____cam__device__wdr_1ga684a2ee3012861a406318504011ab7ef" kindref="member">CamDeviceWdrGammaUpConfig_t</ref>;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="119" refid="struct_cam_device_wdr_gtm_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_wdr_gtm_config__s" kindref="compound">CamDeviceWdrGtmConfig_s</ref></highlight></codeline>
+<codeline lineno="120"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="121" refid="struct_cam_device_wdr_gtm_config__s_1ab546135e2cb9863f47a069fc883fc27f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_gtm_config__s_1ab546135e2cb9863f47a069fc883fc27f" kindref="member">wdrCurveSelect</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="122" refid="struct_cam_device_wdr_gtm_config__s_1a21748494aefb48758ce4c518e8c2d972" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_gtm_config__s_1a21748494aefb48758ce4c518e8c2d972" kindref="member">logWeight</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="123" refid="struct_cam_device_wdr_gtm_config__s_1ae0a74380a9ff88f4cce531a7e7f3b9e3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_gtm_config__s_1ae0a74380a9ff88f4cce531a7e7f3b9e3" kindref="member">logAnchorXLog</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="124" refid="struct_cam_device_wdr_gtm_config__s_1a95e829641838083dc86988ce24747309" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_wdr_gtm_config__s_1a95e829641838083dc86988ce24747309" kindref="member">logAnchorSlope</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="125" refid="struct_cam_device_wdr_gtm_config__s_1ac64308f3cbc3c277993c0b3ec3e1ef6e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_gtm_config__s_1ac64308f3cbc3c277993c0b3ec3e1ef6e" kindref="member">ratioActual</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="126" refid="struct_cam_device_wdr_gtm_config__s_1aa69e57958fd11b62804d2a173e7a5152" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_gtm_config__s_1aa69e57958fd11b62804d2a173e7a5152" kindref="member">curve2Thr</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="127" refid="struct_cam_device_wdr_gtm_config__s_1ac74dd723fdda1eaa445b4d43badbe36c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_gtm_config__s_1ac74dd723fdda1eaa445b4d43badbe36c" kindref="member">curve2Losat</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="128" refid="struct_cam_device_wdr_gtm_config__s_1ae4d63afb7a23e35bfbc22b95e6201044" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_gtm_config__s_1ae4d63afb7a23e35bfbc22b95e6201044" kindref="member">curve2Lofactor</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="129" refid="struct_cam_device_wdr_gtm_config__s_1ae03b4a0b9632df3482dd79c93ca29368" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_gtm_config__s_1ae03b4a0b9632df3482dd79c93ca29368" kindref="member">curve2Hifactor</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="130" refid="struct_cam_device_wdr_gtm_config__s_1a790c005c601d47f08fd5c5a050caba1a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_gtm_config__s_1a790c005c601d47f08fd5c5a050caba1a" kindref="member">flatLevelGlobal</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="131"><highlight class="normal">}<sp/><ref refid="group____cam__device__wdr_1ga3644a434ed24556df9f91fea0465815d" kindref="member">CamDeviceWdrGtmConfig_t</ref>;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="138" refid="struct_cam_device_wdr_degamma_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_wdr_degamma_config__s" kindref="compound">CamDeviceWdrDegammaConfig_s</ref></highlight></codeline>
+<codeline lineno="139"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="140" refid="struct_cam_device_wdr_degamma_config__s_1a2193488d212f8cb4b30cf608aac40311" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_degamma_config__s_1a2193488d212f8cb4b30cf608aac40311" kindref="member">degamma</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="141"><highlight class="normal">}<sp/><ref refid="group____cam__device__wdr_1gade713c80a8aa4f0ec98a2ccf73e3f33a" kindref="member">CamDeviceWdrDegammaConfig_t</ref>;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="148" refid="struct_cam_device_wdr_gain_limitation_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_wdr_gain_limitation_config__s" kindref="compound">CamDeviceWdrGainLimitationConfig_s</ref></highlight></codeline>
+<codeline lineno="149"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="150" refid="struct_cam_device_wdr_gain_limitation_config__s_1a23c2945fa02533d21b31e527d66e748c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float64_t<sp/><ref refid="struct_cam_device_wdr_gain_limitation_config__s_1a23c2945fa02533d21b31e527d66e748c" kindref="member">maxGain</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="151" refid="struct_cam_device_wdr_gain_limitation_config__s_1a395a9e8b6445b54ecb7c06a206085633" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float64_t<sp/><ref refid="struct_cam_device_wdr_gain_limitation_config__s_1a395a9e8b6445b54ecb7c06a206085633" kindref="member">minGain</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="152"><highlight class="normal">}<sp/><ref refid="group____cam__device__wdr_1ga7dc1b09add5763581a82d413cd54b269" kindref="member">CamDeviceWdrGainLimitationConfig_t</ref>;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="159" refid="struct_cam_device_wdr_defringe_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_wdr_defringe_config__s" kindref="compound">CamDeviceWdrDefringeConfig_s</ref></highlight></codeline>
+<codeline lineno="160"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="161" refid="struct_cam_device_wdr_defringe_config__s_1a5786e0e2f2fd74302a794b3a4df3a8cd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_defringe_config__s_1a5786e0e2f2fd74302a794b3a4df3a8cd" kindref="member">diffHigh</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="162" refid="struct_cam_device_wdr_defringe_config__s_1a71121c10728c30c159dd122f9817eaff" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_defringe_config__s_1a71121c10728c30c159dd122f9817eaff" kindref="member">diffLow</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="163"><highlight class="normal">}<sp/><ref refid="group____cam__device__wdr_1ga3744b372259314cb8724be7ab7f6267a" kindref="member">CamDeviceWdrDefringeConfig_t</ref>;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="170" refid="struct_cam_device_wdr_saturation_adjustment_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_wdr_saturation_adjustment_config__s" kindref="compound">CamDeviceWdrSaturationAdjustmentConfig_s</ref></highlight></codeline>
+<codeline lineno="171"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="172" refid="struct_cam_device_wdr_saturation_adjustment_config__s_1a93ae47e6ca9f04538fffa0c471587121" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_saturation_adjustment_config__s_1a93ae47e6ca9f04538fffa0c471587121" kindref="member">satRange</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="173" refid="struct_cam_device_wdr_saturation_adjustment_config__s_1a93890ad4d77f07e3b5825fab64263fc5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_wdr_saturation_adjustment_config__s_1a93890ad4d77f07e3b5825fab64263fc5" kindref="member">satThrGainDown</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="174" refid="struct_cam_device_wdr_saturation_adjustment_config__s_1a8b600e8cf4aa3040ac59cce2d49cc1fb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_wdr_saturation_adjustment_config__s_1a8b600e8cf4aa3040ac59cce2d49cc1fb" kindref="member">satThrGainUp</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="175"><highlight class="normal">}<sp/><ref refid="group____cam__device__wdr_1ga98675e4c7367e2e65df8b2f4a1af3b5d" kindref="member">CamDeviceWdrSaturationAdjustmentConfig_t</ref>;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="182" refid="struct_cam_device_wdr_halo_color_fading_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_wdr_halo_color_fading_config__s" kindref="compound">CamDeviceWdrHaloColorFadingConfig_s</ref></highlight></codeline>
+<codeline lineno="183"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="184" refid="struct_cam_device_wdr_halo_color_fading_config__s_1af17665012d1bc0c99c48ae7751cf376e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_halo_color_fading_config__s_1af17665012d1bc0c99c48ae7751cf376e" kindref="member">lightSatLothr</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="185" refid="struct_cam_device_wdr_halo_color_fading_config__s_1ac9bebbd72264c63cef25dfa26a05adfd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_halo_color_fading_config__s_1ac9bebbd72264c63cef25dfa26a05adfd" kindref="member">lightSatHithr</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="186" refid="struct_cam_device_wdr_halo_color_fading_config__s_1af454c184e0600f905caa52d9a0e38fff" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_halo_color_fading_config__s_1af454c184e0600f905caa52d9a0e38fff" kindref="member">lightRedThrLog</ref>[<ref refid="group____cam__device__wdr_1gadbdb15510f458be727039b9f7bad05c8" kindref="member">CAMDEV_WDR_LIGHT_THR_LOG_SIZE</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="187" refid="struct_cam_device_wdr_halo_color_fading_config__s_1a766b8b41919b1752c8654436abdf0801" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_halo_color_fading_config__s_1a766b8b41919b1752c8654436abdf0801" kindref="member">lightGreenThrLog</ref>[<ref refid="group____cam__device__wdr_1gadbdb15510f458be727039b9f7bad05c8" kindref="member">CAMDEV_WDR_LIGHT_THR_LOG_SIZE</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="188" refid="struct_cam_device_wdr_halo_color_fading_config__s_1ad1bdf7df14f266af5ca5f34854ac8337" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_halo_color_fading_config__s_1ad1bdf7df14f266af5ca5f34854ac8337" kindref="member">lightBlueThrLog</ref>[<ref refid="group____cam__device__wdr_1gadbdb15510f458be727039b9f7bad05c8" kindref="member">CAMDEV_WDR_LIGHT_THR_LOG_SIZE</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="189" refid="struct_cam_device_wdr_halo_color_fading_config__s_1a25033e0632f8bc3848af5baccd8e9241" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_halo_color_fading_config__s_1a25033e0632f8bc3848af5baccd8e9241" kindref="member">lightYellowThrLog</ref>[<ref refid="group____cam__device__wdr_1gadbdb15510f458be727039b9f7bad05c8" kindref="member">CAMDEV_WDR_LIGHT_THR_LOG_SIZE</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="190" refid="struct_cam_device_wdr_halo_color_fading_config__s_1a75ee9ec84128deb88d9cdc002eb9e997" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_halo_color_fading_config__s_1a75ee9ec84128deb88d9cdc002eb9e997" kindref="member">lightCyanThrLog</ref>[<ref refid="group____cam__device__wdr_1gadbdb15510f458be727039b9f7bad05c8" kindref="member">CAMDEV_WDR_LIGHT_THR_LOG_SIZE</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="191" refid="struct_cam_device_wdr_halo_color_fading_config__s_1ad7e51bcdf13d43651901ffd2579d59ff" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_halo_color_fading_config__s_1ad7e51bcdf13d43651901ffd2579d59ff" kindref="member">lightMagentaThrLog</ref>[<ref refid="group____cam__device__wdr_1gadbdb15510f458be727039b9f7bad05c8" kindref="member">CAMDEV_WDR_LIGHT_THR_LOG_SIZE</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="192"><highlight class="normal">}<sp/><ref refid="group____cam__device__wdr_1ga250622d4e96d6be3b441fe42630d3d21" kindref="member">CamDeviceWdrHaloColorFadingConfig_t</ref>;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="199" refid="struct_cam_device_wdr_high_light_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_wdr_high_light_config__s" kindref="compound">CamDeviceWdrHighLightConfig_s</ref></highlight></codeline>
+<codeline lineno="200"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="201" refid="struct_cam_device_wdr_high_light_config__s_1ab5d8a84ebb2f2003c42960f825a87dc5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_high_light_config__s_1ab5d8a84ebb2f2003c42960f825a87dc5" kindref="member">hlcBaseLog</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="202" refid="struct_cam_device_wdr_high_light_config__s_1a84479a478cdbdaa9f96182287bb232fa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_high_light_config__s_1a84479a478cdbdaa9f96182287bb232fa" kindref="member">hlcSlope</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="203"><highlight class="normal">}<sp/><ref refid="group____cam__device__wdr_1ga145e9d2493642c2f68f635e5a7b97696" kindref="member">CamDeviceWdrHighLightConfig_t</ref>;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="210" refid="struct_cam_device_wdr_damp_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_wdr_damp_config__s" kindref="compound">CamDeviceWdrDampConfig_s</ref></highlight></codeline>
+<codeline lineno="211"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="212" refid="struct_cam_device_wdr_damp_config__s_1af59d17182b7587387d1aab776fc044d6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_damp_config__s_1af59d17182b7587387d1aab776fc044d6" kindref="member">dampMode</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="213" refid="struct_cam_device_wdr_damp_config__s_1a8f160520bcb9f5577ed61a89805d62ab" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_damp_config__s_1a8f160520bcb9f5577ed61a89805d62ab" kindref="member">dampCurveCoef</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="214" refid="struct_cam_device_wdr_damp_config__s_1ae052355906af6577321b53d5232ba1db" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_damp_config__s_1ae052355906af6577321b53d5232ba1db" kindref="member">dampCurveMax</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="215" refid="struct_cam_device_wdr_damp_config__s_1a6cb724d0dc8203637d07891d31251fd5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_damp_config__s_1a6cb724d0dc8203637d07891d31251fd5" kindref="member">dampCurveMin</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="216" refid="struct_cam_device_wdr_damp_config__s_1a19fa396c9f902f09a284d0448fabf768" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_damp_config__s_1a19fa396c9f902f09a284d0448fabf768" kindref="member">dampAvgCoef</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="217" refid="struct_cam_device_wdr_damp_config__s_1ab6eb3369a2848323ecb110ee6779c838" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_damp_config__s_1ab6eb3369a2848323ecb110ee6779c838" kindref="member">dampAvgMax</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="218" refid="struct_cam_device_wdr_damp_config__s_1a41156377834a3f47bc6e29a8587dedda" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_damp_config__s_1a41156377834a3f47bc6e29a8587dedda" kindref="member">dampAvgMin</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="219" refid="struct_cam_device_wdr_damp_config__s_1af25b76090e225606512fdcf918d230f5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_damp_config__s_1af25b76090e225606512fdcf918d230f5" kindref="member">dampCoefDecLimit</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="220" refid="struct_cam_device_wdr_damp_config__s_1afbc23ac09654740d43b6199fbe924e69" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_damp_config__s_1afbc23ac09654740d43b6199fbe924e69" kindref="member">dampCoefIncLimit</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="221" refid="struct_cam_device_wdr_damp_config__s_1ae57f63d327d1db20c4a92496f8bb33f3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_damp_config__s_1ae57f63d327d1db20c4a92496f8bb33f3" kindref="member">dampFilterSize</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="222" refid="struct_cam_device_wdr_damp_config__s_1a21ac47fdbf702aa022874b165f68740f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_damp_config__s_1a21ac47fdbf702aa022874b165f68740f" kindref="member">dampHithrLog</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="223" refid="struct_cam_device_wdr_damp_config__s_1abbf46bc0f763e8a0d6dee39460ac4fba" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_damp_config__s_1abbf46bc0f763e8a0d6dee39460ac4fba" kindref="member">dampLothrLog</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="224"><highlight class="normal">}<sp/><ref refid="group____cam__device__wdr_1ga3fae2926d243b702ef10595acdcce7a0" kindref="member">CamDeviceWdrDampConfig_t</ref>;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="231" refid="struct_cam_device_wdr_color_weight_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_wdr_color_weight_config__s" kindref="compound">CamDeviceWdrColorWeightConfig_s</ref></highlight></codeline>
+<codeline lineno="232"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="233" refid="struct_cam_device_wdr_color_weight_config__s_1ad88b708a45f7e83e4266e5b001bba5c9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_color_weight_config__s_1ad88b708a45f7e83e4266e5b001bba5c9" kindref="member">wdrRgbCoef</ref>[<ref refid="group____cam__device__wdr_1ga44470005c97bbaa5b276cc2d6614b4f6" kindref="member">CAMDEV_WDR_RGB_COEF_SIZE</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="234" refid="struct_cam_device_wdr_color_weight_config__s_1ae3077d283a67d9eb4b13fe321e898304" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_color_weight_config__s_1ae3077d283a67d9eb4b13fe321e898304" kindref="member">wdrLightnessWeight</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="235" refid="struct_cam_device_wdr_color_weight_config__s_1acc249b8af8849deb96a94cbcf837a03c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_color_weight_config__s_1acc249b8af8849deb96a94cbcf837a03c" kindref="member">wdrColorWeight</ref>[<ref refid="group____cam__device__wdr_1ga44188b23463d4121a4b7a300d863fb26" kindref="member">CAMDEV_WDR_COLOR_WEIGHT_SIZE</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="236"><highlight class="normal">}<sp/><ref refid="group____cam__device__wdr_1gad3bc93bc5ee8d921a42f58ca9c0cd6ab" kindref="member">CamDeviceWdrColorWeightConfig_t</ref>;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="243" refid="struct_cam_device_wdr_auto_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_wdr_auto_config__s" kindref="compound">CamDeviceWdrAutoConfig_s</ref></highlight></codeline>
+<codeline lineno="244"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="245" refid="struct_cam_device_wdr_auto_config__s_1a3d521afaea995b10e5892ad38383c477" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1a3d521afaea995b10e5892ad38383c477" kindref="member">autoLevel</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="246" refid="struct_cam_device_wdr_auto_config__s_1aebd31adb76e3f625895575797f21853f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1aebd31adb76e3f625895575797f21853f" kindref="member">gain</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="247" refid="struct_cam_device_wdr_auto_config__s_1a459f25188ea099c21c7a003d9965e183" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1a459f25188ea099c21c7a003d9965e183" kindref="member">highStrength</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="248" refid="struct_cam_device_wdr_auto_config__s_1a062385a09c810f2a5949fa5b92af945a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1a062385a09c810f2a5949fa5b92af945a" kindref="member">lowStrength</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="249" refid="struct_cam_device_wdr_auto_config__s_1a346b0815f91b9e96bbc4e743ff69cb3f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1a346b0815f91b9e96bbc4e743ff69cb3f" kindref="member">entropyBase</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="250" refid="struct_cam_device_wdr_auto_config__s_1a931231ff0a671abe494c19ba392602d0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1a931231ff0a671abe494c19ba392602d0" kindref="member">wdrLumaThr</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="251" refid="struct_cam_device_wdr_auto_config__s_1a280beda51f2e36caff94f788a1fcdb0c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1a280beda51f2e36caff94f788a1fcdb0c" kindref="member">entropySlope</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="252" refid="struct_cam_device_wdr_auto_config__s_1af8cd77b12e1729133687107fec97990c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1af8cd77b12e1729133687107fec97990c" kindref="member">flatLevel</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="253" refid="struct_cam_device_wdr_auto_config__s_1add49be62e11be20f2de5da61ce9cd5bd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1add49be62e11be20f2de5da61ce9cd5bd" kindref="member">flatLevelGlobal</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="254" refid="struct_cam_device_wdr_auto_config__s_1a5b34b56418fb1b45b0d3f63395febc8d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1a5b34b56418fb1b45b0d3f63395febc8d" kindref="member">satRange</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="255" refid="struct_cam_device_wdr_auto_config__s_1af68116771d707bcffd3633c6614c38c9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1af68116771d707bcffd3633c6614c38c9" kindref="member">satThrGaindown</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="256" refid="struct_cam_device_wdr_auto_config__s_1abba4e837369fcb0a266611a5a5c124e9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1abba4e837369fcb0a266611a5a5c124e9" kindref="member">satThrGainup</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="257" refid="struct_cam_device_wdr_auto_config__s_1a30ebbecf652e45860e96be6faa5d9ee8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1a30ebbecf652e45860e96be6faa5d9ee8" kindref="member">degamma</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="258" refid="struct_cam_device_wdr_auto_config__s_1ad0e759fdfc07eb57d56e34f3c8ab9b2b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1ad0e759fdfc07eb57d56e34f3c8ab9b2b" kindref="member">hlcBaseLog</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="259" refid="struct_cam_device_wdr_auto_config__s_1ac50e34b6d4e9e94b909af4ba96f3e715" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1ac50e34b6d4e9e94b909af4ba96f3e715" kindref="member">lightSatLothr</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="260" refid="struct_cam_device_wdr_auto_config__s_1a12691e0235f97df67d4d95e722823588" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1a12691e0235f97df67d4d95e722823588" kindref="member">lightSatHithr</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="262" refid="struct_cam_device_wdr_auto_config__s_1a6cf87d53794cdfa8a57afa731698a2fb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1a6cf87d53794cdfa8a57afa731698a2fb" kindref="member">lightRedThrLog</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>][<ref refid="group____cam__device__wdr_1gadbdb15510f458be727039b9f7bad05c8" kindref="member">CAMDEV_WDR_LIGHT_THR_LOG_SIZE</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="263" refid="struct_cam_device_wdr_auto_config__s_1ab5f74f01ca7985ba22905d8be37c167e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1ab5f74f01ca7985ba22905d8be37c167e" kindref="member">lightGreenThrLog</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>][<ref refid="group____cam__device__wdr_1gadbdb15510f458be727039b9f7bad05c8" kindref="member">CAMDEV_WDR_LIGHT_THR_LOG_SIZE</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="264" refid="struct_cam_device_wdr_auto_config__s_1aea0c715d51427cc83b95a5de4e4e79fa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1aea0c715d51427cc83b95a5de4e4e79fa" kindref="member">lightBlueThrLog</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>][<ref refid="group____cam__device__wdr_1gadbdb15510f458be727039b9f7bad05c8" kindref="member">CAMDEV_WDR_LIGHT_THR_LOG_SIZE</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="265" refid="struct_cam_device_wdr_auto_config__s_1a7740ad1ea163fd2f0e8e835c3c198ad1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1a7740ad1ea163fd2f0e8e835c3c198ad1" kindref="member">lightYellowThrLog</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>][<ref refid="group____cam__device__wdr_1gadbdb15510f458be727039b9f7bad05c8" kindref="member">CAMDEV_WDR_LIGHT_THR_LOG_SIZE</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="266" refid="struct_cam_device_wdr_auto_config__s_1a58b7a876e9f2df830f04a032a7b4350e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1a58b7a876e9f2df830f04a032a7b4350e" kindref="member">lightCyanThrLog</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>][<ref refid="group____cam__device__wdr_1gadbdb15510f458be727039b9f7bad05c8" kindref="member">CAMDEV_WDR_LIGHT_THR_LOG_SIZE</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="267" refid="struct_cam_device_wdr_auto_config__s_1aa9d08adffc86a64716c6675e9635dd9a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1aa9d08adffc86a64716c6675e9635dd9a" kindref="member">lightMagentaThrLog</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>][<ref refid="group____cam__device__wdr_1gadbdb15510f458be727039b9f7bad05c8" kindref="member">CAMDEV_WDR_LIGHT_THR_LOG_SIZE</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="269" refid="struct_cam_device_wdr_auto_config__s_1af6f09926def967cc145baf79acaff36f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1af6f09926def967cc145baf79acaff36f" kindref="member">edrLevel</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="270" refid="struct_cam_device_wdr_auto_config__s_1a4e85e77419b46b3920cc867810038fbd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1a4e85e77419b46b3920cc867810038fbd" kindref="member">edr</ref>[<ref refid="group____cam__device__wdr_1ga122389a3fbe76256da92c8cc1b94c44b" kindref="member">CAMDEV_WDR_LEVEL_MAX</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="271" refid="struct_cam_device_wdr_auto_config__s_1a82111de890f850938ac32c19c52e1073" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1a82111de890f850938ac32c19c52e1073" kindref="member">contrast</ref>[<ref refid="group____cam__device__wdr_1ga122389a3fbe76256da92c8cc1b94c44b" kindref="member">CAMDEV_WDR_LEVEL_MAX</ref>][<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="272" refid="struct_cam_device_wdr_auto_config__s_1a44ae7d91cb8055c8851336a8e6f41ede" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1a44ae7d91cb8055c8851336a8e6f41ede" kindref="member">fixedWeight</ref>[<ref refid="group____cam__device__wdr_1ga122389a3fbe76256da92c8cc1b94c44b" kindref="member">CAMDEV_WDR_LEVEL_MAX</ref>][<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="273" refid="struct_cam_device_wdr_auto_config__s_1a6e7608e7deeb326101c4459da2f9c262" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1a6e7608e7deeb326101c4459da2f9c262" kindref="member">logWeight</ref>[<ref refid="group____cam__device__wdr_1ga122389a3fbe76256da92c8cc1b94c44b" kindref="member">CAMDEV_WDR_LEVEL_MAX</ref>][<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="274" refid="struct_cam_device_wdr_auto_config__s_1a32b86255579281d38af15380bf48d6af" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1a32b86255579281d38af15380bf48d6af" kindref="member">logAnchorXLog</ref>[<ref refid="group____cam__device__wdr_1ga122389a3fbe76256da92c8cc1b94c44b" kindref="member">CAMDEV_WDR_LEVEL_MAX</ref>][<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="275" refid="struct_cam_device_wdr_auto_config__s_1a0a8e90a5640976ecd3343a7b44595f8a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1a0a8e90a5640976ecd3343a7b44595f8a" kindref="member">logAnchorSlope</ref>[<ref refid="group____cam__device__wdr_1ga122389a3fbe76256da92c8cc1b94c44b" kindref="member">CAMDEV_WDR_LEVEL_MAX</ref>][<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="276" refid="struct_cam_device_wdr_auto_config__s_1a54a33c800604134cc55ca6a13ef0defc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float64_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1a54a33c800604134cc55ca6a13ef0defc" kindref="member">maxGain</ref>[<ref refid="group____cam__device__wdr_1ga122389a3fbe76256da92c8cc1b94c44b" kindref="member">CAMDEV_WDR_LEVEL_MAX</ref>][<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/></highlight></codeline>
+<codeline lineno="277" refid="struct_cam_device_wdr_auto_config__s_1ab098b6dffaa5652b095950934b65a909" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1ab098b6dffaa5652b095950934b65a909" kindref="member">hlcSlope</ref>[<ref refid="group____cam__device__wdr_1ga122389a3fbe76256da92c8cc1b94c44b" kindref="member">CAMDEV_WDR_LEVEL_MAX</ref>][<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="278" refid="struct_cam_device_wdr_auto_config__s_1acdfbf6c303c3dfcb3a934175bf612649" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1acdfbf6c303c3dfcb3a934175bf612649" kindref="member">lightEn</ref>[<ref refid="group____cam__device__wdr_1ga122389a3fbe76256da92c8cc1b94c44b" kindref="member">CAMDEV_WDR_LEVEL_MAX</ref>][<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/></highlight></codeline>
+<codeline lineno="279" refid="struct_cam_device_wdr_auto_config__s_1aa8aa07a6df6ef3bf04bcb59439d10192" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_wdr_auto_config__s_1aa8aa07a6df6ef3bf04bcb59439d10192" kindref="member">wdrColorWeight</ref>[<ref refid="group____cam__device__wdr_1ga122389a3fbe76256da92c8cc1b94c44b" kindref="member">CAMDEV_WDR_LEVEL_MAX</ref>][<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>][<ref refid="group____cam__device__wdr_1ga44188b23463d4121a4b7a300d863fb26" kindref="member">CAMDEV_WDR_COLOR_WEIGHT_SIZE</ref>];<sp/><sp/></highlight></codeline>
+<codeline lineno="280"><highlight class="normal">}<ref refid="group____cam__device__wdr_1ga5f226d263276077f3b8405e378a8d36a" kindref="member">CamDeviceWdrAutoConfig_t</ref>;</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="287" refid="struct_cam_device_wdr_manual_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_wdr_manual_config__s" kindref="compound">CamDeviceWdrManualConfig_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="288" refid="struct_cam_device_wdr_manual_config__s_1afaf21b5b2a3e26c231bc9405607b24ad" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_wdr_strength_config__s" kindref="compound">CamDeviceWdrStrengthConfig_t</ref><sp/><ref refid="struct_cam_device_wdr_manual_config__s_1afaf21b5b2a3e26c231bc9405607b24ad" kindref="member">strengthCfg</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="289" refid="struct_cam_device_wdr_manual_config__s_1a3bebcc57b60e073ae99cabf961eed32c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_wdr_ltm_weight_config__s" kindref="compound">CamDeviceWdrLtmWeightConfig_t</ref><sp/><ref refid="struct_cam_device_wdr_manual_config__s_1a3bebcc57b60e073ae99cabf961eed32c" kindref="member">ltmWeightCfg</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="290" refid="struct_cam_device_wdr_manual_config__s_1a95f2a5dd8e37ce604d3095b067e095d7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_wdr_ltm_config__s" kindref="compound">CamDeviceWdrLtmConfig_t</ref><sp/><ref refid="struct_cam_device_wdr_manual_config__s_1a95f2a5dd8e37ce604d3095b067e095d7" kindref="member">ltmCfg</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="291" refid="struct_cam_device_wdr_manual_config__s_1acd16204718fe061cbb7bbb4a5a7b8938" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_wdr_gtm_weight_config__s" kindref="compound">CamDeviceWdrGtmWeightConfig_t</ref><sp/><ref refid="struct_cam_device_wdr_manual_config__s_1acd16204718fe061cbb7bbb4a5a7b8938" kindref="member">gtmWeightCfg</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="292" refid="struct_cam_device_wdr_manual_config__s_1a1077ad0db98bfd2d960ca6128e2d2650" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_wdr_gtm_config__s" kindref="compound">CamDeviceWdrGtmConfig_t</ref><sp/><ref refid="struct_cam_device_wdr_manual_config__s_1a1077ad0db98bfd2d960ca6128e2d2650" kindref="member">gtmCfg</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="293" refid="struct_cam_device_wdr_manual_config__s_1ad7bd51cbce30a308900c69be03eac632" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_wdr_degamma_config__s" kindref="compound">CamDeviceWdrDegammaConfig_t</ref><sp/><ref refid="struct_cam_device_wdr_manual_config__s_1ad7bd51cbce30a308900c69be03eac632" kindref="member">degammaCfg</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="294" refid="struct_cam_device_wdr_manual_config__s_1af6896a0ec2541c2acb2ca81a7d685a6f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_wdr_gain_limitation_config__s" kindref="compound">CamDeviceWdrGainLimitationConfig_t</ref><sp/><ref refid="struct_cam_device_wdr_manual_config__s_1af6896a0ec2541c2acb2ca81a7d685a6f" kindref="member">gainLimitationCfg</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="295" refid="struct_cam_device_wdr_manual_config__s_1af9edfe82e09ee3d445d57fc736e67151" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_wdr_defringe_config__s" kindref="compound">CamDeviceWdrDefringeConfig_t</ref><sp/><ref refid="struct_cam_device_wdr_manual_config__s_1af9edfe82e09ee3d445d57fc736e67151" kindref="member">defringeCfg</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="296" refid="struct_cam_device_wdr_manual_config__s_1a8d25be1025a3222adc8aaa5d9016e753" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_wdr_saturation_adjustment_config__s" kindref="compound">CamDeviceWdrSaturationAdjustmentConfig_t</ref><sp/><ref refid="struct_cam_device_wdr_manual_config__s_1a8d25be1025a3222adc8aaa5d9016e753" kindref="member">saturationAdjustmentCfg</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="297" refid="struct_cam_device_wdr_manual_config__s_1aff34af646025fe00243d4a823345c87a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_wdr_halo_color_fading_config__s" kindref="compound">CamDeviceWdrHaloColorFadingConfig_t</ref><sp/><ref refid="struct_cam_device_wdr_manual_config__s_1aff34af646025fe00243d4a823345c87a" kindref="member">haloColorFadingCfg</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="298" refid="struct_cam_device_wdr_manual_config__s_1ac66c0463532dff16a4780429bb4b1ef3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_wdr_high_light_config__s" kindref="compound">CamDeviceWdrHighLightConfig_t</ref><sp/><ref refid="struct_cam_device_wdr_manual_config__s_1ac66c0463532dff16a4780429bb4b1ef3" kindref="member">highLightCfg</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="299" refid="struct_cam_device_wdr_manual_config__s_1a4f57fcc236183738bf8babe8b124cb19" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><ref refid="struct_cam_device_wdr_manual_config__s_1a4f57fcc236183738bf8babe8b124cb19" kindref="member">lightEn</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="300" refid="struct_cam_device_wdr_manual_config__s_1a129efd380af7822dcbcfd59e65e09f25" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_wdr_damp_config__s" kindref="compound">CamDeviceWdrDampConfig_t</ref><sp/><ref refid="struct_cam_device_wdr_manual_config__s_1a129efd380af7822dcbcfd59e65e09f25" kindref="member">dampCfg</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="301" refid="struct_cam_device_wdr_manual_config__s_1a8b1fde5bed2e4c88602c90cdadbe2549" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_wdr_color_weight_config__s" kindref="compound">CamDeviceWdrColorWeightConfig_t</ref><sp/><ref refid="struct_cam_device_wdr_manual_config__s_1a8b1fde5bed2e4c88602c90cdadbe2549" kindref="member">colorWeightCfg</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="302"><highlight class="normal">}<ref refid="group____cam__device__wdr_1ga6cf97a71e5ba8a3bc23a4cd1b3c9ed64" kindref="member">CamDeviceWdrManualConfig_t</ref>;</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="309" refid="struct_cam_device_wdr_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_wdr_config__s" kindref="compound">CamDeviceWdrConfig_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="310" refid="struct_cam_device_wdr_config__s_1ac8daac287059fe862c0295d0e741a4a7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1ga7a54f95af23ab3af59d485ffaec2ae60" kindref="member">CamDeviceConfigMode_t</ref><sp/><ref refid="struct_cam_device_wdr_config__s_1ac8daac287059fe862c0295d0e741a4a7" kindref="member">configMode</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="311" refid="struct_cam_device_wdr_config__s_1aed4693885fc6861d3dc7d833554ef03c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_wdr_auto_config__s" kindref="compound">CamDeviceWdrAutoConfig_t</ref><sp/><ref refid="struct_cam_device_wdr_config__s_1aed4693885fc6861d3dc7d833554ef03c" kindref="member">autoCfg</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="312" refid="struct_cam_device_wdr_config__s_1a4c0e3e8097807bea127233b1a03d1575" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_wdr_manual_config__s" kindref="compound">CamDeviceWdrManualConfig_t</ref><sp/><ref refid="struct_cam_device_wdr_config__s_1a4c0e3e8097807bea127233b1a03d1575" kindref="member">manualCfg</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="313"><highlight class="normal">}<ref refid="group____cam__device__wdr_1gac1bc658680ee779b992be0143be4e60d" kindref="member">CamDeviceWdrConfig_t</ref>;</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="320" refid="struct_cam_device_wdr_status__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_wdr_status__s" kindref="compound">CamDeviceWdrStatus_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="321" refid="struct_cam_device_wdr_status__s_1aceeb259ef39d489af2be3f397de0e8e8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><ref refid="struct_cam_device_wdr_status__s_1aceeb259ef39d489af2be3f397de0e8e8" kindref="member">enable</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="322" refid="struct_cam_device_wdr_status__s_1acb83efd32d6e3c387ad4a7a7173df697" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1ga7a54f95af23ab3af59d485ffaec2ae60" kindref="member">CamDeviceConfigMode_t</ref><sp/><ref refid="struct_cam_device_wdr_status__s_1acb83efd32d6e3c387ad4a7a7173df697" kindref="member">currentMode</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="323" refid="struct_cam_device_wdr_status__s_1af13572ea2e82751ed5223c912a3a7266" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_wdr_manual_config__s" kindref="compound">CamDeviceWdrManualConfig_t</ref><sp/><ref refid="struct_cam_device_wdr_status__s_1af13572ea2e82751ed5223c912a3a7266" kindref="member">currentCfg</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="324"><highlight class="normal">}<ref refid="group____cam__device__wdr_1ga694e2093f16fa7a4337bfeb8d7619b7c" kindref="member">CamDeviceWdrStatus_t</ref>;</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="349"><highlight class="normal">RESULT<sp/>VsiCamDeviceWdrSetConfig</highlight></codeline>
+<codeline lineno="350"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_wdr_config__s" kindref="compound">CamDeviceWdrConfig_t</ref><sp/><sp/><sp/>*pConfig</highlight></codeline>
+<codeline lineno="353"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="378"><highlight class="normal">RESULT<sp/>VsiCamDeviceWdrGetConfig</highlight></codeline>
+<codeline lineno="379"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_wdr_config__s" kindref="compound">CamDeviceWdrConfig_t</ref><sp/><sp/><sp/>*pConfig</highlight></codeline>
+<codeline lineno="382"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight></codeline>
+<codeline lineno="384"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="407"><highlight class="normal">RESULT<sp/>VsiCamDeviceWdrSetGammaUpConfig</highlight></codeline>
+<codeline lineno="408"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_wdr_gamma_up_config__s" kindref="compound">CamDeviceWdrGammaUpConfig_t</ref><sp/><sp/><sp/>*pConfig</highlight></codeline>
+<codeline lineno="411"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"></highlight></codeline>
+<codeline lineno="413"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="435"><highlight class="normal">RESULT<sp/>VsiCamDeviceWdrGetGammaUpConfig</highlight></codeline>
+<codeline lineno="436"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_wdr_gamma_up_config__s" kindref="compound">CamDeviceWdrGammaUpConfig_t</ref><sp/><sp/><sp/>*pConfig</highlight></codeline>
+<codeline lineno="439"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="440"><highlight class="normal"></highlight></codeline>
+<codeline lineno="441"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="463"><highlight class="normal">RESULT<sp/>VsiCamDeviceWdrGetGammaUpStatus</highlight></codeline>
+<codeline lineno="464"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_wdr_gamma_up_config__s" kindref="compound">CamDeviceWdrGammaUpConfig_t</ref><sp/><sp/><sp/>*pStatus</highlight></codeline>
+<codeline lineno="467"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"></highlight></codeline>
+<codeline lineno="469"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="486"><highlight class="normal">RESULT<sp/>VsiCamDeviceWdrEnable</highlight></codeline>
+<codeline lineno="487"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="489"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"></highlight></codeline>
+<codeline lineno="491"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="508"><highlight class="normal">RESULT<sp/>VsiCamDeviceWdrDisable</highlight></codeline>
+<codeline lineno="509"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="511"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"></highlight></codeline>
+<codeline lineno="513"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="529"><highlight class="normal">RESULT<sp/>VsiCamDeviceWdrHaloColorFadingEnable</highlight></codeline>
+<codeline lineno="530"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="532"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"></highlight></codeline>
+<codeline lineno="534"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="550"><highlight class="normal">RESULT<sp/>VsiCamDeviceWdrHaloColorFadingDisable</highlight></codeline>
+<codeline lineno="551"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="553"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"></highlight></codeline>
+<codeline lineno="555"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="577"><highlight class="normal">RESULT<sp/>VsiCamDeviceWdrGetStatus</highlight></codeline>
+<codeline lineno="578"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="579"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_wdr_status__s" kindref="compound">CamDeviceWdrStatus_t</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pStatus</highlight></codeline>
+<codeline lineno="581"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="582"><highlight class="normal"></highlight></codeline>
+<codeline lineno="583"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="599"><highlight class="normal">RESULT<sp/>VsiCamDeviceWdrGetVersion</highlight></codeline>
+<codeline lineno="600"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="601"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pVersion</highlight></codeline>
+<codeline lineno="603"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="604"><highlight class="normal"></highlight></codeline>
+<codeline lineno="605"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="627"><highlight class="normal">RESULT<sp/>VsiCamDeviceWdrReset</highlight></codeline>
+<codeline lineno="628"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="629"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice</highlight></codeline>
+<codeline lineno="630"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="631"><highlight class="normal"></highlight></codeline>
+<codeline lineno="634"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="635"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="636"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="637"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="638"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>CAMDEV_WDR5_API_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h"/>
+  </compounddef>
+</doxygen>

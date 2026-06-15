@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_0ae427b4a0525e2aab726c8d1dd44b98" kind="dir">
+    <compoundname>include</compoundname>
+    <innerdir refid="dir_7546364aed4e6abc4f6672f082c643d3">submodules</innerdir>
+    <innerfile refid="c_j_s_o_n_8h">cJSON.h</innerfile>
+    <innerfile refid="memory__manager_8h">memory_manager.h</innerfile>
+    <innerfile refid="examples_2vvbench_2include_2vlog_8h">examples/vvbench/include/vlog.h</innerfile>
+    <innerfile refid="vvbase_8h">vvbase.h</innerfile>
+    <innerfile refid="vvbench_8h">vvbench.h</innerfile>
+    <innerfile refid="vvbparser_8h">vvbparser.h</innerfile>
+    <innerfile refid="vvdevice_8h">vvdevice.h</innerfile>
+    <innerfile refid="vvdevice__common_8h">vvdevice_common.h</innerfile>
+    <innerfile refid="vvformat_8h">vvformat.h</innerfile>
+    <innerfile refid="vvpath_8h">vvpath.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/"/>
+  </compounddef>
+</doxygen>

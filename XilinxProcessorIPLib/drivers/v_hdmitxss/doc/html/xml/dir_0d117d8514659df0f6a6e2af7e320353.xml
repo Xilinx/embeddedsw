@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_0d117d8514659df0f6a6e2af7e320353" kind="dir">
+    <compoundname>xhdmi_example</compoundname>
+    <innerdir refid="dir_c3538acaa2d754db67619a1a02fd6d0c">I2S</innerdir>
+    <innerdir refid="dir_937b310e547e957d8cab25b8bc374d09">PassThrough</innerdir>
+    <innerdir refid="dir_7b281fd9cb43400c31b327503a75fbdf">PassThroughVersal</innerdir>
+    <innerdir refid="dir_dbd2d5e3a2e38e734812675accb5364f">Repeater</innerdir>
+    <innerdir refid="dir_83b82307b27a525d8862a4d971b26168">RepeaterProfessional</innerdir>
+    <innerdir refid="dir_ae21f93f84aa6b2e2ccbe27ef7ef0e0f">TxOnly</innerdir>
+    <innerfile refid="xhdmi__example_2aes256_8c">xhdmi_example/aes256.c</innerfile>
+    <innerfile refid="xhdmi__example_2aes256_8h">xhdmi_example/aes256.h</innerfile>
+    <innerfile refid="audiogen__drv_8c">audiogen_drv.c</innerfile>
+    <innerfile refid="audiogen__drv_8h">audiogen_drv.h</innerfile>
+    <innerfile refid="dp159_8c">dp159.c</innerfile>
+    <innerfile refid="dp159_8h">dp159.h</innerfile>
+    <innerfile refid="idt__8t49n24x_8c">idt_8t49n24x.c</innerfile>
+    <innerfile refid="idt__8t49n24x_8h">idt_8t49n24x.h</innerfile>
+    <innerfile refid="sha256_8c">sha256.c</innerfile>
+    <innerfile refid="sha256_8h">sha256.h</innerfile>
+    <innerfile refid="si5324drv_8c">si5324drv.c</innerfile>
+    <innerfile refid="si5324drv_8h">si5324drv.h</innerfile>
+    <innerfile refid="si570drv_8c">si570drv.c</innerfile>
+    <innerfile refid="si570drv_8h">si570drv.h</innerfile>
+    <innerfile refid="tmds181_8c">tmds181.c</innerfile>
+    <innerfile refid="tmds181_8h">tmds181.h</innerfile>
+    <innerfile refid="xhdmi__hdcp__keys_8c">xhdmi_hdcp_keys.c</innerfile>
+    <innerfile refid="xhdmi__hdcp__keys_8h">xhdmi_hdcp_keys.h</innerfile>
+    <innerfile refid="xhdmi__hdcp__keys__table_8h">xhdmi_hdcp_keys_table.h</innerfile>
+    <innerfile refid="xvidframe__crc_8c">xvidframe_crc.c</innerfile>
+    <innerfile refid="xvidframe__crc_8h">xvidframe_crc.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/"/>
+  </compounddef>
+</doxygen>

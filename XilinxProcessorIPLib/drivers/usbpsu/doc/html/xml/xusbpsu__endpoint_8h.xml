@@ -1,0 +1,530 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xusbpsu__endpoint_8h" kind="file">
+    <compoundname>xusbpsu_endpoint.h</compoundname>
+    <includedby refid="xusbpsu_8h" local="yes">xusbpsu.h</includedby>
+    <includedby refid="xusbpsu__command_8c" local="yes">xusbpsu_command.c</includedby>
+    <includedby refid="xusbpsu__controltransfers_8c" local="yes">xusbpsu_controltransfers.c</includedby>
+    <includedby refid="xusbpsu__endpoint_8c" local="yes">xusbpsu_endpoint.c</includedby>
+    <includedby refid="xusbpsu__ep0handler_8c" local="yes">xusbpsu_ep0handler.c</includedby>
+    <includedby refid="xusbpsu__ephandler_8c" local="yes">xusbpsu_ephandler.c</includedby>
+    <includedby refid="xusbpsu__hibernation_8c" local="yes">xusbpsu_hibernation.c</includedby>
+    <invincdepgraph>
+      <node id="1049">
+        <label>xusb_freertos_class_keyboard.c</label>
+        <link refid="xusb__freertos__class__keyboard_8c"/>
+      </node>
+      <node id="1051">
+        <label>xusb_freertos_class_keyboard.h</label>
+        <childnode refid="1048" relation="include">
+        </childnode>
+        <childnode refid="1049" relation="include">
+        </childnode>
+        <childnode refid="1050" relation="include">
+        </childnode>
+      </node>
+      <node id="1027">
+        <label>xusb_dfu_example.c</label>
+      </node>
+      <node id="1054">
+        <label>xusb_freertos_class_storage.c</label>
+      </node>
+      <node id="1056">
+        <label>xusb_freertos_class_storage.h</label>
+        <childnode refid="1053" relation="include">
+        </childnode>
+        <childnode refid="1054" relation="include">
+        </childnode>
+        <childnode refid="1055" relation="include">
+        </childnode>
+      </node>
+      <node id="1040">
+        <label>xusb_freertos_ch9_audio.c</label>
+        <link refid="xusb__freertos__ch9__audio_8c"/>
+      </node>
+      <node id="1037">
+        <label>xusb_freertos_ch9_audio.h</label>
+        <link refid="xusb__freertos__ch9__audio_8h"/>
+        <childnode refid="1038" relation="include">
+        </childnode>
+        <childnode refid="1039" relation="include">
+        </childnode>
+        <childnode refid="1040" relation="include">
+        </childnode>
+        <childnode refid="1041" relation="include">
+        </childnode>
+      </node>
+      <node id="1041">
+        <label>xusb_freertos_class_audio.c</label>
+        <link refid="xusb__freertos__class__audio_8c"/>
+      </node>
+      <node id="1039">
+        <label>xusb_freertos_class_audio.h</label>
+        <link refid="xusb__freertos__class__audio_8h"/>
+        <childnode refid="1038" relation="include">
+        </childnode>
+        <childnode refid="1040" relation="include">
+        </childnode>
+        <childnode refid="1041" relation="include">
+        </childnode>
+      </node>
+      <node id="1038">
+        <label>xusb_freertos_audio_example.c</label>
+      </node>
+      <node id="1033">
+        <label>xusb_class_storage.c</label>
+        <link refid="xusb__class__storage_8c"/>
+      </node>
+      <node id="1036">
+        <label>xusb_class_storage.h</label>
+        <link refid="xusb__class__storage_8h"/>
+        <childnode refid="1032" relation="include">
+        </childnode>
+        <childnode refid="1033" relation="include">
+        </childnode>
+        <childnode refid="1034" relation="include">
+        </childnode>
+        <childnode refid="1035" relation="include">
+        </childnode>
+      </node>
+      <node id="1028">
+        <label>xusb_freertos_dfu_example.c</label>
+      </node>
+      <node id="1044">
+        <label>xusb_freertos_class_composite.c</label>
+        <link refid="xusb__freertos__class__composite_8c"/>
+      </node>
+      <node id="1046">
+        <label>xusb_freertos_class_composite.h</label>
+        <link refid="xusb__freertos__class__composite_8h"/>
+        <childnode refid="1043" relation="include">
+        </childnode>
+        <childnode refid="1044" relation="include">
+        </childnode>
+        <childnode refid="1045" relation="include">
+        </childnode>
+      </node>
+      <node id="1011">
+        <label>xusbpsu_sinit.c</label>
+        <link refid="xusbpsu__sinit_8c"/>
+      </node>
+      <node id="1010">
+        <label>xusbpsu_g.c</label>
+      </node>
+      <node id="1055">
+        <label>xusb_freertos_massstorage_example.c</label>
+      </node>
+      <node id="1053">
+        <label>xusb_freertos_ch9_storage.c</label>
+        <link refid="xusb__freertos__ch9__storage_8c"/>
+      </node>
+      <node id="1052">
+        <label>xusb_freertos_ch9_storage.h</label>
+        <link refid="xusb__freertos__ch9__storage_8h"/>
+        <childnode refid="1053" relation="include">
+        </childnode>
+        <childnode refid="1054" relation="include">
+        </childnode>
+        <childnode refid="1055" relation="include">
+        </childnode>
+      </node>
+      <node id="1022">
+        <label>xusb_class_composite.c</label>
+        <link refid="xusb__class__composite_8c"/>
+      </node>
+      <node id="1024">
+        <label>xusb_class_composite.h</label>
+        <link refid="xusb__class__composite_8h"/>
+        <childnode refid="1021" relation="include">
+        </childnode>
+        <childnode refid="1022" relation="include">
+        </childnode>
+        <childnode refid="1023" relation="include">
+        </childnode>
+      </node>
+      <node id="1063">
+        <label>xusbpsu_hibernation.c</label>
+        <link refid="xusbpsu__hibernation_8c"/>
+      </node>
+      <node id="1061">
+        <label>xusbpsu_ep0handler.c</label>
+        <link refid="xusbpsu__ep0handler_8c"/>
+      </node>
+      <node id="1048">
+        <label>xusb_freertos_ch9_keyboard.c</label>
+        <link refid="xusb__freertos__ch9__keyboard_8c"/>
+      </node>
+      <node id="1047">
+        <label>xusb_freertos_ch9_keyboard.h</label>
+        <link refid="xusb__freertos__ch9__keyboard_8h"/>
+        <childnode refid="1048" relation="include">
+        </childnode>
+        <childnode refid="1049" relation="include">
+        </childnode>
+        <childnode refid="1050" relation="include">
+        </childnode>
+      </node>
+      <node id="1062">
+        <label>xusbpsu_ephandler.c</label>
+        <link refid="xusbpsu__ephandler_8c"/>
+      </node>
+      <node id="1021">
+        <label>xusb_ch9_composite.c</label>
+        <link refid="xusb__ch9__composite_8c"/>
+      </node>
+      <node id="1020">
+        <label>xusb_ch9_composite.h</label>
+        <link refid="xusb__ch9__composite_8h"/>
+        <childnode refid="1021" relation="include">
+        </childnode>
+        <childnode refid="1022" relation="include">
+        </childnode>
+        <childnode refid="1023" relation="include">
+        </childnode>
+      </node>
+      <node id="1009">
+        <label>xusbpsu.h</label>
+        <link refid="xusbpsu_8h"/>
+        <childnode refid="1010" relation="include">
+        </childnode>
+        <childnode refid="1011" relation="include">
+        </childnode>
+        <childnode refid="1012" relation="include">
+        </childnode>
+      </node>
+      <node id="1032">
+        <label>xusb_ch9_storage.c</label>
+        <link refid="xusb__ch9__storage_8c"/>
+      </node>
+      <node id="1016">
+        <label>xusb_ch9_audio_dfu.c</label>
+        <link refid="xusb__ch9__audio__dfu_8c"/>
+      </node>
+      <node id="1031">
+        <label>xusb_ch9_storage.h</label>
+        <link refid="xusb__ch9__storage_8h"/>
+        <childnode refid="1032" relation="include">
+        </childnode>
+        <childnode refid="1033" relation="include">
+        </childnode>
+        <childnode refid="1034" relation="include">
+        </childnode>
+        <childnode refid="1035" relation="include">
+        </childnode>
+      </node>
+      <node id="1014">
+        <label>xusb_ch9_audio_dfu.h</label>
+        <link refid="xusb__ch9__audio__dfu_8h"/>
+        <childnode refid="1015" relation="include">
+        </childnode>
+        <childnode refid="1016" relation="include">
+        </childnode>
+        <childnode refid="1017" relation="include">
+        </childnode>
+      </node>
+      <node id="1030">
+        <label>xusb_class_dfu.c</label>
+        <link refid="xusb__class__dfu_8c"/>
+      </node>
+      <node id="1029">
+        <label>xusb_class_dfu.h</label>
+        <link refid="xusb__class__dfu_8h"/>
+        <childnode refid="1026" relation="include">
+        </childnode>
+        <childnode refid="1030" relation="include">
+        </childnode>
+        <childnode refid="1027" relation="include">
+        </childnode>
+        <childnode refid="1028" relation="include">
+        </childnode>
+      </node>
+      <node id="1015">
+        <label>xusb_audio_dfu_example.c</label>
+        <link refid="xusb__audio__dfu__example_8c"/>
+      </node>
+      <node id="1058">
+        <label>xusbpsu_command.c</label>
+        <link refid="xusbpsu__command_8c"/>
+      </node>
+      <node id="1035">
+        <label>xusb_poll_example.c</label>
+        <link refid="xusb__poll__example_8c"/>
+      </node>
+      <node id="1019">
+        <label>xusb_ch9.c</label>
+        <link refid="xusb__ch9_8c"/>
+      </node>
+      <node id="1043">
+        <label>xusb_freertos_ch9_composite.c</label>
+        <link refid="xusb__freertos__ch9__composite_8c"/>
+      </node>
+      <node id="1013">
+        <label>xusb_ch9.h</label>
+        <link refid="xusb__ch9_8h"/>
+        <childnode refid="1014" relation="include">
+        </childnode>
+        <childnode refid="1018" relation="include">
+        </childnode>
+        <childnode refid="1019" relation="include">
+        </childnode>
+        <childnode refid="1020" relation="include">
+        </childnode>
+        <childnode refid="1024" relation="include">
+        </childnode>
+        <childnode refid="1025" relation="include">
+        </childnode>
+        <childnode refid="1029" relation="include">
+        </childnode>
+        <childnode refid="1031" relation="include">
+        </childnode>
+        <childnode refid="1036" relation="include">
+        </childnode>
+        <childnode refid="1037" relation="include">
+        </childnode>
+        <childnode refid="1039" relation="include">
+        </childnode>
+        <childnode refid="1042" relation="include">
+        </childnode>
+        <childnode refid="1046" relation="include">
+        </childnode>
+        <childnode refid="1047" relation="include">
+        </childnode>
+        <childnode refid="1051" relation="include">
+        </childnode>
+        <childnode refid="1052" relation="include">
+        </childnode>
+        <childnode refid="1056" relation="include">
+        </childnode>
+        <childnode refid="1049" relation="include">
+        </childnode>
+      </node>
+      <node id="1042">
+        <label>xusb_freertos_ch9_composite.h</label>
+        <link refid="xusb__freertos__ch9__composite_8h"/>
+        <childnode refid="1043" relation="include">
+        </childnode>
+        <childnode refid="1044" relation="include">
+        </childnode>
+        <childnode refid="1045" relation="include">
+        </childnode>
+      </node>
+      <node id="1045">
+        <label>xusb_freertos_composite_example.c</label>
+      </node>
+      <node id="1059">
+        <label>xusbpsu_controltransfers.c</label>
+        <link refid="xusbpsu__controltransfers_8c"/>
+      </node>
+      <node id="1023">
+        <label>xusb_composite_example.c</label>
+        <link refid="xusb__composite__example_8c"/>
+      </node>
+      <node id="1060">
+        <label>xusbpsu_endpoint.c</label>
+        <link refid="xusbpsu__endpoint_8c"/>
+      </node>
+      <node id="1008">
+        <label>xusbpsu_endpoint.h</label>
+        <link refid="xusbpsu_endpoint.h"/>
+        <childnode refid="1009" relation="include">
+        </childnode>
+        <childnode refid="1058" relation="include">
+        </childnode>
+        <childnode refid="1059" relation="include">
+        </childnode>
+        <childnode refid="1060" relation="include">
+        </childnode>
+        <childnode refid="1061" relation="include">
+        </childnode>
+        <childnode refid="1062" relation="include">
+        </childnode>
+        <childnode refid="1063" relation="include">
+        </childnode>
+      </node>
+      <node id="1026">
+        <label>xusb_ch9_dfu.c</label>
+        <link refid="xusb__ch9__dfu_8c"/>
+      </node>
+      <node id="1025">
+        <label>xusb_ch9_dfu.h</label>
+        <link refid="xusb__ch9__dfu_8h"/>
+        <childnode refid="1026" relation="include">
+        </childnode>
+        <childnode refid="1027" relation="include">
+        </childnode>
+        <childnode refid="1028" relation="include">
+        </childnode>
+      </node>
+      <node id="1050">
+        <label>xusb_freertos_keyboard_example.c</label>
+      </node>
+      <node id="1017">
+        <label>xusb_class_audio_dfu.c</label>
+        <link refid="xusb__class__audio__dfu_8c"/>
+      </node>
+      <node id="1034">
+        <label>xusb_intr_example.c</label>
+        <link refid="xusb__intr__example_8c"/>
+      </node>
+      <node id="1018">
+        <label>xusb_class_audio_dfu.h</label>
+        <link refid="xusb__class__audio__dfu_8h"/>
+        <childnode refid="1015" relation="include">
+        </childnode>
+        <childnode refid="1016" relation="include">
+        </childnode>
+        <childnode refid="1017" relation="include">
+        </childnode>
+      </node>
+      <node id="1057">
+        <label>xusb_wrapper.c</label>
+        <link refid="xusb__wrapper_8c"/>
+      </node>
+      <node id="1012">
+        <label>xusb_wrapper.h</label>
+        <link refid="xusb__wrapper_8h"/>
+        <childnode refid="1013" relation="include">
+        </childnode>
+        <childnode refid="1027" relation="include">
+        </childnode>
+        <childnode refid="1034" relation="include">
+        </childnode>
+        <childnode refid="1035" relation="include">
+        </childnode>
+        <childnode refid="1057" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor">#ifndef<sp/>XUSBPSU_ENDPOINT_H<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUSBPSU_ENDPOINT_H<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cache.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Device<sp/>Generic<sp/>Command<sp/>Register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XUSBPSU_DGCMD_SET_LMP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor">#define<sp/>XUSBPSU_DGCMD_SET_PERIODIC_PAR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U<sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor">#define<sp/>XUSBPSU_DGCMD_XMIT_FUNCTION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000003U<sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>These<sp/>apply<sp/>for<sp/>core<sp/>versions<sp/>1.94a<sp/>and<sp/>later<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUSBPSU_DGCMD_SET_SCRATCHPAD_ADDR_LO<sp/><sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor">#define<sp/>XUSBPSU_DGCMD_SET_SCRATCHPAD_ADDR_HI<sp/><sp/><sp/><sp/>0x00000005U<sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor">#define<sp/>XUSBPSU_DGCMD_SELECTED_FIFO_FLUSH<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000009U<sp/></highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor">#define<sp/>XUSBPSU_DGCMD_ALL_FIFO_FLUSH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000000aU<sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor">#define<sp/>XUSBPSU_DGCMD_SET_ENDPOINT_NRDY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000000cU<sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor">#define<sp/>XUSBPSU_DGCMD_RUN_SOC_BUS_LOOPBACK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000010U<sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor">#define<sp/>XUSBPSU_DGCMD_STATUS(n)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)(n)<sp/>&gt;&gt;<sp/>15U)<sp/>&amp;<sp/>1U)<sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor">#define<sp/>XUSBPSU_DGCMD_CMDACT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000400U<sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor">#define<sp/>XUSBPSU_DGCMD_CMDIOC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000100U<sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Device<sp/>Generic<sp/>Command<sp/>Parameter<sp/>Register<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUSBPSU_DGCMDPAR_FORCE_LINKPM_ACCEPT<sp/><sp/><sp/><sp/>(0x00000001U<sp/>&lt;&lt;<sp/>0U)<sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor">#define<sp/>XUSBPSU_DGCMDPAR_FIFO_NUM(n)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(n)<sp/>&lt;&lt;<sp/>0U)<sp/></highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor">#define<sp/>XUSBPSU_DGCMDPAR_RX_FIFO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000000U<sp/>&lt;&lt;<sp/>5U)<sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor">#define<sp/>XUSBPSU_DGCMDPAR_TX_FIFO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U<sp/>&lt;&lt;<sp/>5U)<sp/></highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor">#define<sp/>XUSBPSU_DGCMDPAR_LOOPBACK_DIS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000000U<sp/>&lt;&lt;<sp/>0U)<sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor">#define<sp/>XUSBPSU_DGCMDPAR_LOOPBACK_ENA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U<sp/>&lt;&lt;<sp/>0U)<sp/></highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Device<sp/>Endpoint<sp/>Command<sp/>Register<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCMD_PARAM_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16U<sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCMD_PARAM(x)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(x)<sp/>&lt;&lt;<sp/>XUSBPSU_DEPCMD_PARAM_SHIFT)</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCMD_GET_RSC_IDX(x)<sp/><sp/>(((u32)(x)<sp/>&gt;&gt;<sp/>XUSBPSU_DEPCMD_PARAM_SHIFT)<sp/>&amp;<sp/>\</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)0x0000007fU)<sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCMD_STATUS(x)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)(x)<sp/>&gt;&gt;<sp/>12U)<sp/>&amp;<sp/>(u32)0xFU)<sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCMD_HIPRI_FORCERM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000800U<sp/></highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCMD_CMDACT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000400U<sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCMD_CMDIOC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000100U<sp/></highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCMD_DEPSTARTCFG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000009U<sp/></highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCMD_ENDTRANSFER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008U<sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCMD_UPDATETRANSFER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000007U<sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCMD_STARTTRANSFER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000006U<sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCMD_CLEARSTALL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000005U<sp/></highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCMD_SETSTALL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCMD_GETEPSTATE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000003U<sp/></highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCMD_SETTRANSFRESOURCE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U<sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCMD_SETEPCONFIG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>The<sp/>EP<sp/>number<sp/>goes<sp/>0..31<sp/>so<sp/>ep0<sp/>is<sp/>always<sp/>out<sp/>and<sp/>ep1<sp/>is<sp/>always<sp/>in<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUSBPSU_DALEPENA_EP(n)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x00000001U<sp/>&lt;&lt;<sp/>(n))</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCFG_INT_NUM(n)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(n)<sp/>&lt;&lt;<sp/>0U)<sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCFG_XFER_COMPLETE_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000100U<sp/></highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCFG_XFER_IN_PROGRESS_EN<sp/><sp/><sp/><sp/><sp/><sp/>0x00000200U<sp/></highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCFG_XFER_NOT_READY_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000400U<sp/></highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCFG_FIFO_ERROR_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000800U<sp/></highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCFG_STREAM_EVENT_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00002000U<sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCFG_BINTERVAL_M1(n)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(n)<sp/>&lt;&lt;<sp/>16U)<sp/></highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCFG_STREAM_CAPABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01000000U<sp/></highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCFG_EP_NUMBER(n)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(n)<sp/>&lt;&lt;<sp/>25U)<sp/></highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCFG_BULK_BASED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40000000U<sp/></highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCFG_FIFO_BASED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80000000U<sp/></highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>DEPCFG<sp/>parameter<sp/>0<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCFG_EP_TYPE(n)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(n)<sp/>&lt;&lt;<sp/>1U)<sp/></highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCFG_MAX_PACKET_SIZE(n)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(n)<sp/>&lt;&lt;<sp/>3U)<sp/></highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCFG_FIFO_NUMBER(n)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(n)<sp/>&lt;&lt;<sp/>17U)<sp/></highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCFG_BURST_SIZE(n)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(n)<sp/>&lt;&lt;<sp/>22U)<sp/></highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCFG_DATA_SEQ_NUM(n)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(n)<sp/>&lt;&lt;<sp/>26U)<sp/></highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>This<sp/>applies<sp/>for<sp/>core<sp/>versions<sp/>earlier<sp/>than<sp/>1.94a<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCFG_IGN_SEQ_NUM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U<sp/>&lt;&lt;<sp/>31U)<sp/></highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>These<sp/>apply<sp/>for<sp/>core<sp/>versions<sp/>1.94a<sp/>and<sp/>later<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCFG_ACTION_INIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U<sp/></highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCFG_ACTION_RESTORE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40000000U<sp/></highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCFG_ACTION_MODIFY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80000000U<sp/></highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>DEPXFERCFG<sp/>parameter<sp/>0<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPXFERCFG_NUM_XFER_RES(n)<sp/>((u32)(n)<sp/>&amp;<sp/>(u32)0xFFFFU)<sp/></highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCMD_TYPE_BULK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U<sp/></highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor">#define<sp/>XUSBPSU_DEPCMD_TYPE_INTR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U<sp/></highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>TRB<sp/>Length,<sp/>PCM<sp/>and<sp/>Status<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUSBPSU_TRB_SIZE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00ffffffU)<sp/></highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor">#define<sp/>XUSBPSU_TRB_SIZE_LENGTH(n)<sp/><sp/><sp/><sp/><sp/><sp/>((u32)(n)<sp/>&amp;<sp/>XUSBPSU_TRB_SIZE_MASK)<sp/></highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor">#define<sp/>XUSBPSU_TRB_SIZE_PCM1(n)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)(n)<sp/>&amp;<sp/>(u32)0x03)<sp/>&lt;&lt;<sp/>24U)<sp/></highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor">#define<sp/>XUSBPSU_TRB_SIZE_TRBSTS(n)<sp/><sp/><sp/><sp/><sp/><sp/>(((u32)(n)<sp/>&amp;<sp/>((u32)0x0f<sp/>&lt;&lt;<sp/>28U))<sp/>&gt;&gt;<sp/>28U)<sp/></highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor">#define<sp/>XUSBPSU_TRBSTS_OK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/></highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor">#define<sp/>XUSBPSU_TRBSTS_MISSED_ISOC<sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/></highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor">#define<sp/>XUSBPSU_TRBSTS_SETUP_PENDING<sp/><sp/><sp/><sp/>2U<sp/></highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor">#define<sp/>XUSBPSU_TRB_STS_XFER_IN_PROG<sp/><sp/><sp/><sp/>4U<sp/></highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>TRB<sp/>Control<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUSBPSU_TRB_CTRL_HWO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x00000001U<sp/>&lt;&lt;<sp/>0U)<sp/></highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor">#define<sp/>XUSBPSU_TRB_CTRL_LST<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x00000001U<sp/>&lt;&lt;<sp/>1U)<sp/></highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor">#define<sp/>XUSBPSU_TRB_CTRL_CHN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x00000001U<sp/>&lt;&lt;<sp/>2U)<sp/></highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor">#define<sp/>XUSBPSU_TRB_CTRL_CSP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x00000001U<sp/>&lt;&lt;<sp/>3U)<sp/></highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor">#define<sp/>XUSBPSU_TRB_CTRL_TRBCTL(n)<sp/><sp/><sp/><sp/><sp/><sp/>(((u32)(n)<sp/>&amp;<sp/>(u32)0x3FU)<sp/>&lt;&lt;<sp/>4U)<sp/></highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor">#define<sp/>XUSBPSU_TRB_CTRL_ISP_IMI<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000400U<sp/></highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor">#define<sp/>XUSBPSU_TRB_CTRL_IOC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000800U<sp/></highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor">#define<sp/>XUSBPSU_TRB_CTRL_SID_SOFN(n)<sp/><sp/><sp/><sp/>(((u32)(n)<sp/>&amp;<sp/>(u32)0xFFFFU)<sp/>&lt;&lt;<sp/>14U)<sp/></highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor">#define<sp/>XUSBPSU_TRBCTL_NORMAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUSBPSU_TRB_CTRL_TRBCTL(1U)<sp/></highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor">#define<sp/>XUSBPSU_TRBCTL_CONTROL_SETUP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUSBPSU_TRB_CTRL_TRBCTL(2U)<sp/></highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor">#define<sp/>XUSBPSU_TRBCTL_CONTROL_STATUS2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUSBPSU_TRB_CTRL_TRBCTL(3U)<sp/></highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor">#define<sp/>XUSBPSU_TRBCTL_CONTROL_STATUS3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUSBPSU_TRB_CTRL_TRBCTL(4U)<sp/></highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor">#define<sp/>XUSBPSU_TRBCTL_CONTROL_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUSBPSU_TRB_CTRL_TRBCTL(5U)<sp/></highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor">#define<sp/>XUSBPSU_TRBCTL_ISOCHRONOUS_FIRST<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUSBPSU_TRB_CTRL_TRBCTL(6U)<sp/></highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor">#define<sp/>XUSBPSU_TRBCTL_ISOCHRONOUS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUSBPSU_TRB_CTRL_TRBCTL(7U)<sp/></highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor">#define<sp/>XUSBPSU_TRBCTL_LINK_TRB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUSBPSU_TRB_CTRL_TRBCTL(8U)<sp/></highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XUSBPSU_ENDPOINT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_endpoint.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp___rx_iic_map_entry" kind="struct" prot="public">
+    <compoundname>XDp_RxIicMapEntry</compoundname>
+    <includes local="no">xdp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp___rx_iic_map_entry_1ae7783d2930c075ea7481a810f40add58" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_RxIicMapEntry::IicAddress</definition>
+        <argsstring></argsstring>
+        <name>IicAddress</name>
+        <briefdescription>
+<para>The I2C address for the which to link the data to. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="737" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="737" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_iic_map_entry_1a6c8dd1fecb4d0c10c8ef754843e16296" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_RxIicMapEntry::WriteVal</definition>
+        <argsstring></argsstring>
+        <name>WriteVal</name>
+        <briefdescription>
+<para>The last value written to this I2C address. </para>        </briefdescription>
+        <detaileddescription>
+<para>This may be used when the TX writes to this I2C address in order to set a read offset or set the segment pointer. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="739" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="739" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_iic_map_entry_1afd33562f2fffe630666dfa1c74c86a2f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_RxIicMapEntry::ReadNumBytes</definition>
+        <argsstring></argsstring>
+        <name>ReadNumBytes</name>
+        <briefdescription>
+<para>The total number of available data bytes at this I2C address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="745" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="745" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_iic_map_entry_1a7ff4726785423c57c09611925588c90a" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XDp_RxIicMapEntry::ReadData</definition>
+        <argsstring></argsstring>
+        <name>ReadData</name>
+        <briefdescription>
+<para>The data available at the specified I2C address. </para>        </briefdescription>
+        <detaileddescription>
+<para>User-defined by setting the pointer to a structure residing in the application. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="747" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="747" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef represents one I2C map entry for a device. </para>    </briefdescription>
+    <detaileddescription>
+<para>This is used to allow the user to define an I2C map for any port. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="736" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="736" bodyend="752"/>
+    <listofallmembers>
+      <member refid="struct_x_dp___rx_iic_map_entry_1ae7783d2930c075ea7481a810f40add58" prot="public" virt="non-virtual"><scope>XDp_RxIicMapEntry</scope><name>IicAddress</name></member>
+      <member refid="struct_x_dp___rx_iic_map_entry_1a7ff4726785423c57c09611925588c90a" prot="public" virt="non-virtual"><scope>XDp_RxIicMapEntry</scope><name>ReadData</name></member>
+      <member refid="struct_x_dp___rx_iic_map_entry_1afd33562f2fffe630666dfa1c74c86a2f" prot="public" virt="non-virtual"><scope>XDp_RxIicMapEntry</scope><name>ReadNumBytes</name></member>
+      <member refid="struct_x_dp___rx_iic_map_entry_1a6c8dd1fecb4d0c10c8ef754843e16296" prot="public" virt="non-virtual"><scope>XDp_RxIicMapEntry</scope><name>WriteVal</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,2068 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xaxipcie__hw_8h" kind="file">
+    <compoundname>xaxipcie_hw.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xaxipcie_8h" local="yes">xaxipcie.h</includedby>
+    <incdepgraph>
+      <node id="71">
+        <label>xil_io.h</label>
+      </node>
+      <node id="69">
+        <label>xaxipcie_hw.h</label>
+        <link refid="xaxipcie_hw.h"/>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+      </node>
+      <node id="70">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="78">
+        <label>xaxipcie_ep_cdma_example.c</label>
+        <link refid="xaxipcie__ep__cdma__example_8c"/>
+      </node>
+      <node id="76">
+        <label>xaxipcie_intr.c</label>
+      </node>
+      <node id="72">
+        <label>xaxipcie_hw.h</label>
+        <link refid="xaxipcie_hw.h"/>
+        <childnode refid="73" relation="include">
+        </childnode>
+      </node>
+      <node id="75">
+        <label>xaxipcie_g.c</label>
+        <link refid="xaxipcie__g_8c"/>
+      </node>
+      <node id="77">
+        <label>xaxipcie_sinit.c</label>
+      </node>
+      <node id="79">
+        <label>xaxipcie_ep_enable_example.c</label>
+        <link refid="xaxipcie__ep__enable__example_8c"/>
+      </node>
+      <node id="81">
+        <label>xaxipcie_rc_enumerate_example.c</label>
+        <link refid="xaxipcie__rc__enumerate__example_8c"/>
+      </node>
+      <node id="80">
+        <label>xaxipcie_rc_cdma_example.c</label>
+        <link refid="xaxipcie__rc__cdma__example_8c"/>
+      </node>
+      <node id="74">
+        <label>xaxipcie.c</label>
+      </node>
+      <node id="73">
+        <label>xaxipcie.h</label>
+        <link refid="xaxipcie_8h"/>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Registers</header>
+      <description><para>Register offsets for this device.</para><para>Some of the registers are configurable at hardware build time such that may or may not exist in the hardware. </para></description>
+      <memberdef kind="define" id="group__axipcie_1ga7cecef23e8a28935226e7dc9815390c0" prot="public" static="no">
+        <name>XAXIPCIE_PCIE_CORE_OFFSET</name>
+        <initializer>0x000</initializer>
+        <briefdescription>
+<para>PCI Express hard core configuration register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1gad9494095b9350f455af9e7da5375d522" compoundref="xaxipcie_8c" startline="672" endline="683">XAxiPcie_ReadLocalConfigSpace</referencedby>
+        <referencedby refid="group__axipcie_1gafbdf9a7e71effb96353079d1c177888b" compoundref="xaxipcie_8c" startline="701" endline="712">XAxiPcie_WriteLocalConfigSpace</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gaf01ed785ab64d6c124437532ece335ce" prot="public" static="no">
+        <name>XAXIPCIE_VSECC_OFFSET</name>
+        <initializer>0x128</initializer>
+        <briefdescription>
+<para>VSEC Capability Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga745d2811e366fbe0e5499cfef90adbcc" compoundref="xaxipcie_8c" startline="144" endline="168">XAxiPcie_GetVsecCapability</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gab99ecd675b55df50a385fc7b429d38e4" prot="public" static="no">
+        <name>XAXIPCIE_VSECH_OFFSET</name>
+        <initializer>0x12C</initializer>
+        <briefdescription>
+<para>VSEC Header Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1gaa26f5255cb42e55351c7cb802f71d56c" compoundref="xaxipcie_8c" startline="191" endline="216">XAxiPcie_GetVsecHeader</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga9f8bb352119692caff9e7851fe534498" prot="public" static="no">
+        <name>XAXIPCIE_BI_OFFSET</name>
+        <initializer>0x130</initializer>
+        <briefdescription>
+<para>Bridge Info Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga6eaa13c68af6eb2ca12ae556f9e0769b" compoundref="xaxipcie_8c" startline="94" endline="121">XAxiPcie_CfgInitialize</referencedby>
+        <referencedby refid="group__axipcie_1ga75ca6a068024666c0199ea90d3ce4276" compoundref="xaxipcie_8c" startline="236" endline="259">XAxiPcie_GetBridgeInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga10e385edef3931106642fcf07d5a5fec" prot="public" static="no">
+        <name>XAXIPCIE_BSC_OFFSET</name>
+        <initializer>0x134</initializer>
+        <briefdescription>
+<para>Bridge Status and Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1gaace3ba2f6c70cd207c9c65d92c634ee8" compoundref="xaxipcie__intr_8c" startline="79" endline="94">XAxiPcie_DisableGlobalInterrupt</referencedby>
+        <referencedby refid="group__axipcie_1ga062809d176f81251886d5372c0714f7a" compoundref="xaxipcie__intr_8c" startline="52" endline="66">XAxiPcie_EnableGlobalInterrupt</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gaf4ee25f8cd866c3c4c79bd9f1a784a7c" prot="public" static="no">
+        <name>XAXIPCIE_ID_OFFSET</name>
+        <initializer>0x138</initializer>
+        <briefdescription>
+<para>Interrupt Decode Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="88" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1gabdf66d0cb481a5eea62e1f98e71d9520" compoundref="xaxipcie__intr_8c" startline="222" endline="231">XAxiPcie_ClearPendingInterrupts</referencedby>
+        <referencedby refid="group__axipcie_1gaec39c65db1aeac38798a250a25298208" compoundref="xaxipcie__intr_8c" startline="196" endline="206">XAxiPcie_GetPendingInterrupts</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gad798e4bbf2fc4fe5135dfa56fac31399" prot="public" static="no">
+        <name>XAXIPCIE_IM_OFFSET</name>
+        <initializer>0x13C</initializer>
+        <briefdescription>
+<para>Interrupt Mask Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="95" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1gae238cf115bd039e0f7228e385c893aad" compoundref="xaxipcie__intr_8c" startline="141" endline="154">XAxiPcie_DisableInterrupts</referencedby>
+        <referencedby refid="group__axipcie_1ga22a95261655e78a944d1a2462031da57" compoundref="xaxipcie__intr_8c" startline="111" endline="124">XAxiPcie_EnableInterrupts</referencedby>
+        <referencedby refid="group__axipcie_1gae118e9d7fd6b78ca0b8d4fd6694f9808" compoundref="xaxipcie__intr_8c" startline="170" endline="180">XAxiPcie_GetEnabledInterrupts</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gae8a758a6bb3b73be59a403a53ef97881" prot="public" static="no">
+        <name>XAXIPCIE_BL_OFFSET</name>
+        <initializer>0x140</initializer>
+        <briefdescription>
+<para>Bus Location Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="102" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga77063428b5641d07910419770813c148" compoundref="xaxipcie_8c" startline="280" endline="307">XAxiPcie_GetRequesterId</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga84f89f155288e2a5de41a09bdf5d8672" prot="public" static="no">
+        <name>XAXIPCIE_PHYSC_OFFSET</name>
+        <initializer>0x144</initializer>
+        <briefdescription>
+<para>Physical status and Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="107" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga372301905fec6833c06320fb45261cd7" compoundref="xaxipcie_8c" startline="322" endline="334">XAxiPcie_GetPhyStatusCtrl</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gafb8cd2a16037d697cf4a5af55506af44" prot="public" static="no">
+        <name>XAXIPCIE_RPSC_OFFSET</name>
+        <initializer>0x148</initializer>
+        <briefdescription>
+<para>Root Port Status &amp; Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="114" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga0899628f4ecfb6d3b05671933c375ae5" compoundref="xaxipcie_8c" startline="350" endline="360">XAxiPcie_GetRootPortStatusCtrl</referencedby>
+        <referencedby refid="group__axipcie_1ga2860cd7b0180a99fb324c085fc8fa746" compoundref="xaxipcie_8c" startline="375" endline="386">XAxiPcie_SetRootPortStatusCtrl</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga5b498715d2bbafc1a81fea7abd853f29" prot="public" static="no">
+        <name>XAXIPCIE_RPMSIB_UPPER_OFFSET</name>
+        <initializer>0x14C</initializer>
+        <briefdescription>
+<para>Root Port MSI Base 1 Register Upper 32 bits from 64 bit address are written. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="121" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga0ce4f790929f629f225c2ef2fbcc2647" compoundref="xaxipcie_8c" startline="402" endline="428">XAxiPcie_SetRootPortMSIBase</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga7fff8ece26635ba08deb9dd05f6283a1" prot="public" static="no">
+        <name>XAXIPCIE_RPMSIB_LOWER_OFFSET</name>
+        <initializer>0x150</initializer>
+        <briefdescription>
+<para>Root Port MSI Base 2 Register Lower 32 bits from 64 bit address are written. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="132" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga0ce4f790929f629f225c2ef2fbcc2647" compoundref="xaxipcie_8c" startline="402" endline="428">XAxiPcie_SetRootPortMSIBase</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga8e3c116efe4ad6fc7c0d87a4fdea9dab" prot="public" static="no">
+        <name>XAXIPCIE_RPEFR_OFFSET</name>
+        <initializer>0x154</initializer>
+        <briefdescription>
+<para>Root Port Error FIFO Read Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="143" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga225811fdbd9b22b8208a83ca4d3818ce" compoundref="xaxipcie_8c" startline="485" endline="495">XAxiPcie_ClearRootPortErrFIFOMsg</referencedby>
+        <referencedby refid="group__axipcie_1ga32604cb99f7d35107ee59ff121e0024d" compoundref="xaxipcie_8c" startline="448" endline="471">XAxiPcie_GetRootPortErrFIFOMsg</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gad61ae31bb34ed3e02243c5d74ac75afa" prot="public" static="no">
+        <name>XAXIPCIE_RPIFR1_OFFSET</name>
+        <initializer>0x158</initializer>
+        <briefdescription>
+<para>Root Port Interrupt FIFO Read1 Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="150" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga4b043d41a5668f97f83518327023ea0d" compoundref="xaxipcie_8c" startline="576" endline="586">XAxiPcie_ClearRootPortIntFIFOReg</referencedby>
+        <referencedby refid="group__axipcie_1ga8b13520d9f4472bc16cfa5a6266f6795" compoundref="xaxipcie_8c" startline="520" endline="561">XAxiPcie_GetRootPortIntFIFOReg</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga92a83142f665f34045a5235732060c47" prot="public" static="no">
+        <name>XAXIPCIE_RPIFR2_OFFSET</name>
+        <initializer>0x15C</initializer>
+        <briefdescription>
+<para>Root Port Interrupt FIFO Read2 Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="157" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga8b13520d9f4472bc16cfa5a6266f6795" compoundref="xaxipcie_8c" startline="520" endline="561">XAxiPcie_GetRootPortIntFIFOReg</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gace702755df9d438185fdb96c5e63cc0e" prot="public" static="no">
+        <name>XAXIPCIE_AXIBAR2PCIBAR_0U_OFFSET</name>
+        <initializer>0x208</initializer>
+        <briefdescription>
+<para>AXIBAR 2 PCIBAR translation 0 upper 32 bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="166" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga19d8a1973231160bdd518b1c62bda3d4" compoundref="xaxipcie_8c" startline="603" endline="621">XAxiPcie_GetLocalBusBar2PcieBar</referencedby>
+        <referencedby refid="group__axipcie_1ga51ee29d03fbefc82b9208f46a12d5a06" compoundref="xaxipcie_8c" startline="638" endline="654">XAxiPcie_SetLocalBusBar2PcieBar</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gaa01b566fdaa57bf0696c4a4445053158" prot="public" static="no">
+        <name>XAXIPCIE_AXIBAR2PCIBAR_0L_OFFSET</name>
+        <initializer>0x20C</initializer>
+        <briefdescription>
+<para>AXIBAR to PCIBAR translation 0 lower 32 bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="175" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga19d8a1973231160bdd518b1c62bda3d4" compoundref="xaxipcie_8c" startline="603" endline="621">XAxiPcie_GetLocalBusBar2PcieBar</referencedby>
+        <referencedby refid="group__axipcie_1ga51ee29d03fbefc82b9208f46a12d5a06" compoundref="xaxipcie_8c" startline="638" endline="654">XAxiPcie_SetLocalBusBar2PcieBar</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gadf2f3ccb2ad35296c9ad8fbd7658cfc9" prot="public" static="no">
+        <name>XAXIPCIE_AXIBAR2PCIBAR_1U_OFFSET</name>
+        <initializer>0x210</initializer>
+        <briefdescription>
+<para>AXIBAR to PCIBAR translation 1 upper 32 bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga6abf854a95cdb33425df188de3e63491" prot="public" static="no">
+        <name>XAXIPCIE_AXIBAR2PCIBAR_1L_OFFSET</name>
+        <initializer>0x214</initializer>
+        <briefdescription>
+<para>AXIBAR to PCIBAR translation 1 lower 32 bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gac6b872ead955b2775dfd68c8cdaece4b" prot="public" static="no">
+        <name>XAXIPCIE_AXIBAR2PCIBAR_2U_OFFSET</name>
+        <initializer>0x218</initializer>
+        <briefdescription>
+<para>AXIBAR to PCIBAR translation 2 upper 32 bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga60190c47d9ac660c226563032207ebb3" prot="public" static="no">
+        <name>XAXIPCIE_AXIBAR2PCIBAR_2L_OFFSET</name>
+        <initializer>0x21C</initializer>
+        <briefdescription>
+<para>AXIBAR to PCIBAR translation 2 lower 32 bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga3934606610a905f1902a34760c20b7a8" prot="public" static="no">
+        <name>XAXIPCIE_AXIBAR2PCIBAR_3U_OFFSET</name>
+        <initializer>0x220</initializer>
+        <briefdescription>
+<para>AXIBAR to PCIBAR translation 3 upper 32 bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga165a875ba9d89b26ebb25cb288c33745" prot="public" static="no">
+        <name>XAXIPCIE_AXIBAR2PCIBAR_3L_OFFSET</name>
+        <initializer>0x224</initializer>
+        <briefdescription>
+<para>AXIBAR to PCIBAR translation 3 lower 32 bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gaa7970a09db54b7f198a039211a1116b3" prot="public" static="no">
+        <name>XAXIPCIE_AXIBAR2PCIBAR_4U_OFFSET</name>
+        <initializer>0x228</initializer>
+        <briefdescription>
+<para>AXIBAR to PCIBAR translation 4 upper 32 bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="238" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga940f71ca9d3e3bc7ac6716f2f34c4884" prot="public" static="no">
+        <name>XAXIPCIE_AXIBAR2PCIBAR_4L_OFFSET</name>
+        <initializer>0x22C</initializer>
+        <briefdescription>
+<para>AXIBAR to PCIBAR translation 4 lower 32 bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gabe4237b20c412dc42cbd47c8bd87af92" prot="public" static="no">
+        <name>XAXIPCIE_AXIBAR2PCIBAR_5U_OFFSET</name>
+        <initializer>0x230</initializer>
+        <briefdescription>
+<para>AXIBAR to PCIBAR translation 5 upper 32 bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga400d8b2257870a70418b3d9bf8de5a77" prot="public" static="no">
+        <name>XAXIPCIE_AXIBAR2PCIBAR_5L_OFFSET</name>
+        <initializer>0x234</initializer>
+        <briefdescription>
+<para>AXIBAR to PCIBAR translation 5 lower 32 bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>VSECC Register bitmaps and masks</header>
+      <memberdef kind="define" id="group__axipcie_1gabd84445ebce4bfcb25ca5b75799bbba5" prot="public" static="no">
+        <name>XAXIPCIE_VSECC_ID_MASK</name>
+        <initializer>0x0000FFFF</initializer>
+        <briefdescription>
+<para>Vsec capability Id. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="279" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga745d2811e366fbe0e5499cfef90adbcc" compoundref="xaxipcie_8c" startline="144" endline="168">XAxiPcie_GetVsecCapability</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga8724baa412ffd4bd593fd67c2928c3a1" prot="public" static="no">
+        <name>XAXIPCIE_VSECC_VER_MASK</name>
+        <initializer>0x000F0000</initializer>
+        <briefdescription>
+<para>Version of capability Structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="188" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="280" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga745d2811e366fbe0e5499cfef90adbcc" compoundref="xaxipcie_8c" startline="144" endline="168">XAxiPcie_GetVsecCapability</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gaca2f85036ff847a8f3c9def6d402bfe3" prot="public" static="no">
+        <name>XAXIPCIE_VSECC_NEXT_MASK</name>
+        <initializer>0xFFF00000</initializer>
+        <briefdescription>
+<para>Offset to next capability. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="191" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="285" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga745d2811e366fbe0e5499cfef90adbcc" compoundref="xaxipcie_8c" startline="144" endline="168">XAxiPcie_GetVsecCapability</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gab791a04d374dfc7d88d5e3c817126b8f" prot="public" static="no">
+        <name>XAXIPCIE_VSECC_VER_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>VSEC Version shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="290" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga745d2811e366fbe0e5499cfef90adbcc" compoundref="xaxipcie_8c" startline="144" endline="168">XAxiPcie_GetVsecCapability</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga4ea49e123b5a60e753034437e748a455" prot="public" static="no">
+        <name>XAXIPCIE_VSECC_NEXT_SHIFT</name>
+        <initializer>20</initializer>
+        <briefdescription>
+<para>Next capability offset shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="195" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="291" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga745d2811e366fbe0e5499cfef90adbcc" compoundref="xaxipcie_8c" startline="144" endline="168">XAxiPcie_GetVsecCapability</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>VSECH Register bitmaps and masks</header>
+      <memberdef kind="define" id="group__axipcie_1gafd846b29aae82d036fc3ea66ef65596f" prot="public" static="no">
+        <name>XAXIPCIE_VSECH_ID_MASK</name>
+        <initializer>0x0000FFFF</initializer>
+        <briefdescription>
+<para>Vsec structure Id. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="202" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="302" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1gaa26f5255cb42e55351c7cb802f71d56c" compoundref="xaxipcie_8c" startline="191" endline="216">XAxiPcie_GetVsecHeader</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga94c0af68259b5949d6c003dd85d46b2d" prot="public" static="no">
+        <name>XAXIPCIE_VSECH_REV_MASK</name>
+        <initializer>0x000F0000</initializer>
+        <briefdescription>
+<para>Vsec header version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="203" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="303" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1gaa26f5255cb42e55351c7cb802f71d56c" compoundref="xaxipcie_8c" startline="191" endline="216">XAxiPcie_GetVsecHeader</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gaed6b0e6cd2817f7c5c69c3290833447e" prot="public" static="no">
+        <name>XAXIPCIE_VSECH_LEN_MASK</name>
+        <initializer>0xFFF00000</initializer>
+        <briefdescription>
+<para>Length of Vsec capability structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="206" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="304" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1gaa26f5255cb42e55351c7cb802f71d56c" compoundref="xaxipcie_8c" startline="191" endline="216">XAxiPcie_GetVsecHeader</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga591f34e1c213bb45aba99629c71b565b" prot="public" static="no">
+        <name>XAXIPCIE_VSECH_REV_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Vsec version shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="207" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="309" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1gaa26f5255cb42e55351c7cb802f71d56c" compoundref="xaxipcie_8c" startline="191" endline="216">XAxiPcie_GetVsecHeader</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gaa6e2e6e5e712fa8b44077688caee37d1" prot="public" static="no">
+        <name>XAXIPCIE_VSECH_LEN_SHIFT</name>
+        <initializer>20</initializer>
+        <briefdescription>
+<para>Vsec length shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="208" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="310" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1gaa26f5255cb42e55351c7cb802f71d56c" compoundref="xaxipcie_8c" startline="191" endline="216">XAxiPcie_GetVsecHeader</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bridge Info Register bitmaps and masks</header>
+      <memberdef kind="define" id="group__axipcie_1ga5c3e13956927d814f89b16d58bc87b71" prot="public" static="no">
+        <name>XAXIPCIE_BI_GEN2_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>PCIe Gen2 Speed Support Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="217" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="317" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga75ca6a068024666c0199ea90d3ce4276" compoundref="xaxipcie_8c" startline="236" endline="259">XAxiPcie_GetBridgeInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gab624cf074fe8d343c15a086782e1150c" prot="public" static="no">
+        <name>XAXIPCIE_BI_RP_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>PCIe Root Port Support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="219" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="322" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga75ca6a068024666c0199ea90d3ce4276" compoundref="xaxipcie_8c" startline="236" endline="259">XAxiPcie_GetBridgeInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga3950d5b04a69dcbc2e2c5711cb657745" prot="public" static="no">
+        <name>XAXIPCIE_UP_CONFIG_CAPABLE</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Up Config Capable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="220" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="325" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga2d99e62d5248da57465cd526eaf9cb01" prot="public" static="no">
+        <name>XAXIPCIE_BI_ECAM_SIZE_MASK</name>
+        <initializer>0x00070000</initializer>
+        <briefdescription>
+<para>ECAM size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="222" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="327" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga6eaa13c68af6eb2ca12ae556f9e0769b" compoundref="xaxipcie_8c" startline="94" endline="121">XAxiPcie_CfgInitialize</referencedby>
+        <referencedby refid="group__axipcie_1ga75ca6a068024666c0199ea90d3ce4276" compoundref="xaxipcie_8c" startline="236" endline="259">XAxiPcie_GetBridgeInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gae20709cf0062b87ed8689af2e8ee0a0a" prot="public" static="no">
+        <name>XAXIPCIE_BI_RP_SHIFT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>PCIe Root Port Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="223" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="328" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga75ca6a068024666c0199ea90d3ce4276" compoundref="xaxipcie_8c" startline="236" endline="259">XAxiPcie_GetBridgeInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga6e5ee78d2b39fa90a87fea37ed49d35a" prot="public" static="no">
+        <name>XAXIPCIE_BI_ECAM_SIZE_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>PCIe ECAM Size Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="224" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="329" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga6eaa13c68af6eb2ca12ae556f9e0769b" compoundref="xaxipcie_8c" startline="94" endline="121">XAxiPcie_CfgInitialize</referencedby>
+        <referencedby refid="group__axipcie_1ga75ca6a068024666c0199ea90d3ce4276" compoundref="xaxipcie_8c" startline="236" endline="259">XAxiPcie_GetBridgeInfo</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bridge Status &amp; Control Register bitmaps and masks</header>
+      <memberdef kind="define" id="group__axipcie_1gabfb6e478c3f181fcec8e4918f9442296" prot="public" static="no">
+        <name>XAXIPCIE_BSC_ECAM_BUSY_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>ECAM Busy Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="231" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="336" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga6a80436f1d395be5d4963d3f9d09f49c" prot="public" static="no">
+        <name>XAXIPCIE_BSC_GI_MASK</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+<para>Global Interrupt Disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="234" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="337" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1gaace3ba2f6c70cd207c9c65d92c634ee8" compoundref="xaxipcie__intr_8c" startline="79" endline="94">XAxiPcie_DisableGlobalInterrupt</referencedby>
+        <referencedby refid="group__axipcie_1ga062809d176f81251886d5372c0714f7a" compoundref="xaxipcie__intr_8c" startline="52" endline="66">XAxiPcie_EnableGlobalInterrupt</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga5d8d34b56c828dc51ee2bf7fe5876e6d" prot="public" static="no">
+        <name>XAXIPCIE_BSC_RW1C_MASK</name>
+        <initializer>0x00010000</initializer>
+        <briefdescription>
+<para>RW Permissions to RW1C Registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="237" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="342" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga7414766d143e8d20bf6ace5ca03548d8" prot="public" static="no">
+        <name>XAXIPCIE_BSC_RO_MASK</name>
+        <initializer>0x00020000</initializer>
+        <briefdescription>
+<para>RW Permissions to RO Registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="240" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="347" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga92e6aa96f3a966ac3ac8b8b00bb770e6" prot="public" static="no">
+        <name>XAXIPCIE_BSC_GI_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Global Interrupt Disable Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="243" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="352" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1gaace3ba2f6c70cd207c9c65d92c634ee8" compoundref="xaxipcie__intr_8c" startline="79" endline="94">XAxiPcie_DisableGlobalInterrupt</referencedby>
+        <referencedby refid="group__axipcie_1ga062809d176f81251886d5372c0714f7a" compoundref="xaxipcie__intr_8c" startline="52" endline="66">XAxiPcie_EnableGlobalInterrupt</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gac17ec341d56663eee8c61f478078e8e5" prot="public" static="no">
+        <name>XAXIPCIE_BSC_RW1C_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>RW1C Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="244" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="357" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga00ae2b626af9f11c9e3f9ccf4cbbd526" prot="public" static="no">
+        <name>XAXIPCIE_BSC_RO_SHIFT</name>
+        <initializer>17</initializer>
+        <briefdescription>
+<para>RO as RW Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="245" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="358" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt Decode Register bitmaps and masks</header>
+      <memberdef kind="define" id="group__axipcie_1ga7d8d223d3881fc8e39d0d176974a5f97" prot="public" static="no">
+        <name>XAXIPCIE_ID_LINK_DOWN_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Link Down Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="252" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="365" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gac24578f59c89ad7e659b6321259e005c" prot="public" static="no">
+        <name>XAXIPCIE_ID_ECRC_ERR_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Rx Packet CRC failed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="253" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="366" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gac12ef40af613a60dd229b11010e850ef" prot="public" static="no">
+        <name>XAXIPCIE_ID_STR_ERR_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Streaming Error Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="254" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="367" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gab7c127293e67e001584800088d052fee" prot="public" static="no">
+        <name>XAXIPCIE_ID_HOT_RST_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Hot Reset Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="255" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="368" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga846f47d9802bd878b3903c27673e4242" prot="public" static="no">
+        <name>XAXIPCIE_ID_CFG_COMPL_STATE_MASK</name>
+        <initializer>0x000000E0</initializer>
+        <briefdescription>
+<para>Cfg Completion Status Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="258" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="369" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga5d2598bc52c54ea03294b1ddd915611a" prot="public" static="no">
+        <name>XAXIPCIE_ID_CFG_TIMEOUT_MASK</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+<para>Cfg timeout Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="259" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="374" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga96cd9b31642245e067b4f746cd38a238" prot="public" static="no">
+        <name>XAXIPCIE_ID_CORRECTABLE_ERR_MASK</name>
+        <initializer>0x00000200</initializer>
+        <briefdescription>
+<para>Correctable Error Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="262" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="375" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga79e63cd543f66440b3b227807636ee90" prot="public" static="no">
+        <name>XAXIPCIE_ID_NONFATAL_ERR_MASK</name>
+        <initializer>0x00000400</initializer>
+        <briefdescription>
+<para>Non-Fatal Error Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="263" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="380" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga193020c952d0d7ad38a3769887bd9d34" prot="public" static="no">
+        <name>XAXIPCIE_ID_FATAL_ERR_MASK</name>
+        <initializer>0x00000800</initializer>
+        <briefdescription>
+<para>Fatal Error Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="264" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="381" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gacad1e038951dbef989a1d3b266af35c9" prot="public" static="no">
+        <name>XAXIPCIE_ID_INTX_INTERRUPT</name>
+        <initializer>0x00010000</initializer>
+        <briefdescription>
+<para>INTX Interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="265" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="382" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gaf6f510e8eb119a47dd7f0ebc16801fac" prot="public" static="no">
+        <name>XAXIPCIE_ID_MSI_INTERRUPT</name>
+        <initializer>0x00020000</initializer>
+        <briefdescription>
+<para>MSI Interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="266" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="383" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gaa428513b46014681de2bf99c3cfac84e" prot="public" static="no">
+        <name>XAXIPCIE_ID_UNSUPP_CMPL_MASK</name>
+        <initializer>0x00100000</initializer>
+        <briefdescription>
+<para>Slave Unsupported Request Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="269" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="384" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga16dc91d210fc5079a0c4aa475946818f" prot="public" static="no">
+        <name>XAXIPCIE_ID_UNEXP_CMPL_MASK</name>
+        <initializer>0x00200000</initializer>
+        <briefdescription>
+<para>Slave Unexpected Completion Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="272" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="389" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gab0f88e6f4f242c99bd926d5db15cdb08" prot="public" static="no">
+        <name>XAXIPCIE_ID_CMPL_TIMEOUT_MASK</name>
+        <initializer>0x00400000</initializer>
+        <briefdescription>
+<para>Slave completion Time Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="275" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="394" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga1298f6ace7fb8944f15181c960a90beb" prot="public" static="no">
+        <name>XAXIPCIE_ID_SLV_EP_MASK</name>
+        <initializer>0x00800000</initializer>
+        <briefdescription>
+<para>Slave Error Poison Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="278" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="399" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga9d1319467ba4179502a8b4ef33bf4fe7" prot="public" static="no">
+        <name>XAXIPCIE_ID_CMPL_ABT_MASK</name>
+        <initializer>0x01000000</initializer>
+        <briefdescription>
+<para>Slave completion Abort Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="281" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="404" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gae119f56dec65465b4438531840a8a759" prot="public" static="no">
+        <name>XAXIPCIE_ID_ILL_BURST_MASK</name>
+        <initializer>0x02000000</initializer>
+        <briefdescription>
+<para>Slave Illegal Burst Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="284" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="409" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga2c5b6ef607113d639e16d43dd05b9405" prot="public" static="no">
+        <name>XAXIPCIE_ID_DECODE_ERR_MASK</name>
+        <initializer>0x04000000</initializer>
+        <briefdescription>
+<para>Master Decode Error Interrupt Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="287" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="414" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gaa6dd437acd81c0284bfd1ed1563cfbb7" prot="public" static="no">
+        <name>XAXIPCIE_ID_SLAVE_ERR_MASK</name>
+        <initializer>0x08000000</initializer>
+        <briefdescription>
+<para>Master Slave Error Interrupt Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="290" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="419" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga96036ca77a405418f7e6da47d252f6c9" prot="public" static="no">
+        <name>XAXIPCIE_ID_MASTER_EP_MASK</name>
+        <initializer>0x10000000</initializer>
+        <briefdescription>
+<para>Master Error Poison Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="293" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="424" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gaeb7c330e5d10623ceafc66dd08f149ea" prot="public" static="no">
+        <name>XAXIPCIE_ID_CLEAR_ALL_MASK</name>
+        <initializer>0xFFFFFFFF</initializer>
+        <briefdescription>
+<para>Mask of all Interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="296" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="429" bodyend="-1"/>
+        <referencedby refid="xaxipcie__ep__cdma__example_8c_1a0305d38f6ee9ba0d3e2e545b96201ce3" compoundref="xaxipcie__ep__cdma__example_8c" startline="173" endline="289">PCIeEndPointInitialize</referencedby>
+        <referencedby refid="xaxipcie__rc__cdma__example_8c_1ae4d64f629bd35e874ac76b2e7159b73f" compoundref="xaxipcie__rc__cdma__example_8c" startline="204" endline="344">PcieInitRootComplex</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt Mask Register bitmaps and masks</header>
+      <memberdef kind="define" id="group__axipcie_1ga40d5e3c669642af8441aed4d5ad23ee2" prot="public" static="no">
+        <name>XAXIPCIE_IM_ENABLE_ALL_MASK</name>
+        <initializer>0xFFFFFFFF</initializer>
+        <briefdescription>
+<para>Enable All Interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="304" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="441" bodyend="-1"/>
+        <referencedby refid="xaxipcie__ep__cdma__example_8c_1a0305d38f6ee9ba0d3e2e545b96201ce3" compoundref="xaxipcie__ep__cdma__example_8c" startline="173" endline="289">PCIeEndPointInitialize</referencedby>
+        <referencedby refid="xaxipcie__rc__cdma__example_8c_1ae4d64f629bd35e874ac76b2e7159b73f" compoundref="xaxipcie__rc__cdma__example_8c" startline="204" endline="344">PcieInitRootComplex</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga1da6c8b6280b6726d8ac6178bf11af15" prot="public" static="no">
+        <name>XAXIPCIE_IM_DISABLE_ALL_MASK</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+<para>Disable All Interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="307" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="442" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga6eaa13c68af6eb2ca12ae556f9e0769b" compoundref="xaxipcie_8c" startline="94" endline="121">XAxiPcie_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bus Location Register bitmaps and masks</header>
+      <memberdef kind="define" id="group__axipcie_1ga269fecd1e2d8010e7b84e1339a5b2b94" prot="public" static="no">
+        <name>XAXIPCIE_BL_FUNC_MASK</name>
+        <initializer>0x00000007</initializer>
+        <briefdescription>
+<para>Requester ID Function Number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="314" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="453" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga77063428b5641d07910419770813c148" compoundref="xaxipcie_8c" startline="280" endline="307">XAxiPcie_GetRequesterId</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga21a35da125896346b1a3219fe2dfcc93" prot="public" static="no">
+        <name>XAXIPCIE_BL_DEV_MASK</name>
+        <initializer>0x000000F8</initializer>
+        <briefdescription>
+<para>Requester ID Device Number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="315" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="454" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga77063428b5641d07910419770813c148" compoundref="xaxipcie_8c" startline="280" endline="307">XAxiPcie_GetRequesterId</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gaf8a11f087363d5ff57409bf45a597851" prot="public" static="no">
+        <name>XAXIPCIE_BL_BUS_MASK</name>
+        <initializer>0x0000FF00</initializer>
+        <briefdescription>
+<para>Requester ID Bus Number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="316" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="455" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga77063428b5641d07910419770813c148" compoundref="xaxipcie_8c" startline="280" endline="307">XAxiPcie_GetRequesterId</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gae40bca0b490429edd0c59df2f04dd595" prot="public" static="no">
+        <name>XAXIPCIE_BL_PORT_MASK</name>
+        <initializer>0x00FF0000</initializer>
+        <briefdescription>
+<para>Requester ID Port Number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="317" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="456" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga77063428b5641d07910419770813c148" compoundref="xaxipcie_8c" startline="280" endline="307">XAxiPcie_GetRequesterId</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gaf0d3ce908be6f6c89a7212ddc42ba192" prot="public" static="no">
+        <name>XAXIPCIE_BL_DEV_SHIFT</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>Requester ID Device Number Shift Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="321" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="458" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga77063428b5641d07910419770813c148" compoundref="xaxipcie_8c" startline="280" endline="307">XAxiPcie_GetRequesterId</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gadc5afc68e0ece36131a9636a467ab327" prot="public" static="no">
+        <name>XAXIPCIE_BL_BUS_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Requester ID Bus Number Shift Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="324" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="463" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga77063428b5641d07910419770813c148" compoundref="xaxipcie_8c" startline="280" endline="307">XAxiPcie_GetRequesterId</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga7ef6bab98d1eba6156f808f92e39d7f2" prot="public" static="no">
+        <name>XAXIPCIE_BL_PORT_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Requester ID Bus Number Shift Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="327" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="468" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga77063428b5641d07910419770813c148" compoundref="xaxipcie_8c" startline="280" endline="307">XAxiPcie_GetRequesterId</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>PHY Status &amp; Control Register bitmaps and masks</header>
+      <memberdef kind="define" id="group__axipcie_1ga1238d2aba155c18a5ce7b45d2a1cbe39" prot="public" static="no">
+        <name>XAXIPCIE_PHYSC_LINK_RATE_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Link Rate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="334" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="479" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga1afe809e17692a8fac45d860ac99c4d3" prot="public" static="no">
+        <name>XAXIPCIE_PHYSC_LINK_WIDTH_MASK</name>
+        <initializer>0x00000006</initializer>
+        <briefdescription>
+<para>Link Width Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="335" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="480" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga83dbe369846939579a0dd3d74476bcb7" prot="public" static="no">
+        <name>XAXIPCIE_PHYSC_LTSSM_STATE_MASK</name>
+        <initializer>0x000001F8</initializer>
+        <briefdescription>
+<para>LTSSM State Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="336" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="481" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga1d873d3497027ad74b8d0240a28ab11d" prot="public" static="no">
+        <name>XAXIPCIE_PHYSC_LANE_REV_MASK</name>
+        <initializer>0x00000600</initializer>
+        <briefdescription>
+<para>Lane Reversal Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="337" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="482" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga1b1c63c3222b1c3585b7b7ba73a46db8" prot="public" static="no">
+        <name>XAXIPCIE_PHYSC_LINK_UP_MASK</name>
+        <initializer>0x00000800</initializer>
+        <briefdescription>
+<para>Link Up Status Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="338" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="483" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga238bcf6752996345861f9e958ee5bddc" prot="public" static="no">
+        <name>XAXIPCIE_PHYSC_DLW_MASK</name>
+        <initializer>0x00030000</initializer>
+        <briefdescription>
+<para>Directed Link Width to change Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="341" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="484" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga04fd250e831f12d2274e81fc11f8544a" prot="public" static="no">
+        <name>XAXIPCIE_PHYSC_DLWS_MASK</name>
+        <initializer>0x00040000</initializer>
+        <briefdescription>
+<para>Directed Link Width Speed to change Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="344" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="489" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gaaf6ed374b48c1d8d127a3cc0fa1dd082" prot="public" static="no">
+        <name>XAXIPCIE_PHYSC_DLA_MASK</name>
+        <initializer>0x00080000</initializer>
+        <briefdescription>
+<para>Directed Link Change change to reliability or Autonomus Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="348" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="494" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gaf3422457e569985908990b125ded1b5f" prot="public" static="no">
+        <name>XAXIPCIE_PHYSC_DLC_MASK</name>
+        <initializer>0x00300000</initializer>
+        <briefdescription>
+<para>Directed Link change Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="351" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="501" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gaef8ab25bd7ab6a989ddc832c2c50c2e4" prot="public" static="no">
+        <name>XAXIPCIE_PHYSC_LINK_WIDTH_SHIFT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Link Status Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="353" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="507" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga41728830bc4094a6044ea629c4699201" prot="public" static="no">
+        <name>XAXIPCIE_PHYSC_LTSSM_STATE_SHIFT</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>LTSSM State Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="354" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="508" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gad478317d1ca0eae5e32d87e51bbb0a92" prot="public" static="no">
+        <name>XAXIPCIE_PHYSC_LANE_REV_SHIFT</name>
+        <initializer>9</initializer>
+        <briefdescription>
+<para>Lane Reversal Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="355" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="509" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga6b51f3442219824eb75fc8ff3cfe1660" prot="public" static="no">
+        <name>XAXIPCIE_PHYSC_LINK_UP_SHIFT</name>
+        <initializer>11</initializer>
+        <briefdescription>
+<para>Link Up Status Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="356" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="510" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga7e9344be85c4daabbe33825ec565e348" prot="public" static="no">
+        <name>XAXIPCIE_PHYSC_DLW_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Directed Link Width to change Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="359" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="511" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gab4aba0340f18918d3aa073dfe631724c" prot="public" static="no">
+        <name>XAXIPCIE_PHYSC_DLWS_SHIFT</name>
+        <initializer>18</initializer>
+        <briefdescription>
+<para>Directed Link Width Speed to change Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="362" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="516" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga39556f83d4e88ec7783db2826ce5303d" prot="public" static="no">
+        <name>XAXIPCIE_PHYSC_DLA_SHIFT</name>
+        <initializer>19</initializer>
+        <briefdescription>
+<para>Directed Link change to reliability or Autonomus Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="366" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="521" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gaabf018637b6aa1ca5b7ca4657ed2583a" prot="public" static="no">
+        <name>XAXIPCIE_PHYSC_DLC_SHIFT</name>
+        <initializer>20</initializer>
+        <briefdescription>
+<para>Directed Link change Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="369" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="528" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Root Port Status/Control Register bitmaps and masks</header>
+      <memberdef kind="define" id="group__axipcie_1ga727eba08077bad1923e3ff44e5522110" prot="public" static="no">
+        <name>XAXIPCIE_RPSC_MASK</name>
+        <initializer>0x0FFF0001</initializer>
+        <briefdescription>
+<para>Root Port Register mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="380" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="540" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga2860cd7b0180a99fb324c085fc8fa746" compoundref="xaxipcie_8c" startline="375" endline="386">XAxiPcie_SetRootPortStatusCtrl</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga7239a578a5e3bbf80fac05bab9a841aa" prot="public" static="no">
+        <name>XAXIPCIE_RPSC_BRIDGE_ENABLE_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Bridge Enable Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="384" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="547" bodyend="-1"/>
+        <referencedby refid="xaxipcie__rc__cdma__example_8c_1a01838eb2ef6647eade95ec664ea99543" compoundref="xaxipcie__rc__cdma__example_8c" startline="359" endline="499">PCIeEnumerateFabric</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga306dded24643ad2589e7773a278198c2" prot="public" static="no">
+        <name>XAXIPCIE_RPSC_ERR_FIFO_NOT_EMPTY_MASK</name>
+        <initializer>0x00010000</initializer>
+        <briefdescription>
+<para>Root Port Error FIFO Not Empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="389" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="555" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gaad476109c1b88e734cd0c487551ecd38" prot="public" static="no">
+        <name>XAXIPCIE_RPSC_ERR_FIFO_OVERFLOW_MASK</name>
+        <initializer>0x00020000</initializer>
+        <briefdescription>
+<para>Root Port Error FIFO Overflow. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="394" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="563" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gad174b729ea9da546195a3e35b5306296" prot="public" static="no">
+        <name>XAXIPCIE_RPSC_INT_FIFO_NOT_EMPTY_MASK</name>
+        <initializer>0x00040000</initializer>
+        <briefdescription>
+<para>Root Port Interrupt FIFO Not Empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="400" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="571" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gae7e2cf8f647b545ca89191d281d28500" prot="public" static="no">
+        <name>XAXIPCIE_RPSC_INT_FIFO_OVERFLOW_MASK</name>
+        <initializer>0x00080000</initializer>
+        <briefdescription>
+<para>Root Port Interrupt FIFO Overflow. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="406" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="581" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gaae47e36bef3304c2ed171d5c4263b356" prot="public" static="no">
+        <name>XAXIPCIE_RPSC_COMP_TIMEOUT_MASK</name>
+        <initializer>0x0FF00000</initializer>
+        <briefdescription>
+<para>Root Port Completion Timeout. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="412" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="591" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gae31c1b6a918ba904627c85e1b1e90cd7" prot="public" static="no">
+        <name>XAXIPCIE_RPSC_ERR_FIFO_NOT_EMPTY_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Root Port Error FIFO Empty Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="417" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="601" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga4c13191564e035b1f82bd03a2618ae68" prot="public" static="no">
+        <name>XAXIPCIE_RPSC_ERR_FIFO_OVERFLOW_SHIFT</name>
+        <initializer>17</initializer>
+        <briefdescription>
+<para>Root Port Error FIFO Overflow Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="421" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="608" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gac928e2b08d55a229e1bcb3064c420152" prot="public" static="no">
+        <name>XAXIPCIE_RPSC_INT_FIFO_NOT_EMPTY_SHIFT</name>
+        <initializer>18</initializer>
+        <briefdescription>
+<para>Root Port Interrupt FIFO Empty Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="425" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="615" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga487c2d600b1745aeda32d7987c08ba79" prot="public" static="no">
+        <name>XAXIPCIE_RPSC_INT_FIFO_OVERFLOW_SHIFT</name>
+        <initializer>19</initializer>
+        <briefdescription>
+<para>Root Port Interrupt FIFO Overflow Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="429" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="622" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga5bd566eee0347d55e43ce6c803fd9ea6" prot="public" static="no">
+        <name>XAXIPCIE_RPSC_COMP_TIMEOUT_SHIFT</name>
+        <initializer>20</initializer>
+        <briefdescription>
+<para>Root Port Completion Timeout Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="433" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="629" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Root Port MSI Base Register bitmaps and masks</header>
+      <memberdef kind="define" id="group__axipcie_1ga6b8ab2e2dd878a06c3fec3bef2612f88" prot="public" static="no">
+        <name>XAXIPCIE_RPMSIB_UPPER_MASK</name>
+        <initializer>0xFFFFFFFF</initializer>
+        <briefdescription>
+<para>Upper 32 bits of 64 bit MSI Base Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="443" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="642" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga0ce4f790929f629f225c2ef2fbcc2647" compoundref="xaxipcie_8c" startline="402" endline="428">XAxiPcie_SetRootPortMSIBase</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gaf58383b79342a1ef51e2c00674f7d6dd" prot="public" static="no">
+        <name>XAXIPCIE_RPMSIB_UPPER_SHIFT</name>
+        <initializer>32	   /* Shift of Upper 32 bits */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="444" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="649" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gac25094bce1e85b534dc154222a7d83a3" prot="public" static="no">
+        <name>XAXIPCIE_RPMSIB_LOWER_MASK</name>
+        <initializer>0xFFFFF000</initializer>
+        <briefdescription>
+<para>Lower 32 bits of 64 bit MSI Base Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="448" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="650" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga0ce4f790929f629f225c2ef2fbcc2647" compoundref="xaxipcie_8c" startline="402" endline="428">XAxiPcie_SetRootPortMSIBase</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Root Port Error FIFO Read Register bitmaps and masks</header>
+      <memberdef kind="define" id="group__axipcie_1ga4e82350a3eb45f3f8a61351de81d39c9" prot="public" static="no">
+        <name>XAXIPCIE_RPEFR_REQ_ID_MASK</name>
+        <initializer>0x0000FFFF</initializer>
+        <briefdescription>
+<para>Requester of Error Msg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="457" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="663" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga32604cb99f7d35107ee59ff121e0024d" compoundref="xaxipcie_8c" startline="448" endline="471">XAxiPcie_GetRootPortErrFIFOMsg</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga76dd5672aa49d1675193c515ee99275e" prot="public" static="no">
+        <name>XAXIPCIE_RPEFR_ERR_TYPE_MASK</name>
+        <initializer>0x00030000</initializer>
+        <briefdescription>
+<para>Type of Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="461" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="669" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga32604cb99f7d35107ee59ff121e0024d" compoundref="xaxipcie_8c" startline="448" endline="471">XAxiPcie_GetRootPortErrFIFOMsg</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga0d7406f32c476e78d25f92fab2bbb30b" prot="public" static="no">
+        <name>XAXIPCIE_RPEFR_ERR_VALID_MASK</name>
+        <initializer>0x00040000</initializer>
+        <briefdescription>
+<para>Error Read Succeeded Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="466" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="675" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga32604cb99f7d35107ee59ff121e0024d" compoundref="xaxipcie_8c" startline="448" endline="471">XAxiPcie_GetRootPortErrFIFOMsg</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga285c4d376d023b3b9df54754606808df" prot="public" static="no">
+        <name>XAXIPCIE_RPEFR_ERR_TYPE_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Type of Error Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="468" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="683" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga32604cb99f7d35107ee59ff121e0024d" compoundref="xaxipcie_8c" startline="448" endline="471">XAxiPcie_GetRootPortErrFIFOMsg</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gacb9ed69607f6da66cc0501f4f18bb732" prot="public" static="no">
+        <name>XAXIPCIE_RPEFR_ERR_VALID_SHIFT</name>
+        <initializer>18</initializer>
+        <briefdescription>
+<para>Error Read Succeeded Status Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="471" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="685" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga32604cb99f7d35107ee59ff121e0024d" compoundref="xaxipcie_8c" startline="448" endline="471">XAxiPcie_GetRootPortErrFIFOMsg</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Root Port Interrupt FIFO Read 1 Register bitmaps and masks</header>
+      <memberdef kind="define" id="group__axipcie_1ga477d9111e2c1e6932b00b658cda9df01" prot="public" static="no">
+        <name>XAXIPCIE_RPIFR1_REQ_ID_MASK</name>
+        <initializer>0x0000FFFF</initializer>
+        <briefdescription>
+<para>Requester Id of Interrupt Message. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="482" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="695" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga8b13520d9f4472bc16cfa5a6266f6795" compoundref="xaxipcie_8c" startline="520" endline="561">XAxiPcie_GetRootPortIntFIFOReg</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gad2a9c673eaa9cdb18e3ac3788fcb834d" prot="public" static="no">
+        <name>XAXIPCIE_RPIFR1_MSI_ADDR_MASK</name>
+        <initializer>0x07FF0000</initializer>
+        <briefdescription>
+<para>MSI Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="483" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="702" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga8b13520d9f4472bc16cfa5a6266f6795" compoundref="xaxipcie_8c" startline="520" endline="561">XAxiPcie_GetRootPortIntFIFOReg</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gaaf545ca193095942641304d55ce7e416" prot="public" static="no">
+        <name>XAXIPCIE_RPIFR1_INTR_LINE_MASK</name>
+        <initializer>0x18000000</initializer>
+        <briefdescription>
+<para>Intr Line Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="485" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="703" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gaa573753049273f1ece6a4b24917d2b05" prot="public" static="no">
+        <name>XAXIPCIE_RPIFR1_INTR_ASSERT_MASK</name>
+        <initializer>0x20000000</initializer>
+        <briefdescription>
+<para>Whether Interrupt INTx is asserted. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="489" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="706" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga9d9b70e72dbf4e3db706b28f5f749e74" prot="public" static="no">
+        <name>XAXIPCIE_RPIFR1_MSIINTR_VALID_MASK</name>
+        <initializer>0x40000000</initializer>
+        <briefdescription>
+<para>Whether Interrupt is MSI or INTx. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="494" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="714" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga8b13520d9f4472bc16cfa5a6266f6795" compoundref="xaxipcie_8c" startline="520" endline="561">XAxiPcie_GetRootPortIntFIFOReg</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gaf9a5f8ec646e50bdc31887a508f50fc5" prot="public" static="no">
+        <name>XAXIPCIE_RPIFR1_INTR_VALID_MASK</name>
+        <initializer>0x80000000</initializer>
+        <briefdescription>
+<para>Interrupt Read Succeeded Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="499" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="722" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga8b13520d9f4472bc16cfa5a6266f6795" compoundref="xaxipcie_8c" startline="520" endline="561">XAxiPcie_GetRootPortIntFIFOReg</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga71868428e591d5f59fd40151da6d3aa5" prot="public" static="no">
+        <name>XAXIPCIE_RPIFR1_MSI_ADDR_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>MSI Address Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="501" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="730" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga8b13520d9f4472bc16cfa5a6266f6795" compoundref="xaxipcie_8c" startline="520" endline="561">XAxiPcie_GetRootPortIntFIFOReg</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga0465365bbae94b36de39aceeb580cdd1" prot="public" static="no">
+        <name>XAXIPCIE_RPIFR1_MSIINTR_VALID_SHIFT</name>
+        <initializer>30</initializer>
+        <briefdescription>
+<para>MSI/INTx Interrupt Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="503" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="732" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga8b13520d9f4472bc16cfa5a6266f6795" compoundref="xaxipcie_8c" startline="520" endline="561">XAxiPcie_GetRootPortIntFIFOReg</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gabdd55507fa3a696908e3d31abe7ff1e6" prot="public" static="no">
+        <name>XAXIPCIE_RPIFR1_INTR_VALID_SHIFT</name>
+        <initializer>31</initializer>
+        <briefdescription>
+<para>Interrupt Read Valid Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="505" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="734" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga8b13520d9f4472bc16cfa5a6266f6795" compoundref="xaxipcie_8c" startline="520" endline="561">XAxiPcie_GetRootPortIntFIFOReg</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Root Port Interrupt FIFO Read 2 Register bitmaps and masks</header>
+      <memberdef kind="define" id="group__axipcie_1gaaf6ce74eb3d24d535f2c399330c27af9" prot="public" static="no">
+        <name>XAXIPCIE_RPIFR2_MSG_DATA_MASK</name>
+        <initializer>0x0000FFFF</initializer>
+        <briefdescription>
+<para>Pay Load for MSI Message. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="516" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="742" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga8b13520d9f4472bc16cfa5a6266f6795" compoundref="xaxipcie_8c" startline="520" endline="561">XAxiPcie_GetRootPortIntFIFOReg</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>ECAM Address Register bitmaps and masks</header>
+      <memberdef kind="define" id="group__axipcie_1gabbe43193c1a1f1b12a1e8e2910ffb02e" prot="public" static="no">
+        <name>XAXIPCIE_ECAM_MASK</name>
+        <initializer>0x0FFFFFFF</initializer>
+        <briefdescription>
+<para>Mask of all valid bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="523" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="755" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga39ab6deaee9fe1e2ab734e85dc0fad5c" prot="public" static="no">
+        <name>XAXIPCIE_ECAM_BUS_MASK</name>
+        <initializer>0x0FF00000</initializer>
+        <briefdescription>
+<para>Bus Number Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="524" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="756" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga7c530b27ed7392d44e98855cbf1582fe" prot="public" static="no">
+        <name>XAXIPCIE_ECAM_DEV_MASK</name>
+        <initializer>0x000F8000</initializer>
+        <briefdescription>
+<para>Device Number Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="525" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="757" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga8b3e595d86874d13a20a84e998792ede" prot="public" static="no">
+        <name>XAXIPCIE_ECAM_FUN_MASK</name>
+        <initializer>0x00007000</initializer>
+        <briefdescription>
+<para>Function Number Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="526" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="758" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gad62957cb703c4fdabd125b714ff3b113" prot="public" static="no">
+        <name>XAXIPCIE_ECAM_REG_MASK</name>
+        <initializer>0x00000FFC</initializer>
+        <briefdescription>
+<para>Register Number Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="527" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="759" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga188489525792d10a8892af78991ba828" prot="public" static="no">
+        <name>XAXIPCIE_ECAM_BYT_MASK</name>
+        <initializer>0x00000003</initializer>
+        <briefdescription>
+<para>Byte Address Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="528" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="760" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gafe54d275930774f3ef2fa61861cc1047" prot="public" static="no">
+        <name>XAXIPCIE_ECAM_BUS_SHIFT</name>
+        <initializer>20</initializer>
+        <briefdescription>
+<para>Bus Number Shift Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="530" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="762" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gad8e00362272438c225cdf2bf5ee977e7" prot="public" static="no">
+        <name>XAXIPCIE_ECAM_DEV_SHIFT</name>
+        <initializer>15</initializer>
+        <briefdescription>
+<para>Device Number Shift Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="531" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="763" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gad6b61db832dff675f08c9f85b8d51027" prot="public" static="no">
+        <name>XAXIPCIE_ECAM_FUN_SHIFT</name>
+        <initializer>12</initializer>
+        <briefdescription>
+<para>Function Number Shift Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="532" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="764" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga40dade6a41bec5215be2714e28babe3b" prot="public" static="no">
+        <name>XAXIPCIE_ECAM_REG_SHIFT</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Register Number Shift Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="533" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="765" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga9b1361bda2147f4bad36f800a61fa056" prot="public" static="no">
+        <name>XAXIPCIE_ECAM_BYT_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Byte Offset Shift Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="534" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="766" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__axipcie_1ga4a58b04bdb3088794b231b94b99f52c4" prot="public" static="no">
+        <name>XAXIPCIE_HW_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="31" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1ga5366cd6e275cefeb75937305fe225311" prot="public" static="no">
+        <name>XAXIPCIE_VSEC2_OFFSET_WRT_VSEC1</name>
+        <initializer>0xD8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="538" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="770" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gab5e38a3a5815c463c52461a8f7f52b75" prot="public" static="no">
+        <name>XAxiPcie_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32((BaseAddress) + (RegOffset))</initializer>
+        <briefdescription>
+<para>Macro to read register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the PCIe. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Value of the register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__axipcie_1gab5e38a3a5815c463c52461a8f7f52b75" kindref="member">XAxiPcie_ReadReg(u32 BaseAddress, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="554" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="786" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga6eaa13c68af6eb2ca12ae556f9e0769b" compoundref="xaxipcie_8c" startline="94" endline="121">XAxiPcie_CfgInitialize</referencedby>
+        <referencedby refid="group__axipcie_1gabdf66d0cb481a5eea62e1f98e71d9520" compoundref="xaxipcie__intr_8c" startline="222" endline="231">XAxiPcie_ClearPendingInterrupts</referencedby>
+        <referencedby refid="group__axipcie_1gaace3ba2f6c70cd207c9c65d92c634ee8" compoundref="xaxipcie__intr_8c" startline="79" endline="94">XAxiPcie_DisableGlobalInterrupt</referencedby>
+        <referencedby refid="group__axipcie_1gae238cf115bd039e0f7228e385c893aad" compoundref="xaxipcie__intr_8c" startline="141" endline="154">XAxiPcie_DisableInterrupts</referencedby>
+        <referencedby refid="group__axipcie_1ga062809d176f81251886d5372c0714f7a" compoundref="xaxipcie__intr_8c" startline="52" endline="66">XAxiPcie_EnableGlobalInterrupt</referencedby>
+        <referencedby refid="group__axipcie_1ga22a95261655e78a944d1a2462031da57" compoundref="xaxipcie__intr_8c" startline="111" endline="124">XAxiPcie_EnableInterrupts</referencedby>
+        <referencedby refid="group__axipcie_1ga75ca6a068024666c0199ea90d3ce4276" compoundref="xaxipcie_8c" startline="236" endline="259">XAxiPcie_GetBridgeInfo</referencedby>
+        <referencedby refid="group__axipcie_1gae118e9d7fd6b78ca0b8d4fd6694f9808" compoundref="xaxipcie__intr_8c" startline="170" endline="180">XAxiPcie_GetEnabledInterrupts</referencedby>
+        <referencedby refid="group__axipcie_1ga19d8a1973231160bdd518b1c62bda3d4" compoundref="xaxipcie_8c" startline="603" endline="621">XAxiPcie_GetLocalBusBar2PcieBar</referencedby>
+        <referencedby refid="group__axipcie_1gaec39c65db1aeac38798a250a25298208" compoundref="xaxipcie__intr_8c" startline="196" endline="206">XAxiPcie_GetPendingInterrupts</referencedby>
+        <referencedby refid="group__axipcie_1ga372301905fec6833c06320fb45261cd7" compoundref="xaxipcie_8c" startline="322" endline="334">XAxiPcie_GetPhyStatusCtrl</referencedby>
+        <referencedby refid="group__axipcie_1ga77063428b5641d07910419770813c148" compoundref="xaxipcie_8c" startline="280" endline="307">XAxiPcie_GetRequesterId</referencedby>
+        <referencedby refid="group__axipcie_1ga32604cb99f7d35107ee59ff121e0024d" compoundref="xaxipcie_8c" startline="448" endline="471">XAxiPcie_GetRootPortErrFIFOMsg</referencedby>
+        <referencedby refid="group__axipcie_1ga8b13520d9f4472bc16cfa5a6266f6795" compoundref="xaxipcie_8c" startline="520" endline="561">XAxiPcie_GetRootPortIntFIFOReg</referencedby>
+        <referencedby refid="group__axipcie_1ga0899628f4ecfb6d3b05671933c375ae5" compoundref="xaxipcie_8c" startline="350" endline="360">XAxiPcie_GetRootPortStatusCtrl</referencedby>
+        <referencedby refid="group__axipcie_1ga745d2811e366fbe0e5499cfef90adbcc" compoundref="xaxipcie_8c" startline="144" endline="168">XAxiPcie_GetVsecCapability</referencedby>
+        <referencedby refid="group__axipcie_1gaa26f5255cb42e55351c7cb802f71d56c" compoundref="xaxipcie_8c" startline="191" endline="216">XAxiPcie_GetVsecHeader</referencedby>
+        <referencedby refid="group__axipcie_1gad9494095b9350f455af9e7da5375d522" compoundref="xaxipcie_8c" startline="672" endline="683">XAxiPcie_ReadLocalConfigSpace</referencedby>
+        <referencedby refid="group__axipcie_1gae4aafc6b1766352ed5347e40762f0649" compoundref="xaxipcie_8c" startline="773" endline="802">XAxiPcie_ReadRemoteConfigSpace</referencedby>
+        <referencedby refid="group__axipcie_1gadb4d67df95f1c7b0010e370312283f22" compoundref="xaxipcie_8c" startline="825" endline="865">XAxiPcie_WriteRemoteConfigSpace</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__axipcie_1gaf3312e39c24adeb6a06a7408a68a1e80" prot="public" static="no">
+        <name>XAxiPcie_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32((BaseAddress) + (RegOffset), (Data))</initializer>
+        <briefdescription>
+<para>Macro to write register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the PCIe. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the data to write.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void XAxiPcie_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" line="573" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h" bodystart="805" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1gabdf66d0cb481a5eea62e1f98e71d9520" compoundref="xaxipcie__intr_8c" startline="222" endline="231">XAxiPcie_ClearPendingInterrupts</referencedby>
+        <referencedby refid="group__axipcie_1ga225811fdbd9b22b8208a83ca4d3818ce" compoundref="xaxipcie_8c" startline="485" endline="495">XAxiPcie_ClearRootPortErrFIFOMsg</referencedby>
+        <referencedby refid="group__axipcie_1ga4b043d41a5668f97f83518327023ea0d" compoundref="xaxipcie_8c" startline="576" endline="586">XAxiPcie_ClearRootPortIntFIFOReg</referencedby>
+        <referencedby refid="group__axipcie_1gaace3ba2f6c70cd207c9c65d92c634ee8" compoundref="xaxipcie__intr_8c" startline="79" endline="94">XAxiPcie_DisableGlobalInterrupt</referencedby>
+        <referencedby refid="group__axipcie_1gae238cf115bd039e0f7228e385c893aad" compoundref="xaxipcie__intr_8c" startline="141" endline="154">XAxiPcie_DisableInterrupts</referencedby>
+        <referencedby refid="group__axipcie_1ga062809d176f81251886d5372c0714f7a" compoundref="xaxipcie__intr_8c" startline="52" endline="66">XAxiPcie_EnableGlobalInterrupt</referencedby>
+        <referencedby refid="group__axipcie_1ga22a95261655e78a944d1a2462031da57" compoundref="xaxipcie__intr_8c" startline="111" endline="124">XAxiPcie_EnableInterrupts</referencedby>
+        <referencedby refid="group__axipcie_1ga51ee29d03fbefc82b9208f46a12d5a06" compoundref="xaxipcie_8c" startline="638" endline="654">XAxiPcie_SetLocalBusBar2PcieBar</referencedby>
+        <referencedby refid="group__axipcie_1ga0ce4f790929f629f225c2ef2fbcc2647" compoundref="xaxipcie_8c" startline="402" endline="428">XAxiPcie_SetRootPortMSIBase</referencedby>
+        <referencedby refid="group__axipcie_1ga2860cd7b0180a99fb324c085fc8fa746" compoundref="xaxipcie_8c" startline="375" endline="386">XAxiPcie_SetRootPortStatusCtrl</referencedby>
+        <referencedby refid="group__axipcie_1gafbdf9a7e71effb96353079d1c177888b" compoundref="xaxipcie_8c" startline="701" endline="712">XAxiPcie_WriteLocalConfigSpace</referencedby>
+        <referencedby refid="group__axipcie_1gadb4d67df95f1c7b0010e370312283f22" compoundref="xaxipcie_8c" startline="825" endline="865">XAxiPcie_WriteRemoteConfigSpace</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2011<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor">#ifndef<sp/>XAXIPCIE_HW_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAXIPCIE_HW_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>_ASMLANGUAGE</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>_ASMLANGUAGE<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57" refid="group__axipcie_1ga7cecef23e8a28935226e7dc9815390c0" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_PCIE_CORE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000<sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor">#define<sp/>XAXIPCIE_VSECC_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x128<sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor">#define<sp/>XAXIPCIE_VSECH_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x12C<sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor">#define<sp/>XAXIPCIE_BI_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x130<sp/></highlight></codeline>
+<codeline lineno="71" refid="group__axipcie_1gab99ecd675b55df50a385fc7b429d38e4" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_BSC_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x134<sp/></highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ID_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x138<sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor">#define<sp/>XAXIPCIE_IM_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x13C<sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor">#define<sp/>XAXIPCIE_BL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x140<sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor">#define<sp/>XAXIPCIE_PHYSC_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x144<sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPSC_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x148<sp/></highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPMSIB_UPPER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x14C<sp/></highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPMSIB_LOWER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x150<sp/></highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPEFR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x154<sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPIFR1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x158<sp/></highlight></codeline>
+<codeline lineno="114" refid="group__axipcie_1gafb8cd2a16037d697cf4a5af55506af44" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPIFR2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x15C<sp/></highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor">#define<sp/>XAXIPCIE_AXIBAR2PCIBAR_0U_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x208<sp/></highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor">#define<sp/>XAXIPCIE_AXIBAR2PCIBAR_0L_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20C<sp/></highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor">#define<sp/>XAXIPCIE_AXIBAR2PCIBAR_1U_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x210<sp/></highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor">#define<sp/>XAXIPCIE_AXIBAR2PCIBAR_1L_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x214<sp/></highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor">#define<sp/>XAXIPCIE_AXIBAR2PCIBAR_2U_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x218<sp/></highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor">#define<sp/>XAXIPCIE_AXIBAR2PCIBAR_2L_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x21C<sp/></highlight></codeline>
+<codeline lineno="150" refid="group__axipcie_1gad61ae31bb34ed3e02243c5d74ac75afa" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_AXIBAR2PCIBAR_3U_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x220<sp/></highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor">#define<sp/>XAXIPCIE_AXIBAR2PCIBAR_3L_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x224<sp/></highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor">#define<sp/>XAXIPCIE_AXIBAR2PCIBAR_4U_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x228<sp/></highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor">#define<sp/>XAXIPCIE_AXIBAR2PCIBAR_4L_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x22C<sp/></highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor">#define<sp/>XAXIPCIE_AXIBAR2PCIBAR_5U_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x230<sp/></highlight></codeline>
+<codeline lineno="175" refid="group__axipcie_1gaa01b566fdaa57bf0696c4a4445053158" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_AXIBAR2PCIBAR_5L_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x234<sp/></highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor">#define<sp/>XAXIPCIE_VSECC_ID_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FFFF<sp/></highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor">#define<sp/>XAXIPCIE_VSECC_VER_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000F0000<sp/></highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor">#define<sp/>XAXIPCIE_VSECC_NEXT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFF00000<sp/></highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor">#define<sp/>XAXIPCIE_VSECC_VER_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="193" refid="group__axipcie_1ga6abf854a95cdb33425df188de3e63491" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_VSECC_NEXT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>20<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="202" refid="group__axipcie_1gac6b872ead955b2775dfd68c8cdaece4b" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_VSECH_ID_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FFFF<sp/></highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor">#define<sp/>XAXIPCIE_VSECH_REV_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000F0000<sp/></highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor">#define<sp/>XAXIPCIE_VSECH_LEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFF00000<sp/></highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor">#define<sp/>XAXIPCIE_VSECH_REV_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor">#define<sp/>XAXIPCIE_VSECH_LEN_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>20<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="211" refid="group__axipcie_1ga60190c47d9ac660c226563032207ebb3" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor">#define<sp/>XAXIPCIE_BI_GEN2_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor">#define<sp/>XAXIPCIE_BI_RP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/></highlight></codeline>
+<codeline lineno="220" refid="group__axipcie_1ga3934606610a905f1902a34760c20b7a8" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_UP_CONFIG_CAPABLE<sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor">#define<sp/>XAXIPCIE_BI_ECAM_SIZE_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00070000<sp/></highlight></codeline>
+<codeline lineno="223"><highlight class="preprocessor">#define<sp/>XAXIPCIE_BI_RP_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor">#define<sp/>XAXIPCIE_BI_ECAM_SIZE_SHIFT<sp/><sp/><sp/><sp/><sp/>16<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="227"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor">#define<sp/>XAXIPCIE_BSC_ECAM_BUSY_MASK<sp/><sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="232"><highlight class="preprocessor">#define<sp/>XAXIPCIE_BSC_GI_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000100<sp/></highlight></codeline>
+<codeline lineno="235"><highlight class="preprocessor">#define<sp/>XAXIPCIE_BSC_RW1C_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00010000<sp/></highlight></codeline>
+<codeline lineno="238" refid="group__axipcie_1gaa7970a09db54b7f198a039211a1116b3" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_BSC_RO_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00020000<sp/></highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor">#define<sp/>XAXIPCIE_BSC_GI_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="244"><highlight class="preprocessor">#define<sp/>XAXIPCIE_BSC_RW1C_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="245"><highlight class="preprocessor">#define<sp/>XAXIPCIE_BSC_RO_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>17<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="247" refid="group__axipcie_1ga940f71ca9d3e3bc7ac6716f2f34c4884" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="248"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="252"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ID_LINK_DOWN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ID_ECRC_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/></highlight></codeline>
+<codeline lineno="254"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ID_STR_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ID_HOT_RST_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/></highlight></codeline>
+<codeline lineno="256" refid="group__axipcie_1gabe4237b20c412dc42cbd47c8bd87af92" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ID_CFG_COMPL_STATE_MASK<sp/>0x000000E0<sp/></highlight></codeline>
+<codeline lineno="259"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ID_CFG_TIMEOUT_MASK<sp/><sp/><sp/><sp/><sp/>0x00000100<sp/></highlight></codeline>
+<codeline lineno="260"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ID_CORRECTABLE_ERR_MASK<sp/>0x00000200<sp/></highlight></codeline>
+<codeline lineno="263"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ID_NONFATAL_ERR_MASK<sp/><sp/><sp/><sp/>0x00000400<sp/></highlight></codeline>
+<codeline lineno="264"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ID_FATAL_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000800<sp/></highlight></codeline>
+<codeline lineno="265" refid="group__axipcie_1ga400d8b2257870a70418b3d9bf8de5a77" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ID_INTX_INTERRUPT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00010000<sp/></highlight></codeline>
+<codeline lineno="266"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ID_MSI_INTERRUPT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00020000<sp/></highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ID_UNSUPP_CMPL_MASK<sp/><sp/><sp/><sp/><sp/>0x00100000<sp/></highlight></codeline>
+<codeline lineno="270"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ID_UNEXP_CMPL_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00200000<sp/></highlight></codeline>
+<codeline lineno="273"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ID_CMPL_TIMEOUT_MASK<sp/><sp/><sp/><sp/>0x00400000<sp/></highlight></codeline>
+<codeline lineno="276"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ID_SLV_EP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00800000<sp/></highlight></codeline>
+<codeline lineno="279" refid="group__axipcie_1gabd84445ebce4bfcb25ca5b75799bbba5" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ID_CMPL_ABT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01000000<sp/></highlight></codeline>
+<codeline lineno="282"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ID_ILL_BURST_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02000000<sp/></highlight></codeline>
+<codeline lineno="285" refid="group__axipcie_1gaca2f85036ff847a8f3c9def6d402bfe3" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ID_DECODE_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x04000000<sp/></highlight></codeline>
+<codeline lineno="288"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ID_SLAVE_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08000000<sp/></highlight></codeline>
+<codeline lineno="291" refid="group__axipcie_1ga4ea49e123b5a60e753034437e748a455" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ID_MASTER_EP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10000000<sp/></highlight></codeline>
+<codeline lineno="294"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ID_CLEAR_ALL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFFFFFF<sp/></highlight></codeline>
+<codeline lineno="298"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="299"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="304" refid="group__axipcie_1gaed6b0e6cd2817f7c5c69c3290833447e" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_IM_ENABLE_ALL_MASK<sp/><sp/><sp/><sp/><sp/>0xFFFFFFFF<sp/></highlight></codeline>
+<codeline lineno="305"><highlight class="preprocessor">#define<sp/>XAXIPCIE_IM_DISABLE_ALL_MASK<sp/><sp/><sp/><sp/>0x00000000<sp/></highlight></codeline>
+<codeline lineno="309" refid="group__axipcie_1ga591f34e1c213bb45aba99629c71b565b" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="310" refid="group__axipcie_1gaa6e2e6e5e712fa8b44077688caee37d1" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="314"><highlight class="preprocessor">#define<sp/>XAXIPCIE_BL_FUNC_MASK<sp/><sp/><sp/>0x00000007<sp/></highlight></codeline>
+<codeline lineno="315"><highlight class="preprocessor">#define<sp/>XAXIPCIE_BL_DEV_MASK<sp/><sp/><sp/><sp/>0x000000F8<sp/></highlight></codeline>
+<codeline lineno="316"><highlight class="preprocessor">#define<sp/>XAXIPCIE_BL_BUS_MASK<sp/><sp/><sp/><sp/>0x0000FF00<sp/></highlight></codeline>
+<codeline lineno="317" refid="group__axipcie_1ga5c3e13956927d814f89b16d58bc87b71" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_BL_PORT_MASK<sp/><sp/><sp/>0x00FF0000<sp/></highlight></codeline>
+<codeline lineno="319"><highlight class="preprocessor">#define<sp/>XAXIPCIE_BL_DEV_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3<sp/><sp/></highlight></codeline>
+<codeline lineno="322" refid="group__axipcie_1gab624cf074fe8d343c15a086782e1150c" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_BL_BUS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/><sp/></highlight></codeline>
+<codeline lineno="325" refid="group__axipcie_1ga3950d5b04a69dcbc2e2c5711cb657745" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_BL_PORT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16<sp/></highlight></codeline>
+<codeline lineno="329" refid="group__axipcie_1ga6e5ee78d2b39fa90a87fea37ed49d35a" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="330"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="334"><highlight class="preprocessor">#define<sp/>XAXIPCIE_PHYSC_LINK_RATE_MASK<sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="335"><highlight class="preprocessor">#define<sp/>XAXIPCIE_PHYSC_LINK_WIDTH_MASK<sp/><sp/>0x00000006<sp/></highlight></codeline>
+<codeline lineno="336" refid="group__axipcie_1gabfb6e478c3f181fcec8e4918f9442296" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_PHYSC_LTSSM_STATE_MASK<sp/>0x000001F8<sp/></highlight></codeline>
+<codeline lineno="337" refid="group__axipcie_1ga6a80436f1d395be5d4963d3f9d09f49c" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_PHYSC_LANE_REV_MASK<sp/><sp/><sp/><sp/>0x00000600<sp/></highlight></codeline>
+<codeline lineno="338"><highlight class="preprocessor">#define<sp/>XAXIPCIE_PHYSC_LINK_UP_MASK<sp/><sp/><sp/><sp/><sp/>0x00000800<sp/></highlight></codeline>
+<codeline lineno="339"><highlight class="preprocessor">#define<sp/>XAXIPCIE_PHYSC_DLW_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00030000<sp/></highlight></codeline>
+<codeline lineno="342" refid="group__axipcie_1ga5d8d34b56c828dc51ee2bf7fe5876e6d" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_PHYSC_DLWS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00040000<sp/></highlight></codeline>
+<codeline lineno="345"><highlight class="preprocessor">#define<sp/>XAXIPCIE_PHYSC_DLA_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00080000<sp/></highlight></codeline>
+<codeline lineno="349"><highlight class="preprocessor">#define<sp/>XAXIPCIE_PHYSC_DLC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00300000<sp/></highlight></codeline>
+<codeline lineno="353"><highlight class="preprocessor">#define<sp/>XAXIPCIE_PHYSC_LINK_WIDTH_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/></highlight></codeline>
+<codeline lineno="354"><highlight class="preprocessor">#define<sp/>XAXIPCIE_PHYSC_LTSSM_STATE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3<sp/><sp/></highlight></codeline>
+<codeline lineno="355"><highlight class="preprocessor">#define<sp/>XAXIPCIE_PHYSC_LANE_REV_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>9<sp/><sp/></highlight></codeline>
+<codeline lineno="356"><highlight class="preprocessor">#define<sp/>XAXIPCIE_PHYSC_LINK_UP_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>11<sp/></highlight></codeline>
+<codeline lineno="357" refid="group__axipcie_1gac17ec341d56663eee8c61f478078e8e5" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_PHYSC_DLW_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16<sp/></highlight></codeline>
+<codeline lineno="360"><highlight class="preprocessor">#define<sp/>XAXIPCIE_PHYSC_DLWS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>18<sp/><sp/></highlight></codeline>
+<codeline lineno="363"><highlight class="preprocessor">#define<sp/>XAXIPCIE_PHYSC_DLA_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>19<sp/><sp/></highlight></codeline>
+<codeline lineno="367" refid="group__axipcie_1gac12ef40af613a60dd229b11010e850ef" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_PHYSC_DLC_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>20<sp/><sp/></highlight></codeline>
+<codeline lineno="371"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="372"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="377"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPSC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0FFF0001<sp/></highlight></codeline>
+<codeline lineno="381" refid="group__axipcie_1ga193020c952d0d7ad38a3769887bd9d34" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPSC_BRIDGE_ENABLE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="386"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPSC_ERR_FIFO_NOT_EMPTY_MASK<sp/><sp/><sp/>0x00010000<sp/></highlight></codeline>
+<codeline lineno="391"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPSC_ERR_FIFO_OVERFLOW_MASK<sp/><sp/><sp/><sp/>0x00020000<sp/></highlight></codeline>
+<codeline lineno="396"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPSC_INT_FIFO_NOT_EMPTY_MASK<sp/><sp/><sp/>0x00040000<sp/></highlight></codeline>
+<codeline lineno="402"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPSC_INT_FIFO_OVERFLOW_MASK<sp/><sp/><sp/><sp/>0x00080000<sp/></highlight></codeline>
+<codeline lineno="408"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPSC_COMP_TIMEOUT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0FF00000<sp/></highlight></codeline>
+<codeline lineno="414" refid="group__axipcie_1ga2c5b6ef607113d639e16d43dd05b9405" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPSC_ERR_FIFO_NOT_EMPTY_SHIFT<sp/><sp/>16<sp/></highlight></codeline>
+<codeline lineno="418"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPSC_ERR_FIFO_OVERFLOW_SHIFT<sp/><sp/><sp/>17<sp/></highlight></codeline>
+<codeline lineno="422"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPSC_INT_FIFO_NOT_EMPTY_SHIFT<sp/><sp/>18<sp/></highlight></codeline>
+<codeline lineno="426"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPSC_INT_FIFO_OVERFLOW_SHIFT<sp/><sp/><sp/>19<sp/></highlight></codeline>
+<codeline lineno="430"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPSC_COMP_TIMEOUT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>20<sp/></highlight></codeline>
+<codeline lineno="440"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPMSIB_UPPER_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0xFFFFFFFF<sp/></highlight></codeline>
+<codeline lineno="444"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPMSIB_UPPER_SHIFT<sp/><sp/><sp/><sp/><sp/>32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Shift<sp/>of<sp/>Upper<sp/>32<sp/>bits<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="445"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPMSIB_LOWER_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0xFFFFF000<sp/></highlight></codeline>
+<codeline lineno="450"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="451"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="455" refid="group__axipcie_1gaf8a11f087363d5ff57409bf45a597851" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPEFR_REQ_ID_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x0000FFFF<sp/></highlight></codeline>
+<codeline lineno="459"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPEFR_ERR_TYPE_MASK<sp/><sp/><sp/><sp/>0x00030000<sp/></highlight></codeline>
+<codeline lineno="463" refid="group__axipcie_1gadc5afc68e0ece36131a9636a467ab327" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPEFR_ERR_VALID_MASK<sp/><sp/><sp/>0x00040000<sp/></highlight></codeline>
+<codeline lineno="468" refid="group__axipcie_1ga7ef6bab98d1eba6156f808f92e39d7f2" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPEFR_ERR_TYPE_SHIFT<sp/><sp/><sp/>16<sp/></highlight></codeline>
+<codeline lineno="470"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPEFR_ERR_VALID_SHIFT<sp/><sp/>18<sp/></highlight></codeline>
+<codeline lineno="474"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="475"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="479" refid="group__axipcie_1ga1238d2aba155c18a5ce7b45d2a1cbe39" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPIFR1_REQ_ID_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FFFF<sp/></highlight></codeline>
+<codeline lineno="483" refid="group__axipcie_1ga1b1c63c3222b1c3585b7b7ba73a46db8" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPIFR1_MSI_ADDR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x07FF0000<sp/></highlight></codeline>
+<codeline lineno="484" refid="group__axipcie_1ga238bcf6752996345861f9e958ee5bddc" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPIFR1_INTR_LINE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x18000000<sp/></highlight></codeline>
+<codeline lineno="486"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPIFR1_INTR_ASSERT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20000000<sp/></highlight></codeline>
+<codeline lineno="491"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPIFR1_MSIINTR_VALID_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x40000000<sp/></highlight></codeline>
+<codeline lineno="496"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPIFR1_INTR_VALID_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80000000<sp/></highlight></codeline>
+<codeline lineno="501" refid="group__axipcie_1gaf3422457e569985908990b125ded1b5f" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPIFR1_MSI_ADDR_SHIFT<sp/><sp/>16<sp/></highlight></codeline>
+<codeline lineno="503"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPIFR1_MSIINTR_VALID_SHIFT<sp/>30<sp/></highlight></codeline>
+<codeline lineno="505"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPIFR1_INTR_VALID_SHIFT<sp/>31<sp/></highlight></codeline>
+<codeline lineno="508" refid="group__axipcie_1ga41728830bc4094a6044ea629c4699201" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="509" refid="group__axipcie_1gad478317d1ca0eae5e32d87e51bbb0a92" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="513"><highlight class="preprocessor">#define<sp/>XAXIPCIE_RPIFR2_MSG_DATA_MASK<sp/><sp/><sp/>0x0000FFFF<sp/></highlight></codeline>
+<codeline lineno="518"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="519"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="523"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ECAM_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x0FFFFFFF<sp/><sp/></highlight></codeline>
+<codeline lineno="524"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ECAM_BUS_MASK<sp/><sp/>0x0FF00000<sp/><sp/></highlight></codeline>
+<codeline lineno="525"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ECAM_DEV_MASK<sp/><sp/>0x000F8000<sp/><sp/></highlight></codeline>
+<codeline lineno="526"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ECAM_FUN_MASK<sp/><sp/>0x00007000<sp/><sp/></highlight></codeline>
+<codeline lineno="527"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ECAM_REG_MASK<sp/><sp/>0x00000FFC<sp/><sp/></highlight></codeline>
+<codeline lineno="528" refid="group__axipcie_1gaabf018637b6aa1ca5b7ca4657ed2583a" refkind="member"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ECAM_BYT_MASK<sp/><sp/>0x00000003<sp/><sp/></highlight></codeline>
+<codeline lineno="530"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ECAM_BUS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>20<sp/><sp/></highlight></codeline>
+<codeline lineno="531"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ECAM_DEV_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>15<sp/><sp/></highlight></codeline>
+<codeline lineno="532"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ECAM_FUN_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>12<sp/><sp/></highlight></codeline>
+<codeline lineno="533"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ECAM_REG_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="534"><highlight class="preprocessor">#define<sp/>XAXIPCIE_ECAM_BYT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="536"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="537"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Offset<sp/>used<sp/>for<sp/>getting<sp/>the<sp/>VSEC<sp/>register<sp/>contents<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="538"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XAXIPCIE_VSEC2_OFFSET_WRT_VSEC1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xD8</highlight></codeline>
+<codeline lineno="539"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="540" refid="group__axipcie_1ga727eba08077bad1923e3ff44e5522110" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/******************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="541"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="554"><highlight class="preprocessor">#define<sp/>XAxiPcie_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="555" refid="group__axipcie_1ga306dded24643ad2589e7773a278198c2" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="556"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="557"><highlight class="normal"></highlight></codeline>
+<codeline lineno="558"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="573"><highlight class="preprocessor">#define<sp/>XAxiPcie_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="574"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32((BaseAddress)<sp/>+<sp/>(RegOffset),<sp/>(Data))</highlight></codeline>
+<codeline lineno="575"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="576"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="577"><highlight class="normal"></highlight></codeline>
+<codeline lineno="578"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="579"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="580"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="581" refid="group__axipcie_1gae7e2cf8f647b545ca89191d281d28500" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="582"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="583"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XAXIPCIE_HW_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="584"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie_hw.h"/>
+  </compounddef>
+</doxygen>

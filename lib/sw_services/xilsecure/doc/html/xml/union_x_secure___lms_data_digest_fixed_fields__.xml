@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="union_x_secure___lms_data_digest_fixed_fields__" kind="union" prot="public">
+    <compoundname>XSecure_LmsDataDigestFixedFields_</compoundname>
+    <includes local="no">xsecure_lms_ots.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="union_x_secure___lms_data_digest_fixed_fields___1a25c36cc10fb93dd748a10d2cee3d7929" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_LmsDataDigestFixedFields_::Buff[XSECURE_LMS_MESSAGE_TO_DIGEST_PREFIX_SIZE]</definition>
+        <argsstring>[XSECURE_LMS_MESSAGE_TO_DIGEST_PREFIX_SIZE]</argsstring>
+        <name>Buff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="449" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="449" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_secure___lms_data_digest_fixed_fields___1aaa6fe65d46b47201f9c1759148669987" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_LmsDataDigestFixedFields_::I[XSECURE_LMS_I_FIELD_SIZE]</definition>
+        <argsstring>[XSECURE_LMS_I_FIELD_SIZE]</argsstring>
+        <name>I</name>
+        <briefdescription>
+<para>I - Merkle Tree&apos;s unique identifier (uniformly random 16-byte string) Size - 16 bytes, 0 to 15 bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="455" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="455" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_secure___lms_data_digest_fixed_fields___1aba71ec3514983a2b92250d07d56441fb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_LmsDataDigestFixedFields_::q</definition>
+        <argsstring></argsstring>
+        <name>q</name>
+        <briefdescription>
+<para>q - The leaf number q, goes from 0 on left most leaf to right most (2^h -1), in a single tree Size - 4 bytes, 16 to 19 bytes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="460" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="460" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_secure___lms_data_digest_fixed_fields___1a82907f08e81b5bdbe459153d407b898b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_LmsDataDigestFixedFields_::D_MESG[XSECURE_LMS_D_MESG_FIELD_SIZE]</definition>
+        <argsstring>[XSECURE_LMS_D_MESG_FIELD_SIZE]</argsstring>
+        <name>D_MESG</name>
+        <briefdescription>
+<para>D_MESG - XSECURE_D_MESG constant Size - 2 Bytes, 20 to 21 bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="465" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="465" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga20f145ad946cac0682c7428afe35dc8f" compoundref="xsecure__lms__core_8c" startline="1233" endline="1286">XSecure_LmsHashMessage</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_secure___lms_data_digest_fixed_fields___1a47f35181622252a6c7fbe981d2287fb5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_LmsDataDigestFixedFields_::C[XSECURE_LMS_C_FIELD_SIZE]</definition>
+        <argsstring>[XSECURE_LMS_C_FIELD_SIZE]</argsstring>
+        <name>C</name>
+        <briefdescription>
+<para>C - Randomizer per data Size - 32 Byte, 22 to 53 bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="470" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="470" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_secure___lms_data_digest_fixed_fields___1a38ae34046c478595b442ef95fdc313d0" prot="public" static="no" mutable="no">
+        <type>struct XSecure_LmsDataDigestFixedFields_::@5</type>
+        <definition>struct XSecure_LmsDataDigestFixedFields_::@5  XSecure_LmsDataDigestFixedFields_::Fields</definition>
+        <argsstring></argsstring>
+        <name>Fields</name>
+        <briefdescription>
+<para>Fields of LMS data digest fixed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="471" column="1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga20f145ad946cac0682c7428afe35dc8f" compoundref="xsecure__lms__core_8c" startline="1233" endline="1286">XSecure_LmsHashMessage</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Temporary buffer, used to send prefix fields to calculate digest for data to be authenticate. </para>    </briefdescription>
+    <detaileddescription>
+<para>Size = I (16) + q (4) + D_MESG (2) + C (32) = 54 Bytes </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="448" bodyend="472"/>
+    <listofallmembers>
+      <member refid="union_x_secure___lms_data_digest_fixed_fields___1a25c36cc10fb93dd748a10d2cee3d7929" prot="public" virt="non-virtual"><scope>XSecure_LmsDataDigestFixedFields_</scope><name>Buff</name></member>
+      <member refid="union_x_secure___lms_data_digest_fixed_fields___1a47f35181622252a6c7fbe981d2287fb5" prot="public" virt="non-virtual"><scope>XSecure_LmsDataDigestFixedFields_</scope><name>C</name></member>
+      <member refid="union_x_secure___lms_data_digest_fixed_fields___1a82907f08e81b5bdbe459153d407b898b" prot="public" virt="non-virtual"><scope>XSecure_LmsDataDigestFixedFields_</scope><name>D_MESG</name></member>
+      <member refid="union_x_secure___lms_data_digest_fixed_fields___1a38ae34046c478595b442ef95fdc313d0" prot="public" virt="non-virtual"><scope>XSecure_LmsDataDigestFixedFields_</scope><name>Fields</name></member>
+      <member refid="union_x_secure___lms_data_digest_fixed_fields___1aaa6fe65d46b47201f9c1759148669987" prot="public" virt="non-virtual"><scope>XSecure_LmsDataDigestFixedFields_</scope><name>I</name></member>
+      <member refid="union_x_secure___lms_data_digest_fixed_fields___1aba71ec3514983a2b92250d07d56441fb" prot="public" virt="non-virtual"><scope>XSecure_LmsDataDigestFixedFields_</scope><name>q</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1306 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__hdcp22__cipher__dp" kind="group">
+    <compoundname>hdcp22_cipher_dp</compoundname>
+    <title>Overview</title>
+    <innerclass refid="struct_x_hdcp22___cipher___dp___config" prot="public">XHdcp22_Cipher_Dp_Config</innerclass>
+    <innerclass refid="struct_x_hdcp22___cipher___dp" prot="public">XHdcp22_Cipher_Dp</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Register access macro definition</header>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1gabc692a76c9b89dc84f32c6713b846c5e" prot="public" static="no">
+        <name>XHdcp22Cipher_Dp_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+<para>Input Operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga7d6b9997f1cd24b7f729a738e75446a2" prot="public" static="no">
+        <name>XHdcp22Cipher_Dp_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+<para>Output Operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga384c6806d27d5ff2b245296392327e5a" prot="public" static="no">
+        <name>XHdcp22Cipher_Dp_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer><ref refid="group__hdcp22__cipher__dp_1gabc692a76c9b89dc84f32c6713b846c5e" kindref="member">XHdcp22Cipher_Dp_In32</ref>((BaseAddress) + ((u32)RegOffset))</initializer>
+        <briefdescription>
+<para>This macro reads a value from a HDCP22 Cipher register. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32 bit read is performed. If the component is implemented in a smaller width, only the least significant data is read from the register. The most significant data will be read as 0.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the HDCP22 Cipher core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register (defined at the top of this file).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 XHdcp22Cipher_ReadReg(u32 BaseAddress, u32 RegOffset) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="148" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__cipher__dp_1ga5a06f85cb868a3b253deb1c7c8684080" compoundref="xhdcp22__cipher__dp_8c" startline="71" endline="98">XHdcp22Cipher_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__cipher__dp_1ga3a6a707c9733bbbe5c27d2a13af4266f" compoundref="xhdcp22__cipher__dp__selftest_8c" startline="59" endline="78">XHdcp22Cipher_Dp_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga2fc7b3900db24533feac1bfad238b393" prot="public" static="no">
+        <name>XHdcp22Cipher_Dp_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer><ref refid="group__hdcp22__cipher__dp_1ga7d6b9997f1cd24b7f729a738e75446a2" kindref="member">XHdcp22Cipher_Dp_Out32</ref>((BaseAddress) + ((u32)RegOffset), (u32)(Data))</initializer>
+        <briefdescription>
+<para>This macro writes a value to a HDCP22 Cipher register. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32 bit write is performed. If the component is implemented in a smaller width, only the least significant data is written.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the HDCP22 Cipher core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register (defined at the top of this file) to be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write into the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void XHdcp22Cipher_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="169" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__cipher__dp_1gad3b96d930adc7d8a73282ab68a5b9056" compoundref="xhdcp22__cipher__dp_8c" startline="112" endline="137">XHdcp22Cipher_Dp_SetKs</referencedby>
+        <referencedby refid="group__hdcp22__cipher__dp_1ga56143e6b8ebb69833e9e799f6d77b2d0" compoundref="xhdcp22__cipher__dp_8c" startline="225" endline="237">XHdcp22Cipher_Dp_SetLanecount</referencedby>
+        <referencedby refid="group__hdcp22__cipher__dp_1ga0369de0e561893f00d8c47fb37fa1862" compoundref="xhdcp22__cipher__dp_8c" startline="151" endline="175">XHdcp22Cipher_Dp_SetLc128</referencedby>
+        <referencedby refid="group__hdcp22__cipher__dp_1ga1745185b26301d5b64d995fc45e794e6" compoundref="xhdcp22__cipher__dp_8c" startline="248" endline="268">XHdcp22Cipher_Dp_SetMst</referencedby>
+        <referencedby refid="group__hdcp22__cipher__dp_1ga04b7aea3087f13c91c70af90a5f27172" compoundref="xhdcp22__cipher__dp_8c" startline="189" endline="214">XHdcp22Cipher_Dp_SetRiv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1gaabb443f5d6a08e08414fc00635356240" prot="public" static="no">
+        <name>XHdcp22Cipher_Dp_GetStatusReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <initializer><ref refid="group__hdcp22__cipher__dp_1ga384c6806d27d5ff2b245296392327e5a" kindref="member">XHdcp22Cipher_Dp_ReadReg</ref>(BaseAddress, <ref refid="group__hdcp22__cipher__dp_1gacf32fc0d1755832ab07f3dcee8101b1a" kindref="member">XHDCP22_CIPHER_REG_STA_OFFSET</ref>)</initializer>
+        <briefdescription>
+<para>This macro reads the status register from the HDCP22 Cipher. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the HDCP22 Cipher core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A 32-bit value representing the contents of the status register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 XHdcp22Cipher_GetStatusReg(u32 BaseAddress) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga8cf7419a2c0d57a713b670a2d3e76c7c" prot="public" static="no">
+        <name>XHdcp22Cipher_Dp_GetControlReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <initializer><ref refid="group__hdcp22__cipher__dp_1ga384c6806d27d5ff2b245296392327e5a" kindref="member">XHdcp22Cipher_Dp_ReadReg</ref>(BaseAddress, <ref refid="group__hdcp22__cipher__dp_1ga59baf4064cf447a8bc0991c8242f7221" kindref="member">XHDCP22_CIPHER_REG_CTRL_OFFSET</ref>)</initializer>
+        <briefdescription>
+<para>This macro reads the control register from the HDCP22 Cipher. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the HDCP22 Cipher core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A 32-bit value representing the contents of the control register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 XHdcp22Cipher_GetStatusReg(u32 BaseAddress) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="200" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__hdcp22__cipher__dp_1ga7f7a0387190fae7d6091f136710c2bf2" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdcp22___cipher___dp___config" kindref="compound">XHdcp22_Cipher_Dp_Config</ref></type>
+        <definition>XHdcp22_Cipher_Dp_Config XHdcp22_Cipher_Dp_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XHdcp22_Cipher_Dp_ConfigTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_sinit.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_g.c" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__hdcp22__cipher__dp_1ga5a06f85cb868a3b253deb1c7c8684080" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp22Cipher_Dp_CfgInitialize</definition>
+        <argsstring>(XHdcp22_Cipher_Dp *InstancePtr, XHdcp22_Cipher_Dp_Config *CfgPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XHdcp22Cipher_Dp_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_hdcp22___cipher___dp" kindref="compound">XHdcp22_Cipher_Dp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_hdcp22___cipher___dp___config" kindref="compound">XHdcp22_Cipher_Dp_Config</ref> *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the HDCP22 Cipher core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function must be called prior to using the HDCP22 Cipher core. Initialization of the HDCP22 Cipher includes setting up the instance data, and ensuring the hardware is in a quiescent state.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_hdcp22___cipher___dp" kindref="compound">XHdcp22_Cipher_Dp</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the configuration structure associated with the HDCP22 Cipher core core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. If address translation is being used, then this parameter must reflect the virtual base address. Otherwise, the physical address should be used.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if XHdcp22Cipher_CfgInitialize was successful.</para></listitem><listitem><para>XST_FAILURE if HDCP22 Cipher ID mismatched.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.c" bodystart="71" bodyend="98"/>
+        <references refid="struct_x_hdcp22___cipher___dp___config_1a9af03a14ce92c99b3f713f410b1343d9" compoundref="xhdcp22__cipher__dp_8h" startline="82">XHdcp22_Cipher_Dp_Config::BaseAddress</references>
+        <references refid="struct_x_hdcp22___cipher___dp_1a4d19f7a5bfb4226577137e70519a0f93" compoundref="xhdcp22__cipher__dp_8h" startline="90">XHdcp22_Cipher_Dp::Config</references>
+        <references refid="struct_x_hdcp22___cipher___dp_1a515a6397a3b90b20de4d16c54d0d18a0" compoundref="xhdcp22__cipher__dp_8h" startline="91">XHdcp22_Cipher_Dp::IsReady</references>
+        <references refid="group__hdcp22__cipher__dp_1gacce7070e4d4e8c1dc04c517862c7417b" compoundref="xhdcp22__cipher__dp__hw_8h" startline="115">XHDCP22_CIPHER_MASK_16</references>
+        <references refid="group__hdcp22__cipher__dp_1ga386adc1b38325505ded478f4d40fa692" compoundref="xhdcp22__cipher__dp__hw_8h" startline="114">XHDCP22_CIPHER_SHIFT_16</references>
+        <references refid="group__hdcp22__cipher__dp_1ga6bae35ace045d9b076fa767511f7d5b9" compoundref="xhdcp22__cipher__dp__hw_8h" startline="116">XHDCP22_CIPHER_VER_ID</references>
+        <references refid="group__hdcp22__cipher__dp_1gaab5edfdfe3390aa42c35801ea76b7a2f" compoundref="xhdcp22__cipher__dp__hw_8h" startline="45">XHDCP22_CIPHER_VER_ID_OFFSET</references>
+        <references refid="group__hdcp22__cipher__dp_1ga384c6806d27d5ff2b245296392327e5a" compoundref="xhdcp22__cipher__dp__hw_8h" startline="148">XHdcp22Cipher_Dp_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__cipher__dp_1gad3b96d930adc7d8a73282ab68a5b9056" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp22Cipher_Dp_SetKs</definition>
+        <argsstring>(XHdcp22_Cipher_Dp *InstancePtr, const u8 *KsPtr, u16 Length)</argsstring>
+        <name>XHdcp22Cipher_Dp_SetKs</name>
+        <param>
+          <type><ref refid="struct_x_hdcp22___cipher___dp" kindref="compound">XHdcp22_Cipher_Dp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>KsPtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Length</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the Ks key in the HDCP22 Cipher core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the HDCP22 Cipher core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Ks key. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates the number of bytes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The Ks should be in big endian notation. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.c" bodystart="112" bodyend="137"/>
+        <references refid="struct_x_hdcp22___cipher___dp___config_1a9af03a14ce92c99b3f713f410b1343d9" compoundref="xhdcp22__cipher__dp_8h" startline="82">XHdcp22_Cipher_Dp_Config::BaseAddress</references>
+        <references refid="struct_x_hdcp22___cipher___dp_1a4d19f7a5bfb4226577137e70519a0f93" compoundref="xhdcp22__cipher__dp_8h" startline="90">XHdcp22_Cipher_Dp::Config</references>
+        <references refid="group__hdcp22__cipher__dp_1ga27757ac7f66c20e9ea89e7c8ef36ae0c" compoundref="xhdcp22__cipher__dp__hw_8h" startline="60">XHDCP22_CIPHER_REG_KS_1_OFFSET</references>
+        <references refid="group__hdcp22__cipher__dp_1ga2fc7b3900db24533feac1bfad238b393" compoundref="xhdcp22__cipher__dp__hw_8h" startline="169">XHdcp22Cipher_Dp_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__cipher__dp_1ga0369de0e561893f00d8c47fb37fa1862" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp22Cipher_Dp_SetLc128</definition>
+        <argsstring>(XHdcp22_Cipher_Dp *InstancePtr, const u8 *Lc128Ptr, u16 Length)</argsstring>
+        <name>XHdcp22Cipher_Dp_SetLc128</name>
+        <param>
+          <type><ref refid="struct_x_hdcp22___cipher___dp" kindref="compound">XHdcp22_Cipher_Dp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Lc128Ptr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Length</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the Lc128 key in the HDCP22 Cipher core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the HDCP22 Cipher core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Lc128Ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the LC128 key. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates the number of bytes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The Lc128 should be in big endian notation. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.c" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.c" bodystart="151" bodyend="175"/>
+        <references refid="struct_x_hdcp22___cipher___dp___config_1a9af03a14ce92c99b3f713f410b1343d9" compoundref="xhdcp22__cipher__dp_8h" startline="82">XHdcp22_Cipher_Dp_Config::BaseAddress</references>
+        <references refid="struct_x_hdcp22___cipher___dp_1a4d19f7a5bfb4226577137e70519a0f93" compoundref="xhdcp22__cipher__dp_8h" startline="90">XHdcp22_Cipher_Dp::Config</references>
+        <references refid="group__hdcp22__cipher__dp_1ga59cd2434ec0f2a563c9a9cdd67e76ade" compoundref="xhdcp22__cipher__dp__hw_8h" startline="68">XHDCP22_CIPHER_REG_LC128_1_OFFSET</references>
+        <references refid="group__hdcp22__cipher__dp_1ga2fc7b3900db24533feac1bfad238b393" compoundref="xhdcp22__cipher__dp__hw_8h" startline="169">XHdcp22Cipher_Dp_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__cipher__dp_1ga04b7aea3087f13c91c70af90a5f27172" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp22Cipher_Dp_SetRiv</definition>
+        <argsstring>(XHdcp22_Cipher_Dp *InstancePtr, const u8 *RivPtr, u16 Length)</argsstring>
+        <name>XHdcp22Cipher_Dp_SetRiv</name>
+        <param>
+          <type><ref refid="struct_x_hdcp22___cipher___dp" kindref="compound">XHdcp22_Cipher_Dp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>RivPtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Length</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the Riv key in the HDCP22 Cipher core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the HDCP22 Cipher core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RivPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Riv key. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates the number of bytes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The Riv should be in big endian notation. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.c" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.c" bodystart="189" bodyend="214"/>
+        <references refid="struct_x_hdcp22___cipher___dp___config_1a9af03a14ce92c99b3f713f410b1343d9" compoundref="xhdcp22__cipher__dp_8h" startline="82">XHdcp22_Cipher_Dp_Config::BaseAddress</references>
+        <references refid="struct_x_hdcp22___cipher___dp_1a4d19f7a5bfb4226577137e70519a0f93" compoundref="xhdcp22__cipher__dp_8h" startline="90">XHdcp22_Cipher_Dp::Config</references>
+        <references refid="group__hdcp22__cipher__dp_1gae69fc8ee52b8176eb0811ba7abddcef1" compoundref="xhdcp22__cipher__dp__hw_8h" startline="76">XHDCP22_CIPHER_REG_RIV_1_OFFSET</references>
+        <references refid="group__hdcp22__cipher__dp_1ga2fc7b3900db24533feac1bfad238b393" compoundref="xhdcp22__cipher__dp__hw_8h" startline="169">XHdcp22Cipher_Dp_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__cipher__dp_1ga56143e6b8ebb69833e9e799f6d77b2d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp22Cipher_Dp_SetLanecount</definition>
+        <argsstring>(XHdcp22_Cipher_Dp *InstancePtr, u8 LaneCount)</argsstring>
+        <name>XHdcp22Cipher_Dp_SetLanecount</name>
+        <param>
+          <type><ref refid="struct_x_hdcp22___cipher___dp" kindref="compound">XHdcp22_Cipher_Dp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>LaneCount</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the Lane count in the HDCP22 Cipher core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the HDCP22 Cipher core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LaneCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number lanes to be set in cipher core. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.c" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.c" bodystart="225" bodyend="237"/>
+        <references refid="struct_x_hdcp22___cipher___dp___config_1a9af03a14ce92c99b3f713f410b1343d9" compoundref="xhdcp22__cipher__dp_8h" startline="82">XHdcp22_Cipher_Dp_Config::BaseAddress</references>
+        <references refid="struct_x_hdcp22___cipher___dp_1a4d19f7a5bfb4226577137e70519a0f93" compoundref="xhdcp22__cipher__dp_8h" startline="90">XHdcp22_Cipher_Dp::Config</references>
+        <references refid="group__hdcp22__cipher__dp_1ga42e3f5b8c1f600d59c493effd730feb4" compoundref="xhdcp22__cipher__dp__hw_8h" startline="56">XHDCP22_CIPHER_REG_CTRL_CLR_OFFSET</references>
+        <references refid="group__hdcp22__cipher__dp_1gab5dee148b2f2a1a0fe878271ef7def20" compoundref="xhdcp22__cipher__dp__hw_8h" startline="100">XHDCP22_CIPHER_REG_CTRL_LANE_CNT_BIT_POS</references>
+        <references refid="group__hdcp22__cipher__dp_1gafd3521e0b63138e5f07ef22a55c1f529" compoundref="xhdcp22__cipher__dp__hw_8h" startline="98">XHDCP22_CIPHER_REG_CTRL_LANE_CNT_MASK</references>
+        <references refid="group__hdcp22__cipher__dp_1ga23d82cf795bb981070bdfcb571faa316" compoundref="xhdcp22__cipher__dp__hw_8h" startline="54">XHDCP22_CIPHER_REG_CTRL_SET_OFFSET</references>
+        <references refid="group__hdcp22__cipher__dp_1ga2fc7b3900db24533feac1bfad238b393" compoundref="xhdcp22__cipher__dp__hw_8h" startline="169">XHdcp22Cipher_Dp_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__cipher__dp_1ga1745185b26301d5b64d995fc45e794e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp22Cipher_Dp_SetMst</definition>
+        <argsstring>(XHdcp22_Cipher_Dp *InstancePtr, u8 Mode)</argsstring>
+        <name>XHdcp22Cipher_Dp_SetMst</name>
+        <param>
+          <type><ref refid="struct_x_hdcp22___cipher___dp" kindref="compound">XHdcp22_Cipher_Dp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the MST mode in the HDCP22 Cipher core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the HDCP22 Cipher core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>enables mst in the cipher core. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.c" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.c" bodystart="248" bodyend="268"/>
+        <references refid="struct_x_hdcp22___cipher___dp___config_1a9af03a14ce92c99b3f713f410b1343d9" compoundref="xhdcp22__cipher__dp_8h" startline="82">XHdcp22_Cipher_Dp_Config::BaseAddress</references>
+        <references refid="struct_x_hdcp22___cipher___dp_1a4d19f7a5bfb4226577137e70519a0f93" compoundref="xhdcp22__cipher__dp_8h" startline="90">XHdcp22_Cipher_Dp::Config</references>
+        <references refid="group__hdcp22__cipher__dp_1ga42e3f5b8c1f600d59c493effd730feb4" compoundref="xhdcp22__cipher__dp__hw_8h" startline="56">XHDCP22_CIPHER_REG_CTRL_CLR_OFFSET</references>
+        <references refid="group__hdcp22__cipher__dp_1ga1ad320e9f9daefb0a1b25a44eacb84a6" compoundref="xhdcp22__cipher__dp__hw_8h" startline="103">XHDCP22_CIPHER_REG_CTRL_MST_BIT_POS</references>
+        <references refid="group__hdcp22__cipher__dp_1ga23d82cf795bb981070bdfcb571faa316" compoundref="xhdcp22__cipher__dp__hw_8h" startline="54">XHDCP22_CIPHER_REG_CTRL_SET_OFFSET</references>
+        <references refid="group__hdcp22__cipher__dp_1ga2fc7b3900db24533feac1bfad238b393" compoundref="xhdcp22__cipher__dp__hw_8h" startline="169">XHdcp22Cipher_Dp_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__cipher__dp_1gafd7c31976fb325046c792f98d61b1995" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_hdcp22___cipher___dp___config" kindref="compound">XHdcp22_Cipher_Dp_Config</ref> *</type>
+        <definition>XHdcp22_Cipher_Dp_Config * XHdcp22Cipher_Dp_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XHdcp22Cipher_Dp_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function returns a reference to an <ref refid="struct_x_hdcp22___cipher___dp___config" kindref="compound">XHdcp22_Cipher_Dp_Config</ref> structure based on the core id, <emphasis>DeviceId</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>The return value will refer to an entry in the device configuration table defined in the xhdcp22_cipher_dp_g.c file.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique core ID of the XHDCP22 Cipher core for the lookup operation.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XHdcp22Cipher_LookupConfig returns a reference to a config record in the configuration table (in xhdcp22_cipher_dp_g.c) corresponding to <emphasis>DeviceId</emphasis>, or NULL if no match is found.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_sinit.c" bodystart="90" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__cipher__dp_1ga3a6a707c9733bbbe5c27d2a13af4266f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp22Cipher_Dp_SelfTest</definition>
+        <argsstring>(XHdcp22_Cipher_Dp *InstancePtr)</argsstring>
+        <name>XHdcp22Cipher_Dp_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_hdcp22___cipher___dp" kindref="compound">XHdcp22_Cipher_Dp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads ID of the peripheral. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the HDCP22 Cipher core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if ID was matched.</para></listitem><listitem><para>XST_FAILURE if ID was mismatched.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_selftest.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_selftest.c" bodystart="59" bodyend="78"/>
+        <references refid="struct_x_hdcp22___cipher___dp___config_1a9af03a14ce92c99b3f713f410b1343d9" compoundref="xhdcp22__cipher__dp_8h" startline="82">XHdcp22_Cipher_Dp_Config::BaseAddress</references>
+        <references refid="struct_x_hdcp22___cipher___dp_1a4d19f7a5bfb4226577137e70519a0f93" compoundref="xhdcp22__cipher__dp_8h" startline="90">XHdcp22_Cipher_Dp::Config</references>
+        <references refid="group__hdcp22__cipher__dp_1gacce7070e4d4e8c1dc04c517862c7417b" compoundref="xhdcp22__cipher__dp__hw_8h" startline="115">XHDCP22_CIPHER_MASK_16</references>
+        <references refid="group__hdcp22__cipher__dp_1ga386adc1b38325505ded478f4d40fa692" compoundref="xhdcp22__cipher__dp__hw_8h" startline="114">XHDCP22_CIPHER_SHIFT_16</references>
+        <references refid="group__hdcp22__cipher__dp_1ga6bae35ace045d9b076fa767511f7d5b9" compoundref="xhdcp22__cipher__dp__hw_8h" startline="116">XHDCP22_CIPHER_VER_ID</references>
+        <references refid="group__hdcp22__cipher__dp_1gaab5edfdfe3390aa42c35801ea76b7a2f" compoundref="xhdcp22__cipher__dp__hw_8h" startline="45">XHDCP22_CIPHER_VER_ID_OFFSET</references>
+        <references refid="group__hdcp22__cipher__dp_1ga384c6806d27d5ff2b245296392327e5a" compoundref="xhdcp22__cipher__dp__hw_8h" startline="148">XHdcp22Cipher_Dp_ReadReg</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga36e8599e46cd9f4583bbe86d3e02b8c7" prot="public" static="no">
+        <name>XHDCP22_CIPHER_H</name>
+        <briefdescription>
+<para>&lt; Prevent circular inclusions by using protection macros </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga27b56df270a1c67fb3105cb8ec7ff148" prot="public" static="no">
+        <name>XHdcp22Cipher_Dp_Enable</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__hdcp22__cipher__dp_1ga2fc7b3900db24533feac1bfad238b393" kindref="member">XHdcp22Cipher_Dp_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+        (<ref refid="group__hdcp22__cipher__dp_1ga23d82cf795bb981070bdfcb571faa316" kindref="member">XHDCP22_CIPHER_REG_CTRL_SET_OFFSET</ref>),(<ref refid="group__hdcp22__cipher__dp_1ga242122ae1fa2499518f3e2d978190a10" kindref="member">XHDCP22_CIPHER_REG_CTRL_RUN_MASK</ref>))</initializer>
+        <briefdescription>
+<para>This macro enables the HDCP22 Cipher peripheral. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the HDCP22 Cipher core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__hdcp22__cipher__dp_1ga27b56df270a1c67fb3105cb8ec7ff148" kindref="member">XHdcp22Cipher_Dp_Enable(u32 BaseAddress)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga0585839adc435b2e1a5b15060e228ea3" prot="public" static="no">
+        <name>XHdcp22Cipher_Dp_Disable</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__hdcp22__cipher__dp_1ga2fc7b3900db24533feac1bfad238b393" kindref="member">XHdcp22Cipher_Dp_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+        (<ref refid="group__hdcp22__cipher__dp_1ga42e3f5b8c1f600d59c493effd730feb4" kindref="member">XHDCP22_CIPHER_REG_CTRL_CLR_OFFSET</ref>), (<ref refid="group__hdcp22__cipher__dp_1ga242122ae1fa2499518f3e2d978190a10" kindref="member">XHDCP22_CIPHER_REG_CTRL_RUN_MASK</ref>))</initializer>
+        <briefdescription>
+<para>This macro disables the HDCP22 Cipher peripheral. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the HDCP22 Cipher core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__hdcp22__cipher__dp_1ga0585839adc435b2e1a5b15060e228ea3" kindref="member">XHdcp22Cipher_Dp_Disable(u32 BaseAddress)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1gac61af41b903a10e19b1d02bd137b85df" prot="public" static="no">
+        <name>XHdcp22Cipher_Dp_IsEnabled</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((<ref refid="group__hdcp22__cipher__dp_1ga8cf7419a2c0d57a713b670a2d3e76c7c" kindref="member">XHdcp22Cipher_Dp_GetControlReg</ref>((InstancePtr)-&gt;Config.BaseAddress)\
+        &amp; <ref refid="group__hdcp22__cipher__dp_1ga242122ae1fa2499518f3e2d978190a10" kindref="member">XHDCP22_CIPHER_REG_CTRL_RUN_MASK</ref>) ==  <ref refid="group__hdcp22__cipher__dp_1ga242122ae1fa2499518f3e2d978190a10" kindref="member">XHDCP22_CIPHER_REG_CTRL_RUN_MASK</ref>)</initializer>
+        <briefdescription>
+<para>This macro returns the encrypted enabled state of the HDCP22 Cipher core instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the HDCP22 Cipher core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>TRUE if HDCP22 cipher is enabled, FALSE otherwise.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__hdcp22__cipher__dp_1gac61af41b903a10e19b1d02bd137b85df" kindref="member">XHdcp22Cipher_Dp_IsEnabled(u32 BaseAddress)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1gacf6cd83c68a52ccf15e3eb1dae4c2cc2" prot="public" static="no">
+        <name>XHdcp22Cipher_Dp_SetTxMode</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__hdcp22__cipher__dp_1ga2fc7b3900db24533feac1bfad238b393" kindref="member">XHdcp22Cipher_Dp_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+        (<ref refid="group__hdcp22__cipher__dp_1ga42e3f5b8c1f600d59c493effd730feb4" kindref="member">XHDCP22_CIPHER_REG_CTRL_CLR_OFFSET</ref>), (<ref refid="group__hdcp22__cipher__dp_1gaf9999b5a4f4b113af9b79e583fd9a391" kindref="member">XHDCP22_CIPHER_REG_CTRL_MODE_MASK</ref>))</initializer>
+        <briefdescription>
+<para>This macro sets the HDCP operation mode for the HDCP22 Cipher peripheral. </para>        </briefdescription>
+        <detaileddescription>
+<para>The mode</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the HDCP22 Cipher core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__hdcp22__cipher__dp_1gacf6cd83c68a52ccf15e3eb1dae4c2cc2" kindref="member">XHdcp22Cipher_Dp_SetTxMode(u32 BaseAddress)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1gad5fe4f1aec6b0470d48734f61b9e8d46" prot="public" static="no">
+        <name>XHdcp22Cipher_Dp_SetRxMode</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__hdcp22__cipher__dp_1ga2fc7b3900db24533feac1bfad238b393" kindref="member">XHdcp22Cipher_Dp_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+        (<ref refid="group__hdcp22__cipher__dp_1ga23d82cf795bb981070bdfcb571faa316" kindref="member">XHDCP22_CIPHER_REG_CTRL_SET_OFFSET</ref>), (<ref refid="group__hdcp22__cipher__dp_1gaf9999b5a4f4b113af9b79e583fd9a391" kindref="member">XHDCP22_CIPHER_REG_CTRL_MODE_MASK</ref>))</initializer>
+        <briefdescription>
+<para>This macro sets the HDCP RX operation mode for the HDCP22 Cipher peripheral. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the HDCP22 Cipher core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__hdcp22__cipher__dp_1gad5fe4f1aec6b0470d48734f61b9e8d46" kindref="member">XHdcp22Cipher_Dp_SetRxMode(u32 BaseAddress)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga87f519bd88361ef2b4ee114997ae6796" prot="public" static="no">
+        <name>XHdcp22Cipher_Dp_EnableTxEncryption</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__hdcp22__cipher__dp_1ga2fc7b3900db24533feac1bfad238b393" kindref="member">XHdcp22Cipher_Dp_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+        (<ref refid="group__hdcp22__cipher__dp_1ga23d82cf795bb981070bdfcb571faa316" kindref="member">XHDCP22_CIPHER_REG_CTRL_SET_OFFSET</ref>), (<ref refid="group__hdcp22__cipher__dp_1ga13ba319db7ea5f068f70ff60e80e1906" kindref="member">XHDCP22_CIPHER_REG_CTRL_ENCRYPT_MASK</ref>))</initializer>
+        <briefdescription>
+<para>This macro enables HDCP TX encryption for the HDCP22 Cipher peripheral. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the HDCP22 Cipher core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__hdcp22__cipher__dp_1ga87f519bd88361ef2b4ee114997ae6796" kindref="member">XHdcp22Cipher_Dp_EnableTxEncryption(u32 BaseAddress)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" line="196" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga969806eb1b14ea73a98410c51053e3dc" prot="public" static="no">
+        <name>XHdcp22Cipher_Dp_DisableTxEncryption</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__hdcp22__cipher__dp_1ga2fc7b3900db24533feac1bfad238b393" kindref="member">XHdcp22Cipher_Dp_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+        (<ref refid="group__hdcp22__cipher__dp_1ga42e3f5b8c1f600d59c493effd730feb4" kindref="member">XHDCP22_CIPHER_REG_CTRL_CLR_OFFSET</ref>), (<ref refid="group__hdcp22__cipher__dp_1ga13ba319db7ea5f068f70ff60e80e1906" kindref="member">XHDCP22_CIPHER_REG_CTRL_ENCRYPT_MASK</ref>))</initializer>
+        <briefdescription>
+<para>This macro disables HDCP TX encryption for the HDCP22 Cipher peripheral. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the HDCP22 Cipher core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__hdcp22__cipher__dp_1ga969806eb1b14ea73a98410c51053e3dc" kindref="member">XHdcp22Cipher_Dp_DisableTxEncryption(u32 BaseAddress)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" line="213" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1gaa07345c91899f49ed8d4aef114d3e66e" prot="public" static="no">
+        <name>XHdcp22Cipher_Dp_IsTxEncryptionEnabled</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((<ref refid="group__hdcp22__cipher__dp_1ga8cf7419a2c0d57a713b670a2d3e76c7c" kindref="member">XHdcp22Cipher_Dp_GetControlReg</ref>((InstancePtr)-&gt;Config.BaseAddress)\
+        &amp; <ref refid="group__hdcp22__cipher__dp_1ga13ba319db7ea5f068f70ff60e80e1906" kindref="member">XHDCP22_CIPHER_REG_CTRL_ENCRYPT_MASK</ref>) ==  <ref refid="group__hdcp22__cipher__dp_1ga13ba319db7ea5f068f70ff60e80e1906" kindref="member">XHDCP22_CIPHER_REG_CTRL_ENCRYPT_MASK</ref>)</initializer>
+        <briefdescription>
+<para>This macro returns the encrypted enabled state of HDCP TX encryption for the HDCP22 Cipher peripheral. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the HDCP22 Cipher core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>TRUE if HDCP22 TX encryption is enabled, FALSE otherwise.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__hdcp22__cipher__dp_1gaa07345c91899f49ed8d4aef114d3e66e" kindref="member">XHdcp22Cipher_Dp_IsTxEncryptionEnabled(u32 BaseAddress)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" line="231" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga07fd6ce88c0282cbfd58ba69adb7d007" prot="public" static="no">
+        <name>XHdcp22Cipher_Dp_IsEncrypted</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((<ref refid="group__hdcp22__cipher__dp_1gaabb443f5d6a08e08414fc00635356240" kindref="member">XHdcp22Cipher_Dp_GetStatusReg</ref>((InstancePtr)-&gt;Config.BaseAddress) \
+        &amp; <ref refid="group__hdcp22__cipher__dp_1ga5a0bb78429dece8b52eb35588842afb1" kindref="member">XHDCP22_CIPHER_REG_STA_ENCRYPTED_MASK</ref>) ==  <ref refid="group__hdcp22__cipher__dp_1ga5a0bb78429dece8b52eb35588842afb1" kindref="member">XHDCP22_CIPHER_REG_STA_ENCRYPTED_MASK</ref>)</initializer>
+        <briefdescription>
+<para>This macro returns the encrypted state for the HDCP22 Cipher peripheral. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the HDCP22 Cipher core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>TRUE if the frame is encrypted, FALSE otherwise.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__hdcp22__cipher__dp_1ga969806eb1b14ea73a98410c51053e3dc" kindref="member">XHdcp22Cipher_Dp_DisableTxEncryption(u32 BaseAddress)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" line="248" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga318806a45c20421a25dd0a56a37d18ff" prot="public" static="no">
+        <name>XHdcp22Cipher_Dp_Noise</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>Set</defname></param>
+        <initializer>{ \
+        if (Set) { \
+                <ref refid="group__hdcp22__cipher__dp_1ga2fc7b3900db24533feac1bfad238b393" kindref="member">XHdcp22Cipher_Dp_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress, (<ref refid="group__hdcp22__cipher__dp_1ga23d82cf795bb981070bdfcb571faa316" kindref="member">XHDCP22_CIPHER_REG_CTRL_SET_OFFSET</ref>), (<ref refid="group__hdcp22__cipher__dp_1ga89090e6ad57ea04fa92013b6dc1025f0" kindref="member">XHDCP22_CIPHER_REG_CTRL_NOISE_MASK</ref>)); \
+        } \
+        else { \
+                <ref refid="group__hdcp22__cipher__dp_1ga2fc7b3900db24533feac1bfad238b393" kindref="member">XHdcp22Cipher_Dp_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress, (<ref refid="group__hdcp22__cipher__dp_1ga42e3f5b8c1f600d59c493effd730feb4" kindref="member">XHDCP22_CIPHER_REG_CTRL_CLR_OFFSET</ref>), (<ref refid="group__hdcp22__cipher__dp_1ga89090e6ad57ea04fa92013b6dc1025f0" kindref="member">XHDCP22_CIPHER_REG_CTRL_NOISE_MASK</ref>)); \
+        } \
+}</initializer>
+        <briefdescription>
+<para>This macro enables or disables noise output for the HDCP22 Cipher peripheral. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the HDCP22 Cipher core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Set</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies TRUE/FALSE either to enable/disable noise output.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>none.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__hdcp22__cipher__dp_1ga318806a45c20421a25dd0a56a37d18ff" kindref="member">XHdcp22Cipher_Dp_Noise(u32 BaseAddress, u8 Set)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" line="267" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" bodystart="267" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1gaa87d414595a99bba4fa75c3612ccc204" prot="public" static="no">
+        <name>XHdcp22Cipher_Dp_Blank</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>Set</defname></param>
+        <initializer>{ \
+        if (Set) { \
+                <ref refid="group__hdcp22__cipher__dp_1ga2fc7b3900db24533feac1bfad238b393" kindref="member">XHdcp22Cipher_Dp_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress, (<ref refid="group__hdcp22__cipher__dp_1ga23d82cf795bb981070bdfcb571faa316" kindref="member">XHDCP22_CIPHER_REG_CTRL_SET_OFFSET</ref>), (<ref refid="group__hdcp22__cipher__dp_1gafa4ee53770fc4f60c2ee363fe0651c6a" kindref="member">XHDCP22_CIPHER_REG_CTRL_BLANK_MASK</ref>)); \
+        } \
+        else { \
+                <ref refid="group__hdcp22__cipher__dp_1ga2fc7b3900db24533feac1bfad238b393" kindref="member">XHdcp22Cipher_Dp_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress, (<ref refid="group__hdcp22__cipher__dp_1ga42e3f5b8c1f600d59c493effd730feb4" kindref="member">XHDCP22_CIPHER_REG_CTRL_CLR_OFFSET</ref>), (<ref refid="group__hdcp22__cipher__dp_1gafa4ee53770fc4f60c2ee363fe0651c6a" kindref="member">XHDCP22_CIPHER_REG_CTRL_BLANK_MASK</ref>)); \
+        } \
+}</initializer>
+        <briefdescription>
+<para>This macro enables or disables blank screen for the HDCP22 Cipher peripheral. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the HDCP22 Cipher core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Set</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies TRUE/FALSE either to enable/disable blank screen.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>none.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__hdcp22__cipher__dp_1gaa87d414595a99bba4fa75c3612ccc204" kindref="member">XHdcp22Cipher_Dp_Blank(u32 BaseAddress, u8 Set)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" line="292" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" bodystart="292" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1gad657988ea023d41a0a6d08d37da396ba" prot="public" static="no">
+        <name>XHdcp22Cipher_Dp_GetVersion</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__hdcp22__cipher__dp_1ga384c6806d27d5ff2b245296392327e5a" kindref="member">XHdcp22Cipher_Dp_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress, <ref refid="group__hdcp22__cipher__dp_1gaab7f31b6edcb7f334dba1723562f0b08" kindref="member">XHDCP22_CIPHER_VER_VERSION_OFFSET</ref>)</initializer>
+        <briefdescription>
+<para>This macro reads the version for the HDCP22 Cipher peripheral. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the HDCP22 Cipher core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>version.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void XHdcp22Cipher_GetVersion(u32 BaseAddress) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" line="316" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp.h" bodystart="316" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga3c3342f2a063d55f5da17bb4371a0244" prot="public" static="no">
+        <name>XHDCP22_CIPHER_DP_HW_H</name>
+        <briefdescription>
+<para>&lt; Prevent circular inclusions by using protection macros </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="31" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1gae86f28fe69e4d626b6f131f7cd7ca9f0" prot="public" static="no">
+        <name>XHDCP22_CIPHER_VER_BASE</name>
+        <initializer>(0*64)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1gaab5edfdfe3390aa42c35801ea76b7a2f" prot="public" static="no">
+        <name>XHDCP22_CIPHER_VER_ID_OFFSET</name>
+        <initializer>((XHDCP22_CIPHER_VER_BASE)+(0*4))</initializer>
+        <briefdescription>
+<para>VER Identification register * register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="45" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__cipher__dp_1ga5a06f85cb868a3b253deb1c7c8684080" compoundref="xhdcp22__cipher__dp_8c" startline="71" endline="98">XHdcp22Cipher_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__cipher__dp_1ga3a6a707c9733bbbe5c27d2a13af4266f" compoundref="xhdcp22__cipher__dp__selftest_8c" startline="59" endline="78">XHdcp22Cipher_Dp_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1gaab7f31b6edcb7f334dba1723562f0b08" prot="public" static="no">
+        <name>XHDCP22_CIPHER_VER_VERSION_OFFSET</name>
+        <initializer>((XHDCP22_CIPHER_VER_BASE)+(1*4))</initializer>
+        <briefdescription>
+<para>VER Version register * offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga87f13afa3e5c8b9c1feff8ad6267d604" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_BASE</name>
+        <initializer>(1*64)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga59baf4064cf447a8bc0991c8242f7221" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_CTRL_OFFSET</name>
+        <initializer>((XHDCP22_CIPHER_REG_BASE)+(0*4))</initializer>
+        <briefdescription>
+<para>Control register * register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga23d82cf795bb981070bdfcb571faa316" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_CTRL_SET_OFFSET</name>
+        <initializer>((XHDCP22_CIPHER_REG_BASE)+(1*4))</initializer>
+        <briefdescription>
+<para>Control set register * offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__cipher__dp_1ga56143e6b8ebb69833e9e799f6d77b2d0" compoundref="xhdcp22__cipher__dp_8c" startline="225" endline="237">XHdcp22Cipher_Dp_SetLanecount</referencedby>
+        <referencedby refid="group__hdcp22__cipher__dp_1ga1745185b26301d5b64d995fc45e794e6" compoundref="xhdcp22__cipher__dp_8c" startline="248" endline="268">XHdcp22Cipher_Dp_SetMst</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga42e3f5b8c1f600d59c493effd730feb4" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_CTRL_CLR_OFFSET</name>
+        <initializer>((XHDCP22_CIPHER_REG_BASE)+(2*4))</initializer>
+        <briefdescription>
+<para>Control clear register * offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__cipher__dp_1ga56143e6b8ebb69833e9e799f6d77b2d0" compoundref="xhdcp22__cipher__dp_8c" startline="225" endline="237">XHdcp22Cipher_Dp_SetLanecount</referencedby>
+        <referencedby refid="group__hdcp22__cipher__dp_1ga1745185b26301d5b64d995fc45e794e6" compoundref="xhdcp22__cipher__dp_8c" startline="248" endline="268">XHdcp22Cipher_Dp_SetMst</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1gacf32fc0d1755832ab07f3dcee8101b1a" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_STA_OFFSET</name>
+        <initializer>((XHDCP22_CIPHER_REG_BASE)+(3*4))</initializer>
+        <briefdescription>
+<para>Status register * offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga27757ac7f66c20e9ea89e7c8ef36ae0c" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_KS_1_OFFSET</name>
+        <initializer>((XHDCP22_CIPHER_REG_BASE)+(4*4))</initializer>
+        <briefdescription>
+<para>Ks register 1 * offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__cipher__dp_1gad3b96d930adc7d8a73282ab68a5b9056" compoundref="xhdcp22__cipher__dp_8c" startline="112" endline="137">XHdcp22Cipher_Dp_SetKs</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1gafdd89b7ac74cbc21d5a4f4c419ee3cc1" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_KS_2_OFFSET</name>
+        <initializer>((XHDCP22_CIPHER_REG_BASE)+(5*4))</initializer>
+        <briefdescription>
+<para>Ks register 2 * offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1gafe9aff641305103fb807d265bdc7c180" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_KS_3_OFFSET</name>
+        <initializer>((XHDCP22_CIPHER_REG_BASE)+(6*4))</initializer>
+        <briefdescription>
+<para>Ks register 3 * offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1gad54f089cd42d49efbe9a51f79334b99e" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_KS_4_OFFSET</name>
+        <initializer>((XHDCP22_CIPHER_REG_BASE)+(7*4))</initializer>
+        <briefdescription>
+<para>Ks register 4 * offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga59cd2434ec0f2a563c9a9cdd67e76ade" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_LC128_1_OFFSET</name>
+        <initializer>((XHDCP22_CIPHER_REG_BASE)+(8*4))</initializer>
+        <briefdescription>
+<para>Lc128 register 1 * offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__cipher__dp_1ga0369de0e561893f00d8c47fb37fa1862" compoundref="xhdcp22__cipher__dp_8c" startline="151" endline="175">XHdcp22Cipher_Dp_SetLc128</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga4ee7b708bcc7cb4965ff961007f5fe14" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_LC128_2_OFFSET</name>
+        <initializer>((XHDCP22_CIPHER_REG_BASE)+(9*4))</initializer>
+        <briefdescription>
+<para>Lc128 register 2 * offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga64a601eff300a5a6c422f1d575da8b7c" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_LC128_3_OFFSET</name>
+        <initializer>((XHDCP22_CIPHER_REG_BASE)+(10*4))</initializer>
+        <briefdescription>
+<para>Lc128 register 3 * offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1gae62eb3aed6c643cc455a594f285d206f" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_LC128_4_OFFSET</name>
+        <initializer>((XHDCP22_CIPHER_REG_BASE)+(11*4))</initializer>
+        <briefdescription>
+<para>Lc128 register 4 * offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1gae69fc8ee52b8176eb0811ba7abddcef1" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_RIV_1_OFFSET</name>
+        <initializer>((XHDCP22_CIPHER_REG_BASE)+(12*4))</initializer>
+        <briefdescription>
+<para>Riv register 1 * offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__cipher__dp_1ga04b7aea3087f13c91c70af90a5f27172" compoundref="xhdcp22__cipher__dp_8c" startline="189" endline="214">XHdcp22Cipher_Dp_SetRiv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga7f9cfb945d47494f72464d5eaacd9716" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_RIV_2_OFFSET</name>
+        <initializer>((XHDCP22_CIPHER_REG_BASE)+(13*4))</initializer>
+        <briefdescription>
+<para>Riv register 2 * offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1gaa174a8cba5f372f3ef155cc544bba70a" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_INPUTCTR_1_OFFSET</name>
+        <initializer>((XHDCP22_CIPHER_REG_BASE)+(14*4))</initializer>
+        <briefdescription>
+<para>InputCtr register 1 * offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga0a501beb4e8fbcbc7fdeb56aeba263b4" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_INPUTCTR_2_OFFSET</name>
+        <initializer>((XHDCP22_CIPHER_REG_BASE)+(15*4))</initializer>
+        <briefdescription>
+<para>InputCtr register 2 * offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga242122ae1fa2499518f3e2d978190a10" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_CTRL_RUN_MASK</name>
+        <initializer>(1&lt;&lt;0)</initializer>
+        <briefdescription>
+<para>Control register Run mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga355c8b807bd5d239feece973ab36f280" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_CTRL_IE_MASK</name>
+        <initializer>(1&lt;&lt;1)</initializer>
+        <briefdescription>
+<para>Control register Interrupt Enable mask. </para>        </briefdescription>
+        <detaileddescription>
+<para>Reserved for future use. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1gaf9999b5a4f4b113af9b79e583fd9a391" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_CTRL_MODE_MASK</name>
+        <initializer>(1&lt;&lt;2)</initializer>
+        <briefdescription>
+<para>Control register Mode mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga13ba319db7ea5f068f70ff60e80e1906" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_CTRL_ENCRYPT_MASK</name>
+        <initializer>(1&lt;&lt;3)</initializer>
+        <briefdescription>
+<para>Control register Encrypt mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1gafa4ee53770fc4f60c2ee363fe0651c6a" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_CTRL_BLANK_MASK</name>
+        <initializer>(1&lt;&lt;4)</initializer>
+        <briefdescription>
+<para>Control register blank mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga89090e6ad57ea04fa92013b6dc1025f0" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_CTRL_NOISE_MASK</name>
+        <initializer>(1&lt;&lt;5)</initializer>
+        <briefdescription>
+<para>Control register noise mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1gafd3521e0b63138e5f07ef22a55c1f529" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_CTRL_LANE_CNT_MASK</name>
+        <initializer>(0x0F&lt;&lt;6)</initializer>
+        <briefdescription>
+<para>Control register lane count mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__cipher__dp_1ga56143e6b8ebb69833e9e799f6d77b2d0" compoundref="xhdcp22__cipher__dp_8c" startline="225" endline="237">XHdcp22Cipher_Dp_SetLanecount</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1gab5dee148b2f2a1a0fe878271ef7def20" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_CTRL_LANE_CNT_BIT_POS</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>Control register lane count bits position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="100" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__cipher__dp_1ga56143e6b8ebb69833e9e799f6d77b2d0" compoundref="xhdcp22__cipher__dp_8c" startline="225" endline="237">XHdcp22Cipher_Dp_SetLanecount</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga1ad320e9f9daefb0a1b25a44eacb84a6" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_CTRL_MST_BIT_POS</name>
+        <initializer>11</initializer>
+        <briefdescription>
+<para>Control register lane count bits position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="103" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__cipher__dp_1ga1745185b26301d5b64d995fc45e794e6" compoundref="xhdcp22__cipher__dp_8c" startline="248" endline="268">XHdcp22Cipher_Dp_SetMst</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga3ac0519b5b67ab5456564663b82bfb51" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_STA_IRQ_MASK</name>
+        <initializer>(1&lt;&lt;0)</initializer>
+        <briefdescription>
+<para>Status register interrupt mask. </para>        </briefdescription>
+        <detaileddescription>
+<para>Reserved for future use. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1gac978e493ce62a062aea7982f9db485ac" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_STA_EVT_MASK</name>
+        <initializer>(1&lt;&lt;1)</initializer>
+        <briefdescription>
+<para>Status register event mask. </para>        </briefdescription>
+        <detaileddescription>
+<para>Reserved for future use. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga5a0bb78429dece8b52eb35588842afb1" prot="public" static="no">
+        <name>XHDCP22_CIPHER_REG_STA_ENCRYPTED_MASK</name>
+        <initializer>(1&lt;&lt;2)</initializer>
+        <briefdescription>
+<para>Status register encrypted mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga386adc1b38325505ded478f4d40fa692" prot="public" static="no">
+        <name>XHDCP22_CIPHER_SHIFT_16</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>16 shift value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="114" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__cipher__dp_1ga5a06f85cb868a3b253deb1c7c8684080" compoundref="xhdcp22__cipher__dp_8c" startline="71" endline="98">XHdcp22Cipher_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__cipher__dp_1ga3a6a707c9733bbbe5c27d2a13af4266f" compoundref="xhdcp22__cipher__dp__selftest_8c" startline="59" endline="78">XHdcp22Cipher_Dp_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1gacce7070e4d4e8c1dc04c517862c7417b" prot="public" static="no">
+        <name>XHDCP22_CIPHER_MASK_16</name>
+        <initializer>0xFFFF</initializer>
+        <briefdescription>
+<para>16 bit mask value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="115" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__cipher__dp_1ga5a06f85cb868a3b253deb1c7c8684080" compoundref="xhdcp22__cipher__dp_8c" startline="71" endline="98">XHdcp22Cipher_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__cipher__dp_1ga3a6a707c9733bbbe5c27d2a13af4266f" compoundref="xhdcp22__cipher__dp__selftest_8c" startline="59" endline="78">XHdcp22Cipher_Dp_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1ga6bae35ace045d9b076fa767511f7d5b9" prot="public" static="no">
+        <name>XHDCP22_CIPHER_VER_ID</name>
+        <initializer>0x2200</initializer>
+        <briefdescription>
+<para>Version ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_hw.h" bodystart="116" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__cipher__dp_1ga5a06f85cb868a3b253deb1c7c8684080" compoundref="xhdcp22__cipher__dp_8c" startline="71" endline="98">XHdcp22Cipher_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__cipher__dp_1ga3a6a707c9733bbbe5c27d2a13af4266f" compoundref="xhdcp22__cipher__dp__selftest_8c" startline="59" endline="78">XHdcp22Cipher_Dp_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp22__cipher__dp_1gac000e4b281fbf574d38f8cf11342a6fa" prot="public" static="no">
+        <name>XPAR_XHDCP22_CIPHER_DP_NUM_INSTANCES</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_sinit.c" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_cipher_dp/src/xhdcp22_cipher_dp_sinit.c" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>} </para>    </briefdescription>
+    <detaileddescription>
+<para>This file contains the static initialization methods for the Xilinx HDCP 2.2 Cipher core.</para><para>This file contains self test function for the Xilinx HDCP 2.2 Cipher core.</para><para>This header file contains identifiers and register-level core functions (or macros) that can be used to access the Xilinx HDCP 2.2 Cipher core.</para><para>This is the main header file of the Xilinx HDCP 2.2 Cipher device driver.</para><para>The Cipher implements the AES-128 standard for encrypting and decrypting audiovisual content. The Cipher is required to be programmed with the global constant Lc128, random number Riv, and session key Ks before encryption is enabled. Internally, the cipher uses the Enhanced Encryption Signaling Status (EESS) to determine when to encrypt and decrypt frames. It also manages the data and frame counters to ensure the transmitter and receiver Ciphers are synchronized.</para><para><bold>Software Initialization and Configuration</bold></para><para>The application needs to do the following steps to run the Cipher.<itemizedlist>
+<listitem><para>Call XHdcp22Cipher_LookupConfig using the device ID to find the core configuration instance.</para></listitem><listitem><para>Call XHdcp22Cipher_CfgInitialize to initialize the device instance.</para></listitem><listitem><para>Call XHdcp22Cipher_SetTxMode or XHdcp22Cipher_SetRxMode to setup the Cipher as either a transmitter or receiver.</para></listitem><listitem><para>Call XHdcp22Cipher_Enable to enable the cipher.</para></listitem><listitem><para>Call XHdcp22Cipher_SetLc128 to program the Lc128 constant.</para></listitem><listitem><para>Call XHdcp22Cipher_SetRiv to program the random number Riv.</para></listitem><listitem><para>Call XHdcp22Cipher_SetKs to program the session key Ks.</para></listitem><listitem><para>If operating as a transmitter call XHdcp22Cipher_EnableTxEncryption to enable encryption or XHdcp22Cipher_DisableTxEncryption to disable encryption.</para></listitem></itemizedlist>
+</para><para><bold>Interrupts</bold></para><para>None.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00  JB     02/19/19 Initial Release.
+2.00  JB     12/24/21 File name changed from xhdcp22_cipher.h to
+                        <ref refid="xhdcp22__cipher__dp_8h" kindref="compound">xhdcp22_cipher_dp.h</ref>
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00  JB     02/19/19 Initial Release.
+2.00  JB     12/24/21 File name changed from xhdcp22_cipher_hw.c to
+                        xhdcp22_cipher_dp_hw.c
+</preformatted></para><para>The self test function reads the version register.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00  JB     02/19/19 Initial Release.
+2.00  JB     12/24/21 File name changed from xhdcp22_cipher_selftest.c to
+                        <ref refid="xhdcp22__cipher__dp__selftest_8c" kindref="compound">xhdcp22_cipher_dp_selftest.c</ref>
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00  JB     02/19/19 Initial Release.
+2.00  JB     12/24/2021 File name changed from xhdcp22_cipher_sinit.c to
+                        <ref refid="xhdcp22__cipher__dp__sinit_8c" kindref="compound">xhdcp22_cipher_dp_sinit.c</ref>
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

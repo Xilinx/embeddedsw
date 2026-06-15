@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sd_fec" kind="struct" prot="public">
+    <compoundname>XSdFec</compoundname>
+    <includes local="no">xsdfec.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_sd_fec_1a56530f4b2517d7742b49b0055eb9d467" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XSdFec::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_fec_1ab4847bd492aaf03708e00b32f522b6e9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdFec::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_fec_1ac4d121fda8a9af93760a3c40f9413a63" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdFec::Standard</definition>
+        <argsstring></argsstring>
+        <name>Standard</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_fec_1a9b110edf0c45370934537d65459c9629" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdFec::SCOffset[128]</definition>
+        <argsstring>[128]</argsstring>
+        <name>SCOffset</name>
+        <briefdescription>
+<para>Lookup to SC table offsets for each code ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_fec_1ab631183c4d69ec3e140eac641fb5fc0e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdFec::LAOffset[128]</definition>
+        <argsstring>[128]</argsstring>
+        <name>LAOffset</name>
+        <briefdescription>
+<para>Lookup to LA table offsets for each code ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_fec_1abc1c4294433bebc819b72453f0a0b760" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSdFec::QCOffset[128]</definition>
+        <argsstring>[128]</argsstring>
+        <name>QCOffset</name>
+        <briefdescription>
+<para>Lookup to QC table offsets for each code ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>SD-FEC driver instance. </para>    </briefdescription>
+    <detaileddescription>
+<para>Contains state information for each device. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="85" bodyend="92"/>
+    <listofallmembers>
+      <member refid="struct_x_sd_fec_1a56530f4b2517d7742b49b0055eb9d467" prot="public" virt="non-virtual"><scope>XSdFec</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_sd_fec_1ab4847bd492aaf03708e00b32f522b6e9" prot="public" virt="non-virtual"><scope>XSdFec</scope><name>IsReady</name></member>
+      <member refid="struct_x_sd_fec_1ab631183c4d69ec3e140eac641fb5fc0e" prot="public" virt="non-virtual"><scope>XSdFec</scope><name>LAOffset</name></member>
+      <member refid="struct_x_sd_fec_1abc1c4294433bebc819b72453f0a0b760" prot="public" virt="non-virtual"><scope>XSdFec</scope><name>QCOffset</name></member>
+      <member refid="struct_x_sd_fec_1a9b110edf0c45370934537d65459c9629" prot="public" virt="non-virtual"><scope>XSdFec</scope><name>SCOffset</name></member>
+      <member refid="struct_x_sd_fec_1ac4d121fda8a9af93760a3c40f9413a63" prot="public" virt="non-virtual"><scope>XSdFec</scope><name>Standard</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___image_info" kind="struct" prot="public">
+    <compoundname>XSecure_ImageInfo</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___image_info_1adff9b321480489dcfdee2ff86db87883" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_ImageInfo::EfuseRsaenable</definition>
+        <argsstring></argsstring>
+        <name>EfuseRsaenable</name>
+        <briefdescription>
+<para>0 if not burnt 0xFF if burnt </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___image_info_1af75c78ac707aa8a773707675aa6c5f8a" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_secure___partition_header" kindref="compound">XSecure_PartitionHeader</ref> *</type>
+        <definition>XSecure_PartitionHeader* XSecure_ImageInfo::PartitionHdr</definition>
+        <argsstring></argsstring>
+        <name>PartitionHdr</name>
+        <briefdescription>
+<para><verbatim>     Pointer to the buffer
+</verbatim> which is holding image header </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___image_info_1a8f4f6c259c24486b1ce41cbb792b4c5d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_ImageInfo::BhdrAuth</definition>
+        <argsstring></argsstring>
+        <name>BhdrAuth</name>
+        <briefdescription>
+<para>0 if not enabled and 0xFF if set </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___image_info_1af2a58b34121c71052fb6507766353a26" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_ImageInfo::KeySrc</definition>
+        <argsstring></argsstring>
+        <name>KeySrc</name>
+        <briefdescription>
+<para>Key src from boot header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___image_info_1ac931dc09b3ee9d52f945da4ad8be71ae" prot="public" static="no" mutable="no">
+        <type>u32 *</type>
+        <definition>u32* XSecure_ImageInfo::Iv</definition>
+        <argsstring></argsstring>
+        <name>Iv</name>
+        <briefdescription>
+<para>From Boot header + 8bits from partition header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="308" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___image_info_1a582b9704458f48ce1c8b40cf502c82f5" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XSecure_ImageInfo::AuthCerPtr</definition>
+        <argsstring></argsstring>
+        <name>AuthCerPtr</name>
+        <briefdescription>
+<para>Buffer allocated to copy AC of the partition. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="310" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="56">
+        <label>XSecure_PartitionHeader</label>
+        <link refid="struct_x_secure___partition_header"/>
+      </node>
+      <node id="55">
+        <label>XSecure_ImageInfo</label>
+        <childnode refid="56" relation="usage">
+          <edgelabel>PartitionHdr</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure.h" bodystart="302" bodyend="311"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___image_info_1a582b9704458f48ce1c8b40cf502c82f5" prot="public" virt="non-virtual"><scope>XSecure_ImageInfo</scope><name>AuthCerPtr</name></member>
+      <member refid="struct_x_secure___image_info_1a8f4f6c259c24486b1ce41cbb792b4c5d" prot="public" virt="non-virtual"><scope>XSecure_ImageInfo</scope><name>BhdrAuth</name></member>
+      <member refid="struct_x_secure___image_info_1adff9b321480489dcfdee2ff86db87883" prot="public" virt="non-virtual"><scope>XSecure_ImageInfo</scope><name>EfuseRsaenable</name></member>
+      <member refid="struct_x_secure___image_info_1ac931dc09b3ee9d52f945da4ad8be71ae" prot="public" virt="non-virtual"><scope>XSecure_ImageInfo</scope><name>Iv</name></member>
+      <member refid="struct_x_secure___image_info_1af2a58b34121c71052fb6507766353a26" prot="public" virt="non-virtual"><scope>XSecure_ImageInfo</scope><name>KeySrc</name></member>
+      <member refid="struct_x_secure___image_info_1af75c78ac707aa8a773707675aa6c5f8a" prot="public" virt="non-virtual"><scope>XSecure_ImageInfo</scope><name>PartitionHdr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

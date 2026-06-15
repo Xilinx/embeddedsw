@@ -1,0 +1,234 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="core_2util_2xsecure__utils_8c" kind="file">
+    <compoundname>core/util/xsecure_utils.c</compoundname>
+    <includes refid="core_2util_2xsecure__utils_8h" local="yes">xsecure_utils.h</includes>
+    <includes local="yes">xsecure_plat.h</includes>
+    <incdepgraph>
+      <node id="4910">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="4913">
+        <label>xsecure_plat.h</label>
+      </node>
+      <node id="4905">
+        <label>xil_io.h</label>
+      </node>
+      <node id="4912">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="4908">
+        <label>sleep.h</label>
+      </node>
+      <node id="4903">
+        <label>xsecure_utils.c</label>
+        <link refid="core/util/xsecure_utils.c"/>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4913" relation="include">
+        </childnode>
+      </node>
+      <node id="4904">
+        <label>xsecure_utils.h</label>
+        <link refid="core_2util_2xsecure__utils_8h"/>
+        <childnode refid="4905" relation="include">
+        </childnode>
+        <childnode refid="4906" relation="include">
+        </childnode>
+        <childnode refid="4907" relation="include">
+        </childnode>
+        <childnode refid="4908" relation="include">
+        </childnode>
+        <childnode refid="4909" relation="include">
+        </childnode>
+        <childnode refid="4910" relation="include">
+        </childnode>
+        <childnode refid="4911" relation="include">
+        </childnode>
+        <childnode refid="4912" relation="include">
+        </childnode>
+      </node>
+      <node id="4911">
+        <label>xil_mem.h</label>
+      </node>
+      <node id="4909">
+        <label>xstatus.h</label>
+      </node>
+      <node id="4907">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4906">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga448da91f94630d83a52c21b895455ebf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSecure_ReleaseReset</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Offset)</argsstring>
+        <name>XSecure_ReleaseReset</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <briefdescription>
+<para>This function takes the hardware core out of reset. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the core </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Offset of the reset register </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Set bit when crypto is in use </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.c" bodystart="47" bodyend="54"/>
+        <references refid="group__xsecure__generic__server__apis_1ga45b281f4082c516c7e1f16b1cc4aba60" compoundref="core_2util_2xsecure__utils_8h" startline="50">XSECURE_RESET_SET</references>
+        <references refid="group__xsecure__generic__server__apis_1ga887e3d01831123de7f307e6dbea2a86b" compoundref="core_2util_2xsecure__utils_8h" startline="51">XSECURE_RESET_UNSET</references>
+        <references refid="group__xsecure__generic__server__apis_1gadecc397d64d8db71d29f0ddf1ed8f2eb" compoundref="core_2util_2xsecure__utils_8h" startline="57">XSECURE_SET_BIT</references>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga88b6213e7e2f971ea5de22040b4f2510" compoundref="zynqmp_2xsecure__aes_8c" startline="858" endline="865">XSecure_AesReset</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab3835b878d2947b3f94ba4cd555dd641" compoundref="xsecure__ellipticplat_8c" startline="310" endline="400">XSecure_EcdhGetSecret</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga9566bee278ec58acd705a67ee9d58766" compoundref="xsecure__ellipticplat_8c" startline="185" endline="226">XSecure_EllipticGenerateEphemeralKey</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga682282def21e1c86ab583cdd41090fbb" compoundref="xsecure__elliptic_8c" startline="118" endline="194">XSecure_EllipticGenerateKey_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga3af7e8a366bb982fa4c0c82be1b37250" compoundref="xsecure__elliptic_8c" startline="269" endline="390">XSecure_EllipticGenerateSignature_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="85" endline="166">XSecure_EllipticPrvtKeyGenerate</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab83385dfd83a7bfdef4d74ec412e15c6" compoundref="xsecure__elliptic_8c" startline="479" endline="552">XSecure_EllipticValidateKey_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga0bb6ca50d138b482eb9a5d9f18e398d8" compoundref="xsecure__elliptic_8c" startline="621" endline="738">XSecure_EllipticVerifySign_64Bit</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga46920ff3a1a857a905036689c2bfc115" compoundref="xsecure__mldsa_8c" startline="295" endline="458">XSecure_MldsaSignGenerate</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga3291e37182d3193146f622c0477b15be" compoundref="xsecure__mldsa_8c" startline="124" endline="281">XSecure_MldsaSignVerify</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga3c38edd112fb7b6799153ab9eabba178" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="156" endline="325">XSecure_RsaOperation</referencedby>
+        <referencedby refid="group__xsecure__sha__server__apis_1gaf5b5bd6216ac55a6a9baf719e6bdd725" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="263" endline="307">XSecure_Sha3Start</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSecure_SetReset</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Offset)</argsstring>
+        <name>XSecure_SetReset</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <briefdescription>
+<para>This function places the hardware core into the reset. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the core </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Offset of the reset register </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Clear bit when crypto is not in use </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.c" bodystart="64" bodyend="70"/>
+        <references refid="group__xsecure__generic__server__apis_1ga33e027f1d24fdea13798141323edeae5" compoundref="core_2util_2xsecure__utils_8h" startline="58">XSECURE_CLEAR_BIT</references>
+        <references refid="group__xsecure__generic__server__apis_1ga45b281f4082c516c7e1f16b1cc4aba60" compoundref="core_2util_2xsecure__utils_8h" startline="50">XSECURE_RESET_SET</references>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga9d60cf825dcf6e7eb30d734f01014266" compoundref="zynqmp_2xsecure__aes_8c" startline="1438" endline="1642">XSecure_AesDecrypt</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga78edf33e47f7a19be135b194af962d2c" compoundref="zynqmp_2xsecure__aes_8c" startline="450" endline="554">XSecure_AesDecryptInit</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga4db7441166b2271ceaac1ac859a15c60" compoundref="zynqmp_2xsecure__aes_8c" startline="585" endline="700">XSecure_AesDecryptUpdate</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga6422d39ce630dc928daba92a65da4c56" compoundref="xsecure__plat__aes_8c" startline="148" endline="185">XSecure_AesEcbDecrypt</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga7b2c563fa3324f4f329b775f314b96c4" compoundref="zynqmp_2xsecure__aes_8c" startline="207" endline="296">XSecure_AesEncryptInit</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1gabdefc1128b9769010e42070e15f06d74" compoundref="zynqmp_2xsecure__aes_8c" startline="319" endline="387">XSecure_AesEncryptUpdate</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga4da9ead453ef1dbeebefeebb377eb94d" compoundref="xsecure__plat__aes_8c" startline="211" endline="345">XSecure_AesKeyUnwrap</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab3835b878d2947b3f94ba4cd555dd641" compoundref="xsecure__ellipticplat_8c" startline="310" endline="400">XSecure_EcdhGetSecret</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga9566bee278ec58acd705a67ee9d58766" compoundref="xsecure__ellipticplat_8c" startline="185" endline="226">XSecure_EllipticGenerateEphemeralKey</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga682282def21e1c86ab583cdd41090fbb" compoundref="xsecure__elliptic_8c" startline="118" endline="194">XSecure_EllipticGenerateKey_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga3af7e8a366bb982fa4c0c82be1b37250" compoundref="xsecure__elliptic_8c" startline="269" endline="390">XSecure_EllipticGenerateSignature_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="85" endline="166">XSecure_EllipticPrvtKeyGenerate</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab83385dfd83a7bfdef4d74ec412e15c6" compoundref="xsecure__elliptic_8c" startline="479" endline="552">XSecure_EllipticValidateKey_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga0bb6ca50d138b482eb9a5d9f18e398d8" compoundref="xsecure__elliptic_8c" startline="621" endline="738">XSecure_EllipticVerifySign_64Bit</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga7a3f9d4fcb7292b40c9d91a0e82d1b22" compoundref="core_2sha_2sha__pmxc_2xsecure__sha_8c" startline="435" endline="548">XSecure_ExtendedShaFinish</referencedby>
+        <referencedby refid="group__xsecure__hmac__apis_1ga19b58a827d01b838233e4b98fb95b0f7" compoundref="xsecure__hmac_8c" startline="190" endline="251">XSecure_HmacFinal</referencedby>
+        <referencedby refid="group__xsecure__hmac__apis_1ga326185e9709790ef9dc6d0eb61da6ab9" compoundref="xsecure__hmac_8c" startline="75" endline="128">XSecure_HmacInit</referencedby>
+        <referencedby refid="group__xsecure__hmac__apis_1gaec1f83f5e69e2ba5d879cd97eab498eb" compoundref="xsecure__hmac_8c" startline="146" endline="170">XSecure_HmacUpdate</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga46920ff3a1a857a905036689c2bfc115" compoundref="xsecure__mldsa_8c" startline="295" endline="458">XSecure_MldsaSignGenerate</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga3291e37182d3193146f622c0477b15be" compoundref="xsecure__mldsa_8c" startline="124" endline="281">XSecure_MldsaSignVerify</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga3c38edd112fb7b6799153ab9eabba178" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="156" endline="325">XSecure_RsaOperation</referencedby>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga07ca644998ec3bcf61557b4510708101" compoundref="xsecure__resourcehandling_8c" startline="491" endline="533">XSecure_SetDataContextLost</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gad5b378b529d087505726876fcf3e8b79" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1538" endline="1579">XSecure_Sha2256Kat</referencedby>
+        <referencedby refid="group__xsecure__sha__server__apis_1gaa37ef7b49e853ef0abe0c4e489dd9508" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="426" endline="503">XSecure_Sha3Finish</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga56962fc3f5090340f69a4fa56ef264ad" compoundref="xsecure__kat_8c" startline="1026" endline="1095">XSecure_Sha3Kat</referencedby>
+        <referencedby refid="group__xsecure__sha3__zynqmp__apis_1gaf7010e1b3b34eaafcb2f8691468c4e38" compoundref="zynqmp_2xsecure__sha_8c" startline="330" endline="371">XSecure_Sha3Update</referencedby>
+        <referencedby refid="group__xsecure__sha__server__apis_1ga1308ac59ba2f197cc0b1a7e06b0b862b" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="326" endline="384">XSecure_Sha3Update64Bit</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga8e446a6cf529f6a697035b0643c22c1b" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1592" endline="1658">XSecure_ShakeKat</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains common functionalities required for xilsecure Versalnet library. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+5.1   kpt     01/12/23 Initial release
+      pre     08/16/24 Removed XSecure_MemCpy64 Function</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="core_2util_2xsecure__utils_8h" kindref="compound">xsecure_utils.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_plat.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="47" refid="group__xsecure__generic__server__apis_1ga448da91f94630d83a52c21b895455ebf" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__generic__server__apis_1ga448da91f94630d83a52c21b895455ebf" kindref="member">XSecure_ReleaseReset</ref>(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Offset)</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_WriteReg(BaseAddress,<sp/>Offset,<sp/><ref refid="group__xsecure__generic__server__apis_1ga45b281f4082c516c7e1f16b1cc4aba60" kindref="member">XSECURE_RESET_SET</ref>);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_WriteReg(BaseAddress,<sp/>Offset,<sp/><ref refid="group__xsecure__generic__server__apis_1ga887e3d01831123de7f307e6dbea2a86b" kindref="member">XSECURE_RESET_UNSET</ref>);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_UpdateCryptoStatus(BaseAddress,<sp/><ref refid="group__xsecure__generic__server__apis_1gadecc397d64d8db71d29f0ddf1ed8f2eb" kindref="member">XSECURE_SET_BIT</ref>);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="64" refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" kindref="member">XSecure_SetReset</ref>(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Offset)</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_WriteReg(BaseAddress,<sp/>Offset,<sp/><ref refid="group__xsecure__generic__server__apis_1ga45b281f4082c516c7e1f16b1cc4aba60" kindref="member">XSECURE_RESET_SET</ref>);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_UpdateCryptoStatus(BaseAddress,<sp/><ref refid="group__xsecure__generic__server__apis_1ga33e027f1d24fdea13798141323edeae5" kindref="member">XSECURE_CLEAR_BIT</ref>);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.c"/>
+  </compounddef>
+</doxygen>

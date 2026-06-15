@@ -1,0 +1,389 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xcan__config_8c" kind="file">
+    <compoundname>xcan_config.c</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes refid="xcan_8h" local="yes">xcan.h</includes>
+    <incdepgraph>
+      <node id="31">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="35">
+        <label>xil_io.h</label>
+      </node>
+      <node id="29">
+        <label>xcan_config.c</label>
+        <link refid="xcan_config.c"/>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>xcan_l.h</label>
+        <link refid="xcan__l_8h"/>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>xcan.h</label>
+        <link refid="xcan_8h"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>xstatus.h</label>
+      </node>
+      <node id="30">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__can_1ga75aabbb82d96151cadfd3c26a2a285e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XCan_SetBaudRatePrescaler</definition>
+        <argsstring>(XCan *InstancePtr, u8 Prescaler)</argsstring>
+        <name>XCan_SetBaudRatePrescaler</name>
+        <param>
+          <type><ref refid="struct_x_can" kindref="compound">XCan</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Prescaler</declname>
+        </param>
+        <briefdescription>
+<para>This routine sets Baud Rate Prescaler value. </para>        </briefdescription>
+        <detaileddescription>
+<para>The system clock for the CAN controller is divided by (Prescaler + 1) to generate the quantum clock needed for sampling and synchronization. Read the device specification for details.</para><para>Baud Rate Prescaler could be set only after CAN device entered Configuration Mode. So please call <ref refid="group__can_1ga994a0b0bd9c938e99de9d7ffceb10ef3" kindref="member">XCan_EnterMode()</ref> to enter Configuration Mode before using this function.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can" kindref="compound">XCan</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Prescaler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to set. Valid values are from 0 to 255.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the Baud Rate Prescaler value is set successfully.</para></listitem><listitem><para>XST_FAILURE if CAN device is not in Configuration Mode.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="533" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_config.c" bodystart="66" bodyend="83"/>
+        <references refid="struct_x_can_1a8fa6a2c1022499c19ac3777e6f338ba5" compoundref="xcan_8h" startline="279">XCan::BaseAddress</references>
+        <references refid="struct_x_can_1a6c2d9a0f9e4d91891e67e9204dbb7094" compoundref="xcan_8h" startline="280">XCan::IsReady</references>
+        <references refid="group__can_1gad8e0a08c36f9f9528728ca28bb9e6244" compoundref="xcan__l_8h" startline="54">XCAN_BRPR_OFFSET</references>
+        <references refid="group__can_1ga6b437133a6a2f40f56cf3c80102f5b0d" compoundref="xcan_8c" startline="271" endline="290">XCan_GetMode</references>
+        <references refid="group__can_1gac2ff2f17841fcf789f5e214205aa844a" compoundref="xcan_8h" startline="201">XCAN_MODE_CONFIG</references>
+        <references refid="group__can_1ga4b58327ea939610d5b1816a686ffd6c7" compoundref="xcan__l_8h" startline="327">XCan_WriteReg</references>
+        <referencedby refid="xcan__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcan__intr__example_8c" startline="181" endline="197">main</referencedby>
+        <referencedby refid="group__can_1gaa18e848a6ffc670e024972ffc71b2ba8" compoundref="xcan__selftest_8c" startline="90" endline="160">XCan_SelfTest</referencedby>
+        <referencedby refid="xcan__polled__example_8c_1a1827e85941aac8ed3f49cb81cb3a4872" compoundref="xcan__polled__example_8c" startline="180" endline="243">XCanPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__can_1gaee29a9e04aa8993561e0c11d1222c1f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XCan_GetBaudRatePrescaler</definition>
+        <argsstring>(XCan *InstancePtr)</argsstring>
+        <name>XCan_GetBaudRatePrescaler</name>
+        <param>
+          <type><ref refid="struct_x_can" kindref="compound">XCan</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This routine gets Baud Rate Prescaler value. </para>        </briefdescription>
+        <detaileddescription>
+<para>The system clock for the CAN controller is divided by (Prescaler + 1) to generate the quantum clock needed for sampling and synchronization. Read the device specification for details.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can" kindref="compound">XCan</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current used Baud Rate Prescaler value. The value&apos;s range is from 0 to 255.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="534" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_config.c" bodystart="101" bodyend="111"/>
+        <references refid="struct_x_can_1a8fa6a2c1022499c19ac3777e6f338ba5" compoundref="xcan_8h" startline="279">XCan::BaseAddress</references>
+        <references refid="struct_x_can_1a6c2d9a0f9e4d91891e67e9204dbb7094" compoundref="xcan_8h" startline="280">XCan::IsReady</references>
+        <references refid="group__can_1gad8e0a08c36f9f9528728ca28bb9e6244" compoundref="xcan__l_8h" startline="54">XCAN_BRPR_OFFSET</references>
+        <references refid="group__can_1ga2ee91da70cd3c92169c780186a9d6c51" compoundref="xcan__l_8h" startline="308">XCan_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__can_1gaf60120410396727f6e9304ce9ba65980" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XCan_SetBitTiming</definition>
+        <argsstring>(XCan *InstancePtr, u8 SyncJumpWidth, u8 TimeSegment2, u8 TimeSegment1)</argsstring>
+        <name>XCan_SetBitTiming</name>
+        <param>
+          <type><ref refid="struct_x_can" kindref="compound">XCan</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>SyncJumpWidth</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>TimeSegment2</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>TimeSegment1</declname>
+        </param>
+        <briefdescription>
+<para>This routine sets Bit time. </para>        </briefdescription>
+        <detaileddescription>
+<para>Time segment 1, Time segment 2 and Synchronization Jump Width are set in this function. Device specification requires the values passed into this function be one less than the actual values of these fields. Read the device specification for details.</para><para>Bit time could be set only after CAN device entered Configuration Mode. Please call <ref refid="group__can_1ga994a0b0bd9c938e99de9d7ffceb10ef3" kindref="member">XCan_EnterMode()</ref> to enter Configuration Mode before using this function.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can" kindref="compound">XCan</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SyncJumpWidth</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Synchronization Jump Width value to set. Valid values are from 0 to 3. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TimeSegment2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Time Segment 2 value to set. Valid values are from 0 to 7. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TimeSegment1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Time Segment 1 value to set. Valid values are from 0 to 15.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the Bit time is set successfully.</para></listitem><listitem><para>XST_FAILURE if CAN device is not in Configuration Mode.<itemizedlist>
+<listitem><para>XST_INVALID_PARAM if any value of SyncJumpWidth, TimeSegment2 and TimeSegment1 is invalid.</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="535" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_config.c" bodystart="142" bodyend="167"/>
+        <references refid="struct_x_can_1a8fa6a2c1022499c19ac3777e6f338ba5" compoundref="xcan_8h" startline="279">XCan::BaseAddress</references>
+        <references refid="struct_x_can_1a6c2d9a0f9e4d91891e67e9204dbb7094" compoundref="xcan_8h" startline="280">XCan::IsReady</references>
+        <references refid="group__can_1gacdaadb8b222d87fe9dcebd4e7bfd6598" compoundref="xcan__l_8h" startline="55">XCAN_BTR_OFFSET</references>
+        <references refid="group__can_1ga482474a9585aad0b5f98f33336d86c38" compoundref="xcan__l_8h" startline="119">XCAN_BTR_SJW_MASK</references>
+        <references refid="group__can_1ga53d62e28de515b3288a263d20fea0bf3" compoundref="xcan__l_8h" startline="120">XCAN_BTR_SJW_SHIFT</references>
+        <references refid="group__can_1ga71bb7c04d078e61946418f812b09cd81" compoundref="xcan__l_8h" startline="123">XCAN_BTR_TS1_MASK</references>
+        <references refid="group__can_1gac0d704dc38470642a131dda752169999" compoundref="xcan__l_8h" startline="121">XCAN_BTR_TS2_MASK</references>
+        <references refid="group__can_1gabad8a33a4b1f9e8d865514c2817e4653" compoundref="xcan__l_8h" startline="122">XCAN_BTR_TS2_SHIFT</references>
+        <references refid="group__can_1ga6b437133a6a2f40f56cf3c80102f5b0d" compoundref="xcan_8c" startline="271" endline="290">XCan_GetMode</references>
+        <references refid="group__can_1gac2ff2f17841fcf789f5e214205aa844a" compoundref="xcan_8h" startline="201">XCAN_MODE_CONFIG</references>
+        <references refid="group__can_1ga4b58327ea939610d5b1816a686ffd6c7" compoundref="xcan__l_8h" startline="327">XCan_WriteReg</references>
+        <referencedby refid="xcan__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcan__intr__example_8c" startline="181" endline="197">main</referencedby>
+        <referencedby refid="group__can_1gaa18e848a6ffc670e024972ffc71b2ba8" compoundref="xcan__selftest_8c" startline="90" endline="160">XCan_SelfTest</referencedby>
+        <referencedby refid="xcan__polled__example_8c_1a1827e85941aac8ed3f49cb81cb3a4872" compoundref="xcan__polled__example_8c" startline="180" endline="243">XCanPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__can_1gab70138a7e54403355ec194f468f945fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCan_GetBitTiming</definition>
+        <argsstring>(XCan *InstancePtr, u8 *SyncJumpWidth, u8 *TimeSegment2, u8 *TimeSegment1)</argsstring>
+        <name>XCan_GetBitTiming</name>
+        <param>
+          <type><ref refid="struct_x_can" kindref="compound">XCan</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>SyncJumpWidth</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>TimeSegment2</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>TimeSegment1</declname>
+        </param>
+        <briefdescription>
+<para>This routine gets Bit time. </para>        </briefdescription>
+        <detaileddescription>
+<para>Time segment 1, Time segment 2 and Synchronization Jump Width values are read in this function. According to device specification, the actual value of each of these fields is one more than the value read. Read the device specification for details.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can" kindref="compound">XCan</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SyncJumpWidth</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>will store the Synchronization Jump Width value after this function returns. Its value ranges from 0 to 3. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TimeSegment2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>will store the Time Segment 2 value after this function returns. Its value ranges from 0 to 7. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TimeSegment1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>will store the Time Segment 1 value after this function returns. Its value ranges from 0 to 15.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="537" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_config.c" bodystart="190" bodyend="205"/>
+        <references refid="struct_x_can_1a8fa6a2c1022499c19ac3777e6f338ba5" compoundref="xcan_8h" startline="279">XCan::BaseAddress</references>
+        <references refid="struct_x_can_1a6c2d9a0f9e4d91891e67e9204dbb7094" compoundref="xcan_8h" startline="280">XCan::IsReady</references>
+        <references refid="group__can_1gacdaadb8b222d87fe9dcebd4e7bfd6598" compoundref="xcan__l_8h" startline="55">XCAN_BTR_OFFSET</references>
+        <references refid="group__can_1ga482474a9585aad0b5f98f33336d86c38" compoundref="xcan__l_8h" startline="119">XCAN_BTR_SJW_MASK</references>
+        <references refid="group__can_1ga53d62e28de515b3288a263d20fea0bf3" compoundref="xcan__l_8h" startline="120">XCAN_BTR_SJW_SHIFT</references>
+        <references refid="group__can_1ga71bb7c04d078e61946418f812b09cd81" compoundref="xcan__l_8h" startline="123">XCAN_BTR_TS1_MASK</references>
+        <references refid="group__can_1gac0d704dc38470642a131dda752169999" compoundref="xcan__l_8h" startline="121">XCAN_BTR_TS2_MASK</references>
+        <references refid="group__can_1gabad8a33a4b1f9e8d865514c2817e4653" compoundref="xcan__l_8h" startline="122">XCAN_BTR_TS2_SHIFT</references>
+        <references refid="group__can_1ga2ee91da70cd3c92169c780186a9d6c51" compoundref="xcan__l_8h" startline="308">XCan_ReadReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2005<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xcan_8h" kindref="compound">xcan.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="66" refid="group__can_1ga75aabbb82d96151cadfd3c26a2a285e9" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__can_1ga75aabbb82d96151cadfd3c26a2a285e9" kindref="member">XCan_SetBaudRatePrescaler</ref>(<ref refid="struct_x_can" kindref="compound">XCan</ref><sp/>*InstancePtr,<sp/>u8<sp/>Prescaler)</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_can_1a6c2d9a0f9e4d91891e67e9204dbb7094" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="72"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Return<sp/>error<sp/>code<sp/>if<sp/>the<sp/>device<sp/>currently<sp/>is<sp/>NOT<sp/>in<sp/>Configuration</highlight></codeline>
+<codeline lineno="73"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Mode</highlight></codeline>
+<codeline lineno="74"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__can_1ga6b437133a6a2f40f56cf3c80102f5b0d" kindref="member">XCan_GetMode</ref>(InstancePtr)<sp/>!=<sp/><ref refid="group__can_1gac2ff2f17841fcf789f5e214205aa844a" kindref="member">XCAN_MODE_CONFIG</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__can_1ga4b58327ea939610d5b1816a686ffd6c7" kindref="member">XCan_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_1a8fa6a2c1022499c19ac3777e6f338ba5" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__can_1gad8e0a08c36f9f9528728ca28bb9e6244" kindref="member">XCAN_BRPR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<sp/>Prescaler);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="101" refid="group__can_1gaee29a9e04aa8993561e0c11d1222c1f9" refkind="member"><highlight class="normal">u8<sp/><ref refid="group__can_1gaee29a9e04aa8993561e0c11d1222c1f9" kindref="member">XCan_GetBaudRatePrescaler</ref>(<ref refid="struct_x_can" kindref="compound">XCan</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Result;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_can_1a6c2d9a0f9e4d91891e67e9204dbb7094" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result<sp/>=<sp/>(u8)<sp/><ref refid="group__can_1ga2ee91da70cd3c92169c780186a9d6c51" kindref="member">XCan_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_1a8fa6a2c1022499c19ac3777e6f338ba5" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__can_1gad8e0a08c36f9f9528728ca28bb9e6244" kindref="member">XCAN_BRPR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Result;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="142" refid="group__can_1gaf60120410396727f6e9304ce9ba65980" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__can_1gaf60120410396727f6e9304ce9ba65980" kindref="member">XCan_SetBitTiming</ref>(<ref refid="struct_x_can" kindref="compound">XCan</ref><sp/>*InstancePtr,<sp/>u8<sp/>SyncJumpWidth,</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>TimeSegment2,<sp/>u8<sp/>TimeSegment1)</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_can_1a6c2d9a0f9e4d91891e67e9204dbb7094" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SyncJumpWidth<sp/>&gt;<sp/>3<sp/>||<sp/>TimeSegment2<sp/>&gt;<sp/>7<sp/>||<sp/>TimeSegment1<sp/>&gt;<sp/>15)<sp/>{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Return<sp/>error<sp/>code<sp/>if<sp/>the<sp/>device<sp/>is<sp/>NOT<sp/>in<sp/>Configuration<sp/>Mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__can_1ga6b437133a6a2f40f56cf3c80102f5b0d" kindref="member">XCan_GetMode</ref>(InstancePtr)<sp/>!=<sp/><ref refid="group__can_1gac2ff2f17841fcf789f5e214205aa844a" kindref="member">XCAN_MODE_CONFIG</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/>((u32)<sp/>TimeSegment1)<sp/>&amp;<sp/><ref refid="group__can_1ga71bb7c04d078e61946418f812b09cd81" kindref="member">XCAN_BTR_TS1_MASK</ref>;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>|=<sp/>(((u32)<sp/>TimeSegment2)<sp/>&lt;&lt;<sp/><ref refid="group__can_1gabad8a33a4b1f9e8d865514c2817e4653" kindref="member">XCAN_BTR_TS2_SHIFT</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__can_1gac0d704dc38470642a131dda752169999" kindref="member">XCAN_BTR_TS2_MASK</ref>;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>|=<sp/>(((u32)<sp/>SyncJumpWidth)<sp/>&lt;&lt;<sp/><ref refid="group__can_1ga53d62e28de515b3288a263d20fea0bf3" kindref="member">XCAN_BTR_SJW_SHIFT</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__can_1ga482474a9585aad0b5f98f33336d86c38" kindref="member">XCAN_BTR_SJW_MASK</ref>;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__can_1ga4b58327ea939610d5b1816a686ffd6c7" kindref="member">XCan_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_1a8fa6a2c1022499c19ac3777e6f338ba5" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__can_1gacdaadb8b222d87fe9dcebd4e7bfd6598" kindref="member">XCAN_BTR_OFFSET</ref>,<sp/>Value);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="190" refid="group__can_1gab70138a7e54403355ec194f468f945fd" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__can_1gab70138a7e54403355ec194f468f945fd" kindref="member">XCan_GetBitTiming</ref>(<ref refid="struct_x_can" kindref="compound">XCan</ref><sp/>*InstancePtr,<sp/>u8<sp/>*SyncJumpWidth,</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*TimeSegment2,<sp/>u8<sp/>*TimeSegment1)</highlight></codeline>
+<codeline lineno="192"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_can_1a6c2d9a0f9e4d91891e67e9204dbb7094" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/><ref refid="group__can_1ga2ee91da70cd3c92169c780186a9d6c51" kindref="member">XCan_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_1a8fa6a2c1022499c19ac3777e6f338ba5" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__can_1gacdaadb8b222d87fe9dcebd4e7bfd6598" kindref="member">XCAN_BTR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*TimeSegment1<sp/>=<sp/>(u8)<sp/>(Value<sp/>&amp;<sp/><ref refid="group__can_1ga71bb7c04d078e61946418f812b09cd81" kindref="member">XCAN_BTR_TS1_MASK</ref>);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*TimeSegment2<sp/>=</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)<sp/>((Value<sp/>&amp;<sp/><ref refid="group__can_1gac0d704dc38470642a131dda752169999" kindref="member">XCAN_BTR_TS2_MASK</ref>)<sp/>&gt;&gt;<sp/><ref refid="group__can_1gabad8a33a4b1f9e8d865514c2817e4653" kindref="member">XCAN_BTR_TS2_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*SyncJumpWidth<sp/>=</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)<sp/>((Value<sp/>&amp;<sp/><ref refid="group__can_1ga482474a9585aad0b5f98f33336d86c38" kindref="member">XCAN_BTR_SJW_MASK</ref>)<sp/>&gt;&gt;<sp/><ref refid="group__can_1ga53d62e28de515b3288a263d20fea0bf3" kindref="member">XCAN_BTR_SJW_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan_config.c"/>
+  </compounddef>
+</doxygen>

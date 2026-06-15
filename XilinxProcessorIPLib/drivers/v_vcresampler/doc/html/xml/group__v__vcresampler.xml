@@ -1,0 +1,566 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__v__vcresampler" kind="group">
+    <compoundname>v_vcresampler</compoundname>
+    <title>Overview</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__v__vcresampler_1gaf55f0f64c22b47faeff44f90e839f079" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_vcrsmplrcoeff_taps4[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_4]</definition>
+        <argsstring>[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_4]</argsstring>
+        <name>XV_vcrsmplrcoeff_taps4</name>
+        <initializer>=
+{
+
+  {{   0, 1024, 2048, 1024},
+   {   0,    0,    0,    0}
+  },
+
+  {{ 506, 1542, 1542,  506},
+   {   0, 4096,    0,    0}
+  }
+}</initializer>
+        <briefdescription>
+<para>Coefficient table for 4-tap vertical chroma resampling conversions. </para>        </briefdescription>
+        <detaileddescription>
+<para>This 3D array contains the filter coefficients used for vertical chroma resampling between different chroma subsampling formats (e.g., 4:2:2 to 4:2:0 and vice versa).</para><para>Dimensions:<itemizedlist>
+<listitem><para>[XV_VCRSMPLR_NUM_CONVERSIONS]: Number of conversion types (e.g., 422-&gt;420, 420-&gt;422).</para></listitem><listitem><para>[XV_VCRSMPLR_MAX_PHASES]: Number of filter phases per conversion.</para></listitem><listitem><para>[XV_VCRSMPLR_TAPS_4]: Number of taps (coefficients) per phase (4-tap filter).</para></listitem></itemizedlist>
+</para><para>Each entry contains the coefficients for a specific conversion and phase.</para><para>Example usage: XV_vcrsmplrcoeff_taps4[conversion][phase][tap] </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_coeff.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_coeff.c" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__v__vcresampler_1ga503661b93cb4613ce5664458c300a15b" compoundref="xv__vcresampler__l2_8c" startline="118" endline="157">XV_VCrsmplLoadDefaultCoeff</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__vcresampler_1gae9d91f8a575831080178efacae08dbf1" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_vcrsmplrcoeff_taps6[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_6]</definition>
+        <argsstring>[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_6]</argsstring>
+        <name>XV_vcrsmplrcoeff_taps6</name>
+        <initializer>=
+{
+
+  {{   0,    0, 1298, 1500, 1298,    0},
+   {   0,    0,    0,    0,    0,    0}
+  },
+
+  {{-327,  792, 1583, 1583,  792, -327},
+   {   0,    0, 4096,    0,    0,    0}
+  }
+}</initializer>
+        <briefdescription>
+<para>Coefficient table for vertical chroma resampler with 6 taps. </para>        </briefdescription>
+        <detaileddescription>
+<para>This 3D array contains precomputed filter coefficients used by the vertical chroma resampler for different conversion modes and phases. The coefficients are organized as follows:<itemizedlist>
+<listitem><para>First dimension: Conversion type (e.g., 422-&gt;420, 420-&gt;422)</para></listitem><listitem><para>Second dimension: Phase of the resampling process</para></listitem><listitem><para>Third dimension: Tap coefficients for the filter (6 taps per phase)</para></listitem></itemizedlist>
+</para><para>The coefficients are used to perform chroma resampling between different chroma subsampling formats.</para><para><simplesect kind="see"><para>XV_VCRSMPLR_NUM_CONVERSIONS </para><simplesectsep/><para>XV_VCRSMPLR_MAX_PHASES </para><simplesectsep/><para>XV_VCRSMPLR_TAPS_6 </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_coeff.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_coeff.c" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__v__vcresampler_1ga503661b93cb4613ce5664458c300a15b" compoundref="xv__vcresampler__l2_8c" startline="118" endline="157">XV_VCrsmplLoadDefaultCoeff</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__vcresampler_1gadf5d19248e464f251ad22246b332e37f" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_vcrsmplrcoeff_taps8[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_8]</definition>
+        <argsstring>[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_8]</argsstring>
+        <name>XV_vcrsmplrcoeff_taps8</name>
+        <initializer>=
+{
+
+  {{   0, -988,    0, 1703, 2666, 1703,    0, -988},
+   {   0,    0,    0,    0,    0,    0,    0,    0}
+  },
+
+  {{-423, -903,  977, 2397, 2397,  977, -903, -423},
+   {   0,    0,    0, 4096,    0,    0,    0,    0}
+  }
+}</initializer>
+        <briefdescription>
+<para>Coefficient table for vertical chroma resampling with 8 taps. </para>        </briefdescription>
+        <detaileddescription>
+<para>This 3D array contains precomputed filter coefficients used for vertical chroma resampling between different chroma subsampling formats (e.g., 4:2:2 to 4:2:0 and vice versa).</para><para>Dimensions:<itemizedlist>
+<listitem><para>[XV_VCRSMPLR_NUM_CONVERSIONS]: Number of conversion types (e.g., 422-&gt;420, 420-&gt;422).</para></listitem><listitem><para>[XV_VCRSMPLR_MAX_PHASES]: Number of filter phases.</para></listitem><listitem><para>[XV_VCRSMPLR_TAPS_8]: Number of taps per filter (8 taps).</para></listitem></itemizedlist>
+</para><para>Each entry contains the coefficients for a specific conversion and phase.</para><para>Example conversions:<itemizedlist>
+<listitem><para>422-&gt;420: Downsampling from 4:2:2 to 4:2:0 chroma format.</para></listitem><listitem><para>420-&gt;422: Upsampling from 4:2:0 to 4:2:2 chroma format. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_coeff.c" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_coeff.c" bodystart="116" bodyend="-1"/>
+        <referencedby refid="group__v__vcresampler_1ga503661b93cb4613ce5664458c300a15b" compoundref="xv__vcresampler__l2_8c" startline="118" endline="157">XV_VCrsmplLoadDefaultCoeff</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__vcresampler_1gaa9f9738f5278c32b71ffcfc423c8634e" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_vcrsmplrcoeff_taps10[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_10]</definition>
+        <argsstring>[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_10]</argsstring>
+        <name>XV_vcrsmplrcoeff_taps10</name>
+        <initializer>=
+{
+
+  {{   0,    0, -988,    0, 1703, 2666, 1703,    0, -988,    0},
+   {   0,    0,    0,    0,    0,    0,    0,    0,    0,    0}
+  },
+
+  {{ 305, -638, -586,  705, 2262, 2262,  705, -586, -638,  305},
+   {   0,    0,    0,    0, 4096,    0,    0,    0,    0,    0}
+  }
+}</initializer>
+        <briefdescription>
+<para>Coefficient table for vertical chroma resampler with 10 taps. </para>        </briefdescription>
+        <detaileddescription>
+<para>This 3D array contains precomputed filter coefficients for chroma resampling conversions between 4:2:2 and 4:2:0 formats. The coefficients are organized as:<itemizedlist>
+<listitem><para>First dimension: Conversion type (e.g., 422-&gt;420, 420-&gt;422)</para></listitem><listitem><para>Second dimension: Filter phase</para></listitem><listitem><para>Third dimension: Tap index (10 taps per filter)</para></listitem></itemizedlist>
+</para><para>The coefficients are used by the vertical chroma resampler hardware or software to perform high-quality chroma sub-sampling or up-sampling.</para><para><simplesect kind="see"><para>XV_VCRSMPLR_NUM_CONVERSIONS </para><simplesectsep/><para>XV_VCRSMPLR_MAX_PHASES </para><simplesectsep/><para>XV_VCRSMPLR_TAPS_10 </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_coeff.c" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_coeff.c" bodystart="150" bodyend="-1"/>
+        <referencedby refid="group__v__vcresampler_1ga503661b93cb4613ce5664458c300a15b" compoundref="xv__vcresampler__l2_8c" startline="118" endline="157">XV_VCrsmplLoadDefaultCoeff</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__vcresampler_1gaf55f0f64c22b47faeff44f90e839f079" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_vcrsmplrcoeff_taps4[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_4]</definition>
+        <argsstring>[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_4]</argsstring>
+        <name>XV_vcrsmplrcoeff_taps4</name>
+        <briefdescription>
+<para>Coefficient table for 4-tap vertical chroma resampling conversions. </para>        </briefdescription>
+        <detaileddescription>
+<para>This 3D array contains the filter coefficients used for vertical chroma resampling between different chroma subsampling formats (e.g., 4:2:2 to 4:2:0 and vice versa).</para><para>Dimensions:<itemizedlist>
+<listitem><para>[XV_VCRSMPLR_NUM_CONVERSIONS]: Number of conversion types (e.g., 422-&gt;420, 420-&gt;422).</para></listitem><listitem><para>[XV_VCRSMPLR_MAX_PHASES]: Number of filter phases per conversion.</para></listitem><listitem><para>[XV_VCRSMPLR_TAPS_4]: Number of taps (coefficients) per phase (4-tap filter).</para></listitem></itemizedlist>
+</para><para>Each entry contains the coefficients for a specific conversion and phase.</para><para>Example usage: XV_vcrsmplrcoeff_taps4[conversion][phase][tap] </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_coeff.c" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__v__vcresampler_1ga503661b93cb4613ce5664458c300a15b" compoundref="xv__vcresampler__l2_8c" startline="118" endline="157">XV_VCrsmplLoadDefaultCoeff</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__vcresampler_1gae9d91f8a575831080178efacae08dbf1" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_vcrsmplrcoeff_taps6[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_6]</definition>
+        <argsstring>[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_6]</argsstring>
+        <name>XV_vcrsmplrcoeff_taps6</name>
+        <briefdescription>
+<para>Coefficient table for vertical chroma resampler with 6 taps. </para>        </briefdescription>
+        <detaileddescription>
+<para>This 3D array contains precomputed filter coefficients used by the vertical chroma resampler for different conversion modes and phases. The coefficients are organized as follows:<itemizedlist>
+<listitem><para>First dimension: Conversion type (e.g., 422-&gt;420, 420-&gt;422)</para></listitem><listitem><para>Second dimension: Phase of the resampling process</para></listitem><listitem><para>Third dimension: Tap coefficients for the filter (6 taps per phase)</para></listitem></itemizedlist>
+</para><para>The coefficients are used to perform chroma resampling between different chroma subsampling formats.</para><para><simplesect kind="see"><para>XV_VCRSMPLR_NUM_CONVERSIONS </para><simplesectsep/><para>XV_VCRSMPLR_MAX_PHASES </para><simplesectsep/><para>XV_VCRSMPLR_TAPS_6 </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_coeff.c" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__v__vcresampler_1ga503661b93cb4613ce5664458c300a15b" compoundref="xv__vcresampler__l2_8c" startline="118" endline="157">XV_VCrsmplLoadDefaultCoeff</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__vcresampler_1gadf5d19248e464f251ad22246b332e37f" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_vcrsmplrcoeff_taps8[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_8]</definition>
+        <argsstring>[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_8]</argsstring>
+        <name>XV_vcrsmplrcoeff_taps8</name>
+        <briefdescription>
+<para>Coefficient table for vertical chroma resampling with 8 taps. </para>        </briefdescription>
+        <detaileddescription>
+<para>This 3D array contains precomputed filter coefficients used for vertical chroma resampling between different chroma subsampling formats (e.g., 4:2:2 to 4:2:0 and vice versa).</para><para>Dimensions:<itemizedlist>
+<listitem><para>[XV_VCRSMPLR_NUM_CONVERSIONS]: Number of conversion types (e.g., 422-&gt;420, 420-&gt;422).</para></listitem><listitem><para>[XV_VCRSMPLR_MAX_PHASES]: Number of filter phases.</para></listitem><listitem><para>[XV_VCRSMPLR_TAPS_8]: Number of taps per filter (8 taps).</para></listitem></itemizedlist>
+</para><para>Each entry contains the coefficients for a specific conversion and phase.</para><para>Example conversions:<itemizedlist>
+<listitem><para>422-&gt;420: Downsampling from 4:2:2 to 4:2:0 chroma format.</para></listitem><listitem><para>420-&gt;422: Upsampling from 4:2:0 to 4:2:2 chroma format. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_coeff.c" bodystart="116" bodyend="-1"/>
+        <referencedby refid="group__v__vcresampler_1ga503661b93cb4613ce5664458c300a15b" compoundref="xv__vcresampler__l2_8c" startline="118" endline="157">XV_VCrsmplLoadDefaultCoeff</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__vcresampler_1gaa9f9738f5278c32b71ffcfc423c8634e" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_vcrsmplrcoeff_taps10[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_10]</definition>
+        <argsstring>[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_10]</argsstring>
+        <name>XV_vcrsmplrcoeff_taps10</name>
+        <briefdescription>
+<para>Coefficient table for vertical chroma resampler with 10 taps. </para>        </briefdescription>
+        <detaileddescription>
+<para>This 3D array contains precomputed filter coefficients for chroma resampling conversions between 4:2:2 and 4:2:0 formats. The coefficients are organized as:<itemizedlist>
+<listitem><para>First dimension: Conversion type (e.g., 422-&gt;420, 420-&gt;422)</para></listitem><listitem><para>Second dimension: Filter phase</para></listitem><listitem><para>Third dimension: Tap index (10 taps per filter)</para></listitem></itemizedlist>
+</para><para>The coefficients are used by the vertical chroma resampler hardware or software to perform high-quality chroma sub-sampling or up-sampling.</para><para><simplesect kind="see"><para>XV_VCRSMPLR_NUM_CONVERSIONS </para><simplesectsep/><para>XV_VCRSMPLR_MAX_PHASES </para><simplesectsep/><para>XV_VCRSMPLR_TAPS_10 </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_coeff.c" bodystart="150" bodyend="-1"/>
+        <referencedby refid="group__v__vcresampler_1ga503661b93cb4613ce5664458c300a15b" compoundref="xv__vcresampler__l2_8c" startline="118" endline="157">XV_VCrsmplLoadDefaultCoeff</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__v__vcresampler_1gac1e82dc48393fbc06d3a73265dfde694" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XV_vcresampler_SetCoefficients</definition>
+        <argsstring>(XV_Vcresampler_l2 *pVCrsmplr, XV_VCRESAMPLER_CONVERSION convType)</argsstring>
+        <name>XV_vcresampler_SetCoefficients</name>
+        <param>
+          <type><ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref> *</type>
+          <declname>pVCrsmplr</declname>
+        </param>
+        <param>
+          <type><ref refid="xv__vcresampler__l2_8h_1ac26b2024021a80453e6728fc66eeaced" kindref="member">XV_VCRESAMPLER_CONVERSION</ref></type>
+          <declname>convType</declname>
+        </param>
+        <briefdescription>
+<para>This function updates the core registers with computed coefficients for required conversion. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pVCrsmplr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>convType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the format conversion requested</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" bodystart="317" bodyend="340"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__vcresampler_1ga0f78877397bf8b1ec1723573a39f29e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_VcrsmplInitialize</definition>
+        <argsstring>(XV_Vcresampler_l2 *InstancePtr, u16 DeviceId)</argsstring>
+        <name>XV_VcrsmplInitialize</name>
+        <param>
+          <type><ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the core instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to core instance to be worked upon </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is instance id of the core</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if device is found and initialized XST_DEVICE_NOT_FOUND if device is not found </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" bodystart="63" bodyend="73"/>
+        <references refid="xv__vcresampler_8h_1a4e513f7ffd2e841e9b7ef5f589568781" compoundref="xv__vcresampler__sinit_8c" startline="130" endline="144">XV_vcresampler_Initialize</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__vcresampler_1ga4cac68c29c6fd1d5be671e9b943708eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_VCrsmplStart</definition>
+        <argsstring>(XV_Vcresampler_l2 *InstancePtr)</argsstring>
+        <name>XV_VCrsmplStart</name>
+        <param>
+          <type><ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function starts the Chroma resampler core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" bodystart="84" bodyend="90"/>
+        <references refid="xv__vcresampler_8c_1afcfcebe5b588b8a1dfb8761d817c0fc9" compoundref="xv__vcresampler_8c" startline="132" endline="138">XV_vcresampler_EnableAutoRestart</references>
+        <references refid="xv__vcresampler_8c_1a87dde33eb2551ab05c02ee4e6df75c7e" compoundref="xv__vcresampler_8c" startline="57" endline="65">XV_vcresampler_Start</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__vcresampler_1ga622560c87045beb2bef22e0f220faacb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_VCrsmplStop</definition>
+        <argsstring>(XV_Vcresampler_l2 *InstancePtr)</argsstring>
+        <name>XV_VCrsmplStop</name>
+        <param>
+          <type><ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function stops the Chroma resampler core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" bodystart="101" bodyend="106"/>
+        <references refid="xv__vcresampler_8c_1a5e2713e1e927461583ef9e0b82f672e4" compoundref="xv__vcresampler_8c" startline="145" endline="151">XV_vcresampler_DisableAutoRestart</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__vcresampler_1ga503661b93cb4613ce5664458c300a15b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_VCrsmplLoadDefaultCoeff</definition>
+        <argsstring>(XV_Vcresampler_l2 *InstancePtr)</argsstring>
+        <name>XV_VCrsmplLoadDefaultCoeff</name>
+        <param>
+          <type><ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function loads default filter coefficients in the chroma resampler coefficient storage based on the selected TAP configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" bodystart="118" bodyend="157"/>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler___config_1af1116e099efcbc8b77681ab0bce08523" compoundref="xv__vcresampler_8h" startline="62">XV_vcresampler_Config::NumTaps</references>
+        <references refid="group__v__vcresampler_1gaa9f9738f5278c32b71ffcfc423c8634e" compoundref="xv__vcresampler__coeff_8c" startline="150">XV_vcrsmplrcoeff_taps10</references>
+        <references refid="group__v__vcresampler_1gaf55f0f64c22b47faeff44f90e839f079" compoundref="xv__vcresampler__coeff_8c" startline="49">XV_vcrsmplrcoeff_taps4</references>
+        <references refid="group__v__vcresampler_1gae9d91f8a575831080178efacae08dbf1" compoundref="xv__vcresampler__coeff_8c" startline="81">XV_vcrsmplrcoeff_taps6</references>
+        <references refid="group__v__vcresampler_1gadf5d19248e464f251ad22246b332e37f" compoundref="xv__vcresampler__coeff_8c" startline="116">XV_vcrsmplrcoeff_taps8</references>
+        <references refid="group__v__vcresampler_1gae71f8a8ce586e2f6aebf1b37b7df16ff" compoundref="xv__vcresampler__l2_8c" startline="171" endline="237">XV_VCrsmplrLoadExtCoeff</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__vcresampler_1gae71f8a8ce586e2f6aebf1b37b7df16ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_VCrsmplrLoadExtCoeff</definition>
+        <argsstring>(XV_Vcresampler_l2 *InstancePtr, u16 num_taps, const short *Coeff)</argsstring>
+        <name>XV_VCrsmplrLoadExtCoeff</name>
+        <param>
+          <type><ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>num_taps</declname>
+        </param>
+        <param>
+          <type>const short *</type>
+          <declname>Coeff</declname>
+        </param>
+        <briefdescription>
+<para>This function loads user defined filter coefficients in the horiz. </para>        </briefdescription>
+        <detaileddescription>
+<para>chroma resampler coefficient storage</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_taps</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of taps </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Coeff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to user defined filter coefficients table</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" bodystart="171" bodyend="237"/>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler___config_1af1116e099efcbc8b77681ab0bce08523" compoundref="xv__vcresampler_8h" startline="62">XV_vcresampler_Config::NumTaps</references>
+        <referencedby refid="group__v__vcresampler_1ga503661b93cb4613ce5664458c300a15b" compoundref="xv__vcresampler__l2_8c" startline="118" endline="157">XV_VCrsmplLoadDefaultCoeff</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__v__vcresampler_1ga2492dbe762f82a9a4ef46d5027f20ef6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_VCrsmplSetActiveSize</definition>
+        <argsstring>(XV_Vcresampler_l2 *InstancePtr, u32 width, u32 height)</argsstring>
+        <name>XV_VCrsmplSetActiveSize</name>
+        <param>
+          <type><ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>height</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the Chroma resampler active resolution. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the active frame width </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>height</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the active frame height</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" bodystart="250" bodyend="258"/>
+        <references refid="xv__vcresampler_8c_1a072495c5efe846ce5f19f990f5eb8825" compoundref="xv__vcresampler_8c" startline="189" endline="195">XV_vcresampler_Set_HwReg_height</references>
+        <references refid="xv__vcresampler_8c_1a4cf12d7ba9ed07002b192d6393b809c7" compoundref="xv__vcresampler_8c" startline="159" endline="165">XV_vcresampler_Set_HwReg_width</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__vcresampler_1ga51999e4a3525d76ae247012128e8de80" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_VCrsmplSetFormat</definition>
+        <argsstring>(XV_Vcresampler_l2 *InstancePtr, XVidC_ColorFormat formatIn, XVidC_ColorFormat formatOut)</argsstring>
+        <name>XV_VCrsmplSetFormat</name>
+        <param>
+          <type><ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XVidC_ColorFormat</type>
+          <declname>formatIn</declname>
+        </param>
+        <param>
+          <type>XVidC_ColorFormat</type>
+          <declname>formatOut</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the Chroma resampler for the required format conversion. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>formatIn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the input chroma format </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>formatOut</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is required chroma format</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" line="272" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" bodystart="272" bodyend="304"/>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler___config_1a049be29b02a84bfe7d037d15de3a9ebc" compoundref="xv__vcresampler_8h" startline="61">XV_vcresampler_Config::ResamplingType</references>
+        <references refid="xv__vcresampler_8c_1a5741ce40dc98ea86a3a6d7ca752108f5" compoundref="xv__vcresampler_8c" startline="219" endline="225">XV_vcresampler_Set_HwReg_input_video_format</references>
+        <references refid="xv__vcresampler_8c_1acbc8c85cc8ce7852a8eed88191cecf48" compoundref="xv__vcresampler_8c" startline="249" endline="255">XV_vcresampler_Set_HwReg_output_video_format</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__vcresampler_1ga9fbc3495721fdc850c27d53b9517dfa0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_VCrsmplDbgReportStatus</definition>
+        <argsstring>(XV_Vcresampler_l2 *InstancePtr)</argsstring>
+        <name>XV_VCrsmplDbgReportStatus</name>
+        <param>
+          <type><ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function prints Chroma Resampler status on the console. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" bodystart="352" bodyend="420"/>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler___config_1af1116e099efcbc8b77681ab0bce08523" compoundref="xv__vcresampler_8h" startline="62">XV_vcresampler_Config::NumTaps</references>
+        <references refid="struct_x_v__vcresampler___config_1a049be29b02a84bfe7d037d15de3a9ebc" compoundref="xv__vcresampler_8h" startline="61">XV_vcresampler_Config::ResamplingType</references>
+        <references refid="xv__vcresampler__hw_8h_1af158c38dc1e7133794af9eaaf927e852" compoundref="xv__vcresampler__hw_8h" startline="67">XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__vcresampler_8c_1a2556a5a207d9d47b84133d8aaa7e81e8" compoundref="xv__vcresampler_8c" startline="202" endline="211">XV_vcresampler_Get_HwReg_height</references>
+        <references refid="xv__vcresampler_8c_1a66b92c787146f6151e0267a20faf37be" compoundref="xv__vcresampler_8c" startline="232" endline="241">XV_vcresampler_Get_HwReg_input_video_format</references>
+        <references refid="xv__vcresampler_8c_1ad90ffa0e7003659e0230f1a7ab435356" compoundref="xv__vcresampler_8c" startline="262" endline="271">XV_vcresampler_Get_HwReg_output_video_format</references>
+        <references refid="xv__vcresampler_8c_1a6a8682f6648b031b94cc4d0bb4e788e5" compoundref="xv__vcresampler_8c" startline="172" endline="181">XV_vcresampler_Get_HwReg_width</references>
+        <references refid="xv__vcresampler_8c_1aba0027e29d9fcbd6c1ab016000a99dfa" compoundref="xv__vcresampler_8c" startline="78" endline="86">XV_vcresampler_IsDone</references>
+        <references refid="xv__vcresampler_8c_1aa09f70e6c9ab6416836f49b84ac087f3" compoundref="xv__vcresampler_8c" startline="97" endline="105">XV_vcresampler_IsIdle</references>
+        <references refid="xv__vcresampler_8c_1ad1eda8d670141d925646d219074054e7" compoundref="xv__vcresampler_8c" startline="116" endline="125">XV_vcresampler_IsReady</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>} </para>    </briefdescription>
+    <detaileddescription>
+<para>This header file contains layer 2 API&apos;s of the vertical chroma resampler sub-core driver.The functions contained herein provides a high level implementation of features provided by the IP, abstracting away the register level details from the user.</para><para>The Vertical Chroma Resampler Layer-2 Driver.</para><para>The functions in this file provides an abstraction from the register peek/poke methodology by implementing most common use-case provided by the sub-core. See <ref refid="xv__vcresampler__l2_8h" kindref="compound">xv_vcresampler_l2.h</ref> for a detailed description of the layer-2 driver</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00  rco   07/21/15   Initial Release
+2.00  rco   11/05/15   Integrate layer-1 with layer-2
+2.10  rco   07/20/16   Add passthrough mode support
+      rco   02/09/17   Fix c++ compilation warnings
+</preformatted></para><para><bold>V Chroma Resampler IP Features </bold></para><para>The vertical chroma resampler IP supports following features<itemizedlist>
+<listitem><para>convert YUV420 -&gt; YUV422 and YUV422 -&gt; YUV420</para></listitem></itemizedlist>
+</para><para>Supports resolution up to 4k2k 60Hz<itemizedlist>
+<listitem><para>up to 16 bits color depth</para></listitem><listitem><para>1, 2 or 4 pixel per clock processing</para></listitem></itemizedlist>
+</para><para><bold>Dependency</bold></para><para>This driver makes use of the video enumerations and data types defined in the Xilinx Video Common Driver (video_common_vX.x) and as such the common driver must be included as dependency to compile this driver</para><para><bold>Initialization &amp; Configuration</bold></para><para>The device driver enables higher layer software (e.g., an application) to communicate to the vcresampler core.</para><para>Before using the layer-2 API&apos;s user must initialize the core by calling Layer-1 API <ref refid="xv__vcresampler_8h_1a4e513f7ffd2e841e9b7ef5f589568781" kindref="member">XV_vcresampler_Initialize()</ref>. This function will look for a configuration structure for the device and initialize it to defined HW settings. After initialization Layer-2 API&apos;s can be used to configure the core. It is recommended user always make use of Layer-2 API to interact with this core. Advanced users always have the capability to directly interact with the IP core using Layer-1 API&apos;s that perform low level register peek/poke.</para><para><bold> Interrupts </bold></para><para>This driver does not have any interrupts</para><para><bold> Virtual Memory </bold></para><para>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space.</para><para><bold> Threads </bold></para><para>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00  rc   07/21/15   Initial Release
+2.00  rco   11/05/15   Integrate layer-1 with layer-2</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

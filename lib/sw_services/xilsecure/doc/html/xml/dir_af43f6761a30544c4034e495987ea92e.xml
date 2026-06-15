@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_af43f6761a30544c4034e495987ea92e" kind="dir">
+    <compoundname>aes</compoundname>
+    <innerfile refid="core_2aes_2xsecure__aes_8c">core/aes/xsecure_aes.c</innerfile>
+    <innerfile refid="core_2aes_2xsecure__aes_8h">core/aes/xsecure_aes.h</innerfile>
+    <innerfile refid="xsecure__aes__core__hw_8h">xsecure_aes_core_hw.h</innerfile>
+    <innerfile refid="xsecure__aes__ipihandler_8c">xsecure_aes_ipihandler.c</innerfile>
+    <innerfile refid="xsecure__aes__ipihandler_8h">xsecure_aes_ipihandler.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/aes/"/>
+  </compounddef>
+</doxygen>

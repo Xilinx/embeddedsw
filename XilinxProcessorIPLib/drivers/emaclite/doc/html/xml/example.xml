@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details which gives an idea of how the EmacLite and its driver/examples are intended to be used.</para><para>SYSTEM REQUIREMENTS: The system containing the EmacLite should have the following capabilities:</para><para><itemizedlist>
+<listitem><para>Processor based system</para></listitem><listitem><para>At least one EmacLite core</para></listitem><listitem><para>An interrupt controller</para></listitem><listitem><para>An external memory controller with at least 200KB of RAM available</para></listitem><listitem><para>A UART to display messages</para></listitem></itemizedlist>
+</para><sect1 id="example_1ex1">
+<title>xemaclite_example.h</title>
+<para>This headerfile defines common data types, prototypes, and includes the proper headers for use with the EmacLite examples. This file needs to be used with xemaclite_phy_loopback_example, xemaclite_polled_example, xemaclite_intr_example and <ref refid="xemaclite__internal__loopback__example_8c" kindref="compound">xemaclite_internal_loopback_example.c</ref></para><para>For details, see <ref refid="xemaclite__example_8h" kindref="compound">xemaclite_example.h</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xemaclite_example_util.c</title>
+<para>Contains an example on how to use the XEmaclite driver directly. This example implements the utility functions for the EmacLite example code. This file needs to be included in xemaclite_phy_loopback_example, xemaclite_polled_example, xemaclite_intr_example and <ref refid="xemaclite__internal__loopback__example_8c" kindref="compound">xemaclite_internal_loopback_example.c</ref></para><para>For details, see <ref refid="xemaclite__example__util_8c" kindref="compound">xemaclite_example_util.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xemaclite_internal_loopback_example.c</title>
+<para>Contains an example on how to use the XEmaclite driver directly. This is an interrupt example outlining the use of interrupts and callbacks in the transmission/reception of Ethernet frames using internal loop back with an incrementing payload from 1 byte to 1500 bytes (excluding Ethernet Header and FCS).</para><para>For details, see <ref refid="xemaclite__internal__loopback__example_8c" kindref="compound">xemaclite_internal_loopback_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex4">
+<title>xemaclite_intr_example.c</title>
+<para>Contains an example on how to use the XEmaclite driver directly. This is an interrupt example outlining the use of interrupts and callbacks in the transmission/reception of an Ethernet frame of 1000 bytes of payload.</para><para>For details, see <ref refid="xemaclite__intr__example_8c" kindref="compound">xemaclite_intr_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex5">
+<title>xemaclite_phy_loopback_example.c</title>
+<para>Contains an example on how to use the XEmaclite driver directly. This is an interrupt example outlining the use of interrupts and callbacks in the transmission/reception of Ethernet frames using MAC loop back in the PHY device with an incrementing payload from 1 byte to 1500 bytes (excluding Ethernet Header and FCS). This example can be run only when the MDIO interface is configured in the EmacLite core.</para><para>For details, see <ref refid="xemaclite__phy__loopback__example_8c" kindref="compound">xemaclite_phy_loopback_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex6">
+<title>xemaclite_ping_reply_example.c</title>
+<para>Contains an example on how to use the XEmaclite driver directly. This is an EmacLite ping reply example in polled mode. This example will generate a ping reply when it receives a ping request packet from the external world.</para><para>For details, see <ref refid="xemaclite__ping__reply__example_8c" kindref="compound">xemaclite_ping_reply_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex7">
+<title>xemaclite_ping_req_example.c</title>
+<para>Contains an example on how to use the XEmaclite driver directly. This is an EmacLite Ping request example in polled mode. This example will generate a ping request for the specified IP address.</para><para>For details, see <ref refid="xemaclite__ping__req__example_8c" kindref="compound">xemaclite_ping_req_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex8">
+<title>xemaclite_polled_example.c</title>
+<para>Contains an example on how to use the XEmaclite driver directly. This is an polled mode example outlining the transmission/reception of an Ethernet frame of 1000 bytes of payload.</para><para>For details, see <ref refid="xemaclite__polled__example_8c" kindref="compound">xemaclite_polled_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex9">
+<title>xemaclite_selftest_example.c</title>
+<para>Contains an example on how to use the XEmaclite driver directly. This example performs the basic selftest using the emaclite driver.</para><para>For details, see <ref refid="xemaclite__selftest__example_8c" kindref="compound">xemaclite_selftest_example.c</ref>.</para><sect2 id="example_1INCLUDING">
+<title>EXAMPLES IN EDK/SDK:</title>
+<para><itemizedlist>
+<listitem><para>Each example is independent from the others except for common code found in <ref refid="xemaclite__example__util_8c" kindref="compound">xemaclite_example_util.c</ref>. When including source code files in an EDK/SDK SW application, select <ref refid="xemaclite__example__util_8c" kindref="compound">xemaclite_example_util.c</ref> along with one other example source code file. </para></listitem></itemizedlist>
+</para></sect2>
+</sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

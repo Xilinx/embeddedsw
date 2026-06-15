@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_b81635f835fec00100740d5a619f5815" kind="dir">
+    <compoundname>vdma</compoundname>
+    <innerfile refid="xvprocss__vdma_8c">xvprocss_vdma.c</innerfile>
+    <innerfile refid="xvprocss__vdma_8h">xvprocss_vdma.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/vdma/"/>
+  </compounddef>
+</doxygen>

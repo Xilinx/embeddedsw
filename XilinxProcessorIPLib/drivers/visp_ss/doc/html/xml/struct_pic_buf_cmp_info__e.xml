@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_pic_buf_cmp_info__e" kind="struct" prot="public">
+    <compoundname>PicBufCmpInfo_e</compoundname>
+    <includes local="no">buf_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_pic_buf_cmp_info__e_1a62c360868ddec140db1cf31064ffdd0f" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t PicBufCmpInfo_e::compressed</definition>
+        <argsstring></argsstring>
+        <name>compressed</name>
+        <briefdescription>
+<para>buffer compressed </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="566" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="566" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pic_buf_cmp_info__e_1a8200b04e456a06faab6ac43943bcdc14" prot="public" static="no" mutable="no">
+        <type>PicBufLossMode_t</type>
+        <definition>PicBufLossMode_t PicBufCmpInfo_e::lossMode</definition>
+        <argsstring></argsstring>
+        <name>lossMode</name>
+        <briefdescription>
+<para>loss mode </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="567" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="567" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pic_buf_cmp_info__e_1a1a6358fad5012d3ecf3e97914c17c3f0" prot="public" static="no" mutable="no">
+        <type>PicBufRdceType_t</type>
+        <definition>PicBufRdceType_t PicBufCmpInfo_e::bitdepth</definition>
+        <argsstring></argsstring>
+        <name>bitdepth</name>
+        <briefdescription>
+<para>bit depth </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="568" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="568" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pic_buf_cmp_info__e_1a416d99829d3e89cc9cb7daada8516db6" prot="public" static="no" mutable="no">
+        <type>short</type>
+        <definition>short PicBufCmpInfo_e::targetSize</definition>
+        <argsstring></argsstring>
+        <name>targetSize</name>
+        <briefdescription>
+<para>target size </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="569" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="569" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pic_buf_cmp_info__e_1a618cf9710295d4029a3cfbf6a04810f6" prot="public" static="no" mutable="no">
+        <type>short</type>
+        <definition>short PicBufCmpInfo_e::bitThresh</definition>
+        <argsstring></argsstring>
+        <name>bitThresh</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="570" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="570" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pic_buf_cmp_info__e_1ae18dcadc095302da4d26cc1c944d1aa7" prot="public" static="no" mutable="no">
+        <type>PicBufRdceBayerPat_t</type>
+        <definition>PicBufRdceBayerPat_t PicBufCmpInfo_e::bayerPattern</definition>
+        <argsstring></argsstring>
+        <name>bayerPattern</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="571" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="571" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_pic_buf_cmp_info__e_1a4d1f27a8c1a11552a62a275f47310b5e" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t PicBufCmpInfo_e::crcValue</definition>
+        <argsstring></argsstring>
+        <name>crcValue</name>
+        <briefdescription>
+<para>vi200 fusa crc for rdcd </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="572" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="572" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>RDC compress information. </para>    </briefdescription>
+    <detaileddescription>
+<para>compress information for buffer decompress. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="565" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="565" bodyend="573"/>
+    <listofallmembers>
+      <member refid="struct_pic_buf_cmp_info__e_1ae18dcadc095302da4d26cc1c944d1aa7" prot="public" virt="non-virtual"><scope>PicBufCmpInfo_e</scope><name>bayerPattern</name></member>
+      <member refid="struct_pic_buf_cmp_info__e_1a1a6358fad5012d3ecf3e97914c17c3f0" prot="public" virt="non-virtual"><scope>PicBufCmpInfo_e</scope><name>bitdepth</name></member>
+      <member refid="struct_pic_buf_cmp_info__e_1a618cf9710295d4029a3cfbf6a04810f6" prot="public" virt="non-virtual"><scope>PicBufCmpInfo_e</scope><name>bitThresh</name></member>
+      <member refid="struct_pic_buf_cmp_info__e_1a62c360868ddec140db1cf31064ffdd0f" prot="public" virt="non-virtual"><scope>PicBufCmpInfo_e</scope><name>compressed</name></member>
+      <member refid="struct_pic_buf_cmp_info__e_1a4d1f27a8c1a11552a62a275f47310b5e" prot="public" virt="non-virtual"><scope>PicBufCmpInfo_e</scope><name>crcValue</name></member>
+      <member refid="struct_pic_buf_cmp_info__e_1a8200b04e456a06faab6ac43943bcdc14" prot="public" virt="non-virtual"><scope>PicBufCmpInfo_e</scope><name>lossMode</name></member>
+      <member refid="struct_pic_buf_cmp_info__e_1a416d99829d3e89cc9cb7daada8516db6" prot="public" virt="non-virtual"><scope>PicBufCmpInfo_e</scope><name>targetSize</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,239 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xavbuf__clk_8h" kind="file">
+    <compoundname>xavbuf_clk.h</compoundname>
+    <includes refid="xavbuf__hw_8h" local="yes">xavbuf_hw.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <includedby refid="xavbuf__clk_8c" local="yes">xavbuf_clk.c</includedby>
+    <incdepgraph>
+      <node id="29">
+        <label>xil_io.h</label>
+      </node>
+      <node id="32">
+        <label>sleep.h</label>
+      </node>
+      <node id="28">
+        <label>xavbuf_hw.h</label>
+        <link refid="xavbuf__hw_8h"/>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>xstatus.h</label>
+      </node>
+      <node id="30">
+        <label>xil_types.h</label>
+      </node>
+      <node id="27">
+        <label>xavbuf_clk.h</label>
+        <link refid="xavbuf_clk.h"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="34">
+        <label>xavbuf_clk.c</label>
+        <link refid="xavbuf__clk_8c"/>
+      </node>
+      <node id="33">
+        <label>xavbuf_clk.h</label>
+        <link refid="xavbuf_clk.h"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_a_v_buf___pll" prot="public">XAVBuf_Pll</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xavbuf__clk_8h_1a766e4602ea5eff63e3d0ab9cc85045f7" prot="public" static="no">
+        <name>PLL</name>
+        <enumvalue id="xavbuf__clk_8h_1a766e4602ea5eff63e3d0ab9cc85045f7a7247f4cb4dabde1536ba7d4495ea8b82" prot="public">
+          <name>APLL</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf__clk_8h_1a766e4602ea5eff63e3d0ab9cc85045f7a7b48313351adc781e43369cb381b0fbb" prot="public">
+          <name>DPLL</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf__clk_8h_1a766e4602ea5eff63e3d0ab9cc85045f7a66cab5b3bcd6e74c0ba584dd3fd266db" prot="public">
+          <name>VPLL</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf__clk_8h_1a766e4602ea5eff63e3d0ab9cc85045f7abe18a9746d212f3128192d09b8a50b52" prot="public">
+          <name>IOPLL</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xavbuf__clk_8h_1a766e4602ea5eff63e3d0ab9cc85045f7a97c111f89bc701e65edf71a91ae5eb01" prot="public">
+          <name>RPLL</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This enum enumerates various PLL. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" bodystart="43" bodyend="49"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xavbuf__clk_8h_1a1ec626441b798f852839e336c4ea726f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAVBuf_SetPixelClock</definition>
+        <argsstring>(u64 FreqHz)</argsstring>
+        <name>XAVBuf_SetPixelClock</name>
+        <param>
+          <type>u64</type>
+          <declname>FreqHz</declname>
+        </param>
+        <briefdescription>
+<para>This function calls API to calculate and configure PLL with desired frequency for Video. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FreqHz</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the desired frequency in Hz.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if PLL is configured without an error. XST_FAILURE otherwise.</para></simplesect>
+<simplesect kind="note"><para>The Pll used is design specific. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="443" bodyend="487"/>
+        <references refid="xavbuf__hw_8h_1aa9edccf3d4b47ff9b6ff6fde84a26dd0" compoundref="xavbuf__hw_8h" startline="1400">XAVBUF_CLK_FPD_BASEADDR</references>
+        <references refid="xavbuf__hw_8h_1acc9ef500a33218ad23ee1078c452c219" compoundref="xavbuf__hw_8h" startline="1623">XAVBuf_ReadReg</references>
+        <references refid="xavbuf__hw_8h_1adecb43b4a7818f901e9ea65c671981d3" compoundref="xavbuf__hw_8h" startline="1525">XAVBUF_VIDEO_REF_CTRL</references>
+        <references refid="xavbuf__hw_8h_1a755a434c389a82daff000b38de56e0d2" compoundref="xavbuf__hw_8h" startline="1597">XAVBUF_VPLL_SRC_SEL</references>
+      </memberdef>
+      <memberdef kind="function" id="xavbuf__clk_8h_1a4dd63e9fd6add1757a3761690b706e1d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAVBuf_SetAudioClock</definition>
+        <argsstring>(u64 FreqHz)</argsstring>
+        <name>XAVBuf_SetAudioClock</name>
+        <param>
+          <type>u64</type>
+          <declname>FreqHz</declname>
+        </param>
+        <briefdescription>
+<para>This function calls API to calculate and configure PLL with desired frequency for Audio. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FreqHz</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the desired frequency in Hz.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if PLL is configured without an error. XST_FAILURE otherwise.</para></simplesect>
+<simplesect kind="note"><para>The Pll used is design specific. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.c" bodystart="502" bodyend="551"/>
+        <references refid="xavbuf__hw_8h_1ae00cb3dbc395858edb3b99c538abc4b1" compoundref="xavbuf__hw_8h" startline="1547">XAVBUF_AUDIO_REF_CTRL</references>
+        <references refid="xavbuf__hw_8h_1aa9edccf3d4b47ff9b6ff6fde84a26dd0" compoundref="xavbuf__hw_8h" startline="1400">XAVBUF_CLK_FPD_BASEADDR</references>
+        <references refid="xavbuf__hw_8h_1acc9ef500a33218ad23ee1078c452c219" compoundref="xavbuf__hw_8h" startline="1623">XAVBuf_ReadReg</references>
+        <references refid="xavbuf__hw_8h_1a755a434c389a82daff000b38de56e0d2" compoundref="xavbuf__hw_8h" startline="1597">XAVBUF_VPLL_SRC_SEL</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This header file contains the identifiers and low-level driver functions (or macros) that can be used to configure PLL to generate required frequency. </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   mh  06/24/17 Initial release.
+2.1   tu  12/29/17 LPD and FPD offsets adjusted
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor">#ifndef<sp/>XAVBUF_CLK_H_</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVBUF_CLK_H_</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xavbuf__hw_8h" kindref="compound">xavbuf_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight></codeline>
+<codeline lineno="43" refid="xavbuf__clk_8h_1a766e4602ea5eff63e3d0ab9cc85045f7" refkind="member"><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="xavbuf__clk_8h_1a766e4602ea5eff63e3d0ab9cc85045f7" kindref="member">PLL</ref>{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>APLL<sp/><sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DPLL<sp/><sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VPLL<sp/><sp/>=<sp/>2,</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IOPLL<sp/>=<sp/>3,</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RPLL<sp/><sp/>=<sp/>4</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54" refid="struct_x_a_v_buf___pll" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>BaseAddress;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Fractional;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>RefClkFreqhz;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Divider;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Offset;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ClkDividBy2;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ExtDivider0;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ExtDivider1;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ExtDividerCnt;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>DomainSwitchDiv;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>FracIntegerFBDIV;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IntegerFBDIV;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>InputRefClk;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Fpd;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Pll;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">}<ref refid="struct_x_a_v_buf___pll" kindref="compound">XAVBuf_Pll</ref>;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xavbuf__clk_8c_1a1ec626441b798f852839e336c4ea726f" kindref="member">XAVBuf_SetPixelClock</ref>(u64<sp/>FreqHz);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xavbuf__clk_8c_1a4dd63e9fd6add1757a3761690b706e1d" kindref="member">XAVBuf_SetAudioClock</ref>(u64<sp/>FreqHz);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XAVBUF_CLK_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf_clk.h"/>
+  </compounddef>
+</doxygen>

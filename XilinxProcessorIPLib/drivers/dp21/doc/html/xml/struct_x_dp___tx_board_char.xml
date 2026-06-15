@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp___tx_board_char" kind="struct" prot="public">
+    <compoundname>XDp_TxBoardChar</compoundname>
+    <includes local="no">xdp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp___tx_board_char_1a64832b476bb45c18c0873ef3b37130c0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxBoardChar::HasRedriverInPath</definition>
+        <argsstring></argsstring>
+        <name>HasRedriverInPath</name>
+        <briefdescription>
+<para>Redriver in path requires different voltage swing and pre-emphasis. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="826" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="826" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_board_char_1a0c103cc10eb8d6e3213abfa7c28530c8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxBoardChar::TxVsLevels[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>TxVsLevels</name>
+        <briefdescription>
+<para>The voltage swing levels to be used by the DisplayPort TX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="828" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="828" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_board_char_1a6098798b079bf3eb280b674f85dcc8ff" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxBoardChar::TxPeLevels[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>TxPeLevels</name>
+        <briefdescription>
+<para>The pre-emphasis/cursor level to be used by the DisplayPort TX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="830" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="830" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_board_char_1a5158d3b3dfcec36a1cb112ba41dcf77b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxBoardChar::TxVsOffset</definition>
+        <argsstring></argsstring>
+        <name>TxVsOffset</name>
+        <briefdescription>
+<para>Voltage swing compensation offset used when pre-emphasis is used. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="832" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="832" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef describes some board characteristics information that affects link training. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="825" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="825" bodyend="834"/>
+    <listofallmembers>
+      <member refid="struct_x_dp___tx_board_char_1a64832b476bb45c18c0873ef3b37130c0" prot="public" virt="non-virtual"><scope>XDp_TxBoardChar</scope><name>HasRedriverInPath</name></member>
+      <member refid="struct_x_dp___tx_board_char_1a6098798b079bf3eb280b674f85dcc8ff" prot="public" virt="non-virtual"><scope>XDp_TxBoardChar</scope><name>TxPeLevels</name></member>
+      <member refid="struct_x_dp___tx_board_char_1a0c103cc10eb8d6e3213abfa7c28530c8" prot="public" virt="non-virtual"><scope>XDp_TxBoardChar</scope><name>TxVsLevels</name></member>
+      <member refid="struct_x_dp___tx_board_char_1a5158d3b3dfcec36a1cb112ba41dcf77b" prot="public" virt="non-virtual"><scope>XDp_TxBoardChar</scope><name>TxVsOffset</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

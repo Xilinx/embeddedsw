@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_05ccabae96eb51a59da0c41d5202af97" kind="dir">
+    <compoundname>xmipi_ref_design</compoundname>
+    <innerfile refid="dp159_8c">dp159.c</innerfile>
+    <innerfile refid="dp159_8h">dp159.h</innerfile>
+    <innerfile refid="pipeline__program_8c">pipeline_program.c</innerfile>
+    <innerfile refid="pipeline__program_8h">pipeline_program.h</innerfile>
+    <innerfile refid="xmipi__ref__design_2platform_8c">xmipi_ref_design/platform.c</innerfile>
+    <innerfile refid="xmipi__ref__design_2platform_8h">xmipi_ref_design/platform.h</innerfile>
+    <innerfile refid="xmipi__ref__design_2platform__config_8h">xmipi_ref_design/platform_config.h</innerfile>
+    <innerfile refid="xmipi__ref__design_2sensor__cfgs_8c">xmipi_ref_design/sensor_cfgs.c</innerfile>
+    <innerfile refid="xmipi__ref__design_2sensor__cfgs_8h">xmipi_ref_design/sensor_cfgs.h</innerfile>
+    <innerfile refid="xmipi__ref__design_2si5324drv_8c">xmipi_ref_design/si5324drv.c</innerfile>
+    <innerfile refid="xmipi__ref__design_2si5324drv_8h">xmipi_ref_design/si5324drv.h</innerfile>
+    <innerfile refid="xmipi__example_8c">xmipi_example.c</innerfile>
+    <innerfile refid="xmipi__menu_8c">xmipi_menu.c</innerfile>
+    <innerfile refid="xmipi__menu_8h">xmipi_menu.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/"/>
+  </compounddef>
+</doxygen>

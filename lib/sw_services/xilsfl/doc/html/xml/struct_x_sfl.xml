@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sfl" kind="struct" prot="public">
+    <compoundname>XSfl</compoundname>
+    <includes local="no">xilsfl.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="group__xilsfl_1ga2b16d511bfae602a3827fa678b278541" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XSfl::Index</definition>
+        <argsstring></argsstring>
+        <name>Index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="345" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="345" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilsfl_1gac5845d0dc367296f6ba1687f7d764e5e" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_sfl___interface" kindref="compound">XSfl_Interface</ref></type>
+        <definition>XSfl_Interface XSfl::Instance[XSFL_NUM_INSTANCES]</definition>
+        <argsstring>[XSFL_NUM_INSTANCES]</argsstring>
+        <name>Instance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="346" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains information of the sfl library. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="5">
+        <label>XSfl</label>
+        <link refid="struct_x_sfl"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>Instance</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>XSfl_FlashInfo</label>
+        <link refid="struct_x_sfl___flash_info"/>
+      </node>
+      <node id="6">
+        <label>XSfl_Interface</label>
+        <link refid="struct_x_sfl___interface"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>CntrlInfo</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>SflFlashInfo</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>XSfl_CntrlInfo</label>
+        <link refid="struct_x_sfl___cntrl_info"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="344" bodyend="347"/>
+    <listofallmembers>
+      <member refid="group__xilsfl_1ga2b16d511bfae602a3827fa678b278541" prot="public" virt="non-virtual"><scope>XSfl</scope><name>Index</name></member>
+      <member refid="group__xilsfl_1gac5845d0dc367296f6ba1687f7d764e5e" prot="public" virt="non-virtual"><scope>XSfl</scope><name>Instance</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

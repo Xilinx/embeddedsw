@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___hdmi_tx___v_s_i_f" kind="struct" prot="public">
+    <compoundname>XV_HdmiTx_VSIF</compoundname>
+    <includes local="no">xv_hdmitx_vsif.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx___v_s_i_f_1a68b83ba490350bfc2d82c42829cd1e40" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTx_VSIF::Version</definition>
+        <argsstring></argsstring>
+        <name>Version</name>
+        <briefdescription>
+<para>Version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="160" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a79e9fd00cabedf0d254cba229facf29b" compoundref="xv__hdmitx__vsif_8c" startline="451" endline="544">XV_HdmiTx_VSIF_GeneratePacket</referencedby>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a2a42d5752c8084764592726b6271d7db" compoundref="xv__hdmitx__vsif_8c" startline="281" endline="338">XV_HdmiTx_VSIF_ParsePacket</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx___v_s_i_f_1a51e807c70d465e68d5310d1659aa1889" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_HdmiTx_VSIF::IEEE_ID</definition>
+        <argsstring></argsstring>
+        <name>IEEE_ID</name>
+        <briefdescription>
+<para>IEEE Registration Identifier. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="161" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a79e9fd00cabedf0d254cba229facf29b" compoundref="xv__hdmitx__vsif_8c" startline="451" endline="544">XV_HdmiTx_VSIF_GeneratePacket</referencedby>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a2a42d5752c8084764592726b6271d7db" compoundref="xv__hdmitx__vsif_8c" startline="281" endline="338">XV_HdmiTx_VSIF_ParsePacket</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx___v_s_i_f_1ad8f0aaebac0733ccaa92508c56bc9709" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmitx__vsif_8h_1a2e6773aaa513af12bfce420a27857374" kindref="member">XV_HdmiTx_VSIF_Video_Format</ref></type>
+        <definition>XV_HdmiTx_VSIF_Video_Format XV_HdmiTx_VSIF::Format</definition>
+        <argsstring></argsstring>
+        <name>Format</name>
+        <briefdescription>
+<para>HDMI Video Format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="162" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a6f1f13016820477055fddefc1336af95" compoundref="xv__hdmitx__vsif_8c" startline="556" endline="588">XV_HdmiTx_VSIF_DisplayInfo</referencedby>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a79e9fd00cabedf0d254cba229facf29b" compoundref="xv__hdmitx__vsif_8c" startline="451" endline="544">XV_HdmiTx_VSIF_GeneratePacket</referencedby>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a2a42d5752c8084764592726b6271d7db" compoundref="xv__hdmitx__vsif_8c" startline="281" endline="338">XV_HdmiTx_VSIF_ParsePacket</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx___v_s_i_f_1a58210e7255b55f60f1869c7291d7ded3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTx_VSIF::HDMI_VIC</definition>
+        <argsstring></argsstring>
+        <name>HDMI_VIC</name>
+        <briefdescription>
+<para>XV_HDMITX_VSIF_VF_EXTRES: HDMI Video Format Identification Code. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="165" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a6f1f13016820477055fddefc1336af95" compoundref="xv__hdmitx__vsif_8c" startline="556" endline="588">XV_HdmiTx_VSIF_DisplayInfo</referencedby>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a79e9fd00cabedf0d254cba229facf29b" compoundref="xv__hdmitx__vsif_8c" startline="451" endline="544">XV_HdmiTx_VSIF_GeneratePacket</referencedby>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a2a42d5752c8084764592726b6271d7db" compoundref="xv__hdmitx__vsif_8c" startline="281" endline="338">XV_HdmiTx_VSIF_ParsePacket</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx___v_s_i_f_1adec00d19cd21179119f61ebc3ec2b838" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v___hdmi_tx__3_d___info" kindref="compound">XV_HdmiTx_3D_Info</ref></type>
+        <definition>XV_HdmiTx_3D_Info XV_HdmiTx_VSIF::Info_3D</definition>
+        <argsstring></argsstring>
+        <name>Info_3D</name>
+        <briefdescription>
+<para>XV_HDMITX_VSIF_VF_3D: 3D Information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="166" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a6f1f13016820477055fddefc1336af95" compoundref="xv__hdmitx__vsif_8c" startline="556" endline="588">XV_HdmiTx_VSIF_DisplayInfo</referencedby>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a79e9fd00cabedf0d254cba229facf29b" compoundref="xv__hdmitx__vsif_8c" startline="451" endline="544">XV_HdmiTx_VSIF_GeneratePacket</referencedby>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a2a42d5752c8084764592726b6271d7db" compoundref="xv__hdmitx__vsif_8c" startline="281" endline="338">XV_HdmiTx_VSIF_ParsePacket</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx___v_s_i_f_1abfbc69f2f74c7f67c771a4756b3d2f89" prot="public" static="no" mutable="no">
+        <type>union XV_HdmiTx_VSIF::@0</type>
+        <definition>union XV_HdmiTx_VSIF::@0 XV_HdmiTx_VSIF::@1</definition>
+        <argsstring></argsstring>
+        <name>@1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="167" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for holding the VSIF. </para>    </briefdescription>
+    <detaileddescription>
+<para>Format indicates the used union member. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="18">
+        <label>XV_HdmiTx_VSIF</label>
+        <link refid="struct_x_v___hdmi_tx___v_s_i_f"/>
+        <childnode refid="19" relation="usage">
+          <edgelabel>Info_3D</edgelabel>
+        </childnode>
+      </node>
+      <node id="19">
+        <label>XV_HdmiTx_3D_Info</label>
+        <link refid="struct_x_v___hdmi_tx__3_d___info"/>
+        <childnode refid="20" relation="usage">
+          <edgelabel>MetaData</edgelabel>
+        </childnode>
+      </node>
+      <node id="20">
+        <label>XV_HdmiTx_3D_MetaData</label>
+        <link refid="struct_x_v___hdmi_tx__3_d___meta_data"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="159" bodyend="168"/>
+    <listofallmembers>
+      <member refid="struct_x_v___hdmi_tx___v_s_i_f_1ad8f0aaebac0733ccaa92508c56bc9709" prot="public" virt="non-virtual"><scope>XV_HdmiTx_VSIF</scope><name>Format</name></member>
+      <member refid="struct_x_v___hdmi_tx___v_s_i_f_1a58210e7255b55f60f1869c7291d7ded3" prot="public" virt="non-virtual"><scope>XV_HdmiTx_VSIF</scope><name>HDMI_VIC</name></member>
+      <member refid="struct_x_v___hdmi_tx___v_s_i_f_1a51e807c70d465e68d5310d1659aa1889" prot="public" virt="non-virtual"><scope>XV_HdmiTx_VSIF</scope><name>IEEE_ID</name></member>
+      <member refid="struct_x_v___hdmi_tx___v_s_i_f_1adec00d19cd21179119f61ebc3ec2b838" prot="public" virt="non-virtual"><scope>XV_HdmiTx_VSIF</scope><name>Info_3D</name></member>
+      <member refid="struct_x_v___hdmi_tx___v_s_i_f_1a68b83ba490350bfc2d82c42829cd1e40" prot="public" virt="non-virtual"><scope>XV_HdmiTx_VSIF</scope><name>Version</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,405 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_axi_ethernet___config" kind="struct" prot="public">
+    <compoundname>XAxiEthernet_Config</compoundname>
+    <includes local="no">xaxiethernet.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_axi_ethernet___config_1af1c8638656aa5028d64305c564856171" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XAxiEthernet_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Unique name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" line="752" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" bodystart="752" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1ga1f7e70f7c050349e7c4b97188be840c6" compoundref="xaxiethernet__sinit_8c" startline="81" endline="97">XAxiEthernet_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_ethernet___config_1ae3fc04787ba28bb14e6c2add45c0c086" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XAxiEthernet_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para><verbatim>BaseAddress is the physical base address of the
+</verbatim> device&apos;s registers </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" line="754" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" bodystart="754" bodyend="-1"/>
+        <referencedby refid="xaxiethernet__example__extvlan_8c_1a97dd8c907eb44a5d7d481df61e247791" compoundref="xaxiethernet__example__extvlan_8c" startline="372" endline="618">AxiEthernetExtVlanExample</referencedby>
+        <referencedby refid="xaxiethernet__example__intr__fifo_8c_1a923664144dedf0befc9ec707f6445aa4" compoundref="xaxiethernet__example__intr__fifo_8c" startline="339" endline="550">AxiEthernetFifoIntrExample</referencedby>
+        <referencedby refid="xaxiethernet__example__extmulticast_8c_1a674e785752650e65f7de492a957d984d" compoundref="xaxiethernet__example__extmulticast_8c" startline="384" endline="627">AxiEthernetMcastExample</referencedby>
+        <referencedby refid="xaxiethernet__mcdma__ping__req__example_8c_1a5017e10d4d704444dfd281bd39741b9b" compoundref="xaxiethernet__mcdma__ping__req__example_8c" startline="424" endline="626">AxiEthernetPingReqExample</referencedby>
+        <referencedby refid="xaxiethernet__example__polled_8c_1a827aa292a20f9a15e68bfe60e82cfc13" compoundref="xaxiethernet__example__polled_8c" startline="174" endline="283">AxiEthernetPolledExample</referencedby>
+        <referencedby refid="xaxiethernet__example__intr__mcdma_8c_1a13518944182994cba8511c654fff7e52" compoundref="xaxiethernet__example__intr__mcdma_8c" startline="394" endline="607">AxiEthernetSgDmaIntrExample</referencedby>
+        <referencedby refid="xaxiethernet__example__mcdma__poll_8c_1af23ca5b1a1cae5f593a8e28d41ad91c0" compoundref="xaxiethernet__example__mcdma__poll_8c" startline="305" endline="514">AxiEthernetSgDmaPollExample</referencedby>
+        <referencedby refid="xavb__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xavb__example_8c" startline="157" endline="283">main</referencedby>
+        <referencedby refid="group__axiethernet_1gac6e848552b34aa85f6801ab269521cf3" compoundref="xaxiethernet__control_8c" startline="1420" endline="1478">XAxiEthernet_AddExtMulticastGroup</referencedby>
+        <referencedby refid="group__axiethernet_1gabe257efe600df43d8148c772ea3878f9" compoundref="xaxiethernet_8c" startline="87" endline="122">XAxiEthernet_CfgInitialize</referencedby>
+        <referencedby refid="group__axiethernet_1gaab45f6c7a4440bc3f58d4ff971e6be7b" compoundref="xaxiethernet_8c" startline="1543" endline="1552">XAxiEthernet_ClearBadFrmRcvOption</referencedby>
+        <referencedby refid="group__axiethernet_1gab4a3a1fdf74706efe50812be6ec78839" compoundref="xaxiethernet__control_8c" startline="1523" endline="1576">XAxiEthernet_ClearExtMulticastGroup</referencedby>
+        <referencedby refid="group__axiethernet_1gad3e7253d626c02a96ac35f981ac11ba2" compoundref="xaxiethernet_8c" startline="1080" endline="1322">XAxiEthernet_ClearOptions</referencedby>
+        <referencedby refid="group__axiethernet_1ga338bb9b51764235ed6969faa58503455" compoundref="xaxiethernet__control_8c" startline="709" endline="758">XAxiEthernet_ClearTpid</referencedby>
+        <referencedby refid="group__axiethernet_1ga41049ca22799d42d1279461be627c72e" compoundref="xaxiethernet_8c" startline="1568" endline="1578">XAxiEthernet_DisableControlFrameLenCheck</referencedby>
+        <referencedby refid="group__axiethernet_1ga08b7db7c5a837de18afceb58230351b3" compoundref="xaxiethernet__control_8c" startline="1663" endline="1699">XAxiEthernet_DumpExtMulticastGroup</referencedby>
+        <referencedby refid="group__axiethernet_1ga8b71bcdc8be6ae5d6364c59ea0f53aab" compoundref="xaxiethernet_8c" startline="1598" endline="1608">XAxiEthernet_EnableControlFrameLenCheck</referencedby>
+        <referencedby refid="group__axiethernet_1ga6932bd79a08811085a47ad1357a4ef89" compoundref="xaxiethernet__control_8c" startline="1601" endline="1642">XAxiEthernet_GetExtMulticastGroup</referencedby>
+        <referencedby refid="group__axiethernet_1gaa5b70a456ac18505132f61f596428ab7" compoundref="xaxiethernet_8c" startline="545" endline="585">XAxiEthernet_GetMacAddress</referencedby>
+        <referencedby refid="group__axiethernet_1ga369290833088c56abf0a967f16233266" compoundref="xaxiethernet__control_8c" startline="366" endline="395">XAxiEthernet_GetMacPauseAddress</referencedby>
+        <referencedby refid="group__axiethernet_1ga8e8caa9c4ac753744bd08ebf103877c3" compoundref="xaxiethernet_8c" startline="1363" endline="1390">XAxiEthernet_GetOperatingSpeed</referencedby>
+        <referencedby refid="group__axiethernet_1gade4816d9067e13fbac2ceb66cf32360d" compoundref="xaxiethernet__control_8c" startline="534" endline="600">XAxiEthernet_GetRgmiiStatus</referencedby>
+        <referencedby refid="group__axiethernet_1gab7d57eaf1bb97c34a92cc5e2c8600075" compoundref="xaxiethernet__control_8c" startline="457" endline="505">XAxiEthernet_GetSgmiiStatus</referencedby>
+        <referencedby refid="group__axiethernet_1ga498bdb032a67313102ac7dee10ae8e7e" compoundref="xaxiethernet__control_8c" startline="776" endline="800">XAxiEthernet_GetTpid</referencedby>
+        <referencedby refid="group__axiethernet_1gab13721145a4632d987bd858483c00011" compoundref="xaxiethernet__control_8c" startline="1342" endline="1374">XAxiEthernet_GetVidTable</referencedby>
+        <referencedby refid="group__axiethernet_1gafb2a0cbe2263410d25caa0e87428a6d7" compoundref="xaxiethernet__control_8c" startline="1052" endline="1077">XAxiEthernet_GetVStripMode</referencedby>
+        <referencedby refid="group__axiethernet_1ga9d375eb39bb3a8f724123aa9a9585e47" compoundref="xaxiethernet__control_8c" startline="914" endline="939">XAxiEthernet_GetVTagMode</referencedby>
+        <referencedby refid="group__axiethernet_1ga00d242e51aeec92bf07528bbf58709ea" compoundref="xaxiethernet__control_8c" startline="1195" endline="1218">XAxiEthernet_GetVTagValue</referencedby>
+        <referencedby refid="group__axiethernet_1ga2eb402aae216f2c43777251397d96cae" compoundref="xaxiethernet_8c" startline="153" endline="180">XAxiEthernet_Initialize</referencedby>
+        <referencedby refid="group__axiethernet_1gac186de218bc1df3afe9e1c91c6b749b6" compoundref="xaxiethernet__control_8c" startline="95" endline="146">XAxiEthernet_MulticastAdd</referencedby>
+        <referencedby refid="group__axiethernet_1ga1db86bd14ba6b769f6fdf34c0e277c10" compoundref="xaxiethernet__control_8c" startline="245" endline="283">XAxiEthernet_MulticastClear</referencedby>
+        <referencedby refid="group__axiethernet_1gac95ba7bcd0c537eec1787f5ea49488df" compoundref="xaxiethernet__control_8c" startline="176" endline="214">XAxiEthernet_MulticastGet</referencedby>
+        <referencedby refid="group__axiethernet_1ga2b33bc77237bf039c02d4619a811aed6" compoundref="xaxiethernet_8c" startline="1639" endline="1651">XAxiEthernet_PhySetMdioDivisor</referencedby>
+        <referencedby refid="group__axiethernet_1ga091a291d11f394e3eaf0b79195666d9f" compoundref="xaxiethernet_8c" startline="338" endline="375">XAxiEthernet_Reset</referencedby>
+        <referencedby refid="group__axiethernet_1gae513f052386deaf8c5994b768f9647ce" compoundref="xaxiethernet__control_8c" startline="414" endline="436">XAxiEthernet_SendPausePacket</referencedby>
+        <referencedby refid="group__axiethernet_1ga3db57c4a261afc854985297afed2373b" compoundref="xaxiethernet_8c" startline="1519" endline="1528">XAxiEthernet_SetBadFrmRcvOption</referencedby>
+        <referencedby refid="group__axiethernet_1gab2298b2b1af89cf0f0a78d4fda03ed7f" compoundref="xaxiethernet_8c" startline="458" endline="522">XAxiEthernet_SetMacAddress</referencedby>
+        <referencedby refid="group__axiethernet_1ga99c4e06d4db500ab7bf6bc20853330e2" compoundref="xaxiethernet__control_8c" startline="305" endline="347">XAxiEthernet_SetMacPauseAddress</referencedby>
+        <referencedby refid="group__axiethernet_1gab2d0106f26a1a2e1f2b902dc0a2822c9" compoundref="xaxiethernet_8c" startline="1412" endline="1503">XAxiEthernet_SetOperatingSpeed</referencedby>
+        <referencedby refid="group__axiethernet_1gae3265620b9d9b86643abe5ff5e2b7d79" compoundref="xaxiethernet_8c" startline="793" endline="1059">XAxiEthernet_SetOptions</referencedby>
+        <referencedby refid="group__axiethernet_1ga2d692528035485610c1bbf6e3fbb4a84" compoundref="xaxiethernet__control_8c" startline="627" endline="687">XAxiEthernet_SetTpid</referencedby>
+        <referencedby refid="group__axiethernet_1ga4f860a127fcc5756c2dc62337eb1b934" compoundref="xaxiethernet__control_8c" startline="1258" endline="1304">XAxiEthernet_SetVidTable</referencedby>
+        <referencedby refid="group__axiethernet_1ga95198cfb6e93a13c115c7c6610a68ded" compoundref="xaxiethernet__control_8c" startline="977" endline="1029">XAxiEthernet_SetVStripMode</referencedby>
+        <referencedby refid="group__axiethernet_1ga44f51417734b0ca355da2e87a67aa0a3" compoundref="xaxiethernet__control_8c" startline="840" endline="893">XAxiEthernet_SetVTagMode</referencedby>
+        <referencedby refid="group__axiethernet_1ga43d59456dc8e08f671745c70e48e9a59" compoundref="xaxiethernet__control_8c" startline="1118" endline="1166">XAxiEthernet_SetVTagValue</referencedby>
+        <referencedby refid="group__axiethernet_1ga2cfa48d42e55238f6f30aff6d658e4fe" compoundref="xaxiethernet_8c" startline="196" endline="246">XAxiEthernet_Start</referencedby>
+        <referencedby refid="group__axiethernet_1ga4e952a55f342f176ba9ec2b49e2e47cb" compoundref="xaxiethernet_8c" startline="267" endline="314">XAxiEthernet_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_ethernet___config_1a2139dd5ce6832f0ae9211dd5fa759178" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiEthernet_Config::TxCsum</definition>
+        <argsstring></argsstring>
+        <name>TxCsum</name>
+        <briefdescription>
+<para>TxCsum indicates that the device has checksum offload on the Tx channel or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" line="763" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" bodystart="763" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_ethernet___config_1add9dfe4169f1812e6a442507d33d8ad6" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiEthernet_Config::RxCsum</definition>
+        <argsstring></argsstring>
+        <name>RxCsum</name>
+        <briefdescription>
+<para>RxCsum indicates that the device has checksum offload on the Rx channel or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" line="766" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" bodystart="766" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_ethernet___config_1a4bdea9e6a0baf7ceb43b25b13a5f9c2f" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XAxiEthernet_Config::PhyType</definition>
+        <argsstring></argsstring>
+        <name>PhyType</name>
+        <briefdescription>
+<para>PhyType indicates which type of PHY interface is used (MII, GMII, RGMII, etc. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" line="774" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" bodystart="774" bodyend="-1"/>
+        <referencedby refid="group__axiethernet_1gabe257efe600df43d8148c772ea3878f9" compoundref="xaxiethernet_8c" startline="87" endline="122">XAxiEthernet_CfgInitialize</referencedby>
+        <referencedby refid="group__axiethernet_1ga49152815615aff9b24094b35820e0d02" compoundref="xaxiethernet_8c" startline="1854" endline="1873">XAxiEthernet_Get_Phy_Interface</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_ethernet___config_1a938f96ffecf9cbdb5cce6991fb120db4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiEthernet_Config::TxVlanTran</definition>
+        <argsstring></argsstring>
+        <name>TxVlanTran</name>
+        <briefdescription>
+<para>TX VLAN Translation indication. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" line="778" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" bodystart="778" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_ethernet___config_1a7acfb6bb40497766e396671f39e3624c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiEthernet_Config::RxVlanTran</definition>
+        <argsstring></argsstring>
+        <name>RxVlanTran</name>
+        <briefdescription>
+<para>RX VLAN Translation indication. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" line="779" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" bodystart="779" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_ethernet___config_1a4458731e2bc3fcbf5d88199971bf8330" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiEthernet_Config::TxVlanTag</definition>
+        <argsstring></argsstring>
+        <name>TxVlanTag</name>
+        <briefdescription>
+<para>TX VLAN tagging indication. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" line="780" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" bodystart="780" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_ethernet___config_1a337886aa86b2bb17992b4679f1f346c8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiEthernet_Config::RxVlanTag</definition>
+        <argsstring></argsstring>
+        <name>RxVlanTag</name>
+        <briefdescription>
+<para>RX VLAN tagging indication. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" line="781" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" bodystart="781" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_ethernet___config_1a3d9add2497a3896d1b4b53beb46bea30" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiEthernet_Config::TxVlanStrp</definition>
+        <argsstring></argsstring>
+        <name>TxVlanStrp</name>
+        <briefdescription>
+<para>TX VLAN stripping indication. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" line="782" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" bodystart="782" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_ethernet___config_1a4e2b86637eb13ac65e7cbc42e6d5ad1a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiEthernet_Config::RxVlanStrp</definition>
+        <argsstring></argsstring>
+        <name>RxVlanStrp</name>
+        <briefdescription>
+<para>RX VLAN stripping indication. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" line="783" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" bodystart="783" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_ethernet___config_1af57dac13f3ab7814f417d8fbc7863f10" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiEthernet_Config::ExtMcast</definition>
+        <argsstring></argsstring>
+        <name>ExtMcast</name>
+        <briefdescription>
+<para>Extend multicast indication. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" line="784" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" bodystart="784" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_ethernet___config_1aedf2130b6fe42d536313f334de21256a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiEthernet_Config::Stats</definition>
+        <argsstring></argsstring>
+        <name>Stats</name>
+        <briefdescription>
+<para>Statistics gathering option. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" line="785" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" bodystart="785" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_ethernet___config_1a7413799b4caffd89c43aba985e5e79f9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiEthernet_Config::Avb</definition>
+        <argsstring></argsstring>
+        <name>Avb</name>
+        <briefdescription>
+<para>Avb option. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" line="786" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" bodystart="786" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_ethernet___config_1a4fabde2681b16e5d8b314d4d3eb8b496" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiEthernet_Config::EnableSgmiiOverLvds</definition>
+        <argsstring></argsstring>
+        <name>EnableSgmiiOverLvds</name>
+        <briefdescription>
+<para>Enable LVDS option. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" line="787" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" bodystart="787" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_ethernet___config_1a2f7746d5503d4aa101cc463706466b3d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiEthernet_Config::Enable_1588</definition>
+        <argsstring></argsstring>
+        <name>Enable_1588</name>
+        <briefdescription>
+<para>Enable 1588 option. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" line="788" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" bodystart="788" bodyend="-1"/>
+        <referencedby refid="xaxiethernet__mcdma__ping__req__example_8c_1a5017e10d4d704444dfd281bd39741b9b" compoundref="xaxiethernet__mcdma__ping__req__example_8c" startline="424" endline="626">AxiEthernetPingReqExample</referencedby>
+        <referencedby refid="xaxiethernet__example__intr__mcdma_8c_1a13518944182994cba8511c654fff7e52" compoundref="xaxiethernet__example__intr__mcdma_8c" startline="394" endline="607">AxiEthernetSgDmaIntrExample</referencedby>
+        <referencedby refid="xaxiethernet__example__mcdma__poll_8c_1af23ca5b1a1cae5f593a8e28d41ad91c0" compoundref="xaxiethernet__example__mcdma__poll_8c" startline="305" endline="514">AxiEthernetSgDmaPollExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_ethernet___config_1ab32e0ce8a1d825dbee5e949522a134bf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAxiEthernet_Config::Speed</definition>
+        <argsstring></argsstring>
+        <name>Speed</name>
+        <briefdescription>
+<para>Tells whether MAC is 1G or 2p5G. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" line="789" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" bodystart="789" bodyend="-1"/>
+        <referencedby refid="xaxiethernet__example__intr__mcdma_8c_1a13518944182994cba8511c654fff7e52" compoundref="xaxiethernet__example__intr__mcdma_8c" startline="394" endline="607">AxiEthernetSgDmaIntrExample</referencedby>
+        <referencedby refid="xaxiethernet__example__mcdma__poll_8c_1af23ca5b1a1cae5f593a8e28d41ad91c0" compoundref="xaxiethernet__example__mcdma__poll_8c" startline="305" endline="514">AxiEthernetSgDmaPollExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_ethernet___config_1ac92d87d83045959a56323259f3faa5a8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiEthernet_Config::NumTableEntries</definition>
+        <argsstring></argsstring>
+        <name>NumTableEntries</name>
+        <briefdescription>
+<para>Number of table entries. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" line="790" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" bodystart="790" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_ethernet___config_1ad756db944fd9a1f09d4248296c067b77" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAxiEthernet_Config::PhyAddr</definition>
+        <argsstring></argsstring>
+        <name>PhyAddr</name>
+        <briefdescription>
+<para>PHY address for MDIO register access. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" line="792" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" bodystart="792" bodyend="-1"/>
+        <referencedby refid="xaxiethernet__mcdma__ping__req__example_8c_1a5017e10d4d704444dfd281bd39741b9b" compoundref="xaxiethernet__mcdma__ping__req__example_8c" startline="424" endline="626">AxiEthernetPingReqExample</referencedby>
+        <referencedby refid="xaxiethernet__example__util_8c_1a3fa74e53e08b376fca070fd5613687ae" compoundref="xaxiethernet__example__util_8c" startline="788" endline="831">AxiEthernetUtilConfigureInternalPhy</referencedby>
+        <referencedby refid="xaxiethernet__example__util_8c_1ac864e2449120d62d81370b033fc89c42" compoundref="xaxiethernet__example__util_8c" startline="550" endline="699">AxiEthernetUtilEnterLoopback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_ethernet___config_1a3a8b2bbf622365dc6f171f3a0971de0f" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAxiEthernet_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" line="793" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" bodystart="793" bodyend="-1"/>
+        <referencedby refid="xaxiethernet__example__extvlan_8c_1a97dd8c907eb44a5d7d481df61e247791" compoundref="xaxiethernet__example__extvlan_8c" startline="372" endline="618">AxiEthernetExtVlanExample</referencedby>
+        <referencedby refid="xaxiethernet__example__intr__fifo_8c_1a923664144dedf0befc9ec707f6445aa4" compoundref="xaxiethernet__example__intr__fifo_8c" startline="339" endline="550">AxiEthernetFifoIntrExample</referencedby>
+        <referencedby refid="xaxiethernet__example__extmulticast_8c_1a674e785752650e65f7de492a957d984d" compoundref="xaxiethernet__example__extmulticast_8c" startline="384" endline="627">AxiEthernetMcastExample</referencedby>
+        <referencedby refid="xaxiethernet__example__intr__mcdma_8c_1a13518944182994cba8511c654fff7e52" compoundref="xaxiethernet__example__intr__mcdma_8c" startline="394" endline="607">AxiEthernetSgDmaIntrExample</referencedby>
+        <referencedby refid="group__axiethernet_1gabe257efe600df43d8148c772ea3878f9" compoundref="xaxiethernet_8c" startline="87" endline="122">XAxiEthernet_CfgInitialize</referencedby>
+        <referencedby refid="group__axiethernet_1ga2eb402aae216f2c43777251397d96cae" compoundref="xaxiethernet_8c" startline="153" endline="180">XAxiEthernet_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_ethernet___config_1a6f8799da535d973f849bbe19f480d18e" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XAxiEthernet_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" line="794" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" bodystart="794" bodyend="-1"/>
+        <referencedby refid="xaxiethernet__example__extvlan_8c_1a97dd8c907eb44a5d7d481df61e247791" compoundref="xaxiethernet__example__extvlan_8c" startline="372" endline="618">AxiEthernetExtVlanExample</referencedby>
+        <referencedby refid="xaxiethernet__example__intr__fifo_8c_1a923664144dedf0befc9ec707f6445aa4" compoundref="xaxiethernet__example__intr__fifo_8c" startline="339" endline="550">AxiEthernetFifoIntrExample</referencedby>
+        <referencedby refid="xaxiethernet__example__extmulticast_8c_1a674e785752650e65f7de492a957d984d" compoundref="xaxiethernet__example__extmulticast_8c" startline="384" endline="627">AxiEthernetMcastExample</referencedby>
+        <referencedby refid="xaxiethernet__example__intr__mcdma_8c_1a13518944182994cba8511c654fff7e52" compoundref="xaxiethernet__example__intr__mcdma_8c" startline="394" endline="607">AxiEthernetSgDmaIntrExample</referencedby>
+        <referencedby refid="group__axiethernet_1gabe257efe600df43d8148c772ea3878f9" compoundref="xaxiethernet_8c" startline="87" endline="122">XAxiEthernet_CfgInitialize</referencedby>
+        <referencedby refid="group__axiethernet_1ga2eb402aae216f2c43777251397d96cae" compoundref="xaxiethernet_8c" startline="153" endline="180">XAxiEthernet_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_ethernet___config_1a34b00c1ae0534cb0e956feb2a834e820" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XAxiEthernet_Config::AxiDevBaseAddress</definition>
+        <argsstring></argsstring>
+        <name>AxiDevBaseAddress</name>
+        <briefdescription>
+<para><verbatim> Bit[3:0] AxiDevType is the type of device attached to the
+</verbatim> Axi Ethernet&apos;s AXI4-Stream interface Bit[64/32:4] AxiDevBaseAddress is the base address of the device attached to the Axi Ethernet&apos;s AXI4-Stream interface. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" line="795" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" bodystart="795" bodyend="-1"/>
+        <referencedby refid="xaxiethernet__example__extvlan_8c_1a97dd8c907eb44a5d7d481df61e247791" compoundref="xaxiethernet__example__extvlan_8c" startline="372" endline="618">AxiEthernetExtVlanExample</referencedby>
+        <referencedby refid="xaxiethernet__example__intr__fifo_8c_1a923664144dedf0befc9ec707f6445aa4" compoundref="xaxiethernet__example__intr__fifo_8c" startline="339" endline="550">AxiEthernetFifoIntrExample</referencedby>
+        <referencedby refid="xaxiethernet__example__extmulticast_8c_1a674e785752650e65f7de492a957d984d" compoundref="xaxiethernet__example__extmulticast_8c" startline="384" endline="627">AxiEthernetMcastExample</referencedby>
+        <referencedby refid="xaxiethernet__mcdma__ping__req__example_8c_1a5017e10d4d704444dfd281bd39741b9b" compoundref="xaxiethernet__mcdma__ping__req__example_8c" startline="424" endline="626">AxiEthernetPingReqExample</referencedby>
+        <referencedby refid="xaxiethernet__example__polled_8c_1a827aa292a20f9a15e68bfe60e82cfc13" compoundref="xaxiethernet__example__polled_8c" startline="174" endline="283">AxiEthernetPolledExample</referencedby>
+        <referencedby refid="xaxiethernet__example__intr__mcdma_8c_1a13518944182994cba8511c654fff7e52" compoundref="xaxiethernet__example__intr__mcdma_8c" startline="394" endline="607">AxiEthernetSgDmaIntrExample</referencedby>
+        <referencedby refid="xaxiethernet__example__mcdma__poll_8c_1af23ca5b1a1cae5f593a8e28d41ad91c0" compoundref="xaxiethernet__example__mcdma__poll_8c" startline="305" endline="514">AxiEthernetSgDmaPollExample</referencedby>
+        <referencedby refid="group__axiethernet_1gabe257efe600df43d8148c772ea3878f9" compoundref="xaxiethernet_8c" startline="87" endline="122">XAxiEthernet_CfgInitialize</referencedby>
+        <referencedby refid="group__axiethernet_1ga2eb402aae216f2c43777251397d96cae" compoundref="xaxiethernet_8c" startline="153" endline="180">XAxiEthernet_Initialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for a Axi Ethernet device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" line="748" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/src/xaxiethernet.h" bodystart="748" bodyend="818"/>
+    <listofallmembers>
+      <member refid="struct_x_axi_ethernet___config_1a7413799b4caffd89c43aba985e5e79f9" prot="public" virt="non-virtual"><scope>XAxiEthernet_Config</scope><name>Avb</name></member>
+      <member refid="struct_x_axi_ethernet___config_1a34b00c1ae0534cb0e956feb2a834e820" prot="public" virt="non-virtual"><scope>XAxiEthernet_Config</scope><name>AxiDevBaseAddress</name></member>
+      <member refid="struct_x_axi_ethernet___config_1ae3fc04787ba28bb14e6c2add45c0c086" prot="public" virt="non-virtual"><scope>XAxiEthernet_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_axi_ethernet___config_1a2f7746d5503d4aa101cc463706466b3d" prot="public" virt="non-virtual"><scope>XAxiEthernet_Config</scope><name>Enable_1588</name></member>
+      <member refid="struct_x_axi_ethernet___config_1a4fabde2681b16e5d8b314d4d3eb8b496" prot="public" virt="non-virtual"><scope>XAxiEthernet_Config</scope><name>EnableSgmiiOverLvds</name></member>
+      <member refid="struct_x_axi_ethernet___config_1af57dac13f3ab7814f417d8fbc7863f10" prot="public" virt="non-virtual"><scope>XAxiEthernet_Config</scope><name>ExtMcast</name></member>
+      <member refid="struct_x_axi_ethernet___config_1a3a8b2bbf622365dc6f171f3a0971de0f" prot="public" virt="non-virtual"><scope>XAxiEthernet_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_axi_ethernet___config_1a6f8799da535d973f849bbe19f480d18e" prot="public" virt="non-virtual"><scope>XAxiEthernet_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_axi_ethernet___config_1af1c8638656aa5028d64305c564856171" prot="public" virt="non-virtual"><scope>XAxiEthernet_Config</scope><name>Name</name></member>
+      <member refid="struct_x_axi_ethernet___config_1ac92d87d83045959a56323259f3faa5a8" prot="public" virt="non-virtual"><scope>XAxiEthernet_Config</scope><name>NumTableEntries</name></member>
+      <member refid="struct_x_axi_ethernet___config_1ad756db944fd9a1f09d4248296c067b77" prot="public" virt="non-virtual"><scope>XAxiEthernet_Config</scope><name>PhyAddr</name></member>
+      <member refid="struct_x_axi_ethernet___config_1a4bdea9e6a0baf7ceb43b25b13a5f9c2f" prot="public" virt="non-virtual"><scope>XAxiEthernet_Config</scope><name>PhyType</name></member>
+      <member refid="struct_x_axi_ethernet___config_1add9dfe4169f1812e6a442507d33d8ad6" prot="public" virt="non-virtual"><scope>XAxiEthernet_Config</scope><name>RxCsum</name></member>
+      <member refid="struct_x_axi_ethernet___config_1a4e2b86637eb13ac65e7cbc42e6d5ad1a" prot="public" virt="non-virtual"><scope>XAxiEthernet_Config</scope><name>RxVlanStrp</name></member>
+      <member refid="struct_x_axi_ethernet___config_1a337886aa86b2bb17992b4679f1f346c8" prot="public" virt="non-virtual"><scope>XAxiEthernet_Config</scope><name>RxVlanTag</name></member>
+      <member refid="struct_x_axi_ethernet___config_1a7acfb6bb40497766e396671f39e3624c" prot="public" virt="non-virtual"><scope>XAxiEthernet_Config</scope><name>RxVlanTran</name></member>
+      <member refid="struct_x_axi_ethernet___config_1ab32e0ce8a1d825dbee5e949522a134bf" prot="public" virt="non-virtual"><scope>XAxiEthernet_Config</scope><name>Speed</name></member>
+      <member refid="struct_x_axi_ethernet___config_1aedf2130b6fe42d536313f334de21256a" prot="public" virt="non-virtual"><scope>XAxiEthernet_Config</scope><name>Stats</name></member>
+      <member refid="struct_x_axi_ethernet___config_1a2139dd5ce6832f0ae9211dd5fa759178" prot="public" virt="non-virtual"><scope>XAxiEthernet_Config</scope><name>TxCsum</name></member>
+      <member refid="struct_x_axi_ethernet___config_1a3d9add2497a3896d1b4b53beb46bea30" prot="public" virt="non-virtual"><scope>XAxiEthernet_Config</scope><name>TxVlanStrp</name></member>
+      <member refid="struct_x_axi_ethernet___config_1a4458731e2bc3fcbf5d88199971bf8330" prot="public" virt="non-virtual"><scope>XAxiEthernet_Config</scope><name>TxVlanTag</name></member>
+      <member refid="struct_x_axi_ethernet___config_1a938f96ffecf9cbdb5cce6991fb120db4" prot="public" virt="non-virtual"><scope>XAxiEthernet_Config</scope><name>TxVlanTran</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

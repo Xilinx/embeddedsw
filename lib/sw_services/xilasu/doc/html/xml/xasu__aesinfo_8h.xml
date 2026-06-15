@@ -1,0 +1,890 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__aesinfo_8h" kind="file">
+    <compoundname>xasu_aesinfo.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xasu_bsp_config.h</includes>
+    <includedby refid="xasu__aes_8h" local="yes">xasu_aes.h</includedby>
+    <includedby refid="xasu__kdf_8c" local="yes">xasu_kdf.c</includedby>
+    <includedby refid="xasu__keymanager_8c" local="yes">xasu_keymanager.c</includedby>
+    <includedby refid="xasu__aes__common_8h" local="yes">xasu_aes_common.h</includedby>
+    <includedby refid="xasu__ecies__common_8c" local="yes">xasu_ecies_common.c</includedby>
+    <includedby refid="xasu__keymanagerinfo_8h" local="yes">xasu_keymanagerinfo.h</includedby>
+    <includedby refid="xasu__keymanager__common_8c" local="yes">xasu_keymanager_common.c</includedby>
+    <includedby refid="xasu__keywrap__common_8c" local="yes">xasu_keywrap_common.c</includedby>
+    <includedby refid="xasu__ecies__example_8c" local="yes">xasu_ecies_example.c</includedby>
+    <includedby refid="xasu__keywrap__example_8c" local="yes">xasu_keywrap_example.c</includedby>
+    <incdepgraph>
+      <node id="83">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="82">
+        <label>xil_types.h</label>
+      </node>
+      <node id="81">
+        <label>xasu_aesinfo.h</label>
+        <link refid="xasu_aesinfo.h"/>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="99">
+        <label>xasu_hmac.c</label>
+        <link refid="xasu__hmac_8c"/>
+      </node>
+      <node id="101">
+        <label>xasu_keymanager_common.c</label>
+        <link refid="xasu__keymanager__common_8c"/>
+      </node>
+      <node id="97">
+        <label>xasu_keymanager_common.h</label>
+        <link refid="xasu__keymanager__common_8h"/>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+      </node>
+      <node id="93">
+        <label>xasu_keywrap_common.c</label>
+        <link refid="xasu__keywrap__common_8c"/>
+      </node>
+      <node id="104">
+        <label>xasu_ecies_example.c</label>
+        <link refid="xasu__ecies__example_8c"/>
+      </node>
+      <node id="88">
+        <label>xasu_multi_crypto_example.c</label>
+        <link refid="xasu__multi__crypto__example_8c"/>
+      </node>
+      <node id="98">
+        <label>xasu_ecc.c</label>
+        <link refid="xasu__ecc_8c"/>
+      </node>
+      <node id="89">
+        <label>xasu_kdf.c</label>
+        <link refid="xasu__kdf_8c"/>
+      </node>
+      <node id="103">
+        <label>xasu_rsa_common.c</label>
+        <link refid="xasu__rsa__common_8c"/>
+      </node>
+      <node id="105">
+        <label>xasu_keywrap_example.c</label>
+        <link refid="xasu__keywrap__example_8c"/>
+      </node>
+      <node id="95">
+        <label>xasu_keymanagerinfo.h</label>
+        <link refid="xasu__keymanagerinfo_8h"/>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+      </node>
+      <node id="94">
+        <label>xasu_ecies_common.c</label>
+        <link refid="xasu__ecies__common_8c"/>
+      </node>
+      <node id="86">
+        <label>xasu_aes.c</label>
+        <link refid="xasu__aes_8c"/>
+      </node>
+      <node id="85">
+        <label>xasu_aes.h</label>
+        <link refid="xasu__aes_8h"/>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+      </node>
+      <node id="100">
+        <label>xasu_kdf_common.c</label>
+        <link refid="xasu__kdf__common_8c"/>
+      </node>
+      <node id="92">
+        <label>xasu_aes_common.c</label>
+        <link refid="xasu__aes__common_8c"/>
+      </node>
+      <node id="91">
+        <label>xasu_aes_common.h</label>
+        <link refid="xasu__aes__common_8h"/>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+      </node>
+      <node id="87">
+        <label>xasu_aes_example.c</label>
+        <link refid="xasu__aes__example_8c"/>
+      </node>
+      <node id="90">
+        <label>xasu_keymanager.c</label>
+        <link refid="xasu__keymanager_8c"/>
+      </node>
+      <node id="96">
+        <label>xasu_keymanager.h</label>
+        <link refid="xasu__keymanager_8h"/>
+        <childnode refid="90" relation="include">
+        </childnode>
+      </node>
+      <node id="102">
+        <label>xasu_lms_common.c</label>
+        <link refid="xasu__lms__common_8c"/>
+      </node>
+      <node id="84">
+        <label>xasu_aesinfo.h</label>
+        <link refid="xasu_aesinfo.h"/>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_asu___aes_key_object" prot="public">XAsu_AesKeyObject</innerclass>
+    <innerclass refid="struct_x_asu___aes_iv_object" prot="public">XAsu_AesIvObject</innerclass>
+    <innerclass refid="struct_x_asu___aes_params" prot="public">XAsu_AesParams</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__common__defs_1gaf38a4fd296e3327b4e62b4d8244e1027" prot="public" static="no">
+        <name>XASU_AES_BLOCK_SIZE_IN_BYTES</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>AES block size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="44" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="171" endline="326">XAsu_AesOperation</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga75c74eecf55fdbf5459a465738fdadb5" prot="public" static="no">
+        <name>XASU_AES_EVEN_MODULUS</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Modulus to determine evenness. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="46" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__common__apis_1ga46d86db456797e1245906452022c98eb" compoundref="xasu__aes__common_8c" startline="121" endline="166">XAsu_AesValidateTagParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gab90a2c94f9d172114ca5d100c882f1b8" prot="public" static="no">
+        <name>XASU_AES_IV_SIZE_96BIT_IN_WORDS</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>AES 96bit Iv size in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gafa2b2d6cb3c7f7623dfa65fa60ca7d9c" prot="public" static="no">
+        <name>XASU_AES_IV_SIZE_128BIT_IN_WORDS</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>AES 128bit Iv size in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga2ee13c774f1393949629518f645785b8" prot="public" static="no">
+        <name>XASU_AES_IV_SIZE_96BIT_IN_BYTES</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>AES 96bit Iv size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+        <referencedby refid="group__xasu__aes__common__apis_1gaf650e5321d4f5e9d5e3af59d9690cd15" compoundref="xasu__aes__common_8c" startline="59" endline="105">XAsu_AesValidateIvParams</referencedby>
+        <referencedby refid="group__xasu__ecies__common__apis_1ga91448b30f049e4d7596cff8103bb6d60" compoundref="xasu__ecies__common_8c" startline="61" endline="106">XAsu_ValidateEciesParameters</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga8ddad79fd000463b9b715b9e0f387d2e" prot="public" static="no">
+        <name>XASU_AES_IV_SIZE_128BIT_IN_BYTES</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>AES 128bit Iv size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__common__apis_1gaf650e5321d4f5e9d5e3af59d9690cd15" compoundref="xasu__aes__common_8c" startline="59" endline="105">XAsu_AesValidateIvParams</referencedby>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gafd14cee9cb664e2c541e3bac5c7226ae" compoundref="xasu__keymanager__common_8c" startline="129" endline="178">XAsu_KmValidateKeyLength</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga4d946389d95e2ada05c369869377443d" prot="public" static="no">
+        <name>XASU_AES_KEY_SIZE_128BIT_IN_WORDS</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>AES 128bit key size in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga3bfeab615197a94232816d8948d43f0f" prot="public" static="no">
+        <name>XASU_AES_KEY_SIZE_256BIT_IN_WORDS</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>AES 256bit key size in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gacba8eb852f5f9a4f3353036821898d6d" prot="public" static="no">
+        <name>XASU_AES_KEY_SIZE_128BIT_IN_BYTES</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>AES 128bit key size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="55" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gafd14cee9cb664e2c541e3bac5c7226ae" compoundref="xasu__keymanager__common_8c" startline="129" endline="178">XAsu_KmValidateKeyLength</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga4b958ef7daa82ef0c73b7b1ef657e8af" prot="public" static="no">
+        <name>XASU_AES_KEY_SIZE_256BIT_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>AES 256bit key size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1gafd14cee9cb664e2c541e3bac5c7226ae" compoundref="xasu__keymanager__common_8c" startline="129" endline="178">XAsu_KmValidateKeyLength</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaf02f2441da2bbfbcca832f01458c56ea" prot="public" static="no">
+        <name>XASU_AES_MIN_TAG_LENGTH_IN_BYTES</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>AES minimum tag length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__common__apis_1ga46d86db456797e1245906452022c98eb" compoundref="xasu__aes__common_8c" startline="121" endline="166">XAsu_AesValidateTagParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga3a2c98f32f6ff7605629fdaeea0a3ee8" prot="public" static="no">
+        <name>XASU_AES_RECOMMENDED_TAG_LENGTH_IN_BYTES</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>AES NIST recommended minimum tag length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__common__apis_1ga46d86db456797e1245906452022c98eb" compoundref="xasu__aes__common_8c" startline="121" endline="166">XAsu_AesValidateTagParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga2b23227296edca13de1f3732e04cca19" prot="public" static="no">
+        <name>XASU_AES_MAX_TAG_LENGTH_IN_BYTES</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>AES maximum tag length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+        <referencedby refid="group__xasu__aes__common__apis_1ga46d86db456797e1245906452022c98eb" compoundref="xasu__aes__common_8c" startline="121" endline="166">XAsu_AesValidateTagParams</referencedby>
+        <referencedby refid="group__xasu__ecies__common__apis_1ga91448b30f049e4d7596cff8103bb6d60" compoundref="xasu__ecies__common_8c" startline="61" endline="106">XAsu_ValidateEciesParameters</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga13fe3c3756a86473b09f9809d02e87f4" prot="public" static="no">
+        <name>XASU_AES_CCM_MIN_NONCE_LEN</name>
+        <initializer>(7U)</initializer>
+        <briefdescription>
+<para>AES-CCM minimum nonce length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__common__apis_1gaf650e5321d4f5e9d5e3af59d9690cd15" compoundref="xasu__aes__common_8c" startline="59" endline="105">XAsu_AesValidateIvParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga9c54373e5e7981182e232f50596bb31a" prot="public" static="no">
+        <name>XASU_AES_CCM_MAX_NONCE_LEN</name>
+        <initializer>(13U)</initializer>
+        <briefdescription>
+<para>AES-CCM maximum nonce length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__common__apis_1gaf650e5321d4f5e9d5e3af59d9690cd15" compoundref="xasu__aes__common_8c" startline="59" endline="105">XAsu_AesValidateIvParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga5fbd4af6821ee65fb51764ba461b503e" prot="public" static="no">
+        <name>XASU_AES_OPERATION_CMD_ID</name>
+        <initializer>(0x0U)</initializer>
+        <briefdescription>
+<para>Command ID for AES operation command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="171" endline="326">XAsu_AesOperation</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga252acc78bddcaa54067e17202d352548" prot="public" static="no">
+        <name>XASU_AES_KAT_CMD_ID</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+<para>Command ID for AES KAT command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__client__apis_1ga449363099fd772acb0c5d4202b25de18" compoundref="xasu__aes_8c" startline="346" endline="383">XAsu_AesKat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga793696a4c47e835f4f02d5cc5aec9d04" prot="public" static="no">
+        <name>XASU_AES_MAX_CMDS</name>
+        <initializer>(0x2U)</initializer>
+        <briefdescription>
+<para>Maximum number of commands supported by AES module. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga7071dad46885918f563b8586e03d0a53" prot="public" static="no">
+        <name>XASU_AES_CBC_MODE</name>
+        <initializer>(0x0U)</initializer>
+        <briefdescription>
+<para>AES CBC mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__client__apis_1ga18d11894515d10aa97c66e43cd574135" compoundref="xasu__aes_8c" startline="818" endline="839">XAsu_AesCbcDecryptKat</referencedby>
+        <referencedby refid="group__xasu__aes__client__apis_1ga58a8151d2c05dea7e89012d8ebefc26a" compoundref="xasu__aes_8c" startline="786" endline="807">XAsu_AesCbcEncryptKat</referencedby>
+        <referencedby refid="group__xasu__aes__common__apis_1gaf650e5321d4f5e9d5e3af59d9690cd15" compoundref="xasu__aes__common_8c" startline="59" endline="105">XAsu_AesValidateIvParams</referencedby>
+        <referencedby refid="group__xasu__aes__common__apis_1ga46d86db456797e1245906452022c98eb" compoundref="xasu__aes__common_8c" startline="121" endline="166">XAsu_AesValidateTagParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga7627df9f2610f9793e186d2a63de5566" prot="public" static="no">
+        <name>XASU_AES_CFB_MODE</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+<para>AES CFB mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__common__apis_1gaf650e5321d4f5e9d5e3af59d9690cd15" compoundref="xasu__aes__common_8c" startline="59" endline="105">XAsu_AesValidateIvParams</referencedby>
+        <referencedby refid="group__xasu__aes__common__apis_1ga46d86db456797e1245906452022c98eb" compoundref="xasu__aes__common_8c" startline="121" endline="166">XAsu_AesValidateTagParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga14f7e91db0d7babd5ab30699376c5565" prot="public" static="no">
+        <name>XASU_AES_OFB_MODE</name>
+        <initializer>(0x2U)</initializer>
+        <briefdescription>
+<para>AES OFB mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__common__apis_1gaf650e5321d4f5e9d5e3af59d9690cd15" compoundref="xasu__aes__common_8c" startline="59" endline="105">XAsu_AesValidateIvParams</referencedby>
+        <referencedby refid="group__xasu__aes__common__apis_1ga46d86db456797e1245906452022c98eb" compoundref="xasu__aes__common_8c" startline="121" endline="166">XAsu_AesValidateTagParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga08289d4f73f990ee87b9afb70d4aae0a" prot="public" static="no">
+        <name>XASU_AES_CTR_MODE</name>
+        <initializer>(0x3U)</initializer>
+        <briefdescription>
+<para>AES CTR mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__common__apis_1gaf650e5321d4f5e9d5e3af59d9690cd15" compoundref="xasu__aes__common_8c" startline="59" endline="105">XAsu_AesValidateIvParams</referencedby>
+        <referencedby refid="group__xasu__aes__common__apis_1ga46d86db456797e1245906452022c98eb" compoundref="xasu__aes__common_8c" startline="121" endline="166">XAsu_AesValidateTagParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaa368e66adb87155ac40aaae3ea1a3747" prot="public" static="no">
+        <name>XASU_AES_ECB_MODE</name>
+        <initializer>(0x4U)</initializer>
+        <briefdescription>
+<para>AES ECB mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__client__apis_1ga449363099fd772acb0c5d4202b25de18" compoundref="xasu__aes_8c" startline="346" endline="383">XAsu_AesKat</referencedby>
+        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="171" endline="326">XAsu_AesOperation</referencedby>
+        <referencedby refid="group__xasu__aes__common__apis_1gaf650e5321d4f5e9d5e3af59d9690cd15" compoundref="xasu__aes__common_8c" startline="59" endline="105">XAsu_AesValidateIvParams</referencedby>
+        <referencedby refid="group__xasu__aes__common__apis_1ga46d86db456797e1245906452022c98eb" compoundref="xasu__aes__common_8c" startline="121" endline="166">XAsu_AesValidateTagParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga30d8f9306c9e8a365a92247259db30db" prot="public" static="no">
+        <name>XASU_AES_CCM_MODE</name>
+        <initializer>(0x5U)</initializer>
+        <briefdescription>
+<para>AES CCM mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__client__apis_1gafaf7949b508b6f14370895f79062131c" compoundref="xasu__aes_8c" startline="882" endline="903">XAsu_AesCcmDecryptKat</referencedby>
+        <referencedby refid="group__xasu__aes__client__apis_1ga34d29a0155ea2eef83914be88065d4d8" compoundref="xasu__aes_8c" startline="850" endline="871">XAsu_AesCcmEncryptKat</referencedby>
+        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="171" endline="326">XAsu_AesOperation</referencedby>
+        <referencedby refid="group__xasu__aes__common__apis_1gaf650e5321d4f5e9d5e3af59d9690cd15" compoundref="xasu__aes__common_8c" startline="59" endline="105">XAsu_AesValidateIvParams</referencedby>
+        <referencedby refid="group__xasu__aes__common__apis_1ga46d86db456797e1245906452022c98eb" compoundref="xasu__aes__common_8c" startline="121" endline="166">XAsu_AesValidateTagParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga266c9d8c0ac689bdb49cbb5cd0d293f9" prot="public" static="no">
+        <name>XASU_AES_GCM_MODE</name>
+        <initializer>(0x6U)</initializer>
+        <briefdescription>
+<para>AES GCM mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__client__apis_1ga449363099fd772acb0c5d4202b25de18" compoundref="xasu__aes_8c" startline="346" endline="383">XAsu_AesKat</referencedby>
+        <referencedby refid="group__xasu__aes__common__apis_1gaf650e5321d4f5e9d5e3af59d9690cd15" compoundref="xasu__aes__common_8c" startline="59" endline="105">XAsu_AesValidateIvParams</referencedby>
+        <referencedby refid="group__xasu__aes__common__apis_1ga46d86db456797e1245906452022c98eb" compoundref="xasu__aes__common_8c" startline="121" endline="166">XAsu_AesValidateTagParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gacc3bdb18dc3dd63126c7088ba676ada1" prot="public" static="no">
+        <name>XASU_AES_CMAC_MODE</name>
+        <initializer>(0x8U)</initializer>
+        <briefdescription>
+<para>AES CMAC mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="171" endline="326">XAsu_AesOperation</referencedby>
+        <referencedby refid="group__xasu__aes__common__apis_1gaf650e5321d4f5e9d5e3af59d9690cd15" compoundref="xasu__aes__common_8c" startline="59" endline="105">XAsu_AesValidateIvParams</referencedby>
+        <referencedby refid="group__xasu__aes__common__apis_1ga46d86db456797e1245906452022c98eb" compoundref="xasu__aes__common_8c" startline="121" endline="166">XAsu_AesValidateTagParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga1a7fc5175f05d6d35b470764ec226857" prot="public" static="no">
+        <name>XASU_AES_GHASH_MODE</name>
+        <initializer>(0xEU)</initializer>
+        <briefdescription>
+<para>AES GHASH mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gab03295f194a4548f4f0f051573cb932f" prot="public" static="no">
+        <name>XASU_AES_KAT_DPA_MODE</name>
+        <initializer>(0xFU)</initializer>
+        <briefdescription>
+<para>Select this mode to run AES DPA KAT. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="82" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__client__apis_1ga449363099fd772acb0c5d4202b25de18" compoundref="xasu__aes_8c" startline="346" endline="383">XAsu_AesKat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gabc1f85a666ca1bfddaf67c025751d299" prot="public" static="no">
+        <name>XASU_AES_USER_KEY_0</name>
+        <initializer>(0x0U)</initializer>
+        <briefdescription>
+<para>User Key 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga55b8ec47729a764ef4eb36622c44e496" prot="public" static="no">
+        <name>XASU_AES_USER_KEY_1</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+<para>User Key 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga937312e67faedd9e91244ae39c708d35" prot="public" static="no">
+        <name>XASU_AES_USER_KEY_2</name>
+        <initializer>(0x2U)</initializer>
+        <briefdescription>
+<para>User Key 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga136e87244e8f20abb0fb06f802465d67" prot="public" static="no">
+        <name>XASU_AES_USER_KEY_3</name>
+        <initializer>(0x3U)</initializer>
+        <briefdescription>
+<para>User Key 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga2eb423ee6a1be33468a95e2ba63ddb3b" prot="public" static="no">
+        <name>XASU_AES_USER_KEY_4</name>
+        <initializer>(0x4U)</initializer>
+        <briefdescription>
+<para>User Key 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gae34eeaa4549001511e5d1c216c86e5db" prot="public" static="no">
+        <name>XASU_AES_USER_KEY_5</name>
+        <initializer>(0x5U)</initializer>
+        <briefdescription>
+<para>User Key 5. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga64ba47be1b4b41267d30ec50b4b4a58c" prot="public" static="no">
+        <name>XASU_AES_USER_KEY_6</name>
+        <initializer>(0x6U)</initializer>
+        <briefdescription>
+<para>User Key 6. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gabdd088f605be2917167d56eb830216fa" prot="public" static="no">
+        <name>XASU_AES_USER_KEY_7</name>
+        <initializer>(0x7U)</initializer>
+        <briefdescription>
+<para>User Key 7. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga7b7001532704792d79c3cf40c6ad7ba9" prot="public" static="no">
+        <name>XASU_AES_EFUSE_KEY_0</name>
+        <initializer>(0x8U)</initializer>
+        <briefdescription>
+<para>Efuse key 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gad3d9fe82dfd372c24f34d6529556df10" prot="public" static="no">
+        <name>XASU_AES_EFUSE_KEY_1</name>
+        <initializer>(0x9U)</initializer>
+        <briefdescription>
+<para>Efuse key 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga82f19fd6044728c10767c0b51f84aa1d" prot="public" static="no">
+        <name>XASU_AES_PUF_KEY</name>
+        <initializer>(0xAU)</initializer>
+        <briefdescription>
+<para>PUF key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga5bdccf8372b2e4c871289ad4c4247401" prot="public" static="no">
+        <name>XASU_AES_EFUSE_KEY_RED_0</name>
+        <initializer>(0xBU)</initializer>
+        <briefdescription>
+<para>Efuse Red key 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gab99c2081fadf07d7c0d1d01247f53a32" prot="public" static="no">
+        <name>XASU_AES_EFUSE_KEY_RED_1</name>
+        <initializer>(0xCU)</initializer>
+        <briefdescription>
+<para>Efuse Red key 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gac3dfec0afa7187124134f58f02616a79" prot="public" static="no">
+        <name>XASU_AES_EXPANDED_KEYS</name>
+        <initializer>(0xDU)</initializer>
+        <briefdescription>
+<para>Expanded keys in AES engine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga1581bc6ebe139251f831c3293bb6bd01" prot="public" static="no">
+        <name>XASU_AES_MAX_KEY_SOURCES</name>
+        <initializer><ref refid="group__xasu__common__defs_1gac3dfec0afa7187124134f58f02616a79" kindref="member">XASU_AES_EXPANDED_KEYS</ref></initializer>
+        <briefdescription>
+<para>Maximum key source value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga7d2c1e79c450b652a8a299a7de7543f1" prot="public" static="no">
+        <name>XASU_AES_KEY_SIZE_128_BITS</name>
+        <initializer>(0x0U)</initializer>
+        <briefdescription>
+<para>128 bits AES key size </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="102" bodyend="-1"/>
+        <referencedby refid="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" compoundref="xasu__kdf_8c" startline="341" endline="398">XAsu_KdfSha3Kat</referencedby>
+        <referencedby refid="group__xasu__keywrap__common__apis_1gaa4a3001cea810588543c533c8116e07b" compoundref="xasu__keywrap__common_8c" startline="63" endline="119">XAsu_KeyWrapUnwrapValidateInputParams</referencedby>
+        <referencedby refid="group__xasu__ecies__common__apis_1ga91448b30f049e4d7596cff8103bb6d60" compoundref="xasu__ecies__common_8c" startline="61" endline="106">XAsu_ValidateEciesParameters</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga565a9f9f9f947674eb43a1ce60e638d6" prot="public" static="no">
+        <name>XASU_AES_KEY_SIZE_256_BITS</name>
+        <initializer>(0x2U)</initializer>
+        <briefdescription>
+<para>256 bits AES key size </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="103" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+        <referencedby refid="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" compoundref="xasu__kdf_8c" startline="341" endline="398">XAsu_KdfSha3Kat</referencedby>
+        <referencedby refid="group__xasu__keywrap__common__apis_1gaa4a3001cea810588543c533c8116e07b" compoundref="xasu__keywrap__common_8c" startline="63" endline="119">XAsu_KeyWrapUnwrapValidateInputParams</referencedby>
+        <referencedby refid="group__xasu__ecies__common__apis_1ga91448b30f049e4d7596cff8103bb6d60" compoundref="xasu__ecies__common_8c" startline="61" endline="106">XAsu_ValidateEciesParameters</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gae1f327bfa7f97cff2f8fe44a2ce40b2c" prot="public" static="no">
+        <name>XASU_AES_ENCRYPT_OPERATION</name>
+        <initializer>(0x0U)</initializer>
+        <briefdescription>
+<para>AES encrypt operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="106" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__client__apis_1ga58a8151d2c05dea7e89012d8ebefc26a" compoundref="xasu__aes_8c" startline="786" endline="807">XAsu_AesCbcEncryptKat</referencedby>
+        <referencedby refid="group__xasu__aes__client__apis_1ga34d29a0155ea2eef83914be88065d4d8" compoundref="xasu__aes_8c" startline="850" endline="871">XAsu_AesCcmEncryptKat</referencedby>
+        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="171" endline="326">XAsu_AesOperation</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gae84fd94e7e06bd553f3b81f97970c1e0" prot="public" static="no">
+        <name>XASU_AES_DECRYPT_OPERATION</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+<para>AES decrypt operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h" bodystart="107" bodyend="-1"/>
+        <referencedby refid="group__xasu__aes__client__apis_1ga18d11894515d10aa97c66e43cd574135" compoundref="xasu__aes_8c" startline="818" endline="839">XAsu_AesCbcDecryptKat</referencedby>
+        <referencedby refid="group__xasu__aes__client__apis_1gafaf7949b508b6f14370895f79062131c" compoundref="xasu__aes_8c" startline="882" endline="903">XAsu_AesCcmDecryptKat</referencedby>
+        <referencedby refid="group__xasu__aes__client__apis_1ga5806e37710086106ef80cd8f9442d58a" compoundref="xasu__aes_8c" startline="171" endline="326">XAsu_AesOperation</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the AES definitions which are common across the client and server. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   am   07/16/24 Initial release
+      am   08/01/24 Replaced enums with macros
+1.1   am   01/20/25 Added AES CCM nonce macros
+      am   03/14/25 Updated correct macro value of XASU_AES_CCM_MIN_NONCE_LEN</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor">#ifndef<sp/>XASU_AESINFO_H_</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_AESINFO_H_</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xasu_bsp_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44" refid="group__xasu__common__defs_1gaf38a4fd296e3327b4e62b4d8244e1027" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XASU_AES_BLOCK_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)<sp/></highlight></codeline>
+<codeline lineno="46" refid="group__xasu__common__defs_1ga75c74eecf55fdbf5459a465738fdadb5" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_EVEN_MODULUS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="48" refid="group__xasu__common__defs_1gab90a2c94f9d172114ca5d100c882f1b8" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_IV_SIZE_96BIT_IN_WORDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)<sp/></highlight></codeline>
+<codeline lineno="49" refid="group__xasu__common__defs_1gafa2b2d6cb3c7f7623dfa65fa60ca7d9c" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_IV_SIZE_128BIT_IN_WORDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="50" refid="group__xasu__common__defs_1ga2ee13c774f1393949629518f645785b8" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_IV_SIZE_96BIT_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(12U)<sp/></highlight></codeline>
+<codeline lineno="51" refid="group__xasu__common__defs_1ga8ddad79fd000463b9b715b9e0f387d2e" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_IV_SIZE_128BIT_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)<sp/></highlight></codeline>
+<codeline lineno="53" refid="group__xasu__common__defs_1ga4d946389d95e2ada05c369869377443d" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_KEY_SIZE_128BIT_IN_WORDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="54" refid="group__xasu__common__defs_1ga3bfeab615197a94232816d8948d43f0f" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_KEY_SIZE_256BIT_IN_WORDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)<sp/></highlight></codeline>
+<codeline lineno="55" refid="group__xasu__common__defs_1gacba8eb852f5f9a4f3353036821898d6d" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_KEY_SIZE_128BIT_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)<sp/></highlight></codeline>
+<codeline lineno="56" refid="group__xasu__common__defs_1ga4b958ef7daa82ef0c73b7b1ef657e8af" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_KEY_SIZE_256BIT_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(32U)<sp/></highlight></codeline>
+<codeline lineno="58" refid="group__xasu__common__defs_1gaf02f2441da2bbfbcca832f01458c56ea" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_MIN_TAG_LENGTH_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="59" refid="group__xasu__common__defs_1ga3a2c98f32f6ff7605629fdaeea0a3ee8" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_RECOMMENDED_TAG_LENGTH_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)<sp/></highlight></codeline>
+<codeline lineno="60" refid="group__xasu__common__defs_1ga2b23227296edca13de1f3732e04cca19" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_MAX_TAG_LENGTH_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)<sp/></highlight></codeline>
+<codeline lineno="62" refid="group__xasu__common__defs_1ga13fe3c3756a86473b09f9809d02e87f4" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_CCM_MIN_NONCE_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(7U)<sp/></highlight></codeline>
+<codeline lineno="63" refid="group__xasu__common__defs_1ga9c54373e5e7981182e232f50596bb31a" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_CCM_MAX_NONCE_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(13U)<sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>AES<sp/>module<sp/>command<sp/>IDs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67" refid="group__xasu__common__defs_1ga5fbd4af6821ee65fb51764ba461b503e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XASU_AES_OPERATION_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)<sp/></highlight></codeline>
+<codeline lineno="68" refid="group__xasu__common__defs_1ga252acc78bddcaa54067e17202d352548" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_KAT_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)<sp/></highlight></codeline>
+<codeline lineno="69" refid="group__xasu__common__defs_1ga793696a4c47e835f4f02d5cc5aec9d04" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_MAX_CMDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2U)<sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>AES<sp/>engine<sp/>mode<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="72" refid="group__xasu__common__defs_1ga7071dad46885918f563b8586e03d0a53" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_AES_CBC_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)<sp/></highlight></codeline>
+<codeline lineno="73" refid="group__xasu__common__defs_1ga7627df9f2610f9793e186d2a63de5566" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_CFB_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)<sp/></highlight></codeline>
+<codeline lineno="74" refid="group__xasu__common__defs_1ga14f7e91db0d7babd5ab30699376c5565" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_OFB_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2U)<sp/></highlight></codeline>
+<codeline lineno="75" refid="group__xasu__common__defs_1ga08289d4f73f990ee87b9afb70d4aae0a" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_CTR_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3U)<sp/></highlight></codeline>
+<codeline lineno="76" refid="group__xasu__common__defs_1gaa368e66adb87155ac40aaae3ea1a3747" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_ECB_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x4U)<sp/></highlight></codeline>
+<codeline lineno="77" refid="group__xasu__common__defs_1ga30d8f9306c9e8a365a92247259db30db" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_CCM_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x5U)<sp/></highlight></codeline>
+<codeline lineno="78" refid="group__xasu__common__defs_1ga266c9d8c0ac689bdb49cbb5cd0d293f9" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_GCM_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x6U)<sp/></highlight></codeline>
+<codeline lineno="79" refid="group__xasu__common__defs_1gacc3bdb18dc3dd63126c7088ba676ada1" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_CMAC_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x8U)<sp/></highlight></codeline>
+<codeline lineno="80" refid="group__xasu__common__defs_1ga1a7fc5175f05d6d35b470764ec226857" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_GHASH_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xEU)<sp/></highlight></codeline>
+<codeline lineno="82" refid="group__xasu__common__defs_1gab03295f194a4548f4f0f051573cb932f" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_KAT_DPA_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFU)</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>AES<sp/>key<sp/>source<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85" refid="group__xasu__common__defs_1gabc1f85a666ca1bfddaf67c025751d299" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XASU_AES_USER_KEY_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)<sp/></highlight></codeline>
+<codeline lineno="86" refid="group__xasu__common__defs_1ga55b8ec47729a764ef4eb36622c44e496" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_USER_KEY_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)<sp/></highlight></codeline>
+<codeline lineno="87" refid="group__xasu__common__defs_1ga937312e67faedd9e91244ae39c708d35" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_USER_KEY_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2U)<sp/></highlight></codeline>
+<codeline lineno="88" refid="group__xasu__common__defs_1ga136e87244e8f20abb0fb06f802465d67" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_USER_KEY_3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3U)<sp/></highlight></codeline>
+<codeline lineno="89" refid="group__xasu__common__defs_1ga2eb423ee6a1be33468a95e2ba63ddb3b" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_USER_KEY_4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x4U)<sp/></highlight></codeline>
+<codeline lineno="90" refid="group__xasu__common__defs_1gae34eeaa4549001511e5d1c216c86e5db" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_USER_KEY_5<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x5U)<sp/></highlight></codeline>
+<codeline lineno="91" refid="group__xasu__common__defs_1ga64ba47be1b4b41267d30ec50b4b4a58c" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_USER_KEY_6<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x6U)<sp/></highlight></codeline>
+<codeline lineno="92" refid="group__xasu__common__defs_1gabdd088f605be2917167d56eb830216fa" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_USER_KEY_7<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x7U)<sp/></highlight></codeline>
+<codeline lineno="93" refid="group__xasu__common__defs_1ga7b7001532704792d79c3cf40c6ad7ba9" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_EFUSE_KEY_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x8U)<sp/></highlight></codeline>
+<codeline lineno="94" refid="group__xasu__common__defs_1gad3d9fe82dfd372c24f34d6529556df10" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_EFUSE_KEY_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x9U)<sp/></highlight></codeline>
+<codeline lineno="95" refid="group__xasu__common__defs_1ga82f19fd6044728c10767c0b51f84aa1d" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_PUF_KEY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xAU)<sp/></highlight></codeline>
+<codeline lineno="96" refid="group__xasu__common__defs_1ga5bdccf8372b2e4c871289ad4c4247401" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_EFUSE_KEY_RED_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xBU)<sp/></highlight></codeline>
+<codeline lineno="97" refid="group__xasu__common__defs_1gab99c2081fadf07d7c0d1d01247f53a32" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_EFUSE_KEY_RED_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xCU)<sp/></highlight></codeline>
+<codeline lineno="98" refid="group__xasu__common__defs_1gac3dfec0afa7187124134f58f02616a79" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_EXPANDED_KEYS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xDU)<sp/></highlight></codeline>
+<codeline lineno="99" refid="group__xasu__common__defs_1ga1581bc6ebe139251f831c3293bb6bd01" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_MAX_KEY_SOURCES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XASU_AES_EXPANDED_KEYS<sp/></highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>AES<sp/>key<sp/>size<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="102" refid="group__xasu__common__defs_1ga7d2c1e79c450b652a8a299a7de7543f1" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_AES_KEY_SIZE_128_BITS<sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)<sp/></highlight></codeline>
+<codeline lineno="103" refid="group__xasu__common__defs_1ga565a9f9f9f947674eb43a1ce60e638d6" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_KEY_SIZE_256_BITS<sp/><sp/><sp/><sp/><sp/><sp/>(0x2U)<sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>AES<sp/>Operation<sp/>type<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="106" refid="group__xasu__common__defs_1gae1f327bfa7f97cff2f8fe44a2ce40b2c" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_AES_ENCRYPT_OPERATION<sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)<sp/></highlight></codeline>
+<codeline lineno="107" refid="group__xasu__common__defs_1gae84fd94e7e06bd553f3b81f97970c1e0" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_AES_DECRYPT_OPERATION<sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)<sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="comment">/************************************<sp/>Type<sp/>Definitions<sp/>*******************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="112" refid="struct_x_asu___aes_key_object" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="113" refid="struct_x_asu___aes_key_object_1a126cfebfb51a97f3aeeca9c5b8fe8ea4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___aes_key_object_1a126cfebfb51a97f3aeeca9c5b8fe8ea4" kindref="member">KeyAddress</ref>;<sp/></highlight></codeline>
+<codeline lineno="114" refid="struct_x_asu___aes_key_object_1aa45f8946b29c63cfef5038dca2865173" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___aes_key_object_1aa45f8946b29c63cfef5038dca2865173" kindref="member">KeySize</ref>;<sp/></highlight></codeline>
+<codeline lineno="115" refid="struct_x_asu___aes_key_object_1a93b6dd11fd57fd794731a3e001278b11" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___aes_key_object_1a93b6dd11fd57fd794731a3e001278b11" kindref="member">KeySrc</ref>;<sp/></highlight></codeline>
+<codeline lineno="116" refid="struct_x_asu___aes_key_object_1a62fbcec9f83e4876498a9930ef76dabd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___aes_key_object_1a62fbcec9f83e4876498a9930ef76dabd" kindref="member">KeyId</ref>;<sp/></highlight></codeline>
+<codeline lineno="117" refid="struct_x_asu___aes_key_object_1afe149a1d8198455b0621cdfab8d50b05" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Reserved[4];<sp/></highlight></codeline>
+<codeline lineno="118"><highlight class="normal">}<sp/><ref refid="struct_x_asu___aes_key_object" kindref="compound">XAsu_AesKeyObject</ref>;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121" refid="struct_x_asu___aes_iv_object" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="122" refid="struct_x_asu___aes_iv_object_1a68bd6f17ef103809f52e767a320faa4d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___aes_iv_object_1a68bd6f17ef103809f52e767a320faa4d" kindref="member">IvAddr</ref>;<sp/></highlight></codeline>
+<codeline lineno="123" refid="struct_x_asu___aes_iv_object_1a4eea240487b9f4560a16fe577499e412" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___aes_iv_object_1a4eea240487b9f4560a16fe577499e412" kindref="member">IvLen</ref>;<sp/></highlight></codeline>
+<codeline lineno="124" refid="struct_x_asu___aes_iv_object_1ac4a556df510eb3595d6a3676c29905a4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___aes_iv_object_1ac4a556df510eb3595d6a3676c29905a4" kindref="member">IvId</ref>;<sp/></highlight></codeline>
+<codeline lineno="125"><highlight class="normal">}<sp/><ref refid="struct_x_asu___aes_iv_object" kindref="compound">XAsu_AesIvObject</ref>;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131" refid="struct_x_asu___aes_params" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="132" refid="struct_x_asu___aes_params_1a06ce6311cd4b9c247034edd793ab4110" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___aes_params_1a06ce6311cd4b9c247034edd793ab4110" kindref="member">InputDataAddr</ref>;<sp/></highlight></codeline>
+<codeline lineno="133" refid="struct_x_asu___aes_params_1aa1c213f5c1e28519ef6f8917db55ec88" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___aes_params_1aa1c213f5c1e28519ef6f8917db55ec88" kindref="member">OutputDataAddr</ref>;<sp/></highlight></codeline>
+<codeline lineno="134" refid="struct_x_asu___aes_params_1a8ca4217e6ddbb92ed6972a2336155295" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___aes_params_1a8ca4217e6ddbb92ed6972a2336155295" kindref="member">AadAddr</ref>;<sp/></highlight></codeline>
+<codeline lineno="135" refid="struct_x_asu___aes_params_1a498eb45c14a7f378dba0366fe4249c9c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___aes_params_1a498eb45c14a7f378dba0366fe4249c9c" kindref="member">KeyObjectAddr</ref>;<sp/></highlight></codeline>
+<codeline lineno="136" refid="struct_x_asu___aes_params_1afe48fe58bf99fad0a309e255c583d316" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___aes_params_1afe48fe58bf99fad0a309e255c583d316" kindref="member">IvAddr</ref>;<sp/></highlight></codeline>
+<codeline lineno="137" refid="struct_x_asu___aes_params_1af197cfbe040de49e6415ce4d3b37d374" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___aes_params_1af197cfbe040de49e6415ce4d3b37d374" kindref="member">TagAddr</ref>;<sp/></highlight></codeline>
+<codeline lineno="138" refid="struct_x_asu___aes_params_1a6b49ceecb3059ca49b7967b34adc7e16" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___aes_params_1a6b49ceecb3059ca49b7967b34adc7e16" kindref="member">DataLen</ref>;<sp/></highlight></codeline>
+<codeline lineno="139" refid="struct_x_asu___aes_params_1a5ce18140ca41e5efb10abe1711ada1ed" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___aes_params_1a5ce18140ca41e5efb10abe1711ada1ed" kindref="member">AadLen</ref>;<sp/></highlight></codeline>
+<codeline lineno="140" refid="struct_x_asu___aes_params_1ae1b276d93ebf15d839b945697070da96" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___aes_params_1ae1b276d93ebf15d839b945697070da96" kindref="member">IvLen</ref>;<sp/></highlight></codeline>
+<codeline lineno="141" refid="struct_x_asu___aes_params_1a0089fed3e9bf2e6a0f1dc12065a91ebd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___aes_params_1a0089fed3e9bf2e6a0f1dc12065a91ebd" kindref="member">TagLen</ref>;<sp/></highlight></codeline>
+<codeline lineno="142" refid="struct_x_asu___aes_params_1ac0d9b5493731fc415049a2f189316139" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_asu___aes_params_1ac0d9b5493731fc415049a2f189316139" kindref="member">EngineMode</ref>;<sp/></highlight></codeline>
+<codeline lineno="143" refid="struct_x_asu___aes_params_1af1ff2a5ebe1859e54292ff94e6627fbe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_asu___aes_params_1af1ff2a5ebe1859e54292ff94e6627fbe" kindref="member">OperationFlags</ref>;<sp/></highlight></codeline>
+<codeline lineno="145" refid="struct_x_asu___aes_params_1a6b8d01430cf0536f49b16837ce90a509" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_asu___aes_params_1a6b8d01430cf0536f49b16837ce90a509" kindref="member">IsLast</ref>;<sp/></highlight></codeline>
+<codeline lineno="148" refid="struct_x_asu___aes_params_1afd7f65558fc8a99e854ccba007a4e82c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_asu___aes_params_1afd7f65558fc8a99e854ccba007a4e82c" kindref="member">OperationType</ref>;<sp/></highlight></codeline>
+<codeline lineno="151" refid="struct_x_asu___aes_params_1a932b702c378deb5975c44873471c02b8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___aes_params_1a932b702c378deb5975c44873471c02b8" kindref="member">IvId</ref>;<sp/></highlight></codeline>
+<codeline lineno="152"><highlight class="normal">}<sp/><ref refid="struct_x_asu___aes_params" kindref="compound">XAsu_AesParams</ref>;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XASU_AESINFO_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_aesinfo.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,775 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xmipi__vek385__cphy__example_2sensor__cfgs_8h" kind="file">
+    <compoundname>xmipi_vek385_cphy_example/sensor_cfgs.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xvidc.h</includes>
+    <includedby refid="xmipi__vek385__cphy__example_2mipi__cfg_8c" local="yes">mipi_cfg.c</includedby>
+    <includedby refid="xmipi__vek385__cphy__example_2sensor__cfgs_8c" local="yes">sensor_cfgs.c</includedby>
+    <includedby refid="xmipi__vek385__cphy__example_8c" local="yes">xmipi_vek385_cphy_example.c</includedby>
+    <incdepgraph>
+      <node id="758">
+        <label>sensor_cfgs.h</label>
+        <link refid="xmipi_vek385_cphy_example/sensor_cfgs.h"/>
+        <childnode refid="759" relation="include">
+        </childnode>
+        <childnode refid="760" relation="include">
+        </childnode>
+      </node>
+      <node id="760">
+        <label>xvidc.h</label>
+      </node>
+      <node id="759">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="762">
+        <label>mipi_cfg.c</label>
+      </node>
+      <node id="763">
+        <label>sensor_cfgs.c</label>
+      </node>
+      <node id="761">
+        <label>sensor_cfgs.h</label>
+        <link refid="xmipi_vek385_cphy_example/sensor_cfgs.h"/>
+        <childnode refid="762" relation="include">
+        </childnode>
+        <childnode refid="763" relation="include">
+        </childnode>
+        <childnode refid="764" relation="include">
+        </childnode>
+      </node>
+      <node id="764">
+        <label>xmipi_vek385_cphy_example.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pipeline___cfg" prot="public">XPipeline_Cfg</innerclass>
+    <innerclass refid="structregval__list" prot="public">regval_list</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1a17d1a8fa91dfb66cc09a937663642e01" prot="public" static="no">
+        <name>TXT_RED</name>
+        <initializer>&quot;\x1b[31m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1ac5735af12612c74e20bf178d670bccc6" prot="public" static="no">
+        <name>TXT_GREEN</name>
+        <initializer>&quot;\x1b[32m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1acc078a49bdfa1408bf8cce2c223a783c" prot="public" static="no">
+        <name>TXT_YELLOW</name>
+        <initializer>&quot;\x1b[33m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1adb4b14dae2c4bda6d262f420d2a5938d" prot="public" static="no">
+        <name>TXT_BLUE</name>
+        <initializer>&quot;\x1b[34m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1ab8a3fefa95362096ecfd0fd42537898d" prot="public" static="no">
+        <name>TXT_MAGENTA</name>
+        <initializer>&quot;\x1b[35m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1ae126809050be1003b36fda3449838999" prot="public" static="no">
+        <name>TXT_CYAN</name>
+        <initializer>&quot;\x1b[36m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1a6f1a67a56a532494c0ab1bc84db52db1" prot="public" static="no">
+        <name>TXT_RST</name>
+        <initializer>&quot;\x1b[0m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1ab2bdc7758d1b1b02c41ab8f4c1e25478" prot="public" static="no">
+        <name>SEQUENCE_END</name>
+        <initializer>0xFFFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1aa2fbdc005df8e8627f221a234cec68fc" prot="public" static="no">
+        <name>XVideo_Source</name>
+        <enumvalue id="xmipi__ref__design_2sensor__cfgs_8h_1aa2fbdc005df8e8627f221a234cec68fcacee55e7f72395640ea6090d6259a059a" prot="public">
+          <name>XVIDSRC_SENSOR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__ref__design_2sensor__cfgs_8h_1aa2fbdc005df8e8627f221a234cec68fcadbfdecc99f7815b801d1d3b2e5da45f0" prot="public">
+          <name>XVIDSRC_TPG</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__hpio__example_2sensor__cfgs_8h_1aa2fbdc005df8e8627f221a234cec68fcacee55e7f72395640ea6090d6259a059a" prot="public">
+          <name>XVIDSRC_SENSOR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__hpio__example_2sensor__cfgs_8h_1aa2fbdc005df8e8627f221a234cec68fcadbfdecc99f7815b801d1d3b2e5da45f0" prot="public">
+          <name>XVIDSRC_TPG</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2sensor__cfgs_8h_1aa2fbdc005df8e8627f221a234cec68fcacee55e7f72395640ea6090d6259a059a" prot="public">
+          <name>XVIDSRC_SENSOR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2sensor__cfgs_8h_1aa2fbdc005df8e8627f221a234cec68fcadbfdecc99f7815b801d1d3b2e5da45f0" prot="public">
+          <name>XVIDSRC_TPG</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vck__example_2sensor__cfgs_8h_1aa2fbdc005df8e8627f221a234cec68fcacee55e7f72395640ea6090d6259a059a" prot="public">
+          <name>XVIDSRC_SENSOR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2sensor__cfgs_8h_1aa2fbdc005df8e8627f221a234cec68fcacee55e7f72395640ea6090d6259a059a" prot="public">
+          <name>XVIDSRC_SENSOR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2sensor__cfgs_8h_1aa2fbdc005df8e8627f221a234cec68fcadbfdecc99f7815b801d1d3b2e5da45f0" prot="public">
+          <name>XVIDSRC_TPG</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1aa2fbdc005df8e8627f221a234cec68fcacee55e7f72395640ea6090d6259a059a" prot="public">
+          <name>XVIDSRC_SENSOR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1aa2fbdc005df8e8627f221a234cec68fcadbfdecc99f7815b801d1d3b2e5da45f0" prot="public">
+          <name>XVIDSRC_TPG</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2sensor__cfgs_8h_1aa2fbdc005df8e8627f221a234cec68fcacee55e7f72395640ea6090d6259a059a" prot="public">
+          <name>XVIDSRC_SENSOR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2sensor__cfgs_8h_1aa2fbdc005df8e8627f221a234cec68fcadbfdecc99f7815b801d1d3b2e5da45f0" prot="public">
+          <name>XVIDSRC_TPG</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" bodystart="33" bodyend="37"/>
+      </memberdef>
+      <memberdef kind="enum" id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1a092cf79b922a68ff7f0fcc1ad08839bc" prot="public" static="no">
+        <name>XVideo_Destn</name>
+        <enumvalue id="xmipi__ref__design_2sensor__cfgs_8h_1a092cf79b922a68ff7f0fcc1ad08839bca9f33367a04960fadf7b110b3c2b40537" prot="public">
+          <name>XVIDDES_HDMI</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__ref__design_2sensor__cfgs_8h_1a092cf79b922a68ff7f0fcc1ad08839bca268588de4f686d3f8b7bf2ae6f61a7ca" prot="public">
+          <name>XVIDDES_DSI</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__hpio__example_2sensor__cfgs_8h_1a092cf79b922a68ff7f0fcc1ad08839bca9f33367a04960fadf7b110b3c2b40537" prot="public">
+          <name>XVIDDES_HDMI</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__hpio__example_2sensor__cfgs_8h_1a092cf79b922a68ff7f0fcc1ad08839bca268588de4f686d3f8b7bf2ae6f61a7ca" prot="public">
+          <name>XVIDDES_DSI</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2sensor__cfgs_8h_1a092cf79b922a68ff7f0fcc1ad08839bca9f33367a04960fadf7b110b3c2b40537" prot="public">
+          <name>XVIDDES_HDMI</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2sensor__cfgs_8h_1a092cf79b922a68ff7f0fcc1ad08839bca268588de4f686d3f8b7bf2ae6f61a7ca" prot="public">
+          <name>XVIDDES_DSI</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vck__example_2sensor__cfgs_8h_1a092cf79b922a68ff7f0fcc1ad08839bca9f33367a04960fadf7b110b3c2b40537" prot="public">
+          <name>XVIDDES_HDMI</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vck__example_2sensor__cfgs_8h_1a092cf79b922a68ff7f0fcc1ad08839bca268588de4f686d3f8b7bf2ae6f61a7ca" prot="public">
+          <name>XVIDDES_DSI</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2sensor__cfgs_8h_1a092cf79b922a68ff7f0fcc1ad08839bca9f33367a04960fadf7b110b3c2b40537" prot="public">
+          <name>XVIDDES_HDMI</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2sensor__cfgs_8h_1a092cf79b922a68ff7f0fcc1ad08839bca268588de4f686d3f8b7bf2ae6f61a7ca" prot="public">
+          <name>XVIDDES_DSI</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1a092cf79b922a68ff7f0fcc1ad08839bca9f33367a04960fadf7b110b3c2b40537" prot="public">
+          <name>XVIDDES_HDMI</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1a092cf79b922a68ff7f0fcc1ad08839bca268588de4f686d3f8b7bf2ae6f61a7ca" prot="public">
+          <name>XVIDDES_DSI</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2sensor__cfgs_8h_1a092cf79b922a68ff7f0fcc1ad08839bca9f33367a04960fadf7b110b3c2b40537" prot="public">
+          <name>XVIDDES_HDMI</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2sensor__cfgs_8h_1a092cf79b922a68ff7f0fcc1ad08839bca268588de4f686d3f8b7bf2ae6f61a7ca" prot="public">
+          <name>XVIDDES_DSI</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" bodystart="39" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="enum" id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1ae62fe243110119db57301cde66e2c364" prot="public" static="no">
+        <name>XCsi_PxlFmt</name>
+        <enumvalue id="xmipi__ref__design_2sensor__cfgs_8h_1ae62fe243110119db57301cde66e2c364ae6aeb312bfcf3f74e2c337d877d6a8af" prot="public">
+          <name>XCSI_PXLFMT_RAW8</name>
+          <initializer>= 0x2A</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__ref__design_2sensor__cfgs_8h_1ae62fe243110119db57301cde66e2c364a575bbc4b9fc9984c41ea1e15a6bb7df9" prot="public">
+          <name>XCSI_PXLFMT_RAW10</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__ref__design_2sensor__cfgs_8h_1ae62fe243110119db57301cde66e2c364ad20325c7684747170798b272582a1996" prot="public">
+          <name>XCSI_PXLFMT_RAW12</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__hpio__example_2sensor__cfgs_8h_1ae62fe243110119db57301cde66e2c364ae6aeb312bfcf3f74e2c337d877d6a8af" prot="public">
+          <name>XCSI_PXLFMT_RAW8</name>
+          <initializer>= 0x2A</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__hpio__example_2sensor__cfgs_8h_1ae62fe243110119db57301cde66e2c364a575bbc4b9fc9984c41ea1e15a6bb7df9" prot="public">
+          <name>XCSI_PXLFMT_RAW10</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__hpio__example_2sensor__cfgs_8h_1ae62fe243110119db57301cde66e2c364ad20325c7684747170798b272582a1996" prot="public">
+          <name>XCSI_PXLFMT_RAW12</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2sensor__cfgs_8h_1ae62fe243110119db57301cde66e2c364ae6aeb312bfcf3f74e2c337d877d6a8af" prot="public">
+          <name>XCSI_PXLFMT_RAW8</name>
+          <initializer>= 0x2A</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2sensor__cfgs_8h_1ae62fe243110119db57301cde66e2c364a575bbc4b9fc9984c41ea1e15a6bb7df9" prot="public">
+          <name>XCSI_PXLFMT_RAW10</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2sensor__cfgs_8h_1ae62fe243110119db57301cde66e2c364ad20325c7684747170798b272582a1996" prot="public">
+          <name>XCSI_PXLFMT_RAW12</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vck__example_2sensor__cfgs_8h_1ae62fe243110119db57301cde66e2c364ae6aeb312bfcf3f74e2c337d877d6a8af" prot="public">
+          <name>XCSI_PXLFMT_RAW8</name>
+          <initializer>= 0x2A</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vck__example_2sensor__cfgs_8h_1ae62fe243110119db57301cde66e2c364a575bbc4b9fc9984c41ea1e15a6bb7df9" prot="public">
+          <name>XCSI_PXLFMT_RAW10</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vck__example_2sensor__cfgs_8h_1ae62fe243110119db57301cde66e2c364ad20325c7684747170798b272582a1996" prot="public">
+          <name>XCSI_PXLFMT_RAW12</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2sensor__cfgs_8h_1ae62fe243110119db57301cde66e2c364ae6aeb312bfcf3f74e2c337d877d6a8af" prot="public">
+          <name>XCSI_PXLFMT_RAW8</name>
+          <initializer>= 0x2A</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2sensor__cfgs_8h_1ae62fe243110119db57301cde66e2c364a575bbc4b9fc9984c41ea1e15a6bb7df9" prot="public">
+          <name>XCSI_PXLFMT_RAW10</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2sensor__cfgs_8h_1ae62fe243110119db57301cde66e2c364ad20325c7684747170798b272582a1996" prot="public">
+          <name>XCSI_PXLFMT_RAW12</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1ae62fe243110119db57301cde66e2c364ae6aeb312bfcf3f74e2c337d877d6a8af" prot="public">
+          <name>XCSI_PXLFMT_RAW8</name>
+          <initializer>= 0x2A</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1ae62fe243110119db57301cde66e2c364a575bbc4b9fc9984c41ea1e15a6bb7df9" prot="public">
+          <name>XCSI_PXLFMT_RAW10</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1ae62fe243110119db57301cde66e2c364ad20325c7684747170798b272582a1996" prot="public">
+          <name>XCSI_PXLFMT_RAW12</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2sensor__cfgs_8h_1ae62fe243110119db57301cde66e2c364ae6aeb312bfcf3f74e2c337d877d6a8af" prot="public">
+          <name>XCSI_PXLFMT_RAW8</name>
+          <initializer>= 0x2A</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2sensor__cfgs_8h_1ae62fe243110119db57301cde66e2c364a575bbc4b9fc9984c41ea1e15a6bb7df9" prot="public">
+          <name>XCSI_PXLFMT_RAW10</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2sensor__cfgs_8h_1ae62fe243110119db57301cde66e2c364ad20325c7684747170798b272582a1996" prot="public">
+          <name>XCSI_PXLFMT_RAW12</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" bodystart="45" bodyend="50"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1a177d3ba5ffd28d863fbca05a03e0c9df" prot="public" static="no" mutable="no">
+        <type>struct regval_list</type>
+        <definition>struct regval_list OS12D40_config_4K_30fps_regs[]</definition>
+        <argsstring>[]</argsstring>
+        <name>OS12D40_config_4K_30fps_regs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" line="1954" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1a28a95b3dbc9a279edc0f08ced66240aa" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int length_OS12D40_config_4K_30fps_regs</definition>
+        <argsstring></argsstring>
+        <name>length_OS12D40_config_4K_30fps_regs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" line="81" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1a231ea201d0544b93a97c4326e187fb75" prot="public" static="no" mutable="no">
+        <type>struct regval_list</type>
+        <definition>struct regval_list OS12D40_config_4K_60fps_regs[]</definition>
+        <argsstring>[]</argsstring>
+        <name>OS12D40_config_4K_60fps_regs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c" bodystart="990" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1a5b3f3e3ee99a31970fb47ba95f94195c" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int length_OS12D40_config_4K_60fps_regs</definition>
+        <argsstring></argsstring>
+        <name>length_OS12D40_config_4K_60fps_regs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c" bodystart="1954" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1afca40cbbe2cb5a63ec8efe5b5d5feac2" prot="public" static="no" mutable="no">
+        <type>struct regval_list</type>
+        <definition>struct regval_list OS12D40_config_1080p_60fps_regs[]</definition>
+        <argsstring>[]</argsstring>
+        <name>OS12D40_config_1080p_60fps_regs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1ae9fcf99bd0f77d32d47a57d7ade44652" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int length_OS12D40_config_1080p_60fps_regs</definition>
+        <argsstring></argsstring>
+        <name>length_OS12D40_config_1080p_60fps_regs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.c" bodystart="1951" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1affaa9c2b5f054ecbd794aa2690f79ea1" prot="public" static="no" mutable="no">
+        <type>struct regval_list</type>
+        <definition>struct regval_list OS12D40_config_1080p_30fps_regs[]</definition>
+        <argsstring>[]</argsstring>
+        <name>OS12D40_config_1080p_30fps_regs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" line="87" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1a3d9ced9a5487156e743598390dbef9f5" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int length_OS12D40_config_1080p_30fps_regs</definition>
+        <argsstring></argsstring>
+        <name>length_OS12D40_config_1080p_30fps_regs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" line="90" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1a972ef18ad65fc6aa773a7b147cf62f9d" prot="public" static="no" mutable="no">
+        <type>struct regval_list</type>
+        <definition>struct regval_list OS12D40_config_720p_60fps_regs[]</definition>
+        <argsstring>[]</argsstring>
+        <name>OS12D40_config_720p_60fps_regs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" line="90" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1a20a40e7d249608647b4833da28f48427" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int length_OS12D40_config_720p_60fps_regs</definition>
+        <argsstring></argsstring>
+        <name>length_OS12D40_config_720p_60fps_regs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" line="93" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1a87ca4bc2565d47d1fc47821dedec0be1" prot="public" static="no" mutable="no">
+        <type>struct regval_list</type>
+        <definition>struct regval_list OS12D40_mode3[]</definition>
+        <argsstring>[]</argsstring>
+        <name>OS12D40_mode3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" line="93" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xmipi__vek385__cphy__example_2sensor__cfgs_8h_1aef0db96a811571d14f76c8f785c2779c" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int length_OS12D40_mode3</definition>
+        <argsstring></argsstring>
+        <name>length_OS12D40_mode3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h" line="96" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor">#ifndef<sp/>SENSOR_CFGS_H_</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SENSOR_CFGS_H_</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVIDSRC_SENSOR,</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVIDSRC_TPG</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">}<sp/>XVideo_Source;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVIDDES_HDMI,</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVIDDES_DSI</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">}<sp/>XVideo_Destn;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSI_PXLFMT_RAW8<sp/>=<sp/>0x2A,</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSI_PXLFMT_RAW10,</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSI_PXLFMT_RAW12</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">}<sp/>XCsi_PxlFmt;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Bits<sp/>per<sp/>component<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_ColorDepth<sp/>ColorDepth;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pipeline<sp/>Video<sp/>Source<sp/>CSI<sp/>or<sp/>TPG<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVideo_Source<sp/>VideoSrc;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pipeline<sp/>Video<sp/>Destination<sp/>DSI<sp/>or<sp/>HDMI<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVideo_Destn<sp/>VideoDestn;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Resolution<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_VideoMode<sp/>VideoMode;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Number<sp/>of<sp/>Active<sp/>Lanes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ActiveLanes;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Live<sp/>video<sp/>or<sp/>sensor<sp/>pattern<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Live;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Flip<sp/>video<sp/>vertical<sp/>flag<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Vflip;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Flip<sp/>video<sp/>horizontally<sp/>flag<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Hflip;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>camera<sp/>connected<sp/>flag<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>CameraPresent;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>display<sp/>panel<sp/>present<sp/>flag<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>DSIDisplayPresent;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">}<sp/>XPipeline_Cfg;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>I2C<sp/>sensor<sp/>data<sp/>structure<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">regval_list<sp/>{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Address;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/>Data;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">regval_list<sp/>OS12D40_config_4K_30fps_regs[];</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length_OS12D40_config_4K_30fps_regs;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">regval_list<sp/>OS12D40_config_4K_60fps_regs[];</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length_OS12D40_config_4K_60fps_regs;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">regval_list<sp/>OS12D40_config_1080p_60fps_regs[];</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length_OS12D40_config_1080p_60fps_regs;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">regval_list<sp/>OS12D40_config_1080p_30fps_regs[];</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length_OS12D40_config_1080p_30fps_regs;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">regval_list<sp/>OS12D40_config_720p_60fps_regs[];</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length_OS12D40_config_720p_60fps_regs;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">regval_list<sp/>OS12D40_mode3[];</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length_OS12D40_mode3;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>ANSI<sp/>Colors<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TXT_RED<sp/><sp/><sp/><sp/><sp/>&quot;\x1b[31m&quot;</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TXT_GREEN<sp/><sp/><sp/>&quot;\x1b[32m&quot;</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TXT_YELLOW<sp/><sp/>&quot;\x1b[33m&quot;</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TXT_BLUE<sp/><sp/><sp/><sp/>&quot;\x1b[34m&quot;</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TXT_MAGENTA<sp/>&quot;\x1b[35m&quot;</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TXT_CYAN<sp/><sp/><sp/><sp/>&quot;\x1b[36m&quot;</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TXT_RST<sp/><sp/><sp/>&quot;\x1b[0m&quot;</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SEQUENCE_END<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFF</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>SENSOR_CFGS_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_vek385_cphy_example/sensor_cfgs.h"/>
+  </compounddef>
+</doxygen>

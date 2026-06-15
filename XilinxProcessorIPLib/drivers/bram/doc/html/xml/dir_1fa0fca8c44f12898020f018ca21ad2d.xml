@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_1fa0fca8c44f12898020f018ca21ad2d" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xbram_8c">xbram.c</innerfile>
+    <innerfile refid="xbram_8h">xbram.h</innerfile>
+    <innerfile refid="xbram__g_8c">xbram_g.c</innerfile>
+    <innerfile refid="xbram__hw_8h">xbram_hw.h</innerfile>
+    <innerfile refid="xbram__intr_8c">xbram_intr.c</innerfile>
+    <innerfile refid="xbram__selftest_8c">xbram_selftest.c</innerfile>
+    <innerfile refid="xbram__sinit_8c">xbram_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/"/>
+  </compounddef>
+</doxygen>

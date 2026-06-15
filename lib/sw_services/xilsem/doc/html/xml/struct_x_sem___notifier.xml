@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sem___notifier" kind="struct" prot="public">
+    <compoundname>XSem_Notifier</compoundname>
+    <includes local="no">xsem_client_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_sem___notifier_1a3eb242c1c56c426c65843c162e46725d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_Notifier::Module</definition>
+        <argsstring></argsstring>
+        <name>Module</name>
+        <briefdescription>
+<para>The module information to receive notifications. </para>        </briefdescription>
+        <detaileddescription>
+<para>Module can be either CRAM or NPI.<itemizedlist>
+<listitem><para>For CRAM: use XSEM_NOTIFY_CRAM</para></listitem><listitem><para>For NPI: use XSEM_NOTIFY_NPI </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="466" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="466" bodyend="-1"/>
+        <referencedby refid="group__xsem__client__apis_1gabb35fc319871e2265620aae73c7c5791" compoundref="xsem__client__api_8c" startline="126" endline="182">XSem_RegisterEvent</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem___notifier_1a008fbf58dc2f6803c788227b0d91ba9a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_Notifier::Event</definition>
+        <argsstring></argsstring>
+        <name>Event</name>
+        <briefdescription>
+<para>The event types specify the specific event registration. </para>        </briefdescription>
+        <detaileddescription>
+<para>For CRAM module, events are:<itemizedlist>
+<listitem><para>Uncorrectable ECC error: use XSEM_EVENT_CRAM_UNCOR_ECC_ERR</para></listitem><listitem><para>Uncorrectable CRC error: use XSEM_EVENT_CRAM_CRC_ERR</para></listitem><listitem><para>Internal error: use XSEM_EVENT_CRAM_INT_ERR</para></listitem><listitem><para>Correctable ECC error: use XSEM_EVENT_CRAM_COR_ECC_ERR</para></listitem></itemizedlist>
+</para><para>For NPI module, events are:<itemizedlist>
+<listitem><para>Uncorrectable CRC error: use XSEM_EVENT_NPI_CRC_ERR</para></listitem><listitem><para>Unsupported Descriptor Format: use XSEM_EVENT_NPI_DESC_FMT_ERR</para></listitem><listitem><para>Descriptors absent for Scan: use XSEM_EVENT_NPI_DESC_ABSNT_ERR</para></listitem><listitem><para>SHA Indicator mismatch: use XSEM_EVENT_NPI_SHA_IND_ERR</para></listitem><listitem><para>SHA engine error: use XSEM_EVENT_NPI_SHA_ENGINE_ERR</para></listitem><listitem><para>Periodic Scan Missed: use XSEM_EVENT_NPI_PSCAN_MISSED_ERR</para></listitem><listitem><para>Cryptographic Accelerator Disabled: use XSEM_EVENT_NPI_CRYPTO_EXPORT_SET_ERR</para></listitem><listitem><para>Safety Write Failure: useXSEM_EVENT_NPI_SFTY_WR_ERR</para></listitem><listitem><para>GPIO Error event: use XSEM_EVENT_NPI_GPIO_ERR</para></listitem><listitem><para>Self Diagnosis failed: use XSEM_EVENT_NPI_SELF_DIAG_FAIL </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="488" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="488" bodyend="-1"/>
+        <referencedby refid="group__xsem__client__apis_1gabb35fc319871e2265620aae73c7c5791" compoundref="xsem__client__api_8c" startline="126" endline="182">XSem_RegisterEvent</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem___notifier_1a14fb3416755928d53ced15f1f52f333d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_Notifier::Flag</definition>
+        <argsstring></argsstring>
+        <name>Flag</name>
+        <briefdescription>
+<para>Event flags to enable or disable notification. </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>To enable event notification: use XSEM_EVENT_ENABLE</para></listitem><listitem><para>To disable event notification: use XSEM_EVENT_DISABLE </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="494" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="494" bodyend="-1"/>
+        <referencedby refid="xsem__npi__example__pl__mb_8c_1ad815d14892da5f95a002dea17c44cb4b" compoundref="xsem__npi__example__pl__mb_8c" startline="254" endline="271">XSem_NpiEventRegisterNotifier</referencedby>
+        <referencedby refid="group__xsem__client__apis_1gabb35fc319871e2265620aae73c7c5791" compoundref="xsem__client__api_8c" startline="126" endline="182">XSem_RegisterEvent</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="struct_x_sem___notifier" kindref="compound">XSem_Notifier</ref> : This structure contains details of event notifications to be registered with the XilSEM server. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="459" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="459" bodyend="495"/>
+    <listofallmembers>
+      <member refid="struct_x_sem___notifier_1a008fbf58dc2f6803c788227b0d91ba9a" prot="public" virt="non-virtual"><scope>XSem_Notifier</scope><name>Event</name></member>
+      <member refid="struct_x_sem___notifier_1a14fb3416755928d53ced15f1f52f333d" prot="public" virt="non-virtual"><scope>XSem_Notifier</scope><name>Flag</name></member>
+      <member refid="struct_x_sem___notifier_1a3eb242c1c56c426c65843c162e46725d" prot="public" virt="non-virtual"><scope>XSem_Notifier</scope><name>Module</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,630 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group____cam__device__gtm" kind="group">
+    <compoundname>_cam_device_gtm</compoundname>
+    <title>VsCamDevice E01C17 Device_GTM Definitions</title>
+    <innerclass refid="struct_cam_device_gtm_histogram__s" prot="public">CamDeviceGtmHistogram_s</innerclass>
+    <innerclass refid="struct_cam_device_gtm_color_weight_config__s" prot="public">CamDeviceGtmColorWeightConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_gtm_black_white_correction_config__s" prot="public">CamDeviceGtmBlackWhiteCorrectionConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_gtm_curve_config__s" prot="public">CamDeviceGtmCurveConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_gtm_curve_info_config__s" prot="public">CamDeviceGtmCurveInfoConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_gtm_manual_config__s" prot="public">CamDeviceGtmManualConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_gtm_auto_config__s" prot="public">CamDeviceGtmAutoConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_gtm_config__s" prot="public">CamDeviceGtmConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_gtm_status__s" prot="public">CamDeviceGtmStatus_s</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group____cam__device__gtm_1gaacbe9b807f7939eeaa48b78326baced7" prot="public" static="no">
+        <name>CamDeviceGtmCurveMode_e</name>
+        <enumvalue id="group____cam__device__gtm_1ggaacbe9b807f7939eeaa48b78326baced7abfac7065033680eaf7cd0f6f822022c8" prot="public">
+          <name>CAMDEV_GTM_INTERPOLATION_CURVE_MODE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Interpolation mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1ggaacbe9b807f7939eeaa48b78326baced7a497bfe40dba188f26c2e0a63bca80c0d" prot="public">
+          <name>CAMDEV_GTM_HISTOGRAM_CURVE_MODE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Histogram mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1ggaacbe9b807f7939eeaa48b78326baced7ad40fb987ce805fc0e747a3c3d93cd224" prot="public">
+          <name>CAMDEV_GTM_INTERPOLATION_HISTOGRAM_CURVE_MODE</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Interpolation and histogram mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1ggaacbe9b807f7939eeaa48b78326baced7aa1bbee2935985dde3eefe6843b3cf78e" prot="public">
+          <name>CAMDEV_GTM_CURVE_MODE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice GTM curve mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="57" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__gtm_1gaeb8cc293c3043bf8a1468b7abcb32d32" prot="public" static="no">
+        <name>CamDeviceGtmCurveSelect_e</name>
+        <enumvalue id="group____cam__device__gtm_1ggaeb8cc293c3043bf8a1468b7abcb32d32a59b6a4b2a2ee83680fecaec09c1ceb8d" prot="public">
+          <name>CAMDEV_GTM_LINEAR_SHIFT</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Linear shift mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1ggaeb8cc293c3043bf8a1468b7abcb32d32a0bd988a828972280ecb5d40df94b2aec" prot="public">
+          <name>CAMDEV_GTM_PIECE_WISE_LINEAR</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Piece wise linear mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1ggaeb8cc293c3043bf8a1468b7abcb32d32ab5a125fc5c379ed310f310f82493d30b" prot="public">
+          <name>CAMDEV_GTM_LOGARITHM_COMPRESSION</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Logarithm compression mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1ggaeb8cc293c3043bf8a1468b7abcb32d32a9cea944605f6f8559f377fa084c87af0" prot="public">
+          <name>CAMDEV_GTM_USER_CURVE</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>User curve mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1ggaeb8cc293c3043bf8a1468b7abcb32d32a74ac3ce822253b2c33bccc4c4c04d3fa" prot="public">
+          <name>CAMDEV_GTM_CURVE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice GTM curve select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="70" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__gtm_1ga3e0fb8e9c90f8df9b0af2c6c6272786e" prot="public" static="no">
+        <name>CamDeviceBlackWhiteCorMode_e</name>
+        <enumvalue id="group____cam__device__gtm_1gga3e0fb8e9c90f8df9b0af2c6c6272786ea926dd6e276ad1add7980151916517d57" prot="public">
+          <name>CAMDEV_BW_COR_MODE0</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Manual mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1gga3e0fb8e9c90f8df9b0af2c6c6272786ea5938b7b0d8b1a64ed5a0b80223e9f2bc" prot="public">
+          <name>CAMDEV_BW_COR_MODE1</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Black white correction auto mode use previous frame statistics. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1gga3e0fb8e9c90f8df9b0af2c6c6272786ea06ebe07826cd214b5041777b89069fe5" prot="public">
+          <name>CAMDEV_BW_COR_MODE2</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>White correction auto mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1gga3e0fb8e9c90f8df9b0af2c6c6272786ea733506c75c9051070a83eb9896a9ee17" prot="public">
+          <name>CAMDEV_BW_COR_MODE_MAX</name>
+          <briefdescription>
+<para>Maximum border. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice GTM black white correction mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="84" bodyend="89"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__gtm_1gafb0407fd64d11a37679209dc7f0f050d" prot="public" static="no">
+        <name>CamDeviceLinearShiftBit_e</name>
+        <enumvalue id="group____cam__device__gtm_1ggafb0407fd64d11a37679209dc7f0f050da5dab984d9017bd68dc678dbc21cbc13f" prot="public">
+          <name>CAMDEV_SHIFT_BIT_0</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Output 0-19 bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1ggafb0407fd64d11a37679209dc7f0f050dacc225c85f77773d307f52d5fe946fe37" prot="public">
+          <name>CAMDEV_SHIFT_BIT_1</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Output 1-20 bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1ggafb0407fd64d11a37679209dc7f0f050da4102338e0e58e62e669148d83b67962f" prot="public">
+          <name>CAMDEV_SHIFT_BIT_2</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Output 2-21bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1ggafb0407fd64d11a37679209dc7f0f050da207997d8ee48b7753bc980d9d142f10c" prot="public">
+          <name>CAMDEV_SHIFT_BIT_3</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>Output 3-22bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1ggafb0407fd64d11a37679209dc7f0f050da1389557295e943f7d94e0fd23d2dcbcc" prot="public">
+          <name>CAMDEV_SHIFT_BIT_4</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+<para>Output 4-23bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__gtm_1ggafb0407fd64d11a37679209dc7f0f050dabeb3644e5969caea5f7229f6d5b8bc2f" prot="public">
+          <name>CAMDEV_SHIFT_BIT_MAX</name>
+          <briefdescription>
+<para>Maximum border. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice GTM linear shift bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="96" bodyend="103"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__gtm_1gad81edcb4b2d4733897fb0907910da77e" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__gtm_1gaacbe9b807f7939eeaa48b78326baced7" kindref="member">CamDeviceGtmCurveMode_e</ref></type>
+        <definition>typedef enum CamDeviceGtmCurveMode_e  CamDeviceGtmCurveMode_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceGtmCurveMode_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM curve mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="63" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__gtm_1gaeeb6ce20008f05716956fde624f84820" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__gtm_1gaeb8cc293c3043bf8a1468b7abcb32d32" kindref="member">CamDeviceGtmCurveSelect_e</ref></type>
+        <definition>typedef enum CamDeviceGtmCurveSelect_e  CamDeviceGtmCurveSelect_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceGtmCurveSelect_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM curve select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="77" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__gtm_1gab5a41d29daf16533c3e77d13f2dc931a" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__gtm_1ga3e0fb8e9c90f8df9b0af2c6c6272786e" kindref="member">CamDeviceBlackWhiteCorMode_e</ref></type>
+        <definition>typedef enum CamDeviceBlackWhiteCorMode_e  CamDeviceBlackWhiteCorMode_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceBlackWhiteCorMode_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM black white correction mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="89" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__gtm_1ga1e5b5e876a2fce4bdfb9f014c464c7ed" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__gtm_1gafb0407fd64d11a37679209dc7f0f050d" kindref="member">CamDeviceLinearShiftBit_e</ref></type>
+        <definition>typedef enum CamDeviceLinearShiftBit_e  CamDeviceLinearShiftBit_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceLinearShiftBit_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM linear shift bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="103" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__gtm_1ga8b20f6d1e3c78b03047d4bcf3282d125" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_gtm_histogram__s" kindref="compound">CamDeviceGtmHistogram_s</ref></type>
+        <definition>typedef struct CamDeviceGtmHistogram_s  CamDeviceGtmHistogram_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceGtmHistogram_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM histogram state structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="115" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__gtm_1gadeab7ed41f03538aa35a4165cdc63cfc" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_gtm_color_weight_config__s" kindref="compound">CamDeviceGtmColorWeightConfig_s</ref></type>
+        <definition>typedef struct CamDeviceGtmColorWeightConfig_s  CamDeviceGtmColorWeightConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceGtmColorWeightConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM color weight structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="127" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__gtm_1ga58f6b592bd0e7cb071072ba6c918e547" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_gtm_black_white_correction_config__s" kindref="compound">CamDeviceGtmBlackWhiteCorrectionConfig_s</ref></type>
+        <definition>typedef struct CamDeviceGtmBlackWhiteCorrectionConfig_s  CamDeviceGtmBlackWhiteCorrectionConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceGtmBlackWhiteCorrectionConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM black white correction configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="140" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__gtm_1ga02b73b28514819d177bf6d4e1f5979a4" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_gtm_curve_config__s" kindref="compound">CamDeviceGtmCurveConfig_s</ref></type>
+        <definition>typedef struct CamDeviceGtmCurveConfig_s  CamDeviceGtmCurveConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceGtmCurveConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM curve configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="158" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__gtm_1ga5f0a8d33118351a930208d68e5a37a87" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_gtm_curve_info_config__s" kindref="compound">CamDeviceGtmCurveInfoConfig_s</ref></type>
+        <definition>typedef struct CamDeviceGtmCurveInfoConfig_s  CamDeviceGtmCurveInfoConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceGtmCurveInfoConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM curve histogram information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="180" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__gtm_1gab71b89fcc5475b6c127c5fb55261ab43" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_gtm_manual_config__s" kindref="compound">CamDeviceGtmManualConfig_s</ref></type>
+        <definition>typedef struct CamDeviceGtmManualConfig_s  CamDeviceGtmManualConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceGtmManualConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM current configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="192" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__gtm_1ga797e9642fc4c4057bb1a21005fda7db7" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_gtm_auto_config__s" kindref="compound">CamDeviceGtmAutoConfig_s</ref></type>
+        <definition>typedef struct CamDeviceGtmAutoConfig_s  CamDeviceGtmAutoConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceGtmAutoConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM auto configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="219" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__gtm_1ga16270dc84a60d693ad982718b5464c38" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_gtm_config__s" kindref="compound">CamDeviceGtmConfig_s</ref></type>
+        <definition>typedef struct CamDeviceGtmConfig_s  CamDeviceGtmConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceGtmConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="231" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__gtm_1gab37bd00f1d91877358e63c88cbe4455b" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_gtm_status__s" kindref="compound">CamDeviceGtmStatus_s</ref></type>
+        <definition>typedef struct CamDeviceGtmStatus_s  CamDeviceGtmStatus_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceGtmStatus_t</name>
+        <briefdescription>
+<para>VsCamDevice GTM status structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="244" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__gtm_1gad5876795d667373aadb6f4f8d520c45b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceGtmSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceGtmConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceGtmSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__gtm_1ga16270dc84a60d693ad982718b5464c38" kindref="member">CamDeviceGtmConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/gtm/cam_device_gtm_api_v1.c" bodystart="19" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__gtm_1ga9196d329dddacba3d27bad5a0536b83e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceGtmGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceGtmConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceGtmGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__gtm_1ga16270dc84a60d693ad982718b5464c38" kindref="member">CamDeviceGtmConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/gtm/cam_device_gtm_api_v1.c" bodystart="61" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__gtm_1ga756ff31040cf37ea502da10f6da3356c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceGtmEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceGtmEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/gtm/cam_device_gtm_api_v1.c" bodystart="103" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__gtm_1ga6eb8133b0c8538c2517ff11b1195fec4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceGtmDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceGtmDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/gtm/cam_device_gtm_api_v1.c" bodystart="140" bodyend="174"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__gtm_1ga0120b7e17a66fe12c5cea7c2cc7a1692" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceGtmBlackWhiteCorrectionEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceGtmBlackWhiteCorrectionEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/gtm/cam_device_gtm_api_v1.c" bodystart="177" bodyend="211"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__gtm_1gafa3be5432d566c87bfa6118b29499fbf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceGtmBlackWhiteCorrectionDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceGtmBlackWhiteCorrectionDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="385" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/gtm/cam_device_gtm_api_v1.c" bodystart="214" bodyend="248"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__gtm_1ga97b1e5f63f1532bb8b2626d74e7790f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceGtmBlackWhiteCorrectionEnGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, bool_t *pBwCorEnable)</argsstring>
+        <name>VsiCamDeviceGtmBlackWhiteCorrectionEnGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>bool_t *</type>
+          <declname>pBwCorEnable</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="412" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/gtm/cam_device_gtm_api_v1.c" bodystart="251" bodyend="290"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__gtm_1gacb1f8016691da596c85e99091f9afcbe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceGtmGetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceGtmStatus_t *pStatus)</argsstring>
+        <name>VsiCamDeviceGtmGetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__gtm_1gab37bd00f1d91877358e63c88cbe4455b" kindref="member">CamDeviceGtmStatus_t</ref> *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="440" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/gtm/cam_device_gtm_api_v1.c" bodystart="293" bodyend="332"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__gtm_1ga20a2003d4e1a541e18a27773ebe774e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceGtmGetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceGtmGetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="462" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/gtm/cam_device_gtm_api_v1.c" bodystart="335" bodyend="374"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__gtm_1ga4a3440693ae4f2de3cb27378241d0854" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceGtmReset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceGtmReset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="490" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/gtm/cam_device_gtm_api_v1.c" bodystart="377" bodyend="411"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group____cam__device__gtm_1ga2a92e1c71198a716fdcc42cf180f1b5d" prot="public" static="no">
+        <name>CAMDEV_GTM_RGB_COEF_SIZE</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__gtm_1ga39698aafc8b19823acabe9ec1e513459" prot="public" static="no">
+        <name>CAMDEV_GTM_COLOR_WEIGHT_SIZE</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__gtm_1ga42e93e5b59bb0ce50a949a62f2d44133" prot="public" static="no">
+        <name>CAMDEV_GTM_HIST_LUMA_SIZE</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__gtm_1ga02bb4f72f04b76605c1aad79a5018dae" prot="public" static="no">
+        <name>CAMDEV_GTM_USER_CURVE_SIZE</name>
+        <initializer>129</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__gtm_1ga7cf2c9406027c61b9e5dd401080912ef" prot="public" static="no">
+        <name>CAMDEV_GTM_HIST_BINS</name>
+        <initializer>128</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Provides interfaces for controlling the global tone mapping module working in the ISP pipeline. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

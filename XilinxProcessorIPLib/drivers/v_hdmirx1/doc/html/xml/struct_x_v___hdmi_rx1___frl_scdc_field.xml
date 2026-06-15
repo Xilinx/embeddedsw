@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___hdmi_rx1___frl_scdc_field" kind="struct" prot="public">
+    <compoundname>XV_HdmiRx1_FrlScdcField</compoundname>
+    <includes local="no">xv_hdmirx1_frl.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx1___frl_scdc_field_1a7ca76af091ecb7c7a9e46cf8c292ed94" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiRx1_FrlScdcField::Offset</definition>
+        <argsstring></argsstring>
+        <name>Offset</name>
+        <briefdescription>
+<para>Register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx1/src/xv_hdmirx1_frl.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx1/src/xv_hdmirx1_frl.h" bodystart="139" bodyend="-1"/>
+        <referencedby refid="xv__hdmirx1__frl_8c_1a38c0efa82d512c42b07775e36f919bb2" compoundref="xv__hdmirx1__frl_8c" startline="1317" endline="1366">XV_HdmiRx1_FrlDdcReadField</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx1___frl_scdc_field_1aecbfb387e752c5723ec6ac15d73dd268" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiRx1_FrlScdcField::Mask</definition>
+        <argsstring></argsstring>
+        <name>Mask</name>
+        <briefdescription>
+<para>Bits mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx1/src/xv_hdmirx1_frl.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx1/src/xv_hdmirx1_frl.h" bodystart="140" bodyend="-1"/>
+        <referencedby refid="xv__hdmirx1__frl_8c_1ab17e4f96ebbe6785b411233165de859a" compoundref="xv__hdmirx1__frl_8c" startline="1388" endline="1440">XV_HdmiRx1_FrlDdcWriteField</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx1___frl_scdc_field_1acb6b6b9a6a07477a53365e9f879ac168" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiRx1_FrlScdcField::Shift</definition>
+        <argsstring></argsstring>
+        <name>Shift</name>
+        <briefdescription>
+<para>Bits shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx1/src/xv_hdmirx1_frl.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx1/src/xv_hdmirx1_frl.h" bodystart="141" bodyend="-1"/>
+        <referencedby refid="xv__hdmirx1__frl_8c_1ab17e4f96ebbe6785b411233165de859a" compoundref="xv__hdmirx1__frl_8c" startline="1388" endline="1440">XV_HdmiRx1_FrlDdcWriteField</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains DDC registers offset, mask, shift. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx1/src/xv_hdmirx1_frl.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx1/src/xv_hdmirx1_frl.h" bodystart="137" bodyend="142"/>
+    <listofallmembers>
+      <member refid="struct_x_v___hdmi_rx1___frl_scdc_field_1aecbfb387e752c5723ec6ac15d73dd268" prot="public" virt="non-virtual"><scope>XV_HdmiRx1_FrlScdcField</scope><name>Mask</name></member>
+      <member refid="struct_x_v___hdmi_rx1___frl_scdc_field_1a7ca76af091ecb7c7a9e46cf8c292ed94" prot="public" virt="non-virtual"><scope>XV_HdmiRx1_FrlScdcField</scope><name>Offset</name></member>
+      <member refid="struct_x_v___hdmi_rx1___frl_scdc_field_1acb6b6b9a6a07477a53365e9f879ac168" prot="public" virt="non-virtual"><scope>XV_HdmiRx1_FrlScdcField</scope><name>Shift</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

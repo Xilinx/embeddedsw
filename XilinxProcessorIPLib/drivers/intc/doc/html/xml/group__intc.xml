@@ -1,0 +1,2121 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__intc" kind="group">
+    <compoundname>intc</compoundname>
+    <title>Overview</title>
+    <innerclass refid="struct_x_intc___config" prot="public">XIntc_Config</innerclass>
+    <innerclass refid="struct_x_intc" prot="public">XIntc</innerclass>
+    <innerclass refid="struct_x_intc___vector_table_entry" prot="public">XIntc_VectorTableEntry</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Configuration options</header>
+      <description><para>These options are used in <ref refid="group__intc_1ga1f0d32716f082a51a751df84312c7d56" kindref="member">XIntc_SetOptions()</ref> to configure the device. </para></description>
+      <memberdef kind="define" id="group__intc_1gaf4bce8e2035f391b702686e49c66c839" prot="public" static="no">
+        <name>XIN_SVC_SGL_ISR_OPTION</name>
+        <initializer>1UL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><preformatted>
+XIN_SVC_SGL_ISR_OPTION  Service the highest priority pending interrupt
+                        and then return.
+XIN_SVC_ALL_ISRS_OPTION Service all of the pending interrupts and then
+                        return.
+</preformatted> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="251" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" bodystart="251" bodyend="-1"/>
+        <referencedby refid="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" compoundref="xintc__l_8c" startline="179" endline="329">XIntc_DeviceInterruptHandler</referencedby>
+        <referencedby refid="group__intc_1gaf005b035ffd9bfd042b3e85aada2d104" compoundref="xintc_8c" startline="292" endline="442">XIntc_Initialize</referencedby>
+        <referencedby refid="group__intc_1ga1f0d32716f082a51a751df84312c7d56" compoundref="xintc__options_8c" startline="76" endline="110">XIntc_SetOptions</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1gad043237f658e83b2e8718ddddab12545" prot="public" static="no">
+        <name>XIN_SVC_ALL_ISRS_OPTION</name>
+        <initializer>2UL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="252" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Start modes</header>
+      <description><para>One of these values is passed to <ref refid="group__intc_1ga863eb58a3ae9419c7ac5da7c9fa9cb50" kindref="member">XIntc_Start()</ref> to start the device. </para></description>
+      <memberdef kind="define" id="group__intc_1gaefd5527cecdc1a6444b624d1e1a2514f" prot="public" static="no">
+        <name>XIN_SIMULATION_MODE</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Simulation only mode, no hardware interrupts recognized. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="261" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" bodystart="261" bodyend="-1"/>
+        <referencedby refid="xintc__example_8c_1aaea6614590c6c6eedade935ae1c1a26c" compoundref="xintc__example_8c" startline="271" endline="334">SetUpInterruptSystem</referencedby>
+        <referencedby refid="group__intc_1ga863eb58a3ae9419c7ac5da7c9fa9cb50" compoundref="xintc_8c" startline="474" endline="520">XIntc_Start</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga56b4aa3cb483ea5c882e2e36a4800af2" prot="public" static="no">
+        <name>XIN_REAL_MODE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Real mode, no simulation allowed, hardware interrupts recognized. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="263" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" bodystart="263" bodyend="-1"/>
+        <referencedby refid="xintc__tapp__example_8c_1a61cc1c8516478304c6968a45716fef8d" compoundref="xintc__tapp__example_8c" startline="216" endline="271">IntcInterruptSetup</referencedby>
+        <referencedby refid="group__intc_1ga863eb58a3ae9419c7ac5da7c9fa9cb50" compoundref="xintc_8c" startline="474" endline="520">XIntc_Start</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Masks to specify Interrupt Controller Mode</header>
+      <memberdef kind="define" id="group__intc_1ga6787fa567536384f6133b8ce90cf22f1" prot="public" static="no">
+        <name>XIN_INTC_NOCASCADE</name>
+        <initializer>0	/* Normal - No Cascade Mode */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="270" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" bodystart="270" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1gad8c8fd384185ceae0a8abe0cd8d4c638" prot="public" static="no">
+        <name>XIN_INTC_PRIMARY</name>
+        <initializer>1	/* Master/Primary controller */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="271" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" bodystart="271" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga35bc775ed0e234d9b069700f4825cd7d" prot="public" static="no">
+        <name>XIN_INTC_SECONDARY</name>
+        <initializer>2	/* Secondary Slave Controllers */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="272" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" bodystart="272" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga3805fe4c0c209acc349242d75600646b" prot="public" static="no">
+        <name>XIN_INTC_LAST</name>
+        <initializer>3	/* Last Slave Controller */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="273" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" bodystart="273" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Mask to specify maximum number of interrupt sources per controller</header>
+      <memberdef kind="define" id="group__intc_1ga842aea1f6663265412f5618f102e8f18" prot="public" static="no">
+        <name>XIN_CONTROLLER_MAX_INTRS</name>
+        <initializer>32  /* Each Controller has 32
+					       interrupt pins */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="282" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga9d6cfdfe9914f029b5a88d014400188e" prot="public" static="no">
+        <name>XINTC_STANDARD_VECTOR_ADDRESS_WIDTH</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="284" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1gae719e5a0b6bd6482b86d9240a5226a83" prot="public" static="no">
+        <name>XIN_CASCADE_IRQ_MASK</name>
+        <initializer>0x80000000U</initializer>
+        <briefdescription>
+<para>Bitmask for the cascade interrupt input (bit 31) used by PRIMARY and SECONDARY controllers to chain to the next controller in cascade mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="290" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" bodystart="290" bodyend="-1"/>
+        <referencedby refid="group__intc_1gac7f59192d3b3ba2e2283a264677577b8" compoundref="xintc_8c" startline="715" endline="782">XIntc_Enable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga83c73f41c10e5cb7be5c1fc0b1f05993" prot="public" static="no">
+        <name>XINTC_MAX_CASCADE_CONTROLLERS</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Maximum number of interrupt controllers that can be daisy-chained together in cascade mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>Limited to 8 because the driver API uses u8 for global interrupt IDs (max 255), and each controller owns 32 interrupt positions (8 * 32 = 256). </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="298" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" bodystart="298" bodyend="-1"/>
+        <referencedby refid="group__intc_1gac7f59192d3b3ba2e2283a264677577b8" compoundref="xintc_8c" startline="715" endline="782">XIntc_Enable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga023c861e5fa5ddd0f0e6d67dd5aa504b" prot="public" static="no">
+        <name>XINTC_INTR_PARENT_MASK</name>
+        <initializer>(~(UINTPTR)1U)</initializer>
+        <briefdescription>
+<para>Mask used to extract the parent controller base address from IntrParent by clearing the LSB which encodes the parent type (GIC vs INTC). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="304" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga2686148d7a9d3f2f214735198506d7d0" prot="public" static="no">
+        <name>XINTC_NO_PARENT</name>
+        <initializer>((UINTPTR)0xFFFF)</initializer>
+        <briefdescription>
+<para>Sentinel value indicating that an interrupt controller has no parent controller (i.e. </para>        </briefdescription>
+        <detaileddescription>
+<para>it is the root of the interrupt hierarchy). </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="310" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" bodystart="310" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__intc_1gab333e5826535071fe60f13b70b6e56dd" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XFastInterruptHandler)(void)</definition>
+        <argsstring>)(void)</argsstring>
+        <name>XFastInterruptHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__intc_1gaf97a3c0d3620f70f2e01db3237ed5305" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIntc_BitPosMask[XIN_CONTROLLER_MAX_INTRS]</definition>
+        <argsstring>[XIN_CONTROLLER_MAX_INTRS]</argsstring>
+        <name>XIntc_BitPosMask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__intc_1ga6afbe6b28aa729c753744cba40ecf5b3" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_intc___config" kindref="compound">XIntc_Config</ref></type>
+        <definition>XIntc_Config XIntc_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XIntc_ConfigTable</name>
+        <briefdescription>
+<para>This table contains configuration information for each intc device in the system. </para>        </briefdescription>
+        <detaileddescription>
+<para>The <ref refid="struct_x_intc" kindref="compound">XIntc</ref> driver must know when to acknowledge the interrupt. The entry which specifies this as a bit mask where each bit corresponds to a specific interrupt. A bit set indicates to ack it before servicing it. Generally, acknowledge before service is used when the interrupt signal is edge-sensitive, and after when the signal is level-sensitive.</para><para>Refer to the <ref refid="struct_x_intc___config" kindref="compound">XIntc_Config</ref> data structure in <ref refid="xintc_8h" kindref="compound">xintc.h</ref> for details on how this table should be initialized. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="398" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_g.c" bodystart="75" bodyend="-1"/>
+        <referencedby refid="group__intc_1gaf8c9b9342d3f4190fe131c29765a1e02" compoundref="xintc__l_8c" startline="464" endline="484">LookupConfigByBaseAddress</referencedby>
+        <referencedby refid="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" compoundref="xintc__l_8c" startline="179" endline="329">XIntc_DeviceInterruptHandler</referencedby>
+        <referencedby refid="group__intc_1gaa6e69276f3923a7d61d366c98269d750" compoundref="xintc_8c" startline="122" endline="139">XIntc_GetPrimaryController</referencedby>
+        <referencedby refid="group__intc_1ga29cc03aa40679a199de65e7657280dab" compoundref="xintc_8c" startline="974" endline="998">XIntc_LookupConfig</referencedby>
+        <referencedby refid="group__intc_1gaf090e932e35ede6c8cffe76e785de835" compoundref="xintc__l_8c" startline="355" endline="380">XIntc_SetIntrSvcOption</referencedby>
+        <referencedby refid="group__intc_1ga1f0d32716f082a51a751df84312c7d56" compoundref="xintc__options_8c" startline="76" endline="110">XIntc_SetOptions</referencedby>
+        <referencedby refid="group__intc_1ga863eb58a3ae9419c7ac5da7c9fa9cb50" compoundref="xintc_8c" startline="474" endline="520">XIntc_Start</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__intc_1ga2187e69fdc39ef945a992d2602d0c1c1" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_intc___config" kindref="compound">XIntc_Config</ref></type>
+        <definition>XIntc_Config XIntc_ConfigTable[XPAR_XINTC_NUM_INSTANCES]</definition>
+        <argsstring>[XPAR_XINTC_NUM_INSTANCES]</argsstring>
+        <name>XIntc_ConfigTable</name>
+        <initializer>= {
+	{
+	 XPAR_INTC_0_DEVICE_ID,
+	 XPAR_INTC_0_BASEADDR,
+	 XPAR_INTC_0_ACK_BEFORE,
+	 0
+	 }
+	,
+	{
+	 XPAR_INTC_1_DEVICE_ID,
+	 XPAR_INTC_1_BASEADDR,
+	 XPAR_INTC_1_ACK_BEFORE,
+	 0
+	 }
+}</initializer>
+        <briefdescription>
+<para>This table contains configuration information for each intc device in the system. </para>        </briefdescription>
+        <detaileddescription>
+<para>The <ref refid="struct_x_intc" kindref="compound">XIntc</ref> driver must know when to acknowledge the interrupt. The entry which specifies this as a bit mask where each bit corresponds to a specific interrupt. A bit set indicates to ack it before servicing it. Generally, acknowledge before service is used when the interrupt signal is edge-sensitive, and after when the signal is level-sensitive.</para><para>Refer to the <ref refid="struct_x_intc___config" kindref="compound">XIntc_Config</ref> data structure in <ref refid="xintc_8h" kindref="compound">xintc.h</ref> for details on how this table should be initialized. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_g.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_g.c" bodystart="75" bodyend="-1"/>
+        <referencedby refid="group__intc_1gaf8c9b9342d3f4190fe131c29765a1e02" compoundref="xintc__l_8c" startline="464" endline="484">LookupConfigByBaseAddress</referencedby>
+        <referencedby refid="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" compoundref="xintc__l_8c" startline="179" endline="329">XIntc_DeviceInterruptHandler</referencedby>
+        <referencedby refid="group__intc_1gaa6e69276f3923a7d61d366c98269d750" compoundref="xintc_8c" startline="122" endline="139">XIntc_GetPrimaryController</referencedby>
+        <referencedby refid="group__intc_1ga29cc03aa40679a199de65e7657280dab" compoundref="xintc_8c" startline="974" endline="998">XIntc_LookupConfig</referencedby>
+        <referencedby refid="group__intc_1gaf090e932e35ede6c8cffe76e785de835" compoundref="xintc__l_8c" startline="355" endline="380">XIntc_SetIntrSvcOption</referencedby>
+        <referencedby refid="group__intc_1ga1f0d32716f082a51a751df84312c7d56" compoundref="xintc__options_8c" startline="76" endline="110">XIntc_SetOptions</referencedby>
+        <referencedby refid="group__intc_1ga863eb58a3ae9419c7ac5da7c9fa9cb50" compoundref="xintc_8c" startline="474" endline="520">XIntc_Start</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__intc_1gaf0641659204bd99e09c1511b4d39e1a4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIntc_BitPosMask[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XIntc_BitPosMask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_i.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__intc_1ga6afbe6b28aa729c753744cba40ecf5b3" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_intc___config" kindref="compound">XIntc_Config</ref></type>
+        <definition>XIntc_Config XIntc_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XIntc_ConfigTable</name>
+        <briefdescription>
+<para>This table contains configuration information for each intc device in the system. </para>        </briefdescription>
+        <detaileddescription>
+<para>The <ref refid="struct_x_intc" kindref="compound">XIntc</ref> driver must know when to acknowledge the interrupt. The entry which specifies this as a bit mask where each bit corresponds to a specific interrupt. A bit set indicates to ack it before servicing it. Generally, acknowledge before service is used when the interrupt signal is edge-sensitive, and after when the signal is level-sensitive.</para><para>Refer to the <ref refid="struct_x_intc___config" kindref="compound">XIntc_Config</ref> data structure in <ref refid="xintc_8h" kindref="compound">xintc.h</ref> for details on how this table should be initialized. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_i.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_g.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__intc_1gafda8c0d108cc122f2137138f734e757b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void StubHandler</definition>
+        <argsstring>(void *CallBackRef)</argsstring>
+        <name>StubHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>A stub for the asynchronous callback. </para>        </briefdescription>
+        <detaileddescription>
+<para>The stub is here in case the upper layers forget to set the handler.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the upper layer callback reference</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" bodystart="923" bodyend="934"/>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1gae057f399bb307653c60f366b99e480cc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XIntc_InitializeSlaves</definition>
+        <argsstring>(XIntc *InstancePtr)</argsstring>
+        <name>XIntc_InitializeSlaves</name>
+        <param>
+          <type><ref refid="struct_x_intc" kindref="compound">XIntc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Initializes Slave controllers in Cascade mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>The initialization entails:<itemizedlist>
+<listitem><para>Initial vector table with stub function calls</para></listitem><listitem><para>All interrupt sources are disabled for last controller.</para></listitem><listitem><para>All interrupt sources are disabled except sources to 31 pin of primary and secondary controllers</para></listitem><listitem><para>Interrupt outputs are disabled</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" bodystart="1300" bodyend="1401"/>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1gacd04cd094f631f275f0bf5448d319c11" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_intc___config" kindref="compound">XIntc_Config</ref> *</type>
+        <definition>static XIntc_Config * XIntc_FindControllerByAddr</definition>
+        <argsstring>(UINTPTR BaseAddr)</argsstring>
+        <name>XIntc_FindControllerByAddr</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddr</declname>
+        </param>
+        <briefdescription>
+<para>Find controller by base address (used for parent lookup in SDT cascade mode). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address to search for (LSB may be set for encoding)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to controller config, or NULL if not found </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" bodystart="151" bodyend="163"/>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1ga0bb7bd09f344cbb0ca86c36b2de3130f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_intc___config" kindref="compound">XIntc_Config</ref> *</type>
+        <definition>static XIntc_Config * XIntc_FindControllerForId</definition>
+        <argsstring>(u8 Id, u8 *LocalId)</argsstring>
+        <name>XIntc_FindControllerForId</name>
+        <param>
+          <type>u8</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>LocalId</declname>
+        </param>
+        <briefdescription>
+<para>Find the controller that owns an interrupt ID and return local interrupt number. </para>        </briefdescription>
+        <detaileddescription>
+<para>In SDT mode, builds cascade chain via BFS using interrupt-parent links. In non-SDT mode, uses sequential config table order.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Global interrupt ID (0-N across all controllers) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LocalId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output parameter for local interrupt ID (0-31) on found controller</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to controller config that owns this interrupt, or NULL if not found </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" bodystart="178" bodyend="255"/>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1gaa6e69276f3923a7d61d366c98269d750" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_intc___config" kindref="compound">XIntc_Config</ref> *</type>
+        <definition>XIntc_Config * XIntc_GetPrimaryController</definition>
+        <argsstring>(void)</argsstring>
+        <name>XIntc_GetPrimaryController</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Find the PRIMARY controller in the config table. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Pointer to primary controller config, or NULL if not found </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" bodystart="122" bodyend="139"/>
+        <references refid="group__intc_1ga6afbe6b28aa729c753744cba40ecf5b3" compoundref="xintc__g_8c" startline="75">XIntc_ConfigTable</references>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1gaf005b035ffd9bfd042b3e85aada2d104" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XIntc_Initialize</definition>
+        <argsstring>(XIntc *InstancePtr, UINTPTR BaseAddr)</argsstring>
+        <name>XIntc_Initialize</name>
+        <param>
+          <type><ref refid="struct_x_intc" kindref="compound">XIntc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddr</declname>
+        </param>
+        <briefdescription>
+<para>Initialize a specific interrupt controller instance/driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>The initialization entails: <verbatim>  - Initialize fields of the XIntc structure
+  - Initial vector table with stub function calls
+  - All interrupt sources are disabled
+  - Interrupt output is disabled
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful</para></listitem><listitem><para>XST_DEVICE_IS_STARTED if the device has already been started</para></listitem><listitem><para>XST_DEVICE_NOT_FOUND if device configuration information was not found for a device with the supplied device ID/BaseAddress.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>In Cascade mode this function calls XIntc_InitializeSlaves to initialize Slave Interrupt controllers. In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" bodystart="292" bodyend="442"/>
+        <references refid="struct_x_intc___config_1a7fb04e1e5139ccfcd9475847c67c35af" compoundref="xintc_8h" startline="324">XIntc_Config::BaseAddress</references>
+        <references refid="struct_x_intc_1a36bcdd89bd3afdb96bbee08989c886c0" compoundref="xintc_8h" startline="357">XIntc::BaseAddress</references>
+        <references refid="struct_x_intc_1ac76bb1d794c122fdb86f8e72a9ed22fd" compoundref="xintc_8h" startline="361">XIntc::CfgPtr</references>
+        <references refid="struct_x_intc___config_1ac894d2be382d08d83821c1672615d4d4" compoundref="xintc_8h" startline="327">XIntc_Config::FastIntr</references>
+        <references refid="struct_x_intc___config_1af62197288a9019af6084a1675844e1ca" compoundref="xintc_8h" startline="340">XIntc_Config::HandlerTable</references>
+        <references refid="struct_x_intc___config_1ae54682e47e6e506a52c7b6da6314a29a" compoundref="xintc_8h" startline="334">XIntc_Config::IntcType</references>
+        <references refid="struct_x_intc_1a277e8f00e1f6eb05f8097c676e826b62" compoundref="xintc_8h" startline="358">XIntc::IsReady</references>
+        <references refid="struct_x_intc_1a3e45bbc3ed1e84a8d708c25c23fa252e" compoundref="xintc_8h" startline="359">XIntc::IsStarted</references>
+        <references refid="struct_x_intc___config_1a6e2fc4f937193eb9e665a2e66af97db2" compoundref="xintc_8h" startline="329">XIntc_Config::NumberofIntrs</references>
+        <references refid="struct_x_intc___config_1a85d5d557aa6619757848d754ca096552" compoundref="xintc_8h" startline="341">XIntc_Config::NumberofSwIntrs</references>
+        <references refid="struct_x_intc___config_1ac3efdbf93e34b88aedead2e7ca44cee1" compoundref="xintc_8h" startline="331">XIntc_Config::Options</references>
+        <references refid="struct_x_intc___config_1a630c8585f41eea348ae0d6d134b0ad8f" compoundref="xintc_8h" startline="330">XIntc_Config::VectorAddrWidth</references>
+        <references refid="group__intc_1gaf4bce8e2035f391b702686e49c66c839" compoundref="xintc_8h" startline="251">XIN_SVC_SGL_ISR_OPTION</references>
+        <references refid="group__intc_1ga29cc03aa40679a199de65e7657280dab" compoundref="xintc_8c" startline="974" endline="998">XIntc_LookupConfig</references>
+        <referencedby refid="xintc__example_8c_1ab1515b75652fa1ea78eadbdf0f3d87dc" compoundref="xintc__example_8c" startline="191" endline="254">IntcExample</referencedby>
+        <referencedby refid="xintc__tapp__example_8c_1a61cc1c8516478304c6968a45716fef8d" compoundref="xintc__tapp__example_8c" startline="216" endline="271">IntcInterruptSetup</referencedby>
+        <referencedby refid="xintc__tapp__example_8c_1aad2830a3e997768fb096439a940d7a7c" compoundref="xintc__tapp__example_8c" startline="160" endline="188">IntcSelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1ga863eb58a3ae9419c7ac5da7c9fa9cb50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XIntc_Start</definition>
+        <argsstring>(XIntc *InstancePtr, u8 Mode)</argsstring>
+        <name>XIntc_Start</name>
+        <param>
+          <type><ref refid="struct_x_intc" kindref="compound">XIntc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+<para>Starts the interrupt controller by enabling the output from the controller to the processor. </para>        </briefdescription>
+        <detaileddescription>
+<para>Interrupts may be generated by the interrupt controller after this function is called.</para><para>It is necessary for the caller to connect the interrupt handler of this component to the proper interrupt source. This function also starts Slave controllers in Cascade mode.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>determines if software is allowed to simulate interrupts or real interrupts are allowed to occur. Note that these modes are mutually exclusive. The interrupt controller hardware resets in a mode that allows software to simulate interrupts until this mode is exited. It cannot be reentered once it has been exited.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+One of the following values should be used for the mode.<itemizedlist>
+<listitem><para>XIN_SIMULATION_MODE enables simulation of interrupts only</para></listitem><listitem><para>XIN_REAL_MODE enables hardware interrupts only</para></listitem></itemizedlist>
+</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the device was started successfully</para></listitem><listitem><para>XST_FAILURE if simulation mode was specified and it could not be set because real mode has already been entered.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Must be called after <ref refid="struct_x_intc" kindref="compound">XIntc</ref> initialization is completed. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" line="474" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" bodystart="474" bodyend="520"/>
+        <references refid="struct_x_intc_1a36bcdd89bd3afdb96bbee08989c886c0" compoundref="xintc_8h" startline="357">XIntc::BaseAddress</references>
+        <references refid="struct_x_intc_1ac76bb1d794c122fdb86f8e72a9ed22fd" compoundref="xintc_8h" startline="361">XIntc::CfgPtr</references>
+        <references refid="struct_x_intc___config_1ae54682e47e6e506a52c7b6da6314a29a" compoundref="xintc_8h" startline="334">XIntc_Config::IntcType</references>
+        <references refid="struct_x_intc_1a277e8f00e1f6eb05f8097c676e826b62" compoundref="xintc_8h" startline="358">XIntc::IsReady</references>
+        <references refid="struct_x_intc_1a3e45bbc3ed1e84a8d708c25c23fa252e" compoundref="xintc_8h" startline="359">XIntc::IsStarted</references>
+        <references refid="group__intc_1ga56b4aa3cb483ea5c882e2e36a4800af2" compoundref="xintc_8h" startline="263">XIN_REAL_MODE</references>
+        <references refid="group__intc_1gaefd5527cecdc1a6444b624d1e1a2514f" compoundref="xintc_8h" startline="261">XIN_SIMULATION_MODE</references>
+        <references refid="group__intc_1ga6afbe6b28aa729c753744cba40ecf5b3" compoundref="xintc__g_8c" startline="75">XIntc_ConfigTable</references>
+        <referencedby refid="xintc__tapp__example_8c_1a61cc1c8516478304c6968a45716fef8d" compoundref="xintc__tapp__example_8c" startline="216" endline="271">IntcInterruptSetup</referencedby>
+        <referencedby refid="xintc__example_8c_1aaea6614590c6c6eedade935ae1c1a26c" compoundref="xintc__example_8c" startline="271" endline="334">SetUpInterruptSystem</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1gafabb05cf2e5b62031524a33d1f88f405" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIntc_Stop</definition>
+        <argsstring>(XIntc *InstancePtr)</argsstring>
+        <name>XIntc_Stop</name>
+        <param>
+          <type><ref refid="struct_x_intc" kindref="compound">XIntc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Stops the interrupt controller by disabling the output from the controller so that no interrupts will be caused by the interrupt controller. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" line="535" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" bodystart="535" bodyend="550"/>
+        <references refid="struct_x_intc_1a36bcdd89bd3afdb96bbee08989c886c0" compoundref="xintc_8h" startline="357">XIntc::BaseAddress</references>
+        <references refid="struct_x_intc_1a277e8f00e1f6eb05f8097c676e826b62" compoundref="xintc_8h" startline="358">XIntc::IsReady</references>
+        <references refid="struct_x_intc_1a3e45bbc3ed1e84a8d708c25c23fa252e" compoundref="xintc_8h" startline="359">XIntc::IsStarted</references>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1gaee9ec5873a764994d64b4da35a110084" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XIntc_Connect</definition>
+        <argsstring>(XIntc *InstancePtr, u8 Id, XInterruptHandler Handler, void *CallBackRef)</argsstring>
+        <name>XIntc_Connect</name>
+        <param>
+          <type><ref refid="struct_x_intc" kindref="compound">XIntc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>XInterruptHandler</type>
+          <declname>Handler</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>Makes the connection between the Id of the interrupt source and the associated handler that is to run when the interrupt is recognized. </para>        </briefdescription>
+        <detaileddescription>
+<para>The argument provided in this call as the Callbackref is used as the argument for the handler when it is called. In Cascade mode, connects handler to Slave controller handler table depending on the interrupt Id.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the ID of the interrupt source and should be in the range of 0 to XPAR_INTC_MAX_NUM_INTR_INPUTS - 1 with 0 being the highest priority interrupt. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Handler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to the handler for that interrupt. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the callback reference, usually the instance pointer of the connecting driver.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><verbatim>            - XST_SUCCESS if the handler was connected correctly.
+</verbatim></para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+WARNING: The handler provided as an argument will overwrite any handler that was previously connected. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" line="579" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" bodystart="579" bodyend="615"/>
+        <references refid="struct_x_intc_1ac76bb1d794c122fdb86f8e72a9ed22fd" compoundref="xintc_8h" startline="361">XIntc::CfgPtr</references>
+        <references refid="struct_x_intc___config_1af62197288a9019af6084a1675844e1ca" compoundref="xintc_8h" startline="340">XIntc_Config::HandlerTable</references>
+        <references refid="struct_x_intc_1a277e8f00e1f6eb05f8097c676e826b62" compoundref="xintc_8h" startline="358">XIntc::IsReady</references>
+        <referencedby refid="xintc__example_8c_1aaea6614590c6c6eedade935ae1c1a26c" compoundref="xintc__example_8c" startline="271" endline="334">SetUpInterruptSystem</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1ga8f7caaeb26b6b264fffefbd32f90f855" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIntc_Disconnect</definition>
+        <argsstring>(XIntc *InstancePtr, u8 Id)</argsstring>
+        <name>XIntc_Disconnect</name>
+        <param>
+          <type><ref refid="struct_x_intc" kindref="compound">XIntc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Id</declname>
+        </param>
+        <briefdescription>
+<para>Updates the interrupt table with the Null Handler and NULL arguments at the location pointed at by the Id. </para>        </briefdescription>
+        <detaileddescription>
+<para>This effectively disconnects that interrupt source from any handler. The interrupt is disabled also. In Cascade mode, disconnects handler from Slave controller handler table depending on the interrupt Id.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the ID of the interrupt source and should be in the range of 0 to XPAR_INTC_MAX_NUM_INTR_INPUTS - 1 with 0 being the highest priority interrupt.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" line="636" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" bodystart="636" bodyend="695"/>
+        <references refid="struct_x_intc___config_1a7fb04e1e5139ccfcd9475847c67c35af" compoundref="xintc_8h" startline="324">XIntc_Config::BaseAddress</references>
+        <references refid="struct_x_intc_1a36bcdd89bd3afdb96bbee08989c886c0" compoundref="xintc_8h" startline="357">XIntc::BaseAddress</references>
+        <references refid="struct_x_intc_1ac76bb1d794c122fdb86f8e72a9ed22fd" compoundref="xintc_8h" startline="361">XIntc::CfgPtr</references>
+        <references refid="struct_x_intc___config_1af62197288a9019af6084a1675844e1ca" compoundref="xintc_8h" startline="340">XIntc_Config::HandlerTable</references>
+        <references refid="struct_x_intc_1a277e8f00e1f6eb05f8097c676e826b62" compoundref="xintc_8h" startline="358">XIntc::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1gac7f59192d3b3ba2e2283a264677577b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIntc_Enable</definition>
+        <argsstring>(XIntc *InstancePtr, u8 Id)</argsstring>
+        <name>XIntc_Enable</name>
+        <param>
+          <type><ref refid="struct_x_intc" kindref="compound">XIntc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Id</declname>
+        </param>
+        <briefdescription>
+<para>Enables the interrupt source provided as the argument Id. </para>        </briefdescription>
+        <detaileddescription>
+<para>Any pending interrupt condition for the specified Id will occur after this function is called. In Cascade mode, enables corresponding interrupt of Slave controllers depending on the Id.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the ID of the interrupt source and should be in the range of 0 to XPAR_INTC_MAX_NUM_INTR_INPUTS - 1 with 0 being the highest priority interrupt.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" line="715" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" bodystart="715" bodyend="782"/>
+        <references refid="struct_x_intc___config_1a7fb04e1e5139ccfcd9475847c67c35af" compoundref="xintc_8h" startline="324">XIntc_Config::BaseAddress</references>
+        <references refid="struct_x_intc_1a36bcdd89bd3afdb96bbee08989c886c0" compoundref="xintc_8h" startline="357">XIntc::BaseAddress</references>
+        <references refid="struct_x_intc_1ac76bb1d794c122fdb86f8e72a9ed22fd" compoundref="xintc_8h" startline="361">XIntc::CfgPtr</references>
+        <references refid="struct_x_intc___config_1ae54682e47e6e506a52c7b6da6314a29a" compoundref="xintc_8h" startline="334">XIntc_Config::IntcType</references>
+        <references refid="struct_x_intc___config_1abd06397221e3c64897f994f68ef4f575" compoundref="xintc_8h" startline="345">XIntc_Config::IntrParent</references>
+        <references refid="struct_x_intc_1a277e8f00e1f6eb05f8097c676e826b62" compoundref="xintc_8h" startline="358">XIntc::IsReady</references>
+        <references refid="group__intc_1gae719e5a0b6bd6482b86d9240a5226a83" compoundref="xintc_8h" startline="290">XIN_CASCADE_IRQ_MASK</references>
+        <references refid="group__intc_1ga83c73f41c10e5cb7be5c1fc0b1f05993" compoundref="xintc_8h" startline="298">XINTC_MAX_CASCADE_CONTROLLERS</references>
+        <referencedby refid="xintc__example_8c_1aaea6614590c6c6eedade935ae1c1a26c" compoundref="xintc__example_8c" startline="271" endline="334">SetUpInterruptSystem</referencedby>
+        <referencedby refid="group__intc_1ga24a344d15b12b8acd82cd4c49a020d74" compoundref="xintc_8c" startline="1029" endline="1116">XIntc_ConnectFastHandler</referencedby>
+        <referencedby refid="group__intc_1ga881154092f4f8cd5e29a71b284f7b2ae" compoundref="xintc_8c" startline="1140" endline="1281">XIntc_SetNormalIntrMode</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1gaea44ec361097925f2994558d402988ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIntc_Disable</definition>
+        <argsstring>(XIntc *InstancePtr, u8 Id)</argsstring>
+        <name>XIntc_Disable</name>
+        <param>
+          <type><ref refid="struct_x_intc" kindref="compound">XIntc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Id</declname>
+        </param>
+        <briefdescription>
+<para>Disables the interrupt source provided as the argument Id such that the interrupt controller will not cause interrupts for the specified Id. </para>        </briefdescription>
+        <detaileddescription>
+<para>The interrupt controller will continue to hold an interrupt condition for the Id, but will not cause an interrupt.In Cascade mode, disables corresponding interrupt of Slave controllers depending on the Id.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the ID of the interrupt source and should be in the range of 0 to XPAR_INTC_MAX_NUM_INTR_INPUTS - 1 with 0 being the highest priority interrupt.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" line="803" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" bodystart="803" bodyend="849"/>
+        <references refid="struct_x_intc___config_1a7fb04e1e5139ccfcd9475847c67c35af" compoundref="xintc_8h" startline="324">XIntc_Config::BaseAddress</references>
+        <references refid="struct_x_intc_1a36bcdd89bd3afdb96bbee08989c886c0" compoundref="xintc_8h" startline="357">XIntc::BaseAddress</references>
+        <references refid="struct_x_intc_1a277e8f00e1f6eb05f8097c676e826b62" compoundref="xintc_8h" startline="358">XIntc::IsReady</references>
+        <referencedby refid="group__intc_1ga24a344d15b12b8acd82cd4c49a020d74" compoundref="xintc_8c" startline="1029" endline="1116">XIntc_ConnectFastHandler</referencedby>
+        <referencedby refid="group__intc_1ga881154092f4f8cd5e29a71b284f7b2ae" compoundref="xintc_8c" startline="1140" endline="1281">XIntc_SetNormalIntrMode</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1ga8604653ac3a24bbb49c5fecb6a9ebfc7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIntc_Acknowledge</definition>
+        <argsstring>(XIntc *InstancePtr, u8 Id)</argsstring>
+        <name>XIntc_Acknowledge</name>
+        <param>
+          <type><ref refid="struct_x_intc" kindref="compound">XIntc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Id</declname>
+        </param>
+        <briefdescription>
+<para>Acknowledges the interrupt source provided as the argument Id. </para>        </briefdescription>
+        <detaileddescription>
+<para>When the interrupt is acknowledged, it causes the interrupt controller to clear its interrupt condition.In Cascade mode, acknowledges corresponding interrupt source of Slave controllers depending on the Id.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the ID of the interrupt source and should be in the range of 0 to XPAR_INTC_MAX_NUM_INTR_INPUTS - 1 with 0 being the highest priority interrupt.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" line="869" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" bodystart="869" bodyend="908"/>
+        <references refid="struct_x_intc___config_1a7fb04e1e5139ccfcd9475847c67c35af" compoundref="xintc_8h" startline="324">XIntc_Config::BaseAddress</references>
+        <references refid="struct_x_intc_1a36bcdd89bd3afdb96bbee08989c886c0" compoundref="xintc_8h" startline="357">XIntc::BaseAddress</references>
+        <references refid="struct_x_intc_1a277e8f00e1f6eb05f8097c676e826b62" compoundref="xintc_8h" startline="358">XIntc::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1ga29cc03aa40679a199de65e7657280dab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_intc___config" kindref="compound">XIntc_Config</ref> *</type>
+        <definition>XIntc_Config * XIntc_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddr)</argsstring>
+        <name>XIntc_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddr</declname>
+        </param>
+        <briefdescription>
+<para>Looks up the device configuration based on the unique device ID/BaseAddress. </para>        </briefdescription>
+        <detaileddescription>
+<para>A table contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> configuration structure for the specified device, or NULL if the device ID/BaseAddress was not found.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" line="974" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" bodystart="974" bodyend="998"/>
+        <references refid="group__intc_1ga6afbe6b28aa729c753744cba40ecf5b3" compoundref="xintc__g_8c" startline="75">XIntc_ConfigTable</references>
+        <referencedby refid="group__intc_1gaf005b035ffd9bfd042b3e85aada2d104" compoundref="xintc_8c" startline="292" endline="442">XIntc_Initialize</referencedby>
+        <referencedby refid="group__intc_1ga999a50f24a9ac9a4a2623d950978f1bb" compoundref="xintc__l_8c" startline="508" endline="599">XIntc_RegisterFastHandler</referencedby>
+        <referencedby refid="group__intc_1ga4bd1d34885340943143c8fd2f98a3963" compoundref="xintc__l_8c" startline="422" endline="445">XIntc_RegisterHandler</referencedby>
+        <referencedby refid="group__intc_1gaf090e932e35ede6c8cffe76e785de835" compoundref="xintc__l_8c" startline="355" endline="380">XIntc_SetIntrSvcOption</referencedby>
+        <referencedby refid="group__intc_1ga1f0d32716f082a51a751df84312c7d56" compoundref="xintc__options_8c" startline="76" endline="110">XIntc_SetOptions</referencedby>
+        <referencedby refid="group__intc_1ga17972363ab5a1a8f5f1d135c5b3c22c7" compoundref="xintc__selftest_8c" startline="178" endline="248">XIntc_SimulateIntr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1ga24a344d15b12b8acd82cd4c49a020d74" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XIntc_ConnectFastHandler</definition>
+        <argsstring>(XIntc *InstancePtr, u8 Id, XFastInterruptHandler Handler)</argsstring>
+        <name>XIntc_ConnectFastHandler</name>
+        <param>
+          <type><ref refid="struct_x_intc" kindref="compound">XIntc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>XFastInterruptHandler</type>
+          <declname>Handler</declname>
+        </param>
+        <briefdescription>
+<para>Makes the connection between the Id of the interrupt source and the associated handler that is to run when the interrupt is recognized.In Cascade mode, connects handler to corresponding Slave controller IVAR/IVEAR register depending on the Id and sets all interrupt sources of the Slave controller as fast interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the ID of the interrupt source and should be in the range of 0 to XPAR_INTC_MAX_NUM_INTR_INPUTS - 1 with 0 being the highest priority interrupt. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Handler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>for specified interrupt id. It must be declared with &quot;fast_interrupt&quot; attribute. e.g. static void MyHandler(void) <bold>attribute</bold> ((fast_interrupt));</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Slave controllers in Cascade Mode should have all as Fast interrupts or Normal interrupts, mixed interrupts are not supported</para></simplesect>
+WARNING: The handler provided as an argument will overwrite any handler that was previously connected. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" line="1029" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" bodystart="1029" bodyend="1116"/>
+        <references refid="struct_x_intc___config_1a7fb04e1e5139ccfcd9475847c67c35af" compoundref="xintc_8h" startline="324">XIntc_Config::BaseAddress</references>
+        <references refid="struct_x_intc_1a36bcdd89bd3afdb96bbee08989c886c0" compoundref="xintc_8h" startline="357">XIntc::BaseAddress</references>
+        <references refid="struct_x_intc_1ac76bb1d794c122fdb86f8e72a9ed22fd" compoundref="xintc_8h" startline="361">XIntc::CfgPtr</references>
+        <references refid="struct_x_intc___config_1ac894d2be382d08d83821c1672615d4d4" compoundref="xintc_8h" startline="327">XIntc_Config::FastIntr</references>
+        <references refid="struct_x_intc_1a277e8f00e1f6eb05f8097c676e826b62" compoundref="xintc_8h" startline="358">XIntc::IsReady</references>
+        <references refid="struct_x_intc___config_1a630c8585f41eea348ae0d6d134b0ad8f" compoundref="xintc_8h" startline="330">XIntc_Config::VectorAddrWidth</references>
+        <references refid="group__intc_1gaea44ec361097925f2994558d402988ab" compoundref="xintc_8c" startline="803" endline="849">XIntc_Disable</references>
+        <references refid="group__intc_1gac7f59192d3b3ba2e2283a264677577b8" compoundref="xintc_8c" startline="715" endline="782">XIntc_Enable</references>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1ga881154092f4f8cd5e29a71b284f7b2ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIntc_SetNormalIntrMode</definition>
+        <argsstring>(XIntc *InstancePtr, u8 Id)</argsstring>
+        <name>XIntc_SetNormalIntrMode</name>
+        <param>
+          <type><ref refid="struct_x_intc" kindref="compound">XIntc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Id</declname>
+        </param>
+        <briefdescription>
+<para>Sets the normal interrupt mode for the specified interrupt in the Interrupt Mode Register. </para>        </briefdescription>
+        <detaileddescription>
+<para>In Cascade mode disconnects handler from corresponding Slave controller IVAR/IVEAR register depending on the Id and sets all interrupt sources of the Slave controller as normal interrupts.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the ID of the interrupt source and should be in the range of 0 to XPAR_INTC_MAX_NUM_INTR_INPUTS - 1 with 0 being the highest priority interrupt.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Slave controllers in Cascade Mode should have all as Fast interrupts or Normal interrupts, mixed interrupts are not supported </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" line="1140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" bodystart="1140" bodyend="1281"/>
+        <references refid="struct_x_intc___config_1a7fb04e1e5139ccfcd9475847c67c35af" compoundref="xintc_8h" startline="324">XIntc_Config::BaseAddress</references>
+        <references refid="struct_x_intc_1a36bcdd89bd3afdb96bbee08989c886c0" compoundref="xintc_8h" startline="357">XIntc::BaseAddress</references>
+        <references refid="struct_x_intc_1ac76bb1d794c122fdb86f8e72a9ed22fd" compoundref="xintc_8h" startline="361">XIntc::CfgPtr</references>
+        <references refid="struct_x_intc___config_1ac894d2be382d08d83821c1672615d4d4" compoundref="xintc_8h" startline="327">XIntc_Config::FastIntr</references>
+        <references refid="struct_x_intc_1a277e8f00e1f6eb05f8097c676e826b62" compoundref="xintc_8h" startline="358">XIntc::IsReady</references>
+        <references refid="struct_x_intc___config_1a630c8585f41eea348ae0d6d134b0ad8f" compoundref="xintc_8h" startline="330">XIntc_Config::VectorAddrWidth</references>
+        <references refid="group__intc_1gaea44ec361097925f2994558d402988ab" compoundref="xintc_8c" startline="803" endline="849">XIntc_Disable</references>
+        <references refid="group__intc_1gac7f59192d3b3ba2e2283a264677577b8" compoundref="xintc_8c" startline="715" endline="782">XIntc_Enable</references>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1ga7eb4ea6d2f66a5b3ca32b12ec68bc151" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XIntc_TriggerSwIntr</definition>
+        <argsstring>(XIntc *InstancePtr, u8 Id)</argsstring>
+        <name>XIntc_TriggerSwIntr</name>
+        <param>
+          <type><ref refid="struct_x_intc" kindref="compound">XIntc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Id</declname>
+        </param>
+        <briefdescription>
+<para>Allows software to trigger software interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function will only be successful when the interrupt controller has been configured with software interrupt in HW design</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt ID to be triggered</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful</para></listitem></itemizedlist>
+</para></simplesect>
+<itemizedlist>
+<listitem><para>XST_FAILURE if the instance pointer is invalid if interrupt id does not belongs to software interrupt</para></listitem></itemizedlist>
+</para><para><simplesect kind="note"><para>HW design must have software interrupts and interrupt id passed should be of software interrupt type. Interrupt id&apos;s for software interrupts for specific HW design can be found in xparameters.h file. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" line="1423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.c" bodystart="1423" bodyend="1461"/>
+        <references refid="struct_x_intc___config_1a7fb04e1e5139ccfcd9475847c67c35af" compoundref="xintc_8h" startline="324">XIntc_Config::BaseAddress</references>
+        <references refid="struct_x_intc_1a36bcdd89bd3afdb96bbee08989c886c0" compoundref="xintc_8h" startline="357">XIntc::BaseAddress</references>
+        <references refid="struct_x_intc_1a277e8f00e1f6eb05f8097c676e826b62" compoundref="xintc_8h" startline="358">XIntc::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1gaf8c9b9342d3f4190fe131c29765a1e02" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_intc___config" kindref="compound">XIntc_Config</ref> *</type>
+        <definition>XIntc_Config * LookupConfigByBaseAddress</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>LookupConfigByBaseAddress</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Looks up the device configuration based on the base address of the device. </para>        </briefdescription>
+        <detaileddescription>
+<para>A table contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique identifier for a device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+A pointer to the configuration structure for the specified device, or NULL if the device was not found.</para><para><simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="395" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.c" bodystart="464" bodyend="484"/>
+        <references refid="group__intc_1ga6afbe6b28aa729c753744cba40ecf5b3" compoundref="xintc__g_8c" startline="75">XIntc_ConfigTable</references>
+        <referencedby refid="xintc__low__level__example_8c_1a83f2cbdf0d928c5fb6401e2abd071b56" compoundref="xintc__low__level__example_8c" startline="180" endline="261">IntcLowLevelExample</referencedby>
+        <referencedby refid="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" compoundref="xintc__l_8c" startline="179" endline="329">XIntc_DeviceInterruptHandler</referencedby>
+        <referencedby refid="group__intc_1ga4bd1d34885340943143c8fd2f98a3963" compoundref="xintc__l_8c" startline="422" endline="445">XIntc_RegisterHandler</referencedby>
+        <referencedby refid="group__intc_1gaf090e932e35ede6c8cffe76e785de835" compoundref="xintc__l_8c" startline="355" endline="380">XIntc_SetIntrSvcOption</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1ga9c6dc6e838193da3ce51c8cdb3b88943" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIntc_VoidInterruptHandler</definition>
+        <argsstring>(void)</argsstring>
+        <name>XIntc_VoidInterruptHandler</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="408" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1ga635187ed756cee70b4b4051560cbd7bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIntc_InterruptHandler</definition>
+        <argsstring>(XIntc *InstancePtr)</argsstring>
+        <name>XIntc_InterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_intc" kindref="compound">XIntc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Interrupt handler for the driver used when there can be no argument passed to the handler. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is provided mostly for backward compatibility. The user should use <ref refid="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" kindref="member">XIntc_DeviceInterruptHandler()</ref>, defined in <ref refid="xintc__l_8c" kindref="compound">xintc_l.c</ref>, if possible.</para><para>The user must connect this function to the interrupt system such that it is called whenever the devices which are connected to it cause an interrupt.</para><para><simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+The constant XPAR_INTC_SINGLE_DEVICE_ID must be defined for this handler to be included in the driver compilation.</para><para>The interrupt handler for the driver. This function is provided mostly for backward compatibility. The user should use <ref refid="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" kindref="member">XIntc_DeviceInterruptHandler()</ref>, defined in <ref refid="xintc__l_8c" kindref="compound">xintc_l.c</ref> when possible and pass the device ID of the interrupt controller device as its argument.</para><para>The user must connect this function to the interrupt system such that it is called whenever the devices which are connected to it cause an interrupt.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="409" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_intr.c" bodystart="143" bodyend="159"/>
+        <references refid="struct_x_intc___config_1a7fb04e1e5139ccfcd9475847c67c35af" compoundref="xintc_8h" startline="324">XIntc_Config::BaseAddress</references>
+        <references refid="struct_x_intc_1ac76bb1d794c122fdb86f8e72a9ed22fd" compoundref="xintc_8h" startline="361">XIntc::CfgPtr</references>
+        <references refid="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" compoundref="xintc__l_8c" startline="179" endline="329">XIntc_DeviceInterruptHandler</references>
+        <referencedby refid="xintc__example_8c_1aaea6614590c6c6eedade935ae1c1a26c" compoundref="xintc__example_8c" startline="271" endline="334">SetUpInterruptSystem</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1ga1f0d32716f082a51a751df84312c7d56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XIntc_SetOptions</definition>
+        <argsstring>(XIntc *InstancePtr, u32 Options)</argsstring>
+        <name>XIntc_SetOptions</name>
+        <param>
+          <type><ref refid="struct_x_intc" kindref="compound">XIntc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Options</declname>
+        </param>
+        <briefdescription>
+<para>Set the options for the interrupt controller driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>In Cascade mode same Option is set to Slave controllers.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to be set. The available options are described in <ref refid="xintc_8h" kindref="compound">xintc.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the options were set successfully</para></listitem><listitem><para>XST_INVALID_PARAM if the specified option was not valid</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="414" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_options.c" bodystart="76" bodyend="110"/>
+        <references refid="struct_x_intc_1ac76bb1d794c122fdb86f8e72a9ed22fd" compoundref="xintc_8h" startline="361">XIntc::CfgPtr</references>
+        <references refid="struct_x_intc___config_1ae54682e47e6e506a52c7b6da6314a29a" compoundref="xintc_8h" startline="334">XIntc_Config::IntcType</references>
+        <references refid="struct_x_intc_1a277e8f00e1f6eb05f8097c676e826b62" compoundref="xintc_8h" startline="358">XIntc::IsReady</references>
+        <references refid="struct_x_intc___config_1ac3efdbf93e34b88aedead2e7ca44cee1" compoundref="xintc_8h" startline="331">XIntc_Config::Options</references>
+        <references refid="group__intc_1gaf4bce8e2035f391b702686e49c66c839" compoundref="xintc_8h" startline="251">XIN_SVC_SGL_ISR_OPTION</references>
+        <references refid="group__intc_1ga6afbe6b28aa729c753744cba40ecf5b3" compoundref="xintc__g_8c" startline="75">XIntc_ConfigTable</references>
+        <references refid="group__intc_1ga29cc03aa40679a199de65e7657280dab" compoundref="xintc_8c" startline="974" endline="998">XIntc_LookupConfig</references>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1ga6fdbe96b1db87f0c78e68da8bc767a69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XIntc_GetOptions</definition>
+        <argsstring>(XIntc *InstancePtr)</argsstring>
+        <name>XIntc_GetOptions</name>
+        <param>
+          <type><ref refid="struct_x_intc" kindref="compound">XIntc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Return the currently set options. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The currently set options. The options are described in <ref refid="xintc_8h" kindref="compound">xintc.h</ref>.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_options.c" bodystart="124" bodyend="133"/>
+        <references refid="struct_x_intc_1ac76bb1d794c122fdb86f8e72a9ed22fd" compoundref="xintc_8h" startline="361">XIntc::CfgPtr</references>
+        <references refid="struct_x_intc_1a277e8f00e1f6eb05f8097c676e826b62" compoundref="xintc_8h" startline="358">XIntc::IsReady</references>
+        <references refid="struct_x_intc___config_1ac3efdbf93e34b88aedead2e7ca44cee1" compoundref="xintc_8h" startline="331">XIntc_Config::Options</references>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1gaf9a9a16180b363930d21bc94dfe71147" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XIntc_SelfTest</definition>
+        <argsstring>(XIntc *InstancePtr)</argsstring>
+        <name>XIntc_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_intc" kindref="compound">XIntc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Run a self-test on the driver/device. </para>        </briefdescription>
+        <detaileddescription>
+<para>This is a destructive test.</para><para>This involves forcing interrupts into the controller and verifying that they are recognized and can be acknowledged. This test will not succeed if the interrupt controller has been started in real mode such that interrupts cannot be forced.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if self-test is successful.</para></listitem><listitem><para>XST_INTC_FAIL_SELFTEST if the Interrupt controller fails the self-test. It will fail the self test if the device has previously been started in real mode.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="420" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_selftest.c" bodystart="79" bodyend="153"/>
+        <references refid="struct_x_intc_1a36bcdd89bd3afdb96bbee08989c886c0" compoundref="xintc_8h" startline="357">XIntc::BaseAddress</references>
+        <references refid="struct_x_intc_1a277e8f00e1f6eb05f8097c676e826b62" compoundref="xintc_8h" startline="358">XIntc::IsReady</references>
+        <referencedby refid="xintc__example_8c_1ab1515b75652fa1ea78eadbdf0f3d87dc" compoundref="xintc__example_8c" startline="191" endline="254">IntcExample</referencedby>
+        <referencedby refid="xintc__tapp__example_8c_1a61cc1c8516478304c6968a45716fef8d" compoundref="xintc__tapp__example_8c" startline="216" endline="271">IntcInterruptSetup</referencedby>
+        <referencedby refid="xintc__tapp__example_8c_1aad2830a3e997768fb096439a940d7a7c" compoundref="xintc__tapp__example_8c" startline="160" endline="188">IntcSelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1ga17972363ab5a1a8f5f1d135c5b3c22c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XIntc_SimulateIntr</definition>
+        <argsstring>(XIntc *InstancePtr, u8 Id)</argsstring>
+        <name>XIntc_SimulateIntr</name>
+        <param>
+          <type><ref refid="struct_x_intc" kindref="compound">XIntc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Id</declname>
+        </param>
+        <briefdescription>
+<para>Allows software to simulate an interrupt in the interrupt controller. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function will only be successful when the interrupt controller has been started in simulation mode. Once it has been started in real mode, interrupts cannot be simulated. A simulated interrupt allows the interrupt controller to be tested without any device to drive an interrupt input signal into it. In Cascade mode writes to ISR of appropriate Slave controller depending on Id.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt ID for which to simulate an interrupt.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful</para></listitem></itemizedlist>
+</para></simplesect>
+<itemizedlist>
+<listitem><para>XST_FAILURE if the interrupt could not be simulated because the interrupt controller is or has previously been in real mode.</para></listitem></itemizedlist>
+</para><para><simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="421" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_selftest.c" bodystart="178" bodyend="248"/>
+        <references refid="struct_x_intc___config_1a7fb04e1e5139ccfcd9475847c67c35af" compoundref="xintc_8h" startline="324">XIntc_Config::BaseAddress</references>
+        <references refid="struct_x_intc_1a36bcdd89bd3afdb96bbee08989c886c0" compoundref="xintc_8h" startline="357">XIntc::BaseAddress</references>
+        <references refid="struct_x_intc_1a277e8f00e1f6eb05f8097c676e826b62" compoundref="xintc_8h" startline="358">XIntc::IsReady</references>
+        <references refid="group__intc_1ga29cc03aa40679a199de65e7657280dab" compoundref="xintc_8c" startline="974" endline="998">XIntc_LookupConfig</references>
+        <referencedby refid="xintc__example_8c_1ab1515b75652fa1ea78eadbdf0f3d87dc" compoundref="xintc__example_8c" startline="191" endline="254">IntcExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1ga0104f54e817f29d43e53275e86b89475" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XIntc_CascadeHandler</definition>
+        <argsstring>(void *DeviceId)</argsstring>
+        <name>XIntc_CascadeHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.c" bodystart="649" bodyend="776"/>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIntc_DeviceInterruptHandler</definition>
+        <argsstring>(void *DeviceId)</argsstring>
+        <name>XIntc_DeviceInterruptHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This function is the primary interrupt handler for the driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>It must be connected to the interrupt source such that is called when an interrupt of the interrupt controller is active. It will resolve which interrupts are active and enabled and call the appropriate interrupt handler. It uses the AckBeforeService flag in the configuration data to determine when to acknowledge the interrupt. Highest priority interrupts are serviced first. This function assumes that an interrupt vector table has been previously initialized.It does not verify that entries in the table are valid before calling an interrupt handler. In Cascade mode this function calls XIntc_CascadeHandler to handle interrupts of Master and Slave controllers. This functions also handles interrupts nesting by saving and restoring link register of Microblaze and Interrupt Level register of interrupt controller properly.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the zero-based device ID defined in xparameters.h of the interrupting interrupt controller. It is used as a direct index into the configuration data, which contains the vector table for the interrupt controller. Note that even though the argument is a void pointer, the value is not a pointer but the actual device ID. The void pointer type is necessary to meet the XInterruptHandler typedef for interrupt handlers.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>For nested interrupts, this function saves microblaze r14 register on entry and restores on exit. This is required since compiler does not support nesting. This function enables Microblaze interrupts after blocking further interrupts from the current interrupt number and interrupts below current interrupt priority by writing to Interrupt Level Register of INTC on entry. On exit, it disables microblaze interrupts and restores ILR register default value(0xFFFFFFFF)back. It is recommended to increase STACK_SIZE in linker script for nested interrupts. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.c" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.c" bodystart="179" bodyend="329"/>
+        <references refid="struct_x_intc___config_1a172cd1cd58904502d6f3cec734db1d6b" compoundref="xintc_8h" startline="325">XIntc_Config::AckBeforeService</references>
+        <references refid="struct_x_intc___config_1a7fb04e1e5139ccfcd9475847c67c35af" compoundref="xintc_8h" startline="324">XIntc_Config::BaseAddress</references>
+        <references refid="struct_x_intc___config_1ac894d2be382d08d83821c1672615d4d4" compoundref="xintc_8h" startline="327">XIntc_Config::FastIntr</references>
+        <references refid="struct_x_intc___config_1af62197288a9019af6084a1675844e1ca" compoundref="xintc_8h" startline="340">XIntc_Config::HandlerTable</references>
+        <references refid="struct_x_intc___config_1ae54682e47e6e506a52c7b6da6314a29a" compoundref="xintc_8h" startline="334">XIntc_Config::IntcType</references>
+        <references refid="group__intc_1gaf8c9b9342d3f4190fe131c29765a1e02" compoundref="xintc__l_8c" startline="464" endline="484">LookupConfigByBaseAddress</references>
+        <references refid="struct_x_intc___config_1a6e2fc4f937193eb9e665a2e66af97db2" compoundref="xintc_8h" startline="329">XIntc_Config::NumberofIntrs</references>
+        <references refid="struct_x_intc___config_1a85d5d557aa6619757848d754ca096552" compoundref="xintc_8h" startline="341">XIntc_Config::NumberofSwIntrs</references>
+        <references refid="struct_x_intc___config_1ac3efdbf93e34b88aedead2e7ca44cee1" compoundref="xintc_8h" startline="331">XIntc_Config::Options</references>
+        <references refid="group__intc_1gaf4bce8e2035f391b702686e49c66c839" compoundref="xintc_8h" startline="251">XIN_SVC_SGL_ISR_OPTION</references>
+        <references refid="group__intc_1ga4f699042980f8453713171959183fc49" compoundref="xintc__l_8h" startline="268">XIntc_AckIntr</references>
+        <references refid="group__intc_1ga6afbe6b28aa729c753744cba40ecf5b3" compoundref="xintc__g_8c" startline="75">XIntc_ConfigTable</references>
+        <references refid="group__intc_1ga13c828dcbbdc3441c8abaded5cda888b" compoundref="xintc__l_8h" startline="288">XIntc_GetIntrStatus</references>
+        <referencedby refid="xintc__tapp__example_8c_1a61cc1c8516478304c6968a45716fef8d" compoundref="xintc__tapp__example_8c" startline="216" endline="271">IntcInterruptSetup</referencedby>
+        <referencedby refid="xintc__low__level__example_8c_1a0838d944ebf56cbdfce4d481eab585e8" compoundref="xintc__low__level__example_8c" startline="277" endline="322">SetupInterruptSystem</referencedby>
+        <referencedby refid="group__intc_1ga635187ed756cee70b4b4051560cbd7bc" compoundref="xintc__intr_8c" startline="143" endline="159">XIntc_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1gaf090e932e35ede6c8cffe76e785de835" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIntc_SetIntrSvcOption</definition>
+        <argsstring>(UINTPTR BaseAddress, int Option)</argsstring>
+        <name>XIntc_SetIntrSvcOption</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Option</declname>
+        </param>
+        <briefdescription>
+<para>Set the interrupt service option, which can configure the driver so that it services only a single interrupt at a time when an interrupt occurs, or services all pending interrupts when an interrupt occurs. </para>        </briefdescription>
+        <detaileddescription>
+<para>The default behavior when using the driver interface given in <ref refid="xintc_8h" kindref="compound">xintc.h</ref> file is to service only a single interrupt, whereas the default behavior when using the driver interface given in this file is to service all outstanding interrupts when an interrupt occurs. In Cascade mode same Option is set to Slave controllers.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique identifier for a device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Option</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is XIN_SVC_SGL_ISR_OPTION if you want only a single interrupt serviced when an interrupt occurs, or XIN_SVC_ALL_ISRS_OPTION if you want all pending interrupts serviced when an interrupt occurs.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+Note that this function has no effect if the input base address is invalid. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.c" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.c" bodystart="355" bodyend="380"/>
+        <references refid="struct_x_intc___config_1ae54682e47e6e506a52c7b6da6314a29a" compoundref="xintc_8h" startline="334">XIntc_Config::IntcType</references>
+        <references refid="group__intc_1gaf8c9b9342d3f4190fe131c29765a1e02" compoundref="xintc__l_8c" startline="464" endline="484">LookupConfigByBaseAddress</references>
+        <references refid="struct_x_intc___config_1ac3efdbf93e34b88aedead2e7ca44cee1" compoundref="xintc_8h" startline="331">XIntc_Config::Options</references>
+        <references refid="group__intc_1ga6afbe6b28aa729c753744cba40ecf5b3" compoundref="xintc__g_8c" startline="75">XIntc_ConfigTable</references>
+        <references refid="group__intc_1ga29cc03aa40679a199de65e7657280dab" compoundref="xintc_8c" startline="974" endline="998">XIntc_LookupConfig</references>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1ga4bd1d34885340943143c8fd2f98a3963" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIntc_RegisterHandler</definition>
+        <argsstring>(UINTPTR BaseAddress, int InterruptId, XInterruptHandler Handler, void *CallBackRef)</argsstring>
+        <name>XIntc_RegisterHandler</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>InterruptId</declname>
+        </param>
+        <param>
+          <type>XInterruptHandler</type>
+          <declname>Handler</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>Register a handler function for a specific interrupt ID. </para>        </briefdescription>
+        <detaileddescription>
+<para>The vector table of the interrupt controller is updated, overwriting any previous handler. The handler function will be called when an interrupt occurs for the given interrupt ID.</para><para>This function can also be used to remove a handler from the vector table by passing in the XIntc_DefaultHandler() as the handler and NULL as the callback reference. In Cascade mode Interrupt Id is used to set Handler for corresponding Slave Controller</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the interrupt controller whose vector table will be modified. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InterruptId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt ID to be associated with the input handler. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Handler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the function pointer that will be added to the vector table for the given interrupt ID. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the argument that will be passed to the new handler function when it is called. This is user-specific.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+This function has no effect if the input base address is invalid. Following fields in <ref refid="struct_x_intc___config" kindref="compound">XIntc_Config</ref> impacts interrupt handling,<orderedlist>
+<listitem><para>AckBeforeService: If 1, primary interrupt handler acks interrupt before servicing it, else it would ack interrupt after servicing it (after calling interrupt ID specific handler)</para></listitem><listitem><para>Options: XIN_SVC_SGL_ISR_OPTION - primary interrupt handler services the highest priority pending interrupt and return XIN_SVC_ALL_ISRS_OPTION - primary interrupt handler services all of the pending interrupts and then return </para></listitem></orderedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.c" line="422" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.c" bodystart="422" bodyend="445"/>
+        <references refid="struct_x_intc___config_1af62197288a9019af6084a1675844e1ca" compoundref="xintc_8h" startline="340">XIntc_Config::HandlerTable</references>
+        <references refid="group__intc_1gaf8c9b9342d3f4190fe131c29765a1e02" compoundref="xintc__l_8c" startline="464" endline="484">LookupConfigByBaseAddress</references>
+        <references refid="group__intc_1ga29cc03aa40679a199de65e7657280dab" compoundref="xintc_8c" startline="974" endline="998">XIntc_LookupConfig</references>
+        <referencedby refid="xintc__low__level__example_8c_1a83f2cbdf0d928c5fb6401e2abd071b56" compoundref="xintc__low__level__example_8c" startline="180" endline="261">IntcLowLevelExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1ga999a50f24a9ac9a4a2623d950978f1bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIntc_RegisterFastHandler</definition>
+        <argsstring>(UINTPTR BaseAddress, u8 Id, XFastInterruptHandler FastHandler)</argsstring>
+        <name>XIntc_RegisterFastHandler</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>XFastInterruptHandler</type>
+          <declname>FastHandler</declname>
+        </param>
+        <briefdescription>
+<para>Register a fast handler function for a specific interrupt ID. </para>        </briefdescription>
+        <detaileddescription>
+<para>The handler function will be called when an interrupt occurs for the given interrupt ID. In Cascade mode Interrupt Id is used to set Handler for corresponding Slave Controller</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the interrupt controller whose vector table will be modified. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InterruptId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt ID to be associated with the input handler. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FastHandler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the function pointer that will be called when interrupt occurs</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+Note that this function has no effect if the input base address is invalid. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.c" line="508" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.c" bodystart="508" bodyend="599"/>
+        <references refid="struct_x_intc___config_1a7fb04e1e5139ccfcd9475847c67c35af" compoundref="xintc_8h" startline="324">XIntc_Config::BaseAddress</references>
+        <references refid="struct_x_intc___config_1a630c8585f41eea348ae0d6d134b0ad8f" compoundref="xintc_8h" startline="330">XIntc_Config::VectorAddrWidth</references>
+        <references refid="group__intc_1ga29cc03aa40679a199de65e7657280dab" compoundref="xintc_8c" startline="974" endline="998">XIntc_LookupConfig</references>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1ga6cd54f00bc82f5d4714dca5873f48de6" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>UINTPTR</type>
+        <definition>static UINTPTR XIntc_GetChildBaseAddress</definition>
+        <argsstring>(UINTPTR ParentBaseAddr)</argsstring>
+        <name>XIntc_GetChildBaseAddress</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>ParentBaseAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function is called by primary interrupt handler for the driver to handle all Controllers in Cascade mode.It will resolve which interrupts are active and enabled and call the appropriate interrupt handler. </para>        </briefdescription>
+        <detaileddescription>
+<para>It uses the AckBeforeService flag in the configuration data to determine when to acknowledge the interrupt. Highest priority interrupts are serviced first. This function assumes that an interrupt vector table has been previously initialized. It does not verify that entries in the table are valid before calling an interrupt handler.This function calls itself recursively to handle all interrupt controllers.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the zero-based device ID defined in xparameters.h of the interrupting interrupt controller. It is used as a direct index into the configuration data, which contains the vector table for the interrupt controller.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.c" line="633" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.c" bodystart="633" bodyend="646"/>
+      </memberdef>
+      <memberdef kind="function" id="group__intc_1gabf91e27eb2cc036f84df2e15d14343a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIntc_LowLevelInterruptHandler</definition>
+        <argsstring>(void)</argsstring>
+        <name>XIntc_LowLevelInterruptHandler</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="298" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__intc_1ga9e07373b9cba0eafcb65c0dd23f6a4ab" prot="public" static="no">
+        <name>XINTC_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="217" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga2d461c0e2b7ab3d3106575c4c3a5adff" prot="public" static="no">
+        <name>XINTC_I_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_i.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_i.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga2591750e740c97fb30372d7fd6fba9ca" prot="public" static="no">
+        <name>XINTC_L_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga06a568b99545df04b6d14da3b04f1da0" prot="public" static="no">
+        <name>XPAR_XINTC_USE_DCR_BRIDGE</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga4c1ce88ba61c2e42054faaef40539556" prot="public" static="no">
+        <name>XIN_ISR_OFFSET</name>
+        <initializer>0	/* Interrupt Status Register */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga35c8f39e63012c1745df6faa39fc7335" prot="public" static="no">
+        <name>XIN_IPR_OFFSET</name>
+        <initializer>4	/* Interrupt Pending Register */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga12fbacf76cabd206d17acefd187fa7b4" prot="public" static="no">
+        <name>XIN_IER_OFFSET</name>
+        <initializer>8	/* Interrupt Enable Register */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1gaf12b5f9e19d0d544e8df96699db615bd" prot="public" static="no">
+        <name>XIN_IAR_OFFSET</name>
+        <initializer>12	/* Interrupt Acknowledge Register */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1gae3d1be1c28564014eba1e6a7da5f870c" prot="public" static="no">
+        <name>XIN_SIE_OFFSET</name>
+        <initializer>16	/* Set Interrupt Enable Register */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga1f88cc0f7e4c0fec39f68d4926537461" prot="public" static="no">
+        <name>XIN_CIE_OFFSET</name>
+        <initializer>20	/* Clear Interrupt Enable Register */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga4704ae1ae4388d4b0187bb2ee79849d1" prot="public" static="no">
+        <name>XIN_IVR_OFFSET</name>
+        <initializer>24	/* Interrupt Vector Register */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga1286cdd3996f53dfe62703e6cd949b14" prot="public" static="no">
+        <name>XIN_MER_OFFSET</name>
+        <initializer>28	/* Master Enable Register */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga2dc06911d25b46e1ddad8e2938f95b4c" prot="public" static="no">
+        <name>XIN_IMR_OFFSET</name>
+        <initializer>32	/* Interrupt Mode Register , this is present
+				 *  only for Fast Interrupt */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1gac92a6982a2d3a0f70a310c6912392765" prot="public" static="no">
+        <name>XIN_ILR_OFFSET</name>
+        <initializer>36  /* Interrupt level register */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1gab675a4446c4ab809551ea73ad2ca962d" prot="public" static="no">
+        <name>XIN_IVAR_OFFSET</name>
+        <initializer>0x100 /* Interrupt Vector Address Register
+				   * Interrupt 0 Offset, this is present
+				   * only for Fast Interrupt */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga331c817bd749ed8d875a48280c36f2b2" prot="public" static="no">
+        <name>XIN_IVEAR_OFFSET</name>
+        <initializer>0x200 /* Interrupt Vector Extended Address
+					Register */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1gaa03735b19bf625b8868dd3633554addf" prot="public" static="no">
+        <name>XIN_INT_MASTER_ENABLE_MASK</name>
+        <initializer>0x1UL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga399d5f29c768070adc3ac98c54c6634d" prot="public" static="no">
+        <name>XIN_INT_HARDWARE_ENABLE_MASK</name>
+        <initializer>0x2UL	/* once set cannot be cleared */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga0254df2003fdd1434617b0477224f748" prot="public" static="no">
+        <name>XIntc_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1gac245f85f403876d4e23cf5e24439a66a" prot="public" static="no">
+        <name>XIntc_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1gab970178f5ba9efc175efeaf4f0d0d028" prot="public" static="no">
+        <name>XIntc_Out64</name>
+        <initializer>Xil_Out64</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1gaf2aeec4bbc6e0c5ca2268e5d7c7dd5ce" prot="public" static="no">
+        <name>XIntc_MasterEnable</name>
+        <param><defname>BaseAddress</defname></param>
+        <initializer>XIntc_Out32((BaseAddress) + XIN_MER_OFFSET, \
+		    XIN_INT_MASTER_ENABLE_MASK | XIN_INT_HARDWARE_ENABLE_MASK)</initializer>
+        <briefdescription>
+<para>Enable all interrupts in the Master Enable register of the interrupt controller. </para>        </briefdescription>
+        <detaileddescription>
+<para>The interrupt controller defaults to all interrupts disabled from reset such that this macro must be used to enable interrupts.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__intc_1gaf2aeec4bbc6e0c5ca2268e5d7c7dd5ce" kindref="member">XIntc_MasterEnable(u32 BaseAddress)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="189" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga93be82188a607b0a13a13a96c5787bb6" prot="public" static="no">
+        <name>XIntc_MasterDisable</name>
+        <param><defname>BaseAddress</defname></param>
+        <initializer>XIntc_Out32((BaseAddress) + XIN_MER_OFFSET, 0)</initializer>
+        <briefdescription>
+<para>Disable all interrupts in the Master Enable register of the interrupt controller. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__intc_1ga93be82188a607b0a13a13a96c5787bb6" kindref="member">XIntc_MasterDisable(u32 BaseAddress)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="207" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1gad35ec3b9b658f26d989b19783954683e" prot="public" static="no">
+        <name>XIntc_EnableIntr</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>EnableMask</defname></param>
+        <initializer>XIntc_Out32((BaseAddress) + XIN_IER_OFFSET, (EnableMask))</initializer>
+        <briefdescription>
+<para>Enable specific interrupt(s) in the interrupt controller. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EnableMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the enable register. Each bit of the mask corresponds to an interrupt input signal that is connected to the interrupt controller (INT0 = LSB). Only the bits which are set in the mask will enable interrupts.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__intc_1gad35ec3b9b658f26d989b19783954683e" kindref="member">XIntc_EnableIntr(u32 BaseAddress, u32 EnableMask)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="227" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="227" bodyend="-1"/>
+        <referencedby refid="xintc__low__level__example_8c_1a83f2cbdf0d928c5fb6401e2abd071b56" compoundref="xintc__low__level__example_8c" startline="180" endline="261">IntcLowLevelExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga5df77bd3561a105f1d6b1837762db956" prot="public" static="no">
+        <name>XIntc_DisableIntr</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>DisableMask</defname></param>
+        <initializer>XIntc_Out32((BaseAddress) + XIN_IER_OFFSET, ~(DisableMask))</initializer>
+        <briefdescription>
+<para>Disable specific interrupt(s) in the interrupt controller. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DisableMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the enable register. Each bit of the mask corresponds to an interrupt input signal that is connected to the interrupt controller (INT0 = LSB). Only the bits which are set in the mask will disable interrupts.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__intc_1ga5df77bd3561a105f1d6b1837762db956" kindref="member">XIntc_DisableIntr(u32 BaseAddress, u32 DisableMask)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="247" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga4f699042980f8453713171959183fc49" prot="public" static="no">
+        <name>XIntc_AckIntr</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>AckMask</defname></param>
+        <initializer>XIntc_Out32((BaseAddress) + XIN_IAR_OFFSET, (AckMask))</initializer>
+        <briefdescription>
+<para>Acknowledge specific interrupt(s) in the interrupt controller. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AckMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the acknowledge register. Each bit of the mask corresponds to an interrupt input signal that is connected to the interrupt controller (INT0 = LSB). Only the bits which are set in the mask will acknowledge interrupts.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__intc_1ga4f699042980f8453713171959183fc49" kindref="member">XIntc_AckIntr(u32 BaseAddress, u32 AckMask)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="268" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="268" bodyend="-1"/>
+        <referencedby refid="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" compoundref="xintc__l_8c" startline="179" endline="329">XIntc_DeviceInterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga13c828dcbbdc3441c8abaded5cda888b" prot="public" static="no">
+        <name>XIntc_GetIntrStatus</name>
+        <param><defname>BaseAddress</defname></param>
+        <initializer>(XIntc_In32((BaseAddress) + XIN_ISR_OFFSET) &amp; \
+	 XIntc_In32((BaseAddress) + XIN_IER_OFFSET))</initializer>
+        <briefdescription>
+<para>Get the interrupt status from the interrupt controller which indicates which interrupts are active and enabled. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit contents of the interrupt status register. Each bit corresponds to an interrupt input signal that is connected to the interrupt controller (INT0 = LSB). Bits which are set indicate an active interrupt which is also enabled.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__intc_1ga13c828dcbbdc3441c8abaded5cda888b" kindref="member">XIntc_GetIntrStatus(u32 BaseAddress)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" line="288" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_l.h" bodystart="288" bodyend="-1"/>
+        <referencedby refid="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" compoundref="xintc__l_8c" startline="179" endline="329">XIntc_DeviceInterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__intc_1ga0a3e862d0b6387284dfc91d45dd3374e" prot="public" static="no">
+        <name>XIN_TEST_MASK</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_selftest.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_selftest.c" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains required functions for the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> driver for the Xilinx Interrupt Controller. </para>    </briefdescription>
+    <detaileddescription>
+<para>Contains diagnostic self-test functions for the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> component.</para><para>Contains option functions for the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> driver.</para><para>This header file contains identifiers and low-level driver functions (or macros) that can be used to access the device.</para><para>This file contains low-level driver functions that can be used to access the device.</para><para>This file contains the interrupt processing for the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> component which is the driver for the Xilinx Interrupt Controller.</para><para>This file contains data which is shared between files and internal to the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> component.</para><para>This file contains a configuration table that specifies the configuration of interrupt controller devices in the system.</para><para>}</para><para>See <ref refid="xintc_8h" kindref="compound">xintc.h</ref> for a detailed description of the driver.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00a ecm  08/16/01 First release
+1.00b jhl  02/21/02 Repartitioned the driver for smaller files
+1.00b jhl  04/24/02 Made LookupConfig global and compressed ack before table
+                    in the configuration into a bit mask
+1.00c rpm  10/17/03 New release. Support the static vector table created
+                    in the <ref refid="xintc__g_8c" kindref="compound">xintc_g.c</ref> configuration table.
+1.00c rpm  04/23/04 Removed check in XIntc_Connect for a previously connected
+                    handler. Always overwrite the vector table handler with
+                    the handler provided as an argument.
+1.10c mta  03/21/07 Updated to new coding style
+1.11a sv   11/21/07 Updated driver to support access through a DCR bridge
+2.00a ktn  10/20/09 Updated to use HAL Processor APIs.
+2.04a bss  01/13/12 Added XIntc_ConnectFastHandler API for Fast Interrupt
+              and XIntc_SetNormalIntrMode for setting to normal
+              interrupt mode.
+2.05a bss  08/16/12 Updated to support relocatable vectors in Microblaze,
+              updated XIntc_SetNormalIntrMode to use IntVectorAddr
+              which is the interrupt vector address
+2.06a bss  01/28/13 To support Cascade mode:
+              Modified XIntc_Initialize,XIntc_Start,XIntc_Connect
+              XIntc_Disconnect,XIntc_Enable,XIntc_Disable,
+              XIntc_Acknowledge,XIntc_ConnectFastHandler and
+              XIntc_SetNormalIntrMode APIs.
+              Added XIntc_InitializeSlaves API.
+3.0   bss  01/28/13 Modified to initialize IVAR register with
+              XPAR_MICROBLAZE_BASE_VECTORS + 0x10 to fix
+              CR#765931
+3.9  sa   03/18/19 Modified XIntc_ConnectFastHandler, XIntc_SetNormalIntrMode
+                     and XIntc_InitializeSlaves APIs to support vector addresses
+                     of width &gt; 32 bits.
+3.12 mus  05/28/20 Updated XIntc_Initialize and XIntc_InitializeSlaves to support
+                   software interrupts
+3.12 mus  05/28/20 Added new API XIntc_TriggerSwIntr to trigger the software
+                   interrupts.
+3.18 mus  01/25/24 Update XIntc_Initialize to initialize IVAR registers based on
+                   mtvec register in case of Microblaze RISC-V.
+3.19 adk  08/05/24 In SDT flow inorder to loop over config table use the
+                     XPAR_INTC_NUM_DRV_INSTANCES define instead of config table
+                     to reduce the size.
+3.19 ml   09/11/24 Add conditional checks to fix compilation warning.
+                   [-Wunused-variable]
+3.22 bdk  12/08/25 Updated comments to support SDT flow for Doxygen
+                   documentation.
+3.22 ml   26/02/26 Added XIntc_FindControllerForId() and
+                   <ref refid="group__intc_1gaa6e69276f3923a7d61d366c98269d750" kindref="member">XIntc_GetPrimaryController()</ref> for topology-aware cascade
+                   lookup using interrupt-parent links. Replaced Id/32
+                   config-index mapping in Connect, Disconnect, Enable,
+                   Disable, Acknowledge, ConnectFastHandler,
+                   SetNormalIntrMode, and TriggerSwIntr. Fixed
+                   SetNormalIntrMode bug where Id was reused as loop counter.
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00a rpm  01/09/02 First release
+1.00b jhl  02/21/02 Repartitioned the driver for smaller files
+1.00b jhl  04/24/02 Compressed the ack table into a bit mask.
+1.00c rpm  10/17/03 New release. Support the static vector table created
+                    in the <ref refid="xintc__g_8c" kindref="compound">xintc_g.c</ref> configuration table.
+1.10c mta  03/21/07 Updated to new coding style
+</preformatted></para><para>It is intended for internal use only.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00b jhl  02/06/02 First release
+1.00b jhl  04/24/02 Moved register definitions to <ref refid="xintc__l_8h" kindref="compound">xintc_l.h</ref>
+1.00c rpm  10/17/03 New release. Removed extern of global, single instance
+                    pointer.
+1.10c mta  03/21/07 Updated to new coding style
+2.00a ktn  10/20/09 Updated to use HAL Processor APIs.
+</preformatted></para><para>The interrupt processing is partitioned separately such that users are not required to use the provided interrupt processing. This file requires other files of the driver to be linked in also.</para><para>Two different interrupt handlers are provided for this driver such that the user must select the appropriate handler for the application. The first interrupt handler, XIntc_VoidInterruptHandler, is provided for systems which use only a single interrupt controller or for systems that cannot otherwise provide an argument to the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> interrupt handler (e.g., the RTOS interrupt vector handler may not provide such a facility). The constant XPAR_INTC_SINGLE_DEVICE_ID must be defined for this handler to be included in the driver. The second interrupt handler, XIntc_InterruptHandler, uses an input argument which is an instance pointer to an interrupt controller driver such that multiple interrupt controllers can be supported. This handler requires the calling function to pass it the appropriate argument, so another level of indirection may be required.</para><para>Note that both of these handlers are now only provided for backward compatibility. The handler defined in <ref refid="xintc__l_8c" kindref="compound">xintc_l.c</ref> is the recommended handler.</para><para>The interrupt processing may be used by connecting one of the interrupt handlers to the interrupt system. These handlers do not save and restore the processor context but only handle the processing of the Interrupt Controller. The two handlers are provided as working examples. The user is encouraged to supply their own interrupt handler when performance tuning is deemed necessary.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00b jhl  02/13/02 First release
+1.00c rpm  10/17/03 New release. Support the static vector table created
+                    in the <ref refid="xintc__g_8c" kindref="compound">xintc_g.c</ref> configuration table. Collapse handlers
+                    to use the <ref refid="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" kindref="member">XIntc_DeviceInterruptHandler()</ref> in <ref refid="xintc__l_8c" kindref="compound">xintc_l.c</ref>.
+1.00c rpm  04/09/04 Added conditional compilation around the old handler
+                    XIntc_VoidInterruptHandler(). This handler will only be
+                    include/compiled if XPAR_INTC_SINGLE_DEVICE_ID is defined.
+1.10c mta  03/21/07 Updated to new coding style
+2.00a ktn  10/20/09 Updated to use HAL Processor APIs.
+3.14  mus  11/25/21 Updated XIntc_InterruptHandler function to fix
+                    compilation warning. CR#1116127</preformatted></para><para><preformatted></preformatted></para><para>The user should refer to the hardware device specification for more details of the device operation.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00b jhl  04/24/02 First release
+1.00c rpm  10/17/03 New release. Support the static vector table created
+                    in the <ref refid="xintc__g_8c" kindref="compound">xintc_g.c</ref> configuration table.
+1.00c rpm  04/09/04 Added conditional compilation around the old handler
+                    XIntc_LowLevelInterruptHandler(). This handler will only
+                    be include/compiled if XPAR_INTC_SINGLE_DEVICE_ID is
+                    defined.
+1.10c mta  03/21/07 Updated to new coding style
+1.10c ecm  07/09/07 Read the ISR after the Acknowledge in the interrupt
+              handler to support architectures with posted write bus
+              access issues.
+2.00a ktn  10/20/09 Updated to use HAL Processor APIs and  _m is removed
+              from all the macro definitions.
+2.04a bss  01/13/12 Removed the unused Register variable for warnings.
+2.05a bss  08/18/12 Added XIntc_RegisterFastHandler API to register fast
+              interrupt handlers using base address.
+2.06a bss  01/28/13 To support Cascade mode:
+              Modified XIntc_DeviceInterruptHandler,
+              XIntc_SetIntrSvcOption,XIntc_RegisterHandler and
+              XIntc_RegisterFastHandler APIs.
+              Added XIntc_CascadeHandler API.
+2.07a bss  10/18/13 Modified XIntc_DeviceInterruptHandler to support
+              nested interrupts.
+3.5   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+                    Changed the prototypes of LookupConfigByBaseAddress,
+                    XIntc_SetIntrSvcOption, XIntc_RegisterHandler,
+                    XIntc_RegisterFastHandler APIs.
+3.12  mus  05/28/20 Updated XIntc_DeviceInterruptHandler to support software
+                    interrupts
+3.13   mus  12/22/20 Updated source code comments. Also, moved description for
+                     XIntc_LowLevelInterruptHandler after preprocessor
+                     condition checking. It fixes CR#1080821
+3.14  mus  11/25/21 Updated XIntc_DeviceInterruptHandler function to fix
+                    compilation warning. CR#1116127
+3.14  mus  02/01/22 Updated XIntc_DeviceInterruptHandler to replace
+                    Xil_ExceptionEnable/Xil_ExceptionDisable calls with
+                    microblaze_enable_interrupts/microblaze_disable_interrupts
+                    in case of microbalze. It fixes CR#1120158.
+3.16  mus  10/04/22 Fixed warnings reported with &quot;-Wundef&quot; compiler flag.
+                    It fixes CR#1142085.
+3.19  adk  08/05/24 In SDT flow inorder to loop over config table use the
+                      XPAR_INTC_NUM_DRV_INSTANCES define instead of config table
+                      to reduce the size.
+3.19  ml   09/11/24 Typecasted the return value of XIntc_GetIntrStatus to void
+                    to fix compilation warning  [-Wunused-value]
+3.20  ml   12/19/24 Fixed GCC warnings
+3.22  ml   26/02/26 Updated cascade handler to resolve child controllers via
+                    config table lookup in SDT flow. Extended interrupt
+                    service loop to cover cascade bit 31. Fixed preprocessor
+                    guards to enable cascade support in SDT builds.
+</preformatted></para><para>The user should refer to the hardware device specification for more details of the device operation.</para><para>Note that users of the driver interface given in this file can register an interrupt handler dynamically (at run-time) using the <ref refid="group__intc_1ga4bd1d34885340943143c8fd2f98a3963" kindref="member">XIntc_RegisterHandler()</ref> function. User of the driver interface given in <ref refid="xintc_8h" kindref="compound">xintc.h</ref> should still use <ref refid="group__intc_1gaee9ec5873a764994d64b4da35a110084" kindref="member">XIntc_Connect()</ref>, as always. Also see the discussion of the interrupt vector tables in <ref refid="xintc_8h" kindref="compound">xintc.h</ref>.</para><para>There are currently two interrupt handlers specified in this interface.</para><para><itemizedlist>
+<listitem><para>XIntc_LowLevelInterruptHandler() is a handler without any arguments that is used in cases where there is a single interrupt controller device in the system and the handler cannot be passed an argument. This function is provided mostly for backward compatibility.</para></listitem><listitem><para><ref refid="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" kindref="member">XIntc_DeviceInterruptHandler()</ref> is a handler that takes a device ID as an argument, indicating which interrupt controller device in the system is causing the interrupt - thereby supporting multiple interrupt controllers.</para></listitem></itemizedlist>
+</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00b jhl  04/24/02 First release
+1.00c rpm  10/17/03 New release. Support the static vector table created
+                    in the <ref refid="xintc__g_8c" kindref="compound">xintc_g.c</ref> configuration table.
+1.10c mta  03/21/07 Updated to new coding style
+1.11a sv   11/21/07 Updated driver to support access through a DCR bridge
+2.00a ktn  10/20/09 Updated to use HAL Processor APIs. _m is removed from all
+              the macro definitions.
+2.04a bss  01/13/12 Updated for adding defines for IMR and IVAR for
+                    the FAST Interrupt
+2.05a bss  08/18/12 Added XIntc_RegisterFastHandler API to register fast
+              interrupt handlers using base address.
+2.07a bss  10/18/13 Added XIN_ILR_OFFSET macro for nested interrupts.
+3.5   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+                    Changed the prototypes of XIntc_RegisterFastHandler,
+                    XIntc_SetIntrSvcOption, XIntc_RegisterHandler APIs.
+3.15  mus  05/10/22 Included xil_exception.h to <ref refid="xintc__l_8h" kindref="compound">xintc_l.h</ref> to fix
+                     compilation failures. It fixes CR#1128446.
+3.16  mus  10/04/22 Fixed warnings reported with &quot;-Wundef&quot; compiler flag.
+                    It fixes CR#1142085.</preformatted></para><para><preformatted></preformatted></para><para>These functions allow the user to configure an instance of the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> driver. This file requires other files of the component to be linked in also.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00b jhl  02/21/02 First release
+1.00c rpm  10/17/03 New release. Support the relocation of the options flag
+                    from the instance structure to the <ref refid="xintc__g_8c" kindref="compound">xintc_g.c</ref>
+                    configuration table.
+1.10c mta  03/21/07 Updated to new coding style
+2.00a ktn  10/20/09 Updated to use HAL Processor APIs
+2.06a bss  01/28/13 To support Cascade mode:
+              Modified XIntc_SetOptions API.
+3.19  adk  08/05/24 In SDT flow inorder to loop over config table use the
+                      XPAR_INTC_NUM_DRV_INSTANCES define instead of config table
+                      to reduce the size.
+</preformatted></para><para>This file requires other files of the component to be linked in also.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00b jhl  02/21/02 First release
+1.10c mta  03/21/07 Updated to new coding style
+2.00a ktn  10/20/09 Updated to use HAL Processor APIs
+2.04a bss  01/16/12 Removed CurrentMIE variable and reading of the
+                    MER register to remove warnings
+2.06a bss  01/28/13 To support Cascade mode:
+              Modified XIntc_SimulateIntr API.
+3.22  ml   11/12/25 Updated XIntc_SelfTest API to avoid false failures
+                    during repeated test executions
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

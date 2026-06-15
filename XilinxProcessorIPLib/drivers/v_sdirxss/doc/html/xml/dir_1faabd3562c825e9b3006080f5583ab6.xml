@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_1faabd3562c825e9b3006080f5583ab6" kind="dir">
+    <compoundname>kcu116_xuhdsdi_example</compoundname>
+    <innerfile refid="kcu116__xuhdsdi__example_2fzetta__fmc__ctlr_8c">kcu116_xuhdsdi_example/fzetta_fmc_ctlr.c</innerfile>
+    <innerfile refid="kcu116__xuhdsdi__example_2fzetta__fmc__ctlr_8h">kcu116_xuhdsdi_example/fzetta_fmc_ctlr.h</innerfile>
+    <innerfile refid="kcu116__xuhdsdi__example_2fzetta__fmc__gpio_8c">kcu116_xuhdsdi_example/fzetta_fmc_gpio.c</innerfile>
+    <innerfile refid="kcu116__xuhdsdi__example_2fzetta__fmc__gpio_8h">kcu116_xuhdsdi_example/fzetta_fmc_gpio.h</innerfile>
+    <innerfile refid="kcu116__xuhdsdi__example_2fzetta__fmc__iic_8c">kcu116_xuhdsdi_example/fzetta_fmc_iic.c</innerfile>
+    <innerfile refid="kcu116__xuhdsdi__example_2fzetta__fmc__iic_8h">kcu116_xuhdsdi_example/fzetta_fmc_iic.h</innerfile>
+    <innerfile refid="kcu116__xuhdsdi__example_2fzetta__fmc__init__table_8c">kcu116_xuhdsdi_example/fzetta_fmc_init_table.c</innerfile>
+    <innerfile refid="kcu116__xuhdsdi__example_2fzetta__fmc__init__table_8h">kcu116_xuhdsdi_example/fzetta_fmc_init_table.h</innerfile>
+    <innerfile refid="kcu116__xuhdsdi__example_2fzetta__fmc__spi_8c">kcu116_xuhdsdi_example/fzetta_fmc_spi.c</innerfile>
+    <innerfile refid="kcu116__xuhdsdi__example_2fzetta__fmc__spi_8h">kcu116_xuhdsdi_example/fzetta_fmc_spi.h</innerfile>
+    <innerfile refid="main_8c">main.c</innerfile>
+    <innerfile refid="kcu116__xuhdsdi__example_2si5324drv_8c">kcu116_xuhdsdi_example/si5324drv.c</innerfile>
+    <innerfile refid="kcu116__xuhdsdi__example_2si5324drv_8h">kcu116_xuhdsdi_example/si5324drv.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/"/>
+  </compounddef>
+</doxygen>

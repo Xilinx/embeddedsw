@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v_warp_init___arb_param___mesh_info" kind="struct" prot="public">
+    <compoundname>XVWarpInit_ArbParam_MeshInfo</compoundname>
+    <includes local="no">xv_warp_init_l2.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v_warp_init___arb_param___mesh_info_1af80e7bd40b95fd208f8cd12efd479e1c" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>s32 XVWarpInit_ArbParam_MeshInfo::s_x</definition>
+        <argsstring></argsstring>
+        <name>s_x</name>
+        <briefdescription>
+<para>Source X coordinate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_warp_init___arb_param___mesh_info_1a9225117d882ce77350a4773f8fe5b727" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>s32 XVWarpInit_ArbParam_MeshInfo::s_y</definition>
+        <argsstring></argsstring>
+        <name>s_y</name>
+        <briefdescription>
+<para>Source Y coordinate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_warp_init___arb_param___mesh_info_1a4eb4d5ea95069d9bf9cc46ef9025277a" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>s32 XVWarpInit_ArbParam_MeshInfo::d_x</definition>
+        <argsstring></argsstring>
+        <name>d_x</name>
+        <briefdescription>
+<para>Destination X coordinate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_warp_init___arb_param___mesh_info_1a52d53bcdbd864af9c086125d0fe9f711" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>s32 XVWarpInit_ArbParam_MeshInfo::d_y</definition>
+        <argsstring></argsstring>
+        <name>d_y</name>
+        <briefdescription>
+<para>Destination Y coordinate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Mesh information structure for arbitrary warp control points. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" line="23" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" bodystart="23" bodyend="28"/>
+    <listofallmembers>
+      <member refid="struct_x_v_warp_init___arb_param___mesh_info_1a4eb4d5ea95069d9bf9cc46ef9025277a" prot="public" virt="non-virtual"><scope>XVWarpInit_ArbParam_MeshInfo</scope><name>d_x</name></member>
+      <member refid="struct_x_v_warp_init___arb_param___mesh_info_1a52d53bcdbd864af9c086125d0fe9f711" prot="public" virt="non-virtual"><scope>XVWarpInit_ArbParam_MeshInfo</scope><name>d_y</name></member>
+      <member refid="struct_x_v_warp_init___arb_param___mesh_info_1af80e7bd40b95fd208f8cd12efd479e1c" prot="public" virt="non-virtual"><scope>XVWarpInit_ArbParam_MeshInfo</scope><name>s_x</name></member>
+      <member refid="struct_x_v_warp_init___arb_param___mesh_info_1a9225117d882ce77350a4773f8fe5b727" prot="public" virt="non-virtual"><scope>XVWarpInit_ArbParam_MeshInfo</scope><name>s_y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_metadata_raw_channel_float__s" kind="struct" prot="public">
+    <compoundname>MetadataRawChannelFloat_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_metadata_raw_channel_float__s_1a3812b0bbac379e050517bae3653341da" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MetadataRawChannelFloat_s::redChannel</definition>
+        <argsstring></argsstring>
+        <name>redChannel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="458" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="458" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_metadata_raw_channel_float__s_1a41eff55b47a0bd741598d9af7df54000" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MetadataRawChannelFloat_s::grChannel</definition>
+        <argsstring></argsstring>
+        <name>grChannel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="459" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="459" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_metadata_raw_channel_float__s_1a98c0d8d365e6bd9e527a5e311f9c5a07" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MetadataRawChannelFloat_s::gbChannel</definition>
+        <argsstring></argsstring>
+        <name>gbChannel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="460" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="460" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_metadata_raw_channel_float__s_1a049c280acd0be1a028ae96e203af7853" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float MetadataRawChannelFloat_s::blueChannel</definition>
+        <argsstring></argsstring>
+        <name>blueChannel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="461" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="461" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="457" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="457" bodyend="462"/>
+    <listofallmembers>
+      <member refid="struct_metadata_raw_channel_float__s_1a049c280acd0be1a028ae96e203af7853" prot="public" virt="non-virtual"><scope>MetadataRawChannelFloat_s</scope><name>blueChannel</name></member>
+      <member refid="struct_metadata_raw_channel_float__s_1a98c0d8d365e6bd9e527a5e311f9c5a07" prot="public" virt="non-virtual"><scope>MetadataRawChannelFloat_s</scope><name>gbChannel</name></member>
+      <member refid="struct_metadata_raw_channel_float__s_1a41eff55b47a0bd741598d9af7df54000" prot="public" virt="non-virtual"><scope>MetadataRawChannelFloat_s</scope><name>grChannel</name></member>
+      <member refid="struct_metadata_raw_channel_float__s_1a3812b0bbac379e050517bae3653341da" prot="public" virt="non-virtual"><scope>MetadataRawChannelFloat_s</scope><name>redChannel</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

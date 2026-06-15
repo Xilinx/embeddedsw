@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_plmi___ssit_sec_comm" kind="struct" prot="public">
+    <compoundname>XPlmi_SsitSecComm</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_plmi___ssit_sec_comm_1a360743431372ae4cd7c0cf1ecc2c48d2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_SsitSecComm::SlrIndex</definition>
+        <argsstring></argsstring>
+        <name>SlrIndex</name>
+        <briefdescription>
+<para>SLR index number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___ssit_sec_comm_1a7187e4d9a1777d9fa9440cf9bbae7fab" prot="public" static="no" mutable="no">
+        <type>XPlmi_IVsandKey</type>
+        <definition>XPlmi_IVsandKey XPlmi_SsitSecComm::IVsandKey</definition>
+        <argsstring></argsstring>
+        <name>IVsandKey</name>
+        <briefdescription>
+<para>Ivs and key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/common/xplmi_defs.h" bodystart="111" bodyend="114"/>
+    <listofallmembers>
+      <member refid="struct_x_plmi___ssit_sec_comm_1a7187e4d9a1777d9fa9440cf9bbae7fab" prot="public" virt="non-virtual"><scope>XPlmi_SsitSecComm</scope><name>IVsandKey</name></member>
+      <member refid="struct_x_plmi___ssit_sec_comm_1a360743431372ae4cd7c0cf1ecc2c48d2" prot="public" virt="non-virtual"><scope>XPlmi_SsitSecComm</scope><name>SlrIndex</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

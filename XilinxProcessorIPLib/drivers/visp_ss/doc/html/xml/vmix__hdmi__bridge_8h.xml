@@ -1,0 +1,692 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="vmix__hdmi__bridge_8h" kind="file">
+    <compoundname>vmix_hdmi_bridge.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xvidc.h</includes>
+    <includes refid="cam__device__common_8h" local="yes">cam_device_common.h</includes>
+    <includes refid="cam__device__buffer__api_8h" local="yes">cam_device_buffer_api.h</includes>
+    <includedby refid="vmix__hdmi__bridge_8c" local="yes">vmix_hdmi_bridge.c</includedby>
+    <includedby refid="vvdevice_8c" local="yes">vvdevice.c</includedby>
+    <includedby refid="vvpath_8c" local="yes">vvpath.c</includedby>
+    <includedby refid="xvisp__ss__example_8c" local="yes">xvisp_ss_example.c</includedby>
+    <incdepgraph>
+      <node id="8404">
+        <label>stdbool.h</label>
+      </node>
+      <node id="8398">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="8409">
+        <label>oslayer.h</label>
+        <link refid="oslayer_8h"/>
+        <childnode refid="8399" relation="include">
+        </childnode>
+        <childnode refid="8410" relation="include">
+        </childnode>
+      </node>
+      <node id="8405">
+        <label>stdint.h</label>
+      </node>
+      <node id="8395">
+        <label>stdlib.h</label>
+      </node>
+      <node id="8411">
+        <label>cam_device_api.h</label>
+        <childnode refid="8391" relation="include">
+        </childnode>
+        <childnode refid="8412" relation="include">
+        </childnode>
+        <childnode refid="8413" relation="include">
+        </childnode>
+        <childnode refid="8414" relation="include">
+        </childnode>
+      </node>
+      <node id="8412">
+        <label>cam_device_calibration.h</label>
+        <childnode refid="8392" relation="include">
+        </childnode>
+      </node>
+      <node id="8402">
+        <label>sensor_cmd.h</label>
+        <childnode refid="8403" relation="include">
+        </childnode>
+        <childnode refid="8398" relation="include">
+        </childnode>
+      </node>
+      <node id="8408">
+        <label>cam_device_buffer_api.h</label>
+        <childnode refid="8392" relation="include">
+        </childnode>
+        <childnode refid="8398" relation="include">
+        </childnode>
+        <childnode refid="8409" relation="include">
+        </childnode>
+        <childnode refid="8411" relation="include">
+        </childnode>
+        <childnode refid="8401" relation="include">
+        </childnode>
+      </node>
+      <node id="8397">
+        <label>stddef.h</label>
+      </node>
+      <node id="8396">
+        <label>limits.h</label>
+      </node>
+      <node id="8391">
+        <label>cam_device_common.h</label>
+        <childnode refid="8392" relation="include">
+        </childnode>
+        <childnode refid="8398" relation="include">
+        </childnode>
+        <childnode refid="8399" relation="include">
+        </childnode>
+        <childnode refid="8401" relation="include">
+        </childnode>
+        <childnode refid="8402" relation="include">
+        </childnode>
+      </node>
+      <node id="8401">
+        <label>buf_defs.h</label>
+        <childnode refid="8392" relation="include">
+        </childnode>
+      </node>
+      <node id="8403">
+        <label>mbox_api.h</label>
+        <childnode refid="8404" relation="include">
+        </childnode>
+        <childnode refid="8405" relation="include">
+        </childnode>
+        <childnode refid="8406" relation="include">
+        </childnode>
+      </node>
+      <node id="8400">
+        <label>string.h</label>
+      </node>
+      <node id="8406">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="8404" relation="include">
+        </childnode>
+        <childnode refid="8407" relation="include">
+        </childnode>
+      </node>
+      <node id="8390">
+        <label>xvidc.h</label>
+      </node>
+      <node id="8407">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="8389">
+        <label>xil_types.h</label>
+      </node>
+      <node id="8410">
+        <label>ff.h</label>
+      </node>
+      <node id="8413">
+        <label>offline_trace.h</label>
+        <link refid="offline__trace_8h"/>
+        <childnode refid="8393" relation="include">
+        </childnode>
+        <childnode refid="8392" relation="include">
+        </childnode>
+        <childnode refid="8398" relation="include">
+        </childnode>
+      </node>
+      <node id="8392">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="8393" relation="include">
+        </childnode>
+        <childnode refid="8396" relation="include">
+        </childnode>
+        <childnode refid="8397" relation="include">
+        </childnode>
+      </node>
+      <node id="8388">
+        <label>vmix_hdmi_bridge.h</label>
+        <link refid="vmix_hdmi_bridge.h"/>
+        <childnode refid="8389" relation="include">
+        </childnode>
+        <childnode refid="8390" relation="include">
+        </childnode>
+        <childnode refid="8391" relation="include">
+        </childnode>
+        <childnode refid="8408" relation="include">
+        </childnode>
+      </node>
+      <node id="8414">
+        <label>cam_device_ccm_api.h</label>
+        <childnode refid="8391" relation="include">
+        </childnode>
+      </node>
+      <node id="8399">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="8392" relation="include">
+        </childnode>
+        <childnode refid="8400" relation="include">
+        </childnode>
+      </node>
+      <node id="8394">
+        <label>stdio.h</label>
+      </node>
+      <node id="8393">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="8394" relation="include">
+        </childnode>
+        <childnode refid="8395" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="8417">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="8418">
+        <label>vvpath.c</label>
+      </node>
+      <node id="8416">
+        <label>vmix_hdmi_bridge.c</label>
+      </node>
+      <node id="8415">
+        <label>vmix_hdmi_bridge.h</label>
+        <link refid="vmix_hdmi_bridge.h"/>
+        <childnode refid="8416" relation="include">
+        </childnode>
+        <childnode refid="8417" relation="include">
+        </childnode>
+        <childnode refid="8418" relation="include">
+        </childnode>
+        <childnode refid="8419" relation="include">
+        </childnode>
+      </node>
+      <node id="8419">
+        <label>xvisp_ss_example.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_vmix_hdmi_bridge___input_buffer" prot="public">VmixHdmiBridge_InputBuffer</innerclass>
+    <innerclass refid="struct_vmix_hdmi_bridge___layer_pool" prot="public">VmixHdmiBridge_LayerPool</innerclass>
+    <innerclass refid="struct_vmix_hdmi_bridge___resolution" prot="public">VmixHdmiBridge_Resolution</innerclass>
+    <innerclass refid="struct_vmix_hdmi_bridge___coordinate" prot="public">VmixHdmiBridge_Coordinate</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="vmix__hdmi__bridge_8h_1a32129ede46e3c6cd3016842b5b640f25" prot="public" static="no">
+        <name>VMIX_BRIDGE_MAX_INSTANCES</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>Maximum number of ISP instances that can be mapped to VMix layers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="vmix__hdmi__bridge_8h_1a33a93252ee2a72ca62153371a1af8e35" prot="public" static="no">
+        <name>VMIX_BRIDGE_MAX_OUTPUT_PATHS</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Maximum number of output paths per ISP instance (MP, SP1, SP2, RDMA) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="vmix__hdmi__bridge_8h_1a704015d1b2decfbd41c6f6d723980e9f" prot="public" static="no">
+        <name>VMIX_BRIDGE_MAX_LAYERS</name>
+        <initializer>17</initializer>
+        <briefdescription>
+<para>Maximum number of VMix layers (fallback if HW define not available) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="vmix__hdmi__bridge_8h_1af1d3cc20469b45f306693817be4ccd93" prot="public" static="no">
+        <name>VMIX_BRIDGE_NUM_RESOLUTIONS</name>
+        <initializer>18</initializer>
+        <briefdescription>
+<para>Number of supported display resolutions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="vmix__hdmi__bridge_8h_1a76c7afa13034432e0be8b0cdd809ba43" prot="public" static="no">
+        <name>VMIX_AUTOSTART</name>
+        <briefdescription>
+<para>VMix auto-start mode (no interrupt, free-running) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="vmix__hdmi__bridge_8h_1a9ceb0c98427f29af5f1989d0b2735214" prot="public" static="no">
+        <type>struct <ref refid="struct_vmix_hdmi_bridge___input_buffer" kindref="compound">VmixHdmiBridge_InputBuffer</ref></type>
+        <definition>typedef struct VmixHdmiBridge_InputBuffer  VmixHdmiBridge_InputBuffer</definition>
+        <argsstring></argsstring>
+        <name>VmixHdmiBridge_InputBuffer</name>
+        <briefdescription>
+<para>Simple structure for passing buffer addresses to VMix layer update. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" line="77" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="vmix__hdmi__bridge_8h_1ae9b1242ba57845e84e7f047dd9bcff73" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VmixHdmiBridge_Init</definition>
+        <argsstring>(void)</argsstring>
+        <name>VmixHdmiBridge_Init</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Initialize the VMix + HDMI TX bridge. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function performs the complete initialization:<orderedlist>
+<listitem><para>Initializes the VMix IP (XV_Mix_l2)</para></listitem><listitem><para>Initializes the HDMI TX 2.1 SS (XV_HdmiTxSs1) + HDMI PHY</para></listitem><listitem><para>Configures VMix master stream for the target display resolution</para></listitem><listitem><para>Starts the VMix core</para></listitem><listitem><para>Configures and starts HDMI TX output</para></listitem></orderedlist>
+</para><para><simplesect kind="return"><para>0 on success, negative on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" line="121" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="vmix__hdmi__bridge_8h_1aae25d585b73d304c594c91555fac5dc0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VmixHdmiBridge_ConfigHdmiTx</definition>
+        <argsstring>(XVidC_VideoMode VideoMode)</argsstring>
+        <name>VmixHdmiBridge_ConfigHdmiTx</name>
+        <param>
+          <type>XVidC_VideoMode</type>
+          <declname>VideoMode</declname>
+        </param>
+        <briefdescription>
+<para>Configure the HDMI TX subsystem and start output. </para>        </briefdescription>
+        <detaileddescription>
+<para>Sets up HDMI TX 2.1 SS with the specified video mode and starts the transmitter. Uses the latest XV_HdmiTxSs1 / XV_Tx APIs.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>VideoMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Target video mode (e.g., XVIDC_VM_3840x2160_30_P) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" line="132" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="vmix__hdmi__bridge_8h_1a9d0043bdb9549cb18e506af04bb9cbd9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VmixHdmiBridge_MapLayer</definition>
+        <argsstring>(CamDevicePipeOutFmt_t outFormat, u8 InstanceID, u8 hpId, CamDeviceBufChainId_t bufIo, int dataBits, int outputType)</argsstring>
+        <name>VmixHdmiBridge_MapLayer</name>
+        <param>
+          <type><ref refid="group____cam__device__general_1ga0b046c59fcd3d0271b91cf58ab0c643d" kindref="member">CamDevicePipeOutFmt_t</ref></type>
+          <declname>outFormat</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>InstanceID</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>hpId</declname>
+        </param>
+        <param>
+          <type><ref refid="group____buf__mgmt__ctrl_1ga477942d22afe7298d497ae48e8bb498b" kindref="member">CamDeviceBufChainId_t</ref></type>
+          <declname>bufIo</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>dataBits</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>outputType</declname>
+        </param>
+        <briefdescription>
+<para>Map a VMix layer to a specific ISP instance + output path. </para>        </briefdescription>
+        <detaileddescription>
+<para>Finds a free VMix layer matching the required color format and assigns it to the given ISP instance/path combination.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>outFormat</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- ISP output format (resolution, pixel format, bit depth) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InstanceID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- ISP instance ID (0-5) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>hpId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Hardware pipeline ID </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bufIo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Buffer chain ID (MP/SP1) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dataBits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Output data bit depth (8 or 10) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>outputType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- 0=MO (memory output), 1=LO (live output via FBWR) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 on success, 0 if layer already mapped, -1 on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" line="148" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="vmix__hdmi__bridge_8h_1a4d03525701ae7a16983a1228e58da0c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VmixHdmiBridge_UpdateBufferAddr</definition>
+        <argsstring>(u64 baseAddress, CamDevicePipeOutFmt_t Vmix_format, u8 InstanceID, CamDeviceBufChainId_t bufferIO)</argsstring>
+        <name>VmixHdmiBridge_UpdateBufferAddr</name>
+        <param>
+          <type>u64</type>
+          <declname>baseAddress</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__general_1ga0b046c59fcd3d0271b91cf58ab0c643d" kindref="member">CamDevicePipeOutFmt_t</ref></type>
+          <declname>Vmix_format</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>InstanceID</declname>
+        </param>
+        <param>
+          <type><ref refid="group____buf__mgmt__ctrl_1ga477942d22afe7298d497ae48e8bb498b" kindref="member">CamDeviceBufChainId_t</ref></type>
+          <declname>bufferIO</declname>
+        </param>
+        <briefdescription>
+<para>Update VMix layer buffer address with latest ISP output frame. </para>        </briefdescription>
+        <detaileddescription>
+<para>Called per-frame from VsiVvdeviceShowBuffer() to push a new DMA buffer address to the VMix layer assigned to this ISP instance/path.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>baseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Physical address of the ISP output buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Vmix_format</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Format/resolution of the output buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InstanceID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- ISP instance ID </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bufferIO</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Buffer chain ID (MP/SP1) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 on success, 0 if unsupported resolution, -1 on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" line="164" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="vmix__hdmi__bridge_8h_1a7b08aa9ddf759b04a780216ecf3a5172" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VmixHdmiBridge_Cleanup</definition>
+        <argsstring>(void)</argsstring>
+        <name>VmixHdmiBridge_Cleanup</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Update VMix layer from FBWR callback (live output path) </para>        </briefdescription>
+        <detaileddescription>
+<para>Called from FBWR done interrupt callbacks to update the VMix layer with the latest frame buffer writer read-pointer address.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fbwr_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Frame buffer writer instance ID (0-3) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>readAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Physical address of the latest completed frame </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>chromaAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Physical address of chroma plane (0 for packed formats) Clean up all VMix layers and reset mapping tables</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+Disables all mapped VMix layers, resets layer tracking structures, and clears instance-to-layer mapping tables. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" line="189" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="vmix__hdmi__bridge_8h_1a616a946ca6f5006a22fbd14b5b9c6a69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VmixHdmiBridge_ConfigureMixer</definition>
+        <argsstring>(XVidC_VideoStream *StreamPtr)</argsstring>
+        <name>VmixHdmiBridge_ConfigureMixer</name>
+        <param>
+          <type>XVidC_VideoStream *</type>
+          <declname>StreamPtr</declname>
+        </param>
+        <briefdescription>
+<para>Configure VMix master video stream and start the mixer. </para>        </briefdescription>
+        <detaileddescription>
+<para>Sets the VMix master stream resolution/format, enumerates all layer color formats into the layer pool, and starts the mixer.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>StreamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Video stream parameters for the master output </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0 on success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" line="200" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="vmix__hdmi__bridge_8h_1a39d9701f371425a63094e714646f47ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void VmixHdmiBridge_HdmiPoll</definition>
+        <argsstring>(void)</argsstring>
+        <name>VmixHdmiBridge_HdmiPoll</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get the FBWR-to-VMix-layer mapping for a specific FBWR. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fbwr_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Frame buffer writer ID (0-3) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>VMix layer ID mapped to this FBWR, or -1 if not mapped Poll HDMI TX state machine in the main loop</para></simplesect>
+Must be called periodically from the main while loop to process the TX state machine events and start the transmitter when ready. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" line="218" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>@file<sp/>vmix_hdmi_bridge.h</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>@brief<sp/>VMix<sp/>+<sp/>HDMI<sp/>TX<sp/>Bridge<sp/>for<sp/>ISP<sp/>Pipeline<sp/>Output</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/>This<sp/>module<sp/>bridges<sp/>the<sp/>ISP<sp/>(VISP<sp/>SS)<sp/>video<sp/>output<sp/>to<sp/>an<sp/>HDMI<sp/>TX<sp/>display</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>through<sp/>a<sp/>Video<sp/>Mixer<sp/>(VMix)<sp/>IP.<sp/>It<sp/>provides:</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/><sp/><sp/>-<sp/>VMix<sp/>initialization,<sp/>layer<sp/>management,<sp/>and<sp/>stream<sp/>configuration</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/><sp/><sp/>-<sp/>HDMI<sp/>TX<sp/>2.1<sp/>Subsystem<sp/>initialization<sp/>and<sp/>stream<sp/>startup</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/><sp/><sp/>-<sp/>Per-frame<sp/>buffer<sp/>address<sp/>update<sp/>for<sp/>ISP<sp/>DMA<sp/>and<sp/>FBWR<sp/>paths</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/><sp/><sp/>-<sp/>Layer<sp/>mapping<sp/>between<sp/>ISP<sp/>instances/paths<sp/>and<sp/>VMix<sp/>layers</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>Data<sp/>flow:</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/><sp/><sp/>Sensor<sp/>-&gt;<sp/>ISP<sp/>-&gt;<sp/>FBWR<sp/>(DDR<sp/>triple-buffer)<sp/>-&gt;<sp/>VMix<sp/>Layer<sp/>-&gt;<sp/>HDMI<sp/>TX</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-&gt;<sp/>ISP<sp/>DMA<sp/>(DDR<sp/>buffer)<sp/><sp/><sp/><sp/><sp/><sp/>-&gt;<sp/>VMix<sp/>Layer<sp/>-^</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>This<sp/>module<sp/>uses<sp/>the<sp/>latest<sp/>HDMI<sp/>2.1<sp/>SS<sp/>APIs<sp/>(XV_HdmiTxSs1,<sp/>XHdmiphy1)</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*<sp/>and<sp/>the<sp/>VMix<sp/>L2<sp/>driver<sp/>(XV_Mix_l2<sp/>/<sp/>xv_mix_l2.h).</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>VMIX_HDMI_BRIDGE_H</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VMIX_HDMI_BRIDGE_H</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Include<sp/>Files<sp/>************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cam_device_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cam_device_buffer_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="36"><highlight class="comment"><sp/>*<sp/>Conditional<sp/>includes<sp/>for<sp/>VMix<sp/>and<sp/>HDMI<sp/>subsystems.</highlight></codeline>
+<codeline lineno="37"><highlight class="comment"><sp/>*<sp/>These<sp/>are<sp/>guarded<sp/>by<sp/>XPAR<sp/>defines<sp/>so<sp/>the<sp/>code<sp/>compiles<sp/>even<sp/>when</highlight></codeline>
+<codeline lineno="38"><highlight class="comment"><sp/>*<sp/>the<sp/>HW<sp/>design<sp/>doesn&apos;t<sp/>include<sp/>these<sp/>IPs.</highlight></codeline>
+<codeline lineno="39"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_MIX_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_mix_l2.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="45"><highlight class="comment"><sp/>*<sp/>HDMI<sp/>TX<sp/>2.1<sp/>SS<sp/>types<sp/>(XV_HdmiTxSs1,<sp/>XHdmiphy1,<sp/>XV_Tx,<sp/>XHdmi_Exdes)</highlight></codeline>
+<codeline lineno="46"><highlight class="comment"><sp/>*<sp/>are<sp/>only<sp/>used<sp/>internally<sp/>in<sp/>vmix_hdmi_bridge.c<sp/>and<sp/>are<sp/>included<sp/>there.</highlight></codeline>
+<codeline lineno="47"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor">#define<sp/>VMIX_BRIDGE_MAX_INSTANCES<sp/><sp/><sp/><sp/>6</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor">#define<sp/>VMIX_BRIDGE_MAX_OUTPUT_PATHS<sp/>4</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor">#ifndef<sp/>XPAR_XV_MIX_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VMIX_BRIDGE_MAX_LAYERS<sp/><sp/><sp/><sp/><sp/><sp/><sp/>17</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VMIX_BRIDGE_MAX_LAYERS<sp/><sp/><sp/><sp/><sp/><sp/><sp/>17<sp/></highlight><highlight class="comment">/*<sp/>updated<sp/>at<sp/>runtime<sp/>from<sp/>HW<sp/>config<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor">#define<sp/>VMIX_BRIDGE_NUM_RESOLUTIONS<sp/><sp/>18</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor">#define<sp/>VMIX_AUTOSTART</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Type<sp/>Definitions<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75" refid="struct_vmix_hdmi_bridge___input_buffer" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_vmix_hdmi_bridge___input_buffer" kindref="compound">VmixHdmiBridge_InputBuffer</ref><sp/>{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>baseAddress;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}<sp/><ref refid="struct_vmix_hdmi_bridge___input_buffer" kindref="compound">VmixHdmiBridge_InputBuffer</ref>;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82" refid="struct_vmix_hdmi_bridge___layer_pool" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="83" refid="struct_vmix_hdmi_bridge___layer_pool_1ad1c6dad646aac1beed11ded90c2620f0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_vmix_hdmi_bridge___layer_pool_1ad1c6dad646aac1beed11ded90c2620f0" kindref="member">LayerID</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84" refid="struct_vmix_hdmi_bridge___layer_pool_1a9180fede910c0373c4d1a849156b3ec5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_vmix_hdmi_bridge___layer_pool_1a9180fede910c0373c4d1a849156b3ec5" kindref="member">LayerCfmt</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="85" refid="struct_vmix_hdmi_bridge___layer_pool_1a99b080402db65434a7e41ed30805af22" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_vmix_hdmi_bridge___layer_pool_1a99b080402db65434a7e41ed30805af22" kindref="member">IsEnabled</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86" refid="struct_vmix_hdmi_bridge___layer_pool_1a131a996c06c5d74fe42b0b4fb52880ff" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_vmix_hdmi_bridge___layer_pool_1a131a996c06c5d74fe42b0b4fb52880ff" kindref="member">IsMapped</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87" refid="struct_vmix_hdmi_bridge___layer_pool_1acfd5e05fdb39737021b78e5565155388" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s16<sp/><ref refid="struct_vmix_hdmi_bridge___layer_pool_1acfd5e05fdb39737021b78e5565155388" kindref="member">MappedInstanceId</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88" refid="struct_vmix_hdmi_bridge___layer_pool_1ac3519242a9fd3dc50d1c80fabf6f8259" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_vmix_hdmi_bridge___layer_pool_1ac3519242a9fd3dc50d1c80fabf6f8259" kindref="member">Stride</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="89"><highlight class="normal">}<sp/><ref refid="struct_vmix_hdmi_bridge___layer_pool" kindref="compound">VmixHdmiBridge_LayerPool</ref>;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94" refid="struct_vmix_hdmi_bridge___resolution" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Width;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Height;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">}<sp/><ref refid="struct_vmix_hdmi_bridge___resolution" kindref="compound">VmixHdmiBridge_Resolution</ref>;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102" refid="struct_vmix_hdmi_bridge___coordinate" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>StartX;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>StartY;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">}<sp/><ref refid="struct_vmix_hdmi_bridge___coordinate" kindref="compound">VmixHdmiBridge_Coordinate</ref>;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VmixHdmiBridge_Init(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VmixHdmiBridge_ConfigHdmiTx(XVidC_VideoMode<sp/>VideoMode);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VmixHdmiBridge_MapLayer(<ref refid="struct_cam_device_pipe_out_fmt__s" kindref="compound">CamDevicePipeOutFmt_t</ref><sp/>outFormat,<sp/>u8<sp/>InstanceID,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>hpId,<sp/><ref refid="group____buf__mgmt__ctrl_1ga477942d22afe7298d497ae48e8bb498b" kindref="member">CamDeviceBufChainId_t</ref><sp/>bufIo,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>dataBits,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>outputType);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VmixHdmiBridge_UpdateBufferAddr(u64<sp/>baseAddress,</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_pipe_out_fmt__s" kindref="compound">CamDevicePipeOutFmt_t</ref><sp/>Vmix_format,</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>InstanceID,</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group____buf__mgmt__ctrl_1ga477942d22afe7298d497ae48e8bb498b" kindref="member">CamDeviceBufChainId_t</ref><sp/>bufferIO);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_FRMBUF_WR_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>VmixHdmiBridge_UpdateFbwrLayer(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>fbwr_id,<sp/>u64<sp/>readAddr,<sp/>u64<sp/>chromaAddr);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="189"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>VmixHdmiBridge_Cleanup(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VmixHdmiBridge_ConfigureMixer(XVidC_VideoStream<sp/>*StreamPtr);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_FRMBUF_WR_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VmixHdmiBridge_GetFbwrLayerId(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>fbwr_id);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="218"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>VmixHdmiBridge_HdmiPoll(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="223"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>VMIX_HDMI_BRIDGE_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h"/>
+  </compounddef>
+</doxygen>

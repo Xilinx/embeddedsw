@@ -1,0 +1,971 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdprxss__hw_8h" kind="file">
+    <compoundname>xdprxss_hw.h</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xdprxss_8h" local="yes">xdprxss.h</includedby>
+    <incdepgraph>
+      <node id="1515">
+        <label>xil_io.h</label>
+      </node>
+      <node id="1514">
+        <label>xdprxss_hw.h</label>
+        <link refid="xdprxss_hw.h"/>
+        <childnode refid="1515" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1534">
+        <label>keymgmt_keyfile.c</label>
+      </node>
+      <node id="1518">
+        <label>xdprxss.c</label>
+        <link refid="xdprxss_8c"/>
+      </node>
+      <node id="1517">
+        <label>xdprxss.h</label>
+        <link refid="xdprxss_8h"/>
+        <childnode refid="1518" relation="include">
+        </childnode>
+        <childnode refid="1519" relation="include">
+        </childnode>
+        <childnode refid="1520" relation="include">
+        </childnode>
+        <childnode refid="1521" relation="include">
+        </childnode>
+        <childnode refid="1522" relation="include">
+        </childnode>
+        <childnode refid="1523" relation="include">
+        </childnode>
+        <childnode refid="1524" relation="include">
+        </childnode>
+        <childnode refid="1532" relation="include">
+        </childnode>
+        <childnode refid="1533" relation="include">
+        </childnode>
+        <childnode refid="1545" relation="include">
+        </childnode>
+        <childnode refid="1546" relation="include">
+        </childnode>
+        <childnode refid="1547" relation="include">
+        </childnode>
+        <childnode refid="1554" relation="include">
+        </childnode>
+        <childnode refid="1555" relation="include">
+        </childnode>
+      </node>
+      <node id="1542">
+        <label>xdprxss_dp21_pt_hdcp.c</label>
+        <link refid="xdprxss__dp21__pt__hdcp_8c"/>
+      </node>
+      <node id="1553">
+        <label>xvid_clk_gen.c</label>
+      </node>
+      <node id="1528">
+        <label>si570.c</label>
+      </node>
+      <node id="1527">
+        <label>rx.c</label>
+      </node>
+      <node id="1532">
+        <label>rx.h</label>
+        <childnode refid="1526" relation="include">
+        </childnode>
+        <childnode refid="1527" relation="include">
+        </childnode>
+        <childnode refid="1530" relation="include">
+        </childnode>
+      </node>
+      <node id="1520">
+        <label>xdprxss_g.c</label>
+      </node>
+      <node id="1539">
+        <label>rx.c</label>
+      </node>
+      <node id="1545">
+        <label>rx.h</label>
+        <childnode refid="1538" relation="include">
+        </childnode>
+        <childnode refid="1539" relation="include">
+        </childnode>
+        <childnode refid="1542" relation="include">
+        </childnode>
+      </node>
+      <node id="1537">
+        <label>menus.c</label>
+      </node>
+      <node id="1552">
+        <label>xdprxss_dp21_pt_mst.c</label>
+      </node>
+      <node id="1544">
+        <label>xvid_clk_gen.c</label>
+      </node>
+      <node id="1523">
+        <label>xdprxss_sinit.c</label>
+        <link refid="xdprxss__sinit_8c"/>
+      </node>
+      <node id="1526">
+        <label>passthrough.c</label>
+      </node>
+      <node id="1541">
+        <label>tx.c</label>
+      </node>
+      <node id="1549">
+        <label>passthrough.c</label>
+      </node>
+      <node id="1530">
+        <label>xdprxss_dp21_pt.c</label>
+        <link refid="xdprxss__dp21__pt_8c"/>
+      </node>
+      <node id="1531">
+        <label>xvid_clk_gen.c</label>
+      </node>
+      <node id="1521">
+        <label>xdprxss_intr.c</label>
+        <link refid="xdprxss__intr_8c"/>
+      </node>
+      <node id="1533">
+        <label>main.h</label>
+        <childnode refid="1534" relation="include">
+        </childnode>
+        <childnode refid="1535" relation="include">
+        </childnode>
+        <childnode refid="1536" relation="include">
+        </childnode>
+        <childnode refid="1537" relation="include">
+        </childnode>
+        <childnode refid="1538" relation="include">
+        </childnode>
+        <childnode refid="1539" relation="include">
+        </childnode>
+        <childnode refid="1540" relation="include">
+        </childnode>
+        <childnode refid="1541" relation="include">
+        </childnode>
+        <childnode refid="1542" relation="include">
+        </childnode>
+        <childnode refid="1543" relation="include">
+        </childnode>
+        <childnode refid="1544" relation="include">
+        </childnode>
+      </node>
+      <node id="1522">
+        <label>xdprxss_selftest.c</label>
+        <link refid="xdprxss__selftest_8c"/>
+      </node>
+      <node id="1535">
+        <label>keymgmt_loader.c</label>
+        <link refid="keymgmt__loader_8c"/>
+      </node>
+      <node id="1548">
+        <label>menus.c</label>
+      </node>
+      <node id="1536">
+        <label>keys.c</label>
+      </node>
+      <node id="1540">
+        <label>si570.c</label>
+      </node>
+      <node id="1538">
+        <label>passthrough.c</label>
+      </node>
+      <node id="1543">
+        <label>xhdcp22_example.c</label>
+      </node>
+      <node id="1546">
+        <label>xhdcp22_example.h</label>
+        <childnode refid="1543" relation="include">
+        </childnode>
+      </node>
+      <node id="1516">
+        <label>xdprxss_hw.h</label>
+        <link refid="xdprxss_hw.h"/>
+        <childnode refid="1517" relation="include">
+        </childnode>
+      </node>
+      <node id="1524">
+        <label>main.h</label>
+        <childnode refid="1525" relation="include">
+        </childnode>
+        <childnode refid="1526" relation="include">
+        </childnode>
+        <childnode refid="1527" relation="include">
+        </childnode>
+        <childnode refid="1528" relation="include">
+        </childnode>
+        <childnode refid="1529" relation="include">
+        </childnode>
+        <childnode refid="1530" relation="include">
+        </childnode>
+        <childnode refid="1531" relation="include">
+        </childnode>
+      </node>
+      <node id="1547">
+        <label>main.h</label>
+        <childnode refid="1548" relation="include">
+        </childnode>
+        <childnode refid="1549" relation="include">
+        </childnode>
+        <childnode refid="1550" relation="include">
+        </childnode>
+        <childnode refid="1551" relation="include">
+        </childnode>
+        <childnode refid="1552" relation="include">
+        </childnode>
+        <childnode refid="1553" relation="include">
+        </childnode>
+      </node>
+      <node id="1550">
+        <label>rx.c</label>
+      </node>
+      <node id="1554">
+        <label>rx.h</label>
+        <childnode refid="1549" relation="include">
+        </childnode>
+        <childnode refid="1550" relation="include">
+        </childnode>
+        <childnode refid="1552" relation="include">
+        </childnode>
+      </node>
+      <node id="1555">
+        <label>xdprxss_dp21_rx.c</label>
+        <link refid="xdprxss__dp21__rx_8c"/>
+      </node>
+      <node id="1519">
+        <label>xdprxss_dbg.c</label>
+        <link refid="xdprxss__dbg_8c"/>
+      </node>
+      <node id="1525">
+        <label>menus.c</label>
+      </node>
+      <node id="1551">
+        <label>tx.c</label>
+      </node>
+      <node id="1529">
+        <label>tx.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Register access macro definition</header>
+      <memberdef kind="define" id="group__dprxss_1ga240806c20a656dc4d273f6bcd6e024b8" prot="public" static="no">
+        <name>XDpRxSs_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+<para>Input Operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1gab428d49ceaae9d2539ffa036e672d356" prot="public" static="no">
+        <name>XDpRxSs_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+<para>Output Operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1gacbff65f42123f46ee5085f8a37634b76" prot="public" static="no">
+        <name>XDpRxSs_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer><ref refid="group__dprxss_1ga240806c20a656dc4d273f6bcd6e024b8" kindref="member">XDpRxSs_In32</ref>((BaseAddress) + ((u32)RegOffset))</initializer>
+        <briefdescription>
+<para>This macro reads a value from a DisplayPort Receiver Subsystem register. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32 bit read is performed. If the component is implemented in a smaller width, only the least significant data is read from the register. The most significant data will be read as 0.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register (defined at the top of this file).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__dprxss_1gacbff65f42123f46ee5085f8a37634b76" kindref="member">XDpRxSs_ReadReg(UINTPTR BaseAddress, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="201" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="231" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1gaf9c2be00c10b7f459ae0518ddb4d9185" compoundref="xdprxss_8c" startline="3266" endline="3281">XDpRxSs_Get_Dec_Clk_Lock</referencedby>
+        <referencedby refid="group__dprxss_1ga9e5d8500862a2a9327eab83790cf4d1b" compoundref="xdprxss_8c" startline="3321" endline="3331">XDpRxSs_GetLinkRate</referencedby>
+        <referencedby refid="group__dprxss_1ga9a0f8a225ae1bfffcd34c512500fc8b2" compoundref="xdprxss_8c" startline="3083" endline="3105">XDpRxSs_GetVblank</referencedby>
+        <referencedby refid="group__dprxss_1ga28534a26466651e4c4c51fc24a2e9064" compoundref="xdprxss_8c" startline="3127" endline="3149">XDpRxSs_GetVtotal</referencedby>
+        <referencedby refid="group__dprxss_1ga00dc5117998ae4d8fb593bb4c5be07b1" compoundref="xdprxss_8c" startline="3028" endline="3039">XDpRxSs_MaskAdaptiveIntr</referencedby>
+        <referencedby refid="group__dprxss_1ga1c18157ed811924d1a2f1dd60a6f3629" compoundref="xdprxss__dbg_8c" startline="138" endline="184">XDpRxSs_ReportLinkInfo</referencedby>
+        <referencedby refid="group__dprxss_1ga1db1ad90aab468e882f66cb36a9fcec0" compoundref="xdprxss__dbg_8c" startline="197" endline="279">XDpRxSs_ReportMsaInfo</referencedby>
+        <referencedby refid="group__dprxss_1gae46f9dee4bb4a7e6ab6967fb572d2f50" compoundref="xdprxss_8c" startline="2996" endline="3014">XDpRxSs_SetAdaptiveSyncCaps</referencedby>
+        <referencedby refid="group__dprxss_1ga8d8c911ce381882bf28bdb51b9cffc62" compoundref="xdprxss_8c" startline="3053" endline="3064">XDpRxSs_UnMaskAdaptiveIntr</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1ga943ce6187f170ee3a8f0fb2ed9262e66" prot="public" static="no">
+        <name>XDpRxSs_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer><ref refid="group__dprxss_1gab428d49ceaae9d2539ffa036e672d356" kindref="member">XDpRxSs_Out32</ref>((BaseAddress) + ((u32)RegOffset), (u32)(Data))</initializer>
+        <briefdescription>
+<para>This macro writes a value to a DisplayPort Receiver Subsystem register. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32 bit write is performed. If the component is implemented in a smaller width, only the least significant data is written.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register (defined at the top of this file) to be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write into the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void XDpRxSs_WriteReg(UINTPTR BaseAddress, u32 RegOffset, u32 Data) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="223" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="253" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1gaf9c2be00c10b7f459ae0518ddb4d9185" compoundref="xdprxss_8c" startline="3266" endline="3281">XDpRxSs_Get_Dec_Clk_Lock</referencedby>
+        <referencedby refid="group__dprxss_1ga00dc5117998ae4d8fb593bb4c5be07b1" compoundref="xdprxss_8c" startline="3028" endline="3039">XDpRxSs_MaskAdaptiveIntr</referencedby>
+        <referencedby refid="group__dprxss_1gaf724dbd61d196f9bd1a8060f1f73816d" compoundref="xdprxss_8c" startline="700" endline="738">XDpRxSs_Reset</referencedby>
+        <referencedby refid="group__dprxss_1gae46f9dee4bb4a7e6ab6967fb572d2f50" compoundref="xdprxss_8c" startline="2996" endline="3014">XDpRxSs_SetAdaptiveSyncCaps</referencedby>
+        <referencedby refid="group__dprxss_1ga8d8c911ce381882bf28bdb51b9cffc62" compoundref="xdprxss_8c" startline="3053" endline="3064">XDpRxSs_UnMaskAdaptiveIntr</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__dprxss_1gaa6c84195ed3863aaf6938c1c24c3e6de" prot="public" static="no">
+        <name>XDPRXSS_HW_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1gaa90472325a71f84abe1a3a1bfec238db" prot="public" static="no">
+        <name>XDPRXSS_LINK_BW_SET_162GBPS</name>
+        <initializer>XDP_RX_OVER_LINK_BW_SET_162GBPS</initializer>
+        <briefdescription>
+<para>1.62 Gbps link rate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1ga675f6c814d19f756cbfa98796e0b46ac" prot="public" static="no">
+        <name>XDPRXSS_LINK_BW_SET_270GBPS</name>
+        <initializer>XDP_RX_OVER_LINK_BW_SET_270GBPS</initializer>
+        <briefdescription>
+<para>2.70 Gbps link rate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1ga931cc28d2f9318bfee0f2d60151bc8df" prot="public" static="no">
+        <name>XDPRXSS_LINK_BW_SET_540GBPS</name>
+        <initializer>XDP_RX_OVER_LINK_BW_SET_540GBPS</initializer>
+        <briefdescription>
+<para>5.40 Gbps link rate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1gab9cf9949881cab43b084328a9515a699" prot="public" static="no">
+        <name>XDPRXSS_LINK_BW_SET_810GBPS</name>
+        <initializer>XDP_RX_OVER_LINK_BW_SET_810GBPS</initializer>
+        <briefdescription>
+<para>8.10 Gbps link rate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="328" endline="687">XDpRxSs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1ga095994354c25ffec57830008cd335059" prot="public" static="no">
+        <name>XDPRXSS_LANE_COUNT_SET_1</name>
+        <initializer>XDP_RX_OVER_LANE_COUNT_SET_1</initializer>
+        <briefdescription>
+<para>Lane count of 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga180a0386c25a456d436bbfc9fec05c02" compoundref="xdprxss_8c" startline="981" endline="1003">XDpRxSs_SetLaneCount</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1gafd1d19e64661ce3db1ade1f5cab2fe4f" prot="public" static="no">
+        <name>XDPRXSS_LANE_COUNT_SET_2</name>
+        <initializer>XDP_RX_OVER_LANE_COUNT_SET_2</initializer>
+        <briefdescription>
+<para>Lane count of 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="87" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga180a0386c25a456d436bbfc9fec05c02" compoundref="xdprxss_8c" startline="981" endline="1003">XDpRxSs_SetLaneCount</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1gab87f0d5648bf0d231453fcfaf06daf7f" prot="public" static="no">
+        <name>XDPRXSS_LANE_COUNT_SET_4</name>
+        <initializer>XDP_RX_OVER_LANE_COUNT_SET_4</initializer>
+        <briefdescription>
+<para>Lane count of 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="90" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="328" endline="687">XDpRxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__dprxss_1ga180a0386c25a456d436bbfc9fec05c02" compoundref="xdprxss_8c" startline="981" endline="1003">XDpRxSs_SetLaneCount</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1gac9df54b26ffb165819051d777a3e302f" prot="public" static="no">
+        <name>XDPRXSS_RX_PHY_CONFIG</name>
+        <initializer>XDP_RX_PHY_CONFIG</initializer>
+        <briefdescription>
+<para>PHY reset and config. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1ga4f91a8608d7c5ac6d5463bce5689dc4d" prot="public" static="no">
+        <name>XDPRXSS_PHY_POWER_DOWN</name>
+        <initializer>XDP_RX_PHY_POWER_DOWN</initializer>
+        <briefdescription>
+<para>PHY power down. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1gade9ba08af5232341cdb08e1cfecbe7da" prot="public" static="no">
+        <name>XDPRXSS_MSA_HRES</name>
+        <initializer>XDP_RX_MSA_HRES</initializer>
+        <briefdescription>
+<para>Number of active pixels per line (the horizontal resolution). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1gadb8bd23f822d2c71d2c1048fe0a63756" prot="public" static="no">
+        <name>XDPRXSS_MSA_VRES</name>
+        <initializer>XDP_RX_MSA_VHEIGHT</initializer>
+        <briefdescription>
+<para>Number of active lines (the vertical resolution). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1ga4dde8986e7a7a116496255f42c07945c" prot="public" static="no">
+        <name>XDPRXSS_DPCD_LINK_BW_SET</name>
+        <initializer>XDP_RX_DPCD_LINK_BW_SET</initializer>
+        <briefdescription>
+<para>DPCD link bandwidth setting register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1ga940c3bebe5f7b30f16192ec0d3fefda4" prot="public" static="no">
+        <name>XDPRXSS_DPCD_LANE_COUNT_SET</name>
+        <initializer>XDP_RX_DPCD_LANE_COUNT_SET</initializer>
+        <briefdescription>
+<para>DPCD lane count setting register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1ga4aaa8462a227caf82a89b3f033ad40ea" prot="public" static="no">
+        <name>XDPRXSS_DPCD_LANE01_STATUS</name>
+        <initializer>XDP_RX_DPCD_LANE01_STATUS</initializer>
+        <briefdescription>
+<para>DPCD lane 0 and lane 1 status register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1ga95781ecaf96e1069550950d1717f4161" prot="public" static="no">
+        <name>XDPRXSS_DPCD_LANE23_STATUS</name>
+        <initializer>XDP_RX_DPCD_LANE23_STATUS</initializer>
+        <briefdescription>
+<para>DPCD lane 2 and lane 3 status register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1ga8d17023cc96f1030a9b5d3ae0cb9dd07" prot="public" static="no">
+        <name>XDPRXSS_INTR_VBLANK_MASK</name>
+        <initializer>XDP_RX_INTERRUPT_MASK_VBLANK_MASK</initializer>
+        <briefdescription>
+<para>Interrupt mask for vertical blanking period. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1gaf97a3b68c4f29daf38a4fb76242de388" prot="public" static="no">
+        <name>XDPRXSS_NUM_STREAMS</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Maximum number of streams supported. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1gade58f59afa500e8f4ce8d57d24b8f78d" prot="public" static="no">
+        <name>XDPRXSS_MAX_NPORTS</name>
+        <initializer>XDP_MAX_NPORTS</initializer>
+        <briefdescription>
+<para>Maximum number of RX ports. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1ga3a6d3739a23b0a6c4742f32e376ef3f5" prot="public" static="no">
+        <name>XDPRXSS_GUID_NBYTES</name>
+        <initializer>XDP_GUID_NBYTES</initializer>
+        <briefdescription>
+<para>Number of bytes for GUID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1ga47f85cb61201d8a04e80a72de6e25576" prot="public" static="no">
+        <name>XDPRXSS_TMRCTR_RST_VAL</name>
+        <initializer>100000000</initializer>
+        <briefdescription>
+<para>Timer Counter reset value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="141" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="328" endline="687">XDpRxSs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1ga0ec45e8b2f25ac83d4122d8c55216704" prot="public" static="no">
+        <name>XDPRXSS_ALL_INTR_MASK</name>
+        <initializer>0xFFFFFFFF</initializer>
+        <briefdescription>
+<para>All interrupt mask - enables all interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="148" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga59956de9a79818e18f6a6bb12d1e0216" compoundref="xdprxss_8c" startline="823" endline="899">XDpRxSs_Setup</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1gabc69e5c0bc2b924ccceb42c2e98960c7" prot="public" static="no">
+        <name>XDPRXSS_CHANNEL_CODING_OFFSET</name>
+        <initializer>0x1600</initializer>
+        <briefdescription>
+<para>Channel coding register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="154" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga59956de9a79818e18f6a6bb12d1e0216" compoundref="xdprxss_8c" startline="823" endline="899">XDpRxSs_Setup</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1ga6a656ed68b60af24e8e7b9c46b4b8cea" prot="public" static="no">
+        <name>XDPRXSS_8B10B_CHANNEL_CODING</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+<para>8b/10b channel coding value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="156" bodyend="-1"/>
+        <referencedby refid="xdprxss__dp21__rx_8c_1a9c7565cc1ee7c14291a1da9c02a1513f" compoundref="xdprxss__dp21__rx_8c" startline="590" endline="865">DpRxSs_Main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1ga2728430e554aa35b93bcc9192a42b34d" prot="public" static="no">
+        <name>XDPRXSS_128B132B_CHANNEL_CODING</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+<para>128b/132b channel coding value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1ga65140c94ddb9adb2847b24240316a49d" prot="public" static="no">
+        <name>XDPRXSS_CRC_CONFIG</name>
+        <initializer>0x074</initializer>
+        <briefdescription>
+<para>CRC configuration register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1ga57eb93f2e45ecc8cee493e35cefdd9c7" prot="public" static="no">
+        <name>XDPRXSS_CRC_COMP0</name>
+        <initializer>0x078</initializer>
+        <briefdescription>
+<para>CRC component 0 register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1gaf41bfed740b113d6d4394710fc2a7482" prot="public" static="no">
+        <name>XDPRXSS_CRC_COMP1</name>
+        <initializer>0x07C</initializer>
+        <briefdescription>
+<para>CRC component 1 register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1gab3b59a02078d6b802d6a79452a9bd47d" prot="public" static="no">
+        <name>XDPRXSS_CRC_COMP2</name>
+        <initializer>0x080</initializer>
+        <briefdescription>
+<para>CRC component 2 register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1ga507df0ef144723e545c291165dcd53a6" prot="public" static="no">
+        <name>XDPRXSS_CRC_ENABLE_SHIFT</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>CRC enable bit shift position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1gab11fc43659fef667fc5b5dc7a674a838" prot="public" static="no">
+        <name>XDPRXSS_CRC_CONFIG_MASK</name>
+        <initializer>0x2F</initializer>
+        <briefdescription>
+<para>CRC configuration register mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1gab88ea6673189e1125e73e09c306e31e0" prot="public" static="no">
+        <name>XDPRXSS_DPC_LINK_QUAL_CONFIG</name>
+        <initializer>0x454</initializer>
+        <briefdescription>
+<para>Link quality configuration register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1ga89bf3633a08d56780e410ab96a284900" prot="public" static="no">
+        <name>XDPRXSS_DPC_L01_PRBS_CNTR_OFFSET</name>
+        <initializer>0x45C</initializer>
+        <briefdescription>
+<para>Lanes 0-1 PRBS counter register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="179" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1gaf42afbb0ee79110384763a0aaf210298" compoundref="xdprxss_8c" startline="915" endline="930">DpRxSs_UpdatePrbsErrCouters</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1ga912e7592fe869434787e0c87e412dfb5" prot="public" static="no">
+        <name>XDPRXSS_DPC_L23_PRBS_CNTR_OFFSET</name>
+        <initializer>0x460</initializer>
+        <briefdescription>
+<para>Lanes 2-3 PRBS counter register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="181" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1gaf42afbb0ee79110384763a0aaf210298" compoundref="xdprxss_8c" startline="915" endline="930">DpRxSs_UpdatePrbsErrCouters</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1ga40b61aaa9aa4e6e221eda78a6966641e" prot="public" static="no">
+        <name>XDPRXSS_DPC_LANE_PRBS_CNTR_VALID_MASK</name>
+        <initializer>0x8000</initializer>
+        <briefdescription>
+<para>Lane PRBS counter valid bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="184" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1gaf42afbb0ee79110384763a0aaf210298" compoundref="xdprxss_8c" startline="915" endline="930">DpRxSs_UpdatePrbsErrCouters</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1ga6266b0f2e3f0fdfef60d081a028c3412" prot="public" static="no">
+        <name>XDPRXSS_DPC_LINK_QUAL_PRBS_MASK</name>
+        <initializer>0x7</initializer>
+        <briefdescription>
+<para>Link quality PRBS mode mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1gaaee90823331704b9a3a993cc5a59b4f2" prot="public" static="no">
+        <name>XDPRXSS_DPC_LINK_QUAL_PRBS</name>
+        <initializer>0x3</initializer>
+        <briefdescription>
+<para>Link quality PRBS mode value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1ga527e82cb16937e3eecba9fa4ed2ce769" prot="public" static="no">
+        <name>XDPRXSS_CDR_TIMEOUT_MASK</name>
+        <initializer>0x000FFFFF</initializer>
+        <briefdescription>
+<para>CDR timeout mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1gab397194f711642743ddeaa7c967d4a12" prot="public" static="no">
+        <name>XDPRXSS_USER_FIFO_OVERFLOW_STREAM1_MASK</name>
+        <initializer>0x00000111</initializer>
+        <briefdescription>
+<para>User FIFO overflow for stream 1 mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="193" bodyend="-1"/>
+        <referencedby refid="xdprxss__dp21__rx_8c_1a0ab062285606abd7aefe27bc5e4e783c" compoundref="xdprxss__dp21__rx_8c" startline="1896" endline="1991">CalculateCRC</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1ga33daf78f35ffbbe44269b30207a8352f" prot="public" static="no">
+        <name>XDPRXSS_SOFT_RESET_AUX_SHIFT</name>
+        <initializer>7</initializer>
+        <briefdescription>
+<para>Soft reset AUX bit shift position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1gac564f5ea9dff4a6c3d2733eea31c471a" prot="public" static="no">
+        <name>XDPRXSS_VFreqL_OFFSET</name>
+        <initializer>0x1608</initializer>
+        <briefdescription>
+<para>Vertical frequency low register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dprxss_1gaa1f165ceaf8454e353b6a1414087a12f" prot="public" static="no">
+        <name>XDPRXSS_VFreqH_OFFSET</name>
+        <initializer>0x160c</initializer>
+        <briefdescription>
+<para>Vertical frequency high register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2023<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor">#ifndef<sp/>XDPRXSS_HW_H_</highlight></codeline>
+<codeline lineno="31" refid="group__dprxss_1gaa6c84195ed3863aaf6938c1c24c3e6de" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDPRXSS_HW_H_<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>0x09C:<sp/>OVER_LINK_BW_SET<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDPRXSS_LINK_BW_SET_162GBPS<sp/>XDP_RX_OVER_LINK_BW_SET_162GBPS<sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor">#define<sp/>XDPRXSS_LINK_BW_SET_270GBPS<sp/>XDP_RX_OVER_LINK_BW_SET_270GBPS<sp/></highlight></codeline>
+<codeline lineno="55" refid="group__dprxss_1ga675f6c814d19f756cbfa98796e0b46ac" refkind="member"><highlight class="preprocessor">#define<sp/>XDPRXSS_LINK_BW_SET_540GBPS<sp/>XDP_RX_OVER_LINK_BW_SET_540GBPS<sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor">#define<sp/>XDPRXSS_LINK_BW_SET_810GBPS<sp/>XDP_RX_OVER_LINK_BW_SET_810GBPS<sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>0x0A0:<sp/>OVER_LANE_COUNT_SET<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDPRXSS_LANE_COUNT_SET_1<sp/>XDP_RX_OVER_LANE_COUNT_SET_1<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor">#define<sp/>XDPRXSS_LANE_COUNT_SET_2<sp/>XDP_RX_OVER_LANE_COUNT_SET_2<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor">#define<sp/>XDPRXSS_LANE_COUNT_SET_4<sp/>XDP_RX_OVER_LANE_COUNT_SET_4<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor">#define<sp/>XDPRXSS_RX_PHY_CONFIG<sp/><sp/><sp/>XDP_RX_PHY_CONFIG<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor">#define<sp/>XDPRXSS_PHY_POWER_DOWN<sp/><sp/>XDP_RX_PHY_POWER_DOWN<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor">#define<sp/>XDPRXSS_MSA_HRES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_RX_MSA_HRES<sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor">#define<sp/>XDPRXSS_MSA_VRES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_RX_MSA_VHEIGHT<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Link<sp/>bandwidth<sp/>and<sp/>lane<sp/>count<sp/>setting<sp/>as<sp/>exposed<sp/>in<sp/>the<sp/>RX<sp/>DPCD<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="87" refid="group__dprxss_1gafd1d19e64661ce3db1ade1f5cab2fe4f" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor">#define<sp/>XDPRXSS_DPCD_LINK_BW_SET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_RX_DPCD_LINK_BW_SET</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="90" refid="group__dprxss_1gab87f0d5648bf0d231453fcfaf06daf7f" refkind="member"><highlight class="preprocessor">#define<sp/>XDPRXSS_DPCD_LANE_COUNT_SET<sp/><sp/><sp/><sp/><sp/>XDP_RX_DPCD_LANE_COUNT_SET</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Link<sp/>training<sp/>status<sp/>for<sp/>lanes<sp/>0,<sp/>lane<sp/>1,<sp/>lane<sp/>2<sp/>and<sp/>lane<sp/>3<sp/>as<sp/>exposed<sp/>in</highlight></codeline>
+<codeline lineno="93"><highlight class="comment"><sp/>*<sp/>the<sp/>RX<sp/>DPCD</highlight></codeline>
+<codeline lineno="94" refid="group__dprxss_1gac9df54b26ffb165819051d777a3e302f" refkind="member"><highlight class="comment"><sp/>*/</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor">#define<sp/>XDPRXSS_DPCD_LANE01_STATUS<sp/><sp/><sp/><sp/><sp/><sp/>XDP_RX_DPCD_LANE01_STATUS</highlight></codeline>
+<codeline lineno="97" refid="group__dprxss_1ga4f91a8608d7c5ac6d5463bce5689dc4d" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor">#define<sp/>XDPRXSS_DPCD_LANE23_STATUS<sp/><sp/><sp/><sp/><sp/><sp/>XDP_RX_DPCD_LANE23_STATUS</highlight></codeline>
+<codeline lineno="99" refid="group__dprxss_1gade9ba08af5232341cdb08e1cfecbe7da" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Vertical<sp/>blank<sp/>interrupt<sp/>mask<sp/>*/</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor">#define<sp/>XDPRXSS_INTR_VBLANK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_RX_INTERRUPT_MASK_VBLANK_MASK</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104" refid="group__dprxss_1gadb8bd23f822d2c71d2c1048fe0a63756" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDPRXSS_NUM_STREAMS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor">#define<sp/>XDPRXSS_MAX_NPORTS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_MAX_NPORTS<sp/><sp/></highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor">#define<sp/>XDPRXSS_GUID_NBYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_GUID_NBYTES<sp/></highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor">#define<sp/>XDPRXSS_TMRCTR_RST_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>100000000<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114" refid="group__dprxss_1ga4dde8986e7a7a116496255f42c07945c" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="115"><highlight class="comment"><sp/>*<sp/>Interrupt<sp/>masks</highlight></codeline>
+<codeline lineno="116" refid="group__dprxss_1ga940c3bebe5f7b30f16192ec0d3fefda4" refkind="member"><highlight class="comment"><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor">#define<sp/>XDPRXSS_ALL_INTR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFFFFFF</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="121"><highlight class="comment"><sp/>*<sp/>Channel<sp/>coding</highlight></codeline>
+<codeline lineno="122" refid="group__dprxss_1ga4aaa8462a227caf82a89b3f033ad40ea" refkind="member"><highlight class="comment"><sp/>*/</highlight></codeline>
+<codeline lineno="124" refid="group__dprxss_1ga95781ecaf96e1069550950d1717f4161" refkind="member"><highlight class="preprocessor">#define<sp/>XDPRXSS_CHANNEL_CODING_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1600</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor">#define<sp/>XDPRXSS_8B10B_CHANNEL_CODING<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="128" refid="group__dprxss_1ga8d17023cc96f1030a9b5d3ae0cb9dd07" refkind="member"><highlight class="preprocessor">#define<sp/>XDPRXSS_128B132B_CHANNEL_CODING<sp/>0x2</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor">#define<sp/>XDPRXSS_CRC_CONFIG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x074</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor">#define<sp/>XDPRXSS_CRC_COMP0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x078</highlight></codeline>
+<codeline lineno="134" refid="group__dprxss_1gade58f59afa500e8f4ce8d57d24b8f78d" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor">#define<sp/>XDPRXSS_CRC_COMP1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x07C</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="137" refid="group__dprxss_1ga3a6d3739a23b0a6c4742f32e376ef3f5" refkind="member"><highlight class="preprocessor">#define<sp/>XDPRXSS_CRC_COMP2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x080</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor">#define<sp/>XDPRXSS_CRC_ENABLE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5</highlight></codeline>
+<codeline lineno="141" refid="group__dprxss_1ga47f85cb61201d8a04e80a72de6e25576" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor">#define<sp/>XDPRXSS_CRC_CONFIG_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2F</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="144"><highlight class="comment"><sp/>*<sp/>Link<sp/>quality<sp/>and<sp/>PRBS<sp/>error<sp/>counters</highlight></codeline>
+<codeline lineno="145"><highlight class="comment"><sp/>*/</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor">#define<sp/>XDPRXSS_DPC_LINK_QUAL_CONFIG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x454</highlight></codeline>
+<codeline lineno="148" refid="group__dprxss_1ga0ec45e8b2f25ac83d4122d8c55216704" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor">#define<sp/>XDPRXSS_DPC_L01_PRBS_CNTR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x45C</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor">#define<sp/>XDPRXSS_DPC_L23_PRBS_CNTR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x460</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="154" refid="group__dprxss_1gabc69e5c0bc2b924ccceb42c2e98960c7" refkind="member"><highlight class="preprocessor">#define<sp/>XDPRXSS_DPC_LANE_PRBS_CNTR_VALID_MASK<sp/><sp/><sp/>0x8000</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="156" refid="group__dprxss_1ga6a656ed68b60af24e8e7b9c46b4b8cea" refkind="member"><highlight class="preprocessor">#define<sp/>XDPRXSS_DPC_LINK_QUAL_PRBS_MASK<sp/>0x7</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="158" refid="group__dprxss_1ga2728430e554aa35b93bcc9192a42b34d" refkind="member"><highlight class="preprocessor">#define<sp/>XDPRXSS_DPC_LINK_QUAL_PRBS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="161" refid="group__dprxss_1ga65140c94ddb9adb2847b24240316a49d" refkind="member"><highlight class="preprocessor">#define<sp/>XDPRXSS_CDR_TIMEOUT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000FFFFF</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="163" refid="group__dprxss_1ga57eb93f2e45ecc8cee493e35cefdd9c7" refkind="member"><highlight class="preprocessor">#define<sp/>XDPRXSS_USER_FIFO_OVERFLOW_STREAM1_MASK<sp/>0x00000111</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor">#define<sp/>XDPRXSS_SOFT_RESET_AUX_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>7</highlight></codeline>
+<codeline lineno="167" refid="group__dprxss_1gab3b59a02078d6b802d6a79452a9bd47d" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor">#define<sp/>XDPRXSS_VFreqL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1608</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="170" refid="group__dprxss_1ga507df0ef144723e545c291165dcd53a6" refkind="member"><highlight class="preprocessor">#define<sp/>XDPRXSS_VFreqH_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x160c</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172" refid="group__dprxss_1gab11fc43659fef667fc5b5dc7a674a838" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor">#define<sp/>XDpRxSs_In32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="181" refid="group__dprxss_1ga912e7592fe869434787e0c87e412dfb5" refkind="member"><highlight class="preprocessor">#define<sp/>XDpRxSs_Out32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="184" refid="group__dprxss_1ga40b61aaa9aa4e6e221eda78a6966641e" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor">#define<sp/>XDpRxSs_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpRxSs_In32((BaseAddress)<sp/>+<sp/>((u32)RegOffset))</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="223"><highlight class="preprocessor">#define<sp/>XDpRxSs_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpRxSs_Out32((BaseAddress)<sp/>+<sp/>((u32)RegOffset),<sp/>(u32)(Data))</highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="227"><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="231" refid="group__dprxss_1gacbff65f42123f46ee5085f8a37634b76" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="234"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="238"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss_hw.h"/>
+  </compounddef>
+</doxygen>

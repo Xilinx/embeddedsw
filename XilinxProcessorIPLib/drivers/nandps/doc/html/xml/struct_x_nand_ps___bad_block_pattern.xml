@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nand_ps___bad_block_pattern" kind="struct" prot="public">
+    <compoundname>XNandPs_BadBlockPattern</compoundname>
+    <includes local="no">xnandps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nand_ps___bad_block_pattern_1ace3f3a1bd6474b1db80641a24fc8490f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPs_BadBlockPattern::Options</definition>
+        <argsstring></argsstring>
+        <name>Options</name>
+        <briefdescription>
+<para>Options to search the bad block pattern. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="365" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="365" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps___bad_block_pattern_1ab867944767569bd68b27802773fded54" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPs_BadBlockPattern::Offset</definition>
+        <argsstring></argsstring>
+        <name>Offset</name>
+        <briefdescription>
+<para>Offset to search for specified pattern. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="366" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="366" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps___bad_block_pattern_1a826e0b5484ee7377da4ca47ca45df584" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPs_BadBlockPattern::Length</definition>
+        <argsstring></argsstring>
+        <name>Length</name>
+        <briefdescription>
+<para>Number of bytes to check the pattern. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="367" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="367" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps___bad_block_pattern_1a9c1f59c04f5e756227c129e69d1fb45f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNandPs_BadBlockPattern::Pattern[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>Pattern</name>
+        <briefdescription>
+<para>Pattern format to search for. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="368" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="368" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Bad block pattern. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="364" bodyend="369"/>
+    <listofallmembers>
+      <member refid="struct_x_nand_ps___bad_block_pattern_1a826e0b5484ee7377da4ca47ca45df584" prot="public" virt="non-virtual"><scope>XNandPs_BadBlockPattern</scope><name>Length</name></member>
+      <member refid="struct_x_nand_ps___bad_block_pattern_1ab867944767569bd68b27802773fded54" prot="public" virt="non-virtual"><scope>XNandPs_BadBlockPattern</scope><name>Offset</name></member>
+      <member refid="struct_x_nand_ps___bad_block_pattern_1ace3f3a1bd6474b1db80641a24fc8490f" prot="public" virt="non-virtual"><scope>XNandPs_BadBlockPattern</scope><name>Options</name></member>
+      <member refid="struct_x_nand_ps___bad_block_pattern_1a9c1f59c04f5e756227c129e69d1fb45f" prot="public" virt="non-virtual"><scope>XNandPs_BadBlockPattern</scope><name>Pattern</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

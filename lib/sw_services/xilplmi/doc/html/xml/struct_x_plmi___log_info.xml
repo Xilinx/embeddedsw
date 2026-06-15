@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_plmi___log_info" kind="struct" prot="public">
+    <compoundname>XPlmi_LogInfo</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_plmi___log_info_1adbd0982a1db50326948586f2a0c2d96e" prot="public" static="no" mutable="no">
+        <type>XPlmi_CircularBuffer</type>
+        <definition>XPlmi_CircularBuffer XPlmi_LogInfo::LogBuffer</definition>
+        <argsstring></argsstring>
+        <name>LogBuffer</name>
+        <briefdescription>
+<para>Instance of circular buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_event_logging.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_event_logging.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___log_info_1abae4ae9606232aefcc00c461aed478bf" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPlmi_LogInfo::LogLevel</definition>
+        <argsstring></argsstring>
+        <name>LogLevel</name>
+        <briefdescription>
+<para>LogLevel indicates levels like DEBUG_INFO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_event_logging.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_event_logging.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___log_info_1ae70acfe5662ab963c65554dd90575736" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPlmi_LogInfo::DiscardLogsAndPrintToBuf</definition>
+        <argsstring></argsstring>
+        <name>DiscardLogsAndPrintToBuf</name>
+        <briefdescription>
+<para><verbatim>     If PrintToBuf is set, log is also written to PMC_RAM(along with UART)
+</verbatim> and if DiscardLogs is set, log is written to neither PMC_RAM nor UART </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_event_logging.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_event_logging.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_event_logging.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_event_logging.h" bodystart="66" bodyend="71"/>
+    <listofallmembers>
+      <member refid="struct_x_plmi___log_info_1ae70acfe5662ab963c65554dd90575736" prot="public" virt="non-virtual"><scope>XPlmi_LogInfo</scope><name>DiscardLogsAndPrintToBuf</name></member>
+      <member refid="struct_x_plmi___log_info_1adbd0982a1db50326948586f2a0c2d96e" prot="public" virt="non-virtual"><scope>XPlmi_LogInfo</scope><name>LogBuffer</name></member>
+      <member refid="struct_x_plmi___log_info_1abae4ae9606232aefcc00c461aed478bf" prot="public" virt="non-virtual"><scope>XPlmi_LogInfo</scope><name>LogLevel</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

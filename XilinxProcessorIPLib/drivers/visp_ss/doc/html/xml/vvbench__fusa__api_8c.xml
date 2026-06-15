@@ -1,0 +1,719 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="vvbench__fusa__api_8c" kind="file">
+    <compoundname>vvbench_fusa_api.c</compoundname>
+    <includes refid="c_j_s_o_n_8h" local="yes">cJSON.h</includes>
+    <includes local="yes">vlog.h</includes>
+    <includes refid="vvbench__fusa__api_8h" local="yes">vvbench_fusa_api.h</includes>
+    <incdepgraph>
+      <node id="10003">
+        <label>stdbool.h</label>
+      </node>
+      <node id="10006">
+        <label>vvdevice_common.h</label>
+        <childnode refid="10007" relation="include">
+        </childnode>
+        <childnode refid="10015" relation="include">
+        </childnode>
+        <childnode refid="10001" relation="include">
+        </childnode>
+      </node>
+      <node id="10024">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="10013">
+        <label>oslayer.h</label>
+        <link refid="oslayer_8h"/>
+        <childnode refid="10014" relation="include">
+        </childnode>
+        <childnode refid="10019" relation="include">
+        </childnode>
+      </node>
+      <node id="10021">
+        <label>stdint.h</label>
+      </node>
+      <node id="10036">
+        <label>system_module.h</label>
+        <childnode refid="10015" relation="include">
+        </childnode>
+      </node>
+      <node id="10012">
+        <label>stdlib.h</label>
+      </node>
+      <node id="10022">
+        <label>cam_device_api.h</label>
+        <childnode refid="10023" relation="include">
+        </childnode>
+        <childnode refid="10030" relation="include">
+        </childnode>
+        <childnode refid="10031" relation="include">
+        </childnode>
+        <childnode refid="10032" relation="include">
+        </childnode>
+      </node>
+      <node id="10030">
+        <label>cam_device_calibration.h</label>
+        <childnode refid="10015" relation="include">
+        </childnode>
+      </node>
+      <node id="10000">
+        <label>vvbench_fusa_api.c</label>
+        <link refid="vvbench_fusa_api.c"/>
+        <childnode refid="10001" relation="include">
+        </childnode>
+        <childnode refid="10004" relation="include">
+        </childnode>
+        <childnode refid="10005" relation="include">
+        </childnode>
+      </node>
+      <node id="10009">
+        <label>vvterminal.h</label>
+      </node>
+      <node id="10026">
+        <label>sensor_cmd.h</label>
+        <childnode refid="10027" relation="include">
+        </childnode>
+        <childnode refid="10024" relation="include">
+        </childnode>
+      </node>
+      <node id="10033">
+        <label>cam_device_buffer_api.h</label>
+        <childnode refid="10015" relation="include">
+        </childnode>
+        <childnode refid="10024" relation="include">
+        </childnode>
+        <childnode refid="10013" relation="include">
+        </childnode>
+        <childnode refid="10022" relation="include">
+        </childnode>
+        <childnode refid="10025" relation="include">
+        </childnode>
+      </node>
+      <node id="10037">
+        <label>cam_device_fusa_api.h</label>
+        <childnode refid="10023" relation="include">
+        </childnode>
+      </node>
+      <node id="10002">
+        <label>stddef.h</label>
+      </node>
+      <node id="10001">
+        <label>cJSON.h</label>
+        <childnode refid="10002" relation="include">
+        </childnode>
+        <childnode refid="10003" relation="include">
+        </childnode>
+      </node>
+      <node id="10017">
+        <label>limits.h</label>
+      </node>
+      <node id="10023">
+        <label>cam_device_common.h</label>
+        <childnode refid="10015" relation="include">
+        </childnode>
+        <childnode refid="10024" relation="include">
+        </childnode>
+        <childnode refid="10014" relation="include">
+        </childnode>
+        <childnode refid="10025" relation="include">
+        </childnode>
+        <childnode refid="10026" relation="include">
+        </childnode>
+      </node>
+      <node id="10025">
+        <label>buf_defs.h</label>
+        <childnode refid="10015" relation="include">
+        </childnode>
+      </node>
+      <node id="10027">
+        <label>mbox_api.h</label>
+        <childnode refid="10003" relation="include">
+        </childnode>
+        <childnode refid="10021" relation="include">
+        </childnode>
+        <childnode refid="10028" relation="include">
+        </childnode>
+      </node>
+      <node id="10018">
+        <label>string.h</label>
+      </node>
+      <node id="10005">
+        <label>vvbench_fusa_api.h</label>
+        <childnode refid="10006" relation="include">
+        </childnode>
+        <childnode refid="10001" relation="include">
+        </childnode>
+        <childnode refid="10037" relation="include">
+        </childnode>
+      </node>
+      <node id="10028">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="10003" relation="include">
+        </childnode>
+        <childnode refid="10029" relation="include">
+        </childnode>
+      </node>
+      <node id="10035">
+        <label>cam_device_isp_system_api.h</label>
+        <childnode refid="10015" relation="include">
+        </childnode>
+        <childnode refid="10024" relation="include">
+        </childnode>
+        <childnode refid="10023" relation="include">
+        </childnode>
+        <childnode refid="10036" relation="include">
+        </childnode>
+      </node>
+      <node id="10034">
+        <label>cam_device_sensor_api.h</label>
+        <childnode refid="10022" relation="include">
+        </childnode>
+      </node>
+      <node id="10020">
+        <label>cam_common_api.h</label>
+        <childnode refid="10021" relation="include">
+        </childnode>
+        <childnode refid="10003" relation="include">
+        </childnode>
+      </node>
+      <node id="10004">
+        <label>vlog.h</label>
+      </node>
+      <node id="10007">
+        <label>vvdevice.h</label>
+        <childnode refid="10008" relation="include">
+        </childnode>
+        <childnode refid="10009" relation="include">
+        </childnode>
+        <childnode refid="10010" relation="include">
+        </childnode>
+        <childnode refid="10020" relation="include">
+        </childnode>
+        <childnode refid="10022" relation="include">
+        </childnode>
+        <childnode refid="10033" relation="include">
+        </childnode>
+        <childnode refid="10023" relation="include">
+        </childnode>
+        <childnode refid="10034" relation="include">
+        </childnode>
+        <childnode refid="10035" relation="include">
+        </childnode>
+        <childnode refid="10025" relation="include">
+        </childnode>
+        <childnode refid="10014" relation="include">
+        </childnode>
+      </node>
+      <node id="10029">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="10019">
+        <label>ff.h</label>
+      </node>
+      <node id="10031">
+        <label>offline_trace.h</label>
+        <link refid="offline__trace_8h"/>
+        <childnode refid="10016" relation="include">
+        </childnode>
+        <childnode refid="10015" relation="include">
+        </childnode>
+        <childnode refid="10024" relation="include">
+        </childnode>
+      </node>
+      <node id="10015">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="10016" relation="include">
+        </childnode>
+        <childnode refid="10017" relation="include">
+        </childnode>
+        <childnode refid="10002" relation="include">
+        </childnode>
+      </node>
+      <node id="10032">
+        <label>cam_device_ccm_api.h</label>
+        <childnode refid="10023" relation="include">
+        </childnode>
+      </node>
+      <node id="10008">
+        <label>vvbase.h</label>
+      </node>
+      <node id="10010">
+        <label>vlog.h</label>
+        <childnode refid="10011" relation="include">
+        </childnode>
+        <childnode refid="10012" relation="include">
+        </childnode>
+        <childnode refid="10013" relation="include">
+        </childnode>
+      </node>
+      <node id="10014">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="10015" relation="include">
+        </childnode>
+        <childnode refid="10018" relation="include">
+        </childnode>
+      </node>
+      <node id="10011">
+        <label>stdio.h</label>
+      </node>
+      <node id="10016">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="10011" relation="include">
+        </childnode>
+        <childnode refid="10012" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="vvbench__fusa__api_8c_1a409768d6dd32d3ff211bfccfe4ecce45" prot="public" static="no">
+        <name>LOGTAG</name>
+        <initializer>&quot;FUSA&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_fusa_api.c" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_fusa_api.c" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="vvbench__fusa__api_8c_1afeb7478f43beed97314c052681a86842" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void FusaEventCbFunc</definition>
+        <argsstring>(const CamDeviceEventId_t evtId, CamDeviceFuSaMisVal_t *pParam, void *pUserContext)</argsstring>
+        <name>FusaEventCbFunc</name>
+        <param>
+          <type>const <ref refid="group____cam__device__fusa_1ga24b06bbe24a822fc0c232e741e288632" kindref="member">CamDeviceEventId_t</ref></type>
+          <declname>evtId</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__fusa_1gad98ba8a08f5d0a8a5ba8e5b3901dfaae" kindref="member">CamDeviceFuSaMisVal_t</ref> *</type>
+          <declname>pParam</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>pUserContext</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_fusa_api.c" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_fusa_api.c" bodystart="35" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbench__fusa__api_8c_1a18f2e562c2c55176f3f9f89789f33ebf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchFusaFunc</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, VvbenchVvdev_t *caseCtx, int index)</argsstring>
+        <name>VsiVvbenchFusaFunc</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>VvbenchVvdev_t *</type>
+          <declname>caseCtx</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_fusa_api.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_fusa_api.c" bodystart="90" bodyend="374"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2026<sp/>Vivantec<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LOGTAG<sp/>&quot;FUSA&quot;</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;cJSON.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;vlog.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;vvbench_fusa_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FusaEventCbFunc</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="group____cam__device__fusa_1ga24b06bbe24a822fc0c232e741e288632" kindref="member">CamDeviceEventId_t</ref><sp/>evtId,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fu_sa_mis_val__s" kindref="compound">CamDeviceFuSaMisVal_t</ref><sp/>*pParam,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*pUserContext</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">)</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RESULT<sp/>result<sp/>=<sp/><ref refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" kindref="member">RET_SUCCESS</ref>;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;%s<sp/>(enter<sp/>evt=%04x)\n&quot;</highlight><highlight class="normal">,<sp/>__func__,<sp/>(uint32_t)evtId);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((pParam<sp/>!=<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>VvbenchFusaTestInfo_t<sp/>*fusaTestInfo<sp/>=<sp/>(VvbenchFusaTestInfo_t<sp/>*)pUserContext;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(evtId)<sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>0x1011:<sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fu_sa_mis_val__s" kindref="compound">CamDeviceFuSaMisVal_t</ref><sp/>*pFusaMiss<sp/>=<sp/>pParam;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;fusa<sp/>callback:<sp/>fusaEcc1MisVal<sp/>0x%08x,<sp/>fusaEcc2MisVal<sp/>0x%08x,<sp/>fusaEcc3MisVal<sp/>0x%08x,<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;fusaEcc4MisVal<sp/>0x%08x,<sp/>fusaEcc5MisVal<sp/>0x%08x,<sp/>fusaEcc6MisVal<sp/>0x%08x,<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;fusaDupMisVal<sp/>0x%08x,<sp/>fusaParityMisVal<sp/>0x%08x,<sp/>fusaLv1MisVal<sp/>0x%08x<sp/>\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pFusaMiss-&gt;<ref refid="struct_cam_device_fu_sa_mis_val__s_1ad1895505f139c6ca9ac2d63f2567cc6b" kindref="member">fusaEcc1MisVal</ref>,<sp/>pFusaMiss-&gt;<ref refid="struct_cam_device_fu_sa_mis_val__s_1af30e95e8f70e043f5cae54786be21de2" kindref="member">fusaEcc2MisVal</ref>,<sp/>pFusaMiss-&gt;<ref refid="struct_cam_device_fu_sa_mis_val__s_1a61afecc8a881a67d945e8337ad94d303" kindref="member">fusaEcc3MisVal</ref>,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pFusaMiss-&gt;<ref refid="struct_cam_device_fu_sa_mis_val__s_1aa96ef1b1e549cdf782d3d303f2bd6076" kindref="member">fusaEcc4MisVal</ref>,<sp/>pFusaMiss-&gt;<ref refid="struct_cam_device_fu_sa_mis_val__s_1a45a195f823682b506e71dbf71606f299" kindref="member">fusaEcc5MisVal</ref>,<sp/>pFusaMiss-&gt;<ref refid="struct_cam_device_fu_sa_mis_val__s_1a313b4ed474883f96447bae97076678a1" kindref="member">fusaEcc6MisVal</ref>,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pFusaMiss-&gt;<ref refid="struct_cam_device_fu_sa_mis_val__s_1a2adac99a55a7c69a2eeda1ab192c76c8" kindref="member">fusaDupMisVal</ref>,<sp/>pFusaMiss-&gt;<ref refid="struct_cam_device_fu_sa_mis_val__s_1a82e2f6cc731d46d3b931dd2658081b02" kindref="member">fusaParityMisVal</ref>,<sp/>pFusaMiss-&gt;<ref refid="struct_cam_device_fu_sa_mis_val__s_1ac116248ab5042b83a412b8a35f78a970" kindref="member">fusaLv1MisVal</ref>);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:<sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;unknown<sp/>fusa<sp/>event\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;%s<sp/>(exit<sp/>res=%d)\n&quot;</highlight><highlight class="normal">,<sp/>__func__,<sp/>result);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>ISP_RDCD</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>FusaRdcdEventCbFunc</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>CamDeviceFusaRdcdEventId_t<sp/>evtId,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>*fusaRdcdLv1MisVal,</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*pUserContext</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">)</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RESULT<sp/>result<sp/>=<sp/><ref refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" kindref="member">RET_SUCCESS</ref>;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;%s<sp/>(enter<sp/>evt=%04x)\n&quot;</highlight><highlight class="normal">,<sp/>__func__,<sp/>(uint32_t)evtId);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((fusaRdcdLv1MisVal<sp/>!=<sp/>NULL)<sp/>&amp;&amp;<sp/>(evtId<sp/>==<sp/>CAMDEV_ISP_FUSA_RDCD_EVENT_FUSA))<sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;fusa<sp/>callback:<sp/>fusaRdcdLv1MisVal<sp/>0x%08x<sp/>\n&quot;</highlight><highlight class="normal">,<sp/>*fusaRdcdLv1MisVal);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;unknown<sp/>fusa<sp/>rdcd<sp/>event\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;%s<sp/>(exit<sp/>res=%d)\n&quot;</highlight><highlight class="normal">,<sp/>__func__,<sp/>result);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchFusaFunc</highlight></codeline>
+<codeline lineno="90"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VvbenchVvdev_t<sp/>*caseCtx,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">)</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>result<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;%s<sp/>enter<sp/>\n&quot;</highlight><highlight class="normal">,<sp/>__func__);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>hCamDevice<sp/>||<sp/>0<sp/>==<sp/>caseCtx-&gt;instanceCfgCtx[index].hCamCommon<sp/>||<sp/>NULL<sp/>==<sp/>caseCtx)<sp/>{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>VsiCamDeviceFusaReset(hCamDevice);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>Disable<sp/>FUSA<sp/>failed!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>VsiCamDeviceFusaEccDisable(hCamDevice);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>Disable<sp/>FUSA<sp/>Ecc<sp/>failed!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>VsiCamDeviceFusaPixelCountDisable(hCamDevice);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>Disable<sp/>FUSA<sp/>PixelCount<sp/>failed!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>VsiCamDeviceFusaTimeoutDisable(hCamDevice);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>Disable<sp/>FUSA<sp/>Timeout<sp/>failed!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>VsiCamDeviceFusaBistDisable(hCamDevice);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>Disable<sp/>FUSA<sp/>Bist<sp/>failed!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>VsiCamDeviceFuSaBistPowerUpDisable(hCamDevice);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>Disable<sp/>FUSA<sp/>BistPowerUp<sp/>failed!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>VsiCamDeviceFusaCrcDisable(hCamDevice);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>Disable<sp/>FUSA<sp/>Crc<sp/>failed!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bool_t<sp/>enable<sp/>=<sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.enable;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!enable)<sp/>{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>FUSA<sp/>not<sp/>enabled!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>ISP_RDCD</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CamDeviceRdcdFaultInjectConfig_t<sp/>rdcFusaInjectCfg;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MEMSET(&amp;rdcFusaInjectCfg,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(CamDeviceRdcdFaultInjectConfig_t));</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CamDeviceRdcdFusaEnableConfig_t<sp/>rdcFusaCfg;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MEMSET(&amp;rdcFusaCfg,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(CamDeviceRdcdFusaEnableConfig_t));</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(caseCtx-&gt;instanceCfgCtx[index].fusaCfg.useCfg)<sp/>{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rdcFusaCfg.eccEn<sp/>=<sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.RdcEccEn;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rdcFusaCfg.pixLossEn<sp/>=<sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.RdcPixLossEn;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rdcFusaCfg.crcEn<sp/>=<sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.RdcCrcEn;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rdcFusaCfg.crcInRevEn<sp/>=<sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.RdcCrcInRevEn;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rdcFusaCfg.crcOutRevEn<sp/>=<sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.RdcCrcOutRevEn;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rdcFusaCfg.crcXorEn<sp/>=<sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.RdcCrcXorEn;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>VsiCamDeviceFusaRdcdEnable(hCamDevice,<sp/>&amp;rdcFusaCfg);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>Enable<sp/>Rdcd<sp/>Fusa<sp/>failed!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rdcFusaInjectCfg.dupEn<sp/>=<sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.RdcFaultInjectionDupEn;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rdcFusaInjectCfg.ecc2bitEn<sp/>=<sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.RdcFultInjectionEcc2bitEn;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rdcFusaInjectCfg.ecc1bitEn<sp/>=<sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.RdcFaultInjectionEcc1bitEn;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rdcFusaInjectCfg.fifoEn<sp/>=<sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.RdcFaultInjectionFifoEn;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>VsiCamDeviceFusaRdcdFaultInjectEnable(hCamDevice,<sp/>&amp;rdcFusaInjectCfg);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>Rdcd<sp/>Fusa<sp/>Fault<sp/>Inject<sp/>failed!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>VsiCamDeviceFusaRdcdRegisterEventCb(hCamDevice,<sp/>FusaRdcdEventCbFunc,<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)NULL);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>register<sp/>FUSA<sp/>cb<sp/>func<sp/>failed!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fault_inject_config__s" kindref="compound">CamDeviceFaultInjectConfig_t</ref><sp/>fusaInjectCfg;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_crc_config__s" kindref="compound">CamDeviceFusaCrcConfig_t</ref><sp/>fusaCrcCfg;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>version;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MEMSET(&amp;fusaInjectCfg,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_cam_device_fault_inject_config__s" kindref="compound">CamDeviceFaultInjectConfig_t</ref>));</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MEMSET(&amp;fusaCrcCfg,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_cam_device_fusa_crc_config__s" kindref="compound">CamDeviceFusaCrcConfig_t</ref>));</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(caseCtx-&gt;instanceCfgCtx[index].fusaCfg.useCfg)<sp/>{</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fusaInjectCfg.<ref refid="struct_cam_device_fault_inject_config__s_1a70f846f437f96af2f6447cb2d036cac4" kindref="member">ahbTimeOutEn</ref><sp/>=</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.faultInjectionAhbTimeOutEn;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fusaInjectCfg.<ref refid="struct_cam_device_fault_inject_config__s_1a0e39b7a688201096f903e2ae769438b2" kindref="member">dupEn</ref><sp/>=</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.faultInjectionDupEn;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fusaInjectCfg.<ref refid="struct_cam_device_fault_inject_config__s_1a6d7fa3b73aa4fe3fb5f2cc2d66eacb8d" kindref="member">ecc2bitEn</ref><sp/>=</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.faultInjectionEcc2bitEn;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fusaInjectCfg.<ref refid="struct_cam_device_fault_inject_config__s_1a32742f8018fe5871595711e74903a4ee" kindref="member">ecc1bitEn</ref><sp/>=</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.faultInjectionEcc1bitEn;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VsiCamDeviceFusaFaultInjectEnable(hCamDevice,<sp/>&amp;fusaInjectCfg);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(caseCtx-&gt;instanceCfgCtx[index].fusaCfg.eccEn)<sp/>{</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VsiCamDeviceFusaEccEnable(hCamDevice);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(caseCtx-&gt;instanceCfgCtx[index].fusaCfg.pixCountEn)<sp/>{</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VsiCamDeviceFusaPixelCountEnable(hCamDevice);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VsiCamDeviceFusaPixelCountSetConfig(hCamDevice);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(caseCtx-&gt;instanceCfgCtx[index].fusaCfg.timeOutEn)<sp/>{</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>pathEnable<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(caseCtx-&gt;instanceCfgCtx[index].instancePath[<ref refid="group____cam__device__general_1gga305b330094f36026b536a56f5e223ed1a60a88296bba8d7709ab53aee9ec0e166" kindref="member">CAMDEV_PIPE_OUTPATH_MP</ref>].pathEnable)<sp/>{</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pathEnable<sp/>|=<sp/><ref refid="group____cam__device__general_1ga7306de25f5d2a8a563646d0c6cb57e7a" kindref="member">CAMDEV_OUT_MP_PATH_MASK</ref>;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(caseCtx-&gt;instanceCfgCtx[index].instancePath[<ref refid="group____cam__device__general_1gga305b330094f36026b536a56f5e223ed1a41612b0590ed458d1fa5402bf5893668" kindref="member">CAMDEV_PIPE_OUTPATH_SP1</ref>].pathEnable)<sp/>{</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pathEnable<sp/>|=<sp/><ref refid="group____cam__device__general_1gaa99bf5d363ea6187a4b7ffa69857e7ba" kindref="member">CAMDEV_OUT_SP1_PATH_MASK</ref>;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(caseCtx-&gt;instanceCfgCtx[index].instancePath[<ref refid="group____cam__device__general_1gga305b330094f36026b536a56f5e223ed1a82f015432aea14e9e04ba9ff06c448c0" kindref="member">CAMDEV_PIPE_OUTPATH_SP2</ref>].pathEnable)<sp/>{</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pathEnable<sp/>|=<sp/><ref refid="group____cam__device__general_1gab3571e6a8f5db975daac25980b8413a8" kindref="member">CAMDEV_OUT_SP2_PATH_MASK</ref>;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(caseCtx-&gt;instanceCfgCtx[index].instancePath[<ref refid="group____cam__device__general_1gga305b330094f36026b536a56f5e223ed1a70b05ed206436c9bc625096f0af463fa" kindref="member">CAMDEV_PIPE_OUTPATH_RAW</ref>].pathEnable)<sp/>{</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pathEnable<sp/>|=<sp/><ref refid="group____cam__device__general_1ga35834aec4d050624929ea73cde581ddf" kindref="member">CAMDEV_OUT_RAW_PATH_MASK</ref>;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(caseCtx-&gt;instanceCfgCtx[index].instancePath[<ref refid="group____cam__device__general_1gga305b330094f36026b536a56f5e223ed1a568feef9b3e323955bc25e33557a6e6c" kindref="member">CAMDEV_PIPE_OUTPATH_HDR_RAW</ref>].pathEnable)<sp/>{</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pathEnable<sp/>|=<sp/><ref refid="group____cam__device__general_1ga7ecb3634355ccb56ed28830302589479" kindref="member">CAMDEV_OUT_HDR_RAW_PATH_MASK</ref>;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VsiCamDeviceFusaTimeoutEnable(hCamDevice,<sp/>pathEnable);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(caseCtx-&gt;instanceCfgCtx[index].fusaCfg.bistEn)<sp/>{</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fusaCrcCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1a77bae04347925d690b1874ea96986d5e" kindref="member">crcOutRevEn</ref><sp/>=</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.crcOutRevEn;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fusaCrcCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1ad114ee7c7e5385b683c57c9cdbc51bf5" kindref="member">crcXorEn</ref><sp/>=<sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.crcXorEn;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fusaCrcCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1ac112e807a502066d24ef5cf4b9870987" kindref="member">crcInRevEnMode</ref><sp/>=</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.crcInRevEn;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>VsiCamDeviceFusaBistEnable(hCamDevice);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>Enable<sp/>Fusa<sp/>Bist<sp/>failed!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(caseCtx-&gt;instanceCfgCtx[index].fusaCfg.bistPowerUpEn)<sp/>{</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>VsiCamDeviceFuSaBistPowerUpEnable(hCamDevice);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>Enable<sp/>Fusa<sp/>BistPowerUp<sp/>failed!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>VsiCamDeviceFusaCrcSetConfig(hCamDevice,<sp/>&amp;fusaCrcCfg);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>Set<sp/>FUSA<sp/>Crc<sp/>Config<sp/>failed!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(caseCtx-&gt;instanceCfgCtx[index].fusaCfg.crcEn)<sp/>{</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fusaCrcCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1a77bae04347925d690b1874ea96986d5e" kindref="member">crcOutRevEn</ref><sp/>=</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.crcOutRevEn;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fusaCrcCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1ad114ee7c7e5385b683c57c9cdbc51bf5" kindref="member">crcXorEn</ref><sp/>=<sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.crcXorEn;</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fusaCrcCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1ac112e807a502066d24ef5cf4b9870987" kindref="member">crcInRevEnMode</ref><sp/>=</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.crcInRevEn;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fusaCrcCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1a7048fc3f3d9e2f21dd475dd77dc25c9c" kindref="member">crcLevel</ref><sp/>=<sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.crcLevel;</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fusaCrcCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1a66e24e48c1bdde1bcde901bd4da4b1a3" kindref="member">crcMpRoi</ref>.<ref refid="struct_cam_device_fusa_crc_roi_config__s_1a4bc5a5550b084c7f25478397c48bc4f9" kindref="member">crcRoiH</ref><sp/>=</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.crcMpRoiH;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fusaCrcCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1a66e24e48c1bdde1bcde901bd4da4b1a3" kindref="member">crcMpRoi</ref>.<ref refid="struct_cam_device_fusa_crc_roi_config__s_1abd369c37e107518e9c969d7833a5843a" kindref="member">crcRoiV</ref><sp/>=</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.crcMpRoiV;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fusaCrcCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1ab827a371ca4e0b23afa5a9ef47f8922e" kindref="member">crcSp1Roi</ref>.<ref refid="struct_cam_device_fusa_crc_roi_config__s_1a4bc5a5550b084c7f25478397c48bc4f9" kindref="member">crcRoiH</ref><sp/>=</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.crcSp1RoiH;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fusaCrcCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1ab827a371ca4e0b23afa5a9ef47f8922e" kindref="member">crcSp1Roi</ref>.<ref refid="struct_cam_device_fusa_crc_roi_config__s_1abd369c37e107518e9c969d7833a5843a" kindref="member">crcRoiV</ref><sp/>=</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.crcSp1RoiV;</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fusaCrcCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1a40fc3197a7c8ef1a6735a9643ec374a4" kindref="member">crcSp2Roi</ref>.<ref refid="struct_cam_device_fusa_crc_roi_config__s_1a4bc5a5550b084c7f25478397c48bc4f9" kindref="member">crcRoiH</ref><sp/>=</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.crcSp2RoiH;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fusaCrcCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1a40fc3197a7c8ef1a6735a9643ec374a4" kindref="member">crcSp2Roi</ref>.<ref refid="struct_cam_device_fusa_crc_roi_config__s_1abd369c37e107518e9c969d7833a5843a" kindref="member">crcRoiV</ref><sp/>=</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.crcSp2RoiV;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fusaCrcCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1a66e24e48c1bdde1bcde901bd4da4b1a3" kindref="member">crcMpRoi</ref>.<ref refid="struct_cam_device_fusa_crc_roi_config__s_1a55dd6897c6030f630ba98df85e9c67fc" kindref="member">crcRoiOffH</ref><sp/>=</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.crcMpRoiOffH;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fusaCrcCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1a66e24e48c1bdde1bcde901bd4da4b1a3" kindref="member">crcMpRoi</ref>.<ref refid="struct_cam_device_fusa_crc_roi_config__s_1aee870ea8e7f804e8cfac89fb95ddf3ca" kindref="member">crcRoiOffV</ref><sp/>=</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.crcMpRoiOffV;</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fusaCrcCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1ab827a371ca4e0b23afa5a9ef47f8922e" kindref="member">crcSp1Roi</ref>.<ref refid="struct_cam_device_fusa_crc_roi_config__s_1a55dd6897c6030f630ba98df85e9c67fc" kindref="member">crcRoiOffH</ref><sp/>=</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.crcSp1RoiOffH;</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fusaCrcCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1ab827a371ca4e0b23afa5a9ef47f8922e" kindref="member">crcSp1Roi</ref>.<ref refid="struct_cam_device_fusa_crc_roi_config__s_1aee870ea8e7f804e8cfac89fb95ddf3ca" kindref="member">crcRoiOffV</ref><sp/>=</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.crcSp1RoiOffV;</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fusaCrcCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1a40fc3197a7c8ef1a6735a9643ec374a4" kindref="member">crcSp2Roi</ref>.<ref refid="struct_cam_device_fusa_crc_roi_config__s_1a55dd6897c6030f630ba98df85e9c67fc" kindref="member">crcRoiOffH</ref><sp/>=</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.crcSp2RoiOffH;</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fusaCrcCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1a40fc3197a7c8ef1a6735a9643ec374a4" kindref="member">crcSp2Roi</ref>.<ref refid="struct_cam_device_fusa_crc_roi_config__s_1aee870ea8e7f804e8cfac89fb95ddf3ca" kindref="member">crcRoiOffV</ref><sp/>=</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>caseCtx-&gt;instanceCfgCtx[index].fusaCfg.crcSp2RoiOffV;</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VsiCamDeviceFusaCrcEnable(hCamDevice);</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VsiCamDeviceFusaCrcSetConfig(hCamDevice,<sp/>&amp;fusaCrcCfg);</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>VsiCamDeviceFusaRegisterEventCb(hCamDevice,<sp/>FusaEventCbFunc,<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)NULL);</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>register<sp/>FUSA<sp/>cb<sp/>func<sp/>failed!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_crc_config__s" kindref="compound">CamDeviceFusaCrcConfig_t</ref><sp/>crcGetCfg;</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MEMSET(&amp;crcGetCfg,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_cam_device_fusa_crc_config__s" kindref="compound">CamDeviceFusaCrcConfig_t</ref>));</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>VsiCamDeviceFusaCrcGetConfig(hCamDevice,<sp/>&amp;crcGetCfg);</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>Get<sp/>Fusa<sp/>Crc<sp/>config<sp/>failed!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;crcOutRevEn:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>crcGetCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1a77bae04347925d690b1874ea96986d5e" kindref="member">crcOutRevEn</ref>);</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;crcXorEn:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>crcGetCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1ad114ee7c7e5385b683c57c9cdbc51bf5" kindref="member">crcXorEn</ref>);</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;crcInRevEnMode:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>crcGetCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1ac112e807a502066d24ef5cf4b9870987" kindref="member">crcInRevEnMode</ref>);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;crcLevel:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>crcGetCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1a7048fc3f3d9e2f21dd475dd77dc25c9c" kindref="member">crcLevel</ref>);</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;crcMpRoi.crcRoiH:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>crcGetCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1a66e24e48c1bdde1bcde901bd4da4b1a3" kindref="member">crcMpRoi</ref>.<ref refid="struct_cam_device_fusa_crc_roi_config__s_1a4bc5a5550b084c7f25478397c48bc4f9" kindref="member">crcRoiH</ref>);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;crcMpRoi.crcRoiV:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>crcGetCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1a66e24e48c1bdde1bcde901bd4da4b1a3" kindref="member">crcMpRoi</ref>.<ref refid="struct_cam_device_fusa_crc_roi_config__s_1abd369c37e107518e9c969d7833a5843a" kindref="member">crcRoiV</ref>);</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;crcSp1Roi.crcRoiH:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>crcGetCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1ab827a371ca4e0b23afa5a9ef47f8922e" kindref="member">crcSp1Roi</ref>.<ref refid="struct_cam_device_fusa_crc_roi_config__s_1a4bc5a5550b084c7f25478397c48bc4f9" kindref="member">crcRoiH</ref>);</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;crcSp1Roi.crcRoiV:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>crcGetCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1ab827a371ca4e0b23afa5a9ef47f8922e" kindref="member">crcSp1Roi</ref>.<ref refid="struct_cam_device_fusa_crc_roi_config__s_1abd369c37e107518e9c969d7833a5843a" kindref="member">crcRoiV</ref>);</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;crcSp2Roi.crcRoiH:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>crcGetCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1a40fc3197a7c8ef1a6735a9643ec374a4" kindref="member">crcSp2Roi</ref>.<ref refid="struct_cam_device_fusa_crc_roi_config__s_1a4bc5a5550b084c7f25478397c48bc4f9" kindref="member">crcRoiH</ref>);</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;crcSp2Roi.crcRoiV:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>crcGetCfg.<ref refid="struct_cam_device_fusa_crc_config__s_1a40fc3197a7c8ef1a6735a9643ec374a4" kindref="member">crcSp2Roi</ref>.<ref refid="struct_cam_device_fusa_crc_roi_config__s_1abd369c37e107518e9c969d7833a5843a" kindref="member">crcRoiV</ref>);</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_bist_config__s" kindref="compound">CamDeviceFusaBistConfig_t</ref><sp/>bistGetCfg;</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MEMSET(&amp;bistGetCfg,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_cam_device_fusa_bist_config__s" kindref="compound">CamDeviceFusaBistConfig_t</ref>));</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>VsiCamDeviceFusaBistGetConfig(hCamDevice,<sp/>&amp;bistGetCfg);</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>Get<sp/>Fusa<sp/>Bist<sp/>config<sp/>failed!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>3;<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;tpgBistStage[%d]<sp/>tpgBistImgHblank:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>i,<sp/>bistGetCfg.<ref refid="struct_cam_device_fusa_bist_config__s_1a27f3e26d14cb8684039c68151f7b773f" kindref="member">tpgBistStage</ref>[i].<ref refid="struct_cam_device_fusa_bist_size__s_1ae9c52d9f8223615d52a0e431367a2992" kindref="member">tpgBistImgHblank</ref>);</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;tpgBistStage[%d]<sp/>tpgBistImgVblank:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>i,<sp/>bistGetCfg.<ref refid="struct_cam_device_fusa_bist_config__s_1a27f3e26d14cb8684039c68151f7b773f" kindref="member">tpgBistStage</ref>[i].<ref refid="struct_cam_device_fusa_bist_size__s_1a6a11d0024365f3662d4225a9cfd43e8d" kindref="member">tpgBistImgVblank</ref>);</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;tpgBistStage[%d]<sp/>tpgBistImgHsize:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>i,<sp/>bistGetCfg.<ref refid="struct_cam_device_fusa_bist_config__s_1a27f3e26d14cb8684039c68151f7b773f" kindref="member">tpgBistStage</ref>[i].<ref refid="struct_cam_device_fusa_bist_size__s_1a3baf7cdbc838d6e7eb38a055a7108fc8" kindref="member">tpgBistImgHsize</ref>);</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;tpgBistStage[%d]<sp/>tpgBistImgVsize:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>i,<sp/>bistGetCfg.<ref refid="struct_cam_device_fusa_bist_config__s_1a27f3e26d14cb8684039c68151f7b773f" kindref="member">tpgBistStage</ref>[i].<ref refid="struct_cam_device_fusa_bist_size__s_1a9984ef06a9d37d066f69a4eb71c1cc2e" kindref="member">tpgBistImgVsize</ref>);</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;tpgBistStage[%d]<sp/>tpgBistSeed:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>i,<sp/>bistGetCfg.<ref refid="struct_cam_device_fusa_bist_config__s_1a27f3e26d14cb8684039c68151f7b773f" kindref="member">tpgBistStage</ref>[i].<ref refid="struct_cam_device_fusa_bist_size__s_1a63342bd84b6db8760fc9b75e944981ba" kindref="member">tpgBistSeed</ref>);</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;bistCrcStage1Frm[%d]:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>i,<sp/>bistGetCfg.<ref refid="struct_cam_device_fusa_bist_config__s_1affcbb3f193c279519bbea74cbf78aab8" kindref="member">bistCrcStage1Frm</ref>[i]);</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;bistCrcStage2Frm[%d]:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>i,<sp/>bistGetCfg.<ref refid="struct_cam_device_fusa_bist_config__s_1a013020f99356763ce4ed867352cd4053" kindref="member">bistCrcStage2Frm</ref>[i]);</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;bistMpCrcStage3Frm[%d]<sp/>yCrc:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>i,<sp/>bistGetCfg.<ref refid="struct_cam_device_fusa_bist_config__s_1a9155e93887fece515abf11ba9a2b04cb" kindref="member">bistMpCrcStage3Frm</ref>[i].<ref refid="struct_cam_device_fusa_bist2_path_crc__s_1a8554449269322462be92e06ac0e30ec8" kindref="member">yCrc</ref>);</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;bistMpCrcStage3Frm[%d]<sp/>cbCrc:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>i,<sp/>bistGetCfg.<ref refid="struct_cam_device_fusa_bist_config__s_1a9155e93887fece515abf11ba9a2b04cb" kindref="member">bistMpCrcStage3Frm</ref>[i].<ref refid="struct_cam_device_fusa_bist2_path_crc__s_1afa1f4c35d900d90506f138c37f543c09" kindref="member">cbCrc</ref>);</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;bistMpCrcStage3Frm[%d]<sp/>crCrc:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>i,<sp/>bistGetCfg.<ref refid="struct_cam_device_fusa_bist_config__s_1a9155e93887fece515abf11ba9a2b04cb" kindref="member">bistMpCrcStage3Frm</ref>[i].<ref refid="struct_cam_device_fusa_bist2_path_crc__s_1a58b2a6f12b9756a1fa26b775b8550fd2" kindref="member">crCrc</ref>);</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;bistSp1CrcStage3Frm[%d]<sp/>yCrc:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>i,<sp/>bistGetCfg.<ref refid="struct_cam_device_fusa_bist_config__s_1a5feca67724174dd53854c02a7028f55a" kindref="member">bistSp1CrcStage3Frm</ref>[i].<ref refid="struct_cam_device_fusa_bist2_path_crc__s_1a8554449269322462be92e06ac0e30ec8" kindref="member">yCrc</ref>);</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;bistSp1CrcStage3Frm[%d]<sp/>cbCrc:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>i,<sp/>bistGetCfg.<ref refid="struct_cam_device_fusa_bist_config__s_1a5feca67724174dd53854c02a7028f55a" kindref="member">bistSp1CrcStage3Frm</ref>[i].<ref refid="struct_cam_device_fusa_bist2_path_crc__s_1afa1f4c35d900d90506f138c37f543c09" kindref="member">cbCrc</ref>);</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;bistSp1CrcStage3Frm[%d]<sp/>crCrc:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>i,<sp/>bistGetCfg.<ref refid="struct_cam_device_fusa_bist_config__s_1a5feca67724174dd53854c02a7028f55a" kindref="member">bistSp1CrcStage3Frm</ref>[i].<ref refid="struct_cam_device_fusa_bist2_path_crc__s_1a58b2a6f12b9756a1fa26b775b8550fd2" kindref="member">crCrc</ref>);</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;bistSp2CrcStage3Frm[%d]<sp/>yCrc:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>i,<sp/>bistGetCfg.<ref refid="struct_cam_device_fusa_bist_config__s_1aa0812e3312e5efc7c1d450feb1bacd87" kindref="member">bistSp2CrcStage3Frm</ref>[i].<ref refid="struct_cam_device_fusa_bist2_path_crc__s_1a8554449269322462be92e06ac0e30ec8" kindref="member">yCrc</ref>);</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;bistSp2CrcStage3Frm[%d]<sp/>cbCrc:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>i,<sp/>bistGetCfg.<ref refid="struct_cam_device_fusa_bist_config__s_1aa0812e3312e5efc7c1d450feb1bacd87" kindref="member">bistSp2CrcStage3Frm</ref>[i].<ref refid="struct_cam_device_fusa_bist2_path_crc__s_1afa1f4c35d900d90506f138c37f543c09" kindref="member">cbCrc</ref>);</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;bistSp2CrcStage3Frm[%d]<sp/>crCrc:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>i,<sp/>bistGetCfg.<ref refid="struct_cam_device_fusa_bist_config__s_1aa0812e3312e5efc7c1d450feb1bacd87" kindref="member">bistSp2CrcStage3Frm</ref>[i].<ref refid="struct_cam_device_fusa_bist2_path_crc__s_1a58b2a6f12b9756a1fa26b775b8550fd2" kindref="member">crCrc</ref>);</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_pixel_count_config__s" kindref="compound">CamDeviceFusaPixelCountConfig_t</ref><sp/>pixelCountGetCfg;</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MEMSET(&amp;pixelCountGetCfg,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_cam_device_fusa_pixel_count_config__s" kindref="compound">CamDeviceFusaPixelCountConfig_t</ref>));</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>VsiCamDeviceFusaPixelCountGetConfig(hCamDevice,<sp/>&amp;pixelCountGetCfg);</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>Get<sp/>Fusa<sp/>Pixel<sp/>Count<sp/>config<sp/>failed!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;mrszSize.outH:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>pixelCountGetCfg.<ref refid="struct_cam_device_fusa_pixel_count_config__s_1af09f1d64d8b83b97bdddd59f4dff3385" kindref="member">mrszSize</ref>.<ref refid="struct_cam_device_fusa_pixel_count_size__s_1af0dd6c452e6a3b2b85092df487c48a0f" kindref="member">outH</ref>);</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;mrszSize.outV:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>pixelCountGetCfg.<ref refid="struct_cam_device_fusa_pixel_count_config__s_1af09f1d64d8b83b97bdddd59f4dff3385" kindref="member">mrszSize</ref>.<ref refid="struct_cam_device_fusa_pixel_count_size__s_1a21c8a9fcdaf8067d5c4439508031c86d" kindref="member">outV</ref>);</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;srsz1Size.outH:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>pixelCountGetCfg.<ref refid="struct_cam_device_fusa_pixel_count_config__s_1aef0724fb2b70709d308827ce1c5b7057" kindref="member">srsz1Size</ref>.<ref refid="struct_cam_device_fusa_pixel_count_size__s_1af0dd6c452e6a3b2b85092df487c48a0f" kindref="member">outH</ref>);</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;srsz1Size.outV:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>pixelCountGetCfg.<ref refid="struct_cam_device_fusa_pixel_count_config__s_1aef0724fb2b70709d308827ce1c5b7057" kindref="member">srsz1Size</ref>.<ref refid="struct_cam_device_fusa_pixel_count_size__s_1a21c8a9fcdaf8067d5c4439508031c86d" kindref="member">outV</ref>);</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;srsz2Size.outH:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>pixelCountGetCfg.<ref refid="struct_cam_device_fusa_pixel_count_config__s_1a35659f64c5383d62062de62d60ed1c8a" kindref="member">srsz2Size</ref>.<ref refid="struct_cam_device_fusa_pixel_count_size__s_1af0dd6c452e6a3b2b85092df487c48a0f" kindref="member">outH</ref>);</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;srsz2Size.outV:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>pixelCountGetCfg.<ref refid="struct_cam_device_fusa_pixel_count_config__s_1a35659f64c5383d62062de62d60ed1c8a" kindref="member">srsz2Size</ref>.<ref refid="struct_cam_device_fusa_pixel_count_size__s_1a21c8a9fcdaf8067d5c4439508031c86d" kindref="member">outV</ref>);</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;filtSize.outH:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>pixelCountGetCfg.<ref refid="struct_cam_device_fusa_pixel_count_config__s_1a121a9042f22921b94a42517cc9074f8e" kindref="member">filtSize</ref>.<ref refid="struct_cam_device_fusa_pixel_count_size__s_1af0dd6c452e6a3b2b85092df487c48a0f" kindref="member">outH</ref>);</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;filtSize.outV:<sp/>%d<sp/>&quot;</highlight><highlight class="normal">,<sp/>pixelCountGetCfg.<ref refid="struct_cam_device_fusa_pixel_count_config__s_1a121a9042f22921b94a42517cc9074f8e" kindref="member">filtSize</ref>.<ref refid="struct_cam_device_fusa_pixel_count_size__s_1a21c8a9fcdaf8067d5c4439508031c86d" kindref="member">outV</ref>);</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>VsiCamDeviceFusaGetVersion(hCamDevice,<sp/>&amp;version);</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>Get<sp/>FUSA<sp/>version<sp/>failed!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>FUSA<sp/>version:<sp/>%x&quot;</highlight><highlight class="normal">,<sp/>version);</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;%s<sp/>exit<sp/>\n&quot;</highlight><highlight class="normal">,<sp/>__func__);</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
+<codeline lineno="374"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_fusa_api.c"/>
+  </compounddef>
+</doxygen>

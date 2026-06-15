@@ -1,0 +1,707 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdptxss__edid__parser_8h" kind="file">
+    <compoundname>xdptxss_edid_parser.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xvidc_edid_ext.h</includes>
+    <includes refid="xdptxss_8h" local="yes">xdptxss.h</includes>
+    <includedby refid="xdptxss__edid__parser_8c" local="yes">xdptxss_edid_parser.c</includedby>
+    <incdepgraph>
+      <node id="334">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="331">
+        <label>xdptxss.h</label>
+        <link refid="xdptxss_8h"/>
+        <childnode refid="332" relation="include">
+        </childnode>
+        <childnode refid="334" relation="include">
+        </childnode>
+        <childnode refid="329" relation="include">
+        </childnode>
+        <childnode refid="335" relation="include">
+        </childnode>
+        <childnode refid="336" relation="include">
+        </childnode>
+        <childnode refid="337" relation="include">
+        </childnode>
+        <childnode refid="339" relation="include">
+        </childnode>
+        <childnode refid="341" relation="include">
+        </childnode>
+      </node>
+      <node id="333">
+        <label>xil_io.h</label>
+      </node>
+      <node id="339">
+        <label>xdptxss_dualsplitter.h</label>
+        <link refid="xdptxss__dualsplitter_8h"/>
+        <childnode refid="340" relation="include">
+        </childnode>
+        <childnode refid="338" relation="include">
+        </childnode>
+      </node>
+      <node id="330">
+        <label>xvidc_edid_ext.h</label>
+      </node>
+      <node id="336">
+        <label>xdebug.h</label>
+      </node>
+      <node id="338">
+        <label>xdp.h</label>
+      </node>
+      <node id="341">
+        <label>xdptxss_vtc.h</label>
+        <link refid="xdptxss__vtc_8h"/>
+        <childnode refid="342" relation="include">
+        </childnode>
+        <childnode refid="338" relation="include">
+        </childnode>
+      </node>
+      <node id="329">
+        <label>xstatus.h</label>
+      </node>
+      <node id="337">
+        <label>xdptxss_dptx.h</label>
+        <link refid="xdptxss__dptx_8h"/>
+        <childnode refid="338" relation="include">
+        </childnode>
+      </node>
+      <node id="335">
+        <label>xvidc.h</label>
+      </node>
+      <node id="332">
+        <label>xdptxss_hw.h</label>
+        <link refid="xdptxss__hw_8h"/>
+        <childnode refid="333" relation="include">
+        </childnode>
+      </node>
+      <node id="328">
+        <label>xil_types.h</label>
+      </node>
+      <node id="340">
+        <label>xparameters.h</label>
+      </node>
+      <node id="327">
+        <label>xdptxss_edid_parser.h</label>
+        <link refid="xdptxss_edid_parser.h"/>
+        <childnode refid="328" relation="include">
+        </childnode>
+        <childnode refid="329" relation="include">
+        </childnode>
+        <childnode refid="330" relation="include">
+        </childnode>
+        <childnode refid="331" relation="include">
+        </childnode>
+      </node>
+      <node id="342">
+        <label>xvtc.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="344">
+        <label>xdptxss_edid_parser.c</label>
+        <link refid="xdptxss__edid__parser_8c"/>
+      </node>
+      <node id="343">
+        <label>xdptxss_edid_parser.h</label>
+        <link refid="xdptxss_edid_parser.h"/>
+        <childnode refid="344" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_dp_tx_ss___parse_result" prot="public">XDpTxSs_ParseResult</innerclass>
+    <innerclass refid="struct_x_dp_tx_ss___video_timing_param" prot="public">XDpTxSs_VideoTimingParam</innerclass>
+    <innerclass refid="struct_x_dp_tx_ss___audio_s_a_d" prot="public">XDpTxSs_AudioSAD</innerclass>
+    <innerclass refid="struct_x_dp_tx_ss___sink_audio_cfg" prot="public">XDpTxSs_SinkAudioCfg</innerclass>
+    <innerclass refid="struct_x_dp_tx_ss___sink___a_v___capabilities" prot="public">XDpTxSs_Sink_AV_Capabilities</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__dptxss_1gab6d29c1b096fa035b61076bba5778185" prot="public" static="no">
+        <name>EDID_MAX_TIMINGS</name>
+        <initializer>15</initializer>
+        <briefdescription>
+<para>Maximum number of timings to return. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="44" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga777459cf549cd849fdcdb30db54d4dd8" compoundref="xdptxss__edid__parser_8c" startline="723" endline="883">XDpTxSs_GetVideoTimingsFromEdid</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dptxss_1ga0c49cc1387e9c05da42c8521de4581d4" prot="public" static="no">
+        <name>EDID_DTD_SIZE</name>
+        <initializer>18</initializer>
+        <briefdescription>
+<para>EDID Detailed Timing Descriptor size in bytes (18 bytes) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="48" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga777459cf549cd849fdcdb30db54d4dd8" compoundref="xdptxss__edid__parser_8c" startline="723" endline="883">XDpTxSs_GetVideoTimingsFromEdid</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dptxss_1ga274b17d204bf5022aaa1a5e4c2127135" prot="public" static="no">
+        <name>MAX_EXTENSIONS_SUPPORTED</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>EDID parsing limits. </para>        </briefdescription>
+        <detaileddescription>
+<para>Maximum EDID extension blocks to process </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga61e5bdde3bfbfba45b186b4e3b48e6bf" compoundref="xdptxss__edid__parser_8c" startline="66" endline="134">XDpTxSs_get_full_edid</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dptxss_1ga6f75d22a7ac6bd350068350ab51eb8c5" prot="public" static="no">
+        <name>MAX_SAD_COUNT</name>
+        <initializer>32</initializer>
+        <briefdescription>
+<para>Maximum Short Audio Descriptors to store. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dptxss_1ga16e83e35d00d58ea6f8335806cb13d58" prot="public" static="no">
+        <name>CTA861_EXTENSION_TAG</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>CTA-861 extension block tag (0x02) for audio/video capability data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dptxss_1gad6c9c0a89d5691088c47dbbe9f0aa561" prot="public" static="no">
+        <name>DISPLAYID_2_0_EXTENSION_TAG</name>
+        <initializer>0x70</initializer>
+        <briefdescription>
+<para>DisplayID 2.0 extension block tag (0x70) for detailed timing data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dptxss_1gaa383dda6cb3d8ef71c418d157b963aa7" prot="public" static="no">
+        <name>DISPLAYID_TYPE_VII_TAG</name>
+        <initializer>0x22</initializer>
+        <briefdescription>
+<para>DisplayID Type VII timing descriptor tag (0x22) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dptxss_1ga21ee658908549ea5a7e7f3c1d5b57180" prot="public" static="no">
+        <name>CTA861_AUDIO_DATA_BLOCK</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>CTA-861 audio data block tag (0x01) containing Short Audio Descriptors. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dptxss_1ga3c8845cf65db519a7d48e4884bbb63a4" prot="public" static="no">
+        <name>CTA861_SPKR_ALLOC_DATA_BLOCK</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>CTA-861 speaker allocation data block tag (0x04) for channel mapping. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dptxss_1ga3dc2efd5d35cfcc1ba696927a2a55e80" prot="public" static="no">
+        <name>TIMING_SOURCE_DTD</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Timing Source Definitions. </para>        </briefdescription>
+        <detaileddescription>
+<para>Detailed Timing Descriptor </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dptxss_1ga28a79447d7074f151f908e14c1019e68" prot="public" static="no">
+        <name>TIMING_SOURCE_STANDARD</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Standard Timing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dptxss_1ga6d826b13d26dca8e19d019955b445da1" prot="public" static="no">
+        <name>TIMING_SOURCE_ESTABLISHED</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Established Timing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dptxss_1gae375dc29ddbd4c453185b404acb49cfc" prot="public" static="no">
+        <name>SAD_AUDIO_FORMAT_SHIFT</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>Bit shift value (3) to extract audio format code from SAD byte 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dptxss_1ga38dc29a964c2e3d3b51698b55f0a8a85" prot="public" static="no">
+        <name>SAD_AUDIO_FORMAT_MASK</name>
+        <initializer>0x1F</initializer>
+        <briefdescription>
+<para>Bitmask (0x1F) for audio format code field in SAD byte 0 (bits 3-7) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dptxss_1gabc637d196af2d63181d4dc7ada3a1407" prot="public" static="no">
+        <name>SAD_MAX_CHANNELS_MASK</name>
+        <initializer>0x07</initializer>
+        <briefdescription>
+<para>Bitmask (0x07) for maximum channel count in SAD byte 0 (bits 0-2) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dptxss_1ga5fc739ba90f348c4193387481281e399" prot="public" static="no">
+        <name>SAD_SAMPLING_FREQ_MASK</name>
+        <initializer>0x7F</initializer>
+        <briefdescription>
+<para>Bitmask (0x7F) for supported sampling frequencies in SAD byte 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="87" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dptxss_1gab46abe8d2373e122c17f083ab5283a0a" prot="public" static="no">
+        <name>SAD_BIT_DEPTH_MASK</name>
+        <initializer>0x07</initializer>
+        <briefdescription>
+<para>Bitmask (0x07) for LPCM bit depth flags in SAD byte 2 (16/20/24-bit) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="90" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dptxss_1ga6bbfce706a4a049df6492da6605a0c21" prot="public" static="no">
+        <name>SAD_MAX_BITRATE_MASK</name>
+        <initializer>0xFF</initializer>
+        <briefdescription>
+<para>Bitmask (0xFF) for maximum bitrate in SAD byte 2 (compressed formats) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="93" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__dptxss_1ga66bdca31ecf73a372f48326064d9d1b3" prot="public" static="no">
+        <name>XDpTxSs_DisplayIdType7Category</name>
+        <enumvalue id="group__dptxss_1gga66bdca31ecf73a372f48326064d9d1b3a2ed6268c0227c0591424407e47552fad" prot="public">
+          <name>DISPLAYID_TYPE7_PREFERRED</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Preferred timing (Options bit 7 set) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dptxss_1gga66bdca31ecf73a372f48326064d9d1b3ade9766e34ef5169a705a6398c7be4903" prot="public">
+          <name>DISPLAYID_TYPE7_NATIVE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Native timing (Options bit 6 set, bit 7 clear) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dptxss_1gga66bdca31ecf73a372f48326064d9d1b3ada88e84a307dbb9f86419ab16e6d3156" prot="public">
+          <name>DISPLAYID_TYPE7_REMAINING</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Other timings (both bits clear) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>DisplayID Type VII timing categories for priority-based parsing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="99" bodyend="103"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dptxss_1ga777459cf549cd849fdcdb30db54d4dd8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_dp_tx_ss___parse_result" kindref="compound">XDpTxSs_ParseResult</ref></type>
+        <definition>XDpTxSs_ParseResult XDpTxSs_GetVideoTimingsFromEdid</definition>
+        <argsstring>(XDpTxSs_Sink_AV_Capabilities *AVCaps)</argsstring>
+        <name>XDpTxSs_GetVideoTimingsFromEdid</name>
+        <param>
+          <type><ref refid="struct_x_dp_tx_ss___sink___a_v___capabilities" kindref="compound">XDpTxSs_Sink_AV_Capabilities</ref> *</type>
+          <declname>AVCaps</declname>
+        </param>
+        <briefdescription>
+<para>This function extracts video timings from an EDID structure and populates the timing list within an AV capabilities structure in priority order. </para>        </briefdescription>
+        <detaileddescription>
+<para>Index 0 contains the highest priority timing (preferred timing) from the sink.</para><para>Priority order (EdidTimingPriority enum):<orderedlist>
+<listitem><para>PRIORITY_DISPLAYID_PREFERRED - DisplayID 2.0 Type VII Preferred</para></listitem><listitem><para>PRIORITY_BASE_DTD1_PREFERRED - Base EDID DTD #1 (EDID spec mandated preferred)</para></listitem><listitem><para>PRIORITY_DISPLAYID_NATIVE - DisplayID 2.0 Type VII Native</para></listitem><listitem><para>PRIORITY_DISPLAYID_DTD_OTHER - DisplayID 2.0 Type VII (remaining DTDs)</para></listitem><listitem><para>PRIORITY_BASE_DTD_OTHER - Base EDID DTD #2-4</para></listitem><listitem><para>PRIORITY_STANDARD_TIMINGS - Base EDID Standard Timings</para></listitem><listitem><para>PRIORITY_ESTABLISHED_TIMINGS - Base EDID Established Timings</para></listitem></orderedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>AVCaps</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_tx_ss___sink___a_v___capabilities" kindref="compound">XDpTxSs_Sink_AV_Capabilities</ref> structure with EDID loaded in AVCaps-&gt;EdidBuffer. Timings are stored in AVCaps-&gt;TimingList[] (max EDID_MAX_TIMINGS) and count in AVCaps-&gt;TimingCount.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="struct_x_dp_tx_ss___parse_result" kindref="compound">XDpTxSs_ParseResult</ref> structure with parse statistic</para></simplesect>
+<simplesect kind="note"><para>This function is typically called internally by <ref refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" kindref="member">XDpTxSs_get_sink_AV_Capabilities()</ref>. The caller must ensure the base EDID header and checksum have been validated before calling. The AVCaps structure must be allocated by the caller. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.c" line="723" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.c" bodystart="723" bodyend="883"/>
+        <references refid="group__dptxss_1gga66bdca31ecf73a372f48326064d9d1b3ade9766e34ef5169a705a6398c7be4903" compoundref="xdptxss__edid__parser_8h" startline="101">DISPLAYID_TYPE7_NATIVE</references>
+        <references refid="group__dptxss_1gga66bdca31ecf73a372f48326064d9d1b3a2ed6268c0227c0591424407e47552fad" compoundref="xdptxss__edid__parser_8h" startline="100">DISPLAYID_TYPE7_PREFERRED</references>
+        <references refid="group__dptxss_1gga66bdca31ecf73a372f48326064d9d1b3ada88e84a307dbb9f86419ab16e6d3156" compoundref="xdptxss__edid__parser_8h" startline="102">DISPLAYID_TYPE7_REMAINING</references>
+        <references refid="group__dptxss_1ga0c49cc1387e9c05da42c8521de4581d4" compoundref="xdptxss__edid__parser_8h" startline="48">EDID_DTD_SIZE</references>
+        <references refid="group__dptxss_1gab6d29c1b096fa035b61076bba5778185" compoundref="xdptxss__edid__parser_8h" startline="44">EDID_MAX_TIMINGS</references>
+        <references refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1ad5839f76fc1e2c51e1a4b44016e98cbf" compoundref="xdptxss__edid__parser_8h" startline="199">XDpTxSs_Sink_AV_Capabilities::EdidBuffer</references>
+        <references refid="struct_x_dp_tx_ss___parse_result_1a3a325ef1a2db872881772b9844d59ef2" compoundref="xdptxss__edid__parser_8h" startline="113">XDpTxSs_ParseResult::InvalidBlockCount</references>
+        <references refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a418ccf99952de1de6e2a6cd4bfcdc3f2" compoundref="xdptxss__edid__parser_8h" startline="197">XDpTxSs_Sink_AV_Capabilities::TimingCount</references>
+        <references refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a5b6cd37c1a24b9a5d51ec8955844d127" compoundref="xdptxss__edid__parser_8h" startline="196">XDpTxSs_Sink_AV_Capabilities::TimingList</references>
+        <references refid="struct_x_dp_tx_ss___parse_result_1a1d0e9891ce6c149233499bf17f271446" compoundref="xdptxss__edid__parser_8h" startline="112">XDpTxSs_ParseResult::TotalBlockCount</references>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dptxss_1ga61e5bdde3bfbfba45b186b4e3b48e6bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDpTxSs_get_full_edid</definition>
+        <argsstring>(XDpTxSs *InstancePtr, XDpTxSs_Sink_AV_Capabilities *AVCaps)</argsstring>
+        <name>XDpTxSs_get_full_edid</name>
+        <param>
+          <type><ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dp_tx_ss___sink___a_v___capabilities" kindref="compound">XDpTxSs_Sink_AV_Capabilities</ref> *</type>
+          <declname>AVCaps</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the full EDID (base block + all extensions) from the connected monitor, validates header and checksum, and stores it in the AVCaps structure&apos;s embedded buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AVCaps</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to <ref refid="struct_x_dp_tx_ss___sink___a_v___capabilities" kindref="compound">XDpTxSs_Sink_AV_Capabilities</ref> structure where EDID will be stored in AVCaps-&gt;EdidBuffer and extension count in AVCaps-&gt;extensions_count.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if all EDID blocks read and Base block validated successfully. XST_FAILURE if instance/structure pointer invalid, monitor not connected, EDID read fails, or EDID header/checksum invalid.</para></simplesect>
+<simplesect kind="note"><para>This function validates base EDID header and checksum. Extension count is limited to MAX_EXTENSIONS_SUPPORTED. Each EDID block is 128 bytes. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.c" bodystart="66" bodyend="134"/>
+        <references refid="struct_x_dp_tx_ss_1a5191770fa4cf23ff0d1ed4c9c367af94" compoundref="xdptxss_8h" startline="402">XDpTxSs::DpPtr</references>
+        <references refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1ad5839f76fc1e2c51e1a4b44016e98cbf" compoundref="xdptxss__edid__parser_8h" startline="199">XDpTxSs_Sink_AV_Capabilities::EdidBuffer</references>
+        <references refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a702d252a84b71391efe04a36896ecda1" compoundref="xdptxss__edid__parser_8h" startline="200">XDpTxSs_Sink_AV_Capabilities::extensions_count</references>
+        <references refid="group__dptxss_1ga274b17d204bf5022aaa1a5e4c2127135" compoundref="xdptxss__edid__parser_8h" startline="51">MAX_EXTENSIONS_SUPPORTED</references>
+        <references refid="group__dptxss_1ga84de784579ceabd123fdf1136dde0c7d" compoundref="xdptxss_8c" startline="1488" endline="1499">XDpTxSs_IsConnected</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDpTxSs_get_sink_AV_Capabilities</definition>
+        <argsstring>(XDpTxSs_Sink_AV_Capabilities *AVCaps)</argsstring>
+        <name>XDpTxSs_get_sink_AV_Capabilities</name>
+        <param>
+          <type><ref refid="struct_x_dp_tx_ss___sink___a_v___capabilities" kindref="compound">XDpTxSs_Sink_AV_Capabilities</ref> *</type>
+          <declname>AVCaps</declname>
+        </param>
+        <briefdescription>
+<para>This function parses complete Audio/Video capabilities and timings from embedded EDID buffer by aggregating data from base EDID, CTA-861, and DisplayID extension blocks. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>AVCaps</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to <ref refid="struct_x_dp_tx_ss___sink___a_v___capabilities" kindref="compound">XDpTxSs_Sink_AV_Capabilities</ref> structure with EDID already loaded in AVCaps-&gt;EdidBuffer. On return, AVCaps-&gt;checksum_failures will contain the count of extension blocks with checksum errors (0 if all blocks valid).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if all blocks are parsed successfully XST_FAILURE if any error is encountered</para></simplesect>
+<simplesect kind="note"><para>EDID must be loaded via <ref refid="group__dptxss_1ga61e5bdde3bfbfba45b186b4e3b48e6bf" kindref="member">XDpTxSs_get_full_edid()</ref> before calling. Maximum SAD_count is limited to MAX_SAD_COUNT. Maximum timing count is limited to EDID_MAX_TIMINGS. CTA-861 blocks are optional (success returned if none found). DisplayID blocks are optional (success returned if none found). Speaker allocation is OR&apos;d across all CTA-861 blocks. If arrays fill up, parsing continues but additional entries ignored. Video timings are parsed by calling <ref refid="group__dptxss_1ga777459cf549cd849fdcdb30db54d4dd8" kindref="member">XDpTxSs_GetVideoTimingsFromEdid()</ref> internally and stored in AVCaps-&gt;TimingList[] in priority order. Parse statistics from both CTA-861 and DisplayID blocks are accumulated and reported in the summary. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.c" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.c" bodystart="164" bodyend="367"/>
+        <references refid="struct_x_dp_tx_ss___audio_s_a_d_1a6368c871f6ab26c9d7435213d08ff532" compoundref="xdptxss__edid__parser_8h" startline="150">XDpTxSs_AudioSAD::AudioFormatCode</references>
+        <references refid="struct_x_dp_tx_ss___audio_s_a_d_1a42191a60f7245a17d72566a536526ed2" compoundref="xdptxss__edid__parser_8h" startline="166">XDpTxSs_AudioSAD::BitDepthFlags</references>
+        <references refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a00e86bd0622a9a65ed21d333a16088d4" compoundref="xdptxss__edid__parser_8h" startline="201">XDpTxSs_Sink_AV_Capabilities::checksum_failures</references>
+        <references refid="group__dptxss_1ga21ee658908549ea5a7e7f3c1d5b57180" compoundref="xdptxss__edid__parser_8h" startline="65">CTA861_AUDIO_DATA_BLOCK</references>
+        <references refid="group__dptxss_1ga16e83e35d00d58ea6f8335806cb13d58" compoundref="xdptxss__edid__parser_8h" startline="56">CTA861_EXTENSION_TAG</references>
+        <references refid="group__dptxss_1ga3c8845cf65db519a7d48e4884bbb63a4" compoundref="xdptxss__edid__parser_8h" startline="68">CTA861_SPKR_ALLOC_DATA_BLOCK</references>
+        <references refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1ad5839f76fc1e2c51e1a4b44016e98cbf" compoundref="xdptxss__edid__parser_8h" startline="199">XDpTxSs_Sink_AV_Capabilities::EdidBuffer</references>
+        <references refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a702d252a84b71391efe04a36896ecda1" compoundref="xdptxss__edid__parser_8h" startline="200">XDpTxSs_Sink_AV_Capabilities::extensions_count</references>
+        <references refid="struct_x_dp_tx_ss___audio_s_a_d_1ad92e55b957b21df6977a65e5033a0f5d">XDpTxSs_AudioSAD::FormatDependent</references>
+        <references refid="struct_x_dp_tx_ss___parse_result_1a3a325ef1a2db872881772b9844d59ef2" compoundref="xdptxss__edid__parser_8h" startline="113">XDpTxSs_ParseResult::InvalidBlockCount</references>
+        <references refid="group__dptxss_1ga6f75d22a7ac6bd350068350ab51eb8c5" compoundref="xdptxss__edid__parser_8h" startline="52">MAX_SAD_COUNT</references>
+        <references refid="struct_x_dp_tx_ss___audio_s_a_d_1a395d7ec44ea23b5bdc718e4a7202870d" compoundref="xdptxss__edid__parser_8h" startline="168">XDpTxSs_AudioSAD::MaxBitrate</references>
+        <references refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1ade4c1ac768603256a94481518f4a007e" compoundref="xdptxss__edid__parser_8h" startline="190">XDpTxSs_Sink_AV_Capabilities::MaxBpc</references>
+        <references refid="struct_x_dp_tx_ss___audio_s_a_d_1a21a6f6e29e741a33ae202978dfb1e5a4" compoundref="xdptxss__edid__parser_8h" startline="155">XDpTxSs_AudioSAD::MaxChannels</references>
+        <references refid="struct_x_dp_tx_ss___sink_audio_cfg_1adb46dc37d9d8bb26fb2276980ba3ed40" compoundref="xdptxss__edid__parser_8h" startline="178">XDpTxSs_SinkAudioCfg::SAD_array</references>
+        <references refid="group__dptxss_1ga38dc29a964c2e3d3b51698b55f0a8a85" compoundref="xdptxss__edid__parser_8h" startline="81">SAD_AUDIO_FORMAT_MASK</references>
+        <references refid="group__dptxss_1gae375dc29ddbd4c453185b404acb49cfc" compoundref="xdptxss__edid__parser_8h" startline="78">SAD_AUDIO_FORMAT_SHIFT</references>
+        <references refid="group__dptxss_1gab46abe8d2373e122c17f083ab5283a0a" compoundref="xdptxss__edid__parser_8h" startline="90">SAD_BIT_DEPTH_MASK</references>
+        <references refid="struct_x_dp_tx_ss___sink_audio_cfg_1acb713f8bafd998bf58246352ac94a1a2" compoundref="xdptxss__edid__parser_8h" startline="180">XDpTxSs_SinkAudioCfg::SAD_count</references>
+        <references refid="group__dptxss_1ga6bbfce706a4a049df6492da6605a0c21" compoundref="xdptxss__edid__parser_8h" startline="93">SAD_MAX_BITRATE_MASK</references>
+        <references refid="group__dptxss_1gabc637d196af2d63181d4dc7ada3a1407" compoundref="xdptxss__edid__parser_8h" startline="84">SAD_MAX_CHANNELS_MASK</references>
+        <references refid="group__dptxss_1ga5fc739ba90f348c4193387481281e399" compoundref="xdptxss__edid__parser_8h" startline="87">SAD_SAMPLING_FREQ_MASK</references>
+        <references refid="struct_x_dp_tx_ss___audio_s_a_d_1abaf55a950b92b20adcc1fce516d4b242" compoundref="xdptxss__edid__parser_8h" startline="156">XDpTxSs_AudioSAD::SamplingFreqFlags</references>
+        <references refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1ac5d0ce74b9b8d64ffdda04fcfd4e868e" compoundref="xdptxss__edid__parser_8h" startline="189">XDpTxSs_Sink_AV_Capabilities::SinkAudioCfg</references>
+        <references refid="struct_x_dp_tx_ss___sink_audio_cfg_1ac27831f793da8850d471c700641421cd" compoundref="xdptxss__edid__parser_8h" startline="179">XDpTxSs_SinkAudioCfg::Speaker_channel_allocation</references>
+        <references refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a0ee20a3beb20c2c62f19201f8923c3df" compoundref="xdptxss__edid__parser_8h" startline="191">XDpTxSs_Sink_AV_Capabilities::SupportedColorFormats</references>
+        <references refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a418ccf99952de1de6e2a6cd4bfcdc3f2" compoundref="xdptxss__edid__parser_8h" startline="197">XDpTxSs_Sink_AV_Capabilities::TimingCount</references>
+        <references refid="struct_x_dp_tx_ss___parse_result_1a1d0e9891ce6c149233499bf17f271446" compoundref="xdptxss__edid__parser_8h" startline="112">XDpTxSs_ParseResult::TotalBlockCount</references>
+        <references refid="group__dptxss_1ga777459cf549cd849fdcdb30db54d4dd8" compoundref="xdptxss__edid__parser_8c" startline="723" endline="883">XDpTxSs_GetVideoTimingsFromEdid</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dptxss_1ga755fe6f81ae9b7db9504b6eb99b538ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpTxSs_PrintVideoTiming</definition>
+        <argsstring>(const XDpTxSs_VideoTimingParam *Timing, u8 Index)</argsstring>
+        <name>XDpTxSs_PrintVideoTiming</name>
+        <param>
+          <type>const <ref refid="struct_x_dp_tx_ss___video_timing_param" kindref="compound">XDpTxSs_VideoTimingParam</ref> *</type>
+          <declname>Timing</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Index</declname>
+        </param>
+        <briefdescription>
+<para>This function prints debug information about a video timing. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Timing</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the video timing structure to print. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the index number to display. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.c" line="894" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.c" bodystart="894" bodyend="909"/>
+        <references refid="struct_x_dp_tx_ss___video_timing_param_1a6746a8334958ba3a072ca0d5ac5e2113" compoundref="xdptxss__edid__parser_8h" startline="139">XDpTxSs_VideoTimingParam::AspectRatio</references>
+        <references refid="struct_x_dp_tx_ss___video_timing_param_1ace6fa5f428804751a9a95a62ab9bd431" compoundref="xdptxss__edid__parser_8h" startline="130">XDpTxSs_VideoTimingParam::F0PVBackPorch</references>
+        <references refid="struct_x_dp_tx_ss___video_timing_param_1af56b406007bc5b68c185aa222b9ecaee" compoundref="xdptxss__edid__parser_8h" startline="128">XDpTxSs_VideoTimingParam::F0PVFrontPorch</references>
+        <references refid="struct_x_dp_tx_ss___video_timing_param_1a55de4df65077480a7a8b71c208e18af0" compoundref="xdptxss__edid__parser_8h" startline="129">XDpTxSs_VideoTimingParam::F0PVSyncWidth</references>
+        <references refid="struct_x_dp_tx_ss___video_timing_param_1a06cc7d7bcea4d32f272d01d6bf0d038b" compoundref="xdptxss__edid__parser_8h" startline="131">XDpTxSs_VideoTimingParam::F0PVTotal</references>
+        <references refid="struct_x_dp_tx_ss___video_timing_param_1a7d9616359216d6594cf79c7929bca564" compoundref="xdptxss__edid__parser_8h" startline="121">XDpTxSs_VideoTimingParam::HActive</references>
+        <references refid="struct_x_dp_tx_ss___video_timing_param_1a4ff9f111fcf44f2d8b9937a6b56647c9" compoundref="xdptxss__edid__parser_8h" startline="124">XDpTxSs_VideoTimingParam::HBackPorch</references>
+        <references refid="struct_x_dp_tx_ss___video_timing_param_1af7f47fd3b7c45a9a14194167c6f9179a" compoundref="xdptxss__edid__parser_8h" startline="122">XDpTxSs_VideoTimingParam::HFrontPorch</references>
+        <references refid="struct_x_dp_tx_ss___video_timing_param_1a5cbb4a7d6ea188363dd9ebefddb2d56c" compoundref="xdptxss__edid__parser_8h" startline="126">XDpTxSs_VideoTimingParam::HSyncPolarity</references>
+        <references refid="struct_x_dp_tx_ss___video_timing_param_1aaa295103f7a18bcb2c77ed28aacd1f55" compoundref="xdptxss__edid__parser_8h" startline="123">XDpTxSs_VideoTimingParam::HSyncWidth</references>
+        <references refid="struct_x_dp_tx_ss___video_timing_param_1aadeebfa9051f56d8360b7c6f15cf31ed" compoundref="xdptxss__edid__parser_8h" startline="125">XDpTxSs_VideoTimingParam::HTotal</references>
+        <references refid="struct_x_dp_tx_ss___video_timing_param_1a59a94b0fba07e96a9f42b6a2c96565bd" compoundref="xdptxss__edid__parser_8h" startline="137">XDpTxSs_VideoTimingParam::PixelClockHz</references>
+        <references refid="struct_x_dp_tx_ss___video_timing_param_1a28a789ce67ac9f98112625d4e91c3acf" compoundref="xdptxss__edid__parser_8h" startline="140">XDpTxSs_VideoTimingParam::RefreshRate</references>
+        <references refid="struct_x_dp_tx_ss___video_timing_param_1aa80b5e5fa389d71675179a8130786062" compoundref="xdptxss__edid__parser_8h" startline="138">XDpTxSs_VideoTimingParam::TimingSource</references>
+        <references refid="struct_x_dp_tx_ss___video_timing_param_1a4ef8e89dcbe4699c1a04c0dcf265f695" compoundref="xdptxss__edid__parser_8h" startline="127">XDpTxSs_VideoTimingParam::VActive</references>
+        <references refid="struct_x_dp_tx_ss___video_timing_param_1a399355c0f936e6c55fcf6667a2517a25" compoundref="xdptxss__edid__parser_8h" startline="136">XDpTxSs_VideoTimingParam::VSyncPolarity</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>XVIDC_EDID_PARSER_H_</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVIDC_EDID_PARSER_H_</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidc_edid_ext.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdptxss_8h" kindref="compound">xdptxss.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44" refid="group__dptxss_1gab6d29c1b096fa035b61076bba5778185" refkind="member"><highlight class="preprocessor">#define<sp/>EDID_MAX_TIMINGS<sp/>15</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="48" refid="group__dptxss_1ga0c49cc1387e9c05da42c8521de4581d4" refkind="member"><highlight class="preprocessor">#define<sp/>EDID_DTD_SIZE<sp/>18</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="51" refid="group__dptxss_1ga274b17d204bf5022aaa1a5e4c2127135" refkind="member"><highlight class="preprocessor">#define<sp/>MAX_EXTENSIONS_SUPPORTED<sp/>16<sp/><sp/></highlight></codeline>
+<codeline lineno="52" refid="group__dptxss_1ga6f75d22a7ac6bd350068350ab51eb8c5" refkind="member"><highlight class="preprocessor">#define<sp/>MAX_SAD_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>32<sp/><sp/></highlight></codeline>
+<codeline lineno="56" refid="group__dptxss_1ga16e83e35d00d58ea6f8335806cb13d58" refkind="member"><highlight class="preprocessor">#define<sp/>CTA861_EXTENSION_TAG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="59" refid="group__dptxss_1gad6c9c0a89d5691088c47dbbe9f0aa561" refkind="member"><highlight class="preprocessor">#define<sp/>DISPLAYID_2_0_EXTENSION_TAG<sp/><sp/><sp/><sp/><sp/>0x70</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="62" refid="group__dptxss_1gaa383dda6cb3d8ef71c418d157b963aa7" refkind="member"><highlight class="preprocessor">#define<sp/>DISPLAYID_TYPE_VII_TAG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x22</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="65" refid="group__dptxss_1ga21ee658908549ea5a7e7f3c1d5b57180" refkind="member"><highlight class="preprocessor">#define<sp/>CTA861_AUDIO_DATA_BLOCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="68" refid="group__dptxss_1ga3c8845cf65db519a7d48e4884bbb63a4" refkind="member"><highlight class="preprocessor">#define<sp/>CTA861_SPKR_ALLOC_DATA_BLOCK<sp/><sp/><sp/><sp/>0x04</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="71" refid="group__dptxss_1ga3dc2efd5d35cfcc1ba696927a2a55e80" refkind="member"><highlight class="preprocessor">#define<sp/>TIMING_SOURCE_DTD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/></highlight></codeline>
+<codeline lineno="72" refid="group__dptxss_1ga28a79447d7074f151f908e14c1019e68" refkind="member"><highlight class="preprocessor">#define<sp/>TIMING_SOURCE_STANDARD<sp/><sp/><sp/><sp/><sp/>1<sp/><sp/></highlight></codeline>
+<codeline lineno="73" refid="group__dptxss_1ga6d826b13d26dca8e19d019955b445da1" refkind="member"><highlight class="preprocessor">#define<sp/>TIMING_SOURCE_ESTABLISHED<sp/><sp/>2<sp/><sp/></highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Short<sp/>Audio<sp/>Descriptor<sp/>(SAD)<sp/>bit<sp/>field<sp/>definitions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="78" refid="group__dptxss_1gae375dc29ddbd4c453185b404acb49cfc" refkind="member"><highlight class="preprocessor">#define<sp/>SAD_AUDIO_FORMAT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="81" refid="group__dptxss_1ga38dc29a964c2e3d3b51698b55f0a8a85" refkind="member"><highlight class="preprocessor">#define<sp/>SAD_AUDIO_FORMAT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1F</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="84" refid="group__dptxss_1gabc637d196af2d63181d4dc7ada3a1407" refkind="member"><highlight class="preprocessor">#define<sp/>SAD_MAX_CHANNELS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x07</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="87" refid="group__dptxss_1ga5fc739ba90f348c4193387481281e399" refkind="member"><highlight class="preprocessor">#define<sp/>SAD_SAMPLING_FREQ_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7F</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="90" refid="group__dptxss_1gab46abe8d2373e122c17f083ab5283a0a" refkind="member"><highlight class="preprocessor">#define<sp/>SAD_BIT_DEPTH_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x07</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="93" refid="group__dptxss_1ga6bbfce706a4a049df6492da6605a0c21" refkind="member"><highlight class="preprocessor">#define<sp/>SAD_MAX_BITRATE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Type<sp/>Definitions<sp/>*********************************/</highlight></codeline>
+<codeline lineno="99" refid="group__dptxss_1ga66bdca31ecf73a372f48326064d9d1b3" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="100" refid="group__dptxss_1gga66bdca31ecf73a372f48326064d9d1b3a2ed6268c0227c0591424407e47552fad" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dptxss_1gga66bdca31ecf73a372f48326064d9d1b3a2ed6268c0227c0591424407e47552fad" kindref="member">DISPLAYID_TYPE7_PREFERRED</ref><sp/>=<sp/>0,<sp/><sp/></highlight></codeline>
+<codeline lineno="101" refid="group__dptxss_1gga66bdca31ecf73a372f48326064d9d1b3ade9766e34ef5169a705a6398c7be4903" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dptxss_1gga66bdca31ecf73a372f48326064d9d1b3ade9766e34ef5169a705a6398c7be4903" kindref="member">DISPLAYID_TYPE7_NATIVE</ref><sp/>=<sp/>1,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="102" refid="group__dptxss_1gga66bdca31ecf73a372f48326064d9d1b3ada88e84a307dbb9f86419ab16e6d3156" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dptxss_1gga66bdca31ecf73a372f48326064d9d1b3ada88e84a307dbb9f86419ab16e6d3156" kindref="member">DISPLAYID_TYPE7_REMAINING</ref><sp/>=<sp/>2<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="103"><highlight class="normal">}<sp/><ref refid="group__dptxss_1ga66bdca31ecf73a372f48326064d9d1b3" kindref="member">XDpTxSs_DisplayIdType7Category</ref>;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111" refid="struct_x_dp_tx_ss___parse_result" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="112" refid="struct_x_dp_tx_ss___parse_result_1a1d0e9891ce6c149233499bf17f271446" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_dp_tx_ss___parse_result_1a1d0e9891ce6c149233499bf17f271446" kindref="member">TotalBlockCount</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113" refid="struct_x_dp_tx_ss___parse_result_1a3a325ef1a2db872881772b9844d59ef2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_dp_tx_ss___parse_result_1a3a325ef1a2db872881772b9844d59ef2" kindref="member">InvalidBlockCount</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114"><highlight class="normal">}<sp/><ref refid="struct_x_dp_tx_ss___parse_result" kindref="compound">XDpTxSs_ParseResult</ref>;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120" refid="struct_x_dp_tx_ss___video_timing_param" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="121" refid="struct_x_dp_tx_ss___video_timing_param_1a7d9616359216d6594cf79c7929bca564" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_dp_tx_ss___video_timing_param_1a7d9616359216d6594cf79c7929bca564" kindref="member">HActive</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="122" refid="struct_x_dp_tx_ss___video_timing_param_1af7f47fd3b7c45a9a14194167c6f9179a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_dp_tx_ss___video_timing_param_1af7f47fd3b7c45a9a14194167c6f9179a" kindref="member">HFrontPorch</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="123" refid="struct_x_dp_tx_ss___video_timing_param_1aaa295103f7a18bcb2c77ed28aacd1f55" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_dp_tx_ss___video_timing_param_1aaa295103f7a18bcb2c77ed28aacd1f55" kindref="member">HSyncWidth</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="124" refid="struct_x_dp_tx_ss___video_timing_param_1a4ff9f111fcf44f2d8b9937a6b56647c9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_dp_tx_ss___video_timing_param_1a4ff9f111fcf44f2d8b9937a6b56647c9" kindref="member">HBackPorch</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="125" refid="struct_x_dp_tx_ss___video_timing_param_1aadeebfa9051f56d8360b7c6f15cf31ed" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_dp_tx_ss___video_timing_param_1aadeebfa9051f56d8360b7c6f15cf31ed" kindref="member">HTotal</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="126" refid="struct_x_dp_tx_ss___video_timing_param_1a5cbb4a7d6ea188363dd9ebefddb2d56c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_dp_tx_ss___video_timing_param_1a5cbb4a7d6ea188363dd9ebefddb2d56c" kindref="member">HSyncPolarity</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="127" refid="struct_x_dp_tx_ss___video_timing_param_1a4ef8e89dcbe4699c1a04c0dcf265f695" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_dp_tx_ss___video_timing_param_1a4ef8e89dcbe4699c1a04c0dcf265f695" kindref="member">VActive</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="128" refid="struct_x_dp_tx_ss___video_timing_param_1af56b406007bc5b68c185aa222b9ecaee" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_dp_tx_ss___video_timing_param_1af56b406007bc5b68c185aa222b9ecaee" kindref="member">F0PVFrontPorch</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="129" refid="struct_x_dp_tx_ss___video_timing_param_1a55de4df65077480a7a8b71c208e18af0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_dp_tx_ss___video_timing_param_1a55de4df65077480a7a8b71c208e18af0" kindref="member">F0PVSyncWidth</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="130" refid="struct_x_dp_tx_ss___video_timing_param_1ace6fa5f428804751a9a95a62ab9bd431" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_dp_tx_ss___video_timing_param_1ace6fa5f428804751a9a95a62ab9bd431" kindref="member">F0PVBackPorch</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="131" refid="struct_x_dp_tx_ss___video_timing_param_1a06cc7d7bcea4d32f272d01d6bf0d038b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_dp_tx_ss___video_timing_param_1a06cc7d7bcea4d32f272d01d6bf0d038b" kindref="member">F0PVTotal</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="132" refid="struct_x_dp_tx_ss___video_timing_param_1a1d5a08ed7ab1b869f33333a21cb0a786" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_dp_tx_ss___video_timing_param_1a1d5a08ed7ab1b869f33333a21cb0a786" kindref="member">F1VFrontPorch</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="133" refid="struct_x_dp_tx_ss___video_timing_param_1a66da5b4b09e72a7712d2ab48d9c2ded7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_dp_tx_ss___video_timing_param_1a66da5b4b09e72a7712d2ab48d9c2ded7" kindref="member">F1VSyncWidth</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="134" refid="struct_x_dp_tx_ss___video_timing_param_1aa6930e26af330079a57c185d8419d499" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_dp_tx_ss___video_timing_param_1aa6930e26af330079a57c185d8419d499" kindref="member">F1VBackPorch</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="135" refid="struct_x_dp_tx_ss___video_timing_param_1af6f8d23ef0c3f6bd45b65e0f74174965" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_dp_tx_ss___video_timing_param_1af6f8d23ef0c3f6bd45b65e0f74174965" kindref="member">F1VTotal</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="136" refid="struct_x_dp_tx_ss___video_timing_param_1a399355c0f936e6c55fcf6667a2517a25" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_dp_tx_ss___video_timing_param_1a399355c0f936e6c55fcf6667a2517a25" kindref="member">VSyncPolarity</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="137" refid="struct_x_dp_tx_ss___video_timing_param_1a59a94b0fba07e96a9f42b6a2c96565bd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_dp_tx_ss___video_timing_param_1a59a94b0fba07e96a9f42b6a2c96565bd" kindref="member">PixelClockHz</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="138" refid="struct_x_dp_tx_ss___video_timing_param_1aa80b5e5fa389d71675179a8130786062" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_dp_tx_ss___video_timing_param_1aa80b5e5fa389d71675179a8130786062" kindref="member">TimingSource</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="139" refid="struct_x_dp_tx_ss___video_timing_param_1a6746a8334958ba3a072ca0d5ac5e2113" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_dp_tx_ss___video_timing_param_1a6746a8334958ba3a072ca0d5ac5e2113" kindref="member">AspectRatio</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="140" refid="struct_x_dp_tx_ss___video_timing_param_1a28a789ce67ac9f98112625d4e91c3acf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_dp_tx_ss___video_timing_param_1a28a789ce67ac9f98112625d4e91c3acf" kindref="member">RefreshRate</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="141"><highlight class="normal">}<sp/><ref refid="struct_x_dp_tx_ss___video_timing_param" kindref="compound">XDpTxSs_VideoTimingParam</ref>;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148" refid="struct_x_dp_tx_ss___audio_s_a_d" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="150" refid="struct_x_dp_tx_ss___audio_s_a_d_1a6368c871f6ab26c9d7435213d08ff532" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_dp_tx_ss___audio_s_a_d_1a6368c871f6ab26c9d7435213d08ff532" kindref="member">AudioFormatCode</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="155" refid="struct_x_dp_tx_ss___audio_s_a_d_1a21a6f6e29e741a33ae202978dfb1e5a4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_dp_tx_ss___audio_s_a_d_1a21a6f6e29e741a33ae202978dfb1e5a4" kindref="member">MaxChannels</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="156" refid="struct_x_dp_tx_ss___audio_s_a_d_1abaf55a950b92b20adcc1fce516d4b242" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_dp_tx_ss___audio_s_a_d_1abaf55a950b92b20adcc1fce516d4b242" kindref="member">SamplingFreqFlags</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">union<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="166" refid="struct_x_dp_tx_ss___audio_s_a_d_1a42191a60f7245a17d72566a536526ed2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_dp_tx_ss___audio_s_a_d_1a42191a60f7245a17d72566a536526ed2" kindref="member">BitDepthFlags</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="168" refid="struct_x_dp_tx_ss___audio_s_a_d_1a395d7ec44ea23b5bdc718e4a7202870d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_dp_tx_ss___audio_s_a_d_1a395d7ec44ea23b5bdc718e4a7202870d" kindref="member">MaxBitrate</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>FormatDependent;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal">}<sp/><ref refid="struct_x_dp_tx_ss___audio_s_a_d" kindref="compound">XDpTxSs_AudioSAD</ref>;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176" refid="struct_x_dp_tx_ss___sink_audio_cfg" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="178" refid="struct_x_dp_tx_ss___sink_audio_cfg_1adb46dc37d9d8bb26fb2276980ba3ed40" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dp_tx_ss___audio_s_a_d" kindref="compound">XDpTxSs_AudioSAD</ref><sp/>SAD_array[<ref refid="group__dptxss_1ga6f75d22a7ac6bd350068350ab51eb8c5" kindref="member">MAX_SAD_COUNT</ref>];<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="179" refid="struct_x_dp_tx_ss___sink_audio_cfg_1ac27831f793da8850d471c700641421cd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_dp_tx_ss___sink_audio_cfg_1ac27831f793da8850d471c700641421cd" kindref="member">Speaker_channel_allocation</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="180" refid="struct_x_dp_tx_ss___sink_audio_cfg_1acb713f8bafd998bf58246352ac94a1a2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_dp_tx_ss___sink_audio_cfg_1acb713f8bafd998bf58246352ac94a1a2" kindref="member">SAD_count</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="181"><highlight class="normal">}<sp/><ref refid="struct_x_dp_tx_ss___sink_audio_cfg" kindref="compound">XDpTxSs_SinkAudioCfg</ref>;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="187" refid="struct_x_dp_tx_ss___sink___a_v___capabilities" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="189" refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1ac5d0ce74b9b8d64ffdda04fcfd4e868e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dp_tx_ss___sink_audio_cfg" kindref="compound">XDpTxSs_SinkAudioCfg</ref><sp/><ref refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1ac5d0ce74b9b8d64ffdda04fcfd4e868e" kindref="member">SinkAudioCfg</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="190" refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1ade4c1ac768603256a94481518f4a007e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1ade4c1ac768603256a94481518f4a007e" kindref="member">MaxBpc</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="191" refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a0ee20a3beb20c2c62f19201f8923c3df" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a0ee20a3beb20c2c62f19201f8923c3df" kindref="member">SupportedColorFormats</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="196" refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a5b6cd37c1a24b9a5d51ec8955844d127" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dp_tx_ss___video_timing_param" kindref="compound">XDpTxSs_VideoTimingParam</ref><sp/>TimingList[<ref refid="group__dptxss_1gab6d29c1b096fa035b61076bba5778185" kindref="member">EDID_MAX_TIMINGS</ref>];<sp/><sp/></highlight></codeline>
+<codeline lineno="197" refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a418ccf99952de1de6e2a6cd4bfcdc3f2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a418ccf99952de1de6e2a6cd4bfcdc3f2" kindref="member">TimingCount</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="199" refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1ad5839f76fc1e2c51e1a4b44016e98cbf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>EdidBuffer[128<sp/>*<sp/><ref refid="group__dptxss_1ga274b17d204bf5022aaa1a5e4c2127135" kindref="member">MAX_EXTENSIONS_SUPPORTED</ref>];<sp/><sp/></highlight></codeline>
+<codeline lineno="200" refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a702d252a84b71391efe04a36896ecda1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a702d252a84b71391efe04a36896ecda1" kindref="member">extensions_count</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="201" refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a00e86bd0622a9a65ed21d333a16088d4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a00e86bd0622a9a65ed21d333a16088d4" kindref="member">checksum_failures</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="202"><highlight class="normal">}<sp/><ref refid="struct_x_dp_tx_ss___sink___a_v___capabilities" kindref="compound">XDpTxSs_Sink_AV_Capabilities</ref>;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><ref refid="struct_x_dp_tx_ss___parse_result" kindref="compound">XDpTxSs_ParseResult</ref><sp/><ref refid="group__dptxss_1ga777459cf549cd849fdcdb30db54d4dd8" kindref="member">XDpTxSs_GetVideoTimingsFromEdid</ref>(<ref refid="struct_x_dp_tx_ss___sink___a_v___capabilities" kindref="compound">XDpTxSs_Sink_AV_Capabilities</ref><sp/>*AVCaps);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dptxss_1ga61e5bdde3bfbfba45b186b4e3b48e6bf" kindref="member">XDpTxSs_get_full_edid</ref>(<ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_dp_tx_ss___sink___a_v___capabilities" kindref="compound">XDpTxSs_Sink_AV_Capabilities</ref><sp/>*AVCaps);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" kindref="member">XDpTxSs_get_sink_AV_Capabilities</ref>(<ref refid="struct_x_dp_tx_ss___sink___a_v___capabilities" kindref="compound">XDpTxSs_Sink_AV_Capabilities</ref><sp/>*AVCaps);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dptxss_1ga755fe6f81ae9b7db9504b6eb99b538ba" kindref="member">XDpTxSs_PrintVideoTiming</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dp_tx_ss___video_timing_param" kindref="compound">XDpTxSs_VideoTimingParam</ref><sp/>*Timing,<sp/>u8<sp/>Index);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XVIDC_EDID_PARSER_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h"/>
+  </compounddef>
+</doxygen>

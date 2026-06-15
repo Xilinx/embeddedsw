@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_usb_psu___event___gevt" kind="struct" prot="public">
+    <compoundname>XUsbPsu_Event_Gevt</compoundname>
+    <includes local="no">xusbpsu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_usb_psu___event___gevt_1af2231114772a63d3c03223881f60f78c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUsbPsu_Event_Gevt::Is_GlobalEvt</definition>
+        <argsstring></argsstring>
+        <name>Is_GlobalEvt</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+<para>non-endpoint event (not used) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="672" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="672" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu___event___gevt_1adc63e59b720815ef3a56b3a574faacc3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUsbPsu_Event_Gevt::Device_Event</definition>
+        <argsstring></argsstring>
+        <name>Device_Event</name>
+        <bitfield> 7</bitfield>
+        <briefdescription>
+<para>it&apos;s (0x03) Carkit or (0x04) I2C event </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="673" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="673" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu___event___gevt_1a37284fd5ee1df56d3066108a94233904" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUsbPsu_Event_Gevt::Phy_Port_Number</definition>
+        <argsstring></argsstring>
+        <name>Phy_Port_Number</name>
+        <bitfield> 4</bitfield>
+        <briefdescription>
+<para>Phy_Port_Number:4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="674" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="674" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu___event___gevt_1a80e340e9863f50ebf4202955da2405e8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUsbPsu_Event_Gevt::Reserved31_12</definition>
+        <argsstring></argsstring>
+        <name>Reserved31_12</name>
+        <bitfield> 20</bitfield>
+        <briefdescription>
+<para>reserved31_12 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="675" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="675" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>struct XUsbPsu_event_gevt - Other Core Events Core events </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>one_bit</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates this is a non-endpoint event (not used) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>device_event</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates it&apos;s (0x03) Carkit or (0x04) I2C event. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>phy_port_number</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>self-explanatory </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reserved31_12</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reserved, not used. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="671" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="671" bodyend="680"/>
+    <listofallmembers>
+      <member refid="struct_x_usb_psu___event___gevt_1adc63e59b720815ef3a56b3a574faacc3" prot="public" virt="non-virtual"><scope>XUsbPsu_Event_Gevt</scope><name>Device_Event</name></member>
+      <member refid="struct_x_usb_psu___event___gevt_1af2231114772a63d3c03223881f60f78c" prot="public" virt="non-virtual"><scope>XUsbPsu_Event_Gevt</scope><name>Is_GlobalEvt</name></member>
+      <member refid="struct_x_usb_psu___event___gevt_1a37284fd5ee1df56d3066108a94233904" prot="public" virt="non-virtual"><scope>XUsbPsu_Event_Gevt</scope><name>Phy_Port_Number</name></member>
+      <member refid="struct_x_usb_psu___event___gevt_1a80e340e9863f50ebf4202955da2405e8" prot="public" virt="non-virtual"><scope>XUsbPsu_Event_Gevt</scope><name>Reserved31_12</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

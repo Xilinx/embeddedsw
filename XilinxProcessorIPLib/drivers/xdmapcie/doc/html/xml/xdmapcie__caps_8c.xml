@@ -1,0 +1,454 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdmapcie__caps_8c" kind="file">
+    <compoundname>xdmapcie_caps.c</compoundname>
+    <includes refid="xdmapcie_8h" local="yes">xdmapcie.h</includes>
+    <includes refid="xdmapcie__common_8h" local="yes">xdmapcie_common.h</includes>
+    <incdepgraph>
+      <node id="36">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="34">
+        <label>xdmapcie_caps.c</label>
+        <link refid="xdmapcie_caps.c"/>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>xil_io.h</label>
+      </node>
+      <node id="35">
+        <label>xdmapcie.h</label>
+        <link refid="xdmapcie_8h"/>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="42">
+        <label>string.h</label>
+      </node>
+      <node id="38">
+        <label>xdmapcie_hw.h</label>
+        <link refid="xdmapcie__hw_8h"/>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>xstatus.h</label>
+      </node>
+      <node id="39">
+        <label>xil_types.h</label>
+      </node>
+      <node id="44">
+        <label>xdmapcie_common.h</label>
+        <link refid="xdmapcie__common_8h"/>
+        <childnode refid="45" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>xparameters.h</label>
+      </node>
+      <node id="45">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xdmapcie__caps_8c_1a458eda6185c307245d6dbb40aba0096e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XDmaPcie_GetBaseCapability</definition>
+        <argsstring>(XDmaPcie *InstancePtr, u8 Bus, u8 Device, u8 Function)</argsstring>
+        <name>XDmaPcie_GetBaseCapability</name>
+        <param>
+          <type><ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Bus</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Device</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Function</declname>
+        </param>
+        <briefdescription>
+<para>This function returns offset to the first of the Function&apos;s Linked list of the capability registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to <ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref> Instance Pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of the Bus </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of the Device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is number of the Function</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>offset to the first of the Function&apos;s capability register if available. 0x0 if not available </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_caps.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_caps.c" bodystart="52" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="xdmapcie__caps_8c_1ae856a9480f2bbf119a71810e12ac5ff7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XDmaPcie_HasCapability</definition>
+        <argsstring>(XDmaPcie *InstancePtr, u8 Bus, u8 Device, u8 Function, u8 CapId)</argsstring>
+        <name>XDmaPcie_HasCapability</name>
+        <param>
+          <type><ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Bus</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Device</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Function</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>CapId</declname>
+        </param>
+        <briefdescription>
+<para>This function returns whether capability Id is available or not for the particular Function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to <ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref> Instance Pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of the Bus </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of the Device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is number of the Function </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>id to check capability pointer availability</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>u32 0 if capability is not available 1 if capability is available </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_caps.c" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_caps.c" bodystart="77" bodyend="99"/>
+        <references refid="xdmapcie_8c_1adac6261cddb63084c8ee87518e99edef" compoundref="xdmapcie_8c" startline="1694" endline="1742">XDmaPcie_ReadRemoteConfigSpace</references>
+      </memberdef>
+      <memberdef kind="function" id="xdmapcie__caps_8c_1ac232d6bc0efdff01bf3aff950049cf27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u64</type>
+        <definition>u64 XDmaPcie_GetCapability</definition>
+        <argsstring>(XDmaPcie *InstancePtr, u8 Bus, u8 Device, u8 Function, u8 CapId)</argsstring>
+        <name>XDmaPcie_GetCapability</name>
+        <param>
+          <type><ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Bus</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Device</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Function</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>CapId</declname>
+        </param>
+        <briefdescription>
+<para>This function returns offset to the matching capability ID from the Function&apos;s Linked list of the capability registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to <ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref> Instance Pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of the Bus </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of the Device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is number of the Function </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>id to get capability pointer offset</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>u64 capability pointer if available 0 if not available. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_caps.c" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_caps.c" bodystart="116" bodyend="140"/>
+        <references refid="struct_x_dma_pcie_1af5d05276beffe8f09d05bf237cc3d2f5" compoundref="xdmapcie_8h" startline="150">XDmaPcie::Config</references>
+        <references refid="struct_x_dma_pcie___config_1a42ba484bddfed2c7c40d2e82cefe2893" compoundref="xdmapcie_8h" startline="121">XDmaPcie_Config::Ecam</references>
+        <references refid="xdmapcie_8c_1adac6261cddb63084c8ee87518e99edef" compoundref="xdmapcie_8c" startline="1694" endline="1742">XDmaPcie_ReadRemoteConfigSpace</references>
+      </memberdef>
+      <memberdef kind="function" id="xdmapcie__caps_8c_1a7106f923ba6532a0533e39afdf6728c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XDmaPcie_PrintAllCapabilites</definition>
+        <argsstring>(XDmaPcie *InstancePtr, u8 Bus, u8 Device, u8 Function)</argsstring>
+        <name>XDmaPcie_PrintAllCapabilites</name>
+        <param>
+          <type><ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Bus</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Device</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Function</declname>
+        </param>
+        <briefdescription>
+<para>This function prints all the available capabilities in the Function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to <ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref> Instance Pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of the Bus </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Device</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of the Device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Function</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is number of the Function</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success XST_FAILURE on failure. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_caps.c" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_caps.c" bodystart="155" bodyend="171"/>
+        <references refid="xdmapcie_8c_1adac6261cddb63084c8ee87518e99edef" compoundref="xdmapcie_8c" startline="1694" endline="1742">XDmaPcie_ReadRemoteConfigSpace</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Implements all of supportive functions to expose PCIe capabilities. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0     tk      01/30/2019      First release
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="23"><highlight class="comment">/********************************<sp/>Include<sp/>Files<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdmapcie_8h" kindref="compound">xdmapcie.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdmapcie__common_8h" kindref="compound">xdmapcie_common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/********************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Function<sp/>Prototypes<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="52"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XDmaPcie_GetBaseCapability(<ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref><sp/>*InstancePtr,<sp/>u8<sp/>Bus,<sp/>u8<sp/>Device,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Function)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CapBase<sp/>=<sp/>0x0;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdmapcie_8c_1adac6261cddb63084c8ee87518e99edef" kindref="member">XDmaPcie_ReadRemoteConfigSpace</ref>(InstancePtr,<sp/>Bus,<sp/>Device,<sp/>Function,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDMAPCIE_CFG_P_CAP_PTR_T1_REG,<sp/>&amp;CapBase);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(CapBase<sp/>&amp;<sp/>XDMAPCIE_CAP_PTR_LOC);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="77" refid="xdmapcie__caps_8c_1ae856a9480f2bbf119a71810e12ac5ff7" refkind="member"><highlight class="normal">u8<sp/><ref refid="xdmapcie_8h_1ae856a9480f2bbf119a71810e12ac5ff7" kindref="member">XDmaPcie_HasCapability</ref>(<ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref><sp/>*InstancePtr,<sp/>u8<sp/>Bus,<sp/>u8<sp/>Device,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Function,<sp/>u8<sp/>CapId)</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>CapStatus<sp/>=<sp/>CAP_NOT_PRESENT;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CapBase<sp/>=<sp/>XDmaPcie_GetBaseCapability(InstancePtr,<sp/>Bus,<sp/>Device,</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Function);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(CapBase)<sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdmapcie_8c_1adac6261cddb63084c8ee87518e99edef" kindref="member">XDmaPcie_ReadRemoteConfigSpace</ref>(InstancePtr,<sp/>Bus,<sp/>Device,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Function,<sp/>XDMAPCIE_DOUBLEWORD(CapBase),<sp/>&amp;CapBase);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(CapId<sp/>==<sp/>(CapBase<sp/>&amp;<sp/>XDMAPCIE_CFG_CAP_ID_LOC)){</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CapStatus<sp/>=<sp/><sp/>CAP_PRESENT;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>End;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CapBase<sp/>=<sp/>(CapBase<sp/>&gt;&gt;<sp/>XDMAPCIE_CAP_SHIFT)<sp/>&amp;<sp/>XDMAPCIE_CAP_PTR_LOC;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal">End:</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>CapStatus;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="116" refid="xdmapcie__caps_8c_1ac232d6bc0efdff01bf3aff950049cf27" refkind="member"><highlight class="normal">u64<sp/><ref refid="xdmapcie_8h_1ac232d6bc0efdff01bf3aff950049cf27" kindref="member">XDmaPcie_GetCapability</ref>(<ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref><sp/>*InstancePtr,<sp/>u8<sp/>Bus,<sp/>u8<sp/>Device,</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Function,<sp/>u8<sp/>CapId)</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CapBase<sp/>=<sp/>XDmaPcie_GetBaseCapability(InstancePtr,<sp/>Bus,<sp/>Device,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Function);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Adr<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Location<sp/>=<sp/>CAP_NOT_PRESENT;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Offset;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(CapBase)<sp/>{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Adr<sp/>=<sp/>CapBase;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdmapcie_8c_1adac6261cddb63084c8ee87518e99edef" kindref="member">XDmaPcie_ReadRemoteConfigSpace</ref>(InstancePtr,<sp/>Bus,<sp/>Device,</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Function,<sp/>XDMAPCIE_DOUBLEWORD(CapBase),<sp/>&amp;CapBase);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(CapId<sp/>==<sp/>(CapBase<sp/>&amp;<sp/>XDMAPCIE_CFG_CAP_ID_LOC))<sp/>{</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>XDmaPcie_ComposeExternalConfigAddress(</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Bus,<sp/>Device,<sp/>Function,<sp/>XDMAPCIE_DOUBLEWORD(Adr));</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Location<sp/>=<sp/>(InstancePtr-&gt;<ref refid="struct_x_dma_pcie_1af5d05276beffe8f09d05bf237cc3d2f5" kindref="member">Config</ref>.<ref refid="struct_x_dma_pcie___config_1a42ba484bddfed2c7c40d2e82cefe2893" kindref="member">Ecam</ref>)<sp/>+<sp/>(Offset);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>End;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CapBase<sp/>=<sp/>(CapBase<sp/>&gt;&gt;<sp/>XDMAPCIE_CAP_SHIFT)<sp/>&amp;<sp/>XDMAPCIE_CAP_PTR_LOC;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">End:</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Location;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="155" refid="xdmapcie__caps_8c_1a7106f923ba6532a0533e39afdf6728c2" refkind="member"><highlight class="normal">u8<sp/><ref refid="xdmapcie_8h_1a7106f923ba6532a0533e39afdf6728c2" kindref="member">XDmaPcie_PrintAllCapabilites</ref>(<ref refid="struct_x_dma_pcie" kindref="compound">XDmaPcie</ref><sp/>*InstancePtr,<sp/>u8<sp/>Bus,<sp/>u8<sp/>Device,</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Function)</highlight></codeline>
+<codeline lineno="157"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CapBase<sp/>=<sp/>XDmaPcie_GetBaseCapability(InstancePtr,<sp/>Bus,<sp/>Device,</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Function);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;CAP-IDs:&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(CapBase)<sp/>{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdmapcie_8c_1adac6261cddb63084c8ee87518e99edef" kindref="member">XDmaPcie_ReadRemoteConfigSpace</ref>(InstancePtr,<sp/>Bus,<sp/>Device,</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Function,<sp/>XDMAPCIE_DOUBLEWORD(CapBase),<sp/>&amp;CapBase);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;0x%X<sp/>&quot;</highlight><highlight class="normal">,<sp/>CapBase<sp/>&amp;<sp/>XDMAPCIE_CFG_CAP_ID_LOC);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CapBase<sp/>=<sp/>(CapBase<sp/>&gt;&gt;<sp/>XDMAPCIE_CAP_SHIFT)<sp/>&amp;<sp/>XDMAPCIE_CAP_PTR_LOC;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_caps.c"/>
+  </compounddef>
+</doxygen>

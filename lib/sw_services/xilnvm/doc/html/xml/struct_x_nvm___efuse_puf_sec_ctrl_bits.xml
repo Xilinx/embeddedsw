@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_puf_sec_ctrl_bits" kind="struct" prot="public">
+    <compoundname>XNvm_EfusePufSecCtrlBits</compoundname>
+    <includes local="no">xnvm_common_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_puf_sec_ctrl_bits_1a078170b0b40182f3c04458bafa1ed066" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfusePufSecCtrlBits::PufRegenDis</definition>
+        <argsstring></argsstring>
+        <name>PufRegenDis</name>
+        <briefdescription>
+<para>PUF regeneration disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="180" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga4632d36b5d828148cb6cdec52d6310ff" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1290" endline="1341">XNvm_EfuseReadPufSecCtrlBits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_puf_sec_ctrl_bits_1a0cfb73f67830c7ad12e0a26831ad1063" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfusePufSecCtrlBits::PufHdInvalid</definition>
+        <argsstring></argsstring>
+        <name>PufHdInvalid</name>
+        <briefdescription>
+<para>PUF HD invalid. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="181" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga4632d36b5d828148cb6cdec52d6310ff" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1290" endline="1341">XNvm_EfuseReadPufSecCtrlBits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_puf_sec_ctrl_bits_1a2f667c10d35bf0610f2ea0555970657f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfusePufSecCtrlBits::PufTest2Dis</definition>
+        <argsstring></argsstring>
+        <name>PufTest2Dis</name>
+        <briefdescription>
+<para>PUF test 2 disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="182" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga4632d36b5d828148cb6cdec52d6310ff" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1290" endline="1341">XNvm_EfuseReadPufSecCtrlBits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_puf_sec_ctrl_bits_1aace516f485ecb8ea323763dfd7d85886" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfusePufSecCtrlBits::PufDis</definition>
+        <argsstring></argsstring>
+        <name>PufDis</name>
+        <briefdescription>
+<para>PUF disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="183" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga4632d36b5d828148cb6cdec52d6310ff" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1290" endline="1341">XNvm_EfuseReadPufSecCtrlBits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_puf_sec_ctrl_bits_1a84d4c01cd3938e0a20e860e619fde8d2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfusePufSecCtrlBits::PufSynLk</definition>
+        <argsstring></argsstring>
+        <name>PufSynLk</name>
+        <briefdescription>
+<para>PUF synchronization lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="184" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga4632d36b5d828148cb6cdec52d6310ff" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1290" endline="1341">XNvm_EfuseReadPufSecCtrlBits</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for Puf Secure Ctrl Bits. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="179" bodyend="188"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_puf_sec_ctrl_bits_1aace516f485ecb8ea323763dfd7d85886" prot="public" virt="non-virtual"><scope>XNvm_EfusePufSecCtrlBits</scope><name>PufDis</name></member>
+      <member refid="struct_x_nvm___efuse_puf_sec_ctrl_bits_1a0cfb73f67830c7ad12e0a26831ad1063" prot="public" virt="non-virtual"><scope>XNvm_EfusePufSecCtrlBits</scope><name>PufHdInvalid</name></member>
+      <member refid="struct_x_nvm___efuse_puf_sec_ctrl_bits_1a078170b0b40182f3c04458bafa1ed066" prot="public" virt="non-virtual"><scope>XNvm_EfusePufSecCtrlBits</scope><name>PufRegenDis</name></member>
+      <member refid="struct_x_nvm___efuse_puf_sec_ctrl_bits_1a84d4c01cd3938e0a20e860e619fde8d2" prot="public" virt="non-virtual"><scope>XNvm_EfusePufSecCtrlBits</scope><name>PufSynLk</name></member>
+      <member refid="struct_x_nvm___efuse_puf_sec_ctrl_bits_1a2f667c10d35bf0610f2ea0555970657f" prot="public" virt="non-virtual"><scope>XNvm_EfusePufSecCtrlBits</scope><name>PufTest2Dis</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

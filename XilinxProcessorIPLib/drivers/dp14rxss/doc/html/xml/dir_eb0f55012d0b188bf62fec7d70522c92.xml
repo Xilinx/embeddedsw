@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_eb0f55012d0b188bf62fec7d70522c92" kind="dir">
+    <compoundname>key</compoundname>
+    <innerfile refid="aes256_8c">aes256.c</innerfile>
+    <innerfile refid="aes256_8h">aes256.h</innerfile>
+    <innerfile refid="eeprom_8c">eeprom.c</innerfile>
+    <innerfile refid="eeprom_8h">eeprom.h</innerfile>
+    <innerfile refid="keygen__config_8h">keygen_config.h</innerfile>
+    <innerfile refid="keymgmt_8c">keymgmt.c</innerfile>
+    <innerfile refid="keymgmt_8h">keymgmt.h</innerfile>
+    <innerfile refid="keymgmt__debug_8h">keymgmt_debug.h</innerfile>
+    <innerfile refid="keymgmt__device_8c">keymgmt_device.c</innerfile>
+    <innerfile refid="keymgmt__device_8h">keymgmt_device.h</innerfile>
+    <innerfile refid="keymgmt__keyfile_8c">keymgmt_keyfile.c</innerfile>
+    <innerfile refid="keymgmt__keyfile_8h">keymgmt_keyfile.h</innerfile>
+    <innerfile refid="keymgmt__loader_8c">keymgmt_loader.c</innerfile>
+    <innerfile refid="keymgmt__loader_8h">keymgmt_loader.h</innerfile>
+    <innerfile refid="keymgmt__testkeys_8c">keymgmt_testkeys.c</innerfile>
+    <innerfile refid="keys_8c">keys.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/key/"/>
+  </compounddef>
+</doxygen>

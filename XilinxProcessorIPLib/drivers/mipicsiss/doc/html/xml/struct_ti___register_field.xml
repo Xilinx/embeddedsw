@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_ti___register_field" kind="struct" prot="public">
+    <compoundname>Ti_RegisterField</compoundname>
+    <includes local="no">ti_tmds1204.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_ti___register_field_1ab5be8596ced737ac6ca2acda14498632" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 Ti_RegisterField::DeviceType</definition>
+        <argsstring></argsstring>
+        <name>DeviceType</name>
+        <briefdescription>
+<para>Device Type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ti___register_field_1a422e98ea9167c5f320bfa2d8f1a1144b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Ti_RegisterField::Address</definition>
+        <argsstring></argsstring>
+        <name>Address</name>
+        <briefdescription>
+<para>Line Rate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ti___register_field_1a4f7bd13842597a708803f0d6bed6fed9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Ti_RegisterField::Values</definition>
+        <argsstring></argsstring>
+        <name>Values</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains translations of FRL_Rate to Lanes and Line Rates. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/ti_tmds1204.h" bodystart="85" bodyend="89"/>
+    <listofallmembers>
+      <member refid="struct_ti___register_field_1a422e98ea9167c5f320bfa2d8f1a1144b" prot="public" virt="non-virtual"><scope>Ti_RegisterField</scope><name>Address</name></member>
+      <member refid="struct_ti___register_field_1ab5be8596ced737ac6ca2acda14498632" prot="public" virt="non-virtual"><scope>Ti_RegisterField</scope><name>DeviceType</name></member>
+      <member refid="struct_ti___register_field_1a4f7bd13842597a708803f0d6bed6fed9" prot="public" virt="non-virtual"><scope>Ti_RegisterField</scope><name>Values</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

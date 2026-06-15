@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_d494ed8e91d9508258ef27324b785d8a" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xgpio_8c">xgpio.c</innerfile>
+    <innerfile refid="xgpio_8h">xgpio.h</innerfile>
+    <innerfile refid="xgpio__extra_8c">xgpio_extra.c</innerfile>
+    <innerfile refid="xgpio__g_8c">xgpio_g.c</innerfile>
+    <innerfile refid="xgpio__i_8h">xgpio_i.h</innerfile>
+    <innerfile refid="xgpio__intr_8c">xgpio_intr.c</innerfile>
+    <innerfile refid="xgpio__l_8h">xgpio_l.h</innerfile>
+    <innerfile refid="xgpio__selftest_8c">xgpio_selftest.c</innerfile>
+    <innerfile refid="xgpio__sinit_8c">xgpio_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/"/>
+  </compounddef>
+</doxygen>

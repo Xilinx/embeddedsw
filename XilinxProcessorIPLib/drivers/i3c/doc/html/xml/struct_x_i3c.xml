@@ -1,0 +1,246 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_i3c" kind="struct" prot="public">
+    <compoundname>XI3c</compoundname>
+    <includes local="no">xi3c.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_i3c___config" kindref="compound">XI3c_Config</ref></type>
+        <definition>XI3c_Config XI3c::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Configuration structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="780" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" bodystart="780" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga3a6f3237b5eecb5d9144c3254dbab088" compoundref="xi3c_8c" startline="138" endline="219">XI3c_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gafb601913b993b4c23cb89306aa630be5" compoundref="xi3c_8c" startline="235" endline="250">XI3c_FillCmdFifo</referencedby>
+        <referencedby refid="group___overview_1gae0d7f9bd9e10d5de348154d823d7bea0" compoundref="xi3c__master_8c" startline="566" endline="588">XI3c_IbiRecv</referencedby>
+        <referencedby refid="group___overview_1ga09a7b530e37d1df22d1373966e826cf2" compoundref="xi3c__master_8c" startline="608" endline="660">XI3c_IbiRecvPolled</referencedby>
+        <referencedby refid="group___overview_1ga8c4e3e321553508d75097bebe04d0cf5" compoundref="xi3c__master_8c" startline="441" endline="547">XI3c_MasterInterruptHandler</referencedby>
+        <referencedby refid="group___overview_1ga65bbec96638b9e2f5627452ac9a9ae48" compoundref="xi3c__master_8c" startline="200" endline="232">XI3c_MasterRecv</referencedby>
+        <referencedby refid="group___overview_1gab0d816198d0abc6dabb332390fbe5c79" compoundref="xi3c__master_8c" startline="132" endline="180">XI3c_MasterSend</referencedby>
+        <referencedby refid="group___overview_1gad2aab26f4e34599f22921e263af12e0d" compoundref="xi3c_8c" startline="299" endline="320">XI3c_ReadRxFifo</referencedby>
+        <referencedby refid="group___overview_1ga8bdcc22a96e0b2be5e806b29761cc83a" compoundref="xi3c__options_8c" startline="53" endline="148">XI3c_SetSClk</referencedby>
+        <referencedby refid="group___overview_1ga64fba1f66dc69a20b21f414cccb90752" compoundref="xi3c__slave_8c" startline="499" endline="526">XI3c_SlaveInterruptHandler</referencedby>
+        <referencedby refid="group___overview_1ga28021172cfe5d1d3dfb20e8f3f58c94f" compoundref="xi3c__slave_8c" startline="338" endline="367">XI3c_SlaveSend</referencedby>
+        <referencedby refid="group___overview_1ga7aafe3b5f4c0b20e5f6d8b7364c9ea4a" compoundref="xi3c__slave_8c" startline="419" endline="446">XI3c_SlaveSendPolled</referencedby>
+        <referencedby refid="group___overview_1ga58e612565bbd976e98eac6753ad1ed9f" compoundref="xi3c_8c" startline="264" endline="285">XI3c_WriteTxFifo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c_1a50fcb290a96dc55a925ae6609ac639f5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XI3c::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="781" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" bodystart="781" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga3a6f3237b5eecb5d9144c3254dbab088" compoundref="xi3c_8c" startline="138" endline="219">XI3c_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga52d0b05e4f81129c7a75cefdf0ef5621" compoundref="xi3c_8c" startline="418" endline="428">XI3c_ConfigIbi</referencedby>
+        <referencedby refid="group___overview_1ga87d285dd413cf579d43a6eda306619ce" compoundref="xi3c_8c" startline="338" endline="402">XI3c_DynaAddrAssign</referencedby>
+        <referencedby refid="group___overview_1ga822775f0526bd47739bdf842954d874f" compoundref="xi3c__master_8c" startline="88" endline="111">XI3c_SendTransferCmd</referencedby>
+        <referencedby refid="group___overview_1gaa8b632c4926c7125ffe178ec72a167db" compoundref="xi3c__master_8c" startline="414" endline="421">XI3c_SetStatusHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c_1aacf49fb0c5aefd9418f78549e9393a8d" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XI3c::SendBufferPtr</definition>
+        <argsstring></argsstring>
+        <name>SendBufferPtr</name>
+        <briefdescription>
+<para>Pointer to send buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="782" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" bodystart="782" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga87d285dd413cf579d43a6eda306619ce" compoundref="xi3c_8c" startline="338" endline="402">XI3c_DynaAddrAssign</referencedby>
+        <referencedby refid="group___overview_1gab0d816198d0abc6dabb332390fbe5c79" compoundref="xi3c__master_8c" startline="132" endline="180">XI3c_MasterSend</referencedby>
+        <referencedby refid="group___overview_1ga268011500642adc668ce75abbe555a6a" compoundref="xi3c__master_8c" startline="255" endline="296">XI3c_MasterSendPolled</referencedby>
+        <referencedby refid="group___overview_1ga822775f0526bd47739bdf842954d874f" compoundref="xi3c__master_8c" startline="88" endline="111">XI3c_SendTransferCmd</referencedby>
+        <referencedby refid="group___overview_1ga28021172cfe5d1d3dfb20e8f3f58c94f" compoundref="xi3c__slave_8c" startline="338" endline="367">XI3c_SlaveSend</referencedby>
+        <referencedby refid="group___overview_1ga7aafe3b5f4c0b20e5f6d8b7364c9ea4a" compoundref="xi3c__slave_8c" startline="419" endline="446">XI3c_SlaveSendPolled</referencedby>
+        <referencedby refid="group___overview_1ga58e612565bbd976e98eac6753ad1ed9f" compoundref="xi3c_8c" startline="264" endline="285">XI3c_WriteTxFifo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c_1a3f6c4ec1591de0e048f2888c7762536c" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XI3c::RecvBufferPtr</definition>
+        <argsstring></argsstring>
+        <name>RecvBufferPtr</name>
+        <briefdescription>
+<para>Pointer to recv buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="783" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" bodystart="783" bodyend="-1"/>
+        <referencedby refid="group___overview_1gae0d7f9bd9e10d5de348154d823d7bea0" compoundref="xi3c__master_8c" startline="566" endline="588">XI3c_IbiRecv</referencedby>
+        <referencedby refid="group___overview_1ga09a7b530e37d1df22d1373966e826cf2" compoundref="xi3c__master_8c" startline="608" endline="660">XI3c_IbiRecvPolled</referencedby>
+        <referencedby refid="group___overview_1ga65bbec96638b9e2f5627452ac9a9ae48" compoundref="xi3c__master_8c" startline="200" endline="232">XI3c_MasterRecv</referencedby>
+        <referencedby refid="group___overview_1ga838caa68513d3391c4f3e85705671f46" compoundref="xi3c__master_8c" startline="320" endline="364">XI3c_MasterRecvPolled</referencedby>
+        <referencedby refid="group___overview_1gad2aab26f4e34599f22921e263af12e0d" compoundref="xi3c_8c" startline="299" endline="320">XI3c_ReadRxFifo</referencedby>
+        <referencedby refid="group___overview_1ga9808772192d0f16adaf33e61b784e3a3" compoundref="xi3c__slave_8c" startline="384" endline="397">XI3c_SlaveRecv</referencedby>
+        <referencedby refid="group___overview_1gac5999cb023a2ac9ca5dea7a9ed3edda5" compoundref="xi3c__slave_8c" startline="464" endline="480">XI3c_SlaveRecvPolled</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c_1a7a73acb245300e5187a609fffae9358b" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XI3c::SendByteCount</definition>
+        <argsstring></argsstring>
+        <name>SendByteCount</name>
+        <briefdescription>
+<para>Number of bytes still expected to send. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="784" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" bodystart="784" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga87d285dd413cf579d43a6eda306619ce" compoundref="xi3c_8c" startline="338" endline="402">XI3c_DynaAddrAssign</referencedby>
+        <referencedby refid="group___overview_1ga8c4e3e321553508d75097bebe04d0cf5" compoundref="xi3c__master_8c" startline="441" endline="547">XI3c_MasterInterruptHandler</referencedby>
+        <referencedby refid="group___overview_1gab0d816198d0abc6dabb332390fbe5c79" compoundref="xi3c__master_8c" startline="132" endline="180">XI3c_MasterSend</referencedby>
+        <referencedby refid="group___overview_1ga268011500642adc668ce75abbe555a6a" compoundref="xi3c__master_8c" startline="255" endline="296">XI3c_MasterSendPolled</referencedby>
+        <referencedby refid="group___overview_1ga822775f0526bd47739bdf842954d874f" compoundref="xi3c__master_8c" startline="88" endline="111">XI3c_SendTransferCmd</referencedby>
+        <referencedby refid="group___overview_1ga28021172cfe5d1d3dfb20e8f3f58c94f" compoundref="xi3c__slave_8c" startline="338" endline="367">XI3c_SlaveSend</referencedby>
+        <referencedby refid="group___overview_1ga7aafe3b5f4c0b20e5f6d8b7364c9ea4a" compoundref="xi3c__slave_8c" startline="419" endline="446">XI3c_SlaveSendPolled</referencedby>
+        <referencedby refid="group___overview_1ga58e612565bbd976e98eac6753ad1ed9f" compoundref="xi3c_8c" startline="264" endline="285">XI3c_WriteTxFifo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c_1a745614fa4b0314ca47aa31fd89ab49b7" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XI3c::RecvByteCount</definition>
+        <argsstring></argsstring>
+        <name>RecvByteCount</name>
+        <briefdescription>
+<para>Number of bytes still expected to receive. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="785" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" bodystart="785" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga09a7b530e37d1df22d1373966e826cf2" compoundref="xi3c__master_8c" startline="608" endline="660">XI3c_IbiRecvPolled</referencedby>
+        <referencedby refid="group___overview_1ga8c4e3e321553508d75097bebe04d0cf5" compoundref="xi3c__master_8c" startline="441" endline="547">XI3c_MasterInterruptHandler</referencedby>
+        <referencedby refid="group___overview_1ga65bbec96638b9e2f5627452ac9a9ae48" compoundref="xi3c__master_8c" startline="200" endline="232">XI3c_MasterRecv</referencedby>
+        <referencedby refid="group___overview_1ga838caa68513d3391c4f3e85705671f46" compoundref="xi3c__master_8c" startline="320" endline="364">XI3c_MasterRecvPolled</referencedby>
+        <referencedby refid="group___overview_1gad2aab26f4e34599f22921e263af12e0d" compoundref="xi3c_8c" startline="299" endline="320">XI3c_ReadRxFifo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c_1a0c086a67f034487baa4ea845f7a35a13" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XI3c::Error</definition>
+        <argsstring></argsstring>
+        <name>Error</name>
+        <briefdescription>
+<para>Error value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="786" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" bodystart="786" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga8c4e3e321553508d75097bebe04d0cf5" compoundref="xi3c__master_8c" startline="441" endline="547">XI3c_MasterInterruptHandler</referencedby>
+        <referencedby refid="group___overview_1ga64fba1f66dc69a20b21f414cccb90752" compoundref="xi3c__slave_8c" startline="499" endline="526">XI3c_SlaveInterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c_1a5fa885b8dd7a51cbbfb76d040982e083" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XI3c::CurDeviceCount</definition>
+        <argsstring></argsstring>
+        <name>CurDeviceCount</name>
+        <briefdescription>
+<para>Current number of devices on the bus. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="787" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" bodystart="787" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga3a6f3237b5eecb5d9144c3254dbab088" compoundref="xi3c_8c" startline="138" endline="219">XI3c_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga87d285dd413cf579d43a6eda306619ce" compoundref="xi3c_8c" startline="338" endline="402">XI3c_DynaAddrAssign</referencedby>
+        <referencedby refid="group___overview_1ga8c4e3e321553508d75097bebe04d0cf5" compoundref="xi3c__master_8c" startline="441" endline="547">XI3c_MasterInterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c_1a42264face85bd7505cf2eef5b1d173c8" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga7a0b155b789c03dd574c94bbf0d195db" kindref="member">XI3c_IntrHandler</ref></type>
+        <definition>XI3c_IntrHandler XI3c::StatusHandler</definition>
+        <argsstring></argsstring>
+        <name>StatusHandler</name>
+        <briefdescription>
+<para>Event handler function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="788" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" bodystart="788" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga8c4e3e321553508d75097bebe04d0cf5" compoundref="xi3c__master_8c" startline="441" endline="547">XI3c_MasterInterruptHandler</referencedby>
+        <referencedby refid="group___overview_1gaa8b632c4926c7125ffe178ec72a167db" compoundref="xi3c__master_8c" startline="414" endline="421">XI3c_SetStatusHandler</referencedby>
+        <referencedby refid="group___overview_1ga64fba1f66dc69a20b21f414cccb90752" compoundref="xi3c__slave_8c" startline="499" endline="526">XI3c_SlaveInterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c_1a3eee7c94363964228184c09bfa073b22" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_i3c___slave_info" kindref="compound">XI3c_SlaveInfo</ref></type>
+        <definition>XI3c_SlaveInfo XI3c::XI3c_SlaveInfoTable[XI3C_MAXDAACOUNT]</definition>
+        <argsstring>[XI3C_MAXDAACOUNT]</argsstring>
+        <name>XI3c_SlaveInfoTable</name>
+        <briefdescription>
+<para>Slave info table. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="789" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" bodystart="789" bodyend="-1"/>
+        <referencedby refid="xi3c__daa__example_8c_1a5bd66a6a4087eae244cffceab25badea" compoundref="xi3c__daa__example_8c" startline="113" endline="250">I3cMasterDaaExample</referencedby>
+        <referencedby refid="group___overview_1ga87d285dd413cf579d43a6eda306619ce" compoundref="xi3c_8c" startline="338" endline="402">XI3c_DynaAddrAssign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c_1a93ed676334e0e5f04dda3550f6579922" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XI3c::DirectCCC</definition>
+        <argsstring></argsstring>
+        <name>DirectCCC</name>
+        <briefdescription>
+<para>Direct CCC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="790" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" bodystart="790" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga64fba1f66dc69a20b21f414cccb90752" compoundref="xi3c__slave_8c" startline="499" endline="526">XI3c_SlaveInterruptHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_i3c" kindref="compound">XI3c</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for each I3C device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>XI3c_SlaveInfo</label>
+        <link refid="struct_x_i3c___slave_info"/>
+      </node>
+      <node id="1">
+        <label>XI3c</label>
+        <link refid="struct_x_i3c"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>XI3c_SlaveInfoTable</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>XI3c_Config</label>
+        <link refid="struct_x_i3c___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="779" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" bodystart="779" bodyend="791"/>
+    <listofallmembers>
+      <member refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" prot="public" virt="non-virtual"><scope>XI3c</scope><name>Config</name></member>
+      <member refid="struct_x_i3c_1a5fa885b8dd7a51cbbfb76d040982e083" prot="public" virt="non-virtual"><scope>XI3c</scope><name>CurDeviceCount</name></member>
+      <member refid="struct_x_i3c_1a93ed676334e0e5f04dda3550f6579922" prot="public" virt="non-virtual"><scope>XI3c</scope><name>DirectCCC</name></member>
+      <member refid="struct_x_i3c_1a0c086a67f034487baa4ea845f7a35a13" prot="public" virt="non-virtual"><scope>XI3c</scope><name>Error</name></member>
+      <member refid="struct_x_i3c_1a50fcb290a96dc55a925ae6609ac639f5" prot="public" virt="non-virtual"><scope>XI3c</scope><name>IsReady</name></member>
+      <member refid="struct_x_i3c_1a3f6c4ec1591de0e048f2888c7762536c" prot="public" virt="non-virtual"><scope>XI3c</scope><name>RecvBufferPtr</name></member>
+      <member refid="struct_x_i3c_1a745614fa4b0314ca47aa31fd89ab49b7" prot="public" virt="non-virtual"><scope>XI3c</scope><name>RecvByteCount</name></member>
+      <member refid="struct_x_i3c_1aacf49fb0c5aefd9418f78549e9393a8d" prot="public" virt="non-virtual"><scope>XI3c</scope><name>SendBufferPtr</name></member>
+      <member refid="struct_x_i3c_1a7a73acb245300e5187a609fffae9358b" prot="public" virt="non-virtual"><scope>XI3c</scope><name>SendByteCount</name></member>
+      <member refid="struct_x_i3c_1a42264face85bd7505cf2eef5b1d173c8" prot="public" virt="non-virtual"><scope>XI3c</scope><name>StatusHandler</name></member>
+      <member refid="struct_x_i3c_1a3eee7c94363964228184c09bfa073b22" prot="public" virt="non-virtual"><scope>XI3c</scope><name>XI3c_SlaveInfoTable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

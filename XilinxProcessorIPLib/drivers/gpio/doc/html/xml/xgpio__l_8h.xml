@@ -1,0 +1,471 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xgpio__l_8h" kind="file">
+    <compoundname>xgpio_l.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xgpio_8h" local="yes">xgpio.h</includedby>
+    <includedby refid="xgpio__low__level__example_8c" local="yes">xgpio_low_level_example.c</includedby>
+    <incdepgraph>
+      <node id="90">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="91">
+        <label>xil_io.h</label>
+      </node>
+      <node id="88">
+        <label>xgpio_l.h</label>
+        <link refid="xgpio_l.h"/>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+      </node>
+      <node id="89">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="99">
+        <label>xgpio_intr.c</label>
+        <link refid="xgpio__intr_8c"/>
+      </node>
+      <node id="97">
+        <label>xgpio_sinit.c</label>
+        <link refid="xgpio__sinit_8c"/>
+      </node>
+      <node id="95">
+        <label>xgpio_extra.c</label>
+        <link refid="xgpio__extra_8c"/>
+      </node>
+      <node id="92">
+        <label>xgpio_l.h</label>
+        <link refid="xgpio_l.h"/>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+      </node>
+      <node id="102">
+        <label>xgpio_intr_tapp_example.c</label>
+        <link refid="xgpio__intr__tapp__example_8c"/>
+      </node>
+      <node id="101">
+        <label>xgpio_example.c</label>
+        <link refid="xgpio__example_8c"/>
+      </node>
+      <node id="98">
+        <label>xgpio_g.c</label>
+        <link refid="xgpio__g_8c"/>
+      </node>
+      <node id="94">
+        <label>xgpio.c</label>
+        <link refid="xgpio_8c"/>
+      </node>
+      <node id="93">
+        <label>xgpio.h</label>
+        <link refid="xgpio_8h"/>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+      </node>
+      <node id="100">
+        <label>xgpio_selftest.c</label>
+        <link refid="xgpio__selftest_8c"/>
+      </node>
+      <node id="103">
+        <label>xgpio_tapp_example.c</label>
+        <link refid="xgpio__tapp__example_8c"/>
+      </node>
+      <node id="104">
+        <label>xgpio_low_level_example.c</label>
+        <link refid="xgpio__low__level__example_8c"/>
+      </node>
+      <node id="96">
+        <label>xgpio_i.h</label>
+        <link refid="xgpio__i_8h"/>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Registers</header>
+      <description><para>Register offsets for this device. </para></description>
+      <memberdef kind="define" id="group__gpio__api_1ga1712704f3a009d03d0b3201c90259793" prot="public" static="no">
+        <name>XGPIO_DATA_OFFSET</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+<para>Data register for 1st channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="xgpio__low__level__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xgpio__low__level__example_8c" startline="97" endline="142">main</referencedby>
+        <referencedby refid="group__gpio__api_1gae430718af9f347c91be42aad580b216c" compoundref="xgpio__extra_8c" startline="118" endline="138">XGpio_DiscreteClear</referencedby>
+        <referencedby refid="group__gpio__api_1gaed95c58f21d567fca624f9f51cb25e20" compoundref="xgpio_8c" startline="189" endline="199">XGpio_DiscreteRead</referencedby>
+        <referencedby refid="group__gpio__api_1ga8f2cea7ef78412c03c7ebdba87b7cdd4" compoundref="xgpio__extra_8c" startline="75" endline="95">XGpio_DiscreteSet</referencedby>
+        <referencedby refid="group__gpio__api_1gae188a28725318c991ac45afb2452ad9b" compoundref="xgpio_8c" startline="217" endline="227">XGpio_DiscreteWrite</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpio__api_1gafcefd582c52e56dc7c438a72dfa95546" prot="public" static="no">
+        <name>XGPIO_TRI_OFFSET</name>
+        <initializer>0x4</initializer>
+        <briefdescription>
+<para>I/O direction reg for 1st channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="xgpio__low__level__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xgpio__low__level__example_8c" startline="97" endline="142">main</referencedby>
+        <referencedby refid="group__gpio__api_1ga77090853c15dc3d72e2bfbc66e635ada" compoundref="xgpio_8c" startline="163" endline="173">XGpio_GetDataDirection</referencedby>
+        <referencedby refid="group__gpio__api_1gabee6bcad28382ef5ecd336887647c238" compoundref="xgpio_8c" startline="132" endline="143">XGpio_SetDataDirection</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpio__api_1gae85b884d1fb9ac4c874dd597b1a049b6" prot="public" static="no">
+        <name>XGPIO_DATA2_OFFSET</name>
+        <initializer>0x8</initializer>
+        <briefdescription>
+<para>Data register for 2nd channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__gpio__api_1gac881efa0580f36e99ab03230b26ca2e2" prot="public" static="no">
+        <name>XGPIO_TRI2_OFFSET</name>
+        <initializer>0xC</initializer>
+        <briefdescription>
+<para>I/O direction reg for 2nd channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__gpio__api_1ga389241f63fd0ce9af2c1f6dc0f69dcb3" prot="public" static="no">
+        <name>XGPIO_GIE_OFFSET</name>
+        <initializer>0x11C</initializer>
+        <briefdescription>
+<para>Glogal interrupt enable register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="group__gpio__api_1ga6241d0ae28815c258bb89a61ce0a6366" compoundref="xgpio__intr_8c" startline="95" endline="104">XGpio_InterruptGlobalDisable</referencedby>
+        <referencedby refid="group__gpio__api_1ga116bf1509220aa688f76f80501eb0d9e" compoundref="xgpio__intr_8c" startline="69" endline="77">XGpio_InterruptGlobalEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpio__api_1ga6cbde8210cb1476b67ca87eccacbc2ed" prot="public" static="no">
+        <name>XGPIO_ISR_OFFSET</name>
+        <initializer>0x120</initializer>
+        <briefdescription>
+<para>Interrupt status register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__gpio__api_1ga5138b55159f8b2387f5cf16079b40bbe" compoundref="xgpio__intr_8c" startline="191" endline="210">XGpio_InterruptClear</referencedby>
+        <referencedby refid="group__gpio__api_1ga95b0fa50ff962243ea284a4a767fe01e" compoundref="xgpio__intr_8c" startline="255" endline="263">XGpio_InterruptGetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpio__api_1ga4f62e4ffa9e47cd55133c583134f4f57" prot="public" static="no">
+        <name>XGPIO_IER_OFFSET</name>
+        <initializer>0x128</initializer>
+        <briefdescription>
+<para>Interrupt enable register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__gpio__api_1ga21c295f935fdc4e37c9f958b3652fbf6" compoundref="xgpio__intr_8c" startline="157" endline="173">XGpio_InterruptDisable</referencedby>
+        <referencedby refid="group__gpio__api_1gaa5b62394f65ecbb6566d91412616509c" compoundref="xgpio__intr_8c" startline="122" endline="139">XGpio_InterruptEnable</referencedby>
+        <referencedby refid="group__gpio__api_1ga1e5e23001aa3d35febe4859270ede71e" compoundref="xgpio__intr_8c" startline="227" endline="234">XGpio_InterruptGetEnabled</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt Status and Enable Register bitmaps and masks</header>
+      <description><para>Bit definitions for the interrupt status register and interrupt enable registers. </para></description>
+      <memberdef kind="define" id="group__gpio__api_1ga421755999f173a708b8254bb9cdc9b62" prot="public" static="no">
+        <name>XGPIO_IR_MASK</name>
+        <initializer>0x3</initializer>
+        <briefdescription>
+<para>Mask of all bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__gpio__api_1ga216177d9cad31a8fa22c4114c754f3ae" prot="public" static="no">
+        <name>XGPIO_IR_CH1_MASK</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+<para>Mask for the 1st channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__gpio__api_1ga202cdf1a14179cd31df27346a55dced4" prot="public" static="no">
+        <name>XGPIO_IR_CH2_MASK</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+<para>Mask for the 2nd channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Global Interrupt Enable Register bitmaps and masks</header>
+      <description><para>Bit definitions for the Global Interrupt Enable register </para></description>
+      <memberdef kind="define" id="group__gpio__api_1ga0b576e472f8ad06f166d9107de3b0348" prot="public" static="no">
+        <name>XGPIO_GIE_GINTR_ENABLE_MASK</name>
+        <initializer>0x80000000</initializer>
+        <briefdescription>
+<para>Mask for Global Interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" bodystart="105" bodyend="-1"/>
+        <referencedby refid="group__gpio__api_1ga116bf1509220aa688f76f80501eb0d9e" compoundref="xgpio__intr_8c" startline="69" endline="77">XGpio_InterruptGlobalEnable</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__gpio__api_1gada15711b613febaabed053cffec66e57" prot="public" static="no">
+        <name>XGPIO_L_H</name>
+        <briefdescription>
+<para>by using protection macros </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__gpio__api_1ga8929998b33d1d66fe8eaa7f454a05ca6" prot="public" static="no">
+        <name>XGPIO_CHAN_OFFSET</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Channel offeset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" bodystart="86" bodyend="-1"/>
+        <referencedby refid="xgpio__low__level__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xgpio__low__level__example_8c" startline="97" endline="142">main</referencedby>
+        <referencedby refid="group__gpio__api_1gae430718af9f347c91be42aad580b216c" compoundref="xgpio__extra_8c" startline="118" endline="138">XGpio_DiscreteClear</referencedby>
+        <referencedby refid="group__gpio__api_1gaed95c58f21d567fca624f9f51cb25e20" compoundref="xgpio_8c" startline="189" endline="199">XGpio_DiscreteRead</referencedby>
+        <referencedby refid="group__gpio__api_1ga8f2cea7ef78412c03c7ebdba87b7cdd4" compoundref="xgpio__extra_8c" startline="75" endline="95">XGpio_DiscreteSet</referencedby>
+        <referencedby refid="group__gpio__api_1gae188a28725318c991ac45afb2452ad9b" compoundref="xgpio_8c" startline="217" endline="227">XGpio_DiscreteWrite</referencedby>
+        <referencedby refid="group__gpio__api_1ga77090853c15dc3d72e2bfbc66e635ada" compoundref="xgpio_8c" startline="163" endline="173">XGpio_GetDataDirection</referencedby>
+        <referencedby refid="group__gpio__api_1gabee6bcad28382ef5ecd336887647c238" compoundref="xgpio_8c" startline="132" endline="143">XGpio_SetDataDirection</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpio__api_1gaac0c290f448e3f86b01f5fcbaa2fff08" prot="public" static="no">
+        <name>XGpio_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+<para>Input Operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__gpio__api_1ga2d9bfd9cb86f240e7c57a6f9f0728ba7" prot="public" static="no">
+        <name>XGpio_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+<para>Output Operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__gpio__api_1ga2cd75ed11bd48af96704b073fa65ef22" prot="public" static="no">
+        <name>XGpio_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer><ref refid="group__gpio__api_1ga2d9bfd9cb86f240e7c57a6f9f0728ba7" kindref="member">XGpio_Out32</ref>((BaseAddress) + (RegOffset), (u32)(Data))</initializer>
+        <briefdescription>
+<para>Performs a 32-bit write to a GPIO register. </para>        </briefdescription>
+        <detaileddescription>
+<para>If the GPIO core is implemented in a smaller width, only the least significant data is written.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the GPIO device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register offset from the base to write to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data written to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__gpio__api_1ga2cd75ed11bd48af96704b073fa65ef22" kindref="member">XGpio_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" bodystart="136" bodyend="-1"/>
+        <referencedby refid="xgpio__low__level__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xgpio__low__level__example_8c" startline="97" endline="142">main</referencedby>
+        <referencedby refid="group__gpio__api_1gae430718af9f347c91be42aad580b216c" compoundref="xgpio__extra_8c" startline="118" endline="138">XGpio_DiscreteClear</referencedby>
+        <referencedby refid="group__gpio__api_1ga8f2cea7ef78412c03c7ebdba87b7cdd4" compoundref="xgpio__extra_8c" startline="75" endline="95">XGpio_DiscreteSet</referencedby>
+        <referencedby refid="group__gpio__api_1gae188a28725318c991ac45afb2452ad9b" compoundref="xgpio_8c" startline="217" endline="227">XGpio_DiscreteWrite</referencedby>
+        <referencedby refid="group__gpio__api_1ga5138b55159f8b2387f5cf16079b40bbe" compoundref="xgpio__intr_8c" startline="191" endline="210">XGpio_InterruptClear</referencedby>
+        <referencedby refid="group__gpio__api_1ga21c295f935fdc4e37c9f958b3652fbf6" compoundref="xgpio__intr_8c" startline="157" endline="173">XGpio_InterruptDisable</referencedby>
+        <referencedby refid="group__gpio__api_1gaa5b62394f65ecbb6566d91412616509c" compoundref="xgpio__intr_8c" startline="122" endline="139">XGpio_InterruptEnable</referencedby>
+        <referencedby refid="group__gpio__api_1ga6241d0ae28815c258bb89a61ce0a6366" compoundref="xgpio__intr_8c" startline="95" endline="104">XGpio_InterruptGlobalDisable</referencedby>
+        <referencedby refid="group__gpio__api_1ga116bf1509220aa688f76f80501eb0d9e" compoundref="xgpio__intr_8c" startline="69" endline="77">XGpio_InterruptGlobalEnable</referencedby>
+        <referencedby refid="group__gpio__api_1gabee6bcad28382ef5ecd336887647c238" compoundref="xgpio_8c" startline="132" endline="143">XGpio_SetDataDirection</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpio__api_1ga7199da4092b92413af00c613c8cffa57" prot="public" static="no">
+        <name>XGpio_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer><ref refid="group__gpio__api_1gaac0c290f448e3f86b01f5fcbaa2fff08" kindref="member">XGpio_In32</ref>((BaseAddress) + (RegOffset))</initializer>
+        <briefdescription>
+<para>Reads a value from a GPIO register. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32-bit read is performed. If the GPIO core is implemented in a smaller width, only the least significant data is read from the register. The most significant data will be read as 0.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the GPIO device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register offset from the base to read from.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Data read from the register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__gpio__api_1ga7199da4092b92413af00c613c8cffa57" kindref="member">XGpio_ReadReg(u32 BaseAddress, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h" bodystart="156" bodyend="-1"/>
+        <referencedby refid="xgpio__low__level__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xgpio__low__level__example_8c" startline="97" endline="142">main</referencedby>
+        <referencedby refid="group__gpio__api_1gae430718af9f347c91be42aad580b216c" compoundref="xgpio__extra_8c" startline="118" endline="138">XGpio_DiscreteClear</referencedby>
+        <referencedby refid="group__gpio__api_1gaed95c58f21d567fca624f9f51cb25e20" compoundref="xgpio_8c" startline="189" endline="199">XGpio_DiscreteRead</referencedby>
+        <referencedby refid="group__gpio__api_1ga8f2cea7ef78412c03c7ebdba87b7cdd4" compoundref="xgpio__extra_8c" startline="75" endline="95">XGpio_DiscreteSet</referencedby>
+        <referencedby refid="group__gpio__api_1ga77090853c15dc3d72e2bfbc66e635ada" compoundref="xgpio_8c" startline="163" endline="173">XGpio_GetDataDirection</referencedby>
+        <referencedby refid="group__gpio__api_1ga5138b55159f8b2387f5cf16079b40bbe" compoundref="xgpio__intr_8c" startline="191" endline="210">XGpio_InterruptClear</referencedby>
+        <referencedby refid="group__gpio__api_1ga21c295f935fdc4e37c9f958b3652fbf6" compoundref="xgpio__intr_8c" startline="157" endline="173">XGpio_InterruptDisable</referencedby>
+        <referencedby refid="group__gpio__api_1gaa5b62394f65ecbb6566d91412616509c" compoundref="xgpio__intr_8c" startline="122" endline="139">XGpio_InterruptEnable</referencedby>
+        <referencedby refid="group__gpio__api_1ga1e5e23001aa3d35febe4859270ede71e" compoundref="xgpio__intr_8c" startline="227" endline="234">XGpio_InterruptGetEnabled</referencedby>
+        <referencedby refid="group__gpio__api_1ga95b0fa50ff962243ea284a4a767fe01e" compoundref="xgpio__intr_8c" startline="255" endline="263">XGpio_InterruptGetStatus</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor">#ifndef<sp/>XGPIO_L_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="52" refid="group__gpio__api_1gada15711b613febaabed053cffec66e57" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XGPIO_L_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72" refid="group__gpio__api_1ga1712704f3a009d03d0b3201c90259793" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIO_DATA_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73" refid="group__gpio__api_1gafcefd582c52e56dc7c438a72dfa95546" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIO_TRI_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="74" refid="group__gpio__api_1gae85b884d1fb9ac4c874dd597b1a049b6" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIO_DATA2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x8<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75" refid="group__gpio__api_1gac881efa0580f36e99ab03230b26ca2e2" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIO_TRI2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xC<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77" refid="group__gpio__api_1ga389241f63fd0ce9af2c1f6dc0f69dcb3" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIO_GIE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x11C<sp/></highlight></codeline>
+<codeline lineno="78" refid="group__gpio__api_1ga6cbde8210cb1476b67ca87eccacbc2ed" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIO_ISR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x120<sp/></highlight></codeline>
+<codeline lineno="79" refid="group__gpio__api_1ga4f62e4ffa9e47cd55133c583134f4f57" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIO_IER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x128<sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>The<sp/>following<sp/>constant<sp/>describes<sp/>the<sp/>offset<sp/>of<sp/>each<sp/>channels<sp/>data<sp/>and</highlight></codeline>
+<codeline lineno="84"><highlight class="comment"><sp/>*<sp/>tristate<sp/>register<sp/>from<sp/>the<sp/>base<sp/>address.</highlight></codeline>
+<codeline lineno="85"><highlight class="comment"><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="86" refid="group__gpio__api_1ga8929998b33d1d66fe8eaa7f454a05ca6" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XGPIO_CHAN_OFFSET<sp/><sp/>8<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="94" refid="group__gpio__api_1ga421755999f173a708b8254bb9cdc9b62" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIO_IR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3<sp/></highlight></codeline>
+<codeline lineno="95" refid="group__gpio__api_1ga216177d9cad31a8fa22c4114c754f3ae" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIO_IR_CH1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1<sp/></highlight></codeline>
+<codeline lineno="96" refid="group__gpio__api_1ga202cdf1a14179cd31df27346a55dced4" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIO_IR_CH2_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2<sp/></highlight></codeline>
+<codeline lineno="105" refid="group__gpio__api_1ga0b576e472f8ad06f166d9107de3b0348" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIO_GIE_GINTR_ENABLE_MASK<sp/><sp/><sp/><sp/><sp/>0x80000000<sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115" refid="group__gpio__api_1gaac0c290f448e3f86b01f5fcbaa2fff08" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XGpio_In32<sp/><sp/>Xil_In32<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="116" refid="group__gpio__api_1ga2d9bfd9cb86f240e7c57a6f9f0728ba7" refkind="member"><highlight class="preprocessor">#define<sp/>XGpio_Out32<sp/>Xil_Out32<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************************************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="136" refid="group__gpio__api_1ga2cd75ed11bd48af96704b073fa65ef22" refkind="member"><highlight class="preprocessor">#define<sp/>XGpio_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XGpio_Out32((BaseAddress)<sp/>+<sp/>(RegOffset),<sp/>(u32)(Data))</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="156" refid="group__gpio__api_1ga7199da4092b92413af00c613c8cffa57" refkind="member"><highlight class="preprocessor">#define<sp/>XGpio_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XGpio_In32((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio_l.h"/>
+  </compounddef>
+</doxygen>

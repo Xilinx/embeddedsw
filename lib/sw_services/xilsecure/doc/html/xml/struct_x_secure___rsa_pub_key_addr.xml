@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___rsa_pub_key_addr" kind="struct" prot="public">
+    <compoundname>XSecure_RsaPubKeyAddr</compoundname>
+    <includes local="no">xsecure_plat_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___rsa_pub_key_addr_1a3682d2c195c8b3ec80babaee866f2515" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_RsaPubKeyAddr::ModulusAddr</definition>
+        <argsstring></argsstring>
+        <name>ModulusAddr</name>
+        <briefdescription>
+<para>Modulus address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_net/xsecure_plat_defs.h" line="332" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_net/xsecure_plat_defs.h" bodystart="332" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_pub_key_addr_1a5bb10563c7e4bfb8a52de678a6a6bea8" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_RsaPubKeyAddr::ExponentAddr</definition>
+        <argsstring></argsstring>
+        <name>ExponentAddr</name>
+        <briefdescription>
+<para>Exponent address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_net/xsecure_plat_defs.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_net/xsecure_plat_defs.h" bodystart="333" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Addresses of Input parameters of RSA. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_net/xsecure_plat_defs.h" line="331" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_net/xsecure_plat_defs.h" bodystart="331" bodyend="334"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___rsa_pub_key_addr_1a5bb10563c7e4bfb8a52de678a6a6bea8" prot="public" virt="non-virtual"><scope>XSecure_RsaPubKeyAddr</scope><name>ExponentAddr</name></member>
+      <member refid="struct_x_secure___rsa_pub_key_addr_1a3682d2c195c8b3ec80babaee866f2515" prot="public" virt="non-virtual"><scope>XSecure_RsaPubKeyAddr</scope><name>ModulusAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

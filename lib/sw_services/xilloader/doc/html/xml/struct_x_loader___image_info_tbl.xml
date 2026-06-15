@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_loader___image_info_tbl" kind="struct" prot="public">
+    <compoundname>XLoader_ImageInfoTbl</compoundname>
+    <includes local="no">xloader.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_loader___image_info_tbl_1a70ab519858d36871c42e7f07e45acf32" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_ImageInfoTbl::Count</definition>
+        <argsstring></argsstring>
+        <name>Count</name>
+        <briefdescription>
+<para>Number of images. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="423" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga1174525d720931317820d083d51efdd7" compoundref="xloader_8c" startline="1385" endline="1409">XLoader_GetImageInfoEntry</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga8ee855df9e0b6924472583ce2ed0edf9" compoundref="server_2xloader__plat_8c" startline="286" endline="295">XLoader_GetImageInfoTbl</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga304b923a96834575c1fee9eed2ffb870" compoundref="xloader_8c" startline="1500" endline="1535">XLoader_LoadImageInfoTbl</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga7d21b5aaf9fbe5d87bfc45e84e5eb634" compoundref="xloader_8c" startline="1424" endline="1483">XLoader_StoreImageInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___image_info_tbl_1af949af87eb4bdc1b079156c82a04aaa9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XLoader_ImageInfoTbl::IsBufferFull</definition>
+        <argsstring></argsstring>
+        <name>IsBufferFull</name>
+        <briefdescription>
+<para>Flag to indicate if buffer is full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="424" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="424" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga304b923a96834575c1fee9eed2ffb870" compoundref="xloader_8c" startline="1500" endline="1535">XLoader_LoadImageInfoTbl</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga7d21b5aaf9fbe5d87bfc45e84e5eb634" compoundref="xloader_8c" startline="1424" endline="1483">XLoader_StoreImageInfo</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to store information about image info table. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="422" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="422" bodyend="425"/>
+    <listofallmembers>
+      <member refid="struct_x_loader___image_info_tbl_1a70ab519858d36871c42e7f07e45acf32" prot="public" virt="non-virtual"><scope>XLoader_ImageInfoTbl</scope><name>Count</name></member>
+      <member refid="struct_x_loader___image_info_tbl_1af949af87eb4bdc1b079156c82a04aaa9" prot="public" virt="non-virtual"><scope>XLoader_ImageInfoTbl</scope><name>IsBufferFull</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

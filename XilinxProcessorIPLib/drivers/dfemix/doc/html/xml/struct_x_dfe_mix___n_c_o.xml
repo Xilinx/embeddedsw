@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_mix___n_c_o" kind="struct" prot="public">
+    <compoundname>XDfeMix_NCO</compoundname>
+    <includes local="no">xdfemix.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_mix___n_c_o_1a68be3477a3fd9cb875234ce4ad916225" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_mix___frequency" kindref="compound">XDfeMix_Frequency</ref></type>
+        <definition>XDfeMix_Frequency XDfeMix_NCO::FrequencyCfg</definition>
+        <argsstring></argsstring>
+        <name>FrequencyCfg</name>
+        <briefdescription>
+<para>Frequency configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="370" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="370" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga85f60b156f5de8fd8b2ef6b182966d70" compoundref="xdfemix_8c" startline="2816" endline="2880">XDfeMix_AddCC</referencedby>
+        <referencedby refid="group__dfemix_1ga1061d48f6c831d81557dff815fc7ff1f" compoundref="xdfemix__pass__through__example_8c" startline="66" endline="178">XDfeMix_AddCCExample</referencedby>
+        <referencedby refid="group__dfemix_1gad11616c20803424abe6edac0f5f4a900" compoundref="xdfemix__multi_add_c_c__pass__through__example_8c" startline="68" endline="205">XDfeMix_MultiAddCCExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___n_c_o_1a6ca3c2cbcb844332fdf75e3cf44839d9" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_mix___phase" kindref="compound">XDfeMix_Phase</ref></type>
+        <definition>XDfeMix_Phase XDfeMix_NCO::PhaseCfg</definition>
+        <argsstring></argsstring>
+        <name>PhaseCfg</name>
+        <briefdescription>
+<para>Phase configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="371" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="371" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga85f60b156f5de8fd8b2ef6b182966d70" compoundref="xdfemix_8c" startline="2816" endline="2880">XDfeMix_AddCC</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___n_c_o_1a8482f94fbc00e305c1eacd2e78e013ea" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_NCO::NCOGain</definition>
+        <argsstring></argsstring>
+        <name>NCOGain</name>
+        <briefdescription>
+<para>[0,1,2,3] Scaling of NCO output: </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>0 = 0dB</para></listitem><listitem><para>1 = -3dB</para></listitem><listitem><para>2 = -6dB</para></listitem><listitem><para>3 =- 9dB </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="372" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="372" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga85f60b156f5de8fd8b2ef6b182966d70" compoundref="xdfemix_8c" startline="2816" endline="2880">XDfeMix_AddCC</referencedby>
+        <referencedby refid="group__dfemix_1ga1061d48f6c831d81557dff815fc7ff1f" compoundref="xdfemix__pass__through__example_8c" startline="66" endline="178">XDfeMix_AddCCExample</referencedby>
+        <referencedby refid="group__dfemix_1gad11616c20803424abe6edac0f5f4a900" compoundref="xdfemix__multi_add_c_c__pass__through__example_8c" startline="68" endline="205">XDfeMix_MultiAddCCExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Defines settings for single CC&apos;s NCO. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="48">
+        <label>XDfeMix_Phase</label>
+        <link refid="struct_x_dfe_mix___phase"/>
+      </node>
+      <node id="46">
+        <label>XDfeMix_Frequency</label>
+        <link refid="struct_x_dfe_mix___frequency"/>
+        <childnode refid="47" relation="usage">
+          <edgelabel>PhaseOffset</edgelabel>
+        </childnode>
+      </node>
+      <node id="45">
+        <label>XDfeMix_NCO</label>
+        <link refid="struct_x_dfe_mix___n_c_o"/>
+        <childnode refid="46" relation="usage">
+          <edgelabel>FrequencyCfg</edgelabel>
+        </childnode>
+        <childnode refid="48" relation="usage">
+          <edgelabel>PhaseCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="47">
+        <label>XDfeMix_PhaseOffset</label>
+        <link refid="struct_x_dfe_mix___phase_offset"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="369" bodyend="377"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_mix___n_c_o_1a68be3477a3fd9cb875234ce4ad916225" prot="public" virt="non-virtual"><scope>XDfeMix_NCO</scope><name>FrequencyCfg</name></member>
+      <member refid="struct_x_dfe_mix___n_c_o_1a8482f94fbc00e305c1eacd2e78e013ea" prot="public" virt="non-virtual"><scope>XDfeMix_NCO</scope><name>NCOGain</name></member>
+      <member refid="struct_x_dfe_mix___n_c_o_1a6ca3c2cbcb844332fdf75e3cf44839d9" prot="public" virt="non-virtual"><scope>XDfeMix_NCO</scope><name>PhaseCfg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

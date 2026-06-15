@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="_c_make_lists_8txt" kind="file"><name>CMakeLists.txt</name>
+  </compound>
+  <compound refid="xemc_8h" kind="file"><name>xemc.h</name>
+  </compound>
+  <compound refid="group__emc" kind="group"><name>emc</name>
+  </compound>
+  <compound refid="dir_62c5618d078220bd0fdca2c5f746a3dd" kind="dir"><name>emc</name>
+  </compound>
+  <compound refid="dir_f2b73eea0130853c4661ea5e859937c8" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

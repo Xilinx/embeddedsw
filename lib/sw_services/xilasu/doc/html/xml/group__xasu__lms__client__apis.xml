@@ -1,0 +1,333 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xasu__lms__client__apis" kind="group">
+    <compoundname>xasu_lms_client_apis</compoundname>
+    <title>LMS Client APIs</title>
+    <innerclass refid="struct_x_asu___lms_kat_cb_state" prot="public">XAsu_LmsKatCbState</innerclass>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xasu__lms__client__apis_1ga08e7a44d61d7236c1a383b85e983d2bf" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 LmsKatMessage[XASU_LMS_KAT_MSG_SIZE]</definition>
+        <argsstring>[XASU_LMS_KAT_MSG_SIZE]</argsstring>
+        <name>LmsKatMessage</name>
+        <initializer>= {
+	0x29U, 0xA7U, 0xACU, 0xECU, 0x4EU, 0xC2U, 0xC9U, 0xA6U, 0x0EU, 0xD5U, 0x11U, 0xD1U, 0x4FU,
+	0x48U, 0xD0U, 0xC2U, 0xF2U, 0x3AU, 0xDCU, 0xF6U, 0xACU, 0x28U, 0xCDU, 0xBAU, 0x1FU, 0xE9U,
+	0x81U, 0xD8U, 0xF4U, 0x90U, 0x8EU, 0xC5U, 0xE1U, 0x67U, 0x8CU, 0x26U, 0x92U, 0x6CU, 0xF3U,
+	0x97U, 0xD4U, 0x40U, 0xEEU, 0x6AU, 0xE6U, 0xA1U, 0x4FU, 0x40U, 0x40U, 0x65U, 0x61U, 0x32U,
+	0x39U, 0x92U, 0x66U, 0xB5U, 0xCEU, 0x3FU, 0x59U, 0x41U, 0x59U, 0x9DU, 0xE7U, 0xFDU, 0x40U,
+	0xF7U, 0x72U, 0x9FU, 0x88U, 0x11U, 0x28U, 0x54U, 0x6CU, 0x16U, 0x88U, 0x12U, 0xDEU, 0x9BU,
+	0xF9U, 0x79U, 0x2AU, 0xDBU, 0x75U, 0xDCU, 0x8EU, 0xCFU, 0xBDU, 0x54U, 0x06U, 0x15U, 0x38U,
+	0xBAU, 0xC1U, 0x5FU, 0xADU, 0x5DU, 0x52U, 0xCCU, 0x06U, 0xE0U, 0x1AU, 0x7AU, 0x1CU, 0xB6U,
+	0x41U, 0xEFU, 0x01U, 0xF7U, 0xE6U, 0x6CU, 0xCAU, 0x06U, 0xFAU, 0x1AU, 0xA1U, 0x07U, 0xFBU,
+	0x3AU, 0xCAU, 0x46U, 0xD8U, 0x8DU, 0x1AU, 0xA5U, 0xC8U, 0x69U, 0x44U, 0x6EU
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_lms.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_lms.c" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__lms__client__apis_1gaa16828224b7133f9c48a4e91720f6906" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 LmsKatPublicKey[XASU_LMS_KAT_PUB_KEY_SIZE]</definition>
+        <argsstring>[XASU_LMS_KAT_PUB_KEY_SIZE]</argsstring>
+        <name>LmsKatPublicKey</name>
+        <initializer>= {
+	0x00U, 0x00U, 0x00U, 0x05U, 0x00U, 0x00U, 0x00U, 0x04U, 0x23U, 0x20U, 0x0CU, 0x34U, 0x49U,
+	0xD6U, 0xA2U, 0x58U, 0xC1U, 0xEFU, 0xAEU, 0xF4U, 0xBFU, 0x1AU, 0xB4U, 0x12U, 0x6EU, 0xCEU,
+	0xA9U, 0x38U, 0xFFU, 0x64U, 0xE0U, 0xD7U, 0x71U, 0x76U, 0x05U, 0xEDU, 0xE9U, 0xCFU, 0xEDU,
+	0xB6U, 0xE4U, 0x41U, 0xF2U, 0x60U, 0x66U, 0xC1U, 0x0CU, 0xC8U, 0x4DU, 0x53U, 0xE5U, 0xFAU,
+	0x6CU, 0xEFU, 0x7DU, 0x85U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_lms.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_lms.c" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__lms__client__apis_1ga3c567e56a05c3b09d665ff8b68f1ce6b" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 LmsKatSignature[XASU_LMS_KAT_SIG_SIZE]</definition>
+        <argsstring>[XASU_LMS_KAT_SIG_SIZE]</argsstring>
+        <name>LmsKatSignature</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_lms.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_lms.c" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__lms__client__apis_1gaaa6e70a20d08e1f575cc85b36087be43" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_LmsSignVerify</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamsPtr, XAsu_LmsHssSignVerifyParams *LmsParamsPtr)</argsstring>
+        <name>XAsu_LmsSignVerify</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamsPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___lms_hss_sign_verify_params" kindref="compound">XAsu_LmsHssSignVerifyParams</ref> *</type>
+          <declname>LmsParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to perform LMS signature verification on the provided message using the given LMS public key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LmsParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___lms_hss_sign_verify_params" kindref="compound">XAsu_LmsHssSignVerifyParams</ref> structure which holds the parameters for LMS signature verification.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Set the command ID based on the selected SHA type.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_lms.c" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_lms.c" bodystart="201" bodyend="245"/>
+        <references refid="struct_x_asu___lms_hss_sign_verify_params_1a0f4bf85d8b3a8d0fe86f55385e9e4886" compoundref="xasu__lmsinfo_8h" startline="100">XAsu_LmsHssSignVerifyParams::ShaType</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga0c72872925cc54db53046cb5080bbfc4" compoundref="xasu__lmsinfo_8h" startline="43">XASU_LMS_SIGN_VERIFY_SHA2_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1gace0dd6bad64c1f9e152d6af57d29bbd8" compoundref="xasu__lmsinfo_8h" startline="46">XASU_LMS_SIGN_VERIFY_SHA3_CMD_ID</references>
+        <references refid="group__xasu__lms__common__apis_1ga5424e0629ae8a2da990c72a8aba4b92d" compoundref="xasu__lms__common_8c" startline="58" endline="147">XAsu_LmsValidateParams</references>
+        <references refid="group__xasu__common__defs_1ga921f56062dec043c010b8f75d4e059da" compoundref="xasu__def_8h" startline="63">XASU_MODULE_LMS_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="57">XASU_SHA2_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+        <referencedby refid="group__xasu__lms__client__apis_1ga24961041e33b59a290d2902c1d26e6e6" compoundref="xasu__lms_8c" startline="340" endline="381">XAsu_LmsSignVerifyKat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__lms__client__apis_1ga82e8754efc7bf804924fd4c107fbab54" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_HssSignVerify</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamsPtr, XAsu_LmsHssSignVerifyParams *HssParamsPtr)</argsstring>
+        <name>XAsu_HssSignVerify</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamsPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___lms_hss_sign_verify_params" kindref="compound">XAsu_LmsHssSignVerifyParams</ref> *</type>
+          <declname>HssParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to ASUFW to perform HSS (Hierarchical Signature System) signature verification on the provided message using the given HSS public key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HssParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___lms_hss_sign_verify_params" kindref="compound">XAsu_LmsHssSignVerifyParams</ref> structure which holds the parameters for HSS signature verification.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Set the command ID based on the selected SHA type.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_lms.c" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_lms.c" bodystart="266" bodyend="310"/>
+        <references refid="struct_x_asu___lms_hss_sign_verify_params_1a0f4bf85d8b3a8d0fe86f55385e9e4886" compoundref="xasu__lmsinfo_8h" startline="100">XAsu_LmsHssSignVerifyParams::ShaType</references>
+        <references refid="group__xasu__common__defs_1gafc0bd5e70151855f829588b05fdd23c9" compoundref="xasu__lmsinfo_8h" startline="49">XASU_HSS_SIGN_VERIFY_SHA2_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1gad1e778e6f2b1b5509aeacc34a06d7857" compoundref="xasu__lmsinfo_8h" startline="52">XASU_HSS_SIGN_VERIFY_SHA3_CMD_ID</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__lms__common__apis_1ga5424e0629ae8a2da990c72a8aba4b92d" compoundref="xasu__lms__common_8c" startline="58" endline="147">XAsu_LmsValidateParams</references>
+        <references refid="group__xasu__common__defs_1ga921f56062dec043c010b8f75d4e059da" compoundref="xasu__def_8h" startline="63">XASU_MODULE_LMS_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="57">XASU_SHA2_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__lms__client__apis_1ga9da80cd21355cc44f2c8ba81ae792a74" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_LmsKatCallBack</definition>
+        <argsstring>(void *CallBackRef, u32 Status)</argsstring>
+        <name>XAsu_LmsKatCallBack</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Callback handler for LMS client KAT operations. </para>        </briefdescription>
+        <detaileddescription>
+<para>Sets the completion flag and captures the operation status via per-invocation state.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the caller&apos;s XAsu_LmsKatCbState on stack. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Operation status returned by ASUFW. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_lms.c" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_lms.c" bodystart="321" bodyend="327"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__lms__client__apis_1ga24961041e33b59a290d2902c1d26e6e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_LmsSignVerifyKat</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_LmsSignVerifyKat</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function runs LMS signature verification KAT from the client side. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    It sends an LMS sign verify request to ASUFW using known good test vectors,
+    busy-waits for the response, and returns the verification result.
+</verbatim></para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if LMS signature verification KAT passes.</para></listitem><listitem><para>XST_FAILURE, if the KAT fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Configure LMS signature verification parameters using KAT vectors.</para><para>Configure client parameters for synchronous operation.</para><para>Send LMS signature verification request to ASUFW.</para><para>Busy-wait for ASUFW response.</para><para>Check verification status from callback. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_lms.c" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_lms.c" bodystart="340" bodyend="381"/>
+        <references refid="struct_x_asu___lms_hss_sign_verify_params_1ad706187fe5e4d081fcb4357cf8a380f3" compoundref="xasu__lmsinfo_8h" startline="93">XAsu_LmsHssSignVerifyParams::LmsHssKeyObj</references>
+        <references refid="struct_x_asu___lms_hss_sign_verify_params_1abc451c2fd592e99fcd0d0b333f97a117" compoundref="xasu__lmsinfo_8h" startline="94">XAsu_LmsHssSignVerifyParams::MsgAddr</references>
+        <references refid="struct_x_asu___lms_hss_sign_verify_params_1a7683e8ee4e8d6e8172ce68baf40b4cb2" compoundref="xasu__lmsinfo_8h" startline="96">XAsu_LmsHssSignVerifyParams::MsgLen</references>
+        <references refid="struct_x_asu___lms_hss_sign_verify_params_1ad28500d3973f5d86f3e6042203edc84f" compoundref="xasu__lmsinfo_8h" startline="98">XAsu_LmsHssSignVerifyParams::PreHashedMsg</references>
+        <references refid="struct_x_asu___lms_hss_key_object_1adb6a8ae23f3c636e65cc1b27bb43f8e9" compoundref="xasu__lmsinfo_8h" startline="84">XAsu_LmsHssKeyObject::PubKeyAddr</references>
+        <references refid="struct_x_asu___lms_hss_key_object_1a49158772d7b74323467a0cd6fc3a2f34" compoundref="xasu__lmsinfo_8h" startline="85">XAsu_LmsHssKeyObject::PubKeyId</references>
+        <references refid="struct_x_asu___lms_hss_key_object_1a0afb75139a65376f9dcaef5c27b6cc02" compoundref="xasu__lmsinfo_8h" startline="86">XAsu_LmsHssKeyObject::PubKeyLen</references>
+        <references refid="struct_x_asu___lms_hss_sign_verify_params_1aac66f1315c92aee53b8bcb92e438fe7b" compoundref="xasu__lmsinfo_8h" startline="101">XAsu_LmsHssSignVerifyParams::ShaMode</references>
+        <references refid="struct_x_asu___lms_hss_sign_verify_params_1a0f4bf85d8b3a8d0fe86f55385e9e4886" compoundref="xasu__lmsinfo_8h" startline="100">XAsu_LmsHssSignVerifyParams::ShaType</references>
+        <references refid="struct_x_asu___lms_hss_sign_verify_params_1ad36ea5a2491c6e52f7f57dd8401cfb57" compoundref="xasu__lmsinfo_8h" startline="95">XAsu_LmsHssSignVerifyParams::SignatureAddr</references>
+        <references refid="struct_x_asu___lms_hss_sign_verify_params_1a111e80dc30131fa73a1105897ea1cc56" compoundref="xasu__lmsinfo_8h" startline="97">XAsu_LmsHssSignVerifyParams::SignatureLen</references>
+        <references refid="group__xasu__common__defs_1ga2ce83e6be7ef8a6dc0ec9067b7e8f396" compoundref="xasu__def_8h" startline="46">XASU_CMD_SECURE</references>
+        <references refid="group__xasu__lms__client__apis_1ga795f43d3e4e7ef4434885a3de2f42693" compoundref="xasu__lms_8c" startline="398" endline="426">XAsu_HssSignVerifyKat</references>
+        <references refid="group__xasu__lms__client__apis_1ga521eee2d4b4f8ed10f30449cc514a438" compoundref="xasu__lms_8c" startline="36">XASU_LMS_KAT_MSG_SIZE</references>
+        <references refid="group__xasu__lms__client__apis_1gaed7c3320c13c9594140c368f48386c7a" compoundref="xasu__lms_8c" startline="40">XASU_LMS_KAT_PUB_KEY_SIZE</references>
+        <references refid="group__xasu__lms__client__apis_1ga14b426725ce8c7cc1c61bdf57145d6e9" compoundref="xasu__lms_8c" startline="37">XASU_LMS_KAT_SIG_SIZE</references>
+        <references refid="group__xasu__common__defs_1gaf5b9744500c904d364e7a2983888f1cb" compoundref="xasu__lmsinfo_8h" startline="77">XASU_LMS_MSG_NOT_PREHASHED</references>
+        <references refid="group__xasu__lms__client__apis_1gaaa6e70a20d08e1f575cc85b36087be43" compoundref="xasu__lms_8c" startline="201" endline="245">XAsu_LmsSignVerify</references>
+        <references refid="group__xasu__client__info_1gaf4bee00214accc868d4697e6745d83ca" compoundref="xasu__client_8h" startline="50">XASU_PRIORITY_HIGH</references>
+        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="57">XASU_SHA2_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga1b2246776bc9c632002768c9edd40340" compoundref="xasu__shainfo_8h" startline="51">XASU_SHA_MODE_256</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__lms__client__apis_1ga795f43d3e4e7ef4434885a3de2f42693" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_HssSignVerifyKat</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamsPtr)</argsstring>
+        <name>XAsu_HssSignVerifyKat</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a command to perform HSS Known Answer Tests (KAT&apos;s). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_QUEUE_FULL, if Queue buffer is full.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_lms.c" line="398" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_lms.c" bodystart="398" bodyend="426"/>
+        <references refid="group__xasu__client__info_1gae954c6c287fd8516f1cf18672f6b0eba" compoundref="xasu__client_8h" startline="51">XASU_CMD_LEN_ZERO</references>
+        <references refid="group__xasu__common__defs_1gad3adad36e5576c70dd1b0903a498295e" compoundref="xasu__lmsinfo_8h" startline="55">XASU_HSS_KAT_CMD_ID</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga921f56062dec043c010b8f75d4e059da" compoundref="xasu__def_8h" startline="63">XASU_MODULE_LMS_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <referencedby refid="group__xasu__lms__client__apis_1ga24961041e33b59a290d2902c1d26e6e6" compoundref="xasu__lms_8c" startline="340" endline="381">XAsu_LmsSignVerifyKat</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__lms__client__apis_1ga521eee2d4b4f8ed10f30449cc514a438" prot="public" static="no">
+        <name>XASU_LMS_KAT_MSG_SIZE</name>
+        <initializer>(128U)</initializer>
+        <briefdescription>
+<para>LMS KAT message size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_lms.c" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_lms.c" bodystart="36" bodyend="-1"/>
+        <referencedby refid="group__xasu__lms__client__apis_1ga24961041e33b59a290d2902c1d26e6e6" compoundref="xasu__lms_8c" startline="340" endline="381">XAsu_LmsSignVerifyKat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__lms__client__apis_1ga14b426725ce8c7cc1c61bdf57145d6e9" prot="public" static="no">
+        <name>XASU_LMS_KAT_SIG_SIZE</name>
+        <initializer>(1292U)</initializer>
+        <briefdescription>
+<para>LMS KAT signature size in bytes (H=5, LMOTS_SHA256_N32_W8) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_lms.c" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_lms.c" bodystart="37" bodyend="-1"/>
+        <referencedby refid="group__xasu__lms__client__apis_1ga24961041e33b59a290d2902c1d26e6e6" compoundref="xasu__lms_8c" startline="340" endline="381">XAsu_LmsSignVerifyKat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__lms__client__apis_1gaed7c3320c13c9594140c368f48386c7a" prot="public" static="no">
+        <name>XASU_LMS_KAT_PUB_KEY_SIZE</name>
+        <initializer>(56U)</initializer>
+        <briefdescription>
+<para>LMS KAT public key size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_lms.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_lms.c" bodystart="40" bodyend="-1"/>
+        <referencedby refid="group__xasu__lms__client__apis_1ga24961041e33b59a290d2902c1d26e6e6" compoundref="xasu__lms_8c" startline="340" endline="381">XAsu_LmsSignVerifyKat</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

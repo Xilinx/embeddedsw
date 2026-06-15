@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="_r_e_a_d_m_e_8md" kind="file">
+    <compoundname>README.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">###############################################################################</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#</highlight></codeline>
+<codeline lineno="5"><highlight class="preprocessor"></highlight><highlight class="preprocessor">###############################################################################</highlight></codeline>
+<codeline lineno="6"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>Steps<sp/>to<sp/>create<sp/>BSP,<sp/>FSBL<sp/>application<sp/>and<sp/>Test<sp/>application.</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">##<sp/>Creating<sp/>the<sp/>BSP:</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal">1.<sp/>File<sp/>&gt;<sp/>New<sp/>&gt;<sp/>Board<sp/>Support<sp/>Package.</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">2.<sp/>Click<sp/>on<sp/></highlight><highlight class="stringliteral">&apos;Specify&apos;</highlight><highlight class="normal"><sp/>and<sp/>Browse<sp/>the<sp/>design<sp/>file(hdf)<sp/>contains<sp/>rfdc<sp/>IP<sp/>and<sp/>Click<sp/>&apos;Finish&apos;.</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">3.<sp/>Rename<sp/>the<sp/>Project<sp/>name<sp/>(if<sp/>required)<sp/>and<sp/>Click<sp/>&apos;Finish&apos;.</highlight></codeline>
+<codeline lineno="12"><highlight class="normal">3.<sp/>Select<sp/>the<sp/>Libmetal<sp/>library<sp/>in<sp/>the<sp/>Supported<sp/>Libraries<sp/>(Libmetal<sp/>library<sp/>is<sp/>required<sp/>to<sp/>compile<sp/>rfdc<sp/>driver)<sp/>and<sp/>Click<sp/>&apos;OK&apos;.</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">##<sp/>Creating<sp/>the<sp/>FSBL:</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="normal">1.<sp/>File<sp/>&gt;<sp/>New<sp/>&gt;<sp/>Application<sp/>Project</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">2.<sp/>Give<sp/>some<sp/>Project<sp/>name.</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">3.<sp/>Under<sp/>Board<sp/>Support<sp/>Package<sp/>select<sp/>Use<sp/>existing<sp/>and<sp/>select<sp/>the<sp/>existing<sp/>bsp<sp/>in<sp/>the<sp/>drop<sp/>down<sp/>list.</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">4.<sp/>Click<sp/></highlight><highlight class="stringliteral">&apos;Next&apos;</highlight><highlight class="normal">,<sp/>select<sp/>the<sp/>ZynqMP<sp/>FSBL<sp/>and<sp/>Click<sp/></highlight><highlight class="stringliteral">&apos;Finish&apos;</highlight><highlight class="normal">.</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal">##<sp/>Creating<sp/>the<sp/>Application:</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">1.<sp/>File<sp/>&gt;<sp/>New<sp/>&gt;<sp/>Application<sp/>Project</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">2.<sp/>Give<sp/>some<sp/>Project<sp/>name.</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">3.<sp/>Under<sp/>Board<sp/>Support<sp/>Package<sp/>select<sp/>Use<sp/>existing<sp/>and<sp/>select<sp/>the<sp/>existing<sp/>bsp<sp/>in<sp/>the<sp/>drop<sp/>down<sp/>list.</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">4.<sp/>Click<sp/></highlight><highlight class="stringliteral">&apos;Next&apos;</highlight><highlight class="normal">,<sp/>select<sp/>the<sp/>Empty<sp/>Application<sp/>and<sp/>Click<sp/></highlight><highlight class="stringliteral">&apos;Finish&apos;</highlight><highlight class="normal">.</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">5.<sp/>Copy<sp/>the<sp/>test<sp/>application<sp/>in<sp/>the<sp/>src<sp/>directory<sp/>of<sp/>the<sp/>application<sp/>project<sp/>to<sp/>create<sp/>the<sp/>binary<sp/>file(.elf)</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/README.md"/>
+  </compounddef>
+</doxygen>

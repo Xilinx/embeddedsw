@@ -1,0 +1,336 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___ecies_params" kind="struct" prot="public">
+    <compoundname>XAsu_EciesParams</compoundname>
+    <includes local="no">xasu_eciesinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___ecies_params_1a71659976f54404c81a55e6b586d96b8d" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_EciesParams::RxKeyAddr</definition>
+        <argsstring></argsstring>
+        <name>RxKeyAddr</name>
+        <briefdescription>
+<para><verbatim>Address of Rx&apos;s public key(length: 2 * EccKeyLength) for encryption or
+</verbatim> Rx private key(length: EccKeyLength) for decryption </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+        <referencedby refid="group__xasu__ecies__common__apis_1ga91448b30f049e4d7596cff8103bb6d60" compoundref="xasu__ecies__common_8c" startline="61" endline="106">XAsu_ValidateEciesParameters</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecies_params_1a4907eea1457b2fc81b608306e89f59df" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_EciesParams::TxKeyAddr</definition>
+        <argsstring></argsstring>
+        <name>TxKeyAddr</name>
+        <briefdescription>
+<para><verbatim>Address of Tx&apos;s public key(length: 2 * EccKeyLength):
+</verbatim> which will be an Output for encryption or input for decryption </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+        <referencedby refid="group__xasu__ecies__common__apis_1ga91448b30f049e4d7596cff8103bb6d60" compoundref="xasu__ecies__common_8c" startline="61" endline="106">XAsu_ValidateEciesParameters</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecies_params_1a2bfd1ff2f154a70612c91d482c5ceea6" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_EciesParams::InDataAddr</definition>
+        <argsstring></argsstring>
+        <name>InDataAddr</name>
+        <briefdescription>
+<para><verbatim> Input maddress which holds : The plaintext for encryption or ciphertext
+</verbatim> for decryption </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+        <referencedby refid="group__xasu__ecies__common__apis_1ga91448b30f049e4d7596cff8103bb6d60" compoundref="xasu__ecies__common_8c" startline="61" endline="106">XAsu_ValidateEciesParameters</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecies_params_1abd49b0a55a8d01a3f7c58b1ae01de258" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_EciesParams::IvAddr</definition>
+        <argsstring></argsstring>
+        <name>IvAddr</name>
+        <briefdescription>
+<para>IV address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+        <referencedby refid="group__xasu__ecies__common__apis_1ga91448b30f049e4d7596cff8103bb6d60" compoundref="xasu__ecies__common_8c" startline="61" endline="106">XAsu_ValidateEciesParameters</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecies_params_1aba4409421f368710659a861058b385df" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_EciesParams::OutDataAddr</definition>
+        <argsstring></argsstring>
+        <name>OutDataAddr</name>
+        <briefdescription>
+<para>Output address: Ciphertext for encryption, Plaintext for decryption. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+        <referencedby refid="group__xasu__ecies__common__apis_1ga91448b30f049e4d7596cff8103bb6d60" compoundref="xasu__ecies__common_8c" startline="61" endline="106">XAsu_ValidateEciesParameters</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecies_params_1a66353da061945a39bccef5de85f92ff1" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_EciesParams::MacAddr</definition>
+        <argsstring></argsstring>
+        <name>MacAddr</name>
+        <briefdescription>
+<para>MAC Address: Output for encryption, input for decryption. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+        <referencedby refid="group__xasu__ecies__common__apis_1ga91448b30f049e4d7596cff8103bb6d60" compoundref="xasu__ecies__common_8c" startline="61" endline="106">XAsu_ValidateEciesParameters</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecies_params_1a4d0d8cb38d8498d24bc76851076e9710" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_EciesParams::ContextAddr</definition>
+        <argsstring></argsstring>
+        <name>ContextAddr</name>
+        <briefdescription>
+<para>Context address which is used for generating the HKDF. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+        <referencedby refid="group__xasu__ecies__common__apis_1ga91448b30f049e4d7596cff8103bb6d60" compoundref="xasu__ecies__common_8c" startline="61" endline="106">XAsu_ValidateEciesParameters</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecies_params_1a0a6141d2d913719a1449834eab52236f" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_EciesParams::SaltAddr</definition>
+        <argsstring></argsstring>
+        <name>SaltAddr</name>
+        <briefdescription>
+<para>Address of the buffer holding salt used for generating the HKDF. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecies_params_1a7f5403c6f796150c6063a606be622ca6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_EciesParams::SaltLen</definition>
+        <argsstring></argsstring>
+        <name>SaltLen</name>
+        <briefdescription>
+<para>Length of the Salt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecies_params_1a30ccc1b46bce15797bf5cbdccd4acfc4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_EciesParams::ContextLen</definition>
+        <argsstring></argsstring>
+        <name>ContextLen</name>
+        <briefdescription>
+<para>Length of the Context. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+        <referencedby refid="group__xasu__ecies__common__apis_1ga91448b30f049e4d7596cff8103bb6d60" compoundref="xasu__ecies__common_8c" startline="61" endline="106">XAsu_ValidateEciesParameters</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecies_params_1a10c2ea889b613ea55ca3c415e4c621e6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_EciesParams::DataLength</definition>
+        <argsstring></argsstring>
+        <name>DataLength</name>
+        <briefdescription>
+<para>Length of the Plaintext/Ciphertext in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+        <referencedby refid="group__xasu__ecies__common__apis_1ga91448b30f049e4d7596cff8103bb6d60" compoundref="xasu__ecies__common_8c" startline="61" endline="106">XAsu_ValidateEciesParameters</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecies_params_1a0bd65aa5b7faf176c9e52e3e2347cc98" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_EciesParams::EccCurveType</definition>
+        <argsstring></argsstring>
+        <name>EccCurveType</name>
+        <briefdescription>
+<para>ECC curve type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+        <referencedby refid="group__xasu__ecies__common__apis_1ga91448b30f049e4d7596cff8103bb6d60" compoundref="xasu__ecies__common_8c" startline="61" endline="106">XAsu_ValidateEciesParameters</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecies_params_1ad61d0a4035cef34a092e8b8ee2413d1d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_EciesParams::ShaType</definition>
+        <argsstring></argsstring>
+        <name>ShaType</name>
+        <briefdescription>
+<para>Hash family type (XASU_SHA2_TYPE / XASU_SHA3_TYPE) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+        <referencedby refid="group__xasu__ecies__client__apis_1ga689f879d22a42d9da5fe3148cd307883" compoundref="xasu__ecies_8c" startline="124" endline="167">XAsu_EciesDecrypt</referencedby>
+        <referencedby refid="group__xasu__ecies__client__apis_1gafa9ae6edbd3dba6873779ab7bdc055b4" compoundref="xasu__ecies_8c" startline="62" endline="105">XAsu_EciesEncrypt</referencedby>
+        <referencedby refid="group__xasu__ecies__common__apis_1ga91448b30f049e4d7596cff8103bb6d60" compoundref="xasu__ecies__common_8c" startline="61" endline="106">XAsu_ValidateEciesParameters</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecies_params_1a7a3828422b375b9cb454b46ea9bf2404" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_EciesParams::ShaMode</definition>
+        <argsstring></argsstring>
+        <name>ShaMode</name>
+        <briefdescription>
+<para><verbatim>   SHA Mode, where XASU_SHA_MODE_SHAKE256 is valid only for SHA3 Type
+</verbatim> (XASU_SHA_MODE_256 / XASU_SHA_MODE_384 / XASU_SHA_MODE_512 / XASU_SHA_MODE_SHAKE256) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+        <referencedby refid="group__xasu__ecies__common__apis_1ga91448b30f049e4d7596cff8103bb6d60" compoundref="xasu__ecies__common_8c" startline="61" endline="106">XAsu_ValidateEciesParameters</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecies_params_1a23d473003a0761f64ff3d1bec22a7ce5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_EciesParams::Reserved</definition>
+        <argsstring></argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Reserved. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecies_params_1a5537a865706283c027ee9e95ba39bb5d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_EciesParams::AesKeySize</definition>
+        <argsstring></argsstring>
+        <name>AesKeySize</name>
+        <briefdescription>
+<para>AES key size XASU_AES_KEY_SIZE_128_BITS: 128 bit key, XASU_AES_KEY_SIZE_256_BITS: 256 bit key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+        <referencedby refid="group__xasu__ecies__common__apis_1ga91448b30f049e4d7596cff8103bb6d60" compoundref="xasu__ecies__common_8c" startline="61" endline="106">XAsu_ValidateEciesParameters</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecies_params_1a0de4e32a344bfe210b9a8e60c387e152" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_EciesParams::EccKeyLength</definition>
+        <argsstring></argsstring>
+        <name>EccKeyLength</name>
+        <briefdescription>
+<para>Length of the provided ECC curve in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+        <referencedby refid="group__xasu__ecies__common__apis_1ga91448b30f049e4d7596cff8103bb6d60" compoundref="xasu__ecies__common_8c" startline="61" endline="106">XAsu_ValidateEciesParameters</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecies_params_1a5d1fd299bcddc8bc104d0049fcef8a4d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_EciesParams::IvLength</definition>
+        <argsstring></argsstring>
+        <name>IvLength</name>
+        <briefdescription>
+<para>Length of the IV in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+        <referencedby refid="group__xasu__ecies__common__apis_1ga91448b30f049e4d7596cff8103bb6d60" compoundref="xasu__ecies__common_8c" startline="61" endline="106">XAsu_ValidateEciesParameters</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecies_params_1a5e4045d64d4cddc996491a4355a39a8e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_EciesParams::MacLength</definition>
+        <argsstring></argsstring>
+        <name>MacLength</name>
+        <briefdescription>
+<para>Length of the MAC in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+        <referencedby refid="group__xasu__ecies__common__apis_1ga91448b30f049e4d7596cff8103bb6d60" compoundref="xasu__ecies__common_8c" startline="61" endline="106">XAsu_ValidateEciesParameters</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ecies_params_1ab7864818d89b245a4d09d8ab82aa86f5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_EciesParams::Reserved2[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Reserved2</name>
+        <briefdescription>
+<para>Explicit padding to ensure consistent struct size across architectures. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains ECIES params info. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="53" bodyend="80"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___ecies_params_1a5537a865706283c027ee9e95ba39bb5d" prot="public" virt="non-virtual"><scope>XAsu_EciesParams</scope><name>AesKeySize</name></member>
+      <member refid="struct_x_asu___ecies_params_1a4d0d8cb38d8498d24bc76851076e9710" prot="public" virt="non-virtual"><scope>XAsu_EciesParams</scope><name>ContextAddr</name></member>
+      <member refid="struct_x_asu___ecies_params_1a30ccc1b46bce15797bf5cbdccd4acfc4" prot="public" virt="non-virtual"><scope>XAsu_EciesParams</scope><name>ContextLen</name></member>
+      <member refid="struct_x_asu___ecies_params_1a10c2ea889b613ea55ca3c415e4c621e6" prot="public" virt="non-virtual"><scope>XAsu_EciesParams</scope><name>DataLength</name></member>
+      <member refid="struct_x_asu___ecies_params_1a0bd65aa5b7faf176c9e52e3e2347cc98" prot="public" virt="non-virtual"><scope>XAsu_EciesParams</scope><name>EccCurveType</name></member>
+      <member refid="struct_x_asu___ecies_params_1a0de4e32a344bfe210b9a8e60c387e152" prot="public" virt="non-virtual"><scope>XAsu_EciesParams</scope><name>EccKeyLength</name></member>
+      <member refid="struct_x_asu___ecies_params_1a2bfd1ff2f154a70612c91d482c5ceea6" prot="public" virt="non-virtual"><scope>XAsu_EciesParams</scope><name>InDataAddr</name></member>
+      <member refid="struct_x_asu___ecies_params_1abd49b0a55a8d01a3f7c58b1ae01de258" prot="public" virt="non-virtual"><scope>XAsu_EciesParams</scope><name>IvAddr</name></member>
+      <member refid="struct_x_asu___ecies_params_1a5d1fd299bcddc8bc104d0049fcef8a4d" prot="public" virt="non-virtual"><scope>XAsu_EciesParams</scope><name>IvLength</name></member>
+      <member refid="struct_x_asu___ecies_params_1a66353da061945a39bccef5de85f92ff1" prot="public" virt="non-virtual"><scope>XAsu_EciesParams</scope><name>MacAddr</name></member>
+      <member refid="struct_x_asu___ecies_params_1a5e4045d64d4cddc996491a4355a39a8e" prot="public" virt="non-virtual"><scope>XAsu_EciesParams</scope><name>MacLength</name></member>
+      <member refid="struct_x_asu___ecies_params_1aba4409421f368710659a861058b385df" prot="public" virt="non-virtual"><scope>XAsu_EciesParams</scope><name>OutDataAddr</name></member>
+      <member refid="struct_x_asu___ecies_params_1a23d473003a0761f64ff3d1bec22a7ce5" prot="public" virt="non-virtual"><scope>XAsu_EciesParams</scope><name>Reserved</name></member>
+      <member refid="struct_x_asu___ecies_params_1ab7864818d89b245a4d09d8ab82aa86f5" prot="public" virt="non-virtual"><scope>XAsu_EciesParams</scope><name>Reserved2</name></member>
+      <member refid="struct_x_asu___ecies_params_1a71659976f54404c81a55e6b586d96b8d" prot="public" virt="non-virtual"><scope>XAsu_EciesParams</scope><name>RxKeyAddr</name></member>
+      <member refid="struct_x_asu___ecies_params_1a0a6141d2d913719a1449834eab52236f" prot="public" virt="non-virtual"><scope>XAsu_EciesParams</scope><name>SaltAddr</name></member>
+      <member refid="struct_x_asu___ecies_params_1a7f5403c6f796150c6063a606be622ca6" prot="public" virt="non-virtual"><scope>XAsu_EciesParams</scope><name>SaltLen</name></member>
+      <member refid="struct_x_asu___ecies_params_1a7a3828422b375b9cb454b46ea9bf2404" prot="public" virt="non-virtual"><scope>XAsu_EciesParams</scope><name>ShaMode</name></member>
+      <member refid="struct_x_asu___ecies_params_1ad61d0a4035cef34a092e8b8ee2413d1d" prot="public" virt="non-virtual"><scope>XAsu_EciesParams</scope><name>ShaType</name></member>
+      <member refid="struct_x_asu___ecies_params_1a4907eea1457b2fc81b608306e89f59df" prot="public" virt="non-virtual"><scope>XAsu_EciesParams</scope><name>TxKeyAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

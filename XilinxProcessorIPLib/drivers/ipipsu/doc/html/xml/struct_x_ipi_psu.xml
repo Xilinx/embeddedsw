@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ipi_psu" kind="struct" prot="public">
+    <compoundname>XIpiPsu</compoundname>
+    <includes local="no">xipipsu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_ipi_psu___config" kindref="compound">XIpiPsu_Config</ref></type>
+        <definition>XIpiPsu_Config XIpiPsu::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Configuration structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" bodystart="164" bodyend="-1"/>
+        <referencedby refid="xipipsu__self__test__example_8c_1a2dc7058c8f10506fd4279462d399d33a" compoundref="xipipsu__self__test__example_8c" startline="116" endline="169">IpiIntrHandler</referencedby>
+        <referencedby refid="xipipsu__self__test__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xipipsu__self__test__example_8c" startline="291" endline="357">main</referencedby>
+        <referencedby refid="group__ipipsu_1ga9fb4494480ae0079422956f2af1da357" compoundref="xipipsu_8c" startline="69" endline="102">XIpiPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__ipipsu__api_1ga7d429daed621ef6c33656d873e31d9b3" compoundref="xipipsu__helper_8c" startline="107" endline="125">XIpiPsu_GetBufferIndex</referencedby>
+        <referencedby refid="group__ipipsu_1ga8153ea7257d7db9dd3f2ac0dd03e2ee2" compoundref="xipipsu_8c" startline="165" endline="191">XIpiPsu_PollForAck</referencedby>
+        <referencedby refid="group__ipipsu_1ga64113249dac23760b5cc0e9d038f8361" compoundref="xipipsu_8c" startline="207" endline="248">XIpiPsu_ReadMessage</referencedby>
+        <referencedby refid="group__ipipsu_1ga9c55b8deb0e6b0a4ff355ad3a74aa2f1" compoundref="xipipsu_8c" startline="113" endline="128">XIpiPsu_Reset</referencedby>
+        <referencedby refid="group__ipipsu_1ga8aa0005ec03abef3b3c1a506cb924e6e" compoundref="xipipsu_8c" startline="141" endline="152">XIpiPsu_TriggerIpi</referencedby>
+        <referencedby refid="group__ipipsu_1ga429d934e93e38c71d92ad98775b9cd92" compoundref="xipipsu_8c" startline="264" endline="296">XIpiPsu_WriteMessage</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ipi_psu_1adefbfd74e9c2ee38710b9ed805504a68" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIpiPsu::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" bodystart="165" bodyend="-1"/>
+        <referencedby refid="group__ipipsu_1ga9fb4494480ae0079422956f2af1da357" compoundref="xipipsu_8c" startline="69" endline="102">XIpiPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__ipipsu_1ga8153ea7257d7db9dd3f2ac0dd03e2ee2" compoundref="xipipsu_8c" startline="165" endline="191">XIpiPsu_PollForAck</referencedby>
+        <referencedby refid="group__ipipsu_1ga64113249dac23760b5cc0e9d038f8361" compoundref="xipipsu_8c" startline="207" endline="248">XIpiPsu_ReadMessage</referencedby>
+        <referencedby refid="group__ipipsu_1ga9c55b8deb0e6b0a4ff355ad3a74aa2f1" compoundref="xipipsu_8c" startline="113" endline="128">XIpiPsu_Reset</referencedby>
+        <referencedby refid="group__ipipsu_1ga8aa0005ec03abef3b3c1a506cb924e6e" compoundref="xipipsu_8c" startline="141" endline="152">XIpiPsu_TriggerIpi</referencedby>
+        <referencedby refid="group__ipipsu_1ga429d934e93e38c71d92ad98775b9cd92" compoundref="xipipsu_8c" startline="264" endline="296">XIpiPsu_WriteMessage</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ipi_psu_1a26891ae815855a3c841af3bdb4996823" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIpiPsu::Options</definition>
+        <argsstring></argsstring>
+        <name>Options</name>
+        <briefdescription>
+<para>Options set in the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for each IPI device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="3">
+        <label>XIpiPsu_Target</label>
+        <link refid="struct_x_ipi_psu___target"/>
+      </node>
+      <node id="2">
+        <label>XIpiPsu_Config</label>
+        <link refid="struct_x_ipi_psu___config"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>TargetList</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>XIpiPsu</label>
+        <link refid="struct_x_ipi_psu"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.h" bodystart="163" bodyend="167"/>
+    <listofallmembers>
+      <member refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" prot="public" virt="non-virtual"><scope>XIpiPsu</scope><name>Config</name></member>
+      <member refid="struct_x_ipi_psu_1adefbfd74e9c2ee38710b9ed805504a68" prot="public" virt="non-virtual"><scope>XIpiPsu</scope><name>IsReady</name></member>
+      <member refid="struct_x_ipi_psu_1a26891ae815855a3c841af3bdb4996823" prot="public" virt="non-virtual"><scope>XIpiPsu</scope><name>Options</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

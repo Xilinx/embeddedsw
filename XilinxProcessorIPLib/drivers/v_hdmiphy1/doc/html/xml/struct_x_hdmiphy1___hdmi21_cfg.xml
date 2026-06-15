@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdmiphy1___hdmi21_cfg" kind="struct" prot="public">
+    <compoundname>XHdmiphy1_Hdmi21Cfg</compoundname>
+    <includes local="no">xhdmiphy1.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdmiphy1___hdmi21_cfg_1aa0dc355514f68382f6bfaced2f6e979b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiphy1_Hdmi21Cfg::IsEnabled</definition>
+        <argsstring></argsstring>
+        <name>IsEnabled</name>
+        <briefdescription>
+<para>Is HDMI operation is enabled? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="675" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="675" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gabb75647ab6dfd99febccba18593e86d8" compoundref="xhdmiphy1__hdmi_8c" startline="746" endline="777">XHdmiphy1_ClkDetGetRefClkFreqHz</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga1e17b8f3099b9edb96bdf732671b7efc" compoundref="xhdmiphy1__hdmi_8c" startline="2709" endline="2764">XHdmiphy1_Hdmi20Config</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga2aa401218d0bc4c64c2210f85ccee457" compoundref="xhdmiphy1__hdmi_8c" startline="2811" endline="2941">XHdmiphy1_Hdmi21Config</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi_8c_1aefc037877ed6316c6995845442a31971" compoundref="xhdmiphy1__hdmi_8c" startline="2137" endline="2353">XHdmiphy1_HdmiCpllParam</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1ad65db64a87467172db631b182c2ddd2d" compoundref="xhdmiphy1__hdmi__intr_8c" startline="586" endline="647">XHdmiphy1_HdmiGtTxResetDoneLockHandler</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi_8c_1a026bd874ba52e36d8f0e770b962543f9" compoundref="xhdmiphy1__hdmi_8c" startline="1842" endline="2118">XHdmiphy1_HdmiQpllParam</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1a80cae1429b5d37ffec8de9763de00f56" compoundref="xhdmiphy1__hdmi__intr_8c" startline="785" endline="874">XHdmiphy1_HdmiRxClkDetFreqChangeHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga5a0a82f90d7a0f1c4c8180cfb465de0a" compoundref="xhdmiphy1__hdmi__intr_8c" startline="989" endline="1107">XHdmiphy1_HdmiRxTimerTimeoutHandler</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1afc3e2c76a28022e9d12a96990cc2fc83" compoundref="xhdmiphy1__hdmi__intr_8c" startline="700" endline="771">XHdmiphy1_HdmiTxClkDetFreqChangeHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gada0844e8a6a828bb7d512259aca11498" compoundref="xhdmiphy1__hdmi__intr_8c" startline="887" endline="976">XHdmiphy1_HdmiTxTimerTimeoutHandler</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga69e679f0c4444350910817be69cde77c" compoundref="xhdmiphy1__hdmi_8c" startline="2490" endline="2564">XHdmiphy1_SetHdmiTxParam</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___hdmi21_cfg_1a724279f7463626815c9b4abf031a1bca" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XHdmiphy1_Hdmi21Cfg::LineRate</definition>
+        <argsstring></argsstring>
+        <name>LineRate</name>
+        <briefdescription>
+<para>Linerate in bps. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="676" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="676" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1ga1e17b8f3099b9edb96bdf732671b7efc" compoundref="xhdmiphy1__hdmi_8c" startline="2709" endline="2764">XHdmiphy1_Hdmi20Config</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga2aa401218d0bc4c64c2210f85ccee457" compoundref="xhdmiphy1__hdmi_8c" startline="2811" endline="2941">XHdmiphy1_Hdmi21Config</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi_8c_1aefc037877ed6316c6995845442a31971" compoundref="xhdmiphy1__hdmi_8c" startline="2137" endline="2353">XHdmiphy1_HdmiCpllParam</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi_8c_1a026bd874ba52e36d8f0e770b962543f9" compoundref="xhdmiphy1__hdmi_8c" startline="1842" endline="2118">XHdmiphy1_HdmiQpllParam</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___hdmi21_cfg_1a04a6bd81ffca3e97def17f614f86f985" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiphy1_Hdmi21Cfg::NChannels</definition>
+        <argsstring></argsstring>
+        <name>NChannels</name>
+        <briefdescription>
+<para>No of Channels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="677" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="677" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1ga1e17b8f3099b9edb96bdf732671b7efc" compoundref="xhdmiphy1__hdmi_8c" startline="2709" endline="2764">XHdmiphy1_Hdmi20Config</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga2aa401218d0bc4c64c2210f85ccee457" compoundref="xhdmiphy1__hdmi_8c" startline="2811" endline="2941">XHdmiphy1_Hdmi21Config</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1ad65db64a87467172db631b182c2ddd2d" compoundref="xhdmiphy1__hdmi__intr_8c" startline="586" endline="647">XHdmiphy1_HdmiGtTxResetDoneLockHandler</referencedby>
+        <referencedby refid="xhdmiphy1__hdmi__intr_8c_1afc3e2c76a28022e9d12a96990cc2fc83" compoundref="xhdmiphy1__hdmi__intr_8c" startline="700" endline="771">XHdmiphy1_HdmiTxClkDetFreqChangeHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the HDMI 2.1 FRL configurations. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="674" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="674" bodyend="678"/>
+    <listofallmembers>
+      <member refid="struct_x_hdmiphy1___hdmi21_cfg_1aa0dc355514f68382f6bfaced2f6e979b" prot="public" virt="non-virtual"><scope>XHdmiphy1_Hdmi21Cfg</scope><name>IsEnabled</name></member>
+      <member refid="struct_x_hdmiphy1___hdmi21_cfg_1a724279f7463626815c9b4abf031a1bca" prot="public" virt="non-virtual"><scope>XHdmiphy1_Hdmi21Cfg</scope><name>LineRate</name></member>
+      <member refid="struct_x_hdmiphy1___hdmi21_cfg_1a04a6bd81ffca3e97def17f614f86f985" prot="public" virt="non-virtual"><scope>XHdmiphy1_Hdmi21Cfg</scope><name>NChannels</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

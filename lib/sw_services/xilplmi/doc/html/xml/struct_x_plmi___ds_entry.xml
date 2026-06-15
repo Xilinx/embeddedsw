@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_plmi___ds_entry" kind="struct" prot="public">
+    <compoundname>XPlmi_DsEntry</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_plmi___ds_entry_1a8c09b8d69d28dbc7dd35079bfce8ff37" prot="public" static="no" mutable="no">
+        <type>XPlmi_DsHdr</type>
+        <definition>XPlmi_DsHdr XPlmi_DsEntry::DsHdr</definition>
+        <argsstring></argsstring>
+        <name>DsHdr</name>
+        <briefdescription>
+<para>Data Structure Header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___ds_entry_1ab4f0d9e2ca5895b65d2fbc36437e6aea" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_DsEntry::Addr</definition>
+        <argsstring></argsstring>
+        <name>Addr</name>
+        <briefdescription>
+<para>Address of the Data Structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___ds_entry_1a62a5e702ef3c21811e47e090946c5203" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XPlmi_DsEntry::Handler)(u32 Op, u64 Addr, void *Data)</definition>
+        <argsstring>)(u32 Op, u64 Addr, void *Data)</argsstring>
+        <name>Handler</name>
+        <briefdescription>
+<para>Handler for the Data Structure operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" bodystart="79" bodyend="83"/>
+    <listofallmembers>
+      <member refid="struct_x_plmi___ds_entry_1ab4f0d9e2ca5895b65d2fbc36437e6aea" prot="public" virt="non-virtual"><scope>XPlmi_DsEntry</scope><name>Addr</name></member>
+      <member refid="struct_x_plmi___ds_entry_1a8c09b8d69d28dbc7dd35079bfce8ff37" prot="public" virt="non-virtual"><scope>XPlmi_DsEntry</scope><name>DsHdr</name></member>
+      <member refid="struct_x_plmi___ds_entry_1a62a5e702ef3c21811e47e090946c5203" prot="public" virt="non-virtual"><scope>XPlmi_DsEntry</scope><name>Handler</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v_mix___layer" kind="struct" prot="public">
+    <compoundname>XVMix_Layer</compoundname>
+    <includes local="no">xv_mix_l2.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v_mix___layer_1a79c926921fc9c63adb7f5488e1e67c53" prot="public" static="no" mutable="no">
+        <type>XVidC_VideoWindow</type>
+        <definition>XVidC_VideoWindow XVMix_Layer::Win</definition>
+        <argsstring></argsstring>
+        <name>Win</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="271" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" bodystart="271" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_1a6914180e80275ea978ff3fcce2033a36" prot="public" static="no" mutable="no">
+        <type>XVidC_ColorFormat</type>
+        <definition>XVidC_ColorFormat XVMix_Layer::ColorFormat</definition>
+        <argsstring></argsstring>
+        <name>ColorFormat</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="272" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" bodystart="272" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_1aee305624f55fe6afd5ee3cec9ddbd988" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XVMix_Layer::RBuffer</definition>
+        <argsstring></argsstring>
+        <name>RBuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_1a6df5f465c22abf48f813574b6e2fb52d" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XVMix_Layer::GBuffer</definition>
+        <argsstring></argsstring>
+        <name>GBuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="276" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_1a284e1c156ecaaa3b1babcdb87ca8134e" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XVMix_Layer::BBuffer</definition>
+        <argsstring></argsstring>
+        <name>BBuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_1a2ea476ef63187b4432ac8a5a4edf625e" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XVMix_Layer::BufAddr</definition>
+        <argsstring></argsstring>
+        <name>BufAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_1a1c002e5571fae7811a73cd5cc4c7a146" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XVMix_Layer::ChromaBufAddr</definition>
+        <argsstring></argsstring>
+        <name>ChromaBufAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_1a584ff1e0453e501deec7826c5c6e943a" prot="public" static="no" mutable="no">
+        <type>union XVMix_Layer::@10</type>
+        <definition>union XVMix_Layer::@10 XVMix_Layer::@11</definition>
+        <argsstring></argsstring>
+        <name>@11</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="281" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for a given layer. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" bodystart="270" bodyend="282"/>
+    <listofallmembers>
+      <member refid="struct_x_v_mix___layer_1a284e1c156ecaaa3b1babcdb87ca8134e" prot="public" virt="non-virtual"><scope>XVMix_Layer</scope><name>BBuffer</name></member>
+      <member refid="struct_x_v_mix___layer_1a2ea476ef63187b4432ac8a5a4edf625e" prot="public" virt="non-virtual"><scope>XVMix_Layer</scope><name>BufAddr</name></member>
+      <member refid="struct_x_v_mix___layer_1a1c002e5571fae7811a73cd5cc4c7a146" prot="public" virt="non-virtual"><scope>XVMix_Layer</scope><name>ChromaBufAddr</name></member>
+      <member refid="struct_x_v_mix___layer_1a6914180e80275ea978ff3fcce2033a36" prot="public" virt="non-virtual"><scope>XVMix_Layer</scope><name>ColorFormat</name></member>
+      <member refid="struct_x_v_mix___layer_1a6df5f465c22abf48f813574b6e2fb52d" prot="public" virt="non-virtual"><scope>XVMix_Layer</scope><name>GBuffer</name></member>
+      <member refid="struct_x_v_mix___layer_1aee305624f55fe6afd5ee3cec9ddbd988" prot="public" virt="non-virtual"><scope>XVMix_Layer</scope><name>RBuffer</name></member>
+      <member refid="struct_x_v_mix___layer_1a79c926921fc9c63adb7f5488e1e67c53" prot="public" virt="non-virtual"><scope>XVMix_Layer</scope><name>Win</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

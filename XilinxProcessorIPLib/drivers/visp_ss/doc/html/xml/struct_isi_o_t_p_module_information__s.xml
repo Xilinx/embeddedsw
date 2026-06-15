@@ -1,0 +1,281 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_isi_o_t_p_module_information__s" kind="struct" prot="public">
+    <compoundname>IsiOTPModuleInformation_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_isi_o_t_p_module_information__s_1a89a109184f45f8b73a14919b3fdf0f87" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiOTPModuleInformation_s::hwVersion</definition>
+        <argsstring></argsstring>
+        <name>hwVersion</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_o_t_p_module_information__s_1ace127a121bf328f6d6948166a97bc018" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiOTPModuleInformation_s::eepromRevision</definition>
+        <argsstring></argsstring>
+        <name>eepromRevision</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_o_t_p_module_information__s_1a165a93979f874a87df5ade424acb56ba" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiOTPModuleInformation_s::sensorRevision</definition>
+        <argsstring></argsstring>
+        <name>sensorRevision</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_o_t_p_module_information__s_1a8d3fed28a1e513d401320746ad3a5deb" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiOTPModuleInformation_s::tlensRevision</definition>
+        <argsstring></argsstring>
+        <name>tlensRevision</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_o_t_p_module_information__s_1a0f55cef3b6faa916562869837a3e5321" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiOTPModuleInformation_s::ircfRevision</definition>
+        <argsstring></argsstring>
+        <name>ircfRevision</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_o_t_p_module_information__s_1a064615e40e6451fa2dc3756380f8dd9b" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiOTPModuleInformation_s::lensRevision</definition>
+        <argsstring></argsstring>
+        <name>lensRevision</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_o_t_p_module_information__s_1a75ef3c860539b02f81173239dd60a7f9" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiOTPModuleInformation_s::caRevision</definition>
+        <argsstring></argsstring>
+        <name>caRevision</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_o_t_p_module_information__s_1adce0cf8b29b3f1eebd256b191f6f2342" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiOTPModuleInformation_s::moduleInteID</definition>
+        <argsstring></argsstring>
+        <name>moduleInteID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_o_t_p_module_information__s_1a3e38c7c2d45aca48fbcb9c491fd7769c" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiOTPModuleInformation_s::factoryID</definition>
+        <argsstring></argsstring>
+        <name>factoryID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_o_t_p_module_information__s_1aa2a3111a228254e5c9a66389dd0ee7f0" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiOTPModuleInformation_s::mirrorFlip</definition>
+        <argsstring></argsstring>
+        <name>mirrorFlip</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_o_t_p_module_information__s_1ae8c4a3044d165391b3f2d9b2955de2c8" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiOTPModuleInformation_s::tlensSlaveID</definition>
+        <argsstring></argsstring>
+        <name>tlensSlaveID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_o_t_p_module_information__s_1ad00a240c9d70b55b2e3a8f597660db77" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiOTPModuleInformation_s::eepromSlaveID</definition>
+        <argsstring></argsstring>
+        <name>eepromSlaveID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_o_t_p_module_information__s_1acfb2f5653b07090f0c577e01b5924c19" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiOTPModuleInformation_s::sensorSlaveID</definition>
+        <argsstring></argsstring>
+        <name>sensorSlaveID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_o_t_p_module_information__s_1ac973360eb3ceba518031bfa4601cad37" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t IsiOTPModuleInformation_s::sensorID[11]</definition>
+        <argsstring>[11]</argsstring>
+        <name>sensorID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_o_t_p_module_information__s_1a18717b2580c43f0dbfc566e173f974a4" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiOTPModuleInformation_s::manuDateYear</definition>
+        <argsstring></argsstring>
+        <name>manuDateYear</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_o_t_p_module_information__s_1ae76eaffce9cf74db19f0a02b84092b81" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiOTPModuleInformation_s::manuDateMonth</definition>
+        <argsstring></argsstring>
+        <name>manuDateMonth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_o_t_p_module_information__s_1af1be700175065a8bf588ce3ea6b943b9" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiOTPModuleInformation_s::manuDateDay</definition>
+        <argsstring></argsstring>
+        <name>manuDateDay</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_o_t_p_module_information__s_1afabe0331b70da3d12486a9131f9230a6" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t IsiOTPModuleInformation_s::barcodeModuleSN[12]</definition>
+        <argsstring>[12]</argsstring>
+        <name>barcodeModuleSN</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_o_t_p_module_information__s_1a9afd18c77de16a1d7992d291920fd71d" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiOTPModuleInformation_s::mapTotalSize</definition>
+        <argsstring></argsstring>
+        <name>mapTotalSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="86" bodyend="107"/>
+    <listofallmembers>
+      <member refid="struct_isi_o_t_p_module_information__s_1afabe0331b70da3d12486a9131f9230a6" prot="public" virt="non-virtual"><scope>IsiOTPModuleInformation_s</scope><name>barcodeModuleSN</name></member>
+      <member refid="struct_isi_o_t_p_module_information__s_1a75ef3c860539b02f81173239dd60a7f9" prot="public" virt="non-virtual"><scope>IsiOTPModuleInformation_s</scope><name>caRevision</name></member>
+      <member refid="struct_isi_o_t_p_module_information__s_1ace127a121bf328f6d6948166a97bc018" prot="public" virt="non-virtual"><scope>IsiOTPModuleInformation_s</scope><name>eepromRevision</name></member>
+      <member refid="struct_isi_o_t_p_module_information__s_1ad00a240c9d70b55b2e3a8f597660db77" prot="public" virt="non-virtual"><scope>IsiOTPModuleInformation_s</scope><name>eepromSlaveID</name></member>
+      <member refid="struct_isi_o_t_p_module_information__s_1a3e38c7c2d45aca48fbcb9c491fd7769c" prot="public" virt="non-virtual"><scope>IsiOTPModuleInformation_s</scope><name>factoryID</name></member>
+      <member refid="struct_isi_o_t_p_module_information__s_1a89a109184f45f8b73a14919b3fdf0f87" prot="public" virt="non-virtual"><scope>IsiOTPModuleInformation_s</scope><name>hwVersion</name></member>
+      <member refid="struct_isi_o_t_p_module_information__s_1a0f55cef3b6faa916562869837a3e5321" prot="public" virt="non-virtual"><scope>IsiOTPModuleInformation_s</scope><name>ircfRevision</name></member>
+      <member refid="struct_isi_o_t_p_module_information__s_1a064615e40e6451fa2dc3756380f8dd9b" prot="public" virt="non-virtual"><scope>IsiOTPModuleInformation_s</scope><name>lensRevision</name></member>
+      <member refid="struct_isi_o_t_p_module_information__s_1af1be700175065a8bf588ce3ea6b943b9" prot="public" virt="non-virtual"><scope>IsiOTPModuleInformation_s</scope><name>manuDateDay</name></member>
+      <member refid="struct_isi_o_t_p_module_information__s_1ae76eaffce9cf74db19f0a02b84092b81" prot="public" virt="non-virtual"><scope>IsiOTPModuleInformation_s</scope><name>manuDateMonth</name></member>
+      <member refid="struct_isi_o_t_p_module_information__s_1a18717b2580c43f0dbfc566e173f974a4" prot="public" virt="non-virtual"><scope>IsiOTPModuleInformation_s</scope><name>manuDateYear</name></member>
+      <member refid="struct_isi_o_t_p_module_information__s_1a9afd18c77de16a1d7992d291920fd71d" prot="public" virt="non-virtual"><scope>IsiOTPModuleInformation_s</scope><name>mapTotalSize</name></member>
+      <member refid="struct_isi_o_t_p_module_information__s_1aa2a3111a228254e5c9a66389dd0ee7f0" prot="public" virt="non-virtual"><scope>IsiOTPModuleInformation_s</scope><name>mirrorFlip</name></member>
+      <member refid="struct_isi_o_t_p_module_information__s_1adce0cf8b29b3f1eebd256b191f6f2342" prot="public" virt="non-virtual"><scope>IsiOTPModuleInformation_s</scope><name>moduleInteID</name></member>
+      <member refid="struct_isi_o_t_p_module_information__s_1ac973360eb3ceba518031bfa4601cad37" prot="public" virt="non-virtual"><scope>IsiOTPModuleInformation_s</scope><name>sensorID</name></member>
+      <member refid="struct_isi_o_t_p_module_information__s_1a165a93979f874a87df5ade424acb56ba" prot="public" virt="non-virtual"><scope>IsiOTPModuleInformation_s</scope><name>sensorRevision</name></member>
+      <member refid="struct_isi_o_t_p_module_information__s_1acfb2f5653b07090f0c577e01b5924c19" prot="public" virt="non-virtual"><scope>IsiOTPModuleInformation_s</scope><name>sensorSlaveID</name></member>
+      <member refid="struct_isi_o_t_p_module_information__s_1a8d3fed28a1e513d401320746ad3a5deb" prot="public" virt="non-virtual"><scope>IsiOTPModuleInformation_s</scope><name>tlensRevision</name></member>
+      <member refid="struct_isi_o_t_p_module_information__s_1ae8c4a3044d165391b3f2d9b2955de2c8" prot="public" virt="non-virtual"><scope>IsiOTPModuleInformation_s</scope><name>tlensSlaveID</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

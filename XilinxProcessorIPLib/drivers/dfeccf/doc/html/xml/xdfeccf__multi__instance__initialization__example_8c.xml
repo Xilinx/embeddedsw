@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdfeccf__multi__instance__initialization__example_8c" kind="file">
+    <compoundname>xdfeccf_multi_instance_initialization_example.c</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dfeccf_1ga9e35acd47a43b212159caf45bf8ae1fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDfeCcf_MultiInstancesExample</definition>
+        <argsstring>()</argsstring>
+        <name>XDfeCcf_MultiInstancesExample</name>
+        <briefdescription>
+<para>This example runs two instances of DFE Channel Filter. </para>        </briefdescription>
+        <detaileddescription>
+<para>The example does the following tasks:<itemizedlist>
+<listitem><para>Create and system initialize the device driver instance.</para></listitem><listitem><para>Read SW and HW version numbers.</para></listitem><listitem><para>Reset the device.</para></listitem><listitem><para>Configure the device.</para></listitem><listitem><para>Initialize the device.</para></listitem><listitem><para>Activate the device.</para></listitem><listitem><para>DeActivate the device.</para></listitem></itemizedlist>
+</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the example has completed successfully.</para></listitem><listitem><para>XST_FAILURE if the example has failed.//! [testexample1] </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_multi_instance_initialization_example.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_multi_instance_initialization_example.c" bodystart="60" bodyend="110"/>
+        <references refid="struct_x_dfe_ccf___version_1a256d43186042de1081540877baf29022" compoundref="xdfeccf_8h" startline="197">XDfeCcf_Version::Major</references>
+        <references refid="struct_x_dfe_ccf___version_1a2b2d70cba4fc2f5ffab0da34c0038ee4" compoundref="xdfeccf_8h" startline="198">XDfeCcf_Version::Minor</references>
+        <references refid="struct_x_dfe_ccf___version_1a8e73945c3ac762a34b5af546a55d66f2" compoundref="xdfeccf_8h" startline="200">XDfeCcf_Version::Patch</references>
+        <references refid="struct_x_dfe_ccf___version_1a3296cc94083b4a0342053b2c26da5a77" compoundref="xdfeccf_8h" startline="199">XDfeCcf_Version::Revision</references>
+        <references refid="struct_x_dfe_ccf___init_1ad4cfb3484ed25bd566a28943eb6f6566" compoundref="xdfeccf_8h" startline="299">XDfeCcf_Init::TuserSelect</references>
+        <references refid="group__dfeccf_1ga6fec5800f070fd68474f513b9d95aad7" compoundref="xdfeccf_8c" startline="1033" endline="1064">XDfeCcf_Activate</references>
+        <references refid="group__dfeccf_1ga59ba4de329a470946d9fc2a040d7a492" compoundref="xdfeccf_8c" startline="929" endline="979">XDfeCcf_Configure</references>
+        <references refid="group__dfeccf_1gad8a56e64a51a4cbea54dd830f33730e2" compoundref="xdfeccf_8c" startline="1074" endline="1103">XDfeCcf_Deactivate</references>
+        <references refid="group__dfeccf_1gaddc6102af25a271aedf00ec96b315f4e" compoundref="xdfeccf_8c" startline="2468" endline="2493">XDfeCcf_GetVersions</references>
+        <references refid="group__dfeccf_1gaf8c982653b47be37c3ad6a374142984f" compoundref="xdfeccf_8c" startline="991" endline="1022">XDfeCcf_Initialize</references>
+        <references refid="group__dfeccf_1ga9d2ea94dbf78348129a5ef459b9e7483" compoundref="xdfeccf_8c" startline="880" endline="899">XDfeCcf_InstanceClose</references>
+        <references refid="group__dfeccf_1ga664e353c81bd46ef9cd1bc562504af52" compoundref="xdfeccf_8c" startline="774" endline="869">XDfeCcf_InstanceInit</references>
+        <references refid="group__dfeccf_1gaf3cd62fb4f6a5924a14f99a311167d91" compoundref="xdfeccf_8c" startline="909" endline="917">XDfeCcf_Reset</references>
+        <references refid="group__dfeccf_1ga9478d2b97aa40e09052dee2571940ef9" compoundref="xdfeccf_8h" startline="136">XST_FAILURE</references>
+        <references refid="group__dfeccf_1ga959ffc15251ddc9b3a883a30f97b7715" compoundref="xdfeccf_8h" startline="133">XST_SUCCESS</references>
+        <referencedby refid="xdfeccf__examples_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xdfeccf__examples_8c" startline="85" endline="126">main</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains a two instances example. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.1   dc     07/21/21 Add and reorganise examples
+1.2   dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
+      dc     11/19/21 Update doxygen documentation
+1.5   dc     10/28/22 Switching Uplink/Downlink support</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2021-2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="31"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdfeccf__examples_8h" kindref="compound">xdfeccf_examples.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="60" refid="group__dfeccf_1ga9e35acd47a43b212159caf45bf8ae1fb" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dfeccf_1ga9e35acd47a43b212159caf45bf8ae1fb" kindref="member">XDfeCcf_MultiInstancesExample</ref>()</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">metal_init_params<sp/>init_param<sp/>=<sp/>METAL_INIT_DEFAULTS;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_ccf___cfg" kindref="compound">XDfeCcf_Cfg</ref><sp/>Cfg;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref><sp/>*InstancePtr1<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref><sp/>*InstancePtr2<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_ccf___version" kindref="compound">XDfeCcf_Version</ref><sp/>SwVersion;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_ccf___version" kindref="compound">XDfeCcf_Version</ref><sp/>HwVersion;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_ccf___init" kindref="compound">XDfeCcf_Init</ref><sp/>Init;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;\r\nChannel<sp/>Filter<sp/>\&quot;Multi<sp/>Instances<sp/>Initialization\&quot;<sp/>Example<sp/>-<sp/>Start\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>libmetal<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__dfeccf_1ga959ffc15251ddc9b3a883a30f97b7715" kindref="member">XST_SUCCESS</ref><sp/>!=<sp/>metal_init(&amp;init_param))<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)printf(</highlight><highlight class="stringliteral">&quot;ERROR:<sp/>Failed<sp/>to<sp/>run<sp/>metal<sp/>initialization\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__dfeccf_1ga9478d2b97aa40e09052dee2571940ef9" kindref="member">XST_FAILURE</ref>;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>instance<sp/>of<sp/>channel<sp/>filter<sp/>driver<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr1<sp/>=<sp/><ref refid="group__dfeccf_1ga664e353c81bd46ef9cd1bc562504af52" kindref="member">XDfeCcf_InstanceInit</ref>(XDFECCF_NODE1_NAME);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr2<sp/>=<sp/><ref refid="group__dfeccf_1ga664e353c81bd46ef9cd1bc562504af52" kindref="member">XDfeCcf_InstanceInit</ref>(XDFECCF_NODE2_NAME);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>SW<sp/>and<sp/>HW<sp/>version<sp/>numbers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfeccf_1gaddc6102af25a271aedf00ec96b315f4e" kindref="member">XDfeCcf_GetVersions</ref>(InstancePtr1,<sp/>&amp;SwVersion,<sp/>&amp;HwVersion);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;SW<sp/>Version:<sp/>Major<sp/>%d,<sp/>Minor<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>SwVersion.<ref refid="struct_x_dfe_ccf___version_1a256d43186042de1081540877baf29022" kindref="member">Major</ref>,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SwVersion.<ref refid="struct_x_dfe_ccf___version_1a2b2d70cba4fc2f5ffab0da34c0038ee4" kindref="member">Minor</ref>);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;HW<sp/>Version:<sp/>Major<sp/>%d,<sp/>Minor<sp/>%d,<sp/>Revision<sp/>%d,<sp/>Patch<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HwVersion.<ref refid="struct_x_dfe_ccf___version_1a256d43186042de1081540877baf29022" kindref="member">Major</ref>,<sp/>HwVersion.<ref refid="struct_x_dfe_ccf___version_1a2b2d70cba4fc2f5ffab0da34c0038ee4" kindref="member">Minor</ref>,<sp/>HwVersion.<ref refid="struct_x_dfe_ccf___version_1a3296cc94083b4a0342053b2c26da5a77" kindref="member">Revision</ref>,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HwVersion.<ref refid="struct_x_dfe_ccf___version_1a8e73945c3ac762a34b5af546a55d66f2" kindref="member">Patch</ref>);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Go<sp/>through<sp/>initialization<sp/>states<sp/>of<sp/>the<sp/>state<sp/>machine<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfeccf_1gaf3cd62fb4f6a5924a14f99a311167d91" kindref="member">XDfeCcf_Reset</ref>(InstancePtr1);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfeccf_1ga59ba4de329a470946d9fc2a040d7a492" kindref="member">XDfeCcf_Configure</ref>(InstancePtr1,<sp/>&amp;Cfg);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Init.<ref refid="struct_x_dfe_ccf___init_1ad4cfb3484ed25bd566a28943eb6f6566" kindref="member">TuserSelect</ref><sp/>=<sp/>XDFECCF_TUSER_SEL_UPLINK;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfeccf_1gaf8c982653b47be37c3ad6a374142984f" kindref="member">XDfeCcf_Initialize</ref>(InstancePtr1,<sp/>&amp;Init);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfeccf_1ga6fec5800f070fd68474f513b9d95aad7" kindref="member">XDfeCcf_Activate</ref>(InstancePtr1,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfeccf_1gaf3cd62fb4f6a5924a14f99a311167d91" kindref="member">XDfeCcf_Reset</ref>(InstancePtr2);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfeccf_1ga59ba4de329a470946d9fc2a040d7a492" kindref="member">XDfeCcf_Configure</ref>(InstancePtr2,<sp/>&amp;Cfg);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Init.<ref refid="struct_x_dfe_ccf___init_1ad4cfb3484ed25bd566a28943eb6f6566" kindref="member">TuserSelect</ref><sp/>=<sp/>XDFECCF_TUSER_SEL_DOWNLINK;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfeccf_1gaf8c982653b47be37c3ad6a374142984f" kindref="member">XDfeCcf_Initialize</ref>(InstancePtr2,<sp/>&amp;Init);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfeccf_1ga6fec5800f070fd68474f513b9d95aad7" kindref="member">XDfeCcf_Activate</ref>(InstancePtr2,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfeccf_1gad8a56e64a51a4cbea54dd830f33730e2" kindref="member">XDfeCcf_Deactivate</ref>(InstancePtr1);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfeccf_1gad8a56e64a51a4cbea54dd830f33730e2" kindref="member">XDfeCcf_Deactivate</ref>(InstancePtr2);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfeccf_1ga9d2ea94dbf78348129a5ef459b9e7483" kindref="member">XDfeCcf_InstanceClose</ref>(InstancePtr1);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfeccf_1ga9d2ea94dbf78348129a5ef459b9e7483" kindref="member">XDfeCcf_InstanceClose</ref>(InstancePtr2);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;Channel<sp/>Filter<sp/>\&quot;Multi<sp/>Instances<sp/>Initialization\&quot;<sp/>Example:<sp/>Pass\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__dfeccf_1ga959ffc15251ddc9b3a883a30f97b7715" kindref="member">XST_SUCCESS</ref>;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_multi_instance_initialization_example.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,707 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group____cam__device__fusa" kind="group">
+    <compoundname>_cam_device_fusa</compoundname>
+    <title>VsCamDevice E01C23 Device_FUSA Definitions</title>
+    <innerclass refid="struct_cam_device_fu_sa_mis_val__s" prot="public">CamDeviceFuSaMisVal_s</innerclass>
+    <innerclass refid="struct_cam_device_fault_inject_config__s" prot="public">CamDeviceFaultInjectConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_fusa_crc_roi_config__s" prot="public">CamDeviceFusaCrcRoiConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_fusa_crc_config__s" prot="public">CamDeviceFusaCrcConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_fusa_pixel_count_size__s" prot="public">CamDeviceFusaPixelCountSize_s</innerclass>
+    <innerclass refid="struct_cam_device_fusa_pixel_count_config__s" prot="public">CamDeviceFusaPixelCountConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_fusa_bist_size__s" prot="public">CamDeviceFusaBistSize_s</innerclass>
+    <innerclass refid="struct_cam_device_fusa_bist2_path_crc__s" prot="public">CamDeviceFusaBist2PathCrc_s</innerclass>
+    <innerclass refid="struct_cam_device_fusa_bist_config__s" prot="public">CamDeviceFusaBistConfig_s</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group____cam__device__fusa_1gac9492110b043bd5689ec27ea86f36ea8" prot="public" static="no">
+        <name>CamDeviceEventId_e</name>
+        <enumvalue id="group____cam__device__fusa_1ggac9492110b043bd5689ec27ea86f36ea8a5507c503a93830384c2aa804fac442d8" prot="public">
+          <name>CAMDEV_ISP_EVENT_INVALID</name>
+          <initializer>= 0x0000</initializer>
+          <briefdescription>
+<para>Invalid event (only for an internal evaluation) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__fusa_1ggac9492110b043bd5689ec27ea86f36ea8a4a1a7ba2b4b9d91434360ae25b59ad2b" prot="public">
+          <name>CAMDEV_ISP_EVENT_BASE</name>
+          <initializer>= 0x1000</initializer>
+          <briefdescription>
+<para>The base ISP events. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__fusa_1ggac9492110b043bd5689ec27ea86f36ea8acafee345cfa9f04ddcbc308577b922f7" prot="public">
+          <name>CAMDEV_ISP_EVENT_FUSA</name>
+          <initializer>= (CAMDEV_ISP_EVENT_BASE + 0x0011)</initializer>
+          <briefdescription>
+<para>FuSa events. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice FuSa event ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="51" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__fusa_1gabada42fb96a4034e708148da141fd63d" prot="public" static="no">
+        <name>CamDeviceFusaCrcLevel_e</name>
+        <enumvalue id="group____cam__device__fusa_1ggabada42fb96a4034e708148da141fd63dabeb4013397e1625396ce964cacfd7621" prot="public">
+          <name>CAMDEV_FUSA_CRC_LINE_ROI_LEVEL</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>CRC line ROI level. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__fusa_1ggabada42fb96a4034e708148da141fd63da24f0ba15c89d837e2b72cac3d8a25ff8" prot="public">
+          <name>CAMDEV_FUSA_CRC_FRAME_LEVEL</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>CRC frame level. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__fusa_1ggabada42fb96a4034e708148da141fd63dad8ffeed45ed910651b3ea20b9f4a8f47" prot="public">
+          <name>CAMDEV_FUSA_CRC_MAX</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice FuSa CRC (Cyclic redundancy check) level. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="92" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__fusa_1ga23935a6f707d18cd3daf1f57d5b2bc01" prot="public" static="no">
+        <name>CamDeviceFusaCrcReverseMode_e</name>
+        <enumvalue id="group____cam__device__fusa_1gga23935a6f707d18cd3daf1f57d5b2bc01a6514ada44fab55534b72e8fc5cc257e6" prot="public">
+          <name>CAMDEV_FUSA_CRC_NOT_REVERSE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Not reverse. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__fusa_1gga23935a6f707d18cd3daf1f57d5b2bc01a06af1b92194a583ca1e5878d1e8d653b" prot="public">
+          <name>CAMDEV_FUSA_CRC_TOTAL_REVERSE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Total reverse mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__fusa_1gga23935a6f707d18cd3daf1f57d5b2bc01ad0a57c3026def337cfb2afc152e3cf96" prot="public">
+          <name>CAMDEV_FUSA_CRC_BYTE_REVERSE</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Byte reverse mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice FuSa CRC reverse mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="104" bodyend="109"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__fusa_1ga24b06bbe24a822fc0c232e741e288632" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__fusa_1gac9492110b043bd5689ec27ea86f36ea8" kindref="member">CamDeviceEventId_e</ref></type>
+        <definition>typedef enum CamDeviceEventId_e  CamDeviceEventId_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceEventId_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa event ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="56" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__fusa_1gad98ba8a08f5d0a8a5ba8e5b3901dfaae" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_fu_sa_mis_val__s" kindref="compound">CamDeviceFuSaMisVal_s</ref></type>
+        <definition>typedef struct CamDeviceFuSaMisVal_s  CamDeviceFuSaMisVal_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceFuSaMisVal_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa masked interrupt status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="73" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__fusa_1gae0dfb9776c1ecde24b23167db7841720" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* CamDeviceEventFunc_t)(const CamDeviceEventId_t evtId, CamDeviceFuSaMisVal_t *param, void *pUserContext)</definition>
+        <argsstring>)(const CamDeviceEventId_t evtId, CamDeviceFuSaMisVal_t *param, void *pUserContext)</argsstring>
+        <name>CamDeviceEventFunc_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa event callback function pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__fusa_1gaa9a1a78d01d147950e7ae0e165f509e5" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__fusa_1gabada42fb96a4034e708148da141fd63d" kindref="member">CamDeviceFusaCrcLevel_e</ref></type>
+        <definition>typedef enum CamDeviceFusaCrcLevel_e  CamDeviceFusaCrcLevel_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceFusaCrcLevel_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa CRC (Cyclic redundancy check) level. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="97" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__fusa_1gaf788bf45b56488599fb357905beb116b" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__fusa_1ga23935a6f707d18cd3daf1f57d5b2bc01" kindref="member">CamDeviceFusaCrcReverseMode_e</ref></type>
+        <definition>typedef enum CamDeviceFusaCrcReverseMode_e  CamDeviceFusaCrcReverseMode_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceFusaCrcReverseMode_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa CRC reverse mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="109" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__fusa_1gae55363337927f03651cdee9e79b77051" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_fault_inject_config__s" kindref="compound">CamDeviceFaultInjectConfig_s</ref></type>
+        <definition>typedef struct CamDeviceFaultInjectConfig_s  CamDeviceFaultInjectConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceFaultInjectConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa fault injection configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="122" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__fusa_1ga53b5eb39c9278795f8a8fcd0fc8d9d44" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_fusa_crc_roi_config__s" kindref="compound">CamDeviceFusaCrcRoiConfig_s</ref></type>
+        <definition>typedef struct CamDeviceFusaCrcRoiConfig_s  CamDeviceFusaCrcRoiConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceFusaCrcRoiConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa CRC ROI configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="134" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__fusa_1ga2c02aff83c3f184bf8f7e0dfc85b0d02" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_fusa_crc_config__s" kindref="compound">CamDeviceFusaCrcConfig_s</ref></type>
+        <definition>typedef struct CamDeviceFusaCrcConfig_s  CamDeviceFusaCrcConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceFusaCrcConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa CRC configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="151" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__fusa_1ga6692915875673c3ddb95086577c17587" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_fusa_pixel_count_size__s" kindref="compound">CamDeviceFusaPixelCountSize_s</ref></type>
+        <definition>typedef struct CamDeviceFusaPixelCountSize_s  CamDeviceFusaPixelCountSize_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceFusaPixelCountSize_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa pixel count size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="161" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__fusa_1ga0bc04bec2384d5d1e29faa268028251d" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_fusa_pixel_count_config__s" kindref="compound">CamDeviceFusaPixelCountConfig_s</ref></type>
+        <definition>typedef struct CamDeviceFusaPixelCountConfig_s  CamDeviceFusaPixelCountConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceFusaPixelCountConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa pixel count configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="173" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__fusa_1gacb5d6bca9752dbcc0aef0dc3b78cfca2" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_fusa_bist_size__s" kindref="compound">CamDeviceFusaBistSize_s</ref></type>
+        <definition>typedef struct CamDeviceFusaBistSize_s  CamDeviceFusaBistSize_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceFusaBistSize_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa BIST (Built in self test) size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="186" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__fusa_1gae0698da3016707e452349daebdbd9c46" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_fusa_bist2_path_crc__s" kindref="compound">CamDeviceFusaBist2PathCrc_s</ref></type>
+        <definition>typedef struct CamDeviceFusaBist2PathCrc_s  CamDeviceFusaBist2PathCrc_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceFusaBist2PathCrc_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa BIST2 path CRC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="197" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__fusa_1ga7f6ba65e694d3ca36d7e63511077d1da" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_fusa_bist_config__s" kindref="compound">CamDeviceFusaBistConfig_s</ref></type>
+        <definition>typedef struct CamDeviceFusaBistConfig_s  CamDeviceFusaBistConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceFusaBistConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa BIST configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="211" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__fusa_1gafb1cd157ee589955e5a0f70ac4ab8c3f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaFaultInjectEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, const CamDeviceFaultInjectConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceFusaFaultInjectEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group____cam__device__fusa_1gae55363337927f03651cdee9e79b77051" kindref="member">CamDeviceFaultInjectConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="32" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga94b7c49dafe0258afefc1345939425ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaEccEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFusaEccEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="73" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1gaf2e2ba9e6a44ccaf182d59cab05663a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaEccDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFusaEccDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="108" bodyend="140"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga7857fc422809e37c49f42c0ddd204570" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaPixelCountEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFusaPixelCountEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="143" bodyend="175"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga314f568553b88f30f950c7ba3626ebc6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaPixelCountDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFusaPixelCountDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="178" bodyend="210"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga9ba25dcd42a1f6e119df5349b65baa16" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaPixelCountSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFusaPixelCountSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="213" bodyend="246"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga0e788bbac2f1b01e5279a60af6e101a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaPixelCountGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceFusaPixelCountConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceFusaPixelCountGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__fusa_1ga0bc04bec2384d5d1e29faa268028251d" kindref="member">CamDeviceFusaPixelCountConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="249" bodyend="288"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga972fd730d41e24fd1a51c5c4a39d6c08" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaTimeoutEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint8_t pathEnable)</argsstring>
+        <name>VsiCamDeviceFusaTimeoutEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>pathEnable</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="384" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="291" bodyend="327"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga4d25268dd8d3c322b401879f89ced9f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaTimeoutDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFusaTimeoutDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="406" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="330" bodyend="363"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga54e8a549f29a952ef1f150fa8f2c418b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaBistEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFusaBistEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="427" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="366" bodyend="399"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1gac56eb23aa655e2a69064c4d6ad4b4c2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaBistDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFusaBistDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="402" bodyend="434"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga60b66f0a11e3a80db08b22149ac38425" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFuSaBistPowerUpEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFuSaBistPowerUpEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="469" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="437" bodyend="470"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga0a217e0c15cc3a56a6a2fba6ca8be4dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFuSaBistPowerUpDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFuSaBistPowerUpDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="490" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="473" bodyend="506"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga0e02cd9e197a594526bf111b2f5206f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaCrcEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFusaCrcEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="511" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="509" bodyend="540"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga77191135171a003a93c624a34af56e39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaCrcDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFusaCrcDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="532" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="543" bodyend="575"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1gaebcc576c7597dc1a80e02be0c0090f50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaCrcSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceFusaCrcConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceFusaCrcSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__fusa_1ga2c02aff83c3f184bf8f7e0dfc85b0d02" kindref="member">CamDeviceFusaCrcConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="578" bodyend="616"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga08f4034201bc6bf20f0a6609c2d581dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaCrcGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceFusaCrcConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceFusaCrcGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__fusa_1ga2c02aff83c3f184bf8f7e0dfc85b0d02" kindref="member">CamDeviceFusaCrcConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="585" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="619" bodyend="658"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1gaea6b8d783be30b2a0c462a81b720fff6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaBistGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceFusaBistConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceFusaBistGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__fusa_1ga7f6ba65e694d3ca36d7e63511077d1da" kindref="member">CamDeviceFusaBistConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="610" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="661" bodyend="700"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga14516d3304910ca8ba87573e7862f7c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaRegisterEventCb</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceEventFunc_t func, void *pUserContext)</argsstring>
+        <name>VsiCamDeviceFusaRegisterEventCb</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__fusa_1gae0dfb9776c1ecde24b23167db7841720" kindref="member">CamDeviceEventFunc_t</ref></type>
+          <declname>func</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>pUserContext</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="638" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="703" bodyend="738"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1gaae3b9bb42b5bf2cfefc1d31b2e2b309d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaDeRegisterEventCb</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFusaDeRegisterEventCb</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="664" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1gad013e8e1cbfb0be88eed56bf56687d56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaReset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFusaReset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="684" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="741" bodyend="772"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1gae4688a1e2d4a49e02ffe7f71225fb865" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaGetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceFusaGetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="705" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="774" bodyend="813"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Provides interfaces for controlling the functional safety module working in the ISP pipeline. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

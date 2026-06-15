@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dc___stream_config" kind="struct" prot="public">
+    <compoundname>XDc_StreamConfig</compoundname>
+    <includes local="no">xdc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dc___stream_config_1a145f22f13310e598db12fa7fbaa84ad1" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* XDc_StreamConfig::mode</definition>
+        <argsstring></argsstring>
+        <name>mode</name>
+        <briefdescription>
+<para>Stream mode: Audio_&amp;_Video or Video_only. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___stream_config_1ac24b732fb88681af468c6e037c78b986" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc_StreamConfig::pixel_mode</definition>
+        <argsstring></argsstring>
+        <name>pixel_mode</name>
+        <briefdescription>
+<para>Pixels per clock: 1, 2, or 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___stream_config_1a88eec9a5eeae111701c2f21cf191aeb8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc_StreamConfig::sdpen</definition>
+        <argsstring></argsstring>
+        <name>sdpen</name>
+        <briefdescription>
+<para>SDP enabled flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure stores the per-stream configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="43" bodyend="47"/>
+    <listofallmembers>
+      <member refid="struct_x_dc___stream_config_1a145f22f13310e598db12fa7fbaa84ad1" prot="public" virt="non-virtual"><scope>XDc_StreamConfig</scope><name>mode</name></member>
+      <member refid="struct_x_dc___stream_config_1ac24b732fb88681af468c6e037c78b986" prot="public" virt="non-virtual"><scope>XDc_StreamConfig</scope><name>pixel_mode</name></member>
+      <member refid="struct_x_dc___stream_config_1a88eec9a5eeae111701c2f21cf191aeb8" prot="public" virt="non-virtual"><scope>XDc_StreamConfig</scope><name>sdpen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1018 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___rx___dp___handles" kind="struct" prot="public">
+    <compoundname>XHdcp22_Rx_Dp_Handles</compoundname>
+    <includes local="no">xhdcp22_rx_dp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a5339384dda620f38ae6bbebbf300a426" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__rx__dp_1gaf121cf071516cc25183109edbc5d88c0" kindref="member">XHdcp22_Rx_SetHandler</ref></type>
+        <definition>XHdcp22_Rx_SetHandler XHdcp22_Rx_Dp_Handles::DdcSetAddressCallback</definition>
+        <argsstring></argsstring>
+        <name>DdcSetAddressCallback</name>
+        <briefdescription>
+<para>Function pointer used to set the DDC register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="335" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a18e25ffa056387299bfc4e581a85419d" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp22_Rx_Dp_Handles::DdcSetAddressCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>DdcSetAddressCallbackRef</name>
+        <briefdescription>
+<para>To be passed to callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="337" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a136ea3fe614848489a7c07187fed95fa" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Handles::IsDdcSetAddressCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsDdcSetAddressCallbackSet</name>
+        <briefdescription>
+<para>This flag is set true when the callback has been registered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="339" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a0d665b9456b26f34c7cbd22548926d27" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__rx__dp_1gaf121cf071516cc25183109edbc5d88c0" kindref="member">XHdcp22_Rx_SetHandler</ref></type>
+        <definition>XHdcp22_Rx_SetHandler XHdcp22_Rx_Dp_Handles::DdcSetDataCallback</definition>
+        <argsstring></argsstring>
+        <name>DdcSetDataCallback</name>
+        <briefdescription>
+<para>Function pointer used to set the DDC register data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="342" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a650ca3ade429fb00d64a9f847dd40b5b" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp22_Rx_Dp_Handles::DdcSetDataCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>DdcSetDataCallbackRef</name>
+        <briefdescription>
+<para>To be passed to callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="344" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a08c6c51b661ea8fbe4bdab83c9294713" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Handles::IsDdcSetDataCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsDdcSetDataCallbackSet</name>
+        <briefdescription>
+<para>This flag is set true when the callback has been registered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="346" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1afe1c19b8cf2675f1e253cfddf32b3863" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__rx__dp_1ga33e4939cca9920126d68040f8d64cfa2" kindref="member">XHdcp22_Rx_GetHandler</ref></type>
+        <definition>XHdcp22_Rx_GetHandler XHdcp22_Rx_Dp_Handles::DdcGetDataCallback</definition>
+        <argsstring></argsstring>
+        <name>DdcGetDataCallback</name>
+        <briefdescription>
+<para>Function pointer used to get the DDC register data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="349" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a23aeb19bab4ad98ae4b8d46dafef71f0" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp22_Rx_Dp_Handles::DdcGetDataCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>DdcGetDataCallbackRef</name>
+        <briefdescription>
+<para>To be passed to callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="351" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a64644cde91bee209d8b9d24aa6ff1fb3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Handles::IsDdcGetDataCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsDdcGetDataCallbackSet</name>
+        <briefdescription>
+<para>This flag is set true when the callback has been registered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="353" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="353" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1ab4ad01957a666557208c4ce8410cfc7e" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__rx__dp_1ga33e4939cca9920126d68040f8d64cfa2" kindref="member">XHdcp22_Rx_GetHandler</ref></type>
+        <definition>XHdcp22_Rx_GetHandler XHdcp22_Rx_Dp_Handles::DdcGetWriteBufferSizeCallback</definition>
+        <argsstring></argsstring>
+        <name>DdcGetWriteBufferSizeCallback</name>
+        <briefdescription>
+<para>Function pointer used to get the DDC write buffer size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="356" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a3c76084fd17febd71c87bf9304fd7c71" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp22_Rx_Dp_Handles::DdcGetWriteBufferSizeCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>DdcGetWriteBufferSizeCallbackRef</name>
+        <briefdescription>
+<para>To be passed to callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="358" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1abe210d95a6fe9df160504209e9b2226c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Handles::IsDdcGetWriteBufferSizeCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsDdcGetWriteBufferSizeCallbackSet</name>
+        <briefdescription>
+<para>This flag is set true when the callback has been registered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="360" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a5d413c7ca70a47c797336e0657846060" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__rx__dp_1ga33e4939cca9920126d68040f8d64cfa2" kindref="member">XHdcp22_Rx_GetHandler</ref></type>
+        <definition>XHdcp22_Rx_GetHandler XHdcp22_Rx_Dp_Handles::DdcGetReadBufferSizeCallback</definition>
+        <argsstring></argsstring>
+        <name>DdcGetReadBufferSizeCallback</name>
+        <briefdescription>
+<para>Function pointer used to get the DDC read buffer size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="363" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="363" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1ad8db34e2fac7b405bab5f8dc4fe74ede" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp22_Rx_Dp_Handles::DdcGetReadBufferSizeCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>DdcGetReadBufferSizeCallbackRef</name>
+        <briefdescription>
+<para>To be passed to callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="365" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="365" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1ae076178c45698b8ccdd68aa4aaf6d83d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Handles::IsDdcGetReadBufferSizeCallbackRefSet</definition>
+        <argsstring></argsstring>
+        <name>IsDdcGetReadBufferSizeCallbackRefSet</name>
+        <briefdescription>
+<para>This flag is set true when the callback has been registered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="367" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="367" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a1b888f6c579383810914bf60e365c205" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__rx__dp_1ga33e4939cca9920126d68040f8d64cfa2" kindref="member">XHdcp22_Rx_GetHandler</ref></type>
+        <definition>XHdcp22_Rx_GetHandler XHdcp22_Rx_Dp_Handles::DdcIsWriteBufferEmptyCallback</definition>
+        <argsstring></argsstring>
+        <name>DdcIsWriteBufferEmptyCallback</name>
+        <briefdescription>
+<para>Function pointer used to check if the DDC write buffer is empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="370" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="370" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a62e2f7bde6010066e13a606c9ab892ae" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp22_Rx_Dp_Handles::DdcIsWriteBufferEmptyCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>DdcIsWriteBufferEmptyCallbackRef</name>
+        <briefdescription>
+<para>To be passed to callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="372" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="372" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a7d479cfc5133ec30094a7812ac0bb35f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Handles::IsDdcIsWriteBufferEmptyCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsDdcIsWriteBufferEmptyCallbackSet</name>
+        <briefdescription>
+<para>This flag is set true when the callback has been registered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="374" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="374" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a7c59b112af27158438604ce1b608e3dd" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__rx__dp_1ga33e4939cca9920126d68040f8d64cfa2" kindref="member">XHdcp22_Rx_GetHandler</ref></type>
+        <definition>XHdcp22_Rx_GetHandler XHdcp22_Rx_Dp_Handles::DdcIsReadBufferEmptyCallback</definition>
+        <argsstring></argsstring>
+        <name>DdcIsReadBufferEmptyCallback</name>
+        <briefdescription>
+<para>Function pointer used to check if the DDC read buffer is empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="377" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="377" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1afffcd552d9b347b4675bf0b0b5f414d2" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp22_Rx_Dp_Handles::DdcIsReadBufferEmptyCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>DdcIsReadBufferEmptyCallbackRef</name>
+        <briefdescription>
+<para>To be passed to callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="379" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="379" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1aef0cb0bc8a4188e634cea19c5ac5156b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Handles::IsDdcIsReadBufferEmptyCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsDdcIsReadBufferEmptyCallbackSet</name>
+        <briefdescription>
+<para>This flag is set true when the callback has been registered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="381" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="381" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a22fae59e9b51dc7101710c099d0fcd49" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__rx__dp_1ga96434911658b0c468f84827453fcdfe3" kindref="member">XHdcp22_Rx_RunHandler</ref></type>
+        <definition>XHdcp22_Rx_RunHandler XHdcp22_Rx_Dp_Handles::DdcClearReadBufferCallback</definition>
+        <argsstring></argsstring>
+        <name>DdcClearReadBufferCallback</name>
+        <briefdescription>
+<para>Function pointer used to clear the DDC read buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="384" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="384" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a2c5c4a6fef9268159b8df0efab159052" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp22_Rx_Dp_Handles::DdcClearReadBufferCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>DdcClearReadBufferCallbackRef</name>
+        <briefdescription>
+<para>To be passed to callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="386" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="386" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a8676a1cae050c5cebbf0b3c0ec749b16" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Handles::IsDdcClearReadBufferCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsDdcClearReadBufferCallbackSet</name>
+        <briefdescription>
+<para>This flag is set true when the callback has been registered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="388" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="388" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1acd8039bc75cf68b3b5e24ff509ab8552" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__rx__dp_1ga96434911658b0c468f84827453fcdfe3" kindref="member">XHdcp22_Rx_RunHandler</ref></type>
+        <definition>XHdcp22_Rx_RunHandler XHdcp22_Rx_Dp_Handles::DdcClearWriteBufferCallback</definition>
+        <argsstring></argsstring>
+        <name>DdcClearWriteBufferCallback</name>
+        <briefdescription>
+<para>Function pointer used to clear the DDC write buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="391" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a9024dad665d0e9e7c091737bff274008" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp22_Rx_Dp_Handles::DdcClearWriteBufferCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>DdcClearWriteBufferCallbackRef</name>
+        <briefdescription>
+<para>To be passed to callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="393" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1aa095a962a17c5b1cc9a9f7603a869a13" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Handles::IsDdcClearWriteBufferCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsDdcClearWriteBufferCallbackSet</name>
+        <briefdescription>
+<para>This flag is set true when the callback has been registered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="395" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="395" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a67394dc1b58ddde36598c5baf469cb53" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__rx__dp_1ga96434911658b0c468f84827453fcdfe3" kindref="member">XHdcp22_Rx_RunHandler</ref></type>
+        <definition>XHdcp22_Rx_RunHandler XHdcp22_Rx_Dp_Handles::DdcClearRepeaterReadyCallback</definition>
+        <argsstring></argsstring>
+        <name>DdcClearRepeaterReadyCallback</name>
+        <briefdescription>
+<para>Function pointer used to set auto clear on the DDC RxStatus READY bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="398" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="398" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1ac68cc618a28c51efb2df9842244cd177" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp22_Rx_Dp_Handles::DdcClearRepeaterReadyCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>DdcClearRepeaterReadyCallbackRef</name>
+        <briefdescription>
+<para>To be passed to callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="400" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="400" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a49d8f5b7937dcd63d10136f5082a76fd" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Handles::IsDdcClearRepeaterReadyCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsDdcClearRepeaterReadyCallbackSet</name>
+        <briefdescription>
+<para>This flag is set true when the callback has been registered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="402" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="402" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a94bff8fad61083581a8e43514f12b500" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Handles::IsDdcAllCallbacksSet</definition>
+        <argsstring></argsstring>
+        <name>IsDdcAllCallbacksSet</name>
+        <briefdescription>
+<para>This flag is set true when all the DDC callbacks have been registered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="405" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="405" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga6281e6d2c45c5ea258f8e09aad6aecaf" compoundref="xhdcp22__rx__dp_8c" startline="384" endline="414">XHdcp22Rx_Dp_Enable</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga341246c3ed3de24390cc4ac4f748944d" compoundref="xhdcp22__rx__dp_8c" startline="306" endline="369">XHdcp22Rx_Dp_Reset</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a064569441325bfa852a67efdf562e747" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__rx__dp_1ga96434911658b0c468f84827453fcdfe3" kindref="member">XHdcp22_Rx_RunHandler</ref></type>
+        <definition>XHdcp22_Rx_RunHandler XHdcp22_Rx_Dp_Handles::AuthenticatedCallback</definition>
+        <argsstring></argsstring>
+        <name>AuthenticatedCallback</name>
+        <briefdescription>
+<para>Function pointer called when statemachine transitions to authenticated. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="408" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="408" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a6063e598cd4fa80aff6bec4dfcf01b5e" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp22_Rx_Dp_Handles::AuthenticatedCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>AuthenticatedCallbackRef</name>
+        <briefdescription>
+<para>To be passed to callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="410" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="410" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a4ee90b6ad024a3c7c43abb6dd2870481" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Handles::IsAuthenticatedCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsAuthenticatedCallbackSet</name>
+        <briefdescription>
+<para>This flag is set true when the callback has been registered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="412" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="412" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1ad872ba8707f6dfd85872cc101d50aea6" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__rx__dp_1ga96434911658b0c468f84827453fcdfe3" kindref="member">XHdcp22_Rx_RunHandler</ref></type>
+        <definition>XHdcp22_Rx_RunHandler XHdcp22_Rx_Dp_Handles::UnauthenticatedCallback</definition>
+        <argsstring></argsstring>
+        <name>UnauthenticatedCallback</name>
+        <briefdescription>
+<para>Function pointer called when statemachine transitions to unauthenticated. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="415" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1ga341246c3ed3de24390cc4ac4f748944d" compoundref="xhdcp22__rx__dp_8c" startline="306" endline="369">XHdcp22Rx_Dp_Reset</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a2a0617d820d1ec5afeb351de454cb530" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp22_Rx_Dp_Handles::UnauthenticatedCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>UnauthenticatedCallbackRef</name>
+        <briefdescription>
+<para>To be passed to callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="417" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="417" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1ga341246c3ed3de24390cc4ac4f748944d" compoundref="xhdcp22__rx__dp_8c" startline="306" endline="369">XHdcp22Rx_Dp_Reset</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a092876b5e7cb63067fe2db0ac5335779" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Handles::IsUnauthenticatedCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsUnauthenticatedCallbackSet</name>
+        <briefdescription>
+<para>This flag is set true when the callback has been registered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="419" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="419" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1ga341246c3ed3de24390cc4ac4f748944d" compoundref="xhdcp22__rx__dp_8c" startline="306" endline="369">XHdcp22Rx_Dp_Reset</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a7931913eb4ffa8fb4610d1669758db6d" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__rx__dp_1ga96434911658b0c468f84827453fcdfe3" kindref="member">XHdcp22_Rx_RunHandler</ref></type>
+        <definition>XHdcp22_Rx_RunHandler XHdcp22_Rx_Dp_Handles::AuthenticationRequestCallback</definition>
+        <argsstring></argsstring>
+        <name>AuthenticationRequestCallback</name>
+        <briefdescription>
+<para>Function pointer called when authentication request message is received. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="422" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="422" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1ab24e6ff8f739f5c06e36b132f3b784b4" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp22_Rx_Dp_Handles::AuthenticationRequestCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>AuthenticationRequestCallbackRef</name>
+        <briefdescription>
+<para>To be passed to callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="424" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="424" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a3f1058ae8ab6c8e3747a982ab14a1095" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Handles::IsAuthenticationRequestCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsAuthenticationRequestCallbackSet</name>
+        <briefdescription>
+<para>This flag is set true when the callback has been registered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="426" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="426" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a8dddd1a9c57b901b0891a3e77dd59ec5" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__rx__dp_1ga96434911658b0c468f84827453fcdfe3" kindref="member">XHdcp22_Rx_RunHandler</ref></type>
+        <definition>XHdcp22_Rx_RunHandler XHdcp22_Rx_Dp_Handles::StreamManageRequestCallback</definition>
+        <argsstring></argsstring>
+        <name>StreamManageRequestCallback</name>
+        <briefdescription>
+<para>Function pointer called when stream management message is received. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="429" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="429" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a26b7c215791b3550e990df5be79f873c" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp22_Rx_Dp_Handles::StreamManageRequestCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>StreamManageRequestCallbackRef</name>
+        <briefdescription>
+<para>To be passed to callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="431" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="431" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1aa37ca4dd0ef61f6ee6342a3a6fd52670" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Handles::IsStreamManageRequestCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsStreamManageRequestCallbackSet</name>
+        <briefdescription>
+<para>This flag is set true when the callback has been registered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="433" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="433" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1ac4f7d4037abc766535daafecc7b13002" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__rx__dp_1ga96434911658b0c468f84827453fcdfe3" kindref="member">XHdcp22_Rx_RunHandler</ref></type>
+        <definition>XHdcp22_Rx_RunHandler XHdcp22_Rx_Dp_Handles::TopologyUpdateCallback</definition>
+        <argsstring></argsstring>
+        <name>TopologyUpdateCallback</name>
+        <briefdescription>
+<para>Function pointer called when repeater is ready to for a topology update. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="436" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="436" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a86831f71191a3bb2a1d6c7dfc053bbd2" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp22_Rx_Dp_Handles::TopologyUpdateCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>TopologyUpdateCallbackRef</name>
+        <briefdescription>
+<para>To be passed to callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="438" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="438" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a6b616b9c3e724a0d213eb1aaf2d09191" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Handles::IsTopologyUpdateCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsTopologyUpdateCallbackSet</name>
+        <briefdescription>
+<para>This flag is set true when the callback has been registered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="440" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="440" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a36d57de02935690a38084cc0bfb02e6e" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__rx__dp_1ga96434911658b0c468f84827453fcdfe3" kindref="member">XHdcp22_Rx_RunHandler</ref></type>
+        <definition>XHdcp22_Rx_RunHandler XHdcp22_Rx_Dp_Handles::EncryptionStatusCallback</definition>
+        <argsstring></argsstring>
+        <name>EncryptionStatusCallback</name>
+        <briefdescription>
+<para>Function pointer called when encryption status has changed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="443" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="443" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a9174d850ede13986e5be8cd3c0c5bbe9" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp22_Rx_Dp_Handles::EncryptionStatusCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>EncryptionStatusCallbackRef</name>
+        <briefdescription>
+<para>To be passed to callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="445" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="445" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a13a6414998cff2add1be73317a2368e1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Handles::IsEncryptionStatusCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsEncryptionStatusCallbackSet</name>
+        <briefdescription>
+<para>This flag is set true when the callback has been registered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="447" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="447" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1adfd2396141ed831a85a6351129cf7ac5" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__rx__dp_1gaf6ca88b26e242bf5cd3be7c8fcc076b5" kindref="member">Xhdcp22_Rx_RdWrHandler</ref></type>
+        <definition>Xhdcp22_Rx_RdWrHandler XHdcp22_Rx_Dp_Handles::RxDpAuxReadCallback</definition>
+        <argsstring></argsstring>
+        <name>RxDpAuxReadCallback</name>
+        <briefdescription>
+<para>Function pointer Used to Read DP AUX channel registers(local DPCD) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="451" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="451" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gac17dd75e0b8df679b97890e05ef5ccd8" compoundref="xhdcp22__rx__dp_8c" startline="4843" endline="4863">XHdcp22_Dp_RxSetStreamType</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a39f91fd8561e60ba1cad81a4c458a840" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp22_Rx_Dp_Handles::RxDpAuxReadCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>RxDpAuxReadCallbackRef</name>
+        <briefdescription>
+<para>To be passed to callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="453" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="453" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gac17dd75e0b8df679b97890e05ef5ccd8" compoundref="xhdcp22__rx__dp_8c" startline="4843" endline="4863">XHdcp22_Dp_RxSetStreamType</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a0ca46f553d6099c7a4e57792f11d9784" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Handles::IsRxDpAuxReadCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsRxDpAuxReadCallbackSet</name>
+        <briefdescription>
+<para>This flag is set true when the callback has been registered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="455" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="455" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1af3ddb4eb720b1083e5c2ec340e20c773" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__rx__dp_1gaf6ca88b26e242bf5cd3be7c8fcc076b5" kindref="member">Xhdcp22_Rx_RdWrHandler</ref></type>
+        <definition>Xhdcp22_Rx_RdWrHandler XHdcp22_Rx_Dp_Handles::RxDpAuxWriteCallback</definition>
+        <argsstring></argsstring>
+        <name>RxDpAuxWriteCallback</name>
+        <briefdescription>
+<para>Function pointer Used to Write DP AUX channel registers(local DPCD) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="459" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="459" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gaa7024d8292ca9b6cd58c95adae083983" compoundref="xhdcp22__rx__dp_8c" startline="4812" endline="4832">XHdcp22_Dp_RxSetRxCaps</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a3c765c958a5a54ce93cc786c6e26db00" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp22_Rx_Dp_Handles::RxDpAuxWriteCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>RxDpAuxWriteCallbackRef</name>
+        <briefdescription>
+<para>To be passed to callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="461" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="461" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gaa7024d8292ca9b6cd58c95adae083983" compoundref="xhdcp22__rx__dp_8c" startline="4812" endline="4832">XHdcp22_Dp_RxSetRxCaps</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a420590cc4565c39b9c06bfdc1498eb08" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Handles::IsRxDpAuxWriteCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsRxDpAuxWriteCallbackSet</name>
+        <briefdescription>
+<para>This flag is set true when the callback has been registered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="463" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="463" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a298de5a7f4a78bedca2dc3545d877a14" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__rx__dp_1ga33e4939cca9920126d68040f8d64cfa2" kindref="member">XHdcp22_Rx_GetHandler</ref></type>
+        <definition>XHdcp22_Rx_GetHandler XHdcp22_Rx_Dp_Handles::RxDpCpIrqSetCallback</definition>
+        <argsstring></argsstring>
+        <name>RxDpCpIrqSetCallback</name>
+        <briefdescription>
+<para>Function pointer Used to Raise CP_IRQ from DP Rx. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="466" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="466" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a166f7a40d5d3bf9e4829298e43e3ec2b" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp22_Rx_Dp_Handles::RxDpCpIrqSetCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>RxDpCpIrqSetCallbackRef</name>
+        <briefdescription>
+<para>To be passed to callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="468" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="468" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a75594e731a4c6e24912794e6ee8a6b68" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Handles::IsRxDpCpIrqSetCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsRxDpCpIrqSetCallbackSet</name>
+        <briefdescription>
+<para>This flag is set true when the callback has been registered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="470" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="470" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1aadd260c74e2a5ca9926ad227d279dfdd" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__rx__dp_1gaf121cf071516cc25183109edbc5d88c0" kindref="member">XHdcp22_Rx_SetHandler</ref></type>
+        <definition>XHdcp22_Rx_SetHandler XHdcp22_Rx_Dp_Handles::RxDpSetClearAuxDeferCallback</definition>
+        <argsstring></argsstring>
+        <name>RxDpSetClearAuxDeferCallback</name>
+        <briefdescription>
+<para>Function pointer Used to Release or set AUX_DEFERS for HDCP22 DPCD registers (Ake_Send_Cert, H&apos; and Pairing_Info) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="474" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="474" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a1318808071a1a05d87b8b2354c18ee89" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp22_Rx_Dp_Handles::RxDpSetClearAuxDeferCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>RxDpSetClearAuxDeferCallbackRef</name>
+        <briefdescription>
+<para>To be passed to callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="476" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="476" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1aaca168659256b66af5b1a0d8f8fe9a10" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Handles::IsRxDpSetClearAuxDeferCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsRxDpSetClearAuxDeferCallbackSet</name>
+        <briefdescription>
+<para>This flag is set true when the callback has been registered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="478" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="478" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a3ce3d35a1e314ccfdd30a77ccf245981" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp22__rx__dp_1ga96434911658b0c468f84827453fcdfe3" kindref="member">XHdcp22_Rx_RunHandler</ref></type>
+        <definition>XHdcp22_Rx_RunHandler XHdcp22_Rx_Dp_Handles::Ske_Send_EksCallback</definition>
+        <argsstring></argsstring>
+        <name>Ske_Send_EksCallback</name>
+        <briefdescription>
+<para>Function pointer Used to Raise SkE event interrupt from DP Rx. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="480" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="480" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1ab6a579942f15603ff7c91b3f23561983" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp22_Rx_Dp_Handles::Ske_Send_EksCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>Ske_Send_EksCallbackRef</name>
+        <briefdescription>
+<para>To be passed to callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="482" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="482" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___handles_1a010b31b3e68726e4207cd1db31af2e5a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Handles::IsSke_Send_EksCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsSke_Send_EksCallbackSet</name>
+        <briefdescription>
+<para>This flag is set true when the callback has been registered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="484" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="484" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rx__dp_1gade583ecee68e32b3cab9268b9c2af4b8" compoundref="xhdcp22__rx__dp_8c" startline="144" endline="290">XHdcp22Rx_Dp_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rx__dp_1ga62b937f54334a2c422d2f3f2e7b73abe" compoundref="xhdcp22__rx__dp_8c" startline="493" endline="694">XHdcp22Rx_Dp_SetCallback</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef is used to store handles to function pointers. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="332" bodyend="486"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a064569441325bfa852a67efdf562e747" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>AuthenticatedCallback</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a6063e598cd4fa80aff6bec4dfcf01b5e" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>AuthenticatedCallbackRef</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a7931913eb4ffa8fb4610d1669758db6d" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>AuthenticationRequestCallback</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1ab24e6ff8f739f5c06e36b132f3b784b4" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>AuthenticationRequestCallbackRef</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a22fae59e9b51dc7101710c099d0fcd49" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>DdcClearReadBufferCallback</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a2c5c4a6fef9268159b8df0efab159052" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>DdcClearReadBufferCallbackRef</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a67394dc1b58ddde36598c5baf469cb53" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>DdcClearRepeaterReadyCallback</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1ac68cc618a28c51efb2df9842244cd177" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>DdcClearRepeaterReadyCallbackRef</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1acd8039bc75cf68b3b5e24ff509ab8552" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>DdcClearWriteBufferCallback</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a9024dad665d0e9e7c091737bff274008" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>DdcClearWriteBufferCallbackRef</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1afe1c19b8cf2675f1e253cfddf32b3863" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>DdcGetDataCallback</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a23aeb19bab4ad98ae4b8d46dafef71f0" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>DdcGetDataCallbackRef</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a5d413c7ca70a47c797336e0657846060" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>DdcGetReadBufferSizeCallback</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1ad8db34e2fac7b405bab5f8dc4fe74ede" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>DdcGetReadBufferSizeCallbackRef</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1ab4ad01957a666557208c4ce8410cfc7e" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>DdcGetWriteBufferSizeCallback</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a3c76084fd17febd71c87bf9304fd7c71" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>DdcGetWriteBufferSizeCallbackRef</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a7c59b112af27158438604ce1b608e3dd" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>DdcIsReadBufferEmptyCallback</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1afffcd552d9b347b4675bf0b0b5f414d2" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>DdcIsReadBufferEmptyCallbackRef</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a1b888f6c579383810914bf60e365c205" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>DdcIsWriteBufferEmptyCallback</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a62e2f7bde6010066e13a606c9ab892ae" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>DdcIsWriteBufferEmptyCallbackRef</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a5339384dda620f38ae6bbebbf300a426" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>DdcSetAddressCallback</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a18e25ffa056387299bfc4e581a85419d" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>DdcSetAddressCallbackRef</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a0d665b9456b26f34c7cbd22548926d27" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>DdcSetDataCallback</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a650ca3ade429fb00d64a9f847dd40b5b" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>DdcSetDataCallbackRef</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a36d57de02935690a38084cc0bfb02e6e" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>EncryptionStatusCallback</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a9174d850ede13986e5be8cd3c0c5bbe9" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>EncryptionStatusCallbackRef</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a4ee90b6ad024a3c7c43abb6dd2870481" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>IsAuthenticatedCallbackSet</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a3f1058ae8ab6c8e3747a982ab14a1095" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>IsAuthenticationRequestCallbackSet</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a94bff8fad61083581a8e43514f12b500" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>IsDdcAllCallbacksSet</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a8676a1cae050c5cebbf0b3c0ec749b16" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>IsDdcClearReadBufferCallbackSet</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a49d8f5b7937dcd63d10136f5082a76fd" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>IsDdcClearRepeaterReadyCallbackSet</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1aa095a962a17c5b1cc9a9f7603a869a13" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>IsDdcClearWriteBufferCallbackSet</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a64644cde91bee209d8b9d24aa6ff1fb3" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>IsDdcGetDataCallbackSet</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1ae076178c45698b8ccdd68aa4aaf6d83d" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>IsDdcGetReadBufferSizeCallbackRefSet</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1abe210d95a6fe9df160504209e9b2226c" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>IsDdcGetWriteBufferSizeCallbackSet</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1aef0cb0bc8a4188e634cea19c5ac5156b" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>IsDdcIsReadBufferEmptyCallbackSet</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a7d479cfc5133ec30094a7812ac0bb35f" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>IsDdcIsWriteBufferEmptyCallbackSet</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a136ea3fe614848489a7c07187fed95fa" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>IsDdcSetAddressCallbackSet</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a08c6c51b661ea8fbe4bdab83c9294713" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>IsDdcSetDataCallbackSet</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a13a6414998cff2add1be73317a2368e1" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>IsEncryptionStatusCallbackSet</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a0ca46f553d6099c7a4e57792f11d9784" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>IsRxDpAuxReadCallbackSet</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a420590cc4565c39b9c06bfdc1498eb08" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>IsRxDpAuxWriteCallbackSet</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a75594e731a4c6e24912794e6ee8a6b68" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>IsRxDpCpIrqSetCallbackSet</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1aaca168659256b66af5b1a0d8f8fe9a10" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>IsRxDpSetClearAuxDeferCallbackSet</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a010b31b3e68726e4207cd1db31af2e5a" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>IsSke_Send_EksCallbackSet</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1aa37ca4dd0ef61f6ee6342a3a6fd52670" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>IsStreamManageRequestCallbackSet</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a6b616b9c3e724a0d213eb1aaf2d09191" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>IsTopologyUpdateCallbackSet</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a092876b5e7cb63067fe2db0ac5335779" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>IsUnauthenticatedCallbackSet</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1adfd2396141ed831a85a6351129cf7ac5" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>RxDpAuxReadCallback</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a39f91fd8561e60ba1cad81a4c458a840" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>RxDpAuxReadCallbackRef</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1af3ddb4eb720b1083e5c2ec340e20c773" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>RxDpAuxWriteCallback</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a3c765c958a5a54ce93cc786c6e26db00" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>RxDpAuxWriteCallbackRef</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a298de5a7f4a78bedca2dc3545d877a14" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>RxDpCpIrqSetCallback</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a166f7a40d5d3bf9e4829298e43e3ec2b" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>RxDpCpIrqSetCallbackRef</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1aadd260c74e2a5ca9926ad227d279dfdd" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>RxDpSetClearAuxDeferCallback</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a1318808071a1a05d87b8b2354c18ee89" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>RxDpSetClearAuxDeferCallbackRef</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a3ce3d35a1e314ccfdd30a77ccf245981" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>Ske_Send_EksCallback</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1ab6a579942f15603ff7c91b3f23561983" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>Ske_Send_EksCallbackRef</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a8dddd1a9c57b901b0891a3e77dd59ec5" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>StreamManageRequestCallback</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a26b7c215791b3550e990df5be79f873c" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>StreamManageRequestCallbackRef</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1ac4f7d4037abc766535daafecc7b13002" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>TopologyUpdateCallback</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a86831f71191a3bb2a1d6c7dfc053bbd2" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>TopologyUpdateCallbackRef</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1ad872ba8707f6dfd85872cc101d50aea6" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>UnauthenticatedCallback</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___handles_1a2a0617d820d1ec5afeb351de454cb530" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Handles</scope><name>UnauthenticatedCallbackRef</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

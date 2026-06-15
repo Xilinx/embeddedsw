@@ -1,0 +1,1641 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__csuma__api" kind="group">
+    <compoundname>csuma_api</compoundname>
+    <title>CSUDMA APIs</title>
+      <sectiondef kind="user-defined">
+      <header>Registers offsets</header>
+      <memberdef kind="define" id="group__csuma__api_1ga76fcd0f2a0c7ebc2058f231a944c7109" prot="public" static="no">
+        <name>XCSUDMA_ADDR_OFFSET</name>
+        <initializer>0x000U</initializer>
+        <briefdescription>
+<para>Address Register Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1ga83a1043112b6067b1901d2bdcb29563d" compoundref="xcsudma_8c" startline="254" endline="294">XCsuDma_64BitTransfer</referencedby>
+        <referencedby refid="group__csuma__api_1ga25049be545d8ec6eae2426b6248a8e4f" compoundref="xcsudma_8c" startline="316" endline="336">XCsuDma_GetAddr</referencedby>
+        <referencedby refid="group__csuma__api_1gacf79144df19e9cd4116dd9f507037ff1" compoundref="xcsudma_8c" startline="146" endline="216">XCsuDma_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csuma__api_1gaf5d3e01cba7a5d0029901f690007a9c0" prot="public" static="no">
+        <name>XCSUDMA_SIZE_OFFSET</name>
+        <initializer>0x004U</initializer>
+        <briefdescription>
+<para>Size Register Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1ga83a1043112b6067b1901d2bdcb29563d" compoundref="xcsudma_8c" startline="254" endline="294">XCsuDma_64BitTransfer</referencedby>
+        <referencedby refid="group__csuma__api_1gad5fd579fb9c166e59ee1f9d3b39250c7" compoundref="xcsudma_8c" startline="354" endline="370">XCsuDma_GetSize</referencedby>
+        <referencedby refid="group__csuma__api_1gacf79144df19e9cd4116dd9f507037ff1" compoundref="xcsudma_8c" startline="146" endline="216">XCsuDma_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csuma__api_1gaa69407558163d5fc58ac9621b3e313a3" prot="public" static="no">
+        <name>XCSUDMA_STS_OFFSET</name>
+        <initializer>0x008U</initializer>
+        <briefdescription>
+<para>Status Register Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csuma__api_1ga60d1ed5209af6a5d9e9c55b6b95052de" prot="public" static="no">
+        <name>XCSUDMA_CTRL_OFFSET</name>
+        <initializer>0x00CU</initializer>
+        <briefdescription>
+<para>Control Register Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1gaab0b66bca3f38d26d38ff47544fa6b11" compoundref="xcsudma_8c" startline="857" endline="916">XCsuDma_GetConfig</referencedby>
+        <referencedby refid="group__csuma__api_1gaa3450f812658f927f289b997b12a4174" compoundref="xcsudma_8c" startline="455" endline="493">XCsuDma_IsPaused</referencedby>
+        <referencedby refid="group__csuma__api_1ga00b5080126710866186d0bfafd26e9b6" compoundref="xcsudma_8c" startline="395" endline="428">XCsuDma_Pause</referencedby>
+        <referencedby refid="group__csuma__api_1gaeee3f2d5bcf265b57c9f214f2bc15a28" compoundref="xcsudma_8c" startline="519" endline="549">XCsuDma_Resume</referencedby>
+        <referencedby refid="group__csuma__api_1ga774ab551d0ef59fd880ff834f2d83804" compoundref="xcsudma__selftest_8c" startline="68" endline="101">XCsuDma_SelfTest</referencedby>
+        <referencedby refid="group__csuma__api_1gac9b6265e467b03cc903cd66781e95e63" compoundref="xcsudma_8c" startline="720" endline="781">XCsuDma_SetConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csuma__api_1gab56adb100901bb2b042a842619064ce5" prot="public" static="no">
+        <name>XCSUDMA_I_STS_OFFSET</name>
+        <initializer>0x014U</initializer>
+        <briefdescription>
+<para>Interrupt Status Register Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1ga1db5eabd96920efb06fb03c919420601" compoundref="xcsudma__intr_8c" startline="98" endline="118">XCsuDma_IntrClear</referencedby>
+        <referencedby refid="group__csuma__api_1ga6169fa380a4d55e41d7ab96589372e8f" compoundref="xcsudma__intr_8c" startline="60" endline="76">XCsuDma_IntrGetStatus</referencedby>
+        <referencedby refid="group__csuma__api_1ga73867b4acb189982642e4c1ae4f92fb9" compoundref="xcsudma_8c" startline="624" endline="643">XCsuDma_WaitForDoneTimeout</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Size register bit masks and shifts</header>
+      <memberdef kind="define" id="group__csuma__api_1ga2e9db5623d0c9b85088c528d43c9b411" prot="public" static="no">
+        <name>XCSUDMA_SIZE_MASK</name>
+        <initializer>0x1FFFFFFCU</initializer>
+        <briefdescription>
+<para>Mask for size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csuma__api_1gaf0a5114bb4e675c0e9d933a2d235ac6f" prot="public" static="no">
+        <name>XCSUDMA_LAST_WORD_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Last word check bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" line="142" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" bodystart="144" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1ga83a1043112b6067b1901d2bdcb29563d" compoundref="xcsudma_8c" startline="254" endline="294">XCsuDma_64BitTransfer</referencedby>
+        <referencedby refid="group__csuma__api_1gacf79144df19e9cd4116dd9f507037ff1" compoundref="xcsudma_8c" startline="146" endline="216">XCsuDma_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csuma__api_1gae1d5689d4fbd05c2e7f6b2a34bcbfb09" prot="public" static="no">
+        <name>XCSUDMA_SIZE_SHIFT</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+<para>Shift for size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" bodystart="145" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1ga83a1043112b6067b1901d2bdcb29563d" compoundref="xcsudma_8c" startline="254" endline="294">XCsuDma_64BitTransfer</referencedby>
+        <referencedby refid="group__csuma__api_1gad5fd579fb9c166e59ee1f9d3b39250c7" compoundref="xcsudma_8c" startline="354" endline="370">XCsuDma_GetSize</referencedby>
+        <referencedby refid="group__csuma__api_1gacf79144df19e9cd4116dd9f507037ff1" compoundref="xcsudma_8c" startline="146" endline="216">XCsuDma_Transfer</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt Enable/Disable/Mask/Status registers bit masks</header>
+      <memberdef kind="define" id="group__csuma__api_1ga33dc1a1076170c9ca47df1c3451bdfe5" prot="public" static="no">
+        <name>XCSUDMA_IXR_FIFO_OVERFLOW_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>FIFO overflow mask, it is valid only to Destination Channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" line="213" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csuma__api_1ga6e7d15f2dfaa7afef685f382db12c62e" prot="public" static="no">
+        <name>XCSUDMA_IXR_INVALID_APB_MASK</name>
+        <initializer>0x00000040U</initializer>
+        <briefdescription>
+<para>Invalid APB access mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" line="215" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csuma__api_1gaf727ccf4d9bbbce46d61f67be041b40c" prot="public" static="no">
+        <name>XCSUDMA_IXR_FIFO_THRESHHIT_MASK</name>
+        <initializer>0x00000020U</initializer>
+        <briefdescription>
+<para>FIFO threshold hit indicator mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" line="217" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csuma__api_1gadb917cad64699bd0fc6e21c1fec74068" prot="public" static="no">
+        <name>XCSUDMA_IXR_TIMEOUT_MEM_MASK</name>
+        <initializer>0x00000010U</initializer>
+        <briefdescription>
+<para>Time out counter expired to access memory mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" line="220" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csuma__api_1ga7fc13f5152cf0098d76d4b78b08702e8" prot="public" static="no">
+        <name>XCSUDMA_IXR_TIMEOUT_STRM_MASK</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>Time out counter expired to access stream mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" line="223" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" bodystart="230" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csuma__api_1gac6e2bc9f25b7160249710c395a74d933" prot="public" static="no">
+        <name>XCSUDMA_IXR_AXI_WRERR_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>AXI Read/Write error mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" line="225" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csuma__api_1ga0dbd333c70de601e769b8542552eb7e4" prot="public" static="no">
+        <name>XCSUDMA_IXR_DONE_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Done mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" line="226" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" bodystart="238" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1ga73867b4acb189982642e4c1ae4f92fb9" compoundref="xcsudma_8c" startline="624" endline="643">XCsuDma_WaitForDoneTimeout</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csuma__api_1ga670d9fac28bd9de6b6f6abcb5fda64cc" prot="public" static="no">
+        <name>XCSUDMA_IXR_MEM_DONE_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Memory done mask, it is valid only for source channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" line="230" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csuma__api_1ga441edc2ec9eadb8093ac0ab41e0162d2" prot="public" static="no">
+        <name>XCSUDMA_IXR_SRC_MASK</name>
+        <initializer>0x0000007FU</initializer>
+        <briefdescription>
+<para><verbatim> ((XCSUDMA_IXR_INVALID_APB_MASK)|
+</verbatim> (XCSUDMA_IXR_FIFO_THRESHHIT_MASK) | (XCSUDMA_IXR_TIMEOUT_MEM_MASK) | (XCSUDMA_IXR_TIMEOUT_STRM_MASK) | (XCSUDMA_IXR_AXI_WRERR_MASK) | (XCSUDMA_IXR_DONE_MASK) | (XCSUDMA_IXR_MEM_DONE_MASK)) </para>        </briefdescription>
+        <detaileddescription>
+<para>All interrupt mask for source </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" line="231" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" bodystart="246" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1gadf3599e4d07ef05586a217ebbbd02999" compoundref="xcsudma__intr_8c" startline="185" endline="209">XCsuDma_DisableIntr</referencedby>
+        <referencedby refid="group__csuma__api_1gad892a65e65ac14f48f7d7f53020511cf" compoundref="xcsudma__intr_8c" startline="140" endline="163">XCsuDma_EnableIntr</referencedby>
+        <referencedby refid="group__csuma__api_1ga1db5eabd96920efb06fb03c919420601" compoundref="xcsudma__intr_8c" startline="98" endline="118">XCsuDma_IntrClear</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csuma__api_1gadfb7ef2922c9ceb4804bc87620c35134" prot="public" static="no">
+        <name>XCSUDMA_IXR_DST_MASK</name>
+        <initializer>0x000000FEU</initializer>
+        <briefdescription>
+<para><verbatim> ((XCSUDMA_IXR_FIFO_OVERFLOW_MASK) |
+</verbatim> (XCSUDMA_IXR_INVALID_APB_MASK) | (XCSUDMA_IXR_FIFO_THRESHHIT_MASK) | (XCSUDMA_IXR_TIMEOUT_MEM_MASK) | (XCSUDMA_IXR_TIMEOUT_STRM_MASK) | (XCSUDMA_IXR_AXI_WRERR_MASK) | (XCSUDMA_IXR_DONE_MASK)) </para>        </briefdescription>
+        <detaileddescription>
+<para>All interrupt mask for destination </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" line="241" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" bodystart="256" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1gadf3599e4d07ef05586a217ebbbd02999" compoundref="xcsudma__intr_8c" startline="185" endline="209">XCsuDma_DisableIntr</referencedby>
+        <referencedby refid="group__csuma__api_1gad892a65e65ac14f48f7d7f53020511cf" compoundref="xcsudma__intr_8c" startline="140" endline="163">XCsuDma_EnableIntr</referencedby>
+        <referencedby refid="group__csuma__api_1ga1db5eabd96920efb06fb03c919420601" compoundref="xcsudma__intr_8c" startline="98" endline="118">XCsuDma_IntrClear</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Software done timeout value</header>
+      <memberdef kind="define" id="group__csuma__api_1ga0bd0c9763013ce910920b46ad35d10ba" prot="public" static="no">
+        <name>XCSUDMA_DONE_TIMEOUT_VAL</name>
+        <initializer>300000000U</initializer>
+        <briefdescription>
+<para>SW timeout loop value for transfer completion. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" line="291" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" bodystart="305" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1ga73867b4acb189982642e4c1ae4f92fb9" compoundref="xcsudma_8c" startline="624" endline="643">XCsuDma_WaitForDoneTimeout</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" prot="public" static="no">
+        <name>XCsuDma_Channel</name>
+        <enumvalue id="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" prot="public">
+          <name>XCSUDMA_SRC_CHANNEL</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>Source Channel of CSU_DMA. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" prot="public">
+          <name>XCSUDMA_DST_CHANNEL</name>
+          <briefdescription>
+<para>Destination Channel of CSU_DMA. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef contains CSU_DMA Channel Types. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" bodystart="81" bodyend="84"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__csuma__api_1gad0f7217bd295de82623179efb34adb96" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XCsuDma_CfgInitialize</definition>
+        <argsstring>(XCsuDma *InstancePtr, XCsuDma_Config *CfgPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XCsuDma_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_csu_dma___config" kindref="compound">XCsuDma_Config</ref> *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes CSU_DMA core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function must be called prior using a CSU_DMA core. Initialization of an CSU_DMA includes setting up the instance data and ensuring the hardware is in a quiescent state.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reference to a structure containing information about a specific <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, pass in the physical address instead.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" bodystart="90" bodyend="115"/>
+        <references refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" compoundref="xcsudma_8h" startline="315">XCsuDma_Config::BaseAddress</references>
+        <references refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" compoundref="xcsudma_8h" startline="338">XCsuDma::Config</references>
+        <references refid="struct_x_csu_dma___config_1a8bb59cb926fea92ce59604ca3423e505" compoundref="xcsudma_8h" startline="317">XCsuDma_Config::DmaType</references>
+        <references refid="struct_x_csu_dma_1ab458e2393e0b44a976037f496de9e679" compoundref="xcsudma_8h" startline="339">XCsuDma::IsReady</references>
+        <references refid="xcsudma_8h_1a8f5460a8a6a1848b2c4c2988f7428e73" compoundref="xcsudma_8h" startline="109">XCSUDMA_DMATYPEIS_CSUDMA</references>
+        <references refid="xcsudma_8h_1a4fd22ed9ee5ff0eae03ee717112b7087" compoundref="xcsudma_8h" startline="131">XCsuDma_Reset</references>
+        <referencedby refid="xcsudma__selftest__example_8c_1a6209354fab076157f08aa360d43a8e0a" compoundref="xcsudma__selftest__example_8c" startline="123" endline="158">XCsuDma_SelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__csuma__api_1gacf79144df19e9cd4116dd9f507037ff1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsuDma_Transfer</definition>
+        <argsstring>(XCsuDma *InstancePtr, XCsuDma_Channel Channel, u64 Addr, u32 Size, u8 EnDataLast)</argsstring>
+        <name>XCsuDma_Transfer</name>
+        <param>
+          <type><ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Addr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>EnDataLast</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the starting address and size of the data to be transferred from/to the memory through the AXI interface. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>64 bit variable which holds the starting address of data which needs to write into the memory(DST) (or read from the memory(SRC)). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>32 bit variable which represents the number of 4 byte words needs to be transferred from starting address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EnDataLast</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Triggers an end of the message. Enables or disables data_inp_last signal to stream interface when current command is completed. It is applicable only to source channel; ignored for destination channel.<itemizedlist>
+<listitem><para>1 - Asserts data_inp_last signal.</para></listitem><listitem><para>0 - data_inp_last will not be asserted.</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Data_inp_last signal is asserted simultaneously with the data_inp_valid signal associated with the final 32-bit word transfer. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" bodystart="146" bodyend="216"/>
+        <references refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" compoundref="xcsudma_8h" startline="315">XCsuDma_Config::BaseAddress</references>
+        <references refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" compoundref="xcsudma_8h" startline="338">XCsuDma::Config</references>
+        <references refid="struct_x_csu_dma_1ab458e2393e0b44a976037f496de9e679" compoundref="xcsudma_8h" startline="339">XCsuDma::IsReady</references>
+        <references refid="group__csuma__api_1ga76fcd0f2a0c7ebc2058f231a944c7109" compoundref="xcsudma__hw_8h" startline="56">XCSUDMA_ADDR_OFFSET</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" compoundref="xcsudma_8h" startline="83">XCSUDMA_DST_CHANNEL</references>
+        <references refid="group__csuma__api_1gaf0a5114bb4e675c0e9d933a2d235ac6f" compoundref="xcsudma__hw_8h" startline="144">XCSUDMA_LAST_WORD_MASK</references>
+        <references refid="xcsudma_8h_1ab57550413ed1c53f70a33ad4b90965eb" compoundref="xcsudma_8h" startline="106">XCSUDMA_SIZE_MAX</references>
+        <references refid="group__csuma__api_1gaf5d3e01cba7a5d0029901f690007a9c0" compoundref="xcsudma__hw_8h" startline="57">XCSUDMA_SIZE_OFFSET</references>
+        <references refid="group__csuma__api_1gae1d5689d4fbd05c2e7f6b2a34bcbfb09" compoundref="xcsudma__hw_8h" startline="145">XCSUDMA_SIZE_SHIFT</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" compoundref="xcsudma_8h" startline="82">XCSUDMA_SRC_CHANNEL</references>
+        <references refid="group__csuma__api_1gaf448568bb484f8b80052682f399f194d" compoundref="xcsudma_8c" startline="58">XCSUDMA_WORD_SIZE</references>
+        <references refid="group__csuma__api_1ga5a2390fe93e02061d01c3b9e057b3b2b" compoundref="xcsudma__hw_8h" startline="347">XCsuDma_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csuma__api_1ga83a1043112b6067b1901d2bdcb29563d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsuDma_64BitTransfer</definition>
+        <argsstring>(XCsuDma *InstancePtr, XCsuDma_Channel Channel, u32 AddrLow, u32 AddrHigh, u32 Size, u8 EnDataLast)</argsstring>
+        <name>XCsuDma_64BitTransfer</name>
+        <param>
+          <type><ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>AddrLow</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>AddrHigh</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>EnDataLast</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the starting address and size of the data to be transferred from/to the memory through the AXI interface. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is useful for pmu processor to execute a 64-bit DMA transfer.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AddrLow</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bit variable which holds the starting lower address of data which needs to write into the memory(DST) (or read from the memory(SRC)). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AddrHigh</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>32 bit variable which holds the higher address of data which needs to write into the memory(DST) (or read from the memoroy(SRC)). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>32 bit variable which represents the number of 4 byte words to be transferred from starting address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EnDataLast</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Trigger an end of message. Enables or disable data_inp_last signal to stream interface when current command is completed. Only applicable for the source channel; ignored for destination channel.<itemizedlist>
+<listitem><para>1 - Asserts data_inp_last signal.</para></listitem><listitem><para>0 - data_inp_last will not be asserted.</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Data_inp_last signal is asserted simultaneously with the data_inp_valid signal associated with the final 32-bit word transfer. This API does not invalidate the DMA buffer. It is recommended to call this API only through PMU processor. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" bodystart="254" bodyend="294"/>
+        <references refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" compoundref="xcsudma_8h" startline="315">XCsuDma_Config::BaseAddress</references>
+        <references refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" compoundref="xcsudma_8h" startline="338">XCsuDma::Config</references>
+        <references refid="struct_x_csu_dma_1ab458e2393e0b44a976037f496de9e679" compoundref="xcsudma_8h" startline="339">XCsuDma::IsReady</references>
+        <references refid="group__csuma__api_1ga76fcd0f2a0c7ebc2058f231a944c7109" compoundref="xcsudma__hw_8h" startline="56">XCSUDMA_ADDR_OFFSET</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" compoundref="xcsudma_8h" startline="83">XCSUDMA_DST_CHANNEL</references>
+        <references refid="group__csuma__api_1gaf0a5114bb4e675c0e9d933a2d235ac6f" compoundref="xcsudma__hw_8h" startline="144">XCSUDMA_LAST_WORD_MASK</references>
+        <references refid="xcsudma_8h_1ab57550413ed1c53f70a33ad4b90965eb" compoundref="xcsudma_8h" startline="106">XCSUDMA_SIZE_MAX</references>
+        <references refid="group__csuma__api_1gaf5d3e01cba7a5d0029901f690007a9c0" compoundref="xcsudma__hw_8h" startline="57">XCSUDMA_SIZE_OFFSET</references>
+        <references refid="group__csuma__api_1gae1d5689d4fbd05c2e7f6b2a34bcbfb09" compoundref="xcsudma__hw_8h" startline="145">XCSUDMA_SIZE_SHIFT</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" compoundref="xcsudma_8h" startline="82">XCSUDMA_SRC_CHANNEL</references>
+        <references refid="group__csuma__api_1gaf448568bb484f8b80052682f399f194d" compoundref="xcsudma_8c" startline="58">XCSUDMA_WORD_SIZE</references>
+        <references refid="group__csuma__api_1ga5a2390fe93e02061d01c3b9e057b3b2b" compoundref="xcsudma__hw_8h" startline="347">XCsuDma_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csuma__api_1ga25049be545d8ec6eae2426b6248a8e4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u64</type>
+        <definition>u64 XCsuDma_GetAddr</definition>
+        <argsstring>(XCsuDma *InstancePtr, XCsuDma_Channel Channel)</argsstring>
+        <name>XCsuDma_GetAddr</name>
+        <param>
+          <type><ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the current address location of the memory, from where it has to read the data(SRC) or the location where it has to write the data (DST) based on the channel selection. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Address is a 64 bit variable which holds the current address.<itemizedlist>
+<listitem><para>From this location data has to be read(SRC)</para></listitem><listitem><para>At this location data has to be written(DST)</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" bodystart="316" bodyend="336"/>
+        <references refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" compoundref="xcsudma_8h" startline="315">XCsuDma_Config::BaseAddress</references>
+        <references refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" compoundref="xcsudma_8h" startline="338">XCsuDma::Config</references>
+        <references refid="group__csuma__api_1ga76fcd0f2a0c7ebc2058f231a944c7109" compoundref="xcsudma__hw_8h" startline="56">XCSUDMA_ADDR_OFFSET</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" compoundref="xcsudma_8h" startline="83">XCSUDMA_DST_CHANNEL</references>
+        <references refid="group__csuma__api_1ga356d29aa2d43a1b724700007be7dcd51" compoundref="xcsudma__hw_8h" startline="329">XCsuDma_ReadReg</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" compoundref="xcsudma_8h" startline="82">XCSUDMA_SRC_CHANNEL</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csuma__api_1gad5fd579fb9c166e59ee1f9d3b39250c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCsuDma_GetSize</definition>
+        <argsstring>(XCsuDma *InstancePtr, XCsuDma_Channel Channel)</argsstring>
+        <name>XCsuDma_GetSize</name>
+        <param>
+          <type><ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the size of the data yet to be transferred from memory to CSU_DMA or CSU_DMA to memory based on the channel selection. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns number of bytes of data yet to be transferred.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" bodystart="354" bodyend="370"/>
+        <references refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" compoundref="xcsudma_8h" startline="315">XCsuDma_Config::BaseAddress</references>
+        <references refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" compoundref="xcsudma_8h" startline="338">XCsuDma::Config</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" compoundref="xcsudma_8h" startline="83">XCSUDMA_DST_CHANNEL</references>
+        <references refid="group__csuma__api_1ga356d29aa2d43a1b724700007be7dcd51" compoundref="xcsudma__hw_8h" startline="329">XCsuDma_ReadReg</references>
+        <references refid="group__csuma__api_1gaf5d3e01cba7a5d0029901f690007a9c0" compoundref="xcsudma__hw_8h" startline="57">XCSUDMA_SIZE_OFFSET</references>
+        <references refid="group__csuma__api_1gae1d5689d4fbd05c2e7f6b2a34bcbfb09" compoundref="xcsudma__hw_8h" startline="145">XCSUDMA_SIZE_SHIFT</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" compoundref="xcsudma_8h" startline="82">XCSUDMA_SRC_CHANNEL</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csuma__api_1ga00b5080126710866186d0bfafd26e9b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsuDma_Pause</definition>
+        <argsstring>(XCsuDma *InstancePtr, XCsuDma_Channel Channel, XCsuDma_PauseType Type)</argsstring>
+        <name>XCsuDma_Pause</name>
+        <param>
+          <type><ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <param>
+          <type><ref refid="xcsudma_8h_1ad5ce08d197288cbdfb06941f1d46df87" kindref="member">XCsuDma_PauseType</ref></type>
+          <declname>Type</declname>
+        </param>
+        <briefdescription>
+<para>This function pauses the Channel data transfer to/from memory or to/from stream based on pause type. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of pause to be enabled.<itemizedlist>
+<listitem><para>XCSUDMA_PAUSE_MEMORY(0) - Pause memory<itemizedlist>
+<listitem><para>SRC stops issuing new read commands to memory.</para></listitem><listitem><para>DST stops issuing new write commands to memory.</para></listitem></itemizedlist>
+</para></listitem><listitem><para>XCSUDMA_PAUSE_STREAM(1) - Pause stream<itemizedlist>
+<listitem><para>SRC stops the transfer of data from FIFO to Stream.</para></listitem><listitem><para>DST stops the transfer of data from stream to FIFO.</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" line="395" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" bodystart="395" bodyend="428"/>
+        <references refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" compoundref="xcsudma_8h" startline="315">XCsuDma_Config::BaseAddress</references>
+        <references refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" compoundref="xcsudma_8h" startline="338">XCsuDma::Config</references>
+        <references refid="struct_x_csu_dma_1ab458e2393e0b44a976037f496de9e679" compoundref="xcsudma_8h" startline="339">XCsuDma::IsReady</references>
+        <references refid="group__csuma__api_1ga60d1ed5209af6a5d9e9c55b6b95052de" compoundref="xcsudma__hw_8h" startline="59">XCSUDMA_CTRL_OFFSET</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" compoundref="xcsudma_8h" startline="83">XCSUDMA_DST_CHANNEL</references>
+        <references refid="xcsudma_8h_1ad5ce08d197288cbdfb06941f1d46df87a4848b0d503f02b0b03be6cd1a14ef6a8" compoundref="xcsudma_8h" startline="91">XCSUDMA_PAUSE_MEMORY</references>
+        <references refid="xcsudma_8h_1ad5ce08d197288cbdfb06941f1d46df87a67086fbe749ed37f5928c211ee6aa5b8" compoundref="xcsudma_8h" startline="93">XCSUDMA_PAUSE_STREAM</references>
+        <references refid="group__csuma__api_1ga356d29aa2d43a1b724700007be7dcd51" compoundref="xcsudma__hw_8h" startline="329">XCsuDma_ReadReg</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" compoundref="xcsudma_8h" startline="82">XCSUDMA_SRC_CHANNEL</references>
+        <references refid="group__csuma__api_1ga5a2390fe93e02061d01c3b9e057b3b2b" compoundref="xcsudma__hw_8h" startline="347">XCsuDma_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csuma__api_1gaa3450f812658f927f289b997b12a4174" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XCsuDma_IsPaused</definition>
+        <argsstring>(XCsuDma *InstancePtr, XCsuDma_Channel Channel, XCsuDma_PauseType Type)</argsstring>
+        <name>XCsuDma_IsPaused</name>
+        <param>
+          <type><ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <param>
+          <type><ref refid="xcsudma_8h_1ad5ce08d197288cbdfb06941f1d46df87" kindref="member">XCsuDma_PauseType</ref></type>
+          <declname>Type</declname>
+        </param>
+        <briefdescription>
+<para>This function checks whether Channel memory/stream is paused based on the given pause type. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of the pause which needs to be checked.<itemizedlist>
+<listitem><para>XCSUDMA_PAUSE_MEMORY(0) - Pause memory<itemizedlist>
+<listitem><para>SRC stops issuing new read commands to memory.</para></listitem><listitem><para>DST stops issuing new write commands to memory.</para></listitem></itemizedlist>
+</para></listitem><listitem><para>XCSUDMA_PAUSE_STREAM(1) - Pause stream<itemizedlist>
+<listitem><para>SRC stops the transfer of data from FIFO to Stream.</para></listitem><listitem><para>DST stops the transfer of data from stream to FIFO.</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns the pause status.<itemizedlist>
+<listitem><para>TRUE if it is in paused state.</para></listitem><listitem><para>FALSE if it is not in pause state.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" line="455" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" bodystart="455" bodyend="493"/>
+        <references refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" compoundref="xcsudma_8h" startline="315">XCsuDma_Config::BaseAddress</references>
+        <references refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" compoundref="xcsudma_8h" startline="338">XCsuDma::Config</references>
+        <references refid="group__csuma__api_1ga60d1ed5209af6a5d9e9c55b6b95052de" compoundref="xcsudma__hw_8h" startline="59">XCSUDMA_CTRL_OFFSET</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" compoundref="xcsudma_8h" startline="83">XCSUDMA_DST_CHANNEL</references>
+        <references refid="xcsudma_8h_1ad5ce08d197288cbdfb06941f1d46df87a4848b0d503f02b0b03be6cd1a14ef6a8" compoundref="xcsudma_8h" startline="91">XCSUDMA_PAUSE_MEMORY</references>
+        <references refid="xcsudma_8h_1ad5ce08d197288cbdfb06941f1d46df87a67086fbe749ed37f5928c211ee6aa5b8" compoundref="xcsudma_8h" startline="93">XCSUDMA_PAUSE_STREAM</references>
+        <references refid="group__csuma__api_1ga356d29aa2d43a1b724700007be7dcd51" compoundref="xcsudma__hw_8h" startline="329">XCsuDma_ReadReg</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" compoundref="xcsudma_8h" startline="82">XCSUDMA_SRC_CHANNEL</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csuma__api_1gaeee3f2d5bcf265b57c9f214f2bc15a28" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsuDma_Resume</definition>
+        <argsstring>(XCsuDma *InstancePtr, XCsuDma_Channel Channel, XCsuDma_PauseType Type)</argsstring>
+        <name>XCsuDma_Resume</name>
+        <param>
+          <type><ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <param>
+          <type><ref refid="xcsudma_8h_1ad5ce08d197288cbdfb06941f1d46df87" kindref="member">XCsuDma_PauseType</ref></type>
+          <declname>Type</declname>
+        </param>
+        <briefdescription>
+<para>This function resumes the channel if it is in paused state and continues where it has left. </para>        </briefdescription>
+        <detaileddescription>
+<para>Based on the type of pause, there is no effect if it is not in paused state.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of pause to be resumed if it is paused.<itemizedlist>
+<listitem><para>XCSUDMA_PAUSE_MEMORY(0) - Pause memory<itemizedlist>
+<listitem><para>SRC stops issuing new read commands to memory.</para></listitem><listitem><para>DST stops issuing new write commands to memory.</para></listitem></itemizedlist>
+</para></listitem><listitem><para>XCSUDMA_PAUSE_STREAM(1) - Pause stream<itemizedlist>
+<listitem><para>SRC stops the transfer of data from FIFO to Stream.</para></listitem><listitem><para>DST stops the transfer of data from stream to FIFO.</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" line="519" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" bodystart="519" bodyend="549"/>
+        <references refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" compoundref="xcsudma_8h" startline="315">XCsuDma_Config::BaseAddress</references>
+        <references refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" compoundref="xcsudma_8h" startline="338">XCsuDma::Config</references>
+        <references refid="struct_x_csu_dma_1ab458e2393e0b44a976037f496de9e679" compoundref="xcsudma_8h" startline="339">XCsuDma::IsReady</references>
+        <references refid="group__csuma__api_1ga60d1ed5209af6a5d9e9c55b6b95052de" compoundref="xcsudma__hw_8h" startline="59">XCSUDMA_CTRL_OFFSET</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" compoundref="xcsudma_8h" startline="83">XCSUDMA_DST_CHANNEL</references>
+        <references refid="xcsudma_8h_1ad5ce08d197288cbdfb06941f1d46df87a4848b0d503f02b0b03be6cd1a14ef6a8" compoundref="xcsudma_8h" startline="91">XCSUDMA_PAUSE_MEMORY</references>
+        <references refid="xcsudma_8h_1ad5ce08d197288cbdfb06941f1d46df87a67086fbe749ed37f5928c211ee6aa5b8" compoundref="xcsudma_8h" startline="93">XCSUDMA_PAUSE_STREAM</references>
+        <references refid="group__csuma__api_1ga356d29aa2d43a1b724700007be7dcd51" compoundref="xcsudma__hw_8h" startline="329">XCsuDma_ReadReg</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" compoundref="xcsudma_8h" startline="82">XCSUDMA_SRC_CHANNEL</references>
+        <references refid="group__csuma__api_1ga5a2390fe93e02061d01c3b9e057b3b2b" compoundref="xcsudma__hw_8h" startline="347">XCsuDma_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csuma__api_1ga17f1a7ba935f4bf3626050e0b0e0142b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCsuDma_GetCheckSum</definition>
+        <argsstring>(XCsuDma *InstancePtr)</argsstring>
+        <name>XCsuDma_GetCheckSum</name>
+        <param>
+          <type><ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the sum of all the data read from AXI memory. </para>        </briefdescription>
+        <detaileddescription>
+<para>It is valid only when using the CSU_DMA source channel.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The sum of all the data read from memory.</para></simplesect>
+<simplesect kind="note"><para>Before the transfer starts, clear this register to get the correct sum. Otherwise, it adds to previous value which results in an incorrect output. Valid only for source channel. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" line="567" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" bodystart="567" bodyend="582"/>
+        <references refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" compoundref="xcsudma_8h" startline="315">XCsuDma_Config::BaseAddress</references>
+        <references refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" compoundref="xcsudma_8h" startline="338">XCsuDma::Config</references>
+        <references refid="struct_x_csu_dma_1ab458e2393e0b44a976037f496de9e679" compoundref="xcsudma_8h" startline="339">XCsuDma::IsReady</references>
+        <references refid="group__csuma__api_1ga356d29aa2d43a1b724700007be7dcd51" compoundref="xcsudma__hw_8h" startline="329">XCsuDma_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csuma__api_1ga78bdd79674e2b5c92b9701cacfde1fe1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsuDma_ClearCheckSum</definition>
+        <argsstring>(XCsuDma *InstancePtr)</argsstring>
+        <name>XCsuDma_ClearCheckSum</name>
+        <param>
+          <type><ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function clears the check sum of the data read from AXI memory. </para>        </briefdescription>
+        <detaileddescription>
+<para>It is valid only for CSU_DMA source channel.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The sum of all the data read from memory.</para></simplesect>
+<simplesect kind="note"><para>Before the transfer starts, clear this register to get correct sum. Otherwise, it adds to previous value which results in an incorrect output. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" line="598" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" bodystart="598" bodyend="606"/>
+        <references refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" compoundref="xcsudma_8h" startline="315">XCsuDma_Config::BaseAddress</references>
+        <references refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" compoundref="xcsudma_8h" startline="338">XCsuDma::Config</references>
+        <references refid="group__csuma__api_1ga5a2390fe93e02061d01c3b9e057b3b2b" compoundref="xcsudma__hw_8h" startline="347">XCsuDma_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csuma__api_1ga73867b4acb189982642e4c1ae4f92fb9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCsuDma_WaitForDoneTimeout</definition>
+        <argsstring>(XCsuDma *InstancePtr, XCsuDma_Channel Channel)</argsstring>
+        <name>XCsuDma_WaitForDoneTimeout</name>
+        <param>
+          <type><ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <briefdescription>
+<para>This function polls for completion of data transfer periodically until the DMA done bit set or until the timeout occurs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS - In case of Success XST_FAILURE - In case of Timeout.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" line="624" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" bodystart="624" bodyend="643"/>
+        <references refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" compoundref="xcsudma_8h" startline="315">XCsuDma_Config::BaseAddress</references>
+        <references refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" compoundref="xcsudma_8h" startline="338">XCsuDma::Config</references>
+        <references refid="group__csuma__api_1ga0bd0c9763013ce910920b46ad35d10ba" compoundref="xcsudma__hw_8h" startline="305">XCSUDMA_DONE_TIMEOUT_VAL</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" compoundref="xcsudma_8h" startline="83">XCSUDMA_DST_CHANNEL</references>
+        <references refid="group__csuma__api_1gab56adb100901bb2b042a842619064ce5" compoundref="xcsudma__hw_8h" startline="60">XCSUDMA_I_STS_OFFSET</references>
+        <references refid="group__csuma__api_1ga0dbd333c70de601e769b8542552eb7e4" compoundref="xcsudma__hw_8h" startline="238">XCSUDMA_IXR_DONE_MASK</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" compoundref="xcsudma_8h" startline="82">XCSUDMA_SRC_CHANNEL</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csuma__api_1gac9b6265e467b03cc903cd66781e95e63" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsuDma_SetConfig</definition>
+        <argsstring>(XCsuDma *InstancePtr, XCsuDma_Channel Channel, XCsuDma_Configure *ConfigurValues)</argsstring>
+        <name>XCsuDma_SetConfig</name>
+        <param>
+          <type><ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_csu_dma___configure" kindref="compound">XCsuDma_Configure</ref> *</type>
+          <declname>ConfigurValues</declname>
+        </param>
+        <briefdescription>
+<para>This function configures all the values of CSU_DMA Channels with the values of updated <ref refid="struct_x_csu_dma___configure" kindref="compound">XCsuDma_Configure</ref> structure. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigurValues</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the structure <ref refid="struct_x_csu_dma___configure" kindref="compound">XCsuDma_Configure</ref> whose values are used to configure CSU_DMA core.<itemizedlist>
+<listitem><para>SssFifoThesh: When the DST FIFO level &gt;= this value, the SSS interface signal, &quot;data_out_fifo_level_hit&quot; is asserted. This mechanism can be used by the SSS to flow control data that is being looped back from the SRC DMA.<itemizedlist>
+<listitem><para>Range is (0x10 to 0x7A) threshold is 17 to 123 entries.</para></listitem><listitem><para>It is valid only for DST CSU_DMA IP.</para></listitem></itemizedlist>
+</para></listitem><listitem><para>ApbErr: When accessed to invalid APB the resulting pslerr will be<itemizedlist>
+<listitem><para>0 - 1&apos;b0</para></listitem><listitem><para>1 - 1&apos;b1</para></listitem></itemizedlist>
+</para></listitem><listitem><para>EndianType: Type of endianness<itemizedlist>
+<listitem><para>0 doesn&apos;t change order</para></listitem><listitem><para>1 will flip the order.</para></listitem></itemizedlist>
+</para></listitem><listitem><para>AxiBurstType: Type of the burst<itemizedlist>
+<listitem><para>0 will issue INCR type burst</para></listitem><listitem><para>1 will issue FIXED type burst</para></listitem></itemizedlist>
+</para></listitem><listitem><para>TimeoutValue: Time out value for timers<itemizedlist>
+<listitem><para>0x000 to 0xFFE are valid inputs</para></listitem><listitem><para>0xFFF clears both timers</para></listitem></itemizedlist>
+</para></listitem><listitem><para>FifoThresh: Programmed watermark value<itemizedlist>
+<listitem><para>Range is 0x00 to 0x80 (0 to 128 entries).</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Acache: Sets the AXI CACHE bits on the AXI Write/Read channel.<itemizedlist>
+<listitem><para>Cacheable ARCACHE[1] for SRC Channel and AWCACHE[1] for DST channel are always 1, we need to configure remaining 3 signal support (Bufferable, Read allocate and Write allocate). Valid inputs are:</para></listitem><listitem><para>0x000 - Cacheable, but do not allocate</para></listitem><listitem><para>0x001 - Cacheable and bufferable, but do not allocate</para></listitem><listitem><para>0x010 - Cacheable write-through, allocate on reads only</para></listitem><listitem><para>0x011 - Cacheable write-back, allocate on reads only</para></listitem><listitem><para>0x100 - Cacheable write-through, allocate on writes only</para></listitem><listitem><para>0x101 - Cacheable write-back, allocate on writes only</para></listitem><listitem><para>0x110 - Cacheable write-through, allocate on both reads and writes</para></listitem><listitem><para>0x111 - Cacheable write-back, allocate on both reads and writes</para></listitem></itemizedlist>
+</para></listitem><listitem><para>RouteBit: To select route<itemizedlist>
+<listitem><para>0 : Command will be routed normally</para></listitem><listitem><para>1 : Command will be routed to APU&apos;s cache controller</para></listitem></itemizedlist>
+</para></listitem><listitem><para>TimeoutEn: To enable or disable time out counters<itemizedlist>
+<listitem><para>0 : The 2 Timeout counters are disabled</para></listitem><listitem><para>1 : The 2 Timeout counters are enabled</para></listitem></itemizedlist>
+</para></listitem><listitem><para>TimeoutPre: Set the prescaler value for the timeout in clk (~2.5ns) cycles<itemizedlist>
+<listitem><para>Range is 0x000(Prescaler enables timer every cycles) to 0xFFF(Prescaler enables timer every 4096 cycles)</para></listitem></itemizedlist>
+</para></listitem><listitem><para>MaxOutCmds: Controls the maximumum number of outstanding AXI read commands issued.<itemizedlist>
+<listitem><para>Range is 0x0(Up to 1 Outstanding Read command allowed) to 0x8 (Up to 9 Outstanding Read command allowed)</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>To use timers timeout value Timeout enable field should be enabled. Users should check for the status of existing transfers before making configuration changes. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" line="720" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" bodystart="720" bodyend="781"/>
+        <references refid="struct_x_csu_dma___configure_1a984f69d8fa925618e85800ba8fd2d155" compoundref="xcsudma_8h" startline="357">XCsuDma_Configure::Acache</references>
+        <references refid="struct_x_csu_dma___configure_1a7ca88dbe204c7b24ce7e529da53e1ae2" compoundref="xcsudma_8h" startline="352">XCsuDma_Configure::ApbErr</references>
+        <references refid="struct_x_csu_dma___configure_1a1aeadd99f4f96da636b9cb0c2be21c09" compoundref="xcsudma_8h" startline="354">XCsuDma_Configure::AxiBurstType</references>
+        <references refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" compoundref="xcsudma_8h" startline="315">XCsuDma_Config::BaseAddress</references>
+        <references refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" compoundref="xcsudma_8h" startline="338">XCsuDma::Config</references>
+        <references refid="struct_x_csu_dma___configure_1a4d1217d471a558f54534c15213bbb264" compoundref="xcsudma_8h" startline="353">XCsuDma_Configure::EndianType</references>
+        <references refid="struct_x_csu_dma___configure_1af17af84045f926ff8e386509cc0c9aee" compoundref="xcsudma_8h" startline="356">XCsuDma_Configure::FifoThresh</references>
+        <references refid="struct_x_csu_dma_1ab458e2393e0b44a976037f496de9e679" compoundref="xcsudma_8h" startline="339">XCsuDma::IsReady</references>
+        <references refid="struct_x_csu_dma___configure_1acdf6a30da74f891648e17d1ce9bfadae" compoundref="xcsudma_8h" startline="361">XCsuDma_Configure::MaxOutCmds</references>
+        <references refid="struct_x_csu_dma___configure_1ac6f8c811d5b1ecf86d37091fc132717e" compoundref="xcsudma_8h" startline="358">XCsuDma_Configure::RouteBit</references>
+        <references refid="struct_x_csu_dma___configure_1a524260e03c75bc8745da0e4b7dca71ed" compoundref="xcsudma_8h" startline="351">XCsuDma_Configure::SssFifoThesh</references>
+        <references refid="struct_x_csu_dma___configure_1a2f45ba702e0487ed32152186339d7052" compoundref="xcsudma_8h" startline="359">XCsuDma_Configure::TimeoutEn</references>
+        <references refid="struct_x_csu_dma___configure_1a00365f4d0973fcb3fd39382312775748" compoundref="xcsudma_8h" startline="360">XCsuDma_Configure::TimeoutPre</references>
+        <references refid="struct_x_csu_dma___configure_1af2b9f211561ad313b726a60104afc32e" compoundref="xcsudma_8h" startline="355">XCsuDma_Configure::TimeoutValue</references>
+        <references refid="group__csuma__api_1ga60d1ed5209af6a5d9e9c55b6b95052de" compoundref="xcsudma__hw_8h" startline="59">XCSUDMA_CTRL_OFFSET</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" compoundref="xcsudma_8h" startline="83">XCSUDMA_DST_CHANNEL</references>
+        <references refid="group__csuma__api_1ga356d29aa2d43a1b724700007be7dcd51" compoundref="xcsudma__hw_8h" startline="329">XCsuDma_ReadReg</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" compoundref="xcsudma_8h" startline="82">XCSUDMA_SRC_CHANNEL</references>
+        <references refid="group__csuma__api_1ga5a2390fe93e02061d01c3b9e057b3b2b" compoundref="xcsudma__hw_8h" startline="347">XCsuDma_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csuma__api_1gaab0b66bca3f38d26d38ff47544fa6b11" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsuDma_GetConfig</definition>
+        <argsstring>(XCsuDma *InstancePtr, XCsuDma_Channel Channel, XCsuDma_Configure *ConfigurValues)</argsstring>
+        <name>XCsuDma_GetConfig</name>
+        <param>
+          <type><ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_csu_dma___configure" kindref="compound">XCsuDma_Configure</ref> *</type>
+          <declname>ConfigurValues</declname>
+        </param>
+        <briefdescription>
+<para>This function updates <ref refid="struct_x_csu_dma___configure" kindref="compound">XCsuDma_Configure</ref> structure members with the configured values of CSU_DMA&apos;s Channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigurValues</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the structure <ref refid="struct_x_csu_dma___configure" kindref="compound">XCsuDma_Configure</ref> whose members are updated with configurations of CSU_DMA core.<itemizedlist>
+<listitem><para>SssFifoThesh: When the DST FIFO level &gt;= this value, the SSS interface signal, &quot;data_out_fifo_level_hit&quot; will be asserted. This mechanism can be used by the SSS to flow control data that is being looped back from the SRC DMA.<itemizedlist>
+<listitem><para>Range is (0x10 to 0x7A) threshold is 17 to 123 entries.</para></listitem><listitem><para>It is valid only for DST CSU_DMA IP.</para></listitem></itemizedlist>
+</para></listitem><listitem><para>ApbErr: When accessed to invalid APB the resulting pslerr will be<itemizedlist>
+<listitem><para>0 - 1&apos;b0</para></listitem><listitem><para>1 - 1&apos;b1</para></listitem></itemizedlist>
+</para></listitem><listitem><para>EndianType: Type of endianness<itemizedlist>
+<listitem><para>0 doesn&apos;t change order</para></listitem><listitem><para>1 will flip the order.</para></listitem></itemizedlist>
+</para></listitem><listitem><para>AxiBurstType: Type of the burst<itemizedlist>
+<listitem><para>0 will issue INCR type burst</para></listitem><listitem><para>1 will issue FIXED type burst</para></listitem></itemizedlist>
+</para></listitem><listitem><para>TimeoutValue: Time out value for timers<itemizedlist>
+<listitem><para>0x000 to 0xFFE are valid inputs</para></listitem><listitem><para>0xFFF clears both timers</para></listitem></itemizedlist>
+</para></listitem><listitem><para>FifoThresh: Programmed watermark value<itemizedlist>
+<listitem><para>Range is 0x00 to 0x80 (0 to 128 entries).</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Acache: Sets the AXI CACHE bits on the AXI Write/Read channel.<itemizedlist>
+<listitem><para>Cacheable ARCACHE[1] for SRC Channel and AWCACHE[1] for DST channel are always 1, we need to configure remaining 3 signal support (Bufferable, Read allocate and Write allocate). Valid inputs are:</para></listitem><listitem><para>0x000 - Cacheable, but do not allocate</para></listitem><listitem><para>0x001 - Cacheable and bufferable, but do not allocate</para></listitem><listitem><para>0x010 - Cacheable write-through, allocate on reads only</para></listitem><listitem><para>0x011 - Cacheable write-back, allocate on reads only</para></listitem><listitem><para>0x100 - Cacheable write-through, allocate on writes only</para></listitem><listitem><para>0x101 - Cacheable write-back, allocate on writes only</para></listitem><listitem><para>0x110 - Cacheable write-through, allocate on both reads and writes</para></listitem><listitem><para>0x111 - Cacheable write-back, allocate on both reads and writes</para></listitem></itemizedlist>
+</para></listitem><listitem><para>RouteBit: To select route<itemizedlist>
+<listitem><para>0 : Command will be routed based normally</para></listitem><listitem><para>1 : Command will be routed to APU&apos;s cache controller</para></listitem></itemizedlist>
+</para></listitem><listitem><para>TimeoutEn: To enable or disable time out counters<itemizedlist>
+<listitem><para>0 : The 2 Timeout counters are disabled</para></listitem><listitem><para>1 : The 2 Timeout counters are enabled</para></listitem></itemizedlist>
+</para></listitem><listitem><para>TimeoutPre: Set the prescaler value for the timeout in clk (~2.5ns) cycles<itemizedlist>
+<listitem><para>Range is 0x000(Prescaler enables timer every cycles) to 0xFFF(Prescaler enables timer every 4096 cycles)</para></listitem></itemizedlist>
+</para></listitem><listitem><para>MaxOutCmds: Controls the maximumum number of outstanding AXI read commands issued.<itemizedlist>
+<listitem><para>Range is 0x0(Up to 1 Outstanding Read command allowed) to 0x8 (Up to 9 Outstanding Read command allowed)</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" line="857" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" bodystart="857" bodyend="916"/>
+        <references refid="struct_x_csu_dma___configure_1a984f69d8fa925618e85800ba8fd2d155" compoundref="xcsudma_8h" startline="357">XCsuDma_Configure::Acache</references>
+        <references refid="struct_x_csu_dma___configure_1a7ca88dbe204c7b24ce7e529da53e1ae2" compoundref="xcsudma_8h" startline="352">XCsuDma_Configure::ApbErr</references>
+        <references refid="struct_x_csu_dma___configure_1a1aeadd99f4f96da636b9cb0c2be21c09" compoundref="xcsudma_8h" startline="354">XCsuDma_Configure::AxiBurstType</references>
+        <references refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" compoundref="xcsudma_8h" startline="315">XCsuDma_Config::BaseAddress</references>
+        <references refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" compoundref="xcsudma_8h" startline="338">XCsuDma::Config</references>
+        <references refid="struct_x_csu_dma___configure_1a4d1217d471a558f54534c15213bbb264" compoundref="xcsudma_8h" startline="353">XCsuDma_Configure::EndianType</references>
+        <references refid="struct_x_csu_dma___configure_1af17af84045f926ff8e386509cc0c9aee" compoundref="xcsudma_8h" startline="356">XCsuDma_Configure::FifoThresh</references>
+        <references refid="struct_x_csu_dma___configure_1acdf6a30da74f891648e17d1ce9bfadae" compoundref="xcsudma_8h" startline="361">XCsuDma_Configure::MaxOutCmds</references>
+        <references refid="struct_x_csu_dma___configure_1ac6f8c811d5b1ecf86d37091fc132717e" compoundref="xcsudma_8h" startline="358">XCsuDma_Configure::RouteBit</references>
+        <references refid="struct_x_csu_dma___configure_1a524260e03c75bc8745da0e4b7dca71ed" compoundref="xcsudma_8h" startline="351">XCsuDma_Configure::SssFifoThesh</references>
+        <references refid="struct_x_csu_dma___configure_1a2f45ba702e0487ed32152186339d7052" compoundref="xcsudma_8h" startline="359">XCsuDma_Configure::TimeoutEn</references>
+        <references refid="struct_x_csu_dma___configure_1a00365f4d0973fcb3fd39382312775748" compoundref="xcsudma_8h" startline="360">XCsuDma_Configure::TimeoutPre</references>
+        <references refid="struct_x_csu_dma___configure_1af2b9f211561ad313b726a60104afc32e" compoundref="xcsudma_8h" startline="355">XCsuDma_Configure::TimeoutValue</references>
+        <references refid="group__csuma__api_1ga60d1ed5209af6a5d9e9c55b6b95052de" compoundref="xcsudma__hw_8h" startline="59">XCSUDMA_CTRL_OFFSET</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" compoundref="xcsudma_8h" startline="83">XCSUDMA_DST_CHANNEL</references>
+        <references refid="group__csuma__api_1ga356d29aa2d43a1b724700007be7dcd51" compoundref="xcsudma__hw_8h" startline="329">XCsuDma_ReadReg</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" compoundref="xcsudma_8h" startline="82">XCSUDMA_SRC_CHANNEL</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csuma__api_1ga6169fa380a4d55e41d7ab96589372e8f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCsuDma_IntrGetStatus</definition>
+        <argsstring>(XCsuDma *InstancePtr, XCsuDma_Channel Channel)</argsstring>
+        <name>XCsuDma_IntrGetStatus</name>
+        <param>
+          <type><ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <briefdescription>
+<para>This function returns interrupt status read from Interrupt Status Register. </para>        </briefdescription>
+        <detaileddescription>
+<para>Use the XCSUDMA_IXR_*_MASK constants defined in <ref refid="xcsudma__hw_8h" kindref="compound">xcsudma_hw.h</ref> to interpret the returned value.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The pending interrupts of the CSU_DMA. Use th following masks to interpret the returned value. XCSUDMA_IXR_SRC_MASK - For Source channel XCSUDMA_IXR_DST_MASK - For Destination channel</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_intr.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_intr.c" bodystart="60" bodyend="76"/>
+        <references refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" compoundref="xcsudma_8h" startline="315">XCsuDma_Config::BaseAddress</references>
+        <references refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" compoundref="xcsudma_8h" startline="338">XCsuDma::Config</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" compoundref="xcsudma_8h" startline="83">XCSUDMA_DST_CHANNEL</references>
+        <references refid="group__csuma__api_1gab56adb100901bb2b042a842619064ce5" compoundref="xcsudma__hw_8h" startline="60">XCSUDMA_I_STS_OFFSET</references>
+        <references refid="group__csuma__api_1ga356d29aa2d43a1b724700007be7dcd51" compoundref="xcsudma__hw_8h" startline="329">XCsuDma_ReadReg</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" compoundref="xcsudma_8h" startline="82">XCSUDMA_SRC_CHANNEL</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csuma__api_1ga1db5eabd96920efb06fb03c919420601" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsuDma_IntrClear</definition>
+        <argsstring>(XCsuDma *InstancePtr, XCsuDma_Channel Channel, u32 Mask)</argsstring>
+        <name>XCsuDma_IntrClear</name>
+        <param>
+          <type><ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function clears interrupt(s). </para>        </briefdescription>
+        <detaileddescription>
+<para>Every bit set in Interrupt Status Register indicates that a specific type of interrupt is occurring, and this function clears one or more interrupts by writing a bit mask to Interrupt Clear Register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask to clear. Bit positions of 1 will be cleared. Bit positions of 0 will not change the previous interrupt status. This mask is formed by OR&apos;ing XCSUDMA_IXR_* bits defined in <ref refid="xcsudma__hw_8h" kindref="compound">xcsudma_hw.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_intr.c" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_intr.c" bodystart="98" bodyend="118"/>
+        <references refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" compoundref="xcsudma_8h" startline="315">XCsuDma_Config::BaseAddress</references>
+        <references refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" compoundref="xcsudma_8h" startline="338">XCsuDma::Config</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" compoundref="xcsudma_8h" startline="83">XCSUDMA_DST_CHANNEL</references>
+        <references refid="group__csuma__api_1gab56adb100901bb2b042a842619064ce5" compoundref="xcsudma__hw_8h" startline="60">XCSUDMA_I_STS_OFFSET</references>
+        <references refid="group__csuma__api_1gadfb7ef2922c9ceb4804bc87620c35134" compoundref="xcsudma__hw_8h" startline="256">XCSUDMA_IXR_DST_MASK</references>
+        <references refid="group__csuma__api_1ga441edc2ec9eadb8093ac0ab41e0162d2" compoundref="xcsudma__hw_8h" startline="246">XCSUDMA_IXR_SRC_MASK</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" compoundref="xcsudma_8h" startline="82">XCSUDMA_SRC_CHANNEL</references>
+        <references refid="group__csuma__api_1ga5a2390fe93e02061d01c3b9e057b3b2b" compoundref="xcsudma__hw_8h" startline="347">XCsuDma_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csuma__api_1gad892a65e65ac14f48f7d7f53020511cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsuDma_EnableIntr</definition>
+        <argsstring>(XCsuDma *InstancePtr, XCsuDma_Channel Channel, u32 Mask)</argsstring>
+        <name>XCsuDma_EnableIntr</name>
+        <param>
+          <type><ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the interrupt(s). </para>        </briefdescription>
+        <detaileddescription>
+<para>Use the XCSUDMA_IXR_*_MASK constants defined in <ref refid="xcsudma__hw_8h" kindref="compound">xcsudma_hw.h</ref> to create the bit-mask to enable interrupts.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains interrupts to be enabled.<itemizedlist>
+<listitem><para>Bit positions of 1 will be enabled. This mask is formed by OR&apos;ing XCSUDMA_IXR_*_MASK bits defined in <ref refid="xcsudma__hw_8h" kindref="compound">xcsudma_hw.h</ref>.</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_intr.c" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_intr.c" bodystart="140" bodyend="163"/>
+        <references refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" compoundref="xcsudma_8h" startline="315">XCsuDma_Config::BaseAddress</references>
+        <references refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" compoundref="xcsudma_8h" startline="338">XCsuDma::Config</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" compoundref="xcsudma_8h" startline="83">XCSUDMA_DST_CHANNEL</references>
+        <references refid="group__csuma__api_1gadfb7ef2922c9ceb4804bc87620c35134" compoundref="xcsudma__hw_8h" startline="256">XCSUDMA_IXR_DST_MASK</references>
+        <references refid="group__csuma__api_1ga441edc2ec9eadb8093ac0ab41e0162d2" compoundref="xcsudma__hw_8h" startline="246">XCSUDMA_IXR_SRC_MASK</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" compoundref="xcsudma_8h" startline="82">XCSUDMA_SRC_CHANNEL</references>
+        <references refid="group__csuma__api_1ga5a2390fe93e02061d01c3b9e057b3b2b" compoundref="xcsudma__hw_8h" startline="347">XCsuDma_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csuma__api_1gadf3599e4d07ef05586a217ebbbd02999" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsuDma_DisableIntr</definition>
+        <argsstring>(XCsuDma *InstancePtr, XCsuDma_Channel Channel, u32 Mask)</argsstring>
+        <name>XCsuDma_DisableIntr</name>
+        <param>
+          <type><ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function disables the interrupt(s). </para>        </briefdescription>
+        <detaileddescription>
+<para>Use the XCSUDMA_IXR_*_MASK constants defined in <ref refid="xcsudma__hw_8h" kindref="compound">xcsudma_hw.h</ref> to create the bit-mask to disable interrupts.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains interrupts to be disabled.<itemizedlist>
+<listitem><para>Bit positions of 1 will be disabled. This mask is formed by OR&apos;ing XCSUDMA_IXR_*_MASK bits defined in <ref refid="xcsudma__hw_8h" kindref="compound">xcsudma_hw.h</ref>.</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_intr.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_intr.c" bodystart="185" bodyend="209"/>
+        <references refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" compoundref="xcsudma_8h" startline="315">XCsuDma_Config::BaseAddress</references>
+        <references refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" compoundref="xcsudma_8h" startline="338">XCsuDma::Config</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" compoundref="xcsudma_8h" startline="83">XCSUDMA_DST_CHANNEL</references>
+        <references refid="group__csuma__api_1gadfb7ef2922c9ceb4804bc87620c35134" compoundref="xcsudma__hw_8h" startline="256">XCSUDMA_IXR_DST_MASK</references>
+        <references refid="group__csuma__api_1ga441edc2ec9eadb8093ac0ab41e0162d2" compoundref="xcsudma__hw_8h" startline="246">XCSUDMA_IXR_SRC_MASK</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" compoundref="xcsudma_8h" startline="82">XCSUDMA_SRC_CHANNEL</references>
+        <references refid="group__csuma__api_1ga5a2390fe93e02061d01c3b9e057b3b2b" compoundref="xcsudma__hw_8h" startline="347">XCsuDma_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csuma__api_1ga6ed420e8bfd9ab489a2d2c3e984ca7a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCsuDma_GetIntrMask</definition>
+        <argsstring>(XCsuDma *InstancePtr, XCsuDma_Channel Channel)</argsstring>
+        <name>XCsuDma_GetIntrMask</name>
+        <param>
+          <type><ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kindref="member">XCsuDma_Channel</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the interrupt mask to know which interrupts are enabled and which of them were disabled. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of channel Source channel - XCSUDMA_SRC_CHANNEL Destination Channel - XCSUDMA_DST_CHANNEL</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The current interrupt mask. The mask indicates which interrupts are enabled/disabled.<itemizedlist>
+<listitem><para>0 bit represents that the corresponding interrupt is enabled.</para></listitem><listitem><para>1 bit represents that the Corresponding interrupt is disabled. To interpret returned mask use</para></listitem><listitem><para>XCSUDMA_IXR_SRC_MASK that the For source channel</para></listitem><listitem><para>XCSUDMA_IXR_DST_MASK that the For destination channel</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_intr.c" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_intr.c" bodystart="233" bodyend="247"/>
+        <references refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" compoundref="xcsudma_8h" startline="315">XCsuDma_Config::BaseAddress</references>
+        <references refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" compoundref="xcsudma_8h" startline="338">XCsuDma::Config</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" compoundref="xcsudma_8h" startline="83">XCSUDMA_DST_CHANNEL</references>
+        <references refid="group__csuma__api_1ga356d29aa2d43a1b724700007be7dcd51" compoundref="xcsudma__hw_8h" startline="329">XCsuDma_ReadReg</references>
+        <references refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" compoundref="xcsudma_8h" startline="82">XCSUDMA_SRC_CHANNEL</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csuma__api_1ga774ab551d0ef59fd880ff834f2d83804" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XCsuDma_SelfTest</definition>
+        <argsstring>(XCsuDma *InstancePtr)</argsstring>
+        <name>XCsuDma_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function runs a self-test on the driver and hardware device. </para>        </briefdescription>
+        <detaileddescription>
+<para>Performs reset of both source and destination channels and checks if reset is working properly or not.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the self-test passed.<itemizedlist>
+<listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_selftest.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_selftest.c" bodystart="68" bodyend="101"/>
+        <references refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" compoundref="xcsudma_8h" startline="315">XCsuDma_Config::BaseAddress</references>
+        <references refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" compoundref="xcsudma_8h" startline="338">XCsuDma::Config</references>
+        <references refid="group__csuma__api_1ga60d1ed5209af6a5d9e9c55b6b95052de" compoundref="xcsudma__hw_8h" startline="59">XCSUDMA_CTRL_OFFSET</references>
+        <references refid="group__csuma__api_1ga356d29aa2d43a1b724700007be7dcd51" compoundref="xcsudma__hw_8h" startline="329">XCsuDma_ReadReg</references>
+        <references refid="group__csuma__api_1ga5a2390fe93e02061d01c3b9e057b3b2b" compoundref="xcsudma__hw_8h" startline="347">XCsuDma_WriteReg</references>
+        <referencedby refid="xcsudma__selftest__example_8c_1a6209354fab076157f08aa360d43a8e0a" compoundref="xcsudma__selftest__example_8c" startline="123" endline="158">XCsuDma_SelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__csuma__api_1ga2420bd1fdfb8f4fb151aef5b4b6ee8ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_csu_dma___config" kindref="compound">XCsuDma_Config</ref> *</type>
+        <definition>XCsuDma_Config* XCsuDma_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XCsuDma_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Looks up the device configuration based on the unique device ID/BaseAddress. </para>        </briefdescription>
+        <detaileddescription>
+<para>A table contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration table entry corresponding to the given device ID/BaseAddress, or NULL if no match is found.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_sinit.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_sinit.c" bodystart="91" bodyend="106"/>
+        <references refid="struct_x_csu_dma___config_1ac71e32fb8008612626e493f04ffde089" compoundref="xcsudma_8h" startline="313">XCsuDma_Config::Name</references>
+        <referencedby refid="xcsudma__selftest__example_8c_1a6209354fab076157f08aa360d43a8e0a" compoundref="xcsudma__selftest__example_8c" startline="123" endline="158">XCsuDma_SelfTestExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__csuma__api_1gaf448568bb484f8b80052682f399f194d" prot="public" static="no">
+        <name>XCSUDMA_WORD_SIZE</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Transfer size conversion to bytes for Versal Net. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.c" bodystart="58" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1ga83a1043112b6067b1901d2bdcb29563d" compoundref="xcsudma_8c" startline="254" endline="294">XCsuDma_64BitTransfer</referencedby>
+        <referencedby refid="group__csuma__api_1gacf79144df19e9cd4116dd9f507037ff1" compoundref="xcsudma_8c" startline="146" endline="216">XCsuDma_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csuma__api_1ga8ee71e015a72b9441ead3a0f5541777c" prot="public" static="no">
+        <name>XCSUDMA_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csuma__api_1gaf7ae40275005f5b2c827da41a0e3cc23" prot="public" static="no">
+        <name>XCSUDMA_HW_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csuma__api_1gae02862bee946eeb9f0684d24550d1afa" prot="public" static="no">
+        <name>XCsuDma_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+<para>Input operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" line="296" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" bodystart="312" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csuma__api_1gae5b5c8718f050b6b4e25380a92c9aa0d" prot="public" static="no">
+        <name>XCsuDma_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+<para>Output operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" line="297" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" bodystart="313" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csuma__api_1ga356d29aa2d43a1b724700007be7dcd51" prot="public" static="no">
+        <name>XCsuDma_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer><ref refid="group__csuma__api_1gae02862bee946eeb9f0684d24550d1afa" kindref="member">XCsuDma_In32</ref>((BaseAddress) + (u32)(RegOffset))</initializer>
+        <briefdescription>
+<para>This macro reads the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the CSU_DMA core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register offset of the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__csuma__api_1ga356d29aa2d43a1b724700007be7dcd51" kindref="member">XCsuDma_ReadReg(u32 BaseAddress, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" line="313" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" bodystart="329" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1ga25049be545d8ec6eae2426b6248a8e4f" compoundref="xcsudma_8c" startline="316" endline="336">XCsuDma_GetAddr</referencedby>
+        <referencedby refid="group__csuma__api_1ga17f1a7ba935f4bf3626050e0b0e0142b" compoundref="xcsudma_8c" startline="567" endline="582">XCsuDma_GetCheckSum</referencedby>
+        <referencedby refid="group__csuma__api_1gaab0b66bca3f38d26d38ff47544fa6b11" compoundref="xcsudma_8c" startline="857" endline="916">XCsuDma_GetConfig</referencedby>
+        <referencedby refid="group__csuma__api_1ga6ed420e8bfd9ab489a2d2c3e984ca7a2" compoundref="xcsudma__intr_8c" startline="233" endline="247">XCsuDma_GetIntrMask</referencedby>
+        <referencedby refid="group__csuma__api_1gad5fd579fb9c166e59ee1f9d3b39250c7" compoundref="xcsudma_8c" startline="354" endline="370">XCsuDma_GetSize</referencedby>
+        <referencedby refid="group__csuma__api_1ga6169fa380a4d55e41d7ab96589372e8f" compoundref="xcsudma__intr_8c" startline="60" endline="76">XCsuDma_IntrGetStatus</referencedby>
+        <referencedby refid="group__csuma__api_1gaa3450f812658f927f289b997b12a4174" compoundref="xcsudma_8c" startline="455" endline="493">XCsuDma_IsPaused</referencedby>
+        <referencedby refid="group__csuma__api_1ga00b5080126710866186d0bfafd26e9b6" compoundref="xcsudma_8c" startline="395" endline="428">XCsuDma_Pause</referencedby>
+        <referencedby refid="group__csuma__api_1gaeee3f2d5bcf265b57c9f214f2bc15a28" compoundref="xcsudma_8c" startline="519" endline="549">XCsuDma_Resume</referencedby>
+        <referencedby refid="group__csuma__api_1ga774ab551d0ef59fd880ff834f2d83804" compoundref="xcsudma__selftest_8c" startline="68" endline="101">XCsuDma_SelfTest</referencedby>
+        <referencedby refid="group__csuma__api_1gac9b6265e467b03cc903cd66781e95e63" compoundref="xcsudma_8c" startline="720" endline="781">XCsuDma_SetConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csuma__api_1ga5a2390fe93e02061d01c3b9e057b3b2b" prot="public" static="no">
+        <name>XCsuDma_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer><ref refid="group__csuma__api_1gae5b5c8718f050b6b4e25380a92c9aa0d" kindref="member">XCsuDma_Out32</ref>((BaseAddress) + (u32)(RegOffset), (u32)(Data))</initializer>
+        <briefdescription>
+<para>This macro writes the value into the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the CSU_DMA core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register offset of the register. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>32-bit value to write to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__csuma__api_1ga5a2390fe93e02061d01c3b9e057b3b2b" kindref="member">XCsuDma_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" line="331" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma_hw.h" bodystart="347" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1ga83a1043112b6067b1901d2bdcb29563d" compoundref="xcsudma_8c" startline="254" endline="294">XCsuDma_64BitTransfer</referencedby>
+        <referencedby refid="group__csuma__api_1ga78bdd79674e2b5c92b9701cacfde1fe1" compoundref="xcsudma_8c" startline="598" endline="606">XCsuDma_ClearCheckSum</referencedby>
+        <referencedby refid="group__csuma__api_1gadf3599e4d07ef05586a217ebbbd02999" compoundref="xcsudma__intr_8c" startline="185" endline="209">XCsuDma_DisableIntr</referencedby>
+        <referencedby refid="group__csuma__api_1gad892a65e65ac14f48f7d7f53020511cf" compoundref="xcsudma__intr_8c" startline="140" endline="163">XCsuDma_EnableIntr</referencedby>
+        <referencedby refid="group__csuma__api_1ga1db5eabd96920efb06fb03c919420601" compoundref="xcsudma__intr_8c" startline="98" endline="118">XCsuDma_IntrClear</referencedby>
+        <referencedby refid="group__csuma__api_1ga00b5080126710866186d0bfafd26e9b6" compoundref="xcsudma_8c" startline="395" endline="428">XCsuDma_Pause</referencedby>
+        <referencedby refid="group__csuma__api_1gaeee3f2d5bcf265b57c9f214f2bc15a28" compoundref="xcsudma_8c" startline="519" endline="549">XCsuDma_Resume</referencedby>
+        <referencedby refid="group__csuma__api_1ga774ab551d0ef59fd880ff834f2d83804" compoundref="xcsudma__selftest_8c" startline="68" endline="101">XCsuDma_SelfTest</referencedby>
+        <referencedby refid="group__csuma__api_1gac9b6265e467b03cc903cd66781e95e63" compoundref="xcsudma_8c" startline="720" endline="781">XCsuDma_SetConfig</referencedby>
+        <referencedby refid="group__csuma__api_1gacf79144df19e9cd4116dd9f507037ff1" compoundref="xcsudma_8c" startline="146" endline="216">XCsuDma_Transfer</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This section contains the functions of the CSU_DMA driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>The <ref refid="xcsudma__sinit_8c" kindref="compound">xcsudma_sinit.c</ref> file contains static initialization methods for Xilinx CSU_DMA core.</para><para>The <ref refid="xcsudma__selftest_8c" kindref="compound">xcsudma_selftest.c</ref> file contains a diagnostic self-test function for the CSU_DMA driver.</para><para>The <ref refid="xcsudma__intr_8c" kindref="compound">xcsudma_intr.c</ref> file contains interrupt related functions of Xilinx CSU_DMA core.</para><para>The <ref refid="xcsudma__hw_8h" kindref="compound">xcsudma_hw.h</ref> header file contains identifiers and register-level driver functions (or macros) that can be used to access the CSU_DMA core.</para><para>}</para><para>Refer to the header file <ref refid="xcsudma_8h" kindref="compound">xcsudma.h</ref> for more detailed information.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+1.0   vnsld   22/10/14 First release
+1.1   adk     10/05/16 Fixed CR#951040 race condition in the recv path when
+                       source and destination points to the same buffer.
+1.4     Nava    1/10/19  Added PSU_PMU processor check to skip the Flushing
+                 cache memory and Invalidating cache memory API&apos;s for
+                 PMU Microblaze platform.
+        Rama    02/26/19 Fixed IAR issue by changing
+                                         &quot;XCsuDma_WaitForDoneTimeout&quot; to function
+      arc     03/26/19 Fixed MISRA-C violations.
+1.5   aru     07/05/19 Fixed coverity warning.
+1.6   aru     08/29/19 Added assert check in <ref refid="group__csuma__api_1ga73867b4acb189982642e4c1ae4f92fb9" kindref="member">XCsuDma_WaitForDoneTimeout()</ref>.
+1.6   rm      11/05/19 Modified usleep waitloop and timeout value in
+                        <ref refid="group__csuma__api_1ga73867b4acb189982642e4c1ae4f92fb9" kindref="member">XCsuDma_WaitForDoneTimeout()</ref>.
+1.7     hk      08/03/20 Reorganize transfer function to accommodate all
+                 processors and cache functionality.
+1.7     sk      08/26/20 Fix MISRA-C violations.
+1.7     sk      08/26/20 Remove busy check in SetConfig.
+1.11  bm      02/21/22 Add byte-aligned support for VERSAL_NET devices
+1.11    sk      03/03/22 Replace driver version in addtogroup with Overview.
+1.11    sk      03/03/22 Update Overview section based on review comments.
+1.11    sk      03/03/22 Update XCsuDma_GetSize return type description.
+1.14    ab      01/16/23 Added Xil_WaitForEvent() to XcsuDma_WaitForDoneTimeout.
+1.14    ab      01/18/23 Added byte-aligned transfer API for VERSAL_NET devices.
+1.14    bm      05/01/23 Fixed Assert condition in XCsuDma_Transfer for VERSAL_NET.
+2.0     sd      11/10/25 Added support for VERSAL_2VP_P devices.
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+1.0   vnsld  22/10/14 First release
+1.9     sk     02/11/21 Add description for XPS_CRP_BASEADDRESS and
+                        XCSUDMA_DONE_TIMEOUT_VAL macros.
+1.11    sk     03/03/22 Replace driver version in addtogroup with Overview.
+1.11    sk     03/03/22 Update Overview section based on review comments.
+1.11    sk     03/03/22 Add cond INTERNAL to avoid internal macros.
+1.12    sk     03/03/22 Added support for VERSAL NET.
+1.16  ng     08/20/24 Added spartanup device support
+2.0   sd     11/10/25 Added support for VERSAL_2VP_P devices.
+</preformatted></para><para>Refer to the header file <ref refid="xcsudma_8h" kindref="compound">xcsudma.h</ref> for more details of the driver.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+1.0   vnsld  22/10/14  First release
+1.11    sk     03/03/22  Replace driver version in addtogroup with Overview.
+1.11    sk     03/03/22  Update Overview section based on review comments.
+</preformatted></para><para>Refer to the header file <ref refid="xcsudma_8h" kindref="compound">xcsudma.h</ref> for detailed information.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+1.0   vnsld   22/10/14 First release
+1.11    sk      03/03/22 Replace driver version in addtogroup with Overview.
+1.11    sk      03/03/22 Update Overview section based on review comments.
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+1.0   vnsld   22/10/14 First release
+1.7     sk      08/26/20 Fix MISRA-C violations.
+1.11    sk      03/03/22 Replace driver version in addtogroup with Overview.
+1.11    sk      03/03/22 Update Overview section based on review comments.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

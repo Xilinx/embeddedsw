@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_7b3ad246b0fc5a47d9e106050ebfd12c" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xv__sdirxss_8c">xv_sdirxss.c</innerfile>
+    <innerfile refid="xv__sdirxss_8h">xv_sdirxss.h</innerfile>
+    <innerfile refid="xv__sdirxss__coreinit_8c">xv_sdirxss_coreinit.c</innerfile>
+    <innerfile refid="xv__sdirxss__coreinit_8h">xv_sdirxss_coreinit.h</innerfile>
+    <innerfile refid="xv__sdirxss__g_8c">xv_sdirxss_g.c</innerfile>
+    <innerfile refid="xv__sdirxss__log_8c">xv_sdirxss_log.c</innerfile>
+    <innerfile refid="xv__sdirxss__selftest_8c">xv_sdirxss_selftest.c</innerfile>
+    <innerfile refid="xv__sdirxss__sinit_8c">xv_sdirxss_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/"/>
+  </compounddef>
+</doxygen>

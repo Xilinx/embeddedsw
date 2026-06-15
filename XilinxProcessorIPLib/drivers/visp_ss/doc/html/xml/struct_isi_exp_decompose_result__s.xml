@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_isi_exp_decompose_result__s" kind="struct" prot="public">
+    <compoundname>IsiExpDecomposeResult_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_isi_exp_decompose_result__s_1a1466ad68c9552a0939adb9b6e59358be" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t IsiExpDecomposeResult_s::sensorAgain[ISI_EXP_NUM_MAX]</definition>
+        <argsstring>[ISI_EXP_NUM_MAX]</argsstring>
+        <name>sensorAgain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_exp_decompose_result__s_1a832e253adf9a21edf16ee30f6c0db6c9" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t IsiExpDecomposeResult_s::sensorDgain[ISI_EXP_NUM_MAX]</definition>
+        <argsstring>[ISI_EXP_NUM_MAX]</argsstring>
+        <name>sensorDgain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_exp_decompose_result__s_1a034723fac8d9712413ae6c5406207e45" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t IsiExpDecomposeResult_s::sensorExpTime[ISI_EXP_NUM_MAX]</definition>
+        <argsstring>[ISI_EXP_NUM_MAX]</argsstring>
+        <name>sensorExpTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="238" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_exp_decompose_result__s_1aac6fe15a4c4d2ae72845e1bbf235cb44" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t IsiExpDecomposeResult_s::sensorRatio[ISI_EXP_NUM_MAX-1]</definition>
+        <argsstring>[ISI_EXP_NUM_MAX-1]</argsstring>
+        <name>sensorRatio</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="235" bodyend="240"/>
+    <listofallmembers>
+      <member refid="struct_isi_exp_decompose_result__s_1a1466ad68c9552a0939adb9b6e59358be" prot="public" virt="non-virtual"><scope>IsiExpDecomposeResult_s</scope><name>sensorAgain</name></member>
+      <member refid="struct_isi_exp_decompose_result__s_1a832e253adf9a21edf16ee30f6c0db6c9" prot="public" virt="non-virtual"><scope>IsiExpDecomposeResult_s</scope><name>sensorDgain</name></member>
+      <member refid="struct_isi_exp_decompose_result__s_1a034723fac8d9712413ae6c5406207e45" prot="public" virt="non-virtual"><scope>IsiExpDecomposeResult_s</scope><name>sensorExpTime</name></member>
+      <member refid="struct_isi_exp_decompose_result__s_1aac6fe15a4c4d2ae72845e1bbf235cb44" prot="public" virt="non-virtual"><scope>IsiExpDecomposeResult_s</scope><name>sensorRatio</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

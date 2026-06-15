@@ -1,0 +1,359 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xvphy__gt_8h" kind="file">
+    <compoundname>xvphy_gt.h</compoundname>
+    <includes refid="xvphy_8h" local="yes">xvphy.h</includes>
+    <includes refid="xvphy__i_8h" local="yes">xvphy_i.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includedby refid="xvphy_8c" local="yes">xvphy.c</includedby>
+    <includedby refid="xvphy__gthe2_8c" local="yes">xvphy_gthe2.c</includedby>
+    <includedby refid="xvphy__gthe3_8c" local="yes">xvphy_gthe3.c</includedby>
+    <includedby refid="xvphy__gthe4_8c" local="yes">xvphy_gthe4.c</includedby>
+    <includedby refid="xvphy__gtpe2_8c" local="yes">xvphy_gtpe2.c</includedby>
+    <includedby refid="xvphy__gtxe2_8c" local="yes">xvphy_gtxe2.c</includedby>
+    <includedby refid="xvphy__gtye4_8c" local="yes">xvphy_gtye4.c</includedby>
+    <includedby refid="xvphy__i_8c" local="yes">xvphy_i.c</includedby>
+    <incdepgraph>
+      <node id="80">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="83">
+        <label>xil_io.h</label>
+      </node>
+      <node id="79">
+        <label>xvphy.h</label>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+      </node>
+      <node id="82">
+        <label>xvphy_hw.h</label>
+        <link refid="xvphy__hw_8h"/>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+      </node>
+      <node id="86">
+        <label>xvphy_dp.h</label>
+      </node>
+      <node id="85">
+        <label>xvidc.h</label>
+      </node>
+      <node id="78">
+        <label>xvphy_gt.h</label>
+        <link refid="xvphy_gt.h"/>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+      </node>
+      <node id="84">
+        <label>xil_types.h</label>
+      </node>
+      <node id="81">
+        <label>xparameters.h</label>
+      </node>
+      <node id="87">
+        <label>xvphy_i.h</label>
+        <link refid="xvphy__i_8h"/>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="92">
+        <label>xvphy_gthe4.c</label>
+        <link refid="xvphy__gthe4_8c"/>
+      </node>
+      <node id="93">
+        <label>xvphy_gtpe2.c</label>
+        <link refid="xvphy__gtpe2_8c"/>
+      </node>
+      <node id="95">
+        <label>xvphy_gtye4.c</label>
+        <link refid="xvphy__gtye4_8c"/>
+      </node>
+      <node id="89">
+        <label>xvphy.c</label>
+        <link refid="xvphy_8c"/>
+      </node>
+      <node id="90">
+        <label>xvphy_gthe2.c</label>
+        <link refid="xvphy__gthe2_8c"/>
+      </node>
+      <node id="88">
+        <label>xvphy_gt.h</label>
+        <link refid="xvphy_gt.h"/>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+      </node>
+      <node id="94">
+        <label>xvphy_gtxe2.c</label>
+        <link refid="xvphy__gtxe2_8c"/>
+      </node>
+      <node id="91">
+        <label>xvphy_gthe3.c</label>
+        <link refid="xvphy__gthe3_8c"/>
+      </node>
+      <node id="96">
+        <label>xvphy_i.c</label>
+        <link refid="xvphy__i_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_vphy___gt_pll_divs" prot="public">XVphy_GtPllDivs</innerclass>
+    <innerclass refid="struct_x_vphy___gt_config_s" prot="public">XVphy_GtConfigS</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__vphy_1ga87d834ae2dd57c09bd8fa8f3a6d95eb5" prot="public" static="no">
+        <name>XVphy_CfgSetCdr</name>
+        <param><defname>Ip</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>((Ip)-&gt;GtAdaptor-&gt;CfgSetCdr(Ip, __VA_ARGS__))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h" line="85" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__vphy_1gad826cdff031e411f10e69c2115af17b9" prot="public" static="no">
+        <name>XVphy_CheckPllOpRange</name>
+        <param><defname>Ip</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>((Ip)-&gt;GtAdaptor-&gt;CheckPllOpRange(Ip, __VA_ARGS__))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__vphy_1ga34dd3eb51619518d35f76e92eff680de" prot="public" static="no">
+        <name>XVphy_OutDivChReconfig</name>
+        <param><defname>Ip</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>((Ip)-&gt;GtAdaptor-&gt;OutDivChReconfig(Ip, __VA_ARGS__))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__vphy_1ga2ff704ed5a77e49652eb3220743b616a" prot="public" static="no">
+        <name>XVphy_ClkChReconfig</name>
+        <param><defname>Ip</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>((Ip)-&gt;GtAdaptor-&gt;ClkChReconfig(Ip, __VA_ARGS__))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__vphy_1gadd758a1ac1427d4af56e0c319e675306" prot="public" static="no">
+        <name>XVphy_ClkCmnReconfig</name>
+        <param><defname>Ip</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>((Ip)-&gt;GtAdaptor-&gt;ClkCmnReconfig(Ip, __VA_ARGS__))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__vphy_1ga37cef1a10b2765c5c6e246e6700ccfb8" prot="public" static="no">
+        <name>XVphy_RxChReconfig</name>
+        <param><defname>Ip</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>((Ip)-&gt;GtAdaptor-&gt;RxChReconfig(Ip, __VA_ARGS__))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__vphy_1ga425aa537379cf074f0d896aba4d5e8b9" prot="public" static="no">
+        <name>XVphy_TxChReconfig</name>
+        <param><defname>Ip</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>((Ip)-&gt;GtAdaptor-&gt;TxChReconfig(Ip, __VA_ARGS__))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__vphy_1ga9560ef23c37fdfce5c3e7f87aa16d6a2" prot="public" static="no">
+        <type>struct XVphy_GtConfigS</type>
+        <definition>typedef struct XVphy_GtConfigS  XVphy_GtConfig</definition>
+        <argsstring></argsstring>
+        <name>XVphy_GtConfig</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h" line="71" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The Xilinx Video PHY (VPHY) driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>This driver supports the Xilinx Video PHY IP core.</para><para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   als  10/19/15 Initial release.
+1.1   gm   02/01/16 Added Gtpe2Config and Gtpe4Config variables.
+1.4   gm   29/11/16 Added preprocessor directives for sw footprint reduction
+                    Changed TX reconfig hook from TxPllRefClkDiv1Reconfig to
+                      TxChReconfig
+                    Fixed c++ compiler warnings
+                    Added xcvr adaptor functions for C++ compilations
+1.7   gm   13/09/17 Added GTYE4 support
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor">#ifndef<sp/>XVPHY_GT_H_</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Prevent<sp/>circular<sp/>inclusions<sp/>by<sp/>using<sp/>protection<sp/>macros.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GT_H_</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvphy.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xvphy__i_8h" kindref="compound">xvphy_i.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*M;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*N1;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*N2;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*D;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">}<sp/>XVphy_GtPllDivs;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XVphy_GtConfigS<sp/>{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*CfgSetCdr)(<ref refid="struct_x_vphy" kindref="compound">XVphy</ref><sp/>*,<sp/>u8,<sp/>XVphy_ChannelId);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*CheckPllOpRange)(<ref refid="struct_x_vphy" kindref="compound">XVphy</ref><sp/>*,<sp/>u8,<sp/>XVphy_ChannelId,<sp/>u64);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*OutDivChReconfig)(<ref refid="struct_x_vphy" kindref="compound">XVphy</ref><sp/>*,<sp/>u8,<sp/>XVphy_ChannelId,</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVphy_DirectionType);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*ClkChReconfig)(<ref refid="struct_x_vphy" kindref="compound">XVphy</ref><sp/>*,<sp/>u8,<sp/>XVphy_ChannelId);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*ClkCmnReconfig)(<ref refid="struct_x_vphy" kindref="compound">XVphy</ref><sp/>*,<sp/>u8,<sp/>XVphy_ChannelId);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*RxChReconfig)(<ref refid="struct_x_vphy" kindref="compound">XVphy</ref><sp/>*,<sp/>u8,<sp/>XVphy_ChannelId);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*TxChReconfig)(<ref refid="struct_x_vphy" kindref="compound">XVphy</ref><sp/>*,<sp/>u8,<sp/>XVphy_ChannelId);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVphy_GtPllDivs<sp/>CpllDivs;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVphy_GtPllDivs<sp/>QpllDivs;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">}<sp/>XVphy_GtConfig;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">/*******************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/>XVphy_CfgSetCdr(<ref refid="struct_x_vphy" kindref="compound">XVphy</ref><sp/>*InstancePtr,<sp/>u8<sp/>QuadId,<sp/>XVphy_ChannelId<sp/>ChId);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">u32<sp/>XVphy_CheckPllOpRange(<ref refid="struct_x_vphy" kindref="compound">XVphy</ref><sp/>*InstancePtr,<sp/>u8<sp/>QuadId,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVphy_ChannelId<sp/>ChId,<sp/>u64<sp/>PllClkOutFreqHz);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">u32<sp/>XVphy_OutDivChReconfig(<ref refid="struct_x_vphy" kindref="compound">XVphy</ref><sp/>*InstancePtr,<sp/>u8<sp/>QuadId,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVphy_ChannelId<sp/>ChId,<sp/>XVphy_DirectionType<sp/>Dir);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal">u32<sp/>XVphy_ClkChReconfig(<ref refid="struct_x_vphy" kindref="compound">XVphy</ref><sp/>*InstancePtr,<sp/>u8<sp/>QuadId,<sp/>XVphy_ChannelId<sp/>ChId);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">u32<sp/>XVphy_ClkCmnReconfig(<ref refid="struct_x_vphy" kindref="compound">XVphy</ref><sp/>*InstancePtr,<sp/>u8<sp/>QuadId,<sp/>XVphy_ChannelId<sp/>ChId);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">u32<sp/>XVphy_RxChReconfig(<ref refid="struct_x_vphy" kindref="compound">XVphy</ref><sp/>*InstancePtr,<sp/>u8<sp/>QuadId,<sp/>XVphy_ChannelId<sp/>ChId);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">u32<sp/>XVphy_TxChReconfig(<ref refid="struct_x_vphy" kindref="compound">XVphy</ref><sp/>*InstancePtr,<sp/>u8<sp/>QuadId,<sp/>XVphy_ChannelId<sp/>ChId);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVphy_CfgSetCdr(Ip,<sp/>...)<sp/>\</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Ip)-&gt;GtAdaptor-&gt;CfgSetCdr(Ip,<sp/>__VA_ARGS__))</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVphy_CheckPllOpRange(Ip,<sp/>...)<sp/>\</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Ip)-&gt;GtAdaptor-&gt;CheckPllOpRange(Ip,<sp/>__VA_ARGS__))</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVphy_OutDivChReconfig(Ip,<sp/>...)<sp/>\</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Ip)-&gt;GtAdaptor-&gt;OutDivChReconfig(Ip,<sp/>__VA_ARGS__))</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVphy_ClkChReconfig(Ip,<sp/>...)<sp/>\</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Ip)-&gt;GtAdaptor-&gt;ClkChReconfig(Ip,<sp/>__VA_ARGS__))</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVphy_ClkCmnReconfig(Ip,<sp/>...)<sp/>\</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Ip)-&gt;GtAdaptor-&gt;ClkCmnReconfig(Ip,<sp/>__VA_ARGS__))</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVphy_RxChReconfig(Ip,<sp/>...)<sp/>\</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Ip)-&gt;GtAdaptor-&gt;RxChReconfig(Ip,<sp/>__VA_ARGS__))</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVphy_TxChReconfig(Ip,<sp/>...)<sp/>\</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Ip)-&gt;GtAdaptor-&gt;TxChReconfig(Ip,<sp/>__VA_ARGS__))</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XPAR_VPHY_0_TRANSCEIVER<sp/>==<sp/>XVPHY_GTXE2)</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XVphy_GtConfig<sp/>Gtxe2Config;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>(XPAR_VPHY_0_TRANSCEIVER<sp/>==<sp/>XVPHY_GTHE2)</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XVphy_GtConfig<sp/>Gthe2Config;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>(XPAR_VPHY_0_TRANSCEIVER<sp/>==<sp/>XVPHY_GTPE2)</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XVphy_GtConfig<sp/>Gtpe2Config;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>(XPAR_VPHY_0_TRANSCEIVER<sp/>==<sp/>XVPHY_GTHE3)</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XVphy_GtConfig<sp/>Gthe3Config;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>(XPAR_VPHY_0_TRANSCEIVER<sp/>==<sp/>XVPHY_GTHE4)<sp/>||<sp/>(XPAR_VPHY_0_TRANSCEIVER<sp/>==<sp/>XVPHY_GTYE4)</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XVphy_GtConfig<sp/>Gthe4Config;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XVphy_GtConfig<sp/>Gtye4Config;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XVPHY_GT_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_gt.h"/>
+  </compounddef>
+</doxygen>

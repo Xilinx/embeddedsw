@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_82348be0a6a53dd12c9805721303c56d" kind="dir">
+    <compoundname>include</compoundname>
+    <innerfile refid="isi_8h">isi.h</innerfile>
+    <innerfile refid="isi__common_8h">isi_common.h</innerfile>
+    <innerfile refid="isi__fmc_8h">isi_fmc.h</innerfile>
+    <innerfile refid="isi__iss_8h">isi_iss.h</innerfile>
+    <innerfile refid="isi__metadata_8h">isi_metadata.h</innerfile>
+    <innerfile refid="isi__otp_8h">isi_otp.h</innerfile>
+    <innerfile refid="isi__vvsensor_8h">isi_vvsensor.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/"/>
+  </compounddef>
+</doxygen>

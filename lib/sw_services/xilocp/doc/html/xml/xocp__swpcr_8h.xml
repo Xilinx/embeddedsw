@@ -1,0 +1,341 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xocp__swpcr_8h" kind="file">
+    <compoundname>xocp_swpcr.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xocp__mailbox_8h" local="yes">xocp_mailbox.h</includes>
+    <includes refid="xocp__def_8h" local="yes">xocp_def.h</includes>
+    <includes refid="xocp__common_8h" local="yes">xocp_common.h</includes>
+    <includedby refid="xocp__swpcr_8c" local="yes">xocp_swpcr.c</includedby>
+    <incdepgraph>
+      <node id="368">
+        <label>xocp_common.h</label>
+        <link refid="xocp__common_8h"/>
+        <childnode refid="369" relation="include">
+        </childnode>
+      </node>
+      <node id="366">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="367">
+        <label>xilocp_bsp_config.h</label>
+      </node>
+      <node id="362">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="359">
+        <label>xocp_swpcr.h</label>
+        <link refid="xocp_swpcr.h"/>
+        <childnode refid="360" relation="include">
+        </childnode>
+        <childnode refid="361" relation="include">
+        </childnode>
+        <childnode refid="364" relation="include">
+        </childnode>
+        <childnode refid="368" relation="include">
+        </childnode>
+      </node>
+      <node id="369">
+        <label>xstatus.h</label>
+      </node>
+      <node id="360">
+        <label>xil_types.h</label>
+      </node>
+      <node id="361">
+        <label>xocp_mailbox.h</label>
+        <link refid="xocp__mailbox_8h"/>
+        <childnode refid="362" relation="include">
+        </childnode>
+        <childnode refid="363" relation="include">
+        </childnode>
+      </node>
+      <node id="363">
+        <label>xparameters.h</label>
+      </node>
+      <node id="365">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="364">
+        <label>xocp_def.h</label>
+        <link refid="xocp__def_8h"/>
+        <childnode refid="365" relation="include">
+        </childnode>
+        <childnode refid="360" relation="include">
+        </childnode>
+        <childnode refid="366" relation="include">
+        </childnode>
+        <childnode refid="367" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="371">
+        <label>xocp_swpcr.c</label>
+        <link refid="xocp__swpcr_8c"/>
+      </node>
+      <node id="370">
+        <label>xocp_swpcr.h</label>
+        <link refid="xocp_swpcr.h"/>
+        <childnode refid="371" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xocp__swpcr__client__apis_1gab8fbe7fbfcb136e816374b295b769972" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XOcp_ExtendSwPcr</definition>
+        <argsstring>(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrExtendParams *ExtendParams)</argsstring>
+        <name>XOcp_ExtendSwPcr</name>
+        <param>
+          <type><ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ocp___sw_pcr_extend_params" kindref="compound">XOcp_SwPcrExtendParams</ref> *</type>
+          <declname>ExtendParams</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to extend the SW PCR with provided hash/data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ExtendParams</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the <ref refid="struct_x_ocp___sw_pcr_extend_params" kindref="compound">XOcp_SwPcrExtendParams</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If PCR extend is success</para></listitem><listitem><para>XST_FAILURE - Upon any failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters</para></listitem><listitem><para>Fill IPI payload for XOCP_API_EXTEND_SWPCR command and send the request to Server </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/swpcr/xocp_swpcr.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/swpcr/xocp_swpcr.c" bodystart="59" bodyend="92"/>
+        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="95">XOcp_ClientInstance::MailboxPtr</references>
+        <references refid="struct_x_ocp___sw_pcr_extend_params_1afa1f351c212e71494fa38c06ed97a98e" compoundref="xocp__common_8h" startline="155">XOcp_SwPcrExtendParams::DataAddr</references>
+        <references refid="struct_x_ocp___sw_pcr_extend_params_1a4c22e941f32e615bfc2e84f87cb64cf1" compoundref="xocp__common_8h" startline="153">XOcp_SwPcrExtendParams::DataSize</references>
+        <references refid="group__xocp__definitions_1ga7365d3fa2793edeb5a50ca16d130f019" compoundref="xocp__def_8h" startline="77">XOCP_EXTENDED_HASH_SIZE_IN_BYTES</references>
+        <references refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a802d68e4fc35a8bb08e4e79fd2a5aa48" compoundref="xocp__def_8h" startline="113">XOCP_API_EXTEND_SWPCR</references>
+        <references refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" compoundref="xocp__def_8h" startline="83">XOCP_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" compoundref="xocp__mailbox_8c" startline="65" endline="94">XOcp_ProcessMailbox</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xocp__swpcr__client__apis_1gaaca4f4567e961877901f3ed298ed01e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XOcp_GetSwPcr</definition>
+        <argsstring>(XOcp_ClientInstance *InstancePtr, u32 PcrMask, u8 *PcrBuf, u32 PcrBufSize)</argsstring>
+        <name>XOcp_GetSwPcr</name>
+        <param>
+          <type><ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PcrMask</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>PcrBuf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PcrBufSize</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to get the SW PCR value from requested PCR. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PcrMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Mask that tells which PCR to be read based on the bits set (bit 0 corresponds to PCR 0)and how many PCRs to be read using the number of bits set. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PcrBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the PCR buffer to store the requested PCR contents </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PcrBufSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Buffer size to read the PCR values</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If PCR contents are copied</para></listitem><listitem><para>XST_FAILURE - Upon any failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters</para></listitem><listitem><para>Fill IPI payload for XOCP_API_GET_SWPCR command and send the request to Server </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/swpcr/xocp_swpcr.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/swpcr/xocp_swpcr.c" bodystart="112" bodyend="141"/>
+        <references refid="group__xocp__definitions_1gab776f2dc0dab2b429fa8987f08b181dd" compoundref="xocp__common_8h" startline="75">XOCP_GET_ALL_PCR_MASK</references>
+        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="95">XOcp_ClientInstance::MailboxPtr</references>
+        <references refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0d48b20c276c35c9e253b2756aa9f1ac" compoundref="xocp__def_8h" startline="114">XOCP_API_GET_SWPCR</references>
+        <references refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" compoundref="xocp__def_8h" startline="83">XOCP_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" compoundref="xocp__mailbox_8c" startline="65" endline="94">XOcp_ProcessMailbox</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xocp__swpcr__client__apis_1ga71a4d8aea262fc732fa812829dd891ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XOcp_GetSwPcrLog</definition>
+        <argsstring>(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrLogReadData *LogParams)</argsstring>
+        <name>XOcp_GetSwPcrLog</name>
+        <param>
+          <type><ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ocp___sw_pcr_log_read_data" kindref="compound">XOcp_SwPcrLogReadData</ref> *</type>
+          <declname>LogParams</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to get the SW PCR log. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LogParams</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the <ref refid="struct_x_ocp___sw_pcr_log_read_data" kindref="compound">XOcp_SwPcrLogReadData</ref> structure. It cannot be NULL.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If PCR contents are copied</para></listitem><listitem><para>XST_FAILURE - Upon any failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters</para></listitem><listitem><para>Fill IPI payload for XOCP_API_GET_SWPCRLOG command and send the request to Server </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/swpcr/xocp_swpcr.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/swpcr/xocp_swpcr.c" bodystart="155" bodyend="181"/>
+        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="95">XOcp_ClientInstance::MailboxPtr</references>
+        <references refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a4e737b47477267f9e7b792a237c388d0" compoundref="xocp__def_8h" startline="115">XOCP_API_GET_SWPCRLOG</references>
+        <references refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" compoundref="xocp__def_8h" startline="83">XOCP_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" compoundref="xocp__mailbox_8c" startline="65" endline="94">XOcp_ProcessMailbox</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xocp__swpcr__client__apis_1gaa9d5159f23ac4215dff07b1a16a0e2e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XOcp_GetSwPcrData</definition>
+        <argsstring>(XOcp_ClientInstance *InstancePtr, XOcp_SwPcrReadData *DataParams)</argsstring>
+        <name>XOcp_GetSwPcrData</name>
+        <param>
+          <type><ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ocp___sw_pcr_read_data" kindref="compound">XOcp_SwPcrReadData</ref> *</type>
+          <declname>DataParams</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to get the SW PCR data for the specified PCR. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataParams</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer of the <ref refid="struct_x_ocp___sw_pcr_read_data" kindref="compound">XOcp_SwPcrReadData</ref> structure. It cannot be NULL.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If PCR contents are copied</para></listitem><listitem><para>XST_FAILURE - Upon any failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters</para></listitem><listitem><para>Fill IPI payload for XOCP_API_GET_SWPCRDATA command and send the request to Server </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/swpcr/xocp_swpcr.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/swpcr/xocp_swpcr.c" bodystart="196" bodyend="222"/>
+        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="95">XOcp_ClientInstance::MailboxPtr</references>
+        <references refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a6ad39f4af276b8893ca0e8975a6f8f6f" compoundref="xocp__def_8h" startline="116">XOCP_API_GET_SWPCRDATA</references>
+        <references refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" compoundref="xocp__def_8h" startline="83">XOCP_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" compoundref="xocp__mailbox_8c" startline="65" endline="94">XOcp_ProcessMailbox</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file Contains the client function prototypes, defines and macros for the Software PCR interface. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+----- ---- -------- ------------------------------------------------------------------------------
+1.7   rpu  02/18/26 Initial release</preformatted></para><para><preformatted></preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor">#ifndef<sp/>XOCP_SWPCR_H</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XOCP_SWPCR_H</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Include<sp/>Files<sp/>*********************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xocp__mailbox_8h" kindref="compound">xocp_mailbox.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xocp__def_8h" kindref="compound">xocp_def.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xocp__common_8h" kindref="compound">xocp_common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Function<sp/>Prototypes<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xocp__swpcr__client__apis_1gab8fbe7fbfcb136e816374b295b769972" kindref="member">XOcp_ExtendSwPcr</ref>(<ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ocp___sw_pcr_extend_params" kindref="compound">XOcp_SwPcrExtendParams</ref><sp/>*ExtendParams);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xocp__swpcr__client__apis_1gaaca4f4567e961877901f3ed298ed01e9" kindref="member">XOcp_GetSwPcr</ref>(<ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref><sp/>*InstancePtr,<sp/>u32<sp/>PcrMask,<sp/>u8<sp/>*PcrBuf,<sp/>u32<sp/>PcrBufSize);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xocp__swpcr__client__apis_1ga71a4d8aea262fc732fa812829dd891ae" kindref="member">XOcp_GetSwPcrLog</ref>(<ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ocp___sw_pcr_log_read_data" kindref="compound">XOcp_SwPcrLogReadData</ref><sp/>*LogParams);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xocp__swpcr__client__apis_1gaa9d5159f23ac4215dff07b1a16a0e2e9" kindref="member">XOcp_GetSwPcrData</ref>(<ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ocp___sw_pcr_read_data" kindref="compound">XOcp_SwPcrReadData</ref><sp/>*DataParams);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XOCP_SWPCR_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/swpcr/xocp_swpcr.h"/>
+  </compounddef>
+</doxygen>

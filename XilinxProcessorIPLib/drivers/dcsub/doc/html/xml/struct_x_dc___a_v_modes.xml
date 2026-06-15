@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dc___a_v_modes" kind="struct" prot="public">
+    <compoundname>XDc_AVModes</compoundname>
+    <includes local="no">xdc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dc___a_v_modes_1a3fec4a5388c39c6b81e28d783f762027" prot="public" static="no" mutable="no">
+        <type><ref refid="xdc_8h_1a87355551f90d763d2073111d2363b899" kindref="member">XDc_VideoStream1</ref></type>
+        <definition>XDc_VideoStream1 XDc_AVModes::VideoSrc1</definition>
+        <argsstring></argsstring>
+        <name>VideoSrc1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="314" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="314" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___a_v_modes_1aaca3bc111cc3cd8a353872989127192d" prot="public" static="no" mutable="no">
+        <type><ref refid="xdc_8h_1a71568be9515b5767a98ce19b6501f449" kindref="member">XDc_VideoStream2</ref></type>
+        <definition>XDc_VideoStream2 XDc_AVModes::VideoSrc2</definition>
+        <argsstring></argsstring>
+        <name>VideoSrc2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="315" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___a_v_modes_1a22debd93e7d31f5953c98d16c1851f6b" prot="public" static="no" mutable="no">
+        <type><ref refid="xdc_8h_1a999bb0a1f86e3d9c5f03f4bfaf96d7d5" kindref="member">XDc_AudioStream</ref></type>
+        <definition>XDc_AudioStream XDc_AVModes::AudSrc</definition>
+        <argsstring></argsstring>
+        <name>AudSrc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="316" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___a_v_modes_1a4177bd63c7c8f4a0b6bbe8abf9c1effe" prot="public" static="no" mutable="no">
+        <type>const XDc_VideoAttribute *</type>
+        <definition>const XDc_VideoAttribute* XDc_AVModes::NonLiveVideo1</definition>
+        <argsstring></argsstring>
+        <name>NonLiveVideo1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="318" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___a_v_modes_1a61a99f513e5e98818c964829d5d8be70" prot="public" static="no" mutable="no">
+        <type>const XDc_VideoAttribute *</type>
+        <definition>const XDc_VideoAttribute* XDc_AVModes::NonLiveVideo2</definition>
+        <argsstring></argsstring>
+        <name>NonLiveVideo2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="319" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___a_v_modes_1aa6b04654a7eb23362a49e20cee6cece4" prot="public" static="no" mutable="no">
+        <type>const XDc_VideoAttribute *</type>
+        <definition>const XDc_VideoAttribute* XDc_AVModes::LiveVideo1</definition>
+        <argsstring></argsstring>
+        <name>LiveVideo1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="321" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___a_v_modes_1a3218be87979314b09b43dfe7733a9f66" prot="public" static="no" mutable="no">
+        <type>const XDc_VideoAttribute *</type>
+        <definition>const XDc_VideoAttribute* XDc_AVModes::LiveVideo2</definition>
+        <argsstring></argsstring>
+        <name>LiveVideo2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="322" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___a_v_modes_1a1425bc16422a5051d408cb4886e9084e" prot="public" static="no" mutable="no">
+        <type>XDc_VideoAttribute *</type>
+        <definition>XDc_VideoAttribute* XDc_AVModes::OutputVideo</definition>
+        <argsstring></argsstring>
+        <name>OutputVideo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="324" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef stores the data associated with the Audio Video input modes. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="313" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="313" bodyend="326"/>
+    <listofallmembers>
+      <member refid="struct_x_dc___a_v_modes_1a22debd93e7d31f5953c98d16c1851f6b" prot="public" virt="non-virtual"><scope>XDc_AVModes</scope><name>AudSrc</name></member>
+      <member refid="struct_x_dc___a_v_modes_1aa6b04654a7eb23362a49e20cee6cece4" prot="public" virt="non-virtual"><scope>XDc_AVModes</scope><name>LiveVideo1</name></member>
+      <member refid="struct_x_dc___a_v_modes_1a3218be87979314b09b43dfe7733a9f66" prot="public" virt="non-virtual"><scope>XDc_AVModes</scope><name>LiveVideo2</name></member>
+      <member refid="struct_x_dc___a_v_modes_1a4177bd63c7c8f4a0b6bbe8abf9c1effe" prot="public" virt="non-virtual"><scope>XDc_AVModes</scope><name>NonLiveVideo1</name></member>
+      <member refid="struct_x_dc___a_v_modes_1a61a99f513e5e98818c964829d5d8be70" prot="public" virt="non-virtual"><scope>XDc_AVModes</scope><name>NonLiveVideo2</name></member>
+      <member refid="struct_x_dc___a_v_modes_1a1425bc16422a5051d408cb4886e9084e" prot="public" virt="non-virtual"><scope>XDc_AVModes</scope><name>OutputVideo</name></member>
+      <member refid="struct_x_dc___a_v_modes_1a3fec4a5388c39c6b81e28d783f762027" prot="public" virt="non-virtual"><scope>XDc_AVModes</scope><name>VideoSrc1</name></member>
+      <member refid="struct_x_dc___a_v_modes_1aaca3bc111cc3cd8a353872989127192d" prot="public" virt="non-virtual"><scope>XDc_AVModes</scope><name>VideoSrc2</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

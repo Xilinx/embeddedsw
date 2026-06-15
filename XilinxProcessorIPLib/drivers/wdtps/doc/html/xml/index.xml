@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="struct_x_wdt_ps" kind="struct"><name>XWdtPs</name>
+    <member refid="struct_x_wdt_ps_1a156efe4faa90db8ce8c582c8756255f8" kind="variable"><name>Config</name></member>
+    <member refid="struct_x_wdt_ps_1a7e636142b5fa9c8bd940026976fb0006" kind="variable"><name>IsReady</name></member>
+    <member refid="struct_x_wdt_ps_1ae48dad9bc1c3b06fdbdc40cb64501dd5" kind="variable"><name>IsStarted</name></member>
+  </compound>
+  <compound refid="struct_x_wdt_ps___config" kind="struct"><name>XWdtPs_Config</name>
+    <member refid="struct_x_wdt_ps___config_1aed0ba808a3e5260b3fa9244af1547c4d" kind="variable"><name>Name</name></member>
+    <member refid="struct_x_wdt_ps___config_1ab09dc2a13ed7882ec309278ebc43b16c" kind="variable"><name>BaseAddress</name></member>
+    <member refid="struct_x_wdt_ps___config_1aaf59774d1f65272233abf1bca9e95e21" kind="variable"><name>InputClockHz</name></member>
+    <member refid="struct_x_wdt_ps___config_1a845a836940e4fdaaeaeccdedbbf6c078" kind="variable"><name>IntrId</name></member>
+    <member refid="struct_x_wdt_ps___config_1a377d49d28d19a8de4f45cfee8ad1a6fc" kind="variable"><name>IntrParent</name></member>
+  </compound>
+  <compound refid="src_2_c_make_lists_8txt" kind="file"><name>src/CMakeLists.txt</name>
+  </compound>
+  <compound refid="examples_2_c_make_lists_8txt" kind="file"><name>examples/CMakeLists.txt</name>
+  </compound>
+  <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
+  </compound>
+  <compound refid="xwdtps_8c" kind="file"><name>xwdtps.c</name>
+    <member refid="group__wdtps_1gaf5315b5d46aba7c4d02b988740d44c66" kind="function"><name>XWdtPs_CfgInitialize</name></member>
+    <member refid="group__wdtps_1ga2ac689cec0d17cc916c509285635135b" kind="function"><name>XWdtPs_Start</name></member>
+    <member refid="group__wdtps_1ga4a8899689039c676ab3ad7ff80c9c750" kind="function"><name>XWdtPs_Stop</name></member>
+    <member refid="group__wdtps_1ga8f98775051f9ea2cb0a47da8a75f555a" kind="function"><name>XWdtPs_EnableOutput</name></member>
+    <member refid="group__wdtps_1ga0d6091a8ee48e49031cf0c8c92a87658" kind="function"><name>XWdtPs_DisableOutput</name></member>
+    <member refid="group__wdtps_1ga007b92a62641b7db61edd11f8e4bc7dc" kind="function"><name>XWdtPs_GetControlValue</name></member>
+    <member refid="group__wdtps_1ga64f2de6079bde6e9b8c495401a555a64" kind="function"><name>XWdtPs_SetControlValue</name></member>
+  </compound>
+  <compound refid="xwdtps_8h" kind="file"><name>xwdtps.h</name>
+    <member refid="group__wdtps_1gac766494d522d445e628dd65f01fe4130" kind="define"><name>XWDTPS_H</name></member>
+    <member refid="group__wdtps_1gad0b2439fb19478f1b1c1d14b76cd15cc" kind="define"><name>XWDTPS_RESET_SIGNAL</name></member>
+    <member refid="group__wdtps_1ga1c3aaf158b04e2d1e77145d5b425c5d3" kind="define"><name>XWDTPS_IRQ_SIGNAL</name></member>
+    <member refid="group__wdtps_1ga4182ead880093d17d2b0962839821929" kind="define"><name>XWDTPS_CLK_PRESCALE</name></member>
+    <member refid="group__wdtps_1gac055573454d39a7fadf5cbd1ed19aea5" kind="define"><name>XWDTPS_COUNTER_RESET</name></member>
+    <member refid="group__wdtps_1ga5ad51ea203fc3eb20ecd848117c2f930" kind="define"><name>XWdtPs_IsWdtExpired</name></member>
+    <member refid="group__wdtps_1ga89baace72a7b8abe477a8cfed4606a08" kind="define"><name>XWdtPs_RestartWdt</name></member>
+    <member refid="group__wdtps_1ga230fdf90fd02a0ac309937d235f560ac" kind="variable"><name>XWdtPs_ConfigTable</name></member>
+    <member refid="group__wdtps_1gae2a8c2673df0d37c03eea50b2ea76ce2" kind="function"><name>XWdtPs_LookupConfig</name></member>
+    <member refid="group__wdtps_1gaf5315b5d46aba7c4d02b988740d44c66" kind="function"><name>XWdtPs_CfgInitialize</name></member>
+    <member refid="group__wdtps_1ga2ac689cec0d17cc916c509285635135b" kind="function"><name>XWdtPs_Start</name></member>
+    <member refid="group__wdtps_1ga4a8899689039c676ab3ad7ff80c9c750" kind="function"><name>XWdtPs_Stop</name></member>
+    <member refid="group__wdtps_1ga8f98775051f9ea2cb0a47da8a75f555a" kind="function"><name>XWdtPs_EnableOutput</name></member>
+    <member refid="group__wdtps_1ga0d6091a8ee48e49031cf0c8c92a87658" kind="function"><name>XWdtPs_DisableOutput</name></member>
+    <member refid="group__wdtps_1ga007b92a62641b7db61edd11f8e4bc7dc" kind="function"><name>XWdtPs_GetControlValue</name></member>
+    <member refid="group__wdtps_1ga64f2de6079bde6e9b8c495401a555a64" kind="function"><name>XWdtPs_SetControlValue</name></member>
+    <member refid="group__wdtps_1ga173e89798890bf73fd20f5cdadf113b5" kind="function"><name>XWdtPs_SelfTest</name></member>
+  </compound>
+  <compound refid="xwdtps__g_8c" kind="file"><name>xwdtps_g.c</name>
+    <member refid="group__wdtps_1ga23a43d76136564699b548fb0a4b144dd" kind="variable"><name>XWdtPs_ConfigTable</name></member>
+  </compound>
+  <compound refid="xwdtps__hw_8h" kind="file"><name>xwdtps_hw.h</name>
+    <member refid="group__wdtps_1gabfb6c271ee50fc3735fde379c938be0c" kind="define"><name>XWDTPS_ZMR_OFFSET</name></member>
+    <member refid="group__wdtps_1ga55c7e50c407f1bb66181c306fc51e3b3" kind="define"><name>XWDTPS_CCR_OFFSET</name></member>
+    <member refid="group__wdtps_1gaa8bb5ca85ad74f2e5601444673e6ed09" kind="define"><name>XWDTPS_RESTART_OFFSET</name></member>
+    <member refid="group__wdtps_1gaf91a6934748dedcd7f21665696277922" kind="define"><name>XWDTPS_SR_OFFSET</name></member>
+    <member refid="group__wdtps_1gab5a46221cc01e7b376f46ee60f726dad" kind="define"><name>XWDTPS_ZMR_WDEN_MASK</name></member>
+    <member refid="group__wdtps_1gace442e2a904cbae1a530f29f96e183ec" kind="define"><name>XWDTPS_ZMR_RSTEN_MASK</name></member>
+    <member refid="group__wdtps_1ga8ab972f80540aaa4dcab5fa69c355354" kind="define"><name>XWDTPS_ZMR_IRQEN_MASK</name></member>
+    <member refid="group__wdtps_1gaecc5f08ee18069fdd264027e7da22165" kind="define"><name>XWDTPS_ZMR_RSTLN_MASK</name></member>
+    <member refid="group__wdtps_1ga9038442d353f8b8dc15786f1efaad62d" kind="define"><name>XWDTPS_ZMR_RSTLN_SHIFT</name></member>
+    <member refid="group__wdtps_1ga23875fd789deb201c12053d6339c4d43" kind="define"><name>XWDTPS_ZMR_IRQLN_MASK</name></member>
+    <member refid="group__wdtps_1gae16f80502d0c7542dcc7269c62f93701" kind="define"><name>XWDTPS_ZMR_IRQLN_SHIFT</name></member>
+    <member refid="group__wdtps_1ga90391e03ac8d6d1e404a8f654129abbf" kind="define"><name>XWDTPS_ZMR_ZKEY_MASK</name></member>
+    <member refid="group__wdtps_1ga1d77314aa941add791ce8d0bfa9ec3b9" kind="define"><name>XWDTPS_ZMR_ZKEY_VAL</name></member>
+    <member refid="group__wdtps_1ga57d4d9381e95475f46b366139f39ce51" kind="define"><name>XWDTPS_CCR_CLKSEL_MASK</name></member>
+    <member refid="group__wdtps_1ga8459363e0e0ad2d44291c68dfaa444d0" kind="define"><name>XWDTPS_CCR_CRV_MASK</name></member>
+    <member refid="group__wdtps_1gadd87253d3c5419b22ea299760058ab00" kind="define"><name>XWDTPS_CCR_CRV_SHIFT</name></member>
+    <member refid="group__wdtps_1gaf030acbc21b20d7cb8a857a10cb965ed" kind="define"><name>XWDTPS_CCR_CKEY_MASK</name></member>
+    <member refid="group__wdtps_1ga25fcda0719e4ead71bd6bef791c7ec83" kind="define"><name>XWDTPS_CCR_CKEY_VAL</name></member>
+    <member refid="group__wdtps_1ga9c5980e1118cff3e565fcc1f3b6e140a" kind="define"><name>XWDTPS_CCR_PSCALE_0008</name></member>
+    <member refid="group__wdtps_1ga77aab579ac71f7ac44d785ff35564c05" kind="define"><name>XWDTPS_CCR_PSCALE_0064</name></member>
+    <member refid="group__wdtps_1ga5a1088e125265e83d8f75a4e39110ee6" kind="define"><name>XWDTPS_CCR_PSCALE_0512</name></member>
+    <member refid="group__wdtps_1gac45a97f7c45ce5c10365a27c199d8d2c" kind="define"><name>XWDTPS_CCR_PSCALE_4096</name></member>
+    <member refid="group__wdtps_1ga798fcec0eac576d8309e3995e3597b3e" kind="define"><name>XWDTPS_RESTART_KEY_VAL</name></member>
+    <member refid="group__wdtps_1ga79c7165641f0f9b4e356675fc0d0960b" kind="define"><name>XWDTPS_SR_WDZ_MASK</name></member>
+    <member refid="group__wdtps_1gaa55483ea4e4979700111be19b03d06e7" kind="define"><name>XWDTPS_HW_H</name></member>
+    <member refid="group__wdtps_1gae41b46b220ba0da6a9f28e594c3c0a47" kind="define"><name>XWdtPs_ReadReg</name></member>
+    <member refid="group__wdtps_1gac1cc7282f826a550a7f5107f1e12523b" kind="define"><name>XWdtPs_WriteReg</name></member>
+  </compound>
+  <compound refid="xwdtps__intr__example_8c" kind="file"><name>xwdtps_intr_example.c</name>
+    <member refid="xwdtps__intr__example_8c_1ae36a559155f47131ba50ac86cd1fa154" kind="define"><name>HANDLER_CALLED</name></member>
+    <member refid="xwdtps__intr__example_8c_1ae324e7a9bfaef6895e18da0c4d196a77" kind="variable"><name>WdtInstance</name></member>
+    <member refid="xwdtps__intr__example_8c_1a5e536ec9d898efc30b1ac0587740f2f5" kind="variable"><name>IntcInstance</name></member>
+    <member refid="xwdtps__intr__example_8c_1a9b100a48b01c7347ab4856582cddc4c6" kind="variable"><name>HandlerCalled</name></member>
+    <member refid="xwdtps__intr__example_8c_1a68c49aac48afdadb5e61491d93bdc6db" kind="function"><name>WdtPsIntrExample</name></member>
+    <member refid="xwdtps__intr__example_8c_1a1621f55b4afbfd821f2b44ede55876e0" kind="function"><name>WdtIntrHandler</name></member>
+    <member refid="xwdtps__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xwdtps__polled__example_8c" kind="file"><name>xwdtps_polled_example.c</name>
+    <member refid="xwdtps__polled__example_8c_1a6a78633dec60b722198f6f7ef0fb4ad7" kind="variable"><name>Watchdog</name></member>
+    <member refid="xwdtps__polled__example_8c_1ad9108236957be3abb536a57807d2af0a" kind="function"><name>WdtPsPolledExample</name></member>
+    <member refid="xwdtps__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xwdtps__selftest_8c" kind="file"><name>xwdtps_selftest.c</name>
+    <member refid="group__wdtps_1ga173e89798890bf73fd20f5cdadf113b5" kind="function"><name>XWdtPs_SelfTest</name></member>
+  </compound>
+  <compound refid="xwdtps__selftest__example_8c" kind="file"><name>xwdtps_selftest_example.c</name>
+    <member refid="xwdtps__selftest__example_8c_1af883e3b514d07dc939e40a3e899425c3" kind="variable"><name>WdtPsInstance</name></member>
+    <member refid="xwdtps__selftest__example_8c_1a1c0dd37dd465b8e22dfec43c60a5de1e" kind="function"><name>WdtPsSelfTestExample</name></member>
+    <member refid="xwdtps__selftest__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xwdtps__sinit_8c" kind="file"><name>xwdtps_sinit.c</name>
+    <member refid="group__wdtps_1gae2a8c2673df0d37c03eea50b2ea76ce2" kind="function"><name>XWdtPs_LookupConfig</name></member>
+  </compound>
+  <compound refid="group__wdtps" kind="group"><name>wdtps</name>
+    <member refid="group__wdtps_1gabfb6c271ee50fc3735fde379c938be0c" kind="define"><name>XWDTPS_ZMR_OFFSET</name></member>
+    <member refid="group__wdtps_1ga55c7e50c407f1bb66181c306fc51e3b3" kind="define"><name>XWDTPS_CCR_OFFSET</name></member>
+    <member refid="group__wdtps_1gaa8bb5ca85ad74f2e5601444673e6ed09" kind="define"><name>XWDTPS_RESTART_OFFSET</name></member>
+    <member refid="group__wdtps_1gaf91a6934748dedcd7f21665696277922" kind="define"><name>XWDTPS_SR_OFFSET</name></member>
+    <member refid="group__wdtps_1gab5a46221cc01e7b376f46ee60f726dad" kind="define"><name>XWDTPS_ZMR_WDEN_MASK</name></member>
+    <member refid="group__wdtps_1gace442e2a904cbae1a530f29f96e183ec" kind="define"><name>XWDTPS_ZMR_RSTEN_MASK</name></member>
+    <member refid="group__wdtps_1ga8ab972f80540aaa4dcab5fa69c355354" kind="define"><name>XWDTPS_ZMR_IRQEN_MASK</name></member>
+    <member refid="group__wdtps_1gaecc5f08ee18069fdd264027e7da22165" kind="define"><name>XWDTPS_ZMR_RSTLN_MASK</name></member>
+    <member refid="group__wdtps_1ga9038442d353f8b8dc15786f1efaad62d" kind="define"><name>XWDTPS_ZMR_RSTLN_SHIFT</name></member>
+    <member refid="group__wdtps_1ga23875fd789deb201c12053d6339c4d43" kind="define"><name>XWDTPS_ZMR_IRQLN_MASK</name></member>
+    <member refid="group__wdtps_1gae16f80502d0c7542dcc7269c62f93701" kind="define"><name>XWDTPS_ZMR_IRQLN_SHIFT</name></member>
+    <member refid="group__wdtps_1ga90391e03ac8d6d1e404a8f654129abbf" kind="define"><name>XWDTPS_ZMR_ZKEY_MASK</name></member>
+    <member refid="group__wdtps_1ga1d77314aa941add791ce8d0bfa9ec3b9" kind="define"><name>XWDTPS_ZMR_ZKEY_VAL</name></member>
+    <member refid="group__wdtps_1ga57d4d9381e95475f46b366139f39ce51" kind="define"><name>XWDTPS_CCR_CLKSEL_MASK</name></member>
+    <member refid="group__wdtps_1ga8459363e0e0ad2d44291c68dfaa444d0" kind="define"><name>XWDTPS_CCR_CRV_MASK</name></member>
+    <member refid="group__wdtps_1gadd87253d3c5419b22ea299760058ab00" kind="define"><name>XWDTPS_CCR_CRV_SHIFT</name></member>
+    <member refid="group__wdtps_1gaf030acbc21b20d7cb8a857a10cb965ed" kind="define"><name>XWDTPS_CCR_CKEY_MASK</name></member>
+    <member refid="group__wdtps_1ga25fcda0719e4ead71bd6bef791c7ec83" kind="define"><name>XWDTPS_CCR_CKEY_VAL</name></member>
+    <member refid="group__wdtps_1ga9c5980e1118cff3e565fcc1f3b6e140a" kind="define"><name>XWDTPS_CCR_PSCALE_0008</name></member>
+    <member refid="group__wdtps_1ga77aab579ac71f7ac44d785ff35564c05" kind="define"><name>XWDTPS_CCR_PSCALE_0064</name></member>
+    <member refid="group__wdtps_1ga5a1088e125265e83d8f75a4e39110ee6" kind="define"><name>XWDTPS_CCR_PSCALE_0512</name></member>
+    <member refid="group__wdtps_1gac45a97f7c45ce5c10365a27c199d8d2c" kind="define"><name>XWDTPS_CCR_PSCALE_4096</name></member>
+    <member refid="group__wdtps_1ga798fcec0eac576d8309e3995e3597b3e" kind="define"><name>XWDTPS_RESTART_KEY_VAL</name></member>
+    <member refid="group__wdtps_1ga79c7165641f0f9b4e356675fc0d0960b" kind="define"><name>XWDTPS_SR_WDZ_MASK</name></member>
+    <member refid="group__wdtps_1ga230fdf90fd02a0ac309937d235f560ac" kind="variable"><name>XWdtPs_ConfigTable</name></member>
+    <member refid="group__wdtps_1ga23a43d76136564699b548fb0a4b144dd" kind="variable"><name>XWdtPs_ConfigTable</name></member>
+    <member refid="group__wdtps_1gaf5315b5d46aba7c4d02b988740d44c66" kind="function"><name>XWdtPs_CfgInitialize</name></member>
+    <member refid="group__wdtps_1ga2ac689cec0d17cc916c509285635135b" kind="function"><name>XWdtPs_Start</name></member>
+    <member refid="group__wdtps_1ga4a8899689039c676ab3ad7ff80c9c750" kind="function"><name>XWdtPs_Stop</name></member>
+    <member refid="group__wdtps_1ga8f98775051f9ea2cb0a47da8a75f555a" kind="function"><name>XWdtPs_EnableOutput</name></member>
+    <member refid="group__wdtps_1ga0d6091a8ee48e49031cf0c8c92a87658" kind="function"><name>XWdtPs_DisableOutput</name></member>
+    <member refid="group__wdtps_1ga007b92a62641b7db61edd11f8e4bc7dc" kind="function"><name>XWdtPs_GetControlValue</name></member>
+    <member refid="group__wdtps_1ga64f2de6079bde6e9b8c495401a555a64" kind="function"><name>XWdtPs_SetControlValue</name></member>
+    <member refid="group__wdtps_1gae2a8c2673df0d37c03eea50b2ea76ce2" kind="function"><name>XWdtPs_LookupConfig</name></member>
+    <member refid="group__wdtps_1ga173e89798890bf73fd20f5cdadf113b5" kind="function"><name>XWdtPs_SelfTest</name></member>
+    <member refid="group__wdtps_1gac766494d522d445e628dd65f01fe4130" kind="define"><name>XWDTPS_H</name></member>
+    <member refid="group__wdtps_1gad0b2439fb19478f1b1c1d14b76cd15cc" kind="define"><name>XWDTPS_RESET_SIGNAL</name></member>
+    <member refid="group__wdtps_1ga1c3aaf158b04e2d1e77145d5b425c5d3" kind="define"><name>XWDTPS_IRQ_SIGNAL</name></member>
+    <member refid="group__wdtps_1ga4182ead880093d17d2b0962839821929" kind="define"><name>XWDTPS_CLK_PRESCALE</name></member>
+    <member refid="group__wdtps_1gac055573454d39a7fadf5cbd1ed19aea5" kind="define"><name>XWDTPS_COUNTER_RESET</name></member>
+    <member refid="group__wdtps_1ga5ad51ea203fc3eb20ecd848117c2f930" kind="define"><name>XWdtPs_IsWdtExpired</name></member>
+    <member refid="group__wdtps_1ga89baace72a7b8abe477a8cfed4606a08" kind="define"><name>XWdtPs_RestartWdt</name></member>
+    <member refid="group__wdtps_1gaa55483ea4e4979700111be19b03d06e7" kind="define"><name>XWDTPS_HW_H</name></member>
+    <member refid="group__wdtps_1gae41b46b220ba0da6a9f28e594c3c0a47" kind="define"><name>XWdtPs_ReadReg</name></member>
+    <member refid="group__wdtps_1gac1cc7282f826a550a7f5107f1e12523b" kind="define"><name>XWdtPs_WriteReg</name></member>
+  </compound>
+  <compound refid="example" kind="page"><name>example</name>
+  </compound>
+  <compound refid="dir_a9320f2ad37c4db266aecc9718f0396f" kind="dir"><name>examples</name>
+  </compound>
+  <compound refid="dir_b015d3292bc729d4ba7d55f964d1e830" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="dir_14712d3fb807e6c4ea1778295adc03e7" kind="dir"><name>wdtps</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

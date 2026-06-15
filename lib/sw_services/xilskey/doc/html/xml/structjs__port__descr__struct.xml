@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structjs__port__descr__struct" kind="struct" prot="public">
+    <compoundname>js_port_descr_struct</compoundname>
+    <includes local="no">xilskey_js.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structjs__port__descr__struct_1abf452597f2b0c5894a1f24d6bf9cf6f1" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char js_port_descr_struct::manufacturer[64]</definition>
+        <argsstring>[64]</argsstring>
+        <name>manufacturer</name>
+        <briefdescription>
+<para>manufacturer information </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjs__port__descr__struct_1a26e204bd66301a4580cb7d8dde4bbbce" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char js_port_descr_struct::serial[64]</definition>
+        <argsstring>[64]</argsstring>
+        <name>serial</name>
+        <briefdescription>
+<para>Serial information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjs__port__descr__struct_1a7c706e3254c90f4b2e5d8dc89b71ec02" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char js_port_descr_struct::port[64]</definition>
+        <argsstring>[64]</argsstring>
+        <name>port</name>
+        <briefdescription>
+<para>Port information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjs__port__descr__struct_1a27397970ff5afd5167192110539b5d42" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char js_port_descr_struct::description[128]</definition>
+        <argsstring>[128]</argsstring>
+        <name>description</name>
+        <briefdescription>
+<para>Description information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjs__port__descr__struct_1a1aa73d32856930821c1e84dbdf84329c" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* js_port_descr_struct::handle</definition>
+        <argsstring></argsstring>
+        <name>handle</name>
+        <briefdescription>
+<para>Pointer to handle. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>JTAG port description. </para>    </briefdescription>
+    <detaileddescription>
+<para>This is retrieved by calling js_get_port_descr_list(), and is needed for js_open_port() to indicate which port to use. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" bodystart="91" bodyend="97"/>
+    <listofallmembers>
+      <member refid="structjs__port__descr__struct_1a27397970ff5afd5167192110539b5d42" prot="public" virt="non-virtual"><scope>js_port_descr_struct</scope><name>description</name></member>
+      <member refid="structjs__port__descr__struct_1a1aa73d32856930821c1e84dbdf84329c" prot="public" virt="non-virtual"><scope>js_port_descr_struct</scope><name>handle</name></member>
+      <member refid="structjs__port__descr__struct_1abf452597f2b0c5894a1f24d6bf9cf6f1" prot="public" virt="non-virtual"><scope>js_port_descr_struct</scope><name>manufacturer</name></member>
+      <member refid="structjs__port__descr__struct_1a7c706e3254c90f4b2e5d8dc89b71ec02" prot="public" virt="non-virtual"><scope>js_port_descr_struct</scope><name>port</name></member>
+      <member refid="structjs__port__descr__struct_1a26e204bd66301a4580cb7d8dde4bbbce" prot="public" virt="non-virtual"><scope>js_port_descr_struct</scope><name>serial</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

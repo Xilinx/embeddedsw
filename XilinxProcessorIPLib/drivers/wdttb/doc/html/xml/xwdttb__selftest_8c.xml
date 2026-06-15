@@ -1,0 +1,311 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xwdttb__selftest_8c" kind="file">
+    <compoundname>xwdttb_selftest.c</compoundname>
+    <includes refid="xwdttb_8h" local="yes">xwdttb.h</includes>
+    <incdepgraph>
+      <node id="129">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="126">
+        <label>xwdttb_selftest.c</label>
+        <link refid="xwdttb_selftest.c"/>
+        <childnode refid="127" relation="include">
+        </childnode>
+      </node>
+      <node id="130">
+        <label>xstatus.h</label>
+      </node>
+      <node id="128">
+        <label>xil_types.h</label>
+      </node>
+      <node id="131">
+        <label>xwdttb_l.h</label>
+        <link refid="xwdttb__l_8h"/>
+      </node>
+      <node id="127">
+        <label>xwdttb.h</label>
+        <link refid="xwdttb_8h"/>
+        <childnode refid="128" relation="include">
+        </childnode>
+        <childnode refid="129" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="131" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__wdttb__api_1ga4f5e675abc1651523fc8586c4ca34700" prot="public" static="no">
+        <name>XWT_MAX_SELFTEST_LOOP_COUNT</name>
+        <initializer>0x00010000U</initializer>
+        <briefdescription>
+<para>Loopt count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_selftest.c" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_selftest.c" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gaa9e410506154d92a551b6261742d98b1" compoundref="xwdttb__selftest_8c" startline="101" endline="225">XWdtTb_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1gab51fc9c602dd4d891007e82e3d0f36c9" prot="public" static="no">
+        <name>XWT_FW_COUNT</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+<para>Fist Window count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_selftest.c" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_selftest.c" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gaa9e410506154d92a551b6261742d98b1" compoundref="xwdttb__selftest_8c" startline="101" endline="225">XWdtTb_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga968af3f9423a4490ad7edcdda3ebfb49" prot="public" static="no">
+        <name>XWT_SW_COUNT</name>
+        <initializer>0x10000U</initializer>
+        <briefdescription>
+<para>Second window count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_selftest.c" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_selftest.c" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gaa9e410506154d92a551b6261742d98b1" compoundref="xwdttb__selftest_8c" startline="101" endline="225">XWdtTb_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__wdttb__api_1ga7d2553ae05bf83bb1da5955480a68415" prot="public" static="no">
+        <name>XWT_GWOR_COUNT</name>
+        <initializer>0x00001000U</initializer>
+        <briefdescription>
+<para>Generic Watchdog Offset Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_selftest.c" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_selftest.c" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__wdttb__api_1gaa9e410506154d92a551b6261742d98b1" compoundref="xwdttb__selftest_8c" startline="101" endline="225">XWdtTb_SelfTest</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__wdttb__api_1gaa9e410506154d92a551b6261742d98b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XWdtTb_SelfTest</definition>
+        <argsstring>(const XWdtTb *InstancePtr)</argsstring>
+        <name>XWdtTb_SelfTest</name>
+        <param>
+          <type>const <ref refid="struct_x_wdt_tb" kindref="compound">XWdtTb</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function runs a self-test on the timebase or window if enabled. </para>        </briefdescription>
+        <detaileddescription>
+<para>Timebase test verifies that the timebase is incrementing. The watchdog timer is not tested due to the time required to wait for the watchdog timer to expire. The time consumed by this test is dependent on the system clock and the configuration of the dividers in for the input clock of the timebase.</para><para>Window test verifies that the windowing feature does not generate bad event after enabling window feature with first and second window count. It disables window feature immediately.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_wdt_tb" kindref="compound">XWdtTb</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if self-test was successful.</para></listitem><listitem><para>XST_WDTTB_TIMER_FAILED if the timebase is not incrementing.</para></listitem><listitem><para>XST_FAILURE if self-test was failed. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb.h" line="731" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_selftest.c" bodystart="101" bodyend="225"/>
+        <references refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" compoundref="xwdttb_8h" startline="154">XWdtTb_Config::BaseAddr</references>
+        <references refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" compoundref="xwdttb_8h" startline="175">XWdtTb::Config</references>
+        <references refid="struct_x_wdt_tb_1a1b6e790496a8a1cb5b8336a83e04e4f8" compoundref="xwdttb_8h" startline="179">XWdtTb::EnableWinMode</references>
+        <references refid="struct_x_wdt_tb_1ae845387c163b17502b9cfe6eba8bdda0" compoundref="xwdttb_8h" startline="176">XWdtTb::IsReady</references>
+        <references refid="struct_x_wdt_tb___config_1a02c5f0b429b7cc96178a64496597ec6c" compoundref="xwdttb_8h" startline="152">XWdtTb_Config::Name</references>
+        <references refid="xwdttb__hw_8h_1afa6b4b0d4c816cd9bd6da3c9fe7caac3" compoundref="xwdttb__hw_8h" startline="324">XWdtTb_ReadReg</references>
+        <references refid="xwdttb__hw_8h_1a36d539f7262d0267924d2ef5612f0cc2" compoundref="xwdttb__hw_8h" startline="344">XWdtTb_WriteReg</references>
+        <references refid="group__wdttb__api_1ga643e3b4375dcd8da05f2af9804cdd7b5" compoundref="xwdttb__hw_8h" startline="199">XWT_ESR_LBE_MASK</references>
+        <references refid="group__wdttb__api_1ga9966f0ebfaa911913e1957796156a0ab" compoundref="xwdttb__hw_8h" startline="208">XWT_ESR_LBE_SHIFT</references>
+        <references refid="group__wdttb__api_1ga3479cb274c0cfc1e467737608d3de88b" compoundref="xwdttb__hw_8h" startline="90">XWT_ESR_OFFSET</references>
+        <references refid="group__wdttb__api_1ga5c0d083f02afec23e2fd1000a45ef838" compoundref="xwdttb__hw_8h" startline="207">XWT_ESR_WEN_MASK</references>
+        <references refid="group__wdttb__api_1ga0e82a9017983f42115d42348e70ed949" compoundref="xwdttb__hw_8h" startline="204">XWT_ESR_WSW_MASK</references>
+        <references refid="group__wdttb__api_1gab51fc9c602dd4d891007e82e3d0f36c9" compoundref="xwdttb__selftest_8c" startline="60">XWT_FW_COUNT</references>
+        <references refid="group__wdttb__api_1ga82d67efeaf5c58cebc1966fd96e4fac0" compoundref="xwdttb__hw_8h" startline="96">XWT_FWR_OFFSET</references>
+        <references refid="group__wdttb__api_1gaba6c59fd8bb35e6acd5fee14248279bf" compoundref="xwdttb__hw_8h" startline="271">XWT_GWCSR_GWEN_MASK</references>
+        <references refid="group__wdttb__api_1ga234636ea29c7d5c0a095928fdf05906c" compoundref="xwdttb__hw_8h" startline="143">XWT_GWCSR_OFFSET</references>
+        <references refid="group__wdttb__api_1ga7d2553ae05bf83bb1da5955480a68415" compoundref="xwdttb__selftest_8c" startline="62">XWT_GWOR_COUNT</references>
+        <references refid="group__wdttb__api_1gabc436ceebd51b9dfb2573dcaf1332f83" compoundref="xwdttb__hw_8h" startline="146">XWT_GWOR_OFFSET</references>
+        <references refid="group__wdttb__api_1ga9294cfeaa18cc46130f3a8ba6048d5fb" compoundref="xwdttb__hw_8h" startline="140">XWT_GWRR_OFFSET</references>
+        <references refid="group__wdttb__api_1ga4f5e675abc1651523fc8586c4ca34700" compoundref="xwdttb__selftest_8c" startline="59">XWT_MAX_SELFTEST_LOOP_COUNT</references>
+        <references refid="group__wdttb__api_1ga5179e62af141b56b29af9e69cbbb8591" compoundref="xwdttb__hw_8h" startline="87">XWT_MWR_OFFSET</references>
+        <references refid="group__wdttb__api_1ga968af3f9423a4490ad7edcdda3ebfb49" compoundref="xwdttb__selftest_8c" startline="61">XWT_SW_COUNT</references>
+        <references refid="group__wdttb__api_1gab663dabd33fca2fd450305fd3e325f63" compoundref="xwdttb__hw_8h" startline="99">XWT_SWR_OFFSET</references>
+        <references refid="group__wdttb__api_1gacd80f8a65e758f3862b655495b41561a" compoundref="xwdttb__hw_8h" startline="171">XWT_TBR_OFFSET</references>
+        <referencedby refid="xwdttb__gwdt__example_8c_1ae46c5a8ca3ff40cfd7ae9004c68032c7" compoundref="xwdttb__gwdt__example_8c" startline="132" endline="211">GWdtTbExample</referencedby>
+        <referencedby refid="xwdttb__gwdt__selftest__example_8c_1a348849b782194898b97aad0598f27cea" compoundref="xwdttb__gwdt__selftest__example_8c" startline="120" endline="162">GWdtTbSelfTestExample</referencedby>
+        <referencedby refid="xwdttb__example_8c_1aba68c6bcda83b7e5394221562daacb40" compoundref="xwdttb__example_8c" startline="150" endline="242">WdtTbExample</referencedby>
+        <referencedby refid="xwdttb__gwdt__intr__example_8c_1a3a2250354004b0d38a79cbc2549dacfa" compoundref="xwdttb__gwdt__intr__example_8c" startline="181" endline="276">WdtTbIntrExample</referencedby>
+        <referencedby refid="xwdttb__selftest__example_8c_1abf14d811dc1e193cc7053819cf1ad827" compoundref="xwdttb__selftest__example_8c" startline="146" endline="194">WdtTbSelfTestExample</referencedby>
+        <referencedby refid="xwdttb__winwdt__intr__example_8c_1a493438d0854982efd7719e9ffe2d6da8" compoundref="xwdttb__winwdt__intr__example_8c" startline="217" endline="351">WinWdtIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="54"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xwdttb_8h" kindref="compound">xwdttb.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59" refid="group__wdttb__api_1ga4f5e675abc1651523fc8586c4ca34700" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XWT_MAX_SELFTEST_LOOP_COUNT<sp/><sp/><sp/><sp/><sp/>0x00010000U<sp/></highlight></codeline>
+<codeline lineno="60" refid="group__wdttb__api_1gab51fc9c602dd4d891007e82e3d0f36c9" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_FW_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="group__wdttb__api_1ga968af3f9423a4490ad7edcdda3ebfb49" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_SW_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10000U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="group__wdttb__api_1ga7d2553ae05bf83bb1da5955480a68415" refkind="member"><highlight class="preprocessor">#define<sp/>XWT_GWOR_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001000U<sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">s32<sp/><ref refid="group__wdttb__api_1gaa9e410506154d92a551b6261742d98b1" kindref="member">XWdtTb_SelfTest</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_wdt_tb" kindref="compound">XWdtTb</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="101" refid="group__wdttb__api_1gaa9e410506154d92a551b6261742d98b1" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LoopCount<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TbrValue1;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TbrValue2;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="108"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>to<sp/>ensure<sp/>the<sp/>inputs<sp/>are<sp/>valid<sp/>and<sp/>the<sp/>instance<sp/>has<sp/>been</highlight></codeline>
+<codeline lineno="109"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>initialized</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_wdt_tb_1ae845387c163b17502b9cfe6eba8bdda0" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>whether<sp/>Window<sp/>WDT<sp/>is<sp/>enabled<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_wdt_tb_1a1b6e790496a8a1cb5b8336a83e04e4f8" kindref="member">EnableWinMode</ref><sp/>==<sp/>(u32)1)<sp/>{</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>first<sp/>window<sp/>with<sp/>zero<sp/>count<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xwdttb__hw_8h_1a36d539f7262d0267924d2ef5612f0cc2" kindref="member">XWdtTb_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__wdttb__api_1ga82d67efeaf5c58cebc1966fd96e4fac0" kindref="member">XWT_FWR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__wdttb__api_1gab51fc9c602dd4d891007e82e3d0f36c9" kindref="member">XWT_FW_COUNT</ref>);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>second<sp/>window<sp/>count<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xwdttb__hw_8h_1a36d539f7262d0267924d2ef5612f0cc2" kindref="member">XWdtTb_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__wdttb__api_1gab663dabd33fca2fd450305fd3e325f63" kindref="member">XWT_SWR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__wdttb__api_1ga968af3f9423a4490ad7edcdda3ebfb49" kindref="member">XWT_SW_COUNT</ref>);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>Window<sp/>WDT<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xwdttb__hw_8h_1a36d539f7262d0267924d2ef5612f0cc2" kindref="member">XWdtTb_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__wdttb__api_1ga3479cb274c0cfc1e467737608d3de88b" kindref="member">XWT_ESR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__wdttb__api_1ga5c0d083f02afec23e2fd1000a45ef838" kindref="member">XWT_ESR_WEN_MASK</ref>);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TbrValue2<sp/>=<sp/>(<ref refid="xwdttb__hw_8h_1afa6b4b0d4c816cd9bd6da3c9fe7caac3" kindref="member">XWdtTb_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__wdttb__api_1ga3479cb274c0cfc1e467737608d3de88b" kindref="member">XWT_ESR_OFFSET</ref>)<sp/>&amp;<sp/><ref refid="group__wdttb__api_1ga5c0d083f02afec23e2fd1000a45ef838" kindref="member">XWT_ESR_WEN_MASK</ref>);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TbrValue2<sp/>==<sp/>(u32)1U)<sp/>{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>End;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>writable<sp/>mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xwdttb__hw_8h_1a36d539f7262d0267924d2ef5612f0cc2" kindref="member">XWdtTb_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__wdttb__api_1ga5179e62af141b56b29af9e69cbbb8591" kindref="member">XWT_MWR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>enable<sp/>status<sp/>register<sp/>and<sp/>update<sp/>WEN<sp/>bit<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TbrValue1<sp/>=<sp/><ref refid="xwdttb__hw_8h_1afa6b4b0d4c816cd9bd6da3c9fe7caac3" kindref="member">XWdtTb_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__wdttb__api_1ga3479cb274c0cfc1e467737608d3de88b" kindref="member">XWT_ESR_OFFSET</ref>)<sp/>&amp;<sp/>(~<ref refid="group__wdttb__api_1ga5c0d083f02afec23e2fd1000a45ef838" kindref="member">XWT_ESR_WEN_MASK</ref>);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="145"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clear<sp/>WSW<sp/>bit.<sp/>Otherwise<sp/>writing<sp/>1<sp/>will<sp/>generate<sp/>restart</highlight></codeline>
+<codeline lineno="146"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>kick.<sp/>WSW<sp/>is<sp/>RW1C.</highlight></codeline>
+<codeline lineno="147"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TbrValue1<sp/>&amp;=<sp/>~((u32)<ref refid="group__wdttb__api_1ga0e82a9017983f42115d42348e70ed949" kindref="member">XWT_ESR_WSW_MASK</ref>);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>Window<sp/>WDT<sp/>feature<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xwdttb__hw_8h_1a36d539f7262d0267924d2ef5612f0cc2" kindref="member">XWdtTb_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__wdttb__api_1ga3479cb274c0cfc1e467737608d3de88b" kindref="member">XWT_ESR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TbrValue1);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>enable<sp/>status<sp/>register<sp/>and<sp/>get<sp/>last<sp/>bad<sp/>events<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TbrValue2<sp/>=<sp/>(<ref refid="xwdttb__hw_8h_1afa6b4b0d4c816cd9bd6da3c9fe7caac3" kindref="member">XWdtTb_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__wdttb__api_1ga3479cb274c0cfc1e467737608d3de88b" kindref="member">XWT_ESR_OFFSET</ref>)<sp/>&amp;<sp/><ref refid="group__wdttb__api_1ga643e3b4375dcd8da05f2af9804cdd7b5" kindref="member">XWT_ESR_LBE_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__wdttb__api_1ga9966f0ebfaa911913e1957796156a0ab" kindref="member">XWT_ESR_LBE_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Compare<sp/>last<sp/>bad<sp/>event<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TbrValue2<sp/>==<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.IsPl<sp/>==<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!(strcmp(InstancePtr-&gt;<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a02c5f0b429b7cc96178a64496597ec6c" kindref="member">Name</ref>,<sp/></highlight><highlight class="stringliteral">&quot;xlnx,versal-wwdt-1.0&quot;</highlight><highlight class="normal">)))<sp/>{</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>General<sp/>Watchdog<sp/>offset<sp/>register<sp/>for<sp/>Generating<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xwdttb__hw_8h_1a36d539f7262d0267924d2ef5612f0cc2" kindref="member">XWdtTb_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__wdttb__api_1gabc436ceebd51b9dfb2573dcaf1332f83" kindref="member">XWT_GWOR_OFFSET</ref>,<sp/><ref refid="group__wdttb__api_1ga7d2553ae05bf83bb1da5955480a68415" kindref="member">XWT_GWOR_COUNT</ref>);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Enable<sp/>GWEN<sp/>bit<sp/>for<sp/>starting<sp/>General<sp/>Watchdog<sp/>timer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xwdttb__hw_8h_1a36d539f7262d0267924d2ef5612f0cc2" kindref="member">XWdtTb_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__wdttb__api_1ga234636ea29c7d5c0a095928fdf05906c" kindref="member">XWT_GWCSR_OFFSET</ref>,<sp/><ref refid="group__wdttb__api_1gaba6c59fd8bb35e6acd5fee14248279bf" kindref="member">XWT_GWCSR_GWEN_MASK</ref>);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TbrValue1<sp/>=<sp/>(<ref refid="xwdttb__hw_8h_1afa6b4b0d4c816cd9bd6da3c9fe7caac3" kindref="member">XWdtTb_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__wdttb__api_1ga234636ea29c7d5c0a095928fdf05906c" kindref="member">XWT_GWCSR_OFFSET</ref>)<sp/>&amp;<sp/><ref refid="group__wdttb__api_1gaba6c59fd8bb35e6acd5fee14248279bf" kindref="member">XWT_GWCSR_GWEN_MASK</ref>);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TbrValue1<sp/>==<sp/>(u32)1)<sp/>{</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>End;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>General<sp/>WDT<sp/>Refresh<sp/>register<sp/>to<sp/>restart<sp/>the<sp/>timer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xwdttb__hw_8h_1a36d539f7262d0267924d2ef5612f0cc2" kindref="member">XWdtTb_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__wdttb__api_1ga9294cfeaa18cc46130f3a8ba6048d5fb" kindref="member">XWT_GWRR_OFFSET</ref>,<sp/>1U);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>GWEN<sp/>Register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xwdttb__hw_8h_1a36d539f7262d0267924d2ef5612f0cc2" kindref="member">XWdtTb_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__wdttb__api_1ga234636ea29c7d5c0a095928fdf05906c" kindref="member">XWT_GWCSR_OFFSET</ref>,<sp/>(~(u32)<ref refid="group__wdttb__api_1gaba6c59fd8bb35e6acd5fee14248279bf" kindref="member">XWT_GWCSR_GWEN_MASK</ref>));</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="192"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>timebase<sp/>register<sp/>twice<sp/>to<sp/>start<sp/>the<sp/>test</highlight></codeline>
+<codeline lineno="193"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TbrValue1<sp/>=<sp/><ref refid="xwdttb__hw_8h_1afa6b4b0d4c816cd9bd6da3c9fe7caac3" kindref="member">XWdtTb_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__wdttb__api_1gacd80f8a65e758f3862b655495b41561a" kindref="member">XWT_TBR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TbrValue2<sp/>=<sp/><ref refid="xwdttb__hw_8h_1afa6b4b0d4c816cd9bd6da3c9fe7caac3" kindref="member">XWdtTb_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__wdttb__api_1gacd80f8a65e758f3862b655495b41561a" kindref="member">XWT_TBR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="200"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>timebase<sp/>register<sp/>for<sp/>a<sp/>number<sp/>of<sp/>iterations<sp/>or</highlight></codeline>
+<codeline lineno="201"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>until<sp/>it<sp/>increments,<sp/>which<sp/>ever<sp/>occurs<sp/>first</highlight></codeline>
+<codeline lineno="202"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((LoopCount<sp/>&lt;=<sp/><ref refid="group__wdttb__api_1ga4f5e675abc1651523fc8586c4ca34700" kindref="member">XWT_MAX_SELFTEST_LOOP_COUNT</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TbrValue2<sp/>==<sp/>TbrValue1))<sp/>{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TbrValue2<sp/>=</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xwdttb__hw_8h_1afa6b4b0d4c816cd9bd6da3c9fe7caac3" kindref="member">XWdtTb_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_wdt_tb_1a9841f60870d97e7bc296dd419c75023f" kindref="member">Config</ref>.<ref refid="struct_x_wdt_tb___config_1a3867e6f3038fe367e0072a85125f5391" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__wdttb__api_1gacd80f8a65e758f3862b655495b41561a" kindref="member">XWT_TBR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LoopCount++;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="212"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>the<sp/>timebase<sp/>register<sp/>changed<sp/>the<sp/>test<sp/>is<sp/>successful,</highlight></codeline>
+<codeline lineno="213"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>otherwise<sp/>it<sp/>failed</highlight></codeline>
+<codeline lineno="214"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TbrValue2<sp/>!=<sp/>TbrValue1)<sp/>{</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_WDTTB_TIMER_FAILED;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="222"><highlight class="normal">End:</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/src/xwdttb_selftest.c"/>
+  </compounddef>
+</doxygen>

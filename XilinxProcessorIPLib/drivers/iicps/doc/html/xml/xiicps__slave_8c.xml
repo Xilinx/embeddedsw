@@ -1,0 +1,886 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xiicps__slave_8c" kind="file">
+    <compoundname>xiicps_slave.c</compoundname>
+    <includes refid="xiicps_8h" local="yes">xiicps.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <includes refid="xiicps__xfer_8h" local="yes">xiicps_xfer.h</includes>
+    <incdepgraph>
+      <node id="277">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="280">
+        <label>xil_io.h</label>
+      </node>
+      <node id="282">
+        <label>sleep.h</label>
+      </node>
+      <node id="275">
+        <label>xiicps.h</label>
+        <link refid="xiicps_8h"/>
+        <childnode refid="276" relation="include">
+        </childnode>
+        <childnode refid="277" relation="include">
+        </childnode>
+        <childnode refid="278" relation="include">
+        </childnode>
+        <childnode refid="279" relation="include">
+        </childnode>
+        <childnode refid="281" relation="include">
+        </childnode>
+      </node>
+      <node id="279">
+        <label>xiicps_hw.h</label>
+        <link refid="xiicps__hw_8h"/>
+        <childnode refid="276" relation="include">
+        </childnode>
+        <childnode refid="277" relation="include">
+        </childnode>
+        <childnode refid="280" relation="include">
+        </childnode>
+      </node>
+      <node id="283">
+        <label>xiicps_xfer.h</label>
+        <link refid="xiicps__xfer_8h"/>
+      </node>
+      <node id="281">
+        <label>xplatform_info.h</label>
+      </node>
+      <node id="278">
+        <label>xstatus.h</label>
+      </node>
+      <node id="276">
+        <label>xil_types.h</label>
+      </node>
+      <node id="274">
+        <label>xiicps_slave.c</label>
+        <link refid="xiicps_slave.c"/>
+        <childnode refid="275" relation="include">
+        </childnode>
+        <childnode refid="282" relation="include">
+        </childnode>
+        <childnode refid="283" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="user-defined">
+      <memberdef kind="function" id="group__iicps__api_1gad1c7ffa09df93fb59f97b0a3bf5baaa7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIicPs_SetupSlave</definition>
+        <argsstring>(XIicPs *InstancePtr, u16 SlaveAddr)</argsstring>
+        <name>XIicPs_SetupSlave</name>
+        <param>
+          <type><ref refid="struct_x_iic_ps" kindref="compound">XIicPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>SlaveAddr</declname>
+        </param>
+        <briefdescription>
+<para>Functions for device as slave, in <ref refid="xiicps__slave_8c" kindref="compound">xiicps_slave.c</ref>. </para>        </briefdescription>
+        <detaileddescription>
+<para>Sets up the device to be a slave.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic_ps" kindref="compound">XIicPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SlaveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the slave we are receiving from.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Interrupt is always enabled no matter the transfer is interrupt-driven or polled mode. The device interruption depends on whether the device is connected to an interrupt controller and interrupt for the device is enabled. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_slave.c" bodystart="69" bodyend="104"/>
+        <references refid="struct_x_iic_ps___config_1a2bdee49f560d4a22a433c6c327d6d912" compoundref="xiicps_8h" startline="174">XIicPs_Config::BaseAddress</references>
+        <references refid="struct_x_iic_ps_1a0712c6574001a0661192db4d448daff5" compoundref="xiicps_8h" startline="194">XIicPs::Config</references>
+        <references refid="struct_x_iic_ps_1a8389c1e544dbd75be37037ae383af746" compoundref="xiicps_8h" startline="195">XIicPs::IsReady</references>
+        <references refid="struct_x_iic_ps___config_1a88d8fd66692d7a22ceb9e78da46e94a8" compoundref="xiicps_8h" startline="184">XIicPs_Config::RefClk</references>
+        <references refid="group__iicps__api_1ga3d97551edd7013b07093cac16dbe80f1" compoundref="xiicps__hw_8h" startline="53">XIICPS_ADDR_OFFSET</references>
+        <references refid="group__iicps__api_1ga0c96ab97015c857822df599608ba9c10" compoundref="xiicps__hw_8h" startline="51">XIICPS_CR_OFFSET</references>
+        <references refid="group__iicps__api_1ga90efda2a784d4b972f1835b0ba81cde1" compoundref="xiicps__hw_8h" startline="335">XIicPs_DisableAllInterrupts</references>
+        <references refid="group__iicps__api_1gaa0bde6894589023ea8248a9d9cdc73c5" compoundref="xiicps__hw_8h" startline="288">XIicPs_WriteReg</references>
+        <referencedby refid="xiicps__intr__slave__example_8c_1ab49eb22d72b7028d2e9bb2c6db258cf3" compoundref="xiicps__intr__slave__example_8c" startline="174" endline="298">IicPsSlaveIntrExample</referencedby>
+        <referencedby refid="xiicps__polled__slave__example_8c_1ae871da47e30475c237ec50ba103904f3" compoundref="xiicps__polled__slave__example_8c" startline="135" endline="216">IicPsSlavePolledExample</referencedby>
+        <referencedby refid="xiicps__smbus__intr__slave__example_8c_1afe10afbb14219d41e5a17703df96090b" compoundref="xiicps__smbus__intr__slave__example_8c" startline="192" endline="273">IicPsSmbusSlaveIntrExample</referencedby>
+        <referencedby refid="xiicps__smbus__polled__slave__example_8c_1a8be3759294537d8bd8b4822d89b2971e" compoundref="xiicps__smbus__polled__slave__example_8c" startline="161" endline="219">IicPsSmbusSlavePolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iicps__api_1ga4478d1d94f349deda02c0191a7529113" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIicPs_SlaveSend</definition>
+        <argsstring>(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)</argsstring>
+        <name>XIicPs_SlaveSend</name>
+        <param>
+          <type><ref refid="struct_x_iic_ps" kindref="compound">XIicPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>MsgPtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Sets up a slave interrupt-driven send. </para>        </briefdescription>
+        <detaileddescription>
+<para>It set the repeated start for the device with a transfer size larger than FIFO depth. Data processing for the send is initiated by the interrupt handler.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic_ps" kindref="compound">XIicPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the send buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to be sent.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>This send routine is for interrupt-driven transfer only. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps.h" line="338" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_slave.c" bodystart="122" bodyend="148"/>
+        <references refid="struct_x_iic_ps___config_1a2bdee49f560d4a22a433c6c327d6d912" compoundref="xiicps_8h" startline="174">XIicPs_Config::BaseAddress</references>
+        <references refid="struct_x_iic_ps_1a0712c6574001a0661192db4d448daff5" compoundref="xiicps_8h" startline="194">XIicPs::Config</references>
+        <references refid="struct_x_iic_ps_1a8389c1e544dbd75be37037ae383af746" compoundref="xiicps_8h" startline="195">XIicPs::IsReady</references>
+        <references refid="struct_x_iic_ps_1ae437c6d2891d79c44b4da56b0ffe8f99" compoundref="xiicps_8h" startline="199">XIicPs::RecvBufferPtr</references>
+        <references refid="struct_x_iic_ps_1a1c30cf304f4d4b7cefa2033417897c9e" compoundref="xiicps_8h" startline="198">XIicPs::SendBufferPtr</references>
+        <references refid="struct_x_iic_ps_1a28612c566c7d966ba2dec88e1a3db1d7" compoundref="xiicps_8h" startline="200">XIicPs::SendByteCount</references>
+        <references refid="group__iicps__api_1gaf7a3f4b57fe275f426ac9b771b187b23" compoundref="xiicps__hw_8h" startline="320">XIicPs_EnableInterrupts</references>
+        <references refid="group__iicps__api_1ga9ec604e5ed330606d24a082484e905f0" compoundref="xiicps__hw_8h" startline="55">XIICPS_ISR_OFFSET</references>
+        <references refid="group__iicps__api_1ga8e324637da3483d518d499b7257c7631" compoundref="xiicps__hw_8h" startline="186">XIICPS_IXR_ALL_INTR_MASK</references>
+        <references refid="group__iicps__api_1ga56fefd834bba9cc03c0a84bd2a3e099a" compoundref="xiicps__hw_8h" startline="182">XIICPS_IXR_COMP_MASK</references>
+        <references refid="group__iicps__api_1gaa4e9c302ebb54b53aa67ec6c9f4616a3" compoundref="xiicps__hw_8h" startline="181">XIICPS_IXR_DATA_MASK</references>
+        <references refid="group__iicps__api_1ga74650276000c8cc48cce610b8c6d2140" compoundref="xiicps__hw_8h" startline="180">XIICPS_IXR_NACK_MASK</references>
+        <references refid="group__iicps__api_1ga6df84833528a63b5f5fb07a7d1743c91" compoundref="xiicps__hw_8h" startline="177">XIICPS_IXR_TO_MASK</references>
+        <references refid="group__iicps__api_1gad2473caf4558fac9af1bd071a022e3cf" compoundref="xiicps__hw_8h" startline="168">XIICPS_IXR_TX_OVR_MASK</references>
+        <references refid="group__iicps__api_1gaa0bde6894589023ea8248a9d9cdc73c5" compoundref="xiicps__hw_8h" startline="288">XIicPs_WriteReg</references>
+        <referencedby refid="xiicps__intr__slave__example_8c_1ab49eb22d72b7028d2e9bb2c6db258cf3" compoundref="xiicps__intr__slave__example_8c" startline="174" endline="298">IicPsSlaveIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iicps__api_1ga1840936a940459c5a71858f94915f933" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIicPs_SlaveRecv</definition>
+        <argsstring>(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)</argsstring>
+        <name>XIicPs_SlaveRecv</name>
+        <param>
+          <type><ref refid="struct_x_iic_ps" kindref="compound">XIicPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>MsgPtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Sets up a slave interrupt-driven receive. </para>        </briefdescription>
+        <detaileddescription>
+<para>Data processing for the receive is handled by the interrupt handler.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic_ps" kindref="compound">XIicPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the receive buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to be received.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>This routine is for interrupt-driven transfer only. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_slave.c" bodystart="165" bodyend="193"/>
+        <references refid="struct_x_iic_ps___config_1a2bdee49f560d4a22a433c6c327d6d912" compoundref="xiicps_8h" startline="174">XIicPs_Config::BaseAddress</references>
+        <references refid="struct_x_iic_ps_1a0712c6574001a0661192db4d448daff5" compoundref="xiicps_8h" startline="194">XIicPs::Config</references>
+        <references refid="struct_x_iic_ps_1a8389c1e544dbd75be37037ae383af746" compoundref="xiicps_8h" startline="195">XIicPs::IsReady</references>
+        <references refid="struct_x_iic_ps_1ae437c6d2891d79c44b4da56b0ffe8f99" compoundref="xiicps_8h" startline="199">XIicPs::RecvBufferPtr</references>
+        <references refid="struct_x_iic_ps_1a1c30cf304f4d4b7cefa2033417897c9e" compoundref="xiicps_8h" startline="198">XIicPs::SendBufferPtr</references>
+        <references refid="group__iicps__api_1gaf7a3f4b57fe275f426ac9b771b187b23" compoundref="xiicps__hw_8h" startline="320">XIicPs_EnableInterrupts</references>
+        <references refid="group__iicps__api_1ga9ec604e5ed330606d24a082484e905f0" compoundref="xiicps__hw_8h" startline="55">XIICPS_ISR_OFFSET</references>
+        <references refid="group__iicps__api_1ga8e324637da3483d518d499b7257c7631" compoundref="xiicps__hw_8h" startline="186">XIICPS_IXR_ALL_INTR_MASK</references>
+        <references refid="group__iicps__api_1ga56fefd834bba9cc03c0a84bd2a3e099a" compoundref="xiicps__hw_8h" startline="182">XIICPS_IXR_COMP_MASK</references>
+        <references refid="group__iicps__api_1gaa4e9c302ebb54b53aa67ec6c9f4616a3" compoundref="xiicps__hw_8h" startline="181">XIICPS_IXR_DATA_MASK</references>
+        <references refid="group__iicps__api_1ga74650276000c8cc48cce610b8c6d2140" compoundref="xiicps__hw_8h" startline="180">XIICPS_IXR_NACK_MASK</references>
+        <references refid="group__iicps__api_1ga1f69893ddec793ff77b61deb51665aa5" compoundref="xiicps__hw_8h" startline="171">XIICPS_IXR_RX_OVR_MASK</references>
+        <references refid="group__iicps__api_1ga6b92f85baedcc73892a141f80afe3462" compoundref="xiicps__hw_8h" startline="165">XIICPS_IXR_RX_UNF_MASK</references>
+        <references refid="group__iicps__api_1ga6df84833528a63b5f5fb07a7d1743c91" compoundref="xiicps__hw_8h" startline="177">XIICPS_IXR_TO_MASK</references>
+        <references refid="group__iicps__api_1gaa0bde6894589023ea8248a9d9cdc73c5" compoundref="xiicps__hw_8h" startline="288">XIicPs_WriteReg</references>
+        <referencedby refid="xiicps__intr__slave__example_8c_1ab49eb22d72b7028d2e9bb2c6db258cf3" compoundref="xiicps__intr__slave__example_8c" startline="174" endline="298">IicPsSlaveIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iicps__api_1ga5ca49d9131b13d66f58de0b5a23faea4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XIicPs_SlaveSendPolled</definition>
+        <argsstring>(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)</argsstring>
+        <name>XIicPs_SlaveSendPolled</name>
+        <param>
+          <type><ref refid="struct_x_iic_ps" kindref="compound">XIicPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>MsgPtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>Sends a buffer in polled mode as a slave. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic_ps" kindref="compound">XIicPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the send buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to be sent.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if everything went well.</para></listitem><listitem><para>XST_FAILURE if master sends us data or master terminates the transfer before all data has sent out.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This send routine is for polled mode transfer only. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps.h" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_slave.c" bodystart="212" bodyend="342"/>
+        <references refid="struct_x_iic_ps___config_1a2bdee49f560d4a22a433c6c327d6d912" compoundref="xiicps_8h" startline="174">XIicPs_Config::BaseAddress</references>
+        <references refid="struct_x_iic_ps_1a0712c6574001a0661192db4d448daff5" compoundref="xiicps_8h" startline="194">XIicPs::Config</references>
+        <references refid="struct_x_iic_ps_1a8389c1e544dbd75be37037ae383af746" compoundref="xiicps_8h" startline="195">XIicPs::IsReady</references>
+        <references refid="struct_x_iic_ps_1a1c30cf304f4d4b7cefa2033417897c9e" compoundref="xiicps_8h" startline="198">XIicPs::SendBufferPtr</references>
+        <references refid="struct_x_iic_ps_1a28612c566c7d966ba2dec88e1a3db1d7" compoundref="xiicps_8h" startline="200">XIicPs::SendByteCount</references>
+        <references refid="group__iicps__api_1ga9ec604e5ed330606d24a082484e905f0" compoundref="xiicps__hw_8h" startline="55">XIICPS_ISR_OFFSET</references>
+        <references refid="group__iicps__api_1ga56fefd834bba9cc03c0a84bd2a3e099a" compoundref="xiicps__hw_8h" startline="182">XIICPS_IXR_COMP_MASK</references>
+        <references refid="group__iicps__api_1ga74650276000c8cc48cce610b8c6d2140" compoundref="xiicps__hw_8h" startline="180">XIICPS_IXR_NACK_MASK</references>
+        <references refid="group__iicps__api_1gabcc20fce80c1e8dff27be4e584c2cc27" compoundref="xiicps__hw_8h" startline="270">XIicPs_ReadReg</references>
+        <references refid="group__iicps__api_1ga479fe9cf74b161f574917ec20852ad1c" compoundref="xiicps_8h" startline="249">XIicPs_SendByte</references>
+        <references refid="group__iicps__api_1ga12b4d0ee4dce6172ba78a0dec5666a72" compoundref="xiicps__hw_8h" startline="52">XIICPS_SR_OFFSET</references>
+        <references refid="group__iicps__api_1gaa0bde6894589023ea8248a9d9cdc73c5" compoundref="xiicps__hw_8h" startline="288">XIicPs_WriteReg</references>
+        <referencedby refid="xiicps__polled__slave__example_8c_1ae871da47e30475c237ec50ba103904f3" compoundref="xiicps__polled__slave__example_8c" startline="135" endline="216">IicPsSlavePolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iicps__api_1ga74b0af9e4395c8de724dc377e3504d0d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XIicPs_SlaveRecvPolled</definition>
+        <argsstring>(XIicPs *InstancePtr, u8 *MsgPtr, s32 ByteCount)</argsstring>
+        <name>XIicPs_SlaveRecvPolled</name>
+        <param>
+          <type><ref refid="struct_x_iic_ps" kindref="compound">XIicPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>MsgPtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>This function receives a buffer in polled mode as a slave. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic_ps" kindref="compound">XIicPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the receive buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to be received.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if everything went well.</para></listitem><listitem><para>XST_FAILURE if timed out.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This receive routine is for polled mode transfer only. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_slave.c" bodystart="359" bodyend="438"/>
+        <references refid="struct_x_iic_ps___config_1a2bdee49f560d4a22a433c6c327d6d912" compoundref="xiicps_8h" startline="174">XIicPs_Config::BaseAddress</references>
+        <references refid="struct_x_iic_ps_1a0712c6574001a0661192db4d448daff5" compoundref="xiicps_8h" startline="194">XIicPs::Config</references>
+        <references refid="struct_x_iic_ps_1a8389c1e544dbd75be37037ae383af746" compoundref="xiicps_8h" startline="195">XIicPs::IsReady</references>
+        <references refid="struct_x_iic_ps_1ae437c6d2891d79c44b4da56b0ffe8f99" compoundref="xiicps_8h" startline="199">XIicPs::RecvBufferPtr</references>
+        <references refid="group__iicps__api_1ga9ec604e5ed330606d24a082484e905f0" compoundref="xiicps__hw_8h" startline="55">XIICPS_ISR_OFFSET</references>
+        <references refid="group__iicps__api_1ga56fefd834bba9cc03c0a84bd2a3e099a" compoundref="xiicps__hw_8h" startline="182">XIICPS_IXR_COMP_MASK</references>
+        <references refid="group__iicps__api_1gaa4e9c302ebb54b53aa67ec6c9f4616a3" compoundref="xiicps__hw_8h" startline="181">XIICPS_IXR_DATA_MASK</references>
+        <references refid="group__iicps__api_1gabcc20fce80c1e8dff27be4e584c2cc27" compoundref="xiicps__hw_8h" startline="270">XIicPs_ReadReg</references>
+        <references refid="group__iicps__api_1ga432020341d6b2c06bba8a084df9b5075" compoundref="xiicps_8h" startline="273">XIicPs_RecvByte</references>
+        <references refid="group__iicps__api_1ga12b4d0ee4dce6172ba78a0dec5666a72" compoundref="xiicps__hw_8h" startline="52">XIICPS_SR_OFFSET</references>
+        <references refid="group__iicps__api_1gaa0bde6894589023ea8248a9d9cdc73c5" compoundref="xiicps__hw_8h" startline="288">XIicPs_WriteReg</references>
+        <referencedby refid="xiicps__polled__slave__example_8c_1ae871da47e30475c237ec50ba103904f3" compoundref="xiicps__polled__slave__example_8c" startline="135" endline="216">IicPsSlavePolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iicps__api_1ga716cdb9f63e56269824866872958dd78" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIicPs_SlaveInterruptHandler</definition>
+        <argsstring>(XIicPs *InstancePtr)</argsstring>
+        <name>XIicPs_SlaveInterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_iic_ps" kindref="compound">XIicPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>The interrupt handler for slave mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>It does the protocol handling for the interrupt-driven transfers.</para><para>Completion events and errors are signaled to upper layer for proper handling.</para><para>The interrupts that are handled are:<itemizedlist>
+<listitem><para>DATA: If the instance is sending, it means that the master wants to read more data from us. Send more data, and check whether the send is complete.</para><para>If the instance is receiving, it means that the master has written more data to us. Receive more data, and check whether the receive is complete.</para></listitem><listitem><para>COMP: This marks that stop sequence has been sent from the master, transfer is about to terminate. However, for receiving, the master may have written us some data, so receive that first.</para><para>It is an error if the amount of transferred data is less than expected.</para></listitem><listitem><para>NAK: This marks that master does not want our data. It is for send only.</para></listitem><listitem><para>Other interrupts: These interrupts are marked as error.</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_iic_ps" kindref="compound">XIicPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_slave.c" bodystart="476" bodyend="587"/>
+        <references refid="struct_x_iic_ps___config_1a2bdee49f560d4a22a433c6c327d6d912" compoundref="xiicps_8h" startline="174">XIicPs_Config::BaseAddress</references>
+        <references refid="struct_x_iic_ps_1acd51ba6aaa712f4334b8740befa62c16" compoundref="xiicps_8h" startline="213">XIicPs::CallBackRef</references>
+        <references refid="struct_x_iic_ps_1a0712c6574001a0661192db4d448daff5" compoundref="xiicps_8h" startline="194">XIicPs::Config</references>
+        <references refid="struct_x_iic_ps_1a8389c1e544dbd75be37037ae383af746" compoundref="xiicps_8h" startline="195">XIicPs::IsReady</references>
+        <references refid="struct_x_iic_ps_1ae437c6d2891d79c44b4da56b0ffe8f99" compoundref="xiicps_8h" startline="199">XIicPs::RecvBufferPtr</references>
+        <references refid="struct_x_iic_ps_1a28612c566c7d966ba2dec88e1a3db1d7" compoundref="xiicps_8h" startline="200">XIicPs::SendByteCount</references>
+        <references refid="group__iicps__api_1ga15d33ac37a7293a75df5ac07a2eb4e37" compoundref="xiicps__xfer_8c" startline="376" endline="401">SlaveRecvData</references>
+        <references refid="struct_x_iic_ps_1a7e7dfa82aa1e03586c5e214db40da387" compoundref="xiicps_8h" startline="209">XIicPs::StatusHandler</references>
+        <references refid="group__iicps__api_1gacfb0d8f18f8105db7708669ddb186e19" compoundref="xiicps_8c" startline="263" endline="290">TransmitFifoFill</references>
+        <references refid="group__iicps__api_1ga0c96ab97015c857822df599608ba9c10" compoundref="xiicps__hw_8h" startline="51">XIICPS_CR_OFFSET</references>
+        <references refid="group__iicps__api_1ga6a21536b3361fa36f00745a3e653fbbd" compoundref="xiicps__hw_8h" startline="353">XIicPs_DisableInterrupts</references>
+        <references refid="group__iicps__api_1ga6aa923029f051dc7a1f8db08cd8691ff" compoundref="xiicps_8h" startline="128">XIICPS_EVENT_COMPLETE_RECV</references>
+        <references refid="group__iicps__api_1ga1646c08302f01007599cd95721006d35" compoundref="xiicps_8h" startline="127">XIICPS_EVENT_COMPLETE_SEND</references>
+        <references refid="group__iicps__api_1ga60331546be6cd538df23e7ca3e1789fa" compoundref="xiicps_8h" startline="130">XIICPS_EVENT_ERROR</references>
+        <references refid="group__iicps__api_1gad72c8977f9bab033f2c393d24a70d5be" compoundref="xiicps_8h" startline="132">XIICPS_EVENT_NACK</references>
+        <references refid="group__iicps__api_1gab1ed271a1272c5c85d84f4b71b740dfb" compoundref="xiicps_8h" startline="129">XIICPS_EVENT_TIME_OUT</references>
+        <references refid="group__iicps__api_1ga0668ec3389dd427fecfca4d1b9d2f0c4" compoundref="xiicps__hw_8h" startline="59">XIICPS_IMR_OFFSET</references>
+        <references refid="group__iicps__api_1ga9ec604e5ed330606d24a082484e905f0" compoundref="xiicps__hw_8h" startline="55">XIICPS_ISR_OFFSET</references>
+        <references refid="group__iicps__api_1ga56fefd834bba9cc03c0a84bd2a3e099a" compoundref="xiicps__hw_8h" startline="182">XIICPS_IXR_COMP_MASK</references>
+        <references refid="group__iicps__api_1gaa4e9c302ebb54b53aa67ec6c9f4616a3" compoundref="xiicps__hw_8h" startline="181">XIICPS_IXR_DATA_MASK</references>
+        <references refid="group__iicps__api_1ga74650276000c8cc48cce610b8c6d2140" compoundref="xiicps__hw_8h" startline="180">XIICPS_IXR_NACK_MASK</references>
+        <references refid="group__iicps__api_1ga1f69893ddec793ff77b61deb51665aa5" compoundref="xiicps__hw_8h" startline="171">XIICPS_IXR_RX_OVR_MASK</references>
+        <references refid="group__iicps__api_1ga6b92f85baedcc73892a141f80afe3462" compoundref="xiicps__hw_8h" startline="165">XIICPS_IXR_RX_UNF_MASK</references>
+        <references refid="group__iicps__api_1ga6df84833528a63b5f5fb07a7d1743c91" compoundref="xiicps__hw_8h" startline="177">XIICPS_IXR_TO_MASK</references>
+        <references refid="group__iicps__api_1gad2473caf4558fac9af1bd071a022e3cf" compoundref="xiicps__hw_8h" startline="168">XIICPS_IXR_TX_OVR_MASK</references>
+        <references refid="group__iicps__api_1gabcc20fce80c1e8dff27be4e584c2cc27" compoundref="xiicps__hw_8h" startline="270">XIicPs_ReadReg</references>
+        <references refid="group__iicps__api_1gaa0bde6894589023ea8248a9d9cdc73c5" compoundref="xiicps__hw_8h" startline="288">XIicPs_WriteReg</references>
+        <referencedby refid="xiicps__intr__slave__example_8c_1ab49eb22d72b7028d2e9bb2c6db258cf3" compoundref="xiicps__intr__slave__example_8c" startline="174" endline="298">IicPsSlaveIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="37"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiicps_8h" kindref="compound">xiicps.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiicps__xfer_8h" kindref="compound">xiicps_xfer.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/*************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="69" refid="group__iicps__api_1gad1c7ffa09df93fb59f97b0a3bf5baaa7" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__iicps__api_1gad1c7ffa09df93fb59f97b0a3bf5baaa7" kindref="member">XIicPs_SetupSlave</ref>(<ref refid="struct_x_iic_ps" kindref="compound">XIicPs</ref><sp/>*InstancePtr,<sp/>u16<sp/>SlaveAddr)</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ControlReg;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddr;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_iic_ps_1a8389c1e544dbd75be37037ae383af746" kindref="member">IsReady</ref><sp/>==<sp/>(u32)XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((u16)XIICPS_ADDR_MASK<sp/>&gt;=<sp/>SlaveAddr);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/><sp/>(XCLOCKING)</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;IsClkEnabled<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ClockEnable(InstancePtr-&gt;<ref refid="struct_x_iic_ps_1a0712c6574001a0661192db4d448daff5" kindref="member">Config</ref>.<ref refid="struct_x_iic_ps___config_1a88d8fd66692d7a22ceb9e78da46e94a8" kindref="member">RefClk</ref>);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;IsClkEnabled<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddr<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_iic_ps_1a0712c6574001a0661192db4d448daff5" kindref="member">Config</ref>.<ref refid="struct_x_iic_ps___config_1a2bdee49f560d4a22a433c6c327d6d912" kindref="member">BaseAddress</ref>;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ControlReg<sp/>=<sp/>XIicPs_In32(BaseAddr<sp/>+<sp/><ref refid="group__iicps__api_1ga0c96ab97015c857822df599608ba9c10" kindref="member">XIICPS_CR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="90"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>up<sp/>master,<sp/>AckEn<sp/>and<sp/>also<sp/>clear<sp/>fifo.</highlight></codeline>
+<codeline lineno="91"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ControlReg<sp/>|=<sp/>(u32)XIICPS_CR_ACKEN_MASK<sp/>|<sp/>(u32)XIICPS_CR_CLR_FIFO_MASK;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ControlReg<sp/>&amp;=<sp/>~((u32)XIICPS_CR_MS_MASK);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1gaa0bde6894589023ea8248a9d9cdc73c5" kindref="member">XIicPs_WriteReg</ref>(BaseAddr,<sp/><ref refid="group__iicps__api_1ga0c96ab97015c857822df599608ba9c10" kindref="member">XIICPS_CR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ControlReg);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1ga90efda2a784d4b972f1835b0ba81cde1" kindref="member">XIicPs_DisableAllInterrupts</ref>(BaseAddr);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1gaa0bde6894589023ea8248a9d9cdc73c5" kindref="member">XIicPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_iic_ps_1a0712c6574001a0661192db4d448daff5" kindref="member">Config</ref>.<ref refid="struct_x_iic_ps___config_1a2bdee49f560d4a22a433c6c327d6d912" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1ga3d97551edd7013b07093cac16dbe80f1" kindref="member">XIICPS_ADDR_OFFSET</ref>,<sp/>(u32)SlaveAddr);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="122" refid="group__iicps__api_1ga4478d1d94f349deda02c0191a7529113" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__iicps__api_1ga4478d1d94f349deda02c0191a7529113" kindref="member">XIicPs_SlaveSend</ref>(<ref refid="struct_x_iic_ps" kindref="compound">XIicPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>*MsgPtr,<sp/>s32<sp/>ByteCount)</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddr;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="127"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="128"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(MsgPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_iic_ps_1a8389c1e544dbd75be37037ae383af746" kindref="member">IsReady</ref><sp/>==<sp/>(u32)XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddr<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_iic_ps_1a0712c6574001a0661192db4d448daff5" kindref="member">Config</ref>.<ref refid="struct_x_iic_ps___config_1a2bdee49f560d4a22a433c6c327d6d912" kindref="member">BaseAddress</ref>;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_iic_ps_1a1c30cf304f4d4b7cefa2033417897c9e" kindref="member">SendBufferPtr</ref><sp/>=<sp/>MsgPtr;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_iic_ps_1a28612c566c7d966ba2dec88e1a3db1d7" kindref="member">SendByteCount</ref><sp/>=<sp/>ByteCount;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_iic_ps_1ae437c6d2891d79c44b4da56b0ffe8f99" kindref="member">RecvBufferPtr</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="140"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clear<sp/>the<sp/>interrupt<sp/>status<sp/>register.</highlight></codeline>
+<codeline lineno="141"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1gaa0bde6894589023ea8248a9d9cdc73c5" kindref="member">XIicPs_WriteReg</ref>(BaseAddr,<sp/><ref refid="group__iicps__api_1ga9ec604e5ed330606d24a082484e905f0" kindref="member">XIICPS_ISR_OFFSET</ref>,<sp/><ref refid="group__iicps__api_1ga8e324637da3483d518d499b7257c7631" kindref="member">XIICPS_IXR_ALL_INTR_MASK</ref>);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1gaf7a3f4b57fe275f426ac9b771b187b23" kindref="member">XIicPs_EnableInterrupts</ref>(BaseAddr,</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__iicps__api_1gaa4e9c302ebb54b53aa67ec6c9f4616a3" kindref="member">XIICPS_IXR_DATA_MASK</ref><sp/>|<sp/>(u32)<ref refid="group__iicps__api_1ga56fefd834bba9cc03c0a84bd2a3e099a" kindref="member">XIICPS_IXR_COMP_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__iicps__api_1ga6df84833528a63b5f5fb07a7d1743c91" kindref="member">XIICPS_IXR_TO_MASK</ref><sp/>|<sp/>(u32)<ref refid="group__iicps__api_1ga74650276000c8cc48cce610b8c6d2140" kindref="member">XIICPS_IXR_NACK_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__iicps__api_1gad2473caf4558fac9af1bd071a022e3cf" kindref="member">XIICPS_IXR_TX_OVR_MASK</ref>);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="165" refid="group__iicps__api_1ga1840936a940459c5a71858f94915f933" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__iicps__api_1ga1840936a940459c5a71858f94915f933" kindref="member">XIicPs_SlaveRecv</ref>(<ref refid="struct_x_iic_ps" kindref="compound">XIicPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>*MsgPtr,<sp/>s32<sp/>ByteCount)</highlight></codeline>
+<codeline lineno="166"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddr;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)ByteCount;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="172"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments.</highlight></codeline>
+<codeline lineno="173"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(MsgPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_iic_ps_1a8389c1e544dbd75be37037ae383af746" kindref="member">IsReady</ref><sp/>==<sp/>(u32)XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddr<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_iic_ps_1a0712c6574001a0661192db4d448daff5" kindref="member">Config</ref>.<ref refid="struct_x_iic_ps___config_1a2bdee49f560d4a22a433c6c327d6d912" kindref="member">BaseAddress</ref>;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_iic_ps_1ae437c6d2891d79c44b4da56b0ffe8f99" kindref="member">RecvBufferPtr</ref><sp/>=<sp/>MsgPtr;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_iic_ps_1a1c30cf304f4d4b7cefa2033417897c9e" kindref="member">SendBufferPtr</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="184"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clear<sp/>the<sp/>interrupt<sp/>status<sp/>register.</highlight></codeline>
+<codeline lineno="185"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1gaa0bde6894589023ea8248a9d9cdc73c5" kindref="member">XIicPs_WriteReg</ref>(BaseAddr,<sp/><ref refid="group__iicps__api_1ga9ec604e5ed330606d24a082484e905f0" kindref="member">XIICPS_ISR_OFFSET</ref>,<sp/><ref refid="group__iicps__api_1ga8e324637da3483d518d499b7257c7631" kindref="member">XIICPS_IXR_ALL_INTR_MASK</ref>);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1gaf7a3f4b57fe275f426ac9b771b187b23" kindref="member">XIicPs_EnableInterrupts</ref>(BaseAddr,</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__iicps__api_1gaa4e9c302ebb54b53aa67ec6c9f4616a3" kindref="member">XIICPS_IXR_DATA_MASK</ref><sp/>|<sp/>(u32)<ref refid="group__iicps__api_1ga56fefd834bba9cc03c0a84bd2a3e099a" kindref="member">XIICPS_IXR_COMP_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__iicps__api_1ga74650276000c8cc48cce610b8c6d2140" kindref="member">XIICPS_IXR_NACK_MASK</ref><sp/>|<sp/>(u32)<ref refid="group__iicps__api_1ga6df84833528a63b5f5fb07a7d1743c91" kindref="member">XIICPS_IXR_TO_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__iicps__api_1ga1f69893ddec793ff77b61deb51665aa5" kindref="member">XIICPS_IXR_RX_OVR_MASK</ref><sp/>|<sp/>(u32)<ref refid="group__iicps__api_1ga6b92f85baedcc73892a141f80afe3462" kindref="member">XIICPS_IXR_RX_UNF_MASK</ref>);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="212" refid="group__iicps__api_1ga5ca49d9131b13d66f58de0b5a23faea4" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__iicps__api_1ga5ca49d9131b13d66f58de0b5a23faea4" kindref="member">XIicPs_SlaveSendPolled</ref>(<ref refid="struct_x_iic_ps" kindref="compound">XIicPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>*MsgPtr,<sp/>s32<sp/>ByteCount)</highlight></codeline>
+<codeline lineno="213"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrStatusReg;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StatusReg;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddr;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Tmp;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>BytesToSend;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Error<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_Bool<sp/>Value;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_Bool<sp/>Result;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>RegValue;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Timeout<sp/>=<sp/>XIICPS_POLL_DEFAULT_TIMEOUT_VAL;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="227"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments.</highlight></codeline>
+<codeline lineno="228"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(MsgPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_iic_ps_1a8389c1e544dbd75be37037ae383af746" kindref="member">IsReady</ref><sp/>==<sp/>(u32)XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddr<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_iic_ps_1a0712c6574001a0661192db4d448daff5" kindref="member">Config</ref>.<ref refid="struct_x_iic_ps___config_1a2bdee49f560d4a22a433c6c327d6d912" kindref="member">BaseAddress</ref>;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_iic_ps_1a1c30cf304f4d4b7cefa2033417897c9e" kindref="member">SendBufferPtr</ref><sp/>=<sp/>MsgPtr;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_iic_ps_1a28612c566c7d966ba2dec88e1a3db1d7" kindref="member">SendByteCount</ref><sp/>=<sp/>ByteCount;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="238"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Use<sp/>RXRW<sp/>bit<sp/>in<sp/>status<sp/>register<sp/>to<sp/>wait<sp/>master<sp/>to<sp/>start<sp/>a<sp/>read.</highlight></codeline>
+<codeline lineno="239"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusReg<sp/>=<sp/><ref refid="group__iicps__api_1gabcc20fce80c1e8dff27be4e584c2cc27" kindref="member">XIicPs_ReadReg</ref>(BaseAddr,<sp/><ref refid="group__iicps__api_1ga12b4d0ee4dce6172ba78a0dec5666a72" kindref="member">XIICPS_SR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result<sp/>=<sp/>(((u32)(StatusReg<sp/>&amp;<sp/>XIICPS_SR_RXRW_MASK)<sp/>==<sp/>(u32)0x0U));</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(Result<sp/>!=<sp/>FALSE)<sp/>{</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="246"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>master<sp/>tries<sp/>to<sp/>send<sp/>us<sp/>data,<sp/>it<sp/>is<sp/>an<sp/>error.</highlight></codeline>
+<codeline lineno="247"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((StatusReg<sp/>&amp;<sp/>XIICPS_SR_RXDV_MASK)<sp/>!=<sp/>0x0U)<sp/>{</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Error<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusReg<sp/>=<sp/><ref refid="group__iicps__api_1gabcc20fce80c1e8dff27be4e584c2cc27" kindref="member">XIicPs_ReadReg</ref>(BaseAddr,<sp/><ref refid="group__iicps__api_1ga12b4d0ee4dce6172ba78a0dec5666a72" kindref="member">XIICPS_SR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result<sp/>=<sp/>(((u32)(StatusReg<sp/>&amp;<sp/>XIICPS_SR_RXRW_MASK)<sp/>==<sp/>(u32)0x0U)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Error<sp/>==<sp/>0));</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Error<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="262"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clear<sp/>the<sp/>interrupt<sp/>status<sp/>register.</highlight></codeline>
+<codeline lineno="263"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatusReg<sp/>=<sp/><ref refid="group__iicps__api_1gabcc20fce80c1e8dff27be4e584c2cc27" kindref="member">XIicPs_ReadReg</ref>(BaseAddr,<sp/><ref refid="group__iicps__api_1ga9ec604e5ed330606d24a082484e905f0" kindref="member">XIICPS_ISR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1gaa0bde6894589023ea8248a9d9cdc73c5" kindref="member">XIicPs_WriteReg</ref>(BaseAddr,<sp/><ref refid="group__iicps__api_1ga9ec604e5ed330606d24a082484e905f0" kindref="member">XIICPS_ISR_OFFSET</ref>,<sp/>IntrStatusReg);</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="268"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Send<sp/>data<sp/>as<sp/>long<sp/>as<sp/>there<sp/>is<sp/>more<sp/>data<sp/>to<sp/>send<sp/>and</highlight></codeline>
+<codeline lineno="269"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>there<sp/>are<sp/>no<sp/>errors.</highlight></codeline>
+<codeline lineno="270"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/>(InstancePtr-&gt;<ref refid="struct_x_iic_ps_1a28612c566c7d966ba2dec88e1a3db1d7" kindref="member">SendByteCount</ref><sp/>&gt;<sp/>(s32)0)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Error<sp/>==<sp/>0));</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(Value<sp/>!=<sp/>FALSE)<sp/>{</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="276"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Find<sp/>out<sp/>how<sp/>many<sp/>can<sp/>be<sp/>sent.</highlight></codeline>
+<codeline lineno="277"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BytesToSend<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_iic_ps_1a28612c566c7d966ba2dec88e1a3db1d7" kindref="member">SendByteCount</ref>;</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(BytesToSend<sp/>&gt;<sp/>(s32)(XIICPS_FIFO_DEPTH))<sp/>{</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BytesToSend<sp/>=<sp/>(s32)(XIICPS_FIFO_DEPTH);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(Tmp<sp/>=<sp/>0;<sp/>Tmp<sp/>&lt;<sp/>BytesToSend;<sp/>Tmp<sp/>++)<sp/>{</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1ga479fe9cf74b161f574917ec20852ad1c" kindref="member">XIicPs_SendByte</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusReg<sp/>=<sp/><ref refid="group__iicps__api_1gabcc20fce80c1e8dff27be4e584c2cc27" kindref="member">XIicPs_ReadReg</ref>(BaseAddr,<sp/><ref refid="group__iicps__api_1ga12b4d0ee4dce6172ba78a0dec5666a72" kindref="member">XIICPS_SR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="290"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Wait<sp/>for<sp/>master<sp/>to<sp/>read<sp/>the<sp/>data<sp/>out<sp/>of<sp/>fifo.</highlight></codeline>
+<codeline lineno="291"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(((StatusReg<sp/>&amp;<sp/>XIICPS_SR_TXDV_MASK)<sp/>!=<sp/>(u32)0x00U)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Error<sp/>==<sp/>0))<sp/>{</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="296"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>master<sp/>terminates<sp/>the<sp/>transfer<sp/>before<sp/>all<sp/>data<sp/>is</highlight></codeline>
+<codeline lineno="297"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>sent,<sp/>it<sp/>is<sp/>an<sp/>error.</highlight></codeline>
+<codeline lineno="298"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatusReg<sp/>=<sp/><ref refid="group__iicps__api_1gabcc20fce80c1e8dff27be4e584c2cc27" kindref="member">XIicPs_ReadReg</ref>(BaseAddr,</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1ga9ec604e5ed330606d24a082484e905f0" kindref="member">XIICPS_ISR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((IntrStatusReg<sp/>&amp;<sp/><ref refid="group__iicps__api_1ga74650276000c8cc48cce610b8c6d2140" kindref="member">XIICPS_IXR_NACK_MASK</ref>)<sp/>!=<sp/>0x0U)<sp/>{</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Error<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>ISR.</highlight></codeline>
+<codeline lineno="306"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1gaa0bde6894589023ea8248a9d9cdc73c5" kindref="member">XIicPs_WriteReg</ref>(BaseAddr,<sp/><ref refid="group__iicps__api_1ga9ec604e5ed330606d24a082484e905f0" kindref="member">XIICPS_ISR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatusReg);</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusReg<sp/>=<sp/><ref refid="group__iicps__api_1gabcc20fce80c1e8dff27be4e584c2cc27" kindref="member">XIicPs_ReadReg</ref>(BaseAddr,</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1ga12b4d0ee4dce6172ba78a0dec5666a72" kindref="member">XIICPS_SR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/>((InstancePtr-&gt;<ref refid="struct_x_iic_ps_1a28612c566c7d966ba2dec88e1a3db1d7" kindref="member">SendByteCount</ref><sp/>&gt;<sp/>(s32)0)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Error<sp/>==<sp/>0));</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"></highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="318"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Wait<sp/>for<sp/>transfer<sp/>completion<sp/>and<sp/>clear<sp/>the<sp/>status</highlight></codeline>
+<codeline lineno="319"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal">(Timeout<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/><ref refid="group__iicps__api_1gabcc20fce80c1e8dff27be4e584c2cc27" kindref="member">XIicPs_ReadReg</ref>(BaseAddr,<sp/><ref refid="group__iicps__api_1ga9ec604e5ed330606d24a082484e905f0" kindref="member">XIICPS_ISR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">((RegValue<sp/>&amp;<sp/><ref refid="group__iicps__api_1ga56fefd834bba9cc03c0a84bd2a3e099a" kindref="member">XIICPS_IXR_COMP_MASK</ref>)<sp/>==<sp/>XIICPS_IXR_COMP_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(1000U);</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Timeout--;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Timeout<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1gaa0bde6894589023ea8248a9d9cdc73c5" kindref="member">XIicPs_WriteReg</ref>(BaseAddr,<sp/><ref refid="group__iicps__api_1ga9ec604e5ed330606d24a082484e905f0" kindref="member">XIICPS_ISR_OFFSET</ref>,<sp/>RegValue);</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Error<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="342"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="359" refid="group__iicps__api_1ga74b0af9e4395c8de724dc377e3504d0d" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__iicps__api_1ga74b0af9e4395c8de724dc377e3504d0d" kindref="member">XIicPs_SlaveRecvPolled</ref>(<ref refid="struct_x_iic_ps" kindref="compound">XIicPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>*MsgPtr,<sp/>s32<sp/>ByteCount)</highlight></codeline>
+<codeline lineno="360"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrStatusReg;</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StatusReg;</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddr;</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RecvCompleteState=0;</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)ByteCount;</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="369"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments.</highlight></codeline>
+<codeline lineno="370"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(MsgPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_iic_ps_1a8389c1e544dbd75be37037ae383af746" kindref="member">IsReady</ref><sp/>==<sp/>(u32)XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddr<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_iic_ps_1a0712c6574001a0661192db4d448daff5" kindref="member">Config</ref>.<ref refid="struct_x_iic_ps___config_1a2bdee49f560d4a22a433c6c327d6d912" kindref="member">BaseAddress</ref>;</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_iic_ps_1ae437c6d2891d79c44b4da56b0ffe8f99" kindref="member">RecvBufferPtr</ref><sp/>=<sp/>MsgPtr;</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"></highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="379"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clear<sp/>the<sp/>interrupt<sp/>status<sp/>register.</highlight></codeline>
+<codeline lineno="380"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatusReg<sp/>=<sp/><ref refid="group__iicps__api_1gabcc20fce80c1e8dff27be4e584c2cc27" kindref="member">XIicPs_ReadReg</ref>(BaseAddr,<sp/><ref refid="group__iicps__api_1ga9ec604e5ed330606d24a082484e905f0" kindref="member">XIICPS_ISR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1gaa0bde6894589023ea8248a9d9cdc73c5" kindref="member">XIicPs_WriteReg</ref>(BaseAddr,<sp/><ref refid="group__iicps__api_1ga9ec604e5ed330606d24a082484e905f0" kindref="member">XIICPS_ISR_OFFSET</ref>,<sp/>IntrStatusReg);</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="385"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clear<sp/>the<sp/>status<sp/>register.</highlight></codeline>
+<codeline lineno="386"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusReg<sp/>=<sp/><ref refid="group__iicps__api_1gabcc20fce80c1e8dff27be4e584c2cc27" kindref="member">XIicPs_ReadReg</ref>(BaseAddr,<sp/><ref refid="group__iicps__api_1ga12b4d0ee4dce6172ba78a0dec5666a72" kindref="member">XIICPS_SR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1gaa0bde6894589023ea8248a9d9cdc73c5" kindref="member">XIicPs_WriteReg</ref>(BaseAddr,<sp/><ref refid="group__iicps__api_1ga12b4d0ee4dce6172ba78a0dec5666a72" kindref="member">XIICPS_SR_OFFSET</ref>,<sp/>StatusReg);</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"></highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusReg<sp/>=<sp/><ref refid="group__iicps__api_1gabcc20fce80c1e8dff27be4e584c2cc27" kindref="member">XIicPs_ReadReg</ref>(BaseAddr,<sp/><ref refid="group__iicps__api_1ga12b4d0ee4dce6172ba78a0dec5666a72" kindref="member">XIICPS_SR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(RecvCompleteState<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>for<sp/>master<sp/>to<sp/>put<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatusReg<sp/>=<sp/><ref refid="group__iicps__api_1gabcc20fce80c1e8dff27be4e584c2cc27" kindref="member">XIicPs_ReadReg</ref>(BaseAddr,<ref refid="group__iicps__api_1ga9ec604e5ed330606d24a082484e905f0" kindref="member">XIICPS_ISR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"></highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal">((IntrStatusReg<sp/>&amp;<sp/>(<ref refid="group__iicps__api_1gaa4e9c302ebb54b53aa67ec6c9f4616a3" kindref="member">XIICPS_IXR_DATA_MASK</ref><sp/>|<sp/><ref refid="group__iicps__api_1ga56fefd834bba9cc03c0a84bd2a3e099a" kindref="member">XIICPS_IXR_COMP_MASK</ref>))<sp/>==<sp/>0x0U){</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"></highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="400"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>master<sp/>terminates<sp/>the<sp/>transfer<sp/>before<sp/>we<sp/>get<sp/>all</highlight></codeline>
+<codeline lineno="401"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>data<sp/>or<sp/>the<sp/>master<sp/>tries<sp/>to<sp/>read<sp/>from<sp/>us,</highlight></codeline>
+<codeline lineno="402"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>it<sp/>is<sp/>an<sp/>error.</highlight></codeline>
+<codeline lineno="403"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatusReg<sp/>=<sp/><ref refid="group__iicps__api_1gabcc20fce80c1e8dff27be4e584c2cc27" kindref="member">XIicPs_ReadReg</ref>(BaseAddr,</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1ga9ec604e5ed330606d24a082484e905f0" kindref="member">XIICPS_ISR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusReg<sp/>=<sp/><ref refid="group__iicps__api_1gabcc20fce80c1e8dff27be4e584c2cc27" kindref="member">XIicPs_ReadReg</ref>(BaseAddr,<sp/><ref refid="group__iicps__api_1ga12b4d0ee4dce6172ba78a0dec5666a72" kindref="member">XIICPS_SR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"></highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((IntrStatusReg<sp/>&amp;<sp/>(<ref refid="group__iicps__api_1gaa4e9c302ebb54b53aa67ec6c9f4616a3" kindref="member">XIICPS_IXR_DATA_MASK</ref><sp/>|<sp/><ref refid="group__iicps__api_1ga56fefd834bba9cc03c0a84bd2a3e099a" kindref="member">XIICPS_IXR_COMP_MASK</ref>))<sp/>!=<sp/>0x0U)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((StatusReg<sp/>&amp;<sp/>XIICPS_SR_RXDV_MASK)<sp/>==<sp/>0U))<sp/>{</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"></highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"></highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="415"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clear<sp/>the<sp/>interrupt<sp/>status<sp/>register.</highlight></codeline>
+<codeline lineno="416"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1gaa0bde6894589023ea8248a9d9cdc73c5" kindref="member">XIicPs_WriteReg</ref>(BaseAddr,<sp/><ref refid="group__iicps__api_1ga9ec604e5ed330606d24a082484e905f0" kindref="member">XIICPS_ISR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatusReg);</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"></highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="422"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>all<sp/>data<sp/>from<sp/>FIFO.</highlight></codeline>
+<codeline lineno="423"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((StatusReg<sp/>&amp;<sp/>XIICPS_SR_RXDV_MASK)<sp/>!=<sp/>0x0U)<sp/>{</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"></highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((IntrStatusReg<sp/>&amp;<sp/><ref refid="group__iicps__api_1ga56fefd834bba9cc03c0a84bd2a3e099a" kindref="member">XIICPS_IXR_COMP_MASK</ref>)<sp/>!=0x0U){</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RecvCompleteState<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"></highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1ga432020341d6b2c06bba8a084df9b5075" kindref="member">XIicPs_RecvByte</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"></highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusReg<sp/>=<sp/><ref refid="group__iicps__api_1gabcc20fce80c1e8dff27be4e584c2cc27" kindref="member">XIicPs_ReadReg</ref>(BaseAddr,</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1ga12b4d0ee4dce6172ba78a0dec5666a72" kindref="member">XIICPS_SR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"></highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="438"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="439"><highlight class="normal"></highlight></codeline>
+<codeline lineno="440"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="476" refid="group__iicps__api_1ga716cdb9f63e56269824866872958dd78" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__iicps__api_1ga716cdb9f63e56269824866872958dd78" kindref="member">XIicPs_SlaveInterruptHandler</ref>(<ref refid="struct_x_iic_ps" kindref="compound">XIicPs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="477"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrStatusReg;</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsSend<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StatusEvent<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddr;</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"></highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="484"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments.</highlight></codeline>
+<codeline lineno="485"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_iic_ps_1a8389c1e544dbd75be37037ae383af746" kindref="member">IsReady</ref><sp/>==<sp/>(u32)XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"></highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddr<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_iic_ps_1a0712c6574001a0661192db4d448daff5" kindref="member">Config</ref>.<ref refid="struct_x_iic_ps___config_1a2bdee49f560d4a22a433c6c327d6d912" kindref="member">BaseAddress</ref>;</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"></highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="492"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>Interrupt<sp/>status<sp/>register.</highlight></codeline>
+<codeline lineno="493"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatusReg<sp/>=<sp/><ref refid="group__iicps__api_1gabcc20fce80c1e8dff27be4e584c2cc27" kindref="member">XIicPs_ReadReg</ref>(BaseAddr,<sp/><ref refid="group__iicps__api_1ga9ec604e5ed330606d24a082484e905f0" kindref="member">XIICPS_ISR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"></highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="497"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>the<sp/>status<sp/>back<sp/>to<sp/>clear<sp/>the<sp/>interrupts<sp/>so<sp/>no<sp/>events<sp/>are<sp/>missed</highlight></codeline>
+<codeline lineno="498"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>while<sp/>processing<sp/>this<sp/>interrupt.</highlight></codeline>
+<codeline lineno="499"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="500"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1gaa0bde6894589023ea8248a9d9cdc73c5" kindref="member">XIicPs_WriteReg</ref>(BaseAddr,<sp/><ref refid="group__iicps__api_1ga9ec604e5ed330606d24a082484e905f0" kindref="member">XIICPS_ISR_OFFSET</ref>,<sp/>IntrStatusReg);</highlight></codeline>
+<codeline lineno="501"><highlight class="normal"></highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="503"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Use<sp/>the<sp/>Mask<sp/>register<sp/>AND<sp/>with<sp/>the<sp/>Interrupt<sp/>Status<sp/>register<sp/>so</highlight></codeline>
+<codeline lineno="504"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>disabled<sp/>interrupts<sp/>are<sp/>not<sp/>processed.</highlight></codeline>
+<codeline lineno="505"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatusReg<sp/>&amp;=<sp/>~(<ref refid="group__iicps__api_1gabcc20fce80c1e8dff27be4e584c2cc27" kindref="member">XIicPs_ReadReg</ref>(BaseAddr,<sp/><ref refid="group__iicps__api_1ga0668ec3389dd427fecfca4d1b9d2f0c4" kindref="member">XIICPS_IMR_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"></highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="509"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Determine<sp/>whether<sp/>the<sp/>device<sp/>is<sp/>sending.</highlight></codeline>
+<codeline lineno="510"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_iic_ps_1ae437c6d2891d79c44b4da56b0ffe8f99" kindref="member">RecvBufferPtr</ref><sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsSend<sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"></highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Data<sp/>interrupt</highlight></codeline>
+<codeline lineno="516"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="517"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>This<sp/>means<sp/>master<sp/>wants<sp/>to<sp/>do<sp/>more<sp/>data<sp/>transfers.</highlight></codeline>
+<codeline lineno="518"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Also<sp/>check<sp/>for<sp/>completion<sp/>of<sp/>transfer,<sp/>signal<sp/>upper<sp/>layer<sp/>if<sp/>done.</highlight></codeline>
+<codeline lineno="519"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((u32)0U<sp/>!=<sp/>(IntrStatusReg<sp/>&amp;<sp/><ref refid="group__iicps__api_1gaa4e9c302ebb54b53aa67ec6c9f4616a3" kindref="member">XIICPS_IXR_DATA_MASK</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IsSend<sp/>!=<sp/>0x0U)<sp/>{</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<ref refid="group__iicps__api_1gacfb0d8f18f8105db7708669ddb186e19" kindref="member">TransmitFifoFill</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1gaa0bde6894589023ea8248a9d9cdc73c5" kindref="member">XIicPs_WriteReg</ref>(BaseAddr,<sp/>(u32)<ref refid="group__iicps__api_1ga0c96ab97015c857822df599608ba9c10" kindref="member">XIICPS_CR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1gabcc20fce80c1e8dff27be4e584c2cc27" kindref="member">XIicPs_ReadReg</ref>(BaseAddr,<sp/>(u32)XIICPS_CR_OFFSET)<sp/>|</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XIICPS_CR_HOLD_MASK);</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"></highlight></codeline>
+<codeline lineno="528"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<ref refid="group__iicps__api_1ga15d33ac37a7293a75df5ac07a2eb4e37" kindref="member">SlaveRecvData</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"></highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="533"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Complete<sp/>interrupt.</highlight></codeline>
+<codeline lineno="534"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="535"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>In<sp/>slave<sp/>mode,<sp/>it<sp/>means<sp/>the<sp/>master<sp/>has<sp/>done<sp/>with<sp/>this<sp/>transfer,<sp/>so</highlight></codeline>
+<codeline lineno="536"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>we<sp/>signal<sp/>the<sp/>application<sp/>using<sp/>completion<sp/>event.</highlight></codeline>
+<codeline lineno="537"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0U<sp/>!=<sp/>(IntrStatusReg<sp/>&amp;<sp/><ref refid="group__iicps__api_1ga56fefd834bba9cc03c0a84bd2a3e099a" kindref="member">XIICPS_IXR_COMP_MASK</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IsSend<sp/>!=<sp/>0x0U)<sp/>{</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_iic_ps_1a28612c566c7d966ba2dec88e1a3db1d7" kindref="member">SendByteCount</ref><sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusEvent<sp/>|=<sp/><ref refid="group__iicps__api_1ga60331546be6cd538df23e7ca3e1789fa" kindref="member">XIICPS_EVENT_ERROR</ref>;</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusEvent<sp/>|=<sp/><ref refid="group__iicps__api_1ga1646c08302f01007599cd95721006d35" kindref="member">XIICPS_EVENT_COMPLETE_SEND</ref>;</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<ref refid="group__iicps__api_1ga15d33ac37a7293a75df5ac07a2eb4e37" kindref="member">SlaveRecvData</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr)-&gt;RecvByteCount<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusEvent<sp/>|=<sp/><ref refid="group__iicps__api_1ga60331546be6cd538df23e7ca3e1789fa" kindref="member">XIICPS_EVENT_ERROR</ref>;</highlight></codeline>
+<codeline lineno="549"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusEvent<sp/>|=<sp/><ref refid="group__iicps__api_1ga6aa923029f051dc7a1f8db08cd8691ff" kindref="member">XIICPS_EVENT_COMPLETE_RECV</ref>;</highlight></codeline>
+<codeline lineno="551"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="553"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"></highlight></codeline>
+<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="556"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Nack<sp/>interrupt,<sp/>pass<sp/>this<sp/>information<sp/>to<sp/>application.</highlight></codeline>
+<codeline lineno="557"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="558"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0U<sp/>!=<sp/>(IntrStatusReg<sp/>&amp;<sp/><ref refid="group__iicps__api_1ga74650276000c8cc48cce610b8c6d2140" kindref="member">XIICPS_IXR_NACK_MASK</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="559"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusEvent<sp/>|=<sp/><ref refid="group__iicps__api_1gad72c8977f9bab033f2c393d24a70d5be" kindref="member">XIICPS_EVENT_NACK</ref>;</highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"></highlight></codeline>
+<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="563"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Timeout<sp/>interrupt,<sp/>pass<sp/>this<sp/>information<sp/>to<sp/>application.</highlight></codeline>
+<codeline lineno="564"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0U<sp/>!=<sp/>(IntrStatusReg<sp/>&amp;<sp/><ref refid="group__iicps__api_1ga6df84833528a63b5f5fb07a7d1743c91" kindref="member">XIICPS_IXR_TO_MASK</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1ga6a21536b3361fa36f00745a3e653fbbd" kindref="member">XIicPs_DisableInterrupts</ref>(BaseAddr,<sp/>XIICPS_IXR_TO_MASK);</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusEvent<sp/>|=<sp/><ref refid="group__iicps__api_1gab1ed271a1272c5c85d84f4b71b740dfb" kindref="member">XIICPS_EVENT_TIME_OUT</ref>;</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"></highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="571"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>All<sp/>other<sp/>interrupts<sp/>are<sp/>treated<sp/>as<sp/>error.</highlight></codeline>
+<codeline lineno="572"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0U<sp/>!=<sp/>(IntrStatusReg<sp/>&amp;<sp/>(<ref refid="group__iicps__api_1ga6b92f85baedcc73892a141f80afe3462" kindref="member">XIICPS_IXR_RX_UNF_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1gad2473caf4558fac9af1bd071a022e3cf" kindref="member">XIICPS_IXR_TX_OVR_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iicps__api_1ga1f69893ddec793ff77b61deb51665aa5" kindref="member">XIICPS_IXR_RX_OVR_MASK</ref>))){</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"></highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusEvent<sp/>|=<sp/><ref refid="group__iicps__api_1ga60331546be6cd538df23e7ca3e1789fa" kindref="member">XIICPS_EVENT_ERROR</ref>;</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="579"><highlight class="normal"></highlight></codeline>
+<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="581"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Signal<sp/>application<sp/>if<sp/>there<sp/>are<sp/>any<sp/>events.</highlight></codeline>
+<codeline lineno="582"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="583"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((u32)0U<sp/>!=<sp/>StatusEvent)<sp/>{</highlight></codeline>
+<codeline lineno="584"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_iic_ps_1a7e7dfa82aa1e03586c5e214db40da387" kindref="member">StatusHandler</ref>(InstancePtr-&gt;<ref refid="struct_x_iic_ps_1acd51ba6aaa712f4334b8740befa62c16" kindref="member">CallBackRef</ref>,</highlight></codeline>
+<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatusEvent);</highlight></codeline>
+<codeline lineno="586"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="587"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps_slave.c"/>
+  </compounddef>
+</doxygen>

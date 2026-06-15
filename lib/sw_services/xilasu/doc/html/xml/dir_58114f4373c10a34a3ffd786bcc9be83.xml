@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_58114f4373c10a34a3ffd786bcc9be83" kind="dir">
+    <compoundname>xilasu</compoundname>
+    <innerdir refid="dir_9a65720ea62882857825dff947b0792e">examples</innerdir>
+    <innerdir refid="dir_230d22b87d729b957953e8bd180c0001">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/"/>
+  </compounddef>
+</doxygen>

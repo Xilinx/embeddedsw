@@ -1,0 +1,309 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_vvbench_instance__s" kind="struct" prot="public">
+    <compoundname>VvbenchInstance_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_vvbench_instance__s_1a6378fe894c92435902f42236c35c9283" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int VvbenchInstance_s::runningFlag[MAX_CAM_NUM][CAMDEV_BUFCHAIN_MAX]</definition>
+        <argsstring>[MAX_CAM_NUM][CAMDEV_BUFCHAIN_MAX]</argsstring>
+        <name>runningFlag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="514" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="514" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance__s_1acd88afa7b6303690a1698982cd3f1a88" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* VvbenchInstance_s::pBufferThreadCtx[MAX_CAM_NUM][CAMDEV_BUFCHAIN_MAX]</definition>
+        <argsstring>[MAX_CAM_NUM][CAMDEV_BUFCHAIN_MAX]</argsstring>
+        <name>pBufferThreadCtx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="515" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="515" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance__s_1a2fb79666fea751860b5173b982f39b31" prot="public" static="no" mutable="no">
+        <type>CamDeviceHandle_t</type>
+        <definition>CamDeviceHandle_t VvbenchInstance_s::hCamDevice[MAX_CAM_NUM]</definition>
+        <argsstring>[MAX_CAM_NUM]</argsstring>
+        <name>hCamDevice</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="517" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="517" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance__s_1ad465ecda89fe91eda3b77c03e2614edd" prot="public" static="no" mutable="no">
+        <type>VvbenchCamDevCfg_t</type>
+        <definition>VvbenchCamDevCfg_t VvbenchInstance_s::camDevInfo[MAX_CAM_NUM]</definition>
+        <argsstring>[MAX_CAM_NUM]</argsstring>
+        <name>camDevInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="518" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="518" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance__s_1ab6a835b1453584df23f7c3a78b34f75d" prot="public" static="no" mutable="no">
+        <type>VvbenchPicCaseCfg_t</type>
+        <definition>VvbenchPicCaseCfg_t VvbenchInstance_s::mPicCase[MAX_CAM_NUM]</definition>
+        <argsstring>[MAX_CAM_NUM]</argsstring>
+        <name>mPicCase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="519" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="519" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance__s_1a9097efb8bbcb7db26416d1c4f852d3f7" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchInstance_s::isSyncReleased[MAX_CAM_NUM]</definition>
+        <argsstring>[MAX_CAM_NUM]</argsstring>
+        <name>isSyncReleased</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="538" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="538" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance__s_1a3202eda9098951c416d99ba0f87a6dca" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchInstance_s::isHdrRetimingUse[MAX_CAM_NUM]</definition>
+        <argsstring>[MAX_CAM_NUM]</argsstring>
+        <name>isHdrRetimingUse</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="539" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="539" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance__s_1ad7c960bea4e4ee0b5d2d345a08145449" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchInstance_s::loadPicFlag[MAX_CAM_NUM]</definition>
+        <argsstring>[MAX_CAM_NUM]</argsstring>
+        <name>loadPicFlag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="540" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="540" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance__s_1a5a6b7768981b8f273b6712d0142b2d6d" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool VvbenchInstance_s::isShowExpv2GetStatistic[MAX_CAM_NUM]</definition>
+        <argsstring>[MAX_CAM_NUM]</argsstring>
+        <name>isShowExpv2GetStatistic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="541" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="541" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance__s_1a80dcdead8b9a2a0fe0990373205a5dc7" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool VvbenchInstance_s::isShowExpv3GetStatistic[MAX_CAM_NUM]</definition>
+        <argsstring>[MAX_CAM_NUM]</argsstring>
+        <name>isShowExpv3GetStatistic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="542" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="542" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance__s_1ad15a2df77712567a592a22ae588c3be6" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool VvbenchInstance_s::isShowAfmGetStatistic[MAX_CAM_NUM]</definition>
+        <argsstring>[MAX_CAM_NUM]</argsstring>
+        <name>isShowAfmGetStatistic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="543" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="543" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance__s_1a58e60bb011a8dbb45b3721ad36bb8118" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool VvbenchInstance_s::isShowAfmv3GetStatistic[MAX_CAM_NUM]</definition>
+        <argsstring>[MAX_CAM_NUM]</argsstring>
+        <name>isShowAfmv3GetStatistic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="544" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="544" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance__s_1ab18f3ccc42fb80a0545d874df72bd3da" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool VvbenchInstance_s::isShowAwbPerFrameInfo[MAX_CAM_NUM]</definition>
+        <argsstring>[MAX_CAM_NUM]</argsstring>
+        <name>isShowAwbPerFrameInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="545" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="545" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance__s_1a893adfe78281ffe16104019ae4995cf6" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool VvbenchInstance_s::isShowAePerFrameInfo[MAX_CAM_NUM]</definition>
+        <argsstring>[MAX_CAM_NUM]</argsstring>
+        <name>isShowAePerFrameInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="546" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="546" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance__s_1a9b95d66f26877365711a5c514bcbe824" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool VvbenchInstance_s::isShowHist64GetStatistic[MAX_CAM_NUM]</definition>
+        <argsstring>[MAX_CAM_NUM]</argsstring>
+        <name>isShowHist64GetStatistic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="547" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="547" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance__s_1a0b939f5c9429f64a7a96bc8a4cd7635e" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool VvbenchInstance_s::isShowHist256GetStatistic[MAX_CAM_NUM]</definition>
+        <argsstring>[MAX_CAM_NUM]</argsstring>
+        <name>isShowHist256GetStatistic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="548" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="548" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance__s_1a9bf235338b4238ab70f08315f6497318" prot="public" static="no" mutable="no">
+        <type>VvbenchTerminalThreadContext_t *</type>
+        <definition>VvbenchTerminalThreadContext_t* VvbenchInstance_s::pTerminalContext</definition>
+        <argsstring></argsstring>
+        <name>pTerminalContext</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="554" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="554" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance__s_1a80a5be1765da08ce0a54d0016902cecb" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t VvbenchInstance_s::terminalFrameCount[MAX_CAM_NUM][CAMDEV_BUFCHAIN_MAX]</definition>
+        <argsstring>[MAX_CAM_NUM][CAMDEV_BUFCHAIN_MAX]</argsstring>
+        <name>terminalFrameCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="555" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="555" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance__s_1a5cb2e401c059e5797b32e0e9731560e5" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int VvbenchInstance_s::useTerminal</definition>
+        <argsstring></argsstring>
+        <name>useTerminal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="557" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="557" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance__s_1ab19c6a540410ce893ed96c832875ae2a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int VvbenchInstance_s::useSubSystem</definition>
+        <argsstring></argsstring>
+        <name>useSubSystem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="558" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance__s_1a1174dd904ab72bf4388323231ad63f45" prot="public" static="no" mutable="no">
+        <type>VvbenchSystemId_t</type>
+        <definition>VvbenchSystemId_t VvbenchInstance_s::systemId</definition>
+        <argsstring></argsstring>
+        <name>systemId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="559" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="559" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="512" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="512" bodyend="566"/>
+    <listofallmembers>
+      <member refid="struct_vvbench_instance__s_1ad465ecda89fe91eda3b77c03e2614edd" prot="public" virt="non-virtual"><scope>VvbenchInstance_s</scope><name>camDevInfo</name></member>
+      <member refid="struct_vvbench_instance__s_1a2fb79666fea751860b5173b982f39b31" prot="public" virt="non-virtual"><scope>VvbenchInstance_s</scope><name>hCamDevice</name></member>
+      <member refid="struct_vvbench_instance__s_1a3202eda9098951c416d99ba0f87a6dca" prot="public" virt="non-virtual"><scope>VvbenchInstance_s</scope><name>isHdrRetimingUse</name></member>
+      <member refid="struct_vvbench_instance__s_1a893adfe78281ffe16104019ae4995cf6" prot="public" virt="non-virtual"><scope>VvbenchInstance_s</scope><name>isShowAePerFrameInfo</name></member>
+      <member refid="struct_vvbench_instance__s_1ad15a2df77712567a592a22ae588c3be6" prot="public" virt="non-virtual"><scope>VvbenchInstance_s</scope><name>isShowAfmGetStatistic</name></member>
+      <member refid="struct_vvbench_instance__s_1a58e60bb011a8dbb45b3721ad36bb8118" prot="public" virt="non-virtual"><scope>VvbenchInstance_s</scope><name>isShowAfmv3GetStatistic</name></member>
+      <member refid="struct_vvbench_instance__s_1ab18f3ccc42fb80a0545d874df72bd3da" prot="public" virt="non-virtual"><scope>VvbenchInstance_s</scope><name>isShowAwbPerFrameInfo</name></member>
+      <member refid="struct_vvbench_instance__s_1a5a6b7768981b8f273b6712d0142b2d6d" prot="public" virt="non-virtual"><scope>VvbenchInstance_s</scope><name>isShowExpv2GetStatistic</name></member>
+      <member refid="struct_vvbench_instance__s_1a80dcdead8b9a2a0fe0990373205a5dc7" prot="public" virt="non-virtual"><scope>VvbenchInstance_s</scope><name>isShowExpv3GetStatistic</name></member>
+      <member refid="struct_vvbench_instance__s_1a0b939f5c9429f64a7a96bc8a4cd7635e" prot="public" virt="non-virtual"><scope>VvbenchInstance_s</scope><name>isShowHist256GetStatistic</name></member>
+      <member refid="struct_vvbench_instance__s_1a9b95d66f26877365711a5c514bcbe824" prot="public" virt="non-virtual"><scope>VvbenchInstance_s</scope><name>isShowHist64GetStatistic</name></member>
+      <member refid="struct_vvbench_instance__s_1a9097efb8bbcb7db26416d1c4f852d3f7" prot="public" virt="non-virtual"><scope>VvbenchInstance_s</scope><name>isSyncReleased</name></member>
+      <member refid="struct_vvbench_instance__s_1ad7c960bea4e4ee0b5d2d345a08145449" prot="public" virt="non-virtual"><scope>VvbenchInstance_s</scope><name>loadPicFlag</name></member>
+      <member refid="struct_vvbench_instance__s_1ab6a835b1453584df23f7c3a78b34f75d" prot="public" virt="non-virtual"><scope>VvbenchInstance_s</scope><name>mPicCase</name></member>
+      <member refid="struct_vvbench_instance__s_1acd88afa7b6303690a1698982cd3f1a88" prot="public" virt="non-virtual"><scope>VvbenchInstance_s</scope><name>pBufferThreadCtx</name></member>
+      <member refid="struct_vvbench_instance__s_1a9bf235338b4238ab70f08315f6497318" prot="public" virt="non-virtual"><scope>VvbenchInstance_s</scope><name>pTerminalContext</name></member>
+      <member refid="struct_vvbench_instance__s_1a6378fe894c92435902f42236c35c9283" prot="public" virt="non-virtual"><scope>VvbenchInstance_s</scope><name>runningFlag</name></member>
+      <member refid="struct_vvbench_instance__s_1a1174dd904ab72bf4388323231ad63f45" prot="public" virt="non-virtual"><scope>VvbenchInstance_s</scope><name>systemId</name></member>
+      <member refid="struct_vvbench_instance__s_1a80a5be1765da08ce0a54d0016902cecb" prot="public" virt="non-virtual"><scope>VvbenchInstance_s</scope><name>terminalFrameCount</name></member>
+      <member refid="struct_vvbench_instance__s_1ab19c6a540410ce893ed96c832875ae2a" prot="public" virt="non-virtual"><scope>VvbenchInstance_s</scope><name>useSubSystem</name></member>
+      <member refid="struct_vvbench_instance__s_1a5cb2e401c059e5797b32e0e9731560e5" prot="public" virt="non-virtual"><scope>VvbenchInstance_s</scope><name>useTerminal</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

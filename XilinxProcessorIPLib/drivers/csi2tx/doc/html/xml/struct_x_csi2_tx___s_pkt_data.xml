@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_csi2_tx___s_pkt_data" kind="struct" prot="public">
+    <compoundname>XCsi2Tx_SPktData</compoundname>
+    <includes local="no">xcsi2tx.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_csi2_tx___s_pkt_data_1ae7eaab1966c80ad19b6b2c4de7192921" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XCsi2Tx_SPktData::Data</definition>
+        <argsstring></argsstring>
+        <name>Data</name>
+        <briefdescription>
+<para>The Data from Camera Sensor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx.h" bodystart="150" bodyend="-1"/>
+        <referencedby refid="group__csi2tx_1gad74fa52c21a09573d7838c8ec469cb82" compoundref="xcsi2tx_8c" startline="250" endline="271">XCsi2Tx_GetShortPacket</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi2_tx___s_pkt_data_1aeac6271aded8b7441de5769f4e01a116" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCsi2Tx_SPktData::DataType</definition>
+        <argsstring></argsstring>
+        <name>DataType</name>
+        <briefdescription>
+<para>The Data type like RGB, RAW or YUV format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx.h" bodystart="151" bodyend="-1"/>
+        <referencedby refid="group__csi2tx_1gad74fa52c21a09573d7838c8ec469cb82" compoundref="xcsi2tx_8c" startline="250" endline="271">XCsi2Tx_GetShortPacket</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi2_tx___s_pkt_data_1a3bf0c843bd9e0088989ea6ea90b8b6af" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCsi2Tx_SPktData::VirtualChannel</definition>
+        <argsstring></argsstring>
+        <name>VirtualChannel</name>
+        <briefdescription>
+<para>Virtual Channel on which this short packet is sent. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx.h" bodystart="152" bodyend="-1"/>
+        <referencedby refid="group__csi2tx_1gad74fa52c21a09573d7838c8ec469cb82" compoundref="xcsi2tx_8c" startline="250" endline="271">XCsi2Tx_GetShortPacket</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the Short Packet information from the Generic Short Packet Register. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx.h" bodystart="149" bodyend="154"/>
+    <listofallmembers>
+      <member refid="struct_x_csi2_tx___s_pkt_data_1ae7eaab1966c80ad19b6b2c4de7192921" prot="public" virt="non-virtual"><scope>XCsi2Tx_SPktData</scope><name>Data</name></member>
+      <member refid="struct_x_csi2_tx___s_pkt_data_1aeac6271aded8b7441de5769f4e01a116" prot="public" virt="non-virtual"><scope>XCsi2Tx_SPktData</scope><name>DataType</name></member>
+      <member refid="struct_x_csi2_tx___s_pkt_data_1a3bf0c843bd9e0088989ea6ea90b8b6af" prot="public" virt="non-virtual"><scope>XCsi2Tx_SPktData</scope><name>VirtualChannel</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

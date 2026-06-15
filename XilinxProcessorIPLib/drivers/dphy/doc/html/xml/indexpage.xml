@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>dphy</title>
+    <detaileddescription>
+<para>This file contains the implementation of the MIPI DPHY Controller driver.User documentation for the driver functions is contained in this file in the form of comment blocks at the front of each function.</para><para><bold>MIPI DPHY Overview</bold></para><para>The DPHY currently supports the MIPI?Alliance Specification for DPHY Version 1.1.</para><para>It is capable of synchronous transfer at high speed mode at 80-1500 Mbps It has one clock lane and up to 4 data lanes. These lanes are unidirectional. It can do asynchronous transfer at up to 10 Mbps in low power mode. The clock lane can be in low power mode or high speed mode whereas the data lanes can be in Low power, High power or Escape mode.</para><para>The programmable parameters like IDelay, Wakeup, HS Timeout, Esc Timeout are present and various status like Stop state, Error detected, ULPS state,etc are available through the status register</para><para><bold>Core Features</bold></para><para>The GUI in IPI allows for the following configurations<itemizedlist>
+<listitem><para>Lanes ( 1 to 4 )</para></listitem><listitem><para>Line Rate (80 - 1500 Mbps)</para></listitem><listitem><para>Data Flow direction (Tx or Rx)</para></listitem><listitem><para>Escape Clock (10 - 20 Mhz)</para></listitem><listitem><para>LPX period (50 - 100 ns)</para></listitem><listitem><para>Enable register interface</para></listitem><listitem><para>HS Timeout in Bytes (1000 - 65541)</para></listitem><listitem><para>Escape Timeout in ns (800 - 25600)</para></listitem></itemizedlist>
+</para><para><bold>Software Initialization &amp; Configuration</bold></para><para>By default, the DPHY core is initialized and ready.</para><para>The application needs to do following steps in order for preparing the MIPI DPHY core to be ready.</para><para><itemizedlist>
+<listitem><para>Call XDphy_LookupConfig using a device ID to find the core configuration.</para></listitem><listitem><para>Call XDphy_CfgInitialize to initialize the device and the driver instance associated with it.</para></listitem><listitem><para>Individual parameters can be configured by sending values with appropriate handles.</para></listitem></itemizedlist>
+</para><para><bold>Interrupts</bold></para><para>There are no interrupts from the DPHY.</para><para><bold> Virtual Memory </bold></para><para>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space.</para><para><bold> Threads </bold></para><para>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</para><para><bold>Asserts</bold></para><para>Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining, at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that application developers leave asserts on during development.</para><para><bold>Building the driver</bold></para><para>The DPHY driver is composed of source files and doesn&apos;t depend on any other drivers.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver Who Date     Changes
+<hruler/>
+
+1.0 vsa 07/08/15 Initial release
+1.1 sss 08/17/16 Added 64 bit support
+    ms  01/23/17 Modified xil_printf statement in main function for all
+                 examples to ensure that &quot;Successfully ran&quot; and &quot;Failed&quot;
+                 strings are available in all examples. This is a fix
+                 for CR-965028.
+1.2 vsa 03/02/17 Add support for HS_SETTLE register
+    ms  03/17/17 Added readme.txt file in examples folder for doxygen
+                 generation.
+    ms  04/05/17 Modified Comment lines in functions of dphy
+                 examples to recognize it as documentation block
+                 for doxygen generation of examples.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

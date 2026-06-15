@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="union_x_v___hdmi_tx1___frl_ffe_adj_type" kind="union" prot="public">
+    <compoundname>XV_HdmiTx1_FrlFfeAdjType</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="union_x_v___hdmi_tx1___frl_ffe_adj_type_1a88651bbfd36fa41a7af748a24a553d91" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_HdmiTx1_FrlFfeAdjType::Data</definition>
+        <argsstring></argsstring>
+        <name>Data</name>
+        <briefdescription>
+<para>AUX data field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1_frl.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1_frl.h" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_v___hdmi_tx1___frl_ffe_adj_type_1a513f2e24ed707366c5a15cb03954188c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTx1_FrlFfeAdjType::Byte[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Byte</name>
+        <briefdescription>
+<para>AUX data byte field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1_frl.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1_frl.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1_frl.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1_frl.h" bodystart="176" bodyend="179"/>
+    <listofallmembers>
+      <member refid="union_x_v___hdmi_tx1___frl_ffe_adj_type_1a513f2e24ed707366c5a15cb03954188c" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_FrlFfeAdjType</scope><name>Byte</name></member>
+      <member refid="union_x_v___hdmi_tx1___frl_ffe_adj_type_1a88651bbfd36fa41a7af748a24a553d91" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_FrlFfeAdjType</scope><name>Data</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

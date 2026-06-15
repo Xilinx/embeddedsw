@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_6971bd82071ce8686627aa2cdb438866" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xilnvm__bbram__config__limiter__client__example_8c">xilnvm_bbram_config_limiter_client_example.c</innerfile>
+    <innerfile refid="xilnvm__bbram__versal__client__example_8c">xilnvm_bbram_versal_client_example.c</innerfile>
+    <innerfile refid="xilnvm__bbram__versal__server__example_8c">xilnvm_bbram_versal_server_example.c</innerfile>
+    <innerfile refid="xilnvm__bbram__versal__ssit__client__example_8c">xilnvm_bbram_versal_ssit_client_example.c</innerfile>
+    <innerfile refid="xilnvm__efuse__spartan__ultrascale__plus__example_8c">xilnvm_efuse_spartan_ultrascale_plus_example.c</innerfile>
+    <innerfile refid="xilnvm__efuse__spartan__ultrascale__plus__input_8h">xilnvm_efuse_spartan_ultrascale_plus_input.h</innerfile>
+    <innerfile refid="xilnvm__efuse__versal__client__example_8c">xilnvm_efuse_versal_client_example.c</innerfile>
+    <innerfile refid="xilnvm__efuse__versal__input_8h">xilnvm_efuse_versal_input.h</innerfile>
+    <innerfile refid="xilnvm__efuse__versal__net__client__example_8c">xilnvm_efuse_versal_net_client_example.c</innerfile>
+    <innerfile refid="xilnvm__efuse__versal__net__input_8h">xilnvm_efuse_versal_net_input.h</innerfile>
+    <innerfile refid="xilnvm__efuse__versal__server__example_8c">xilnvm_efuse_versal_server_example.c</innerfile>
+    <innerfile refid="xilnvm__efuse__versal__ssit__client__example_8c">xilnvm_efuse_versal_ssit_client_example.c</innerfile>
+    <innerfile refid="xilnvm__efuse__versal__ssit__input_8h">xilnvm_efuse_versal_ssit_input.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/"/>
+  </compounddef>
+</doxygen>

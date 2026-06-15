@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_tile_mode_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceTileModeConfig_s</compoundname>
+    <includes local="no">cam_device_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_tile_mode_config__s_1ac9b9407b2e228d975ed6a967db0d3b9b" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga5a26f09be13628c3974812f7464ab316" kindref="member">CamDeviceTileOperation_t</ref></type>
+        <definition>CamDeviceTileOperation_t CamDeviceTileModeConfig_s::tileOp</definition>
+        <argsstring></argsstring>
+        <name>tileOp</name>
+        <briefdescription>
+<para>Tile operation mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_tile_mode_config__s_1a58d93a3c923dc3200c00cb95b156a533" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga14ea4f956051a7b8ef6eebfae7058a00" kindref="member">CamDeviceTileJoint_t</ref></type>
+        <definition>CamDeviceTileJoint_t CamDeviceTileModeConfig_s::tileNum</definition>
+        <argsstring></argsstring>
+        <name>tileNum</name>
+        <briefdescription>
+<para>Tile number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_tile_mode_config__s_1a61c9b6937e56703ba350f31989fded32" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gaa66a14ef03757d7628c65ec537d61db0" kindref="member">CamDeviceTileXAxis_t</ref></type>
+        <definition>CamDeviceTileXAxis_t CamDeviceTileModeConfig_s::xPices</definition>
+        <argsstring></argsstring>
+        <name>xPices</name>
+        <briefdescription>
+<para>Tile joint mode set user, x direction tile number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_tile_mode_config__s_1ac070ce5f8e75a59322ae4035b367e4f8" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga779cc44ee96bda116d4b90f5f4044b2a" kindref="member">CamDeviceTileYAxis_t</ref></type>
+        <definition>CamDeviceTileYAxis_t CamDeviceTileModeConfig_s::yPices</definition>
+        <argsstring></argsstring>
+        <name>yPices</name>
+        <briefdescription>
+<para>Tile joint mode set user, y direction tile number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to configure tile mode parameters. </para>    </briefdescription>
+    <detaileddescription>
+<para>Reserved. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="75" bodyend="80"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_tile_mode_config__s_1a58d93a3c923dc3200c00cb95b156a533" prot="public" virt="non-virtual"><scope>CamDeviceTileModeConfig_s</scope><name>tileNum</name></member>
+      <member refid="struct_cam_device_tile_mode_config__s_1ac9b9407b2e228d975ed6a967db0d3b9b" prot="public" virt="non-virtual"><scope>CamDeviceTileModeConfig_s</scope><name>tileOp</name></member>
+      <member refid="struct_cam_device_tile_mode_config__s_1a61c9b6937e56703ba350f31989fded32" prot="public" virt="non-virtual"><scope>CamDeviceTileModeConfig_s</scope><name>xPices</name></member>
+      <member refid="struct_cam_device_tile_mode_config__s_1ac070ce5f8e75a59322ae4035b367e4f8" prot="public" virt="non-virtual"><scope>CamDeviceTileModeConfig_s</scope><name>yPices</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

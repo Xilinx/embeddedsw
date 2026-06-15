@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sdi_aud___act_ch_st" kind="struct" prot="public">
+    <compoundname>XSdiAud_ActChSt</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_sdi_aud___act_ch_st_1ac8a9260caafcde085c616095eaaef78a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSdiAud_ActChSt::NumChannels</definition>
+        <argsstring></argsstring>
+        <name>NumChannels</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="390" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="390" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sdi_aud___act_ch_st_1a79a33a351eb8c32f462c4d6f630769cc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSdiAud_ActChSt::GrpActCh[MAX_AUDIO_GROUPS]</definition>
+        <argsstring>[MAX_AUDIO_GROUPS]</argsstring>
+        <name>GrpActCh</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="391" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="389" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="389" bodyend="392"/>
+    <listofallmembers>
+      <member refid="struct_x_sdi_aud___act_ch_st_1a79a33a351eb8c32f462c4d6f630769cc" prot="public" virt="non-virtual"><scope>XSdiAud_ActChSt</scope><name>GrpActCh</name></member>
+      <member refid="struct_x_sdi_aud___act_ch_st_1ac8a9260caafcde085c616095eaaef78a" prot="public" virt="non-virtual"><scope>XSdiAud_ActChSt</scope><name>NumChannels</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

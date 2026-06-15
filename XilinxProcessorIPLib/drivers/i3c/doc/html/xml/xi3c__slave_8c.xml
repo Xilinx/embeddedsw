@@ -1,0 +1,937 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xi3c__slave_8c" kind="file">
+    <compoundname>xi3c_slave.c</compoundname>
+    <includes local="yes">xil_util.h</includes>
+    <includes refid="xi3c_8h" local="yes">xi3c.h</includes>
+    <incdepgraph>
+      <node id="142">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="145">
+        <label>xil_io.h</label>
+      </node>
+      <node id="148">
+        <label>sleep.h</label>
+      </node>
+      <node id="144">
+        <label>xi3c_hw.h</label>
+        <link refid="xi3c__hw_8h"/>
+        <childnode refid="141" relation="include">
+        </childnode>
+        <childnode refid="142" relation="include">
+        </childnode>
+        <childnode refid="145" relation="include">
+        </childnode>
+        <childnode refid="146" relation="include">
+        </childnode>
+      </node>
+      <node id="140">
+        <label>xi3c.h</label>
+        <childnode refid="141" relation="include">
+        </childnode>
+        <childnode refid="142" relation="include">
+        </childnode>
+        <childnode refid="143" relation="include">
+        </childnode>
+        <childnode refid="144" relation="include">
+        </childnode>
+        <childnode refid="147" relation="include">
+        </childnode>
+        <childnode refid="148" relation="include">
+        </childnode>
+      </node>
+      <node id="147">
+        <label>xplatform_info.h</label>
+      </node>
+      <node id="139">
+        <label>xil_util.h</label>
+      </node>
+      <node id="143">
+        <label>xstatus.h</label>
+      </node>
+      <node id="141">
+        <label>xil_types.h</label>
+      </node>
+      <node id="146">
+        <label>xparameters.h</label>
+      </node>
+      <node id="138">
+        <label>xi3c_slave.c</label>
+        <link refid="xi3c_slave.c"/>
+        <childnode refid="139" relation="include">
+        </childnode>
+        <childnode refid="140" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___overview_1ga1159e877331818242fedf18bc5aa13dc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XI3c_SlaveEvent</definition>
+        <argsstring>(XI3c *InstancePtr, u16 ByteCount)</argsstring>
+        <name>XI3c_SlaveEvent</name>
+        <param>
+          <type><ref refid="struct_x_i3c" kindref="compound">XI3c</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_slave.c" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_slave.c" bodystart="33" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga53c024b070cffff694de320b4a034893" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XI3c_SlaveSetMWL</definition>
+        <argsstring>(XI3c *InstancePtr, u16 ByteCount)</argsstring>
+        <name>XI3c_SlaveSetMWL</name>
+        <param>
+          <type><ref refid="struct_x_i3c" kindref="compound">XI3c</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_slave.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_slave.c" bodystart="69" bodyend="106"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga645fe756d208c74d0be35925de94f332" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XI3c_SlaveSetMRL</definition>
+        <argsstring>(XI3c *InstancePtr, u16 ByteCount)</argsstring>
+        <name>XI3c_SlaveSetMRL</name>
+        <param>
+          <type><ref refid="struct_x_i3c" kindref="compound">XI3c</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_slave.c" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_slave.c" bodystart="108" bodyend="145"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gad9edaa4228ac6ead25d58b059a556965" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XI3c_RstGrpAddr</definition>
+        <argsstring>(XI3c *InstancePtr, u16 ByteCount)</argsstring>
+        <name>XI3c_RstGrpAddr</name>
+        <param>
+          <type><ref refid="struct_x_i3c" kindref="compound">XI3c</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_slave.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_slave.c" bodystart="147" bodyend="169"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga9625ec443a0d7dce7324809d4873a6b9" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XI3c_SetGrpAddr</definition>
+        <argsstring>(XI3c *InstancePtr, u16 ByteCount)</argsstring>
+        <name>XI3c_SetGrpAddr</name>
+        <param>
+          <type><ref refid="struct_x_i3c" kindref="compound">XI3c</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_slave.c" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_slave.c" bodystart="171" bodyend="185"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga38e2dd60cb6683a6957b1e5c3e520697" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XI3c_RstAction</definition>
+        <argsstring>(XI3c *InstancePtr, u16 ByteCount)</argsstring>
+        <name>XI3c_RstAction</name>
+        <param>
+          <type><ref refid="struct_x_i3c" kindref="compound">XI3c</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_slave.c" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_slave.c" bodystart="187" bodyend="209"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gafcffedc29008827e0ac0343e4ba16ec0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XI3c_SlaveHandleCCC</definition>
+        <argsstring>(XI3c *InstancePtr, u32 ResponseData)</argsstring>
+        <name>XI3c_SlaveHandleCCC</name>
+        <param>
+          <type><ref refid="struct_x_i3c" kindref="compound">XI3c</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ResponseData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_slave.c" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_slave.c" bodystart="211" bodyend="279"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gae038488063d3342672366397641665db" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XI3c_SlaveHandleRecv</definition>
+        <argsstring>(XI3c *InstancePtr, u16 ByteCount)</argsstring>
+        <name>XI3c_SlaveHandleRecv</name>
+        <param>
+          <type><ref refid="struct_x_i3c" kindref="compound">XI3c</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_slave.c" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_slave.c" bodystart="281" bodyend="291"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga9e01e3c58b8d15dad1109c4bca2d2cb5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XI3c_SlaveTransferHandle</definition>
+        <argsstring>(XI3c *InstancePtr)</argsstring>
+        <name>XI3c_SlaveTransferHandle</name>
+        <param>
+          <type><ref refid="struct_x_i3c" kindref="compound">XI3c</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_slave.c" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_slave.c" bodystart="293" bodyend="320"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga28021172cfe5d1d3dfb20e8f3f58c94f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XI3c_SlaveSend</definition>
+        <argsstring>(XI3c *InstancePtr, u8 *MsgPtr, u16 ByteCount)</argsstring>
+        <name>XI3c_SlaveSend</name>
+        <param>
+          <type><ref refid="struct_x_i3c" kindref="compound">XI3c</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>MsgPtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>This function initiates a interrupt mode send in slave mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i3c" kindref="compound">XI3c</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the send buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of bytes to be sent.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS if everything went well.<itemizedlist>
+<listitem><para>XST_NO_DATA if MsgPtr is NULL.<itemizedlist>
+<listitem><para>Error code if any error.</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="838" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_slave.c" bodystart="338" bodyend="367"/>
+        <references refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" compoundref="xi3c_8h" startline="780">XI3c::Config</references>
+        <references refid="struct_x_i3c___config_1a1ccd35fbd357de82147eed63989ede57" compoundref="xi3c_8h" startline="745">XI3c_Config::RwFifoDepth</references>
+        <references refid="struct_x_i3c_1aacf49fb0c5aefd9418f78549e9393a8d" compoundref="xi3c_8h" startline="782">XI3c::SendBufferPtr</references>
+        <references refid="struct_x_i3c_1a7a73acb245300e5187a609fffae9358b" compoundref="xi3c_8h" startline="784">XI3c::SendByteCount</references>
+        <references refid="group___overview_1ga2577bc2333d12a6bd75e2a79442f90bd" compoundref="xi3c__hw_8h" startline="531">XI3c_FillSlaveSendCount</references>
+        <references refid="group___overview_1gab50db6a1880449022a970ccb4d8a6d25" compoundref="xi3c__hw_8h" startline="590">XI3c_GetMRL</references>
+        <references refid="group___overview_1ga0a979344e276171bf0bf87eb27c7ffd7" compoundref="xi3c__hw_8h" startline="308">XI3c_WrFifoLevel</references>
+        <references refid="group___overview_1ga58e612565bbd976e98eac6753ad1ed9f" compoundref="xi3c_8c" startline="264" endline="285">XI3c_WriteTxFifo</references>
+        <referencedby refid="xi3c__slave__intr__example_8c_1a04cd562fa9e148f442987f2329c08c3b" compoundref="xi3c__slave__intr__example_8c" startline="151" endline="268">I3cSlaveIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga9808772192d0f16adaf33e61b784e3a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XI3c_SlaveRecv</definition>
+        <argsstring>(XI3c *InstancePtr, u8 *MsgPtr)</argsstring>
+        <name>XI3c_SlaveRecv</name>
+        <param>
+          <type><ref refid="struct_x_i3c" kindref="compound">XI3c</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>MsgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initiates a interrupt mode receive in slave mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i3c" kindref="compound">XI3c</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the recv buffer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if everything went well.</para></listitem><listitem><para>XST_NO_DATA if MsgPtr is NULL.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="839" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_slave.c" bodystart="384" bodyend="397"/>
+        <references refid="struct_x_i3c_1a3f6c4ec1591de0e048f2888c7762536c" compoundref="xi3c_8h" startline="783">XI3c::RecvBufferPtr</references>
+        <referencedby refid="xi3c__slave__intr__example_8c_1a04cd562fa9e148f442987f2329c08c3b" compoundref="xi3c__slave__intr__example_8c" startline="151" endline="268">I3cSlaveIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga7aafe3b5f4c0b20e5f6d8b7364c9ea4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XI3c_SlaveSendPolled</definition>
+        <argsstring>(XI3c *InstancePtr, u8 *MsgPtr, u16 ByteCount)</argsstring>
+        <name>XI3c_SlaveSendPolled</name>
+        <param>
+          <type><ref refid="struct_x_i3c" kindref="compound">XI3c</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>MsgPtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>This function initiates a polled mode send in slave mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>It sends data to the FIFO and the master to pick them up.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i3c" kindref="compound">XI3c</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the send buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of bytes to be sent.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if everything went well.</para></listitem><listitem><para>XST_SEND_ERROR if any error.</para></listitem><listitem><para>XST_NO_DATA if MsgPtr is NULL.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Caller need to wait for response after calling this function. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="840" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_slave.c" bodystart="419" bodyend="446"/>
+        <references refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" compoundref="xi3c_8h" startline="780">XI3c::Config</references>
+        <references refid="struct_x_i3c___config_1a1ccd35fbd357de82147eed63989ede57" compoundref="xi3c_8h" startline="745">XI3c_Config::RwFifoDepth</references>
+        <references refid="struct_x_i3c_1aacf49fb0c5aefd9418f78549e9393a8d" compoundref="xi3c_8h" startline="782">XI3c::SendBufferPtr</references>
+        <references refid="struct_x_i3c_1a7a73acb245300e5187a609fffae9358b" compoundref="xi3c_8h" startline="784">XI3c::SendByteCount</references>
+        <references refid="group___overview_1ga2577bc2333d12a6bd75e2a79442f90bd" compoundref="xi3c__hw_8h" startline="531">XI3c_FillSlaveSendCount</references>
+        <references refid="group___overview_1gab50db6a1880449022a970ccb4d8a6d25" compoundref="xi3c__hw_8h" startline="590">XI3c_GetMRL</references>
+        <references refid="group___overview_1ga0a979344e276171bf0bf87eb27c7ffd7" compoundref="xi3c__hw_8h" startline="308">XI3c_WrFifoLevel</references>
+        <references refid="group___overview_1ga58e612565bbd976e98eac6753ad1ed9f" compoundref="xi3c_8c" startline="264" endline="285">XI3c_WriteTxFifo</references>
+        <referencedby refid="xi3c__slave__polled__example_8c_1a928815ed4ddc4a8fa2fe0eb0c6a23c05" compoundref="xi3c__slave__polled__example_8c" startline="109" endline="195">I3cSlavePolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gac5999cb023a2ac9ca5dea7a9ed3edda5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XI3c_SlaveRecvPolled</definition>
+        <argsstring>(XI3c *InstancePtr, u8 *MsgPtr)</argsstring>
+        <name>XI3c_SlaveRecvPolled</name>
+        <param>
+          <type><ref refid="struct_x_i3c" kindref="compound">XI3c</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>MsgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initiates a polled mode receive in slave mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i3c" kindref="compound">XI3c</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the send buffer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if everything went well.</para></listitem><listitem><para>XST_RECV_ERROR if any error.</para></listitem><listitem><para>XST_NO_DATA if MsgPtr is NULL.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="841" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_slave.c" bodystart="464" bodyend="480"/>
+        <references refid="struct_x_i3c_1a3f6c4ec1591de0e048f2888c7762536c" compoundref="xi3c_8h" startline="783">XI3c::RecvBufferPtr</references>
+        <referencedby refid="xi3c__slave__polled__example_8c_1a928815ed4ddc4a8fa2fe0eb0c6a23c05" compoundref="xi3c__slave__polled__example_8c" startline="109" endline="195">I3cSlavePolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga64fba1f66dc69a20b21f414cccb90752" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XI3c_SlaveInterruptHandler</definition>
+        <argsstring>(XI3c *InstancePtr)</argsstring>
+        <name>XI3c_SlaveInterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_i3c" kindref="compound">XI3c</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>The interrupt handler for the slave mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>It does the slave side protocol handling for the interrupt-driven transfers.</para><para>If the slave is receiving data then the data is read from the FIFO and the slave has to send data on master request data need to write to FIFO. If all the data has been transferred then a completion event is signalled to the upper layer by calling the callback handler.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i3c" kindref="compound">XI3c</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c.h" line="842" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_slave.c" bodystart="499" bodyend="526"/>
+        <references refid="struct_x_i3c___config_1a5022354efb94520441dca651cb9643bc" compoundref="xi3c_8h" startline="737">XI3c_Config::BaseAddress</references>
+        <references refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" compoundref="xi3c_8h" startline="780">XI3c::Config</references>
+        <references refid="struct_x_i3c_1a93ed676334e0e5f04dda3550f6579922" compoundref="xi3c_8h" startline="790">XI3c::DirectCCC</references>
+        <references refid="struct_x_i3c_1a0c086a67f034487baa4ea845f7a35a13" compoundref="xi3c_8h" startline="786">XI3c::Error</references>
+        <references refid="struct_x_i3c_1a42264face85bd7505cf2eef5b1d173c8" compoundref="xi3c_8h" startline="788">XI3c::StatusHandler</references>
+        <references refid="group___overview_1gabdb31954696a689f6a99d67ec180e6e7" compoundref="xi3c__hw_8h" startline="242">XI3C_INTR_RESP_NOT_EMPTY_MASK</references>
+        <references refid="group___overview_1ga8db15484dd9ba5bbfcd041249b63ef4c" compoundref="xi3c__hw_8h" startline="62">XI3C_INTR_STATUS_OFFSET</references>
+        <references refid="group___overview_1gab12a89030f0016bebe64fac8878cc57f" compoundref="xi3c__hw_8h" startline="274">XI3c_ReadReg</references>
+        <references refid="group___overview_1ga6d1adc84977bc35bde5d82bb4a874d6b" compoundref="xi3c__hw_8h" startline="292">XI3c_WriteReg</references>
+        <referencedby refid="xi3c__slave__intr__example_8c_1a04cd562fa9e148f442987f2329c08c3b" compoundref="xi3c__slave__intr__example_8c" startline="151" endline="268">I3cSlaveIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="24"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xi3c.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>s32<sp/>XI3c_SlaveEvent(<ref refid="struct_x_i3c" kindref="compound">XI3c</ref><sp/>*InstancePtr,<sp/>u16<sp/>ByteCount)</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>EventCCC;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a745614fa4b0314ca47aa31fd89ab49b7" kindref="member">RecvByteCount</ref><sp/>=<sp/>ByteCount;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gad2aab26f4e34599f22921e263af12e0d" kindref="member">XI3c_ReadRxFifo</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a93ed676334e0e5f04dda3550f6579922" kindref="member">DirectCCC</ref>)</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EventCCC<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a93ed676334e0e5f04dda3550f6579922" kindref="member">DirectCCC</ref>;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EventCCC<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a3f6c4ec1591de0e048f2888c7762536c" kindref="member">RecvBufferPtr</ref>[0];</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="46"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Validate<sp/>the<sp/>received<sp/>CCC</highlight></codeline>
+<codeline lineno="47"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((EventCCC<sp/>!=<sp/>(u8)XI3C_CCC_BRDCAST_ENEC)<sp/>&amp;&amp;<sp/>(EventCCC<sp/>!=<sp/>(u8)XI3C_CCC_BRDCAST_DISEC)</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;&amp;<sp/>(EventCCC<sp/>!=<sp/>(u8)XI3C_CCC_ENEC)<sp/>&amp;&amp;<sp/>(EventCCC<sp/>!=<sp/>(u8)XI3C_CCC_DISEC))<sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="54"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Update<sp/>EVT_INT<sp/>value</highlight></codeline>
+<codeline lineno="55"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(EventCCC<sp/>==<sp/>(u8)XI3C_CCC_BRDCAST_ENEC<sp/>||<sp/>EventCCC<sp/>==<sp/>(u8)XI3C_CCC_ENEC)<sp/>{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga6d1adc84977bc35bde5d82bb4a874d6b" kindref="member">XI3c_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1a5022354efb94520441dca651cb9643bc" kindref="member">BaseAddress</ref>,<sp/><ref refid="group___overview_1ga211c542ff6c1ff32dbf288967d17d38a" kindref="member">XI3C_EVENT</ref>,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group___overview_1gab12a89030f0016bebe64fac8878cc57f" kindref="member">XI3c_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1a5022354efb94520441dca651cb9643bc" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga211c542ff6c1ff32dbf288967d17d38a" kindref="member">XI3C_EVENT</ref>))<sp/>|<sp/>XI3C_1BIT_MASK);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga6d1adc84977bc35bde5d82bb4a874d6b" kindref="member">XI3c_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1a5022354efb94520441dca651cb9643bc" kindref="member">BaseAddress</ref>,<sp/><ref refid="group___overview_1ga211c542ff6c1ff32dbf288967d17d38a" kindref="member">XI3C_EVENT</ref>,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group___overview_1gab12a89030f0016bebe64fac8878cc57f" kindref="member">XI3c_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1a5022354efb94520441dca651cb9643bc" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga211c542ff6c1ff32dbf288967d17d38a" kindref="member">XI3C_EVENT</ref>))<sp/>&amp;~<sp/>XI3C_1BIT_MASK);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>s32<sp/>XI3c_SlaveSetMWL(<ref refid="struct_x_i3c" kindref="compound">XI3c</ref><sp/>*InstancePtr,<sp/>u16<sp/>ByteCount)</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MwlVal;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>MwlMsbVal;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>MwlLsbVal;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>MwlCCC;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a745614fa4b0314ca47aa31fd89ab49b7" kindref="member">RecvByteCount</ref><sp/>=<sp/>ByteCount;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gad2aab26f4e34599f22921e263af12e0d" kindref="member">XI3c_ReadRxFifo</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a93ed676334e0e5f04dda3550f6579922" kindref="member">DirectCCC</ref>)</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MwlCCC<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a93ed676334e0e5f04dda3550f6579922" kindref="member">DirectCCC</ref>;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MwlCCC<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a3f6c4ec1591de0e048f2888c7762536c" kindref="member">RecvBufferPtr</ref>[0];</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="85"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Validate<sp/>the<sp/>received<sp/>CCC</highlight></codeline>
+<codeline lineno="86"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((MwlCCC<sp/>!=<sp/>(u8)XI3C_CCC_BRDCAST_SETMWL)<sp/>&amp;&amp;<sp/>(MwlCCC<sp/>!=<sp/>(u8)XI3C_CCC_SETMWL))<sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a93ed676334e0e5f04dda3550f6579922" kindref="member">DirectCCC</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MwlLsbVal<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a3f6c4ec1591de0e048f2888c7762536c" kindref="member">RecvBufferPtr</ref>[0];</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MwlMsbVal<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a3f6c4ec1591de0e048f2888c7762536c" kindref="member">RecvBufferPtr</ref>[1];</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MwlLsbVal<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a3f6c4ec1591de0e048f2888c7762536c" kindref="member">RecvBufferPtr</ref>[1];</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MwlMsbVal<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a3f6c4ec1591de0e048f2888c7762536c" kindref="member">RecvBufferPtr</ref>[2];</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MwlVal<sp/>=<sp/>((MwlMsbVal<sp/>&lt;&lt;<sp/>XI3C_MWL_MRL_MSB_SHIFT)<sp/>&amp;<sp/>XI3C_MSB_8BITS_MASK)<sp/>|<sp/>MwlLsbVal;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga6d1adc84977bc35bde5d82bb4a874d6b" kindref="member">XI3c_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1a5022354efb94520441dca651cb9643bc" kindref="member">BaseAddress</ref>,<sp/><ref refid="group___overview_1ga698dbf261cef62aea0e39e26e36444dc" kindref="member">XI3C_MWL_MRL</ref>,</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((<ref refid="group___overview_1gab12a89030f0016bebe64fac8878cc57f" kindref="member">XI3c_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1a5022354efb94520441dca651cb9643bc" kindref="member">BaseAddress</ref>,<sp/><ref refid="group___overview_1ga698dbf261cef62aea0e39e26e36444dc" kindref="member">XI3C_MWL_MRL</ref>))</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>(~XI3C_12BITS_MASK))<sp/>|<sp/>(MwlVal<sp/>&amp;<sp/>XI3C_12BITS_MASK)));</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>s32<sp/>XI3c_SlaveSetMRL(<ref refid="struct_x_i3c" kindref="compound">XI3c</ref><sp/>*InstancePtr,<sp/>u16<sp/>ByteCount)</highlight></codeline>
+<codeline lineno="109"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MrlVal;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>MrlMsbVal;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>MrlLsbVal;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>MrlCCC;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a745614fa4b0314ca47aa31fd89ab49b7" kindref="member">RecvByteCount</ref><sp/>=<sp/>ByteCount;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gad2aab26f4e34599f22921e263af12e0d" kindref="member">XI3c_ReadRxFifo</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a93ed676334e0e5f04dda3550f6579922" kindref="member">DirectCCC</ref>)</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MrlCCC<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a93ed676334e0e5f04dda3550f6579922" kindref="member">DirectCCC</ref>;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MrlCCC<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a3f6c4ec1591de0e048f2888c7762536c" kindref="member">RecvBufferPtr</ref>[0];</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="124"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Validate<sp/>the<sp/>received<sp/>CCC</highlight></codeline>
+<codeline lineno="125"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((MrlCCC<sp/>!=<sp/>(u8)XI3C_CCC_BRDCAST_SETMRL)<sp/>&amp;&amp;<sp/>(MrlCCC<sp/>!=<sp/>(u8)XI3C_CCC_SETMRL))<sp/>{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a93ed676334e0e5f04dda3550f6579922" kindref="member">DirectCCC</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MrlLsbVal<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a3f6c4ec1591de0e048f2888c7762536c" kindref="member">RecvBufferPtr</ref>[0];</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MrlMsbVal<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a3f6c4ec1591de0e048f2888c7762536c" kindref="member">RecvBufferPtr</ref>[1];</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MrlLsbVal<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a3f6c4ec1591de0e048f2888c7762536c" kindref="member">RecvBufferPtr</ref>[1];</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MrlMsbVal<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a3f6c4ec1591de0e048f2888c7762536c" kindref="member">RecvBufferPtr</ref>[2];</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MrlVal<sp/>=<sp/>((MrlMsbVal<sp/>&lt;&lt;<sp/>XI3C_MWL_MRL_MSB_SHIFT)<sp/>&amp;<sp/>XI3C_MSB_8BITS_MASK)<sp/>|<sp/>MrlLsbVal;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga6d1adc84977bc35bde5d82bb4a874d6b" kindref="member">XI3c_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1a5022354efb94520441dca651cb9643bc" kindref="member">BaseAddress</ref>,<sp/><ref refid="group___overview_1ga698dbf261cef62aea0e39e26e36444dc" kindref="member">XI3C_MWL_MRL</ref>,</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((<ref refid="group___overview_1gab12a89030f0016bebe64fac8878cc57f" kindref="member">XI3c_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1a5022354efb94520441dca651cb9643bc" kindref="member">BaseAddress</ref>,<sp/><ref refid="group___overview_1ga698dbf261cef62aea0e39e26e36444dc" kindref="member">XI3C_MWL_MRL</ref>))</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;~<sp/>XI3C_MRL_MASK)<sp/>|<sp/>((MrlVal<sp/>&amp;<sp/>XI3C_12BITS_MASK)<sp/>&lt;&lt;<sp/>XI3C_MRL_SHIFT)));</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>s32<sp/>XI3c_RstGrpAddr(<ref refid="struct_x_i3c" kindref="compound">XI3c</ref><sp/>*InstancePtr,<sp/>u16<sp/>ByteCount)</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>RstGrpCCC;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a745614fa4b0314ca47aa31fd89ab49b7" kindref="member">RecvByteCount</ref><sp/>=<sp/>ByteCount;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gad2aab26f4e34599f22921e263af12e0d" kindref="member">XI3c_ReadRxFifo</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a93ed676334e0e5f04dda3550f6579922" kindref="member">DirectCCC</ref>)</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RstGrpCCC<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a93ed676334e0e5f04dda3550f6579922" kindref="member">DirectCCC</ref>;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RstGrpCCC<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a3f6c4ec1591de0e048f2888c7762536c" kindref="member">RecvBufferPtr</ref>[0];</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="160"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Validate<sp/>the<sp/>received<sp/>CCC</highlight></codeline>
+<codeline lineno="161"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RstGrpCCC<sp/>!=<sp/>(u8)XI3C_CCC_BRDCAST_RSTGRPA)<sp/>&amp;&amp;<sp/>(RstGrpCCC<sp/>!=<sp/>(u8)XI3C_CCC_RSTGRPA))<sp/>{</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga93e2ff09fe04f9e588ca08ae03f9ae37" kindref="member">XI3c_ClearGrpAddr</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>s32<sp/>XI3c_SetGrpAddr(<ref refid="struct_x_i3c" kindref="compound">XI3c</ref><sp/>*InstancePtr,<sp/>u16<sp/>ByteCount)</highlight></codeline>
+<codeline lineno="172"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>GrpAddr;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a745614fa4b0314ca47aa31fd89ab49b7" kindref="member">RecvByteCount</ref><sp/>=<sp/>ByteCount;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gad2aab26f4e34599f22921e263af12e0d" kindref="member">XI3c_ReadRxFifo</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GrpAddr<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a3f6c4ec1591de0e048f2888c7762536c" kindref="member">RecvBufferPtr</ref>[0];</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga6d1adc84977bc35bde5d82bb4a874d6b" kindref="member">XI3c_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1a5022354efb94520441dca651cb9643bc" kindref="member">BaseAddress</ref>,<sp/><ref refid="group___overview_1ga201dee1806c408efbdf074cec11e02a1" kindref="member">XI3C_ADDRESS_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((<ref refid="group___overview_1gab12a89030f0016bebe64fac8878cc57f" kindref="member">XI3c_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1a5022354efb94520441dca651cb9643bc" kindref="member">BaseAddress</ref>,<sp/><ref refid="group___overview_1ga201dee1806c408efbdf074cec11e02a1" kindref="member">XI3C_ADDRESS_OFFSET</ref>))</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;~<sp/>XI3C_GRP_ADDR_MASK)<sp/>|<sp/>((GrpAddr<sp/>&amp;<sp/>XI3C_8BITS_MASK)<sp/>&lt;&lt;<sp/>XI3C_GRP_ADDR_SHIFT)));</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>s32<sp/>XI3c_RstAction(<ref refid="struct_x_i3c" kindref="compound">XI3c</ref><sp/>*InstancePtr,<sp/>u16<sp/>ByteCount)</highlight></codeline>
+<codeline lineno="188"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>RstActCCC;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a745614fa4b0314ca47aa31fd89ab49b7" kindref="member">RecvByteCount</ref><sp/>=<sp/>ByteCount;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gad2aab26f4e34599f22921e263af12e0d" kindref="member">XI3c_ReadRxFifo</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a93ed676334e0e5f04dda3550f6579922" kindref="member">DirectCCC</ref>)</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RstActCCC<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a93ed676334e0e5f04dda3550f6579922" kindref="member">DirectCCC</ref>;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RstActCCC<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a3f6c4ec1591de0e048f2888c7762536c" kindref="member">RecvBufferPtr</ref>[0];</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="199"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Validate<sp/>the<sp/>received<sp/>CCC</highlight></codeline>
+<codeline lineno="200"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RstActCCC<sp/>!=<sp/>(u8)XI3C_CCC_BRDCAST_RSTACT)<sp/>&amp;&amp;<sp/>(RstActCCC<sp/>!=<sp/>(u8)XI3C_CCC_RSTACT))<sp/>{</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XI3c_Reset(InstancePtr);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga93e2ff09fe04f9e588ca08ae03f9ae37" kindref="member">XI3c_ClearGrpAddr</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>s32<sp/>XI3c_SlaveHandleCCC(<ref refid="struct_x_i3c" kindref="compound">XI3c</ref><sp/>*InstancePtr,<sp/>u32<sp/>ResponseData)</highlight></codeline>
+<codeline lineno="212"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>ByteCount;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>CCCVal;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ByteCount<sp/>=<sp/>(ResponseData<sp/>&amp;<sp/>XI3C_RESP_BYTES_MASK)<sp/>&gt;&gt;<sp/>XI3C_RESP_BYTES_SHIFT;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CCCVal<sp/>=<sp/>(ResponseData<sp/>&amp;<sp/>XI3C_SLV_RESP_CCC_MASK)<sp/>&gt;&gt;<sp/>XI3C_SLV_RESP_CCC_SHIFT;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(CCCVal<sp/>&gt;<sp/>XI3C_CCC_BRDCAST_MAX_VAL)<sp/>{</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a93ed676334e0e5f04dda3550f6579922" kindref="member">DirectCCC</ref><sp/>=<sp/>CCCVal;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a745614fa4b0314ca47aa31fd89ab49b7" kindref="member">RecvByteCount</ref><sp/>=<sp/>ByteCount;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gad2aab26f4e34599f22921e263af12e0d" kindref="member">XI3c_ReadRxFifo</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a93ed676334e0e5f04dda3550f6579922" kindref="member">DirectCCC</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CCCVal<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a93ed676334e0e5f04dda3550f6579922" kindref="member">DirectCCC</ref>;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(CCCVal)<sp/>{</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XI3C_CCC_BRDCAST_ENEC:</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XI3C_CCC_BRDCAST_DISEC:</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XI3C_CCC_ENEC:</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XI3C_CCC_DISEC:</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XI3c_SlaveEvent(InstancePtr,<sp/>ByteCount);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XI3C_CCC_BRDCAST_SETMWL:</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XI3C_CCC_SETMWL:</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XI3c_SlaveSetMWL(InstancePtr,<sp/>ByteCount);</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XI3C_CCC_BRDCAST_SETMRL:</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XI3C_CCC_SETMRL:</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XI3c_SlaveSetMRL(InstancePtr,<sp/>ByteCount);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XI3C_CCC_BRDCAST_RSTGRPA:</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XI3C_CCC_RSTGRPA:</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XI3c_RstGrpAddr(InstancePtr,<sp/>ByteCount);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XI3C_CCC_SETGRPA:</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XI3c_SetGrpAddr(InstancePtr,<sp/>ByteCount);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XI3C_CCC_BRDCAST_RSTACT:</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XI3C_CCC_RSTACT:</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XI3c_RstAction(InstancePtr,<sp/>ByteCount);</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="258"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>No<sp/>action<sp/>required<sp/>for<sp/>below<sp/>CCC&apos;s</highlight></codeline>
+<codeline lineno="259"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XI3C_CCC_GETMWL:</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XI3C_CCC_GETMRL:</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XI3C_CCC_GETPID:</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XI3C_CCC_GETBCR:</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XI3C_CCC_GETDCR:</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XI3C_CCC_GETSTATUS:</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XI3C_CCC_GETMXDS:</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XI3C_CCC_GETCAPS:</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a93ed676334e0e5f04dda3550f6579922" kindref="member">DirectCCC</ref>)</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a93ed676334e0e5f04dda3550f6579922" kindref="member">DirectCCC</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="279"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>s32<sp/>XI3c_SlaveHandleRecv(<ref refid="struct_x_i3c" kindref="compound">XI3c</ref><sp/>*InstancePtr,<sp/>u16<sp/>ByteCount)</highlight></codeline>
+<codeline lineno="282"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a745614fa4b0314ca47aa31fd89ab49b7" kindref="member">RecvByteCount</ref><sp/>=<sp/>ByteCount;</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a3f6c4ec1591de0e048f2888c7762536c" kindref="member">RecvBufferPtr</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a745614fa4b0314ca47aa31fd89ab49b7" kindref="member">RecvByteCount</ref><sp/>&gt;<sp/>0)</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gad2aab26f4e34599f22921e263af12e0d" kindref="member">XI3c_ReadRxFifo</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="291"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>s32<sp/>XI3c_SlaveTransferHandle(<ref refid="struct_x_i3c" kindref="compound">XI3c</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="294"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ResponseData;</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>ByteCount;</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ResponseData<sp/>=<sp/><ref refid="group___overview_1gab12a89030f0016bebe64fac8878cc57f" kindref="member">XI3c_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1a5022354efb94520441dca651cb9643bc" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga2c063c7296db1c51db465c7e3609a8ac" kindref="member">XI3C_RESP_STATUS_FIFO_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a0c086a67f034487baa4ea845f7a35a13" kindref="member">Error</ref><sp/>=<sp/>((ResponseData<sp/>&amp;<sp/>XI3C_RESP_CODE_MASK)<sp/>&gt;&gt;<sp/>XI3C_RESP_CODE_SHIFT);</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_i3c_1a0c086a67f034487baa4ea845f7a35a13" kindref="member">Error</ref>)</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a0c086a67f034487baa4ea845f7a35a13" kindref="member">Error</ref>;</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ByteCount<sp/>=<sp/>(ResponseData<sp/>&amp;<sp/>XI3C_RESP_BYTES_MASK)<sp/>&gt;&gt;<sp/>XI3C_RESP_BYTES_SHIFT;</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((ResponseData<sp/>&amp;<sp/>XI3C_SLV_RESP_7E_FRAME_MASK)<sp/>&amp;&amp;<sp/>ByteCount)<sp/>||<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a93ed676334e0e5f04dda3550f6579922" kindref="member">DirectCCC</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="309"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>CCC</highlight></codeline>
+<codeline lineno="310"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XI3c_SlaveHandleCCC(InstancePtr,<sp/>ResponseData);</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!(ResponseData<sp/>&amp;<sp/>XI3C_RESP_RW_MASK))<sp/>{</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="314"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Recv</highlight></codeline>
+<codeline lineno="315"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XI3c_SlaveHandleRecv(InstancePtr,<sp/>ByteCount);</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="320"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="338" refid="group___overview_1ga28021172cfe5d1d3dfb20e8f3f58c94f" refkind="member"><highlight class="normal">s32<sp/><ref refid="group___overview_1ga28021172cfe5d1d3dfb20e8f3f58c94f" kindref="member">XI3c_SlaveSend</ref>(<ref refid="struct_x_i3c" kindref="compound">XI3c</ref><sp/>*InstancePtr,<sp/>u8<sp/>*MsgPtr,<sp/>u16<sp/>ByteCount)</highlight></codeline>
+<codeline lineno="339"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>WrFifoSpace;</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>SpaceIndex;</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="344"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments.</highlight></codeline>
+<codeline lineno="345"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(MsgPtr<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_NO_DATA;</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ByteCount<sp/>&gt;<sp/>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1a1ccd35fbd357de82147eed63989ede57" kindref="member">RwFifoDepth</ref><sp/>/<sp/>2)<sp/>||<sp/>ByteCount<sp/>&gt;<sp/><ref refid="group___overview_1gab50db6a1880449022a970ccb4d8a6d25" kindref="member">XI3c_GetMRL</ref>(InstancePtr))</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SEND_ERROR;</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"></highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1aacf49fb0c5aefd9418f78549e9393a8d" kindref="member">SendBufferPtr</ref><sp/>=<sp/>MsgPtr;</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a7a73acb245300e5187a609fffae9358b" kindref="member">SendByteCount</ref><sp/>=<sp/>ByteCount;</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"></highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WrFifoSpace<sp/>=<sp/><ref refid="group___overview_1ga0a979344e276171bf0bf87eb27c7ffd7" kindref="member">XI3c_WrFifoLevel</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(SpaceIndex<sp/>=<sp/>0;<sp/>(SpaceIndex<sp/>&lt;<sp/>WrFifoSpace)<sp/>&amp;&amp;<sp/>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a7a73acb245300e5187a609fffae9358b" kindref="member">SendByteCount</ref><sp/>&gt;<sp/>0);<sp/>SpaceIndex++)<sp/>{</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Fill<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga58e612565bbd976e98eac6753ad1ed9f" kindref="member">XI3c_WriteTxFifo</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga2577bc2333d12a6bd75e2a79442f90bd" kindref="member">XI3c_FillSlaveSendCount</ref>(InstancePtr,<sp/>ByteCount);</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="367"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"></highlight></codeline>
+<codeline lineno="369"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="384" refid="group___overview_1ga9808772192d0f16adaf33e61b784e3a3" refkind="member"><highlight class="normal">s32<sp/><ref refid="group___overview_1ga9808772192d0f16adaf33e61b784e3a3" kindref="member">XI3c_SlaveRecv</ref>(<ref refid="struct_x_i3c" kindref="compound">XI3c</ref><sp/>*InstancePtr,<sp/>u8<sp/>*MsgPtr)</highlight></codeline>
+<codeline lineno="385"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="387"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments.</highlight></codeline>
+<codeline lineno="388"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"></highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(MsgPtr<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_NO_DATA;</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a3f6c4ec1591de0e048f2888c7762536c" kindref="member">RecvBufferPtr</ref><sp/>=<sp/>MsgPtr;</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"></highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="397"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"></highlight></codeline>
+<codeline lineno="399"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="419" refid="group___overview_1ga7aafe3b5f4c0b20e5f6d8b7364c9ea4a" refkind="member"><highlight class="normal">s32<sp/><ref refid="group___overview_1ga7aafe3b5f4c0b20e5f6d8b7364c9ea4a" kindref="member">XI3c_SlaveSendPolled</ref>(<ref refid="struct_x_i3c" kindref="compound">XI3c</ref><sp/>*InstancePtr,<sp/>u8<sp/>*MsgPtr,<sp/>u16<sp/>ByteCount)</highlight></codeline>
+<codeline lineno="420"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>WrFifoSpace;</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>SpaceIndex;</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"></highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="425"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments.</highlight></codeline>
+<codeline lineno="426"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(MsgPtr<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_NO_DATA;</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"></highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ByteCount<sp/>&gt;<sp/>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1a1ccd35fbd357de82147eed63989ede57" kindref="member">RwFifoDepth</ref><sp/>/<sp/>2)<sp/>||<sp/>ByteCount<sp/>&gt;<sp/><ref refid="group___overview_1gab50db6a1880449022a970ccb4d8a6d25" kindref="member">XI3c_GetMRL</ref>(InstancePtr))</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SEND_ERROR;</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"></highlight></codeline>
+<codeline lineno="434"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1aacf49fb0c5aefd9418f78549e9393a8d" kindref="member">SendBufferPtr</ref><sp/>=<sp/>MsgPtr;</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a7a73acb245300e5187a609fffae9358b" kindref="member">SendByteCount</ref><sp/>=<sp/>ByteCount;</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"></highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WrFifoSpace<sp/>=<sp/><ref refid="group___overview_1ga0a979344e276171bf0bf87eb27c7ffd7" kindref="member">XI3c_WrFifoLevel</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"></highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(SpaceIndex<sp/>=<sp/>0;<sp/>(SpaceIndex<sp/>&lt;<sp/>WrFifoSpace)<sp/>&amp;&amp;<sp/>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a7a73acb245300e5187a609fffae9358b" kindref="member">SendByteCount</ref><sp/>&gt;<sp/>0);<sp/>SpaceIndex++)<sp/>{</highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Fill<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="441"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga58e612565bbd976e98eac6753ad1ed9f" kindref="member">XI3c_WriteTxFifo</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"></highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga2577bc2333d12a6bd75e2a79442f90bd" kindref="member">XI3c_FillSlaveSendCount</ref>(InstancePtr,<sp/>ByteCount);</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="446"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"></highlight></codeline>
+<codeline lineno="448"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="464" refid="group___overview_1gac5999cb023a2ac9ca5dea7a9ed3edda5" refkind="member"><highlight class="normal">s32<sp/><ref refid="group___overview_1gac5999cb023a2ac9ca5dea7a9ed3edda5" kindref="member">XI3c_SlaveRecvPolled</ref>(<ref refid="struct_x_i3c" kindref="compound">XI3c</ref><sp/>*InstancePtr,<sp/>u8<sp/>*MsgPtr)</highlight></codeline>
+<codeline lineno="465"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="467"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments.</highlight></codeline>
+<codeline lineno="468"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"></highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(MsgPtr<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_NO_DATA;</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"></highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a3f6c4ec1591de0e048f2888c7762536c" kindref="member">RecvBufferPtr</ref><sp/>=<sp/>MsgPtr;</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"></highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XI3c_SlaveTransferHandle(InstancePtr))</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_RECV_ERROR;</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="480"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"></highlight></codeline>
+<codeline lineno="482"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="499" refid="group___overview_1ga64fba1f66dc69a20b21f414cccb90752" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga64fba1f66dc69a20b21f414cccb90752" kindref="member">XI3c_SlaveInterruptHandler</ref>(<ref refid="struct_x_i3c" kindref="compound">XI3c</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="500"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="501"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrStatusReg;</highlight></codeline>
+<codeline lineno="502"><highlight class="normal"></highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="504"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments.</highlight></codeline>
+<codeline lineno="505"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"></highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="509"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>Raising<sp/>edge<sp/>and<sp/>faling<sp/>edge<sp/>Interrupt<sp/>status<sp/>registers.</highlight></codeline>
+<codeline lineno="510"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatusReg<sp/>=<sp/><ref refid="group___overview_1gab12a89030f0016bebe64fac8878cc57f" kindref="member">XI3c_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1a5022354efb94520441dca651cb9643bc" kindref="member">BaseAddress</ref>,<sp/><ref refid="group___overview_1ga8db15484dd9ba5bbfcd041249b63ef4c" kindref="member">XI3C_INTR_STATUS_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"></highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="514"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>the<sp/>status<sp/>back<sp/>to<sp/>clear<sp/>the<sp/>interrupts<sp/>so<sp/>no<sp/>events<sp/>are</highlight></codeline>
+<codeline lineno="515"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>missed<sp/>while<sp/>processing<sp/>this<sp/>interrupt.</highlight></codeline>
+<codeline lineno="516"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga6d1adc84977bc35bde5d82bb4a874d6b" kindref="member">XI3c_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a8a4d3a8c73221b302c6eedbdb4496b71" kindref="member">Config</ref>.<ref refid="struct_x_i3c___config_1a5022354efb94520441dca651cb9643bc" kindref="member">BaseAddress</ref>,<sp/>(u32)<ref refid="group___overview_1ga8db15484dd9ba5bbfcd041249b63ef4c" kindref="member">XI3C_INTR_STATUS_OFFSET</ref>,<sp/>IntrStatusReg);</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"></highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Response<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatusReg<sp/>&amp;<sp/><ref refid="group___overview_1gabdb31954696a689f6a99d67ec180e6e7" kindref="member">XI3C_INTR_RESP_NOT_EMPTY_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XI3c_SlaveTransferHandle(InstancePtr);</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"></highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!InstancePtr-&gt;<ref refid="struct_x_i3c_1a93ed676334e0e5f04dda3550f6579922" kindref="member">DirectCCC</ref>)</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_1a42264face85bd7505cf2eef5b1d173c8" kindref="member">StatusHandler</ref>(InstancePtr-&gt;<ref refid="struct_x_i3c_1a0c086a67f034487baa4ea845f7a35a13" kindref="member">Error</ref>);</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="526"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3c/src/xi3c_slave.c"/>
+  </compounddef>
+</doxygen>

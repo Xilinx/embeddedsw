@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_video_formats" kind="struct" prot="public">
+    <compoundname>VideoFormats</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_video_formats_1a4af73757e5c54fb674546fc697ec0400" prot="public" static="no" mutable="no">
+        <type>XVidC_ColorFormat</type>
+        <definition>XVidC_ColorFormat VideoFormats::MemFormat</definition>
+        <argsstring></argsstring>
+        <name>MemFormat</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/xv_frmbufrd_example.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/xv_frmbufrd_example.c" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_video_formats_1a4ebd01042c1aec2d38d0388d4614fdea" prot="public" static="no" mutable="no">
+        <type>XVidC_ColorFormat</type>
+        <definition>XVidC_ColorFormat VideoFormats::StreamFormat</definition>
+        <argsstring></argsstring>
+        <name>StreamFormat</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/xv_frmbufrd_example.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/xv_frmbufrd_example.c" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_video_formats_1aa5e41db0a69effa166198b0eaceafc67" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 VideoFormats::FormatBits</definition>
+        <argsstring></argsstring>
+        <name>FormatBits</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/xv_frmbufrd_example.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/xv_frmbufrd_example.c" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/xv_frmbufrd_example.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/xv_frmbufrd_example.c" bodystart="78" bodyend="82"/>
+    <listofallmembers>
+      <member refid="struct_video_formats_1aa5e41db0a69effa166198b0eaceafc67" prot="public" virt="non-virtual"><scope>VideoFormats</scope><name>FormatBits</name></member>
+      <member refid="struct_video_formats_1a4af73757e5c54fb674546fc697ec0400" prot="public" virt="non-virtual"><scope>VideoFormats</scope><name>MemFormat</name></member>
+      <member refid="struct_video_formats_1a4ebd01042c1aec2d38d0388d4614fdea" prot="public" virt="non-virtual"><scope>VideoFormats</scope><name>StreamFormat</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

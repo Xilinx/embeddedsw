@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['xdfeccf',['XDfeCcf',['../struct_x_dfe_ccf.html',1,'']]],
+  ['xdfeccf_5fantennacfg',['XDfeCcf_AntennaCfg',['../struct_x_dfe_ccf___antenna_cfg.html',1,'']]],
+  ['xdfeccf_5fcarriercfg',['XDfeCcf_CarrierCfg',['../struct_x_dfe_ccf___carrier_cfg.html',1,'']]],
+  ['xdfeccf_5fcccfg',['XDfeCcf_CCCfg',['../struct_x_dfe_ccf___c_c_cfg.html',1,'']]],
+  ['xdfeccf_5fccsequence',['XDfeCcf_CCSequence',['../struct_x_dfe_ccf___c_c_sequence.html',1,'']]],
+  ['xdfeccf_5fcfg',['XDfeCcf_Cfg',['../struct_x_dfe_ccf___cfg.html',1,'']]],
+  ['xdfeccf_5fcoefficients',['XDfeCcf_Coefficients',['../struct_x_dfe_ccf___coefficients.html',1,'']]],
+  ['xdfeccf_5fconfig',['XDfeCcf_Config',['../struct_x_dfe_ccf___config.html',1,'']]],
+  ['xdfeccf_5finit',['XDfeCcf_Init',['../struct_x_dfe_ccf___init.html',1,'']]],
+  ['xdfeccf_5finternalcarriercfg',['XDfeCcf_InternalCarrierCfg',['../struct_x_dfe_ccf___internal_carrier_cfg.html',1,'']]],
+  ['xdfeccf_5fmodelparameters',['XDfeCcf_ModelParameters',['../struct_x_dfe_ccf___model_parameters.html',1,'']]],
+  ['xdfeccf_5foverflowstatus',['XDfeCcf_OverflowStatus',['../struct_x_dfe_ccf___overflow_status.html',1,'']]],
+  ['xdfeccf_5fstatus',['XDfeCcf_Status',['../struct_x_dfe_ccf___status.html',1,'']]],
+  ['xdfeccf_5ftrigger',['XDfeCcf_Trigger',['../struct_x_dfe_ccf___trigger.html',1,'']]],
+  ['xdfeccf_5ftriggercfg',['XDfeCcf_TriggerCfg',['../struct_x_dfe_ccf___trigger_cfg.html',1,'']]],
+  ['xdfeccf_5fversion',['XDfeCcf_Version',['../struct_x_dfe_ccf___version.html',1,'']]]
+];

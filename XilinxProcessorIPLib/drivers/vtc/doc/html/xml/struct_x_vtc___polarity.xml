@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_vtc___polarity" kind="struct" prot="public">
+    <compoundname>XVtc_Polarity</compoundname>
+    <includes local="no">xvtc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_vtc___polarity_1a16a92b42b6767bf5a10312f3f6ff2e3e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_Polarity::ActiveChromaPol</definition>
+        <argsstring></argsstring>
+        <name>ActiveChromaPol</name>
+        <briefdescription>
+<para>Active Chroma Output Polarity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="373" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="373" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1ga3e7cf680b0bc9623c6430daa9ff8fadd" compoundref="xvtc_8c" startline="580" endline="619">XVtc_GetDetectorPolarity</referencedby>
+        <referencedby refid="group__vtc_1gae46a82175546ee8c77ec9b9ab11353c3" compoundref="xvtc_8c" startline="523" endline="562">XVtc_GetPolarity</referencedby>
+        <referencedby refid="group__vtc_1ga048e84bcc5ac0f05cdd7423a40fe7574" compoundref="xvtc_8c" startline="463" endline="505">XVtc_SetPolarity</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___polarity_1a2ffbf877d6b3b3ebec1a09302afe8b30" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_Polarity::ActiveVideoPol</definition>
+        <argsstring></argsstring>
+        <name>ActiveVideoPol</name>
+        <briefdescription>
+<para>Active Video Output Polarity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="374" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="374" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1ga3e7cf680b0bc9623c6430daa9ff8fadd" compoundref="xvtc_8c" startline="580" endline="619">XVtc_GetDetectorPolarity</referencedby>
+        <referencedby refid="group__vtc_1gae46a82175546ee8c77ec9b9ab11353c3" compoundref="xvtc_8c" startline="523" endline="562">XVtc_GetPolarity</referencedby>
+        <referencedby refid="group__vtc_1ga048e84bcc5ac0f05cdd7423a40fe7574" compoundref="xvtc_8c" startline="463" endline="505">XVtc_SetPolarity</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___polarity_1aadadb11a3769dfcf6ac877b704a0897e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_Polarity::FieldIdPol</definition>
+        <argsstring></argsstring>
+        <name>FieldIdPol</name>
+        <briefdescription>
+<para>Field ID Output Polarity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="375" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="375" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1ga3e7cf680b0bc9623c6430daa9ff8fadd" compoundref="xvtc_8c" startline="580" endline="619">XVtc_GetDetectorPolarity</referencedby>
+        <referencedby refid="group__vtc_1gae46a82175546ee8c77ec9b9ab11353c3" compoundref="xvtc_8c" startline="523" endline="562">XVtc_GetPolarity</referencedby>
+        <referencedby refid="group__vtc_1ga048e84bcc5ac0f05cdd7423a40fe7574" compoundref="xvtc_8c" startline="463" endline="505">XVtc_SetPolarity</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___polarity_1ae671563704fad42e3dc21122e6a187b0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_Polarity::VBlankPol</definition>
+        <argsstring></argsstring>
+        <name>VBlankPol</name>
+        <briefdescription>
+<para>Vertical Blank Output Polarity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="376" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="376" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1ga3e7cf680b0bc9623c6430daa9ff8fadd" compoundref="xvtc_8c" startline="580" endline="619">XVtc_GetDetectorPolarity</referencedby>
+        <referencedby refid="group__vtc_1gae46a82175546ee8c77ec9b9ab11353c3" compoundref="xvtc_8c" startline="523" endline="562">XVtc_GetPolarity</referencedby>
+        <referencedby refid="group__vtc_1ga048e84bcc5ac0f05cdd7423a40fe7574" compoundref="xvtc_8c" startline="463" endline="505">XVtc_SetPolarity</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___polarity_1a19408b2e90f915d84c3b625a6a01f1a2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_Polarity::VSyncPol</definition>
+        <argsstring></argsstring>
+        <name>VSyncPol</name>
+        <briefdescription>
+<para>Vertical Sync Output Polarity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="377" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="377" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga307c8e4b44e9bd683417dafd2ed1bee3" compoundref="xvtc_8c" startline="2257" endline="2309">XVtc_ConvSignal2Timing</referencedby>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1ga3e7cf680b0bc9623c6430daa9ff8fadd" compoundref="xvtc_8c" startline="580" endline="619">XVtc_GetDetectorPolarity</referencedby>
+        <referencedby refid="group__vtc_1gae46a82175546ee8c77ec9b9ab11353c3" compoundref="xvtc_8c" startline="523" endline="562">XVtc_GetPolarity</referencedby>
+        <referencedby refid="group__vtc_1ga048e84bcc5ac0f05cdd7423a40fe7574" compoundref="xvtc_8c" startline="463" endline="505">XVtc_SetPolarity</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___polarity_1a095361c0242ca6c510f1bd01a3f57b31" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_Polarity::HBlankPol</definition>
+        <argsstring></argsstring>
+        <name>HBlankPol</name>
+        <briefdescription>
+<para>Horizontal Blank Output Polarity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="378" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="378" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1ga3e7cf680b0bc9623c6430daa9ff8fadd" compoundref="xvtc_8c" startline="580" endline="619">XVtc_GetDetectorPolarity</referencedby>
+        <referencedby refid="group__vtc_1gae46a82175546ee8c77ec9b9ab11353c3" compoundref="xvtc_8c" startline="523" endline="562">XVtc_GetPolarity</referencedby>
+        <referencedby refid="group__vtc_1ga048e84bcc5ac0f05cdd7423a40fe7574" compoundref="xvtc_8c" startline="463" endline="505">XVtc_SetPolarity</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___polarity_1a021f5e2d5a0b59115f03181b1857b79d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_Polarity::HSyncPol</definition>
+        <argsstring></argsstring>
+        <name>HSyncPol</name>
+        <briefdescription>
+<para>Horizontal Sync Output Polarity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="380" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="380" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga307c8e4b44e9bd683417dafd2ed1bee3" compoundref="xvtc_8c" startline="2257" endline="2309">XVtc_ConvSignal2Timing</referencedby>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1ga3e7cf680b0bc9623c6430daa9ff8fadd" compoundref="xvtc_8c" startline="580" endline="619">XVtc_GetDetectorPolarity</referencedby>
+        <referencedby refid="group__vtc_1gae46a82175546ee8c77ec9b9ab11353c3" compoundref="xvtc_8c" startline="523" endline="562">XVtc_GetPolarity</referencedby>
+        <referencedby refid="group__vtc_1ga048e84bcc5ac0f05cdd7423a40fe7574" compoundref="xvtc_8c" startline="463" endline="505">XVtc_SetPolarity</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains Polarity configuration information for a VTC core. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="372" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="372" bodyend="381"/>
+    <listofallmembers>
+      <member refid="struct_x_vtc___polarity_1a16a92b42b6767bf5a10312f3f6ff2e3e" prot="public" virt="non-virtual"><scope>XVtc_Polarity</scope><name>ActiveChromaPol</name></member>
+      <member refid="struct_x_vtc___polarity_1a2ffbf877d6b3b3ebec1a09302afe8b30" prot="public" virt="non-virtual"><scope>XVtc_Polarity</scope><name>ActiveVideoPol</name></member>
+      <member refid="struct_x_vtc___polarity_1aadadb11a3769dfcf6ac877b704a0897e" prot="public" virt="non-virtual"><scope>XVtc_Polarity</scope><name>FieldIdPol</name></member>
+      <member refid="struct_x_vtc___polarity_1a095361c0242ca6c510f1bd01a3f57b31" prot="public" virt="non-virtual"><scope>XVtc_Polarity</scope><name>HBlankPol</name></member>
+      <member refid="struct_x_vtc___polarity_1a021f5e2d5a0b59115f03181b1857b79d" prot="public" virt="non-virtual"><scope>XVtc_Polarity</scope><name>HSyncPol</name></member>
+      <member refid="struct_x_vtc___polarity_1ae671563704fad42e3dc21122e6a187b0" prot="public" virt="non-virtual"><scope>XVtc_Polarity</scope><name>VBlankPol</name></member>
+      <member refid="struct_x_vtc___polarity_1a19408b2e90f915d84c3b625a6a01f1a2" prot="public" virt="non-virtual"><scope>XVtc_Polarity</scope><name>VSyncPol</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

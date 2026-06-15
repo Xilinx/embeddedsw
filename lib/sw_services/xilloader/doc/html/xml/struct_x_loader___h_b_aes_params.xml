@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_loader___h_b_aes_params" kind="struct" prot="public">
+    <compoundname>XLoader_HBAesParams</compoundname>
+    <includes local="no">xloader_auth_enc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_loader___h_b_aes_params_1ad673e1bb32fbf19226563b7d7f91d7d5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_HBAesParams::HashBlockOffset</definition>
+        <argsstring></argsstring>
+        <name>HashBlockOffset</name>
+        <briefdescription>
+<para>Hash Block Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="655" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="655" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___h_b_aes_params_1a5692a572c1165614b60d78783d871e71" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_HBAesParams::HashBlockSize</definition>
+        <argsstring></argsstring>
+        <name>HashBlockSize</name>
+        <briefdescription>
+<para>Hash Block Size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="656" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="656" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___h_b_aes_params_1aa9bec31e1c40e93c677813bf31f77c17" prot="public" static="no" mutable="no">
+        <type>XSecure_AesKeySrc</type>
+        <definition>XSecure_AesKeySrc XLoader_HBAesParams::KeySrc</definition>
+        <argsstring></argsstring>
+        <name>KeySrc</name>
+        <briefdescription>
+<para>AES Key Source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="657" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="657" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___h_b_aes_params_1a853e16dfc7932b45144f276f5481b48d" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XLoader_HBAesParams::IvPtr</definition>
+        <argsstring></argsstring>
+        <name>IvPtr</name>
+        <briefdescription>
+<para>Pointer to IV. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="658" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="658" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for Hash Block AES Parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="654" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="654" bodyend="659"/>
+    <listofallmembers>
+      <member refid="struct_x_loader___h_b_aes_params_1ad673e1bb32fbf19226563b7d7f91d7d5" prot="public" virt="non-virtual"><scope>XLoader_HBAesParams</scope><name>HashBlockOffset</name></member>
+      <member refid="struct_x_loader___h_b_aes_params_1a5692a572c1165614b60d78783d871e71" prot="public" virt="non-virtual"><scope>XLoader_HBAesParams</scope><name>HashBlockSize</name></member>
+      <member refid="struct_x_loader___h_b_aes_params_1a853e16dfc7932b45144f276f5481b48d" prot="public" virt="non-virtual"><scope>XLoader_HBAesParams</scope><name>IvPtr</name></member>
+      <member refid="struct_x_loader___h_b_aes_params_1aa9bec31e1c40e93c677813bf31f77c17" prot="public" virt="non-virtual"><scope>XLoader_HBAesParams</scope><name>KeySrc</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

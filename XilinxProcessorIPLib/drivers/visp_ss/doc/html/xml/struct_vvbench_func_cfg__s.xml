@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_vvbench_func_cfg__s" kind="struct" prot="public">
+    <compoundname>VvbenchFuncCfg_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_vvbench_func_cfg__s_1af9ebeb2ea2eb65445c142ab5d8935913" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchFuncCfg_s::usePathSwitch</definition>
+        <argsstring></argsstring>
+        <name>usePathSwitch</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="331" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="331" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_func_cfg__s_1ab7aac08618a6fefca2107f3ae6388275" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchFuncCfg_s::useFastResetFunction</definition>
+        <argsstring></argsstring>
+        <name>useFastResetFunction</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="332" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="332" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_func_cfg__s_1a768803876770099dee4d81623862242c" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchFuncCfg_s::useSensorFunction</definition>
+        <argsstring></argsstring>
+        <name>useSensorFunction</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="333" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_func_cfg__s_1a312f0fa5a71ae2e9ffe16a47d27e04fc" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchFuncCfg_s::useIspTpgFunction</definition>
+        <argsstring></argsstring>
+        <name>useIspTpgFunction</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="334" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_func_cfg__s_1aaf7c70557606b2f240084df26c15dfa1" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchFuncCfg_s::useVi200Function</definition>
+        <argsstring></argsstring>
+        <name>useVi200Function</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="335" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_func_cfg__s_1a4735988e811259498b1bb10d9288d305" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchFuncCfg_s::useVi200MetaWin</definition>
+        <argsstring></argsstring>
+        <name>useVi200MetaWin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="336" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_func_cfg__s_1a97636a6cbcbaa508fa15775addf808ef" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchFuncCfg_s::useDewarpFunction</definition>
+        <argsstring></argsstring>
+        <name>useDewarpFunction</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="337" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_func_cfg__s_1a637d51427350c01282855c978fcd3216" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchFuncCfg_s::irRawOutEnable</definition>
+        <argsstring></argsstring>
+        <name>irRawOutEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="338" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="338" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_func_cfg__s_1a52e0cafcb7f7d34781b4c11604d63046" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchFuncCfg_s::sp1IrSelect</definition>
+        <argsstring></argsstring>
+        <name>sp1IrSelect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="339" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_func_cfg__s_1af697f9398ce090f0a61abde1c6015931" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchFuncCfg_s::useFusaFunction</definition>
+        <argsstring></argsstring>
+        <name>useFusaFunction</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="340" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_func_cfg__s_1a2ceee1d4e21988e0c4ae596244b3c347" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchFuncCfg_s::useLowPowerMode</definition>
+        <argsstring></argsstring>
+        <name>useLowPowerMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="341" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="330" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="330" bodyend="342"/>
+    <listofallmembers>
+      <member refid="struct_vvbench_func_cfg__s_1a637d51427350c01282855c978fcd3216" prot="public" virt="non-virtual"><scope>VvbenchFuncCfg_s</scope><name>irRawOutEnable</name></member>
+      <member refid="struct_vvbench_func_cfg__s_1a52e0cafcb7f7d34781b4c11604d63046" prot="public" virt="non-virtual"><scope>VvbenchFuncCfg_s</scope><name>sp1IrSelect</name></member>
+      <member refid="struct_vvbench_func_cfg__s_1a97636a6cbcbaa508fa15775addf808ef" prot="public" virt="non-virtual"><scope>VvbenchFuncCfg_s</scope><name>useDewarpFunction</name></member>
+      <member refid="struct_vvbench_func_cfg__s_1ab7aac08618a6fefca2107f3ae6388275" prot="public" virt="non-virtual"><scope>VvbenchFuncCfg_s</scope><name>useFastResetFunction</name></member>
+      <member refid="struct_vvbench_func_cfg__s_1af697f9398ce090f0a61abde1c6015931" prot="public" virt="non-virtual"><scope>VvbenchFuncCfg_s</scope><name>useFusaFunction</name></member>
+      <member refid="struct_vvbench_func_cfg__s_1a312f0fa5a71ae2e9ffe16a47d27e04fc" prot="public" virt="non-virtual"><scope>VvbenchFuncCfg_s</scope><name>useIspTpgFunction</name></member>
+      <member refid="struct_vvbench_func_cfg__s_1a2ceee1d4e21988e0c4ae596244b3c347" prot="public" virt="non-virtual"><scope>VvbenchFuncCfg_s</scope><name>useLowPowerMode</name></member>
+      <member refid="struct_vvbench_func_cfg__s_1af9ebeb2ea2eb65445c142ab5d8935913" prot="public" virt="non-virtual"><scope>VvbenchFuncCfg_s</scope><name>usePathSwitch</name></member>
+      <member refid="struct_vvbench_func_cfg__s_1a768803876770099dee4d81623862242c" prot="public" virt="non-virtual"><scope>VvbenchFuncCfg_s</scope><name>useSensorFunction</name></member>
+      <member refid="struct_vvbench_func_cfg__s_1aaf7c70557606b2f240084df26c15dfa1" prot="public" virt="non-virtual"><scope>VvbenchFuncCfg_s</scope><name>useVi200Function</name></member>
+      <member refid="struct_vvbench_func_cfg__s_1a4735988e811259498b1bb10d9288d305" prot="public" virt="non-virtual"><scope>VvbenchFuncCfg_s</scope><name>useVi200MetaWin</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

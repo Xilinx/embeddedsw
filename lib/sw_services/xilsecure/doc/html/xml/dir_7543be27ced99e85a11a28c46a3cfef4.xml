@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_7543be27ced99e85a11a28c46a3cfef4" kind="dir">
+    <compoundname>sha</compoundname>
+    <innerdir refid="dir_3183dc5a8e870059d34ea0e279ff7613">sha_pmx</innerdir>
+    <innerdir refid="dir_ded7124aa313375d719b4cd904bb51e8">sha_pmxc</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/sha/"/>
+  </compounddef>
+</doxygen>

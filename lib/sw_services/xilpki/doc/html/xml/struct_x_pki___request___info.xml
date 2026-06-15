@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pki___request___info" kind="struct" prot="public">
+    <compoundname>XPki_Request_Info</compoundname>
+    <includes local="no">xilpki.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="group__xilpki-api_1ga4750aeba3cd920b113e027f1b90a6c6c" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XPki_Request_Info::PtrInputData</definition>
+        <argsstring></argsstring>
+        <name>PtrInputData</name>
+        <briefdescription>
+<para>Pointer to the input data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" bodystart="238" bodyend="-1"/>
+        <referencedby refid="group__xilpki-api_1ga7f5cc0cd24e52dbdb086c293cbe8eb37" compoundref="xilpki__kat_8c" startline="845" endline="933">XPki_EcdsaGenerateKeyPair</referencedby>
+        <referencedby refid="group__xilpki-api_1gafdce6fc10f8a3c600a5b2ad5892f96cd" compoundref="xilpki__kat_8c" startline="721" endline="828">XPki_EcdsaPwct</referencedby>
+        <referencedby refid="group__xilpki-api_1ga0b2b5d7924786767fa77fda38febdf83" compoundref="xilpki__kat_8c" startline="604" endline="684">XPki_EcdsaSignGenerateKat</referencedby>
+        <referencedby refid="group__xilpki-api_1ga4e05fcde36a6900da8e90f5e29c18cfc" compoundref="xilpki__kat_8c" startline="512" endline="570">XPki_EcdsaVerifySignKat</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilpki-api_1gadad46ec8656c2b010f923719be16301e" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XPki_Request_Info::PtrOutputData</definition>
+        <argsstring></argsstring>
+        <name>PtrOutputData</name>
+        <briefdescription>
+<para>Pointer to the output data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" bodystart="239" bodyend="-1"/>
+        <referencedby refid="group__xilpki-api_1ga7f5cc0cd24e52dbdb086c293cbe8eb37" compoundref="xilpki__kat_8c" startline="845" endline="933">XPki_EcdsaGenerateKeyPair</referencedby>
+        <referencedby refid="group__xilpki-api_1gafdce6fc10f8a3c600a5b2ad5892f96cd" compoundref="xilpki__kat_8c" startline="721" endline="828">XPki_EcdsaPwct</referencedby>
+        <referencedby refid="group__xilpki-api_1ga0b2b5d7924786767fa77fda38febdf83" compoundref="xilpki__kat_8c" startline="604" endline="684">XPki_EcdsaSignGenerateKat</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilpki-api_1ga661c6c12cb44acbcc56872825795ef8b" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xilpki-api_1ga2ada82147d8840951ba1ab921cc5fe77" kindref="member">Xpki_OpsType</ref></type>
+        <definition>Xpki_OpsType XPki_Request_Info::OpsType</definition>
+        <argsstring></argsstring>
+        <name>OpsType</name>
+        <briefdescription>
+<para>ECC operation type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" bodystart="240" bodyend="-1"/>
+        <referencedby refid="group__xilpki-api_1ga56071d557aca5100f5e0f77f9c49c572" compoundref="xilpki_8c" startline="777" endline="834">XilPki_EnQueue</referencedby>
+        <referencedby refid="group__xilpki-api_1ga7f5cc0cd24e52dbdb086c293cbe8eb37" compoundref="xilpki__kat_8c" startline="845" endline="933">XPki_EcdsaGenerateKeyPair</referencedby>
+        <referencedby refid="group__xilpki-api_1gafdce6fc10f8a3c600a5b2ad5892f96cd" compoundref="xilpki__kat_8c" startline="721" endline="828">XPki_EcdsaPwct</referencedby>
+        <referencedby refid="group__xilpki-api_1ga0b2b5d7924786767fa77fda38febdf83" compoundref="xilpki__kat_8c" startline="604" endline="684">XPki_EcdsaSignGenerateKat</referencedby>
+        <referencedby refid="group__xilpki-api_1ga4e05fcde36a6900da8e90f5e29c18cfc" compoundref="xilpki__kat_8c" startline="512" endline="570">XPki_EcdsaVerifySignKat</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilpki-api_1ga0c79d9b9a4e2922c5328b39b4f033b35" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* XPki_Request_Info::XPki_CompletionCallBack)(u32 RequestID, u32 Status)</definition>
+        <argsstring>)(u32 RequestID, u32 Status)</argsstring>
+        <name>XPki_CompletionCallBack</name>
+        <briefdescription>
+<para>Request completion callback function pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" bodystart="241" bodyend="-1"/>
+        <referencedby refid="group__xilpki-api_1ga7f5cc0cd24e52dbdb086c293cbe8eb37" compoundref="xilpki__kat_8c" startline="845" endline="933">XPki_EcdsaGenerateKeyPair</referencedby>
+        <referencedby refid="group__xilpki-api_1gafdce6fc10f8a3c600a5b2ad5892f96cd" compoundref="xilpki__kat_8c" startline="721" endline="828">XPki_EcdsaPwct</referencedby>
+        <referencedby refid="group__xilpki-api_1ga0b2b5d7924786767fa77fda38febdf83" compoundref="xilpki__kat_8c" startline="604" endline="684">XPki_EcdsaSignGenerateKat</referencedby>
+        <referencedby refid="group__xilpki-api_1ga4e05fcde36a6900da8e90f5e29c18cfc" compoundref="xilpki__kat_8c" startline="512" endline="570">XPki_EcdsaVerifySignKat</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>PKI Request info struct. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" bodystart="237" bodyend="242"/>
+    <listofallmembers>
+      <member refid="group__xilpki-api_1ga661c6c12cb44acbcc56872825795ef8b" prot="public" virt="non-virtual"><scope>XPki_Request_Info</scope><name>OpsType</name></member>
+      <member refid="group__xilpki-api_1ga4750aeba3cd920b113e027f1b90a6c6c" prot="public" virt="non-virtual"><scope>XPki_Request_Info</scope><name>PtrInputData</name></member>
+      <member refid="group__xilpki-api_1gadad46ec8656c2b010f923719be16301e" prot="public" virt="non-virtual"><scope>XPki_Request_Info</scope><name>PtrOutputData</name></member>
+      <member refid="group__xilpki-api_1ga0c79d9b9a4e2922c5328b39b4f033b35" prot="public" virt="non-virtual"><scope>XPki_Request_Info</scope><name>XPki_CompletionCallBack</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

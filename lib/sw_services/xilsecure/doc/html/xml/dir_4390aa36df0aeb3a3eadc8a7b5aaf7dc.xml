@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_4390aa36df0aeb3a3eadc8a7b5aaf7dc" kind="dir">
+    <compoundname>src</compoundname>
+    <innerdir refid="dir_bfdb1409170a1cdb64896c4b07ef8d3b">client</innerdir>
+    <innerdir refid="dir_ae137ee3627bd46bc6dcdda22b2fb170">common</innerdir>
+    <innerdir refid="dir_1499c4a3653361ff86a243abc1f93b6c">server</innerdir>
+    <innerfile refid="xsecure__ver_8h">xsecure_ver.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_f966e1415cfe7e46ada07a453bf9ff23" kind="dir">
+    <compoundname>core</compoundname>
+    <innerdir refid="dir_af43f6761a30544c4034e495987ea92e">aes</innerdir>
+    <innerdir refid="dir_f4b3b0b8ce20503e152383e586776ccd">crypto_kat</innerdir>
+    <innerdir refid="dir_3fbec13a6434ef8bcef749a5bf778357">ecc_keypair</innerdir>
+    <innerdir refid="dir_0a623524ee6b3d9a193df8e3cf44623d">ecdsa</innerdir>
+    <innerdir refid="dir_a378b86ebe801ce3f5fd13436e346cd9">generic</innerdir>
+    <innerdir refid="dir_3b64be589da034f381775e7cf514efd0">hmac</innerdir>
+    <innerdir refid="dir_c26d770e4374ec640ff006343d4c5750">kdf</innerdir>
+    <innerdir refid="dir_132b5fea92f6618a42cb0ad00b73d33e">key_unwrap</innerdir>
+    <innerdir refid="dir_dc4f2a3dfaacfc02b6a2d73abc96dd75">key_zeroize</innerdir>
+    <innerdir refid="dir_35d2041bbbeb8d345a0e0b3fc1c66c42">lms_hss</innerdir>
+    <innerdir refid="dir_d311e596e41dcc7d8c841cbc1e0928a5">mldsa</innerdir>
+    <innerdir refid="dir_0e1e43d7f1115ddb6b84fa6b4b9241eb">rsa</innerdir>
+    <innerdir refid="dir_908c8d57812dbe02cfa39bbe282dca89">sha</innerdir>
+    <innerdir refid="dir_30e2a1b86f3561df6fc05a255e132626">slhdsa</innerdir>
+    <innerdir refid="dir_b3d6468a50fffff09d19e20ec134ba99">softsha1</innerdir>
+    <innerdir refid="dir_6144c68a19f57145e1b2612b8d2bf299">softsha2-384</innerdir>
+    <innerdir refid="dir_8307ea556a1a9721a52c850f91b6f3c8">trng</innerdir>
+    <innerdir refid="dir_336e4683b2e424c3205fff0b853efa3c">util</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/"/>
+  </compounddef>
+</doxygen>

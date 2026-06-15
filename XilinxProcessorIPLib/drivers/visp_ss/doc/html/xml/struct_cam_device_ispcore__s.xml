@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_ispcore__s" kind="struct" prot="public">
+    <compoundname>CamDeviceIspcore_s</compoundname>
+    <includes local="no">cam_device_app.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_ispcore__s_1a72a59f21e0c3b73cd9041ea119def50a" prot="public" static="no" mutable="no">
+        <type>CamDeviceHandle_t</type>
+        <definition>CamDeviceHandle_t CamDeviceIspcore_s::hCamDevSet[CAMDEV_HARDWARE_ID_MAX+1][CAMDEV_VIRTUAL_ID_MAX]</definition>
+        <argsstring>[CAMDEV_HARDWARE_ID_MAX+1][CAMDEV_VIRTUAL_ID_MAX]</argsstring>
+        <name>hCamDevSet</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include_priv/cam_device_app.h" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include_priv/cam_device_app.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>structure define </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include_priv/cam_device_app.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include_priv/cam_device_app.h" bodystart="31" bodyend="34"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_ispcore__s_1a72a59f21e0c3b73cd9041ea119def50a" prot="public" virt="non-virtual"><scope>CamDeviceIspcore_s</scope><name>hCamDevSet</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

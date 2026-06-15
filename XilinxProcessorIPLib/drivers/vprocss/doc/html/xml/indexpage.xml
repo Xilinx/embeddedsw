@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>vprocss</title>
+    <detaileddescription>
+<para>Video buffer management routine.The functions in this file provides an abstraction from the register peek/poke methodology by implementing most common use-case provided by the VDMA sub-core.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00  rco   07/21/15  Initial Release
+2.00  dmc   03/03/16  Remove xil_print&apos;s and report errors via event log
+2.10  rco   07/21/16  Used UINTPTR instead of u32 for Address
+2.3   rco   02/09/17  Fix c++ warnings
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

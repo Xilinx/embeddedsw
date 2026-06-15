@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="struct_dsi2_rx_ss_sub_cores" kind="struct"><name>Dsi2RxSsSubCores</name>
+    <member refid="struct_dsi2_rx_ss_sub_cores_1af1648a6faac314b37a62910c3c248f98" kind="variable"><name>IsPresent</name></member>
+    <member refid="struct_dsi2_rx_ss_sub_cores_1a715f032e49e8039bd5d94293aeed80c1" kind="variable"><name>AddrOffset</name></member>
+  </compound>
+  <compound refid="struct_x_dsi2_rx_ss" kind="struct"><name>XDsi2RxSs</name>
+    <member refid="struct_x_dsi2_rx_ss_1a74e6ca6b80a3d4874e6e349059739827" kind="variable"><name>Config</name></member>
+    <member refid="struct_x_dsi2_rx_ss_1a21fefc626aab09c5536c07a030e90674" kind="variable"><name>IsReady</name></member>
+    <member refid="struct_x_dsi2_rx_ss_1af283755e0c33ee6dc09e46001669daa4" kind="variable"><name>Dsi2RxPtr</name></member>
+    <member refid="struct_x_dsi2_rx_ss_1a4fc6ca6fd0b0cf3b9f474c549bf9293a" kind="variable"><name>ConfigInfo</name></member>
+    <member refid="struct_x_dsi2_rx_ss_1a78e22d2b3d42a03be5262f2eb99166b3" kind="variable"><name>ErrorCallback</name></member>
+    <member refid="struct_x_dsi2_rx_ss_1a9b791477f3840e34a559bb6640be64db" kind="variable"><name>ErrRef</name></member>
+  </compound>
+  <compound refid="struct_x_dsi2_rx_ss___config" kind="struct"><name>XDsi2RxSs_Config</name>
+    <member refid="struct_x_dsi2_rx_ss___config_1a3de6da00bf49f1f2bcc986d6593832c1" kind="variable"><name>Name</name></member>
+    <member refid="struct_x_dsi2_rx_ss___config_1a89d38ccb74c8a7f20fba792149999d9c" kind="variable"><name>BaseAddr</name></member>
+    <member refid="struct_x_dsi2_rx_ss___config_1a05ffa17e949fc526b6e804f84f004a0c" kind="variable"><name>HighAddr</name></member>
+    <member refid="struct_x_dsi2_rx_ss___config_1a9d5d63355188543a83d426ffe6f2e720" kind="variable"><name>DataType</name></member>
+    <member refid="struct_x_dsi2_rx_ss___config_1a32b721fb312e0477e645127b162c9968" kind="variable"><name>DsiPixel</name></member>
+    <member refid="struct_x_dsi2_rx_ss___config_1a75513e422081486a97e0ef1e3e7ac136" kind="variable"><name>DphyLinerate</name></member>
+    <member refid="struct_x_dsi2_rx_ss___config_1a990e7b739eaf7b9cca5d69346756afc9" kind="variable"><name>IsDphyRegIntfcPresent</name></member>
+    <member refid="struct_x_dsi2_rx_ss___config_1aeb9967254fd9e94cc7fa5973eb9ffb41" kind="variable"><name>DphyInfo</name></member>
+    <member refid="struct_x_dsi2_rx_ss___config_1ae5bda84d926823f372d40496afea493c" kind="variable"><name>Dsi2RxInfo</name></member>
+    <member refid="struct_x_dsi2_rx_ss___config_1a150c541b2e4be5a5063cb3626e9df228" kind="variable"><name>IntrId</name></member>
+    <member refid="struct_x_dsi2_rx_ss___config_1abb4a96d93dea5aac9e871ba3d8024e56" kind="variable"><name>IntrParent</name></member>
+  </compound>
+  <compound refid="struct_x_dsi2_ss___sub_cores" kind="struct"><name>XDsi2Ss_SubCores</name>
+    <member refid="struct_x_dsi2_ss___sub_cores_1a964aa586867ab922ff9de04fdb80ab3d" kind="variable"><name>Dsi2RxInst</name></member>
+  </compound>
+  <compound refid="_c_make_lists_8txt" kind="file"><name>CMakeLists.txt</name>
+  </compound>
+  <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
+  </compound>
+  <compound refid="xdsi2rxss_8c" kind="file"><name>xdsi2rxss.c</name>
+    <member refid="group__dsirxss_1gab7c23911df208cd83549da7c22f845f4" kind="variable"><name>Dsi2SsSubCores</name></member>
+    <member refid="group__dsirxss_1ga0a0a8802df4d2dd6521726f560335793" kind="function"><name>XDsi2RxSs_GetIncludedSubCores</name></member>
+    <member refid="group__dsirxss_1gafa751651854a43a94b1f20d96e7a7091" kind="function"><name>XDsi2RxSs_SubCoreInitDsi</name></member>
+    <member refid="group__dsirxss_1ga056538f5451541d2f779154556be043d" kind="function"><name>ComputeSubCoreAbsAddr</name></member>
+    <member refid="group__dsirxss_1gacf02fba1186dd59ea301c448f21c6cce" kind="function"><name>XDsi2RxSs_CfgInitialize</name></member>
+    <member refid="group__dsirxss_1gaa289941e9d71e4d0d890e7f8b3d51a37" kind="function"><name>XDsi2RxSs_DefaultConfigure</name></member>
+    <member refid="group__dsirxss_1gaf332cc6cf666066eb9f5cad4c8e3213f" kind="function"><name>XDsi2RxSs_Activate</name></member>
+    <member refid="group__dsirxss_1ga911fad210453719e9310c3b138096985" kind="function"><name>XDsi2RxSs_Reset</name></member>
+    <member refid="group__dsirxss_1ga9ddf0047db648a70d3a504fad94af7e1" kind="function"><name>XDsi2RxSs_ReportCoreInfo</name></member>
+    <member refid="group__dsirxss_1ga77c35b7c60f267e093374252444b5f5f" kind="function"><name>XDsi2RxSs_GetConfigParams</name></member>
+    <member refid="group__dsirxss_1ga5c30eee05917e5298c3af145ef0687b1" kind="function"><name>XDsi2RxSs_IsControllerReady</name></member>
+    <member refid="group__dsirxss_1ga2cf031088593839d8ea59b5a490033c4" kind="function"><name>XDsi2RxSs_GetPixelFormat</name></member>
+  </compound>
+  <compound refid="xdsi2rxss_8h" kind="file"><name>xdsi2rxss.h</name>
+    <member refid="group__dsirxss_1ga0edea78461c3c71b2cbc6679d3d43d7b" kind="enum"><name>XDsi2RxSs_Selection</name></member>
+    <member refid="group__dsirxss_1gga0edea78461c3c71b2cbc6679d3d43d7ba94cb9ee3c36d78dd6323c0c1c581de9d" kind="enumvalue"><name>XDSI2RXSS_DISABLE</name></member>
+    <member refid="group__dsirxss_1gga0edea78461c3c71b2cbc6679d3d43d7ba4566aed1e43e4c8bd279e9e9b992cec9" kind="enumvalue"><name>XDSI2RXSS_ENABLE</name></member>
+    <member refid="group__dsirxss_1ga09a246136aab551ce3abd14f27a5c418" kind="enum"><name>XDsi2RxSs_SubCore</name></member>
+    <member refid="group__dsirxss_1gga09a246136aab551ce3abd14f27a5c418ad492becf1e1ae141d871b502a1a46bcc" kind="enumvalue"><name>XDSI2RXSS_DSI</name></member>
+    <member refid="group__dsirxss_1gga09a246136aab551ce3abd14f27a5c418a82cd9e81268d13102beafa66aa34a42e" kind="enumvalue"><name>XDSI2RXSS_PHY</name></member>
+    <member refid="group__dsirxss_1ga82e139937b9632f2558d429c4ff5b82e" kind="typedef"><name>XDsi2RxSs_Callback</name></member>
+    <member refid="group__dsirxss_1ga4efc5f50f88f952f7bb891a7744dcdaa" kind="function"><name>XDsi2RxSs_LookupConfig</name></member>
+    <member refid="group__dsirxss_1ga007151e6775d2507f0988046b69e1b07" kind="function"><name>XDsi2RxSs_GetDrvIndex</name></member>
+    <member refid="group__dsirxss_1gacf02fba1186dd59ea301c448f21c6cce" kind="function"><name>XDsi2RxSs_CfgInitialize</name></member>
+    <member refid="group__dsirxss_1gaa289941e9d71e4d0d890e7f8b3d51a37" kind="function"><name>XDsi2RxSs_DefaultConfigure</name></member>
+    <member refid="group__dsirxss_1gaf332cc6cf666066eb9f5cad4c8e3213f" kind="function"><name>XDsi2RxSs_Activate</name></member>
+    <member refid="group__dsirxss_1ga911fad210453719e9310c3b138096985" kind="function"><name>XDsi2RxSs_Reset</name></member>
+    <member refid="group__dsirxss_1ga9ddf0047db648a70d3a504fad94af7e1" kind="function"><name>XDsi2RxSs_ReportCoreInfo</name></member>
+    <member refid="group__dsirxss_1ga465c4422af2349fc45f2dd2f3badf675" kind="function"><name>XDsi2RxSs_SelfTest</name></member>
+    <member refid="group__dsirxss_1ga77c35b7c60f267e093374252444b5f5f" kind="function"><name>XDsi2RxSs_GetConfigParams</name></member>
+    <member refid="group__dsirxss_1ga5c30eee05917e5298c3af145ef0687b1" kind="function"><name>XDsi2RxSs_IsControllerReady</name></member>
+    <member refid="group__dsirxss_1ga2cf031088593839d8ea59b5a490033c4" kind="function"><name>XDsi2RxSs_GetPixelFormat</name></member>
+    <member refid="group__dsirxss_1gac41a4a217991dbc494383abe20dbc211" kind="function"><name>XDsi2RxSs_SetCallback</name></member>
+    <member refid="group__dsirxss_1gae21d03381f99fe44f81736b43a3dfd9f" kind="function"><name>XDsi2RxSs_IntrHandler</name></member>
+  </compound>
+  <compound refid="xdsi2rxss__g_8c" kind="file"><name>xdsi2rxss_g.c</name>
+    <member refid="group__dsirxss_1ga17d50891c43ded0efafc404b02fbf832" kind="variable"><name>XDsi2RxSs_ConfigTable</name></member>
+  </compound>
+  <compound refid="xdsi2rxss__hw_8h" kind="file"><name>xdsi2rxss_hw.h</name>
+    <member refid="group__dsi2rxss_1gaaec09ca3f9c29b59fe86140cffdaa472" kind="define"><name>XDSI2RXSS_HW_H_</name></member>
+    <member refid="group__dsi2rxss_1ga88cb9423546cfbd572b46f26fb728c76" kind="define"><name>XDsi2RxSs_In32</name></member>
+    <member refid="group__dsi2rxss_1ga9c701562033b611d825955dfe25f9505" kind="define"><name>XDsi2RxSs_Out32</name></member>
+    <member refid="group__dsi2rxss_1gacd166fda5cb530b7eeab88774a9530e9" kind="function"><name>XDsi2RxSs_ReadReg</name></member>
+    <member refid="group__dsi2rxss_1gabe285e64009929895e388fd3745b7b3c" kind="function"><name>XDsi2RxSs_WriteReg</name></member>
+  </compound>
+  <compound refid="xdsi2rxss__intr_8c" kind="file"><name>xdsi2rxss_intr.c</name>
+    <member refid="group__dsirxss_1ga54b30c41e3c917badd1eba84e3644fa9" kind="function"><name>XDsi2Rx_IntrHandler</name></member>
+    <member refid="group__dsirxss_1gaa210595203e836002bc8fad6184dec92" kind="function"><name>XDsi2Rx_InterruptEnable</name></member>
+    <member refid="group__dsirxss_1gae21d03381f99fe44f81736b43a3dfd9f" kind="function"><name>XDsi2RxSs_IntrHandler</name></member>
+    <member refid="group__dsirxss_1gacaec2c3ee2b7509f45c8882a8cf181ca" kind="function"><name>XDsi2RxSs_SetGlobalInterrupt</name></member>
+    <member refid="group__dsirxss_1gac03f22679082c95cb49fb34c0980034d" kind="function"><name>XDsi2RxSs_InterruptEnable</name></member>
+    <member refid="group__dsirxss_1gac41a4a217991dbc494383abe20dbc211" kind="function"><name>XDsi2RxSs_SetCallback</name></member>
+  </compound>
+  <compound refid="xdsi2rxss__selftest_8c" kind="file"><name>xdsi2rxss_selftest.c</name>
+    <member refid="group__dsi2rxss_1ga465c4422af2349fc45f2dd2f3badf675" kind="function"><name>XDsi2RxSs_SelfTest</name></member>
+  </compound>
+  <compound refid="xdsi2rxss__selftest__example_8c" kind="file"><name>xdsi2rxss_selftest_example.c</name>
+    <member refid="xdsi2rxss__selftest__example_8c_1a6bf6c5d716792c65365e909fba0ef112" kind="define"><name>XDSI2RXSS_BASE</name></member>
+    <member refid="xdsi2rxss__selftest__example_8c_1a2b6f3246a274b7a7b098bf69f4813414" kind="variable"><name>Dsi2RxSsInst</name></member>
+    <member refid="xdsi2rxss__selftest__example_8c_1aca3784ffa88ce005208db9acd21dc07c" kind="function"><name>Dsi2RxSs_SelfTestExample</name></member>
+    <member refid="xdsi2rxss__selftest__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xdsi2rxss__sinit_8c" kind="file"><name>xdsi2rxss_sinit.c</name>
+    <member refid="group__dsirxss_1ga17d50891c43ded0efafc404b02fbf832" kind="variable"><name>XDsi2RxSs_ConfigTable</name></member>
+    <member refid="group__dsirxss_1ga4efc5f50f88f952f7bb891a7744dcdaa" kind="function"><name>XDsi2RxSs_LookupConfig</name></member>
+    <member refid="group__dsirxss_1ga007151e6775d2507f0988046b69e1b07" kind="function"><name>XDsi2RxSs_GetDrvIndex</name></member>
+  </compound>
+  <compound refid="group__dsirxss" kind="group"><name>dsirxss</name>
+    <member refid="group__dsirxss_1ga0edea78461c3c71b2cbc6679d3d43d7b" kind="enum"><name>XDsi2RxSs_Selection</name></member>
+    <member refid="group__dsirxss_1gga0edea78461c3c71b2cbc6679d3d43d7ba94cb9ee3c36d78dd6323c0c1c581de9d" kind="enumvalue"><name>XDSI2RXSS_DISABLE</name></member>
+    <member refid="group__dsirxss_1gga0edea78461c3c71b2cbc6679d3d43d7ba4566aed1e43e4c8bd279e9e9b992cec9" kind="enumvalue"><name>XDSI2RXSS_ENABLE</name></member>
+    <member refid="group__dsirxss_1ga09a246136aab551ce3abd14f27a5c418" kind="enum"><name>XDsi2RxSs_SubCore</name></member>
+    <member refid="group__dsirxss_1gga09a246136aab551ce3abd14f27a5c418ad492becf1e1ae141d871b502a1a46bcc" kind="enumvalue"><name>XDSI2RXSS_DSI</name></member>
+    <member refid="group__dsirxss_1gga09a246136aab551ce3abd14f27a5c418a82cd9e81268d13102beafa66aa34a42e" kind="enumvalue"><name>XDSI2RXSS_PHY</name></member>
+    <member refid="group__dsirxss_1ga82e139937b9632f2558d429c4ff5b82e" kind="typedef"><name>XDsi2RxSs_Callback</name></member>
+    <member refid="group__dsirxss_1gab7c23911df208cd83549da7c22f845f4" kind="variable"><name>Dsi2SsSubCores</name></member>
+    <member refid="group__dsirxss_1ga17d50891c43ded0efafc404b02fbf832" kind="variable"><name>XDsi2RxSs_ConfigTable</name></member>
+    <member refid="group__dsirxss_1ga0a0a8802df4d2dd6521726f560335793" kind="function"><name>XDsi2RxSs_GetIncludedSubCores</name></member>
+    <member refid="group__dsirxss_1gafa751651854a43a94b1f20d96e7a7091" kind="function"><name>XDsi2RxSs_SubCoreInitDsi</name></member>
+    <member refid="group__dsirxss_1ga056538f5451541d2f779154556be043d" kind="function"><name>ComputeSubCoreAbsAddr</name></member>
+    <member refid="group__dsirxss_1gacf02fba1186dd59ea301c448f21c6cce" kind="function"><name>XDsi2RxSs_CfgInitialize</name></member>
+    <member refid="group__dsirxss_1gaa289941e9d71e4d0d890e7f8b3d51a37" kind="function"><name>XDsi2RxSs_DefaultConfigure</name></member>
+    <member refid="group__dsirxss_1gaf332cc6cf666066eb9f5cad4c8e3213f" kind="function"><name>XDsi2RxSs_Activate</name></member>
+    <member refid="group__dsirxss_1ga911fad210453719e9310c3b138096985" kind="function"><name>XDsi2RxSs_Reset</name></member>
+    <member refid="group__dsirxss_1ga9ddf0047db648a70d3a504fad94af7e1" kind="function"><name>XDsi2RxSs_ReportCoreInfo</name></member>
+    <member refid="group__dsirxss_1ga77c35b7c60f267e093374252444b5f5f" kind="function"><name>XDsi2RxSs_GetConfigParams</name></member>
+    <member refid="group__dsirxss_1ga5c30eee05917e5298c3af145ef0687b1" kind="function"><name>XDsi2RxSs_IsControllerReady</name></member>
+    <member refid="group__dsirxss_1ga2cf031088593839d8ea59b5a490033c4" kind="function"><name>XDsi2RxSs_GetPixelFormat</name></member>
+    <member refid="group__dsirxss_1ga4efc5f50f88f952f7bb891a7744dcdaa" kind="function"><name>XDsi2RxSs_LookupConfig</name></member>
+    <member refid="group__dsirxss_1ga007151e6775d2507f0988046b69e1b07" kind="function"><name>XDsi2RxSs_GetDrvIndex</name></member>
+    <member refid="group__dsirxss_1gac41a4a217991dbc494383abe20dbc211" kind="function"><name>XDsi2RxSs_SetCallback</name></member>
+    <member refid="group__dsirxss_1gae21d03381f99fe44f81736b43a3dfd9f" kind="function"><name>XDsi2RxSs_IntrHandler</name></member>
+    <member refid="group__dsirxss_1ga54b30c41e3c917badd1eba84e3644fa9" kind="function"><name>XDsi2Rx_IntrHandler</name></member>
+    <member refid="group__dsirxss_1gaa210595203e836002bc8fad6184dec92" kind="function"><name>XDsi2Rx_InterruptEnable</name></member>
+    <member refid="group__dsirxss_1gacaec2c3ee2b7509f45c8882a8cf181ca" kind="function"><name>XDsi2RxSs_SetGlobalInterrupt</name></member>
+    <member refid="group__dsirxss_1gac03f22679082c95cb49fb34c0980034d" kind="function"><name>XDsi2RxSs_InterruptEnable</name></member>
+  </compound>
+  <compound refid="group__dsi2rxss" kind="group"><name>dsi2rxss</name>
+    <member refid="group__dsi2rxss_1gacd166fda5cb530b7eeab88774a9530e9" kind="function"><name>XDsi2RxSs_ReadReg</name></member>
+    <member refid="group__dsi2rxss_1gabe285e64009929895e388fd3745b7b3c" kind="function"><name>XDsi2RxSs_WriteReg</name></member>
+    <member refid="group__dsi2rxss_1ga465c4422af2349fc45f2dd2f3badf675" kind="function"><name>XDsi2RxSs_SelfTest</name></member>
+    <member refid="group__dsi2rxss_1gaaec09ca3f9c29b59fe86140cffdaa472" kind="define"><name>XDSI2RXSS_HW_H_</name></member>
+    <member refid="group__dsi2rxss_1ga88cb9423546cfbd572b46f26fb728c76" kind="define"><name>XDsi2RxSs_In32</name></member>
+    <member refid="group__dsi2rxss_1ga9c701562033b611d825955dfe25f9505" kind="define"><name>XDsi2RxSs_Out32</name></member>
+  </compound>
+  <compound refid="example" kind="page"><name>example</name>
+  </compound>
+  <compound refid="dir_9e133b0533e9838e831a621afd242aa6" kind="dir"><name>dsirxss</name>
+  </compound>
+  <compound refid="dir_b6b7d1094ee51bc51b359c905d60154d" kind="dir"><name>examples</name>
+  </compound>
+  <compound refid="dir_a16648ccb19d74cd6a3f3a6c1280d326" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

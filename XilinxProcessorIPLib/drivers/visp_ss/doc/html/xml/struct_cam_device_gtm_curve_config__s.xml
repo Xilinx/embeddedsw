@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_gtm_curve_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceGtmCurveConfig_s</compoundname>
+    <includes local="no">cam_device_gtm_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_gtm_curve_config__s_1a38569bf6380663f8d265e9980d7fe7cd" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__gtm_1gaeeb6ce20008f05716956fde624f84820" kindref="member">CamDeviceGtmCurveSelect_t</ref></type>
+        <definition>CamDeviceGtmCurveSelect_t CamDeviceGtmCurveConfig_s::gtmCurveSelect</definition>
+        <argsstring></argsstring>
+        <name>gtmCurveSelect</name>
+        <briefdescription>
+<para>Curve select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_curve_config__s_1a326c78382d9cc80c89a82b4d6e7aaf69" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__gtm_1ga1e5b5e876a2fce4bdfb9f014c464c7ed" kindref="member">CamDeviceLinearShiftBit_t</ref></type>
+        <definition>CamDeviceLinearShiftBit_t CamDeviceGtmCurveConfig_s::shiftBit</definition>
+        <argsstring></argsstring>
+        <name>shiftBit</name>
+        <briefdescription>
+<para>Shift bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_curve_config__s_1ae36e7341c4de516526357be00b26f93b" prot="public" static="no" mutable="no">
+        <type>float64_t</type>
+        <definition>float64_t CamDeviceGtmCurveConfig_s::pwlKneeXLog</definition>
+        <argsstring></argsstring>
+        <name>pwlKneeXLog</name>
+        <briefdescription>
+<para>PWL knee X log. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_curve_config__s_1a7bad1283321cf743b64097b358b908f3" prot="public" static="no" mutable="no">
+        <type>float64_t</type>
+        <definition>float64_t CamDeviceGtmCurveConfig_s::pwlKneeYLog</definition>
+        <argsstring></argsstring>
+        <name>pwlKneeYLog</name>
+        <briefdescription>
+<para>PWL knee Y log. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_curve_config__s_1a222510cbb3163da0ba8ad9737cb35f11" prot="public" static="no" mutable="no">
+        <type>float64_t</type>
+        <definition>float64_t CamDeviceGtmCurveConfig_s::pwlMaxLog</definition>
+        <argsstring></argsstring>
+        <name>pwlMaxLog</name>
+        <briefdescription>
+<para>PWL max log. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_curve_config__s_1a56a327ae9142dfd90c229dd2175dc91a" prot="public" static="no" mutable="no">
+        <type>float64_t</type>
+        <definition>float64_t CamDeviceGtmCurveConfig_s::pwlMinLog</definition>
+        <argsstring></argsstring>
+        <name>pwlMinLog</name>
+        <briefdescription>
+<para>PWL min log. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_curve_config__s_1a006fa24060a5aaddec8bd35797ab038c" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceGtmCurveConfig_s::logKneeXLog</definition>
+        <argsstring></argsstring>
+        <name>logKneeXLog</name>
+        <briefdescription>
+<para>Log knee X log. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_curve_config__s_1a1a31a02758c9890f94927e1a297b2643" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceGtmCurveConfig_s::logKneeSlope</definition>
+        <argsstring></argsstring>
+        <name>logKneeSlope</name>
+        <briefdescription>
+<para>Log knee slope. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_curve_config__s_1a5a81aa309ae1df7c8ac2430ffd0be347" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceGtmCurveConfig_s::userCurve[CAMDEV_GTM_USER_CURVE_SIZE]</definition>
+        <argsstring>[CAMDEV_GTM_USER_CURVE_SIZE]</argsstring>
+        <name>userCurve</name>
+        <briefdescription>
+<para>User curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice GTM curve configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="147" bodyend="158"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_gtm_curve_config__s_1a38569bf6380663f8d265e9980d7fe7cd" prot="public" virt="non-virtual"><scope>CamDeviceGtmCurveConfig_s</scope><name>gtmCurveSelect</name></member>
+      <member refid="struct_cam_device_gtm_curve_config__s_1a1a31a02758c9890f94927e1a297b2643" prot="public" virt="non-virtual"><scope>CamDeviceGtmCurveConfig_s</scope><name>logKneeSlope</name></member>
+      <member refid="struct_cam_device_gtm_curve_config__s_1a006fa24060a5aaddec8bd35797ab038c" prot="public" virt="non-virtual"><scope>CamDeviceGtmCurveConfig_s</scope><name>logKneeXLog</name></member>
+      <member refid="struct_cam_device_gtm_curve_config__s_1ae36e7341c4de516526357be00b26f93b" prot="public" virt="non-virtual"><scope>CamDeviceGtmCurveConfig_s</scope><name>pwlKneeXLog</name></member>
+      <member refid="struct_cam_device_gtm_curve_config__s_1a7bad1283321cf743b64097b358b908f3" prot="public" virt="non-virtual"><scope>CamDeviceGtmCurveConfig_s</scope><name>pwlKneeYLog</name></member>
+      <member refid="struct_cam_device_gtm_curve_config__s_1a222510cbb3163da0ba8ad9737cb35f11" prot="public" virt="non-virtual"><scope>CamDeviceGtmCurveConfig_s</scope><name>pwlMaxLog</name></member>
+      <member refid="struct_cam_device_gtm_curve_config__s_1a56a327ae9142dfd90c229dd2175dc91a" prot="public" virt="non-virtual"><scope>CamDeviceGtmCurveConfig_s</scope><name>pwlMinLog</name></member>
+      <member refid="struct_cam_device_gtm_curve_config__s_1a326c78382d9cc80c89a82b4d6e7aaf69" prot="public" virt="non-virtual"><scope>CamDeviceGtmCurveConfig_s</scope><name>shiftBit</name></member>
+      <member refid="struct_cam_device_gtm_curve_config__s_1a5a81aa309ae1df7c8ac2430ffd0be347" prot="public" virt="non-virtual"><scope>CamDeviceGtmCurveConfig_s</scope><name>userCurve</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

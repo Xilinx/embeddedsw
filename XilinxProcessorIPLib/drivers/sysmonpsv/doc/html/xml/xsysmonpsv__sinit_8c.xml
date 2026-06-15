@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsysmonpsv__sinit_8c" kind="file">
+    <compoundname>xsysmonpsv_sinit.c</compoundname>
+    <includes refid="xsysmonpsv__hw_8h" local="yes">lowlevel/xsysmonpsv_hw.h</includes>
+    <includes refid="xsysmonpsv_8h" local="yes">xsysmonpsv.h</includes>
+    <incdepgraph>
+      <node id="194">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="196">
+        <label>xsysmonpsv_services.h</label>
+        <link refid="xsysmonpsv__services_8h"/>
+        <childnode refid="190" relation="include">
+        </childnode>
+        <childnode refid="194" relation="include">
+        </childnode>
+      </node>
+      <node id="189">
+        <label>xsysmonpsv.h</label>
+        <link refid="xsysmonpsv_8h"/>
+        <childnode refid="190" relation="include">
+        </childnode>
+        <childnode refid="191" relation="include">
+        </childnode>
+        <childnode refid="188" relation="include">
+        </childnode>
+        <childnode refid="192" relation="include">
+        </childnode>
+        <childnode refid="196" relation="include">
+        </childnode>
+      </node>
+      <node id="187">
+        <label>xsysmonpsv_sinit.c</label>
+        <link refid="xsysmonpsv_sinit.c"/>
+        <childnode refid="188" relation="include">
+        </childnode>
+        <childnode refid="189" relation="include">
+        </childnode>
+      </node>
+      <node id="193">
+        <label>xsysmonpsv_driver.h</label>
+        <link refid="xsysmonpsv__driver_8h"/>
+        <childnode refid="190" relation="include">
+        </childnode>
+        <childnode refid="194" relation="include">
+        </childnode>
+        <childnode refid="195" relation="include">
+        </childnode>
+      </node>
+      <node id="195">
+        <label>xsysmonpsv_supplylist.h</label>
+      </node>
+      <node id="191">
+        <label>xstatus.h</label>
+      </node>
+      <node id="190">
+        <label>xil_types.h</label>
+      </node>
+      <node id="188">
+        <label>lowlevel/xsysmonpsv_hw.h</label>
+        <link refid="xsysmonpsv__hw_8h"/>
+      </node>
+      <node id="192">
+        <label>xsysmonpsv_common.h</label>
+        <link refid="xsysmonpsv__common_8h"/>
+        <childnode refid="193" relation="include">
+        </childnode>
+        <childnode refid="195" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__sysmonpsv__api_1ga28f9626b9d0b374d150b23eda6f685b8" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_sys_mon_psv___config" kindref="compound">XSysMonPsv_Config</ref></type>
+        <definition>XSysMonPsv_Config XSysMonPsv_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XSysMonPsv_ConfigTable</name>
+        <briefdescription>
+<para>Config Table for sysmon device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/xsysmonpsv_sinit.c" line="49" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__sysmonpsv__api_1ga00b971717cc516fac2e07b91bedfcd4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_sys_mon_psv___config" kindref="compound">XSysMonPsv_Config</ref> *</type>
+        <definition>XSysMonPsv_Config* XSysMonPsv_LookupConfig</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSysMonPsv_LookupConfig</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Looks for the device configuration based on the unique device ID. </para>        </briefdescription>
+        <detaileddescription>
+<para>The table XSysmonPsu_ConfigTable[] contains the configuration information for each device in the system.</para><para><simplesect kind="return"><para>A pointer to the configuration table entry corresponding to the given device, or NULL if no match is found. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/xsysmonpsv_sinit.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/xsysmonpsv_sinit.c" bodystart="64" bodyend="71"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="32"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsysmonpsv__hw_8h" kindref="compound">lowlevel/xsysmonpsv_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsysmonpsv_8h" kindref="compound">xsysmonpsv.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_sys_mon_psv___config" kindref="compound">XSysMonPsv_Config</ref><sp/><ref refid="group__sysmonpsv__api_1ga28f9626b9d0b374d150b23eda6f685b8" kindref="member">XSysMonPsv_ConfigTable</ref>[];<sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="64" refid="group__sysmonpsv__api_1ga00b971717cc516fac2e07b91bedfcd4b" refkind="member"><highlight class="normal"><ref refid="struct_x_sys_mon_psv___config" kindref="compound">XSysMonPsv_Config</ref><sp/>*<ref refid="group__sysmonpsv__api_1ga00b971717cc516fac2e07b91bedfcd4b" kindref="member">XSysMonPsv_LookupConfig</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_sys_mon_psv___config" kindref="compound">XSysMonPsv_Config</ref><sp/>*CfgPtr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/>&amp;XSysMonPsv_ConfigTable[0];</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>CfgPtr;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/xsysmonpsv_sinit.c"/>
+  </compounddef>
+</doxygen>

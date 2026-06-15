@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_xil_pdi___boot_hdr_fw_rsvd" kind="struct" prot="public">
+    <compoundname>XilPdi_BootHdrFwRsvd</compoundname>
+    <includes local="no">xilpdi_plat.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_xil_pdi___boot_hdr_fw_rsvd_1a8584c30ac6da3bc60192679dceffc2da" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_BootHdrFwRsvd::MetaHdrOfst</definition>
+        <argsstring></argsstring>
+        <name>MetaHdrOfst</name>
+        <briefdescription>
+<para>Offset to the start of meta header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___boot_hdr_fw_rsvd_1a7353d7f0b48b7ab5e16346bdc552b067" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_BootHdrFwRsvd::FwRsvd</definition>
+        <argsstring>[24U]</argsstring>
+        <name>FwRsvd</name>
+        <briefdescription>
+<para>FW Reserved fields. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to store the Boot Header PMC FW fields. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal/xilpdi_plat.h" bodystart="161" bodyend="164"/>
+    <listofallmembers>
+      <member refid="struct_xil_pdi___boot_hdr_fw_rsvd_1a7353d7f0b48b7ab5e16346bdc552b067" prot="public" virt="non-virtual"><scope>XilPdi_BootHdrFwRsvd</scope><name>FwRsvd</name></member>
+      <member refid="struct_xil_pdi___boot_hdr_fw_rsvd_1a8584c30ac6da3bc60192679dceffc2da" prot="public" virt="non-virtual"><scope>XilPdi_BootHdrFwRsvd</scope><name>MetaHdrOfst</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

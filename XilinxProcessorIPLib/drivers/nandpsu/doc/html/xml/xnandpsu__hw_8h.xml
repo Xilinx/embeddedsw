@@ -1,0 +1,2040 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xnandpsu__hw_8h" kind="file">
+    <compoundname>xnandpsu_hw.h</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xnandpsu_8h" local="yes">xnandpsu.h</includedby>
+    <incdepgraph>
+      <node id="90">
+        <label>xnandpsu_hw.h</label>
+        <link refid="xnandpsu_hw.h"/>
+        <childnode refid="91" relation="include">
+        </childnode>
+      </node>
+      <node id="91">
+        <label>xil_io.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="92">
+        <label>xnandpsu_hw.h</label>
+        <link refid="xnandpsu_hw.h"/>
+        <childnode refid="93" relation="include">
+        </childnode>
+      </node>
+      <node id="97">
+        <label>xnandpsu_g.c</label>
+        <link refid="xnandpsu__g_8c"/>
+      </node>
+      <node id="96">
+        <label>xnandpsu_bbm.c</label>
+        <link refid="xnandpsu__bbm_8c"/>
+      </node>
+      <node id="95">
+        <label>xnandpsu_bbm.h</label>
+        <link refid="xnandpsu__bbm_8h"/>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+      </node>
+      <node id="94">
+        <label>xnandpsu.c</label>
+        <link refid="xnandpsu_8c"/>
+      </node>
+      <node id="93">
+        <label>xnandpsu.h</label>
+        <link refid="xnandpsu_8h"/>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+      </node>
+      <node id="98">
+        <label>xnandpsu_onfi.c</label>
+        <link refid="xnandpsu__onfi_8c"/>
+      </node>
+      <node id="100">
+        <label>xnandpsu_example.c</label>
+        <link refid="xnandpsu__example_8c"/>
+      </node>
+      <node id="99">
+        <label>xnandpsu_sinit.c</label>
+        <link refid="xnandpsu__sinit_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Packet Register bit definitions and masks</header>
+      <memberdef kind="define" id="group___overview_1gaff5a4f3cd89dbc99bfe07ff67fb33bcd" prot="public" static="no">
+        <name>XNANDPSU_PKT_PKT_SIZE_MASK</name>
+        <initializer>0x000007FFU</initializer>
+        <briefdescription>
+<para>Packet Size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gae94bec18e6ac1a4a005acc2dcb5bb6ca" prot="public" static="no">
+        <name>XNANDPSU_PKT_PKT_CNT_MASK</name>
+        <initializer>0x00FFF000U</initializer>
+        <briefdescription>
+<para>Packet Count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga7bb914b32ccd8525663a08d8539194e6" prot="public" static="no">
+        <name>XNANDPSU_PKT_PKT_CNT_SHIFT</name>
+        <initializer>12U</initializer>
+        <briefdescription>
+<para>Packet Count Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Memory Address Register 1 bit definitions and masks</header>
+      <memberdef kind="define" id="group___overview_1ga54ddf708eea2b687890ecdba14d03bb6" prot="public" static="no">
+        <name>XNANDPSU_MEM_ADDR1_COL_ADDR_MASK</name>
+        <initializer>0x0000FFFFU</initializer>
+        <briefdescription>
+<para>Column Address Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gab6eff2647f2f5aa81b257379c2816db0" prot="public" static="no">
+        <name>XNANDPSU_MEM_ADDR1_PG_ADDR_MASK</name>
+        <initializer>0xFFFF0000U</initializer>
+        <briefdescription>
+<para>Page, Block Address Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gac63bb75546ca3b8263c258c51938b282" prot="public" static="no">
+        <name>XNANDPSU_MEM_ADDR1_PG_ADDR_SHIFT</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+<para>Page Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Memory Address Register 2 bit definitions and masks</header>
+      <memberdef kind="define" id="group___overview_1gaf9f73670a35803702bd1fe6e630523d5" prot="public" static="no">
+        <name>XNANDPSU_MEM_ADDR2_MEM_ADDR_MASK</name>
+        <initializer>0x000000FFU</initializer>
+        <briefdescription>
+<para>Memory Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga9d13fe52622748d57ad0951c49ff54fa" prot="public" static="no">
+        <name>XNANDPSU_MEM_ADDR2_BUS_WIDTH_MASK</name>
+        <initializer>0x01000000U</initializer>
+        <briefdescription>
+<para>Bus Width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga53497f5949cc23126b7e3190bd3a6908" prot="public" static="no">
+        <name>XNANDPSU_MEM_ADDR2_NFC_BCH_MODE_MASK</name>
+        <initializer>0x0E000000U</initializer>
+        <briefdescription>
+<para>BCH Mode Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga9be27399c2b11f93bb8f2952a162be6a" prot="public" static="no">
+        <name>XNANDPSU_MEM_ADDR2_MODE_MASK</name>
+        <initializer>0x30000000U</initializer>
+        <briefdescription>
+<para>Flash Connection Mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gababdf3c8f51458162c74b799162a66fe" prot="public" static="no">
+        <name>XNANDPSU_MEM_ADDR2_CHIP_SEL_MASK</name>
+        <initializer>0xC0000000U</initializer>
+        <briefdescription>
+<para>Chip Select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga6ef00be8ac500da3751aea47e8427004" prot="public" static="no">
+        <name>XNANDPSU_MEM_ADDR2_CHIP_SEL_SHIFT</name>
+        <initializer>30U</initializer>
+        <briefdescription>
+<para>Chip select shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga9af3aa809592a351d652abc03746f6b4" prot="public" static="no">
+        <name>XNANDPSU_MEM_ADDR2_BUS_WIDTH_SHIFT</name>
+        <initializer>24U</initializer>
+        <briefdescription>
+<para>Bus width shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga8b9c9a193fb3b27e3436d2e81e95f26a" prot="public" static="no">
+        <name>XNANDPSU_MEM_ADDR2_NFC_BCH_MODE_SHIFT</name>
+        <initializer>25U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Command Register bit definitions and masks</header>
+      <memberdef kind="define" id="group___overview_1ga8be14703559f7520d8a3117232e64c06" prot="public" static="no">
+        <name>XNANDPSU_CMD_CMD1_MASK</name>
+        <initializer>0x000000FFU</initializer>
+        <briefdescription>
+<para>1st Cycle Command </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gacadb4a6cbb11dd64c3d6be90a5ccf820" prot="public" static="no">
+        <name>XNANDPSU_CMD_CMD2_MASK</name>
+        <initializer>0x0000FF00U</initializer>
+        <briefdescription>
+<para>2nd Cycle Command </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="168" bodyend="-1"/>
+        <referencedby refid="group___overview_1gabfb036fc0238a5c54de831574c371450" compoundref="xnandpsu_8c" startline="2693" endline="2718">XNandPsu_Prepare_Cmd</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga6e360fc42464429db754164c281e833f" prot="public" static="no">
+        <name>XNANDPSU_CMD_PG_SIZE_MASK</name>
+        <initializer>0x03800000U</initializer>
+        <briefdescription>
+<para>Page Size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga1165fe99133cfe6c3c3f6dea1bddd81d" prot="public" static="no">
+        <name>XNANDPSU_CMD_DMA_EN_MASK</name>
+        <initializer>0x0C000000U</initializer>
+        <briefdescription>
+<para>DMA Enable Mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaa1b6a2ad4deb045b9ecb3e2309438585" prot="public" static="no">
+        <name>XNANDPSU_CMD_ADDR_CYCLES_MASK</name>
+        <initializer>0x70000000U</initializer>
+        <briefdescription>
+<para>Number of Address Cycles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gae9d4edc9daf720b8a6dd430b1b41037e" prot="public" static="no">
+        <name>XNANDPSU_CMD_ECC_ON_MASK</name>
+        <initializer>0x80000000U</initializer>
+        <briefdescription>
+<para>ECC ON/OFF. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga548e02649547dbb26d3ba373b67a185a" prot="public" static="no">
+        <name>XNANDPSU_CMD_CMD2_SHIFT</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>2nd Cycle Command Shift </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="179" bodyend="-1"/>
+        <referencedby refid="group___overview_1gabfb036fc0238a5c54de831574c371450" compoundref="xnandpsu_8c" startline="2693" endline="2718">XNandPsu_Prepare_Cmd</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga7d66adb5ed5172971ccd6133e493ee45" prot="public" static="no">
+        <name>XNANDPSU_CMD_PG_SIZE_SHIFT</name>
+        <initializer>23U</initializer>
+        <briefdescription>
+<para>Page Size Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga31cd55caad2584c9d1dcf333c526e7ca" prot="public" static="no">
+        <name>XNANDPSU_CMD_DMA_EN_SHIFT</name>
+        <initializer>26U</initializer>
+        <briefdescription>
+<para>DMA Enable Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="183" bodyend="-1"/>
+        <referencedby refid="group___overview_1gabfb036fc0238a5c54de831574c371450" compoundref="xnandpsu_8c" startline="2693" endline="2718">XNandPsu_Prepare_Cmd</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga4289b87f7c202422ab0c90fe284d759e" prot="public" static="no">
+        <name>XNANDPSU_CMD_ADDR_CYCLES_SHIFT</name>
+        <initializer>28U</initializer>
+        <briefdescription>
+<para>Number of Address Cycles Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="184" bodyend="-1"/>
+        <referencedby refid="group___overview_1gabfb036fc0238a5c54de831574c371450" compoundref="xnandpsu_8c" startline="2693" endline="2718">XNandPsu_Prepare_Cmd</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga390ead6fc832b4423d5769094880951f" prot="public" static="no">
+        <name>XNANDPSU_CMD_ECC_ON_SHIFT</name>
+        <initializer>31U</initializer>
+        <briefdescription>
+<para>ECC ON/OFF. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="187" bodyend="-1"/>
+        <referencedby refid="group___overview_1gabfb036fc0238a5c54de831574c371450" compoundref="xnandpsu_8c" startline="2693" endline="2718">XNandPsu_Prepare_Cmd</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Program Register bit definitions and masks</header>
+      <memberdef kind="define" id="group___overview_1ga3c38a395e56cd70c7c6bb4cba7b31d43" prot="public" static="no">
+        <name>XNANDPSU_PROG_RD_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="160" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="193" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1a3f550f53d5c1d7ffead626cf0dd7c3" compoundref="xnandpsu_8c" startline="2100" endline="2153">XNandPsu_ReadSpareBytes</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga1e62fd307ad3929f6bd3cadfe6042e23" prot="public" static="no">
+        <name>XNANDPSU_PROG_MUL_DIE_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Multi Die. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga438b57de344713f8444fcd11496d1098" prot="public" static="no">
+        <name>XNANDPSU_PROG_BLK_ERASE_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Block Erase. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="195" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga59942044a415eacf3399b77b70fe3a20" compoundref="xnandpsu_8c" startline="2171" endline="2210">XNandPsu_EraseBlock</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga81d41547ab7fd4a73c30439f12f7d4b4" prot="public" static="no">
+        <name>XNANDPSU_PROG_RD_STS_MASK</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>Read Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga8283bf247a2fdc39f13634b42da12938" prot="public" static="no">
+        <name>XNANDPSU_PROG_PG_PROG_MASK</name>
+        <initializer>0x00000010U</initializer>
+        <briefdescription>
+<para>Page Program. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="197" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga7c4f4816209d1d66b9de152735046b0f" compoundref="xnandpsu_8c" startline="1827" endline="1952">XNandPsu_WriteSpareBytes</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga4ebdac84eff62e4c0acb55178e58ae6f" prot="public" static="no">
+        <name>XNANDPSU_PROG_MUL_DIE_RD_MASK</name>
+        <initializer>0x00000020U</initializer>
+        <briefdescription>
+<para>Multi Die Rd. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga174d9c67daa7ee1eb90f9527b8e944f7" prot="public" static="no">
+        <name>XNANDPSU_PROG_RD_ID_MASK</name>
+        <initializer>0x00000040U</initializer>
+        <briefdescription>
+<para>Read ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga09ec25683ecf1c52b4386aec2c56e799" prot="public" static="no">
+        <name>XNANDPSU_PROG_RD_PRM_PG_MASK</name>
+        <initializer>0x00000080U</initializer>
+        <briefdescription>
+<para>Read Param Page. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga9db90a714c444e48f2837a6550baf03b" prot="public" static="no">
+        <name>XNANDPSU_PROG_RST_MASK</name>
+        <initializer>0x00000100U</initializer>
+        <briefdescription>
+<para>Reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga6db393ae018d58368f3fff85591c84fe" prot="public" static="no">
+        <name>XNANDPSU_PROG_GET_FEATURES_MASK</name>
+        <initializer>0x00000200U</initializer>
+        <briefdescription>
+<para>Get Features. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="204" bodyend="-1"/>
+        <referencedby refid="group___overview_1gaa6725c5aa761078a438094bad802045e" compoundref="xnandpsu_8c" startline="2229" endline="2269">XNandPsu_GetFeature</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gadf472233e7c587746e007d035d5c6807" prot="public" static="no">
+        <name>XNANDPSU_PROG_SET_FEATURES_MASK</name>
+        <initializer>0x00000400U</initializer>
+        <briefdescription>
+<para>Set Features. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="171" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="205" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga785eaf418c8f7e7c3fb6098ba327b720" compoundref="xnandpsu_8c" startline="2288" endline="2331">XNandPsu_SetFeature</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gabda8fb5fcc322128f76db97b6d83a64d" prot="public" static="no">
+        <name>XNANDPSU_PROG_RD_UNQ_ID_MASK</name>
+        <initializer>0x00000800U</initializer>
+        <briefdescription>
+<para>Read Unique ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga7739734fff8dd0b231b2b1b617fde0a4" prot="public" static="no">
+        <name>XNANDPSU_PROG_RD_STS_ENH_MASK</name>
+        <initializer>0x00001000U</initializer>
+        <briefdescription>
+<para>Read Status Enhanced. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga2c9ef1217ed97793344622228e3107a6" prot="public" static="no">
+        <name>XNANDPSU_PROG_RD_INTRLVD_MASK</name>
+        <initializer>0x00002000U</initializer>
+        <briefdescription>
+<para>Read Interleaved. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaadf5933321faab54c9b4a9745b2c0288" prot="public" static="no">
+        <name>XNANDPSU_PROG_CHNG_RD_COL_ENH_MASK</name>
+        <initializer>0x00004000U</initializer>
+        <briefdescription>
+<para>Change Read Column Enhanced. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gab1218c07eb4ca421ebebe66ad437e70f" prot="public" static="no">
+        <name>XNANDPSU_PROG_COPY_BACK_INTRLVD_MASK</name>
+        <initializer>0x00008000U</initializer>
+        <briefdescription>
+<para>Copy Back Interleaved. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaeb66fdf840870fec5f181204179e3f1a" prot="public" static="no">
+        <name>XNANDPSU_PROG_RD_CACHE_START_MASK</name>
+        <initializer>0x00010000U</initializer>
+        <briefdescription>
+<para>Read Cache Start. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga6418bbc8604bf65ebe368fe07a0fa891" prot="public" static="no">
+        <name>XNANDPSU_PROG_RD_CACHE_SEQ_MASK</name>
+        <initializer>0x00020000U</initializer>
+        <briefdescription>
+<para>Read Cache Sequential. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="186" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga1126f95d5a98b2375d0266c6db3e92e5" prot="public" static="no">
+        <name>XNANDPSU_PROG_RD_CACHE_RAND_MASK</name>
+        <initializer>0x00040000U</initializer>
+        <briefdescription>
+<para>Read Cache Random. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="188" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga8166724a7206cd0c5564f97977ff444e" prot="public" static="no">
+        <name>XNANDPSU_PROG_RD_CACHE_END_MASK</name>
+        <initializer>0x00080000U</initializer>
+        <briefdescription>
+<para>Read Cache End. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="190" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="232" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaca5b1533ad5ea4b17b9a932221c3189a" prot="public" static="no">
+        <name>XNANDPSU_PROG_SMALL_DATA_MOVE_MASK</name>
+        <initializer>0x00100000U</initializer>
+        <briefdescription>
+<para>Small Data Move. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaf52a34b9e6851425cef6986b01daf7d7" prot="public" static="no">
+        <name>XNANDPSU_PROG_CHNG_ROW_ADDR_MASK</name>
+        <initializer>0x00200000U</initializer>
+        <briefdescription>
+<para>Change Row Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="194" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="238" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga7c4f4816209d1d66b9de152735046b0f" compoundref="xnandpsu_8c" startline="1827" endline="1952">XNandPsu_WriteSpareBytes</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gafd3c66bd83d79ea5e89a220e4459a121" prot="public" static="no">
+        <name>XNANDPSU_PROG_CHNG_ROW_ADDR_END_MASK</name>
+        <initializer>0x00400000U</initializer>
+        <briefdescription>
+<para>Change Row Address End. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="196" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga7420ae607c46fc1a461eaad42b5310cc" prot="public" static="no">
+        <name>XNANDPSU_PROG_RST_LUN_MASK</name>
+        <initializer>0x00800000U</initializer>
+        <briefdescription>
+<para>Reset LUN. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="197" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaa789076d269cb48b93e89cf3c7f82719" prot="public" static="no">
+        <name>XNANDPSU_PROG_PGM_PG_CLR_MASK</name>
+        <initializer>0x01000000U</initializer>
+        <briefdescription>
+<para>Enhanced Program Page Register Clear. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="200" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaff674fd5d8a065adfa37d2c284deee88" prot="public" static="no">
+        <name>XNANDPSU_PROG_VOL_SEL_MASK</name>
+        <initializer>0x02000000U</initializer>
+        <briefdescription>
+<para>Volume Select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="201" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaccbe018ae70ca6e190c73e8c2b7ca0d8" prot="public" static="no">
+        <name>XNANDPSU_PROG_ODT_CONF_MASK</name>
+        <initializer>0x04000000U</initializer>
+        <briefdescription>
+<para>ODT Configure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="202" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="251" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt Status Enable Register bit definitions and masks</header>
+      <memberdef kind="define" id="group___overview_1gafb9c672287fcc76bbb63e86e04c596ac" prot="public" static="no">
+        <name>XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Buffer Write Ready Status Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="211" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="257" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga785eaf418c8f7e7c3fb6098ba327b720" compoundref="xnandpsu_8c" startline="2288" endline="2331">XNandPsu_SetFeature</referencedby>
+        <referencedby refid="group___overview_1ga7c4f4816209d1d66b9de152735046b0f" compoundref="xnandpsu_8c" startline="1827" endline="1952">XNandPsu_WriteSpareBytes</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga145b9b3fbd465190f747e8fb3ff1935a" prot="public" static="no">
+        <name>XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Buffer Read Ready Status Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="215" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="264" bodyend="-1"/>
+        <referencedby refid="group___overview_1gaa6725c5aa761078a438094bad802045e" compoundref="xnandpsu_8c" startline="2229" endline="2269">XNandPsu_GetFeature</referencedby>
+        <referencedby refid="group___overview_1ga1a3f550f53d5c1d7ffead626cf0dd7c3" compoundref="xnandpsu_8c" startline="2100" endline="2153">XNandPsu_ReadSpareBytes</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gad19965121768bf4ada7285e14ad831a0" prot="public" static="no">
+        <name>XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Transfer Complete Status Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="219" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="271" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga59942044a415eacf3399b77b70fe3a20" compoundref="xnandpsu_8c" startline="2171" endline="2210">XNandPsu_EraseBlock</referencedby>
+        <referencedby refid="group___overview_1ga1a3f550f53d5c1d7ffead626cf0dd7c3" compoundref="xnandpsu_8c" startline="2100" endline="2153">XNandPsu_ReadSpareBytes</referencedby>
+        <referencedby refid="group___overview_1ga7c4f4816209d1d66b9de152735046b0f" compoundref="xnandpsu_8c" startline="1827" endline="1952">XNandPsu_WriteSpareBytes</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga225e3c2c1e47f366e201862df3f2a425" prot="public" static="no">
+        <name>XNANDPSU_INTR_STS_EN_MUL_BIT_ERR_STS_EN_MASK</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>Multi Bit Error Status Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="223" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="278" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga18cc911e7b742c86aca0cd41427f5709" prot="public" static="no">
+        <name>XNANDPSU_INTR_STS_EN_ERR_INTR_STS_EN_MASK</name>
+        <initializer>0x00000010U</initializer>
+        <briefdescription>
+<para>Single Bit Error Status Enable, BCH Detect Error Status Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="231" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="285" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga1b8ba65fd47a9bcc532ddd420600be16" prot="public" static="no">
+        <name>XNANDPSU_INTR_STS_EN_DMA_INT_STS_EN_MASK</name>
+        <initializer>0x00000040U</initializer>
+        <briefdescription>
+<para>DMA Status Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="234" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga4991de46bf5054ac551c643f601ac985" prot="public" static="no">
+        <name>XNANDPSU_INTR_STS_EN_ERR_AHB_STS_EN_MASK</name>
+        <initializer>0x00000080U</initializer>
+        <briefdescription>
+<para>Error AHB Status Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="237" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt Signal Enable Register bit definitions and masks</header>
+      <memberdef kind="define" id="group___overview_1ga1992e66b7033b24922ed9ceadd0246b1" prot="public" static="no">
+        <name>XNANDPSU_INTR_SIG_EN_BUFF_WR_RDY_STS_EN_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Buffer Write Ready Signal Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="246" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="315" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaa3f422c1d70ba95d7192e18ff0d2ccdd" prot="public" static="no">
+        <name>XNANDPSU_INTR_SIG_EN_BUFF_RD_RDY_STS_EN_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Buffer Read Ready Signal Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="322" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaec9d3570d2544d2538356983fbc93aef" prot="public" static="no">
+        <name>XNANDPSU_INTR_SIG_EN_TRANS_COMP_STS_EN_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Transfer Complete Signal Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="254" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="329" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaccf834d31e334684f1c3edc2ba85ed4b" prot="public" static="no">
+        <name>XNANDPSU_INTR_SIG_EN_MUL_BIT_ERR_STS_EN_MASK</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>Multi Bit Error Signal Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="258" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="336" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gac4793212af4be840c53cc4fd5100809f" prot="public" static="no">
+        <name>XNANDPSU_INTR_SIG_EN_ERR_INTR_STS_EN_MASK</name>
+        <initializer>0x00000010U</initializer>
+        <briefdescription>
+<para>Single Bit Error Signal Enable, BCH Detect Error Signal Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="266" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="343" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaf0f1a8eb12f60f4bcb62e80fa5ea1427" prot="public" static="no">
+        <name>XNANDPSU_INTR_SIG_EN_DMA_INT_STS_EN_MASK</name>
+        <initializer>0x00000040U</initializer>
+        <briefdescription>
+<para>DMA Signal Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="269" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="358" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga6cab16ebdaea1fa3b25b94c4a38faa2f" prot="public" static="no">
+        <name>XNANDPSU_INTR_SIG_EN_ERR_AHB_STS_EN_MASK</name>
+        <initializer>0x00000080U</initializer>
+        <briefdescription>
+<para>Error AHB Signal Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="272" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="363" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt Status Register bit definitions and masks</header>
+      <memberdef kind="define" id="group___overview_1gae62e6f19f413fd5a342a6bad4109a14c" prot="public" static="no">
+        <name>XNANDPSU_INTR_STS_BUFF_WR_RDY_STS_EN_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Buffer Write Ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="280" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="373" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaa5bb4ebb8858c80a0fbc70bc9ec1c8c4" prot="public" static="no">
+        <name>XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Buffer Read Ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="283" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="378" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga97422ad3a8c3a3467e9690f34c2d4b6d" prot="public" static="no">
+        <name>XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Transfer Complete. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="285" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="383" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gacc22839b9c591d69f1c8d493e846cb5f" prot="public" static="no">
+        <name>XNANDPSU_INTR_STS_MUL_BIT_ERR_STS_EN_MASK</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>Multi Bit Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="287" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="386" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga55a21ebd02928d9a6ad5cde4921518a0" prot="public" static="no">
+        <name>XNANDPSU_INTR_STS_ERR_INTR_STS_EN_MASK</name>
+        <initializer>0x00000010U</initializer>
+        <briefdescription>
+<para>Single Bit Error, BCH Detect Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="291" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="389" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga80a79e28e9cd6a7578ca9acb05f887c5" prot="public" static="no">
+        <name>XNANDPSU_INTR_STS_DMA_INT_STS_EN_MASK</name>
+        <initializer>0x00000040U</initializer>
+        <briefdescription>
+<para>DMA Interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="294" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="396" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga89851ad93665e6d0f4cda642cd0b29f4" prot="public" static="no">
+        <name>XNANDPSU_INTR_STS_ERR_AHB_STS_EN_MASK</name>
+        <initializer>0x00000080U</initializer>
+        <briefdescription>
+<para>Error AHB. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="296" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="401" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt bit definitions and masks</header>
+      <memberdef kind="define" id="group___overview_1ga1a2ebef7b0dce3076218b70769c9dd4e" prot="public" static="no">
+        <name>XNANDPSU_INTR_BUFF_WR_RDY_STS_EN_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Buffer Write Ready Status Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="304" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="409" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaf6e729c0707474c208d2d53fd8f4d78b" prot="public" static="no">
+        <name>XNANDPSU_INTR_BUFF_RD_RDY_STS_EN_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Buffer Read Ready Status Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="307" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="414" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga90c8386b1051e1a22edbd499e22277d3" prot="public" static="no">
+        <name>XNANDPSU_INTR_TRANS_COMP_STS_EN_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Transfer Complete Status Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="310" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="419" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga00080c00cd52f8d759207f46da1812e6" prot="public" static="no">
+        <name>XNANDPSU_INTR_MUL_BIT_ERR_STS_EN_MASK</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>Multi Bit Error Status Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="312" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="424" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gafae759a24262ac1abeef7f21b4588537" prot="public" static="no">
+        <name>XNANDPSU_INTR_ERR_INTR_STS_EN_MASK</name>
+        <initializer>0x00000010U</initializer>
+        <briefdescription>
+<para>Single Bit Error Status Enable, BCH Detect Error Status Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="316" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="427" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga5bb73feb9da2cd28883dd8791505a9d3" prot="public" static="no">
+        <name>XNANDPSU_INTR_DMA_INT_STS_EN_MASK</name>
+        <initializer>0x00000040U</initializer>
+        <briefdescription>
+<para>DMA Status Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="318" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="434" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaf8453a8e2c46bbe91ea858c0733d547a" prot="public" static="no">
+        <name>XNANDPSU_INTR_ERR_AHB_STS_EN_MASK</name>
+        <initializer>0x00000080U</initializer>
+        <briefdescription>
+<para>Error AHB Status Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="320" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="437" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>ID2 Register bit definitions and masks</header>
+      <memberdef kind="define" id="group___overview_1gacd278344026a53c088f8e57e15e10b4e" prot="public" static="no">
+        <name>XNANDPSU_ID2_DEVICE_ID2_MASK</name>
+        <initializer>0x000000FFU</initializer>
+        <briefdescription>
+<para>MSB Device ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="326" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="445" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Flash Status Register bit definitions and masks</header>
+      <memberdef kind="define" id="group___overview_1ga50e271f7688c49f944f5fdd11a28008a" prot="public" static="no">
+        <name>XNANDPSU_FLASH_STS_FLASH_STS_MASK</name>
+        <initializer>0x0000FFFFU</initializer>
+        <briefdescription>
+<para>Flash Status Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="333" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="451" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Timing Register bit definitions and masks</header>
+      <memberdef kind="define" id="group___overview_1ga6654ac2cca76bc95aca0a3612fe3b435" prot="public" static="no">
+        <name>XNANDPSU_TIMING_TCCS_TIME_MASK</name>
+        <initializer>0x00000003U</initializer>
+        <briefdescription>
+<para>Change column setup time. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="340" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="459" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga06d45acea908c6857ef14851bd5e9c63" prot="public" static="no">
+        <name>XNANDPSU_TIMING_SLOW_FAST_TCAD_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Slow/Fast device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="342" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="462" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gacf007d0dffc14a704592683dff2ca981" prot="public" static="no">
+        <name>XNANDPSU_TIMING_DQS_BUFF_SEL_MASK</name>
+        <initializer>0x00000078U</initializer>
+        <briefdescription>
+<para>Write/Read data transaction value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="345" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="465" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga5a8d1587d7dc738a35c3ec367b605a92" prot="public" static="no">
+        <name>XNANDPSU_TIMING_TADL_TIME_MASK</name>
+        <initializer>0x00007F80U</initializer>
+        <briefdescription>
+<para>Address latch enable to Data loading time. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="348" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="470" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>ECC Register bit definitions and masks</header>
+      <memberdef kind="define" id="group___overview_1gaa15d3fa3bf04e12027240dd40fa6dfc1" prot="public" static="no">
+        <name>XNANDPSU_ECC_ADDR_MASK</name>
+        <initializer>0x0000FFFFU</initializer>
+        <briefdescription>
+<para>ECC address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="354" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="480" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gabd72b80bb40b06903b297413e34dd1c0" prot="public" static="no">
+        <name>XNANDPSU_ECC_SIZE_MASK</name>
+        <initializer>0x01FF0000U</initializer>
+        <briefdescription>
+<para>ECC size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="355" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="481" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga3e4296f9673030022b7a75c12fec561e" prot="public" static="no">
+        <name>XNANDPSU_ECC_HAMMING_BCH_MASK</name>
+        <initializer>0x02000000U</initializer>
+        <briefdescription>
+<para>Hamming/BCH support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="357" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="482" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>ECC Error Count Register bit definitions and masks</header>
+      <memberdef kind="define" id="group___overview_1ga620d7a1db0f858f953768fe5529dd0fe" prot="public" static="no">
+        <name>XNANDPSU_ECC_ERR_CNT_PKT_BND_ERR_CNT_MASK</name>
+        <initializer>0x000000FFU</initializer>
+        <briefdescription>
+<para>Packet bound error count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="365" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="490" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaa4b650601243772063b53a755fb91e5b" prot="public" static="no">
+        <name>XNANDPSU_ECC_ERR_CNT_PG_BND_ERR_CNT_MASK</name>
+        <initializer>0x0000FF00U</initializer>
+        <briefdescription>
+<para>Page bound error count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="368" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="495" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>ECC Spare Command Register bit definitions and masks</header>
+      <memberdef kind="define" id="group___overview_1ga50abec7f8c788073e486877a8734c58e" prot="public" static="no">
+        <name>XNANDPSU_ECC_SPR_CMD_SPR_CMD_MASK</name>
+        <initializer>0x000000FFU</initializer>
+        <briefdescription>
+<para>ECC spare command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="376" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="505" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga71944613f55039e041250518447d300a" prot="public" static="no">
+        <name>XNANDPSU_ECC_SPR_CMD_ECC_ADDR_CYCLES_MASK</name>
+        <initializer>0x70000000U</initializer>
+        <briefdescription>
+<para>Number of ECC/ spare address cycles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="381" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="510" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Data Interface Register bit definitions and masks</header>
+      <memberdef kind="define" id="group___overview_1ga0814a2358814f9ecd61b675a3b05a3e6" prot="public" static="no">
+        <name>XNANDPSU_DATA_INTF_SDR_MASK</name>
+        <initializer>0x00000007U</initializer>
+        <briefdescription>
+<para>SDR mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="387" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="524" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga2af319aa44c2289c2ad189f85adc64af" prot="public" static="no">
+        <name>XNANDPSU_DATA_INTF_NVDDR_MASK</name>
+        <initializer>0x00000038U</initializer>
+        <briefdescription>
+<para>NVDDR mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="388" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="525" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga735bb9e568cf60cb8900b3b6d8546ebc" prot="public" static="no">
+        <name>XNANDPSU_DATA_INTF_NVDDR2_MASK</name>
+        <initializer>0x000001C0U</initializer>
+        <briefdescription>
+<para>NVDDR2 mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="389" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="526" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga2f9ceae9a7e9e68fdf6e99a8bdf6f049" prot="public" static="no">
+        <name>XNANDPSU_DATA_INTF_DATA_INTF_MASK</name>
+        <initializer>0x00000600U</initializer>
+        <briefdescription>
+<para>Data Interface. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="391" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="527" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga59a9a4d7449ae8c2c8c6dbea6cbc93cc" prot="public" static="no">
+        <name>XNANDPSU_DATA_INTF_NVDDR_SHIFT</name>
+        <initializer>3U</initializer>
+        <briefdescription>
+<para>NVDDR mode shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="392" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="530" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga44655d50665d8b4ae9064abcc3dd125b" prot="public" static="no">
+        <name>XNANDPSU_DATA_INTF_DATA_INTF_SHIFT</name>
+        <initializer>9U</initializer>
+        <briefdescription>
+<para>Data Interface Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="393" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="531" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga22080a2813ff692c0b64e0bbd9715f91" compoundref="xnandpsu_8c" startline="2370" endline="2497">XNandPsu_ChangeTimingMode</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>DMA Buffer Boundary Register bit definitions and masks</header>
+      <memberdef kind="define" id="group___overview_1ga5a52ede33796646e263eccb79de35e4c" prot="public" static="no">
+        <name>XNANDPSU_DMA_BUF_BND_BND_MASK</name>
+        <initializer>0x00000007U</initializer>
+        <briefdescription>
+<para>DMA buffer boundary. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="400" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="537" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga1a30a7722ba522b2ded438107a1b1d85" prot="public" static="no">
+        <name>XNANDPSU_DMA_BUF_BND_4K</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="401" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="540" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaf4d03cdc92c07f64b644cb72bf6f09b7" prot="public" static="no">
+        <name>XNANDPSU_DMA_BUF_BND_8K</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="402" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="541" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga4d5e0b4cdbe94dd80c6a06e8e0bd7411" prot="public" static="no">
+        <name>XNANDPSU_DMA_BUF_BND_16K</name>
+        <initializer>0x2U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="403" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="542" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga577823d119c58459a85fcfd216a11040" prot="public" static="no">
+        <name>XNANDPSU_DMA_BUF_BND_32K</name>
+        <initializer>0x3U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="404" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="543" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga5e5c076af97cf2bd83e1ab09855798e7" prot="public" static="no">
+        <name>XNANDPSU_DMA_BUF_BND_64K</name>
+        <initializer>0x4U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="405" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="544" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga41cd2daa2f115be27f6ba0a5b70c1e22" prot="public" static="no">
+        <name>XNANDPSU_DMA_BUF_BND_128K</name>
+        <initializer>0x5U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="406" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="545" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga9ee94423e3d58af1184800d09d440e2d" prot="public" static="no">
+        <name>XNANDPSU_DMA_BUF_BND_256K</name>
+        <initializer>0x6U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="407" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="546" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaa74c3eee06ddff89dc0187ec43482cf0" prot="public" static="no">
+        <name>XNANDPSU_DMA_BUF_BND_512K</name>
+        <initializer>0x7U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="408" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="547" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Slave DMA Configuration Register bit definitions and masks</header>
+      <memberdef kind="define" id="group___overview_1gac7be29ad840652c3fc1e630ccbdf27ef" prot="public" static="no">
+        <name>XNANDPSU_SLV_DMA_CONF_SDMA_TX_RX_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Slave DMA Transfer Direction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="418" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="553" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga5a94a156a69e8c0f1e4df1b569b4e5fd" prot="public" static="no">
+        <name>XNANDPSU_SLV_DMA_CONF_DMA_TRANS_CNT_MASK</name>
+        <initializer>0x001FFFFEU</initializer>
+        <briefdescription>
+<para>Slave DMA Transfer Count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="422" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="562" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga61c0fb19838e962ee547fd98412d4148" prot="public" static="no">
+        <name>XNANDPSU_SLV_DMA_CONF_DMA_BURST_SIZE_MASK</name>
+        <initializer>0x00E00000U</initializer>
+        <briefdescription>
+<para>Slave DMA Burst Size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="426" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="569" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga617818e7f37f8a06b1be1b225745b4aa" prot="public" static="no">
+        <name>XNANDPSU_SLV_DMA_CONF_DMA_TMOUT_CNT_VAL_MASK</name>
+        <initializer>0x0F000000U</initializer>
+        <briefdescription>
+<para>DMA Timeout Counter Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="430" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="576" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga108ad1c6e87db6855e6ea8a785078e99" prot="public" static="no">
+        <name>XNANDPSU_SLV_DMA_CONF_SDMA_EN_MASK</name>
+        <initializer>0x10000000U</initializer>
+        <briefdescription>
+<para>Slave DMA Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="433" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="583" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___overview_1ga06569a12b9b833905df7d373506a2e6b" prot="public" static="no">
+        <name>XNANDPSU_HW_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga04482e1a4b37499e238e82b3052ea587" prot="public" static="no">
+        <name>XNANDPSU_PKT_OFFSET</name>
+        <initializer>0x00U</initializer>
+        <briefdescription>
+<para>Packet Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga8332ffd41c06df1898fb85c3d0a2264c" prot="public" static="no">
+        <name>XNANDPSU_MEM_ADDR1_OFFSET</name>
+        <initializer>0x04U</initializer>
+        <briefdescription>
+<para>Memory Address Register 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaed3f1b12deeb3408475e87ed937e1440" prot="public" static="no">
+        <name>XNANDPSU_MEM_ADDR2_OFFSET</name>
+        <initializer>0x08U</initializer>
+        <briefdescription>
+<para>Memory Address Register 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga8a770f895919f2a9f22b109fc2dc4ddd" prot="public" static="no">
+        <name>XNANDPSU_CMD_OFFSET</name>
+        <initializer>0x0CU</initializer>
+        <briefdescription>
+<para>Command Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group___overview_1gabfb036fc0238a5c54de831574c371450" compoundref="xnandpsu_8c" startline="2693" endline="2718">XNandPsu_Prepare_Cmd</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gadd02fc694047f74abeeec4f52bfd384d" prot="public" static="no">
+        <name>XNANDPSU_PROG_OFFSET</name>
+        <initializer>0x10U</initializer>
+        <briefdescription>
+<para>Program Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga59942044a415eacf3399b77b70fe3a20" compoundref="xnandpsu_8c" startline="2171" endline="2210">XNandPsu_EraseBlock</referencedby>
+        <referencedby refid="group___overview_1gaa6725c5aa761078a438094bad802045e" compoundref="xnandpsu_8c" startline="2229" endline="2269">XNandPsu_GetFeature</referencedby>
+        <referencedby refid="group___overview_1ga1a3f550f53d5c1d7ffead626cf0dd7c3" compoundref="xnandpsu_8c" startline="2100" endline="2153">XNandPsu_ReadSpareBytes</referencedby>
+        <referencedby refid="group___overview_1ga785eaf418c8f7e7c3fb6098ba327b720" compoundref="xnandpsu_8c" startline="2288" endline="2331">XNandPsu_SetFeature</referencedby>
+        <referencedby refid="group___overview_1ga7c4f4816209d1d66b9de152735046b0f" compoundref="xnandpsu_8c" startline="1827" endline="1952">XNandPsu_WriteSpareBytes</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaf3b3c15277fa67d8d1dd55492fa3173a" prot="public" static="no">
+        <name>XNANDPSU_INTR_STS_EN_OFFSET</name>
+        <initializer>0x14U</initializer>
+        <briefdescription>
+<para>Interrupt Status Enable Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga59942044a415eacf3399b77b70fe3a20" compoundref="xnandpsu_8c" startline="2171" endline="2210">XNandPsu_EraseBlock</referencedby>
+        <referencedby refid="group___overview_1gaa6725c5aa761078a438094bad802045e" compoundref="xnandpsu_8c" startline="2229" endline="2269">XNandPsu_GetFeature</referencedby>
+        <referencedby refid="group___overview_1ga1a3f550f53d5c1d7ffead626cf0dd7c3" compoundref="xnandpsu_8c" startline="2100" endline="2153">XNandPsu_ReadSpareBytes</referencedby>
+        <referencedby refid="group___overview_1ga785eaf418c8f7e7c3fb6098ba327b720" compoundref="xnandpsu_8c" startline="2288" endline="2331">XNandPsu_SetFeature</referencedby>
+        <referencedby refid="group___overview_1ga7c4f4816209d1d66b9de152735046b0f" compoundref="xnandpsu_8c" startline="1827" endline="1952">XNandPsu_WriteSpareBytes</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga8a25f700e1e33ac4bdb4be3681fdb477" prot="public" static="no">
+        <name>XNANDPSU_INTR_SIG_EN_OFFSET</name>
+        <initializer>0x18U</initializer>
+        <briefdescription>
+<para>Interrupt Signal Enable Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga6809a4525da95b43bdfcf841e679698a" prot="public" static="no">
+        <name>XNANDPSU_INTR_STS_OFFSET</name>
+        <initializer>0x1CU</initializer>
+        <briefdescription>
+<para>Interrupt Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gabd2d6d5ea689b58c981538948fe32e10" prot="public" static="no">
+        <name>XNANDPSU_READY_BUSY_OFFSET</name>
+        <initializer>0x20U</initializer>
+        <briefdescription>
+<para>Ready/Busy status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gab5f11ea56bdac764873705a28405205f" prot="public" static="no">
+        <name>XNANDPSU_FLASH_STS_OFFSET</name>
+        <initializer>0x28U</initializer>
+        <briefdescription>
+<para>Flash Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaf5323a1a40087286e737def2534d90e6" prot="public" static="no">
+        <name>XNANDPSU_TIMING_OFFSET</name>
+        <initializer>0x2CU</initializer>
+        <briefdescription>
+<para>Timing Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga1890472a2b558a5800d21e32c78b6d30" prot="public" static="no">
+        <name>XNANDPSU_BUF_DATA_PORT_OFFSET</name>
+        <initializer>0x30U</initializer>
+        <briefdescription>
+<para>Buffer Data Port Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gacc4b3c32366da83a20eef8095b80bd25" prot="public" static="no">
+        <name>XNANDPSU_ECC_OFFSET</name>
+        <initializer>0x34U</initializer>
+        <briefdescription>
+<para>ECC Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga14a27b4f50dae98e829483817b036e9e" prot="public" static="no">
+        <name>XNANDPSU_ECC_ERR_CNT_OFFSET</name>
+        <initializer>0x38U</initializer>
+        <briefdescription>
+<para>ECC Error Count Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga6bbee4cc41eb49c38026cef011117911" prot="public" static="no">
+        <name>XNANDPSU_ECC_SPR_CMD_OFFSET</name>
+        <initializer>0x3CU</initializer>
+        <briefdescription>
+<para>ECC Spare Command Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaa6af724c38008c62af9e04e835f674de" prot="public" static="no">
+        <name>XNANDPSU_ECC_CNT_1BIT_OFFSET</name>
+        <initializer>0x40U</initializer>
+        <briefdescription>
+<para>Error Count 1bit Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga113ad40b30839f92d3fb32c4eb32cda6" prot="public" static="no">
+        <name>XNANDPSU_ECC_CNT_2BIT_OFFSET</name>
+        <initializer>0x44U</initializer>
+        <briefdescription>
+<para>Error Count 2bit Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga0a76ee78e6ef81ce10f36332fa35c335" prot="public" static="no">
+        <name>XNANDPSU_ECC_CNT_3BIT_OFFSET</name>
+        <initializer>0x48U</initializer>
+        <briefdescription>
+<para>Error Count 3bit Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaa29bfde2fa3767d6c75cdc481eb1f828" prot="public" static="no">
+        <name>XNANDPSU_ECC_CNT_4BIT_OFFSET</name>
+        <initializer>0x4CU</initializer>
+        <briefdescription>
+<para>Error Count 4bit Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaf10e945915722b188807af980c2efe96" prot="public" static="no">
+        <name>XNANDPSU_CPU_REL_OFFSET</name>
+        <initializer>0x58U</initializer>
+        <briefdescription>
+<para>CPU Release Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga9804e05977896127c90dbefc67395634" prot="public" static="no">
+        <name>XNANDPSU_ECC_CNT_5BIT_OFFSET</name>
+        <initializer>0x5CU</initializer>
+        <briefdescription>
+<para>Error Count 5bit Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga527de0539b282e03ee0c1645c88dbe47" prot="public" static="no">
+        <name>XNANDPSU_ECC_CNT_6BIT_OFFSET</name>
+        <initializer>0x60U</initializer>
+        <briefdescription>
+<para>Error Count 6bit Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga610b05baec03fc0018cedf3c308d653c" prot="public" static="no">
+        <name>XNANDPSU_ECC_CNT_7BIT_OFFSET</name>
+        <initializer>0x64U</initializer>
+        <briefdescription>
+<para>Error Count 7bit Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga60fd7f278f66bd43e44c51fa0b9ca75e" prot="public" static="no">
+        <name>XNANDPSU_ECC_CNT_8BIT_OFFSET</name>
+        <initializer>0x68U</initializer>
+        <briefdescription>
+<para>Error Count 8bit Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga5efd1c0220097175784dd8da2cddd526" prot="public" static="no">
+        <name>XNANDPSU_DATA_INTF_OFFSET</name>
+        <initializer>0x6CU</initializer>
+        <briefdescription>
+<para>Data Interface Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="107" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga22080a2813ff692c0b64e0bbd9715f91" compoundref="xnandpsu_8c" startline="2370" endline="2497">XNandPsu_ChangeTimingMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga4243b86bd0cbfdc5297e2cf36a2fa090" prot="public" static="no">
+        <name>XNANDPSU_DMA_SYS_ADDR0_OFFSET</name>
+        <initializer>0x50U</initializer>
+        <briefdescription>
+<para>DMA System Address 0 Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga4e975d98d4e0cf4cf3099382376905bf" prot="public" static="no">
+        <name>XNANDPSU_DMA_SYS_ADDR1_OFFSET</name>
+        <initializer>0x24U</initializer>
+        <briefdescription>
+<para>DMA System Address 1 Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga1a1b5cb5b764c262a5ee379e5bd83162" prot="public" static="no">
+        <name>XNANDPSU_DMA_BUF_BND_OFFSET</name>
+        <initializer>0x54U</initializer>
+        <briefdescription>
+<para>DMA Buffer Boundary Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga6e6f2cce5132af6fb7aded086e100abb" prot="public" static="no">
+        <name>XNANDPSU_SLV_DMA_CONF_OFFSET</name>
+        <initializer>0x80U</initializer>
+        <briefdescription>
+<para>Slave DMA Configuration Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga541264d14f94a94ef2db439d66eaef00" prot="public" static="no">
+        <name>XNandPsu_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32((BaseAddress) + (RegOffset))</initializer>
+        <briefdescription>
+<para>This macro reads the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of controller registers. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset to be read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group___overview_1ga541264d14f94a94ef2db439d66eaef00" kindref="member">XNandPsu_ReadReg(u32 BaseAddress, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="454" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="608" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga13968ef2c371ba365d36cfb05c27d1f9" prot="public" static="no">
+        <name>XNandPsu_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32(((BaseAddress) + (RegOffset)), (Data))</initializer>
+        <briefdescription>
+<para>This macro writes the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the the base address of controller registers. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset to be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the the 32-bit value to write to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group___overview_1ga13968ef2c371ba365d36cfb05c27d1f9" kindref="member">XNandPsu_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" line="472" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h" bodystart="626" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga22080a2813ff692c0b64e0bbd9715f91" compoundref="xnandpsu_8c" startline="2370" endline="2497">XNandPsu_ChangeTimingMode</referencedby>
+        <referencedby refid="group___overview_1ga59942044a415eacf3399b77b70fe3a20" compoundref="xnandpsu_8c" startline="2171" endline="2210">XNandPsu_EraseBlock</referencedby>
+        <referencedby refid="group___overview_1gaa6725c5aa761078a438094bad802045e" compoundref="xnandpsu_8c" startline="2229" endline="2269">XNandPsu_GetFeature</referencedby>
+        <referencedby refid="group___overview_1gabfb036fc0238a5c54de831574c371450" compoundref="xnandpsu_8c" startline="2693" endline="2718">XNandPsu_Prepare_Cmd</referencedby>
+        <referencedby refid="group___overview_1ga1a3f550f53d5c1d7ffead626cf0dd7c3" compoundref="xnandpsu_8c" startline="2100" endline="2153">XNandPsu_ReadSpareBytes</referencedby>
+        <referencedby refid="group___overview_1ga785eaf418c8f7e7c3fb6098ba327b720" compoundref="xnandpsu_8c" startline="2288" endline="2331">XNandPsu_SetFeature</referencedby>
+        <referencedby refid="group___overview_1ga7c4f4816209d1d66b9de152735046b0f" compoundref="xnandpsu_8c" startline="1827" endline="1952">XNandPsu_WriteSpareBytes</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor">#ifndef<sp/>XNANDPSU_HW_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNANDPSU_HW_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Register<sp/>Offset<sp/>Definitions<sp/>**********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="group___overview_1ga04482e1a4b37499e238e82b3052ea587" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNANDPSU_PKT_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50" refid="group___overview_1ga8332ffd41c06df1898fb85c3d0a2264c" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_MEM_ADDR1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor">#define<sp/>XNANDPSU_MEM_ADDR2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor">#define<sp/>XNANDPSU_CMD_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0CU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56" refid="group___overview_1ga8a770f895919f2a9f22b109fc2dc4ddd" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_STS_EN_OFFSET<sp/><sp/><sp/><sp/><sp/>0x14U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58" refid="group___overview_1gaf3b3c15277fa67d8d1dd55492fa3173a" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_SIG_EN_OFFSET<sp/><sp/><sp/><sp/><sp/>0x18U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_STS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1CU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor">#define<sp/>XNANDPSU_READY_BUSY_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x20U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64" refid="group___overview_1ga6809a4525da95b43bdfcf841e679698a" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_FLASH_STS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x28U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor">#define<sp/>XNANDPSU_TIMING_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2CU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor">#define<sp/>XNANDPSU_BUF_DATA_PORT_OFFSET<sp/><sp/><sp/>0x30U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor">#define<sp/>XNANDPSU_ECC_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x34U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor">#define<sp/>XNANDPSU_ECC_ERR_CNT_OFFSET<sp/><sp/><sp/><sp/><sp/>0x38U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="71" refid="group___overview_1gaf5323a1a40087286e737def2534d90e6" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_ECC_SPR_CMD_OFFSET<sp/><sp/><sp/><sp/><sp/>0x3CU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor">#define<sp/>XNANDPSU_ECC_CNT_1BIT_OFFSET<sp/><sp/><sp/><sp/>0x40U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75" refid="group___overview_1gacc4b3c32366da83a20eef8095b80bd25" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_ECC_CNT_2BIT_OFFSET<sp/><sp/><sp/><sp/>0x44U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor">#define<sp/>XNANDPSU_ECC_CNT_3BIT_OFFSET<sp/><sp/><sp/><sp/>0x48U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79" refid="group___overview_1ga6bbee4cc41eb49c38026cef011117911" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_ECC_CNT_4BIT_OFFSET<sp/><sp/><sp/><sp/>0x4CU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor">#define<sp/>XNANDPSU_CPU_REL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x58U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82" refid="group___overview_1gaa6af724c38008c62af9e04e835f674de" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_ECC_CNT_5BIT_OFFSET<sp/><sp/><sp/><sp/>0x5CU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor">#define<sp/>XNANDPSU_ECC_CNT_6BIT_OFFSET<sp/><sp/><sp/><sp/>0x60U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor">#define<sp/>XNANDPSU_ECC_CNT_7BIT_OFFSET<sp/><sp/><sp/><sp/>0x64U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88" refid="group___overview_1ga0a76ee78e6ef81ce10f36332fa35c335" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_ECC_CNT_8BIT_OFFSET<sp/><sp/><sp/><sp/>0x68U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor">#define<sp/>XNANDPSU_DATA_INTF_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x6CU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91" refid="group___overview_1gaa29bfde2fa3767d6c75cdc481eb1f828" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_DMA_SYS_ADDR0_OFFSET<sp/><sp/><sp/>0x50U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor">#define<sp/>XNANDPSU_DMA_SYS_ADDR1_OFFSET<sp/><sp/><sp/>0x24U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95" refid="group___overview_1ga9804e05977896127c90dbefc67395634" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_DMA_BUF_BND_OFFSET<sp/><sp/><sp/><sp/><sp/>0x54U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor">#define<sp/>XNANDPSU_SLV_DMA_CONF_OFFSET<sp/><sp/><sp/><sp/>0x80U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor">#define<sp/>XNANDPSU_PKT_PKT_SIZE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000007FFU<sp/></highlight></codeline>
+<codeline lineno="104" refid="group___overview_1ga60fd7f278f66bd43e44c51fa0b9ca75e" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_PKT_PKT_CNT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00FFF000U<sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor">#define<sp/>XNANDPSU_PKT_PKT_CNT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>12U<sp/></highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="107" refid="group___overview_1ga5efd1c0220097175784dd8da2cddd526" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="111" refid="group___overview_1ga4e975d98d4e0cf4cf3099382376905bf" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_MEM_ADDR1_COL_ADDR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FFFFU<sp/></highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor">#define<sp/>XNANDPSU_MEM_ADDR1_PG_ADDR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFF0000U<sp/></highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor">#define<sp/>XNANDPSU_MEM_ADDR1_PG_ADDR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16U<sp/></highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="117" refid="group___overview_1ga6e6f2cce5132af6fb7aded086e100abb" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor">#define<sp/>XNANDPSU_MEM_ADDR2_MEM_ADDR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000FFU<sp/></highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor">#define<sp/>XNANDPSU_MEM_ADDR2_BUS_WIDTH_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01000000U<sp/></highlight></codeline>
+<codeline lineno="124" refid="group___overview_1gaff5a4f3cd89dbc99bfe07ff67fb33bcd" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_MEM_ADDR2_NFC_BCH_MODE_MASK<sp/><sp/><sp/><sp/>0x0E000000U<sp/></highlight></codeline>
+<codeline lineno="126" refid="group___overview_1ga7bb914b32ccd8525663a08d8539194e6" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_MEM_ADDR2_MODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x30000000U<sp/></highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor">#define<sp/>XNANDPSU_MEM_ADDR2_CHIP_SEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xC0000000U<sp/></highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor">#define<sp/>XNANDPSU_MEM_ADDR2_CHIP_SEL_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>30U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor">#define<sp/>XNANDPSU_MEM_ADDR2_BUS_WIDTH_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>24U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="132" refid="group___overview_1ga54ddf708eea2b687890ecdba14d03bb6" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_MEM_ADDR2_NFC_BCH_MODE_SHIFT<sp/><sp/><sp/>25U</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138" refid="group___overview_1gac63bb75546ca3b8263c258c51938b282" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_CMD_CMD1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000FFU<sp/></highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor">#define<sp/>XNANDPSU_CMD_CMD2_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FF00U<sp/></highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor">#define<sp/>XNANDPSU_CMD_PG_SIZE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x03800000U<sp/></highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor">#define<sp/>XNANDPSU_CMD_DMA_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0C000000U<sp/></highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor">#define<sp/>XNANDPSU_CMD_ADDR_CYCLES_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x70000000U<sp/></highlight></codeline>
+<codeline lineno="147" refid="group___overview_1ga9d13fe52622748d57ad0951c49ff54fa" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_CMD_ECC_ON_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80000000U<sp/></highlight></codeline>
+<codeline lineno="148" refid="group___overview_1ga53497f5949cc23126b7e3190bd3a6908" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_CMD_CMD2_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U<sp/></highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor">#define<sp/>XNANDPSU_CMD_PG_SIZE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>23U<sp/></highlight></codeline>
+<codeline lineno="151" refid="group___overview_1ga9be27399c2b11f93bb8f2952a162be6a" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_CMD_DMA_EN_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>26U<sp/></highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor">#define<sp/>XNANDPSU_CMD_ADDR_CYCLES_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>28U<sp/></highlight></codeline>
+<codeline lineno="154" refid="group___overview_1gababdf3c8f51458162c74b799162a66fe" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_CMD_ECC_ON_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>31U<sp/></highlight></codeline>
+<codeline lineno="155" refid="group___overview_1ga6ef00be8ac500da3751aea47e8427004" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_RD_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_MUL_DIE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U<sp/></highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_BLK_ERASE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_RD_STS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008U<sp/></highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_PG_PROG_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010U<sp/></highlight></codeline>
+<codeline lineno="165" refid="group___overview_1ga8be14703559f7520d8a3117232e64c06" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_MUL_DIE_RD_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020U<sp/></highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_RD_ID_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040U<sp/></highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_RD_PRM_PG_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000080U<sp/></highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_RST_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000100U<sp/></highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_GET_FEATURES_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000200U<sp/></highlight></codeline>
+<codeline lineno="171" refid="group___overview_1ga6e360fc42464429db754164c281e833f" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_SET_FEATURES_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000400U<sp/></highlight></codeline>
+<codeline lineno="172" refid="group___overview_1ga1165fe99133cfe6c3c3f6dea1bddd81d" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_RD_UNQ_ID_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000800U<sp/></highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_RD_STS_ENH_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001000U<sp/></highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_RD_INTRLVD_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00002000U<sp/></highlight></codeline>
+<codeline lineno="178" refid="group___overview_1gae9d4edc9daf720b8a6dd430b1b41037e" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_CHNG_RD_COL_ENH_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00004000U<sp/></highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_COPY_BACK_INTRLVD_MASK<sp/><sp/><sp/><sp/>0x00008000U<sp/></highlight></codeline>
+<codeline lineno="183" refid="group___overview_1ga31cd55caad2584c9d1dcf333c526e7ca" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_RD_CACHE_START_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00010000U<sp/></highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_RD_CACHE_SEQ_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00020000U<sp/></highlight></codeline>
+<codeline lineno="187" refid="group___overview_1ga390ead6fc832b4423d5769094880951f" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_RD_CACHE_RAND_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00040000U<sp/></highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_RD_CACHE_END_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00080000U<sp/></highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_SMALL_DATA_MOVE_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00100000U<sp/></highlight></codeline>
+<codeline lineno="193" refid="group___overview_1ga3c38a395e56cd70c7c6bb4cba7b31d43" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_CHNG_ROW_ADDR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00200000U<sp/></highlight></codeline>
+<codeline lineno="195" refid="group___overview_1ga438b57de344713f8444fcd11496d1098" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_CHNG_ROW_ADDR_END_MASK<sp/><sp/><sp/><sp/>0x00400000U<sp/></highlight></codeline>
+<codeline lineno="197" refid="group___overview_1ga8283bf247a2fdc39f13634b42da12938" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_RST_LUN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00800000U<sp/></highlight></codeline>
+<codeline lineno="198" refid="group___overview_1ga4ebdac84eff62e4c0acb55178e58ae6f" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_PGM_PG_CLR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01000000U<sp/></highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_VOL_SEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02000000U<sp/></highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor">#define<sp/>XNANDPSU_PROG_ODT_CONF_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04000000U<sp/></highlight></codeline>
+<codeline lineno="203" refid="group___overview_1ga9db90a714c444e48f2837a6550baf03b" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="204" refid="group___overview_1ga6db393ae018d58368f3fff85591c84fe" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_STS_EN_BUFF_WR_RDY_STS_EN_MASK<sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="212" refid="group___overview_1ga2c9ef1217ed97793344622228e3107a6" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_STS_EN_BUFF_RD_RDY_STS_EN_MASK<sp/><sp/><sp/><sp/>0x00000002U<sp/></highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_STS_EN_TRANS_COMP_STS_EN_MASK<sp/><sp/><sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="220" refid="group___overview_1gab1218c07eb4ca421ebebe66ad437e70f" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_STS_EN_MUL_BIT_ERR_STS_EN_MASK<sp/><sp/><sp/><sp/>0x00000008U<sp/></highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_STS_EN_ERR_INTR_STS_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010U<sp/></highlight></codeline>
+<codeline lineno="232" refid="group___overview_1ga8166724a7206cd0c5564f97977ff444e" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_STS_EN_DMA_INT_STS_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040U<sp/></highlight></codeline>
+<codeline lineno="235" refid="group___overview_1gaca5b1533ad5ea4b17b9a932221c3189a" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_STS_EN_ERR_AHB_STS_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000080U<sp/></highlight></codeline>
+<codeline lineno="238" refid="group___overview_1gaf52a34b9e6851425cef6986b01daf7d7" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_SIG_EN_BUFF_WR_RDY_STS_EN_MASK<sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="247"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_SIG_EN_BUFF_RD_RDY_STS_EN_MASK<sp/><sp/><sp/><sp/>0x00000002U<sp/></highlight></codeline>
+<codeline lineno="251" refid="group___overview_1gaccbe018ae70ca6e190c73e8c2b7ca0d8" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_SIG_EN_TRANS_COMP_STS_EN_MASK<sp/><sp/><sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_SIG_EN_MUL_BIT_ERR_STS_EN_MASK<sp/><sp/><sp/><sp/>0x00000008U<sp/></highlight></codeline>
+<codeline lineno="259"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_SIG_EN_ERR_INTR_STS_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010U<sp/></highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_SIG_EN_DMA_INT_STS_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040U<sp/></highlight></codeline>
+<codeline lineno="270"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_SIG_EN_ERR_AHB_STS_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000080U<sp/></highlight></codeline>
+<codeline lineno="273"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="274"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="278" refid="group___overview_1ga225e3c2c1e47f366e201862df3f2a425" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_STS_BUFF_WR_RDY_STS_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="281"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_STS_BUFF_RD_RDY_STS_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U<sp/></highlight></codeline>
+<codeline lineno="284"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_STS_TRANS_COMP_STS_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="286"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_STS_MUL_BIT_ERR_STS_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008U<sp/></highlight></codeline>
+<codeline lineno="288"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_STS_ERR_INTR_STS_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010U<sp/></highlight></codeline>
+<codeline lineno="292"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_STS_DMA_INT_STS_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040U<sp/></highlight></codeline>
+<codeline lineno="295"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_STS_ERR_AHB_STS_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000080U<sp/></highlight></codeline>
+<codeline lineno="297"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="298"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="302"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_BUFF_WR_RDY_STS_EN_MASK<sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="305" refid="group___overview_1ga4991de46bf5054ac551c643f601ac985" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_BUFF_RD_RDY_STS_EN_MASK<sp/><sp/><sp/>0x00000002U<sp/></highlight></codeline>
+<codeline lineno="308"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_TRANS_COMP_STS_EN_MASK<sp/><sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="311"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_MUL_BIT_ERR_STS_EN_MASK<sp/><sp/><sp/>0x00000008U<sp/></highlight></codeline>
+<codeline lineno="313"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_ERR_INTR_STS_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000010U<sp/></highlight></codeline>
+<codeline lineno="317"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_DMA_INT_STS_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040U<sp/></highlight></codeline>
+<codeline lineno="319"><highlight class="preprocessor">#define<sp/>XNANDPSU_INTR_ERR_AHB_STS_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000080U<sp/></highlight></codeline>
+<codeline lineno="321"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="322" refid="group___overview_1gaa3f422c1d70ba95d7192e18ff0d2ccdd" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="326"><highlight class="preprocessor">#define<sp/>XNANDPSU_ID2_DEVICE_ID2_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000FFU<sp/></highlight></codeline>
+<codeline lineno="327"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="328"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="332"><highlight class="preprocessor">#define<sp/>XNANDPSU_FLASH_STS_FLASH_STS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FFFFU<sp/></highlight></codeline>
+<codeline lineno="334"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="335"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="339"><highlight class="preprocessor">#define<sp/>XNANDPSU_TIMING_TCCS_TIME_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000003U<sp/></highlight></codeline>
+<codeline lineno="341"><highlight class="preprocessor">#define<sp/>XNANDPSU_TIMING_SLOW_FAST_TCAD_MASK<sp/><sp/><sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="343" refid="group___overview_1gac4793212af4be840c53cc4fd5100809f" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_TIMING_DQS_BUFF_SEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000078U<sp/></highlight></codeline>
+<codeline lineno="346"><highlight class="preprocessor">#define<sp/>XNANDPSU_TIMING_TADL_TIME_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00007F80U<sp/></highlight></codeline>
+<codeline lineno="349"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="350"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="354"><highlight class="preprocessor">#define<sp/>XNANDPSU_ECC_ADDR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FFFFU<sp/></highlight></codeline>
+<codeline lineno="355"><highlight class="preprocessor">#define<sp/>XNANDPSU_ECC_SIZE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01FF0000U<sp/></highlight></codeline>
+<codeline lineno="356"><highlight class="preprocessor">#define<sp/>XNANDPSU_ECC_HAMMING_BCH_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02000000U<sp/></highlight></codeline>
+<codeline lineno="358" refid="group___overview_1gaf0f1a8eb12f60f4bcb62e80fa5ea1427" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="359"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="363" refid="group___overview_1ga6cab16ebdaea1fa3b25b94c4a38faa2f" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_ECC_ERR_CNT_PKT_BND_ERR_CNT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000FFU<sp/></highlight></codeline>
+<codeline lineno="366"><highlight class="preprocessor">#define<sp/>XNANDPSU_ECC_ERR_CNT_PG_BND_ERR_CNT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FF00U<sp/></highlight></codeline>
+<codeline lineno="369"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="370"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="374"><highlight class="preprocessor">#define<sp/>XNANDPSU_ECC_SPR_CMD_SPR_CMD_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000FFU<sp/></highlight></codeline>
+<codeline lineno="377"><highlight class="preprocessor">#define<sp/>XNANDPSU_ECC_SPR_CMD_ECC_ADDR_CYCLES_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x70000000U<sp/></highlight></codeline>
+<codeline lineno="382"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="383" refid="group___overview_1ga97422ad3a8c3a3467e9690f34c2d4b6d" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="387"><highlight class="preprocessor">#define<sp/>XNANDPSU_DATA_INTF_SDR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000007U<sp/></highlight></codeline>
+<codeline lineno="388"><highlight class="preprocessor">#define<sp/>XNANDPSU_DATA_INTF_NVDDR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000038U<sp/></highlight></codeline>
+<codeline lineno="389" refid="group___overview_1ga55a21ebd02928d9a6ad5cde4921518a0" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_DATA_INTF_NVDDR2_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000001C0U<sp/></highlight></codeline>
+<codeline lineno="390"><highlight class="preprocessor">#define<sp/>XNANDPSU_DATA_INTF_DATA_INTF_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000600U<sp/></highlight></codeline>
+<codeline lineno="392"><highlight class="preprocessor">#define<sp/>XNANDPSU_DATA_INTF_NVDDR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U<sp/></highlight></codeline>
+<codeline lineno="393"><highlight class="preprocessor">#define<sp/>XNANDPSU_DATA_INTF_DATA_INTF_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>9U<sp/></highlight></codeline>
+<codeline lineno="394"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="395"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="399"><highlight class="preprocessor">#define<sp/>XNANDPSU_DMA_BUF_BND_BND_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000007U<sp/></highlight></codeline>
+<codeline lineno="401" refid="group___overview_1ga89851ad93665e6d0f4cda642cd0b29f4" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_DMA_BUF_BND_4K<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="402"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNANDPSU_DMA_BUF_BND_8K<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1U</highlight></codeline>
+<codeline lineno="403"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNANDPSU_DMA_BUF_BND_16K<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2U</highlight></codeline>
+<codeline lineno="404"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNANDPSU_DMA_BUF_BND_32K<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3U</highlight></codeline>
+<codeline lineno="405"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNANDPSU_DMA_BUF_BND_64K<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4U</highlight></codeline>
+<codeline lineno="406"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNANDPSU_DMA_BUF_BND_128K<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x5U</highlight></codeline>
+<codeline lineno="407"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNANDPSU_DMA_BUF_BND_256K<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x6U</highlight></codeline>
+<codeline lineno="408"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNANDPSU_DMA_BUF_BND_512K<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7U</highlight></codeline>
+<codeline lineno="409" refid="group___overview_1ga1a2ebef7b0dce3076218b70769c9dd4e" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="410"><highlight class="normal"></highlight></codeline>
+<codeline lineno="414" refid="group___overview_1gaf6e729c0707474c208d2d53fd8f4d78b" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_SLV_DMA_CONF_SDMA_TX_RX_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="419" refid="group___overview_1ga90c8386b1051e1a22edbd499e22277d3" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_SLV_DMA_CONF_DMA_TRANS_CNT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x001FFFFEU<sp/></highlight></codeline>
+<codeline lineno="423"><highlight class="preprocessor">#define<sp/>XNANDPSU_SLV_DMA_CONF_DMA_BURST_SIZE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00E00000U<sp/></highlight></codeline>
+<codeline lineno="427" refid="group___overview_1gafae759a24262ac1abeef7f21b4588537" refkind="member"><highlight class="preprocessor">#define<sp/>XNANDPSU_SLV_DMA_CONF_DMA_TMOUT_CNT_VAL_MASK<sp/><sp/><sp/><sp/>0x0F000000U<sp/></highlight></codeline>
+<codeline lineno="431"><highlight class="preprocessor">#define<sp/>XNANDPSU_SLV_DMA_CONF_SDMA_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10000000U<sp/></highlight></codeline>
+<codeline lineno="434" refid="group___overview_1ga5bb73feb9da2cd28883dd8791505a9d3" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="435"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="436"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="437" refid="group___overview_1gaf8453a8e2c46bbe91ea858c0733d547a" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="438"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="439"><highlight class="normal"></highlight></codeline>
+<codeline lineno="440"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="454"><highlight class="preprocessor">#define<sp/>XNandPsu_ReadReg(BaseAddress,<sp/>RegOffset)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="455"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="456"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="457"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="472"><highlight class="preprocessor">#define<sp/>XNandPsu_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="473"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(((BaseAddress)<sp/>+<sp/>(RegOffset)),<sp/>(Data))</highlight></codeline>
+<codeline lineno="474"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="475"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="476"><highlight class="normal"></highlight></codeline>
+<codeline lineno="477"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="478"><highlight class="normal"></highlight></codeline>
+<codeline lineno="479"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="480" refid="group___overview_1gaa15d3fa3bf04e12027240dd40fa6dfc1" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="481" refid="group___overview_1gabd72b80bb40b06903b297413e34dd1c0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="482" refid="group___overview_1ga3e4296f9673030022b7a75c12fec561e" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="483"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XNANDPSU_HW_H<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="484"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_hw.h"/>
+  </compounddef>
+</doxygen>

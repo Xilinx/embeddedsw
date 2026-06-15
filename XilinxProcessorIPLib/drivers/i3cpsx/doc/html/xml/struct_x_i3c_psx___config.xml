@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_i3c_psx___config" kind="struct" prot="public">
+    <compoundname>XI3cPsx_Config</compoundname>
+    <includes local="no">xi3cpsx.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_i3c_psx___config_1a86149ea48da8e0226397938eab73a96a" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XI3cPsx_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XI3cPsx_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base address of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="176" bodyend="-1"/>
+        <referencedby refid="xi3cpsx__intr__example_8c_1a813e5bbca8357e45e0b2f412727f8b96" compoundref="xi3cpsx__intr__example_8c" startline="148" endline="369">I3cPsxMasterIntrExample</referencedby>
+        <referencedby refid="xi3cpsx__polled__example_8c_1a5419de39e4f4fb073bb44ad6c07d657a" compoundref="xi3cpsx__polled__example_8c" startline="124" endline="310">I3cPsxMasterPolledExample</referencedby>
+        <referencedby refid="xi3cpsx__slave__loopback_8c_1ab9d0cb3ac9cd03f7d09a187b988688c4" compoundref="xi3cpsx__slave__loopback_8c" startline="141" endline="210">I3cPsxSlaveLoopbackExample</referencedby>
+        <referencedby refid="group___overview_1ga10dedaf409b8b5c149dd04b5d082769e" compoundref="xi3cpsx__master_8c" startline="136" endline="199">XI3cPsx_BusInit</referencedby>
+        <referencedby refid="group___overview_1gac782c97edc12d91318ab4984cc34d842" compoundref="xi3cpsx_8c" startline="64" endline="153">XI3cPsx_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga804fd6fec118ef2902d1a3cf8893a3b2" compoundref="xi3cpsx__master_8c" startline="547" endline="622">XI3cPsx_MasterInterruptHandler</referencedby>
+        <referencedby refid="group___overview_1ga858ac6e2e7491133b6781a3ad9a80a20" compoundref="xi3cpsx__master_8c" startline="300" endline="325">XI3cPsx_MasterRecv</referencedby>
+        <referencedby refid="group___overview_1ga759bdfcbba7cff4248e1a490f9b2b8c2" compoundref="xi3cpsx__master_8c" startline="446" endline="496">XI3cPsx_MasterRecvPolled</referencedby>
+        <referencedby refid="group___overview_1ga4f245bce33f80afa0f5458bae59b8da9" compoundref="xi3cpsx__master_8c" startline="238" endline="277">XI3cPsx_MasterSend</referencedby>
+        <referencedby refid="group___overview_1gaaaf31be44492b9baf96f0fc8659af975" compoundref="xi3cpsx__master_8c" startline="350" endline="421">XI3cPsx_MasterSendPolled</referencedby>
+        <referencedby refid="group___overview_1ga93a8a74ad0e713a3a76a39b0fd4c116e" compoundref="xi3cpsx_8c" startline="237" endline="269">XI3cPsx_RdRxFifo</referencedby>
+        <referencedby refid="group___overview_1ga72475e850e3677acf4a32c3a6ba58141" compoundref="xi3cpsx__hw_8c" startline="49" endline="56">XI3cPsx_Reset</referencedby>
+        <referencedby refid="group___overview_1ga5f5337ebb6a45588fd6c72aeaa87ecc0" compoundref="xi3cpsx__hw_8c" startline="76" endline="90">XI3cPsx_ResetFifos</referencedby>
+        <referencedby refid="xi3cpsx__options_8c_1a840d94794f4297389476a8db3bc8b1e1" compoundref="xi3cpsx__options_8c" startline="60" endline="117">XI3cPsx_SetSClk</referencedby>
+        <referencedby refid="group___overview_1ga9cba8edc454d81b6aefdc5381d4da2a8" compoundref="xi3cpsx__slave_8c" startline="61" endline="110">XI3cPsx_SetupSlave</referencedby>
+        <referencedby refid="group___overview_1ga1d604f37a4c41d005558d9ba8124875c" compoundref="xi3cpsx__slave_8c" startline="257" endline="313">XI3cPsx_SlaveRecvPolled</referencedby>
+        <referencedby refid="group___overview_1ga752cebd71adb1580f43247b84b52c2fb" compoundref="xi3cpsx__slave_8c" startline="157" endline="239">XI3cPsx_SlaveSendPolled</referencedby>
+        <referencedby refid="group___overview_1ga620be974fe2a6fd52a390ce36cc1a300" compoundref="xi3cpsx_8c" startline="212" endline="221">XI3cPsx_WrCmdFifo</referencedby>
+        <referencedby refid="group___overview_1gaeed5de7c301b766489abd94c062953c4" compoundref="xi3cpsx_8c" startline="169" endline="197">XI3cPsx_WrTxFifo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c_psx___config_1a79fe5b77d0221b0892a514459a538827" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XI3cPsx_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="178" bodyend="-1"/>
+        <referencedby refid="xi3cpsx__intr__example_8c_1a813e5bbca8357e45e0b2f412727f8b96" compoundref="xi3cpsx__intr__example_8c" startline="148" endline="369">I3cPsxMasterIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c_psx___config_1aab79c83351a0c9b9c603c38116ee9269" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XI3cPsx_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="180" bodyend="-1"/>
+        <referencedby refid="xi3cpsx__intr__example_8c_1a813e5bbca8357e45e0b2f412727f8b96" compoundref="xi3cpsx__intr__example_8c" startline="148" endline="369">I3cPsxMasterIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c_psx___config_1afa76d9e4b8c427158e74cd21c37b62cc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XI3cPsx_Config::InputClockHz</definition>
+        <argsstring></argsstring>
+        <name>InputClockHz</name>
+        <briefdescription>
+<para>Input clock frequency. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="184" bodyend="-1"/>
+        <referencedby refid="group___overview_1gac782c97edc12d91318ab4984cc34d842" compoundref="xi3cpsx_8c" startline="64" endline="153">XI3cPsx_CfgInitialize</referencedby>
+        <referencedby refid="xi3cpsx__options_8c_1a840d94794f4297389476a8db3bc8b1e1" compoundref="xi3cpsx__options_8c" startline="60" endline="117">XI3cPsx_SetSClk</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c_psx___config_1add540cee8ff3c582dbc6536f781aba41" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XI3cPsx_Config::DeviceCount</definition>
+        <argsstring></argsstring>
+        <name>DeviceCount</name>
+        <briefdescription>
+<para>No of I3C devices. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="185" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga10dedaf409b8b5c149dd04b5d082769e" compoundref="xi3cpsx__master_8c" startline="136" endline="199">XI3cPsx_BusInit</referencedby>
+        <referencedby refid="group___overview_1gac782c97edc12d91318ab4984cc34d842" compoundref="xi3cpsx_8c" startline="64" endline="153">XI3cPsx_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga8a69288d43feb7b4b08a025f240c7d3d" compoundref="xi3cpsx_8c" startline="334" endline="358">XI3cPsx_SendAddrAssignCmd</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="170" bodyend="186"/>
+    <listofallmembers>
+      <member refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" prot="public" virt="non-virtual"><scope>XI3cPsx_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_i3c_psx___config_1add540cee8ff3c582dbc6536f781aba41" prot="public" virt="non-virtual"><scope>XI3cPsx_Config</scope><name>DeviceCount</name></member>
+      <member refid="struct_x_i3c_psx___config_1afa76d9e4b8c427158e74cd21c37b62cc" prot="public" virt="non-virtual"><scope>XI3cPsx_Config</scope><name>InputClockHz</name></member>
+      <member refid="struct_x_i3c_psx___config_1a79fe5b77d0221b0892a514459a538827" prot="public" virt="non-virtual"><scope>XI3cPsx_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_i3c_psx___config_1aab79c83351a0c9b9c603c38116ee9269" prot="public" virt="non-virtual"><scope>XI3cPsx_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_i3c_psx___config_1a86149ea48da8e0226397938eab73a96a" prot="public" virt="non-virtual"><scope>XI3cPsx_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

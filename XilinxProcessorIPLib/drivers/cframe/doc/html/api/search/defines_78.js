@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['xcframe_5f128bit_5fin_5fwords',['XCFRAME_128BIT_IN_WORDS',['../xcframe_8c.html#ad1fdd6393797dfcbd0bbfabe55802303',1,'xcframe.c']]],
+  ['xcframe_5fblktype0_5fmask',['XCFRAME_BLKTYPE0_MASK',['../xcframe_8c.html#a962d1f7ffb137a23346f85deb4efbf48',1,'xcframe.c']]],
+  ['xcframe_5fblktype1_5fword0_5fmask',['XCFRAME_BLKTYPE1_WORD0_MASK',['../xcframe_8c.html#a3a27f612c31ac4080b28d5eef35e2750',1,'xcframe.c']]],
+  ['xcframe_5fblktype1_5fword0_5fshift',['XCFRAME_BLKTYPE1_WORD0_SHIFT',['../xcframe_8c.html#ad6d6dc845cabd9e7863a34cfc47edbb9',1,'xcframe.c']]],
+  ['xcframe_5fblktype1_5fword1_5fmask',['XCFRAME_BLKTYPE1_WORD1_MASK',['../xcframe_8c.html#a5ae43dfd3abd9739a63bb47689c50841',1,'xcframe.c']]],
+  ['xcframe_5fblktype1_5fword1_5fshift',['XCFRAME_BLKTYPE1_WORD1_SHIFT',['../xcframe_8c.html#a4de03633d9e898b20678c8591cd71f2c',1,'xcframe.c']]],
+  ['xcframe_5fblktype2_5fword1_5fmask',['XCFRAME_BLKTYPE2_WORD1_MASK',['../xcframe_8c.html#a342f9731d8c31f19b6e4eb89a1828a27',1,'xcframe.c']]],
+  ['xcframe_5fblktype2_5fword1_5fshift',['XCFRAME_BLKTYPE2_WORD1_SHIFT',['../xcframe_8c.html#a344923f83c4af5f2545efdb450c9a192',1,'xcframe.c']]],
+  ['xcframe_5fblktype3_5fword1_5fmask',['XCFRAME_BLKTYPE3_WORD1_MASK',['../xcframe_8c.html#a7e387e6d5511985f0eeb821b50a6762d',1,'xcframe.c']]],
+  ['xcframe_5fblktype3_5fword1_5fshift',['XCFRAME_BLKTYPE3_WORD1_SHIFT',['../xcframe_8c.html#a2c676053a8532090185e83f3ee7f9704',1,'xcframe.c']]],
+  ['xcframe_5fblktype3_5fword2_5fmask',['XCFRAME_BLKTYPE3_WORD2_MASK',['../xcframe_8c.html#afcf36902d5710e8b4bea63d4b7aebd4c',1,'xcframe.c']]],
+  ['xcframe_5fblktype3_5fword2_5fshift',['XCFRAME_BLKTYPE3_WORD2_SHIFT',['../xcframe_8c.html#ab34b7725cea8bb0b4bda31ac69ba3372',1,'xcframe.c']]],
+  ['xcframe_5ffar_5ftop_5foffset_5fwrt_5fbot',['XCFRAME_FAR_TOP_OFFSET_WRT_BOT',['../xcframe_8c.html#aecd8e255eaf53d918c78a7009243c7d0',1,'xcframe.c']]],
+  ['xcframe_5flast_5fframe_5fbot_5foffset',['XCFRAME_LAST_FRAME_BOT_OFFSET',['../xcframe_8c.html#a08e0df84bb34ee02dc1f8d25713e5d7c',1,'xcframe.c']]],
+  ['xcframe_5fmax_5fblktype_5fin_5ffar_5fbot',['XCFRAME_MAX_BLKTYPE_IN_FAR_BOT',['../xcframe_8c.html#a684807554df0e18f41e81872f7180687',1,'xcframe.c']]],
+  ['xcframe_5fword0_5foffset',['XCFRAME_WORD0_OFFSET',['../xcframe_8c.html#a0e26d7b7284e489d0b81337fbd012dc9',1,'xcframe.c']]],
+  ['xcframe_5fword1_5foffset',['XCFRAME_WORD1_OFFSET',['../xcframe_8c.html#a4d3f6c48973740329a52c418adcfd0d3',1,'xcframe.c']]],
+  ['xcframe_5fword2_5foffset',['XCFRAME_WORD2_OFFSET',['../xcframe_8c.html#a5fb588da2a7350c5b67e019ce031a747',1,'xcframe.c']]]
+];

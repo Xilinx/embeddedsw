@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_prach___schedule" kind="struct" prot="public">
+    <compoundname>XDfePrach_Schedule</compoundname>
+    <includes local="no">xdfeprach.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_prach___schedule_1a38e9a99c3bcea7e6e557b8db6aa7212d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_Schedule::PatternPeriod</definition>
+        <argsstring></argsstring>
+        <name>PatternPeriod</name>
+        <briefdescription>
+<para><verbatim>            [1-256] Duration, in Frames, of the repeating
+</verbatim> pattern of captures. </para>        </briefdescription>
+        <detaileddescription>
+<para>Internal frame count runs from 0 to PatternPeriod-1. This field is not required by the API when operating in dynamic mode. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="487" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="487" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1287a30b7e83158a48088593234ab1e4" compoundref="xdfeprach__2_c_c__3_r_c__dynamic__example_8c" startline="71" endline="324">XDfePrach_2CC3RCDynamicTestExample</referencedby>
+        <referencedby refid="group___overview_1ga80c73e89a6fc66abac088bbc45431dc3" compoundref="xdfeprach__2_c_c__3_r_c__reconfigure__example_8c" startline="73" endline="377">XDfePrach_2CC3RCReconfigureTestExample</referencedby>
+        <referencedby refid="group___overview_1gabd47bf94fdf2e70c66193ba7d36baded" compoundref="xdfeprach__2_c_c__3_r_c__example_8c" startline="70" endline="337">XDfePrach_2CC3RCTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___schedule_1a185bb5432a65dd6c374551aeecbbbfc1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_Schedule::FrameID</definition>
+        <argsstring></argsstring>
+        <name>FrameID</name>
+        <briefdescription>
+<para><verbatim>      [0-255] First frame within the pattern period which
+</verbatim> is enabled for a RACH capture. </para>        </briefdescription>
+        <detaileddescription>
+<para>Cannot exceed PatternPeriod. This field is not required by the API when operating in dynamic mode. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="491" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="491" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1287a30b7e83158a48088593234ab1e4" compoundref="xdfeprach__2_c_c__3_r_c__dynamic__example_8c" startline="71" endline="324">XDfePrach_2CC3RCDynamicTestExample</referencedby>
+        <referencedby refid="group___overview_1ga80c73e89a6fc66abac088bbc45431dc3" compoundref="xdfeprach__2_c_c__3_r_c__reconfigure__example_8c" startline="73" endline="377">XDfePrach_2CC3RCReconfigureTestExample</referencedby>
+        <referencedby refid="group___overview_1gabd47bf94fdf2e70c66193ba7d36baded" compoundref="xdfeprach__2_c_c__3_r_c__example_8c" startline="70" endline="337">XDfePrach_2CC3RCTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___schedule_1a2dc6eab32351cae4cf2f5006d2a61828" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_Schedule::SubframeID</definition>
+        <argsstring></argsstring>
+        <name>SubframeID</name>
+        <briefdescription>
+<para><verbatim>         [0-9] Subframe number at which a RACH capture
+</verbatim> should begin. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only valid when FrameID==frame count. This field is not required by the API when operating in dynamic mode. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="495" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="495" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1287a30b7e83158a48088593234ab1e4" compoundref="xdfeprach__2_c_c__3_r_c__dynamic__example_8c" startline="71" endline="324">XDfePrach_2CC3RCDynamicTestExample</referencedby>
+        <referencedby refid="group___overview_1ga80c73e89a6fc66abac088bbc45431dc3" compoundref="xdfeprach__2_c_c__3_r_c__reconfigure__example_8c" startline="73" endline="377">XDfePrach_2CC3RCReconfigureTestExample</referencedby>
+        <referencedby refid="group___overview_1gabd47bf94fdf2e70c66193ba7d36baded" compoundref="xdfeprach__2_c_c__3_r_c__example_8c" startline="70" endline="337">XDfePrach_2CC3RCTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___schedule_1a060a6fe951033884c8c9f39afb5f5570" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_Schedule::SlotId</definition>
+        <argsstring></argsstring>
+        <name>SlotId</name>
+        <briefdescription>
+<para><verbatim>     [0-7] Slot number at which
+</verbatim> a RACH Capture should begin. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>   - CC SCS restricts the range of slots available:
+   - CC_SCS == 15KHz =&gt; slotID=={0}
+   - CC_SCS == 30KHz =&gt; slotID=={0,1}
+   - CC_SCS == 60KHz =&gt; slotID=={0,1,2,3}
+   - CC_SCS == 120KHz =&gt; slotID=={0,1,2,3,4,5,6,7}
+   - CC_SCS == 240KHz =&gt; slotID=={0,1,2,3,4,5,6,7,8,9,10,
+           11,12,13,14,15} (unused). This field is not
+</verbatim> required by the API when operating in dynamic mode. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="499" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="499" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1287a30b7e83158a48088593234ab1e4" compoundref="xdfeprach__2_c_c__3_r_c__dynamic__example_8c" startline="71" endline="324">XDfePrach_2CC3RCDynamicTestExample</referencedby>
+        <referencedby refid="group___overview_1ga80c73e89a6fc66abac088bbc45431dc3" compoundref="xdfeprach__2_c_c__3_r_c__reconfigure__example_8c" startline="73" endline="377">XDfePrach_2CC3RCReconfigureTestExample</referencedby>
+        <referencedby refid="group___overview_1gabd47bf94fdf2e70c66193ba7d36baded" compoundref="xdfeprach__2_c_c__3_r_c__example_8c" startline="70" endline="337">XDfePrach_2CC3RCTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___schedule_1aa931f6127e2f84aea2e747fea616f762" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_Schedule::Duration</definition>
+        <argsstring></argsstring>
+        <name>Duration</name>
+        <briefdescription>
+<para><verbatim>       [1-2^12] Specifies the duration of a single RACH
+</verbatim> capture, in slots. </para>        </briefdescription>
+        <detaileddescription>
+<para>This field is not required by the API when operating in dynamic mode. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="509" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="509" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1287a30b7e83158a48088593234ab1e4" compoundref="xdfeprach__2_c_c__3_r_c__dynamic__example_8c" startline="71" endline="324">XDfePrach_2CC3RCDynamicTestExample</referencedby>
+        <referencedby refid="group___overview_1ga80c73e89a6fc66abac088bbc45431dc3" compoundref="xdfeprach__2_c_c__3_r_c__reconfigure__example_8c" startline="73" endline="377">XDfePrach_2CC3RCReconfigureTestExample</referencedby>
+        <referencedby refid="group___overview_1gabd47bf94fdf2e70c66193ba7d36baded" compoundref="xdfeprach__2_c_c__3_r_c__example_8c" startline="70" endline="337">XDfePrach_2CC3RCTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___schedule_1a046c93b443f753567fc010a624183af4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_Schedule::Repeats</definition>
+        <argsstring></argsstring>
+        <name>Repeats</name>
+        <briefdescription>
+<para><verbatim>      [1-256] Specifies the number of consecutive captures
+</verbatim> to execute. </para>        </briefdescription>
+        <detaileddescription>
+<para>New capture will begin on the slot immediately after &quot;Duration&quot; has ended. Note: This field is not required by the API when operating in dynamic mode. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="512" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="512" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1287a30b7e83158a48088593234ab1e4" compoundref="xdfeprach__2_c_c__3_r_c__dynamic__example_8c" startline="71" endline="324">XDfePrach_2CC3RCDynamicTestExample</referencedby>
+        <referencedby refid="group___overview_1ga80c73e89a6fc66abac088bbc45431dc3" compoundref="xdfeprach__2_c_c__3_r_c__reconfigure__example_8c" startline="73" endline="377">XDfePrach_2CC3RCReconfigureTestExample</referencedby>
+        <referencedby refid="group___overview_1gabd47bf94fdf2e70c66193ba7d36baded" compoundref="xdfeprach__2_c_c__3_r_c__example_8c" startline="70" endline="337">XDfePrach_2CC3RCTestExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Static Schedule for a RACH Channel. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="486" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="486" bodyend="517"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_prach___schedule_1aa931f6127e2f84aea2e747fea616f762" prot="public" virt="non-virtual"><scope>XDfePrach_Schedule</scope><name>Duration</name></member>
+      <member refid="struct_x_dfe_prach___schedule_1a185bb5432a65dd6c374551aeecbbbfc1" prot="public" virt="non-virtual"><scope>XDfePrach_Schedule</scope><name>FrameID</name></member>
+      <member refid="struct_x_dfe_prach___schedule_1a38e9a99c3bcea7e6e557b8db6aa7212d" prot="public" virt="non-virtual"><scope>XDfePrach_Schedule</scope><name>PatternPeriod</name></member>
+      <member refid="struct_x_dfe_prach___schedule_1a046c93b443f753567fc010a624183af4" prot="public" virt="non-virtual"><scope>XDfePrach_Schedule</scope><name>Repeats</name></member>
+      <member refid="struct_x_dfe_prach___schedule_1a060a6fe951033884c8c9f39afb5f5570" prot="public" virt="non-virtual"><scope>XDfePrach_Schedule</scope><name>SlotId</name></member>
+      <member refid="struct_x_dfe_prach___schedule_1a2dc6eab32351cae4cf2f5006d2a61828" prot="public" virt="non-virtual"><scope>XDfePrach_Schedule</scope><name>SubframeID</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

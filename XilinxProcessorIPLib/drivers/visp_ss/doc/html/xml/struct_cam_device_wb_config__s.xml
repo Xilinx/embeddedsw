@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_wb_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceWbConfig_s</compoundname>
+    <includes local="no">cam_device_wb_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_wb_config__s_1acc02764ed257d17a1501827ea83d909c" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__wb_1ga8b841ef6af9a3389540217e763f7a430" kindref="member">CamDeviceManualWbConfig_t</ref></type>
+        <definition>CamDeviceManualWbConfig_t CamDeviceWbConfig_s::manualCfg</definition>
+        <argsstring></argsstring>
+        <name>manualCfg</name>
+        <briefdescription>
+<para>WB manual configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wb_v1_1/cam_device_wb_api.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wb_v1_1/cam_device_wb_api.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice WB configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="634">
+        <label>CamDeviceManualWbConfig_s</label>
+        <link refid="struct_cam_device_manual_wb_config__s"/>
+      </node>
+      <node id="633">
+        <label>CamDeviceWbConfig_s</label>
+        <link refid="struct_cam_device_wb_config__s"/>
+        <childnode refid="634" relation="usage">
+          <edgelabel>manualCfg</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wb_v1_1/cam_device_wb_api.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wb_v1_1/cam_device_wb_api.h" bodystart="60" bodyend="62"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_wb_config__s_1acc02764ed257d17a1501827ea83d909c" prot="public" virt="non-virtual"><scope>CamDeviceWbConfig_s</scope><name>manualCfg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

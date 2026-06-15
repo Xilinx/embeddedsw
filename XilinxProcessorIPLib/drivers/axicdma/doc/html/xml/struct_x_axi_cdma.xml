@@ -1,0 +1,464 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_axi_cdma" kind="struct" prot="public">
+    <compoundname>XAxiCdma</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XAxiCdma::BaseAddr</definition>
+        <argsstring></argsstring>
+        <name>BaseAddr</name>
+        <briefdescription>
+<para>Virtual base address of the DMA engine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="433" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="433" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1ac2015ea802fb10915dcb1675e1f11292" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiCdma::Initialized</definition>
+        <argsstring></argsstring>
+        <name>Initialized</name>
+        <briefdescription>
+<para>The driver/engine in working state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="435" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="435" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1a0dd5a523efdcdd3dbd4af217add86ba1" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiCdma::SimpleOnlyBuild</definition>
+        <argsstring></argsstring>
+        <name>SimpleOnlyBuild</name>
+        <briefdescription>
+<para>Whether hardware is simple only build. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="436" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="436" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1ab1da5a22f93fafd389335953b8d2fa32" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiCdma::HasDRE</definition>
+        <argsstring></argsstring>
+        <name>HasDRE</name>
+        <briefdescription>
+<para>Whether support unaligned transfers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="437" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="437" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1a1713ee40ac479470b47c6e00ebc9167e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiCdma::IsLite</definition>
+        <argsstring></argsstring>
+        <name>IsLite</name>
+        <briefdescription>
+<para>Whether hardware is in lite mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="438" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="438" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1a388ac4a25ee9d98b9bacae62ed3ac14c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiCdma::WordLength</definition>
+        <argsstring></argsstring>
+        <name>WordLength</name>
+        <briefdescription>
+<para>Length of a word in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="439" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="439" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1a3fed61f573e14cce3c268c57045629aa" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiCdma::MaxTransLen</definition>
+        <argsstring></argsstring>
+        <name>MaxTransLen</name>
+        <briefdescription>
+<para>Length hardware supports. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="440" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="440" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1a74ad0793b99dcef1997096d0e0a308a7" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiCdma::SimpleNotDone</definition>
+        <argsstring></argsstring>
+        <name>SimpleNotDone</name>
+        <briefdescription>
+<para>Flag that a simple transfer is ongoing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="441" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="441" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1ab55406069938d62f28eaa28c6f07e1ee" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiCdma::SGWaiting</definition>
+        <argsstring></argsstring>
+        <name>SGWaiting</name>
+        <briefdescription>
+<para>Flag that SG transfers are waiting. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="442" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="442" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1a91247c004e11eac34f0438beea5dde36" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XAxiCdma::FirstBdPhysAddr</definition>
+        <argsstring></argsstring>
+        <name>FirstBdPhysAddr</name>
+        <briefdescription>
+<para>Physical address of 1st BD in list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="445" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="445" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1a3b5abbbbf2766422d5f660522c69415a" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XAxiCdma::FirstBdAddr</definition>
+        <argsstring></argsstring>
+        <name>FirstBdAddr</name>
+        <briefdescription>
+<para>Virtual address of 1st BD in list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="446" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="446" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1acc658b4579aada9fd904bc2583869cd1" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XAxiCdma::LastBdAddr</definition>
+        <argsstring></argsstring>
+        <name>LastBdAddr</name>
+        <briefdescription>
+<para>Virtual address of last BD in the list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="447" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="447" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1ab6126010c307dfbb876b792c9132af5d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAxiCdma::BdRingTotalLen</definition>
+        <argsstring></argsstring>
+        <name>BdRingTotalLen</name>
+        <briefdescription>
+<para>Total size of ring in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="448" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1ad5c71733dd2f2f3a16928989323fd2cf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAxiCdma::BdSeparation</definition>
+        <argsstring></argsstring>
+        <name>BdSeparation</name>
+        <briefdescription>
+<para>Distance between adjacent BDs in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="449" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="449" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1ac135054973d012df631d4c3ce4265c13" prot="public" static="no" mutable="no">
+        <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+        <definition>XAxiCdma_Bd* XAxiCdma::FreeBdHead</definition>
+        <argsstring></argsstring>
+        <name>FreeBdHead</name>
+        <briefdescription>
+<para>First BD in the free group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="450" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="450" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1a4c23c19ab7178eedfaa467b521579f7c" prot="public" static="no" mutable="no">
+        <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+        <definition>XAxiCdma_Bd* XAxiCdma::PreBdHead</definition>
+        <argsstring></argsstring>
+        <name>PreBdHead</name>
+        <briefdescription>
+<para>First BD in the pre-work group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="451" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="451" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1a7c1924e65180e4f4d3bcae42401f88dd" prot="public" static="no" mutable="no">
+        <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+        <definition>XAxiCdma_Bd* XAxiCdma::HwBdHead</definition>
+        <argsstring></argsstring>
+        <name>HwBdHead</name>
+        <briefdescription>
+<para>First BD in the work group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="452" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="452" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1a0950bf04156be5509355b2a357673040" prot="public" static="no" mutable="no">
+        <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+        <definition>XAxiCdma_Bd* XAxiCdma::HwBdTail</definition>
+        <argsstring></argsstring>
+        <name>HwBdTail</name>
+        <briefdescription>
+<para>Last BD in the work group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="453" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="453" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1a120ee9f0ad67f425610c397ef5e65005" prot="public" static="no" mutable="no">
+        <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+        <definition>XAxiCdma_Bd* XAxiCdma::PostBdHead</definition>
+        <argsstring></argsstring>
+        <name>PostBdHead</name>
+        <briefdescription>
+<para>First BD in the post-work group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="454" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="454" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1aeecd8cb03aaaaf20be794841b0a88c3a" prot="public" static="no" mutable="no">
+        <type><ref refid="group__axicdma_1ga33f9ce1ca035334d63cd08d4cf26daea" kindref="member">XAxiCdma_Bd</ref> *</type>
+        <definition>XAxiCdma_Bd* XAxiCdma::BdaRestart</definition>
+        <argsstring></argsstring>
+        <name>BdaRestart</name>
+        <briefdescription>
+<para>BD to load when hardware restarted. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="455" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="455" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1aa97c9cb7f52a00abff853f10fa019281" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiCdma::FreeBdCnt</definition>
+        <argsstring></argsstring>
+        <name>FreeBdCnt</name>
+        <briefdescription>
+<para>Number of allocatable BDs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="456" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="456" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1a5d1ec02178e771b7d03bb311227bd280" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiCdma::PreBdCnt</definition>
+        <argsstring></argsstring>
+        <name>PreBdCnt</name>
+        <briefdescription>
+<para>Number of BDs in pre-work group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="457" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="457" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1a1ed2ffe9619787562cc86926735c09fa" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiCdma::HwBdCnt</definition>
+        <argsstring></argsstring>
+        <name>HwBdCnt</name>
+        <briefdescription>
+<para>Number of BDs in work group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="458" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="458" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1a45366a0ce682bc5b8fd35247fc7b7e08" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiCdma::PostBdCnt</definition>
+        <argsstring></argsstring>
+        <name>PostBdCnt</name>
+        <briefdescription>
+<para>Number of BDs in post-work group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="459" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="459" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1a4339e3db7402269331ae39e6cc683810" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiCdma::AllBdCnt</definition>
+        <argsstring></argsstring>
+        <name>AllBdCnt</name>
+        <briefdescription>
+<para>Total Number of BDs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="460" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="460" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1a28521d3dec22937aae8719f4784cbfb9" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiCdma::BurstLen</definition>
+        <argsstring></argsstring>
+        <name>BurstLen</name>
+        <briefdescription>
+<para>Burst length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="462" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="462" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1aed7cbc666ba104051ceaca26fc413479" prot="public" static="no" mutable="no">
+        <type>XAxiCdma_CallBackFn</type>
+        <definition>XAxiCdma_CallBackFn XAxiCdma::SimpleCallBackFn</definition>
+        <argsstring></argsstring>
+        <name>SimpleCallBackFn</name>
+        <briefdescription>
+<para><verbatim>Callback function for simple
+</verbatim> transfer </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="466" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="466" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1a7ce37d15e137a9640763a81d6d827b83" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XAxiCdma::SimpleCallBackRef</definition>
+        <argsstring></argsstring>
+        <name>SimpleCallBackRef</name>
+        <briefdescription>
+<para>Callback reference pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="468" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="468" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1a587ab0d58bda41d07c44845f193fc1cc" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiCdma::SgHandlerHead</definition>
+        <argsstring></argsstring>
+        <name>SgHandlerHead</name>
+        <briefdescription>
+<para>First active sg transfer handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="470" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="470" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1abe5ae458395fcfa76e9f6800c3e1e1ff" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiCdma::SgHandlerTail</definition>
+        <argsstring></argsstring>
+        <name>SgHandlerTail</name>
+        <briefdescription>
+<para>Last active sg transfer handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="471" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="471" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1afa9b39081a056e58f656e32a9c5206f5" prot="public" static="no" mutable="no">
+        <type>XAxiCdma_IntrHandlerList</type>
+        <definition>XAxiCdma_IntrHandlerList XAxiCdma::Handlers[XAXICDMA_MAXIMUM_MAX_HANDLER]</definition>
+        <argsstring>[XAXICDMA_MAXIMUM_MAX_HANDLER]</argsstring>
+        <name>Handlers</name>
+        <briefdescription>
+<para>List of interrupt handlers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="472" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="472" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma_1ab2061b0571725b2f6cfbcc953f77584b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiCdma::AddrWidth</definition>
+        <argsstring></argsstring>
+        <name>AddrWidth</name>
+        <briefdescription>
+<para>Address Width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="474" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="474" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="432" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="432" bodyend="476"/>
+    <listofallmembers>
+      <member refid="struct_x_axi_cdma_1ab2061b0571725b2f6cfbcc953f77584b" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>AddrWidth</name></member>
+      <member refid="struct_x_axi_cdma_1a4339e3db7402269331ae39e6cc683810" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>AllBdCnt</name></member>
+      <member refid="struct_x_axi_cdma_1ab9389977471c1d709d2d26eca52c9a4c" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>BaseAddr</name></member>
+      <member refid="struct_x_axi_cdma_1aeecd8cb03aaaaf20be794841b0a88c3a" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>BdaRestart</name></member>
+      <member refid="struct_x_axi_cdma_1ab6126010c307dfbb876b792c9132af5d" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>BdRingTotalLen</name></member>
+      <member refid="struct_x_axi_cdma_1ad5c71733dd2f2f3a16928989323fd2cf" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>BdSeparation</name></member>
+      <member refid="struct_x_axi_cdma_1a28521d3dec22937aae8719f4784cbfb9" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>BurstLen</name></member>
+      <member refid="struct_x_axi_cdma_1a3b5abbbbf2766422d5f660522c69415a" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>FirstBdAddr</name></member>
+      <member refid="struct_x_axi_cdma_1a91247c004e11eac34f0438beea5dde36" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>FirstBdPhysAddr</name></member>
+      <member refid="struct_x_axi_cdma_1aa97c9cb7f52a00abff853f10fa019281" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>FreeBdCnt</name></member>
+      <member refid="struct_x_axi_cdma_1ac135054973d012df631d4c3ce4265c13" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>FreeBdHead</name></member>
+      <member refid="struct_x_axi_cdma_1afa9b39081a056e58f656e32a9c5206f5" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>Handlers</name></member>
+      <member refid="struct_x_axi_cdma_1ab1da5a22f93fafd389335953b8d2fa32" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>HasDRE</name></member>
+      <member refid="struct_x_axi_cdma_1a1ed2ffe9619787562cc86926735c09fa" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>HwBdCnt</name></member>
+      <member refid="struct_x_axi_cdma_1a7c1924e65180e4f4d3bcae42401f88dd" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>HwBdHead</name></member>
+      <member refid="struct_x_axi_cdma_1a0950bf04156be5509355b2a357673040" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>HwBdTail</name></member>
+      <member refid="struct_x_axi_cdma_1ac2015ea802fb10915dcb1675e1f11292" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>Initialized</name></member>
+      <member refid="struct_x_axi_cdma_1a1713ee40ac479470b47c6e00ebc9167e" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>IsLite</name></member>
+      <member refid="struct_x_axi_cdma_1acc658b4579aada9fd904bc2583869cd1" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>LastBdAddr</name></member>
+      <member refid="struct_x_axi_cdma_1a3fed61f573e14cce3c268c57045629aa" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>MaxTransLen</name></member>
+      <member refid="struct_x_axi_cdma_1a45366a0ce682bc5b8fd35247fc7b7e08" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>PostBdCnt</name></member>
+      <member refid="struct_x_axi_cdma_1a120ee9f0ad67f425610c397ef5e65005" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>PostBdHead</name></member>
+      <member refid="struct_x_axi_cdma_1a5d1ec02178e771b7d03bb311227bd280" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>PreBdCnt</name></member>
+      <member refid="struct_x_axi_cdma_1a4c23c19ab7178eedfaa467b521579f7c" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>PreBdHead</name></member>
+      <member refid="struct_x_axi_cdma_1a587ab0d58bda41d07c44845f193fc1cc" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>SgHandlerHead</name></member>
+      <member refid="struct_x_axi_cdma_1abe5ae458395fcfa76e9f6800c3e1e1ff" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>SgHandlerTail</name></member>
+      <member refid="struct_x_axi_cdma_1ab55406069938d62f28eaa28c6f07e1ee" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>SGWaiting</name></member>
+      <member refid="struct_x_axi_cdma_1aed7cbc666ba104051ceaca26fc413479" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>SimpleCallBackFn</name></member>
+      <member refid="struct_x_axi_cdma_1a7ce37d15e137a9640763a81d6d827b83" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>SimpleCallBackRef</name></member>
+      <member refid="struct_x_axi_cdma_1a74ad0793b99dcef1997096d0e0a308a7" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>SimpleNotDone</name></member>
+      <member refid="struct_x_axi_cdma_1a0dd5a523efdcdd3dbd4af217add86ba1" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>SimpleOnlyBuild</name></member>
+      <member refid="struct_x_axi_cdma_1a388ac4a25ee9d98b9bacae62ed3ac14c" prot="public" virt="non-virtual"><scope>XAxiCdma</scope><name>WordLength</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

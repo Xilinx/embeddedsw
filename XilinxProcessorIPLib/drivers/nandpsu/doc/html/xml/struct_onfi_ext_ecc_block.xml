@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_onfi_ext_ecc_block" kind="struct" prot="public">
+    <compoundname>OnfiExtEccBlock</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_onfi_ext_ecc_block_1a2fc1903156ae50af917405f467557c32" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiExtEccBlock::NumEccBits</definition>
+        <argsstring></argsstring>
+        <name>NumEccBits</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="316" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_ext_ecc_block_1af81b24f957e11c0f1a2beb88d66de0d2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 OnfiExtEccBlock::CodeWordSize</definition>
+        <argsstring></argsstring>
+        <name>CodeWordSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="317" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_ext_ecc_block_1a096b2bf528202a900a5c052c95afec5f" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiExtEccBlock::MaxBadBlocks</definition>
+        <argsstring></argsstring>
+        <name>MaxBadBlocks</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="318" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_ext_ecc_block_1a16658924d339c474a41e8bbd610bf419" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiExtEccBlock::BlockEndurance</definition>
+        <argsstring></argsstring>
+        <name>BlockEndurance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="319" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_onfi_ext_ecc_block_1ad23972b8ee376889665908eaa1d7a172" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 OnfiExtEccBlock::Reserved</definition>
+        <argsstring></argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="320" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu_onfi.h" bodystart="315" bodyend="325"/>
+    <listofallmembers>
+      <member refid="struct_onfi_ext_ecc_block_1a16658924d339c474a41e8bbd610bf419" prot="public" virt="non-virtual"><scope>OnfiExtEccBlock</scope><name>BlockEndurance</name></member>
+      <member refid="struct_onfi_ext_ecc_block_1af81b24f957e11c0f1a2beb88d66de0d2" prot="public" virt="non-virtual"><scope>OnfiExtEccBlock</scope><name>CodeWordSize</name></member>
+      <member refid="struct_onfi_ext_ecc_block_1a096b2bf528202a900a5c052c95afec5f" prot="public" virt="non-virtual"><scope>OnfiExtEccBlock</scope><name>MaxBadBlocks</name></member>
+      <member refid="struct_onfi_ext_ecc_block_1a2fc1903156ae50af917405f467557c32" prot="public" virt="non-virtual"><scope>OnfiExtEccBlock</scope><name>NumEccBits</name></member>
+      <member refid="struct_onfi_ext_ecc_block_1ad23972b8ee376889665908eaa1d7a172" prot="public" virt="non-virtual"><scope>OnfiExtEccBlock</scope><name>Reserved</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

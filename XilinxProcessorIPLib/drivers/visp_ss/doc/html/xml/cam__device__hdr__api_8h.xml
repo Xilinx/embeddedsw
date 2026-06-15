@@ -1,0 +1,382 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="cam__device__hdr__api_8h" kind="file">
+    <compoundname>cam_device_hdr_api.h</compoundname>
+    <includedby refid="cam__device__module__api_8h" local="yes">cam_device_module_api.h</includedby>
+    <includedby refid="vvbench__bls__api_8h" local="yes">vvbench_bls_api.h</includedby>
+    <includedby refid="vvbench__hdr__api_8h" local="yes">vvbench_hdr_api.h</includedby>
+    <includedby refid="vvbench__wb__api_8h" local="yes">vvbench_wb_api.h</includedby>
+    <invincdepgraph>
+      <node id="3743">
+        <label>vvbench_hdr_api_dummy.c</label>
+      </node>
+      <node id="3730">
+        <label>cam_device_rgbir_api_v2.c</label>
+      </node>
+      <node id="3728">
+        <label>cam_device_hist64_api.c</label>
+      </node>
+      <node id="3727">
+        <label>cam_device_hist256_api.c</label>
+      </node>
+      <node id="3731">
+        <label>cam_device_tpg_api.c</label>
+      </node>
+      <node id="3697">
+        <label>cam_device_module_api.h</label>
+        <childnode refid="3698" relation="include">
+        </childnode>
+      </node>
+      <node id="3735">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="3745">
+        <label>vvbench_wb_api_v1_1.c</label>
+      </node>
+      <node id="3699">
+        <label>control.h</label>
+        <childnode refid="3700" relation="include">
+        </childnode>
+      </node>
+      <node id="3725">
+        <label>cam_device_ge_api.c</label>
+      </node>
+      <node id="3696">
+        <label>cam_device_hdr_api.h</label>
+        <link refid="cam_device_hdr_api.h"/>
+        <childnode refid="3697" relation="include">
+        </childnode>
+        <childnode refid="3738" relation="include">
+        </childnode>
+        <childnode refid="3742" relation="include">
+        </childnode>
+        <childnode refid="3744" relation="include">
+        </childnode>
+      </node>
+      <node id="3733">
+        <label>cam_device_wdr_api_v5_2.c</label>
+      </node>
+      <node id="3711">
+        <label>cam_device_cpd_api.c</label>
+      </node>
+      <node id="3719">
+        <label>cam_device_cnr_api.c</label>
+      </node>
+      <node id="3713">
+        <label>cam_device_dg_api.c</label>
+      </node>
+      <node id="3717">
+        <label>cam_device_af_api.c</label>
+      </node>
+      <node id="3739">
+        <label>submodule_def.h</label>
+        <childnode refid="3740" relation="include">
+        </childnode>
+        <childnode refid="3735" relation="include">
+        </childnode>
+      </node>
+      <node id="3709">
+        <label>cam_device_bls_api.c</label>
+      </node>
+      <node id="3705">
+        <label>cam_device_sensor_api.c</label>
+      </node>
+      <node id="3704">
+        <label>cam_device_buffer_api.c</label>
+      </node>
+      <node id="3740">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="3720">
+        <label>cam_device_hdr_api.c</label>
+      </node>
+      <node id="3712">
+        <label>cam_device_cproc_api.c</label>
+      </node>
+      <node id="3715">
+        <label>cam_device_dpcc_api.c</label>
+      </node>
+      <node id="3718">
+        <label>cam_device_afm_api.c</label>
+      </node>
+      <node id="3702">
+        <label>cam_device.c</label>
+      </node>
+      <node id="3710">
+        <label>cam_device_ccm_api.c</label>
+      </node>
+      <node id="3708">
+        <label>cam_device_awb_api.c</label>
+      </node>
+      <node id="3698">
+        <label>cam_device_app.h</label>
+        <childnode refid="3699" relation="include">
+        </childnode>
+        <childnode refid="3700" relation="include">
+        </childnode>
+        <childnode refid="3701" relation="include">
+        </childnode>
+        <childnode refid="3702" relation="include">
+        </childnode>
+        <childnode refid="3703" relation="include">
+        </childnode>
+        <childnode refid="3704" relation="include">
+        </childnode>
+        <childnode refid="3705" relation="include">
+        </childnode>
+        <childnode refid="3706" relation="include">
+        </childnode>
+        <childnode refid="3707" relation="include">
+        </childnode>
+        <childnode refid="3708" relation="include">
+        </childnode>
+        <childnode refid="3709" relation="include">
+        </childnode>
+        <childnode refid="3710" relation="include">
+        </childnode>
+        <childnode refid="3711" relation="include">
+        </childnode>
+        <childnode refid="3712" relation="include">
+        </childnode>
+        <childnode refid="3713" relation="include">
+        </childnode>
+        <childnode refid="3714" relation="include">
+        </childnode>
+        <childnode refid="3715" relation="include">
+        </childnode>
+        <childnode refid="3716" relation="include">
+        </childnode>
+        <childnode refid="3717" relation="include">
+        </childnode>
+        <childnode refid="3718" relation="include">
+        </childnode>
+        <childnode refid="3719" relation="include">
+        </childnode>
+        <childnode refid="3720" relation="include">
+        </childnode>
+        <childnode refid="3721" relation="include">
+        </childnode>
+        <childnode refid="3722" relation="include">
+        </childnode>
+        <childnode refid="3723" relation="include">
+        </childnode>
+        <childnode refid="3724" relation="include">
+        </childnode>
+        <childnode refid="3725" relation="include">
+        </childnode>
+        <childnode refid="3726" relation="include">
+        </childnode>
+        <childnode refid="3727" relation="include">
+        </childnode>
+        <childnode refid="3728" relation="include">
+        </childnode>
+        <childnode refid="3729" relation="include">
+        </childnode>
+        <childnode refid="3730" relation="include">
+        </childnode>
+        <childnode refid="3731" relation="include">
+        </childnode>
+        <childnode refid="3732" relation="include">
+        </childnode>
+        <childnode refid="3733" relation="include">
+        </childnode>
+        <childnode refid="3734" relation="include">
+        </childnode>
+        <childnode refid="3735" relation="include">
+        </childnode>
+        <childnode refid="3736" relation="include">
+        </childnode>
+      </node>
+      <node id="3700">
+        <label>control.c</label>
+      </node>
+      <node id="3732">
+        <label>cam_device_wb_api.c</label>
+      </node>
+      <node id="3729">
+        <label>cam_device_lsc_api_v3.c</label>
+      </node>
+      <node id="3721">
+        <label>cam_device_ee_api_v2.c</label>
+      </node>
+      <node id="3744">
+        <label>vvbench_wb_api.h</label>
+        <childnode refid="3739" relation="include">
+        </childnode>
+        <childnode refid="3745" relation="include">
+        </childnode>
+      </node>
+      <node id="3738">
+        <label>vvbench_bls_api.h</label>
+        <childnode refid="3739" relation="include">
+        </childnode>
+        <childnode refid="3741" relation="include">
+        </childnode>
+      </node>
+      <node id="3722">
+        <label>cam_device_exp_api_v2.c</label>
+      </node>
+      <node id="3723">
+        <label>cam_device_fusa_api.c</label>
+      </node>
+      <node id="3741">
+        <label>vvbench_bls_api.c</label>
+      </node>
+      <node id="3734">
+        <label>oba.c</label>
+      </node>
+      <node id="3703">
+        <label>cam_device_api.c</label>
+      </node>
+      <node id="3724">
+        <label>cam_device_gc_api.c</label>
+      </node>
+      <node id="3742">
+        <label>vvbench_hdr_api.h</label>
+        <childnode refid="3739" relation="include">
+        </childnode>
+        <childnode refid="3743" relation="include">
+        </childnode>
+      </node>
+      <node id="3726">
+        <label>cam_device_gtm_api_v1.c</label>
+      </node>
+      <node id="3701">
+        <label>iba.c</label>
+      </node>
+      <node id="3714">
+        <label>cam_device_dmsc_api_v2.c</label>
+      </node>
+      <node id="3706">
+        <label>cam_device_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="3716">
+        <label>cam_device_3dnr_api.c</label>
+      </node>
+      <node id="3737">
+        <label>xvisp_ss_example.c</label>
+      </node>
+      <node id="3736">
+        <label>xvisp_ss_example.h</label>
+        <childnode refid="3737" relation="include">
+        </childnode>
+      </node>
+      <node id="3707">
+        <label>cam_device_ae_api.c</label>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2022<sp/>Vivante<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>CAMDEV_HDR_API_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CAMDEV_HDR_API_H</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="45"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">CamDeviceHdrConfig_s<sp/>{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>colorWeight[3];<sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="normal">}CamDeviceHdrConfig_t;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="55"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">CamDeviceHdrStatus_s<sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/>enable;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="57"><highlight class="normal">}CamDeviceHdrStatus_t;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="65"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>CamDeviceHdrBypassSelect_e<sp/>{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>CAMDEV_HDR_BYPASS_SELECT_L<sp/>=<sp/>0,<sp/><sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="normal">}CamDeviceHdrBypassSelect_t;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">RESULT<sp/>VsiCamDeviceHdrSetConfig</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHdrConfig_t<sp/>*pHdrCfg</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">RESULT<sp/>VsiCamDeviceHdrGetConfig</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHdrConfig_t<sp/>*pHdrCfg</highlight></codeline>
+<codeline lineno="109"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">RESULT<sp/>VsiCamDeviceHdrEnable</highlight></codeline>
+<codeline lineno="126"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice</highlight></codeline>
+<codeline lineno="128"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">RESULT<sp/>VsiCamDeviceHdrDisable</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="163"><highlight class="normal">RESULT<sp/>VsiCamDeviceHdrReset</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="166"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="183"><highlight class="normal">RESULT<sp/>VsiCamDeviceHdrGetStatus</highlight></codeline>
+<codeline lineno="184"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHdrStatus_t<sp/>*pHdrStatus</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="205"><highlight class="normal">RESULT<sp/>VsiCamDeviceHdrGetVersion</highlight></codeline>
+<codeline lineno="206"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>*pVersion</highlight></codeline>
+<codeline lineno="209"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="226"><highlight class="normal">RESULT<sp/>VsiCamDeviceSetBypassSelectEnable</highlight></codeline>
+<codeline lineno="227"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHdrBypassSelect_t<sp/><sp/>bypassFrame</highlight></codeline>
+<codeline lineno="230"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>@}<sp/>cam_device_hdr<sp/>dummy<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>@endcond<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_hdr_api.h"/>
+  </compounddef>
+</doxygen>

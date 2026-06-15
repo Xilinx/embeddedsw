@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ufs_psxc___uic_cmd" kind="struct" prot="public">
+    <compoundname>XUfsPsxc_UicCmd</compoundname>
+    <includes local="no">xufspsxc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ufs_psxc___uic_cmd_1adfef1e0a7aa5ea846d2c3c6b73ba8719" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUfsPsxc_UicCmd::Command</definition>
+        <argsstring></argsstring>
+        <name>Command</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___uic_cmd_1a918860473c89198e5e3dc14be43413d9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUfsPsxc_UicCmd::AttrSetType</definition>
+        <argsstring></argsstring>
+        <name>AttrSetType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___uic_cmd_1a1856266b57fa65a7fb8f3bed4c1e0be9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUfsPsxc_UicCmd::ResetLevel</definition>
+        <argsstring></argsstring>
+        <name>ResetLevel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___uic_cmd_1adb399598909a40a5d928555cca3dc718" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUfsPsxc_UicCmd::ResultCode</definition>
+        <argsstring></argsstring>
+        <name>ResultCode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___uic_cmd_1a4fb587690f1207077cd29f8705851586" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_UicCmd::MibValue</definition>
+        <argsstring></argsstring>
+        <name>MibValue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___uic_cmd_1a329b3352f536a06c35c1c3bc041435ca" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XUfsPsxc_UicCmd::GenSelIndex</definition>
+        <argsstring></argsstring>
+        <name>GenSelIndex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___uic_cmd_1aefa7a52836f0e0af9a252b427130f4cc" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XUfsPsxc_UicCmd::MibAttribute</definition>
+        <argsstring></argsstring>
+        <name>MibAttribute</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>UIC Command Structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="201" bodyend="209"/>
+    <listofallmembers>
+      <member refid="struct_x_ufs_psxc___uic_cmd_1a918860473c89198e5e3dc14be43413d9" prot="public" virt="non-virtual"><scope>XUfsPsxc_UicCmd</scope><name>AttrSetType</name></member>
+      <member refid="struct_x_ufs_psxc___uic_cmd_1adfef1e0a7aa5ea846d2c3c6b73ba8719" prot="public" virt="non-virtual"><scope>XUfsPsxc_UicCmd</scope><name>Command</name></member>
+      <member refid="struct_x_ufs_psxc___uic_cmd_1a329b3352f536a06c35c1c3bc041435ca" prot="public" virt="non-virtual"><scope>XUfsPsxc_UicCmd</scope><name>GenSelIndex</name></member>
+      <member refid="struct_x_ufs_psxc___uic_cmd_1aefa7a52836f0e0af9a252b427130f4cc" prot="public" virt="non-virtual"><scope>XUfsPsxc_UicCmd</scope><name>MibAttribute</name></member>
+      <member refid="struct_x_ufs_psxc___uic_cmd_1a4fb587690f1207077cd29f8705851586" prot="public" virt="non-virtual"><scope>XUfsPsxc_UicCmd</scope><name>MibValue</name></member>
+      <member refid="struct_x_ufs_psxc___uic_cmd_1a1856266b57fa65a7fb8f3bed4c1e0be9" prot="public" virt="non-virtual"><scope>XUfsPsxc_UicCmd</scope><name>ResetLevel</name></member>
+      <member refid="struct_x_ufs_psxc___uic_cmd_1adb399598909a40a5d928555cca3dc718" prot="public" virt="non-virtual"><scope>XUfsPsxc_UicCmd</scope><name>ResultCode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

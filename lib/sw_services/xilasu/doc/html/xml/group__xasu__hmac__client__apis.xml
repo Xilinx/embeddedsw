@@ -1,0 +1,320 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xasu__hmac__client__apis" kind="group">
+    <compoundname>xasu_hmac_client_apis</compoundname>
+    <title>HMAC Client APIs</title>
+    <innerclass refid="struct_x_asu___hmac_kat_cb_state" prot="public">XAsu_HmacKatCbState</innerclass>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xasu__hmac__client__apis_1ga302c9c7c57c104037f7197b0c03a7356" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 HmacKatKey[XASU_HMAC_KAT_KEY_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_HMAC_KAT_KEY_LEN_IN_BYTES]</argsstring>
+        <name>HmacKatKey</name>
+        <initializer>= {
+	0x22U, 0x17U, 0x96U, 0x4FU, 0xB2U, 0x14U, 0x35U, 0x33U,
+	0xBAU, 0x93U, 0xAAU, 0x35U, 0xFEU, 0x09U, 0x37U, 0xA6U,
+	0x69U, 0x5EU, 0x20U, 0x87U, 0x27U, 0x07U, 0x06U, 0x44U,
+	0x99U, 0x21U, 0x7CU, 0x5FU, 0x6AU, 0xB8U, 0x09U, 0xDFU
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__hmac__client__apis_1ga2cf861b27def72d01568b621b5c14e05" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 HmacKatMsg[XASU_HMAC_KAT_MSG_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_HMAC_KAT_MSG_LEN_IN_BYTES]</argsstring>
+        <name>HmacKatMsg</name>
+        <initializer>= {
+	0x2FU, 0xBFU, 0x02U, 0x9EU, 0xE9U, 0xFBU, 0xD6U, 0x11U,
+	0xC2U, 0x4DU, 0x81U, 0x4EU, 0x6AU, 0xFFU, 0x26U, 0x77U,
+	0xC3U, 0x5AU, 0x83U, 0xBCU, 0xE5U, 0x63U, 0x2CU, 0xE7U,
+	0x89U, 0x43U, 0x6CU, 0x68U, 0x82U, 0xCAU, 0x1CU, 0x71U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__hmac__client__apis_1ga14cdc739723e7cb44f2478401f537c6c" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 ExpHmacSha3_256[XASU_HMAC_KAT_SHA3_256_HASH_LEN]</definition>
+        <argsstring>[XASU_HMAC_KAT_SHA3_256_HASH_LEN]</argsstring>
+        <name>ExpHmacSha3_256</name>
+        <initializer>= {
+	0xFFU, 0x32U, 0x0AU, 0xF4U, 0x3BU, 0x15U, 0x34U, 0x12U,
+	0xCDU, 0x51U, 0x64U, 0x38U, 0x38U, 0xFAU, 0x1BU, 0xD1U,
+	0xBAU, 0x1EU, 0xABU, 0x78U, 0x92U, 0xB2U, 0x20U, 0x46U,
+	0xD8U, 0x96U, 0xE0U, 0x25U, 0xCFU, 0x0AU, 0xE6U, 0x71U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__hmac__client__apis_1ga8a7ad8ac5599c493c427c3e6ed569e92" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_ValidateHmacParameters</definition>
+        <argsstring>(const XAsu_HmacParams *HmacParamsPtr)</argsstring>
+        <name>XAsu_ValidateHmacParameters</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___hmac_params" kindref="compound">XAsu_HmacParams</ref> *</type>
+          <declname>HmacParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the input HMAC parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>HmacParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___hmac_params" kindref="compound">XAsu_HmacParams</ref> structure which holds the parameters of HMAC input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if HMAC input parameters validation is successful.</para></listitem><listitem><para>XST_FAILURE, if HMAC input parameters validation fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate SHA Mode and SHA Type.</para><para>Validate that exactly one of KeyInAddr or KeyId is provided.</para><para>When a direct key is provided, its length must be valid. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" bodystart="315" bodyend="372"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__hmac__client__apis_1ga4a51b82f829ed68f456efc5d0fb30a8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_HmacCompute</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamsPtr, XAsu_HmacParams *HmacParamsPtr)</argsstring>
+        <name>XAsu_HmacCompute</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamsPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___hmac_params" kindref="compound">XAsu_HmacParams</ref> *</type>
+          <declname>HmacParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends command to ASUFW to compute the Message Authentication Code (MAC) for the given message using the specified hash function and the provided key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HmacParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___hmac_params" kindref="compound">XAsu_HmacParams</ref> structure which holds the parameters of HMAC input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails.</para></listitem><listitem><para>XASU_CLIENT_CTX_NOT_CREATED, if client context is not created.</para></listitem><listitem><para>XASU_FAIL_SAVE_CTX, if saving context fails.</para></listitem><listitem><para>XASU_REQUEST_INPROGRESS, if split request already in progress.</para></listitem><listitem><para>XASU_FREE_CTX_FAIL, if freeing context fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Validate required parameters for HMAC update operation.</para><para>Handle context operation.</para><para>Cleanup on FINAL operation.</para><para>Get the command ID based on SHA type.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" bodystart="105" bodyend="168"/>
+        <references refid="struct_x_asu___hmac_params_1a852eebbd400e71ec9f3e384bf4258151" compoundref="xasu__hmacinfo_8h" startline="63">XAsu_HmacParams::HmacAddr</references>
+        <references refid="struct_x_asu___hmac_params_1a8b51dbfd52ff462a642848d0d2150c14" compoundref="xasu__hmacinfo_8h" startline="66">XAsu_HmacParams::HmacLen</references>
+        <references refid="struct_x_asu___hmac_params_1af681757f8d870f564596fbcaccc1de81" compoundref="xasu__hmacinfo_8h" startline="74">XAsu_HmacParams::OperationFlags</references>
+        <references refid="struct_x_asu___hmac_params_1a88cff332a0caa94bdd7f7951243b8235" compoundref="xasu__hmacinfo_8h" startline="67">XAsu_HmacParams::ShaType</references>
+        <references refid="group__xasu__client__info_1ga4af0f185b2f94cd5a55c39bd9eede12e" compoundref="xasu__client_8c" startline="821" endline="845">XAsu_CleanupFinishOperation</references>
+        <references refid="group__xasu__common__defs_1gaa31a05872c26a658a8da800ee649dbe9" compoundref="xasu__def_8h" startline="72">XASU_FINISH</references>
+        <references refid="group__xasu__client__info_1ga9fc6bcf48e27561e61e8fd79931a363f" compoundref="xasu__client_8c" startline="736" endline="802">XAsu_HandleContextOperation</references>
+        <references refid="group__xasu__common__defs_1gab761eb1cf971733db1f208cbc55c0c69" compoundref="xasu__hmacinfo_8h" startline="44">XASU_HMAC_COMPUTE_SHA2_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1gad76cf2cbd0cec89a82f74f24ecf5051f" compoundref="xasu__hmacinfo_8h" startline="45">XASU_HMAC_COMPUTE_SHA3_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1gae3a9e9118884ccc0feae9e4728394e3d" compoundref="xasu__def_8h" startline="70">XASU_INIT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__common__defs_1ga71836fa125760f40a6366511f3e73a34" compoundref="xasu__def_8h" startline="56">XASU_MODULE_HMAC_ID</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="57">XASU_SHA2_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga74c866f4c9240345e465c2c9e666d9a1" compoundref="xasu__def_8h" startline="71">XASU_UPDATE</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__hmac__client__apis_1ga3338c25e5bbadd96a6665ee2ccc8818b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_HmacKat</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamsPtr)</argsstring>
+        <name>XAsu_HmacKat</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends command to ASUFW to perform HMAC Known Answer Tests (KAT&apos;s). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" bodystart="184" bodyend="212"/>
+        <references refid="group__xasu__client__info_1gae954c6c287fd8516f1cf18672f6b0eba" compoundref="xasu__client_8h" startline="51">XASU_CMD_LEN_ZERO</references>
+        <references refid="group__xasu__common__defs_1ga79f039a793a7601a5d68181953bbe8ac" compoundref="xasu__hmacinfo_8h" startline="46">XASU_HMAC_KAT_CMD_ID</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga71836fa125760f40a6366511f3e73a34" compoundref="xasu__def_8h" startline="56">XASU_MODULE_HMAC_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__hmac__client__apis_1ga37a504b464aa927c154dafb5bb8bc6c4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_HmacKatCallBack</definition>
+        <argsstring>(void *CallBackRefPtr, u32 Status)</argsstring>
+        <name>XAsu_HmacKatCallBack</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRefPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Callback function for HMAC client-side KAT. </para>        </briefdescription>
+        <detaileddescription>
+<para>Sets the notify flag and stores the completion status via per-invocation state.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRefPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the caller&apos;s XAsu_HmacKatCbState on stack. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Completion status from the server. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" bodystart="223" bodyend="229"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_HmacSha3Kat</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_HmacSha3Kat</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function runs the client-side HMAC KAT using SHA3-256. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    It calls XAsu_HmacCompute with INIT|UPDATE|FINAL, busy-waits for the callback,
+    and compares the output against the expected HMAC.
+</verbatim></para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if HMAC SHA3-256 KAT passes.</para></listitem><listitem><para>XST_FAILURE, if HMAC computation or comparison fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Set up client parameters with KAT callback.</para><para>Set up HMAC parameters for single-shot operation.</para><para>Send HMAC compute request to the server.</para><para>Busy-wait for the server response.</para><para>Check the callback status.</para><para>Compare the computed HMAC against the expected value.</para><para>Zeroize local output buffer. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" bodystart="242" bodyend="301"/>
+        <references refid="struct_x_asu___hmac_params_1a852eebbd400e71ec9f3e384bf4258151" compoundref="xasu__hmacinfo_8h" startline="63">XAsu_HmacParams::HmacAddr</references>
+        <references refid="struct_x_asu___hmac_params_1a8b51dbfd52ff462a642848d0d2150c14" compoundref="xasu__hmacinfo_8h" startline="66">XAsu_HmacParams::HmacLen</references>
+        <references refid="struct_x_asu___hmac_params_1a8ed434b3d836170df4b69125ed09f29a" compoundref="xasu__hmacinfo_8h" startline="71">XAsu_HmacParams::IsLast</references>
+        <references refid="struct_x_asu___kdf_hmac_key_object_1ae1828d9c928fb0b79910e3f06e3f18c3" compoundref="xasu__hmacinfo_8h" startline="56">XAsu_KdfHmacKeyObject::KeyId</references>
+        <references refid="struct_x_asu___kdf_hmac_key_object_1a6478bb66b6eb171e9d3d1d439bcbef61" compoundref="xasu__hmacinfo_8h" startline="54">XAsu_KdfHmacKeyObject::KeyInAddr</references>
+        <references refid="struct_x_asu___kdf_hmac_key_object_1aa99618d3506017ef8945a10063ccfe3e" compoundref="xasu__hmacinfo_8h" startline="55">XAsu_KdfHmacKeyObject::KeyInLen</references>
+        <references refid="struct_x_asu___hmac_params_1a8283775aca99141cf13a9cf47117706b" compoundref="xasu__hmacinfo_8h" startline="61">XAsu_HmacParams::KeyObject</references>
+        <references refid="struct_x_asu___hmac_params_1a8651415dc1db7c9bdbbc0f328a379d67" compoundref="xasu__hmacinfo_8h" startline="62">XAsu_HmacParams::MsgBufferAddr</references>
+        <references refid="struct_x_asu___hmac_params_1af7c9b754f239713e21a41d6f61b1e61b" compoundref="xasu__hmacinfo_8h" startline="64">XAsu_HmacParams::MsgLen</references>
+        <references refid="struct_x_asu___hmac_params_1af681757f8d870f564596fbcaccc1de81" compoundref="xasu__hmacinfo_8h" startline="74">XAsu_HmacParams::OperationFlags</references>
+        <references refid="struct_x_asu___hmac_params_1a1ac844d8a769624d98bbd4a1403d60f2" compoundref="xasu__hmacinfo_8h" startline="68">XAsu_HmacParams::ShaMode</references>
+        <references refid="struct_x_asu___hmac_params_1a88cff332a0caa94bdd7f7951243b8235" compoundref="xasu__hmacinfo_8h" startline="67">XAsu_HmacParams::ShaType</references>
+        <references refid="group__xasu__common__defs_1ga76ecdcdf1b1ad4bda09eac3baa13282f" compoundref="xasu__def_8h" startline="66">XASU_ASU_DMA_MAX_TRANSFER_LENGTH</references>
+        <references refid="group__xasu__common__defs_1ga2ce83e6be7ef8a6dc0ec9067b7e8f396" compoundref="xasu__def_8h" startline="46">XASU_CMD_SECURE</references>
+        <references refid="group__xasu__common__defs_1ga4ed1b3c195cb21e5e43ab8926dbfe39e" compoundref="xasu__def_8h" startline="44">XASU_FALSE</references>
+        <references refid="group__xasu__common__defs_1gaa31a05872c26a658a8da800ee649dbe9" compoundref="xasu__def_8h" startline="72">XASU_FINISH</references>
+        <references refid="group__xasu__hmac__client__apis_1gac2066a76293b93e52541ce4a6f9aaad1" compoundref="xasu__hmac_8c" startline="39">XASU_HMAC_KAT_KEY_LEN_IN_BYTES</references>
+        <references refid="group__xasu__hmac__client__apis_1ga7e17b6bb0de4f646c2d1edc050b7223c" compoundref="xasu__hmac_8c" startline="40">XASU_HMAC_KAT_MSG_LEN_IN_BYTES</references>
+        <references refid="group__xasu__hmac__client__apis_1ga3ea63e10be5d9327afde20fce135d52e" compoundref="xasu__hmac_8c" startline="41">XASU_HMAC_KAT_SHA3_256_HASH_LEN</references>
+        <references refid="group__xasu__common__defs_1ga2d5e30755bb6ff4f07fc7517a0c3ef3f" compoundref="xasu__hmacinfo_8h" startline="48">XASU_HMAC_MAX_KEY_LENGTH</references>
+        <references refid="group__xasu__hmac__client__apis_1ga4a51b82f829ed68f456efc5d0fb30a8c" compoundref="xasu__hmac_8c" startline="105" endline="168">XAsu_HmacCompute</references>
+        <references refid="group__xasu__common__defs_1gae3a9e9118884ccc0feae9e4728394e3d" compoundref="xasu__def_8h" startline="70">XASU_INIT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__keymanager__common__apis_1gaf7896ecdb1b554bbbcf662ae5c2de3fe" compoundref="xasu__keymanager__common_8c" startline="192" endline="206">XAsu_KmValidateKeyAddrNdKeyId</references>
+        <references refid="group__xasu__client__info_1gaf4bee00214accc868d4697e6745d83ca" compoundref="xasu__client_8h" startline="50">XASU_PRIORITY_HIGH</references>
+        <references refid="group__xasu__common__defs_1ga7af115dffedb0e4d090e6fa4561a0693" compoundref="xasu__shainfo_8h" startline="58">XASU_SHA3_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga1b2246776bc9c632002768c9edd40340" compoundref="xasu__shainfo_8h" startline="51">XASU_SHA_MODE_256</references>
+        <references refid="group__xasu__common__defs_1gaac7d78d75140a49311500aeecaeb857f" compoundref="xasu__shainfo_8h" startline="61">XASU_SHA_SHAKE_256_HASH_LEN</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga74c866f4c9240345e465c2c9e666d9a1" compoundref="xasu__def_8h" startline="71">XASU_UPDATE</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__hmac__client__apis_1gac2066a76293b93e52541ce4a6f9aaad1" prot="public" static="no">
+        <name>XASU_HMAC_KAT_KEY_LEN_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>HMAC KAT key length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" bodystart="39" bodyend="-1"/>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__hmac__client__apis_1ga7e17b6bb0de4f646c2d1edc050b7223c" prot="public" static="no">
+        <name>XASU_HMAC_KAT_MSG_LEN_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>HMAC KAT message length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" bodystart="40" bodyend="-1"/>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__hmac__client__apis_1ga3ea63e10be5d9327afde20fce135d52e" prot="public" static="no">
+        <name>XASU_HMAC_KAT_SHA3_256_HASH_LEN</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>HMAC KAT SHA3-256 hash length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_hmac.c" bodystart="41" bodyend="-1"/>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

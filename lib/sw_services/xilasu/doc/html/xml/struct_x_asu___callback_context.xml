@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___callback_context" kind="struct" prot="public">
+    <compoundname>XAsu_CallbackContext</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___callback_context_1ad08112fde23bfa4d14669c9390c65de1" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga53b2ec787c60896250305dfdd5b8363e" kindref="member">XAsu_OperationType</ref></type>
+        <definition>XAsu_OperationType XAsu_CallbackContext::OpType</definition>
+        <argsstring></argsstring>
+        <name>OpType</name>
+        <briefdescription>
+<para>Type of crypto operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___callback_context_1acad08287b34a5295da65d1e42e837091" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_CallbackContext::Status</definition>
+        <argsstring></argsstring>
+        <name>Status</name>
+        <briefdescription>
+<para>Operation completion status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___callback_context_1a3fd0c7ba90b7b7673af75bc12e53302f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_CallbackContext::IsCompleted</definition>
+        <argsstring></argsstring>
+        <name>IsCompleted</name>
+        <briefdescription>
+<para>Flag indicating operation completion. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___callback_context_1ab04b0c1fbc24fd549cd360fdef899774" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* XAsu_CallbackContext::OpName</definition>
+        <argsstring></argsstring>
+        <name>OpName</name>
+        <briefdescription>
+<para>Human-readable operation name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Callback context structure to track individual crypto operations. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure is used to identify which operation completed when the callback is triggered. Each operation has its own context instance. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_multi_crypto_example.c" bodystart="120" bodyend="125"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___callback_context_1a3fd0c7ba90b7b7673af75bc12e53302f" prot="public" virt="non-virtual"><scope>XAsu_CallbackContext</scope><name>IsCompleted</name></member>
+      <member refid="struct_x_asu___callback_context_1ab04b0c1fbc24fd549cd360fdef899774" prot="public" virt="non-virtual"><scope>XAsu_CallbackContext</scope><name>OpName</name></member>
+      <member refid="struct_x_asu___callback_context_1ad08112fde23bfa4d14669c9390c65de1" prot="public" virt="non-virtual"><scope>XAsu_CallbackContext</scope><name>OpType</name></member>
+      <member refid="struct_x_asu___callback_context_1acad08287b34a5295da65d1e42e837091" prot="public" virt="non-virtual"><scope>XAsu_CallbackContext</scope><name>Status</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

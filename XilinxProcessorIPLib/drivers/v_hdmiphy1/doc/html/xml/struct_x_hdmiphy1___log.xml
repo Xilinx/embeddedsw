@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdmiphy1___log" kind="struct" prot="public">
+    <compoundname>XHdmiphy1_Log</compoundname>
+    <includes local="no">xhdmiphy1.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdmiphy1___log_1ac50c0926cdaf64d0ed1c40109c691488" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHdmiphy1_Log::DataBuffer[128]</definition>
+        <argsstring>[128]</argsstring>
+        <name>DataBuffer</name>
+        <briefdescription>
+<para>Log buffer with event data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="662" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="662" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gafef83d134d6ba3cf7ed6ff58c5aa76c0" compoundref="xhdmiphy1__log_8c" startline="143" endline="171">XHdmiphy1_LogRead</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gabda0c5df35f1e8c13b871c8edf38ff38" compoundref="xhdmiphy1__log_8c" startline="86" endline="129">XHdmiphy1_LogWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___log_1a86337d2bdd53556fd296bd6d58de83ea" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XHdmiphy1_Log::TimeRecord[128]</definition>
+        <argsstring>[128]</argsstring>
+        <name>TimeRecord</name>
+        <briefdescription>
+<para>Log time for the event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="663" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="663" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1ga9569d5080ff8e2396239ecfb7d1de91d" compoundref="xhdmiphy1__log_8c" startline="184" endline="537">XHdmiphy1_LogDisplay</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gabda0c5df35f1e8c13b871c8edf38ff38" compoundref="xhdmiphy1__log_8c" startline="86" endline="129">XHdmiphy1_LogWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___log_1aff3f2cc23ac4d08a0cca4533c6413517" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiphy1_Log::HeadIndex</definition>
+        <argsstring></argsstring>
+        <name>HeadIndex</name>
+        <briefdescription>
+<para><verbatim>     Index of the head entry of the
+</verbatim> Event/DataBuffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="664" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="664" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1gafef83d134d6ba3cf7ed6ff58c5aa76c0" compoundref="xhdmiphy1__log_8c" startline="143" endline="171">XHdmiphy1_LogRead</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga67dcfc543f278ca875c99f6dada92520" compoundref="xhdmiphy1__log_8c" startline="61" endline="70">XHdmiphy1_LogReset</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gabda0c5df35f1e8c13b871c8edf38ff38" compoundref="xhdmiphy1__log_8c" startline="86" endline="129">XHdmiphy1_LogWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___log_1a57a00295ae173b3a621143d25f6dbb7b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiphy1_Log::TailIndex</definition>
+        <argsstring></argsstring>
+        <name>TailIndex</name>
+        <briefdescription>
+<para><verbatim>     Index of the tail entry of the
+</verbatim> Event/DataBuffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="666" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="666" bodyend="-1"/>
+        <referencedby refid="group__xhdmiphy1_1ga9569d5080ff8e2396239ecfb7d1de91d" compoundref="xhdmiphy1__log_8c" startline="184" endline="537">XHdmiphy1_LogDisplay</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gafef83d134d6ba3cf7ed6ff58c5aa76c0" compoundref="xhdmiphy1__log_8c" startline="143" endline="171">XHdmiphy1_LogRead</referencedby>
+        <referencedby refid="group__xhdmiphy1_1ga67dcfc543f278ca875c99f6dada92520" compoundref="xhdmiphy1__log_8c" startline="61" endline="70">XHdmiphy1_LogReset</referencedby>
+        <referencedby refid="group__xhdmiphy1_1gabda0c5df35f1e8c13b871c8edf38ff38" compoundref="xhdmiphy1__log_8c" startline="86" endline="129">XHdmiphy1_LogWrite</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the logging mechanism for debug. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="661" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="661" bodyend="668"/>
+    <listofallmembers>
+      <member refid="struct_x_hdmiphy1___log_1ac50c0926cdaf64d0ed1c40109c691488" prot="public" virt="non-virtual"><scope>XHdmiphy1_Log</scope><name>DataBuffer</name></member>
+      <member refid="struct_x_hdmiphy1___log_1aff3f2cc23ac4d08a0cca4533c6413517" prot="public" virt="non-virtual"><scope>XHdmiphy1_Log</scope><name>HeadIndex</name></member>
+      <member refid="struct_x_hdmiphy1___log_1a57a00295ae173b3a621143d25f6dbb7b" prot="public" virt="non-virtual"><scope>XHdmiphy1_Log</scope><name>TailIndex</name></member>
+      <member refid="struct_x_hdmiphy1___log_1a86337d2bdd53556fd296bd6d58de83ea" prot="public" virt="non-virtual"><scope>XHdmiphy1_Log</scope><name>TimeRecord</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

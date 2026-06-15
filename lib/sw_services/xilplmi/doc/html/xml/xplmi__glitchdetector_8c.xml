@@ -1,0 +1,667 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xplmi__glitchdetector_8c" kind="file">
+    <compoundname>xplmi_glitchdetector.c</compoundname>
+    <includes refid="xplmi__glitchdetector_8h" local="yes">xplmi_glitchdetector.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <incdepgraph>
+      <node id="1711">
+        <label>xil_io.h</label>
+      </node>
+      <node id="1708">
+        <label>xplmi_glitchdetector.c</label>
+        <link refid="xplmi_glitchdetector.c"/>
+        <childnode refid="1709" relation="include">
+        </childnode>
+        <childnode refid="1711" relation="include">
+        </childnode>
+      </node>
+      <node id="1709">
+        <label>xplmi_glitchdetector.h</label>
+        <link refid="xplmi__glitchdetector_8h"/>
+        <childnode refid="1710" relation="include">
+        </childnode>
+      </node>
+      <node id="1710">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xilplmi__client__apis_1ga5e00c55561b7cc044e22c4e08884ef1f" prot="public" static="no">
+        <name>XPLMI_REFVOL_3LSBITS_MASK</name>
+        <initializer>0x07</initializer>
+        <briefdescription>
+<para>Mask to extract 3 least significant bits from reference voltage. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__client__apis_1ga56ab06fef0f76da3cfb3f594f000a8ca" prot="public" static="no">
+        <name>XPLMI_DEPTH_3LSBITS_MASK</name>
+        <initializer>0x07</initializer>
+        <briefdescription>
+<para>Mask to extract 3 least significant bits from depth. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__client__apis_1gab9d63b0e4e1ca2af77ef1b893ab01eb7" prot="public" static="no">
+        <name>XPLMI_REFVOL_MSBIT_MASK</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>Mask to extract most significant bit from reference voltage. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__client__apis_1ga991eea6a899f5f3aceb30fc05529db2c" prot="public" static="no">
+        <name>XPLMI_DEPTH_2MSBITS_MASK</name>
+        <initializer>0x18</initializer>
+        <briefdescription>
+<para>Mask to extract 2 most significant bits from depth. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__client__apis_1ga435c2870857a6e387b7c55e166ef823f" prot="public" static="no">
+        <name>XPLMI_REFVOL_MSBIT_SHIFT</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>Shift value to place most significant bit of reference voltage. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__client__apis_1gaed9b3e232820220619e129b4e203c065" prot="public" static="no">
+        <name>XPLMI_REFVOL_3LSBITS_SHIFT</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>Shift value to place 3 least significant bits of reference voltage. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__client__apis_1ga653b4085b49665c7a5e8d7905f80b330" prot="public" static="no">
+        <name>XPLMI_DEPTH_2MSBITS_SHIFT</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Shift value to place 2 most significant bits of depth. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__client__apis_1gaefadb2118c33eeaf0db0f8a2c9ef0556" prot="public" static="no">
+        <name>XPLMI_DEPTH_3LSBITS_SHIFT</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>Shift value to place 3 least significant bits of depth. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__client__apis_1ga427f1b8634081aa748e3e63eef1b43cd" prot="public" static="no">
+        <name>XPLMI_WIDTH_BITS_SHIFT</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Shift value to place bits of width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__client__apis_1gaafb479cfb18b07b9708ac2d4581bb4d2" prot="public" static="no">
+        <name>XPLMI_WORD_LEN</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Word size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga16dfbc95a9bdf0502840e261b8865652" compoundref="server_2xplmi__generic_8c" startline="651" endline="689">XPlmi_DmaTransfer</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gae804925f6b45d1685a010c2d1d3e842f" compoundref="xplmi__update_8c" startline="324" endline="388">XPlmi_DsOps</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga3ca67e4e848d511ee898a666db13464f" compoundref="xplmi__dma_8c" startline="781" endline="795">XPlmi_EccInit</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga166fa6a68d9c4df38fd7d3af77a7b521" compoundref="xplmi__dma_8c" startline="872" endline="904">XPlmi_InitNVerifyMem</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gaadaef02a2e674a71f8c0eeb895b915a8" compoundref="xplmi__dma_8c" startline="1002" endline="1048">XPlmi_MemCpy64</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gab7f5511c526c00a7477c689c3a476e3f" compoundref="xplmi__dma_8c" startline="810" endline="858">XPlmi_MemSet</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga996d4ed8fe42abcb42ef2fba05264a68" compoundref="xplmi__dma_8c" startline="934" endline="983">XPlmi_MemSetBytes</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga180e0da7c5bf8b67eb38f54c3db12149" compoundref="server_2xplmi__generic_8c" startline="1619" endline="1666">XPlmi_MoveBuffer</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga3bf28338a8becd4ef0e19689fb0a7116" compoundref="xplmi__util_8c" startline="328" endline="349">XPlmi_PrintArray</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gaf8878d25485f7e85643a90933ed37e67" compoundref="xplmi__plat__cmd_8c" startline="214" endline="270">XPlmi_PsmSequence</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga18c18ecfe4d08c8da4dc0bec5218cb59" compoundref="xplmi__update_8c" startline="443" endline="490">XPlmi_RestoreDataBackup</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga1e1cdb534edb8282728567c27ed02bc1" compoundref="xplmi__plat__cmd_8c" startline="345" endline="385">XPlmi_ScatterWrite2</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gabff99cf415b44f557a2d16f59a382b69" compoundref="server_2xplmi__generic_8c" startline="1737" endline="1768">XPlmi_SearchBufferList</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gafba1a999a3e425ab640268869f765c53" compoundref="server_2xplmi__generic_8c" startline="1906" endline="1998">XPlmi_StoreBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__client__apis_1gae0aaba8765423cf60f7e2d289da39824" prot="public" static="no">
+        <name>XPLMI_GD1_STATUS_POS</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>Bit position of glitch detector1 status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilplmi__client__apis_1ga38c3851f0289fdaf921b7ad554f2c290" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_WriteReg32</definition>
+        <argsstring>(u32 Offset, u32 Data)</argsstring>
+        <name>XPlmi_WriteReg32</name>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Writes value to register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Offset of the register </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to be written in register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success error code on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="111" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__client__apis_1ga47da86988c9f970ff7d173c9f127a493" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XPlmi_UpdateReg32</definition>
+        <argsstring>(u32 Offset, u32 Mask, u32 Data)</argsstring>
+        <name>XPlmi_UpdateReg32</name>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Updates register value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Offset address of the register </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bits to be masked </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value to be written</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success error code on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="143" bodyend="166"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__client__apis_1ga71e07b36be5081d644cd6a660fedbf92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_ReadReg32</definition>
+        <argsstring>(u32 Offset, u32 *Data)</argsstring>
+        <name>XPlmi_ReadReg32</name>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Reads register value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Offset of the register. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to be read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success error code on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="178" bodyend="202"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__client__apis_1gae0d04c7416d6b05c9ad8866b2bc85075" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_ConfigureGlitchDetector</definition>
+        <argsstring>(u8 Depth, u8 Width, u8 RefVoltage, u8 UserRegVal, u8 GlitchDetectorNum)</argsstring>
+        <name>XPlmi_ConfigureGlitchDetector</name>
+        <param>
+          <type>u8</type>
+          <declname>Depth</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Width</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>RefVoltage</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>UserRegVal</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>GlitchDetectorNum</declname>
+        </param>
+        <briefdescription>
+<para>This function configures desired glitch detector. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Depth</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the minimum voltage glitch detection depth </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the minimum glitch detector width </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RefVoltage</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the reference voltage for the glitch detector comparators </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>UserRegVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates to select the register values instead of the eFUSE values to configure the glitch detector </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>GlitchDetectorNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of glitch detector to be configured</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="220" bodyend="239"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__client__apis_1gab0839de08ae5828a40a24fffbb05d104" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_ChangeGlitchDetectorState</definition>
+        <argsstring>(u8 GlitchDetectorNum, eStatus EnableStatus)</argsstring>
+        <name>XPlmi_ChangeGlitchDetectorState</name>
+        <param>
+          <type>u8</type>
+          <declname>GlitchDetectorNum</declname>
+        </param>
+        <param>
+          <type>eStatus</type>
+          <declname>EnableStatus</declname>
+        </param>
+        <briefdescription>
+<para>This function enables/disables the desired glitch detector. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>GlitchDetectorNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of glitch detector to be enabled/disabled </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EnableStatus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates action i.e., enable/disable</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="253" bodyend="268"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__client__apis_1gaa1d10e6e53de2b84eb47a4decf72e155" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_GlitchDetectorStatus</definition>
+        <argsstring>(u8 GlitchDetectorNum, u8 *GlitchDetStatus)</argsstring>
+        <name>XPlmi_GlitchDetectorStatus</name>
+        <param>
+          <type>u8</type>
+          <declname>GlitchDetectorNum</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>GlitchDetStatus</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the status of desired glitch detector. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>GlitchDetectorNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of glitch detector whose status is to be read </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>GlitchDetStatus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>holds the status</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of glitch detector </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c" bodystart="281" bodyend="295"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is the file which contains glitch detector code. </para>    </briefdescription>
+    <detaileddescription>
+<para>This contains APIs for configuring glitch detector, enable/disable the glitch detector and to read the status of glitch detector. These APIs support both client and server mode for glitch detector0 and glitch detector1.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+----- ---- ---------- --------------------------------------------------------------------------
+1.00  pre  06/09/2024 Initial release
+      pre  07/17/2024 Used register node to access PMC analog registers and fixed
+                      misrac warnings
+      pre  10/19/2024 Added support for PL microblaze
+1.01   abh   07/22/2025 Added doxygen tag
+2.4   gnr  03/18/26 Updated the Payload assignments with XPLMI_PACK_PAYLOAD macros
+      tbk  02/24/26 Added SMC support for client applications
+      tbk  05/19/26 Unified response indexing; helper now handles SMC/mailbox shift
+</preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="38"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*****************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__glitchdetector_8h" kindref="compound">xplmi_glitchdetector.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPLMI_GLITCHDETECTOR_SECURE_MODE</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cache.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__client_8h" kindref="compound">xplmi_client.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_generic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xilmailbox_ipips_control.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="group__xilplmi__client__apis_1ga5e00c55561b7cc044e22c4e08884ef1f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_REFVOL_3LSBITS_MASK<sp/><sp/><sp/>0x07<sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor">#define<sp/>XPLMI_DEPTH_3LSBITS_MASK<sp/><sp/><sp/><sp/>0x07<sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor">#define<sp/>XPLMI_REFVOL_MSBIT_MASK<sp/><sp/><sp/><sp/><sp/>0x08<sp/></highlight></codeline>
+<codeline lineno="55" refid="group__xilplmi__client__apis_1gab9d63b0e4e1ca2af77ef1b893ab01eb7" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_DEPTH_2MSBITS_MASK<sp/><sp/><sp/><sp/>0x18<sp/></highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor">#define<sp/>XPLMI_REFVOL_MSBIT_SHIFT<sp/><sp/><sp/><sp/>(16U)<sp/></highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor">#define<sp/>XPLMI_REFVOL_3LSBITS_SHIFT<sp/><sp/>(12U)<sp/></highlight></codeline>
+<codeline lineno="61" refid="group__xilplmi__client__apis_1ga435c2870857a6e387b7c55e166ef823f" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_DEPTH_2MSBITS_SHIFT<sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor">#define<sp/>XPLMI_DEPTH_3LSBITS_SHIFT<sp/><sp/><sp/>(16U)<sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor">#define<sp/>XPLMI_WIDTH_BITS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>(8U)<sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor">#define<sp/>XPLMI_WORD_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="67" refid="group__xilplmi__client__apis_1ga653b4085b49665c7a5e8d7905f80b330" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_GD1_STATUS_POS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)<sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor">#ifdef<sp/>XPLMI_GLITCHDETECTOR_SECURE_MODE</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PM_MODULE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="70" refid="group__xilplmi__client__apis_1gaefadb2118c33eeaf0db0f8a2c9ef0556" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_PM_MODULE_ID_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)XPLMI_PM_MODULE_ID<sp/>&lt;&lt;<sp/>XPLMI_MODULE_ID_SHIFT)<sp/></highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor">#define<sp/>XPLMI_IOCTL_MASK_WRITE_REG<sp/><sp/>(29U)<sp/></highlight></codeline>
+<codeline lineno="73" refid="group__xilplmi__client__apis_1ga427f1b8634081aa748e3e63eef1b43cd" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_IOCTL_READ_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(28U)<sp/></highlight></codeline>
+<codeline lineno="74" refid="group__xilplmi__client__apis_1gaafb479cfb18b07b9708ac2d4581bb4d2" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_PM_IOCTL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x22U)<sp/></highlight></codeline>
+<codeline lineno="75" refid="group__xilplmi__client__apis_1gae0aaba8765423cf60f7e2d289da39824" refkind="member"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>***************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPLMI_GLITCHDETECTOR_SECURE_MODE</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>PACK_XILPM_HEADER(u32<sp/>Len,<sp/>u32<sp/>ApiId)</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>((Len<sp/>&lt;&lt;<sp/><ref refid="group__xilplmi__mailbox__apis_1gaa45a26da576e12a1f6fea17ed1f60bf1" kindref="member">XPLMI_PAYLOAD_LEN_SHIFT</ref>)<sp/>|<sp/>XPLMI_PM_MODULE_ID_MASK<sp/>|<sp/>(ApiId));</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>**************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XMailbox<sp/>MailboxInstance;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref><sp/>PlmiClientInstance;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="103"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__client__apis_1ga38c3851f0289fdaf921b7ad554f2c290" kindref="member">XPlmi_WriteReg32</ref>(u32<sp/>Offset,<sp/>u32<sp/>Data)</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPLMI_GLITCHDETECTOR_SECURE_MODE</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[<ref refid="group__xilplmi__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>];</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111" refid="group__xilplmi__client__apis_1ga38c3851f0289fdaf921b7ad554f2c290" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_PACK_PAYLOAD5(Payload,<sp/>(u32)XPLMI_PM_IOCTL,<sp/>PM_REG_PMC_ANALOG_ID,<sp/>XPLMI_IOCTL_MASK_WRITE_REG,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset,<sp/>XGLITCHDETECTOR_SECURE_WRITE_DEFAULT,<sp/>Data);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilplmi__client__apis_1ga062b72efe7931831fe213083a8da2e77" kindref="member">XPlmi_SendRequest</ref>(&amp;PlmiClientInstance,<sp/>Payload,<sp/>(u32)<ref refid="group__xilplmi__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>,<sp/>NULL,<sp/>0U);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>value<sp/>to<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(PMC_ANALOG_BASE_ADDR<sp/>+<sp/>Offset,<sp/>Data);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="135"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPlmi_UpdateReg32(u32<sp/>Offset,<sp/>u32<sp/>Mask,<sp/>u32<sp/>Data)</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPLMI_GLITCHDETECTOR_SECURE_MODE</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[<ref refid="group__xilplmi__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>];</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_PACK_PAYLOAD5(Payload,<sp/>(u32)XPLMI_PM_IOCTL,<sp/>PM_REG_PMC_ANALOG_ID,<sp/>XPLMI_IOCTL_MASK_WRITE_REG,</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset,<sp/>Mask,<sp/>Data);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilplmi__client__apis_1ga062b72efe7931831fe213083a8da2e77" kindref="member">XPlmi_SendRequest</ref>(&amp;PlmiClientInstance,<sp/>Payload,<sp/>(u32)<ref refid="group__xilplmi__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>,<sp/>NULL,<sp/>0U);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>register<sp/>value<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal<sp/>=<sp/>Xil_In32(PMC_ANALOG_BASE_ADDR<sp/>+<sp/>Offset);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Modify<sp/>with<sp/>mask<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>(RegVal<sp/>&amp;<sp/>(~Mask))<sp/>|<sp/>(Mask<sp/>&amp;<sp/>Data);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>modified<sp/>value<sp/>to<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(PMC_ANALOG_BASE_ADDR<sp/>+<sp/>Offset,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="170"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__client__apis_1ga71e07b36be5081d644cd6a660fedbf92" kindref="member">XPlmi_ReadReg32</ref>(u32<sp/>Offset,<sp/>u32<sp/>*Data)</highlight></codeline>
+<codeline lineno="171"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPLMI_GLITCHDETECTOR_SECURE_MODE</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[<ref refid="group__xilplmi__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>];</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Response[<ref refid="group__xilplmi__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" kindref="member">RESPONSE_ARG_CNT</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178" refid="group__xilplmi__client__apis_1ga71e07b36be5081d644cd6a660fedbf92" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_PACK_PAYLOAD5(Payload,<sp/>(u32)XPLMI_PM_IOCTL,<sp/>PM_REG_PMC_ANALOG_ID,<sp/>XPLMI_IOCTL_READ_REG,</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset,<sp/>XGLITCHDETECTOR_SECURE_READ_DEFAULT,<sp/>XGLITCHDETECTOR_SECURE_READ_DEFAULT);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilplmi__client__apis_1ga062b72efe7931831fe213083a8da2e77" kindref="member">XPlmi_SendRequest</ref>(&amp;PlmiClientInstance,<sp/>Payload,</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__xilplmi__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" kindref="member">PAYLOAD_ARG_CNT</ref>,<sp/>Response,<sp/>(u32)<ref refid="group__xilplmi__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" kindref="member">RESPONSE_ARG_CNT</ref>);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Data<sp/>=<sp/>Response[0U];</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>register<sp/>value<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Data<sp/>=<sp/>Xil_In32(PMC_ANALOG_BASE_ADDR<sp/>+<sp/>Offset);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="212"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__client__apis_1gae0d04c7416d6b05c9ad8866b2bc85075" kindref="member">XPlmi_ConfigureGlitchDetector</ref>(u8<sp/>Depth,<sp/>u8<sp/>Width,<sp/>u8<sp/>RefVoltage,<sp/>u8<sp/>UserRegVal,</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>GlitchDetectorNum)</highlight></codeline>
+<codeline lineno="214"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Caclculate<sp/>offset<sp/>based<sp/>on<sp/>glitch<sp/>detector<sp/>number<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Offset<sp/>=<sp/>(u32)(GD_FUSE_CTRL0_OFFSET<sp/>+<sp/>(<ref refid="group__xilplmi__client__apis_1gaafb479cfb18b07b9708ac2d4581bb4d2" kindref="member">XPLMI_WORD_LEN</ref><sp/>*<sp/>GlitchDetectorNum));</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220" refid="group__xilplmi__client__apis_1gae0d04c7416d6b05c9ad8866b2bc85075" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Frame<sp/>data<sp/>to<sp/>be<sp/>written<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>(((RefVoltage<sp/>&amp;<sp/><ref refid="group__xilplmi__client__apis_1gab9d63b0e4e1ca2af77ef1b893ab01eb7" kindref="member">XPLMI_REFVOL_MSBIT_MASK</ref>)<sp/>&lt;&lt;<sp/><ref refid="group__xilplmi__client__apis_1ga435c2870857a6e387b7c55e166ef823f" kindref="member">XPLMI_REFVOL_MSBIT_SHIFT</ref>)<sp/>|</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RefVoltage<sp/>&amp;<sp/><ref refid="group__xilplmi__client__apis_1ga5e00c55561b7cc044e22c4e08884ef1f" kindref="member">XPLMI_REFVOL_3LSBITS_MASK</ref>)<sp/>&lt;&lt;<sp/><ref refid="group__xilplmi__client__apis_1gaed9b3e232820220619e129b4e203c065" kindref="member">XPLMI_REFVOL_3LSBITS_SHIFT</ref>));</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>|=<sp/>(((Depth<sp/>&amp;<sp/><ref refid="group__xilplmi__client__apis_1ga991eea6a899f5f3aceb30fc05529db2c" kindref="member">XPLMI_DEPTH_2MSBITS_MASK</ref>)<sp/>&lt;&lt;<sp/><ref refid="group__xilplmi__client__apis_1ga653b4085b49665c7a5e8d7905f80b330" kindref="member">XPLMI_DEPTH_2MSBITS_SHIFT</ref>)|</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Depth<sp/>&amp;<sp/><ref refid="group__xilplmi__client__apis_1ga56ab06fef0f76da3cfb3f594f000a8ca" kindref="member">XPLMI_DEPTH_3LSBITS_MASK</ref>)<sp/>&lt;&lt;<sp/><ref refid="group__xilplmi__client__apis_1gaefadb2118c33eeaf0db0f8a2c9ef0556" kindref="member">XPLMI_DEPTH_3LSBITS_SHIFT</ref>));</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>|=<sp/><sp/>((u32)Width<sp/>&lt;&lt;<sp/><ref refid="group__xilplmi__client__apis_1ga427f1b8634081aa748e3e63eef1b43cd" kindref="member">XPLMI_WIDTH_BITS_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>|=<sp/>UserRegVal;</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilplmi__client__apis_1ga38c3851f0289fdaf921b7ad554f2c290" kindref="member">XPlmi_WriteReg32</ref>(Offset,<sp/>Data);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="245"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__client__apis_1gab0839de08ae5828a40a24fffbb05d104" kindref="member">XPlmi_ChangeGlitchDetectorState</ref>(u8<sp/>GlitchDetectorNum,eStatus<sp/>EnableStatus)</highlight></codeline>
+<codeline lineno="246"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask<sp/>=<sp/>1U<sp/>&lt;&lt;<sp/>(GlitchDetectorNum<sp/>*<sp/><ref refid="group__xilplmi__client__apis_1gae0aaba8765423cf60f7e2d289da39824" kindref="member">XPLMI_GD1_STATUS_POS</ref>);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Frame<sp/>data<sp/>to<sp/>be<sp/>written<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(EnableStatus<sp/>==<sp/>DISABLE)<sp/>{</highlight></codeline>
+<codeline lineno="253" refid="group__xilplmi__client__apis_1gab0839de08ae5828a40a24fffbb05d104" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>1U<sp/>&lt;&lt;<sp/>(GlitchDetectorNum<sp/>*<sp/><ref refid="group__xilplmi__client__apis_1gae0aaba8765423cf60f7e2d289da39824" kindref="member">XPLMI_GD1_STATUS_POS</ref>);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Update<sp/>GD_CTRL<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateReg32(GD_CTRL_OFFSET,<sp/>Mask,<sp/>Data);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="273"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__client__apis_1gaa1d10e6e53de2b84eb47a4decf72e155" kindref="member">XPlmi_GlitchDetectorStatus</ref>(u8<sp/>GlitchDetectorNum,<sp/>u8<sp/>*GlitchDetStatus)</highlight></codeline>
+<codeline lineno="274"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilplmi__client__apis_1ga71e07b36be5081d644cd6a660fedbf92" kindref="member">XPlmi_ReadReg32</ref>(GD_CTRL_OFFSET,<sp/>&amp;RegVal);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="281" refid="group__xilplmi__client__apis_1gaa1d10e6e53de2b84eb47a4decf72e155" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*GlitchDetStatus<sp/>=<sp/>(RegVal<sp/>&gt;&gt;<sp/>(GlitchDetectorNum<sp/>*<sp/><ref refid="group__xilplmi__client__apis_1gae0aaba8765423cf60f7e2d289da39824" kindref="member">XPLMI_GD1_STATUS_POS</ref>))<sp/>&amp;<sp/>0x01U;</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="287"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPLMI_GLITCHDETECTOR_SECURE_MODE</highlight></codeline>
+<codeline lineno="290"><highlight class="preprocessor"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="297"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPlmi_MailboxInitialize(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="298"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#ifdef<sp/>XPLMI_CACHE_DISABLE</highlight></codeline>
+<codeline lineno="302"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheDisable();</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="304"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="306"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)XMailbox_Initialize(&amp;MailboxInstance,<sp/>0U);</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#else</highlight></codeline>
+<codeline lineno="308"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)XMailbox_Initialize(&amp;MailboxInstance,<sp/>XPAR_XIPIPSU_0_BASEADDR);</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="310"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilplmi__mailbox__apis_1gaea4605770a6e4090bac10578131ca925" kindref="member">XPlmi_ClientInit</ref>(&amp;PlmiClientInstance,<sp/>&amp;MailboxInstance);</highlight></codeline>
+<codeline lineno="314"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="316"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="325"><highlight class="comment">/****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPlmi_PollforDone(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="327"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)XIpiPs_PollforDone(&amp;MailboxInstance);</highlight></codeline>
+<codeline lineno="329"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="331"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_glitchdetector.c"/>
+  </compounddef>
+</doxygen>

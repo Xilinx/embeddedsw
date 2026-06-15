@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___dna" kind="struct" prot="public">
+    <compoundname>XNvm_Dna</compoundname>
+    <includes local="no">xnvm_common_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___dna_1af83065404e155725c8e21a19208ef3bd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_Dna::Dna[XNVM_EFUSE_DNA_LEN_IN_WORDS]</definition>
+        <argsstring>[XNVM_EFUSE_DNA_LEN_IN_WORDS]</argsstring>
+        <name>Dna</name>
+        <briefdescription>
+<para>DNA data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="99" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gafe7f7c2ced18e824970eaa2c509d3263" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1688" endline="1714">XNvm_EfuseReadDna</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for DNA data. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="98" bodyend="100"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___dna_1af83065404e155725c8e21a19208ef3bd" prot="public" virt="non-virtual"><scope>XNvm_Dna</scope><name>Dna</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

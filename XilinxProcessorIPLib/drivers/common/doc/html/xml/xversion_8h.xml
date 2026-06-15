@@ -1,0 +1,368 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xversion_8h" kind="file">
+    <compoundname>xversion.h</compoundname>
+    <includes refid="xbasic__types_8h" local="yes">xbasic_types.h</includes>
+    <includes refid="xstatus_8h" local="yes">xstatus.h</includes>
+    <includedby refid="xversion_8c" local="yes">xversion.c</includedby>
+    <incdepgraph>
+      <node id="69">
+        <label>xstatus.h</label>
+        <link refid="xstatus_8h"/>
+        <childnode refid="68" relation="include">
+        </childnode>
+      </node>
+      <node id="68">
+        <label>xbasic_types.h</label>
+        <link refid="xbasic__types_8h"/>
+      </node>
+      <node id="67">
+        <label>xversion.h</label>
+        <link refid="xversion.h"/>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="71">
+        <label>xversion.c</label>
+        <link refid="xversion_8c"/>
+      </node>
+      <node id="70">
+        <label>xversion.h</label>
+        <link refid="xversion.h"/>
+        <childnode refid="71" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__common_1ga4b4e137c0811046ea7d4a229d6c10975" prot="public" static="no">
+        <name>XVERSION_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xversion.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xversion.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__common_1ga32af9644ef7750b354cebbc8c94baf18" prot="public" static="no">
+        <type>char</type>
+        <definition>typedef char XVersion[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>XVersion</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xversion.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xversion.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__common_1ga0f04afc32d43f30b3d20498f7387b868" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVersion_UnPack</definition>
+        <argsstring>(XVersion *InstancePtr, u16 PackedVersion)</argsstring>
+        <name>XVersion_UnPack</name>
+        <param>
+          <type>XVersion *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>PackedVersion</declname>
+        </param>
+        <briefdescription>
+<para>Unpacks a packed version into the specified version. </para>        </briefdescription>
+        <detaileddescription>
+<para>Versions are packed into the configuration ROM to reduce the amount storage. A packed version is a binary format as opposed to a non-packed version which is implemented as a string.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the version to unpack the packed version into. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PackedVersion</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the packed version to unpack.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xversion.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xversion.c" bodystart="99" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="group__common_1gae2f714e79a99e457e5fb3bb2e1f7b23f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XVersion_Pack</definition>
+        <argsstring>(XVersion *InstancePtr, u16 *PackedVersionPtr)</argsstring>
+        <name>XVersion_Pack</name>
+        <param>
+          <type>XVersion *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16 *</type>
+          <declname>PackedVersionPtr</declname>
+        </param>
+        <briefdescription>
+<para>Packs a version into the specified packed version. </para>        </briefdescription>
+        <detaileddescription>
+<para>Versions are packed into the configuration ROM to reduce the amount storage.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the version to pack. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PackedVersionPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the packed version which will receive the new packed version.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+A status, XST_SUCCESS, indicating the packing was accomplished successfully, or an error, XST_INVALID_VERSION, indicating the specified input version was not valid such that the pack did not occur <linebreak/>
+<linebreak/>
+ The packed version pointed to by PackedVersionPtr is modified with the new packed version if the status indicates success.</para><para><simplesect kind="note"><para></para></simplesect>
+None. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xversion.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xversion.c" bodystart="130" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="group__common_1gab85b0654f0b4b643640c57369ecd3bf2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XVersion_IsEqual</definition>
+        <argsstring>(XVersion *InstancePtr, XVersion *VersionPtr)</argsstring>
+        <name>XVersion_IsEqual</name>
+        <param>
+          <type>XVersion *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XVersion *</type>
+          <declname>VersionPtr</declname>
+        </param>
+        <briefdescription>
+<para>Determines if two versions are equal. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the first version to be compared. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VersionPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to a second version to be compared.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+TRUE if the versions are equal, FALSE otherwise.</para><para><simplesect kind="note"><para></para></simplesect>
+None. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xversion.c" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xversion.c" bodystart="155" bodyend="179"/>
+        <references refid="group__common_1ga237c4df94339dabd56c08bfa8ef55cff" compoundref="xbasic__types_8h" startline="218">XASSERT_NONVOID</references>
+      </memberdef>
+      <memberdef kind="function" id="group__common_1ga20bcd31ada05091e23633264cb63d33c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVersion_ToString</definition>
+        <argsstring>(XVersion *InstancePtr, char *StringPtr)</argsstring>
+        <name>XVersion_ToString</name>
+        <param>
+          <type>XVersion *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>StringPtr</declname>
+        </param>
+        <briefdescription>
+<para>Converts a version to a null terminated string. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the version to convert. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>StringPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the string which will be the result of the conversion. This does not need to point to a null terminated string as an input, but must point to storage which is an adequate amount to hold the result string.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+The null terminated string is inserted at the location pointed to by StringPtr if the status indicates success.</para><para><simplesect kind="note"><para></para></simplesect>
+It is necessary for the caller to have already allocated the storage to contain the string. The amount of memory necessary for the string is specified in the version header file. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xversion.c" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xversion.c" bodystart="204" bodyend="215"/>
+        <references refid="group__common_1gab1a59ff109b7b674b214f40e07361215" compoundref="xbasic__types_8h" startline="189">XASSERT_VOID</references>
+        <references refid="group__common_1gab2a1a40f520ee3c62f829d0e20581503" compoundref="xversion_8c" startline="280" endline="296">XVersion_Copy</references>
+      </memberdef>
+      <memberdef kind="function" id="group__common_1gacc5446415b912932b8a428ca698094d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XVersion_FromString</definition>
+        <argsstring>(XVersion *InstancePtr, char *StringPtr)</argsstring>
+        <name>XVersion_FromString</name>
+        <param>
+          <type>XVersion *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>StringPtr</declname>
+        </param>
+        <briefdescription>
+<para>Initializes a version from a null terminated string. </para>        </briefdescription>
+        <detaileddescription>
+<para>Since the string may not be a format which is compatible with the version, an error could occur.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the version which is to be initialized. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>StringPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to a null terminated string which will be converted to a version. The format of the string must match the version string format which is X.YYX where X = 0 - 9, YY = 00 - 99, Z = a - z.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+A status, XST_SUCCESS, indicating the conversion was accomplished successfully, or XST_INVALID_VERSION indicating the version string format was not valid.</para><para><simplesect kind="note"><para></para></simplesect>
+None. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xversion.c" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xversion.c" bodystart="240" bodyend="259"/>
+        <references refid="group__common_1ga237c4df94339dabd56c08bfa8ef55cff" compoundref="xbasic__types_8h" startline="218">XASSERT_NONVOID</references>
+        <references refid="group__common_1gab2a1a40f520ee3c62f829d0e20581503" compoundref="xversion_8c" startline="280" endline="296">XVersion_Copy</references>
+      </memberdef>
+      <memberdef kind="function" id="group__common_1gab2a1a40f520ee3c62f829d0e20581503" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVersion_Copy</definition>
+        <argsstring>(XVersion *InstancePtr, XVersion *VersionPtr)</argsstring>
+        <name>XVersion_Copy</name>
+        <param>
+          <type>XVersion *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XVersion *</type>
+          <declname>VersionPtr</declname>
+        </param>
+        <briefdescription>
+<para>Copies the contents of a version to another version. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the version which is the source of data for the copy operation. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VersionPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to another version which is the destination of the copy operation.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+None.</para><para><simplesect kind="note"><para></para></simplesect>
+None. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xversion.c" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xversion.c" bodystart="280" bodyend="296"/>
+        <references refid="group__common_1gab1a59ff109b7b674b214f40e07361215" compoundref="xbasic__types_8h" startline="189">XASSERT_VOID</references>
+        <referencedby refid="group__common_1gacc5446415b912932b8a428ca698094d5" compoundref="xversion_8c" startline="240" endline="259">XVersion_FromString</referencedby>
+        <referencedby refid="group__common_1ga20bcd31ada05091e23633264cb63d33c" compoundref="xversion_8c" startline="204" endline="215">XVersion_ToString</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor">#ifndef<sp/>XVERSION_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVERSION_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xbasic__types_8h" kindref="compound">xbasic_types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xstatus_8h" kindref="compound">xstatus.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>the<sp/>following<sp/>data<sp/>type<sp/>is<sp/>used<sp/>to<sp/>hold<sp/>a<sp/>null<sp/>terminated<sp/>version<sp/>string</highlight></codeline>
+<codeline lineno="60"><highlight class="comment"><sp/>*<sp/>consisting<sp/>of<sp/>the<sp/>following<sp/>format,<sp/>&quot;X.YYX&quot;</highlight></codeline>
+<codeline lineno="61"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>XVersion[6];</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__common_1ga0f04afc32d43f30b3d20498f7387b868" kindref="member">XVersion_UnPack</ref>(XVersion<sp/>*InstancePtr,<sp/>u16<sp/>PackedVersion);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__common_1gae2f714e79a99e457e5fb3bb2e1f7b23f" kindref="member">XVersion_Pack</ref>(XVersion<sp/>*InstancePtr,<sp/>u16<sp/>*PackedVersion);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__common_1gab85b0654f0b4b643640c57369ecd3bf2" kindref="member">XVersion_IsEqual</ref>(XVersion<sp/>*InstancePtr,<sp/>XVersion<sp/>*VersionPtr);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__common_1ga20bcd31ada05091e23633264cb63d33c" kindref="member">XVersion_ToString</ref>(XVersion<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*StringPtr);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__common_1gacc5446415b912932b8a428ca698094d5" kindref="member">XVersion_FromString</ref>(XVersion<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*StringPtr);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__common_1gab2a1a40f520ee3c62f829d0e20581503" kindref="member">XVersion_Copy</ref>(XVersion<sp/>*InstancePtr,<sp/>XVersion<sp/>*VersionPtr);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xversion.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,240 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___hdmi_tx___stream" kind="struct" prot="public">
+    <compoundname>XV_HdmiTx_Stream</compoundname>
+    <includes local="no">xv_hdmitx.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx___stream_1aed13920c568f0a6101fe97e5a0ce981a" prot="public" static="no" mutable="no">
+        <type>XVidC_VideoStream</type>
+        <definition>XVidC_VideoStream XV_HdmiTx_Stream::Video</definition>
+        <argsstring></argsstring>
+        <name>Video</name>
+        <briefdescription>
+<para>Video stream for HDMI TX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" bodystart="224" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx_8h_1a0b2224de9eedafa13c184cb0d680f891" compoundref="xv__hdmitx_8c" startline="1745" endline="1757">XV_HdmiTx_DebugInfo</referencedby>
+        <referencedby refid="xv__hdmitx_8h_1a9271b92c3193e1ce46a2b610080c6f06" compoundref="xv__hdmitx_8c" startline="1172" endline="1210">XV_HdmiTx_SetColorDepth</referencedby>
+        <referencedby refid="xv__hdmitx_8h_1aa8eb6378fdb4a48a22fdedb89cc3702a" compoundref="xv__hdmitx_8c" startline="1123" endline="1158">XV_HdmiTx_SetColorFormat</referencedby>
+        <referencedby refid="xv__hdmitx_8h_1abe6e4feed643a46f8c5a09494d2e2874" compoundref="xv__hdmitx_8c" startline="1020" endline="1052">XV_HdmiTx_SetPixelRate</referencedby>
+        <referencedby refid="xv__hdmitx_8h_1ae42733f7ec1fcf5df4f6d537b588bab6" compoundref="xv__hdmitx_8c" startline="710" endline="783">XV_HdmiTx_SetStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx___stream_1af5002600fe2e2dbd7286162bb500941d" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v___hdmi_tx___audio_stream" kindref="compound">XV_HdmiTx_AudioStream</ref></type>
+        <definition>XV_HdmiTx_AudioStream XV_HdmiTx_Stream::Audio</definition>
+        <argsstring></argsstring>
+        <name>Audio</name>
+        <briefdescription>
+<para>Audio stream for HDMI TX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx___stream_1ab3d63314205b73121885a6da80cfe7cf" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTx_Stream::Vic</definition>
+        <argsstring></argsstring>
+        <name>Vic</name>
+        <briefdescription>
+<para><verbatim> Video Identification code
+</verbatim> flag </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" line="226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" bodystart="226" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx_8h_1ae42733f7ec1fcf5df4f6d537b588bab6" compoundref="xv__hdmitx_8c" startline="710" endline="783">XV_HdmiTx_SetStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx___stream_1a094b972b5add25f8189946125ee5de37" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTx_Stream::IsHdmi</definition>
+        <argsstring></argsstring>
+        <name>IsHdmi</name>
+        <briefdescription>
+<para>HDMI flag. </para>        </briefdescription>
+        <detaileddescription>
+<para>1 - HDMI Stream, 0 - DVI Stream </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" bodystart="228" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx_8h_1a6dc5aa725b963236382283b2c4810dc1" compoundref="xv__hdmitx_8c" startline="295" endline="312">XV_HdmiTx_SetDviMode</referencedby>
+        <referencedby refid="xv__hdmitx_8h_1ab5d2bcd25ed4a775b87e716ad8d2a8d6" compoundref="xv__hdmitx_8c" startline="261" endline="280">XV_HdmiTx_SetHdmiMode</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx___stream_1aff6cb4519db331ab7336ae75c2cc56b8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTx_Stream::IsHdmi20</definition>
+        <argsstring></argsstring>
+        <name>IsHdmi20</name>
+        <briefdescription>
+<para>HDMI 2.0 flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" bodystart="230" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx_8h_1a18857793bd92eafef197b339cf1f956e" compoundref="xv__hdmitx_8c" startline="528" endline="572">XV_HdmiTx_ClockRatio</referencedby>
+        <referencedby refid="xv__hdmitx_8h_1afe6f171ef3d393c4653b17837c5a105a" compoundref="xv__hdmitx_8c" startline="589" endline="617">XV_HdmiTx_DetectHdmi20</referencedby>
+        <referencedby refid="xv__hdmitx_8h_1a588fe097262642349aa193a0665ff81f" compoundref="xv__hdmitx_8c" startline="450" endline="511">XV_HdmiTx_Scrambler</referencedby>
+        <referencedby refid="xv__hdmitx_8h_1ae42733f7ec1fcf5df4f6d537b588bab6" compoundref="xv__hdmitx_8c" startline="710" endline="783">XV_HdmiTx_SetStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx___stream_1ae9ca6e199b3a6729a3a0db9cb6e43bbd" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTx_Stream::IsScrambled</definition>
+        <argsstring></argsstring>
+        <name>IsScrambled</name>
+        <briefdescription>
+<para><verbatim>                 Scrambler flag
+</verbatim> 1 - scrambled data , 0 - non scrambled data </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" bodystart="231" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx_8h_1aa1b9824b19f5af7b841f52d797a3b0fc" compoundref="xv__hdmitx_8c" startline="1773" endline="1780">XV_HdmiTx_IsStreamScrambled</referencedby>
+        <referencedby refid="xv__hdmitx_8h_1a588fe097262642349aa193a0665ff81f" compoundref="xv__hdmitx_8c" startline="450" endline="511">XV_HdmiTx_Scrambler</referencedby>
+        <referencedby refid="xv__hdmitx_8h_1ae42733f7ec1fcf5df4f6d537b588bab6" compoundref="xv__hdmitx_8c" startline="710" endline="783">XV_HdmiTx_SetStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx___stream_1a0f7391ec51828911287f12c706f48065" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTx_Stream::OverrideScrambler</definition>
+        <argsstring></argsstring>
+        <name>OverrideScrambler</name>
+        <briefdescription>
+<para>Override scramble flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" bodystart="233" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx_8h_1acfeb8c295991a88031817404dd4135f3" compoundref="xv__hdmitx_8c" startline="107" endline="224">XV_HdmiTx_CfgInitialize</referencedby>
+        <referencedby refid="xv__hdmitx_8h_1a588fe097262642349aa193a0665ff81f" compoundref="xv__hdmitx_8c" startline="450" endline="511">XV_HdmiTx_Scrambler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx___stream_1a498466feabb81f3368b723a8104159d0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_HdmiTx_Stream::TMDSClock</definition>
+        <argsstring></argsstring>
+        <name>TMDSClock</name>
+        <briefdescription>
+<para>TMDS clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" bodystart="235" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx_8h_1a588fe097262642349aa193a0665ff81f" compoundref="xv__hdmitx_8c" startline="450" endline="511">XV_HdmiTx_Scrambler</referencedby>
+        <referencedby refid="xv__hdmitx_8h_1ae42733f7ec1fcf5df4f6d537b588bab6" compoundref="xv__hdmitx_8c" startline="710" endline="783">XV_HdmiTx_SetStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx___stream_1a2a32c654d0ab9b88f4d19c4985fae1f6" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTx_Stream::TMDSClockRatio</definition>
+        <argsstring></argsstring>
+        <name>TMDSClockRatio</name>
+        <briefdescription>
+<para><verbatim>                 TMDS clock ration
+</verbatim> 0 - 1/10, 1 - 1/40 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" bodystart="236" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx_8h_1a18857793bd92eafef197b339cf1f956e" compoundref="xv__hdmitx_8c" startline="528" endline="572">XV_HdmiTx_ClockRatio</referencedby>
+        <referencedby refid="xv__hdmitx_8h_1ae42733f7ec1fcf5df4f6d537b588bab6" compoundref="xv__hdmitx_8c" startline="710" endline="783">XV_HdmiTx_SetStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx___stream_1ac40b3c4cd28b83852edc439caf9f7a44" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_HdmiTx_Stream::PixelClk</definition>
+        <argsstring></argsstring>
+        <name>PixelClk</name>
+        <briefdescription>
+<para>Pixel Clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" bodystart="238" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx_8h_1a8f0f03c92ab4f206b0a8e0d3c7a6c502" compoundref="xv__hdmitx_8c" startline="386" endline="433">XV_HdmiTx_GetTmdsClk</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx___stream_1a577d0e96c465c57b4ea25523a5186188" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmitx_8h_1a73ae987f90760fc28e1d19b81d875a26" kindref="member">XV_HdmiTx_State</ref></type>
+        <definition>XV_HdmiTx_State XV_HdmiTx_Stream::State</definition>
+        <argsstring></argsstring>
+        <name>State</name>
+        <briefdescription>
+<para>State. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" bodystart="239" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx_8h_1acfeb8c295991a88031817404dd4135f3" compoundref="xv__hdmitx_8c" startline="107" endline="224">XV_HdmiTx_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx___stream_1a4239c08cfef43b6efe597fdb6c501c8d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTx_Stream::IsConnected</definition>
+        <argsstring></argsstring>
+        <name>IsConnected</name>
+        <briefdescription>
+<para>Connected flag. </para>        </briefdescription>
+        <detaileddescription>
+<para>This flag is set when the cable is connected </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" bodystart="240" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx_8h_1acfeb8c295991a88031817404dd4135f3" compoundref="xv__hdmitx_8c" startline="107" endline="224">XV_HdmiTx_CfgInitialize</referencedby>
+        <referencedby refid="xv__hdmitx_8h_1a7380f59f3609455c91e7090b7fde1504" compoundref="xv__hdmitx_8c" startline="1796" endline="1803">XV_HdmiTx_IsStreamConnected</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx___stream_1ac287f6a3125047a10f32e6ca8b7a58eb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTx_Stream::SampleRate</definition>
+        <argsstring></argsstring>
+        <name>SampleRate</name>
+        <briefdescription>
+<para>Sample rate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" bodystart="242" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx_8h_1abb0cde0fed5637779f430ca6eb2a9199" compoundref="xv__hdmitx_8c" startline="1070" endline="1109">XV_HdmiTx_SetSampleRate</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains HDMI TX stream specific data structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="15">
+        <label>XV_HdmiTx_Stream</label>
+        <link refid="struct_x_v___hdmi_tx___stream"/>
+        <childnode refid="16" relation="usage">
+          <edgelabel>Audio</edgelabel>
+        </childnode>
+      </node>
+      <node id="16">
+        <label>XV_HdmiTx_AudioStream</label>
+        <link refid="struct_x_v___hdmi_tx___audio_stream"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" bodystart="223" bodyend="243"/>
+    <listofallmembers>
+      <member refid="struct_x_v___hdmi_tx___stream_1af5002600fe2e2dbd7286162bb500941d" prot="public" virt="non-virtual"><scope>XV_HdmiTx_Stream</scope><name>Audio</name></member>
+      <member refid="struct_x_v___hdmi_tx___stream_1a4239c08cfef43b6efe597fdb6c501c8d" prot="public" virt="non-virtual"><scope>XV_HdmiTx_Stream</scope><name>IsConnected</name></member>
+      <member refid="struct_x_v___hdmi_tx___stream_1a094b972b5add25f8189946125ee5de37" prot="public" virt="non-virtual"><scope>XV_HdmiTx_Stream</scope><name>IsHdmi</name></member>
+      <member refid="struct_x_v___hdmi_tx___stream_1aff6cb4519db331ab7336ae75c2cc56b8" prot="public" virt="non-virtual"><scope>XV_HdmiTx_Stream</scope><name>IsHdmi20</name></member>
+      <member refid="struct_x_v___hdmi_tx___stream_1ae9ca6e199b3a6729a3a0db9cb6e43bbd" prot="public" virt="non-virtual"><scope>XV_HdmiTx_Stream</scope><name>IsScrambled</name></member>
+      <member refid="struct_x_v___hdmi_tx___stream_1a0f7391ec51828911287f12c706f48065" prot="public" virt="non-virtual"><scope>XV_HdmiTx_Stream</scope><name>OverrideScrambler</name></member>
+      <member refid="struct_x_v___hdmi_tx___stream_1ac40b3c4cd28b83852edc439caf9f7a44" prot="public" virt="non-virtual"><scope>XV_HdmiTx_Stream</scope><name>PixelClk</name></member>
+      <member refid="struct_x_v___hdmi_tx___stream_1ac287f6a3125047a10f32e6ca8b7a58eb" prot="public" virt="non-virtual"><scope>XV_HdmiTx_Stream</scope><name>SampleRate</name></member>
+      <member refid="struct_x_v___hdmi_tx___stream_1a577d0e96c465c57b4ea25523a5186188" prot="public" virt="non-virtual"><scope>XV_HdmiTx_Stream</scope><name>State</name></member>
+      <member refid="struct_x_v___hdmi_tx___stream_1a498466feabb81f3368b723a8104159d0" prot="public" virt="non-virtual"><scope>XV_HdmiTx_Stream</scope><name>TMDSClock</name></member>
+      <member refid="struct_x_v___hdmi_tx___stream_1a2a32c654d0ab9b88f4d19c4985fae1f6" prot="public" virt="non-virtual"><scope>XV_HdmiTx_Stream</scope><name>TMDSClockRatio</name></member>
+      <member refid="struct_x_v___hdmi_tx___stream_1ab3d63314205b73121885a6da80cfe7cf" prot="public" virt="non-virtual"><scope>XV_HdmiTx_Stream</scope><name>Vic</name></member>
+      <member refid="struct_x_v___hdmi_tx___stream_1aed13920c568f0a6101fe97e5a0ce981a" prot="public" virt="non-virtual"><scope>XV_HdmiTx_Stream</scope><name>Video</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

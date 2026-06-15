@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_17521747346877adca5c9325a5f0484f" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xspips_8c">xspips.c</innerfile>
+    <innerfile refid="xspips_8h">xspips.h</innerfile>
+    <innerfile refid="xspips__g_8c">xspips_g.c</innerfile>
+    <innerfile refid="xspips__hw_8c">xspips_hw.c</innerfile>
+    <innerfile refid="xspips__hw_8h">xspips_hw.h</innerfile>
+    <innerfile refid="xspips__options_8c">xspips_options.c</innerfile>
+    <innerfile refid="xspips__selftest_8c">xspips_selftest.c</innerfile>
+    <innerfile refid="xspips__sinit_8c">xspips_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/"/>
+  </compounddef>
+</doxygen>

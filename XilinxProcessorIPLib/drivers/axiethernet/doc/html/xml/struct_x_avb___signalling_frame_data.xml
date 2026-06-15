@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_avb___signalling_frame_data" kind="struct" prot="public">
+    <compoundname>XAvb_SignallingFrameData</compoundname>
+    <includes local="no">xavb.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_avb___signalling_frame_data_1a59ba334a92e4849faf31579ef5221b77" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAvb_SignallingFrameData::SyncIntervalDuration</definition>
+        <argsstring></argsstring>
+        <name>SyncIntervalDuration</name>
+        <briefdescription>
+<para>Sync Interval in units of 1/128 seconds. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="376" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="376" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__packets_8c_1ab9afff73e01faafdc8ce9f8e0ee8d4de" compoundref="xavb__ptp__packets_8c" startline="1351" endline="1443">XAvb_DecodeRxSignaling</referencedby>
+        <referencedby refid="xavb_8h_1aab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="279" endline="435">XAvb_PtpTimerInterruptHandler</referencedby>
+        <referencedby refid="xavb_8h_1af24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="131" endline="199">XAvb_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___signalling_frame_data_1a32e2ddf2ae1a19a457c9bd64516796e1" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAvb_SignallingFrameData::LinkDelayIntervalDuration</definition>
+        <argsstring></argsstring>
+        <name>LinkDelayIntervalDuration</name>
+        <briefdescription>
+<para>Link Delay Interval in units of 1/128 seconds. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="377" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="377" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__packets_8c_1ab9afff73e01faafdc8ce9f8e0ee8d4de" compoundref="xavb__ptp__packets_8c" startline="1351" endline="1443">XAvb_DecodeRxSignaling</referencedby>
+        <referencedby refid="xavb_8h_1aab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="279" endline="435">XAvb_PtpTimerInterruptHandler</referencedby>
+        <referencedby refid="xavb_8h_1af24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="131" endline="199">XAvb_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___signalling_frame_data_1ac149d8b00d1c397cf52784a7213bd5b6" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAvb_SignallingFrameData::AnnounceIntervalDuration</definition>
+        <argsstring></argsstring>
+        <name>AnnounceIntervalDuration</name>
+        <briefdescription>
+<para>Announce Interval in units of 1/128 seconds. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="378" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="378" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__packets_8c_1ab9afff73e01faafdc8ce9f8e0ee8d4de" compoundref="xavb__ptp__packets_8c" startline="1351" endline="1443">XAvb_DecodeRxSignaling</referencedby>
+        <referencedby refid="xavb_8h_1aab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="279" endline="435">XAvb_PtpTimerInterruptHandler</referencedby>
+        <referencedby refid="xavb_8h_1af24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="131" endline="199">XAvb_Reset</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The Signalling frame defines the delays to be used between Sync Frames, Link Delay measurements and Announce Frame events. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="375" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="374" bodyend="379"/>
+    <listofallmembers>
+      <member refid="struct_x_avb___signalling_frame_data_1ac149d8b00d1c397cf52784a7213bd5b6" prot="public" virt="non-virtual"><scope>XAvb_SignallingFrameData</scope><name>AnnounceIntervalDuration</name></member>
+      <member refid="struct_x_avb___signalling_frame_data_1a32e2ddf2ae1a19a457c9bd64516796e1" prot="public" virt="non-virtual"><scope>XAvb_SignallingFrameData</scope><name>LinkDelayIntervalDuration</name></member>
+      <member refid="struct_x_avb___signalling_frame_data_1a59ba334a92e4849faf31579ef5221b77" prot="public" virt="non-virtual"><scope>XAvb_SignallingFrameData</scope><name>SyncIntervalDuration</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

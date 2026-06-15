@@ -1,0 +1,747 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__ipipsu__api" kind="group">
+    <compoundname>ipipsu_api</compoundname>
+    <title>IPIPSU APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__ipipsu__api_1ga9fb4494480ae0079422956f2af1da357" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XIpiPsu_CfgInitialize</definition>
+        <argsstring>(XIpiPsu *InstancePtr, XIpiPsu_Config *CfgPtr, UINTPTR EffectiveAddress)</argsstring>
+        <name>XIpiPsu_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ipi_psu___config" kindref="compound">XIpiPsu_Config</ref> *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddress</declname>
+        </param>
+        <briefdescription>
+<para>Initializes the Instance pointer based on a given Config Pointer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device configuration structure containing required hardware build data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the device. If address translation is not utilized, this parameter can be passed in using CfgPtr-&gt;Config. BaseAddress to specify the physical base address. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if initialization was successful XST_FAILURE in case of failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.c" bodystart="69" bodyend="102"/>
+        <references refid="struct_x_ipi_psu___config_1a0d87ebd028051d4a05ab03410aadbc00" compoundref="xipipsu_8h" startline="146">XIpiPsu_Config::BaseAddress</references>
+        <references refid="struct_x_ipi_psu___config_1a2057231c9bccf22dadbb50ae9ef93222" compoundref="xipipsu_8h" startline="147">XIpiPsu_Config::BitMask</references>
+        <references refid="struct_x_ipi_psu___target_1ad8cf0011981eb538784e520195585e74" compoundref="xipipsu_8h" startline="134">XIpiPsu_Target::BufferIndex</references>
+        <references refid="struct_x_ipi_psu___config_1a05cc5c627e65d8e37754913d0fc90470" compoundref="xipipsu_8h" startline="148">XIpiPsu_Config::BufferIndex</references>
+        <references refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" compoundref="xipipsu_8h" startline="164">XIpiPsu::Config</references>
+        <references refid="struct_x_ipi_psu___config_1a3382d79fc242c571c9649aa91629689f" compoundref="xipipsu_8h" startline="149">XIpiPsu_Config::IntId</references>
+        <references refid="struct_x_ipi_psu_1adefbfd74e9c2ee38710b9ed805504a68" compoundref="xipipsu_8h" startline="165">XIpiPsu::IsReady</references>
+        <references refid="struct_x_ipi_psu___target_1a4ac80767ed4dcfd90d9a02db6a2a8eb4" compoundref="xipipsu_8h" startline="133">XIpiPsu_Target::Mask</references>
+        <references refid="struct_x_ipi_psu___config_1a8df4537dada42c7a73d1072ad59d2626" compoundref="xipipsu_8h" startline="154">XIpiPsu_Config::TargetCount</references>
+        <references refid="struct_x_ipi_psu___config_1af7eb9b8148ebf278905b19dbd404b727" compoundref="xipipsu_8h" startline="155">XIpiPsu_Config::TargetList</references>
+        <referencedby refid="xipipsu__self__test__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xipipsu__self__test__example_8c" startline="291" endline="357">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ipipsu__api_1ga9c55b8deb0e6b0a4ff355ad3a74aa2f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIpiPsu_Reset</definition>
+        <argsstring>(XIpiPsu *InstancePtr)</argsstring>
+        <name>XIpiPsu_Reset</name>
+        <param>
+          <type><ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Resets the given IPI register set. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    This function can be called to disable the IPIs from all
+    the sources and clear any pending IPIs in status register
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to current IPI instance </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.c" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.c" bodystart="113" bodyend="128"/>
+        <references refid="struct_x_ipi_psu___config_1a0d87ebd028051d4a05ab03410aadbc00" compoundref="xipipsu_8h" startline="146">XIpiPsu_Config::BaseAddress</references>
+        <references refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" compoundref="xipipsu_8h" startline="164">XIpiPsu::Config</references>
+        <references refid="struct_x_ipi_psu_1adefbfd74e9c2ee38710b9ed805504a68" compoundref="xipipsu_8h" startline="165">XIpiPsu::IsReady</references>
+        <references refid="group__ipipsu__api_1ga708ab6017d3971d9f9c0bf052fcdfd2f" compoundref="xipipsu__hw_8h" startline="93">XIPIPSU_ALL_MASK</references>
+        <references refid="group__ipipsu__api_1ga81c99cede6902a231b207281d9a6e212" compoundref="xipipsu__hw_8h" startline="76">XIPIPSU_IDR_OFFSET</references>
+        <references refid="group__ipipsu__api_1ga5c9abd1d0247d6b28268131d90b62a05" compoundref="xipipsu__hw_8h" startline="73">XIPIPSU_ISR_OFFSET</references>
+        <references refid="group__ipipsu_1ga72bcaac2f32ad480f79204f868309c31" compoundref="xipipsu_8h" startline="202">XIpiPsu_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__ipipsu__api_1ga8aa0005ec03abef3b3c1a506cb924e6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XIpiPsu_TriggerIpi</definition>
+        <argsstring>(XIpiPsu *InstancePtr, u32 DestCpuMask)</argsstring>
+        <name>XIpiPsu_TriggerIpi</name>
+        <param>
+          <type><ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DestCpuMask</declname>
+        </param>
+        <briefdescription>
+<para>Triggers an IPI to a Destination CPU. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to current IPI instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DestCpuMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask of the CPU to which IPI is to be triggered</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful XST_FAILURE if an error occurred </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.c" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.c" bodystart="141" bodyend="152"/>
+        <references refid="struct_x_ipi_psu___config_1a0d87ebd028051d4a05ab03410aadbc00" compoundref="xipipsu_8h" startline="146">XIpiPsu_Config::BaseAddress</references>
+        <references refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" compoundref="xipipsu_8h" startline="164">XIpiPsu::Config</references>
+        <references refid="struct_x_ipi_psu_1adefbfd74e9c2ee38710b9ed805504a68" compoundref="xipipsu_8h" startline="165">XIpiPsu::IsReady</references>
+        <references refid="group__ipipsu__api_1ga7b5daa2f9a7fef0e3897606b491dafcc" compoundref="xipipsu__hw_8h" startline="71">XIPIPSU_TRIG_OFFSET</references>
+        <references refid="group__ipipsu_1ga72bcaac2f32ad480f79204f868309c31" compoundref="xipipsu_8h" startline="202">XIpiPsu_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__ipipsu__api_1ga8153ea7257d7db9dd3f2ac0dd03e2ee2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XIpiPsu_PollForAck</definition>
+        <argsstring>(const XIpiPsu *InstancePtr, u32 DestCpuMask, u32 TimeOutCount)</argsstring>
+        <name>XIpiPsu_PollForAck</name>
+        <param>
+          <type>const <ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DestCpuMask</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TimeOutCount</declname>
+        </param>
+        <briefdescription>
+<para>Polls for an acknowledgement using Observation Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to current IPI instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DestCpuMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask of the destination CPU from which ACK is expected </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TimeOutCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Count after which the routines returns failure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful XST_FAILURE if a timeout occurred </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.c" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.c" bodystart="165" bodyend="191"/>
+        <references refid="struct_x_ipi_psu___config_1a0d87ebd028051d4a05ab03410aadbc00" compoundref="xipipsu_8h" startline="146">XIpiPsu_Config::BaseAddress</references>
+        <references refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" compoundref="xipipsu_8h" startline="164">XIpiPsu::Config</references>
+        <references refid="struct_x_ipi_psu_1adefbfd74e9c2ee38710b9ed805504a68" compoundref="xipipsu_8h" startline="165">XIpiPsu::IsReady</references>
+        <references refid="group__ipipsu__api_1ga1ca8515703f72eb2194a408cfa5b4a18" compoundref="xipipsu__hw_8h" startline="72">XIPIPSU_OBS_OFFSET</references>
+        <references refid="group__ipipsu_1gac400a6861c1d0ee565ad5fac914a7220" compoundref="xipipsu_8h" startline="184">XIpiPsu_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__ipipsu__api_1ga64113249dac23760b5cc0e9d038f8361" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XIpiPsu_ReadMessage</definition>
+        <argsstring>(XIpiPsu *InstancePtr, u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLength, u8 BufferType)</argsstring>
+        <name>XIpiPsu_ReadMessage</name>
+        <param>
+          <type><ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SrcCpuMask</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>MsgPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>MsgLength</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>BufferType</declname>
+        </param>
+        <briefdescription>
+<para>Read an Incoming Message from a Source. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to current IPI instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SrcCpuMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device Mask for the CPU which has sent the message </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to Buffer to which the read message needs to be stored </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgLength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of messages (each message is 4bytes) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufferType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of buffer (XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful XST_FAILURE if an error occurred </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.c" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.c" bodystart="207" bodyend="248"/>
+        <references refid="struct_x_ipi_psu___config_1a2057231c9bccf22dadbb50ae9ef93222" compoundref="xipipsu_8h" startline="147">XIpiPsu_Config::BitMask</references>
+        <references refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" compoundref="xipipsu_8h" startline="164">XIpiPsu::Config</references>
+        <references refid="struct_x_ipi_psu_1adefbfd74e9c2ee38710b9ed805504a68" compoundref="xipipsu_8h" startline="165">XIpiPsu::IsReady</references>
+        <references refid="group__ipipsu_1gac57efc54862ee5bea23a3e217388a2dc" compoundref="xipipsu_8h" startline="77">XIPIPSU_CRC_ERROR</references>
+        <references refid="group__ipipsu_1ga0b65ba4c02df42fe764615f99546fa56" compoundref="xipipsu_8h" startline="73">XIPIPSU_CRC_INDEX</references>
+        <references refid="group__ipipsu__api_1ga1404a6dc6d1ff0a6baf80a74e6bdb6e5" compoundref="xipipsu__buf_8c" startline="50" endline="85">XIpiPsu_GetBufferAddress</references>
+        <references refid="group__ipipsu_1ga6191e58907dea92be1f8fd83a2673be8" compoundref="xipipsu_8h" startline="93">XIPIPSU_MAX_MSG_LEN</references>
+        <references refid="group__ipipsu_1ga60f742faef33529c730b02614441789b" compoundref="xipipsu_8h" startline="74">XIPIPSU_W0_TO_W6_SIZE</references>
+        <referencedby refid="xipipsu__self__test__example_8c_1a2dc7058c8f10506fd4279462d399d33a" compoundref="xipipsu__self__test__example_8c" startline="116" endline="169">IpiIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ipipsu__api_1ga429d934e93e38c71d92ad98775b9cd92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XIpiPsu_WriteMessage</definition>
+        <argsstring>(XIpiPsu *InstancePtr, u32 DestCpuMask, const u32 *MsgPtr, u32 MsgLength, u8 BufferType)</argsstring>
+        <name>XIpiPsu_WriteMessage</name>
+        <param>
+          <type><ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DestCpuMask</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>MsgPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>MsgLength</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>BufferType</declname>
+        </param>
+        <briefdescription>
+<para>Sends a Message to Destination. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to current IPI instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DestCpuMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device Mask for the destination CPU </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to Buffer which contains the message to be sent </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgLength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of messages (each message is 4bytes) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufferType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of buffer (XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful XST_FAILURE if an error occurred </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.c" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.c" bodystart="264" bodyend="296"/>
+        <references refid="struct_x_ipi_psu___config_1a2057231c9bccf22dadbb50ae9ef93222" compoundref="xipipsu_8h" startline="147">XIpiPsu_Config::BitMask</references>
+        <references refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" compoundref="xipipsu_8h" startline="164">XIpiPsu::Config</references>
+        <references refid="struct_x_ipi_psu_1adefbfd74e9c2ee38710b9ed805504a68" compoundref="xipipsu_8h" startline="165">XIpiPsu::IsReady</references>
+        <references refid="group__ipipsu_1ga0b65ba4c02df42fe764615f99546fa56" compoundref="xipipsu_8h" startline="73">XIPIPSU_CRC_INDEX</references>
+        <references refid="group__ipipsu__api_1ga1404a6dc6d1ff0a6baf80a74e6bdb6e5" compoundref="xipipsu__buf_8c" startline="50" endline="85">XIpiPsu_GetBufferAddress</references>
+        <references refid="group__ipipsu_1ga6191e58907dea92be1f8fd83a2673be8" compoundref="xipipsu_8h" startline="93">XIPIPSU_MAX_MSG_LEN</references>
+        <references refid="group__ipipsu_1ga60f742faef33529c730b02614441789b" compoundref="xipipsu_8h" startline="74">XIPIPSU_W0_TO_W6_SIZE</references>
+        <referencedby refid="xipipsu__self__test__example_8c_1a2dc7058c8f10506fd4279462d399d33a" compoundref="xipipsu__self__test__example_8c" startline="116" endline="169">IpiIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ipipsu__api_1ga1404a6dc6d1ff0a6baf80a74e6bdb6e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32 *</type>
+        <definition>u32* XIpiPsu_GetBufferAddress</definition>
+        <argsstring>(XIpiPsu *InstancePtr, u32 SrcCpuMask, u32 DestCpuMask, u32 BufferType)</argsstring>
+        <name>XIpiPsu_GetBufferAddress</name>
+        <param>
+          <type><ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SrcCpuMask</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DestCpuMask</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BufferType</declname>
+        </param>
+        <briefdescription>
+<para>Gets the Buffer Address for a given pair of CPUs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to current IPI instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SrcCpuMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask for Source CPU </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DestCpuMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask for Destination CPU </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufferType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of buffer either XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Valid Buffer Address if no error NULL if an error occurs in calculating address </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_buf.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_buf.c" bodystart="50" bodyend="85"/>
+        <references refid="group__ipipsu_1gaad130b0ac7cc7a948fa636e7a2000bed" compoundref="xipipsu_8h" startline="71">XIPIPSU_BUF_TYPE_MSG</references>
+        <references refid="group__ipipsu_1gad0b378b86976236e743f8a75ed9f8d8d" compoundref="xipipsu_8h" startline="72">XIPIPSU_BUF_TYPE_RESP</references>
+        <references refid="group__ipipsu__api_1gae0907003c35118f6135e65877227d15e" compoundref="xipipsu__hw_8h" startline="59">XIPIPSU_BUFFER_OFFSET_GROUP</references>
+        <references refid="group__ipipsu__api_1gaf2361ea49ab17d6cc10e53ea607a9e9f" compoundref="xipipsu__hw_8h" startline="61">XIPIPSU_BUFFER_OFFSET_RESPONSE</references>
+        <references refid="group__ipipsu__api_1ga1b15715fa2640ed4fd66146d328bbbba" compoundref="xipipsu__hw_8h" startline="60">XIPIPSU_BUFFER_OFFSET_TARGET</references>
+        <references refid="group__ipipsu__api_1ga7d429daed621ef6c33656d873e31d9b3" compoundref="xipipsu__helper_8c" startline="107" endline="125">XIpiPsu_GetBufferIndex</references>
+        <references refid="group__ipipsu__api_1gad6677575d97c6c8df0a1776fdbd94b7e" compoundref="xipipsu__hw_8h" startline="56">XIPIPSU_MAX_BUFF_INDEX</references>
+        <references refid="group__ipipsu__api_1ga7c62207cd1bb028fe62103eee40477f2" compoundref="xipipsu__hw_8h" startline="53">XIPIPSU_MSG_RAM_BASE</references>
+        <referencedby refid="group__ipipsu_1ga64113249dac23760b5cc0e9d038f8361" compoundref="xipipsu_8c" startline="207" endline="248">XIpiPsu_ReadMessage</referencedby>
+        <referencedby refid="group__ipipsu_1ga429d934e93e38c71d92ad98775b9cd92" compoundref="xipipsu_8c" startline="264" endline="296">XIpiPsu_WriteMessage</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ipipsu__api_1ga7d429daed621ef6c33656d873e31d9b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XIpiPsu_GetBufferIndex</definition>
+        <argsstring>(const XIpiPsu *InstancePtr, u32 CpuMask)</argsstring>
+        <name>XIpiPsu_GetBufferIndex</name>
+        <param>
+          <type>const <ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CpuMask</declname>
+        </param>
+        <briefdescription>
+<para>Gets the Buffer Index for a CPU specified by Mask. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to current IPI instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CpuMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask of the CPU form which Index is required</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Buffer Index value if CPU Mask is valid XIPIPSU_MAX_BUFF_INDEX+1 if not valid </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_helper.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_helper.c" bodystart="107" bodyend="125"/>
+        <references refid="struct_x_ipi_psu___target_1ad8cf0011981eb538784e520195585e74" compoundref="xipipsu_8h" startline="134">XIpiPsu_Target::BufferIndex</references>
+        <references refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" compoundref="xipipsu_8h" startline="164">XIpiPsu::Config</references>
+        <references refid="struct_x_ipi_psu___target_1a4ac80767ed4dcfd90d9a02db6a2a8eb4" compoundref="xipipsu_8h" startline="133">XIpiPsu_Target::Mask</references>
+        <references refid="struct_x_ipi_psu___config_1a8df4537dada42c7a73d1072ad59d2626" compoundref="xipipsu_8h" startline="154">XIpiPsu_Config::TargetCount</references>
+        <references refid="struct_x_ipi_psu___config_1af7eb9b8148ebf278905b19dbd404b727" compoundref="xipipsu_8h" startline="155">XIpiPsu_Config::TargetList</references>
+        <references refid="group__ipipsu__api_1gad6677575d97c6c8df0a1776fdbd94b7e" compoundref="xipipsu__hw_8h" startline="56">XIPIPSU_MAX_BUFF_INDEX</references>
+        <referencedby refid="group__ipipsu__api_1ga1404a6dc6d1ff0a6baf80a74e6bdb6e5" compoundref="xipipsu__buf_8c" startline="50" endline="85">XIpiPsu_GetBufferAddress</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ipipsu__api_1gacb9c27ce83faa62ddce4b6898ddb419e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_ipi_psu___config" kindref="compound">XIpiPsu_Config</ref> *</type>
+        <definition>XIpiPsu_Config* XIpiPsu_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XIpiPsu_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Looks up the device configuration based on the unique device ID/BaseAddress. </para>        </briefdescription>
+        <detaileddescription>
+<para>The XIpiPsu_ConfigTable[] contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration found or NULL if the specified device ID/BaseAddress was not found. See <ref refid="xipipsu_8h" kindref="compound">xipipsu.h</ref> for the definition of <ref refid="struct_x_ipi_psu___config" kindref="compound">XIpiPsu_Config</ref>.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_sinit.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_sinit.c" bodystart="84" bodyend="98"/>
+        <references refid="struct_x_ipi_psu___config_1a1c9364d2c9eaa634447fe03442dbb225" compoundref="xipipsu_8h" startline="144">XIpiPsu_Config::Name</references>
+        <references refid="group__ipipsu_1ga3d2dd48cfc18bf089c15ce6b61c3f031" compoundref="xipipsu__g_8c" startline="15">XIpiPsu_ConfigTable</references>
+        <referencedby refid="xipipsu__self__test__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xipipsu__self__test__example_8c" startline="291" endline="357">main</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__ipipsu__api_1gaf92686c675ebd6fe4efc7213c7f8f204" prot="public" static="no">
+        <name>XIPIPSU_HW_H_</name>
+        <briefdescription>
+<para>&lt; prevent circular inclusions </para>        </briefdescription>
+        <detaileddescription>
+<para>by using protection macros </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1ga7c62207cd1bb028fe62103eee40477f2" prot="public" static="no">
+        <name>XIPIPSU_MSG_RAM_BASE</name>
+        <initializer>0xFF990000U</initializer>
+        <briefdescription>
+<para>IPI Message RAM base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="53" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__ipipsu__api_1ga1404a6dc6d1ff0a6baf80a74e6bdb6e5" compoundref="xipipsu__buf_8c" startline="50" endline="85">XIpiPsu_GetBufferAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1ga5989f697e24f79be32727d13ee3f4350" prot="public" static="no">
+        <name>XIPIPSU_MSG_BUF_SIZE</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Buffer size for up to 8 messages, each 4-bytes long. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="55" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1gad6677575d97c6c8df0a1776fdbd94b7e" prot="public" static="no">
+        <name>XIPIPSU_MAX_BUFF_INDEX</name>
+        <initializer>7U</initializer>
+        <briefdescription>
+<para>Maximum Buffer Index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__ipipsu__api_1ga1404a6dc6d1ff0a6baf80a74e6bdb6e5" compoundref="xipipsu__buf_8c" startline="50" endline="85">XIpiPsu_GetBufferAddress</referencedby>
+        <referencedby refid="group__ipipsu__api_1ga7d429daed621ef6c33656d873e31d9b3" compoundref="xipipsu__helper_8c" startline="107" endline="125">XIpiPsu_GetBufferIndex</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1gae0907003c35118f6135e65877227d15e" prot="public" static="no">
+        <name>XIPIPSU_BUFFER_OFFSET_GROUP</name>
+        <initializer>(8U * 2U * 32U)</initializer>
+        <briefdescription>
+<para>Buffer offset for group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__ipipsu__api_1ga1404a6dc6d1ff0a6baf80a74e6bdb6e5" compoundref="xipipsu__buf_8c" startline="50" endline="85">XIpiPsu_GetBufferAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1ga1b15715fa2640ed4fd66146d328bbbba" prot="public" static="no">
+        <name>XIPIPSU_BUFFER_OFFSET_TARGET</name>
+        <initializer>(32U * 2U)</initializer>
+        <briefdescription>
+<para>Buffer offset for target. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__ipipsu__api_1ga1404a6dc6d1ff0a6baf80a74e6bdb6e5" compoundref="xipipsu__buf_8c" startline="50" endline="85">XIpiPsu_GetBufferAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1gaf2361ea49ab17d6cc10e53ea607a9e9f" prot="public" static="no">
+        <name>XIPIPSU_BUFFER_OFFSET_RESPONSE</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>Buffer offset for response. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__ipipsu__api_1ga1404a6dc6d1ff0a6baf80a74e6bdb6e5" compoundref="xipipsu__buf_8c" startline="50" endline="85">XIpiPsu_GetBufferAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1ga47ff7fda69269789f8a32d6be7357712" prot="public" static="no">
+        <name>XIPIPSU_MAX_TARGETS</name>
+        <initializer>XPAR_XIPIPSU_0_IPI_TARGET_COUNT</initializer>
+        <briefdescription>
+<para>Maximum number of targets. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="67" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1ga7b5daa2f9a7fef0e3897606b491dafcc" prot="public" static="no">
+        <name>XIPIPSU_TRIG_OFFSET</name>
+        <initializer>0x00U</initializer>
+        <briefdescription>
+<para>Offset for Trigger register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__ipipsu_1ga8aa0005ec03abef3b3c1a506cb924e6e" compoundref="xipipsu_8c" startline="141" endline="152">XIpiPsu_TriggerIpi</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1ga1ca8515703f72eb2194a408cfa5b4a18" prot="public" static="no">
+        <name>XIPIPSU_OBS_OFFSET</name>
+        <initializer>0x04U</initializer>
+        <briefdescription>
+<para>Offset for Observation register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__ipipsu_1ga8153ea7257d7db9dd3f2ac0dd03e2ee2" compoundref="xipipsu_8c" startline="165" endline="191">XIpiPsu_PollForAck</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1ga5c9abd1d0247d6b28268131d90b62a05" prot="public" static="no">
+        <name>XIPIPSU_ISR_OFFSET</name>
+        <initializer>0x10U</initializer>
+        <briefdescription>
+<para>Offset for ISR register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__ipipsu_1ga9c55b8deb0e6b0a4ff355ad3a74aa2f1" compoundref="xipipsu_8c" startline="113" endline="128">XIpiPsu_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1ga44ee4ca145f4adbe7584e6d9a08c4bdf" prot="public" static="no">
+        <name>XIPIPSU_IMR_OFFSET</name>
+        <initializer>0x14U</initializer>
+        <briefdescription>
+<para>Offset for Interrupt Mask Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1gab20d7be8c5dd6ca941862eb1ff40289d" prot="public" static="no">
+        <name>XIPIPSU_IER_OFFSET</name>
+        <initializer>0x18U</initializer>
+        <briefdescription>
+<para>Offset for Interrupt Enable Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1ga81c99cede6902a231b207281d9a6e212" prot="public" static="no">
+        <name>XIPIPSU_IDR_OFFSET</name>
+        <initializer>0x1CU</initializer>
+        <briefdescription>
+<para>Offset for Interrupt Disable Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__ipipsu_1ga9c55b8deb0e6b0a4ff355ad3a74aa2f1" compoundref="xipipsu_8c" startline="113" endline="128">XIpiPsu_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1ga6625ac1f3ce4297feacf81cd25acf53f" prot="public" static="no">
+        <name>XIPIPSU_ECC_UE_MASK</name>
+        <initializer>0x40U</initializer>
+        <briefdescription>
+<para>Uncorrecteble Error mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="85" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1ga708ab6017d3971d9f9c0bf052fcdfd2f" prot="public" static="no">
+        <name>XIPIPSU_ALL_MASK</name>
+        <initializer>0x0F0F0301U</initializer>
+        <briefdescription>
+<para>All valid bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="93" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="93" bodyend="-1"/>
+        <referencedby refid="xipipsu__self__test__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xipipsu__self__test__example_8c" startline="291" endline="357">main</referencedby>
+        <referencedby refid="group__ipipsu_1ga9c55b8deb0e6b0a4ff355ad3a74aa2f1" compoundref="xipipsu_8c" startline="113" endline="128">XIpiPsu_Reset</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="xipipsu_8c" kindref="compound">xipipsu.c</ref> file contains the implementation of the interface functions for <ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref> driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>The <ref refid="xipipsu__sinit_8c" kindref="compound">xipipsu_sinit.c</ref> file contains the implementation of the <ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref> component&apos;s static initialization functionality.</para><para>The <ref refid="xipipsu__hw_8h" kindref="compound">xipipsu_hw.h</ref> file contains macro definitions for low level Hardware related params.</para><para>The <ref refid="xipipsu__helper_8c" kindref="compound">xipipsu_helper.c</ref> file contains the implementation of the XIpiPsu_CalculateCRC and XIpiPsu_GetBufferIndex.</para><para>}</para><para>The <ref refid="xipipsu__buf_8c" kindref="compound">xipipsu_buf.c</ref> file contains the implementation of the buffer access functions for <ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref> driver.</para><para>Refer to the header file <ref refid="xipipsu_8h" kindref="compound">xipipsu.h</ref> for more detailed information.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver     Who     Date    Changes
+<hruler/>
+
+1.00    mjr     03/15/15        First Release
+2.0     mjr     01/22/16        Fixed response buffer address
+                              calculation. CR# 932582.
+2.1     kvn     05/05/16        Modified code for MISRA-C:2012 Compliance
+2.2     kvn     02/17/17        Add support for updating ConfigTable at run time
+2.4     sd      07/11/18        Fix a doxygen reported warning
+2.6     sd      04/02/20        Restructured the code for more readability and modularity
+2.9   ma  02/12/21    Added IPI CRC functionality
+            sdd 02/17/21        Doxygen fixes
+      ma  03/04/21    Initialize BufferIndex during IPI config init
+      sdd 03/10/21      Fixed misrac warnings.
+                Fixed doxygen warnings.
+      ag        03/31/21        Fixed IPI poll for ack condition check.
+      sd  06/02/21      Update the crc code remove the check for max length.
+2.10    sd      07/14/21        Fix a unused label warning
+2.12    sd      03/29/22        Make the message pointer in XIpiPsu_WriteMessage constant
+2.14    ht      06/13/23        Restructured the code for more modularity
+2.17    ht      11/08/24        Update description of Msglength for XIpiPsu_ReadMessage
+                                and XIpiPsu_WriteMessage.
+2.18  an        08/07/25        Fix pointer to integer cast warning
+</preformatted></para><para>Refer to the header file <ref refid="xipipsu__buf_8h" kindref="compound">xipipsu_buf.h</ref> for more detailed information.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver     Who     Date    Changes
+<hruler/>
+
+2.6     sd      04/02/20        Restructured the code for more readability and modularity
+2.14    ht      06/13/23        Restructured the code for more modularity
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver     Who     Date     Changes
+<hruler/>
+
+2.14    ht      06/13/23 Restructured the code for more modularity
+        ht      07/28/23 Fix MISRA-C warnings
+2.17    ma      04/05/25 Read always in 4 bytes from IPI buffer</preformatted></para><para><preformatted></preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
+--<mdash/> <mdash/> -----<mdash/> --------------------------------------------<mdash/>.
+1.0   mjr  03/15/15 First release
+2.1   kvn  05/05/16 Modified code for MISRA-C:2012 Compliance
+2.5   sdd  12/17/18 Add the cpp extern macro
+2.11  ma   01/17/22 Added XIPIPSU_BASE_ADDR macro
+2.12  sd   02/24/22 Added support for VERSAL NET
+      sd   05/05/22 Added xparameters.h
+2.14  sd   07/27/23 Update the target count
+2.16  ma   09/10/24 Updated to support VERSAL_2VE_2VM platform
+2.17  ht   11/08/24 Update description of XIPIPSU_MSG_BUF_SIZE
+2.17  ht   04/24/25 Update IPI bitmask definitions for Versal Platforms</preformatted></para><para><preformatted></preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
+<hruler/>
+
+1.0   mjr  03/15/15 First release
+2.1   kvn  05/05/16 Modified code for MISRA-C:2012 Compliance
+2.9   sdd  03/11/21 Moved declaration to header files
+2.19  vlt  12/12/25 Update Doxygen comments to include SDT flow details
+2.19  vlt  03/14/26 Updated BaseAddress type from u32 to UINTPTR
+                    to support 64-bit addressing</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1058 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xplmi__proc_8c" kind="file">
+    <compoundname>xplmi_proc.c</compoundname>
+    <includes refid="xplmi__proc_8h" local="yes">xplmi_proc.h</includes>
+    <includes local="yes">xplmi_hw.h</includes>
+    <includes refid="xplmi__scheduler_8h" local="yes">xplmi_scheduler.h</includes>
+    <includes refid="xplmi__debug_8h" local="yes">xplmi_debug.h</includes>
+    <includes refid="xplmi__err__common_8h" local="yes">xplmi_err_common.h</includes>
+    <includes local="yes">xplmi_plat.h</includes>
+    <includes local="yes">xplmi_config.h</includes>
+    <incdepgraph>
+      <node id="2479">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="2466">
+        <label>xplmi_proc.c</label>
+        <link refid="xplmi_proc.c"/>
+        <childnode refid="2467" relation="include">
+        </childnode>
+        <childnode refid="2487" relation="include">
+        </childnode>
+        <childnode refid="2488" relation="include">
+        </childnode>
+        <childnode refid="2489" relation="include">
+        </childnode>
+        <childnode refid="2492" relation="include">
+        </childnode>
+        <childnode refid="2477" relation="include">
+        </childnode>
+        <childnode refid="2476" relation="include">
+        </childnode>
+      </node>
+      <node id="2467">
+        <label>xplmi_proc.h</label>
+        <link refid="xplmi__proc_8h"/>
+        <childnode refid="2468" relation="include">
+        </childnode>
+        <childnode refid="2469" relation="include">
+        </childnode>
+        <childnode refid="2470" relation="include">
+        </childnode>
+        <childnode refid="2486" relation="include">
+        </childnode>
+        <childnode refid="2475" relation="include">
+        </childnode>
+      </node>
+      <node id="2488">
+        <label>xplmi_scheduler.h</label>
+        <link refid="xplmi__scheduler_8h"/>
+        <childnode refid="2478" relation="include">
+        </childnode>
+        <childnode refid="2481" relation="include">
+        </childnode>
+        <childnode refid="2476" relation="include">
+        </childnode>
+        <childnode refid="2487" relation="include">
+        </childnode>
+      </node>
+      <node id="2480">
+        <label>xil_hw.h</label>
+      </node>
+      <node id="2494">
+        <label>xplmi_error_node.h</label>
+      </node>
+      <node id="2485">
+        <label>stdlib.h</label>
+      </node>
+      <node id="2491">
+        <label>xplmi_event_logging.h</label>
+        <link refid="xplmi__event__logging_8h"/>
+        <childnode refid="2474" relation="include">
+        </childnode>
+        <childnode refid="2486" relation="include">
+        </childnode>
+      </node>
+      <node id="2471">
+        <label>xplmi_ipi.h</label>
+        <link refid="xplmi__ipi_8h"/>
+        <childnode refid="2472" relation="include">
+        </childnode>
+        <childnode refid="2473" relation="include">
+        </childnode>
+        <childnode refid="2474" relation="include">
+        </childnode>
+        <childnode refid="2479" relation="include">
+        </childnode>
+        <childnode refid="2480" relation="include">
+        </childnode>
+      </node>
+      <node id="2481">
+        <label>xplmi_task.h</label>
+        <link refid="xplmi__task_8h"/>
+        <childnode refid="2479" relation="include">
+        </childnode>
+        <childnode refid="2482" relation="include">
+        </childnode>
+        <childnode refid="2478" relation="include">
+        </childnode>
+        <childnode refid="2483" relation="include">
+        </childnode>
+        <childnode refid="2484" relation="include">
+        </childnode>
+      </node>
+      <node id="2489">
+        <label>xplmi_debug.h</label>
+        <link refid="xplmi__debug_8h"/>
+        <childnode refid="2490" relation="include">
+        </childnode>
+        <childnode refid="2476" relation="include">
+        </childnode>
+        <childnode refid="2491" relation="include">
+        </childnode>
+        <childnode refid="2467" relation="include">
+        </childnode>
+      </node>
+      <node id="2486">
+        <label>xplmi_util.h</label>
+        <link refid="xplmi__util_8h"/>
+        <childnode refid="2478" relation="include">
+        </childnode>
+      </node>
+      <node id="2492">
+        <label>xplmi_err_common.h</label>
+        <link refid="xplmi__err__common_8h"/>
+        <childnode refid="2489" relation="include">
+        </childnode>
+        <childnode refid="2493" relation="include">
+        </childnode>
+        <childnode refid="2494" relation="include">
+        </childnode>
+        <childnode refid="2487" relation="include">
+        </childnode>
+        <childnode refid="2480" relation="include">
+        </childnode>
+        <childnode refid="2474" relation="include">
+        </childnode>
+      </node>
+      <node id="2482">
+        <label>mb_interface.h</label>
+      </node>
+      <node id="2473">
+        <label>xplmi_modules.h</label>
+        <link refid="xplmi__modules_8h"/>
+        <childnode refid="2474" relation="include">
+        </childnode>
+        <childnode refid="2477" relation="include">
+        </childnode>
+        <childnode refid="2472" relation="include">
+        </childnode>
+        <childnode refid="2478" relation="include">
+        </childnode>
+      </node>
+      <node id="2483">
+        <label>xstatus.h</label>
+      </node>
+      <node id="2476">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="2469">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="2493">
+        <label>xil_error_node.h</label>
+      </node>
+      <node id="2478">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2474">
+        <label>xplmi_cmd.h</label>
+        <link refid="xplmi__cmd_8h"/>
+        <childnode refid="2475" relation="include">
+        </childnode>
+        <childnode refid="2476" relation="include">
+        </childnode>
+      </node>
+      <node id="2472">
+        <label>xparameters.h</label>
+      </node>
+      <node id="2490">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="2484">
+        <label>list.h</label>
+        <childnode refid="2485" relation="include">
+        </childnode>
+      </node>
+      <node id="2487">
+        <label>xplmi_hw.h</label>
+      </node>
+      <node id="2470">
+        <label>xplmi_gic_interrupts.h</label>
+        <link refid="xplmi__gic__interrupts_8h"/>
+        <childnode refid="2471" relation="include">
+        </childnode>
+        <childnode refid="2481" relation="include">
+        </childnode>
+      </node>
+      <node id="2468">
+        <label>xiomodule.h</label>
+      </node>
+      <node id="2477">
+        <label>xplmi_plat.h</label>
+      </node>
+      <node id="2475">
+        <label>xplmi_status.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xilplmi__server__apis_1ga0a744b4e21fe743b44234941cacbd328" prot="public" static="no">
+        <name>XPLMI_MB_MSR_BIP_MASK</name>
+        <initializer>(0x8U)</initializer>
+        <briefdescription>
+<para>Microblaze MSR Break In Progress bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga39991f4765e9e7323223ec6288ab40a3" compoundref="xplmi__proc_8c" startline="347" endline="409">XPlmi_SetUpInterruptSystem</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xilplmi__server__apis_1ga1a459a488c981c148129bd69d0a1a4bf" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 PmcIroFreq</definition>
+        <argsstring></argsstring>
+        <name>PmcIroFreq</name>
+        <initializer>= <ref refid="2vp__p_2server_2xplmi__plat_8h_1a8d86566203ebe7ff7bb3b25bb12651de" kindref="member">XPLMI_PMC_IRO_FREQ_320_MHZ</ref></initializer>
+        <briefdescription>
+<para>PmcIroFreq variable stores the frequency of the PMC IRO in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga32c44c73df638479b7847c4a1b6adb40" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XPlmi_InitPitTimer</definition>
+        <argsstring>(u32 Timer, u32 ResetValue)</argsstring>
+        <name>XPlmi_InitPitTimer</name>
+        <param>
+          <type>u32</type>
+          <declname>Timer</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ResetValue</declname>
+        </param>
+        <briefdescription>
+<para>It initializes the Programmable Interval Timer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Timer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is PIT timer number to be initialized </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ResetValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the reset value of timer when started. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Set a reset value for the Programmable Interval Timers such that they will expire earlier than letting them roll over from 0, the reset value is loaded into the Programmable Interval Timers when they are started.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="116" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gae823b6ef465f0b8c2e80a3e25fa3590b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XPlmi_GetPerfTime</definition>
+        <argsstring>(u64 TCur, u64 TStart, u32 IroFreq, XPlmi_PerfTime *PerfTime)</argsstring>
+        <name>XPlmi_GetPerfTime</name>
+        <param>
+          <type>u64</type>
+          <declname>TCur</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>TStart</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IroFreq</declname>
+        </param>
+        <param>
+          <type>XPlmi_PerfTime *</type>
+          <declname>PerfTime</declname>
+        </param>
+        <briefdescription>
+<para>This function prints the total time taken between two points for performance measurement. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>TCur</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the current time </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TStart</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the start time </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IroFreq</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the frequency at which PMC IRO is running </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PerfTime</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to variable holding the performance time </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="187" bodyend="198"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga174c4697a5d6684da653761b5fcdc0c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32 *</type>
+        <definition>u32* XPlmi_GetPmcIroFreq</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_GetPmcIroFreq</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function provides the pointer to PmcIroFreq variable. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Pointer to PmcIroFreq variable </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="103" bodyend="106"/>
+        <referencedby refid="group__xilplmi__server__apis_1gabca9a90771dbe58c7df671842aa33c13" compoundref="xplmi__util_8c" startline="370" endline="401">XPlmi_UtilPollNs</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga6434f3174d49ba6aac80cdac0f22f8df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u64</type>
+        <definition>u64 XPlmi_GetTimerValue</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_GetTimerValue</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function is used to read the 64 bit timer value. </para>        </briefdescription>
+        <detaileddescription>
+<para>It reads from PIT1 and PIT2 and makes it 64 bit.</para><para><simplesect kind="return"><para>Returns 64 bit timer value </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Pit1 starts at 0 and preload the full value after pit2 expires. So, recasting TPit1 0 value to highest so that u64 comparison works for Tpit1 0 and TPit1 0xfffffffe</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="152" bodyend="174"/>
+        <references refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" compoundref="server_2xplmi__plat_8c" startline="195" endline="200">XPlmi_GetIOModuleInst</references>
+        <referencedby refid="group__xilplmi__server__apis_1ga1b0be0d5fccf58e120aa3d786fd0ddb3" compoundref="xplmi__dma_8c" startline="632" endline="707">XPlmi_DmaXfr</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga54692febdba7dfe3388442522c5e0896" compoundref="server_2xplmi__generic_8c" startline="401" endline="512">XPlmi_GenericMaskPoll</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga8073ed79bd5fcddf3ac6313fb0d905da" compoundref="xplmi__proc_8c" startline="209" endline="213">XPlmi_MeasurePerfTime</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga2b8f088fb0494d901a6016348fb33f41" compoundref="xplmi__scheduler_8c" startline="220" endline="277">XPlmi_SchedulerHandler</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga60b1ab6a37c63ae05e12619b0ec7f708" compoundref="xplmi__scheduler_8c" startline="196" endline="208">XPlmi_SchedulerInit</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gac417102cdb74ac7c522ce119729870ff" compoundref="xplmi__task_8c" startline="196" endline="274">XPlmi_TaskDispatchLoop</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gabca9a90771dbe58c7df671842aa33c13" compoundref="xplmi__util_8c" startline="370" endline="401">XPlmi_UtilPollNs</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga8073ed79bd5fcddf3ac6313fb0d905da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_MeasurePerfTime</definition>
+        <argsstring>(u64 TCur, XPlmi_PerfTime *PerfTime)</argsstring>
+        <name>XPlmi_MeasurePerfTime</name>
+        <param>
+          <type>u64</type>
+          <declname>TCur</declname>
+        </param>
+        <param>
+          <type>XPlmi_PerfTime *</type>
+          <declname>PerfTime</declname>
+        </param>
+        <briefdescription>
+<para>This function measures the total time taken between two points for performance measurement. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>TCur</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is current time </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PerfTime</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the variable to hold the time elapsed </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="209" bodyend="213"/>
+        <references refid="group__xilplmi__server__apis_1ga6434f3174d49ba6aac80cdac0f22f8df" compoundref="xplmi__proc_8c" startline="152" endline="174">XPlmi_GetTimerValue</references>
+        <referencedby refid="group__xilplmi__server__apis_1ga1b0be0d5fccf58e120aa3d786fd0ddb3" compoundref="xplmi__dma_8c" startline="632" endline="707">XPlmi_DmaXfr</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga54692febdba7dfe3388442522c5e0896" compoundref="server_2xplmi__generic_8c" startline="401" endline="512">XPlmi_GenericMaskPoll</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga161d819b7e4971a43da00b9c8d3ddc6a" compoundref="xplmi__proc_8c" startline="242" endline="250">XPlmi_PrintPlmTimeStamp</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gaaf71b7fae794dae768a2e08bf2c032e2" compoundref="xplmi__scheduler_8c" startline="303" endline="383">XPlmi_SchedulerAddTask</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gac417102cdb74ac7c522ce119729870ff" compoundref="xplmi__task_8c" startline="196" endline="274">XPlmi_TaskDispatchLoop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gaf8b4f2b936edc4e2060961f9bbcb0ff3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_PrintRomTime</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_PrintRomTime</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function prints the ROM time. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="220" bodyend="235"/>
+        <references refid="group__xilplmi__server__apis_1ga04ef1a5287595b90634a937bf3e32712" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="625" endline="628">XPlmi_GetRomIroFreq</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga161d819b7e4971a43da00b9c8d3ddc6a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_PrintPlmTimeStamp</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_PrintPlmTimeStamp</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function prints the PLM time stamp. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="242" bodyend="250"/>
+        <references refid="group__xilplmi__server__apis_1ga8073ed79bd5fcddf3ac6313fb0d905da" compoundref="xplmi__proc_8c" startline="209" endline="213">XPlmi_MeasurePerfTime</references>
+        <referencedby refid="group__xilplmi__server__apis_1ga2b28c3907e83a63bf43adaa1f5a545e9" compoundref="xplmi__debug_8c" startline="308" endline="321">XPlmi_Print</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga1faf13fb43ee71846b7ec8c5f22b986e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_StartTimer</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_StartTimer</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>It initializes the IO module structures and PIT timers. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XPLMI_ERR_IOMOD_INIT if IOModdule drive lookup fails.</para></listitem><listitem><para>XPLMI_ERR_IOMOD_START if IOModdule drive startup fails.</para></listitem><listitem><para>XPLMI_ERR_SET_PMC_IRO_FREQ if failed to set PMC IRO frequency. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Initialize all the interrupt Handlers to default handler</para></listitem><listitem><para>Initialize the IO Module so that it&apos;s ready to use, specify the device ID that is generated in xparameters.h</para></listitem><listitem><para>Initialize and start the timer<itemizedlist>
+<listitem><para>Use PIT1 and PIT2 in prescaler mode</para></listitem><listitem><para>Set the Prescaler mode</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="263" bodyend="333"/>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a7274c600f366b41f46b600dc017e8fdb" compoundref="2vp_2server_2xplmi__status_8h" startline="90">XPLMI_ERR_IOMOD_INIT</references>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a205a1f9abcc195ccbe39887a08006f42" compoundref="2vp_2server_2xplmi__status_8h" startline="91">XPLMI_ERR_IOMOD_START</references>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3ab01b5ef15aa6ad65bafd711e9bd52cc7" compoundref="2vp_2server_2xplmi__status_8h" startline="168">XPLMI_ERR_SET_PMC_IRO_FREQ</references>
+        <references refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" compoundref="server_2xplmi__plat_8c" startline="195" endline="200">XPlmi_GetIOModuleInst</references>
+        <references refid="group__xilplmi__server__apis_1gaa162fe5ce1ebcb2622bb2ccec4fcec4f" compoundref="xplmi__update_8c" startline="267" endline="271">XPlmi_IsPlmUpdateDone</references>
+        <references refid="group__xilplmi__server__apis_1ga60b1ab6a37c63ae05e12619b0ec7f708" compoundref="xplmi__scheduler_8c" startline="196" endline="208">XPlmi_SchedulerInit</references>
+        <references refid="group__xilplmi__server__apis_1ga09b22ff85e1bc3e94fa588bceb30a645" compoundref="server_2xplmi__plat_8c" startline="560" endline="592">XPlmi_SetPmcIroFreq</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga39991f4765e9e7323223ec6288ab40a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_SetUpInterruptSystem</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_SetUpInterruptSystem</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function connects the interrupt handler of the IO Module to the processor. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if handlers are registered properly.</para></listitem><listitem><para>XPLMI_ERR_IOMOD_CONNECT if IOModule driver fails to establish connection. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Connect a device driver handler that will be called when an interrupt for the device occurs, the device driver handler performs the specific interrupt processing for the device</para></listitem><listitem><para>Register the IO module interrupt handler with the exception table.</para></listitem><listitem><para>Enable interrupts</para></listitem><listitem><para>Clear Break In Progress to get interrupts</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" line="347" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="347" bodyend="409"/>
+        <references refid="group__xilplmi__server__apis_1gaa55695f726439fa48e1f16c7f02b10ca" compoundref="server_2xplmi__plat_8c" startline="543" endline="550">XPlmi_EnableIomoduleIntr</references>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a868076ab45c6a96de5be65fbdde41bf8" compoundref="2vp_2server_2xplmi__status_8h" startline="92">XPLMI_ERR_IOMOD_CONNECT</references>
+        <references refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" compoundref="server_2xplmi__plat_8c" startline="195" endline="200">XPlmi_GetIOModuleInst</references>
+        <references refid="group__xilplmi__server__apis_1ga31f430d11612376b1e58db9d0b6a1174" compoundref="server_2xplmi__plat_8c" startline="154" endline="157">XPlmi_GetTopLevelIntrTbl</references>
+        <references refid="group__xilplmi__server__apis_1ga71713ed0ed7bf2f5f6094008105f61d9" compoundref="server_2xplmi__plat_8c" startline="166" endline="169">XPlmi_GetTopLevelIntrTblSize</references>
+        <references refid="group__xilplmi__server__apis_1ga28492cdcffc2121602ae8bf7df733294" compoundref="xplmi__proc_8c" startline="418" endline="425">XPlmi_IntrHandler</references>
+        <references refid="group__xilplmi__server__apis_1ga0a744b4e21fe743b44234941cacbd328" compoundref="xplmi__proc_8c" startline="79">XPLMI_MB_MSR_BIP_MASK</references>
+        <references refid="group__xilplmi__server__apis_1ga2b8f088fb0494d901a6016348fb33f41" compoundref="xplmi__scheduler_8c" startline="220" endline="277">XPlmi_SchedulerHandler</references>
+        <referencedby refid="group__xilplmi__server__apis_1ga87aef31fe1a4af9ef9dbb6f9a06a3c34" compoundref="xplmi_8c" startline="126" endline="152">XPlmi_Init</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga28492cdcffc2121602ae8bf7df733294" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_IntrHandler</definition>
+        <argsstring>(void *CallbackRef)</argsstring>
+        <name>XPlmi_IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function is default interrupt handler for the device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is presently the interrupt number that is received. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" line="418" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="418" bodyend="425"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga39991f4765e9e7323223ec6288ab40a3" compoundref="xplmi__proc_8c" startline="347" endline="409">XPlmi_SetUpInterruptSystem</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gae14df54ed318152d61bbb0edb8998dc3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_PlmIntrEnable</definition>
+        <argsstring>(u32 IntrId)</argsstring>
+        <name>XPlmi_PlmIntrEnable</name>
+        <param>
+          <type>u32</type>
+          <declname>IntrId</declname>
+        </param>
+        <briefdescription>
+<para>This function will enable the Iomodule interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IntrId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt ID as specified in the <ref refid="xplmi__proc_8h" kindref="compound">xplmi_proc.h</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" line="434" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="434" bodyend="445"/>
+        <references refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" compoundref="server_2xplmi__plat_8c" startline="195" endline="200">XPlmi_GetIOModuleInst</references>
+        <referencedby refid="group__xilplmi__server__apis_1ga3847faa9361981c4b856e3ccd5fe959a" compoundref="xplmi__err__common_8c" startline="627" endline="713">XPlmi_ErrorTaskHandler</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga226b30b2dccf839ce5c21ec7dadd19f9" compoundref="2ve__2vm_2server_2xplmi__err_8c" startline="1080" endline="1160">XPlmi_Versal2Ve2VmEAMHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga9b50989f370478d03d3dea18f7b8cd13" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_PlmIntrDisable</definition>
+        <argsstring>(u32 IntrId)</argsstring>
+        <name>XPlmi_PlmIntrDisable</name>
+        <param>
+          <type>u32</type>
+          <declname>IntrId</declname>
+        </param>
+        <briefdescription>
+<para>This function will disable the Iomodule interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IntrId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt ID as specified in the <ref refid="xplmi__proc_8h" kindref="compound">xplmi_proc.h</ref></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success and error code on failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" line="457" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="457" bodyend="470"/>
+        <references refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" compoundref="server_2xplmi__plat_8c" startline="195" endline="200">XPlmi_GetIOModuleInst</references>
+        <referencedby refid="group__xilplmi__server__apis_1ga32ddc68221b03e6b495f96acb9fc2e0d" compoundref="xplmi__err__common_8c" startline="586" endline="615">XPlmi_ErrIntrHandler</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga14611d83f202754166c8938a5e6cc968" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="403" endline="463">XPlmi_GenericHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga7afb3d630cbe8ab2e65abde74817eb55" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_PlmIntrClear</definition>
+        <argsstring>(u32 IntrId)</argsstring>
+        <name>XPlmi_PlmIntrClear</name>
+        <param>
+          <type>u32</type>
+          <declname>IntrId</declname>
+        </param>
+        <briefdescription>
+<para>This function will clear the Iomodule interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IntrId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt ID as specified in the <ref refid="xplmi__proc_8h" kindref="compound">xplmi_proc.h</ref></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success and error code on failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" line="482" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="482" bodyend="495"/>
+        <references refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" compoundref="server_2xplmi__plat_8c" startline="195" endline="200">XPlmi_GetIOModuleInst</references>
+        <referencedby refid="group__xilplmi__server__apis_1ga3847faa9361981c4b856e3ccd5fe959a" compoundref="xplmi__err__common_8c" startline="627" endline="713">XPlmi_ErrorTaskHandler</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga14611d83f202754166c8938a5e6cc968" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="403" endline="463">XPlmi_GenericHandler</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga4db0300432a90a6ba0f5cb7f9ad9aa8c" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="505" endline="540">XPlmi_IpiIntrHandler</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga226b30b2dccf839ce5c21ec7dadd19f9" compoundref="2ve__2vm_2server_2xplmi__err_8c" startline="1080" endline="1160">XPlmi_Versal2Ve2VmEAMHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gae4d39d395ef91b45f9cbdc1c1c03d289" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_RegisterHandler</definition>
+        <argsstring>(u32 IntrId, GicIntHandler_t Handler, void *Data)</argsstring>
+        <name>XPlmi_RegisterHandler</name>
+        <param>
+          <type>u32</type>
+          <declname>IntrId</declname>
+        </param>
+        <param>
+          <type>GicIntHandler_t</type>
+          <declname>Handler</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function will register the handler and enable the Iomodule interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IntrId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt ID as specified in the xplmi_hw.h </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Handler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to be registered for the interrupt </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to be passed to handler</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XPLMI_ERR_REGISTER_IOMOD_HANDLER if failed to register the handler. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" line="511" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c" bodystart="511" bodyend="532"/>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3ae7263d1a20bbed57dbdf53f47b69fa89" compoundref="2vp_2server_2xplmi__status_8h" startline="120">XPLMI_ERR_REGISTER_IOMOD_HANDLER</references>
+        <references refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" compoundref="server_2xplmi__plat_8c" startline="195" endline="200">XPlmi_GetIOModuleInst</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the processor related code. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+1.00  kc   02/07/2019 Initial release
+1.01  kc   04/09/2019 Added code to register/enable/disable interrupts
+      sn   07/04/2019 Added support for enabling GIC proxy for sysmon
+      kc   07/16/2019 Added PERF macro to print task times
+      kc   07/16/2019 Added logic to determine the IRO frequency
+      kc   08/01/2019 Added PLM and ROM boot times
+1.02  kc   02/10/2020 Updated scheduler to add/remove tasks
+      ma   02/28/2020 Added support for new error actions
+      kc   03/20/2020 Scheduler frequency is increased to 100ms for QEMU
+      bsv  04/04/2020 Code clean up
+      kc   04/23/2020 Added interrupt support for SEU event
+1.03  bm   10/14/2020 Code clean up
+      td   10/19/2020 MISRA C Fixes
+1.04  td   11/23/2020 MISRA C Rule 10.4 Fixes
+      ma   03/24/2021 Reduced minimum digits of time stamp decimals to 3
+      skd  03/25/2021 Compilation warning fix
+      bm   04/03/2021 Move task creation out of interrupt context
+1.05  td   07/08/2021 Fix doxygen warnings
+      bm   07/12/2021 Updated IRO frequency to 400MHz for MP and HP parts
+      bsv  07/16/2021 Fix doxygen warnings
+      bsv  08/02/2021 Code clean up to reduce size
+      bsv  08/15/2021 Removed unwanted goto statements
+1.06  ma   01/17/2022 Move EFUSE defines to xplmi_hw.h file
+      bm   01/27/2022 Fix setup interrupt system logic
+      rama 01/31/2022 Added STL error interrupt register functionality
+      bm   03/16/2022 Fix ROM time calculation
+1.07  skd  04/21/2022 Misra-C violation Rule 18.1 fixed
+1.08  bm   07/06/2022 Refactor versal and versal_net code
+1.09  ng   11/11/2022 Updated doxygen comments
+      bm   01/03/2023 Remove usage of double data type
+      bm   03/11/2023 Set PmcIroFreq as 320MHz by default
+      ng   03/30/2023 Updated algorithm and return values in doxygen comments
+1.10  bm   04/28/2023 Use XPlmi_GetRomIroFreq API to get IRO frequency used
+                      during ROM
+      ng   06/21/2023 Added support for system device-tree flow
+      ng   01/28/2024 optimized u8 variables
+      ma   03/05/2024 Fixed improper timestamp issue after In-place PLM update
+      ma   09/20/2024 Increase scheduler frequency to 100ms for COSIM
+2.4   abh  10/17/2025 Fixed MISRA-C violations
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="68"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__proc_8h" kindref="compound">xplmi_proc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_hw.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__scheduler_8h" kindref="compound">xplmi_scheduler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__debug_8h" kindref="compound">xplmi_debug.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__err__common_8h" kindref="compound">xplmi_err_common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_plat.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="79" refid="group__xilplmi__server__apis_1ga0a744b4e21fe743b44234941cacbd328" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_MB_MSR_BIP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x8U)</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPlmi_InitPitTimer(u32<sp/>Timer,<sp/>u32<sp/>ResetValue);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPlmi_GetPerfTime(u64<sp/>TCur,<sp/>u64<sp/>TStart,<sp/>u32<sp/>IroFreq,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_PerfTime<sp/>*PerfTime);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="94"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>PmcIroFreq<sp/>=<sp/><ref refid="2vp_2server_2xplmi__plat_8h_1a8d86566203ebe7ff7bb3b25bb12651de" kindref="member">XPLMI_PMC_IRO_FREQ_320_MHZ</ref>;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="103" refid="group__xilplmi__server__apis_1ga174c4697a5d6684da653761b5fcdc0c6" refkind="member"><highlight class="normal">u32<sp/>*<ref refid="group__xilplmi__server__apis_1ga174c4697a5d6684da653761b5fcdc0c6" kindref="member">XPlmi_GetPmcIroFreq</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>&amp;PmcIroFreq;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="116"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPlmi_InitPitTimer(u32<sp/>Timer,<sp/>u32<sp/>ResetValue)</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIOModule<sp/>*IOModule<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" kindref="member">XPlmi_GetIOModuleInst</ref>();</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="121"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>When<sp/>used<sp/>in<sp/>PIT1<sp/>prescalar<sp/>to<sp/>PIT2,<sp/>PIT2<sp/>has<sp/>least<sp/>32bits</highlight></codeline>
+<codeline lineno="122"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>So,<sp/>PIT2<sp/>is<sp/>reloaded<sp/>to<sp/>get<sp/>64bit<sp/>timer<sp/>value.</highlight></codeline>
+<codeline lineno="123"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((XPLMI_PIT2<sp/>==<sp/>Timer)<sp/>||<sp/>(XPLMI_PIT3<sp/>==<sp/>Timer))<sp/>{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIOModule_Timer_SetOptions(IOModule,<sp/>(u8)Timer,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTC_AUTO_RELOAD_OPTION);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIOModule_SetResetValue(IOModule,<sp/>(u8)Timer,<sp/>ResetValue);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="138"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Start<sp/>the<sp/>Programmable<sp/>Interval<sp/>Timers<sp/>and<sp/>they<sp/>are</highlight></codeline>
+<codeline lineno="139"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>decrementing<sp/>by<sp/>default</highlight></codeline>
+<codeline lineno="140"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIOModule_Timer_Start(IOModule,<sp/>(u8)Timer);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="152" refid="group__xilplmi__server__apis_1ga6434f3174d49ba6aac80cdac0f22f8df" refkind="member"><highlight class="normal">u64<sp/><ref refid="group__xilplmi__server__apis_1ga6434f3174d49ba6aac80cdac0f22f8df" kindref="member">XPlmi_GetTimerValue</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="153"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>TimerValue;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>TPit1;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TPit2;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIOModule<sp/>*IOModule<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" kindref="member">XPlmi_GetIOModuleInst</ref>();</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TPit1<sp/>=<sp/>XIOModule_GetValue(IOModule,<sp/>(u8)XPLMI_PIT1);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TPit2<sp/>=<sp/>XIOModule_GetValue(IOModule,<sp/>(u8)XPLMI_PIT2);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TPit1<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TPit1<sp/>=<sp/>XPLMI_PIT1_CYCLE_VALUE;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimerValue<sp/>=<sp/>(TPit1<sp/>&lt;&lt;<sp/>32U)<sp/>|<sp/>(u64)TPit2;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>TimerValue;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="187"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPlmi_GetPerfTime(u64<sp/>TCur,<sp/>u64<sp/>TStart,<sp/>u32<sp/>IroFreq,</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_PerfTime<sp/>*PerfTime)</highlight></codeline>
+<codeline lineno="189"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>PerfUs;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>TDiff<sp/>=<sp/>TCur<sp/>-<sp/>TStart;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PmcIroFreqMHz<sp/>=<sp/>IroFreq<sp/>/<sp/>XPLMI_MEGA;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Convert<sp/>TPerf<sp/>into<sp/>microseconds<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PerfUs<sp/>=<sp/>TDiff<sp/>/<sp/>(u64)PmcIroFreqMHz;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PerfTime-&gt;TPerfMsFrac<sp/>=<sp/>PerfUs<sp/>%<sp/>(u64)XPLMI_KILO;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PerfTime-&gt;TPerfMs<sp/>=<sp/>PerfUs<sp/>/<sp/>(u64)XPLMI_KILO;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="209" refid="group__xilplmi__server__apis_1ga8073ed79bd5fcddf3ac6313fb0d905da" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga8073ed79bd5fcddf3ac6313fb0d905da" kindref="member">XPlmi_MeasurePerfTime</ref>(u64<sp/>TCur,<sp/>XPlmi_PerfTime<sp/>*PerfTime)</highlight></codeline>
+<codeline lineno="210"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>TEnd<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga6434f3174d49ba6aac80cdac0f22f8df" kindref="member">XPlmi_GetTimerValue</ref>();</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_GetPerfTime(TCur,<sp/>TEnd,<sp/>PmcIroFreq,<sp/>PerfTime);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="220" refid="group__xilplmi__server__apis_1gaf8b4f2b936edc4e2060961f9bbcb0ff3" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gaf8b4f2b936edc4e2060961f9bbcb0ff3" kindref="member">XPlmi_PrintRomTime</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="221"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>PmcRomTime;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_PerfTime<sp/>PerfTime;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>PMC<sp/>ROM<sp/>time<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmcRomTime<sp/>=<sp/>(u64)XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE0);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmcRomTime<sp/>|=<sp/>(u64)XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE1)<sp/>&lt;&lt;<sp/>32U;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Print<sp/>time<sp/>stamp<sp/>of<sp/>PLM<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_GetPerfTime((XPLMI_PIT1_CYCLE_VALUE<sp/>&lt;&lt;<sp/>32U)<sp/>|</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_PIT2_CYCLE_VALUE,<sp/>PmcRomTime,</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1ga04ef1a5287595b90634a937bf3e32712" kindref="member">XPlmi_GetRomIroFreq</ref>(),<sp/>&amp;PerfTime);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_PRINT_ALWAYS,<sp/></highlight><highlight class="stringliteral">&quot;%u.%03u<sp/>ms:<sp/>ROM<sp/>Time\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)PerfTime.TPerfMs,<sp/>(u32)PerfTime.TPerfMsFrac);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="242" refid="group__xilplmi__server__apis_1ga161d819b7e4971a43da00b9c8d3ddc6a" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga161d819b7e4971a43da00b9c8d3ddc6a" kindref="member">XPlmi_PrintPlmTimeStamp</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="243"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_PerfTime<sp/>PerfTime;</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Print<sp/>time<sp/>stamp<sp/>of<sp/>PLM<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1ga8073ed79bd5fcddf3ac6313fb0d905da" kindref="member">XPlmi_MeasurePerfTime</ref>((XPLMI_PIT1_CYCLE_VALUE<sp/>&lt;&lt;<sp/>32U)<sp/>|</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_PIT2_CYCLE_VALUE,<sp/>&amp;PerfTime);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[%u.%03u]&quot;</highlight><highlight class="normal">,<sp/>(u32)PerfTime.TPerfMs,<sp/>(u32)PerfTime.TPerfMsFrac);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="263" refid="group__xilplmi__server__apis_1ga1faf13fb43ee71846b7ec8c5f22b986e" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga1faf13fb43ee71846b7ec8c5f22b986e" kindref="member">XPlmi_StartTimer</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="264"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Pit3ResetValue;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIOModule<sp/>*IOModule<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" kindref="member">XPlmi_GetIOModuleInst</ref>();</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Platform;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__xilplmi__server__apis_1gaa162fe5ce1ebcb2622bb2ccec4fcec4f" kindref="member">XPlmi_IsPlmUpdateDone</ref>()<sp/>==<sp/>(u8)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IOModule-&gt;CfgPtr<sp/>=<sp/>XIOModule_LookupConfig(IOMODULE_DEVICE);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IOModule-&gt;CfgPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a7274c600f366b41f46b600dc017e8fdb" kindref="member">XPLMI_ERR_IOMOD_INIT</ref>,<sp/>0U);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIOModule_HandlerTable_Initialize(IOModule);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIOModule_Initialize(IOModule,<sp/>IOMODULE_DEVICE);</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a7274c600f366b41f46b600dc017e8fdb" kindref="member">XPLMI_ERR_IOMOD_INIT</ref>,<sp/>Status);</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIOModule_Start(IOModule);</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a205a1f9abcc195ccbe39887a08006f42" kindref="member">XPLMI_ERR_IOMOD_START</ref>,<sp/>Status);</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga09b22ff85e1bc3e94fa588bceb30a645" kindref="member">XPlmi_SetPmcIroFreq</ref>();</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3ab01b5ef15aa6ad65bafd711e9bd52cc7" kindref="member">XPLMI_ERR_SET_PMC_IRO_FREQ</ref>,<sp/>Status);</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__xilplmi__server__apis_1gaa162fe5ce1ebcb2622bb2ccec4fcec4f" kindref="member">XPlmi_IsPlmUpdateDone</ref>()<sp/>!=<sp/>(u8)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="307"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>PLM<sp/>scheduler<sp/>is<sp/>running<sp/>too<sp/>fast<sp/>for<sp/>QEMU,<sp/>so<sp/>increasing<sp/>the</highlight></codeline>
+<codeline lineno="308"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>scheduler&apos;s<sp/>poling<sp/>time<sp/>to<sp/>100ms<sp/>for<sp/>QEMU<sp/>instead<sp/>of<sp/>10ms</highlight></codeline>
+<codeline lineno="309"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Platform<sp/>=<sp/>XPLMI_PLATFORM;</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Platform<sp/>==<sp/>PMC_TAP_VERSION_QEMU)<sp/>||<sp/>(Platform<sp/>==<sp/>PMC_TAP_VERSION_COSIM))<sp/>{</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Pit3ResetValue<sp/>=<sp/>PmcIroFreq<sp/>/<sp/>XPLMI_PIT_FREQ_DIVISOR_QEMU;</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Pit3ResetValue<sp/>=<sp/>PmcIroFreq<sp/>/<sp/>XPLMI_PIT_FREQ_DIVISOR;</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32(IOModule-&gt;BaseAddress<sp/>+<sp/>(u32)XGO_OUT_OFFSET,</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MB_IOMODULE_GPO1_PIT1_PRESCALE_SRC_MASK);</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_InitPitTimer(XPLMI_PIT2,<sp/>XPLMI_PIT2_RESET_VALUE);</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_InitPitTimer(XPLMI_PIT1,<sp/>XPLMI_PIT1_RESET_VALUE);</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_InitPitTimer(XPLMI_PIT3,<sp/>Pit3ResetValue);</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1ga60b1ab6a37c63ae05e12619b0ec7f708" kindref="member">XPlmi_SchedulerInit</ref>();</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="333"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="347" refid="group__xilplmi__server__apis_1ga39991f4765e9e7323223ec6288ab40a3" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga39991f4765e9e7323223ec6288ab40a3" kindref="member">XPlmi_SetUpInterruptSystem</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="348"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IntrNum<sp/>=<sp/>XIN_IOMODULE_EXTERNAL_INTERRUPT_INTR;</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Index;</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XInterruptHandler<sp/>*g_TopLevelInterruptTable<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga31f430d11612376b1e58db9d0b6a1174" kindref="member">XPlmi_GetTopLevelIntrTbl</ref>();</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Size<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga71713ed0ed7bf2f5f6094008105f61d9" kindref="member">XPlmi_GetTopLevelIntrTblSize</ref>();</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIOModule<sp/>*IOModule<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" kindref="member">XPlmi_GetIOModuleInst</ref>();</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"></highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>microblaze_disable_interrupts();</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>Size;<sp/>++Index)<sp/>{</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIOModule_Connect(IOModule,<sp/>IntrNum,</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XInterruptHandler)g_TopLevelInterruptTable[Index],</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)(u32)IntrNum);</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a868076ab45c6a96de5be65fbdde41bf8" kindref="member">XPLMI_ERR_IOMOD_CONNECT</ref>,<sp/>Status);</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++IntrNum;</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++IntrNum;</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(IntrNum<sp/>&lt;<sp/>(u8)XILPLMI_IOMODULE_INTC_MAX_INTR_SIZE)<sp/>{</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIOModule_Connect(IOModule,<sp/>IntrNum,</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XInterruptHandler)<ref refid="group__xilplmi__server__apis_1ga28492cdcffc2121602ae8bf7df733294" kindref="member">XPlmi_IntrHandler</ref>,</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)(u32)IntrNum);</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a868076ab45c6a96de5be65fbdde41bf8" kindref="member">XPLMI_ERR_IOMOD_CONNECT</ref>,<sp/>Status);</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrNum++;</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIOModule_Connect(IOModule,<sp/>XIN_IOMODULE_PIT_3_INTERRUPT_INTR,</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XInterruptHandler)<ref refid="group__xilplmi__server__apis_1ga2b8f088fb0494d901a6016348fb33f41" kindref="member">XPlmi_SchedulerHandler</ref>,<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)(u32)IntrNum);</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a868076ab45c6a96de5be65fbdde41bf8" kindref="member">XPLMI_ERR_IOMOD_CONNECT</ref>,<sp/>Status);</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"></highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_ExceptionHandler)XIOModule_DeviceInterruptHandler,</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*)<sp/>IOMODULE_DEVICE);</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1gaa55695f726439fa48e1f16c7f02b10ca" kindref="member">XPlmi_EnableIomoduleIntr</ref>();</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>microblaze_enable_interrupts();</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"></highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mtmsr(mfmsr()<sp/>&amp;<sp/>(~<ref refid="group__xilplmi__server__apis_1ga0a744b4e21fe743b44234941cacbd328" kindref="member">XPLMI_MB_MSR_BIP_MASK</ref>));</highlight></codeline>
+<codeline lineno="407"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="409"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"></highlight></codeline>
+<codeline lineno="411"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="418" refid="group__xilplmi__server__apis_1ga28492cdcffc2121602ae8bf7df733294" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga28492cdcffc2121602ae8bf7df733294" kindref="member">XPlmi_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="419"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="421"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Indicate<sp/>Interrupt<sp/>received</highlight></codeline>
+<codeline lineno="422"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;Received<sp/>Interrupt:<sp/>0x%0x\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<sp/>CallbackRef);</highlight></codeline>
+<codeline lineno="425"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"></highlight></codeline>
+<codeline lineno="427"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="434" refid="group__xilplmi__server__apis_1gae14df54ed318152d61bbb0edb8998dc3" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gae14df54ed318152d61bbb0edb8998dc3" kindref="member">XPlmi_PlmIntrEnable</ref>(u32<sp/>IntrId)</highlight></codeline>
+<codeline lineno="435"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrNum<sp/>=<sp/>IntrId;</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIOModule<sp/>*IOModule<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" kindref="member">XPlmi_GetIOModuleInst</ref>();</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"></highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>Backward<sp/>Compatibility<sp/>of<sp/>Xilsem<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrId<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrNum<sp/>=<sp/>XPLMI_IOMODULE_CFRAME_SEU;</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"></highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIOModule_Enable(IOModule,<sp/>(u8)IntrNum);</highlight></codeline>
+<codeline lineno="445"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"></highlight></codeline>
+<codeline lineno="447"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="457" refid="group__xilplmi__server__apis_1ga9b50989f370478d03d3dea18f7b8cd13" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga9b50989f370478d03d3dea18f7b8cd13" kindref="member">XPlmi_PlmIntrDisable</ref>(u32<sp/>IntrId)</highlight></codeline>
+<codeline lineno="458"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrNum<sp/>=<sp/>IntrId;</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIOModule<sp/>*IOModule<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" kindref="member">XPlmi_GetIOModuleInst</ref>();</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"></highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>Backward<sp/>Compatibility<sp/>of<sp/>Xilsem<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrId<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrNum<sp/>=<sp/>XPLMI_IOMODULE_CFRAME_SEU;</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"></highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIOModule_Disable(IOModule,<sp/>(u8)IntrNum);</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"></highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="470"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"></highlight></codeline>
+<codeline lineno="472"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="482" refid="group__xilplmi__server__apis_1ga7afb3d630cbe8ab2e65abde74817eb55" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga7afb3d630cbe8ab2e65abde74817eb55" kindref="member">XPlmi_PlmIntrClear</ref>(u32<sp/>IntrId)</highlight></codeline>
+<codeline lineno="483"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrNum<sp/>=<sp/>IntrId;</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIOModule<sp/>*IOModule<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" kindref="member">XPlmi_GetIOModuleInst</ref>();</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"></highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>Backward<sp/>Compatibility<sp/>of<sp/>Xilsem<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrId<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrNum<sp/>=<sp/>XPLMI_IOMODULE_CFRAME_SEU;</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"></highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIOModule_Acknowledge(IOModule,<sp/>(u8)IntrNum);</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"></highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="495"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"></highlight></codeline>
+<codeline lineno="497"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="511" refid="group__xilplmi__server__apis_1gae4d39d395ef91b45f9cbdc1c1c03d289" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gae4d39d395ef91b45f9cbdc1c1c03d289" kindref="member">XPlmi_RegisterHandler</ref>(u32<sp/>IntrId,<sp/>GicIntHandler_t<sp/>Handler,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Data)</highlight></codeline>
+<codeline lineno="512"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrNum<sp/>=<sp/>IntrId;</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIOModule<sp/>*IOModule<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga962628f36179420b9910797ddaaf1906" kindref="member">XPlmi_GetIOModuleInst</ref>();</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"></highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>Backward<sp/>Compatibility<sp/>of<sp/>Xilsem<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrId<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrNum<sp/>=<sp/>XPLMI_IOMODULE_CFRAME_SEU;</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"></highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIOModule_Connect(IOModule,<sp/>(u8)IntrNum,</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XInterruptHandler)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)Handler,<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)Data);</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;IoModule<sp/>Connect<sp/>Failed:0x%0x\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status);</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3ae7263d1a20bbed57dbdf53f47b69fa89" kindref="member">XPLMI_ERR_REGISTER_IOMOD_HANDLER</ref>,</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status);</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"></highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="532"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structwarp__driver___configs" kind="struct" prot="public">
+    <compoundname>warp_driver_Configs</compoundname>
+    <includes local="no">xwarp_input_configs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structwarp__driver___configs_1aea6b2a040cb69d214f056082c7e070b6" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v_warp_init___input_configs" kindref="compound">XVWarpInit_InputConfigs</ref></type>
+        <definition>XVWarpInit_InputConfigs warp_driver_Configs::initVectConfigs</definition>
+        <argsstring></argsstring>
+        <name>initVectConfigs</name>
+        <briefdescription>
+<para>Warp initialization input configurations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="234" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structwarp__driver___configs_1ad3d9ede18ec69c8bce625aad2671c557" prot="public" static="no" mutable="no">
+        <type>XVWarpFilter_InputConfigs</type>
+        <definition>XVWarpFilter_InputConfigs warp_driver_Configs::filterConfigs</definition>
+        <argsstring></argsstring>
+        <name>filterConfigs</name>
+        <briefdescription>
+<para>Warp filter input configurations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="235" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structwarp__driver___configs_1af3255beeb911221220314d8f848f7926" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int warp_driver_Configs::golden_crc</definition>
+        <argsstring></argsstring>
+        <name>golden_crc</name>
+        <briefdescription>
+<para>Expected CRC value for output validation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="236" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Warp driver configuration structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure contains configuration parameters for both warp initialization and warp filter operations along with expected CRC for validation. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="26">
+        <label>XVWarpInit_ArbParam_MeshInfo</label>
+        <link refid="struct_x_v_warp_init___arb_param___mesh_info"/>
+      </node>
+      <node id="24">
+        <label>warp_driver_Configs</label>
+        <link refid="structwarp__driver___configs"/>
+        <childnode refid="25" relation="usage">
+          <edgelabel>initVectConfigs</edgelabel>
+        </childnode>
+      </node>
+      <node id="25">
+        <label>XVWarpInit_InputConfigs</label>
+        <link refid="struct_x_v_warp_init___input_configs"/>
+        <childnode refid="26" relation="usage">
+          <edgelabel>ctr_pts</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="233" bodyend="237"/>
+    <listofallmembers>
+      <member refid="structwarp__driver___configs_1ad3d9ede18ec69c8bce625aad2671c557" prot="public" virt="non-virtual"><scope>warp_driver_Configs</scope><name>filterConfigs</name></member>
+      <member refid="structwarp__driver___configs_1af3255beeb911221220314d8f848f7926" prot="public" virt="non-virtual"><scope>warp_driver_Configs</scope><name>golden_crc</name></member>
+      <member refid="structwarp__driver___configs_1aea6b2a040cb69d214f056082c7e070b6" prot="public" virt="non-virtual"><scope>warp_driver_Configs</scope><name>initVectConfigs</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

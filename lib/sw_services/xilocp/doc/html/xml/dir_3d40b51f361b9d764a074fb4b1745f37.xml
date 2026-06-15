@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_3d40b51f361b9d764a074fb4b1745f37" kind="dir">
+    <compoundname>versal_net</compoundname>
+    <innerfile refid="versal__net_2xocp__dice__dme_8c">versal_net/xocp_dice_dme.c</innerfile>
+    <innerfile refid="versal__net_2xocp__dice__dme_8h">versal_net/xocp_dice_dme.h</innerfile>
+    <innerfile refid="versal__net_2xocp__hw_8h">versal_net/xocp_hw.h</innerfile>
+    <innerfile refid="versal__net_2xocp__plat_8c">versal_net/xocp_plat.c</innerfile>
+    <innerfile refid="versal__net_2xocp__plat_8h">versal_net/xocp_plat.h</innerfile>
+    <innerfile refid="versal__net_2xocp__sha_8h">versal_net/xocp_sha.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/server/versal_net/"/>
+  </compounddef>
+</doxygen>

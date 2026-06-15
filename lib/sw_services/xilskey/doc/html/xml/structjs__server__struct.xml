@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structjs__server__struct" kind="struct" prot="public">
+    <compoundname>js_server_struct</compoundname>
+    <includes local="no">xilskey_jslib.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structjs__server__struct_1a9ec5436ff4bd83b6975c5e39c6378cd0" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char js_server_struct::dummy</definition>
+        <argsstring></argsstring>
+        <name>dummy</name>
+        <briefdescription>
+<para>dummy </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>JTAG server object. </para>    </briefdescription>
+    <detaileddescription>
+<para>Server instances are created by implementation specific create functions, typically named js_create_&lt;implementation-name&gt;.</para><para>TODO: Add a way to schedule a command sequence to be repeated at regular intervals. This is useful to poll for events, like breakpoint hit. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" bodystart="40" bodyend="42"/>
+    <listofallmembers>
+      <member refid="structjs__server__struct_1a9ec5436ff4bd83b6975c5e39c6378cd0" prot="public" virt="non-virtual"><scope>js_server_struct</scope><name>dummy</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

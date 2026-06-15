@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_cproc_yuv_range__s" kind="struct" prot="public">
+    <compoundname>CamDeviceCprocYuvRange_s</compoundname>
+    <includes local="no">cam_device_cproc_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_cproc_yuv_range__s_1a943dd4b413038072d088f1edf042eb36" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceCprocYuvRange_s::useOutConvMatrix</definition>
+        <argsstring></argsstring>
+        <name>useOutConvMatrix</name>
+        <briefdescription>
+<para>The flag for use outConvMatrix or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_cproc_yuv_range__s_1aa80644acb281f1c0c727c55f89ee2905" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceCprocYuvRange_s::rgbToyuvMatrix[CPROC_RGBTOYUV_MATRIX_NUM]</definition>
+        <argsstring>[CPROC_RGBTOYUV_MATRIX_NUM]</argsstring>
+        <name>rgbToyuvMatrix</name>
+        <briefdescription>
+<para>The rgb to yuv Matrix. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_cproc_yuv_range__s_1a9d5a378e5f29f6b438be32e452cc1658" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__cproc_1ga2c58612ac5d4cff4e310fc3cccceb9b8" kindref="member">CamDeviceCprocYuvRangeType_t</ref></type>
+        <definition>CamDeviceCprocYuvRangeType_t CamDeviceCprocYuvRange_s::yuvRange</definition>
+        <argsstring></argsstring>
+        <name>yuvRange</name>
+        <briefdescription>
+<para>The clipping range for chrominance pixel output. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_cproc_yuv_range__s_1a711f0db1a70fe75074751f3621cac711" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__cproc_1gadefec9a0f55555ba0f1087bbc78f499e" kindref="member">CamDeviceCprocColorGamutType_t</ref></type>
+        <definition>CamDeviceCprocColorGamutType_t CamDeviceCprocYuvRange_s::gamut</definition>
+        <argsstring></argsstring>
+        <name>gamut</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice CPROC YUV range configuration structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cproc/cam_device_cproc_api.h" bodystart="79" bodyend="84"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_cproc_yuv_range__s_1a711f0db1a70fe75074751f3621cac711" prot="public" virt="non-virtual"><scope>CamDeviceCprocYuvRange_s</scope><name>gamut</name></member>
+      <member refid="struct_cam_device_cproc_yuv_range__s_1aa80644acb281f1c0c727c55f89ee2905" prot="public" virt="non-virtual"><scope>CamDeviceCprocYuvRange_s</scope><name>rgbToyuvMatrix</name></member>
+      <member refid="struct_cam_device_cproc_yuv_range__s_1a943dd4b413038072d088f1edf042eb36" prot="public" virt="non-virtual"><scope>CamDeviceCprocYuvRange_s</scope><name>useOutConvMatrix</name></member>
+      <member refid="struct_cam_device_cproc_yuv_range__s_1a9d5a378e5f29f6b438be32e452cc1658" prot="public" virt="non-virtual"><scope>CamDeviceCprocYuvRange_s</scope><name>yuvRange</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

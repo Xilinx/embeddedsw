@@ -1,0 +1,2614 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdcsub_8h" kind="file">
+    <compoundname>xdcsub.h</compoundname>
+    <includes refid="xdc_8h" local="yes">xdc.h</includes>
+    <includes refid="xdcdma_8h" local="yes">xdcdma.h</includes>
+    <includedby refid="xdcsub_8c" local="yes">xdcsub.c</includedby>
+    <includedby refid="xdcsub__g_8c" local="yes">xdcsub_g.c</includedby>
+    <includedby refid="mmi__dc__nonlive__test_8h" local="yes">mmi_dc_nonlive_test.h</includedby>
+    <includedby refid="mmi__dpdc__example_8h" local="yes">mmi_dpdc_example.h</includedby>
+    <includedby refid="mmi__dc__live__test_8c" local="no">mmi_dc_live_test.c</includedby>
+    <includedby refid="mmi__dc__live__test_8h" local="yes">mmi_dc_live_test.h</includedby>
+    <includedby refid="mmi__dpdc__platform_8h" local="yes">mmi_dpdc_platform.h</includedby>
+    <includedby refid="mmi__dpdc__example_8c" local="yes">mmi_dpdc_example.c</includedby>
+    <includedby refid="mmi__dpdc__menus_8c" local="yes">mmi_dpdc_menus.c</includedby>
+    <includedby refid="mmi__dpdc__platform_8c" local="no">mmi_dpdc_platform.c</includedby>
+    <incdepgraph>
+      <node id="703">
+        <label>xil_io.h</label>
+      </node>
+      <node id="700">
+        <label>xdcsub.h</label>
+        <link refid="xdcsub.h"/>
+        <childnode refid="701" relation="include">
+        </childnode>
+        <childnode refid="704" relation="include">
+        </childnode>
+      </node>
+      <node id="701">
+        <label>xdc.h</label>
+        <link refid="xdc_8h"/>
+        <childnode refid="702" relation="include">
+        </childnode>
+      </node>
+      <node id="702">
+        <label>xdc_hw.h</label>
+        <link refid="xdc__hw_8h"/>
+        <childnode refid="703" relation="include">
+        </childnode>
+      </node>
+      <node id="705">
+        <label>xdcdma_hw.h</label>
+        <link refid="xdcdma__hw_8h"/>
+        <childnode refid="703" relation="include">
+        </childnode>
+      </node>
+      <node id="704">
+        <label>xdcdma.h</label>
+        <link refid="xdcdma_8h"/>
+        <childnode refid="705" relation="include">
+        </childnode>
+        <childnode refid="701" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="718">
+        <label>mmi_dc_generate_frames.c</label>
+        <link refid="mmi__dc__generate__frames_8c"/>
+      </node>
+      <node id="717">
+        <label>mmi_dc_generate_frames.h</label>
+        <link refid="mmi__dc__generate__frames_8h"/>
+        <childnode refid="718" relation="include">
+        </childnode>
+        <childnode refid="713" relation="include">
+        </childnode>
+      </node>
+      <node id="722">
+        <label>mmi_dpdc_example.c</label>
+        <link refid="mmi__dpdc__example_8c"/>
+      </node>
+      <node id="729">
+        <label>mmi_dpdc_example.h</label>
+        <link refid="mmi__dpdc__example_8h"/>
+        <childnode refid="709" relation="include">
+        </childnode>
+        <childnode refid="730" relation="include">
+        </childnode>
+        <childnode refid="731" relation="include">
+        </childnode>
+        <childnode refid="732" relation="include">
+        </childnode>
+        <childnode refid="724" relation="include">
+        </childnode>
+        <childnode refid="733" relation="include">
+        </childnode>
+        <childnode refid="734" relation="include">
+        </childnode>
+      </node>
+      <node id="712">
+        <label>mmi_dc_nonlive_test.c</label>
+        <link refid="mmi__dc__nonlive__test_8c"/>
+      </node>
+      <node id="709">
+        <label>mmi_dc_nonlive_test.h</label>
+        <link refid="mmi__dc__nonlive__test_8h"/>
+        <childnode refid="710" relation="include">
+        </childnode>
+        <childnode refid="715" relation="include">
+        </childnode>
+        <childnode refid="717" relation="include">
+        </childnode>
+        <childnode refid="712" relation="include">
+        </childnode>
+        <childnode refid="719" relation="include">
+        </childnode>
+        <childnode refid="723" relation="include">
+        </childnode>
+        <childnode refid="725" relation="include">
+        </childnode>
+        <childnode refid="727" relation="include">
+        </childnode>
+        <childnode refid="726" relation="include">
+        </childnode>
+        <childnode refid="713" relation="include">
+        </childnode>
+        <childnode refid="728" relation="include">
+        </childnode>
+        <childnode refid="722" relation="include">
+        </childnode>
+      </node>
+      <node id="711">
+        <label>mmi_dc_cursor.c</label>
+        <link refid="mmi__dc__cursor_8c"/>
+      </node>
+      <node id="710">
+        <label>mmi_dc_cursor.h</label>
+        <link refid="mmi__dc__cursor_8h"/>
+        <childnode refid="711" relation="include">
+        </childnode>
+        <childnode refid="712" relation="include">
+        </childnode>
+        <childnode refid="713" relation="include">
+        </childnode>
+        <childnode refid="714" relation="include">
+        </childnode>
+      </node>
+      <node id="724">
+        <label>mmi_dpdc_menus.c</label>
+        <link refid="mmi__dpdc__menus_8c"/>
+      </node>
+      <node id="732">
+        <label>mmi_dpdc_menus.h</label>
+        <link refid="mmi__dpdc__menus_8h"/>
+        <childnode refid="722" relation="include">
+        </childnode>
+        <childnode refid="724" relation="include">
+        </childnode>
+      </node>
+      <node id="726">
+        <label>mmi_dc_partial_plane.c</label>
+        <link refid="mmi__dc__partial__plane_8c"/>
+      </node>
+      <node id="725">
+        <label>mmi_dc_partial_plane.h</label>
+        <link refid="mmi__dc__partial__plane_8h"/>
+        <childnode refid="712" relation="include">
+        </childnode>
+        <childnode refid="726" relation="include">
+        </childnode>
+      </node>
+      <node id="707">
+        <label>xdcsub.c</label>
+        <link refid="xdcsub_8c"/>
+      </node>
+      <node id="706">
+        <label>xdcsub.h</label>
+        <link refid="xdcsub.h"/>
+        <childnode refid="707" relation="include">
+        </childnode>
+        <childnode refid="708" relation="include">
+        </childnode>
+        <childnode refid="709" relation="include">
+        </childnode>
+        <childnode refid="729" relation="include">
+        </childnode>
+        <childnode refid="735" relation="include">
+        </childnode>
+        <childnode refid="730" relation="include">
+        </childnode>
+        <childnode refid="723" relation="include">
+        </childnode>
+        <childnode refid="722" relation="include">
+        </childnode>
+        <childnode refid="724" relation="include">
+        </childnode>
+        <childnode refid="714" relation="include">
+        </childnode>
+      </node>
+      <node id="708">
+        <label>xdcsub_g.c</label>
+        <link refid="xdcsub__g_8c"/>
+      </node>
+      <node id="713">
+        <label>mmi_dc_setup_frames.c</label>
+        <link refid="mmi__dc__setup__frames_8c"/>
+      </node>
+      <node id="715">
+        <label>mmi_dc_setup_frames.h</label>
+        <link refid="mmi__dc__setup__frames_8h"/>
+        <childnode refid="711" relation="include">
+        </childnode>
+        <childnode refid="712" relation="include">
+        </childnode>
+        <childnode refid="716" relation="include">
+        </childnode>
+        <childnode refid="713" relation="include">
+        </childnode>
+        <childnode refid="714" relation="include">
+        </childnode>
+      </node>
+      <node id="721">
+        <label>mmi_dp_intr.c</label>
+        <link refid="mmi__dp__intr_8c"/>
+      </node>
+      <node id="728">
+        <label>mmi_dp_intr.h</label>
+        <link refid="mmi__dp__intr_8h"/>
+        <childnode refid="720" relation="include">
+        </childnode>
+        <childnode refid="721" relation="include">
+        </childnode>
+        <childnode refid="714" relation="include">
+        </childnode>
+      </node>
+      <node id="734">
+        <label>xavpg.c</label>
+        <link refid="xavpg_8c"/>
+      </node>
+      <node id="733">
+        <label>xavpg.h</label>
+        <link refid="xavpg_8h"/>
+        <childnode refid="724" relation="include">
+        </childnode>
+        <childnode refid="734" relation="include">
+        </childnode>
+      </node>
+      <node id="731">
+        <label>mmi_dc_mixed_test.h</label>
+        <link refid="mmi__dc__mixed__test_8h"/>
+      </node>
+      <node id="714">
+        <label>mmi_dpdc_platform.c</label>
+        <link refid="mmi__dpdc__platform_8c"/>
+      </node>
+      <node id="723">
+        <label>mmi_dpdc_platform.h</label>
+        <link refid="mmi__dpdc__platform_8h"/>
+        <childnode refid="712" relation="include">
+        </childnode>
+        <childnode refid="720" relation="include">
+        </childnode>
+        <childnode refid="724" relation="include">
+        </childnode>
+        <childnode refid="714" relation="include">
+        </childnode>
+      </node>
+      <node id="720">
+        <label>mmi_dp_init.c</label>
+        <link refid="mmi__dp__init_8c"/>
+      </node>
+      <node id="719">
+        <label>mmi_dp_init.h</label>
+        <link refid="mmi__dp__init_8h"/>
+        <childnode refid="712" relation="include">
+        </childnode>
+        <childnode refid="720" relation="include">
+        </childnode>
+        <childnode refid="721" relation="include">
+        </childnode>
+        <childnode refid="722" relation="include">
+        </childnode>
+        <childnode refid="714" relation="include">
+        </childnode>
+      </node>
+      <node id="716">
+        <label>mmi_dc_sdp.c</label>
+        <link refid="mmi__dc__sdp_8c"/>
+      </node>
+      <node id="727">
+        <label>mmi_dc_sdp.h</label>
+        <link refid="mmi__dc__sdp_8h"/>
+        <childnode refid="712" relation="include">
+        </childnode>
+        <childnode refid="716" relation="include">
+        </childnode>
+        <childnode refid="713" relation="include">
+        </childnode>
+        <childnode refid="714" relation="include">
+        </childnode>
+      </node>
+      <node id="735">
+        <label>mmi_dc_live_test.c</label>
+        <link refid="mmi__dc__live__test_8c"/>
+      </node>
+      <node id="730">
+        <label>mmi_dc_live_test.h</label>
+        <link refid="mmi__dc__live__test_8h"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_dc_sub___config" prot="public">XDcSub_Config</innerclass>
+    <innerclass refid="struct_x_dc_sub" prot="public">XDcSub</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xdcsub_8h_1a0ece0ecdfb35461abca5c7474d411612" prot="public" static="no">
+        <name>XDCSUB_AUDIO_CHANNELS_MIN</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdcsub_8h_1a0afea6b7d63a23659a8d0797f53f0a6e" prot="public" static="no">
+        <name>XDCSUB_AUDIO_CHANNELS_MAX</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdcsub_8h_1ae597de7272868cb833836a0ac24d526e" prot="public" static="no">
+        <name>XDCSUB_OPMODE_FUNCTIONAL</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>The DC Subsystem can work in functional or in bypass mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>In functional mode, the 2 video streams are blended together and sent to the DisplayPort. In bypass mode, the input video stream is directly forwarded to the DisplayPort.</para><para>Functional mode supports blending videos </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="mmi__dpdc__example_8c" startline="417" endline="624">main</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+        <referencedby refid="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" compoundref="mmi__dpdc__platform_8c" startline="213" endline="298">XDpDc_InitDcSubsystem</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a1ed6edf16d317c1b2660d90f7211050c" compoundref="mmi__dpdc__menus_8c" startline="378" endline="429">XDpDc_MainHelpMenu</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1396" endline="1578">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xdcsub_8h_1aa9da509a0585433ac086053a1b260058" prot="public" static="no">
+        <name>XDCSUB_OPMODE_BYPASS</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Bypass mode makes DC in pass through mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xdcsub_8h_1ae409b0550fbe622ad94d01f552d285a3" prot="public" static="no">
+        <name>XDCSUB_PPTMODE_NONLIVE</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>The DC Subsystem supports three presentation modes: Non-live, Live, and Mixed. </para>        </briefdescription>
+        <detaileddescription>
+<para>In non-live mode, the video streams are fetched from the memory. In live mode, the video streams are sourced from the live video ports. In mixed mode, one video stream is sourced from memory and the other video stream is sourced from one of the live video ports.</para><para>In Non live mode, video streams are fetched from memory. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" bodystart="80" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="mmi__dpdc__example_8c" startline="417" endline="624">main</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+        <referencedby refid="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" compoundref="mmi__dpdc__platform_8c" startline="213" endline="298">XDpDc_InitDcSubsystem</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a1ed6edf16d317c1b2660d90f7211050c" compoundref="mmi__dpdc__menus_8c" startline="378" endline="429">XDpDc_MainHelpMenu</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1396" endline="1578">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xdcsub_8h_1a6cb44f3425f061c17f2dd5337492806d" prot="public" static="no">
+        <name>XDCSUB_PPTMODE_LIVE</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>In Live mode, video streams come from live video ports. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" bodystart="85" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="mmi__dpdc__example_8c" startline="417" endline="624">main</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+        <referencedby refid="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" compoundref="mmi__dpdc__platform_8c" startline="213" endline="298">XDpDc_InitDcSubsystem</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a1ed6edf16d317c1b2660d90f7211050c" compoundref="mmi__dpdc__menus_8c" startline="378" endline="429">XDpDc_MainHelpMenu</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1396" endline="1578">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xdcsub_8h_1a108493c2d797aaed71f2875851b21826" prot="public" static="no">
+        <name>XDCSUB_PPTMODE_MIXED</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>In Mixed mode, one video come from live source and another from memory. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" bodystart="91" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="mmi__dpdc__example_8c" startline="417" endline="624">main</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</referencedby>
+        <referencedby refid="mmi__dc__generate__frames_8h_1ab05cca9b31f824de34720ae09717ee3e" compoundref="mmi__dc__generate__frames_8c" startline="85" endline="1808">XDpDc_GenerateFrames</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+        <referencedby refid="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" compoundref="mmi__dpdc__platform_8c" startline="213" endline="298">XDpDc_InitDcSubsystem</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a1ed6edf16d317c1b2660d90f7211050c" compoundref="mmi__dpdc__menus_8c" startline="378" endline="429">XDpDc_MainHelpMenu</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1396" endline="1578">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xdcsub_8h_1a3facf4fc83a3470a80020f6c9d4e387f" prot="public" static="no">
+        <name>XDCSUB_LIVVID_SEL_V01</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>In mixed mode, one video stream is sourced from memory and the other video stream is sourced from one of the live video ports. </para>        </briefdescription>
+        <detaileddescription>
+<para>These macros are to denote which of the live video ports are selected as the video source. In live mode, both the video ports are active.</para><para>In mixed mode, live video port V01 is selected as video source. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" bodystart="103" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xdcsub_8h_1a0985ecaee82df349e4e55cc831764834" prot="public" static="no">
+        <name>XDCSUB_LIVVID_SEL_V02</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>In mixed mode, live video port V02 is selected as video source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xdcsub_8h_1a4368c62ca68781dcae5df5037ccf892b" prot="public" static="no">
+        <name>XDCSUB_LIVVID_SEL_BOTH</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>In live mode, both live video ports are active. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xdcsub_8h_1a7958fb3ab0885091d527b3340cc865bc" prot="public" static="no">
+        <name>XDCSUB_LIVVID_SEL_NONE</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>In non-live mode, both live video ports are disabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" bodystart="118" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xdcsub_8h_1a135c40111d127a090667f8d7fc05ef6a" prot="public" static="no">
+        <name>XDCSUB_VIDMODE_AV</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>The first video port V01 supports both audio and video. </para>        </briefdescription>
+        <detaileddescription>
+<para>The second video port V02 supports video only. These macros are to denote the mode of operation of the live video ports.</para><para>Live video port V01 supports both audio and video. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" bodystart="129" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xdcsub_8h_1a2eebae8e2dda476ddbffa09a6823fd0e" prot="public" static="no">
+        <name>XDCSUB_VIDMODE_VONLY</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Live video port V02 supports video only. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" bodystart="134" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xdcsub_8h_1a686739ddecc3e0d558ddd2cdc7041315" prot="public" static="no">
+        <name>XDCSUB_VIDMODE_NONE</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>No video port. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" bodystart="139" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xdcsub_8h_1aaae2d2a674f56c1d1c3855ad55e2b895" prot="public" static="no">
+        <name>XDCSUB_LIVVID_ALPHA_EN</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>These defines are used to denote if alpha channel is enabled or disabled for live video input. </para>        </briefdescription>
+        <detaileddescription>
+<para>Alpha channel is enabled for live video input. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdcsub_8h_1a6cd078ee51178b2ae54f203929324e5f" prot="public" static="no">
+        <name>XDCSUB_LIVVID_ALPHA_DIS</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Alpha channel is disabled for live video input. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdcsub_8h_1a4ebfcb1d9028106998a71860fa1bfedb" prot="public" static="no">
+        <name>XDCSUB_LIVVID_SDP_EN</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>This defines if SDP is enabled or disabled for live video input. </para>        </briefdescription>
+        <detaileddescription>
+<para>SDP is enabled for live video input. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdcsub_8h_1aef22b3cfc8aa3b8246d0d90ff616cf16" prot="public" static="no">
+        <name>XDCSUB_LIVVID_SDP_DIS</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>SDP is disabled for live video input. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xdcsub_8h_1af850bf1b9167e0e232110f53eac9e4bc" prot="public" static="no" mutable="no">
+        <type>XDcSub_Config</type>
+        <definition>XDcSub_Config XDcSub_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XDcSub_ConfigTable</name>
+        <briefdescription>
+<para>The configuration table for devices. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub_g.c" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xdcsub_8h_1a8c748af537e5a372b7af78f487288dbb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XDcSub_Config *</type>
+        <definition>XDcSub_Config* XDcSub_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XDcSub_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="38" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a1ac8d3f2867f190284cdaa6cf92a606c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_CfgInitialize</definition>
+        <argsstring>(XDcSub *InstancePtr)</argsstring>
+        <name>XDcSub_CfgInitialize</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the configuration of all instances part of DC subsystem i.e DC, DCDMA, Interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDcSub instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the id of the device from the design.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>Base address and DeviceId is same as the DP Core driver. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="68" bodyend="82"/>
+        <references refid="group__mmi__dc_1gab93d48c6019130fe4ce5b6f5d55808e2" compoundref="xdc_8c" startline="56" endline="62">XDc_CfgInitialize</references>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a2f68f49cec96f2a3fa4cbd27a348b89a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_Initialize</definition>
+        <argsstring>(XDcSub *InstancePtr)</argsstring>
+        <name>XDcSub_Initialize</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes all the data structures of the XDcSub Instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDcSub instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="96" bodyend="124"/>
+        <references refid="group__mmi__dc_1ga794379ccc9b38c7b8194d85fc3573b0b" compoundref="xdc_8c" startline="1019" endline="1034">XDc_AudioSoftReset</references>
+        <references refid="group__mmi__dc_1ga1336d7f26ddab30fe1385686e1e0f53a" compoundref="xdc_8c" startline="154" endline="161">XDc_SetVidInterfaceMode</references>
+        <references refid="group__mmi__dc_1ga54944c866a50d2a0017e3ab3a9cc9693" compoundref="xdc_8c" startline="134" endline="141">XDc_WriteProtDisable</references>
+        <referencedby refid="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" compoundref="mmi__dpdc__platform_8c" startline="213" endline="298">XDpDc_InitDcSubsystem</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a5f6d102f994ce2ff5ee91522884fac14" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetVidInterfaceMode</definition>
+        <argsstring>(XDcSub *InstancePtr, XDc_VidInterface Mode)</argsstring>
+        <name>XDcSub_SetVidInterfaceMode</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xdc_8h_1a510a18b29e2feae16cc3255db20d8312" kindref="member">XDc_VidInterface</ref></type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the Interface mode for DCSub DC Instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>DC can be either in bypass mode or functional mode.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the enum val to enable or disable bypass mode.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="138" bodyend="153"/>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a14c4f7a4fa8ddd73f3156b5f0b0a9d92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetBlenderBgColor</definition>
+        <argsstring>(XDcSub *InstancePtr, XDc_BlenderBgClr *Color)</argsstring>
+        <name>XDcSub_SetBlenderBgColor</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDc_BlenderBgClr *</type>
+          <declname>Color</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the blender background color. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an pointer to the XDcSub Instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Color</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the structure XDc_BlenderBgClr</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="166" bodyend="174"/>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a4488d706b5a980095e6014acc3bdc552" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetGlobalAlpha</definition>
+        <argsstring>(XDcSub *InstancePtr, XDc_AlphaBlend AlphaEnable, u8 Alpha)</argsstring>
+        <name>XDcSub_SetGlobalAlpha</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xdc_8h_1aae2fc17de8e29853ca4a5e187d9f7ded" kindref="member">XDc_AlphaBlend</ref></type>
+          <declname>AlphaEnable</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Alpha</declname>
+        </param>
+        <briefdescription>
+<para>This function enables or disables global alpha. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an pointer to the XDc Instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>GlobalAlphaEn = 1, enables the global alpha. GlobalAlphaEn = 0, disables the global alpha. Alpha = 0, transparent Alpha = 255, Opaque Alpha = 8:1 (Alpha value) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="190" bodyend="204"/>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1ad6f0a1ab2065cec88c91427ba7a7ce4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetVidStreamSrc</definition>
+        <argsstring>(XDcSub *InstancePtr, XDc_VideoStream1 VidStream1, XDc_VideoStream2 VidStream2)</argsstring>
+        <name>XDcSub_SetVidStreamSrc</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xdc_8h_1a87355551f90d763d2073111d2363b899" kindref="member">XDc_VideoStream1</ref></type>
+          <declname>VidStream1</declname>
+        </param>
+        <param>
+          <type><ref refid="xdc_8h_1a71568be9515b5767a98ce19b6501f449" kindref="member">XDc_VideoStream2</ref></type>
+          <declname>VidStream2</declname>
+        </param>
+        <briefdescription>
+<para>This function selects the source type for the Video and Graphics input streams that are passed on to the blender block. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VidStream1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>selects the stream coming from the video source1 </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VidStream2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>selects the stream coming from the video source2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="220" bodyend="243"/>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a450221da65b0fd7b0b7ae0a22319a3ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetInputNonLiveVideoFormat</definition>
+        <argsstring>(XDcSub *InstancePtr, XDc_VideoFormat Format1, XDc_VideoFormat Format2)</argsstring>
+        <name>XDcSub_SetInputNonLiveVideoFormat</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895" kindref="member">XDc_VideoFormat</ref></type>
+          <declname>Format1</declname>
+        </param>
+        <param>
+          <type><ref refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895" kindref="member">XDc_VideoFormat</ref></type>
+          <declname>Format2</declname>
+        </param>
+        <briefdescription>
+<para>This function selects the source type for audio stream. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDcSub instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Format1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>selects the nonlive video1 format </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Format2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>selects the nonlive video2 format</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="288" bodyend="308"/>
+        <references refid="group__mmi__dc_1gae47a85e818e8ee672ba51f4963562ef5" compoundref="xdc_8c" startline="308" endline="320">XDc_GetNonLiveVideoAttribute</references>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a92a2ab74b4ebf27a981ac9869e356039" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetInputLiveStreamFormat</definition>
+        <argsstring>(XDcSub *InstancePtr, XDc_VideoFormat Format1, XDc_VideoFormat Format2)</argsstring>
+        <name>XDcSub_SetInputLiveStreamFormat</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895" kindref="member">XDc_VideoFormat</ref></type>
+          <declname>Format1</declname>
+        </param>
+        <param>
+          <type><ref refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895" kindref="member">XDc_VideoFormat</ref></type>
+          <declname>Format2</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the stream1 format for the live video. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDcSub instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Format1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the enum for the live video1 format </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Format2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the enum for the live video2 format</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the correct format has been set. XST_FAILURE if the format is invalid.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="323" bodyend="344"/>
+        <references refid="group__mmi__dc_1ga2a42d13873a46e745181b2ab22a5ca41" compoundref="xdc_8c" startline="367" endline="379">XDc_GetLiveVideoAttribute</references>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1abbdb2e761cc7fd768c4061fba1d25d94" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetOutputVideoFormat</definition>
+        <argsstring>(XDcSub *InstancePtr, XDc_VideoFormat Format)</argsstring>
+        <name>XDcSub_SetOutputVideoFormat</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895" kindref="member">XDc_VideoFormat</ref></type>
+          <declname>Format</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the Output Video Format. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Format</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the enum for the non-live video format</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the correct format has been set. XST_FAILURE if the format is invalid.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="358" bodyend="377"/>
+        <references refid="group__mmi__dc_1gadd71b40326ca912ce605b86771c2c3a4" compoundref="xdc_8c" startline="428" endline="444">XDc_GetOutputVideoAttribute</references>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a69d307eb9d21620e158c7143a21dffad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetStreamPixelScaling</definition>
+        <argsstring>(XDcSub *InstancePtr, u32 *Stream1_ScaleFactors, u32 *Stream2_ScaleFactors)</argsstring>
+        <name>XDcSub_SetStreamPixelScaling</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Stream1_ScaleFactors</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Stream2_ScaleFactors</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the scaling factors depending on the source video stream. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Scaling</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Factors is a pointer to the scaling factors needed for scaling colors to 12 BPC. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Scaling</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Factors is a pointer to the scaling factors needed for scaling colors to 12 BPC.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="394" bodyend="439"/>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1ae6de741725a8f7ad931a5f5321738923" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetInputStreamCSC</definition>
+        <argsstring>(XDcSub *InstancePtr, u32 *Stream1CSCCoeff, u32 *Stream1CSCOffset, u32 *Stream2CSCCoeff, u32 *Stream2CS)</argsstring>
+        <name>XDcSub_SetInputStreamCSC</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Stream1CSCCoeff</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Stream1CSCOffset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Stream2CSCCoeff</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Stream2CS</declname>
+          <defname>Stream2CSCOffset</defname>
+        </param>
+        <briefdescription>
+<para>This function sets the Stream Color space conversion matrix. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Stream1CSCCoeff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the CSCCoeff values </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Stream1CSCOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the CSCCOffset values </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Stream2CSCCoeff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the CSCCoeff values </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Stream2CSCOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the CSCCOffset values</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="456" bodyend="477"/>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1ae35e630467d22d3ff005421fe097184a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetOutputStreamCSC</definition>
+        <argsstring>(XDcSub *InstancePtr, u32 *OutCSCCoeff, u32 *OutCSCOffset)</argsstring>
+        <name>XDcSub_SetOutputStreamCSC</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>OutCSCCoeff</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>OutCSCOffset</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the Output Stream Color space conversion matrix. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutCSCCoeff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the CSCCoeff values </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutCSCOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the CSCOffset values</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="492" bodyend="508"/>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a6567abe65744c4db7db138501539b289" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetInputStreamLayerControl</definition>
+        <argsstring>(XDcSub *InstancePtr, u8 BlendBypass1, u8 BlendBypass2)</argsstring>
+        <name>XDcSub_SetInputStreamLayerControl</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>BlendBypass1</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>BlendBypass2</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the Stream1 Blend enable, disable option. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BlendBypass1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is enables, disables blending for stream </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BlendBypass2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is enables, disables blending for stream</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="523" bodyend="536"/>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1ae4a0dec288584bc279ef330b04f990d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetChromaKey</definition>
+        <argsstring>(XDcSub *InstancePtr, u8 ChromaEnable, u8 ChromaMasterSel, XDc_ChromaKey *Key)</argsstring>
+        <name>XDcSub_SetChromaKey</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ChromaEnable</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ChromaMasterSel</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dc___chroma_key" kindref="compound">XDc_ChromaKey</ref> *</type>
+          <declname>Key</declname>
+        </param>
+        <briefdescription>
+<para>This function enables Chroma Keying. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an pointer to the XDc Instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="548" bodyend="567"/>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a6467feb371e3756d86bcc28304f96574" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetCursorBlend</definition>
+        <argsstring>(XDcSub *InstancePtr, XDc_CursorBlend Enable, XDc_Cursor *Cursor)</argsstring>
+        <name>XDcSub_SetCursorBlend</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xdc_8h_1a89f97a13057417752351b72afc565101" kindref="member">XDc_CursorBlend</ref></type>
+          <declname>Enable</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dc___cursor" kindref="compound">XDc_Cursor</ref> *</type>
+          <declname>Cursor</declname>
+        </param>
+        <briefdescription>
+<para>This function enables Cursor Blending. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc Instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Cursor</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Coordinates. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Cursor</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Video Attributes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="583" bodyend="609"/>
+        <referencedby refid="mmi__dc__cursor_8h_1a96bf24eb1517805863f48597fa307fa2" compoundref="mmi__dc__cursor_8c" startline="151" endline="181">XDpDc_ConfigureCursorBlend</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a7cb7b43274aa1990e06e1897dce495ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetAudioVideoClkSrc</definition>
+        <argsstring>(XDcSub *InstancePtr)</argsstring>
+        <name>XDcSub_SetAudioVideoClkSrc</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the Audio and Video Clock Source and the video timing source. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>System uses PL Clock for Video when Live source is in use. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="623" bodyend="644"/>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1af9cfb3a645e195c5555f6ceb918ce616" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_VidClkSelect</definition>
+        <argsstring>(XDcSub *InstancePtr, u8 Stream1Sel, u8 Stream2Sel)</argsstring>
+        <name>XDcSub_VidClkSelect</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Stream1Sel</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Stream2Sel</declname>
+        </param>
+        <briefdescription>
+<para>This function configures DC Video Clock Select. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Select</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>configures Video Clock mode</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="656" bodyend="669"/>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a41f92cfcea8288a49c9faaf2089f155f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_EnableStream1Buffers</definition>
+        <argsstring>(XDcSub *InstancePtr, u8 Enable, u8 Burst)</argsstring>
+        <name>XDcSub_EnableStream1Buffers</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Enable</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Burst</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the video channel interface between the DCDMA and the DC. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc Instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sets the corresponding buffers. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Burst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>programs burstlength.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="686" bodyend="698"/>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1ad226836fc4a20ff17f3a12d00f0e2cc1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_EnableStream2Buffers</definition>
+        <argsstring>(XDcSub *InstancePtr, u8 Enable, u8 Burst)</argsstring>
+        <name>XDcSub_EnableStream2Buffers</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Enable</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Burst</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the video channel interface between the DCDMA and the DC. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc Instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sets the corresponding buffers. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Burst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>programs burstlength.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="715" bodyend="727"/>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a5b56df543b2c79a261ffd90f3cab5fab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_AudLineResetDisable</definition>
+        <argsstring>(XDcSub *InstancePtr, u8 Disable)</argsstring>
+        <name>XDcSub_AudLineResetDisable</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Disable</declname>
+        </param>
+        <briefdescription>
+<para>This function enables End of Line Reset for reduced blanking resolutions. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc Instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Disable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is to be set while using Reduced Blanking Resolutions.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="743" bodyend="754"/>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a6253f94f43ea4c9b1b0e4f4afe3caef0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_AudExtraBSControl</definition>
+        <argsstring>(XDcSub *InstancePtr, u8 Bypass)</argsstring>
+        <name>XDcSub_AudExtraBSControl</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Bypass</declname>
+        </param>
+        <briefdescription>
+<para>This function enables Extra BS Control for AUDIO_SOFT_RESET. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc Instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bypass</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is to be override the extra BS on link.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="768" bodyend="779"/>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a4ab89f9e27f89ecc8c434af9b9317f58" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetSdp</definition>
+        <argsstring>(XDcSub *InstancePtr, XDc_Sdp Sdp)</argsstring>
+        <name>XDcSub_SetSdp</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xdc_8h_1abb93d84de44419b19456293def29e55a" kindref="member">XDc_Sdp</ref></type>
+          <declname>Sdp</declname>
+        </param>
+        <briefdescription>
+<para>This function enables SDP from DMA or PL. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc Instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sets the corresponding buffers.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="793" bodyend="804"/>
+        <referencedby refid="mmi__dc__sdp_8h_1a532d5abd02b3cf21940123f022cf3fbf" compoundref="mmi__dc__sdp_8c" startline="104" endline="113">XDpDc_ConfigureSdp</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1aabb3b5bbecf6727745bbdf9f1325bebc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetSdpEmptyThreshold</definition>
+        <argsstring>(XDcSub *InstancePtr, u8 Threshold)</argsstring>
+        <name>XDcSub_SetSdpEmptyThreshold</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Threshold</declname>
+        </param>
+        <briefdescription>
+<para>This function sets SDP Empty Threshold value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc Instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Empty</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Threshold value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="818" bodyend="829"/>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1ae36ce0ca74383d782e71e94b39bf867c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetSdpCursorBuffers</definition>
+        <argsstring>(XDcSub *InstancePtr, u8 Enable, u8 BurstLen)</argsstring>
+        <name>XDcSub_SetSdpCursorBuffers</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Enable</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>BurstLen</declname>
+        </param>
+        <briefdescription>
+<para>This function enables SDP &amp; Cursor buffers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc Instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Enable.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="843" bodyend="855"/>
+        <referencedby refid="mmi__dc__cursor_8h_1a96bf24eb1517805863f48597fa307fa2" compoundref="mmi__dc__cursor_8c" startline="151" endline="181">XDpDc_ConfigureCursorBlend</referencedby>
+        <referencedby refid="mmi__dc__sdp_8h_1a532d5abd02b3cf21940123f022cf3fbf" compoundref="mmi__dc__sdp_8c" startline="104" endline="113">XDpDc_ConfigureSdp</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1aa6fac37353a51167b6a3cba72acdfa4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetStreamPartialBlend</definition>
+        <argsstring>(XDcSub *InstancePtr, XDc_PartialBlendEn Enable1, XDc_PartialBlend *Coords1, XDc_PartialBlendEn Enable2, XDc_PartialBlend *Coords2)</argsstring>
+        <name>XDcSub_SetStreamPartialBlend</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xdc_8h_1a68ae1a808a67067c0419eea6418e577d" kindref="member">XDc_PartialBlendEn</ref></type>
+          <declname>Enable1</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dc___partial_blend" kindref="compound">XDc_PartialBlend</ref> *</type>
+          <declname>Coords1</declname>
+        </param>
+        <param>
+          <type><ref refid="xdc_8h_1a68ae1a808a67067c0419eea6418e577d" kindref="member">XDc_PartialBlendEn</ref></type>
+          <declname>Enable2</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dc___partial_blend" kindref="compound">XDc_PartialBlend</ref> *</type>
+          <declname>Coords2</declname>
+        </param>
+        <briefdescription>
+<para>This function enables Partial Blend for both video streams. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc Instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Stream1_Enable.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Stream2_Enable.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Stream1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Partial Blend Coordinates. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Stream2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Partial Blend Coordinates.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="873" bodyend="889"/>
+        <referencedby refid="mmi__dc__partial__plane_8h_1a6e178086ff7e0efa38d851be4e57b118" compoundref="mmi__dc__partial__plane_8c" startline="44" endline="120">XDpDc_ConfigurePartialPlaneBlend</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a1be85a1e79a6c5a905c74fecec6e22f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetVidFrameSwitch</definition>
+        <argsstring>(XDcSub *InstancePtr, u32 Control)</argsstring>
+        <name>XDcSub_SetVidFrameSwitch</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Control</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the register to gate input video on/off at video frame boundary. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>bits set different control signals</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="902" bodyend="913"/>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a74d5fd146eb1e00162c811564a2d2910" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetNonLiveLatency</definition>
+        <argsstring>(XDcSub *InstancePtr, u16 Nl_Latency, u8 V_Line_Latency)</argsstring>
+        <name>XDcSub_SetNonLiveLatency</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Nl_Latency</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>V_Line_Latency</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the memory fetch latency. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>bits sets the offset for early timing</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="925" bodyend="937"/>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a0e1b04f05e4ac84d098f865a0fb26c9e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_EnableStcCtrl</definition>
+        <argsstring>(XDcSub *InstancePtr)</argsstring>
+        <name>XDcSub_EnableStcCtrl</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function enables STC Control. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="948" bodyend="960"/>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a50a2c4801f4a224c578852569264da14" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_ClearStcCtrl</definition>
+        <argsstring>(XDcSub *InstancePtr)</argsstring>
+        <name>XDcSub_ClearStcCtrl</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function clears STC Control. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="971" bodyend="983"/>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1ab6e3a5fbfcb742bb63ad7cf714de99e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetStcLoad</definition>
+        <argsstring>(XDcSub *InstancePtr, u64 InitVal)</argsstring>
+        <name>XDcSub_SetStcLoad</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>InitVal</declname>
+        </param>
+        <briefdescription>
+<para>This function loads STC Init value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="993" bodyend="1005"/>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1ae069aaf27c8b0271f2e646a357f045b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetStcAdjust</definition>
+        <argsstring>(XDcSub *InstancePtr, u32 InitVal)</argsstring>
+        <name>XDcSub_SetStcAdjust</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>InitVal</declname>
+        </param>
+        <briefdescription>
+<para>This function Adjust STC value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="1015" bodyend="1027"/>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a145b973c11f501e8cf46816551879037" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u64</type>
+        <definition>u64 XDcSub_GetStcVSyncTs</definition>
+        <argsstring>(XDcSub *InstancePtr)</argsstring>
+        <name>XDcSub_GetStcVSyncTs</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads VSync STC value and returns it. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="1038" bodyend="1049"/>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a9425a34d8e1774f22335face4ecf825a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u64</type>
+        <definition>u64 XDcSub_GetStcExtVSyncTs</definition>
+        <argsstring>(XDcSub *InstancePtr)</argsstring>
+        <name>XDcSub_GetStcExtVSyncTs</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads External VSync STC value and returns it. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="1060" bodyend="1071"/>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a11c2d59b0d0c8e90274c433eb9bbcf98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u64</type>
+        <definition>u64 XDcSub_GetStcCustomEventTs</definition>
+        <argsstring>(XDcSub *InstancePtr)</argsstring>
+        <name>XDcSub_GetStcCustomEventTs</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads Custom VSync Event STC value and returns it. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="1081" bodyend="1092"/>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1aba0e3ce1ec975fa4b6a25b9f0d080ab2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u64</type>
+        <definition>u64 XDcSub_GetStcCustomEvent2Ts</definition>
+        <argsstring>(XDcSub *InstancePtr)</argsstring>
+        <name>XDcSub_GetStcCustomEvent2Ts</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads Custom VSync Event STC value and returns it. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="1102" bodyend="1113"/>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a2005ed68084837fb66e7f1b5b72f7a2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u64</type>
+        <definition>u64 XDcSub_GetStcSnapshot</definition>
+        <argsstring>(XDcSub *InstancePtr)</argsstring>
+        <name>XDcSub_GetStcSnapshot</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function returns StcSnapshot value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="1123" bodyend="1134"/>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1ae3fbf99dfde167b359c3e15516ca5664" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_EnableAudioBuffer</definition>
+        <argsstring>(XDcSub *InstancePtr, u8 Enable, u8 BurstLen)</argsstring>
+        <name>XDcSub_EnableAudioBuffer</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Enable</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>BurstLen</declname>
+        </param>
+        <briefdescription>
+<para>This function Enable Audio Buffer channel and sets the burst length. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="1145" bodyend="1157"/>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a7e28d25b201aed981d011c0786805170" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_AudioChannelSelect</definition>
+        <argsstring>(XDcSub *InstancePtr, u8 ChannelSel, u16 SampleRate)</argsstring>
+        <name>XDcSub_AudioChannelSelect</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ChannelSel</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>SampleRate</declname>
+        </param>
+        <briefdescription>
+<para>This function enables audio channel select and programs sample rate. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChannelSel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>selects the different audio channels. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SampleRate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>selects the different sample rates.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="1170" bodyend="1182"/>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a9e2dfa7a8f193d46a8b98011b3d7519f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_AudClkSelect</definition>
+        <argsstring>(XDcSub *InstancePtr, u32 Select)</argsstring>
+        <name>XDcSub_AudClkSelect</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Select</declname>
+        </param>
+        <briefdescription>
+<para>This function configures DC Audio Clock Select. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Select</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>configures Audio Clock mode</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="1194" bodyend="1207"/>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a07fc65a4683cb3628ab9932881012920" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetAudInterfaceMode</definition>
+        <argsstring>(XDcSub *InstancePtr, XDc_AudInterface Mode)</argsstring>
+        <name>XDcSub_SetAudInterfaceMode</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xdc_8h_1a937bdfbb7f35c3ba41caebf7d8208e8e" kindref="member">XDc_AudInterface</ref></type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the Interface mode for DCSub DC Instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>DC can be either in bypass mode or functional mode.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the enum val to enable or disable bypass mode.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="1221" bodyend="1236"/>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a42a7bec479d164b688e91ab58d8055c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_EnableAudio</definition>
+        <argsstring>(XDcSub *InstancePtr)</argsstring>
+        <name>XDcSub_EnableAudio</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function enables DC Aud mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="1248" bodyend="1261"/>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a330320c857bdebaf1dcd12c502c31349" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_DisableAudio</definition>
+        <argsstring>(XDcSub *InstancePtr)</argsstring>
+        <name>XDcSub_DisableAudio</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function disable DC Aud mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="1273" bodyend="1286"/>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a8cc7e79b73fa3f5f5873fc5d9e7a4092" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetInputAudioSelect</definition>
+        <argsstring>(XDcSub *InstancePtr, XDc_AudioStream AudStream)</argsstring>
+        <name>XDcSub_SetInputAudioSelect</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xdc_8h_1a999bb0a1f86e3d9c5f03f4bfaf96d7d5" kindref="member">XDc_AudioStream</ref></type>
+          <declname>AudStream</declname>
+        </param>
+        <briefdescription>
+<para>This function selects the source type for audio stream. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDcSub instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AudStream</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>selects the audio stream source type</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="257" bodyend="273"/>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a4e69f4103855f57e2eae9266a6c316b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_ConfigureDcVideo</definition>
+        <argsstring>(XDc *InstancePtr)</argsstring>
+        <name>XDcSub_ConfigureDcVideo</name>
+        <param>
+          <type>XDc *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function configures Dc Video registers in the required sequence. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="1433" bodyend="1495"/>
+        <references refid="group__mmi__dc_1ga9142eb5be4351ff906b0da4502dc5959" compoundref="xdc_8c" startline="1467" endline="1481">XDc_AudioChannelSelect</references>
+        <references refid="group__mmi__dc_1ga9e64cb17a5527b361c386b511be83cfa" compoundref="xdc_8c" startline="643" endline="722">XDc_ConfigureStream</references>
+        <references refid="group__mmi__dc_1ga2a9ae017e3617877e8d55022103b4eea" compoundref="xdc_8c" startline="1532" endline="1538">XDc_EnableAudio</references>
+        <references refid="group__mmi__dc_1gadd99ffb8a3aee5cac1a9d98d65c5d5f0" compoundref="xdc_8c" startline="1437" endline="1456">XDc_EnableAudioBuffer</references>
+        <references refid="group__mmi__dc_1ga86bc13311344761023eea31558275e56" compoundref="xdc_8c" startline="621" endline="632">XDc_EnablePartialBlend</references>
+        <references refid="group__mmi__dc_1gac32e5e19bf0bdcc68261b4ad70420a20" compoundref="xdc_8c" startline="929" endline="960">XDc_EnableStream1Buffers</references>
+        <references refid="group__mmi__dc_1ga8b9f5cee5564075f3d5befb98b37f837" compoundref="xdc_8c" startline="975" endline="1006">XDc_EnableStream2Buffers</references>
+        <references refid="group__mmi__dc_1gaa74f088c7434d449aa6c7c196c2f45b9" compoundref="xdc_8c" startline="858" endline="874">XDc_SetAudioVideoClkSrc</references>
+        <references refid="group__mmi__dc_1ga7847c1e8da02eaaa411890f242b34d98" compoundref="xdc_8c" startline="776" endline="810">XDc_SetChromaKey</references>
+        <references refid="group__mmi__dc_1ga4074df86e1636b3ee808a273a2245aec" compoundref="xdc_8c" startline="822" endline="844">XDc_SetCursorBlend</references>
+        <references refid="group__mmi__dc_1ga956fa9949bfaee2723c873ced27e8277" compoundref="xdc_8c" startline="1628" endline="1635">XDc_SetCursorSdpRdyInterval</references>
+        <references refid="group__mmi__dc_1ga4565c6118eda92a0afe55abd43611eb0" compoundref="xdc_8c" startline="207" endline="223">XDc_SetGlobalAlpha</references>
+        <references refid="group__mmi__dc_1gabf31f3ae8bc0d6a3eee04497a6a227e0" compoundref="xdc_8c" startline="274" endline="294">XDc_SetInputAudioSelect</references>
+        <references refid="group__mmi__dc_1ga022cf49451540826dddd925f9cc8f1ff" compoundref="xdc_8c" startline="237" endline="261">XDc_SetInputVideoSelect</references>
+        <references refid="group__mmi__dc_1gab2172ddb59797b6765a6a51636a238e8" compoundref="xdc_8c" startline="1208" endline="1217">XDc_SetNonLiveLatency</references>
+        <references refid="group__mmi__dc_1ga6e46b7979dfb3b68318af7edf387026c" compoundref="xdc_8c" startline="735" endline="764">XDc_SetOutputCSC</references>
+        <references refid="group__mmi__dc_1gafa36752c5fad6457774928f2a0856f42" compoundref="xdc_8c" startline="456" endline="474">XDc_SetOutputVideoFormat</references>
+        <references refid="group__mmi__dc_1ga055d5bcfbfad957d91df84a20ff984bb" compoundref="xdc_8c" startline="1646" endline="1653">XDc_SetSdpAckSel</references>
+        <references refid="group__mmi__dc_1ga3ab37b5a0f115c0df36800588dfab246" compoundref="xdc_8c" startline="1155" endline="1176">XDc_SetSdpCursorBuffers</references>
+        <references refid="group__mmi__dc_1ga8515ea611e0268669a97b3eda29ecf81" compoundref="xdc_8c" startline="1108" endline="1121">XDc_SetSdpSource</references>
+        <referencedby refid="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" compoundref="mmi__dpdc__platform_8c" startline="213" endline="298">XDpDc_InitDcSubsystem</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a0e50ad340f27139f5ab79eb47a8da4a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetAudioChCtrl</definition>
+        <argsstring>(XDcSub *InstancePtr, u8 AudioChannels)</argsstring>
+        <name>XDcSub_SetAudioChCtrl</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>AudioChannels</declname>
+        </param>
+        <briefdescription>
+<para>This function sets audio channel-control bits from active channel count. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AudioChannels</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is active channel count (1 to 8).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="1299" bodyend="1323"/>
+        <references refid="group__mmi__dc_1ga9096a3a44b617e19831f882b6550215a" compoundref="xdc_8c" startline="1592" endline="1599">XDc_SetAudioChCtrl</references>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a8c1912d44869a6693d0b3f9ef4afd68e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetAudioSegmentedMode</definition>
+        <argsstring>(XDcSub *InstancePtr, u8 AudSegmentedMode)</argsstring>
+        <name>XDcSub_SetAudioSegmentedMode</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>AudSegmentedMode</declname>
+        </param>
+        <briefdescription>
+<para>This function sets Audio Segmented Mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="1335" bodyend="1348"/>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a617cbef68ae080bc196437188beaf31e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcSub_EnableSdp</definition>
+        <argsstring>(XDcSub *InstancePtr)</argsstring>
+        <name>XDcSub_EnableSdp</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function enable DC SDP. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="1409" bodyend="1422"/>
+        <referencedby refid="mmi__dc__sdp_8h_1a532d5abd02b3cf21940123f022cf3fbf" compoundref="mmi__dc__sdp_8c" startline="104" endline="113">XDpDc_ConfigureSdp</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a11672ed8b0d3dde5b2dde4f9af28955f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcSub_SetSdpAckSel</definition>
+        <argsstring>(XDcSub *InstancePtr, u8 AckSel)</argsstring>
+        <name>XDcSub_SetSdpAckSel</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>AckSel</declname>
+        </param>
+        <briefdescription>
+<para>This function sets SDP ACK from either DP or PL. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="1383" bodyend="1398"/>
+        <referencedby refid="mmi__dc__sdp_8h_1a532d5abd02b3cf21940123f022cf3fbf" compoundref="mmi__dc__sdp_8c" startline="104" endline="113">XDpDc_ConfigureSdp</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcsub_8h_1a6b77fa0d921ddfa0ba990a37e72917ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcSub_SetCursorSdpRdyInterval</definition>
+        <argsstring>(XDcSub *InstancePtr, u16 RdyInterval)</argsstring>
+        <name>XDcSub_SetCursorSdpRdyInterval</name>
+        <param>
+          <type>XDcSub *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>RdyInterval</declname>
+        </param>
+        <briefdescription>
+<para>This function sets Cursor Sdp Ready Interval. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDc instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.c" bodystart="1359" bodyend="1372"/>
+        <referencedby refid="mmi__dc__sdp_8h_1a532d5abd02b3cf21940123f022cf3fbf" compoundref="mmi__dc__sdp_8c" startline="104" endline="113">XDpDc_ConfigureSdp</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para></para></simplesect>
+None.</para><para><preformatted>
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who Date     Changes
+<hruler/>
+
+ 1.0   ck  03/14/25    Initial Version
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__XDCSUB_H__</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__XDCSUB_H__</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdc_8h" kindref="compound">xdc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdcdma_8h" kindref="compound">xdcdma.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Variables<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Shared<sp/>audio<sp/>channel<sp/>limits<sp/>used<sp/>by<sp/>dcsub<sp/>driver<sp/>and<sp/>examples<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDCSUB_AUDIO_CHANNELS_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDCSUB_AUDIO_CHANNELS_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dc___config" kindref="compound">XDc_Config</ref><sp/>DcConfig;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcDma_Config<sp/>DmaConfig;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal">}<sp/>XDcSub_Config;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcSub_Config<sp/>XDcSubCfg;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDc<sp/>*DcPtr;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*DmaPtr;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal">}<sp/>XDcSub;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62" refid="xdcsub_8h_1ae597de7272868cb833836a0ac24d526e" refkind="member"><highlight class="preprocessor">#define<sp/>XDCSUB_OPMODE_FUNCTIONAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="67" refid="xdcsub_8h_1aa9da509a0585433ac086053a1b260058" refkind="member"><highlight class="preprocessor">#define<sp/>XDCSUB_OPMODE_BYPASS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80" refid="xdcsub_8h_1ae409b0550fbe622ad94d01f552d285a3" refkind="member"><highlight class="preprocessor">#define<sp/>XDCSUB_PPTMODE_NONLIVE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="85" refid="xdcsub_8h_1a6cb44f3425f061c17f2dd5337492806d" refkind="member"><highlight class="preprocessor">#define<sp/>XDCSUB_PPTMODE_LIVE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="91" refid="xdcsub_8h_1a108493c2d797aaed71f2875851b21826" refkind="member"><highlight class="preprocessor">#define<sp/>XDCSUB_PPTMODE_MIXED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="103" refid="xdcsub_8h_1a3facf4fc83a3470a80020f6c9d4e387f" refkind="member"><highlight class="preprocessor">#define<sp/>XDCSUB_LIVVID_SEL_V01<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="108" refid="xdcsub_8h_1a0985ecaee82df349e4e55cc831764834" refkind="member"><highlight class="preprocessor">#define<sp/>XDCSUB_LIVVID_SEL_V02<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="113" refid="xdcsub_8h_1a4368c62ca68781dcae5df5037ccf892b" refkind="member"><highlight class="preprocessor">#define<sp/>XDCSUB_LIVVID_SEL_BOTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="118" refid="xdcsub_8h_1a7958fb3ab0885091d527b3340cc865bc" refkind="member"><highlight class="preprocessor">#define<sp/>XDCSUB_LIVVID_SEL_NONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="129" refid="xdcsub_8h_1a135c40111d127a090667f8d7fc05ef6a" refkind="member"><highlight class="preprocessor">#define<sp/>XDCSUB_VIDMODE_AV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="134" refid="xdcsub_8h_1a2eebae8e2dda476ddbffa09a6823fd0e" refkind="member"><highlight class="preprocessor">#define<sp/>XDCSUB_VIDMODE_VONLY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="139" refid="xdcsub_8h_1a686739ddecc3e0d558ddd2cdc7041315" refkind="member"><highlight class="preprocessor">#define<sp/>XDCSUB_VIDMODE_NONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="149" refid="xdcsub_8h_1aaae2d2a674f56c1d1c3855ad55e2b895" refkind="member"><highlight class="preprocessor">#define<sp/>XDCSUB_LIVVID_ALPHA_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="154" refid="xdcsub_8h_1a6cd078ee51178b2ae54f203929324e5f" refkind="member"><highlight class="preprocessor">#define<sp/>XDCSUB_LIVVID_ALPHA_DIS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="163" refid="xdcsub_8h_1a4ebfcb1d9028106998a71860fa1bfedb" refkind="member"><highlight class="preprocessor">#define<sp/>XDCSUB_LIVVID_SDP_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="168" refid="xdcsub_8h_1aef22b3cfc8aa3b8246d0d90ff616cf16" refkind="member"><highlight class="preprocessor">#define<sp/>XDCSUB_LIVVID_SDP_DIS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XDcSub_Config<sp/><ref refid="xdcsub_8h_1af850bf1b9167e0e232110f53eac9e4bc" kindref="member">XDcSub_ConfigTable</ref>[];</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight><highlight class="normal">XDcSub_Config<sp/>*XDcSub_LookupConfig(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a1ac8d3f2867f190284cdaa6cf92a606c" kindref="member">XDcSub_CfgInitialize</ref>(XDcSub<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a2f68f49cec96f2a3fa4cbd27a348b89a" kindref="member">XDcSub_Initialize</ref>(XDcSub<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a5f6d102f994ce2ff5ee91522884fac14" kindref="member">XDcSub_SetVidInterfaceMode</ref>(XDcSub<sp/>*InstancePtr,<sp/><ref refid="xdc_8h_1a510a18b29e2feae16cc3255db20d8312" kindref="member">XDc_VidInterface</ref><sp/>Mode);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a14c4f7a4fa8ddd73f3156b5f0b0a9d92" kindref="member">XDcSub_SetBlenderBgColor</ref>(XDcSub<sp/>*InstancePtr,<sp/>XDc_BlenderBgClr<sp/>*Color);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a4488d706b5a980095e6014acc3bdc552" kindref="member">XDcSub_SetGlobalAlpha</ref>(XDcSub<sp/>*InstancePtr,<sp/><ref refid="xdc_8h_1aae2fc17de8e29853ca4a5e187d9f7ded" kindref="member">XDc_AlphaBlend</ref><sp/>AlphaEnable,<sp/>u8<sp/>Alpha);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1ad6f0a1ab2065cec88c91427ba7a7ce4b" kindref="member">XDcSub_SetVidStreamSrc</ref>(XDcSub<sp/>*InstancePtr,<sp/><ref refid="xdc_8h_1a87355551f90d763d2073111d2363b899" kindref="member">XDc_VideoStream1</ref><sp/>VidStream1,</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc_8h_1a71568be9515b5767a98ce19b6501f449" kindref="member">XDc_VideoStream2</ref><sp/>VidStream2);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a450221da65b0fd7b0b7ae0a22319a3ee" kindref="member">XDcSub_SetInputNonLiveVideoFormat</ref>(XDcSub<sp/>*InstancePtr,<sp/><ref refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895" kindref="member">XDc_VideoFormat</ref><sp/>Format1,</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895" kindref="member">XDc_VideoFormat</ref><sp/>Format2);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a92a2ab74b4ebf27a981ac9869e356039" kindref="member">XDcSub_SetInputLiveStreamFormat</ref>(XDcSub<sp/>*InstancePtr,<sp/><ref refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895" kindref="member">XDc_VideoFormat</ref><sp/>Format1,</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895" kindref="member">XDc_VideoFormat</ref><sp/>Format2);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1abbdb2e761cc7fd768c4061fba1d25d94" kindref="member">XDcSub_SetOutputVideoFormat</ref>(XDcSub<sp/>*InstancePtr,<sp/><ref refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895" kindref="member">XDc_VideoFormat</ref><sp/>Format);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a69d307eb9d21620e158c7143a21dffad" kindref="member">XDcSub_SetStreamPixelScaling</ref>(XDcSub<sp/>*InstancePtr,<sp/>u32<sp/>*Stream1_ScaleFactors,</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*Stream2_ScaleFactors);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1ade1f860e3db9e67a137c8b0656f2dcb1" kindref="member">XDcSub_SetInputStreamCSC</ref>(XDcSub<sp/>*InstancePtr,<sp/>u32<sp/>*Stream1CSCCoeff,</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*Stream1CSCOffset,<sp/>u32<sp/>*Stream2CSCCoeff,<sp/>u32<sp/>*Stream2CS);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1ae35e630467d22d3ff005421fe097184a" kindref="member">XDcSub_SetOutputStreamCSC</ref>(XDcSub<sp/>*InstancePtr,<sp/>u32<sp/>*OutCSCCoeff,<sp/>u32<sp/>*OutCSCOffset);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a6567abe65744c4db7db138501539b289" kindref="member">XDcSub_SetInputStreamLayerControl</ref>(XDcSub<sp/>*InstancePtr,<sp/>u8<sp/>BlendBypass1,<sp/>u8<sp/>BlendBypass2);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1ae4a0dec288584bc279ef330b04f990d2" kindref="member">XDcSub_SetChromaKey</ref>(XDcSub<sp/>*InstancePtr,<sp/>u8<sp/>ChromaEnable,</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ChromaMasterSel,<sp/><ref refid="struct_x_dc___chroma_key" kindref="compound">XDc_ChromaKey</ref><sp/>*Key);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a6467feb371e3756d86bcc28304f96574" kindref="member">XDcSub_SetCursorBlend</ref>(XDcSub<sp/>*InstancePtr,<sp/><ref refid="xdc_8h_1a89f97a13057417752351b72afc565101" kindref="member">XDc_CursorBlend</ref><sp/>Enable,<sp/><ref refid="struct_x_dc___cursor" kindref="compound">XDc_Cursor</ref><sp/>*Cursor);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a7cb7b43274aa1990e06e1897dce495ad" kindref="member">XDcSub_SetAudioVideoClkSrc</ref>(XDcSub<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1af9cfb3a645e195c5555f6ceb918ce616" kindref="member">XDcSub_VidClkSelect</ref>(XDcSub<sp/>*InstancePtr,<sp/>u8<sp/>Stream1Sel,<sp/>u8<sp/>Stream2Sel);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a41f92cfcea8288a49c9faaf2089f155f" kindref="member">XDcSub_EnableStream1Buffers</ref>(XDcSub<sp/>*InstancePtr,<sp/>u8<sp/>Enable,<sp/>u8<sp/>Burst);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1ad226836fc4a20ff17f3a12d00f0e2cc1" kindref="member">XDcSub_EnableStream2Buffers</ref>(XDcSub<sp/>*InstancePtr,<sp/>u8<sp/>Enable,<sp/>u8<sp/>Burst);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a5b56df543b2c79a261ffd90f3cab5fab" kindref="member">XDcSub_AudLineResetDisable</ref>(XDcSub<sp/>*InstancePtr,<sp/>u8<sp/>Disable);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a6253f94f43ea4c9b1b0e4f4afe3caef0" kindref="member">XDcSub_AudExtraBSControl</ref>(XDcSub<sp/>*InstancePtr,<sp/>u8<sp/>Bypass);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a4ab89f9e27f89ecc8c434af9b9317f58" kindref="member">XDcSub_SetSdp</ref>(XDcSub<sp/>*InstancePtr,<sp/><ref refid="xdc_8h_1abb93d84de44419b19456293def29e55a" kindref="member">XDc_Sdp</ref><sp/>Sdp);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1aabb3b5bbecf6727745bbdf9f1325bebc" kindref="member">XDcSub_SetSdpEmptyThreshold</ref>(XDcSub<sp/>*InstancePtr,<sp/>u8<sp/>Threshold);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1ae36ce0ca74383d782e71e94b39bf867c" kindref="member">XDcSub_SetSdpCursorBuffers</ref>(XDcSub<sp/>*InstancePtr,<sp/>u8<sp/>Enable,<sp/>u8<sp/>BurstLen);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1aa6fac37353a51167b6a3cba72acdfa4f" kindref="member">XDcSub_SetStreamPartialBlend</ref>(XDcSub<sp/>*InstancePtr,<sp/><ref refid="xdc_8h_1a68ae1a808a67067c0419eea6418e577d" kindref="member">XDc_PartialBlendEn</ref><sp/>Enable1,</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dc___partial_blend" kindref="compound">XDc_PartialBlend</ref><sp/>*Coords1,<sp/><ref refid="xdc_8h_1a68ae1a808a67067c0419eea6418e577d" kindref="member">XDc_PartialBlendEn</ref><sp/>Enable2,<sp/><ref refid="struct_x_dc___partial_blend" kindref="compound">XDc_PartialBlend</ref><sp/>*Coords2);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a1be85a1e79a6c5a905c74fecec6e22f7" kindref="member">XDcSub_SetVidFrameSwitch</ref>(XDcSub<sp/>*InstancePtr,<sp/>u32<sp/>Control);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a74d5fd146eb1e00162c811564a2d2910" kindref="member">XDcSub_SetNonLiveLatency</ref>(XDcSub<sp/>*InstancePtr,<sp/>u16<sp/>Nl_Latency,<sp/>u8<sp/>V_Line_Latency);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a0e1b04f05e4ac84d098f865a0fb26c9e" kindref="member">XDcSub_EnableStcCtrl</ref>(XDcSub<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a50a2c4801f4a224c578852569264da14" kindref="member">XDcSub_ClearStcCtrl</ref>(XDcSub<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1ab6e3a5fbfcb742bb63ad7cf714de99e0" kindref="member">XDcSub_SetStcLoad</ref>(XDcSub<sp/>*InstancePtr,<sp/>u64<sp/>InitVal);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1ae069aaf27c8b0271f2e646a357f045b6" kindref="member">XDcSub_SetStcAdjust</ref>(XDcSub<sp/>*InstancePtr,<sp/>u32<sp/>InitVal);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal">u64<sp/><ref refid="xdcsub_8c_1a145b973c11f501e8cf46816551879037" kindref="member">XDcSub_GetStcVSyncTs</ref>(XDcSub<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal">u64<sp/><ref refid="xdcsub_8c_1a9425a34d8e1774f22335face4ecf825a" kindref="member">XDcSub_GetStcExtVSyncTs</ref>(XDcSub<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal">u64<sp/><ref refid="xdcsub_8c_1a11c2d59b0d0c8e90274c433eb9bbcf98" kindref="member">XDcSub_GetStcCustomEventTs</ref>(XDcSub<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal">u64<sp/><ref refid="xdcsub_8c_1aba0e3ce1ec975fa4b6a25b9f0d080ab2" kindref="member">XDcSub_GetStcCustomEvent2Ts</ref>(XDcSub<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal">u64<sp/><ref refid="xdcsub_8c_1a2005ed68084837fb66e7f1b5b72f7a2e" kindref="member">XDcSub_GetStcSnapshot</ref>(XDcSub<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1ae3fbf99dfde167b359c3e15516ca5664" kindref="member">XDcSub_EnableAudioBuffer</ref>(XDcSub<sp/>*InstancePtr,<sp/>u8<sp/>Enable,<sp/>u8<sp/>BurstLen);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a7e28d25b201aed981d011c0786805170" kindref="member">XDcSub_AudioChannelSelect</ref>(XDcSub<sp/>*InstancePtr,<sp/>u8<sp/>ChannelSel,<sp/>u16<sp/>SampleRate);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a9e2dfa7a8f193d46a8b98011b3d7519f" kindref="member">XDcSub_AudClkSelect</ref>(XDcSub<sp/>*InstancePtr,<sp/>u32<sp/>Select);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a07fc65a4683cb3628ab9932881012920" kindref="member">XDcSub_SetAudInterfaceMode</ref>(XDcSub<sp/>*InstancePtr,<sp/><ref refid="xdc_8h_1a937bdfbb7f35c3ba41caebf7d8208e8e" kindref="member">XDc_AudInterface</ref><sp/>Mode);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a42a7bec479d164b688e91ab58d8055c3" kindref="member">XDcSub_EnableAudio</ref>(XDcSub<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a330320c857bdebaf1dcd12c502c31349" kindref="member">XDcSub_DisableAudio</ref>(XDcSub<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a8cc7e79b73fa3f5f5873fc5d9e7a4092" kindref="member">XDcSub_SetInputAudioSelect</ref>(XDcSub<sp/>*InstancePtr,<sp/><ref refid="xdc_8h_1a999bb0a1f86e3d9c5f03f4bfaf96d7d5" kindref="member">XDc_AudioStream</ref><sp/>AudStream);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a4e69f4103855f57e2eae9266a6c316b3" kindref="member">XDcSub_ConfigureDcVideo</ref>(XDc<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a0e50ad340f27139f5ab79eb47a8da4a1" kindref="member">XDcSub_SetAudioChCtrl</ref>(XDcSub<sp/>*InstancePtr,<sp/>u8<sp/>AudioChannels);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a8c1912d44869a6693d0b3f9ef4afd68e" kindref="member">XDcSub_SetAudioSegmentedMode</ref>(XDcSub<sp/>*InstancePtr,<sp/>u8<sp/>AudSegmentedMode);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdcsub_8c_1a617cbef68ae080bc196437188beaf31e" kindref="member">XDcSub_EnableSdp</ref>(XDcSub<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdcsub_8c_1a11672ed8b0d3dde5b2dde4f9af28955f" kindref="member">XDcSub_SetSdpAckSel</ref>(XDcSub<sp/>*InstancePtr,<sp/>u8<sp/>AckSel);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal">u32<sp/><ref refid="xdcsub_8c_1a6b77fa0d921ddfa0ba990a37e72917ce" kindref="member">XDcSub_SetCursorSdpRdyInterval</ref>(XDcSub<sp/>*InstancePtr,<sp/>u16<sp/>RdyInterval);</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>__XDCSUB_H__<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h"/>
+  </compounddef>
+</doxygen>

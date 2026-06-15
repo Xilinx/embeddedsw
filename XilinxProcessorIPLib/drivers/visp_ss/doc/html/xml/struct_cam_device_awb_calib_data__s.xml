@@ -1,0 +1,268 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_awb_calib_data__s" kind="struct" prot="public">
+    <compoundname>CamDeviceAwbCalibData_s</compoundname>
+    <includes local="no">cam_device_awb_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_awb_calib_data__s_1acac07136ce682683aeb1b46beb7935c6" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceAwbCalibData_s::useManualCalib</definition>
+        <argsstring></argsstring>
+        <name>useManualCalib</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_calib_data__s_1ae36882b6eaa453ed6d862419ba10c2f3" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAwbCalibData_s::rgProjIndoorMin</definition>
+        <argsstring></argsstring>
+        <name>rgProjIndoorMin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_calib_data__s_1aa417c62a47ce3603563733e0988484e7" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAwbCalibData_s::rgProjMax</definition>
+        <argsstring></argsstring>
+        <name>rgProjMax</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="243" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_calib_data__s_1abae35f343375f4b15bbc753ab4333558" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAwbCalibData_s::kFactor</definition>
+        <argsstring></argsstring>
+        <name>kFactor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_calib_data__s_1a590c1873a20b5c9a8bc534308a1619a3" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAwbCalibData_s::centerLineRg</definition>
+        <argsstring></argsstring>
+        <name>centerLineRg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_calib_data__s_1aba2f0fb8353bba82130e286859b7c24b" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAwbCalibData_s::centerLineBg</definition>
+        <argsstring></argsstring>
+        <name>centerLineBg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_calib_data__s_1a758129a195302018e27fab634c0267cc" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAwbCalibData_s::centerLineD</definition>
+        <argsstring></argsstring>
+        <name>centerLineD</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_calib_data__s_1aca8c91cf4b8efc6873fb61eef1a22777" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAwbCalibData_s::fade1[CAMDEV_AWB_FADE_NUM]</definition>
+        <argsstring>[CAMDEV_AWB_FADE_NUM]</argsstring>
+        <name>fade1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_calib_data__s_1a5dcaa6a120a36cd97f0895a783348a56" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAwbCalibData_s::fade1GainDist[CAMDEV_AWB_GAINDIST_NUM]</definition>
+        <argsstring>[CAMDEV_AWB_GAINDIST_NUM]</argsstring>
+        <name>fade1GainDist</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="251" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="251" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_calib_data__s_1a11ed764df56fffcfd5ed9437ea229dd7" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAwbCalibData_s::fade2[CAMDEV_AWB_FADE_NUM]</definition>
+        <argsstring>[CAMDEV_AWB_FADE_NUM]</argsstring>
+        <name>fade2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="252" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_calib_data__s_1a52c4583e4d11cbceb4ebe25fcc86aa20" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAwbCalibData_s::fade2GainDist[CAMDEV_AWB_GAINDIST_NUM]</definition>
+        <argsstring>[CAMDEV_AWB_GAINDIST_NUM]</argsstring>
+        <name>fade2GainDist</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="253" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_calib_data__s_1ab2549c4d7b7e6604c9a78deee8c27e12" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAwbCalibData_s::fIIRDampCoefAdd</definition>
+        <argsstring></argsstring>
+        <name>fIIRDampCoefAdd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_calib_data__s_1afea92acccb305f3fcbacd14020b73103" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAwbCalibData_s::fIIRDampCoefSub</definition>
+        <argsstring></argsstring>
+        <name>fIIRDampCoefSub</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_calib_data__s_1a1b531b63a8dcda684b1ccd01e0b047f7" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAwbCalibData_s::fIIRDampFilterThreshold</definition>
+        <argsstring></argsstring>
+        <name>fIIRDampFilterThreshold</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_calib_data__s_1a8ffaac9d11874607cbfeefbafc16ecfe" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAwbCalibData_s::fIIRDampingCoefMin</definition>
+        <argsstring></argsstring>
+        <name>fIIRDampingCoefMin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_calib_data__s_1ae183f479b625805bbc4d6450c0ecb10e" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAwbCalibData_s::fIIRDampingCoefMax</definition>
+        <argsstring></argsstring>
+        <name>fIIRDampingCoefMax</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_calib_data__s_1a400eff53d29c0ab8ceac80582ba3572e" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAwbCalibData_s::fIIRDampingCoefInit</definition>
+        <argsstring></argsstring>
+        <name>fIIRDampingCoefInit</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_calib_data__s_1ae3b3c7939e1ea29cee721b01c660c8f0" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t CamDeviceAwbCalibData_s::expPriorFilterSizeMax</definition>
+        <argsstring></argsstring>
+        <name>expPriorFilterSizeMax</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>CamDeviceAwbCalibData_t. </para>    </briefdescription>
+    <detaileddescription>
+<para>VsCamDevice AWB calibration configuration which lib calculation need </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="240" bodyend="262"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_awb_calib_data__s_1aba2f0fb8353bba82130e286859b7c24b" prot="public" virt="non-virtual"><scope>CamDeviceAwbCalibData_s</scope><name>centerLineBg</name></member>
+      <member refid="struct_cam_device_awb_calib_data__s_1a758129a195302018e27fab634c0267cc" prot="public" virt="non-virtual"><scope>CamDeviceAwbCalibData_s</scope><name>centerLineD</name></member>
+      <member refid="struct_cam_device_awb_calib_data__s_1a590c1873a20b5c9a8bc534308a1619a3" prot="public" virt="non-virtual"><scope>CamDeviceAwbCalibData_s</scope><name>centerLineRg</name></member>
+      <member refid="struct_cam_device_awb_calib_data__s_1ae3b3c7939e1ea29cee721b01c660c8f0" prot="public" virt="non-virtual"><scope>CamDeviceAwbCalibData_s</scope><name>expPriorFilterSizeMax</name></member>
+      <member refid="struct_cam_device_awb_calib_data__s_1aca8c91cf4b8efc6873fb61eef1a22777" prot="public" virt="non-virtual"><scope>CamDeviceAwbCalibData_s</scope><name>fade1</name></member>
+      <member refid="struct_cam_device_awb_calib_data__s_1a5dcaa6a120a36cd97f0895a783348a56" prot="public" virt="non-virtual"><scope>CamDeviceAwbCalibData_s</scope><name>fade1GainDist</name></member>
+      <member refid="struct_cam_device_awb_calib_data__s_1a11ed764df56fffcfd5ed9437ea229dd7" prot="public" virt="non-virtual"><scope>CamDeviceAwbCalibData_s</scope><name>fade2</name></member>
+      <member refid="struct_cam_device_awb_calib_data__s_1a52c4583e4d11cbceb4ebe25fcc86aa20" prot="public" virt="non-virtual"><scope>CamDeviceAwbCalibData_s</scope><name>fade2GainDist</name></member>
+      <member refid="struct_cam_device_awb_calib_data__s_1ab2549c4d7b7e6604c9a78deee8c27e12" prot="public" virt="non-virtual"><scope>CamDeviceAwbCalibData_s</scope><name>fIIRDampCoefAdd</name></member>
+      <member refid="struct_cam_device_awb_calib_data__s_1afea92acccb305f3fcbacd14020b73103" prot="public" virt="non-virtual"><scope>CamDeviceAwbCalibData_s</scope><name>fIIRDampCoefSub</name></member>
+      <member refid="struct_cam_device_awb_calib_data__s_1a1b531b63a8dcda684b1ccd01e0b047f7" prot="public" virt="non-virtual"><scope>CamDeviceAwbCalibData_s</scope><name>fIIRDampFilterThreshold</name></member>
+      <member refid="struct_cam_device_awb_calib_data__s_1a400eff53d29c0ab8ceac80582ba3572e" prot="public" virt="non-virtual"><scope>CamDeviceAwbCalibData_s</scope><name>fIIRDampingCoefInit</name></member>
+      <member refid="struct_cam_device_awb_calib_data__s_1ae183f479b625805bbc4d6450c0ecb10e" prot="public" virt="non-virtual"><scope>CamDeviceAwbCalibData_s</scope><name>fIIRDampingCoefMax</name></member>
+      <member refid="struct_cam_device_awb_calib_data__s_1a8ffaac9d11874607cbfeefbafc16ecfe" prot="public" virt="non-virtual"><scope>CamDeviceAwbCalibData_s</scope><name>fIIRDampingCoefMin</name></member>
+      <member refid="struct_cam_device_awb_calib_data__s_1abae35f343375f4b15bbc753ab4333558" prot="public" virt="non-virtual"><scope>CamDeviceAwbCalibData_s</scope><name>kFactor</name></member>
+      <member refid="struct_cam_device_awb_calib_data__s_1ae36882b6eaa453ed6d862419ba10c2f3" prot="public" virt="non-virtual"><scope>CamDeviceAwbCalibData_s</scope><name>rgProjIndoorMin</name></member>
+      <member refid="struct_cam_device_awb_calib_data__s_1aa417c62a47ce3603563733e0988484e7" prot="public" virt="non-virtual"><scope>CamDeviceAwbCalibData_s</scope><name>rgProjMax</name></member>
+      <member refid="struct_cam_device_awb_calib_data__s_1acac07136ce682683aeb1b46beb7935c6" prot="public" virt="non-virtual"><scope>CamDeviceAwbCalibData_s</scope><name>useManualCalib</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

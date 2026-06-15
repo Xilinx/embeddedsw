@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_d45f0487a6f4629de258cfcf56fb5b94" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xdp_8c">xdp.c</innerfile>
+    <innerfile refid="xdp_8h">xdp.h</innerfile>
+    <innerfile refid="xdp__edid_8c">xdp_edid.c</innerfile>
+    <innerfile refid="xdp__hw_8h">xdp_hw.h</innerfile>
+    <innerfile refid="xdp__intr_8c">xdp_intr.c</innerfile>
+    <innerfile refid="xdp__mst_8c">xdp_mst.c</innerfile>
+    <innerfile refid="xdp__selftest_8c">xdp_selftest.c</innerfile>
+    <innerfile refid="xdp__sinit_8c">xdp_sinit.c</innerfile>
+    <innerfile refid="xdp__spm_8c">xdp_spm.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/src/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_b95572d0a2cc1bcb9e05e47967b3a31b" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xilskey__bbram__example_8c">xilskey_bbram_example.c</innerfile>
+    <innerfile refid="xilskey__bbram__ultrascale__example_8c">xilskey_bbram_ultrascale_example.c</innerfile>
+    <innerfile refid="xilskey__bbram__ultrascale__input_8h">xilskey_bbram_ultrascale_input.h</innerfile>
+    <innerfile refid="xilskey__bbramps__zynqmp__example_8c">xilskey_bbramps_zynqmp_example.c</innerfile>
+    <innerfile refid="xilskey__efuse__example_8c">xilskey_efuse_example.c</innerfile>
+    <innerfile refid="xilskey__efuseps__zynqmp__example_8c">xilskey_efuseps_zynqmp_example.c</innerfile>
+    <innerfile refid="xilskey__efuseps__zynqmp__input_8h">xilskey_efuseps_zynqmp_input.h</innerfile>
+    <innerfile refid="xilskey__input_8h">xilskey_input.h</innerfile>
+    <innerfile refid="xilskey__puf__regeneration__example_8c">xilskey_puf_regeneration_example.c</innerfile>
+    <innerfile refid="xilskey__puf__registration_8h">xilskey_puf_registration.h</innerfile>
+    <innerfile refid="xilskey__puf__registration__example_8c">xilskey_puf_registration_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1347 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="cam__device__fusa__api_8h" kind="file">
+    <compoundname>cam_device_fusa_api.h</compoundname>
+    <includes refid="cam__device__common_8h" local="yes">cam_device_common.h</includes>
+    <includedby refid="cam__device__module__api_8h" local="yes">cam_device_module_api.h</includedby>
+    <includedby refid="vvbench__fusa__api_8h" local="yes">vvbench_fusa_api.h</includedby>
+    <incdepgraph>
+      <node id="3257">
+        <label>stdbool.h</label>
+      </node>
+      <node id="3251">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="3258">
+        <label>stdint.h</label>
+      </node>
+      <node id="3248">
+        <label>stdlib.h</label>
+      </node>
+      <node id="3255">
+        <label>sensor_cmd.h</label>
+        <childnode refid="3256" relation="include">
+        </childnode>
+        <childnode refid="3251" relation="include">
+        </childnode>
+      </node>
+      <node id="3243">
+        <label>cam_device_fusa_api.h</label>
+        <link refid="cam_device_fusa_api.h"/>
+        <childnode refid="3244" relation="include">
+        </childnode>
+      </node>
+      <node id="3250">
+        <label>stddef.h</label>
+      </node>
+      <node id="3249">
+        <label>limits.h</label>
+      </node>
+      <node id="3244">
+        <label>cam_device_common.h</label>
+        <childnode refid="3245" relation="include">
+        </childnode>
+        <childnode refid="3251" relation="include">
+        </childnode>
+        <childnode refid="3252" relation="include">
+        </childnode>
+        <childnode refid="3254" relation="include">
+        </childnode>
+        <childnode refid="3255" relation="include">
+        </childnode>
+      </node>
+      <node id="3254">
+        <label>buf_defs.h</label>
+        <childnode refid="3245" relation="include">
+        </childnode>
+      </node>
+      <node id="3256">
+        <label>mbox_api.h</label>
+        <childnode refid="3257" relation="include">
+        </childnode>
+        <childnode refid="3258" relation="include">
+        </childnode>
+        <childnode refid="3259" relation="include">
+        </childnode>
+      </node>
+      <node id="3253">
+        <label>string.h</label>
+      </node>
+      <node id="3259">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="3257" relation="include">
+        </childnode>
+        <childnode refid="3260" relation="include">
+        </childnode>
+      </node>
+      <node id="3260">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="3245">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="3246" relation="include">
+        </childnode>
+        <childnode refid="3249" relation="include">
+        </childnode>
+        <childnode refid="3250" relation="include">
+        </childnode>
+      </node>
+      <node id="3252">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="3245" relation="include">
+        </childnode>
+        <childnode refid="3253" relation="include">
+        </childnode>
+      </node>
+      <node id="3247">
+        <label>stdio.h</label>
+      </node>
+      <node id="3246">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="3247" relation="include">
+        </childnode>
+        <childnode refid="3248" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3295">
+        <label>cam_device_rgbir_api_v2.c</label>
+      </node>
+      <node id="3293">
+        <label>cam_device_hist64_api.c</label>
+      </node>
+      <node id="3292">
+        <label>cam_device_hist256_api.c</label>
+      </node>
+      <node id="3296">
+        <label>cam_device_tpg_api.c</label>
+      </node>
+      <node id="3262">
+        <label>cam_device_module_api.h</label>
+        <childnode refid="3263" relation="include">
+        </childnode>
+      </node>
+      <node id="3300">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="3264">
+        <label>control.h</label>
+        <childnode refid="3265" relation="include">
+        </childnode>
+      </node>
+      <node id="3290">
+        <label>cam_device_ge_api.c</label>
+      </node>
+      <node id="3298">
+        <label>cam_device_wdr_api_v5_2.c</label>
+      </node>
+      <node id="3276">
+        <label>cam_device_cpd_api.c</label>
+      </node>
+      <node id="3284">
+        <label>cam_device_cnr_api.c</label>
+      </node>
+      <node id="3278">
+        <label>cam_device_dg_api.c</label>
+      </node>
+      <node id="3282">
+        <label>cam_device_af_api.c</label>
+      </node>
+      <node id="3306">
+        <label>vvbench_fusa_api.c</label>
+      </node>
+      <node id="3304">
+        <label>submodule_def.h</label>
+        <childnode refid="3305" relation="include">
+        </childnode>
+        <childnode refid="3300" relation="include">
+        </childnode>
+      </node>
+      <node id="3274">
+        <label>cam_device_bls_api.c</label>
+      </node>
+      <node id="3270">
+        <label>cam_device_sensor_api.c</label>
+      </node>
+      <node id="3261">
+        <label>cam_device_fusa_api.h</label>
+        <link refid="cam_device_fusa_api.h"/>
+        <childnode refid="3262" relation="include">
+        </childnode>
+        <childnode refid="3303" relation="include">
+        </childnode>
+      </node>
+      <node id="3269">
+        <label>cam_device_buffer_api.c</label>
+      </node>
+      <node id="3305">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="3285">
+        <label>cam_device_hdr_api.c</label>
+      </node>
+      <node id="3277">
+        <label>cam_device_cproc_api.c</label>
+      </node>
+      <node id="3280">
+        <label>cam_device_dpcc_api.c</label>
+      </node>
+      <node id="3283">
+        <label>cam_device_afm_api.c</label>
+      </node>
+      <node id="3267">
+        <label>cam_device.c</label>
+      </node>
+      <node id="3275">
+        <label>cam_device_ccm_api.c</label>
+      </node>
+      <node id="3273">
+        <label>cam_device_awb_api.c</label>
+      </node>
+      <node id="3263">
+        <label>cam_device_app.h</label>
+        <childnode refid="3264" relation="include">
+        </childnode>
+        <childnode refid="3265" relation="include">
+        </childnode>
+        <childnode refid="3266" relation="include">
+        </childnode>
+        <childnode refid="3267" relation="include">
+        </childnode>
+        <childnode refid="3268" relation="include">
+        </childnode>
+        <childnode refid="3269" relation="include">
+        </childnode>
+        <childnode refid="3270" relation="include">
+        </childnode>
+        <childnode refid="3271" relation="include">
+        </childnode>
+        <childnode refid="3272" relation="include">
+        </childnode>
+        <childnode refid="3273" relation="include">
+        </childnode>
+        <childnode refid="3274" relation="include">
+        </childnode>
+        <childnode refid="3275" relation="include">
+        </childnode>
+        <childnode refid="3276" relation="include">
+        </childnode>
+        <childnode refid="3277" relation="include">
+        </childnode>
+        <childnode refid="3278" relation="include">
+        </childnode>
+        <childnode refid="3279" relation="include">
+        </childnode>
+        <childnode refid="3280" relation="include">
+        </childnode>
+        <childnode refid="3281" relation="include">
+        </childnode>
+        <childnode refid="3282" relation="include">
+        </childnode>
+        <childnode refid="3283" relation="include">
+        </childnode>
+        <childnode refid="3284" relation="include">
+        </childnode>
+        <childnode refid="3285" relation="include">
+        </childnode>
+        <childnode refid="3286" relation="include">
+        </childnode>
+        <childnode refid="3287" relation="include">
+        </childnode>
+        <childnode refid="3288" relation="include">
+        </childnode>
+        <childnode refid="3289" relation="include">
+        </childnode>
+        <childnode refid="3290" relation="include">
+        </childnode>
+        <childnode refid="3291" relation="include">
+        </childnode>
+        <childnode refid="3292" relation="include">
+        </childnode>
+        <childnode refid="3293" relation="include">
+        </childnode>
+        <childnode refid="3294" relation="include">
+        </childnode>
+        <childnode refid="3295" relation="include">
+        </childnode>
+        <childnode refid="3296" relation="include">
+        </childnode>
+        <childnode refid="3297" relation="include">
+        </childnode>
+        <childnode refid="3298" relation="include">
+        </childnode>
+        <childnode refid="3299" relation="include">
+        </childnode>
+        <childnode refid="3300" relation="include">
+        </childnode>
+        <childnode refid="3301" relation="include">
+        </childnode>
+      </node>
+      <node id="3265">
+        <label>control.c</label>
+      </node>
+      <node id="3303">
+        <label>vvbench_fusa_api.h</label>
+        <childnode refid="3304" relation="include">
+        </childnode>
+        <childnode refid="3306" relation="include">
+        </childnode>
+      </node>
+      <node id="3297">
+        <label>cam_device_wb_api.c</label>
+      </node>
+      <node id="3294">
+        <label>cam_device_lsc_api_v3.c</label>
+      </node>
+      <node id="3286">
+        <label>cam_device_ee_api_v2.c</label>
+      </node>
+      <node id="3287">
+        <label>cam_device_exp_api_v2.c</label>
+      </node>
+      <node id="3288">
+        <label>cam_device_fusa_api.c</label>
+      </node>
+      <node id="3299">
+        <label>oba.c</label>
+      </node>
+      <node id="3268">
+        <label>cam_device_api.c</label>
+      </node>
+      <node id="3289">
+        <label>cam_device_gc_api.c</label>
+      </node>
+      <node id="3291">
+        <label>cam_device_gtm_api_v1.c</label>
+      </node>
+      <node id="3266">
+        <label>iba.c</label>
+      </node>
+      <node id="3279">
+        <label>cam_device_dmsc_api_v2.c</label>
+      </node>
+      <node id="3271">
+        <label>cam_device_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="3281">
+        <label>cam_device_3dnr_api.c</label>
+      </node>
+      <node id="3302">
+        <label>xvisp_ss_example.c</label>
+      </node>
+      <node id="3301">
+        <label>xvisp_ss_example.h</label>
+        <childnode refid="3302" relation="include">
+        </childnode>
+      </node>
+      <node id="3272">
+        <label>cam_device_ae_api.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_cam_device_fu_sa_mis_val__s" prot="public">CamDeviceFuSaMisVal_s</innerclass>
+    <innerclass refid="struct_cam_device_fault_inject_config__s" prot="public">CamDeviceFaultInjectConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_fusa_crc_roi_config__s" prot="public">CamDeviceFusaCrcRoiConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_fusa_crc_config__s" prot="public">CamDeviceFusaCrcConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_fusa_pixel_count_size__s" prot="public">CamDeviceFusaPixelCountSize_s</innerclass>
+    <innerclass refid="struct_cam_device_fusa_pixel_count_config__s" prot="public">CamDeviceFusaPixelCountConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_fusa_bist_size__s" prot="public">CamDeviceFusaBistSize_s</innerclass>
+    <innerclass refid="struct_cam_device_fusa_bist2_path_crc__s" prot="public">CamDeviceFusaBist2PathCrc_s</innerclass>
+    <innerclass refid="struct_cam_device_fusa_bist_config__s" prot="public">CamDeviceFusaBistConfig_s</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group____cam__device__fusa_1gac9492110b043bd5689ec27ea86f36ea8" prot="public" static="no">
+        <name>CamDeviceEventId_e</name>
+        <enumvalue id="group____cam__device__fusa_1ggac9492110b043bd5689ec27ea86f36ea8a5507c503a93830384c2aa804fac442d8" prot="public">
+          <name>CAMDEV_ISP_EVENT_INVALID</name>
+          <initializer>= 0x0000</initializer>
+          <briefdescription>
+<para>Invalid event (only for an internal evaluation) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__fusa_1ggac9492110b043bd5689ec27ea86f36ea8a4a1a7ba2b4b9d91434360ae25b59ad2b" prot="public">
+          <name>CAMDEV_ISP_EVENT_BASE</name>
+          <initializer>= 0x1000</initializer>
+          <briefdescription>
+<para>The base ISP events. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__fusa_1ggac9492110b043bd5689ec27ea86f36ea8acafee345cfa9f04ddcbc308577b922f7" prot="public">
+          <name>CAMDEV_ISP_EVENT_FUSA</name>
+          <initializer>= (CAMDEV_ISP_EVENT_BASE + 0x0011)</initializer>
+          <briefdescription>
+<para>FuSa events. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice FuSa event ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="51" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__fusa_1gabada42fb96a4034e708148da141fd63d" prot="public" static="no">
+        <name>CamDeviceFusaCrcLevel_e</name>
+        <enumvalue id="group____cam__device__fusa_1ggabada42fb96a4034e708148da141fd63dabeb4013397e1625396ce964cacfd7621" prot="public">
+          <name>CAMDEV_FUSA_CRC_LINE_ROI_LEVEL</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>CRC line ROI level. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__fusa_1ggabada42fb96a4034e708148da141fd63da24f0ba15c89d837e2b72cac3d8a25ff8" prot="public">
+          <name>CAMDEV_FUSA_CRC_FRAME_LEVEL</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>CRC frame level. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__fusa_1ggabada42fb96a4034e708148da141fd63dad8ffeed45ed910651b3ea20b9f4a8f47" prot="public">
+          <name>CAMDEV_FUSA_CRC_MAX</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice FuSa CRC (Cyclic redundancy check) level. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="92" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__fusa_1ga23935a6f707d18cd3daf1f57d5b2bc01" prot="public" static="no">
+        <name>CamDeviceFusaCrcReverseMode_e</name>
+        <enumvalue id="group____cam__device__fusa_1gga23935a6f707d18cd3daf1f57d5b2bc01a6514ada44fab55534b72e8fc5cc257e6" prot="public">
+          <name>CAMDEV_FUSA_CRC_NOT_REVERSE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Not reverse. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__fusa_1gga23935a6f707d18cd3daf1f57d5b2bc01a06af1b92194a583ca1e5878d1e8d653b" prot="public">
+          <name>CAMDEV_FUSA_CRC_TOTAL_REVERSE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Total reverse mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__fusa_1gga23935a6f707d18cd3daf1f57d5b2bc01ad0a57c3026def337cfb2afc152e3cf96" prot="public">
+          <name>CAMDEV_FUSA_CRC_BYTE_REVERSE</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Byte reverse mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice FuSa CRC reverse mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="104" bodyend="109"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__fusa_1ga24b06bbe24a822fc0c232e741e288632" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__fusa_1gac9492110b043bd5689ec27ea86f36ea8" kindref="member">CamDeviceEventId_e</ref></type>
+        <definition>typedef enum CamDeviceEventId_e  CamDeviceEventId_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceEventId_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa event ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="56" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__fusa_1gad98ba8a08f5d0a8a5ba8e5b3901dfaae" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_fu_sa_mis_val__s" kindref="compound">CamDeviceFuSaMisVal_s</ref></type>
+        <definition>typedef struct CamDeviceFuSaMisVal_s  CamDeviceFuSaMisVal_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceFuSaMisVal_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa masked interrupt status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="73" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__fusa_1gae0dfb9776c1ecde24b23167db7841720" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* CamDeviceEventFunc_t)(const CamDeviceEventId_t evtId, CamDeviceFuSaMisVal_t *param, void *pUserContext)</definition>
+        <argsstring>)(const CamDeviceEventId_t evtId, CamDeviceFuSaMisVal_t *param, void *pUserContext)</argsstring>
+        <name>CamDeviceEventFunc_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa event callback function pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__fusa_1gaa9a1a78d01d147950e7ae0e165f509e5" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__fusa_1gabada42fb96a4034e708148da141fd63d" kindref="member">CamDeviceFusaCrcLevel_e</ref></type>
+        <definition>typedef enum CamDeviceFusaCrcLevel_e  CamDeviceFusaCrcLevel_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceFusaCrcLevel_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa CRC (Cyclic redundancy check) level. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="97" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__fusa_1gaf788bf45b56488599fb357905beb116b" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__fusa_1ga23935a6f707d18cd3daf1f57d5b2bc01" kindref="member">CamDeviceFusaCrcReverseMode_e</ref></type>
+        <definition>typedef enum CamDeviceFusaCrcReverseMode_e  CamDeviceFusaCrcReverseMode_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceFusaCrcReverseMode_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa CRC reverse mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="109" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__fusa_1gae55363337927f03651cdee9e79b77051" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_fault_inject_config__s" kindref="compound">CamDeviceFaultInjectConfig_s</ref></type>
+        <definition>typedef struct CamDeviceFaultInjectConfig_s  CamDeviceFaultInjectConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceFaultInjectConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa fault injection configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="122" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__fusa_1ga53b5eb39c9278795f8a8fcd0fc8d9d44" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_fusa_crc_roi_config__s" kindref="compound">CamDeviceFusaCrcRoiConfig_s</ref></type>
+        <definition>typedef struct CamDeviceFusaCrcRoiConfig_s  CamDeviceFusaCrcRoiConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceFusaCrcRoiConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa CRC ROI configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="134" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__fusa_1ga2c02aff83c3f184bf8f7e0dfc85b0d02" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_fusa_crc_config__s" kindref="compound">CamDeviceFusaCrcConfig_s</ref></type>
+        <definition>typedef struct CamDeviceFusaCrcConfig_s  CamDeviceFusaCrcConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceFusaCrcConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa CRC configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="151" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__fusa_1ga6692915875673c3ddb95086577c17587" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_fusa_pixel_count_size__s" kindref="compound">CamDeviceFusaPixelCountSize_s</ref></type>
+        <definition>typedef struct CamDeviceFusaPixelCountSize_s  CamDeviceFusaPixelCountSize_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceFusaPixelCountSize_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa pixel count size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="161" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__fusa_1ga0bc04bec2384d5d1e29faa268028251d" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_fusa_pixel_count_config__s" kindref="compound">CamDeviceFusaPixelCountConfig_s</ref></type>
+        <definition>typedef struct CamDeviceFusaPixelCountConfig_s  CamDeviceFusaPixelCountConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceFusaPixelCountConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa pixel count configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="173" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__fusa_1gacb5d6bca9752dbcc0aef0dc3b78cfca2" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_fusa_bist_size__s" kindref="compound">CamDeviceFusaBistSize_s</ref></type>
+        <definition>typedef struct CamDeviceFusaBistSize_s  CamDeviceFusaBistSize_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceFusaBistSize_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa BIST (Built in self test) size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="186" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__fusa_1gae0698da3016707e452349daebdbd9c46" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_fusa_bist2_path_crc__s" kindref="compound">CamDeviceFusaBist2PathCrc_s</ref></type>
+        <definition>typedef struct CamDeviceFusaBist2PathCrc_s  CamDeviceFusaBist2PathCrc_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceFusaBist2PathCrc_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa BIST2 path CRC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="197" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__fusa_1ga7f6ba65e694d3ca36d7e63511077d1da" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_fusa_bist_config__s" kindref="compound">CamDeviceFusaBistConfig_s</ref></type>
+        <definition>typedef struct CamDeviceFusaBistConfig_s  CamDeviceFusaBistConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceFusaBistConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice FuSa BIST configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="211" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__fusa_1gafb1cd157ee589955e5a0f70ac4ab8c3f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaFaultInjectEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, const CamDeviceFaultInjectConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceFusaFaultInjectEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group____cam__device__fusa_1gae55363337927f03651cdee9e79b77051" kindref="member">CamDeviceFaultInjectConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="32" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga94b7c49dafe0258afefc1345939425ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaEccEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFusaEccEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="73" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1gaf2e2ba9e6a44ccaf182d59cab05663a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaEccDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFusaEccDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="108" bodyend="140"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga7857fc422809e37c49f42c0ddd204570" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaPixelCountEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFusaPixelCountEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="143" bodyend="175"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga314f568553b88f30f950c7ba3626ebc6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaPixelCountDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFusaPixelCountDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="178" bodyend="210"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga9ba25dcd42a1f6e119df5349b65baa16" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaPixelCountSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFusaPixelCountSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="213" bodyend="246"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga0e788bbac2f1b01e5279a60af6e101a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaPixelCountGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceFusaPixelCountConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceFusaPixelCountGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__fusa_1ga0bc04bec2384d5d1e29faa268028251d" kindref="member">CamDeviceFusaPixelCountConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="249" bodyend="288"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga972fd730d41e24fd1a51c5c4a39d6c08" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaTimeoutEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint8_t pathEnable)</argsstring>
+        <name>VsiCamDeviceFusaTimeoutEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>pathEnable</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="384" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="291" bodyend="327"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga4d25268dd8d3c322b401879f89ced9f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaTimeoutDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFusaTimeoutDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="406" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="330" bodyend="363"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga54e8a549f29a952ef1f150fa8f2c418b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaBistEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFusaBistEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="427" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="366" bodyend="399"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1gac56eb23aa655e2a69064c4d6ad4b4c2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaBistDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFusaBistDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="402" bodyend="434"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga60b66f0a11e3a80db08b22149ac38425" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFuSaBistPowerUpEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFuSaBistPowerUpEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="469" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="437" bodyend="470"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga0a217e0c15cc3a56a6a2fba6ca8be4dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFuSaBistPowerUpDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFuSaBistPowerUpDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="490" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="473" bodyend="506"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga0e02cd9e197a594526bf111b2f5206f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaCrcEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFusaCrcEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="511" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="509" bodyend="540"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga77191135171a003a93c624a34af56e39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaCrcDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFusaCrcDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="532" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="543" bodyend="575"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1gaebcc576c7597dc1a80e02be0c0090f50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaCrcSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceFusaCrcConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceFusaCrcSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__fusa_1ga2c02aff83c3f184bf8f7e0dfc85b0d02" kindref="member">CamDeviceFusaCrcConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="578" bodyend="616"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga08f4034201bc6bf20f0a6609c2d581dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaCrcGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceFusaCrcConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceFusaCrcGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__fusa_1ga2c02aff83c3f184bf8f7e0dfc85b0d02" kindref="member">CamDeviceFusaCrcConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="585" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="619" bodyend="658"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1gaea6b8d783be30b2a0c462a81b720fff6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaBistGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceFusaBistConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceFusaBistGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__fusa_1ga7f6ba65e694d3ca36d7e63511077d1da" kindref="member">CamDeviceFusaBistConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="610" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="661" bodyend="700"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1ga14516d3304910ca8ba87573e7862f7c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaRegisterEventCb</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceEventFunc_t func, void *pUserContext)</argsstring>
+        <name>VsiCamDeviceFusaRegisterEventCb</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__fusa_1gae0dfb9776c1ecde24b23167db7841720" kindref="member">CamDeviceEventFunc_t</ref></type>
+          <declname>func</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>pUserContext</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="638" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="703" bodyend="738"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1gaae3b9bb42b5bf2cfefc1d31b2e2b309d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaDeRegisterEventCb</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFusaDeRegisterEventCb</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="664" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1gad013e8e1cbfb0be88eed56bf56687d56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaReset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceFusaReset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="684" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="741" bodyend="772"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__fusa_1gae4688a1e2d4a49e02ffe7f71225fb865" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceFusaGetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceFusaGetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="705" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/fusa/cam_device_fusa_api.c" bodystart="774" bodyend="813"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2022<sp/>Vivante<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>CAMDEV_FUSA_API_H</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CAMDEV_FUSA_API_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cam_device_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="46"><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="51" refid="group____cam__device__fusa_1gac9492110b043bd5689ec27ea86f36ea8" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="group____cam__device__fusa_1gac9492110b043bd5689ec27ea86f36ea8" kindref="member">CamDeviceEventId_e</ref></highlight></codeline>
+<codeline lineno="52"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="53" refid="group____cam__device__fusa_1ggac9492110b043bd5689ec27ea86f36ea8a5507c503a93830384c2aa804fac442d8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__fusa_1ggac9492110b043bd5689ec27ea86f36ea8a5507c503a93830384c2aa804fac442d8" kindref="member">CAMDEV_ISP_EVENT_INVALID</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0x0000,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54" refid="group____cam__device__fusa_1ggac9492110b043bd5689ec27ea86f36ea8a4a1a7ba2b4b9d91434360ae25b59ad2b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__fusa_1ggac9492110b043bd5689ec27ea86f36ea8a4a1a7ba2b4b9d91434360ae25b59ad2b" kindref="member">CAMDEV_ISP_EVENT_BASE</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0x1000,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55" refid="group____cam__device__fusa_1ggac9492110b043bd5689ec27ea86f36ea8acafee345cfa9f04ddcbc308577b922f7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__fusa_1ggac9492110b043bd5689ec27ea86f36ea8acafee345cfa9f04ddcbc308577b922f7" kindref="member">CAMDEV_ISP_EVENT_FUSA</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>(<ref refid="group____cam__device__fusa_1ggac9492110b043bd5689ec27ea86f36ea8a4a1a7ba2b4b9d91434360ae25b59ad2b" kindref="member">CAMDEV_ISP_EVENT_BASE</ref><sp/>+<sp/>0x0011)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="normal">}<sp/><ref refid="group____cam__device__fusa_1ga24b06bbe24a822fc0c232e741e288632" kindref="member">CamDeviceEventId_t</ref>;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="63" refid="struct_cam_device_fu_sa_mis_val__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_fu_sa_mis_val__s" kindref="compound">CamDeviceFuSaMisVal_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="64" refid="struct_cam_device_fu_sa_mis_val__s_1ad1895505f139c6ca9ac2d63f2567cc6b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fu_sa_mis_val__s_1ad1895505f139c6ca9ac2d63f2567cc6b" kindref="member">fusaEcc1MisVal</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="struct_cam_device_fu_sa_mis_val__s_1af30e95e8f70e043f5cae54786be21de2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fu_sa_mis_val__s_1af30e95e8f70e043f5cae54786be21de2" kindref="member">fusaEcc2MisVal</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66" refid="struct_cam_device_fu_sa_mis_val__s_1a61afecc8a881a67d945e8337ad94d303" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fu_sa_mis_val__s_1a61afecc8a881a67d945e8337ad94d303" kindref="member">fusaEcc3MisVal</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67" refid="struct_cam_device_fu_sa_mis_val__s_1aa96ef1b1e549cdf782d3d303f2bd6076" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fu_sa_mis_val__s_1aa96ef1b1e549cdf782d3d303f2bd6076" kindref="member">fusaEcc4MisVal</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68" refid="struct_cam_device_fu_sa_mis_val__s_1a45a195f823682b506e71dbf71606f299" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fu_sa_mis_val__s_1a45a195f823682b506e71dbf71606f299" kindref="member">fusaEcc5MisVal</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69" refid="struct_cam_device_fu_sa_mis_val__s_1a313b4ed474883f96447bae97076678a1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fu_sa_mis_val__s_1a313b4ed474883f96447bae97076678a1" kindref="member">fusaEcc6MisVal</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="70" refid="struct_cam_device_fu_sa_mis_val__s_1a2adac99a55a7c69a2eeda1ab192c76c8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fu_sa_mis_val__s_1a2adac99a55a7c69a2eeda1ab192c76c8" kindref="member">fusaDupMisVal</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="71" refid="struct_cam_device_fu_sa_mis_val__s_1a82e2f6cc731d46d3b931dd2658081b02" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fu_sa_mis_val__s_1a82e2f6cc731d46d3b931dd2658081b02" kindref="member">fusaParityMisVal</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="72" refid="struct_cam_device_fu_sa_mis_val__s_1ac116248ab5042b83a412b8a35f78a970" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fu_sa_mis_val__s_1ac116248ab5042b83a412b8a35f78a970" kindref="member">fusaLv1MisVal</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="normal">}<sp/><ref refid="group____cam__device__fusa_1gad98ba8a08f5d0a8a5ba8e5b3901dfaae" kindref="member">CamDeviceFuSaMisVal_t</ref>;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="80"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*<ref refid="group____cam__device__fusa_1gae0dfb9776c1ecde24b23167db7841720" kindref="member">CamDeviceEventFunc_t</ref>)</highlight></codeline>
+<codeline lineno="81" refid="group____cam__device__fusa_1gae0dfb9776c1ecde24b23167db7841720" refkind="member"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="group____cam__device__fusa_1ga24b06bbe24a822fc0c232e741e288632" kindref="member">CamDeviceEventId_t</ref><sp/><sp/>evtId,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fu_sa_mis_val__s" kindref="compound">CamDeviceFuSaMisVal_t</ref><sp/><sp/><sp/><sp/><sp/>*param,</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pUserContext</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="92" refid="group____cam__device__fusa_1gabada42fb96a4034e708148da141fd63d" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="group____cam__device__fusa_1gabada42fb96a4034e708148da141fd63d" kindref="member">CamDeviceFusaCrcLevel_e</ref></highlight></codeline>
+<codeline lineno="93"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="94" refid="group____cam__device__fusa_1ggabada42fb96a4034e708148da141fd63dabeb4013397e1625396ce964cacfd7621" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__fusa_1ggabada42fb96a4034e708148da141fd63dabeb4013397e1625396ce964cacfd7621" kindref="member">CAMDEV_FUSA_CRC_LINE_ROI_LEVEL</ref><sp/><sp/><sp/><sp/>=<sp/>0,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95" refid="group____cam__device__fusa_1ggabada42fb96a4034e708148da141fd63da24f0ba15c89d837e2b72cac3d8a25ff8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__fusa_1ggabada42fb96a4034e708148da141fd63da24f0ba15c89d837e2b72cac3d8a25ff8" kindref="member">CAMDEV_FUSA_CRC_FRAME_LEVEL</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>1,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>CAMDEV_FUSA_CRC_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>2</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">}<sp/><ref refid="group____cam__device__fusa_1gaa9a1a78d01d147950e7ae0e165f509e5" kindref="member">CamDeviceFusaCrcLevel_t</ref>;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="104" refid="group____cam__device__fusa_1ga23935a6f707d18cd3daf1f57d5b2bc01" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="group____cam__device__fusa_1ga23935a6f707d18cd3daf1f57d5b2bc01" kindref="member">CamDeviceFusaCrcReverseMode_e</ref></highlight></codeline>
+<codeline lineno="105"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="106" refid="group____cam__device__fusa_1gga23935a6f707d18cd3daf1f57d5b2bc01a6514ada44fab55534b72e8fc5cc257e6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__fusa_1gga23935a6f707d18cd3daf1f57d5b2bc01a6514ada44fab55534b72e8fc5cc257e6" kindref="member">CAMDEV_FUSA_CRC_NOT_REVERSE</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="107" refid="group____cam__device__fusa_1gga23935a6f707d18cd3daf1f57d5b2bc01a06af1b92194a583ca1e5878d1e8d653b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__fusa_1gga23935a6f707d18cd3daf1f57d5b2bc01a06af1b92194a583ca1e5878d1e8d653b" kindref="member">CAMDEV_FUSA_CRC_TOTAL_REVERSE</ref><sp/><sp/><sp/><sp/><sp/>=<sp/>1,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108" refid="group____cam__device__fusa_1gga23935a6f707d18cd3daf1f57d5b2bc01ad0a57c3026def337cfb2afc152e3cf96" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__fusa_1gga23935a6f707d18cd3daf1f57d5b2bc01ad0a57c3026def337cfb2afc152e3cf96" kindref="member">CAMDEV_FUSA_CRC_BYTE_REVERSE</ref><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>2<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="109"><highlight class="normal">}<sp/><ref refid="group____cam__device__fusa_1gaf788bf45b56488599fb357905beb116b" kindref="member">CamDeviceFusaCrcReverseMode_t</ref>;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="116" refid="struct_cam_device_fault_inject_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_fault_inject_config__s" kindref="compound">CamDeviceFaultInjectConfig_s</ref></highlight></codeline>
+<codeline lineno="117"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="118" refid="struct_cam_device_fault_inject_config__s_1a70f846f437f96af2f6447cb2d036cac4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><ref refid="struct_cam_device_fault_inject_config__s_1a70f846f437f96af2f6447cb2d036cac4" kindref="member">ahbTimeOutEn</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="119" refid="struct_cam_device_fault_inject_config__s_1a0e39b7a688201096f903e2ae769438b2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><ref refid="struct_cam_device_fault_inject_config__s_1a0e39b7a688201096f903e2ae769438b2" kindref="member">dupEn</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="120" refid="struct_cam_device_fault_inject_config__s_1a6d7fa3b73aa4fe3fb5f2cc2d66eacb8d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><ref refid="struct_cam_device_fault_inject_config__s_1a6d7fa3b73aa4fe3fb5f2cc2d66eacb8d" kindref="member">ecc2bitEn</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="121" refid="struct_cam_device_fault_inject_config__s_1a32742f8018fe5871595711e74903a4ee" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><ref refid="struct_cam_device_fault_inject_config__s_1a32742f8018fe5871595711e74903a4ee" kindref="member">ecc1bitEn</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="122"><highlight class="normal">}<sp/><ref refid="group____cam__device__fusa_1gae55363337927f03651cdee9e79b77051" kindref="member">CamDeviceFaultInjectConfig_t</ref>;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="129" refid="struct_cam_device_fusa_crc_roi_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_fusa_crc_roi_config__s" kindref="compound">CamDeviceFusaCrcRoiConfig_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="130" refid="struct_cam_device_fusa_crc_roi_config__s_1a4bc5a5550b084c7f25478397c48bc4f9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_crc_roi_config__s_1a4bc5a5550b084c7f25478397c48bc4f9" kindref="member">crcRoiH</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="131" refid="struct_cam_device_fusa_crc_roi_config__s_1abd369c37e107518e9c969d7833a5843a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_crc_roi_config__s_1abd369c37e107518e9c969d7833a5843a" kindref="member">crcRoiV</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="132" refid="struct_cam_device_fusa_crc_roi_config__s_1a55dd6897c6030f630ba98df85e9c67fc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_crc_roi_config__s_1a55dd6897c6030f630ba98df85e9c67fc" kindref="member">crcRoiOffH</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="133" refid="struct_cam_device_fusa_crc_roi_config__s_1aee870ea8e7f804e8cfac89fb95ddf3ca" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_crc_roi_config__s_1aee870ea8e7f804e8cfac89fb95ddf3ca" kindref="member">crcRoiOffV</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="134"><highlight class="normal">}<sp/><ref refid="group____cam__device__fusa_1ga53b5eb39c9278795f8a8fcd0fc8d9d44" kindref="member">CamDeviceFusaCrcRoiConfig_t</ref>;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="141" refid="struct_cam_device_fusa_crc_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_fusa_crc_config__s" kindref="compound">CamDeviceFusaCrcConfig_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="142" refid="struct_cam_device_fusa_crc_config__s_1a66e24e48c1bdde1bcde901bd4da4b1a3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_crc_roi_config__s" kindref="compound">CamDeviceFusaCrcRoiConfig_t</ref><sp/><ref refid="struct_cam_device_fusa_crc_config__s_1a66e24e48c1bdde1bcde901bd4da4b1a3" kindref="member">crcMpRoi</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="143" refid="struct_cam_device_fusa_crc_config__s_1ab827a371ca4e0b23afa5a9ef47f8922e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_crc_roi_config__s" kindref="compound">CamDeviceFusaCrcRoiConfig_t</ref><sp/><ref refid="struct_cam_device_fusa_crc_config__s_1ab827a371ca4e0b23afa5a9ef47f8922e" kindref="member">crcSp1Roi</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="144" refid="struct_cam_device_fusa_crc_config__s_1a40fc3197a7c8ef1a6735a9643ec374a4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_crc_roi_config__s" kindref="compound">CamDeviceFusaCrcRoiConfig_t</ref><sp/><ref refid="struct_cam_device_fusa_crc_config__s_1a40fc3197a7c8ef1a6735a9643ec374a4" kindref="member">crcSp2Roi</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="146" refid="struct_cam_device_fusa_crc_config__s_1a7048fc3f3d9e2f21dd475dd77dc25c9c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__fusa_1gaa9a1a78d01d147950e7ae0e165f509e5" kindref="member">CamDeviceFusaCrcLevel_t</ref><sp/><ref refid="struct_cam_device_fusa_crc_config__s_1a7048fc3f3d9e2f21dd475dd77dc25c9c" kindref="member">crcLevel</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="148" refid="struct_cam_device_fusa_crc_config__s_1ac112e807a502066d24ef5cf4b9870987" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__fusa_1gaf788bf45b56488599fb357905beb116b" kindref="member">CamDeviceFusaCrcReverseMode_t</ref><sp/><ref refid="struct_cam_device_fusa_crc_config__s_1ac112e807a502066d24ef5cf4b9870987" kindref="member">crcInRevEnMode</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="149" refid="struct_cam_device_fusa_crc_config__s_1a77bae04347925d690b1874ea96986d5e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><ref refid="struct_cam_device_fusa_crc_config__s_1a77bae04347925d690b1874ea96986d5e" kindref="member">crcOutRevEn</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="150" refid="struct_cam_device_fusa_crc_config__s_1ad114ee7c7e5385b683c57c9cdbc51bf5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><ref refid="struct_cam_device_fusa_crc_config__s_1ad114ee7c7e5385b683c57c9cdbc51bf5" kindref="member">crcXorEn</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="151"><highlight class="normal">}<sp/><ref refid="group____cam__device__fusa_1ga2c02aff83c3f184bf8f7e0dfc85b0d02" kindref="member">CamDeviceFusaCrcConfig_t</ref>;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="158" refid="struct_cam_device_fusa_pixel_count_size__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_fusa_pixel_count_size__s" kindref="compound">CamDeviceFusaPixelCountSize_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="159" refid="struct_cam_device_fusa_pixel_count_size__s_1af0dd6c452e6a3b2b85092df487c48a0f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_fusa_pixel_count_size__s_1af0dd6c452e6a3b2b85092df487c48a0f" kindref="member">outH</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="160" refid="struct_cam_device_fusa_pixel_count_size__s_1a21c8a9fcdaf8067d5c4439508031c86d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_fusa_pixel_count_size__s_1a21c8a9fcdaf8067d5c4439508031c86d" kindref="member">outV</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="161"><highlight class="normal">}<sp/><ref refid="group____cam__device__fusa_1ga6692915875673c3ddb95086577c17587" kindref="member">CamDeviceFusaPixelCountSize_t</ref>;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="168" refid="struct_cam_device_fusa_pixel_count_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_fusa_pixel_count_config__s" kindref="compound">CamDeviceFusaPixelCountConfig_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="169" refid="struct_cam_device_fusa_pixel_count_config__s_1af09f1d64d8b83b97bdddd59f4dff3385" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_pixel_count_size__s" kindref="compound">CamDeviceFusaPixelCountSize_t</ref><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_pixel_count_config__s_1af09f1d64d8b83b97bdddd59f4dff3385" kindref="member">mrszSize</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="170" refid="struct_cam_device_fusa_pixel_count_config__s_1aef0724fb2b70709d308827ce1c5b7057" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_pixel_count_size__s" kindref="compound">CamDeviceFusaPixelCountSize_t</ref><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_pixel_count_config__s_1aef0724fb2b70709d308827ce1c5b7057" kindref="member">srsz1Size</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="171" refid="struct_cam_device_fusa_pixel_count_config__s_1a35659f64c5383d62062de62d60ed1c8a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_pixel_count_size__s" kindref="compound">CamDeviceFusaPixelCountSize_t</ref><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_pixel_count_config__s_1a35659f64c5383d62062de62d60ed1c8a" kindref="member">srsz2Size</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="172" refid="struct_cam_device_fusa_pixel_count_config__s_1a121a9042f22921b94a42517cc9074f8e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_pixel_count_size__s" kindref="compound">CamDeviceFusaPixelCountSize_t</ref><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_pixel_count_config__s_1a121a9042f22921b94a42517cc9074f8e" kindref="member">filtSize</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="173"><highlight class="normal">}<sp/><ref refid="group____cam__device__fusa_1ga0bc04bec2384d5d1e29faa268028251d" kindref="member">CamDeviceFusaPixelCountConfig_t</ref>;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="180" refid="struct_cam_device_fusa_bist_size__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_fusa_bist_size__s" kindref="compound">CamDeviceFusaBistSize_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="181" refid="struct_cam_device_fusa_bist_size__s_1ae9c52d9f8223615d52a0e431367a2992" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_fusa_bist_size__s_1ae9c52d9f8223615d52a0e431367a2992" kindref="member">tpgBistImgHblank</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="182" refid="struct_cam_device_fusa_bist_size__s_1a6a11d0024365f3662d4225a9cfd43e8d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_fusa_bist_size__s_1a6a11d0024365f3662d4225a9cfd43e8d" kindref="member">tpgBistImgVblank</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="183" refid="struct_cam_device_fusa_bist_size__s_1a3baf7cdbc838d6e7eb38a055a7108fc8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_fusa_bist_size__s_1a3baf7cdbc838d6e7eb38a055a7108fc8" kindref="member">tpgBistImgHsize</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="184" refid="struct_cam_device_fusa_bist_size__s_1a9984ef06a9d37d066f69a4eb71c1cc2e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_fusa_bist_size__s_1a9984ef06a9d37d066f69a4eb71c1cc2e" kindref="member">tpgBistImgVsize</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="185" refid="struct_cam_device_fusa_bist_size__s_1a63342bd84b6db8760fc9b75e944981ba" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_fusa_bist_size__s_1a63342bd84b6db8760fc9b75e944981ba" kindref="member">tpgBistSeed</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="186"><highlight class="normal">}<sp/><ref refid="group____cam__device__fusa_1gacb5d6bca9752dbcc0aef0dc3b78cfca2" kindref="member">CamDeviceFusaBistSize_t</ref>;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="193" refid="struct_cam_device_fusa_bist2_path_crc__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_fusa_bist2_path_crc__s" kindref="compound">CamDeviceFusaBist2PathCrc_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="194" refid="struct_cam_device_fusa_bist2_path_crc__s_1a8554449269322462be92e06ac0e30ec8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_fusa_bist2_path_crc__s_1a8554449269322462be92e06ac0e30ec8" kindref="member">yCrc</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="195" refid="struct_cam_device_fusa_bist2_path_crc__s_1afa1f4c35d900d90506f138c37f543c09" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_fusa_bist2_path_crc__s_1afa1f4c35d900d90506f138c37f543c09" kindref="member">cbCrc</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="196" refid="struct_cam_device_fusa_bist2_path_crc__s_1a58b2a6f12b9756a1fa26b775b8550fd2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_fusa_bist2_path_crc__s_1a58b2a6f12b9756a1fa26b775b8550fd2" kindref="member">crCrc</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="197"><highlight class="normal">}<sp/><ref refid="group____cam__device__fusa_1gae0698da3016707e452349daebdbd9c46" kindref="member">CamDeviceFusaBist2PathCrc_t</ref>;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="204" refid="struct_cam_device_fusa_bist_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_fusa_bist_config__s" kindref="compound">CamDeviceFusaBistConfig_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="205" refid="struct_cam_device_fusa_bist_config__s_1a27f3e26d14cb8684039c68151f7b773f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_bist_size__s" kindref="compound">CamDeviceFusaBistSize_t</ref><sp/><ref refid="struct_cam_device_fusa_bist_config__s_1a27f3e26d14cb8684039c68151f7b773f" kindref="member">tpgBistStage</ref>[3];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="206" refid="struct_cam_device_fusa_bist_config__s_1affcbb3f193c279519bbea74cbf78aab8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_fusa_bist_config__s_1affcbb3f193c279519bbea74cbf78aab8" kindref="member">bistCrcStage1Frm</ref>[3];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="207" refid="struct_cam_device_fusa_bist_config__s_1a013020f99356763ce4ed867352cd4053" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_fusa_bist_config__s_1a013020f99356763ce4ed867352cd4053" kindref="member">bistCrcStage2Frm</ref>[3];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="208" refid="struct_cam_device_fusa_bist_config__s_1a9155e93887fece515abf11ba9a2b04cb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_bist2_path_crc__s" kindref="compound">CamDeviceFusaBist2PathCrc_t</ref><sp/><ref refid="struct_cam_device_fusa_bist_config__s_1a9155e93887fece515abf11ba9a2b04cb" kindref="member">bistMpCrcStage3Frm</ref>[3];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="209" refid="struct_cam_device_fusa_bist_config__s_1a5feca67724174dd53854c02a7028f55a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_bist2_path_crc__s" kindref="compound">CamDeviceFusaBist2PathCrc_t</ref><sp/><ref refid="struct_cam_device_fusa_bist_config__s_1a5feca67724174dd53854c02a7028f55a" kindref="member">bistSp1CrcStage3Frm</ref>[3];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="210" refid="struct_cam_device_fusa_bist_config__s_1aa0812e3312e5efc7c1d450feb1bacd87" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_bist2_path_crc__s" kindref="compound">CamDeviceFusaBist2PathCrc_t</ref><sp/><ref refid="struct_cam_device_fusa_bist_config__s_1aa0812e3312e5efc7c1d450feb1bacd87" kindref="member">bistSp2CrcStage3Frm</ref>[3];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="211"><highlight class="normal">}<sp/><ref refid="group____cam__device__fusa_1ga7f6ba65e694d3ca36d7e63511077d1da" kindref="member">CamDeviceFusaBistConfig_t</ref>;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="231"><highlight class="normal">RESULT<sp/>VsiCamDeviceFusaFaultInjectEnable</highlight></codeline>
+<codeline lineno="232"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_fault_inject_config__s" kindref="compound">CamDeviceFaultInjectConfig_t</ref><sp/><sp/>*pConfig</highlight></codeline>
+<codeline lineno="235"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="253"><highlight class="normal">RESULT<sp/>VsiCamDeviceFusaEccEnable</highlight></codeline>
+<codeline lineno="254"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="256"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="274"><highlight class="normal">RESULT<sp/>VsiCamDeviceFusaEccDisable</highlight></codeline>
+<codeline lineno="275"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="277"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="295"><highlight class="normal">RESULT<sp/>VsiCamDeviceFusaPixelCountEnable</highlight></codeline>
+<codeline lineno="296"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="298"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="316"><highlight class="normal">RESULT<sp/>VsiCamDeviceFusaPixelCountDisable</highlight></codeline>
+<codeline lineno="317"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="319"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="337"><highlight class="normal">RESULT<sp/>VsiCamDeviceFusaPixelCountSetConfig</highlight></codeline>
+<codeline lineno="338"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="340"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="360"><highlight class="normal">RESULT<sp/>VsiCamDeviceFusaPixelCountGetConfig</highlight></codeline>
+<codeline lineno="361"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_pixel_count_config__s" kindref="compound">CamDeviceFusaPixelCountConfig_t</ref><sp/><sp/>*pConfig</highlight></codeline>
+<codeline lineno="364"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="384"><highlight class="normal">RESULT<sp/>VsiCamDeviceFusaTimeoutEnable</highlight></codeline>
+<codeline lineno="385"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pathEnable</highlight></codeline>
+<codeline lineno="388"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"></highlight></codeline>
+<codeline lineno="390"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="406"><highlight class="normal">RESULT<sp/>VsiCamDeviceFusaTimeoutDisable</highlight></codeline>
+<codeline lineno="407"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="409"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"></highlight></codeline>
+<codeline lineno="411"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="427"><highlight class="normal">RESULT<sp/>VsiCamDeviceFusaBistEnable</highlight></codeline>
+<codeline lineno="428"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="430"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"></highlight></codeline>
+<codeline lineno="432"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="448"><highlight class="normal">RESULT<sp/>VsiCamDeviceFusaBistDisable</highlight></codeline>
+<codeline lineno="449"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="451"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"></highlight></codeline>
+<codeline lineno="453"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="469"><highlight class="normal">RESULT<sp/>VsiCamDeviceFuSaBistPowerUpEnable</highlight></codeline>
+<codeline lineno="470"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="472"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"></highlight></codeline>
+<codeline lineno="474"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="490"><highlight class="normal">RESULT<sp/>VsiCamDeviceFuSaBistPowerUpDisable</highlight></codeline>
+<codeline lineno="491"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="493"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"></highlight></codeline>
+<codeline lineno="495"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="511"><highlight class="normal">RESULT<sp/>VsiCamDeviceFusaCrcEnable</highlight></codeline>
+<codeline lineno="512"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="514"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"></highlight></codeline>
+<codeline lineno="516"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="532"><highlight class="normal">RESULT<sp/>VsiCamDeviceFusaCrcDisable</highlight></codeline>
+<codeline lineno="533"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="535"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"></highlight></codeline>
+<codeline lineno="537"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="558"><highlight class="normal">RESULT<sp/>VsiCamDeviceFusaCrcSetConfig</highlight></codeline>
+<codeline lineno="559"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_crc_config__s" kindref="compound">CamDeviceFusaCrcConfig_t</ref><sp/><sp/>*pConfig</highlight></codeline>
+<codeline lineno="562"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="563"><highlight class="normal"></highlight></codeline>
+<codeline lineno="564"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="585"><highlight class="normal">RESULT<sp/>VsiCamDeviceFusaCrcGetConfig</highlight></codeline>
+<codeline lineno="586"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="587"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="588"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_crc_config__s" kindref="compound">CamDeviceFusaCrcConfig_t</ref><sp/><sp/>*pConfig</highlight></codeline>
+<codeline lineno="589"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="590"><highlight class="normal"></highlight></codeline>
+<codeline lineno="591"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="610"><highlight class="normal">RESULT<sp/>VsiCamDeviceFusaBistGetConfig</highlight></codeline>
+<codeline lineno="611"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="613"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_fusa_bist_config__s" kindref="compound">CamDeviceFusaBistConfig_t</ref><sp/><sp/>*pConfig</highlight></codeline>
+<codeline lineno="614"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="615"><highlight class="normal"></highlight></codeline>
+<codeline lineno="616"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="638"><highlight class="normal">RESULT<sp/>VsiCamDeviceFusaRegisterEventCb</highlight></codeline>
+<codeline lineno="639"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="640"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="641"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__fusa_1gae0dfb9776c1ecde24b23167db7841720" kindref="member">CamDeviceEventFunc_t</ref><sp/><sp/><sp/><sp/>func,</highlight></codeline>
+<codeline lineno="642"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pUserContext</highlight></codeline>
+<codeline lineno="643"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="644"><highlight class="normal"></highlight></codeline>
+<codeline lineno="645"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="664"><highlight class="normal">RESULT<sp/>VsiCamDeviceFusaDeRegisterEventCb</highlight></codeline>
+<codeline lineno="665"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="666"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="667"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="668"><highlight class="normal"></highlight></codeline>
+<codeline lineno="669"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="684"><highlight class="normal">RESULT<sp/>VsiCamDeviceFusaReset</highlight></codeline>
+<codeline lineno="685"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="686"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice</highlight></codeline>
+<codeline lineno="687"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="688"><highlight class="normal"></highlight></codeline>
+<codeline lineno="689"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="705"><highlight class="normal">RESULT<sp/>VsiCamDeviceFusaGetVersion</highlight></codeline>
+<codeline lineno="706"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="707"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="708"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pVersion</highlight></codeline>
+<codeline lineno="709"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="710"><highlight class="normal"></highlight></codeline>
+<codeline lineno="713"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="714"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="715"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="716"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="717"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h"/>
+  </compounddef>
+</doxygen>

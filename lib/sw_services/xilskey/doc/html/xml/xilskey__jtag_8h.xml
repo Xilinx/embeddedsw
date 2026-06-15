@@ -1,0 +1,505 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilskey__jtag_8h" kind="file">
+    <compoundname>xilskey_jtag.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xilskey__jscmd_8h" local="yes">xilskey_jscmd.h</includes>
+    <incdepgraph>
+      <node id="201">
+        <label>stdint.h</label>
+      </node>
+      <node id="200">
+        <label>stdlib.h</label>
+      </node>
+      <node id="199">
+        <label>xilskey_js.h</label>
+        <childnode refid="200" relation="include">
+        </childnode>
+        <childnode refid="201" relation="include">
+        </childnode>
+      </node>
+      <node id="196">
+        <label>xilskey_jtag.h</label>
+        <link refid="xilskey_jtag.h"/>
+        <childnode refid="197" relation="include">
+        </childnode>
+        <childnode refid="198" relation="include">
+        </childnode>
+      </node>
+      <node id="197">
+        <label>xil_types.h</label>
+      </node>
+      <node id="198">
+        <label>xilskey_jscmd.h</label>
+        <childnode refid="199" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Jtag API declarations</header>
+      <description><para>  </para></description>
+      <memberdef kind="function" id="xilskey__jtag_8h_1ab9559013f2a03d4ec9bf7ec77e50276a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void JtagInitGpio</definition>
+        <argsstring>(XilSKey_Register Register)</argsstring>
+        <name>JtagInitGpio</name>
+        <param>
+          <type>XilSKey_Register</type>
+          <declname>Register</declname>
+        </param>
+        <briefdescription>
+<para>&lt; Prototype declarations for Jtag API&apos;s </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jtag.h" line="22" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__jtag_8h_1a1dc74a348ad53ff89a2a1c457455038b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GpioConfig</definition>
+        <argsstring>(volatile unsigned long *addr, unsigned long mask, unsigned long val)</argsstring>
+        <name>GpioConfig</name>
+        <param>
+          <type>volatile unsigned long *</type>
+          <declname>addr</declname>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>mask</declname>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jtag.h" line="23" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__jtag_8h_1a679f7e8d71ad7dc330c2ace859a3d20a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int JtagServerInit</definition>
+        <argsstring>(XilSKey_EPl *PlInstancePtr)</argsstring>
+        <name>JtagServerInit</name>
+        <param>
+          <type><ref refid="struct_xil_s_key___e_pl" kindref="compound">XilSKey_EPl</ref> *</type>
+          <declname>PlInstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>JTAG Server Initialization routine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jtag.h" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" bodystart="1467" bodyend="1594"/>
+        <references refid="struct_xil_s_key___e_pl_1a2776f357478d389408d232913c1cbb53" compoundref="xilskey__jscmd_8h" startline="399">XilSKey_EPl::JtagMioTDI</references>
+        <references refid="struct_xil_s_key___e_pl_1af8f9f0570d4bfc7acacee027586f5e56" compoundref="xilskey__jscmd_8h" startline="403">XilSKey_EPl::JtagMioTDO</references>
+        <references refid="struct_xil_s_key___e_pl_1a96ac0343e25d5018afdf244e151b5774" compoundref="xilskey__jscmd_8h" startline="407">XilSKey_EPl::JtagMioTCK</references>
+        <references refid="struct_xil_s_key___e_pl_1aba077864dc5eaae499c2248fac346f25" compoundref="xilskey__jscmd_8h" startline="411">XilSKey_EPl::JtagMioTMS</references>
+        <references refid="struct_xil_s_key___e_pl_1a5df47267442068ab0ed0246010b830eb" compoundref="xilskey__jscmd_8h" startline="415">XilSKey_EPl::JtagMioMuxSel</references>
+        <references refid="struct_xil_s_key___e_pl_1a591d57563de0bf3d53980b2044668838" compoundref="xilskey__jscmd_8h" startline="419">XilSKey_EPl::JtagMuxSelLineDefVal</references>
+        <references refid="xilskey__jscmd_8c_1adbcca77303d5d6c281dbabec5a5f1ee3" compoundref="xilskey__jscmd_8c" startline="1405" endline="1465">JtagValidateMioPins</references>
+        <references refid="struct_xil_s_key___e_pl_1ae75b1daf8df1029358e5a15ab9bc26fe" compoundref="xilskey__jscmd_8h" startline="440">XilSKey_EPl::JtagGpioTDI</references>
+        <references refid="struct_xil_s_key___e_pl_1a4134bce2ab39d2d47673f291dcce73c2" compoundref="xilskey__jscmd_8h" startline="442">XilSKey_EPl::JtagGpioTDO</references>
+        <references refid="struct_xil_s_key___e_pl_1a05f212c85ea8dbd450f600aa21e6e8ed" compoundref="xilskey__jscmd_8h" startline="444">XilSKey_EPl::JtagGpioTMS</references>
+        <references refid="struct_xil_s_key___e_pl_1a0d11eb75b7c39d9dc0e78f024d614537" compoundref="xilskey__jscmd_8h" startline="446">XilSKey_EPl::JtagGpioTCK</references>
+        <references refid="struct_xil_s_key___e_pl_1ae55857a70dba305506c52fba852110ac" compoundref="xilskey__jscmd_8h" startline="433">XilSKey_EPl::HwmGpioReady</references>
+        <references refid="struct_xil_s_key___e_pl_1a56d91ced464348fec8f2a8fbce77bb7a" compoundref="xilskey__jscmd_8h" startline="428">XilSKey_EPl::HwmGpioStart</references>
+        <references refid="struct_xil_s_key___e_pl_1ac202d3a966a769834389ff7c6290b35d" compoundref="xilskey__jscmd_8h" startline="438">XilSKey_EPl::HwmGpioEnd</references>
+        <references refid="struct_xil_s_key___e_pl_1aab5460f2ce046d0465e58816aee2ec4c" compoundref="xilskey__jscmd_8h" startline="448">XilSKey_EPl::GpioInputCh</references>
+        <references refid="struct_xil_s_key___e_pl_1a48f629a0d571b0446bef0bdf880838b3" compoundref="xilskey__jscmd_8h" startline="450">XilSKey_EPl::GpioOutPutCh</references>
+        <references refid="struct_xil_s_key___e_pl_1ada4028ad814145b1809a2f88898aaecd" compoundref="xilskey__jscmd_8h" startline="423">XilSKey_EPl::JtagGpioID</references>
+        <references refid="xilskey__jscmd_8c_1a720bf1335f27d3a597b46ae1b938c106" compoundref="xilskey__jscmd_8c" startline="236" endline="319">JtagInitGpio</references>
+        <references refid="xilskey__jscmd_8c_1a84993b73c0bf1d71424fad91d4fdfbe7" compoundref="xilskey__jscmd_8c" startline="1254" endline="1267">js_init_zynq</references>
+        <references refid="xilskey__jscmd_8c_1ab98b09590119fe0a6ab338013f13528d" compoundref="xilskey__jscmd_8c" startline="111">js_printf</references>
+        <references refid="struct_xil_s_key___e_pl_1a38866931c81a58e00bcc5ddb97bc480f" compoundref="xilskey__jscmd_8h" startline="480">XilSKey_EPl::FpgaFlag</references>
+        <references refid="struct_xil_s_key___e_pl_1a9822db41ea7dafc7f6228f4993f290c8" compoundref="xilskey__jscmd_8h" startline="484">XilSKey_EPl::NumSlr</references>
+        <references refid="struct_xil_s_key___e_pl_1a4b9a790a0d2ce5fee937ab96fc48cb54" compoundref="xilskey__jscmd_8h" startline="486">XilSKey_EPl::MasterSlr</references>
+        <references refid="xilskey__bbram_8c_1ad332b969fb28da07cb32106cb4fbebf4" compoundref="xilskey__jscmd_8c" startline="104">XilSKeyJtag</references>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__jtag_8h_1add197d358ea1d6a6b731051027e475f5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int JtagValidateMioPins</definition>
+        <argsstring>(XilSKey_Register Register)</argsstring>
+        <name>JtagValidateMioPins</name>
+        <param>
+          <type>XilSKey_Register</type>
+          <declname>Register</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jtag.h" line="25" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__jtag_8h_1a8a1a649f81c76f0a81196ac2d6a411bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void JtagWrite</definition>
+        <argsstring>(unsigned char row, unsigned char bit)</argsstring>
+        <name>JtagWrite</name>
+        <param>
+          <type>unsigned char</type>
+          <declname>row</declname>
+        </param>
+        <param>
+          <type>unsigned char</type>
+          <declname>bit</declname>
+        </param>
+        <briefdescription>
+<para>JTAG Server Write routine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jtag.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" bodystart="1269" bodyend="1344"/>
+        <references refid="xilskey__jscmd_8c_1a78af9b51ba9fcca1fee4e43816ccf78f" compoundref="xilskey__jscmd_8c" startline="895" endline="913">jtag_navigate</references>
+        <references refid="xilskey__jscmd_8c_1aaebc31c432e1cd2d9ebdbaa0b06a4995" compoundref="xilskey__jscmd_8c" startline="876" endline="885">jtag_setPreAndPostPads</references>
+        <references refid="xilskey__jscmd_8c_1a50f568193dfe2570ed49e4e368725e2b" compoundref="xilskey__jscmd_8c" startline="612" endline="634">calcInstr</references>
+        <references refid="xilskey__jscmd_8c_1a7464db2af53dd1a43ebc36827189cb52" compoundref="xilskey__jscmd_8c" startline="923" endline="986">jtag_shift</references>
+        <references refid="xilskey__bbram_8c_1ad332b969fb28da07cb32106cb4fbebf4" compoundref="xilskey__jscmd_8c" startline="104">XilSKeyJtag</references>
+        <references refid="xilskey__jscmd_8c_1a3222cb7373329b7e49fb631629e297d4" compoundref="xilskey__jscmd_8c" startline="719" endline="733">setPin</references>
+        <references refid="xilskey__utils_8c_1ab2eaa24ca4b7d40aab0d75804d217616" compoundref="xilskey__utils_8c" startline="549" endline="559">XilSKey_Efuse_SetTimeOut</references>
+        <references refid="xilskey__utils_8c_1a2a71bd701b24852c007d5ebad8acc257" compoundref="xilskey__utils_8c" startline="576" endline="581">XilSKey_Efuse_IsTimerExpired</references>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__jtag_8h_1a59fd1f16ea68cca3d04d37883079e6f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void JtagRead</definition>
+        <argsstring>(unsigned char row, unsigned int *row_data, unsigned char marginOption)</argsstring>
+        <name>JtagRead</name>
+        <param>
+          <type>unsigned char</type>
+          <declname>row</declname>
+        </param>
+        <param>
+          <type>unsigned int *</type>
+          <declname>row_data</declname>
+        </param>
+        <param>
+          <type>unsigned char</type>
+          <declname>marginOption</declname>
+        </param>
+        <briefdescription>
+<para>JTAG Server Read routine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jtag.h" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" bodystart="1347" bodyend="1393"/>
+        <references refid="xilskey__jscmd_8c_1a78af9b51ba9fcca1fee4e43816ccf78f" compoundref="xilskey__jscmd_8c" startline="895" endline="913">jtag_navigate</references>
+        <references refid="xilskey__jscmd_8c_1aaebc31c432e1cd2d9ebdbaa0b06a4995" compoundref="xilskey__jscmd_8c" startline="876" endline="885">jtag_setPreAndPostPads</references>
+        <references refid="xilskey__jscmd_8c_1a50f568193dfe2570ed49e4e368725e2b" compoundref="xilskey__jscmd_8c" startline="612" endline="634">calcInstr</references>
+        <references refid="xilskey__jscmd_8c_1a7464db2af53dd1a43ebc36827189cb52" compoundref="xilskey__jscmd_8c" startline="923" endline="986">jtag_shift</references>
+        <references refid="xilskey__bbram_8c_1ad332b969fb28da07cb32106cb4fbebf4" compoundref="xilskey__jscmd_8c" startline="104">XilSKeyJtag</references>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__jtag_8h_1ad71fe773dff0bd882d39c2936e319c63" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int JtagWrite_Ultrascale</definition>
+        <argsstring>(u8 Row, u8 Bit, u8 Page, u8 Redundant)</argsstring>
+        <name>JtagWrite_Ultrascale</name>
+        <param>
+          <type>u8</type>
+          <declname>Row</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Bit</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Page</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Redundant</declname>
+        </param>
+        <briefdescription>
+<para>This function blows the fuse of Ultrascale with provided parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the row number of EFUSE to blow. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bit</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Specifies the bit location in the given row. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Page</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>tell the page of EFUSE in which the given row is located. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Redundant</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a flag to specify the bit to be programmed is Normal bit or Redundant bit.<itemizedlist>
+<listitem><para>Redundant - XSK_EFUSEPL_REDUNDANT_ULTRA</para></listitem><listitem><para>Normal - XSK_EFUSEPL_NORMAL_ULTRA</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jtag.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" bodystart="2296" bodyend="2370"/>
+        <references refid="xilskey__jscmd_8c_1a78af9b51ba9fcca1fee4e43816ccf78f" compoundref="xilskey__jscmd_8c" startline="895" endline="913">jtag_navigate</references>
+        <references refid="xilskey__jscmd_8c_1a50f568193dfe2570ed49e4e368725e2b" compoundref="xilskey__jscmd_8c" startline="612" endline="634">calcInstr</references>
+        <references refid="xilskey__jscmd_8c_1a7464db2af53dd1a43ebc36827189cb52" compoundref="xilskey__jscmd_8c" startline="923" endline="986">jtag_shift</references>
+        <references refid="xilskey__bbram_8c_1ad332b969fb28da07cb32106cb4fbebf4" compoundref="xilskey__jscmd_8c" startline="104">XilSKeyJtag</references>
+        <references refid="xilskey__epl_8c_1a48a8908e1f7d0df90b4ea73dfcd8c99b" compoundref="xilskey__epl_8c" startline="427">PlFpgaFlag</references>
+        <references refid="xilskey__utils_8c_1a3f78c13955deedf337289569a5dc0387" compoundref="xilskey__utils_8c" startline="472" endline="497">XilSKey_Efuse_StartTimer</references>
+        <references refid="xilskey__utils_8c_1a2a71bd701b24852c007d5ebad8acc257" compoundref="xilskey__utils_8c" startline="576" endline="581">XilSKey_Efuse_IsTimerExpired</references>
+        <references refid="xilskey__utils_8c_1a82232deb8afce5110fd62446f36c26b2" compoundref="xilskey__utils_8c" startline="97">TimerTicksfor1000ns</references>
+        <references refid="xilskey__jscmd_8c_1a3222cb7373329b7e49fb631629e297d4" compoundref="xilskey__jscmd_8c" startline="719" endline="733">setPin</references>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__jtag_8h_1a2740a0531078952f78e0b2680f62cd1a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void JtagRead_Ultrascale</definition>
+        <argsstring>(u8 Row, u32 *RowData, u8 MarginOption, u8 Page, u8 Redundant)</argsstring>
+        <name>JtagRead_Ultrascale</name>
+        <param>
+          <type>u8</type>
+          <declname>Row</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>RowData</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>MarginOption</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Page</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Redundant</declname>
+        </param>
+        <briefdescription>
+<para>This function reads entire row of Ultrascale&apos;s EFUSE. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the row number of EFUSE. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MarginOption</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a variable which tells the margin option in which read operation to be performed. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Page</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>tell the page of EFUSE in which the given row is located. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Redundant</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a flag to specify the bit to be programmed is Normal bit or Redundant bit.<itemizedlist>
+<listitem><para>Redundant - XSK_EFUSEPL_REDUNDANT_ULTRA</para></listitem><listitem><para>Normal - XSK_EFUSEPL_NORMAL_ULTRA This variable is not valid for Ultrascale plus as each row contains both redundant and normal bits upper 16 are redundant.</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Method to read FUSE register in Direct Macro Access way. Go to TLR to clear FUSE_CTS Load FUSE_CTS instruction on IR Step to CDR/SDR to shift in 32-bits FUSE_CTS command word Shift in MAGIC_CTS_WRITE &quot;FEED28AC&quot; for ultrascale Read 64 bit data in IR read state. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jtag.h" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" bodystart="2398" bodyend="2443"/>
+        <references refid="xilskey__jscmd_8c_1a78af9b51ba9fcca1fee4e43816ccf78f" compoundref="xilskey__jscmd_8c" startline="895" endline="913">jtag_navigate</references>
+        <references refid="xilskey__jscmd_8c_1a50f568193dfe2570ed49e4e368725e2b" compoundref="xilskey__jscmd_8c" startline="612" endline="634">calcInstr</references>
+        <references refid="xilskey__jscmd_8c_1a7464db2af53dd1a43ebc36827189cb52" compoundref="xilskey__jscmd_8c" startline="923" endline="986">jtag_shift</references>
+        <references refid="xilskey__bbram_8c_1ad332b969fb28da07cb32106cb4fbebf4" compoundref="xilskey__jscmd_8c" startline="104">XilSKeyJtag</references>
+        <references refid="xilskey__epl_8c_1a48a8908e1f7d0df90b4ea73dfcd8c99b" compoundref="xilskey__epl_8c" startline="427">PlFpgaFlag</references>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__jtag_8h_1a81be870dc9cfe995815d14bc106473a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void JtagRead_Status_Ultrascale</definition>
+        <argsstring>(u32 *Rowdata)</argsstring>
+        <name>JtagRead_Status_Ultrascale</name>
+        <param>
+          <type>u32 *</type>
+          <declname>Rowdata</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the status row of Ultrascale&apos;s EFUSE and updates the pointer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Rowdata</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a 32 bit variable which stores the status register value read from EFUSE status register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Method to read FUSE register in Direct Macro Access way. For reading the status values we need send the bitstream in shift DR state. Shift in MAGIC_CTS_WRITE &quot;FEED28AC&quot; for ultrascale Read 64 bit data in IR read state. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jtag.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" bodystart="2463" bodyend="2532"/>
+        <references refid="xilskey__jscmd_8c_1a78af9b51ba9fcca1fee4e43816ccf78f" compoundref="xilskey__jscmd_8c" startline="895" endline="913">jtag_navigate</references>
+        <references refid="xilskey__jscmd_8c_1a50f568193dfe2570ed49e4e368725e2b" compoundref="xilskey__jscmd_8c" startline="612" endline="634">calcInstr</references>
+        <references refid="xilskey__jscmd_8c_1a7464db2af53dd1a43ebc36827189cb52" compoundref="xilskey__jscmd_8c" startline="923" endline="986">jtag_shift</references>
+        <references refid="xilskey__bbram_8c_1ad332b969fb28da07cb32106cb4fbebf4" compoundref="xilskey__jscmd_8c" startline="104">XilSKeyJtag</references>
+        <references refid="xilskey__utils_8c_1a7577067134914b99bca5e54b62bd4e6f" compoundref="xilskey__utils_8c" startline="1344" endline="1362">XilSKey_Efuse_ReverseHex</references>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__jtag_8h_1a65f94f046816b7e5dddb8e06dcfa0db0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Jtag_Read_Sysmon</definition>
+        <argsstring>(u8 Row, u32 *Row_Data)</argsstring>
+        <name>Jtag_Read_Sysmon</name>
+        <param>
+          <type>u8</type>
+          <declname>Row</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Row_Data</declname>
+        </param>
+        <briefdescription>
+<para>This function reads temperature and voltage of Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the row number to read. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Row_Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a variable, to store the read value of given row.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jtag.h" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" bodystart="2241" bodyend="2276"/>
+        <references refid="xilskey__jscmd_8c_1a78af9b51ba9fcca1fee4e43816ccf78f" compoundref="xilskey__jscmd_8c" startline="895" endline="913">jtag_navigate</references>
+        <references refid="xilskey__jscmd_8c_1a50f568193dfe2570ed49e4e368725e2b" compoundref="xilskey__jscmd_8c" startline="612" endline="634">calcInstr</references>
+        <references refid="xilskey__jscmd_8c_1a7464db2af53dd1a43ebc36827189cb52" compoundref="xilskey__jscmd_8c" startline="923" endline="986">jtag_shift</references>
+        <references refid="xilskey__bbram_8c_1ad332b969fb28da07cb32106cb4fbebf4" compoundref="xilskey__jscmd_8c" startline="104">XilSKeyJtag</references>
+        <references refid="xilskey__jscmd_8c_1a3222cb7373329b7e49fb631629e297d4" compoundref="xilskey__jscmd_8c" startline="719" endline="733">setPin</references>
+        <referencedby refid="xilskey__utils_8c_1aff812a4c70a44e09397fbf6bad6f0536" compoundref="xilskey__utils_8c" startline="318" endline="409">XilSKey_EfusePs_XAdcReadTemperatureAndVoltage</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__jtag_8h_1a2240f1d411f1eef6605ee6da1426c5ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 JtagAES_Check_Ultrascale</definition>
+        <argsstring>(u32 *Crc, u8 MarginOption)</argsstring>
+        <name>JtagAES_Check_Ultrascale</name>
+        <param>
+          <type>u32 *</type>
+          <declname>Crc</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>MarginOption</declname>
+        </param>
+        <briefdescription>
+<para>This function verifies the AES key of Ultrascale&apos;s EFUSE with provided CRC value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Crc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a 32 bit variable which holds the expected AES key&apos;s CRC. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MarginOption</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a variable which tells the margin option in which read operation to be performed.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns XST_FAILURE/XST_SUCCESS<itemizedlist>
+<listitem><para>XST_SUCCESS - If CRC is correct</para></listitem><listitem><para>XST_FAILURE - If CRC is wrong</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>To verify AES key with provided CRC 256 bits need to be written with all ZEROS and last 32 bits with CRC. And then CTS word should be framed and read 9 rows. The keys are stored in 8 rows (20 to 27) but in UltraScale the device will read all 1s. On the 9th read (row 28), the CRC computation takes place. An extra read after the 9th read is required to read the computed CRC out (can use last row addr of 28 or row 0). The FPGA internally compares the computed CRC with the expected CRC loaded through the FUSE_KEY operation. If they match, then the expected CRC is read. If not, the FPGA will return all 1s. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jtag.h" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" bodystart="2563" bodyend="2685"/>
+        <references refid="xilskey__jscmd_8c_1a78af9b51ba9fcca1fee4e43816ccf78f" compoundref="xilskey__jscmd_8c" startline="895" endline="913">jtag_navigate</references>
+        <references refid="xilskey__jscmd_8c_1a50f568193dfe2570ed49e4e368725e2b" compoundref="xilskey__jscmd_8c" startline="612" endline="634">calcInstr</references>
+        <references refid="xilskey__jscmd_8c_1a7464db2af53dd1a43ebc36827189cb52" compoundref="xilskey__jscmd_8c" startline="923" endline="986">jtag_shift</references>
+        <references refid="xilskey__bbram_8c_1ad332b969fb28da07cb32106cb4fbebf4" compoundref="xilskey__jscmd_8c" startline="104">XilSKeyJtag</references>
+        <references refid="xilskey__epl_8c_1a48a8908e1f7d0df90b4ea73dfcd8c99b" compoundref="xilskey__epl_8c" startline="427">PlFpgaFlag</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2013<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XILSKEY_JTAG_H</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILSKEY_JTAG_H</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xilskey_jscmd.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xilskey__jscmd_8c_1a720bf1335f27d3a597b46ae1b938c106" kindref="member">JtagInitGpio</ref>(XilSKey_Register<sp/>Register);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xilskey__jscmd_8c_1adfdc5e0b4e81acdf215e108b6f84ac56" kindref="member">GpioConfig</ref>(</highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>*addr,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>mask,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>val);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xilskey__epl_8c_1a679f7e8d71ad7dc330c2ace859a3d20a" kindref="member">JtagServerInit</ref>(<ref refid="struct_xil_s_key___e_pl" kindref="compound">XilSKey_EPl</ref><sp/>*PlInstancePtr);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xilskey__jscmd_8c_1adbcca77303d5d6c281dbabec5a5f1ee3" kindref="member">JtagValidateMioPins</ref>(XilSKey_Register<sp/>Register);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xilskey__epl_8c_1a8a1a649f81c76f0a81196ac2d6a411bc" kindref="member">JtagWrite</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>row,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>bit);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xilskey__epl_8c_1a59fd1f16ea68cca3d04d37883079e6f4" kindref="member">JtagRead</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>row,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*<sp/>row_data,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>marginOption);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xilskey__epl_8c_1ad71fe773dff0bd882d39c2936e319c63" kindref="member">JtagWrite_Ultrascale</ref>(u8<sp/>Row,<sp/>u8<sp/>Bit,<sp/>u8<sp/>Page,<sp/>u8<sp/>Redundant);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xilskey__epl_8c_1a2740a0531078952f78e0b2680f62cd1a" kindref="member">JtagRead_Ultrascale</ref>(u8<sp/>Row,<sp/>u32<sp/>*RowData,<sp/>u8<sp/>MarginOption,</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Page,<sp/>u8<sp/>Redundant);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xilskey__epl_8c_1a81be870dc9cfe995815d14bc106473a7" kindref="member">JtagRead_Status_Ultrascale</ref>(u32<sp/>*Rowdata);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xilskey__jscmd_8c_1a65f94f046816b7e5dddb8e06dcfa0db0" kindref="member">Jtag_Read_Sysmon</ref>(u8<sp/>Row,<sp/>u32<sp/>*Row_Data);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal">u32<sp/><ref refid="xilskey__epl_8c_1a2240f1d411f1eef6605ee6da1426c5ba" kindref="member">JtagAES_Check_Ultrascale</ref>(u32<sp/>*Crc,<sp/>u8<sp/>MarginOption);</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*XILSKEY_JTAG_H*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jtag.h"/>
+  </compounddef>
+</doxygen>

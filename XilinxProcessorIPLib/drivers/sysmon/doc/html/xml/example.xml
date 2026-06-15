@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use sysmon driver.</para><sect1 id="example_1ex1">
+<title>xsysmon_extmux_example.c</title>
+<para>Contains an example on how to use the XSysmon driver directly. This example shows the usage of the driver/device in interrupt mode with external mux and XADC in Simulateneous Sequencer mode.</para><para>For details, see <ref refid="xsysmon__extmux__example_8c" kindref="compound">xsysmon_extmux_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xsysmon_intr_example.c</title>
+<para>Contains an example on how to use the XSysmon driver directly. This example shows the usage of the driver/device in interrupt mode to handle on-chip temperature and voltage alarm interrupts.</para><para>For details, see <ref refid="xsysmon__intr__example_8c" kindref="compound">xsysmon_intr_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xsysmon_intr_printf_example.c</title>
+<para>Contains an example on how to use the XSysmon driver directly. This example shows the usage of the driver/device in interrupt mode to handle on-chip temperature and voltage alarm interrupts and assumes that there is a STDIO device in the system. This example has floating point calculations and uses printfs for outputting floating point data.</para><para>For details, see <ref refid="xsysmon__intr__printf__example_8c" kindref="compound">xsysmon_intr_printf_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex4">
+<title>xsysmon_low_level_example.c</title>
+<para>Contains an example on how to use the XSysmon driver directly. This example contains the basic driver functions of the sysmon driver to check the on-chip temperature and voltages.</para><para>For details, see <ref refid="xsysmon__low__level__example_8c" kindref="compound">xsysmon_low_level_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex5">
+<title>xsysmon_polled_example.c</title>
+<para>Contains an example on how to use the XSysmon driver directly. This example uses the driver/device in polled mode to check the on-chip temperature and voltages.</para><para>For details, see <ref refid="xsysmon__polled__example_8c" kindref="compound">xsysmon_polled_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex6">
+<title>xsysmon_polled_printf_example.c</title>
+<para>Contains an example on how to use the XSysmon driver directly. This example uses the driver/device in polled mode to check the on-chip temperature and voltages and assumes that there is a STDIO device in the system.</para><para>For details, see <ref refid="xsysmon__polled__printf__example_8c" kindref="compound">xsysmon_polled_printf_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex7">
+<title>xsysmon_single_ch_intr_example.c</title>
+<para>Contains an example on how to use the XSysmon driver directly. This example shows the usage of the driver/device in single channel interrupt mode to handle End of Conversion(EOC) and VCCINT alarm interrupts.</para><para>For details, see <ref refid="xsysmon__single__ch__intr__example_8c" kindref="compound">xsysmon_single_ch_intr_example.c</ref>. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

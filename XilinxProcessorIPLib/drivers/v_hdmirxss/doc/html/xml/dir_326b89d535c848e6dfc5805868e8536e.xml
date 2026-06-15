@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_326b89d535c848e6dfc5805868e8536e" kind="dir">
+    <compoundname>RepeaterProfessional</compoundname>
+    <innerfile refid="_repeater_professional_2xhdcp_8c">RepeaterProfessional/xhdcp.c</innerfile>
+    <innerfile refid="_repeater_professional_2xhdcp_8h">RepeaterProfessional/xhdcp.h</innerfile>
+    <innerfile refid="_repeater_professional_2xhdmi__example_8c">RepeaterProfessional/xhdmi_example.c</innerfile>
+    <innerfile refid="_repeater_professional_2xhdmi__example_8h">RepeaterProfessional/xhdmi_example.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/RepeaterProfessional/"/>
+  </compounddef>
+</doxygen>

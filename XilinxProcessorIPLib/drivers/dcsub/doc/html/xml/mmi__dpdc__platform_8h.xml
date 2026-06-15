@@ -1,0 +1,426 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mmi__dpdc__platform_8h" kind="file">
+    <compoundname>mmi_dpdc_platform.h</compoundname>
+    <includes refid="xdcsub_8h" local="yes">xdcsub.h</includes>
+    <includes refid="mmi__dc__nonlive__test_8h" local="yes">mmi_dc_nonlive_test.h</includes>
+    <includedby refid="mmi__dc__nonlive__test_8c" local="yes">mmi_dc_nonlive_test.c</includedby>
+    <includedby refid="mmi__dp__init_8c" local="yes">mmi_dp_init.c</includedby>
+    <includedby refid="mmi__dpdc__menus_8c" local="yes">mmi_dpdc_menus.c</includedby>
+    <includedby refid="mmi__dpdc__platform_8c" local="yes">mmi_dpdc_platform.c</includedby>
+    <incdepgraph>
+      <node id="487">
+        <label>xclk_wiz.h</label>
+      </node>
+      <node id="489">
+        <label>mmi_dpdc_example.h</label>
+        <link refid="mmi__dpdc__example_8h"/>
+        <childnode refid="480" relation="include">
+        </childnode>
+        <childnode refid="483" relation="include">
+        </childnode>
+        <childnode refid="479" relation="include">
+        </childnode>
+        <childnode refid="488" relation="include">
+        </childnode>
+        <childnode refid="490" relation="include">
+        </childnode>
+      </node>
+      <node id="482">
+        <label>xil_io.h</label>
+      </node>
+      <node id="485">
+        <label>mmi_dc_nonlive_test.h</label>
+        <link refid="mmi__dc__nonlive__test_8h"/>
+        <childnode refid="486" relation="include">
+        </childnode>
+        <childnode refid="487" relation="include">
+        </childnode>
+        <childnode refid="479" relation="include">
+        </childnode>
+        <childnode refid="488" relation="include">
+        </childnode>
+        <childnode refid="489" relation="include">
+        </childnode>
+      </node>
+      <node id="479">
+        <label>xdcsub.h</label>
+        <link refid="xdcsub_8h"/>
+        <childnode refid="480" relation="include">
+        </childnode>
+        <childnode refid="483" relation="include">
+        </childnode>
+      </node>
+      <node id="480">
+        <label>xdc.h</label>
+        <link refid="xdc_8h"/>
+        <childnode refid="481" relation="include">
+        </childnode>
+      </node>
+      <node id="486">
+        <label>xinterrupt_wrap.h</label>
+      </node>
+      <node id="488">
+        <label>xmmidp.h</label>
+      </node>
+      <node id="481">
+        <label>xdc_hw.h</label>
+        <link refid="xdc__hw_8h"/>
+        <childnode refid="482" relation="include">
+        </childnode>
+      </node>
+      <node id="490">
+        <label>xparameters.h</label>
+      </node>
+      <node id="478">
+        <label>mmi_dpdc_platform.h</label>
+        <link refid="mmi_dpdc_platform.h"/>
+        <childnode refid="479" relation="include">
+        </childnode>
+        <childnode refid="485" relation="include">
+        </childnode>
+      </node>
+      <node id="484">
+        <label>xdcdma_hw.h</label>
+        <link refid="xdcdma__hw_8h"/>
+        <childnode refid="482" relation="include">
+        </childnode>
+      </node>
+      <node id="483">
+        <label>xdcdma.h</label>
+        <link refid="xdcdma_8h"/>
+        <childnode refid="484" relation="include">
+        </childnode>
+        <childnode refid="480" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="492">
+        <label>mmi_dc_nonlive_test.c</label>
+        <link refid="mmi__dc__nonlive__test_8c"/>
+      </node>
+      <node id="494">
+        <label>mmi_dpdc_menus.c</label>
+        <link refid="mmi__dpdc__menus_8c"/>
+      </node>
+      <node id="495">
+        <label>mmi_dpdc_platform.c</label>
+        <link refid="mmi__dpdc__platform_8c"/>
+      </node>
+      <node id="491">
+        <label>mmi_dpdc_platform.h</label>
+        <link refid="mmi_dpdc_platform.h"/>
+        <childnode refid="492" relation="include">
+        </childnode>
+        <childnode refid="493" relation="include">
+        </childnode>
+        <childnode refid="494" relation="include">
+        </childnode>
+        <childnode refid="495" relation="include">
+        </childnode>
+      </node>
+      <node id="493">
+        <label>mmi_dp_init.c</label>
+        <link refid="mmi__dp__init_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="mmi__dpdc__platform_8h_1aeca10c820afc78493d72ed5acd7e2424" prot="public" static="no">
+        <name>MMI_DPDC_PLATFORM_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_platform.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_platform.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dpdc__platform_8h_1a820a9ffb482433d5bf150c41fb4b0cb3" prot="public" static="no">
+        <name>DC_BASEADDR</name>
+        <initializer>0xEDD00000</initializer>
+        <briefdescription>
+<para>DC base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_platform.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_platform.h" bodystart="40" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" compoundref="mmi__dpdc__menus_8c" startline="1723" endline="1879">XDpDc_InitConfigDefaults</referencedby>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dpdc__platform_8h_1a92d4750e03f47f27bf5b6974d9e8c589" prot="public" static="no">
+        <name>DCDMA_BASEADDR</name>
+        <initializer>0xEDD10000</initializer>
+        <briefdescription>
+<para>DC DMA base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_platform.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_platform.h" bodystart="41" bodyend="-1"/>
+        <referencedby refid="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" compoundref="mmi__dpdc__platform_8c" startline="213" endline="298">XDpDc_InitDcSubsystem</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dpdc__platform_8h_1a349f03f1e2239c2b388f2448f6799ad5" prot="public" static="no">
+        <name>DP_BASEADDR</name>
+        <initializer>0xEDE00000</initializer>
+        <briefdescription>
+<para>DP base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_platform.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_platform.h" bodystart="42" bodyend="-1"/>
+        <referencedby refid="mmi__dp__init_8h_1ad006bfc4aa600e15be560f77afbe3870" compoundref="mmi__dp__init_8c" startline="646" endline="670">XDpDc_InitDpPsuSubsystem</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="mmi__dpdc__platform_8h_1afb1082b4c36973e2b9b85babe0661147" prot="public" static="no" mutable="no">
+        <type>XDcDma_Descriptor *</type>
+        <definition>XDcDma_Descriptor* AudDesc0</definition>
+        <argsstring></argsstring>
+        <name>AudDesc0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_platform.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_nonlive_test.c" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="mmi__dpdc__platform_8h_1a8b8cd17d4698a62cb90da0e9d0f97b4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XClk_WaitForLock</definition>
+        <argsstring>(XClk_Wiz_Config *CfgPtr)</argsstring>
+        <name>XClk_WaitForLock</name>
+        <param>
+          <type>XClk_Wiz_Config *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function waits for the clock wizard to lock. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the clock wizard configuration</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if locked, else XST_FAILURE</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_platform.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_platform.c" bodystart="77" bodyend="89"/>
+        <referencedby refid="mmi__dpdc__platform_8h_1a1acaf857e04799cc985d19389fe5ea3f" compoundref="mmi__dpdc__platform_8c" startline="103" endline="198">XDpDc_InitClkWiz</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dpdc__platform_8h_1a1acaf857e04799cc985d19389fe5ea3f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDpDc_InitClkWiz</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_InitClkWiz</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the Clock Wizard IP for video and audio clocks. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the application configuration structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_platform.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_platform.c" bodystart="103" bodyend="198"/>
+        <references refid="struct_run_config_1a0919eff7fd55f675afb7235c6c9936c0" compoundref="mmi__dpdc__example_8h" startline="117">RunConfig::AudioEnable</references>
+        <references refid="struct_run_config_1a6dd3cf00b1ae6c5771e848baa6d63380" compoundref="mmi__dpdc__example_8h" startline="109">RunConfig::PixelClkHz</references>
+        <references refid="mmi__dpdc__platform_8c_1a8b8cd17d4698a62cb90da0e9d0f97b4f" compoundref="mmi__dpdc__platform_8c" startline="77" endline="89">XClk_WaitForLock</references>
+        <referencedby refid="mmi__dpdc__platform_8h_1a6c8520e6ad77827c7068054bf7ef0a0c" compoundref="mmi__dpdc__platform_8c" startline="337" endline="368">XDpDc_InitPlatform</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDpDc_InitDcSubsystem</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_InitDcSubsystem</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the Display Controller Subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the application configuration structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_platform.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_platform.c" bodystart="213" bodyend="298"/>
+        <references refid="struct_run_config_1a0919eff7fd55f675afb7235c6c9936c0" compoundref="mmi__dpdc__example_8h" startline="117">RunConfig::AudioEnable</references>
+        <references refid="struct_run_config_1a692d2f317f78449f14ef9d286430464c" compoundref="mmi__dpdc__example_8h" startline="116">RunConfig::CursorEnable</references>
+        <references refid="mmi__dpdc__platform_8h_1a92d4750e03f47f27bf5b6974d9e8c589" compoundref="mmi__dpdc__platform_8h" startline="41">DCDMA_BASEADDR</references>
+        <references refid="struct_run_config_1a155539680243341a34acb114b0333b41" compoundref="mmi__dpdc__example_8h" startline="84">RunConfig::DcSubPtr</references>
+        <references refid="struct_run_config_1a975268f253882e0520fa0cfc7695f233" compoundref="mmi__dpdc__example_8h" startline="135">RunConfig::operatingmode</references>
+        <references refid="struct_run_config_1a9983481d9e3ae8274b831da8fc715586" compoundref="mmi__dpdc__example_8h" startline="136">RunConfig::presentationmode</references>
+        <references refid="struct_run_config_1a032bc36376350b1ba5419e18d1f357ec" compoundref="mmi__dpdc__example_8h" startline="119">RunConfig::SdpEnable</references>
+        <references refid="struct_run_config_1a9dcb790be7d6e267162fe3c907e25cec" compoundref="mmi__dpdc__example_8h" startline="113">RunConfig::Stream1Format</references>
+        <references refid="struct_run_config_1a9684f9c86831c32d790b11e6aefe170f" compoundref="mmi__dpdc__example_8h" startline="114">RunConfig::Stream2Format</references>
+        <references refid="group__mmi__dc_1gaf8ca72ffe30a09dbb401027f7f28acdf" compoundref="xdc_8c" startline="1492" endline="1500">XDc_AudClkSelect</references>
+        <references refid="group__mmi__dc_1ga794379ccc9b38c7b8194d85fc3573b0b" compoundref="xdc_8c" startline="1019" endline="1034">XDc_AudioSoftReset</references>
+        <references refid="group__mmi__dc_1gae47a85e818e8ee672ba51f4963562ef5" compoundref="xdc_8c" startline="308" endline="320">XDc_GetNonLiveVideoAttribute</references>
+        <references refid="group__mmi__dc_1ga90f3d27153f1ac50925b330a18cf7ae9" compoundref="xdc_8c" startline="1566" endline="1581">XDc_SetVideoTiming</references>
+        <references refid="group__mmi__dc_1gab4cd4993791a597d2ac0d3a7c22aebc7" compoundref="xdc_8c" startline="1188" endline="1197">XDc_SetVidFrameSwitch</references>
+        <references refid="group__mmi__dc_1ga89c7b49b012d64ddaf9e0b8b53c780f8" compoundref="xdc_8c" startline="906" endline="914">XDc_VidClkSelect</references>
+        <references refid="group__mmi__dc_1gafbc4f430f4a9ad854199a7d76ab574e5" compoundref="xdc_8c" startline="887" endline="896">XDc_VideoSoftReset</references>
+        <references refid="group__mmi__dcdma_1ga3416ce41bac7a473de1c1b9665019800" compoundref="xdcdma_8c" startline="60" endline="85">XDcDma_CfgInitialize</references>
+        <references refid="group__mmi__dcdma_1ga5d173da16718d01d9ef53fc5d424678a" compoundref="xdcdma_8c" startline="118" endline="131">XDcDma_WriteProtDisable</references>
+        <references refid="xdcsub_8c_1a4e69f4103855f57e2eae9266a6c316b3" compoundref="xdcsub_8c" startline="1433" endline="1495">XDcSub_ConfigureDcVideo</references>
+        <references refid="xdcsub_8c_1a2f68f49cec96f2a3fa4cbd27a348b89a" compoundref="xdcsub_8c" startline="96" endline="124">XDcSub_Initialize</references>
+        <references refid="xdcsub_8h_1ae597de7272868cb833836a0ac24d526e" compoundref="xdcsub_8h" startline="62">XDCSUB_OPMODE_FUNCTIONAL</references>
+        <references refid="xdcsub_8h_1a6cb44f3425f061c17f2dd5337492806d" compoundref="xdcsub_8h" startline="85">XDCSUB_PPTMODE_LIVE</references>
+        <references refid="xdcsub_8h_1a108493c2d797aaed71f2875851b21826" compoundref="xdcsub_8h" startline="91">XDCSUB_PPTMODE_MIXED</references>
+        <references refid="xdcsub_8h_1ae409b0550fbe622ad94d01f552d285a3" compoundref="xdcsub_8h" startline="80">XDCSUB_PPTMODE_NONLIVE</references>
+        <references refid="mmi__dc__cursor_8c_1a49e1fbf2f34f8ee299d6ef8a937da5e3" compoundref="mmi__dc__cursor_8c" startline="195" endline="203">XDpDc_ConfigureCursorDMA</references>
+        <references refid="mmi__dc__sdp_8c_1a240b6c0f914f3d9d2b36cac409c9e195" compoundref="mmi__dc__sdp_8c" startline="147" endline="155">XDpDc_ConfigureSdpDMA</references>
+        <references refid="mmi__dc__setup__frames_8c_1adc1413b4d5cdc6a62f4cd6e75fd661ca" compoundref="mmi__dc__setup__frames_8c" startline="658" endline="663">XDpDc_SetupCursorDescriptor</references>
+        <references refid="mmi__dc__sdp_8c_1a28b48cdbc4ab2b26acfcd928d511b14a" compoundref="mmi__dc__sdp_8c" startline="128" endline="133">XDpDc_SetupSdpDescriptor</references>
+        <references refid="mmi__dc__setup__frames_8c_1aebd7ac73b079a58f72ecacdc1bfef5f1" compoundref="mmi__dc__setup__frames_8c" startline="569" endline="597">XDpDc_SetupStream1Descriptors</references>
+        <references refid="mmi__dc__setup__frames_8c_1a2638411c2ae587ebc77adc73d673439c" compoundref="mmi__dc__setup__frames_8c" startline="614" endline="642">XDpDc_SetupStream2Descriptors</references>
+        <referencedby refid="mmi__dpdc__platform_8h_1a6c8520e6ad77827c7068054bf7ef0a0c" compoundref="mmi__dpdc__platform_8c" startline="337" endline="368">XDpDc_InitPlatform</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dpdc__platform_8h_1a2efea0d32fd034fe7ec8bd0710d0d8c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_SetupInterrupts</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_SetupInterrupts</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets up interrupt handlers for DMA interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the application configuration structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_platform.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_platform.c" bodystart="312" bodyend="323"/>
+        <references refid="struct_run_config_1a155539680243341a34acb114b0333b41" compoundref="mmi__dpdc__example_8h" startline="84">RunConfig::DcSubPtr</references>
+        <references refid="group__mmi__dcdma_1ga178425efb51b5e613b27cdd6eac15a59" compoundref="xdcdma_8c" startline="484" endline="490">XDcDma_InterruptEnable</references>
+        <references refid="mmi__dp__intr_8c_1ad5a8cd4236c7a991497612d68cbd6a95" compoundref="mmi__dp__intr_8c" startline="203" endline="223">XDpDc_SetupDpInterrupts</references>
+        <referencedby refid="mmi__dpdc__platform_8h_1a6c8520e6ad77827c7068054bf7ef0a0c" compoundref="mmi__dpdc__platform_8c" startline="337" endline="368">XDpDc_InitPlatform</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dpdc__platform_8h_1a6c8520e6ad77827c7068054bf7ef0a0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDpDc_InitPlatform</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_InitPlatform</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes all platform blocks (clocks, DC, DP, interrupts) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the application configuration structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, else XST_FAILURE</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_platform.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_platform.c" bodystart="337" bodyend="368"/>
+        <references refid="mmi__dpdc__platform_8c_1a1acaf857e04799cc985d19389fe5ea3f" compoundref="mmi__dpdc__platform_8c" startline="103" endline="198">XDpDc_InitClkWiz</references>
+        <references refid="mmi__dpdc__platform_8c_1a36260594d61926e44fbd3c2d0913ccd8" compoundref="mmi__dpdc__platform_8c" startline="213" endline="298">XDpDc_InitDcSubsystem</references>
+        <references refid="mmi__dp__init_8c_1ad006bfc4aa600e15be560f77afbe3870" compoundref="mmi__dp__init_8c" startline="646" endline="670">XDpDc_InitDpPsuSubsystem</references>
+        <references refid="mmi__dpdc__platform_8c_1a2efea0d32fd034fe7ec8bd0710d0d8c3" compoundref="mmi__dpdc__platform_8c" startline="312" endline="323">XDpDc_SetupInterrupts</references>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1ae7a8c9dec1b6a873dd5871d40440ff8b" compoundref="mmi__dc__nonlive__test_8c" startline="300" endline="332">XDpDc_MmiDcNonliveTest</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This header file contains platform initialization function declarations. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who     Date      Changes
+<hruler/>
+
+1.00 arm     04/02/26  Initial version</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor">#ifndef<sp/>MMI_DPDC_PLATFORM_H_</highlight></codeline>
+<codeline lineno="25" refid="mmi__dpdc__platform_8h_1aeca10c820afc78493d72ed5acd7e2424" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MMI_DPDC_PLATFORM_H_<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdcsub_8h" kindref="compound">xdcsub.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mmi__dc__nonlive__test_8h" kindref="compound">mmi_dc_nonlive_test.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DC_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xEDD00000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="40" refid="mmi__dpdc__platform_8h_1a820a9ffb482433d5bf150c41fb4b0cb3" refkind="member"><highlight class="preprocessor">#define<sp/>DCDMA_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xEDD10000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="41" refid="mmi__dpdc__platform_8h_1a92d4750e03f47f27bf5b6974d9e8c589" refkind="member"><highlight class="preprocessor">#define<sp/>DP_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xEDE00000<sp/><sp/></highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>External<sp/>descriptor<sp/>declarations<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XDcDma_Descriptor<sp/>*AudDesc0;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal">u32<sp/><ref refid="mmi__dpdc__platform_8c_1a8b8cd17d4698a62cb90da0e9d0f97b4f" kindref="member">XClk_WaitForLock</ref>(XClk_Wiz_Config<sp/>*CfgPtr);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">u32<sp/><ref refid="mmi__dpdc__platform_8c_1a1acaf857e04799cc985d19389fe5ea3f" kindref="member">XDpDc_InitClkWiz</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">u32<sp/><ref refid="mmi__dpdc__platform_8c_1a36260594d61926e44fbd3c2d0913ccd8" kindref="member">XDpDc_InitDcSubsystem</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dpdc__platform_8c_1a2efea0d32fd034fe7ec8bd0710d0d8c3" kindref="member">XDpDc_SetupInterrupts</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">u32<sp/><ref refid="mmi__dpdc__platform_8c_1a6c8520e6ad77827c7068054bf7ef0a0c" kindref="member">XDpDc_InitPlatform</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>MMI_DPDC_PLATFORM_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_platform.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,979 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xplmi__client__example__apis" kind="group">
+    <compoundname>xplmi_client_example_apis</compoundname>
+    <title>XilPlmi Client Example APIs</title>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xplmi__client__example__apis_1gafcbaaa8f0d6004614004c4332659d21b" prot="public" static="no">
+        <name>XLoader_AsuUpdate_Src</name>
+        <enumvalue id="group__xplmi__client__example__apis_1ggafcbaaa8f0d6004614004c4332659d21bac41c9287ad0f6f79b0c54b14c7de9bce" prot="public">
+          <name>XLOADER_DDR</name>
+          <briefdescription>
+<para>Update from DDR location. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xplmi__client__example__apis_1ggafcbaaa8f0d6004614004c4332659d21ba95095fc0943fd8b66e18eb0e7a0b85f9" prot="public">
+          <name>XLOADER_IMAGE_STORE</name>
+          <briefdescription>
+<para>Update from Image Store. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Enumeration for ASU update source types. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" bodystart="66" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xplmi__client__example__apis_1gad185ec2f4a9e54dfd23a9ed05425ad9b" prot="public" static="no">
+        <name>XLoader_PlmUpdate_Src</name>
+        <enumvalue id="group__xplmi__client__example__apis_1ggad185ec2f4a9e54dfd23a9ed05425ad9bac41c9287ad0f6f79b0c54b14c7de9bce" prot="public">
+          <name>XLOADER_DDR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xplmi__client__example__apis_1ggad185ec2f4a9e54dfd23a9ed05425ad9ba95095fc0943fd8b66e18eb0e7a0b85f9" prot="public">
+          <name>XLOADER_IMAGE_STORE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c" bodystart="62" bodyend="65"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="">
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xplmi__client__example__apis_1gab43ddc9f7f45882055c6118b524ec3a6" prot="public" static="yes" mutable="no">
+        <type>XPlmi_SsitSecComm</type>
+        <definition>XPlmi_SsitSecComm SsitSecCommData</definition>
+        <argsstring></argsstring>
+        <name>SsitSecCommData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_configure_secure_comm_example.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_configure_secure_comm_example.c" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xplmi__client__example__apis_1ga5f24dbceac2c2162b4fd9077e6d58ae8" prot="public" static="no" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 PersStr[XTRNGPSV_PERS_STR_LEN_BYTES]</definition>
+        <argsstring>[XTRNGPSV_PERS_STR_LEN_BYTES]</argsstring>
+        <name>PersStr</name>
+        <initializer>= {
+		0xB2U, 0x80U, 0x7EU, 0x4CU, 0xD0U, 0xE4U, 0xE2U, 0xA9U,
+		0x2FU, 0x1FU, 0x5DU, 0xC1U, 0xA2U, 0x1FU, 0x40U, 0xFCU,
+		0x1FU, 0x24U, 0x5DU, 0x42U, 0x61U, 0x80U, 0xE6U, 0xE9U,
+		0x71U, 0x05U, 0x17U, 0x5BU, 0xAFU, 0x70U, 0x30U, 0x18U,
+		0xBCU, 0x23U, 0x18U, 0x15U, 0xCBU, 0xB8U, 0xA6U, 0x3EU,
+		0x83U, 0xB8U, 0x4AU, 0xFEU, 0x38U, 0xFCU, 0x25U, 0x87U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_configure_secure_comm_example.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_configure_secure_comm_example.c" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xplmi__client__example__apis_1ga3d09655c18e2901d75576e1f88da749c" prot="public" static="no" mutable="no">
+        <type>XTrngpsv</type>
+        <definition>XTrngpsv Trngpsv</definition>
+        <argsstring></argsstring>
+        <name>Trngpsv</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_configure_secure_comm_example.c" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_configure_secure_comm_example.c" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xplmi__client__example__apis_1gaf4b924101084f3b25663a05d36e605d2" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 Buffer[BUF_TOTAL_SIZE]</definition>
+        <argsstring>[BUF_TOTAL_SIZE]</argsstring>
+        <name>Buffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xplmi__client__example__apis_1ga68f6efe7418269d9acc141fb1baa6523" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 GlitchDetected0</definition>
+        <argsstring></argsstring>
+        <name>GlitchDetected0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xplmi__client__example__apis_1ga0027ede9331afafafb27e5f3cfb20d55" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 GlitchDetected1</definition>
+        <argsstring></argsstring>
+        <name>GlitchDetected1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xplmi__client__example__apis_1ga50f23879122d36c5659b812974d2831a" prot="public" static="yes" mutable="no">
+        <type>XScuGic</type>
+        <definition>XScuGic InterruptController</definition>
+        <argsstring></argsstring>
+        <name>InterruptController</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xplmi__client__example__apis_1ga4ec1bf799c8aa87004a28c6f283c6b02" prot="public" static="yes" mutable="no">
+        <type>XScuGic_Config *</type>
+        <definition>XScuGic_Config* GicConfig</definition>
+        <argsstring></argsstring>
+        <name>GicConfig</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xplmi__client__example__apis_1ga247b7f784a4fb97426ecff4a0a39ad99" prot="public" static="yes" mutable="no">
+        <type>XMailbox</type>
+        <definition>XMailbox XMboxInstance</definition>
+        <argsstring></argsstring>
+        <name>XMboxInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xplmi__client__example__apis_1ga065cbe783cba71883a8c1c3fe5043501" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 RecvDone</definition>
+        <argsstring></argsstring>
+        <name>RecvDone</name>
+        <initializer>= 0U</initializer>
+        <briefdescription>
+<para>Done flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xplmi__client__example__apis_1ga50fcf0a79311e5d8011c92ce68450764" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 Error</definition>
+        <argsstring></argsstring>
+        <name>Error</name>
+        <initializer>= 0U</initializer>
+        <briefdescription>
+<para>Error flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xplmi__client__example__apis_1ga27f254d2915a1342677c5f3e9d562445" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int InPlaceAsuUpdate</definition>
+        <argsstring>(XPlmi_ClientInstance *InstancePtr, XLoader_AsuUpdate_Src PdiSrc)</argsstring>
+        <name>InPlaceAsuUpdate</name>
+        <param>
+          <type><ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xplmi__client__example__apis_1gafcbaaa8f0d6004614004c4332659d21b" kindref="member">XLoader_AsuUpdate_Src</ref></type>
+          <declname>PdiSrc</declname>
+        </param>
+        <briefdescription>
+<para>This function sends request to PLM to perform In-Place ASU firmware update. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PdiSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source of the update PDI (DDR or Image Store).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if update is successful.</para></listitem><listitem><para>XPLMI_ERR_INPLACE_UPDATE_IN_PROGRESS, if update is already in progress.</para></listitem><listitem><para>XPLMI_ERR_INVALID_RSVD_DDR_REGION_UPDATE, if DDR reserved region is invalid.</para></listitem><listitem><para>XPLMI_ERR_INSUFFICIENT_PLM_RSVD_DDR_REGION, if DDR size is insufficient.</para></listitem><listitem><para>XPLMI_ERR_INPLACE_UPDATE_FROM_IMAGE_STORE, if Image Store update fails.</para></listitem><listitem><para>XLOADER_ERR_ASU_FW_NOT_FOUND, if ASU firmware not found in update PDI.</para></listitem><listitem><para>XPLMI_ERR_ASU_COMPATIBILITY_CHECK, if version compatibility check fails.</para></listitem><listitem><para>XPLMI_ERR_ASU_FW_NOT_RUNNING, if ASU firmware is not running. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" bodystart="190" bodyend="212"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xplmi__client__example__apis_1ga692d91756ee3c4ab68f1aecccab79643" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>u32 main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This main function to call the In-Place ASU Update example function to perform ASU firmware update. </para>        </briefdescription>
+        <detaileddescription>
+<para>Main function to call the user module example functions.</para><para>Main function to call the Load DDR Copy Image example function.</para><para>Main function to call the config secure communication function.</para><para>Main function to call the ExtractMetaheader example function.</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if example is run successfully.</para></listitem><listitem><para>XST_FAILURE, in case of failure.</para></listitem></itemizedlist>
+</para><simplesectsep/><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>Error code on failure.</para></listitem></itemizedlist>
+</para><simplesectsep/><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure.</para></listitem></itemizedlist>
+</para><simplesectsep/><para><itemizedlist>
+<listitem><para>Handoff to the ROM on success.</para></listitem><listitem><para>Error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Initialize mailbox instance.</para><para>Initialize the PLMI client instance.</para><para>Perform In-Place ASU Update based on configured source.</para><para>Invoke Generate for IV, SharedMem contains random data from this call. Only 12 bytes will be used for each IV</para><para>To generate glitch using test mode, configure glitch detectors with default values. To configure glitch detector to detect glitch of at least 5% depth, 1ns width with 0.7V reference voltage, provide Depth = 0x0E, Width = 0x01, RefVoltage = 0x04.To select the register values instead of efuse values, provide UserRegVal = 0x01</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" bodystart="118" bodyend="170"/>
+        <references refid="group__xplmi__client__example__apis_1ga4018ec3ba4d63ff7eaacf4e8697e5845" compoundref="xilplmi__in__place__asu__update__client__example_8c" startline="94">DDR_ADDR</references>
+        <references refid="group__xplmi__client__example__apis_1ga26c3bbc23f659d18e5ad594d43639efd" compoundref="xilplmi__in__place__asu__update__client__example_8c" startline="91">PDI_ID</references>
+        <references refid="group__xplmi__client__example__apis_1ggafcbaaa8f0d6004614004c4332659d21bac41c9287ad0f6f79b0c54b14c7de9bce" compoundref="xilplmi__in__place__asu__update__client__example_8c" startline="67">XLOADER_DDR</references>
+        <references refid="group__xplmi__client__example__apis_1ggafcbaaa8f0d6004614004c4332659d21ba95095fc0943fd8b66e18eb0e7a0b85f9" compoundref="xilplmi__in__place__asu__update__client__example_8c" startline="68">XLOADER_IMAGE_STORE</references>
+        <references refid="group__xilplmi__mailbox__apis_1gaea4605770a6e4090bac10578131ca925" compoundref="xplmi__mailbox_8c" startline="101" endline="116">XPlmi_ClientInit</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xplmi__client__example__apis_1gaf504568f4e0e90a3d6ec7e2f711c1d62" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int InPlacePlmUpdate</definition>
+        <argsstring>(XPlmi_ClientInstance *InstancePtr, XLoader_PlmUpdate_Src PdiSrc)</argsstring>
+        <name>InPlacePlmUpdate</name>
+        <param>
+          <type><ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XLoader_PlmUpdate_Src</type>
+          <declname>PdiSrc</declname>
+        </param>
+        <briefdescription>
+<para>This function provides In Place PLM Update support. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if success.</para></listitem><listitem><para>XPLMI_ERR_UPDATE_IN_PROGRESS if a task cannot be executed as the update is in progress.</para></listitem><listitem><para>XPLMI_ERR_PLM_UPDATE_DISABLED if PLM Update is disabled in ROM_RSV efuse.</para></listitem><listitem><para>XPLMI_ERR_PLM_UPDATE_SHUTDOWN_INIT if failed to shutdown initiate of modules during InPlace PLM Update.</para></listitem><listitem><para>XPLMI_ERR_UPDATE_TASK_NOT_FOUND if PLM Update task is not found.</para></listitem><listitem><para>XPLMI_ERR_INPLACE_UPDATE_INVALID_PAYLOAD_LEN if Invalid Payload Len.</para></listitem><listitem><para>XPLMI_ERR_INPLACE_UPDATE_INVALID_SOURCE if Invalid Source.</para></listitem><listitem><para>XPLMI_ERR_INPLACE_UPDATE_FROM_IMAGE_STORE error during update from IS. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c" bodystart="142" bodyend="157"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xplmi__client__example__apis_1gaeb370dd22e4e0953faa7f07214350efa" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int EventLogging</definition>
+        <argsstring>(XPlmi_ClientInstance *InstancePtr)</argsstring>
+        <name>EventLogging</name>
+        <param>
+          <type><ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_event_logging_client_example.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_event_logging_client_example.c" bodystart="133" bodyend="144"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xplmi__client__example__apis_1gaf4421d087d4adb9f8f179ed21c7ce8d0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int GetBoard</definition>
+        <argsstring>(XPlmi_ClientInstance *InstancePtr)</argsstring>
+        <name>GetBoard</name>
+        <param>
+          <type><ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function provides GET BOARD command execution for user data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success</para></listitem><listitem><para>XST_FAILURE on failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c" bodystart="128" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xplmi__client__example__apis_1ga7a0be314c2e8d0bb951285e429567b8d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int GetDeviceID</definition>
+        <argsstring>(XPlmi_ClientInstance *InstancePtr)</argsstring>
+        <name>GetDeviceID</name>
+        <param>
+          <type><ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will initialize IPI interface for Get device id. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success</para></listitem><listitem><para>XST_FAILURE on failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_device_id_client_example.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_device_id_client_example.c" bodystart="118" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xplmi__client__example__apis_1ga7a8243eea629c4721c876abd4adb7241" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void GlitchDetectorISR</definition>
+        <argsstring>(void)</argsstring>
+        <name>GlitchDetectorISR</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This is interrupt service routine of glitch detector. </para>        </briefdescription>
+        <detaileddescription>
+<para>User code can be written here. Some default actions like reading the glitch detector status and clearing IRQ status, disabling interrupt on entry and enabling at exit is done here. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" bodystart="113" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xplmi__client__example__apis_1gaf9bb7e9b3e6ecd79146a742fc0af0ffc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GenerateTestGlitch</definition>
+        <argsstring>(u8 GdNum)</argsstring>
+        <name>GenerateTestGlitch</name>
+        <param>
+          <type>u8</type>
+          <declname>GdNum</declname>
+        </param>
+        <briefdescription>
+<para>This function generates glitch on given glitch detector. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>GdNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the glitch detector number </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" bodystart="173" bodyend="197"/>
+        <references refid="group__xplmi__client__example__apis_1ga32dd96c26db1fe40fcfe9d82b4469cff" compoundref="xplmi__glitch__detector__example_8c" startline="66">GD0_TEST_GLITCH_GENVALUE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xplmi__client__example__apis_1ga2c465f1ed3d1c8ee39c9139cc33eae20" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 UserModuleSend</definition>
+        <argsstring>(void)</argsstring>
+        <name>UserModuleSend</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function will trigger the interrupt and send messages. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" bodystart="139" bodyend="184"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xplmi__client__example__apis_1ga52151a764f98282f2d89d8e08bc88196" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 UserModuleSendRecv</definition>
+        <argsstring>(void)</argsstring>
+        <name>UserModuleSendRecv</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function will trigger the interrupt and exchange messages. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" bodystart="195" bodyend="255"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xplmi__client__example__apis_1ga97d29a0428f7c824490796e9ac479af8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void DoneHandler</definition>
+        <argsstring>(void *CallBackRef)</argsstring>
+        <name>DoneHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>When IPI channel Sends Response message from PLM which initialized in user module this function will be called and changes the status of RecvDone to 1 . </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the reference pointer to callback function. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" bodystart="264" bodyend="267"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xplmi__client__example__apis_1gaebf7bd7369ca8b7f0df216e1c429ab6e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void ErrorHandler</definition>
+        <argsstring>(void *CallBackRef, u32 ErrorStatus)</argsstring>
+        <name>ErrorHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ErrorStatus</declname>
+        </param>
+        <briefdescription>
+<para>This Function will be called if any error occur during IPI transfer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the reference pointer to callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ErrorStatus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Error occurred during IPI transfer. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" bodystart="277" bodyend="280"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gaea7146263ccd4ebba8e2f1ce94b3de42" prot="public" static="no">
+        <name>IMG_STORE_SRC</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Source flag for Image Store. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gae7b812ba4543afb8805f75f8ba93ddb0" prot="public" static="no">
+        <name>DDR_SRC</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Source flag for DDR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gabe2cddd6244045676f27b23c0060c864" prot="public" static="no">
+        <name>UPDATE_SOURCE</name>
+        <initializer><ref refid="group__xplmi__client__example__apis_1gae7b812ba4543afb8805f75f8ba93ddb0" kindref="member">DDR_SRC</ref></initializer>
+        <briefdescription>
+<para>Select update source: IMG_STORE_SRC or DDR_SRC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1ga26c3bbc23f659d18e5ad594d43639efd" prot="public" static="no">
+        <name>PDI_ID</name>
+        <initializer>(0x6U)</initializer>
+        <briefdescription>
+<para>Image Store PDI ID containing ASU firmware. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" bodystart="91" bodyend="-1"/>
+        <referencedby refid="group__xplmi__client__example__apis_1ga692d91756ee3c4ab68f1aecccab79643" compoundref="xilplmi__in__place__asu__update__client__example_8c" startline="118" endline="170">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1ga4018ec3ba4d63ff7eaacf4e8697e5845" prot="public" static="no">
+        <name>DDR_ADDR</name>
+        <initializer>(0x2000000U)</initializer>
+        <briefdescription>
+<para>DDR address where update PDI is loaded. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" bodystart="94" bodyend="-1"/>
+        <referencedby refid="group__xplmi__client__example__apis_1ga692d91756ee3c4ab68f1aecccab79643" compoundref="xilplmi__in__place__asu__update__client__example_8c" startline="118" endline="170">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gac407ff691c4f866fa21ac09939fae346" prot="public" static="no">
+        <name>XPLMI_CACHE_DISABLE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gaea7146263ccd4ebba8e2f1ce94b3de42" prot="public" static="no">
+        <name>IMG_STORE_SRC</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Source for Image store. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c" line="55" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1ga26c3bbc23f659d18e5ad594d43639efd" prot="public" static="no">
+        <name>PDI_ID</name>
+        <initializer>(0x5)</initializer>
+        <briefdescription>
+<para>Image store address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c" line="56" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gae7b812ba4543afb8805f75f8ba93ddb0" prot="public" static="no">
+        <name>DDR_SRC</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Source for DDR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c" line="57" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1ga4018ec3ba4d63ff7eaacf4e8697e5845" prot="public" static="no">
+        <name>DDR_ADDR</name>
+        <initializer>(0x1000000U)</initializer>
+        <briefdescription>
+<para>DDR address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c" line="58" column="11" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gad094f3d93865734c4e82d34ef6616894" prot="public" static="no">
+        <name>EXAMPLE_SEEDLIFE</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Seed life value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_configure_secure_comm_example.c" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_configure_secure_comm_example.c" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gae737b24abf32c5906097070ead86c05a" prot="public" static="no">
+        <name>SLR_INDEX</name>
+        <initializer><ref refid="xplmi__client_8h_1a6f65b07d28e9fa31f5179138e519e7e0" kindref="member">XPLMI_SLR_INDEX_1</ref> /*&lt; SLR number */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_configure_secure_comm_example.c" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_configure_secure_comm_example.c" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1ga50bc47889e36ccd506a9cdf1528b050b" prot="public" static="no">
+        <name>PDI_SRC_ADDR</name>
+        <initializer>(0x1000000U)</initializer>
+        <briefdescription>
+<para>Pdi address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_event_logging_client_example.c" line="54" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_event_logging_client_example.c" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gaf7b7dc9a200cb1404c280bd500fd1551" prot="public" static="no">
+        <name>BUFFER_LENGTH</name>
+        <initializer>(0x400000U)</initializer>
+        <briefdescription>
+<para>Length of debug log buffer in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_event_logging_client_example.c" line="55" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_event_logging_client_example.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1ga50bc47889e36ccd506a9cdf1528b050b" prot="public" static="no">
+        <name>PDI_SRC_ADDR</name>
+        <initializer>(0x1000000U)</initializer>
+        <briefdescription>
+<para>Pdi address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c" line="54" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gae049ba3c12f14ec60a618ed1b69caaa1" prot="public" static="no">
+        <name>BUF_TOTAL_SIZE</name>
+        <initializer>(0x108U)</initializer>
+        <briefdescription>
+<para>Size of Board params. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c" line="55" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_get_board_client_example.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gada1b772f34f400391e857ce8189e9efe" prot="public" static="no">
+        <name>GD_STATUS_OFFSET</name>
+        <initializer>0x00004</initializer>
+        <briefdescription>
+<para>GD_STATUS register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gaf114951489d482a90a9f58ff288984e9" prot="public" static="no">
+        <name>RESET_GD_STATUS_VAL</name>
+        <initializer>0x02000200U</initializer>
+        <briefdescription>
+<para>Value to reset glitch detectors. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gae6418598d352531c9382fa4d4b7f6656" prot="public" static="no">
+        <name>GD_IRQ_STATUS_CLEAR</name>
+        <initializer>0x80000000U</initializer>
+        <briefdescription>
+<para>Value to clear IRQ status of glitch detector. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1ga32dd96c26db1fe40fcfe9d82b4469cff" prot="public" static="no">
+        <name>GD0_TEST_GLITCH_GENVALUE</name>
+        <initializer>0x00F800FEU</initializer>
+        <briefdescription>
+<para>Value to generate test glitch on glitch detector0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group__xplmi__client__example__apis_1gaf9bb7e9b3e6ecd79146a742fc0af0ffc" compoundref="xplmi__glitch__detector__example_8c" startline="173" endline="197">GenerateTestGlitch</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1ga0a46cdc9a668d6db17423996b541a421" prot="public" static="no">
+        <name>GD1_TEST_GLITCH_GENVALUE</name>
+        <initializer>0x00FE00F8U</initializer>
+        <briefdescription>
+<para>Value to generate test glitch on glitch detector1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gaa683e3c6282317704413cf5c1368dce6" prot="public" static="no">
+        <name>GD_TEST_GLITCH_STOPVALUE</name>
+        <initializer>0x00F800F8U</initializer>
+        <briefdescription>
+<para>Value to stop test glitch generation on both the glitch detectors. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gaf085f0e2624130dd2e4f2ccbfeef7391" prot="public" static="no">
+        <name>GLITCH_DETECTOR0</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Glitch detector0 number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1ga6d5cef9f02ec36417bb9b7c87aa60144" prot="public" static="no">
+        <name>GLITCH_DETECTOR1</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Glitch detector1 number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gad39f1731ef84b684c0621fb59966d0bc" prot="public" static="no">
+        <name>DEFAULT_DEPTH_VAL</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Default depth value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1ga7e7764cd214bd0b121c4038790f02488" prot="public" static="no">
+        <name>DEFAULT_WIDTH_VAL</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Default width value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1ga450fc3998f2afadc7c7a63c351311080" prot="public" static="no">
+        <name>DEFAULT_REFVOL_VAL</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Default reference voltage value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1ga8285a6e55c81192ac85c22109d774a85" prot="public" static="no">
+        <name>DEFAULT_USERREG_VAL</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Default user reg value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1ga288dd6c0b364007ccaab7925fca03f3d" prot="public" static="no">
+        <name>XPLMI_SET</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Set value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1ga181bebe1afc9566805bcb3088b49a3fb" prot="public" static="no">
+        <name>XPLMI_RESET</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Reset value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1ga74c344dff3059d963385046f676560c9" prot="public" static="no">
+        <name>GICP4_IRQ_STATUS_ADDR</name>
+        <initializer>0xF1140050</initializer>
+        <briefdescription>
+<para>GICP4_IRQ_STATUS register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gaffbfb40e93304e42dcf5cd7ad95c147e" prot="public" static="no">
+        <name>DEVICE_INT_ID</name>
+        <initializer>191U /* when using for PL,change interrupt ID here */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_glitch_detector_example.c" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1ga98a2366f9ef44f0d3eee7d33981bbe8a" prot="public" static="no">
+        <name>RESPONSE</name>
+        <initializer>(0x8)</initializer>
+        <briefdescription>
+<para>Response for trigger BBRAM erase valid tamper responses are 0x8 BBRAM erase 0x4 Secure lockdown 1 0x2 Secure lockdown 0 0x1 System reset 0x0 Reserved. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_tamper_trigger_client_example.c" line="63" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_tamper_trigger_client_example.c" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gaf72049c484fa44468f3ab3e491379153" prot="public" static="no">
+        <name>IPI_CHANNEL</name>
+        <initializer>XMAILBOX_IPI_BASEADDRESS</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gaa072391930da4a20122c8e7890543234" prot="public" static="no">
+        <name>PMC_IPI_MASK</name>
+        <initializer>XMAILBOX_IPI_CHANNEL_ID</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1ga1f15293623649a310a7c68ff240f9647" prot="public" static="no">
+        <name>MSG_LEN</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gad59753661b600d98bd0fcab9404aff15" prot="public" static="no">
+        <name>USER_MODULE_ID</name>
+        <initializer>0x80U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1ga5e7e23f7dd514b640eddf3ac0c367f45" prot="public" static="no">
+        <name>CMD_SEND</name>
+        <initializer>0x0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1ga6d130e72fa69630c0ec501908686f1e5" prot="public" static="no">
+        <name>CMD_SEND_RECV</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gad109f3d4c2cb61f9a39b019eeddbeaf4" prot="public" static="no">
+        <name>RECV_STATUS</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xplmi_usermodule_example.c" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

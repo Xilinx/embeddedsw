@@ -1,0 +1,267 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mmi_dp___rx_config" kind="struct" prot="public">
+    <compoundname>XMmiDp_RxConfig</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mmi_dp___rx_config_1a583f44cedc1a520b88a88123b22e1252" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_RxConfig::Edid[XMMIDP_MAX_EDID_READ]</definition>
+        <argsstring>[XMMIDP_MAX_EDID_READ]</argsstring>
+        <name>Edid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="253" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___rx_config_1a08e90c320dad4fc857bcd88a56f2aa8c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_RxConfig::EdidNext[XMMIDP_MAX_EDID_READ]</definition>
+        <argsstring>[XMMIDP_MAX_EDID_READ]</argsstring>
+        <name>EdidNext</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___rx_config_1a3137ee147558fa236204eebb638cdb3b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMmiDp_RxConfig::TrainingAuxRdInterval</definition>
+        <argsstring></argsstring>
+        <name>TrainingAuxRdInterval</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___rx_config_1a84e149ef26c3c32a2e019d8e0fed2396" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_RxConfig::LaneStatusAdjReqs[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>LaneStatusAdjReqs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___rx_config_1ab54b3e9f7e937b0d092a05f069eb54f0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_RxConfig::MaxLaneCount</definition>
+        <argsstring></argsstring>
+        <name>MaxLaneCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___rx_config_1a3543abfb174235e7578425afb8000360" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_RxConfig::MaxNumLanes</definition>
+        <argsstring></argsstring>
+        <name>MaxNumLanes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___rx_config_1a99b4f9a0a369bf94da576a660b3342d3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_RxConfig::EnhancedFrameCap</definition>
+        <argsstring></argsstring>
+        <name>EnhancedFrameCap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___rx_config_1a6cb26cf64c1d7152ea195b2e595ac219" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_RxConfig::PostLtAdjReqSupported</definition>
+        <argsstring></argsstring>
+        <name>PostLtAdjReqSupported</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___rx_config_1ae870d7c3baf11b78088be1b2aacb20bd" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_RxConfig::Tps3Supported</definition>
+        <argsstring></argsstring>
+        <name>Tps3Supported</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___rx_config_1abc83ca46853b80d0b8a801f7491ece33" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XMmiDp_RxConfig::MaxLinkRate</definition>
+        <argsstring></argsstring>
+        <name>MaxLinkRate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___rx_config_1a1be0b61e9157e2b492a9fb512f2f8ed0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_RxConfig::MaxLinkBW</definition>
+        <argsstring></argsstring>
+        <name>MaxLinkBW</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___rx_config_1a15cd81b10828cf981bac47c7f8c83c6b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_RxConfig::Tps4Supported</definition>
+        <argsstring></argsstring>
+        <name>Tps4Supported</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___rx_config_1a356124eb175095c6849aa4fbd031ddac" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_RxConfig::NoAuxLinkTraining</definition>
+        <argsstring></argsstring>
+        <name>NoAuxLinkTraining</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___rx_config_1a5c8e9b82b6d00e00205afc3a479b285d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_RxConfig::MaxDownspread</definition>
+        <argsstring></argsstring>
+        <name>MaxDownspread</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___rx_config_1a7b4e549efec693b95079bae86be1691f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_RxConfig::DpcdRev</definition>
+        <argsstring></argsstring>
+        <name>DpcdRev</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="267" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___rx_config_1a67e11ff95b0cf681be41d86d185b838f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_RxConfig::ExtendedReceiverCap</definition>
+        <argsstring></argsstring>
+        <name>ExtendedReceiverCap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="268" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___rx_config_1ad90c5b24a50637754784c042a8b37c66" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_RxConfig::MstCap</definition>
+        <argsstring></argsstring>
+        <name>MstCap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="269" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___rx_config_1ad55d43a48ad930f14ce2717247f5090f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_RxConfig::Reserved[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="270" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="252" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="252" bodyend="271"/>
+    <listofallmembers>
+      <member refid="struct_x_mmi_dp___rx_config_1a7b4e549efec693b95079bae86be1691f" prot="public" virt="non-virtual"><scope>XMmiDp_RxConfig</scope><name>DpcdRev</name></member>
+      <member refid="struct_x_mmi_dp___rx_config_1a583f44cedc1a520b88a88123b22e1252" prot="public" virt="non-virtual"><scope>XMmiDp_RxConfig</scope><name>Edid</name></member>
+      <member refid="struct_x_mmi_dp___rx_config_1a08e90c320dad4fc857bcd88a56f2aa8c" prot="public" virt="non-virtual"><scope>XMmiDp_RxConfig</scope><name>EdidNext</name></member>
+      <member refid="struct_x_mmi_dp___rx_config_1a99b4f9a0a369bf94da576a660b3342d3" prot="public" virt="non-virtual"><scope>XMmiDp_RxConfig</scope><name>EnhancedFrameCap</name></member>
+      <member refid="struct_x_mmi_dp___rx_config_1a67e11ff95b0cf681be41d86d185b838f" prot="public" virt="non-virtual"><scope>XMmiDp_RxConfig</scope><name>ExtendedReceiverCap</name></member>
+      <member refid="struct_x_mmi_dp___rx_config_1a84e149ef26c3c32a2e019d8e0fed2396" prot="public" virt="non-virtual"><scope>XMmiDp_RxConfig</scope><name>LaneStatusAdjReqs</name></member>
+      <member refid="struct_x_mmi_dp___rx_config_1a5c8e9b82b6d00e00205afc3a479b285d" prot="public" virt="non-virtual"><scope>XMmiDp_RxConfig</scope><name>MaxDownspread</name></member>
+      <member refid="struct_x_mmi_dp___rx_config_1ab54b3e9f7e937b0d092a05f069eb54f0" prot="public" virt="non-virtual"><scope>XMmiDp_RxConfig</scope><name>MaxLaneCount</name></member>
+      <member refid="struct_x_mmi_dp___rx_config_1a1be0b61e9157e2b492a9fb512f2f8ed0" prot="public" virt="non-virtual"><scope>XMmiDp_RxConfig</scope><name>MaxLinkBW</name></member>
+      <member refid="struct_x_mmi_dp___rx_config_1abc83ca46853b80d0b8a801f7491ece33" prot="public" virt="non-virtual"><scope>XMmiDp_RxConfig</scope><name>MaxLinkRate</name></member>
+      <member refid="struct_x_mmi_dp___rx_config_1a3543abfb174235e7578425afb8000360" prot="public" virt="non-virtual"><scope>XMmiDp_RxConfig</scope><name>MaxNumLanes</name></member>
+      <member refid="struct_x_mmi_dp___rx_config_1ad90c5b24a50637754784c042a8b37c66" prot="public" virt="non-virtual"><scope>XMmiDp_RxConfig</scope><name>MstCap</name></member>
+      <member refid="struct_x_mmi_dp___rx_config_1a356124eb175095c6849aa4fbd031ddac" prot="public" virt="non-virtual"><scope>XMmiDp_RxConfig</scope><name>NoAuxLinkTraining</name></member>
+      <member refid="struct_x_mmi_dp___rx_config_1a6cb26cf64c1d7152ea195b2e595ac219" prot="public" virt="non-virtual"><scope>XMmiDp_RxConfig</scope><name>PostLtAdjReqSupported</name></member>
+      <member refid="struct_x_mmi_dp___rx_config_1ad55d43a48ad930f14ce2717247f5090f" prot="public" virt="non-virtual"><scope>XMmiDp_RxConfig</scope><name>Reserved</name></member>
+      <member refid="struct_x_mmi_dp___rx_config_1ae870d7c3baf11b78088be1b2aacb20bd" prot="public" virt="non-virtual"><scope>XMmiDp_RxConfig</scope><name>Tps3Supported</name></member>
+      <member refid="struct_x_mmi_dp___rx_config_1a15cd81b10828cf981bac47c7f8c83c6b" prot="public" virt="non-virtual"><scope>XMmiDp_RxConfig</scope><name>Tps4Supported</name></member>
+      <member refid="struct_x_mmi_dp___rx_config_1a3137ee147558fa236204eebb638cdb3b" prot="public" virt="non-virtual"><scope>XMmiDp_RxConfig</scope><name>TrainingAuxRdInterval</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

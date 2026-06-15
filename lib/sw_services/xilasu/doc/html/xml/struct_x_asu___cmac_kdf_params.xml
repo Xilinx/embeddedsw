@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___cmac_kdf_params" kind="struct" prot="public">
+    <compoundname>XAsu_CmacKdfParams</compoundname>
+    <includes local="no">xasu_kdfinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___cmac_kdf_params_1aa9f55320489367ebb155b9ce6b2a7b2d" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___kdf_params" kindref="compound">XAsu_KdfParams</ref></type>
+        <definition>XAsu_KdfParams XAsu_CmacKdfParams::KdfParams</definition>
+        <argsstring></argsstring>
+        <name>KdfParams</name>
+        <briefdescription>
+<para>KDF parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="83" bodyend="-1"/>
+        <referencedby refid="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" compoundref="xasu__kdf_8c" startline="341" endline="398">XAsu_KdfSha3Kat</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___cmac_kdf_params_1aa37822a16e6a411116589c84408551da" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_CmacKdfParams::AesKeySrc</definition>
+        <argsstring></argsstring>
+        <name>AesKeySrc</name>
+        <briefdescription>
+<para>AES Key source to be used for CMAC based KDF. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___cmac_kdf_params_1a1adffb9d3d07d705f208204480f74a33" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_CmacKdfParams::Reserved[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Reserved for 8-byte alignment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains CMAC based KDF params info. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="36">
+        <label>XAsu_CmacKdfParams</label>
+        <link refid="struct_x_asu___cmac_kdf_params"/>
+        <childnode refid="37" relation="usage">
+          <edgelabel>KdfParams</edgelabel>
+        </childnode>
+      </node>
+      <node id="38">
+        <label>XAsu_KdfHmacKeyObject</label>
+        <link refid="struct_x_asu___kdf_hmac_key_object"/>
+      </node>
+      <node id="37">
+        <label>XAsu_KdfParams</label>
+        <link refid="struct_x_asu___kdf_params"/>
+        <childnode refid="38" relation="usage">
+          <edgelabel>KeyObject</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdfinfo.h" bodystart="82" bodyend="86"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___cmac_kdf_params_1aa37822a16e6a411116589c84408551da" prot="public" virt="non-virtual"><scope>XAsu_CmacKdfParams</scope><name>AesKeySrc</name></member>
+      <member refid="struct_x_asu___cmac_kdf_params_1aa9f55320489367ebb155b9ce6b2a7b2d" prot="public" virt="non-virtual"><scope>XAsu_CmacKdfParams</scope><name>KdfParams</name></member>
+      <member refid="struct_x_asu___cmac_kdf_params_1a1adffb9d3d07d705f208204480f74a33" prot="public" virt="non-virtual"><scope>XAsu_CmacKdfParams</scope><name>Reserved</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="union_pic_buf_meta_data__s_1_1_data__u_1_1_r_g_b__u" kind="union" prot="public">
+    <compoundname>PicBufMetaData_s::Data_u::RGB_u</compoundname>
+    <innerclass refid="struct_pic_buf_meta_data__s_1_1_data__u_1_1_r_g_b__u_1_1planar___r_g_b__s" prot="public">PicBufMetaData_s::Data_u::RGB_u::planar_RGB_s</innerclass>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="union_pic_buf_meta_data__s_1_1_data__u_1_1_r_g_b__u_1a32c601c4419844ef1818721d6ceb2c27" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_pic_buf_plane__s" kindref="compound">PicBufPlane_t</ref></type>
+        <definition>PicBufPlane_t PicBufMetaData_s::Data_u::RGB_u::combined</definition>
+        <argsstring></argsstring>
+        <name>combined</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="637" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="637" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_pic_buf_meta_data__s_1_1_data__u_1_1_r_g_b__u_1a0466117b0445af60728079f300d16e1b" prot="public" static="no" mutable="no">
+        <type>struct PicBufMetaData_s::Data_u::RGB_u::planar_RGB_s</type>
+        <definition>struct PicBufMetaData_s::Data_u::RGB_u::planar_RGB_s  PicBufMetaData_s::Data_u::RGB_u::planar</definition>
+        <argsstring></argsstring>
+        <name>planar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="642" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="992">
+        <label>PicBufMetaData_s::Data_u::RGB_u</label>
+        <childnode refid="993" relation="usage">
+          <edgelabel>combined</edgelabel>
+        </childnode>
+      </node>
+      <node id="993">
+        <label>PicBufPlane_s</label>
+        <link refid="struct_pic_buf_plane__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="636" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="636" bodyend="643"/>
+    <listofallmembers>
+      <member refid="union_pic_buf_meta_data__s_1_1_data__u_1_1_r_g_b__u_1a32c601c4419844ef1818721d6ceb2c27" prot="public" virt="non-virtual"><scope>PicBufMetaData_s::Data_u::RGB_u</scope><name>combined</name></member>
+      <member refid="union_pic_buf_meta_data__s_1_1_data__u_1_1_r_g_b__u_1a0466117b0445af60728079f300d16e1b" prot="public" virt="non-virtual"><scope>PicBufMetaData_s::Data_u::RGB_u</scope><name>planar</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

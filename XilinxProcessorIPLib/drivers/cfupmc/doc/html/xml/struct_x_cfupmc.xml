@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_cfupmc" kind="struct" prot="public">
+    <compoundname>XCfupmc</compoundname>
+    <includes local="no">xcfupmc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_cfupmc_1a49f5364c66c7035ad93a9f555954dbeb" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_cfupmc___config" kindref="compound">XCfupmc_Config</ref></type>
+        <definition>XCfupmc_Config XCfupmc::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" bodystart="107" bodyend="-1"/>
+        <referencedby refid="group__cfupmc_1gae431e6d523e3367426562b426498a69b" compoundref="xcfupmc_8c" startline="67" endline="82">XCfupmc_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cfupmc_1a5c4a8f6fb22a71818964638dc366b74e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCfupmc::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device and the driver instance are initialized. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="group__cfupmc_1gae431e6d523e3367426562b426498a69b" compoundref="xcfupmc_8c" startline="67" endline="82">XCfupmc_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cfupmc_1aee6564c0a7c832c40052feb8099bd39c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCfupmc::DeCompress</definition>
+        <argsstring></argsstring>
+        <name>DeCompress</name>
+        <briefdescription>
+<para>Indicates whether compression is is enabled or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cfupmc_1a935f0085b8fff25bc037af2fcf8b94be" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCfupmc::Crc32Check</definition>
+        <argsstring></argsstring>
+        <name>Crc32Check</name>
+        <briefdescription>
+<para>Indicates if CRC32 is enabled or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cfupmc_1afb0abc51a163523cc4b0304f47a464ad" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCfupmc::Crc32Val</definition>
+        <argsstring></argsstring>
+        <name>Crc32Val</name>
+        <briefdescription>
+<para>Checksum value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cfupmc_1a1fcbf71d89a3837dc78371358b6758f5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCfupmc::Crc8Dis</definition>
+        <argsstring></argsstring>
+        <name>Crc8Dis</name>
+        <briefdescription>
+<para>Indicates if CRC8 is enabled or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> driver instance data structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>A pointer to an instance data structure is passed around by functions to refer to a specific driver instance. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>XCfupmc_Config</label>
+        <link refid="struct_x_cfupmc___config"/>
+      </node>
+      <node id="1">
+        <label>XCfupmc</label>
+        <link refid="struct_x_cfupmc"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" bodystart="106" bodyend="117"/>
+    <listofallmembers>
+      <member refid="struct_x_cfupmc_1a49f5364c66c7035ad93a9f555954dbeb" prot="public" virt="non-virtual"><scope>XCfupmc</scope><name>Config</name></member>
+      <member refid="struct_x_cfupmc_1a935f0085b8fff25bc037af2fcf8b94be" prot="public" virt="non-virtual"><scope>XCfupmc</scope><name>Crc32Check</name></member>
+      <member refid="struct_x_cfupmc_1afb0abc51a163523cc4b0304f47a464ad" prot="public" virt="non-virtual"><scope>XCfupmc</scope><name>Crc32Val</name></member>
+      <member refid="struct_x_cfupmc_1a1fcbf71d89a3837dc78371358b6758f5" prot="public" virt="non-virtual"><scope>XCfupmc</scope><name>Crc8Dis</name></member>
+      <member refid="struct_x_cfupmc_1aee6564c0a7c832c40052feb8099bd39c" prot="public" virt="non-virtual"><scope>XCfupmc</scope><name>DeCompress</name></member>
+      <member refid="struct_x_cfupmc_1a5c4a8f6fb22a71818964638dc366b74e" prot="public" virt="non-virtual"><scope>XCfupmc</scope><name>IsReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_7546364aed4e6abc4f6672f082c643d3" kind="dir">
+    <compoundname>submodules</compoundname>
+    <innerfile refid="cam__common__ae__api_8h">cam_common_ae_api.h</innerfile>
+    <innerfile refid="cam__common__api_8h">cam_common_api.h</innerfile>
+    <innerfile refid="cam__common__awb__api_8h">cam_common_awb_api.h</innerfile>
+    <innerfile refid="cam__common__calib__api_8h">cam_common_calib_api.h</innerfile>
+    <innerfile refid="cam__common__meta__data__api_8h">cam_common_meta_data_api.h</innerfile>
+    <innerfile refid="cam__common__submodules_8h">cam_common_submodules.h</innerfile>
+    <innerfile refid="submodule__def_8h">submodule_def.h</innerfile>
+    <innerfile refid="vvbench__2dnr__api_8h">vvbench_2dnr_api.h</innerfile>
+    <innerfile refid="vvbench__3dnr__api_8h">vvbench_3dnr_api.h</innerfile>
+    <innerfile refid="vvbench__ae__api_8h">vvbench_ae_api.h</innerfile>
+    <innerfile refid="vvbench__af__api_8h">vvbench_af_api.h</innerfile>
+    <innerfile refid="vvbench__afm__api_8h">vvbench_afm_api.h</innerfile>
+    <innerfile refid="vvbench__afm__api__v3_8h">vvbench_afm_api_v3.h</innerfile>
+    <innerfile refid="vvbench__awb__api_8h">vvbench_awb_api.h</innerfile>
+    <innerfile refid="vvbench__bls__api_8h">vvbench_bls_api.h</innerfile>
+    <innerfile refid="vvbench__ccm__api_8h">vvbench_ccm_api.h</innerfile>
+    <innerfile refid="vvbench__cnr__api_8h">vvbench_cnr_api.h</innerfile>
+    <innerfile refid="vvbench__cpd__api_8h">vvbench_cpd_api.h</innerfile>
+    <innerfile refid="vvbench__cproc__api_8h">vvbench_cproc_api.h</innerfile>
+    <innerfile refid="vvbench__dg__api_8h">vvbench_dg_api.h</innerfile>
+    <innerfile refid="vvbench__dmsc__api_8h">vvbench_dmsc_api.h</innerfile>
+    <innerfile refid="vvbench__dpcc__api_8h">vvbench_dpcc_api.h</innerfile>
+    <innerfile refid="vvbench__ee__api_8h">vvbench_ee_api.h</innerfile>
+    <innerfile refid="vvbench__exp__api__v2_8h">vvbench_exp_api_v2.h</innerfile>
+    <innerfile refid="vvbench__exp__api__v3_8h">vvbench_exp_api_v3.h</innerfile>
+    <innerfile refid="vvbench__fusa__api_8h">vvbench_fusa_api.h</innerfile>
+    <innerfile refid="vvbench__gc__api_8h">vvbench_gc_api.h</innerfile>
+    <innerfile refid="vvbench__ge__api_8h">vvbench_ge_api.h</innerfile>
+    <innerfile refid="vvbench__gtm__api_8h">vvbench_gtm_api.h</innerfile>
+    <innerfile refid="vvbench__gwdr__api_8h">vvbench_gwdr_api.h</innerfile>
+    <innerfile refid="vvbench__hdr__api_8h">vvbench_hdr_api.h</innerfile>
+    <innerfile refid="vvbench__hist256__api_8h">vvbench_hist256_api.h</innerfile>
+    <innerfile refid="vvbench__hist64__api_8h">vvbench_hist64_api.h</innerfile>
+    <innerfile refid="vvbench__lsc__api_8h">vvbench_lsc_api.h</innerfile>
+    <innerfile refid="vvbench__lut3d__api_8h">vvbench_lut3d_api.h</innerfile>
+    <innerfile refid="vvbench__pdaf__api_8h">vvbench_pdaf_api.h</innerfile>
+    <innerfile refid="vvbench__rgbir__api_8h">vvbench_rgbir_api.h</innerfile>
+    <innerfile refid="vvbench__tpg__api_8h">vvbench_tpg_api.h</innerfile>
+    <innerfile refid="vvbench__vi200__api_8h">vvbench_vi200_api.h</innerfile>
+    <innerfile refid="vvbench__wb__api_8h">vvbench_wb_api.h</innerfile>
+    <innerfile refid="vvbench__wdr__api_8h">vvbench_wdr_api.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/submodules/"/>
+  </compounddef>
+</doxygen>

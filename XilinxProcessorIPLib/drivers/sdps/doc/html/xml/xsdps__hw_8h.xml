@@ -1,0 +1,948 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsdps__hw_8h" kind="file">
+    <compoundname>xsdps_hw.h</compoundname>
+    <includedby refid="xsdps_8h" local="yes">xsdps.h</includedby>
+    <invincdepgraph>
+      <node id="48">
+        <label>xsdps_sinit.c</label>
+        <link refid="xsdps__sinit_8c"/>
+      </node>
+      <node id="49">
+        <label>xsdps_raw_example.c</label>
+        <link refid="xsdps__raw__example_8c"/>
+      </node>
+      <node id="45">
+        <label>xsdps_hw.h</label>
+        <link refid="xsdps_hw.h"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>xsdps.h</label>
+        <link refid="xsdps_8h"/>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>xsdps_g.c</label>
+        <link refid="xsdps__g_8c"/>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2013<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor">#ifndef<sp/>SD_HW_H_</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_HW_H_</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;bspconfig.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor">#define<sp/>XSDPS_SDMA_SYS_ADDR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor">#define<sp/>XSDPS_SDMA_SYS_ADDR_LO_OFFSET<sp/><sp/><sp/>XSDPS_SDMA_SYS_ADDR_OFFSET</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor">#define<sp/>XSDPS_ARGMT2_LO_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor">#define<sp/>XSDPS_SDMA_SYS_ADDR_HI_OFFSET<sp/><sp/><sp/>0x02U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor">#define<sp/>XSDPS_ARGMT2_HI_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor">#define<sp/>XSDPS_BLK_SIZE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor">#define<sp/>XSDPS_BLK_CNT_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x06U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor">#define<sp/>XSDPS_ARGMT_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor">#define<sp/>XSDPS_ARGMT1_LO_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSDPS_ARGMT_OFFSET</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor">#define<sp/>XSDPS_ARGMT1_HI_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0AU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor">#define<sp/>XSDPS_XFER_MODE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0CU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor">#define<sp/>XSDPS_CMD_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0EU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor">#define<sp/>XSDPS_RESP0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor">#define<sp/>XSDPS_RESP1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x14U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor">#define<sp/>XSDPS_RESP2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x18U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor">#define<sp/>XSDPS_RESP3_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1CU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor">#define<sp/>XSDPS_BUF_DAT_PORT_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor">#define<sp/>XSDPS_PRES_STATE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x24U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor">#define<sp/>XSDPS_HOST_CTRL1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x28U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor">#define<sp/>XSDPS_POWER_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x29U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor">#define<sp/>XSDPS_BLK_GAP_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2AU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor">#define<sp/>XSDPS_WAKE_UP_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2BU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor">#define<sp/>XSDPS_CLK_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2CU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor">#define<sp/>XSDPS_TIMEOUT_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2EU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor">#define<sp/>XSDPS_SW_RST_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2FU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor">#define<sp/>XSDPS_NORM_INTR_STS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x30U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor">#define<sp/>XSDPS_ERR_INTR_STS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x32U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor">#define<sp/>XSDPS_NORM_INTR_STS_EN_OFFSET<sp/><sp/><sp/>0x34U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor">#define<sp/>XSDPS_ERR_INTR_STS_EN_OFFSET<sp/><sp/><sp/><sp/>0x36U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor">#define<sp/>XSDPS_NORM_INTR_SIG_EN_OFFSET<sp/><sp/><sp/>0x38U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor">#define<sp/>XSDPS_ERR_INTR_SIG_EN_OFFSET<sp/><sp/><sp/><sp/>0x3AU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor">#define<sp/>XSDPS_AUTO_CMD12_ERR_STS_OFFSET<sp/>0x3CU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor">#define<sp/>XSDPS_HOST_CTRL2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3EU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor">#define<sp/>XSDPS_CAPS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor">#define<sp/>XSDPS_CAPS_EXT_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x44U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor">#define<sp/>XSDPS_MAX_CURR_CAPS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x48U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor">#define<sp/>XSDPS_MAX_CURR_CAPS_EXT_OFFSET<sp/><sp/>0x4CU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor">#define<sp/>XSDPS_FE_ERR_INT_STS_OFFSET<sp/><sp/><sp/><sp/><sp/>0x52U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor">#define<sp/>XSDPS_FE_AUTO_CMD12_EIS_OFFSET<sp/><sp/>0x50U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor">#define<sp/>XSDPS_ADMA_ERR_STS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x54U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor">#define<sp/>XSDPS_ADMA_SAR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x58U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor">#define<sp/>XSDPS_ADMA_SAR_EXT_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x5CU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor">#define<sp/>XSDPS_PRE_VAL_1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x60U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor">#define<sp/>XSDPS_PRE_VAL_2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x64U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor">#define<sp/>XSDPS_PRE_VAL_3_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x68U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor">#define<sp/>XSDPS_PRE_VAL_4_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x6CU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor">#define<sp/>XSDPS_BOOT_TOUT_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/>0x70U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor">#define<sp/>XSDPS_SHARED_BUS_CTRL_OFFSET<sp/><sp/><sp/><sp/>0xE0U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor">#define<sp/>XSDPS_SLOT_INTR_STS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0xFCU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor">#define<sp/>XSDPS_HOST_CTRL_VER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0xFEU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor">#ifdef<sp/>VERSAL_NET</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_PHYCTRLREG1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x270U<sp/><sp/></highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor">#define<sp/>XSDPS_PHYCTRLREG2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x274U<sp/><sp/></highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor">#define<sp/>XSDPS_HC_LED_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor">#define<sp/>XSDPS_HC_WIDTH_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U<sp/></highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor">#define<sp/>XSDPS_HC_BUS_WIDTH_4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_HC_SPEED_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor">#define<sp/>XSDPS_HC_DMA_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000018U<sp/></highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor">#define<sp/>XSDPS_HC_DMA_SDMA_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U<sp/></highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor">#define<sp/>XSDPS_HC_DMA_ADMA1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008U<sp/></highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor">#define<sp/>XSDPS_HC_DMA_ADMA2_32_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000010U<sp/></highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor">#define<sp/>XSDPS_HC_DMA_ADMA2_64_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000018U<sp/></highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor">#define<sp/>XSDPS_HC_EXT_BUS_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020U<sp/></highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor">#define<sp/>XSDPS_HC_CARD_DET_TL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040U<sp/></highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor">#define<sp/>XSDPS_HC_CARD_DET_SD_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000080U<sp/></highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor">#define<sp/>XSDPS_PC_BUS_PWR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor">#define<sp/>XSDPS_PC_BUS_VSEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000000EU<sp/></highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor">#define<sp/>XSDPS_PC_BUS_VSEL_3V3_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x0000000EU<sp/></highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor">#define<sp/>XSDPS_PC_BUS_VSEL_3V0_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x0000000CU<sp/></highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor">#define<sp/>XSDPS_PC_BUS_VSEL_1V8_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x0000000AU<sp/></highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor">#define<sp/>XSDPS_PC_EMMC_HW_RST_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010U<sp/></highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor">#define<sp/>XSDPS_BGC_STP_REQ_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor">#define<sp/>XSDPS_BGC_CNT_REQ_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U<sp/></highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor">#define<sp/>XSDPS_BGC_RWC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor">#define<sp/>XSDPS_BGC_INTR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008U<sp/></highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor">#define<sp/>XSDPS_BGC_SPI_MODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010U<sp/></highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor">#define<sp/>XSDPS_BGC_BOOT_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020U<sp/></highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor">#define<sp/>XSDPS_BGC_ALT_BOOT_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000040U<sp/></highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor">#define<sp/>XSDPS_BGC_BOOT_ACK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000080U<sp/></highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor">#define<sp/>XSDPS_WC_WUP_ON_INTR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor">#define<sp/>XSDPS_WC_WUP_ON_INSRT_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U<sp/></highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor">#define<sp/>XSDPS_WC_WUP_ON_REM_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor">#define<sp/>XSDPS_CC_INT_CLK_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor">#define<sp/>XSDPS_CC_INT_CLK_STABLE_MASK<sp/><sp/><sp/><sp/>0x00000002U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor">#define<sp/>XSDPS_CC_SD_CLK_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor">#define<sp/>XSDPS_CC_SD_CLK_GEN_SEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020U<sp/></highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor">#define<sp/>XSDPS_CC_SDCLK_FREQ_SEL_EXT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000003U<sp/></highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor">#define<sp/>XSDPS_CC_SDCLK_FREQ_SEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000FFU<sp/></highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor">#define<sp/>XSDPS_CC_SDCLK_FREQ_D256_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00008000U<sp/></highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor">#define<sp/>XSDPS_CC_SDCLK_FREQ_D128_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00004000U<sp/></highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor">#define<sp/>XSDPS_CC_SDCLK_FREQ_D64_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00002000U<sp/></highlight></codeline>
+<codeline lineno="223"><highlight class="preprocessor">#define<sp/>XSDPS_CC_SDCLK_FREQ_D32_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001000U<sp/></highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor">#define<sp/>XSDPS_CC_SDCLK_FREQ_D16_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000800U<sp/></highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor">#define<sp/>XSDPS_CC_SDCLK_FREQ_D8_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000400U<sp/></highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor">#define<sp/>XSDPS_CC_SDCLK_FREQ_D4_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000200U<sp/></highlight></codeline>
+<codeline lineno="227"><highlight class="preprocessor">#define<sp/>XSDPS_CC_SDCLK_FREQ_D2_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000100U<sp/></highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor">#define<sp/>XSDPS_CC_SDCLK_FREQ_BASE_MASK<sp/><sp/><sp/>0x00000000U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="229"><highlight class="preprocessor">#define<sp/>XSDPS_CC_MAX_DIV_CNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>256U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="230"><highlight class="preprocessor">#define<sp/>XSDPS_CC_EXT_MAX_DIV_CNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2046U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor">#define<sp/>XSDPS_CC_EXT_DIV_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>6U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="233"><highlight class="preprocessor">#define<sp/>XSDPS_TC_CNTR_VAL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000000FU<sp/></highlight></codeline>
+<codeline lineno="235"><highlight class="preprocessor">#define<sp/>XSDPS_SWRST_ALL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor">#define<sp/>XSDPS_SWRST_CMD_LINE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U<sp/></highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor">#define<sp/>XSDPS_SWRST_DAT_LINE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor">#define<sp/>XSDPS_CC_MAX_NUM_OF_DIV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>9U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="240"><highlight class="preprocessor">#define<sp/>XSDPS_CC_DIV_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_CC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="268"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_TC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U<sp/></highlight></codeline>
+<codeline lineno="269"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_BGE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="270"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_DMA_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008U<sp/></highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_BWR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010U<sp/></highlight></codeline>
+<codeline lineno="272"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_BRR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020U<sp/></highlight></codeline>
+<codeline lineno="273"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_CARD_INSRT_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000040U<sp/></highlight></codeline>
+<codeline lineno="274"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_CARD_REM_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000080U<sp/></highlight></codeline>
+<codeline lineno="275"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_CARD_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000100U<sp/></highlight></codeline>
+<codeline lineno="276"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_INT_A_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000200U<sp/></highlight></codeline>
+<codeline lineno="277"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_INT_B_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000400U<sp/></highlight></codeline>
+<codeline lineno="278"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_INT_C_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000800U<sp/></highlight></codeline>
+<codeline lineno="279"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_RE_TUNING_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001000U<sp/></highlight></codeline>
+<codeline lineno="280"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_BOOT_ACK_RECV_MASK<sp/><sp/><sp/>0x00002000U<sp/></highlight></codeline>
+<codeline lineno="282"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_BOOT_TERM_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00004000U<sp/></highlight></codeline>
+<codeline lineno="284"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00008000U<sp/></highlight></codeline>
+<codeline lineno="285"><highlight class="preprocessor">#define<sp/>XSDPS_NORM_INTR_ALL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FFFFU</highlight></codeline>
+<codeline lineno="286"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_INTR_ERR_CT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="289"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_ERR_CCRC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U<sp/></highlight></codeline>
+<codeline lineno="290"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_ERR_CEB_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="292"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_ERR_CI_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008U<sp/></highlight></codeline>
+<codeline lineno="293"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_ERR_DT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010U<sp/></highlight></codeline>
+<codeline lineno="294"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_ERR_DCRC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020U<sp/></highlight></codeline>
+<codeline lineno="295"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_ERR_DEB_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040U<sp/></highlight></codeline>
+<codeline lineno="296"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_ERR_CUR_LMT_MASK<sp/><sp/><sp/><sp/><sp/>0x00000080U<sp/></highlight></codeline>
+<codeline lineno="297"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_ERR_AUTO_CMD12_MASK<sp/><sp/>0x00000100U<sp/></highlight></codeline>
+<codeline lineno="298"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_ERR_ADMA_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000200U<sp/></highlight></codeline>
+<codeline lineno="299"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_ERR_TR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001000U<sp/></highlight></codeline>
+<codeline lineno="300"><highlight class="preprocessor">#define<sp/>XSDPS_INTR_VEND_SPF_ERR_MASK<sp/><sp/><sp/><sp/>0x0000E000U<sp/></highlight></codeline>
+<codeline lineno="302"><highlight class="preprocessor">#define<sp/>XSDPS_ERROR_INTR_ALL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000F3FFU<sp/></highlight></codeline>
+<codeline lineno="313"><highlight class="preprocessor">#define<sp/>XSDPS_BLK_SIZE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000FFFU<sp/></highlight></codeline>
+<codeline lineno="314"><highlight class="preprocessor">#define<sp/>XSDPS_SDMA_BUFF_SIZE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00007000U<sp/></highlight></codeline>
+<codeline lineno="315"><highlight class="preprocessor">#define<sp/>XSDPS_BLK_SIZE_1024<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x400U</highlight></codeline>
+<codeline lineno="316"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_BLK_SIZE_2048<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x800U</highlight></codeline>
+<codeline lineno="317"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_BLK_CNT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FFFFU<sp/></highlight></codeline>
+<codeline lineno="330"><highlight class="preprocessor">#define<sp/>XSDPS_TM_DMA_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="331"><highlight class="preprocessor">#define<sp/>XSDPS_TM_BLK_CNT_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U<sp/></highlight></codeline>
+<codeline lineno="332"><highlight class="preprocessor">#define<sp/>XSDPS_TM_AUTO_CMD12_EN_MASK<sp/><sp/><sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="333"><highlight class="preprocessor">#define<sp/>XSDPS_TM_DAT_DIR_SEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010U<sp/></highlight></codeline>
+<codeline lineno="335"><highlight class="preprocessor">#define<sp/>XSDPS_TM_MUL_SIN_BLK_SEL_MASK<sp/><sp/><sp/>0x00000020U<sp/></highlight></codeline>
+<codeline lineno="338"><highlight class="preprocessor">#define<sp/>XSDPS_CMD_RESP_SEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000003U<sp/></highlight></codeline>
+<codeline lineno="340"><highlight class="preprocessor">#define<sp/>XSDPS_CMD_RESP_NONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U<sp/></highlight></codeline>
+<codeline lineno="341"><highlight class="preprocessor">#define<sp/>XSDPS_CMD_RESP_L136_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="342"><highlight class="preprocessor">#define<sp/>XSDPS_CMD_RESP_L48_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U<sp/></highlight></codeline>
+<codeline lineno="343"><highlight class="preprocessor">#define<sp/>XSDPS_CMD_RESP_L48_BSY_CHK_MASK<sp/>0x00000003U<sp/></highlight></codeline>
+<codeline lineno="346"><highlight class="preprocessor">#define<sp/>XSDPS_CMD_CRC_CHK_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008U<sp/></highlight></codeline>
+<codeline lineno="348"><highlight class="preprocessor">#define<sp/>XSDPS_CMD_INX_CHK_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010U<sp/></highlight></codeline>
+<codeline lineno="350"><highlight class="preprocessor">#define<sp/>XSDPS_DAT_PRESENT_SEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000020U<sp/></highlight></codeline>
+<codeline lineno="351"><highlight class="preprocessor">#define<sp/>XSDPS_CMD_TYPE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000C0U<sp/></highlight></codeline>
+<codeline lineno="352"><highlight class="preprocessor">#define<sp/>XSDPS_CMD_TYPE_NORM_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U<sp/></highlight></codeline>
+<codeline lineno="353"><highlight class="preprocessor">#define<sp/>XSDPS_CMD_TYPE_SUSPEND_MASK<sp/><sp/><sp/><sp/><sp/>0x00000040U<sp/></highlight></codeline>
+<codeline lineno="354"><highlight class="preprocessor">#define<sp/>XSDPS_CMD_TYPE_RESUME_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000080U<sp/></highlight></codeline>
+<codeline lineno="355"><highlight class="preprocessor">#define<sp/>XSDPS_CMD_TYPE_ABORT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000C0U<sp/></highlight></codeline>
+<codeline lineno="356"><highlight class="preprocessor">#define<sp/>XSDPS_CMD_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00003F00U<sp/></highlight></codeline>
+<codeline lineno="369"><highlight class="preprocessor">#define<sp/>XSDPS_AUTO_CMD12_NT_EX_MASK<sp/><sp/><sp/><sp/><sp/>0x0001U<sp/></highlight></codeline>
+<codeline lineno="371"><highlight class="preprocessor">#define<sp/>XSDPS_AUTO_CMD_TOUT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0002U<sp/></highlight></codeline>
+<codeline lineno="373"><highlight class="preprocessor">#define<sp/>XSDPS_AUTO_CMD_CRC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0004U<sp/></highlight></codeline>
+<codeline lineno="374"><highlight class="preprocessor">#define<sp/>XSDPS_AUTO_CMD_EB_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0008U<sp/></highlight></codeline>
+<codeline lineno="376"><highlight class="preprocessor">#define<sp/>XSDPS_AUTO_CMD_IND_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0010U<sp/></highlight></codeline>
+<codeline lineno="377"><highlight class="preprocessor">#define<sp/>XSDPS_AUTO_CMD_CNI_ERR_MASK<sp/><sp/><sp/><sp/><sp/>0x0080U<sp/></highlight></codeline>
+<codeline lineno="387"><highlight class="preprocessor">#define<sp/>XSDPS_HC2_UHS_MODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0007U<sp/></highlight></codeline>
+<codeline lineno="388"><highlight class="preprocessor">#define<sp/>XSDPS_HC2_UHS_MODE_SDR12_MASK<sp/><sp/><sp/>0x0000U<sp/></highlight></codeline>
+<codeline lineno="389"><highlight class="preprocessor">#define<sp/>XSDPS_HC2_UHS_MODE_SDR25_MASK<sp/><sp/><sp/>0x0001U<sp/></highlight></codeline>
+<codeline lineno="390"><highlight class="preprocessor">#define<sp/>XSDPS_HC2_UHS_MODE_SDR50_MASK<sp/><sp/><sp/>0x0002U<sp/></highlight></codeline>
+<codeline lineno="391"><highlight class="preprocessor">#define<sp/>XSDPS_HC2_UHS_MODE_SDR104_MASK<sp/><sp/>0x0003U<sp/></highlight></codeline>
+<codeline lineno="392"><highlight class="preprocessor">#define<sp/>XSDPS_HC2_UHS_MODE_DDR50_MASK<sp/><sp/><sp/>0x0004U<sp/></highlight></codeline>
+<codeline lineno="393"><highlight class="preprocessor">#define<sp/>XSDPS_HC2_HS400_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0005U<sp/></highlight></codeline>
+<codeline lineno="394"><highlight class="preprocessor">#define<sp/>XSDPS_HC2_1V8_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0008U<sp/></highlight></codeline>
+<codeline lineno="395"><highlight class="preprocessor">#define<sp/>XSDPS_HC2_DRV_STR_SEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x0030U<sp/></highlight></codeline>
+<codeline lineno="397"><highlight class="preprocessor">#define<sp/>XSDPS_HC2_DRV_STR_B_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000U<sp/></highlight></codeline>
+<codeline lineno="398"><highlight class="preprocessor">#define<sp/>XSDPS_HC2_DRV_STR_A_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0010U<sp/></highlight></codeline>
+<codeline lineno="399"><highlight class="preprocessor">#define<sp/>XSDPS_HC2_DRV_STR_C_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0020U<sp/></highlight></codeline>
+<codeline lineno="400"><highlight class="preprocessor">#define<sp/>XSDPS_HC2_DRV_STR_D_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0030U<sp/></highlight></codeline>
+<codeline lineno="401"><highlight class="preprocessor">#define<sp/>XSDPS_HC2_EXEC_TNG_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0040U<sp/></highlight></codeline>
+<codeline lineno="402"><highlight class="preprocessor">#define<sp/>XSDPS_HC2_SAMP_CLK_SEL_MASK<sp/><sp/><sp/><sp/><sp/>0x0080U<sp/></highlight></codeline>
+<codeline lineno="404"><highlight class="preprocessor">#define<sp/>XSDPS_HC2_ASYNC_INTR_EN_MASK<sp/><sp/><sp/><sp/>0x4000U<sp/></highlight></codeline>
+<codeline lineno="406"><highlight class="preprocessor">#define<sp/>XSDPS_HC2_PRE_VAL_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x8000U<sp/></highlight></codeline>
+<codeline lineno="418"><highlight class="preprocessor">#define<sp/>XSDPS_CAP_TOUT_CLK_FREQ_MASK<sp/><sp/><sp/><sp/>0x0000003FU<sp/></highlight></codeline>
+<codeline lineno="420"><highlight class="preprocessor">#define<sp/>XSDPS_CAP_TOUT_CLK_UNIT_MASK<sp/><sp/><sp/><sp/>0x00000080U<sp/></highlight></codeline>
+<codeline lineno="422"><highlight class="preprocessor">#define<sp/>XSDPS_CAP_MAX_BLK_LEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00030000U<sp/></highlight></codeline>
+<codeline lineno="423"><highlight class="preprocessor">#define<sp/>XSDPS_CAP_MAX_BLK_LEN_512B_MASK<sp/>0x00000000U<sp/></highlight></codeline>
+<codeline lineno="424"><highlight class="preprocessor">#define<sp/>XSDPS_CAP_MAX_BL_LN_1024_MASK<sp/><sp/><sp/>0x00010000U<sp/></highlight></codeline>
+<codeline lineno="425"><highlight class="preprocessor">#define<sp/>XSDPS_CAP_MAX_BL_LN_2048_MASK<sp/><sp/><sp/>0x00020000U<sp/></highlight></codeline>
+<codeline lineno="426"><highlight class="preprocessor">#define<sp/>XSDPS_CAP_MAX_BL_LN_4096_MASK<sp/><sp/><sp/>0x00030000U<sp/></highlight></codeline>
+<codeline lineno="428"><highlight class="preprocessor">#define<sp/>XSDPS_CAP_EXT_MEDIA_BUS_MASK<sp/><sp/><sp/><sp/>0x00040000U<sp/></highlight></codeline>
+<codeline lineno="429"><highlight class="preprocessor">#define<sp/>XSDPS_CAP_ADMA2_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00080000U<sp/></highlight></codeline>
+<codeline lineno="430"><highlight class="preprocessor">#define<sp/>XSDPS_CAP_HIGH_SPEED_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00200000U<sp/></highlight></codeline>
+<codeline lineno="431"><highlight class="preprocessor">#define<sp/>XSDPS_CAP_SDMA_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00400000U<sp/></highlight></codeline>
+<codeline lineno="432"><highlight class="preprocessor">#define<sp/>XSDPS_CAP_SUSP_RESUME_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00800000U<sp/></highlight></codeline>
+<codeline lineno="434"><highlight class="preprocessor">#define<sp/>XSDPS_CAP_VOLT_3V3_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01000000U<sp/></highlight></codeline>
+<codeline lineno="435"><highlight class="preprocessor">#define<sp/>XSDPS_CAP_VOLT_3V0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02000000U<sp/></highlight></codeline>
+<codeline lineno="436"><highlight class="preprocessor">#define<sp/>XSDPS_CAP_VOLT_1V8_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04000000U<sp/></highlight></codeline>
+<codeline lineno="438"><highlight class="preprocessor">#define<sp/>XSDPS_CAP_SYS_BUS_64_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10000000U<sp/></highlight></codeline>
+<codeline lineno="440"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Spec<sp/>2.0<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="441"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CAP_INTR_MODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08000000U<sp/></highlight></codeline>
+<codeline lineno="443"><highlight class="preprocessor">#define<sp/>XSDPS_CAP_SPI_MODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20000000U<sp/></highlight></codeline>
+<codeline lineno="444"><highlight class="preprocessor">#define<sp/>XSDPS_CAP_SPI_BLOCK_MODE_MASK<sp/><sp/><sp/>0x40000000U<sp/></highlight></codeline>
+<codeline lineno="447"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Spec<sp/>3.0<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="448"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CAPS_ASYNC_INTR_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x20000000U<sp/></highlight></codeline>
+<codeline lineno="450"><highlight class="preprocessor">#define<sp/>XSDPS_CAPS_SLOT_TYPE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xC0000000U<sp/></highlight></codeline>
+<codeline lineno="451"><highlight class="preprocessor">#define<sp/>XSDPS_CAPS_REM_CARD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U<sp/></highlight></codeline>
+<codeline lineno="452"><highlight class="preprocessor">#define<sp/>XSDPS_CAPS_EMB_SLOT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40000000U<sp/></highlight></codeline>
+<codeline lineno="453"><highlight class="preprocessor">#define<sp/>XSDPS_CAPS_SHR_BUS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80000000U<sp/></highlight></codeline>
+<codeline lineno="455"><highlight class="preprocessor">#define<sp/>XSDPS_ECAPS_SDR50_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="456"><highlight class="preprocessor">#define<sp/>XSDPS_ECAPS_SDR104_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U<sp/></highlight></codeline>
+<codeline lineno="457"><highlight class="preprocessor">#define<sp/>XSDPS_ECAPS_DDR50_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="458"><highlight class="preprocessor">#define<sp/>XSDPS_ECAPS_DRV_TYPE_A_MASK<sp/><sp/><sp/><sp/><sp/>0x00000010U<sp/></highlight></codeline>
+<codeline lineno="459"><highlight class="preprocessor">#define<sp/>XSDPS_ECAPS_DRV_TYPE_C_MASK<sp/><sp/><sp/><sp/><sp/>0x00000020U<sp/></highlight></codeline>
+<codeline lineno="460"><highlight class="preprocessor">#define<sp/>XSDPS_ECAPS_DRV_TYPE_D_MASK<sp/><sp/><sp/><sp/><sp/>0x00000040U<sp/></highlight></codeline>
+<codeline lineno="461"><highlight class="preprocessor">#define<sp/>XSDPS_ECAPS_TMR_CNT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000F00U<sp/></highlight></codeline>
+<codeline lineno="463"><highlight class="preprocessor">#define<sp/>XSDPS_ECAPS_USE_TNG_SDR50_MASK<sp/><sp/>0x00002000U<sp/></highlight></codeline>
+<codeline lineno="465"><highlight class="preprocessor">#define<sp/>XSDPS_ECAPS_RE_TNG_MODES_MASK<sp/><sp/><sp/>0x0000C000U<sp/></highlight></codeline>
+<codeline lineno="467"><highlight class="preprocessor">#define<sp/>XSDPS_ECAPS_RE_TNG_MODE1_MASK<sp/><sp/><sp/>0x00000000U<sp/></highlight></codeline>
+<codeline lineno="468"><highlight class="preprocessor">#define<sp/>XSDPS_ECAPS_RE_TNG_MODE2_MASK<sp/><sp/><sp/>0x00004000U<sp/></highlight></codeline>
+<codeline lineno="469"><highlight class="preprocessor">#define<sp/>XSDPS_ECAPS_RE_TNG_MODE3_MASK<sp/><sp/><sp/>0x00008000U<sp/></highlight></codeline>
+<codeline lineno="470"><highlight class="preprocessor">#define<sp/>XSDPS_ECAPS_CLK_MULT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00FF0000U<sp/></highlight></codeline>
+<codeline lineno="473"><highlight class="preprocessor">#define<sp/>XSDPS_ECAPS_SPI_MODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01000000U<sp/></highlight></codeline>
+<codeline lineno="474"><highlight class="preprocessor">#define<sp/>XSDPS_ECAPS_SPI_BLK_MODE_MASK<sp/><sp/><sp/>0x02000000U<sp/></highlight></codeline>
+<codeline lineno="485"><highlight class="preprocessor">#define<sp/>XSDPS_PSR_INHIBIT_CMD_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="486"><highlight class="preprocessor">#define<sp/>XSDPS_PSR_INHIBIT_DAT_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U<sp/></highlight></codeline>
+<codeline lineno="487"><highlight class="preprocessor">#define<sp/>XSDPS_PSR_DAT_ACTIVE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="488"><highlight class="preprocessor">#define<sp/>XSDPS_PSR_RE_TUNING_REQ_MASK<sp/><sp/><sp/><sp/>0x00000008U<sp/></highlight></codeline>
+<codeline lineno="489"><highlight class="preprocessor">#define<sp/>XSDPS_PSR_WR_ACTIVE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000100U<sp/></highlight></codeline>
+<codeline lineno="490"><highlight class="preprocessor">#define<sp/>XSDPS_PSR_RD_ACTIVE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000200U<sp/></highlight></codeline>
+<codeline lineno="491"><highlight class="preprocessor">#define<sp/>XSDPS_PSR_BUFF_WR_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000400U<sp/></highlight></codeline>
+<codeline lineno="492"><highlight class="preprocessor">#define<sp/>XSDPS_PSR_BUFF_RD_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000800U<sp/></highlight></codeline>
+<codeline lineno="493"><highlight class="preprocessor">#define<sp/>XSDPS_PSR_CARD_INSRT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00010000U<sp/></highlight></codeline>
+<codeline lineno="494"><highlight class="preprocessor">#define<sp/>XSDPS_PSR_CARD_STABLE_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00020000U<sp/></highlight></codeline>
+<codeline lineno="495"><highlight class="preprocessor">#define<sp/>XSDPS_PSR_CARD_DPL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00040000U<sp/></highlight></codeline>
+<codeline lineno="496"><highlight class="preprocessor">#define<sp/>XSDPS_PSR_WPS_PL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00080000U<sp/></highlight></codeline>
+<codeline lineno="498"><highlight class="preprocessor">#define<sp/>XSDPS_PSR_DAT30_SG_LVL_MASK<sp/><sp/><sp/><sp/><sp/>0x00F00000U<sp/></highlight></codeline>
+<codeline lineno="499"><highlight class="preprocessor">#define<sp/>XSDPS_PSR_CMD_SG_LVL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01000000U<sp/></highlight></codeline>
+<codeline lineno="500"><highlight class="preprocessor">#define<sp/>XSDPS_PSR_DAT74_SG_LVL_MASK<sp/><sp/><sp/><sp/><sp/>0x1E000000U<sp/></highlight></codeline>
+<codeline lineno="511"><highlight class="preprocessor">#define<sp/>XSDPS_MAX_CUR_CAPS_1V8_MASK<sp/><sp/><sp/><sp/><sp/>0x00000F00U<sp/></highlight></codeline>
+<codeline lineno="513"><highlight class="preprocessor">#define<sp/>XSDPS_MAX_CUR_CAPS_3V0_MASK<sp/><sp/><sp/><sp/><sp/>0x000000F0U<sp/></highlight></codeline>
+<codeline lineno="515"><highlight class="preprocessor">#define<sp/>XSDPS_MAX_CUR_CAPS_3V3_MASK<sp/><sp/><sp/><sp/><sp/>0x0000000FU<sp/></highlight></codeline>
+<codeline lineno="527"><highlight class="preprocessor">#define<sp/>XSDPS_FE_AUTO_CMD12_NT_EX_MASK<sp/><sp/>0x0001U<sp/></highlight></codeline>
+<codeline lineno="529"><highlight class="preprocessor">#define<sp/>XSDPS_FE_AUTO_CMD_TOUT_MASK<sp/><sp/><sp/><sp/><sp/>0x0002U<sp/></highlight></codeline>
+<codeline lineno="531"><highlight class="preprocessor">#define<sp/>XSDPS_FE_AUTO_CMD_CRC_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x0004U<sp/></highlight></codeline>
+<codeline lineno="532"><highlight class="preprocessor">#define<sp/>XSDPS_FE_AUTO_CMD_EB_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0008U<sp/></highlight></codeline>
+<codeline lineno="534"><highlight class="preprocessor">#define<sp/>XSDPS_FE_AUTO_CMD_IND_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x0010U<sp/></highlight></codeline>
+<codeline lineno="535"><highlight class="preprocessor">#define<sp/>XSDPS_FE_AUTO_CMD_CNI_ERR_MASK<sp/><sp/>0x0080U<sp/></highlight></codeline>
+<codeline lineno="548"><highlight class="preprocessor">#define<sp/>XSDPS_FE_INTR_ERR_CT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0001U<sp/></highlight></codeline>
+<codeline lineno="550"><highlight class="preprocessor">#define<sp/>XSDPS_FE_INTR_ERR_CCRC_MASK<sp/><sp/><sp/><sp/><sp/>0x0002U<sp/></highlight></codeline>
+<codeline lineno="551"><highlight class="preprocessor">#define<sp/>XSDPS_FE_INTR_ERR_CEB_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x0004U<sp/></highlight></codeline>
+<codeline lineno="553"><highlight class="preprocessor">#define<sp/>XSDPS_FE_INTR_ERR_CI_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0008U<sp/></highlight></codeline>
+<codeline lineno="554"><highlight class="preprocessor">#define<sp/>XSDPS_FE_INTR_ERR_DT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0010U<sp/></highlight></codeline>
+<codeline lineno="555"><highlight class="preprocessor">#define<sp/>XSDPS_FE_INTR_ERR_DCRC_MASK<sp/><sp/><sp/><sp/><sp/>0x0020U<sp/></highlight></codeline>
+<codeline lineno="556"><highlight class="preprocessor">#define<sp/>XSDPS_FE_INTR_ERR_DEB_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x0040U<sp/></highlight></codeline>
+<codeline lineno="557"><highlight class="preprocessor">#define<sp/>XSDPS_FE_INTR_ERR_CUR_LMT_MASK<sp/><sp/>0x0080U<sp/></highlight></codeline>
+<codeline lineno="558"><highlight class="preprocessor">#define<sp/>XSDPS_FE_INTR_ERR_AUTO_CMD_MASK<sp/>0x0100U<sp/></highlight></codeline>
+<codeline lineno="559"><highlight class="preprocessor">#define<sp/>XSDPS_FE_INTR_ERR_ADMA_MASK<sp/><sp/><sp/><sp/><sp/>0x0200U<sp/></highlight></codeline>
+<codeline lineno="560"><highlight class="preprocessor">#define<sp/>XSDPS_FE_INTR_ERR_TR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1000U<sp/></highlight></codeline>
+<codeline lineno="561"><highlight class="preprocessor">#define<sp/>XSDPS_FE_INTR_VEND_SPF_ERR_MASK<sp/>0xE000U<sp/></highlight></codeline>
+<codeline lineno="573"><highlight class="preprocessor">#define<sp/>XSDPS_ADMA_ERR_MM_LEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x04U<sp/></highlight></codeline>
+<codeline lineno="575"><highlight class="preprocessor">#define<sp/>XSDPS_ADMA_ERR_STATE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x03U<sp/></highlight></codeline>
+<codeline lineno="576"><highlight class="preprocessor">#define<sp/>XSDPS_ADMA_ERR_STATE_STOP_MASK<sp/><sp/>0x00U<sp/></highlight></codeline>
+<codeline lineno="578"><highlight class="preprocessor">#define<sp/>XSDPS_ADMA_ERR_STATE_FDS_MASK<sp/><sp/><sp/>0x01U<sp/></highlight></codeline>
+<codeline lineno="580"><highlight class="preprocessor">#define<sp/>XSDPS_ADMA_ERR_STATE_TFR_MASK<sp/><sp/><sp/>0x03U<sp/></highlight></codeline>
+<codeline lineno="591"><highlight class="preprocessor">#define<sp/>XSDPS_PRE_VAL_SDCLK_FSEL_MASK<sp/><sp/><sp/>0x03FFU<sp/></highlight></codeline>
+<codeline lineno="593"><highlight class="preprocessor">#define<sp/>XSDPS_PRE_VAL_CLK_GEN_SEL_MASK<sp/><sp/>0x0400U<sp/></highlight></codeline>
+<codeline lineno="595"><highlight class="preprocessor">#define<sp/>XSDPS_PRE_VAL_DRV_STR_SEL_MASK<sp/><sp/>0xC000U<sp/></highlight></codeline>
+<codeline lineno="607"><highlight class="preprocessor">#define<sp/>XSDPS_SLOT_INTR_STS_INT_MASK<sp/><sp/><sp/><sp/>0x0007U<sp/></highlight></codeline>
+<codeline lineno="619"><highlight class="preprocessor">#define<sp/>XSDPS_HC_VENDOR_VER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF00U<sp/></highlight></codeline>
+<codeline lineno="622"><highlight class="preprocessor">#define<sp/>XSDPS_HC_SPEC_VER_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00FFU<sp/></highlight></codeline>
+<codeline lineno="625"><highlight class="preprocessor">#define<sp/>XSDPS_HC_SPEC_V3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0002U<sp/></highlight></codeline>
+<codeline lineno="626"><highlight class="preprocessor">#define<sp/>XSDPS_HC_SPEC_V2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0001U<sp/></highlight></codeline>
+<codeline lineno="627"><highlight class="preprocessor">#define<sp/>XSDPS_HC_SPEC_V1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000U<sp/></highlight></codeline>
+<codeline lineno="636"><highlight class="preprocessor">#define<sp/>XSDPS_PHYREG1_STROBE_SEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF0000U<sp/></highlight></codeline>
+<codeline lineno="637"><highlight class="preprocessor">#define<sp/>XSDPS_PHYREG1_STROBE_SEL_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16U<sp/></highlight></codeline>
+<codeline lineno="638"><highlight class="preprocessor">#define<sp/>XSDPS_PHYREG1_ITAP_CHGWIN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40U<sp/></highlight></codeline>
+<codeline lineno="639"><highlight class="preprocessor">#define<sp/>XSDPS_PHYREG1_ITAP_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1U<sp/></highlight></codeline>
+<codeline lineno="640"><highlight class="preprocessor">#define<sp/>XSDPS_PHYREG1_ITAP_DLY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2EU<sp/></highlight></codeline>
+<codeline lineno="641"><highlight class="preprocessor">#define<sp/>XSDPS_PHYREG1_ITAP_DLY_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/></highlight></codeline>
+<codeline lineno="642"><highlight class="preprocessor">#define<sp/>XSDPS_PHYREG1_OTAP_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x100U<sp/></highlight></codeline>
+<codeline lineno="643"><highlight class="preprocessor">#define<sp/>XSDPS_PHYREG1_OTAP_DLY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF000U<sp/></highlight></codeline>
+<codeline lineno="644"><highlight class="preprocessor">#define<sp/>XSDPS_PHYREG1_OTAP_DLY_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>12U<sp/></highlight></codeline>
+<codeline lineno="655"><highlight class="preprocessor">#define<sp/>XSDPS_PHYREG2_DLL_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="656"><highlight class="preprocessor">#define<sp/>XSDPS_PHYREG2_DLL_RDY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U<sp/></highlight></codeline>
+<codeline lineno="657"><highlight class="preprocessor">#define<sp/>XSDPS_PHYREG2_FREQ_SEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000070U<sp/></highlight></codeline>
+<codeline lineno="658"><highlight class="preprocessor">#define<sp/>XSDPS_PHYREG2_FREQ_SEL_SHIFT<sp/><sp/><sp/><sp/>4U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="659"><highlight class="preprocessor">#define<sp/>XSDPS_FREQ_SEL_170MHZ_200MHz<sp/><sp/><sp/><sp/>0U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="660"><highlight class="preprocessor">#define<sp/>XSDPS_FREQ_SEL_140MHZ_169MHz<sp/><sp/><sp/><sp/>1U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="661"><highlight class="preprocessor">#define<sp/>XSDPS_FREQ_SEL_110MHZ_139MHz<sp/><sp/><sp/><sp/>2U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="662"><highlight class="preprocessor">#define<sp/>XSDPS_FREQ_SEL_80MHZ_109MHz<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="663"><highlight class="preprocessor">#define<sp/>XSDPS_FREQ_SEL_50MHZ_79MHz<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="664"><highlight class="preprocessor">#define<sp/>XSDPS_PHYREG2_TRIM_ICP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000F00U<sp/></highlight></codeline>
+<codeline lineno="665"><highlight class="preprocessor">#define<sp/>XSDPS_PHYREG2_TRIM_ICP_DEF_VAL<sp/><sp/>8U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="666"><highlight class="preprocessor">#define<sp/>XSDPS_PHYREG2_TRIM_ICP_SHIFT<sp/><sp/><sp/><sp/>8U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="667"><highlight class="preprocessor">#define<sp/>XSDPS_PHYREG2_DLYTX_SEL_MASK<sp/><sp/><sp/><sp/>0x00010000U<sp/></highlight></codeline>
+<codeline lineno="668"><highlight class="preprocessor">#define<sp/>XSDPS_PHYREG2_DLYRX_SEL_MASK<sp/><sp/><sp/><sp/>0x00020000U<sp/></highlight></codeline>
+<codeline lineno="680"><highlight class="preprocessor">#define<sp/>XSDPS_APP_CMD_PREFIX<sp/><sp/><sp/><sp/><sp/>0x8000U</highlight></codeline>
+<codeline lineno="681"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD0<sp/><sp/><sp/><sp/><sp/>0x0000U</highlight></codeline>
+<codeline lineno="682"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD1<sp/><sp/><sp/><sp/><sp/>0x0100U</highlight></codeline>
+<codeline lineno="683"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD2<sp/><sp/><sp/><sp/><sp/>0x0200U</highlight></codeline>
+<codeline lineno="684"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD3<sp/><sp/><sp/><sp/><sp/>0x0300U</highlight></codeline>
+<codeline lineno="685"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD4<sp/><sp/><sp/><sp/><sp/>0x0400U</highlight></codeline>
+<codeline lineno="686"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD5<sp/><sp/><sp/><sp/><sp/>0x0500U</highlight></codeline>
+<codeline lineno="687"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD6<sp/><sp/><sp/><sp/><sp/>0x0600U</highlight></codeline>
+<codeline lineno="688"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ACMD6<sp/><sp/><sp/>(XSDPS_APP_CMD_PREFIX<sp/>+<sp/>0x0600U)</highlight></codeline>
+<codeline lineno="689"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD7<sp/><sp/><sp/><sp/><sp/>0x0700U</highlight></codeline>
+<codeline lineno="690"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD8<sp/><sp/><sp/><sp/><sp/>0x0800U</highlight></codeline>
+<codeline lineno="691"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD9<sp/><sp/><sp/><sp/><sp/>0x0900U</highlight></codeline>
+<codeline lineno="692"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD10<sp/><sp/><sp/><sp/>0x0A00U</highlight></codeline>
+<codeline lineno="693"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD11<sp/><sp/><sp/><sp/>0x0B00U</highlight></codeline>
+<codeline lineno="694"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD12<sp/><sp/><sp/><sp/>0x0C00U</highlight></codeline>
+<codeline lineno="695"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ACMD13<sp/><sp/><sp/>(XSDPS_APP_CMD_PREFIX<sp/>+<sp/>0x0D00U)</highlight></codeline>
+<codeline lineno="696"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD16<sp/><sp/><sp/><sp/>0x1000U</highlight></codeline>
+<codeline lineno="697"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD17<sp/><sp/><sp/><sp/>0x1100U</highlight></codeline>
+<codeline lineno="698"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD18<sp/><sp/><sp/><sp/>0x1200U</highlight></codeline>
+<codeline lineno="699"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD19<sp/><sp/><sp/><sp/>0x1300U</highlight></codeline>
+<codeline lineno="700"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD21<sp/><sp/><sp/><sp/>0x1500U</highlight></codeline>
+<codeline lineno="701"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD23<sp/><sp/><sp/><sp/>0x1700U</highlight></codeline>
+<codeline lineno="702"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ACMD23<sp/><sp/><sp/>(XSDPS_APP_CMD_PREFIX<sp/>+<sp/>0x1700U)</highlight></codeline>
+<codeline lineno="703"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD24<sp/><sp/><sp/><sp/>0x1800U</highlight></codeline>
+<codeline lineno="704"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD25<sp/><sp/><sp/><sp/>0x1900U</highlight></codeline>
+<codeline lineno="705"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD32<sp/><sp/><sp/><sp/>0x2000U</highlight></codeline>
+<codeline lineno="706"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD33<sp/><sp/><sp/><sp/>0x2100U</highlight></codeline>
+<codeline lineno="707"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD35<sp/><sp/><sp/><sp/>0x2300U</highlight></codeline>
+<codeline lineno="708"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD36<sp/><sp/><sp/><sp/>0x2400U</highlight></codeline>
+<codeline lineno="709"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD38<sp/><sp/><sp/><sp/>0x2600U</highlight></codeline>
+<codeline lineno="710"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD41<sp/><sp/><sp/><sp/>0x2900U</highlight></codeline>
+<codeline lineno="711"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ACMD41<sp/><sp/><sp/>(XSDPS_APP_CMD_PREFIX<sp/>+<sp/>0x2900U)</highlight></codeline>
+<codeline lineno="712"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ACMD42<sp/><sp/><sp/>(XSDPS_APP_CMD_PREFIX<sp/>+<sp/>0x2A00U)</highlight></codeline>
+<codeline lineno="713"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ACMD51<sp/><sp/><sp/>(XSDPS_APP_CMD_PREFIX<sp/>+<sp/>0x3300U)</highlight></codeline>
+<codeline lineno="714"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD52<sp/><sp/><sp/><sp/>0x3400U</highlight></codeline>
+<codeline lineno="715"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD55<sp/><sp/><sp/><sp/>0x3700U</highlight></codeline>
+<codeline lineno="716"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CMD58<sp/><sp/><sp/><sp/>0x3A00U</highlight></codeline>
+<codeline lineno="717"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="718"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RESP_NONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XSDPS_CMD_RESP_NONE_MASK</highlight></codeline>
+<codeline lineno="719"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RESP_R1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XSDPS_CMD_RESP_L48_MASK<sp/>|<sp/>(u32)XSDPS_CMD_CRC_CHK_EN_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="720"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XSDPS_CMD_INX_CHK_EN_MASK</highlight></codeline>
+<codeline lineno="721"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="722"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RESP_R1B<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XSDPS_CMD_RESP_L48_BSY_CHK_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="723"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XSDPS_CMD_CRC_CHK_EN_MASK<sp/>|<sp/>(u32)XSDPS_CMD_INX_CHK_EN_MASK</highlight></codeline>
+<codeline lineno="724"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="725"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RESP_R2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XSDPS_CMD_RESP_L136_MASK<sp/>|<sp/>(u32)XSDPS_CMD_CRC_CHK_EN_MASK</highlight></codeline>
+<codeline lineno="726"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RESP_R3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XSDPS_CMD_RESP_L48_MASK</highlight></codeline>
+<codeline lineno="727"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="728"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RESP_R6<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XSDPS_CMD_RESP_L48_BSY_CHK_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="729"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XSDPS_CMD_CRC_CHK_EN_MASK<sp/>|<sp/>(u32)XSDPS_CMD_INX_CHK_EN_MASK</highlight></codeline>
+<codeline lineno="730"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="740"><highlight class="preprocessor">#define<sp/>XSDPS_CIC_CHK_PATTERN<sp/><sp/><sp/>0xAAU</highlight></codeline>
+<codeline lineno="741"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CIC_VOLT_MASK<sp/><sp/><sp/><sp/><sp/>(0xFU&lt;&lt;8)</highlight></codeline>
+<codeline lineno="742"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CIC_VOLT_2V7_3V6<sp/><sp/>(1U&lt;&lt;8)</highlight></codeline>
+<codeline lineno="743"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CIC_VOLT_LOW<sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;9)</highlight></codeline>
+<codeline lineno="744"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="753"><highlight class="preprocessor">#define<sp/>XSDPS_OCR_PWRUP_STS<sp/><sp/><sp/><sp/><sp/>(0x00000001U<sp/>&lt;&lt;<sp/>31)</highlight></codeline>
+<codeline lineno="754"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_OCR_CC_STS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U<sp/>&lt;&lt;<sp/>30)</highlight></codeline>
+<codeline lineno="755"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_OCR_S18<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U<sp/>&lt;&lt;<sp/>24)</highlight></codeline>
+<codeline lineno="756"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_OCR_3V5_3V6<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U<sp/>&lt;&lt;<sp/>23)</highlight></codeline>
+<codeline lineno="757"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_OCR_3V4_3V5<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U<sp/>&lt;&lt;<sp/>22)</highlight></codeline>
+<codeline lineno="758"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_OCR_3V3_3V4<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U<sp/>&lt;&lt;<sp/>21)</highlight></codeline>
+<codeline lineno="759"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_OCR_3V2_3V3<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U<sp/>&lt;&lt;<sp/>20)</highlight></codeline>
+<codeline lineno="760"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_OCR_3V1_3V2<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U<sp/>&lt;&lt;<sp/>19)</highlight></codeline>
+<codeline lineno="761"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_OCR_3V0_3V1<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U<sp/>&lt;&lt;<sp/>18)</highlight></codeline>
+<codeline lineno="762"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_OCR_2V9_3V0<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U<sp/>&lt;&lt;<sp/>17)</highlight></codeline>
+<codeline lineno="763"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_OCR_2V8_2V9<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U<sp/>&lt;&lt;<sp/>16)</highlight></codeline>
+<codeline lineno="764"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_OCR_2V7_2V8<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U<sp/>&lt;&lt;<sp/>15)</highlight></codeline>
+<codeline lineno="765"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_OCR_1V7_1V95<sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U<sp/>&lt;&lt;<sp/>7)</highlight></codeline>
+<codeline lineno="766"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_OCR_HIGH_VOL<sp/><sp/><sp/><sp/><sp/><sp/>0x00FF8000U</highlight></codeline>
+<codeline lineno="767"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_OCR_LOW_VOL<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000080U</highlight></codeline>
+<codeline lineno="768"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="777"><highlight class="preprocessor">#define<sp/>XSDPS_SCR_REG_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U</highlight></codeline>
+<codeline lineno="778"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_SCR_STRUCT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFU&lt;&lt;28)</highlight></codeline>
+<codeline lineno="779"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_SCR_SPEC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFU&lt;&lt;24)</highlight></codeline>
+<codeline lineno="780"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_SCR_SPEC_1V0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="781"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_SCR_SPEC_1V1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;24)</highlight></codeline>
+<codeline lineno="782"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_SCR_SPEC_2V0_3V0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U&lt;&lt;24)</highlight></codeline>
+<codeline lineno="783"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_SCR_MEM_VAL_AF_ERASE<sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;23)</highlight></codeline>
+<codeline lineno="784"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_SCR_SEC_SUPP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(7U&lt;&lt;20)</highlight></codeline>
+<codeline lineno="785"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_SCR_SEC_SUPP_NONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="786"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_SCR_SEC_SUPP_1V1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U&lt;&lt;20)</highlight></codeline>
+<codeline lineno="787"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_SCR_SEC_SUPP_2V0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U&lt;&lt;20)</highlight></codeline>
+<codeline lineno="788"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_SCR_SEC_SUPP_3V0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U&lt;&lt;20)</highlight></codeline>
+<codeline lineno="789"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_SCR_BUS_WIDTH_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFU&lt;&lt;16)</highlight></codeline>
+<codeline lineno="790"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_SCR_BUS_WIDTH_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;16)</highlight></codeline>
+<codeline lineno="791"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_SCR_BUS_WIDTH_4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U&lt;&lt;16)</highlight></codeline>
+<codeline lineno="792"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_SCR_SPEC3_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;12)</highlight></codeline>
+<codeline lineno="793"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_SCR_SPEC3_2V0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="794"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_SCR_SPEC3_3V0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;12)</highlight></codeline>
+<codeline lineno="795"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_SCR_CMD_SUPP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3U</highlight></codeline>
+<codeline lineno="796"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_SCR_CMD23_SUPP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;1)</highlight></codeline>
+<codeline lineno="797"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_SCR_CMD20_SUPP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;0)</highlight></codeline>
+<codeline lineno="798"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="807"><highlight class="preprocessor">#define<sp/>XSDPS_CD_STS_OUT_OF_RANGE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;31)</highlight></codeline>
+<codeline lineno="808"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CD_STS_ADDR_ERR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;30)</highlight></codeline>
+<codeline lineno="809"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CD_STS_BLK_LEN_ERR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;29)</highlight></codeline>
+<codeline lineno="810"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CD_STS_ER_SEQ_ERR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;28)</highlight></codeline>
+<codeline lineno="811"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CD_STS_ER_PRM_ERR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;27)</highlight></codeline>
+<codeline lineno="812"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CD_STS_WP_VIO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;26)</highlight></codeline>
+<codeline lineno="813"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CD_STS_IS_LOCKED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;25)</highlight></codeline>
+<codeline lineno="814"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CD_STS_LOCK_UNLOCK_FAIL<sp/><sp/><sp/>(1U&lt;&lt;24)</highlight></codeline>
+<codeline lineno="815"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CD_STS_CMD_CRC_ERR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;23)</highlight></codeline>
+<codeline lineno="816"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CD_STS_ILGL_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;22)</highlight></codeline>
+<codeline lineno="817"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CD_STS_CARD_ECC_FAIL<sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;21)</highlight></codeline>
+<codeline lineno="818"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CD_STS_CC_ERR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;20)</highlight></codeline>
+<codeline lineno="819"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CD_STS_ERR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;19)</highlight></codeline>
+<codeline lineno="820"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CD_STS_CSD_OVRWR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;16)</highlight></codeline>
+<codeline lineno="821"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CD_STS_WP_ER_SKIP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;15)</highlight></codeline>
+<codeline lineno="822"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CD_STS_CARD_ECC_DIS<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;14)</highlight></codeline>
+<codeline lineno="823"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CD_STS_ER_RST<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;13)</highlight></codeline>
+<codeline lineno="824"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CD_STS_CUR_STATE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFU&lt;&lt;9)</highlight></codeline>
+<codeline lineno="825"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CD_STS_RDY_FOR_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;8)</highlight></codeline>
+<codeline lineno="826"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CD_STS_APP_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;5)</highlight></codeline>
+<codeline lineno="827"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CD_STS_AKE_SEQ_ERR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;2)</highlight></codeline>
+<codeline lineno="828"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="837"><highlight class="preprocessor">#define<sp/>XSDPS_SWITCH_SD_RESP_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>64U</highlight></codeline>
+<codeline lineno="838"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="839"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_SWITCH_FUNC_SWITCH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;31)</highlight></codeline>
+<codeline lineno="840"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_SWITCH_FUNC_CHECK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="841"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="850"><highlight class="preprocessor">#define<sp/>XSDPS_MODE_FUNC_GRP1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="851"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_MODE_FUNC_GRP2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U</highlight></codeline>
+<codeline lineno="852"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_MODE_FUNC_GRP3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U</highlight></codeline>
+<codeline lineno="853"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_MODE_FUNC_GRP4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U</highlight></codeline>
+<codeline lineno="854"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_MODE_FUNC_GRP5<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5U</highlight></codeline>
+<codeline lineno="855"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_MODE_FUNC_GRP6<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>6U</highlight></codeline>
+<codeline lineno="856"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="857"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_FUNC_GRP_DEF_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFU</highlight></codeline>
+<codeline lineno="858"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_FUNC_ALL_GRP_DEF_VAL<sp/><sp/><sp/><sp/><sp/><sp/>0xFFFFFFU</highlight></codeline>
+<codeline lineno="859"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="868"><highlight class="preprocessor">#define<sp/>XSDPS_ACC_MODE_DEF_SDR12<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="869"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_ACC_MODE_HS_SDR25<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="870"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_ACC_MODE_SDR50<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U</highlight></codeline>
+<codeline lineno="871"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_ACC_MODE_SDR104<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U</highlight></codeline>
+<codeline lineno="872"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_ACC_MODE_DDR50<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U</highlight></codeline>
+<codeline lineno="873"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="883"><highlight class="preprocessor">#define<sp/>XSDPS_CMD_SYS_ARG_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U</highlight></codeline>
+<codeline lineno="884"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CMD_SYS_DEF<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="885"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CMD_SYS_eC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="886"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CMD_SYS_OTP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U</highlight></codeline>
+<codeline lineno="887"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CMD_SYS_ASSD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U</highlight></codeline>
+<codeline lineno="888"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CMD_SYS_VEND<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5U</highlight></codeline>
+<codeline lineno="889"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="890"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_DRV_TYPE_ARG_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U</highlight></codeline>
+<codeline lineno="891"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_DRV_TYPE_B<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="892"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_DRV_TYPE_A<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="893"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_DRV_TYPE_C<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U</highlight></codeline>
+<codeline lineno="894"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_DRV_TYPE_D<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U</highlight></codeline>
+<codeline lineno="895"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="896"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CUR_LIM_ARG_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>12U</highlight></codeline>
+<codeline lineno="897"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CUR_LIM_200<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="898"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CUR_LIM_400<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="899"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CUR_LIM_600<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U</highlight></codeline>
+<codeline lineno="900"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CUR_LIM_800<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U</highlight></codeline>
+<codeline lineno="901"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="902"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CSD_SPEC_VER_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3C0000U</highlight></codeline>
+<codeline lineno="903"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>READ_BLK_LEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000F00U</highlight></codeline>
+<codeline lineno="904"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>C_SIZE_MULT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000380U</highlight></codeline>
+<codeline lineno="905"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>C_SIZE_LOWER_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFC00000U</highlight></codeline>
+<codeline lineno="906"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>C_SIZE_UPPER_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000003U</highlight></codeline>
+<codeline lineno="907"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CSD_STRUCT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00C00000U</highlight></codeline>
+<codeline lineno="908"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CSD_V2_C_SIZE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3FFFFF00U</highlight></codeline>
+<codeline lineno="909"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CSD_CCC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFF00000U</highlight></codeline>
+<codeline lineno="910"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CSD_CCC_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>20U</highlight></codeline>
+<codeline lineno="911"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CSD_CCC_CLASS5_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20U</highlight></codeline>
+<codeline lineno="912"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="921"><highlight class="preprocessor">#define<sp/>XSDPS_EXT_CSD_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>512U</highlight></codeline>
+<codeline lineno="922"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="923"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_WR_REL_PARAM_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;2)</highlight></codeline>
+<codeline lineno="924"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="925"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_BOOT_WP_B_PWR_WP_DIS<sp/><sp/><sp/><sp/>(0x40U)</highlight></codeline>
+<codeline lineno="926"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_BOOT_WP_B_PERM_WP_DIS<sp/><sp/><sp/>(0x10U)</highlight></codeline>
+<codeline lineno="927"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_BOOT_WP_B_PERM_WP_EN<sp/><sp/><sp/><sp/>(0x04U)</highlight></codeline>
+<codeline lineno="928"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_BOOT_WP_B_PWR_WP_EN<sp/><sp/><sp/><sp/><sp/>(0x01U)</highlight></codeline>
+<codeline lineno="929"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="930"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_PART_CONFIG_ACC_MASK<sp/><sp/><sp/><sp/>(0x7U)</highlight></codeline>
+<codeline lineno="931"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_PART_CONFIG_ACC_BOOT0<sp/><sp/><sp/>(0x1U)</highlight></codeline>
+<codeline lineno="932"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_PART_CONFIG_ACC_BOOT1<sp/><sp/><sp/>(0x2U)</highlight></codeline>
+<codeline lineno="933"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_PART_CONFIG_ACC_RPMB<sp/><sp/><sp/><sp/>(0x3U)</highlight></codeline>
+<codeline lineno="934"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_PART_CONFIG_ACC_GP0<sp/><sp/><sp/><sp/><sp/>(0x4U)</highlight></codeline>
+<codeline lineno="935"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_SANITIZE_START<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)</highlight></codeline>
+<codeline lineno="936"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_PART_CONFIG_BYTE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(179U)</highlight></codeline>
+<codeline lineno="937"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_SANIT_CONFIG_BYTE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(165U)</highlight></codeline>
+<codeline lineno="938"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_MMC_PART_CFG_0_ARG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)XSDPS_EXT_CSD_WRITE_BYTE<sp/>&lt;&lt;<sp/>24U)<sp/>\</highlight></codeline>
+<codeline lineno="939"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_PART_CONFIG_BYTE<sp/>&lt;&lt;<sp/>16U)<sp/>\</highlight></codeline>
+<codeline lineno="940"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)(0U)<sp/>&lt;&lt;<sp/>8U))</highlight></codeline>
+<codeline lineno="941"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="942"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_MMC_PART_CFG_1_ARG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)XSDPS_EXT_CSD_WRITE_BYTE<sp/>&lt;&lt;<sp/>24U)<sp/>\</highlight></codeline>
+<codeline lineno="943"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_PART_CONFIG_BYTE<sp/>&lt;&lt;<sp/>16U)<sp/>\</highlight></codeline>
+<codeline lineno="944"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_PART_CONFIG_ACC_BOOT0<sp/>&lt;&lt;<sp/>8U))</highlight></codeline>
+<codeline lineno="945"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="946"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_MMC_PART_CFG_2_ARG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)XSDPS_EXT_CSD_WRITE_BYTE<sp/>&lt;&lt;<sp/>24U)<sp/>\</highlight></codeline>
+<codeline lineno="947"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_PART_CONFIG_BYTE<sp/>&lt;&lt;<sp/>16U)<sp/>\</highlight></codeline>
+<codeline lineno="948"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_PART_CONFIG_ACC_BOOT1<sp/>&lt;&lt;<sp/>8U))</highlight></codeline>
+<codeline lineno="949"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="950"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_MMC_START_SANITIZE_ARG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)XSDPS_EXT_CSD_WRITE_BYTE<sp/>&lt;&lt;<sp/>24U)<sp/>\</highlight></codeline>
+<codeline lineno="951"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_SANIT_CONFIG_BYTE<sp/>&lt;&lt;<sp/>16U)<sp/>\</highlight></codeline>
+<codeline lineno="952"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_SANITIZE_START<sp/>&lt;&lt;<sp/>8U))</highlight></codeline>
+<codeline lineno="953"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="954"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_PART_SUPPORT_PART_EN<sp/><sp/><sp/><sp/>(0x1U)</highlight></codeline>
+<codeline lineno="955"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="956"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_CMD_SET_NORMAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;0)</highlight></codeline>
+<codeline lineno="957"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_CMD_SET_SECURE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;1)</highlight></codeline>
+<codeline lineno="958"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_CMD_SET_CPSECURE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;2)</highlight></codeline>
+<codeline lineno="959"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="960"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_CARD_TYPE_26<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;0)<sp/><sp/></highlight><highlight class="comment">/*<sp/>Card<sp/>can<sp/>run<sp/>at<sp/>26MHz<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="961"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_CARD_TYPE_52<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;1)<sp/><sp/></highlight><highlight class="comment">/*<sp/>Card<sp/>can<sp/>run<sp/>at<sp/>52MHz<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="962"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_CARD_TYPE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3FU<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Mask<sp/>out<sp/>reserved<sp/>bits<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="963"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_CARD_TYPE_DDR_1_8V<sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;2)<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Card<sp/>can<sp/>run<sp/>at<sp/>52MHz<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="964"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>DDR<sp/>mode<sp/>@1.8V<sp/>or<sp/>3V<sp/>I/O<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="965"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_CARD_TYPE_DDR_1_2V<sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;3)<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Card<sp/>can<sp/>run<sp/>at<sp/>52MHz<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="966"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>DDR<sp/>mode<sp/>@1.2V<sp/>I/O<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="967"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_CARD_TYPE_DDR_52<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(EXT_CSD_CARD_TYPE_DDR_1_8V<sp/><sp/>\</highlight></codeline>
+<codeline lineno="968"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>EXT_CSD_CARD_TYPE_DDR_1_2V)</highlight></codeline>
+<codeline lineno="969"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_CARD_TYPE_SDR_1_8V<sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;4)<sp/><sp/></highlight><highlight class="comment">/*<sp/>Card<sp/>can<sp/>run<sp/>at<sp/>200MHz<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="970"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_CARD_TYPE_SDR_1_2V<sp/><sp/><sp/><sp/><sp/><sp/>(1U&lt;&lt;5)<sp/><sp/></highlight><highlight class="comment">/*<sp/>Card<sp/>can<sp/>run<sp/>at<sp/>200MHz<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="971"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>SDR<sp/>mode<sp/>@1.2V<sp/>I/O<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="972"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_BUS_WIDTH_BYTE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>183U</highlight></codeline>
+<codeline lineno="973"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_BUS_WIDTH_1_BIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Card<sp/>is<sp/>in<sp/>1<sp/>bit<sp/>mode<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="974"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_BUS_WIDTH_4_BIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Card<sp/>is<sp/>in<sp/>4<sp/>bit<sp/>mode<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="975"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_BUS_WIDTH_8_BIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Card<sp/>is<sp/>in<sp/>8<sp/>bit<sp/>mode<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="976"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_BUS_WIDTH_DDR_4_BIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5U<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Card<sp/>is<sp/>in<sp/>4<sp/>bit<sp/>DDR<sp/>mode<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="977"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_BUS_WIDTH_DDR_8_BIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>6U<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Card<sp/>is<sp/>in<sp/>8<sp/>bit<sp/>DDR<sp/>mode<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="978"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="979"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_HS_TIMING_BYTE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>185U</highlight></codeline>
+<codeline lineno="980"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_HS_TIMING_DEF<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="981"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_HS_TIMING_HIGH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Card<sp/>is<sp/>in<sp/>high<sp/>speed<sp/>mode<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="982"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_HS_TIMING_HS200<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Card<sp/>is<sp/>in<sp/>HS200<sp/>mode<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="983"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_HS_TIMING_HS400<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Card<sp/>is<sp/>in<sp/>HS200<sp/>mode<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="984"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="985"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_RST_N_FUN_BYTE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>162U</highlight></codeline>
+<codeline lineno="986"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_RST_N_FUN_TEMP_DIS<sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>RST_n<sp/>signal<sp/>is<sp/>temporarily<sp/>disabled<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="987"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_RST_N_FUN_PERM_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>RST_n<sp/>signal<sp/>is<sp/>permanently<sp/>enabled<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="988"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXT_CSD_RST_N_FUN_PERM_DIS<sp/><sp/><sp/><sp/><sp/><sp/>2U<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>RST_n<sp/>signal<sp/>is<sp/>permanently<sp/>disabled<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="989"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="990"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_EXT_CSD_CMD_SET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="991"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_EXT_CSD_SET_BITS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="992"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_EXT_CSD_CLR_BITS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U</highlight></codeline>
+<codeline lineno="993"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_EXT_CSD_WRITE_BYTE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U</highlight></codeline>
+<codeline lineno="994"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="1003"><highlight class="preprocessor">#define<sp/>XSDPS_MMC_DEF_SPEED_ARG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)XSDPS_EXT_CSD_WRITE_BYTE<sp/>&lt;&lt;<sp/>24)<sp/>\</highlight></codeline>
+<codeline lineno="1004"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_HS_TIMING_BYTE<sp/>&lt;&lt;<sp/>16)<sp/>\</highlight></codeline>
+<codeline lineno="1005"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_HS_TIMING_DEF<sp/>&lt;&lt;<sp/>8))</highlight></codeline>
+<codeline lineno="1006"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1007"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_MMC_HIGH_SPEED_ARG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)XSDPS_EXT_CSD_WRITE_BYTE<sp/>&lt;&lt;<sp/>24)<sp/>\</highlight></codeline>
+<codeline lineno="1008"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_HS_TIMING_BYTE<sp/>&lt;&lt;<sp/>16)<sp/>\</highlight></codeline>
+<codeline lineno="1009"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_HS_TIMING_HIGH<sp/>&lt;&lt;<sp/>8))</highlight></codeline>
+<codeline lineno="1010"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1011"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_MMC_HS200_ARG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)XSDPS_EXT_CSD_WRITE_BYTE<sp/>&lt;&lt;<sp/>24)<sp/>\</highlight></codeline>
+<codeline lineno="1012"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_HS_TIMING_BYTE<sp/>&lt;&lt;<sp/>16)<sp/>\</highlight></codeline>
+<codeline lineno="1013"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_HS_TIMING_HS200<sp/>&lt;&lt;<sp/>8))</highlight></codeline>
+<codeline lineno="1014"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1015"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_MMC_HS400_ARG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)XSDPS_EXT_CSD_WRITE_BYTE<sp/>&lt;&lt;<sp/>24)<sp/>\</highlight></codeline>
+<codeline lineno="1016"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_HS_TIMING_BYTE<sp/>&lt;&lt;<sp/>16)<sp/>\</highlight></codeline>
+<codeline lineno="1017"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_HS_TIMING_HS400<sp/>&lt;&lt;<sp/>8))</highlight></codeline>
+<codeline lineno="1018"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1019"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_MMC_1_BIT_BUS_ARG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)XSDPS_EXT_CSD_WRITE_BYTE<sp/>&lt;&lt;<sp/>24)<sp/>\</highlight></codeline>
+<codeline lineno="1020"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_BUS_WIDTH_BYTE<sp/>&lt;&lt;<sp/>16)<sp/>\</highlight></codeline>
+<codeline lineno="1021"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_BUS_WIDTH_1_BIT<sp/>&lt;&lt;<sp/>8))</highlight></codeline>
+<codeline lineno="1022"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1023"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_MMC_4_BIT_BUS_ARG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)XSDPS_EXT_CSD_WRITE_BYTE<sp/>&lt;&lt;<sp/>24)<sp/>\</highlight></codeline>
+<codeline lineno="1024"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_BUS_WIDTH_BYTE<sp/>&lt;&lt;<sp/>16)<sp/>\</highlight></codeline>
+<codeline lineno="1025"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_BUS_WIDTH_4_BIT<sp/>&lt;&lt;<sp/>8))</highlight></codeline>
+<codeline lineno="1026"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1027"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_MMC_8_BIT_BUS_ARG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)XSDPS_EXT_CSD_WRITE_BYTE<sp/>&lt;&lt;<sp/>24)<sp/>\</highlight></codeline>
+<codeline lineno="1028"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_BUS_WIDTH_BYTE<sp/>&lt;&lt;<sp/>16)<sp/>\</highlight></codeline>
+<codeline lineno="1029"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_BUS_WIDTH_8_BIT<sp/>&lt;&lt;<sp/>8))</highlight></codeline>
+<codeline lineno="1030"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1031"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_MMC_DDR_4_BIT_BUS_ARG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)XSDPS_EXT_CSD_WRITE_BYTE<sp/>&lt;&lt;<sp/>24)<sp/>\</highlight></codeline>
+<codeline lineno="1032"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_BUS_WIDTH_BYTE<sp/>&lt;&lt;<sp/>16)<sp/>\</highlight></codeline>
+<codeline lineno="1033"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_BUS_WIDTH_DDR_4_BIT<sp/>&lt;&lt;<sp/>8))</highlight></codeline>
+<codeline lineno="1034"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1035"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_MMC_DDR_8_BIT_BUS_ARG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)XSDPS_EXT_CSD_WRITE_BYTE<sp/>&lt;&lt;<sp/>24)<sp/>\</highlight></codeline>
+<codeline lineno="1036"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_BUS_WIDTH_BYTE<sp/>&lt;&lt;<sp/>16)<sp/>\</highlight></codeline>
+<codeline lineno="1037"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_BUS_WIDTH_DDR_8_BIT<sp/>&lt;&lt;<sp/>8))</highlight></codeline>
+<codeline lineno="1038"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1039"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_MMC_RST_FUN_EN_ARG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((u32)XSDPS_EXT_CSD_WRITE_BYTE<sp/>&lt;&lt;<sp/>24)<sp/>\</highlight></codeline>
+<codeline lineno="1040"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_RST_N_FUN_BYTE<sp/>&lt;&lt;<sp/>16)<sp/>\</highlight></codeline>
+<codeline lineno="1041"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>((u32)EXT_CSD_RST_N_FUN_PERM_EN<sp/>&lt;&lt;<sp/>8))</highlight></codeline>
+<codeline lineno="1042"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1043"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_MMC_DELAY_FOR_SWITCH<sp/><sp/><sp/><sp/><sp/><sp/>1000U</highlight></codeline>
+<codeline lineno="1044"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="1054"><highlight class="preprocessor">#define<sp/>XSDPS_74CLK_DELAY<sp/><sp/><sp/><sp/><sp/><sp/><sp/>2960U</highlight></codeline>
+<codeline lineno="1055"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_100CLK_DELAY<sp/><sp/><sp/><sp/><sp/><sp/>4000U</highlight></codeline>
+<codeline lineno="1056"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_INIT_DELAY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>10000U</highlight></codeline>
+<codeline lineno="1057"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="1059"><highlight class="preprocessor">#define<sp/>XSDPS_DEF_VOLT_LVL<sp/><sp/><sp/><sp/><sp/><sp/>XSDPS_PC_BUS_VSEL_3V0_MASK<sp/></highlight></codeline>
+<codeline lineno="1060"><highlight class="preprocessor">#define<sp/>XSDPS_CARD_DEF_ADDR<sp/><sp/><sp/><sp/><sp/>0x1234U<sp/></highlight></codeline>
+<codeline lineno="1062"><highlight class="preprocessor">#define<sp/>XSDPS_CARD_SD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1063"><highlight class="preprocessor">#define<sp/>XSDPS_CARD_MMC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1064"><highlight class="preprocessor">#define<sp/>XSDPS_CARD_SDIO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1065"><highlight class="preprocessor">#define<sp/>XSDPS_CARD_SDCOMBO<sp/><sp/><sp/><sp/><sp/><sp/>4U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1066"><highlight class="preprocessor">#define<sp/>XSDPS_CHIP_EMMC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1076"><highlight class="preprocessor">#define<sp/>XSDPS_DESC_MAX_LENGTH<sp/>65536U</highlight></codeline>
+<codeline lineno="1077"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1078"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_DESC_VALID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U<sp/>&lt;&lt;<sp/>0)</highlight></codeline>
+<codeline lineno="1079"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_DESC_END<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U<sp/>&lt;&lt;<sp/>1)</highlight></codeline>
+<codeline lineno="1080"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_DESC_INT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U<sp/>&lt;&lt;<sp/>2)</highlight></codeline>
+<codeline lineno="1081"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_DESC_TRAN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2U<sp/>&lt;&lt;<sp/>4)</highlight></codeline>
+<codeline lineno="1082"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="1085"><highlight class="comment">/*<sp/>For<sp/>changing<sp/>clock<sp/>frequencies<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1086"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CLK_400_KHZ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>400000U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1087"><highlight class="preprocessor">#define<sp/>XSDPS_CLK_50_MHZ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>50000000U<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1088"><highlight class="preprocessor">#define<sp/>XSDPS_CLK_52_MHZ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>52000000U<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1089"><highlight class="preprocessor">#define<sp/>XSDPS_SD_VER_1_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1090"><highlight class="preprocessor">#define<sp/>XSDPS_SD_VER_2_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1091"><highlight class="preprocessor">#define<sp/>XSDPS_SCR_BLKCNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1092"><highlight class="preprocessor">#define<sp/>XSDPS_SCR_BLKSIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1093"><highlight class="preprocessor">#define<sp/>XSDPS_1_BIT_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1094"><highlight class="preprocessor">#define<sp/>XSDPS_4_BIT_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1095"><highlight class="preprocessor">#define<sp/>XSDPS_8_BIT_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1096"><highlight class="preprocessor">#define<sp/>XSDPS_UHS_SPEED_MODE_SDR12<sp/><sp/><sp/><sp/><sp/><sp/>0x0U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1097"><highlight class="preprocessor">#define<sp/>XSDPS_UHS_SPEED_MODE_SDR25<sp/><sp/><sp/><sp/><sp/><sp/>0x1U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1098"><highlight class="preprocessor">#define<sp/>XSDPS_UHS_SPEED_MODE_SDR50<sp/><sp/><sp/><sp/><sp/><sp/>0x2U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1099"><highlight class="preprocessor">#define<sp/>XSDPS_UHS_SPEED_MODE_SDR104<sp/><sp/><sp/><sp/><sp/>0x3U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1100"><highlight class="preprocessor">#define<sp/>XSDPS_UHS_SPEED_MODE_DDR50<sp/><sp/><sp/><sp/><sp/><sp/>0x4U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1101"><highlight class="preprocessor">#define<sp/>XSDPS_HIGH_SPEED_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x5U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1102"><highlight class="preprocessor">#define<sp/>XSDPS_DEFAULT_SPEED_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x6U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1103"><highlight class="preprocessor">#define<sp/>XSDPS_HS200_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1104"><highlight class="preprocessor">#define<sp/>XSDPS_HS400_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x8U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1105"><highlight class="preprocessor">#define<sp/>XSDPS_DDR52_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1106"><highlight class="preprocessor">#define<sp/>XSDPS_SWITCH_CMD_BLKCNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1107"><highlight class="preprocessor">#define<sp/>XSDPS_SWITCH_CMD_BLKSIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>64U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1108"><highlight class="preprocessor">#define<sp/>XSDPS_SWITCH_CMD_HS_GET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00FFFFF0U<sp/></highlight></codeline>
+<codeline lineno="1109"><highlight class="preprocessor">#define<sp/>XSDPS_SWITCH_CMD_HS_SET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80FFFFF1U<sp/></highlight></codeline>
+<codeline lineno="1110"><highlight class="preprocessor">#define<sp/>XSDPS_SWITCH_CMD_SDR12_SET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80FFFFF0U<sp/></highlight></codeline>
+<codeline lineno="1111"><highlight class="preprocessor">#define<sp/>XSDPS_SWITCH_CMD_SDR25_SET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80FFFFF1U<sp/></highlight></codeline>
+<codeline lineno="1112"><highlight class="preprocessor">#define<sp/>XSDPS_SWITCH_CMD_SDR50_SET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80FFFFF2U<sp/></highlight></codeline>
+<codeline lineno="1113"><highlight class="preprocessor">#define<sp/>XSDPS_SWITCH_CMD_SDR104_SET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80FFFFF3U<sp/></highlight></codeline>
+<codeline lineno="1114"><highlight class="preprocessor">#define<sp/>XSDPS_SWITCH_CMD_DDR50_SET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80FFFFF4U<sp/></highlight></codeline>
+<codeline lineno="1115"><highlight class="preprocessor">#define<sp/>XSDPS_EXT_CSD_CMD_BLKCNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1116"><highlight class="preprocessor">#define<sp/>XSDPS_EXT_CSD_CMD_BLKSIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>512U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1117"><highlight class="preprocessor">#define<sp/>XSDPS_TUNING_CMD_BLKCNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1118"><highlight class="preprocessor">#define<sp/>XSDPS_TUNING_CMD_BLKSIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>64U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1119"><highlight class="preprocessor">#define<sp/>XSDPS_SD_STATUS_BLKCNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1120"><highlight class="preprocessor">#define<sp/>XSDPS_SD_STATUS_BLKSIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>64U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1122"><highlight class="preprocessor">#define<sp/>XSDPS_HIGH_SPEED_MAX_CLK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>50000000U<sp/></highlight></codeline>
+<codeline lineno="1123"><highlight class="preprocessor">#define<sp/>XSDPS_UHS_SDR104_MAX_CLK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>208000000U<sp/></highlight></codeline>
+<codeline lineno="1124"><highlight class="preprocessor">#define<sp/>XSDPS_UHS_SDR50_MAX_CLK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>100000000U<sp/></highlight></codeline>
+<codeline lineno="1125"><highlight class="preprocessor">#define<sp/>XSDPS_UHS_DDR50_MAX_CLK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>50000000U<sp/></highlight></codeline>
+<codeline lineno="1126"><highlight class="preprocessor">#define<sp/>XSDPS_UHS_SDR25_MAX_CLK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>50000000U<sp/></highlight></codeline>
+<codeline lineno="1127"><highlight class="preprocessor">#define<sp/>XSDPS_UHS_SDR12_MAX_CLK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>25000000U<sp/></highlight></codeline>
+<codeline lineno="1129"><highlight class="preprocessor">#define<sp/>SD_DRIVER_TYPE_B<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1130"><highlight class="preprocessor">#define<sp/>SD_DRIVER_TYPE_A<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1131"><highlight class="preprocessor">#define<sp/>SD_DRIVER_TYPE_C<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1132"><highlight class="preprocessor">#define<sp/>SD_DRIVER_TYPE_D<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1133"><highlight class="preprocessor">#define<sp/>SD_SET_CURRENT_LIMIT_200<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/></highlight></codeline>
+<codeline lineno="1134"><highlight class="preprocessor">#define<sp/>SD_SET_CURRENT_LIMIT_400<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/></highlight></codeline>
+<codeline lineno="1135"><highlight class="preprocessor">#define<sp/>SD_SET_CURRENT_LIMIT_600<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U<sp/></highlight></codeline>
+<codeline lineno="1136"><highlight class="preprocessor">#define<sp/>SD_SET_CURRENT_LIMIT_800<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U<sp/></highlight></codeline>
+<codeline lineno="1138"><highlight class="preprocessor">#define<sp/>SD_MAX_CURRENT_200<sp/><sp/><sp/><sp/><sp/><sp/>(1U<sp/>&lt;&lt;<sp/>SD_SET_CURRENT_LIMIT_200)<sp/></highlight></codeline>
+<codeline lineno="1139"><highlight class="preprocessor">#define<sp/>SD_MAX_CURRENT_400<sp/><sp/><sp/><sp/><sp/><sp/>(1U<sp/>&lt;&lt;<sp/>SD_SET_CURRENT_LIMIT_400)<sp/></highlight></codeline>
+<codeline lineno="1140"><highlight class="preprocessor">#define<sp/>SD_MAX_CURRENT_600<sp/><sp/><sp/><sp/><sp/><sp/>(1U<sp/>&lt;&lt;<sp/>SD_SET_CURRENT_LIMIT_600)<sp/></highlight></codeline>
+<codeline lineno="1141"><highlight class="preprocessor">#define<sp/>SD_MAX_CURRENT_800<sp/><sp/><sp/><sp/><sp/><sp/>(1U<sp/>&lt;&lt;<sp/>SD_SET_CURRENT_LIMIT_800)<sp/></highlight></codeline>
+<codeline lineno="1143"><highlight class="preprocessor">#define<sp/>XSDPS_SD_SDR12_MAX_CLK<sp/><sp/>25000000U<sp/></highlight></codeline>
+<codeline lineno="1144"><highlight class="preprocessor">#define<sp/>XSDPS_SD_SDR25_MAX_CLK<sp/><sp/>50000000U<sp/></highlight></codeline>
+<codeline lineno="1145"><highlight class="preprocessor">#define<sp/>XSDPS_SD_SDR50_MAX_CLK<sp/><sp/>100000000U<sp/></highlight></codeline>
+<codeline lineno="1146"><highlight class="preprocessor">#define<sp/>XSDPS_SD_DDR50_MAX_CLK<sp/><sp/>50000000U<sp/></highlight></codeline>
+<codeline lineno="1147"><highlight class="preprocessor">#define<sp/>XSDPS_SD_SDR104_MAX_CLK<sp/>208000000U<sp/></highlight></codeline>
+<codeline lineno="1153"><highlight class="preprocessor">#define<sp/>XSDPS_SD_INPUT_MAX_CLK<sp/><sp/>175000000U</highlight></codeline>
+<codeline lineno="1154"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1155"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_MMC_HS200_MAX_CLK<sp/>200000000U<sp/></highlight></codeline>
+<codeline lineno="1156"><highlight class="preprocessor">#define<sp/>XSDPS_MMC_HSD_MAX_CLK<sp/><sp/><sp/>52000000U<sp/></highlight></codeline>
+<codeline lineno="1157"><highlight class="preprocessor">#define<sp/>XSDPS_MMC_DDR_MAX_CLK<sp/><sp/><sp/>52000000U<sp/></highlight></codeline>
+<codeline lineno="1159"><highlight class="preprocessor">#define<sp/>XSDPD_MIN_DLL_MODE_CLK<sp/><sp/>50000000U<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1168"><highlight class="preprocessor">#define<sp/>XSDPS_CARD_STATE_IDLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="1169"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CARD_STATE_RDY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="1170"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CARD_STATE_IDEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U</highlight></codeline>
+<codeline lineno="1171"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CARD_STATE_STBY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U</highlight></codeline>
+<codeline lineno="1172"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CARD_STATE_TRAN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U</highlight></codeline>
+<codeline lineno="1173"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CARD_STATE_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5U</highlight></codeline>
+<codeline lineno="1174"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CARD_STATE_RCV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>6U</highlight></codeline>
+<codeline lineno="1175"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CARD_STATE_PROG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>7U</highlight></codeline>
+<codeline lineno="1176"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CARD_STATE_DIS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U</highlight></codeline>
+<codeline lineno="1177"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CARD_STATE_BTST<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>9U</highlight></codeline>
+<codeline lineno="1178"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CARD_STATE_SLP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>10U</highlight></codeline>
+<codeline lineno="1179"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="1181"><highlight class="preprocessor">#define<sp/>XSDPS_SLOT_REM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1182"><highlight class="preprocessor">#define<sp/>XSDPS_SLOT_EMB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1184"><highlight class="preprocessor">#define<sp/>XSDPS_WIDTH_8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1185"><highlight class="preprocessor">#define<sp/>XSDPS_WIDTH_4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1187"><highlight class="preprocessor">#define<sp/>XSDPS_SLOTTYPE_SDADIR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1197"><highlight class="preprocessor">#ifdef<sp/>VERSAL_NET</highlight></codeline>
+<codeline lineno="1198"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_ITAPDLY_SEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000FFU</highlight></codeline>
+<codeline lineno="1199"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLY_SEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000003FU</highlight></codeline>
+<codeline lineno="1200"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_ITAPDLY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000F0F8U</highlight></codeline>
+<codeline lineno="1201"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000F0FCU</highlight></codeline>
+<codeline lineno="1202"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD0_DLL_CTRL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000448U</highlight></codeline>
+<codeline lineno="1203"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD1_DLL_CTRL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000004C8U</highlight></codeline>
+<codeline lineno="1204"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_DLL_RST<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U</highlight></codeline>
+<codeline lineno="1205"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_ITAPCHGWIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000200U</highlight></codeline>
+<codeline lineno="1206"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_ITAPDLYENA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000100U</highlight></codeline>
+<codeline lineno="1207"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYENA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040U</highlight></codeline>
+<codeline lineno="1208"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_SD104_B0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U</highlight></codeline>
+<codeline lineno="1209"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_SD104_B2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U</highlight></codeline>
+<codeline lineno="1210"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_HS200_B0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000007U</highlight></codeline>
+<codeline lineno="1211"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_HS200_B2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000007U</highlight></codeline>
+<codeline lineno="1212"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_HS400<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U</highlight></codeline>
+<codeline lineno="1213"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_ITAPDLYSEL_SD50<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000000EU</highlight></codeline>
+<codeline lineno="1214"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_SD50<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000003U</highlight></codeline>
+<codeline lineno="1215"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_ITAPDLYSEL_SD_DDR50<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000036U</highlight></codeline>
+<codeline lineno="1216"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_ITAPDLYSEL_EMMC_DDR50<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000003U</highlight></codeline>
+<codeline lineno="1217"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_SD_DDR50<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000003U</highlight></codeline>
+<codeline lineno="1218"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_EMMC_DDR50<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000005U</highlight></codeline>
+<codeline lineno="1219"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_ITAPDLYSEL_HSD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000002CU</highlight></codeline>
+<codeline lineno="1220"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_ITAPDLYSEL_EMMC_HSD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U</highlight></codeline>
+<codeline lineno="1221"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_SD_HSD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U</highlight></codeline>
+<codeline lineno="1222"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_EMMC_HSD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000005U</highlight></codeline>
+<codeline lineno="1223"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_AUTODIR_ITAPDLYSEL_HSD<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000025U</highlight></codeline>
+<codeline lineno="1224"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_AUTODIR_ITAPDLYSEL_SDR25<sp/><sp/><sp/><sp/><sp/>0x00000026U</highlight></codeline>
+<codeline lineno="1225"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_AUTODIR_ITAPDLYSEL_DDR50<sp/><sp/><sp/><sp/><sp/>0x0000002AU</highlight></codeline>
+<codeline lineno="1226"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PHY_STRB_SEL_SIG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000077U</highlight></codeline>
+<codeline lineno="1227"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>defined<sp/>(versal)</highlight></codeline>
+<codeline lineno="1228"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_ITAPDLY_SEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000FFU</highlight></codeline>
+<codeline lineno="1229"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLY_SEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000003FU</highlight></codeline>
+<codeline lineno="1230"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_ITAPDLY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000F0F8U</highlight></codeline>
+<codeline lineno="1231"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000F0FCU</highlight></codeline>
+<codeline lineno="1232"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD0_DLL_CTRL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000448U</highlight></codeline>
+<codeline lineno="1233"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD1_DLL_CTRL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000004C8U</highlight></codeline>
+<codeline lineno="1234"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_DLL_RST<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U</highlight></codeline>
+<codeline lineno="1235"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_ITAPCHGWIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000200U</highlight></codeline>
+<codeline lineno="1236"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_ITAPDLYENA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000100U</highlight></codeline>
+<codeline lineno="1237"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYENA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040U</highlight></codeline>
+<codeline lineno="1238"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_SD104_B0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U</highlight></codeline>
+<codeline lineno="1239"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_SD104_B2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U</highlight></codeline>
+<codeline lineno="1240"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_HS200_B0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U</highlight></codeline>
+<codeline lineno="1241"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_HS200_B2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U</highlight></codeline>
+<codeline lineno="1242"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_ITAPDLYSEL_SD50<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000000EU</highlight></codeline>
+<codeline lineno="1243"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_SD50<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000003U</highlight></codeline>
+<codeline lineno="1244"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_ITAPDLYSEL_SD_DDR50<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000036U</highlight></codeline>
+<codeline lineno="1245"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_ITAPDLYSEL_EMMC_DDR50<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000001EU</highlight></codeline>
+<codeline lineno="1246"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_SD_DDR50<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000003U</highlight></codeline>
+<codeline lineno="1247"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_EMMC_DDR50<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000005U</highlight></codeline>
+<codeline lineno="1248"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_ITAPDLYSEL_HSD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000002CU</highlight></codeline>
+<codeline lineno="1249"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_ITAPDLYSEL_EMMC_HSD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000002CU</highlight></codeline>
+<codeline lineno="1250"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_SD_HSD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U</highlight></codeline>
+<codeline lineno="1251"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_EMMC_HSD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000005U</highlight></codeline>
+<codeline lineno="1252"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_AUTODIR_ITAPDLYSEL_HSD<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000025U</highlight></codeline>
+<codeline lineno="1253"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_AUTODIR_ITAPDLYSEL_SDR25<sp/><sp/><sp/><sp/><sp/>0x00000026U</highlight></codeline>
+<codeline lineno="1254"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_AUTODIR_ITAPDLYSEL_DDR50<sp/><sp/><sp/><sp/><sp/>0x0000002AU</highlight></codeline>
+<codeline lineno="1255"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="1256"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD0_ITAPDLY_SEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000FFU</highlight></codeline>
+<codeline lineno="1257"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD0_OTAPDLY_SEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000003FU</highlight></codeline>
+<codeline lineno="1258"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD1_ITAPDLY_SEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00FF0000U</highlight></codeline>
+<codeline lineno="1259"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD1_OTAPDLY_SEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x003F0000U</highlight></codeline>
+<codeline lineno="1260"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_DLL_CTRL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000358U</highlight></codeline>
+<codeline lineno="1261"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_ITAPDLY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000314U</highlight></codeline>
+<codeline lineno="1262"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000318U</highlight></codeline>
+<codeline lineno="1263"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD0_DLL_RST<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U</highlight></codeline>
+<codeline lineno="1264"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD1_DLL_RST<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00040000U</highlight></codeline>
+<codeline lineno="1265"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD0_ITAPCHGWIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000200U</highlight></codeline>
+<codeline lineno="1266"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD0_ITAPDLYENA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000100U</highlight></codeline>
+<codeline lineno="1267"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD0_OTAPDLYENA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040U</highlight></codeline>
+<codeline lineno="1268"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD1_ITAPCHGWIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02000000U</highlight></codeline>
+<codeline lineno="1269"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD1_ITAPDLYENA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01000000U</highlight></codeline>
+<codeline lineno="1270"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD1_OTAPDLYENA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00400000U</highlight></codeline>
+<codeline lineno="1271"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_SD104_B0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000003U</highlight></codeline>
+<codeline lineno="1272"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_SD104_B2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U</highlight></codeline>
+<codeline lineno="1273"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_HS200_B0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000003U</highlight></codeline>
+<codeline lineno="1274"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_HS200_B2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U</highlight></codeline>
+<codeline lineno="1275"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_ITAPDLYSEL_SD50<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000014U</highlight></codeline>
+<codeline lineno="1276"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_SD50<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000003U</highlight></codeline>
+<codeline lineno="1277"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_ITAPDLYSEL_SD_DDR50<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000003DU</highlight></codeline>
+<codeline lineno="1278"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_ITAPDLYSEL_EMMC_DDR50<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000012U</highlight></codeline>
+<codeline lineno="1279"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_SD_DDR50<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U</highlight></codeline>
+<codeline lineno="1280"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_EMMC_DDR50<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000006U</highlight></codeline>
+<codeline lineno="1281"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_ITAPDLYSEL_HSD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000015U</highlight></codeline>
+<codeline lineno="1282"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_ITAPDLYSEL_EMMC_HSD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000015U</highlight></codeline>
+<codeline lineno="1283"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_SD_HSD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000005U</highlight></codeline>
+<codeline lineno="1284"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_OTAPDLYSEL_EMMC_HSD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000006U</highlight></codeline>
+<codeline lineno="1285"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_AUTODIR_ITAPDLYSEL_HSD<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000028U</highlight></codeline>
+<codeline lineno="1286"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_AUTODIR_ITAPDLYSEL_SDR25<sp/><sp/><sp/><sp/><sp/>0x0000002CU</highlight></codeline>
+<codeline lineno="1287"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_AUTODIR_ITAPDLYSEL_DDR50<sp/><sp/><sp/><sp/><sp/>0x00000033U</highlight></codeline>
+<codeline lineno="1288"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="1289"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="1291"><highlight class="preprocessor">#if<sp/>defined<sp/>(__MICROBLAZE__)<sp/>||<sp/>defined<sp/>(__riscv)</highlight></codeline>
+<codeline lineno="1292"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPS_SYS_CTRL_BASEADDR<sp/><sp/><sp/>0xFF180000U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1293"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="1294"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1295"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1296"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1297"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1298"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSdPs_In64<sp/>Xil_In64<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1299"><highlight class="preprocessor">#define<sp/>XSdPs_Out64<sp/>Xil_Out64<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1301"><highlight class="preprocessor">#define<sp/>XSdPs_In32<sp/>Xil_In32<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1302"><highlight class="preprocessor">#define<sp/>XSdPs_Out32<sp/>Xil_Out32<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1304"><highlight class="preprocessor">#define<sp/>XSdPs_In16<sp/>Xil_In16<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1305"><highlight class="preprocessor">#define<sp/>XSdPs_Out16<sp/>Xil_Out16<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1307"><highlight class="preprocessor">#define<sp/>XSdPs_In8<sp/>Xil_In8<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1308"><highlight class="preprocessor">#define<sp/>XSdPs_Out8<sp/>Xil_Out8<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="1310"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************************************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="1311"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="1324"><highlight class="preprocessor">#define<sp/>XSdPs_ReadReg64(InstancePtr,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="1325"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdPs_In64((InstancePtr-&gt;Config.BaseAddress)<sp/>+<sp/>RegOffset)</highlight></codeline>
+<codeline lineno="1326"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1327"><highlight class="normal"></highlight><highlight class="comment">/***************************************************************************/</highlight></codeline>
+<codeline lineno="1343"><highlight class="preprocessor">#define<sp/>XSdPs_WriteReg64(InstancePtr,<sp/>RegOffset,<sp/>RegisterValue)<sp/>\</highlight></codeline>
+<codeline lineno="1344"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdPs_Out64((InstancePtr-&gt;Config.BaseAddress)<sp/>+<sp/>(RegOffset),<sp/>\</highlight></codeline>
+<codeline lineno="1345"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RegisterValue))</highlight></codeline>
+<codeline lineno="1346"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1347"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="1361"><highlight class="preprocessor">#define<sp/>XSdPs_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="1362"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdPs_In32((UINTPTR)(BaseAddress)<sp/>+<sp/>(UINTPTR)(RegOffset))</highlight></codeline>
+<codeline lineno="1363"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1364"><highlight class="normal"></highlight><highlight class="comment">/***************************************************************************/</highlight></codeline>
+<codeline lineno="1380"><highlight class="preprocessor">#define<sp/>XSdPs_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>RegisterValue)<sp/>\</highlight></codeline>
+<codeline lineno="1381"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdPs_Out32((UINTPTR)(BaseAddress)<sp/>+<sp/>(UINTPTR)(RegOffset),<sp/>(RegisterValue))</highlight></codeline>
+<codeline lineno="1382"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1383"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="1397"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>u16<sp/>XSdPs_ReadReg16(UINTPTR<sp/>BaseAddress,<sp/>u8<sp/>RegOffset)</highlight></codeline>
+<codeline lineno="1398"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="1399"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(__MICROBLAZE__)<sp/>||<sp/>defined<sp/>(__riscv)</highlight></codeline>
+<codeline lineno="1400"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reg;</highlight></codeline>
+<codeline lineno="1401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddress<sp/>+=<sp/>RegOffset<sp/>&amp;<sp/>0xFC;</highlight></codeline>
+<codeline lineno="1402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/>XSdPs_In32(BaseAddress);</highlight></codeline>
+<codeline lineno="1403"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>&gt;&gt;=<sp/>((RegOffset<sp/>&amp;<sp/>0x3)<sp/>*<sp/>8);</highlight></codeline>
+<codeline lineno="1404"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u16)Reg;</highlight></codeline>
+<codeline lineno="1405"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="1406"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XSdPs_In16((UINTPTR)(BaseAddress)<sp/>+<sp/>(UINTPTR)(RegOffset));</highlight></codeline>
+<codeline lineno="1407"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="1408"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="1409"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1410"><highlight class="normal"></highlight><highlight class="comment">/***************************************************************************/</highlight></codeline>
+<codeline lineno="1427"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdPs_WriteReg16(UINTPTR<sp/>BaseAddress,<sp/>u8<sp/>RegOffset,<sp/>u16<sp/>RegisterValue)</highlight></codeline>
+<codeline lineno="1428"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="1429"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(__MICROBLAZE__)<sp/>||<sp/>defined<sp/>(__riscv)</highlight></codeline>
+<codeline lineno="1430"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reg;</highlight></codeline>
+<codeline lineno="1431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddress<sp/>+=<sp/>RegOffset<sp/>&amp;<sp/>0xFC;</highlight></codeline>
+<codeline lineno="1432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/>XSdPs_In32(BaseAddress);</highlight></codeline>
+<codeline lineno="1433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>&amp;=<sp/>~(0xFFFFU<sp/>&lt;&lt;<sp/>((RegOffset<sp/>&amp;<sp/>0x3)<sp/>*<sp/>8));</highlight></codeline>
+<codeline lineno="1434"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>|=<sp/>RegisterValue<sp/>&lt;&lt;<sp/>((RegOffset<sp/>&amp;<sp/>0x3)<sp/>*<sp/>8);</highlight></codeline>
+<codeline lineno="1435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdPs_Out32(BaseAddress,<sp/>Reg);</highlight></codeline>
+<codeline lineno="1436"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="1437"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdPs_Out16((UINTPTR)(BaseAddress)<sp/>+<sp/>(UINTPTR)(RegOffset),<sp/>(RegisterValue));</highlight></codeline>
+<codeline lineno="1438"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="1439"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="1440"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1441"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="1455"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/>u8<sp/>XSdPs_ReadReg8(UINTPTR<sp/>BaseAddress,<sp/>u8<sp/>RegOffset)</highlight></codeline>
+<codeline lineno="1456"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="1457"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(__MICROBLAZE__)<sp/>||<sp/>defined<sp/>(__riscv)</highlight></codeline>
+<codeline lineno="1458"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reg;</highlight></codeline>
+<codeline lineno="1459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddress<sp/>+=<sp/>RegOffset<sp/>&amp;<sp/>0xFC;</highlight></codeline>
+<codeline lineno="1460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/>XSdPs_In32(BaseAddress);</highlight></codeline>
+<codeline lineno="1461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>&gt;&gt;=<sp/>((RegOffset<sp/>&amp;<sp/>0x3)<sp/>*<sp/>8);</highlight></codeline>
+<codeline lineno="1462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u8)Reg;</highlight></codeline>
+<codeline lineno="1463"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="1464"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XSdPs_In8((UINTPTR)(BaseAddress)<sp/>+<sp/>(UINTPTR)(RegOffset));</highlight></codeline>
+<codeline lineno="1465"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="1466"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="1467"><highlight class="normal"></highlight><highlight class="comment">/***************************************************************************/</highlight></codeline>
+<codeline lineno="1483"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdPs_WriteReg8(UINTPTR<sp/>BaseAddress,<sp/>u8<sp/>RegOffset,<sp/>u8<sp/>RegisterValue)</highlight></codeline>
+<codeline lineno="1484"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="1485"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(__MICROBLAZE__)<sp/>||<sp/>defined<sp/>(__riscv)</highlight></codeline>
+<codeline lineno="1486"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reg;</highlight></codeline>
+<codeline lineno="1487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddress<sp/>+=<sp/>RegOffset<sp/>&amp;<sp/>0xFC;</highlight></codeline>
+<codeline lineno="1488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/>XSdPs_In32(BaseAddress);</highlight></codeline>
+<codeline lineno="1489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>&amp;=<sp/>~(0xFFU<sp/>&lt;&lt;<sp/>((RegOffset<sp/>&amp;<sp/>0x3)<sp/>*<sp/>8));</highlight></codeline>
+<codeline lineno="1490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>|=<sp/>RegisterValue<sp/>&lt;&lt;<sp/>((RegOffset<sp/>&amp;<sp/>0x3)<sp/>*<sp/>8);</highlight></codeline>
+<codeline lineno="1491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdPs_Out32(BaseAddress,<sp/>Reg);</highlight></codeline>
+<codeline lineno="1492"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="1493"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdPs_Out8((UINTPTR)(BaseAddress)<sp/>+<sp/>(UINTPTR)(RegOffset),<sp/>(RegisterValue));</highlight></codeline>
+<codeline lineno="1494"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="1495"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="1496"><highlight class="normal"></highlight><highlight class="comment">/***************************************************************************/</highlight></codeline>
+<codeline lineno="1509"><highlight class="preprocessor">#define<sp/>XSdPs_GetPresentStatusReg(BaseAddress)<sp/>\</highlight></codeline>
+<codeline lineno="1510"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdPs_In32((BaseAddress)<sp/>+<sp/>(XSDPS_PRES_STATE_OFFSET))</highlight></codeline>
+<codeline lineno="1511"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1512"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1513"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1514"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1515"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1516"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="1517"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="1518"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="1519"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1520"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>SD_HW_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="1521"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps_hw.h"/>
+  </compounddef>
+</doxygen>

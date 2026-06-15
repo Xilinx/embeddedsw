@@ -1,0 +1,424 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="vvbench__cpd__api_8h" kind="file">
+    <compoundname>vvbench_cpd_api.h</compoundname>
+    <includes refid="vvdevice__common_8h" local="yes">vvdevice_common.h</includes>
+    <includes refid="c_j_s_o_n_8h" local="yes">cJSON.h</includes>
+    <includes refid="cam__device__cpd__api_8h" local="yes">cam_device_cpd_api.h</includes>
+    <includes refid="cam__device__bls__api_8h" local="yes">cam_device_bls_api.h</includes>
+    <includedby refid="submodule__def_8h" local="yes">submodule_def.h</includedby>
+    <includedby refid="vvbench__cpd__api__v1__1_8c" local="yes">vvbench_cpd_api_v1_1.c</includedby>
+    <incdepgraph>
+      <node id="9377">
+        <label>stdbool.h</label>
+      </node>
+      <node id="9394">
+        <label>cam_device_cpd_api.h</label>
+        <childnode refid="9379" relation="include">
+        </childnode>
+      </node>
+      <node id="9360">
+        <label>vvdevice_common.h</label>
+        <childnode refid="9361" relation="include">
+        </childnode>
+        <childnode refid="9369" relation="include">
+        </childnode>
+        <childnode refid="9393" relation="include">
+        </childnode>
+      </node>
+      <node id="9380">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="9367">
+        <label>oslayer.h</label>
+        <link refid="oslayer_8h"/>
+        <childnode refid="9368" relation="include">
+        </childnode>
+        <childnode refid="9374" relation="include">
+        </childnode>
+      </node>
+      <node id="9359">
+        <label>vvbench_cpd_api.h</label>
+        <link refid="vvbench_cpd_api.h"/>
+        <childnode refid="9360" relation="include">
+        </childnode>
+        <childnode refid="9393" relation="include">
+        </childnode>
+        <childnode refid="9394" relation="include">
+        </childnode>
+        <childnode refid="9395" relation="include">
+        </childnode>
+      </node>
+      <node id="9376">
+        <label>stdint.h</label>
+      </node>
+      <node id="9392">
+        <label>system_module.h</label>
+        <childnode refid="9369" relation="include">
+        </childnode>
+      </node>
+      <node id="9366">
+        <label>stdlib.h</label>
+      </node>
+      <node id="9395">
+        <label>cam_device_bls_api.h</label>
+        <childnode refid="9379" relation="include">
+        </childnode>
+      </node>
+      <node id="9378">
+        <label>cam_device_api.h</label>
+        <childnode refid="9379" relation="include">
+        </childnode>
+        <childnode refid="9386" relation="include">
+        </childnode>
+        <childnode refid="9387" relation="include">
+        </childnode>
+        <childnode refid="9388" relation="include">
+        </childnode>
+      </node>
+      <node id="9386">
+        <label>cam_device_calibration.h</label>
+        <childnode refid="9369" relation="include">
+        </childnode>
+      </node>
+      <node id="9363">
+        <label>vvterminal.h</label>
+      </node>
+      <node id="9382">
+        <label>sensor_cmd.h</label>
+        <childnode refid="9383" relation="include">
+        </childnode>
+        <childnode refid="9380" relation="include">
+        </childnode>
+      </node>
+      <node id="9389">
+        <label>cam_device_buffer_api.h</label>
+        <childnode refid="9369" relation="include">
+        </childnode>
+        <childnode refid="9380" relation="include">
+        </childnode>
+        <childnode refid="9367" relation="include">
+        </childnode>
+        <childnode refid="9378" relation="include">
+        </childnode>
+        <childnode refid="9381" relation="include">
+        </childnode>
+      </node>
+      <node id="9372">
+        <label>stddef.h</label>
+      </node>
+      <node id="9393">
+        <label>cJSON.h</label>
+        <childnode refid="9372" relation="include">
+        </childnode>
+        <childnode refid="9377" relation="include">
+        </childnode>
+      </node>
+      <node id="9371">
+        <label>limits.h</label>
+      </node>
+      <node id="9379">
+        <label>cam_device_common.h</label>
+        <childnode refid="9369" relation="include">
+        </childnode>
+        <childnode refid="9380" relation="include">
+        </childnode>
+        <childnode refid="9368" relation="include">
+        </childnode>
+        <childnode refid="9381" relation="include">
+        </childnode>
+        <childnode refid="9382" relation="include">
+        </childnode>
+      </node>
+      <node id="9381">
+        <label>buf_defs.h</label>
+        <childnode refid="9369" relation="include">
+        </childnode>
+      </node>
+      <node id="9383">
+        <label>mbox_api.h</label>
+        <childnode refid="9377" relation="include">
+        </childnode>
+        <childnode refid="9376" relation="include">
+        </childnode>
+        <childnode refid="9384" relation="include">
+        </childnode>
+      </node>
+      <node id="9373">
+        <label>string.h</label>
+      </node>
+      <node id="9384">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="9377" relation="include">
+        </childnode>
+        <childnode refid="9385" relation="include">
+        </childnode>
+      </node>
+      <node id="9391">
+        <label>cam_device_isp_system_api.h</label>
+        <childnode refid="9369" relation="include">
+        </childnode>
+        <childnode refid="9380" relation="include">
+        </childnode>
+        <childnode refid="9379" relation="include">
+        </childnode>
+        <childnode refid="9392" relation="include">
+        </childnode>
+      </node>
+      <node id="9390">
+        <label>cam_device_sensor_api.h</label>
+        <childnode refid="9378" relation="include">
+        </childnode>
+      </node>
+      <node id="9375">
+        <label>cam_common_api.h</label>
+        <childnode refid="9376" relation="include">
+        </childnode>
+        <childnode refid="9377" relation="include">
+        </childnode>
+      </node>
+      <node id="9361">
+        <label>vvdevice.h</label>
+        <childnode refid="9362" relation="include">
+        </childnode>
+        <childnode refid="9363" relation="include">
+        </childnode>
+        <childnode refid="9364" relation="include">
+        </childnode>
+        <childnode refid="9375" relation="include">
+        </childnode>
+        <childnode refid="9378" relation="include">
+        </childnode>
+        <childnode refid="9389" relation="include">
+        </childnode>
+        <childnode refid="9379" relation="include">
+        </childnode>
+        <childnode refid="9390" relation="include">
+        </childnode>
+        <childnode refid="9391" relation="include">
+        </childnode>
+        <childnode refid="9381" relation="include">
+        </childnode>
+        <childnode refid="9368" relation="include">
+        </childnode>
+      </node>
+      <node id="9385">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="9374">
+        <label>ff.h</label>
+      </node>
+      <node id="9387">
+        <label>offline_trace.h</label>
+        <link refid="offline__trace_8h"/>
+        <childnode refid="9370" relation="include">
+        </childnode>
+        <childnode refid="9369" relation="include">
+        </childnode>
+        <childnode refid="9380" relation="include">
+        </childnode>
+      </node>
+      <node id="9369">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="9370" relation="include">
+        </childnode>
+        <childnode refid="9371" relation="include">
+        </childnode>
+        <childnode refid="9372" relation="include">
+        </childnode>
+      </node>
+      <node id="9388">
+        <label>cam_device_ccm_api.h</label>
+        <childnode refid="9379" relation="include">
+        </childnode>
+      </node>
+      <node id="9362">
+        <label>vvbase.h</label>
+      </node>
+      <node id="9364">
+        <label>vlog.h</label>
+        <childnode refid="9365" relation="include">
+        </childnode>
+        <childnode refid="9366" relation="include">
+        </childnode>
+        <childnode refid="9367" relation="include">
+        </childnode>
+      </node>
+      <node id="9368">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="9369" relation="include">
+        </childnode>
+        <childnode refid="9373" relation="include">
+        </childnode>
+      </node>
+      <node id="9365">
+        <label>stdio.h</label>
+      </node>
+      <node id="9370">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="9365" relation="include">
+        </childnode>
+        <childnode refid="9366" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="9400">
+        <label>vvbench_cpd_api_v1_1.c</label>
+      </node>
+      <node id="9399">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="9396">
+        <label>vvbench_cpd_api.h</label>
+        <link refid="vvbench_cpd_api.h"/>
+        <childnode refid="9397" relation="include">
+        </childnode>
+        <childnode refid="9400" relation="include">
+        </childnode>
+      </node>
+      <node id="9397">
+        <label>submodule_def.h</label>
+        <childnode refid="9398" relation="include">
+        </childnode>
+        <childnode refid="9399" relation="include">
+        </childnode>
+      </node>
+      <node id="9398">
+        <label>vvbparser.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="vvbench__cpd__api_8h_1af10706846593ff543fed4932796ef971" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchParseCpdInfo</definition>
+        <argsstring>(cJSON *cpdInfo, VvbenchModuleCfg_t *cpdCtrl)</argsstring>
+        <name>VsiVvbenchParseCpdInfo</name>
+        <param>
+          <type>cJSON *</type>
+          <declname>cpdInfo</declname>
+        </param>
+        <param>
+          <type>VvbenchModuleCfg_t *</type>
+          <declname>cpdCtrl</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/submodules/vvbench_cpd_api.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_cpd_api_v1_1.c" bodystart="35" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbench__cpd__api_8h_1abe5dfd290358bdcf0972b69e5d2f0984" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchCpdGetFunc</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiVvbenchCpdGetFunc</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/submodules/vvbench_cpd_api.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_cpd_api_v1_1.c" bodystart="82" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="vvbench__cpd__api_8h_1ac60ca38b45f96f5203fa2f87c68dabd5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchCpdFunc</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, VvbenchVvdev_t *caseCtx, int index)</argsstring>
+        <name>VsiVvbenchCpdFunc</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>VvbenchVvdev_t *</type>
+          <declname>caseCtx</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/submodules/vvbench_cpd_api.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_cpd_api_v1_1.c" bodystart="133" bodyend="194"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2026<sp/>Vivantec<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__VVDEV_CPD11_H__</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__VVDEV_CPD11_H__</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;vvdevice_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cJSON.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cam_device_cpd_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cam_device_bls_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchParseCpdInfo</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cJSON<sp/>*cpdInfo,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VvbenchModuleCfg_t<sp/>*cpdCtrl</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchCpdGetFunc</highlight></codeline>
+<codeline lineno="44"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchCpdFunc</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VvbenchVvdev_t<sp/>*caseCtx,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//__VVDEV_CPD11_H__</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/submodules/vvbench_cpd_api.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_402d59105eb4113002cb0e22c0bf7c4d" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xcframe_8c">xcframe.c</innerfile>
+    <innerfile refid="xcframe_8h">xcframe.h</innerfile>
+    <innerfile refid="xcframe__g_8c">xcframe_g.c</innerfile>
+    <innerfile refid="xcframe__hw_8h">xcframe_hw.h</innerfile>
+    <innerfile refid="xcframe__selftest_8c">xcframe_selftest.c</innerfile>
+    <innerfile refid="xcframe__sinit_8c">xcframe_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_t_database3_a_interface__2__t" kind="struct" prot="public">
+    <compoundname>TDatabase3AInterface_2_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_t_database3_a_interface__2__t_1ab5e54b70136c5c46b105440b21b9ab22" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char TDatabase3AInterface_2_t::autoTable[256]</definition>
+        <argsstring>[256]</argsstring>
+        <name>autoTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_t_database3_a_interface__2__t_1a7a6ea179bcab0b8e09d6e569fc8d742e" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool TDatabase3AInterface_2_t::awbEnable</definition>
+        <argsstring></argsstring>
+        <name>awbEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_t_database3_a_interface__2__t_1a56cb2faa1ada940c9f7289077a725b7f" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool TDatabase3AInterface_2_t::cacEnable</definition>
+        <argsstring></argsstring>
+        <name>cacEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_t_database3_a_interface__2__t_1ae4a7beb6d0a3baaf294f4cd0a80b46e9" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool TDatabase3AInterface_2_t::ccEnable</definition>
+        <argsstring></argsstring>
+        <name>ccEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_t_database3_a_interface__2__t_1ac610f8b2eb26417a1a063860267957fd" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool TDatabase3AInterface_2_t::enable</definition>
+        <argsstring></argsstring>
+        <name>enable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_t_database3_a_interface__2__t_1a784e74a15538fb7b624aa94fe63e328a" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float TDatabase3AInterface_2_t::integrationTime</definition>
+        <argsstring></argsstring>
+        <name>integrationTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_t_database3_a_interface__2__t_1a30398dc453b204c3d2a456d967df71ec" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool TDatabase3AInterface_2_t::lscEnable</definition>
+        <argsstring></argsstring>
+        <name>lscEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_t_database3_a_interface__2__t_1af07d8a27cc90e91e19980c9434234920" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t TDatabase3AInterface_2_t::lscVersion</definition>
+        <argsstring></argsstring>
+        <name>lscVersion</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_t_database3_a_interface__2__t_1a0a70e5ef3a3b020e1fc686f3248a52e6" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float TDatabase3AInterface_2_t::sensorGain</definition>
+        <argsstring></argsstring>
+        <name>sensorGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_t_database3_a_interface__2__t_1a93db917f594afd177e631d0f526e8988" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char TDatabase3AInterface_2_t::xml[256]</definition>
+        <argsstring>[256]</argsstring>
+        <name>xml</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_t_database3_a_interface__2__t_1a4cd63433798a2db021a6f3fcbbebe108" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool TDatabase3AInterface_2_t::metadataEnable</definition>
+        <argsstring></argsstring>
+        <name>metadataEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_t_database3_a_interface__2__t_1a6c783ef4e7680460dda5f159ecdadf4a" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float TDatabase3AInterface_2_t::metadataExposureGain[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>metadataExposureGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_t_database3_a_interface__2__t_1a982ff0c5b10d72bfc929cca4eeadf38e" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float TDatabase3AInterface_2_t::metadataExposureTime[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>metadataExposureTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_t_database3_a_interface__2__t_1a3e1abd1dd7529e5cb3ff94044f52479c" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float TDatabase3AInterface_2_t::metadataCCT[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>metadataCCT</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_t_database3_a_interface__2__t_1af8c2567be88c8d8c0262a2f40d50eee6" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float TDatabase3AInterface_2_t::metadataAwbGains[6][4]</definition>
+        <argsstring>[6][4]</argsstring>
+        <name>metadataAwbGains</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_t_database3_a_interface__2__t_1acbeb6f6ba5947278df588e6ff1e2936e" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float TDatabase3AInterface_2_t::maxExposureTime</definition>
+        <argsstring></argsstring>
+        <name>maxExposureTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_t_database3_a_interface__2__t_1a8b8bc183e32380ad37cdfa86dddbab3e" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char TDatabase3AInterface_2_t::class_[20]</definition>
+        <argsstring>[20]</argsstring>
+        <name>class_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="100" bodyend="118"/>
+    <listofallmembers>
+      <member refid="struct_t_database3_a_interface__2__t_1ab5e54b70136c5c46b105440b21b9ab22" prot="public" virt="non-virtual"><scope>TDatabase3AInterface_2_t</scope><name>autoTable</name></member>
+      <member refid="struct_t_database3_a_interface__2__t_1a7a6ea179bcab0b8e09d6e569fc8d742e" prot="public" virt="non-virtual"><scope>TDatabase3AInterface_2_t</scope><name>awbEnable</name></member>
+      <member refid="struct_t_database3_a_interface__2__t_1a56cb2faa1ada940c9f7289077a725b7f" prot="public" virt="non-virtual"><scope>TDatabase3AInterface_2_t</scope><name>cacEnable</name></member>
+      <member refid="struct_t_database3_a_interface__2__t_1ae4a7beb6d0a3baaf294f4cd0a80b46e9" prot="public" virt="non-virtual"><scope>TDatabase3AInterface_2_t</scope><name>ccEnable</name></member>
+      <member refid="struct_t_database3_a_interface__2__t_1a8b8bc183e32380ad37cdfa86dddbab3e" prot="public" virt="non-virtual"><scope>TDatabase3AInterface_2_t</scope><name>class_</name></member>
+      <member refid="struct_t_database3_a_interface__2__t_1ac610f8b2eb26417a1a063860267957fd" prot="public" virt="non-virtual"><scope>TDatabase3AInterface_2_t</scope><name>enable</name></member>
+      <member refid="struct_t_database3_a_interface__2__t_1a784e74a15538fb7b624aa94fe63e328a" prot="public" virt="non-virtual"><scope>TDatabase3AInterface_2_t</scope><name>integrationTime</name></member>
+      <member refid="struct_t_database3_a_interface__2__t_1a30398dc453b204c3d2a456d967df71ec" prot="public" virt="non-virtual"><scope>TDatabase3AInterface_2_t</scope><name>lscEnable</name></member>
+      <member refid="struct_t_database3_a_interface__2__t_1af07d8a27cc90e91e19980c9434234920" prot="public" virt="non-virtual"><scope>TDatabase3AInterface_2_t</scope><name>lscVersion</name></member>
+      <member refid="struct_t_database3_a_interface__2__t_1acbeb6f6ba5947278df588e6ff1e2936e" prot="public" virt="non-virtual"><scope>TDatabase3AInterface_2_t</scope><name>maxExposureTime</name></member>
+      <member refid="struct_t_database3_a_interface__2__t_1af8c2567be88c8d8c0262a2f40d50eee6" prot="public" virt="non-virtual"><scope>TDatabase3AInterface_2_t</scope><name>metadataAwbGains</name></member>
+      <member refid="struct_t_database3_a_interface__2__t_1a3e1abd1dd7529e5cb3ff94044f52479c" prot="public" virt="non-virtual"><scope>TDatabase3AInterface_2_t</scope><name>metadataCCT</name></member>
+      <member refid="struct_t_database3_a_interface__2__t_1a4cd63433798a2db021a6f3fcbbebe108" prot="public" virt="non-virtual"><scope>TDatabase3AInterface_2_t</scope><name>metadataEnable</name></member>
+      <member refid="struct_t_database3_a_interface__2__t_1a6c783ef4e7680460dda5f159ecdadf4a" prot="public" virt="non-virtual"><scope>TDatabase3AInterface_2_t</scope><name>metadataExposureGain</name></member>
+      <member refid="struct_t_database3_a_interface__2__t_1a982ff0c5b10d72bfc929cca4eeadf38e" prot="public" virt="non-virtual"><scope>TDatabase3AInterface_2_t</scope><name>metadataExposureTime</name></member>
+      <member refid="struct_t_database3_a_interface__2__t_1a0a70e5ef3a3b020e1fc686f3248a52e6" prot="public" virt="non-virtual"><scope>TDatabase3AInterface_2_t</scope><name>sensorGain</name></member>
+      <member refid="struct_t_database3_a_interface__2__t_1a93db917f594afd177e631d0f526e8988" prot="public" virt="non-virtual"><scope>TDatabase3AInterface_2_t</scope><name>xml</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

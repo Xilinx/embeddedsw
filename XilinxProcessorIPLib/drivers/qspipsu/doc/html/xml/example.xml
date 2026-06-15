@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use qspipsu driver.</para><sect1 id="example_1ex1">
+<title>xqspipsu_generic_flash_interrupt_example.c</title>
+<para>Contains an example on how to use the XQspipsu driver directly with a serial Flash device greater than or equal to 128Mb. This example writes to flash and reads it back in DMA mode.This examples runs with GENFIFO Manual start. It runs in interrupt mode. This example illustrates single, parallel and stacked modes. The hardware which this example runs on, must have a serial Flash(Micron N25Q or Spansion S25FL) for it to run.</para><para>For details, see <ref refid="xqspipsu__generic__flash__interrupt__example_8c" kindref="compound">xqspipsu_generic_flash_interrupt_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xqspipsu_generic_flash_lqspi_example.c</title>
+<para>Contains an example on how to use the XQspipsu driver directly with a serial Flash device greater than or equal to 128Mb. The example writes to flash in GQSPI mode and reads it back in Linear QSPI mode.This examples runs with GENFIFO Manual start. It runs in interrupt mode.This example runs in single mode. The hardware which this example runs on, must have a serial Flash(Micron N25Q or Spansion S25FL) for it to run.</para><para>For details, see <ref refid="xqspipsu__generic__flash__lqspi__example_8c" kindref="compound">xqspipsu_generic_flash_lqspi_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xqspipsu_generic_flash_polled_example.c</title>
+<para>Contains an example on how to use the XQspipsu driver directly with a serial Flash device greater than or equal to 128Mb. The example writes to flash and reads it back in DMA mode. This examples runs with GENFIFO Manual start. It runs in polled mode. This example illustrates single, parallel and stacked modes. The hardware which this example runs on, must have a serial Flash(Micron N25Q or Spansion S25FL) for it to run.</para><para>For details, see <ref refid="xqspipsu__generic__flash__polled__example_8c" kindref="compound">xqspipsu_generic_flash_polled_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex4">
+<title>xqspipsu_polldata_polltimeout_interrupt_example.c</title>
+<para>Contains an example on how to use the XQspipsu driver directly with a serial Flash device greater than or equal to 128Mb. The example writes to flash and reads it back in DMA mode. This examples runs with GENFIFO Manual start. It runs in interrupt mode. This example illustrates single, parallel and stacked modes. The hardware which this example runs on, must have a serial Flash(Micron N25Q or Spansion S25FL) for it to run. This application will configure GQSPI controller to send status command to know the flash status, instead of sending status command from the application.</para><para>For details, see <ref refid="xqspipsu__polldata__polltimeout__interrupt__example_8c" kindref="compound">xqspipsu_polldata_polltimeout_interrupt_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex5">
+<title>xqspipsu_generic_flash_non_blocking_read_example.c</title>
+<para>Contains an example on how to use the XQspipsu driver directly with a serial Flash device greater than or equal to 128Mb. The example writes to flash in IO mode and reads it back using non-blocking APIs in DMA mode. This examples runs with GENFIFO Manual start. It runs in polled mode. This example illustrates single, parallel and stacked modes. The hardware which this example runs on, must have a serial Flash(Micron N25Q or Spansion S25FL) for it to run.</para><para>For details, see <ref refid="xqspipsu__generic__flash__non__blocking__read__example_8c" kindref="compound">xqspipsu_generic_flash_non_blocking_read_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex6">
+<title>xqspipsu_generic_nand flash_interrupt_example.c</title>
+<para>Contains an example on how to use the XQspipsu driver directly with a QSPI NAND Flash device. The example writes to flash and reads it back in DMA mode. This examples runs with GENFIFO Manual start. It runs in interrupt mode. The hardware which this example runs on, must have a QSPI NAND Flash (Winbound 512MBits) for it to run.</para><para>For details, see xqspipsu_generic_nand flash_polled_example.c.</para></sect1>
+<sect1 id="example_1ex7">
+<title>xqspipsu_generic_nand flash_polled_example.c</title>
+<para>Contains an example on how to use the XQspipsu driver directly with a QSPI NAND Flash device. The example writes to flash and reads it back in DMA mode. This examples runs with GENFIFO Manual start. It runs in polled mode. The hardware which this example runs on, must have a QSPI NAND Flash (Winbound 512MBits) for it to run.</para><para>For details, see xqspipsu_generic_nand flash_polled_example.c. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

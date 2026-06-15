@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dsi_tx___cmd_mode_pkt" kind="struct" prot="public">
+    <compoundname>XDsiTx_CmdModePkt</compoundname>
+    <includes local="no">xdsi.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dsi_tx___cmd_mode_pkt_1a3bc2a87db912e52ba6ae5a2696c46d3b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDsiTx_CmdModePkt::LongPktData[NUM_PACKETS]</definition>
+        <argsstring>[NUM_PACKETS]</argsstring>
+        <name>LongPktData</name>
+        <briefdescription>
+<para>Long packet data in command mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="119" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gad642065adf499f3953713cc5b94a456a" compoundref="xdsi_8c" startline="300" endline="321">XDsi_SendLongPacket</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi_tx___cmd_mode_pkt_1a9b74650eccd16e860d82f8f00aaf0dec" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dsi_1ga0fa6b406aaf37b7635a6ba53740fa9de" kindref="member">XDsi_CmdModePktType</ref></type>
+        <definition>XDsi_CmdModePktType XDsiTx_CmdModePkt::CmdPkt</definition>
+        <argsstring></argsstring>
+        <name>CmdPkt</name>
+        <briefdescription>
+<para>Packet type in command mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="120" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga7e20d1d932530d9be8987b78136b7864" compoundref="xdsi_8c" startline="352" endline="371">XDsi_SendCmdModePkt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi_tx___cmd_mode_pkt_1ae2313ff180089ada9a4c62f0734279fa" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dsi___short_packet" kindref="compound">XDsi_ShortPacket</ref></type>
+        <definition>XDsi_ShortPacket XDsiTx_CmdModePkt::SpktData</definition>
+        <argsstring></argsstring>
+        <name>SpktData</name>
+        <briefdescription>
+<para>Short packet structure to send short packet. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="121" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga7e20d1d932530d9be8987b78136b7864" compoundref="xdsi_8c" startline="352" endline="371">XDsi_SendCmdModePkt</referencedby>
+        <referencedby refid="group__dsi_1gad642065adf499f3953713cc5b94a456a" compoundref="xdsi_8c" startline="300" endline="321">XDsi_SendLongPacket</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>MIPI DSI Command Mode configuration structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="15">
+        <label>XDsi_ShortPacket</label>
+        <link refid="struct_x_dsi___short_packet"/>
+      </node>
+      <node id="14">
+        <label>XDsiTx_CmdModePkt</label>
+        <link refid="struct_x_dsi_tx___cmd_mode_pkt"/>
+        <childnode refid="15" relation="usage">
+          <edgelabel>SpktData</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="118" bodyend="123"/>
+    <listofallmembers>
+      <member refid="struct_x_dsi_tx___cmd_mode_pkt_1a9b74650eccd16e860d82f8f00aaf0dec" prot="public" virt="non-virtual"><scope>XDsiTx_CmdModePkt</scope><name>CmdPkt</name></member>
+      <member refid="struct_x_dsi_tx___cmd_mode_pkt_1a3bc2a87db912e52ba6ae5a2696c46d3b" prot="public" virt="non-virtual"><scope>XDsiTx_CmdModePkt</scope><name>LongPktData</name></member>
+      <member refid="struct_x_dsi_tx___cmd_mode_pkt_1ae2313ff180089ada9a4c62f0734279fa" prot="public" virt="non-virtual"><scope>XDsiTx_CmdModePkt</scope><name>SpktData</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

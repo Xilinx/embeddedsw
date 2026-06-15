@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_fusa_bist_size__s" kind="struct" prot="public">
+    <compoundname>CamDeviceFusaBistSize_s</compoundname>
+    <includes local="no">cam_device_fusa_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_fusa_bist_size__s_1ae9c52d9f8223615d52a0e431367a2992" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceFusaBistSize_s::tpgBistImgHblank</definition>
+        <argsstring></argsstring>
+        <name>tpgBistImgHblank</name>
+        <briefdescription>
+<para>Horizontal TPG BIST image blank. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_fusa_bist_size__s_1a6a11d0024365f3662d4225a9cfd43e8d" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceFusaBistSize_s::tpgBistImgVblank</definition>
+        <argsstring></argsstring>
+        <name>tpgBistImgVblank</name>
+        <briefdescription>
+<para>Vertical TPG BIST image blank. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_fusa_bist_size__s_1a3baf7cdbc838d6e7eb38a055a7108fc8" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceFusaBistSize_s::tpgBistImgHsize</definition>
+        <argsstring></argsstring>
+        <name>tpgBistImgHsize</name>
+        <briefdescription>
+<para>Horizontal TPG BIST image size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_fusa_bist_size__s_1a9984ef06a9d37d066f69a4eb71c1cc2e" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceFusaBistSize_s::tpgBistImgVsize</definition>
+        <argsstring></argsstring>
+        <name>tpgBistImgVsize</name>
+        <briefdescription>
+<para>Vertical TPG BIST image size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_fusa_bist_size__s_1a63342bd84b6db8760fc9b75e944981ba" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceFusaBistSize_s::tpgBistSeed</definition>
+        <argsstring></argsstring>
+        <name>tpgBistSeed</name>
+        <briefdescription>
+<para>TPG BIST seed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice FuSa BIST (Built in self test) size. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="180" bodyend="186"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_fusa_bist_size__s_1ae9c52d9f8223615d52a0e431367a2992" prot="public" virt="non-virtual"><scope>CamDeviceFusaBistSize_s</scope><name>tpgBistImgHblank</name></member>
+      <member refid="struct_cam_device_fusa_bist_size__s_1a3baf7cdbc838d6e7eb38a055a7108fc8" prot="public" virt="non-virtual"><scope>CamDeviceFusaBistSize_s</scope><name>tpgBistImgHsize</name></member>
+      <member refid="struct_cam_device_fusa_bist_size__s_1a6a11d0024365f3662d4225a9cfd43e8d" prot="public" virt="non-virtual"><scope>CamDeviceFusaBistSize_s</scope><name>tpgBistImgVblank</name></member>
+      <member refid="struct_cam_device_fusa_bist_size__s_1a9984ef06a9d37d066f69a4eb71c1cc2e" prot="public" virt="non-virtual"><scope>CamDeviceFusaBistSize_s</scope><name>tpgBistImgVsize</name></member>
+      <member refid="struct_cam_device_fusa_bist_size__s_1a63342bd84b6db8760fc9b75e944981ba" prot="public" virt="non-virtual"><scope>CamDeviceFusaBistSize_s</scope><name>tpgBistSeed</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

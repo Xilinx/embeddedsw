@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_c001b1df6c6794449810458ebe42a53a" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xdfeequ__examples_8c">xdfeequ_examples.c</innerfile>
+    <innerfile refid="xdfeequ__examples_8h">xdfeequ_examples.h</innerfile>
+    <innerfile refid="xdfeequ__one__instance__initialization__example_8c">xdfeequ_one_instance_initialization_example.c</innerfile>
+    <innerfile refid="xdfeequ__pass__through__example_8c">xdfeequ_pass_through_example.c</innerfile>
+    <innerfile refid="xdfesi570__mgt_8c">xdfesi570_mgt.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/examples/"/>
+  </compounddef>
+</doxygen>

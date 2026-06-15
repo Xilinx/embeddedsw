@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xhdcp1x__debug_8h" kind="file">
+    <compoundname>xhdcp1x_debug.h</compoundname>
+    <includes refid="xhdcp1x_8h" local="yes">xhdcp1x.h</includes>
+    <includedby refid="xhdcp1x_8c" local="yes">xhdcp1x.c</includedby>
+    <includedby refid="xhdcp1x__cipher_8c" local="yes">xhdcp1x_cipher.c</includedby>
+    <includedby refid="xhdcp1x__rx_8c" local="yes">xhdcp1x_rx.c</includedby>
+    <includedby refid="xhdcp1x__selftest_8c" local="yes">xhdcp1x_selftest.c</includedby>
+    <includedby refid="xhdcp1x__tx_8c" local="yes">xhdcp1x_tx.c</includedby>
+    <incdepgraph>
+      <node id="102">
+        <label>xil_io.h</label>
+      </node>
+      <node id="97">
+        <label>xhdcp1x_debug.h</label>
+        <link refid="xhdcp1x_debug.h"/>
+        <childnode refid="98" relation="include">
+        </childnode>
+      </node>
+      <node id="104">
+        <label>xtmrctr.h</label>
+      </node>
+      <node id="103">
+        <label>xstatus.h</label>
+      </node>
+      <node id="101">
+        <label>xhdcp1x_hw.h</label>
+        <link refid="xhdcp1x__hw_8h"/>
+        <childnode refid="102" relation="include">
+        </childnode>
+      </node>
+      <node id="100">
+        <label>xil_types.h</label>
+      </node>
+      <node id="99">
+        <label>xparameters.h</label>
+      </node>
+      <node id="98">
+        <label>xhdcp1x.h</label>
+        <link refid="xhdcp1x_8h"/>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="107">
+        <label>xhdcp1x_cipher.c</label>
+        <link refid="xhdcp1x__cipher_8c"/>
+      </node>
+      <node id="109">
+        <label>xhdcp1x_selftest.c</label>
+        <link refid="xhdcp1x__selftest_8c"/>
+      </node>
+      <node id="110">
+        <label>xhdcp1x_tx.c</label>
+        <link refid="xhdcp1x__tx_8c"/>
+      </node>
+      <node id="108">
+        <label>xhdcp1x_rx.c</label>
+        <link refid="xhdcp1x__rx_8c"/>
+      </node>
+      <node id="105">
+        <label>xhdcp1x_debug.h</label>
+        <link refid="xhdcp1x_debug.h"/>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+      </node>
+      <node id="106">
+        <label>xhdcp1x.c</label>
+        <link refid="xhdcp1x_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__hdcp1x_1ga23b1e82440c42ddc2ff5f54aa40932c3" prot="public" static="no">
+        <name>XHDCP1X_DEBUG_H</name>
+        <briefdescription>
+<para>&lt; Prevent circular inclusions by using protection macros </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_debug.h" line="28" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_debug.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga66e1b425725213dd4d5231bf5710e04f" prot="public" static="no">
+        <name>XHDCP1X_DEBUG_PRINTF</name>
+        <initializer>if (<ref refid="group__hdcp1x_1ga9edfb21b66722d61af03129b4dcbb734" kindref="member">XHdcp1xDebugPrintf</ref> != NULL) <ref refid="group__hdcp1x_1ga9edfb21b66722d61af03129b4dcbb734" kindref="member">XHdcp1xDebugPrintf</ref></initializer>
+        <briefdescription>
+<para>Instance of the function interface used for debug print statements. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_debug.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_debug.h" bodystart="42" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga1030400c6c423608ffd155b9cb4d12ef" compoundref="xhdcp1x_8c" startline="1373" endline="1399">XHdcp1x_GetTopology</referencedby>
+        <referencedby refid="group__hdcp1x_1gadefd696ca95f00b16f9af353a0f7d2e8" compoundref="xhdcp1x_8c" startline="1147" endline="1170">XHdcp1x_HandleTimeout</referencedby>
+        <referencedby refid="group__hdcp1x_1ga7f8a11ce5614a2541b378f034b3198cb" compoundref="xhdcp1x_8c" startline="1314" endline="1336">XHdcp1x_Info</referencedby>
+        <referencedby refid="group__hdcp1x_1gac0c5947639623f7b97d9ec1cc712e75f" compoundref="xhdcp1x_8c" startline="1613" endline="1639">XHdcp1x_IsRepeater</referencedby>
+        <referencedby refid="group__hdcp1x_1ga89cf71a1a7edefa4671fdefa3cc7222b" compoundref="xhdcp1x__rx_8c" startline="779" endline="835">XHdcp1x_RxInfo</referencedby>
+        <referencedby refid="group__hdcp1x_1gae607ce47975decbc6e4e45d51889dc19" compoundref="xhdcp1x_8c" startline="1744" endline="1764">XHdcp1x_SetHdmiMode</referencedby>
+        <referencedby refid="group__hdcp1x_1gaba8f1fa8b28a519d192f1183fae62344" compoundref="xhdcp1x_8c" startline="1710" endline="1732">XHdcp1x_SetTopologyUpdate</referencedby>
+        <referencedby refid="group__hdcp1x_1gaa503ece3533fb6055289ad2dd01ba80b" compoundref="xhdcp1x__tx_8c" startline="916" endline="982">XHdcp1x_TxInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga83e87d466be18c22a62503f408c341cc" prot="public" static="no">
+        <name>XHDCP1X_DEBUG_LOGMSG</name>
+        <initializer>if (<ref refid="group__hdcp1x_1ga2c89c757bb1b6bb6c904b67afad4f624" kindref="member">XHdcp1xDebugLogMsg</ref> != NULL) <ref refid="group__hdcp1x_1ga2c89c757bb1b6bb6c904b67afad4f624" kindref="member">XHdcp1xDebugLogMsg</ref></initializer>
+        <briefdescription>
+<para>Instance of the function interface used for debug log messages. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_debug.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_debug.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__hdcp1x_1ga9edfb21b66722d61af03129b4dcbb734" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp1x_1ga5e8fa072ff6606b4d994d5ab8e679498" kindref="member">XHdcp1x_Printf</ref></type>
+        <definition>XHdcp1x_Printf XHdcp1xDebugPrintf</definition>
+        <argsstring></argsstring>
+        <name>XHdcp1xDebugPrintf</name>
+        <briefdescription>
+<para>Instance of function interface used for debug print statement. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_debug.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.c" bodystart="96" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gac2d6cb2bf146bfd87fc255200b09cd79" compoundref="xhdcp1x_8c" startline="1181" endline="1184">XHdcp1x_SetDebugPrintf</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__hdcp1x_1ga2c89c757bb1b6bb6c904b67afad4f624" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp1x_1ga6b214d490d11f98c911477a05084b62a" kindref="member">XHdcp1x_LogMsg</ref></type>
+        <definition>XHdcp1x_LogMsg XHdcp1xDebugLogMsg</definition>
+        <argsstring></argsstring>
+        <name>XHdcp1xDebugLogMsg</name>
+        <briefdescription>
+<para>Instance of function interface used for debug log message statement. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_debug.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.c" bodystart="99" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga0d8820c98c821780e9cbede688cc2957" compoundref="xhdcp1x_8c" startline="1195" endline="1198">XHdcp1x_SetDebugLogMsg</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor">#ifndef<sp/>XHDCP1X_DEBUG_H</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="28" refid="group__hdcp1x_1ga23b1e82440c42ddc2ff5f54aa40932c3" refkind="member"><highlight class="preprocessor">#define<sp/>XHDCP1X_DEBUG_H</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xhdcp1x_8h" kindref="compound">xhdcp1x.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42" refid="group__hdcp1x_1ga66e1b425725213dd4d5231bf5710e04f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XHDCP1X_DEBUG_PRINTF<sp/>if<sp/>(XHdcp1xDebugPrintf<sp/>!=<sp/>NULL)<sp/>XHdcp1xDebugPrintf</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="44" refid="group__hdcp1x_1ga83e87d466be18c22a62503f408c341cc" refkind="member"><highlight class="preprocessor">#define<sp/>XHDCP1X_DEBUG_LOGMSG<sp/>if<sp/>(XHdcp1xDebugLogMsg<sp/>!=<sp/>NULL)<sp/>XHdcp1xDebugLogMsg</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="47"><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*************************<sp/>External<sp/>Declarations<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="group__hdcp1x_1ga5e8fa072ff6606b4d994d5ab8e679498" kindref="member">XHdcp1x_Printf</ref><sp/><ref refid="group__hdcp1x_1ga9edfb21b66722d61af03129b4dcbb734" kindref="member">XHdcp1xDebugPrintf</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="group__hdcp1x_1ga6b214d490d11f98c911477a05084b62a" kindref="member">XHdcp1x_LogMsg</ref><sp/><ref refid="group__hdcp1x_1ga2c89c757bb1b6bb6c904b67afad4f624" kindref="member">XHdcp1xDebugLogMsg</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XHDCP1X_DEBUG_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_debug.h"/>
+  </compounddef>
+</doxygen>

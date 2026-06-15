@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_mix___phase" kind="struct" prot="public">
+    <compoundname>XDfeMix_Phase</compoundname>
+    <includes local="no">xdfemix.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_mix___phase_1a321464e85dc0d2b0ef03113139dafa03" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_Phase::PhaseAcc</definition>
+        <argsstring></argsstring>
+        <name>PhaseAcc</name>
+        <briefdescription>
+<para>[0-2^32-1] Phase accumulator value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="351" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___phase_1ae7ad099376319c068a65270be8a483ad" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_Phase::DualModCount</definition>
+        <argsstring></argsstring>
+        <name>DualModCount</name>
+        <briefdescription>
+<para>[0-2^32-1] Dual modulus count value (T-S) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="352" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___phase_1a853e0b3a99f9735f1bae2800bd020b2a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_Phase::DualModSel</definition>
+        <argsstring></argsstring>
+        <name>DualModSel</name>
+        <briefdescription>
+<para>[0,1] Dual modulus select value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="353" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="353" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___phase_1a8dca3570e590eb1a5d36a87bc2245e94" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_Phase::TriggerUpdateFlag</definition>
+        <argsstring></argsstring>
+        <name>TriggerUpdateFlag</name>
+        <briefdescription>
+<para><verbatim>                Update the associated accumulator from
+</verbatim> the PHASE registers: </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>0 = NO_UPDATE: Do not update</para></listitem><listitem><para>1 = IMMEDIATE_UPDATE: Apply an immediate update</para></listitem><listitem><para>2 = TRIGGER_UPDATE: Apply an update on the next CC_UPDATE trigger. Note: This flag acts as a command and is self-clearing. Once the update condition is met, the value automatically reverts to 0 (NO_UPDATE), which will be reflected in subsequent XDfeMix_GetCurrentCCCfg calls. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="354" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Defined phase for single CC&apos;s NCO. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="350" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="350" bodyend="364"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_mix___phase_1ae7ad099376319c068a65270be8a483ad" prot="public" virt="non-virtual"><scope>XDfeMix_Phase</scope><name>DualModCount</name></member>
+      <member refid="struct_x_dfe_mix___phase_1a853e0b3a99f9735f1bae2800bd020b2a" prot="public" virt="non-virtual"><scope>XDfeMix_Phase</scope><name>DualModSel</name></member>
+      <member refid="struct_x_dfe_mix___phase_1a321464e85dc0d2b0ef03113139dafa03" prot="public" virt="non-virtual"><scope>XDfeMix_Phase</scope><name>PhaseAcc</name></member>
+      <member refid="struct_x_dfe_mix___phase_1a8dca3570e590eb1a5d36a87bc2245e94" prot="public" virt="non-virtual"><scope>XDfeMix_Phase</scope><name>TriggerUpdateFlag</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

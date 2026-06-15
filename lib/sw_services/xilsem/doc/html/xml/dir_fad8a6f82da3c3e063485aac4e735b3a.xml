@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_fad8a6f82da3c3e063485aac4e735b3a" kind="dir">
+    <compoundname>client</compoundname>
+    <innerfile refid="xsem__client__api_8c">xsem_client_api.c</innerfile>
+    <innerfile refid="xsem__client__api_8h">xsem_client_api.h</innerfile>
+    <innerfile refid="xsem__ipi__interface_8c">xsem_ipi_interface.c</innerfile>
+    <innerfile refid="xsem__ipi__interface_8h">xsem_ipi_interface.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/"/>
+  </compounddef>
+</doxygen>

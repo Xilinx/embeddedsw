@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use the driver.</para><sect1 id="example_1ex1">
+<title>xdfeprach_examples.c</title>
+<para>Examples are:<orderedlist>
+<listitem><para>Self test on one instance:<itemizedlist>
+<listitem><para>initialisation from reset to activation</para></listitem><listitem><para>close the driver</para></listitem></itemizedlist>
+</para></listitem></orderedlist>
+<orderedlist>
+<listitem><para>Self test on one instance:<itemizedlist>
+<listitem><para>initialisation from reset to activation</para></listitem><listitem><para>close the driver</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Set 2 CC and 3 RC example:<itemizedlist>
+<listitem><para>Create and system initialize the device driver instance.</para></listitem><listitem><para>Read SW and HW version numbers.</para></listitem><listitem><para>Reset the device.</para></listitem><listitem><para>Configure the device.</para></listitem><listitem><para>Initialize the device.</para></listitem><listitem><para>Activate the device.</para></listitem><listitem><para>Get current Component Carrier (CC) configuration.</para></listitem><listitem><para>Get current RACH Channel (RC) configuration.</para></listitem><listitem><para>add 2 Component Carriers: CCID={5,3}</para></listitem><listitem><para>add 3 RACH Channel: RCID={2,4,6}</para></listitem><listitem><para>Trigger configuration update.</para></listitem><listitem><para>Deactivate the device.</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Set 2 CC and 3 RC and reconfigure example:<itemizedlist>
+<listitem><para>Create and system initialize the device driver instance.</para></listitem><listitem><para>Read SW and HW version numbers.</para></listitem><listitem><para>Reset the device.</para></listitem><listitem><para>Configure the device.</para></listitem><listitem><para>Initialize the device.</para></listitem><listitem><para>Activate the device.</para></listitem><listitem><para>Get current Component Carrier (CC) configuration.</para></listitem><listitem><para>Get current RACH Channel (RC) configuration.</para></listitem><listitem><para>add 2 Component Carriers: CCID={5,3}</para></listitem><listitem><para>add 3 RACH Channel: RCID={2,4,6}</para></listitem><listitem><para>remove one RACH Channel</para></listitem><listitem><para>configure and add new RACH channel</para></listitem><listitem><para>Trigger configuration update.</para></listitem><listitem><para>Deactivate the device.</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Set 2 CC and 3 RC dynamically example:<itemizedlist>
+<listitem><para>Create and system initialize the device driver instance.</para></listitem><listitem><para>Read SW and HW version numbers.</para></listitem><listitem><para>Reset the device.</para></listitem><listitem><para>Configure the device.</para></listitem><listitem><para>Initialize the device.</para></listitem><listitem><para>Activate the device.</para></listitem><listitem><para>Get current Component Carrier (CC) configuration.</para></listitem><listitem><para>Get current RACH Channel (RC) configuration.</para></listitem><listitem><para>add 2 Component Carriers: CCID={5,3}</para></listitem><listitem><para>add 3 RACH Channel: RCID={2,4,6}</para></listitem><listitem><para>Trigger configuration update.</para></listitem><listitem><para>Deactivate the device.</para></listitem></itemizedlist>
+</para></listitem></orderedlist>
+</para><para>The example code is written and tested for zcu670 board. Running example in a Bare metal environment includes setting an output clock on si570. For details, see xdfeprach examples code. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

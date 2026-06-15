@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_u_s_b___d_f_u___f_u_n_c___d_e_s_c" kind="struct" prot="public">
+    <compoundname>USB_DFU_FUNC_DESC</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_u_s_b___d_f_u___f_u_n_c___d_e_s_c_1ac5b8b0518ba42080473109bd4f684c7c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_DFU_FUNC_DESC::bLength</definition>
+        <argsstring></argsstring>
+        <name>bLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="362" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="362" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___d_f_u___f_u_n_c___d_e_s_c_1a1346e3e2a9998d175931333f89437450" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_DFU_FUNC_DESC::bDescriptorType</definition>
+        <argsstring></argsstring>
+        <name>bDescriptorType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="363" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="363" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___d_f_u___f_u_n_c___d_e_s_c_1a12a453e05a875ecdf6fc7067ab865382" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_DFU_FUNC_DESC::bmAttributes</definition>
+        <argsstring></argsstring>
+        <name>bmAttributes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="364" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___d_f_u___f_u_n_c___d_e_s_c_1a2510930d1fab35d54cc4a249c74e581d" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 USB_DFU_FUNC_DESC::wDetachTimeOut</definition>
+        <argsstring></argsstring>
+        <name>wDetachTimeOut</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="365" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="365" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___d_f_u___f_u_n_c___d_e_s_c_1a7f50d11c98fee507144a7789bb87ba9c" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 USB_DFU_FUNC_DESC::wTransferSize</definition>
+        <argsstring></argsstring>
+        <name>wTransferSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="366" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="366" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___d_f_u___f_u_n_c___d_e_s_c_1a95c52428515065ca90a5738014251e65" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 USB_DFU_FUNC_DESC::bcdDFUVersion</definition>
+        <argsstring></argsstring>
+        <name>bcdDFUVersion</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="367" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="367" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="361" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="361" bodyend="372"/>
+    <listofallmembers>
+      <member refid="struct_u_s_b___d_f_u___f_u_n_c___d_e_s_c_1a95c52428515065ca90a5738014251e65" prot="public" virt="non-virtual"><scope>USB_DFU_FUNC_DESC</scope><name>bcdDFUVersion</name></member>
+      <member refid="struct_u_s_b___d_f_u___f_u_n_c___d_e_s_c_1a1346e3e2a9998d175931333f89437450" prot="public" virt="non-virtual"><scope>USB_DFU_FUNC_DESC</scope><name>bDescriptorType</name></member>
+      <member refid="struct_u_s_b___d_f_u___f_u_n_c___d_e_s_c_1ac5b8b0518ba42080473109bd4f684c7c" prot="public" virt="non-virtual"><scope>USB_DFU_FUNC_DESC</scope><name>bLength</name></member>
+      <member refid="struct_u_s_b___d_f_u___f_u_n_c___d_e_s_c_1a12a453e05a875ecdf6fc7067ab865382" prot="public" virt="non-virtual"><scope>USB_DFU_FUNC_DESC</scope><name>bmAttributes</name></member>
+      <member refid="struct_u_s_b___d_f_u___f_u_n_c___d_e_s_c_1a2510930d1fab35d54cc4a249c74e581d" prot="public" virt="non-virtual"><scope>USB_DFU_FUNC_DESC</scope><name>wDetachTimeOut</name></member>
+      <member refid="struct_u_s_b___d_f_u___f_u_n_c___d_e_s_c_1a7f50d11c98fee507144a7789bb87ba9c" prot="public" virt="non-virtual"><scope>USB_DFU_FUNC_DESC</scope><name>wTransferSize</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

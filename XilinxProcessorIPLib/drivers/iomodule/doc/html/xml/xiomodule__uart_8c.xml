@@ -1,0 +1,383 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xiomodule__uart_8c" kind="file">
+    <compoundname>xiomodule_uart.c</compoundname>
+    <includes local="yes">xil_assert.h</includes>
+    <includes refid="xiomodule_8h" local="yes">xiomodule.h</includes>
+    <includes refid="xiomodule__i_8h" local="yes">xiomodule_i.h</includes>
+    <includes refid="xiomodule__l_8h" local="yes">xiomodule_l.h</includes>
+    <incdepgraph>
+      <node id="206">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="211">
+        <label>xil_io.h</label>
+      </node>
+      <node id="213">
+        <label>xiomodule_i.h</label>
+        <link refid="xiomodule__i_8h"/>
+        <childnode refid="207" relation="include">
+        </childnode>
+      </node>
+      <node id="207">
+        <label>xiomodule.h</label>
+        <link refid="xiomodule_8h"/>
+        <childnode refid="208" relation="include">
+        </childnode>
+        <childnode refid="209" relation="include">
+        </childnode>
+        <childnode refid="212" relation="include">
+        </childnode>
+      </node>
+      <node id="208">
+        <label>xstatus.h</label>
+      </node>
+      <node id="212">
+        <label>xil_types.h</label>
+      </node>
+      <node id="209">
+        <label>xiomodule_l.h</label>
+        <link refid="xiomodule__l_8h"/>
+        <childnode refid="208" relation="include">
+        </childnode>
+        <childnode refid="210" relation="include">
+        </childnode>
+      </node>
+      <node id="210">
+        <label>xiomodule_io.h</label>
+        <link refid="xiomodule__io_8h"/>
+        <childnode refid="211" relation="include">
+        </childnode>
+      </node>
+      <node id="205">
+        <label>xiomodule_uart.c</label>
+        <link refid="xiomodule_uart.c"/>
+        <childnode refid="206" relation="include">
+        </childnode>
+        <childnode refid="207" relation="include">
+        </childnode>
+        <childnode refid="213" relation="include">
+        </childnode>
+        <childnode refid="209" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__iomodule_1ga66cae3e4cf97c7ab9a2bf119af680e00" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void StubHandler</definition>
+        <argsstring>(void *CallBackRef, unsigned int ByteCount)</argsstring>
+        <name>StubHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>This function provides a stub handler such that if the application does not define a handler but enables interrupts, this function will be called. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>has no purpose but is necessary to match the interface for a handler. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>has no purpose but is necessary to match the interface for a handler.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_uart.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_uart.c" bodystart="246" bodyend="254"/>
+      </memberdef>
+      <memberdef kind="function" id="group__iomodule_1gaff025dd804b08ec80047b8b17273da84" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XIOModule_CfgInitialize</definition>
+        <argsstring>(XIOModule *InstancePtr, XIOModule_Config *Config, u32 EffectiveAddr)</argsstring>
+        <name>XIOModule_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_i_o_module___config" kindref="compound">XIOModule_Config</ref> *</type>
+          <declname>Config</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>Initialize a <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function disables the UART interrupts. The baud rate and format of the data are fixed in the hardware at hardware build time, except if programmable baud rate is selected.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a reference to a structure containing information about a specific IO Module device. This function initializes an InstancePtr object for a specific device specified by the contents of Config. This function can initialize multiple instance objects with the use of multiple calls giving different Config information on each call. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device register base address. Use Config-&gt;BaseAddress for this parameters, passing the physical address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if everything starts up as expected.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>The Config and EffectiveAddress arguments are not used by this function, but are provided to keep the function signature consistent with other drivers. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="526" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_uart.c" bodystart="97" bodyend="139"/>
+        <references refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" compoundref="xiomodule_8h" startline="433">XIOModule::BaseAddress</references>
+        <references refid="struct_x_i_o_module_1aa587d9b5ceed79935fa1c5cf842531d8" compoundref="xiomodule_8h" startline="448">XIOModule::CurrentIER</references>
+        <references refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" compoundref="xiomodule_8h" startline="434">XIOModule::IsReady</references>
+        <references refid="struct_x_i_o_module___buffer_1a50853264e2e15f5714c35c69e3044110" compoundref="xiomodule_8h" startline="401">XIOModule_Buffer::NextBytePtr</references>
+        <references refid="struct_x_i_o_module_1a9779459fb73d4db975bdf4d112d63408" compoundref="xiomodule_8h" startline="440">XIOModule::ReceiveBuffer</references>
+        <references refid="struct_x_i_o_module_1a7d242c9d237f263e9b895b57c827b728" compoundref="xiomodule_8h" startline="441">XIOModule::RecvHandler</references>
+        <references refid="struct_x_i_o_module___buffer_1af9c6e265f52ba355d454e0b29983889e" compoundref="xiomodule_8h" startline="403">XIOModule_Buffer::RemainingBytes</references>
+        <references refid="struct_x_i_o_module___buffer_1ad1d8239c6072600ea84bbbf16b6d59fb" compoundref="xiomodule_8h" startline="402">XIOModule_Buffer::RequestedBytes</references>
+        <references refid="struct_x_i_o_module_1ab43b4d33329f1d1c7685f0123dc37588" compoundref="xiomodule_8h" startline="439">XIOModule::SendBuffer</references>
+        <references refid="struct_x_i_o_module_1a900c8563fc749f2cb97e5c0bbf1c7af7" compoundref="xiomodule_8h" startline="443">XIOModule::SendHandler</references>
+        <references refid="group__iomodule_1ga61a582e9785291f7c6e0b91c19c46bd8" compoundref="xiomodule__stats_8c" startline="100" endline="115">XIOModule_ClearStats</references>
+        <referencedby refid="group__iomodule_1ga600331bcb370ad31b8acbb20bacbc694" compoundref="xiomodule_8c" startline="118" endline="240">XIOModule_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iomodule_1gaed5ebecb3c051addf25c38216b08069a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XIOModule_SetBaudRate</definition>
+        <argsstring>(XIOModule *InstancePtr, u32 BaudRate)</argsstring>
+        <name>XIOModule_SetBaudRate</name>
+        <param>
+          <type><ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BaudRate</declname>
+        </param>
+        <briefdescription>
+<para>Sets the baud rate for the specified UART. </para>        </briefdescription>
+        <detaileddescription>
+<para>Checks the input value for validity and also verifies that the requested rate can be configured to within the 3 percent error range for RS-232 communications. If the provided rate is not valid, the current setting is unchanged.</para><para>This function is designed to be an internal function only used within the <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> component. It is necessary for initialization and for the user available function that sets the data format.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaudRate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to be set in the hardware.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if everything configures as expected<itemizedlist>
+<listitem><para>XST_UART_BAUD_ERROR if the requested rate is not available because there was too much error due to the input clock</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="539" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_uart.c" bodystart="164" bodyend="228"/>
+        <references refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" compoundref="xiomodule_8h" startline="433">XIOModule::BaseAddress</references>
+        <references refid="struct_x_i_o_module___config_1a712c14652d2ff15fe02b91085dc302ad" compoundref="xiomodule_8h" startline="370">XIOModule_Config::BaudRate</references>
+        <references refid="struct_x_i_o_module_1ad44f07ede4a771acec5e5ae601868957" compoundref="xiomodule_8h" startline="436">XIOModule::CfgPtr</references>
+        <references refid="struct_x_i_o_module_1a40ef038a466867f27010e474e5e27aa2" compoundref="xiomodule_8h" startline="445">XIOModule::CurrentUBRR</references>
+        <references refid="struct_x_i_o_module___config_1af0f55a923987c88258fa20e1e6e24fb3" compoundref="xiomodule_8h" startline="369">XIOModule_Config::InputClockHz</references>
+        <references refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" compoundref="xiomodule_8h" startline="434">XIOModule::IsReady</references>
+        <references refid="group__iomodule_1ga829c77e3efe996211599f9a2a6bb4890" compoundref="xiomodule__l_8h" startline="384">XIOModule_WriteReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2011<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="37"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiomodule_8h" kindref="compound">xiomodule.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiomodule__i_8h" kindref="compound">xiomodule_i.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiomodule__l_8h" kindref="compound">xiomodule_l.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight></codeline>
+<codeline lineno="48"><highlight class="comment">/*<sp/>The<sp/>following<sp/>constant<sp/>defines<sp/>the<sp/>amount<sp/>of<sp/>error<sp/>that<sp/>is<sp/>allowed<sp/>for</highlight></codeline>
+<codeline lineno="49"><highlight class="comment"><sp/>*<sp/>a<sp/>specified<sp/>baud<sp/>rate.<sp/>This<sp/>error<sp/>is<sp/>the<sp/>difference<sp/>between<sp/>the<sp/>actual</highlight></codeline>
+<codeline lineno="50"><highlight class="comment"><sp/>*<sp/>baud<sp/>rate<sp/>that<sp/>will<sp/>be<sp/>generated<sp/>using<sp/>the<sp/>specified<sp/>clock<sp/>and<sp/>the</highlight></codeline>
+<codeline lineno="51"><highlight class="comment"><sp/>*<sp/>desired<sp/>baud<sp/>rate.</highlight></codeline>
+<codeline lineno="52"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XUN_MAX_BAUD_ERROR_RATE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>max<sp/>%<sp/>error<sp/>allowed<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="58"><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>StubHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ByteCount);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="97" refid="group__iomodule_1gaff025dd804b08ec80047b8b17273da84" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__iomodule_1gaff025dd804b08ec80047b8b17273da84" kindref="member">XIOModule_CfgInitialize</ref>(<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_i_o_module___config" kindref="compound">XIOModule_Config</ref><sp/>*Config,</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EffectiveAddr)</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NewIER;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/>EffectiveAddr;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="104"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="105"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Config!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>some<sp/>default<sp/>values,<sp/>including<sp/>setting<sp/>the<sp/>callback</highlight></codeline>
+<codeline lineno="111"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>handlers<sp/>to<sp/>stubs.</highlight></codeline>
+<codeline lineno="112"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ab43b4d33329f1d1c7685f0123dc37588" kindref="member">SendBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1a50853264e2e15f5714c35c69e3044110" kindref="member">NextBytePtr</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ab43b4d33329f1d1c7685f0123dc37588" kindref="member">SendBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1af9c6e265f52ba355d454e0b29983889e" kindref="member">RemainingBytes</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ab43b4d33329f1d1c7685f0123dc37588" kindref="member">SendBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1ad1d8239c6072600ea84bbbf16b6d59fb" kindref="member">RequestedBytes</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a9779459fb73d4db975bdf4d112d63408" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1a50853264e2e15f5714c35c69e3044110" kindref="member">NextBytePtr</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a9779459fb73d4db975bdf4d112d63408" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1af9c6e265f52ba355d454e0b29983889e" kindref="member">RemainingBytes</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a9779459fb73d4db975bdf4d112d63408" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_i_o_module___buffer_1ad1d8239c6072600ea84bbbf16b6d59fb" kindref="member">RequestedBytes</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" kindref="member">IsReady</ref><sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a7d242c9d237f263e9b895b57c827b728" kindref="member">RecvHandler</ref><sp/>=<sp/>StubHandler;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a900c8563fc749f2cb97e5c0bbf1c7af7" kindref="member">SendHandler</ref><sp/>=<sp/>StubHandler;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="127"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Modify<sp/>the<sp/>IER<sp/>to<sp/>disable<sp/>the<sp/>UART<sp/>interrupts</highlight></codeline>
+<codeline lineno="128"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NewIER<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1aa587d9b5ceed79935fa1c5cf842531d8" kindref="member">CurrentIER</ref><sp/>&amp;<sp/>0xFFFFFFF8U;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIomodule_Out32(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" kindref="member">BaseAddress</ref><sp/>+<sp/>XIN_IER_OFFSET,<sp/>NewIER);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1aa587d9b5ceed79935fa1c5cf842531d8" kindref="member">CurrentIER</ref><sp/>=<sp/>NewIER;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="134"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clear<sp/>the<sp/>statistics<sp/>for<sp/>this<sp/>driver</highlight></codeline>
+<codeline lineno="135"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iomodule_1ga61a582e9785291f7c6e0b91c19c46bd8" kindref="member">XIOModule_ClearStats</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="164" refid="group__iomodule_1gaed5ebecb3c051addf25c38216b08069a" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__iomodule_1gaed5ebecb3c051addf25c38216b08069a" kindref="member">XIOModule_SetBaudRate</ref>(<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*InstancePtr,<sp/>u32<sp/>BaudRate)</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Baud8;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Baud16;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>InputClockHz;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Divisor;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TargetRate;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Error;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PercentError;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="175"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="176"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="181"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Determine<sp/>what<sp/>the<sp/>divisor<sp/>should<sp/>be<sp/>to<sp/>get<sp/>the<sp/>specified<sp/>baud</highlight></codeline>
+<codeline lineno="182"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>rate<sp/>based<sp/>upon<sp/>the<sp/>input<sp/>clock<sp/>frequency<sp/>and<sp/>a<sp/>baud<sp/>clock<sp/>prescaler</highlight></codeline>
+<codeline lineno="183"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>of<sp/>16,<sp/>rounded<sp/>to<sp/>nearest<sp/>divisor</highlight></codeline>
+<codeline lineno="184"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Baud8<sp/>=<sp/>BaudRate<sp/>&lt;&lt;<sp/>3;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Baud16<sp/>=<sp/>Baud8<sp/>&lt;&lt;<sp/>1;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InputClockHz<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ad44f07ede4a771acec5e5ae601868957" kindref="member">CfgPtr</ref>-&gt;<ref refid="struct_x_i_o_module___config_1af0f55a923987c88258fa20e1e6e24fb3" kindref="member">InputClockHz</ref>;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Divisor<sp/>=<sp/>(InputClockHz<sp/>+<sp/>Baud8)<sp/>/<sp/>Baud16;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="191"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Check<sp/>for<sp/>too<sp/>much<sp/>error<sp/>between<sp/>the<sp/>baud<sp/>rate<sp/>that<sp/>will<sp/>be<sp/>generated</highlight></codeline>
+<codeline lineno="192"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>using<sp/>the<sp/>divisor<sp/>and<sp/>the<sp/>expected<sp/>baud<sp/>rate,<sp/>ensuring<sp/>that<sp/>the<sp/>error</highlight></codeline>
+<codeline lineno="193"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>positive<sp/>due<sp/>to<sp/>rounding<sp/>above</highlight></codeline>
+<codeline lineno="194"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TargetRate<sp/>=<sp/>Divisor<sp/>*<sp/>Baud16;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InputClockHz<sp/>&lt;<sp/>TargetRate){</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Error<sp/>=<sp/>TargetRate<sp/>-<sp/>InputClockHz;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Error<sp/>=<sp/>InputClockHz<sp/>-<sp/>TargetRate;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="204"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Error<sp/>has<sp/>total<sp/>error<sp/>now<sp/>compute<sp/>the<sp/>percentage<sp/>multiplied<sp/>by<sp/>100<sp/>to</highlight></codeline>
+<codeline lineno="205"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>avoid<sp/>floating<sp/>point<sp/>calculations,<sp/>should<sp/>be<sp/>less<sp/>than<sp/>3%<sp/>as<sp/>per</highlight></codeline>
+<codeline lineno="206"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>RS-232<sp/>spec</highlight></codeline>
+<codeline lineno="207"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PercentError<sp/>=<sp/>(Error<sp/>*<sp/>100UL)<sp/>/<sp/>InputClockHz;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PercentError<sp/>&gt;<sp/>XUN_MAX_BAUD_ERROR_RATE)<sp/>{</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_UART_BAUD_ERROR;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="214"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>the<sp/>baud<sp/>rate<sp/>divisor<sp/>to<sp/>the<sp/>UART<sp/>Baud<sp/>Rate<sp/>Register</highlight></codeline>
+<codeline lineno="215"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iomodule_1ga829c77e3efe996211599f9a2a6bb4890" kindref="member">XIOModule_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUL_BAUDRATE_OFFSET,</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Divisor<sp/>-<sp/>1U);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a40ef038a466867f27010e474e5e27aa2" kindref="member">CurrentUBRR</ref><sp/>=<sp/>Divisor<sp/>-<sp/>1U;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="222"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Save<sp/>the<sp/>baud<sp/>rate<sp/>in<sp/>the<sp/>instance<sp/>so<sp/>that<sp/>the<sp/>get<sp/>baud<sp/>rate<sp/>function</highlight></codeline>
+<codeline lineno="223"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>won&apos;t<sp/>have<sp/>to<sp/>calculate<sp/>it<sp/>from<sp/>the<sp/>divisor</highlight></codeline>
+<codeline lineno="224"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ad44f07ede4a771acec5e5ae601868957" kindref="member">CfgPtr</ref>-&gt;<ref refid="struct_x_i_o_module___config_1a712c14652d2ff15fe02b91085dc302ad" kindref="member">BaudRate</ref><sp/>=<sp/>BaudRate;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="246"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>StubHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ByteCount)</highlight></codeline>
+<codeline lineno="247"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="249"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>occurs<sp/>always<sp/>since<sp/>this<sp/>is<sp/>a<sp/>stub<sp/>and<sp/>should<sp/>never<sp/>be<sp/>called</highlight></codeline>
+<codeline lineno="250"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/>ByteCount;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoidAlways();</highlight></codeline>
+<codeline lineno="254"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_uart.c"/>
+  </compounddef>
+</doxygen>

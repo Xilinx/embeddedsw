@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details which gives an idea of how the USB and its driver can be used for Bulk and Interrupt transfers.</para><sect1 id="example_1ex1">
+<title>xusb_ch9.c</title>
+<para>Contains the USB Chapter 9 specific code for the use of examples.</para><para>For details, see <ref refid="xusb__ch9_8c" kindref="compound">xusb_ch9.c</ref></para></sect1>
+<sect1 id="example_1ex2">
+<title>xusb_cp9.h</title>
+<para>This headerfile contains the constants, typedefs, variables and functions prototypes related to the USB Chapter 9 related code.</para><para>For details, see <ref refid="xusb__ch9_8h" kindref="compound">xusb_ch9.h</ref></para></sect1>
+<sect1 id="example_1ex3">
+<title>xusb_ch9_storage.c</title>
+<para>This file contains the implementation of the Mass Storage Class specific chapter 9 functions.</para><para>For details, see <ref refid="xusb__ch9__storage_8c" kindref="compound">xusb_ch9_storage.c</ref></para></sect1>
+<sect1 id="example_1ex4">
+<title>xusb_ch9_storage.h</title>
+<para>This headerfile contains the constants, typedefs, variables and functions prototypes related to the USB Mass Storage Class Chapter 9 related code.</para><para>For details, see <ref refid="xusb__ch9__storage_8h" kindref="compound">xusb_ch9_storage.h</ref></para></sect1>
+<sect1 id="example_1ex5">
+<title>xusb_class_storage.c</title>
+<para>This file contains the Mass Storage Class specific functions.</para><para>For details, see <ref refid="xusb__class__storage_8c" kindref="compound">xusb_class_storage.c</ref></para></sect1>
+<sect1 id="example_1ex6">
+<title>xusb_class_storage.h</title>
+<para>This headerfile contains the constants, type definitions, variables and function prototypes used in the Mass Storage Class related code.</para><para>For details, see <ref refid="xusb__class__storage_8h" kindref="compound">xusb_class_storage.h</ref></para></sect1>
+<sect1 id="example_1ex7">
+<title>xusb_intr_example.c</title>
+<para>This example contains Mass Storage device application which provides a reference to create a new Bulk Transfer related application. For details, see <ref refid="xusb__intr__example_8c" kindref="compound">xusb_intr_example.c</ref></para></sect1>
+<sect1 id="example_1ex8">
+<title>xusb_ch9_dfu.c</title>
+<para>This is the USB DFU example which contains USB DFU Class related Chapter 9 functions.</para><para>For details, see <ref refid="xusb__ch9__dfu_8c" kindref="compound">xusb_ch9_dfu.c</ref></para></sect1>
+<sect1 id="example_1ex9">
+<title>xusb_ch9_dfu.h</title>
+<para>This headerfile contains the constants, type definitions, variables and function prototypes used in the USB DFU Class related Chapter 9 code.</para><para>For details, see <ref refid="xusb__ch9__dfu_8h" kindref="compound">xusb_ch9_dfu.h</ref></para></sect1>
+<sect1 id="example_1ex10">
+<title>xusb_class_dfu.c</title>
+<para>This is the USB DFU example which contains USB DFU Class related functions.</para><para>For details, see <ref refid="xusb__class__dfu_8c" kindref="compound">xusb_class_dfu.c</ref></para></sect1>
+<sect1 id="example_1ex11">
+<title>xusb_class_dfu.h</title>
+<para>This headerfile contains the constants, type definitions, variables and function prototypes used in the USB DFU Class related code.</para><para>For details, see <ref refid="xusb__class__dfu_8h" kindref="compound">xusb_class_dfu.h</ref></para></sect1>
+<sect1 id="example_1ex12">
+<title>xusb_dfu_example.c</title>
+<para>This example contains the DFU application code which demonstrates the usage of control transfers.</para><para>For details, see xusb_dfu_example.c</para></sect1>
+<sect1 id="example_1ex13">
+<title>xusb_freertos_ch9_composite.c</title>
+<para>This file contains the usb chapter 9 related code which is used by freertos composite application.</para><para>For details, see <ref refid="xusb__freertos__ch9__composite_8c" kindref="compound">xusb_freertos_ch9_composite.c</ref></para></sect1>
+<sect1 id="example_1ex14">
+<title>xusb_freertos_ch9_composite.h</title>
+<para>This headerfile contains the constants, type definitions, variables and function prototypes related to Chapter 9 code used in the usb freertos composite gadget.</para><para>For details, see <ref refid="xusb__freertos__ch9__composite_8h" kindref="compound">xusb_freertos_ch9_composite.h</ref></para></sect1>
+<sect1 id="example_1ex15">
+<title>xusb_freertos_class_composite.c</title>
+<para>This file contains the usb class specific code related to freertos composite gadget.</para><para>For details, see <ref refid="xusb__freertos__class__composite_8c" kindref="compound">xusb_freertos_class_composite.c</ref></para></sect1>
+<sect1 id="example_1ex16">
+<title>xusb_freertos_class_composite.h</title>
+<para>This headerfile contains the constants, type definitions, variables and function prototypes related to usb class specific code used in the usb freertos composite gadget.</para></sect1>
+<sect1 id="example_1ex17">
+<title>xusb_freertos_composite.c</title>
+<para>This example contains the code for demonstrating the freertos specific usb composite device application which has Mass Storage, HID, Audio and DFU class gadgets.</para><para>For details, see xusb_freertos_composite.c</para></sect1>
+<sect1 id="example_1ex18">
+<title>xusb_ch9_composite.c</title>
+<para>This file contains the usb chapter 9 related code which is used by freertos composite application.</para><para>For details, see <ref refid="xusb__ch9__composite_8c" kindref="compound">xusb_ch9_composite.c</ref></para></sect1>
+<sect1 id="example_1ex19">
+<title>xusb_class_composite.h</title>
+<para>This headerfile contains the constants, type definitions, variables and function prototypes related to usb class specific code used in the usb composite gadget.</para><para>For details, see <ref refid="xusb__class__composite_8h" kindref="compound">xusb_class_composite.h</ref></para></sect1>
+<sect1 id="example_1ex20">
+<title>xusb_composite_example.c</title>
+<para>This example contains the code for demonstrating the usb composite device application which has Mass Storage, HID, Audio and DFU class gadgets.</para><para>For details, see <ref refid="xusb__composite__example_8c" kindref="compound">xusb_composite_example.c</ref></para></sect1>
+<sect1 id="example_1ex21">
+<title>xusb_freertos_ch9_storage.c</title>
+<para>This file has the functions related to usb chapter 9 specific to freertos Mass Storage gadget example.</para><para>For details, see <ref refid="xusb__freertos__ch9__storage_8c" kindref="compound">xusb_freertos_ch9_storage.c</ref></para></sect1>
+<sect1 id="example_1ex22">
+<title>xusb_freertos_ch9_storage.h</title>
+<para>This headerfile contains the constants, type definitions, variables and function prototypes related to usb chapter 9 specific code used in the freertos Mass Storage gadget example.</para><para>For details, see <ref refid="xusb__freertos__ch9__storage_8h" kindref="compound">xusb_freertos_ch9_storage.h</ref></para></sect1>
+<sect1 id="example_1ex23">
+<title>xusb_freertos_class_storage.c</title>
+<para>This file has the functions related to usb class specific code used in freertos storage example.</para><para>For details, see xusb_freertos_class_storage.c</para></sect1>
+<sect1 id="example_1ex24">
+<title>xusb_freertos_class_storage.h</title>
+<para>This headerfile contains the constants, type definitions, variables and function prototypes related to usb class specific code used in the freertos Mass Storage gadget example.</para><para>For details, see xusb_freertos_class_storage.h</para></sect1>
+<sect1 id="example_1ex25">
+<title>xusb_freertos_massstorage.c</title>
+<para>This file contains the code for demonstrating the freertos specific Mass Storage usb gadget example.</para><para>For details, see xusb_freertos_massstorage.c</para></sect1>
+<sect1 id="example_1ex26">
+<title>xusb_freertos_ch9_keyboard.h</title>
+<para>This file contains the usb chapter 9 code related to freertos specific Keyboard HID gadget application.</para><para>For details, see <ref refid="xusb__freertos__ch9__keyboard_8c" kindref="compound">xusb_freertos_ch9_keyboard.c</ref></para></sect1>
+<sect1 id="example_1ex26">
+<title>xusb_freertos_ch9_keyboard.h</title>
+<para>This headerfile contains the constants, type definitions, variables and function prototypes related to usb chapter 9 specific code used in the freertos keyboard HID gadget example.</para><para>For details, see <ref refid="xusb__freertos__ch9__keyboard_8h" kindref="compound">xusb_freertos_ch9_keyboard.h</ref></para></sect1>
+<sect1 id="example_1ex27">
+<title>xusb_freertos_class_keyboard.c</title>
+<para>This file contains the usb class code related to freertos specific keyboard HID gadget example.</para><para>For details, see <ref refid="xusb__freertos__class__keyboard_8c" kindref="compound">xusb_freertos_class_keyboard.c</ref></para></sect1>
+<sect1 id="example_1ex28">
+<title>xusb_freertos_class_keyboard.h</title>
+<para>This headerfile contains the constants, type definitions, variables and function prototypes related to usb class specific code used in the freertos keyboard HID gadget example.</para><para>For details, see xusb_freertos_class_keyboard.h</para></sect1>
+<sect1 id="example_1ex29">
+<title>xusb_freertos_keyboard.c</title>
+<para>This example contains the code for demonstrating freertos specific keyboard HID gadget.</para><para>For details, see xusb_freertos_keyboard.c</para></sect1>
+<sect1 id="example_1ex30">
+<title>xusb_freertos_ch9_audio.c</title>
+<para>This file contains the usb ch9 code related to freertos specific audio example.</para><para>For details, see <ref refid="xusb__freertos__ch9__audio_8c" kindref="compound">xusb_freertos_ch9_audio.c</ref></para></sect1>
+<sect1 id="example_1ex31">
+<title>xusb_freertos_ch9_audio.h</title>
+<para>This headerfile contains the constants, type definitions, variables and function prototypes related to usb chapter 9 specific code used in the freertos Audio gadget example.</para><para>For details, see <ref refid="xusb__freertos__ch9__audio_8h" kindref="compound">xusb_freertos_ch9_audio.h</ref></para></sect1>
+<sect1 id="example_1ex32">
+<title>xusb_freertos_class_audio.c</title>
+<para>This file contains the usb class code related to freertos specific Audio gadget example.</para><para>For details, see <ref refid="xusb__freertos__class__audio_8c" kindref="compound">xusb_freertos_class_audio.c</ref></para></sect1>
+<sect1 id="example_1ex33">
+<title>xusb_freertos_class_audio.h</title>
+<para>This headerfile contains the constants, type definitions, variables and function prototypes related to usb class specific code used in the freertos Audio gadget example.</para><para>For details, see <ref refid="xusb__freertos__class__audio_8h" kindref="compound">xusb_freertos_class_audio.h</ref></para></sect1>
+<sect1 id="example_1ex34">
+<title>xusb_freertos_audio.c</title>
+<para>This example contains the code for demonstrating freertos specific usb Audio class gadget.</para><para>For details, see xusb_freertos_audio.c</para></sect1>
+<sect1 id="example_1ex35">
+<title>xusb_freertos_dfu.c</title>
+<para>This example contains the code for demonstrating freertos specific usb DFU Class gadget.</para><para>For details, see xusb_freertos_dfu.c</para></sect1>
+<sect1 id="example_1ex36">
+<title>xusb_audio_dfu_example.c</title>
+<para>This example contains the code for demonstrating Audio + DFU class composite gadget example.</para><para>For details, see <ref refid="xusb__audio__dfu__example_8c" kindref="compound">xusb_audio_dfu_example.c</ref></para></sect1>
+<sect1 id="example_1ex37">
+<title>xusb_ch9_audio_dfu.c</title>
+<para>This file contains the usb chapter 9 code related to Audio + DFU class composite gadget.</para><para>For details, see <ref refid="xusb__ch9__audio__dfu_8c" kindref="compound">xusb_ch9_audio_dfu.c</ref></para></sect1>
+<sect1 id="example_1ex38">
+<title>xusb_ch9_audio_dfu.h</title>
+<para>This headerfile contains the constants, type definitions, variables and function prototypes related to usb chapter 9 specific code used in the Audio + DFU class composite gadget example.</para><para>For details, see <ref refid="xusb__ch9__audio__dfu_8h" kindref="compound">xusb_ch9_audio_dfu.h</ref></para></sect1>
+<sect1 id="example_1ex39">
+<title>xusb_class_audio_dfu.c</title>
+<para>This file contains the usb class code related to the Audio + DFU class composite gadget example.</para><para>For details, see <ref refid="xusb__class__audio__dfu_8c" kindref="compound">xusb_class_audio_dfu.c</ref></para></sect1>
+<sect1 id="example_1ex40">
+<title>xusb_class_audio_dfu.h</title>
+<para>This headerfile contains the constants, type definitions, variables and function prototypes related to usb class specific code used in the Audio + DFU class composite gadget example.</para><para>For details, see <ref refid="xusb__class__audio__dfu_8h" kindref="compound">xusb_class_audio_dfu.h</ref></para></sect1>
+<sect1 id="example_1ex41">
+<title>xusb_wrapper.c</title>
+<para>This file contains the wrapper functions which are called by the applications for communicating with the usbpsu driver.</para><para>For details, see <ref refid="xusb__wrapper_8c" kindref="compound">xusb_wrapper.c</ref></para></sect1>
+<sect1 id="example_1ex42">
+<title>xusb_wrapper.h</title>
+<para>This headerfile contains the constants, type definitions, variables and function prototypes related to usb wrapper code used for communicating with the usbpsu driver.</para><para>For details, see <ref refid="xusb__wrapper_8h" kindref="compound">xusb_wrapper.h</ref></para></sect1>
+<sect1 id="example_1ex43">
+<title>xusb_poll_example.c</title>
+<para>This example demonstartes the usage of usb BULK and Control transfers using polled mode.</para><para>For details, see <ref refid="xusb__poll__example_8c" kindref="compound">xusb_poll_example.c</ref></para><sect2 id="example_1Notes">
+<title>Notes</title>
+<para><itemizedlist>
+<listitem><para>These examples are independent from one another. All the examples should include the <ref refid="xusb__ch9_8c" kindref="compound">xusb_ch9.c</ref>, <ref refid="xusb__ch9_8h" kindref="compound">xusb_ch9.h</ref>, <ref refid="xusb__wrapper_8c" kindref="compound">xusb_wrapper.c</ref>, and <ref refid="xusb__wrapper_8h" kindref="compound">xusb_wrapper.h</ref> files.</para></listitem><listitem><para>For Mass Storage example, storage disk will mounted on the host and user can use &quot;dd&quot; command or can create a file system to transfer the data on the mounted storage disk. </para></listitem></itemizedlist>
+</para></sect2>
+</sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

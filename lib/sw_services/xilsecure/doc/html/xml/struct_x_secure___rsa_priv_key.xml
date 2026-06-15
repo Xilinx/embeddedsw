@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___rsa_priv_key" kind="struct" prot="public">
+    <compoundname>XSecure_RsaPrivKey</compoundname>
+    <includes local="no">xsecure_plat_rsa.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___rsa_priv_key_1a1ff01afef4ff856ce2a52a056a089efd" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_RsaPrivKey::Mod[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES]</definition>
+        <argsstring>[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES]</argsstring>
+        <name>Mod</name>
+        <briefdescription>
+<para>Modulus. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="137" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga7fe869dab6a634c2866f9ec26ee8cec0" compoundref="xsecure__plat__rsa_8c" startline="346" endline="378">XSecure_RsaOaepDecrypt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_priv_key_1ab72bd3935d3bba53528b9fd4022ca581" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_RsaPrivKey::Exp[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES]</definition>
+        <argsstring>[XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES]</argsstring>
+        <name>Exp</name>
+        <briefdescription>
+<para>Exponent. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_priv_key_1a644d7816cda6767e94b41e0b7926a0e5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_RsaPrivKey::P[XSECURE_PRIME_FACTOR_P_SIZE]</definition>
+        <argsstring>[XSECURE_PRIME_FACTOR_P_SIZE]</argsstring>
+        <name>P</name>
+        <briefdescription>
+<para>Prime1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="139" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga7fe869dab6a634c2866f9ec26ee8cec0" compoundref="xsecure__plat__rsa_8c" startline="346" endline="378">XSecure_RsaOaepDecrypt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_priv_key_1a66702d27a5c235ee08bfd64b2784dc0b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_RsaPrivKey::Q[XSECURE_PRIME_FACTOR_Q_SIZE]</definition>
+        <argsstring>[XSECURE_PRIME_FACTOR_Q_SIZE]</argsstring>
+        <name>Q</name>
+        <briefdescription>
+<para>Prime2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="140" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga7fe869dab6a634c2866f9ec26ee8cec0" compoundref="xsecure__plat__rsa_8c" startline="346" endline="378">XSecure_RsaOaepDecrypt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_priv_key_1a1333525ee3c21e019e5ee394e86a75dc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_RsaPrivKey::DP[XSECURE_PRIME_FACTOR_P_SIZE]</definition>
+        <argsstring>[XSECURE_PRIME_FACTOR_P_SIZE]</argsstring>
+        <name>DP</name>
+        <briefdescription>
+<para>Private exponent 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="141" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga7fe869dab6a634c2866f9ec26ee8cec0" compoundref="xsecure__plat__rsa_8c" startline="346" endline="378">XSecure_RsaOaepDecrypt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_priv_key_1a68680ead2f2e5d4bbf4091da728a6c17" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_RsaPrivKey::DQ[XSECURE_PRIME_FACTOR_Q_SIZE]</definition>
+        <argsstring>[XSECURE_PRIME_FACTOR_Q_SIZE]</argsstring>
+        <name>DQ</name>
+        <briefdescription>
+<para>Private exponent 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="142" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga7fe869dab6a634c2866f9ec26ee8cec0" compoundref="xsecure__plat__rsa_8c" startline="346" endline="378">XSecure_RsaOaepDecrypt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_priv_key_1a2a80c813dc8f88e478f1f1ad0319870a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_RsaPrivKey::QInv[XSECURE_PRIME_FACTOR_Q_SIZE]</definition>
+        <argsstring>[XSECURE_PRIME_FACTOR_Q_SIZE]</argsstring>
+        <name>QInv</name>
+        <briefdescription>
+<para>Q inverse. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="143" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga7fe869dab6a634c2866f9ec26ee8cec0" compoundref="xsecure__plat__rsa_8c" startline="346" endline="378">XSecure_RsaOaepDecrypt</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to hold RSA private key. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="136" bodyend="144"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___rsa_priv_key_1a1333525ee3c21e019e5ee394e86a75dc" prot="public" virt="non-virtual"><scope>XSecure_RsaPrivKey</scope><name>DP</name></member>
+      <member refid="struct_x_secure___rsa_priv_key_1a68680ead2f2e5d4bbf4091da728a6c17" prot="public" virt="non-virtual"><scope>XSecure_RsaPrivKey</scope><name>DQ</name></member>
+      <member refid="struct_x_secure___rsa_priv_key_1ab72bd3935d3bba53528b9fd4022ca581" prot="public" virt="non-virtual"><scope>XSecure_RsaPrivKey</scope><name>Exp</name></member>
+      <member refid="struct_x_secure___rsa_priv_key_1a1ff01afef4ff856ce2a52a056a089efd" prot="public" virt="non-virtual"><scope>XSecure_RsaPrivKey</scope><name>Mod</name></member>
+      <member refid="struct_x_secure___rsa_priv_key_1a644d7816cda6767e94b41e0b7926a0e5" prot="public" virt="non-virtual"><scope>XSecure_RsaPrivKey</scope><name>P</name></member>
+      <member refid="struct_x_secure___rsa_priv_key_1a66702d27a5c235ee08bfd64b2784dc0b" prot="public" virt="non-virtual"><scope>XSecure_RsaPrivKey</scope><name>Q</name></member>
+      <member refid="struct_x_secure___rsa_priv_key_1a2a80c813dc8f88e478f1f1ad0319870a" prot="public" virt="non-virtual"><scope>XSecure_RsaPrivKey</scope><name>QInv</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

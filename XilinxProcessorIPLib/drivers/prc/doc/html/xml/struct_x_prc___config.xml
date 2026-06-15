@@ -1,0 +1,421 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_prc___config" kind="struct" prot="public">
+    <compoundname>XPrc_Config</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_prc___config_1a1aad11dd9f941606650e2f8503ec387d" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XPrc_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="252" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1a25370a8f4319915b2b357e061014adc8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPrc_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Register Base Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1a1b571100dcb45696b3076126b86d8107" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPrc_Config::NumberOfVsms</definition>
+        <argsstring></argsstring>
+        <name>NumberOfVsms</name>
+        <briefdescription>
+<para>Number of VSMs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1a18940e4c00d6792ec3ec19304e83eacf" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPrc_Config::RequiresClearBitstreams</definition>
+        <argsstring></argsstring>
+        <name>RequiresClearBitstreams</name>
+        <briefdescription>
+<para>Derived from CP_FAMILY. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1a96a1362fd6803c0206905433c547da84" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPrc_Config::Cp_Arbitration_Protocol</definition>
+        <argsstring></argsstring>
+        <name>Cp_Arbitration_Protocol</name>
+        <briefdescription>
+<para>Arbitration protocol. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1a9f77eeb575b58025045d95d82db92466" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPrc_Config::Has_Axi_Lite_If</definition>
+        <argsstring></argsstring>
+        <name>Has_Axi_Lite_If</name>
+        <briefdescription>
+<para>Axi Lite Interface. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1a54a0068298ecca27cec789abf85f158d" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPrc_Config::Reset_Active_Level</definition>
+        <argsstring></argsstring>
+        <name>Reset_Active_Level</name>
+        <briefdescription>
+<para>Reset Active Level. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1a1b5570bfa7c9e383873d84fd60f9a59f" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPrc_Config::Cp_Fifo_Depth</definition>
+        <argsstring></argsstring>
+        <name>Cp_Fifo_Depth</name>
+        <briefdescription>
+<para>Fifo Depth. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1a5c9f5278d60ff04048d28cb7b3eabad9" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPrc_Config::Cp_Fifo_Type</definition>
+        <argsstring></argsstring>
+        <name>Cp_Fifo_Type</name>
+        <briefdescription>
+<para>Fifo Type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1a6e12b53d69e202ca2edff357b6dbde7d" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPrc_Config::Cp_Family</definition>
+        <argsstring></argsstring>
+        <name>Cp_Family</name>
+        <briefdescription>
+<para>Device Family being managed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1ae1f53d901a5b6b8f435a137a8272560b" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPrc_Config::Cdc_Stages</definition>
+        <argsstring></argsstring>
+        <name>Cdc_Stages</name>
+        <briefdescription>
+<para>Cdc Stages. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1a4baa1837458ef2915e1242683ae25f9f" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPrc_Config::Cp_Compression</definition>
+        <argsstring></argsstring>
+        <name>Cp_Compression</name>
+        <briefdescription>
+<para>Cp Compression. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1a5383ee0b2f377f9e0e2c7133d34d0387" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPrc_Config::NumberOfRms[XPRC_MAX_NUMBER_OF_VSMS]</definition>
+        <argsstring>[XPRC_MAX_NUMBER_OF_VSMS]</argsstring>
+        <name>NumberOfRms</name>
+        <briefdescription>
+<para>Number of RMs in each VSM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="267" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1af01900a38eb0efb6f1aa53bc55d391a9" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPrc_Config::NumberOfRmsAllocated[XPRC_MAX_NUMBER_OF_VSMS]</definition>
+        <argsstring>[XPRC_MAX_NUMBER_OF_VSMS]</argsstring>
+        <name>NumberOfRmsAllocated</name>
+        <briefdescription>
+<para>Number of RMs allocated in each VSM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="269" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1aed6583bac5c0e0e27803267253d90cae" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPrc_Config::Start_In_Shutdown[XPRC_MAX_NUMBER_OF_VSMS]</definition>
+        <argsstring>[XPRC_MAX_NUMBER_OF_VSMS]</argsstring>
+        <name>Start_In_Shutdown</name>
+        <briefdescription>
+<para>Whether each VSM should start in the shutdown state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="272" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="272" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1a337779b0e06cf0776fe7262c8844a7c0" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPrc_Config::No_Of_Triggers_Allocated[XPRC_MAX_NUMBER_OF_VSMS]</definition>
+        <argsstring>[XPRC_MAX_NUMBER_OF_VSMS]</argsstring>
+        <name>No_Of_Triggers_Allocated</name>
+        <briefdescription>
+<para>Number of triggers for each VSM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="276" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1a6e06cfd8080a0537186ada2ce0f1dd40" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPrc_Config::Shutdown_On_Error[XPRC_MAX_NUMBER_OF_VSMS]</definition>
+        <argsstring>[XPRC_MAX_NUMBER_OF_VSMS]</argsstring>
+        <name>Shutdown_On_Error</name>
+        <briefdescription>
+<para>Whether each VSM should enter the shutdown state if an error occurs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1a72c9f0b301ecede468de47614884f841" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPrc_Config::Has_Por_Rm[XPRC_MAX_NUMBER_OF_VSMS]</definition>
+        <argsstring>[XPRC_MAX_NUMBER_OF_VSMS]</argsstring>
+        <name>Has_Por_Rm</name>
+        <briefdescription>
+<para>Whether each VSM has a POR RM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1a450a22223d99aa635af426948b2495e4" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPrc_Config::Por_Rm[XPRC_MAX_NUMBER_OF_VSMS]</definition>
+        <argsstring>[XPRC_MAX_NUMBER_OF_VSMS]</argsstring>
+        <name>Por_Rm</name>
+        <briefdescription>
+<para>The POR RM for each VSM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="285" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1aef3ee5b752009dd579780b225bbae531" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPrc_Config::Has_Axis_Status[XPRC_MAX_NUMBER_OF_VSMS]</definition>
+        <argsstring>[XPRC_MAX_NUMBER_OF_VSMS]</argsstring>
+        <name>Has_Axis_Status</name>
+        <briefdescription>
+<para>Whether each VSM has an Axi4 Status Channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1a8e3c0cd3816e0bd0680b1cd1cac08128" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPrc_Config::Has_Axis_Control[XPRC_MAX_NUMBER_OF_VSMS]</definition>
+        <argsstring>[XPRC_MAX_NUMBER_OF_VSMS]</argsstring>
+        <name>Has_Axis_Control</name>
+        <briefdescription>
+<para>Whether each VSM has an Axi4 Control Channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1a7bc919629ebf2797eeb84fb0c6a32827" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPrc_Config::Skip_Rm_Startup_After_Reset[XPRC_MAX_NUMBER_OF_VSMS]</definition>
+        <argsstring>[XPRC_MAX_NUMBER_OF_VSMS]</argsstring>
+        <name>Skip_Rm_Startup_After_Reset</name>
+        <briefdescription>
+<para>Whether each VSM should Skip Rm Startup after Reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="292" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1a2cc9b89de3c69c68d45b4235389b4a76" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPrc_Config::Num_Hw_Triggers[XPRC_MAX_NUMBER_OF_VSMS]</definition>
+        <argsstring>[XPRC_MAX_NUMBER_OF_VSMS]</argsstring>
+        <name>Num_Hw_Triggers</name>
+        <briefdescription>
+<para>The Number of Hardware Triggers each VSM has. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="296" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1ac524f024a26e996724141c7ab6ce1061" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPrc_Config::RegVsmMsb</definition>
+        <argsstring></argsstring>
+        <name>RegVsmMsb</name>
+        <briefdescription>
+<para>Register information The address of each register is structured as: [VSM Select] [Bank Select] [ Register Select]. </para>        </briefdescription>
+        <detaileddescription>
+<para>MSB of register VSM </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1aaceb9d74c737b0f3c5882ba517542d29" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPrc_Config::RegVsmLsb</definition>
+        <argsstring></argsstring>
+        <name>RegVsmLsb</name>
+        <briefdescription>
+<para>LSB of register VSM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1ad5ba0d5fe2faf018959a82c6f04dab99" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPrc_Config::RegBankMsb</definition>
+        <argsstring></argsstring>
+        <name>RegBankMsb</name>
+        <briefdescription>
+<para>MSB of register bank. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1a0ba9ae6b70b8900b51fbf6d7be1bedcb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPrc_Config::RegBankLsb</definition>
+        <argsstring></argsstring>
+        <name>RegBankLsb</name>
+        <briefdescription>
+<para>LSB of register bank. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="308" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1a986047f8e9a90733f6e201d89c25e3c5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPrc_Config::RegSelectMsb</definition>
+        <argsstring></argsstring>
+        <name>RegSelectMsb</name>
+        <briefdescription>
+<para>MSB of register select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="309" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="309" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_prc___config_1a4f932ea04f08314ff0b3fdf6fddb8b82" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPrc_Config::RegSelectLsb</definition>
+        <argsstring></argsstring>
+        <name>RegSelectLsb</name>
+        <briefdescription>
+<para>LSB of register select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="310" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.h" bodystart="248" bodyend="311"/>
+    <listofallmembers>
+      <member refid="struct_x_prc___config_1a25370a8f4319915b2b357e061014adc8" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_prc___config_1ae1f53d901a5b6b8f435a137a8272560b" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>Cdc_Stages</name></member>
+      <member refid="struct_x_prc___config_1a96a1362fd6803c0206905433c547da84" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>Cp_Arbitration_Protocol</name></member>
+      <member refid="struct_x_prc___config_1a4baa1837458ef2915e1242683ae25f9f" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>Cp_Compression</name></member>
+      <member refid="struct_x_prc___config_1a6e12b53d69e202ca2edff357b6dbde7d" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>Cp_Family</name></member>
+      <member refid="struct_x_prc___config_1a1b5570bfa7c9e383873d84fd60f9a59f" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>Cp_Fifo_Depth</name></member>
+      <member refid="struct_x_prc___config_1a5c9f5278d60ff04048d28cb7b3eabad9" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>Cp_Fifo_Type</name></member>
+      <member refid="struct_x_prc___config_1a9f77eeb575b58025045d95d82db92466" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>Has_Axi_Lite_If</name></member>
+      <member refid="struct_x_prc___config_1a8e3c0cd3816e0bd0680b1cd1cac08128" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>Has_Axis_Control</name></member>
+      <member refid="struct_x_prc___config_1aef3ee5b752009dd579780b225bbae531" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>Has_Axis_Status</name></member>
+      <member refid="struct_x_prc___config_1a72c9f0b301ecede468de47614884f841" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>Has_Por_Rm</name></member>
+      <member refid="struct_x_prc___config_1a1aad11dd9f941606650e2f8503ec387d" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>Name</name></member>
+      <member refid="struct_x_prc___config_1a337779b0e06cf0776fe7262c8844a7c0" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>No_Of_Triggers_Allocated</name></member>
+      <member refid="struct_x_prc___config_1a2cc9b89de3c69c68d45b4235389b4a76" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>Num_Hw_Triggers</name></member>
+      <member refid="struct_x_prc___config_1a5383ee0b2f377f9e0e2c7133d34d0387" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>NumberOfRms</name></member>
+      <member refid="struct_x_prc___config_1af01900a38eb0efb6f1aa53bc55d391a9" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>NumberOfRmsAllocated</name></member>
+      <member refid="struct_x_prc___config_1a1b571100dcb45696b3076126b86d8107" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>NumberOfVsms</name></member>
+      <member refid="struct_x_prc___config_1a450a22223d99aa635af426948b2495e4" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>Por_Rm</name></member>
+      <member refid="struct_x_prc___config_1a0ba9ae6b70b8900b51fbf6d7be1bedcb" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>RegBankLsb</name></member>
+      <member refid="struct_x_prc___config_1ad5ba0d5fe2faf018959a82c6f04dab99" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>RegBankMsb</name></member>
+      <member refid="struct_x_prc___config_1a4f932ea04f08314ff0b3fdf6fddb8b82" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>RegSelectLsb</name></member>
+      <member refid="struct_x_prc___config_1a986047f8e9a90733f6e201d89c25e3c5" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>RegSelectMsb</name></member>
+      <member refid="struct_x_prc___config_1aaceb9d74c737b0f3c5882ba517542d29" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>RegVsmLsb</name></member>
+      <member refid="struct_x_prc___config_1ac524f024a26e996724141c7ab6ce1061" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>RegVsmMsb</name></member>
+      <member refid="struct_x_prc___config_1a18940e4c00d6792ec3ec19304e83eacf" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>RequiresClearBitstreams</name></member>
+      <member refid="struct_x_prc___config_1a54a0068298ecca27cec789abf85f158d" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>Reset_Active_Level</name></member>
+      <member refid="struct_x_prc___config_1a6e06cfd8080a0537186ada2ce0f1dd40" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>Shutdown_On_Error</name></member>
+      <member refid="struct_x_prc___config_1a7bc919629ebf2797eeb84fb0c6a32827" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>Skip_Rm_Startup_After_Reset</name></member>
+      <member refid="struct_x_prc___config_1aed6583bac5c0e0e27803267253d90cae" prot="public" virt="non-virtual"><scope>XPrc_Config</scope><name>Start_In_Shutdown</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

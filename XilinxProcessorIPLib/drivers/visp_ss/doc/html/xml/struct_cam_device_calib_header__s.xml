@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_calib_header__s" kind="struct" prot="public">
+    <compoundname>CamDeviceCalibHeader_s</compoundname>
+    <includes local="no">cam_device_calibration.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_calib_header__s_1ac88cf39301971de4675024964ae3a6d2" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CamDeviceCalibHeader_s::date[CAMDEV_CALIB_LENGTH]</definition>
+        <argsstring>[CAMDEV_CALIB_LENGTH]</argsstring>
+        <name>date</name>
+        <briefdescription>
+<para>Calibration file date. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_header__s_1af5eb2d98a6103673cd89429176e65446" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CamDeviceCalibHeader_s::creator[CAMDEV_CALIB_LENGTH]</definition>
+        <argsstring>[CAMDEV_CALIB_LENGTH]</argsstring>
+        <name>creator</name>
+        <briefdescription>
+<para>Calibration file creator. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_header__s_1a2b6885e5f5a57c6a9d5126737210a0fb" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CamDeviceCalibHeader_s::sensorName[CAMDEV_CALIB_LENGTH]</definition>
+        <argsstring>[CAMDEV_CALIB_LENGTH]</argsstring>
+        <name>sensorName</name>
+        <briefdescription>
+<para>Calibration file sensor name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_header__s_1a3b8c28e072b0b0bc8b5ef68012922c38" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CamDeviceCalibHeader_s::sampleName[CAMDEV_CALIB_LENGTH]</definition>
+        <argsstring>[CAMDEV_CALIB_LENGTH]</argsstring>
+        <name>sampleName</name>
+        <briefdescription>
+<para>Calibration file sample name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_header__s_1ab710a14b3ec512029472f489b009d34b" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CamDeviceCalibHeader_s::generatorVersion[CAMDEV_CALIB_LENGTH]</definition>
+        <argsstring>[CAMDEV_CALIB_LENGTH]</argsstring>
+        <name>generatorVersion</name>
+        <briefdescription>
+<para>Calibration file generator version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_header__s_1a79fead8f319a03f8a5f6c5663823914b" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gabd151d80409665e9cc9357295e9d6908" kindref="member">CamDeviceCalibHeaderResolution_t</ref> *</type>
+        <definition>CamDeviceCalibHeaderResolution_t* CamDeviceCalibHeader_s::pResolutions</definition>
+        <argsstring></argsstring>
+        <name>pResolutions</name>
+        <briefdescription>
+<para>Calibration file header resolution parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_header__s_1a7a598157b2f7e67f60b7355567c89a32" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceCalibHeader_s::resolutionNumber</definition>
+        <argsstring></argsstring>
+        <name>resolutionNumber</name>
+        <briefdescription>
+<para>Resolution parameters number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice Calibration file header configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="149">
+        <label>CamDeviceCalibHeaderResolution_s</label>
+        <link refid="struct_cam_device_calib_header_resolution__s"/>
+        <childnode refid="150" relation="usage">
+          <edgelabel>pFramerate</edgelabel>
+        </childnode>
+      </node>
+      <node id="148">
+        <label>CamDeviceCalibHeader_s</label>
+        <link refid="struct_cam_device_calib_header__s"/>
+        <childnode refid="149" relation="usage">
+          <edgelabel>pResolutions</edgelabel>
+        </childnode>
+      </node>
+      <node id="150">
+        <label>CamDeviceCalibHeaderResolutionFramerate_s</label>
+        <link refid="struct_cam_device_calib_header_resolution_framerate__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="117" bodyend="126"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_calib_header__s_1af5eb2d98a6103673cd89429176e65446" prot="public" virt="non-virtual"><scope>CamDeviceCalibHeader_s</scope><name>creator</name></member>
+      <member refid="struct_cam_device_calib_header__s_1ac88cf39301971de4675024964ae3a6d2" prot="public" virt="non-virtual"><scope>CamDeviceCalibHeader_s</scope><name>date</name></member>
+      <member refid="struct_cam_device_calib_header__s_1ab710a14b3ec512029472f489b009d34b" prot="public" virt="non-virtual"><scope>CamDeviceCalibHeader_s</scope><name>generatorVersion</name></member>
+      <member refid="struct_cam_device_calib_header__s_1a79fead8f319a03f8a5f6c5663823914b" prot="public" virt="non-virtual"><scope>CamDeviceCalibHeader_s</scope><name>pResolutions</name></member>
+      <member refid="struct_cam_device_calib_header__s_1a7a598157b2f7e67f60b7355567c89a32" prot="public" virt="non-virtual"><scope>CamDeviceCalibHeader_s</scope><name>resolutionNumber</name></member>
+      <member refid="struct_cam_device_calib_header__s_1a3b8c28e072b0b0bc8b5ef68012922c38" prot="public" virt="non-virtual"><scope>CamDeviceCalibHeader_s</scope><name>sampleName</name></member>
+      <member refid="struct_cam_device_calib_header__s_1a2b6885e5f5a57c6a9d5126737210a0fb" prot="public" virt="non-virtual"><scope>CamDeviceCalibHeader_s</scope><name>sensorName</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

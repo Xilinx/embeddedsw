@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use the driver.</para><sect1 id="example_1ex1">
+<title>xdfeequ_example.c</title>
+<para>Examples are:<orderedlist>
+<listitem><para>Self test on one instance:<itemizedlist>
+<listitem><para>initialisation from reset to activation</para></listitem><listitem><para>close the driver</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Initialise and set one instance of <ref refid="struct_x_dfe_equ" kindref="compound">XDfeEqu</ref> driver in pass through mode.<itemizedlist>
+<listitem><para>initialisation from reset to activation</para></listitem><listitem><para>configure filter in pass true mode</para></listitem><listitem><para>close the driver</para></listitem></itemizedlist>
+</para></listitem></orderedlist>
+</para><para>The example code is written and tested for zcu670 board. Running example in a Bare metal environment includes setting an output clock on si570. For details, see xdfeequ_selftest_example.c. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

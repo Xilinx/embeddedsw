@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___ocp_ude_response" kind="struct" prot="public">
+    <compoundname>XAsu_OcpUdeResponse</compoundname>
+    <includes local="no">xasu_ocpinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___ocp_ude_response_1ade3e058960bc3c89aa09033d4fb9bd7f" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___ocp_ude" kindref="compound">XAsu_OcpUde</ref></type>
+        <definition>XAsu_OcpUde XAsu_OcpUdeResponse::Ude</definition>
+        <argsstring></argsstring>
+        <name>Ude</name>
+        <briefdescription>
+<para>UDE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ocp_ude_response_1a99ce0202d6dcbd5541cb99a6c81a4bc7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_OcpUdeResponse::UdeSignatureR[XASU_OCP_ECC_P384_SIZE_IN_WORDS]</definition>
+        <argsstring>[XASU_OCP_ECC_P384_SIZE_IN_WORDS]</argsstring>
+        <name>UdeSignatureR</name>
+        <briefdescription>
+<para>Signature comp R. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ocp_ude_response_1ac448bae7a3d392d845121a4a3457a43c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_OcpUdeResponse::UdeSignatureS[XASU_OCP_ECC_P384_SIZE_IN_WORDS]</definition>
+        <argsstring>[XASU_OCP_ECC_P384_SIZE_IN_WORDS]</argsstring>
+        <name>UdeSignatureS</name>
+        <briefdescription>
+<para>Signature comp S. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ocp_ude_response_1a6c486ee10e0102749ec9960e60cddafa" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_OcpUdeResponse::UdePublicKeyX[XASU_OCP_ECC_P384_SIZE_IN_WORDS]</definition>
+        <argsstring>[XASU_OCP_ECC_P384_SIZE_IN_WORDS]</argsstring>
+        <name>UdePublicKeyX</name>
+        <briefdescription>
+<para>Public key component X. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ocp_ude_response_1aa56614a3c4e19d4c0b8384b4dcef2a20" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_OcpUdeResponse::UdePublicKeyY[XASU_OCP_ECC_P384_SIZE_IN_WORDS]</definition>
+        <argsstring>[XASU_OCP_ECC_P384_SIZE_IN_WORDS]</argsstring>
+        <name>UdePublicKeyY</name>
+        <briefdescription>
+<para>Public key component Y. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>UDE response. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="108">
+        <label>XAsu_OcpUde</label>
+        <link refid="struct_x_asu___ocp_ude"/>
+      </node>
+      <node id="107">
+        <label>XAsu_OcpUdeResponse</label>
+        <link refid="struct_x_asu___ocp_ude_response"/>
+        <childnode refid="108" relation="usage">
+          <edgelabel>Ude</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="121" bodyend="127"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___ocp_ude_response_1ade3e058960bc3c89aa09033d4fb9bd7f" prot="public" virt="non-virtual"><scope>XAsu_OcpUdeResponse</scope><name>Ude</name></member>
+      <member refid="struct_x_asu___ocp_ude_response_1a6c486ee10e0102749ec9960e60cddafa" prot="public" virt="non-virtual"><scope>XAsu_OcpUdeResponse</scope><name>UdePublicKeyX</name></member>
+      <member refid="struct_x_asu___ocp_ude_response_1aa56614a3c4e19d4c0b8384b4dcef2a20" prot="public" virt="non-virtual"><scope>XAsu_OcpUdeResponse</scope><name>UdePublicKeyY</name></member>
+      <member refid="struct_x_asu___ocp_ude_response_1a99ce0202d6dcbd5541cb99a6c81a4bc7" prot="public" virt="non-virtual"><scope>XAsu_OcpUdeResponse</scope><name>UdeSignatureR</name></member>
+      <member refid="struct_x_asu___ocp_ude_response_1ac448bae7a3d392d845121a4a3457a43c" prot="public" virt="non-virtual"><scope>XAsu_OcpUdeResponse</scope><name>UdeSignatureS</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

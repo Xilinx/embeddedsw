@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_vid_c__3_d_sampling_info" kind="struct" prot="public">
+    <compoundname>XVidC_3DSamplingInfo</compoundname>
+    <includes local="no">xvidc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_vid_c__3_d_sampling_info_1a158448766837590db14f5c6c00060de8" prot="public" static="no" mutable="no">
+        <type><ref refid="group__video__common_1gad69f9da8f23751ed41b14fefd5bb7662" kindref="member">XVidC_3DSamplingMethod</ref></type>
+        <definition>XVidC_3DSamplingMethod XVidC_3DSamplingInfo::Method</definition>
+        <argsstring></argsstring>
+        <name>Method</name>
+        <briefdescription>
+<para>3D sampling method </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="589" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="589" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga39b8b95d5bd27e43c55e7af11265c7e0" compoundref="xvidc_8c" startline="930" endline="971">XVidC_SetVideoStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vid_c__3_d_sampling_info_1a71b8cde9e0806930ba040e6360867966" prot="public" static="no" mutable="no">
+        <type><ref refid="group__video__common_1ga58c9217723db2f22f7d57c97b2cae8e1" kindref="member">XVidC_3DSamplingPosition</ref></type>
+        <definition>XVidC_3DSamplingPosition XVidC_3DSamplingInfo::Position</definition>
+        <argsstring></argsstring>
+        <name>Position</name>
+        <briefdescription>
+<para>3D sampling position </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="590" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="590" bodyend="-1"/>
+        <referencedby refid="group__video__common_1ga39b8b95d5bd27e43c55e7af11265c7e0" compoundref="xvidc_8c" startline="930" endline="971">XVidC_SetVideoStream</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>3D Sampling info structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" line="588" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc.h" bodystart="588" bodyend="591"/>
+    <listofallmembers>
+      <member refid="struct_x_vid_c__3_d_sampling_info_1a158448766837590db14f5c6c00060de8" prot="public" virt="non-virtual"><scope>XVidC_3DSamplingInfo</scope><name>Method</name></member>
+      <member refid="struct_x_vid_c__3_d_sampling_info_1a71b8cde9e0806930ba040e6360867966" prot="public" virt="non-virtual"><scope>XVidC_3DSamplingInfo</scope><name>Position</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

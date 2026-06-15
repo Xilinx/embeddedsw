@@ -1,0 +1,309 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xi3cpsx__options_8c" kind="file">
+    <compoundname>xi3cpsx_options.c</compoundname>
+    <includes refid="xi3cpsx_8h" local="yes">xi3cpsx.h</includes>
+    <includes refid="xi3cpsx__pr_8h" local="yes">xi3cpsx_pr.h</includes>
+    <incdepgraph>
+      <node id="113">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="116">
+        <label>xil_io.h</label>
+      </node>
+      <node id="115">
+        <label>xi3cpsx_hw.h</label>
+        <link refid="xi3cpsx__hw_8h"/>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+      </node>
+      <node id="119">
+        <label>xplatform_info.h</label>
+      </node>
+      <node id="120">
+        <label>xil_util.h</label>
+      </node>
+      <node id="111">
+        <label>xi3cpsx.h</label>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="118" relation="include">
+        </childnode>
+        <childnode refid="119" relation="include">
+        </childnode>
+        <childnode refid="120" relation="include">
+        </childnode>
+      </node>
+      <node id="114">
+        <label>xstatus.h</label>
+      </node>
+      <node id="118">
+        <label>xi3cpsx_pr.h</label>
+        <link refid="xi3cpsx__pr_8h"/>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+      </node>
+      <node id="112">
+        <label>xil_types.h</label>
+      </node>
+      <node id="117">
+        <label>xparameters.h</label>
+      </node>
+      <node id="110">
+        <label>xi3cpsx_options.c</label>
+        <link refid="xi3cpsx_options.c"/>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="118" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="user-defined">
+      <memberdef kind="function" id="xi3cpsx__options_8c_1a840d94794f4297389476a8db3bc8b1e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XI3cPsx_SetSClk</definition>
+        <argsstring>(XI3cPsx *InstancePtr)</argsstring>
+        <name>XI3cPsx_SetSClk</name>
+        <param>
+          <type><ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Sets I3C Scl clock frequency. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE if any computed timing count falls outside [SCL_I3C_TIMING_CNT_MIN, SCL_I3C_TIMING_CNT_MAX], indicating the input clock and SCL rate combination is not representable in the hardware timing registers.</para></simplesect>
+<simplesect kind="note"><para>The SCL frequency is read from InstancePtr-&gt;SclkHz. To configure a custom SCL frequency, use XI3cPsx_SetSClkRate. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_options.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_options.c" bodystart="60" bodyend="117"/>
+        <references refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" compoundref="xi3cpsx_8h" startline="176">XI3cPsx_Config::BaseAddress</references>
+        <references refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" compoundref="xi3cpsx_8h" startline="217">XI3cPsx::Config</references>
+        <references refid="struct_x_i3c_psx___config_1afa76d9e4b8c427158e74cd21c37b62cc" compoundref="xi3cpsx_8h" startline="184">XI3cPsx_Config::InputClockHz</references>
+        <references refid="struct_x_i3c_psx_1adc6f246947bd9659b30682d0fa9bf606" compoundref="xi3cpsx_8h" startline="218">XI3cPsx::IsReady</references>
+        <references refid="group___overview_1gadf3c8e9c7b6c38bb85a27204db4c6d53" compoundref="xi3cpsx__pr_8h" startline="136">SCL_I3C_TIMING_CNT_MAX</references>
+        <references refid="struct_x_i3c_psx_1a542fb415ac2abc918643d91f4703cdc1" compoundref="xi3cpsx_8h" startline="238">XI3cPsx::SclkHz</references>
+        <references refid="group___overview_1ga44510ed16812afcdf52dd40bd3588563" compoundref="xi3cpsx__hw_8h" startline="1473">XI3CPSX_SCL_I3C_OD_TIMING</references>
+        <references refid="group___overview_1gaea49e511767590aadcab0207781c74f8" compoundref="xi3cpsx__hw_8h" startline="1495">XI3CPSX_SCL_I3C_PP_TIMING</references>
+        <references refid="group___overview_1gaf5dfcd37599c05858a5411e3bca3e2ee" compoundref="xi3cpsx__hw_8h" startline="86">XI3cPsx_WriteReg</references>
+        <referencedby refid="group___overview_1gac782c97edc12d91318ab4984cc34d842" compoundref="xi3cpsx_8c" startline="64" endline="153">XI3cPsx_CfgInitialize</referencedby>
+        <referencedby refid="xi3cpsx__options_8c_1a6576725f77627078c11a0310cc223f67" compoundref="xi3cpsx__options_8c" startline="137" endline="154">XI3cPsx_SetSClkRate</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xi3cpsx__options_8c_1a6576725f77627078c11a0310cc223f67" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XI3cPsx_SetSClkRate</definition>
+        <argsstring>(XI3cPsx *InstancePtr, u32 SclkHz)</argsstring>
+        <name>XI3cPsx_SetSClkRate</name>
+        <param>
+          <type><ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SclkHz</declname>
+        </param>
+        <briefdescription>
+<para>Sets a custom I3C SCL clock frequency by updating the instance SCL rate and configuring the hardware registers accordingly. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SclkHz</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the desired SCL clock frequency in Hz.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE if the requested SCL rate cannot be represented in the hardware timing registers for the given input clock.</para></simplesect>
+<simplesect kind="note"><para>This updates InstancePtr-&gt;SclkHz and programs the hardware. For default SCL rate set during initialization, use XI3cPsx_SetSClk instead. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_options.c" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_options.c" bodystart="137" bodyend="154"/>
+        <references refid="struct_x_i3c_psx_1a542fb415ac2abc918643d91f4703cdc1" compoundref="xi3cpsx_8h" startline="238">XI3cPsx::SclkHz</references>
+        <references refid="xi3cpsx__options_8c_1a840d94794f4297389476a8db3bc8b1e1" compoundref="xi3cpsx__options_8c" startline="60" endline="117">XI3cPsx_SetSClk</references>
+      </memberdef>
+      <memberdef kind="function" id="xi3cpsx__options_8c_1a59995b0b867d7aa6d315f17c4202d227" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XI3cPsx_GetSClk</definition>
+        <argsstring>(const XI3cPsx *InstancePtr)</argsstring>
+        <name>XI3cPsx_GetSClk</name>
+        <param>
+          <type>const <ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Returns the SCL clock frequency currently configured in the instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The SCL clock frequency in Hz as last successfully programmed by <ref refid="xi3cpsx__options_8c_1a840d94794f4297389476a8db3bc8b1e1" kindref="member">XI3cPsx_SetSClk()</ref> or <ref refid="xi3cpsx__options_8c_1a6576725f77627078c11a0310cc223f67" kindref="member">XI3cPsx_SetSClkRate()</ref>.</para></simplesect>
+<simplesect kind="note"><para>This returns the software-stored rate, which is always kept in sync with the hardware. If <ref refid="xi3cpsx__options_8c_1a6576725f77627078c11a0310cc223f67" kindref="member">XI3cPsx_SetSClkRate()</ref> fails, the previous valid rate is preserved and returned here. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_options.c" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_options.c" bodystart="171" bodyend="177"/>
+        <references refid="struct_x_i3c_psx_1adc6f246947bd9659b30682d0fa9bf606" compoundref="xi3cpsx_8h" startline="218">XI3cPsx::IsReady</references>
+        <references refid="struct_x_i3c_psx_1a542fb415ac2abc918643d91f4703cdc1" compoundref="xi3cpsx_8h" startline="238">XI3cPsx::SclkHz</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains functions for the configuration of the XIccPs driver. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+1.00  sd  06/10/22 First release
+1.01  sd  12/01/22 REmove the hardcoding of timing values
+          12/14/22 Fix the warnings</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="6"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xi3cpsx.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xi3cpsx__pr_8h" kindref="compound">xi3cpsx_pr.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="60" refid="xi3cpsx__options_8c_1a840d94794f4297389476a8db3bc8b1e1" refkind="member"><highlight class="normal">s32<sp/><ref refid="xi3cpsx__options_8c_1a840d94794f4297389476a8db3bc8b1e1" kindref="member">XI3cPsx_SetSClk</ref>(<ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CoreRate;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CorePeriod;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SclTiming;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddress;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Hcnt;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PpLcnt;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OdLcnt;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>the<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1adc6f246947bd9659b30682d0fa9bf606" kindref="member">IsReady</ref><sp/>==<sp/>(u32)XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1afa76d9e4b8c427158e74cd21c37b62cc" kindref="member">InputClockHz</ref><sp/>&gt;<sp/>0U);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a542fb415ac2abc918643d91f4703cdc1" kindref="member">SclkHz</ref><sp/>&gt;<sp/>0U);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CoreRate<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1afa76d9e4b8c427158e74cd21c37b62cc" kindref="member">InputClockHz</ref>;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddress<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a5e7528b6b541df2aa974296f39df2703" kindref="member">Config</ref>.<ref refid="struct_x_i3c_psx___config_1a4f4633a41e3d44f839d1d57ab8d5a7c9" kindref="member">BaseAddress</ref>;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CorePeriod<sp/>=<sp/>XI3CPSX_CEIL_DIV(XI3CPSX_NS_1SEC,<sp/>CoreRate);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="82"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Validate<sp/>all<sp/>timing<sp/>counts<sp/>before<sp/>touching<sp/>any<sp/>hardware<sp/>register.</highlight></codeline>
+<codeline lineno="83"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>This<sp/>ensures<sp/>hardware<sp/>is<sp/>never<sp/>left<sp/>partially<sp/>reprogrammed<sp/>on<sp/>failure.</highlight></codeline>
+<codeline lineno="84"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="85"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Hcnt:<sp/><sp/><sp/>SCL_I3C_PP_TIMING.HCNT<sp/>register<sp/>is<sp/>N+1<sp/>semantics,<sp/>so<sp/>subtract<sp/>1.</highlight></codeline>
+<codeline lineno="86"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Derived<sp/>from<sp/>THIGH_MAX<sp/>to<sp/>keep<sp/>PP<sp/>high<sp/>time<sp/>within<sp/>I3C<sp/>spec.</highlight></codeline>
+<codeline lineno="87"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>PpLcnt:<sp/>remainder<sp/>of<sp/>the<sp/>full<sp/>SCL<sp/>period<sp/>at<sp/>the<sp/>requested<sp/>SclkHz.</highlight></codeline>
+<codeline lineno="88"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>OdLcnt:<sp/>low<sp/>count<sp/>for<sp/>OD<sp/>mode<sp/>derived<sp/>from<sp/>TLOW_OD_MIN.</highlight></codeline>
+<codeline lineno="89"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Hcnt<sp/>=<sp/>XI3CPSX_CEIL_DIV(I3C_BUS_THIGH_MAX_NS,<sp/>CorePeriod)<sp/>-<sp/>1U;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Hcnt<sp/>&lt;<sp/>SCL_I3C_TIMING_CNT_MIN<sp/>||<sp/>Hcnt<sp/>&gt;<sp/><ref refid="group___overview_1gadf3c8e9c7b6c38bb85a27204db4c6d53" kindref="member">SCL_I3C_TIMING_CNT_MAX</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PpLcnt<sp/>=<sp/>XI3CPSX_CEIL_DIV(CoreRate,<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a542fb415ac2abc918643d91f4703cdc1" kindref="member">SclkHz</ref>);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PpLcnt<sp/>=<sp/>(PpLcnt<sp/>&gt;<sp/>Hcnt)<sp/>?<sp/>(PpLcnt<sp/>-<sp/>Hcnt)<sp/>:<sp/>0U;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PpLcnt<sp/>&lt;<sp/>SCL_I3C_TIMING_CNT_MIN<sp/>||<sp/>PpLcnt<sp/>&gt;<sp/>SCL_I3C_TIMING_CNT_MAX)<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OdLcnt<sp/>=<sp/>XI3CPSX_CEIL_DIV(I3C_BUS_TLOW_OD_MIN_NS,<sp/>CorePeriod);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(OdLcnt<sp/>&lt;<sp/>SCL_I3C_TIMING_CNT_MIN<sp/>||<sp/>OdLcnt<sp/>&gt;<sp/>SCL_I3C_TIMING_CNT_MAX)<sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="107"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>All<sp/>counts<sp/>validated<sp/>—<sp/>safe<sp/>to<sp/>program<sp/>hardware<sp/>registers.</highlight></codeline>
+<codeline lineno="108"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SclTiming<sp/>=<sp/>SCL_I3C_TIMING_HCNT(Hcnt)<sp/>|</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PpLcnt<sp/>&amp;<sp/>XI3CPSX_SCL_I3C_PP_TIMING_I3C_PP_LCNT_MASK);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gaf5dfcd37599c05858a5411e3bca3e2ee" kindref="member">XI3cPsx_WriteReg</ref>(BaseAddress,<sp/><ref refid="group___overview_1gaea49e511767590aadcab0207781c74f8" kindref="member">XI3CPSX_SCL_I3C_PP_TIMING</ref>,<sp/>SclTiming);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SclTiming<sp/>=<sp/>SCL_I3C_TIMING_HCNT(Hcnt)<sp/>|<sp/>SCL_I3C_TIMING_LCNT(OdLcnt);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1gaf5dfcd37599c05858a5411e3bca3e2ee" kindref="member">XI3cPsx_WriteReg</ref>(BaseAddress,<sp/><ref refid="group___overview_1ga44510ed16812afcdf52dd40bd3588563" kindref="member">XI3CPSX_SCL_I3C_OD_TIMING</ref>,<sp/>SclTiming);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="137" refid="xi3cpsx__options_8c_1a6576725f77627078c11a0310cc223f67" refkind="member"><highlight class="normal">s32<sp/><ref refid="xi3cpsx__options_8c_1a6576725f77627078c11a0310cc223f67" kindref="member">XI3cPsx_SetSClkRate</ref>(<ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref><sp/>*InstancePtr,<sp/>u32<sp/>SclkHz)</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PrevSclkHz;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(SclkHz<sp/>&gt;<sp/>0U);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PrevSclkHz<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a542fb415ac2abc918643d91f4703cdc1" kindref="member">SclkHz</ref>;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a542fb415ac2abc918643d91f4703cdc1" kindref="member">SclkHz</ref><sp/>=<sp/>SclkHz;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xi3cpsx__options_8c_1a840d94794f4297389476a8db3bc8b1e1" kindref="member">XI3cPsx_SetSClk</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a542fb415ac2abc918643d91f4703cdc1" kindref="member">SclkHz</ref><sp/>=<sp/>PrevSclkHz;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="171" refid="xi3cpsx__options_8c_1a59995b0b867d7aa6d315f17c4202d227" refkind="member"><highlight class="normal">u32<sp/><ref refid="xi3cpsx__options_8c_1a59995b0b867d7aa6d315f17c4202d227" kindref="member">XI3cPsx_GetSClk</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_i3c_psx" kindref="compound">XI3cPsx</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="172"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1adc6f246947bd9659b30682d0fa9bf606" kindref="member">IsReady</ref><sp/>==<sp/>(u32)XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>InstancePtr-&gt;<ref refid="struct_x_i3c_psx_1a542fb415ac2abc918643d91f4703cdc1" kindref="member">SclkHz</ref>;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx_options.c"/>
+  </compounddef>
+</doxygen>

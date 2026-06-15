@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_283089ae38b0a62a10d668860a6e6949" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xv__hdmirxss_8c">xv_hdmirxss.c</innerfile>
+    <innerfile refid="xv__hdmirxss_8h">xv_hdmirxss.h</innerfile>
+    <innerfile refid="xv__hdmirxss__coreinit_8c">xv_hdmirxss_coreinit.c</innerfile>
+    <innerfile refid="xv__hdmirxss__coreinit_8h">xv_hdmirxss_coreinit.h</innerfile>
+    <innerfile refid="xv__hdmirxss__g_8c">xv_hdmirxss_g.c</innerfile>
+    <innerfile refid="xv__hdmirxss__hdcp_8c">xv_hdmirxss_hdcp.c</innerfile>
+    <innerfile refid="xv__hdmirxss__log_8c">xv_hdmirxss_log.c</innerfile>
+    <innerfile refid="xv__hdmirxss__sinit_8c">xv_hdmirxss_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/src/"/>
+  </compounddef>
+</doxygen>

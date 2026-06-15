@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_b20af7d7569708ee50df43817de2a78f" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xdfeccf__examples_8c">xdfeccf_examples.c</innerfile>
+    <innerfile refid="xdfeccf__examples_8h">xdfeccf_examples.h</innerfile>
+    <innerfile refid="xdfeccf__multi__instance__initialization__example_8c">xdfeccf_multi_instance_initialization_example.c</innerfile>
+    <innerfile refid="xdfeccf__multi_add_c_c__1x_n_r100__3x_n_r20__example_8c">xdfeccf_multiAddCC_1xNR100_3xNR20_example.c</innerfile>
+    <innerfile refid="xdfeccf__pass__through__example_8c">xdfeccf_pass_through_example.c</innerfile>
+    <innerfile refid="xdfesi570__mgt_8c">xdfesi570_mgt.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___tx___timer" kind="struct" prot="public">
+    <compoundname>XHdcp22_Tx_Timer</compoundname>
+    <includes local="no">xhdcp22_tx.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___timer_1aa589cc9550805c3f247a375cc0a2290c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_Timer::TimerExpired</definition>
+        <argsstring></argsstring>
+        <name>TimerExpired</name>
+        <briefdescription>
+<para>Expiration flag set when the hardware timer has interrupted. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="289" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1ga58d674b66a469567b4d75eea6f02fd25" compoundref="xhdcp22__tx_8c" startline="286" endline="396">XHdcp22Tx_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga3b241b90bc8c251efc52890691a4d31e" compoundref="xhdcp22__tx_8c" startline="1000" endline="1040">XHdcp22Tx_Poll</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___timer_1a0d63bd552cd3768e53d5972638b03c85" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_Timer::ReasonId</definition>
+        <argsstring></argsstring>
+        <name>ReasonId</name>
+        <briefdescription>
+<para>Keep track of why the timer was started (message or status checking). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="291" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1ga58d674b66a469567b4d75eea6f02fd25" compoundref="xhdcp22__tx_8c" startline="286" endline="396">XHdcp22Tx_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___timer_1ad2ea3f984b406e4175382a233fe302c5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Tx_Timer::InitialTicks</definition>
+        <argsstring></argsstring>
+        <name>InitialTicks</name>
+        <briefdescription>
+<para>Keep track of the start value of the timer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="293" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1ga58d674b66a469567b4d75eea6f02fd25" compoundref="xhdcp22__tx_8c" startline="286" endline="396">XHdcp22Tx_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___timer_1a1306dd5a16faaf2eea612c0177a2d364" prot="public" static="no" mutable="no">
+        <type>XTmrCtr</type>
+        <definition>XTmrCtr XHdcp22_Tx_Timer::TmrCtr</definition>
+        <argsstring></argsstring>
+        <name>TmrCtr</name>
+        <briefdescription>
+<para>The hardware timer instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="295" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__tx_1gaede32c44933a72890515f66af66de919" compoundref="xhdcp22__tx_8c" startline="1102" endline="1112">XHdcp22Tx_Enable</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga7c8ccef305984403185cd1e29dc2c651" compoundref="xhdcp22__tx_8c" startline="1483" endline="1487">XHdcp22Tx_GetTimer</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga7ddb7914b3a42e47c84b6912936e7ccf" compoundref="xhdcp22__tx_8c" startline="4160" endline="4168">XHdcp22Tx_LogGetTimeUSecs</referencedby>
+        <referencedby refid="group__hdcp22__tx_1gab170f225bd4e854a9eab9f6e9e99d75f" compoundref="xhdcp22__tx_8c" startline="4132" endline="4146">XHdcp22Tx_LogReset</referencedby>
+        <referencedby refid="group__hdcp22__tx_1ga6db0e5cde70480f6457e37d3eea52567" compoundref="xhdcp22__tx_8c" startline="1054" endline="1088">XHdcp22Tx_Reset</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The current state and data for internal used timer. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="287" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="286" bodyend="296"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___tx___timer_1ad2ea3f984b406e4175382a233fe302c5" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_Timer</scope><name>InitialTicks</name></member>
+      <member refid="struct_x_hdcp22___tx___timer_1a0d63bd552cd3768e53d5972638b03c85" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_Timer</scope><name>ReasonId</name></member>
+      <member refid="struct_x_hdcp22___tx___timer_1aa589cc9550805c3f247a375cc0a2290c" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_Timer</scope><name>TimerExpired</name></member>
+      <member refid="struct_x_hdcp22___tx___timer_1a1306dd5a16faaf2eea612c0177a2d364" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_Timer</scope><name>TmrCtr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

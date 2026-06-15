@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ttc_ps___status_handler_table_entry" kind="struct" prot="public">
+    <compoundname>XTtcPs_StatusHandlerTableEntry</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ttc_ps___status_handler_table_entry_1af07a524195e8cbe0944780193fca282a" prot="public" static="no" mutable="no">
+        <type>XTtcPs_StatusHandler</type>
+        <definition>XTtcPs_StatusHandler XTtcPs_StatusHandlerTableEntry::StatusHandler</definition>
+        <argsstring></argsstring>
+        <name>StatusHandler</name>
+        <briefdescription>
+<para>Interrupt Handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ttc_ps___status_handler_table_entry_1afef16601be5959aef4e65a3f3459bd20" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XTtcPs_StatusHandlerTableEntry::StatusRef</definition>
+        <argsstring></argsstring>
+        <name>StatusRef</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="245" bodyend="248"/>
+    <listofallmembers>
+      <member refid="struct_x_ttc_ps___status_handler_table_entry_1af07a524195e8cbe0944780193fca282a" prot="public" virt="non-virtual"><scope>XTtcPs_StatusHandlerTableEntry</scope><name>StatusHandler</name></member>
+      <member refid="struct_x_ttc_ps___status_handler_table_entry_1afef16601be5959aef4e65a3f3459bd20" prot="public" virt="non-virtual"><scope>XTtcPs_StatusHandlerTableEntry</scope><name>StatusRef</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

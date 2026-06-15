@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___deint__l2" kind="struct" prot="public">
+    <compoundname>XV_Deint_l2</compoundname>
+    <includes local="no">xv_deinterlacer_l2.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___deint__l2_1a7661fd748aed6b153e3528f771d91a8c" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__deinterlacer" kindref="compound">XV_deinterlacer</ref></type>
+        <definition>XV_deinterlacer XV_Deint_l2::Deint</definition>
+        <argsstring></argsstring>
+        <name>Deint</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Deinterlacer Layer 2 data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every V Scaler device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>XV_Deint_l2</label>
+        <link refid="struct_x_v___deint__l2"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Deint</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XV_deinterlacer</label>
+        <link refid="struct_x_v__deinterlacer"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>XV_deinterlacer_Config</label>
+        <link refid="struct_x_v__deinterlacer___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.h" bodystart="120" bodyend="124"/>
+    <listofallmembers>
+      <member refid="struct_x_v___deint__l2_1a7661fd748aed6b153e3528f771d91a8c" prot="public" virt="non-virtual"><scope>XV_Deint_l2</scope><name>Deint</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

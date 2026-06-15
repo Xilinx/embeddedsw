@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp___sideband_msg" kind="struct" prot="public">
+    <compoundname>XDp_SidebandMsg</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp___sideband_msg_1aa54460fe67e0c9ef1e8b7392bf85ba0c" prot="public" static="no" mutable="no">
+        <type>XDp_SidebandMsgHeader</type>
+        <definition>XDp_SidebandMsgHeader XDp_SidebandMsg::Header</definition>
+        <argsstring></argsstring>
+        <name>Header</name>
+        <briefdescription>
+<para>The header segment of the sideband message. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp_mst.c" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp_mst.c" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___sideband_msg_1a6fc42f7125fe713b5cbdb26b56e93096" prot="public" static="no" mutable="no">
+        <type>XDp_SidebandMsgBody</type>
+        <definition>XDp_SidebandMsgBody XDp_SidebandMsg::Body</definition>
+        <argsstring></argsstring>
+        <name>Body</name>
+        <briefdescription>
+<para>The body segment of the sideband message. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp_mst.c" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp_mst.c" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___sideband_msg_1ab4c295b5aaf01ec6930b7bce94054cd0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_SidebandMsg::FragmentNum</definition>
+        <argsstring></argsstring>
+        <name>FragmentNum</name>
+        <briefdescription>
+<para>Larger sideband messages need to be broken up into multiple fragments. </para>        </briefdescription>
+        <detaileddescription>
+<para>For RX, this number indicates the fragment with which the current header corresponds to. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp_mst.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp_mst.c" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef stores the entire sideband message. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp_mst.c" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp_mst.c" bodystart="125" bodyend="137"/>
+    <listofallmembers>
+      <member refid="struct_x_dp___sideband_msg_1a6fc42f7125fe713b5cbdb26b56e93096" prot="public" virt="non-virtual"><scope>XDp_SidebandMsg</scope><name>Body</name></member>
+      <member refid="struct_x_dp___sideband_msg_1ab4c295b5aaf01ec6930b7bce94054cd0" prot="public" virt="non-virtual"><scope>XDp_SidebandMsg</scope><name>FragmentNum</name></member>
+      <member refid="struct_x_dp___sideband_msg_1aa54460fe67e0c9ef1e8b7392bf85ba0c" prot="public" virt="non-virtual"><scope>XDp_SidebandMsg</scope><name>Header</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

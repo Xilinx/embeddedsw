@@ -1,0 +1,269 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="struct_x_uart_lite" kind="struct"><name>XUartLite</name>
+    <member refid="struct_x_uart_lite_1a0278b1063cd5e106e8f01a70d2033552" kind="variable"><name>Stats</name></member>
+    <member refid="struct_x_uart_lite_1a08ccbc82a65cff09837a71aa320eda30" kind="variable"><name>RegBaseAddress</name></member>
+    <member refid="struct_x_uart_lite_1ad69736dd05545bcc20417637f4f19c21" kind="variable"><name>IsReady</name></member>
+    <member refid="struct_x_uart_lite_1a2f1181b625ce924d3eea822bb7d1b048" kind="variable"><name>SendBuffer</name></member>
+    <member refid="struct_x_uart_lite_1ac6bbb7a88a8cd4610a9f7d7384551df1" kind="variable"><name>ReceiveBuffer</name></member>
+    <member refid="struct_x_uart_lite_1a92bda98b3f5f8c49eb9dfeb4acef80c5" kind="variable"><name>RecvHandler</name></member>
+    <member refid="struct_x_uart_lite_1ab174da82712959f718ee725216a85bc1" kind="variable"><name>RecvCallBackRef</name></member>
+    <member refid="struct_x_uart_lite_1a2f49dd74fe86187018d13732838537e6" kind="variable"><name>SendHandler</name></member>
+    <member refid="struct_x_uart_lite_1a4fbf0298a548fd9c5ac1024a9e2c8f70" kind="variable"><name>SendCallBackRef</name></member>
+  </compound>
+  <compound refid="struct_x_uart_lite___buffer" kind="struct"><name>XUartLite_Buffer</name>
+    <member refid="struct_x_uart_lite___buffer_1a5b91bd91cf707bdc8f1ffdb9e82509fc" kind="variable"><name>NextBytePtr</name></member>
+    <member refid="struct_x_uart_lite___buffer_1ab27923a6614c5a60548b08c6d5bc469e" kind="variable"><name>RequestedBytes</name></member>
+    <member refid="struct_x_uart_lite___buffer_1a7317923470ca4dd5619123985b7f3b03" kind="variable"><name>RemainingBytes</name></member>
+  </compound>
+  <compound refid="struct_x_uart_lite___config" kind="struct"><name>XUartLite_Config</name>
+    <member refid="struct_x_uart_lite___config_1a8d5c1bec555a07a93d2b793beb6d089d" kind="variable"><name>Name</name></member>
+    <member refid="struct_x_uart_lite___config_1a8afe6e1ad74e83584e757bebddbf7a30" kind="variable"><name>RegBaseAddr</name></member>
+    <member refid="struct_x_uart_lite___config_1ae711744a0420840d9599e234525f1487" kind="variable"><name>BaudRate</name></member>
+    <member refid="struct_x_uart_lite___config_1a581d63c484cae600ecdeb5b05f775a08" kind="variable"><name>UseParity</name></member>
+    <member refid="struct_x_uart_lite___config_1a4265aa3443fe342e8e6a7858ca96ab37" kind="variable"><name>ParityOdd</name></member>
+    <member refid="struct_x_uart_lite___config_1abde7d4add528443f4bf8ab33aa98fad8" kind="variable"><name>DataBits</name></member>
+    <member refid="struct_x_uart_lite___config_1ab90c5e86d516f1f49a14325a0fbe9c33" kind="variable"><name>IntrId</name></member>
+    <member refid="struct_x_uart_lite___config_1a2f57cbe432323d54cd26352bb9d8ce63" kind="variable"><name>IntrParent</name></member>
+  </compound>
+  <compound refid="struct_x_uart_lite___stats" kind="struct"><name>XUartLite_Stats</name>
+    <member refid="struct_x_uart_lite___stats_1a046cc0881c445ef40f27140e19e2c174" kind="variable"><name>TransmitInterrupts</name></member>
+    <member refid="struct_x_uart_lite___stats_1a5aa85c00c96797e499040c43f000b458" kind="variable"><name>ReceiveInterrupts</name></member>
+    <member refid="struct_x_uart_lite___stats_1a2835184ffdbb9eb956f475f71460c699" kind="variable"><name>CharactersTransmitted</name></member>
+    <member refid="struct_x_uart_lite___stats_1a419c9a4c527458f4ca8e681fa300160f" kind="variable"><name>CharactersReceived</name></member>
+    <member refid="struct_x_uart_lite___stats_1af82d51917660948cd9fd5860ee1c9e00" kind="variable"><name>ReceiveOverrunErrors</name></member>
+    <member refid="struct_x_uart_lite___stats_1a54e9bfc44f29f17020ed86b0eba6da86" kind="variable"><name>ReceiveParityErrors</name></member>
+    <member refid="struct_x_uart_lite___stats_1ad78aa2351dfb161a2651a4229137e5e9" kind="variable"><name>ReceiveFramingErrors</name></member>
+  </compound>
+  <compound refid="src_2_c_make_lists_8txt" kind="file"><name>src/CMakeLists.txt</name>
+  </compound>
+  <compound refid="examples_2_c_make_lists_8txt" kind="file"><name>examples/CMakeLists.txt</name>
+  </compound>
+  <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
+  </compound>
+  <compound refid="xuartlite_8c" kind="file"><name>xuartlite.c</name>
+    <member refid="group__uartlite_1ga66cae3e4cf97c7ab9a2bf119af680e00" kind="function"><name>StubHandler</name></member>
+    <member refid="group__uartlite_1gaaf61ea88e001e95175590cb5b221a18d" kind="function"><name>XUartLite_CfgInitialize</name></member>
+    <member refid="group__uartlite_1gacd990348cf8483d47934d3263dc6fe90" kind="function"><name>XUartLite_Send</name></member>
+    <member refid="group__uartlite_1gaa30ed8bfedba1acdc67dc94e77d5a41d" kind="function"><name>XUartLite_Recv</name></member>
+    <member refid="group__uartlite_1ga7932155bf2bc603fc0a972f5aefec77e" kind="function"><name>XUartLite_ResetFifos</name></member>
+    <member refid="group__uartlite_1ga40bc490d296a7a929f1cc5d07bb29b3c" kind="function"><name>XUartLite_IsSending</name></member>
+    <member refid="group__uartlite_1ga155b5a1fba111533992e283445ad8f73" kind="function"><name>XUartLite_SendBuffer</name></member>
+    <member refid="group__uartlite_1ga74efaecba1b6b1406c8c82abbb628cc8" kind="function"><name>XUartLite_ReceiveBuffer</name></member>
+    <member refid="group__uartlite_1ga52107358628671b9c39beb81183b7365" kind="function"><name>XUartLite_GetSR</name></member>
+  </compound>
+  <compound refid="xuartlite_8h" kind="file"><name>xuartlite.h</name>
+    <member refid="group__uartlite_1gad441178033a5726b8a743eaa61af9c85" kind="define"><name>XUARTLITE_H</name></member>
+    <member refid="group__uartlite_1gab0f5a21f40b003c13e1fcde2ab036f75" kind="typedef"><name>XUartLite_Handler</name></member>
+    <member refid="group__uartlite_1ga3c83194bde1d39a420bc5ff1b6c8677d" kind="function"><name>XUartLite_Initialize</name></member>
+    <member refid="group__uartlite_1ga79efa4208bc789a3eb1c7d91ff17671f" kind="function"><name>XUartLite_LookupConfig</name></member>
+    <member refid="group__uartlite_1gaaf61ea88e001e95175590cb5b221a18d" kind="function"><name>XUartLite_CfgInitialize</name></member>
+    <member refid="group__uartlite_1ga7932155bf2bc603fc0a972f5aefec77e" kind="function"><name>XUartLite_ResetFifos</name></member>
+    <member refid="group__uartlite_1gacd990348cf8483d47934d3263dc6fe90" kind="function"><name>XUartLite_Send</name></member>
+    <member refid="group__uartlite_1gaa30ed8bfedba1acdc67dc94e77d5a41d" kind="function"><name>XUartLite_Recv</name></member>
+    <member refid="group__uartlite_1ga40bc490d296a7a929f1cc5d07bb29b3c" kind="function"><name>XUartLite_IsSending</name></member>
+    <member refid="group__uartlite_1ga081d00a44aeebe19ed77e195a063b4e1" kind="function"><name>XUartLite_GetStats</name></member>
+    <member refid="group__uartlite_1ga33651bc4c0c36496d86038d95f39f0cd" kind="function"><name>XUartLite_ClearStats</name></member>
+    <member refid="group__uartlite_1gabfbfaddf9ab531ff85a1c4f9036631aa" kind="function"><name>XUartLite_SelfTest</name></member>
+    <member refid="group__uartlite_1gaca08a21fa15779ce8dedd2ac9f25971e" kind="function"><name>XUartLite_EnableInterrupt</name></member>
+    <member refid="group__uartlite_1gaaa1b67ac0d2f5bf69ce6084ea49cef39" kind="function"><name>XUartLite_DisableInterrupt</name></member>
+    <member refid="group__uartlite_1ga312d1ce48b9e29e08ebb25d942b2ff51" kind="function"><name>XUartLite_SetRecvHandler</name></member>
+    <member refid="group__uartlite_1ga282cca48bbd4c1144c811681854fc780" kind="function"><name>XUartLite_SetSendHandler</name></member>
+    <member refid="group__uartlite_1ga399463f89d7b4e846a4a4089e9cd54fb" kind="function"><name>XUartLite_InterruptHandler</name></member>
+  </compound>
+  <compound refid="xuartlite__g_8c" kind="file"><name>xuartlite_g.c</name>
+    <member refid="group__uartlite_1ga6433869fe2d0dd5e9282352ca2fce41f" kind="variable"><name>XUartLite_ConfigTable</name></member>
+  </compound>
+  <compound refid="xuartlite__i_8h" kind="file"><name>xuartlite_i.h</name>
+    <member refid="group__uartlite_1ga554f3903afabe316f1d6ca21dbce528b" kind="define"><name>XUARTLITE_I_H</name></member>
+    <member refid="group__uartlite_1ga9a29be78566c773a9f1ad81bd3fddb5e" kind="define"><name>XUartLite_UpdateStats</name></member>
+    <member refid="group__uartlite_1gaa00e4300e2ccd4b82fd4414b054a589e" kind="variable"><name>XUartLite_ConfigTable</name></member>
+    <member refid="group__uartlite_1ga155b5a1fba111533992e283445ad8f73" kind="function"><name>XUartLite_SendBuffer</name></member>
+    <member refid="group__uartlite_1ga74efaecba1b6b1406c8c82abbb628cc8" kind="function"><name>XUartLite_ReceiveBuffer</name></member>
+    <member refid="group__uartlite_1ga52107358628671b9c39beb81183b7365" kind="function"><name>XUartLite_GetSR</name></member>
+  </compound>
+  <compound refid="xuartlite__intr_8c" kind="file"><name>xuartlite_intr.c</name>
+    <member refid="group__uartlite_1gacf46847de8d4098a70f8a894c227f709" kind="typedef"><name>Handler</name></member>
+    <member refid="group__uartlite_1ga5882a7167e36901e73f885a3cdc6060b" kind="function"><name>ReceiveDataHandler</name></member>
+    <member refid="group__uartlite_1ga7846820136ffd30c39830c94d8306941" kind="function"><name>SendDataHandler</name></member>
+    <member refid="group__uartlite_1ga312d1ce48b9e29e08ebb25d942b2ff51" kind="function"><name>XUartLite_SetRecvHandler</name></member>
+    <member refid="group__uartlite_1ga282cca48bbd4c1144c811681854fc780" kind="function"><name>XUartLite_SetSendHandler</name></member>
+    <member refid="group__uartlite_1ga399463f89d7b4e846a4a4089e9cd54fb" kind="function"><name>XUartLite_InterruptHandler</name></member>
+    <member refid="group__uartlite_1gaaa1b67ac0d2f5bf69ce6084ea49cef39" kind="function"><name>XUartLite_DisableInterrupt</name></member>
+    <member refid="group__uartlite_1gaca08a21fa15779ce8dedd2ac9f25971e" kind="function"><name>XUartLite_EnableInterrupt</name></member>
+  </compound>
+  <compound refid="xuartlite__intr__example_8c" kind="file"><name>xuartlite_intr_example.c</name>
+    <member refid="xuartlite__intr__example_8c_1a8057ce36f09ce80a6f8121ebc556e43b" kind="define"><name>XUARTLITE_BASEADDRESS</name></member>
+    <member refid="xuartlite__intr__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" kind="define"><name>TEST_BUFFER_SIZE</name></member>
+    <member refid="xuartlite__intr__example_8c_1a8a361ca5f679fc82d19e996a3edaf929" kind="variable"><name>UartLite</name></member>
+    <member refid="xuartlite__intr__example_8c_1a21a34b7f8d09398f53237562bd1f579b" kind="variable"><name>SendBuffer</name></member>
+    <member refid="xuartlite__intr__example_8c_1afbd019bfda4e60925a20aa5762688cca" kind="variable"><name>ReceiveBuffer</name></member>
+    <member refid="xuartlite__intr__example_8c_1a91504b2b83f558d49de403298d4ea9c3" kind="variable"><name>TotalReceivedCount</name></member>
+    <member refid="xuartlite__intr__example_8c_1a9c1146f8b94870b530001e0f08cb491e" kind="variable"><name>TotalSentCount</name></member>
+    <member refid="xuartlite__intr__example_8c_1a8079702e33795e4de685d18352796beb" kind="function"><name>UartLiteIntrExample</name></member>
+    <member refid="xuartlite__intr__example_8c_1a60e3b0776621ce45f55d94b0fb959ff1" kind="function"><name>SendHandler</name></member>
+    <member refid="xuartlite__intr__example_8c_1a964ea960d8251912f79e5a9fa9600f3e" kind="function"><name>RecvHandler</name></member>
+    <member refid="xuartlite__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xuartlite__intr__tapp__example_8c" kind="file"><name>xuartlite_intr_tapp_example.c</name>
+    <member refid="xuartlite__intr__tapp__example_8c_1a8057ce36f09ce80a6f8121ebc556e43b" kind="define"><name>XUARTLITE_BASEADDRESS</name></member>
+    <member refid="xuartlite__intr__tapp__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" kind="define"><name>TEST_BUFFER_SIZE</name></member>
+    <member refid="xuartlite__intr__tapp__example_8c_1a13edb5e2fae637576072cd76a8478038" kind="variable"><name>UartLiteInst</name></member>
+    <member refid="xuartlite__intr__tapp__example_8c_1a21a34b7f8d09398f53237562bd1f579b" kind="variable"><name>SendBuffer</name></member>
+    <member refid="xuartlite__intr__tapp__example_8c_1a9c1146f8b94870b530001e0f08cb491e" kind="variable"><name>TotalSentCount</name></member>
+    <member refid="xuartlite__intr__tapp__example_8c_1a8079702e33795e4de685d18352796beb" kind="function"><name>UartLiteIntrExample</name></member>
+    <member refid="xuartlite__intr__tapp__example_8c_1ac4270b510beff5a7979f28a9dc2c7b7b" kind="function"><name>UartLiteSendHandler</name></member>
+    <member refid="xuartlite__intr__tapp__example_8c_1a87540985624fee0720853ba09d2d7d7f" kind="function"><name>UartLiteRecvHandler</name></member>
+    <member refid="xuartlite__intr__tapp__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xuartlite__l_8c" kind="file"><name>xuartlite_l.c</name>
+    <member refid="group__uartlite_1gaac1bc87a3b2b3873eff73cc3b93c153d" kind="function"><name>XUartLite_SendByte</name></member>
+    <member refid="group__uartlite_1ga2cccdf9978fb4d1f7fab69a4b39e6e26" kind="function"><name>XUartLite_RecvByte</name></member>
+  </compound>
+  <compound refid="xuartlite__l_8h" kind="file"><name>xuartlite_l.h</name>
+    <member refid="group__uartlite_1ga3af1559a1090c9105a5750032bd73b39" kind="define"><name>XUARTLITE_L_H</name></member>
+    <member refid="group__uartlite_1ga73a78ef4851566fcd3f73a6a38eb24f1" kind="define"><name>XPAR_XUARTLITE_USE_DCR_BRIDGE</name></member>
+    <member refid="group__uartlite_1ga438983f426dddf9605cc1c8c395965d0" kind="define"><name>XUL_RX_FIFO_OFFSET</name></member>
+    <member refid="group__uartlite_1ga5ec51d3bc1f78f00647f39b19a85349e" kind="define"><name>XUL_TX_FIFO_OFFSET</name></member>
+    <member refid="group__uartlite_1ga13cc5a4dd0ee4939136579f2e8dc9ce5" kind="define"><name>XUL_STATUS_REG_OFFSET</name></member>
+    <member refid="group__uartlite_1ga2dad2c534965b54d3775ef0890fca368" kind="define"><name>XUL_CONTROL_REG_OFFSET</name></member>
+    <member refid="group__uartlite_1ga0443ad29f8a61065cd45dbef7da37c2c" kind="define"><name>XUL_CR_ENABLE_INTR</name></member>
+    <member refid="group__uartlite_1ga8cd3b98360644b6d2c6ef946bf5f900b" kind="define"><name>XUL_CR_FIFO_RX_RESET</name></member>
+    <member refid="group__uartlite_1gaeef27cec1e7942cf010a2c5aeb2b8da9" kind="define"><name>XUL_CR_FIFO_TX_RESET</name></member>
+    <member refid="group__uartlite_1ga33cf5a2b5ddc5ae960235ce37cd6c32f" kind="define"><name>XUL_SR_PARITY_ERROR</name></member>
+    <member refid="group__uartlite_1gaa52948dba7418fd7d4a68b47e3770dc1" kind="define"><name>XUL_SR_FRAMING_ERROR</name></member>
+    <member refid="group__uartlite_1ga5614aae83f54065f4ca0aa7cdfc7f737" kind="define"><name>XUL_SR_OVERRUN_ERROR</name></member>
+    <member refid="group__uartlite_1gaef49f4399d015532ee90cda2c0045324" kind="define"><name>XUL_SR_INTR_ENABLED</name></member>
+    <member refid="group__uartlite_1ga76bf6a9a14882e45364a21693be7e920" kind="define"><name>XUL_SR_TX_FIFO_FULL</name></member>
+    <member refid="group__uartlite_1gae2422afb0d57f84bb1890af558741b18" kind="define"><name>XUL_SR_TX_FIFO_EMPTY</name></member>
+    <member refid="group__uartlite_1ga3eb7c74b86b3aef6a8b8657b612e0537" kind="define"><name>XUL_SR_RX_FIFO_FULL</name></member>
+    <member refid="group__uartlite_1ga7a1722c4c799b50641831e1d092d9893" kind="define"><name>XUL_SR_RX_FIFO_VALID_DATA</name></member>
+    <member refid="group__uartlite_1gac63c90dc318def62d06ac084b4bb126d" kind="define"><name>XUL_FIFO_SIZE</name></member>
+    <member refid="group__uartlite_1gaf9a9355e4872a6de8340af575c2aec72" kind="define"><name>XUL_STOP_BITS</name></member>
+    <member refid="group__uartlite_1ga3b04347e664ae6d55ebd9d2609191767" kind="define"><name>XUL_PARITY_NONE</name></member>
+    <member refid="group__uartlite_1ga12cf047d972692d6f36a88527fc1423e" kind="define"><name>XUL_PARITY_ODD</name></member>
+    <member refid="group__uartlite_1ga0e3df7cb0f5abb04b6d391faa34c9098" kind="define"><name>XUL_PARITY_EVEN</name></member>
+    <member refid="group__uartlite_1gafefad2b4afb25774eb09791ccafb20c8" kind="define"><name>XUartLite_In32</name></member>
+    <member refid="group__uartlite_1gabb9fedf44870b17b62d697b7121167b8" kind="define"><name>XUartLite_Out32</name></member>
+    <member refid="group__uartlite_1gacb96d217d7b77e8d517e9556d421db95" kind="define"><name>XUartLite_WriteReg</name></member>
+    <member refid="group__uartlite_1ga41431b69c8c2c2829277a851d70b7bf6" kind="define"><name>XUartLite_ReadReg</name></member>
+    <member refid="group__uartlite_1gacef0be395bab4e7b6c4bc8c081ebe9cf" kind="define"><name>XUartLite_SetControlReg</name></member>
+    <member refid="group__uartlite_1gac2c823eabd69cc7e34fa76921ea294dd" kind="define"><name>XUartLite_GetStatusReg</name></member>
+    <member refid="group__uartlite_1gad03599e323029e7b9263f1bd458cd5ce" kind="define"><name>XUartLite_IsReceiveEmpty</name></member>
+    <member refid="group__uartlite_1ga63565710e31e2c07851858e835016086" kind="define"><name>XUartLite_IsTransmitFull</name></member>
+    <member refid="group__uartlite_1gafa2025650e6a0618c0527ca224fe3db3" kind="define"><name>XUartLite_IsIntrEnabled</name></member>
+    <member refid="group__uartlite_1ga60612a3ae00273a06a2905f6cfd7b10f" kind="define"><name>XUartLite_EnableIntr</name></member>
+    <member refid="group__uartlite_1ga6b2947c72dbab9e7397fcfcbca4e300f" kind="define"><name>XUartLite_DisableIntr</name></member>
+    <member refid="group__uartlite_1gaac1bc87a3b2b3873eff73cc3b93c153d" kind="function"><name>XUartLite_SendByte</name></member>
+    <member refid="group__uartlite_1ga2cccdf9978fb4d1f7fab69a4b39e6e26" kind="function"><name>XUartLite_RecvByte</name></member>
+  </compound>
+  <compound refid="xuartlite__low__level__example_8c" kind="file"><name>xuartlite_low_level_example.c</name>
+    <member refid="xuartlite__low__level__example_8c_1a97f6ddc084aa89f3a79adad602117bbd" kind="define"><name>UARTLITE_BASEADDR</name></member>
+    <member refid="xuartlite__low__level__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" kind="define"><name>TEST_BUFFER_SIZE</name></member>
+    <member refid="xuartlite__low__level__example_8c_1a21a34b7f8d09398f53237562bd1f579b" kind="variable"><name>SendBuffer</name></member>
+    <member refid="xuartlite__low__level__example_8c_1a97ff43d2dc0c58afc33efc1304f40b09" kind="variable"><name>RecvBuffer</name></member>
+    <member refid="xuartlite__low__level__example_8c_1ac1dca50db3a0c3d10cc190006574097a" kind="function"><name>UartLiteLowLevelExample</name></member>
+    <member refid="xuartlite__low__level__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xuartlite__polled__example_8c" kind="file"><name>xuartlite_polled_example.c</name>
+    <member refid="xuartlite__polled__example_8c_1a8057ce36f09ce80a6f8121ebc556e43b" kind="define"><name>XUARTLITE_BASEADDRESS</name></member>
+    <member refid="xuartlite__polled__example_8c_1a0b71e527200033092ab1ebd5c0c077ed" kind="define"><name>TEST_BUFFER_SIZE</name></member>
+    <member refid="xuartlite__polled__example_8c_1a8a361ca5f679fc82d19e996a3edaf929" kind="variable"><name>UartLite</name></member>
+    <member refid="xuartlite__polled__example_8c_1a21a34b7f8d09398f53237562bd1f579b" kind="variable"><name>SendBuffer</name></member>
+    <member refid="xuartlite__polled__example_8c_1a97ff43d2dc0c58afc33efc1304f40b09" kind="variable"><name>RecvBuffer</name></member>
+    <member refid="xuartlite__polled__example_8c_1aafae45d01390b1f13b15fbcdaac8a448" kind="function"><name>UartLitePolledExample</name></member>
+    <member refid="xuartlite__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xuartlite__selftest_8c" kind="file"><name>xuartlite_selftest.c</name>
+    <member refid="group__uartlite_1gabfbfaddf9ab531ff85a1c4f9036631aa" kind="function"><name>XUartLite_SelfTest</name></member>
+  </compound>
+  <compound refid="xuartlite__selftest__example_8c" kind="file"><name>xuartlite_selftest_example.c</name>
+    <member refid="xuartlite__selftest__example_8c_1a8057ce36f09ce80a6f8121ebc556e43b" kind="define"><name>XUARTLITE_BASEADDRESS</name></member>
+    <member refid="xuartlite__selftest__example_8c_1a8a361ca5f679fc82d19e996a3edaf929" kind="variable"><name>UartLite</name></member>
+    <member refid="xuartlite__selftest__example_8c_1a262dc5e981799ecf2b5463319f94452f" kind="function"><name>UartLiteSelfTestExample</name></member>
+    <member refid="xuartlite__selftest__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xuartlite__sinit_8c" kind="file"><name>xuartlite_sinit.c</name>
+    <member refid="group__uartlite_1ga79efa4208bc789a3eb1c7d91ff17671f" kind="function"><name>XUartLite_LookupConfig</name></member>
+    <member refid="group__uartlite_1ga3c83194bde1d39a420bc5ff1b6c8677d" kind="function"><name>XUartLite_Initialize</name></member>
+  </compound>
+  <compound refid="xuartlite__stats_8c" kind="file"><name>xuartlite_stats.c</name>
+    <member refid="group__uartlite_1ga081d00a44aeebe19ed77e195a063b4e1" kind="function"><name>XUartLite_GetStats</name></member>
+    <member refid="group__uartlite_1ga33651bc4c0c36496d86038d95f39f0cd" kind="function"><name>XUartLite_ClearStats</name></member>
+  </compound>
+  <compound refid="group__uartlite" kind="group"><name>uartlite</name>
+    <member refid="group__uartlite_1gab0f5a21f40b003c13e1fcde2ab036f75" kind="typedef"><name>XUartLite_Handler</name></member>
+    <member refid="group__uartlite_1gacf46847de8d4098a70f8a894c227f709" kind="typedef"><name>Handler</name></member>
+    <member refid="group__uartlite_1ga6433869fe2d0dd5e9282352ca2fce41f" kind="variable"><name>XUartLite_ConfigTable</name></member>
+    <member refid="group__uartlite_1gaa00e4300e2ccd4b82fd4414b054a589e" kind="variable"><name>XUartLite_ConfigTable</name></member>
+    <member refid="group__uartlite_1ga66cae3e4cf97c7ab9a2bf119af680e00" kind="function"><name>StubHandler</name></member>
+    <member refid="group__uartlite_1gaaf61ea88e001e95175590cb5b221a18d" kind="function"><name>XUartLite_CfgInitialize</name></member>
+    <member refid="group__uartlite_1gacd990348cf8483d47934d3263dc6fe90" kind="function"><name>XUartLite_Send</name></member>
+    <member refid="group__uartlite_1gaa30ed8bfedba1acdc67dc94e77d5a41d" kind="function"><name>XUartLite_Recv</name></member>
+    <member refid="group__uartlite_1ga7932155bf2bc603fc0a972f5aefec77e" kind="function"><name>XUartLite_ResetFifos</name></member>
+    <member refid="group__uartlite_1ga40bc490d296a7a929f1cc5d07bb29b3c" kind="function"><name>XUartLite_IsSending</name></member>
+    <member refid="group__uartlite_1ga155b5a1fba111533992e283445ad8f73" kind="function"><name>XUartLite_SendBuffer</name></member>
+    <member refid="group__uartlite_1ga74efaecba1b6b1406c8c82abbb628cc8" kind="function"><name>XUartLite_ReceiveBuffer</name></member>
+    <member refid="group__uartlite_1ga52107358628671b9c39beb81183b7365" kind="function"><name>XUartLite_GetSR</name></member>
+    <member refid="group__uartlite_1ga3c83194bde1d39a420bc5ff1b6c8677d" kind="function"><name>XUartLite_Initialize</name></member>
+    <member refid="group__uartlite_1ga79efa4208bc789a3eb1c7d91ff17671f" kind="function"><name>XUartLite_LookupConfig</name></member>
+    <member refid="group__uartlite_1ga081d00a44aeebe19ed77e195a063b4e1" kind="function"><name>XUartLite_GetStats</name></member>
+    <member refid="group__uartlite_1ga33651bc4c0c36496d86038d95f39f0cd" kind="function"><name>XUartLite_ClearStats</name></member>
+    <member refid="group__uartlite_1gabfbfaddf9ab531ff85a1c4f9036631aa" kind="function"><name>XUartLite_SelfTest</name></member>
+    <member refid="group__uartlite_1gaca08a21fa15779ce8dedd2ac9f25971e" kind="function"><name>XUartLite_EnableInterrupt</name></member>
+    <member refid="group__uartlite_1gaaa1b67ac0d2f5bf69ce6084ea49cef39" kind="function"><name>XUartLite_DisableInterrupt</name></member>
+    <member refid="group__uartlite_1ga312d1ce48b9e29e08ebb25d942b2ff51" kind="function"><name>XUartLite_SetRecvHandler</name></member>
+    <member refid="group__uartlite_1ga282cca48bbd4c1144c811681854fc780" kind="function"><name>XUartLite_SetSendHandler</name></member>
+    <member refid="group__uartlite_1ga399463f89d7b4e846a4a4089e9cd54fb" kind="function"><name>XUartLite_InterruptHandler</name></member>
+    <member refid="group__uartlite_1ga5882a7167e36901e73f885a3cdc6060b" kind="function"><name>ReceiveDataHandler</name></member>
+    <member refid="group__uartlite_1ga7846820136ffd30c39830c94d8306941" kind="function"><name>SendDataHandler</name></member>
+    <member refid="group__uartlite_1gaac1bc87a3b2b3873eff73cc3b93c153d" kind="function"><name>XUartLite_SendByte</name></member>
+    <member refid="group__uartlite_1ga2cccdf9978fb4d1f7fab69a4b39e6e26" kind="function"><name>XUartLite_RecvByte</name></member>
+    <member refid="group__uartlite_1gad441178033a5726b8a743eaa61af9c85" kind="define"><name>XUARTLITE_H</name></member>
+    <member refid="group__uartlite_1ga554f3903afabe316f1d6ca21dbce528b" kind="define"><name>XUARTLITE_I_H</name></member>
+    <member refid="group__uartlite_1ga9a29be78566c773a9f1ad81bd3fddb5e" kind="define"><name>XUartLite_UpdateStats</name></member>
+    <member refid="group__uartlite_1ga3af1559a1090c9105a5750032bd73b39" kind="define"><name>XUARTLITE_L_H</name></member>
+    <member refid="group__uartlite_1ga73a78ef4851566fcd3f73a6a38eb24f1" kind="define"><name>XPAR_XUARTLITE_USE_DCR_BRIDGE</name></member>
+    <member refid="group__uartlite_1ga438983f426dddf9605cc1c8c395965d0" kind="define"><name>XUL_RX_FIFO_OFFSET</name></member>
+    <member refid="group__uartlite_1ga5ec51d3bc1f78f00647f39b19a85349e" kind="define"><name>XUL_TX_FIFO_OFFSET</name></member>
+    <member refid="group__uartlite_1ga13cc5a4dd0ee4939136579f2e8dc9ce5" kind="define"><name>XUL_STATUS_REG_OFFSET</name></member>
+    <member refid="group__uartlite_1ga2dad2c534965b54d3775ef0890fca368" kind="define"><name>XUL_CONTROL_REG_OFFSET</name></member>
+    <member refid="group__uartlite_1ga0443ad29f8a61065cd45dbef7da37c2c" kind="define"><name>XUL_CR_ENABLE_INTR</name></member>
+    <member refid="group__uartlite_1ga8cd3b98360644b6d2c6ef946bf5f900b" kind="define"><name>XUL_CR_FIFO_RX_RESET</name></member>
+    <member refid="group__uartlite_1gaeef27cec1e7942cf010a2c5aeb2b8da9" kind="define"><name>XUL_CR_FIFO_TX_RESET</name></member>
+    <member refid="group__uartlite_1ga33cf5a2b5ddc5ae960235ce37cd6c32f" kind="define"><name>XUL_SR_PARITY_ERROR</name></member>
+    <member refid="group__uartlite_1gaa52948dba7418fd7d4a68b47e3770dc1" kind="define"><name>XUL_SR_FRAMING_ERROR</name></member>
+    <member refid="group__uartlite_1ga5614aae83f54065f4ca0aa7cdfc7f737" kind="define"><name>XUL_SR_OVERRUN_ERROR</name></member>
+    <member refid="group__uartlite_1gaef49f4399d015532ee90cda2c0045324" kind="define"><name>XUL_SR_INTR_ENABLED</name></member>
+    <member refid="group__uartlite_1ga76bf6a9a14882e45364a21693be7e920" kind="define"><name>XUL_SR_TX_FIFO_FULL</name></member>
+    <member refid="group__uartlite_1gae2422afb0d57f84bb1890af558741b18" kind="define"><name>XUL_SR_TX_FIFO_EMPTY</name></member>
+    <member refid="group__uartlite_1ga3eb7c74b86b3aef6a8b8657b612e0537" kind="define"><name>XUL_SR_RX_FIFO_FULL</name></member>
+    <member refid="group__uartlite_1ga7a1722c4c799b50641831e1d092d9893" kind="define"><name>XUL_SR_RX_FIFO_VALID_DATA</name></member>
+    <member refid="group__uartlite_1gac63c90dc318def62d06ac084b4bb126d" kind="define"><name>XUL_FIFO_SIZE</name></member>
+    <member refid="group__uartlite_1gaf9a9355e4872a6de8340af575c2aec72" kind="define"><name>XUL_STOP_BITS</name></member>
+    <member refid="group__uartlite_1ga3b04347e664ae6d55ebd9d2609191767" kind="define"><name>XUL_PARITY_NONE</name></member>
+    <member refid="group__uartlite_1ga12cf047d972692d6f36a88527fc1423e" kind="define"><name>XUL_PARITY_ODD</name></member>
+    <member refid="group__uartlite_1ga0e3df7cb0f5abb04b6d391faa34c9098" kind="define"><name>XUL_PARITY_EVEN</name></member>
+    <member refid="group__uartlite_1gafefad2b4afb25774eb09791ccafb20c8" kind="define"><name>XUartLite_In32</name></member>
+    <member refid="group__uartlite_1gabb9fedf44870b17b62d697b7121167b8" kind="define"><name>XUartLite_Out32</name></member>
+    <member refid="group__uartlite_1gacb96d217d7b77e8d517e9556d421db95" kind="define"><name>XUartLite_WriteReg</name></member>
+    <member refid="group__uartlite_1ga41431b69c8c2c2829277a851d70b7bf6" kind="define"><name>XUartLite_ReadReg</name></member>
+    <member refid="group__uartlite_1gacef0be395bab4e7b6c4bc8c081ebe9cf" kind="define"><name>XUartLite_SetControlReg</name></member>
+    <member refid="group__uartlite_1gac2c823eabd69cc7e34fa76921ea294dd" kind="define"><name>XUartLite_GetStatusReg</name></member>
+    <member refid="group__uartlite_1gad03599e323029e7b9263f1bd458cd5ce" kind="define"><name>XUartLite_IsReceiveEmpty</name></member>
+    <member refid="group__uartlite_1ga63565710e31e2c07851858e835016086" kind="define"><name>XUartLite_IsTransmitFull</name></member>
+    <member refid="group__uartlite_1gafa2025650e6a0618c0527ca224fe3db3" kind="define"><name>XUartLite_IsIntrEnabled</name></member>
+    <member refid="group__uartlite_1ga60612a3ae00273a06a2905f6cfd7b10f" kind="define"><name>XUartLite_EnableIntr</name></member>
+    <member refid="group__uartlite_1ga6b2947c72dbab9e7397fcfcbca4e300f" kind="define"><name>XUartLite_DisableIntr</name></member>
+  </compound>
+  <compound refid="example" kind="page"><name>example</name>
+  </compound>
+  <compound refid="dir_da858b87b3e9568e0fb85abf277a6ce5" kind="dir"><name>examples</name>
+  </compound>
+  <compound refid="dir_5afd8f270136ee7e5a495b7f5136c1a8" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="dir_d7787d8ebca990988ed11f0b0aadb59e" kind="dir"><name>uartlite</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

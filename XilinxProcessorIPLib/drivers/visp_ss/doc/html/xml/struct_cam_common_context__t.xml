@@ -1,0 +1,279 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_common_context__t" kind="struct" prot="public">
+    <compoundname>CamCommonContext_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_common_context__t_1ad52557c29eddb6c82c5ce9541447ebd5" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamCommonContext_t::calibrationLoaded</definition>
+        <argsstring></argsstring>
+        <name>calibrationLoaded</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_common_context__t_1a98a4abcff439bb543ff4ff2bcddfe266" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamCommonContext_t::imageLoadMetaEn</definition>
+        <argsstring></argsstring>
+        <name>imageLoadMetaEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_common_context__t_1a4894bc274fe3f2158210df7865b583da" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__sensor_1ga1d1a2b386d6e2dd9d02ee97bf4a74002" kindref="member">CamDeviceSensorModeInfo_t</ref></type>
+        <definition>CamDeviceSensorModeInfo_t CamCommonContext_t::sensorMode</definition>
+        <argsstring></argsstring>
+        <name>sensorMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_common_context__t_1ad0166cb677bf204025cbd22dc393a72d" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga03d5afda881a720931044845b7659167" kindref="member">CamDeviceInputType_t</ref></type>
+        <definition>CamDeviceInputType_t CamCommonContext_t::inputType</definition>
+        <argsstring></argsstring>
+        <name>inputType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_common_context__t_1afef678eb690f1a854213477e3f62dc0c" prot="public" static="no" mutable="no">
+        <type>TDatabaseHandle_t</type>
+        <definition>TDatabaseHandle_t CamCommonContext_t::hDatabase</definition>
+        <argsstring></argsstring>
+        <name>hDatabase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_common_context__t_1aa21ac5a30f5d50c60310c17348f06b3b" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamCommonContext_t::supported</definition>
+        <argsstring></argsstring>
+        <name>supported</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_common_context__t_1ad4b61b582f6362924c0b490045073378" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamCommonContext_t::enable</definition>
+        <argsstring></argsstring>
+        <name>enable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_common_context__t_1aa699bf28c18bc47a7fc1c8ad47080575" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamCommonContext_t::sensorType</definition>
+        <argsstring></argsstring>
+        <name>sensorType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_common_context__t_1a3ec1aa0c57414b27b158773bd1cde1cb" prot="public" static="no" mutable="no">
+        <type>struct CamCommonContext_t::@13</type>
+        <definition>struct CamCommonContext_t::@13  CamCommonContext_t::hdr</definition>
+        <argsstring></argsstring>
+        <name>hdr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="57" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_common_context__t_1a5ed81cd765455006de133b0becd07644" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamCommonContext_t::irRawOutEnable</definition>
+        <argsstring></argsstring>
+        <name>irRawOutEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_common_context__t_1ae6650230524a95e6a557c38607b707d1" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamCommonContext_t::irBayerPattern</definition>
+        <argsstring></argsstring>
+        <name>irBayerPattern</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_common_context__t_1ad381a683c6d016db6e3e0a9ea9e26f0e" prot="public" static="no" mutable="no">
+        <type>struct CamCommonContext_t::@14</type>
+        <definition>struct CamCommonContext_t::@14  CamCommonContext_t::rgbir</definition>
+        <argsstring></argsstring>
+        <name>rgbir</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="63" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_common_context__t_1ad3711debf945c14114c0716bc39b6699" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gab41968a4bfec3549ecabcb20d55ac9bd" kindref="member">CamDeviceAwbWorkMode_t</ref></type>
+        <definition>CamDeviceAwbWorkMode_t CamCommonContext_t::modeAwb</definition>
+        <argsstring></argsstring>
+        <name>modeAwb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_common_context__t_1af7d86485faa66afa0e8ed3b4d3f6a1da" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga3a193cfb5e425037f2655e3dc1b7c915" kindref="member">CamDeviceAeWorkMode_t</ref></type>
+        <definition>CamDeviceAeWorkMode_t CamCommonContext_t::modeAe</definition>
+        <argsstring></argsstring>
+        <name>modeAe</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_common_context__t_1a18da309741942ae06a3d1a59ef338882" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* CamCommonContext_t::hDatabase</definition>
+        <argsstring></argsstring>
+        <name>hDatabase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvdevice.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvdevice.c" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_common_context__t_1ad1f9913e766fa950ca05dddcd595c80b" prot="public" static="no" mutable="no">
+        <type>struct CamCommonContext_t::@17</type>
+        <definition>struct CamCommonContext_t::@17  CamCommonContext_t::hdr</definition>
+        <argsstring></argsstring>
+        <name>hdr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvdevice.c" line="61" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_common_context__t_1a3d986a7f87d9a5d4cd4751540d632dde" prot="public" static="no" mutable="no">
+        <type>struct CamCommonContext_t::@18</type>
+        <definition>struct CamCommonContext_t::@18  CamCommonContext_t::rgbir</definition>
+        <argsstring></argsstring>
+        <name>rgbir</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvdevice.c" line="67" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="17">
+        <label>CamDeviceSensorModeInfo_s</label>
+        <link refid="struct_cam_device_sensor_mode_info__s"/>
+        <childnode refid="18" relation="usage">
+          <edgelabel>compress</edgelabel>
+        </childnode>
+        <childnode refid="19" relation="usage">
+          <edgelabel>size</edgelabel>
+        </childnode>
+      </node>
+      <node id="18">
+        <label>CamDeviceSensorCompress_s</label>
+        <link refid="struct_cam_device_sensor_compress__s"/>
+      </node>
+      <node id="19">
+        <label>CamDeviceSensorSize_s</label>
+        <link refid="struct_cam_device_sensor_size__s"/>
+      </node>
+      <node id="16">
+        <label>CamCommonContext_t</label>
+        <childnode refid="17" relation="usage">
+          <edgelabel>sensorMode</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbparser.c" bodystart="47" bodyend="66"/>
+    <listofallmembers>
+      <member refid="struct_cam_common_context__t_1ad52557c29eddb6c82c5ce9541447ebd5" prot="public" virt="non-virtual"><scope>CamCommonContext_t</scope><name>calibrationLoaded</name></member>
+      <member refid="struct_cam_common_context__t_1ad4b61b582f6362924c0b490045073378" prot="public" virt="non-virtual"><scope>CamCommonContext_t</scope><name>enable</name></member>
+      <member refid="struct_cam_common_context__t_1afef678eb690f1a854213477e3f62dc0c" prot="public" virt="non-virtual"><scope>CamCommonContext_t</scope><name>hDatabase</name></member>
+      <member refid="struct_cam_common_context__t_1a18da309741942ae06a3d1a59ef338882" prot="public" virt="non-virtual"><scope>CamCommonContext_t</scope><name>hDatabase</name></member>
+      <member refid="struct_cam_common_context__t_1a3ec1aa0c57414b27b158773bd1cde1cb" prot="public" virt="non-virtual"><scope>CamCommonContext_t</scope><name>hdr</name></member>
+      <member refid="struct_cam_common_context__t_1ad1f9913e766fa950ca05dddcd595c80b" prot="public" virt="non-virtual"><scope>CamCommonContext_t</scope><name>hdr</name></member>
+      <member refid="struct_cam_common_context__t_1a98a4abcff439bb543ff4ff2bcddfe266" prot="public" virt="non-virtual"><scope>CamCommonContext_t</scope><name>imageLoadMetaEn</name></member>
+      <member refid="struct_cam_common_context__t_1ad0166cb677bf204025cbd22dc393a72d" prot="public" virt="non-virtual"><scope>CamCommonContext_t</scope><name>inputType</name></member>
+      <member refid="struct_cam_common_context__t_1ae6650230524a95e6a557c38607b707d1" prot="public" virt="non-virtual"><scope>CamCommonContext_t</scope><name>irBayerPattern</name></member>
+      <member refid="struct_cam_common_context__t_1a5ed81cd765455006de133b0becd07644" prot="public" virt="non-virtual"><scope>CamCommonContext_t</scope><name>irRawOutEnable</name></member>
+      <member refid="struct_cam_common_context__t_1af7d86485faa66afa0e8ed3b4d3f6a1da" prot="public" virt="non-virtual"><scope>CamCommonContext_t</scope><name>modeAe</name></member>
+      <member refid="struct_cam_common_context__t_1ad3711debf945c14114c0716bc39b6699" prot="public" virt="non-virtual"><scope>CamCommonContext_t</scope><name>modeAwb</name></member>
+      <member refid="struct_cam_common_context__t_1ad381a683c6d016db6e3e0a9ea9e26f0e" prot="public" virt="non-virtual"><scope>CamCommonContext_t</scope><name>rgbir</name></member>
+      <member refid="struct_cam_common_context__t_1a3d986a7f87d9a5d4cd4751540d632dde" prot="public" virt="non-virtual"><scope>CamCommonContext_t</scope><name>rgbir</name></member>
+      <member refid="struct_cam_common_context__t_1a4894bc274fe3f2158210df7865b583da" prot="public" virt="non-virtual"><scope>CamCommonContext_t</scope><name>sensorMode</name></member>
+      <member refid="struct_cam_common_context__t_1aa699bf28c18bc47a7fc1c8ad47080575" prot="public" virt="non-virtual"><scope>CamCommonContext_t</scope><name>sensorType</name></member>
+      <member refid="struct_cam_common_context__t_1aa21ac5a30f5d50c60310c17348f06b3b" prot="public" virt="non-virtual"><scope>CamCommonContext_t</scope><name>supported</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___elliptic_sign_addr" kind="struct" prot="public">
+    <compoundname>XSecure_EllipticSignAddr</compoundname>
+    <includes local="no">xsecure_elliptic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___elliptic_sign_addr_1acd6064a14b174830f5d05a15a922ce46" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_EllipticSignAddr::SignR</definition>
+        <argsstring></argsstring>
+        <name>SignR</name>
+        <briefdescription>
+<para>Address of the signature component R. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" bodystart="103" bodyend="-1"/>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gacfb2a9d041a4b449a47874add5f01547" compoundref="xsecure__elliptic_8c" startline="414" endline="459">XSecure_EllipticGenerateSignature</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga3af7e8a366bb982fa4c0c82be1b37250" compoundref="xsecure__elliptic_8c" startline="269" endline="390">XSecure_EllipticGenerateSignature_64Bit</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga7e6af9c7d2a5b9c134f201143b5caaca" compoundref="xsecure__kat_8c" startline="1280" endline="1339">XSecure_EllipticPwct</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga7d2dfbb593a38b3bb47d1ab26fb0cfea" compoundref="xsecure__elliptic_8c" startline="756" endline="800">XSecure_EllipticVerifySign</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga0bb6ca50d138b482eb9a5d9f18e398d8" compoundref="xsecure__elliptic_8c" startline="621" endline="738">XSecure_EllipticVerifySign_64Bit</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___elliptic_sign_addr_1a9a334b4c6ecc7e9e58de6f48c79d4850" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_EllipticSignAddr::SignS</definition>
+        <argsstring></argsstring>
+        <name>SignS</name>
+        <briefdescription>
+<para>Address of the signature component S. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" bodystart="104" bodyend="-1"/>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gacfb2a9d041a4b449a47874add5f01547" compoundref="xsecure__elliptic_8c" startline="414" endline="459">XSecure_EllipticGenerateSignature</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga3af7e8a366bb982fa4c0c82be1b37250" compoundref="xsecure__elliptic_8c" startline="269" endline="390">XSecure_EllipticGenerateSignature_64Bit</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga7e6af9c7d2a5b9c134f201143b5caaca" compoundref="xsecure__kat_8c" startline="1280" endline="1339">XSecure_EllipticPwct</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga7d2dfbb593a38b3bb47d1ab26fb0cfea" compoundref="xsecure__elliptic_8c" startline="756" endline="800">XSecure_EllipticVerifySign</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga0bb6ca50d138b482eb9a5d9f18e398d8" compoundref="xsecure__elliptic_8c" startline="621" endline="738">XSecure_EllipticVerifySign_64Bit</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for addresses of signature components. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" bodystart="102" bodyend="105"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___elliptic_sign_addr_1acd6064a14b174830f5d05a15a922ce46" prot="public" virt="non-virtual"><scope>XSecure_EllipticSignAddr</scope><name>SignR</name></member>
+      <member refid="struct_x_secure___elliptic_sign_addr_1a9a334b4c6ecc7e9e58de6f48c79d4850" prot="public" virt="non-virtual"><scope>XSecure_EllipticSignAddr</scope><name>SignS</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

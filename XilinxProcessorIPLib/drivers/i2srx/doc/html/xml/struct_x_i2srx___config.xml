@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_i2srx___config" kind="struct" prot="public">
+    <compoundname>XI2srx_Config</compoundname>
+    <includes local="no">xi2srx.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_i2srx___config_1ac0af18ac853f059f2e1b8965f6c8018e" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XI2srx_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i2srx___config_1ad1097d2a2ce59d240a6c4d80661989d2" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XI2srx_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i2srx___config_1ac8287c82083c51bbb50169ccfc112504" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XI2srx_Config::DWidth</definition>
+        <argsstring></argsstring>
+        <name>DWidth</name>
+        <briefdescription>
+<para>Indicates the I2S data width of the core. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.h" bodystart="107" bodyend="-1"/>
+        <referencedby refid="group__i2srx_1ga6b26d3fc18f6a8a65f2a55eb94300aac" compoundref="xi2srx_8c" startline="272" endline="295">XI2s_Rx_SetSclkOutDiv</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i2srx___config_1a7345e60642ed8d832a2d4f462752f9c0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XI2srx_Config::IsMaster</definition>
+        <argsstring></argsstring>
+        <name>IsMaster</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i2srx___config_1a21829fec25ce4f85d1eb1226b568e614" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XI2srx_Config::MaxNumChannels</definition>
+        <argsstring></argsstring>
+        <name>MaxNumChannels</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i2srx___config_1ab39d8892b03cc167686a1ed8472228b2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XI2srx_Config::Is32BitLR</definition>
+        <argsstring></argsstring>
+        <name>Is32BitLR</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i2srx___config_1ad804ad2483bb6e36f10827d9e14c4bf9" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XI2srx_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Interrupt ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i2srx___config_1aae166f6866a5b2d27f70ae08d5cc1ebe" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XI2srx_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the XI2s Receiver. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2srx/src/xi2srx.h" bodystart="98" bodyend="120"/>
+    <listofallmembers>
+      <member refid="struct_x_i2srx___config_1ad1097d2a2ce59d240a6c4d80661989d2" prot="public" virt="non-virtual"><scope>XI2srx_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_i2srx___config_1ac8287c82083c51bbb50169ccfc112504" prot="public" virt="non-virtual"><scope>XI2srx_Config</scope><name>DWidth</name></member>
+      <member refid="struct_x_i2srx___config_1ad804ad2483bb6e36f10827d9e14c4bf9" prot="public" virt="non-virtual"><scope>XI2srx_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_i2srx___config_1aae166f6866a5b2d27f70ae08d5cc1ebe" prot="public" virt="non-virtual"><scope>XI2srx_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_i2srx___config_1ab39d8892b03cc167686a1ed8472228b2" prot="public" virt="non-virtual"><scope>XI2srx_Config</scope><name>Is32BitLR</name></member>
+      <member refid="struct_x_i2srx___config_1a7345e60642ed8d832a2d4f462752f9c0" prot="public" virt="non-virtual"><scope>XI2srx_Config</scope><name>IsMaster</name></member>
+      <member refid="struct_x_i2srx___config_1a21829fec25ce4f85d1eb1226b568e614" prot="public" virt="non-virtual"><scope>XI2srx_Config</scope><name>MaxNumChannels</name></member>
+      <member refid="struct_x_i2srx___config_1ac0af18ac853f059f2e1b8965f6c8018e" prot="public" virt="non-virtual"><scope>XI2srx_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

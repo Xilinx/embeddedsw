@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_6b1e0fb004131e09f3fb74f0f44cb58f" kind="dir">
+    <compoundname>usbps</compoundname>
+    <innerdir refid="dir_2a692a862d5eed649800773beb5d1696">examples</innerdir>
+    <innerdir refid="dir_fcac73679e31add6c6ede0960372ba22">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/"/>
+  </compounddef>
+</doxygen>

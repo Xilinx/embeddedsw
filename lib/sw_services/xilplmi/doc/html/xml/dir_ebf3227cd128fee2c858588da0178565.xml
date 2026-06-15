@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_ebf3227cd128fee2c858588da0178565" kind="dir">
+    <compoundname>client</compoundname>
+    <innerfile refid="xplmi__plat__cmd__client_8c">xplmi_plat_cmd_client.c</innerfile>
+    <innerfile refid="xplmi__plat__cmd__client_8h">xplmi_plat_cmd_client.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/"/>
+  </compounddef>
+</doxygen>

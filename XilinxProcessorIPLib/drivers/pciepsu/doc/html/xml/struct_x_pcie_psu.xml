@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pcie_psu" kind="struct" prot="public">
+    <compoundname>XPciePsu</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pcie_psu_1a69ee92707437583630cdb2e6238db70d" prot="public" static="no" mutable="no">
+        <type>XPciePsu_Config</type>
+        <definition>XPciePsu_Config XPciePsu::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Configuration data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pcie_psu_1a42298ac9c0b5fc241b4cbb399abb36c9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPciePsu::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Is IP been initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pcie_psu_1ac07d6b2fd201176a805ebcb3ed1cd4d1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPciePsu::MaxSupportedBusNo</definition>
+        <argsstring></argsstring>
+        <name>MaxSupportedBusNo</name>
+        <briefdescription>
+<para>If this is RC IP, Max Number of Buses. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu.h" bodystart="107" bodyend="111"/>
+    <listofallmembers>
+      <member refid="struct_x_pcie_psu_1a69ee92707437583630cdb2e6238db70d" prot="public" virt="non-virtual"><scope>XPciePsu</scope><name>Config</name></member>
+      <member refid="struct_x_pcie_psu_1a42298ac9c0b5fc241b4cbb399abb36c9" prot="public" virt="non-virtual"><scope>XPciePsu</scope><name>IsReady</name></member>
+      <member refid="struct_x_pcie_psu_1ac07d6b2fd201176a805ebcb3ed1cd4d1" prot="public" virt="non-virtual"><scope>XPciePsu</scope><name>MaxSupportedBusNo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

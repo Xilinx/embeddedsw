@@ -1,0 +1,785 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="cam__device__lsc__api_8h" kind="file">
+    <compoundname>cam_device_lsc_api.h</compoundname>
+    <includes refid="cam__device__common_8h" local="yes">cam_device_common.h</includes>
+    <includedby refid="cam__device__module__api_8h" local="yes">cam_device_module_api.h</includedby>
+    <includedby refid="vvbench__lsc__api_8h" local="yes">vvbench_lsc_api.h</includedby>
+    <incdepgraph>
+      <node id="4082">
+        <label>stdbool.h</label>
+      </node>
+      <node id="4068">
+        <label>cam_device_lsc_api.h</label>
+        <link refid="cam_device_lsc_api.h"/>
+        <childnode refid="4069" relation="include">
+        </childnode>
+      </node>
+      <node id="4076">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="4083">
+        <label>stdint.h</label>
+      </node>
+      <node id="4073">
+        <label>stdlib.h</label>
+      </node>
+      <node id="4080">
+        <label>sensor_cmd.h</label>
+        <childnode refid="4081" relation="include">
+        </childnode>
+        <childnode refid="4076" relation="include">
+        </childnode>
+      </node>
+      <node id="4075">
+        <label>stddef.h</label>
+      </node>
+      <node id="4074">
+        <label>limits.h</label>
+      </node>
+      <node id="4069">
+        <label>cam_device_common.h</label>
+        <childnode refid="4070" relation="include">
+        </childnode>
+        <childnode refid="4076" relation="include">
+        </childnode>
+        <childnode refid="4077" relation="include">
+        </childnode>
+        <childnode refid="4079" relation="include">
+        </childnode>
+        <childnode refid="4080" relation="include">
+        </childnode>
+      </node>
+      <node id="4079">
+        <label>buf_defs.h</label>
+        <childnode refid="4070" relation="include">
+        </childnode>
+      </node>
+      <node id="4081">
+        <label>mbox_api.h</label>
+        <childnode refid="4082" relation="include">
+        </childnode>
+        <childnode refid="4083" relation="include">
+        </childnode>
+        <childnode refid="4084" relation="include">
+        </childnode>
+      </node>
+      <node id="4078">
+        <label>string.h</label>
+      </node>
+      <node id="4084">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="4082" relation="include">
+        </childnode>
+        <childnode refid="4085" relation="include">
+        </childnode>
+      </node>
+      <node id="4085">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="4070">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="4071" relation="include">
+        </childnode>
+        <childnode refid="4074" relation="include">
+        </childnode>
+        <childnode refid="4075" relation="include">
+        </childnode>
+      </node>
+      <node id="4077">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="4070" relation="include">
+        </childnode>
+        <childnode refid="4078" relation="include">
+        </childnode>
+      </node>
+      <node id="4072">
+        <label>stdio.h</label>
+      </node>
+      <node id="4071">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="4072" relation="include">
+        </childnode>
+        <childnode refid="4073" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4086">
+        <label>cam_device_lsc_api.h</label>
+        <link refid="cam_device_lsc_api.h"/>
+        <childnode refid="4087" relation="include">
+        </childnode>
+        <childnode refid="4128" relation="include">
+        </childnode>
+      </node>
+      <node id="4120">
+        <label>cam_device_rgbir_api_v2.c</label>
+      </node>
+      <node id="4118">
+        <label>cam_device_hist64_api.c</label>
+      </node>
+      <node id="4117">
+        <label>cam_device_hist256_api.c</label>
+      </node>
+      <node id="4121">
+        <label>cam_device_tpg_api.c</label>
+      </node>
+      <node id="4087">
+        <label>cam_device_module_api.h</label>
+        <childnode refid="4088" relation="include">
+        </childnode>
+      </node>
+      <node id="4125">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="4089">
+        <label>control.h</label>
+        <childnode refid="4090" relation="include">
+        </childnode>
+      </node>
+      <node id="4115">
+        <label>cam_device_ge_api.c</label>
+      </node>
+      <node id="4123">
+        <label>cam_device_wdr_api_v5_2.c</label>
+      </node>
+      <node id="4101">
+        <label>cam_device_cpd_api.c</label>
+      </node>
+      <node id="4109">
+        <label>cam_device_cnr_api.c</label>
+      </node>
+      <node id="4103">
+        <label>cam_device_dg_api.c</label>
+      </node>
+      <node id="4107">
+        <label>cam_device_af_api.c</label>
+      </node>
+      <node id="4129">
+        <label>submodule_def.h</label>
+        <childnode refid="4130" relation="include">
+        </childnode>
+        <childnode refid="4125" relation="include">
+        </childnode>
+      </node>
+      <node id="4099">
+        <label>cam_device_bls_api.c</label>
+      </node>
+      <node id="4095">
+        <label>cam_device_sensor_api.c</label>
+      </node>
+      <node id="4128">
+        <label>vvbench_lsc_api.h</label>
+        <childnode refid="4129" relation="include">
+        </childnode>
+        <childnode refid="4131" relation="include">
+        </childnode>
+      </node>
+      <node id="4094">
+        <label>cam_device_buffer_api.c</label>
+      </node>
+      <node id="4130">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="4110">
+        <label>cam_device_hdr_api.c</label>
+      </node>
+      <node id="4102">
+        <label>cam_device_cproc_api.c</label>
+      </node>
+      <node id="4105">
+        <label>cam_device_dpcc_api.c</label>
+      </node>
+      <node id="4108">
+        <label>cam_device_afm_api.c</label>
+      </node>
+      <node id="4092">
+        <label>cam_device.c</label>
+      </node>
+      <node id="4100">
+        <label>cam_device_ccm_api.c</label>
+      </node>
+      <node id="4098">
+        <label>cam_device_awb_api.c</label>
+      </node>
+      <node id="4088">
+        <label>cam_device_app.h</label>
+        <childnode refid="4089" relation="include">
+        </childnode>
+        <childnode refid="4090" relation="include">
+        </childnode>
+        <childnode refid="4091" relation="include">
+        </childnode>
+        <childnode refid="4092" relation="include">
+        </childnode>
+        <childnode refid="4093" relation="include">
+        </childnode>
+        <childnode refid="4094" relation="include">
+        </childnode>
+        <childnode refid="4095" relation="include">
+        </childnode>
+        <childnode refid="4096" relation="include">
+        </childnode>
+        <childnode refid="4097" relation="include">
+        </childnode>
+        <childnode refid="4098" relation="include">
+        </childnode>
+        <childnode refid="4099" relation="include">
+        </childnode>
+        <childnode refid="4100" relation="include">
+        </childnode>
+        <childnode refid="4101" relation="include">
+        </childnode>
+        <childnode refid="4102" relation="include">
+        </childnode>
+        <childnode refid="4103" relation="include">
+        </childnode>
+        <childnode refid="4104" relation="include">
+        </childnode>
+        <childnode refid="4105" relation="include">
+        </childnode>
+        <childnode refid="4106" relation="include">
+        </childnode>
+        <childnode refid="4107" relation="include">
+        </childnode>
+        <childnode refid="4108" relation="include">
+        </childnode>
+        <childnode refid="4109" relation="include">
+        </childnode>
+        <childnode refid="4110" relation="include">
+        </childnode>
+        <childnode refid="4111" relation="include">
+        </childnode>
+        <childnode refid="4112" relation="include">
+        </childnode>
+        <childnode refid="4113" relation="include">
+        </childnode>
+        <childnode refid="4114" relation="include">
+        </childnode>
+        <childnode refid="4115" relation="include">
+        </childnode>
+        <childnode refid="4116" relation="include">
+        </childnode>
+        <childnode refid="4117" relation="include">
+        </childnode>
+        <childnode refid="4118" relation="include">
+        </childnode>
+        <childnode refid="4119" relation="include">
+        </childnode>
+        <childnode refid="4120" relation="include">
+        </childnode>
+        <childnode refid="4121" relation="include">
+        </childnode>
+        <childnode refid="4122" relation="include">
+        </childnode>
+        <childnode refid="4123" relation="include">
+        </childnode>
+        <childnode refid="4124" relation="include">
+        </childnode>
+        <childnode refid="4125" relation="include">
+        </childnode>
+        <childnode refid="4126" relation="include">
+        </childnode>
+      </node>
+      <node id="4090">
+        <label>control.c</label>
+      </node>
+      <node id="4122">
+        <label>cam_device_wb_api.c</label>
+      </node>
+      <node id="4119">
+        <label>cam_device_lsc_api_v3.c</label>
+      </node>
+      <node id="4111">
+        <label>cam_device_ee_api_v2.c</label>
+      </node>
+      <node id="4112">
+        <label>cam_device_exp_api_v2.c</label>
+      </node>
+      <node id="4113">
+        <label>cam_device_fusa_api.c</label>
+      </node>
+      <node id="4124">
+        <label>oba.c</label>
+      </node>
+      <node id="4093">
+        <label>cam_device_api.c</label>
+      </node>
+      <node id="4114">
+        <label>cam_device_gc_api.c</label>
+      </node>
+      <node id="4116">
+        <label>cam_device_gtm_api_v1.c</label>
+      </node>
+      <node id="4091">
+        <label>iba.c</label>
+      </node>
+      <node id="4104">
+        <label>cam_device_dmsc_api_v2.c</label>
+      </node>
+      <node id="4131">
+        <label>vvbench_lsc_api_v3.c</label>
+      </node>
+      <node id="4096">
+        <label>cam_device_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="4106">
+        <label>cam_device_3dnr_api.c</label>
+      </node>
+      <node id="4127">
+        <label>xvisp_ss_example.c</label>
+      </node>
+      <node id="4126">
+        <label>xvisp_ss_example.h</label>
+        <childnode refid="4127" relation="include">
+        </childnode>
+      </node>
+      <node id="4097">
+        <label>cam_device_ae_api.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_cam_device_lsc_manual_config__s" prot="public">CamDeviceLscManualConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_lsc_auto_config__s" prot="public">CamDeviceLscAutoConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_lsc_config__s" prot="public">CamDeviceLscConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_lsc_status__s" prot="public">CamDeviceLscStatus_s</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group____cam__device__lsc_1gae862674461b514c8880c454796cb17bc" prot="public" static="no">
+        <name>CAMDEV_LSC_H_BLOCK_NUM</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+<para>Maximum horizonta block size of LSC map. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__lsc_1ga54491c87340c8add125f98fb2cbb4d9f" prot="public" static="no">
+        <name>CAMDEV_LSC_V_BLOCK_NUM</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+<para>Maximum vertical block size of LSC map. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__lsc_1ga584b3716ef0bf547fea98a3c099bf462" prot="public" static="no">
+        <name>CAMDEV_LSC_H_POINT_NUM</name>
+        <initializer>(<ref refid="group____cam__device__lsc_1gae862674461b514c8880c454796cb17bc" kindref="member">CAMDEV_LSC_H_BLOCK_NUM</ref> + 1U)</initializer>
+        <briefdescription>
+<para>Maximum horizontal size of LSC map. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__lsc_1ga3e9d3bb25d825b8124e2b86ec290386d" prot="public" static="no">
+        <name>CAMDEV_LSC_V_POINT_NUM</name>
+        <initializer>(<ref refid="group____cam__device__lsc_1gae862674461b514c8880c454796cb17bc" kindref="member">CAMDEV_LSC_H_BLOCK_NUM</ref> + 1U)</initializer>
+        <briefdescription>
+<para>Maximum vertical size of LSC map. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group____cam__device__lsc_1ga9913e937c85f2e65a1d3cacd2d09e9ac" prot="public" static="no">
+        <name>CamDeviceLscInterMode_e</name>
+        <enumvalue id="group____cam__device__lsc_1gga9913e937c85f2e65a1d3cacd2d09e9acaf982dd4b3627515e8f5fcaeb5b4d532d" prot="public">
+          <name>CAMDEV_LSC_GAIN_INTER</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>LSC internal gain. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__lsc_1gga9913e937c85f2e65a1d3cacd2d09e9aca7f3abb617d31fc642701fcfd0d4a9451" prot="public">
+          <name>CAMDEV_LSC_COLOR_TEMP_WEIGHT_INTER</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>LSC internal temperature weight. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__lsc_1gga9913e937c85f2e65a1d3cacd2d09e9acaa86b2a855a2b4ef12a234f9924cf8585" prot="public">
+          <name>CAMDEV_LSC_GAIN_COLOR_TEMP_WEIGHT_INTER</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>LSC internal color temperature weight gain. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__lsc_1gga9913e937c85f2e65a1d3cacd2d09e9aca1904ac3804f6dffd8baafe3799f13560" prot="public">
+          <name>CAMDEV_LSC_INTER_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice LSC internal mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" bodystart="56" bodyend="62"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__lsc_1ga53fcc026f51a3c6b05a971c78a43dfcc" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__lsc_1ga9913e937c85f2e65a1d3cacd2d09e9ac" kindref="member">CamDeviceLscInterMode_e</ref></type>
+        <definition>typedef enum CamDeviceLscInterMode_e  CamDeviceLscInterMode_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceLscInterMode_t</name>
+        <briefdescription>
+<para>VsCamDevice LSC internal mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="62" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__lsc_1ga42f73802b5ec060e60bcf54bc98e266b" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_lsc_manual_config__s" kindref="compound">CamDeviceLscManualConfig_s</ref></type>
+        <definition>typedef struct CamDeviceLscManualConfig_s CamDeviceLscManualConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceLscManualConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice LSC V3 current configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="73" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__lsc_1ga6ed93883e741b76a58d8a45c77ca609f" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_lsc_auto_config__s" kindref="compound">CamDeviceLscAutoConfig_s</ref></type>
+        <definition>typedef struct CamDeviceLscAutoConfig_s  CamDeviceLscAutoConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceLscAutoConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice LSC V3 auto configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="87" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__lsc_1gae95f85b3af7ede2b80b250522988607c" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_lsc_config__s" kindref="compound">CamDeviceLscConfig_s</ref></type>
+        <definition>typedef struct CamDeviceLscConfig_s CamDeviceLscConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceLscConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice LSC V3 configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="98" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__lsc_1ga867edd299b6efba21e3883c27e47bc1f" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_lsc_status__s" kindref="compound">CamDeviceLscStatus_s</ref></type>
+        <definition>typedef struct CamDeviceLscStatus_s CamDeviceLscStatus_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceLscStatus_t</name>
+        <briefdescription>
+<para>VsCamDevice LSC V3 status structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="109" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__lsc_1ga0f8ac105d16f6d77cdda4e5b9bcef1e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceLscSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceLscConfig_t *pLscCfg)</argsstring>
+        <name>VsiCamDeviceLscSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__lsc_1gae95f85b3af7ede2b80b250522988607c" kindref="member">CamDeviceLscConfig_t</ref> *</type>
+          <declname>pLscCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/lsc/cam_device_lsc_api_v3.c" bodystart="19" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__lsc_1gaabb1a970389f69fec8801868100f9c03" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceLscGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceLscConfig_t *pLscCfg)</argsstring>
+        <name>VsiCamDeviceLscGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__lsc_1gae95f85b3af7ede2b80b250522988607c" kindref="member">CamDeviceLscConfig_t</ref> *</type>
+          <declname>pLscCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/lsc/cam_device_lsc_api_v3.c" bodystart="62" bodyend="101"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__lsc_1gad2f9fe35edfd844e2c087906b647c83f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceLscEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceLscEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/lsc/cam_device_lsc_api_v3.c" bodystart="105" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__lsc_1ga3fdc08df93df007d44ac7d9ebde3a067" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceLscDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceLscDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/lsc/cam_device_lsc_api_v3.c" bodystart="143" bodyend="177"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__lsc_1ga5cc62a42a470ba7264442827328f5d56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceLscReset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceLscReset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/lsc/cam_device_lsc_api_v3.c" bodystart="181" bodyend="215"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__lsc_1ga070348b0cec1f08e5c12671e11e039a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceLscGetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceLscStatus_t *pStatus)</argsstring>
+        <name>VsiCamDeviceLscGetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__lsc_1ga867edd299b6efba21e3883c27e47bc1f" kindref="member">CamDeviceLscStatus_t</ref> *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/lsc/cam_device_lsc_api_v3.c" bodystart="219" bodyend="258"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__lsc_1gafcca53cf4c83bc5af206d00a8184dc08" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceLscGetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceLscGetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/lsc/cam_device_lsc_api_v3.c" bodystart="262" bodyend="301"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2022<sp/>Vivante<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>CAMDEV_LSC_V3_API_H</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CAMDEV_LSC_V3_API_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cam_device_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="46" refid="group____cam__device__lsc_1gae862674461b514c8880c454796cb17bc" refkind="member"><highlight class="preprocessor">#define<sp/>CAMDEV_LSC_H_BLOCK_NUM<sp/>32U<sp/><sp/></highlight></codeline>
+<codeline lineno="47" refid="group____cam__device__lsc_1ga54491c87340c8add125f98fb2cbb4d9f" refkind="member"><highlight class="preprocessor">#define<sp/>CAMDEV_LSC_V_BLOCK_NUM<sp/>32U<sp/><sp/></highlight></codeline>
+<codeline lineno="48" refid="group____cam__device__lsc_1ga584b3716ef0bf547fea98a3c099bf462" refkind="member"><highlight class="preprocessor">#define<sp/>CAMDEV_LSC_H_POINT_NUM<sp/>(CAMDEV_LSC_H_BLOCK_NUM<sp/>+<sp/>1U)<sp/><sp/></highlight></codeline>
+<codeline lineno="49" refid="group____cam__device__lsc_1ga3e9d3bb25d825b8124e2b86ec290386d" refkind="member"><highlight class="preprocessor">#define<sp/>CAMDEV_LSC_V_POINT_NUM<sp/>(CAMDEV_LSC_H_BLOCK_NUM<sp/>+<sp/>1U)<sp/><sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="comment">/******************************************************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="56" refid="group____cam__device__lsc_1ga9913e937c85f2e65a1d3cacd2d09e9ac" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="group____cam__device__lsc_1ga9913e937c85f2e65a1d3cacd2d09e9ac" kindref="member">CamDeviceLscInterMode_e</ref></highlight></codeline>
+<codeline lineno="57"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="58" refid="group____cam__device__lsc_1gga9913e937c85f2e65a1d3cacd2d09e9acaf982dd4b3627515e8f5fcaeb5b4d532d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__lsc_1gga9913e937c85f2e65a1d3cacd2d09e9acaf982dd4b3627515e8f5fcaeb5b4d532d" kindref="member">CAMDEV_LSC_GAIN_INTER</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59" refid="group____cam__device__lsc_1gga9913e937c85f2e65a1d3cacd2d09e9aca7f3abb617d31fc642701fcfd0d4a9451" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__lsc_1gga9913e937c85f2e65a1d3cacd2d09e9aca7f3abb617d31fc642701fcfd0d4a9451" kindref="member">CAMDEV_LSC_COLOR_TEMP_WEIGHT_INTER</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>1,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60" refid="group____cam__device__lsc_1gga9913e937c85f2e65a1d3cacd2d09e9acaa86b2a855a2b4ef12a234f9924cf8585" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__lsc_1gga9913e937c85f2e65a1d3cacd2d09e9acaa86b2a855a2b4ef12a234f9924cf8585" kindref="member">CAMDEV_LSC_GAIN_COLOR_TEMP_WEIGHT_INTER</ref><sp/><sp/>=<sp/>2,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>CAMDEV_LSC_INTER_MAX</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">}<sp/><ref refid="group____cam__device__lsc_1ga53fcc026f51a3c6b05a971c78a43dfcc" kindref="member">CamDeviceLscInterMode_t</ref>;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="69" refid="struct_cam_device_lsc_manual_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_lsc_manual_config__s" kindref="compound">CamDeviceLscManualConfig_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="70" refid="struct_cam_device_lsc_manual_config__s_1a40d2512b3a4891ab5e08ca090b9a877a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_lsc_manual_config__s_1a40d2512b3a4891ab5e08ca090b9a877a" kindref="member">matrix</ref>[CAMDEV_RAW_CHANNEL_NUM][<ref refid="group____cam__device__lsc_1ga3e9d3bb25d825b8124e2b86ec290386d" kindref="member">CAMDEV_LSC_V_POINT_NUM</ref>][<ref refid="group____cam__device__lsc_1ga584b3716ef0bf547fea98a3c099bf462" kindref="member">CAMDEV_LSC_H_POINT_NUM</ref>];<sp/><sp/></highlight></codeline>
+<codeline lineno="71" refid="struct_cam_device_lsc_manual_config__s_1aefe1735eebc52bc29dc1bc7cb18d8306" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_lsc_manual_config__s_1aefe1735eebc52bc29dc1bc7cb18d8306" kindref="member">xSize</ref>[<ref refid="group____cam__device__lsc_1gae862674461b514c8880c454796cb17bc" kindref="member">CAMDEV_LSC_H_BLOCK_NUM</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="72" refid="struct_cam_device_lsc_manual_config__s_1aa066421b3206e5f670ce93a98937085f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_lsc_manual_config__s_1aa066421b3206e5f670ce93a98937085f" kindref="member">ySize</ref>[<ref refid="group____cam__device__lsc_1ga54491c87340c8add125f98fb2cbb4d9f" kindref="member">CAMDEV_LSC_V_BLOCK_NUM</ref>/2U];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="normal">}<ref refid="group____cam__device__lsc_1ga42f73802b5ec060e60bcf54bc98e266b" kindref="member">CamDeviceLscManualConfig_t</ref>;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="80" refid="struct_cam_device_lsc_auto_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_lsc_auto_config__s" kindref="compound">CamDeviceLscAutoConfig_s</ref></highlight></codeline>
+<codeline lineno="81"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="82" refid="struct_cam_device_lsc_auto_config__s_1ab7ffc5f13c19b6ddb76899e7c4d1d7aa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_lsc_auto_config__s_1ab7ffc5f13c19b6ddb76899e7c4d1d7aa" kindref="member">autoLevel</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83" refid="struct_cam_device_lsc_auto_config__s_1aa3f9da1d025a9f9b66f6404182721cb8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_lsc_auto_config__s_1aa3f9da1d025a9f9b66f6404182721cb8" kindref="member">gains</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84" refid="struct_cam_device_lsc_auto_config__s_1abefd3b2f7b8711d00d1bed402f5928b8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_lsc_auto_config__s_1abefd3b2f7b8711d00d1bed402f5928b8" kindref="member">damping</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="85" refid="struct_cam_device_lsc_auto_config__s_1adda4d086d3dfa3d9309f74039ec6515a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_lsc_auto_config__s_1adda4d086d3dfa3d9309f74039ec6515a" kindref="member">strength</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86" refid="struct_cam_device_lsc_auto_config__s_1a9c2b4c56a906737e23a9879d6d10a9e4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__lsc_1ga53fcc026f51a3c6b05a971c78a43dfcc" kindref="member">CamDeviceLscInterMode_t</ref><sp/><ref refid="struct_cam_device_lsc_auto_config__s_1a9c2b4c56a906737e23a9879d6d10a9e4" kindref="member">interMode</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="normal">}<sp/><ref refid="group____cam__device__lsc_1ga6ed93883e741b76a58d8a45c77ca609f" kindref="member">CamDeviceLscAutoConfig_t</ref>;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="94" refid="struct_cam_device_lsc_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_lsc_config__s" kindref="compound">CamDeviceLscConfig_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="95" refid="struct_cam_device_lsc_config__s_1a15372fc0e139fa62d732758735531408" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1ga7a54f95af23ab3af59d485ffaec2ae60" kindref="member">CamDeviceConfigMode_t</ref><sp/><ref refid="struct_cam_device_lsc_config__s_1a15372fc0e139fa62d732758735531408" kindref="member">configMode</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96" refid="struct_cam_device_lsc_config__s_1a0704f9ce5d2aa161000b95aa16a50d75" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_lsc_manual_config__s" kindref="compound">CamDeviceLscManualConfig_t</ref><sp/><ref refid="struct_cam_device_lsc_config__s_1a0704f9ce5d2aa161000b95aa16a50d75" kindref="member">manualCfg</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97" refid="struct_cam_device_lsc_config__s_1a1bb8df7e69d3729f7ae2802faeff8647" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_lsc_auto_config__s" kindref="compound">CamDeviceLscAutoConfig_t</ref><sp/><sp/><sp/><ref refid="struct_cam_device_lsc_config__s_1a1bb8df7e69d3729f7ae2802faeff8647" kindref="member">autoCfg</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="normal">}<ref refid="group____cam__device__lsc_1gae95f85b3af7ede2b80b250522988607c" kindref="member">CamDeviceLscConfig_t</ref>;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="105" refid="struct_cam_device_lsc_status__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_lsc_status__s" kindref="compound">CamDeviceLscStatus_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="106" refid="struct_cam_device_lsc_status__s_1a6961f5f344cf7e5b63e9096a06994324" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><ref refid="struct_cam_device_lsc_status__s_1a6961f5f344cf7e5b63e9096a06994324" kindref="member">enable</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="107" refid="struct_cam_device_lsc_status__s_1ac18d66ebbe226c9b8460311644c68c3f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1ga7a54f95af23ab3af59d485ffaec2ae60" kindref="member">CamDeviceConfigMode_t</ref><sp/><ref refid="struct_cam_device_lsc_status__s_1ac18d66ebbe226c9b8460311644c68c3f" kindref="member">currentMode</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108" refid="struct_cam_device_lsc_status__s_1a3cac4bd01ce1e8010e21511b76482ff0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_lsc_manual_config__s" kindref="compound">CamDeviceLscManualConfig_t</ref><sp/><ref refid="struct_cam_device_lsc_status__s_1a3cac4bd01ce1e8010e21511b76482ff0" kindref="member">currentCfg</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="109"><highlight class="normal">}<ref refid="group____cam__device__lsc_1ga867edd299b6efba21e3883c27e47bc1f" kindref="member">CamDeviceLscStatus_t</ref>;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="134"><highlight class="normal">RESULT<sp/>VsiCamDeviceLscSetConfig</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_lsc_config__s" kindref="compound">CamDeviceLscConfig_t</ref><sp/>*pLscCfg</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="163"><highlight class="normal">RESULT<sp/>VsiCamDeviceLscGetConfig</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_lsc_config__s" kindref="compound">CamDeviceLscConfig_t</ref><sp/>*pLscCfg</highlight></codeline>
+<codeline lineno="167"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="186"><highlight class="normal">RESULT<sp/>VsiCamDeviceLscEnable</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice</highlight></codeline>
+<codeline lineno="189"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="208"><highlight class="normal">RESULT<sp/>VsiCamDeviceLscDisable</highlight></codeline>
+<codeline lineno="209"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice</highlight></codeline>
+<codeline lineno="211"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="235"><highlight class="normal">RESULT<sp/>VsiCamDeviceLscReset</highlight></codeline>
+<codeline lineno="236"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="238"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="262"><highlight class="normal">RESULT<sp/>VsiCamDeviceLscGetStatus</highlight></codeline>
+<codeline lineno="263"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_lsc_status__s" kindref="compound">CamDeviceLscStatus_t</ref><sp/>*pStatus</highlight></codeline>
+<codeline lineno="266"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="284"><highlight class="normal">RESULT<sp/>VsiCamDeviceLscGetVersion</highlight></codeline>
+<codeline lineno="285"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>*pVersion</highlight></codeline>
+<codeline lineno="288"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="293"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="295"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/><sp/>//<sp/>CAMDEV_LSC_V3_API_H</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h"/>
+  </compounddef>
+</doxygen>

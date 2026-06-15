@@ -1,0 +1,396 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_rx_ss___config" kind="struct" prot="public">
+    <compoundname>XDpRxSs_Config</compoundname>
+    <includes local="no">xdprxss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___config_1abbb688b0daef774abe0fd39bc81ee911" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XDpRxSs_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="419" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="419" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___config_1a51ebda7704c9682d7b8fc8073da88ad8" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XDpRxSs_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>BaseAddress is the physical base address of the core&apos;s registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="421" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="421" bodyend="-1"/>
+        <referencedby refid="xdprxss__dp14__rx_8c_1ab705b88ffccba236871be621549ff82d" compoundref="xdprxss__dp14__rx_8c" startline="1539" endline="1576">DpRxSs_CRCTestEventHandler</referencedby>
+        <referencedby refid="xdprxss__debug__example_8c_1a1ba81c8bc9e52facf98dbea2915e557d" compoundref="xdprxss__debug__example_8c" startline="140" endline="212">DpRxSs_DebugExample</referencedby>
+        <referencedby refid="xdprxss__hdcp__example_8c_1a33c9dce40424c29784819adc27eaf94e" compoundref="xdprxss__hdcp__example_8c" startline="136" endline="240">DpRxSs_HdcpExample</referencedby>
+        <referencedby refid="xdprxss__intr__example_8c_1aa3b5b709da2f704130f76b2cb237952c" compoundref="xdprxss__intr__example_8c" startline="211" endline="279">DpRxSs_IntrExample</referencedby>
+        <referencedby refid="xdprxss__dp14__rx_8c_1a9c7565cc1ee7c14291a1da9c02a1513f" compoundref="xdprxss__dp14__rx_8c" startline="563" endline="868">DpRxSs_Main</referencedby>
+        <referencedby refid="xdprxss__mst__example_8c_1a4ee6ff10963ea3a0f8d8e340983a5a99" compoundref="xdprxss__mst__example_8c" startline="183" endline="249">DpRxSs_MstExample</referencedby>
+        <referencedby refid="xdprxss__selftest__example_8c_1af7a1ddf3acf99aed3112fc0a0a5487bb" compoundref="xdprxss__selftest__example_8c" startline="127" endline="155">DpRxSs_SelfTestExample</referencedby>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="351" endline="680">XDpRxSs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___config_1aa4aabc3c437ecdf3160ba536f4aad429" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpRxSs_Config::SecondaryChEn</definition>
+        <argsstring></argsstring>
+        <name>SecondaryChEn</name>
+        <briefdescription>
+<para>This Subsystem core supports audio packets being sent by the secondary channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="423" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga5bcda88f1e979aa99b8a903a12e421fc" compoundref="xdprxss__dbg_8c" startline="65" endline="125">XDpRxSs_ReportCoreInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___config_1ae80171eefe19931e1ff223e570f1824c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpRxSs_Config::MaxNumAudioCh</definition>
+        <argsstring></argsstring>
+        <name>MaxNumAudioCh</name>
+        <briefdescription>
+<para>The total number of Audio channels supported by this core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="425" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="425" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga5bcda88f1e979aa99b8a903a12e421fc" compoundref="xdprxss__dbg_8c" startline="65" endline="125">XDpRxSs_ReportCoreInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___config_1a7a18d32ddf160bf0b9022cc29bb9fa2d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpRxSs_Config::MaxBpc</definition>
+        <argsstring></argsstring>
+        <name>MaxBpc</name>
+        <briefdescription>
+<para>The maximum bits/color supported by this Subsystem core. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="427" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="427" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="351" endline="680">XDpRxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__dprxss_1ga5bcda88f1e979aa99b8a903a12e421fc" compoundref="xdprxss__dbg_8c" startline="65" endline="125">XDpRxSs_ReportCoreInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___config_1a6dabb89d18ef5262ca4b527804923365" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpRxSs_Config::HdcpEnable</definition>
+        <argsstring></argsstring>
+        <name>HdcpEnable</name>
+        <briefdescription>
+<para>This Subsystem core supports digital content protection. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="429" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="429" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="351" endline="680">XDpRxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__dprxss_1ga5bcda88f1e979aa99b8a903a12e421fc" compoundref="xdprxss__dbg_8c" startline="65" endline="125">XDpRxSs_ReportCoreInfo</referencedby>
+        <referencedby refid="group__dprxss_1gaf724dbd61d196f9bd1a8060f1f73816d" compoundref="xdprxss_8c" startline="693" endline="732">XDpRxSs_Reset</referencedby>
+        <referencedby refid="group__dprxss_1ga9a5414c99d822a3848b6ef7442fe551d" compoundref="xdprxss__selftest_8c" startline="66" endline="132">XDpRxSs_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___config_1a32ebe7a54d610bfbc6c1940bc30cb889" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpRxSs_Config::Hdcp22Enable</definition>
+        <argsstring></argsstring>
+        <name>Hdcp22Enable</name>
+        <briefdescription>
+<para>This Subsystem core supports digital content protection(HDCP22). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="431" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="431" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="351" endline="680">XDpRxSs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___config_1a047730675b73e61d032c00a7c4e35cdd" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpRxSs_Config::MaxLaneCount</definition>
+        <argsstring></argsstring>
+        <name>MaxLaneCount</name>
+        <briefdescription>
+<para>The maximum lane count supported by this core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="433" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="433" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="351" endline="680">XDpRxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__dprxss_1ga5bcda88f1e979aa99b8a903a12e421fc" compoundref="xdprxss__dbg_8c" startline="65" endline="125">XDpRxSs_ReportCoreInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___config_1af6d4fd56bf410f4f04b6e5bc6c66a8fd" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpRxSs_Config::MstSupport</definition>
+        <argsstring></argsstring>
+        <name>MstSupport</name>
+        <briefdescription>
+<para>Multi-stream transport (MST) mode is enabled by this core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="435" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="435" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="351" endline="680">XDpRxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__dprxss_1ga5bcda88f1e979aa99b8a903a12e421fc" compoundref="xdprxss__dbg_8c" startline="65" endline="125">XDpRxSs_ReportCoreInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___config_1a0acbe5bd683af0f65f4192a8280288be" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpRxSs_Config::NumMstStreams</definition>
+        <argsstring></argsstring>
+        <name>NumMstStreams</name>
+        <briefdescription>
+<para>The total number of MST streams supported by this core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="437" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="437" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="351" endline="680">XDpRxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__dprxss_1ga65886916bf0be3e73f4d718ec087c6f5" compoundref="xdprxss_8c" startline="875" endline="928">XDpRxSs_ExposePort</referencedby>
+        <referencedby refid="group__dprxss_1ga5bcda88f1e979aa99b8a903a12e421fc" compoundref="xdprxss__dbg_8c" startline="65" endline="125">XDpRxSs_ReportCoreInfo</referencedby>
+        <referencedby refid="group__dprxss_1ga1db1ad90aab468e882f66cb36a9fcec0" compoundref="xdprxss__dbg_8c" startline="197" endline="267">XDpRxSs_ReportMsaInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___config_1a1783e6e0b59b36314ec3a874cd58d6e7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpRxSs_Config::ColorFormat</definition>
+        <argsstring></argsstring>
+        <name>ColorFormat</name>
+        <briefdescription>
+<para>Type of color format supported by this core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="439" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="439" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga5bcda88f1e979aa99b8a903a12e421fc" compoundref="xdprxss__dbg_8c" startline="65" endline="125">XDpRxSs_ReportCoreInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___config_1ad233bb413b244f454dc82599b4e224dc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpRxSs_Config::IncludeAxiIic</definition>
+        <argsstring></argsstring>
+        <name>IncludeAxiIic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="441" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="441" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___config_1a895c3f58cf434d32d2cb4aafcc87d1b9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpRxSs_Config::IncludeClkWiz</definition>
+        <argsstring></argsstring>
+        <name>IncludeClkWiz</name>
+        <briefdescription>
+<para>&lt; axi i2c support &gt; </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="442" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="442" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="351" endline="680">XDpRxSs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___config_1a1503a7da8b668879f291553428cd8a04" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp_rx_ss___iic_sub_core" kindref="compound">XDpRxSs_IicSubCore</ref></type>
+        <definition>XDpRxSs_IicSubCore XDpRxSs_Config::IicSubCore</definition>
+        <argsstring></argsstring>
+        <name>IicSubCore</name>
+        <briefdescription>
+<para>&lt; clocking wizard support for dec_clk &gt; </para>        </briefdescription>
+        <detaileddescription>
+<para>IIC Configuration </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="444" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="444" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="351" endline="680">XDpRxSs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___config_1a4fd4deffc6507ae5abf12da8536c2955" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp_rx_ss___tmr_ctr_sub_core" kindref="compound">XDpRxSs_TmrCtrSubCore</ref></type>
+        <definition>XDpRxSs_TmrCtrSubCore XDpRxSs_Config::TmrCtrSubCore</definition>
+        <argsstring></argsstring>
+        <name>TmrCtrSubCore</name>
+        <briefdescription>
+<para>Timer Counter Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="445" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="445" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="351" endline="680">XDpRxSs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___config_1a15d2addc73d0929beb2fc7ce90556cf8" prot="public" static="no" mutable="no">
+        <type>XDpRxSs_ClkWizSubCore</type>
+        <definition>XDpRxSs_ClkWizSubCore XDpRxSs_Config::ClkWizSubCore</definition>
+        <argsstring></argsstring>
+        <name>ClkWizSubCore</name>
+        <briefdescription>
+<para>Clocking Wizard Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="447" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="447" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="351" endline="680">XDpRxSs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___config_1abb687e5c8ca0d9f94d97f302b65f9427" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp_rx_ss___dp_sub_core" kindref="compound">XDpRxSs_DpSubCore</ref></type>
+        <definition>XDpRxSs_DpSubCore XDpRxSs_Config::DpSubCore</definition>
+        <argsstring></argsstring>
+        <name>DpSubCore</name>
+        <briefdescription>
+<para>DisplayPort Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="448" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="351" endline="680">XDpRxSs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___config_1abf642266c739030387a1ef4706c0508b" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp_rx_ss___hdcp1x_sub_core" kindref="compound">XDpRxSs_Hdcp1xSubCore</ref></type>
+        <definition>XDpRxSs_Hdcp1xSubCore XDpRxSs_Config::Hdcp1xSubCore</definition>
+        <argsstring></argsstring>
+        <name>Hdcp1xSubCore</name>
+        <briefdescription>
+<para>HDCP Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="449" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="449" bodyend="-1"/>
+        <referencedby refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="351" endline="680">XDpRxSs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___config_1ac8fbf819318a0cf6ade435cba51e23f3" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp_rx_ss___hdcp22_sub_core" kindref="compound">XDpRxSs_Hdcp22SubCore</ref></type>
+        <definition>XDpRxSs_Hdcp22SubCore XDpRxSs_Config::Hdcp22SubCore</definition>
+        <argsstring></argsstring>
+        <name>Hdcp22SubCore</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="450" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="450" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___config_1a14f7888cada7efa0ffe13deb99820e0c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDpRxSs_Config::IntrId[5]</definition>
+        <argsstring>[5]</argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="452" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="452" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___config_1ae45824001394dfae50bb1513b0258893" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XDpRxSs_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="453" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="453" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the DisplayPort Receiver Subsystem core. </para>    </briefdescription>
+    <detaileddescription>
+<para>Each DisplayPort RX Subsystem core should have a configuration structure associated. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="39">
+        <label>XDpRxSs_TmrCtrSubCore</label>
+        <link refid="struct_x_dp_rx_ss___tmr_ctr_sub_core"/>
+        <childnode refid="40" relation="usage">
+          <edgelabel>TmrCtrConfig</edgelabel>
+        </childnode>
+      </node>
+      <node id="38">
+        <label>XDpRxSs_Config</label>
+        <link refid="struct_x_dp_rx_ss___config"/>
+        <childnode refid="39" relation="usage">
+          <edgelabel>TmrCtrSubCore</edgelabel>
+        </childnode>
+        <childnode refid="41" relation="usage">
+          <edgelabel>Hdcp1xSubCore</edgelabel>
+        </childnode>
+        <childnode refid="42" relation="usage">
+          <edgelabel>Hdcp22SubCore</edgelabel>
+        </childnode>
+        <childnode refid="43" relation="usage">
+          <edgelabel>IicSubCore</edgelabel>
+        </childnode>
+        <childnode refid="44" relation="usage">
+          <edgelabel>DpSubCore</edgelabel>
+        </childnode>
+      </node>
+      <node id="42">
+        <label>XDpRxSs_Hdcp22SubCore</label>
+        <link refid="struct_x_dp_rx_ss___hdcp22_sub_core"/>
+        <childnode refid="40" relation="usage">
+          <edgelabel>Hdcp22Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="40">
+        <label>XDpRxSs_SubCoreConfig</label>
+        <link refid="struct_x_dp_rx_ss___sub_core_config"/>
+      </node>
+      <node id="41">
+        <label>XDpRxSs_Hdcp1xSubCore</label>
+        <link refid="struct_x_dp_rx_ss___hdcp1x_sub_core"/>
+        <childnode refid="40" relation="usage">
+          <edgelabel>Hdcp1xConfig</edgelabel>
+        </childnode>
+      </node>
+      <node id="43">
+        <label>XDpRxSs_IicSubCore</label>
+        <link refid="struct_x_dp_rx_ss___iic_sub_core"/>
+      </node>
+      <node id="44">
+        <label>XDpRxSs_DpSubCore</label>
+        <link refid="struct_x_dp_rx_ss___dp_sub_core"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" line="414" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/xdprxss.h" bodystart="414" bodyend="455"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_rx_ss___config_1a51ebda7704c9682d7b8fc8073da88ad8" prot="public" virt="non-virtual"><scope>XDpRxSs_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_dp_rx_ss___config_1a15d2addc73d0929beb2fc7ce90556cf8" prot="public" virt="non-virtual"><scope>XDpRxSs_Config</scope><name>ClkWizSubCore</name></member>
+      <member refid="struct_x_dp_rx_ss___config_1a1783e6e0b59b36314ec3a874cd58d6e7" prot="public" virt="non-virtual"><scope>XDpRxSs_Config</scope><name>ColorFormat</name></member>
+      <member refid="struct_x_dp_rx_ss___config_1abb687e5c8ca0d9f94d97f302b65f9427" prot="public" virt="non-virtual"><scope>XDpRxSs_Config</scope><name>DpSubCore</name></member>
+      <member refid="struct_x_dp_rx_ss___config_1abf642266c739030387a1ef4706c0508b" prot="public" virt="non-virtual"><scope>XDpRxSs_Config</scope><name>Hdcp1xSubCore</name></member>
+      <member refid="struct_x_dp_rx_ss___config_1a32ebe7a54d610bfbc6c1940bc30cb889" prot="public" virt="non-virtual"><scope>XDpRxSs_Config</scope><name>Hdcp22Enable</name></member>
+      <member refid="struct_x_dp_rx_ss___config_1ac8fbf819318a0cf6ade435cba51e23f3" prot="public" virt="non-virtual"><scope>XDpRxSs_Config</scope><name>Hdcp22SubCore</name></member>
+      <member refid="struct_x_dp_rx_ss___config_1a6dabb89d18ef5262ca4b527804923365" prot="public" virt="non-virtual"><scope>XDpRxSs_Config</scope><name>HdcpEnable</name></member>
+      <member refid="struct_x_dp_rx_ss___config_1a1503a7da8b668879f291553428cd8a04" prot="public" virt="non-virtual"><scope>XDpRxSs_Config</scope><name>IicSubCore</name></member>
+      <member refid="struct_x_dp_rx_ss___config_1ad233bb413b244f454dc82599b4e224dc" prot="public" virt="non-virtual"><scope>XDpRxSs_Config</scope><name>IncludeAxiIic</name></member>
+      <member refid="struct_x_dp_rx_ss___config_1a895c3f58cf434d32d2cb4aafcc87d1b9" prot="public" virt="non-virtual"><scope>XDpRxSs_Config</scope><name>IncludeClkWiz</name></member>
+      <member refid="struct_x_dp_rx_ss___config_1a14f7888cada7efa0ffe13deb99820e0c" prot="public" virt="non-virtual"><scope>XDpRxSs_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_dp_rx_ss___config_1ae45824001394dfae50bb1513b0258893" prot="public" virt="non-virtual"><scope>XDpRxSs_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_dp_rx_ss___config_1a7a18d32ddf160bf0b9022cc29bb9fa2d" prot="public" virt="non-virtual"><scope>XDpRxSs_Config</scope><name>MaxBpc</name></member>
+      <member refid="struct_x_dp_rx_ss___config_1a047730675b73e61d032c00a7c4e35cdd" prot="public" virt="non-virtual"><scope>XDpRxSs_Config</scope><name>MaxLaneCount</name></member>
+      <member refid="struct_x_dp_rx_ss___config_1ae80171eefe19931e1ff223e570f1824c" prot="public" virt="non-virtual"><scope>XDpRxSs_Config</scope><name>MaxNumAudioCh</name></member>
+      <member refid="struct_x_dp_rx_ss___config_1af6d4fd56bf410f4f04b6e5bc6c66a8fd" prot="public" virt="non-virtual"><scope>XDpRxSs_Config</scope><name>MstSupport</name></member>
+      <member refid="struct_x_dp_rx_ss___config_1abbb688b0daef774abe0fd39bc81ee911" prot="public" virt="non-virtual"><scope>XDpRxSs_Config</scope><name>Name</name></member>
+      <member refid="struct_x_dp_rx_ss___config_1a0acbe5bd683af0f65f4192a8280288be" prot="public" virt="non-virtual"><scope>XDpRxSs_Config</scope><name>NumMstStreams</name></member>
+      <member refid="struct_x_dp_rx_ss___config_1aa4aabc3c437ecdf3160ba536f4aad429" prot="public" virt="non-virtual"><scope>XDpRxSs_Config</scope><name>SecondaryChEn</name></member>
+      <member refid="struct_x_dp_rx_ss___config_1a4fd4deffc6507ae5abf12da8536c2955" prot="public" virt="non-virtual"><scope>XDpRxSs_Config</scope><name>TmrCtrSubCore</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

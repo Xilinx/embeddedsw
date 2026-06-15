@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_509166222308dca3052b8d36a7800013" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xi2stx_8c">xi2stx.c</innerfile>
+    <innerfile refid="xi2stx_8h">xi2stx.h</innerfile>
+    <innerfile refid="xi2stx__chsts_8c">xi2stx_chsts.c</innerfile>
+    <innerfile refid="xi2stx__chsts_8h">xi2stx_chsts.h</innerfile>
+    <innerfile refid="xi2stx__debug_8c">xi2stx_debug.c</innerfile>
+    <innerfile refid="xi2stx__debug_8h">xi2stx_debug.h</innerfile>
+    <innerfile refid="xi2stx__g_8c">xi2stx_g.c</innerfile>
+    <innerfile refid="xi2stx__hw_8h">xi2stx_hw.h</innerfile>
+    <innerfile refid="xi2stx__intr_8c">xi2stx_intr.c</innerfile>
+    <innerfile refid="xi2stx__selftest_8c">xi2stx_selftest.c</innerfile>
+    <innerfile refid="xi2stx__sinit_8c">xi2stx_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/"/>
+  </compounddef>
+</doxygen>

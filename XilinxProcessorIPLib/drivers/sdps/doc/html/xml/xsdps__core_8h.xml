@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsdps__core_8h" kind="file">
+    <compoundname>xsdps_core.h</compoundname>
+    <includedby refid="xsdps_8c" local="yes">xsdps.c</includedby>
+    <includedby refid="xsdps__card_8c" local="yes">xsdps_card.c</includedby>
+    <includedby refid="xsdps__host_8c" local="yes">xsdps_host.c</includedby>
+    <includedby refid="xsdps__options_8c" local="yes">xsdps_options.c</includedby>
+    <invincdepgraph>
+      <node id="29">
+        <label>xsdps_options.c</label>
+        <link refid="xsdps__options_8c"/>
+      </node>
+      <node id="27">
+        <label>xsdps_card.c</label>
+        <link refid="xsdps__card_8c"/>
+      </node>
+      <node id="26">
+        <label>xsdps.c</label>
+        <link refid="xsdps_8c"/>
+      </node>
+      <node id="28">
+        <label>xsdps_host.c</label>
+        <link refid="xsdps__host_8c"/>
+      </node>
+      <node id="25">
+        <label>xsdps_core.h</label>
+        <link refid="xsdps_core.h"/>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2013<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor">#ifndef<sp/>SDPS_INCLUDE_H_</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SDPS_INCLUDE_H_</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsdps_8h" kindref="compound">xsdps.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(__aarch64__)</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_smc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga8e9a576dfdb4440a795eb6e712994050" kindref="member">XSdPs_SdCardInitialize</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gae55b1aa663629e99a9da94619c7487c5" kindref="member">XSdPs_MmcCardInitialize</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga87790bbe65eea7bf873f401121f4a6f7" kindref="member">XSdPs_IdentifyCard</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga1c5c45efb0402b9d8e6a33d036dbd220" kindref="member">XSdPs_CmdTransfer</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Cmd,<sp/>u32<sp/>Arg,<sp/>u32<sp/>BlkCnt);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga78d4cd8fc91d6c32b6ed35bd86581cb3" kindref="member">XSdPs_SetupTransfer</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga15e41cb3481e66918efd4ad7db154b62" kindref="member">XSdPs_Read</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Arg,<sp/>u32<sp/>BlkCnt,<sp/>u8<sp/>*Buff);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gac51519692c6bb54d91aaecb8bcf957d1" kindref="member">XSdPs_Write</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Arg,<sp/>u32<sp/>BlkCnt,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Buff);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gafa28027fec9472b8b49c61ad1c9489f2" kindref="member">XSdPs_CheckTransferComplete</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdps__api_1gafe05874a0c1191faf537b69af39cdef5" kindref="member">XSdPs_Identify_UhsMode</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>*ReadBuff);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gad837da458a367f226a76d8eda9a09214" kindref="member">XSdPs_DllReset</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gac487bcb38cd80e158c7b833b4b3be34d" kindref="member">XSdPs_Switch_Voltage</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdps__api_1gad03504fb7e11f640d478e5db67f2beb3" kindref="member">XSdPs_SetupADMA2DescTbl64Bit</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>BlkCnt);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdps__api_1gaf9b8a29b65e1213b11ad22312e5f84be" kindref="member">XSdPs_SetupADMA2DescTbl</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>BlkCnt,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Buff);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdps__api_1gaf51d4f72c727b7d28592ac797fe5d467" kindref="member">XSdPs_DllRstCtrl</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>EnRst);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdps__api_1gacf453a36b7ec19fb4b5dbfda827cc6a7" kindref="member">XSdPs_ConfigTapDelay</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gad8446a2398d2a9d346f9a52bf700f42d" kindref="member">XSdPs_Execute_Tuning</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdps__api_1ga8fc46805b1c3026474ca3b26142a9133" kindref="member">XSdPs_Setup32ADMA2DescTbl</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>BlkCnt,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Buff);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdps__api_1gaed024f423e3600d7ec230f7ca8bb1118" kindref="member">XSdPs_Setup64ADMA2DescTbl</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>BlkCnt,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Buff);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">u32<sp/><ref refid="group__sdps__api_1ga959b013962a6b53aa1c52f8ed78153be" kindref="member">XSdPs_FrameCmd</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Cmd);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdps__api_1ga172c91b6b33e2e94ded0c3d58797411d" kindref="member">XSdPs_SetTapDelay</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gae561ac5fb9655a8c8523a7afd848f8cd" kindref="member">XSdPs_CheckResetDone</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>Value);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gafa42ece30f32bbc385f0533873461b2d" kindref="member">XSdPs_CheckVoltage18</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga38aad34c4dd588d187c6053a9514c52e" kindref="member">XSdPs_SetupCmd</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Arg,<sp/>u32<sp/>BlkCnt);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdps__api_1ga2e868dda7aa547805fe79f9e840059e5" kindref="member">XSdPs_SetExecTuning</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga9c1007ef091d85466eb133a80b9f3213" kindref="member">XSdPs_CheckCardDetect</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga85c3c8f706e9f35f21eb11c69e622870" kindref="member">XSdPs_CardReset</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga121220c9912174a846e46a4c1ef388d3" kindref="member">XSdPs_CardIfCond</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga6c8f3a195672b1225b967c936c2e26ca" kindref="member">XSdPs_CardOpCond</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga9645b197623dae8c5183bb3d31c7b0eb" kindref="member">XSdPs_GetCardId</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga24e128116e1fd880b3ed1ffe7709e75d" kindref="member">XSdPs_GetCsd</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga6b65625dd94d082f21d8dedfdfd8db97" kindref="member">XSdPs_CardSetVoltage18</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gab81250892c84553ab4738f038ed35edf" kindref="member">XSdPs_SdModeInit</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gabb269de0a2001e73f252206fa07ce1e7" kindref="member">XSdPs_SdCardEnum</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga8683eac6348837f171e31b10d27c8f13" kindref="member">XSdPs_MmcCardEnum</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gaf6a7c6b7c9f7a52aac051af0aa6ef729" kindref="member">XSdPs_MmcModeInit</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga643a4036059e0a3094c22f46b1adccc8" kindref="member">XSdPs_EmmcModeInit</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga43c82653cd80c9c1eb82db2eec0d7718" kindref="member">XSdPs_ResetConfig</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdps__api_1ga90976f95bfd56ede8ee75175610c4c58" kindref="member">XSdPs_HostConfig</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gab802e347cc12cdd73d4d9dd7737535e6" kindref="member">XSdPs_Reset</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>Value);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdps__api_1gaa42580dd8c7438e838e274579d9c4be3" kindref="member">XSdPs_DisableBusPower</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdps__api_1gaca5e99fecb052c0552ab2d7a692a21ad" kindref="member">XSdPs_EnableBusPower</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga3c9d104a1d7f9e14d8b2b79fbb47702d" kindref="member">XSdPs_CheckBusIdle</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Value);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gaf0101a5bb2238bcf0279c3e4c0a33ccb" kindref="member">XSdPs_CheckBusHigh</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga1dcb11223d1894628593253fd7144c42" kindref="member">XSdPs_SetupVoltageSwitch</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga089a1b91f436e99b0663b91c3038e9ce" kindref="member">XSdPs_AutoTuning</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga45d325b142a6526ec0468d1fbc34c471" kindref="member">XSdPs_SetClock</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>SelFreq);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal">u32<sp/><ref refid="group__sdps__api_1gacd492dfefb8a2fe67964993032250bd4" kindref="member">XSdPs_CalcClock</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>SelFreq);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gad6793165c476a72b093f179766ab176f" kindref="member">XSdPs_EnableClock</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u16<sp/>ClockReg);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gaaa85509249cb90b33c8a201a751bdd8f" kindref="member">XSdps_CheckTransferDone</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga273b141e9bacac12fd3b3123b7827faa" kindref="member">XSdPs_Change_SdBusSpeed</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga9dee6f11ef102eebf0440c20ec1caa8c" kindref="member">XSdPs_Change_MmcBusSpeed</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga489b7d969537f9d455ec128a390a749d" kindref="member">XSdPs_CalcBusSpeed</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>*Arg);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdps__api_1ga4fde94c65a7c6e64e2444cb33e7d0431" kindref="member">XSdPs_SetupReadDma</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u16<sp/>BlkCnt,<sp/>u16<sp/>BlkSize,<sp/>u8<sp/>*Buff);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdps__api_1ga7deb56821f069d713aa76a10b83c4baa" kindref="member">XSdPs_SetupWriteDma</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u16<sp/>BlkCnt,<sp/>u16<sp/>BlkSize,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Buff);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gab75b25b7d98ac1e72aa60cda683ffcda" kindref="member">XSdPs_SetVoltage18</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga0446c3fbdc875f25c1bbf74efa3ff970" kindref="member">XSdPs_SendCmd</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Cmd);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdps__api_1ga0941061de89eef852f88a589b743983c" kindref="member">XSdPs_IdentifyEmmcMode</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*ExtCsd);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gaa0025016d626fdafc3ed1dc856834f12" kindref="member">XSdPs_CheckEmmcTiming</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>*ExtCsd);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdps__api_1ga8644655cee22998e56ef1dba7871ac89" kindref="member">XSdPs_ConfigPower</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdps__api_1gacae52488893efc2acb048af3660254f5" kindref="member">XSdPs_ConfigDma</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdps__api_1ga5d77b69b0e2e4ca66556dc8a90f834c4" kindref="member">XSdPs_ConfigInterrupt</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga5ab803ced3accc20c54eee342e6e5b52" kindref="member">XSdPs_SendErase</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga9fb2d5662fa3656cafb4a20530def821" kindref="member">XSdPs_SetEndAddr</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>EndAddr);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga73b1071173ef4b1a1958773ed5c59a5f" kindref="member">XSdPs_SetStartAddr</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>StartAddr);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdps__api_1ga220352b3948b59ad89e32bb71579b861" kindref="member">XSdPs_SetTapDelay_SDR104</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdps__api_1gafc5e8e46a354e7a21b046435382bba12" kindref="member">XSdPs_SetTapDelay_SDR50</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdps__api_1gae8066fed7198c31836229aeb151ab569" kindref="member">XSdPs_SetTapDelay_DDR50</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdps__api_1ga0dbbe882b04aab3d81add6021a8698bf" kindref="member">XSdPs_SetTapDelay_SDR25</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>VERSAL_NET</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/>XSdPs_Select_HS400(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(__aarch64__)<sp/>&amp;&amp;<sp/>(EL1_NONSECURE<sp/>==<sp/>1)</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdps_Smc(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>RegOffset,<sp/>u32<sp/>Mask,<sp/>u32<sp/>Val);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps_core.h"/>
+  </compounddef>
+</doxygen>

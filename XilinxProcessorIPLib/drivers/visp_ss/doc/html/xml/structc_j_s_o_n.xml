@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structc_j_s_o_n" kind="struct" prot="public">
+    <compoundname>cJSON</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structc_j_s_o_n_1ade862b880379b5e2a591f7326401fa8d" prot="public" static="no" mutable="no">
+        <type>struct cJSON *</type>
+        <definition>struct cJSON* cJSON::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structc_j_s_o_n_1a488a393f610347821fce8e985e79fc2f" prot="public" static="no" mutable="no">
+        <type>struct cJSON *</type>
+        <definition>struct cJSON* cJSON::prev</definition>
+        <argsstring></argsstring>
+        <name>prev</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structc_j_s_o_n_1a401b274c2da358dac5c23ab8b2c71f85" prot="public" static="no" mutable="no">
+        <type>struct cJSON *</type>
+        <definition>struct cJSON* cJSON::child</definition>
+        <argsstring></argsstring>
+        <name>child</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structc_j_s_o_n_1ab13084c574681593b12f6e0a3db0dcfc" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int cJSON::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structc_j_s_o_n_1ad43f8de2571e504c4c5ce0a36990e6e1" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* cJSON::valuestring</definition>
+        <argsstring></argsstring>
+        <name>valuestring</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structc_j_s_o_n_1a369cea49494eb5d4409d532a731a0fbf" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int cJSON::valueint</definition>
+        <argsstring></argsstring>
+        <name>valueint</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structc_j_s_o_n_1a4b21817d0fd2919901abadac73214e7f" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double cJSON::valuedouble</definition>
+        <argsstring></argsstring>
+        <name>valuedouble</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structc_j_s_o_n_1aa6b47e9a4b0e0a26f519b1a2b6739983" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* cJSON::string</definition>
+        <argsstring></argsstring>
+        <name>string</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="104" bodyend="122"/>
+    <listofallmembers>
+      <member refid="structc_j_s_o_n_1a401b274c2da358dac5c23ab8b2c71f85" prot="public" virt="non-virtual"><scope>cJSON</scope><name>child</name></member>
+      <member refid="structc_j_s_o_n_1ade862b880379b5e2a591f7326401fa8d" prot="public" virt="non-virtual"><scope>cJSON</scope><name>next</name></member>
+      <member refid="structc_j_s_o_n_1a488a393f610347821fce8e985e79fc2f" prot="public" virt="non-virtual"><scope>cJSON</scope><name>prev</name></member>
+      <member refid="structc_j_s_o_n_1aa6b47e9a4b0e0a26f519b1a2b6739983" prot="public" virt="non-virtual"><scope>cJSON</scope><name>string</name></member>
+      <member refid="structc_j_s_o_n_1ab13084c574681593b12f6e0a3db0dcfc" prot="public" virt="non-virtual"><scope>cJSON</scope><name>type</name></member>
+      <member refid="structc_j_s_o_n_1a4b21817d0fd2919901abadac73214e7f" prot="public" virt="non-virtual"><scope>cJSON</scope><name>valuedouble</name></member>
+      <member refid="structc_j_s_o_n_1a369cea49494eb5d4409d532a731a0fbf" prot="public" virt="non-virtual"><scope>cJSON</scope><name>valueint</name></member>
+      <member refid="structc_j_s_o_n_1ad43f8de2571e504c4c5ce0a36990e6e1" prot="public" virt="non-virtual"><scope>cJSON</scope><name>valuestring</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

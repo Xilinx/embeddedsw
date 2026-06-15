@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_b250ee47f76369296af96ef805bfa66a" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xi3cpsx_8c">xi3cpsx.c</innerfile>
+    <innerfile refid="xi3cpsx_8h">xi3cpsx.h</innerfile>
+    <innerfile refid="xi3cpsx__g_8c">xi3cpsx_g.c</innerfile>
+    <innerfile refid="xi3cpsx__hw_8c">xi3cpsx_hw.c</innerfile>
+    <innerfile refid="xi3cpsx__hw_8h">xi3cpsx_hw.h</innerfile>
+    <innerfile refid="xi3cpsx__master_8c">xi3cpsx_master.c</innerfile>
+    <innerfile refid="xi3cpsx__options_8c">xi3cpsx_options.c</innerfile>
+    <innerfile refid="xi3cpsx__pr_8h">xi3cpsx_pr.h</innerfile>
+    <innerfile refid="xi3cpsx__sinit_8c">xi3cpsx_sinit.c</innerfile>
+    <innerfile refid="xi3cpsx__slave_8c">xi3cpsx_slave.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/"/>
+  </compounddef>
+</doxygen>

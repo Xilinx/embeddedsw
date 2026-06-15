@@ -1,0 +1,624 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdptxss__vtc_8h" kind="file">
+    <compoundname>xdptxss_vtc.h</compoundname>
+    <includes local="yes">xvtc.h</includes>
+    <includes local="yes">xdp.h</includes>
+    <includedby refid="xdptxss__vtc_8c" local="yes">xdptxss_vtc.c</includedby>
+    <includedby refid="xdptxss_8h" local="yes">xdptxss.h</includedby>
+    <incdepgraph>
+      <node id="2546">
+        <label>xdptxss_vtc.h</label>
+        <link refid="xdptxss_vtc.h"/>
+        <childnode refid="2547" relation="include">
+        </childnode>
+        <childnode refid="2548" relation="include">
+        </childnode>
+      </node>
+      <node id="2548">
+        <label>xdp.h</label>
+      </node>
+      <node id="2547">
+        <label>xvtc.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2602">
+        <label>xdptxss_zcu102_mst_pt.h</label>
+        <childnode refid="2603" relation="include">
+        </childnode>
+        <childnode refid="2604" relation="include">
+        </childnode>
+      </node>
+      <node id="2608">
+        <label>xdptxss_hdcp_example.c</label>
+        <link refid="xdptxss__hdcp__example_8c"/>
+      </node>
+      <node id="2559">
+        <label>menus.c</label>
+      </node>
+      <node id="2565">
+        <label>menus.c</label>
+      </node>
+      <node id="2550">
+        <label>xdptxss_vtc.c</label>
+        <link refid="xdptxss__vtc_8c"/>
+      </node>
+      <node id="2549">
+        <label>xdptxss_vtc.h</label>
+        <link refid="xdptxss_vtc.h"/>
+        <childnode refid="2550" relation="include">
+        </childnode>
+        <childnode refid="2551" relation="include">
+        </childnode>
+      </node>
+      <node id="2584">
+        <label>si570.c</label>
+      </node>
+      <node id="2553">
+        <label>xdptxss_dbg.c</label>
+        <link refid="xdptxss__dbg_8c"/>
+      </node>
+      <node id="2566">
+        <label>si570.c</label>
+      </node>
+      <node id="2611">
+        <label>xdptxss_selftest_example.c</label>
+        <link refid="xdptxss__selftest__example_8c"/>
+      </node>
+      <node id="2586">
+        <label>xvid_clk_gen.c</label>
+      </node>
+      <node id="2577">
+        <label>tx.c</label>
+      </node>
+      <node id="2580">
+        <label>tx.h</label>
+        <childnode refid="2575" relation="include">
+        </childnode>
+        <childnode refid="2577" relation="include">
+        </childnode>
+        <childnode refid="2578" relation="include">
+        </childnode>
+      </node>
+      <node id="2581">
+        <label>xvid_pat_gen.c</label>
+      </node>
+      <node id="2609">
+        <label>xdptxss_intr_example.c</label>
+        <link refid="xdptxss__intr__example_8c"/>
+      </node>
+      <node id="2587">
+        <label>xvid_pat_gen.c</label>
+      </node>
+      <node id="2573">
+        <label>main.h</label>
+        <childnode refid="2574" relation="include">
+        </childnode>
+        <childnode refid="2575" relation="include">
+        </childnode>
+        <childnode refid="2576" relation="include">
+        </childnode>
+        <childnode refid="2577" relation="include">
+        </childnode>
+        <childnode refid="2578" relation="include">
+        </childnode>
+        <childnode refid="2579" relation="include">
+        </childnode>
+      </node>
+      <node id="2562">
+        <label>dppt.h</label>
+        <link refid="dppt_8h"/>
+        <childnode refid="2563" relation="include">
+        </childnode>
+        <childnode refid="2565" relation="include">
+        </childnode>
+        <childnode refid="2566" relation="include">
+        </childnode>
+        <childnode refid="2567" relation="include">
+        </childnode>
+        <childnode refid="2568" relation="include">
+        </childnode>
+        <childnode refid="2569" relation="include">
+        </childnode>
+        <childnode refid="2570" relation="include">
+        </childnode>
+      </node>
+      <node id="2576">
+        <label>rx.c</label>
+      </node>
+      <node id="2579">
+        <label>xvid_clk_gen.c</label>
+      </node>
+      <node id="2561">
+        <label>xvid_pat_gen.c</label>
+      </node>
+      <node id="2585">
+        <label>xdptxss_dp14_tx.c</label>
+      </node>
+      <node id="2560">
+        <label>xdptxss_zcu102_tx.c</label>
+      </node>
+      <node id="2582">
+        <label>xdptxss_dp14_tx.h</label>
+        <childnode refid="2583" relation="include">
+        </childnode>
+        <childnode refid="2584" relation="include">
+        </childnode>
+        <childnode refid="2585" relation="include">
+        </childnode>
+        <childnode refid="2586" relation="include">
+        </childnode>
+      </node>
+      <node id="2558">
+        <label>xdptxss_zcu102_tx.h</label>
+        <link refid="xdptxss__zcu102__tx_8h"/>
+        <childnode refid="2559" relation="include">
+        </childnode>
+        <childnode refid="2560" relation="include">
+        </childnode>
+      </node>
+      <node id="2568">
+        <label>xdptxss_kcu105_dp14.c</label>
+        <link refid="xdptxss__kcu105__dp14_8c"/>
+      </node>
+      <node id="2570">
+        <label>xvid_pat_gen.c</label>
+      </node>
+      <node id="2571">
+        <label>xvid_pat_gen.h</label>
+        <link refid="xvid__pat__gen_8h"/>
+        <childnode refid="2562" relation="include">
+        </childnode>
+      </node>
+      <node id="2555">
+        <label>xdptxss_intr.c</label>
+        <link refid="xdptxss__intr_8c"/>
+      </node>
+      <node id="2567">
+        <label>xclk_wiz.c</label>
+        <link refid="xclk__wiz_8c"/>
+      </node>
+      <node id="2600">
+        <label>xvid_clk_gen.c</label>
+      </node>
+      <node id="2556">
+        <label>xdptxss_selftest.c</label>
+        <link refid="xdptxss__selftest_8c"/>
+      </node>
+      <node id="2554">
+        <label>xdptxss_g.c</label>
+      </node>
+      <node id="2569">
+        <label>xedid_print_example.c</label>
+        <link refid="xedid__print__example_8c"/>
+      </node>
+      <node id="2605">
+        <label>xvid_clk_gen.c</label>
+      </node>
+      <node id="2572">
+        <label>xvid_clk_gen.c</label>
+      </node>
+      <node id="2594">
+        <label>rx.c</label>
+      </node>
+      <node id="2596">
+        <label>xdptxss_zcu102_dp14_pt_hdcp.c</label>
+      </node>
+      <node id="2575">
+        <label>passthrough.c</label>
+      </node>
+      <node id="2588">
+        <label>main.h</label>
+        <childnode refid="2589" relation="include">
+        </childnode>
+        <childnode refid="2590" relation="include">
+        </childnode>
+        <childnode refid="2591" relation="include">
+        </childnode>
+        <childnode refid="2592" relation="include">
+        </childnode>
+        <childnode refid="2593" relation="include">
+        </childnode>
+        <childnode refid="2594" relation="include">
+        </childnode>
+        <childnode refid="2595" relation="include">
+        </childnode>
+        <childnode refid="2596" relation="include">
+        </childnode>
+        <childnode refid="2597" relation="include">
+        </childnode>
+      </node>
+      <node id="2592">
+        <label>menus.c</label>
+      </node>
+      <node id="2607">
+        <label>xdptxss_debug_example.c</label>
+        <link refid="xdptxss__debug__example_8c"/>
+      </node>
+      <node id="2595">
+        <label>tx.c</label>
+      </node>
+      <node id="2599">
+        <label>tx.h</label>
+        <childnode refid="2593" relation="include">
+        </childnode>
+        <childnode refid="2594" relation="include">
+        </childnode>
+        <childnode refid="2595" relation="include">
+        </childnode>
+        <childnode refid="2596" relation="include">
+        </childnode>
+        <childnode refid="2600" relation="include">
+        </childnode>
+      </node>
+      <node id="2593">
+        <label>passthrough.c</label>
+      </node>
+      <node id="2578">
+        <label>xdptxss_dp14_pt.c</label>
+      </node>
+      <node id="2610">
+        <label>xdptxss_mst_example.c</label>
+        <link refid="xdptxss__mst__example_8c"/>
+      </node>
+      <node id="2564">
+        <label>xvidframe_crc.c</label>
+      </node>
+      <node id="2563">
+        <label>xvidframe_crc.h</label>
+        <childnode refid="2562" relation="include">
+        </childnode>
+        <childnode refid="2564" relation="include">
+        </childnode>
+      </node>
+      <node id="2591">
+        <label>keys.c</label>
+      </node>
+      <node id="2590">
+        <label>keymgmt_loader.c</label>
+      </node>
+      <node id="2552">
+        <label>xdptxss.c</label>
+        <link refid="xdptxss_8c"/>
+      </node>
+      <node id="2551">
+        <label>xdptxss.h</label>
+        <link refid="xdptxss_8h"/>
+        <childnode refid="2552" relation="include">
+        </childnode>
+        <childnode refid="2553" relation="include">
+        </childnode>
+        <childnode refid="2554" relation="include">
+        </childnode>
+        <childnode refid="2555" relation="include">
+        </childnode>
+        <childnode refid="2556" relation="include">
+        </childnode>
+        <childnode refid="2557" relation="include">
+        </childnode>
+        <childnode refid="2558" relation="include">
+        </childnode>
+        <childnode refid="2561" relation="include">
+        </childnode>
+        <childnode refid="2562" relation="include">
+        </childnode>
+        <childnode refid="2571" relation="include">
+        </childnode>
+        <childnode refid="2572" relation="include">
+        </childnode>
+        <childnode refid="2570" relation="include">
+        </childnode>
+        <childnode refid="2573" relation="include">
+        </childnode>
+        <childnode refid="2580" relation="include">
+        </childnode>
+        <childnode refid="2579" relation="include">
+        </childnode>
+        <childnode refid="2581" relation="include">
+        </childnode>
+        <childnode refid="2582" relation="include">
+        </childnode>
+        <childnode refid="2586" relation="include">
+        </childnode>
+        <childnode refid="2587" relation="include">
+        </childnode>
+        <childnode refid="2588" relation="include">
+        </childnode>
+        <childnode refid="2598" relation="include">
+        </childnode>
+        <childnode refid="2599" relation="include">
+        </childnode>
+        <childnode refid="2600" relation="include">
+        </childnode>
+        <childnode refid="2601" relation="include">
+        </childnode>
+        <childnode refid="2602" relation="include">
+        </childnode>
+        <childnode refid="2605" relation="include">
+        </childnode>
+        <childnode refid="2606" relation="include">
+        </childnode>
+        <childnode refid="2607" relation="include">
+        </childnode>
+        <childnode refid="2608" relation="include">
+        </childnode>
+        <childnode refid="2609" relation="include">
+        </childnode>
+        <childnode refid="2610" relation="include">
+        </childnode>
+        <childnode refid="2611" relation="include">
+        </childnode>
+      </node>
+      <node id="2603">
+        <label>menus.c</label>
+      </node>
+      <node id="2583">
+        <label>menus.c</label>
+      </node>
+      <node id="2574">
+        <label>menus.c</label>
+      </node>
+      <node id="2557">
+        <label>xdptxss_sinit.c</label>
+        <link refid="xdptxss__sinit_8c"/>
+      </node>
+      <node id="2606">
+        <label>xvid_pat_gen.c</label>
+      </node>
+      <node id="2589">
+        <label>keymgmt_keyfile.c</label>
+      </node>
+      <node id="2601">
+        <label>xvid_pat_gen.c</label>
+      </node>
+      <node id="2597">
+        <label>xhdcp22_example.c</label>
+      </node>
+      <node id="2598">
+        <label>xhdcp22_example.h</label>
+        <childnode refid="2588" relation="include">
+        </childnode>
+        <childnode refid="2597" relation="include">
+        </childnode>
+      </node>
+      <node id="2604">
+        <label>xdptxss_zcu102_dp14_mst_pt.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xdptxss__vtc_8h_1aa209c5ff5e9116cda9dc9590c9984174" prot="public" static="no">
+        <name>XDPTXSS_VTC_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/vtc/xdptxss_vtc.h" line="30" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/vtc/xdptxss_vtc.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__vtc_8h_1a57fc13eb777500b3e22d3ff457cfd0d7" prot="public" static="no">
+        <name>DIV_ROUND_CLOSEST</name>
+        <param><defname>n</defname></param>
+        <param><defname>d</defname></param>
+        <initializer>(((n) + ((d) / 2U)) / (d))</initializer>
+        <briefdescription>
+<para>Divides n by d and rounds to the nearest integer. </para>        </briefdescription>
+        <detaileddescription>
+<para>This macro performs integer division with rounding to the nearest integer. It adds half the divisor to the numerator before dividing to achieve round-to-nearest behavior.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Numerator </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>d</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Divisor </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Result of n divided by d, rounded to nearest integer </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/vtc/xdptxss_vtc.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/vtc/xdptxss_vtc.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="xdptxss__vtc_8h_1ab2e0f13f1f5cbd8904c67cc63f2df32d" compoundref="xdptxss__vtc_8c" startline="73" endline="245">XDpTxSs_VtcSetup</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xdptxss__vtc_8h_1ab2e0f13f1f5cbd8904c67cc63f2df32d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDpTxSs_VtcSetup</definition>
+        <argsstring>(XVtc *InstancePtr, XDp_TxMainStreamAttributes *MsaConfig, u8 VtcAdjustBs)</argsstring>
+        <name>XDpTxSs_VtcSetup</name>
+        <param>
+          <type>XVtc *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDp_TxMainStreamAttributes *</type>
+          <declname>MsaConfig</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>VtcAdjustBs</declname>
+        </param>
+        <briefdescription>
+<para>This function configures Video Timing Controller with video timing parameters from MSA config structure. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XVtc instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsaConfig</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to main stream attributes structure that will be used to extract timing values. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VtcAdjustBs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a flag to adjust blanking timing for CVT-RB</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if video timing parameters set successfully.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/vtc/xdptxss_vtc.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/vtc/xdptxss_vtc.c" bodystart="73" bodyend="245"/>
+        <references refid="xdptxss__vtc_8h_1a57fc13eb777500b3e22d3ff457cfd0d7" compoundref="xdptxss__vtc_8h" startline="61">DIV_ROUND_CLOSEST</references>
+        <referencedby refid="xdptxss__kcu105__dp14_8c_1a87878b159735f42a419a35fa296606da" compoundref="xdptxss__kcu105__dp14_8c" startline="4016" endline="4120">start_tx</referencedby>
+        <referencedby refid="group__dptxss_1gafb7b3b467a12177fb0c8053f4b7d70a1" compoundref="xdptxss_8c" startline="142" endline="434">XDpTxSs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdptxss__vtc_8h_1adaad2030e7ce9acdf2052623a1288e57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpTxSs_VtcAdaptiveSyncSetup</definition>
+        <argsstring>(XVtc *InstancePtr, XVtc_AdaptiveSyncMode Mode, u32 StretchLimit)</argsstring>
+        <name>XDpTxSs_VtcAdaptiveSyncSetup</name>
+        <param>
+          <type>XVtc *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XVtc_AdaptiveSyncMode</type>
+          <declname>Mode</declname>
+          <defname>mode</defname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>StretchLimit</declname>
+        </param>
+        <briefdescription>
+<para>This function configures Video Timing Controller with Adaptive-Sync mode to be work on and sets vertical front porch stretch limit. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XVtc instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a Adaptive-Sync mechanism to be work on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>StretchLimit</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a max limit of vertical front porch stretching</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/vtc/xdptxss_vtc.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/vtc/xdptxss_vtc.c" bodystart="262" bodyend="270"/>
+      </memberdef>
+      <memberdef kind="function" id="xdptxss__vtc_8h_1a4d4a9803bf0a143987eb905e0dd02cd3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpTxSs_VtcDisableAdaptiveSync</definition>
+        <argsstring>(XVtc *InstancePtr)</argsstring>
+        <name>XDpTxSs_VtcDisableAdaptiveSync</name>
+        <param>
+          <type>XVtc *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function disables Adaptive-Sync feature in Video Timing Controller. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XVtc instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/vtc/xdptxss_vtc.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/vtc/xdptxss_vtc.c" bodystart="283" bodyend="289"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is the header file for Xilinx DisplayPort Transmitter Subsystem sub-core, is Video Timing Controller. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date     Changes
+<hruler/>
+
+1.00 sha 01/29/15 Initial release.
+1.00 sha 07/21/15 Renamed file name with prefix xdptxss_* and function
+                  name with prefix XDpTxSs_*
+5.0  tu  08/10/17 Modified XDpTxSs_VtcSetup for adjusting BS symbol for
+            equal timing
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>XDPTXSS_VTC_H_</highlight></codeline>
+<codeline lineno="29" refid="xdptxss__vtc_8h_1aa209c5ff5e9116cda9dc9590c9984174" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDPTXSS_VTC_H_<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvtc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xdp.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor">#define<sp/>DIV_ROUND_CLOSEST(n,<sp/>d)<sp/>(((n)<sp/>+<sp/>((d)<sp/>/<sp/>2U))<sp/>/<sp/>(d))</highlight></codeline>
+<codeline lineno="61" refid="xdptxss__vtc_8h_1a57fc13eb777500b3e22d3ff457cfd0d7" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal">u32<sp/><ref refid="xdptxss__vtc_8c_1ab2e0f13f1f5cbd8904c67cc63f2df32d" kindref="member">XDpTxSs_VtcSetup</ref>(XVtc<sp/>*InstancePtr,<sp/>XDp_TxMainStreamAttributes<sp/>*MsaConfig,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>VtcAdjustBs);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdptxss__vtc_8c_1a4d161ae13fce1ba336d10b2a3f734381" kindref="member">XDpTxSs_VtcAdaptiveSyncSetup</ref>(XVtc<sp/>*InstancePtr,<sp/>XVtc_AdaptiveSyncMode<sp/>Mode,</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StretchLimit);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdptxss__vtc_8c_1a4d4a9803bf0a143987eb905e0dd02cd3" kindref="member">XDpTxSs_VtcDisableAdaptiveSync</ref>(XVtc<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/vtc/xdptxss_vtc.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___vid_c___pic_aspect_ratio" kind="struct" prot="public">
+    <compoundname>XV_VidC_PicAspectRatio</compoundname>
+    <includes local="no">xvidc_edid_ext.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___vid_c___pic_aspect_ratio_1ac844d409893fcb412da7d163d1974a5f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_VidC_PicAspectRatio::width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <briefdescription>
+<para>Aspect ratio width component. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="846" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="846" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___vid_c___pic_aspect_ratio_1a300f810da03b430a35fe5a0a47392505" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_VidC_PicAspectRatio::height</definition>
+        <argsstring></argsstring>
+        <name>height</name>
+        <briefdescription>
+<para>Aspect ratio height component. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="847" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="847" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Picture aspect ratio structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" line="845" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid_ext.h" bodystart="845" bodyend="848"/>
+    <listofallmembers>
+      <member refid="struct_x_v___vid_c___pic_aspect_ratio_1a300f810da03b430a35fe5a0a47392505" prot="public" virt="non-virtual"><scope>XV_VidC_PicAspectRatio</scope><name>height</name></member>
+      <member refid="struct_x_v___vid_c___pic_aspect_ratio_1ac844d409893fcb412da7d163d1974a5f" prot="public" virt="non-virtual"><scope>XV_VidC_PicAspectRatio</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

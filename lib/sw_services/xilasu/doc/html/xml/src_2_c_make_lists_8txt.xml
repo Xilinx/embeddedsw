@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="src_2_c_make_lists_8txt" kind="file">
+    <compoundname>src/CMakeLists.txt</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal">cmake_minimum_required(VERSION<sp/>3.15)</highlight></codeline>
+<codeline lineno="5"><highlight class="normal">project(xilasu)</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal">find_package(common)</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal">include(${CMAKE_CURRENT_SOURCE_DIR}/xilasu.cmake<sp/>NO_POLICY_SCOPE)</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal">collector_create<sp/>(PROJECT_LIB_SOURCES<sp/></highlight><highlight class="stringliteral">&quot;${CMAKE_CURRENT_SOURCE_DIR}&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="12"><highlight class="normal">collector_create<sp/>(PROJECT_LIB_HEADERS<sp/>&quot;${CMAKE_CURRENT_SOURCE_DIR}</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="13"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="14"><highlight class="stringliteral">include_directories(${CMAKE_BINARY_DIR}/include)</highlight></codeline>
+<codeline lineno="15"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="16"><highlight class="stringliteral">if(<sp/>(XILASU_rsa_keygen_2048_support<sp/>AND<sp/>XILASU_rsa_keygen_3072_support)<sp/>OR</highlight></codeline>
+<codeline lineno="17"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/>(XILASU_rsa_keygen_2048_support<sp/>AND<sp/>XILASU_rsa_keygen_4096_support)<sp/>OR</highlight></codeline>
+<codeline lineno="18"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/>(XILASU_rsa_keygen_3072_support<sp/>AND<sp/>XILASU_rsa_keygen_4096_support)<sp/>)</highlight></codeline>
+<codeline lineno="19"><highlight class="stringliteral"><sp/><sp/><sp/>message(FATAL_ERROR<sp/>&quot;</highlight><highlight class="normal">Enable<sp/>only<sp/>one<sp/>of<sp/>XILASU_rsa_keygen_2048_support,<sp/>XILASU_rsa_keygen_3072_support,<sp/>XILASU_rsa_keygen_4096_support.</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="20"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="21"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="22"><highlight class="stringliteral">if((NOT<sp/>(XILASU_rsa_keygen_2048_support))<sp/>AND<sp/>NOT<sp/>((XILASU_rsa_keygen_3072_support))<sp/>AND<sp/>NOT<sp/>((XILASU_rsa_keygen_4096_support)))</highlight></codeline>
+<codeline lineno="23"><highlight class="stringliteral"><sp/><sp/><sp/>set(XILASU_rsa_keygen_4096_support<sp/>TRUE<sp/>CACHE<sp/>BOOL<sp/>&quot;</highlight><highlight class="normal">By<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal"><sp/>RSA<sp/>4096<sp/>bit<sp/>key<sp/>generation<sp/>is<sp/>defined</highlight><highlight class="stringliteral">&quot;<sp/>FORCE)</highlight></codeline>
+<codeline lineno="24"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="25"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="26"><highlight class="stringliteral">if((XILASU_cavp_support)<sp/>AND<sp/>NOT<sp/>((XILASU_ecies_support)))</highlight></codeline>
+<codeline lineno="27"><highlight class="stringliteral"><sp/><sp/>set(XILASU_ecies_support<sp/>TRUE<sp/>CACHE<sp/>BOOL<sp/>&quot;</highlight><highlight class="normal">ECIES<sp/>is<sp/>enabled<sp/>as<sp/>CAVP<sp/>depends<sp/>on<sp/>ECIES</highlight><highlight class="stringliteral">&quot;<sp/>FORCE)</highlight></codeline>
+<codeline lineno="28"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="29"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="30"><highlight class="stringliteral">if((XILASU_cavp_support)<sp/>AND<sp/>NOT<sp/>((XILASU_kdf_support)))</highlight></codeline>
+<codeline lineno="31"><highlight class="stringliteral"><sp/><sp/>set(XILASU_kdf_support<sp/>TRUE<sp/>CACHE<sp/>BOOL<sp/>&quot;</highlight><highlight class="normal">KDF<sp/>is<sp/>enabled<sp/>as<sp/>CAVP<sp/>depends<sp/>on<sp/>KDF</highlight><highlight class="stringliteral">&quot;<sp/>FORCE)</highlight></codeline>
+<codeline lineno="32"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="33"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="34"><highlight class="stringliteral">if((XILASU_cavp_support)<sp/>AND<sp/>NOT<sp/>((XILASU_hmac_support)))</highlight></codeline>
+<codeline lineno="35"><highlight class="stringliteral"><sp/><sp/>set(XILASU_hmac_support<sp/>TRUE<sp/>CACHE<sp/>BOOL<sp/>&quot;</highlight><highlight class="normal">HMAC<sp/>is<sp/>enabled<sp/>as<sp/>CAVP<sp/>depends<sp/>on<sp/>HMAC</highlight><highlight class="stringliteral">&quot;<sp/>FORCE)</highlight></codeline>
+<codeline lineno="36"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="37"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="38"><highlight class="stringliteral">if(&quot;</highlight><highlight class="normal">${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">microblaze_riscv</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="39"><highlight class="stringliteral"><sp/><sp/>if((XILASU_keywrap_support)<sp/>AND<sp/>NOT<sp/>((XILASU_rsa_padding_support)))</highlight></codeline>
+<codeline lineno="40"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>set(XILASU_rsa_padding_support<sp/>TRUE<sp/>CACHE<sp/>BOOL<sp/>&quot;</highlight><highlight class="normal">Padding<sp/>is<sp/>enabled<sp/>as<sp/>keywrap<sp/>depends<sp/>on<sp/>RSA<sp/>padding</highlight><highlight class="stringliteral">&quot;<sp/>FORCE)</highlight></codeline>
+<codeline lineno="41"><highlight class="stringliteral"><sp/><sp/>endif()</highlight></codeline>
+<codeline lineno="42"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="43"><highlight class="stringliteral"><sp/><sp/>if((XILASU_kdf_support)<sp/>AND<sp/>NOT<sp/>((XILASU_hmac_support)))</highlight></codeline>
+<codeline lineno="44"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>set(XILASU_hmac_support<sp/>TRUE<sp/>CACHE<sp/>BOOL<sp/>&quot;</highlight><highlight class="normal">HMAC<sp/>is<sp/>enabled<sp/>as<sp/>KDF<sp/>depends<sp/>on<sp/>HMAC</highlight><highlight class="stringliteral">&quot;<sp/>FORCE)</highlight></codeline>
+<codeline lineno="45"><highlight class="stringliteral"><sp/><sp/>endif()</highlight></codeline>
+<codeline lineno="46"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="47"><highlight class="stringliteral"><sp/><sp/>if((XILASU_ocp_support)<sp/>AND<sp/>NOT<sp/>((XILASU_hmac_support)))</highlight></codeline>
+<codeline lineno="48"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>set(XILASU_hmac_support<sp/>TRUE<sp/>CACHE<sp/>BOOL<sp/>&quot;</highlight><highlight class="normal">HMAC<sp/>is<sp/>enabled<sp/>as<sp/>OCP<sp/>depends<sp/>on<sp/>HMAC</highlight><highlight class="stringliteral">&quot;<sp/>FORCE)</highlight></codeline>
+<codeline lineno="49"><highlight class="stringliteral"><sp/><sp/>endif()</highlight></codeline>
+<codeline lineno="50"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="51"><highlight class="stringliteral"><sp/><sp/>if((XILASU_ecies_support)<sp/>AND<sp/>NOT<sp/>((XILASU_hmac_support)))</highlight></codeline>
+<codeline lineno="52"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>set(XILASU_hmac_support<sp/>TRUE<sp/>CACHE<sp/>BOOL<sp/>&quot;</highlight><highlight class="normal">HMAC<sp/>is<sp/>enabled<sp/>as<sp/>ECIES<sp/>depends<sp/>on<sp/>HMAC<sp/></highlight><highlight class="stringliteral">&quot;<sp/>FORCE)</highlight></codeline>
+<codeline lineno="53"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>if(NOT(XILASU_ecc_p192_support)<sp/>AND<sp/>NOT(XILASU_ecc_p224_support)<sp/>AND<sp/>NOT(XILASU_ecc_p256_support)</highlight></codeline>
+<codeline lineno="54"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/>AND<sp/>NOT(XILASU_ecc_p384_support)<sp/>AND<sp/>NOT(XILASU_ecc_p521_support)<sp/>AND<sp/>NOT(XILASU_ecc_bp_p256_support)</highlight></codeline>
+<codeline lineno="55"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/>AND<sp/>NOT(XILASU_ecc_bp_p320_support)<sp/>AND<sp/>NOT(XILASU_ecc_bp_p384_support)<sp/>AND<sp/>NOT(XILASU_ecc_bp_p512_support))</highlight></codeline>
+<codeline lineno="56"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/>message(FATAL_ERROR<sp/>&quot;</highlight><highlight class="normal">Enable<sp/>any<sp/>supported<sp/>curve<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>ECIES<sp/>to<sp/>be<sp/>enabled</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="57"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>endif()</highlight></codeline>
+<codeline lineno="58"><highlight class="stringliteral"><sp/><sp/>endif()</highlight></codeline>
+<codeline lineno="59"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="60"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="61"><highlight class="stringliteral">add_subdirectory(common)</highlight></codeline>
+<codeline lineno="62"><highlight class="stringliteral">if(&quot;</highlight><highlight class="normal">${XILASU_Mode}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">server</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="63"><highlight class="stringliteral"><sp/><sp/>add_subdirectory(server)</highlight></codeline>
+<codeline lineno="64"><highlight class="stringliteral">else()</highlight></codeline>
+<codeline lineno="65"><highlight class="stringliteral"><sp/><sp/>add_subdirectory(client)</highlight></codeline>
+<codeline lineno="66"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="67"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="68"><highlight class="stringliteral">collector_list<sp/>(_sources<sp/>PROJECT_LIB_SOURCES)</highlight></codeline>
+<codeline lineno="69"><highlight class="stringliteral">collector_list<sp/>(_headers<sp/>PROJECT_LIB_HEADERS)</highlight></codeline>
+<codeline lineno="70"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="71"><highlight class="stringliteral">file(COPY<sp/>${_headers}<sp/>DESTINATION<sp/>${CMAKE_BINARY_DIR}/include)</highlight></codeline>
+<codeline lineno="72"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="73"><highlight class="stringliteral">if(NOT<sp/>${YOCTO})</highlight></codeline>
+<codeline lineno="74"><highlight class="stringliteral">file(COPY<sp/>${CMAKE_BINARY_DIR}/include/xasu_bsp_config.h<sp/>DESTINATION<sp/>${CMAKE_INCLUDE_PATH}/)</highlight></codeline>
+<codeline lineno="75"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="76"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="77"><highlight class="stringliteral">add_library(xilasu<sp/>STATIC<sp/>${_sources})</highlight></codeline>
+<codeline lineno="78"><highlight class="stringliteral">if(CMAKE_C_COMPILER_ID<sp/>MATCHES<sp/>&quot;</highlight><highlight class="normal">GNU|Clang</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="79"><highlight class="stringliteral">target_compile_options(xilasu<sp/>PRIVATE<sp/>-iquote<sp/>${CMAKE_BINARY_DIR}/include)</highlight></codeline>
+<codeline lineno="80"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="81"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="82"><highlight class="stringliteral">get_headers(${_headers})</highlight></codeline>
+<codeline lineno="83"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="84"><highlight class="stringliteral">set_target_properties(xilasu<sp/>PROPERTIES<sp/>LINKER_LANGUAGE<sp/>C)</highlight></codeline>
+<codeline lineno="85"><highlight class="stringliteral">set_target_properties(xilasu<sp/>PROPERTIES<sp/>ADDITIONAL_CLEAN_FILES<sp/>&quot;</highlight><highlight class="normal">${CMAKE_LIBRARY_PATH}/libxilasu.a;${clean_headers}</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="86"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="87"><highlight class="stringliteral">install(TARGETS<sp/>xilasu<sp/>LIBRARY<sp/>DESTINATION<sp/>${CMAKE_LIBRARY_PATH}<sp/>ARCHIVE<sp/>DESTINATION<sp/>${CMAKE_LIBRARY_PATH})</highlight></codeline>
+<codeline lineno="88"><highlight class="stringliteral">install(DIRECTORY<sp/>${CMAKE_BINARY_DIR}/include/<sp/>DESTINATION<sp/>${CMAKE_INCLUDE_PATH})</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/CMakeLists.txt"/>
+  </compounddef>
+</doxygen>

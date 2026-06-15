@@ -1,0 +1,1158 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xmipi__rx__phy__mmcm_8c" kind="file">
+    <compoundname>xmipi_rx_phy_mmcm.c</compoundname>
+    <includes local="yes">xdebug.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xmipi__rx__phy_8h" local="yes">xmipi_rx_phy.h</includes>
+    <incdepgraph>
+      <node id="56">
+        <label>xmipi_rx_phy_hw.h</label>
+        <link refid="xmipi__rx__phy__hw_8h"/>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>xil_io.h</label>
+      </node>
+      <node id="51">
+        <label>xmipi_rx_phy_mmcm.c</label>
+        <link refid="xmipi_rx_phy_mmcm.c"/>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>xdebug.h</label>
+      </node>
+      <node id="53">
+        <label>xstatus.h</label>
+      </node>
+      <node id="55">
+        <label>xil_types.h</label>
+      </node>
+      <node id="54">
+        <label>xmipi_rx_phy.h</label>
+        <link refid="xmipi__rx__phy_8h"/>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innerclass refid="struct_x_mipi___rx___phy___mmcm_result" prot="public">XMipi_Rx_Phy_MmcmResult</innerclass>
+      <sectiondef kind="user-defined">
+      <header>MMCM Fixed Parameters</header>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga3f45e2e1f8c274f1c2027365104fc9e6" prot="public" static="no">
+        <name>XMIPI_RX_PHY_MMCM_FIN_MHZ</name>
+        <initializer>200U</initializer>
+        <briefdescription>
+<para>Input clock frequency in MHz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gad8c0e4a0b82fc0b453348fb19c355cc9" prot="public" static="no">
+        <name>XMIPI_RX_PHY_MMCM_D_FIXED</name>
+        <initializer>5U</initializer>
+        <briefdescription>
+<para>Fixed input divider. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gad36507e9acc04b33f1a174e18e4f4239" prot="public" static="no">
+        <name>XMIPI_RX_PHY_MMCM_VCO_MIN_MHZ</name>
+        <initializer>2160U</initializer>
+        <briefdescription>
+<para>Minimum VCO frequency in MHz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gad4f75e036628d659978505dee7bfebd4" prot="public" static="no">
+        <name>XMIPI_RX_PHY_MMCM_VCO_MAX_MHZ</name>
+        <initializer>4320U</initializer>
+        <briefdescription>
+<para>Maximum VCO frequency in MHz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga08761769f8015018d6a26fcd03028b4a" prot="public" static="no">
+        <name>XMIPI_RX_PHY_MMCM_O_MIN</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+<para>Minimum output divider. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga8255602610841a2f80e4eaebd444ab16" prot="public" static="no">
+        <name>XMIPI_RX_PHY_MMCM_O_MAX</name>
+        <initializer>511U</initializer>
+        <briefdescription>
+<para>Maximum output divider. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gafdc347e00174127e5a2d2ad2c84019be" prot="public" static="no">
+        <name>XMIPI_RX_PHY_MMCM_M_MIN</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>Minimum multiplier. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga9bf23411669aa18ade81cc9aa45e837d" prot="public" static="no">
+        <name>XMIPI_RX_PHY_MMCM_M_MAX</name>
+        <initializer>432U</initializer>
+        <briefdescription>
+<para>Maximum multiplier. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gaae0bc955775b3ecbac79794e562ee72f" prot="public" static="no">
+        <name>XMIPI_RX_PHY_MMCM_FRAC_RESOLUTION</name>
+        <initializer>64U</initializer>
+        <briefdescription>
+<para>Fractional M resolution (1/64 steps) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gab9ecd5e6390171c41fe254dd39b5038a" prot="public" static="no">
+        <name>XMIPI_RX_PHY_MMCM_VCO_MID_MHZ</name>
+        <initializer>3240U</initializer>
+        <briefdescription>
+<para>VCO mid-band target for tie-break. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Line Rate Range Boundaries (Mbps)</header>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gadfa897caefa1026c5d887ad4a116f83a" prot="public" static="no">
+        <name>XMIPI_RX_PHY_LINERATE_RANGE1_MIN</name>
+        <initializer>400U</initializer>
+        <briefdescription>
+<para>Range 1 minimum (K=4) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gafb699d5b1adc2cc7abd0141cebc81388" prot="public" static="no">
+        <name>XMIPI_RX_PHY_LINERATE_RANGE1_MAX</name>
+        <initializer>1080U</initializer>
+        <briefdescription>
+<para>Range 1 maximum (K=4) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga9f32c6c2fe81eaaea2758cc9c5ac73af" prot="public" static="no">
+        <name>XMIPI_RX_PHY_LINERATE_RANGE2_MIN</name>
+        <initializer>1081U</initializer>
+        <briefdescription>
+<para>Range 2 minimum (K=8) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga20388f562b144ffadab0c02143ff5e75" prot="public" static="no">
+        <name>XMIPI_RX_PHY_LINERATE_RANGE2_MAX</name>
+        <initializer>2160U</initializer>
+        <briefdescription>
+<para>Range 2 maximum (K=8) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gadeb0b151aa67a10f9b4f44e411521679" prot="public" static="no">
+        <name>XMIPI_RX_PHY_LINERATE_RANGE3_MIN</name>
+        <initializer>2161U</initializer>
+        <briefdescription>
+<para>Range 3 minimum (K=11) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga1a07a4f3443fe907a2986285aaab5791" prot="public" static="no">
+        <name>XMIPI_RX_PHY_LINERATE_RANGE3_MAX</name>
+        <initializer>2250U</initializer>
+        <briefdescription>
+<para>Range 3 maximum (K=11) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga3f18f451577e0ce954c0218341697125" prot="public" static="no">
+        <name>XMIPI_RX_PHY_LINERATE_RANGE4_MIN</name>
+        <initializer>2251U</initializer>
+        <briefdescription>
+<para>Range 4 minimum (K=16) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gaab34dbf1c379a7bc617ea26f0991602c" prot="public" static="no">
+        <name>XMIPI_RX_PHY_LINERATE_RANGE4_MAX</name>
+        <initializer>4320U</initializer>
+        <briefdescription>
+<para>Range 4 maximum (K=16) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga468d6c4a202e4808ad86e8bb331341eb" prot="public" static="no">
+        <name>XMIPI_RX_PHY_LINERATE_RANGE5_MIN</name>
+        <initializer>4321U</initializer>
+        <briefdescription>
+<para>Range 5 minimum (K=22) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gaa990c3bb4592d3eddf31ce17fadc9d89" prot="public" static="no">
+        <name>XMIPI_RX_PHY_LINERATE_RANGE5_MAX</name>
+        <initializer>4500U</initializer>
+        <briefdescription>
+<para>Range 5 maximum (K=22) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>K-Factor Values for Line Rate Ranges</header>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga054565bd294cc91a7ec0adddcb507882" prot="public" static="no">
+        <name>XMIPI_RX_PHY_K_FACTOR_RANGE1</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>K factor for 400-1080 Mbps. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga7db73f982abf2dde9e82b5ae491b6d04" prot="public" static="no">
+        <name>XMIPI_RX_PHY_K_FACTOR_RANGE2</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>K factor for 1081-2160 Mbps. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gaf10fc3dba5afa7f3d2b2828569e05755" prot="public" static="no">
+        <name>XMIPI_RX_PHY_K_FACTOR_RANGE3</name>
+        <initializer>11U</initializer>
+        <briefdescription>
+<para>K factor for 2161-2250 Mbps. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga0b0161daee5a0bdf57196609191a6c05" prot="public" static="no">
+        <name>XMIPI_RX_PHY_K_FACTOR_RANGE4</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+<para>K factor for 2251-4320 Mbps. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gaf219f657cbe3bebfe1d3f76d0a0fc402" prot="public" static="no">
+        <name>XMIPI_RX_PHY_K_FACTOR_RANGE5</name>
+        <initializer>22U</initializer>
+        <briefdescription>
+<para>K factor for 4321-4500 Mbps. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>MMCM DRP Register Encoding Constants</header>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gabf99d8f6738285976bdb93e4c5046e4a" prot="public" static="no">
+        <name>XMIPI_RX_PHY_CLKOUT_EVEN_NO_EDGE</name>
+        <initializer>0x1A00U</initializer>
+        <briefdescription>
+<para>CLKOUT0 Reg1: even divide, no edge. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga3039853cca5fa8dba31d6c9e4e79e5ec" prot="public" static="no">
+        <name>XMIPI_RX_PHY_CLKOUT_EVEN_EDGE</name>
+        <initializer>0x1B00U</initializer>
+        <briefdescription>
+<para>CLKOUT0 Reg1: even divide, edge bit set. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gad77f91ca912808b0468cc52a626b7a82" prot="public" static="no">
+        <name>XMIPI_RX_PHY_CLKOUT_ODD_NO_EDGE</name>
+        <initializer>0xBA00U</initializer>
+        <briefdescription>
+<para>CLKOUT0 Reg1: odd divide, no edge. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga7fb0e2613aee39f393cbe3a5464bc172" prot="public" static="no">
+        <name>XMIPI_RX_PHY_CLKOUT_ODD_EDGE</name>
+        <initializer>0xBB00U</initializer>
+        <briefdescription>
+<para>CLKOUT0 Reg1: odd divide, edge bit set. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga155439e8269957f889fec5d308005687" prot="public" static="no">
+        <name>XMIPI_RX_PHY_MMCM_MULT_ODD_FLAG</name>
+        <initializer>0x1700U</initializer>
+        <briefdescription>
+<para>MULT Reg1 for odd M_int. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gaece337f149ec7fbdd995a06a18d93872" prot="public" static="no">
+        <name>XMIPI_RX_PHY_MMCM_MULT_EVEN_FLAG</name>
+        <initializer>0x1600U</initializer>
+        <briefdescription>
+<para>MULT Reg1 for even M_int. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga52baaf8ecdda3c9ba573b204598e9c84" prot="public" static="no">
+        <name>XMIPI_RX_PHY_MMCM_FRAC_ENABLE</name>
+        <initializer>0x0002U</initializer>
+        <briefdescription>
+<para>Fractional M enable bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gabfb6e122d9e5e63b1705b17ddbda0cc0" prot="public" static="no">
+        <name>XMIPI_RX_PHY_MMCM_FRAC_MASK</name>
+        <initializer>0x3FU</initializer>
+        <briefdescription>
+<para>Fractional M value mask (6 bits) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gacef3625f522ed108d1ddb1bf8435b795" prot="public" static="no">
+        <name>XMIPI_RX_PHY_MMCM_DIV_D5_REG1</name>
+        <initializer>0x0400U</initializer>
+        <briefdescription>
+<para>DIV Reg1 encoding for D=5. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga6e6cca42ca23b8e8681f0d92065c9952" prot="public" static="no">
+        <name>XMIPI_RX_PHY_MMCM_DIV_D5_HTLT_VAL</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+<para>DIV Reg2 HT/LT value for D=5. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Pack HT/LT Bit Definitions</header>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gaf49326bcc2873aa511e427fd1b673196" prot="public" static="no">
+        <name>XMIPI_RX_PHY_HTLT_HIGH_SHIFT</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>High-time bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga115fcd2880d0f397019f3d72a15fadf5" prot="public" static="no">
+        <name>XMIPI_RX_PHY_HTLT_BYTE_MASK</name>
+        <initializer>0xFFU</initializer>
+        <briefdescription>
+<para>Byte mask for HT/LT fields. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>MMCM Score Computation Constants</header>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gacd6b637fe7052123840eebb8486577e8" prot="public" static="no">
+        <name>XMIPI_RX_PHY_SCORE_PPM_WEIGHT</name>
+        <initializer>1e3</initializer>
+        <briefdescription>
+<para>PPM error weight in score. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga93375cf8b7366c510283ad6aef939ea1" prot="public" static="no">
+        <name>XMIPI_RX_PHY_SCORE_O_WEIGHT</name>
+        <initializer>0.1</initializer>
+        <briefdescription>
+<para>Output divider weight in score. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gab76337cb66ea93102c8caefdfb1e5cc7" prot="public" static="no">
+        <name>XMIPI_RX_PHY_SCORE_FRAC_PENALTY</name>
+        <initializer>10.0</initializer>
+        <briefdescription>
+<para>Penalty for fractional M in score. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga0d9b87ba4bae422668e75f9c2faee9ae" prot="public" static="no">
+        <name>XMIPI_RX_PHY_PPM_SCALE</name>
+        <initializer>1e6</initializer>
+        <briefdescription>
+<para>PPM scale factor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga71da77e6218d5d31e9234a369588ea2e" prot="public" static="no">
+        <name>XMIPI_RX_PHY_SCORE_INIT</name>
+        <initializer>1e300</initializer>
+        <briefdescription>
+<para>Initial best score (very large) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Math helper macros to avoid -lm dependency</header>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga084e9894242de9deebccf93ffb8749cc" prot="public" static="no">
+        <name>XMIPI_RX_PHY_ABS</name>
+        <param><defname>x</defname></param>
+        <initializer>(((x) &gt;= 0) ? (x) : (-(x)))</initializer>
+        <briefdescription>
+<para>Absolute value of x. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gafbf3a27354978e375400976fa7c12e70" prot="public" static="no">
+        <name>XMIPI_RX_PHY_ROUND_S32</name>
+        <param><defname>x</defname></param>
+        <initializer>((s32)(((x) &gt;= 0) ? ((x) + 0.5) : ((x) - 0.5)))</initializer>
+        <briefdescription>
+<para>Round double to nearest s32 integer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1gace6d612cd1483dcb07f9efd62bb76bda" prot="public" static="no">
+        <name>XMIPI_RX_PHY_ROUND_DBL</name>
+        <param><defname>x</defname></param>
+        <initializer>((double)<ref refid="group__mipi__rx__phy_1gafbf3a27354978e375400976fa7c12e70" kindref="member">XMIPI_RX_PHY_ROUND_S32</ref>(x))</initializer>
+        <briefdescription>
+<para>Round double to nearest integer returned as double. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__rx__phy_1ga971d62c4da7a9af269ce2e48181a847a" prot="public" static="no">
+        <name>XMIPI_RX_PHY_FLOOR</name>
+        <param><defname>x</defname></param>
+        <initializer>((double)(((double)(s64)(x) &lt;= (x)) ? \
+					 (s64)(x) : ((s64)(x) - 1)))</initializer>
+        <briefdescription>
+<para>Floor of x returned as double. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__mipi__rx__phy_1ga749ba9ed1448f5b7b492af5b9ea6ba83" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XMipi_Rx_Phy_MmcmDeriveK</definition>
+        <argsstring>(u32 LineRate)</argsstring>
+        <name>XMipi_Rx_Phy_MmcmDeriveK</name>
+        <param>
+          <type>u32</type>
+          <declname>LineRate</declname>
+        </param>
+        <briefdescription>
+<para>Derive the K factor from the line rate. </para>        </briefdescription>
+        <detaileddescription>
+<para>The K factor maps line rate ranges to a divider used to compute the target output frequency: Fout = LineRate / K.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>LineRate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the desired line rate in Mbps.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>K factor, or 0 if line rate is out of range.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="194" bodyend="218"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mipi__rx__phy_1ga787b9d1e6f8531a2e680ffb82ace9f25" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u16</type>
+        <definition>static u16 XMipi_Rx_Phy_MmcmPackHtLt</definition>
+        <argsstring>(u32 HighTime, u32 LowTime)</argsstring>
+        <name>XMipi_Rx_Phy_MmcmPackHtLt</name>
+        <param>
+          <type>u32</type>
+          <declname>HighTime</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>LowTime</declname>
+        </param>
+        <briefdescription>
+<para>Pack high-time and low-time values into a 16-bit register value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>HighTime</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the high-time count (bits [15:8]). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LowTime</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the low-time count (bits [7:0]).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Packed 16-bit value.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="232" bodyend="237"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mipi__rx__phy_1ga5d44085921fe599c7acb4804e692ffe4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XMipi_Rx_Phy_MmcmClkout0Regs</definition>
+        <argsstring>(u32 OutputDivider, u16 *ClkoutReg1, u16 *ClkoutReg2)</argsstring>
+        <name>XMipi_Rx_Phy_MmcmClkout0Regs</name>
+        <param>
+          <type>u32</type>
+          <declname>OutputDivider</declname>
+        </param>
+        <param>
+          <type>u16 *</type>
+          <declname>ClkoutReg1</declname>
+        </param>
+        <param>
+          <type>u16 *</type>
+          <declname>ClkoutReg2</declname>
+        </param>
+        <briefdescription>
+<para>Compute CLKOUT0 register values from the output divider. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>OutputDivider</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the integer output divider. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ClkoutReg1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to store the first register value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ClkoutReg2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to store the second register value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>OutputDivider is assumed to be integer only. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="253" bodyend="286"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mipi__rx__phy_1ga5c1c3847736f4742f73cca2a565f54d0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XMipi_Rx_Phy_MmcmResult</type>
+        <definition>static XMipi_Rx_Phy_MmcmResult XMipi_Rx_Phy_MmcmCompute</definition>
+        <argsstring>(u32 LineRate)</argsstring>
+        <name>XMipi_Rx_Phy_MmcmCompute</name>
+        <param>
+          <type>u32</type>
+          <declname>LineRate</declname>
+        </param>
+        <briefdescription>
+<para>Compute the MMCM parameters and DRP writes for a given line rate. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>LineRate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the desired line rate in Mbps.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>MmcmResult structure with Valid set if a solution was found.</para></simplesect>
+<simplesect kind="note"><para>Uses double-precision floating point arithmetic matching the reference MMCM C-code algorithm. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="300" bodyend="414"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mipi__rx__phy_1gac58ac9782bb7c333881f520fd379b5d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMipi_Rx_Phy_MmcmConfig</definition>
+        <argsstring>(XMipi_Rx_Phy *InstancePtr, u32 LineRate)</argsstring>
+        <name>XMipi_Rx_Phy_MmcmConfig</name>
+        <param>
+          <type><ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>LineRate</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the MMCM registers in the RX PHY for a given line rate. </para>        </briefdescription>
+        <detaileddescription>
+<para>It computes the optimal MMCM parameters (M, D, O) and writes the corresponding values to the PHY MMCM registers.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LineRate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the desired line rate in Mbps (400-4500 Mbps).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if MMCM programming is successful.</para></listitem><listitem><para>XST_FAILURE if no valid MMCM solution is found.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy.h" line="329" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c" bodystart="432" bodyend="525"/>
+        <referencedby refid="group__mipi__rx__phy_1ga2e429c448748bd186ad8563e23df7e4f" compoundref="xmipi__rx__phy_8c" startline="624" endline="678">XMipi_Rx_Phy_DynamicLineRateConfig</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xdebug.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xmipi__rx__phy_8h" kindref="compound">xmipi_rx_phy.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40" refid="group__mipi__rx__phy_1ga3f45e2e1f8c274f1c2027365104fc9e6" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_MMCM_FIN_MHZ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>200U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="41" refid="group__mipi__rx__phy_1gad8c0e4a0b82fc0b453348fb19c355cc9" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_MMCM_D_FIXED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="42" refid="group__mipi__rx__phy_1gad36507e9acc04b33f1a174e18e4f4239" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_MMCM_VCO_MIN_MHZ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2160U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="43" refid="group__mipi__rx__phy_1gad4f75e036628d659978505dee7bfebd4" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_MMCM_VCO_MAX_MHZ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4320U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="44" refid="group__mipi__rx__phy_1ga08761769f8015018d6a26fcd03028b4a" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_MMCM_O_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="45" refid="group__mipi__rx__phy_1ga8255602610841a2f80e4eaebd444ab16" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_MMCM_O_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>511U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="46" refid="group__mipi__rx__phy_1gafdc347e00174127e5a2d2ad2c84019be" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_MMCM_M_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="47" refid="group__mipi__rx__phy_1ga9bf23411669aa18ade81cc9aa45e837d" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_MMCM_M_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>432U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="48" refid="group__mipi__rx__phy_1gaae0bc955775b3ecbac79794e562ee72f" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_MMCM_FRAC_RESOLUTION<sp/><sp/><sp/><sp/><sp/><sp/><sp/>64U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_MMCM_VCO_MID_MHZ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3240U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_LINERATE_RANGE1_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>400U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_LINERATE_RANGE1_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1080U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59" refid="group__mipi__rx__phy_1gadfa897caefa1026c5d887ad4a116f83a" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_LINERATE_RANGE2_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1081U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60" refid="group__mipi__rx__phy_1gafb699d5b1adc2cc7abd0141cebc81388" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_LINERATE_RANGE2_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2160U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="group__mipi__rx__phy_1ga9f32c6c2fe81eaaea2758cc9c5ac73af" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_LINERATE_RANGE3_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2161U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="group__mipi__rx__phy_1ga20388f562b144ffadab0c02143ff5e75" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_LINERATE_RANGE3_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2250U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63" refid="group__mipi__rx__phy_1gadeb0b151aa67a10f9b4f44e411521679" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_LINERATE_RANGE4_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2251U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64" refid="group__mipi__rx__phy_1ga1a07a4f3443fe907a2986285aaab5791" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_LINERATE_RANGE4_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4320U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="group__mipi__rx__phy_1ga3f18f451577e0ce954c0218341697125" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_LINERATE_RANGE5_MIN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4321U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66" refid="group__mipi__rx__phy_1gaab34dbf1c379a7bc617ea26f0991602c" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_LINERATE_RANGE5_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4500U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68" refid="group__mipi__rx__phy_1gaa990c3bb4592d3eddf31ce17fadc9d89" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_K_FACTOR_RANGE1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_K_FACTOR_RANGE2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="74" refid="group__mipi__rx__phy_1ga054565bd294cc91a7ec0adddcb507882" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_K_FACTOR_RANGE3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>11U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75" refid="group__mipi__rx__phy_1ga7db73f982abf2dde9e82b5ae491b6d04" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_K_FACTOR_RANGE4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76" refid="group__mipi__rx__phy_1gaf10fc3dba5afa7f3d2b2828569e05755" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_K_FACTOR_RANGE5<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>22U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="78" refid="group__mipi__rx__phy_1gaf219f657cbe3bebfe1d3f76d0a0fc402" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_CLKOUT_EVEN_NO_EDGE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1A00U<sp/></highlight></codeline>
+<codeline lineno="84" refid="group__mipi__rx__phy_1gabf99d8f6738285976bdb93e4c5046e4a" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_CLKOUT_EVEN_EDGE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1B00U<sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_CLKOUT_ODD_NO_EDGE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xBA00U<sp/></highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_CLKOUT_ODD_EDGE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xBB00U<sp/></highlight></codeline>
+<codeline lineno="90" refid="group__mipi__rx__phy_1gad77f91ca912808b0468cc52a626b7a82" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_MMCM_MULT_ODD_FLAG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1700U<sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_MMCM_MULT_EVEN_FLAG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1600U<sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_MMCM_FRAC_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0002U<sp/></highlight></codeline>
+<codeline lineno="93" refid="group__mipi__rx__phy_1ga7fb0e2613aee39f393cbe3a5464bc172" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_MMCM_FRAC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3FU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_MMCM_DIV_D5_REG1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0400U<sp/></highlight></codeline>
+<codeline lineno="96" refid="group__mipi__rx__phy_1ga155439e8269957f889fec5d308005687" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_MMCM_DIV_D5_HTLT_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99" refid="group__mipi__rx__phy_1gabfb6e122d9e5e63b1705b17ddbda0cc0" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="103" refid="group__mipi__rx__phy_1ga6e6cca42ca23b8e8681f0d92065c9952" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_HTLT_HIGH_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_HTLT_BYTE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFU<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_SCORE_PPM_WEIGHT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1e3<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="111" refid="group__mipi__rx__phy_1gaf49326bcc2873aa511e427fd1b673196" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_SCORE_O_WEIGHT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.1<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_SCORE_FRAC_PENALTY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>10.0<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_PPM_SCALE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1e6<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_SCORE_INIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1e300<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="119" refid="group__mipi__rx__phy_1ga93375cf8b7366c510283ad6aef939ea1" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Valid;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>KFactor;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>InputDivider;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OutputDivider;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MultiplierInt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MultiplierFrac;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="135"><highlight class="normal">}<sp/>XMipi_Rx_Phy_MmcmResult;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Macros<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_ABS(x)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((x)<sp/>&gt;=<sp/>0)<sp/>?<sp/>(x)<sp/>:<sp/>(-(x)))</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_ROUND_S32(x)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>((s32)(((x)<sp/>&gt;=<sp/>0)<sp/>?<sp/>((x)<sp/>+<sp/>0.5)<sp/>:<sp/>((x)<sp/>-<sp/>0.5)))</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_ROUND_DBL(x)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>((double)XMIPI_RX_PHY_ROUND_S32(x))</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor">#define<sp/>XMIPI_RX_PHY_FLOOR(x)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((double)(((double)(s64)(x)<sp/>&lt;=<sp/>(x))<sp/>?<sp/>\</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(s64)(x)<sp/>:<sp/>((s64)(x)<sp/>-<sp/>1)))</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153" refid="group__mipi__rx__phy_1ga084e9894242de9deebccf93ffb8749cc" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XMipi_Rx_Phy_MmcmDeriveK(u32<sp/>LineRate);</highlight></codeline>
+<codeline lineno="156" refid="group__mipi__rx__phy_1gafbf3a27354978e375400976fa7c12e70" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u16<sp/>XMipi_Rx_Phy_MmcmPackHtLt(u32<sp/>HighTime,<sp/>u32<sp/>LowTime);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XMipi_Rx_Phy_MmcmClkout0Regs(u32<sp/>OutputDivider,<sp/>u16<sp/>*ClkoutReg1,</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>*ClkoutReg2);</highlight></codeline>
+<codeline lineno="159" refid="group__mipi__rx__phy_1gace6d612cd1483dcb07f9efd62bb76bda" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XMipi_Rx_Phy_MmcmResult<sp/>XMipi_Rx_Phy_MmcmCompute(u32<sp/>LineRate);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162" refid="group__mipi__rx__phy_1ga971d62c4da7a9af269ce2e48181a847a" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="178"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XMipi_Rx_Phy_MmcmDeriveK(u32<sp/>LineRate)</highlight></codeline>
+<codeline lineno="179"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>KFactor;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((LineRate<sp/>&gt;=<sp/><ref refid="group__mipi__rx__phy_1gadfa897caefa1026c5d887ad4a116f83a" kindref="member">XMIPI_RX_PHY_LINERATE_RANGE1_MIN</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(LineRate<sp/>&lt;=<sp/><ref refid="group__mipi__rx__phy_1gafb699d5b1adc2cc7abd0141cebc81388" kindref="member">XMIPI_RX_PHY_LINERATE_RANGE1_MAX</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KFactor<sp/>=<sp/><ref refid="group__mipi__rx__phy_1ga054565bd294cc91a7ec0adddcb507882" kindref="member">XMIPI_RX_PHY_K_FACTOR_RANGE1</ref>;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((LineRate<sp/>&gt;=<sp/><ref refid="group__mipi__rx__phy_1ga9f32c6c2fe81eaaea2758cc9c5ac73af" kindref="member">XMIPI_RX_PHY_LINERATE_RANGE2_MIN</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(LineRate<sp/>&lt;=<sp/><ref refid="group__mipi__rx__phy_1ga20388f562b144ffadab0c02143ff5e75" kindref="member">XMIPI_RX_PHY_LINERATE_RANGE2_MAX</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KFactor<sp/>=<sp/><ref refid="group__mipi__rx__phy_1ga7db73f982abf2dde9e82b5ae491b6d04" kindref="member">XMIPI_RX_PHY_K_FACTOR_RANGE2</ref>;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((LineRate<sp/>&gt;=<sp/><ref refid="group__mipi__rx__phy_1gadeb0b151aa67a10f9b4f44e411521679" kindref="member">XMIPI_RX_PHY_LINERATE_RANGE3_MIN</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(LineRate<sp/>&lt;=<sp/><ref refid="group__mipi__rx__phy_1ga1a07a4f3443fe907a2986285aaab5791" kindref="member">XMIPI_RX_PHY_LINERATE_RANGE3_MAX</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KFactor<sp/>=<sp/><ref refid="group__mipi__rx__phy_1gaf10fc3dba5afa7f3d2b2828569e05755" kindref="member">XMIPI_RX_PHY_K_FACTOR_RANGE3</ref>;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((LineRate<sp/>&gt;=<sp/><ref refid="group__mipi__rx__phy_1ga3f18f451577e0ce954c0218341697125" kindref="member">XMIPI_RX_PHY_LINERATE_RANGE4_MIN</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(LineRate<sp/>&lt;=<sp/><ref refid="group__mipi__rx__phy_1gaab34dbf1c379a7bc617ea26f0991602c" kindref="member">XMIPI_RX_PHY_LINERATE_RANGE4_MAX</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KFactor<sp/>=<sp/><ref refid="group__mipi__rx__phy_1ga0b0161daee5a0bdf57196609191a6c05" kindref="member">XMIPI_RX_PHY_K_FACTOR_RANGE4</ref>;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((LineRate<sp/>&gt;=<sp/><ref refid="group__mipi__rx__phy_1ga468d6c4a202e4808ad86e8bb331341eb" kindref="member">XMIPI_RX_PHY_LINERATE_RANGE5_MIN</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(LineRate<sp/>&lt;=<sp/><ref refid="group__mipi__rx__phy_1gaa990c3bb4592d3eddf31ce17fadc9d89" kindref="member">XMIPI_RX_PHY_LINERATE_RANGE5_MAX</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KFactor<sp/>=<sp/><ref refid="group__mipi__rx__phy_1gaf219f657cbe3bebfe1d3f76d0a0fc402" kindref="member">XMIPI_RX_PHY_K_FACTOR_RANGE5</ref>;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KFactor<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>KFactor;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="216"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u16<sp/>XMipi_Rx_Phy_MmcmPackHtLt(u32<sp/>HighTime,<sp/>u32<sp/>LowTime)</highlight></codeline>
+<codeline lineno="217"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u16)(((HighTime<sp/>&amp;<sp/><ref refid="group__mipi__rx__phy_1ga115fcd2880d0f397019f3d72a15fadf5" kindref="member">XMIPI_RX_PHY_HTLT_BYTE_MASK</ref>)<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1gaf49326bcc2873aa511e427fd1b673196" kindref="member">XMIPI_RX_PHY_HTLT_HIGH_SHIFT</ref>)<sp/>|</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(LowTime<sp/>&amp;<sp/><ref refid="group__mipi__rx__phy_1ga115fcd2880d0f397019f3d72a15fadf5" kindref="member">XMIPI_RX_PHY_HTLT_BYTE_MASK</ref>));</highlight></codeline>
+<codeline lineno="221"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="237"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XMipi_Rx_Phy_MmcmClkout0Regs(u32<sp/>OutputDivider,<sp/>u16<sp/>*ClkoutReg1,</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>*ClkoutReg2)</highlight></codeline>
+<codeline lineno="239"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HalfDivider;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HighTime;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LowTime;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OddEdgeFlag;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(ClkoutReg1<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(ClkoutReg2<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HalfDivider<sp/>=<sp/>OutputDivider<sp/>/<sp/>2U;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HighTime<sp/>=<sp/>HalfDivider<sp/>/<sp/>2U;</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LowTime<sp/>=<sp/>HalfDivider<sp/>-<sp/>HighTime;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OddEdgeFlag<sp/>=<sp/>LowTime<sp/>-<sp/>HighTime;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Force<sp/>50%<sp/>duty:<sp/>LowTime<sp/>=<sp/>HighTime<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LowTime<sp/>=<sp/>HighTime;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((OutputDivider<sp/>%<sp/>2U)<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Even<sp/>divide<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*ClkoutReg1<sp/>=<sp/>(OddEdgeFlag<sp/>==<sp/>0U)<sp/>?</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1gabf99d8f6738285976bdb93e4c5046e4a" kindref="member">XMIPI_RX_PHY_CLKOUT_EVEN_NO_EDGE</ref><sp/>:</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga3039853cca5fa8dba31d6c9e4e79e5ec" kindref="member">XMIPI_RX_PHY_CLKOUT_EVEN_EDGE</ref>;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Odd<sp/>divide<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*ClkoutReg1<sp/>=<sp/>(OddEdgeFlag<sp/>==<sp/>0U)<sp/>?</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1gad77f91ca912808b0468cc52a626b7a82" kindref="member">XMIPI_RX_PHY_CLKOUT_ODD_NO_EDGE</ref><sp/>:</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga7fb0e2613aee39f393cbe3a5464bc172" kindref="member">XMIPI_RX_PHY_CLKOUT_ODD_EDGE</ref>;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*ClkoutReg2<sp/>=<sp/>XMipi_Rx_Phy_MmcmPackHtLt(HighTime,<sp/>LowTime);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="284"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XMipi_Rx_Phy_MmcmResult<sp/>XMipi_Rx_Phy_MmcmCompute(u32<sp/>LineRate)</highlight></codeline>
+<codeline lineno="285"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Rx_Phy_MmcmResult<sp/>Result;</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>KFactor;</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OutputDiv;</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>FoutTarget;</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>VcoFreq;</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>MultiplierIdeal;</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>MultiplierQuantized;</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>VcoQuantized;</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>FoutActual;</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>ErrorPpm;</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>CandidateScore;</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>BestScore;</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BestOutputDiv;</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>BestMultiplierQuantized;</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FracPart;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>MultiplierScaled;</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>result<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result.Valid<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result.InputDivider<sp/>=<sp/><ref refid="group__mipi__rx__phy_1gad8c0e4a0b82fc0b453348fb19c355cc9" kindref="member">XMIPI_RX_PHY_MMCM_D_FIXED</ref>;</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Derive<sp/>K<sp/>from<sp/>line<sp/>rate<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KFactor<sp/>=<sp/>XMipi_Rx_Phy_MmcmDeriveK(LineRate);</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(KFactor<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Result;</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result.KFactor<sp/>=<sp/>KFactor;</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FoutTarget<sp/>=<sp/>(double)LineRate<sp/>/<sp/>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">)KFactor;</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BestScore<sp/>=<sp/><ref refid="group__mipi__rx__phy_1ga71da77e6218d5d31e9234a369588ea2e" kindref="member">XMIPI_RX_PHY_SCORE_INIT</ref>;</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BestOutputDiv<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BestMultiplierQuantized<sp/>=<sp/>0.0;</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(OutputDiv<sp/>=<sp/><ref refid="group__mipi__rx__phy_1ga08761769f8015018d6a26fcd03028b4a" kindref="member">XMIPI_RX_PHY_MMCM_O_MIN</ref>;</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OutputDiv<sp/>&lt;=<sp/><ref refid="group__mipi__rx__phy_1ga8255602610841a2f80e4eaebd444ab16" kindref="member">XMIPI_RX_PHY_MMCM_O_MAX</ref>;<sp/>OutputDiv++)<sp/>{</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VcoFreq<sp/>=<sp/>FoutTarget<sp/>*<sp/>(double)OutputDiv;</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((VcoFreq<sp/>&lt;<sp/>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">)<ref refid="group__mipi__rx__phy_1gad36507e9acc04b33f1a174e18e4f4239" kindref="member">XMIPI_RX_PHY_MMCM_VCO_MIN_MHZ</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VcoFreq<sp/>&gt;<sp/>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">)<ref refid="group__mipi__rx__phy_1gad4f75e036628d659978505dee7bfebd4" kindref="member">XMIPI_RX_PHY_MMCM_VCO_MAX_MHZ</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MultiplierIdeal<sp/>=<sp/>VcoFreq<sp/>*<sp/>(double)Result.InputDivider<sp/>/</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">)<ref refid="group__mipi__rx__phy_1ga3f45e2e1f8c274f1c2027365104fc9e6" kindref="member">XMIPI_RX_PHY_MMCM_FIN_MHZ</ref>;</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((MultiplierIdeal<sp/>&lt;<sp/>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">)<ref refid="group__mipi__rx__phy_1gafdc347e00174127e5a2d2ad2c84019be" kindref="member">XMIPI_RX_PHY_MMCM_M_MIN</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(MultiplierIdeal<sp/>&gt;<sp/>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">)<ref refid="group__mipi__rx__phy_1ga9bf23411669aa18ade81cc9aa45e837d" kindref="member">XMIPI_RX_PHY_MMCM_M_MAX</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Quantize<sp/>M<sp/>to<sp/>1/64<sp/>resolution<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MultiplierQuantized<sp/>=<sp/><ref refid="group__mipi__rx__phy_1gace6d612cd1483dcb07f9efd62bb76bda" kindref="member">XMIPI_RX_PHY_ROUND_DBL</ref>(MultiplierIdeal<sp/>*</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">)<ref refid="group__mipi__rx__phy_1gaae0bc955775b3ecbac79794e562ee72f" kindref="member">XMIPI_RX_PHY_MMCM_FRAC_RESOLUTION</ref>)<sp/>/</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(double)<ref refid="group__mipi__rx__phy_1gaae0bc955775b3ecbac79794e562ee72f" kindref="member">XMIPI_RX_PHY_MMCM_FRAC_RESOLUTION</ref>;</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Recompute<sp/>VCO<sp/>with<sp/>quantized<sp/>M<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VcoQuantized<sp/>=<sp/>((double)<ref refid="group__mipi__rx__phy_1ga3f45e2e1f8c274f1c2027365104fc9e6" kindref="member">XMIPI_RX_PHY_MMCM_FIN_MHZ</ref><sp/>/</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">)Result.InputDivider)<sp/>*</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MultiplierQuantized;</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((VcoQuantized<sp/>&lt;<sp/>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">)<ref refid="group__mipi__rx__phy_1gad36507e9acc04b33f1a174e18e4f4239" kindref="member">XMIPI_RX_PHY_MMCM_VCO_MIN_MHZ</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VcoQuantized<sp/>&gt;<sp/>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">)<ref refid="group__mipi__rx__phy_1gad4f75e036628d659978505dee7bfebd4" kindref="member">XMIPI_RX_PHY_MMCM_VCO_MAX_MHZ</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FoutActual<sp/>=<sp/>(double)<ref refid="group__mipi__rx__phy_1ga3f45e2e1f8c274f1c2027365104fc9e6" kindref="member">XMIPI_RX_PHY_MMCM_FIN_MHZ</ref><sp/>*</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MultiplierQuantized<sp/>/</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">)Result.InputDivider<sp/>*<sp/>(double)OutputDiv);</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorPpm<sp/>=<sp/>(FoutActual<sp/>-<sp/>FoutTarget)<sp/>/<sp/>FoutTarget<sp/>*</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga0d9b87ba4bae422668e75f9c2faee9ae" kindref="member">XMIPI_RX_PHY_PPM_SCALE</ref>;</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"></highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Compute<sp/>fractional<sp/>part<sp/>for<sp/>tie-break<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FracPart<sp/>=<sp/>(u32)<ref refid="group__mipi__rx__phy_1gafbf3a27354978e375400976fa7c12e70" kindref="member">XMIPI_RX_PHY_ROUND_S32</ref>((MultiplierQuantized<sp/>-</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga971d62c4da7a9af269ce2e48181a847a" kindref="member">XMIPI_RX_PHY_FLOOR</ref>(MultiplierQuantized))<sp/>*</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">)<ref refid="group__mipi__rx__phy_1gaae0bc955775b3ecbac79794e562ee72f" kindref="member">XMIPI_RX_PHY_MMCM_FRAC_RESOLUTION</ref>);</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(FracPart<sp/>==<sp/><ref refid="group__mipi__rx__phy_1gaae0bc955775b3ecbac79794e562ee72f" kindref="member">XMIPI_RX_PHY_MMCM_FRAC_RESOLUTION</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FracPart<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Compute<sp/>candidate<sp/>score:<sp/>prioritize<sp/>low<sp/>PPM<sp/>error,</highlight></codeline>
+<codeline lineno="365"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>mid-band<sp/>VCO,<sp/>smaller<sp/>output<sp/>divider,<sp/>integer<sp/>M<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CandidateScore<sp/>=<sp/><ref refid="group__mipi__rx__phy_1ga084e9894242de9deebccf93ffb8749cc" kindref="member">XMIPI_RX_PHY_ABS</ref>(ErrorPpm)<sp/>*<sp/><ref refid="group__mipi__rx__phy_1gacd6b637fe7052123840eebb8486577e8" kindref="member">XMIPI_RX_PHY_SCORE_PPM_WEIGHT</ref><sp/>+</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga084e9894242de9deebccf93ffb8749cc" kindref="member">XMIPI_RX_PHY_ABS</ref>(VcoFreq<sp/>-<sp/>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">)<ref refid="group__mipi__rx__phy_1gab9ecd5e6390171c41fe254dd39b5038a" kindref="member">XMIPI_RX_PHY_MMCM_VCO_MID_MHZ</ref>)<sp/>+</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga93375cf8b7366c510283ad6aef939ea1" kindref="member">XMIPI_RX_PHY_SCORE_O_WEIGHT</ref><sp/>*<sp/>(double)OutputDiv<sp/>+</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FracPart<sp/>?<sp/><ref refid="group__mipi__rx__phy_1gab76337cb66ea93102c8caefdfb1e5cc7" kindref="member">XMIPI_RX_PHY_SCORE_FRAC_PENALTY</ref><sp/>:<sp/>0.0);</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(CandidateScore<sp/>&lt;<sp/>BestScore)<sp/>{</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BestScore<sp/>=<sp/>CandidateScore;</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BestOutputDiv<sp/>=<sp/>OutputDiv;</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BestMultiplierQuantized<sp/>=<sp/>MultiplierQuantized;</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"></highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(BestOutputDiv<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Result;</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"></highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result.OutputDivider<sp/>=<sp/>BestOutputDiv;</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Split<sp/>quantized<sp/>M<sp/>into<sp/>integer<sp/>+<sp/>fractional<sp/>(frac/64)<sp/>parts<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MultiplierScaled<sp/>=<sp/><ref refid="group__mipi__rx__phy_1gafbf3a27354978e375400976fa7c12e70" kindref="member">XMIPI_RX_PHY_ROUND_S32</ref>(BestMultiplierQuantized<sp/>*</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">)<ref refid="group__mipi__rx__phy_1gaae0bc955775b3ecbac79794e562ee72f" kindref="member">XMIPI_RX_PHY_MMCM_FRAC_RESOLUTION</ref>);</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result.MultiplierInt<sp/>=<sp/>(u32)(MultiplierScaled<sp/>/</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(s32)<ref refid="group__mipi__rx__phy_1gaae0bc955775b3ecbac79794e562ee72f" kindref="member">XMIPI_RX_PHY_MMCM_FRAC_RESOLUTION</ref>);</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result.MultiplierFrac<sp/>=<sp/>(u32)(MultiplierScaled<sp/>%</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(s32)<ref refid="group__mipi__rx__phy_1gaae0bc955775b3ecbac79794e562ee72f" kindref="member">XMIPI_RX_PHY_MMCM_FRAC_RESOLUTION</ref>);</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((s32)Result.MultiplierFrac<sp/>&lt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result.MultiplierFrac<sp/>+=<sp/><ref refid="group__mipi__rx__phy_1gaae0bc955775b3ecbac79794e562ee72f" kindref="member">XMIPI_RX_PHY_MMCM_FRAC_RESOLUTION</ref>;</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"></highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result.Valid<sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"></highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Result;</highlight></codeline>
+<codeline lineno="398"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"></highlight></codeline>
+<codeline lineno="400"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="416"><highlight class="normal">u32<sp/><ref refid="group__mipi__rx__phy_1gac58ac9782bb7c333881f520fd379b5d9" kindref="member">XMipi_Rx_Phy_MmcmConfig</ref>(<ref refid="struct_x_mipi___rx___phy" kindref="compound">XMipi_Rx_Phy</ref><sp/>*InstancePtr,<sp/>u32<sp/>LineRate)</highlight></codeline>
+<codeline lineno="417"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Rx_Phy_MmcmResult<sp/>Result;</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddr;</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MmcmMultRegVal;</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MmcmFractRegVal;</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MmcmOutputDivRegVal;</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MmcmInputDivRegVal;</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LineRateRegVal;</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MultiplierHalfTime;</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>ClkoutReg1;</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>ClkoutReg2;</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"></highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"></highlight></codeline>
+<codeline lineno="432" refid="group__mipi__rx__phy_1gac58ac9782bb7c333881f520fd379b5d9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddr<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_mipi___rx___phy_1aacb9702cb804f802478eb4d8c16fca38" kindref="member">Config</ref>.<ref refid="struct_x_mipi___rx___phy___config_1a638141292da08ecc26f4d1ebca26a005" kindref="member">BaseAddr</ref>;</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"></highlight></codeline>
+<codeline lineno="434"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Compute<sp/>MMCM<sp/>parameters<sp/>for<sp/>the<sp/>requested<sp/>line<sp/>rate<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result<sp/>=<sp/>XMipi_Rx_Phy_MmcmCompute(LineRate);</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Result.Valid<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,<sp/></highlight><highlight class="stringliteral">&quot;MIPI<sp/>RX<sp/>PHY<sp/>ERR::<sp/>No<sp/>valid&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="438"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;<sp/>MMCM<sp/>solution<sp/>for<sp/>line<sp/>rate<sp/>%u<sp/>Mbps\n\r&quot;</highlight><highlight class="normal">,<sp/>LineRate);</highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"></highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>PHY<sp/>0x34:<sp/>MMCM_MULT<sp/>-<sp/>M<sp/>integer</highlight></codeline>
+<codeline lineno="443"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>[15:0]<sp/><sp/>=<sp/>M_REG1:<sp/>odd/even<sp/>flag<sp/>encoding</highlight></codeline>
+<codeline lineno="444"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>[31:16]<sp/>=<sp/>M_REG2:<sp/>pack_htlt(M_int/2,<sp/>M_int/2)</highlight></codeline>
+<codeline lineno="445"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MultiplierHalfTime<sp/>=<sp/>Result.MultiplierInt<sp/>/<sp/>2U;</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MmcmMultRegVal<sp/>=<sp/>((u32)XMipi_Rx_Phy_MmcmPackHtLt(MultiplierHalfTime,</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MultiplierHalfTime)<sp/>&lt;&lt;<sp/>16U)<sp/>|</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Result.MultiplierInt<sp/>&amp;<sp/>1U)<sp/>?</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga155439e8269957f889fec5d308005687" kindref="member">XMIPI_RX_PHY_MMCM_MULT_ODD_FLAG</ref><sp/>:</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1gaece337f149ec7fbdd995a06a18d93872" kindref="member">XMIPI_RX_PHY_MMCM_MULT_EVEN_FLAG</ref>);</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"></highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>PHY<sp/>0x38:<sp/>MMCM_FRACT_MULT<sp/>-<sp/>M<sp/>fractional</highlight></codeline>
+<codeline lineno="454"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>[15:0]<sp/><sp/>=<sp/>M_FRAC_EN:<sp/><sp/>enable<sp/>bit<sp/>if<sp/>fractional,<sp/>0<sp/>otherwise</highlight></codeline>
+<codeline lineno="455"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>[31:16]<sp/>=<sp/>M_FRAC_VAL:<sp/>fractional<sp/>value<sp/>if<sp/>fractional,<sp/>0<sp/>otherwise</highlight></codeline>
+<codeline lineno="456"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Result.MultiplierFrac<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MmcmFractRegVal<sp/>=<sp/>((Result.MultiplierFrac<sp/>&amp;</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1gabfb6e122d9e5e63b1705b17ddbda0cc0" kindref="member">XMIPI_RX_PHY_MMCM_FRAC_MASK</ref>)<sp/>&lt;&lt;<sp/>16U)<sp/>|</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga52baaf8ecdda3c9ba573b204598e9c84" kindref="member">XMIPI_RX_PHY_MMCM_FRAC_ENABLE</ref>;</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MmcmFractRegVal<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"></highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>PHY<sp/>0x3C:<sp/>MMCM_DIV<sp/>-<sp/>D<sp/>integer<sp/>(fixed<sp/>D=5)</highlight></codeline>
+<codeline lineno="466"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>[15:0]<sp/><sp/>=<sp/>D_REG1:<sp/>encoding<sp/>for<sp/>D=5<sp/>(odd)</highlight></codeline>
+<codeline lineno="467"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>[31:16]<sp/>=<sp/>D_REG2:<sp/>pack_htlt(2,<sp/>2)</highlight></codeline>
+<codeline lineno="468"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MmcmInputDivRegVal<sp/>=<sp/>((u32)XMipi_Rx_Phy_MmcmPackHtLt(</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga6e6cca42ca23b8e8681f0d92065c9952" kindref="member">XMIPI_RX_PHY_MMCM_DIV_D5_HTLT_VAL</ref>,</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga6e6cca42ca23b8e8681f0d92065c9952" kindref="member">XMIPI_RX_PHY_MMCM_DIV_D5_HTLT_VAL</ref>)<sp/>&lt;&lt;<sp/>16U)<sp/>|</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1gacef3625f522ed108d1ddb1bf8435b795" kindref="member">XMIPI_RX_PHY_MMCM_DIV_D5_REG1</ref>;</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"></highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>PHY<sp/>0x40:<sp/>MMCM_O<sp/>-<sp/>O<sp/>integer<sp/>(CLKOUT0<sp/>encoding)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Rx_Phy_MmcmClkout0Regs(Result.OutputDivider,<sp/>&amp;ClkoutReg1,</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;ClkoutReg2);</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MmcmOutputDivRegVal<sp/>=<sp/>((u32)ClkoutReg2<sp/>&lt;&lt;<sp/>16U)<sp/>|<sp/>(u32)ClkoutReg1;</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"></highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>the<sp/>line<sp/>rate<sp/>to<sp/>the<sp/>DYNAMIC_LINE_RATE<sp/>register<sp/>(0x0C)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LineRateRegVal<sp/>=<sp/>XMipi_Rx_Phy_ReadReg(BaseAddr,</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga7aba1824215f3af27f43d47770adfd8e" kindref="member">XMIPI_RX_PHY_DYNAMIC_LINERATE_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LineRateRegVal<sp/>=<sp/>(LineRateRegVal<sp/>&amp;</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~<ref refid="group__mipi__rx__phy_1gac0967b5b4f4952359fef442dbc64cd43" kindref="member">XMIPI_RX_PHY_DYNAMIC_LINERATE_REG_LINERATE_MASK</ref>)<sp/>|</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(LineRate<sp/>&amp;</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1gac0967b5b4f4952359fef442dbc64cd43" kindref="member">XMIPI_RX_PHY_DYNAMIC_LINERATE_REG_LINERATE_MASK</ref>);</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"></highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>MMCM_MULT<sp/>register<sp/>(0x34)<sp/>-<sp/>M<sp/>integer<sp/>values<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Rx_Phy_WriteReg(BaseAddr,</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga078dda328185d393d614daedec2920d2" kindref="member">XMIPI_RX_PHY_MMCM_MULT_REG_OFFSET</ref>,<sp/>MmcmMultRegVal);</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"></highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>MMCM_FRACT_MULT<sp/>register<sp/>(0x38)<sp/>-<sp/>M<sp/>fractional<sp/>values<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Rx_Phy_WriteReg(BaseAddr,</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga15e9ed79fb8ee3fa950b45e8f757787f" kindref="member">XMIPI_RX_PHY_MMCM_FRACT_MULT_REG_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MmcmFractRegVal);</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"></highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>MMCM_DIV<sp/>register<sp/>(0x3C)<sp/>-<sp/>D<sp/>integer<sp/>values<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="497"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Rx_Phy_WriteReg(BaseAddr,</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga063cefd92789bed1f225b3b2a6c77db0" kindref="member">XMIPI_RX_PHY_MMCM_DIV_REG_OFFSET</ref>,<sp/>MmcmInputDivRegVal);</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"></highlight></codeline>
+<codeline lineno="500"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>MMCM_O<sp/>register<sp/>(0x40)<sp/>-<sp/>O<sp/>integer<sp/>values<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="501"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Rx_Phy_WriteReg(BaseAddr,</highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1gaff17d4b8c0054f42880ab39adbf6e631" kindref="member">XMIPI_RX_PHY_MMCM_O_REG_OFFSET</ref>,<sp/>MmcmOutputDivRegVal);</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"></highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMipi_Rx_Phy_WriteReg(BaseAddr,</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__mipi__rx__phy_1ga7aba1824215f3af27f43d47770adfd8e" kindref="member">XMIPI_RX_PHY_DYNAMIC_LINERATE_REG_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LineRateRegVal);</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"></highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="509"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_rx_phy/src/xmipi_rx_phy_mmcm.c"/>
+  </compounddef>
+</doxygen>

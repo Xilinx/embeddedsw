@@ -1,0 +1,963 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xvprocss__router_8c" kind="file">
+    <compoundname>xvprocss_router.c</compoundname>
+    <includes local="yes">xvidc.h</includes>
+    <includes refid="xvprocss__router_8h" local="yes">xvprocss_router.h</includes>
+    <includes refid="xvprocss__vdma_8h" local="yes">xvprocss_vdma.h</includes>
+    <incdepgraph>
+      <node id="257">
+        <label>xv_letterbox_l2.h</label>
+      </node>
+      <node id="251">
+        <label>xv_csc_l2.h</label>
+      </node>
+      <node id="246">
+        <label>xgpio.h</label>
+      </node>
+      <node id="255">
+        <label>xv_hscaler_l2.h</label>
+      </node>
+      <node id="249">
+        <label>xvprocss_log.h</label>
+        <link refid="xvprocss__log_8h"/>
+      </node>
+      <node id="247">
+        <label>xaxis_switch.h</label>
+      </node>
+      <node id="256">
+        <label>xv_vscaler_l2.h</label>
+      </node>
+      <node id="244">
+        <label>xvprocss.h</label>
+        <link refid="xvprocss_8h"/>
+        <childnode refid="245" relation="include">
+        </childnode>
+        <childnode refid="246" relation="include">
+        </childnode>
+        <childnode refid="247" relation="include">
+        </childnode>
+        <childnode refid="242" relation="include">
+        </childnode>
+        <childnode refid="248" relation="include">
+        </childnode>
+        <childnode refid="249" relation="include">
+        </childnode>
+        <childnode refid="250" relation="include">
+        </childnode>
+        <childnode refid="251" relation="include">
+        </childnode>
+        <childnode refid="252" relation="include">
+        </childnode>
+        <childnode refid="253" relation="include">
+        </childnode>
+        <childnode refid="254" relation="include">
+        </childnode>
+        <childnode refid="255" relation="include">
+        </childnode>
+        <childnode refid="256" relation="include">
+        </childnode>
+        <childnode refid="257" relation="include">
+        </childnode>
+      </node>
+      <node id="245">
+        <label>xstatus.h</label>
+      </node>
+      <node id="241">
+        <label>xvprocss_router.c</label>
+        <link refid="xvprocss_router.c"/>
+        <childnode refid="242" relation="include">
+        </childnode>
+        <childnode refid="243" relation="include">
+        </childnode>
+        <childnode refid="258" relation="include">
+        </childnode>
+      </node>
+      <node id="243">
+        <label>xvprocss_router.h</label>
+        <link refid="xvprocss__router_8h"/>
+        <childnode refid="244" relation="include">
+        </childnode>
+      </node>
+      <node id="242">
+        <label>xvidc.h</label>
+      </node>
+      <node id="250">
+        <label>xparameters.h</label>
+      </node>
+      <node id="258">
+        <label>xvprocss_vdma.h</label>
+        <link refid="xvprocss__vdma_8h"/>
+        <childnode refid="244" relation="include">
+        </childnode>
+      </node>
+      <node id="253">
+        <label>xv_hcresampler_l2.h</label>
+      </node>
+      <node id="254">
+        <label>xv_vcresampler_l2.h</label>
+      </node>
+      <node id="248">
+        <label>xaxivdma.h</label>
+      </node>
+      <node id="252">
+        <label>xv_deinterlacer_l2.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__vprocss_1ga69476a290552b31ce48fd5a5f49ebec2" prot="public" static="no">
+        <name>XVPROCSS_AXIS_SWITCH_VIDIN_S0</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_router.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_router.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__vprocss_1ga3472db851c996ec24ebbeff04526cbab" prot="public" static="no">
+        <name>XVPROCSS_AXIS_SWITCH_VIDOUT_M0</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_router.c" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_router.c" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__vprocss_1gab38b1e61d4d05b81c19d205672914a8f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int validateWindowSize</definition>
+        <argsstring>(const XVidC_VideoWindow *win, const u32 HActive, const u32 VActive)</argsstring>
+        <name>validateWindowSize</name>
+        <param>
+          <type>const XVidC_VideoWindow *</type>
+          <declname>win</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>HActive</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>VActive</declname>
+        </param>
+        <briefdescription>
+<para>This function checks to make sure sub-frame is inside full frame. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>win</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the sub-frame window </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HActive</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is frame width </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VActive</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is frame height</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if window is valid else XST_FAILURE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_router.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_router.c" bodystart="68" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="group__vprocss_1ga3198d89dc02ce9e304b359335a88cf1a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="xvprocss_8h_1a182e23b6dddfe4387c89aeca2f17ecb1" kindref="member">XVprocSs_ScaleMode</ref></type>
+        <definition>static XVprocSs_ScaleMode GetScalingMode</definition>
+        <argsstring>(XVprocSs *XVprocSsPtr)</argsstring>
+        <name>GetScalingMode</name>
+        <param>
+          <type><ref refid="struct_x_vproc_ss" kindref="compound">XVprocSs</ref> *</type>
+          <declname>XVprocSsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function computes the scaling mode based on input/output stream resolution. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also accounts for Zoom or PIP mode, if enabled</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>XVprocSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Scaling mode Up/Dpwn or 1:1 </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_router.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_router.c" bodystart="104" bodyend="171"/>
+      </memberdef>
+      <memberdef kind="function" id="group__vprocss_1gac6e004a449df139f4d5115f5add5604d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XVprocSs_BuildRoutingTable</definition>
+        <argsstring>(XVprocSs *XVprocSsPtr)</argsstring>
+        <name>XVprocSs_BuildRoutingTable</name>
+        <param>
+          <type><ref refid="struct_x_vproc_ss" kindref="compound">XVprocSs</ref> *</type>
+          <declname>XVprocSsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function examines the subsystem Input/Output Stream configuration and builds a routing table for the supported use-case. </para>        </briefdescription>
+        <detaileddescription>
+<para>The computed routing table is stored in the scratch pad memory</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>XVprocSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if routing table can be created else XST_FAILURE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_router.c" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_router.c" bodystart="184" bodyend="399"/>
+        <references refid="struct_x_vproc_ss___context_data_1a3e2a334b8f135ad9e1eb1d860c8fa694" compoundref="xvprocss_8h" startline="310">XVprocSs_ContextData::CscIn</references>
+        <references refid="struct_x_vproc_ss___context_data_1a9f81ff065d74d35606a3f1b72133cd96" compoundref="xvprocss_8h" startline="311">XVprocSs_ContextData::CscOut</references>
+        <references refid="struct_x_vproc_ss_1ad05c179ff8b000570b16a8ac39f885d7" compoundref="xvprocss_8h" startline="398">XVprocSs::CtxtData</references>
+        <references refid="struct_x_vproc_ss___context_data_1ac529cc738b0a6263f3f2d9d43e521461" compoundref="xvprocss_8h" startline="312">XVprocSs_ContextData::HcrIn</references>
+        <references refid="struct_x_vproc_ss___context_data_1a2a14c0f46d29da1f0f630e33d3f07151" compoundref="xvprocss_8h" startline="313">XVprocSs_ContextData::HcrOut</references>
+        <references refid="struct_x_vproc_ss___context_data_1a1f6d058b4f99c7ee70b88b652b829ed0" compoundref="xvprocss_8h" startline="300">XVprocSs_ContextData::RtngTable</references>
+        <references refid="struct_x_vproc_ss___context_data_1aa726534c304cb8438dcee4b6fc5f502f" compoundref="xvprocss_8h" startline="302">XVprocSs_ContextData::RtrNumCores</references>
+        <references refid="struct_x_vproc_ss___context_data_1ac81c1474fea35a89b9f6830a87692aec" compoundref="xvprocss_8h" startline="303">XVprocSs_ContextData::ScaleMode</references>
+        <references refid="struct_x_vproc_ss___context_data_1a8e3923646d6b89ff1970f62e0d63d259" compoundref="xvprocss_8h" startline="309">XVprocSs_ContextData::StrmCformat</references>
+        <references refid="struct_x_vproc_ss_1a7110cce03d4d2ff4c4972bfe460eee42" compoundref="xvprocss_8h" startline="389">XVprocSs::VdmaPtr</references>
+        <references refid="struct_x_vproc_ss_1a6440efa76dbba290ebfdd4b603cff0b2" compoundref="xvprocss_8h" startline="395">XVprocSs::VidIn</references>
+        <references refid="struct_x_vproc_ss___context_data_1a554de1e27e74f1a96cf0823093ac17f4" compoundref="xvprocss_8h" startline="307">XVprocSs_ContextData::VidInHeight</references>
+        <references refid="struct_x_vproc_ss___context_data_1adeb3dc191f2aa011b52f7d8d503e71ab" compoundref="xvprocss_8h" startline="306">XVprocSs_ContextData::VidInWidth</references>
+        <references refid="struct_x_vproc_ss_1a1fce9dc484558616980012f4a77764ee" compoundref="xvprocss_8h" startline="396">XVprocSs::VidOut</references>
+        <references refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" compoundref="xvprocss__log_8h" startline="66">XVPROCSS_EVT_CFG_MAX</references>
+        <references refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" compoundref="xvprocss__log_8c" startline="72" endline="103">XVprocSs_LogWrite</references>
+      </memberdef>
+      <memberdef kind="function" id="group__vprocss_1ga01bf97a1cd3199edccad43e56ca67c4c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVprocSs_ProgRouterMux</definition>
+        <argsstring>(XVprocSs *XVprocSsPtr)</argsstring>
+        <name>XVprocSs_ProgRouterMux</name>
+        <param>
+          <type><ref refid="struct_x_vproc_ss" kindref="compound">XVprocSs</ref> *</type>
+          <declname>XVprocSsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function traverses the computed routing table and sets up the AXIS switch registers, to route the stream through processing cores, in the order defined in the routing map. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>XVprocSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked on. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_router.c" line="410" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_router.c" bodystart="410" bodyend="437"/>
+        <references refid="struct_x_vproc_ss_1ad05c179ff8b000570b16a8ac39f885d7" compoundref="xvprocss_8h" startline="398">XVprocSs::CtxtData</references>
+        <references refid="struct_x_vproc_ss_1ae31f2a9f76251d0b9f102a0b90408f79" compoundref="xvprocss_8h" startline="380">XVprocSs::RouterPtr</references>
+        <references refid="struct_x_vproc_ss___context_data_1a1f6d058b4f99c7ee70b88b652b829ed0" compoundref="xvprocss_8h" startline="300">XVprocSs_ContextData::RtngTable</references>
+        <references refid="struct_x_vproc_ss___context_data_1aa726534c304cb8438dcee4b6fc5f502f" compoundref="xvprocss_8h" startline="302">XVprocSs_ContextData::RtrNumCores</references>
+        <references refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" compoundref="xvprocss__log_8h" startline="66">XVPROCSS_EVT_CFG_MAX</references>
+        <references refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" compoundref="xvprocss__log_8c" startline="72" endline="103">XVprocSs_LogWrite</references>
+      </memberdef>
+      <memberdef kind="function" id="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVprocSs_SetupRouterDataFlow</definition>
+        <argsstring>(XVprocSs *XVprocSsPtr)</argsstring>
+        <name>XVprocSs_SetupRouterDataFlow</name>
+        <param>
+          <type><ref refid="struct_x_vproc_ss" kindref="compound">XVprocSs</ref> *</type>
+          <declname>XVprocSsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function traverses the routing map built earlier and configures each sub-core in the processing path per its location in the chain. </para>        </briefdescription>
+        <detaileddescription>
+<para>Each core in the processing path is marked and only marked cores are started All remaining cores stay disabled</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>XVprocSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked on. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_router.c" line="449" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_router.c" bodystart="449" bodyend="689"/>
+        <references refid="struct_x_vproc_ss___context_data_1a3e2a334b8f135ad9e1eb1d860c8fa694" compoundref="xvprocss_8h" startline="310">XVprocSs_ContextData::CscIn</references>
+        <references refid="struct_x_vproc_ss___context_data_1a9f81ff065d74d35606a3f1b72133cd96" compoundref="xvprocss_8h" startline="311">XVprocSs_ContextData::CscOut</references>
+        <references refid="struct_x_vproc_ss_1a70745e8e343154d82af157d3a50eca31" compoundref="xvprocss_8h" startline="391">XVprocSs::CscPtr</references>
+        <references refid="struct_x_vproc_ss_1ad05c179ff8b000570b16a8ac39f885d7" compoundref="xvprocss_8h" startline="398">XVprocSs::CtxtData</references>
+        <references refid="struct_x_vproc_ss___context_data_1a77a8ad41b6cc8dc4800d859b33a6762b" compoundref="xvprocss_8h" startline="297">XVprocSs_ContextData::DeintBufAddr</references>
+        <references refid="struct_x_vproc_ss_1ae5a31f08bd16f24a746eceb0ebe7dd09" compoundref="xvprocss_8h" startline="392">XVprocSs::DeintPtr</references>
+        <references refid="struct_x_vproc_ss___context_data_1ac529cc738b0a6263f3f2d9d43e521461" compoundref="xvprocss_8h" startline="312">XVprocSs_ContextData::HcrIn</references>
+        <references refid="struct_x_vproc_ss___context_data_1a2a14c0f46d29da1f0f630e33d3f07151" compoundref="xvprocss_8h" startline="313">XVprocSs_ContextData::HcrOut</references>
+        <references refid="struct_x_vproc_ss_1a554c32cace7c2bcc2637919e17ad0945" compoundref="xvprocss_8h" startline="384">XVprocSs::HcrsmplrPtr</references>
+        <references refid="struct_x_vproc_ss_1a96d7da785b43ce54736523b9de33ee3e" compoundref="xvprocss_8h" startline="388">XVprocSs::HscalerPtr</references>
+        <references refid="struct_x_vproc_ss___context_data_1a8f080227d4a5195ea3ec54dc12206e33" compoundref="xvprocss_8h" startline="314">XVprocSs_ContextData::LboxBkgndColor</references>
+        <references refid="struct_x_vproc_ss_1a7cc8183d534f77c5bf240616db3df97d" compoundref="xvprocss_8h" startline="390">XVprocSs::LboxPtr</references>
+        <references refid="struct_x_vproc_ss___context_data_1a4ea15beae039b9b0a7ae82ec89d57c80" compoundref="xvprocss_8h" startline="294">XVprocSs_ContextData::RdWindow</references>
+        <references refid="struct_x_vproc_ss___context_data_1a1f6d058b4f99c7ee70b88b652b829ed0" compoundref="xvprocss_8h" startline="300">XVprocSs_ContextData::RtngTable</references>
+        <references refid="struct_x_vproc_ss___context_data_1aa726534c304cb8438dcee4b6fc5f502f" compoundref="xvprocss_8h" startline="302">XVprocSs_ContextData::RtrNumCores</references>
+        <references refid="struct_x_vproc_ss___context_data_1ac81c1474fea35a89b9f6830a87692aec" compoundref="xvprocss_8h" startline="303">XVprocSs_ContextData::ScaleMode</references>
+        <references refid="struct_x_vproc_ss___context_data_1aa02a961464f60d239452ebc287a02b98" compoundref="xvprocss_8h" startline="301">XVprocSs_ContextData::StartCore</references>
+        <references refid="struct_x_vproc_ss___context_data_1a8e3923646d6b89ff1970f62e0d63d259" compoundref="xvprocss_8h" startline="309">XVprocSs_ContextData::StrmCformat</references>
+        <references refid="struct_x_vproc_ss_1a62f9ab872ac328e7e5ecbccafe65a7e6" compoundref="xvprocss_8h" startline="385">XVprocSs::VcrsmplrInPtr</references>
+        <references refid="struct_x_vproc_ss_1add2fbe91511d24e070039c1cba33f7c1" compoundref="xvprocss_8h" startline="386">XVprocSs::VcrsmplrOutPtr</references>
+        <references refid="struct_x_vproc_ss_1a7110cce03d4d2ff4c4972bfe460eee42" compoundref="xvprocss_8h" startline="389">XVprocSs::VdmaPtr</references>
+        <references refid="struct_x_vproc_ss_1a6440efa76dbba290ebfdd4b603cff0b2" compoundref="xvprocss_8h" startline="395">XVprocSs::VidIn</references>
+        <references refid="struct_x_vproc_ss___context_data_1a554de1e27e74f1a96cf0823093ac17f4" compoundref="xvprocss_8h" startline="307">XVprocSs_ContextData::VidInHeight</references>
+        <references refid="struct_x_vproc_ss___context_data_1adeb3dc191f2aa011b52f7d8d503e71ab" compoundref="xvprocss_8h" startline="306">XVprocSs_ContextData::VidInWidth</references>
+        <references refid="struct_x_vproc_ss_1a1fce9dc484558616980012f4a77764ee" compoundref="xvprocss_8h" startline="396">XVprocSs::VidOut</references>
+        <references refid="struct_x_vproc_ss_1ad8ca19d5dd2ac25e58be55ff8ba2b3fa" compoundref="xvprocss_8h" startline="387">XVprocSs::VscalerPtr</references>
+        <references refid="struct_x_vproc_ss___context_data_1a79a5e7387a84068901a397e67c494e4d" compoundref="xvprocss_8h" startline="295">XVprocSs_ContextData::WrWindow</references>
+        <references refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a69ed478af62bfb13c0e68251ca18b3da" compoundref="xvprocss__log_8h" startline="61">XVPROCSS_EVT_CFG_CSC</references>
+        <references refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9afdaaf23d284f472e2236b3c39a544262" compoundref="xvprocss__log_8h" startline="59">XVPROCSS_EVT_CFG_HSCALER</references>
+        <references refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" compoundref="xvprocss__log_8h" startline="66">XVPROCSS_EVT_CFG_MAX</references>
+        <references refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9abc5ae18af47d9b7409f1ba41612f5b15" compoundref="xvprocss__log_8h" startline="60">XVPROCSS_EVT_CFG_VSCALER</references>
+        <references refid="xvprocss_8h_1ad74f8b4febd82852c67f9808edd8d583" compoundref="xvprocss_8h" startline="433">XVprocSs_GetColorDepth</references>
+        <references refid="xvprocss_8h_1a2ce543275b5cd3b7f24c31897aecf5fa" compoundref="xvprocss_8h" startline="517">XVprocSs_IsPipModeOn</references>
+        <references refid="xvprocss_8h_1a85ac472cadd748d636762b1ef1a2c418" compoundref="xvprocss_8h" startline="529">XVprocSs_IsZoomModeOn</references>
+        <references refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" compoundref="xvprocss__log_8c" startline="72" endline="103">XVprocSs_LogWrite</references>
+        <references refid="xvprocss_8c_1a0f673d448bb7702661b702519de94fd9" compoundref="xvprocss_8c" startline="643" endline="683">XVprocSs_Start</references>
+        <references refid="group__vprocss_1gab5d63a660b49c3f252366e48befcbf30" compoundref="xvprocss__vdma_8c" startline="374" endline="432">XVprocSs_VdmaSetWinToDnScaleMode</references>
+        <references refid="group__vprocss_1ga8d81441b93df3b6c3d4d09583b17c97e" compoundref="xvprocss__vdma_8c" startline="443" endline="498">XVprocSs_VdmaSetWinToUpScaleMode</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="39"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xvprocss__router_8h" kindref="compound">xvprocss_router.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xvprocss__vdma_8h" kindref="compound">xvprocss_vdma.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>AXIS<sp/>Switch<sp/>Port#<sp/>connected<sp/>to<sp/>input<sp/>stream<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_AXIS_SWITCH_VIDIN_S0<sp/><sp/><sp/><sp/><sp/>(0)</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPROCSS_AXIS_SWITCH_VIDOUT_M0<sp/><sp/><sp/><sp/>(0)</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>validateWindowSize(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XVidC_VideoWindow<sp/>*win,</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>HActive,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>VActive);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="xvprocss_8h_1a182e23b6dddfe4387c89aeca2f17ecb1" kindref="member">XVprocSs_ScaleMode</ref><sp/>GetScalingMode(<ref refid="struct_x_vproc_ss" kindref="compound">XVprocSs</ref><sp/>*XVprocSsPtr);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="68"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>validateWindowSize(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XVidC_VideoWindow<sp/>*win,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>HActive,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>VActive)</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/>Xil_AssertNonvoid(win<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//Check<sp/>if<sp/>window<sp/>is<sp/>valid</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">((win-&gt;Width<sp/>==<sp/>0)<sp/>||<sp/>(win-&gt;Height<sp/>==<sp/>0))</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XST_FAILURE);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//Check<sp/>if<sp/>window<sp/>is<sp/>within<sp/>the<sp/>Resolution<sp/>being<sp/>programmed</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(((win-&gt;StartX<sp/>&gt;<sp/>HActive))<sp/>||</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((win-&gt;StartY<sp/>&gt;<sp/>VActive))<sp/>||</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>((win-&gt;StartX<sp/>+<sp/>win-&gt;Width)<sp/>&gt;<sp/>HActive)<sp/><sp/><sp/>||</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>((win-&gt;StartY<sp/>+<sp/>win-&gt;Height)<sp/>&gt;<sp/>VActive))</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XST_FAILURE);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="104"><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="xvprocss_8h_1a182e23b6dddfe4387c89aeca2f17ecb1" kindref="member">XVprocSs_ScaleMode</ref><sp/>GetScalingMode(<ref refid="struct_x_vproc_ss" kindref="compound">XVprocSs</ref><sp/>*XVprocSsPtr)</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>status;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><ref refid="xvprocss_8h_1a182e23b6dddfe4387c89aeca2f17ecb1" kindref="member">XVprocSs_ScaleMode</ref><sp/>mode;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/>XVidC_VideoWindow<sp/>win;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/>XVidC_VideoStream<sp/>*StrmInPtr<sp/><sp/>=<sp/>&amp;XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a6440efa76dbba290ebfdd4b603cff0b2" kindref="member">VidIn</ref>;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/>XVidC_VideoStream<sp/>*StrmOutPtr<sp/>=<sp/>&amp;XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a1fce9dc484558616980012f4a77764ee" kindref="member">VidOut</ref>;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<ref refid="xvprocss_8h_1a2ce543275b5cd3b7f24c31897aecf5fa" kindref="member">XVprocSs_IsPipModeOn</ref>(XVprocSsPtr))</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>PIP<sp/>window<sp/>setting<sp/>-<sp/>set<sp/>elsewhere<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xvprocss_8c_1a55d0807b3f476d2608a8c49b44388fec" kindref="member">XVprocSs_GetZoomPipWindow</ref>(XVprocSsPtr,<sp/>XVPROCSS_PIP_WIN,<sp/>&amp;win);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>validate<sp/>window<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>status<sp/>=<sp/>validateWindowSize(&amp;win,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a1fce9dc484558616980012f4a77764ee" kindref="member">VidOut</ref>.Timing.HActive,</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a1fce9dc484558616980012f4a77764ee" kindref="member">VidOut</ref>.Timing.VActive);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" kindref="member">XVprocSs_LogWrite</ref>(XVprocSsPtr,<sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" kindref="member">XVPROCSS_EVT_CFG_MAX</ref>,<sp/>XVPROCSS_EDAT_MAX_WRWINBAD);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XVPROCSS_SCALE_NOT_SUPPORTED);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" kindref="member">XVprocSs_LogWrite</ref>(XVprocSsPtr,<sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" kindref="member">XVPROCSS_EVT_CFG_MAX</ref>,<sp/>XVPROCSS_EDAT_MAX_SCALEDN);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XVPROCSS_SCALE_DN);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<ref refid="xvprocss_8h_1a85ac472cadd748d636762b1ef1a2c418" kindref="member">XVprocSs_IsZoomModeOn</ref>(XVprocSsPtr))</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>PIP<sp/>window<sp/>setting<sp/>-<sp/>set<sp/>elsewhere<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xvprocss_8c_1a55d0807b3f476d2608a8c49b44388fec" kindref="member">XVprocSs_GetZoomPipWindow</ref>(XVprocSsPtr,<sp/>XVPROCSS_ZOOM_WIN,<sp/>&amp;win);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>validate<sp/>window<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/>status<sp/>=<sp/>validateWindowSize(&amp;win,</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StrmInPtr-&gt;Timing.HActive,</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StrmInPtr-&gt;Timing.VActive);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" kindref="member">XVprocSs_LogWrite</ref>(XVprocSsPtr,<sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" kindref="member">XVPROCSS_EVT_CFG_MAX</ref>,<sp/>XVPROCSS_EDAT_MAX_RDWINBAD);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XVPROCSS_SCALE_NOT_SUPPORTED);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" kindref="member">XVprocSs_LogWrite</ref>(XVprocSsPtr,<sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" kindref="member">XVPROCSS_EVT_CFG_MAX</ref>,<sp/>XVPROCSS_EDAT_MAX_SCALEUP);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XVPROCSS_SCALE_UP);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pip<sp/>&amp;<sp/>Zoom<sp/>mode<sp/>are<sp/>off.<sp/>Check<sp/>input/output<sp/>resolution<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">((StrmInPtr-&gt;Timing.HActive<sp/>&gt;<sp/>StrmOutPtr-&gt;Timing.HActive)<sp/>||</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>(StrmInPtr-&gt;Timing.VActive<sp/>&gt;<sp/>StrmOutPtr-&gt;Timing.VActive))</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/>mode<sp/>=<sp/>XVPROCSS_SCALE_DN;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" kindref="member">XVprocSs_LogWrite</ref>(XVprocSsPtr,<sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" kindref="member">XVPROCSS_EVT_CFG_MAX</ref>,<sp/>XVPROCSS_EDAT_MAX_SCALEDN);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">((StrmInPtr-&gt;Timing.HActive<sp/>&lt;<sp/>StrmOutPtr-&gt;Timing.HActive)<sp/>||</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(StrmInPtr-&gt;Timing.VActive<sp/>&lt;<sp/>StrmOutPtr-&gt;Timing.VActive))</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/>mode<sp/>=<sp/>XVPROCSS_SCALE_UP;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" kindref="member">XVprocSs_LogWrite</ref>(XVprocSsPtr,<sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" kindref="member">XVPROCSS_EVT_CFG_MAX</ref>,<sp/>XVPROCSS_EDAT_MAX_SCALEUP);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/>mode<sp/>=<sp/>XVPROCSS_SCALE_1_1;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" kindref="member">XVprocSs_LogWrite</ref>(XVprocSsPtr,<sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" kindref="member">XVPROCSS_EVT_CFG_MAX</ref>,<sp/>XVPROCSS_EDAT_MAX_SCALE11);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(mode);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="184" refid="group__vprocss_1gac6e004a449df139f4d5115f5add5604d" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__vprocss_1gac6e004a449df139f4d5115f5add5604d" kindref="member">XVprocSs_BuildRoutingTable</ref>(<ref refid="struct_x_vproc_ss" kindref="compound">XVprocSs</ref><sp/>*XVprocSsPtr)</highlight></codeline>
+<codeline lineno="185"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/>u32<sp/>index<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/>XVidC_VideoStream<sp/>*StrmInPtr<sp/><sp/>=<sp/>&amp;XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a6440efa76dbba290ebfdd4b603cff0b2" kindref="member">VidIn</ref>;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/>XVidC_VideoStream<sp/>*StrmOutPtr<sp/>=<sp/>&amp;XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a1fce9dc484558616980012f4a77764ee" kindref="member">VidOut</ref>;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><ref refid="struct_x_vproc_ss___context_data" kindref="compound">XVprocSs_ContextData</ref><sp/>*CtxtPtr<sp/>=<sp/>&amp;XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1ad05c179ff8b000570b16a8ac39f885d7" kindref="member">CtxtData</ref>;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/>u8<sp/>*pTable<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>&amp;XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1ad05c179ff8b000570b16a8ac39f885d7" kindref="member">CtxtData</ref>.<ref refid="struct_x_vproc_ss___context_data_1a1f6d058b4f99c7ee70b88b652b829ed0" kindref="member">RtngTable</ref>[0];</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Save<sp/>input<sp/>resolution<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1adeb3dc191f2aa011b52f7d8d503e71ab" kindref="member">VidInWidth</ref><sp/><sp/>=<sp/>StrmInPtr-&gt;Timing.HActive;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a554de1e27e74f1a96cf0823093ac17f4" kindref="member">VidInHeight</ref><sp/>=<sp/>StrmInPtr-&gt;Timing.VActive;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a8e3923646d6b89ff1970f62e0d63d259" kindref="member">StrmCformat</ref><sp/>=<sp/>StrmInPtr-&gt;ColorFormatId;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Determine<sp/>Scaling<sp/>Mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1ac81c1474fea35a89b9f6830a87692aec" kindref="member">ScaleMode</ref><sp/>=<sp/>GetScalingMode(XVprocSsPtr);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1ac81c1474fea35a89b9f6830a87692aec" kindref="member">ScaleMode</ref><sp/>==<sp/>XVPROCSS_SCALE_NOT_SUPPORTED)<sp/>{</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" kindref="member">XVprocSs_LogWrite</ref>(XVprocSsPtr,<sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" kindref="member">XVPROCSS_EVT_CFG_MAX</ref>,<sp/>XVPROCSS_EDAT_MAX_SCALEBAD);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XST_FAILURE);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reset<sp/>Routing<sp/>Table<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/>memset(pTable,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a1f6d058b4f99c7ee70b88b652b829ed0" kindref="member">RtngTable</ref>));</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>input<sp/>is<sp/>I/P<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(StrmInPtr-&gt;IsInterlaced)<sp/>{</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_DEINT;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>input<sp/>is<sp/>420<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(StrmInPtr-&gt;ColorFormatId<sp/>==<sp/>XVIDC_CSF_YCRCB_420)<sp/>{</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//up-sample<sp/>vertically<sp/>to<sp/>422<sp/>as<sp/>none<sp/>of<sp/>the<sp/>IP<sp/>supports<sp/>420</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_CR_V_IN;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a8e3923646d6b89ff1970f62e0d63d259" kindref="member">StrmCformat</ref><sp/>=<sp/>XVIDC_CSF_YCRCB_422;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal">(CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1ac81c1474fea35a89b9f6830a87692aec" kindref="member">ScaleMode</ref>)</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPROCSS_SCALE_1_1:</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a7110cce03d4d2ff4c4972bfe460eee42" kindref="member">VdmaPtr</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_VDMA;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPROCSS_SCALE_UP:</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a7110cce03d4d2ff4c4972bfe460eee42" kindref="member">VdmaPtr</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_VDMA;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>VDMA<sp/>is<sp/>before<sp/>Scaler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_SCALER_V;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_SCALER_H;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPROCSS_SCALE_DN:</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_SCALER_H;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_SCALER_V;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a7110cce03d4d2ff4c4972bfe460eee42" kindref="member">VdmaPtr</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_VDMA;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>VDMA<sp/>is<sp/>after<sp/>Scaler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" kindref="member">XVprocSs_LogWrite</ref>(XVprocSsPtr,<sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" kindref="member">XVPROCSS_EVT_CFG_MAX</ref>,<sp/>XVPROCSS_EDAT_MAX_SCALEBAD);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XST_FAILURE);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Send<sp/>stream<sp/>to<sp/>LBox<sp/>to<sp/>add<sp/>H/V<sp/>bars,<sp/>if<sp/>needed<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_LBOX;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>input<sp/>and<sp/>output<sp/>color<sp/>format<sp/>to<sp/>derive<sp/>required<sp/>conversions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal">(StrmOutPtr-&gt;ColorFormatId)</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVIDC_CSF_YCRCB_420:</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal">(StrmInPtr-&gt;ColorFormatId)</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVIDC_CSF_RGB:</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_CSC;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//convert<sp/>RGB-&gt;444</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_CR_H;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//convert<sp/>444-&gt;422</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_CR_V_OUT;<sp/></highlight><highlight class="comment">//convert<sp/>422-&gt;420</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a3e2a334b8f135ad9e1eb1d860c8fa694" kindref="member">CscIn</ref><sp/><sp/>=<sp/>XVIDC_CSF_RGB;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a9f81ff065d74d35606a3f1b72133cd96" kindref="member">CscOut</ref><sp/>=<sp/>XVIDC_CSF_YCRCB_444;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1ac529cc738b0a6263f3f2d9d43e521461" kindref="member">HcrIn</ref><sp/><sp/>=<sp/>XVIDC_CSF_YCRCB_444;</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a2a14c0f46d29da1f0f630e33d3f07151" kindref="member">HcrOut</ref><sp/>=<sp/>XVIDC_CSF_YCRCB_422;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVIDC_CSF_YCRCB_444:</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_CSC;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//picture<sp/>control<sp/>in<sp/>444</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_CR_H;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//convert<sp/>444-&gt;422</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_CR_V_OUT;<sp/></highlight><highlight class="comment">//convert<sp/>422-&gt;420</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a3e2a334b8f135ad9e1eb1d860c8fa694" kindref="member">CscIn</ref><sp/><sp/>=<sp/>XVIDC_CSF_YCRCB_444;</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a9f81ff065d74d35606a3f1b72133cd96" kindref="member">CscOut</ref><sp/>=<sp/>XVIDC_CSF_YCRCB_444;</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1ac529cc738b0a6263f3f2d9d43e521461" kindref="member">HcrIn</ref><sp/><sp/>=<sp/>XVIDC_CSF_YCRCB_444;</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a2a14c0f46d29da1f0f630e33d3f07151" kindref="member">HcrOut</ref><sp/>=<sp/>XVIDC_CSF_YCRCB_422;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVIDC_CSF_YCRCB_422:</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVIDC_CSF_YCRCB_420:<sp/></highlight><highlight class="comment">//Input<sp/>was<sp/>up<sp/>converted<sp/>to<sp/>422</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_CSC;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//picture<sp/>control<sp/>in<sp/>422</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_CR_V_OUT;<sp/></highlight><highlight class="comment">//convert<sp/>422-&gt;420</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a3e2a334b8f135ad9e1eb1d860c8fa694" kindref="member">CscIn</ref><sp/><sp/>=<sp/>XVIDC_CSF_YCRCB_422;</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a9f81ff065d74d35606a3f1b72133cd96" kindref="member">CscOut</ref><sp/>=<sp/>XVIDC_CSF_YCRCB_422;</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:<sp/></highlight><highlight class="comment">//Unsupported<sp/>color<sp/>format</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" kindref="member">XVprocSs_LogWrite</ref>(XVprocSsPtr,<sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" kindref="member">XVPROCSS_EVT_CFG_MAX</ref>,<sp/>XVPROCSS_EDAT_CFIN);</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVIDC_CSF_RGB:</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal">(StrmInPtr-&gt;ColorFormatId)</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVIDC_CSF_RGB:</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVIDC_CSF_YCRCB_444:<sp/><sp/></highlight><highlight class="comment">//convert<sp/>444-&gt;RGB</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_CSC;</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a3e2a334b8f135ad9e1eb1d860c8fa694" kindref="member">CscIn</ref><sp/><sp/>=<sp/>StrmInPtr-&gt;ColorFormatId;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a9f81ff065d74d35606a3f1b72133cd96" kindref="member">CscOut</ref><sp/>=<sp/>XVIDC_CSF_RGB;</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVIDC_CSF_YCRCB_422:</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVIDC_CSF_YCRCB_420:<sp/></highlight><highlight class="comment">//Input<sp/>was<sp/>up<sp/>converted<sp/>to<sp/>422</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_CR_H;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//convert<sp/>422-&gt;444</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_CSC;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//convert<sp/>444-&gt;RGB</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1ac529cc738b0a6263f3f2d9d43e521461" kindref="member">HcrIn</ref><sp/><sp/>=<sp/>XVIDC_CSF_YCRCB_422;</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a2a14c0f46d29da1f0f630e33d3f07151" kindref="member">HcrOut</ref><sp/>=<sp/>XVIDC_CSF_YCRCB_444;</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a3e2a334b8f135ad9e1eb1d860c8fa694" kindref="member">CscIn</ref><sp/><sp/>=<sp/>XVIDC_CSF_YCRCB_444;</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a9f81ff065d74d35606a3f1b72133cd96" kindref="member">CscOut</ref><sp/>=<sp/>XVIDC_CSF_RGB;</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:<sp/></highlight><highlight class="comment">//Unsupported<sp/>color<sp/>format</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" kindref="member">XVprocSs_LogWrite</ref>(XVprocSsPtr,<sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" kindref="member">XVPROCSS_EVT_CFG_MAX</ref>,<sp/>XVPROCSS_EDAT_CFIN);</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVIDC_CSF_YCRCB_422:</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal">(StrmInPtr-&gt;ColorFormatId)</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVIDC_CSF_RGB:</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_CSC;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//convert<sp/>RGB-&gt;444</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_CR_H;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//convert<sp/>444-&gt;422</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a3e2a334b8f135ad9e1eb1d860c8fa694" kindref="member">CscIn</ref><sp/><sp/>=<sp/>XVIDC_CSF_RGB;</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a9f81ff065d74d35606a3f1b72133cd96" kindref="member">CscOut</ref><sp/>=<sp/>XVIDC_CSF_YCRCB_444;</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1ac529cc738b0a6263f3f2d9d43e521461" kindref="member">HcrIn</ref><sp/><sp/>=<sp/>XVIDC_CSF_YCRCB_444;</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a2a14c0f46d29da1f0f630e33d3f07151" kindref="member">HcrOut</ref><sp/>=<sp/>XVIDC_CSF_YCRCB_422;</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVIDC_CSF_YCRCB_444:</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_CSC;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//picture<sp/>control<sp/>in<sp/>444</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_CR_H;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//convert<sp/>444-&gt;422</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a3e2a334b8f135ad9e1eb1d860c8fa694" kindref="member">CscIn</ref><sp/><sp/>=<sp/>XVIDC_CSF_YCRCB_444;</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a9f81ff065d74d35606a3f1b72133cd96" kindref="member">CscOut</ref><sp/>=<sp/>XVIDC_CSF_YCRCB_444;</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1ac529cc738b0a6263f3f2d9d43e521461" kindref="member">HcrIn</ref><sp/><sp/>=<sp/>XVIDC_CSF_YCRCB_444;</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a2a14c0f46d29da1f0f630e33d3f07151" kindref="member">HcrOut</ref><sp/>=<sp/>XVIDC_CSF_YCRCB_422;</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVIDC_CSF_YCRCB_422:</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVIDC_CSF_YCRCB_420:<sp/></highlight><highlight class="comment">//Input<sp/>was<sp/>up<sp/>converted<sp/>to<sp/>422</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_CSC;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//picture<sp/>control<sp/>in<sp/>422</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a3e2a334b8f135ad9e1eb1d860c8fa694" kindref="member">CscIn</ref><sp/><sp/>=<sp/>XVIDC_CSF_YCRCB_422;</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a9f81ff065d74d35606a3f1b72133cd96" kindref="member">CscOut</ref><sp/>=<sp/>XVIDC_CSF_YCRCB_422;</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:<sp/></highlight><highlight class="comment">//Unsupported<sp/>color<sp/>format</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" kindref="member">XVprocSs_LogWrite</ref>(XVprocSsPtr,<sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" kindref="member">XVPROCSS_EVT_CFG_MAX</ref>,<sp/>XVPROCSS_EDAT_CFIN);</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"></highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVIDC_CSF_YCRCB_444:</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal">(StrmInPtr-&gt;ColorFormatId)</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVIDC_CSF_RGB:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//convert<sp/>444-&gt;RGB</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVIDC_CSF_YCRCB_444:</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_CSC;</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a3e2a334b8f135ad9e1eb1d860c8fa694" kindref="member">CscIn</ref><sp/><sp/>=<sp/>StrmInPtr-&gt;ColorFormatId;</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a9f81ff065d74d35606a3f1b72133cd96" kindref="member">CscOut</ref><sp/>=<sp/>XVIDC_CSF_YCRCB_444;</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVIDC_CSF_YCRCB_422:</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVIDC_CSF_YCRCB_420:<sp/></highlight><highlight class="comment">//Input<sp/>was<sp/>up<sp/>converted<sp/>to<sp/>422</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_CR_H;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//convert<sp/>422-&gt;444</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_SUBCORE_CSC;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//picture<sp/>control</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1ac529cc738b0a6263f3f2d9d43e521461" kindref="member">HcrIn</ref><sp/><sp/>=<sp/>XVIDC_CSF_YCRCB_422;</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a2a14c0f46d29da1f0f630e33d3f07151" kindref="member">HcrOut</ref><sp/>=<sp/>XVIDC_CSF_YCRCB_444;</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a3e2a334b8f135ad9e1eb1d860c8fa694" kindref="member">CscIn</ref><sp/><sp/>=<sp/>XVIDC_CSF_YCRCB_444;</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a9f81ff065d74d35606a3f1b72133cd96" kindref="member">CscOut</ref><sp/>=<sp/>XVIDC_CSF_YCRCB_444;</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"></highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:<sp/></highlight><highlight class="comment">//Unsupported<sp/>color<sp/>format</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" kindref="member">XVprocSs_LogWrite</ref>(XVprocSsPtr,<sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" kindref="member">XVPROCSS_EVT_CFG_MAX</ref>,<sp/>XVPROCSS_EDAT_CFIN);</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" kindref="member">XVprocSs_LogWrite</ref>(XVprocSsPtr,<sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" kindref="member">XVPROCSS_EVT_CFG_MAX</ref>,<sp/>XVPROCSS_EDAT_CFOUT);</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"></highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Connect<sp/>Last<sp/>IP<sp/>in<sp/>chain<sp/>to<sp/>switch<sp/>output<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/>pTable[index++]<sp/>=<sp/>XVPROCSS_AXIS_SWITCH_VIDOUT_M0;</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>save<sp/>number<sp/>of<sp/>cores<sp/>in<sp/>processing<sp/>path<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1aa726534c304cb8438dcee4b6fc5f502f" kindref="member">RtrNumCores</ref><sp/>=<sp/>index;</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"></highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(status<sp/>==<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" kindref="member">XVprocSs_LogWrite</ref>(XVprocSsPtr,<sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" kindref="member">XVPROCSS_EVT_CFG_MAX</ref>,<sp/>XVPROCSS_EDAT_MAX_TABLEOK);</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"></highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(status);</highlight></codeline>
+<codeline lineno="399"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"></highlight></codeline>
+<codeline lineno="401"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="410" refid="group__vprocss_1ga01bf97a1cd3199edccad43e56ca67c4c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__vprocss_1ga01bf97a1cd3199edccad43e56ca67c4c" kindref="member">XVprocSs_ProgRouterMux</ref>(<ref refid="struct_x_vproc_ss" kindref="compound">XVprocSs</ref><sp/>*XVprocSsPtr)</highlight></codeline>
+<codeline lineno="411"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/>u32<sp/>count,<sp/>nextMi,<sp/>prevSi;</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/>u8<sp/>*pTable<sp/>=<sp/>&amp;XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1ad05c179ff8b000570b16a8ac39f885d7" kindref="member">CtxtData</ref>.<ref refid="struct_x_vproc_ss___context_data_1a1f6d058b4f99c7ee70b88b652b829ed0" kindref="member">RtngTable</ref>[0];</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/>u32<sp/>numProcElem<sp/>=<sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1ad05c179ff8b000570b16a8ac39f885d7" kindref="member">CtxtData</ref>.<ref refid="struct_x_vproc_ss___context_data_1aa726534c304cb8438dcee4b6fc5f502f" kindref="member">RtrNumCores</ref>;</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"></highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/>XAxisScr_RegUpdateDisable(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1ae31f2a9f76251d0b9f102a0b90408f79" kindref="member">RouterPtr</ref>);</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"></highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>all<sp/>ports<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/>XAxisScr_MiPortDisableAll(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1ae31f2a9f76251d0b9f102a0b90408f79" kindref="member">RouterPtr</ref>);</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"></highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Connect<sp/>Input<sp/>Stream<sp/>to<sp/>the<sp/>1st<sp/>core<sp/>in<sp/>path<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/>nextMi<sp/>=<sp/>prevSi<sp/>=<sp/>pTable[0];</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/>XAxisScr_MiPortEnable(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1ae31f2a9f76251d0b9f102a0b90408f79" kindref="member">RouterPtr</ref>,<sp/>nextMi,<sp/>XVPROCSS_AXIS_SWITCH_VIDIN_S0);</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"></highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Traverse<sp/>routing<sp/>map<sp/>and<sp/>connect<sp/>cores<sp/>in<sp/>the<sp/>chain<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(count=1;<sp/>count&lt;numProcElem;<sp/>++count)</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/>nextMi<sp/><sp/>=<sp/>pTable[count];</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/>XAxisScr_MiPortEnable(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1ae31f2a9f76251d0b9f102a0b90408f79" kindref="member">RouterPtr</ref>,<sp/>nextMi,<sp/>prevSi);</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/>prevSi<sp/>=<sp/>nextMi;</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"></highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//Enable<sp/>Router<sp/>register<sp/>update</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="434"><highlight class="normal"><sp/><sp/>XAxisScr_RegUpdateEnable(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1ae31f2a9f76251d0b9f102a0b90408f79" kindref="member">RouterPtr</ref>);</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"></highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><ref refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" kindref="member">XVprocSs_LogWrite</ref>(XVprocSsPtr,<sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" kindref="member">XVPROCSS_EVT_CFG_MAX</ref>,<sp/>XVPROCSS_EDAT_MAX_ROUTEOK);</highlight></codeline>
+<codeline lineno="437"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"></highlight></codeline>
+<codeline lineno="439"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="449" refid="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__vprocss_1gac644ac3d0f02790c168ebdc82c202179" kindref="member">XVprocSs_SetupRouterDataFlow</ref>(<ref refid="struct_x_vproc_ss" kindref="compound">XVprocSs</ref><sp/>*XVprocSsPtr)</highlight></codeline>
+<codeline lineno="450"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/>XVidC_VideoWindow<sp/>lboxWin;</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/>u32<sp/>vsc_WidthIn,<sp/>vsc_HeightIn,<sp/>vsc_HeightOut;</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/>u32<sp/>hsc_HeightIn,<sp/>hsc_WidthIn,<sp/>hsc_WidthOut;</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/>XVidC_ColorDepth<sp/>ColorDepth;</highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/>u32<sp/>count;</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Result<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SetupFlag<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><ref refid="struct_x_vproc_ss___context_data" kindref="compound">XVprocSs_ContextData</ref><sp/>*CtxtPtr<sp/>=<sp/>&amp;XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1ad05c179ff8b000570b16a8ac39f885d7" kindref="member">CtxtData</ref>;</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/>u8<sp/>*pTable<sp/>=<sp/>&amp;XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1ad05c179ff8b000570b16a8ac39f885d7" kindref="member">CtxtData</ref>.<ref refid="struct_x_vproc_ss___context_data_1a1f6d058b4f99c7ee70b88b652b829ed0" kindref="member">RtngTable</ref>[0];</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/>u8<sp/>*StartCorePtr<sp/>=<sp/>&amp;XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1ad05c179ff8b000570b16a8ac39f885d7" kindref="member">CtxtData</ref>.<ref refid="struct_x_vproc_ss___context_data_1aa02a961464f60d239452ebc287a02b98" kindref="member">StartCore</ref>[0];</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"></highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/>vsc_WidthIn<sp/>=<sp/>vsc_HeightIn<sp/>=<sp/>vsc_HeightOut<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/>hsc_HeightIn<sp/>=<sp/>hsc_WidthIn<sp/>=<sp/>hsc_WidthOut<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"></highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Program<sp/>Video<sp/>Pipe<sp/>Sub-Cores<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a6440efa76dbba290ebfdd4b603cff0b2" kindref="member">VidIn</ref>.IsInterlaced)<sp/>{</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Input<sp/>will<sp/>de-interlaced<sp/>first.<sp/>All<sp/>downstream<sp/>IP&apos;s<sp/>work</highlight></codeline>
+<codeline lineno="468"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>with<sp/>progressive<sp/>frame.<sp/>Adjust<sp/>active<sp/>height<sp/>to<sp/>reflect<sp/>the</highlight></codeline>
+<codeline lineno="469"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>progressive<sp/>frame<sp/>to<sp/>downstream<sp/>cores</highlight></codeline>
+<codeline lineno="470"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a554de1e27e74f1a96cf0823093ac17f4" kindref="member">VidInHeight</ref><sp/>*=<sp/>2;</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"></highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>Vdma<sp/>is<sp/>enabled,<sp/>RD/WR<sp/>Client<sp/>needs<sp/>to<sp/>be<sp/>programmed<sp/>before<sp/>Scaler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a7110cce03d4d2ff4c4972bfe460eee42" kindref="member">VdmaPtr</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1ac81c1474fea35a89b9f6830a87692aec" kindref="member">ScaleMode</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPROCSS_SCALE_1_1:</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPROCSS_SCALE_UP:</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__vprocss_1ga8d81441b93df3b6c3d4d09583b17c97e" kindref="member">XVprocSs_VdmaSetWinToUpScaleMode</ref>(XVprocSsPtr,<sp/>XVPROCSS_VDMA_UPDATE_ALL_CH);</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"></highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPROCSS_SCALE_DN:</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__vprocss_1gab5d63a660b49c3f252366e48befcbf30" kindref="member">XVprocSs_VdmaSetWinToDnScaleMode</ref>(XVprocSsPtr,<sp/>XVPROCSS_VDMA_UPDATE_ALL_CH);</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"></highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StartCorePtr[XVPROCSS_SUBCORE_VDMA]<sp/>=<sp/>TRUE;</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"></highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(count=0;<sp/>count&lt;CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1aa726534c304cb8438dcee4b6fc5f502f" kindref="member">RtrNumCores</ref>;<sp/>++count)<sp/>{</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(pTable[count])<sp/>{</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPROCSS_SUBCORE_SCALER_V:</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1ad8ca19d5dd2ac25e58be55ff8ba2b3fa" kindref="member">VscalerPtr</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1ac81c1474fea35a89b9f6830a87692aec" kindref="member">ScaleMode</ref><sp/>==<sp/>XVPROCSS_SCALE_DN)<sp/>{</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Downscale<sp/>mode<sp/>H<sp/>Scaler<sp/>is<sp/>before<sp/>V<sp/>Scaler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vsc_WidthIn<sp/><sp/><sp/>=<sp/>hsc_WidthOut;</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vsc_HeightIn<sp/><sp/>=<sp/>hsc_HeightIn;</highlight></codeline>
+<codeline lineno="500"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vsc_HeightOut<sp/>=<sp/>((<ref refid="xvprocss_8h_1a2ce543275b5cd3b7f24c31897aecf5fa" kindref="member">XVprocSs_IsPipModeOn</ref>(XVprocSsPtr))<sp/>?<sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a79a5e7387a84068901a397e67c494e4d" kindref="member">WrWindow</ref>.Height</highlight></codeline>
+<codeline lineno="501"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a1fce9dc484558616980012f4a77764ee" kindref="member">VidOut</ref>.Timing.VActive);</highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>UpScale<sp/>mode<sp/>V<sp/>Scaler<sp/>is<sp/>before<sp/>H<sp/>Scaler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vsc_WidthIn<sp/><sp/>=<sp/>((<ref refid="xvprocss_8h_1a85ac472cadd748d636762b1ef1a2c418" kindref="member">XVprocSs_IsZoomModeOn</ref>(XVprocSsPtr))<sp/>?<sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a4ea15beae039b9b0a7ae82ec89d57c80" kindref="member">RdWindow</ref>.Width</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1adeb3dc191f2aa011b52f7d8d503e71ab" kindref="member">VidInWidth</ref>);</highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vsc_HeightIn<sp/>=<sp/>((<ref refid="xvprocss_8h_1a85ac472cadd748d636762b1ef1a2c418" kindref="member">XVprocSs_IsZoomModeOn</ref>(XVprocSsPtr))<sp/>?<sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a4ea15beae039b9b0a7ae82ec89d57c80" kindref="member">RdWindow</ref>.Height</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a554de1e27e74f1a96cf0823093ac17f4" kindref="member">VidInHeight</ref>);</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vsc_HeightOut<sp/>=<sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a1fce9dc484558616980012f4a77764ee" kindref="member">VidOut</ref>.Timing.VActive;</highlight></codeline>
+<codeline lineno="509"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"></highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result<sp/>=<sp/>XV_VScalerSetup(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1ad8ca19d5dd2ac25e58be55ff8ba2b3fa" kindref="member">VscalerPtr</ref>,</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vsc_WidthIn,</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vsc_HeightIn,</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vsc_HeightOut,</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1ad05c179ff8b000570b16a8ac39f885d7" kindref="member">CtxtData</ref>.<ref refid="struct_x_vproc_ss___context_data_1a8e3923646d6b89ff1970f62e0d63d259" kindref="member">StrmCformat</ref>);</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Result<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" kindref="member">XVprocSs_LogWrite</ref>(XVprocSsPtr,<sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9abc5ae18af47d9b7409f1ba41612f5b15" kindref="member">XVPROCSS_EVT_CFG_VSCALER</ref>,<sp/>XVPROCSS_EDAT_IGNORE);</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SetupFlag<sp/>=<sp/>Result;</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StartCorePtr[XVPROCSS_SUBCORE_SCALER_V]<sp/>=<sp/>TRUE;</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"></highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPROCSS_SUBCORE_SCALER_H:</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a96d7da785b43ce54736523b9de33ee3e" kindref="member">HscalerPtr</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1ac81c1474fea35a89b9f6830a87692aec" kindref="member">ScaleMode</ref><sp/>==<sp/>XVPROCSS_SCALE_DN)<sp/>{</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Downscale<sp/>mode<sp/>H<sp/>Scaler<sp/>is<sp/>before<sp/>V<sp/>Scaler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hsc_WidthIn<sp/><sp/>=<sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1adeb3dc191f2aa011b52f7d8d503e71ab" kindref="member">VidInWidth</ref>;</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hsc_HeightIn<sp/>=<sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a554de1e27e74f1a96cf0823093ac17f4" kindref="member">VidInHeight</ref>;</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hsc_WidthOut<sp/>=<sp/>((<ref refid="xvprocss_8h_1a2ce543275b5cd3b7f24c31897aecf5fa" kindref="member">XVprocSs_IsPipModeOn</ref>(XVprocSsPtr))<sp/>?</highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a79a5e7387a84068901a397e67c494e4d" kindref="member">WrWindow</ref>.Width<sp/>:</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a1fce9dc484558616980012f4a77764ee" kindref="member">VidOut</ref>.Timing.HActive);</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Upscale<sp/>mode<sp/>V<sp/>Scaler<sp/>is<sp/>before<sp/>H<sp/>Scaler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hsc_WidthIn<sp/><sp/>=<sp/>vsc_WidthIn;</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hsc_HeightIn<sp/>=<sp/>vsc_HeightOut;</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hsc_WidthOut<sp/>=<sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a1fce9dc484558616980012f4a77764ee" kindref="member">VidOut</ref>.Timing.HActive;</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"></highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result<sp/>=<sp/>XV_HScalerSetup(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a96d7da785b43ce54736523b9de33ee3e" kindref="member">HscalerPtr</ref>,</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hsc_HeightIn,</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hsc_WidthIn,</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hsc_WidthOut,</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1ad05c179ff8b000570b16a8ac39f885d7" kindref="member">CtxtData</ref>.<ref refid="struct_x_vproc_ss___context_data_1a8e3923646d6b89ff1970f62e0d63d259" kindref="member">StrmCformat</ref>,</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1ad05c179ff8b000570b16a8ac39f885d7" kindref="member">CtxtData</ref>.<ref refid="struct_x_vproc_ss___context_data_1a8e3923646d6b89ff1970f62e0d63d259" kindref="member">StrmCformat</ref>);</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Result<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" kindref="member">XVprocSs_LogWrite</ref>(XVprocSsPtr,<sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9afdaaf23d284f472e2236b3c39a544262" kindref="member">XVPROCSS_EVT_CFG_HSCALER</ref>,<sp/>XVPROCSS_EDAT_IGNORE);</highlight></codeline>
+<codeline lineno="549"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SetupFlag<sp/>=<sp/>Result;</highlight></codeline>
+<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="551"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StartCorePtr[XVPROCSS_SUBCORE_SCALER_H]<sp/>=<sp/>TRUE;</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="553"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="555"><highlight class="normal"></highlight></codeline>
+<codeline lineno="556"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPROCSS_SUBCORE_VDMA:</highlight></codeline>
+<codeline lineno="557"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>NOP<sp/>-<sp/>Programmed<sp/>before<sp/>the<sp/>switch<sp/>statement<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="558"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="559"><highlight class="normal"></highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPROCSS_SUBCORE_LBOX:</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a7cc8183d534f77c5bf240616db3df97d" kindref="member">LboxPtr</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<ref refid="xvprocss_8h_1a2ce543275b5cd3b7f24c31897aecf5fa" kindref="member">XVprocSs_IsPipModeOn</ref>(XVprocSsPtr))<sp/>{</highlight></codeline>
+<codeline lineno="563"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>get<sp/>the<sp/>active<sp/>window<sp/>for<sp/>Lbox<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lboxWin<sp/>=<sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a79a5e7387a84068901a397e67c494e4d" kindref="member">WrWindow</ref>;</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Downscale<sp/>-<sp/>Read<sp/>full<sp/>image<sp/>from<sp/>VDMA</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>window<sp/>is<sp/>same<sp/>as<sp/>output<sp/>resolution<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lboxWin.StartX<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lboxWin.StartY<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lboxWin.Width<sp/><sp/>=<sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a1fce9dc484558616980012f4a77764ee" kindref="member">VidOut</ref>.Timing.HActive;</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lboxWin.Height<sp/>=<sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a1fce9dc484558616980012f4a77764ee" kindref="member">VidOut</ref>.Timing.VActive;</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_LBoxSetActiveWin(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a7cc8183d534f77c5bf240616db3df97d" kindref="member">LboxPtr</ref>,</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;lboxWin,</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a1fce9dc484558616980012f4a77764ee" kindref="member">VidOut</ref>.Timing.HActive,</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a1fce9dc484558616980012f4a77764ee" kindref="member">VidOut</ref>.Timing.VActive);</highlight></codeline>
+<codeline lineno="577"><highlight class="normal"></highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>set<sp/>background<sp/>to<sp/>default<sp/>color<sp/>on<sp/>pipe<sp/>reset<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="579"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_LboxSetBackgroundColor(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a7cc8183d534f77c5bf240616db3df97d" kindref="member">LboxPtr</ref>,</highlight></codeline>
+<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1ad05c179ff8b000570b16a8ac39f885d7" kindref="member">CtxtData</ref>.<ref refid="struct_x_vproc_ss___context_data_1a8f080227d4a5195ea3ec54dc12206e33" kindref="member">LboxBkgndColor</ref>,</highlight></codeline>
+<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1ad05c179ff8b000570b16a8ac39f885d7" kindref="member">CtxtData</ref>.<ref refid="struct_x_vproc_ss___context_data_1a8e3923646d6b89ff1970f62e0d63d259" kindref="member">StrmCformat</ref>,</highlight></codeline>
+<codeline lineno="582"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a1fce9dc484558616980012f4a77764ee" kindref="member">VidOut</ref>.ColorDepth);</highlight></codeline>
+<codeline lineno="583"><highlight class="normal"></highlight></codeline>
+<codeline lineno="584"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StartCorePtr[XVPROCSS_SUBCORE_LBOX]<sp/>=<sp/>TRUE;</highlight></codeline>
+<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="586"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="587"><highlight class="normal"></highlight></codeline>
+<codeline lineno="588"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPROCSS_SUBCORE_CR_H:</highlight></codeline>
+<codeline lineno="589"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a554c32cace7c2bcc2637919e17ad0945" kindref="member">HcrsmplrPtr</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="590"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_HCrsmplSetActiveSize(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a554c32cace7c2bcc2637919e17ad0945" kindref="member">HcrsmplrPtr</ref>,</highlight></codeline>
+<codeline lineno="591"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a1fce9dc484558616980012f4a77764ee" kindref="member">VidOut</ref>.Timing.HActive,</highlight></codeline>
+<codeline lineno="592"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a1fce9dc484558616980012f4a77764ee" kindref="member">VidOut</ref>.Timing.VActive);</highlight></codeline>
+<codeline lineno="593"><highlight class="normal"></highlight></codeline>
+<codeline lineno="594"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_HCrsmplSetFormat(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a554c32cace7c2bcc2637919e17ad0945" kindref="member">HcrsmplrPtr</ref>,</highlight></codeline>
+<codeline lineno="595"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1ac529cc738b0a6263f3f2d9d43e521461" kindref="member">HcrIn</ref>,</highlight></codeline>
+<codeline lineno="596"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a2a14c0f46d29da1f0f630e33d3f07151" kindref="member">HcrOut</ref>);</highlight></codeline>
+<codeline lineno="597"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StartCorePtr[XVPROCSS_SUBCORE_CR_H]<sp/>=<sp/>TRUE;</highlight></codeline>
+<codeline lineno="598"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="600"><highlight class="normal"></highlight></codeline>
+<codeline lineno="601"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPROCSS_SUBCORE_CR_V_IN:</highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a62f9ab872ac328e7e5ecbccafe65a7e6" kindref="member">VcrsmplrInPtr</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="603"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_VCrsmplSetActiveSize(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a62f9ab872ac328e7e5ecbccafe65a7e6" kindref="member">VcrsmplrInPtr</ref>,</highlight></codeline>
+<codeline lineno="604"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1adeb3dc191f2aa011b52f7d8d503e71ab" kindref="member">VidInWidth</ref>,</highlight></codeline>
+<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a554de1e27e74f1a96cf0823093ac17f4" kindref="member">VidInHeight</ref>);</highlight></codeline>
+<codeline lineno="606"><highlight class="normal"></highlight></codeline>
+<codeline lineno="607"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_VCrsmplSetFormat(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a62f9ab872ac328e7e5ecbccafe65a7e6" kindref="member">VcrsmplrInPtr</ref>,</highlight></codeline>
+<codeline lineno="608"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVIDC_CSF_YCRCB_420,</highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVIDC_CSF_YCRCB_422);</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StartCorePtr[XVPROCSS_SUBCORE_CR_V_IN]<sp/>=<sp/>TRUE;</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="613"><highlight class="normal"></highlight></codeline>
+<codeline lineno="614"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPROCSS_SUBCORE_CR_V_OUT:</highlight></codeline>
+<codeline lineno="615"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1add2fbe91511d24e070039c1cba33f7c1" kindref="member">VcrsmplrOutPtr</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="616"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_VCrsmplSetActiveSize(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1add2fbe91511d24e070039c1cba33f7c1" kindref="member">VcrsmplrOutPtr</ref>,</highlight></codeline>
+<codeline lineno="617"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a1fce9dc484558616980012f4a77764ee" kindref="member">VidOut</ref>.Timing.HActive,</highlight></codeline>
+<codeline lineno="618"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a1fce9dc484558616980012f4a77764ee" kindref="member">VidOut</ref>.Timing.VActive);</highlight></codeline>
+<codeline lineno="619"><highlight class="normal"></highlight></codeline>
+<codeline lineno="620"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_VCrsmplSetFormat(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1add2fbe91511d24e070039c1cba33f7c1" kindref="member">VcrsmplrOutPtr</ref>,</highlight></codeline>
+<codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVIDC_CSF_YCRCB_422,</highlight></codeline>
+<codeline lineno="622"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVIDC_CSF_YCRCB_420);</highlight></codeline>
+<codeline lineno="623"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StartCorePtr[XVPROCSS_SUBCORE_CR_V_OUT]<sp/>=<sp/>TRUE;</highlight></codeline>
+<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="625"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="626"><highlight class="normal"></highlight></codeline>
+<codeline lineno="627"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPROCSS_SUBCORE_CSC:</highlight></codeline>
+<codeline lineno="628"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a70745e8e343154d82af157d3a50eca31" kindref="member">CscPtr</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="629"><highlight class="normal"></highlight></codeline>
+<codeline lineno="630"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>to<sp/>set<sp/>up<sp/>a<sp/>new<sp/>resolution,<sp/>start<sp/>with<sp/>default<sp/>picture<sp/>settings</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="631"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_CscSetPowerOnDefaultState(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a70745e8e343154d82af157d3a50eca31" kindref="member">CscPtr</ref>);</highlight></codeline>
+<codeline lineno="632"><highlight class="normal"></highlight></codeline>
+<codeline lineno="633"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>set<sp/>the<sp/>proper<sp/>color<sp/>depth:<sp/>get<sp/>it<sp/>from<sp/>the<sp/>vprocss<sp/>config</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="634"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ColorDepth<sp/>=<sp/>(XVidC_ColorDepth)<ref refid="xvprocss_8h_1ad74f8b4febd82852c67f9808edd8d583" kindref="member">XVprocSs_GetColorDepth</ref>(XVprocSsPtr);</highlight></codeline>
+<codeline lineno="635"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_CscSetColorDepth(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a70745e8e343154d82af157d3a50eca31" kindref="member">CscPtr</ref>,<sp/>ColorDepth);</highlight></codeline>
+<codeline lineno="636"><highlight class="normal"></highlight></codeline>
+<codeline lineno="637"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>all<sp/>other<sp/>picture<sp/>settings<sp/>are<sp/>filled<sp/>in<sp/>by<sp/>XV_CscSetColorspace</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="638"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result<sp/>=<sp/>XV_CscSetColorspace(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a70745e8e343154d82af157d3a50eca31" kindref="member">CscPtr</ref>,</highlight></codeline>
+<codeline lineno="639"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a3e2a334b8f135ad9e1eb1d860c8fa694" kindref="member">CscIn</ref>,</highlight></codeline>
+<codeline lineno="640"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a9f81ff065d74d35606a3f1b72133cd96" kindref="member">CscOut</ref>,</highlight></codeline>
+<codeline lineno="641"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a70745e8e343154d82af157d3a50eca31" kindref="member">CscPtr</ref>-&gt;StandardIn,</highlight></codeline>
+<codeline lineno="642"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a70745e8e343154d82af157d3a50eca31" kindref="member">CscPtr</ref>-&gt;StandardOut,</highlight></codeline>
+<codeline lineno="643"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a70745e8e343154d82af157d3a50eca31" kindref="member">CscPtr</ref>-&gt;OutputRange);</highlight></codeline>
+<codeline lineno="644"><highlight class="normal"></highlight></codeline>
+<codeline lineno="645"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Result<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="646"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" kindref="member">XVprocSs_LogWrite</ref>(XVprocSsPtr,<sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9a69ed478af62bfb13c0e68251ca18b3da" kindref="member">XVPROCSS_EVT_CFG_CSC</ref>,<sp/>XVPROCSS_EDAT_IGNORE);</highlight></codeline>
+<codeline lineno="647"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SetupFlag<sp/>=<sp/>Result;</highlight></codeline>
+<codeline lineno="648"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="649"><highlight class="normal"></highlight></codeline>
+<codeline lineno="650"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>set<sp/>the<sp/>Global<sp/>Window<sp/>size</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="651"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_CscSetActiveSize(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a70745e8e343154d82af157d3a50eca31" kindref="member">CscPtr</ref>,</highlight></codeline>
+<codeline lineno="652"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a1fce9dc484558616980012f4a77764ee" kindref="member">VidOut</ref>.Timing.HActive,</highlight></codeline>
+<codeline lineno="653"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a1fce9dc484558616980012f4a77764ee" kindref="member">VidOut</ref>.Timing.VActive);</highlight></codeline>
+<codeline lineno="654"><highlight class="normal"></highlight></codeline>
+<codeline lineno="655"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StartCorePtr[XVPROCSS_SUBCORE_CSC]<sp/>=<sp/>TRUE;</highlight></codeline>
+<codeline lineno="656"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="657"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="658"><highlight class="normal"></highlight></codeline>
+<codeline lineno="659"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XVPROCSS_SUBCORE_DEINT:</highlight></codeline>
+<codeline lineno="660"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1ae5a31f08bd16f24a746eceb0ebe7dd09" kindref="member">DeintPtr</ref>)</highlight></codeline>
+<codeline lineno="661"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="662"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_DeintSetFieldBuffers(XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1ae5a31f08bd16f24a746eceb0ebe7dd09" kindref="member">DeintPtr</ref>,</highlight></codeline>
+<codeline lineno="663"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1a77a8ad41b6cc8dc4800d859b33a6762b" kindref="member">DeintBufAddr</ref>,</highlight></codeline>
+<codeline lineno="664"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a6440efa76dbba290ebfdd4b603cff0b2" kindref="member">VidIn</ref>.ColorFormatId);</highlight></codeline>
+<codeline lineno="665"><highlight class="normal"></highlight></codeline>
+<codeline lineno="666"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_deinterlacer_Set_width(&amp;XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1ae5a31f08bd16f24a746eceb0ebe7dd09" kindref="member">DeintPtr</ref>-&gt;Deint,</highlight></codeline>
+<codeline lineno="667"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtxtPtr-&gt;<ref refid="struct_x_vproc_ss___context_data_1adeb3dc191f2aa011b52f7d8d503e71ab" kindref="member">VidInWidth</ref>);</highlight></codeline>
+<codeline lineno="668"><highlight class="normal"></highlight></codeline>
+<codeline lineno="669"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>VidIn.Timing.VActive<sp/>is<sp/>the<sp/>field<sp/>height</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="670"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_deinterlacer_Set_height(&amp;XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1ae5a31f08bd16f24a746eceb0ebe7dd09" kindref="member">DeintPtr</ref>-&gt;Deint,</highlight></codeline>
+<codeline lineno="671"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1a6440efa76dbba290ebfdd4b603cff0b2" kindref="member">VidIn</ref>.Timing.VActive);</highlight></codeline>
+<codeline lineno="672"><highlight class="normal"></highlight></codeline>
+<codeline lineno="673"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>TBD</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="674"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_deinterlacer_Set_invert_field_id(&amp;XVprocSsPtr-&gt;<ref refid="struct_x_vproc_ss_1ae5a31f08bd16f24a746eceb0ebe7dd09" kindref="member">DeintPtr</ref>-&gt;Deint,</highlight></codeline>
+<codeline lineno="675"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0);</highlight></codeline>
+<codeline lineno="676"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StartCorePtr[XVPROCSS_SUBCORE_DEINT]<sp/>=<sp/>TRUE;</highlight></codeline>
+<codeline lineno="677"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="678"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="679"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="680"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="681"><highlight class="normal"></highlight></codeline>
+<codeline lineno="682"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(SetupFlag<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="683"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xvprocss_8h_1a477ddfa18fa5fda8658ec72fb29a2d25" kindref="member">XVprocSs_LogWrite</ref>(XVprocSsPtr,<sp/><ref refid="xvprocss__log_8h_1adda80cee8527fb0dac1e98e657f12cd9aa5ff04f787a710ae81939f109520f7d5" kindref="member">XVPROCSS_EVT_CFG_MAX</ref>,<sp/>XVPROCSS_EDAT_MAX_DFLOWOK);</highlight></codeline>
+<codeline lineno="684"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="685"><highlight class="normal"></highlight></codeline>
+<codeline lineno="686"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Start<sp/>all<sp/>IP<sp/>Blocks<sp/>in<sp/>the<sp/>processing<sp/>chain<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="687"><highlight class="normal"><sp/><sp/><ref refid="xvprocss_8c_1a0f673d448bb7702661b702519de94fd9" kindref="member">XVprocSs_Start</ref>(XVprocSsPtr);</highlight></codeline>
+<codeline lineno="688"><highlight class="normal"></highlight></codeline>
+<codeline lineno="689"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss_router.c"/>
+  </compounddef>
+</doxygen>

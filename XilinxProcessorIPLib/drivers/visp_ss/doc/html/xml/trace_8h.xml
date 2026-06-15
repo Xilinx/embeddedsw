@@ -1,0 +1,1290 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="trace_8h" kind="file">
+    <compoundname>trace.h</compoundname>
+    <includes refid="types_8h" local="yes">types.h</includes>
+    <includes refid="oslayer_8h" local="yes">oslayer.h</includes>
+    <includedby refid="hal__i2c_8c" local="no">hal_i2c.c</includedby>
+    <includedby refid="ox03f10_8c" local="no">ox03f10.c</includedby>
+    <includedby refid="ox05b1s_8c" local="no">ox05b1s.c</includedby>
+    <includedby refid="ox08b40_8c" local="no">ox08b40.c</includedby>
+    <includedby refid="sensor__drv_8c" local="no">sensor_drv.c</includedby>
+    <includedby refid="trace_8c" local="yes">trace.c</includedby>
+    <includedby refid="isi_8c" local="no">isi.c</includedby>
+    <incdepgraph>
+      <node id="7930">
+        <label>oslayer.h</label>
+        <link refid="oslayer_8h"/>
+        <childnode refid="7931" relation="include">
+        </childnode>
+        <childnode refid="7933" relation="include">
+        </childnode>
+      </node>
+      <node id="7927">
+        <label>stdlib.h</label>
+      </node>
+      <node id="7929">
+        <label>stddef.h</label>
+      </node>
+      <node id="7928">
+        <label>limits.h</label>
+      </node>
+      <node id="7932">
+        <label>string.h</label>
+      </node>
+      <node id="7933">
+        <label>ff.h</label>
+      </node>
+      <node id="7923">
+        <label>trace.h</label>
+        <link refid="trace.h"/>
+        <childnode refid="7924" relation="include">
+        </childnode>
+        <childnode refid="7930" relation="include">
+        </childnode>
+      </node>
+      <node id="7924">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="7925" relation="include">
+        </childnode>
+        <childnode refid="7928" relation="include">
+        </childnode>
+        <childnode refid="7929" relation="include">
+        </childnode>
+      </node>
+      <node id="7931">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="7924" relation="include">
+        </childnode>
+        <childnode refid="7932" relation="include">
+        </childnode>
+      </node>
+      <node id="7926">
+        <label>stdio.h</label>
+      </node>
+      <node id="7925">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="7926" relation="include">
+        </childnode>
+        <childnode refid="7927" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="7937">
+        <label>ox05b1s.c</label>
+      </node>
+      <node id="7940">
+        <label>trace.c</label>
+        <link refid="trace_8c"/>
+      </node>
+      <node id="7938">
+        <label>ox08b40.c</label>
+      </node>
+      <node id="7939">
+        <label>sensor_drv.c</label>
+        <link refid="sensor__drv_8c"/>
+      </node>
+      <node id="7935">
+        <label>hal_i2c.c</label>
+      </node>
+      <node id="7936">
+        <label>ox03f10.c</label>
+      </node>
+      <node id="7934">
+        <label>trace.h</label>
+        <link refid="trace.h"/>
+        <childnode refid="7935" relation="include">
+        </childnode>
+        <childnode refid="7936" relation="include">
+        </childnode>
+        <childnode refid="7937" relation="include">
+        </childnode>
+        <childnode refid="7938" relation="include">
+        </childnode>
+        <childnode refid="7939" relation="include">
+        </childnode>
+        <childnode refid="7940" relation="include">
+        </childnode>
+        <childnode refid="7941" relation="include">
+        </childnode>
+      </node>
+      <node id="7941">
+        <label>isi.c</label>
+        <link refid="isi_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structtracer__s" prot="public">tracer_s</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__module__tracer_1gaf80c01c1f1eb9f57659481f9a11da303" prot="public" static="no">
+        <name>TRACER_DATA</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__tracer_1ga143cef77b964d67e1e5b99f0439316fd" prot="public" static="no">
+        <name>CREATE_TRACER</name>
+        <param><defname>name</defname></param>
+        <param><defname>arg_prefix</defname></param>
+        <param><defname>arg_level</defname></param>
+        <param><defname>arg_enabled</defname></param>
+        <initializer>CHAR tracerName##name[] TRACER_DATA = #name; \
+	CHAR tracerPrefix##name[] TRACER_DATA = arg_prefix; \
+	Tracer instance__##name TRACER_DATA = \
+	{ \
+	  NULL, \
+	  &amp;tracerPrefix##name[0], \
+	  arg_level, \
+	  arg_enabled, \
+	  0, \
+	  &amp;tracerName##name[0], \
+	  NULL, \
+	  1 \
+	}; \
+	Tracer *name = &amp;instance__##name</initializer>
+        <briefdescription>
+<para>This macro creates a Tracer. </para>        </briefdescription>
+        <detaileddescription>
+<para>Every Tracer has its own output like stdout or a file and a trace level associated. A tracer may be enabled and disabled. If the global trace level is lower than the Tracers level, than output send to an enabled tracer is output to its file or stdout. If eg the global trace level is INFO and the Tracer has the level WARNING, its output is active. If the global trace level were ERROR instead, output of the tracer were suppressed.</para><para><simplesect kind="warning"><para>THIS MACRO MUST BE USED IN GLOBAL SCOPE.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the tracer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>arg_prefix</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>All output of this tracer is preceded by &lt;arg_prefix&gt;. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>arg_level</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Initial trace level. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>arg_enabled</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Decide whether the tracer starts in enabled state.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>No return value. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="193" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__tracer_1ga8d7cb2915298fcf7ef18d73f069758ad" prot="public" static="no">
+        <name>USE_TRACER</name>
+        <param><defname>name</defname></param>
+        <initializer>extern Tracer *name</initializer>
+        <briefdescription>
+<para>If tracer was created in another compile unit this macro makes the named tracer available in the current unit. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>...</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>First parameter is name of tracer.Use variable argument list like printf. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>No return value. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="219" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__tracer_1ga5f6aa8edcd99914757600b5d3b259bb7" prot="public" static="no">
+        <name>TRACE</name>
+        <param><defname>...</defname></param>
+        <initializer>trace(__VA_ARGS__)</initializer>
+        <briefdescription>
+<para>Send output to a tracer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>...</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>First parameter is name of tracer.Use variable argument list like printf. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>No return value. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="231" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__tracer_1gaecbdf8d686c14282619c258bc588b652" prot="public" static="no">
+        <name>DL_TRACE</name>
+        <param><defname>level</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>(void)0</initializer>
+        <briefdescription>
+<para>Send output to a tracer, If DEBUG_LEVEL if high enough. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>...</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>First parameter is the required DEBUG_LEVEL to get the output, second parameter is name of tracer. Use variable argument list like printf. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>No return value. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="246" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__tracer_1gaa61504dfa31d7588c2c5f087f9c8a9b4" prot="public" static="no">
+        <name>ENABLE_TRACER</name>
+        <param><defname>T</defname></param>
+        <initializer>enableTracer(T)</initializer>
+        <briefdescription>
+<para>Enable a tracer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of tracer. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>No return value. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="257" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__tracer_1ga57b8b6737e0ff4b0dcbd1ff73e36f7fc" prot="public" static="no">
+        <name>DISABLE_TRACER</name>
+        <param><defname>T</defname></param>
+        <initializer>disableTracer(T)</initializer>
+        <briefdescription>
+<para>Disable a tracer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of tracer. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>No return value. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="267" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" bodystart="267" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__tracer_1ga95483e2a9a4f439681d2a53e21ef811c" prot="public" static="no">
+        <name>SET_TRACE_LEVEL</name>
+        <param><defname>L</defname></param>
+        <initializer>setTraceLevel(L)</initializer>
+        <briefdescription>
+<para>Set the global trace level. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>L</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Trace level. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>No return value. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="277" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__tracer_1ga7d0528c95a29f02b230485351137078c" prot="public" static="no">
+        <name>SET_TRACER_FILE</name>
+        <param><defname>T</defname></param>
+        <param><defname>F</defname></param>
+        <initializer>setTracerFile(T, F)</initializer>
+        <briefdescription>
+<para>Redirect a tracer to a file. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of tracer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>F</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A valid FILE*.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>No return value. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="289" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" bodystart="324" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__tracer_1gabb74bd59e9e33a2104ac9b4683fac176" prot="public" static="no">
+        <name>FLUSH_TRACER</name>
+        <param><defname>T</defname></param>
+        <initializer>flushTracer(T)</initializer>
+        <briefdescription>
+<para>Flush a tracer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of tracer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>No return value. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="300" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__tracer_1gafcad1eeba4f143ca112d3e30584742bb" prot="public" static="no">
+        <name>GET_TRACE_LEVEL</name>
+        <param></param>
+        <initializer>getTraceLevel()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="301" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" bodystart="301" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__tracer_1ga4643bc3894648f732dcde6f242105d9c" prot="public" static="no">
+        <name>GET_TRACER_LIST</name>
+        <param></param>
+        <initializer>getTracerList()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="302" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__tracer_1ga75d7af0b0c8ff8fd0625471ecd8b9634" prot="public" static="no">
+        <name>SET_TRACE_MODULE</name>
+        <param><defname>T</defname></param>
+        <param><defname>L</defname></param>
+        <initializer>setTraceModule(T, L)</initializer>
+        <briefdescription>
+<para>Set the trace module. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>L</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Trace Module enum. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>No return value. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="312" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" bodystart="312" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__tracer_1ga7d0528c95a29f02b230485351137078c" prot="public" static="no">
+        <name>SET_TRACER_FILE</name>
+        <param><defname>T</defname></param>
+        <param><defname>F</defname></param>
+        <initializer>setTracerFile(T, F)</initializer>
+        <briefdescription>
+<para>Redirect a tracer to a file. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>T</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of tracer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>F</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A valid FILE*.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>No return value. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="324" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" bodystart="324" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__tracer_1ga3ad7221d2a3cef635bf07534980070b4" prot="public" static="no">
+        <name>IF_TRACE_ON</name>
+        <param><defname>x</defname></param>
+        <initializer>x</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="329" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" bodystart="329" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__module__tracer_1ga726ca809ffd3d67ab4b8476646f26635" prot="public" static="no">
+        <name>@6</name>
+        <enumvalue id="group__module__tracer_1gga726ca809ffd3d67ab4b8476646f26635a775bbab8691a2873d961962c5594ef24" prot="public">
+          <name>TRACE_OFF</name>
+          <initializer>= 0x00</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga726ca809ffd3d67ab4b8476646f26635a748005382152808a72b1a9177d9dc806" prot="public">
+          <name>INFO</name>
+          <initializer>= 0x01</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga726ca809ffd3d67ab4b8476646f26635a984de77c680eaff141ec910e25568a81" prot="public">
+          <name>WARNING</name>
+          <initializer>= 0x02</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga726ca809ffd3d67ab4b8476646f26635a2fd6f336d08340583bd620a7f5694c90" prot="public">
+          <name>ERROR</name>
+          <initializer>= 0x04</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga726ca809ffd3d67ab4b8476646f26635a0593585da9181e972974c1274d8f2b4f" prot="public">
+          <name>DEBUG</name>
+          <initializer>= 0x08</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga726ca809ffd3d67ab4b8476646f26635a822d8763aa2ea663ce5088b3444bf020" prot="public">
+          <name>MAX_LEVEL</name>
+          <initializer>= (0x01U | 0x02U | 0x04U | 0x08U)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" bodystart="87" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__module__tracer_1ga0411cd49bb5b71852cecd93bcbf0ca2d" prot="public" static="no">
+        <name>@7</name>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da051b6dc18cd0df1a92593d2ee209c8d9" prot="public">
+          <name>TRACE_BASE_MODULE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da4d3b58547c17d7775b036111ae6ee46d" prot="public">
+          <name>TRACE_2DNR</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2dabc534f6c17a7049ece251e5f95a01f8d" prot="public">
+          <name>TRACE_3DNR</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2dac83d1d5d92d243da1b3075d7b9bf93dd" prot="public">
+          <name>TRACE_AFM</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da7305549aecb131fd60e0cc15cc500715" prot="public">
+          <name>TRACE_CNR</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2dadb672d339a18ac2a5f67fcab8aeac96f" prot="public">
+          <name>TRACE_COMPAND</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da77ef9855143a22b001d8664a9ae22806" prot="public">
+          <name>TRACE_DEMOSAIC</name>
+          <initializer>= 6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da9658e6b6200365a5fd4d610b7c76bf21" prot="public">
+          <name>TRACE_DG</name>
+          <initializer>= 7</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da555eebdb85d0c00f1b5f4a60fc64f640" prot="public">
+          <name>TRACE_DPF</name>
+          <initializer>= 8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da9266aba310135bd96fda61363d5cc368" prot="public">
+          <name>TRACE_EE</name>
+          <initializer>= 9</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da0f976ffa03e43d3078c5ec31cc695f8e" prot="public">
+          <name>TRACE_EXP</name>
+          <initializer>= 10</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2dacd44a713ad660254f42048c77010a769" prot="public">
+          <name>TRACE_FEBE</name>
+          <initializer>= 11</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da520097da16fce0b0f0084a83a9c332ce" prot="public">
+          <name>TRACE_FUSA</name>
+          <initializer>= 12</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da47d1c3b9ebe2764e9e1efa6d958c84ff" prot="public">
+          <name>TRACE_GC</name>
+          <initializer>= 13</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da84e67733efc94d73fbcb523950c8c0d2" prot="public">
+          <name>TRACE_GTM</name>
+          <initializer>= 14</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da623cc5067b5577218eb165ffb298eada" prot="public">
+          <name>TRACE_GWDR</name>
+          <initializer>= 15</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2dafcfd20ebbdf69fecef069aa18ed495b3" prot="public">
+          <name>TRACE_HDR</name>
+          <initializer>= 16</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da13d19161a70bd989f92cdd369afc31ba" prot="public">
+          <name>TRACE_LSC</name>
+          <initializer>= 17</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da72d4babf6e6bfe347f402037b508dd9b" prot="public">
+          <name>TRACE_LUT3D</name>
+          <initializer>= 18</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2dab348165de472637d256b195e12320ce2" prot="public">
+          <name>TRACE_MI</name>
+          <initializer>= 19</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da3a9dd71dddb0bde8ae57cc936537c66a" prot="public">
+          <name>TRACE_MPCTL</name>
+          <initializer>= 20</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2dafdf9f5f2521cf37aea0489fa4483b6df" prot="public">
+          <name>TRACE_PDAF</name>
+          <initializer>= 21</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2dafa509aba1c5af65d82b3e262e17aba2f" prot="public">
+          <name>TRACE_RAW_CROP</name>
+          <initializer>= 22</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da8f949595c4523a35c56373d77cdaf9d0" prot="public">
+          <name>TRACE_RDCD</name>
+          <initializer>= 23</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2dad95b3b6d3c4fe5950dd3261c966b349a" prot="public">
+          <name>TRACE_RGBIR</name>
+          <initializer>= 24</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da0c333b7ccaf16d9dc2c0c61eac914b03" prot="public">
+          <name>TRACE_WB</name>
+          <initializer>= 25</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2dad4c40703412f11131d8bbaec38bca0de" prot="public">
+          <name>TRACE_WDR</name>
+          <initializer>= 26</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2dac0773c1e8f3766f2f17e6301cb3ae377" prot="public">
+          <name>TRACE_YNR</name>
+          <initializer>= 27</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da578767c7a86b17bede2ac38294d51b6d" prot="public">
+          <name>TRACE_AWB</name>
+          <initializer>= 28</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2dab45b748172981ec1b0f626ca8241260d" prot="public">
+          <name>TRACE_BLS</name>
+          <initializer>= 29</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2dafce36eaaa9a1f6bbdf12b1a9a62972d0" prot="public">
+          <name>TRACE_CCM</name>
+          <initializer>= 30</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da7cfb60aed024fa00be9645a4f48d0d35" prot="public">
+          <name>TRACE_CPROC</name>
+          <initializer>= 31</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2dab2110b1b3a8fad5db2e7e497b86f1946" prot="public">
+          <name>TRACE_CROP</name>
+          <initializer>= 32</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da8111bf3dff5b36dd983a484ff387e4ec" prot="public">
+          <name>TRACE_CSM</name>
+          <initializer>= 33</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da614bf7cd8139859fc75dd0a9d82c0fc1" prot="public">
+          <name>TRACE_DPCC</name>
+          <initializer>= 35</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2daac96f72f8b19646a174a18b036ed8120" prot="public">
+          <name>TRACE_GCMONO</name>
+          <initializer>= 37</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da23456e5a0e140ef7be2e9ea4d921b2da" prot="public">
+          <name>TRACE_GE</name>
+          <initializer>= 38</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da59514ebe908159fb11c45da0c9dc28ac" prot="public">
+          <name>TRACE_HIST</name>
+          <initializer>= 39</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2dad526226d1d9f693303f2a711d8ed3131" prot="public">
+          <name>TRACE_STA</name>
+          <initializer>= 40</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da483edc4a9fc209a9c88251a7c164e0cb" prot="public">
+          <name>TRACE_STITCH</name>
+          <initializer>= 41</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2dae1364805211e7d81f99ad62b22ad30db" prot="public">
+          <name>TRACE_TPG</name>
+          <initializer>= 42</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da5aeb790b4682153a1d7ac91dcc2df503" prot="public">
+          <name>TRACE_VSM</name>
+          <initializer>= 43</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da9c4dd656842990b5be64f08368a57130" prot="public">
+          <name>TRACE_AE</name>
+          <initializer>= 44</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2da96efa4505f80c0a8341f8ae7d6efe0d3" prot="public">
+          <name>TRACE_AF</name>
+          <initializer>= 45</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__module__tracer_1gga0411cd49bb5b71852cecd93bcbf0ca2daf3ea3f03ce04c67ef1ec09c62b891d82" prot="public">
+          <name>TRACE_MODULE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" bodystart="96" bodyend="142"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__module__tracer_1gabd49c3187b3a2915e515d90eeff2982b" prot="public" static="no">
+        <type>struct tracer_s</type>
+        <definition>typedef struct tracer_s  Tracer</definition>
+        <argsstring></argsstring>
+        <name>Tracer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="152" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__module__tracer_1ga23e0e199c73fc2d907d16981e16481df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int getTraceLevel</definition>
+        <argsstring>(void)</argsstring>
+        <name>getTraceLevel</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/source/trace.c" bodystart="54" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="group__module__tracer_1ga0f6217092969980cbb8ac3af511db207" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void setTraceLevel</definition>
+        <argsstring>(int)</argsstring>
+        <name>setTraceLevel</name>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/source/trace.c" bodystart="58" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="group__module__tracer_1ga0cfb0686269e9984044413718ec1148a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void enableTracer</definition>
+        <argsstring>(Tracer *)</argsstring>
+        <name>enableTracer</name>
+        <param>
+          <type>Tracer *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/source/trace.c" bodystart="76" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="function" id="group__module__tracer_1ga0ca2448efe8b12093c7fe5b444c69986" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void disableTracer</definition>
+        <argsstring>(Tracer *)</argsstring>
+        <name>disableTracer</name>
+        <param>
+          <type>Tracer *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/source/trace.c" bodystart="83" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="group__module__tracer_1gadfe03d4c5f16fd34feee3d59e550ba7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void setTracerFile</definition>
+        <argsstring>(Tracer *, FILE *)</argsstring>
+        <name>setTracerFile</name>
+        <param>
+          <type>Tracer *</type>
+        </param>
+        <param>
+          <type>FILE *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/source/trace.c" bodystart="90" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="group__module__tracer_1gaf058fec9e05829b283db0c211a84b43c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void flushTracer</definition>
+        <argsstring>(const Tracer *)</argsstring>
+        <name>flushTracer</name>
+        <param>
+          <type>const Tracer *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/source/trace.c" bodystart="96" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="group__module__tracer_1gab325d61b856f87711d45dbd0cb36cfc3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void trace</definition>
+        <argsstring>(Tracer *, const CHAR *,...)</argsstring>
+        <name>trace</name>
+        <param>
+          <type>Tracer *</type>
+        </param>
+        <param>
+          <type>const CHAR *</type>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/source/trace.c" bodystart="115" bodyend="128"/>
+      </memberdef>
+      <memberdef kind="function" id="group__module__tracer_1gacb63245629b849cd8b35c7772d94a66d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Tracer *</type>
+        <definition>Tracer* getTracerList</definition>
+        <argsstring>(void)</argsstring>
+        <name>getTracerList</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/source/trace.c" bodystart="110" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="function" id="group__module__tracer_1gaa4249dde9cd2ed5e91230ab3086813bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int getTraceModule</definition>
+        <argsstring>(Tracer *)</argsstring>
+        <name>getTraceModule</name>
+        <param>
+          <type>Tracer *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/source/trace.c" bodystart="65" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="group__module__tracer_1ga3c1bc5a289db5779427d5c9c62baba03" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void setTraceModule</definition>
+        <argsstring>(Tracer *, int)</argsstring>
+        <name>setTraceModule</name>
+        <param>
+          <type>Tracer *</type>
+        </param>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/source/trace.c" bodystart="70" bodyend="74"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file defines the API for the tracing facility of the embedded lib. </para>    </briefdescription>
+    <detaileddescription>
+<para>WARNING: Due to use of variadic macros which were introduced into C in c99 this can not be used with c++ code in pedantic mode. </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2022<sp/>Vivante<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>VeriSilicon<sp/>2020<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor">#ifndef<sp/>TRACE_H_</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TRACE_H_</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>must<sp/>be<sp/>defined<sp/>even<sp/>for<sp/>release<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="types_8h" kindref="compound">types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="oslayer_8h" kindref="compound">oslayer.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>ERROR</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#undef<sp/>ERROR</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_OFF<sp/>=<sp/>0x00,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INFO<sp/>=<sp/>0x01,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WARNING<sp/>=<sp/>0x02,</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ERROR<sp/>=<sp/>0x04,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DEBUG<sp/><sp/><sp/>=<sp/>0x08,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAX_LEVEL<sp/>=<sp/>(0x01U<sp/>|<sp/>0x02U<sp/>|<sp/>0x04U<sp/>|<sp/>0x08U)</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_BASE_MODULE<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_2DNR<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_3DNR<sp/>=<sp/>2,</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_AFM<sp/>=<sp/>3,</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_CNR<sp/>=<sp/>4,</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_COMPAND<sp/>=<sp/>5,</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_DEMOSAIC<sp/>=<sp/>6,</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_DG<sp/>=<sp/>7,</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_DPF<sp/>=<sp/>8,</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_EE<sp/>=<sp/>9,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_EXP<sp/>=<sp/>10,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_FEBE<sp/>=<sp/>11,</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_FUSA<sp/>=<sp/>12,</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_GC<sp/>=<sp/>13,</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_GTM<sp/>=<sp/>14,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_GWDR<sp/>=<sp/>15,</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_HDR<sp/>=<sp/>16,</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_LSC<sp/>=<sp/>17,</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_LUT3D<sp/>=<sp/>18,</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_MI<sp/>=<sp/>19,</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_MPCTL<sp/>=<sp/>20,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_PDAF<sp/>=<sp/>21,</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_RAW_CROP<sp/>=<sp/>22,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_RDCD<sp/>=<sp/>23,</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_RGBIR<sp/>=<sp/>24,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_WB<sp/>=<sp/>25,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_WDR<sp/>=<sp/>26,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_YNR<sp/>=<sp/>27,</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_AWB<sp/>=<sp/>28,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_BLS<sp/>=<sp/>29,</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_CCM<sp/>=<sp/>30,</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_CPROC<sp/>=<sp/>31,</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_CROP<sp/>=<sp/>32,</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_CSM<sp/>=<sp/>33,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_DPCC<sp/>=<sp/>35,</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_GCMONO<sp/>=<sp/>37,</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_GE<sp/>=<sp/>38,</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_HIST<sp/>=<sp/>39,</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_STA<sp/>=<sp/>40,</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_STITCH<sp/>=<sp/>41,</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_TPG<sp/>=<sp/>42,</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_VSM<sp/>=<sp/>43,</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_AE<sp/>=<sp/>44,</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_AF<sp/>=<sp/>45,</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TRACE_MODULE_MAX</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">tracer_s<sp/>{</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FILE<sp/>*fp;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>char_t<sp/>*prefix;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int16_t<sp/>level;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int8_t<sp/>enabled;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int8_t<sp/>linked;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>char_t<sp/>*name;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">tracer_s<sp/>*next;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint64_t<sp/>module;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">}<sp/>Tracer;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>NDEBUG</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getTraceLevel(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setTraceLevel(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>enableTracer(Tracer<sp/>*);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>disableTracer(Tracer<sp/>*);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setTracerFile(Tracer<sp/>*,<sp/>FILE<sp/>*);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>flushTracer(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Tracer<sp/>*);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>trace(Tracer*,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>CHAR*,<sp/>...);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal">Tracer<sp/>*getTracerList(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>getTraceModule(Tracer<sp/>*);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setTraceModule(Tracer<sp/>*,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined(USE_SDRAM_FOR_TRACE)</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TRACER_DATA</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TRACER_DATA<sp/><sp/>DRAM_DATA</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="193" refid="group__module__tracer_1ga143cef77b964d67e1e5b99f0439316fd" refkind="member"><highlight class="preprocessor">#define<sp/>CREATE_TRACER(name,<sp/>arg_prefix,<sp/>arg_level,<sp/>arg_enabled)<sp/>\</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CHAR<sp/>tracerName##name[]<sp/>TRACER_DATA<sp/>=<sp/>#name;<sp/>\</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CHAR<sp/>tracerPrefix##name[]<sp/>TRACER_DATA<sp/>=<sp/>arg_prefix;<sp/>\</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Tracer<sp/>instance__##name<sp/>TRACER_DATA<sp/>=<sp/>\</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,<sp/>\</highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;tracerPrefix##name[0],<sp/>\</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>arg_level,<sp/>\</highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>arg_enabled,<sp/>\</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0,<sp/>\</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;tracerName##name[0],<sp/>\</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,<sp/>\</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/>\</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};<sp/>\</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Tracer<sp/>*name<sp/>=<sp/>&amp;instance__##name</highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="219" refid="group__module__tracer_1ga8d7cb2915298fcf7ef18d73f069758ad" refkind="member"><highlight class="preprocessor">#define<sp/>USE_TRACER(name)\</highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>extern<sp/>Tracer<sp/>*name</highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="231" refid="group__module__tracer_1ga5f6aa8edcd99914757600b5d3b259bb7" refkind="member"><highlight class="preprocessor">#define<sp/>TRACE(...)<sp/>trace(__VA_ARGS__)</highlight></codeline>
+<codeline lineno="232"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor">#if<sp/>defined<sp/>(DEBUG_LEVEL)</highlight></codeline>
+<codeline lineno="244"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DL_TRACE(level,<sp/>...)<sp/>if<sp/>(DEBUG_LEVEL<sp/>&gt;=<sp/>level)<sp/>{<sp/>trace(__VA_ARGS__);<sp/>}</highlight></codeline>
+<codeline lineno="245"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="246" refid="group__module__tracer_1gaecbdf8d686c14282619c258bc588b652" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DL_TRACE(level,<sp/>...)<sp/>(void)0</highlight></codeline>
+<codeline lineno="247"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="248"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="257" refid="group__module__tracer_1gaa61504dfa31d7588c2c5f087f9c8a9b4" refkind="member"><highlight class="preprocessor">#define<sp/>ENABLE_TRACER(T)<sp/>enableTracer(T)</highlight></codeline>
+<codeline lineno="258"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="267" refid="group__module__tracer_1ga57b8b6737e0ff4b0dcbd1ff73e36f7fc" refkind="member"><highlight class="preprocessor">#define<sp/>DISABLE_TRACER(T)<sp/>disableTracer(T)</highlight></codeline>
+<codeline lineno="268"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="277" refid="group__module__tracer_1ga95483e2a9a4f439681d2a53e21ef811c" refkind="member"><highlight class="preprocessor">#define<sp/>SET_TRACE_LEVEL(L)<sp/>setTraceLevel(L)</highlight></codeline>
+<codeline lineno="278"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="289"><highlight class="preprocessor">#define<sp/>SET_TRACER_FILE(T,<sp/>F)<sp/>setTracerFile(T,<sp/>F)</highlight></codeline>
+<codeline lineno="290"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="300" refid="group__module__tracer_1gabb74bd59e9e33a2104ac9b4683fac176" refkind="member"><highlight class="preprocessor">#define<sp/>FLUSH_TRACER(T)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>flushTracer(T)</highlight></codeline>
+<codeline lineno="301"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GET_TRACE_LEVEL()<sp/><sp/><sp/>getTraceLevel()</highlight></codeline>
+<codeline lineno="302"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GET_TRACER_LIST()<sp/><sp/><sp/>getTracerList()</highlight></codeline>
+<codeline lineno="303"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="312" refid="group__module__tracer_1ga75d7af0b0c8ff8fd0625471ecd8b9634" refkind="member"><highlight class="preprocessor">#define<sp/>SET_TRACE_MODULE(T,<sp/>L)<sp/>setTraceModule(T,<sp/>L)</highlight></codeline>
+<codeline lineno="313"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="324" refid="group__module__tracer_1ga7d0528c95a29f02b230485351137078c" refkind="member"><highlight class="preprocessor">#define<sp/>SET_TRACER_FILE(T,<sp/>F)<sp/>setTracerFile(T,<sp/>F)</highlight></codeline>
+<codeline lineno="325"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>this<sp/>macro<sp/>can<sp/>be<sp/>used<sp/>to<sp/>define<sp/>statements<sp/>or<sp/>variables<sp/>which<sp/>are<sp/>only</highlight></codeline>
+<codeline lineno="327"><highlight class="comment"><sp/>*<sp/>active<sp/>if<sp/>NDEBUG<sp/>is<sp/>not<sp/>defined:</highlight></codeline>
+<codeline lineno="328"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IF_TRACE_ON(x)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x</highlight></codeline>
+<codeline lineno="330"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="331"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>The<sp/>macro<sp/>for<sp/>CREATE_TRACER<sp/>can<sp/>not<sp/>just<sp/>expand<sp/>to<sp/>nothing.<sp/>Otherwise<sp/>we</highlight></codeline>
+<codeline lineno="332"><highlight class="comment">*<sp/>would<sp/>have<sp/>a<sp/>single<sp/>semicolon<sp/>which<sp/>C<sp/>does<sp/>not<sp/>allow<sp/>outside<sp/>of<sp/>function</highlight></codeline>
+<codeline lineno="333"><highlight class="comment">*<sp/>bodies.<sp/>For<sp/>this<sp/>reason<sp/>we<sp/>expand<sp/>to<sp/>this<sp/>extern<sp/>declaration.<sp/>As<sp/>the</highlight></codeline>
+<codeline lineno="334"><highlight class="comment">*<sp/>external<sp/>variable<sp/>is<sp/>never<sp/>used<sp/>linking<sp/>should<sp/>not<sp/>be<sp/>a<sp/>problem.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CREATE_TRACER(name,<sp/>arg_prefix,<sp/>arg_level,<sp/>arg_enabled)<sp/>extern<sp/>int32_t<sp/>name</highlight></codeline>
+<codeline lineno="336"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>USE_TRACER(name)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>extern<sp/>int32_t<sp/>use##name</highlight></codeline>
+<codeline lineno="337"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TRACE(...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)0</highlight></codeline>
+<codeline lineno="338"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DL_TRACE(level,<sp/>...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)0</highlight></codeline>
+<codeline lineno="339"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ENABLE_TRACER(T)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)0</highlight></codeline>
+<codeline lineno="340"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DISABLE_TRACER(T)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)0</highlight></codeline>
+<codeline lineno="341"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SET_TRACE_LEVEL(L)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)0</highlight></codeline>
+<codeline lineno="342"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SET_TRACER_FILE(T,<sp/>F)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)0</highlight></codeline>
+<codeline lineno="343"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FLUSH_TRACER(T)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)0</highlight></codeline>
+<codeline lineno="344"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GET_TRACE_LEVEL()<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)0</highlight></codeline>
+<codeline lineno="345"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GET_TRACER_LIST()<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)0</highlight></codeline>
+<codeline lineno="346"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SET_TRACE_MODULE(T,<sp/>L)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)0</highlight></codeline>
+<codeline lineno="347"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>this<sp/>macro<sp/>can<sp/>be<sp/>used<sp/>to<sp/>define<sp/>statements<sp/>or<sp/>variables<sp/>which<sp/>are<sp/>only</highlight></codeline>
+<codeline lineno="350"><highlight class="comment"><sp/>*<sp/>active<sp/>if<sp/>NDEBUG<sp/>is<sp/>not<sp/>defined:</highlight></codeline>
+<codeline lineno="351"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IF_TRACE_ON(x)</highlight></codeline>
+<codeline lineno="353"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>NDEBUG<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="354"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="356"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="358"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="359"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>@}<sp/>module_tracer*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*TRACE_H_*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/trace.h"/>
+  </compounddef>
+</doxygen>

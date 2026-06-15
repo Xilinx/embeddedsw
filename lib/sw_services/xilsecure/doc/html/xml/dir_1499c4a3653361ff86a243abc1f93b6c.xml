@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_1499c4a3653361ff86a243abc1f93b6c" kind="dir">
+    <compoundname>server</compoundname>
+    <innerdir refid="dir_f966e1415cfe7e46ada07a453bf9ff23">core</innerdir>
+    <innerdir refid="dir_92441bfe109ecedc70374dd64d1b484b">spartanup</innerdir>
+    <innerdir refid="dir_f16ddee2768f3e6eb66c45f3e9149ede">versal</innerdir>
+    <innerdir refid="dir_af34c32de8497d5b0b20a42af8d883fa">versal_2ve_2vm</innerdir>
+    <innerdir refid="dir_c3d6758539d9bfa79d0e8b27fd89dd8e">versal_2vp</innerdir>
+    <innerdir refid="dir_48ca71433168ee7cab29af0e5ed42a8c">versal_2vp_p</innerdir>
+    <innerdir refid="dir_067ffb8a8bc6b5bbf51e14a809fc5812">versal_net</innerdir>
+    <innerdir refid="dir_042d014002c260243aa1929d4cedab8a">zynqmp</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/"/>
+  </compounddef>
+</doxygen>

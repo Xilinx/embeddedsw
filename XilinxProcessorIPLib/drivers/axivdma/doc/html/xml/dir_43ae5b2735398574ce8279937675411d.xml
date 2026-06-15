@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_43ae5b2735398574ce8279937675411d" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xaxivdma_8c">xaxivdma.c</innerfile>
+    <innerfile refid="xaxivdma_8h">xaxivdma.h</innerfile>
+    <innerfile refid="xaxivdma__channel_8c">xaxivdma_channel.c</innerfile>
+    <innerfile refid="xaxivdma__g_8c">xaxivdma_g.c</innerfile>
+    <innerfile refid="xaxivdma__hw_8h">xaxivdma_hw.h</innerfile>
+    <innerfile refid="xaxivdma__i_8h">xaxivdma_i.h</innerfile>
+    <innerfile refid="xaxivdma__intr_8c">xaxivdma_intr.c</innerfile>
+    <innerfile refid="xaxivdma__porting__guide_8h">xaxivdma_porting_guide.h</innerfile>
+    <innerfile refid="xaxivdma__selftest_8c">xaxivdma_selftest.c</innerfile>
+    <innerfile refid="xaxivdma__sinit_8c">xaxivdma_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/"/>
+  </compounddef>
+</doxygen>

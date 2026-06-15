@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>dmaps</title>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who       Date     Changes
+<hruler/>
+
+1.00    hbm    08/19/10 First Release
+1.01a nm     12/20/12 Added definition XDMAPS_CHANNELS_PER_DEV which specifies
+                the maximum number of channels.
+                Replaced the usage of XPAR_XDMAPS_CHANNELS_PER_DEV
+                      with XDMAPS_CHANNELS_PER_DEV defined in <ref refid="xdmaps__hw_8h" kindref="compound">xdmaps_hw.h</ref>.
+                Added the tcl file to automatically generate the
+                xparameters.h
+1.02a sg     05/16/12 Made changes for doxygen and moved some function
+                header from the <ref refid="xdmaps_8h" kindref="compound">xdmaps.h</ref> file to <ref refid="xdmaps_8c" kindref="compound">xdmaps.c</ref> file
+                Other cleanup for coding guidelines and CR 657109
+                and CR 657898
+                The xdmaps_example_no_intr.c example is removed
+                as it is using interrupts  and is similar to
+                the interrupt example - CR 652477
+1.03a sg     07/16/2012 changed inline to __inline for CR665681
+1.04a nm     10/22/2012 Fixed CR# 681671.
+1.05a nm     04/15/2013 Fixed CR# 704396. Removed warnings when compiled
+                  with -Wall and -Wextra option in bsp.
+             05/01/2013 Fixed CR# 700189. Changed XDmaPs_BuildDmaProg()
+                  function description.
+                  Fixed CR# 704396. Removed unused variables
+                  UseM2MByte &amp; MemBurstLen from XDmaPs_BuildDmaProg()
+                  function.
+1.07a asa    11/02/13. Made changes to fix compilation issues for iarcc.
+                   Removed the PDBG prints. By default they were always
+                   defined out and never used. The PDBG is non-standard for
+                   Xilinx drivers and no other driver does something similar.
+                   Since there is no easy way to fix compilation issues with
+                   the IARCC compiler around PDBG, it is better to remove it.
+                   Users can always use xil_printfs if they want to debug.
+2.0   adk    10/12/13  Updated as per the New Tcl API&apos;s
+2.01  kpc    08/23/14  Fixed the IAR compiler reported errors
+2.2   mus    08/12/16  Declared all inline functions in <ref refid="xdmaps_8c" kindref="compound">xdmaps.c</ref> as extern, to avoid
+                       linker error for IAR compiler
+2.3   ms     01/23/17 Modified xil_printf statement in main function for all
+                      examples to ensure that &quot;Successfully ran&quot; and &quot;Failed&quot;
+                      strings are available in all examples. This is a fix
+                      for CR-965028.
+      ms     03/17/17 Added readme.txt file in examples folder for doxygen
+                      generation.
+2.4   adk    13/08/18 Fixed armcc compiler warnings in the driver CR-1008310.
+2.8     sk     05/18/21 Modify all inline functions declarations from extern inline
+                to static inline to avoid the linkage conflict for IAR compiler.
+2.9   aj     11/07/23 Added support for system device tree
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

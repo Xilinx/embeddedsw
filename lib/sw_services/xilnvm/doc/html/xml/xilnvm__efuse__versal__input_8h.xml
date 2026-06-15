@@ -1,0 +1,1534 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilnvm__efuse__versal__input_8h" kind="file">
+    <compoundname>xilnvm_efuse_versal_input.h</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includedby refid="xilnvm__efuse__versal__client__example_8c" local="yes">xilnvm_efuse_versal_client_example.c</includedby>
+    <includedby refid="xilnvm__efuse__versal__server__example_8c" local="yes">xilnvm_efuse_versal_server_example.c</includedby>
+    <incdepgraph>
+      <node id="89">
+        <label>xparameters.h</label>
+      </node>
+      <node id="88">
+        <label>xilnvm_efuse_versal_input.h</label>
+        <link refid="xilnvm_efuse_versal_input.h"/>
+        <childnode refid="89" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="91">
+        <label>xilnvm_efuse_versal_client_example.c</label>
+        <link refid="xilnvm__efuse__versal__client__example_8c"/>
+      </node>
+      <node id="92">
+        <label>xilnvm_efuse_versal_server_example.c</label>
+        <link refid="xilnvm__efuse__versal__server__example_8c"/>
+      </node>
+      <node id="90">
+        <label>xilnvm_efuse_versal_input.h</label>
+        <link refid="xilnvm_efuse_versal_input.h"/>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1ab58383feb284a9dbe5ae74a53b9bad8d" prot="public" static="no">
+        <name>XNVM_EFUSE_REG_INIT_DIS</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>Following is the define to select if the user wants to program Secure control bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="803" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="803" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a5984e5201c97a280aec8a831238136d6" prot="public" static="no">
+        <name>XNVM_EFUSE_BOOT_ENV_WR_LK</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="804" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="804" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a194d061d92c7eb4964148f8aa4768157" prot="public" static="no">
+        <name>XNVM_EFUSE_PMC_SC_EN</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="805" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="805" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a7e8685a52ba7c05e75ec42ac66b11477" prot="public" static="no">
+        <name>XNVM_EFUSE_AUTH_JTAG_LOCK_DIS</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="806" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="806" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a92fff184cc23893863a6f8ebde4a7380" prot="public" static="no">
+        <name>XNVM_EFUSE_AUTH_JTAG_DIS</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="807" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="807" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a3df6675776ca0436705ff7442b7a5d01" prot="public" static="no">
+        <name>XNVM_EFUSE_PPK0_WR_LK</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="808" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="808" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1add6e93321bef94bf1a0d16d119924900" prot="public" static="no">
+        <name>XNVM_EFUSE_PPK1_WR_LK</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="809" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="809" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a6777e8aac11f3ecbb920b8360d7f9859" prot="public" static="no">
+        <name>XNVM_EFUSE_PPK2_WR_LK</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="810" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="810" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1ae7f0d33cc2ffe4d296742a45f0400c5e" prot="public" static="no">
+        <name>XNVM_EFUSE_AES_CRC_LK</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="811" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="811" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a265583bb4c1a508c0d664784f1b2bd13" prot="public" static="no">
+        <name>XNVM_EFUSE_AES_WR_LK</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="812" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="812" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a113df36ee1430155d5083ca0d1c733b0" prot="public" static="no">
+        <name>XNVM_EFUSE_USER_KEY_0_CRC_LK</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="813" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="813" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a0d34b57c7f0c66e2235921265ea800a3" prot="public" static="no">
+        <name>XNVM_EFUSE_USER_KEY_0_WR_LK</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="814" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="814" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a05d3c33394ff890f7a05074689a90037" prot="public" static="no">
+        <name>XNVM_EFUSE_USER_KEY_1_CRC_LK</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="815" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="815" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a9c26a9d47d4636140e578e3048109edc" prot="public" static="no">
+        <name>XNVM_EFUSE_USER_KEY_1_WR_LK</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="816" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="816" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a4c1176e1339f876ee1cbc174e5ba52ce" prot="public" static="no">
+        <name>XNVM_EFUSE_HWTSTBITS_DIS</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="817" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="817" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a684992766a1c382ec1ec7f249de910ac" prot="public" static="no">
+        <name>XNVM_EFUSE_JTAG_DIS</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="818" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="818" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1aa4fd9174211632bb4896d980e4925c3c" prot="public" static="no">
+        <name>XNVM_EFUSE_JTAG_ERROR_OUT_DIS</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="819" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="819" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a741d44e4a957101b89f2bb614cc8a76a" prot="public" static="no">
+        <name>XNVM_EFUSE_AES_DIS</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="820" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="820" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a26b35fab663a4364f15423fdca8b7081" prot="public" static="no">
+        <name>XNVM_EFUSE_GD_HALT_BOOT_EN_1_0</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>Following is the define to select if the user wants to program Misc control bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="826" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="826" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a0b095840f3bb86905b421f5f4a985bd2" prot="public" static="no">
+        <name>XNVM_EFUSE_GD_ROM_MONITOR_EN</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="827" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="827" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a5851dbc4548049fd8ebfca1c5e63bc71" prot="public" static="no">
+        <name>XNVM_EFUSE_GEN_ERR_HALT_BOOT_EN_1_0</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="828" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="828" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1ad9b5394a6ca20d2605a5002643520e48" prot="public" static="no">
+        <name>XNVM_EFUSE_ENV_ERR_HALT_BOOT_EN_1_0</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="829" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="829" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a4cd91e310639c57121552deff330ef8e" prot="public" static="no">
+        <name>XNVM_EFUSE_CRYPTO_KAT_EN</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="830" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="830" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1add7052eee6ba30000720ca2e6c341ed9" prot="public" static="no">
+        <name>XNVM_EFUSE_LBIST_EN</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="831" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="831" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1ac20dc680b692c5663119e1e471108506" prot="public" static="no">
+        <name>XNVM_EFUSE_SAFETY_MISSION_EN</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="832" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="832" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1ad80dce44abc5b8fa3ab544cc4f7cb1c7" prot="public" static="no">
+        <name>XNVM_EFUSE_PPK0_INVLD</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="833" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="833" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1aa870f5eaa6381685888088ffbd04cdda" prot="public" static="no">
+        <name>XNVM_EFUSE_PPK1_INVLD</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="834" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="834" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a62bc736861fe39e55f6fd9e9463de0bd" prot="public" static="no">
+        <name>XNVM_EFUSE_PPK2_INVLD</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="835" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="835" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a6fb3b938cbea92e9389ac511bde55938" prot="public" static="no">
+        <name>XNVM_EFUSE_SYSMON_TEMP_EN</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>Following is the define to select if the user wants to program BootEnvCtrl control bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="841" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="841" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a9fb705be2680cac36f80b08e14fe0a45" prot="public" static="no">
+        <name>XNVM_EFUSE_SYSMON_VOLT_EN</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="842" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="842" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1adb9d1d557e4d5c38b9d05d644f5f30b6" prot="public" static="no">
+        <name>XNVM_EFUSE_SYSMON_TEMP_HOT</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="843" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="843" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1acd640d29138d3ad25e87bf6c7a4cb3b4" prot="public" static="no">
+        <name>XNVM_EFUSE_SYSMON_VOLT_PMC</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="844" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="844" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a20692327cc20e4a8748fe4882e58fb4f" prot="public" static="no">
+        <name>XNVM_EFUSE_SYSMON_VOLT_PSLP</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="845" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="845" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a9a15781127886501ca634b40dfa32dcb" prot="public" static="no">
+        <name>XNVM_EFUSE_SYSMON_VOLT_SOC</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="846" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="846" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1aa436c3e0380840d0bccbf365ed447977" prot="public" static="no">
+        <name>XNVM_EFUSE_SYSMON_TEMP_COLD</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="847" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="847" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a3964cd3e2212d5365077febc68da48ae" prot="public" static="no">
+        <name>XNVM_EFUSE_LPD_MBIST_EN</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>Following is the define to select if the user wants to program SecurityMisc1 control bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="853" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="853" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a190580e541b71718c9537623415074b0" prot="public" static="no">
+        <name>XNVM_EFUSE_PMC_MBIST_EN</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="854" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="854" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a8a5c13e3511aed9f7f80caaa4b45f9ee" prot="public" static="no">
+        <name>XNVM_EFUSE_LPD_NOC_SC_EN</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="855" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="855" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1ab922113239d93962a674b7abfe976327" prot="public" static="no">
+        <name>XNVM_EFUSE_SYSMON_VOLT_MON_EN</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="856" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="856" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a5742af81d3b0673fe23956460cf0e894" prot="public" static="no">
+        <name>XNVM_EFUSE_SYSMON_TEMP_MON_EN</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="857" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="857" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1aa2bff8a52477bf6fd766128c9237cc37" prot="public" static="no">
+        <name>XNVM_EFUSE_GLITCH_DET_WR_LK</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>Following define is to lock the glitch detection row (ANLG_TRIM_3[31]) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="862" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="862" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1afa8ae9a40748e467407c563e03603092" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_GLITCH_CFG</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+<para>Following is the define to select if the user wants to select Glitch configuration, AES key, User Fuses, PPK0/PPK1/PPK2 hash, IVs, Revocation IDs and IVs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="869" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="869" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a74daf9c47f72fcad4e2a5782d68f16a5" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_AES_KEY</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="870" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="870" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a08f1838397638e6f671c5a495dc338de" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_USER_KEY_0</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="871" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="871" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a10b887a99cebb57fd3a60716c833fc29" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_USER_KEY_1</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="872" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="872" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a3cb22767413471615af1c8c58752f440" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_PPK0_HASH</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="874" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="874" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a2d0c0f5420dda67c1ab8b40426eed32c" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_PPK1_HASH</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="875" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="875" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1affc34a643e2a7be3b20c460b48a7d67b" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_PPK2_HASH</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="876" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="876" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a57ac1a93d0923236d324670d96c290a6" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_DEC_EFUSE_ONLY</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="878" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="878" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a3408dcdb734fa5f7173f06a4ad6b5fe8" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_METAHEADER_IV</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="880" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="880" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a39a3998043390c1a9468021be1e28c88" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_BLACK_OBFUS_IV</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="881" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="881" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1ac9a01976377e8fcf2b1bf6286c27c2a7" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_PLM_IV</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="882" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="882" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1abe78d84839d20b12bc351099b876e990" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_DATA_PARTITION_IV</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="883" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="883" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a648d1bb35585b2ba77bdd35bad6821dc" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_REVOCATION_ID_0</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="885" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="885" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a68fc34c3571dfe11c9eeffca0f4b9303" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_REVOCATION_ID_1</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="886" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="886" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a5fcb88a2c47a1bd2d759b66ca9b5d38f" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_REVOCATION_ID_2</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="887" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="887" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1ade3b363d9193378b0baa861cf616d430" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_REVOCATION_ID_3</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="888" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="888" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a6b4107df628d3ce058a3d56d31c5f7a3" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_REVOCATION_ID_4</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="889" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="889" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a02e24e844c01399c9978ba01e6b0c62d" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_REVOCATION_ID_5</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="890" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="890" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a18b27879540e045d5909f2e023e3866f" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_REVOCATION_ID_6</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="891" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="891" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a0f0c57948d9451a6dbb775dbba0fa2fe" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_REVOCATION_ID_7</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="892" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="892" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1ac03511ff3849d5a84594ad40456f9117" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_0</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="894" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="894" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1ae00665e8dbd34652502831808a80a477" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_1</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="895" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="895" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a8057c6b40d219b170024f9e479459283" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_2</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="896" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="896" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a3ae28b43f544fc9563fe1e65fae005bf" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_3</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="897" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="897" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a5da8b8a0c6d87d1064f48cbf034fdf6e" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_4</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="898" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="898" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1ae677c62cd8a7a6032a903188d6bb7a50" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_5</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="899" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="899" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1ac4e2e7a17b4e541f7d171a8c26095f1f" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_6</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="900" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="900" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1ab6082fab837688da6fc66604b4a6f9df" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_7</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="901" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="901" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a126573a0715622c36d91b486427badac" prot="public" static="no">
+        <name>XNVM_EFUSE_WRITE_USER_FUSES</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="903" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="903" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a1687e15d9ce1b3eb65da7aeca1c5347a" prot="public" static="no">
+        <name>XNVM_EFUSE_ENV_MONITOR_DISABLE</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="905" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="905" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a6d9d6f02bb9056511f8d9cf530f20bef" prot="public" static="no">
+        <name>XNVM_EFUSE_GLITCH_CFG</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+<para>Following defines should be given in the form of hex string. </para>        </briefdescription>
+        <detaileddescription>
+<para>The length of AES_KEY string must be 64, PPK hash should be 64 for and for USER_FUSES. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="913" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="913" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1aefe41a191b9dc2800e9adb763304052f" prot="public" static="no">
+        <name>XNVM_EFUSE_KEY</name>
+        <initializer>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="917" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="917" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a46896dbe5a936d7da29e0ab91d802d32" prot="public" static="no">
+        <name>XNVM_EFUSE_USER_KEY0</name>
+        <initializer>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="919" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="919" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a51503c445a16a8a20b3d1f1b5899fb87" prot="public" static="no">
+        <name>XNVM_EFUSE_USER_KEY1</name>
+        <initializer>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="921" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="921" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a148e70fe0a1658a65c43566a301771f1" prot="public" static="no">
+        <name>XNVM_EFUSE_PPK0_HASH</name>
+        <initializer>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="923" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="923" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a14edb558a3cfd0bd57b07db66b51fa27" prot="public" static="no">
+        <name>XNVM_EFUSE_PPK1_HASH</name>
+        <initializer>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="925" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="925" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1aec5ab92e8aabbf0b3a4efd837215cba1" prot="public" static="no">
+        <name>XNVM_EFUSE_PPK2_HASH</name>
+        <initializer>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="927" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="927" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1aec1b2845a5f2fc891ed56e9c7714c209" prot="public" static="no">
+        <name>XNVM_EFUSE_META_HEADER_IV</name>
+        <initializer>&quot;000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="929" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="929" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1abb3b7a235dec3d1b1c9e65b261886235" prot="public" static="no">
+        <name>XNVM_EFUSE_BLACK_OBFUS_IV</name>
+        <initializer>&quot;000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="931" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="931" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a654e1d442926e780908cf598d91f618a" prot="public" static="no">
+        <name>XNVM_EFUSE_PLM_IV</name>
+        <initializer>&quot;000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="933" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="933" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a53540cd05e5fa7389d03d84682628205" prot="public" static="no">
+        <name>XNVM_EFUSE_DATA_PARTITION_IV</name>
+        <initializer>&quot;000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="935" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="935" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a26b571a5cfa4c08642a3f06bdf09b73e" prot="public" static="no">
+        <name>XNVM_EFUSE_REVOCATION_ID_0_FUSES</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="938" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="938" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a7aebcc198722c7158f688f3625ef73a8" prot="public" static="no">
+        <name>XNVM_EFUSE_REVOCATION_ID_1_FUSES</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="939" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="939" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a1171906b57c1c291cd2cbbd6c250dc46" prot="public" static="no">
+        <name>XNVM_EFUSE_REVOCATION_ID_2_FUSES</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="940" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="940" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1ab7e908ce2b51845c8c19107ce002cafe" prot="public" static="no">
+        <name>XNVM_EFUSE_REVOCATION_ID_3_FUSES</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="941" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="941" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a4eedc16c5dfd51b5f71d1efaaa982d12" prot="public" static="no">
+        <name>XNVM_EFUSE_REVOCATION_ID_4_FUSES</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="942" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="942" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a08dad04c19bb66f5d3a7eb56eb3ed197" prot="public" static="no">
+        <name>XNVM_EFUSE_REVOCATION_ID_5_FUSES</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="943" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="943" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1ab1b48776a30ae49d577dccaec1802aa9" prot="public" static="no">
+        <name>XNVM_EFUSE_REVOCATION_ID_6_FUSES</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="944" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="944" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1af0276c70a1ea9489faa3fc3d6fc455ca" prot="public" static="no">
+        <name>XNVM_EFUSE_REVOCATION_ID_7_FUSES</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="945" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="945" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a3b3d0a9e3c24b9dcc7e1e7ad83c30439" prot="public" static="no">
+        <name>XNVM_EFUSE_OFFCHIP_REVOKE_ID_0_FUSES</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="947" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="947" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a5d85d7553a655a7a6dbcc9626f323de1" prot="public" static="no">
+        <name>XNVM_EFUSE_OFFCHIP_REVOKE_ID_1_FUSES</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="948" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="948" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1ad77fef28f17653f7cccea94a45d5c06f" prot="public" static="no">
+        <name>XNVM_EFUSE_OFFCHIP_REVOKE_ID_2_FUSES</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="949" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="949" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a5756984b0e87d58ffbca65fc77de9f3d" prot="public" static="no">
+        <name>XNVM_EFUSE_OFFCHIP_REVOKE_ID_3_FUSES</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="950" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="950" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1aace83e662a977867c33d5b7be50a0362" prot="public" static="no">
+        <name>XNVM_EFUSE_OFFCHIP_REVOKE_ID_4_FUSES</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="951" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="951" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a4179e0b3fc6bfab224e133bfce21b7d2" prot="public" static="no">
+        <name>XNVM_EFUSE_OFFCHIP_REVOKE_ID_5_FUSES</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="952" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="952" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1abb3d99841a2e95f4c5216df0870f422d" prot="public" static="no">
+        <name>XNVM_EFUSE_OFFCHIP_REVOKE_ID_6_FUSES</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="953" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="953" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a1c395273fb2a22e0817bfbc686eb447a" prot="public" static="no">
+        <name>XNVM_EFUSE_OFFCHIP_REVOKE_ID_7_FUSES</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="954" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="954" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a3f637f1be76332d0318c60ffef25dfb8" prot="public" static="no">
+        <name>XNVM_EFUSE_SYSMON_TEMP_HOT_FUSES</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="956" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="956" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a3175ef78e807cbb69ca089624910e738" prot="public" static="no">
+        <name>XNVM_EFUSE_SYSMON_VOLT_PMC_FUSES</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="957" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="957" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a2b252c25c717ece183aa0770cde08ca5" prot="public" static="no">
+        <name>XNVM_EFUSE_SYSMON_VOLT_PSLP_FUSE</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="958" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="958" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1af7da5711e37a8820c0ea0ac1f5ad57b9" prot="public" static="no">
+        <name>XNVM_EFUSE_SYSMON_TEMP_COLD_FUSES</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="959" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="959" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a78d30f09b61d55d9511734b7c9f32c98" prot="public" static="no">
+        <name>XNVM_EFUSE_PRGM_USER_FUSE_NUM</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Following is the define to select if the user wants to program additional PPK bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="983" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="983" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1ae82651c5de6e723238fbfb9f5f1f86a5" prot="public" static="no">
+        <name>XNVM_EFUSE_NUM_OF_USER_FUSES</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="986" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="986" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a13b64e01a3ceab7b718254ae069e8bc8" prot="public" static="no">
+        <name>XNVM_EFUSE_USER_FUSES</name>
+        <initializer>&quot;00000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="987" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="987" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a98932e0ac2181d556ec508136df6d66a" prot="public" static="no">
+        <name>XNVM_EFUSE_READ_USER_FUSE_NUM</name>
+        <initializer><ref refid="xilnvm__efuse__versal__input_8h_1a78d30f09b61d55d9511734b7c9f32c98" kindref="member">XNVM_EFUSE_PRGM_USER_FUSE_NUM</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="989" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="989" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a08ecf1ffa19d1095e3f733be26533c4c" prot="public" static="no">
+        <name>XNVM_EFUSE_READ_NUM_OF_USER_FUSES</name>
+        <initializer>XNVM_EFUSE_NUM_OF_USER_FUSES</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="990" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="990" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1abc1c20c5566a3ff76c7c9d2b0208b70f" prot="public" static="no">
+        <name>XNVM_EFUSE_CHECK_AES_KEY_CRC</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="1005" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="1005" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a482eaae1b97cd1f9ff8307aa7ee27291" prot="public" static="no">
+        <name>XNVM_EFUSE_CHECK_USER_KEY_0_CRC</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="1006" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="1006" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1acf3f2b90efa68e72935a0e0933b859d3" prot="public" static="no">
+        <name>XNVM_EFUSE_CHECK_USER_KEY_1_CRC</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="1007" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="1007" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1ae554aea0096b682ed20249f1f8899f89" prot="public" static="no">
+        <name>XNVM_EFUSE_EXPECTED_AES_KEY_CRC</name>
+        <initializer><ref refid="group__xnvm__efuse__server__apis_1gae90a96afb82790626728eb3e7b0f8c41" kindref="member">XNVM_EFUSE_CRC_AES_ZEROS</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="1010" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="1010" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1a0a4fb395dccc68a28d6feb0754917c23" prot="public" static="no">
+        <name>XNVM_EFUSE_EXPECTED_USER_KEY0_CRC</name>
+        <initializer><ref refid="group__xnvm__efuse__server__apis_1gae90a96afb82790626728eb3e7b0f8c41" kindref="member">XNVM_EFUSE_CRC_AES_ZEROS</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="1011" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="1011" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilnvm__efuse__versal__input_8h_1ab3ff5ad48558a9dba63780e2a1f92d08" prot="public" static="no">
+        <name>XNVM_EFUSE_EXPECTED_USER_KEY1_CRC</name>
+        <initializer><ref refid="group__xnvm__efuse__server__apis_1gae90a96afb82790626728eb3e7b0f8c41" kindref="member">XNVM_EFUSE_CRC_AES_ZEROS</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" line="1012" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h" bodystart="1012" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains macros which needs to configured by user based on the options selected by user operations will be performed. </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para><verbatim>   User configurable parameters for Versal eFUSE
+</verbatim> <hruler/>
+ #define XNVM_EFUSE_GLITCH_DET_WR_LOCK FALSE TRUE permanently disables writing to ANLG_TRIM_3 row FALSE will not modify the bits in that row in eFUSE</para></simplesect>
+#define XNVM_EFUSE_GD_HALT_BOOT_EN_1_0 FALSE TRUE permanently enables halt boot in ROM when a glitch observed FALSE will not modify the control bit in eFUSE #define XNVM_EFUSE_GD_ROM_MONITOR_EN FALSE TRUE permanently enables the glitch monitoring in ROM FALSE will not modify the control bit in eFUSE</para><para>#define XNVM_EFUSE_GEN_ERR_HALT_BOOT_EN_1_0 FALSE TRUE halts the boot at ROM stage when any error other than environmental and glitch observed FALSE will not modify the control bit in eFUSE</para><para>#define XNVM_EFUSE_ENV_ERR_HALT_BOOT_EN_1_0 FALSE TRUE halts the boot at ROM stage when any environmental error observed FALSE will not modify the control bit in eFUSE</para><para>#define XNVM_EFUSE_REG_INIT_DIS FALSE TRUE permanently disables register initialization FALSE will not modify this control bit of efuse.</para><para>#define XNVM_EFUSE_BOOT_ENV_WR_LK FALSE TRUE will permanently disable the efuse programming and hardware testbit programming on row 37 in EFUSE_0_MAP and hardware testbit programming on row 43 in EFUSE_0_MAP will be disabled as well. FALSE will not modify this control bit of efuse.</para><para>#define XNVM_EFUSE_PMC_SC_EN FALSE TRUE will enable PMC Scan Clear during ROM operation or during lockdown. FALSE will not modify this control bit of efuse.</para><para>#define XNVM_EFUSE_AUTH_JTAG_LOCK_DIS FALSE TRUE will disable the Authenticated JTAG feature after secure lock down. FALSE will not modify this control bit of efuse.</para><para>#define XNVM_EFUSE_AUTH_JTAG_DIS FALSE TRUE will disable the Authenticated JTAG feature. FALSE will not modify this control bit of efuse.</para><para>#define XNVM_EFUSE_JTAG_DIS FALSE TRUE will disable all JTAG instructions. FALSE will not modify this control bit of efuse.</para><para>#define XNVM_EFUSE_JTAG_ERROR_OUT_DIS FALSE TRUE will mask all errors reported in the JTAG ERROR_STATUS instruction and masks the ROM_STATE[3:0] status reported in the JTAG STATUS instruction. FALSE will not modify this control bit of efuse.</para><para>#define XNVM_EFUSE_AES_DIS FALSE TRUE will disable the AES engine. FALSE will not modify this control bit of efuse.</para><para>#define XNVM_EFUSE_PPK0_WR_LK FALSE TRUE permanently disables writing to PPK0 eFuse. FALSE will not modify this control bit of eFuse.</para><para>#define XNVM_EFUSE_PPK1_WR_LK FALSE TRUE permanently disables writing to PPK1 eFuse. FALSE will not modify this control bit of eFuse.</para><para>#define XNVM_EFUSE_PPK2_WR_LK FALSE TRUE permanently disables writing to PPK2 eFuse. FALSE will not modify this control bit of eFuse.</para><para>#define XNVM_EFUSE_AES_CRC_LK FALSE TRUE permanently disables the CRC checks on AES key. FALSE will not modify this control bit of eFuse.</para><para>#define XNVM_EFUSE_AES_WR_LK FALSE TRUE permanently disables writing to AES key FALSE will not modify this control bit of eFuse.</para><para>#define XNVM_EFUSE_USER_KEY_0_CRC_LK FALSE TRUE permanently disables the CRC checks on User 0 key. FALSE will not modify this control bit of eFuse.</para><para>#define XNVM_EFUSE_USER_KEY_0_WR_LK FALSE TRUE permanently disables writing to User 0 key FALSE will not modify this control bit of eFuse.</para><para>#define XNVM_EFUSE_USER_KEY_1_CRC_LK FALSE TRUE permanently disables the CRC checks on User 1 key. FALSE will not modify this control bit of eFuse.</para><para>#define XNVM_EFUSE_USER_KEY_1_WR_LK FALSE TRUE permanently disables writing to User 1 key FALSE will not modify this control bit of eFuse.</para><para>#define XNVM_EFUSE_HWTSTBITS_DIS FALSE TRUE will disable the hardware testbit mode (soft programming of efuse cache) completely. FALSE will not modify this control bit of eFuse.</para><para>#define XNVM_EFUSE_PPK0_INVLD FALSE TRUE invalidates the PPK0 hash stored in eFuses. FALSE will not modify this control bit of eFuse.</para><para>#define XNVM_EFUSE_PPK1_INVLD FALSE TRUE invalidates the PPK1 hash stored in eFuses. FALSE will not modify this control bit of eFuse.</para><para>#define XNVM_EFUSE_PPK2_INVLD FALSE TRUE invalidates the PPK2 hash stored in eFuses. FALSE will not modify this control bit of eFuse.</para><para>#define XNVM_EFUSE_CRYPTO_KAT_EN FALSE TRUE will run KAT on the CRYPTO engines (AES,SHA,RSA) prior to the first time being used. FALSE will not modify this control bit of efuse.</para><para>#define XNVM_EFUSE_LBIST_EN FALSE TRUE will make the firmware to run LBIST when briging up LPD. FALSE will not modify this control bit of efuse.</para><para>#define XNVM_EFUSE_SAFETY_MISSION_EN FALSE TRUE will make the ERROR_OUT pin a different meaning. When the eFUSE cache gets loaded - this pin asserted immediately. The pin goes low when a safety state has been written to the safety state register. This is effectively an external signal to indicate safe state. FALSE will not modify this control bit of efuse.</para><para>#define XNVM_EFUSE_SYSMON_TEMP_EN FALSE TRUE will enable first level architectural temperature check. FALSE will not modify this control bit of efuse.</para><para>#define XNVM_EFUSE_SYSMON_VOLT_EN FALSE TRUE will enable first level architectural voltage check. FALSE will not modify this control bit of efuse.</para><para>#define XNVM_EFUSE_SYSMON_TEMP_HOT FALSE TRUE will burn the boot time temperature upper limit provided in XNVM_EFUSE_SYSMON_TEMP_HOT_FUSES. FALSE will ignore the boot time temperature upper limit provided in XNVM_EFUSE_SYSMON_TEMP_HOT_FUSES.</para><para>#define XNVM_EFUSE_SYSMON_VOLT_PMC FALSE TRUE will burn the boot time voltage setting for VCCINT_PMC provided in XNVM_EFUSE_SYSMON_VOLT_PMC_FUSES. FALSE will ignore the boot time voltage setting for VCCINT_PMC provided in XNVM_EFUSE_SYSMON_VOLT_PMC_FUSES.</para><para>#define XNVM_EFUSE_SYSMON_VOLT_PSLP FALSE TRUE will burn the boot time voltage setting for VCCINT_PSLP provided in XNVM_EFUSE_SYSMON_VOLT_PSLP_FUSE. FALSE will ignore the boot time voltage setting for VCCINT_PSLP provided in XNVM_EFUSE_SYSMON_VOLT_PSLP_FUSE.</para><para>#define XNVM_EFUSE_SYSMON_VOLT_SOC FALSE TRUE will enable boot time voltage monitoring setting to HP voltage level. FALSE will not modify this control bit of efuse. 0x0: MP voltage level 0x1: HP voltage level</para><para>#define XNVM_EFUSE_SYSMON_TEMP_COLD FALSE TRUE will burn the boot time temperature lower limit provided in XNVM_EFUSE_SYSMON_TEMP_COLD_FUSES. FALSE will ignore the boot time temperature lower limit provided in XNVM_EFUSE_SYSMON_TEMP_COLD_FUSES.</para><para>#define XNVM_EFUSE_LPD_MBIST_EN FALSE TRUE will make the ROM code to run MBIST-clear on the LPD during USB boot mode and the FW will run MBIST-clear on the LPD during all other boot modes. Also checked by FW for secure lock down on the LPD FALSE will not modify this control bit of efuse.</para><para>#define XNVM_EFUSE_PMC_MBIST_EN FALSE TRUE will make the ROM code to run MBIST-clear on the PMC during all boot modes. Also checked by ROM for secure lockdown. FALSE will not modify this control bit of efuse.</para><para>#define XNVM_EFUSE_LPD_NOC_SC_EN FALSE TRUE will make the ROM code to run SCAN-clear on the LPD during USB boot or on the NOC on a SSIT slave SLR. Also checked by FW for secure lockdown FALSE will not modify this control bit of efuse.</para><para>#define XNVM_EFUSE_SYSMON_VOLT_MON_EN FALSE TRUE will make the ROM will perform the voltage check specified in the BOOT_ENV_CTRL register. FALSE will not modify this control bit of efuse.</para><para>#define XNVM_EFUSE_SYSMON_TEMP_MON_EN FALSE TRUE will make the ROM to perform the temperature check specified in the BOOT_ENV_CTRL register FALSE will not modify this control bit of efuse.</para><para><heading level="2">Following has to be set for programming required keys/data </heading>
+</para><para>#define XNVM_EFUSE_WRITE_GLITCH_CFG FALSE TRUE will burn the glitch configuration data in XNVM_EFUSE_GLITCH_CFG FALSE will ignore the data provided in XNVM_EFUSE_GLITCH_CFG</para><para>#define XNVM_EFUSE_WRITE_AES_KEY FALSE TRUE will burn the AES key provided in XNVM_EFUSE_KEY. FALSE will ignore the key provided in XNVM_EFUSE_KEY.</para><para>#define XNVM_EFUSE_WRITE_USER_KEY_0 FALSE TRUE will burn the User key 0 provided in XNVM_EFUSE_USER_KEY0. FALSE will ignore the key provided in XNVM_EFUSE_USER_KEY0.</para><para>#define XNVM_EFUSE_WRITE_USER_KEY_1 FALSE TRUE will burn the User key 1 provided in XNVM_EFUSE_USER_KEY1. FALSE will ignore the key provided in XNVM_EFUSE_USER_KEY1.</para><para>#define XNVM_EFUSE_WRITE_DEC_EFUSE_ONLY FALSE TRUE will burn the lower 16 bits of Security Misc 0 eFuse row. FALSE will not modify the lower 16 bits of Security Misc 0 eFuse row.</para><para>#define XNVM_EFUSE_WRITE_METAHEADER_IV FALSE TRUE will burn the MetaHeader IV provided in XNVM_EFUSE_METAHEADER_IV FALSE will ignore the data provided in XNVM_EFUSE_METAHEADER_IV</para><para>#define XNVM_EFUSE_WRITE_BLACK_OBFUS_IV FALSE TRUE will burn Black Obfus IV provided in XNVM_EFUSE_BLACK_OBFUS_IV. FALSE will ignore the data provided in XNVM_EFUSE_BLACK_OBFUS_IV.</para><para>#define XNVM_EFUSE_WRITE_PLM_IV FALSE TRUE will burn the Plm IV provided in XNVM_EFUSE_PLM_IV. FALSE will ignore the data provided in XNVM_EFUSE_PLM_IV.</para><para>#define XNVM_EFUSE_WRITE_DATA_PARTITION_IV FALSE TRUE will burn the Data Partition IV in XNVM_EFUSE_DATA_PARTITION_IV. FALSE will ignore the data provided in XNVM_EFUSE_DATA_PARTITION_IV.</para><para>#define XNVM_EFUSE_WRITE_PPK0_HASH FALSE TRUE will burn PPK0 with it&apos;s SHA3 hash provided in XNVM_EFUSE_PPK0_HASH. FALSE will ignore the hash provided in XNVM_EFUSE_PPK0_SHA3_HASH.</para><para>#define XNVM_EFUSE_WRITE_PPK1_HASH FALSE TRUE will burn PPK1 with it&apos;s SHA3 hash provided in XNVM_EFUSE_PPK1_HASH. FALSE will ignore the hash provided in XNVM_EFUSE_PPK1_HASH.</para><para>#define XNVM_EFUSE_WRITE_PPK2_HASH FALSE TRUE will burn PPK2 with it&apos;s SHA3 hash provided in XNVM_EFUSE_PPK2_HASH. FALSE will ignore the hash provided in XNVM_EFUSE_PPK2_HASH.</para><para>#define XNVM_EFUSE_WRITE_REVOCATION_ID_0 FALSE TRUE will burn Revocation Id 0 eFuse with the data provided in XNVM_EFUSE_REVOCATION_ID_0 FUSES. FALSE will ignore the value provided in XNVM_EFUSE_REVOCATION_ID_0</para><para>#define XNVM_EFUSE_WRITE_REVOCATION_ID_1 FALSE TRUE will burn Revocation Id 1 eFuse with the data provided in XNVM_EFUSE_REVOCATION_ID_1 FUSES. FALSE will ignore the value provided in XNVM_EFUSE_REVOCATION_ID_1</para><para>#define XNVM_EFUSE_WRITE_REVOCATION_ID_2 FALSE TRUE will burn Revocation Id 2 eFuse with the data provided in XNVM_EFUSE_REVOCATION_ID_2 FUSES. FALSE will ignore the value provided in XNVM_EFUSE_REVOCATION_ID_2.</para><para>#define XNVM_EFUSE_WRITE_REVOCATION_ID_3 FALSE TRUE will burn Revocation Id 3 eFuse with the data provided in XNVM_EFUSE_REVOCATION_ID_3 FUSES. FALSE will ignore the value provided in XNVM_EFUSE_REVOCATION_ID_3</para><para>#define XNVM_EFUSE_WRITE_REVOCATION_ID_4 FALSE TRUE will burn Revocation Id 4 eFuse with the data provided in XNVM_EFUSE_REVOCATION_ID_4 FUSES. FALSE will ignore the value provided in XNVM_EFUSE_REVOCATION_ID_4</para><para>#define XNVM_EFUSE_WRITE_REVOCATION_ID_5 FALSE TRUE will burn Revocation Id 5 eFuse with the data provided in XNVM_EFUSE_REVOCATION_ID_5 FUSES. FALSE will ignore the value provided in XNVM_EFUSE_REVOCATION_ID_5</para><para>#define XNVM_EFUSE_WRITE_REVOCATION_ID_6 FALSE TRUE will burn Revocation Id 6 eFuse with the data provided in XNVM_EFUSE_REVOCATION_ID_6 FUSES. FALSE will ignore the value provided in XNVM_EFUSE_REVOCATION_ID_6.</para><para>#define XNVM_EFUSE_WRITE_REVOCATION_ID_7 FALSE TRUE will burn Revocation Id 7 eFuse with the data provided in XNVM_EFUSE_REVOCATION_ID_7 FUSES. FALSE will ignore the value provided in XNVM_EFUSE_REVOCATION_ID_7.</para><para>#define XNVM_EFUSE_WRITE_USER_FUSES FALSE TRUE will burn User eFuses provided in XNVM_EFUSE_USER_FUSES. FALSE will ignore the value provided in XNVM_EFUSE_USER_FUSES.</para><para>#define XNVM_EFUSE_SYSMON_TEMP_HOT_FUSES 0 The value mentioned in this will be used to set the boot time temperature upper limit. Valid values are 0/1/2/3 0: 125C 1: 100C 2: 110C 3: 125C By default the value is 0.</para><para>#define XNVM_EFUSE_SYSMON_VOLT_PMC_FUSES 0 The value mentioned in this will be used to set the boot time voltage setting for VCCINT_PMC. Valid values are 0/1/2/3 limit. 0x0: Full range check 0x1: LP voltage level 0x2: MP voltage level 0x3: HP voltage level By default the value is 0.</para><para>#define XNVM_EFUSE_SYSMON_VOLT_PSLP_FUSE 0 The value mentioned in this will be used to set the boot time voltage setting for VCCINT_PSLP. Valid values are 0/1/2/3 limit. 0x0: Full range check 0x1: LP voltage level 0x2: MP voltage level 0x3: HP voltage level By default the value is 0.</para><para>#define XNVM_EFUSE_SYSMON_TEMP_COLD_FUSES 0 The value mentioned in this will be used to set the boot time temperature lower limit. Valid values are 0/1/2/3 0: -55C 1: 0C 2: -40C 3: -55C By default the value is 0.</para><para>Note: To program user eFuses you have to give the start User fuse number to be programmed at XNVM_EFUSE_PRGM_USER_FUSE_NUM and starting with that number of user fuses to be programmed should be mentioned at XNVM_EFUSE_NUM_OF_USER_FUSES. XNVM_EFUSE_USER_FUSES string should be multiples of 8 bytes always. Which means that if the string is 16 bytes, it will program 2 user eFuses. XNVM_EFUSE_PRGM_USER_FUSE_NUM range is 1 to 63.</para><para>Example : When XNVM_EFUSE_WRITE_USER_FUSES is TRUE and XNVM_EFUSE_PRGM_USER_FUSE_NUM is 4 - User eFuse number from where to start write. XNVM_EFUSE_NUM_OF_USER_FUSES is 2 - Number of User eFuses to program XNVM_EFUSE_USER_FUSES &quot;1234578ABCDEF58&quot; - User eFuse data to program UserFuse 4 will be programmed with 0x1234578 and UserFuse 5 will be programmed with 0xABCDEF58.</para><para>#define XNVM_EFUSE_READ_USER_FUSE_NUM XNVM_EFUSE_PRGM_USER_FUSE_NUM XNVM_EFUSE_READ_USER_FUSE_NUM - User eFuse number from where to start read. By default it reads from XNVM_EFUSE_PRGM_USER_FUSE_NUM</para><para>#define XNVM_EFUSE_READ_NUM_OF_USER_FUSES XNVM_EFUSE_NUM_OF_USER_FUSES XNVM_EFUSE_READ_NUM_OF_USER_FUSES - Number of eFuses to be read By default it reads XNVM_EFUSE_NUM_OF_USER_FUSES</para><para>#define XNVM_EFUSE_ENV_MONITOR_DISABLE FALSE TRUE will disable the temperature and voltage checks before eFuse programming. FALSE will not disable the temperature and voltage checks before eFuse programming. By default the value will be FALSE.</para><para>#define XNVM_EFUSE_GLITCH_CFG &quot;00000000&quot; The value mentioned in this will be converted to hex buffer and written into the Versal eFuse array when write API used. This value should be given in string format. It should be 8 characters long and make sure that bit[31] is zero. Valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn any eFuses. Note that for writing the glitch configuration data, XNVM_EFUSE_WRITE_GLITCH_CFG should be set to TRUE</para><para>#define XNVM_EFUSE_KEY &quot;0000000000000000000000000000000000000000000000000000000000000000&quot; The value mentioned in this will be converted to hex buffer and written into the Versal eFuse array when write API used. This value should be given in string format. It should be 64 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn any eFuses. Note that,for writing the AES Key, XNVM_EFUSE_WRITE_AES_KEY should be set to TRUE. NOTE: This AES key is only red key or gray key. To program black key to eFuse, please use xnvm_puf_registration</para><para>#define XNVM_EFUSE_USER_KEY0 &quot;0000000000000000000000000000000000000000000000000000000000000000&quot; The value mentioned in this will be converted to hex buffer and written into the Versal eFuse array when write API used. This value should be given in string format. It should be 64 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn any eFuses. Note that,for writing the User Key 0, XNVM_EFUSE_WRITE_USER_KEY_0 should be set to TRUE. NOTE: This AES key is only red key or gray key. To program black key to eFuse, please use xnvm_puf_registration</para><para>#define XNVM_EFUSE_USER_KEY1 &quot;0000000000000000000000000000000000000000000000000000000000000000&quot; The value mentioned in this will be converted to hex buffer and written into the Versal eFUSE array when write API used. This value should be given in string format. It should be 64 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn any eFuses. Note that,for writing the User Key 1, XNVM_EFUSE_WRITE_USER_KEY_1 should be set to TRUE. NOTE: This AES key is only red key or gray key. To program black key to eFuse, please use xnvm_puf_registration.</para><para>#define XNVM_EFUSE_PPK0_HASH &quot;0000000000000000000000000000000000000000000000000000000000000000&quot; The value will be converted to a hex buffer and will be written into the Versal eFUSE array. This value should be given in string format. It should be 64 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered invalid and will not burn PPK0 hash. Note that,for writing the PPK0 hash, XNVM_EFUSE_WRITE_PPK0_HASH should be set to TRUE.</para><para>#define XNVM_EFUSE_PPK1_HASH &quot;0000000000000000000000000000000000000000000000000000000000000000&quot; The value will be converted to a hex buffer and will be written into the Versal eFuse array. This value should be given in string format. It should be 64 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered invalid and will not burn PPK1 hash. Note that,for writing the PPK1 hash, XNVM_EFUSE_WRITE_PPK1_HASH should be set to TRUE.</para><para>#define XNVM_EFUSE_PPK2_HASH &quot;0000000000000000000000000000000000000000000000000000000000000000&quot; The value will be converted to a hex buffer and will be written into the Versal eFuse array. This value should be given in string format. It should be 64 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered invalid and will not burn PPK2 hash. Note that,for writing the PPK2 hash, XNVM_EFUSE_WRITE_PPK2_HASH should be set to TRUE.</para><para>#define XNVM_EFUSE_META_HEADER_IV &quot;000000000000000000000000&quot; The value will be converted to a hex buffer and will be written into the Versal eFuse array. This value should be given in string format. It should be 24 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered invalid and will not burn Metaheader IV. Note that,for writing the Metaheader IV, XNVM_EFUSE_WRITE_METAHEADER_IV should be set to TRUE. While writing Metaheader IV, length should be 24 characters long.</para><para>#define XNVM_EFUSE_PLM_IV &quot;000000000000000000000000&quot; The value will be converted to a hex buffer and will be written into the Versal eFuse array. This value should be given in string format. It should be 24 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered invalid and will not burn Metaheader IV. Note that,for writing the PLM IV, XNVM_EFUSE_WRITE_PLM_IV should be set to TRUE. While writing Plm IV, length should be 24 characters long.</para><para>#define XNVM_EFUSE_BLACK_OBFUS_IV &quot;000000000000000000000000&quot; The value will be converted to a hex buffer and will be written into the Versal eFUSE array. This value should be given in string format. It should be 24 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered invalid and will not burn Black Obfus IV. Note that,for writing the Black Obfus IV, XNVM_EFUSE_WRITE_BLACK_OBFUS_IV should be set to TRUE. While writing Black Obfus IV, length should be 24 characters long.</para><para>#define XNVM_EFUSE_DATA_PARTITION_IV &quot;000000000000000000000000&quot; The value will be converted to a hex buffer and will be written into the Versal eFuse array. This value should be given in string format. It should be 24 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered invalid and will not burn Data Partition IV. Note that,for writing the Data Partition IV, XNVM_EFUSE_WRITE_DATA_PARTITION_IV should be set to TRUE. While writing Data Partition IV, length should be 24 characters long.</para><para>#define XNVM_EFUSE_REVOCATION_ID_0_FUSES &quot;00000000&quot; The value will be converted to hex buffer and written into the Versal eFuse array when write API used. This value should be given in string format. It should be 8 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn Revocation Id 0 eFuse. Note that,for writing the Revocation Id 0 eFuse, XNVM_EFUSE_WRITE_REVOCATION_ID_0 should be set to TRUE.</para><para>#define XNVM_EFUSE_REVOCATION_ID_1_FUSES &quot;00000000&quot; The value will be converted to hex buffer and written into the Versal eFuse array when write API used. This value should be given in string format. It should be 8 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn Revocation Id 1 eFuse. Note that,for writing the Revocation Id 1 eFuse, XNVM_EFUSE_WRITE_REVOCATION_ID_1 should be set to TRUE.</para><para>#define XNVM_EFUSE_REVOCATION_ID_2_FUSES &quot;00000000&quot; The value will be converted to hex buffer and written into the Versal eFUSE array when write API used. This value should be given in string format. It should be 8 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn the Revocation Id 2 Fuse. Note that,for writing the Revocation Id 2 Fuse, XNVM_EFUSE_WRITE_REVOCATION_ID_2 should be set to TRUE.</para><para>#define XNVM_EFUSE_REVOCATION_ID_3_FUSES &quot;00000000&quot; The value will be converted to hex buffer and written into the Versal eFuse array when write API used. This value should be given in string format. It should be 8 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn Revocation Id 3 eFuse. Note that,for writing the Revocation Id 3 eFuse, XNVM_EFUSE_WRITE_REVOCATION_ID_3 should be set to TRUE.</para><para>#define XNVM_EFUSE_REVOCATION_ID_4_FUSES &quot;00000000&quot; The value will be converted to hex buffer and written into the Versal eFuse array when write API used. This value should be given in string format. It should be 8 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn Revocation Id 4 eFuse. Note that,for writing the Revocation Id 4 eFuse, XNVM_EFUSE_WRITE_REVOCATION_ID_4 should be set to TRUE.</para><para>#define XNVM_EFUSE_REVOCATION_ID_5_FUSES &quot;00000000&quot; The value will be converted to hex buffer and written into the Versal eFuse array when write API used. This value should be given in string format. It should be 8 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn Revocation Id 5 eFuse. Note that,for writing the Revocation Id 5 eFuse, XNVM_EFUSE_WRITE_REVOCATION_ID_5 should be set to TRUE.</para><para>#define XNVM_EFUSE_REVOCATION_ID_6_FUSES &quot;00000000&quot; The value will be converted to hex buffer and written into the Versal eFuse array when write API used. This value should be given in string format. It should be 8 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn Revocation Id 6 eFuse. Note that,for writing the Revocation Id 6 eFuse, XNVM_EFUSE_WRITE_REVOCATION_ID_6 should be set to TRUE.</para><para>#define XNVM_EFUSE_REVOCATION_ID_7_FUSES &quot;00000000&quot; The value will be converted to hex buffer and written into the Versal eFuse array when write API used. This value should be given in string format. It should be 8 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn Revocation Id 7 eFuse. Note that,for writing the Revocation Id 7 eFuse, XNVM_EFUSE_WRITE_REVOCATION_ID_7 should be set to TRUE.</para><para>#define XNVM_EFUSE_OFFCHIP_REVOKE_ID_0_FUSES &quot;00000000&quot; The value will be converted to hex buffer and written into the Versal eFuse array when write API used. This value should be given in string format. It should be 8 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn the Offchip_Revoke Id 0 eFuse. Note that,for writing the Offchip_Revoke Id 0 eFuse, XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_0 should be set to TRUE.</para><para>#define XNVM_EFUSE_OFFCHIP_REVOKE_ID_1_FUSES &quot;00000000&quot; The value will be converted to hex buffer and written into the Versal eFuse array when write API used. This value should be given in string format. It should be 8 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn Offchip_Revoke Id 1 eFuse. Note that,for writing the Offchip_Revoke Id 1 eFuse, XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_1 should be set to TRUE.</para><para>#define XNVM_EFUSE_OFFCHIP_REVOKE_ID_2_FUSES &quot;00000000&quot; The value will be converted to hex buffer and written into the Versal eFUSE array when write API used. This value should be given in string format. It should be 8 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn the Offchip_Revoke Id 2 Fuse. Note that,for writing the Offchip_Revoke Id 2 Fuse, XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_2 should be set to TRUE.</para><para>#define XNVM_EFUSE_OFFCHIP_REVOKE_ID_3_FUSES &quot;00000000&quot; The value will be converted to hex buffer and written into the Versal eFuse array when write API used. This value should be given in string format. It should be 8 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn Offchip_Revoke Id 3 eFuse. Note that,for writing the Offchip_Revoke Id 3 eFuse, XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_3 should be set to TRUE.</para><para>#define XNVM_EFUSE_OFFCHIP_REVOKE_ID_4_FUSES &quot;00000000&quot; The value will be converted to hex buffer and written into the Versal eFuse array when write API used. This value should be given in string format. It should be 8 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn Offchip_Revoke Id 4 eFuse. Note that,for writing the Offchip_Revoke Id 4 eFuse, XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_4 should be set to TRUE.</para><para>#define XNVM_EFUSE_OFFCHIP_REVOKE_ID_5_FUSES &quot;00000000&quot; The value will be converted to hex buffer and written into the Versal eFuse array when write API used. This value should be given in string format. It should be 8 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn Offchip_Revoke Id 5 eFuse. Note that,for writing the Offchip_Revoke Id 5 eFuse, XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_5 should be set to TRUE.</para><para>#define XNVM_EFUSE_OFFCHIP_REVOKE_ID_6_FUSES &quot;00000000&quot; The value will be converted to hex buffer and written into the Versal eFuse array when write API used. This value should be given in string format. It should be 8 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn Offchip_Revoke Id 6 eFuse. Note that,for writing the Offchip_Revoke Id 6 eFuse, XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_6 should be set to TRUE.</para><para>#define XNVM_EFUSE_OFFCHIP_REVOKE_ID_7_FUSES &quot;00000000&quot; The value will be converted to hex buffer and written into the Versal eFuse array when write API used. This value should be given in string format. It should be 8 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string and will not burn Offchip_Revoke Id 7 eFuse. Note that,for writing the Offchip_Revoke Id 7 eFuse, XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_7 should be set to TRUE.</para><para>#define XNVM_EFUSE_CHECK_AES_KEY_CRC FALSE Default value is FALSE TRUE will validate AES key stored in eFuse by calculating its CRC and comparing with CRC provided in XNVM_EFUSE_EXPECTED_AES_KEY_CRC. CRC verification is done after programming the key to verify the key is programmed properly or not, if not library error outs the same. NOTE: Please make sure if intention is to check only CRC of the provided key and not programming AES key then do not modify XNVM_EFUSE_WRITE_AES_KEY (TRUE will Program key).</para><para>#define XNVM_EFUSE_CHECK_USER_KEY_0_CRC FALSE Default value is FALSE TRUE will validate USER_KEY_0 key stored in eFuse by calculating its CRC and comparing with CRC provided in XNVM_EFUSE_EXPECTED_USER_KEY0_CRC. CRC verification is done after programming the key to verify the key is programmed properly or not, if not library error outs the same. NOTE: Please make sure if intention is to check only CRC of the provided key and not programming USER_KEY_0 key then do not modify XNVM_EFUSE_WRITE_USER_KEY_0 (TRUE will Program key).</para><para>#define XNVM_EFUSE_CHECK_USER_KEY_1_CRC FALSE Default value is FALSE TRUE will validate USER_KEY_1 key stored in eFuse by calculating its CRC and comparing with CRC provided in XNVM_EFUSE_EXPECTED_USER_KEY1_CRC. CRC verification is done after programming AES key to verify the key is programmed properly or not, if not library error outs the same. NOTE: Please make sure if intention is to check only CRC of the provided key and not programming USER_KEY_1 key then do not modify XNVM_EFUSE_WRITE_USER_KEY_1 (TRUE will Program key).</para><para>#define XNVM_EFUSE_EXPECTED_AES_KEY_CRC XNVM_EFUSE_CRC_AES_ZEROS This is expected crc of the programmed Aes key given in hexa decimal. Default is XNVM_EFUSE_CRC_AES_ZEROS Crc of the zero key</para><para>#define XNVM_EFUSE_EXPECTED_USER_KEY0_CRC XNVM_EFUSE_CRC_AES_ZEROS This is expected crc of the programmed user key0 given in hexa decimal. Default is XNVM_EFUSE_CRC_AES_ZEROS Crc of the zero key</para><para>#define XNVM_EFUSE_EXPECTED_USER_KEY1_CRC XNVM_EFUSE_CRC_AES_ZEROS This is expected crc of the programmed user key1 given in hexa decimal. Default is XNVM_EFUSE_CRC_AES_ZEROS Crc of the zero key</para><para>#define XNVM_EFUSE_PPK3_HASH &quot;0000000000000000000000000000000000000000000000000000000000000000&quot; The value will be converted to a hex buffer and will be written into the Versal eFuse array. This value should be given in string format. It should be 64 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered invalid and will not burn PPK3 hash. Note that,USER_[55:48] are repurposed as PPK3 and for writing the PPK3 hash, XNVM_EFUSE_WRITE_PPK3_HASH should be set to TRUE and XNVM_EN_ADD_PPKS should be defined and PPK0,PPK1,PPK2 should already be programmed..</para><para>#define XNVM_EFUSE_PPK4_HASH &quot;0000000000000000000000000000000000000000000000000000000000000000&quot; The value will be converted to a hex buffer and will be written into the Versal eFuse array. This value should be given in string format. It should be 64 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered invalid and will not burn PPK4 hash. Note that,USER_[63:56] are repurposed as PPK4 and for writing the PPK4 hash, XNVM_EFUSE_WRITE_PPK4_HASH should be set to TRUE, XNVM_EN_ADD_PPKS should be defined and PPK0,PPK1,PPK2 should already be programmed.</para><para>#define XNVM_EFUSE_WRITE_PUF_FUSES FALSE TRUE will program user data provided in XNVM_EFUSE_PUF_FUSES into PUF syndrome data efuse bits. If set as FALSE, the user data will not be programmed into PUF Syndrome data efuse bits</para><para>#define XNVM_EFUSE_PRGM_PUF_FUSE_NUM 0U The value mentioned in this is start index of PUF efuse to be programmed Valid value for this index is 0 to 127</para><para>#define XNVM_EFUSE_NUM_OF_PUF_FUSES 1U The value mentioned in this is number of 32 bit efuses to be programmed Valid value for this index is 1 to 128.</para><para>#define XNVM_EFUSE_PUF_FUSES &quot;00000000&quot; The value will be converted to a hex buffer and will be written into the Versal eFuse array. It should be XNVM_EFUSE_NUM_OF_PUF_FUSES * 8 characters long. This value should be given in string format. Valid characters are 0-9,a-f,A-F. Any other character is considered invalid and will not burn the PUF efuse.</para><para>#define XNVM_EFUSE_ADD_PPK_EN FALSE TRUE permanently enables the additional PPK support FALSE will not modify this control bit of efuse</para><para>#define XNVM_EFUSE_PPK3_INVLD FALSE TRUE invalidates the PPK3 hash stored in eFuses. FALSE will not modify this control bit of eFuse.</para><para>#define XNVM_EFUSE_PPK4_INVLD FALSE TRUE invalidates the PPK4 hash stored in eFuses. FALSE will not modify this control bit of eFuse. <verbatim> NOTE: The PPK hash should be the unmodified hash generated by bootgen.
+ Single bit programming is allowed for User eFuses (1 through 63),
+ however if the user specifies a value that tries to set a bit that was
+ previously programmed to 1 back to 0, program throws an error.
+ Even if the bits are already programmed user must pass these already
+ programmed bits along with the new bits that need to be programmed.
+</verbatim></para><para><preformatted>
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver    Who     Date    Changes
+<hruler/>
+
+ 2.0   kal    03/02/20 First release to add different configurable options
+                       to program different eFuse bits.
+       kal    08/04/20 Addressed Security review comments.
+ 2.1   rpo    06/06/20 Support added to write glitch configuration data.
+       rpo    06/08/20 Support added to program eFUSE halt boot bits to stop
+                       at ROM stage.
+       kal    10/12/20 Address Seurity review comments.
+ 2.3    kal    01/07/21 Added support to SecurityMisc1, BootEnvCtrl,MiscCtrl
+                        and remaining eFuses in SecCtrl eFuse rows programming
+                        and reading
+        kal    02/20/21 Added new macro for Environmental Monitor Disable
+ 3.1   skg    12/07/22 Added additional PPKs related macros
+ 3.3   har    12/04/23 Added support for HWTSTBITS_DIS and PMC_SC_EN efuse bits
+ 3.5   hj     14/04/25 Added support for unique PPK hash programming for each SLR
+ 3.6   hj     19/09/25 Program PUF_RSVD efuse as user data
+ 3.7   mb     12/06/26 Updated doxygen comment for XNVM_EFUSE_CHECK_AES_KEY_CRC macro
+       mb     01/06/26 Updated doxygen comment for XNVM_EFUSE_CHECK_USER_KEY_0_CRC and
+                       XNVM_EFUSE_CHECK_USER_KEY_1_CRC macros</preformatted></para><para><preformatted> </preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2020<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="781"><highlight class="preprocessor">#ifndef<sp/>XILNVM_EFUSE_VERSAL_INPUT_H_</highlight></codeline>
+<codeline lineno="782"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILNVM_EFUSE_VERSAL_INPUT_H_</highlight></codeline>
+<codeline lineno="783"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="784"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="785"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="786"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="787"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="788"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="789"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="790"><highlight class="normal"></highlight></codeline>
+<codeline lineno="791"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="792"><highlight class="normal"></highlight></codeline>
+<codeline lineno="793"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="794"><highlight class="normal"></highlight></codeline>
+<codeline lineno="795"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="796"><highlight class="normal"></highlight></codeline>
+<codeline lineno="797"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Following<sp/>defines<sp/>should<sp/>be<sp/>defined<sp/>either<sp/>TRUE<sp/>or<sp/>FALSE<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="798"><highlight class="normal"></highlight></codeline>
+<codeline lineno="803" refid="xilnvm__efuse__versal__input_8h_1ab58383feb284a9dbe5ae74a53b9bad8d" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_REG_INIT_DIS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="804"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_BOOT_ENV_WR_LK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="805"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PMC_SC_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="806"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_AUTH_JTAG_LOCK_DIS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="807"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_AUTH_JTAG_DIS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="808"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PPK0_WR_LK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="809"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PPK1_WR_LK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="810"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PPK2_WR_LK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="811"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_AES_CRC_LK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="812"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_AES_WR_LK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="813"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_USER_KEY_0_CRC_LK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="814"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_USER_KEY_0_WR_LK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="815"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_USER_KEY_1_CRC_LK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="816"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_USER_KEY_1_WR_LK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="817"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_HWTSTBITS_DIS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="818"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_JTAG_DIS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="819"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_JTAG_ERROR_OUT_DIS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="820"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_AES_DIS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="821"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="826" refid="xilnvm__efuse__versal__input_8h_1a26b35fab663a4364f15423fdca8b7081" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_GD_HALT_BOOT_EN_1_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="827"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_GD_ROM_MONITOR_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="828"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_GEN_ERR_HALT_BOOT_EN_1_0<sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="829"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ENV_ERR_HALT_BOOT_EN_1_0<sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="830"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CRYPTO_KAT_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="831"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_LBIST_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="832"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SAFETY_MISSION_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="833"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PPK0_INVLD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="834"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PPK1_INVLD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="835"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PPK2_INVLD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="836"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="841" refid="xilnvm__efuse__versal__input_8h_1a6fb3b938cbea92e9389ac511bde55938" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SYSMON_TEMP_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="842"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SYSMON_VOLT_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="843"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SYSMON_TEMP_HOT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="844"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SYSMON_VOLT_PMC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="845"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SYSMON_VOLT_PSLP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="846"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SYSMON_VOLT_SOC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="847"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SYSMON_TEMP_COLD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="848"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="853" refid="xilnvm__efuse__versal__input_8h_1a3964cd3e2212d5365077febc68da48ae" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_LPD_MBIST_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="854"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PMC_MBIST_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="855"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_LPD_NOC_SC_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="856"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SYSMON_VOLT_MON_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="857"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SYSMON_TEMP_MON_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="858"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="862" refid="xilnvm__efuse__versal__input_8h_1aa2bff8a52477bf6fd766128c9237cc37" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_GLITCH_DET_WR_LK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="863"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="868"><highlight class="comment">/*<sp/>For<sp/>writing<sp/>into<sp/>eFuse<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="869" refid="xilnvm__efuse__versal__input_8h_1afa8ae9a40748e467407c563e03603092" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_GLITCH_CFG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="870"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_AES_KEY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="871"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_USER_KEY_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="872"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_USER_KEY_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="873"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="874"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_PPK0_HASH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="875"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_PPK1_HASH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="876"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_PPK2_HASH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="877"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="878"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_DEC_EFUSE_ONLY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="879"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="880"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_METAHEADER_IV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="881"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_BLACK_OBFUS_IV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="882"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_PLM_IV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="883"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_DATA_PARTITION_IV<sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="884"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="885"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_REVOCATION_ID_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="886"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_REVOCATION_ID_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="887"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_REVOCATION_ID_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="888"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_REVOCATION_ID_3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="889"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_REVOCATION_ID_4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="890"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_REVOCATION_ID_5<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="891"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_REVOCATION_ID_6<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="892"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_REVOCATION_ID_7<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="893"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="894"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_0<sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="895"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_1<sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="896"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_2<sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="897"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_3<sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="898"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_4<sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="899"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_5<sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="900"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_6<sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="901"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_OFFCHIP_REVOKE_ID_7<sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="902"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="903"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_USER_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="904"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="905"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ENV_MONITOR_DISABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="906"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="913" refid="xilnvm__efuse__versal__input_8h_1a6d9d6f02bb9056511f8d9cf530f20bef" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_GLITCH_CFG<sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="914"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="915"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>EFUSE<sp/>AES<sp/>KEYS<sp/>to<sp/>write<sp/>into<sp/>efuses<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="916"><highlight class="normal"></highlight></codeline>
+<codeline lineno="917"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_KEY<sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="918"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="919"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_USER_KEY0<sp/><sp/><sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="920"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="921"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_USER_KEY1<sp/><sp/><sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="922"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="923"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PPK0_HASH<sp/><sp/><sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="924"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="925"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PPK1_HASH<sp/><sp/><sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="926"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="927"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PPK2_HASH<sp/><sp/><sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="928"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="929"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_META_HEADER_IV<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="930"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="931"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_BLACK_OBFUS_IV<sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="932"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="933"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PLM_IV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="934"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="935"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_DATA_PARTITION_IV<sp/><sp/><sp/><sp/>&quot;000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="936"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="937"><highlight class="normal"></highlight></codeline>
+<codeline lineno="938"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_REVOCATION_ID_0_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="939"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_REVOCATION_ID_1_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="940"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_REVOCATION_ID_2_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="941"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_REVOCATION_ID_3_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="942"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_REVOCATION_ID_4_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="943"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_REVOCATION_ID_5_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="944"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_REVOCATION_ID_6_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="945"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_REVOCATION_ID_7_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="946"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="947"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_OFFCHIP_REVOKE_ID_0_FUSES<sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="948"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_OFFCHIP_REVOKE_ID_1_FUSES<sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="949"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_OFFCHIP_REVOKE_ID_2_FUSES<sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="950"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_OFFCHIP_REVOKE_ID_3_FUSES<sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="951"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_OFFCHIP_REVOKE_ID_4_FUSES<sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="952"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_OFFCHIP_REVOKE_ID_5_FUSES<sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="953"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_OFFCHIP_REVOKE_ID_6_FUSES<sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="954"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_OFFCHIP_REVOKE_ID_7_FUSES<sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="955"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="956"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SYSMON_TEMP_HOT_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="957"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SYSMON_VOLT_PMC_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="958"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SYSMON_VOLT_PSLP_FUSE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="959"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SYSMON_TEMP_COLD_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="960"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="965"><highlight class="preprocessor">#ifdef<sp/>XNVM_EN_ADD_PPKS</highlight></codeline>
+<codeline lineno="966"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="967"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ADD_PPK_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="968"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_PPK3_HASH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="969"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_PPK4_HASH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="970"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="971"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PPK3_HASH<sp/><sp/><sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="972"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="973"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PPK4_HASH<sp/><sp/><sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="974"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="975"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PPK3_INVLD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="976"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PPK4_INVLD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="977"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="978"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="979"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="980"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(defined(versal)<sp/>&amp;&amp;<sp/>!defined(VERSAL_NET))</highlight></codeline>
+<codeline lineno="981"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PRGM_USER_FUSE_NUM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="982"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="983" refid="xilnvm__efuse__versal__input_8h_1a78d30f09b61d55d9511734b7c9f32c98" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PRGM_USER_FUSE_NUM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="984"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="985"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="986"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_NUM_OF_USER_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="987"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_USER_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="988"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="989"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_READ_USER_FUSE_NUM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_EFUSE_PRGM_USER_FUSE_NUM</highlight></codeline>
+<codeline lineno="990"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_READ_NUM_OF_USER_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_EFUSE_NUM_OF_USER_FUSES</highlight></codeline>
+<codeline lineno="991"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="992"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XNVM_ACCESS_PUF_USER_DATA</highlight></codeline>
+<codeline lineno="993"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_WRITE_PUF_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="994"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="995"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PRGM_PUF_FUSE_NUM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="996"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_NUM_OF_PUF_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="997"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PUF_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;00000000&quot;</highlight></codeline>
+<codeline lineno="998"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="999"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_READ_PUF_FUSE_NUM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_EFUSE_PRGM_PUF_FUSE_NUM</highlight></codeline>
+<codeline lineno="1000"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_READ_NUM_OF_PUF_FUSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_EFUSE_NUM_OF_PUF_FUSES</highlight></codeline>
+<codeline lineno="1001"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="1002"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1003"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1004"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Checks<sp/>CRC<sp/>of<sp/>provided<sp/>AES<sp/>key<sp/>if<sp/>TRUE<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1005"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CHECK_AES_KEY_CRC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="1006"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CHECK_USER_KEY_0_CRC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="1007"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CHECK_USER_KEY_1_CRC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="1008"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1009"><highlight class="normal"></highlight></codeline>
+<codeline lineno="1010"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_EXPECTED_AES_KEY_CRC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_EFUSE_CRC_AES_ZEROS</highlight></codeline>
+<codeline lineno="1011"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_EXPECTED_USER_KEY0_CRC<sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_EFUSE_CRC_AES_ZEROS</highlight></codeline>
+<codeline lineno="1012"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_EXPECTED_USER_KEY1_CRC<sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_EFUSE_CRC_AES_ZEROS</highlight></codeline>
+<codeline lineno="1013"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1014"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="1015"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="1016"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="1017"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1018"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XILNVM_EFUSE_VERSAL_INPUT_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_efuse_versal_input.h"/>
+  </compounddef>
+</doxygen>

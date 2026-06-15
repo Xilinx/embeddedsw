@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_r_fdc___tile_status" kind="struct" prot="public">
+    <compoundname>XRFdc_TileStatus</compoundname>
+    <includes local="no">xrfdc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_r_fdc___tile_status_1a7f52ff7933b641cfa0e6a4369535d13e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_TileStatus::IsEnabled</definition>
+        <argsstring></argsstring>
+        <name>IsEnabled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="555" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="555" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___tile_status_1ad92c5c6f1b71ab70e19f18cd31c8103c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_TileStatus::TileState</definition>
+        <argsstring></argsstring>
+        <name>TileState</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="556" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="556" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___tile_status_1abf3d3f5de278fc1b00845d5fdbb49028" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XRFdc_TileStatus::BlockStatusMask</definition>
+        <argsstring></argsstring>
+        <name>BlockStatusMask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="557" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="557" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___tile_status_1ab3c2f1541ed58abe84b6489034a632d8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_TileStatus::PowerUpState</definition>
+        <argsstring></argsstring>
+        <name>PowerUpState</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="558" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___tile_status_1a7f9240200ed4e943711b1a6605bb21c2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_TileStatus::PLLState</definition>
+        <argsstring></argsstring>
+        <name>PLLState</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="559" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="559" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>RFSoC Tile status. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="554" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="554" bodyend="560"/>
+    <listofallmembers>
+      <member refid="struct_x_r_fdc___tile_status_1abf3d3f5de278fc1b00845d5fdbb49028" prot="public" virt="non-virtual"><scope>XRFdc_TileStatus</scope><name>BlockStatusMask</name></member>
+      <member refid="struct_x_r_fdc___tile_status_1a7f52ff7933b641cfa0e6a4369535d13e" prot="public" virt="non-virtual"><scope>XRFdc_TileStatus</scope><name>IsEnabled</name></member>
+      <member refid="struct_x_r_fdc___tile_status_1a7f9240200ed4e943711b1a6605bb21c2" prot="public" virt="non-virtual"><scope>XRFdc_TileStatus</scope><name>PLLState</name></member>
+      <member refid="struct_x_r_fdc___tile_status_1ab3c2f1541ed58abe84b6489034a632d8" prot="public" virt="non-virtual"><scope>XRFdc_TileStatus</scope><name>PowerUpState</name></member>
+      <member refid="struct_x_r_fdc___tile_status_1ad92c5c6f1b71ab70e19f18cd31c8103c" prot="public" virt="non-virtual"><scope>XRFdc_TileStatus</scope><name>TileState</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

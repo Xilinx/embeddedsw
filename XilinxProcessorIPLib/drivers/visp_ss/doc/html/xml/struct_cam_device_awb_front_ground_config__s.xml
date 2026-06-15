@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_awb_front_ground_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceAwbFrontGroundConfig_s</compoundname>
+    <includes local="no">cam_device_awb_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_awb_front_ground_config__s_1a0b600ca3bc7bfaf9b4d45d9b1c32784b" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceAwbFrontGroundConfig_s::faceAwbEnable</definition>
+        <argsstring></argsstring>
+        <name>faceAwbEnable</name>
+        <briefdescription>
+<para>Enable AWB face function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="270" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_front_ground_config__s_1afdd3dbd900285c194b514a2194f39823" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceAwbFrontGroundConfig_s::roiNum</definition>
+        <argsstring></argsstring>
+        <name>roiNum</name>
+        <briefdescription>
+<para>The number of ROI. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="271" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="271" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_front_ground_config__s_1a3e827b84b9ffc9aef4f8b018272463ea" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAwbFrontGroundConfig_s::faceWeight</definition>
+        <argsstring></argsstring>
+        <name>faceWeight</name>
+        <briefdescription>
+<para>AWB face weight. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="272" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="272" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_front_ground_config__s_1a16b66cd0e7b135309aa080740ac8bfc9" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAwbFrontGroundConfig_s::rg</definition>
+        <argsstring></argsstring>
+        <name>rg</name>
+        <briefdescription>
+<para>Red green value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="273" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="273" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_awb_front_ground_config__s_1a3db04c72c3b6330f535b3533a35b7d63" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAwbFrontGroundConfig_s::bg</definition>
+        <argsstring></argsstring>
+        <name>bg</name>
+        <briefdescription>
+<para>Blue green value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="274" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Cam Device AWB front ground configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="269" bodyend="275"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_awb_front_ground_config__s_1a3db04c72c3b6330f535b3533a35b7d63" prot="public" virt="non-virtual"><scope>CamDeviceAwbFrontGroundConfig_s</scope><name>bg</name></member>
+      <member refid="struct_cam_device_awb_front_ground_config__s_1a0b600ca3bc7bfaf9b4d45d9b1c32784b" prot="public" virt="non-virtual"><scope>CamDeviceAwbFrontGroundConfig_s</scope><name>faceAwbEnable</name></member>
+      <member refid="struct_cam_device_awb_front_ground_config__s_1a3e827b84b9ffc9aef4f8b018272463ea" prot="public" virt="non-virtual"><scope>CamDeviceAwbFrontGroundConfig_s</scope><name>faceWeight</name></member>
+      <member refid="struct_cam_device_awb_front_ground_config__s_1a16b66cd0e7b135309aa080740ac8bfc9" prot="public" virt="non-virtual"><scope>CamDeviceAwbFrontGroundConfig_s</scope><name>rg</name></member>
+      <member refid="struct_cam_device_awb_front_ground_config__s_1afdd3dbd900285c194b514a2194f39823" prot="public" virt="non-virtual"><scope>CamDeviceAwbFrontGroundConfig_s</scope><name>roiNum</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,469 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="control_8h" kind="file">
+    <compoundname>control.h</compoundname>
+    <includes refid="cam__device__app_8h" local="no">cam_device_app.h</includes>
+    <includes refid="fw__common_8h" local="yes">fw_common.h</includes>
+    <includedby refid="control_8c" local="yes">control.c</includedby>
+    <incdepgraph>
+      <node id="5237">
+        <label>stdbool.h</label>
+      </node>
+      <node id="5249">
+        <label>cam_device_cpd_api.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+      </node>
+      <node id="5270">
+        <label>fw_common.h</label>
+        <childnode refid="5225" relation="include">
+        </childnode>
+      </node>
+      <node id="5247">
+        <label>cam_device_lsc_api.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+      </node>
+      <node id="5241">
+        <label>cam_device_module_api.h</label>
+        <childnode refid="5242" relation="include">
+        </childnode>
+        <childnode refid="5243" relation="include">
+        </childnode>
+        <childnode refid="5244" relation="include">
+        </childnode>
+        <childnode refid="5245" relation="include">
+        </childnode>
+        <childnode refid="5246" relation="include">
+        </childnode>
+        <childnode refid="5247" relation="include">
+        </childnode>
+        <childnode refid="5248" relation="include">
+        </childnode>
+        <childnode refid="5249" relation="include">
+        </childnode>
+        <childnode refid="5250" relation="include">
+        </childnode>
+        <childnode refid="5251" relation="include">
+        </childnode>
+        <childnode refid="5252" relation="include">
+        </childnode>
+        <childnode refid="5253" relation="include">
+        </childnode>
+        <childnode refid="5254" relation="include">
+        </childnode>
+        <childnode refid="5255" relation="include">
+        </childnode>
+        <childnode refid="5256" relation="include">
+        </childnode>
+        <childnode refid="5257" relation="include">
+        </childnode>
+        <childnode refid="5258" relation="include">
+        </childnode>
+        <childnode refid="5259" relation="include">
+        </childnode>
+        <childnode refid="5260" relation="include">
+        </childnode>
+        <childnode refid="5261" relation="include">
+        </childnode>
+        <childnode refid="5262" relation="include">
+        </childnode>
+        <childnode refid="5263" relation="include">
+        </childnode>
+        <childnode refid="5264" relation="include">
+        </childnode>
+        <childnode refid="5265" relation="include">
+        </childnode>
+        <childnode refid="5266" relation="include">
+        </childnode>
+        <childnode refid="5267" relation="include">
+        </childnode>
+        <childnode refid="5268" relation="include">
+        </childnode>
+        <childnode refid="5269" relation="include">
+        </childnode>
+      </node>
+      <node id="5261">
+        <label>cam_device_dmsc_api.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+      </node>
+      <node id="5256">
+        <label>cam_device_dpcc_api.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+      </node>
+      <node id="5231">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="5222">
+        <label>control.h</label>
+        <link refid="control.h"/>
+        <childnode refid="5223" relation="include">
+        </childnode>
+        <childnode refid="5270" relation="include">
+        </childnode>
+      </node>
+      <node id="5248">
+        <label>cam_device_rgbir_api.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+      </node>
+      <node id="5238">
+        <label>stdint.h</label>
+      </node>
+      <node id="5228">
+        <label>stdlib.h</label>
+      </node>
+      <node id="5244">
+        <label>cam_device_2dnr_api.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+      </node>
+      <node id="5250">
+        <label>cam_device_bls_api.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+      </node>
+      <node id="5251">
+        <label>cam_device_hdr_api.h</label>
+      </node>
+      <node id="5243">
+        <label>cam_device_wb_api.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+      </node>
+      <node id="5235">
+        <label>sensor_cmd.h</label>
+        <childnode refid="5236" relation="include">
+        </childnode>
+        <childnode refid="5231" relation="include">
+        </childnode>
+      </node>
+      <node id="5245">
+        <label>cam_device_ge_api.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+      </node>
+      <node id="5269">
+        <label>cam_device_fusa_api.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+      </node>
+      <node id="5263">
+        <label>cam_device_gtm_api.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+      </node>
+      <node id="5230">
+        <label>stddef.h</label>
+      </node>
+      <node id="5257">
+        <label>cam_device_wdr_api.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+      </node>
+      <node id="5229">
+        <label>limits.h</label>
+      </node>
+      <node id="5224">
+        <label>cam_device_common.h</label>
+        <childnode refid="5225" relation="include">
+        </childnode>
+        <childnode refid="5231" relation="include">
+        </childnode>
+        <childnode refid="5232" relation="include">
+        </childnode>
+        <childnode refid="5234" relation="include">
+        </childnode>
+        <childnode refid="5235" relation="include">
+        </childnode>
+      </node>
+      <node id="5258">
+        <label>cam_device_af_api.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+      </node>
+      <node id="5234">
+        <label>buf_defs.h</label>
+        <childnode refid="5225" relation="include">
+        </childnode>
+      </node>
+      <node id="5236">
+        <label>mbox_api.h</label>
+        <childnode refid="5237" relation="include">
+        </childnode>
+        <childnode refid="5238" relation="include">
+        </childnode>
+        <childnode refid="5239" relation="include">
+        </childnode>
+      </node>
+      <node id="5264">
+        <label>cam_device_cnr_api.h</label>
+      </node>
+      <node id="5223">
+        <label>cam_device_app.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+        <childnode refid="5241" relation="include">
+        </childnode>
+      </node>
+      <node id="5233">
+        <label>string.h</label>
+      </node>
+      <node id="5239">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="5237" relation="include">
+        </childnode>
+        <childnode refid="5240" relation="include">
+        </childnode>
+      </node>
+      <node id="5259">
+        <label>cam_device_afm_api.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+      </node>
+      <node id="5255">
+        <label>cam_device_gc_api.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+      </node>
+      <node id="5265">
+        <label>cam_device_exp_api_v2.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+      </node>
+      <node id="5246">
+        <label>cam_device_cproc_api.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+      </node>
+      <node id="5254">
+        <label>cam_device_ee_api.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+      </node>
+      <node id="5240">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="5268">
+        <label>cam_device_tpg_api.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+      </node>
+      <node id="5253">
+        <label>cam_device_3dnr_api.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+      </node>
+      <node id="5225">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="5226" relation="include">
+        </childnode>
+        <childnode refid="5229" relation="include">
+        </childnode>
+        <childnode refid="5230" relation="include">
+        </childnode>
+      </node>
+      <node id="5262">
+        <label>cam_device_ae_api.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+        <childnode refid="5238" relation="include">
+        </childnode>
+      </node>
+      <node id="5260">
+        <label>cam_device_awb_api.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+        <childnode refid="5238" relation="include">
+        </childnode>
+      </node>
+      <node id="5242">
+        <label>cam_device_dg_api.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+      </node>
+      <node id="5252">
+        <label>cam_device_ccm_api.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+      </node>
+      <node id="5267">
+        <label>cam_device_hist256_api.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+      </node>
+      <node id="5232">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="5225" relation="include">
+        </childnode>
+        <childnode refid="5233" relation="include">
+        </childnode>
+      </node>
+      <node id="5227">
+        <label>stdio.h</label>
+      </node>
+      <node id="5266">
+        <label>cam_device_hist64_api.h</label>
+        <childnode refid="5224" relation="include">
+        </childnode>
+      </node>
+      <node id="5226">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="5227" relation="include">
+        </childnode>
+        <childnode refid="5228" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="5271">
+        <label>control.h</label>
+        <link refid="control.h"/>
+        <childnode refid="5272" relation="include">
+        </childnode>
+      </node>
+      <node id="5272">
+        <label>control.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="control_8h_1a5a0ce912319db504c9181dab2718cc45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlSendResponse</definition>
+        <argsstring>(void *data, MboxCoreId core_id)</argsstring>
+        <name>ControlSendResponse</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>core_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/control.h" line="6" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/control.c" bodystart="240" bodyend="255"/>
+      </memberdef>
+      <memberdef kind="function" id="control_8h_1a519b5b3f95686b747d7243eee83a5625" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlSendBackData</definition>
+        <argsstring>(void *data, MboxCoreId core_id)</argsstring>
+        <name>ControlSendBackData</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>core_id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/control.h" line="7" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/control.c" bodystart="256" bodyend="276"/>
+      </memberdef>
+      <memberdef kind="function" id="control_8h_1ac8150ddf811c983383f3a37051935fb3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t CtrlFullBufferInform</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>CtrlFullBufferInform</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/control.h" line="10" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/control.c" bodystart="20" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="function" id="control_8h_1a5736ae41da675798cae7775aa057c459" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t CtrlCamDeviceFusaEventCb</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>CtrlCamDeviceFusaEventCb</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/control.h" line="11" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/control.c" bodystart="110" bodyend="219"/>
+      </memberdef>
+      <memberdef kind="function" id="control_8h_1a04a9683300cde36da983a02c5de20663" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>CamDeviceHandle_t</type>
+        <definition>CamDeviceHandle_t CtrlGetCamDeviceHandle</definition>
+        <argsstring>(uint32_t instanceId)</argsstring>
+        <name>CtrlGetCamDeviceHandle</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>instanceId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/control.h" line="12" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/control.c" bodystart="222" bodyend="232"/>
+      </memberdef>
+      <memberdef kind="function" id="control_8h_1afcb1a0c307ee70396f0184bd0efb6fd0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t CtrlGetCamDeviceInstanceId</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>CtrlGetCamDeviceInstanceId</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/control.h" line="13" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/control.c" bodystart="234" bodyend="238"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cam_device_app.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;fw_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal">RESULT<sp/>ControlSendResponse(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data,<sp/>MboxCoreId<sp/>core_id);</highlight></codeline>
+<codeline lineno="7"><highlight class="normal">RESULT<sp/>ControlSendBackData(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data,<sp/>MboxCoreId<sp/>core_id);</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal">uint32_t<sp/>CtrlFullBufferInform(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data);</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">uint32_t<sp/>CtrlCamDeviceFusaEventCb(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data);</highlight></codeline>
+<codeline lineno="12"><highlight class="normal">CamDeviceHandle_t<sp/>CtrlGetCamDeviceHandle(uint32_t<sp/>instanceId);</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">uint32_t<sp/>CtrlGetCamDeviceInstanceId(CamDeviceHandle_t<sp/>hCamDevice);</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/control.h"/>
+  </compounddef>
+</doxygen>

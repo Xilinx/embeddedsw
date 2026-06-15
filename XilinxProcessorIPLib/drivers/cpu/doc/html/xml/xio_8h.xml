@@ -1,0 +1,671 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xio_8h" kind="file">
+    <compoundname>xio.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includedby refid="xio_8c" local="yes">xio.c</includedby>
+    <incdepgraph>
+      <node id="7">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="5">
+        <label>xio.h</label>
+        <link refid="xio.h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="9">
+        <label>xio.c</label>
+        <link refid="xio_8c"/>
+      </node>
+      <node id="8">
+        <label>xio.h</label>
+        <link refid="xio.h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__cpu_1ga7a83421e7529a8999a70ab806c540b79" prot="public" static="no">
+        <name>XIO_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__cpu_1ga77214ca9e86c3739ea38691f13e910e1" prot="public" static="no">
+        <name>XIo_In8</name>
+        <param><defname>InputPtr</defname></param>
+        <initializer>(*(volatile u8  *)(InputPtr))</initializer>
+        <briefdescription>
+<para>Performs an input operation for an 8-bit memory location by reading from the specified address and returning the value read from that address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InputPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the address to perform the input operation at.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read from the specified input address.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__cpu_1ga79f29757b31950b0f8c8cb9dd7be1955" prot="public" static="no">
+        <name>XIo_In16</name>
+        <param><defname>InputPtr</defname></param>
+        <initializer>(*(volatile u16 *)(InputPtr))</initializer>
+        <briefdescription>
+<para>Performs an input operation for a 16-bit memory location by reading from the specified address and returning the value read from that address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InputPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the address to perform the input operation at.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read from the specified input address.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" bodystart="123" bodyend="-1"/>
+        <referencedby refid="group__cpu_1ga42b463b78a9248d71f676c364ce2ec22" compoundref="xio_8c" startline="118" endline="126">XIo_InSwap16</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__cpu_1ga46edb278c632d89f08d686a80f8b058b" prot="public" static="no">
+        <name>XIo_In32</name>
+        <param><defname>InputPtr</defname></param>
+        <initializer>(*(volatile u32 *)(InputPtr))</initializer>
+        <briefdescription>
+<para>Performs an input operation for a 32-bit memory location by reading from the specified address and returning the value read from that address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InputPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the address to perform the input operation at.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read from the specified input address.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" bodystart="138" bodyend="-1"/>
+        <referencedby refid="group__cpu_1gab8c65f4b4f443280f23162edd174990c" compoundref="xio_8c" startline="143" endline="153">XIo_InSwap32</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__cpu_1ga1b478c4241641392001630b7a9dfe00e" prot="public" static="no">
+        <name>XIo_Out8</name>
+        <param><defname>OutputPtr</defname></param>
+        <param><defname>Value</defname></param>
+        <initializer>(*(volatile u8  *)((OutputPtr)) = (Value))</initializer>
+        <briefdescription>
+<para>Performs an output operation for an 8-bit memory location by writing the specified value to the the specified address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>OutputPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the address to perform the output operation at. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the value to be output at the specified address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__cpu_1ga1547f1c4d29441aefad29fc0c34ae696" prot="public" static="no">
+        <name>XIo_Out16</name>
+        <param><defname>OutputPtr</defname></param>
+        <param><defname>Value</defname></param>
+        <initializer>(*(volatile u16 *)((OutputPtr)) = (Value))</initializer>
+        <briefdescription>
+<para>Performs an output operation for a 16-bit memory location by writing the specified value to the the specified address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>OutputPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the address to perform the output operation at. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the value to be output at the specified address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" bodystart="174" bodyend="-1"/>
+        <referencedby refid="group__cpu_1ga1ee2873e4af28accd786ae12bb5f6928" compoundref="xio_8c" startline="171" endline="179">XIo_OutSwap16</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__cpu_1gaeb79cdbd71863b04f9241d23ab0fe2b5" prot="public" static="no">
+        <name>XIo_Out32</name>
+        <param><defname>OutputPtr</defname></param>
+        <param><defname>Value</defname></param>
+        <initializer>(*(volatile u32 *)((OutputPtr)) = (Value))</initializer>
+        <briefdescription>
+<para>Performs an output operation for a 32-bit memory location by writing the specified value to the the specified address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>OutputPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the address to perform the output operation at. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the value to be output at the specified address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" bodystart="192" bodyend="-1"/>
+        <referencedby refid="group__cpu_1ga971e6eea5339739e84896a9e9274eb4d" compoundref="xio_8c" startline="197" endline="204">XIo_OutSwap32</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__cpu_1gaa129405d34c43ae2bd2b697b792cdece" prot="public" static="no">
+        <name>XIo_EndianNoop</name>
+        <param><defname>Source</defname></param>
+        <param><defname>DestPtr</defname></param>
+        <initializer>(*DestPtr = Source)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" line="204" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__cpu_1ga904aafd4af8155416e23b8ae58f9796d" prot="public" static="no">
+        <name>XIo_ToLittleEndian16</name>
+        <param><defname>Source</defname></param>
+        <param><defname>DestPtr</defname></param>
+        <initializer><ref refid="group__cpu_1ga7c276f7853a003d8049c6adad4773ae2" kindref="member">XIo_EndianSwap16</ref>(Source, DestPtr)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" line="220" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__cpu_1gaa0ad7b861ffea31e0c8036c200238238" prot="public" static="no">
+        <name>XIo_ToLittleEndian32</name>
+        <param><defname>Source</defname></param>
+        <param><defname>DestPtr</defname></param>
+        <initializer><ref refid="group__cpu_1ga83035e903e2b52fcbcb94cf918db8934" kindref="member">XIo_EndianSwap32</ref>(Source, DestPtr)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" line="221" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__cpu_1gafa7e36159c9776f967ebad52f785e372" prot="public" static="no">
+        <name>XIo_FromLittleEndian16</name>
+        <initializer>XIo_ToLittleEndian16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" line="222" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__cpu_1gac96ec019aa86b99726c31a012d0f8386" prot="public" static="no">
+        <name>XIo_FromLittleEndian32</name>
+        <initializer>XIo_ToLittleEndian32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" line="223" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__cpu_1gab5a0e8f8d4057873d5b3025411fdd915" prot="public" static="no">
+        <name>XIo_ToBigEndian16</name>
+        <initializer>XIo_EndianNoop</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" line="225" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__cpu_1gacf11bd815a7fdcf9adaef2a0f77332fb" prot="public" static="no">
+        <name>XIo_ToBigEndian32</name>
+        <initializer>XIo_EndianNoop</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" line="226" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__cpu_1ga260e3cde707c54b3ab230905e119e036" prot="public" static="no">
+        <name>XIo_FromBigEndian16</name>
+        <initializer>XIo_EndianNoop</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" line="227" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__cpu_1gad5a97c4178e3f540e898554c692da499" prot="public" static="no">
+        <name>XIo_FromBigEndian32</name>
+        <initializer>XIo_EndianNoop</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" line="228" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__cpu_1ga8c62ddb24cbd945c441e391677e5d248" prot="public" static="no">
+        <type>u32</type>
+        <definition>typedef u32 XIo_Address</definition>
+        <argsstring></argsstring>
+        <name>XIo_Address</name>
+        <briefdescription>
+<para>Typedef for an I/O address. </para>        </briefdescription>
+        <detaileddescription>
+<para>Typically correlates to the width of the address bus. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__cpu_1ga7c276f7853a003d8049c6adad4773ae2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIo_EndianSwap16</definition>
+        <argsstring>(u16 Source, u16 *DestPtr)</argsstring>
+        <name>XIo_EndianSwap16</name>
+        <param>
+          <type>u16</type>
+          <declname>Source</declname>
+        </param>
+        <param>
+          <type>u16 *</type>
+          <declname>DestPtr</declname>
+        </param>
+        <briefdescription>
+<para>Performs a 16-bit endian conversion. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the value to be converted. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DestPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains a pointer to the location to put the converted value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.c" bodystart="67" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="group__cpu_1ga83035e903e2b52fcbcb94cf918db8934" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIo_EndianSwap32</definition>
+        <argsstring>(u32 Source, u32 *DestPtr)</argsstring>
+        <name>XIo_EndianSwap32</name>
+        <param>
+          <type>u32</type>
+          <declname>Source</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DestPtr</declname>
+        </param>
+        <briefdescription>
+<para>Performs a 32-bit endian conversion. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Source</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the value to be converted. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DestPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains a pointer to the location to put the converted value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.c" bodystart="86" bodyend="101"/>
+        <referencedby refid="group__cpu_1gab8c65f4b4f443280f23162edd174990c" compoundref="xio_8c" startline="143" endline="153">XIo_InSwap32</referencedby>
+        <referencedby refid="group__cpu_1ga971e6eea5339739e84896a9e9274eb4d" compoundref="xio_8c" startline="197" endline="204">XIo_OutSwap32</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__cpu_1ga42b463b78a9248d71f676c364ce2ec22" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u16</type>
+        <definition>u16 XIo_InSwap16</definition>
+        <argsstring>(XIo_Address InAddress)</argsstring>
+        <name>XIo_InSwap16</name>
+        <param>
+          <type><ref refid="group__cpu_1ga8c62ddb24cbd945c441e391677e5d248" kindref="member">XIo_Address</ref></type>
+          <declname>InAddress</declname>
+        </param>
+        <briefdescription>
+<para>Performs an input operation for a 16-bit memory location by reading from the specified address and returning the byte-swapped value read from that address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the address to perform the input operation at.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The byte-swapped value read from the specified input address.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.c" bodystart="118" bodyend="126"/>
+        <references refid="group__cpu_1ga79f29757b31950b0f8c8cb9dd7be1955" compoundref="xio_8h" startline="123">XIo_In16</references>
+      </memberdef>
+      <memberdef kind="function" id="group__cpu_1gab8c65f4b4f443280f23162edd174990c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XIo_InSwap32</definition>
+        <argsstring>(XIo_Address InAddress)</argsstring>
+        <name>XIo_InSwap32</name>
+        <param>
+          <type><ref refid="group__cpu_1ga8c62ddb24cbd945c441e391677e5d248" kindref="member">XIo_Address</ref></type>
+          <declname>InAddress</declname>
+        </param>
+        <briefdescription>
+<para>Performs an input operation for a 32-bit memory location by reading from the specified address and returning the byte-swapped value read from that address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the address to perform the input operation at.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The byte-swapped value read from the specified input address.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.c" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.c" bodystart="143" bodyend="153"/>
+        <references refid="group__cpu_1ga83035e903e2b52fcbcb94cf918db8934" compoundref="xio_8c" startline="86" endline="101">XIo_EndianSwap32</references>
+        <references refid="group__cpu_1ga46edb278c632d89f08d686a80f8b058b" compoundref="xio_8h" startline="138">XIo_In32</references>
+      </memberdef>
+      <memberdef kind="function" id="group__cpu_1ga1ee2873e4af28accd786ae12bb5f6928" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIo_OutSwap16</definition>
+        <argsstring>(XIo_Address OutAddress, u16 Value)</argsstring>
+        <name>XIo_OutSwap16</name>
+        <param>
+          <type><ref refid="group__cpu_1ga8c62ddb24cbd945c441e391677e5d248" kindref="member">XIo_Address</ref></type>
+          <declname>OutAddress</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>Performs an output operation for a 16-bit memory location by writing the specified value to the the specified address. </para>        </briefdescription>
+        <detaileddescription>
+<para>The value is byte-swapped before being written.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>OutAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the address to perform the output operation at. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the value to be output at the specified address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.c" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.c" bodystart="171" bodyend="179"/>
+        <references refid="group__cpu_1ga1547f1c4d29441aefad29fc0c34ae696" compoundref="xio_8h" startline="174">XIo_Out16</references>
+      </memberdef>
+      <memberdef kind="function" id="group__cpu_1ga971e6eea5339739e84896a9e9274eb4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIo_OutSwap32</definition>
+        <argsstring>(XIo_Address OutAddress, u32 Value)</argsstring>
+        <name>XIo_OutSwap32</name>
+        <param>
+          <type><ref refid="group__cpu_1ga8c62ddb24cbd945c441e391677e5d248" kindref="member">XIo_Address</ref></type>
+          <declname>OutAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>Performs an output operation for a 32-bit memory location by writing the specified value to the the specified address. </para>        </briefdescription>
+        <detaileddescription>
+<para>The value is byte-swapped before being written.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>OutAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the address at which the output operation has to be done. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the value to be output at the specified address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.c" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.c" bodystart="197" bodyend="204"/>
+        <references refid="group__cpu_1ga83035e903e2b52fcbcb94cf918db8934" compoundref="xio_8c" startline="86" endline="101">XIo_EndianSwap32</references>
+        <references refid="group__cpu_1gaeb79cdbd71863b04f9241d23ab0fe2b5" compoundref="xio_8h" startline="192">XIo_Out32</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2007<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor">#ifndef<sp/>XIO_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIO_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85" refid="group__cpu_1ga8c62ddb24cbd945c441e391677e5d248" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>u32<sp/><ref refid="group__cpu_1ga8c62ddb24cbd945c441e391677e5d248" kindref="member">XIo_Address</ref>;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="90"><highlight class="comment"><sp/>*<sp/>The<sp/>following<sp/>macros<sp/>allow<sp/>optimized<sp/>I/O<sp/>operations<sp/>for<sp/>memory<sp/>mapped<sp/>I/O.</highlight></codeline>
+<codeline lineno="91"><highlight class="comment"><sp/>*<sp/>It<sp/>should<sp/>be<sp/>noted<sp/>that<sp/>macros<sp/>cannot<sp/>be<sp/>used<sp/>if<sp/>synchronization<sp/>of<sp/>the<sp/>I/O</highlight></codeline>
+<codeline lineno="92"><highlight class="comment"><sp/>*<sp/>operation<sp/>is<sp/>needed<sp/>as<sp/>it<sp/>will<sp/>likely<sp/>break<sp/>some<sp/>code.</highlight></codeline>
+<codeline lineno="93"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="108" refid="group__cpu_1ga77214ca9e86c3739ea38691f13e910e1" refkind="member"><highlight class="preprocessor">#define<sp/>XIo_In8(InputPtr)<sp/><sp/>(*(volatile<sp/>u8<sp/><sp/>*)(InputPtr))</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="123" refid="group__cpu_1ga79f29757b31950b0f8c8cb9dd7be1955" refkind="member"><highlight class="preprocessor">#define<sp/>XIo_In16(InputPtr)<sp/>(*(volatile<sp/>u16<sp/>*)(InputPtr))</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="138" refid="group__cpu_1ga46edb278c632d89f08d686a80f8b058b" refkind="member"><highlight class="preprocessor">#define<sp/>XIo_In32(InputPtr)<sp/><sp/>(*(volatile<sp/>u32<sp/>*)(InputPtr))</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="156" refid="group__cpu_1ga1b478c4241641392001630b7a9dfe00e" refkind="member"><highlight class="preprocessor">#define<sp/>XIo_Out8(OutputPtr,<sp/>Value)<sp/><sp/>\</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(*(volatile<sp/>u8<sp/><sp/>*)((OutputPtr))<sp/>=<sp/>(Value))</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="174" refid="group__cpu_1ga1547f1c4d29441aefad29fc0c34ae696" refkind="member"><highlight class="preprocessor">#define<sp/>XIo_Out16(OutputPtr,<sp/>Value)<sp/>\</highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(*(volatile<sp/>u16<sp/>*)((OutputPtr))<sp/>=<sp/>(Value))</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="192" refid="group__cpu_1gaeb79cdbd71863b04f9241d23ab0fe2b5" refkind="member"><highlight class="preprocessor">#define<sp/>XIo_Out32(OutputPtr,<sp/>Value)<sp/>\</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(*(volatile<sp/>u32<sp/>*)((OutputPtr))<sp/>=<sp/>(Value))</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>The<sp/>following<sp/>macros<sp/>allow<sp/>the<sp/>software<sp/>to<sp/>be<sp/>transportable<sp/>across</highlight></codeline>
+<codeline lineno="197"><highlight class="comment"><sp/>*<sp/>processors<sp/>which<sp/>use<sp/>big<sp/>or<sp/>little<sp/>endian<sp/>memory<sp/>models.</highlight></codeline>
+<codeline lineno="198"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="199"><highlight class="comment"><sp/>*<sp/>Defined<sp/>first<sp/>is<sp/>a<sp/>no-op<sp/>endian<sp/>conversion<sp/>macro.<sp/>This<sp/>macro<sp/>is<sp/>not<sp/>to</highlight></codeline>
+<codeline lineno="200"><highlight class="comment"><sp/>*<sp/>be<sp/>used<sp/>directly<sp/>by<sp/>software.<sp/>Instead,<sp/>the<sp/>XIo_To/FromLittleEndianXX<sp/>and</highlight></codeline>
+<codeline lineno="201"><highlight class="comment"><sp/>*<sp/>XIo_To/FromBigEndianXX<sp/>macros<sp/>below<sp/>are<sp/>to<sp/>be<sp/>used<sp/>to<sp/>allow<sp/>the<sp/>endian</highlight></codeline>
+<codeline lineno="202"><highlight class="comment"><sp/>*<sp/>conversion<sp/>to<sp/>only<sp/>be<sp/>performed<sp/>when<sp/>necessary</highlight></codeline>
+<codeline lineno="203"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIo_EndianNoop(Source,<sp/>DestPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(*DestPtr<sp/>=<sp/>Source)</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XLITTLE_ENDIAN</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIo_ToLittleEndian16<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIo_EndianNoop</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIo_ToLittleEndian32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIo_EndianNoop</highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIo_FromLittleEndian16<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIo_EndianNoop</highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIo_FromLittleEndian32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIo_EndianNoop</highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIo_ToBigEndian16(Source,<sp/>DestPtr)<sp/>XIo_EndianSwap16(Source,<sp/>DestPtr)</highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIo_ToBigEndian32(Source,<sp/>DestPtr)<sp/>XIo_EndianSwap32(Source,<sp/>DestPtr)</highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIo_FromBigEndian16<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIo_ToBigEndian16</highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIo_FromBigEndian32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIo_ToBigEndian32</highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIo_ToLittleEndian16(Source,<sp/>DestPtr)<sp/>XIo_EndianSwap16(Source,<sp/>DestPtr)</highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIo_ToLittleEndian32(Source,<sp/>DestPtr)<sp/>XIo_EndianSwap32(Source,<sp/>DestPtr)</highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIo_FromLittleEndian16<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIo_ToLittleEndian16</highlight></codeline>
+<codeline lineno="223"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIo_FromLittleEndian32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIo_ToLittleEndian32</highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIo_ToBigEndian16<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIo_EndianNoop</highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIo_ToBigEndian32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIo_EndianNoop</highlight></codeline>
+<codeline lineno="227"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIo_FromBigEndian16<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIo_EndianNoop</highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIo_FromBigEndian32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIo_EndianNoop</highlight></codeline>
+<codeline lineno="229"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>The<sp/>following<sp/>functions<sp/>allow<sp/>the<sp/>software<sp/>to<sp/>be<sp/>transportable<sp/>across</highlight></codeline>
+<codeline lineno="235"><highlight class="comment"><sp/>*<sp/>processors<sp/>which<sp/>use<sp/>big<sp/>or<sp/>little<sp/>endian<sp/>memory<sp/>models.<sp/>These<sp/>functions</highlight></codeline>
+<codeline lineno="236"><highlight class="comment"><sp/>*<sp/>should<sp/>not<sp/>be<sp/>directly<sp/>called,<sp/>but<sp/>the<sp/>macros<sp/>XIo_To/FromLittleEndianXX<sp/>and</highlight></codeline>
+<codeline lineno="237"><highlight class="comment"><sp/>*<sp/>XIo_To/FromBigEndianXX<sp/>should<sp/>be<sp/>used<sp/>to<sp/>allow<sp/>the<sp/>endian<sp/>conversion<sp/>to<sp/>only</highlight></codeline>
+<codeline lineno="238"><highlight class="comment"><sp/>*<sp/>be<sp/>performed<sp/>when<sp/>necessary.</highlight></codeline>
+<codeline lineno="239"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__cpu_1ga7c276f7853a003d8049c6adad4773ae2" kindref="member">XIo_EndianSwap16</ref>(u16<sp/>Source,<sp/>u16<sp/>*DestPtr);</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__cpu_1ga83035e903e2b52fcbcb94cf918db8934" kindref="member">XIo_EndianSwap32</ref>(u32<sp/>Source,<sp/>u32<sp/>*DestPtr);</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>The<sp/>following<sp/>functions<sp/>handle<sp/>IO<sp/>addresses<sp/>where<sp/>data<sp/>must<sp/>be<sp/>swapped</highlight></codeline>
+<codeline lineno="244"><highlight class="comment"><sp/>*<sp/>They<sp/>cannot<sp/>be<sp/>implemented<sp/>as<sp/>macros</highlight></codeline>
+<codeline lineno="245"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal">u16<sp/><ref refid="group__cpu_1ga42b463b78a9248d71f676c364ce2ec22" kindref="member">XIo_InSwap16</ref>(XIo_Address<sp/>InAddress);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal">u32<sp/><ref refid="group__cpu_1gab8c65f4b4f443280f23162edd174990c" kindref="member">XIo_InSwap32</ref>(XIo_Address<sp/>InAddress);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__cpu_1ga1ee2873e4af28accd786ae12bb5f6928" kindref="member">XIo_OutSwap16</ref>(XIo_Address<sp/>OutAddress,<sp/>u16<sp/>Value);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__cpu_1ga971e6eea5339739e84896a9e9274eb4d" kindref="member">XIo_OutSwap32</ref>(XIo_Address<sp/>OutAddress,<sp/>u32<sp/>Value);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="252"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="254"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="256"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cpu/src/xio.h"/>
+  </compounddef>
+</doxygen>

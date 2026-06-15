@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_9d476706cd176de4b32cb843c81fdb30" kind="dir">
+    <compoundname>control</compoundname>
+    <innerdir refid="dir_768b8186a1db0af72b3c2c69e5eb8ce7">include</innerdir>
+    <innerdir refid="dir_ab03b17f669a7e35f7b7aa7f5a2864c4">source</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/"/>
+  </compounddef>
+</doxygen>

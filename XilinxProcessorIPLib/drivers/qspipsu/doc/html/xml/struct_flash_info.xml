@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_flash_info" kind="struct" prot="public">
+    <compoundname>FlashInfo</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_flash_info_1a61b332a8e161265ea65d297202483a9c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FlashInfo::jedec_id</definition>
+        <argsstring></argsstring>
+        <name>jedec_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_flash_config.h" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_flash_config.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_flash_info_1a8a1bdea5c0ebbc1db7766cf7bd840716" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FlashInfo::SectSize</definition>
+        <argsstring></argsstring>
+        <name>SectSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_flash_config.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_flash_config.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_flash_info_1af97490d94d6769ec426380408695d555" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FlashInfo::NumSect</definition>
+        <argsstring></argsstring>
+        <name>NumSect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_flash_config.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_flash_config.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_flash_info_1a31e5e4864bad266b769885be6ee6adba" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FlashInfo::PageSize</definition>
+        <argsstring></argsstring>
+        <name>PageSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_flash_config.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_flash_config.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_flash_info_1a445fd36e36f3128345ad43e5e9886186" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FlashInfo::NumPage</definition>
+        <argsstring></argsstring>
+        <name>NumPage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_flash_config.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_flash_config.h" bodystart="232" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_flash_info_1a7e9af0d2efa0b7ffb6be46ea9a89c07e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FlashInfo::FlashDeviceSize</definition>
+        <argsstring></argsstring>
+        <name>FlashDeviceSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_flash_config.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_flash_config.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_flash_info_1a4e29ea9c35a5ea6ea72dceb8ab2d4611" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 FlashInfo::NumDie</definition>
+        <argsstring></argsstring>
+        <name>NumDie</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_flash_config.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_flash_config.h" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_flash_config.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/examples/xqspipsu_flash_config.h" bodystart="219" bodyend="240"/>
+    <listofallmembers>
+      <member refid="struct_flash_info_1a7e9af0d2efa0b7ffb6be46ea9a89c07e" prot="public" virt="non-virtual"><scope>FlashInfo</scope><name>FlashDeviceSize</name></member>
+      <member refid="struct_flash_info_1a61b332a8e161265ea65d297202483a9c" prot="public" virt="non-virtual"><scope>FlashInfo</scope><name>jedec_id</name></member>
+      <member refid="struct_flash_info_1a4e29ea9c35a5ea6ea72dceb8ab2d4611" prot="public" virt="non-virtual"><scope>FlashInfo</scope><name>NumDie</name></member>
+      <member refid="struct_flash_info_1a445fd36e36f3128345ad43e5e9886186" prot="public" virt="non-virtual"><scope>FlashInfo</scope><name>NumPage</name></member>
+      <member refid="struct_flash_info_1af97490d94d6769ec426380408695d555" prot="public" virt="non-virtual"><scope>FlashInfo</scope><name>NumSect</name></member>
+      <member refid="struct_flash_info_1a31e5e4864bad266b769885be6ee6adba" prot="public" virt="non-virtual"><scope>FlashInfo</scope><name>PageSize</name></member>
+      <member refid="struct_flash_info_1a8a1bdea5c0ebbc1db7766cf7bd840716" prot="public" virt="non-virtual"><scope>FlashInfo</scope><name>SectSize</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

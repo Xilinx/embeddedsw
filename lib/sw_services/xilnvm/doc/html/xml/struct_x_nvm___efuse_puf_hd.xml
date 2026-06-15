@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_puf_hd" kind="struct" prot="public">
+    <compoundname>XNvm_EfusePufHd</compoundname>
+    <includes local="no">xnvm_efuse.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_puf_hd_1ae8d5ebfbd30ef803f6aac0708e33b351" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nvm___efuse_puf_sec_ctrl_bits" kindref="compound">XNvm_EfusePufSecCtrlBits</ref></type>
+        <definition>XNvm_EfusePufSecCtrlBits XNvm_EfusePufHd::PufSecCtrlBits</definition>
+        <argsstring></argsstring>
+        <name>PufSecCtrlBits</name>
+        <briefdescription>
+<para>Puf security control bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" bodystart="222" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga420873a40f9a6f98373837d2fed08bb6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="856" endline="1012">XNvm_EfuseWritePuf</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_puf_hd_1a4c0c398e0df5e2abdfd9d840cbf17cd6" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfusePufHd::PrgmPufHelperData</definition>
+        <argsstring></argsstring>
+        <name>PrgmPufHelperData</name>
+        <briefdescription>
+<para>Program puf helper data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" bodystart="223" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga420873a40f9a6f98373837d2fed08bb6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="856" endline="1012">XNvm_EfuseWritePuf</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_puf_hd_1a602788f5b4a2311d088c59c63655ad9a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfusePufHd::PrgmPufSecCtrlBits</definition>
+        <argsstring></argsstring>
+        <name>PrgmPufSecCtrlBits</name>
+        <briefdescription>
+<para>Program puf security control bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" bodystart="224" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga420873a40f9a6f98373837d2fed08bb6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="856" endline="1012">XNvm_EfuseWritePuf</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_puf_hd_1aa69c5a71f3f53c6d5dba758cb583743d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfusePufHd::EnvMonitorDis</definition>
+        <argsstring></argsstring>
+        <name>EnvMonitorDis</name>
+        <briefdescription>
+<para>Environment monitor disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" bodystart="225" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga420873a40f9a6f98373837d2fed08bb6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="856" endline="1012">XNvm_EfuseWritePuf</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_puf_hd_1ae66ad8afb7b50f90f82c8f80f910bae9" prot="public" static="no" mutable="no">
+        <type>XSysMonPsv *</type>
+        <definition>XSysMonPsv* XNvm_EfusePufHd::SysMonInstPtr</definition>
+        <argsstring></argsstring>
+        <name>SysMonInstPtr</name>
+        <briefdescription>
+<para>Pointer to SysMon instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" line="226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" bodystart="226" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga420873a40f9a6f98373837d2fed08bb6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="856" endline="1012">XNvm_EfuseWritePuf</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_puf_hd_1a2d1197f22e08ba160a10a806ad97d267" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfusePufHd::EfuseSynData[XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS]</definition>
+        <argsstring>[XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS]</argsstring>
+        <name>EfuseSynData</name>
+        <briefdescription>
+<para>Array of efuse syndrome data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" bodystart="227" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga0c0ae462f443cc003504d85d719d816f" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1611" endline="1674">XNvm_EfuseReadPuf</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga420873a40f9a6f98373837d2fed08bb6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="856" endline="1012">XNvm_EfuseWritePuf</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_puf_hd_1afef4122244237c9ecf7f40374428c0e7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfusePufHd::Chash</definition>
+        <argsstring></argsstring>
+        <name>Chash</name>
+        <briefdescription>
+<para>Chash value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" bodystart="228" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga0c0ae462f443cc003504d85d719d816f" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1611" endline="1674">XNvm_EfuseReadPuf</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga420873a40f9a6f98373837d2fed08bb6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="856" endline="1012">XNvm_EfuseWritePuf</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_puf_hd_1a82555df77ab1cc86218bc1a758fe3762" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfusePufHd::Aux</definition>
+        <argsstring></argsstring>
+        <name>Aux</name>
+        <briefdescription>
+<para>Aux value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" bodystart="229" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga0c0ae462f443cc003504d85d719d816f" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1611" endline="1674">XNvm_EfuseReadPuf</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga420873a40f9a6f98373837d2fed08bb6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="856" endline="1012">XNvm_EfuseWritePuf</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure defines PUF helper data. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="50">
+        <label>XNvm_EfusePufHd</label>
+        <link refid="struct_x_nvm___efuse_puf_hd"/>
+        <childnode refid="51" relation="usage">
+          <edgelabel>PufSecCtrlBits</edgelabel>
+        </childnode>
+      </node>
+      <node id="51">
+        <label>XNvm_EfusePufSecCtrlBits</label>
+        <link refid="struct_x_nvm___efuse_puf_sec_ctrl_bits"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse.h" bodystart="221" bodyend="230"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_puf_hd_1a82555df77ab1cc86218bc1a758fe3762" prot="public" virt="non-virtual"><scope>XNvm_EfusePufHd</scope><name>Aux</name></member>
+      <member refid="struct_x_nvm___efuse_puf_hd_1afef4122244237c9ecf7f40374428c0e7" prot="public" virt="non-virtual"><scope>XNvm_EfusePufHd</scope><name>Chash</name></member>
+      <member refid="struct_x_nvm___efuse_puf_hd_1a2d1197f22e08ba160a10a806ad97d267" prot="public" virt="non-virtual"><scope>XNvm_EfusePufHd</scope><name>EfuseSynData</name></member>
+      <member refid="struct_x_nvm___efuse_puf_hd_1aa69c5a71f3f53c6d5dba758cb583743d" prot="public" virt="non-virtual"><scope>XNvm_EfusePufHd</scope><name>EnvMonitorDis</name></member>
+      <member refid="struct_x_nvm___efuse_puf_hd_1a4c0c398e0df5e2abdfd9d840cbf17cd6" prot="public" virt="non-virtual"><scope>XNvm_EfusePufHd</scope><name>PrgmPufHelperData</name></member>
+      <member refid="struct_x_nvm___efuse_puf_hd_1a602788f5b4a2311d088c59c63655ad9a" prot="public" virt="non-virtual"><scope>XNvm_EfusePufHd</scope><name>PrgmPufSecCtrlBits</name></member>
+      <member refid="struct_x_nvm___efuse_puf_hd_1ae8d5ebfbd30ef803f6aac0708e33b351" prot="public" virt="non-virtual"><scope>XNvm_EfusePufHd</scope><name>PufSecCtrlBits</name></member>
+      <member refid="struct_x_nvm___efuse_puf_hd_1ae66ad8afb7b50f90f82c8f80f910bae9" prot="public" virt="non-virtual"><scope>XNvm_EfusePufHd</scope><name>SysMonInstPtr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

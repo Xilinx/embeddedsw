@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_56ce15592996afdd27c4d322c7f9e40c" kind="dir">
+    <compoundname>dfemix</compoundname>
+    <innerdir refid="dir_43bd1f97248e7204f9a5b84e3dd33ead">examples</innerdir>
+    <innerdir refid="dir_8e8c58acc7c564e4426d0abe2f70d410">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/"/>
+  </compounddef>
+</doxygen>

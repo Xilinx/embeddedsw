@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_loader___image_measure_info" kind="struct" prot="public">
+    <compoundname>XLoader_ImageMeasureInfo</compoundname>
+    <includes local="no">xloader.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_loader___image_measure_info_1a473423aafd805e838b13434f2cc57b2e" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XLoader_ImageMeasureInfo::DataAddr</definition>
+        <argsstring></argsstring>
+        <name>DataAddr</name>
+        <briefdescription>
+<para>Address of data to be extended to PCR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="449" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="449" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1gafbdd06a059cd7970791f71533c47b8d6" compoundref="server_2xloader__plat_8c" startline="667" endline="726">XLoader_DataMeasurement</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga610d38218f6d60c5d6ad9880efa6ad35" compoundref="2ve__2vm_2server_2xloader__plat_8c" startline="1289" endline="1356">XLoader_HdrMeasurement</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga165b8b9d58043ef922abac0188d45373" compoundref="server_2xloader__plat_8c" startline="479" endline="597">XLoader_MeasureNLoad</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga6f79f561d049e76c070c6d139aa1ce80" compoundref="server_2xloader__plat_8c" startline="173" endline="277">XLoader_UpdateDataMeasurement</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___image_measure_info_1aadeb198d0d8a968793c26130bec3301c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_ImageMeasureInfo::DataSize</definition>
+        <argsstring></argsstring>
+        <name>DataSize</name>
+        <briefdescription>
+<para>Size of data to be extended to PCR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="450" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="450" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1gafbdd06a059cd7970791f71533c47b8d6" compoundref="server_2xloader__plat_8c" startline="667" endline="726">XLoader_DataMeasurement</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga610d38218f6d60c5d6ad9880efa6ad35" compoundref="2ve__2vm_2server_2xloader__plat_8c" startline="1289" endline="1356">XLoader_HdrMeasurement</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga165b8b9d58043ef922abac0188d45373" compoundref="server_2xloader__plat_8c" startline="479" endline="597">XLoader_MeasureNLoad</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga6f79f561d049e76c070c6d139aa1ce80" compoundref="server_2xloader__plat_8c" startline="173" endline="277">XLoader_UpdateDataMeasurement</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___image_measure_info_1ad023d008bbb4629696b327e37a728a62" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_ImageMeasureInfo::PcrInfo</definition>
+        <argsstring></argsstring>
+        <name>PcrInfo</name>
+        <briefdescription>
+<para>PCR Info which included PCR number and PCR measurement index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="451" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="451" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1gafbdd06a059cd7970791f71533c47b8d6" compoundref="server_2xloader__plat_8c" startline="667" endline="726">XLoader_DataMeasurement</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga610d38218f6d60c5d6ad9880efa6ad35" compoundref="2ve__2vm_2server_2xloader__plat_8c" startline="1289" endline="1356">XLoader_HdrMeasurement</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga165b8b9d58043ef922abac0188d45373" compoundref="server_2xloader__plat_8c" startline="479" endline="597">XLoader_MeasureNLoad</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga6f79f561d049e76c070c6d139aa1ce80" compoundref="server_2xloader__plat_8c" startline="173" endline="277">XLoader_UpdateDataMeasurement</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___image_measure_info_1ad726f12e2c83927caeb68d82e2041b0c" prot="public" static="no" mutable="no">
+        <type>u32 *</type>
+        <definition>u32* XLoader_ImageMeasureInfo::DigestIndex</definition>
+        <argsstring></argsstring>
+        <name>DigestIndex</name>
+        <briefdescription>
+<para>Digest Index in the SW PCR log. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="452" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="452" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___image_measure_info_1a69a0d581e05e893c638d900897d1c68f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_ImageMeasureInfo::Flags</definition>
+        <argsstring></argsstring>
+        <name>Flags</name>
+        <briefdescription>
+<para>Flags to indicate state of hash calculation - start, update, finish. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="453" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="453" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1gafbdd06a059cd7970791f71533c47b8d6" compoundref="server_2xloader__plat_8c" startline="667" endline="726">XLoader_DataMeasurement</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga610d38218f6d60c5d6ad9880efa6ad35" compoundref="2ve__2vm_2server_2xloader__plat_8c" startline="1289" endline="1356">XLoader_HdrMeasurement</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga165b8b9d58043ef922abac0188d45373" compoundref="server_2xloader__plat_8c" startline="479" endline="597">XLoader_MeasureNLoad</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga6f79f561d049e76c070c6d139aa1ce80" compoundref="server_2xloader__plat_8c" startline="173" endline="277">XLoader_UpdateDataMeasurement</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___image_measure_info_1a3fc5bb67fe561682deebfed004011f4d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_ImageMeasureInfo::SubsystemID</definition>
+        <argsstring></argsstring>
+        <name>SubsystemID</name>
+        <briefdescription>
+<para>Subsystem ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="454" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="454" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga610d38218f6d60c5d6ad9880efa6ad35" compoundref="2ve__2vm_2server_2xloader__plat_8c" startline="1289" endline="1356">XLoader_HdrMeasurement</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga165b8b9d58043ef922abac0188d45373" compoundref="server_2xloader__plat_8c" startline="479" endline="597">XLoader_MeasureNLoad</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga6f79f561d049e76c070c6d139aa1ce80" compoundref="server_2xloader__plat_8c" startline="173" endline="277">XLoader_UpdateDataMeasurement</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___image_measure_info_1ad6949adc29cd191792dd920db78c5436" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_ImageMeasureInfo::OverWrite</definition>
+        <argsstring></argsstring>
+        <name>OverWrite</name>
+        <briefdescription>
+<para>Flag to indicate if digest can be overwritten at the measurement index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="455" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="455" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to hold Image Measurement information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="448" bodyend="456"/>
+    <listofallmembers>
+      <member refid="struct_x_loader___image_measure_info_1a473423aafd805e838b13434f2cc57b2e" prot="public" virt="non-virtual"><scope>XLoader_ImageMeasureInfo</scope><name>DataAddr</name></member>
+      <member refid="struct_x_loader___image_measure_info_1aadeb198d0d8a968793c26130bec3301c" prot="public" virt="non-virtual"><scope>XLoader_ImageMeasureInfo</scope><name>DataSize</name></member>
+      <member refid="struct_x_loader___image_measure_info_1ad726f12e2c83927caeb68d82e2041b0c" prot="public" virt="non-virtual"><scope>XLoader_ImageMeasureInfo</scope><name>DigestIndex</name></member>
+      <member refid="struct_x_loader___image_measure_info_1a69a0d581e05e893c638d900897d1c68f" prot="public" virt="non-virtual"><scope>XLoader_ImageMeasureInfo</scope><name>Flags</name></member>
+      <member refid="struct_x_loader___image_measure_info_1ad6949adc29cd191792dd920db78c5436" prot="public" virt="non-virtual"><scope>XLoader_ImageMeasureInfo</scope><name>OverWrite</name></member>
+      <member refid="struct_x_loader___image_measure_info_1ad023d008bbb4629696b327e37a728a62" prot="public" virt="non-virtual"><scope>XLoader_ImageMeasureInfo</scope><name>PcrInfo</name></member>
+      <member refid="struct_x_loader___image_measure_info_1a3fc5bb67fe561682deebfed004011f4d" prot="public" virt="non-virtual"><scope>XLoader_ImageMeasureInfo</scope><name>SubsystemID</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

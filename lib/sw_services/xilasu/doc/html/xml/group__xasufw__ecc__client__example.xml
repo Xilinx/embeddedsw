@@ -1,0 +1,301 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xasufw__ecc__client__example" kind="group">
+    <compoundname>xasufw_ecc_client_example</compoundname>
+    <title>ECC API Example Generic Usage</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xasufw__ecc__client__example_1ga21cd174ffc69c218061bdc3a90f87420" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 PrivKey[]</definition>
+        <argsstring>[]</argsstring>
+        <name>PrivKey</name>
+        <initializer>= {
+	0xC4U, 0x77U, 0xF9U, 0xF6U, 0x5CU, 0x22U, 0xCCU, 0xE2U,
+	0x06U, 0x57U, 0xFAU, 0xA5U, 0xB2U, 0xD1U, 0xD8U, 0x12U,
+	0x23U, 0x36U, 0xF8U, 0x51U, 0xA5U, 0x08U, 0xA1U, 0xEDU,
+	0x04U, 0xE4U, 0x79U, 0xC3U, 0x49U, 0x85U, 0xBFU, 0x96U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasufw__ecc__client__example_1ga4447e07071e4004dcff9477d65d41dec" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 Hash[]</definition>
+        <argsstring>[]</argsstring>
+        <name>Hash</name>
+        <initializer>= {
+	0xA4U, 0x1AU, 0x41U, 0xA1U, 0x2AU, 0x79U, 0x95U, 0x48U,
+	0x21U, 0x1CU, 0x41U, 0x0CU, 0x65U, 0xD8U, 0x13U, 0x3AU,
+	0xFDU, 0xE3U, 0x4DU, 0x28U, 0xBDU, 0xD5U, 0x42U, 0xE4U,
+	0xB6U, 0x80U, 0xCFU, 0x28U, 0x99U, 0xC8U, 0xA8U, 0xC4U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasufw__ecc__client__example_1ga415fbd3b93ee3cf466e2eaf789fdebf2" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 PubKey[]</definition>
+        <argsstring>[]</argsstring>
+        <name>PubKey</name>
+        <initializer>= {
+	0xB7U, 0xE0U, 0x8AU, 0xFDU, 0xFEU, 0x94U, 0xBAU, 0xD3U,
+	0xF1U, 0xDCU, 0x8CU, 0x73U, 0x47U, 0x98U, 0xBAU, 0x1CU,
+	0x62U, 0xB3U, 0xA0U, 0xADU, 0x1EU, 0x9EU, 0xA2U, 0xA3U,
+	0x82U, 0x01U, 0xCDU, 0x08U, 0x89U, 0xBCU, 0x7AU, 0x19U,
+	0x36U, 0x03U, 0xF7U, 0x47U, 0x95U, 0x9DU, 0xBFU, 0x7AU,
+	0x4BU, 0xB2U, 0x26U, 0xE4U, 0x19U, 0x28U, 0x72U, 0x90U,
+	0x63U, 0xADU, 0xC7U, 0xAEU, 0x43U, 0x52U, 0x9EU, 0x61U,
+	0xB5U, 0x63U, 0xBBU, 0xC6U, 0x06U, 0xCCU, 0x5EU, 0x09U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasufw__ecc__client__example_1gabbc8c8193fadb44383b96de701f16e4b" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 Sign[XASU_ECC_DOUBLE_P256_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_ECC_DOUBLE_P256_SIZE_IN_BYTES]</argsstring>
+        <name>Sign</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasufw__ecc__client__example_1gad99fc618d0ffbe8835b375204bb3c7bd" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 PubKeyOut[XASU_ECC_DOUBLE_P256_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_ECC_DOUBLE_P256_SIZE_IN_BYTES]</argsstring>
+        <name>PubKeyOut</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasufw__ecc__client__example_1ga15547568239beb028a917f170b866338" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 Notify</definition>
+        <argsstring></argsstring>
+        <name>Notify</name>
+        <initializer>= 0U</initializer>
+        <briefdescription>
+<para>To notify the call back from client library. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasufw__ecc__client__example_1ga89bdef12ea1ad95bf3acb2ef59e4d299" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 ErrorStatus</definition>
+        <argsstring></argsstring>
+        <name>ErrorStatus</name>
+        <initializer>= XST_FAILURE</initializer>
+        <briefdescription>
+<para>Status variable to store the error returned from server. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasufw__ecc__client__example_1gaeb3c7ea2f49378c0d7d03bf04cf4b7c8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_EccCallBackRef</definition>
+        <argsstring>(void *CallBackRef, u32 Status)</argsstring>
+        <name>XAsu_EccCallBackRef</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Call back function which will be registered with library to notify the completion of request. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the call back reference. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Status of the request will be passed as an argument during callback<itemizedlist>
+<listitem><para>0 Upon success</para></listitem><listitem><para>Error code from ASUFW application upon any error </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" bodystart="298" bodyend="305"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasufw__ecc__client__example_1ga40fae369ec708b41f10f3e77d6964429" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_GenSign</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_GenSign</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function is to perform the generate signature operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" bodystart="140" bodyend="189"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasufw__ecc__client__example_1gaccd1e781b6e67a456b8dd3aea3211fc7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_VerifySign</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_VerifySign</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function is to perform the verify signature operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" bodystart="196" bodyend="234"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasufw__ecc__client__example_1ga93870794fd9ea4fab42e0c5d1b299a91" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_GenPubKey</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_GenPubKey</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function is to perform the generate public key operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Compare the generated public key with the expected. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" bodystart="241" bodyend="285"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasufw__ecc__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function to call the <ref refid="group__xasu__ecc__client__apis_1gaaabcb4485412f47df39713bd5df6a544" kindref="member">XAsu_EccGenSign()</ref> and <ref refid="group__xasu__ecc__client__apis_1ga4b8e73d2c2143da5c419680e6a1d6c59" kindref="member">XAsu_EccVerifySign()</ref> API&apos;s. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if example runs successfully.</para></listitem><listitem><para>ErrorCode if the example fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Initialize mailbox instance.</para><para>Generate signature operation.</para><para>Verify signature operation.</para><para>Generate public key operation. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" bodystart="99" bodyend="133"/>
+        <references refid="group__xasu__client__info_1ga3dc785000c560adedbb23beb0404beee" compoundref="xasu__client_8c" startline="127" endline="177">XAsu_ClientInit</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasufw__ecc__client__example_1gad009724e34661e0dc7ffc2595a0ab630" prot="public" static="no">
+        <name>XASU_CACHE_DISABLE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasufw__ecc__client__example_1ga166c1c1d215da0a56a5c4e042d78b4d5" prot="public" static="no">
+        <name>XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>Size of NIST P-256 curve in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasufw__ecc__client__example_1gadc52933fddb6f65af79d043de9c0cd83" prot="public" static="no">
+        <name>XASU_ECC_DOUBLE_P256_SIZE_IN_BYTES</name>
+        <initializer>(64U)</initializer>
+        <briefdescription>
+<para>2 * Size of NIST P-256 curve in bytes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasufw__ecc__client__example_1gae739cd313636fd1b157bf2721ee623c2" prot="public" static="no">
+        <name>XASU_CURVE_TYPE</name>
+        <initializer><ref refid="group__xasu__common__defs_1gae0d5b0eb8d6006304f667517a55da079" kindref="member">XASU_ECC_NIST_P256</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasufw__ecc__client__example_1ga9fd2b5d167d166b8d5ff071c8e7b26db" prot="public" static="no">
+        <name>XASU_CURVE_LENGTH</name>
+        <initializer><ref refid="group__xasufw__ecdh__client__example_1ga166c1c1d215da0a56a5c4e042d78b4d5" kindref="member">XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ecc_example.c" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>This example illustrates the usage of ASU ECC APIs using below tests Generate signature to the NIST P-256 curve using the private key and hash provided and verifies the generated signature.</para></simplesect>
+MODIFICATION HISTORY: <preformatted>
+Ver   Who    Date     Changes
+<hruler/>
+
+1.0   yog    08/19/24 Initial Release
+      ss     09/19/24 Added print for client init failure
+      am     09/24/24 Added SDT support
+      yog    11/27/24 Handling the error returned from server
+      am     03/05/25 Integrated performance measurement macro</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

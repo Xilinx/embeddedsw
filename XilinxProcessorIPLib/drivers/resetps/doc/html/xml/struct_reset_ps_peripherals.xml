@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_reset_ps_peripherals" kind="struct" prot="public">
+    <compoundname>ResetPsPeripherals</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_reset_ps_peripherals_1a75e98eaa08ee2876f14fe7eb8b91320a" prot="public" static="no" mutable="no">
+        <type>const <ref refid="group__resetps_1gae2a8fda4fe9a2b1b31fc9bab21478b42" kindref="member">XResetPs_RstId</ref></type>
+        <definition>const XResetPs_RstId ResetPsPeripherals::ResetID</definition>
+        <argsstring></argsstring>
+        <name>ResetID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/examples/xresetps_example.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/examples/xresetps_example.c" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_reset_ps_peripherals_1ab29f1315e8482972c631680693551fa2" prot="public" static="no" mutable="no">
+        <type>const u32</type>
+        <definition>const u32 ResetPsPeripherals::RegAddr</definition>
+        <argsstring></argsstring>
+        <name>RegAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/examples/xresetps_example.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/examples/xresetps_example.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_reset_ps_peripherals_1a527bdeaa970dbaa2029368f2cb3e070c" prot="public" static="no" mutable="no">
+        <type>const u32</type>
+        <definition>const u32 ResetPsPeripherals::ResetVal</definition>
+        <argsstring></argsstring>
+        <name>ResetVal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/examples/xresetps_example.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/examples/xresetps_example.c" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_reset_ps_peripherals_1ab2677f2598dfca857390e382832c3d10" prot="public" static="no" mutable="no">
+        <type>const u32</type>
+        <definition>const u32 ResetPsPeripherals::ModifVal</definition>
+        <argsstring></argsstring>
+        <name>ModifVal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/examples/xresetps_example.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/examples/xresetps_example.c" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/examples/xresetps_example.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/resetps/examples/xresetps_example.c" bodystart="48" bodyend="53"/>
+    <listofallmembers>
+      <member refid="struct_reset_ps_peripherals_1ab2677f2598dfca857390e382832c3d10" prot="public" virt="non-virtual"><scope>ResetPsPeripherals</scope><name>ModifVal</name></member>
+      <member refid="struct_reset_ps_peripherals_1ab29f1315e8482972c631680693551fa2" prot="public" virt="non-virtual"><scope>ResetPsPeripherals</scope><name>RegAddr</name></member>
+      <member refid="struct_reset_ps_peripherals_1a75e98eaa08ee2876f14fe7eb8b91320a" prot="public" virt="non-virtual"><scope>ResetPsPeripherals</scope><name>ResetID</name></member>
+      <member refid="struct_reset_ps_peripherals_1a527bdeaa970dbaa2029368f2cb3e070c" prot="public" virt="non-virtual"><scope>ResetPsPeripherals</scope><name>ResetVal</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

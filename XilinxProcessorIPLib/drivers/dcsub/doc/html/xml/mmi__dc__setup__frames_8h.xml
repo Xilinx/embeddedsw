@@ -1,0 +1,458 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mmi__dc__setup__frames_8h" kind="file">
+    <compoundname>mmi_dc_setup_frames.h</compoundname>
+    <includes refid="mmi__dc__nonlive__test_8h" local="yes">mmi_dc_nonlive_test.h</includes>
+    <includedby refid="mmi__dc__cursor_8c" local="yes">mmi_dc_cursor.c</includedby>
+    <includedby refid="mmi__dc__nonlive__test_8c" local="yes">mmi_dc_nonlive_test.c</includedby>
+    <includedby refid="mmi__dc__sdp_8c" local="yes">mmi_dc_sdp.c</includedby>
+    <includedby refid="mmi__dc__setup__frames_8c" local="yes">mmi_dc_setup_frames.c</includedby>
+    <includedby refid="mmi__dpdc__platform_8c" local="yes">mmi_dpdc_platform.c</includedby>
+    <incdepgraph>
+      <node id="266">
+        <label>xclk_wiz.h</label>
+      </node>
+      <node id="274">
+        <label>mmi_dpdc_example.h</label>
+        <link refid="mmi__dpdc__example_8h"/>
+        <childnode refid="268" relation="include">
+        </childnode>
+        <childnode refid="271" relation="include">
+        </childnode>
+        <childnode refid="267" relation="include">
+        </childnode>
+        <childnode refid="273" relation="include">
+        </childnode>
+        <childnode refid="275" relation="include">
+        </childnode>
+      </node>
+      <node id="270">
+        <label>xil_io.h</label>
+      </node>
+      <node id="264">
+        <label>mmi_dc_nonlive_test.h</label>
+        <link refid="mmi__dc__nonlive__test_8h"/>
+        <childnode refid="265" relation="include">
+        </childnode>
+        <childnode refid="266" relation="include">
+        </childnode>
+        <childnode refid="267" relation="include">
+        </childnode>
+        <childnode refid="273" relation="include">
+        </childnode>
+        <childnode refid="274" relation="include">
+        </childnode>
+      </node>
+      <node id="267">
+        <label>xdcsub.h</label>
+        <link refid="xdcsub_8h"/>
+        <childnode refid="268" relation="include">
+        </childnode>
+        <childnode refid="271" relation="include">
+        </childnode>
+      </node>
+      <node id="268">
+        <label>xdc.h</label>
+        <link refid="xdc_8h"/>
+        <childnode refid="269" relation="include">
+        </childnode>
+      </node>
+      <node id="265">
+        <label>xinterrupt_wrap.h</label>
+      </node>
+      <node id="273">
+        <label>xmmidp.h</label>
+      </node>
+      <node id="269">
+        <label>xdc_hw.h</label>
+        <link refid="xdc__hw_8h"/>
+        <childnode refid="270" relation="include">
+        </childnode>
+      </node>
+      <node id="263">
+        <label>mmi_dc_setup_frames.h</label>
+        <link refid="mmi_dc_setup_frames.h"/>
+        <childnode refid="264" relation="include">
+        </childnode>
+      </node>
+      <node id="275">
+        <label>xparameters.h</label>
+      </node>
+      <node id="272">
+        <label>xdcdma_hw.h</label>
+        <link refid="xdcdma__hw_8h"/>
+        <childnode refid="270" relation="include">
+        </childnode>
+      </node>
+      <node id="271">
+        <label>xdcdma.h</label>
+        <link refid="xdcdma_8h"/>
+        <childnode refid="272" relation="include">
+        </childnode>
+        <childnode refid="268" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="278">
+        <label>mmi_dc_nonlive_test.c</label>
+        <link refid="mmi__dc__nonlive__test_8c"/>
+      </node>
+      <node id="277">
+        <label>mmi_dc_cursor.c</label>
+        <link refid="mmi__dc__cursor_8c"/>
+      </node>
+      <node id="280">
+        <label>mmi_dc_setup_frames.c</label>
+        <link refid="mmi__dc__setup__frames_8c"/>
+      </node>
+      <node id="276">
+        <label>mmi_dc_setup_frames.h</label>
+        <link refid="mmi_dc_setup_frames.h"/>
+        <childnode refid="277" relation="include">
+        </childnode>
+        <childnode refid="278" relation="include">
+        </childnode>
+        <childnode refid="279" relation="include">
+        </childnode>
+        <childnode refid="280" relation="include">
+        </childnode>
+        <childnode refid="281" relation="include">
+        </childnode>
+      </node>
+      <node id="281">
+        <label>mmi_dpdc_platform.c</label>
+        <link refid="mmi__dpdc__platform_8c"/>
+      </node>
+      <node id="279">
+        <label>mmi_dc_sdp.c</label>
+        <link refid="mmi__dc__sdp_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="mmi__dc__setup__frames_8h_1a6f9a34817bd7485ced17700ecd627716" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_GenerateFrameInfoAttribute</definition>
+        <argsstring>(FrameInfo *Frame)</argsstring>
+        <name>XDpDc_GenerateFrameInfoAttribute</name>
+        <param>
+          <type><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref> *</type>
+          <declname>Frame</declname>
+        </param>
+        <briefdescription>
+<para>This function computes the frame buffer Size, LineSize, and Stride attributes from the Width, Height, and Bpc fields of a <ref refid="struct_frame_info" kindref="compound">FrameInfo</ref> structure. </para>        </briefdescription>
+        <detaileddescription>
+<para>Stride is aligned to a 256-byte boundary.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Frame</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_frame_info" kindref="compound">FrameInfo</ref> structure to populate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.h" line="23" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="182" bodyend="198"/>
+        <references refid="struct_frame_info_1aa86b846fe97a34c623b23f2a7c82a434" compoundref="mmi__dpdc__example_8h" startline="63">FrameInfo::Bpc</references>
+        <references refid="struct_frame_info_1afb59098b9e8c1b5828bec8875a920454" compoundref="mmi__dpdc__example_8h" startline="62">FrameInfo::Height</references>
+        <references refid="struct_frame_info_1a00cd8ff046596293a640cc0048b2f539" compoundref="mmi__dpdc__example_8h" startline="60">FrameInfo::LineSize</references>
+        <references refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" compoundref="mmi__dpdc__example_8h" startline="58">FrameInfo::Size</references>
+        <references refid="struct_frame_info_1a4d890ee45a9b9dd8d011da614d56549b" compoundref="mmi__dpdc__example_8h" startline="59">FrameInfo::Stride</references>
+        <references refid="struct_frame_info_1a5c828928824345c4fc46c69b4527bd6e" compoundref="mmi__dpdc__example_8h" startline="61">FrameInfo::Width</references>
+        <referencedby refid="mmi__dc__cursor_8h_1aeec8d3294a1eefe714a7990afdbd6b91" compoundref="mmi__dc__cursor_8c" startline="31" endline="46">XDpDc_InitCursorFrameBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__setup__frames_8h_1acd2ed76d014f99adc3fcd14ca3b378b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_CreateDescriptors</definition>
+        <argsstring>(RunConfig *RunCfgPtr, XDcDma_Descriptor *XDesc, FrameInfo *FBInfo, XDcDma_Descriptor *NextDesc)</argsstring>
+        <name>XDpDc_CreateDescriptors</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <param>
+          <type>XDcDma_Descriptor *</type>
+          <declname>XDesc</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref> *</type>
+          <declname>FBInfo</declname>
+        </param>
+        <param>
+          <type>XDcDma_Descriptor *</type>
+          <declname>NextDesc</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes a DMA descriptor with source address, data size, line size, stride, and next descriptor linkage from the given <ref refid="struct_frame_info" kindref="compound">FrameInfo</ref>. </para>        </briefdescription>
+        <detaileddescription>
+<para>For cursor descriptors, Target_Addr is also set.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the application configuration structure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>XDesc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the DMA descriptor to initialize. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FBInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_frame_info" kindref="compound">FrameInfo</ref> containing buffer attributes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NextDesc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the next descriptor in the chain, <verbatim>    or NULL for a self-linked (last) descriptor.
+</verbatim></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.h" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="218" bodyend="269"/>
+        <references refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" compoundref="mmi__dpdc__example_8h" startline="57">FrameInfo::Address</references>
+        <references refid="struct_run_config_1a7cc31114b2db6be8bdee621b0c49dce9" compoundref="mmi__dpdc__example_8h" startline="103">RunConfig::Cursor_FbInfo</references>
+        <references refid="struct_run_config_1a155539680243341a34acb114b0333b41" compoundref="mmi__dpdc__example_8h" startline="84">RunConfig::DcSubPtr</references>
+        <references refid="struct_run_config_1ad979d916c40ccd4fc49755851de358ca" compoundref="mmi__dpdc__example_8h" startline="95">RunConfig::Desc7</references>
+        <references refid="struct_frame_info_1a00cd8ff046596293a640cc0048b2f539" compoundref="mmi__dpdc__example_8h" startline="60">FrameInfo::LineSize</references>
+        <references refid="struct_run_config_1ad388d8e099bafebffe2988b8b680ced8" compoundref="mmi__dpdc__example_8h" startline="104">RunConfig::Sdp_FbInfo</references>
+        <references refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" compoundref="mmi__dpdc__example_8h" startline="58">FrameInfo::Size</references>
+        <references refid="struct_frame_info_1a4d890ee45a9b9dd8d011da614d56549b" compoundref="mmi__dpdc__example_8h" startline="59">FrameInfo::Stride</references>
+        <references refid="group__mmi__dcdma_1ga83715748f55fe649eefc6d6a7e091dfd" compoundref="xdcdma_8c" startline="1009" endline="1016">XDcDma_DescInit</references>
+        <references refid="group__mmi__dcdma_1gaba2c3b0d2480b34ccad95c9fdd7f5478" compoundref="xdcdma_8c" startline="1027" endline="1035">XDcDma_GetNewDescId</references>
+        <referencedby refid="mmi__dc__setup__frames_8h_1a9d92ee25c19827085c23250277009a49" compoundref="mmi__dc__setup__frames_8c" startline="679" endline="690">XDpDc_SetupAudioDescriptors</referencedby>
+        <referencedby refid="mmi__dc__setup__frames_8h_1adc1413b4d5cdc6a62f4cd6e75fd661ca" compoundref="mmi__dc__setup__frames_8c" startline="658" endline="663">XDpDc_SetupCursorDescriptor</referencedby>
+        <referencedby refid="mmi__dc__sdp_8h_1a28b48cdbc4ab2b26acfcd928d511b14a" compoundref="mmi__dc__sdp_8c" startline="128" endline="133">XDpDc_SetupSdpDescriptor</referencedby>
+        <referencedby refid="mmi__dc__setup__frames_8h_1aebd7ac73b079a58f72ecacdc1bfef5f1" compoundref="mmi__dc__setup__frames_8c" startline="569" endline="597">XDpDc_SetupStream1Descriptors</referencedby>
+        <referencedby refid="mmi__dc__setup__frames_8h_1a2638411c2ae587ebc77adc73d673439c" compoundref="mmi__dc__setup__frames_8c" startline="614" endline="642">XDpDc_SetupStream2Descriptors</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__setup__frames_8h_1af01b016c00245f21541974c6dab538aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_InitFrames</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_InitFrames</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes video, cursor, and audio frame buffers. </para>        </briefdescription>
+        <detaileddescription>
+<para>Buffer initialization is format-aware: the number of planes per stream is</para><para>determined by the video format mode (Interleaved/SemiPlanar/Planar). V1-V3 are Stream1 planes, V4-V6 are Stream2 planes.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the application configuration structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Descriptor creation is handled separately by XDpDc_SetupStream1Descriptors and XDpDc_SetupStream2Descriptors, which must be called after DMA hardware initialization. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="510" bodyend="552"/>
+        <references refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" compoundref="mmi__dpdc__example_8h" startline="57">FrameInfo::Address</references>
+        <references refid="struct_run_config_1a0919eff7fd55f675afb7235c6c9936c0" compoundref="mmi__dpdc__example_8h" startline="117">RunConfig::AudioEnable</references>
+        <references refid="struct_run_config_1a692d2f317f78449f14ef9d286430464c" compoundref="mmi__dpdc__example_8h" startline="116">RunConfig::CursorEnable</references>
+        <references refid="struct_run_config_1a032bc36376350b1ba5419e18d1f357ec" compoundref="mmi__dpdc__example_8h" startline="119">RunConfig::SdpEnable</references>
+        <references refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" compoundref="mmi__dpdc__example_8h" startline="58">FrameInfo::Size</references>
+        <references refid="mmi__dc__cursor_8c_1afc0e01ef8f0328aadb0723fb9a1e76d3" compoundref="mmi__dc__cursor_8c" startline="68" endline="134">XDpDc_FillCursorBuffer</references>
+        <references refid="mmi__dc__sdp_8c_1afb0504d4880dbd976198faca0d13154c" compoundref="mmi__dc__sdp_8c" startline="59" endline="90">XDpDc_FillSdpBuffer</references>
+        <references refid="mmi__dc__generate__frames_8c_1ab05cca9b31f824de34720ae09717ee3e" compoundref="mmi__dc__generate__frames_8c" startline="85" endline="1808">XDpDc_GenerateFrames</references>
+        <references refid="mmi__dc__cursor_8c_1aeec8d3294a1eefe714a7990afdbd6b91" compoundref="mmi__dc__cursor_8c" startline="31" endline="46">XDpDc_InitCursorFrameBuffer</references>
+        <references refid="mmi__dc__sdp_8c_1ac4d820ea95f52734bb803c61bc4ba6ba" compoundref="mmi__dc__sdp_8c" startline="36" endline="45">XDpDc_InitSdpFrameBuffer</references>
+        <references refid="mmi__dc__setup__frames_8c_1a9d92ee25c19827085c23250277009a49" compoundref="mmi__dc__setup__frames_8c" startline="679" endline="690">XDpDc_SetupAudioDescriptors</references>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1a9350eba050dae42216947bd4cd8d36c8" compoundref="mmi__dc__nonlive__test_8c" startline="252" endline="285">XDpDc_InitializeRunConfig</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__setup__frames_8h_1aebd7ac73b079a58f72ecacdc1bfef5f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_SetupStream1Descriptors</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_SetupStream1Descriptors</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function creates DMA descriptors for Stream1 and assigns them to Video DMA channels 0-2. </para>        </briefdescription>
+        <detaileddescription>
+<para>The number of descriptors depends on the video format mode: Interleaved=1, SemiPlanar=2, Planar=3. Uses switch fall-through from Planar -&gt; SemiPlanar -&gt; Interleaved.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the application configuration structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Must be called after <ref refid="group__mmi__dcdma_1ga3416ce41bac7a473de1c1b9665019800" kindref="member">XDcDma_CfgInitialize()</ref>. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="569" bodyend="597"/>
+        <references refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" compoundref="mmi__dpdc__example_8h" startline="57">FrameInfo::Address</references>
+        <references refid="struct_run_config_1a155539680243341a34acb114b0333b41" compoundref="mmi__dpdc__example_8h" startline="84">RunConfig::DcSubPtr</references>
+        <references refid="struct_run_config_1a032e8dad8d2502e989379239eb569fec" compoundref="mmi__dpdc__example_8h" startline="89">RunConfig::Desc1</references>
+        <references refid="struct_run_config_1aa8105f5039b3f9ec5e219bfa42955f97" compoundref="mmi__dpdc__example_8h" startline="90">RunConfig::Desc2</references>
+        <references refid="struct_run_config_1ac706a1a31ffef301f97b18381271d170" compoundref="mmi__dpdc__example_8h" startline="91">RunConfig::Desc3</references>
+        <references refid="struct_run_config_1a9dcb790be7d6e267162fe3c907e25cec" compoundref="mmi__dpdc__example_8h" startline="113">RunConfig::Stream1Format</references>
+        <references refid="struct_run_config_1af8f85b8ad9fae20905df08983873e06f" compoundref="mmi__dpdc__example_8h" startline="97">RunConfig::V1_FbInfo</references>
+        <references refid="struct_run_config_1a85af807eb3a8581fdf35633c3ebbc562" compoundref="mmi__dpdc__example_8h" startline="98">RunConfig::V2_FbInfo</references>
+        <references refid="struct_run_config_1a89c4dfbc093c45dcba001a224c0254ba" compoundref="mmi__dpdc__example_8h" startline="99">RunConfig::V3_FbInfo</references>
+        <references refid="group__mmi__dc_1gae47a85e818e8ee672ba51f4963562ef5" compoundref="xdc_8c" startline="308" endline="320">XDc_GetNonLiveVideoAttribute</references>
+        <references refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" compoundref="mmi__dc__setup__frames_8c" startline="218" endline="269">XDpDc_CreateDescriptors</references>
+        <referencedby refid="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" compoundref="mmi__dpdc__platform_8c" startline="213" endline="298">XDpDc_InitDcSubsystem</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__setup__frames_8h_1a2638411c2ae587ebc77adc73d673439c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_SetupStream2Descriptors</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_SetupStream2Descriptors</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function creates DMA descriptors for Stream2 and assigns them to Graphics DMA channels 3-5. </para>        </briefdescription>
+        <detaileddescription>
+<para>The number of descriptors depends on the video format mode: Interleaved=1, SemiPlanar=2, Planar=3. Uses switch fall-through from Planar -&gt; SemiPlanar -&gt; Interleaved.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the application configuration structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Must be called after <ref refid="group__mmi__dcdma_1ga3416ce41bac7a473de1c1b9665019800" kindref="member">XDcDma_CfgInitialize()</ref>. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.h" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="614" bodyend="642"/>
+        <references refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" compoundref="mmi__dpdc__example_8h" startline="57">FrameInfo::Address</references>
+        <references refid="struct_run_config_1a155539680243341a34acb114b0333b41" compoundref="mmi__dpdc__example_8h" startline="84">RunConfig::DcSubPtr</references>
+        <references refid="struct_run_config_1abe6e71b53d284446b7f8011ada7b3579" compoundref="mmi__dpdc__example_8h" startline="92">RunConfig::Desc4</references>
+        <references refid="struct_run_config_1aa88ef860111459a6b832446ae5529743" compoundref="mmi__dpdc__example_8h" startline="93">RunConfig::Desc5</references>
+        <references refid="struct_run_config_1adc0f9a32830fdebfdbc3c279c70487a1" compoundref="mmi__dpdc__example_8h" startline="94">RunConfig::Desc6</references>
+        <references refid="struct_run_config_1a9684f9c86831c32d790b11e6aefe170f" compoundref="mmi__dpdc__example_8h" startline="114">RunConfig::Stream2Format</references>
+        <references refid="struct_run_config_1adbad41731e86124a761b769b9948346b" compoundref="mmi__dpdc__example_8h" startline="100">RunConfig::V4_FbInfo</references>
+        <references refid="struct_run_config_1a2c838a7b798d47c62f0eb24312e3a483" compoundref="mmi__dpdc__example_8h" startline="101">RunConfig::V5_FbInfo</references>
+        <references refid="struct_run_config_1af6d11992c010cc0a70c030e58560126c" compoundref="mmi__dpdc__example_8h" startline="102">RunConfig::V6_FbInfo</references>
+        <references refid="group__mmi__dc_1gae47a85e818e8ee672ba51f4963562ef5" compoundref="xdc_8c" startline="308" endline="320">XDc_GetNonLiveVideoAttribute</references>
+        <references refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" compoundref="mmi__dc__setup__frames_8c" startline="218" endline="269">XDpDc_CreateDescriptors</references>
+        <referencedby refid="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" compoundref="mmi__dpdc__platform_8c" startline="213" endline="298">XDpDc_InitDcSubsystem</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__setup__frames_8h_1adc1413b4d5cdc6a62f4cd6e75fd661ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_SetupCursorDescriptor</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_SetupCursorDescriptor</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function creates the cursor DMA descriptor (Desc7) and links it to the cursor frame buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the application configuration structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Must be called after <ref refid="group__mmi__dcdma_1ga3416ce41bac7a473de1c1b9665019800" kindref="member">XDcDma_CfgInitialize()</ref> and only when cursor is enabled. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="658" bodyend="663"/>
+        <references refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" compoundref="mmi__dpdc__example_8h" startline="57">FrameInfo::Address</references>
+        <references refid="struct_run_config_1a7cc31114b2db6be8bdee621b0c49dce9" compoundref="mmi__dpdc__example_8h" startline="103">RunConfig::Cursor_FbInfo</references>
+        <references refid="struct_run_config_1ad979d916c40ccd4fc49755851de358ca" compoundref="mmi__dpdc__example_8h" startline="95">RunConfig::Desc7</references>
+        <references refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" compoundref="mmi__dc__setup__frames_8c" startline="218" endline="269">XDpDc_CreateDescriptors</references>
+        <referencedby refid="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" compoundref="mmi__dpdc__platform_8c" startline="213" endline="298">XDpDc_InitDcSubsystem</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__setup__frames_8h_1a9d92ee25c19827085c23250277009a49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_SetupAudioDescriptors</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_SetupAudioDescriptors</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function creates the audio DMA descriptors (AudDesc0-7) as a chained ring buffer for audio streaming. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the application configuration structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Must be called after <ref refid="group__mmi__dcdma_1ga3416ce41bac7a473de1c1b9665019800" kindref="member">XDcDma_CfgInitialize()</ref> and only when audio is enabled. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.h" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.c" bodystart="679" bodyend="690"/>
+        <references refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" compoundref="mmi__dc__setup__frames_8c" startline="218" endline="269">XDpDc_CreateDescriptors</references>
+        <referencedby refid="mmi__dc__setup__frames_8h_1af01b016c00245f21541974c6dab538aa" compoundref="mmi__dc__setup__frames_8c" startline="510" endline="552">XDpDc_InitFrames</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Declares frame metadata and DMA descriptor setup interfaces. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor">#ifndef<sp/>__SETUP_FRAMES_H__</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__SETUP_FRAMES_H__</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mmi__dc__nonlive__test_8h" kindref="compound">mmi_dc_nonlive_test.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__setup__frames_8c_1a6f9a34817bd7485ced17700ecd627716" kindref="member">XDpDc_GenerateFrameInfoAttribute</ref>(<ref refid="struct_frame_info" kindref="compound">FrameInfo</ref><sp/>*Frame);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" kindref="member">XDpDc_CreateDescriptors</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr,<sp/>XDcDma_Descriptor<sp/>*XDesc,<sp/><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref><sp/>*FBInfo,<sp/>XDcDma_Descriptor<sp/>*NextDesc);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__setup__frames_8c_1af01b016c00245f21541974c6dab538aa" kindref="member">XDpDc_InitFrames</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__setup__frames_8c_1aebd7ac73b079a58f72ecacdc1bfef5f1" kindref="member">XDpDc_SetupStream1Descriptors</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__setup__frames_8c_1a2638411c2ae587ebc77adc73d673439c" kindref="member">XDpDc_SetupStream2Descriptors</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__setup__frames_8c_1adc1413b4d5cdc6a62f4cd6e75fd661ca" kindref="member">XDpDc_SetupCursorDescriptor</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__setup__frames_8c_1a9d92ee25c19827085c23250277009a49" kindref="member">XDpDc_SetupAudioDescriptors</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>__SETUP_FRAMES_H__<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_setup_frames.h"/>
+  </compounddef>
+</doxygen>

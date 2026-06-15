@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="src_2server_2core_2slhdsa_2_c_make_lists_8txt" kind="file">
+    <compoundname>src/server/core/slhdsa/CMakeLists.txt</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsecure_slhdsa_addr.h)</highlight></codeline>
+<codeline lineno="5"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsecure_slhdsa_fors.h)</highlight></codeline>
+<codeline lineno="6"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsecure_slhdsa.h)</highlight></codeline>
+<codeline lineno="7"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsecure_slhdsa_hash.h)</highlight></codeline>
+<codeline lineno="8"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsecure_slhdsa_ht.h)</highlight></codeline>
+<codeline lineno="9"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsecure_slhdsa_instance.h)</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsecure_slhdsa_wots.h)</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsecure_slhdsa_xmss.h)</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xsecure_slhdsa.c)</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xsecure_slhdsa_fors.c)</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xsecure_slhdsa_hash.c)</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xsecure_slhdsa_ht.c)</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xsecure_slhdsa_instance.c)</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xsecure_slhdsa_wots.c)</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xsecure_slhdsa_xmss.c)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal">if(&quot;${CMAKE_SYSTEM_PROCESSOR}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">plm_microblaze</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="22"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsecure_slhdsa_ipihandler.h)</highlight></codeline>
+<codeline lineno="23"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>collect<sp/>(PROJECT_LIB_SOURCES<sp/>xsecure_slhdsa_ipihandler.c)</highlight></codeline>
+<codeline lineno="24"><highlight class="stringliteral">endif()</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/CMakeLists.txt"/>
+  </compounddef>
+</doxygen>

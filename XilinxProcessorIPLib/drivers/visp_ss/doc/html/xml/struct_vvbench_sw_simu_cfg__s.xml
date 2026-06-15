@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_vvbench_sw_simu_cfg__s" kind="struct" prot="public">
+    <compoundname>VvbenchSwSimuCfg_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_vvbench_sw_simu_cfg__s_1ae3daffbb54500e7287522b9149e4c036" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t VvbenchSwSimuCfg_s::enable</definition>
+        <argsstring></argsstring>
+        <name>enable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="431" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="431" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_sw_simu_cfg__s_1aa5efba829fc0c5c4f5b5945d84085d83" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char VvbenchSwSimuCfg_s::swSimuCaselist[FILE_LEN]</definition>
+        <argsstring>[FILE_LEN]</argsstring>
+        <name>swSimuCaselist</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="432" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="432" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_sw_simu_cfg__s_1a74c92dd33d592f3eedc4e09bb6e4d692" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char VvbenchSwSimuCfg_s::swSimuCfgFile[FILE_LEN]</definition>
+        <argsstring>[FILE_LEN]</argsstring>
+        <name>swSimuCfgFile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="433" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="433" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_sw_simu_cfg__s_1a5a57e8aba4068b93831ea77f2a3fbba2" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char VvbenchSwSimuCfg_s::fineTuneJson[FILE_LEN]</definition>
+        <argsstring>[FILE_LEN]</argsstring>
+        <name>fineTuneJson</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="434" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="434" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_sw_simu_cfg__s_1ae54804b8af655c5414601a90b353fbf7" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char VvbenchSwSimuCfg_s::metaDataInfo[FILE_LEN]</definition>
+        <argsstring>[FILE_LEN]</argsstring>
+        <name>metaDataInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="435" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="435" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_sw_simu_cfg__s_1aa7292cf2b4640c4d1308ab06358e32ec" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char VvbenchSwSimuCfg_s::defaultJson[FILE_LEN]</definition>
+        <argsstring>[FILE_LEN]</argsstring>
+        <name>defaultJson</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="436" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="436" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_sw_simu_cfg__s_1ae0d0d567f41989f53f60553fc2aa9d1e" prot="public" static="no" mutable="no">
+        <type>VvbenchSwSimuAutoCfg_t</type>
+        <definition>VvbenchSwSimuAutoCfg_t VvbenchSwSimuCfg_s::autoCfg</definition>
+        <argsstring></argsstring>
+        <name>autoCfg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="437" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="437" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="430" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="430" bodyend="438"/>
+    <listofallmembers>
+      <member refid="struct_vvbench_sw_simu_cfg__s_1ae0d0d567f41989f53f60553fc2aa9d1e" prot="public" virt="non-virtual"><scope>VvbenchSwSimuCfg_s</scope><name>autoCfg</name></member>
+      <member refid="struct_vvbench_sw_simu_cfg__s_1aa7292cf2b4640c4d1308ab06358e32ec" prot="public" virt="non-virtual"><scope>VvbenchSwSimuCfg_s</scope><name>defaultJson</name></member>
+      <member refid="struct_vvbench_sw_simu_cfg__s_1ae3daffbb54500e7287522b9149e4c036" prot="public" virt="non-virtual"><scope>VvbenchSwSimuCfg_s</scope><name>enable</name></member>
+      <member refid="struct_vvbench_sw_simu_cfg__s_1a5a57e8aba4068b93831ea77f2a3fbba2" prot="public" virt="non-virtual"><scope>VvbenchSwSimuCfg_s</scope><name>fineTuneJson</name></member>
+      <member refid="struct_vvbench_sw_simu_cfg__s_1ae54804b8af655c5414601a90b353fbf7" prot="public" virt="non-virtual"><scope>VvbenchSwSimuCfg_s</scope><name>metaDataInfo</name></member>
+      <member refid="struct_vvbench_sw_simu_cfg__s_1aa5efba829fc0c5c4f5b5945d84085d83" prot="public" virt="non-virtual"><scope>VvbenchSwSimuCfg_s</scope><name>swSimuCaselist</name></member>
+      <member refid="struct_vvbench_sw_simu_cfg__s_1a74c92dd33d592f3eedc4e09bb6e4d692" prot="public" virt="non-virtual"><scope>VvbenchSwSimuCfg_s</scope><name>swSimuCfgFile</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_iic_stats" kind="struct" prot="public">
+    <compoundname>XIicStats</compoundname>
+    <includes local="no">xiic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_iic_stats_1a8dd8285757503a00e678eba64ba60713" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XIicStats::ArbitrationLost</definition>
+        <argsstring></argsstring>
+        <name>ArbitrationLost</name>
+        <briefdescription>
+<para>Number of times arbitration was lost. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="448" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga50c5aa4448e8993c80ef7b6a87b1aaea" compoundref="xiic__intr_8c" startline="109" endline="228">XIic_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_stats_1a883cabf0999ea6eb384a5ead3b02477c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XIicStats::RepeatedStarts</definition>
+        <argsstring></argsstring>
+        <name>RepeatedStarts</name>
+        <briefdescription>
+<para>Number of repeated starts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="449" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="449" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga4d7985d95cd029ab0b0f2a5ccc614793" compoundref="xiic__dyn__master_8c" startline="303" endline="422">XIic_DynMasterRecv</referencedby>
+        <referencedby refid="group___overview_1gac4c6388d0db3b08ddcd47f0b2459ff3c" compoundref="xiic__dyn__master_8c" startline="92" endline="178">XIic_DynMasterSend</referencedby>
+        <referencedby refid="group___overview_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="248" endline="387">XIic_MasterRecv</referencedby>
+        <referencedby refid="group___overview_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="109" endline="215">XIic_MasterSend</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_stats_1a4d8ff1d650a19c2e6021feab1c439ac0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XIicStats::BusBusy</definition>
+        <argsstring></argsstring>
+        <name>BusBusy</name>
+        <briefdescription>
+<para>Number of times bus busy status returned. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="450" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="450" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_stats_1a21b0999db98a32cb1aa18317c9f74aa4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XIicStats::RecvBytes</definition>
+        <argsstring></argsstring>
+        <name>RecvBytes</name>
+        <briefdescription>
+<para>Number of bytes received. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="451" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="451" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_stats_1a1e4c261ba880898121d01fef25272640" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XIicStats::RecvInterrupts</definition>
+        <argsstring></argsstring>
+        <name>RecvInterrupts</name>
+        <briefdescription>
+<para>Number of receive interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="452" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="452" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga50c5aa4448e8993c80ef7b6a87b1aaea" compoundref="xiic__intr_8c" startline="109" endline="228">XIic_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_stats_1ace8ca6a8acab52a3b345405ee876f38a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XIicStats::SendBytes</definition>
+        <argsstring></argsstring>
+        <name>SendBytes</name>
+        <briefdescription>
+<para>Number of transmit bytes received. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="453" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="453" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_stats_1a91c185703ed112b39723e7141f33c760" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XIicStats::SendInterrupts</definition>
+        <argsstring></argsstring>
+        <name>SendInterrupts</name>
+        <briefdescription>
+<para>Number of transmit interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="454" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="454" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga50c5aa4448e8993c80ef7b6a87b1aaea" compoundref="xiic__intr_8c" startline="109" endline="228">XIic_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_stats_1a35580c344011980f77137d9957a8e308" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XIicStats::TxErrors</definition>
+        <argsstring></argsstring>
+        <name>TxErrors</name>
+        <briefdescription>
+<para>Number of transmit errors (no ack) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="455" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="455" bodyend="-1"/>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1a4a76229cbb6ce631f3271eb592b69d0f" compoundref="xiic__dynamic__eeprom__example_8c" startline="428" endline="508">DynEepromWriteData</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1a40d92867ead2dc8efe06207b8b0f3494" compoundref="xiic__eeprom__example_8c" startline="485" endline="564">EepromWriteData</referencedby>
+        <referencedby refid="xiic__multi__master__example_8c_1a1910a4a03c18e6dcc001ad0880af0782" compoundref="xiic__multi__master__example_8c" startline="237" endline="405">IicMultiMasterExample</referencedby>
+        <referencedby refid="group___overview_1ga50c5aa4448e8993c80ef7b6a87b1aaea" compoundref="xiic__intr_8c" startline="109" endline="228">XIic_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_stats_1a029e0c1dd27db0a22e07c79d158db149" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XIicStats::IicInterrupts</definition>
+        <argsstring></argsstring>
+        <name>IicInterrupts</name>
+        <briefdescription>
+<para>Number of IIC (device) interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="456" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="456" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga50c5aa4448e8993c80ef7b6a87b1aaea" compoundref="xiic__intr_8c" startline="109" endline="228">XIic_InterruptHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="struct_x_iic" kindref="compound">XIic</ref> statistics. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="447" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="447" bodyend="457"/>
+    <listofallmembers>
+      <member refid="struct_x_iic_stats_1a8dd8285757503a00e678eba64ba60713" prot="public" virt="non-virtual"><scope>XIicStats</scope><name>ArbitrationLost</name></member>
+      <member refid="struct_x_iic_stats_1a4d8ff1d650a19c2e6021feab1c439ac0" prot="public" virt="non-virtual"><scope>XIicStats</scope><name>BusBusy</name></member>
+      <member refid="struct_x_iic_stats_1a029e0c1dd27db0a22e07c79d158db149" prot="public" virt="non-virtual"><scope>XIicStats</scope><name>IicInterrupts</name></member>
+      <member refid="struct_x_iic_stats_1a21b0999db98a32cb1aa18317c9f74aa4" prot="public" virt="non-virtual"><scope>XIicStats</scope><name>RecvBytes</name></member>
+      <member refid="struct_x_iic_stats_1a1e4c261ba880898121d01fef25272640" prot="public" virt="non-virtual"><scope>XIicStats</scope><name>RecvInterrupts</name></member>
+      <member refid="struct_x_iic_stats_1a883cabf0999ea6eb384a5ead3b02477c" prot="public" virt="non-virtual"><scope>XIicStats</scope><name>RepeatedStarts</name></member>
+      <member refid="struct_x_iic_stats_1ace8ca6a8acab52a3b345405ee876f38a" prot="public" virt="non-virtual"><scope>XIicStats</scope><name>SendBytes</name></member>
+      <member refid="struct_x_iic_stats_1a91c185703ed112b39723e7141f33c760" prot="public" virt="non-virtual"><scope>XIicStats</scope><name>SendInterrupts</name></member>
+      <member refid="struct_x_iic_stats_1a35580c344011980f77137d9957a8e308" prot="public" virt="non-virtual"><scope>XIicStats</scope><name>TxErrors</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

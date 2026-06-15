@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>csi</title>
+    <detaileddescription>
+<para>This file contains the implementation of the MIPI CSI2 RX Controller driver.User documentation for the driver functions is contained in this file in the form of comment blocks at the front of each function.</para><para><bold>Core Features</bold></para><para>The CSI2 Rx Controller currently supports the MIPI?Alliance Specification for Camera Serial Interface 2 (CSI-2) Version 1.1 ? 18 July 2012 with D-PHY v1.2.</para><para>There is a provision for multi-lane support for up to 4 lanes for receiving data up to 1.5 Gbps per lane. It supports both short and long packets. Most of the primary and secondary formats of images are supported along with interleaving of data at packet or frame level for up to 4 virtual channels in the stream. The IP has capability to detect Start of Transmission, CRC, ECC, etc type of errors and report them via interrupts.</para><para>The IP is programmable when the core is disabled or when the soft reset bit has been set and the reset-in-progress is reset.</para><para>The programmable parameters are the number of active lane counts, global interrupt enable and interrupt masks for variety of events to be detected.</para><para><bold>Software Initialization &amp; Configuration</bold></para><para>The application needs to do following steps in order for preparing the MIPI CSI2 Rx core to be ready to receive stream</para><para><itemizedlist>
+<listitem><para>Call XCsi_LookupConfig using a device ID to find the core configuration.</para></listitem><listitem><para>Call XCsi_CfgInitialize to initialize the device and the driver instance associated with it.</para></listitem><listitem><para>Call XCsi_Configure to set the Active Lanes</para></listitem><listitem><para>Register callback functions for interrupts</para></listitem><listitem><para>Enable interrupts</para></listitem><listitem><para>Call XCsi_Activate to activate the core</para></listitem></itemizedlist>
+</para><para><bold> Interrupts </bold></para><para>There are certain events for which interrupts are received if unmasked like<itemizedlist>
+<listitem><para>Frame received</para></listitem><listitem><para>Incorrect Lane Configuration</para></listitem><listitem><para>Short Packet FIFO Full or Not Empty</para></listitem><listitem><para>Stream Line Buffer Full</para></listitem><listitem><para>Stop State</para></listitem><listitem><para>Start of Transmission (Sync) Errors</para></listitem><listitem><para>CRC and ECC errors</para></listitem><listitem><para>Invalid Data ID</para></listitem><listitem><para>Frame Sync and Level Errors for Virtual Channels</para></listitem></itemizedlist>
+</para><para><bold> Virtual Memory </bold></para><para>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space.</para><para><bold> Threads </bold></para><para>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</para><para><bold> Asserts </bold></para><para>Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining, at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that application developers leave asserts on during development.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver Who Date     Changes
+<hruler/>
+
+1.0 vsa 06/16/15 Initial release
+1.1 sss 08/17/16 Added 64 bit support
+    ms  01/23/17 Modified xil_printf statement in main function for all
+                 examples to ensure that &quot;Successfully ran&quot; and &quot;Failed&quot;
+                 strings are available in all examples. This is a fix
+                 for CR-965028.
+    ms  03/17/17 Added readme.txt file in examples folder for doxygen
+                 generation.
+    ms  04/05/17 Modified Comment lines in functions of csi
+                 examples to recognize it as documentation block
+                 for doxygen generation of examples.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

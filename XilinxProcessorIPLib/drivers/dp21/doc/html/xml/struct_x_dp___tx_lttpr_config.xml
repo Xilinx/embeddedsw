@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp___tx_lttpr_config" kind="struct" prot="public">
+    <compoundname>XDp_TxLttprConfig</compoundname>
+    <includes local="no">xdp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp___tx_lttpr_config_1a003f08e9b303736cde81381e48f07816" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLttprConfig::RevId</definition>
+        <argsstring></argsstring>
+        <name>RevId</name>
+        <briefdescription>
+<para>The LTTPR Capability and ID Field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="709" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="709" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_lttpr_config_1a29afaf412503a782204faf39a58522a0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLttprConfig::MaxLinkRate_8B</definition>
+        <argsstring></argsstring>
+        <name>MaxLinkRate_8B</name>
+        <briefdescription>
+<para>The maximum link rate for 8B LTTPR encoding. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="710" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="710" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_lttpr_config_1a19f8ac7e9989f7c9b9ce1d49648da792" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLttprConfig::RepeaterCnt</definition>
+        <argsstring></argsstring>
+        <name>RepeaterCnt</name>
+        <briefdescription>
+<para>Indicates the number of LTTPR&apos;s that are present. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="711" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="711" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_lttpr_config_1a7186eec4220ec40f0b28af01c76a62d2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLttprConfig::RepeaterMode</definition>
+        <argsstring></argsstring>
+        <name>RepeaterMode</name>
+        <briefdescription>
+<para>LTTPR repeater mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="712" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="712" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_lttpr_config_1a15fa67f2845142df4a5ca1c5745b0baa" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLttprConfig::MaxLaneCount</definition>
+        <argsstring></argsstring>
+        <name>MaxLaneCount</name>
+        <briefdescription>
+<para>The maximum lane count of LTTPR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="713" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="713" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_lttpr_config_1aaa63c852de5830037289ee5c09d0ec7f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLttprConfig::ExtendTimeOut</definition>
+        <argsstring></argsstring>
+        <name>ExtendTimeOut</name>
+        <briefdescription>
+<para>The Repeater Extended timeout. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="714" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="714" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_lttpr_config_1ab61368d6a94b263768f7388d48e342a6" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLttprConfig::ChannelCoding</definition>
+        <argsstring></argsstring>
+        <name>ChannelCoding</name>
+        <briefdescription>
+<para>The Main Link channel coding of LTTPR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="715" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="715" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_lttpr_config_1a5367e83b654edc363106c115f4252a4e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLttprConfig::MaxLinkRate_128B</definition>
+        <argsstring></argsstring>
+        <name>MaxLinkRate_128B</name>
+        <briefdescription>
+<para>LTTPR Linkrate for 128B channel encoding. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="716" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="716" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_lttpr_config_1abfb5d4985c36c118bac397e674a1754c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLttprConfig::EqDone</definition>
+        <argsstring></argsstring>
+        <name>EqDone</name>
+        <briefdescription>
+<para>Equiliation Done per LTTPR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="717" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="717" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_lttpr_config_1aec17afc920461b98b28eddabe4515df3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLttprConfig::AlpmCapabilities</definition>
+        <argsstring></argsstring>
+        <name>AlpmCapabilities</name>
+        <briefdescription>
+<para>AUX-Less ALPM Capabilities. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="718" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="718" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_lttpr_config_1a5a7a753118302f9d74e24c05d0304773" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLttprConfig::TotalRptCnt</definition>
+        <argsstring></argsstring>
+        <name>TotalRptCnt</name>
+        <briefdescription>
+<para>Total LTTPR count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="719" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="719" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_lttpr_config_1a969a2b3e078e250d84c88bba4ea6871d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxLttprConfig::reserved_bytes[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>reserved_bytes</name>
+        <briefdescription>
+<para>Reserved. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="720" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="720" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information about the main link settings. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="708" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="708" bodyend="721"/>
+    <listofallmembers>
+      <member refid="struct_x_dp___tx_lttpr_config_1aec17afc920461b98b28eddabe4515df3" prot="public" virt="non-virtual"><scope>XDp_TxLttprConfig</scope><name>AlpmCapabilities</name></member>
+      <member refid="struct_x_dp___tx_lttpr_config_1ab61368d6a94b263768f7388d48e342a6" prot="public" virt="non-virtual"><scope>XDp_TxLttprConfig</scope><name>ChannelCoding</name></member>
+      <member refid="struct_x_dp___tx_lttpr_config_1abfb5d4985c36c118bac397e674a1754c" prot="public" virt="non-virtual"><scope>XDp_TxLttprConfig</scope><name>EqDone</name></member>
+      <member refid="struct_x_dp___tx_lttpr_config_1aaa63c852de5830037289ee5c09d0ec7f" prot="public" virt="non-virtual"><scope>XDp_TxLttprConfig</scope><name>ExtendTimeOut</name></member>
+      <member refid="struct_x_dp___tx_lttpr_config_1a15fa67f2845142df4a5ca1c5745b0baa" prot="public" virt="non-virtual"><scope>XDp_TxLttprConfig</scope><name>MaxLaneCount</name></member>
+      <member refid="struct_x_dp___tx_lttpr_config_1a5367e83b654edc363106c115f4252a4e" prot="public" virt="non-virtual"><scope>XDp_TxLttprConfig</scope><name>MaxLinkRate_128B</name></member>
+      <member refid="struct_x_dp___tx_lttpr_config_1a29afaf412503a782204faf39a58522a0" prot="public" virt="non-virtual"><scope>XDp_TxLttprConfig</scope><name>MaxLinkRate_8B</name></member>
+      <member refid="struct_x_dp___tx_lttpr_config_1a19f8ac7e9989f7c9b9ce1d49648da792" prot="public" virt="non-virtual"><scope>XDp_TxLttprConfig</scope><name>RepeaterCnt</name></member>
+      <member refid="struct_x_dp___tx_lttpr_config_1a7186eec4220ec40f0b28af01c76a62d2" prot="public" virt="non-virtual"><scope>XDp_TxLttprConfig</scope><name>RepeaterMode</name></member>
+      <member refid="struct_x_dp___tx_lttpr_config_1a969a2b3e078e250d84c88bba4ea6871d" prot="public" virt="non-virtual"><scope>XDp_TxLttprConfig</scope><name>reserved_bytes</name></member>
+      <member refid="struct_x_dp___tx_lttpr_config_1a003f08e9b303736cde81381e48f07816" prot="public" virt="non-virtual"><scope>XDp_TxLttprConfig</scope><name>RevId</name></member>
+      <member refid="struct_x_dp___tx_lttpr_config_1a5a7a753118302f9d74e24c05d0304773" prot="public" virt="non-virtual"><scope>XDp_TxLttprConfig</scope><name>TotalRptCnt</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_af_pcdf_hybrid_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceAfPcdfHybridConfig_s</compoundname>
+    <includes local="no">cam_device_af_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_af_pcdf_hybrid_config__s_1a6a5e37551cbce1ab4943a987c7c1ad5c" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceAfPcdfHybridConfig_s::defocusFrameNum</definition>
+        <argsstring></argsstring>
+        <name>defocusFrameNum</name>
+        <briefdescription>
+<para>The number of defocus frames. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_af_pcdf_hybrid_config__s_1ab204bc78819a4fe3de92a4139f47eb7e" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceAfPcdfHybridConfig_s::lossConfidenceFrameNum</definition>
+        <argsstring></argsstring>
+        <name>lossConfidenceFrameNum</name>
+        <briefdescription>
+<para>The number of loss confidence frames. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_af_pcdf_hybrid_config__s_1a2914e9a88939fce02dfbc126c5d9b35d" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceAfPcdfHybridConfig_s::accurateFocusStep</definition>
+        <argsstring></argsstring>
+        <name>accurateFocusStep</name>
+        <briefdescription>
+<para>Accurate focus step. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_af_pcdf_hybrid_config__s_1a810d5411498377829684ba026ee10266" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceAfPcdfHybridConfig_s::accurateFocusEnable</definition>
+        <argsstring></argsstring>
+        <name>accurateFocusEnable</name>
+        <briefdescription>
+<para>Accurate focus enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice PDAF and CDAF hybrid focus parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_af_api.h" bodystart="85" bodyend="91"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_af_pcdf_hybrid_config__s_1a810d5411498377829684ba026ee10266" prot="public" virt="non-virtual"><scope>CamDeviceAfPcdfHybridConfig_s</scope><name>accurateFocusEnable</name></member>
+      <member refid="struct_cam_device_af_pcdf_hybrid_config__s_1a2914e9a88939fce02dfbc126c5d9b35d" prot="public" virt="non-virtual"><scope>CamDeviceAfPcdfHybridConfig_s</scope><name>accurateFocusStep</name></member>
+      <member refid="struct_cam_device_af_pcdf_hybrid_config__s_1a6a5e37551cbce1ab4943a987c7c1ad5c" prot="public" virt="non-virtual"><scope>CamDeviceAfPcdfHybridConfig_s</scope><name>defocusFrameNum</name></member>
+      <member refid="struct_cam_device_af_pcdf_hybrid_config__s_1ab204bc78819a4fe3de92a4139f47eb7e" prot="public" virt="non-virtual"><scope>CamDeviceAfPcdfHybridConfig_s</scope><name>lossConfidenceFrameNum</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

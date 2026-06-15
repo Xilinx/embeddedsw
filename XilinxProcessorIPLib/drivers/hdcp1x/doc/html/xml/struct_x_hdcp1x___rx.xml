@@ -1,0 +1,506 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp1x___rx" kind="struct" prot="public">
+    <compoundname>XHdcp1x_Rx</compoundname>
+    <includes local="no">xhdcp1x.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1a45dfdf65ea2c69d3bb5f6f2573d1830a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp1x_Rx::CurrentState</definition>
+        <argsstring></argsstring>
+        <name>CurrentState</name>
+        <briefdescription>
+<para>The interface&apos;s current state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1058" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1058" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga89cf71a1a7edefa4671fdefa3cc7222b" compoundref="xhdcp1x__rx_8c" startline="779" endline="835">XHdcp1x_RxInfo</referencedby>
+        <referencedby refid="group__hdcp1x_1ga2f314cd6eca64f8953ea54fb6bb93c03" compoundref="xhdcp1x__rx_8c" startline="661" endline="674">XHdcp1x_RxIsAuthenticated</referencedby>
+        <referencedby refid="group__hdcp1x_1ga9a7a3ac0f4c2abe70a1227c2e40eeda3" compoundref="xhdcp1x__rx_8c" startline="489" endline="509">XHdcp1x_RxIsEnabled</referencedby>
+        <referencedby refid="group__hdcp1x_1ga63d2c00e67796620c78474de50c5f4ce" compoundref="xhdcp1x__rx_8c" startline="687" endline="700">XHdcp1x_RxIsInComputations</referencedby>
+        <referencedby refid="group__hdcp1x_1gaa617d8a93cb5f75964aa2d0c6a94e1f9" compoundref="xhdcp1x__rx_8c" startline="628" endline="648">XHdcp1x_RxIsInProgress</referencedby>
+        <referencedby refid="group__hdcp1x_1ga3828bd501048526899095762ad7bb97e" compoundref="xhdcp1x__rx_8c" startline="714" endline="727">XHdcp1x_RxIsInWaitforready</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1a8fa0e880a311858439ca0a92c6ba75a2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp1x_Rx::PreviousState</definition>
+        <argsstring></argsstring>
+        <name>PreviousState</name>
+        <briefdescription>
+<para>The interface&apos;s previous state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1059" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1059" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga89cf71a1a7edefa4671fdefa3cc7222b" compoundref="xhdcp1x__rx_8c" startline="779" endline="835">XHdcp1x_RxInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1ad7c01155a2fc2880ae549dc9e373bf4c" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHdcp1x_Rx::Flags</definition>
+        <argsstring></argsstring>
+        <name>Flags</name>
+        <briefdescription>
+<para>The interface flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1060" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1060" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga89cf71a1a7edefa4671fdefa3cc7222b" compoundref="xhdcp1x__rx_8c" startline="779" endline="835">XHdcp1x_RxInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1a4c40ab97d534b347c297c9cad8911f76" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHdcp1x_Rx::PendingEvents</definition>
+        <argsstring></argsstring>
+        <name>PendingEvents</name>
+        <briefdescription>
+<para>The bit map of pending events. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1061" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1061" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga45e3bcb6feba3b09d84567db489a8f86" compoundref="xhdcp1x__rx_8c" startline="335" endline="344">XHdcp1x_RxInit</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1abac529df47db1cb77b62b762d2310cc6" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdcp1x___rx_stats" kindref="compound">XHdcp1x_RxStats</ref></type>
+        <definition>XHdcp1x_RxStats XHdcp1x_Rx::Stats</definition>
+        <argsstring></argsstring>
+        <name>Stats</name>
+        <briefdescription>
+<para>The interface&apos;s statistics. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1062" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1062" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga89cf71a1a7edefa4671fdefa3cc7222b" compoundref="xhdcp1x__rx_8c" startline="779" endline="835">XHdcp1x_RxInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1af46e8a6da2ced045c20dc669888b8c33" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdcp1x___rx_encyption_watch" kindref="compound">XHdcp1x_RxEncyptionWatch</ref></type>
+        <definition>XHdcp1x_RxEncyptionWatch XHdcp1x_Rx::XORState</definition>
+        <argsstring></argsstring>
+        <name>XORState</name>
+        <briefdescription>
+<para>The interface&apos;s encryption state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1063" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1063" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1a390b07d7f8547e353f2e316e26320829" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp1x_1gac480003e8e01c5bd94ff306edaeac31f" kindref="member">XHdcp1x_SetDdcHandler</ref></type>
+        <definition>XHdcp1x_SetDdcHandler XHdcp1x_Rx::DdcSetAddressCallback</definition>
+        <argsstring></argsstring>
+        <name>DdcSetAddressCallback</name>
+        <briefdescription>
+<para>Function pointer for setting DDC register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1065" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1065" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" compoundref="xhdcp1x__rx_8c" startline="192" endline="294">XHdcp1x_RxSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1ad98b20f01d95d427d30e286af7350ca5" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp1x_Rx::DdcSetAddressCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>DdcSetAddressCallbackRef</name>
+        <briefdescription>
+<para>To be passed to callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1068" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1068" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" compoundref="xhdcp1x__rx_8c" startline="192" endline="294">XHdcp1x_RxSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1a328c110db56d453bf13d63006fe0b342" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp1x_Rx::IsDdcSetAddressCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsDdcSetAddressCallbackSet</name>
+        <briefdescription>
+<para>This flag is set true when the callback has been registered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1070" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1070" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" compoundref="xhdcp1x__rx_8c" startline="192" endline="294">XHdcp1x_RxSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1ac0d254b702690871c60db2724a071a74" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp1x_1gac480003e8e01c5bd94ff306edaeac31f" kindref="member">XHdcp1x_SetDdcHandler</ref></type>
+        <definition>XHdcp1x_SetDdcHandler XHdcp1x_Rx::DdcSetDataCallback</definition>
+        <argsstring></argsstring>
+        <name>DdcSetDataCallback</name>
+        <briefdescription>
+<para>Function pointer for setting DDC register data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1072" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1072" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" compoundref="xhdcp1x__rx_8c" startline="192" endline="294">XHdcp1x_RxSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1aa7f2f1dbac2d0ef967a4c7579f4fdafe" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp1x_Rx::DdcSetDataCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>DdcSetDataCallbackRef</name>
+        <briefdescription>
+<para>To be passed to callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1075" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1075" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" compoundref="xhdcp1x__rx_8c" startline="192" endline="294">XHdcp1x_RxSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1a71563daf4a5ba6da5d61538de804716e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp1x_Rx::IsDdcSetDataCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsDdcSetDataCallbackSet</name>
+        <briefdescription>
+<para>This flag is set true when the callback has been registered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1077" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1077" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" compoundref="xhdcp1x__rx_8c" startline="192" endline="294">XHdcp1x_RxSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1a3ebbd48e5bd71035d4c720482f451cb7" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp1x_1gae98b9041ca699cd85637c4ff3e039274" kindref="member">XHdcp1x_GetDdcHandler</ref></type>
+        <definition>XHdcp1x_GetDdcHandler XHdcp1x_Rx::DdcGetDataCallback</definition>
+        <argsstring></argsstring>
+        <name>DdcGetDataCallback</name>
+        <briefdescription>
+<para>Function pointer for getting DDC register data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1079" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1079" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" compoundref="xhdcp1x__rx_8c" startline="192" endline="294">XHdcp1x_RxSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1a37e2adfaf1353061d847332dc849cd8d" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp1x_Rx::DdcGetDataCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>DdcGetDataCallbackRef</name>
+        <briefdescription>
+<para>To be passed to callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1082" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1082" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" compoundref="xhdcp1x__rx_8c" startline="192" endline="294">XHdcp1x_RxSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1ab5533c3626a8379739bfeb9023771e1f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp1x_Rx::IsDdcGetDataCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsDdcGetDataCallbackSet</name>
+        <briefdescription>
+<para>This flag is set true when the callback has been registered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1084" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1084" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" compoundref="xhdcp1x__rx_8c" startline="192" endline="294">XHdcp1x_RxSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1a1f9029cd792e5539b37eb2f3f8f5dce4" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp1x_1gadb148e6df96c874ba6a9cef6cd23921a" kindref="member">XHdcp1x_Callback</ref></type>
+        <definition>XHdcp1x_Callback XHdcp1x_Rx::RepeaterDownstreamAuthCallback</definition>
+        <argsstring></argsstring>
+        <name>RepeaterDownstreamAuthCallback</name>
+        <briefdescription>
+<para>(Repeater)Post authenticate to downstream, second part of authentication start callback </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1086" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1086" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" compoundref="xhdcp1x__rx_8c" startline="192" endline="294">XHdcp1x_RxSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1ab21c32e43e81f9acbc743fb726e6fc28" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp1x_Rx::RepeaterDownstreamAuthRef</definition>
+        <argsstring></argsstring>
+        <name>RepeaterDownstreamAuthRef</name>
+        <briefdescription>
+<para>(Repeater)Post authenticate to downstream, second part of authentication start reference </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1092" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1092" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" compoundref="xhdcp1x__rx_8c" startline="192" endline="294">XHdcp1x_RxSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1ac6f5ed90fdcf991e41131d1937bf2f56" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp1x_Rx::IsRepeaterDownstreamAuthCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsRepeaterDownstreamAuthCallbackSet</name>
+        <briefdescription>
+<para>(Repeater)Is "Post authenticate to downstream to trigger second part of authentication" callback set flag </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1095" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1095" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" compoundref="xhdcp1x__rx_8c" startline="192" endline="294">XHdcp1x_RxSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1a2ed2aea26d867cc8b32c23446a8b356f" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp1x_1gadb148e6df96c874ba6a9cef6cd23921a" kindref="member">XHdcp1x_Callback</ref></type>
+        <definition>XHdcp1x_Callback XHdcp1x_Rx::AuthenticatedCallback</definition>
+        <argsstring></argsstring>
+        <name>AuthenticatedCallback</name>
+        <briefdescription>
+<para>Authenticated callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1101" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" compoundref="xhdcp1x__rx_8c" startline="192" endline="294">XHdcp1x_RxSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1af981da076b0ffacb3e6931f7851d4cd3" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp1x_Rx::AuthenticatedCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>AuthenticatedCallbackRef</name>
+        <briefdescription>
+<para>Authenticated reference. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1102" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" compoundref="xhdcp1x__rx_8c" startline="192" endline="294">XHdcp1x_RxSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1a5037a2415dafe5f92b225bffcf410e81" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp1x_Rx::IsAuthenticatedCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsAuthenticatedCallbackSet</name>
+        <briefdescription>
+<para>Authenticated config flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1103" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" compoundref="xhdcp1x__rx_8c" startline="192" endline="294">XHdcp1x_RxSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1ae328e636837cd6fbe4488153f69b4c3f" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp1x_1gadb148e6df96c874ba6a9cef6cd23921a" kindref="member">XHdcp1x_Callback</ref></type>
+        <definition>XHdcp1x_Callback XHdcp1x_Rx::UnauthenticatedCallback</definition>
+        <argsstring></argsstring>
+        <name>UnauthenticatedCallback</name>
+        <briefdescription>
+<para>Unauthenticated callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1104" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" compoundref="xhdcp1x__rx_8c" startline="192" endline="294">XHdcp1x_RxSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1a4354d6aba739cf60eb2d5251593d42d0" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp1x_Rx::UnauthenticatedCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>UnauthenticatedCallbackRef</name>
+        <briefdescription>
+<para>Unauthenticated reference. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1106" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" compoundref="xhdcp1x__rx_8c" startline="192" endline="294">XHdcp1x_RxSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1aba6af280761ee6bb27641062363c9ed6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp1x_Rx::IsUnauthenticatedCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsUnauthenticatedCallbackSet</name>
+        <briefdescription>
+<para>Unauthenticated config flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1108" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" compoundref="xhdcp1x__rx_8c" startline="192" endline="294">XHdcp1x_RxSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1a090a75d1f1d6d838d55d4d8d8eb4de7e" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp1x_1gadb148e6df96c874ba6a9cef6cd23921a" kindref="member">XHdcp1x_Callback</ref></type>
+        <definition>XHdcp1x_Callback XHdcp1x_Rx::TopologyUpdateCallback</definition>
+        <argsstring></argsstring>
+        <name>TopologyUpdateCallback</name>
+        <briefdescription>
+<para>Topology Update callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1110" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" compoundref="xhdcp1x__rx_8c" startline="192" endline="294">XHdcp1x_RxSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1a876f1439cffebdff1b901ead25249443" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp1x_Rx::TopologyUpdateCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>TopologyUpdateCallbackRef</name>
+        <briefdescription>
+<para>Topology Update reference. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1112" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" compoundref="xhdcp1x__rx_8c" startline="192" endline="294">XHdcp1x_RxSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1a9f414f91312d6753b5f704030051bc19" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp1x_Rx::IsTopologyUpdateCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsTopologyUpdateCallbackSet</name>
+        <briefdescription>
+<para>Topology Update config flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1114" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" compoundref="xhdcp1x__rx_8c" startline="192" endline="294">XHdcp1x_RxSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1afe55c0a1ba26412a5b1671e46e181347" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdcp1x_1gadb148e6df96c874ba6a9cef6cd23921a" kindref="member">XHdcp1x_Callback</ref></type>
+        <definition>XHdcp1x_Callback XHdcp1x_Rx::EncryptionUpdateCallback</definition>
+        <argsstring></argsstring>
+        <name>EncryptionUpdateCallback</name>
+        <briefdescription>
+<para>Encryption Update callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1116" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" compoundref="xhdcp1x__rx_8c" startline="192" endline="294">XHdcp1x_RxSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1af671176e6654eaf148e1d8567b729a2e" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XHdcp1x_Rx::EncryptionUpdateCallbackRef</definition>
+        <argsstring></argsstring>
+        <name>EncryptionUpdateCallbackRef</name>
+        <briefdescription>
+<para>Encryption Update reference. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1118" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" compoundref="xhdcp1x__rx_8c" startline="192" endline="294">XHdcp1x_RxSetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_1aab743cb5c6259e89858dce2bac9d01b6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp1x_Rx::IsEncryptionUpdateCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsEncryptionUpdateCallbackSet</name>
+        <briefdescription>
+<para>Encryption Update config flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1120" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" compoundref="xhdcp1x__rx_8c" startline="192" endline="294">XHdcp1x_RxSetCallback</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the receive HDCP interface. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="34">
+        <label>XHdcp1x_Rx</label>
+        <link refid="struct_x_hdcp1x___rx"/>
+        <childnode refid="35" relation="usage">
+          <edgelabel>Stats</edgelabel>
+        </childnode>
+        <childnode refid="36" relation="usage">
+          <edgelabel>XORState</edgelabel>
+        </childnode>
+      </node>
+      <node id="36">
+        <label>XHdcp1x_RxEncyptionWatch</label>
+        <link refid="struct_x_hdcp1x___rx_encyption_watch"/>
+      </node>
+      <node id="35">
+        <label>XHdcp1x_RxStats</label>
+        <link refid="struct_x_hdcp1x___rx_stats"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1057" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="1057" bodyend="1122"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp1x___rx_1a2ed2aea26d867cc8b32c23446a8b356f" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>AuthenticatedCallback</name></member>
+      <member refid="struct_x_hdcp1x___rx_1af981da076b0ffacb3e6931f7851d4cd3" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>AuthenticatedCallbackRef</name></member>
+      <member refid="struct_x_hdcp1x___rx_1a45dfdf65ea2c69d3bb5f6f2573d1830a" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>CurrentState</name></member>
+      <member refid="struct_x_hdcp1x___rx_1a3ebbd48e5bd71035d4c720482f451cb7" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>DdcGetDataCallback</name></member>
+      <member refid="struct_x_hdcp1x___rx_1a37e2adfaf1353061d847332dc849cd8d" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>DdcGetDataCallbackRef</name></member>
+      <member refid="struct_x_hdcp1x___rx_1a390b07d7f8547e353f2e316e26320829" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>DdcSetAddressCallback</name></member>
+      <member refid="struct_x_hdcp1x___rx_1ad98b20f01d95d427d30e286af7350ca5" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>DdcSetAddressCallbackRef</name></member>
+      <member refid="struct_x_hdcp1x___rx_1ac0d254b702690871c60db2724a071a74" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>DdcSetDataCallback</name></member>
+      <member refid="struct_x_hdcp1x___rx_1aa7f2f1dbac2d0ef967a4c7579f4fdafe" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>DdcSetDataCallbackRef</name></member>
+      <member refid="struct_x_hdcp1x___rx_1afe55c0a1ba26412a5b1671e46e181347" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>EncryptionUpdateCallback</name></member>
+      <member refid="struct_x_hdcp1x___rx_1af671176e6654eaf148e1d8567b729a2e" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>EncryptionUpdateCallbackRef</name></member>
+      <member refid="struct_x_hdcp1x___rx_1ad7c01155a2fc2880ae549dc9e373bf4c" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>Flags</name></member>
+      <member refid="struct_x_hdcp1x___rx_1a5037a2415dafe5f92b225bffcf410e81" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>IsAuthenticatedCallbackSet</name></member>
+      <member refid="struct_x_hdcp1x___rx_1ab5533c3626a8379739bfeb9023771e1f" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>IsDdcGetDataCallbackSet</name></member>
+      <member refid="struct_x_hdcp1x___rx_1a328c110db56d453bf13d63006fe0b342" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>IsDdcSetAddressCallbackSet</name></member>
+      <member refid="struct_x_hdcp1x___rx_1a71563daf4a5ba6da5d61538de804716e" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>IsDdcSetDataCallbackSet</name></member>
+      <member refid="struct_x_hdcp1x___rx_1aab743cb5c6259e89858dce2bac9d01b6" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>IsEncryptionUpdateCallbackSet</name></member>
+      <member refid="struct_x_hdcp1x___rx_1ac6f5ed90fdcf991e41131d1937bf2f56" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>IsRepeaterDownstreamAuthCallbackSet</name></member>
+      <member refid="struct_x_hdcp1x___rx_1a9f414f91312d6753b5f704030051bc19" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>IsTopologyUpdateCallbackSet</name></member>
+      <member refid="struct_x_hdcp1x___rx_1aba6af280761ee6bb27641062363c9ed6" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>IsUnauthenticatedCallbackSet</name></member>
+      <member refid="struct_x_hdcp1x___rx_1a4c40ab97d534b347c297c9cad8911f76" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>PendingEvents</name></member>
+      <member refid="struct_x_hdcp1x___rx_1a8fa0e880a311858439ca0a92c6ba75a2" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>PreviousState</name></member>
+      <member refid="struct_x_hdcp1x___rx_1a1f9029cd792e5539b37eb2f3f8f5dce4" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>RepeaterDownstreamAuthCallback</name></member>
+      <member refid="struct_x_hdcp1x___rx_1ab21c32e43e81f9acbc743fb726e6fc28" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>RepeaterDownstreamAuthRef</name></member>
+      <member refid="struct_x_hdcp1x___rx_1abac529df47db1cb77b62b762d2310cc6" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>Stats</name></member>
+      <member refid="struct_x_hdcp1x___rx_1a090a75d1f1d6d838d55d4d8d8eb4de7e" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>TopologyUpdateCallback</name></member>
+      <member refid="struct_x_hdcp1x___rx_1a876f1439cffebdff1b901ead25249443" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>TopologyUpdateCallbackRef</name></member>
+      <member refid="struct_x_hdcp1x___rx_1ae328e636837cd6fbe4488153f69b4c3f" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>UnauthenticatedCallback</name></member>
+      <member refid="struct_x_hdcp1x___rx_1a4354d6aba739cf60eb2d5251593d42d0" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>UnauthenticatedCallbackRef</name></member>
+      <member refid="struct_x_hdcp1x___rx_1af46e8a6da2ced045c20dc669888b8c33" prot="public" virt="non-virtual"><scope>XHdcp1x_Rx</scope><name>XORState</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

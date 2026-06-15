@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_user_data_addr" kind="struct" prot="public">
+    <compoundname>XNvm_EfuseUserDataAddr</compoundname>
+    <includes local="no">xnvm_common_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_user_data_addr_1a71ef32c0610fcf002f055e276957c632" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseUserDataAddr::StartUserFuseNum</definition>
+        <argsstring></argsstring>
+        <name>StartUserFuseNum</name>
+        <briefdescription>
+<para>Starting user fuse number to program/read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="293" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gad7ec755ce9206a3cdb6263b452c71c29" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1974" endline="2019">XNvm_EfuseReadUserFuses</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_user_data_addr_1a5a1d65afbfdb2a86be404faebf9ec0ee" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseUserDataAddr::NumOfUserFuses</definition>
+        <argsstring></argsstring>
+        <name>NumOfUserFuses</name>
+        <briefdescription>
+<para>Number of user fuses to program/read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="294" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gad7ec755ce9206a3cdb6263b452c71c29" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1974" endline="2019">XNvm_EfuseReadUserFuses</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_user_data_addr_1a9e983611286f0eb1d171d71fd8f344f5" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XNvm_EfuseUserDataAddr::UserFuseDataAddr</definition>
+        <argsstring></argsstring>
+        <name>UserFuseDataAddr</name>
+        <briefdescription>
+<para>Address of user fuse data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="295" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gad7ec755ce9206a3cdb6263b452c71c29" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1974" endline="2019">XNvm_EfuseReadUserFuses</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for User eFuses data. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="292" bodyend="296"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_user_data_addr_1a5a1d65afbfdb2a86be404faebf9ec0ee" prot="public" virt="non-virtual"><scope>XNvm_EfuseUserDataAddr</scope><name>NumOfUserFuses</name></member>
+      <member refid="struct_x_nvm___efuse_user_data_addr_1a71ef32c0610fcf002f055e276957c632" prot="public" virt="non-virtual"><scope>XNvm_EfuseUserDataAddr</scope><name>StartUserFuseNum</name></member>
+      <member refid="struct_x_nvm___efuse_user_data_addr_1a9e983611286f0eb1d171d71fd8f344f5" prot="public" virt="non-virtual"><scope>XNvm_EfuseUserDataAddr</scope><name>UserFuseDataAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

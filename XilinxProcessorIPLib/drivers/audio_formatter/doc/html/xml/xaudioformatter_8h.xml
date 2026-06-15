@@ -1,0 +1,967 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xaudioformatter_8h" kind="file">
+    <compoundname>xaudioformatter.h</compoundname>
+    <includes refid="xaudioformatter__hw_8h" local="yes">xaudioformatter_hw.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_cache.h</includes>
+    <includedby refid="xaudioformatter_8c" local="yes">xaudioformatter.c</includedby>
+    <includedby refid="xaudioformatter__g_8c" local="yes">xaudioformatter_g.c</includedby>
+    <includedby refid="xaudioformatter__intr_8c" local="yes">xaudioformatter_intr.c</includedby>
+    <includedby refid="xaudioformatter__sinit_8c" local="yes">xaudioformatter_sinit.c</includedby>
+    <includedby refid="xaudioformatter__intr__example_8c" local="yes">xaudioformatter_intr_example.c</includedby>
+    <includedby refid="xaudioformatter__selftest__example_8c" local="yes">xaudioformatter_selftest_example.c</includedby>
+    <incdepgraph>
+      <node id="17">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="15">
+        <label>xil_io.h</label>
+      </node>
+      <node id="14">
+        <label>xaudioformatter_hw.h</label>
+        <link refid="xaudioformatter__hw_8h"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="13">
+        <label>xaudioformatter.h</label>
+        <link refid="xaudioformatter.h"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>xstatus.h</label>
+      </node>
+      <node id="16">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="26">
+        <label>xaudioformatter_selftest_example.c</label>
+        <link refid="xaudioformatter__selftest__example_8c"/>
+      </node>
+      <node id="21">
+        <label>xaudioformatter.c</label>
+        <link refid="xaudioformatter_8c"/>
+      </node>
+      <node id="20">
+        <label>xaudioformatter.h</label>
+        <link refid="xaudioformatter.h"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>xaudioformatter_g.c</label>
+      </node>
+      <node id="25">
+        <label>xaudioformatter_intr_example.c</label>
+      </node>
+      <node id="24">
+        <label>xaudioformatter_sinit.c</label>
+        <link refid="xaudioformatter__sinit_8c"/>
+      </node>
+      <node id="23">
+        <label>xaudioformatter_intr.c</label>
+        <link refid="xaudioformatter__intr_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_audio_formatter___config" prot="public">XAudioFormatter_Config</innerclass>
+    <innerclass refid="struct_x_audio_formatter" prot="public">XAudioFormatter</innerclass>
+    <innerclass refid="struct_x_audio_formatter_hw_params" prot="public">XAudioFormatterHwParams</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__audio__formatter_1ga73a0740e9df67c58f6ffa8dc6c40f26a" prot="public" static="no">
+        <name>XAUDFMT_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__audio__formatter_1ga0cc006ef5ff5fa04220966e0150727a8" prot="public" static="no">
+        <name>XAudioFormatter_BitDepth</name>
+        <enumvalue id="group__audio__formatter_1gga0cc006ef5ff5fa04220966e0150727a8a2eda089fc29585a238494ee73822bcc2" prot="public">
+          <name>BIT_DEPTH_8</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__audio__formatter_1gga0cc006ef5ff5fa04220966e0150727a8a230127c10be641e34125f6b2a4420321" prot="public">
+          <name>BIT_DEPTH_16</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__audio__formatter_1gga0cc006ef5ff5fa04220966e0150727a8a5e9450966c609cbc581e8a6df44f7429" prot="public">
+          <name>BIT_DEPTH_20</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__audio__formatter_1gga0cc006ef5ff5fa04220966e0150727a8a56e66c38f8aac33b6258925428c3370a" prot="public">
+          <name>BIT_DEPTH_24</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__audio__formatter_1gga0cc006ef5ff5fa04220966e0150727a8aec4e68b4fcaabe7ed7315aefc68bb7e1" prot="public">
+          <name>BIT_DEPTH_32</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="72" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__audio__formatter_1gaf0db125affa7247c8ff1a0f0281b1c34" prot="public" static="no">
+        <name>XAudioFormatter_ChannelId</name>
+        <enumvalue id="group__audio__formatter_1ggaf0db125affa7247c8ff1a0f0281b1c34ab7753baa001279bbcdfb1db1ca3a911b" prot="public">
+          <name>XAudioFormatter_S2MM</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__audio__formatter_1ggaf0db125affa7247c8ff1a0f0281b1c34a3ed58b79cac62b434ff90565d96014ff" prot="public">
+          <name>XAudioFormatter_MM2S</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="80" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__audio__formatter_1ga63d09815bef23fb7e08aa19f46c2aa1f" prot="public" static="no">
+        <name>XAudioFormatter_HandlerType</name>
+        <enumvalue id="group__audio__formatter_1gga63d09815bef23fb7e08aa19f46c2aa1faed04bb164d41f9ca91d8bf446005e9a8" prot="public">
+          <name>XAudioFormatter_IOC_Handler</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__audio__formatter_1gga63d09815bef23fb7e08aa19f46c2aa1fa1ba9bda91c2dc0a5066cdb50d1100560" prot="public">
+          <name>XAudioFormatter_TIMEOUT_Handler</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__audio__formatter_1gga63d09815bef23fb7e08aa19f46c2aa1fa9cfc15f539c38c294a74d60d774aa45c" prot="public">
+          <name>XAudioFormatter_ERROR_Handler</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="85" bodyend="89"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__audio__formatter_1ga6d56aeabfbcbc25bbb88632880469d3b" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XAudioFormatter_Callback)(void *CallbackRef)</definition>
+        <argsstring>)(void *CallbackRef)</argsstring>
+        <name>XAudioFormatter_Callback</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__audio__formatter_1ga0cb73700f1f2e6fb71aabe01bd3de35a" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_audio_formatter___config" kindref="compound">XAudioFormatter_Config</ref></type>
+        <definition>XAudioFormatter_Config XAudioFormatter_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XAudioFormatter_ConfigTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter_g.c" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__audio__formatter_1ga3cf85f93b1d4ae0d2127af36ce761a96" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_audio_formatter___config" kindref="compound">XAudioFormatter_Config</ref> *</type>
+        <definition>XAudioFormatter_Config * XAudioFormatter_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XAudioFormatter_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>XAudioFormatter_LookupConfig returns a reference to an <ref refid="struct_x_audio_formatter___config" kindref="compound">XAudioFormatter_Config</ref> structure based on the unique device id, <emphasis>DeviceId</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>The return value will refer to an entry in the device configuration table defined in the xaudioformatter_g.c file.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique device ID of the device for the lookup operation.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>CfgPtr is a reference to a config record in the configuration table (in xaudioformatter_g.c) corresponding to <emphasis>DeviceId</emphasis>, or NULL if no match is found.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter_sinit.c" bodystart="91" bodyend="107"/>
+        <referencedby refid="xaudioformatter__selftest__example_8c_1a4fde0f6d2c6c685ef888f0c1f3cf0f86" compoundref="xaudioformatter__selftest__example_8c" startline="107" endline="131">AFSelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__audio__formatter_1gaf88c6655b3273187c42fa5f28c06533c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAudioFormatter_Initialize</definition>
+        <argsstring>(XAudioFormatter *InstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>XAudioFormatter_Initialize</name>
+        <param>
+          <type><ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter_sinit.c" bodystart="109" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="group__audio__formatter_1gaef1d64562a996ebb195cf2d6ef2f6ea7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAudioFormatter_CfgInitialize</definition>
+        <argsstring>(XAudioFormatter *InstancePtr, XAudioFormatter_Config *CfgPtr)</argsstring>
+        <name>XAudioFormatter_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_audio_formatter___config" kindref="compound">XAudioFormatter_Config</ref> *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the audio formatter core instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a reference to a structure containing information about a specific <ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.c" bodystart="76" bodyend="103"/>
+        <references refid="struct_x_audio_formatter___config_1a77b37a46a977ee338a8407547403382e" compoundref="xaudioformatter_8h" startline="107">XAudioFormatter_Config::BaseAddress</references>
+        <references refid="struct_x_audio_formatter_1afcb3af467d350972eaf8573bb9ec5b2f" compoundref="xaudioformatter_8h" startline="139">XAudioFormatter::Config</references>
+        <references refid="struct_x_audio_formatter_1a5894ac993866f9253b146582cbbd1887" compoundref="xaudioformatter_8h" startline="140">XAudioFormatter::IsReady</references>
+        <references refid="group__audio__formatter_1ga53384ac363365da9f8e31ed55cbf1d0b" compoundref="xaudioformatter_8c" startline="41" endline="59">XAudioFormatterDMAReset</references>
+        <referencedby refid="xaudioformatter__selftest__example_8c_1a4fde0f6d2c6c685ef888f0c1f3cf0f86" compoundref="xaudioformatter__selftest__example_8c" startline="107" endline="131">AFSelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__audio__formatter_1ga5779760c06dac849bd2e52ceded0ad65" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAudioFormatter_InterruptEnable</definition>
+        <argsstring>(XAudioFormatter *InstancePtr, u32 Mask)</argsstring>
+        <name>XAudioFormatter_InterruptEnable</name>
+        <param>
+          <type><ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the interrupts for audio formatter core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt mask.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.c" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.c" bodystart="148" bodyend="167"/>
+        <references refid="struct_x_audio_formatter_1a5894ac993866f9253b146582cbbd1887" compoundref="xaudioformatter_8h" startline="140">XAudioFormatter::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="group__audio__formatter_1ga9c0f40a1f11f81c15f0bd0e1aea25d0a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAudioFormatter_InterruptDisable</definition>
+        <argsstring>(XAudioFormatter *InstancePtr, u32 Mask)</argsstring>
+        <name>XAudioFormatter_InterruptDisable</name>
+        <param>
+          <type><ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function disables the interrupts for audio formatter core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt mask.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.c" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.c" bodystart="181" bodyend="200"/>
+        <references refid="struct_x_audio_formatter_1a5894ac993866f9253b146582cbbd1887" compoundref="xaudioformatter_8h" startline="140">XAudioFormatter::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="group__audio__formatter_1ga65ddaecacb3d843dade3da4a44862963" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAudioFormatterDMAStart</definition>
+        <argsstring>(XAudioFormatter *InstancePtr)</argsstring>
+        <name>XAudioFormatterDMAStart</name>
+        <param>
+          <type><ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function starts the dma for audio formatter core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.c" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.c" bodystart="212" bodyend="231"/>
+        <references refid="struct_x_audio_formatter_1a5894ac993866f9253b146582cbbd1887" compoundref="xaudioformatter_8h" startline="140">XAudioFormatter::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="group__audio__formatter_1ga95f19d9d0e20ad8b8bafcaf277ea1ca3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAudioFormatterDMAStop</definition>
+        <argsstring>(XAudioFormatter *InstancePtr)</argsstring>
+        <name>XAudioFormatterDMAStop</name>
+        <param>
+          <type><ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function stops the dma for audio formatter core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.c" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.c" bodystart="243" bodyend="262"/>
+        <references refid="struct_x_audio_formatter_1a5894ac993866f9253b146582cbbd1887" compoundref="xaudioformatter_8h" startline="140">XAudioFormatter::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="group__audio__formatter_1ga0d2e42ac1ba8d83eca142032ad59320b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAudioFormatterSetHwParams</definition>
+        <argsstring>(XAudioFormatter *InstancePtr, XAudioFormatterHwParams *hw_params)</argsstring>
+        <name>XAudioFormatterSetHwParams</name>
+        <param>
+          <type><ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_audio_formatter_hw_params" kindref="compound">XAudioFormatterHwParams</ref> *</type>
+          <declname>hw_params</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the hw params for audio formatter core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>hw_params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_audio_formatter_hw_params" kindref="compound">XAudioFormatterHwParams</ref> structure which contains the no. of channels, bit width, no. of periods, bytes per period, bytes per channel and buffer address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.c" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.c" bodystart="277" bodyend="343"/>
+        <references refid="struct_x_audio_formatter_1afcb3af467d350972eaf8573bb9ec5b2f" compoundref="xaudioformatter_8h" startline="139">XAudioFormatter::Config</references>
+        <references refid="struct_x_audio_formatter_1a5894ac993866f9253b146582cbbd1887" compoundref="xaudioformatter_8h" startline="140">XAudioFormatter::IsReady</references>
+        <references refid="struct_x_audio_formatter___config_1a7f7b33004190e99b88823a35bdd1ed87" compoundref="xaudioformatter_8h" startline="111">XAudioFormatter_Config::MaxChannelsMM2S</references>
+        <references refid="struct_x_audio_formatter___config_1a8feec23f4c0e955063ca0d6819ac3de7" compoundref="xaudioformatter_8h" startline="113">XAudioFormatter_Config::MaxChannelsS2MM</references>
+      </memberdef>
+      <memberdef kind="function" id="group__audio__formatter_1ga01115fb4671f5eb88367bd4fc90d132a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAudioFormatter_SetS2MMCallback</definition>
+        <argsstring>(XAudioFormatter *InstancePtr, XAudioFormatter_HandlerType handler_type, void *CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XAudioFormatter_SetS2MMCallback</name>
+        <param>
+          <type><ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XAudioFormatter_HandlerType</type>
+          <declname>handler_type</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter_intr.c" bodystart="28" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="group__audio__formatter_1ga26b6f9857745896b401c69697bd578af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAudioFormatter_SetMM2SCallback</definition>
+        <argsstring>(XAudioFormatter *InstancePtr, XAudioFormatter_HandlerType handler_type, void *CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XAudioFormatter_SetMM2SCallback</name>
+        <param>
+          <type><ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XAudioFormatter_HandlerType</type>
+          <declname>handler_type</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter_intr.c" bodystart="53" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="function" id="group__audio__formatter_1gae45ba1a48542184450ef25de83ff1e73" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* XAudioFormatterS2MMIntrHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XAudioFormatterS2MMIntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter_intr.c" bodystart="78" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="function" id="group__audio__formatter_1ga885f34c0b1cff4b4bb04691b690dc74d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* XAudioFormatterMM2SIntrHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XAudioFormatterMM2SIntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter_intr.c" bodystart="109" bodyend="132"/>
+      </memberdef>
+      <memberdef kind="function" id="group__audio__formatter_1ga6bf13816fa1c5fa913e85ec5734b7dcd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAudioFormatter_InterruptClear</definition>
+        <argsstring>(XAudioFormatter *InstancePtr, u32 mask)</argsstring>
+        <name>XAudioFormatter_InterruptClear</name>
+        <param>
+          <type><ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>mask</declname>
+        </param>
+        <briefdescription>
+<para>This function clears the interrupts for audio formatter core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt mask.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.c" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.c" bodystart="116" bodyend="135"/>
+        <references refid="struct_x_audio_formatter_1a5894ac993866f9253b146582cbbd1887" compoundref="xaudioformatter_8h" startline="140">XAudioFormatter::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="group__audio__formatter_1ga53384ac363365da9f8e31ed55cbf1d0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAudioFormatterDMAReset</definition>
+        <argsstring>(XAudioFormatter *InstancePtr)</argsstring>
+        <name>XAudioFormatterDMAReset</name>
+        <param>
+          <type><ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function soft resets the audio formatter DMA core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.c" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.c" bodystart="41" bodyend="59"/>
+        <referencedby refid="group__audio__formatter_1gaef1d64562a996ebb195cf2d6ef2f6ea7" compoundref="xaudioformatter_8c" startline="76" endline="103">XAudioFormatter_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__audio__formatter_1gae4e206855fe0fd0b43a40050d494b40f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAudioFormatterSetFsMultiplier</definition>
+        <argsstring>(XAudioFormatter *InstancePtr, u32 Mclk, u32 Fs)</argsstring>
+        <name>XAudioFormatterSetFsMultiplier</name>
+        <param>
+          <type><ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mclk</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Fs</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates the Fs multiplier value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Audio Formatter instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mclk</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the frequency of the MMclk. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Fs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the sampling frequency of the system. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.c" line="400" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.c" bodystart="400" bodyend="412"/>
+        <references refid="struct_x_audio_formatter_1a5894ac993866f9253b146582cbbd1887" compoundref="xaudioformatter_8h" startline="140">XAudioFormatter::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="group__audio__formatter_1gabc41edf6bcea2a85b50e8893016fb267" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAudioFormatterGetDMATransferCount</definition>
+        <argsstring>(XAudioFormatter *InstancePtr)</argsstring>
+        <name>XAudioFormatterGetDMATransferCount</name>
+        <param>
+          <type><ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the No. </para>        </briefdescription>
+        <detaileddescription>
+<para>of bytes of data read from memory..</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Audio Formatter instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- No. of bytes of data read from memory. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.c" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.c" bodystart="354" bodyend="371"/>
+        <references refid="struct_x_audio_formatter_1a5894ac993866f9253b146582cbbd1887" compoundref="xaudioformatter_8h" startline="140">XAudioFormatter::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="group__audio__formatter_1gabec553226fe4cfd97f01d23b2c30bbad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdiAud_GetChStat</definition>
+        <argsstring>(XAudioFormatter *InstancePtr, u8 *ChStatBuf)</argsstring>
+        <name>XSdiAud_GetChStat</name>
+        <param>
+          <type><ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ChStatBuf</declname>
+        </param>
+        <briefdescription>
+<para>This function reads all the Channel Status registers and writes to a buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Audio Formatter instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChStatBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a buffer. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.c" line="422" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.c" bodystart="422" bodyend="445"/>
+        <references refid="struct_x_audio_formatter___config_1a77b37a46a977ee338a8407547403382e" compoundref="xaudioformatter_8h" startline="107">XAudioFormatter_Config::BaseAddress</references>
+        <references refid="struct_x_audio_formatter_1afcb3af467d350972eaf8573bb9ec5b2f" compoundref="xaudioformatter_8h" startline="139">XAudioFormatter::Config</references>
+      </memberdef>
+      <memberdef kind="function" id="group__audio__formatter_1ga6d1e04ada72ed2b53ee4c03809f8146e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAudioFormatterSetS2MMTimeOut</definition>
+        <argsstring>(XAudioFormatter *InstancePtr, u32 TimeOut)</argsstring>
+        <name>XAudioFormatterSetS2MMTimeOut</name>
+        <param>
+          <type><ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TimeOut</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the S2MM timeout. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Audio Formatter instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TimeOut</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Timeout value after which all the data is flushed to memory if there is no incoming data from any channel. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.c" line="382" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.c" bodystart="382" bodyend="389"/>
+        <references refid="struct_x_audio_formatter_1a5894ac993866f9253b146582cbbd1887" compoundref="xaudioformatter_8h" startline="140">XAudioFormatter::IsReady</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><bold>Initialization &amp; Configuration</bold> </para>    </briefdescription>
+    <detaileddescription>
+<para>The device driver enables higher layer software (e.g., an application) to communicate to the Audio Formatter core.</para><para><ref refid="group__audio__formatter_1gaef1d64562a996ebb195cf2d6ef2f6ea7" kindref="member">XAudioFormatter_CfgInitialize()</ref> API is used to initialize the Audio Formatter core. The user needs to first call the <ref refid="group__audio__formatter_1ga3cf85f93b1d4ae0d2127af36ce761a96" kindref="member">XAudioFormatter_LookupConfig()</ref> API which returns the Configuration structure pointer which is passed as a parameter to the <ref refid="group__audio__formatter_1gaef1d64562a996ebb195cf2d6ef2f6ea7" kindref="member">XAudioFormatter_CfgInitialize()</ref> API.</para><para><bold> Interrupts </bold> The driver does the interrupt handling, and dispatch to the user application through callback functions that user has registered.</para><para><bold> Virtual Memory </bold></para><para>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space.</para><para><bold> Threads </bold></para><para>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</para><para><bold> Asserts </bold></para><para>Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining, at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that users leave asserts on during development. </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2014<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor">#ifndef<sp/>XAUDFMT_H_</highlight></codeline>
+<codeline lineno="54" refid="group__audio__formatter_1ga73a0740e9df67c58f6ffa8dc6c40f26a" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAUDFMT_H_<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xaudioformatter__hw_8h" kindref="compound">xaudioformatter_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cache.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>XAudioFormatter_BitDepth<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT_DEPTH_8,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT_DEPTH_16,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT_DEPTH_20,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT_DEPTH_24,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BIT_DEPTH_32,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAudioFormatter_S2MM,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAudioFormatter_MM2S</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">}<sp/>XAudioFormatter_ChannelId;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAudioFormatter_IOC_Handler,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAudioFormatter_TIMEOUT_Handler,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAudioFormatter_ERROR_Handler,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">}<sp/>XAudioFormatter_HandlerType;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*XAudioFormatter_Callback)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="99"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="100" refid="struct_x_audio_formatter___config" refkind="compound"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DeviceId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BaseAddress;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IncludeMM2S;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="109" refid="struct_x_audio_formatter___config_1a00cf28fa827d42385330ca450eeeda65" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IncludeS2MM;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110" refid="struct_x_audio_formatter___config_1ab196adb9a9c8f7064c0c26d2a447313b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>MaxChannelsMM2S;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>MaxChannelsS2MM;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>MM2SAddrWidth;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115" refid="struct_x_audio_formatter___config_1a4fbeb49a32add1b7ac84cc8354cba869" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>MM2SDataFormat;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="116" refid="struct_x_audio_formatter___config_1a177b866f1b59cf37bc4434726ac44833" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PackagingModeMM2S;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PackagingModeS2MM;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>S2MMAddrWidth;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="121" refid="struct_x_audio_formatter___config_1a75b3e9629a1b150642520ddbaae572e4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>S2MMDataFormat;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="122" refid="struct_x_audio_formatter___config_1a4c70b2922caa22862a3951c48b588aca" refkind="member"><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>IntrId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="124" refid="struct_x_audio_formatter___config_1a2c82cd5b42c5bbb85df39f91fd0234ea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>IntrParent;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_x_audio_formatter___config" kindref="compound">XAudioFormatter_Config</ref>;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_audio_formatter___config" kindref="compound">XAudioFormatter_Config</ref><sp/>XAudioFormatter_ConfigTable[];</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="137"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="138" refid="struct_x_audio_formatter" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_audio_formatter___config" kindref="compound">XAudioFormatter_Config</ref><sp/>Config;<sp/><sp/></highlight></codeline>
+<codeline lineno="139" refid="struct_x_audio_formatter_1afcb3af467d350972eaf8573bb9ec5b2f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsReady;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BaseAddress;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_Bool<sp/>mm2s_presence;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_Bool<sp/>s2mm_presence;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAudioFormatter_ChannelId<sp/>ChannelId;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAudioFormatter_Callback<sp/>S2MMIOCCallback;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*S2MMIOCCallbackRef;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAudioFormatter_Callback<sp/>MM2SIOCCallback;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*MM2SIOCCallbackRef;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAudioFormatter_Callback<sp/>S2MMTOCallback;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*S2MMTOCallbackRef;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAudioFormatter_Callback<sp/>MM2STOCallback;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*MM2STOCallbackRef;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAudioFormatter_Callback<sp/>S2MMERRCallback;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*S2MMERRCallbackRef;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAudioFormatter_Callback<sp/>MM2SERRCallback;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*MM2SERRCallbackRef;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal">}<sp/><ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref>;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="163" refid="struct_x_audio_formatter_hw_params" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>buf_addr;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>active_ch;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>bits_per_sample;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>periods;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>bytes_per_period;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal">}<sp/><ref refid="struct_x_audio_formatter_hw_params" kindref="compound">XAudioFormatterHwParams</ref>;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_audio_formatter___config" kindref="compound">XAudioFormatter_Config</ref><sp/>*<ref refid="group__audio__formatter_1ga3cf85f93b1d4ae0d2127af36ce761a96" kindref="member">XAudioFormatter_LookupConfig</ref>(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal">u32<sp/>XAudioFormatter_Initialize(<ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_audio_formatter___config" kindref="compound">XAudioFormatter_Config</ref><sp/>*<ref refid="group__audio__formatter_1ga3cf85f93b1d4ae0d2127af36ce761a96" kindref="member">XAudioFormatter_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal">u32<sp/>XAudioFormatter_Initialize(<ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal">u32<sp/><ref refid="group__audio__formatter_1gaef1d64562a996ebb195cf2d6ef2f6ea7" kindref="member">XAudioFormatter_CfgInitialize</ref>(<ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_audio_formatter___config" kindref="compound">XAudioFormatter_Config</ref><sp/>*CfgPtr);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__audio__formatter_1ga5779760c06dac849bd2e52ceded0ad65" kindref="member">XAudioFormatter_InterruptEnable</ref>(<ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__audio__formatter_1ga9c0f40a1f11f81c15f0bd0e1aea25d0a" kindref="member">XAudioFormatter_InterruptDisable</ref>(<ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__audio__formatter_1ga65ddaecacb3d843dade3da4a44862963" kindref="member">XAudioFormatterDMAStart</ref>(<ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__audio__formatter_1ga95f19d9d0e20ad8b8bafcaf277ea1ca3" kindref="member">XAudioFormatterDMAStop</ref>(<ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__audio__formatter_1ga0d2e42ac1ba8d83eca142032ad59320b" kindref="member">XAudioFormatterSetHwParams</ref>(<ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_audio_formatter_hw_params" kindref="compound">XAudioFormatterHwParams</ref><sp/>*hw_params);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XAudioFormatter_SetS2MMCallback(<ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAudioFormatter_HandlerType<sp/>handler_type,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XAudioFormatter_SetMM2SCallback(<ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAudioFormatter_HandlerType<sp/>handler_type,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*XAudioFormatterS2MMIntrHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*XAudioFormatterMM2SIntrHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__audio__formatter_1ga6bf13816fa1c5fa913e85ec5734b7dcd" kindref="member">XAudioFormatter_InterruptClear</ref>(<ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref><sp/>*InstancePtr,<sp/>u32<sp/>mask);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__audio__formatter_1ga53384ac363365da9f8e31ed55cbf1d0b" kindref="member">XAudioFormatterDMAReset</ref>(<ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__audio__formatter_1gae4e206855fe0fd0b43a40050d494b40f" kindref="member">XAudioFormatterSetFsMultiplier</ref>(<ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mclk,</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Fs);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal">u32<sp/><ref refid="group__audio__formatter_1gabc41edf6bcea2a85b50e8893016fb267" kindref="member">XAudioFormatterGetDMATransferCount</ref>(<ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__audio__formatter_1gabec553226fe4cfd97f01d23b2c30bbad" kindref="member">XSdiAud_GetChStat</ref>(<ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref><sp/>*InstancePtr,<sp/>u8<sp/>*ChStatBuf);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__audio__formatter_1ga6d1e04ada72ed2b53ee4c03809f8146e" kindref="member">XAudioFormatterSetS2MMTimeOut</ref>(<ref refid="struct_x_audio_formatter" kindref="compound">XAudioFormatter</ref><sp/>*InstancePtr,<sp/>u32<sp/>TimeOut);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xilskey__zmpsoc__ps__error__codes" kind="group">
+    <compoundname>xilskey_zmpsoc_ps_error_codes</compoundname>
+    <title>Zynq UltraScale+ MPSoC error codes</title>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xilskey__zmpsoc__ps__error__codes_1ga43029ac3b786e9f57cc8674f065a53e6" prot="public" static="no">
+        <name>XskZynqMp_Ps_Bbram_ErrorCodes</name>
+        <enumvalue id="group__xilskey__zmpsoc__ps__error__codes_1gga43029ac3b786e9f57cc8674f065a53e6ae805646bc2a18d52cfb3f120b577a1b0" prot="public">
+          <name>XSK_ZYNQMP_BBRAMPS_ERROR_NONE</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>0<linebreak/>
+No error. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__zmpsoc__ps__error__codes_1gga43029ac3b786e9f57cc8674f065a53e6a1481b9bcf62204a47c0b21a2d6ae6f88" prot="public">
+          <name>XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG_ENABLE</name>
+          <initializer>= 0x010U</initializer>
+          <briefdescription>
+<para>0x010<linebreak/>
+If this error is occurred programming is not possible. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__zmpsoc__ps__error__codes_1gga43029ac3b786e9f57cc8674f065a53e6ab34552e5dcdf85ae7d6ac3bcfb4d9961" prot="public">
+          <name>XSK_ZYNQMP_BBRAMPS_ERROR_IN_ZEROISE</name>
+          <initializer>= 0x20U</initializer>
+          <briefdescription>
+<para>0x20<linebreak/>
+ zeroize bbram is failed. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__zmpsoc__ps__error__codes_1gga43029ac3b786e9f57cc8674f065a53e6a903e134a762730cccfe345331d94c28e" prot="public">
+          <name>XSK_ZYNQMP_BBRAMPS_ERROR_IN_CRC_CHECK</name>
+          <initializer>= 0xB000U</initializer>
+          <briefdescription>
+<para>0xB000<linebreak/>
+If this error is occurred programming is done but CRC check is failed. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__zmpsoc__ps__error__codes_1gga43029ac3b786e9f57cc8674f065a53e6a1a75b454a6c9327b9d801727f45779fa" prot="public">
+          <name>XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG</name>
+          <initializer>= 0xC000U</initializer>
+          <briefdescription>
+<para>0xC000<linebreak/>
+ programming of key is failed. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilskey__zmpsoc__ps__error__codes_1gga43029ac3b786e9f57cc8674f065a53e6a7bb31a479b446803f07ae3d69b093e77" prot="public">
+          <name>XSK_ZYNQMP_BBRAMPS_ERROR_IN_WRITE_CRC</name>
+          <initializer>= 0xE800U</initializer>
+          <briefdescription>
+<para>0xE800<linebreak/>
+ error write CRC value. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_utils.h" line="1052" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_utils.h" bodystart="1052" bodyend="1072"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

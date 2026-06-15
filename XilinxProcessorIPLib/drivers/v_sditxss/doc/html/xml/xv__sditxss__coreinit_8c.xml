@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__sditxss__coreinit_8c" kind="file">
+    <compoundname>xv_sditxss_coreinit.c</compoundname>
+    <includes refid="xv__sditxss__coreinit_8h" local="yes">xv_sditxss_coreinit.h</includes>
+    <incdepgraph>
+      <node id="133">
+        <label>xv_sditx.h</label>
+      </node>
+      <node id="131">
+        <label>xv_sdivid.h</label>
+      </node>
+      <node id="129">
+        <label>xv_sditxss.h</label>
+        <link refid="xv__sditxss_8h"/>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="131" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
+        <childnode refid="133" relation="include">
+        </childnode>
+        <childnode refid="134" relation="include">
+        </childnode>
+      </node>
+      <node id="127">
+        <label>xv_sditxss_coreinit.c</label>
+        <link refid="xv_sditxss_coreinit.c"/>
+        <childnode refid="128" relation="include">
+        </childnode>
+      </node>
+      <node id="128">
+        <label>xv_sditxss_coreinit.h</label>
+        <link refid="xv__sditxss__coreinit_8h"/>
+        <childnode refid="129" relation="include">
+        </childnode>
+      </node>
+      <node id="130">
+        <label>xstatus.h</label>
+      </node>
+      <node id="132">
+        <label>xvidc.h</label>
+      </node>
+      <node id="134">
+        <label>xvtc.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__v__sditxss_1ga947c864c39e22328573d30b2cd0f4ca3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_SdiTxSs_SubcoreInitSdiTx</definition>
+        <argsstring>(XV_SdiTxSs *SdiTxSsPtr)</argsstring>
+        <name>XV_SdiTxSs_SubcoreInitSdiTx</name>
+        <param>
+          <type><ref refid="struct_x_v___sdi_tx_ss" kindref="compound">XV_SdiTxSs</ref> *</type>
+          <declname>SdiTxSsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the included sub-core to it&apos;s static configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SdiTxSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS/XST_FAILURE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss_coreinit.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss_coreinit.c" bodystart="51" bodyend="85"/>
+        <references refid="struct_x_v___sdi_tx_ss_1af7d89922bc62fa37fbd2bb092e4d313a" compoundref="xv__sditxss_8h" startline="176">XV_SdiTxSs::Config</references>
+        <references refid="struct_x_v___sdi_tx_ss___config_1aaf6f2c5fe1b6586f655957735539e72e" compoundref="xv__sditxss_8h" startline="149">XV_SdiTxSs_Config::SdiTx</references>
+        <references refid="struct_x_v___sdi_tx_ss_1a2499b55a82ee0938a2d0fcdca1077d71" compoundref="xv__sditxss_8h" startline="179">XV_SdiTxSs::SdiTxPtr</references>
+        <references refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553ae22f2169dcf22ddb067ac470c4c3ea28" compoundref="xv__sditxss_8h" startline="80">XV_SDITXSS_LOG_EVT_SDITX_INIT</references>
+        <references refid="xv__sditxss_8h_1a986a5881e775194f864ebaa1f055afa6" compoundref="xv__sditxss__log_8c" startline="64" endline="97">XV_SdiTxSs_LogWrite</references>
+        <referencedby refid="xv__sditxss_8h_1a4bdb55bb1af5300e000e420e35256eb8" compoundref="xv__sditxss_8c" startline="256" endline="299">XV_SdiTxSs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__v__sditxss_1ga014e94de29a924cc95a2282fe8abf748" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_SdiTxSs_SubcoreInitVtc</definition>
+        <argsstring>(XV_SdiTxSs *SdiTxSsPtr)</argsstring>
+        <name>XV_SdiTxSs_SubcoreInitVtc</name>
+        <param>
+          <type><ref refid="struct_x_v___sdi_tx_ss" kindref="compound">XV_SdiTxSs</ref> *</type>
+          <declname>SdiTxSsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the included sub-core to it&apos;s static configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SdiTxSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS/XST_FAILURE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss_coreinit.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss_coreinit.c" bodystart="96" bodyend="128"/>
+        <references refid="struct_x_v___sdi_tx_ss_1af7d89922bc62fa37fbd2bb092e4d313a" compoundref="xv__sditxss_8h" startline="176">XV_SdiTxSs::Config</references>
+        <references refid="struct_x_v___sdi_tx_ss___config_1ad3bfb31c9e8cad01223a2d39080bf2d5" compoundref="xv__sditxss_8h" startline="150">XV_SdiTxSs_Config::Vtc</references>
+        <references refid="struct_x_v___sdi_tx_ss_1a8b4c009d37093d905ec9ddc0675e4d87" compoundref="xv__sditxss_8h" startline="180">XV_SdiTxSs::VtcPtr</references>
+        <references refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553afc8392e1e0ed781f3a833f6a2b292c3c" compoundref="xv__sditxss_8h" startline="81">XV_SDITXSS_LOG_EVT_VTC_INIT</references>
+        <references refid="xv__sditxss_8h_1a986a5881e775194f864ebaa1f055afa6" compoundref="xv__sditxss__log_8c" startline="64" endline="97">XV_SdiTxSs_LogWrite</references>
+        <referencedby refid="xv__sditxss_8h_1a4bdb55bb1af5300e000e420e35256eb8" compoundref="xv__sditxss_8c" startline="256" endline="299">XV_SdiTxSs_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2023<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="33"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__sditxss__coreinit_8h" kindref="compound">xv_sditxss_coreinit.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="51" refid="group__v__sditxss_1ga947c864c39e22328573d30b2cd0f4ca3" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__sditxss_1ga947c864c39e22328573d30b2cd0f4ca3" kindref="member">XV_SdiTxSs_SubcoreInitSdiTx</ref>(<ref refid="struct_x_v___sdi_tx_ss" kindref="compound">XV_SdiTxSs</ref><sp/>*SdiTxSsPtr)</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>UINTPTR<sp/>AbsAddr;<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_SdiTx_Config<sp/>*ConfigPtr;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SdiTxSsPtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a2499b55a82ee0938a2d0fcdca1077d71" kindref="member">SdiTxPtr</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>core<sp/>configuration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__sditxss_8h_1a986a5881e775194f864ebaa1f055afa6" kindref="member">XV_SdiTxSs_LogWrite</ref>(SdiTxSsPtr,<sp/><ref refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553ae22f2169dcf22ddb067ac470c4c3ea28" kindref="member">XV_SDITXSS_LOG_EVT_SDITX_INIT</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/><sp/>=<sp/>XV_SdiTx_LookupConfig(SdiTxSsPtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1af7d89922bc62fa37fbd2bb092e4d313a" kindref="member">Config</ref>.<ref refid="struct_x_v___sdi_tx_ss___config_1aaf6f2c5fe1b6586f655957735539e72e" kindref="member">SdiTx</ref>.DeviceId);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/><sp/>=<sp/>XV_SdiTx_LookupConfig(SdiTxSsPtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1af7d89922bc62fa37fbd2bb092e4d313a" kindref="member">Config</ref>.<ref refid="struct_x_v___sdi_tx_ss___config_1aaf6f2c5fe1b6586f655957735539e72e" kindref="member">SdiTx</ref>.AbsAddr);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ConfigPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;SDITXSS<sp/>ERR::<sp/>SDI<sp/>TX<sp/>device<sp/>not<sp/>found\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>core<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XV_SdiTx_CfgInitialize(SdiTxSsPtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a2499b55a82ee0938a2d0fcdca1077d71" kindref="member">SdiTxPtr</ref>,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SdiTxSsPtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1af7d89922bc62fa37fbd2bb092e4d313a" kindref="member">Config</ref>.<ref refid="struct_x_v___sdi_tx_ss___config_1aaf6f2c5fe1b6586f655957735539e72e" kindref="member">SdiTx</ref>.AbsAddr);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;SDITXSS<sp/>ERR::<sp/>SDI<sp/>TX<sp/>Initialization<sp/>failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_SdiTx_Set_Bpc(SdiTxSsPtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a2499b55a82ee0938a2d0fcdca1077d71" kindref="member">SdiTxPtr</ref>,<sp/>SdiTxSsPtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1af7d89922bc62fa37fbd2bb092e4d313a" kindref="member">Config</ref>.bitdepth);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="96" refid="group__v__sditxss_1ga014e94de29a924cc95a2282fe8abf748" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__sditxss_1ga014e94de29a924cc95a2282fe8abf748" kindref="member">XV_SdiTxSs_SubcoreInitVtc</ref>(<ref refid="struct_x_v___sdi_tx_ss" kindref="compound">XV_SdiTxSs</ref><sp/>*SdiTxSsPtr)</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>UINTPTR<sp/>AbsAddr;<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVtc_Config<sp/>*ConfigPtr;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SdiTxSsPtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a8b4c009d37093d905ec9ddc0675e4d87" kindref="member">VtcPtr</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>core<sp/>configuration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__sditxss_8h_1a986a5881e775194f864ebaa1f055afa6" kindref="member">XV_SdiTxSs_LogWrite</ref>(SdiTxSsPtr,<sp/><ref refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553afc8392e1e0ed781f3a833f6a2b292c3c" kindref="member">XV_SDITXSS_LOG_EVT_VTC_INIT</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/><sp/>=<sp/>XVtc_LookupConfig(SdiTxSsPtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1af7d89922bc62fa37fbd2bb092e4d313a" kindref="member">Config</ref>.<ref refid="struct_x_v___sdi_tx_ss___config_1ad3bfb31c9e8cad01223a2d39080bf2d5" kindref="member">Vtc</ref>.DeviceId);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/><sp/>=<sp/>XVtc_LookupConfig(SdiTxSsPtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1af7d89922bc62fa37fbd2bb092e4d313a" kindref="member">Config</ref>.<ref refid="struct_x_v___sdi_tx_ss___config_1ad3bfb31c9e8cad01223a2d39080bf2d5" kindref="member">Vtc</ref>.AbsAddr);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ConfigPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;SDITXSS<sp/>ERR::<sp/>VTC<sp/>device<sp/>not<sp/>found\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>core<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XVtc_CfgInitialize(SdiTxSsPtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a8b4c009d37093d905ec9ddc0675e4d87" kindref="member">VtcPtr</ref>,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr,</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SdiTxSsPtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1af7d89922bc62fa37fbd2bb092e4d313a" kindref="member">Config</ref>.<ref refid="struct_x_v___sdi_tx_ss___config_1ad3bfb31c9e8cad01223a2d39080bf2d5" kindref="member">Vtc</ref>.AbsAddr);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;SDITXSS<sp/>ERR::<sp/>VTC<sp/>Initialization<sp/>failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss_coreinit.c"/>
+  </compounddef>
+</doxygen>

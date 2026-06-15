@@ -1,0 +1,1633 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdevcfg__hw_8h" kind="file">
+    <compoundname>xdevcfg_hw.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xdevcfg_8h" local="yes">xdevcfg.h</includedby>
+    <includedby refid="xdevcfg__hw_8c" local="yes">xdevcfg_hw.c</includedby>
+    <incdepgraph>
+      <node id="44">
+        <label>xil_io.h</label>
+      </node>
+      <node id="43">
+        <label>xil_types.h</label>
+      </node>
+      <node id="42">
+        <label>xdevcfg_hw.h</label>
+        <link refid="xdevcfg_hw.h"/>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="53">
+        <label>xdevcfg_polled_example.c</label>
+        <link refid="xdevcfg__polled__example_8c"/>
+      </node>
+      <node id="50">
+        <label>xdevcfg_selftest.c</label>
+        <link refid="xdevcfg__selftest_8c"/>
+      </node>
+      <node id="51">
+        <label>xdevcfg_sinit.c</label>
+        <link refid="xdevcfg__sinit_8c"/>
+      </node>
+      <node id="47">
+        <label>xdevcfg.c</label>
+        <link refid="xdevcfg_8c"/>
+      </node>
+      <node id="46">
+        <label>xdevcfg.h</label>
+        <link refid="xdevcfg_8h"/>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>xdevcfg_g.c</label>
+        <link refid="xdevcfg__g_8c"/>
+      </node>
+      <node id="54">
+        <label>xdevcfg_reg_readback_example.c</label>
+        <link refid="xdevcfg__reg__readback__example_8c"/>
+      </node>
+      <node id="49">
+        <label>xdevcfg_intr.c</label>
+        <link refid="xdevcfg__intr_8c"/>
+      </node>
+      <node id="55">
+        <label>xdevcfg_selftest_example.c</label>
+        <link refid="xdevcfg__selftest__example_8c"/>
+      </node>
+      <node id="56">
+        <label>xdevcfg_hw.c</label>
+        <link refid="xdevcfg__hw_8c"/>
+      </node>
+      <node id="45">
+        <label>xdevcfg_hw.h</label>
+        <link refid="xdevcfg_hw.h"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>xdevcfg_interrupt_example.c</label>
+        <link refid="xdevcfg__interrupt__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Register Map</header>
+      <description><para>Offsets of registers from the start of the device </para></description>
+      <memberdef kind="define" id="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" prot="public" static="no">
+        <name>XDCFG_CTRL_OFFSET</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+<para>Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__devcfg_1gaeb69ef133b53618e896a4776b9e8f337" compoundref="xdevcfg_8c" startline="261" endline="277">XDcfg_ClearControlRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga7f73a84f734f2e1996a029d8e5934b9c" compoundref="xdevcfg_8c" startline="198" endline="214">XDcfg_DisablePCAP</referencedby>
+        <referencedby refid="group__devcfg_1gabb2094cb7d36f83c4c150a3b18e8aad0" compoundref="xdevcfg_8c" startline="167" endline="183">XDcfg_EnablePCAP</referencedby>
+        <referencedby refid="group__devcfg_1ga81a254369eea778c17c212cc95056c26" compoundref="xdevcfg_8c" startline="294" endline="306">XDcfg_GetControlRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga995fb32dbac8a7899c9be66a8bf7d3d1" compoundref="xdevcfg__hw_8c" startline="59" endline="89">XDcfg_ResetHw</referencedby>
+        <referencedby refid="group__devcfg_1gacc8c10b5cc877595c1ade09e1a589296" compoundref="xdevcfg_8c" startline="230" endline="246">XDcfg_SetControlRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga5a7a69cfe6e10770f82089bdd277955d" compoundref="xdevcfg_8c" startline="767" endline="921">XDcfg_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gad126a845b17979d640cd2dd00eab29f9" prot="public" static="no">
+        <name>XDCFG_LOCK_OFFSET</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>Lock Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__devcfg_1gad3df072e27abfff9beb69cb09567a8c1" compoundref="xdevcfg_8c" startline="349" endline="361">XDcfg_GetLockRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga1e0516cd9cdc5066e98e3c3c195c1d3c" compoundref="xdevcfg_8c" startline="322" endline="332">XDcfg_SetLockRegister</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga3fafe11b95af8da04f385c9313a6958b" prot="public" static="no">
+        <name>XDCFG_CFG_OFFSET</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>Configuration Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="55" bodyend="-1"/>
+        <referencedby refid="group__devcfg_1ga3b46b8db6ea49d8c066fefe0d137b2c9" compoundref="xdevcfg_8c" startline="405" endline="415">XDcfg_GetConfigRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga995fb32dbac8a7899c9be66a8bf7d3d1" compoundref="xdevcfg__hw_8c" startline="59" endline="89">XDcfg_ResetHw</referencedby>
+        <referencedby refid="group__devcfg_1ga89e1eef15fcfe06cd0e8d8dd7e804ad1" compoundref="xdevcfg_8c" startline="377" endline="387">XDcfg_SetConfigRegister</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga5abc2123bae0a1d3512d41be98ca477c" prot="public" static="no">
+        <name>XDCFG_INT_STS_OFFSET</name>
+        <initializer>0x0C</initializer>
+        <briefdescription>
+<para>Interrupt Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__devcfg_1ga3cb50f996ae2577642b7d1b91c33105f" compoundref="xdevcfg__intr_8c" startline="223" endline="253">XDcfg_InterruptHandler</referencedby>
+        <referencedby refid="group__devcfg_1gafff047d176ced3a255248219c1278e3b" compoundref="xdevcfg__intr_8c" startline="195" endline="207">XDcfg_IntrClear</referencedby>
+        <referencedby refid="group__devcfg_1ga9ed5382e8c80a2277816a4db98a1ec6f" compoundref="xdevcfg__intr_8c" startline="163" endline="176">XDcfg_IntrGetStatus</referencedby>
+        <referencedby refid="group__devcfg_1ga995fb32dbac8a7899c9be66a8bf7d3d1" compoundref="xdevcfg__hw_8c" startline="59" endline="89">XDcfg_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga15552ab3878c35ec94749ebed5247fe5" prot="public" static="no">
+        <name>XDCFG_INT_MASK_OFFSET</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>Interrupt Mask Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__devcfg_1gab7606b370c10d68d61402bed68955a80" compoundref="xdevcfg__intr_8c" startline="99" endline="118">XDcfg_IntrDisable</referencedby>
+        <referencedby refid="group__devcfg_1gab9c70f073e4522d6085c0059bc385aa9" compoundref="xdevcfg__intr_8c" startline="61" endline="80">XDcfg_IntrEnable</referencedby>
+        <referencedby refid="group__devcfg_1ga879fec56ba0f64d3b2128f11e2b022f0" compoundref="xdevcfg__intr_8c" startline="133" endline="146">XDcfg_IntrGetEnabled</referencedby>
+        <referencedby refid="group__devcfg_1ga995fb32dbac8a7899c9be66a8bf7d3d1" compoundref="xdevcfg__hw_8c" startline="59" endline="89">XDcfg_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga6646b7874a5c9cc7bcdba6072bb4ff72" prot="public" static="no">
+        <name>XDCFG_STATUS_OFFSET</name>
+        <initializer>0x14</initializer>
+        <briefdescription>
+<para>Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="xdevcfg__reg__readback__example_8c_1af9cf92cccf467028f2ac04b532a100c0" compoundref="xdevcfg__reg__readback__example_8c" startline="334" endline="419">XDcfg_GetConfigReg</referencedby>
+        <referencedby refid="group__devcfg_1gaaacacd5169ad7a79f09d08858f58dc8e" compoundref="xdevcfg_8c" startline="457" endline="469">XDcfg_GetStatusRegister</referencedby>
+        <referencedby refid="xdevcfg__interrupt__example_8c_1a9af298cf6df14b196fb9f7c2fd6a74d3" compoundref="xdevcfg__interrupt__example_8c" startline="187" endline="336">XDcfg_IntrExample</referencedby>
+        <referencedby refid="group__devcfg_1gab3412c2881ffaa15fd3615770a4225a7" compoundref="xdevcfg_8c" startline="597" endline="615">XDcfg_IsDmaBusy</referencedby>
+        <referencedby refid="group__devcfg_1gae7a3e8052f73c370990b77dae5751a36" compoundref="xdevcfg_8c" startline="430" endline="440">XDcfg_SetStatusRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga5a7a69cfe6e10770f82089bdd277955d" compoundref="xdevcfg_8c" startline="767" endline="921">XDcfg_Transfer</referencedby>
+        <referencedby refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" compoundref="xdevcfg__polled__example_8c" startline="164" endline="286">XDcfgPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga18c6f2aab3a27da352296a1324ed73b4" prot="public" static="no">
+        <name>XDCFG_DMA_SRC_ADDR_OFFSET</name>
+        <initializer>0x18</initializer>
+        <briefdescription>
+<para>DMA Source Address Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__devcfg_1gafda6d24be18657370c15e1e893a0ab05" compoundref="xdevcfg_8c" startline="642" endline="661">XDcfg_InitiateDma</referencedby>
+        <referencedby refid="group__devcfg_1ga995fb32dbac8a7899c9be66a8bf7d3d1" compoundref="xdevcfg__hw_8c" startline="59" endline="89">XDcfg_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga24e1d08d2aa66c6fe2a8be9086ef9a41" prot="public" static="no">
+        <name>XDCFG_DMA_DEST_ADDR_OFFSET</name>
+        <initializer>0x1C</initializer>
+        <briefdescription>
+<para>DMA Destination Address Reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__devcfg_1gafda6d24be18657370c15e1e893a0ab05" compoundref="xdevcfg_8c" startline="642" endline="661">XDcfg_InitiateDma</referencedby>
+        <referencedby refid="group__devcfg_1ga995fb32dbac8a7899c9be66a8bf7d3d1" compoundref="xdevcfg__hw_8c" startline="59" endline="89">XDcfg_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gaaf9fa64a65762a428ba36bd38a80ab80" prot="public" static="no">
+        <name>XDCFG_DMA_SRC_LEN_OFFSET</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>DMA Source Transfer Length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__devcfg_1gafda6d24be18657370c15e1e893a0ab05" compoundref="xdevcfg_8c" startline="642" endline="661">XDcfg_InitiateDma</referencedby>
+        <referencedby refid="group__devcfg_1ga995fb32dbac8a7899c9be66a8bf7d3d1" compoundref="xdevcfg__hw_8c" startline="59" endline="89">XDcfg_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gaffc13cbb412f77e54b0ecf2f25e205ee" prot="public" static="no">
+        <name>XDCFG_DMA_DEST_LEN_OFFSET</name>
+        <initializer>0x24</initializer>
+        <briefdescription>
+<para>DMA Destination Transfer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__devcfg_1gafda6d24be18657370c15e1e893a0ab05" compoundref="xdevcfg_8c" startline="642" endline="661">XDcfg_InitiateDma</referencedby>
+        <referencedby refid="group__devcfg_1ga995fb32dbac8a7899c9be66a8bf7d3d1" compoundref="xdevcfg__hw_8c" startline="59" endline="89">XDcfg_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga895856e5cf4578a328a12bb0f0287826" prot="public" static="no">
+        <name>XDCFG_ROM_SHADOW_OFFSET</name>
+        <initializer>0x28</initializer>
+        <briefdescription>
+<para>DMA ROM Shadow Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__devcfg_1ga332a5c7c856e8f6637cafaa3ec69eaca" compoundref="xdevcfg_8c" startline="485" endline="496">XDcfg_SetRomShadowRegister</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gafe5bf5a7eb6a4d2e8d5a7a9cc8f60d59" prot="public" static="no">
+        <name>XDCFG_MULTIBOOT_ADDR_OFFSET</name>
+        <initializer>0x2C</initializer>
+        <briefdescription>
+<para>Multi BootAddress Pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gad56285ef89202c084bad1724cc3f8df1" prot="public" static="no">
+        <name>XDCFG_SW_ID_OFFSET</name>
+        <initializer>0x30</initializer>
+        <briefdescription>
+<para>Software ID Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__devcfg_1ga5573651d2f14ff760e36d551a49fa919" compoundref="xdevcfg_8c" startline="511" endline="523">XDcfg_GetSoftwareIdRegister</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga7dfcf6697edba5f229b22fc33d614363" prot="public" static="no">
+        <name>XDCFG_UNLOCK_OFFSET</name>
+        <initializer>0x34</initializer>
+        <briefdescription>
+<para>Unlock Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga80ad10863ac12916d347046e8263f5b2" prot="public" static="no">
+        <name>XDCFG_MCTRL_OFFSET</name>
+        <initializer>0x80</initializer>
+        <briefdescription>
+<para>Miscellaneous Control Reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__devcfg_1gaee0dfc6838f33d700fc4b8a5549b0473" compoundref="xdevcfg_8c" startline="570" endline="582">XDcfg_GetMiscControlRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga995fb32dbac8a7899c9be66a8bf7d3d1" compoundref="xdevcfg__hw_8c" startline="59" endline="89">XDcfg_ResetHw</referencedby>
+        <referencedby refid="group__devcfg_1ga2739b6bce23b6e02a9076c0eba8664d4" compoundref="xdevcfg_8c" startline="539" endline="555">XDcfg_SetMiscControlRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga5a7a69cfe6e10770f82089bdd277955d" compoundref="xdevcfg_8c" startline="767" endline="921">XDcfg_Transfer</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Control Register Bit definitions</header>
+      <memberdef kind="define" id="group__devcfg_1gac111c754b7a79aba4ad9d66beeaaddc8" prot="public" static="no">
+        <name>XDCFG_CTRL_FORCE_RST_MASK</name>
+        <initializer>0x80000000</initializer>
+        <briefdescription>
+<para>Force into Secure Reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga6b2100592757335d946e0466f84adcf9" prot="public" static="no">
+        <name>XDCFG_CTRL_PCFG_PROG_B_MASK</name>
+        <initializer>0x40000000</initializer>
+        <briefdescription>
+<para>Program signal to Reset FPGA. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gac7e72bf0cbb6551a2f74abfd265e6619" prot="public" static="no">
+        <name>XDCFG_CTRL_PCFG_POR_CNT_4K_MASK</name>
+        <initializer>0x20000000</initializer>
+        <briefdescription>
+<para>Control PL POR timer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gaac84a7176f99dc0e1d66a53673053228" prot="public" static="no">
+        <name>XDCFG_CTRL_PCAP_PR_MASK</name>
+        <initializer>0x08000000</initializer>
+        <briefdescription>
+<para>Enable PCAP for PR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="86" bodyend="-1"/>
+        <referencedby refid="xdevcfg__interrupt__example_8c_1a9af298cf6df14b196fb9f7c2fd6a74d3" compoundref="xdevcfg__interrupt__example_8c" startline="187" endline="336">XDcfg_IntrExample</referencedby>
+        <referencedby refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" compoundref="xdevcfg__polled__example_8c" startline="164" endline="286">XDcfgPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gade98fb162f4954144b33a71eb81a25e3" prot="public" static="no">
+        <name>XDCFG_CTRL_PCAP_MODE_MASK</name>
+        <initializer>0x04000000</initializer>
+        <briefdescription>
+<para>Enable PCAP. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="87" bodyend="-1"/>
+        <referencedby refid="group__devcfg_1ga7f73a84f734f2e1996a029d8e5934b9c" compoundref="xdevcfg_8c" startline="198" endline="214">XDcfg_DisablePCAP</referencedby>
+        <referencedby refid="group__devcfg_1gabb2094cb7d36f83c4c150a3b18e8aad0" compoundref="xdevcfg_8c" startline="167" endline="183">XDcfg_EnablePCAP</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga16cb1e4072240a97799a685fad35234f" prot="public" static="no">
+        <name>XDCFG_CTRL_PCAP_RATE_EN_MASK</name>
+        <initializer>0x02000000</initializer>
+        <briefdescription>
+<para>Enable PCAP send data to FPGA every 4 PCAP cycles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="88" bodyend="-1"/>
+        <referencedby refid="group__devcfg_1ga995fb32dbac8a7899c9be66a8bf7d3d1" compoundref="xdevcfg__hw_8c" startline="59" endline="89">XDcfg_ResetHw</referencedby>
+        <referencedby refid="group__devcfg_1ga5a7a69cfe6e10770f82089bdd277955d" compoundref="xdevcfg_8c" startline="767" endline="921">XDcfg_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gae54ce392946a79ecb63fefc9f6087d57" prot="public" static="no">
+        <name>XDCFG_CTRL_MULTIBOOT_EN_MASK</name>
+        <initializer>0x01000000</initializer>
+        <briefdescription>
+<para>Multiboot Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga2fb2e3f895a89aac522ba93e0697e078" prot="public" static="no">
+        <name>XDCFG_CTRL_JTAG_CHAIN_DIS_MASK</name>
+        <initializer>0x00800000</initializer>
+        <briefdescription>
+<para>JTAG Chain Disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gadf49fc564c0c61b6511a171eb045e0a5" prot="public" static="no">
+        <name>XDCFG_CTRL_USER_MODE_MASK</name>
+        <initializer>0x00008000</initializer>
+        <briefdescription>
+<para>User Mode Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gac9a915bd47631afa6954dc306283b413" prot="public" static="no">
+        <name>XDCFG_CTRL_PCFG_AES_FUSE_MASK</name>
+        <initializer>0x00001000</initializer>
+        <briefdescription>
+<para>AES key source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gaabe1c3e1a3156147fdd1716d063574c0" prot="public" static="no">
+        <name>XDCFG_CTRL_PCFG_AES_EN_MASK</name>
+        <initializer>0x00000E00</initializer>
+        <briefdescription>
+<para>AES Enable Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gac75c8af80babda8c6387d5b9f83e63b5" prot="public" static="no">
+        <name>XDCFG_CTRL_SEU_EN_MASK</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+<para>SEU Enable Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga3ad33e86575e803961abfaf7593907e7" prot="public" static="no">
+        <name>XDCFG_CTRL_SEC_EN_MASK</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>Secure/Non Secure Status mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga62d4f8110807f2ebbb148de931990a82" prot="public" static="no">
+        <name>XDCFG_CTRL_SPNIDEN_MASK</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>Secure Non Invasive Debug Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga0bc4a40162eccf50446c13b41a5deae6" prot="public" static="no">
+        <name>XDCFG_CTRL_SPIDEN_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>Secure Invasive Debug Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gaee65740fa83e66131a1b706844bbc368" prot="public" static="no">
+        <name>XDCFG_CTRL_NIDEN_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>Non-Invasive Debug Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="116" bodyend="-1"/>
+        <referencedby refid="group__devcfg_1ga2c24756b9d6f8e81b620d27a86379e15" compoundref="xdevcfg__selftest_8c" startline="58" endline="88">XDcfg_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga4cb6befced97425b6288e7f80a4cb882" prot="public" static="no">
+        <name>XDCFG_CTRL_DBGEN_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Invasive Debug Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gae013378d19bdbab0d16fddce8707f61f" prot="public" static="no">
+        <name>XDCFG_CTRL_DAP_EN_MASK</name>
+        <initializer>0x00000007</initializer>
+        <briefdescription>
+<para>DAP Enable Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Lock register bit definitions</header>
+      <memberdef kind="define" id="group__devcfg_1gab3ad8e8bf58fb796d3b6359cf276a0eb" prot="public" static="no">
+        <name>XDCFG_LOCK_AES_EFUSE_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>Lock AES Efuse bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gad4c541e7e72c1d43d9b5fd5aa8ae2c85" prot="public" static="no">
+        <name>XDCFG_LOCK_AES_EN_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Lock AES_EN update. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga245a296585dd3c08615b96a319e75026" prot="public" static="no">
+        <name>XDCFG_LOCK_SEU_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Lock SEU_En update. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga7061616f307b1f98ab4b6945664333ad" prot="public" static="no">
+        <name>XDCFG_LOCK_SEC_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Lock SEC_EN and USER_MODE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga02c2ca7416d5d3f208a15ca865f33f40" prot="public" static="no">
+        <name>XDCFG_LOCK_DBG_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>This bit locks security config including: DAP_En, DBGEN,, NIDEN, SPNIEN. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Config Register Bit definitions</header>
+      <memberdef kind="define" id="group__devcfg_1ga3540b49682ec44e90f106532526cdf1d" prot="public" static="no">
+        <name>XDCFG_CFG_RFIFO_TH_MASK</name>
+        <initializer>0x00000C00</initializer>
+        <briefdescription>
+<para>Read FIFO Threshold Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga022faf83302e04ad191b6ee2c15ed282" prot="public" static="no">
+        <name>XDCFG_CFG_WFIFO_TH_MASK</name>
+        <initializer>0x00000300</initializer>
+        <briefdescription>
+<para>Write FIFO Threshold Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga1e63502ef0cc6680e3630a9a0e57efa8" prot="public" static="no">
+        <name>XDCFG_CFG_RCLK_EDGE_MASK</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>Read data active clock edge. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga648711e2e48a1fa8feadf390f213c422" prot="public" static="no">
+        <name>XDCFG_CFG_WCLK_EDGE_MASK</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>Write data active clock edge. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gaa667b16475c1b06aa123e3ea54237a65" prot="public" static="no">
+        <name>XDCFG_CFG_DISABLE_SRC_INC_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>Disable Source address increment mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga7dfcd2790e4eff2350b2c77e69bb0dbc" prot="public" static="no">
+        <name>XDCFG_CFG_DISABLE_DST_INC_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>Disable Destination address increment mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt Status/Mask Register Bit definitions</header>
+      <memberdef kind="define" id="group__devcfg_1gaa150109448e0dae4f63c97e8d4835ac4" prot="public" static="no">
+        <name>XDCFG_IXR_PSS_GTS_USR_B_MASK</name>
+        <initializer>0x80000000</initializer>
+        <briefdescription>
+<para>Tri-state IO during HIZ. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gad806a28b37776eb5714cca5e47ebf51a" prot="public" static="no">
+        <name>XDCFG_IXR_PSS_FST_CFG_B_MASK</name>
+        <initializer>0x40000000</initializer>
+        <briefdescription>
+<para>First configuration done. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gaae0cdad7bf3b52dbf8fa6009492257e5" prot="public" static="no">
+        <name>XDCFG_IXR_PSS_GPWRDWN_B_MASK</name>
+        <initializer>0x20000000</initializer>
+        <briefdescription>
+<para>Global power down. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga2850a459bed5fde0901bc16ae41fcf72" prot="public" static="no">
+        <name>XDCFG_IXR_PSS_GTS_CFG_B_MASK</name>
+        <initializer>0x10000000</initializer>
+        <briefdescription>
+<para>Tri-state IO during configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga36eedd2831c6dae36cd432921d34b5f0" prot="public" static="no">
+        <name>XDCFG_IXR_PSS_CFG_RESET_B_MASK</name>
+        <initializer>0x08000000</initializer>
+        <briefdescription>
+<para>PL configuration reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gaf276d56385dd1326c99d5c70640458b8" prot="public" static="no">
+        <name>XDCFG_IXR_AXI_WTO_MASK</name>
+        <initializer>0x00800000</initializer>
+        <briefdescription>
+<para>AXI Write Address or Data or response timeout. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gaebe4d8aa713686020c2df8ef52f52486" prot="public" static="no">
+        <name>XDCFG_IXR_AXI_WERR_MASK</name>
+        <initializer>0x00400000</initializer>
+        <briefdescription>
+<para>AXI Write response error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga82b988804f908861e58f6c8409fb61dc" prot="public" static="no">
+        <name>XDCFG_IXR_AXI_RTO_MASK</name>
+        <initializer>0x00200000</initializer>
+        <briefdescription>
+<para>AXI Read Address or response timeout. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="183" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga80a342c6002722176c408a91aa177bb2" prot="public" static="no">
+        <name>XDCFG_IXR_AXI_RERR_MASK</name>
+        <initializer>0x00100000</initializer>
+        <briefdescription>
+<para>AXI Read response error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="186" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gafd279fe5c6af5cb49cb22efe8487288b" prot="public" static="no">
+        <name>XDCFG_IXR_RX_FIFO_OV_MASK</name>
+        <initializer>0x00040000</initializer>
+        <briefdescription>
+<para>Rx FIFO Overflow. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="187" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga4d0f39a67ebecfe3208f90adb975c164" prot="public" static="no">
+        <name>XDCFG_IXR_WR_FIFO_LVL_MASK</name>
+        <initializer>0x00020000</initializer>
+        <briefdescription>
+<para>Tx FIFO less than threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="189" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga8d2b8bff7a8acef986264a348153d7ec" prot="public" static="no">
+        <name>XDCFG_IXR_RD_FIFO_LVL_MASK</name>
+        <initializer>0x00010000</initializer>
+        <briefdescription>
+<para>Rx FIFO greater than threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="191" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gadd33fcf28c9438e3a23e21571e9cc196" prot="public" static="no">
+        <name>XDCFG_IXR_DMA_CMD_ERR_MASK</name>
+        <initializer>0x00008000</initializer>
+        <briefdescription>
+<para>Illegal DMA command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga66dc8e74c39f3a79b9a4260d2e5064a8" prot="public" static="no">
+        <name>XDCFG_IXR_DMA_Q_OV_MASK</name>
+        <initializer>0x00004000</initializer>
+        <briefdescription>
+<para>DMA command queue overflow. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="195" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga219beab8ecbdaa4e74c8d130b94e4ae0" prot="public" static="no">
+        <name>XDCFG_IXR_DMA_DONE_MASK</name>
+        <initializer>0x00002000</initializer>
+        <briefdescription>
+<para>DMA Command Done. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="196" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="254" bodyend="-1"/>
+        <referencedby refid="xdevcfg__reg__readback__example_8c_1af9cf92cccf467028f2ac04b532a100c0" compoundref="xdevcfg__reg__readback__example_8c" startline="334" endline="419">XDcfg_GetConfigReg</referencedby>
+        <referencedby refid="xdevcfg__interrupt__example_8c_1a9af298cf6df14b196fb9f7c2fd6a74d3" compoundref="xdevcfg__interrupt__example_8c" startline="187" endline="336">XDcfg_IntrExample</referencedby>
+        <referencedby refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" compoundref="xdevcfg__polled__example_8c" startline="164" endline="286">XDcfgPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gae46a37df60109876c5f96d62dc6b9f78" prot="public" static="no">
+        <name>XDCFG_IXR_D_P_DONE_MASK</name>
+        <initializer>0x00001000</initializer>
+        <briefdescription>
+<para>DMA and PCAP transfers Done. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="199" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="255" bodyend="-1"/>
+        <referencedby refid="xdevcfg__reg__readback__example_8c_1af9cf92cccf467028f2ac04b532a100c0" compoundref="xdevcfg__reg__readback__example_8c" startline="334" endline="419">XDcfg_GetConfigReg</referencedby>
+        <referencedby refid="xdevcfg__interrupt__example_8c_1a9af298cf6df14b196fb9f7c2fd6a74d3" compoundref="xdevcfg__interrupt__example_8c" startline="187" endline="336">XDcfg_IntrExample</referencedby>
+        <referencedby refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" compoundref="xdevcfg__polled__example_8c" startline="164" endline="286">XDcfgPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga349dc6e8fe9e165ffaaf0329da6a3ca3" prot="public" static="no">
+        <name>XDCFG_IXR_P2D_LEN_ERR_MASK</name>
+        <initializer>0x00000800</initializer>
+        <briefdescription>
+<para>PCAP to DMA transfer length error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="202" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga84c13cf9502fdc6e4b5aca232322eebb" prot="public" static="no">
+        <name>XDCFG_IXR_PCFG_HMAC_ERR_MASK</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>HMAC error mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="203" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga3b85bf633686d74c21c9358be8497095" prot="public" static="no">
+        <name>XDCFG_IXR_PCFG_SEU_ERR_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>SEU Error mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="204" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gafddabfd06735e901077dcb54ac83e23a" prot="public" static="no">
+        <name>XDCFG_IXR_PCFG_POR_B_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>FPGA POR mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="205" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="267" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga3b2eef5103e50bb1dd8cb4b3abda13f0" prot="public" static="no">
+        <name>XDCFG_IXR_PCFG_CFG_RST_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>FPGA Reset mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="206" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="268" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga39c7e70832ef5a30a251342bf831f088" prot="public" static="no">
+        <name>XDCFG_IXR_PCFG_DONE_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Done Signal Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="207" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="269" bodyend="-1"/>
+        <referencedby refid="xdevcfg__reg__readback__example_8c_1af9cf92cccf467028f2ac04b532a100c0" compoundref="xdevcfg__reg__readback__example_8c" startline="334" endline="419">XDcfg_GetConfigReg</referencedby>
+        <referencedby refid="xdevcfg__interrupt__example_8c_1a9af298cf6df14b196fb9f7c2fd6a74d3" compoundref="xdevcfg__interrupt__example_8c" startline="187" endline="336">XDcfg_IntrExample</referencedby>
+        <referencedby refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" compoundref="xdevcfg__polled__example_8c" startline="164" endline="286">XDcfgPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gaa818ba9c2de5717835e855fba4756dce" prot="public" static="no">
+        <name>XDCFG_IXR_PCFG_INIT_PE_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Detect Positive edge of Init Signal. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="270" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga5ae21c6f80c245ea0085c5e5645703f1" prot="public" static="no">
+        <name>XDCFG_IXR_PCFG_INIT_NE_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Detect Negative edge of Init Signal. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="213" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga79c4878a47796227778f7dd479e9b140" prot="public" static="no">
+        <name>XDCFG_IXR_ERROR_FLAGS_MASK</name>
+        <initializer>(<ref refid="group__devcfg_1gaf276d56385dd1326c99d5c70640458b8" kindref="member">XDCFG_IXR_AXI_WTO_MASK</ref> | \
+		<ref refid="group__devcfg_1gaebe4d8aa713686020c2df8ef52f52486" kindref="member">XDCFG_IXR_AXI_WERR_MASK</ref> | \
+		<ref refid="group__devcfg_1ga82b988804f908861e58f6c8409fb61dc" kindref="member">XDCFG_IXR_AXI_RTO_MASK</ref> |  \
+		<ref refid="group__devcfg_1ga80a342c6002722176c408a91aa177bb2" kindref="member">XDCFG_IXR_AXI_RERR_MASK</ref> | \
+		<ref refid="group__devcfg_1gafd279fe5c6af5cb49cb22efe8487288b" kindref="member">XDCFG_IXR_RX_FIFO_OV_MASK</ref> | \
+		<ref refid="group__devcfg_1gadd33fcf28c9438e3a23e21571e9cc196" kindref="member">XDCFG_IXR_DMA_CMD_ERR_MASK</ref> |\
+		<ref refid="group__devcfg_1ga66dc8e74c39f3a79b9a4260d2e5064a8" kindref="member">XDCFG_IXR_DMA_Q_OV_MASK</ref> |   \
+		<ref refid="group__devcfg_1ga349dc6e8fe9e165ffaaf0329da6a3ca3" kindref="member">XDCFG_IXR_P2D_LEN_ERR_MASK</ref> |\
+		<ref refid="group__devcfg_1ga84c13cf9502fdc6e4b5aca232322eebb" kindref="member">XDCFG_IXR_PCFG_HMAC_ERR_MASK</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="214" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gad6bf5c4e495b1d96bf28c350983ca608" prot="public" static="no">
+        <name>XDCFG_IXR_ALL_MASK</name>
+        <initializer>0x00F7F8EF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="225" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Status Register Bit definitions</header>
+      <memberdef kind="define" id="group__devcfg_1ga48a0c155d061c98656101cb19a87f0a0" prot="public" static="no">
+        <name>XDCFG_STATUS_DMA_CMD_Q_F_MASK</name>
+        <initializer>0x80000000</initializer>
+        <briefdescription>
+<para>DMA command Queue full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="237" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="301" bodyend="-1"/>
+        <referencedby refid="xdevcfg__reg__readback__example_8c_1af9cf92cccf467028f2ac04b532a100c0" compoundref="xdevcfg__reg__readback__example_8c" startline="334" endline="419">XDcfg_GetConfigReg</referencedby>
+        <referencedby refid="xdevcfg__interrupt__example_8c_1a9af298cf6df14b196fb9f7c2fd6a74d3" compoundref="xdevcfg__interrupt__example_8c" startline="187" endline="336">XDcfg_IntrExample</referencedby>
+        <referencedby refid="group__devcfg_1gab3412c2881ffaa15fd3615770a4225a7" compoundref="xdevcfg_8c" startline="597" endline="615">XDcfg_IsDmaBusy</referencedby>
+        <referencedby refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" compoundref="xdevcfg__polled__example_8c" startline="164" endline="286">XDcfgPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gad26b8675cf6625f83b93e5d8f41f1065" prot="public" static="no">
+        <name>XDCFG_STATUS_DMA_CMD_Q_E_MASK</name>
+        <initializer>0x40000000</initializer>
+        <briefdescription>
+<para>DMA command Queue empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="240" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gaff5f9c1fa417a9544adf896282d205b9" prot="public" static="no">
+        <name>XDCFG_STATUS_DMA_DONE_CNT_MASK</name>
+        <initializer>0x30000000</initializer>
+        <briefdescription>
+<para>Number of completed DMA transfers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="244" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="311" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga78f9aed2cc9225155a3414f117519bf0" prot="public" static="no">
+        <name>XDCFG_STATUS_RX_FIFO_LVL_MASK</name>
+        <initializer>0x01F000000</initializer>
+        <briefdescription>
+<para>Rx FIFO level. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="245" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="318" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga5fafa4549ef417021328567aca7fa549" prot="public" static="no">
+        <name>XDCFG_STATUS_TX_FIFO_LVL_MASK</name>
+        <initializer>0x0007F000</initializer>
+        <briefdescription>
+<para>Tx FIFO level. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="246" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="319" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga3a8789bdbea24952f5301d75fcff272a" prot="public" static="no">
+        <name>XDCFG_STATUS_PSS_GTS_USR_B</name>
+        <initializer>0x00000800</initializer>
+        <briefdescription>
+<para>Tri-state IO during HIZ. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="321" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gab8f00411613dddd1742c39696388c3fc" prot="public" static="no">
+        <name>XDCFG_STATUS_PSS_FST_CFG_B</name>
+        <initializer>0x00000400</initializer>
+        <briefdescription>
+<para>First PL config done. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="253" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="326" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga4fb070b786553db7ff88deadab2bb6cb" prot="public" static="no">
+        <name>XDCFG_STATUS_PSS_GPWRDWN_B</name>
+        <initializer>0x00000200</initializer>
+        <briefdescription>
+<para>Global power down. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="254" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="331" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga339bdad1a39196eaef22c9453f60a6f1" prot="public" static="no">
+        <name>XDCFG_STATUS_PSS_GTS_CFG_B</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+<para>Tri-state IO during config. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="257" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="332" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga7e4cdd2d6218376746d4f73232b1935d" prot="public" static="no">
+        <name>XDCFG_STATUS_SECURE_RST_MASK</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>Secure Reset POR Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="260" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="337" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gad4508fc28f5b539b7214e239591809fd" prot="public" static="no">
+        <name>XDCFG_STATUS_ILLEGAL_APB_ACCESS_MASK</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>Illegal APB access. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="263" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="342" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga1568dc0a278536df9687278619c74474" prot="public" static="no">
+        <name>XDCFG_STATUS_PSS_CFG_RESET_B</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>PL config reset status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="266" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="347" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga2adb521e9dab8223c16f2ebbfccc830f" prot="public" static="no">
+        <name>XDCFG_STATUS_PCFG_INIT_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>FPGA Init Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="269" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="352" bodyend="-1"/>
+        <referencedby refid="group__devcfg_1ga5a7a69cfe6e10770f82089bdd277955d" compoundref="xdevcfg_8c" startline="767" endline="921">XDcfg_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gafb4c8340ab30a1cd2c683dd12c1e44eb" prot="public" static="no">
+        <name>XDCFG_STATUS_EFUSE_BBRAM_KEY_DISABLE_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>BBRAM key disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="270" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="357" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gacca94ac04133576c96fb1083d234638b" prot="public" static="no">
+        <name>XDCFG_STATUS_EFUSE_SEC_EN_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Efuse Security Enable Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="276" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="361" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gaaabb6a4426bae09df68669a1bec2b769" prot="public" static="no">
+        <name>XDCFG_STATUS_EFUSE_JTAG_DIS_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>EFuse JTAG Disable status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="280" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="366" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>DMA Source/Destination Transfer Length Register Bit definitions</header>
+      <memberdef kind="define" id="group__devcfg_1ga73f403fdc1d3a80ff519b9aa5d8902ff" prot="public" static="no">
+        <name>XDCFG_DMA_LEN_MASK</name>
+        <initializer>0x7FFFFFF</initializer>
+        <briefdescription>
+<para>Length Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="287" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="379" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Miscellaneous Control  Register Bit definitions</header>
+      <memberdef kind="define" id="group__devcfg_1gade09d0c3fb076a8e0849d9a6acddef46" prot="public" static="no">
+        <name>XDCFG_MCTRL_PCAP_PS_VERSION_MASK</name>
+        <initializer>0xF0000000</initializer>
+        <briefdescription>
+<para>PS Version Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="296" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="388" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga2578e62e3b1e6e9783f523779c6d8323" prot="public" static="no">
+        <name>XDCFG_MCTRL_PCAP_PS_VERSION_SHIFT</name>
+        <initializer>28</initializer>
+        <briefdescription>
+<para>PS Version Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="297" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="389" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gaa5d7d25bc3d66e24bce45553e863b731" prot="public" static="no">
+        <name>XDCFG_MCTRL_PCAP_LPBK_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>PCAP loopback mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="298" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="390" bodyend="-1"/>
+        <referencedby refid="group__devcfg_1ga995fb32dbac8a7899c9be66a8bf7d3d1" compoundref="xdevcfg__hw_8c" startline="59" endline="89">XDcfg_ResetHw</referencedby>
+        <referencedby refid="group__devcfg_1ga5a7a69cfe6e10770f82089bdd277955d" compoundref="xdevcfg_8c" startline="767" endline="921">XDcfg_Transfer</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>FIFO Threshold Bit definitions</header>
+      <memberdef kind="define" id="group__devcfg_1gaec5cdaff00256c1b1fcbb1fd4cefbd57" prot="public" static="no">
+        <name>XDCFG_CFG_FIFO_QUARTER</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+<para>Quarter empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="305" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="397" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga6d3a835786acfb7c150a51fea707af4e" prot="public" static="no">
+        <name>XDCFG_CFG_FIFO_HALF</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+<para>Half empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="306" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="398" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga302649f2eccc0c208558a667eeb3d31b" prot="public" static="no">
+        <name>XDCFG_CFG_FIFO_3QUARTER</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+<para>3/4 empty </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="307" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="399" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga4d79fa4095c652f0aaccc1eef6f11a3b" prot="public" static="no">
+        <name>XDCFG_CFG_FIFO_EMPTY</name>
+        <initializer>0x4</initializer>
+        <briefdescription>
+<para>Empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="308" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="400" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__devcfg_1ga0ef2314da900fbedf58a20f611078e7c" prot="public" static="no">
+        <name>XDCFG_HW_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga40ccdd2b121359e65b1f95e5f32be3d8" prot="public" static="no">
+        <name>XDCFG_DMA_INVALID_ADDRESS</name>
+        <initializer>0xFFFFFFFF</initializer>
+        <briefdescription>
+<para>Invalid DMA address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="313" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="405" bodyend="-1"/>
+        <referencedby refid="xdevcfg__reg__readback__example_8c_1af9cf92cccf467028f2ac04b532a100c0" compoundref="xdevcfg__reg__readback__example_8c" startline="334" endline="419">XDcfg_GetConfigReg</referencedby>
+        <referencedby refid="xdevcfg__interrupt__example_8c_1a9af298cf6df14b196fb9f7c2fd6a74d3" compoundref="xdevcfg__interrupt__example_8c" startline="187" endline="336">XDcfg_IntrExample</referencedby>
+        <referencedby refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" compoundref="xdevcfg__polled__example_8c" startline="164" endline="286">XDcfgPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga2830ab27372d4841a56ae22b06aa1f9a" prot="public" static="no">
+        <name>XDCFG_UNLOCK_DATA</name>
+        <initializer>0x757BDF0D</initializer>
+        <briefdescription>
+<para>First APB access data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="314" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="406" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gaadcf2bdbe1acce8ab95b0466da519088" prot="public" static="no">
+        <name>XDCFG_BASE_ADDRESS</name>
+        <initializer>0xF8007000</initializer>
+        <briefdescription>
+<para>Device Config base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="317" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="407" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1gaf9a1d48578faa2caf085c0d8d7f48897" prot="public" static="no">
+        <name>XDCFG_CONFIG_RESET_VALUE</name>
+        <initializer>0x508</initializer>
+        <briefdescription>
+<para>Config reg reset value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="318" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="412" bodyend="-1"/>
+        <referencedby refid="group__devcfg_1ga995fb32dbac8a7899c9be66a8bf7d3d1" compoundref="xdevcfg__hw_8c" startline="59" endline="89">XDcfg_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" prot="public" static="no">
+        <name>XDcfg_ReadReg</name>
+        <param><defname>BaseAddr</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32((BaseAddr) + (RegOffset))</initializer>
+        <briefdescription>
+<para>Read the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset to be read</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg(u32 BaseAddr, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="338" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="432" bodyend="-1"/>
+        <referencedby refid="group__devcfg_1gaeb69ef133b53618e896a4776b9e8f337" compoundref="xdevcfg_8c" startline="261" endline="277">XDcfg_ClearControlRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga7f73a84f734f2e1996a029d8e5934b9c" compoundref="xdevcfg_8c" startline="198" endline="214">XDcfg_DisablePCAP</referencedby>
+        <referencedby refid="group__devcfg_1gabb2094cb7d36f83c4c150a3b18e8aad0" compoundref="xdevcfg_8c" startline="167" endline="183">XDcfg_EnablePCAP</referencedby>
+        <referencedby refid="xdevcfg__reg__readback__example_8c_1af9cf92cccf467028f2ac04b532a100c0" compoundref="xdevcfg__reg__readback__example_8c" startline="334" endline="419">XDcfg_GetConfigReg</referencedby>
+        <referencedby refid="group__devcfg_1ga3b46b8db6ea49d8c066fefe0d137b2c9" compoundref="xdevcfg_8c" startline="405" endline="415">XDcfg_GetConfigRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga81a254369eea778c17c212cc95056c26" compoundref="xdevcfg_8c" startline="294" endline="306">XDcfg_GetControlRegister</referencedby>
+        <referencedby refid="group__devcfg_1gad3df072e27abfff9beb69cb09567a8c1" compoundref="xdevcfg_8c" startline="349" endline="361">XDcfg_GetLockRegister</referencedby>
+        <referencedby refid="group__devcfg_1gaee0dfc6838f33d700fc4b8a5549b0473" compoundref="xdevcfg_8c" startline="570" endline="582">XDcfg_GetMiscControlRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga5573651d2f14ff760e36d551a49fa919" compoundref="xdevcfg_8c" startline="511" endline="523">XDcfg_GetSoftwareIdRegister</referencedby>
+        <referencedby refid="group__devcfg_1gaaacacd5169ad7a79f09d08858f58dc8e" compoundref="xdevcfg_8c" startline="457" endline="469">XDcfg_GetStatusRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga3cb50f996ae2577642b7d1b91c33105f" compoundref="xdevcfg__intr_8c" startline="223" endline="253">XDcfg_InterruptHandler</referencedby>
+        <referencedby refid="group__devcfg_1gab7606b370c10d68d61402bed68955a80" compoundref="xdevcfg__intr_8c" startline="99" endline="118">XDcfg_IntrDisable</referencedby>
+        <referencedby refid="group__devcfg_1gab9c70f073e4522d6085c0059bc385aa9" compoundref="xdevcfg__intr_8c" startline="61" endline="80">XDcfg_IntrEnable</referencedby>
+        <referencedby refid="xdevcfg__interrupt__example_8c_1a9af298cf6df14b196fb9f7c2fd6a74d3" compoundref="xdevcfg__interrupt__example_8c" startline="187" endline="336">XDcfg_IntrExample</referencedby>
+        <referencedby refid="group__devcfg_1ga879fec56ba0f64d3b2128f11e2b022f0" compoundref="xdevcfg__intr_8c" startline="133" endline="146">XDcfg_IntrGetEnabled</referencedby>
+        <referencedby refid="group__devcfg_1ga9ed5382e8c80a2277816a4db98a1ec6f" compoundref="xdevcfg__intr_8c" startline="163" endline="176">XDcfg_IntrGetStatus</referencedby>
+        <referencedby refid="group__devcfg_1gab3412c2881ffaa15fd3615770a4225a7" compoundref="xdevcfg_8c" startline="597" endline="615">XDcfg_IsDmaBusy</referencedby>
+        <referencedby refid="group__devcfg_1ga995fb32dbac8a7899c9be66a8bf7d3d1" compoundref="xdevcfg__hw_8c" startline="59" endline="89">XDcfg_ResetHw</referencedby>
+        <referencedby refid="group__devcfg_1gacc8c10b5cc877595c1ade09e1a589296" compoundref="xdevcfg_8c" startline="230" endline="246">XDcfg_SetControlRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga2739b6bce23b6e02a9076c0eba8664d4" compoundref="xdevcfg_8c" startline="539" endline="555">XDcfg_SetMiscControlRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga5a7a69cfe6e10770f82089bdd277955d" compoundref="xdevcfg_8c" startline="767" endline="921">XDcfg_Transfer</referencedby>
+        <referencedby refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" compoundref="xdevcfg__polled__example_8c" startline="164" endline="286">XDcfgPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" prot="public" static="no">
+        <name>XDcfg_WriteReg</name>
+        <param><defname>BaseAddr</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32((BaseAddr) + (RegOffset), (Data))</initializer>
+        <briefdescription>
+<para>Write to the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset to be written </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg(u32 BaseAddr, u32 RegOffset, u32 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" line="356" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h" bodystart="450" bodyend="-1"/>
+        <referencedby refid="group__devcfg_1gaeb69ef133b53618e896a4776b9e8f337" compoundref="xdevcfg_8c" startline="261" endline="277">XDcfg_ClearControlRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga7f73a84f734f2e1996a029d8e5934b9c" compoundref="xdevcfg_8c" startline="198" endline="214">XDcfg_DisablePCAP</referencedby>
+        <referencedby refid="group__devcfg_1gabb2094cb7d36f83c4c150a3b18e8aad0" compoundref="xdevcfg_8c" startline="167" endline="183">XDcfg_EnablePCAP</referencedby>
+        <referencedby refid="group__devcfg_1gafda6d24be18657370c15e1e893a0ab05" compoundref="xdevcfg_8c" startline="642" endline="661">XDcfg_InitiateDma</referencedby>
+        <referencedby refid="group__devcfg_1ga3cb50f996ae2577642b7d1b91c33105f" compoundref="xdevcfg__intr_8c" startline="223" endline="253">XDcfg_InterruptHandler</referencedby>
+        <referencedby refid="group__devcfg_1gafff047d176ced3a255248219c1278e3b" compoundref="xdevcfg__intr_8c" startline="195" endline="207">XDcfg_IntrClear</referencedby>
+        <referencedby refid="group__devcfg_1gab7606b370c10d68d61402bed68955a80" compoundref="xdevcfg__intr_8c" startline="99" endline="118">XDcfg_IntrDisable</referencedby>
+        <referencedby refid="group__devcfg_1gab9c70f073e4522d6085c0059bc385aa9" compoundref="xdevcfg__intr_8c" startline="61" endline="80">XDcfg_IntrEnable</referencedby>
+        <referencedby refid="group__devcfg_1ga995fb32dbac8a7899c9be66a8bf7d3d1" compoundref="xdevcfg__hw_8c" startline="59" endline="89">XDcfg_ResetHw</referencedby>
+        <referencedby refid="group__devcfg_1ga89e1eef15fcfe06cd0e8d8dd7e804ad1" compoundref="xdevcfg_8c" startline="377" endline="387">XDcfg_SetConfigRegister</referencedby>
+        <referencedby refid="group__devcfg_1gacc8c10b5cc877595c1ade09e1a589296" compoundref="xdevcfg_8c" startline="230" endline="246">XDcfg_SetControlRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga1e0516cd9cdc5066e98e3c3c195c1d3c" compoundref="xdevcfg_8c" startline="322" endline="332">XDcfg_SetLockRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga2739b6bce23b6e02a9076c0eba8664d4" compoundref="xdevcfg_8c" startline="539" endline="555">XDcfg_SetMiscControlRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga332a5c7c856e8f6637cafaa3ec69eaca" compoundref="xdevcfg_8c" startline="485" endline="496">XDcfg_SetRomShadowRegister</referencedby>
+        <referencedby refid="group__devcfg_1gae7a3e8052f73c370990b77dae5751a36" compoundref="xdevcfg_8c" startline="430" endline="440">XDcfg_SetStatusRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga5a7a69cfe6e10770f82089bdd277955d" compoundref="xdevcfg_8c" startline="767" endline="921">XDcfg_Transfer</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__devcfg_1ga995fb32dbac8a7899c9be66a8bf7d3d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcfg_ResetHw</definition>
+        <argsstring>(u32 BaseAddr)</argsstring>
+        <name>XDcfg_ResetHw</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function perform the reset sequence to the given devcfg interface by configuring the appropriate control bits in the devcfg specific registers the devcfg reset sequence involves the following steps Disable all the interrupts Clear the status Update relevant config registers with reset values Disable the loopback mode and pcap rate enable. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of the interface</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A</para></simplesect>
+<simplesect kind="note"><para>This function will not modify the slcr registers that are relevant for devcfg controller </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.c" bodystart="59" bodyend="89"/>
+        <references refid="group__devcfg_1ga3fafe11b95af8da04f385c9313a6958b" compoundref="xdevcfg__hw_8h" startline="55">XDCFG_CFG_OFFSET</references>
+        <references refid="group__devcfg_1gaf9a1d48578faa2caf085c0d8d7f48897" compoundref="xdevcfg__hw_8h" startline="412">XDCFG_CONFIG_RESET_VALUE</references>
+        <references refid="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" compoundref="xdevcfg__hw_8h" startline="53">XDCFG_CTRL_OFFSET</references>
+        <references refid="group__devcfg_1ga16cb1e4072240a97799a685fad35234f" compoundref="xdevcfg__hw_8h" startline="88">XDCFG_CTRL_PCAP_RATE_EN_MASK</references>
+        <references refid="group__devcfg_1ga24e1d08d2aa66c6fe2a8be9086ef9a41" compoundref="xdevcfg__hw_8h" startline="60">XDCFG_DMA_DEST_ADDR_OFFSET</references>
+        <references refid="group__devcfg_1gaffc13cbb412f77e54b0ecf2f25e205ee" compoundref="xdevcfg__hw_8h" startline="62">XDCFG_DMA_DEST_LEN_OFFSET</references>
+        <references refid="group__devcfg_1ga18c6f2aab3a27da352296a1324ed73b4" compoundref="xdevcfg__hw_8h" startline="59">XDCFG_DMA_SRC_ADDR_OFFSET</references>
+        <references refid="group__devcfg_1gaaf9fa64a65762a428ba36bd38a80ab80" compoundref="xdevcfg__hw_8h" startline="61">XDCFG_DMA_SRC_LEN_OFFSET</references>
+        <references refid="group__devcfg_1ga15552ab3878c35ec94749ebed5247fe5" compoundref="xdevcfg__hw_8h" startline="57">XDCFG_INT_MASK_OFFSET</references>
+        <references refid="group__devcfg_1ga5abc2123bae0a1d3512d41be98ca477c" compoundref="xdevcfg__hw_8h" startline="56">XDCFG_INT_STS_OFFSET</references>
+        <references refid="group__devcfg_1ga80ad10863ac12916d347046e8263f5b2" compoundref="xdevcfg__hw_8h" startline="67">XDCFG_MCTRL_OFFSET</references>
+        <references refid="group__devcfg_1gaa5d7d25bc3d66e24bce45553e863b731" compoundref="xdevcfg__hw_8h" startline="390">XDCFG_MCTRL_PCAP_LPBK_MASK</references>
+        <references refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" compoundref="xdevcfg__hw_8h" startline="432">XDcfg_ReadReg</references>
+        <references refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" compoundref="xdevcfg__hw_8h" startline="450">XDcfg_WriteReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor">#ifndef<sp/>XDCFG_HW_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDCFG_HW_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53" refid="group__devcfg_1ga31ebfed655e59d8ee204b253e04ee024" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00<sp/></highlight></codeline>
+<codeline lineno="54" refid="group__devcfg_1gad126a845b17979d640cd2dd00eab29f9" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_LOCK_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04<sp/></highlight></codeline>
+<codeline lineno="55" refid="group__devcfg_1ga3fafe11b95af8da04f385c9313a6958b" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_CFG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08<sp/></highlight></codeline>
+<codeline lineno="56" refid="group__devcfg_1ga5abc2123bae0a1d3512d41be98ca477c" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_INT_STS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0C<sp/></highlight></codeline>
+<codeline lineno="57" refid="group__devcfg_1ga15552ab3878c35ec94749ebed5247fe5" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_INT_MASK_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10<sp/></highlight></codeline>
+<codeline lineno="58" refid="group__devcfg_1ga6646b7874a5c9cc7bcdba6072bb4ff72" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_STATUS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x14<sp/></highlight></codeline>
+<codeline lineno="59" refid="group__devcfg_1ga18c6f2aab3a27da352296a1324ed73b4" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_DMA_SRC_ADDR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x18<sp/></highlight></codeline>
+<codeline lineno="60" refid="group__devcfg_1ga24e1d08d2aa66c6fe2a8be9086ef9a41" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_DMA_DEST_ADDR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x1C<sp/></highlight></codeline>
+<codeline lineno="61" refid="group__devcfg_1gaaf9fa64a65762a428ba36bd38a80ab80" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_DMA_SRC_LEN_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20<sp/></highlight></codeline>
+<codeline lineno="62" refid="group__devcfg_1gaffc13cbb412f77e54b0ecf2f25e205ee" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_DMA_DEST_LEN_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x24<sp/></highlight></codeline>
+<codeline lineno="63" refid="group__devcfg_1ga895856e5cf4578a328a12bb0f0287826" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_ROM_SHADOW_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x28<sp/></highlight></codeline>
+<codeline lineno="64" refid="group__devcfg_1gafe5bf5a7eb6a4d2e8d5a7a9cc8f60d59" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_MULTIBOOT_ADDR_OFFSET<sp/><sp/><sp/><sp/><sp/>0x2C<sp/></highlight></codeline>
+<codeline lineno="65" refid="group__devcfg_1gad56285ef89202c084bad1724cc3f8df1" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_SW_ID_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x30<sp/></highlight></codeline>
+<codeline lineno="66" refid="group__devcfg_1ga7dfcf6697edba5f229b22fc33d614363" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_UNLOCK_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x34<sp/></highlight></codeline>
+<codeline lineno="67" refid="group__devcfg_1ga80ad10863ac12916d347046e8263f5b2" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_MCTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80<sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="75" refid="group__devcfg_1gac111c754b7a79aba4ad9d66beeaaddc8" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_CTRL_FORCE_RST_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80000000<sp/></highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor">#define<sp/>XDCFG_CTRL_PCFG_PROG_B_MASK<sp/><sp/><sp/><sp/><sp/>0x40000000<sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor">#define<sp/>XDCFG_CTRL_PCFG_POR_CNT_4K_MASK<sp/>0x20000000<sp/></highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor">#define<sp/>XDCFG_CTRL_PCAP_PR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08000000<sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor">#define<sp/>XDCFG_CTRL_PCAP_MODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04000000<sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor">#define<sp/>XDCFG_CTRL_PCAP_RATE_EN_MASK<sp/><sp/><sp/><sp/>0x02000000<sp/></highlight></codeline>
+<codeline lineno="88" refid="group__devcfg_1ga16cb1e4072240a97799a685fad35234f" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_CTRL_MULTIBOOT_EN_MASK<sp/><sp/><sp/><sp/>0x01000000<sp/></highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor">#define<sp/>XDCFG_CTRL_JTAG_CHAIN_DIS_MASK<sp/><sp/>0x00800000<sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor">#define<sp/>XDCFG_CTRL_USER_MODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00008000<sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor">#define<sp/>XDCFG_CTRL_PCFG_AES_FUSE_MASK<sp/><sp/><sp/>0x00001000<sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor">#define<sp/>XDCFG_CTRL_PCFG_AES_EN_MASK<sp/><sp/><sp/><sp/><sp/>0x00000E00<sp/></highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor">#define<sp/>XDCFG_CTRL_SEU_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000100<sp/></highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor">#define<sp/>XDCFG_CTRL_SEC_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000080<sp/></highlight></codeline>
+<codeline lineno="97" refid="group__devcfg_1gadf49fc564c0c61b6511a171eb045e0a5" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_CTRL_SPNIDEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040<sp/></highlight></codeline>
+<codeline lineno="100" refid="group__devcfg_1gac75c8af80babda8c6387d5b9f83e63b5" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_CTRL_SPIDEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020<sp/></highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor">#define<sp/>XDCFG_CTRL_NIDEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010<sp/></highlight></codeline>
+<codeline lineno="106" refid="group__devcfg_1ga62d4f8110807f2ebbb148de931990a82" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_CTRL_DBGEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/></highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor">#define<sp/>XDCFG_CTRL_DAP_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000007<sp/></highlight></codeline>
+<codeline lineno="111" refid="group__devcfg_1ga0bc4a40162eccf50446c13b41a5deae6" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor">#define<sp/>XDCFG_LOCK_AES_EFUSE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010<sp/></highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor">#define<sp/>XDCFG_LOCK_AES_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/></highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor">#define<sp/>XDCFG_LOCK_SEU_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor">#define<sp/>XDCFG_LOCK_SEC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/></highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor">#define<sp/>XDCFG_LOCK_DBG_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136" refid="group__devcfg_1ga245a296585dd3c08615b96a319e75026" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_CFG_RFIFO_TH_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000C00<sp/></highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor">#define<sp/>XDCFG_CFG_WFIFO_TH_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000300<sp/></highlight></codeline>
+<codeline lineno="142" refid="group__devcfg_1ga02c2ca7416d5d3f208a15ca865f33f40" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_CFG_RCLK_EDGE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000080<sp/></highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor">#define<sp/>XDCFG_CFG_WCLK_EDGE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040<sp/></highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor">#define<sp/>XDCFG_CFG_DISABLE_SRC_INC_MASK<sp/><sp/>0x00000020<sp/></highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor">#define<sp/>XDCFG_CFG_DISABLE_DST_INC_MASK<sp/><sp/>0x00000010<sp/></highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor">#define<sp/>XDCFG_IXR_PSS_GTS_USR_B_MASK<sp/><sp/><sp/><sp/>0x80000000<sp/></highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor">#define<sp/>XDCFG_IXR_PSS_FST_CFG_B_MASK<sp/><sp/><sp/><sp/>0x40000000<sp/></highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor">#define<sp/>XDCFG_IXR_PSS_GPWRDWN_B_MASK<sp/><sp/><sp/><sp/>0x20000000<sp/></highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor">#define<sp/>XDCFG_IXR_PSS_GTS_CFG_B_MASK<sp/><sp/><sp/><sp/>0x10000000<sp/></highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor">#define<sp/>XDCFG_IXR_PSS_CFG_RESET_B_MASK<sp/><sp/>0x08000000<sp/></highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor">#define<sp/>XDCFG_IXR_AXI_WTO_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00800000<sp/></highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor">#define<sp/>XDCFG_IXR_AXI_WERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00400000<sp/></highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor">#define<sp/>XDCFG_IXR_AXI_RTO_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00200000<sp/></highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor">#define<sp/>XDCFG_IXR_AXI_RERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00100000<sp/></highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor">#define<sp/>XDCFG_IXR_RX_FIFO_OV_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00040000<sp/></highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor">#define<sp/>XDCFG_IXR_WR_FIFO_LVL_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00020000<sp/></highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor">#define<sp/>XDCFG_IXR_RD_FIFO_LVL_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00010000<sp/></highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor">#define<sp/>XDCFG_IXR_DMA_CMD_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00008000<sp/></highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor">#define<sp/>XDCFG_IXR_DMA_Q_OV_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00004000<sp/></highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor">#define<sp/>XDCFG_IXR_DMA_DONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00002000<sp/></highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor">#define<sp/>XDCFG_IXR_D_P_DONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001000<sp/></highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor">#define<sp/>XDCFG_IXR_P2D_LEN_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000800<sp/></highlight></codeline>
+<codeline lineno="203" refid="group__devcfg_1gad806a28b37776eb5714cca5e47ebf51a" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_IXR_PCFG_HMAC_ERR_MASK<sp/><sp/><sp/><sp/>0x00000040<sp/></highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor">#define<sp/>XDCFG_IXR_PCFG_SEU_ERR_MASK<sp/><sp/><sp/><sp/><sp/>0x00000020<sp/></highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor">#define<sp/>XDCFG_IXR_PCFG_POR_B_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010<sp/></highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor">#define<sp/>XDCFG_IXR_PCFG_CFG_RST_MASK<sp/><sp/><sp/><sp/><sp/>0x00000008<sp/></highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor">#define<sp/>XDCFG_IXR_PCFG_DONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="208" refid="group__devcfg_1gaae0cdad7bf3b52dbf8fa6009492257e5" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_IXR_PCFG_INIT_PE_MASK<sp/><sp/><sp/><sp/><sp/>0x00000002<sp/></highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor">#define<sp/>XDCFG_IXR_PCFG_INIT_NE_MASK<sp/><sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="214" refid="group__devcfg_1ga36eedd2831c6dae36cd432921d34b5f0" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_IXR_ERROR_FLAGS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XDCFG_IXR_AXI_WTO_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCFG_IXR_AXI_WERR_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCFG_IXR_AXI_RTO_MASK<sp/>|<sp/><sp/>\</highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCFG_IXR_AXI_RERR_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCFG_IXR_RX_FIFO_OV_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="219" refid="group__devcfg_1gaf276d56385dd1326c99d5c70640458b8" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCFG_IXR_DMA_CMD_ERR_MASK<sp/>|\</highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCFG_IXR_DMA_Q_OV_MASK<sp/>|<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCFG_IXR_P2D_LEN_ERR_MASK<sp/>|\</highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCFG_IXR_PCFG_HMAC_ERR_MASK)</highlight></codeline>
+<codeline lineno="223"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDCFG_IXR_ALL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00F7F8EF</highlight></codeline>
+<codeline lineno="226" refid="group__devcfg_1gaebe4d8aa713686020c2df8ef52f52486" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231" refid="group__devcfg_1ga82b988804f908861e58f6c8409fb61dc" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="preprocessor">#define<sp/>XDCFG_STATUS_DMA_CMD_Q_F_MASK<sp/><sp/><sp/>0x80000000<sp/></highlight></codeline>
+<codeline lineno="238"><highlight class="preprocessor">#define<sp/>XDCFG_STATUS_DMA_CMD_Q_E_MASK<sp/><sp/><sp/>0x40000000<sp/></highlight></codeline>
+<codeline lineno="241" refid="group__devcfg_1gafd279fe5c6af5cb49cb22efe8487288b" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_STATUS_DMA_DONE_CNT_MASK<sp/><sp/>0x30000000<sp/></highlight></codeline>
+<codeline lineno="245" refid="group__devcfg_1ga8d2b8bff7a8acef986264a348153d7ec" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_STATUS_RX_FIFO_LVL_MASK<sp/><sp/><sp/>0x01F000000<sp/></highlight></codeline>
+<codeline lineno="246"><highlight class="preprocessor">#define<sp/>XDCFG_STATUS_TX_FIFO_LVL_MASK<sp/><sp/><sp/>0x0007F000<sp/><sp/></highlight></codeline>
+<codeline lineno="248" refid="group__devcfg_1gadd33fcf28c9438e3a23e21571e9cc196" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_STATUS_PSS_GTS_USR_B<sp/><sp/><sp/><sp/><sp/><sp/>0x00000800<sp/><sp/></highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor">#define<sp/>XDCFG_STATUS_PSS_FST_CFG_B<sp/><sp/><sp/><sp/><sp/><sp/>0x00000400<sp/><sp/></highlight></codeline>
+<codeline lineno="254" refid="group__devcfg_1ga219beab8ecbdaa4e74c8d130b94e4ae0" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_STATUS_PSS_GPWRDWN_B<sp/><sp/><sp/><sp/><sp/><sp/>0x00000200<sp/><sp/></highlight></codeline>
+<codeline lineno="255" refid="group__devcfg_1gae46a37df60109876c5f96d62dc6b9f78" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_STATUS_PSS_GTS_CFG_B<sp/><sp/><sp/><sp/><sp/><sp/>0x00000100<sp/><sp/></highlight></codeline>
+<codeline lineno="258"><highlight class="preprocessor">#define<sp/>XDCFG_STATUS_SECURE_RST_MASK<sp/><sp/><sp/><sp/>0x00000080<sp/><sp/></highlight></codeline>
+<codeline lineno="261"><highlight class="preprocessor">#define<sp/>XDCFG_STATUS_ILLEGAL_APB_ACCESS_MASK<sp/><sp/><sp/><sp/>0x00000040<sp/></highlight></codeline>
+<codeline lineno="264"><highlight class="preprocessor">#define<sp/>XDCFG_STATUS_PSS_CFG_RESET_B<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020<sp/></highlight></codeline>
+<codeline lineno="267" refid="group__devcfg_1gafddabfd06735e901077dcb54ac83e23a" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_STATUS_PCFG_INIT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010<sp/></highlight></codeline>
+<codeline lineno="270" refid="group__devcfg_1gaa818ba9c2de5717835e855fba4756dce" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_STATUS_EFUSE_BBRAM_KEY_DISABLE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008</highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="274"><highlight class="preprocessor">#define<sp/>XDCFG_STATUS_EFUSE_SEC_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="277"><highlight class="preprocessor">#define<sp/>XDCFG_STATUS_EFUSE_JTAG_DIS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/></highlight></codeline>
+<codeline lineno="281"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="282"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="preprocessor">#define<sp/>XDCFG_DMA_LEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7FFFFFF<sp/></highlight></codeline>
+<codeline lineno="289"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="290"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="preprocessor">#define<sp/>XDCFG_MCTRL_PCAP_PS_VERSION_MASK<sp/><sp/>0xF0000000<sp/></highlight></codeline>
+<codeline lineno="297"><highlight class="preprocessor">#define<sp/>XDCFG_MCTRL_PCAP_PS_VERSION_SHIFT<sp/>28<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="298"><highlight class="preprocessor">#define<sp/>XDCFG_MCTRL_PCAP_LPBK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010<sp/></highlight></codeline>
+<codeline lineno="299"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="300"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="305"><highlight class="preprocessor">#define<sp/>XDCFG_CFG_FIFO_QUARTER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="306" refid="group__devcfg_1gad26b8675cf6625f83b93e5d8f41f1065" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_CFG_FIFO_HALF<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="307"><highlight class="preprocessor">#define<sp/>XDCFG_CFG_FIFO_3QUARTER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="308"><highlight class="preprocessor">#define<sp/>XDCFG_CFG_FIFO_EMPTY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="309"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="310"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="311" refid="group__devcfg_1gaff5f9c1fa417a9544adf896282d205b9" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Miscellaneous<sp/>constant<sp/>values<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDCFG_DMA_INVALID_ADDRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFFFFFF<sp/><sp/></highlight></codeline>
+<codeline lineno="314"><highlight class="preprocessor">#define<sp/>XDCFG_UNLOCK_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x757BDF0D<sp/><sp/></highlight></codeline>
+<codeline lineno="315"><highlight class="preprocessor">#define<sp/>XDCFG_BASE_ADDRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF8007000<sp/><sp/></highlight></codeline>
+<codeline lineno="318" refid="group__devcfg_1ga78f9aed2cc9225155a3414f117519bf0" refkind="member"><highlight class="preprocessor">#define<sp/>XDCFG_CONFIG_RESET_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x508<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="320"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="321" refid="group__devcfg_1ga3a8789bdbea24952f5301d75fcff272a" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="338"><highlight class="preprocessor">#define<sp/>XDcfg_ReadReg(BaseAddr,<sp/>RegOffset)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="339"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32((BaseAddr)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="340"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="356"><highlight class="preprocessor">#define<sp/>XDcfg_WriteReg(BaseAddr,<sp/>RegOffset,<sp/>Data)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="357" refid="group__devcfg_1gafb4c8340ab30a1cd2c683dd12c1e44eb" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32((BaseAddr)<sp/>+<sp/>(RegOffset),<sp/>(Data))</highlight></codeline>
+<codeline lineno="358"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="359"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="361" refid="group__devcfg_1gacca94ac04133576c96fb1083d234638b" refkind="member"><highlight class="comment"><sp/>*<sp/>Perform<sp/>reset<sp/>operation<sp/>to<sp/>the<sp/>devcfg<sp/>interface</highlight></codeline>
+<codeline lineno="362"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__devcfg_1ga995fb32dbac8a7899c9be66a8bf7d3d1" kindref="member">XDcfg_ResetHw</ref>(u32<sp/>BaseAddr);</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight></codeline>
+<codeline lineno="366" refid="group__devcfg_1gaaabb6a4426bae09df68669a1bec2b769" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="367"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="369"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="371"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_hw.h"/>
+  </compounddef>
+</doxygen>

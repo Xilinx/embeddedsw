@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_traf_gen___cmd" kind="struct" prot="public">
+    <compoundname>XTrafGen_Cmd</compoundname>
+    <includes local="no">xtrafgen.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_traf_gen___cmd_1ad9231ba1f718b9a9511f1a3ea863bca1" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_traf_gen___c_ram_cmd" kindref="compound">XTrafGen_CRamCmd</ref></type>
+        <definition>XTrafGen_CRamCmd XTrafGen_Cmd::CRamCmd</definition>
+        <argsstring></argsstring>
+        <name>CRamCmd</name>
+        <briefdescription>
+<para>Command RAM struct. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="290" bodyend="-1"/>
+        <referencedby refid="group__trafgen_1ga39eaea669c1ff2df58e54c002b43f854" compoundref="xtrafgen_8c" startline="191" endline="240">XTrafGen_AddCommand</referencedby>
+        <referencedby refid="xtrafgen__interrupt__example_8c_1a75a5cad222d5705d42542e2e8922350f" compoundref="xtrafgen__interrupt__example_8c" startline="255" endline="450">XTrafGenInterruptExample</referencedby>
+        <referencedby refid="xtrafgen__polling__example_8c_1a4a65ec7d0aaeb93bcd943db204bd16ae" compoundref="xtrafgen__polling__example_8c" startline="205" endline="375">XTrafGenPollingExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___cmd_1acf553c62f6e6686c7bd0818d4ef44d73" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_traf_gen___p_ram_cmd" kindref="compound">XTrafGen_PRamCmd</ref></type>
+        <definition>XTrafGen_PRamCmd XTrafGen_Cmd::PRamCmd</definition>
+        <argsstring></argsstring>
+        <name>PRamCmd</name>
+        <briefdescription>
+<para>Param RAM struct. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___cmd_1a6c452068b7aac042b11056897c6da2c7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XTrafGen_Cmd::RdWrFlag</definition>
+        <argsstring></argsstring>
+        <name>RdWrFlag</name>
+        <briefdescription>
+<para>Write/Read region? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="293" bodyend="-1"/>
+        <referencedby refid="group__trafgen_1ga39eaea669c1ff2df58e54c002b43f854" compoundref="xtrafgen_8c" startline="191" endline="240">XTrafGen_AddCommand</referencedby>
+        <referencedby refid="xtrafgen__interrupt__example_8c_1a75a5cad222d5705d42542e2e8922350f" compoundref="xtrafgen__interrupt__example_8c" startline="255" endline="450">XTrafGenInterruptExample</referencedby>
+        <referencedby refid="xtrafgen__polling__example_8c_1a4a65ec7d0aaeb93bcd943db204bd16ae" compoundref="xtrafgen__polling__example_8c" startline="205" endline="375">XTrafGenPollingExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Command structure exposed to user. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure should be updated by user with required configuration </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="6">
+        <label>XTrafGen_Cmd</label>
+        <link refid="struct_x_traf_gen___cmd"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>PRamCmd</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>CRamCmd</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>XTrafGen_PRamCmd</label>
+        <link refid="struct_x_traf_gen___p_ram_cmd"/>
+      </node>
+      <node id="8">
+        <label>XTrafGen_CRamCmd</label>
+        <link refid="struct_x_traf_gen___c_ram_cmd"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="289" bodyend="294"/>
+    <listofallmembers>
+      <member refid="struct_x_traf_gen___cmd_1ad9231ba1f718b9a9511f1a3ea863bca1" prot="public" virt="non-virtual"><scope>XTrafGen_Cmd</scope><name>CRamCmd</name></member>
+      <member refid="struct_x_traf_gen___cmd_1acf553c62f6e6686c7bd0818d4ef44d73" prot="public" virt="non-virtual"><scope>XTrafGen_Cmd</scope><name>PRamCmd</name></member>
+      <member refid="struct_x_traf_gen___cmd_1a6c452068b7aac042b11056897c6da2c7" prot="public" virt="non-virtual"><scope>XTrafGen_Cmd</scope><name>RdWrFlag</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

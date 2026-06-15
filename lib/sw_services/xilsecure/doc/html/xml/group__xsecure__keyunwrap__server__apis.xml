@@ -1,0 +1,272 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xsecure__keyunwrap__server__apis" kind="group">
+    <compoundname>xsecure_keyunwrap_server_apis</compoundname>
+    <title>XilSecure Key Unwrap Server APIs</title>
+    <innerclass refid="struct_x_secure___key_store_hdr" prot="public">XSecure_KeyStoreHdr</innerclass>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xsecure__keyunwrap__server__apis_1gafc1c4ea50211842694aca472cfe1afe8" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 UpdatedFreeKeySlot</definition>
+        <argsstring></argsstring>
+        <name>UpdatedFreeKeySlot</name>
+        <initializer>= 0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__keyunwrap__server__apis_1gac58e24b4dbc2b9a919f12118b1b69891" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_UpdateKeySlotStatusAddr</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_UpdateKeySlotStatusAddr</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function updates the key free slot status address. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success.</para></listitem><listitem><para>XSECURE_ERR_KEY_STORE_SIZE - If key store size is invalid.</para></listitem><listitem><para>XSECURE_ERR_NO_FREE_KEY_SLOT - If there is no free key slot.</para></listitem><listitem><para>XST_FAILURE - On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Check if the key store size is valid</para></listitem><listitem><para>Calculate the starting address of the free key slot status</para></listitem><listitem><para>Iterate through the key slots to find a free slot</para></listitem><listitem><para>Move to the next slot</para></listitem><listitem><para>Wrap around if the end of the key store is reached </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="106" bodyend="150"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__keyunwrap__server__apis_1ga452b64be2eecb9bcc03842ae7a715c92" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_MarkKeySlotOccupied</definition>
+        <argsstring>(u64 KeySlotStatusAddr)</argsstring>
+        <name>XSecure_MarkKeySlotOccupied</name>
+        <param>
+          <type>u64</type>
+          <declname>KeySlotStatusAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function updates the key slot id as in use. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>KeySlotStatusAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Key slot status address to be updated </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="159" bodyend="168"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_KeyUnwrap</definition>
+        <argsstring>(XSecure_KeyWrapData *KeyWrapData)</argsstring>
+        <name>XSecure_KeyUnwrap</name>
+        <param>
+          <type><ref refid="struct_x_secure___key_wrap_data" kindref="compound">XSecure_KeyWrapData</ref> *</type>
+          <declname>KeyWrapData</declname>
+        </param>
+        <briefdescription>
+<para>This function unwraps the given wrapped key and stores it along with metadata in Shared address between PMC and secure shell. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>KeyWrapData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_secure___key_wrap_data" kindref="compound">XSecure_KeyWrapData</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success.</para></listitem><listitem><para>XST_INVALID_PARAM - If any input parameter is invalid.</para></listitem><listitem><para>XSECURE_ERR_KEY_WRAP_SIZE_MISMATCH - If wrapped key size is invalid.</para></listitem><listitem><para>XSECURE_ERR_AES_KEY_SIZE_NOT_SUPPORTED - If AES key size is invalid.</para></listitem><listitem><para>XST_FAILURE - On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Check for free key slot and update Key slot status address</para></listitem><listitem><para>Get destination key slot address by using free key slot value</para></listitem><listitem><para>Copy wrapped rsa key to local buffer</para></listitem><listitem><para>Update the key slot with metadata</para></listitem><listitem><para>Clear the ephemeral AES key after the usage</para></listitem><listitem><para>Clear the ephemeral AES key after the usage </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="185" bodyend="283"/>
+        <references refid="struct_x_secure___rsa_oaep_param_1aec83801a64f9afa4244ceb8900611946" compoundref="xsecure__plat__rsa_8h" startline="109">XSecure_RsaOaepParam::InputDataAddr</references>
+        <references refid="struct_x_secure___key_wrap_data_1a0a05d1878b7e0de78a277e45d387849f" compoundref="net_2xsecure__plat__defs_8h" startline="325">XSecure_KeyWrapData::KeyMetaData</references>
+        <references refid="struct_x_secure___key_wrap_data_1a857f11d7fff5dfda00d6720ca658fdd4" compoundref="net_2xsecure__plat__defs_8h" startline="326">XSecure_KeyWrapData::KeyWrapAddr</references>
+        <references refid="struct_x_secure___rsa_oaep_param_1aa512ea4ccd203ba5598c4de743b12d79" compoundref="xsecure__plat__rsa_8h" startline="110">XSecure_RsaOaepParam::OutputDataAddr</references>
+        <references refid="struct_x_secure___rsa_oaep_param_1abc732af71d66ec9a66a84abf44c52749" compoundref="xsecure__plat__rsa_8h" startline="113">XSecure_RsaOaepParam::OutputDataSize</references>
+        <references refid="struct_x_secure___rsa_oaep_param_1af3ada34163356c6f6dabaf1217119829" compoundref="xsecure__plat__rsa_8h" startline="115">XSecure_RsaOaepParam::ShaInstancePtr</references>
+        <references refid="struct_x_secure___rsa_oaep_param_1a08d92ae0a9bc81faf738335de219ee13" compoundref="xsecure__plat__rsa_8h" startline="116">XSecure_RsaOaepParam::ShaType</references>
+        <references refid="struct_x_secure___key_wrap_data_1ae0859090b231e6cdb8541514ace52cff" compoundref="net_2xsecure__plat__defs_8h" startline="327">XSecure_KeyWrapData::TotalWrappedKeySize</references>
+        <references refid="group__xsecure__keyunwrap__server__apis_1gaaa701b146b5ca0fcc10c4540285282dd" compoundref="xsecure__keyunwrap_8c" startline="65">XSECURE_AES_128BIT_KEY_BLOCK_SIZE</references>
+        <references refid="group__xsecure__keyunwrap__server__apis_1ga7a1499e52c8b2b547996df177d08dad4" compoundref="xsecure__keyunwrap_8c" startline="64">XSECURE_AES_256BIT_KEY_BLOCK_SIZE</references>
+        <references refid="group__xsecure__aes__server__apis_1gaa26b61acf33b45fed961e0e3a59f7baa" compoundref="xsecure__plat__aes_8h" startline="44">XSECURE_AES_64BIT_BLOCK_SIZE</references>
+        <references refid="group__xsecure__aes__server__apis_1gga55cd9d64e04cce6a57d729b67a5f0c47a2e5b9343d2f9cc0e355b413d6a3848e3" compoundref="xsecure__aesclient_8h" startline="82">XSECURE_AES_KEY_SIZE_128</references>
+        <references refid="group__xsecure__aes__server__apis_1ga4da9ead453ef1dbeebefeebb377eb94d" compoundref="xsecure__plat__aes_8c" startline="211" endline="345">XSecure_AesKeyUnwrap</references>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57af10eedc347b4d363632e86345fcde6c5" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="353">XSECURE_ERR_AES_KEY_SIZE_NOT_SUPPORTED</references>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57ae88263cbf5cdde15b1c36b2a6b4f069c" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="351">XSECURE_ERR_KEY_WRAP_SIZE_MISMATCH</references>
+        <references refid="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" compoundref="xsecure__init_8c" startline="216" endline="221">XSecure_GetAesInstance</references>
+        <references refid="group__xsecure__rsa__server__apis_1gabc66468fdd66a559fa567f631fbae91c" compoundref="xsecure__plat__rsa_8c" startline="542" endline="551">XSecure_GetRsaKeyInUseIdx</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga76632037ef8961e99b8b9b210d5f75f1" compoundref="xsecure__plat__rsa_8c" startline="731" endline="741">XSecure_GetRsaPrivateKey</references>
+        <references refid="group__xsecure__keyunwrap__server__apis_1ga2efa8fafebaafb641f8472d5b840b032" compoundref="xsecure__keyunwrap_8c" startline="70">XSECURE_KEY_SLOT_KEY_ADDR</references>
+        <references refid="group__xsecure__keyunwrap__server__apis_1ga6a82817e5b3bf270ed1e31200603742f" compoundref="xsecure__keyunwrap_8c" startline="63">XSECURE_KEY_STORE_KEY_OFFSET</references>
+        <references refid="group__xsecure__utils__apis_1ga0e0f4c7d8c32b8c6d680553e068f4614" compoundref="spartanup_2xsecure__utils_8c" startline="74" endline="95">XSecure_MemCpy64</references>
+        <references refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="684" endline="699">XSecure_MemCpyAndChangeEndianness</references>
+        <references refid="group__xsecure__rsa__server__apis_1gaef98b03d932368574ec1123184b9a9e4" compoundref="xsecure__plat__rsa_8h" startline="68">XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga7fe869dab6a634c2866f9ec26ee8cec0" compoundref="xsecure__plat__rsa_8c" startline="346" endline="378">XSecure_RsaOaepDecrypt</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__keyunwrap__server__apis_1ga9ca0cf20d44fa54519566ff4360154f0" prot="public" static="no">
+        <name>XSECURE_MAX_KEY_STORE_CAPACTIY</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>Maximum key store capacity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__keyunwrap__server__apis_1gaacb4b7c562037f76ce135fd2659024b4" prot="public" static="no">
+        <name>XSECURE_SHARED_KEY_STORE_SIZE_OFFSET</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Key size offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__keyunwrap__server__apis_1ga6a82817e5b3bf270ed1e31200603742f" prot="public" static="no">
+        <name>XSECURE_KEY_STORE_KEY_OFFSET</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Key offset from key slot status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__keyunwrap__server__apis_1ga7a1499e52c8b2b547996df177d08dad4" prot="public" static="no">
+        <name>XSECURE_AES_256BIT_KEY_BLOCK_SIZE</name>
+        <initializer>(40U)</initializer>
+        <briefdescription>
+<para>AES 256-bit key block size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__keyunwrap__server__apis_1gaaa701b146b5ca0fcc10c4540285282dd" prot="public" static="no">
+        <name>XSECURE_AES_128BIT_KEY_BLOCK_SIZE</name>
+        <initializer>(24U)</initializer>
+        <briefdescription>
+<para>AES 128-bit key block size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__keyunwrap__server__apis_1ga6e1d11a69ab8605cea40a370c6bacb07" prot="public" static="no">
+        <name>XSECURE_AES_KEY_SLOT_STATUS_FULL</name>
+        <initializer>(0x973AFB51U)</initializer>
+        <briefdescription>
+<para>AES key status is full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__keyunwrap__server__apis_1gaf5933fbb351b26d7031309c0faa02f74" prot="public" static="no">
+        <name>XSECURE_KEY_SLOT_KEY_STATUS_ADDR</name>
+        <initializer>(<ref refid="group__xsecure__keyunwrap__server__apis_1ga246507e2a1fe8390725754ef5bcc70b0" kindref="member">XSECURE_KEY_STORE_ADDR</ref> + \
+						sizeof(XSecure_KeyStoreHdr))</initializer>
+        <briefdescription>
+<para>Key slot status address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__keyunwrap__server__apis_1ga2efa8fafebaafb641f8472d5b840b032" prot="public" static="no">
+        <name>XSECURE_KEY_SLOT_KEY_ADDR</name>
+        <initializer>(<ref refid="group__xsecure__keyunwrap__server__apis_1gaf5933fbb351b26d7031309c0faa02f74" kindref="member">XSECURE_KEY_SLOT_KEY_STATUS_ADDR</ref> + \
+						<ref refid="group__xsecure__keyunwrap__server__apis_1ga6a82817e5b3bf270ed1e31200603742f" kindref="member">XSECURE_KEY_STORE_KEY_OFFSET</ref>)</initializer>
+        <briefdescription>
+<para>Key address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__keyunwrap__server__apis_1ga5aef52db2a9ff32fb8d525f20fef1d2f" prot="public" static="no">
+        <name>XSECURE_KEY_STORE_KEY_WRAP_DATA_SIZE</name>
+        <initializer>(<ref refid="group__xsecure__keyunwrap__server__apis_1ga6a82817e5b3bf270ed1e31200603742f" kindref="member">XSECURE_KEY_STORE_KEY_OFFSET</ref> + \
+						 sizeof(<ref refid="struct_x_secure___key_meta_data" kindref="compound">XSecure_KeyMetaData</ref>) + \
+						 XSECURE_AES_KEY_SIZE_256BIT_BYTES)</initializer>
+        <briefdescription>
+<para>Key wrap data size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__keyunwrap__server__apis_1ga246507e2a1fe8390725754ef5bcc70b0" prot="public" static="no">
+        <name>XSECURE_KEY_STORE_ADDR</name>
+        <initializer>(0x00000000U)</initializer>
+        <briefdescription>
+<para>Key store address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__keyunwrap__server__apis_1ga2ff2d165519f5d20f3a1715e14e2b35b" prot="public" static="no">
+        <name>XSECURE_KEYUNWRAP_MODULE_MAJOR_VERSION</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>Key Unwrap module major version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_server_keyunwrapalginfo.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_server_keyunwrapalginfo.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__keyunwrap__server__apis_1ga476aa69cf3f2fa3d722389cd751829c7" prot="public" static="no">
+        <name>XSECURE_KEYUNWRAP_MODULE_MINOR_VERSION</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Key Unwrap module minor version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_server_keyunwrapalginfo.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_server_keyunwrapalginfo.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

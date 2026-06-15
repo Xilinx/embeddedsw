@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xtmrctr__selftest_8c" kind="file">
+    <compoundname>xtmrctr_selftest.c</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <includes refid="xtmrctr_8h" local="yes">xtmrctr.h</includes>
+    <includes refid="xtmrctr__i_8h" local="yes">xtmrctr_i.h</includes>
+    <incdepgraph>
+      <node id="164">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="166">
+        <label>xtmrctr_l.h</label>
+        <link refid="xtmrctr__l_8h"/>
+        <childnode refid="163" relation="include">
+        </childnode>
+        <childnode refid="161" relation="include">
+        </childnode>
+      </node>
+      <node id="161">
+        <label>xil_io.h</label>
+      </node>
+      <node id="160">
+        <label>xtmrctr_selftest.c</label>
+        <link refid="xtmrctr_selftest.c"/>
+        <childnode refid="161" relation="include">
+        </childnode>
+        <childnode refid="162" relation="include">
+        </childnode>
+        <childnode refid="167" relation="include">
+        </childnode>
+      </node>
+      <node id="165">
+        <label>xstatus.h</label>
+      </node>
+      <node id="163">
+        <label>xil_types.h</label>
+      </node>
+      <node id="167">
+        <label>xtmrctr_i.h</label>
+        <link refid="xtmrctr__i_8h"/>
+        <childnode refid="163" relation="include">
+        </childnode>
+      </node>
+      <node id="162">
+        <label>xtmrctr.h</label>
+        <link refid="xtmrctr_8h"/>
+        <childnode refid="163" relation="include">
+        </childnode>
+        <childnode refid="164" relation="include">
+        </childnode>
+        <childnode refid="165" relation="include">
+        </childnode>
+        <childnode refid="166" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___overview_1ga42b972b6d7ae5d18a9bb2ca99446b1e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XTmrCtr_SelfTest</definition>
+        <argsstring>(XTmrCtr *InstancePtr, u8 TmrCtrNumber)</argsstring>
+        <name>XTmrCtr_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_tmr_ctr" kindref="compound">XTmrCtr</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>TmrCtrNumber</declname>
+        </param>
+        <briefdescription>
+<para>Runs a self-test on the driver/device. </para>        </briefdescription>
+        <detaileddescription>
+<para>This test verifies that the specified timer counter of the device can be enabled and increments.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_tmr_ctr" kindref="compound">XTmrCtr</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TmrCtrNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the timer counter of the device to operate on. Each device may contain multiple timer counters. The timer number is a zero based number with a range of 0 - (XTC_DEVICE_TIMER_COUNT - 1).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if self-test was successful</para></listitem></itemizedlist>
+</para></simplesect>
+<itemizedlist>
+<listitem><para>XST_FAILURE if the timer is not incrementing.</para></listitem></itemizedlist>
+</para><para><simplesect kind="note"><para></para></simplesect>
+This is a destructive test using the provided timer. The current settings of the timer are returned to the initialized values and all settings at the time this function is called are overwritten. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_selftest.c" bodystart="73" bodyend="138"/>
+        <references refid="struct_x_tmr_ctr_1a2c1369a4e70206c5abb620c8fa387551" compoundref="xtmrctr_8h" startline="263">XTmrCtr::BaseAddress</references>
+        <references refid="struct_x_tmr_ctr_1a6e340e798d785abfe551a776fd6f7bb9" compoundref="xtmrctr_8h" startline="264">XTmrCtr::IsReady</references>
+        <references refid="group___overview_1gaa7cbbacf96f3f51bcd12d5826b03e620" compoundref="xtmrctr__l_8h" startline="113">XTC_CSR_ENABLE_TMR_MASK</references>
+        <references refid="group___overview_1ga2744df54b0fc4bc5df1dba14a6afc840" compoundref="xtmrctr__l_8h" startline="102">XTC_CSR_INT_OCCURED_MASK</references>
+        <references refid="group___overview_1gaa10a23e3e387b53bac89f97cc5adf455" compoundref="xtmrctr__l_8h" startline="119">XTC_CSR_LOAD_MASK</references>
+        <references refid="group___overview_1gaba99b973ef1f13bf0a2716cf52ca5319" compoundref="xtmrctr__l_8h" startline="64">XTC_DEVICE_TIMER_COUNT</references>
+        <references refid="group___overview_1gad054cd3c12bc686f9be366e093c2f97a" compoundref="xtmrctr__l_8h" startline="85">XTC_TCR_OFFSET</references>
+        <references refid="group___overview_1ga81c9a818cb57cf5f106cf5a3b7c3c59f" compoundref="xtmrctr__l_8h" startline="83">XTC_TCSR_OFFSET</references>
+        <references refid="group___overview_1ga38a380fdcb3114c3db51524a8182c4ad" compoundref="xtmrctr__l_8h" startline="84">XTC_TLR_OFFSET</references>
+        <references refid="group___overview_1gaea427162ce7e92fd08afb7ee1cc1c12e" compoundref="xtmrctr__l_8h" startline="218">XTmrCtr_ReadReg</references>
+        <references refid="group___overview_1ga56d9c2d54afce39c3693356e3892547f" compoundref="xtmrctr__l_8h" startline="241">XTmrCtr_WriteReg</references>
+        <referencedby refid="xtmrctr__intr__64bit__example_8c_1a2a0a4c94c41976b913d5f021f257bd51" compoundref="xtmrctr__intr__64bit__example_8c" startline="218" endline="347">TmrCtrCascadeIntrExample</referencedby>
+        <referencedby refid="xtmrctr__fast__intr__example_8c_1a54a8e8c734acc65446415bf6aab2d995" compoundref="xtmrctr__fast__intr__example_8c" startline="205" endline="310">TmrCtrFastIntrExample</referencedby>
+        <referencedby refid="xtmrctr__intr__example_8c_1a51bb17a10cb7750f7b8e62c81c239cd6" compoundref="xtmrctr__intr__example_8c" startline="237" endline="346">TmrCtrIntrExample</referencedby>
+        <referencedby refid="xtmrctr__polled__example_8c_1ab0b2505b096466782f12f8e4f9fa3a55" compoundref="xtmrctr__polled__example_8c" startline="145" endline="212">TmrCtrPolledExample</referencedby>
+        <referencedby refid="xtmrctr__pwm__example_8c_1a2bb99ca758c410790a4779cef91b7fa2" compoundref="xtmrctr__pwm__example_8c" startline="183" endline="309">TmrCtrPwmExample</referencedby>
+        <referencedby refid="xtmrctr__selftest__example_8c_1a1fc047edeff96607cfdeb06b0d5c902f" compoundref="xtmrctr__selftest__example_8c" startline="137" endline="166">TmrCtrSelfTestExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xtmrctr_8h" kindref="compound">xtmrctr.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xtmrctr__i_8h" kindref="compound">xtmrctr_i.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="73" refid="group___overview_1ga42b972b6d7ae5d18a9bb2ca99446b1e7" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga42b972b6d7ae5d18a9bb2ca99446b1e7" kindref="member">XTmrCtr_SelfTest</ref>(<ref refid="struct_x_tmr_ctr" kindref="compound">XTmrCtr</ref><sp/>*InstancePtr,<sp/>u8<sp/>TmrCtrNumber)</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TimerCount1<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TimerCount2<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Count<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(TmrCtrNumber<sp/>&lt;<sp/><ref refid="group___overview_1gaba99b973ef1f13bf0a2716cf52ca5319" kindref="member">XTC_DEVICE_TIMER_COUNT</ref>);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_tmr_ctr_1a6e340e798d785abfe551a776fd6f7bb9" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="84"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>Capture<sp/>register<sp/>to<sp/>0</highlight></codeline>
+<codeline lineno="85"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga56d9c2d54afce39c3693356e3892547f" kindref="member">XTmrCtr_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_tmr_ctr_1a2c1369a4e70206c5abb620c8fa387551" kindref="member">BaseAddress</ref>,<sp/>TmrCtrNumber,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga38a380fdcb3114c3db51524a8182c4ad" kindref="member">XTC_TLR_OFFSET</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="90"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Reset<sp/>the<sp/>timer<sp/>and<sp/>the<sp/>interrupt</highlight></codeline>
+<codeline lineno="91"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga56d9c2d54afce39c3693356e3892547f" kindref="member">XTmrCtr_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_tmr_ctr_1a2c1369a4e70206c5abb620c8fa387551" kindref="member">BaseAddress</ref>,<sp/>TmrCtrNumber,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga81c9a818cb57cf5f106cf5a3b7c3c59f" kindref="member">XTC_TCSR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga2744df54b0fc4bc5df1dba14a6afc840" kindref="member">XTC_CSR_INT_OCCURED_MASK</ref><sp/>|<sp/><ref refid="group___overview_1gaa10a23e3e387b53bac89f97cc5adf455" kindref="member">XTC_CSR_LOAD_MASK</ref>);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="97"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>control/status<sp/>register<sp/>to<sp/>enable<sp/>timer</highlight></codeline>
+<codeline lineno="98"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga56d9c2d54afce39c3693356e3892547f" kindref="member">XTmrCtr_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_tmr_ctr_1a2c1369a4e70206c5abb620c8fa387551" kindref="member">BaseAddress</ref>,<sp/>TmrCtrNumber,</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga81c9a818cb57cf5f106cf5a3b7c3c59f" kindref="member">XTC_TCSR_OFFSET</ref>,<sp/><ref refid="group___overview_1gaa7cbbacf96f3f51bcd12d5826b03e620" kindref="member">XTC_CSR_ENABLE_TMR_MASK</ref>);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="103"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>timer</highlight></codeline>
+<codeline lineno="104"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimerCount1<sp/>=<sp/><ref refid="group___overview_1gaea427162ce7e92fd08afb7ee1cc1c12e" kindref="member">XTmrCtr_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_tmr_ctr_1a2c1369a4e70206c5abb620c8fa387551" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TmrCtrNumber,<sp/><ref refid="group___overview_1gad054cd3c12bc686f9be366e093c2f97a" kindref="member">XTC_TCR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="108"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Make<sp/>sure<sp/>timer<sp/>is<sp/>incrementing<sp/>if<sp/>the<sp/>Count<sp/>rolls<sp/>over<sp/>to<sp/>zero</highlight></codeline>
+<codeline lineno="109"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>and<sp/>the<sp/>timer<sp/>still<sp/>has<sp/>not<sp/>incremented<sp/>an<sp/>error<sp/>is<sp/>returned</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimerCount2<sp/>=<sp/><ref refid="group___overview_1gaea427162ce7e92fd08afb7ee1cc1c12e" kindref="member">XTmrCtr_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_tmr_ctr_1a2c1369a4e70206c5abb620c8fa387551" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TmrCtrNumber,<sp/><ref refid="group___overview_1gad054cd3c12bc686f9be366e093c2f97a" kindref="member">XTC_TCR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Count++;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((TimerCount1<sp/>==<sp/>TimerCount2)<sp/>&amp;&amp;<sp/>(Count<sp/>!=<sp/>0));</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="119"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Reset<sp/>the<sp/>timer<sp/>and<sp/>the<sp/>interrupt</highlight></codeline>
+<codeline lineno="120"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga56d9c2d54afce39c3693356e3892547f" kindref="member">XTmrCtr_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_tmr_ctr_1a2c1369a4e70206c5abb620c8fa387551" kindref="member">BaseAddress</ref>,<sp/>TmrCtrNumber,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga81c9a818cb57cf5f106cf5a3b7c3c59f" kindref="member">XTC_TCSR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga2744df54b0fc4bc5df1dba14a6afc840" kindref="member">XTC_CSR_INT_OCCURED_MASK</ref><sp/>|<sp/><ref refid="group___overview_1gaa10a23e3e387b53bac89f97cc5adf455" kindref="member">XTC_CSR_LOAD_MASK</ref>);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="126"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>control/status<sp/>register<sp/>to<sp/>0<sp/>to<sp/>complete<sp/>initialization</highlight></codeline>
+<codeline lineno="127"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>this<sp/>disables<sp/>the<sp/>timer<sp/>completely<sp/>and<sp/>allows<sp/>it<sp/>to<sp/>be<sp/>used<sp/>again</highlight></codeline>
+<codeline lineno="128"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga56d9c2d54afce39c3693356e3892547f" kindref="member">XTmrCtr_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_tmr_ctr_1a2c1369a4e70206c5abb620c8fa387551" kindref="member">BaseAddress</ref>,<sp/>TmrCtrNumber,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga81c9a818cb57cf5f106cf5a3b7c3c59f" kindref="member">XTC_TCSR_OFFSET</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TimerCount1<sp/>==<sp/>TimerCount2)<sp/>{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_selftest.c"/>
+  </compounddef>
+</doxygen>

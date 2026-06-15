@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp___tx_topology_node" kind="struct" prot="public">
+    <compoundname>XDp_TxTopologyNode</compoundname>
+    <includes local="no">xdp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp___tx_topology_node_1acae548364f9d272c3deea2fa9f69c9b0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxTopologyNode::Guid[XDP_GUID_NBYTES]</definition>
+        <argsstring>[XDP_GUID_NBYTES]</argsstring>
+        <name>Guid</name>
+        <briefdescription>
+<para>The global unique identifier (GUID) of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="636" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="636" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_topology_node_1a9f8c6254504c2dc3ee6c89881b62addd" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxTopologyNode::RelativeAddress[15]</definition>
+        <argsstring>[15]</argsstring>
+        <name>RelativeAddress</name>
+        <briefdescription>
+<para>The relative address from the DisplayPort TX to this device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="638" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="638" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_topology_node_1a650d490485bf62dacb621626beccb1a0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxTopologyNode::DeviceType</definition>
+        <argsstring></argsstring>
+        <name>DeviceType</name>
+        <briefdescription>
+<para>The type of DisplayPort device. </para>        </briefdescription>
+        <detaileddescription>
+<para>Either a branch or sink. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="641" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="641" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_topology_node_1ac870bb2832416670379afe3596c8302e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxTopologyNode::LinkCountTotal</definition>
+        <argsstring></argsstring>
+        <name>LinkCountTotal</name>
+        <briefdescription>
+<para>The total number of DisplayPort links connecting this device to the DisplayPort TX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="643" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="643" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_topology_node_1a04d62897104522c7934a6c3c2290a8c0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxTopologyNode::DpcdRev</definition>
+        <argsstring></argsstring>
+        <name>DpcdRev</name>
+        <briefdescription>
+<para>The revision of the device&apos;s DisplayPort Configuration Data (DPCD). </para>        </briefdescription>
+        <detaileddescription>
+<para>For this device to support MST features, this value must represent a protocol version greater or equal to 1.2. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="646" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="646" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_topology_node_1a89dd2b47506730a28315a783b547c451" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxTopologyNode::MsgCapStatus</definition>
+        <argsstring></argsstring>
+        <name>MsgCapStatus</name>
+        <briefdescription>
+<para>This device is capable of sending and receiving sideband messages. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="652" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="652" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef describes a downstream DisplayPort device when the driver is running in multi-stream transport (MST) mode. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="635" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="635" bodyend="655"/>
+    <listofallmembers>
+      <member refid="struct_x_dp___tx_topology_node_1a650d490485bf62dacb621626beccb1a0" prot="public" virt="non-virtual"><scope>XDp_TxTopologyNode</scope><name>DeviceType</name></member>
+      <member refid="struct_x_dp___tx_topology_node_1a04d62897104522c7934a6c3c2290a8c0" prot="public" virt="non-virtual"><scope>XDp_TxTopologyNode</scope><name>DpcdRev</name></member>
+      <member refid="struct_x_dp___tx_topology_node_1acae548364f9d272c3deea2fa9f69c9b0" prot="public" virt="non-virtual"><scope>XDp_TxTopologyNode</scope><name>Guid</name></member>
+      <member refid="struct_x_dp___tx_topology_node_1ac870bb2832416670379afe3596c8302e" prot="public" virt="non-virtual"><scope>XDp_TxTopologyNode</scope><name>LinkCountTotal</name></member>
+      <member refid="struct_x_dp___tx_topology_node_1a89dd2b47506730a28315a783b547c451" prot="public" virt="non-virtual"><scope>XDp_TxTopologyNode</scope><name>MsgCapStatus</name></member>
+      <member refid="struct_x_dp___tx_topology_node_1a9f8c6254504c2dc3ee6c89881b62addd" prot="public" virt="non-virtual"><scope>XDp_TxTopologyNode</scope><name>RelativeAddress</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

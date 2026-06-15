@@ -1,0 +1,827 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xusb__microphone_8c" kind="file">
+    <compoundname>xusb_microphone.c</compoundname>
+    <includes refid="xusb_8h" local="yes">xusb.h</includes>
+    <includes refid="xusb__microphone_8h" local="yes">xusb_microphone.h</includes>
+    <includes local="yes">stdio.h</includes>
+    <includes refid="data_8h" local="yes">data.h</includes>
+    <includes local="yes">xil_exception.h</includes>
+    <includes local="yes">xil_cache.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xinterrupt_wrap.h</includes>
+    <incdepgraph>
+      <node id="170">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="171">
+        <label>xil_io.h</label>
+      </node>
+      <node id="179">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="167">
+        <label>xusb.h</label>
+        <link refid="xusb_8h"/>
+        <childnode refid="168" relation="include">
+        </childnode>
+        <childnode refid="172" relation="include">
+        </childnode>
+      </node>
+      <node id="181">
+        <label>xinterrupt_wrap.h</label>
+      </node>
+      <node id="175">
+        <label>xusb_types.h</label>
+        <link refid="xusb__types_8h"/>
+      </node>
+      <node id="177">
+        <label>data.h</label>
+        <link refid="data_8h"/>
+      </node>
+      <node id="172">
+        <label>xstatus.h</label>
+      </node>
+      <node id="178">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="169">
+        <label>xil_types.h</label>
+      </node>
+      <node id="168">
+        <label>xusb_l.h</label>
+        <link refid="xusb__l_8h"/>
+        <childnode refid="169" relation="include">
+        </childnode>
+        <childnode refid="170" relation="include">
+        </childnode>
+        <childnode refid="171" relation="include">
+        </childnode>
+      </node>
+      <node id="166">
+        <label>xusb_microphone.c</label>
+        <link refid="xusb_microphone.c"/>
+        <childnode refid="167" relation="include">
+        </childnode>
+        <childnode refid="173" relation="include">
+        </childnode>
+        <childnode refid="176" relation="include">
+        </childnode>
+        <childnode refid="177" relation="include">
+        </childnode>
+        <childnode refid="178" relation="include">
+        </childnode>
+        <childnode refid="179" relation="include">
+        </childnode>
+        <childnode refid="180" relation="include">
+        </childnode>
+        <childnode refid="181" relation="include">
+        </childnode>
+      </node>
+      <node id="173">
+        <label>xusb_microphone.h</label>
+        <link refid="xusb__microphone_8h"/>
+        <childnode refid="174" relation="include">
+        </childnode>
+      </node>
+      <node id="180">
+        <label>xparameters.h</label>
+      </node>
+      <node id="174">
+        <label>xusb_cp9.h</label>
+        <link refid="xusb__cp9_8h"/>
+        <childnode refid="167" relation="include">
+        </childnode>
+        <childnode refid="175" relation="include">
+        </childnode>
+      </node>
+      <node id="176">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xusb__microphone_8c_1a4a0163f17a6a9cf0cb2a7d51aef9f521" prot="public" static="no">
+        <name>XUSB_BASEADDRESS</name>
+        <initializer>XPAR_XUSB_0_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_microphone.c" line="60" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_microphone.c" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xusb__microphone_8c_1a62cef26eb4d9076d0888c81106bf2146" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_usb" kindref="compound">XUsb</ref></type>
+        <definition>XUsb UsbInstance</definition>
+        <argsstring></argsstring>
+        <name>UsbInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_microphone.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_microphone.c" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xusb__microphone_8c_1a0184f31affcf6284ad838ccaac7e67cb" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_usb___config" kindref="compound">XUsb_Config</ref> *</type>
+        <definition>XUsb_Config* UsbConfigPtr</definition>
+        <argsstring></argsstring>
+        <name>UsbConfigPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_microphone.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_microphone.c" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xusb__microphone_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>()</argsstring>
+        <name>main</name>
+        <briefdescription>
+<para>This main function starts the USB Interrupt example. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if test fails. </para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_microphone.c" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_microphone.c" bodystart="87" bodyend="213"/>
+        <references refid="struct_x_usb___config_1a4c3940ad84a72a33f98856da250dab3f" compoundref="xusb_8h" startline="325">XUsb_Config::BaseAddress</references>
+        <references refid="struct_x_usb_1ac9eb29e8f2372f88e570357da004e189" compoundref="xusb_8h" startline="343">XUsb::Config</references>
+        <references refid="struct_x_usb___device_config_1aa2e570d2cf6027c87adee4304b6afd79" compoundref="xusb_8h" startline="305">XUsb_DeviceConfig::CurrentConfiguration</references>
+        <references refid="struct_x_usb_1ab3ca87faf1aa1caaa6fa6e6f7c3e9267" compoundref="xusb_8h" startline="356">XUsb::DeviceConfig</references>
+        <references refid="struct_x_usb___config_1a7c086dc12e6b8886254b7a78e18926fb" compoundref="xusb_8h" startline="326">XUsb_Config::DmaEnabled</references>
+        <references refid="xusb__dma__intr__storage_8c_1a243967b329b332dc3503adfc2950fceb" compoundref="xusb__dma__intr__storage_8c" startline="407" endline="453">Ep0IntrHandler</references>
+        <references refid="xusb__dma__intr__storage_8c_1a386bfc503aaebdfd92028284d6fb63f0" compoundref="xusb__dma__intr__storage_8c" startline="471" endline="498">Ep1IntrHandler</references>
+        <references refid="xusb__cp9_8h_1a3b40155d0d9fa44133905dd9f6f02ee7" compoundref="xusb__dma__intr__storage_8c" startline="267" endline="332">InitUsbInterface</references>
+        <references refid="struct_x_usb___config_1a49c7946b8a90eb3e6f00ead057694bce" compoundref="xusb_8h" startline="329">XUsb_Config::IntrId</references>
+        <references refid="struct_x_usb___config_1a88f694c6cfdc5ccb605421afe3ae35a3" compoundref="xusb_8h" startline="331">XUsb_Config::IntrParent</references>
+        <references refid="xusb__dma__intr__storage_8c_1a8bd3ecc4e2acd07b864ea2392a0394f4" compoundref="xusb__dma__intr__storage_8c" startline="349" endline="388">UsbIfIntrHandler</references>
+        <references refid="group__usb_1gaeab13bf4d5ed84b5b9e0c1c651f50aaa" compoundref="xusb_8c" startline="89" endline="122">XUsb_CfgInitialize</references>
+        <references refid="group__usb_1gabf09f948bc604c279cb0a12bba14057b" compoundref="xusb__endpoint_8c" startline="261" endline="406">XUsb_EpDataSend</references>
+        <references refid="group__usb_1gae7fef0669e6d6094cc2af067195cc04d" compoundref="xusb__intr_8c" startline="344" endline="357">XUsb_EpSetHandler</references>
+        <references refid="group__usb_1gafcd3e91e72783087a0c6902724b8087f" compoundref="xusb__intr_8c" startline="73" endline="89">XUsb_IntrEnable</references>
+        <references refid="group__usb_1gacc119aa9f628ab0cc3fac2f63073e386" compoundref="xusb__intr_8c" startline="156" endline="293">XUsb_IntrHandler</references>
+        <references refid="group__usb_1gada7caf770f82936ab7493b67d143b9a9" compoundref="xusb__intr_8c" startline="314" endline="323">XUsb_IntrSetHandler</references>
+        <references refid="group__usb_1ga83ca5d56b85bf4f28c99338a05c9a856" compoundref="xusb__sinit_8c" startline="90" endline="104">XUsb_LookupConfig</references>
+        <references refid="group__usb_1gaa2f7958d25023d2ed18cfaabfb2baa0f" compoundref="xusb_8c" startline="274" endline="289">XUsb_SetDeviceAddress</references>
+        <references refid="group__usb_1ga4708ca8b9ca477b58d7da7db3f1be308" compoundref="xusb_8c" startline="192" endline="203">XUsb_Start</references>
+        <references refid="group__usb_1ga10e255c9daa6899e2c231a9c839c76fe" compoundref="xusb__l_8h" startline="133">XUSB_STATUS_DISCONNECT_MASK</references>
+        <references refid="group__usb_1gaf4f49b7f02066d4f04f49e7371fa851a" compoundref="xusb__l_8h" startline="153">XUSB_STATUS_EP0_BUFF1_COMP_MASK</references>
+        <references refid="group__usb_1ga133213a1b921a479f9702f85e5120065" compoundref="xusb__l_8h" startline="152">XUSB_STATUS_EP1_BUFF1_COMP_MASK</references>
+        <references refid="group__usb_1ga8fd881d64ceaa0b75f3e07ac891590f9" compoundref="xusb__l_8h" startline="145">XUSB_STATUS_EP1_BUFF2_COMP_MASK</references>
+        <references refid="group__usb_1gaa1b33fb581374aebe866bdbcdcec97c0" compoundref="xusb__l_8h" startline="151">XUSB_STATUS_EP2_BUFF1_COMP_MASK</references>
+        <references refid="group__usb_1gafe634ba137a5f8963b7364a32cd56a27" compoundref="xusb__l_8h" startline="144">XUSB_STATUS_EP2_BUFF2_COMP_MASK</references>
+        <references refid="group__usb_1ga1c1388c1f5b3644140d0ced5dd7fceda" compoundref="xusb__l_8h" startline="135">XUSB_STATUS_FIFO_BUFF_FREE_MASK</references>
+        <references refid="group__usb_1gadf5b97880da95d33c6d746d33ff28125" compoundref="xusb__l_8h" startline="134">XUSB_STATUS_FIFO_BUFF_RDY_MASK</references>
+        <references refid="group__usb_1gaf35c023a0d3ac069b7ab105b1c0c2509" compoundref="xusb__l_8h" startline="123">XUSB_STATUS_GLOBAL_INTR_MASK</references>
+        <references refid="group__usb_1gaa69331ab12d98b585ded8d8c69dad53a" compoundref="xusb__l_8h" startline="131">XUSB_STATUS_RESET_MASK</references>
+        <references refid="group__usb_1ga2b4ada8448d346e1a7460c2a02d779b6" compoundref="xusb__l_8h" startline="132">XUSB_STATUS_SUSPEND_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="xusb__microphone_8c_1a3b40155d0d9fa44133905dd9f6f02ee7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void InitUsbInterface</definition>
+        <argsstring>(XUsb *InstancePtr)</argsstring>
+        <name>InitUsbInterface</name>
+        <param>
+          <type><ref refid="struct_x_usb" kindref="compound">XUsb</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This is the USB initialization function. </para>        </briefdescription>
+        <detaileddescription>
+<para>This example initializes the device for Microphone Application. The following configuration is done.<itemizedlist>
+<listitem><para>EP0 : CONTROL end point, Bidirectional, Packet size 64 bytes.</para></listitem><listitem><para>EP1 : ISOCHRONOUS, BULK_IN, packet size 1024 bytes.</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_usb" kindref="compound">XUsb</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_microphone.c" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_microphone.c" bodystart="230" bodyend="271"/>
+        <references refid="struct_x_usb_1ab3ca87faf1aa1caaa6fa6e6f7c3e9267" compoundref="xusb_8h" startline="356">XUsb::DeviceConfig</references>
+        <references refid="struct_x_usb___device_config_1a6448bf5499b369be43e341c0edf109ea" compoundref="xusb_8h" startline="303">XUsb_DeviceConfig::Ep</references>
+        <references refid="struct_x_usb___ep_config_1a738bec89a19541ccf5829750050469df" compoundref="xusb_8h" startline="274">XUsb_EpConfig::EpType</references>
+        <references refid="struct_x_usb___device_config_1afabc76c53b986e9ae1c5ae30f52789f9" compoundref="xusb_8h" startline="302">XUsb_DeviceConfig::NumEndpoints</references>
+        <references refid="struct_x_usb___ep_config_1a53a183054dd9dc8866ccfe0584fe3c88" compoundref="xusb_8h" startline="273">XUsb_EpConfig::OutIn</references>
+        <references refid="struct_x_usb___ep_config_1ae435ae7b41b9b695000ac64e1b5734f2" compoundref="xusb_8h" startline="285">XUsb_EpConfig::RamBase</references>
+        <references refid="struct_x_usb___ep_config_1a5c1b641e8deb5d0c115609dc91a51aa1" compoundref="xusb_8h" startline="283">XUsb_EpConfig::Size</references>
+        <references refid="group__usb_1ga9c50c0ee6d36d4b87a40018c2ad0fd25" compoundref="xusb_8c" startline="143" endline="179">XUsb_ConfigureDevice</references>
+        <references refid="group__usb_1gac41572da2aded6fe09ee6b423ddbd50a" compoundref="xusb_8h" startline="199">XUSB_EP_DIRECTION_IN</references>
+        <references refid="group__usb_1gaaeed667f160bf00cc1e548a254fc45a3" compoundref="xusb_8h" startline="200">XUSB_EP_DIRECTION_OUT</references>
+        <references refid="group__usb_1gadc3661c9581f9dea4b01873cbaff31a8" compoundref="xusb__endpoint_8c" startline="68" endline="83">XUsb_EpEnable</references>
+      </memberdef>
+      <memberdef kind="function" id="xusb__microphone_8c_1a8bd3ecc4e2acd07b864ea2392a0394f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void UsbIfIntrHandler</definition>
+        <argsstring>(void *CallBackRef, u32 IntrStatus)</argsstring>
+        <name>UsbIfIntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IntrStatus</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the USB microphone device application. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is the interrupt handler for the USB mass storage device application.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the callback reference passed from the interrupt handler, which in our case is a pointer to the driver instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntrStatus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a bit mask indicating pending interrupts.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_microphone.c" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_microphone.c" bodystart="288" bodyend="327"/>
+        <references refid="struct_x_usb___config_1a4c3940ad84a72a33f98856da250dab3f" compoundref="xusb_8h" startline="325">XUsb_Config::BaseAddress</references>
+        <references refid="struct_x_usb_1ac9eb29e8f2372f88e570357da004e189" compoundref="xusb_8h" startline="343">XUsb::Config</references>
+        <references refid="struct_x_usb___device_config_1aa2e570d2cf6027c87adee4304b6afd79" compoundref="xusb_8h" startline="305">XUsb_DeviceConfig::CurrentConfiguration</references>
+        <references refid="struct_x_usb_1ab3ca87faf1aa1caaa6fa6e6f7c3e9267" compoundref="xusb_8h" startline="356">XUsb::DeviceConfig</references>
+        <references refid="xusb__cp9_8h_1a3b40155d0d9fa44133905dd9f6f02ee7" compoundref="xusb__dma__intr__storage_8c" startline="267" endline="332">InitUsbInterface</references>
+        <references refid="struct_x_usb___device_config_1a39868eeb033b4118b6e80f11a819d79c" compoundref="xusb_8h" startline="304">XUsb_DeviceConfig::Status</references>
+        <references refid="group__usb_1ga6a9e88138c012fcfa32717eeaab1e5b1" compoundref="xusb__intr_8c" startline="107" endline="123">XUsb_IntrDisable</references>
+        <references refid="group__usb_1gafcd3e91e72783087a0c6902724b8087f" compoundref="xusb__intr_8c" startline="73" endline="89">XUsb_IntrEnable</references>
+        <references refid="group__usb_1gac5aabd610647e476facc6e8e9507f22c" compoundref="xusb_8h" startline="227">XUSB_RESET</references>
+        <references refid="group__usb_1gaa2f7958d25023d2ed18cfaabfb2baa0f" compoundref="xusb_8c" startline="274" endline="289">XUsb_SetDeviceAddress</references>
+        <references refid="group__usb_1ga4708ca8b9ca477b58d7da7db3f1be308" compoundref="xusb_8c" startline="192" endline="203">XUsb_Start</references>
+        <references refid="group__usb_1ga10e255c9daa6899e2c231a9c839c76fe" compoundref="xusb__l_8h" startline="133">XUSB_STATUS_DISCONNECT_MASK</references>
+        <references refid="group__usb_1gaa69331ab12d98b585ded8d8c69dad53a" compoundref="xusb__l_8h" startline="131">XUSB_STATUS_RESET_MASK</references>
+        <references refid="group__usb_1ga2b4ada8448d346e1a7460c2a02d779b6" compoundref="xusb__l_8h" startline="132">XUSB_STATUS_SUSPEND_MASK</references>
+        <references refid="group__usb_1ga53f7e5c356dbe880560a6eb5942a74d6" compoundref="xusb_8c" startline="216" endline="233">XUsb_Stop</references>
+        <references refid="group__usb_1ga7598429f7ba0bb7f052da4eb95d0908b" compoundref="xusb__l_8h" startline="438">XUsb_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xusb__microphone_8c_1a243967b329b332dc3503adfc2950fceb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Ep0IntrHandler</definition>
+        <argsstring>(void *CallBackRef, u8 EpNum, u32 IntrStatus)</argsstring>
+        <name>Ep0IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>EpNum</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IntrStatus</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the USB End point Zero events. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the callback reference passed from the interrupt. handler, which in our case is a pointer to the driver instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EpNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the end point number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntrStatus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a bit mask indicating pending interrupts.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>EpNum is not used in this function as the handler is attached specific to end point zero. This parameter is useful when a single handler is used for processing all end point interrupts. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_microphone.c" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_microphone.c" bodystart="346" bodyend="393"/>
+        <references refid="struct_x_usb___config_1a4c3940ad84a72a33f98856da250dab3f" compoundref="xusb_8h" startline="325">XUsb_Config::BaseAddress</references>
+        <references refid="xusb__cp9_8c_1ac4a19eadcf18a8eaae15eec7bd617c55" compoundref="xusb__cp9_8c" startline="291" endline="356">Chapter9</references>
+        <references refid="struct_x_usb_1ac9eb29e8f2372f88e570357da004e189" compoundref="xusb_8h" startline="343">XUsb::Config</references>
+        <references refid="struct_x_usb_1a69fc81451351e4418bfe14f9fae4fb40" compoundref="xusb_8h" startline="349">XUsb::EndPointOffset</references>
+        <references refid="xusb__cp9_8c_1a33729d6b78e329bb598c6f06e9f80c11" compoundref="xusb__cp9_8c" startline="215" endline="278">EP0ProcessInToken</references>
+        <references refid="xusb__cp9_8c_1a27bfda5402c9f09018d88bf739cef6df" compoundref="xusb__cp9_8c" startline="148" endline="202">EP0ProcessOutToken</references>
+        <references refid="group__usb_1ga9e9f2e36d2904d4dbc6879fc4702924a" compoundref="xusb__l_8h" startline="186">XUSB_BUFFREADY_EP0_BUFF_MASK</references>
+        <references refid="group__usb_1gab2a74173a60f9124ce0dbe9430302076" compoundref="xusb__l_8h" startline="73">XUSB_BUFFREADY_OFFSET</references>
+        <references refid="group__usb_1ga0208afaf65f9cc286adcaec1aa035a3b" compoundref="xusb__l_8h" startline="280">XUSB_EP_CFG_DATA_TOGGLE_MASK</references>
+        <references refid="group__usb_1gafcd3e91e72783087a0c6902724b8087f" compoundref="xusb__intr_8c" startline="73" endline="89">XUsb_IntrEnable</references>
+        <references refid="group__usb_1gacd33f4473000380669cb9147110cac62" compoundref="xusb__l_8h" startline="420">XUsb_ReadReg</references>
+        <references refid="group__usb_1ga10e255c9daa6899e2c231a9c839c76fe" compoundref="xusb__l_8h" startline="133">XUSB_STATUS_DISCONNECT_MASK</references>
+        <references refid="group__usb_1ga1c1388c1f5b3644140d0ced5dd7fceda" compoundref="xusb__l_8h" startline="135">XUSB_STATUS_FIFO_BUFF_FREE_MASK</references>
+        <references refid="group__usb_1gadf5b97880da95d33c6d746d33ff28125" compoundref="xusb__l_8h" startline="134">XUSB_STATUS_FIFO_BUFF_RDY_MASK</references>
+        <references refid="group__usb_1gaa69331ab12d98b585ded8d8c69dad53a" compoundref="xusb__l_8h" startline="131">XUSB_STATUS_RESET_MASK</references>
+        <references refid="group__usb_1ga547bfee781de3a964fad8760228a7207" compoundref="xusb__l_8h" startline="136">XUSB_STATUS_SETUP_PACKET_MASK</references>
+        <references refid="group__usb_1ga2b4ada8448d346e1a7460c2a02d779b6" compoundref="xusb__l_8h" startline="132">XUSB_STATUS_SUSPEND_MASK</references>
+        <references refid="group__usb_1ga7598429f7ba0bb7f052da4eb95d0908b" compoundref="xusb__l_8h" startline="438">XUsb_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xusb__microphone_8c_1a386bfc503aaebdfd92028284d6fb63f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Ep1IntrHandler</definition>
+        <argsstring>(void *CallBackRef, u8 EpNum, u32 IntrStatus)</argsstring>
+        <name>Ep1IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>EpNum</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IntrStatus</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the USB End point one events. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the callback reference passed from the interrupt handler, which in our case is a pointer to the driver instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EpNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the end point number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntrStatus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a bit mask indicating pending interrupts.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>EpNum is not used in this function as the handler is attached specific to end point one. This parameter is useful when a single handler is used for processing all end point interrupts. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_microphone.c" line="411" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_microphone.c" bodystart="411" bodyend="428"/>
+        <references refid="struct_x_usb___ep_config_1aa9571c37eb861f5105f33c3b383d4d6c" compoundref="xusb_8h" startline="277">XUsb_EpConfig::Buffer0Ready</references>
+        <references refid="struct_x_usb___ep_config_1ab377dc556732f53160473338e06eed70" compoundref="xusb_8h" startline="281">XUsb_EpConfig::Buffer1Ready</references>
+        <references refid="struct_x_usb_1ab3ca87faf1aa1caaa6fa6e6f7c3e9267" compoundref="xusb_8h" startline="356">XUsb::DeviceConfig</references>
+        <references refid="struct_x_usb___device_config_1a6448bf5499b369be43e341c0edf109ea" compoundref="xusb_8h" startline="303">XUsb_DeviceConfig::Ep</references>
+        <references refid="group__usb_1gad1868c71dd1da583ef24d2f50bdef032" compoundref="xusb__l_8h" startline="185">XUSB_BUFFREADY_EP1_BUFF1_MASK</references>
+        <references refid="group__usb_1ga6efee22c3a6ad61a28db82930603a473" compoundref="xusb__l_8h" startline="178">XUSB_BUFFREADY_EP1_BUFF2_MASK</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains usb Microphone application related functions. </para>    </briefdescription>
+    <detaileddescription>
+<para>This example only provides a reference as to how an isochronous transfer related application can be written. This example emulates a microphone and when connected to a Windows PC will be detected as a Microphone and if we open sound recorder and start recording data, this example sends data on isochronous endpoint and the PC can store this data. Noise will be heard when this data is played on the PC.</para><para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00a hvm  12/20/10 First release
+4.01a bss  11/01/11 Modified UsbIfIntrHandler function to unconditionally
+                reset when USB reset is asserted (CR 627574).
+4.02a bss  02/20/12 Modified main function to call Xil_DCacheFlushRange
+                        when DMA is enabled.(CR 640005)
+5.6   pm   07/05/23 Removed powerpc support.
+5.6   pm   07/05/23 Added support for system device-tree flow.
+5.8   ka   01/29/26 Fixed codespell errors.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="37"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xusb_8h" kindref="compound">xusb.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xusb__microphone_8h" kindref="compound">xusb_microphone.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;stdio.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="data_8h" kindref="compound">data.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_exception.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cache.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xintc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xinterrupt_wrap.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>USB_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_USB_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INTC_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_INTC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>USB_INTR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_INTC_0_USB_0_VEC_ID</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUSB_BASEADDRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XUSB_0_BASEADDR</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>SDT<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb" kindref="compound">XUsb</ref><sp/>UsbInstance;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>The<sp/>instance<sp/>of<sp/>the<sp/>USB<sp/>device<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><ref refid="struct_x_usb___config" kindref="compound">XUsb_Config</ref><sp/>*UsbConfigPtr;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>the<sp/>USB<sp/>config<sp/>structure<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="normal">XIntc<sp/>InterruptController;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Instance<sp/>of<sp/>the<sp/>Interrupt<sp/>Controller<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SetupInterruptSystem(<ref refid="struct_x_usb" kindref="compound">XUsb</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="87" refid="xusb__microphone_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xusb__dma__intr__storage_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kindref="member">main</ref>()</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Index<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Cnt<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="93"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>USB<sp/>driver.</highlight></codeline>
+<codeline lineno="94"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsbConfigPtr<sp/>=<sp/><ref refid="group__usb_1ga83ca5d56b85bf4f28c99338a05c9a856" kindref="member">XUsb_LookupConfig</ref>(USB_DEVICE_ID);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsbConfigPtr<sp/>=<sp/><ref refid="group__usb_1ga83ca5d56b85bf4f28c99338a05c9a856" kindref="member">XUsb_LookupConfig</ref>(XUSB_BASEADDRESS);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(UsbConfigPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>__MICROBLAZE__</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ICacheInvalidate();</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ICacheEnable();</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheInvalidate();</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheEnable();</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__usb_1gaeab13bf4d5ed84b5b9e0c1c651f50aaa" kindref="member">XUsb_CfgInitialize</ref>(&amp;UsbInstance,</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsbConfigPtr,</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsbConfigPtr-&gt;<ref refid="struct_x_usb___config_1a4c3940ad84a72a33f98856da250dab3f" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="122"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>USB<sp/>instance<sp/>as<sp/>required<sp/>for<sp/>the</highlight></codeline>
+<codeline lineno="123"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>application.</highlight></codeline>
+<codeline lineno="124"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__cp9_8h_1a3b40155d0d9fa44133905dd9f6f02ee7" kindref="member">InitUsbInterface</ref>(&amp;UsbInstance);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="128"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>our<sp/>function<sp/>address<sp/>to<sp/>0<sp/>which<sp/>is<sp/>the<sp/>unenumerated<sp/>state.</highlight></codeline>
+<codeline lineno="129"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__usb_1gaa2f7958d25023d2ed18cfaabfb2baa0f" kindref="member">XUsb_SetDeviceAddress</ref>(&amp;UsbInstance,<sp/>0);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>!=<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="136"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Setup<sp/>the<sp/>interrupt<sp/>handlers.</highlight></codeline>
+<codeline lineno="137"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1gada7caf770f82936ab7493b67d143b9a9" kindref="member">XUsb_IntrSetHandler</ref>(&amp;UsbInstance,<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)<sp/><ref refid="xusb__dma__intr__storage_8c_1a8bd3ecc4e2acd07b864ea2392a0394f4" kindref="member">UsbIfIntrHandler</ref>,</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;UsbInstance);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1gae7fef0669e6d6094cc2af067195cc04d" kindref="member">XUsb_EpSetHandler</ref>(&amp;UsbInstance,<sp/>0,</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__usb_1gaa06782e29c2a89b4fc4a248d1af9af44" kindref="member">XUsb_EpHandlerFunc</ref><sp/>*)<sp/><ref refid="xusb__dma__intr__storage_8c_1a243967b329b332dc3503adfc2950fceb" kindref="member">Ep0IntrHandler</ref>,<sp/>&amp;UsbInstance);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1gae7fef0669e6d6094cc2af067195cc04d" kindref="member">XUsb_EpSetHandler</ref>(&amp;UsbInstance,<sp/>1,</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__usb_1gaa06782e29c2a89b4fc4a248d1af9af44" kindref="member">XUsb_EpHandlerFunc</ref><sp/>*)<sp/><ref refid="xusb__dma__intr__storage_8c_1a386bfc503aaebdfd92028284d6fb63f0" kindref="member">Ep1IntrHandler</ref>,<sp/>&amp;UsbInstance);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="148"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Setup<sp/>the<sp/>interrupt<sp/>system.</highlight></codeline>
+<codeline lineno="149"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>SetupInterruptSystem(&amp;UsbInstance);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XSetupInterruptSystem(&amp;UsbInstance,</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<ref refid="group__usb_1gacc119aa9f628ab0cc3fac2f63073e386" kindref="member">XUsb_IntrHandler</ref>,</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsbConfigPtr-&gt;<ref refid="struct_x_usb___config_1a49c7946b8a90eb3e6f00ead057694bce" kindref="member">IntrId</ref>,</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsbConfigPtr-&gt;<ref refid="struct_x_usb___config_1a88f694c6cfdc5ccb605421afe3ae35a3" kindref="member">IntrParent</ref>,</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XINTERRUPT_DEFAULT_PRIORITY);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="164"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>the<sp/>interrupts.</highlight></codeline>
+<codeline lineno="165"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1gafcd3e91e72783087a0c6902724b8087f" kindref="member">XUsb_IntrEnable</ref>(&amp;UsbInstance,<sp/><ref refid="group__usb_1gaf35c023a0d3ac069b7ab105b1c0c2509" kindref="member">XUSB_STATUS_GLOBAL_INTR_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1gaa69331ab12d98b585ded8d8c69dad53a" kindref="member">XUSB_STATUS_RESET_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1ga2b4ada8448d346e1a7460c2a02d779b6" kindref="member">XUSB_STATUS_SUSPEND_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1ga10e255c9daa6899e2c231a9c839c76fe" kindref="member">XUSB_STATUS_DISCONNECT_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1gadf5b97880da95d33c6d746d33ff28125" kindref="member">XUSB_STATUS_FIFO_BUFF_RDY_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1ga1c1388c1f5b3644140d0ced5dd7fceda" kindref="member">XUSB_STATUS_FIFO_BUFF_FREE_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1gaf4f49b7f02066d4f04f49e7371fa851a" kindref="member">XUSB_STATUS_EP0_BUFF1_COMP_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1ga133213a1b921a479f9702f85e5120065" kindref="member">XUSB_STATUS_EP1_BUFF1_COMP_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1gaa1b33fb581374aebe866bdbcdcec97c0" kindref="member">XUSB_STATUS_EP2_BUFF1_COMP_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1ga8fd881d64ceaa0b75f3e07ac891590f9" kindref="member">XUSB_STATUS_EP1_BUFF2_COMP_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1gafe634ba137a5f8963b7364a32cd56a27" kindref="member">XUSB_STATUS_EP2_BUFF2_COMP_MASK</ref>);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1ga4708ca8b9ca477b58d7da7db3f1be308" kindref="member">XUsb_Start</ref>(&amp;UsbInstance);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="181"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>device<sp/>configuration<sp/>to<sp/>unenumerated<sp/>state.</highlight></codeline>
+<codeline lineno="182"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsbInstance.<ref refid="struct_x_usb_1ab3ca87faf1aa1caaa6fa6e6f7c3e9267" kindref="member">DeviceConfig</ref>.<ref refid="struct_x_usb___device_config_1aa2e570d2cf6027c87adee4304b6afd79" kindref="member">CurrentConfiguration</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="186"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Wait<sp/>until<sp/>the<sp/>USB<sp/>device<sp/>is<sp/>enumerated.</highlight></codeline>
+<codeline lineno="187"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(!UsbInstance.<ref refid="struct_x_usb_1ab3ca87faf1aa1caaa6fa6e6f7c3e9267" kindref="member">DeviceConfig</ref>.<ref refid="struct_x_usb___device_config_1aa2e570d2cf6027c87adee4304b6afd79" kindref="member">CurrentConfiguration</ref>);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="192"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Stop<sp/>the<sp/>test<sp/>if<sp/>the<sp/>Stop<sp/>key<sp/>is<sp/>pressed<sp/>or</highlight></codeline>
+<codeline lineno="193"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>device<sp/>lost<sp/>enumeration.</highlight></codeline>
+<codeline lineno="194"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(1)<sp/>{</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(UsbInstance.<ref refid="struct_x_usb_1ac9eb29e8f2372f88e570357da004e189" kindref="member">Config</ref>.<ref refid="struct_x_usb___config_1a7c086dc12e6b8886254b7a78e18926fb" kindref="member">DmaEnabled</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Flush<sp/>the<sp/>cache<sp/>before<sp/>DMA<sp/>transfer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheFlushRange((u32)&amp;Hello_wav[Index],<sp/>(u32)1024);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__usb_1gabf09f948bc604c279cb0a12bba14057b" kindref="member">XUsb_EpDataSend</ref>(&amp;UsbInstance,<sp/>1,<sp/>&amp;Hello_wav[Index],</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1024)<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Index<sp/>+=<sp/>1024;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cnt<sp/>++;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Cnt<sp/>&gt;=<sp/>9000)<sp/>{</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cnt<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Index<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="230" refid="xusb__microphone_8c_1a3b40155d0d9fa44133905dd9f6f02ee7" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__cp9_8h_1a3b40155d0d9fa44133905dd9f6f02ee7" kindref="member">InitUsbInterface</ref>(<ref refid="struct_x_usb" kindref="compound">XUsb</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="231"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_usb___device_config" kindref="compound">XUsb_DeviceConfig</ref><sp/>DeviceConfig;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="236"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Setup<sp/>Endpoint<sp/>0.</highlight></codeline>
+<codeline lineno="237"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DeviceConfig.<ref refid="struct_x_usb___device_config_1a6448bf5499b369be43e341c0edf109ea" kindref="member">Ep</ref>[0].<ref refid="struct_x_usb___ep_config_1ae435ae7b41b9b695000ac64e1b5734f2" kindref="member">RamBase</ref><sp/>=<sp/>0x22;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DeviceConfig.<ref refid="struct_x_usb___device_config_1a6448bf5499b369be43e341c0edf109ea" kindref="member">Ep</ref>[0].<ref refid="struct_x_usb___ep_config_1a5c1b641e8deb5d0c115609dc91a51aa1" kindref="member">Size</ref><sp/>=<sp/>0x40;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DeviceConfig.<ref refid="struct_x_usb___device_config_1a6448bf5499b369be43e341c0edf109ea" kindref="member">Ep</ref>[0].<ref refid="struct_x_usb___ep_config_1a738bec89a19541ccf5829750050469df" kindref="member">EpType</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DeviceConfig.<ref refid="struct_x_usb___device_config_1a6448bf5499b369be43e341c0edf109ea" kindref="member">Ep</ref>[0].<ref refid="struct_x_usb___ep_config_1a53a183054dd9dc8866ccfe0584fe3c88" kindref="member">OutIn</ref><sp/>=<sp/><ref refid="group__usb_1gaaeed667f160bf00cc1e548a254fc45a3" kindref="member">XUSB_EP_DIRECTION_OUT</ref>;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="245"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Setup<sp/>EP<sp/>1<sp/><sp/>1024<sp/>byte<sp/>packets,<sp/>ISOCHRONOUS<sp/>IN.</highlight></codeline>
+<codeline lineno="246"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DeviceConfig.<ref refid="struct_x_usb___device_config_1a6448bf5499b369be43e341c0edf109ea" kindref="member">Ep</ref>[1].<ref refid="struct_x_usb___ep_config_1ae435ae7b41b9b695000ac64e1b5734f2" kindref="member">RamBase</ref><sp/>=<sp/>0x1000;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DeviceConfig.<ref refid="struct_x_usb___device_config_1a6448bf5499b369be43e341c0edf109ea" kindref="member">Ep</ref>[1].<ref refid="struct_x_usb___ep_config_1a5c1b641e8deb5d0c115609dc91a51aa1" kindref="member">Size</ref><sp/>=<sp/>0x400;</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DeviceConfig.<ref refid="struct_x_usb___device_config_1a6448bf5499b369be43e341c0edf109ea" kindref="member">Ep</ref>[1].<ref refid="struct_x_usb___ep_config_1a738bec89a19541ccf5829750050469df" kindref="member">EpType</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DeviceConfig.<ref refid="struct_x_usb___device_config_1a6448bf5499b369be43e341c0edf109ea" kindref="member">Ep</ref>[1].<ref refid="struct_x_usb___ep_config_1a53a183054dd9dc8866ccfe0584fe3c88" kindref="member">OutIn</ref><sp/>=<sp/><ref refid="group__usb_1gac41572da2aded6fe09ee6b423ddbd50a" kindref="member">XUSB_EP_DIRECTION_IN</ref>;</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DeviceConfig.<ref refid="struct_x_usb___device_config_1afabc76c53b986e9ae1c5ae30f52789f9" kindref="member">NumEndpoints</ref><sp/>=<sp/>2;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="256"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>device<sp/>configuration.</highlight></codeline>
+<codeline lineno="257"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1ga9c50c0ee6d36d4b87a40018c2ad0fd25" kindref="member">XUsb_ConfigureDevice</ref>(InstancePtr,<sp/>&amp;DeviceConfig);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1gadc3661c9581f9dea4b01873cbaff31a8" kindref="member">XUsb_EpEnable</ref>(InstancePtr,<sp/>0);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1gadc3661c9581f9dea4b01873cbaff31a8" kindref="member">XUsb_EpEnable</ref>(InstancePtr,<sp/>1);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MaxControlSize<sp/>=<sp/>64;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="266"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Store<sp/>the<sp/>actual<sp/>RAM<sp/>address<sp/>offset<sp/>in<sp/>the<sp/>device<sp/>structure,<sp/>so<sp/>as<sp/>to</highlight></codeline>
+<codeline lineno="267"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>avoid<sp/>the<sp/>multiplication<sp/>during<sp/>processing.</highlight></codeline>
+<codeline lineno="268"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_usb_1ab3ca87faf1aa1caaa6fa6e6f7c3e9267" kindref="member">DeviceConfig</ref>.<ref refid="struct_x_usb___device_config_1a6448bf5499b369be43e341c0edf109ea" kindref="member">Ep</ref>[1].<ref refid="struct_x_usb___ep_config_1ae435ae7b41b9b695000ac64e1b5734f2" kindref="member">RamBase</ref><sp/>&lt;&lt;=<sp/>2;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="288" refid="xusb__microphone_8c_1a8bd3ecc4e2acd07b864ea2392a0394f4" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__dma__intr__storage_8c_1a8bd3ecc4e2acd07b864ea2392a0394f4" kindref="member">UsbIfIntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u32<sp/>IntrStatus)</highlight></codeline>
+<codeline lineno="289"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_usb" kindref="compound">XUsb</ref><sp/>*InstancePtr;</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Index;</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr<sp/>=<sp/>(<ref refid="struct_x_usb" kindref="compound">XUsb</ref><sp/>*)<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/><ref refid="group__usb_1gaa69331ab12d98b585ded8d8c69dad53a" kindref="member">XUSB_STATUS_RESET_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1ga53f7e5c356dbe880560a6eb5942a74d6" kindref="member">XUsb_Stop</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_usb_1ab3ca87faf1aa1caaa6fa6e6f7c3e9267" kindref="member">DeviceConfig</ref>.<ref refid="struct_x_usb___device_config_1aa2e570d2cf6027c87adee4304b6afd79" kindref="member">CurrentConfiguration</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_usb_1ab3ca87faf1aa1caaa6fa6e6f7c3e9267" kindref="member">DeviceConfig</ref>.<ref refid="struct_x_usb___device_config_1a39868eeb033b4118b6e80f11a819d79c" kindref="member">Status</ref><sp/>=<sp/><ref refid="group__usb_1gac5aabd610647e476facc6e8e9507f22c" kindref="member">XUSB_RESET</ref>;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/>3;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1ga7598429f7ba0bb7f052da4eb95d0908b" kindref="member">XUsb_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_usb_1ac9eb29e8f2372f88e570357da004e189" kindref="member">Config</ref>.<ref refid="struct_x_usb___config_1a4c3940ad84a72a33f98856da250dab3f" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EndPointOffset[Index],<sp/>0);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="307"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Re-initialize<sp/>the<sp/>device<sp/>and<sp/>set<sp/>the<sp/>device<sp/>address</highlight></codeline>
+<codeline lineno="308"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>to<sp/>0<sp/>and<sp/>re-start<sp/>the<sp/>device.</highlight></codeline>
+<codeline lineno="309"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__cp9_8h_1a3b40155d0d9fa44133905dd9f6f02ee7" kindref="member">InitUsbInterface</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1gaa2f7958d25023d2ed18cfaabfb2baa0f" kindref="member">XUsb_SetDeviceAddress</ref>(InstancePtr,<sp/>0);</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1ga4708ca8b9ca477b58d7da7db3f1be308" kindref="member">XUsb_Start</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1ga6a9e88138c012fcfa32717eeaab1e5b1" kindref="member">XUsb_IntrDisable</ref>(InstancePtr,<sp/>XUSB_STATUS_RESET_MASK);</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1gafcd3e91e72783087a0c6902724b8087f" kindref="member">XUsb_IntrEnable</ref>(InstancePtr,<sp/>(<ref refid="group__usb_1ga10e255c9daa6899e2c231a9c839c76fe" kindref="member">XUSB_STATUS_DISCONNECT_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1ga2b4ada8448d346e1a7460c2a02d779b6" kindref="member">XUSB_STATUS_SUSPEND_MASK</ref>));</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/><ref refid="group__usb_1ga2b4ada8448d346e1a7460c2a02d779b6" kindref="member">XUSB_STATUS_SUSPEND_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="320"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Process<sp/>the<sp/>suspend<sp/>event.</highlight></codeline>
+<codeline lineno="321"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1ga6a9e88138c012fcfa32717eeaab1e5b1" kindref="member">XUsb_IntrDisable</ref>(InstancePtr,<sp/>XUSB_STATUS_SUSPEND_MASK);</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1gafcd3e91e72783087a0c6902724b8087f" kindref="member">XUsb_IntrEnable</ref>(InstancePtr,<sp/>(XUSB_STATUS_RESET_MASK<sp/>|</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1ga10e255c9daa6899e2c231a9c839c76fe" kindref="member">XUSB_STATUS_DISCONNECT_MASK</ref>));</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="346" refid="xusb__microphone_8c_1a243967b329b332dc3503adfc2950fceb" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__dma__intr__storage_8c_1a243967b329b332dc3503adfc2950fceb" kindref="member">Ep0IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u8<sp/>EpNum,<sp/>u32<sp/>IntrStatus)</highlight></codeline>
+<codeline lineno="347"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_usb" kindref="compound">XUsb</ref><sp/>*InstancePtr;</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SetupRequest;</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EpCfgReg;</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"></highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr<sp/>=<sp/>(<ref refid="struct_x_usb" kindref="compound">XUsb</ref><sp/>*)<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="356"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Process<sp/>the<sp/>end<sp/>point<sp/>zero<sp/>buffer<sp/>interrupt.</highlight></codeline>
+<codeline lineno="357"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/><ref refid="group__usb_1ga9e9f2e36d2904d4dbc6879fc4702924a" kindref="member">XUSB_BUFFREADY_EP0_BUFF_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/><ref refid="group__usb_1ga547bfee781de3a964fad8760228a7207" kindref="member">XUSB_STATUS_SETUP_PACKET_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="361"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Received<sp/>a<sp/>setup<sp/>packet.<sp/>Execute<sp/>the<sp/>chapter<sp/>9</highlight></codeline>
+<codeline lineno="362"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>command.</highlight></codeline>
+<codeline lineno="363"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1gafcd3e91e72783087a0c6902724b8087f" kindref="member">XUsb_IntrEnable</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__usb_1ga10e255c9daa6899e2c231a9c839c76fe" kindref="member">XUSB_STATUS_DISCONNECT_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1ga2b4ada8448d346e1a7460c2a02d779b6" kindref="member">XUSB_STATUS_SUSPEND_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1gaa69331ab12d98b585ded8d8c69dad53a" kindref="member">XUSB_STATUS_RESET_MASK</ref>));</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SetupRequest<sp/>=<sp/><ref refid="xusb__cp9_8c_1ac4a19eadcf18a8eaae15eec7bd617c55" kindref="member">Chapter9</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SetupRequest<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="371"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Unsupported<sp/>command.<sp/>Simple<sp/>Acknowledge.</highlight></codeline>
+<codeline lineno="372"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;unsuppported<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>SetupRequest);</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EpCfgReg<sp/>=<sp/><ref refid="group__usb_1gacd33f4473000380669cb9147110cac62" kindref="member">XUsb_ReadReg</ref>(</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_usb_1ac9eb29e8f2372f88e570357da004e189" kindref="member">Config</ref>.<ref refid="struct_x_usb___config_1a4c3940ad84a72a33f98856da250dab3f" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_usb_1a69fc81451351e4418bfe14f9fae4fb40" kindref="member">EndPointOffset</ref>[0]);</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EpCfgReg<sp/>|=<sp/><ref refid="group__usb_1ga0208afaf65f9cc286adcaec1aa035a3b" kindref="member">XUSB_EP_CFG_DATA_TOGGLE_MASK</ref>;</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"></highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1ga7598429f7ba0bb7f052da4eb95d0908b" kindref="member">XUsb_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_usb_1ac9eb29e8f2372f88e570357da004e189" kindref="member">Config</ref>.<ref refid="struct_x_usb___config_1a4c3940ad84a72a33f98856da250dab3f" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_usb_1a69fc81451351e4418bfe14f9fae4fb40" kindref="member">EndPointOffset</ref>[0],</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EpCfgReg);</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1ga7598429f7ba0bb7f052da4eb95d0908b" kindref="member">XUsb_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_usb_1ac9eb29e8f2372f88e570357da004e189" kindref="member">Config</ref>.<ref refid="struct_x_usb___config_1a4c3940ad84a72a33f98856da250dab3f" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usb_1gab2a74173a60f9124ce0dbe9430302076" kindref="member">XUSB_BUFFREADY_OFFSET</ref>,<sp/>1);</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"></highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/><ref refid="group__usb_1gadf5b97880da95d33c6d746d33ff28125" kindref="member">XUSB_STATUS_FIFO_BUFF_RDY_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__cp9_8c_1a27bfda5402c9f09018d88bf739cef6df" kindref="member">EP0ProcessOutToken</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/><ref refid="group__usb_1ga1c1388c1f5b3644140d0ced5dd7fceda" kindref="member">XUSB_STATUS_FIFO_BUFF_FREE_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xusb__cp9_8c_1a33729d6b78e329bb598c6f06e9f80c11" kindref="member">EP0ProcessInToken</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="393"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"></highlight></codeline>
+<codeline lineno="395"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="411" refid="xusb__microphone_8c_1a386bfc503aaebdfd92028284d6fb63f0" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xusb__dma__intr__storage_8c_1a386bfc503aaebdfd92028284d6fb63f0" kindref="member">Ep1IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u8<sp/>EpNum,<sp/>u32<sp/>IntrStatus)</highlight></codeline>
+<codeline lineno="412"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"></highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_usb" kindref="compound">XUsb</ref><sp/>*InstancePtr;</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"></highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr<sp/>=<sp/>(<ref refid="struct_x_usb" kindref="compound">XUsb</ref><sp/>*)<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"></highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="419"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Process<sp/>the<sp/>End<sp/>point<sp/>1<sp/>interrupts.</highlight></codeline>
+<codeline lineno="420"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/><ref refid="group__usb_1gad1868c71dd1da583ef24d2f50bdef032" kindref="member">XUSB_BUFFREADY_EP1_BUFF1_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_usb_1ab3ca87faf1aa1caaa6fa6e6f7c3e9267" kindref="member">DeviceConfig</ref>.<ref refid="struct_x_usb___device_config_1a6448bf5499b369be43e341c0edf109ea" kindref="member">Ep</ref>[1].<ref refid="struct_x_usb___ep_config_1aa9571c37eb861f5105f33c3b383d4d6c" kindref="member">Buffer0Ready</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"></highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrStatus<sp/>&amp;<sp/><ref refid="group__usb_1ga6efee22c3a6ad61a28db82930603a473" kindref="member">XUSB_BUFFREADY_EP1_BUFF2_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_usb_1ab3ca87faf1aa1caaa6fa6e6f7c3e9267" kindref="member">DeviceConfig</ref>.<ref refid="struct_x_usb___device_config_1a6448bf5499b369be43e341c0edf109ea" kindref="member">Ep</ref>[1].<ref refid="struct_x_usb___ep_config_1ab377dc556732f53160473338e06eed70" kindref="member">Buffer1Ready</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="428"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"></highlight></codeline>
+<codeline lineno="430"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="431"><highlight class="preprocessor"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="451"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SetupInterruptSystem(<ref refid="struct_x_usb" kindref="compound">XUsb</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="452"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"></highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="456"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>interrupt<sp/>controller<sp/>driver.</highlight></codeline>
+<codeline lineno="457"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIntc_Initialize(&amp;InterruptController,<sp/>INTC_DEVICE_ID);</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"></highlight></codeline>
+<codeline lineno="463"><highlight class="normal"></highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="465"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Connect<sp/>a<sp/>device<sp/>driver<sp/>handler<sp/>that<sp/>will<sp/>be<sp/>called<sp/>when<sp/>an<sp/>interrupt</highlight></codeline>
+<codeline lineno="466"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>for<sp/>the<sp/>USB<sp/>device<sp/>occurs.</highlight></codeline>
+<codeline lineno="467"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIntc_Connect(&amp;InterruptController,<sp/>USB_INTR,</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XInterruptHandler)<sp/><ref refid="group__usb_1gacc119aa9f628ab0cc3fac2f63073e386" kindref="member">XUsb_IntrHandler</ref>,</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)<sp/>InstancePtr);</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"></highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="476"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Start<sp/>the<sp/>interrupt<sp/>controller<sp/>such<sp/>that<sp/>interrupts<sp/>are<sp/>enabled<sp/>for</highlight></codeline>
+<codeline lineno="477"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>all<sp/>devices<sp/>that<sp/>cause<sp/>interrupts,<sp/>specific<sp/>real<sp/>mode<sp/>so<sp/>that</highlight></codeline>
+<codeline lineno="478"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>USB<sp/>can<sp/>cause<sp/>interrupts<sp/>through<sp/>the<sp/>interrupt<sp/>controller.</highlight></codeline>
+<codeline lineno="479"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIntc_Start(&amp;InterruptController,<sp/>XIN_REAL_MODE);</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"></highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="486"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>the<sp/>interrupt<sp/>for<sp/>the<sp/>USB.</highlight></codeline>
+<codeline lineno="487"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIntc_Enable(&amp;InterruptController,<sp/>USB_INTR);</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"></highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="491"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>exception<sp/>table</highlight></codeline>
+<codeline lineno="492"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionInit();</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"></highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="496"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Register<sp/>the<sp/>interrupt<sp/>controller<sp/>handler<sp/>with<sp/>the<sp/>exception<sp/>table</highlight></codeline>
+<codeline lineno="497"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_ExceptionHandler)XIntc_InterruptHandler,</highlight></codeline>
+<codeline lineno="500"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;InterruptController);</highlight></codeline>
+<codeline lineno="501"><highlight class="normal"></highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="503"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>non-critical<sp/>exceptions</highlight></codeline>
+<codeline lineno="504"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionEnable();</highlight></codeline>
+<codeline lineno="506"><highlight class="normal"></highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="508"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="509"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_microphone.c"/>
+  </compounddef>
+</doxygen>

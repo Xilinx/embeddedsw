@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdmiphy1___mmcm" kind="struct" prot="public">
+    <compoundname>XHdmiphy1_Mmcm</compoundname>
+    <includes local="no">xhdmiphy1.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdmiphy1___mmcm_1ab9ccfc54d92468cdb535517e0d564412" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHdmiphy1_Mmcm::DivClkDivide</definition>
+        <argsstring></argsstring>
+        <name>DivClkDivide</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="604" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="604" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___mmcm_1aea10695f6627f66a103d40e8ec3d48bb" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHdmiphy1_Mmcm::ClkFbOutMult</definition>
+        <argsstring></argsstring>
+        <name>ClkFbOutMult</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="605" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="605" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___mmcm_1a9c9dba2c3c909b951307a57a6b062e1d" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHdmiphy1_Mmcm::ClkFbOutFrac</definition>
+        <argsstring></argsstring>
+        <name>ClkFbOutFrac</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="606" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="606" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___mmcm_1ab84fe4abf12e5c5b82e92f7b7f3a2a9b" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHdmiphy1_Mmcm::ClkOut0Div</definition>
+        <argsstring></argsstring>
+        <name>ClkOut0Div</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="607" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="607" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___mmcm_1a9056af31d5458ebdd3b71819869f3397" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHdmiphy1_Mmcm::ClkOut0Frac</definition>
+        <argsstring></argsstring>
+        <name>ClkOut0Frac</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="608" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="608" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___mmcm_1a49343750f52810942f2d39f59fe7537c" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHdmiphy1_Mmcm::ClkOut1Div</definition>
+        <argsstring></argsstring>
+        <name>ClkOut1Div</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="609" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="609" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___mmcm_1a0012937a22ecb34cf8bf42e61c4d26c1" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHdmiphy1_Mmcm::ClkOut2Div</definition>
+        <argsstring></argsstring>
+        <name>ClkOut2Div</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="610" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="610" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for MMCM programming. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" line="603" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1.h" bodystart="603" bodyend="611"/>
+    <listofallmembers>
+      <member refid="struct_x_hdmiphy1___mmcm_1a9c9dba2c3c909b951307a57a6b062e1d" prot="public" virt="non-virtual"><scope>XHdmiphy1_Mmcm</scope><name>ClkFbOutFrac</name></member>
+      <member refid="struct_x_hdmiphy1___mmcm_1aea10695f6627f66a103d40e8ec3d48bb" prot="public" virt="non-virtual"><scope>XHdmiphy1_Mmcm</scope><name>ClkFbOutMult</name></member>
+      <member refid="struct_x_hdmiphy1___mmcm_1ab84fe4abf12e5c5b82e92f7b7f3a2a9b" prot="public" virt="non-virtual"><scope>XHdmiphy1_Mmcm</scope><name>ClkOut0Div</name></member>
+      <member refid="struct_x_hdmiphy1___mmcm_1a9056af31d5458ebdd3b71819869f3397" prot="public" virt="non-virtual"><scope>XHdmiphy1_Mmcm</scope><name>ClkOut0Frac</name></member>
+      <member refid="struct_x_hdmiphy1___mmcm_1a49343750f52810942f2d39f59fe7537c" prot="public" virt="non-virtual"><scope>XHdmiphy1_Mmcm</scope><name>ClkOut1Div</name></member>
+      <member refid="struct_x_hdmiphy1___mmcm_1a0012937a22ecb34cf8bf42e61c4d26c1" prot="public" virt="non-virtual"><scope>XHdmiphy1_Mmcm</scope><name>ClkOut2Div</name></member>
+      <member refid="struct_x_hdmiphy1___mmcm_1ab9ccfc54d92468cdb535517e0d564412" prot="public" virt="non-virtual"><scope>XHdmiphy1_Mmcm</scope><name>DivClkDivide</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

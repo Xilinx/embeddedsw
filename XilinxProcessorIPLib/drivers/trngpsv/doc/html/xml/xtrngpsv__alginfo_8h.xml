@@ -1,0 +1,200 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xtrngpsv__alginfo_8h" kind="file">
+    <compoundname>xtrngpsv_alginfo.h</compoundname>
+    <includes local="yes">xil_cryptoalginfo.h</includes>
+    <includedby refid="xtrngpsv_8h" local="yes">xtrngpsv.h</includedby>
+    <incdepgraph>
+      <node id="46">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="45">
+        <label>xtrngpsv_alginfo.h</label>
+        <link refid="xtrngpsv_alginfo.h"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="59">
+        <label>xtrngpsv_ptrng_example.c</label>
+        <link refid="xtrngpsv__ptrng__example_8c"/>
+      </node>
+      <node id="55">
+        <label>xtrngpsv_drng_example.c</label>
+        <link refid="xtrngpsv__drng__example_8c"/>
+      </node>
+      <node id="52">
+        <label>xtrngpsv_sinit.c</label>
+        <link refid="xtrngpsv__sinit_8c"/>
+      </node>
+      <node id="57">
+        <label>xtrngpsv_hrng_example.c</label>
+        <link refid="xtrngpsv__hrng__example_8c"/>
+      </node>
+      <node id="49">
+        <label>xtrngpsv.c</label>
+        <link refid="xtrngpsv_8c"/>
+      </node>
+      <node id="48">
+        <label>xtrngpsv.h</label>
+        <link refid="xtrngpsv_8h"/>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+      </node>
+      <node id="53">
+        <label>xtrngpsv_tests.c</label>
+        <link refid="xtrngpsv__tests_8c"/>
+      </node>
+      <node id="50">
+        <label>xtrngpsv_df.c</label>
+        <link refid="xtrngpsv__df_8c"/>
+      </node>
+      <node id="51">
+        <label>xtrngpsv_g.c</label>
+        <link refid="xtrngpsv__g_8c"/>
+      </node>
+      <node id="58">
+        <label>xtrngpsv_ptrng_df_example.c</label>
+        <link refid="xtrngpsv__ptrng__df__example_8c"/>
+      </node>
+      <node id="54">
+        <label>xtrngpsv_drng_df_example.c</label>
+        <link refid="xtrngpsv__drng__df__example_8c"/>
+      </node>
+      <node id="56">
+        <label>xtrngpsv_hrng_df_example.c</label>
+        <link refid="xtrngpsv__hrng__df__example_8c"/>
+      </node>
+      <node id="47">
+        <label>xtrngpsv_alginfo.h</label>
+        <link refid="xtrngpsv_alginfo.h"/>
+        <childnode refid="48" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xtrngpsv__alginfo_8h_1a6147aa24b02429bd52fd9d495eec879e" prot="public" static="no">
+        <name>XTRNGPSV_MAJOR_VERSION</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>Major version of Trngpsv driver. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv_alginfo.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv_alginfo.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrngpsv__alginfo_8h_1a528d05213d65e6ea2004fd82c5cdcd9b" prot="public" static="no">
+        <name>XTRNGPSV_MINOR_VERSION</name>
+        <initializer>9U</initializer>
+        <briefdescription>
+<para>Minor version of Trngpsv driver. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv_alginfo.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv_alginfo.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xtrngpsv__alginfo_8h_1a3452cd0e12f658f5591bf25305387ef2" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XTrngpsv_GetCryptoAlgInfo</definition>
+        <argsstring>(Xil_CryptoAlgInfo *AlgInfo)</argsstring>
+        <name>XTrngpsv_GetCryptoAlgInfo</name>
+        <param>
+          <type>Xil_CryptoAlgInfo *</type>
+          <declname>AlgInfo</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the TRNG crypto algorithm information. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>AlgInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to memory for holding the crypto algorithm information </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv_alginfo.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv_alginfo.h" bodystart="54" bodyend="58"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+1.4   mmd     07/04/23 Initial Release
+      dd      08/07/23 Updated doxygen comments
+      mb      09/14/23 Fix MISRA- C violations for Rule 10.1
+1.5   mb      04/01/24 Update minor version number
+1.7   vss     04/25/25 Updated minor version
+1.8   mb      04/28/26 Updated minor version to 1.9</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2021<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor">#ifndef<sp/>XTRNGPSV_ALGINFO_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTRNGPSV_ALGINFO_H</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cryptoalginfo.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40" refid="xtrngpsv__alginfo_8h_1a6147aa24b02429bd52fd9d495eec879e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XTRNGPSV_MAJOR_VERSION<sp/><sp/>1U<sp/></highlight></codeline>
+<codeline lineno="41" refid="xtrngpsv__alginfo_8h_1a528d05213d65e6ea2004fd82c5cdcd9b" refkind="member"><highlight class="preprocessor">#define<sp/>XTRNGPSV_MINOR_VERSION<sp/><sp/>9U<sp/></highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="comment">/******************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="53"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>__attribute__((always_inline))<sp/>inline</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XTrngpsv_GetCryptoAlgInfo<sp/>(Xil_CryptoAlgInfo<sp/>*AlgInfo)</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AlgInfo-&gt;Version<sp/>=<sp/>XIL_BUILD_VERSION(<ref refid="xtrngpsv__alginfo_8h_1a6147aa24b02429bd52fd9d495eec879e" kindref="member">XTRNGPSV_MAJOR_VERSION</ref>,<sp/><ref refid="xtrngpsv__alginfo_8h_1a528d05213d65e6ea2004fd82c5cdcd9b" kindref="member">XTRNGPSV_MINOR_VERSION</ref>);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AlgInfo-&gt;NistStatus<sp/>=<sp/>NIST_COMPLIANT;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XTRNGPSV_AESALGINFO_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv_alginfo.h"/>
+  </compounddef>
+</doxygen>

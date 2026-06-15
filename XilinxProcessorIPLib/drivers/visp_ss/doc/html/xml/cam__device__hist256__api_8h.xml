@@ -1,0 +1,789 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="cam__device__hist256__api_8h" kind="file">
+    <compoundname>cam_device_hist256_api.h</compoundname>
+    <includes refid="cam__device__common_8h" local="yes">cam_device_common.h</includes>
+    <includedby refid="cam__device__module__api_8h" local="yes">cam_device_module_api.h</includedby>
+    <includedby refid="vvbench__hist256__api_8h" local="yes">vvbench_hist256_api.h</includedby>
+    <incdepgraph>
+      <node id="3809">
+        <label>stdbool.h</label>
+      </node>
+      <node id="3803">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="3810">
+        <label>stdint.h</label>
+      </node>
+      <node id="3800">
+        <label>stdlib.h</label>
+      </node>
+      <node id="3807">
+        <label>sensor_cmd.h</label>
+        <childnode refid="3808" relation="include">
+        </childnode>
+        <childnode refid="3803" relation="include">
+        </childnode>
+      </node>
+      <node id="3802">
+        <label>stddef.h</label>
+      </node>
+      <node id="3801">
+        <label>limits.h</label>
+      </node>
+      <node id="3796">
+        <label>cam_device_common.h</label>
+        <childnode refid="3797" relation="include">
+        </childnode>
+        <childnode refid="3803" relation="include">
+        </childnode>
+        <childnode refid="3804" relation="include">
+        </childnode>
+        <childnode refid="3806" relation="include">
+        </childnode>
+        <childnode refid="3807" relation="include">
+        </childnode>
+      </node>
+      <node id="3806">
+        <label>buf_defs.h</label>
+        <childnode refid="3797" relation="include">
+        </childnode>
+      </node>
+      <node id="3808">
+        <label>mbox_api.h</label>
+        <childnode refid="3809" relation="include">
+        </childnode>
+        <childnode refid="3810" relation="include">
+        </childnode>
+        <childnode refid="3811" relation="include">
+        </childnode>
+      </node>
+      <node id="3805">
+        <label>string.h</label>
+      </node>
+      <node id="3811">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="3809" relation="include">
+        </childnode>
+        <childnode refid="3812" relation="include">
+        </childnode>
+      </node>
+      <node id="3812">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="3797">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="3798" relation="include">
+        </childnode>
+        <childnode refid="3801" relation="include">
+        </childnode>
+        <childnode refid="3802" relation="include">
+        </childnode>
+      </node>
+      <node id="3795">
+        <label>cam_device_hist256_api.h</label>
+        <link refid="cam_device_hist256_api.h"/>
+        <childnode refid="3796" relation="include">
+        </childnode>
+      </node>
+      <node id="3804">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="3797" relation="include">
+        </childnode>
+        <childnode refid="3805" relation="include">
+        </childnode>
+      </node>
+      <node id="3799">
+        <label>stdio.h</label>
+      </node>
+      <node id="3798">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="3799" relation="include">
+        </childnode>
+        <childnode refid="3800" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3847">
+        <label>cam_device_rgbir_api_v2.c</label>
+      </node>
+      <node id="3845">
+        <label>cam_device_hist64_api.c</label>
+      </node>
+      <node id="3844">
+        <label>cam_device_hist256_api.c</label>
+      </node>
+      <node id="3848">
+        <label>cam_device_tpg_api.c</label>
+      </node>
+      <node id="3814">
+        <label>cam_device_module_api.h</label>
+        <childnode refid="3815" relation="include">
+        </childnode>
+      </node>
+      <node id="3858">
+        <label>vvbench_hist256_api.c</label>
+      </node>
+      <node id="3852">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="3816">
+        <label>control.h</label>
+        <childnode refid="3817" relation="include">
+        </childnode>
+      </node>
+      <node id="3842">
+        <label>cam_device_ge_api.c</label>
+      </node>
+      <node id="3850">
+        <label>cam_device_wdr_api_v5_2.c</label>
+      </node>
+      <node id="3828">
+        <label>cam_device_cpd_api.c</label>
+      </node>
+      <node id="3836">
+        <label>cam_device_cnr_api.c</label>
+      </node>
+      <node id="3830">
+        <label>cam_device_dg_api.c</label>
+      </node>
+      <node id="3834">
+        <label>cam_device_af_api.c</label>
+      </node>
+      <node id="3856">
+        <label>submodule_def.h</label>
+        <childnode refid="3857" relation="include">
+        </childnode>
+        <childnode refid="3852" relation="include">
+        </childnode>
+      </node>
+      <node id="3826">
+        <label>cam_device_bls_api.c</label>
+      </node>
+      <node id="3822">
+        <label>cam_device_sensor_api.c</label>
+      </node>
+      <node id="3821">
+        <label>cam_device_buffer_api.c</label>
+      </node>
+      <node id="3857">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="3837">
+        <label>cam_device_hdr_api.c</label>
+      </node>
+      <node id="3829">
+        <label>cam_device_cproc_api.c</label>
+      </node>
+      <node id="3832">
+        <label>cam_device_dpcc_api.c</label>
+      </node>
+      <node id="3835">
+        <label>cam_device_afm_api.c</label>
+      </node>
+      <node id="3819">
+        <label>cam_device.c</label>
+      </node>
+      <node id="3827">
+        <label>cam_device_ccm_api.c</label>
+      </node>
+      <node id="3825">
+        <label>cam_device_awb_api.c</label>
+      </node>
+      <node id="3815">
+        <label>cam_device_app.h</label>
+        <childnode refid="3816" relation="include">
+        </childnode>
+        <childnode refid="3817" relation="include">
+        </childnode>
+        <childnode refid="3818" relation="include">
+        </childnode>
+        <childnode refid="3819" relation="include">
+        </childnode>
+        <childnode refid="3820" relation="include">
+        </childnode>
+        <childnode refid="3821" relation="include">
+        </childnode>
+        <childnode refid="3822" relation="include">
+        </childnode>
+        <childnode refid="3823" relation="include">
+        </childnode>
+        <childnode refid="3824" relation="include">
+        </childnode>
+        <childnode refid="3825" relation="include">
+        </childnode>
+        <childnode refid="3826" relation="include">
+        </childnode>
+        <childnode refid="3827" relation="include">
+        </childnode>
+        <childnode refid="3828" relation="include">
+        </childnode>
+        <childnode refid="3829" relation="include">
+        </childnode>
+        <childnode refid="3830" relation="include">
+        </childnode>
+        <childnode refid="3831" relation="include">
+        </childnode>
+        <childnode refid="3832" relation="include">
+        </childnode>
+        <childnode refid="3833" relation="include">
+        </childnode>
+        <childnode refid="3834" relation="include">
+        </childnode>
+        <childnode refid="3835" relation="include">
+        </childnode>
+        <childnode refid="3836" relation="include">
+        </childnode>
+        <childnode refid="3837" relation="include">
+        </childnode>
+        <childnode refid="3838" relation="include">
+        </childnode>
+        <childnode refid="3839" relation="include">
+        </childnode>
+        <childnode refid="3840" relation="include">
+        </childnode>
+        <childnode refid="3841" relation="include">
+        </childnode>
+        <childnode refid="3842" relation="include">
+        </childnode>
+        <childnode refid="3843" relation="include">
+        </childnode>
+        <childnode refid="3844" relation="include">
+        </childnode>
+        <childnode refid="3845" relation="include">
+        </childnode>
+        <childnode refid="3846" relation="include">
+        </childnode>
+        <childnode refid="3847" relation="include">
+        </childnode>
+        <childnode refid="3848" relation="include">
+        </childnode>
+        <childnode refid="3849" relation="include">
+        </childnode>
+        <childnode refid="3850" relation="include">
+        </childnode>
+        <childnode refid="3851" relation="include">
+        </childnode>
+        <childnode refid="3852" relation="include">
+        </childnode>
+        <childnode refid="3853" relation="include">
+        </childnode>
+      </node>
+      <node id="3817">
+        <label>control.c</label>
+      </node>
+      <node id="3849">
+        <label>cam_device_wb_api.c</label>
+      </node>
+      <node id="3846">
+        <label>cam_device_lsc_api_v3.c</label>
+      </node>
+      <node id="3838">
+        <label>cam_device_ee_api_v2.c</label>
+      </node>
+      <node id="3839">
+        <label>cam_device_exp_api_v2.c</label>
+      </node>
+      <node id="3840">
+        <label>cam_device_fusa_api.c</label>
+      </node>
+      <node id="3851">
+        <label>oba.c</label>
+      </node>
+      <node id="3820">
+        <label>cam_device_api.c</label>
+      </node>
+      <node id="3841">
+        <label>cam_device_gc_api.c</label>
+      </node>
+      <node id="3843">
+        <label>cam_device_gtm_api_v1.c</label>
+      </node>
+      <node id="3818">
+        <label>iba.c</label>
+      </node>
+      <node id="3855">
+        <label>vvbench_hist256_api.h</label>
+        <childnode refid="3856" relation="include">
+        </childnode>
+        <childnode refid="3858" relation="include">
+        </childnode>
+      </node>
+      <node id="3831">
+        <label>cam_device_dmsc_api_v2.c</label>
+      </node>
+      <node id="3823">
+        <label>cam_device_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="3813">
+        <label>cam_device_hist256_api.h</label>
+        <link refid="cam_device_hist256_api.h"/>
+        <childnode refid="3814" relation="include">
+        </childnode>
+        <childnode refid="3855" relation="include">
+        </childnode>
+      </node>
+      <node id="3833">
+        <label>cam_device_3dnr_api.c</label>
+      </node>
+      <node id="3854">
+        <label>xvisp_ss_example.c</label>
+      </node>
+      <node id="3853">
+        <label>xvisp_ss_example.h</label>
+        <childnode refid="3854" relation="include">
+        </childnode>
+      </node>
+      <node id="3824">
+        <label>cam_device_ae_api.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_cam_device_hist256_bins__s" prot="public">CamDeviceHist256Bins_s</innerclass>
+    <innerclass refid="struct_cam_device_h_i_s_t256_config__s" prot="public">CamDeviceHIST256Config_s</innerclass>
+    <innerclass refid="struct_cam_device_hist256_status__s" prot="public">CamDeviceHist256Status_s</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group____cam__device__hist256_1ga83433d10ee0d5fd21b948b0d3c13cbda" prot="public" static="no">
+        <name>CAMDEV_HIST256_GRID_ITEMS</name>
+        <initializer>25</initializer>
+        <briefdescription>
+<para>The number of grid sub windows. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist256_api.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist256_api.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__hist256_1gac3e2db6f6ecdb5c3571c1d08b21674bb" prot="public" static="no">
+        <name>CAMDEV_HIST256_NUM_BINS</name>
+        <initializer>256</initializer>
+        <briefdescription>
+<para>The number of bins. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist256_api.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist256_api.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group____cam__device__hist256_1ga5ef316714a9d44f33d87982f4b46ff31" prot="public" static="no">
+        <name>CamDeviceHist256Mode_e</name>
+        <enumvalue id="group____cam__device__hist256_1gga5ef316714a9d44f33d87982f4b46ff31aa0d5bc837a40c9f443e6f8310cf2a6f9" prot="public">
+          <name>CAMDEV_HIST256_MODE_DISABLE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Disabled, no measurements. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__hist256_1gga5ef316714a9d44f33d87982f4b46ff31a3fbc8e9dcae7a2f314f4b777696ae8f1" prot="public">
+          <name>CAMDEV_HIST256_MODE_RGB_COMBINED</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>RGB combined histogram. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__hist256_1gga5ef316714a9d44f33d87982f4b46ff31ae4aefe4ff05966d7640dd7914a40307f" prot="public">
+          <name>CAMDEV_HIST256_MODE_R</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>R histogram. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__hist256_1gga5ef316714a9d44f33d87982f4b46ff31a0510335a155c705162af3b421f331177" prot="public">
+          <name>CAMDEV_HIST256_MODE_G</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>G histogram. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__hist256_1gga5ef316714a9d44f33d87982f4b46ff31a2ee41d01c1566504674aeda90d835b21" prot="public">
+          <name>CAMDEV_HIST256_MODE_B</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+<para>B histogram. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__hist256_1gga5ef316714a9d44f33d87982f4b46ff31ac59a5cc2b4ef651955067ea176cba09e" prot="public">
+          <name>CAMDEV_HIST256_MODE_Y</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+<para>Luminance histogram. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__hist256_1gga5ef316714a9d44f33d87982f4b46ff31a27a7f7c7833611d79cfcef082bf5b466" prot="public">
+          <name>CAMDEV_HIST256_MODE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice HIST256 mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist256_api.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist256_api.h" bodystart="54" bodyend="62"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__hist256_1gae64bee7957011bf2e5b46395e4bf1c50" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__hist256_1ga5ef316714a9d44f33d87982f4b46ff31" kindref="member">CamDeviceHist256Mode_e</ref></type>
+        <definition>typedef enum CamDeviceHist256Mode_e  CamDeviceHist256Mode_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceHist256Mode_t</name>
+        <briefdescription>
+<para>VsCamDevice HIST256 mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist256_api.h" line="62" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__hist256_1gab6d6681ee613470e95cd26250b0a2c07" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_hist256_bins__s" kindref="compound">CamDeviceHist256Bins_s</ref></type>
+        <definition>typedef struct CamDeviceHist256Bins_s  CamDeviceHist256Bins_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceHist256Bins_t</name>
+        <briefdescription>
+<para>VsCamDevice HIST256 bins. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist256_api.h" line="72" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__hist256_1gaf78f44180aac60c1b7e1a674d9c0306b" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_h_i_s_t256_config__s" kindref="compound">CamDeviceHIST256Config_s</ref></type>
+        <definition>typedef struct CamDeviceHIST256Config_s  CamDeviceHist256Config_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceHist256Config_t</name>
+        <briefdescription>
+<para>VsCamDevice HIST256 configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist256_api.h" line="83" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__hist256_1ga5b76d14e5a681ead8748fdab1c2761c1" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_hist256_status__s" kindref="compound">CamDeviceHist256Status_s</ref></type>
+        <definition>typedef struct CamDeviceHist256Status_s CamDeviceHist256Status_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceHist256Status_t</name>
+        <briefdescription>
+<para>VsCamDevice HIST256 status structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist256_api.h" line="93" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__hist256_1ga24a621b20af9f3296ecb729d87e5733a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceHist256SetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceHist256Config_t *pConfig)</argsstring>
+        <name>VsiCamDeviceHist256SetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__hist256_1gaf78f44180aac60c1b7e1a674d9c0306b" kindref="member">CamDeviceHist256Config_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist256_api.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/hist/cam_device_hist256_api.c" bodystart="19" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__hist256_1ga955cae4602a10759fc90ee6b7d2e2e7f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceHist256GetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceHist256Config_t *pConfig)</argsstring>
+        <name>VsiCamDeviceHist256GetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__hist256_1gaf78f44180aac60c1b7e1a674d9c0306b" kindref="member">CamDeviceHist256Config_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist256_api.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/hist/cam_device_hist256_api.c" bodystart="64" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__hist256_1ga4c80780327b526b6af9d559a32bf75c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceHist256Enable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceHist256Enable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist256_api.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/hist/cam_device_hist256_api.c" bodystart="109" bodyend="144"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__hist256_1ga91ce7c375e7882d86fab37486235f79b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceHist256Disable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceHist256Disable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist256_api.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/hist/cam_device_hist256_api.c" bodystart="148" bodyend="183"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__hist256_1gace7a7f7258c2484c15d8a54497fb1e49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceHist256GetStatistic</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceHist256Bins_t *pHistBins)</argsstring>
+        <name>VsiCamDeviceHist256GetStatistic</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__hist256_1gab6d6681ee613470e95cd26250b0a2c07" kindref="member">CamDeviceHist256Bins_t</ref> *</type>
+          <declname>pHistBins</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist256_api.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/hist/cam_device_hist256_api.c" bodystart="187" bodyend="228"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__hist256_1ga2614ce07efd7ff1ddfccb7f3a36d9b4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceHist256GetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceHist256Status_t *pStatus)</argsstring>
+        <name>VsiCamDeviceHist256GetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__hist256_1ga5b76d14e5a681ead8748fdab1c2761c1" kindref="member">CamDeviceHist256Status_t</ref> *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist256_api.h" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/hist/cam_device_hist256_api.c" bodystart="232" bodyend="273"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__hist256_1ga2281f1b49cded980917b14d2d5144a97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceHist256GetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceHist256GetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist256_api.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/hist/cam_device_hist256_api.c" bodystart="277" bodyend="318"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__hist256_1ga320a891021e8fe0f9e692186df73596d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceHist256Reset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceHist256Reset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist256_api.h" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/hist/cam_device_hist256_api.c" bodystart="322" bodyend="357"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2022<sp/>Vivante<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>CAMDEV_HIST256_API_H</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CAMDEV_HIST256_API_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cam_device_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="46" refid="group____cam__device__hist256_1ga83433d10ee0d5fd21b948b0d3c13cbda" refkind="member"><highlight class="preprocessor">#define<sp/>CAMDEV_HIST256_GRID_ITEMS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>25<sp/><sp/></highlight></codeline>
+<codeline lineno="47" refid="group____cam__device__hist256_1gac3e2db6f6ecdb5c3571c1d08b21674bb" refkind="member"><highlight class="preprocessor">#define<sp/>CAMDEV_HIST256_NUM_BINS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>256<sp/><sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="comment">/******************************************************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="54" refid="group____cam__device__hist256_1ga5ef316714a9d44f33d87982f4b46ff31" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="group____cam__device__hist256_1ga5ef316714a9d44f33d87982f4b46ff31" kindref="member">CamDeviceHist256Mode_e</ref><sp/>{</highlight></codeline>
+<codeline lineno="55" refid="group____cam__device__hist256_1gga5ef316714a9d44f33d87982f4b46ff31aa0d5bc837a40c9f443e6f8310cf2a6f9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__hist256_1gga5ef316714a9d44f33d87982f4b46ff31aa0d5bc837a40c9f443e6f8310cf2a6f9" kindref="member">CAMDEV_HIST256_MODE_DISABLE</ref><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56" refid="group____cam__device__hist256_1gga5ef316714a9d44f33d87982f4b46ff31a3fbc8e9dcae7a2f314f4b777696ae8f1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__hist256_1gga5ef316714a9d44f33d87982f4b46ff31a3fbc8e9dcae7a2f314f4b777696ae8f1" kindref="member">CAMDEV_HIST256_MODE_RGB_COMBINED</ref><sp/>=<sp/>1,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="57" refid="group____cam__device__hist256_1gga5ef316714a9d44f33d87982f4b46ff31ae4aefe4ff05966d7640dd7914a40307f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__hist256_1gga5ef316714a9d44f33d87982f4b46ff31ae4aefe4ff05966d7640dd7914a40307f" kindref="member">CAMDEV_HIST256_MODE_R</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>2,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58" refid="group____cam__device__hist256_1gga5ef316714a9d44f33d87982f4b46ff31a0510335a155c705162af3b421f331177" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__hist256_1gga5ef316714a9d44f33d87982f4b46ff31a0510335a155c705162af3b421f331177" kindref="member">CAMDEV_HIST256_MODE_G</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>3,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59" refid="group____cam__device__hist256_1gga5ef316714a9d44f33d87982f4b46ff31a2ee41d01c1566504674aeda90d835b21" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__hist256_1gga5ef316714a9d44f33d87982f4b46ff31a2ee41d01c1566504674aeda90d835b21" kindref="member">CAMDEV_HIST256_MODE_B</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>4,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60" refid="group____cam__device__hist256_1gga5ef316714a9d44f33d87982f4b46ff31ac59a5cc2b4ef651955067ea176cba09e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__hist256_1gga5ef316714a9d44f33d87982f4b46ff31ac59a5cc2b4ef651955067ea176cba09e" kindref="member">CAMDEV_HIST256_MODE_Y</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>5,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>CAMDEV_HIST256_MODE_MAX,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">}<sp/><ref refid="group____cam__device__hist256_1gae64bee7957011bf2e5b46395e4bf1c50" kindref="member">CamDeviceHist256Mode_t</ref>;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="69" refid="struct_cam_device_hist256_bins__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_hist256_bins__s" kindref="compound">CamDeviceHist256Bins_s</ref></highlight></codeline>
+<codeline lineno="70"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="71" refid="struct_cam_device_hist256_bins__s_1ad758979234e720c09f114925485e4850" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_hist256_bins__s_1ad758979234e720c09f114925485e4850" kindref="member">bins</ref>[<ref refid="group____cam__device__hist256_1gac3e2db6f6ecdb5c3571c1d08b21674bb" kindref="member">CAMDEV_HIST256_NUM_BINS</ref>];<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="72"><highlight class="normal">}<sp/><ref refid="group____cam__device__hist256_1gab6d6681ee613470e95cd26250b0a2c07" kindref="member">CamDeviceHist256Bins_t</ref>;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="79" refid="struct_cam_device_h_i_s_t256_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_h_i_s_t256_config__s" kindref="compound">CamDeviceHIST256Config_s</ref></highlight></codeline>
+<codeline lineno="80"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="81" refid="struct_cam_device_h_i_s_t256_config__s_1a22a0bd73350430f0aedfe91e39acc0c9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__hist256_1gae64bee7957011bf2e5b46395e4bf1c50" kindref="member">CamDeviceHist256Mode_t</ref><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_h_i_s_t256_config__s_1a22a0bd73350430f0aedfe91e39acc0c9" kindref="member">mode</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82" refid="struct_cam_device_h_i_s_t256_config__s_1aaf6063013a366dd565d0710c0d34105d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_window__s" kindref="compound">CamDeviceWindow_t</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_h_i_s_t256_config__s_1aaf6063013a366dd565d0710c0d34105d" kindref="member">window</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="normal">}<sp/><ref refid="group____cam__device__hist256_1gaf78f44180aac60c1b7e1a674d9c0306b" kindref="member">CamDeviceHist256Config_t</ref>;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="90" refid="struct_cam_device_hist256_status__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_hist256_status__s" kindref="compound">CamDeviceHist256Status_s</ref></highlight></codeline>
+<codeline lineno="91"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="92" refid="struct_cam_device_hist256_status__s_1ae692bc0b58cb0db83793bbc02be7d492" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><sp/><ref refid="struct_cam_device_hist256_status__s_1ae692bc0b58cb0db83793bbc02be7d492" kindref="member">enable</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93"><highlight class="normal">}<ref refid="group____cam__device__hist256_1ga5b76d14e5a681ead8748fdab1c2761c1" kindref="member">CamDeviceHist256Status_t</ref>;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">RESULT<sp/>VsiCamDeviceHist256SetConfig</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_h_i_s_t256_config__s" kindref="compound">CamDeviceHist256Config_t</ref><sp/><sp/><sp/><sp/>*pConfig</highlight></codeline>
+<codeline lineno="121"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">RESULT<sp/>VsiCamDeviceHist256GetConfig</highlight></codeline>
+<codeline lineno="146"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_h_i_s_t256_config__s" kindref="compound">CamDeviceHist256Config_t</ref><sp/><sp/><sp/><sp/>*pConfig</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="167"><highlight class="normal">RESULT<sp/>VsiCamDeviceHist256Enable</highlight></codeline>
+<codeline lineno="168"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="170"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="188"><highlight class="normal">RESULT<sp/>VsiCamDeviceHist256Disable</highlight></codeline>
+<codeline lineno="189"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="191"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="215"><highlight class="normal">RESULT<sp/>VsiCamDeviceHist256GetStatistic</highlight></codeline>
+<codeline lineno="216"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_hist256_bins__s" kindref="compound">CamDeviceHist256Bins_t</ref><sp/><sp/><sp/>*pHistBins</highlight></codeline>
+<codeline lineno="219"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="243"><highlight class="normal">RESULT<sp/>VsiCamDeviceHist256GetStatus</highlight></codeline>
+<codeline lineno="244"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_hist256_status__s" kindref="compound">CamDeviceHist256Status_t</ref><sp/><sp/><sp/><sp/>*pStatus</highlight></codeline>
+<codeline lineno="247"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="265"><highlight class="normal">RESULT<sp/>VsiCamDeviceHist256GetVersion</highlight></codeline>
+<codeline lineno="266"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>*pVersion</highlight></codeline>
+<codeline lineno="269"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="292"><highlight class="normal">RESULT<sp/>VsiCamDeviceHist256Reset</highlight></codeline>
+<codeline lineno="293"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="295"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="300"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="302"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>CAMDEV_HIST256_API_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist256_api.h"/>
+  </compounddef>
+</doxygen>

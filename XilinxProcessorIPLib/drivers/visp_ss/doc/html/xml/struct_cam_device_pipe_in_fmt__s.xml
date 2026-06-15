@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_pipe_in_fmt__s" kind="struct" prot="public">
+    <compoundname>CamDevicePipeInFmt_s</compoundname>
+    <includes local="no">cam_device_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_pipe_in_fmt__s_1ab7098949fd97d24a7de0fe970e2eb0ee" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDevicePipeInFmt_s::inWidth</definition>
+        <argsstring></argsstring>
+        <name>inWidth</name>
+        <briefdescription>
+<para>Width of input image. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_pipe_in_fmt__s_1a7ed1884a501bbc50aa239742d40a15eb" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDevicePipeInFmt_s::inHeight</definition>
+        <argsstring></argsstring>
+        <name>inHeight</name>
+        <briefdescription>
+<para>Height of input image. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_pipe_in_fmt__s_1a0a56c9f638de153ebb4a2adad37ef355" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga38b226a15d618d4c9210ac7be4acfc7f" kindref="member">CamDeviceInputRawFmt_t</ref></type>
+        <definition>CamDeviceInputRawFmt_t CamDevicePipeInFmt_s::inFormat</definition>
+        <argsstring></argsstring>
+        <name>inFormat</name>
+        <briefdescription>
+<para>Format of input image. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_pipe_in_fmt__s_1a602288868a02b4d19fea28fd0e26022d" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga02520140484f611769722a9bca06fea5" kindref="member">CamDeviceBitDepth_t</ref></type>
+        <definition>CamDeviceBitDepth_t CamDevicePipeInFmt_s::inBit</definition>
+        <argsstring></argsstring>
+        <name>inBit</name>
+        <briefdescription>
+<para>Bit depth of input device: TPG. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_pipe_in_fmt__s_1aab9eb6b67e711b22307dcc6a677af9c8" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gabe9fccb93f742ca122d0a0b5d7e66298" kindref="member">CamDeviceRawPattern_t</ref></type>
+        <definition>CamDeviceRawPattern_t CamDevicePipeInFmt_s::inPattern</definition>
+        <argsstring></argsstring>
+        <name>inPattern</name>
+        <briefdescription>
+<para>Bayer pattern of input RAW RGB/RGBIR image. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_pipe_in_fmt__s_1ae1c49e3e47c5c31bd3359dbeb60ba39d" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gaa07990d77492d7c58759e58a047ae356" kindref="member">CamDeviceStitchingMode_t</ref></type>
+        <definition>CamDeviceStitchingMode_t CamDevicePipeInFmt_s::stitchMode</definition>
+        <argsstring></argsstring>
+        <name>stitchMode</name>
+        <briefdescription>
+<para>The stitch mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>It should be configured when loading HDR image </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to set ISP DMA read image input format. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="168" bodyend="175"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_pipe_in_fmt__s_1a602288868a02b4d19fea28fd0e26022d" prot="public" virt="non-virtual"><scope>CamDevicePipeInFmt_s</scope><name>inBit</name></member>
+      <member refid="struct_cam_device_pipe_in_fmt__s_1a0a56c9f638de153ebb4a2adad37ef355" prot="public" virt="non-virtual"><scope>CamDevicePipeInFmt_s</scope><name>inFormat</name></member>
+      <member refid="struct_cam_device_pipe_in_fmt__s_1a7ed1884a501bbc50aa239742d40a15eb" prot="public" virt="non-virtual"><scope>CamDevicePipeInFmt_s</scope><name>inHeight</name></member>
+      <member refid="struct_cam_device_pipe_in_fmt__s_1aab9eb6b67e711b22307dcc6a677af9c8" prot="public" virt="non-virtual"><scope>CamDevicePipeInFmt_s</scope><name>inPattern</name></member>
+      <member refid="struct_cam_device_pipe_in_fmt__s_1ab7098949fd97d24a7de0fe970e2eb0ee" prot="public" virt="non-virtual"><scope>CamDevicePipeInFmt_s</scope><name>inWidth</name></member>
+      <member refid="struct_cam_device_pipe_in_fmt__s_1ae1c49e3e47c5c31bd3359dbeb60ba39d" prot="public" virt="non-virtual"><scope>CamDevicePipeInFmt_s</scope><name>stitchMode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

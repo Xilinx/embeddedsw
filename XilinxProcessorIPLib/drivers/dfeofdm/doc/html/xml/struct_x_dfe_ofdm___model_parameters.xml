@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_ofdm___model_parameters" kind="struct" prot="public">
+    <compoundname>XDfeOfdm_ModelParameters</compoundname>
+    <includes local="no">xdfeofdm.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___model_parameters_1adc43d413c0fb6208c2e5562f4b33f157" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_ModelParameters::NumAntenna</definition>
+        <argsstring></argsstring>
+        <name>NumAntenna</name>
+        <briefdescription>
+<para>[1-8] Number of antennas </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="269" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1ga6d938668e6e1b73a585775cbe0eab471" compoundref="xdfeofdm___add_c_c__example_8c" startline="63" endline="168">XDfeOfdm_AddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1ga8248b6bc1f2f9dd0f5b2a04c62062753" compoundref="xdfeofdm_8c" startline="1079" endline="1130">XDfeOfdm_Configure</referencedby>
+        <referencedby refid="group__dfeofdm_1gaf304555910bc042c2de8437ac0b448d3" compoundref="xdfeofdm__multi_add_c_c__example_8c" startline="63" endline="175">XDfeOfdm_MultiAddCCExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___model_parameters_1ab3eea5fdd0f6aef6e40b19c2a4e9f87a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_ModelParameters::AntennaInterleave</definition>
+        <argsstring></argsstring>
+        <name>AntennaInterleave</name>
+        <briefdescription>
+<para>[1-8] Antenna interleave </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="270" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1ga6d938668e6e1b73a585775cbe0eab471" compoundref="xdfeofdm___add_c_c__example_8c" startline="63" endline="168">XDfeOfdm_AddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1ga8248b6bc1f2f9dd0f5b2a04c62062753" compoundref="xdfeofdm_8c" startline="1079" endline="1130">XDfeOfdm_Configure</referencedby>
+        <referencedby refid="group__dfeofdm_1gaf304555910bc042c2de8437ac0b448d3" compoundref="xdfeofdm__multi_add_c_c__example_8c" startline="63" endline="175">XDfeOfdm_MultiAddCCExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___model_parameters_1a6a8b4558e597f67f99f88b09b6ee50d6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_ModelParameters::PhaseCompensation</definition>
+        <argsstring></argsstring>
+        <name>PhaseCompensation</name>
+        <briefdescription>
+<para>[0,1] Phase compensation </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>0: Phase compensation disabled</para></listitem><listitem><para>1: Phase compensation enabled </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="271" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="271" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1ga8248b6bc1f2f9dd0f5b2a04c62062753" compoundref="xdfeofdm_8c" startline="1079" endline="1130">XDfeOfdm_Configure</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>OFDM model parameters structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>Data defined in Device tree or xparameters.h for BM. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="268" bodyend="274"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_ofdm___model_parameters_1ab3eea5fdd0f6aef6e40b19c2a4e9f87a" prot="public" virt="non-virtual"><scope>XDfeOfdm_ModelParameters</scope><name>AntennaInterleave</name></member>
+      <member refid="struct_x_dfe_ofdm___model_parameters_1adc43d413c0fb6208c2e5562f4b33f157" prot="public" virt="non-virtual"><scope>XDfeOfdm_ModelParameters</scope><name>NumAntenna</name></member>
+      <member refid="struct_x_dfe_ofdm___model_parameters_1a6a8b4558e597f67f99f88b09b6ee50d6" prot="public" virt="non-virtual"><scope>XDfeOfdm_ModelParameters</scope><name>PhaseCompensation</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

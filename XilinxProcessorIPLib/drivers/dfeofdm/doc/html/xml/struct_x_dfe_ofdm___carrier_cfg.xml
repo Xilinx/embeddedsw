@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_ofdm___carrier_cfg" kind="struct" prot="public">
+    <compoundname>XDfeOfdm_CarrierCfg</compoundname>
+    <includes local="no">xdfeofdm.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___carrier_cfg_1a9c5b2618474f9abfff97ce4d6cb8e04a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_CarrierCfg::Numerology</definition>
+        <argsstring></argsstring>
+        <name>Numerology</name>
+        <briefdescription>
+<para>[0-6] Numerology (Mu) value for this CC. </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>0 = 15 kHz</para></listitem><listitem><para>1 = 30 kHz</para></listitem><listitem><para>2 = 60 KHz</para></listitem><listitem><para>3 = 120 KHz</para></listitem><listitem><para>4 = 240 KHz</para></listitem><listitem><para>5 = 480 KHz</para></listitem><listitem><para>6 = 960 KHz</para></listitem></itemizedlist>
+</para><para>Numerology must be 0 for LTE. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="296" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1ga6d938668e6e1b73a585775cbe0eab471" compoundref="xdfeofdm___add_c_c__example_8c" startline="63" endline="168">XDfeOfdm_AddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1gade552f0bcf5ed9eac51ca4fcc4b983fa" compoundref="xdfeofdm_8c" startline="1369" endline="1451">XDfeOfdm_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1gaa9f6889b400fc2fcd705f0760c6fa696" compoundref="xdfeofdm_8c" startline="1465" endline="1515">XDfeOfdm_GetCarrierCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1gaf304555910bc042c2de8437ac0b448d3" compoundref="xdfeofdm__multi_add_c_c__example_8c" startline="63" endline="175">XDfeOfdm_MultiAddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1ga38d91645f0bc01f170a6333fb22f47cd" compoundref="xdfeofdm_8c" startline="1577" endline="1637">XDfeOfdm_UpdateCCinCCCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___carrier_cfg_1a28c3b141657d28642106a2dc91ccba60" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_CarrierCfg::FftSize</definition>
+        <argsstring></argsstring>
+        <name>FftSize</name>
+        <briefdescription>
+<para>[9, 10,11,12] FFT size to be used for FFT of the CC. </para>        </briefdescription>
+        <detaileddescription>
+<para>Valid sizes are:<itemizedlist>
+<listitem><para>512 = 0x9</para></listitem><listitem><para>1024 = 0xA</para></listitem><listitem><para>2048 = 0xB</para></listitem><listitem><para>4096 = 0xC </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="306" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1ga6d938668e6e1b73a585775cbe0eab471" compoundref="xdfeofdm___add_c_c__example_8c" startline="63" endline="168">XDfeOfdm_AddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1gade552f0bcf5ed9eac51ca4fcc4b983fa" compoundref="xdfeofdm_8c" startline="1369" endline="1451">XDfeOfdm_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1gaa9f6889b400fc2fcd705f0760c6fa696" compoundref="xdfeofdm_8c" startline="1465" endline="1515">XDfeOfdm_GetCarrierCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1gaf304555910bc042c2de8437ac0b448d3" compoundref="xdfeofdm__multi_add_c_c__example_8c" startline="63" endline="175">XDfeOfdm_MultiAddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1ga38d91645f0bc01f170a6333fb22f47cd" compoundref="xdfeofdm_8c" startline="1577" endline="1637">XDfeOfdm_UpdateCCinCCCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___carrier_cfg_1a8e89be7280a23bf544fe02ea64627477" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_CarrierCfg::NumSubcarriers</definition>
+        <argsstring></argsstring>
+        <name>NumSubcarriers</name>
+        <briefdescription>
+<para><verbatim>             [0-14] Number of non-null subcarriers
+</verbatim> in this CC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="312" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1ga6d938668e6e1b73a585775cbe0eab471" compoundref="xdfeofdm___add_c_c__example_8c" startline="63" endline="168">XDfeOfdm_AddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1gade552f0bcf5ed9eac51ca4fcc4b983fa" compoundref="xdfeofdm_8c" startline="1369" endline="1451">XDfeOfdm_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1gaa9f6889b400fc2fcd705f0760c6fa696" compoundref="xdfeofdm_8c" startline="1465" endline="1515">XDfeOfdm_GetCarrierCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1gaf304555910bc042c2de8437ac0b448d3" compoundref="xdfeofdm__multi_add_c_c__example_8c" startline="63" endline="175">XDfeOfdm_MultiAddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1ga38d91645f0bc01f170a6333fb22f47cd" compoundref="xdfeofdm_8c" startline="1577" endline="1637">XDfeOfdm_UpdateCCinCCCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___carrier_cfg_1a5e7eccd516549e6547c4881c74bf578c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_CarrierCfg::ScaleFactor</definition>
+        <argsstring></argsstring>
+        <name>ScaleFactor</name>
+        <briefdescription>
+<para><verbatim>          [0-1023] Scaling factor for FFT output for this
+</verbatim> CC, represented as a fixed-point value in 0.10 fixed-point format. </para>        </briefdescription>
+        <detaileddescription>
+<para>0=&gt;(multiple of 0), 1=&gt;(multiple of 0.999) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="314" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="314" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1ga6d938668e6e1b73a585775cbe0eab471" compoundref="xdfeofdm___add_c_c__example_8c" startline="63" endline="168">XDfeOfdm_AddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1gade552f0bcf5ed9eac51ca4fcc4b983fa" compoundref="xdfeofdm_8c" startline="1369" endline="1451">XDfeOfdm_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1gaa9f6889b400fc2fcd705f0760c6fa696" compoundref="xdfeofdm_8c" startline="1465" endline="1515">XDfeOfdm_GetCarrierCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1gaf304555910bc042c2de8437ac0b448d3" compoundref="xdfeofdm__multi_add_c_c__example_8c" startline="63" endline="175">XDfeOfdm_MultiAddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1ga38d91645f0bc01f170a6333fb22f47cd" compoundref="xdfeofdm_8c" startline="1577" endline="1637">XDfeOfdm_UpdateCCinCCCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___carrier_cfg_1a686973c0ebb9efea76c75f12c751c797" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_CarrierCfg::CommsStandard</definition>
+        <argsstring></argsstring>
+        <name>CommsStandard</name>
+        <briefdescription>
+<para>[0-1] </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>1 = LTE</para></listitem><listitem><para>0 = 5G NR </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="317" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1ga6d938668e6e1b73a585775cbe0eab471" compoundref="xdfeofdm___add_c_c__example_8c" startline="63" endline="168">XDfeOfdm_AddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1gade552f0bcf5ed9eac51ca4fcc4b983fa" compoundref="xdfeofdm_8c" startline="1369" endline="1451">XDfeOfdm_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1gaa9f6889b400fc2fcd705f0760c6fa696" compoundref="xdfeofdm_8c" startline="1465" endline="1515">XDfeOfdm_GetCarrierCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1gaf304555910bc042c2de8437ac0b448d3" compoundref="xdfeofdm__multi_add_c_c__example_8c" startline="63" endline="175">XDfeOfdm_MultiAddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1ga38d91645f0bc01f170a6333fb22f47cd" compoundref="xdfeofdm_8c" startline="1577" endline="1637">XDfeOfdm_UpdateCCinCCCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___carrier_cfg_1a5df249fedf2fba3dd80b9f25815a69db" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_CarrierCfg::OutputDelay</definition>
+        <argsstring></argsstring>
+        <name>OutputDelay</name>
+        <briefdescription>
+<para><verbatim>          [0-4095 for DL, 0-3921 for UL] Delay required before
+</verbatim> outputting CC in order to balance CC Filter group delay. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="321" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1ga6d938668e6e1b73a585775cbe0eab471" compoundref="xdfeofdm___add_c_c__example_8c" startline="63" endline="168">XDfeOfdm_AddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1gade552f0bcf5ed9eac51ca4fcc4b983fa" compoundref="xdfeofdm_8c" startline="1369" endline="1451">XDfeOfdm_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1gaa9f6889b400fc2fcd705f0760c6fa696" compoundref="xdfeofdm_8c" startline="1465" endline="1515">XDfeOfdm_GetCarrierCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1gaf304555910bc042c2de8437ac0b448d3" compoundref="xdfeofdm__multi_add_c_c__example_8c" startline="63" endline="175">XDfeOfdm_MultiAddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1ga38d91645f0bc01f170a6333fb22f47cd" compoundref="xdfeofdm_8c" startline="1577" endline="1637">XDfeOfdm_UpdateCCinCCCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___carrier_cfg_1aa428f3c890556622538228163b94e266" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_CarrierCfg::PhaseCompensation[XDFEOFDM_PHASE_COMPENSATION_MAX]</definition>
+        <argsstring>[XDFEOFDM_PHASE_COMPENSATION_MAX]</argsstring>
+        <name>PhaseCompensation</name>
+        <briefdescription>
+<para><verbatim>                Phase weight is
+</verbatim> a complex number with 0 to 15 bits providing the I and 16 to 31 bits the Q part of the weight. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="323" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1gade552f0bcf5ed9eac51ca4fcc4b983fa" compoundref="xdfeofdm_8c" startline="1369" endline="1451">XDfeOfdm_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1ga38d91645f0bc01f170a6333fb22f47cd" compoundref="xdfeofdm_8c" startline="1577" endline="1637">XDfeOfdm_UpdateCCinCCCfg</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Configuration for a single CC. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="294" bodyend="326"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_ofdm___carrier_cfg_1a686973c0ebb9efea76c75f12c751c797" prot="public" virt="non-virtual"><scope>XDfeOfdm_CarrierCfg</scope><name>CommsStandard</name></member>
+      <member refid="struct_x_dfe_ofdm___carrier_cfg_1a28c3b141657d28642106a2dc91ccba60" prot="public" virt="non-virtual"><scope>XDfeOfdm_CarrierCfg</scope><name>FftSize</name></member>
+      <member refid="struct_x_dfe_ofdm___carrier_cfg_1a9c5b2618474f9abfff97ce4d6cb8e04a" prot="public" virt="non-virtual"><scope>XDfeOfdm_CarrierCfg</scope><name>Numerology</name></member>
+      <member refid="struct_x_dfe_ofdm___carrier_cfg_1a8e89be7280a23bf544fe02ea64627477" prot="public" virt="non-virtual"><scope>XDfeOfdm_CarrierCfg</scope><name>NumSubcarriers</name></member>
+      <member refid="struct_x_dfe_ofdm___carrier_cfg_1a5df249fedf2fba3dd80b9f25815a69db" prot="public" virt="non-virtual"><scope>XDfeOfdm_CarrierCfg</scope><name>OutputDelay</name></member>
+      <member refid="struct_x_dfe_ofdm___carrier_cfg_1aa428f3c890556622538228163b94e266" prot="public" virt="non-virtual"><scope>XDfeOfdm_CarrierCfg</scope><name>PhaseCompensation</name></member>
+      <member refid="struct_x_dfe_ofdm___carrier_cfg_1a5e7eccd516549e6547c4881c74bf578c" prot="public" virt="non-virtual"><scope>XDfeOfdm_CarrierCfg</scope><name>ScaleFactor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,775 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="common_2xnvm__efuse__error__plat_8h" kind="file">
+    <compoundname>common/xnvm_efuse_error_plat.h</compoundname>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xilnvm__error__codes_1ga86e3961e656aebaac884575ef08d47ad" prot="public" static="no">
+        <name>XNvm_EfuseVersalErrorCodes</name>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adada86a0e582caaca940c508755ae509b8" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_AES_DIS</name>
+          <initializer>= 0x8B00</initializer>
+          <briefdescription>
+<para>0x8B00 - Error in AES_DIS efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adabad59de0bb30d319b64c2beac8f7b3f7" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_JTAG_ERROUT_DIS</name>
+          <initializer>= 0x8C00</initializer>
+          <briefdescription>
+<para>0x8C00 - Error in JTAG_ERROUT_DIS efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adac9ba9922a12bc4d27e7b2d9a473a6777" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_JTAG_DIS</name>
+          <initializer>= 0x8D00</initializer>
+          <briefdescription>
+<para>0x8D00 - Error in JTAG_DIS efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada1674fa30111df9defcfcf098a33586bd" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_HWTSTBITS_DIS</name>
+          <initializer>= 0x8E00</initializer>
+          <briefdescription>
+<para>0x8E00 - Error in HWTSTBITS_DIS efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada5c31453b697f7605d609b0d8bcfc330c" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_IP_DIS_WR_LK</name>
+          <initializer>= 0x8F00</initializer>
+          <briefdescription>
+<para>0x8F00 - Error in IP_DIS_WR_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adad2f8da33a04b477b707635fe29fd1f7c" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK0_WR_LK</name>
+          <initializer>= 0x9000</initializer>
+          <briefdescription>
+<para>0x9000 - Error in PPK0_WR_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adabb505777b4597fba4105c13c1a6aabb0" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK1_WR_LK</name>
+          <initializer>= 0x9100</initializer>
+          <briefdescription>
+<para>0x9100 - Error in PPK1_WR_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adae0a14a568e33b6ed1bed4f281efe48b2" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK2_WR_LK</name>
+          <initializer>= 0x9200</initializer>
+          <briefdescription>
+<para>0x9200 - Error in PPK2_WR_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaf6106045de82f58fa3d5413aacd0a3d7" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_AES_CRC_LK_BIT_0</name>
+          <initializer>= 0x9300</initializer>
+          <briefdescription>
+<para>0x9300 - Error in AES_CRC_LK_BIT0 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada52a2e1785c800bbab1c9a46ed09fcdbc" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_AES_CRC_LK_BIT_1</name>
+          <initializer>= 0x9400</initializer>
+          <briefdescription>
+<para>0x9400 - Error in AES_CRC_LK_BIT1 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adafdfded83b27e2b02deea22516745ade5" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_AES_WR_LK</name>
+          <initializer>= 0x9500</initializer>
+          <briefdescription>
+<para>0x9500 - Error in AES_WR_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada0056fc3ede5fd26c951a3836b9aa7108" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_USER_KEY0_CRC_LK</name>
+          <initializer>= 0x9600</initializer>
+          <briefdescription>
+<para>0x9600 - Error in USER_KEY0_CRC_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada07e42769ccc225a1ca323f3befb0fa6c" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_USER_KEY0_WR_LK</name>
+          <initializer>= 0x9700</initializer>
+          <briefdescription>
+<para>0x9700 - Error in USER_KEY0_WR_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada90a45b05d8b9d129e28a2b82b04a3d7b" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_USER_KEY1_CRC_LK</name>
+          <initializer>= 0x9800</initializer>
+          <briefdescription>
+<para>0x9800 - Error in USER_KEY1_CRC_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada2072ae8d22249b5790ff5b4a4e9f52e6" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_USER_KEY1_WR_LK</name>
+          <initializer>= 0x9900</initializer>
+          <briefdescription>
+<para>0x9900 - Error in USER_KEY1_WR_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada1d4f0fa167736aa81d49d216c58e0fa1" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_SECDBG_DIS_BIT_0</name>
+          <initializer>= 0x9A00</initializer>
+          <briefdescription>
+<para>0x9A00 - Error in SECDBG_DIS_BIT_0 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada2a0b91b8e8ddeda1a5fa6b1b3c2ec185" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_SECDBG_DIS_BIT_1</name>
+          <initializer>= 0x9B00</initializer>
+          <briefdescription>
+<para>0x9B00 - Error in SECDBG_DIS_BIT_1 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada44f38979f5c15d83e7e103c2ff836fae" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_SECLOCKDBG_DIS_BIT_0</name>
+          <initializer>= 0x9C00</initializer>
+          <briefdescription>
+<para>0x9C00 - Error in SECLOCKDBG_DIS bit0 programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada5e13b83443a3d1ad8e0951927b019390" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_SECLOCKDBG_DIS_BIT_1</name>
+          <initializer>= 0x9D00</initializer>
+          <briefdescription>
+<para>0x9D00 - Error in SECLOCKDBG_DIS bit1 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada78b52195e5f3dedc7b38a74151e1cc0b" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PMC_SC_EN_BIT_0</name>
+          <initializer>= 0x9E00</initializer>
+          <briefdescription>
+<para>0x9E00 - Error in PMC_SC_EN_BIT_0 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada871d08534c13f8f8617026d3fbbe0963" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PMC_SC_EN_BIT_1</name>
+          <initializer>= 0x9F00</initializer>
+          <briefdescription>
+<para>0x9F00 - Error in PMC_SC_EN_BIT_1 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada669f42ad866ee88944595af738eb5381" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PMC_SC_EN_BIT_2</name>
+          <initializer>= 0xA000</initializer>
+          <briefdescription>
+<para>0xA000 - Error in PMC_SC_EN_BIT_2 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada27cbaf0c2122e1f185e96dd7630f5df4" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_SVD_WR_LK</name>
+          <initializer>= 0xA100</initializer>
+          <briefdescription>
+<para>0xA100 - Error in SVD_WR_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada39140e722c55d83e56c2ff705b7b5ad2" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_DNA_WR_LK</name>
+          <initializer>= 0xA200</initializer>
+          <briefdescription>
+<para>0xA200 - Error in DNA_WR_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada6654c1e9086e0413bcf2599152273ebd" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_BOOTENV_WR_LK</name>
+          <initializer>= 0xA300</initializer>
+          <briefdescription>
+<para>0xA300 - Error in BOOTENV_WR_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada3f26dcb9d61a003ad043affa67df38b4" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_CACHE_WR_LK</name>
+          <initializer>= 0xA400</initializer>
+          <briefdescription>
+<para>0xA400 - Error in SVD_WR_LK efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada9a55425330fb4921ed3671ab2efc7cf3" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_REG_INIT_DIS_BIT_0</name>
+          <initializer>= 0xA500</initializer>
+          <briefdescription>
+<para>0xA500 - Error in REG_INIT_DIS_BIT_0 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adabc032456c2fa8e4642faff83458aa3da" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_REG_INIT_DIS_BIT_1</name>
+          <initializer>= 0xA600</initializer>
+          <briefdescription>
+<para>0xA600 - Error in REG_INIT_DIS_BIT_1 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adabb5a630265a4a85abf7a62b8455a84a7" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK0_INVALID_BIT_0</name>
+          <initializer>= 0xA700</initializer>
+          <briefdescription>
+<para>0xA700 - Error in PPK0_INVALID_BIT_0 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaf42635def75167b7cd2fedef97345764" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK0_INVALID_BIT_1</name>
+          <initializer>= 0xA800</initializer>
+          <briefdescription>
+<para>0xA800 - Error in PPK0_INVALID_BIT_1 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada074f18577afa53cb611d20706d75716a" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK1_INVALID_BIT_0</name>
+          <initializer>= 0xA900</initializer>
+          <briefdescription>
+<para>0xA900 - Error in PPK1_INVALID_BIT_0 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adac483606f38efa46b500db730a55743af" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK1_INVALID_BIT_1</name>
+          <initializer>= 0xAA00</initializer>
+          <briefdescription>
+<para>0xAA00 - Error in PPK1_INVALID_BIT_1 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaf9c71d909160b9917e809687fb411a6d" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK2_INVALID_BIT_0</name>
+          <initializer>= 0xAB00</initializer>
+          <briefdescription>
+<para>0xAB00 - Error in PPK2_INVALID_BIT_0 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada126e9d0e30e2cb8d79c02988bbd58028" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK2_INVALID_BIT_1</name>
+          <initializer>= 0xAC00</initializer>
+          <briefdescription>
+<para>0xAC00 - Error in PPK2_INVALID_BIT_1 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adafc391c92e3ba9367030a785251ec4573" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_SAFETY_MISSION_EN</name>
+          <initializer>= 0xAD00</initializer>
+          <briefdescription>
+<para>0xAD00 - Error in SAFETY_MISSION_EN efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adab0efc675d681bf724b684671c4fb99cd" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_LBIST_EN</name>
+          <initializer>= 0xAE00</initializer>
+          <briefdescription>
+<para>0xAE00 - Error in LBIST_EN efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada6b463d239a793d1b3b8d5e656023236e" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_CRYPTO_KAT_EN</name>
+          <initializer>= 0xAF00</initializer>
+          <briefdescription>
+<para>0xAF00 - Error in CRYPTO_KAT_EN efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada66be63ade436b01b6971f7573509e9c8" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK3_HASH</name>
+          <initializer>= 0xC300</initializer>
+          <briefdescription>
+<para>0xC300 - Error in PPK3hash programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada765da31b9215a0d7599eee3b9eb657c4" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK4_HASH</name>
+          <initializer>= 0xC400</initializer>
+          <briefdescription>
+<para>0xC400 - Error in PPK4hash programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaa2a71e6cbe3ab92b745903acaa7922b5" prot="public">
+          <name>XNVM_EFUSE_5_PPKS_FEATURE_NOT_SUPPORTED</name>
+          <initializer>= 0xC500</initializer>
+          <briefdescription>
+<para>0xC500 - Error Additional ppk enable bits are neither programmed/requested </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaeccb4e117d5d928593e39a34274012c6" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK3_INVALID_BIT_0</name>
+          <initializer>= 0xC600</initializer>
+          <briefdescription>
+<para>0xC600 - Error in PPK3_INVALID_BIT_0 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adab05ebacd7f3e494aa35056d91e95779a" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK3_INVALID_BIT_1</name>
+          <initializer>= 0xC700</initializer>
+          <briefdescription>
+<para>0xC700 - Error in PPK3_INVALID_BIT_1 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaa159532a00f2e47b916faaedac9188d1" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK4_INVALID_BIT_0</name>
+          <initializer>= 0xC800</initializer>
+          <briefdescription>
+<para>0xC800 - Error in PPK4_INVALID_BIT_0 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adae57b9c5671a74296ac9d9b50d9f84a45" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_PPK4_INVALID_BIT_1</name>
+          <initializer>= 0xC900</initializer>
+          <briefdescription>
+<para>0xC900 - Error in PPK4_INVALID_BIT_1 efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada9e5037f016401dacbcf384ded97ede2e" prot="public">
+          <name>XNVM_EFUSE_ERR_PPK3_HASH_ALREADY_PRGMD</name>
+          <initializer>= 0xCA00</initializer>
+          <briefdescription>
+<para>0xCA00 - Error PPK3 Hash already programmed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada09dbc05b011d26a4745c91122c0b0b9f" prot="public">
+          <name>XNVM_EFUSE_ERR_PPK4_HASH_ALREADY_PRGMD</name>
+          <initializer>= 0xCB00</initializer>
+          <briefdescription>
+<para>0xCB00 - Error PPK4 Hash already programmed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adae9f5a3cdab2d3416bf35b8759d26fe40" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ADD_PPK_EN</name>
+          <initializer>= 0xCC00</initializer>
+          <briefdescription>
+<para>0xCC00 - Error in ADD_PPK_EN efuse programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adae5b11b17b0013450ea394fdeff06c96b" prot="public">
+          <name>XNVM_EFUSE_ERR_USER_FUSE_PGM_NOT_ALLOWED</name>
+          <initializer>= 0xCD00</initializer>
+          <briefdescription>
+<para>0xCD00 - Error while trying to program user efuses 48 to 63 when ADD_PPK_EN bits are programmed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaba38cd9a9610038633e121e27359783b" prot="public">
+          <name>XNVM_EFUSE_ERR_ADD_PPK_PGM_NOT_ALLOWED</name>
+          <initializer>= 0xCE00</initializer>
+          <briefdescription>
+<para>0xCE00 - Error while programming additional PPK&apos;s PPK0/PPK1/PPK2 are neither programmed/requested </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adad40617228ffca822be26187c5b1ec717" prot="public">
+          <name>XNVM_ERR_WRITE_PUF_USER_DATA</name>
+          <initializer>= 0x10000</initializer>
+          <briefdescription>
+<para>0x10000 When user chooses PUF efuses as user efuses data provided for last row i.e row 255 is not valid </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaed3ddeb250ddb0334aec24ee1ed8a9ac" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS</name>
+          <initializer>= 0xD000</initializer>
+          <briefdescription>
+<para>0xD000 - Error in reading Sec Ctrl efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaaa6adb1b92786f9bcff1aa9c2a0f5584" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_MISC_CTRL_BITS</name>
+          <initializer>= 0xD100</initializer>
+          <briefdescription>
+<para>0xD100 - Error in reading in Misc Ctrl efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada6d6568cb5d8762d9e8ff3b544e56d17e" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_PUF_SEC_CTRL</name>
+          <initializer>= 0xD200</initializer>
+          <briefdescription>
+<para>0xD200 - Error in reading in Puf Ctrl efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaaa5e7170328ee8fc4f679752c2cf0acf" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_PUF_SYN_DATA</name>
+          <initializer>= 0xD300</initializer>
+          <briefdescription>
+<para>0xD300 - Error in reading Puf syn efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada0d5d3ee5b425db249a711fcb95fca3a9" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_PUF_CHASH</name>
+          <initializer>= 0xD400</initializer>
+          <briefdescription>
+<para>0xD400 - Error in reading Puf Chash efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adac3c7698327b22dd07918faba3cc7e421" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_PUF_AUX</name>
+          <initializer>= 0xD500</initializer>
+          <briefdescription>
+<para>0xD500 - Error in reading Puf Aux efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada7158ecd15333c9d72b0412715cebc4ad" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_DNA</name>
+          <initializer>= 0xD600</initializer>
+          <briefdescription>
+<para>0xD600 - Error in reading DNA efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada15312fcb92e32c79e7fb9bfd9434cbc2" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_PPK_HASH</name>
+          <initializer>= 0xD700</initializer>
+          <briefdescription>
+<para>0xD700 - Error in reading PPK hash efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada369312727ff9b15d54e9323ef62809d6" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_META_HEADER_IV_RANGE</name>
+          <initializer>= 0xD800</initializer>
+          <briefdescription>
+<para>0xD800 - Error in reading Meta IV efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adacad34a84617f1cec51b66e1dfdb0bae8" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_BLACK_IV</name>
+          <initializer>= 0xD900</initializer>
+          <briefdescription>
+<para>0xD900 - Error in reading Blk IV efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada66546727eb4b34997685f3805ee56efc" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_PLM_IV_RANGE</name>
+          <initializer>= 0xDA00</initializer>
+          <briefdescription>
+<para>0xDA00 - Error in reading PLM Iv efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada8830747f2ba4ae5b542a65bb64710285" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_DATA_PARTITION_IV_RANGE</name>
+          <initializer>= 0xDB00</initializer>
+          <briefdescription>
+<para>0xDB00 - Error in reading Data Partition IV efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada4ab10eb4f7a014c7b68b051ae00a245c" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_DEC_ONLY</name>
+          <initializer>= 0xDC00</initializer>
+          <briefdescription>
+<para>0xDC00 - Error in reading in Dec_only efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada24050f0732a0108a80586db2d697410d" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_USER_FUSES</name>
+          <initializer>= 0xDD00</initializer>
+          <briefdescription>
+<para>0xDD00 - Error in reading User efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaaec4a52f30604357af7338e31d42373d" prot="public">
+          <name>XNVM_EFUSE_ERR_RD_PUF_FUSES</name>
+          <initializer>= 0xDE00</initializer>
+          <briefdescription>
+<para>0xDE00 - Error in reading PUF efuses </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adafef5f66f30d3805efcdf4c37b498b65f" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_37_PROT</name>
+          <initializer>= 0xE000</initializer>
+          <briefdescription>
+<para>0xE000 - Error in ROW_37_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adae7a09e4a8adf94ea02ef5f66c6aea909" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_40_PROT</name>
+          <initializer>= 0xE100</initializer>
+          <briefdescription>
+<para>0xE100 - Error in ROW_40_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adad650adb2974b4c2b27eca78d92bf8d62" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_42_PROT</name>
+          <initializer>= 0xE200</initializer>
+          <briefdescription>
+<para>0xE200 - Error in ROW_42_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada96a07cdc5d08ff2340c3808f437a4b7b" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_43_0_PROT</name>
+          <initializer>= 0xE300</initializer>
+          <briefdescription>
+<para>0xE300 - Error in ROW_43_0_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adac75e229ce02d09f1d53b93e1980663c3" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_43_1_PROT</name>
+          <initializer>= 0xE400</initializer>
+          <briefdescription>
+<para>0xE400 - Error in ROW_43_1_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaae47ca52f421e87d2d820ba1bdebb435" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_57_0_PROT</name>
+          <initializer>= 0xE500</initializer>
+          <briefdescription>
+<para>0xE500 - Error in ROW_57_0_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada1dec60fd8c84861c65f5ce6c88032405" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_57_1_PROT</name>
+          <initializer>= 0xE600</initializer>
+          <briefdescription>
+<para>0xE600 - Error in ROW_57_1_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adacaae07e6c547ca05a6b3f201b32f7c2c" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW_58_PROT</name>
+          <initializer>= 0xE700</initializer>
+          <briefdescription>
+<para>0xE700 - Error in ROW_58_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adafc6d45b717282ff57d07c6f7d39225e8" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW64_87_0_PROT</name>
+          <initializer>= 0xE800</initializer>
+          <briefdescription>
+<para>0xE800 - Error in ROW64_87_0_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adad528e5d4134b300db864f80a3509ab15" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW64_87_1_PROT</name>
+          <initializer>= 0xE900</initializer>
+          <briefdescription>
+<para>0xE900 - Error in ROW64_87_1_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada7628044c28ad569ecacb3b49f4888495" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW96_99_0_PROT</name>
+          <initializer>= 0xEA00</initializer>
+          <briefdescription>
+<para>0xEA00 - Error in ROW96_99_0_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adad3bde36455e4a2485c18342203ba02a1" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_ROW96_99_1_PROT</name>
+          <initializer>= 0xEB00</initializer>
+          <briefdescription>
+<para>0xEB00 - Error in ROW96_99_1_PROT programming </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada73a13ec1f08582ba89bb25803def7967" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_GD_ROM_BITS</name>
+          <initializer>= 0xEE00</initializer>
+          <briefdescription>
+<para>0xEE00 - Error in programming of Glitch ROM monitor or glitch halt boot </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaf36999471774859123516296516ba9ed" prot="public">
+          <name>XNVM_EFUSE_ERR_WRITE_HALT_BOOT_BITS</name>
+          <initializer>= 0xEF00</initializer>
+          <briefdescription>
+<para>0xEF00 - Error in programming of ROM flow control halt boot bits for generic and environment errors </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>The following table lists the Versal eFuse library error codes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/common/xnvm_efuse_error_plat.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/common/xnvm_efuse_error_plat.h" bodystart="49" bodyend="301"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains function declarations of eFUSE APIs. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date       Changes
+<hruler/>
+
+1.0   kal  08/16/2019 Initial release
+3.1   kpt  01/21/2023 Added error codes for Additional PPKs
+3.2   kum  04/11/2023 Moved env error codes to common <ref refid="xnvm__efuse__error_8h" kindref="compound">xnvm_efuse_error.h</ref>
+3.3   kpt  04/03/2024 Updated error code description
+      ng   11/22/2023 Fixed doxygen grouping</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor">#ifndef<sp/>XNVM_EFUSE_ERROR_PLAT_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ERROR_PLAT_H</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="49" refid="group__xilnvm__error__codes_1ga86e3961e656aebaac884575ef08d47ad" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="50" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adada86a0e582caaca940c508755ae509b8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55bada86a0e582caaca940c508755ae509b8" kindref="member">XNVM_EFUSE_ERR_WRITE_AES_DIS</ref><sp/>=<sp/>0x8B00,</highlight></codeline>
+<codeline lineno="54" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adabad59de0bb30d319b64c2beac8f7b3f7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adabad59de0bb30d319b64c2beac8f7b3f7" kindref="member">XNVM_EFUSE_ERR_WRITE_JTAG_ERROUT_DIS</ref><sp/>=<sp/>0x8C00,</highlight></codeline>
+<codeline lineno="58" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adac9ba9922a12bc4d27e7b2d9a473a6777" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55bac9ba9922a12bc4d27e7b2d9a473a6777" kindref="member">XNVM_EFUSE_ERR_WRITE_JTAG_DIS</ref><sp/>=<sp/>0x8D00,</highlight></codeline>
+<codeline lineno="63" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada1674fa30111df9defcfcf098a33586bd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada1674fa30111df9defcfcf098a33586bd" kindref="member">XNVM_EFUSE_ERR_WRITE_HWTSTBITS_DIS</ref><sp/>=<sp/>0x8E00,</highlight></codeline>
+<codeline lineno="68" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada5c31453b697f7605d609b0d8bcfc330c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada5c31453b697f7605d609b0d8bcfc330c" kindref="member">XNVM_EFUSE_ERR_WRITE_IP_DIS_WR_LK</ref><sp/>=<sp/>0x8F00,</highlight></codeline>
+<codeline lineno="74" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adad2f8da33a04b477b707635fe29fd1f7c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adad2f8da33a04b477b707635fe29fd1f7c" kindref="member">XNVM_EFUSE_ERR_WRITE_PPK0_WR_LK</ref><sp/>=<sp/>0x9000,</highlight></codeline>
+<codeline lineno="79" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adabb505777b4597fba4105c13c1a6aabb0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adabb505777b4597fba4105c13c1a6aabb0" kindref="member">XNVM_EFUSE_ERR_WRITE_PPK1_WR_LK</ref><sp/>=<sp/>0x9100,</highlight></codeline>
+<codeline lineno="84" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adae0a14a568e33b6ed1bed4f281efe48b2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adae0a14a568e33b6ed1bed4f281efe48b2" kindref="member">XNVM_EFUSE_ERR_WRITE_PPK2_WR_LK</ref><sp/>=<sp/>0x9200,</highlight></codeline>
+<codeline lineno="89" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaf6106045de82f58fa3d5413aacd0a3d7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaf6106045de82f58fa3d5413aacd0a3d7" kindref="member">XNVM_EFUSE_ERR_WRITE_AES_CRC_LK_BIT_0</ref><sp/>=<sp/>0x9300,</highlight></codeline>
+<codeline lineno="94" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada52a2e1785c800bbab1c9a46ed09fcdbc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada52a2e1785c800bbab1c9a46ed09fcdbc" kindref="member">XNVM_EFUSE_ERR_WRITE_AES_CRC_LK_BIT_1</ref><sp/>=<sp/>0x9400,</highlight></codeline>
+<codeline lineno="99" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adafdfded83b27e2b02deea22516745ade5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adafdfded83b27e2b02deea22516745ade5" kindref="member">XNVM_EFUSE_ERR_WRITE_AES_WR_LK</ref><sp/>=<sp/>0x9500,</highlight></codeline>
+<codeline lineno="103" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada0056fc3ede5fd26c951a3836b9aa7108" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada0056fc3ede5fd26c951a3836b9aa7108" kindref="member">XNVM_EFUSE_ERR_WRITE_USER_KEY0_CRC_LK</ref><sp/>=<sp/>0x9600,</highlight></codeline>
+<codeline lineno="108" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada07e42769ccc225a1ca323f3befb0fa6c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada07e42769ccc225a1ca323f3befb0fa6c" kindref="member">XNVM_EFUSE_ERR_WRITE_USER_KEY0_WR_LK</ref><sp/>=<sp/>0x9700,</highlight></codeline>
+<codeline lineno="113" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada90a45b05d8b9d129e28a2b82b04a3d7b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada90a45b05d8b9d129e28a2b82b04a3d7b" kindref="member">XNVM_EFUSE_ERR_WRITE_USER_KEY1_CRC_LK</ref><sp/>=<sp/>0x9800,</highlight></codeline>
+<codeline lineno="118" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada2072ae8d22249b5790ff5b4a4e9f52e6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada2072ae8d22249b5790ff5b4a4e9f52e6" kindref="member">XNVM_EFUSE_ERR_WRITE_USER_KEY1_WR_LK</ref><sp/>=<sp/>0x9900,</highlight></codeline>
+<codeline lineno="123" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada1d4f0fa167736aa81d49d216c58e0fa1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada1d4f0fa167736aa81d49d216c58e0fa1" kindref="member">XNVM_EFUSE_ERR_WRITE_SECDBG_DIS_BIT_0</ref><sp/>=<sp/>0x9A00,</highlight></codeline>
+<codeline lineno="128" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada2a0b91b8e8ddeda1a5fa6b1b3c2ec185" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada2a0b91b8e8ddeda1a5fa6b1b3c2ec185" kindref="member">XNVM_EFUSE_ERR_WRITE_SECDBG_DIS_BIT_1</ref><sp/>=<sp/>0x9B00,</highlight></codeline>
+<codeline lineno="131" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada44f38979f5c15d83e7e103c2ff836fae" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada44f38979f5c15d83e7e103c2ff836fae" kindref="member">XNVM_EFUSE_ERR_WRITE_SECLOCKDBG_DIS_BIT_0</ref><sp/>=<sp/>0x9C00,</highlight></codeline>
+<codeline lineno="135" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada5e13b83443a3d1ad8e0951927b019390" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada5e13b83443a3d1ad8e0951927b019390" kindref="member">XNVM_EFUSE_ERR_WRITE_SECLOCKDBG_DIS_BIT_1</ref><sp/>=<sp/>0x9D00,</highlight></codeline>
+<codeline lineno="139" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada78b52195e5f3dedc7b38a74151e1cc0b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada78b52195e5f3dedc7b38a74151e1cc0b" kindref="member">XNVM_EFUSE_ERR_WRITE_PMC_SC_EN_BIT_0</ref><sp/>=<sp/>0x9E00,</highlight></codeline>
+<codeline lineno="142" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada871d08534c13f8f8617026d3fbbe0963" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada871d08534c13f8f8617026d3fbbe0963" kindref="member">XNVM_EFUSE_ERR_WRITE_PMC_SC_EN_BIT_1</ref><sp/>=<sp/>0x9F00,</highlight></codeline>
+<codeline lineno="146" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada669f42ad866ee88944595af738eb5381" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada669f42ad866ee88944595af738eb5381" kindref="member">XNVM_EFUSE_ERR_WRITE_PMC_SC_EN_BIT_2</ref><sp/>=<sp/>0xA000,</highlight></codeline>
+<codeline lineno="149" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada27cbaf0c2122e1f185e96dd7630f5df4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada27cbaf0c2122e1f185e96dd7630f5df4" kindref="member">XNVM_EFUSE_ERR_WRITE_SVD_WR_LK</ref><sp/>=<sp/>0xA100,</highlight></codeline>
+<codeline lineno="152" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada39140e722c55d83e56c2ff705b7b5ad2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55ba39140e722c55d83e56c2ff705b7b5ad2" kindref="member">XNVM_EFUSE_ERR_WRITE_DNA_WR_LK</ref><sp/>=<sp/>0xA200,</highlight></codeline>
+<codeline lineno="155" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada6654c1e9086e0413bcf2599152273ebd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada6654c1e9086e0413bcf2599152273ebd" kindref="member">XNVM_EFUSE_ERR_WRITE_BOOTENV_WR_LK</ref><sp/>=<sp/>0xA300,</highlight></codeline>
+<codeline lineno="158" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada3f26dcb9d61a003ad043affa67df38b4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada3f26dcb9d61a003ad043affa67df38b4" kindref="member">XNVM_EFUSE_ERR_WRITE_CACHE_WR_LK</ref><sp/>=<sp/>0xA400,</highlight></codeline>
+<codeline lineno="161" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada9a55425330fb4921ed3671ab2efc7cf3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada9a55425330fb4921ed3671ab2efc7cf3" kindref="member">XNVM_EFUSE_ERR_WRITE_REG_INIT_DIS_BIT_0</ref><sp/>=<sp/>0xA500,</highlight></codeline>
+<codeline lineno="164" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adabc032456c2fa8e4642faff83458aa3da" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adabc032456c2fa8e4642faff83458aa3da" kindref="member">XNVM_EFUSE_ERR_WRITE_REG_INIT_DIS_BIT_1</ref><sp/>=<sp/>0xA600,</highlight></codeline>
+<codeline lineno="167" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adabb5a630265a4a85abf7a62b8455a84a7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adabb5a630265a4a85abf7a62b8455a84a7" kindref="member">XNVM_EFUSE_ERR_WRITE_PPK0_INVALID_BIT_0</ref><sp/>=<sp/>0xA700,</highlight></codeline>
+<codeline lineno="170" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaf42635def75167b7cd2fedef97345764" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaf42635def75167b7cd2fedef97345764" kindref="member">XNVM_EFUSE_ERR_WRITE_PPK0_INVALID_BIT_1</ref><sp/>=<sp/>0xA800,</highlight></codeline>
+<codeline lineno="173" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada074f18577afa53cb611d20706d75716a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada074f18577afa53cb611d20706d75716a" kindref="member">XNVM_EFUSE_ERR_WRITE_PPK1_INVALID_BIT_0</ref><sp/>=<sp/>0xA900,</highlight></codeline>
+<codeline lineno="176" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adac483606f38efa46b500db730a55743af" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adac483606f38efa46b500db730a55743af" kindref="member">XNVM_EFUSE_ERR_WRITE_PPK1_INVALID_BIT_1</ref><sp/>=<sp/>0xAA00,</highlight></codeline>
+<codeline lineno="179" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaf9c71d909160b9917e809687fb411a6d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaf9c71d909160b9917e809687fb411a6d" kindref="member">XNVM_EFUSE_ERR_WRITE_PPK2_INVALID_BIT_0</ref><sp/>=<sp/>0xAB00,</highlight></codeline>
+<codeline lineno="182" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada126e9d0e30e2cb8d79c02988bbd58028" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada126e9d0e30e2cb8d79c02988bbd58028" kindref="member">XNVM_EFUSE_ERR_WRITE_PPK2_INVALID_BIT_1</ref><sp/>=<sp/>0xAC00,</highlight></codeline>
+<codeline lineno="185" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adafc391c92e3ba9367030a785251ec4573" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adafc391c92e3ba9367030a785251ec4573" kindref="member">XNVM_EFUSE_ERR_WRITE_SAFETY_MISSION_EN</ref><sp/>=<sp/>0xAD00,</highlight></codeline>
+<codeline lineno="188" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adab0efc675d681bf724b684671c4fb99cd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adab0efc675d681bf724b684671c4fb99cd" kindref="member">XNVM_EFUSE_ERR_WRITE_LBIST_EN</ref><sp/>=<sp/>0xAE00,</highlight></codeline>
+<codeline lineno="191" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada6b463d239a793d1b3b8d5e656023236e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada6b463d239a793d1b3b8d5e656023236e" kindref="member">XNVM_EFUSE_ERR_WRITE_CRYPTO_KAT_EN</ref><sp/>=<sp/>0xAF00,</highlight></codeline>
+<codeline lineno="194" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada66be63ade436b01b6971f7573509e9c8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada66be63ade436b01b6971f7573509e9c8" kindref="member">XNVM_EFUSE_ERR_WRITE_PPK3_HASH</ref><sp/>=<sp/>0xC300,</highlight></codeline>
+<codeline lineno="196" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada765da31b9215a0d7599eee3b9eb657c4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada765da31b9215a0d7599eee3b9eb657c4" kindref="member">XNVM_EFUSE_ERR_WRITE_PPK4_HASH</ref><sp/>=<sp/>0xC400,</highlight></codeline>
+<codeline lineno="198" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaa2a71e6cbe3ab92b745903acaa7922b5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaa2a71e6cbe3ab92b745903acaa7922b5" kindref="member">XNVM_EFUSE_5_PPKS_FEATURE_NOT_SUPPORTED</ref><sp/>=<sp/>0xC500,</highlight></codeline>
+<codeline lineno="201" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaeccb4e117d5d928593e39a34274012c6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaeccb4e117d5d928593e39a34274012c6" kindref="member">XNVM_EFUSE_ERR_WRITE_PPK3_INVALID_BIT_0</ref><sp/>=<sp/>0xC600,</highlight></codeline>
+<codeline lineno="204" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adab05ebacd7f3e494aa35056d91e95779a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adab05ebacd7f3e494aa35056d91e95779a" kindref="member">XNVM_EFUSE_ERR_WRITE_PPK3_INVALID_BIT_1</ref><sp/>=<sp/>0xC700,</highlight></codeline>
+<codeline lineno="207" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaa159532a00f2e47b916faaedac9188d1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaa159532a00f2e47b916faaedac9188d1" kindref="member">XNVM_EFUSE_ERR_WRITE_PPK4_INVALID_BIT_0</ref><sp/>=<sp/>0xC800,</highlight></codeline>
+<codeline lineno="210" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adae57b9c5671a74296ac9d9b50d9f84a45" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adae57b9c5671a74296ac9d9b50d9f84a45" kindref="member">XNVM_EFUSE_ERR_WRITE_PPK4_INVALID_BIT_1</ref><sp/>=<sp/>0xC900,</highlight></codeline>
+<codeline lineno="213" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada9e5037f016401dacbcf384ded97ede2e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada9e5037f016401dacbcf384ded97ede2e" kindref="member">XNVM_EFUSE_ERR_PPK3_HASH_ALREADY_PRGMD</ref><sp/>=<sp/>0xCA00,</highlight></codeline>
+<codeline lineno="215" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada09dbc05b011d26a4745c91122c0b0b9f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada09dbc05b011d26a4745c91122c0b0b9f" kindref="member">XNVM_EFUSE_ERR_PPK4_HASH_ALREADY_PRGMD</ref><sp/>=<sp/>0xCB00,</highlight></codeline>
+<codeline lineno="217" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adae9f5a3cdab2d3416bf35b8759d26fe40" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adae9f5a3cdab2d3416bf35b8759d26fe40" kindref="member">XNVM_EFUSE_ERR_WRITE_ADD_PPK_EN</ref><sp/>=<sp/>0xCC00,</highlight></codeline>
+<codeline lineno="219" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adae5b11b17b0013450ea394fdeff06c96b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adae5b11b17b0013450ea394fdeff06c96b" kindref="member">XNVM_EFUSE_ERR_USER_FUSE_PGM_NOT_ALLOWED</ref><sp/>=<sp/>0xCD00,</highlight></codeline>
+<codeline lineno="222" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaba38cd9a9610038633e121e27359783b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaba38cd9a9610038633e121e27359783b" kindref="member">XNVM_EFUSE_ERR_ADD_PPK_PGM_NOT_ALLOWED</ref><sp/>=<sp/>0xCE00,</highlight></codeline>
+<codeline lineno="225" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adad40617228ffca822be26187c5b1ec717" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adad40617228ffca822be26187c5b1ec717" kindref="member">XNVM_ERR_WRITE_PUF_USER_DATA</ref><sp/>=<sp/>0x10000,<sp/></highlight></codeline>
+<codeline lineno="229" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaed3ddeb250ddb0334aec24ee1ed8a9ac" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1gga06fc87d81c62e9abb8790b6e5713c55baed3ddeb250ddb0334aec24ee1ed8a9ac" kindref="member">XNVM_EFUSE_ERR_RD_SEC_CTRL_BITS</ref><sp/>=<sp/>0xD000,</highlight></codeline>
+<codeline lineno="231" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaaa6adb1b92786f9bcff1aa9c2a0f5584" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaaa6adb1b92786f9bcff1aa9c2a0f5584" kindref="member">XNVM_EFUSE_ERR_RD_MISC_CTRL_BITS</ref><sp/>=<sp/>0xD100,</highlight></codeline>
+<codeline lineno="233" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada6d6568cb5d8762d9e8ff3b544e56d17e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada6d6568cb5d8762d9e8ff3b544e56d17e" kindref="member">XNVM_EFUSE_ERR_RD_PUF_SEC_CTRL</ref><sp/>=<sp/>0xD200,</highlight></codeline>
+<codeline lineno="235" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaaa5e7170328ee8fc4f679752c2cf0acf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaaa5e7170328ee8fc4f679752c2cf0acf" kindref="member">XNVM_EFUSE_ERR_RD_PUF_SYN_DATA</ref><sp/>=<sp/>0xD300,</highlight></codeline>
+<codeline lineno="237" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada0d5d3ee5b425db249a711fcb95fca3a9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada0d5d3ee5b425db249a711fcb95fca3a9" kindref="member">XNVM_EFUSE_ERR_RD_PUF_CHASH</ref><sp/>=<sp/>0xD400,</highlight></codeline>
+<codeline lineno="239" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adac3c7698327b22dd07918faba3cc7e421" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adac3c7698327b22dd07918faba3cc7e421" kindref="member">XNVM_EFUSE_ERR_RD_PUF_AUX</ref><sp/>=<sp/>0xD500,</highlight></codeline>
+<codeline lineno="241" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada7158ecd15333c9d72b0412715cebc4ad" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada7158ecd15333c9d72b0412715cebc4ad" kindref="member">XNVM_EFUSE_ERR_RD_DNA</ref><sp/>=<sp/>0xD600,</highlight></codeline>
+<codeline lineno="243" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada15312fcb92e32c79e7fb9bfd9434cbc2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada15312fcb92e32c79e7fb9bfd9434cbc2" kindref="member">XNVM_EFUSE_ERR_RD_PPK_HASH</ref><sp/>=<sp/>0xD700,</highlight></codeline>
+<codeline lineno="245" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada369312727ff9b15d54e9323ef62809d6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada369312727ff9b15d54e9323ef62809d6" kindref="member">XNVM_EFUSE_ERR_RD_META_HEADER_IV_RANGE</ref><sp/>=<sp/>0xD800,</highlight></codeline>
+<codeline lineno="247" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adacad34a84617f1cec51b66e1dfdb0bae8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adacad34a84617f1cec51b66e1dfdb0bae8" kindref="member">XNVM_EFUSE_ERR_RD_BLACK_IV</ref><sp/>=<sp/>0xD900,</highlight></codeline>
+<codeline lineno="249" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada66546727eb4b34997685f3805ee56efc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada66546727eb4b34997685f3805ee56efc" kindref="member">XNVM_EFUSE_ERR_RD_PLM_IV_RANGE</ref><sp/>=<sp/>0xDA00,</highlight></codeline>
+<codeline lineno="251" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada8830747f2ba4ae5b542a65bb64710285" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada8830747f2ba4ae5b542a65bb64710285" kindref="member">XNVM_EFUSE_ERR_RD_DATA_PARTITION_IV_RANGE</ref><sp/>=<sp/>0xDB00,</highlight></codeline>
+<codeline lineno="255" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada4ab10eb4f7a014c7b68b051ae00a245c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada4ab10eb4f7a014c7b68b051ae00a245c" kindref="member">XNVM_EFUSE_ERR_RD_DEC_ONLY</ref><sp/>=<sp/>0xDC00,</highlight></codeline>
+<codeline lineno="257" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada24050f0732a0108a80586db2d697410d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada24050f0732a0108a80586db2d697410d" kindref="member">XNVM_EFUSE_ERR_RD_USER_FUSES</ref><sp/>=<sp/>0xDD00,</highlight></codeline>
+<codeline lineno="259" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaaec4a52f30604357af7338e31d42373d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaaec4a52f30604357af7338e31d42373d" kindref="member">XNVM_EFUSE_ERR_RD_PUF_FUSES</ref><sp/>=<sp/>0xDE00,</highlight></codeline>
+<codeline lineno="262" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adafef5f66f30d3805efcdf4c37b498b65f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adafef5f66f30d3805efcdf4c37b498b65f" kindref="member">XNVM_EFUSE_ERR_WRITE_ROW_37_PROT</ref><sp/>=<sp/>0xE000,</highlight></codeline>
+<codeline lineno="264" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adae7a09e4a8adf94ea02ef5f66c6aea909" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adae7a09e4a8adf94ea02ef5f66c6aea909" kindref="member">XNVM_EFUSE_ERR_WRITE_ROW_40_PROT</ref><sp/>=<sp/>0xE100,</highlight></codeline>
+<codeline lineno="266" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adad650adb2974b4c2b27eca78d92bf8d62" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adad650adb2974b4c2b27eca78d92bf8d62" kindref="member">XNVM_EFUSE_ERR_WRITE_ROW_42_PROT</ref><sp/>=<sp/>0xE200,</highlight></codeline>
+<codeline lineno="268" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada96a07cdc5d08ff2340c3808f437a4b7b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada96a07cdc5d08ff2340c3808f437a4b7b" kindref="member">XNVM_EFUSE_ERR_WRITE_ROW_43_0_PROT</ref><sp/>=<sp/>0xE300,</highlight></codeline>
+<codeline lineno="271" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adac75e229ce02d09f1d53b93e1980663c3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adac75e229ce02d09f1d53b93e1980663c3" kindref="member">XNVM_EFUSE_ERR_WRITE_ROW_43_1_PROT</ref><sp/>=<sp/>0xE400,</highlight></codeline>
+<codeline lineno="274" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaae47ca52f421e87d2d820ba1bdebb435" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaae47ca52f421e87d2d820ba1bdebb435" kindref="member">XNVM_EFUSE_ERR_WRITE_ROW_57_0_PROT</ref><sp/>=<sp/>0xE500,</highlight></codeline>
+<codeline lineno="277" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada1dec60fd8c84861c65f5ce6c88032405" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada1dec60fd8c84861c65f5ce6c88032405" kindref="member">XNVM_EFUSE_ERR_WRITE_ROW_57_1_PROT</ref><sp/>=<sp/>0xE600,</highlight></codeline>
+<codeline lineno="280" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adacaae07e6c547ca05a6b3f201b32f7c2c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adacaae07e6c547ca05a6b3f201b32f7c2c" kindref="member">XNVM_EFUSE_ERR_WRITE_ROW_58_PROT</ref><sp/>=<sp/>0xE700,</highlight></codeline>
+<codeline lineno="283" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adafc6d45b717282ff57d07c6f7d39225e8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adafc6d45b717282ff57d07c6f7d39225e8" kindref="member">XNVM_EFUSE_ERR_WRITE_ROW64_87_0_PROT</ref><sp/>=<sp/>0xE800,</highlight></codeline>
+<codeline lineno="286" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adad528e5d4134b300db864f80a3509ab15" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adad528e5d4134b300db864f80a3509ab15" kindref="member">XNVM_EFUSE_ERR_WRITE_ROW64_87_1_PROT</ref><sp/>=<sp/>0xE900,</highlight></codeline>
+<codeline lineno="289" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada7628044c28ad569ecacb3b49f4888495" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada7628044c28ad569ecacb3b49f4888495" kindref="member">XNVM_EFUSE_ERR_WRITE_ROW96_99_0_PROT</ref><sp/>=<sp/>0xEA00,</highlight></codeline>
+<codeline lineno="292" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adad3bde36455e4a2485c18342203ba02a1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adad3bde36455e4a2485c18342203ba02a1" kindref="member">XNVM_EFUSE_ERR_WRITE_ROW96_99_1_PROT</ref><sp/>=<sp/>0xEB00,</highlight></codeline>
+<codeline lineno="295" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada73a13ec1f08582ba89bb25803def7967" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47ada73a13ec1f08582ba89bb25803def7967" kindref="member">XNVM_EFUSE_ERR_WRITE_GD_ROM_BITS</ref><sp/>=<sp/>0xEE00,</highlight></codeline>
+<codeline lineno="298" refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaf36999471774859123516296516ba9ed" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilnvm__error__codes_1gga86e3961e656aebaac884575ef08d47adaf36999471774859123516296516ba9ed" kindref="member">XNVM_EFUSE_ERR_WRITE_HALT_BOOT_BITS</ref><sp/>=<sp/>0xEF00,</highlight></codeline>
+<codeline lineno="301"><highlight class="normal">}<sp/><ref refid="group__xilnvm__error__codes_1ga86e3961e656aebaac884575ef08d47ad" kindref="member">XNvm_EfuseVersalErrorCodes</ref>;</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="306"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="308"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XNVM_EFUSE_ERROR_PLAT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="310"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/common/xnvm_efuse_error_plat.h"/>
+  </compounddef>
+</doxygen>

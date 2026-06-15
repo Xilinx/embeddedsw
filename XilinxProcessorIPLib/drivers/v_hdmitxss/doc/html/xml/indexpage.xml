@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>v_hdmitxss</title>
+    <detaileddescription>
+<para>HDMI TX Subsystem Sub-Cores initialization The functions in this file provides an abstraction from the initialization sequence for included sub-cores. Subsystem is assigned an address and range on the axi-lite interface. This address space is condensed where-in each sub-core is at a fixed offset from the subsystem base address. For processor to be able to access the sub-core this offset needs to be translated into a absolute address within the subsystems addressable range</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00         10/07/15 Initial release.
+1.1   yh     20/01/16 Added remapper support
+1.2   MG     03/02/16 Added HDCP support
+1.3   MH     23/04/16 VTC driver has been updated to avoid processor
+                      exceptions. Workarounds have been removed.
+1.4   MH     23/06/16 Added HDCP repeater support.
+1.5   YH     18/07/16 Replace xil_printf with xdbg_printf
+1.6   YH     25/07/16 Used UINTPTR instead of u32 for BaseAddr,HighAddr,Offset
+                      AbsAddr
+1.7   MH     08/08/16 Updates to optimize out HDCP when excluded.
+1.8   YH     17/08/16 Added Event Log
+1.9   YH     14/11/16 Remove Remapper APIs as remapper feature is moved to
+                      video bridge and controlled by HDMI core
+1.10  MMO    03/01/17 Remove XV_HdmiTxSs_ComputeSubcoreAbsAddr API, as it
+                           handles in the &quot;_g&quot; TCL generation
+                      Re-align coding style to ensure, 80 characters per row
+3.2   MH     04/24/17 Set default HDMI mode in XV_HdmiTxSs_SubcoreInitHdmiTx
+3.3   MH     07/17/17 Set HDCP 2.2 polling value to 10 ms.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

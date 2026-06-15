@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_cpd_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceCpdConfig_s</compoundname>
+    <includes local="no">cam_device_cpd_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_cpd_config__s_1acdf68654cfbec1f9be9312032d110a08" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__cpd_1ga770ebba776000646b8c3865596aa59b9" kindref="member">CamDeviceExpandConfig_t</ref></type>
+        <definition>CamDeviceExpandConfig_t CamDeviceCpdConfig_s::expandCfg</definition>
+        <argsstring></argsstring>
+        <name>expandCfg</name>
+        <briefdescription>
+<para>The expand curve configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice CPD configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="234">
+        <label>CamDeviceExpandConfig_s</label>
+        <link refid="struct_cam_device_expand_config__s"/>
+      </node>
+      <node id="233">
+        <label>CamDeviceCpdConfig_s</label>
+        <link refid="struct_cam_device_cpd_config__s"/>
+        <childnode refid="234" relation="usage">
+          <edgelabel>expandCfg</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" bodystart="75" bodyend="77"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_cpd_config__s_1acdf68654cfbec1f9be9312032d110a08" prot="public" virt="non-virtual"><scope>CamDeviceCpdConfig_s</scope><name>expandCfg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

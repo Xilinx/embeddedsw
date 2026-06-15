@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_r_fdc___calibration___coefficients" kind="struct" prot="public">
+    <compoundname>XRFdc_Calibration_Coefficients</compoundname>
+    <includes local="no">xrfdc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_r_fdc___calibration___coefficients_1a313067039055172e5e00387f12945fcd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_Calibration_Coefficients::Coeff0</definition>
+        <argsstring></argsstring>
+        <name>Coeff0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="516" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="516" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___calibration___coefficients_1af3bb6e6369b86bcfeb2e02fea078c933" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_Calibration_Coefficients::Coeff1</definition>
+        <argsstring></argsstring>
+        <name>Coeff1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="517" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="517" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___calibration___coefficients_1abd8963266e9e4fac0fe83d40b986cfff" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_Calibration_Coefficients::Coeff2</definition>
+        <argsstring></argsstring>
+        <name>Coeff2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="518" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="518" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___calibration___coefficients_1ae0c6ae3ddd2245d71700401dc5f414d9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_Calibration_Coefficients::Coeff3</definition>
+        <argsstring></argsstring>
+        <name>Coeff3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="519" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="519" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___calibration___coefficients_1a3a40d02bfa4c07077d3d3fc8fe0a3892" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_Calibration_Coefficients::Coeff4</definition>
+        <argsstring></argsstring>
+        <name>Coeff4</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="520" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="520" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___calibration___coefficients_1a4e893d4a1f4cad5f71caa78a1cf5e890" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_Calibration_Coefficients::Coeff5</definition>
+        <argsstring></argsstring>
+        <name>Coeff5</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="521" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="521" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___calibration___coefficients_1af1e4727d6f4c437d80b3d1f6e41a8bba" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_Calibration_Coefficients::Coeff6</definition>
+        <argsstring></argsstring>
+        <name>Coeff6</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="522" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="522" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___calibration___coefficients_1ae34fc64f1eb9115074a1d45dc5026c5b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_Calibration_Coefficients::Coeff7</definition>
+        <argsstring></argsstring>
+        <name>Coeff7</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="523" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="523" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>RFSoC Calibration coefficients generic struct. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="515" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="515" bodyend="524"/>
+    <listofallmembers>
+      <member refid="struct_x_r_fdc___calibration___coefficients_1a313067039055172e5e00387f12945fcd" prot="public" virt="non-virtual"><scope>XRFdc_Calibration_Coefficients</scope><name>Coeff0</name></member>
+      <member refid="struct_x_r_fdc___calibration___coefficients_1af3bb6e6369b86bcfeb2e02fea078c933" prot="public" virt="non-virtual"><scope>XRFdc_Calibration_Coefficients</scope><name>Coeff1</name></member>
+      <member refid="struct_x_r_fdc___calibration___coefficients_1abd8963266e9e4fac0fe83d40b986cfff" prot="public" virt="non-virtual"><scope>XRFdc_Calibration_Coefficients</scope><name>Coeff2</name></member>
+      <member refid="struct_x_r_fdc___calibration___coefficients_1ae0c6ae3ddd2245d71700401dc5f414d9" prot="public" virt="non-virtual"><scope>XRFdc_Calibration_Coefficients</scope><name>Coeff3</name></member>
+      <member refid="struct_x_r_fdc___calibration___coefficients_1a3a40d02bfa4c07077d3d3fc8fe0a3892" prot="public" virt="non-virtual"><scope>XRFdc_Calibration_Coefficients</scope><name>Coeff4</name></member>
+      <member refid="struct_x_r_fdc___calibration___coefficients_1a4e893d4a1f4cad5f71caa78a1cf5e890" prot="public" virt="non-virtual"><scope>XRFdc_Calibration_Coefficients</scope><name>Coeff5</name></member>
+      <member refid="struct_x_r_fdc___calibration___coefficients_1af1e4727d6f4c437d80b3d1f6e41a8bba" prot="public" virt="non-virtual"><scope>XRFdc_Calibration_Coefficients</scope><name>Coeff6</name></member>
+      <member refid="struct_x_r_fdc___calibration___coefficients_1ae34fc64f1eb9115074a1d45dc5026c5b" prot="public" virt="non-virtual"><scope>XRFdc_Calibration_Coefficients</scope><name>Coeff7</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_a8a806c130ffd294e87deb1f798c9d19" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xtrafgen_8c">xtrafgen.c</innerfile>
+    <innerfile refid="xtrafgen_8h">xtrafgen.h</innerfile>
+    <innerfile refid="xtrafgen__g_8c">xtrafgen_g.c</innerfile>
+    <innerfile refid="xtrafgen__hw_8h">xtrafgen_hw.h</innerfile>
+    <innerfile refid="xtrafgen__sinit_8c">xtrafgen_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1381 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xuartns550__l_8h" kind="file">
+    <compoundname>xuartns550_l.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xuartns550_8h" local="yes">xuartns550.h</includedby>
+    <includedby refid="xuartns550__l_8c" local="yes">xuartns550_l.c</includedby>
+    <includedby refid="xuartns550__low__level__example_8c" local="yes">xuartns550_low_level_example.c</includedby>
+    <incdepgraph>
+      <node id="106">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="107">
+        <label>xil_io.h</label>
+      </node>
+      <node id="104">
+        <label>xuartns550_l.h</label>
+        <link refid="xuartns550_l.h"/>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+      </node>
+      <node id="105">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="115">
+        <label>xuartns550_selftest.c</label>
+        <link refid="xuartns550__selftest_8c"/>
+      </node>
+      <node id="122">
+        <label>xuartns550_selftest_example.c</label>
+        <link refid="xuartns550__selftest__example_8c"/>
+      </node>
+      <node id="112">
+        <label>xuartns550_format.c</label>
+        <link refid="xuartns550__format_8c"/>
+      </node>
+      <node id="124">
+        <label>xuartns550_low_level_example.c</label>
+        <link refid="xuartns550__low__level__example_8c"/>
+      </node>
+      <node id="113">
+        <label>xuartns550_intr.c</label>
+        <link refid="xuartns550__intr_8c"/>
+      </node>
+      <node id="110">
+        <label>xuartns550.c</label>
+        <link refid="xuartns550_8c"/>
+      </node>
+      <node id="121">
+        <label>xuartns550_polled_example.c</label>
+        <link refid="xuartns550__polled__example_8c"/>
+      </node>
+      <node id="109">
+        <label>xuartns550.h</label>
+        <link refid="xuartns550_8h"/>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="118" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="119" relation="include">
+        </childnode>
+        <childnode refid="120" relation="include">
+        </childnode>
+        <childnode refid="121" relation="include">
+        </childnode>
+        <childnode refid="122" relation="include">
+        </childnode>
+      </node>
+      <node id="118">
+        <label>xuartns550_g.c</label>
+        <link refid="xuartns550__g_8c"/>
+      </node>
+      <node id="119">
+        <label>xuartns550_hello_world_example.c</label>
+        <link refid="xuartns550__hello__world__example_8c"/>
+      </node>
+      <node id="116">
+        <label>xuartns550_sinit.c</label>
+        <link refid="xuartns550__sinit_8c"/>
+      </node>
+      <node id="123">
+        <label>xuartns550_l.c</label>
+        <link refid="xuartns550__l_8c"/>
+      </node>
+      <node id="108">
+        <label>xuartns550_l.h</label>
+        <link refid="xuartns550_l.h"/>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="123" relation="include">
+        </childnode>
+        <childnode refid="124" relation="include">
+        </childnode>
+      </node>
+      <node id="117">
+        <label>xuartns550_stats.c</label>
+        <link refid="xuartns550__stats_8c"/>
+      </node>
+      <node id="114">
+        <label>xuartns550_options.c</label>
+        <link refid="xuartns550__options_8c"/>
+      </node>
+      <node id="111">
+        <label>xuartns550_i.h</label>
+        <link refid="xuartns550__i_8h"/>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+      </node>
+      <node id="120">
+        <label>xuartns550_intr_example.c</label>
+        <link refid="xuartns550__intr__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Register Map</header>
+      <description><para>Register offsets for the 16450/16550 compatible UART device. </para></description>
+      <memberdef kind="define" id="group__uartns550_1ga0c9f6a9aff7a8753caf9965f3162c2ce" prot="public" static="no">
+        <name>XUN_RBR_OFFSET</name>
+        <initializer>(XUN_REG_OFFSET)</initializer>
+        <briefdescription>
+<para>Receive buffer, read only. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga6df754edf91aea638537a15536d4d34e" compoundref="xuartns550_8c" startline="523" endline="587">XUartNs550_ReceiveBuffer</referencedby>
+        <referencedby refid="group__uartns550_1ga2f885279ade985dee519d1f4c3730b1c" compoundref="xuartns550__l_8c" startline="106" endline="117">XUartNs550_RecvByte</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1gaaeadf9e35937495ade3ac065a4a6ccbf" prot="public" static="no">
+        <name>XUN_THR_OFFSET</name>
+        <initializer>(XUN_REG_OFFSET)</initializer>
+        <briefdescription>
+<para>Transmit holding register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga9046228564fdafeb5715dce1c0b46766" compoundref="xuartns550_8c" startline="388" endline="489">XUartNs550_SendBuffer</referencedby>
+        <referencedby refid="group__uartns550_1ga39973a1a14e9e66e4bd3a8e90320c982" compoundref="xuartns550__l_8c" startline="78" endline="91">XUartNs550_SendByte</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga270ca9810a3fde617c7fd9f5bc707e6d" prot="public" static="no">
+        <name>XUN_IER_OFFSET</name>
+        <initializer>(XUN_REG_OFFSET + 0x04)</initializer>
+        <briefdescription>
+<para>Interrupt enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga35fc171801e394fce29cbcb09dc1ff99" compoundref="xuartns550_8c" startline="313" endline="357">XUartNs550_Recv</referencedby>
+        <referencedby refid="group__uartns550_1ga2ec86252a3b83b8d7b4815ffb960562d" compoundref="xuartns550__selftest_8c" startline="81" endline="166">XUartNs550_SelfTest</referencedby>
+        <referencedby refid="group__uartns550_1ga421921af6a8df7c51ddbfa5d2301ad1b" compoundref="xuartns550_8c" startline="231" endline="278">XUartNs550_Send</referencedby>
+        <referencedby refid="group__uartns550_1ga9046228564fdafeb5715dce1c0b46766" compoundref="xuartns550_8c" startline="388" endline="489">XUartNs550_SendBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga36427b607774c1107afd847eb85bc4c9" prot="public" static="no">
+        <name>XUN_IIR_OFFSET</name>
+        <initializer>(XUN_REG_OFFSET + 0x08)</initializer>
+        <briefdescription>
+<para>Interrupt id, read only. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga6e8579fcf317e1f30d61b4fb7fe60434" compoundref="xuartns550__intr_8c" startline="139" endline="160">XUartNs550_InterruptHandler</referencedby>
+        <referencedby refid="group__uartns550_1ga9046228564fdafeb5715dce1c0b46766" compoundref="xuartns550_8c" startline="388" endline="489">XUartNs550_SendBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga3d652c8c88fd310239eab927dff43d94" prot="public" static="no">
+        <name>XUN_FCR_OFFSET</name>
+        <initializer>(XUN_REG_OFFSET + 0x08)</initializer>
+        <briefdescription>
+<para>Fifo control, write only. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga8430ad911c59b500771723d565f29f29" compoundref="xuartns550_8c" startline="116" endline="193">XUartNs550_CfgInitialize</referencedby>
+        <referencedby refid="group__uartns550_1ga120797e7b4fc719c827c4378e387efe4" compoundref="xuartns550__options_8c" startline="102" endline="142">XUartNs550_GetOptions</referencedby>
+        <referencedby refid="xuartns550__low__level__example_8c_1adb369a61c1b28dd7908e165c0c408efc" compoundref="xuartns550__low__level__example_8c" startline="131" endline="183">XUartNs550_LowLevelExample</referencedby>
+        <referencedby refid="group__uartns550_1gaedd1056b9f1283ee15c1a3c349acb845" compoundref="xuartns550__options_8c" startline="284" endline="327">XUartNs550_SetFifoThreshold</referencedby>
+        <referencedby refid="group__uartns550_1gac2270082fbb7d7b2c32bd9208dae5be3" compoundref="xuartns550__options_8c" startline="168" endline="222">XUartNs550_SetOptions</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga50bcaf32aedaf4476931b898961a533f" prot="public" static="no">
+        <name>XUN_LCR_OFFSET</name>
+        <initializer>(XUN_REG_OFFSET + 0x0C)</initializer>
+        <briefdescription>
+<para>Line Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga9046de189f3f0a647fc5c908324f31d9" prot="public" static="no">
+        <name>XUN_MCR_OFFSET</name>
+        <initializer>(XUN_REG_OFFSET + 0x10)</initializer>
+        <briefdescription>
+<para>Modem Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga2ec86252a3b83b8d7b4815ffb960562d" compoundref="xuartns550__selftest_8c" startline="81" endline="166">XUartNs550_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga9cb658f2d8ea9eb438ee626a74ab65ef" prot="public" static="no">
+        <name>XUN_LSR_OFFSET</name>
+        <initializer>(XUN_REG_OFFSET + 0x14)</initializer>
+        <briefdescription>
+<para>Line Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga69e96899321d1c793301e52cb4ff7d5b" prot="public" static="no">
+        <name>XUN_MSR_OFFSET</name>
+        <initializer>(XUN_REG_OFFSET + 0x18)</initializer>
+        <briefdescription>
+<para>Modem Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga541b6125f67b83adfe5f508215d59ea6" compoundref="xuartns550__options_8c" startline="397" endline="412">XUartNs550_GetModemStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga035a43e3e92312cf94894d0df59eed71" prot="public" static="no">
+        <name>XUN_DLL_OFFSET</name>
+        <initializer>(XUN_REG_OFFSET + 0x00)</initializer>
+        <briefdescription>
+<para>Divisor Register LSB. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga5aa56fa41ef620d2199925f22f2ca21f" compoundref="xuartns550__l_8c" startline="135" endline="179">XUartNs550_SetBaud</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga61325f1ebb5100606fa900290d1497d7" prot="public" static="no">
+        <name>XUN_DLM_OFFSET</name>
+        <initializer>(XUN_REG_OFFSET + 0x04)</initializer>
+        <briefdescription>
+<para>Divisor Register MSB. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga5aa56fa41ef620d2199925f22f2ca21f" compoundref="xuartns550__l_8c" startline="135" endline="179">XUartNs550_SetBaud</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1gad024e52bf451be70a16217ee15136558" prot="public" static="no">
+        <name>XUN_DRLS_OFFSET</name>
+        <initializer>(XUN_REG_OFFSET + 0x00)</initializer>
+        <briefdescription>
+<para>Divisor Register LSB. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga9923a9e780653084f76cd38f4008d0c5" prot="public" static="no">
+        <name>XUN_DRLM_OFFSET</name>
+        <initializer>(XUN_REG_OFFSET + 0x04)</initializer>
+        <briefdescription>
+<para>Divisor Register MSB. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt Enable Register (IER) mask(s)</header>
+      <memberdef kind="define" id="group__uartns550_1ga283d7f5d44a578ce4ae7f3667ba36908" prot="public" static="no">
+        <name>XUN_IER_MODEM_STATUS</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Modem status interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1gaf385b4925367d2717920845f2880ba47" prot="public" static="no">
+        <name>XUN_IER_RX_LINE</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Receive status interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga8536fc383eb2b08497a576b186547930" prot="public" static="no">
+        <name>XUN_IER_TX_EMPTY</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Transmitter empty interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="92" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga421921af6a8df7c51ddbfa5d2301ad1b" compoundref="xuartns550_8c" startline="231" endline="278">XUartNs550_Send</referencedby>
+        <referencedby refid="group__uartns550_1ga9046228564fdafeb5715dce1c0b46766" compoundref="xuartns550_8c" startline="388" endline="489">XUartNs550_SendBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1gae3baa08e218c2f904b1f28ffd06bc527" prot="public" static="no">
+        <name>XUN_IER_RX_DATA</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Receiver data available. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="93" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga9046228564fdafeb5715dce1c0b46766" compoundref="xuartns550_8c" startline="388" endline="489">XUartNs550_SendBuffer</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt ID Register (INT_ID) mask(s)</header>
+      <memberdef kind="define" id="group__uartns550_1ga1770fc9ccf8e1fb1549e53fb83bf2980" prot="public" static="no">
+        <name>XUN_INT_ID_MASK</name>
+        <initializer>0x0000000F</initializer>
+        <briefdescription>
+<para>Only the interrupt ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="100" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga6e8579fcf317e1f30d61b4fb7fe60434" compoundref="xuartns550__intr_8c" startline="139" endline="160">XUartNs550_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1gad37ac1583a8e7e9f34530947b89e06fe" prot="public" static="no">
+        <name>XUN_INT_ID_FIFOS_ENABLED</name>
+        <initializer>0x000000C0</initializer>
+        <briefdescription>
+<para>Only the FIFOs enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="101" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga9046228564fdafeb5715dce1c0b46766" compoundref="xuartns550_8c" startline="388" endline="489">XUartNs550_SendBuffer</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>FIFO Control Register mask(s)</header>
+      <memberdef kind="define" id="group__uartns550_1ga4b16c45a8ec1b6fe90e862d4db5f5558" prot="public" static="no">
+        <name>XUN_FIFO_RX_TRIG_MSB</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>Trigger level MSB. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga8430ad911c59b500771723d565f29f29" compoundref="xuartns550_8c" startline="116" endline="193">XUartNs550_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga5b79e08613c8560b6f959a7e99de2914" prot="public" static="no">
+        <name>XUN_FIFO_RX_TRIG_LSB</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>Trigger level LSB. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1gad43092374d907d369cfa0c09bccf39c2" prot="public" static="no">
+        <name>XUN_FIFO_TX_RESET</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Reset the transmit FIFO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1gac547846d9841b9801f6b6cd2c879e881" prot="public" static="no">
+        <name>XUN_FIFO_RX_RESET</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Reset the receive FIFO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga729d149d84afe79ed69445f8bf6d5101" prot="public" static="no">
+        <name>XUN_FIFO_ENABLE</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Enable the FIFOs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="112" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga8430ad911c59b500771723d565f29f29" compoundref="xuartns550_8c" startline="116" endline="193">XUartNs550_CfgInitialize</referencedby>
+        <referencedby refid="xuartns550__low__level__example_8c_1adb369a61c1b28dd7908e165c0c408efc" compoundref="xuartns550__low__level__example_8c" startline="131" endline="183">XUartNs550_LowLevelExample</referencedby>
+        <referencedby refid="group__uartns550_1gaedd1056b9f1283ee15c1a3c349acb845" compoundref="xuartns550__options_8c" startline="284" endline="327">XUartNs550_SetFifoThreshold</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1gab75853d561b5a47735a412acc54b1507" prot="public" static="no">
+        <name>XUN_FIFO_RX_TRIGGER</name>
+        <initializer>0x000000C0</initializer>
+        <briefdescription>
+<para>Both trigger level bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga4f7c185a91f28f3490fa8ef71dab1059" compoundref="xuartns550__options_8c" startline="240" endline="260">XUartNs550_GetFifoThreshold</referencedby>
+        <referencedby refid="group__uartns550_1gaedd1056b9f1283ee15c1a3c349acb845" compoundref="xuartns550__options_8c" startline="284" endline="327">XUartNs550_SetFifoThreshold</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Line Control Register(LCR) mask(s)</header>
+      <memberdef kind="define" id="group__uartns550_1gaa2aa323315e8d4e0265bcb004debc302" prot="public" static="no">
+        <name>XUN_LCR_DLAB</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>Divisor latch access. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="120" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga5aa56fa41ef620d2199925f22f2ca21f" compoundref="xuartns550__l_8c" startline="135" endline="179">XUartNs550_SetBaud</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1gac488c0877e5d9195ba6702c5d87bbac1" prot="public" static="no">
+        <name>XUN_LCR_SET_BREAK</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>Cause a break condition. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1gadb09446c6f42dc66f5247562cb467b83" prot="public" static="no">
+        <name>XUN_LCR_STICK_PARITY</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>Stick Parity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga5a9981c3534734f46ae6a7761c272cd2" prot="public" static="no">
+        <name>XUN_LCR_EVEN_PARITY</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>1 = even, 0 = odd parity </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="123" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga7928b4629d2a36d5f771040176746f10" compoundref="xuartns550__format_8c" startline="186" endline="248">XUartNs550_GetDataFormat</referencedby>
+        <referencedby refid="group__uartns550_1ga4b3eb97421a6a66e7029e9afafd8a74b" compoundref="xuartns550__format_8c" startline="86" endline="165">XUartNs550_SetDataFormat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga4a5273b5f25d43f994d23adcfaceb06f" prot="public" static="no">
+        <name>XUN_LCR_ENABLE_PARITY</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>1 = Enable, 0 = Disable parity </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="124" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga7928b4629d2a36d5f771040176746f10" compoundref="xuartns550__format_8c" startline="186" endline="248">XUartNs550_GetDataFormat</referencedby>
+        <referencedby refid="group__uartns550_1ga4b3eb97421a6a66e7029e9afafd8a74b" compoundref="xuartns550__format_8c" startline="86" endline="165">XUartNs550_SetDataFormat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1gac7f9d8d22514af63f22691f8b0aaee5c" prot="public" static="no">
+        <name>XUN_LCR_2_STOP_BITS</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>1= 2 stop bits,0 = 1 stop bit </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="125" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga7928b4629d2a36d5f771040176746f10" compoundref="xuartns550__format_8c" startline="186" endline="248">XUartNs550_GetDataFormat</referencedby>
+        <referencedby refid="group__uartns550_1ga4b3eb97421a6a66e7029e9afafd8a74b" compoundref="xuartns550__format_8c" startline="86" endline="165">XUartNs550_SetDataFormat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1gab8237823909f5df4df1635ffe6c3fd8e" prot="public" static="no">
+        <name>XUN_LCR_8_DATA_BITS</name>
+        <initializer>0x00000003</initializer>
+        <briefdescription>
+<para>8 Data bits selection </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="126" bodyend="-1"/>
+        <referencedby refid="xuartns550__low__level__example_8c_1adb369a61c1b28dd7908e165c0c408efc" compoundref="xuartns550__low__level__example_8c" startline="131" endline="183">XUartNs550_LowLevelExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1gaf6444c0fe2141a04caa36c3ceff7e7bc" prot="public" static="no">
+        <name>XUN_LCR_7_DATA_BITS</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>7 Data bits selection </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1gac4a2b734e8f1aa8c0935ee3afa8f6a00" prot="public" static="no">
+        <name>XUN_LCR_6_DATA_BITS</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>6 Data bits selection </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga483bdd6c37b57123fdc2a3da8a74a39f" prot="public" static="no">
+        <name>XUN_LCR_LENGTH_MASK</name>
+        <initializer>0x00000003</initializer>
+        <briefdescription>
+<para>Both length bits mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="129" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga7928b4629d2a36d5f771040176746f10" compoundref="xuartns550__format_8c" startline="186" endline="248">XUartNs550_GetDataFormat</referencedby>
+        <referencedby refid="group__uartns550_1ga4b3eb97421a6a66e7029e9afafd8a74b" compoundref="xuartns550__format_8c" startline="86" endline="165">XUartNs550_SetDataFormat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1gaa87780e1deb82b5068dc0d4f2c495098" prot="public" static="no">
+        <name>XUN_LCR_PARITY_MASK</name>
+        <initializer>0x00000018</initializer>
+        <briefdescription>
+<para>Both parity bits mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="130" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga4b3eb97421a6a66e7029e9afafd8a74b" compoundref="xuartns550__format_8c" startline="86" endline="165">XUartNs550_SetDataFormat</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Mode Control Register(MCR) mask(s)</header>
+      <memberdef kind="define" id="group__uartns550_1ga04187396f216eb0cd5be0db172fb1934" prot="public" static="no">
+        <name>XUN_MCR_LOOP</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>Local loopback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="137" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga2ec86252a3b83b8d7b4815ffb960562d" compoundref="xuartns550__selftest_8c" startline="81" endline="166">XUartNs550_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1gaeb40f8130a80ee807ea023a371bf8c38" prot="public" static="no">
+        <name>XUN_MCR_OUT_2</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>General output 2 signal. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga73b885722152824dc9a12d643dea0bf5" prot="public" static="no">
+        <name>XUN_MCR_OUT_1</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>General output 1 signal. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1gae4f30ef843108b79b9d582bada19819a" prot="public" static="no">
+        <name>XUN_MCR_RTS</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>RTS signal. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga3c2e9f72e54de87dedaafe6085ae4ec9" prot="public" static="no">
+        <name>XUN_MCR_DTR</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>DTR signal. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Line Status Register(LSR) mask(s)</header>
+      <memberdef kind="define" id="group__uartns550_1gab923b7cea4222649e9cf8a0a7413ed35" prot="public" static="no">
+        <name>XUN_LSR_RX_FIFO_ERROR</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>An errored byte is in FIFO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga648b52ef84c2214179e2fe3c80d77677" prot="public" static="no">
+        <name>XUN_LSR_TX_EMPTY</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>Transmitter is empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="149" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1gaab822fbaed4a57714779e35b6be6f090" compoundref="xuartns550__options_8c" startline="427" endline="447">XUartNs550_IsSending</referencedby>
+        <referencedby refid="group__uartns550_1ga9046228564fdafeb5715dce1c0b46766" compoundref="xuartns550_8c" startline="388" endline="489">XUartNs550_SendBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1gacfc60ddcada499862b482041805b1f03" prot="public" static="no">
+        <name>XUN_LSR_TX_BUFFER_EMPTY</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>Transmit holding reg empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="150" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga9046228564fdafeb5715dce1c0b46766" compoundref="xuartns550_8c" startline="388" endline="489">XUartNs550_SendBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1gae74ee94f0c84de4861c57c04bff0d390" prot="public" static="no">
+        <name>XUN_LSR_BREAK_INT</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>Break detected interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="151" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga6df754edf91aea638537a15536d4d34e" compoundref="xuartns550_8c" startline="523" endline="587">XUartNs550_ReceiveBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga55e6bddf04ae12aba48d7176dbec9763" prot="public" static="no">
+        <name>XUN_LSR_FRAMING_ERROR</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Framing error on current byte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga94c55231673313abf9f38f451bf952b4" prot="public" static="no">
+        <name>XUN_LSR_PARITY_ERROR</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Parity error on current byte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga21276c29b98219b18cf86d0eb2c7134b" prot="public" static="no">
+        <name>XUN_LSR_OVERRUN_ERROR</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Overrun error on receive FIFO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga64e43cf523785c523618adc1f046370f" prot="public" static="no">
+        <name>XUN_LSR_DATA_READY</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Receive data ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="155" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga6df754edf91aea638537a15536d4d34e" compoundref="xuartns550_8c" startline="523" endline="587">XUartNs550_ReceiveBuffer</referencedby>
+        <referencedby refid="group__uartns550_1ga2ec86252a3b83b8d7b4815ffb960562d" compoundref="xuartns550__selftest_8c" startline="81" endline="166">XUartNs550_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1gaf2d9f7f1bffd43b92ef31d187f4bcb5e" prot="public" static="no">
+        <name>XUN_LSR_ERROR_BREAK</name>
+        <initializer>0x0000001E</initializer>
+        <briefdescription>
+<para>Errors except FIFO error and break detected. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="156" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1gab5c78c74113daef4f74aefbc57e92b3a" compoundref="xuartns550__options_8c" startline="354" endline="375">XUartNs550_GetLastErrors</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__uartns550_1ga4c29e1365c1d130514e256262625bc15" prot="public" static="no">
+        <name>XUARTNS550_L_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga3aa5621d35dd0e4eea01fcee2063a7a3" prot="public" static="no">
+        <name>XUN_REG_OFFSET</name>
+        <initializer>0x1000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga4b1b546e60a0c76832f6e3a9a3957094" prot="public" static="no">
+        <name>XUN_FIFO_SIZE</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga6708c902724ba63054f78d2179562615" prot="public" static="no">
+        <name>XUN_DIVISOR_BYTE_MASK</name>
+        <initializer>0x000000FF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="160" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga58ff500307c70fda263888b18fc6389c" prot="public" static="no">
+        <name>XUartNs550_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32((BaseAddress) + (RegOffset))</initializer>
+        <briefdescription>
+<para>Read a UART register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the offset from the 1st register of the device to select the specific register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read from the register.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: u32 <ref refid="group__uartns550_1ga58ff500307c70fda263888b18fc6389c" kindref="member">XUartNs550_ReadReg(u32 BaseAddress, u32 RegOffset)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="182" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga541b6125f67b83adfe5f508215d59ea6" compoundref="xuartns550__options_8c" startline="397" endline="412">XUartNs550_GetModemStatus</referencedby>
+        <referencedby refid="group__uartns550_1ga120797e7b4fc719c827c4378e387efe4" compoundref="xuartns550__options_8c" startline="102" endline="142">XUartNs550_GetOptions</referencedby>
+        <referencedby refid="group__uartns550_1ga6e8579fcf317e1f30d61b4fb7fe60434" compoundref="xuartns550__intr_8c" startline="139" endline="160">XUartNs550_InterruptHandler</referencedby>
+        <referencedby refid="group__uartns550_1ga6df754edf91aea638537a15536d4d34e" compoundref="xuartns550_8c" startline="523" endline="587">XUartNs550_ReceiveBuffer</referencedby>
+        <referencedby refid="group__uartns550_1ga35fc171801e394fce29cbcb09dc1ff99" compoundref="xuartns550_8c" startline="313" endline="357">XUartNs550_Recv</referencedby>
+        <referencedby refid="group__uartns550_1ga2f885279ade985dee519d1f4c3730b1c" compoundref="xuartns550__l_8c" startline="106" endline="117">XUartNs550_RecvByte</referencedby>
+        <referencedby refid="group__uartns550_1ga2ec86252a3b83b8d7b4815ffb960562d" compoundref="xuartns550__selftest_8c" startline="81" endline="166">XUartNs550_SelfTest</referencedby>
+        <referencedby refid="group__uartns550_1ga421921af6a8df7c51ddbfa5d2301ad1b" compoundref="xuartns550_8c" startline="231" endline="278">XUartNs550_Send</referencedby>
+        <referencedby refid="group__uartns550_1ga9046228564fdafeb5715dce1c0b46766" compoundref="xuartns550_8c" startline="388" endline="489">XUartNs550_SendBuffer</referencedby>
+        <referencedby refid="group__uartns550_1gac2270082fbb7d7b2c32bd9208dae5be3" compoundref="xuartns550__options_8c" startline="168" endline="222">XUartNs550_SetOptions</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1gae648146666080fdac4f6949b6ed3101a" prot="public" static="no">
+        <name>XUartNs550_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>RegisterValue</defname></param>
+        <initializer>Xil_Out32((BaseAddress) + (RegOffset), (RegisterValue))</initializer>
+        <briefdescription>
+<para>Write to a UART register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the offset from the 1st register of the device to select the specific register. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegisterValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to be written to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: u32 XUartNs550_WriteReg(u32 BaseAddress, u32 RegOffset, u32 RegisterValue); </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="200" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="201" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga8430ad911c59b500771723d565f29f29" compoundref="xuartns550_8c" startline="116" endline="193">XUartNs550_CfgInitialize</referencedby>
+        <referencedby refid="xuartns550__low__level__example_8c_1adb369a61c1b28dd7908e165c0c408efc" compoundref="xuartns550__low__level__example_8c" startline="131" endline="183">XUartNs550_LowLevelExample</referencedby>
+        <referencedby refid="group__uartns550_1ga35fc171801e394fce29cbcb09dc1ff99" compoundref="xuartns550_8c" startline="313" endline="357">XUartNs550_Recv</referencedby>
+        <referencedby refid="group__uartns550_1ga2ec86252a3b83b8d7b4815ffb960562d" compoundref="xuartns550__selftest_8c" startline="81" endline="166">XUartNs550_SelfTest</referencedby>
+        <referencedby refid="group__uartns550_1ga421921af6a8df7c51ddbfa5d2301ad1b" compoundref="xuartns550_8c" startline="231" endline="278">XUartNs550_Send</referencedby>
+        <referencedby refid="group__uartns550_1ga9046228564fdafeb5715dce1c0b46766" compoundref="xuartns550_8c" startline="388" endline="489">XUartNs550_SendBuffer</referencedby>
+        <referencedby refid="group__uartns550_1ga39973a1a14e9e66e4bd3a8e90320c982" compoundref="xuartns550__l_8c" startline="78" endline="91">XUartNs550_SendByte</referencedby>
+        <referencedby refid="group__uartns550_1ga5aa56fa41ef620d2199925f22f2ca21f" compoundref="xuartns550__l_8c" startline="135" endline="179">XUartNs550_SetBaud</referencedby>
+        <referencedby refid="group__uartns550_1gaedd1056b9f1283ee15c1a3c349acb845" compoundref="xuartns550__options_8c" startline="284" endline="327">XUartNs550_SetFifoThreshold</referencedby>
+        <referencedby refid="group__uartns550_1gac2270082fbb7d7b2c32bd9208dae5be3" compoundref="xuartns550__options_8c" startline="168" endline="222">XUartNs550_SetOptions</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1gacfbf9e5ce401ea4b07a19752802926f7" prot="public" static="no">
+        <name>XUartNs550_GetLineStatusReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <initializer><ref refid="group__uartns550_1ga58ff500307c70fda263888b18fc6389c" kindref="member">XUartNs550_ReadReg</ref>((BaseAddress), <ref refid="group__uartns550_1ga9cb658f2d8ea9eb438ee626a74ab65ef" kindref="member">XUN_LSR_OFFSET</ref>)</initializer>
+        <briefdescription>
+<para>Get the UART Line Status Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read from the register.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: u32 <ref refid="group__uartns550_1gacfbf9e5ce401ea4b07a19752802926f7" kindref="member">XUartNs550_GetLineStatusReg(u32 BaseAddress)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="215" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="216" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1gaab822fbaed4a57714779e35b6be6f090" compoundref="xuartns550__options_8c" startline="427" endline="447">XUartNs550_IsSending</referencedby>
+        <referencedby refid="group__uartns550_1ga6df754edf91aea638537a15536d4d34e" compoundref="xuartns550_8c" startline="523" endline="587">XUartNs550_ReceiveBuffer</referencedby>
+        <referencedby refid="group__uartns550_1ga2ec86252a3b83b8d7b4815ffb960562d" compoundref="xuartns550__selftest_8c" startline="81" endline="166">XUartNs550_SelfTest</referencedby>
+        <referencedby refid="group__uartns550_1ga9046228564fdafeb5715dce1c0b46766" compoundref="xuartns550_8c" startline="388" endline="489">XUartNs550_SendBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1gab9ba96c18cb50a8ab5873d781b4ee94e" prot="public" static="no">
+        <name>XUartNs550_GetLineControlReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <initializer><ref refid="group__uartns550_1ga58ff500307c70fda263888b18fc6389c" kindref="member">XUartNs550_ReadReg</ref>((BaseAddress), <ref refid="group__uartns550_1ga50bcaf32aedaf4476931b898961a533f" kindref="member">XUN_LCR_OFFSET</ref>)</initializer>
+        <briefdescription>
+<para>Get the UART Line Status Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read from the register.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: u32 <ref refid="group__uartns550_1gab9ba96c18cb50a8ab5873d781b4ee94e" kindref="member">XUartNs550_GetLineControlReg(u32 BaseAddress)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="230" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="231" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga7928b4629d2a36d5f771040176746f10" compoundref="xuartns550__format_8c" startline="186" endline="248">XUartNs550_GetDataFormat</referencedby>
+        <referencedby refid="group__uartns550_1ga5aa56fa41ef620d2199925f22f2ca21f" compoundref="xuartns550__l_8c" startline="135" endline="179">XUartNs550_SetBaud</referencedby>
+        <referencedby refid="group__uartns550_1ga4b3eb97421a6a66e7029e9afafd8a74b" compoundref="xuartns550__format_8c" startline="86" endline="165">XUartNs550_SetDataFormat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga4f3ff99ca70dfe6c715cbbfdd9742230" prot="public" static="no">
+        <name>XUartNs550_SetLineControlReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegisterValue</defname></param>
+        <initializer><ref refid="group__uartns550_1gae648146666080fdac4f6949b6ed3101a" kindref="member">XUartNs550_WriteReg</ref>((BaseAddress), <ref refid="group__uartns550_1ga50bcaf32aedaf4476931b898961a533f" kindref="member">XUN_LCR_OFFSET</ref>, (RegisterValue))</initializer>
+        <briefdescription>
+<para>Set the UART Line Status Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegisterValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to be written to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: void XUartNs550_SetLineControlReg(u32 BaseAddress, u32 RegisterValue); </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="247" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="248" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga8430ad911c59b500771723d565f29f29" compoundref="xuartns550_8c" startline="116" endline="193">XUartNs550_CfgInitialize</referencedby>
+        <referencedby refid="xuartns550__low__level__example_8c_1adb369a61c1b28dd7908e165c0c408efc" compoundref="xuartns550__low__level__example_8c" startline="131" endline="183">XUartNs550_LowLevelExample</referencedby>
+        <referencedby refid="group__uartns550_1ga5aa56fa41ef620d2199925f22f2ca21f" compoundref="xuartns550__l_8c" startline="135" endline="179">XUartNs550_SetBaud</referencedby>
+        <referencedby refid="group__uartns550_1ga4b3eb97421a6a66e7029e9afafd8a74b" compoundref="xuartns550__format_8c" startline="86" endline="165">XUartNs550_SetDataFormat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga24622c1399f2cbab46e9dda140ef4aa0" prot="public" static="no">
+        <name>XUartNs550_EnableIntr</name>
+        <param><defname>BaseAddress</defname></param>
+        <initializer><ref refid="group__uartns550_1gae648146666080fdac4f6949b6ed3101a" kindref="member">XUartNs550_WriteReg</ref>((BaseAddress), <ref refid="group__uartns550_1ga270ca9810a3fde617c7fd9f5bc707e6d" kindref="member">XUN_IER_OFFSET</ref>,		\
+			 <ref refid="group__uartns550_1ga58ff500307c70fda263888b18fc6389c" kindref="member">XUartNs550_ReadReg</ref>((BaseAddress), <ref refid="group__uartns550_1ga270ca9810a3fde617c7fd9f5bc707e6d" kindref="member">XUN_IER_OFFSET</ref>) | \
+			 (<ref refid="group__uartns550_1gaf385b4925367d2717920845f2880ba47" kindref="member">XUN_IER_RX_LINE</ref> | <ref refid="group__uartns550_1ga8536fc383eb2b08497a576b186547930" kindref="member">XUN_IER_TX_EMPTY</ref> | <ref refid="group__uartns550_1gae3baa08e218c2f904b1f28ffd06bc527" kindref="member">XUN_IER_RX_DATA</ref>))</initializer>
+        <briefdescription>
+<para>Enable the transmit and receive interrupts of the UART. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: void <ref refid="group__uartns550_1ga24622c1399f2cbab46e9dda140ef4aa0" kindref="member">XUartNs550_EnableIntr(u32 BaseAddress)</ref>;, </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="262" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga9039b3a4a9852fa556e522976edd1288" prot="public" static="no">
+        <name>XUartNs550_DisableIntr</name>
+        <param><defname>BaseAddress</defname></param>
+        <initializer><ref refid="group__uartns550_1gae648146666080fdac4f6949b6ed3101a" kindref="member">XUartNs550_WriteReg</ref>((BaseAddress), <ref refid="group__uartns550_1ga270ca9810a3fde617c7fd9f5bc707e6d" kindref="member">XUN_IER_OFFSET</ref>,		\
+			<ref refid="group__uartns550_1ga58ff500307c70fda263888b18fc6389c" kindref="member">XUartNs550_ReadReg</ref>((BaseAddress), <ref refid="group__uartns550_1ga270ca9810a3fde617c7fd9f5bc707e6d" kindref="member">XUN_IER_OFFSET</ref>) &amp; \
+			~(<ref refid="group__uartns550_1gaf385b4925367d2717920845f2880ba47" kindref="member">XUN_IER_RX_LINE</ref> | <ref refid="group__uartns550_1ga8536fc383eb2b08497a576b186547930" kindref="member">XUN_IER_TX_EMPTY</ref> | <ref refid="group__uartns550_1gae3baa08e218c2f904b1f28ffd06bc527" kindref="member">XUN_IER_RX_DATA</ref>))</initializer>
+        <briefdescription>
+<para>Disable the transmit and receive interrupts of the UART. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: void <ref refid="group__uartns550_1ga9039b3a4a9852fa556e522976edd1288" kindref="member">XUartNs550_DisableIntr(u32 BaseAddress)</ref>;, </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="279" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1ga941188ffba023576548effef6ccb0707" prot="public" static="no">
+        <name>XUartNs550_IsReceiveData</name>
+        <param><defname>BaseAddress</defname></param>
+        <initializer>(<ref refid="group__uartns550_1gacfbf9e5ce401ea4b07a19752802926f7" kindref="member">XUartNs550_GetLineStatusReg</ref>(BaseAddress) &amp; <ref refid="group__uartns550_1ga64e43cf523785c523618adc1f046370f" kindref="member">XUN_LSR_DATA_READY</ref>)</initializer>
+        <briefdescription>
+<para>Determine if there is receive data in the receiver and/or FIFO. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>TRUE if there is receive data, FALSE otherwise.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: int <ref refid="group__uartns550_1ga941188ffba023576548effef6ccb0707" kindref="member">XUartNs550_IsReceiveData(u32 BaseAddress)</ref>;, </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="296" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="297" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga2f885279ade985dee519d1f4c3730b1c" compoundref="xuartns550__l_8c" startline="106" endline="117">XUartNs550_RecvByte</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__uartns550_1gabae5b671e19c043af9e1c76e183acb60" prot="public" static="no">
+        <name>XUartNs550_IsTransmitEmpty</name>
+        <param><defname>BaseAddress</defname></param>
+        <initializer>(<ref refid="group__uartns550_1gacfbf9e5ce401ea4b07a19752802926f7" kindref="member">XUartNs550_GetLineStatusReg</ref>(BaseAddress) &amp; <ref refid="group__uartns550_1gacfc60ddcada499862b482041805b1f03" kindref="member">XUN_LSR_TX_BUFFER_EMPTY</ref>)</initializer>
+        <briefdescription>
+<para>Determine if a byte of data can be sent with the transmitter. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>TRUE if a byte can be sent, FALSE otherwise.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: int <ref refid="group__uartns550_1gabae5b671e19c043af9e1c76e183acb60" kindref="member">XUartNs550_IsTransmitEmpty(u32 BaseAddress)</ref>;, </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" line="311" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h" bodystart="312" bodyend="-1"/>
+        <referencedby refid="group__uartns550_1ga39973a1a14e9e66e4bd3a8e90320c982" compoundref="xuartns550__l_8c" startline="78" endline="91">XUartNs550_SendByte</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__uartns550_1ga39973a1a14e9e66e4bd3a8e90320c982" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartNs550_SendByte</definition>
+        <argsstring>(UINTPTR BaseAddress, u8 Data)</argsstring>
+        <name>XUartNs550_SendByte</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a data byte with the UART. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function operates in the polling mode and blocks until the data has been put into the UART transmit holding register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the UART. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the data byte to be sent.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.c" bodystart="78" bodyend="91"/>
+        <references refid="group__uartns550_1gabae5b671e19c043af9e1c76e183acb60" compoundref="xuartns550__l_8h" startline="312">XUartNs550_IsTransmitEmpty</references>
+        <references refid="group__uartns550_1gae648146666080fdac4f6949b6ed3101a" compoundref="xuartns550__l_8h" startline="201">XUartNs550_WriteReg</references>
+        <references refid="group__uartns550_1gaaeadf9e35937495ade3ac065a4a6ccbf" compoundref="xuartns550__l_8h" startline="64">XUN_THR_OFFSET</references>
+        <referencedby refid="xuartns550__low__level__example_8c_1adb369a61c1b28dd7908e165c0c408efc" compoundref="xuartns550__low__level__example_8c" startline="131" endline="183">XUartNs550_LowLevelExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__uartns550_1ga2f885279ade985dee519d1f4c3730b1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XUartNs550_RecvByte</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XUartNs550_RecvByte</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function receives a byte from the UART. </para>        </briefdescription>
+        <detaileddescription>
+<para>It operates in a polling mode and blocks until a byte of data is received.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the UART.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The data byte received by the UART.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.c" bodystart="106" bodyend="117"/>
+        <references refid="group__uartns550_1ga941188ffba023576548effef6ccb0707" compoundref="xuartns550__l_8h" startline="297">XUartNs550_IsReceiveData</references>
+        <references refid="group__uartns550_1ga58ff500307c70fda263888b18fc6389c" compoundref="xuartns550__l_8h" startline="182">XUartNs550_ReadReg</references>
+        <references refid="group__uartns550_1ga0c9f6a9aff7a8753caf9965f3162c2ce" compoundref="xuartns550__l_8h" startline="63">XUN_RBR_OFFSET</references>
+        <referencedby refid="xuartns550__low__level__example_8c_1adb369a61c1b28dd7908e165c0c408efc" compoundref="xuartns550__low__level__example_8c" startline="131" endline="183">XUartNs550_LowLevelExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__uartns550_1ga5aa56fa41ef620d2199925f22f2ca21f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartNs550_SetBaud</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 InputClockHz, u32 BaudRate)</argsstring>
+        <name>XUartNs550_SetBaud</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>InputClockHz</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BaudRate</declname>
+        </param>
+        <briefdescription>
+<para>Set the baud rate for the UART. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the UART. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InputClockHz</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the frequency of the input clock to the device in Hertz. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaudRate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baud rate to be set.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.c" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.c" bodystart="135" bodyend="179"/>
+        <references refid="group__uartns550_1gab9ba96c18cb50a8ab5873d781b4ee94e" compoundref="xuartns550__l_8h" startline="231">XUartNs550_GetLineControlReg</references>
+        <references refid="group__uartns550_1ga4f3ff99ca70dfe6c715cbbfdd9742230" compoundref="xuartns550__l_8h" startline="248">XUartNs550_SetLineControlReg</references>
+        <references refid="group__uartns550_1gae648146666080fdac4f6949b6ed3101a" compoundref="xuartns550__l_8h" startline="201">XUartNs550_WriteReg</references>
+        <references refid="group__uartns550_1ga035a43e3e92312cf94894d0df59eed71" compoundref="xuartns550__l_8h" startline="72">XUN_DLL_OFFSET</references>
+        <references refid="group__uartns550_1ga61325f1ebb5100606fa900290d1497d7" compoundref="xuartns550__l_8h" startline="73">XUN_DLM_OFFSET</references>
+        <references refid="group__uartns550_1gaa2aa323315e8d4e0265bcb004debc302" compoundref="xuartns550__l_8h" startline="120">XUN_LCR_DLAB</references>
+        <referencedby refid="xuartns550__low__level__example_8c_1adb369a61c1b28dd7908e165c0c408efc" compoundref="xuartns550__low__level__example_8c" startline="131" endline="183">XUartNs550_LowLevelExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor">#ifndef<sp/>XUARTNS550_L_H<sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUARTNS550_L_H<sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="54"><highlight class="comment"><sp/>*<sp/>Offset<sp/>from<sp/>the<sp/>device<sp/>base<sp/>address<sp/>to<sp/>the<sp/>IP<sp/>registers.</highlight></codeline>
+<codeline lineno="55"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XUN_REG_OFFSET<sp/>0x1000</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="63" refid="group__uartns550_1ga0c9f6a9aff7a8753caf9965f3162c2ce" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_RBR_OFFSET<sp/><sp/>(XUN_REG_OFFSET)<sp/></highlight></codeline>
+<codeline lineno="64" refid="group__uartns550_1gaaeadf9e35937495ade3ac065a4a6ccbf" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_THR_OFFSET<sp/><sp/>(XUN_REG_OFFSET)<sp/></highlight></codeline>
+<codeline lineno="65" refid="group__uartns550_1ga270ca9810a3fde617c7fd9f5bc707e6d" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_IER_OFFSET<sp/><sp/>(XUN_REG_OFFSET<sp/>+<sp/>0x04)<sp/></highlight></codeline>
+<codeline lineno="66" refid="group__uartns550_1ga36427b607774c1107afd847eb85bc4c9" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_IIR_OFFSET<sp/><sp/>(XUN_REG_OFFSET<sp/>+<sp/>0x08)<sp/></highlight></codeline>
+<codeline lineno="67" refid="group__uartns550_1ga3d652c8c88fd310239eab927dff43d94" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_FCR_OFFSET<sp/><sp/>(XUN_REG_OFFSET<sp/>+<sp/>0x08)<sp/></highlight></codeline>
+<codeline lineno="68" refid="group__uartns550_1ga50bcaf32aedaf4476931b898961a533f" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_LCR_OFFSET<sp/><sp/>(XUN_REG_OFFSET<sp/>+<sp/>0x0C)<sp/></highlight></codeline>
+<codeline lineno="69" refid="group__uartns550_1ga9046de189f3f0a647fc5c908324f31d9" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_MCR_OFFSET<sp/><sp/>(XUN_REG_OFFSET<sp/>+<sp/>0x10)<sp/></highlight></codeline>
+<codeline lineno="70" refid="group__uartns550_1ga9cb658f2d8ea9eb438ee626a74ab65ef" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_LSR_OFFSET<sp/><sp/>(XUN_REG_OFFSET<sp/>+<sp/>0x14)<sp/></highlight></codeline>
+<codeline lineno="71" refid="group__uartns550_1ga69e96899321d1c793301e52cb4ff7d5b" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_MSR_OFFSET<sp/><sp/>(XUN_REG_OFFSET<sp/>+<sp/>0x18)<sp/></highlight></codeline>
+<codeline lineno="72" refid="group__uartns550_1ga035a43e3e92312cf94894d0df59eed71" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_DLL_OFFSET<sp/><sp/>(XUN_REG_OFFSET<sp/>+<sp/>0x00)<sp/></highlight></codeline>
+<codeline lineno="73" refid="group__uartns550_1ga61325f1ebb5100606fa900290d1497d7" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_DLM_OFFSET<sp/><sp/>(XUN_REG_OFFSET<sp/>+<sp/>0x04)<sp/></highlight></codeline>
+<codeline lineno="74" refid="group__uartns550_1gad024e52bf451be70a16217ee15136558" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_DRLS_OFFSET<sp/>(XUN_REG_OFFSET<sp/>+<sp/>0x00)<sp/></highlight></codeline>
+<codeline lineno="75" refid="group__uartns550_1ga9923a9e780653084f76cd38f4008d0c5" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_DRLM_OFFSET<sp/>(XUN_REG_OFFSET<sp/>+<sp/>0x04)<sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="79"><highlight class="comment"><sp/>*<sp/>The<sp/>following<sp/>constant<sp/>specifies<sp/>the<sp/>size<sp/>of<sp/>the<sp/>FIFOs,<sp/>the<sp/>size<sp/>of<sp/>the</highlight></codeline>
+<codeline lineno="80"><highlight class="comment"><sp/>*<sp/>FIFOs<sp/>includes<sp/>the<sp/>transmitter<sp/>and<sp/>receiver<sp/>such<sp/>that<sp/>it<sp/>is<sp/>the<sp/>total<sp/>number</highlight></codeline>
+<codeline lineno="81"><highlight class="comment"><sp/>*<sp/>of<sp/>bytes<sp/>that<sp/>the<sp/>UART<sp/>can<sp/>buffer</highlight></codeline>
+<codeline lineno="82"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XUN_FIFO_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90" refid="group__uartns550_1ga283d7f5d44a578ce4ae7f3667ba36908" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_IER_MODEM_STATUS<sp/><sp/><sp/><sp/>0x00000008<sp/></highlight></codeline>
+<codeline lineno="91" refid="group__uartns550_1gaf385b4925367d2717920845f2880ba47" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_IER_RX_LINE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="92" refid="group__uartns550_1ga8536fc383eb2b08497a576b186547930" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_IER_TX_EMPTY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/></highlight></codeline>
+<codeline lineno="93" refid="group__uartns550_1gae3baa08e218c2f904b1f28ffd06bc527" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_IER_RX_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="100" refid="group__uartns550_1ga1770fc9ccf8e1fb1549e53fb83bf2980" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_INT_ID_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000000F<sp/></highlight></codeline>
+<codeline lineno="101" refid="group__uartns550_1gad37ac1583a8e7e9f34530947b89e06fe" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_INT_ID_FIFOS_ENABLED<sp/>0x000000C0<sp/></highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="108" refid="group__uartns550_1ga4b16c45a8ec1b6fe90e862d4db5f5558" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_FIFO_RX_TRIG_MSB<sp/><sp/><sp/><sp/>0x00000080<sp/></highlight></codeline>
+<codeline lineno="109" refid="group__uartns550_1ga5b79e08613c8560b6f959a7e99de2914" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_FIFO_RX_TRIG_LSB<sp/><sp/><sp/><sp/>0x00000040<sp/></highlight></codeline>
+<codeline lineno="110" refid="group__uartns550_1gad43092374d907d369cfa0c09bccf39c2" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_FIFO_TX_RESET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="111" refid="group__uartns550_1gac547846d9841b9801f6b6cd2c879e881" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_FIFO_RX_RESET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/></highlight></codeline>
+<codeline lineno="112" refid="group__uartns550_1ga729d149d84afe79ed69445f8bf6d5101" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_FIFO_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="113" refid="group__uartns550_1gab75853d561b5a47735a412acc54b1507" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_FIFO_RX_TRIGGER<sp/><sp/><sp/><sp/><sp/>0x000000C0<sp/></highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="120" refid="group__uartns550_1gaa2aa323315e8d4e0265bcb004debc302" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_LCR_DLAB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000080<sp/></highlight></codeline>
+<codeline lineno="121" refid="group__uartns550_1gac488c0877e5d9195ba6702c5d87bbac1" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_LCR_SET_BREAK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040<sp/></highlight></codeline>
+<codeline lineno="122" refid="group__uartns550_1gadb09446c6f42dc66f5247562cb467b83" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_LCR_STICK_PARITY<sp/><sp/><sp/><sp/>0x00000020<sp/></highlight></codeline>
+<codeline lineno="123" refid="group__uartns550_1ga5a9981c3534734f46ae6a7761c272cd2" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_LCR_EVEN_PARITY<sp/><sp/><sp/><sp/><sp/>0x00000010<sp/></highlight></codeline>
+<codeline lineno="124" refid="group__uartns550_1ga4a5273b5f25d43f994d23adcfaceb06f" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_LCR_ENABLE_PARITY<sp/><sp/><sp/>0x00000008<sp/></highlight></codeline>
+<codeline lineno="125" refid="group__uartns550_1gac7f9d8d22514af63f22691f8b0aaee5c" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_LCR_2_STOP_BITS<sp/><sp/><sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="126" refid="group__uartns550_1gab8237823909f5df4df1635ffe6c3fd8e" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_LCR_8_DATA_BITS<sp/><sp/><sp/><sp/><sp/>0x00000003<sp/></highlight></codeline>
+<codeline lineno="127" refid="group__uartns550_1gaf6444c0fe2141a04caa36c3ceff7e7bc" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_LCR_7_DATA_BITS<sp/><sp/><sp/><sp/><sp/>0x00000002<sp/></highlight></codeline>
+<codeline lineno="128" refid="group__uartns550_1gac4a2b734e8f1aa8c0935ee3afa8f6a00" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_LCR_6_DATA_BITS<sp/><sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="129" refid="group__uartns550_1ga483bdd6c37b57123fdc2a3da8a74a39f" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_LCR_LENGTH_MASK<sp/><sp/><sp/><sp/><sp/>0x00000003<sp/></highlight></codeline>
+<codeline lineno="130" refid="group__uartns550_1gaa87780e1deb82b5068dc0d4f2c495098" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_LCR_PARITY_MASK<sp/><sp/><sp/><sp/><sp/>0x00000018<sp/></highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="137" refid="group__uartns550_1ga04187396f216eb0cd5be0db172fb1934" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_MCR_LOOP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010<sp/></highlight></codeline>
+<codeline lineno="138" refid="group__uartns550_1gaeb40f8130a80ee807ea023a371bf8c38" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_MCR_OUT_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/></highlight></codeline>
+<codeline lineno="139" refid="group__uartns550_1ga73b885722152824dc9a12d643dea0bf5" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_MCR_OUT_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="140" refid="group__uartns550_1gae4f30ef843108b79b9d582bada19819a" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_MCR_RTS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/></highlight></codeline>
+<codeline lineno="141" refid="group__uartns550_1ga3c2e9f72e54de87dedaafe6085ae4ec9" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_MCR_DTR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="148" refid="group__uartns550_1gab923b7cea4222649e9cf8a0a7413ed35" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_LSR_RX_FIFO_ERROR<sp/><sp/><sp/>0x00000080<sp/></highlight></codeline>
+<codeline lineno="149" refid="group__uartns550_1ga648b52ef84c2214179e2fe3c80d77677" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_LSR_TX_EMPTY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040<sp/></highlight></codeline>
+<codeline lineno="150" refid="group__uartns550_1gacfc60ddcada499862b482041805b1f03" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_LSR_TX_BUFFER_EMPTY<sp/>0x00000020<sp/></highlight></codeline>
+<codeline lineno="151" refid="group__uartns550_1gae74ee94f0c84de4861c57c04bff0d390" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_LSR_BREAK_INT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010<sp/></highlight></codeline>
+<codeline lineno="152" refid="group__uartns550_1ga55e6bddf04ae12aba48d7176dbec9763" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_LSR_FRAMING_ERROR<sp/><sp/><sp/>0x00000008<sp/></highlight></codeline>
+<codeline lineno="153" refid="group__uartns550_1ga94c55231673313abf9f38f451bf952b4" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_LSR_PARITY_ERROR<sp/><sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="154" refid="group__uartns550_1ga21276c29b98219b18cf86d0eb2c7134b" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_LSR_OVERRUN_ERROR<sp/><sp/><sp/>0x00000002<sp/></highlight></codeline>
+<codeline lineno="155" refid="group__uartns550_1ga64e43cf523785c523618adc1f046370f" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_LSR_DATA_READY<sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="156" refid="group__uartns550_1gaf2d9f7f1bffd43b92ef31d187f4bcb5e" refkind="member"><highlight class="preprocessor">#define<sp/>XUN_LSR_ERROR_BREAK<sp/><sp/><sp/><sp/><sp/>0x0000001E<sp/></highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XUN_DIVISOR_BYTE_MASK<sp/><sp/><sp/>0x000000FF</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor">#define<sp/>XUartNs550_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="182" refid="group__uartns550_1ga58ff500307c70fda263888b18fc6389c" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor">#define<sp/>XUartNs550_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>RegisterValue)<sp/>\</highlight></codeline>
+<codeline lineno="201" refid="group__uartns550_1gae648146666080fdac4f6949b6ed3101a" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32((BaseAddress)<sp/>+<sp/>(RegOffset),<sp/>(RegisterValue))</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor">#define<sp/>XUartNs550_GetLineStatusReg(BaseAddress)<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="216" refid="group__uartns550_1gacfbf9e5ce401ea4b07a19752802926f7" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUartNs550_ReadReg((BaseAddress),<sp/>XUN_LSR_OFFSET)</highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="230"><highlight class="preprocessor">#define<sp/>XUartNs550_GetLineControlReg(BaseAddress)<sp/><sp/>\</highlight></codeline>
+<codeline lineno="231" refid="group__uartns550_1gab9ba96c18cb50a8ab5873d781b4ee94e" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUartNs550_ReadReg((BaseAddress),<sp/>XUN_LCR_OFFSET)</highlight></codeline>
+<codeline lineno="232"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="247"><highlight class="preprocessor">#define<sp/>XUartNs550_SetLineControlReg(BaseAddress,<sp/>RegisterValue)<sp/>\</highlight></codeline>
+<codeline lineno="248" refid="group__uartns550_1ga4f3ff99ca70dfe6c715cbbfdd9742230" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUartNs550_WriteReg((BaseAddress),<sp/>XUN_LCR_OFFSET,<sp/>(RegisterValue))</highlight></codeline>
+<codeline lineno="249"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="262"><highlight class="preprocessor">#define<sp/>XUartNs550_EnableIntr(BaseAddress)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="263" refid="group__uartns550_1ga24622c1399f2cbab46e9dda140ef4aa0" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUartNs550_WriteReg((BaseAddress),<sp/>XUN_IER_OFFSET,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="264"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUartNs550_ReadReg((BaseAddress),<sp/>XUN_IER_OFFSET)<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="265"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XUN_IER_RX_LINE<sp/>|<sp/>XUN_IER_TX_EMPTY<sp/>|<sp/>XUN_IER_RX_DATA))</highlight></codeline>
+<codeline lineno="266"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="279"><highlight class="preprocessor">#define<sp/>XUartNs550_DisableIntr(BaseAddress)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="280" refid="group__uartns550_1ga9039b3a4a9852fa556e522976edd1288" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUartNs550_WriteReg((BaseAddress),<sp/>XUN_IER_OFFSET,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="281"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUartNs550_ReadReg((BaseAddress),<sp/>XUN_IER_OFFSET)<sp/>&amp;<sp/>\</highlight></codeline>
+<codeline lineno="282"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~(XUN_IER_RX_LINE<sp/>|<sp/>XUN_IER_TX_EMPTY<sp/>|<sp/>XUN_IER_RX_DATA))</highlight></codeline>
+<codeline lineno="283"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="296"><highlight class="preprocessor">#define<sp/>XUartNs550_IsReceiveData(BaseAddress)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="297" refid="group__uartns550_1ga941188ffba023576548effef6ccb0707" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XUartNs550_GetLineStatusReg(BaseAddress)<sp/>&amp;<sp/>XUN_LSR_DATA_READY)</highlight></codeline>
+<codeline lineno="298"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="311"><highlight class="preprocessor">#define<sp/>XUartNs550_IsTransmitEmpty(BaseAddress)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="312" refid="group__uartns550_1gabae5b671e19c043af9e1c76e183acb60" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XUartNs550_GetLineStatusReg(BaseAddress)<sp/>&amp;<sp/>XUN_LSR_TX_BUFFER_EMPTY)</highlight></codeline>
+<codeline lineno="313"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight></codeline>
+<codeline lineno="316"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartns550_1ga39973a1a14e9e66e4bd3a8e90320c982" kindref="member">XUartNs550_SendByte</ref>(UINTPTR<sp/>BaseAddress,<sp/>u8<sp/>Data);</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal">u8<sp/><ref refid="group__uartns550_1ga2f885279ade985dee519d1f4c3730b1c" kindref="member">XUartNs550_RecvByte</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartns550_1ga5aa56fa41ef620d2199925f22f2ca21f" kindref="member">XUartNs550_SetBaud</ref>(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>InputClockHz,<sp/>u32<sp/>BaudRate);</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="325"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="327"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="329"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_l.h"/>
+  </compounddef>
+</doxygen>

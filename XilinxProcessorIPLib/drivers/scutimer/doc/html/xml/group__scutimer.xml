@@ -1,0 +1,1074 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__scutimer" kind="group">
+    <compoundname>scutimer</compoundname>
+    <title>Overview</title>
+    <innerclass refid="struct_x_scu_timer___config" prot="public">XScuTimer_Config</innerclass>
+    <innerclass refid="struct_x_scu_timer" prot="public">XScuTimer</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Register Map</header>
+      <description><para>Offsets of registers from the start of the device </para></description>
+      <memberdef kind="define" id="group__scutimer_1gae86109b8ee86ede103995c458720c743" prot="public" static="no">
+        <name>XSCUTIMER_LOAD_OFFSET</name>
+        <initializer>0x00U</initializer>
+        <briefdescription>
+<para>Timer Load Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__scutimer_1gac3036b3f9f6e7735d3e6a6eb74a28e95" compoundref="xscutimer__selftest_8c" startline="60" endline="112">XScuTimer_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1gaa96f9778b3fb95bb968793b504bee53e" prot="public" static="no">
+        <name>XSCUTIMER_COUNTER_OFFSET</name>
+        <initializer>0x04U</initializer>
+        <briefdescription>
+<para>Timer Counter Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1ga8f0a12cb3bfff490af76bc9a3ffca4be" prot="public" static="no">
+        <name>XSCUTIMER_CONTROL_OFFSET</name>
+        <initializer>0x08U</initializer>
+        <briefdescription>
+<para>Timer Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__scutimer_1ga56d8c36e4aa28168de3ba5d7f87feb2d" compoundref="xscutimer_8c" startline="248" endline="266">XScuTimer_GetPrescaler</referencedby>
+        <referencedby refid="group__scutimer_1gac3036b3f9f6e7735d3e6a6eb74a28e95" compoundref="xscutimer__selftest_8c" startline="60" endline="112">XScuTimer_SelfTest</referencedby>
+        <referencedby refid="group__scutimer_1gac6cd65141b00c0d1940d0b8f2a081faf" compoundref="xscutimer_8c" startline="204" endline="234">XScuTimer_SetPrescaler</referencedby>
+        <referencedby refid="group__scutimer_1gabf24fad576d3adab4b53eebdef424bde" compoundref="xscutimer_8c" startline="119" endline="147">XScuTimer_Start</referencedby>
+        <referencedby refid="group__scutimer_1gaac0376fbfeb5c29bb44403d6fefd0843" compoundref="xscutimer_8c" startline="161" endline="189">XScuTimer_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1ga79f4aab3a1968e66ae1fadb846e7b8c8" prot="public" static="no">
+        <name>XSCUTIMER_ISR_OFFSET</name>
+        <initializer>0x0CU</initializer>
+        <briefdescription>
+<para>Timer Interrupt Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Timer Control register</header>
+      <description><para>This register bits control the prescaler, Intr enable, auto-reload and timer enable. </para></description>
+      <memberdef kind="define" id="group__scutimer_1ga867b2da6f5e9b1d921c34a925d4b498a" prot="public" static="no">
+        <name>XSCUTIMER_CONTROL_PRESCALER_MASK</name>
+        <initializer>0x0000FF00U</initializer>
+        <briefdescription>
+<para>Prescaler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__scutimer_1ga56d8c36e4aa28168de3ba5d7f87feb2d" compoundref="xscutimer_8c" startline="248" endline="266">XScuTimer_GetPrescaler</referencedby>
+        <referencedby refid="group__scutimer_1gac6cd65141b00c0d1940d0b8f2a081faf" compoundref="xscutimer_8c" startline="204" endline="234">XScuTimer_SetPrescaler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1ga31316fbcb2292f6d29c39a025bbd9821" prot="public" static="no">
+        <name>XSCUTIMER_CONTROL_PRESCALER_SHIFT</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1ga62c9d23e23b5329976291d26cc36c6a6" prot="public" static="no">
+        <name>XSCUTIMER_CONTROL_IRQ_ENABLE_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Intr enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1gaeaf7add0552b3b0c5ab78b6668a88d6a" prot="public" static="no">
+        <name>XSCUTIMER_CONTROL_AUTO_RELOAD_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Auto-reload. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1ga242deea9cc62049619bdfd97e7a731f4" prot="public" static="no">
+        <name>XSCUTIMER_CONTROL_ENABLE_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Timer enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__scutimer_1gac3036b3f9f6e7735d3e6a6eb74a28e95" compoundref="xscutimer__selftest_8c" startline="60" endline="112">XScuTimer_SelfTest</referencedby>
+        <referencedby refid="group__scutimer_1gabf24fad576d3adab4b53eebdef424bde" compoundref="xscutimer_8c" startline="119" endline="147">XScuTimer_Start</referencedby>
+        <referencedby refid="group__scutimer_1gaac0376fbfeb5c29bb44403d6fefd0843" compoundref="xscutimer_8c" startline="161" endline="189">XScuTimer_Stop</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt Status register</header>
+      <description><para>This register indicates the Timer counter register has reached zero. </para></description>
+      <memberdef kind="define" id="group__scutimer_1gafa21717c99e101943a7075d4e2e30ca1" prot="public" static="no">
+        <name>XSCUTIMER_ISR_EVENT_FLAG_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Event flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__scutimer_1gac54aa07186803163582a0d3c4f96a686" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_scu_timer___config" kindref="compound">XScuTimer_Config</ref></type>
+        <definition>XScuTimer_Config XScuTimer_ConfigTable[XPAR_XSCUTIMER_NUM_INSTANCES]</definition>
+        <argsstring>[XPAR_XSCUTIMER_NUM_INSTANCES]</argsstring>
+        <name>XScuTimer_ConfigTable</name>
+        <initializer>= {
+	{
+		(u16)XPAR_XSCUTIMER_0_DEVICE_ID,
+		(u32)XPAR_XSCUTIMER_0_BASEADDR
+	}
+}</initializer>
+        <briefdescription>
+<para>This table contains configuration information for each timer device in the system. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_g.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_g.c" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__scutimer_1ga9febed8a77260c454addc6434dbeeb38" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_scu_timer___config" kindref="compound">XScuTimer_Config</ref></type>
+        <definition>XScuTimer_Config XScuTimer_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XScuTimer_ConfigTable</name>
+        <briefdescription>
+<para>This table contains configuration information for each timer device in the system. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_sinit.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_g.c" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__scutimer_1ga59badd651be237aab4099cedd96621d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XScuTimer_CfgInitialize</definition>
+        <argsstring>(XScuTimer *InstancePtr, XScuTimer_Config *ConfigPtr, u32 EffectiveAddress)</argsstring>
+        <name>XScuTimer_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_scu_timer___config" kindref="compound">XScuTimer_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EffectiveAddress</declname>
+        </param>
+        <briefdescription>
+<para>Initialize a specific timer instance/driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function must be called before other functions of the driver are called.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the <ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> configuration structure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address for the device. It could be a virtual address if address translation is supported in the system, otherwise it is the physical address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful.</para></listitem><listitem><para>XST_DEVICE_IS_STARTED if the device has already been started.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.c" bodystart="62" bodyend="105"/>
+        <references refid="struct_x_scu_timer___config_1a53dc49c2ec07c2bc40cd0c0b29d49bc0" compoundref="xscutimer_8h" startline="116">XScuTimer_Config::BaseAddr</references>
+        <references refid="struct_x_scu_timer_1a6dfa00cf1df32f581332123902bd2e0e" compoundref="xscutimer_8h" startline="130">XScuTimer::Config</references>
+        <references refid="struct_x_scu_timer_1a348e1922cf71c91c233629655acaef32" compoundref="xscutimer_8h" startline="131">XScuTimer::IsReady</references>
+        <references refid="struct_x_scu_timer_1aa0f089c744abd0bbd2e9b86e494241a5" compoundref="xscutimer_8h" startline="132">XScuTimer::IsStarted</references>
+        <referencedby refid="xscutimer__intr__example_8c_1a2dcd3e996abdecd4e3f09b92f23c061b" compoundref="xscutimer__intr__example_8c" startline="165" endline="266">ScuTimerIntrExample</referencedby>
+        <referencedby refid="xscutimer__polled__example_8c_1aa213e9998cf3ba30efe084cf14c79da8" compoundref="xscutimer__polled__example_8c" startline="122" endline="183">ScuTimerPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__scutimer_1gabf24fad576d3adab4b53eebdef424bde" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XScuTimer_Start</definition>
+        <argsstring>(XScuTimer *InstancePtr)</argsstring>
+        <name>XScuTimer_Start</name>
+        <param>
+          <type><ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Start the timer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.c" bodystart="119" bodyend="147"/>
+        <references refid="struct_x_scu_timer___config_1a53dc49c2ec07c2bc40cd0c0b29d49bc0" compoundref="xscutimer_8h" startline="116">XScuTimer_Config::BaseAddr</references>
+        <references refid="struct_x_scu_timer_1a6dfa00cf1df32f581332123902bd2e0e" compoundref="xscutimer_8h" startline="130">XScuTimer::Config</references>
+        <references refid="struct_x_scu_timer_1a348e1922cf71c91c233629655acaef32" compoundref="xscutimer_8h" startline="131">XScuTimer::IsReady</references>
+        <references refid="struct_x_scu_timer_1aa0f089c744abd0bbd2e9b86e494241a5" compoundref="xscutimer_8h" startline="132">XScuTimer::IsStarted</references>
+        <references refid="group__scutimer_1ga242deea9cc62049619bdfd97e7a731f4" compoundref="xscutimer__hw_8h" startline="68">XSCUTIMER_CONTROL_ENABLE_MASK</references>
+        <references refid="group__scutimer_1ga8f0a12cb3bfff490af76bc9a3ffca4be" compoundref="xscutimer__hw_8h" startline="52">XSCUTIMER_CONTROL_OFFSET</references>
+        <references refid="group__scutimer_1gae4c784baaac425e11d6a1184ae44b349" compoundref="xscutimer__hw_8h" startline="233">XScuTimer_ReadReg</references>
+        <references refid="group__scutimer_1ga6f29815a4f21529bfc3d009932d3c2fe" compoundref="xscutimer__hw_8h" startline="251">XScuTimer_WriteReg</references>
+        <referencedby refid="xscutimer__intr__example_8c_1a2dcd3e996abdecd4e3f09b92f23c061b" compoundref="xscutimer__intr__example_8c" startline="165" endline="266">ScuTimerIntrExample</referencedby>
+        <referencedby refid="xscutimer__polled__example_8c_1aa213e9998cf3ba30efe084cf14c79da8" compoundref="xscutimer__polled__example_8c" startline="122" endline="183">ScuTimerPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__scutimer_1gaac0376fbfeb5c29bb44403d6fefd0843" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XScuTimer_Stop</definition>
+        <argsstring>(XScuTimer *InstancePtr)</argsstring>
+        <name>XScuTimer_Stop</name>
+        <param>
+          <type><ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Stop the timer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.c" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.c" bodystart="161" bodyend="189"/>
+        <references refid="struct_x_scu_timer___config_1a53dc49c2ec07c2bc40cd0c0b29d49bc0" compoundref="xscutimer_8h" startline="116">XScuTimer_Config::BaseAddr</references>
+        <references refid="struct_x_scu_timer_1a6dfa00cf1df32f581332123902bd2e0e" compoundref="xscutimer_8h" startline="130">XScuTimer::Config</references>
+        <references refid="struct_x_scu_timer_1a348e1922cf71c91c233629655acaef32" compoundref="xscutimer_8h" startline="131">XScuTimer::IsReady</references>
+        <references refid="struct_x_scu_timer_1aa0f089c744abd0bbd2e9b86e494241a5" compoundref="xscutimer_8h" startline="132">XScuTimer::IsStarted</references>
+        <references refid="group__scutimer_1ga242deea9cc62049619bdfd97e7a731f4" compoundref="xscutimer__hw_8h" startline="68">XSCUTIMER_CONTROL_ENABLE_MASK</references>
+        <references refid="group__scutimer_1ga8f0a12cb3bfff490af76bc9a3ffca4be" compoundref="xscutimer__hw_8h" startline="52">XSCUTIMER_CONTROL_OFFSET</references>
+        <references refid="group__scutimer_1gae4c784baaac425e11d6a1184ae44b349" compoundref="xscutimer__hw_8h" startline="233">XScuTimer_ReadReg</references>
+        <references refid="group__scutimer_1ga6f29815a4f21529bfc3d009932d3c2fe" compoundref="xscutimer__hw_8h" startline="251">XScuTimer_WriteReg</references>
+        <referencedby refid="xscutimer__intr__example_8c_1a2dcd3e996abdecd4e3f09b92f23c061b" compoundref="xscutimer__intr__example_8c" startline="165" endline="266">ScuTimerIntrExample</referencedby>
+        <referencedby refid="xscutimer__polled__example_8c_1aa213e9998cf3ba30efe084cf14c79da8" compoundref="xscutimer__polled__example_8c" startline="122" endline="183">ScuTimerPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__scutimer_1gac6cd65141b00c0d1940d0b8f2a081faf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XScuTimer_SetPrescaler</definition>
+        <argsstring>(XScuTimer *InstancePtr, u8 PrescalerValue)</argsstring>
+        <name>XScuTimer_SetPrescaler</name>
+        <param>
+          <type><ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>PrescalerValue</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the prescaler bits in the timer control register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PrescalerValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a 8 bit value that sets the prescaler to use.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.c" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.c" bodystart="204" bodyend="234"/>
+        <references refid="struct_x_scu_timer___config_1a53dc49c2ec07c2bc40cd0c0b29d49bc0" compoundref="xscutimer_8h" startline="116">XScuTimer_Config::BaseAddr</references>
+        <references refid="struct_x_scu_timer_1a6dfa00cf1df32f581332123902bd2e0e" compoundref="xscutimer_8h" startline="130">XScuTimer::Config</references>
+        <references refid="struct_x_scu_timer_1a348e1922cf71c91c233629655acaef32" compoundref="xscutimer_8h" startline="131">XScuTimer::IsReady</references>
+        <references refid="group__scutimer_1ga8f0a12cb3bfff490af76bc9a3ffca4be" compoundref="xscutimer__hw_8h" startline="52">XSCUTIMER_CONTROL_OFFSET</references>
+        <references refid="group__scutimer_1ga867b2da6f5e9b1d921c34a925d4b498a" compoundref="xscutimer__hw_8h" startline="64">XSCUTIMER_CONTROL_PRESCALER_MASK</references>
+        <references refid="group__scutimer_1gae4c784baaac425e11d6a1184ae44b349" compoundref="xscutimer__hw_8h" startline="233">XScuTimer_ReadReg</references>
+        <references refid="group__scutimer_1ga6f29815a4f21529bfc3d009932d3c2fe" compoundref="xscutimer__hw_8h" startline="251">XScuTimer_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__scutimer_1ga56d8c36e4aa28168de3ba5d7f87feb2d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XScuTimer_GetPrescaler</definition>
+        <argsstring>(XScuTimer *InstancePtr)</argsstring>
+        <name>XScuTimer_GetPrescaler</name>
+        <param>
+          <type><ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the current prescaler value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The prescaler value.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.c" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.c" bodystart="248" bodyend="266"/>
+        <references refid="struct_x_scu_timer___config_1a53dc49c2ec07c2bc40cd0c0b29d49bc0" compoundref="xscutimer_8h" startline="116">XScuTimer_Config::BaseAddr</references>
+        <references refid="struct_x_scu_timer_1a6dfa00cf1df32f581332123902bd2e0e" compoundref="xscutimer_8h" startline="130">XScuTimer::Config</references>
+        <references refid="struct_x_scu_timer_1a348e1922cf71c91c233629655acaef32" compoundref="xscutimer_8h" startline="131">XScuTimer::IsReady</references>
+        <references refid="group__scutimer_1ga8f0a12cb3bfff490af76bc9a3ffca4be" compoundref="xscutimer__hw_8h" startline="52">XSCUTIMER_CONTROL_OFFSET</references>
+        <references refid="group__scutimer_1ga867b2da6f5e9b1d921c34a925d4b498a" compoundref="xscutimer__hw_8h" startline="64">XSCUTIMER_CONTROL_PRESCALER_MASK</references>
+        <references refid="group__scutimer_1gae4c784baaac425e11d6a1184ae44b349" compoundref="xscutimer__hw_8h" startline="233">XScuTimer_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__scutimer_1ga58903096d235b860a31f50c4ab70c853" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_scu_timer___config" kindref="compound">XScuTimer_Config</ref> *</type>
+        <definition>XScuTimer_Config * XScuTimer_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddr)</argsstring>
+        <name>XScuTimer_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddr</declname>
+        </param>
+        <briefdescription>
+<para>Lookup the device configuration based on the unique device ID/BaseAddress. </para>        </briefdescription>
+        <detaileddescription>
+<para>The table contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration table entry corresponding to the given device ID/BaseAddress, or NULL if no match is found.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_sinit.c" bodystart="87" bodyend="100"/>
+        <referencedby refid="xscutimer__intr__example_8c_1a2dcd3e996abdecd4e3f09b92f23c061b" compoundref="xscutimer__intr__example_8c" startline="165" endline="266">ScuTimerIntrExample</referencedby>
+        <referencedby refid="xscutimer__polled__example_8c_1aa213e9998cf3ba30efe084cf14c79da8" compoundref="xscutimer__polled__example_8c" startline="122" endline="183">ScuTimerPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__scutimer_1gac3036b3f9f6e7735d3e6a6eb74a28e95" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XScuTimer_SelfTest</definition>
+        <argsstring>(XScuTimer *InstancePtr)</argsstring>
+        <name>XScuTimer_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Run a self-test on the timer. </para>        </briefdescription>
+        <detaileddescription>
+<para>This test clears the timer enable bit in the control register, writes to the timer load register and verifies the value read back matches the value written and restores the control register and the timer load register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if self-test was successful.</para></listitem><listitem><para>XST_FAILURE if self test was not successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_selftest.c" bodystart="60" bodyend="112"/>
+        <references refid="struct_x_scu_timer___config_1a53dc49c2ec07c2bc40cd0c0b29d49bc0" compoundref="xscutimer_8h" startline="116">XScuTimer_Config::BaseAddr</references>
+        <references refid="struct_x_scu_timer_1a6dfa00cf1df32f581332123902bd2e0e" compoundref="xscutimer_8h" startline="130">XScuTimer::Config</references>
+        <references refid="struct_x_scu_timer_1a348e1922cf71c91c233629655acaef32" compoundref="xscutimer_8h" startline="131">XScuTimer::IsReady</references>
+        <references refid="group__scutimer_1ga242deea9cc62049619bdfd97e7a731f4" compoundref="xscutimer__hw_8h" startline="68">XSCUTIMER_CONTROL_ENABLE_MASK</references>
+        <references refid="group__scutimer_1ga8f0a12cb3bfff490af76bc9a3ffca4be" compoundref="xscutimer__hw_8h" startline="52">XSCUTIMER_CONTROL_OFFSET</references>
+        <references refid="group__scutimer_1gae86109b8ee86ede103995c458720c743" compoundref="xscutimer__hw_8h" startline="50">XSCUTIMER_LOAD_OFFSET</references>
+        <references refid="group__scutimer_1ga94fbce5d53f983ec5cf675cfc97f4f78" compoundref="xscutimer_8h" startline="193">XScuTimer_LoadTimer</references>
+        <references refid="group__scutimer_1gae4c784baaac425e11d6a1184ae44b349" compoundref="xscutimer__hw_8h" startline="233">XScuTimer_ReadReg</references>
+        <references refid="group__scutimer_1ga6f29815a4f21529bfc3d009932d3c2fe" compoundref="xscutimer__hw_8h" startline="251">XScuTimer_WriteReg</references>
+        <referencedby refid="xscutimer__intr__example_8c_1a2dcd3e996abdecd4e3f09b92f23c061b" compoundref="xscutimer__intr__example_8c" startline="165" endline="266">ScuTimerIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__scutimer_1ga0e6142d11b3ee5ef331787855f179762" prot="public" static="no">
+        <name>XSCUTIMER_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1gaac033729416a2ae86fec784a89a4c653" prot="public" static="no">
+        <name>XScuTimer_IsExpired</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((<ref refid="group__scutimer_1gae4c784baaac425e11d6a1184ae44b349" kindref="member">XScuTimer_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddr, \
+			    <ref refid="group__scutimer_1ga79f4aab3a1968e66ae1fadb846e7b8c8" kindref="member">XSCUTIMER_ISR_OFFSET</ref>) &amp; \
+	  <ref refid="group__scutimer_1gafa21717c99e101943a7075d4e2e30ca1" kindref="member">XSCUTIMER_ISR_EVENT_FLAG_MASK</ref>) == \
+	 <ref refid="group__scutimer_1gafa21717c99e101943a7075d4e2e30ca1" kindref="member">XSCUTIMER_ISR_EVENT_FLAG_MASK</ref>)</initializer>
+        <briefdescription>
+<para>Check if the timer has expired. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>TRUE if the timer has expired.</para></listitem><listitem><para>FALSE if the timer has not expired.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>C-style signature: int <ref refid="group__scutimer_1gaac033729416a2ae86fec784a89a4c653" kindref="member">XScuTimer_IsExpired(XScuTimer *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1gaf1976650946668999ca5107fef691e53" prot="public" static="no">
+        <name>XScuTimer_RestartTimer</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__scutimer_1ga94fbce5d53f983ec5cf675cfc97f4f78" kindref="member">XScuTimer_LoadTimer</ref>((InstancePtr),				\
+			    <ref refid="group__scutimer_1gae4c784baaac425e11d6a1184ae44b349" kindref="member">XScuTimer_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddr, \
+					      <ref refid="group__scutimer_1gae86109b8ee86ede103995c458720c743" kindref="member">XSCUTIMER_LOAD_OFFSET</ref>))</initializer>
+        <briefdescription>
+<para>Re-start the timer. </para>        </briefdescription>
+        <detaileddescription>
+<para>This macro will read the timer load register and writes the same value to load register to update the counter register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__scutimer_1gaf1976650946668999ca5107fef691e53" kindref="member">XScuTimer_RestartTimer(XScuTimer *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="172" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1ga94fbce5d53f983ec5cf675cfc97f4f78" prot="public" static="no">
+        <name>XScuTimer_LoadTimer</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>Value</defname></param>
+        <initializer><ref refid="group__scutimer_1ga6f29815a4f21529bfc3d009932d3c2fe" kindref="member">XScuTimer_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddr,		\
+			   <ref refid="group__scutimer_1gae86109b8ee86ede103995c458720c743" kindref="member">XSCUTIMER_LOAD_OFFSET</ref>, (Value))</initializer>
+        <briefdescription>
+<para>Write to the timer load register. </para>        </briefdescription>
+        <detaileddescription>
+<para>This will also update the timer counter register with the new value. This macro can be used to change the time-out value.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the count to be loaded in to the load register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__scutimer_1ga94fbce5d53f983ec5cf675cfc97f4f78" kindref="member">XScuTimer_LoadTimer(XScuTimer *InstancePtr, u32 Value)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="193" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" bodystart="193" bodyend="-1"/>
+        <referencedby refid="xscutimer__intr__example_8c_1a2dcd3e996abdecd4e3f09b92f23c061b" compoundref="xscutimer__intr__example_8c" startline="165" endline="266">ScuTimerIntrExample</referencedby>
+        <referencedby refid="xscutimer__polled__example_8c_1aa213e9998cf3ba30efe084cf14c79da8" compoundref="xscutimer__polled__example_8c" startline="122" endline="183">ScuTimerPolledExample</referencedby>
+        <referencedby refid="group__scutimer_1gac3036b3f9f6e7735d3e6a6eb74a28e95" compoundref="xscutimer__selftest_8c" startline="60" endline="112">XScuTimer_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1ga494afe8a54f75991a1e63fcef913df41" prot="public" static="no">
+        <name>XScuTimer_GetCounterValue</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__scutimer_1gae4c784baaac425e11d6a1184ae44b349" kindref="member">XScuTimer_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddr,		\
+			  <ref refid="group__scutimer_1gaa96f9778b3fb95bb968793b504bee53e" kindref="member">XSCUTIMER_COUNTER_OFFSET</ref>)</initializer>
+        <briefdescription>
+<para>Returns the current timer counter register value. </para>        </briefdescription>
+        <detaileddescription>
+<para>It can be called at any time.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Contents of the timer counter register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__scutimer_1ga494afe8a54f75991a1e63fcef913df41" kindref="member">XScuTimer_GetCounterValue(XScuTimer *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="211" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" bodystart="211" bodyend="-1"/>
+        <referencedby refid="xscutimer__polled__example_8c_1aa213e9998cf3ba30efe084cf14c79da8" compoundref="xscutimer__polled__example_8c" startline="122" endline="183">ScuTimerPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1ga54fc490ff5bdcfa76eddddf5fc5dc5bf" prot="public" static="no">
+        <name>XScuTimer_EnableAutoReload</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__scutimer_1ga6f29815a4f21529bfc3d009932d3c2fe" kindref="member">XScuTimer_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddr,		\
+			   <ref refid="group__scutimer_1ga8f0a12cb3bfff490af76bc9a3ffca4be" kindref="member">XSCUTIMER_CONTROL_OFFSET</ref>,			\
+			   (<ref refid="group__scutimer_1gae4c784baaac425e11d6a1184ae44b349" kindref="member">XScuTimer_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddr, \
+					      <ref refid="group__scutimer_1ga8f0a12cb3bfff490af76bc9a3ffca4be" kindref="member">XSCUTIMER_CONTROL_OFFSET</ref>) |		 \
+			    <ref refid="group__scutimer_1gaeaf7add0552b3b0c5ab78b6668a88d6a" kindref="member">XSCUTIMER_CONTROL_AUTO_RELOAD_MASK</ref>))</initializer>
+        <briefdescription>
+<para>Enable auto-reload mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__scutimer_1ga54fc490ff5bdcfa76eddddf5fc5dc5bf" kindref="member">XScuTimer_EnableAutoReload(XScuTimer *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="228" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" bodystart="228" bodyend="-1"/>
+        <referencedby refid="xscutimer__intr__example_8c_1a2dcd3e996abdecd4e3f09b92f23c061b" compoundref="xscutimer__intr__example_8c" startline="165" endline="266">ScuTimerIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1ga29b90dcea87e70190d47c53e89977c8a" prot="public" static="no">
+        <name>XScuTimer_DisableAutoReload</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__scutimer_1ga6f29815a4f21529bfc3d009932d3c2fe" kindref="member">XScuTimer_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddr,		\
+			   <ref refid="group__scutimer_1ga8f0a12cb3bfff490af76bc9a3ffca4be" kindref="member">XSCUTIMER_CONTROL_OFFSET</ref>,			\
+			   (<ref refid="group__scutimer_1gae4c784baaac425e11d6a1184ae44b349" kindref="member">XScuTimer_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddr, \
+					      <ref refid="group__scutimer_1ga8f0a12cb3bfff490af76bc9a3ffca4be" kindref="member">XSCUTIMER_CONTROL_OFFSET</ref>) &amp;		\
+			    ~(<ref refid="group__scutimer_1gaeaf7add0552b3b0c5ab78b6668a88d6a" kindref="member">XSCUTIMER_CONTROL_AUTO_RELOAD_MASK</ref>)))</initializer>
+        <briefdescription>
+<para>Disable auto-reload mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__scutimer_1ga29b90dcea87e70190d47c53e89977c8a" kindref="member">XScuTimer_DisableAutoReload(XScuTimer *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="248" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1ga41e184373a4d02ce8a9aec1601a52c04" prot="public" static="no">
+        <name>XScuTimer_EnableInterrupt</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__scutimer_1ga6f29815a4f21529bfc3d009932d3c2fe" kindref="member">XScuTimer_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddr,		\
+			   <ref refid="group__scutimer_1ga8f0a12cb3bfff490af76bc9a3ffca4be" kindref="member">XSCUTIMER_CONTROL_OFFSET</ref>,			\
+			   (<ref refid="group__scutimer_1gae4c784baaac425e11d6a1184ae44b349" kindref="member">XScuTimer_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddr, \
+					      <ref refid="group__scutimer_1ga8f0a12cb3bfff490af76bc9a3ffca4be" kindref="member">XSCUTIMER_CONTROL_OFFSET</ref>) |	\
+			    <ref refid="group__scutimer_1ga62c9d23e23b5329976291d26cc36c6a6" kindref="member">XSCUTIMER_CONTROL_IRQ_ENABLE_MASK</ref>))</initializer>
+        <briefdescription>
+<para>Enable the Timer interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__scutimer_1ga41e184373a4d02ce8a9aec1601a52c04" kindref="member">XScuTimer_EnableInterrupt(XScuTimer *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="268" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" bodystart="268" bodyend="-1"/>
+        <referencedby refid="xscutimer__intr__example_8c_1a2dcd3e996abdecd4e3f09b92f23c061b" compoundref="xscutimer__intr__example_8c" startline="165" endline="266">ScuTimerIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1gac3ea67683ec802381c4aef819d04768b" prot="public" static="no">
+        <name>XScuTimer_DisableInterrupt</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__scutimer_1ga6f29815a4f21529bfc3d009932d3c2fe" kindref="member">XScuTimer_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddr,		\
+			   <ref refid="group__scutimer_1ga8f0a12cb3bfff490af76bc9a3ffca4be" kindref="member">XSCUTIMER_CONTROL_OFFSET</ref>,			\
+			   (<ref refid="group__scutimer_1gae4c784baaac425e11d6a1184ae44b349" kindref="member">XScuTimer_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddr, \
+					      <ref refid="group__scutimer_1ga8f0a12cb3bfff490af76bc9a3ffca4be" kindref="member">XSCUTIMER_CONTROL_OFFSET</ref>) &amp;		\
+			    ~(<ref refid="group__scutimer_1ga62c9d23e23b5329976291d26cc36c6a6" kindref="member">XSCUTIMER_CONTROL_IRQ_ENABLE_MASK</ref>)))</initializer>
+        <briefdescription>
+<para>Disable the Timer interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__scutimer_1gac3ea67683ec802381c4aef819d04768b" kindref="member">XScuTimer_DisableInterrupt(XScuTimer *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="288" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1gab653a0c97cfb913f3cabeaa3a9167586" prot="public" static="no">
+        <name>XScuTimer_GetInterruptStatus</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__scutimer_1gae4c784baaac425e11d6a1184ae44b349" kindref="member">XScuTimer_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddr,		\
+			  <ref refid="group__scutimer_1ga79f4aab3a1968e66ae1fadb846e7b8c8" kindref="member">XSCUTIMER_ISR_OFFSET</ref>)</initializer>
+        <briefdescription>
+<para>This function reads the interrupt status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__scutimer_1gab653a0c97cfb913f3cabeaa3a9167586" kindref="member">XScuTimer_GetInterruptStatus(XScuTimer *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="308" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" bodystart="308" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1gadc11e29fe8f755683fbc6edc883e0a4d" prot="public" static="no">
+        <name>XScuTimer_ClearInterruptStatus</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__scutimer_1ga6f29815a4f21529bfc3d009932d3c2fe" kindref="member">XScuTimer_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddr,		\
+			   <ref refid="group__scutimer_1ga79f4aab3a1968e66ae1fadb846e7b8c8" kindref="member">XSCUTIMER_ISR_OFFSET</ref>, <ref refid="group__scutimer_1gafa21717c99e101943a7075d4e2e30ca1" kindref="member">XSCUTIMER_ISR_EVENT_FLAG_MASK</ref>)</initializer>
+        <briefdescription>
+<para>This function clears the interrupt status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__scutimer_1gadc11e29fe8f755683fbc6edc883e0a4d" kindref="member">XScuTimer_ClearInterruptStatus(XScuTimer *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="325" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" bodystart="325" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1ga9cdd1aa68f5988c97573b70f60dc5d08" prot="public" static="no">
+        <name>XSCUTIMER_HW_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1gae3cd5f68d2ce17dd72a4abaf4afe06a6" prot="public" static="no">
+        <name>XScuTimer_SetLoadReg</name>
+        <param><defname>BaseAddr</defname></param>
+        <param><defname>Value</defname></param>
+        <initializer><ref refid="group__scutimer_1ga6f29815a4f21529bfc3d009932d3c2fe" kindref="member">XScuTimer_WriteReg</ref>(BaseAddr, <ref refid="group__scutimer_1gae86109b8ee86ede103995c458720c743" kindref="member">XSCUTIMER_LOAD_OFFSET</ref>, (Value))</initializer>
+        <briefdescription>
+<para>Write to the timer load register. </para>        </briefdescription>
+        <detaileddescription>
+<para>This will also update the timer counter register with the new value. This macro can be used to change the time-out value.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the scu timer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the count to be loaded in to the load register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__scutimer_1gae3cd5f68d2ce17dd72a4abaf4afe06a6" kindref="member">XScuTimer_SetLoadReg(u32 BaseAddr, u32 Value)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1ga3eedf4e335232d3303b1fd3927f10213" prot="public" static="no">
+        <name>XScuTimer_GetLoadReg</name>
+        <param><defname>BaseAddr</defname></param>
+        <initializer><ref refid="group__scutimer_1gae4c784baaac425e11d6a1184ae44b349" kindref="member">XScuTimer_ReadReg</ref>(BaseAddr, <ref refid="group__scutimer_1gae86109b8ee86ede103995c458720c743" kindref="member">XSCUTIMER_LOAD_OFFSET</ref>)</initializer>
+        <briefdescription>
+<para>Returns the current timer load register value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the scu timer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Contents of the timer load register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__scutimer_1ga3eedf4e335232d3303b1fd3927f10213" kindref="member">XScuTimer_GetLoadReg(u32 BaseAddr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1ga162738ee853ef5fc9c4fa35bf9c2bb8d" prot="public" static="no">
+        <name>XScuTimer_SetCounterReg</name>
+        <param><defname>BaseAddr</defname></param>
+        <param><defname>Value</defname></param>
+        <initializer><ref refid="group__scutimer_1ga6f29815a4f21529bfc3d009932d3c2fe" kindref="member">XScuTimer_WriteReg</ref>(BaseAddr, <ref refid="group__scutimer_1gaa96f9778b3fb95bb968793b504bee53e" kindref="member">XSCUTIMER_COUNTER_OFFSET</ref>, (Value))</initializer>
+        <briefdescription>
+<para>Write to the timer counter register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the scu timer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the count to be loaded in to the counter register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__scutimer_1ga162738ee853ef5fc9c4fa35bf9c2bb8d" kindref="member">XScuTimer_SetCounterReg(u32 BaseAddr, u32 Value)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1ga65cf8fca671de7e21a9944c43bf7cd8a" prot="public" static="no">
+        <name>XScuTimer_GetCounterReg</name>
+        <param><defname>BaseAddr</defname></param>
+        <initializer><ref refid="group__scutimer_1gae4c784baaac425e11d6a1184ae44b349" kindref="member">XScuTimer_ReadReg</ref>(BaseAddr, <ref refid="group__scutimer_1gaa96f9778b3fb95bb968793b504bee53e" kindref="member">XSCUTIMER_COUNTER_OFFSET</ref>)</initializer>
+        <briefdescription>
+<para>Returns the current timer counter register value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the scu timer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Contents of the timer counter register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__scutimer_1ga65cf8fca671de7e21a9944c43bf7cd8a" kindref="member">XScuTimer_GetCounterReg(u32 BaseAddr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1gae0b71c6aa97a846b93c4a5fa2092be9e" prot="public" static="no">
+        <name>XScuTimer_SetControlReg</name>
+        <param><defname>BaseAddr</defname></param>
+        <param><defname>Value</defname></param>
+        <initializer><ref refid="group__scutimer_1ga6f29815a4f21529bfc3d009932d3c2fe" kindref="member">XScuTimer_WriteReg</ref>(BaseAddr, <ref refid="group__scutimer_1ga8f0a12cb3bfff490af76bc9a3ffca4be" kindref="member">XSCUTIMER_CONTROL_OFFSET</ref>, (Value))</initializer>
+        <briefdescription>
+<para>Write to the timer load register. </para>        </briefdescription>
+        <detaileddescription>
+<para>This will also update the timer counter register with the new value. This macro can be used to change the time-out value.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the scu timer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the count to be loaded in to the load register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__scutimer_1gae0b71c6aa97a846b93c4a5fa2092be9e" kindref="member">XScuTimer_SetControlReg(u32 BaseAddr, u32 Value)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1ga1427e7cc324917e9bc062ea9cc1976ac" prot="public" static="no">
+        <name>XScuTimer_GetControlReg</name>
+        <param><defname>BaseAddr</defname></param>
+        <initializer><ref refid="group__scutimer_1gae4c784baaac425e11d6a1184ae44b349" kindref="member">XScuTimer_ReadReg</ref>(BaseAddr, <ref refid="group__scutimer_1ga8f0a12cb3bfff490af76bc9a3ffca4be" kindref="member">XSCUTIMER_CONTROL_OFFSET</ref>)</initializer>
+        <briefdescription>
+<para>Returns the current timer load register value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the scu timer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Contents of the timer load register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__scutimer_1ga1427e7cc324917e9bc062ea9cc1976ac" kindref="member">XScuTimer_GetControlReg(u32 BaseAddr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1gaffc9febb953169fb57818c4c58fd68fc" prot="public" static="no">
+        <name>XScuTimer_SetIntrReg</name>
+        <param><defname>BaseAddr</defname></param>
+        <param><defname>Value</defname></param>
+        <initializer><ref refid="group__scutimer_1ga6f29815a4f21529bfc3d009932d3c2fe" kindref="member">XScuTimer_WriteReg</ref>(BaseAddr, <ref refid="group__scutimer_1ga79f4aab3a1968e66ae1fadb846e7b8c8" kindref="member">XSCUTIMER_ISR_OFFSET</ref>, (Value))</initializer>
+        <briefdescription>
+<para>Write to the timer counter register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the scu timer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the count to be loaded in to the counter register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__scutimer_1gaffc9febb953169fb57818c4c58fd68fc" kindref="member">XScuTimer_SetIntrReg(u32 BaseAddr, u32 Value)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" line="199" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1ga48d158b4cc15416e7d4a62867720b79a" prot="public" static="no">
+        <name>XScuTimer_GetIntrReg</name>
+        <param><defname>BaseAddr</defname></param>
+        <initializer><ref refid="group__scutimer_1gae4c784baaac425e11d6a1184ae44b349" kindref="member">XScuTimer_ReadReg</ref>(BaseAddr, <ref refid="group__scutimer_1ga79f4aab3a1968e66ae1fadb846e7b8c8" kindref="member">XSCUTIMER_ISR_OFFSET</ref>)</initializer>
+        <briefdescription>
+<para>Returns the current timer counter register value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the scu timer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Contents of the timer counter register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__scutimer_1ga48d158b4cc15416e7d4a62867720b79a" kindref="member">XScuTimer_GetIntrReg(u32 BaseAddr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" line="215" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1gae4c784baaac425e11d6a1184ae44b349" prot="public" static="no">
+        <name>XScuTimer_ReadReg</name>
+        <param><defname>BaseAddr</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32((BaseAddr) + (RegOffset))</initializer>
+        <briefdescription>
+<para>Read from the given Timer register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset to be read</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__scutimer_1gae4c784baaac425e11d6a1184ae44b349" kindref="member">XScuTimer_ReadReg(u32 BaseAddr, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" line="232" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" bodystart="233" bodyend="-1"/>
+        <referencedby refid="group__scutimer_1ga56d8c36e4aa28168de3ba5d7f87feb2d" compoundref="xscutimer_8c" startline="248" endline="266">XScuTimer_GetPrescaler</referencedby>
+        <referencedby refid="group__scutimer_1gac3036b3f9f6e7735d3e6a6eb74a28e95" compoundref="xscutimer__selftest_8c" startline="60" endline="112">XScuTimer_SelfTest</referencedby>
+        <referencedby refid="group__scutimer_1gac6cd65141b00c0d1940d0b8f2a081faf" compoundref="xscutimer_8c" startline="204" endline="234">XScuTimer_SetPrescaler</referencedby>
+        <referencedby refid="group__scutimer_1gabf24fad576d3adab4b53eebdef424bde" compoundref="xscutimer_8c" startline="119" endline="147">XScuTimer_Start</referencedby>
+        <referencedby refid="group__scutimer_1gaac0376fbfeb5c29bb44403d6fefd0843" compoundref="xscutimer_8c" startline="161" endline="189">XScuTimer_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1ga6f29815a4f21529bfc3d009932d3c2fe" prot="public" static="no">
+        <name>XScuTimer_WriteReg</name>
+        <param><defname>BaseAddr</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32((BaseAddr) + (RegOffset), (Data))</initializer>
+        <briefdescription>
+<para>Write to the given Timer register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset to be written </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__scutimer_1ga6f29815a4f21529bfc3d009932d3c2fe" kindref="member">XScuTimer_WriteReg(u32 BaseAddr, u32 RegOffset, u32 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_hw.h" bodystart="251" bodyend="-1"/>
+        <referencedby refid="group__scutimer_1gac3036b3f9f6e7735d3e6a6eb74a28e95" compoundref="xscutimer__selftest_8c" startline="60" endline="112">XScuTimer_SelfTest</referencedby>
+        <referencedby refid="group__scutimer_1gac6cd65141b00c0d1940d0b8f2a081faf" compoundref="xscutimer_8c" startline="204" endline="234">XScuTimer_SetPrescaler</referencedby>
+        <referencedby refid="group__scutimer_1gabf24fad576d3adab4b53eebdef424bde" compoundref="xscutimer_8c" startline="119" endline="147">XScuTimer_Start</referencedby>
+        <referencedby refid="group__scutimer_1gaac0376fbfeb5c29bb44403d6fefd0843" compoundref="xscutimer_8c" startline="161" endline="189">XScuTimer_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__scutimer_1ga2795253b5bea39b3ca8e8bf96bec03f5" prot="public" static="no">
+        <name>XSCUTIMER_SELFTEST_VALUE</name>
+        <initializer>0xA55AF00FU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_selftest.c" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_selftest.c" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains the implementation of interface functions of the SCU Timer driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>This file contains method for static initialization (compile-time) of the driver.</para><para>Contains diagnostic self-test functions for the <ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> driver.</para><para>This file contains the hardware interface to the Timer.</para><para>This file contains a table that specifies the configuration of the SCU Timer in the system.</para><para>}</para><para>See <ref refid="xscutimer_8h" kindref="compound">xscutimer.h</ref> for a description of the driver.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
+<hruler/>
+
+1.00a nm  03/10/10 First release
+2.1     sk  02/26/15 Modified the code for MISRA-C:2012 compliance.
+2.5   dp   07/11/23 Add Support for system device tree flow
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
+<hruler/>
+
+1.00a nm  03/10/10 First release
+2.1     sk  02/26/15 Modified the code for MISRA-C:2012 compliance.
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
+<hruler/>
+
+1.00a nm  03/10/10 First release
+1.01a sdm 02/02/12 Added low level macros to read/write load, counter, control
+             and interrupt registers
+1.02a  sg 07/17/12 Included xil_assert.h for CR 667947. This is an issue
+             when the xstatus.h in the common driver overwrites
+             the xstatus.h of the standalone BSP during the
+             libgen.
+2.1     sk  02/26/15 Modified the code for MISRA-C:2012 compliance.
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
+<hruler/>
+
+1.00a nm  03/10/10 First release
+2.1     sk  02/26/15 Modified the code for MISRA-C:2012 compliance.
+2.5   dp  07/11/23 Add Support for system device tree flow
+2.8   bdk 12/08/25 Updated comments to support SDT flow for Doxygen
+                   documentation.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,322 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__slhdsa__ht_8c" kind="file">
+    <compoundname>xsecure_slhdsa_ht.c</compoundname>
+    <includes refid="xsecure__slhdsa__addr_8h" local="yes">xsecure_slhdsa_addr.h</includes>
+    <includes refid="xsecure__slhdsa__hash_8h" local="yes">xsecure_slhdsa_hash.h</includes>
+    <includes refid="xsecure__slhdsa__xmss_8h" local="yes">xsecure_slhdsa_xmss.h</includes>
+    <includes refid="xsecure__slhdsa__ht_8h" local="yes">xsecure_slhdsa_ht.h</includes>
+    <includes local="yes">xsecure_utils.h</includes>
+    <includes refid="xsecure__defs_8h" local="yes">xsecure_defs.h</includes>
+    <incdepgraph>
+      <node id="4442">
+        <label>xsecure_slhdsa_addr.h</label>
+        <link refid="xsecure__slhdsa__addr_8h"/>
+        <childnode refid="4443" relation="include">
+        </childnode>
+        <childnode refid="4444" relation="include">
+        </childnode>
+        <childnode refid="4445" relation="include">
+        </childnode>
+      </node>
+      <node id="4444">
+        <label>xil_io.h</label>
+      </node>
+      <node id="4447">
+        <label>xsecure_slhdsa_instance.h</label>
+        <link refid="xsecure__slhdsa__instance_8h"/>
+        <childnode refid="4442" relation="include">
+        </childnode>
+        <childnode refid="4443" relation="include">
+        </childnode>
+        <childnode refid="4448" relation="include">
+        </childnode>
+      </node>
+      <node id="4448">
+        <label>xsecure_sha.h</label>
+      </node>
+      <node id="4453">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="4454">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="4451">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure__defs_8h"/>
+        <childnode refid="4452" relation="include">
+        </childnode>
+        <childnode refid="4443" relation="include">
+        </childnode>
+        <childnode refid="4453" relation="include">
+        </childnode>
+        <childnode refid="4454" relation="include">
+        </childnode>
+        <childnode refid="4455" relation="include">
+        </childnode>
+      </node>
+      <node id="4445">
+        <label>xsecure_utils.h</label>
+      </node>
+      <node id="4455">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="4443">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4441">
+        <label>xsecure_slhdsa_ht.c</label>
+        <link refid="xsecure_slhdsa_ht.c"/>
+        <childnode refid="4442" relation="include">
+        </childnode>
+        <childnode refid="4446" relation="include">
+        </childnode>
+        <childnode refid="4449" relation="include">
+        </childnode>
+        <childnode refid="4450" relation="include">
+        </childnode>
+        <childnode refid="4445" relation="include">
+        </childnode>
+        <childnode refid="4451" relation="include">
+        </childnode>
+      </node>
+      <node id="4450">
+        <label>xsecure_slhdsa_ht.h</label>
+        <link refid="xsecure__slhdsa__ht_8h"/>
+        <childnode refid="4447" relation="include">
+        </childnode>
+        <childnode refid="4443" relation="include">
+        </childnode>
+      </node>
+      <node id="4452">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="4449">
+        <label>xsecure_slhdsa_xmss.h</label>
+        <link refid="xsecure__slhdsa__xmss_8h"/>
+        <childnode refid="4447" relation="include">
+        </childnode>
+        <childnode refid="4443" relation="include">
+        </childnode>
+      </node>
+      <node id="4446">
+        <label>xsecure_slhdsa_hash.h</label>
+        <link refid="xsecure__slhdsa__hash_8h"/>
+        <childnode refid="4447" relation="include">
+        </childnode>
+        <childnode refid="4443" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__slhdsa__server__apis_1ga63a83a36cf727551fc0e1f69fef4e9b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_SlhdsaHtVerify</definition>
+        <argsstring>(const u8 *const M, const u64 SignHtAddr, const u64 PublicKeyAddr, const XSecure_SlhdsaHtIndices *const HtIndices)</argsstring>
+        <name>XSecure_SlhdsaHtVerify</name>
+        <param>
+          <type>const u8 *const</type>
+          <declname>M</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>SignHtAddr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>PublicKeyAddr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_secure___slhdsa_ht_indices" kindref="compound">XSecure_SlhdsaHtIndices</ref> *const</type>
+          <declname>HtIndices</declname>
+        </param>
+        <briefdescription>
+<para>This function verifies a SLH-DSA hypertree signature by traversing through multiple layers of XMSS trees, starting from the bottom layer and working up to the root layer, ultimately comparing the computed root with PK.root. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="par"><title>Algorithm Flow for SHAKE-256s (d=8, h&apos;=8, len=67, n=32):</title><para></para></simplesect>
+Given: IdxTree=0x123456789ABCDEF0, IdxLeaf=0x87654321</para><para>=== HYPERTREE STRUCTURE === SLH-DSA-SHAKE-256s uses a hypertree composed of d=8 layers of XMSS trees:</para><para>Layer 7 (Top): 1 XMSS tree (contains PK.root) Layer 6: 2^8 = 256 XMSS trees Layer 5: 2^16 = 65,536 XMSS trees Layer 4: 2^24 = 16,777,216 XMSS trees Layer 3: 2^32 = 4,294,967,296 XMSS trees Layer 2: 2^40 = 1,099,511,627,776 XMSS trees Layer 1: 2^48 = 281,474,976,710,656 XMSS trees Layer 0 (Bottom): 2^56 = 72,057,594,037,927,936 XMSS trees (FORS trees connect here)</para><para>Each XMSS tree has height h&apos;=8 (2^8 = 256 leaves)</para><para>=== TREE COUNT CALCULATION === At layer j, maximum tree index = 2^(56 - j×8) - 1<itemizedlist>
+<listitem><para>Layer 0: Max tree index = 2^56 - 1 (so 2^56 possible trees)</para></listitem><listitem><para>Layer 1: Max tree index = 2^48 - 1 (so 2^48 possible trees)</para></listitem><listitem><para>Layer 2: Max tree index = 2^40 - 1 (so 2^40 possible trees)</para></listitem><listitem><para>Layer 3: Max tree index = 2^32 - 1 (so 2^32 possible trees)</para></listitem><listitem><para>Layer 4: Max tree index = 2^24 - 1 (so 2^24 possible trees)</para></listitem><listitem><para>Layer 5: Max tree index = 2^16 - 1 (so 2^16 possible trees)</para></listitem><listitem><para>Layer 6: Max tree index = 2^8 - 1 (so 2^8 possible trees)</para></listitem><listitem><para>Layer 7: Max tree index = 2^0 - 1 = 0 (so 1 possible tree)</para></listitem></itemizedlist>
+</para><para>=== TREE DIVERSITY DEMONSTRATION === Starting with IdxTree = 0x123456789ABCDEF0:</para><para>Layer 0→1: IdxLeaf = 0x00, IdxTree = 0x123456789ABCDE00 &gt;&gt; 8 = 0x123456789ABCDE Layer 1→2: IdxLeaf = 0xDE, IdxTree = 0x123456789ABCDE &gt;&gt; 8 = 0x123456789ABC Layer 2→3: IdxLeaf = 0xBC, IdxTree = 0x123456789ABC &gt;&gt; 8 = 0x123456789A Layer 3→4: IdxLeaf = 0x9A, IdxTree = 0x123456789A &gt;&gt; 8 = 0x12345678 Layer 4→5: IdxLeaf = 0x78, IdxTree = 0x12345678 &gt;&gt; 8 = 0x123456 Layer 5→6: IdxLeaf = 0x56, IdxTree = 0x123456 &gt;&gt; 8 = 0x1234 Layer 6→7: IdxLeaf = 0x34, IdxTree = 0x1234 &gt;&gt; 8 = 0x12 Layer 7→END: IdxLeaf = 0x12, IdxTree = 0x12 &gt;&gt; 8 = 0x0 ✓</para><para>=== TRAVERSAL TABLE === +-<mdash/><mdash/>+-<mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/><mdash/>+ | j | Layer | IdxLeaf | IdxTree | XMSS Tree Accessed | Description | +-<mdash/><mdash/>+-<mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/><mdash/>+ | - | 0 (init) | 0x21 | 0x123456789ABCDEF0| Tree F0 at Layer 0 | Initial tree | +-<mdash/><mdash/>+-<mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/><mdash/>+ | 1 | 1 | 0xF0 | 0x123456789ABCDE | Tree DE at Layer 1 | Parent of F0 | +-<mdash/><mdash/>+-<mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/><mdash/>+ | 2 | 2 | 0xDE | 0x123456789ABC | Tree BC at Layer 2 | Parent of DE | +-<mdash/><mdash/>+-<mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/><mdash/>+ | 3 | 3 | 0xBC | 0x123456789A | Tree 9A at Layer 3 | Parent of BC | +-<mdash/><mdash/>+-<mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/><mdash/>+ | 4 | 4 | 0x9A | 0x12345678 | Tree 78 at Layer 4 | Parent of 9A | +-<mdash/><mdash/>+-<mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/><mdash/>+ | 5 | 5 | 0x78 | 0x123456 | Tree 56 at Layer 5 | Parent of 78 | +-<mdash/><mdash/>+-<mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/><mdash/>+ | 6 | 6 | 0x56 | 0x1234 | Tree 34 at Layer 6 | Parent of 56 | +-<mdash/><mdash/>+-<mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/><mdash/>+ | 7 | 7 | 0x34 | 0x12 | Tree 12 at Layer 7 | Root layer | | | | | | (leaf 0x34 in tree | (final check | | | | | | 0x12) | vs PK.root) | +-<mdash/><mdash/>+-<mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/><mdash/>+</para><para>=== CALCULATION FORMULAS === Step 6: IdxLeaf = IdxTree &amp; ((1 &lt;&lt; h&apos;) - 1) = IdxTree &amp; 0xFF Step 7: IdxTree = IdxTree &gt;&gt; h&apos; = IdxTree &gt;&gt; 8</para><para>=== DETAILED INDEX PROGRESSION === Starting with IdxTree = 0x123456789ABCDEF0:</para><para>Layer 0→1: IdxLeaf = 0xF0 &amp; 0xFF = 0xF0 (240), IdxTree = 0x123456789ABCDEF0 &gt;&gt; 8 = 0x123456789ABCDE Layer 1→2: IdxLeaf = 0xDE &amp; 0xFF = 0xDE (222), IdxTree = 0x123456789ABCDE &gt;&gt; 8 = 0x123456789ABC Layer 2→3: IdxLeaf = 0xBC &amp; 0xFF = 0xBC (188), IdxTree = 0x123456789ABC &gt;&gt; 8 = 0x123456789A Layer 3→4: IdxLeaf = 0x9A &amp; 0xFF = 0x9A (154), IdxTree = 0x123456789A &gt;&gt; 8 = 0x12345678 Layer 4→5: IdxLeaf = 0x78 &amp; 0xFF = 0x78 (120), IdxTree = 0x12345678 &gt;&gt; 8 = 0x123456 Layer 5→6: IdxLeaf = 0x56 &amp; 0xFF = 0x56 (86), IdxTree = 0x123456 &gt;&gt; 8 = 0x1234 Layer 6→7: IdxLeaf = 0x34 &amp; 0xFF = 0x34 (52), IdxTree = 0x1234 &gt;&gt; 8 = 0x12 Layer 7→8: IdxLeaf = 0x12 &amp; 0xFF = 0x12 (18), IdxTree = 0x12 &gt;&gt; 8 = 0x0</para><para>=== TREE DIVERSITY DEMONSTRATION === This example shows access to different trees at each layer:<itemizedlist>
+<listitem><para>Layer 0: Tree 0xF0 (240) out of 2^56 possible trees</para></listitem><listitem><para>Layer 1: Tree 0xDE (222) out of 2^48 possible trees</para></listitem><listitem><para>Layer 2: Tree 0xBC (188) out of 2^40 possible trees</para></listitem><listitem><para>Layer 3: Tree 0x9A (154) out of 2^32 possible trees</para></listitem><listitem><para>Layer 4: Tree 0x78 (120) out of 2^24 possible trees</para></listitem><listitem><para>Layer 5: Tree 0x56 (86) out of 2^16 possible trees</para></listitem><listitem><para>Layer 6: Tree 0x34 (52) out of 2^8 possible trees</para></listitem><listitem><para>Layer 7: Tree 0x12 (18) out of 1 possible tree (but shows non-zero until final shift)</para></listitem><listitem><para>Layer 8: Tree 0x0 (0) - The single root tree</para></listitem></itemizedlist>
+</para><para>=== SIGNATURE CONSUMPTION === SignHt progression through signature buffer: +-<mdash/><mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+ | j | SignHt Offset (bytes) | XMSS Signature Used | +-<mdash/><mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+ | - | 0 | SIG_HT[0:2399] | | 1 | 2400 | SIG_HT[2400:4799] | | 2 | 4800 | SIG_HT[4800:7199] | | 3 | 7200 | SIG_HT[7200:9599] | | 4 | 9600 | SIG_HT[9600:11999] | | 5 | 12000 | SIG_HT[12000:14399] | | 6 | 14400 | SIG_HT[14400:16799] | | 7 | 16800 | SIG_HT[16800:19199] | +-<mdash/><mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+</para><para>=== XMSS VERIFICATION DETAILS === At each layer j:<orderedlist>
+<listitem><para>ADRS.setLayerAddress(j) - Identifies current layer</para></listitem><listitem><para>ADRS.setTreeAddress(IdxTree) - Identifies specific XMSS tree</para></listitem><listitem><para>xmss_pkFromSig() computes XMSS root using:<itemizedlist>
+<listitem><para>IdxLeaf: Position within the XMSS tree</para></listitem><listitem><para>SIGtmp: XMSS signature for this layer</para></listitem><listitem><para>M: Message (FORS_PK for layer 0, previous root for others)</para></listitem><listitem><para>PK.seed: Public seed</para></listitem><listitem><para>ADRS: Address structure for domain separation</para></listitem></itemizedlist>
+</para></listitem></orderedlist>
+</para><para>=== FINAL VERIFICATION === Step 13: Compare computed root with PK.root<itemizedlist>
+<listitem><para>Node contains final computed root (32 bytes)</para></listitem><listitem><para>PK.root = PublicKey[32:63] (second 32 bytes of public key)</para></listitem><listitem><para>Byte-by-byte comparison for constant-time verification</para></listitem></itemizedlist>
+</para><para>=== PERFORMANCE CHARACTERISTICS === Computational Complexity:<itemizedlist>
+<listitem><para>XMSS verifications: d = 8 operations</para></listitem><listitem><para>Total hash operations: d × (len + h&apos;) = 8 × 75 = 600 hash calls</para></listitem><listitem><para>Memory usage: 2400 bytes working + 19200 bytes signature input</para></listitem><listitem><para>Time complexity: O(d × (len + h&apos;) × n)</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>M</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Message to verify (FORS public key, 32 bytes). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SignHtAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>64-bit address of hypertree signature (19,200 bytes for SHAKE-256s). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PublicKeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>64-bit address of public key buffer (PK.seed || PK.root, 64 bytes). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HtIndices</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to structure containing hypertree indices (IdxTree: tree index for hypertree verification, IdxLeaf: leaf index for hypertree verification)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if signature verification succeeds.</para></listitem><listitem><para>XSECURE_SLHDSA_PK_ROOT_MISMATCH_ERROR if final root comparison fails.</para></listitem><listitem><para>ErrorCode Otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Step 1: ADRS &lt;- toByte(0, 32)</para></listitem><listitem><para>Step 2: ADRS.setTreeAddress(idxtree)</para></listitem><listitem><para>Step 3: SIGtmp &lt;- SIG_HT.getXMSSSignature(0)</para></listitem><listitem><para>Step 4: node &lt;- xmss_pkFromSig(idxleaf, SIGtmp, M, PK.seed, ADRS)</para></listitem><listitem><para>Step 5: for LevelIdx from 1 to d-1 do</para></listitem><listitem><para>Step 6: idxleaf &lt;- idxtree mod 2^h&apos;, h&apos; least significant bits from idxtree</para></listitem><listitem><para>Step 7: idxtree &lt;- idxtree &gt;&gt; h&apos;, removing least significant h&apos; bits from idxtree</para></listitem><listitem><para>Step 8: ADRS.setLayerAddress(LevelIdx)</para></listitem><listitem><para>Step 9: ADRS.setTreeAddress(idxtree)</para></listitem><listitem><para>Step 10: SIGtmp &lt;- SIG_HT.getXMSSSignature(LevelIdx)</para></listitem><listitem><para>Step 11: node &lt;- xmss_pkFromSig(idxleaf, SIGtmp, node, PK.seed, ADRS)</para></listitem><listitem><para>Step 12: end for</para></listitem><listitem><para>Step 13: if node == PK.root then</para></listitem><listitem><para>Step 15: else</para></listitem><listitem><para>Step 14: return true</para></listitem><listitem><para>Step 16/17: return false/end if </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_ht.c" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_ht.c" bodystart="194" bodyend="290"/>
+        <references refid="struct_x_secure___slhdsa_instance_1ab63a47abcc83e7c80c42544c729e204e" compoundref="xsecure__slhdsa__instance_8h" startline="222">XSecure_SlhdsaInstance::Addr</references>
+        <references refid="struct_x_secure___checksum_param_1add5d7a87ec82f389e013cb54061879e3" compoundref="xsecure__slhdsa__instance_8h" startline="177">XSecure_ChecksumParam::ChecksumLenInDigits</references>
+        <references refid="struct_x_secure___slhdsa_param_1a14a066a9a67f5df8f300e0e25464a31a" compoundref="xsecure__slhdsa__instance_8h" startline="210">XSecure_SlhdsaParam::ChecksumParams</references>
+        <references refid="struct_x_secure___slhdsa_param_1aad06830c8e1238722fe82f97cf0a7768" compoundref="xsecure__slhdsa__instance_8h" startline="192">XSecure_SlhdsaParam::d</references>
+        <references refid="struct_x_secure___slhdsa_instance_1aaf8104f2de7cb18b6f93286705f3d172" compoundref="xsecure__slhdsa__instance_8h" startline="270">XSecure_SlhdsaInstance::Data3</references>
+        <references refid="struct_x_secure___slhdsa_param_1a5cd115f94eae4b500cef0f81eb6b0b5f" compoundref="xsecure__slhdsa__instance_8h" startline="194">XSecure_SlhdsaParam::hprime</references>
+        <references refid="struct_x_secure___slhdsa_ht_indices_1a16c4d627b1bdbfa6823a51e20e116c56" compoundref="xsecure__slhdsa__ht_8h" startline="45">XSecure_SlhdsaHtIndices::IdxLeaf</references>
+        <references refid="struct_x_secure___slhdsa_ht_indices_1ad2ce3723f0f2d5517752e5403d75ac79" compoundref="xsecure__slhdsa__ht_8h" startline="44">XSecure_SlhdsaHtIndices::IdxTree</references>
+        <references refid="struct_x_secure___checksum_param_1a622729b6c957e154dbd17d4c1909c522" compoundref="xsecure__slhdsa__instance_8h" startline="176">XSecure_ChecksumParam::InputLenInDigits</references>
+        <references refid="struct_x_secure___slhdsa_param_1adf0e83ff47d247fa29935dcbf4bd089d" compoundref="xsecure__slhdsa__instance_8h" startline="187">XSecure_SlhdsaParam::n</references>
+        <references refid="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" compoundref="xsecure__slhdsa__instance_8h" startline="225">XSecure_SlhdsaInstance::Param</references>
+        <references refid="group__xsecure__utils__apis_1gad317bd5f7cf522c602b9f00246d34d97" compoundref="spartanup_2xsecure__utils_8h" startline="70">XSECURE_DEBUG_GENERAL</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2daa27fd6a5d2b1ea311379e7f39dc8fbcb" compoundref="spartanup_2xsecure__error_8h" startline="249">XSECURE_ERR_GLITCH_DETECTED</references>
+        <references refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" compoundref="xsecure__defs_8h" startline="85">XSecure_Printf</references>
+        <references refid="versal__2vp__p_2xsecure__error_8h_1abc5c98fcc1211af2b80116dd6e0a035da895b2ca4f807775e3ef6921aa2c8e339" compoundref="versal__2vp__p_2xsecure__error_8h" startline="375">XSECURE_SLHDSA_PK_ROOT_MISMATCH_ERROR</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" compoundref="xsecure__slhdsa__instance_8c" startline="51" endline="102">XSecure_SlhdsaGetInstance</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1gae2f63765bb0a4b550407c200d2715a1c" compoundref="xsecure__slhdsa__xmss_8c" startline="189" endline="287">XSecure_SlhdsaXmssPkFromSign</references>
+        <references refid="group__xsecure__generic__server__apis_1ga8023ea0b632e9b4eba69c1dd8f62c5eb" compoundref="core_2util_2xsecure__utils_8h" startline="59">XSECURE_VALUE_ONE</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file consists of definitions for SLH-DSA hypertree operations. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+5.7   tvp  02/19/26 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>********************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__slhdsa__addr_8h" kindref="compound">xsecure_slhdsa_addr.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__slhdsa__hash_8h" kindref="compound">xsecure_slhdsa_hash.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__slhdsa__xmss_8h" kindref="compound">xsecure_slhdsa_xmss.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__slhdsa__ht_8h" kindref="compound">xsecure_slhdsa_ht.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_utils.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__defs_8h" kindref="compound">xsecure_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/****************************************<sp/>Function<sp/>Prototypes<sp/>*************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*************************************<sp/>Function<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="194" refid="group__xsecure__slhdsa__server__apis_1ga63a83a36cf727551fc0e1f69fef4e9b6" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__slhdsa__server__apis_1ga63a83a36cf727551fc0e1f69fef4e9b6" kindref="member">XSecure_SlhdsaHtVerify</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>M,</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>SignHtAddr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>PublicKeyAddr,</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___slhdsa_ht_indices" kindref="compound">XSecure_SlhdsaHtIndices</ref><sp/>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>HtIndices)</highlight></codeline>
+<codeline lineno="197"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___slhdsa_instance" kindref="compound">XSecure_SlhdsaInstance</ref><sp/>*InstancePtr<sp/>=<sp/><ref refid="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" kindref="member">XSecure_SlhdsaGetInstance</ref>();</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8*<sp/>Node<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1aaf8104f2de7cb18b6f93286705f3d172" kindref="member">Data3</ref>;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>LevelIdx;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>Idx;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Offset;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>IdxTree<sp/>=<sp/>HtIndices-&gt;<ref refid="struct_x_secure___slhdsa_ht_indices_1ad2ce3723f0f2d5517752e5403d75ac79" kindref="member">IdxTree</ref>;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>IdxLeaf<sp/>=<sp/>HtIndices-&gt;<ref refid="struct_x_secure___slhdsa_ht_indices_1a16c4d627b1bdbfa6823a51e20e116c56" kindref="member">IdxLeaf</ref>;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>SignHtPtrAddr<sp/>=<sp/>SignHtAddr;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_SlhdsaClearAddress(InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1ab63a47abcc83e7c80c42544c729e204e" kindref="member">Addr</ref>);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_SlhdsaSetTreeAddress(InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1ab63a47abcc83e7c80c42544c729e204e" kindref="member">Addr</ref>,<sp/>IdxTree);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>(InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" kindref="member">Param</ref>-&gt;<ref refid="struct_x_secure___slhdsa_param_1a14a066a9a67f5df8f300e0e25464a31a" kindref="member">ChecksumParams</ref>.<ref refid="struct_x_secure___checksum_param_1a622729b6c957e154dbd17d4c1909c522" kindref="member">InputLenInDigits</ref><sp/>+</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" kindref="member">Param</ref>-&gt;<ref refid="struct_x_secure___slhdsa_param_1a14a066a9a67f5df8f300e0e25464a31a" kindref="member">ChecksumParams</ref>.<ref refid="struct_x_secure___checksum_param_1add5d7a87ec82f389e013cb54061879e3" kindref="member">ChecksumLenInDigits</ref><sp/>+</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" kindref="member">Param</ref>-&gt;<ref refid="struct_x_secure___slhdsa_param_1a5cd115f94eae4b500cef0f81eb6b0b5f" kindref="member">hprime</ref>)<sp/>*<sp/>(u32)InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" kindref="member">Param</ref>-&gt;<ref refid="struct_x_secure___slhdsa_param_1adf0e83ff47d247fa29935dcbf4bd089d" kindref="member">n</ref>;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_CHECK(END,</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status,</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gae2f63765bb0a4b550407c200d2715a1c" kindref="member">XSecure_SlhdsaXmssPkFromSign</ref>,</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IdxLeaf,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>[in]<sp/>Leaf<sp/>index<sp/>within<sp/>XMSS<sp/>tree<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SignHtPtrAddr,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>[in]<sp/>XMSS<sp/>signature<sp/>data<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u64)(UINTPTR)M,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>[in]<sp/>Message<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PublicKeyAddr,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>[in]<sp/>Public<sp/>key<sp/>seed<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Node);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>[out]<sp/>Computed<sp/>XMSS<sp/>public<sp/>key<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(LevelIdx<sp/>=<sp/>1U;<sp/>LevelIdx<sp/>&lt;<sp/>(u32)InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" kindref="member">Param</ref>-&gt;<ref refid="struct_x_secure___slhdsa_param_1aad06830c8e1238722fe82f97cf0a7768" kindref="member">d</ref>;<sp/>LevelIdx++)<sp/>{</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IdxLeaf<sp/>=<sp/>IdxTree<sp/>&amp;<sp/>(u64)((<ref refid="group__xsecure__generic__server__apis_1ga8023ea0b632e9b4eba69c1dd8f62c5eb" kindref="member">XSECURE_VALUE_ONE</ref><sp/>&lt;&lt;<sp/>(u32)InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" kindref="member">Param</ref>-&gt;<ref refid="struct_x_secure___slhdsa_param_1a5cd115f94eae4b500cef0f81eb6b0b5f" kindref="member">hprime</ref>)<sp/>-</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__generic__server__apis_1ga8023ea0b632e9b4eba69c1dd8f62c5eb" kindref="member">XSECURE_VALUE_ONE</ref>);</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IdxTree<sp/>&gt;&gt;=<sp/>(u32)InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" kindref="member">Param</ref>-&gt;<ref refid="struct_x_secure___slhdsa_param_1a5cd115f94eae4b500cef0f81eb6b0b5f" kindref="member">hprime</ref>;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_SlhdsaSetLayerAddress(InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1ab63a47abcc83e7c80c42544c729e204e" kindref="member">Addr</ref>,<sp/>LevelIdx);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_SlhdsaSetTreeAddress(InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1ab63a47abcc83e7c80c42544c729e204e" kindref="member">Addr</ref>,<sp/>IdxTree);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SignHtPtrAddr<sp/>+=<sp/>Offset;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_CHECK(END,</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status,</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gae2f63765bb0a4b550407c200d2715a1c" kindref="member">XSecure_SlhdsaXmssPkFromSign</ref>,</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IdxLeaf,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>[in]<sp/>Leaf<sp/>index<sp/>within<sp/>XMSS<sp/>tree<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SignHtPtrAddr,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>[in]<sp/>XMSS<sp/>signature<sp/>data<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u64)(UINTPTR)Node,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>[in]<sp/>Message/node<sp/>address<sp/>from<sp/>previous<sp/>layer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PublicKeyAddr,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>[in]<sp/>Public<sp/>key<sp/>seed<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Node);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>[out]<sp/>Computed<sp/>XMSS<sp/>public<sp/>key<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(LevelIdx<sp/>!=<sp/>(u32)InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" kindref="member">Param</ref>-&gt;<ref refid="struct_x_secure___slhdsa_param_1aad06830c8e1238722fe82f97cf0a7768" kindref="member">d</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2daa27fd6a5d2b1ea311379e7f39dc8fbcb" kindref="member">XSECURE_ERR_GLITCH_DETECTED</ref>;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="versal__2vp__p_2xsecure__error_8h_1abc5c98fcc1211af2b80116dd6e0a035da895b2ca4f807775e3ef6921aa2c8e339" kindref="member">XSECURE_SLHDSA_PK_ROOT_MISMATCH_ERROR</ref>;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Idx<sp/>=<sp/>0U;<sp/>Idx<sp/>&lt;<sp/>(u32)InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" kindref="member">Param</ref>-&gt;<ref refid="struct_x_secure___slhdsa_param_1adf0e83ff47d247fa29935dcbf4bd089d" kindref="member">n</ref>;<sp/>Idx++)<sp/>{</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Node[Idx]<sp/>!=<sp/>XSecure_InByte64(PublicKeyAddr<sp/>+<sp/>(u64)InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" kindref="member">Param</ref>-&gt;<ref refid="struct_x_secure___slhdsa_param_1adf0e83ff47d247fa29935dcbf4bd089d" kindref="member">n</ref><sp/>+</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Idx))<sp/>{</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" kindref="member">XSecure_Printf</ref>(<ref refid="group__xsecure__utils__apis_1gad317bd5f7cf522c602b9f00246d34d97" kindref="member">XSECURE_DEBUG_GENERAL</ref>,<sp/></highlight><highlight class="stringliteral">&quot;XSecure_SlhdsaHtVerify:<sp/>Expected<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;root[%d]<sp/>%x,<sp/>Computed<sp/>node[%d]<sp/>%x\n\r&quot;</highlight><highlight class="normal">,<sp/>Idx,</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_InByte64(PublicKeyAddr<sp/>+<sp/>(u64)InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" kindref="member">Param</ref>-&gt;<ref refid="struct_x_secure___slhdsa_param_1adf0e83ff47d247fa29935dcbf4bd089d" kindref="member">n</ref></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>Idx),<sp/>Idx,<sp/>Node[Idx]);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="versal__2vp__p_2xsecure__error_8h_1abc5c98fcc1211af2b80116dd6e0a035da895b2ca4f807775e3ef6921aa2c8e339" kindref="member">XSECURE_SLHDSA_PK_ROOT_MISMATCH_ERROR</ref>;</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Idx<sp/>!=<sp/>(u32)InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" kindref="member">Param</ref>-&gt;<ref refid="struct_x_secure___slhdsa_param_1adf0e83ff47d247fa29935dcbf4bd089d" kindref="member">n</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2daa27fd6a5d2b1ea311379e7f39dc8fbcb" kindref="member">XSECURE_ERR_GLITCH_DETECTED</ref>;</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="290"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_ht.c"/>
+  </compounddef>
+</doxygen>

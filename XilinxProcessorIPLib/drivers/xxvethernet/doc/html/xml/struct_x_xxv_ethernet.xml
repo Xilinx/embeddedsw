@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_xxv_ethernet" kind="struct" prot="public">
+    <compoundname>XXxvEthernet</compoundname>
+    <includes local="no">xxxvethernet.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_xxv_ethernet___config" kindref="compound">XXxvEthernet_Config</ref></type>
+        <definition>XXxvEthernet_Config XXxvEthernet::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.h" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.h" bodystart="257" bodyend="-1"/>
+        <referencedby refid="xxxvethernet__example__util_8c_1abb5bc0fd706a832742ca65487e6687af" compoundref="xxxvethernet__example__util_8c" startline="299" endline="313">XxvEthernetUtilEnterLocalLoopback</referencedby>
+        <referencedby refid="xxxvethernet__example__util_8c_1ad48448f068a15369349deec579b8fc38" compoundref="xxxvethernet__example__util_8c" startline="336" endline="379">XxvEthernetUtilUsxgmiiSetup</referencedby>
+        <referencedby refid="xxxvethernet__example__util_8c_1a80999962d45ad1ec4e8dcb68df838cdf" compoundref="xxxvethernet__example__util_8c" startline="401" endline="444">XxvEthernetUtilUsxgmiiSetupBypassAN</referencedby>
+        <referencedby refid="group__xxvethernet_1gad071a1cb807ee930634dac763c9d8227" compoundref="xxxvethernet_8c" startline="70" endline="94">XXxvEthernet_CfgInitialize</referencedby>
+        <referencedby refid="group__xxvethernet_1ga03c42c411753d0fd0373094c420516dd" compoundref="xxxvethernet_8c" startline="476" endline="560">XXxvEthernet_ClearOptions</referencedby>
+        <referencedby refid="group__xxvethernet_1gaab034ac98398a6d6851db98a76b4e010" compoundref="xxxvethernet_8c" startline="747" endline="762">XXxvEthernet_GetAutoNegSpeed</referencedby>
+        <referencedby refid="group__xxvethernet_1ga0460b90bd3cebb8df32d3197bca2abb4" compoundref="xxxvethernet_8c" startline="117" endline="136">XXxvEthernet_Initialize</referencedby>
+        <referencedby refid="group__xxvethernet_1gaf38776edab53749b9204fe1abf45d87a" compoundref="xxxvethernet_8c" startline="780" endline="795">XXxvEthernet_SetAutoNegSpeed</referencedby>
+        <referencedby refid="group__xxvethernet_1gabcf02a5b2b0ee38739bbe4fdc5691a59" compoundref="xxxvethernet_8c" startline="373" endline="455">XXxvEthernet_SetOptions</referencedby>
+        <referencedby refid="group__xxvethernet_1ga09e63e61d122a4f18d3dcd51456a1924" compoundref="xxxvethernet_8c" startline="603" endline="658">XXxvEthernet_SetUsxgmiiRateAndDuplex</referencedby>
+        <referencedby refid="group__xxvethernet_1ga6e4b05d1a7db9def0f688bb3f12839f1" compoundref="xxxvethernet_8c" startline="154" endline="219">XXxvEthernet_Start</referencedby>
+        <referencedby refid="group__xxvethernet_1gacd8a86e3ca2431a4181de0d75fd58759" compoundref="xxxvethernet_8c" startline="239" endline="267">XXxvEthernet_Stop</referencedby>
+        <referencedby refid="group__xxvethernet_1ga341ba96f890e5ca0f3af58c52cfd05b9" compoundref="xxxvethernet_8c" startline="673" endline="691">XXxvEthernet_UsxgmiiAnMainReset</referencedby>
+        <referencedby refid="group__xxvethernet_1ga3b0404e1d23019f56969ed3747175b44" compoundref="xxxvethernet_8c" startline="706" endline="730">XXxvEthernet_UsxgmiiAnMainRestart</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_xxv_ethernet_1a957ab238a83c9f11d456a43d40ffcf50" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XXxvEthernet::IsStarted</definition>
+        <argsstring></argsstring>
+        <name>IsStarted</name>
+        <briefdescription>
+<para>Device is currently started. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.h" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.h" bodystart="258" bodyend="-1"/>
+        <referencedby refid="group__xxvethernet_1ga03c42c411753d0fd0373094c420516dd" compoundref="xxxvethernet_8c" startline="476" endline="560">XXxvEthernet_ClearOptions</referencedby>
+        <referencedby refid="group__xxvethernet_1gabcf02a5b2b0ee38739bbe4fdc5691a59" compoundref="xxxvethernet_8c" startline="373" endline="455">XXxvEthernet_SetOptions</referencedby>
+        <referencedby refid="group__xxvethernet_1ga6e4b05d1a7db9def0f688bb3f12839f1" compoundref="xxxvethernet_8c" startline="154" endline="219">XXxvEthernet_Start</referencedby>
+        <referencedby refid="group__xxvethernet_1gacd8a86e3ca2431a4181de0d75fd58759" compoundref="xxxvethernet_8c" startline="239" endline="267">XXxvEthernet_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XXxvEthernet::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.h" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.h" bodystart="259" bodyend="-1"/>
+        <referencedby refid="group__xxvethernet_1gad071a1cb807ee930634dac763c9d8227" compoundref="xxxvethernet_8c" startline="70" endline="94">XXxvEthernet_CfgInitialize</referencedby>
+        <referencedby refid="group__xxvethernet_1ga03c42c411753d0fd0373094c420516dd" compoundref="xxxvethernet_8c" startline="476" endline="560">XXxvEthernet_ClearOptions</referencedby>
+        <referencedby refid="group__xxvethernet_1gaab034ac98398a6d6851db98a76b4e010" compoundref="xxxvethernet_8c" startline="747" endline="762">XXxvEthernet_GetAutoNegSpeed</referencedby>
+        <referencedby refid="group__xxvethernet_1gab074cd6caf93431db36a6a3295f4e143" compoundref="xxxvethernet_8c" startline="576" endline="582">XXxvEthernet_GetOptions</referencedby>
+        <referencedby refid="group__xxvethernet_1ga0460b90bd3cebb8df32d3197bca2abb4" compoundref="xxxvethernet_8c" startline="117" endline="136">XXxvEthernet_Initialize</referencedby>
+        <referencedby refid="group__xxvethernet_1gabd5dad43d5d82fd52bd8b9101f50a96e" compoundref="xxxvethernet_8c" startline="283" endline="308">XXxvEthernet_Reset</referencedby>
+        <referencedby refid="group__xxvethernet_1gaf38776edab53749b9204fe1abf45d87a" compoundref="xxxvethernet_8c" startline="780" endline="795">XXxvEthernet_SetAutoNegSpeed</referencedby>
+        <referencedby refid="group__xxvethernet_1gabcf02a5b2b0ee38739bbe4fdc5691a59" compoundref="xxxvethernet_8c" startline="373" endline="455">XXxvEthernet_SetOptions</referencedby>
+        <referencedby refid="group__xxvethernet_1ga09e63e61d122a4f18d3dcd51456a1924" compoundref="xxxvethernet_8c" startline="603" endline="658">XXxvEthernet_SetUsxgmiiRateAndDuplex</referencedby>
+        <referencedby refid="group__xxvethernet_1ga6e4b05d1a7db9def0f688bb3f12839f1" compoundref="xxxvethernet_8c" startline="154" endline="219">XXxvEthernet_Start</referencedby>
+        <referencedby refid="group__xxvethernet_1gacd8a86e3ca2431a4181de0d75fd58759" compoundref="xxxvethernet_8c" startline="239" endline="267">XXxvEthernet_Stop</referencedby>
+        <referencedby refid="group__xxvethernet_1ga341ba96f890e5ca0f3af58c52cfd05b9" compoundref="xxxvethernet_8c" startline="673" endline="691">XXxvEthernet_UsxgmiiAnMainReset</referencedby>
+        <referencedby refid="group__xxvethernet_1ga3b0404e1d23019f56969ed3747175b44" compoundref="xxxvethernet_8c" startline="706" endline="730">XXxvEthernet_UsxgmiiAnMainRestart</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_xxv_ethernet_1a3bee9035da48d3c3faeb645af334b793" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XXxvEthernet::Options</definition>
+        <argsstring></argsstring>
+        <name>Options</name>
+        <briefdescription>
+<para>Current options word. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.h" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.h" bodystart="260" bodyend="-1"/>
+        <referencedby refid="group__xxvethernet_1ga03c42c411753d0fd0373094c420516dd" compoundref="xxxvethernet_8c" startline="476" endline="560">XXxvEthernet_ClearOptions</referencedby>
+        <referencedby refid="group__xxvethernet_1gab074cd6caf93431db36a6a3295f4e143" compoundref="xxxvethernet_8c" startline="576" endline="582">XXxvEthernet_GetOptions</referencedby>
+        <referencedby refid="group__xxvethernet_1gabd5dad43d5d82fd52bd8b9101f50a96e" compoundref="xxxvethernet_8c" startline="283" endline="308">XXxvEthernet_Reset</referencedby>
+        <referencedby refid="group__xxvethernet_1gabcf02a5b2b0ee38739bbe4fdc5691a59" compoundref="xxxvethernet_8c" startline="373" endline="455">XXxvEthernet_SetOptions</referencedby>
+        <referencedby refid="group__xxvethernet_1ga6e4b05d1a7db9def0f688bb3f12839f1" compoundref="xxxvethernet_8c" startline="154" endline="219">XXxvEthernet_Start</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_xxv_ethernet_1a5bbf3707a0062638aa7c4c07adb26741" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XXxvEthernet::Flags</definition>
+        <argsstring></argsstring>
+        <name>Flags</name>
+        <briefdescription>
+<para>Internal driver flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.h" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.h" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>struct <ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref> is the type for Xxv Ethernet driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The calling code is required to use a unique instance of this structure for every Xxv Ethernet device used in the system. A reference to a structure of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>XXxvEthernet</label>
+        <link refid="struct_x_xxv_ethernet"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XXxvEthernet_Config</label>
+        <link refid="struct_x_xxv_ethernet___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.h" bodystart="256" bodyend="262"/>
+    <listofallmembers>
+      <member refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" prot="public" virt="non-virtual"><scope>XXxvEthernet</scope><name>Config</name></member>
+      <member refid="struct_x_xxv_ethernet_1a5bbf3707a0062638aa7c4c07adb26741" prot="public" virt="non-virtual"><scope>XXxvEthernet</scope><name>Flags</name></member>
+      <member refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" prot="public" virt="non-virtual"><scope>XXxvEthernet</scope><name>IsReady</name></member>
+      <member refid="struct_x_xxv_ethernet_1a957ab238a83c9f11d456a43d40ffcf50" prot="public" virt="non-virtual"><scope>XXxvEthernet</scope><name>IsStarted</name></member>
+      <member refid="struct_x_xxv_ethernet_1a3bee9035da48d3c3faeb645af334b793" prot="public" virt="non-virtual"><scope>XXxvEthernet</scope><name>Options</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

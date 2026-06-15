@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_loader___secure_temp_params" kind="struct" prot="public">
+    <compoundname>XLoader_SecureTempParams</compoundname>
+    <includes local="no">xloader_secure.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_loader___secure_temp_params_1a2ed92ce0504832cec7347c969edbfdf3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 XLoader_SecureTempParams::SecureEn</definition>
+        <argsstring></argsstring>
+        <name>SecureEn</name>
+        <briefdescription>
+<para>Security enabled or disabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" bodystart="136" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga629ebb0c55462b5cde87f7e91037b8c0" compoundref="xloader__prtn__load_8c" startline="392" endline="486">XLoader_PrtnCopy</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___secure_temp_params_1a71747d3aebb739a0095d15b14562ba22" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 XLoader_SecureTempParams::IsEncrypted</definition>
+        <argsstring></argsstring>
+        <name>IsEncrypted</name>
+        <briefdescription>
+<para>Encryption enabled or disabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___secure_temp_params_1afa0dd0456ed63b9f8e15924c47e00d35" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 XLoader_SecureTempParams::IsAuthenticated</definition>
+        <argsstring></argsstring>
+        <name>IsAuthenticated</name>
+        <briefdescription>
+<para>Auth enabled or disabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to hold temporary parameters used during secure operations. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_secure.h" bodystart="135" bodyend="141"/>
+    <listofallmembers>
+      <member refid="struct_x_loader___secure_temp_params_1afa0dd0456ed63b9f8e15924c47e00d35" prot="public" virt="non-virtual"><scope>XLoader_SecureTempParams</scope><name>IsAuthenticated</name></member>
+      <member refid="struct_x_loader___secure_temp_params_1a71747d3aebb739a0095d15b14562ba22" prot="public" virt="non-virtual"><scope>XLoader_SecureTempParams</scope><name>IsEncrypted</name></member>
+      <member refid="struct_x_loader___secure_temp_params_1a2ed92ce0504832cec7347c969edbfdf3" prot="public" virt="non-virtual"><scope>XLoader_SecureTempParams</scope><name>SecureEn</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

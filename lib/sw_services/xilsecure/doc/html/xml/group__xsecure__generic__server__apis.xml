@@ -1,0 +1,2005 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xsecure__generic__server__apis" kind="group">
+    <compoundname>xsecure_generic_server_apis</compoundname>
+    <title>XilSecure Generic Server APIs</title>
+    <innerclass refid="struct_x_secure___partial_pdi_event_params" prot="public">XSecure_PartialPdiEventParams</innerclass>
+      <sectiondef kind="user-defined">
+      <header>IP_DISABLE_0 register in EFUSE_CACHE module</header>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1gab82ce1475e318a422d031a314aa3a8c0" prot="public" static="no">
+        <name>XSECURE_EFUSE_CACHE_IP_DISABLE0</name>
+        <initializer>(0xF1250018U)</initializer>
+        <briefdescription>
+<para>&lt; IP_DISABLE_0 register address and definitions </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_cryptochk.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_cryptochk.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga4900fde0f315a9807c11bf73a2e8d90d" compoundref="core_2generic_2xsecure__cryptochk_8c" startline="54" endline="80">XSecure_CryptoCheck</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1gac5cea59b05a6d87440c491ca4b411927" prot="public" static="no">
+        <name>XSECURE_EFUSE_CACHE_IP_DISABLE0_EXPORT_MASK</name>
+        <initializer>(0x20000000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_cryptochk.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_cryptochk.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>CFU_FGCR register in CFU_APB module</header>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1ga9a11065791705fad659c242b458b718d" prot="public" static="no">
+        <name>XSECURE_CFU_APB_CFU_FGCR</name>
+        <initializer>(0xF12B0018U)</initializer>
+        <briefdescription>
+<para>&lt; CFU_FGCR register address and definitions </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_cryptochk.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_cryptochk.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga4900fde0f315a9807c11bf73a2e8d90d" compoundref="core_2generic_2xsecure__cryptochk_8c" startline="54" endline="80">XSecure_CryptoCheck</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1gad7657e60b35a7f1a22e4e03169f35a97" prot="public" static="no">
+        <name>XSECURE_CFU_APB_CFU_FGCR_EOS_MASK</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_cryptochk.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_cryptochk.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>RST_PS register in CRP module</header>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1ga487a922b0b23ccd639975ee5b78de202" prot="public" static="no">
+        <name>XSECURE_CRP_RST_PS</name>
+        <initializer>(0xF126031CU)</initializer>
+        <briefdescription>
+<para>&lt; RST_PS register address and definitions </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_cryptochk.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_cryptochk.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga4900fde0f315a9807c11bf73a2e8d90d" compoundref="core_2generic_2xsecure__cryptochk_8c" startline="54" endline="80">XSecure_CryptoCheck</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1gaa92db08733b459aa630e69d070ebae5d" prot="public" static="no">
+        <name>XSECURE_CRP_RST_PS_PS_SRST_MASK</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_cryptochk.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_cryptochk.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Definition of asserts if macro is defined</header>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1ga2d44494aa84e82f6e26bd0c0a396b734" prot="public" static="no">
+        <name>XSecure_AssertVoid</name>
+        <param><defname>Expression</defname></param>
+        <briefdescription>
+<para>&lt; All asserts are under XSECDEBUG macro now </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="86" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="86" bodyend="-1"/>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga8b4948ee028360683bcc161bf576ec77" compoundref="spartanup_2xsecure__plat_8c" startline="391" endline="404">XSecure_AesPmcDmaCfgEndianness</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1ga657be42526bc347684ea0fc03d71fb71" prot="public" static="no">
+        <name>XSecure_AssertNonvoid</name>
+        <param><defname>Expression</defname></param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xsecure__generic__server__apis_1ga4a4bd32908fec3ffc005880c1fd38ce0" prot="public" static="no">
+        <name>XSecure_CoreSrc</name>
+        <enumvalue id="group__xsecure__helper__server__apis_1gga4a4bd32908fec3ffc005880c1fd38ce0a236a26f41010d5326c18644c346829e1" prot="public">
+          <name>XSECURE_CORE_AES</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>AES Core. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1gga4a4bd32908fec3ffc005880c1fd38ce0a55eb8cd4a7df8391e525366489b1361d" prot="public">
+          <name>XSECURE_CORE_SHA</name>
+          <briefdescription>
+<para>SHA Core. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1gga4a4bd32908fec3ffc005880c1fd38ce0a8fd1af87ffbefaeca194e706837cc248" prot="public">
+          <name>XSECURE_CORE_RSA_ECC</name>
+          <briefdescription>
+<para>RSA/ECC Core. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1gga4a4bd32908fec3ffc005880c1fd38ce0a836ce3ac5ccad42130346893b0c40791" prot="public">
+          <name>XSECURE_CORE_ALL</name>
+          <briefdescription>
+<para>All Cores. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1gga4a4bd32908fec3ffc005880c1fd38ce0a236a26f41010d5326c18644c346829e1" prot="public">
+          <name>XSECURE_CORE_AES</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>AES Core. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1gga4a4bd32908fec3ffc005880c1fd38ce0a55eb8cd4a7df8391e525366489b1361d" prot="public">
+          <name>XSECURE_CORE_SHA</name>
+          <briefdescription>
+<para>SHA Core. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Sources to be selected the core to check sticky bits for AES, SHA, RSA. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_cryptochk.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_cryptochk.h" bodystart="47" bodyend="52"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xsecure__generic__server__apis_1ga523615d7e0addb52c674dfda36be2aba" prot="public" static="yes" mutable="no">
+        <type>XSecure_Sha</type>
+        <definition>XSecure_Sha XSecure_ShaInstance[XSECURE_SHA_NUM_OF_INSTANCES]</definition>
+        <argsstring>[XSECURE_SHA_NUM_OF_INSTANCES]</argsstring>
+        <name>XSecure_ShaInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__generic__server__apis_1ga9fb9951d818547de8d4167dad40a6c59" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_ResIpiMask[XPLMI_MAX_CORE]</definition>
+        <argsstring>[XPLMI_MAX_CORE]</argsstring>
+        <name>XSecure_ResIpiMask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_resourcehandling.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_resourcehandling.c" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__generic__server__apis_1gada07a68f301624fc9e9f0874df63703c" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_DataContextLost[XPLMI_MAX_CORE]</definition>
+        <argsstring>[XPLMI_MAX_CORE]</argsstring>
+        <name>XSecure_DataContextLost</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_resourcehandling.c" line="405" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_resourcehandling.c" bodystart="405" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__generic__server__apis_1ga39d733dc4a1a03f4b443798e2d474fb6" prot="public" static="yes" mutable="no">
+        <type>XPlmi_Module</type>
+        <definition>static XPlmi_Module XPlmi_Secure</definition>
+        <argsstring></argsstring>
+        <name>XPlmi_Secure</name>
+        <initializer>=
+{
+	XPLMI_MODULE_XILSECURE_ID,
+	XSecure_Cmds,
+	<ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18eba90f086d185554c0320c951cb660" kindref="member">XSECURE_API_MAX</ref>),
+	XSecure_InvalidCmdHandler,
+	XSecure_AccessPermBuff,
+
+
+
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_cmd.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_cmd.c" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__generic__server__apis_1gafaaecb8a7248125f91ab03ea048e082a" prot="public" static="yes" mutable="no">
+        <type>XPlmi_ModuleCmd</type>
+        <definition>XPlmi_ModuleCmd XSecure_Cmds[XSECURE_API_MAX]</definition>
+        <argsstring>[XSECURE_API_MAX]</argsstring>
+        <name>XSecure_Cmds</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_cmd.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_cmd.c" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__generic__server__apis_1ga71f2f6bc35a9c9a1a017d8ecbbac00ca" prot="public" static="yes" mutable="no">
+        <type>XPlmi_AccessPerm_t</type>
+        <definition>XPlmi_AccessPerm_t XSecure_AccessPermBuff[XSECURE_API_MAX]</definition>
+        <argsstring>[XSECURE_API_MAX]</argsstring>
+        <name>XSecure_AccessPermBuff</name>
+        <initializer>=
+{
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca751d44e2e77d153cff86b478f01d0e72" kindref="member">XSECURE_API_FEATURES</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" kindref="member">XSECURE_API_RSA_SIGN_VERIFY</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca64400e366afc1fa1c96b991d9061dc50" kindref="member">XSECURE_API_RSA_PUBLIC_ENCRYPT</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1106e4714531244afe2851830e51af1b" kindref="member">XSECURE_API_RSA_PRIVATE_DECRYPT</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f" kindref="member">XSECURE_API_SHA3_UPDATE</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaeab0747eb84fba76e285132d85fae1c4" kindref="member">XSECURE_API_ELLIPTIC_GENERATE_KEY</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1eebf4899c7d95eb160c8a83d4c780f8" kindref="member">XSECURE_API_ELLIPTIC_GENERATE_SIGN</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca01c0ab6477c532f187b729665036b0b8" kindref="member">XSECURE_API_ELLIPTIC_VALIDATE_KEY</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0bd0d49b5ae8ddc3957afa1a2e3cc284" kindref="member">XSECURE_API_ELLIPTIC_VERIFY_SIGN</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca02f7a9f0b902d3783d8d7508ef194477" kindref="member">XSECURE_API_AES_INIT</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acabf47c27ddc6dcbdce2694869cea603aa" kindref="member">XSECURE_API_AES_OP_INIT</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6febb16fb9387879f8ffb7c7a51e7064" kindref="member">XSECURE_API_AES_UPDATE_AAD</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad8f88bc04c0bf662cf12324269d81ff2" kindref="member">XSECURE_API_AES_ENCRYPT_UPDATE</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca725ee7839a0af61500722276cdf5fe65" kindref="member">XSECURE_API_AES_ENCRYPT_FINAL</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca45d225b8053c332f20fbdb468b21e436" kindref="member">XSECURE_API_AES_DECRYPT_UPDATE</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18c3a8922609fb6afceea6a068f2baf2" kindref="member">XSECURE_API_AES_DECRYPT_FINAL</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca16f54fa4047812544017288d499c2ddb" kindref="member">XSECURE_API_AES_KEY_ZERO</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab8155ff5779538f3fa2f7b8b2c3c251c" kindref="member">XSECURE_API_AES_WRITE_KEY</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8e1f5af6efb89d6bd03e40a68960158e" kindref="member">XSECURE_API_AES_LOCK_USER_KEY</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad5d672c120603105e990a4a321938cb1" kindref="member">XSECURE_API_AES_KEK_DECRYPT</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acadc717b63c9b0d4b8f7b3a54d932435de" kindref="member">XSECURE_API_AES_SET_DPA_CM</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a" kindref="member">XSECURE_API_KAT</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaffa8a13644e65d5e7776e9198365c5cd" kindref="member">XSECURE_API_AES_PERFORM_OPERATION</ref>),
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_cmd.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_cmd.c" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__generic__server__apis_1ga39d733dc4a1a03f4b443798e2d474fb6" prot="public" static="yes" mutable="no">
+        <type>XPlmi_Module</type>
+        <definition>static XPlmi_Module XPlmi_Secure</definition>
+        <argsstring></argsstring>
+        <name>XPlmi_Secure</name>
+        <initializer>=
+{
+	XPLMI_MODULE_XILSECURE_ID,
+	XSecure_Cmds,
+	<ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18eba90f086d185554c0320c951cb660" kindref="member">XSECURE_API_MAX</ref>),
+	NULL,
+	XSecure_AccessPermBuff,
+	NULL,
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_cmd.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_cmd.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__generic__server__apis_1gafaaecb8a7248125f91ab03ea048e082a" prot="public" static="yes" mutable="no">
+        <type>XPlmi_ModuleCmd</type>
+        <definition>XPlmi_ModuleCmd XSecure_Cmds[XSECURE_API_MAX]</definition>
+        <argsstring>[XSECURE_API_MAX]</argsstring>
+        <name>XSecure_Cmds</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_cmd.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_cmd.c" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__generic__server__apis_1ga71f2f6bc35a9c9a1a017d8ecbbac00ca" prot="public" static="yes" mutable="no">
+        <type>XPlmi_AccessPerm_t</type>
+        <definition>XPlmi_AccessPerm_t XSecure_AccessPermBuff[XSECURE_API_MAX]</definition>
+        <argsstring>[XSECURE_API_MAX]</argsstring>
+        <name>XSecure_AccessPermBuff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_cmd.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_cmd.c" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__generic__server__apis_1ga39d733dc4a1a03f4b443798e2d474fb6" prot="public" static="yes" mutable="no">
+        <type>XPlmi_Module</type>
+        <definition>static XPlmi_Module XPlmi_Secure</definition>
+        <argsstring></argsstring>
+        <name>XPlmi_Secure</name>
+        <initializer>=
+{
+	XPLMI_MODULE_XILSECURE_ID,
+	XSecure_Cmds,
+	<ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18eba90f086d185554c0320c951cb660" kindref="member">XSECURE_API_MAX</ref>),
+	XSecure_InvalidCmdHandler,
+	XSecure_AccessPermBuff,
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_cmd.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_cmd.c" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__generic__server__apis_1gafaaecb8a7248125f91ab03ea048e082a" prot="public" static="yes" mutable="no">
+        <type>XPlmi_ModuleCmd</type>
+        <definition>XPlmi_ModuleCmd XSecure_Cmds[XSECURE_API_MAX]</definition>
+        <argsstring>[XSECURE_API_MAX]</argsstring>
+        <name>XSecure_Cmds</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_cmd.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_cmd.c" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__generic__server__apis_1ga71f2f6bc35a9c9a1a017d8ecbbac00ca" prot="public" static="yes" mutable="no">
+        <type>XPlmi_AccessPerm_t</type>
+        <definition>XPlmi_AccessPerm_t XSecure_AccessPermBuff[XSECURE_API_MAX]</definition>
+        <argsstring>[XSECURE_API_MAX]</argsstring>
+        <name>XSecure_AccessPermBuff</name>
+        <initializer>=
+{
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca751d44e2e77d153cff86b478f01d0e72" kindref="member">XSECURE_API_FEATURES</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" kindref="member">XSECURE_API_RSA_SIGN_VERIFY</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca64400e366afc1fa1c96b991d9061dc50" kindref="member">XSECURE_API_RSA_PUBLIC_ENCRYPT</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1106e4714531244afe2851830e51af1b" kindref="member">XSECURE_API_RSA_PRIVATE_DECRYPT</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f" kindref="member">XSECURE_API_SHA3_UPDATE</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaeab0747eb84fba76e285132d85fae1c4" kindref="member">XSECURE_API_ELLIPTIC_GENERATE_KEY</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1eebf4899c7d95eb160c8a83d4c780f8" kindref="member">XSECURE_API_ELLIPTIC_GENERATE_SIGN</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca01c0ab6477c532f187b729665036b0b8" kindref="member">XSECURE_API_ELLIPTIC_VALIDATE_KEY</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0bd0d49b5ae8ddc3957afa1a2e3cc284" kindref="member">XSECURE_API_ELLIPTIC_VERIFY_SIGN</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca02f7a9f0b902d3783d8d7508ef194477" kindref="member">XSECURE_API_AES_INIT</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acabf47c27ddc6dcbdce2694869cea603aa" kindref="member">XSECURE_API_AES_OP_INIT</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6febb16fb9387879f8ffb7c7a51e7064" kindref="member">XSECURE_API_AES_UPDATE_AAD</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad8f88bc04c0bf662cf12324269d81ff2" kindref="member">XSECURE_API_AES_ENCRYPT_UPDATE</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca725ee7839a0af61500722276cdf5fe65" kindref="member">XSECURE_API_AES_ENCRYPT_FINAL</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca45d225b8053c332f20fbdb468b21e436" kindref="member">XSECURE_API_AES_DECRYPT_UPDATE</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18c3a8922609fb6afceea6a068f2baf2" kindref="member">XSECURE_API_AES_DECRYPT_FINAL</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca16f54fa4047812544017288d499c2ddb" kindref="member">XSECURE_API_AES_KEY_ZERO</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab8155ff5779538f3fa2f7b8b2c3c251c" kindref="member">XSECURE_API_AES_WRITE_KEY</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8e1f5af6efb89d6bd03e40a68960158e" kindref="member">XSECURE_API_AES_LOCK_USER_KEY</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad5d672c120603105e990a4a321938cb1" kindref="member">XSECURE_API_AES_KEK_DECRYPT</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acadc717b63c9b0d4b8f7b3a54d932435de" kindref="member">XSECURE_API_AES_SET_DPA_CM</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a" kindref="member">XSECURE_API_KAT</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaffa8a13644e65d5e7776e9198365c5cd" kindref="member">XSECURE_API_AES_PERFORM_OPERATION</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab281f47d0b6c949e695c0173ff9d0dc7" kindref="member">XSECURE_API_GEN_SHARED_SECRET</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3" kindref="member">XSECURE_API_TRNG_GENERATE</ref>),
+	XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6587bb0b0a30f19f162af828a11338c3" kindref="member">XSECURE_API_ELLIPTIC_PRIVATE_KEY_GEN</ref>),
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_cmd.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_cmd.c" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__generic__server__apis_1ga39d733dc4a1a03f4b443798e2d474fb6" prot="public" static="yes" mutable="no">
+        <type>XPlmi_Module</type>
+        <definition>static XPlmi_Module XPlmi_Secure</definition>
+        <argsstring></argsstring>
+        <name>XPlmi_Secure</name>
+        <initializer>=
+{
+	XPLMI_MODULE_XILSECURE_ID,
+	XSecure_Cmds,
+	<ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18eba90f086d185554c0320c951cb660" kindref="member">XSECURE_API_MAX</ref>),
+	NULL,
+	XSecure_AccessPermBuff,
+	NULL,
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp_p/xsecure_cmd.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp_p/xsecure_cmd.c" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__generic__server__apis_1gafaaecb8a7248125f91ab03ea048e082a" prot="public" static="yes" mutable="no">
+        <type>XPlmi_ModuleCmd</type>
+        <definition>XPlmi_ModuleCmd XSecure_Cmds[XSECURE_API_MAX]</definition>
+        <argsstring>[XSECURE_API_MAX]</argsstring>
+        <name>XSecure_Cmds</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp_p/xsecure_cmd.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp_p/xsecure_cmd.c" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__generic__server__apis_1ga71f2f6bc35a9c9a1a017d8ecbbac00ca" prot="public" static="yes" mutable="no">
+        <type>XPlmi_AccessPerm_t</type>
+        <definition>XPlmi_AccessPerm_t XSecure_AccessPermBuff[XSECURE_API_MAX]</definition>
+        <argsstring>[XSECURE_API_MAX]</argsstring>
+        <name>XSecure_AccessPermBuff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp_p/xsecure_cmd.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp_p/xsecure_cmd.c" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__generic__server__apis_1ga39d733dc4a1a03f4b443798e2d474fb6" prot="public" static="yes" mutable="no">
+        <type>XPlmi_Module</type>
+        <definition>static XPlmi_Module XPlmi_Secure</definition>
+        <argsstring></argsstring>
+        <name>XPlmi_Secure</name>
+        <initializer>=
+{
+	XPLMI_MODULE_XILSECURE_ID,
+	XSecure_Cmds,
+	<ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18eba90f086d185554c0320c951cb660" kindref="member">XSECURE_API_MAX</ref>),
+	NULL,
+	XSecure_AccessPermBuff,
+	NULL,
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_cmd.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_cmd.c" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__generic__server__apis_1gafaaecb8a7248125f91ab03ea048e082a" prot="public" static="yes" mutable="no">
+        <type>XPlmi_ModuleCmd</type>
+        <definition>XPlmi_ModuleCmd XSecure_Cmds[XSECURE_API_MAX]</definition>
+        <argsstring>[XSECURE_API_MAX]</argsstring>
+        <name>XSecure_Cmds</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_cmd.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_cmd.c" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__generic__server__apis_1ga71f2f6bc35a9c9a1a017d8ecbbac00ca" prot="public" static="yes" mutable="no">
+        <type>XPlmi_AccessPerm_t</type>
+        <definition>XPlmi_AccessPerm_t XSecure_AccessPermBuff[XSECURE_API_MAX]</definition>
+        <argsstring>[XSECURE_API_MAX]</argsstring>
+        <name>XSecure_AccessPermBuff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_cmd.c" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_cmd.c" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga4900fde0f315a9807c11bf73a2e8d90d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_CryptoCheck</definition>
+        <argsstring>(XSecure_CoreSrc CoreSrc)</argsstring>
+        <name>XSecure_CryptoCheck</name>
+        <param>
+          <type><ref refid="group__xsecure__generic__server__apis_1ga4a4bd32908fec3ffc005880c1fd38ce0" kindref="member">XSecure_CoreSrc</ref></type>
+          <declname>CoreSrc</declname>
+        </param>
+        <briefdescription>
+<para>This function checks if the EXPORT control eFuse is programmed and PL loading is done. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CoreSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Crypto core source (AES, SHA, RSA)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - When crypto accelerators are enabled</para></listitem><listitem><para>XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED - When crypto accelerators are disabled </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Core Source parameter is not applicable for Versal family</para></listitem><listitem><para>Validate export efuse control bit is programmed, to confirm crypto accelerator is enabled.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_cryptochk.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_cryptochk.c" bodystart="54" bodyend="80"/>
+        <references refid="group__xsecure__generic__server__apis_1ga9a11065791705fad659c242b458b718d" compoundref="core_2generic_2xsecure__cryptochk_8h" startline="68">XSECURE_CFU_APB_CFU_FGCR</references>
+        <references refid="group__xsecure__generic__server__apis_1ga487a922b0b23ccd639975ee5b78de202" compoundref="core_2generic_2xsecure__cryptochk_8h" startline="77">XSECURE_CRP_RST_PS</references>
+        <references refid="group__xsecure__generic__server__apis_1gab82ce1475e318a422d031a314aa3a8c0" compoundref="core_2generic_2xsecure__cryptochk_8h" startline="59">XSECURE_EFUSE_CACHE_IP_DISABLE0</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da432abf378aa4bad748485cf4c276628e" compoundref="spartanup_2xsecure__error_8h" startline="247">XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED</references>
+        <references refid="group__xsecure__generic__server__apis_1ga4e695dfc0e718c61fc93d707a9578f54" compoundref="core_2util_2xsecure__utils_8h" startline="217">XSecure_In32</references>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1gadeb15e6ff58fe7e52935350e1a92a102" compoundref="zynqmp_2xsecure__aes_8c" startline="150" endline="186">XSecure_AesInitialize</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab3835b878d2947b3f94ba4cd555dd641" compoundref="xsecure__ellipticplat_8c" startline="310" endline="400">XSecure_EcdhGetSecret</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga682282def21e1c86ab583cdd41090fbb" compoundref="xsecure__elliptic_8c" startline="118" endline="194">XSecure_EllipticGenerateKey_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga3af7e8a366bb982fa4c0c82be1b37250" compoundref="xsecure__elliptic_8c" startline="269" endline="390">XSecure_EllipticGenerateSignature_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab83385dfd83a7bfdef4d74ec412e15c6" compoundref="xsecure__elliptic_8c" startline="479" endline="552">XSecure_EllipticValidateKey_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga0bb6ca50d138b482eb9a5d9f18e398d8" compoundref="xsecure__elliptic_8c" startline="621" endline="738">XSecure_EllipticVerifySign_64Bit</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1gaa7dd5cb6143f1767dbfce0cee845f014" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="111" endline="134">XSecure_RsaCfgInitialize</referencedby>
+        <referencedby refid="group__xsecure__sha__server__apis_1gaf5b5bd6216ac55a6a9baf719e6bdd725" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="263" endline="307">XSecure_Sha3Start</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga9aa6e139b83f8847145b76986672d29a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_AesShaInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_AesShaInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function initializes AES and SHA hardware instances. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XST_FAILURE - On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Initializes AES structure</para></listitem><listitem><para>Initializes SHA structure for operating the SHA3 engine </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" bodystart="85" bodyend="130"/>
+        <references refid="group__xsecure__aes__client__apis_1ga2768b0d967bc577d2721682881592bb7" compoundref="xsecure__aesclient_8c" startline="77" endline="88">XSecure_AesInitialize</references>
+        <references refid="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" compoundref="xsecure__init_8c" startline="216" endline="221">XSecure_GetAesInstance</references>
+        <references refid="group__xsecure__generic__server__apis_1gac9c421c34d99194009679bdb4cf888ca" compoundref="xsecure__init_8c" startline="202" endline="205">XSecure_GetSha2Instance</references>
+        <references refid="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" compoundref="xsecure__init_8c" startline="189" endline="192">XSecure_GetSha3Instance</references>
+        <references refid="versal_2xsecure__sha__hw_8h_1a809692bfb3b5d91eb2e4b3eb722d4f83" compoundref="versal_2xsecure__sha__hw_8h" startline="50">XSECURE_SHA_0_DEVICE_ID</references>
+        <references refid="versal__2ve__2vm_2xsecure__sha__hw_8h_1ae88a494ef68a7549d515d5afbc7727e5" compoundref="versal__2ve__2vm_2xsecure__sha__hw_8h" startline="50">XSECURE_SHA_1_DEVICE_ID</references>
+        <references refid="group__xsecure__sha__server__apis_1gafeb87542b7de2a6f5e62c5fa6c84ff8b" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="789" endline="792">XSecure_ShaInitialize</references>
+        <references refid="group__xsecure__sha__server__apis_1ga41a0772cfe31c9e14e437c83e41ecfc2" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="923" endline="926">XSecure_ShaLookupConfig</references>
+        <referencedby refid="group__xsecure__generic__server__apis_1gae97f3300511e1fce60d35fac22781594" compoundref="xsecure__init_8c" startline="143" endline="179">XSecure_Init</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1gae97f3300511e1fce60d35fac22781594" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_Init</definition>
+        <argsstring>(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)</argsstring>
+        <name>XSecure_Init</name>
+        <param>
+          <type><ref refid="struct_x_secure___partial_pdi_event_params" kindref="compound">XSecure_PartialPdiEventParams</ref> *</type>
+          <declname>PpdiEventParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function registers the handlers for XilSecure IPI commands. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PpdiEventParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to partial PDI event parameters</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XST_FAILURE - On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" bodystart="143" bodyend="179"/>
+        <references refid="group__xsecure__rsa__server__apis_1ga164469228a4eea6357072fee975418de" compoundref="xsecure__plat__rsa_8c" startline="389" endline="405">XSecure_AddRsaKeyPairGenerationToScheduler</references>
+        <references refid="group__xsecure__generic__server__apis_1ga9aa6e139b83f8847145b76986672d29a" compoundref="xsecure__init_8c" startline="85" endline="130">XSecure_AesShaInit</references>
+        <references refid="group__xsecure__generic__server__apis_1gae7ad1b3e38daf23bae35666d7a9876d8" compoundref="2ve__2vm_2xsecure__cmd_8c" startline="358" endline="368">XSecure_CmdsInit</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XSecure_Sha *</type>
+        <definition>XSecure_Sha * XSecure_GetSha3Instance</definition>
+        <argsstring>(u32 DeviceId)</argsstring>
+        <name>XSecure_GetSha3Instance</name>
+        <param>
+          <type>u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This function provides the pointer to the sha3 instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>Pointer to the XSecure_Sha instance </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" bodystart="189" bodyend="192"/>
+        <references refid="group__xsecure__generic__server__apis_1gab0b44f0c1faad2a80c53984e83549267" compoundref="xsecure__init_8c" startline="250" endline="263">XSecure_GetShaInstance</references>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga9aa6e139b83f8847145b76986672d29a" compoundref="xsecure__init_8c" startline="85" endline="130">XSecure_AesShaInit</referencedby>
+        <referencedby refid="group__xsecure__kdf__server__apis_1ga4ce6b83111541227a82cb8f566a02106" compoundref="xsecure__kdf_8c" startline="59" endline="161">XSecure_Hkdf</referencedby>
+        <referencedby refid="group__xsecure__hmac__server__apis_1gada22059d2f57912504ffc71677bb2718" compoundref="xsecure__hmac__ipihandler_8c" startline="63" endline="106">XSecure_HmacIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga693f088bbeaa2be1dd7a084c2bee6351" compoundref="xsecure__kat__ipihandler_8c" startline="80" endline="176">XSecure_KatIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga07ca644998ec3bcf61557b4510708101" compoundref="xsecure__resourcehandling_8c" startline="491" endline="533">XSecure_SetDataContextLost</referencedby>
+        <referencedby refid="group__xsecure__sha__server__apis_1ga7f7ea6efde319f58105d7ae453081235" compoundref="xsecure__sha__ipihandler_8c" startline="88" endline="123">XSecure_Sha3IpiHandler</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga7004972638c2036271d309af8ae5c351" compoundref="_2xsecure__sha__ipihandler_8c" startline="72" endline="120">XSecure_ShaIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga77d5289144f7e1df2a55881809ba8255" compoundref="xsecure__slhdsa__ipihandler_8c" startline="56" endline="97">XSecure_SlhdsaIpiHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1gac9c421c34d99194009679bdb4cf888ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XSecure_Sha *</type>
+        <definition>XSecure_Sha * XSecure_GetSha2Instance</definition>
+        <argsstring>(u32 DeviceId)</argsstring>
+        <name>XSecure_GetSha2Instance</name>
+        <param>
+          <type>u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This function provides the pointer to the sha2 instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>Pointer to the XSecure_Sha instance </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" bodystart="202" bodyend="205"/>
+        <references refid="group__xsecure__generic__server__apis_1gab0b44f0c1faad2a80c53984e83549267" compoundref="xsecure__init_8c" startline="250" endline="263">XSecure_GetShaInstance</references>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga9aa6e139b83f8847145b76986672d29a" compoundref="xsecure__init_8c" startline="85" endline="130">XSecure_AesShaInit</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gaf7cb17f01c5c5542c9c2b3d6f00699d3" compoundref="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8c" startline="61" endline="108">XSecure_KatPlatIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga7004972638c2036271d309af8ae5c351" compoundref="_2xsecure__sha__ipihandler_8c" startline="72" endline="120">XSecure_ShaIpiHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XSecure_Aes *</type>
+        <definition>XSecure_Aes * XSecure_GetAesInstance</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_GetAesInstance</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function provides the pointer to the common Aes instance which has to be used between PLM and xilsecure server. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>Pointer to the XSecure_Aes instance </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" bodystart="216" bodyend="221"/>
+        <referencedby refid="group__xsecure__aes__server__apis_1gaa58a05547f6ae883c23823bf0f3bed7d" compoundref="xsecure__aes__ipihandler_8c" startline="206" endline="221">XSecure_AesInit</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga3d0efd64b0f7ebbdc1b3be80aa10a840" compoundref="xsecure__aes__ipihandler_8c" startline="107" endline="195">XSecure_AesIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga91032738bf5e54ecd090f802dd30a23e" compoundref="xsecure__aes__ipihandler_8c" startline="511" endline="535">XSecure_AesKeyWrite</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga6b5414d0bffdebf14b418d2d05135faa" compoundref="xsecure__aes__ipihandler_8c" startline="474" endline="493">XSecure_AesKeyZeroize</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga4dac9d051ab1e5fa765badf3b682a642" compoundref="xsecure__aes__ipihandler_8c" startline="619" endline="683">XSecure_AesPerformOperation</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1gadc255b2085b85b148a6ab41d71fde8e2" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="296" endline="360">XSecure_AesPlatPmcDmaCfgAndXfer</referencedby>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga9aa6e139b83f8847145b76986672d29a" compoundref="xsecure__init_8c" startline="85" endline="130">XSecure_AesShaInit</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga557eeba8aca187788ae1d41a4e255f0d" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="238" endline="243">XSecure_ConfigureDmaByteSwap</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga693f088bbeaa2be1dd7a084c2bee6351" compoundref="xsecure__kat__ipihandler_8c" startline="80" endline="176">XSecure_KatIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga1471a9dc9965ae80577a09aadafeeb53" compoundref="xsecure__plat__aes__ipihandler_8c" startline="60" endline="100">XSecure_PlatAesIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga07ca644998ec3bcf61557b4510708101" compoundref="xsecure__resourcehandling_8c" startline="491" endline="533">XSecure_SetDataContextLost</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga4d02aaca191ced35af31e6f80b76f2b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref> *</type>
+        <definition>XSecure_Rsa * XSecure_GetRsaInstance</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_GetRsaInstance</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function provides the pointer to the common Rsa instance which has to be used between PLM and xilsecure server. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>Pointer to the <ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref> instance </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" bodystart="233" bodyend="238"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1gab0b44f0c1faad2a80c53984e83549267" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XSecure_Sha *</type>
+        <definition>XSecure_Sha * XSecure_GetShaInstance</definition>
+        <argsstring>(u32 DeviceId)</argsstring>
+        <name>XSecure_GetShaInstance</name>
+        <param>
+          <type>u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This function provides the pointer to the sha instance based on the DevieId. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>Pointer to the XSecure_Sha instance </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" bodystart="250" bodyend="263"/>
+        <references refid="versal_2xsecure__sha__hw_8h_1a20b9a0d810aec45fb949b752d3540a1a" compoundref="versal_2xsecure__sha__hw_8h" startline="43">XSECURE_SHA_NUM_OF_INSTANCES</references>
+        <referencedby refid="group__xsecure__generic__server__apis_1gac9c421c34d99194009679bdb4cf888ca" compoundref="xsecure__init_8c" startline="202" endline="205">XSecure_GetSha2Instance</referencedby>
+        <referencedby refid="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" compoundref="xsecure__init_8c" startline="189" endline="192">XSecure_GetSha3Instance</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1gace2c73e5d80dd85a226551b02e396cc0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_MakeResFree</definition>
+        <argsstring>(XPlmi_CoreType Core)</argsstring>
+        <name>XSecure_MakeResFree</name>
+        <param>
+          <type>XPlmi_CoreType</type>
+          <declname>Core</declname>
+        </param>
+        <briefdescription>
+<para>The function frees AES/SHA resource. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Core</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the resource which is to be freed</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Always returns XST_SUCCESS </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Free resource by clearing its IPI mask </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_resourcehandling.c" line="421" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_resourcehandling.c" bodystart="421" bodyend="427"/>
+        <references refid="group__xsecure__common__apis_1ga5e150159815d9ae9fbde4fa12c48ab00" compoundref="xsecure__defs_8h" startline="122">XSECURE_IPI_MASK_DEF_VAL</references>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga3d0efd64b0f7ebbdc1b3be80aa10a840" compoundref="xsecure__aes__ipihandler_8c" startline="107" endline="195">XSecure_AesIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__hmac__server__apis_1gada22059d2f57912504ffc71677bb2718" compoundref="xsecure__hmac__ipihandler_8c" startline="63" endline="106">XSecure_HmacIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga693f088bbeaa2be1dd7a084c2bee6351" compoundref="xsecure__kat__ipihandler_8c" startline="80" endline="176">XSecure_KatIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gaf7cb17f01c5c5542c9c2b3d6f00699d3" compoundref="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8c" startline="61" endline="108">XSecure_KatPlatIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga1471a9dc9965ae80577a09aadafeeb53" compoundref="xsecure__plat__aes__ipihandler_8c" startline="60" endline="100">XSecure_PlatAesIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__sha__server__apis_1ga7f7ea6efde319f58105d7ae453081235" compoundref="xsecure__sha__ipihandler_8c" startline="88" endline="123">XSecure_Sha3IpiHandler</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga7004972638c2036271d309af8ae5c351" compoundref="_2xsecure__sha__ipihandler_8c" startline="72" endline="120">XSecure_ShaIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga77d5289144f7e1df2a55881809ba8255" compoundref="xsecure__slhdsa__ipihandler_8c" startline="56" endline="97">XSecure_SlhdsaIpiHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga888b5fb720349f4766f1a6b45f318520" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_IpiEventHandling</definition>
+        <argsstring>(XPlmi_Cmd *Cmd, XPlmi_CoreType Core)</argsstring>
+        <name>XSecure_IpiEventHandling</name>
+        <param>
+          <type>XPlmi_Cmd *</type>
+          <declname>Cmd</declname>
+        </param>
+        <param>
+          <type>XPlmi_CoreType</type>
+          <declname>Core</declname>
+        </param>
+        <briefdescription>
+<para>The function handles the SHA/AES IPI events. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to received IPI command </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Core</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the resource whose IPI events are to be handled</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XST_INVALID_PARAM - If Cmd is NULL or Core is invalid</para></listitem><listitem><para>XST_DEVICE_BUSY - If device is busy with different IPI mask</para></listitem><listitem><para>XST_DATA_LOST - If data context was lost </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Input parameters validation</para><para>Notify IPI event if the operation is in progress and if IPI mask gets mismatched and the received command is 1st Pkt</para></listitem><listitem><para>Check received command in case of IPI mask mismatch</para></listitem><listitem><para>Load current IPI mask </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_resourcehandling.c" line="443" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_resourcehandling.c" bodystart="443" bodyend="478"/>
+        <references refid="group__xsecure__generic__server__apis_1ga5b31bdf55904eebd8bc221b1f4162dda" compoundref="xsecure__resourcehandling_8c" startline="409">XSECURE_DATACONTEXTLOST_CLR</references>
+        <references refid="group__xsecure__generic__server__apis_1ga6e10f77d85d26c11567da45274606f18" compoundref="xsecure__resourcehandling_8c" startline="408">XSECURE_DATACONTEXTLOST_SET</references>
+        <references refid="group__xsecure__common__apis_1ga5e150159815d9ae9fbde4fa12c48ab00" compoundref="xsecure__defs_8h" startline="122">XSECURE_IPI_MASK_DEF_VAL</references>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga3d0efd64b0f7ebbdc1b3be80aa10a840" compoundref="xsecure__aes__ipihandler_8c" startline="107" endline="195">XSecure_AesIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__hmac__server__apis_1gada22059d2f57912504ffc71677bb2718" compoundref="xsecure__hmac__ipihandler_8c" startline="63" endline="106">XSecure_HmacIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga693f088bbeaa2be1dd7a084c2bee6351" compoundref="xsecure__kat__ipihandler_8c" startline="80" endline="176">XSecure_KatIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gaf7cb17f01c5c5542c9c2b3d6f00699d3" compoundref="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8c" startline="61" endline="108">XSecure_KatPlatIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga1471a9dc9965ae80577a09aadafeeb53" compoundref="xsecure__plat__aes__ipihandler_8c" startline="60" endline="100">XSecure_PlatAesIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__sha__server__apis_1ga7f7ea6efde319f58105d7ae453081235" compoundref="xsecure__sha__ipihandler_8c" startline="88" endline="123">XSecure_Sha3IpiHandler</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga7004972638c2036271d309af8ae5c351" compoundref="_2xsecure__sha__ipihandler_8c" startline="72" endline="120">XSecure_ShaIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga77d5289144f7e1df2a55881809ba8255" compoundref="xsecure__slhdsa__ipihandler_8c" startline="56" endline="97">XSecure_SlhdsaIpiHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga07ca644998ec3bcf61557b4510708101" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_SetDataContextLost</definition>
+        <argsstring>(XPlmi_CoreType Core)</argsstring>
+        <name>XSecure_SetDataContextLost</name>
+        <param>
+          <type>XPlmi_CoreType</type>
+          <declname>Core</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the status of data context of previous AES/SHA operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Core</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the SHA/AES source whose data context status has to be set</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XST_INVALID_PARAM - If Core is invalid </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Input parameters validation</para></listitem><listitem><para>Set data context lost only when resource is busy</para></listitem><listitem><para>Set SHA under reset</para></listitem><listitem><para>Set AES under reset</para></listitem><listitem><para>Do nothing and return error </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_resourcehandling.c" line="491" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_resourcehandling.c" bodystart="491" bodyend="533"/>
+        <references refid="group__xsecure__generic__server__apis_1ga6e10f77d85d26c11567da45274606f18" compoundref="xsecure__resourcehandling_8c" startline="408">XSECURE_DATACONTEXTLOST_SET</references>
+        <references refid="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" compoundref="xsecure__init_8c" startline="216" endline="221">XSecure_GetAesInstance</references>
+        <references refid="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" compoundref="xsecure__init_8c" startline="189" endline="192">XSecure_GetSha3Instance</references>
+        <references refid="group__xsecure__common__apis_1ga5e150159815d9ae9fbde4fa12c48ab00" compoundref="xsecure__defs_8h" startline="122">XSECURE_IPI_MASK_DEF_VAL</references>
+        <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
+        <references refid="versal_2xsecure__sha__hw_8h_1aa515a3b9b62a6133e3fef54a222e3648" compoundref="versal_2xsecure__sha__hw_8h" startline="59">XSECURE_SHA3_RESET_OFFSET</references>
+        <references refid="versal_2xsecure__sha__hw_8h_1a809692bfb3b5d91eb2e4b3eb722d4f83" compoundref="versal_2xsecure__sha__hw_8h" startline="50">XSECURE_SHA_0_DEVICE_ID</references>
+        <references refid="group__xsecure__sha__client__apis_1ggad25387a8cba5004407abe70e310752c1ae0d4e37cd66a043951bad56ec54251d1" compoundref="xsecure__shaclient_8h" startline="56">XSECURE_SHA_INITIALIZED</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga983c5335a654dac69268d6e447796be8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_SssDmaSrc</definition>
+        <argsstring>(u16 DmaId, XSecure_SssSrc *Resource)</argsstring>
+        <name>XSecure_SssDmaSrc</name>
+        <param>
+          <type>u16</type>
+          <declname>DmaId</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref> *</type>
+          <declname>Resource</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the DMA source of type XSecure_SssSrc based on the provided DMA device ID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DmaId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device ID of DMA </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Resource</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>DMA source is updated into the pointer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If DMA ID is correct</para></listitem><listitem><para>XST_FAILURE - On wrong DMA ID </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_sss.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_sss.c" bodystart="252" bodyend="270"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1gad050ff86cc97da48e19e2d4899ca35d4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_SssCfg</definition>
+        <argsstring>(const XSecure_Sss *InstancePtr, XSecure_SssSrc Resource, XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc)</argsstring>
+        <name>XSecure_SssCfg</name>
+        <param>
+          <type>const XSecure_Sss *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref></type>
+          <declname>Resource</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref></type>
+          <declname>InputSrc</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref></type>
+          <declname>OutputSrc</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the secure stream switch. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instance pointer to the XSecure_Sss </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Resource</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Resource for which input and output paths to be configured </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InputSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input source to be selected for the resource </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutputSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output source to be selected for the resource</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On successful configuration of the switch</para></listitem><listitem><para>XST_FAILURE - On unsuccessful configuration of the switch</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Resource, InputSrc, OutputSrc are of type XSecure_SssSrc </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Recalculating to verify values </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_sss.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_sss.c" bodystart="289" bodyend="351"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1gac44d78314f59033c8bee53a3f1dee58b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>void XSecure_SssInitialize</definition>
+        <argsstring>(XSecure_Sss *InstancePtr)</argsstring>
+        <name>XSecure_SssInitialize</name>
+        <param>
+          <type>XSecure_Sss *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the secure stream switch instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instance pointer to the XSecure_Sss</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If initialization was successful</para></listitem><listitem><para>XSECURE_SSS_INVALID_PARAM - On invalid parameter</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instance pointer to the XSecure_Sss. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validates the input arguments </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_sss.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_sss.c" bodystart="67" bodyend="83"/>
+        <references refid="group__xsecure__helper__server__apis_1ga593410f924487f151707240494dbe52b" compoundref="spartanup_2xsecure__plat_8h" startline="53">XSECURE_SSS_ADDRESS</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da3fb9d16d962aaa14ec522d6656d4a380" compoundref="spartanup_2xsecure__error_8h" startline="57">XSECURE_SSS_INVALID_PARAM</references>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1gadeb15e6ff58fe7e52935350e1a92a102" compoundref="zynqmp_2xsecure__aes_8c" startline="150" endline="186">XSecure_AesInitialize</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga13ca99347b37b300de1c90e694fd116b" compoundref="xsecure_8c" startline="695" endline="726">XSecure_MemCopy</referencedby>
+        <referencedby refid="group__xsecure__sha__server__apis_1gaae7a415bcdd835997f8f287d771060e3" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="128" endline="170">XSecure_Sha3Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga149d2122c6b082fafda37d6f20b013e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_SssAes</definition>
+        <argsstring>(const XSecure_Sss *InstancePtr, XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc)</argsstring>
+        <name>XSecure_SssAes</name>
+        <param>
+          <type>const XSecure_Sss *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref></type>
+          <declname>InputSrc</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref></type>
+          <declname>OutputSrc</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the secure stream switch for AES engine. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instance pointer to the XSecure_Sss </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InputSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input DMA to be selected for AES engine </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutputSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output DMA to be selected for AES engine</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On successful configuration of the switch</para></listitem><listitem><para>XSECURE_SSS_INVALID_PARAM - On invalid parameter</para></listitem><listitem><para>XST_FAILURE - On failure to configure switch</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>InputSrc, OutputSrc are of type XSecure_SssSrc </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate the input arguments </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_sss.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_sss.c" bodystart="101" bodyend="140"/>
+        <references refid="group__xsecure__generic__server__apis_1gada4e7acc0eb717eb5ed62a29dc4b9bb6" compoundref="core_2util_2xsecure__utils_8h" startline="219">XSecure_SecureOut32</references>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ac4ff928a81736e880fe311e333fe981e" compoundref="spartanup_2xsecure__plat_8h" startline="213">XSECURE_SSS_AES</references>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ad99985ebb6cf4318c4ff571557bc6b09" compoundref="spartanup_2xsecure__plat_8h" startline="212">XSECURE_SSS_DMA0</references>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5aa2a6923f1a527c87fb745b94a1004ebe" compoundref="versal_2xsecure__plat_8h" startline="77">XSECURE_SSS_DMA1</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da3fb9d16d962aaa14ec522d6656d4a380" compoundref="spartanup_2xsecure__error_8h" startline="57">XSECURE_SSS_INVALID_PARAM</references>
+        <references refid="group__xsecure__helper__server__apis_1ga98bc3453d87d63579b5f60c19d2676c2" compoundref="spartanup_2xsecure__plat_8c" startline="255" endline="277">XSecure_SssMask</references>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga9d60cf825dcf6e7eb30d734f01014266" compoundref="zynqmp_2xsecure__aes_8c" startline="1438" endline="1642">XSecure_AesDecrypt</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga78edf33e47f7a19be135b194af962d2c" compoundref="zynqmp_2xsecure__aes_8c" startline="450" endline="554">XSecure_AesDecryptInit</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga7b2c563fa3324f4f329b775f314b96c4" compoundref="zynqmp_2xsecure__aes_8c" startline="207" endline="296">XSecure_AesEncryptInit</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga5fcf401d8b1ccbe22d58cad54cb90178" compoundref="xsecure__core_8c" startline="259" endline="277">XSecure_CfgSssAes</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga9fd733a169850268505e89c96636a584" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_SssSha</definition>
+        <argsstring>(const XSecure_Sss *InstancePtr, u16 DmaId, XSecure_SssSrc Resource)</argsstring>
+        <name>XSecure_SssSha</name>
+        <param>
+          <type>const XSecure_Sss *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>DmaId</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref></type>
+          <declname>Resource</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the secure stream switch for SHA hardware engine. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instance pointer to the XSecure_Sss </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DmaId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device ID of DMA which is to be used as an input to the SHA engine </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Resource</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SHA resource for which input and output paths to be configured</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On successful configuration of the switch</para></listitem><listitem><para>XSECURE_SSS_INVALID_PARAM - On invalid parameter</para></listitem><listitem><para>XST_FAILURE - On failure to configure switch </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate the input arguments</para></listitem><listitem><para>configure the secure stream switch </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_sss.c" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_sss.c" bodystart="159" bodyend="196"/>
+        <references refid="group__xsecure__generic__server__apis_1gada4e7acc0eb717eb5ed62a29dc4b9bb6" compoundref="core_2util_2xsecure__utils_8h" startline="219">XSecure_SecureOut32</references>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ad99985ebb6cf4318c4ff571557bc6b09" compoundref="spartanup_2xsecure__plat_8h" startline="212">XSECURE_SSS_DMA0</references>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5aa2a6923f1a527c87fb745b94a1004ebe" compoundref="versal_2xsecure__plat_8h" startline="77">XSECURE_SSS_DMA1</references>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a02f04a4ee012f45639714c64062d946c" compoundref="spartanup_2xsecure__plat_8h" startline="216">XSECURE_SSS_INVALID</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da3fb9d16d962aaa14ec522d6656d4a380" compoundref="spartanup_2xsecure__error_8h" startline="57">XSECURE_SSS_INVALID_PARAM</references>
+        <references refid="group__xsecure__helper__server__apis_1ga98bc3453d87d63579b5f60c19d2676c2" compoundref="spartanup_2xsecure__plat_8c" startline="255" endline="277">XSecure_SssMask</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1gab55d05fcfb4497a11b3571a703db2724" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_SssDmaLoopBack</definition>
+        <argsstring>(const XSecure_Sss *InstancePtr, u16 DmaId)</argsstring>
+        <name>XSecure_SssDmaLoopBack</name>
+        <param>
+          <type>const XSecure_Sss *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>DmaId</declname>
+        </param>
+        <briefdescription>
+<para>This function configures secure stream switch to set DMA in loop back mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instance pointer to the XSecure_Sss </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DmaId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device ID of DMA</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On successful configuration of the switch</para></listitem><listitem><para>XSECURE_SSS_INVALID_PARAM - On invalid parameter</para></listitem><listitem><para>XST_FAILURE - On failure to configure switch </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate the input arguments </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_sss.c" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_sss.c" bodystart="212" bodyend="237"/>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ad99985ebb6cf4318c4ff571557bc6b09" compoundref="spartanup_2xsecure__plat_8h" startline="212">XSECURE_SSS_DMA0</references>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5aa2a6923f1a527c87fb745b94a1004ebe" compoundref="versal_2xsecure__plat_8h" startline="77">XSECURE_SSS_DMA1</references>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a02f04a4ee012f45639714c64062d946c" compoundref="spartanup_2xsecure__plat_8h" startline="216">XSECURE_SSS_INVALID</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da3fb9d16d962aaa14ec522d6656d4a380" compoundref="spartanup_2xsecure__error_8h" startline="57">XSECURE_SSS_INVALID_PARAM</references>
+        <referencedby refid="group__xsecure__apis_1ga13ca99347b37b300de1c90e694fd116b" compoundref="xsecure_8c" startline="695" endline="726">XSecure_MemCopy</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga448da91f94630d83a52c21b895455ebf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSecure_ReleaseReset</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Offset)</argsstring>
+        <name>XSecure_ReleaseReset</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <briefdescription>
+<para>This function takes the hardware core out of reset. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the core </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Offset of the reset register </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Set bit when crypto is in use </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.c" bodystart="47" bodyend="54"/>
+        <references refid="group__xsecure__generic__server__apis_1ga45b281f4082c516c7e1f16b1cc4aba60" compoundref="core_2util_2xsecure__utils_8h" startline="50">XSECURE_RESET_SET</references>
+        <references refid="group__xsecure__generic__server__apis_1ga887e3d01831123de7f307e6dbea2a86b" compoundref="core_2util_2xsecure__utils_8h" startline="51">XSECURE_RESET_UNSET</references>
+        <references refid="group__xsecure__generic__server__apis_1gadecc397d64d8db71d29f0ddf1ed8f2eb" compoundref="core_2util_2xsecure__utils_8h" startline="57">XSECURE_SET_BIT</references>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga88b6213e7e2f971ea5de22040b4f2510" compoundref="zynqmp_2xsecure__aes_8c" startline="858" endline="865">XSecure_AesReset</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab3835b878d2947b3f94ba4cd555dd641" compoundref="xsecure__ellipticplat_8c" startline="310" endline="400">XSecure_EcdhGetSecret</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga9566bee278ec58acd705a67ee9d58766" compoundref="xsecure__ellipticplat_8c" startline="185" endline="226">XSecure_EllipticGenerateEphemeralKey</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga682282def21e1c86ab583cdd41090fbb" compoundref="xsecure__elliptic_8c" startline="118" endline="194">XSecure_EllipticGenerateKey_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga3af7e8a366bb982fa4c0c82be1b37250" compoundref="xsecure__elliptic_8c" startline="269" endline="390">XSecure_EllipticGenerateSignature_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="85" endline="166">XSecure_EllipticPrvtKeyGenerate</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab83385dfd83a7bfdef4d74ec412e15c6" compoundref="xsecure__elliptic_8c" startline="479" endline="552">XSecure_EllipticValidateKey_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga0bb6ca50d138b482eb9a5d9f18e398d8" compoundref="xsecure__elliptic_8c" startline="621" endline="738">XSecure_EllipticVerifySign_64Bit</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga46920ff3a1a857a905036689c2bfc115" compoundref="xsecure__mldsa_8c" startline="295" endline="458">XSecure_MldsaSignGenerate</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga3291e37182d3193146f622c0477b15be" compoundref="xsecure__mldsa_8c" startline="124" endline="281">XSecure_MldsaSignVerify</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga3c38edd112fb7b6799153ab9eabba178" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="156" endline="325">XSecure_RsaOperation</referencedby>
+        <referencedby refid="group__xsecure__sha__server__apis_1gaf5b5bd6216ac55a6a9baf719e6bdd725" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="263" endline="307">XSecure_Sha3Start</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSecure_SetReset</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Offset)</argsstring>
+        <name>XSecure_SetReset</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <briefdescription>
+<para>This function places the hardware core into the reset. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the core </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Offset of the reset register </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Clear bit when crypto is not in use </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.c" bodystart="64" bodyend="70"/>
+        <references refid="group__xsecure__generic__server__apis_1ga33e027f1d24fdea13798141323edeae5" compoundref="core_2util_2xsecure__utils_8h" startline="58">XSECURE_CLEAR_BIT</references>
+        <references refid="group__xsecure__generic__server__apis_1ga45b281f4082c516c7e1f16b1cc4aba60" compoundref="core_2util_2xsecure__utils_8h" startline="50">XSECURE_RESET_SET</references>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga9d60cf825dcf6e7eb30d734f01014266" compoundref="zynqmp_2xsecure__aes_8c" startline="1438" endline="1642">XSecure_AesDecrypt</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga78edf33e47f7a19be135b194af962d2c" compoundref="zynqmp_2xsecure__aes_8c" startline="450" endline="554">XSecure_AesDecryptInit</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga4db7441166b2271ceaac1ac859a15c60" compoundref="zynqmp_2xsecure__aes_8c" startline="585" endline="700">XSecure_AesDecryptUpdate</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga6422d39ce630dc928daba92a65da4c56" compoundref="xsecure__plat__aes_8c" startline="148" endline="185">XSecure_AesEcbDecrypt</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga7b2c563fa3324f4f329b775f314b96c4" compoundref="zynqmp_2xsecure__aes_8c" startline="207" endline="296">XSecure_AesEncryptInit</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1gabdefc1128b9769010e42070e15f06d74" compoundref="zynqmp_2xsecure__aes_8c" startline="319" endline="387">XSecure_AesEncryptUpdate</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga4da9ead453ef1dbeebefeebb377eb94d" compoundref="xsecure__plat__aes_8c" startline="211" endline="345">XSecure_AesKeyUnwrap</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab3835b878d2947b3f94ba4cd555dd641" compoundref="xsecure__ellipticplat_8c" startline="310" endline="400">XSecure_EcdhGetSecret</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga9566bee278ec58acd705a67ee9d58766" compoundref="xsecure__ellipticplat_8c" startline="185" endline="226">XSecure_EllipticGenerateEphemeralKey</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga682282def21e1c86ab583cdd41090fbb" compoundref="xsecure__elliptic_8c" startline="118" endline="194">XSecure_EllipticGenerateKey_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga3af7e8a366bb982fa4c0c82be1b37250" compoundref="xsecure__elliptic_8c" startline="269" endline="390">XSecure_EllipticGenerateSignature_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="85" endline="166">XSecure_EllipticPrvtKeyGenerate</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab83385dfd83a7bfdef4d74ec412e15c6" compoundref="xsecure__elliptic_8c" startline="479" endline="552">XSecure_EllipticValidateKey_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga0bb6ca50d138b482eb9a5d9f18e398d8" compoundref="xsecure__elliptic_8c" startline="621" endline="738">XSecure_EllipticVerifySign_64Bit</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga7a3f9d4fcb7292b40c9d91a0e82d1b22" compoundref="core_2sha_2sha__pmxc_2xsecure__sha_8c" startline="435" endline="548">XSecure_ExtendedShaFinish</referencedby>
+        <referencedby refid="group__xsecure__hmac__apis_1ga19b58a827d01b838233e4b98fb95b0f7" compoundref="xsecure__hmac_8c" startline="190" endline="251">XSecure_HmacFinal</referencedby>
+        <referencedby refid="group__xsecure__hmac__apis_1ga326185e9709790ef9dc6d0eb61da6ab9" compoundref="xsecure__hmac_8c" startline="75" endline="128">XSecure_HmacInit</referencedby>
+        <referencedby refid="group__xsecure__hmac__apis_1gaec1f83f5e69e2ba5d879cd97eab498eb" compoundref="xsecure__hmac_8c" startline="146" endline="170">XSecure_HmacUpdate</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga46920ff3a1a857a905036689c2bfc115" compoundref="xsecure__mldsa_8c" startline="295" endline="458">XSecure_MldsaSignGenerate</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga3291e37182d3193146f622c0477b15be" compoundref="xsecure__mldsa_8c" startline="124" endline="281">XSecure_MldsaSignVerify</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga3c38edd112fb7b6799153ab9eabba178" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="156" endline="325">XSecure_RsaOperation</referencedby>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga07ca644998ec3bcf61557b4510708101" compoundref="xsecure__resourcehandling_8c" startline="491" endline="533">XSecure_SetDataContextLost</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gad5b378b529d087505726876fcf3e8b79" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1538" endline="1579">XSecure_Sha2256Kat</referencedby>
+        <referencedby refid="group__xsecure__sha__server__apis_1gaa37ef7b49e853ef0abe0c4e489dd9508" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="426" endline="503">XSecure_Sha3Finish</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga56962fc3f5090340f69a4fa56ef264ad" compoundref="xsecure__kat_8c" startline="1026" endline="1095">XSecure_Sha3Kat</referencedby>
+        <referencedby refid="group__xsecure__sha3__zynqmp__apis_1gaf7010e1b3b34eaafcb2f8691468c4e38" compoundref="zynqmp_2xsecure__sha_8c" startline="330" endline="371">XSecure_Sha3Update</referencedby>
+        <referencedby refid="group__xsecure__sha__server__apis_1ga1308ac59ba2f197cc0b1a7e06b0b862b" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="326" endline="384">XSecure_Sha3Update64Bit</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga8e446a6cf529f6a697035b0643c22c1b" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1592" endline="1658">XSecure_ShakeKat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga542ba9c9ce3c9446e186b4c33d091aa3" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XSecure_ReadReg</definition>
+        <argsstring>(UINTPTR BaseAddress, u16 RegOffset)</argsstring>
+        <name>XSecure_ReadReg</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>RegOffset</declname>
+        </param>
+        <briefdescription>
+<para>Read from the register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the offset from the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>The value read from the register </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="103" bodyend="106"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1gad03b72f4074578e60ac2ea82a84e58b0" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_WriteReg</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 RegOffset, u32 RegisterValue)</argsstring>
+        <name>XSecure_WriteReg</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegisterValue</declname>
+        </param>
+        <briefdescription>
+<para>Write to the register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the offset from the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegisterValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Is the value to be written to the register </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="118" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1gadb8f605fc7e0699a62c0a77912eaea58" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XSecure_In64</definition>
+        <argsstring>(u64 Addr)</argsstring>
+        <name>XSecure_In64</name>
+        <param>
+          <type>u64</type>
+          <declname>Addr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads data from 64-bit address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>The value read from the provided address </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="134" bodyend="143"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga9e32fcf66a5a42db44d6fed8f9a38402" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u8</type>
+        <definition>static u8 XSecure_InByte64</definition>
+        <argsstring>(u64 Addr)</argsstring>
+        <name>XSecure_InByte64</name>
+        <param>
+          <type>u64</type>
+          <declname>Addr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads a byte from 64-bit address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>The value read from the provided address </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="155" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga6e7833d733836dd3fad80eed9a76e76b" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_Out64</definition>
+        <argsstring>(u64 Addr, u32 Data)</argsstring>
+        <name>XSecure_Out64</name>
+        <param>
+          <type>u64</type>
+          <declname>Addr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function writes data to 64-bit address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to be written </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="174" bodyend="181"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga192d3ba15ccedc82c6e30c8ab6282835" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_OutWord64</definition>
+        <argsstring>(u64 Addr, u32 Data)</argsstring>
+        <name>XSecure_OutWord64</name>
+        <param>
+          <type>u64</type>
+          <declname>Addr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function writes 32 bit data to 64-bit address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to be written </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="191" bodyend="198"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga0c94c2fa5ed4aaa7bfddc26f808c2611" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_OutByte64</definition>
+        <argsstring>(u64 Addr, u8 Data)</argsstring>
+        <name>XSecure_OutByte64</name>
+        <param>
+          <type>u64</type>
+          <declname>Addr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function writes a byte to a 64-bit address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to be written </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="208" bodyend="215"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga13257f37e4c495bd90a589ae73df9898" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_InvalidCmdHandler</definition>
+        <argsstring>(u32 *Payload, u32 *RespBuf)</argsstring>
+        <name>XSecure_InvalidCmdHandler</name>
+        <param>
+          <type>u32 *</type>
+          <declname>Payload</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>RespBuf</declname>
+        </param>
+        <briefdescription>
+<para>This function calls the handler for invalid commands. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Payload</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to IPI payload data</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RespBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer to store response of slaves</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On successful communication</para></listitem><listitem><para>XPLMI_ERR_CMD_APIID On unregistered command ID.</para></listitem><listitem><para>XPLMI_SSIT_INTR_NOT_ENABLED If interrupts are not enabled. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_cmd.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_cmd.c" bodystart="147" bodyend="150"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga6df1e6829843cdb25af0335f2cf820d4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_FeaturesCmd</definition>
+        <argsstring>(XPlmi_Cmd *Cmd)</argsstring>
+        <name>XSecure_FeaturesCmd</name>
+        <param>
+          <type>XPlmi_Cmd *</type>
+          <declname>Cmd</declname>
+        </param>
+        <briefdescription>
+<para>This function checks if a particular Secure API ID is supported or not. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the command structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Success</para></listitem><listitem><para>XST_INVALID_PARAM Unsupported API ID </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_cmd.c" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_cmd.c" bodystart="164" bodyend="262"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga96cce7246721f32bb07e36a49283a14a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_ProcessCmd</definition>
+        <argsstring>(XPlmi_Cmd *Cmd)</argsstring>
+        <name>XSecure_ProcessCmd</name>
+        <param>
+          <type>XPlmi_Cmd *</type>
+          <declname>Cmd</declname>
+        </param>
+        <briefdescription>
+<para>This function processes XilSecure IPI commands. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the command structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Upon success</para></listitem><listitem><para>XST_INVALID_PARAM If any input parameter is invalid</para></listitem><listitem><para>XSECURE_KAT_MAJOR_ERROR If KAT fails </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Call the respective API handler according to API ID</para></listitem><listitem><para>XSecure_FeaturesCmd</para></listitem><listitem><para>XSecure_Sha3IpiHandler</para></listitem><listitem><para><ref refid="group__xsecure__rsa__server__apis_1ga987514bb3cfd057697b78f0d7b17321d" kindref="member">XSecure_RsaIpiHandler</ref></para></listitem><listitem><para><ref refid="group__xsecure__ecdsa__server__apis_1ga898afa7a2d84540bb675ddeaeb33442f" kindref="member">XSecure_EllipticIpiHandler</ref></para></listitem><listitem><para><ref refid="group__xsecure__aes__server__apis_1ga3d0efd64b0f7ebbdc1b3be80aa10a840" kindref="member">XSecure_AesIpiHandler</ref></para></listitem><listitem><para><ref refid="group__xsecure__kat__server__apis_1ga693f088bbeaa2be1dd7a084c2bee6351" kindref="member">XSecure_KatIpiHandler</ref></para></listitem><listitem><para><ref refid="group__xsecure__helper__server__apis_1ga7d0e634c95aed6e2adc7673b85920146" kindref="member">XSecure_PlatIpiHandler</ref> </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_cmd.c" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_cmd.c" bodystart="275" bodyend="350"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1gae7ad1b3e38daf23bae35666d7a9876d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSecure_CmdsInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_CmdsInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function registers the XilSecure commands to the PLMI. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Register command handlers with XilPlmi</para></listitem><listitem><para>Register command handlers with XilPlmi</para></listitem><listitem><para>Register command handlers with XilPlmi</para></listitem><listitem><para>Register command handlers with XilPlmi</para></listitem><listitem><para>Register command handlers with XilPlmi </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_cmd.c" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_cmd.c" bodystart="357" bodyend="367"/>
+        <referencedby refid="group__xsecure__generic__server__apis_1gae97f3300511e1fce60d35fac22781594" compoundref="xsecure__init_8c" startline="143" endline="179">XSecure_Init</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga91e77bb9209c343e184615b62f7d8ef8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_FeaturesCmd</definition>
+        <argsstring>(u32 ApiId)</argsstring>
+        <name>XSecure_FeaturesCmd</name>
+        <param>
+          <type>u32</type>
+          <declname>ApiId</declname>
+        </param>
+        <briefdescription>
+<para>This function checks if a particular Secure API ID is supported or not. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ApiId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is API ID in the IPI request.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Success</para></listitem><listitem><para>XST_INVALID_PARAM Unsupported API ID </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Verify if the provided API ID is supported based on export control bit or not</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_cmd.c" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_cmd.c" bodystart="141" bodyend="193"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1ga6e10f77d85d26c11567da45274606f18" prot="public" static="no">
+        <name>XSECURE_DATACONTEXTLOST_SET</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Set value of data context lost. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_resourcehandling.c" line="408" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_resourcehandling.c" bodystart="408" bodyend="-1"/>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga888b5fb720349f4766f1a6b45f318520" compoundref="xsecure__resourcehandling_8c" startline="443" endline="478">XSecure_IpiEventHandling</referencedby>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga07ca644998ec3bcf61557b4510708101" compoundref="xsecure__resourcehandling_8c" startline="491" endline="533">XSecure_SetDataContextLost</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1ga5b31bdf55904eebd8bc221b1f4162dda" prot="public" static="no">
+        <name>XSECURE_DATACONTEXTLOST_CLR</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Clear value of data context lost. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_resourcehandling.c" line="409" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_resourcehandling.c" bodystart="409" bodyend="-1"/>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga888b5fb720349f4766f1a6b45f318520" compoundref="xsecure__resourcehandling_8c" startline="443" endline="478">XSecure_IpiEventHandling</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1ga4865daaa552bbd94f64a29985943de9c" prot="public" static="no">
+        <name>XSECURE_IPI_FIRST_PACKET_MASK</name>
+        <initializer>(0x40000000U)</initializer>
+        <briefdescription>
+<para>IPI First packet Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_resourcehandling.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_resourcehandling.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1ga45b281f4082c516c7e1f16b1cc4aba60" prot="public" static="no">
+        <name>XSECURE_RESET_SET</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>To set the core into reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga448da91f94630d83a52c21b895455ebf" compoundref="core_2util_2xsecure__utils_8c" startline="47" endline="54">XSecure_ReleaseReset</referencedby>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1ga887e3d01831123de7f307e6dbea2a86b" prot="public" static="no">
+        <name>XSECURE_RESET_UNSET</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>To take the core out of reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga448da91f94630d83a52c21b895455ebf" compoundref="core_2util_2xsecure__utils_8c" startline="47" endline="54">XSecure_ReleaseReset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1ga014b8298824e67a2e9fe8a5c8719f59a" prot="public" static="no">
+        <name>XSECURE_WORD_SIZE</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>WORD size in BYTES. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga9224168b6fa6d11f59c50046f2221d11" compoundref="spartanup_2xsecure__plat_8c" startline="326" endline="378">XSecure_AesPlatPmcDmaCfgAndXfer</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga2bd4a79988d4eb7a1612e1ccc6430ca1" compoundref="spartanup_2xsecure__plat_8c" startline="291" endline="310">XSecure_AesValidateSize</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga7a3f9d4fcb7292b40c9d91a0e82d1b22" compoundref="core_2sha_2sha__pmxc_2xsecure__sha_8c" startline="435" endline="548">XSecure_ExtendedShaFinish</referencedby>
+        <referencedby refid="group__xsecure__kdf__server__apis_1ga4ce6b83111541227a82cb8f566a02106" compoundref="xsecure__kdf_8c" startline="59" endline="161">XSecure_Hkdf</referencedby>
+        <referencedby refid="group__xsecure__mgf__server__apis_1ga51accda21580807193b7f1309a153c52" compoundref="xsecure__mgf_8c" startline="230" endline="301">XSecure_MaskGenFunc</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga46920ff3a1a857a905036689c2bfc115" compoundref="xsecure__mldsa_8c" startline="295" endline="458">XSecure_MldsaSignGenerate</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga3291e37182d3193146f622c0477b15be" compoundref="xsecure__mldsa_8c" startline="124" endline="281">XSecure_MldsaSignVerify</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga3c38edd112fb7b6799153ab9eabba178" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="156" endline="325">XSecure_RsaOperation</referencedby>
+        <referencedby refid="group__xsecure__sha__server__apis_1gabd13be9de54342c9d7c3093e9ef50a07" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="574" endline="602">XSecure_Sha3ReadHash</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1gae3c2624ba0d5bf2bbe227593043acae4" compoundref="spartanup_2xsecure__plat_8c" startline="521" endline="642">XSecure_ShaDmaXfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1gac1a4435f3c1d7f6ca90c1b5838ee6b27" prot="public" static="no">
+        <name>XSECURE_QWORD_SIZE</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>QWORD size in BYTES. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga2bd4a79988d4eb7a1612e1ccc6430ca1" compoundref="spartanup_2xsecure__plat_8c" startline="291" endline="310">XSecure_AesValidateSize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1ga0ab39c362c3e2b0d6750187ce4e7c809" prot="public" static="no">
+        <name>XSECURE_WORD_IN_BITS</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>WORD size in BITS. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga3c38edd112fb7b6799153ab9eabba178" compoundref="core_2rsa_2xsecure__rsa__core_8c" startline="156" endline="325">XSecure_RsaOperation</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1ga8fc10049426f8541ee568885a9d03902" prot="public" static="no">
+        <name>XSECURE_BYTE_IN_BITS</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Byte size in BITS. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="55" bodyend="-1"/>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga46920ff3a1a857a905036689c2bfc115" compoundref="xsecure__mldsa_8c" startline="295" endline="458">XSecure_MldsaSignGenerate</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga3291e37182d3193146f622c0477b15be" compoundref="xsecure__mldsa_8c" startline="124" endline="281">XSecure_MldsaSignVerify</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga7fe869dab6a634c2866f9ec26ee8cec0" compoundref="xsecure__plat__rsa_8c" startline="346" endline="378">XSecure_RsaOaepDecrypt</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gadaedb44c3081c08f71c26e1dc8e74937" compoundref="xsecure__slhdsa__fors_8c" startline="52" endline="80">XSecure_SlhdsaBase2b</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1ga5d090a399a2fe568bea608504ae2b586" prot="public" static="no">
+        <name>XSECURE_WORD_ALIGN_MASK</name>
+        <initializer>(<ref refid="group__xsecure__utils__apis_1ga014b8298824e67a2e9fe8a5c8719f59a" kindref="member">XSECURE_WORD_SIZE</ref> - 1U)</initializer>
+        <briefdescription>
+<para>WORD alignment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__xsecure__utils__apis_1ga0e0f4c7d8c32b8c6d680553e068f4614" compoundref="spartanup_2xsecure__utils_8c" startline="74" endline="95">XSecure_MemCpy64</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1gae3c2624ba0d5bf2bbe227593043acae4" compoundref="spartanup_2xsecure__plat_8c" startline="521" endline="642">XSecure_ShaDmaXfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1gadecc397d64d8db71d29f0ddf1ed8f2eb" prot="public" static="no">
+        <name>XSECURE_SET_BIT</name>
+        <initializer>(0x0U)</initializer>
+        <briefdescription>
+<para>To set bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga448da91f94630d83a52c21b895455ebf" compoundref="core_2util_2xsecure__utils_8c" startline="47" endline="54">XSecure_ReleaseReset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1ga33e027f1d24fdea13798141323edeae5" prot="public" static="no">
+        <name>XSECURE_CLEAR_BIT</name>
+        <initializer>(0xFFFFFFFFU)</initializer>
+        <briefdescription>
+<para>To clear bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="85" endline="166">XSecure_EllipticPrvtKeyGenerate</referencedby>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1ga8023ea0b632e9b4eba69c1dd8f62c5eb" prot="public" static="no">
+        <name>XSECURE_VALUE_ONE</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Integer value 1U. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga46920ff3a1a857a905036689c2bfc115" compoundref="xsecure__mldsa_8c" startline="295" endline="458">XSecure_MldsaSignGenerate</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga3291e37182d3193146f622c0477b15be" compoundref="xsecure__mldsa_8c" startline="124" endline="281">XSecure_MldsaSignVerify</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gadaedb44c3081c08f71c26e1dc8e74937" compoundref="xsecure__slhdsa__fors_8c" startline="52" endline="80">XSecure_SlhdsaBase2b</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga6586ad2f5162ae29b200089cc571ba8e" compoundref="xsecure__slhdsa__fors_8c" startline="221" endline="324">XSecure_SlhdsaForsPkFromSig</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga63a83a36cf727551fc0e1f69fef4e9b6" compoundref="xsecure__slhdsa__ht_8c" startline="194" endline="290">XSecure_SlhdsaHtVerify</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gae2f63765bb0a4b550407c200d2715a1c" compoundref="xsecure__slhdsa__xmss_8c" startline="189" endline="287">XSecure_SlhdsaXmssPkFromSign</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1ga11cdf9a462e84497704a8673f83b5e83" prot="public" static="no">
+        <name>XSECURE_VALUE_TWO</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Integer value 2U. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga46920ff3a1a857a905036689c2bfc115" compoundref="xsecure__mldsa_8c" startline="295" endline="458">XSecure_MldsaSignGenerate</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga3291e37182d3193146f622c0477b15be" compoundref="xsecure__mldsa_8c" startline="124" endline="281">XSecure_MldsaSignVerify</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga4f9fb47928190c4aaf68df51efac1382" compoundref="xsecure__slhdsa__hash_8c" startline="53" endline="114">XSecure_SlhdsaShake256sHashMsg</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gad8b325c7b6c17a9c088bd30b04027423" compoundref="xsecure__slhdsa_8c" startline="250" endline="322">XSecure_SlhdsaVerify</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1gacaa3a64a076fa22606c5a9c1a1eb1622" prot="public" static="no">
+        <name>XSECURE_VALUE_THREE</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Integer value 3U. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1gad627bf4f124e3ee746059ffc7ff202ed" prot="public" static="no">
+        <name>XSECURE_ALLFS</name>
+        <initializer>(0xFFFFFFFFU)</initializer>
+        <briefdescription>
+<para>To assign invalid value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1ga4e096b508706aab2c2dd4b70452fb620" prot="public" static="no">
+        <name>XSECURE_ZERO</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>To assign/compare to zero. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga3291e37182d3193146f622c0477b15be" compoundref="xsecure__mldsa_8c" startline="124" endline="281">XSecure_MldsaSignVerify</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga547d58774dd7e1821688203999e1b5e2" compoundref="xsecure__plat__rsa_8c" startline="562" endline="610">XSecure_RsaDestroyKeyInUse</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gadaedb44c3081c08f71c26e1dc8e74937" compoundref="xsecure__slhdsa__fors_8c" startline="52" endline="80">XSecure_SlhdsaBase2b</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga6586ad2f5162ae29b200089cc571ba8e" compoundref="xsecure__slhdsa__fors_8c" startline="221" endline="324">XSecure_SlhdsaForsPkFromSig</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gaaa866ce6d1c865f26afda73bc6a2003b" compoundref="xsecure__slhdsa__hash_8c" startline="197" endline="258">XSecure_SlhdsaShake256sChain</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga4f9fb47928190c4aaf68df51efac1382" compoundref="xsecure__slhdsa__hash_8c" startline="53" endline="114">XSecure_SlhdsaShake256sHashMsg</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gaf6e4f612fb9bedd0adc25a5e5d6828c1" compoundref="xsecure__slhdsa__wots_8c" startline="214" endline="282">XSecure_SlhdsaWotsPkFromSign</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1ga3d5f1bc7790c89b72c761985d4ebd02b" prot="public" static="no">
+        <name>XSecure_MemCpy</name>
+        <initializer>Xil_MemCpy</initializer>
+        <briefdescription>
+<para>Backward compatibility. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1ga808901e93cc5c143fc37f5e28744ef84" prot="public" static="no">
+        <name>XSecure_MemCpy64</name>
+        <initializer>Xil_MemCpy64</initializer>
+        <briefdescription>
+<para>Backward compatibility. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1ga4e695dfc0e718c61fc93d707a9578f54" prot="public" static="no">
+        <name>XSecure_In32</name>
+        <initializer>(Xil_In32)</initializer>
+        <briefdescription>
+<para>Reads data from 32-bit address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="217" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="217" bodyend="-1"/>
+        <referencedby refid="group__xsecure__apis_1ga2b8b3f8c925d15be80cff15f248c1532" compoundref="xilsecure__aes__example_8c" startline="151" endline="200">SecureAesExample</referencedby>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga4900fde0f315a9807c11bf73a2e8d90d" compoundref="core_2generic_2xsecure__cryptochk_8c" startline="54" endline="80">XSecure_CryptoCheck</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga6966629c7ceb7a8ff7bbb8438c8b0771" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="521" endline="544">XSecure_InitiateASUKeyTransfer</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga46920ff3a1a857a905036689c2bfc115" compoundref="xsecure__mldsa_8c" startline="295" endline="458">XSecure_MldsaSignGenerate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1gae500e79a22c37a14027ce0ad88a8cafe" prot="public" static="no">
+        <name>XSecure_Out32</name>
+        <initializer>(Xil_Out32)</initializer>
+        <briefdescription>
+<para>Writes data to 32-bit address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="218" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="218" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga9d60cf825dcf6e7eb30d734f01014266" compoundref="zynqmp_2xsecure__aes_8c" startline="1438" endline="1642">XSecure_AesDecrypt</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga78edf33e47f7a19be135b194af962d2c" compoundref="zynqmp_2xsecure__aes_8c" startline="450" endline="554">XSecure_AesDecryptInit</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga7b2c563fa3324f4f329b775f314b96c4" compoundref="zynqmp_2xsecure__aes_8c" startline="207" endline="296">XSecure_AesEncryptInit</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga6966629c7ceb7a8ff7bbb8438c8b0771" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="521" endline="544">XSecure_InitiateASUKeyTransfer</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga46920ff3a1a857a905036689c2bfc115" compoundref="xsecure__mldsa_8c" startline="295" endline="458">XSecure_MldsaSignGenerate</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga3291e37182d3193146f622c0477b15be" compoundref="xsecure__mldsa_8c" startline="124" endline="281">XSecure_MldsaSignVerify</referencedby>
+        <referencedby refid="group__xsecure__rsa__qmode__apis_1gab93e9d20b03a5821f0b533b3c0a1f681" compoundref="xsecure__rsa__q_8c" startline="119" endline="141">XSecure_RsaExp</referencedby>
+        <referencedby refid="group__xsecure__rsa__qmode__apis_1gae1a74baadcd5d96038076e38a6af64e1" compoundref="xsecure__rsa__q_8c" startline="73" endline="96">XSecure_RsaExpCRT</referencedby>
+        <referencedby refid="group__xsecure__rsa__qmode__apis_1ga6d3412455d770af7b891c3c90df4dffd" compoundref="xsecure__rsa__q_8c" startline="166" endline="189">XSecure_RsaExpopt</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__generic__server__apis_1gada4e7acc0eb717eb5ed62a29dc4b9bb6" prot="public" static="no">
+        <name>XSecure_SecureOut32</name>
+        <initializer>(Xil_SecureOut32)</initializer>
+        <briefdescription>
+<para>Writes data to 32-bit address and checks for blind writes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" line="220" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_utils.h" bodystart="219" bodyend="-1"/>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga149d2122c6b082fafda37d6f20b013e3" compoundref="core_2util_2xsecure__sss_8c" startline="101" endline="140">XSecure_SssAes</referencedby>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga9fd733a169850268505e89c96636a584" compoundref="core_2util_2xsecure__sss_8c" startline="159" endline="196">XSecure_SssSha</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___key_manager_sub_vault_params" kind="struct" prot="public">
+    <compoundname>XAsu_KeyManagerSubVaultParams</compoundname>
+    <includes local="no">xasu_keymanagerinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___key_manager_sub_vault_params_1a502cff614ec073e3fa9dc79a0d9acc5c" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_KeyManagerSubVaultParams::VaultIdAddr</definition>
+        <argsstring></argsstring>
+        <name>VaultIdAddr</name>
+        <briefdescription>
+<para>Address where generated vault ID is stored. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="188" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga27ba749e3ba109043a0d7ae904391ea9" compoundref="xasu__keymanager_8c" startline="67" endline="121">XAsu_KmCreateKeyVault</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_manager_sub_vault_params_1a890638e3675989aec90bb0a508d01753" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAsu_KeyManagerSubVaultParams::AESKeyVaultCapacity</definition>
+        <argsstring></argsstring>
+        <name>AESKeyVaultCapacity</name>
+        <briefdescription>
+<para>Count for the AES key vault. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="189" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga5510ee07e2b5dc1ac23ccba2bc94b528" compoundref="xasu__keymanager__common_8c" startline="220" endline="249">XAsu_KmValidateVaultCreateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_manager_sub_vault_params_1a58e8d1900ea2219edeef5a1a185072e3" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAsu_KeyManagerSubVaultParams::IVVaultCapacity</definition>
+        <argsstring></argsstring>
+        <name>IVVaultCapacity</name>
+        <briefdescription>
+<para>Count for the IV vault. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="190" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga5510ee07e2b5dc1ac23ccba2bc94b528" compoundref="xasu__keymanager__common_8c" startline="220" endline="249">XAsu_KmValidateVaultCreateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_manager_sub_vault_params_1a2b1aeda09bf402a4d58ad0a304666f3d" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAsu_KeyManagerSubVaultParams::KDFHmacKeyVaultCapacity</definition>
+        <argsstring></argsstring>
+        <name>KDFHmacKeyVaultCapacity</name>
+        <briefdescription>
+<para>Count for KDF/HMAC key material. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="191" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga5510ee07e2b5dc1ac23ccba2bc94b528" compoundref="xasu__keymanager__common_8c" startline="220" endline="249">XAsu_KmValidateVaultCreateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_manager_sub_vault_params_1a7acc476cd8f8dafc737b98e24906ff44" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAsu_KeyManagerSubVaultParams::RSAPvtKeyVaultCapacity</definition>
+        <argsstring></argsstring>
+        <name>RSAPvtKeyVaultCapacity</name>
+        <briefdescription>
+<para>Count for RSA private keys. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="192" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga5510ee07e2b5dc1ac23ccba2bc94b528" compoundref="xasu__keymanager__common_8c" startline="220" endline="249">XAsu_KmValidateVaultCreateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_manager_sub_vault_params_1a55acb505fd424df28ce324595521b7ee" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAsu_KeyManagerSubVaultParams::RSAPubKeyVaultCapacity</definition>
+        <argsstring></argsstring>
+        <name>RSAPubKeyVaultCapacity</name>
+        <briefdescription>
+<para>Count for RSA public keys. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="193" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga5510ee07e2b5dc1ac23ccba2bc94b528" compoundref="xasu__keymanager__common_8c" startline="220" endline="249">XAsu_KmValidateVaultCreateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_manager_sub_vault_params_1a3bc5c9ba701fc64b91608cc2df778830" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAsu_KeyManagerSubVaultParams::ECCPvtKeyVaultCapacity</definition>
+        <argsstring></argsstring>
+        <name>ECCPvtKeyVaultCapacity</name>
+        <briefdescription>
+<para>Count for ECC private keys. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="194" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga5510ee07e2b5dc1ac23ccba2bc94b528" compoundref="xasu__keymanager__common_8c" startline="220" endline="249">XAsu_KmValidateVaultCreateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_manager_sub_vault_params_1aee2730f3db896dbf5993564c7218091b" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAsu_KeyManagerSubVaultParams::ECCPubKeyVaultCapacity</definition>
+        <argsstring></argsstring>
+        <name>ECCPubKeyVaultCapacity</name>
+        <briefdescription>
+<para>Count for ECC public keys. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="195" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga5510ee07e2b5dc1ac23ccba2bc94b528" compoundref="xasu__keymanager__common_8c" startline="220" endline="249">XAsu_KmValidateVaultCreateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_manager_sub_vault_params_1a3afa39d6b7d6d50754670c986381bbe9" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAsu_KeyManagerSubVaultParams::LMSKeyVaultCapacity</definition>
+        <argsstring></argsstring>
+        <name>LMSKeyVaultCapacity</name>
+        <briefdescription>
+<para>Count for LMS keys. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="196" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga5510ee07e2b5dc1ac23ccba2bc94b528" compoundref="xasu__keymanager__common_8c" startline="220" endline="249">XAsu_KmValidateVaultCreateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_manager_sub_vault_params_1afd2f1e5657b67701519472624242c60b" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAsu_KeyManagerSubVaultParams::X509KeyVaultCapacity</definition>
+        <argsstring></argsstring>
+        <name>X509KeyVaultCapacity</name>
+        <briefdescription>
+<para>Count for X.509 certificates. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="197" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga5510ee07e2b5dc1ac23ccba2bc94b528" compoundref="xasu__keymanager__common_8c" startline="220" endline="249">XAsu_KmValidateVaultCreateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_manager_sub_vault_params_1a6f0c8014f215ea0e28728fab0eaf9316" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAsu_KeyManagerSubVaultParams::AccessRights</definition>
+        <argsstring></argsstring>
+        <name>AccessRights</name>
+        <briefdescription>
+<para>Access permissions for the key vault. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="198" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga27ba749e3ba109043a0d7ae904391ea9" compoundref="xasu__keymanager_8c" startline="67" endline="121">XAsu_KmCreateKeyVault</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_manager_sub_vault_params_1a7777cfe773824e8655d84003e0838039" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_KeyManagerSubVaultParams::Restrictions</definition>
+        <argsstring></argsstring>
+        <name>Restrictions</name>
+        <briefdescription>
+<para>Key vault restrictions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="199" bodyend="-1"/>
+        <referencedby refid="group__xasu__keymanager__common__apis_1ga5510ee07e2b5dc1ac23ccba2bc94b528" compoundref="xasu__keymanager__common_8c" startline="220" endline="249">XAsu_KmValidateVaultCreateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___key_manager_sub_vault_params_1aa435c9bd910f93d361b399bab6e03cb1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_KeyManagerSubVaultParams::Reserved[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Explicit padding to ensure consistent struct size across architectures. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains info for different sub vault capacities. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_keymanagerinfo.h" bodystart="187" bodyend="201"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___key_manager_sub_vault_params_1a6f0c8014f215ea0e28728fab0eaf9316" prot="public" virt="non-virtual"><scope>XAsu_KeyManagerSubVaultParams</scope><name>AccessRights</name></member>
+      <member refid="struct_x_asu___key_manager_sub_vault_params_1a890638e3675989aec90bb0a508d01753" prot="public" virt="non-virtual"><scope>XAsu_KeyManagerSubVaultParams</scope><name>AESKeyVaultCapacity</name></member>
+      <member refid="struct_x_asu___key_manager_sub_vault_params_1aee2730f3db896dbf5993564c7218091b" prot="public" virt="non-virtual"><scope>XAsu_KeyManagerSubVaultParams</scope><name>ECCPubKeyVaultCapacity</name></member>
+      <member refid="struct_x_asu___key_manager_sub_vault_params_1a3bc5c9ba701fc64b91608cc2df778830" prot="public" virt="non-virtual"><scope>XAsu_KeyManagerSubVaultParams</scope><name>ECCPvtKeyVaultCapacity</name></member>
+      <member refid="struct_x_asu___key_manager_sub_vault_params_1a58e8d1900ea2219edeef5a1a185072e3" prot="public" virt="non-virtual"><scope>XAsu_KeyManagerSubVaultParams</scope><name>IVVaultCapacity</name></member>
+      <member refid="struct_x_asu___key_manager_sub_vault_params_1a2b1aeda09bf402a4d58ad0a304666f3d" prot="public" virt="non-virtual"><scope>XAsu_KeyManagerSubVaultParams</scope><name>KDFHmacKeyVaultCapacity</name></member>
+      <member refid="struct_x_asu___key_manager_sub_vault_params_1a3afa39d6b7d6d50754670c986381bbe9" prot="public" virt="non-virtual"><scope>XAsu_KeyManagerSubVaultParams</scope><name>LMSKeyVaultCapacity</name></member>
+      <member refid="struct_x_asu___key_manager_sub_vault_params_1aa435c9bd910f93d361b399bab6e03cb1" prot="public" virt="non-virtual"><scope>XAsu_KeyManagerSubVaultParams</scope><name>Reserved</name></member>
+      <member refid="struct_x_asu___key_manager_sub_vault_params_1a7777cfe773824e8655d84003e0838039" prot="public" virt="non-virtual"><scope>XAsu_KeyManagerSubVaultParams</scope><name>Restrictions</name></member>
+      <member refid="struct_x_asu___key_manager_sub_vault_params_1a55acb505fd424df28ce324595521b7ee" prot="public" virt="non-virtual"><scope>XAsu_KeyManagerSubVaultParams</scope><name>RSAPubKeyVaultCapacity</name></member>
+      <member refid="struct_x_asu___key_manager_sub_vault_params_1a7acc476cd8f8dafc737b98e24906ff44" prot="public" virt="non-virtual"><scope>XAsu_KeyManagerSubVaultParams</scope><name>RSAPvtKeyVaultCapacity</name></member>
+      <member refid="struct_x_asu___key_manager_sub_vault_params_1a502cff614ec073e3fa9dc79a0d9acc5c" prot="public" virt="non-virtual"><scope>XAsu_KeyManagerSubVaultParams</scope><name>VaultIdAddr</name></member>
+      <member refid="struct_x_asu___key_manager_sub_vault_params_1afd2f1e5657b67701519472624242c60b" prot="public" virt="non-virtual"><scope>XAsu_KeyManagerSubVaultParams</scope><name>X509KeyVaultCapacity</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>uartpsv</title>
+    <detaileddescription>
+<para>This section contains the implementation of the interface functions for <ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> driver. The UartPsv driver supports the following features:</para><para><itemizedlist>
+<listitem><para>Dynamic data format (baud rate, data bits, stop bits, parity)</para></listitem><listitem><para>Polled mode</para></listitem><listitem><para>Interrupt driven mode</para></listitem><listitem><para>Transmit and receive FIFOs (32 byte FIFO depth)</para></listitem><listitem><para>Access to the external modem control lines</para></listitem></itemizedlist>
+</para><para><bold>Initialization &amp; Configuration</bold></para><para>The <ref refid="struct_x_uart_psv___config" kindref="compound">XUartPsv_Config</ref> structure is used by the driver to configure itself. Fields inside this structure are properties of <ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> based on its hardware build.</para><para>To support multiple runtime loading and initialization strategies employed by various operating systems, the driver instance can be initialized in the following way:</para><para><itemizedlist>
+<listitem><para>XUartPsv_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a configuration structure provided by the caller. If running in a system with address translation, the parameter EffectiveAddr should be the virtual address.</para></listitem></itemizedlist>
+</para><para><bold>Baud Rate</bold></para><para>The UART has an internal baud rate generator, which furnishes the baud rate clock for both the receiver and the transmitter. Their input clock frequency can be either the master clock or the master clock divided by 8, configured through the mode register.</para><para>Accompanied with the baud rate divider register, the baud rate is determined by: <preformatted>
+      baud_rate = input_clock / (bgen * (bdiv + 1)
+</preformatted> where bgen is the value of the baud rate generator, and bdiv is the value of baud rate divider.</para><para><bold>Interrupts</bold></para><para>The FIFOs are not flushed when the driver is initialized, but a function is provided to allow the user to reset the FIFOs if desired.</para><para>The driver defaults to no interrupts at initialization such that interrupts must be enabled if desired. An interrupt is generated for one of the following conditions.</para><para><itemizedlist>
+<listitem><para>A change in the modem signals</para></listitem><listitem><para>Data in the receive FIFO for a configuable time without receiver activity</para></listitem><listitem><para>A parity error</para></listitem><listitem><para>A framing error</para></listitem><listitem><para>An overrun error</para></listitem><listitem><para>Transmit FIFO is full</para></listitem><listitem><para>Transmit FIFO is empty</para></listitem><listitem><para>Receive FIFO is full</para></listitem><listitem><para>Receive FIFO is empty</para></listitem><listitem><para>Data in the receive FIFO equal to the receive threshold</para></listitem></itemizedlist>
+</para><para>The application can control which interrupts are enabled using the <ref refid="group__uartpsv_1ga09b94a490c696d7ff7b1c6bbec42b226" kindref="member">XUartPsv_SetInterruptMask()</ref> function.</para><para>In order to use interrupts, it is necessary for the user to connect the driver interrupt handler, <ref refid="group__uartpsv_1ga869ac0531d2e16457706d013d7f0a0cc" kindref="member">XUartPsv_InterruptHandler()</ref>, to the interrupt system of the application. A separate handler should be provided by the application to communicate with the interrupt system, and conduct application specific interrupt handling. An application registers its own handler through the <ref refid="group__uartpsv_1gafc24dc61fc253a957ba631fb53b5dfc8" kindref="member">XUartPsv_SetHandler()</ref> function.</para><para><bold>Data Transfer</bold></para><para>The functions, <ref refid="group__uartpsv_1ga71a962de4963e15f1c38e7831e825f7c" kindref="member">XUartPsv_Send()</ref> and <ref refid="group__uartpsv_1ga4d4d20bbcedb1de2adbe2644b821d12d" kindref="member">XUartPsv_Recv()</ref>, are provided in the driver to allow data to be sent and received. They can be used in either polled or interrupt mode.</para><para><simplesect kind="note"><para></para></simplesect>
+The default configuration for the UART after initialization is:</para><para><itemizedlist>
+<listitem><para>9,600 bps or XPAR_DFT_BAUDRATE if defined</para></listitem><listitem><para>8 data bits</para></listitem><listitem><para>1 stop bit</para></listitem><listitem><para>no parity</para></listitem><listitem><para>FIFO&apos;s are enabled with a receive threshold of 8 bytes</para></listitem><listitem><para>The RX timeout is enabled with a timeout of 1 (4 char times)</para></listitem></itemizedlist>
+</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who  Date      Changes
+<hruler/>
+
+1.0  sg   09/18/17  First Release
+1.2  rna  01/20/20  Modify the interrupt path according to the TRM
+              Add XUartPsv_ProgramCtrlReg function
+              Add XUartPsv_SetTxFifoThreshold function
+              Add XUartPsv_SetRxFifoThreshold function
+1.3  rna  04/05/20  Change input format for XUartPsv_SetDataFormat function
+              to reflect the Linecontrol register
+1.4  sne  02/03/21  Updated uartpsv_tapp.tcl to support CIPS3.0 hier designs.
+     rna  03/15/21  Updated &apos;XUartPsv_SetBaudRate&apos; function
+1.5  rna  03/31/21  Fixed doxygen warnings
+1.6  adk  03/15/22  Updated uartpsv_tapp.tcl interrupt id variable for
+                      CIPS3 designs when stdout is configured as none.
+1.9  adk  04/14/23  Added support for system device-tree flow.
+1.14 vlt  12/30/25  Update Doxygen comments to include SDT flow details.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

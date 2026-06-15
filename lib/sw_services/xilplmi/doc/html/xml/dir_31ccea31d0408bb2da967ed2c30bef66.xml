@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_31ccea31d0408bb2da967ed2c30bef66" kind="dir">
+    <compoundname>src</compoundname>
+    <innerdir refid="dir_42ac3d924ce7e4476677f66de587c5a7">common</innerdir>
+    <innerdir refid="dir_31465a8b0f1a80258dabdc514e380a58">versal</innerdir>
+    <innerdir refid="dir_2dec73cca299bde34ae8d6014bf70dd8">versal_2ve_2vm</innerdir>
+    <innerdir refid="dir_a72c9149d8906206872ddfc42a12ff6e">versal_2vp</innerdir>
+    <innerdir refid="dir_bb183f354ef04c4353e0016e2a7ab835">versal_2vp_p</innerdir>
+    <innerdir refid="dir_b0148f299609fc5f4eeb4df4e0888141">versal_net</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/"/>
+  </compounddef>
+</doxygen>

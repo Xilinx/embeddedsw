@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_rx_ss___hdcp22_sub_core" kind="struct" prot="public">
+    <compoundname>XDpRxSs_Hdcp22SubCore</compoundname>
+    <includes local="no">xdprxss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___hdcp22_sub_core_1a283ba4ad95e9f7f772adec92e8ff7ef0" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDpRxSs_Hdcp22SubCore::IsPresent</definition>
+        <argsstring></argsstring>
+        <name>IsPresent</name>
+        <briefdescription>
+<para>Flag to indicate if sub-core is present in the design. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="466" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" bodystart="466" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___hdcp22_sub_core_1a56c839d65d7fd2197bc72dcc79ac7a7e" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp_rx_ss___sub_core_config" kindref="compound">XDpRxSs_SubCoreConfig</ref></type>
+        <definition>XDpRxSs_SubCoreConfig XDpRxSs_Hdcp22SubCore::Hdcp22Config</definition>
+        <argsstring></argsstring>
+        <name>Hdcp22Config</name>
+        <briefdescription>
+<para>HDCP22 core configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="468" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" bodystart="468" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Sub-Core Configuration Table. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="53">
+        <label>XDpRxSs_Hdcp22SubCore</label>
+        <link refid="struct_x_dp_rx_ss___hdcp22_sub_core"/>
+        <childnode refid="54" relation="usage">
+          <edgelabel>Hdcp22Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="54">
+        <label>XDpRxSs_SubCoreConfig</label>
+        <link refid="struct_x_dp_rx_ss___sub_core_config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="465" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" bodystart="464" bodyend="469"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_rx_ss___hdcp22_sub_core_1a56c839d65d7fd2197bc72dcc79ac7a7e" prot="public" virt="non-virtual"><scope>XDpRxSs_Hdcp22SubCore</scope><name>Hdcp22Config</name></member>
+      <member refid="struct_x_dp_rx_ss___hdcp22_sub_core_1a283ba4ad95e9f7f772adec92e8ff7ef0" prot="public" virt="non-virtual"><scope>XDpRxSs_Hdcp22SubCore</scope><name>IsPresent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

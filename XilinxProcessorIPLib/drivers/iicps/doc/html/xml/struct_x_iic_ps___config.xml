@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_iic_ps___config" kind="struct" prot="public">
+    <compoundname>XIicPs_Config</compoundname>
+    <includes local="no">xiicps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_iic_ps___config_1a7848b4b30de2884ed99ab776ce065737" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XIicPs_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps.h" bodystart="172" bodyend="-1"/>
+        <referencedby refid="group__iicps__api_1gafaf109c7bf0040c29f861d439bd6613f" compoundref="xiicps__sinit_8c" startline="90" endline="104">XIicPs_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_ps___config_1a2bdee49f560d4a22a433c6c327d6d912" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XIicPs_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base address of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps.h" bodystart="174" bodyend="-1"/>
+        <referencedby refid="xiicps__intr__master__example_8c_1ae81741face753dec9295d20659c80b7e" compoundref="xiicps__intr__master__example_8c" startline="170" endline="309">IicPsMasterIntrExample</referencedby>
+        <referencedby refid="xiicps__polled__master__example_8c_1aa91a208e2847369ac37702ff02d958b2" compoundref="xiicps__polled__master__example_8c" startline="141" endline="225">IicPsMasterPolledExample</referencedby>
+        <referencedby refid="xiicps__intr__multi__master__example_8c_1ad89822fcda696e386a1877920c19147d" compoundref="xiicps__intr__multi__master__example_8c" startline="178" endline="348">IicPsMultiMasterIntrExample</referencedby>
+        <referencedby refid="xiicps__polled__multi__master__example_8c_1a5b57ca40c957274f180dda79c1731101" compoundref="xiicps__polled__multi__master__example_8c" startline="150" endline="245">IicPsMultiMasterPolledExample</referencedby>
+        <referencedby refid="xiicps__repeated__start__example_8c_1a03067e867debb67e8cc850dad9b4491b" compoundref="xiicps__repeated__start__example_8c" startline="191" endline="318">IicPsRepeatedStartExample</referencedby>
+        <referencedby refid="xiicps__selftest__example_8c_1a7b902a14156eabb2c294c08061c5db95" compoundref="xiicps__selftest__example_8c" startline="123" endline="156">IicPsSelfTestExample</referencedby>
+        <referencedby refid="xiicps__intr__slave__example_8c_1ab49eb22d72b7028d2e9bb2c6db258cf3" compoundref="xiicps__intr__slave__example_8c" startline="174" endline="298">IicPsSlaveIntrExample</referencedby>
+        <referencedby refid="xiicps__polled__slave__example_8c_1ae871da47e30475c237ec50ba103904f3" compoundref="xiicps__polled__slave__example_8c" startline="135" endline="216">IicPsSlavePolledExample</referencedby>
+        <referencedby refid="xiicps__smbus__intr__slave__example_8c_1afe10afbb14219d41e5a17703df96090b" compoundref="xiicps__smbus__intr__slave__example_8c" startline="192" endline="273">IicPsSmbusSlaveIntrExample</referencedby>
+        <referencedby refid="xiicps__smbus__polled__slave__example_8c_1a8be3759294537d8bd8b4822d89b2971e" compoundref="xiicps__smbus__polled__slave__example_8c" startline="161" endline="219">IicPsSmbusSlavePolledExample</referencedby>
+        <referencedby refid="group__iicps__api_1gaf87bf18c36aebe9840bae9102c10572b" compoundref="xiicps__xfer_8c" startline="120" endline="143">MasterSendData</referencedby>
+        <referencedby refid="group__iicps__api_1ga15d33ac37a7293a75df5ac07a2eb4e37" compoundref="xiicps__xfer_8c" startline="376" endline="401">SlaveRecvData</referencedby>
+        <referencedby refid="group__iicps__api_1gacfb0d8f18f8105db7708669ddb186e19" compoundref="xiicps_8c" startline="263" endline="290">TransmitFifoFill</referencedby>
+        <referencedby refid="group__iicps__api_1ga3eaa694ecd774beca05bf79c1f9df6c0" compoundref="xiicps_8c" startline="210" endline="249">XIicPs_Abort</referencedby>
+        <referencedby refid="group__iicps__api_1ga5b67ad96b8c40bdd47c2c2f8a57f170c" compoundref="xiicps_8c" startline="151" endline="175">XIicPs_BusIsBusy</referencedby>
+        <referencedby refid="group__iicps__api_1gaf2c308a0247b1db734a997c01c75c282" compoundref="xiicps_8c" startline="372" endline="405">XIicPs_BusRecovery</referencedby>
+        <referencedby refid="group__iicps__api_1gae97ad9c202953c7e49bfb56533c47079" compoundref="xiicps_8c" startline="93" endline="136">XIicPs_CfgInitialize</referencedby>
+        <referencedby refid="group__iicps__api_1ga87cbf2622a9c6ad66b18d4c3f9575a76" compoundref="xiicps__options_8c" startline="183" endline="244">XIicPs_ClearOptions</referencedby>
+        <referencedby refid="group__iicps__api_1ga15f2e8071ff8d8e1ec1dc56d29ab202b" compoundref="xiicps__master_8c" startline="612" endline="670">XIicPs_DisableSlaveMonitor</referencedby>
+        <referencedby refid="group__iicps__api_1ga597faa64ccaf3d8034e3e92989048f06" compoundref="xiicps__master_8c" startline="544" endline="599">XIicPs_EnableSlaveMonitor</referencedby>
+        <referencedby refid="group__iicps__api_1ga20964e35a74f4e16f90e78510c9b4337" compoundref="xiicps__options_8c" startline="262" endline="303">XIicPs_GetOptions</referencedby>
+        <referencedby refid="group__iicps__api_1ga9f2d2d3d11c2c9125a5bc8a0d95593cb" compoundref="xiicps__options_8c" startline="470" endline="490">XIicPs_GetSClk</referencedby>
+        <referencedby refid="group__iicps__api_1gad64f0389aa694ecf21ca8a39e44cf13f" compoundref="xiicps__master_8c" startline="710" endline="826">XIicPs_MasterInterruptHandler</referencedby>
+        <referencedby refid="group__iicps__api_1gabaf5959c99fcfbbe368fa0a670347c69" compoundref="xiicps__xfer_8c" startline="278" endline="361">XIicPs_MasterIntrRead</referencedby>
+        <referencedby refid="group__iicps__api_1gaec237d71613a20b823bb60d522fe0a4b" compoundref="xiicps__xfer_8c" startline="159" endline="236">XIicPs_MasterPolledRead</referencedby>
+        <referencedby refid="group__iicps__api_1gab4873151354658814e3e28681540a009" compoundref="xiicps__hw_8c" startline="146" endline="179">XIicPs_MasterRead</referencedby>
+        <referencedby refid="group__iicps__api_1ga4817f45c28341cea4ab8960dc1203acb" compoundref="xiicps__master_8c" startline="184" endline="252">XIicPs_MasterRecv</referencedby>
+        <referencedby refid="group__iicps__api_1ga21bdb2f8a1f09e027aa8b0e9d6648d75" compoundref="xiicps__master_8c" startline="429" endline="525">XIicPs_MasterRecvPolled</referencedby>
+        <referencedby refid="group__iicps__api_1ga3027c1eb6ece3193a978a2da8e06c011" compoundref="xiicps__master_8c" startline="96" endline="164">XIicPs_MasterSend</referencedby>
+        <referencedby refid="group__iicps__api_1ga71584f1a7e675cde41cfd9d1bd4320b4" compoundref="xiicps__master_8c" startline="278" endline="403">XIicPs_MasterSendPolled</referencedby>
+        <referencedby refid="group__iicps__api_1ga1169a92eb8594d6f038816b5740916f7" compoundref="xiicps__hw_8c" startline="108" endline="129">XIicPs_Reset</referencedby>
+        <referencedby refid="group__iicps__api_1ga6f9db7651cd6ee0232dc9fdaca3f976a" compoundref="xiicps__selftest_8c" startline="70" endline="107">XIicPs_SelfTest</referencedby>
+        <referencedby refid="group__iicps__api_1gaec1dc5be2be8a7394263cfe56af976c5" compoundref="xiicps__options_8c" startline="100" endline="158">XIicPs_SetOptions</referencedby>
+        <referencedby refid="group__iicps__api_1gafb24cfdacf6cf28d80126862dc1cfbe5" compoundref="xiicps__options_8c" startline="333" endline="451">XIicPs_SetSClk</referencedby>
+        <referencedby refid="group__iicps__api_1gab4edada5e6ef2c6e9a986489a54604b3" compoundref="xiicps__xfer_8c" startline="63" endline="107">XIicPs_SetupMaster</referencedby>
+        <referencedby refid="group__iicps__api_1gad1c7ffa09df93fb59f97b0a3bf5baaa7" compoundref="xiicps__slave_8c" startline="69" endline="104">XIicPs_SetupSlave</referencedby>
+        <referencedby refid="group__iicps__api_1ga716cdb9f63e56269824866872958dd78" compoundref="xiicps__slave_8c" startline="476" endline="587">XIicPs_SlaveInterruptHandler</referencedby>
+        <referencedby refid="group__iicps__api_1ga1840936a940459c5a71858f94915f933" compoundref="xiicps__slave_8c" startline="165" endline="193">XIicPs_SlaveRecv</referencedby>
+        <referencedby refid="group__iicps__api_1ga74b0af9e4395c8de724dc377e3504d0d" compoundref="xiicps__slave_8c" startline="359" endline="438">XIicPs_SlaveRecvPolled</referencedby>
+        <referencedby refid="group__iicps__api_1ga4478d1d94f349deda02c0191a7529113" compoundref="xiicps__slave_8c" startline="122" endline="148">XIicPs_SlaveSend</referencedby>
+        <referencedby refid="group__iicps__api_1ga5ca49d9131b13d66f58de0b5a23faea4" compoundref="xiicps__slave_8c" startline="212" endline="342">XIicPs_SlaveSendPolled</referencedby>
+        <referencedby refid="group__iicps__api_1ga6767d795533c56b3bc6ad08354c3acb1" compoundref="xiicps_8c" startline="305" endline="326">XIicPsSclHold</referencedby>
+        <referencedby refid="group__iicps__api_1ga69c3112248f1ef2bda7a07f7724bcde9" compoundref="xiicps_8c" startline="339" endline="356">XIicPsSetTimeOut</referencedby>
+        <referencedby refid="xiicps__smbus__intr__master__example_8c_1a17d5b2d2e2cc13f46e3fe53aa8c7e102" compoundref="xiicps__smbus__intr__master__example_8c" startline="177" endline="268">XIicPsSmbusMasterIntrExample</referencedby>
+        <referencedby refid="xiicps__smbus__intr__master__example_8c_1a7133eab85731592fdb9d5d1c66bb6957" compoundref="xiicps__smbus__intr__master__example_8c" startline="350" endline="434">XIicPsSmbusMasterReadBlockData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_ps___config_1afbb42f3963d40b41b322b76c88dcd916" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIicPs_Config::InputClockHz</definition>
+        <argsstring></argsstring>
+        <name>InputClockHz</name>
+        <briefdescription>
+<para>Input clock frequency. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps.h" bodystart="175" bodyend="-1"/>
+        <referencedby refid="group__iicps__api_1gae97ad9c202953c7e49bfb56533c47079" compoundref="xiicps_8c" startline="93" endline="136">XIicPs_CfgInitialize</referencedby>
+        <referencedby refid="group__iicps__api_1ga9f2d2d3d11c2c9125a5bc8a0d95593cb" compoundref="xiicps__options_8c" startline="470" endline="490">XIicPs_GetSClk</referencedby>
+        <referencedby refid="group__iicps__api_1gafb24cfdacf6cf28d80126862dc1cfbe5" compoundref="xiicps__options_8c" startline="333" endline="451">XIicPs_SetSClk</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_ps___config_1aac4a2b177bf71750540642399d4ab5ba" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XIicPs_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps.h" bodystart="177" bodyend="-1"/>
+        <referencedby refid="xiicps__intr__master__example_8c_1ae81741face753dec9295d20659c80b7e" compoundref="xiicps__intr__master__example_8c" startline="170" endline="309">IicPsMasterIntrExample</referencedby>
+        <referencedby refid="xiicps__intr__multi__master__example_8c_1ad89822fcda696e386a1877920c19147d" compoundref="xiicps__intr__multi__master__example_8c" startline="178" endline="348">IicPsMultiMasterIntrExample</referencedby>
+        <referencedby refid="xiicps__intr__slave__example_8c_1ab49eb22d72b7028d2e9bb2c6db258cf3" compoundref="xiicps__intr__slave__example_8c" startline="174" endline="298">IicPsSlaveIntrExample</referencedby>
+        <referencedby refid="xiicps__smbus__intr__slave__example_8c_1afe10afbb14219d41e5a17703df96090b" compoundref="xiicps__smbus__intr__slave__example_8c" startline="192" endline="273">IicPsSmbusSlaveIntrExample</referencedby>
+        <referencedby refid="xiicps__smbus__intr__master__example_8c_1a17d5b2d2e2cc13f46e3fe53aa8c7e102" compoundref="xiicps__smbus__intr__master__example_8c" startline="177" endline="268">XIicPsSmbusMasterIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_ps___config_1a34721ad5430aa06799e1e89e79f77f53" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XIicPs_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps.h" bodystart="179" bodyend="-1"/>
+        <referencedby refid="xiicps__intr__master__example_8c_1ae81741face753dec9295d20659c80b7e" compoundref="xiicps__intr__master__example_8c" startline="170" endline="309">IicPsMasterIntrExample</referencedby>
+        <referencedby refid="xiicps__intr__multi__master__example_8c_1ad89822fcda696e386a1877920c19147d" compoundref="xiicps__intr__multi__master__example_8c" startline="178" endline="348">IicPsMultiMasterIntrExample</referencedby>
+        <referencedby refid="xiicps__intr__slave__example_8c_1ab49eb22d72b7028d2e9bb2c6db258cf3" compoundref="xiicps__intr__slave__example_8c" startline="174" endline="298">IicPsSlaveIntrExample</referencedby>
+        <referencedby refid="xiicps__smbus__intr__slave__example_8c_1afe10afbb14219d41e5a17703df96090b" compoundref="xiicps__smbus__intr__slave__example_8c" startline="192" endline="273">IicPsSmbusSlaveIntrExample</referencedby>
+        <referencedby refid="xiicps__smbus__intr__master__example_8c_1a17d5b2d2e2cc13f46e3fe53aa8c7e102" compoundref="xiicps__smbus__intr__master__example_8c" startline="177" endline="268">XIicPsSmbusMasterIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_ps___config_1a88d8fd66692d7a22ceb9e78da46e94a8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIicPs_Config::RefClk</definition>
+        <argsstring></argsstring>
+        <name>RefClk</name>
+        <briefdescription>
+<para>Input clocks. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps.h" bodystart="184" bodyend="-1"/>
+        <referencedby refid="group__iicps__api_1ga5b67ad96b8c40bdd47c2c2f8a57f170c" compoundref="xiicps_8c" startline="151" endline="175">XIicPs_BusIsBusy</referencedby>
+        <referencedby refid="group__iicps__api_1gae97ad9c202953c7e49bfb56533c47079" compoundref="xiicps_8c" startline="93" endline="136">XIicPs_CfgInitialize</referencedby>
+        <referencedby refid="group__iicps__api_1ga15f2e8071ff8d8e1ec1dc56d29ab202b" compoundref="xiicps__master_8c" startline="612" endline="670">XIicPs_DisableSlaveMonitor</referencedby>
+        <referencedby refid="group__iicps__api_1ga597faa64ccaf3d8034e3e92989048f06" compoundref="xiicps__master_8c" startline="544" endline="599">XIicPs_EnableSlaveMonitor</referencedby>
+        <referencedby refid="group__iicps__api_1ga4817f45c28341cea4ab8960dc1203acb" compoundref="xiicps__master_8c" startline="184" endline="252">XIicPs_MasterRecv</referencedby>
+        <referencedby refid="group__iicps__api_1ga21bdb2f8a1f09e027aa8b0e9d6648d75" compoundref="xiicps__master_8c" startline="429" endline="525">XIicPs_MasterRecvPolled</referencedby>
+        <referencedby refid="group__iicps__api_1ga3027c1eb6ece3193a978a2da8e06c011" compoundref="xiicps__master_8c" startline="96" endline="164">XIicPs_MasterSend</referencedby>
+        <referencedby refid="group__iicps__api_1ga71584f1a7e675cde41cfd9d1bd4320b4" compoundref="xiicps__master_8c" startline="278" endline="403">XIicPs_MasterSendPolled</referencedby>
+        <referencedby refid="group__iicps__api_1gad1c7ffa09df93fb59f97b0a3bf5baaa7" compoundref="xiicps__slave_8c" startline="69" endline="104">XIicPs_SetupSlave</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/xiicps.h" bodystart="168" bodyend="186"/>
+    <listofallmembers>
+      <member refid="struct_x_iic_ps___config_1a2bdee49f560d4a22a433c6c327d6d912" prot="public" virt="non-virtual"><scope>XIicPs_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_iic_ps___config_1afbb42f3963d40b41b322b76c88dcd916" prot="public" virt="non-virtual"><scope>XIicPs_Config</scope><name>InputClockHz</name></member>
+      <member refid="struct_x_iic_ps___config_1aac4a2b177bf71750540642399d4ab5ba" prot="public" virt="non-virtual"><scope>XIicPs_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_iic_ps___config_1a34721ad5430aa06799e1e89e79f77f53" prot="public" virt="non-virtual"><scope>XIicPs_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_iic_ps___config_1a7848b4b30de2884ed99ab776ce065737" prot="public" virt="non-virtual"><scope>XIicPs_Config</scope><name>Name</name></member>
+      <member refid="struct_x_iic_ps___config_1a88d8fd66692d7a22ceb9e78da46e94a8" prot="public" virt="non-virtual"><scope>XIicPs_Config</scope><name>RefClk</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

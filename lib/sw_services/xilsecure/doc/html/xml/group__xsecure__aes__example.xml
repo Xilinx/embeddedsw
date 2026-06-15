@@ -1,0 +1,225 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xsecure__aes__example" kind="group">
+    <compoundname>xsecure_aes_example</compoundname>
+    <title>XilSecure AES API Example Generic Usage</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xsecure__aes__example_1ga829dbcb2e54b2933cb2cfb1272c44db4" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 Iv[XSECURE_IV_SIZE]</definition>
+        <argsstring>[XSECURE_IV_SIZE]</argsstring>
+        <name>Iv</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_simple_aes_example.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_simple_aes_example.c" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__aes__example_1ga98203efe6580153f5929f7b3de24b8be" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 Key[XSECURE_KEY_SIZE]</definition>
+        <argsstring>[XSECURE_KEY_SIZE]</argsstring>
+        <name>Key</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_simple_aes_example.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_simple_aes_example.c" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__aes__example_1ga14b0803c0ef691a5bb718d5d1599cc40" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 SecureAesExample</definition>
+        <argsstring>(void)</argsstring>
+        <name>SecureAesExample</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function encrypts the data with provided AES key and IV and decrypts the encrypted data also checks whether GCM tag is matched or not and finally compares the decrypted data with the original data provided. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_FAILURE if the Aes example was failed.</para></listitem><listitem><para>XST_SUCCESS if the Aes example was successful</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.//! [Generic AES example] </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_simple_aes_example.c" line="66" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__example_1ga9c5db5d0766d44623c3420ca6d399da4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 Secure_ConvertStringToHexBE</definition>
+        <argsstring>(const char *Str, u8 *Buf, u32 Len)</argsstring>
+        <name>Secure_ConvertStringToHexBE</name>
+        <param>
+          <type>const char *</type>
+          <declname>Str</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Buf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Len</declname>
+        </param>
+        <briefdescription>
+<para>//! [Generic AES example] </para>        </briefdescription>
+        <detaileddescription>
+<para>Converts the string into the equivalent Hex buffer. Ex: &quot;abc123&quot; -&gt; {Buf[2] = 0x23, Buf[1] = 0xc1, Buf[0] = 0xab}</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a Input String. Will support the lower and upper case values. Value should be between 0-9, a-f and A-F</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Output buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of the input string. Should have even values</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS no errors occurred.</para></listitem><listitem><para>ERROR when input parameters are not valid</para></listitem><listitem><para>an error when input buffer has invalid values</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_simple_aes_example.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_simple_aes_example.c" bodystart="257" bodyend="297"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_simple_aes_example.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_simple_aes_example.c" bodystart="91" bodyend="134"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__aes__example_1gaa7efc6d726aabaf436f8325c35f0b3d8" prot="public" static="no">
+        <name>XSECURE_AES_KEY</name>
+        <initializer>&quot;F878B838D8589818E868A828C8488808F070B030D0509010E060A020C0408000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_simple_aes_example.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_simple_aes_example.c" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__aes__example_1gad2d2014f63eb9bf148052c7db2c06940" prot="public" static="no">
+        <name>XSECURE_IV</name>
+        <initializer>&quot;D2450E07EA5DE0426C0FA133&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_simple_aes_example.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_simple_aes_example.c" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__aes__example_1gaecf9791e6233e870b1595e9a609c1111" prot="public" static="no">
+        <name>XSECURE_DATA</name>
+        <initializer>&quot;1234567808F070B030D0509010E060A020C0408000A5DE08D85898A5A5FEDCA10134&quot; \
+	&quot;ABCDEF12345678900987654321123487654124456679874309713627463801AD1056&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_simple_aes_example.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_simple_aes_example.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__aes__example_1ga7e7a846e2d6ce5472dfa5ed7feb6e39d" prot="public" static="no">
+        <name>XSECURE_DATA_SIZE</name>
+        <initializer>(68)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_simple_aes_example.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_simple_aes_example.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__aes__example_1ga0a7731f1c924bb61e1a85942a33a16c2" prot="public" static="no">
+        <name>XSECURE_IV_SIZE</name>
+        <initializer>(12)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_simple_aes_example.c" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_simple_aes_example.c" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__aes__example_1gac93fe32974d3c2dde52190edb3fb7f83" prot="public" static="no">
+        <name>XSECURE_KEY_SIZE</name>
+        <initializer>(32)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_simple_aes_example.c" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_simple_aes_example.c" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__aes__example_1ga25109134227948bf6b67c9f4225e7f0c" prot="public" static="no">
+        <name>XSECURE_CSUDMA_DEVICE</name>
+        <initializer>XPAR_XCSUDMA_0_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_simple_aes_example.c" line="57" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_simple_aes_example.c" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>This example illustrates the usage of AES APIs, by encrypting the data with provided key and IV and decrypt&apos;s the output of encrypted data and compares with original data and checks for GCM tag match.</para></simplesect>
+MODIFICATION HISTORY: <preformatted>
+Ver   Who    Date     Changes
+<hruler/>
+
+2.0   vns    02/10/17 First Release
+2.2   vns    07/06/16 Added doxygen tags
+4.0   vns    03/26/19 Fixed compilation errors on IAR
+4.3   har    10/12/20 Addressed security review comments
+5.2   ng     07/05/23 Added support for system device tree flow</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

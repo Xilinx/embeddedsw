@@ -1,0 +1,1359 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__dual__splitter" kind="group">
+    <compoundname>dual_splitter</compoundname>
+    <title>Overview</title>
+    <innerclass refid="struct_x_dual_splitter___config" prot="public">XDualSplitter_Config</innerclass>
+    <innerclass refid="struct_x_dual_splitter" prot="public">XDualSplitter</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Core registers offsets</header>
+      <memberdef kind="define" id="group__dual__splitter_1ga9aa22487fb466a14cd0ba59a0cb68839" prot="public" static="no">
+        <name>XDUSP_GENR_CTL_OFFSET</name>
+        <initializer>0x0000</initializer>
+        <briefdescription>
+<para>General Control register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="45" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1ga9cb1484d45dfd8caeba7b82f3cb57d26" compoundref="xdualsplitter_8c" startline="117" endline="131">XDualSplitter_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1gae0d2add2d78533708bab0984ddb23131" prot="public" static="no">
+        <name>XDUSP_GENR_ERR_OFFSET</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>General Error register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1ga9a56efd4e26a05c36598f24949094dda" prot="public" static="no">
+        <name>XDUSP_IRQ_EN_OFFSET</name>
+        <initializer>0x000C</initializer>
+        <briefdescription>
+<para>IRQ Enable register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1gad649caaa67afb83491e3f52f4ae9f86d" prot="public" static="no">
+        <name>XDUSP_TIME_CTL_OFFSET</name>
+        <initializer>0x0020</initializer>
+        <briefdescription>
+<para>Time Control register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1gaabda56798dc29e25c03eb5098ba60850" compoundref="xdualsplitter_8c" startline="185" endline="202">XDualSplitter_GetImageSize</referencedby>
+        <referencedby refid="group__dual__splitter_1ga134facdfb0255d7de8f17cccf404349b" compoundref="xdualsplitter_8c" startline="149" endline="167">XDualSplitter_SetImageSize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1ga3853f0c033aa888b7d81c83d2f5f9599" prot="public" static="no">
+        <name>XDUSP_CORE_CTL_OFFSET</name>
+        <initializer>0x0100</initializer>
+        <briefdescription>
+<para>Core Control register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1gaf9b807d631f1491dcd23add904e40049" compoundref="xdualsplitter_8c" startline="274" endline="302">XDualSplitter_GetImgParam</referencedby>
+        <referencedby refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" compoundref="xdualsplitter_8c" startline="223" endline="249">XDualSplitter_SetImgParam</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>General control register bit masks</header>
+      <memberdef kind="define" id="group__dual__splitter_1ga409aff15607ec53867669d1a1bc04f13" prot="public" static="no">
+        <name>XDUSP_GENR_CTL_EN_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Enable mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1ga8c493f7fecb3dcc8cfd270eac6fd68b5" prot="public" static="no">
+        <name>XDUSP_GENR_CTL_RUE_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Register update enable mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1ga3643ee94cd6200a619faed8ca73a5b3f" prot="public" static="no">
+        <name>XDUSP_GENR_CTL_RST_MASK</name>
+        <initializer>0x80000000</initializer>
+        <briefdescription>
+<para>Reset mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1ga9cb1484d45dfd8caeba7b82f3cb57d26" compoundref="xdualsplitter_8c" startline="117" endline="131">XDualSplitter_Reset</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Error register bit masks</header>
+      <memberdef kind="define" id="group__dual__splitter_1ga5bc1b1b7233576abbb54e8880d10c21b" prot="public" static="no">
+        <name>XDUSP_ERR_EOL_EARLY_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Error: End of line early mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1gaa3083e69b468e8b018f3af6d495d1c9a" prot="public" static="no">
+        <name>XDUSP_ERR_EOL_LATE_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Error: End of line late mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1gad5c3df0fa33c98e366e3721e5e41e005" prot="public" static="no">
+        <name>XDUSP_ERR_SOF_EARLY_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Error: Start of frame early mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1gaaa0cbd7bfe18600c16d01397267ca09a" prot="public" static="no">
+        <name>XDUSP_ERR_SOF_LATE_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Error: Start of frame late mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1ga9702539641dd20a1668e5ca074de7f25" prot="public" static="no">
+        <name>XDUSP_ALL_ERR_MASK</name>
+        <initializer>(<ref refid="group__dual__splitter_1ga5bc1b1b7233576abbb54e8880d10c21b" kindref="member">XDUSP_ERR_EOL_EARLY_MASK</ref> | \
+					 <ref refid="group__dual__splitter_1gaa3083e69b468e8b018f3af6d495d1c9a" kindref="member">XDUSP_ERR_EOL_LATE_MASK</ref> | \
+					 <ref refid="group__dual__splitter_1gad5c3df0fa33c98e366e3721e5e41e005" kindref="member">XDUSP_ERR_SOF_EARLY_MASK</ref> | \
+					 <ref refid="group__dual__splitter_1gaaa0cbd7bfe18600c16d01397267ca09a" kindref="member">XDUSP_ERR_SOF_LATE_MASK</ref>)</initializer>
+        <briefdescription>
+<para>All error mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="89" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1ga040c43cf8292cad54fad4111a7af19c3" compoundref="xdualsplitter__intr_8c" startline="70" endline="93">XDualSplitter_IntrHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Time control register bit masks and shifts</header>
+      <memberdef kind="define" id="group__dual__splitter_1ga54161faf9be861f7f7a13aef50eb000b" prot="public" static="no">
+        <name>XDUSP_TIME_CTL_WIDTH_MASK</name>
+        <initializer>0x0000FFFF</initializer>
+        <briefdescription>
+<para>Image width mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="102" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1gaabda56798dc29e25c03eb5098ba60850" compoundref="xdualsplitter_8c" startline="185" endline="202">XDualSplitter_GetImageSize</referencedby>
+        <referencedby refid="group__dual__splitter_1ga134facdfb0255d7de8f17cccf404349b" compoundref="xdualsplitter_8c" startline="149" endline="167">XDualSplitter_SetImageSize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1ga37b7b7c851b06e75cc1f5ae389a0e8de" prot="public" static="no">
+        <name>XDUSP_TIME_CTL_HEIGHT_MASK</name>
+        <initializer>0xFFFF0000</initializer>
+        <briefdescription>
+<para>Image height mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="105" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1ga134facdfb0255d7de8f17cccf404349b" compoundref="xdualsplitter_8c" startline="149" endline="167">XDualSplitter_SetImageSize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1ga064f0f56cff150e7c031d151a1ceadbd" prot="public" static="no">
+        <name>XDUSP_TIME_CTL_HEIGHT_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Image height shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1gaabda56798dc29e25c03eb5098ba60850" compoundref="xdualsplitter_8c" startline="185" endline="202">XDualSplitter_GetImageSize</referencedby>
+        <referencedby refid="group__dual__splitter_1ga134facdfb0255d7de8f17cccf404349b" compoundref="xdualsplitter_8c" startline="149" endline="167">XDualSplitter_SetImageSize</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Core control register masks and shifts</header>
+      <memberdef kind="define" id="group__dual__splitter_1ga2cff3acfb111c7e366565f719680edd3" prot="public" static="no">
+        <name>XDUSP_CORE_CTL_IN_SAMPLES_MASK</name>
+        <initializer>0x000000FF</initializer>
+        <briefdescription>
+<para>Input samples mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="116" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1gaf9b807d631f1491dcd23add904e40049" compoundref="xdualsplitter_8c" startline="274" endline="302">XDualSplitter_GetImgParam</referencedby>
+        <referencedby refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" compoundref="xdualsplitter_8c" startline="223" endline="249">XDualSplitter_SetImgParam</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1gad365e0bf9914979373862e2b0247ab9e" prot="public" static="no">
+        <name>XDUSP_CORE_CTL_OUT_SAMPLES_MASK</name>
+        <initializer>0x0000FF00</initializer>
+        <briefdescription>
+<para>Output samples mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="121" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1gaf9b807d631f1491dcd23add904e40049" compoundref="xdualsplitter_8c" startline="274" endline="302">XDualSplitter_GetImgParam</referencedby>
+        <referencedby refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" compoundref="xdualsplitter_8c" startline="223" endline="249">XDualSplitter_SetImgParam</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1gaf78ad6b596b92871ae752278c0b2f68f" prot="public" static="no">
+        <name>XDUSP_CORE_CTL_IMG_SEG_MASK</name>
+        <initializer>0x00FF0000</initializer>
+        <briefdescription>
+<para>No of image segments mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="126" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1gaf9b807d631f1491dcd23add904e40049" compoundref="xdualsplitter_8c" startline="274" endline="302">XDualSplitter_GetImgParam</referencedby>
+        <referencedby refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" compoundref="xdualsplitter_8c" startline="223" endline="249">XDualSplitter_SetImgParam</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1ga22ef43326e4ba226883fa319353cf978" prot="public" static="no">
+        <name>XDUSP_CORE_CTL_OVRLAP_SEG_MASK</name>
+        <initializer>0xFF000000</initializer>
+        <briefdescription>
+<para>No of over- lapping segments mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="133" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1gaf9b807d631f1491dcd23add904e40049" compoundref="xdualsplitter_8c" startline="274" endline="302">XDualSplitter_GetImgParam</referencedby>
+        <referencedby refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" compoundref="xdualsplitter_8c" startline="223" endline="249">XDualSplitter_SetImgParam</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1gabc53d9a930e928bda2434053abf9214e" prot="public" static="no">
+        <name>XDUSP_CORE_CTL_OUT_SAMPLES_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Output samples shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="142" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1gaf9b807d631f1491dcd23add904e40049" compoundref="xdualsplitter_8c" startline="274" endline="302">XDualSplitter_GetImgParam</referencedby>
+        <referencedby refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" compoundref="xdualsplitter_8c" startline="223" endline="249">XDualSplitter_SetImgParam</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1ga2f6afd079b92c498a29e2aff60dfee6f" prot="public" static="no">
+        <name>XDUSP_CORE_CTL_IMG_SEG_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>No of image segments shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="145" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1gaf9b807d631f1491dcd23add904e40049" compoundref="xdualsplitter_8c" startline="274" endline="302">XDualSplitter_GetImgParam</referencedby>
+        <referencedby refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" compoundref="xdualsplitter_8c" startline="223" endline="249">XDualSplitter_SetImgParam</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1gac37e45ef0d15293e4144c6317e66ce4d" prot="public" static="no">
+        <name>XDUSP_CORE_CTL_OVRLAP_SEG_SHIFT</name>
+        <initializer>24</initializer>
+        <briefdescription>
+<para>No of overlapping segments shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="148" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1gaf9b807d631f1491dcd23add904e40049" compoundref="xdualsplitter_8c" startline="274" endline="302">XDualSplitter_GetImgParam</referencedby>
+        <referencedby refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" compoundref="xdualsplitter_8c" startline="223" endline="249">XDualSplitter_SetImgParam</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Device register I/O APIs</header>
+      <memberdef kind="define" id="group__dual__splitter_1ga837e3f05114107c687608ee56e01bfad" prot="public" static="no">
+        <name>XDualSplitter_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+<para>Input operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1ga7d7f7a7af0fd9de6643900e9371dccdd" prot="public" static="no">
+        <name>XDualSplitter_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+<para>Output operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1ga44eddc0730f101cf5dbe56e4c1095a57" prot="public" static="no">
+        <name>XDualSplitter_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer><ref refid="group__dual__splitter_1ga837e3f05114107c687608ee56e01bfad" kindref="member">XDualSplitter_In32</ref>((BaseAddress) + (u32)(RegOffset))</initializer>
+        <briefdescription>
+<para>This macro reads a value from a Dual Splitter core&apos;s register. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32 bit read is performed. If the component is implemented in a smaller width, only the least significant data is read from the register. The most significant data will be read as 0.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the <ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register (defined at the top of this file).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__dual__splitter_1ga44eddc0730f101cf5dbe56e4c1095a57" kindref="member">XDualSplitter_ReadReg(u32 BaseAddress, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="182" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1gaabda56798dc29e25c03eb5098ba60850" compoundref="xdualsplitter_8c" startline="185" endline="202">XDualSplitter_GetImageSize</referencedby>
+        <referencedby refid="group__dual__splitter_1gaf9b807d631f1491dcd23add904e40049" compoundref="xdualsplitter_8c" startline="274" endline="302">XDualSplitter_GetImgParam</referencedby>
+        <referencedby refid="group__dual__splitter_1ga9cb1484d45dfd8caeba7b82f3cb57d26" compoundref="xdualsplitter_8c" startline="117" endline="131">XDualSplitter_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1gaf9746d088835a772833e7d5482adcdfd" prot="public" static="no">
+        <name>XDualSplitter_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer><ref refid="group__dual__splitter_1ga7d7f7a7af0fd9de6643900e9371dccdd" kindref="member">XDualSplitter_Out32</ref>((BaseAddress) + (u32)(RegOffset), (Data))</initializer>
+        <briefdescription>
+<para>This macro writes a value into a Dual Splitter core&apos;s register. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32 bit write is performed. If the component is implemented in a smaller width, only the least significant data is written.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the <ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register (defined at the top of this file) to be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write into the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void XDualSplitter_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="204" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1ga9cb1484d45dfd8caeba7b82f3cb57d26" compoundref="xdualsplitter_8c" startline="117" endline="131">XDualSplitter_Reset</referencedby>
+        <referencedby refid="group__dual__splitter_1ga134facdfb0255d7de8f17cccf404349b" compoundref="xdualsplitter_8c" startline="149" endline="167">XDualSplitter_SetImageSize</referencedby>
+        <referencedby refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" compoundref="xdualsplitter_8c" startline="223" endline="249">XDualSplitter_SetImgParam</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__dual__splitter_1ga873e8f9016fe93ebb39e59dcfd4a1c2b" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XDualSplitter_ErrCallback)(void *CallbackRef, u32 ErrorMask)</definition>
+        <argsstring>)(void *CallbackRef, u32 ErrorMask)</argsstring>
+        <name>XDualSplitter_ErrCallback</name>
+        <briefdescription>
+<para>Callback type for error interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a callback reference passed in by the upper layer when setting the callback functions and passed back to the upper layer when the callback is invoked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ErrorMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a bit mask indicating the cause of the error. Its value equals &apos;OR&apos;ing one or more XDUSP_ERR_*_MASK values defined in <ref refid="xdualsplitter__hw_8h" kindref="compound">xdualsplitter_hw.h</ref>. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dual__splitter_1ga940fa1ae7db63021ffaed876ec0f7230" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void StubErrCallback</definition>
+        <argsstring>(void *CallbackRef, u32 ErrorMask)</argsstring>
+        <name>StubErrCallback</name>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ErrorMask</declname>
+        </param>
+        <briefdescription>
+<para>This routine is a stub for the asynchronous error interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+<para>The stub is here in case the upper layer forgot to set the handler. On initialization, error interrupt handler is set to this callback. It is considered as an error for this handler to be invoked.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a callback reference passed in by the upper layer when setting the callback functions and passed back to the upper layer when the callback is invoked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ErrorMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a bit mask indicating the cause of the error. Its value equals &apos;OR&apos;ing one or more XDUSP_ERR_*_MASK values defined in <ref refid="xdualsplitter__hw_8h" kindref="compound">xdualsplitter_hw.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.c" bodystart="324" bodyend="329"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dual__splitter_1gae802302ea4de37154e36cbe0993e8cfd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XDualSplitter_CfgInitialize</definition>
+        <argsstring>(XDualSplitter *InstancePtr, XDualSplitter_Config *CfgPtr, u32 EffectiveAddr)</argsstring>
+        <name>XDualSplitter_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dual_splitter___config" kindref="compound">XDualSplitter_Config</ref> *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the Dual Splitter core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function must be called prior to using the Dual Splitter core. Initialization of the core includes setting up the instance data and ensuring the hardware is in a quiescent state.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the configuration structure associated with the Dual Splitter core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. If address translation is being used, then this parameter must reflect the virtual base address. Otherwise, the physical address should be used.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if XDualSplitter_CfgInitialize was successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.c" bodystart="73" bodyend="102"/>
+        <references refid="struct_x_dual_splitter___config_1a3da7ad4f8e876ab73acc8c72274ea0f6" compoundref="xdualsplitter_8h" startline="123">XDualSplitter_Config::BaseAddress</references>
+        <references refid="struct_x_dual_splitter_1aeded47f9b34da5e26741ef05f5278843" compoundref="xdualsplitter_8h" startline="160">XDualSplitter::Config</references>
+        <references refid="struct_x_dual_splitter_1ab03d3f613e60a8638a8d5c2a8328e599" compoundref="xdualsplitter_8h" startline="163">XDualSplitter::ErrCallback</references>
+        <references refid="struct_x_dual_splitter_1abefb52f749cdb12c05f0a5f6458ca51b" compoundref="xdualsplitter_8h" startline="161">XDualSplitter::IsReady</references>
+        <references refid="group__dual__splitter_1ga9cb1484d45dfd8caeba7b82f3cb57d26" compoundref="xdualsplitter_8c" startline="117" endline="131">XDualSplitter_Reset</references>
+        <referencedby refid="xdualsplitter__example_8c_1a42e5da16cadf070754de53ee38e934b2" compoundref="xdualsplitter__example_8c" startline="99" endline="165">XDualSplitterExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dual__splitter_1ga9cb1484d45dfd8caeba7b82f3cb57d26" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDualSplitter_Reset</definition>
+        <argsstring>(XDualSplitter *InstancePtr)</argsstring>
+        <name>XDualSplitter_Reset</name>
+        <param>
+          <type><ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function resets the Dual Splitter core instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>This reset effects the core immediately and may cause image tearing.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.c" bodystart="117" bodyend="131"/>
+        <references refid="struct_x_dual_splitter___config_1a3da7ad4f8e876ab73acc8c72274ea0f6" compoundref="xdualsplitter_8h" startline="123">XDualSplitter_Config::BaseAddress</references>
+        <references refid="struct_x_dual_splitter_1aeded47f9b34da5e26741ef05f5278843" compoundref="xdualsplitter_8h" startline="160">XDualSplitter::Config</references>
+        <references refid="group__dual__splitter_1ga44eddc0730f101cf5dbe56e4c1095a57" compoundref="xdualsplitter__hw_8h" startline="182">XDualSplitter_ReadReg</references>
+        <references refid="group__dual__splitter_1gaf9746d088835a772833e7d5482adcdfd" compoundref="xdualsplitter__hw_8h" startline="204">XDualSplitter_WriteReg</references>
+        <references refid="group__dual__splitter_1ga9aa22487fb466a14cd0ba59a0cb68839" compoundref="xdualsplitter__hw_8h" startline="45">XDUSP_GENR_CTL_OFFSET</references>
+        <references refid="group__dual__splitter_1ga3643ee94cd6200a619faed8ca73a5b3f" compoundref="xdualsplitter__hw_8h" startline="69">XDUSP_GENR_CTL_RST_MASK</references>
+        <referencedby refid="group__dual__splitter_1gae802302ea4de37154e36cbe0993e8cfd" compoundref="xdualsplitter_8c" startline="73" endline="102">XDualSplitter_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dual__splitter_1ga134facdfb0255d7de8f17cccf404349b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDualSplitter_SetImageSize</definition>
+        <argsstring>(XDualSplitter *InstancePtr, u16 Height, u16 Width)</argsstring>
+        <name>XDualSplitter_SetImageSize</name>
+        <param>
+          <type><ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Height</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Width</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the image size (width x height) of the Dual Splitter core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Height</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the height of the input image that needs to be set within the range [0, 2160]. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the width of the input image that needs to be set within the range [0, 3840].</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.c" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.c" bodystart="149" bodyend="167"/>
+        <references refid="struct_x_dual_splitter___config_1a3da7ad4f8e876ab73acc8c72274ea0f6" compoundref="xdualsplitter_8h" startline="123">XDualSplitter_Config::BaseAddress</references>
+        <references refid="struct_x_dual_splitter_1aeded47f9b34da5e26741ef05f5278843" compoundref="xdualsplitter_8h" startline="160">XDualSplitter::Config</references>
+        <references refid="group__dual__splitter_1gaf9746d088835a772833e7d5482adcdfd" compoundref="xdualsplitter__hw_8h" startline="204">XDualSplitter_WriteReg</references>
+        <references refid="group__dual__splitter_1ga946445995eef0824f326b64323609e31" compoundref="xdualsplitter_8h" startline="107">XDUSP_MAX_IMG_HEIGHT</references>
+        <references refid="group__dual__splitter_1gab07b0fb78a641280e191c7dbaead0cb4" compoundref="xdualsplitter_8h" startline="106">XDUSP_MAX_IMG_WIDTH</references>
+        <references refid="group__dual__splitter_1ga37b7b7c851b06e75cc1f5ae389a0e8de" compoundref="xdualsplitter__hw_8h" startline="105">XDUSP_TIME_CTL_HEIGHT_MASK</references>
+        <references refid="group__dual__splitter_1ga064f0f56cff150e7c031d151a1ceadbd" compoundref="xdualsplitter__hw_8h" startline="108">XDUSP_TIME_CTL_HEIGHT_SHIFT</references>
+        <references refid="group__dual__splitter_1gad649caaa67afb83491e3f52f4ae9f86d" compoundref="xdualsplitter__hw_8h" startline="54">XDUSP_TIME_CTL_OFFSET</references>
+        <references refid="group__dual__splitter_1ga54161faf9be861f7f7a13aef50eb000b" compoundref="xdualsplitter__hw_8h" startline="102">XDUSP_TIME_CTL_WIDTH_MASK</references>
+        <referencedby refid="group__dual__splitter_1gaa58ddb5fa4bc7b31d0b10f49ef9550eb" compoundref="xdualsplitter__selftest_8c" startline="61" endline="81">XDualSplitter_SelfTest</referencedby>
+        <referencedby refid="xdualsplitter__example_8c_1a42e5da16cadf070754de53ee38e934b2" compoundref="xdualsplitter__example_8c" startline="99" endline="165">XDualSplitterExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dual__splitter_1gaabda56798dc29e25c03eb5098ba60850" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDualSplitter_GetImageSize</definition>
+        <argsstring>(XDualSplitter *InstancePtr, u16 *Height, u16 *Width)</argsstring>
+        <name>XDualSplitter_GetImageSize</name>
+        <param>
+          <type><ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16 *</type>
+          <declname>Height</declname>
+        </param>
+        <param>
+          <type>u16 *</type>
+          <declname>Width</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the image size (width x height) of the Dual Splitter core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Height</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies a pointer to the 16-bit variable that will be filled with height which is in the range [0, 2160]. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies a pointer to the 16-bit variable that will be filled with width which is in the range [0, 3840].</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.c" bodystart="185" bodyend="202"/>
+        <references refid="struct_x_dual_splitter___config_1a3da7ad4f8e876ab73acc8c72274ea0f6" compoundref="xdualsplitter_8h" startline="123">XDualSplitter_Config::BaseAddress</references>
+        <references refid="struct_x_dual_splitter_1aeded47f9b34da5e26741ef05f5278843" compoundref="xdualsplitter_8h" startline="160">XDualSplitter::Config</references>
+        <references refid="group__dual__splitter_1ga44eddc0730f101cf5dbe56e4c1095a57" compoundref="xdualsplitter__hw_8h" startline="182">XDualSplitter_ReadReg</references>
+        <references refid="group__dual__splitter_1ga064f0f56cff150e7c031d151a1ceadbd" compoundref="xdualsplitter__hw_8h" startline="108">XDUSP_TIME_CTL_HEIGHT_SHIFT</references>
+        <references refid="group__dual__splitter_1gad649caaa67afb83491e3f52f4ae9f86d" compoundref="xdualsplitter__hw_8h" startline="54">XDUSP_TIME_CTL_OFFSET</references>
+        <references refid="group__dual__splitter_1ga54161faf9be861f7f7a13aef50eb000b" compoundref="xdualsplitter__hw_8h" startline="102">XDUSP_TIME_CTL_WIDTH_MASK</references>
+        <referencedby refid="group__dual__splitter_1gaa58ddb5fa4bc7b31d0b10f49ef9550eb" compoundref="xdualsplitter__selftest_8c" startline="61" endline="81">XDualSplitter_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDualSplitter_SetImgParam</definition>
+        <argsstring>(XDualSplitter *InstancePtr, u8 InputSamples, u8 OutputSamples, u8 ImageSegments, u8 Overlap)</argsstring>
+        <name>XDualSplitter_SetImgParam</name>
+        <param>
+          <type><ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>InputSamples</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>OutputSamples</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ImageSegments</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Overlap</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the image parameters to split into multiple segments. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InputSamples</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the number of input samples per clock that needs to be set within the range [0, 4]. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutputSamples</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the number of output samples per clock that needs to be set within the range [0, 4]. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ImageSegments</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the number of image segments that needs to be set within the range [0, 4]. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Overlap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the overlap of the samples in the segments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.c" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.c" bodystart="223" bodyend="249"/>
+        <references refid="struct_x_dual_splitter___config_1a3da7ad4f8e876ab73acc8c72274ea0f6" compoundref="xdualsplitter_8h" startline="123">XDualSplitter_Config::BaseAddress</references>
+        <references refid="struct_x_dual_splitter_1aeded47f9b34da5e26741ef05f5278843" compoundref="xdualsplitter_8h" startline="160">XDualSplitter::Config</references>
+        <references refid="group__dual__splitter_1gaf9746d088835a772833e7d5482adcdfd" compoundref="xdualsplitter__hw_8h" startline="204">XDualSplitter_WriteReg</references>
+        <references refid="group__dual__splitter_1gaf78ad6b596b92871ae752278c0b2f68f" compoundref="xdualsplitter__hw_8h" startline="126">XDUSP_CORE_CTL_IMG_SEG_MASK</references>
+        <references refid="group__dual__splitter_1ga2f6afd079b92c498a29e2aff60dfee6f" compoundref="xdualsplitter__hw_8h" startline="145">XDUSP_CORE_CTL_IMG_SEG_SHIFT</references>
+        <references refid="group__dual__splitter_1ga2cff3acfb111c7e366565f719680edd3" compoundref="xdualsplitter__hw_8h" startline="116">XDUSP_CORE_CTL_IN_SAMPLES_MASK</references>
+        <references refid="group__dual__splitter_1ga3853f0c033aa888b7d81c83d2f5f9599" compoundref="xdualsplitter__hw_8h" startline="57">XDUSP_CORE_CTL_OFFSET</references>
+        <references refid="group__dual__splitter_1gad365e0bf9914979373862e2b0247ab9e" compoundref="xdualsplitter__hw_8h" startline="121">XDUSP_CORE_CTL_OUT_SAMPLES_MASK</references>
+        <references refid="group__dual__splitter_1gabc53d9a930e928bda2434053abf9214e" compoundref="xdualsplitter__hw_8h" startline="142">XDUSP_CORE_CTL_OUT_SAMPLES_SHIFT</references>
+        <references refid="group__dual__splitter_1ga22ef43326e4ba226883fa319353cf978" compoundref="xdualsplitter__hw_8h" startline="133">XDUSP_CORE_CTL_OVRLAP_SEG_MASK</references>
+        <references refid="group__dual__splitter_1gac37e45ef0d15293e4144c6317e66ce4d" compoundref="xdualsplitter__hw_8h" startline="148">XDUSP_CORE_CTL_OVRLAP_SEG_SHIFT</references>
+        <references refid="group__dual__splitter_1gaf2f686812173fe2783ef0a1792e24445" compoundref="xdualsplitter_8h" startline="95">XDUSP_MAX_INPUT_SAMPLES</references>
+        <references refid="group__dual__splitter_1ga4d2b6db38eefeb1db343a3137e461b06" compoundref="xdualsplitter_8h" startline="98">XDUSP_MAX_OUTPUT_SAMPLES</references>
+        <references refid="group__dual__splitter_1gad1e29e05b39310fad77c21ba1b08206f" compoundref="xdualsplitter_8h" startline="102">XDUSP_MAX_SEGMENTS</references>
+        <referencedby refid="xdualsplitter__example_8c_1a42e5da16cadf070754de53ee38e934b2" compoundref="xdualsplitter__example_8c" startline="99" endline="165">XDualSplitterExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dual__splitter_1gaf9b807d631f1491dcd23add904e40049" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDualSplitter_GetImgParam</definition>
+        <argsstring>(XDualSplitter *InstancePtr, u8 *InputSamples, u8 *OutputSamples, u8 *ImageSegments, u8 *Overlap)</argsstring>
+        <name>XDualSplitter_GetImgParam</name>
+        <param>
+          <type><ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>InputSamples</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>OutputSamples</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ImageSegments</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Overlap</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the image parameters of the Dual Splitter core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InputSamples</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies a pointer to the 8-bit variable that will be filled with number of input samples which is in the range [0, 4] </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutputSamples</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies a pointer to the 8-bit variable that will be filled with number of output samples which is in the range [0, 4] </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ImageSegments</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies a pointer to the 8-bit variable that will be filled with number of image segments which is in the range [0, 4] </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Overlap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies a pointer to the 8-bit variable that will be filled with number of samples overlapping the segments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.c" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.c" bodystart="274" bodyend="302"/>
+        <references refid="struct_x_dual_splitter___config_1a3da7ad4f8e876ab73acc8c72274ea0f6" compoundref="xdualsplitter_8h" startline="123">XDualSplitter_Config::BaseAddress</references>
+        <references refid="struct_x_dual_splitter_1aeded47f9b34da5e26741ef05f5278843" compoundref="xdualsplitter_8h" startline="160">XDualSplitter::Config</references>
+        <references refid="group__dual__splitter_1ga44eddc0730f101cf5dbe56e4c1095a57" compoundref="xdualsplitter__hw_8h" startline="182">XDualSplitter_ReadReg</references>
+        <references refid="group__dual__splitter_1gaf78ad6b596b92871ae752278c0b2f68f" compoundref="xdualsplitter__hw_8h" startline="126">XDUSP_CORE_CTL_IMG_SEG_MASK</references>
+        <references refid="group__dual__splitter_1ga2f6afd079b92c498a29e2aff60dfee6f" compoundref="xdualsplitter__hw_8h" startline="145">XDUSP_CORE_CTL_IMG_SEG_SHIFT</references>
+        <references refid="group__dual__splitter_1ga2cff3acfb111c7e366565f719680edd3" compoundref="xdualsplitter__hw_8h" startline="116">XDUSP_CORE_CTL_IN_SAMPLES_MASK</references>
+        <references refid="group__dual__splitter_1ga3853f0c033aa888b7d81c83d2f5f9599" compoundref="xdualsplitter__hw_8h" startline="57">XDUSP_CORE_CTL_OFFSET</references>
+        <references refid="group__dual__splitter_1gad365e0bf9914979373862e2b0247ab9e" compoundref="xdualsplitter__hw_8h" startline="121">XDUSP_CORE_CTL_OUT_SAMPLES_MASK</references>
+        <references refid="group__dual__splitter_1gabc53d9a930e928bda2434053abf9214e" compoundref="xdualsplitter__hw_8h" startline="142">XDUSP_CORE_CTL_OUT_SAMPLES_SHIFT</references>
+        <references refid="group__dual__splitter_1ga22ef43326e4ba226883fa319353cf978" compoundref="xdualsplitter__hw_8h" startline="133">XDUSP_CORE_CTL_OVRLAP_SEG_MASK</references>
+        <references refid="group__dual__splitter_1gac37e45ef0d15293e4144c6317e66ce4d" compoundref="xdualsplitter__hw_8h" startline="148">XDUSP_CORE_CTL_OVRLAP_SEG_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dual__splitter_1ga2d3c807cc8cb5d2425b784b9864d35e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_dual_splitter___config" kindref="compound">XDualSplitter_Config</ref> *</type>
+        <definition>XDualSplitter_Config * XDualSplitter_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XDualSplitter_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function returns a reference to the <ref refid="struct_x_dual_splitter___config" kindref="compound">XDualSplitter_Config</ref> structure based on the core id, <emphasis>DeviceId</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>The return value will refer to an entry in the device configuration table defined in the xdualsplitter_g.c file.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique core ID of the Dual Splitter core for the lookup operation.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XDualSplitter_LookupConfig returns a reference to a config record in the configuration table (in xdaulsplitter_g.c) corresponding to <emphasis>DeviceId</emphasis>, or NULL if no match is found.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_sinit.c" bodystart="101" bodyend="122"/>
+        <referencedby refid="xdualsplitter__example_8c_1a42e5da16cadf070754de53ee38e934b2" compoundref="xdualsplitter__example_8c" startline="99" endline="165">XDualSplitterExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dual__splitter_1gaa58ddb5fa4bc7b31d0b10f49ef9550eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XDualSplitter_SelfTest</definition>
+        <argsstring>(XDualSplitter *InstancePtr)</argsstring>
+        <name>XDualSplitter_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function performs self test on DualSplitter core registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if self test passed.</para></listitem><listitem><para>XST_FAILURE if self test failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="380" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_selftest.c" bodystart="61" bodyend="81"/>
+        <references refid="group__dual__splitter_1gaabda56798dc29e25c03eb5098ba60850" compoundref="xdualsplitter_8c" startline="185" endline="202">XDualSplitter_GetImageSize</references>
+        <references refid="group__dual__splitter_1ga134facdfb0255d7de8f17cccf404349b" compoundref="xdualsplitter_8c" startline="149" endline="167">XDualSplitter_SetImageSize</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dual__splitter_1ga040c43cf8292cad54fad4111a7af19c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDualSplitter_IntrHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XDualSplitter_IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the Dual Splitter core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler reads the pending interrupt from the GENR_ERROR register, determines the source of the interrupts and calls the respective callbacks for the interrupts that are enabled in IRQ_ENABLE register, and finally clears the interrupts.</para><para>The application is responsible for connecting this function to the interrupt system. Application beyond this core is also responsible for providing callbacks to handle interrupts and installing the callbacks using XDualSplitter_SetCallBack() during initialization phase.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Interrupt should be enabled to execute interrupt handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="383" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_intr.c" bodystart="70" bodyend="93"/>
+        <references refid="struct_x_dual_splitter_1aeded47f9b34da5e26741ef05f5278843" compoundref="xdualsplitter_8h" startline="160">XDualSplitter::Config</references>
+        <references refid="struct_x_dual_splitter_1ab03d3f613e60a8638a8d5c2a8328e599" compoundref="xdualsplitter_8h" startline="163">XDualSplitter::ErrCallback</references>
+        <references refid="struct_x_dual_splitter_1a5bd5757ddb107dd4981cfaa9ccac9efa" compoundref="xdualsplitter_8h" startline="165">XDualSplitter::ErrRef</references>
+        <references refid="struct_x_dual_splitter___config_1a0a9073578b8b05a9d3c3ae49f1b7ac7f" compoundref="xdualsplitter_8h" startline="138">XDualSplitter_Config::HasIntrReq</references>
+        <references refid="struct_x_dual_splitter_1abefb52f749cdb12c05f0a5f6458ca51b" compoundref="xdualsplitter_8h" startline="161">XDualSplitter::IsReady</references>
+        <references refid="group__dual__splitter_1gade3b45e32122663dce6a7671a2963054" compoundref="xdualsplitter_8h" startline="348">XDualSplitter_IntrClear</references>
+        <references refid="group__dual__splitter_1ga5443342ec7cb733071f68a3011846490" compoundref="xdualsplitter_8h" startline="323">XDualSplitter_IntrGetPending</references>
+        <references refid="group__dual__splitter_1ga9702539641dd20a1668e5ca074de7f25" compoundref="xdualsplitter__hw_8h" startline="89">XDUSP_ALL_ERR_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dual__splitter_1ga6d470b5b39f29a4635707b69290898f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDualSplitter_SetCallback</definition>
+        <argsstring>(XDualSplitter *InstancePtr, void *CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XDualSplitter_SetCallback</name>
+        <param>
+          <type><ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function installs an asynchronous callback function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Invoking this function for a callback that already has been installed replaces it with the new callback. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="384" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_intr.c" bodystart="111" bodyend="124"/>
+        <references refid="struct_x_dual_splitter_1ab03d3f613e60a8638a8d5c2a8328e599" compoundref="xdualsplitter_8h" startline="163">XDualSplitter::ErrCallback</references>
+        <references refid="struct_x_dual_splitter_1a5bd5757ddb107dd4981cfaa9ccac9efa" compoundref="xdualsplitter_8h" startline="165">XDualSplitter::ErrRef</references>
+        <references refid="struct_x_dual_splitter_1abefb52f749cdb12c05f0a5f6458ca51b" compoundref="xdualsplitter_8h" startline="161">XDualSplitter::IsReady</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__dual__splitter_1ga646f9c7bc69fb73d163dfa4c51f3bcb7" prot="public" static="no">
+        <name>XDUALSPLITTER_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1gafb8113e70018b7f234641aa6bbc2f4ea" prot="public" static="no">
+        <name>XPAR_XDUALSPLITTER_NUM_INSTANCES</name>
+        <initializer>XPAR_XDUAL_SPLITTER_NUM_INSTANCES</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1gaf2f686812173fe2783ef0a1792e24445" prot="public" static="no">
+        <name>XDUSP_MAX_INPUT_SAMPLES</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Maximum input samples per clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="95" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" compoundref="xdualsplitter_8c" startline="223" endline="249">XDualSplitter_SetImgParam</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1ga4d2b6db38eefeb1db343a3137e461b06" prot="public" static="no">
+        <name>XDUSP_MAX_OUTPUT_SAMPLES</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Maximum output samples per clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" compoundref="xdualsplitter_8c" startline="223" endline="249">XDualSplitter_SetImgParam</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1gad1e29e05b39310fad77c21ba1b08206f" prot="public" static="no">
+        <name>XDUSP_MAX_SEGMENTS</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Maximum number of segments in an image. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="102" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" compoundref="xdualsplitter_8c" startline="223" endline="249">XDualSplitter_SetImgParam</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1gab07b0fb78a641280e191c7dbaead0cb4" prot="public" static="no">
+        <name>XDUSP_MAX_IMG_WIDTH</name>
+        <initializer>3840</initializer>
+        <briefdescription>
+<para>Maximum image width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="106" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1ga134facdfb0255d7de8f17cccf404349b" compoundref="xdualsplitter_8c" startline="149" endline="167">XDualSplitter_SetImageSize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1ga946445995eef0824f326b64323609e31" prot="public" static="no">
+        <name>XDUSP_MAX_IMG_HEIGHT</name>
+        <initializer>2160</initializer>
+        <briefdescription>
+<para>Maximum image height. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="107" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1ga134facdfb0255d7de8f17cccf404349b" compoundref="xdualsplitter_8c" startline="149" endline="167">XDualSplitter_SetImageSize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1ga9436f877783ccefb508aa8dceb3e4f51" prot="public" static="no">
+        <name>XDualSplitter_RegUpdateEnable</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__dual__splitter_1gaf9746d088835a772833e7d5482adcdfd" kindref="member">XDualSplitter_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+		<ref refid="group__dual__splitter_1ga9aa22487fb466a14cd0ba59a0cb68839" kindref="member">XDUSP_GENR_CTL_OFFSET</ref>, \
+		<ref refid="group__dual__splitter_1ga44eddc0730f101cf5dbe56e4c1095a57" kindref="member">XDualSplitter_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+			<ref refid="group__dual__splitter_1ga9aa22487fb466a14cd0ba59a0cb68839" kindref="member">XDUSP_GENR_CTL_OFFSET</ref>) | <ref refid="group__dual__splitter_1ga8c493f7fecb3dcc8cfd270eac6fd68b5" kindref="member">XDUSP_GENR_CTL_RUE_MASK</ref>)</initializer>
+        <briefdescription>
+<para>This macro commits all the register value changes made so far by the software to the Dual Splitter core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__dual__splitter_1ga9436f877783ccefb508aa8dceb3e4f51" kindref="member">XDualSplitter_RegUpdateEnable(XDualSplitter *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="185" bodyend="-1"/>
+        <referencedby refid="xdualsplitter__example_8c_1a42e5da16cadf070754de53ee38e934b2" compoundref="xdualsplitter__example_8c" startline="99" endline="165">XDualSplitterExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1ga80e7605f293b4f935ed78a86232777ba" prot="public" static="no">
+        <name>XDualSplitter_RegUpdateDisable</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__dual__splitter_1gaf9746d088835a772833e7d5482adcdfd" kindref="member">XDualSplitter_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+		<ref refid="group__dual__splitter_1ga9aa22487fb466a14cd0ba59a0cb68839" kindref="member">XDUSP_GENR_CTL_OFFSET</ref>, \
+		<ref refid="group__dual__splitter_1ga44eddc0730f101cf5dbe56e4c1095a57" kindref="member">XDualSplitter_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+			<ref refid="group__dual__splitter_1ga9aa22487fb466a14cd0ba59a0cb68839" kindref="member">XDUSP_GENR_CTL_OFFSET</ref>) &amp; (~<ref refid="group__dual__splitter_1ga8c493f7fecb3dcc8cfd270eac6fd68b5" kindref="member">XDUSP_GENR_CTL_RUE_MASK</ref>))</initializer>
+        <briefdescription>
+<para>This macro prevents the Dual Splitter core from committing recent changes made so far by the software. </para>        </briefdescription>
+        <detaileddescription>
+<para>When disabled, changes to other configuration registers are stored but do not effect the behavior of the core.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__dual__splitter_1ga80e7605f293b4f935ed78a86232777ba" kindref="member">XDualSplitter_RegUpdateDisable(XDualSplitter *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="202" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="206" bodyend="-1"/>
+        <referencedby refid="xdualsplitter__example_8c_1a42e5da16cadf070754de53ee38e934b2" compoundref="xdualsplitter__example_8c" startline="99" endline="165">XDualSplitterExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1gab5e16cc8824c65a7f9072d6ae226cd7e" prot="public" static="no">
+        <name>XDualSplitter_Enable</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__dual__splitter_1gaf9746d088835a772833e7d5482adcdfd" kindref="member">XDualSplitter_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+		<ref refid="group__dual__splitter_1ga9aa22487fb466a14cd0ba59a0cb68839" kindref="member">XDUSP_GENR_CTL_OFFSET</ref>, \
+		<ref refid="group__dual__splitter_1ga44eddc0730f101cf5dbe56e4c1095a57" kindref="member">XDualSplitter_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+			<ref refid="group__dual__splitter_1ga9aa22487fb466a14cd0ba59a0cb68839" kindref="member">XDUSP_GENR_CTL_OFFSET</ref>) | <ref refid="group__dual__splitter_1ga409aff15607ec53867669d1a1bc04f13" kindref="member">XDUSP_GENR_CTL_EN_MASK</ref>)</initializer>
+        <briefdescription>
+<para>This macro enables the Dual Splitter core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__dual__splitter_1gab5e16cc8824c65a7f9072d6ae226cd7e" kindref="member">XDualSplitter_Enable(XDualSplitter *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="221" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="225" bodyend="-1"/>
+        <referencedby refid="xdualsplitter__example_8c_1a42e5da16cadf070754de53ee38e934b2" compoundref="xdualsplitter__example_8c" startline="99" endline="165">XDualSplitterExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1ga9a85a55698682175aecc7e28e0fbf9a1" prot="public" static="no">
+        <name>XDualSplitter_Disable</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__dual__splitter_1gaf9746d088835a772833e7d5482adcdfd" kindref="member">XDualSplitter_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+		<ref refid="group__dual__splitter_1ga9aa22487fb466a14cd0ba59a0cb68839" kindref="member">XDUSP_GENR_CTL_OFFSET</ref>, \
+		<ref refid="group__dual__splitter_1ga44eddc0730f101cf5dbe56e4c1095a57" kindref="member">XDualSplitter_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+			<ref refid="group__dual__splitter_1ga9aa22487fb466a14cd0ba59a0cb68839" kindref="member">XDUSP_GENR_CTL_OFFSET</ref>) &amp; \
+				~(<ref refid="group__dual__splitter_1ga409aff15607ec53867669d1a1bc04f13" kindref="member">XDUSP_GENR_CTL_EN_MASK</ref>))</initializer>
+        <briefdescription>
+<para>This macro disables the Dual Splitter core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__dual__splitter_1ga9a85a55698682175aecc7e28e0fbf9a1" kindref="member">XDualSplitter_Disable(XDualSplitter *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="240" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1ga644e3a71b19d5dce82895bbc1c4302a0" prot="public" static="no">
+        <name>XDualSplitter_IntrEnable</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>IntrType</defname></param>
+        <initializer><ref refid="group__dual__splitter_1gaf9746d088835a772833e7d5482adcdfd" kindref="member">XDualSplitter_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+		(<ref refid="group__dual__splitter_1ga9a56efd4e26a05c36598f24949094dda" kindref="member">XDUSP_IRQ_EN_OFFSET</ref>), (IntrType &amp; \
+			<ref refid="group__dual__splitter_1ga9702539641dd20a1668e5ca074de7f25" kindref="member">XDUSP_ALL_ERR_MASK</ref>) | \
+		<ref refid="group__dual__splitter_1ga44eddc0730f101cf5dbe56e4c1095a57" kindref="member">XDualSplitter_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+			<ref refid="group__dual__splitter_1ga9a56efd4e26a05c36598f24949094dda" kindref="member">XDUSP_IRQ_EN_OFFSET</ref>))</initializer>
+        <briefdescription>
+<para>This macro enables the given individual interrupt(s) on the Dual Splitter core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntrType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bit-mask of the interrupts to be enabled. Bit positions of 1 will be enabled. Bit positions of 0 will keep the previous setting. This mask is formed by OR&apos;ing XDUSP_ERR_*_MASK bits defined in <ref refid="xdualsplitter__hw_8h" kindref="compound">xdualsplitter_hw.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>The existing enabled interrupt(s) will remain enabled. C-style signature: void XDualSplitter_IntrEnable(<ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> *InstancePtr, u32 IntrType) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="267" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="271" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1ga8f6ef9dbc7567a51fa936c3313c6831c" prot="public" static="no">
+        <name>XDualSplitter_IntrDisable</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>IntrType</defname></param>
+        <initializer><ref refid="group__dual__splitter_1gaf9746d088835a772833e7d5482adcdfd" kindref="member">XDualSplitter_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+			<ref refid="group__dual__splitter_1ga9a56efd4e26a05c36598f24949094dda" kindref="member">XDUSP_IRQ_EN_OFFSET</ref>, \
+		<ref refid="group__dual__splitter_1ga44eddc0730f101cf5dbe56e4c1095a57" kindref="member">XDualSplitter_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+			<ref refid="group__dual__splitter_1ga9a56efd4e26a05c36598f24949094dda" kindref="member">XDUSP_IRQ_EN_OFFSET</ref>) &amp; ((~IntrType) &amp; \
+				<ref refid="group__dual__splitter_1ga9702539641dd20a1668e5ca074de7f25" kindref="member">XDUSP_ALL_ERR_MASK</ref>))</initializer>
+        <briefdescription>
+<para>This macro disables the given individual interrupt(s) on the Dual Splitter core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntrType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bit-mask of the interrupts to be disabled. Bit positions of 1 will be enabled. Bit positions of 0 will keep the previous setting. This mask is formed by OR&apos;ing XDUSP_ERR_*_MASK bits defined in <ref refid="xdualsplitter__hw_8h" kindref="compound">xdualsplitter_hw.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Any other interrupt not covered by parameter IntrType, if enabled before this macro is called, will remain enabled. C-style signature: void XDualSplitter_IntrDisable(<ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> *InstancePtr, u32 IntrType) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="295" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="299" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1ga5443342ec7cb733071f68a3011846490" prot="public" static="no">
+        <name>XDualSplitter_IntrGetPending</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer><ref refid="group__dual__splitter_1ga44eddc0730f101cf5dbe56e4c1095a57" kindref="member">XDualSplitter_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+			<ref refid="group__dual__splitter_1ga9a56efd4e26a05c36598f24949094dda" kindref="member">XDUSP_IRQ_EN_OFFSET</ref>) &amp; \
+		<ref refid="group__dual__splitter_1ga44eddc0730f101cf5dbe56e4c1095a57" kindref="member">XDualSplitter_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+			<ref refid="group__dual__splitter_1gae0d2add2d78533708bab0984ddb23131" kindref="member">XDUSP_GENR_ERR_OFFSET</ref>) &amp; \
+				<ref refid="group__dual__splitter_1ga9702539641dd20a1668e5ca074de7f25" kindref="member">XDUSP_ALL_ERR_MASK</ref></initializer>
+        <briefdescription>
+<para>This macro returns the pending interrupts of the Dual Splitter core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The pending interrupts of the Dual Splitter. Use XDUSP_ERR_*_MASK constants defined in <ref refid="xdualsplitter__hw_8h" kindref="compound">xdualsplitter_hw.h</ref> to interpret this value. The returned value is a logical AND of the contents of the GENR_ERROR Register and the IRQ_ENABLE Register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__dual__splitter_1ga5443342ec7cb733071f68a3011846490" kindref="member">XDualSplitter_IntrGetPending(XDualSplitter *InstancePtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="319" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="323" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1ga040c43cf8292cad54fad4111a7af19c3" compoundref="xdualsplitter__intr_8c" startline="70" endline="93">XDualSplitter_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1gade3b45e32122663dce6a7671a2963054" prot="public" static="no">
+        <name>XDualSplitter_IntrClear</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>IntrType</defname></param>
+        <initializer><ref refid="group__dual__splitter_1gaf9746d088835a772833e7d5482adcdfd" kindref="member">XDualSplitter_WriteReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+		<ref refid="group__dual__splitter_1gae0d2add2d78533708bab0984ddb23131" kindref="member">XDUSP_GENR_ERR_OFFSET</ref>, IntrType &amp; <ref refid="group__dual__splitter_1ga9702539641dd20a1668e5ca074de7f25" kindref="member">XDUSP_ALL_ERR_MASK</ref>)</initializer>
+        <briefdescription>
+<para>This macro clears/acknowledges pending interrupts of the Dual Splitter core. </para>        </briefdescription>
+        <detaileddescription>
+<para>in the General error register. Bit positions of 1 will be cleared.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntrType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pending interrupts to clear/acknowledge. Use OR&apos;ing of XDUSP_ERR_*_MASK constants defined in <ref refid="xdualsplitter__hw_8h" kindref="compound">xdualsplitter_hw.h</ref> to create this parameter value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void XDualSplitter_IntrClear(<ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> *InstancePtr, u32 IntrType) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="344" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" bodystart="348" bodyend="-1"/>
+        <referencedby refid="group__dual__splitter_1ga040c43cf8292cad54fad4111a7af19c3" compoundref="xdualsplitter__intr_8c" startline="70" endline="93">XDualSplitter_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1gad75ea00710a7538df61fcdf5a8a8e3cb" prot="public" static="no">
+        <name>XDUALSPLITTER_HW_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_hw.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dual__splitter_1ga58ed2317b90d75f1fc251c126342f5f1" prot="public" static="no">
+        <name>XPAR_XDUAL_SPLITTER_NUM_INSTANCES</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_sinit.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_sinit.c" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the implementation of the interface functions for Dual Splitter core. </para>    </briefdescription>
+    <detaileddescription>
+<para>This file contains static initialization function for Xilinx Dual Splitter core.</para><para>This file contains self test function for the Dual Splitter core.</para><para>This file contains interrupt related functions for Xilinx Dual Splitter core.</para><para>This header file contains identifiers and register-level driver functions (or macros) that can be used to access the Xilinx Dual Splitter core.</para><para>}</para><para>Please refer to the header file <ref refid="xdualsplitter_8h" kindref="compound">xdualsplitter.h</ref> for more detailed information.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
+<hruler/>
+
+1.00  sha 07/21/14 Initial release.
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
+<hruler/>
+
+1.00  sha 07/21/14 Initial release.
+</preformatted></para><para>Please see <ref refid="xdualsplitter_8h" kindref="compound">xdualsplitter.h</ref> for more details of the core.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
+<hruler/>
+
+1.00  sha 07/21/14 Initial release.
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
+<hruler/>
+
+1.00  sha 07/21/14 Initial release.
+1.00  sha 07/08/15 Defined macro XPAR_XDUALSPLITTER_NUM_INSTANCES if not
+                   defined in xparameters.h.
+1.1   tu  09/18/17 Removed compilation warning in function
+                   <ref refid="group__dual__splitter_1ga2d3c807cc8cb5d2425b784b9864d35e6" kindref="member">XDualSplitter_LookupConfig()</ref>
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

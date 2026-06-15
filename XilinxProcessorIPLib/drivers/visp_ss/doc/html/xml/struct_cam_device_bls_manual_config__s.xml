@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_bls_manual_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceBlsManualConfig_s</compoundname>
+    <includes local="no">cam_device_bls_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_bls_manual_config__s_1a97f4a9944de8572cfabd11ba814a2203" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceBlsManualConfig_s::bls[CAMDEV_RAW_CHANNEL_NUM]</definition>
+        <argsstring>[CAMDEV_RAW_CHANNEL_NUM]</argsstring>
+        <name>bls</name>
+        <briefdescription>
+<para>BLS value: Raw : BLS[0]<ndash/>red, BLS[1]<ndash/>greenRed, BLS[2]<ndash/>greenBlue, BLS[3]<ndash/>blue. </para>        </briefdescription>
+        <detaileddescription>
+<para>The bls order shold be corresponding with sensor bayer pattern<linebreak/>
+ Rgbir: BLS[0]<ndash/>red, BLS[1]<ndash/>green, BLS[2]<ndash/>blue, BLS[3]<ndash/>ir. Algorithm ensure the order: 0-&gt;r, 1-&gt;g, 2-&gt;b, 3-&gt;ir, bls don&apos;t need to correspond with sensor bayer pattern </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice BLS manual configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" bodystart="64" bodyend="68"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_bls_manual_config__s_1a97f4a9944de8572cfabd11ba814a2203" prot="public" virt="non-virtual"><scope>CamDeviceBlsManualConfig_s</scope><name>bls</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

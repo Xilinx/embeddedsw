@@ -1,0 +1,318 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_vtc___source_select" kind="struct" prot="public">
+    <compoundname>XVtc_SourceSelect</compoundname>
+    <includes local="no">xvtc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_vtc___source_select_1ac728a40830145a511567e9691a871e58" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_SourceSelect::FieldIdPolSrc</definition>
+        <argsstring></argsstring>
+        <name>FieldIdPolSrc</name>
+        <briefdescription>
+<para>Field ID Output Polarity Source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="388" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="388" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga84f6b9eda3791aee51ec5414a62cbb92" compoundref="xvtc_8c" startline="731" endline="787">XVtc_GetSource</referencedby>
+        <referencedby refid="group__vtc_1ga261e22d0a41a468263c0a1624da3bbf9" compoundref="xvtc_8c" startline="636" endline="713">XVtc_SetSource</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___source_select_1a9326fa8e9515cf0900b9a1191c1285f8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_SourceSelect::ActiveChromaPolSrc</definition>
+        <argsstring></argsstring>
+        <name>ActiveChromaPolSrc</name>
+        <briefdescription>
+<para>Active Chroma Output Polarity Source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="389" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="389" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga84f6b9eda3791aee51ec5414a62cbb92" compoundref="xvtc_8c" startline="731" endline="787">XVtc_GetSource</referencedby>
+        <referencedby refid="group__vtc_1ga261e22d0a41a468263c0a1624da3bbf9" compoundref="xvtc_8c" startline="636" endline="713">XVtc_SetSource</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___source_select_1a5036be7d658882d636266d15de22f7a3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_SourceSelect::ActiveVideoPolSrc</definition>
+        <argsstring></argsstring>
+        <name>ActiveVideoPolSrc</name>
+        <briefdescription>
+<para>Active Video Output Polarity Source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="390" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="390" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga84f6b9eda3791aee51ec5414a62cbb92" compoundref="xvtc_8c" startline="731" endline="787">XVtc_GetSource</referencedby>
+        <referencedby refid="group__vtc_1ga261e22d0a41a468263c0a1624da3bbf9" compoundref="xvtc_8c" startline="636" endline="713">XVtc_SetSource</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___source_select_1a730bf481028040ce900bbdcec53159c9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_SourceSelect::HSyncPolSrc</definition>
+        <argsstring></argsstring>
+        <name>HSyncPolSrc</name>
+        <briefdescription>
+<para>Horizontal Sync Output Polarity Source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="391" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga84f6b9eda3791aee51ec5414a62cbb92" compoundref="xvtc_8c" startline="731" endline="787">XVtc_GetSource</referencedby>
+        <referencedby refid="group__vtc_1ga261e22d0a41a468263c0a1624da3bbf9" compoundref="xvtc_8c" startline="636" endline="713">XVtc_SetSource</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___source_select_1aa57459dcbb957e9f0b4a29321db2d4cc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_SourceSelect::VSyncPolSrc</definition>
+        <argsstring></argsstring>
+        <name>VSyncPolSrc</name>
+        <briefdescription>
+<para>Vertical Sync Output Polarity Source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="392" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="392" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga84f6b9eda3791aee51ec5414a62cbb92" compoundref="xvtc_8c" startline="731" endline="787">XVtc_GetSource</referencedby>
+        <referencedby refid="group__vtc_1ga261e22d0a41a468263c0a1624da3bbf9" compoundref="xvtc_8c" startline="636" endline="713">XVtc_SetSource</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___source_select_1afebae988ae1bef710990d6f3e4a15543" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_SourceSelect::HBlankPolSrc</definition>
+        <argsstring></argsstring>
+        <name>HBlankPolSrc</name>
+        <briefdescription>
+<para>Horizontal Blank Output Polarity Source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="393" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga84f6b9eda3791aee51ec5414a62cbb92" compoundref="xvtc_8c" startline="731" endline="787">XVtc_GetSource</referencedby>
+        <referencedby refid="group__vtc_1ga261e22d0a41a468263c0a1624da3bbf9" compoundref="xvtc_8c" startline="636" endline="713">XVtc_SetSource</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___source_select_1a727b39d09dd9f63f58d335efcc0ced96" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_SourceSelect::VBlankPolSrc</definition>
+        <argsstring></argsstring>
+        <name>VBlankPolSrc</name>
+        <briefdescription>
+<para>Vertical Blank Output Polarity Source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="394" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="394" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga84f6b9eda3791aee51ec5414a62cbb92" compoundref="xvtc_8c" startline="731" endline="787">XVtc_GetSource</referencedby>
+        <referencedby refid="group__vtc_1ga261e22d0a41a468263c0a1624da3bbf9" compoundref="xvtc_8c" startline="636" endline="713">XVtc_SetSource</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___source_select_1ade13412b433851caae952e9694e0005b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_SourceSelect::VChromaSrc</definition>
+        <argsstring></argsstring>
+        <name>VChromaSrc</name>
+        <briefdescription>
+<para>Start of Active Chroma Register Source Select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="396" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="396" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga84f6b9eda3791aee51ec5414a62cbb92" compoundref="xvtc_8c" startline="731" endline="787">XVtc_GetSource</referencedby>
+        <referencedby refid="group__vtc_1ga261e22d0a41a468263c0a1624da3bbf9" compoundref="xvtc_8c" startline="636" endline="713">XVtc_SetSource</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___source_select_1a59585198770031544bde6fefcf331894" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_SourceSelect::VActiveSrc</definition>
+        <argsstring></argsstring>
+        <name>VActiveSrc</name>
+        <briefdescription>
+<para>Vertical Active Video Start Register Source Select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="398" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="398" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga84f6b9eda3791aee51ec5414a62cbb92" compoundref="xvtc_8c" startline="731" endline="787">XVtc_GetSource</referencedby>
+        <referencedby refid="group__vtc_1ga261e22d0a41a468263c0a1624da3bbf9" compoundref="xvtc_8c" startline="636" endline="713">XVtc_SetSource</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___source_select_1aab3b80af1915b48a3609be688006cf8c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_SourceSelect::VBackPorchSrc</definition>
+        <argsstring></argsstring>
+        <name>VBackPorchSrc</name>
+        <briefdescription>
+<para>Vertical Back Porch Start Register Source Select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="400" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="400" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga84f6b9eda3791aee51ec5414a62cbb92" compoundref="xvtc_8c" startline="731" endline="787">XVtc_GetSource</referencedby>
+        <referencedby refid="group__vtc_1ga261e22d0a41a468263c0a1624da3bbf9" compoundref="xvtc_8c" startline="636" endline="713">XVtc_SetSource</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___source_select_1a3a49c940d087c3376b0df9d3ab396ee8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_SourceSelect::VSyncSrc</definition>
+        <argsstring></argsstring>
+        <name>VSyncSrc</name>
+        <briefdescription>
+<para>Vertical Sync Start Register Source Select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="402" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="402" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga84f6b9eda3791aee51ec5414a62cbb92" compoundref="xvtc_8c" startline="731" endline="787">XVtc_GetSource</referencedby>
+        <referencedby refid="group__vtc_1ga261e22d0a41a468263c0a1624da3bbf9" compoundref="xvtc_8c" startline="636" endline="713">XVtc_SetSource</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___source_select_1a4f257c7cb527d35d7d685c46c0180917" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_SourceSelect::VFrontPorchSrc</definition>
+        <argsstring></argsstring>
+        <name>VFrontPorchSrc</name>
+        <briefdescription>
+<para>Vertical Front Porch Start Register Source Select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="404" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="404" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga84f6b9eda3791aee51ec5414a62cbb92" compoundref="xvtc_8c" startline="731" endline="787">XVtc_GetSource</referencedby>
+        <referencedby refid="group__vtc_1ga261e22d0a41a468263c0a1624da3bbf9" compoundref="xvtc_8c" startline="636" endline="713">XVtc_SetSource</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___source_select_1ad929f751cc20dbe789183bea521128cc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_SourceSelect::VTotalSrc</definition>
+        <argsstring></argsstring>
+        <name>VTotalSrc</name>
+        <briefdescription>
+<para>Vertical Total Register Source Select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="406" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="406" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga84f6b9eda3791aee51ec5414a62cbb92" compoundref="xvtc_8c" startline="731" endline="787">XVtc_GetSource</referencedby>
+        <referencedby refid="group__vtc_1ga261e22d0a41a468263c0a1624da3bbf9" compoundref="xvtc_8c" startline="636" endline="713">XVtc_SetSource</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___source_select_1a4c806722628f02a7e4e014cec01d8784" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_SourceSelect::HActiveSrc</definition>
+        <argsstring></argsstring>
+        <name>HActiveSrc</name>
+        <briefdescription>
+<para>Horizontal Active Video Start Register Source Select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="407" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="407" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___source_select_1af11119894115195edd7a4172910f24a3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_SourceSelect::HBackPorchSrc</definition>
+        <argsstring></argsstring>
+        <name>HBackPorchSrc</name>
+        <briefdescription>
+<para>Horizontal Back Porch Start Register Source Select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="409" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="409" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga84f6b9eda3791aee51ec5414a62cbb92" compoundref="xvtc_8c" startline="731" endline="787">XVtc_GetSource</referencedby>
+        <referencedby refid="group__vtc_1ga261e22d0a41a468263c0a1624da3bbf9" compoundref="xvtc_8c" startline="636" endline="713">XVtc_SetSource</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___source_select_1a62741ada413e6dd8ca5516bfa98abd2b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_SourceSelect::HSyncSrc</definition>
+        <argsstring></argsstring>
+        <name>HSyncSrc</name>
+        <briefdescription>
+<para>Horizontal Sync Start Register Source Select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="411" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="411" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga84f6b9eda3791aee51ec5414a62cbb92" compoundref="xvtc_8c" startline="731" endline="787">XVtc_GetSource</referencedby>
+        <referencedby refid="group__vtc_1ga261e22d0a41a468263c0a1624da3bbf9" compoundref="xvtc_8c" startline="636" endline="713">XVtc_SetSource</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___source_select_1a0082ab439a4ea5ee3b5b381b633e7542" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_SourceSelect::HFrontPorchSrc</definition>
+        <argsstring></argsstring>
+        <name>HFrontPorchSrc</name>
+        <briefdescription>
+<para>Horizontal Front Porch Start Register Source Select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="413" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="413" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga84f6b9eda3791aee51ec5414a62cbb92" compoundref="xvtc_8c" startline="731" endline="787">XVtc_GetSource</referencedby>
+        <referencedby refid="group__vtc_1ga261e22d0a41a468263c0a1624da3bbf9" compoundref="xvtc_8c" startline="636" endline="713">XVtc_SetSource</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___source_select_1ac61222f170e68d9547cf41ed6494821a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_SourceSelect::HTotalSrc</definition>
+        <argsstring></argsstring>
+        <name>HTotalSrc</name>
+        <briefdescription>
+<para>Horizontal Total Register Source Select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="415" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga84f6b9eda3791aee51ec5414a62cbb92" compoundref="xvtc_8c" startline="731" endline="787">XVtc_GetSource</referencedby>
+        <referencedby refid="group__vtc_1ga261e22d0a41a468263c0a1624da3bbf9" compoundref="xvtc_8c" startline="636" endline="713">XVtc_SetSource</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___source_select_1a03a19db8d030e2aaff13bff660753488" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_SourceSelect::InterlacedMode</definition>
+        <argsstring></argsstring>
+        <name>InterlacedMode</name>
+        <briefdescription>
+<para>Interelaced mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="416" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="416" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga84f6b9eda3791aee51ec5414a62cbb92" compoundref="xvtc_8c" startline="731" endline="787">XVtc_GetSource</referencedby>
+        <referencedby refid="group__vtc_1ga261e22d0a41a468263c0a1624da3bbf9" compoundref="xvtc_8c" startline="636" endline="713">XVtc_SetSource</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains Source Selection configuration information for a VTC core. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="387" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="387" bodyend="418"/>
+    <listofallmembers>
+      <member refid="struct_x_vtc___source_select_1a9326fa8e9515cf0900b9a1191c1285f8" prot="public" virt="non-virtual"><scope>XVtc_SourceSelect</scope><name>ActiveChromaPolSrc</name></member>
+      <member refid="struct_x_vtc___source_select_1a5036be7d658882d636266d15de22f7a3" prot="public" virt="non-virtual"><scope>XVtc_SourceSelect</scope><name>ActiveVideoPolSrc</name></member>
+      <member refid="struct_x_vtc___source_select_1ac728a40830145a511567e9691a871e58" prot="public" virt="non-virtual"><scope>XVtc_SourceSelect</scope><name>FieldIdPolSrc</name></member>
+      <member refid="struct_x_vtc___source_select_1a4c806722628f02a7e4e014cec01d8784" prot="public" virt="non-virtual"><scope>XVtc_SourceSelect</scope><name>HActiveSrc</name></member>
+      <member refid="struct_x_vtc___source_select_1af11119894115195edd7a4172910f24a3" prot="public" virt="non-virtual"><scope>XVtc_SourceSelect</scope><name>HBackPorchSrc</name></member>
+      <member refid="struct_x_vtc___source_select_1afebae988ae1bef710990d6f3e4a15543" prot="public" virt="non-virtual"><scope>XVtc_SourceSelect</scope><name>HBlankPolSrc</name></member>
+      <member refid="struct_x_vtc___source_select_1a0082ab439a4ea5ee3b5b381b633e7542" prot="public" virt="non-virtual"><scope>XVtc_SourceSelect</scope><name>HFrontPorchSrc</name></member>
+      <member refid="struct_x_vtc___source_select_1a730bf481028040ce900bbdcec53159c9" prot="public" virt="non-virtual"><scope>XVtc_SourceSelect</scope><name>HSyncPolSrc</name></member>
+      <member refid="struct_x_vtc___source_select_1a62741ada413e6dd8ca5516bfa98abd2b" prot="public" virt="non-virtual"><scope>XVtc_SourceSelect</scope><name>HSyncSrc</name></member>
+      <member refid="struct_x_vtc___source_select_1ac61222f170e68d9547cf41ed6494821a" prot="public" virt="non-virtual"><scope>XVtc_SourceSelect</scope><name>HTotalSrc</name></member>
+      <member refid="struct_x_vtc___source_select_1a03a19db8d030e2aaff13bff660753488" prot="public" virt="non-virtual"><scope>XVtc_SourceSelect</scope><name>InterlacedMode</name></member>
+      <member refid="struct_x_vtc___source_select_1a59585198770031544bde6fefcf331894" prot="public" virt="non-virtual"><scope>XVtc_SourceSelect</scope><name>VActiveSrc</name></member>
+      <member refid="struct_x_vtc___source_select_1aab3b80af1915b48a3609be688006cf8c" prot="public" virt="non-virtual"><scope>XVtc_SourceSelect</scope><name>VBackPorchSrc</name></member>
+      <member refid="struct_x_vtc___source_select_1a727b39d09dd9f63f58d335efcc0ced96" prot="public" virt="non-virtual"><scope>XVtc_SourceSelect</scope><name>VBlankPolSrc</name></member>
+      <member refid="struct_x_vtc___source_select_1ade13412b433851caae952e9694e0005b" prot="public" virt="non-virtual"><scope>XVtc_SourceSelect</scope><name>VChromaSrc</name></member>
+      <member refid="struct_x_vtc___source_select_1a4f257c7cb527d35d7d685c46c0180917" prot="public" virt="non-virtual"><scope>XVtc_SourceSelect</scope><name>VFrontPorchSrc</name></member>
+      <member refid="struct_x_vtc___source_select_1aa57459dcbb957e9f0b4a29321db2d4cc" prot="public" virt="non-virtual"><scope>XVtc_SourceSelect</scope><name>VSyncPolSrc</name></member>
+      <member refid="struct_x_vtc___source_select_1a3a49c940d087c3376b0df9d3ab396ee8" prot="public" virt="non-virtual"><scope>XVtc_SourceSelect</scope><name>VSyncSrc</name></member>
+      <member refid="struct_x_vtc___source_select_1ad929f751cc20dbe789183bea521128cc" prot="public" virt="non-virtual"><scope>XVtc_SourceSelect</scope><name>VTotalSrc</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

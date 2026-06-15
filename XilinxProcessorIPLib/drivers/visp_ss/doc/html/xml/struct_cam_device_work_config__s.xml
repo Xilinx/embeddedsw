@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_work_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceWorkConfig_s</compoundname>
+    <includes local="no">cam_device_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_work_config__s_1a4c81f5a227725ba020c29057860b2338" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gadea6d16db290e5ceae71de6d23488818" kindref="member">CamDeviceWorkMode_t</ref></type>
+        <definition>CamDeviceWorkMode_t CamDeviceWorkConfig_s::workMode</definition>
+        <argsstring></argsstring>
+        <name>workMode</name>
+        <briefdescription>
+<para>ISP software work mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_work_config__s_1a335c1b16d604f4a5684e65555e71f2c9" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gaaf03f6703d329f5a46aab9346de6a523" kindref="member">CamDeviceModeConfig_t</ref></type>
+        <definition>CamDeviceModeConfig_t CamDeviceWorkConfig_s::modeCfg</definition>
+        <argsstring></argsstring>
+        <name>modeCfg</name>
+        <briefdescription>
+<para>Work mode configurations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_work_config__s_1afaa7da7cc11bd26bc50d2dce5e8e873c" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gae6cdf16d1c0f84c40bd47a74d2a55452" kindref="member">CamDeviceTileModeConfig_t</ref></type>
+        <definition>CamDeviceTileModeConfig_t CamDeviceWorkConfig_s::tileCfg</definition>
+        <argsstring></argsstring>
+        <name>tileCfg</name>
+        <briefdescription>
+<para>Tile mode configurations. </para>        </briefdescription>
+        <detaileddescription>
+<para>It can be used together with other modes </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to configure work parameters for camera device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="720">
+        <label>CamDeviceModeConfig_s</label>
+        <link refid="union_cam_device_mode_config__s"/>
+        <childnode refid="721" relation="usage">
+          <edgelabel>mcm</edgelabel>
+        </childnode>
+        <childnode refid="722" relation="usage">
+          <edgelabel>stream</edgelabel>
+        </childnode>
+      </node>
+      <node id="721">
+        <label>CamDeviceMcmModeConfig_s</label>
+        <link refid="struct_cam_device_mcm_mode_config__s"/>
+      </node>
+      <node id="719">
+        <label>CamDeviceWorkConfig_s</label>
+        <link refid="struct_cam_device_work_config__s"/>
+        <childnode refid="720" relation="usage">
+          <edgelabel>modeCfg</edgelabel>
+        </childnode>
+        <childnode refid="723" relation="usage">
+          <edgelabel>tileCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="722">
+        <label>CamDeviceStreamModeConfig_s</label>
+        <link refid="struct_cam_device_stream_mode_config__s"/>
+      </node>
+      <node id="723">
+        <label>CamDeviceTileModeConfig_s</label>
+        <link refid="struct_cam_device_tile_mode_config__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="116" bodyend="120"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_work_config__s_1a335c1b16d604f4a5684e65555e71f2c9" prot="public" virt="non-virtual"><scope>CamDeviceWorkConfig_s</scope><name>modeCfg</name></member>
+      <member refid="struct_cam_device_work_config__s_1afaa7da7cc11bd26bc50d2dce5e8e873c" prot="public" virt="non-virtual"><scope>CamDeviceWorkConfig_s</scope><name>tileCfg</name></member>
+      <member refid="struct_cam_device_work_config__s_1a4c81f5a227725ba020c29057860b2338" prot="public" virt="non-virtual"><scope>CamDeviceWorkConfig_s</scope><name>workMode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

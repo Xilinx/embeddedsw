@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_usb_psu___event___type" kind="struct" prot="public">
+    <compoundname>XUsbPsu_Event_Type</compoundname>
+    <includes local="no">xusbpsu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_usb_psu___event___type_1a515fbbdee2186ab41a87c5e4108f5335" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUsbPsu_Event_Type::Is_DevEvt</definition>
+        <argsstring></argsstring>
+        <name>Is_DevEvt</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+<para>Device specific event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="579" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="579" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1gae4f3c8a44c949edec84f94fc3346e77b" compoundref="xusbpsu__intr_8c" startline="288" endline="308">XUsbPsu_EventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu___event___type_1a65700405a0286bc9885266eaa5174969" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUsbPsu_Event_Type::Type</definition>
+        <argsstring></argsstring>
+        <name>Type</name>
+        <bitfield> 7</bitfield>
+        <briefdescription>
+<para>Event types. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="580" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="580" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1gae4f3c8a44c949edec84f94fc3346e77b" compoundref="xusbpsu__intr_8c" startline="288" endline="308">XUsbPsu_EventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu___event___type_1a924348b30f5ae995ceb6f71a4a0f20af" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUsbPsu_Event_Type::Reserved8_31</definition>
+        <argsstring></argsstring>
+        <name>Reserved8_31</name>
+        <bitfield> 24</bitfield>
+        <briefdescription>
+<para>Reserved, not used. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="581" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="581" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>struct <ref refid="struct_x_usb_psu___event___type" kindref="compound">XUsbPsu_Event_Type</ref> - Device Endpoint Events type Device Endpoint Events type </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device specific event </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event types </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reserved, not used </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="578" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="578" bodyend="586"/>
+    <listofallmembers>
+      <member refid="struct_x_usb_psu___event___type_1a515fbbdee2186ab41a87c5e4108f5335" prot="public" virt="non-virtual"><scope>XUsbPsu_Event_Type</scope><name>Is_DevEvt</name></member>
+      <member refid="struct_x_usb_psu___event___type_1a924348b30f5ae995ceb6f71a4a0f20af" prot="public" virt="non-virtual"><scope>XUsbPsu_Event_Type</scope><name>Reserved8_31</name></member>
+      <member refid="struct_x_usb_psu___event___type_1a65700405a0286bc9885266eaa5174969" prot="public" virt="non-virtual"><scope>XUsbPsu_Event_Type</scope><name>Type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

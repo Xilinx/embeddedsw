@@ -1,0 +1,1260 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xtft_8h" kind="file">
+    <compoundname>xtft.h</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xtft__hw_8h" local="yes">xtft_hw.h</includes>
+    <includedby refid="xtft_8c" local="yes">xtft.c</includedby>
+    <includedby refid="xtft__g_8c" local="yes">xtft_g.c</includedby>
+    <includedby refid="xtft__sinit_8c" local="yes">xtft_sinit.c</includedby>
+    <includedby refid="xtft__example_8c" local="yes">xtft_example.c</includedby>
+    <incdepgraph>
+      <node id="19">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="20">
+        <label>xil_io.h</label>
+      </node>
+      <node id="15">
+        <label>xtft.h</label>
+        <link refid="xtft.h"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>xstatus.h</label>
+      </node>
+      <node id="18">
+        <label>xil_types.h</label>
+      </node>
+      <node id="17">
+        <label>xtft_hw.h</label>
+        <link refid="xtft__hw_8h"/>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="25">
+        <label>xtft_example.c</label>
+        <link refid="xtft__example_8c"/>
+      </node>
+      <node id="22">
+        <label>xtft.c</label>
+        <link refid="xtft_8c"/>
+      </node>
+      <node id="21">
+        <label>xtft.h</label>
+        <link refid="xtft.h"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>xtft_g.c</label>
+        <link refid="xtft__g_8c"/>
+      </node>
+      <node id="24">
+        <label>xtft_sinit.c</label>
+        <link refid="xtft__sinit_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_tft___config" prot="public">XTft_Config</innerclass>
+    <innerclass refid="struct_x_tft" prot="public">XTft</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__tft_1gae8378000b715e0b26b0c75a0d7ad2660" prot="public" static="no">
+        <name>XTFT_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__tft_1ga547452270c1b3d9df4af6ceb9f347684" prot="public" static="no">
+        <name>XTFT_ASCIICHAR_OFFSET</name>
+        <initializer>32</initializer>
+        <briefdescription>
+<para>As the first bitmap available in the Character Bitmap array is &quot;space&quot; whose value is 32 in the ASCII character table, this offset enables us to move to this first character in the array. </para>        </briefdescription>
+        <detaileddescription>
+<para>To achieve this we subtract this offset from the char value actually received to the XTft_WriteChar function. Similarly to move to any other character this offset must be subtracted. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__tft_1gaf4d426ca83e1b41f324d732fbdabfae6" prot="public" static="no">
+        <name>XTFT_DEF_FGCOLOR</name>
+        <initializer>0x00FFFFFF</initializer>
+        <briefdescription>
+<para>The default color is white for foreground and black for background. </para>        </briefdescription>
+        <detaileddescription>
+<para>These values can range from 0 to 0xFFFFFFFF as each color is ranging from 0 to 3F. The default value for column and row is 0.Foreground Color - White </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" bodystart="143" bodyend="-1"/>
+        <referencedby refid="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" compoundref="xtft_8c" startline="92" endline="134">XTft_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__tft_1ga6802361cad5f41ab4686e2184bb06d62" prot="public" static="no">
+        <name>XTFT_DEF_BGCOLOR</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+<para>Background Color - Black. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" bodystart="144" bodyend="-1"/>
+        <referencedby refid="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" compoundref="xtft_8c" startline="92" endline="134">XTft_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__tft_1gaaeaf77de0c8548663003c19c3b772a25" prot="public" static="no">
+        <name>XTFT_DEF_COLVAL</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+<para>Default Column Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" bodystart="145" bodyend="-1"/>
+        <referencedby refid="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" compoundref="xtft_8c" startline="92" endline="134">XTft_CfgInitialize</referencedby>
+        <referencedby refid="group__tft_1ga4181b68f12ba322250de4e29ef453abe" compoundref="xtft_8c" startline="485" endline="506">XTft_ClearScreen</referencedby>
+        <referencedby refid="group__tft_1ga40c2b5ed76baff0d64b5a78b67620184" compoundref="xtft_8c" startline="433" endline="471">XTft_Scroll</referencedby>
+        <referencedby refid="group__tft_1ga7416b0a7b68676ae4791aef9816683de" compoundref="xtft_8c" startline="199" endline="233">XTft_SetPosChar</referencedby>
+        <referencedby refid="group__tft_1ga1cc88ecc501ab053fdccbcb270315068" compoundref="xtft_8c" startline="373" endline="418">XTft_Write</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__tft_1ga095e9f2723ddfa46427fcdf9e1209204" prot="public" static="no">
+        <name>XTFT_DEF_ROWVAL</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+<para>Default Row Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" bodystart="146" bodyend="-1"/>
+        <referencedby refid="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" compoundref="xtft_8c" startline="92" endline="134">XTft_CfgInitialize</referencedby>
+        <referencedby refid="group__tft_1ga4181b68f12ba322250de4e29ef453abe" compoundref="xtft_8c" startline="485" endline="506">XTft_ClearScreen</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__tft_1ga6fbdb38685fd32b2c564a93b5fe70bf3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_tft___config" kindref="compound">XTft_Config</ref> *</type>
+        <definition>XTft_Config * XTft_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XTft_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Looks up the device configuration based on the unique device ID/BaseAddress. </para>        </briefdescription>
+        <detaileddescription>
+<para>The XTft_ConfigTable[] contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration found or NULL if the specified device ID/BaseAddress was not found. See <ref refid="xtft_8h" kindref="compound">xtft.h</ref> for the definition of <ref refid="struct_x_tft___config" kindref="compound">XTft_Config</ref>.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft_sinit.c" bodystart="89" bodyend="103"/>
+        <references refid="struct_x_tft___config_1a4a82ccc081184475776bf139beb99963" compoundref="xtft_8h" startline="160">XTft_Config::Name</references>
+        <referencedby refid="xtft__example_8c_1aa567e9e2b698234bafb682123dfa239e" compoundref="xtft__example_8c" startline="191" endline="302">TftExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XTft_CfgInitialize</definition>
+        <argsstring>(XTft *InstancePtr, XTft_Config *ConfigPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XTft_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_tft" kindref="compound">XTft</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_tft___config" kindref="compound">XTft_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes a TFT Driver Instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_tft" kindref="compound">XTft</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a <ref refid="struct_x_tft___config" kindref="compound">XTft_Config</ref> configuration structure.This structure will contain the requested configuration for the device. Typically, this is a local structure and the content of which will be copied into the configuration structure within <ref refid="struct_x_tft" kindref="compound">XTft</ref>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device base address in the virtual memory address space. If the address translation is not used then the physical address is passed. Unexpected errors may occur if the address mapping is changed after this function is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if unsuccessful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" bodystart="92" bodyend="134"/>
+        <references refid="struct_x_tft___config_1af13b84d730fc82272b844c4f787a5142" compoundref="xtft_8h" startline="162">XTft_Config::BaseAddress</references>
+        <references refid="struct_x_tft_1acc10038cdf317ab5b50ce0ec2fedcdd0" compoundref="xtft_8h" startline="181">XTft::BgColor</references>
+        <references refid="struct_x_tft_1acef1fa311d00ad95aca04546f827e27b" compoundref="xtft_8h" startline="178">XTft::ColVal</references>
+        <references refid="struct_x_tft_1ab7d29e890e9981c4f9af66b426280da5" compoundref="xtft_8h" startline="180">XTft::FgColor</references>
+        <references refid="struct_x_tft_1aca9d4577a8b752a2c1a8142e5196a4db" compoundref="xtft_8h" startline="177">XTft::IsReady</references>
+        <references refid="struct_x_tft_1a2fea2e6b537433ac6dde7d97eb340577" compoundref="xtft_8h" startline="179">XTft::RowVal</references>
+        <references refid="struct_x_tft_1a7b57d88c2f86585f12d2e32e18a6cd87" compoundref="xtft_8h" startline="176">XTft::TftConfig</references>
+        <references refid="struct_x_tft___config_1a81392a22d4ef495818378bef86b06427" compoundref="xtft_8h" startline="163">XTft_Config::VideoMemBaseAddr</references>
+        <references refid="group__tft_1ga6802361cad5f41ab4686e2184bb06d62" compoundref="xtft_8h" startline="144">XTFT_DEF_BGCOLOR</references>
+        <references refid="group__tft_1gaaeaf77de0c8548663003c19c3b772a25" compoundref="xtft_8h" startline="145">XTFT_DEF_COLVAL</references>
+        <references refid="group__tft_1gaf4d426ca83e1b41f324d732fbdabfae6" compoundref="xtft_8h" startline="143">XTFT_DEF_FGCOLOR</references>
+        <references refid="group__tft_1ga095e9f2723ddfa46427fcdf9e1209204" compoundref="xtft_8h" startline="146">XTFT_DEF_ROWVAL</references>
+        <references refid="group__tft_1ga3d391c05df971dfe77189be6daf57521" compoundref="xtft__hw_8h" startline="91">XTFT_DISPLAY_HEIGHT</references>
+        <references refid="group__tft_1ga8cdf302af29f0563c0079c0cbfb6abff" compoundref="xtft__hw_8h" startline="90">XTFT_DISPLAY_WIDTH</references>
+        <references refid="group__tft_1gad4dd01f62992007c014fc4a13d39abdf" compoundref="xtft_8c" startline="533" endline="560">XTft_FillScreen</references>
+        <referencedby refid="xtft__example_8c_1aa567e9e2b698234bafb682123dfa239e" compoundref="xtft__example_8c" startline="191" endline="302">TftExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__tft_1gabb17655cf7670fad99d96f1e92692b05" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTft_SetPos</definition>
+        <argsstring>(XTft *InstancePtr, u32 ColVal, u32 RowVal)</argsstring>
+        <name>XTft_SetPos</name>
+        <param>
+          <type><ref refid="struct_x_tft" kindref="compound">XTft</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ColVal</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RowVal</declname>
+        </param>
+        <briefdescription>
+<para>This function updates the column, row position in the Instance structure of driver. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_tft" kindref="compound">XTft</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ColVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the column number to which ColVal member of Instance structure is updated. The valid values are 0 to (XTFT_DISPLAY_WIDTH - 1). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RowVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the row number to which RowVal member of Instance structure is updated. The valid values are 0 to (XTFT_DISPLAY_HEIGHT - 1).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" bodystart="155" bodyend="171"/>
+        <references refid="struct_x_tft_1acef1fa311d00ad95aca04546f827e27b" compoundref="xtft_8h" startline="178">XTft::ColVal</references>
+        <references refid="struct_x_tft_1aca9d4577a8b752a2c1a8142e5196a4db" compoundref="xtft_8h" startline="177">XTft::IsReady</references>
+        <references refid="struct_x_tft_1a2fea2e6b537433ac6dde7d97eb340577" compoundref="xtft_8h" startline="179">XTft::RowVal</references>
+        <references refid="group__tft_1ga3d391c05df971dfe77189be6daf57521" compoundref="xtft__hw_8h" startline="91">XTFT_DISPLAY_HEIGHT</references>
+        <references refid="group__tft_1ga8cdf302af29f0563c0079c0cbfb6abff" compoundref="xtft__hw_8h" startline="90">XTFT_DISPLAY_WIDTH</references>
+        <referencedby refid="group__tft_1ga1cc88ecc501ab053fdccbcb270315068" compoundref="xtft_8c" startline="373" endline="418">XTft_Write</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__tft_1ga7416b0a7b68676ae4791aef9816683de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTft_SetPosChar</definition>
+        <argsstring>(XTft *InstancePtr, u32 ColVal, u32 RowVal)</argsstring>
+        <name>XTft_SetPosChar</name>
+        <param>
+          <type><ref refid="struct_x_tft" kindref="compound">XTft</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ColVal</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RowVal</declname>
+        </param>
+        <briefdescription>
+<para>This function changes the column, row position in the Instance structure of driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>It is used to correct the position for the next character to be written if column and row position cross limits.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_tft" kindref="compound">XTft</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ColVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the column number to which ColVal member of Instance structure is updated. If ColVal crosses (XTFT_DISPLAY_WIDTH - 1) - XTFT_CHAR_WIDTH, position is moved to next line. The valid values are 0 to (XTFT_DISPLAY_WIDTH - 1). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RowVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the row number to which RowVal member of Instance structure is updated. If RowVal crosses (XTFT_DISPLAY_HEIGHT - 1)- XTFT_CHAR_HEIGHT, the first line will be deleted. The valid values are 0 to (XTFT_DISPLAY_HEIGHT - 1).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>This function differs from the function XTft_SetPos because you cannot move to any position on the screen as we have to check for enough space for a character to be written. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" bodystart="199" bodyend="233"/>
+        <references refid="struct_x_tft_1acef1fa311d00ad95aca04546f827e27b" compoundref="xtft_8h" startline="178">XTft::ColVal</references>
+        <references refid="struct_x_tft_1aca9d4577a8b752a2c1a8142e5196a4db" compoundref="xtft_8h" startline="177">XTft::IsReady</references>
+        <references refid="struct_x_tft_1a2fea2e6b537433ac6dde7d97eb340577" compoundref="xtft_8h" startline="179">XTft::RowVal</references>
+        <references refid="group__tft_1ga1e190b26de7e75aa55a59319c573a227" compoundref="xtft__hw_8h" startline="89">XTFT_CHAR_HEIGHT</references>
+        <references refid="group__tft_1ga6da9efdd6a18854c2994f2260e2b1482" compoundref="xtft__hw_8h" startline="88">XTFT_CHAR_WIDTH</references>
+        <references refid="group__tft_1gaaeaf77de0c8548663003c19c3b772a25" compoundref="xtft_8h" startline="145">XTFT_DEF_COLVAL</references>
+        <references refid="group__tft_1ga3d391c05df971dfe77189be6daf57521" compoundref="xtft__hw_8h" startline="91">XTFT_DISPLAY_HEIGHT</references>
+        <references refid="group__tft_1ga8cdf302af29f0563c0079c0cbfb6abff" compoundref="xtft__hw_8h" startline="90">XTFT_DISPLAY_WIDTH</references>
+        <references refid="group__tft_1ga40c2b5ed76baff0d64b5a78b67620184" compoundref="xtft_8c" startline="433" endline="471">XTft_Scroll</references>
+        <referencedby refid="group__tft_1ga1cc88ecc501ab053fdccbcb270315068" compoundref="xtft_8c" startline="373" endline="418">XTft_Write</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__tft_1ga689206aec1006c6231f4b10062a8eeb0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTft_SetColor</definition>
+        <argsstring>(XTft *InstancePtr, u32 FgColor, u32 BgColor)</argsstring>
+        <name>XTft_SetColor</name>
+        <param>
+          <type><ref refid="struct_x_tft" kindref="compound">XTft</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>FgColor</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BgColor</declname>
+        </param>
+        <briefdescription>
+<para>This function changes the color values in the instance structure of driver. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_tft" kindref="compound">XTft</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FgColor</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the color with which member FgColor of Instance structure is updated. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BgColor</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the color with which member BgColor of Instance structure is updated.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Color Values must be 32bit. They can range from 0x0 to 0xFFFFFFFF, out of these only 18 bits are valid data. These 18 bits contain the Red, Green, Blue color values with 6 bits each and bit positions as Red[8-13], Green[16-21], Blue[24-29]. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" bodystart="255" bodyend="269"/>
+        <references refid="struct_x_tft_1acc10038cdf317ab5b50ce0ec2fedcdd0" compoundref="xtft_8h" startline="181">XTft::BgColor</references>
+        <references refid="struct_x_tft_1ab7d29e890e9981c4f9af66b426280da5" compoundref="xtft_8h" startline="180">XTft::FgColor</references>
+        <references refid="struct_x_tft_1aca9d4577a8b752a2c1a8142e5196a4db" compoundref="xtft_8h" startline="177">XTft::IsReady</references>
+        <referencedby refid="xtft__example_8c_1aa567e9e2b698234bafb682123dfa239e" compoundref="xtft__example_8c" startline="191" endline="302">TftExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__tft_1ga4efcd245e6e68c56641138123e3f67cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTft_SetPixel</definition>
+        <argsstring>(XTft *InstancePtr, u32 ColVal, u32 RowVal, u32 PixelVal)</argsstring>
+        <name>XTft_SetPixel</name>
+        <param>
+          <type><ref refid="struct_x_tft" kindref="compound">XTft</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ColVal</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RowVal</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PixelVal</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the pixel with the given color at the given column, row position. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_tft" kindref="compound">XTft</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ColVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>represents the column on the screen. The valid values are 0 to (XTFT_DISPLAY_WIDTH - 1). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RowVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>represents the row on the screen. The valid values are 0 to (XTFT_DISPLAY_HEIGHT - 1). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PixelVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>represents the color with which it will be filled on screen.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>This API is independent of the interface the TFT Controller is connected to. The data is written to the Video Memory. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" bodystart="292" bodyend="309"/>
+        <references refid="struct_x_tft_1aca9d4577a8b752a2c1a8142e5196a4db" compoundref="xtft_8h" startline="177">XTft::IsReady</references>
+        <references refid="struct_x_tft_1a7b57d88c2f86585f12d2e32e18a6cd87" compoundref="xtft_8h" startline="176">XTft::TftConfig</references>
+        <references refid="struct_x_tft___config_1a81392a22d4ef495818378bef86b06427" compoundref="xtft_8h" startline="163">XTft_Config::VideoMemBaseAddr</references>
+        <references refid="group__tft_1ga4d27aca52ce921aee61dab5870700c5b" compoundref="xtft__hw_8h" startline="92">XTFT_DISPLAY_BUFFER_WIDTH</references>
+        <references refid="group__tft_1ga3d391c05df971dfe77189be6daf57521" compoundref="xtft__hw_8h" startline="91">XTFT_DISPLAY_HEIGHT</references>
+        <references refid="group__tft_1ga8cdf302af29f0563c0079c0cbfb6abff" compoundref="xtft__hw_8h" startline="90">XTFT_DISPLAY_WIDTH</references>
+        <referencedby refid="group__tft_1gad4dd01f62992007c014fc4a13d39abdf" compoundref="xtft_8c" startline="533" endline="560">XTft_FillScreen</referencedby>
+        <referencedby refid="group__tft_1ga40c2b5ed76baff0d64b5a78b67620184" compoundref="xtft_8c" startline="433" endline="471">XTft_Scroll</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__tft_1ga577850dbb8a67f20b52c42a818074381" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTft_GetPixel</definition>
+        <argsstring>(XTft *InstancePtr, u32 ColVal, u32 RowVal, u32 *PixelVal)</argsstring>
+        <name>XTft_GetPixel</name>
+        <param>
+          <type><ref refid="struct_x_tft" kindref="compound">XTft</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ColVal</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RowVal</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>PixelVal</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the color of the pixel at the given column, row position. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_tft" kindref="compound">XTft</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ColVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>represents the column on the screen. The valid values are 0 to (XTFT_DISPLAY_WIDTH - 1). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RowVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>represents the row on the screen. The valid values are 0 to (XTFT_DISPLAY_HEIGHT - 1). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PixelVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>stores the color value on the screen pointed by given Column and Row position.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>This API is independent of the interface the TFT Controller is connected to. The data is read from the Video Memory. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" line="332" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" bodystart="332" bodyend="348"/>
+        <references refid="struct_x_tft_1aca9d4577a8b752a2c1a8142e5196a4db" compoundref="xtft_8h" startline="177">XTft::IsReady</references>
+        <references refid="struct_x_tft_1a7b57d88c2f86585f12d2e32e18a6cd87" compoundref="xtft_8h" startline="176">XTft::TftConfig</references>
+        <references refid="struct_x_tft___config_1a81392a22d4ef495818378bef86b06427" compoundref="xtft_8h" startline="163">XTft_Config::VideoMemBaseAddr</references>
+        <references refid="group__tft_1ga4d27aca52ce921aee61dab5870700c5b" compoundref="xtft__hw_8h" startline="92">XTFT_DISPLAY_BUFFER_WIDTH</references>
+        <references refid="group__tft_1ga3d391c05df971dfe77189be6daf57521" compoundref="xtft__hw_8h" startline="91">XTFT_DISPLAY_HEIGHT</references>
+        <references refid="group__tft_1ga8cdf302af29f0563c0079c0cbfb6abff" compoundref="xtft__hw_8h" startline="90">XTFT_DISPLAY_WIDTH</references>
+        <referencedby refid="group__tft_1ga40c2b5ed76baff0d64b5a78b67620184" compoundref="xtft_8c" startline="433" endline="471">XTft_Scroll</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__tft_1ga1cc88ecc501ab053fdccbcb270315068" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTft_Write</definition>
+        <argsstring>(XTft *InstancePtr, u8 CharValue)</argsstring>
+        <name>XTft_Write</name>
+        <param>
+          <type><ref refid="struct_x_tft" kindref="compound">XTft</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>CharValue</declname>
+        </param>
+        <briefdescription>
+<para>This function performs one of the following three operations based on the CharValue passed : </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>Move the position to the next line at the same position.</para></listitem><listitem><para>Move the position to the next line.</para></listitem><listitem><para>Write a particular character and update the column position by the width of the character.</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_tft" kindref="compound">XTft</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CharValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the ASCII code value of the character to be written.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>As the character bitmap array does not support some of the ASCII values, to support some of those which carry significance in display are added in the switch case. If there is a necessity for any other characters, it can be added here. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" line="373" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" bodystart="373" bodyend="418"/>
+        <references refid="struct_x_tft_1acc10038cdf317ab5b50ce0ec2fedcdd0" compoundref="xtft_8h" startline="181">XTft::BgColor</references>
+        <references refid="struct_x_tft_1acef1fa311d00ad95aca04546f827e27b" compoundref="xtft_8h" startline="178">XTft::ColVal</references>
+        <references refid="struct_x_tft_1ab7d29e890e9981c4f9af66b426280da5" compoundref="xtft_8h" startline="180">XTft::FgColor</references>
+        <references refid="struct_x_tft_1aca9d4577a8b752a2c1a8142e5196a4db" compoundref="xtft_8h" startline="177">XTft::IsReady</references>
+        <references refid="struct_x_tft_1a2fea2e6b537433ac6dde7d97eb340577" compoundref="xtft_8h" startline="179">XTft::RowVal</references>
+        <references refid="group__tft_1ga1e190b26de7e75aa55a59319c573a227" compoundref="xtft__hw_8h" startline="89">XTFT_CHAR_HEIGHT</references>
+        <references refid="group__tft_1ga6da9efdd6a18854c2994f2260e2b1482" compoundref="xtft__hw_8h" startline="88">XTFT_CHAR_WIDTH</references>
+        <references refid="group__tft_1gaaeaf77de0c8548663003c19c3b772a25" compoundref="xtft_8h" startline="145">XTFT_DEF_COLVAL</references>
+        <references refid="group__tft_1gabb17655cf7670fad99d96f1e92692b05" compoundref="xtft_8c" startline="155" endline="171">XTft_SetPos</references>
+        <references refid="group__tft_1ga7416b0a7b68676ae4791aef9816683de" compoundref="xtft_8c" startline="199" endline="233">XTft_SetPosChar</references>
+        <referencedby refid="xtft__example_8c_1aa567e9e2b698234bafb682123dfa239e" compoundref="xtft__example_8c" startline="191" endline="302">TftExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__tft_1ga40c2b5ed76baff0d64b5a78b67620184" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTft_Scroll</definition>
+        <argsstring>(XTft *InstancePtr)</argsstring>
+        <name>XTft_Scroll</name>
+        <param>
+          <type><ref refid="struct_x_tft" kindref="compound">XTft</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function inserts a new blank line at the bottom of the screen, it deletes the first line and moves the remaining lines up by one line. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_tft" kindref="compound">XTft</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" line="433" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" bodystart="433" bodyend="471"/>
+        <references refid="struct_x_tft_1acc10038cdf317ab5b50ce0ec2fedcdd0" compoundref="xtft_8h" startline="181">XTft::BgColor</references>
+        <references refid="struct_x_tft_1aca9d4577a8b752a2c1a8142e5196a4db" compoundref="xtft_8h" startline="177">XTft::IsReady</references>
+        <references refid="group__tft_1ga1e190b26de7e75aa55a59319c573a227" compoundref="xtft__hw_8h" startline="89">XTFT_CHAR_HEIGHT</references>
+        <references refid="group__tft_1gaaeaf77de0c8548663003c19c3b772a25" compoundref="xtft_8h" startline="145">XTFT_DEF_COLVAL</references>
+        <references refid="group__tft_1ga3d391c05df971dfe77189be6daf57521" compoundref="xtft__hw_8h" startline="91">XTFT_DISPLAY_HEIGHT</references>
+        <references refid="group__tft_1ga8cdf302af29f0563c0079c0cbfb6abff" compoundref="xtft__hw_8h" startline="90">XTFT_DISPLAY_WIDTH</references>
+        <references refid="group__tft_1gad4dd01f62992007c014fc4a13d39abdf" compoundref="xtft_8c" startline="533" endline="560">XTft_FillScreen</references>
+        <references refid="group__tft_1ga577850dbb8a67f20b52c42a818074381" compoundref="xtft_8c" startline="332" endline="348">XTft_GetPixel</references>
+        <references refid="group__tft_1ga4efcd245e6e68c56641138123e3f67cc" compoundref="xtft_8c" startline="292" endline="309">XTft_SetPixel</references>
+        <referencedby refid="xtft__example_8c_1aa567e9e2b698234bafb682123dfa239e" compoundref="xtft__example_8c" startline="191" endline="302">TftExample</referencedby>
+        <referencedby refid="group__tft_1ga7416b0a7b68676ae4791aef9816683de" compoundref="xtft_8c" startline="199" endline="233">XTft_SetPosChar</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__tft_1ga4181b68f12ba322250de4e29ef453abe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTft_ClearScreen</definition>
+        <argsstring>(XTft *InstancePtr)</argsstring>
+        <name>XTft_ClearScreen</name>
+        <param>
+          <type><ref refid="struct_x_tft" kindref="compound">XTft</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function re-initializes all the pixels to the default background color. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_tft" kindref="compound">XTft</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" line="485" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" bodystart="485" bodyend="506"/>
+        <references refid="struct_x_tft_1acc10038cdf317ab5b50ce0ec2fedcdd0" compoundref="xtft_8h" startline="181">XTft::BgColor</references>
+        <references refid="struct_x_tft_1acef1fa311d00ad95aca04546f827e27b" compoundref="xtft_8h" startline="178">XTft::ColVal</references>
+        <references refid="struct_x_tft_1aca9d4577a8b752a2c1a8142e5196a4db" compoundref="xtft_8h" startline="177">XTft::IsReady</references>
+        <references refid="struct_x_tft_1a2fea2e6b537433ac6dde7d97eb340577" compoundref="xtft_8h" startline="179">XTft::RowVal</references>
+        <references refid="group__tft_1gaaeaf77de0c8548663003c19c3b772a25" compoundref="xtft_8h" startline="145">XTFT_DEF_COLVAL</references>
+        <references refid="group__tft_1ga095e9f2723ddfa46427fcdf9e1209204" compoundref="xtft_8h" startline="146">XTFT_DEF_ROWVAL</references>
+        <references refid="group__tft_1ga3d391c05df971dfe77189be6daf57521" compoundref="xtft__hw_8h" startline="91">XTFT_DISPLAY_HEIGHT</references>
+        <references refid="group__tft_1ga8cdf302af29f0563c0079c0cbfb6abff" compoundref="xtft__hw_8h" startline="90">XTFT_DISPLAY_WIDTH</references>
+        <references refid="group__tft_1gad4dd01f62992007c014fc4a13d39abdf" compoundref="xtft_8c" startline="533" endline="560">XTft_FillScreen</references>
+        <referencedby refid="xtft__example_8c_1aa567e9e2b698234bafb682123dfa239e" compoundref="xtft__example_8c" startline="191" endline="302">TftExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__tft_1gad4dd01f62992007c014fc4a13d39abdf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTft_FillScreen</definition>
+        <argsstring>(XTft *InstancePtr, u32 ColStartVal, u32 RowStartVal, u32 ColEndVal, u32 RowEndVal, u32 PixelVal)</argsstring>
+        <name>XTft_FillScreen</name>
+        <param>
+          <type><ref refid="struct_x_tft" kindref="compound">XTft</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ColStartVal</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RowStartVal</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ColEndVal</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RowEndVal</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PixelVal</declname>
+        </param>
+        <briefdescription>
+<para>This function fills the screen with the range defined by the start and end values of column and row with the color passed as argument. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_tft" kindref="compound">XTft</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ColStartVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value of the starting column. The valid values are 0 to (XTFT_DISPLAY_WIDTH - 1). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RowStartVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value of the starting row. The valid values are 0 to (XTFT_DISPLAY_HEIGHT - 1). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ColEndVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value of the ending column. The valid values are 0 to (XTFT_DISPLAY_WIDTH - 1). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RowEndVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value of the ending row. The valid values are 0 to (XTFT_DISPLAY_HEIGHT - 1). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PixelVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>represents the color with which it will be filled on screen.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>It must be taken care to pass values such that column start position should not exceed column end position, same is the case with row position. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" line="533" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" bodystart="533" bodyend="560"/>
+        <references refid="struct_x_tft_1aca9d4577a8b752a2c1a8142e5196a4db" compoundref="xtft_8h" startline="177">XTft::IsReady</references>
+        <references refid="group__tft_1ga3d391c05df971dfe77189be6daf57521" compoundref="xtft__hw_8h" startline="91">XTFT_DISPLAY_HEIGHT</references>
+        <references refid="group__tft_1ga8cdf302af29f0563c0079c0cbfb6abff" compoundref="xtft__hw_8h" startline="90">XTFT_DISPLAY_WIDTH</references>
+        <references refid="group__tft_1ga4efcd245e6e68c56641138123e3f67cc" compoundref="xtft_8c" startline="292" endline="309">XTft_SetPixel</references>
+        <referencedby refid="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" compoundref="xtft_8c" startline="92" endline="134">XTft_CfgInitialize</referencedby>
+        <referencedby refid="group__tft_1ga4181b68f12ba322250de4e29ef453abe" compoundref="xtft_8c" startline="485" endline="506">XTft_ClearScreen</referencedby>
+        <referencedby refid="group__tft_1ga40c2b5ed76baff0d64b5a78b67620184" compoundref="xtft_8c" startline="433" endline="471">XTft_Scroll</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__tft_1ga308d28143a386bcde54db714f43ae737" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTft_EnableDisplay</definition>
+        <argsstring>(XTft *InstancePtr)</argsstring>
+        <name>XTft_EnableDisplay</name>
+        <param>
+          <type><ref refid="struct_x_tft" kindref="compound">XTft</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the TFT display by setting the Display Enable bit in the Control register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_tft" kindref="compound">XTft</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" line="575" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" bodystart="575" bodyend="600"/>
+        <references refid="struct_x_tft_1aca9d4577a8b752a2c1a8142e5196a4db" compoundref="xtft_8h" startline="177">XTft::IsReady</references>
+        <references refid="group__tft_1ga5fdc2c6fd8a7dae841feb936a043dd58" compoundref="xtft__hw_8h" startline="57">XTFT_CR_OFFSET</references>
+        <references refid="group__tft_1ga3069ee03357025e835743cbe81b7fd94" compoundref="xtft__hw_8h" startline="69">XTFT_CR_TDE_MASK</references>
+        <references refid="group__tft_1ga254efd25fdc63b78691a33ed565ae759" compoundref="xtft_8c" startline="814" endline="829">XTft_ReadReg</references>
+        <references refid="group__tft_1ga6c43a240d09cc381fef702e397b2d24b" compoundref="xtft_8c" startline="788" endline="798">XTft_WriteReg</references>
+        <referencedby refid="xtft__example_8c_1aa567e9e2b698234bafb682123dfa239e" compoundref="xtft__example_8c" startline="191" endline="302">TftExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__tft_1ga5324d540859b06ca950fbf07d466a7fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTft_DisableDisplay</definition>
+        <argsstring>(XTft *InstancePtr)</argsstring>
+        <name>XTft_DisableDisplay</name>
+        <param>
+          <type><ref refid="struct_x_tft" kindref="compound">XTft</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function disables the TFT display by clearing the Display Enable bit in the Control register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_tft" kindref="compound">XTft</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" line="615" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" bodystart="615" bodyend="640"/>
+        <references refid="struct_x_tft_1aca9d4577a8b752a2c1a8142e5196a4db" compoundref="xtft_8h" startline="177">XTft::IsReady</references>
+        <references refid="group__tft_1ga5fdc2c6fd8a7dae841feb936a043dd58" compoundref="xtft__hw_8h" startline="57">XTFT_CR_OFFSET</references>
+        <references refid="group__tft_1ga3069ee03357025e835743cbe81b7fd94" compoundref="xtft__hw_8h" startline="69">XTFT_CR_TDE_MASK</references>
+        <references refid="group__tft_1ga254efd25fdc63b78691a33ed565ae759" compoundref="xtft_8c" startline="814" endline="829">XTft_ReadReg</references>
+        <references refid="group__tft_1ga6c43a240d09cc381fef702e397b2d24b" compoundref="xtft_8c" startline="788" endline="798">XTft_WriteReg</references>
+        <referencedby refid="xtft__example_8c_1aa567e9e2b698234bafb682123dfa239e" compoundref="xtft__example_8c" startline="191" endline="302">TftExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__tft_1gaab5334330486fb514c230f98702d485a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTft_ScanReverse</definition>
+        <argsstring>(XTft *InstancePtr)</argsstring>
+        <name>XTft_ScanReverse</name>
+        <param>
+          <type><ref refid="struct_x_tft" kindref="compound">XTft</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function enables reverse scan by setting the Display Scan Control(DPS) bit in the Control register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_tft" kindref="compound">XTft</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>By default the scan direction is reverse, the image we see in reverse scan mode is the horizontal and vertical mirror image of the image in normal scan mode. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" line="657" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" bodystart="657" bodyend="682"/>
+        <references refid="struct_x_tft_1aca9d4577a8b752a2c1a8142e5196a4db" compoundref="xtft_8h" startline="177">XTft::IsReady</references>
+        <references refid="group__tft_1gaccac2b2d2b56aed3798bd781ba5775a5" compoundref="xtft__hw_8h" startline="70">XTFT_CR_DPS_MASK</references>
+        <references refid="group__tft_1ga5fdc2c6fd8a7dae841feb936a043dd58" compoundref="xtft__hw_8h" startline="57">XTFT_CR_OFFSET</references>
+        <references refid="group__tft_1ga254efd25fdc63b78691a33ed565ae759" compoundref="xtft_8c" startline="814" endline="829">XTft_ReadReg</references>
+        <references refid="group__tft_1ga6c43a240d09cc381fef702e397b2d24b" compoundref="xtft_8c" startline="788" endline="798">XTft_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__tft_1ga62eadbfc2233460b7ae8003c34347c01" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTft_ScanNormal</definition>
+        <argsstring>(XTft *InstancePtr)</argsstring>
+        <name>XTft_ScanNormal</name>
+        <param>
+          <type><ref refid="struct_x_tft" kindref="compound">XTft</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function enables normal scan by clearing the Display Scan Control(DPS) bit in the Control register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_tft" kindref="compound">XTft</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" line="697" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" bodystart="697" bodyend="722"/>
+        <references refid="struct_x_tft_1aca9d4577a8b752a2c1a8142e5196a4db" compoundref="xtft_8h" startline="177">XTft::IsReady</references>
+        <references refid="group__tft_1gaccac2b2d2b56aed3798bd781ba5775a5" compoundref="xtft__hw_8h" startline="70">XTFT_CR_DPS_MASK</references>
+        <references refid="group__tft_1ga5fdc2c6fd8a7dae841feb936a043dd58" compoundref="xtft__hw_8h" startline="57">XTFT_CR_OFFSET</references>
+        <references refid="group__tft_1ga254efd25fdc63b78691a33ed565ae759" compoundref="xtft_8c" startline="814" endline="829">XTft_ReadReg</references>
+        <references refid="group__tft_1ga6c43a240d09cc381fef702e397b2d24b" compoundref="xtft_8c" startline="788" endline="798">XTft_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__tft_1ga56ccbb6cd6478cd5bd330ef70f733b4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTft_SetFrameBaseAddr</definition>
+        <argsstring>(XTft *InstancePtr, UINTPTR NewFrameBaseAddr)</argsstring>
+        <name>XTft_SetFrameBaseAddr</name>
+        <param>
+          <type><ref refid="struct_x_tft" kindref="compound">XTft</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>NewFrameBaseAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function changes the Video Memory Base address stored in the Address Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_tft" kindref="compound">XTft</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NewFrameBaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the new memory address value to be written to the Address register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>The new memory address must be in the address range of external memory and it must be taken care that 2MB memory is available from this new address so that frame data to 640*480 screen can be written. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" line="742" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" bodystart="742" bodyend="771"/>
+        <references refid="struct_x_tft___config_1aaaf2c79008199a54c94cc69a9760a0e5" compoundref="xtft_8h" startline="164">XTft_Config::AddrWidth</references>
+        <references refid="struct_x_tft_1aca9d4577a8b752a2c1a8142e5196a4db" compoundref="xtft_8h" startline="177">XTft::IsReady</references>
+        <references refid="struct_x_tft_1a7b57d88c2f86585f12d2e32e18a6cd87" compoundref="xtft_8h" startline="176">XTft::TftConfig</references>
+        <references refid="struct_x_tft___config_1a81392a22d4ef495818378bef86b06427" compoundref="xtft_8h" startline="163">XTft_Config::VideoMemBaseAddr</references>
+        <references refid="group__tft_1gad0b65c05fe82f1493e865d70878d5773" compoundref="xtft__hw_8h" startline="60">XTFT_AR_LSB_OFFSET</references>
+        <references refid="group__tft_1ga585665d41b80da57013a246faaf7869e" compoundref="xtft__hw_8h" startline="61">XTFT_AR_MSB_OFFSET</references>
+        <references refid="group__tft_1ga3f2dda8ffdcd2d04e9307cc7f3edaa11" compoundref="xtft__hw_8h" startline="56">XTFT_AR_OFFSET</references>
+        <references refid="group__tft_1ga6c43a240d09cc381fef702e397b2d24b" compoundref="xtft_8c" startline="788" endline="798">XTft_WriteReg</references>
+        <referencedby refid="xtft__example_8c_1aa567e9e2b698234bafb682123dfa239e" compoundref="xtft__example_8c" startline="191" endline="302">TftExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__tft_1ga6c43a240d09cc381fef702e397b2d24b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTft_WriteReg</definition>
+        <argsstring>(XTft *InstancePtr, u32 RegOffset, u32 Data)</argsstring>
+        <name>XTft_WriteReg</name>
+        <param>
+          <type><ref refid="struct_x_tft" kindref="compound">XTft</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Write a value to a TFT register. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32 bit write is performed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_tft" kindref="compound">XTft</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset from the base to write to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the data written to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" line="788" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" bodystart="788" bodyend="798"/>
+        <references refid="struct_x_tft___config_1af13b84d730fc82272b844c4f787a5142" compoundref="xtft_8h" startline="162">XTft_Config::BaseAddress</references>
+        <references refid="struct_x_tft_1aca9d4577a8b752a2c1a8142e5196a4db" compoundref="xtft_8h" startline="177">XTft::IsReady</references>
+        <references refid="struct_x_tft_1a7b57d88c2f86585f12d2e32e18a6cd87" compoundref="xtft_8h" startline="176">XTft::TftConfig</references>
+        <referencedby refid="group__tft_1ga5324d540859b06ca950fbf07d466a7fe" compoundref="xtft_8c" startline="615" endline="640">XTft_DisableDisplay</referencedby>
+        <referencedby refid="group__tft_1ga308d28143a386bcde54db714f43ae737" compoundref="xtft_8c" startline="575" endline="600">XTft_EnableDisplay</referencedby>
+        <referencedby refid="group__tft_1ga1bc1f7d9c152c6e661cd125f4c190dd8" compoundref="xtft_8c" startline="953" endline="970">XTft_IntrDisable</referencedby>
+        <referencedby refid="group__tft_1ga3241465696077377ea4000f4caca21a7" compoundref="xtft_8c" startline="922" endline="939">XTft_IntrEnable</referencedby>
+        <referencedby refid="group__tft_1ga62eadbfc2233460b7ae8003c34347c01" compoundref="xtft_8c" startline="697" endline="722">XTft_ScanNormal</referencedby>
+        <referencedby refid="group__tft_1gaab5334330486fb514c230f98702d485a" compoundref="xtft_8c" startline="657" endline="682">XTft_ScanReverse</referencedby>
+        <referencedby refid="group__tft_1ga56ccbb6cd6478cd5bd330ef70f733b4a" compoundref="xtft_8c" startline="742" endline="771">XTft_SetFrameBaseAddr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__tft_1ga254efd25fdc63b78691a33ed565ae759" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XTft_ReadReg</definition>
+        <argsstring>(XTft *InstancePtr, u32 RegOffset)</argsstring>
+        <name>XTft_ReadReg</name>
+        <param>
+          <type><ref refid="struct_x_tft" kindref="compound">XTft</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <briefdescription>
+<para>Read a value from a TFT register. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32 bit read is performed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_tft" kindref="compound">XTft</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset from the base to read from.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Data read from the register.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" line="814" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" bodystart="814" bodyend="829"/>
+        <references refid="struct_x_tft___config_1af13b84d730fc82272b844c4f787a5142" compoundref="xtft_8h" startline="162">XTft_Config::BaseAddress</references>
+        <references refid="struct_x_tft_1aca9d4577a8b752a2c1a8142e5196a4db" compoundref="xtft_8h" startline="177">XTft::IsReady</references>
+        <references refid="struct_x_tft_1a7b57d88c2f86585f12d2e32e18a6cd87" compoundref="xtft_8h" startline="176">XTft::TftConfig</references>
+        <referencedby refid="group__tft_1ga5324d540859b06ca950fbf07d466a7fe" compoundref="xtft_8c" startline="615" endline="640">XTft_DisableDisplay</referencedby>
+        <referencedby refid="group__tft_1ga308d28143a386bcde54db714f43ae737" compoundref="xtft_8c" startline="575" endline="600">XTft_EnableDisplay</referencedby>
+        <referencedby refid="group__tft_1gacc8325682d029d3618ff0a7d6ee265dc" compoundref="xtft_8c" startline="991" endline="1004">XTft_GetVsyncStatus</referencedby>
+        <referencedby refid="group__tft_1ga1bc1f7d9c152c6e661cd125f4c190dd8" compoundref="xtft_8c" startline="953" endline="970">XTft_IntrDisable</referencedby>
+        <referencedby refid="group__tft_1ga3241465696077377ea4000f4caca21a7" compoundref="xtft_8c" startline="922" endline="939">XTft_IntrEnable</referencedby>
+        <referencedby refid="group__tft_1ga62eadbfc2233460b7ae8003c34347c01" compoundref="xtft_8c" startline="697" endline="722">XTft_ScanNormal</referencedby>
+        <referencedby refid="group__tft_1gaab5334330486fb514c230f98702d485a" compoundref="xtft_8c" startline="657" endline="682">XTft_ScanReverse</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__tft_1ga3241465696077377ea4000f4caca21a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTft_IntrEnable</definition>
+        <argsstring>(XTft *InstancePtr)</argsstring>
+        <name>XTft_IntrEnable</name>
+        <param>
+          <type><ref refid="struct_x_tft" kindref="compound">XTft</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the Vsync Interrupt in the Interrupt Enable and Status Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_tft" kindref="compound">XTft</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" line="922" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" bodystart="922" bodyend="939"/>
+        <references refid="struct_x_tft_1aca9d4577a8b752a2c1a8142e5196a4db" compoundref="xtft_8h" startline="177">XTft::IsReady</references>
+        <references refid="group__tft_1ga9e75abb8c7b5263ebabb683ce1ee2b8f" compoundref="xtft__hw_8h" startline="81">XTFT_IESR_IE_MASK</references>
+        <references refid="group__tft_1ga6fec872a11e74e007882df480ef9d951" compoundref="xtft__hw_8h" startline="58">XTFT_IESR_OFFSET</references>
+        <references refid="group__tft_1ga254efd25fdc63b78691a33ed565ae759" compoundref="xtft_8c" startline="814" endline="829">XTft_ReadReg</references>
+        <references refid="group__tft_1ga6c43a240d09cc381fef702e397b2d24b" compoundref="xtft_8c" startline="788" endline="798">XTft_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__tft_1ga1bc1f7d9c152c6e661cd125f4c190dd8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTft_IntrDisable</definition>
+        <argsstring>(XTft *InstancePtr)</argsstring>
+        <name>XTft_IntrDisable</name>
+        <param>
+          <type><ref refid="struct_x_tft" kindref="compound">XTft</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function disables the Vsync Interrupt in the Interrupt Enable and Status Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_tft" kindref="compound">XTft</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" line="953" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" bodystart="953" bodyend="970"/>
+        <references refid="struct_x_tft_1aca9d4577a8b752a2c1a8142e5196a4db" compoundref="xtft_8h" startline="177">XTft::IsReady</references>
+        <references refid="group__tft_1ga9e75abb8c7b5263ebabb683ce1ee2b8f" compoundref="xtft__hw_8h" startline="81">XTFT_IESR_IE_MASK</references>
+        <references refid="group__tft_1ga6fec872a11e74e007882df480ef9d951" compoundref="xtft__hw_8h" startline="58">XTFT_IESR_OFFSET</references>
+        <references refid="group__tft_1ga254efd25fdc63b78691a33ed565ae759" compoundref="xtft_8c" startline="814" endline="829">XTft_ReadReg</references>
+        <references refid="group__tft_1ga6c43a240d09cc381fef702e397b2d24b" compoundref="xtft_8c" startline="788" endline="798">XTft_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__tft_1gacc8325682d029d3618ff0a7d6ee265dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XTft_GetVsyncStatus</definition>
+        <argsstring>(XTft *InstancePtr)</argsstring>
+        <name>XTft_GetVsyncStatus</name>
+        <param>
+          <type><ref refid="struct_x_tft" kindref="compound">XTft</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the Vsync(Video address latch) status from the Interrupt Enable and Status Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_tft" kindref="compound">XTft</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>TRUE if Vsync pulse has occurred after displaying the current frame.</para></listitem><listitem><para>FALSE if the TFT core has not completed displaying the current frame.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Vsync(Video address latch) Status bit will be cleared by the HW after it loads the address from the Address Register and starts displaying the Frame. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" line="991" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.c" bodystart="991" bodyend="1004"/>
+        <references refid="struct_x_tft_1aca9d4577a8b752a2c1a8142e5196a4db" compoundref="xtft_8h" startline="177">XTft::IsReady</references>
+        <references refid="group__tft_1ga6fec872a11e74e007882df480ef9d951" compoundref="xtft__hw_8h" startline="58">XTFT_IESR_OFFSET</references>
+        <references refid="group__tft_1gafcc9028848f7ab88a9461c53a5c64bf0" compoundref="xtft__hw_8h" startline="78">XTFT_IESR_VADDRLATCH_STATUS_MASK</references>
+        <references refid="group__tft_1ga254efd25fdc63b78691a33ed565ae759" compoundref="xtft_8c" startline="814" endline="829">XTft_ReadReg</references>
+        <referencedby refid="xtft__example_8c_1aa567e9e2b698234bafb682123dfa239e" compoundref="xtft__example_8c" startline="191" endline="302">TftExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2008<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/***************************************************************************/</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor">#ifndef<sp/>XTFT_H<sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTFT_H<sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xtft__hw_8h" kindref="compound">xtft_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>***************************/</highlight></codeline>
+<codeline lineno="136" refid="group__tft_1ga547452270c1b3d9df4af6ceb9f347684" refkind="member"><highlight class="preprocessor">#define<sp/>XTFT_ASCIICHAR_OFFSET<sp/>32</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="143" refid="group__tft_1gaf4d426ca83e1b41f324d732fbdabfae6" refkind="member"><highlight class="preprocessor">#define<sp/>XTFT_DEF_FGCOLOR<sp/>0x00FFFFFF<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="144" refid="group__tft_1ga6802361cad5f41ab4686e2184bb06d62" refkind="member"><highlight class="preprocessor">#define<sp/>XTFT_DEF_BGCOLOR<sp/>0x0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="145" refid="group__tft_1gaaeaf77de0c8548663003c19c3b772a25" refkind="member"><highlight class="preprocessor">#define<sp/>XTFT_DEF_COLVAL<sp/><sp/>0x0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="146" refid="group__tft_1ga095e9f2723ddfa46427fcdf9e1209204" refkind="member"><highlight class="preprocessor">#define<sp/>XTFT_DEF_ROWVAL<sp/><sp/>0x0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*****************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="156" refid="struct_x_tft___config" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DeviceId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="160" refid="struct_x_tft___config_1a4a82ccc081184475776bf139beb99963" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="struct_x_tft___config_1a4a82ccc081184475776bf139beb99963" kindref="member">Name</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="162" refid="struct_x_tft___config_1af13b84d730fc82272b844c4f787a5142" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_tft___config_1af13b84d730fc82272b844c4f787a5142" kindref="member">BaseAddress</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="163" refid="struct_x_tft___config_1a81392a22d4ef495818378bef86b06427" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_tft___config_1a81392a22d4ef495818378bef86b06427" kindref="member">VideoMemBaseAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="164" refid="struct_x_tft___config_1aaaf2c79008199a54c94cc69a9760a0e5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_tft___config_1aaaf2c79008199a54c94cc69a9760a0e5" kindref="member">AddrWidth</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="165"><highlight class="normal">}<sp/><ref refid="struct_x_tft___config" kindref="compound">XTft_Config</ref>;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174" refid="struct_x_tft" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176" refid="struct_x_tft_1a7b57d88c2f86585f12d2e32e18a6cd87" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_tft___config" kindref="compound">XTft_Config</ref><sp/><ref refid="struct_x_tft_1a7b57d88c2f86585f12d2e32e18a6cd87" kindref="member">TftConfig</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="177" refid="struct_x_tft_1aca9d4577a8b752a2c1a8142e5196a4db" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_tft_1aca9d4577a8b752a2c1a8142e5196a4db" kindref="member">IsReady</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="178" refid="struct_x_tft_1acef1fa311d00ad95aca04546f827e27b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_tft_1acef1fa311d00ad95aca04546f827e27b" kindref="member">ColVal</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="179" refid="struct_x_tft_1a2fea2e6b537433ac6dde7d97eb340577" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_tft_1a2fea2e6b537433ac6dde7d97eb340577" kindref="member">RowVal</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="180" refid="struct_x_tft_1ab7d29e890e9981c4f9af66b426280da5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_tft_1ab7d29e890e9981c4f9af66b426280da5" kindref="member">FgColor</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="181" refid="struct_x_tft_1acc10038cdf317ab5b50ce0ec2fedcdd0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_tft_1acc10038cdf317ab5b50ce0ec2fedcdd0" kindref="member">BgColor</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="183"><highlight class="normal">}<sp/><ref refid="struct_x_tft" kindref="compound">XTft</ref>;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="190"><highlight class="comment"><sp/>*<sp/>Initialization<sp/>function<sp/>in<sp/>xtft_sinit.c.</highlight></codeline>
+<codeline lineno="191"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_tft___config" kindref="compound">XTft_Config</ref><sp/>*<ref refid="group__tft_1ga6fbdb38685fd32b2c564a93b5fe70bf3" kindref="member">XTft_LookupConfig</ref>(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_tft___config" kindref="compound">XTft_Config</ref><sp/>*<ref refid="group__tft_1ga6fbdb38685fd32b2c564a93b5fe70bf3" kindref="member">XTft_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="199"><highlight class="comment"><sp/>*<sp/>Functions<sp/>for<sp/>basic<sp/>driver<sp/>operations<sp/>in<sp/>xtft.c.</highlight></codeline>
+<codeline lineno="200"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" kindref="member">XTft_CfgInitialize</ref>(<ref refid="struct_x_tft" kindref="compound">XTft</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_tft___config" kindref="compound">XTft_Config</ref><sp/>*ConfigPtr,</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__tft_1gabb17655cf7670fad99d96f1e92692b05" kindref="member">XTft_SetPos</ref>(<ref refid="struct_x_tft" kindref="compound">XTft</ref><sp/>*InstancePtr,<sp/>u32<sp/>ColVal,<sp/>u32<sp/>RowVal);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__tft_1ga7416b0a7b68676ae4791aef9816683de" kindref="member">XTft_SetPosChar</ref>(<ref refid="struct_x_tft" kindref="compound">XTft</ref><sp/>*InstancePtr,<sp/>u32<sp/>ColVal,<sp/>u32<sp/>RowVal);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__tft_1ga689206aec1006c6231f4b10062a8eeb0" kindref="member">XTft_SetColor</ref>(<ref refid="struct_x_tft" kindref="compound">XTft</ref><sp/>*InstancePtr,<sp/>u32<sp/>FgColor,<sp/>u32<sp/>BgColor);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__tft_1ga4efcd245e6e68c56641138123e3f67cc" kindref="member">XTft_SetPixel</ref>(<ref refid="struct_x_tft" kindref="compound">XTft</ref><sp/>*InstancePtr,<sp/>u32<sp/>ColVal,<sp/>u32<sp/>RowVal,<sp/>u32<sp/>PixelVal);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__tft_1ga577850dbb8a67f20b52c42a818074381" kindref="member">XTft_GetPixel</ref>(<ref refid="struct_x_tft" kindref="compound">XTft</ref><sp/>*InstancePtr,<sp/>u32<sp/>ColVal,<sp/>u32<sp/>RowVal,<sp/>u32*<sp/>PixelVal);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__tft_1ga1cc88ecc501ab053fdccbcb270315068" kindref="member">XTft_Write</ref>(<ref refid="struct_x_tft" kindref="compound">XTft</ref><sp/>*InstancePtr,<sp/>u8<sp/>CharValue);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__tft_1ga40c2b5ed76baff0d64b5a78b67620184" kindref="member">XTft_Scroll</ref>(<ref refid="struct_x_tft" kindref="compound">XTft</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__tft_1ga4181b68f12ba322250de4e29ef453abe" kindref="member">XTft_ClearScreen</ref>(<ref refid="struct_x_tft" kindref="compound">XTft</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__tft_1gad4dd01f62992007c014fc4a13d39abdf" kindref="member">XTft_FillScreen</ref>(<ref refid="struct_x_tft" kindref="compound">XTft</ref>*<sp/>InstancePtr,<sp/>u32<sp/>ColStartVal,</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RowStartVal,u32<sp/>ColEndVal,<sp/>u32<sp/>RowEndVal,</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PixelVal);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__tft_1ga308d28143a386bcde54db714f43ae737" kindref="member">XTft_EnableDisplay</ref>(<ref refid="struct_x_tft" kindref="compound">XTft</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__tft_1ga5324d540859b06ca950fbf07d466a7fe" kindref="member">XTft_DisableDisplay</ref>(<ref refid="struct_x_tft" kindref="compound">XTft</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__tft_1gaab5334330486fb514c230f98702d485a" kindref="member">XTft_ScanReverse</ref>(<ref refid="struct_x_tft" kindref="compound">XTft</ref>*<sp/>InstancePtr);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__tft_1ga62eadbfc2233460b7ae8003c34347c01" kindref="member">XTft_ScanNormal</ref>(<ref refid="struct_x_tft" kindref="compound">XTft</ref>*<sp/>InstancePtr);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__tft_1ga56ccbb6cd6478cd5bd330ef70f733b4a" kindref="member">XTft_SetFrameBaseAddr</ref>(<ref refid="struct_x_tft" kindref="compound">XTft</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>NewFrameBaseAddr);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__tft_1ga6c43a240d09cc381fef702e397b2d24b" kindref="member">XTft_WriteReg</ref>(<ref refid="struct_x_tft" kindref="compound">XTft</ref>*<sp/>InstancePtr,<sp/>u32<sp/>RegOffset,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal">u32<sp/><ref refid="group__tft_1ga254efd25fdc63b78691a33ed565ae759" kindref="member">XTft_ReadReg</ref>(<ref refid="struct_x_tft" kindref="compound">XTft</ref>*<sp/>InstancePtr,<sp/>u32<sp/>RegOffset);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__tft_1ga3241465696077377ea4000f4caca21a7" kindref="member">XTft_IntrEnable</ref>(<ref refid="struct_x_tft" kindref="compound">XTft</ref>*<sp/>InstancePtr);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__tft_1ga1bc1f7d9c152c6e661cd125f4c190dd8" kindref="member">XTft_IntrDisable</ref>(<ref refid="struct_x_tft" kindref="compound">XTft</ref>*<sp/>InstancePtr);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__tft_1gacc8325682d029d3618ff0a7d6ee265dc" kindref="member">XTft_GetVsyncStatus</ref>(<ref refid="struct_x_tft" kindref="compound">XTft</ref>*<sp/>InstancePtr);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>***************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>***************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="234"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XTFT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="238"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tft/src/xtft.h"/>
+  </compounddef>
+</doxygen>

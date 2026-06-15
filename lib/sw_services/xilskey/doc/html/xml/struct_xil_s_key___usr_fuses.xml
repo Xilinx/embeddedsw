@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_xil_s_key___usr_fuses" kind="struct" prot="public">
+    <compoundname>XilSKey_UsrFuses</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_xil_s_key___usr_fuses_1a5a37bbee81add2b397903ea1b6f5c40c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilSKey_UsrFuses::UserFuse[XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BITS]</definition>
+        <argsstring>[XSK_ZYNQMP_EFUSEPS_USER_FUSE_ROW_LEN_IN_BITS]</argsstring>
+        <name>UserFuse</name>
+        <briefdescription>
+<para>UserFuse data to be programmed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp.c" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>XilSKey_UsrFuses holds the User FUSES which needs to be actually programmed. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp.c" bodystart="112" bodyend="116"/>
+    <listofallmembers>
+      <member refid="struct_xil_s_key___usr_fuses_1a5a37bbee81add2b397903ea1b6f5c40c" prot="public" virt="non-virtual"><scope>XilSKey_UsrFuses</scope><name>UserFuse</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

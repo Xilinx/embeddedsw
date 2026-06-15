@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_isi_isp_status__s" kind="struct" prot="public">
+    <compoundname>IsiIspStatus_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_isi_isp_status__s_1aecdfbe230ab8c201068ce0b111d2f8a9" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t IsiIspStatus_s::useSensorAE</definition>
+        <argsstring></argsstring>
+        <name>useSensorAE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_isp_status__s_1afad245b73b978880b1c30082ae1e4649" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t IsiIspStatus_s::useSensorBLC</definition>
+        <argsstring></argsstring>
+        <name>useSensorBLC</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_isp_status__s_1aaa67de6d90ca751e029390fe4316cdd3" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t IsiIspStatus_s::useSensorAWB</definition>
+        <argsstring></argsstring>
+        <name>useSensorAWB</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="104" bodyend="108"/>
+    <listofallmembers>
+      <member refid="struct_isi_isp_status__s_1aecdfbe230ab8c201068ce0b111d2f8a9" prot="public" virt="non-virtual"><scope>IsiIspStatus_s</scope><name>useSensorAE</name></member>
+      <member refid="struct_isi_isp_status__s_1aaa67de6d90ca751e029390fe4316cdd3" prot="public" virt="non-virtual"><scope>IsiIspStatus_s</scope><name>useSensorAWB</name></member>
+      <member refid="struct_isi_isp_status__s_1afad245b73b978880b1c30082ae1e4649" prot="public" virt="non-virtual"><scope>IsiIspStatus_s</scope><name>useSensorBLC</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

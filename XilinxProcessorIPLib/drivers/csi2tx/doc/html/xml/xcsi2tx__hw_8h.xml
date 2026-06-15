@@ -1,0 +1,1073 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xcsi2tx__hw_8h" kind="file">
+    <compoundname>xcsi2tx_hw.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xcsi2tx_8h" local="yes">xcsi2tx.h</includedby>
+    <incdepgraph>
+      <node id="42">
+        <label>xil_io.h</label>
+      </node>
+      <node id="41">
+        <label>xil_types.h</label>
+      </node>
+      <node id="40">
+        <label>xcsi2tx_hw.h</label>
+        <link refid="xcsi2tx_hw.h"/>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="45">
+        <label>xcsi2tx.c</label>
+        <link refid="xcsi2tx_8c"/>
+      </node>
+      <node id="44">
+        <label>xcsi2tx.h</label>
+        <link refid="xcsi2tx_8h"/>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>xcsi2tx_selftest.c</label>
+        <link refid="xcsi2tx__selftest_8c"/>
+      </node>
+      <node id="49">
+        <label>xcsi2tx_sinit.c</label>
+        <link refid="xcsi2tx__sinit_8c"/>
+      </node>
+      <node id="46">
+        <label>xcsi2tx_g.c</label>
+      </node>
+      <node id="50">
+        <label>xcsi2tx_example_selftest.c</label>
+        <link refid="xcsi2tx__example__selftest_8c"/>
+      </node>
+      <node id="47">
+        <label>xcsi2tx_intr.c</label>
+        <link refid="xcsi2tx__intr_8c"/>
+      </node>
+      <node id="43">
+        <label>xcsi2tx_hw.h</label>
+        <link refid="xcsi2tx_hw.h"/>
+        <childnode refid="44" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Device registers</header>
+      <description><para>Register sets of MIPI CSI2 Tx Core </para></description>
+      <memberdef kind="define" id="group__csi2tx_1ga946323f75e230f56d7fc2a9640bd8ab1" prot="public" static="no">
+        <name>XCSI2TX_CCR_OFFSET</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+<para>Core Configuration Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__csi2tx_1ga8c4f599fd297b0b87b7b5028bc59a1a4" compoundref="xcsi2tx__selftest_8c" startline="72" endline="124">XCsi2Tx_SelfTest</referencedby>
+        <referencedby refid="group__csi2tx_1ga1f42ddbe8c72819877271b1e2b1b2f66" compoundref="xcsi2tx_8c" startline="328" endline="353">XCsi2Tx_SetLineCountForVC</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1gabb3185c624bf861b9d97e8dad49b3d48" prot="public" static="no">
+        <name>XCSI2TX_PCR_OFFSET</name>
+        <initializer>0x00000004	/*Protocol Configuration
+						  *  Register */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga9367d74644fe257d2d9ef283bf81d327" prot="public" static="no">
+        <name>XCSI2TX_GIER_OFFSET</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>Global Interrupt Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__csi2tx_1ga874801fd63ef703d0b8ec36379b743a7" compoundref="xcsi2tx_8c" startline="189" endline="236">XCsi2Tx_Configure</referencedby>
+        <referencedby refid="group__csi2tx_1ga8c4f599fd297b0b87b7b5028bc59a1a4" compoundref="xcsi2tx__selftest_8c" startline="72" endline="124">XCsi2Tx_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1gab2d607c7c70706cdb08326d2f9d35396" prot="public" static="no">
+        <name>XCSI2TX_ISR_OFFSET</name>
+        <initializer>0x00000024</initializer>
+        <briefdescription>
+<para>Interrupt Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__csi2tx_1ga40b9d2c4e3ac95c5a55c085ba0412304" compoundref="xcsi2tx__intr_8c" startline="151" endline="162">XCsi2Tx_GetIntrStatus</referencedby>
+        <referencedby refid="group__csi2tx_1ga60da0ba950424b0e90d2cf108eefed2c" compoundref="xcsi2tx__intr_8c" startline="178" endline="198">XCsi2Tx_InterruptClear</referencedby>
+        <referencedby refid="group__csi2tx_1ga8c4f599fd297b0b87b7b5028bc59a1a4" compoundref="xcsi2tx__selftest_8c" startline="72" endline="124">XCsi2Tx_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga2e9aa73ddca76ee93a3c18573a082f19" prot="public" static="no">
+        <name>XCSI2TX_IER_OFFSET</name>
+        <initializer>0x00000028</initializer>
+        <briefdescription>
+<para>Interrupt Enable Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__csi2tx_1ga3ff13690fd3d7cbb9ef1b0b8bf579235" compoundref="xcsi2tx__intr_8c" startline="125" endline="136">XCsi2Tx_GetIntrEnable</referencedby>
+        <referencedby refid="group__csi2tx_1gad54b9d4f661d683594d59fe7ab428962" compoundref="xcsi2tx__intr_8c" startline="94" endline="111">XCsi2Tx_IntrDisable</referencedby>
+        <referencedby refid="group__csi2tx_1ga2caa416a631b37b3414f3ebe811fb50e" compoundref="xcsi2tx__intr_8c" startline="58" endline="79">XCsi2Tx_IntrEnable</referencedby>
+        <referencedby refid="group__csi2tx_1ga8c4f599fd297b0b87b7b5028bc59a1a4" compoundref="xcsi2tx__selftest_8c" startline="72" endline="124">XCsi2Tx_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga98c70dd97a33a24cd5a1d80f9fe9d902" prot="public" static="no">
+        <name>XCSI2TX_SPKTR_OFFSET</name>
+        <initializer>0x00000030</initializer>
+        <briefdescription>
+<para>Generic Short Packet Entry. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__csi2tx_1gad74fa52c21a09573d7838c8ec469cb82" compoundref="xcsi2tx_8c" startline="250" endline="271">XCsi2Tx_GetShortPacket</referencedby>
+        <referencedby refid="group__csi2tx_1ga8c4f599fd297b0b87b7b5028bc59a1a4" compoundref="xcsi2tx__selftest_8c" startline="72" endline="124">XCsi2Tx_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga71d1e5d100d088c2482482878f868530" prot="public" static="no">
+        <name>XCSI2TX_LINE_COUNT_VC0</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>Line Count for VC0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__csi2tx_1ga7aceee43ac75b5e2e7fb5c072e99543d" compoundref="xcsi2tx_8c" startline="375" endline="393">XCsi2Tx_GetLineCountForVC</referencedby>
+        <referencedby refid="group__csi2tx_1ga1f42ddbe8c72819877271b1e2b1b2f66" compoundref="xcsi2tx_8c" startline="328" endline="353">XCsi2Tx_SetLineCountForVC</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga0416b10b41b6db1ec5a6ee91a79e7005" prot="public" static="no">
+        <name>XCSI2TX_LINE_COUNT_VC1</name>
+        <initializer>0x00000044</initializer>
+        <briefdescription>
+<para>Line Count for VC1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga62f584b06977c2aaa760aebee9ca4545" prot="public" static="no">
+        <name>XCSI2TX_LINE_COUNT_VC2</name>
+        <initializer>0x00000048</initializer>
+        <briefdescription>
+<para>Line Count for VC2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga23a3d797b27784997c641c8c8f0e984a" prot="public" static="no">
+        <name>XCSI2TX_LINE_COUNT_VC3</name>
+        <initializer>0x0000004C</initializer>
+        <briefdescription>
+<para>Line Count for VC3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga0de178a0d328d77c92f84bfa9eea9432" prot="public" static="no">
+        <name>XCSI2TX_GSP_OFFSET</name>
+        <initializer>0x00000078	/* &lt; GSP Status*/</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bitmasks and offsets of XCSI_GIER_OFFSET register</header>
+      <description><para>This register contains the global interrupt enable bit. </para></description>
+      <memberdef kind="define" id="group__csi2tx_1gac6230fca4f7c1adbda9fe1552ef4b3d2" prot="public" static="no">
+        <name>XCSI2TX_GIER_GIE_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Global Interrupt Enable bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga933b9901187f38c45f7b70e52e3344a3" prot="public" static="no">
+        <name>XCSI2TX_GIER_GIE_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Shift bits for Global Interrupt Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga959e1d8eac158a90fdd7924124bf2bcc" prot="public" static="no">
+        <name>XCSI2TX_GIER_SET</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Enable the Global Interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga4eee0cf8e8f3042e85023c2c9e614704" prot="public" static="no">
+        <name>XCSI2TX_GIER_RESET</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Disable the Global Interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bitmasks and offsets of XCSI_CCR_OFFSET register</header>
+      <description><para>This register is used for the enabling/disabling and resetting the core of CSI2 Tx Controller </para></description>
+      <memberdef kind="define" id="group__csi2tx_1ga726549ff15bda23c42a39cad8e1669e5" prot="public" static="no">
+        <name>XCSI2TX_CCR_COREENB_MASK</name>
+        <initializer>0x00000001 /* Enable/Disable core */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1gaeb85dce251ac8b7f1f44ba560e3305bb" prot="public" static="no">
+        <name>XCSI2TX_CCR_SOFTRESET_MASK</name>
+        <initializer>0x00000002 /* Soft Reset the core */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga050c1ee8bbdce93dd94af43c1407bc8a" prot="public" static="no">
+        <name>XCSI2TX_CSR_RIPCD_MASK</name>
+        <initializer>0x00000004 /* Core ready */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga365bfb520f135bb4bb56ed4a552f6bc5" prot="public" static="no">
+        <name>XCSI2TX_CCR_ULPS_MASK</name>
+        <initializer>0x00000008 /* ULPS */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1gaf6b8fe661b78d795fcf3611582ef7503" prot="public" static="no">
+        <name>XCSI2TX_CCR_CLKMODE_MASK</name>
+        <initializer>0x00000010 /* Clock Mode */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1gafcf8def5459794000772aaf53cb4c71f" prot="public" static="no">
+        <name>XCSI2TX_CCR_COREENB_SHIFT</name>
+        <initializer>0 	/* Shift bit for Core Enable*/</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga67708ce79a9373342710f0aeee97b5f2" prot="public" static="no">
+        <name>XCSI2TX_CCR_SOFTRESET_SHIFT</name>
+        <initializer>1 	/* Shift bit for Soft reset */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga57bca8bfbe0ad63fffd73dd0cf1a690b" prot="public" static="no">
+        <name>XCSI2TX_CSR_RIPCD_SHIFT</name>
+        <initializer>2 	/* Bit Shift for Core Ready */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga775ba2e4270ed52227edced140e20f64" prot="public" static="no">
+        <name>XCSI2TX_CCR_ULPS_SHIFT</name>
+        <initializer>3 	/* Shift bits for ulps */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga3788a910bc4c8a75f61e921f984a3bb1" prot="public" static="no">
+        <name>XCSI2TX_CCR_CLKMODE_SHIFT</name>
+        <initializer>4 	/* Shift bits for clock mode */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bitmasks and offset of XCSI2TX_PCR_OFFSET register</header>
+      <description><para>This register reports the number of lanes configured during core generation and number of lanes actively used. </para></description>
+      <memberdef kind="define" id="group__csi2tx_1gad0a745f32c903555cf7df3061bf5d6c9" prot="public" static="no">
+        <name>XCSI2TX_PCR_LINEGEN_MASK</name>
+        <initializer>0x00008000 /* Line generation Mode */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1gad43bf7b921fa34c7eba829716229cc33" prot="public" static="no">
+        <name>XCSI2TX_PCR_PIXEL_MASK</name>
+        <initializer>0x00006000 /* Pixel Mode */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga8ac3b88d60c89c0b26b5336a75d859d1" prot="public" static="no">
+        <name>XCSI2TX_PCR_MAXLANES_MASK</name>
+        <initializer>0x00000018 /* Maximum lanes in core */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1gaa1fa0c138bd706cca44e4cf283fd597f" prot="public" static="no">
+        <name>XCSI2TX_PCR_ACTLANES_MASK</name>
+        <initializer>0x00000003 /* Active  lanes in core */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga6a14f86bc2a9474ec3a0071db4aee45d" prot="public" static="no">
+        <name>XCSI2TX_PCR_LINEGEN_SHIFT</name>
+        <initializer>15 	/* Line generation */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga6ca2cebab94aeca88e2316beef3ef65c" prot="public" static="no">
+        <name>XCSI2TX_PCR_PIXEL_SHIFT</name>
+        <initializer>13 	/* Pixel Mode */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga1f0417288121bd4157beda42e4371387" prot="public" static="no">
+        <name>XCSI2TX_PCR_MAXLANES_SHIFT</name>
+        <initializer>3 	/* Max Lanes */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1gac78977f0ddb422068a1f0d5af5cf6625" prot="public" static="no">
+        <name>XCSI2TX_PCR_ACTLANES_SHIFT</name>
+        <initializer>0 	/* Active Lanes */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>BitMasks interrupts</header>
+      <memberdef kind="define" id="group__csi2tx_1ga612d2b33a8db8e718d2c9477b18f3fad" prot="public" static="no">
+        <name>XCSI2TX_IER_ALLINTR_MASK</name>
+        <initializer>0x0000003F /* All interrupts mask */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1gabd86c2825d68e9f037b8cb08c130521d" prot="public" static="no">
+        <name>XCSI2TX_ISR_ALLINTR_MASK</name>
+        <initializer>0x0000003F /* All interrupts mask */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga223995e1d54c0f09606264312f9be93a" prot="public" static="no">
+        <name>XCSI2TX_UNDERRUN_PIXEL_MASK</name>
+        <initializer>(1&lt;&lt;0)	/* Underrun Pixel */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga4a23339836251388c591f7194bcb6cdb" prot="public" static="no">
+        <name>XCSI2TX_WRONG_DATATYPE_MASK</name>
+        <initializer>(1&lt;&lt;1)	/* Wrong data type */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1gabb308707a3edf6a16a2accc9ecc018bb" prot="public" static="no">
+        <name>XCSI2TX_LINE_BUFF_FULL_MASK</name>
+        <initializer>(1&lt;&lt;2)	/* Line buffer full */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga53bd7ae31025e7e21702d99a57c4a4a9" prot="public" static="no">
+        <name>XCSI2TX_DPHY_ULPS_MASK</name>
+        <initializer>(1&lt;&lt;3)	/* Dphy ulps */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1gaf9d48a903d8cae2056e50c07773d6c09" prot="public" static="no">
+        <name>XCSI_GPSFIFO_MASK</name>
+        <initializer>(1&lt;&lt;4)	/* GPS fifo full */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga32dea0d9bf28275eec9656bc0beab692" prot="public" static="no">
+        <name>XCSI_INCORT_LANE_MASK</name>
+        <initializer>(1&lt;&lt;5)	/* Wrong lane configuration */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga0044b3d448765635208740af525b7f8f" prot="public" static="no">
+        <name>XCSITX_LCSTAT_VC0_IER_MASK</name>
+        <initializer>(1&lt;&lt;8)</initializer>
+        <briefdescription>
+<para>Line Count Status for VC0 IER. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="151" bodyend="-1"/>
+        <referencedby refid="group__csi2tx_1gad54b9d4f661d683594d59fe7ab428962" compoundref="xcsi2tx__intr_8c" startline="94" endline="111">XCsi2Tx_IntrDisable</referencedby>
+        <referencedby refid="group__csi2tx_1ga2caa416a631b37b3414f3ebe811fb50e" compoundref="xcsi2tx__intr_8c" startline="58" endline="79">XCsi2Tx_IntrEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga5a70be53ce33122f5cc5d0f4d0450bf6" prot="public" static="no">
+        <name>XCSITX_LCSTAT_VC1_IER_MASK</name>
+        <initializer>(1&lt;&lt;10)</initializer>
+        <briefdescription>
+<para>Line Count Status for VC1 IER. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="154" bodyend="-1"/>
+        <referencedby refid="group__csi2tx_1gad54b9d4f661d683594d59fe7ab428962" compoundref="xcsi2tx__intr_8c" startline="94" endline="111">XCsi2Tx_IntrDisable</referencedby>
+        <referencedby refid="group__csi2tx_1ga2caa416a631b37b3414f3ebe811fb50e" compoundref="xcsi2tx__intr_8c" startline="58" endline="79">XCsi2Tx_IntrEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1gaaffcbe2e0effcbd2ff9806e9e28ebf26" prot="public" static="no">
+        <name>XCSITX_LCSTAT_VC2_IER_MASK</name>
+        <initializer>(1&lt;&lt;12)</initializer>
+        <briefdescription>
+<para>Line Count Status for VC2 IER. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="157" bodyend="-1"/>
+        <referencedby refid="group__csi2tx_1gad54b9d4f661d683594d59fe7ab428962" compoundref="xcsi2tx__intr_8c" startline="94" endline="111">XCsi2Tx_IntrDisable</referencedby>
+        <referencedby refid="group__csi2tx_1ga2caa416a631b37b3414f3ebe811fb50e" compoundref="xcsi2tx__intr_8c" startline="58" endline="79">XCsi2Tx_IntrEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga0bd1beb0451ef2e16f517a7933069e68" prot="public" static="no">
+        <name>XCSITX_LCSTAT_VC3_IER_MASK</name>
+        <initializer>(1&lt;&lt;14)</initializer>
+        <briefdescription>
+<para>Line Count Status for VC3 IER. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="160" bodyend="-1"/>
+        <referencedby refid="group__csi2tx_1gad54b9d4f661d683594d59fe7ab428962" compoundref="xcsi2tx__intr_8c" startline="94" endline="111">XCsi2Tx_IntrDisable</referencedby>
+        <referencedby refid="group__csi2tx_1ga2caa416a631b37b3414f3ebe811fb50e" compoundref="xcsi2tx__intr_8c" startline="58" endline="79">XCsi2Tx_IntrEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga10a735a664b23493bbcfe038e7fc5090" prot="public" static="no">
+        <name>XCSITX_LCSTAT_VC0_IER_OFFSET</name>
+        <initializer>(8)</initializer>
+        <briefdescription>
+<para>Line Count Status for VC0 IER Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga3edc584a66bd4eec9e3d7f9527688719" prot="public" static="no">
+        <name>XCSITX_LCSTAT_VC1_IER_OFFSET</name>
+        <initializer>(10)</initializer>
+        <briefdescription>
+<para>Line Count Status for VC1 IER Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga4b50b90be1a5046ac8620ce35a8316e0" prot="public" static="no">
+        <name>XCSITX_LCSTAT_VC2_IER_OFFSET</name>
+        <initializer>(12)</initializer>
+        <briefdescription>
+<para>Line Count Status for VC2 IER Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga751e5c1a5b8ba04269280f5006b5b4e9" prot="public" static="no">
+        <name>XCSITX_LCSTAT_VC3_IER_OFFSET</name>
+        <initializer>(14)</initializer>
+        <briefdescription>
+<para>Line Count Status for VC3 IER Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga142de52fd9fccd7f077ffa5a6d595aea" prot="public" static="no">
+        <name>XCSITX_LCSTAT_VC0_ISR_MASK</name>
+        <initializer>(0x3&lt;&lt;8)</initializer>
+        <briefdescription>
+<para>Line Count Status for VC0 ISR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="160" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="177" bodyend="-1"/>
+        <referencedby refid="group__csi2tx_1ga60da0ba950424b0e90d2cf108eefed2c" compoundref="xcsi2tx__intr_8c" startline="178" endline="198">XCsi2Tx_InterruptClear</referencedby>
+        <referencedby refid="group__csi2tx_1gafc4a705bd3a295ac372fa02eb578af4d" compoundref="xcsi2tx__intr_8c" startline="325" endline="425">XCsi2Tx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga987e9104d3d2c47d0a4241029df51d67" prot="public" static="no">
+        <name>XCSITX_LCSTAT_VC1_ISR_MASK</name>
+        <initializer>(0x3&lt;&lt;10)</initializer>
+        <briefdescription>
+<para>Line Count Status for VC1 ISR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="180" bodyend="-1"/>
+        <referencedby refid="group__csi2tx_1ga60da0ba950424b0e90d2cf108eefed2c" compoundref="xcsi2tx__intr_8c" startline="178" endline="198">XCsi2Tx_InterruptClear</referencedby>
+        <referencedby refid="group__csi2tx_1gafc4a705bd3a295ac372fa02eb578af4d" compoundref="xcsi2tx__intr_8c" startline="325" endline="425">XCsi2Tx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga61d9538e0d010ffb6dc990475372fefb" prot="public" static="no">
+        <name>XCSITX_LCSTAT_VC2_ISR_MASK</name>
+        <initializer>(0x3&lt;&lt;12)</initializer>
+        <briefdescription>
+<para>Line Count Status for VC2 ISR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="183" bodyend="-1"/>
+        <referencedby refid="group__csi2tx_1ga60da0ba950424b0e90d2cf108eefed2c" compoundref="xcsi2tx__intr_8c" startline="178" endline="198">XCsi2Tx_InterruptClear</referencedby>
+        <referencedby refid="group__csi2tx_1gafc4a705bd3a295ac372fa02eb578af4d" compoundref="xcsi2tx__intr_8c" startline="325" endline="425">XCsi2Tx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1gae0bb66a7b93fa93e9ae7126a9e7c2397" prot="public" static="no">
+        <name>XCSITX_LCSTAT_VC3_ISR_MASK</name>
+        <initializer>(0x3&lt;&lt;14)</initializer>
+        <briefdescription>
+<para>Line Count Status for VC3 ISR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="186" bodyend="-1"/>
+        <referencedby refid="group__csi2tx_1ga60da0ba950424b0e90d2cf108eefed2c" compoundref="xcsi2tx__intr_8c" startline="178" endline="198">XCsi2Tx_InterruptClear</referencedby>
+        <referencedby refid="group__csi2tx_1gafc4a705bd3a295ac372fa02eb578af4d" compoundref="xcsi2tx__intr_8c" startline="325" endline="425">XCsi2Tx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga286313baf965deb60dec63793619c051" prot="public" static="no">
+        <name>XCSITX_LCSTAT_VC0_ISR_OFFSET</name>
+        <initializer>(8)</initializer>
+        <briefdescription>
+<para>Line Count Status for VC0 ISR Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="189" bodyend="-1"/>
+        <referencedby refid="group__csi2tx_1gafc4a705bd3a295ac372fa02eb578af4d" compoundref="xcsi2tx__intr_8c" startline="325" endline="425">XCsi2Tx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1gaf1a83a4df52d05590aa4f2f6e3c20a6c" prot="public" static="no">
+        <name>XCSITX_LCSTAT_VC1_ISR_OFFSET</name>
+        <initializer>(10)</initializer>
+        <briefdescription>
+<para>Line Count Status for VC1 ISR Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="192" bodyend="-1"/>
+        <referencedby refid="group__csi2tx_1gafc4a705bd3a295ac372fa02eb578af4d" compoundref="xcsi2tx__intr_8c" startline="325" endline="425">XCsi2Tx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga3ee9d8a174df41745968a05430f3a604" prot="public" static="no">
+        <name>XCSITX_LCSTAT_VC2_ISR_OFFSET</name>
+        <initializer>(12)</initializer>
+        <briefdescription>
+<para>Line Count Status for VC2 ISR Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="172" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="195" bodyend="-1"/>
+        <referencedby refid="group__csi2tx_1gafc4a705bd3a295ac372fa02eb578af4d" compoundref="xcsi2tx__intr_8c" startline="325" endline="425">XCsi2Tx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga945d23526f204191f2d579e9169105d8" prot="public" static="no">
+        <name>XCSITX_LCSTAT_VC3_ISR_OFFSET</name>
+        <initializer>(14)</initializer>
+        <briefdescription>
+<para>Line Count Status for VC3 ISR Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="198" bodyend="-1"/>
+        <referencedby refid="group__csi2tx_1gafc4a705bd3a295ac372fa02eb578af4d" compoundref="xcsi2tx__intr_8c" startline="325" endline="425">XCsi2Tx_IntrHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>BitMasks Short Packets</header>
+      <memberdef kind="define" id="group__csi2tx_1ga2edf8b9efa772fbbf6f9b59c8a62ae4e" prot="public" static="no">
+        <name>XCSI2TX_SPKTR_DATA_MASK</name>
+        <initializer>0x00FFFF00 /* Short Packet byte0 and 1*/</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1gae7f2e4bcb9b0f9cc88d9a4d20dfaac08" prot="public" static="no">
+        <name>XCSI2TX_SPKTR_DATA_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga393a6fa1172d8460c7966eb9f70f88f0" prot="public" static="no">
+        <name>XCSI2TX_SPKTR_VC_MASK</name>
+        <initializer>0x000000C0 /* Short Packet Virtual
+								channel*/</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga8b54de5bbedc4ddca730d8cf3eaa5c39" prot="public" static="no">
+        <name>XCSI2TX_SPKTR_VC_SHIFT</name>
+        <initializer>6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1gad8bc662d24b77033cad1dbd64c2cbba2" prot="public" static="no">
+        <name>XCSI2TX_SPKTR_DT_MASK</name>
+        <initializer>0x0000003F /* Short Packet Data type*/</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="186" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1gae5791af5ed0f79ecf141225536ddf4eb" prot="public" static="no">
+        <name>XCSI2TX_SPKTR_DT_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="187" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__csi2tx_1ga8f58282f5d1917ec080b9b210aad48a6" prot="public" static="no">
+        <name>XCSI2TX_HW_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1gac7a1f2d7c25c0f7238931c4941af0da8" prot="public" static="no">
+        <name>XCSI2TX_GSP_MASK</name>
+        <initializer>0x00000001F</initializer>
+        <briefdescription>
+<para>Number of GSPs can be safely written to GSP FIFO, before it goes full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__csi2tx_1ga6a2e3b98a9bede1d1e2264e52ed815a4" prot="public" static="no">
+        <name>XCSI2TX_GSP_SHIFT</name>
+        <initializer>0 /** &lt; Shift bit for GSP count*/</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__csi2tx_1gafabcbcc617406a3b718333fb223e803a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XCsi2Tx_ReadReg</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 RegOffset)</argsstring>
+        <name>XCsi2Tx_ReadReg</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <briefdescription>
+<para>Static inline function to read data from CSI register space. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of CSI </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Value of the register.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="229" bodyend="232"/>
+      </memberdef>
+      <memberdef kind="function" id="group__csi2tx_1gab9abe8d42a704e431f487e31acda175d" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XCsi2Tx_WriteReg</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 RegOffset, u32 Data)</argsstring>
+        <name>XCsi2Tx_WriteReg</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Static inline function to write data to CSI register space. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of CSI </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to be written to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h" bodystart="247" bodyend="251"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor">#ifndef<sp/>XCSI2TX_HW_H_</highlight></codeline>
+<codeline lineno="28" refid="group__csi2tx_1ga8f58282f5d1917ec080b9b210aad48a6" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_HW_H_<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Include<sp/>Files<sp/>**********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Register<sp/>offset<sp/>definitions.<sp/>Register<sp/>accesses<sp/>are<sp/>32-bit.</highlight></codeline>
+<codeline lineno="43"><highlight class="comment"><sp/>*/</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor">#define<sp/>XCSI2TX_CCR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor">#define<sp/>XCSI2TX_PCR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Protocol<sp/>Configuration</highlight></codeline>
+<codeline lineno="53"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/>Register<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_GIER_OFFSET<sp/><sp/><sp/><sp/><sp/>0x00000020<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56" refid="group__csi2tx_1ga9367d74644fe257d2d9ef283bf81d327" refkind="member"><highlight class="preprocessor">#define<sp/>XCSI2TX_ISR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000024<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor">#define<sp/>XCSI2TX_IER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000028<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor">#define<sp/>XCSI2TX_SPKTR_OFFSET<sp/><sp/><sp/><sp/>0x00000030<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="group__csi2tx_1ga2e9aa73ddca76ee93a3c18573a082f19" refkind="member"><highlight class="preprocessor">#define<sp/>XCSI2TX_LINE_COUNT_VC0<sp/><sp/>0x00000040<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor">#define<sp/>XCSI2TX_LINE_COUNT_VC1<sp/><sp/>0x00000044<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor">#define<sp/>XCSI2TX_LINE_COUNT_VC2<sp/><sp/>0x00000048<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="group__csi2tx_1ga98c70dd97a33a24cd5a1d80f9fe9d902" refkind="member"><highlight class="preprocessor">#define<sp/>XCSI2TX_LINE_COUNT_VC3<sp/><sp/>0x0000004C<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor">#define<sp/>XCSI2TX_GSP_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000078<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>&lt;<sp/>GSP<sp/>Status*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor">#define<sp/>XCSI2TX_GIER_GIE_MASK<sp/><sp/><sp/>0x00000001<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor">#define<sp/>XCSI2TX_GIER_GIE_SHIFT<sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor">#define<sp/>XCSI2TX_GIER_SET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79" refid="group__csi2tx_1gac6230fca4f7c1adbda9fe1552ef4b3d2" refkind="member"><highlight class="preprocessor">#define<sp/>XCSI2TX_GIER_RESET<sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82" refid="group__csi2tx_1ga933b9901187f38c45f7b70e52e3344a3" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor">#define<sp/>XCSI2TX_CCR_COREENB_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/></highlight><highlight class="comment">/*<sp/>Enable/Disable<sp/>core<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_CCR_SOFTRESET_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/></highlight><highlight class="comment">/*<sp/>Soft<sp/>Reset<sp/>the<sp/>core<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_CSR_RIPCD_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/></highlight><highlight class="comment">/*<sp/>Core<sp/>ready<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_CCR_ULPS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/></highlight><highlight class="comment">/*<sp/>ULPS<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_CCR_CLKMODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010<sp/></highlight><highlight class="comment">/*<sp/>Clock<sp/>Mode<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_CCR_COREENB_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Shift<sp/>bit<sp/>for<sp/>Core<sp/>Enable*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_CCR_SOFTRESET_SHIFT<sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Shift<sp/>bit<sp/>for<sp/>Soft<sp/>reset<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_CSR_RIPCD_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Bit<sp/>Shift<sp/>for<sp/>Core<sp/>Ready<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_CCR_ULPS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Shift<sp/>bits<sp/>for<sp/>ulps<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_CCR_CLKMODE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>4<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Shift<sp/>bits<sp/>for<sp/>clock<sp/>mode<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="108"><highlight class="comment">/*<sp/>Mask<sp/>bits<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_PCR_LINEGEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00008000<sp/></highlight><highlight class="comment">/*<sp/>Line<sp/>generation<sp/>Mode<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_PCR_PIXEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00006000<sp/></highlight><highlight class="comment">/*<sp/>Pixel<sp/>Mode<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_PCR_MAXLANES_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000018<sp/></highlight><highlight class="comment">/*<sp/>Maximum<sp/>lanes<sp/>in<sp/>core<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_PCR_ACTLANES_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000003<sp/></highlight><highlight class="comment">/*<sp/>Active<sp/><sp/>lanes<sp/>in<sp/>core<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Shift<sp/>bits<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_PCR_LINEGEN_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>15<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Line<sp/>generation<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_PCR_PIXEL_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>13<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pixel<sp/>Mode<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_PCR_MAXLANES_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>3<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Max<sp/>Lanes<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_PCR_ACTLANES_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Active<sp/>Lanes<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor">#define<sp/>XCSI2TX_GSP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001F<sp/></highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor">#define<sp/>XCSI2TX_GSP_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/></highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor">#define<sp/>XCSI2TX_IER_ALLINTR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000003F<sp/></highlight><highlight class="comment">/*<sp/>All<sp/>interrupts<sp/>mask<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_ISR_ALLINTR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000003F<sp/></highlight><highlight class="comment">/*<sp/>All<sp/>interrupts<sp/>mask<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_UNDERRUN_PIXEL_MASK<sp/><sp/><sp/><sp/><sp/>(1&lt;&lt;0)<sp/><sp/></highlight><highlight class="comment">/*<sp/>Underrun<sp/>Pixel<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_WRONG_DATATYPE_MASK<sp/><sp/><sp/><sp/><sp/>(1&lt;&lt;1)<sp/><sp/></highlight><highlight class="comment">/*<sp/>Wrong<sp/>data<sp/>type<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_LINE_BUFF_FULL_MASK<sp/><sp/><sp/><sp/><sp/>(1&lt;&lt;2)<sp/><sp/></highlight><highlight class="comment">/*<sp/>Line<sp/>buffer<sp/>full<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_DPHY_ULPS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1&lt;&lt;3)<sp/><sp/></highlight><highlight class="comment">/*<sp/>Dphy<sp/>ulps<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI_GPSFIFO_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1&lt;&lt;4)<sp/><sp/></highlight><highlight class="comment">/*<sp/>GPS<sp/>fifo<sp/>full<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI_INCORT_LANE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1&lt;&lt;5)<sp/><sp/></highlight><highlight class="comment">/*<sp/>Wrong<sp/>lane<sp/>configuration<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XCSITX_LCSTAT_VC0_IER_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(1&lt;&lt;8)<sp/></highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor">#define<sp/>XCSITX_LCSTAT_VC1_IER_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(1&lt;&lt;10)<sp/></highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor">#define<sp/>XCSITX_LCSTAT_VC2_IER_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(1&lt;&lt;12)<sp/></highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor">#define<sp/>XCSITX_LCSTAT_VC3_IER_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(1&lt;&lt;14)<sp/></highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor">#define<sp/>XCSITX_LCSTAT_VC0_IER_OFFSET<sp/><sp/><sp/><sp/>(8)<sp/></highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor">#define<sp/>XCSITX_LCSTAT_VC1_IER_OFFSET<sp/><sp/><sp/><sp/>(10)<sp/></highlight></codeline>
+<codeline lineno="154" refid="group__csi2tx_1ga5a70be53ce33122f5cc5d0f4d0450bf6" refkind="member"><highlight class="preprocessor">#define<sp/>XCSITX_LCSTAT_VC2_IER_OFFSET<sp/><sp/><sp/><sp/>(12)<sp/></highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor">#define<sp/>XCSITX_LCSTAT_VC3_IER_OFFSET<sp/><sp/><sp/><sp/>(14)<sp/></highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor">#define<sp/>XCSITX_LCSTAT_VC0_ISR_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x3&lt;&lt;8)<sp/></highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor">#define<sp/>XCSITX_LCSTAT_VC1_ISR_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x3&lt;&lt;10)<sp/></highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor">#define<sp/>XCSITX_LCSTAT_VC2_ISR_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x3&lt;&lt;12)<sp/></highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor">#define<sp/>XCSITX_LCSTAT_VC3_ISR_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x3&lt;&lt;14)<sp/></highlight></codeline>
+<codeline lineno="167" refid="group__csi2tx_1ga3edc584a66bd4eec9e3d7f9527688719" refkind="member"><highlight class="preprocessor">#define<sp/>XCSITX_LCSTAT_VC0_ISR_OFFSET<sp/><sp/><sp/><sp/>(8)<sp/></highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor">#define<sp/>XCSITX_LCSTAT_VC1_ISR_OFFSET<sp/><sp/><sp/><sp/>(10)<sp/></highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor">#define<sp/>XCSITX_LCSTAT_VC2_ISR_OFFSET<sp/><sp/><sp/><sp/>(12)<sp/></highlight></codeline>
+<codeline lineno="173" refid="group__csi2tx_1ga751e5c1a5b8ba04269280f5006b5b4e9" refkind="member"><highlight class="preprocessor">#define<sp/>XCSITX_LCSTAT_VC3_ISR_OFFSET<sp/><sp/><sp/><sp/>(14)<sp/></highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="177" refid="group__csi2tx_1ga142de52fd9fccd7f077ffa5a6d595aea" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor">#define<sp/>XCSI2TX_SPKTR_DATA_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00FFFF00<sp/></highlight><highlight class="comment">/*<sp/>Short<sp/>Packet<sp/>byte0<sp/>and<sp/>1*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_SPKTR_DATA_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8</highlight></codeline>
+<codeline lineno="183" refid="group__csi2tx_1ga61d9538e0d010ffb6dc990475372fefb" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_SPKTR_VC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000C0<sp/></highlight><highlight class="comment">/*<sp/>Short<sp/>Packet<sp/>Virtual</highlight></codeline>
+<codeline lineno="184"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>channel*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_SPKTR_VC_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>6</highlight></codeline>
+<codeline lineno="186" refid="group__csi2tx_1gae0bb66a7b93fa93e9ae7126a9e7c2397" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_SPKTR_DT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000003F<sp/></highlight><highlight class="comment">/*<sp/>Short<sp/>Packet<sp/>Data<sp/>type*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCSI2TX_SPKTR_DT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="191"><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="203"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XCsi2Tx_ReadReg(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>RegOffset)</highlight></codeline>
+<codeline lineno="204"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Xil_In32(BaseAddress<sp/>+<sp/>RegOffset);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="221"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XCsi2Tx_WriteReg(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>RegOffset,</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data)</highlight></codeline>
+<codeline lineno="223"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(BaseAddress<sp/>+<sp/>RegOffset,<sp/>Data);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="230"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_hw.h"/>
+  </compounddef>
+</doxygen>

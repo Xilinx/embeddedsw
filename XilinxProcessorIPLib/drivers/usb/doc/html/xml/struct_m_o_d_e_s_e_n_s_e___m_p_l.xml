@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_m_o_d_e_s_e_n_s_e___m_p_l" kind="struct" prot="public">
+    <compoundname>MODESENSE_MPL</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___m_p_l_1a69ba202e1f8dfe1992311d2df507ba56" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 MODESENSE_MPL::mode_data_length</definition>
+        <argsstring></argsstring>
+        <name>mode_data_length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___m_p_l_1a5ce8fac4dae2b713ddaf6a51a0612c08" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 MODESENSE_MPL::medium_type_code</definition>
+        <argsstring></argsstring>
+        <name>medium_type_code</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___m_p_l_1a5074d4c5f4c7adf5fe3b027e43e39c47" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 MODESENSE_MPL::device_spec_params</definition>
+        <argsstring></argsstring>
+        <name>device_spec_params</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_o_d_e_s_e_n_s_e___m_p_l_1ae06ee808bc28c4434b9eb6986cfd524a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 MODESENSE_MPL::block_desc_length</definition>
+        <argsstring></argsstring>
+        <name>block_desc_length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="251" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="251" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="247" bodyend="252"/>
+    <listofallmembers>
+      <member refid="struct_m_o_d_e_s_e_n_s_e___m_p_l_1ae06ee808bc28c4434b9eb6986cfd524a" prot="public" virt="non-virtual"><scope>MODESENSE_MPL</scope><name>block_desc_length</name></member>
+      <member refid="struct_m_o_d_e_s_e_n_s_e___m_p_l_1a5074d4c5f4c7adf5fe3b027e43e39c47" prot="public" virt="non-virtual"><scope>MODESENSE_MPL</scope><name>device_spec_params</name></member>
+      <member refid="struct_m_o_d_e_s_e_n_s_e___m_p_l_1a5ce8fac4dae2b713ddaf6a51a0612c08" prot="public" virt="non-virtual"><scope>MODESENSE_MPL</scope><name>medium_type_code</name></member>
+      <member refid="struct_m_o_d_e_s_e_n_s_e___m_p_l_1a69ba202e1f8dfe1992311d2df507ba56" prot="public" virt="non-virtual"><scope>MODESENSE_MPL</scope><name>mode_data_length</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

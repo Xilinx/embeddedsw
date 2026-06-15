@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___lms_ots_param" kind="struct" prot="public">
+    <compoundname>XSecure_LmsOtsParam</compoundname>
+    <includes local="no">xsecure_lms_ots.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___lms_ots_param_1a78766f2ec7e3d0cd4124fd25d9ba7dc1" prot="public" static="no" mutable="no">
+        <type>XSecure_ShaMode</type>
+        <definition>XSecure_ShaMode XSecure_LmsOtsParam::H</definition>
+        <argsstring></argsstring>
+        <name>H</name>
+        <briefdescription>
+<para>HASH function for selected type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="288" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga48db68f8b63048019c35a756e58d9181" compoundref="xsecure__lms__ots_8c" startline="170" endline="339">XSecure_LmsOtsLookupParamSet</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_ots_param_1a554dcd12f22aaee41e7529383c90fb61" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_LmsOtsParam::n</definition>
+        <argsstring></argsstring>
+        <name>n</name>
+        <briefdescription>
+<para>The number of bytes of the output of the hash function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_ots_param_1a2343eb7964c16c79ac2f0457165c7bcf" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xsecure__lms__server__apis_1ga98e7ae28a938a2adda1c9d415f68a3cd" kindref="member">XSecure_LmsOtsWIndex</ref></type>
+        <definition>XSecure_LmsOtsWIndex XSecure_LmsOtsParam::w</definition>
+        <argsstring></argsstring>
+        <name>w</name>
+        <briefdescription>
+<para><verbatim> The width (in bits) of the Winternitz coefficients; that is,
+</verbatim> the number of bits from the hash or checksum that is used with a single Winternitz chain. </para>        </briefdescription>
+        <detaileddescription>
+<para>It is a member of the set { 1, 2, 4, 8 }. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_ots_param_1a9d74640e9d43783512295f5c8509f430" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xsecure__lms__server__apis_1ga797bf08fbeb731c200889e97c2024349" kindref="member">XSecure_LmsOtsuIndex</ref></type>
+        <definition>XSecure_LmsOtsuIndex XSecure_LmsOtsParam::u</definition>
+        <argsstring></argsstring>
+        <name>u</name>
+        <briefdescription>
+<para><verbatim> Represent the number of w-bit fields required to
+</verbatim> contain the hash of the message </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="294" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_ots_param_1a68d92546005b231f814964588e40f71a" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xsecure__lms__server__apis_1ga48ca7b856b1c924469c32ed0b974b8d5" kindref="member">XSecure_LmsOtsvIndex</ref></type>
+        <definition>XSecure_LmsOtsvIndex XSecure_LmsOtsParam::v</definition>
+        <argsstring></argsstring>
+        <name>v</name>
+        <briefdescription>
+<para><verbatim> Represent the number of w-bit fields required to
+</verbatim> contain the checksum byte strings </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="296" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_ots_param_1ac1bb5257fb68371bb0200d7ab08929a1" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xsecure__lms__server__apis_1ga934fb8a4fb645f4419a0c10eceb4b883" kindref="member">XSecure_LmsOtslsIndex</ref></type>
+        <definition>XSecure_LmsOtslsIndex XSecure_LmsOtsParam::ls</definition>
+        <argsstring></argsstring>
+        <name>ls</name>
+        <briefdescription>
+<para>The number of left-shift bits used in the checksum function Cksm. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="298" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_ots_param_1a27641efa1b812a352a6d4bc20cba09b2" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xsecure__lms__server__apis_1ga54c7dfec9549d6617d8bcd3bf7b1f8bd" kindref="member">XSecure_LmsOtspIndex</ref></type>
+        <definition>XSecure_LmsOtspIndex XSecure_LmsOtsParam::p</definition>
+        <argsstring></argsstring>
+        <name>p</name>
+        <briefdescription>
+<para>The number of &apos;n&apos;-byte string elements that make up the LM-OTS signature. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="299" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="299" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_ots_param_1a2d5a684e6782930b2858b14d78af41d4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_LmsOtsParam::NoOfInvSign</definition>
+        <argsstring></argsstring>
+        <name>NoOfInvSign</name>
+        <briefdescription>
+<para>Number of invocations to get to signature per digit (2^w - 1) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_ots_param_1ae58fb8e49f86da9600152bf763da2757" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_LmsOtsParam::SignLen</definition>
+        <argsstring></argsstring>
+        <name>SignLen</name>
+        <briefdescription>
+<para>Number of bytes in signature. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="301" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga112da8c38a140d02852bd8f93ab78e2f" compoundref="xsecure__lms__core_8c" startline="1308" endline="1403">XSecure_HssFinish</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>LMS OTS parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="287" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="287" bodyend="302"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___lms_ots_param_1a78766f2ec7e3d0cd4124fd25d9ba7dc1" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsParam</scope><name>H</name></member>
+      <member refid="struct_x_secure___lms_ots_param_1ac1bb5257fb68371bb0200d7ab08929a1" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsParam</scope><name>ls</name></member>
+      <member refid="struct_x_secure___lms_ots_param_1a554dcd12f22aaee41e7529383c90fb61" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsParam</scope><name>n</name></member>
+      <member refid="struct_x_secure___lms_ots_param_1a2d5a684e6782930b2858b14d78af41d4" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsParam</scope><name>NoOfInvSign</name></member>
+      <member refid="struct_x_secure___lms_ots_param_1a27641efa1b812a352a6d4bc20cba09b2" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsParam</scope><name>p</name></member>
+      <member refid="struct_x_secure___lms_ots_param_1ae58fb8e49f86da9600152bf763da2757" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsParam</scope><name>SignLen</name></member>
+      <member refid="struct_x_secure___lms_ots_param_1a9d74640e9d43783512295f5c8509f430" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsParam</scope><name>u</name></member>
+      <member refid="struct_x_secure___lms_ots_param_1a68d92546005b231f814964588e40f71a" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsParam</scope><name>v</name></member>
+      <member refid="struct_x_secure___lms_ots_param_1a2343eb7964c16c79ac2f0457165c7bcf" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsParam</scope><name>w</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_prach___d_d_c_cfg" kind="struct" prot="public">
+    <compoundname>XDfePrach_DDCCfg</compoundname>
+    <includes local="no">xdfeprach.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_prach___d_d_c_cfg_1a31fbe2e7f11a937712811abe5a3ccead" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_DDCCfg::DecimationRate</definition>
+        <argsstring></argsstring>
+        <name>DecimationRate</name>
+        <briefdescription>
+<para><verbatim>     [0,1,2,3,4,8,9,10,11] Decimation Rate required
+</verbatim> to go from Fc/16 MS/s to the RACH sample rate: </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>0: 1x decimation(not allowed when XDfePrach_CarrierCfg.CCRate==0)</para></listitem><listitem><para>1: 2x decimation</para></listitem><listitem><para>2: 4x decimation</para></listitem><listitem><para>3: 8x decimation(not allowed when XDfePrach_CarrierCfg.CCRate==3)</para></listitem><listitem><para>4: 16x decimation(not allowed when XDfePrach_CarrierCfg.CCRate==3 or XDfePrach_CarrierCfg.CCRate==2)</para></listitem><listitem><para>8: 3x decimation</para></listitem><listitem><para>9: 6x decimation</para></listitem><listitem><para>10: 12x decimation(not allowed when XDfePrach_CarrierCfg.CCRate==3)</para></listitem><listitem><para>11: 24x decimation(not allowed when XDfePrach_CarrierCfg.CCRate==3 or XDfePrach_CarrierCfg.CCRate==2)</para></listitem><listitem><para>Note: This Field is not used by the API when operating in Dynamic Mode. The Decimation rate is supplied directly from the Decimation field in the Dynamic Control Packet(DCP) </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="412" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="412" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1287a30b7e83158a48088593234ab1e4" compoundref="xdfeprach__2_c_c__3_r_c__dynamic__example_8c" startline="71" endline="324">XDfePrach_2CC3RCDynamicTestExample</referencedby>
+        <referencedby refid="group___overview_1ga80c73e89a6fc66abac088bbc45431dc3" compoundref="xdfeprach__2_c_c__3_r_c__reconfigure__example_8c" startline="73" endline="377">XDfePrach_2CC3RCReconfigureTestExample</referencedby>
+        <referencedby refid="group___overview_1gabd47bf94fdf2e70c66193ba7d36baded" compoundref="xdfeprach__2_c_c__3_r_c__example_8c" startline="70" endline="337">XDfePrach_2CC3RCTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___d_d_c_cfg_1a268502d023b8035641d1e249d6fc47da" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_DDCCfg::UserSCS</definition>
+        <argsstring></argsstring>
+        <name>UserSCS</name>
+        <briefdescription>
+<para>[0-4,12-15] SubCarrier spacing of the RACH channel this DDC is decimating. </para>        </briefdescription>
+        <detaileddescription>
+<para>Required to determine the NCO phase increment:<itemizedlist>
+<listitem><para>0: 15KHz spacing</para></listitem><listitem><para>1: 30KHz spacing</para></listitem><listitem><para>2: 60KHz spacing</para></listitem><listitem><para>3: 120KHz spacing</para></listitem><listitem><para>4: 240KHz spacing</para></listitem><listitem><para>12: 1.25KHz spacing</para></listitem><listitem><para>13: 3.75KHz spacing</para></listitem><listitem><para>14: 5KHz spacing</para></listitem><listitem><para>15: 7.5KHz spacing</para></listitem><listitem><para>Note: This Field is not used by the API when operating in Dynamic Mode. The Phase increment and Decimation rate are supplied directly to from the FCW field and the Decimation field in the Dynamic Control Packet(DCP) so there is no requirement for the core to know what the RACH SCS is. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="434" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="434" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1287a30b7e83158a48088593234ab1e4" compoundref="xdfeprach__2_c_c__3_r_c__dynamic__example_8c" startline="71" endline="324">XDfePrach_2CC3RCDynamicTestExample</referencedby>
+        <referencedby refid="group___overview_1ga80c73e89a6fc66abac088bbc45431dc3" compoundref="xdfeprach__2_c_c__3_r_c__reconfigure__example_8c" startline="73" endline="377">XDfePrach_2CC3RCReconfigureTestExample</referencedby>
+        <referencedby refid="group___overview_1gabd47bf94fdf2e70c66193ba7d36baded" compoundref="xdfeprach__2_c_c__3_r_c__example_8c" startline="70" endline="337">XDfePrach_2CC3RCTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___d_d_c_cfg_1a4e499964f3e24f9b83964affc737e1d9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_DDCCfg::RachGain[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>RachGain</name>
+        <briefdescription>
+<para>[0-3] The array of [6] Decimation Gains. </para>        </briefdescription>
+        <detaileddescription>
+<para>Gain is applied to all active Decimation filters. Decimation filters are enabled depending upon the total decimation rate. The gain is applied on a per filter basis:</para><para><itemizedlist>
+<listitem><para>Always applies:<itemizedlist>
+<listitem><para>CCDecGain[0]=0: Gain of 0dB in last decimating filter</para></listitem><listitem><para>CCDecGain[0]=1: Gain of 6dB in last decimating filter</para></listitem><listitem><para>CCDecGain[0]=2: Gain of 12dB in last decimating filter</para></listitem><listitem><para>CCDecGain[0]=3: Gain of 18dB in last decimating filter</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Only applies if total_decimation_rate = {4, 8, 16, 32, 6, 12, 24, 48, 96)<itemizedlist>
+<listitem><para>CCDecGain[1]=0: Gain of 0dB in fifth decimating filter</para></listitem><listitem><para>CCDecGain[1]=1: Gain of 6dB in fifth decimating filter</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Only applies if total_decimation_rate = {8, 16, 32, 12, 24, 48, 96)<itemizedlist>
+<listitem><para>CCDecGain[2]=0: Gain of 0dB in fourth decimating filter</para></listitem><listitem><para>CCDecGain[2]=1: Gain of 6dB in fourth decimating filter</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Only applies if total_decimation_rate = {16, 32, 24, 48, 96)<itemizedlist>
+<listitem><para>CCDecGain[3]=0: Gain of 0dB in third decimating filter</para></listitem><listitem><para>CCDecGain[3]=1: Gain of 6dB in third decimating filter</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Only applies if total_decimation_rate = {32, 48, 96)<itemizedlist>
+<listitem><para>CCDecGain[4]=0: Gain of 0dB in second decimating filter</para></listitem><listitem><para>CCDecGain[4]=1: Gain of 6dB in second decimating filter</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Only applies if total_decimation_rate = {96)<itemizedlist>
+<listitem><para>CCDecGain[5]=0: Gain of 0dB in first decimating filter</para></listitem><listitem><para>CCDecGain[5]=1: Gain of 6dB in first decimating filter </para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="453" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="453" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1287a30b7e83158a48088593234ab1e4" compoundref="xdfeprach__2_c_c__3_r_c__dynamic__example_8c" startline="71" endline="324">XDfePrach_2CC3RCDynamicTestExample</referencedby>
+        <referencedby refid="group___overview_1ga80c73e89a6fc66abac088bbc45431dc3" compoundref="xdfeprach__2_c_c__3_r_c__reconfigure__example_8c" startline="73" endline="377">XDfePrach_2CC3RCReconfigureTestExample</referencedby>
+        <referencedby refid="group___overview_1gabd47bf94fdf2e70c66193ba7d36baded" compoundref="xdfeprach__2_c_c__3_r_c__example_8c" startline="70" endline="337">XDfePrach_2CC3RCTestExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>PRACH Decimation Configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="411" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="411" bodyend="481"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_prach___d_d_c_cfg_1a31fbe2e7f11a937712811abe5a3ccead" prot="public" virt="non-virtual"><scope>XDfePrach_DDCCfg</scope><name>DecimationRate</name></member>
+      <member refid="struct_x_dfe_prach___d_d_c_cfg_1a4e499964f3e24f9b83964affc737e1d9" prot="public" virt="non-virtual"><scope>XDfePrach_DDCCfg</scope><name>RachGain</name></member>
+      <member refid="struct_x_dfe_prach___d_d_c_cfg_1a268502d023b8035641d1e249d6fc47da" prot="public" virt="non-virtual"><scope>XDfePrach_DDCCfg</scope><name>UserSCS</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

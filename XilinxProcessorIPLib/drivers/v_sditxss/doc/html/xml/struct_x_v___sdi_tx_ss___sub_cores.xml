@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___sdi_tx_ss___sub_cores" kind="struct" prot="public">
+    <compoundname>XV_SdiTxSs_SubCores</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___sdi_tx_ss___sub_cores_1aec7207dc0a557623b0727261b42772ec" prot="public" static="no" mutable="no">
+        <type>XV_SdiTx</type>
+        <definition>XV_SdiTx XV_SdiTxSs_SubCores::SdiTx</definition>
+        <argsstring></argsstring>
+        <name>SdiTx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss.c" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_tx_ss___sub_cores_1a78e28d2c19aac89fd062f4cf46e1a9c6" prot="public" static="no" mutable="no">
+        <type>XVtc</type>
+        <definition>XVtc XV_SdiTxSs_SubCores::Vtc</definition>
+        <argsstring></argsstring>
+        <name>Vtc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss.c" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef declares the driver instances of all the cores in the subsystem. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss.c" bodystart="65" bodyend="68"/>
+    <listofallmembers>
+      <member refid="struct_x_v___sdi_tx_ss___sub_cores_1aec7207dc0a557623b0727261b42772ec" prot="public" virt="non-virtual"><scope>XV_SdiTxSs_SubCores</scope><name>SdiTx</name></member>
+      <member refid="struct_x_v___sdi_tx_ss___sub_cores_1a78e28d2c19aac89fd062f4cf46e1a9c6" prot="public" virt="non-virtual"><scope>XV_SdiTxSs_SubCores</scope><name>Vtc</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

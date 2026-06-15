@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_user_fuse" kind="struct" prot="public">
+    <compoundname>XNvm_EfuseUserFuse</compoundname>
+    <includes local="no">xnvm_efuse.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_user_fuse_1acbabcaa5d7b76b0d3e2d29e10524dab6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseUserFuse::UserFuseVal</definition>
+        <argsstring></argsstring>
+        <name>UserFuseVal</name>
+        <briefdescription>
+<para>User eFuse value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_user_fuse_1acbfc21785e2a18dce20e202b2a8511c0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseUserFuse::PrgmUserEfuse</definition>
+        <argsstring></argsstring>
+        <name>PrgmUserEfuse</name>
+        <briefdescription>
+<para>Flag to determine whether to program user eFuse or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>eFuse user fuse info </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="301" bodyend="304"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_user_fuse_1acbfc21785e2a18dce20e202b2a8511c0" prot="public" virt="non-virtual"><scope>XNvm_EfuseUserFuse</scope><name>PrgmUserEfuse</name></member>
+      <member refid="struct_x_nvm___efuse_user_fuse_1acbabcaa5d7b76b0d3e2d29e10524dab6" prot="public" virt="non-virtual"><scope>XNvm_EfuseUserFuse</scope><name>UserFuseVal</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

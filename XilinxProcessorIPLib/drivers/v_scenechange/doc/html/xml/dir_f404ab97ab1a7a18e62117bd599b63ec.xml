@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_f404ab97ab1a7a18e62117bd599b63ec" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="platform_8c">platform.c</innerfile>
+    <innerfile refid="platform_8h">platform.h</innerfile>
+    <innerfile refid="platform__config_8h">platform_config.h</innerfile>
+    <innerfile refid="xv__scenechange__memory__mode__ex_8c">xv_scenechange_memory_mode_ex.c</innerfile>
+    <innerfile refid="xv__scenechange__stream__mode__ex_8c">xv_scenechange_stream_mode_ex.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/"/>
+  </compounddef>
+</doxygen>

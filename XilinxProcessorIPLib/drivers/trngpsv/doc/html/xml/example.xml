@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use TRNGPSV driver in various modes.</para><para>All the examples are in polled mode as this driver uses no interrupts.</para><sect1 id="example_1ex1">
+<title>xtrngpsv_drng_example.c</title>
+<para>Contains an example on how to use the <ref refid="struct_x_trngpsv" kindref="compound">XTrngpsv</ref> driver directly. This example demonstrates use of instantiate, reseed, generate functionalities while generating random number using DRNG mode.</para><para>For details, see <ref refid="xtrngpsv__drng__example_8c" kindref="compound">xtrngpsv_drng_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xtrngpsv_drng_df_example.c</title>
+<para>Contains an example on how to use the XTrng driver directly. This example demonstrates use of instantiate, reseed, generate functionalities while generating random number using DRNG mode, with Derivative Function (DF).</para><para>For details, see <ref refid="xtrngpsv__drng__df__example_8c" kindref="compound">xtrngpsv_drng_df_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xtrngpsv_ptrng_example.c</title>
+<para>Contains an example on how to use the <ref refid="struct_x_trngpsv" kindref="compound">XTrngpsv</ref> driver directly. This example demonstrates use of instantiate, generate functionalities while generating random number using PTRNG mode.</para><para>For details, see <ref refid="xtrngpsv__ptrng__example_8c" kindref="compound">xtrngpsv_ptrng_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex4">
+<title>xtrngpsv_ptrng_df_example.c</title>
+<para>Contains an example on how to use the XTrng driver directly. This example demonstrates use of instantiate, generate functionalities while generating random number using PTRNG mode, with Derivative Function (DF).</para><para>For details, see <ref refid="xtrngpsv__ptrng__df__example_8c" kindref="compound">xtrngpsv_ptrng_df_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex5">
+<title>xtrngpsv_hrng_example.c</title>
+<para>Contains an example on how to use the <ref refid="struct_x_trngpsv" kindref="compound">XTrngpsv</ref> driver directly. This example demonstrates use of instantiate, reseed, generate functionalities while generating random number using HRNG mode.</para><para>For details, see <ref refid="xtrngpsv__hrng__example_8c" kindref="compound">xtrngpsv_hrng_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex6">
+<title>xtrngpsv_hrng_df_example.c</title>
+<para>Contains an example on how to use the XTrng driver directly. This example demonstrates use of instantiate, reseed, generate functionalities while generating random number using HRNG mode, with Derivative Function (DF).</para><para>For details, see <ref refid="xtrngpsv__hrng__df__example_8c" kindref="compound">xtrngpsv_hrng_df_example.c</ref>. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

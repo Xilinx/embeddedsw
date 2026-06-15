@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___channel_queue" kind="struct" prot="public">
+    <compoundname>XAsu_ChannelQueue</compoundname>
+    <includes local="no">xasu_sharedmem.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___channel_queue_1a5d85c84bfbb9c25a8f4f20e9595ef035" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_ChannelQueue::IsCmdPresent</definition>
+        <argsstring></argsstring>
+        <name>IsCmdPresent</name>
+        <briefdescription>
+<para>Cmd present status of the queue. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___channel_queue_1af646a7c4a7d609a10bbe55bee2616025" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_ChannelQueue::ReqSent</definition>
+        <argsstring></argsstring>
+        <name>ReqSent</name>
+        <briefdescription>
+<para>Number of requests sent from client to ASUFW. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___channel_queue_1ac2be2e8d35a9bdfc132ccbbff4f97c35" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_ChannelQueue::ReqServed</definition>
+        <argsstring></argsstring>
+        <name>ReqServed</name>
+        <briefdescription>
+<para>Number of requests served by ASUFW. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___channel_queue_1a04bd787659e274a1673c5e9b522b7b9f" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___channel_queue_buf" kindref="compound">XAsu_ChannelQueueBuf</ref></type>
+        <definition>XAsu_ChannelQueueBuf XAsu_ChannelQueue::ChannelQueueBufs[XASU_MAX_BUFFERS]</definition>
+        <argsstring>[XASU_MAX_BUFFERS]</argsstring>
+        <name>ChannelQueueBufs</name>
+        <briefdescription>
+<para>Channel&apos;s queue of 8 buffers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure is the channel&apos;s queue which is of 8 buffers. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="29">
+        <label>XAsu_ReqBuf</label>
+        <link refid="struct_x_asu___req_buf"/>
+      </node>
+      <node id="28">
+        <label>XAsu_ChannelQueueBuf</label>
+        <link refid="struct_x_asu___channel_queue_buf"/>
+        <childnode refid="29" relation="usage">
+          <edgelabel>ReqBuf</edgelabel>
+        </childnode>
+        <childnode refid="30" relation="usage">
+          <edgelabel>RespBuf</edgelabel>
+        </childnode>
+      </node>
+      <node id="30">
+        <label>XAsu_RespBuf</label>
+        <link refid="struct_x_asu___resp_buf"/>
+      </node>
+      <node id="27">
+        <label>XAsu_ChannelQueue</label>
+        <link refid="struct_x_asu___channel_queue"/>
+        <childnode refid="28" relation="usage">
+          <edgelabel>ChannelQueueBufs</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="148" bodyend="153"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___channel_queue_1a04bd787659e274a1673c5e9b522b7b9f" prot="public" virt="non-virtual"><scope>XAsu_ChannelQueue</scope><name>ChannelQueueBufs</name></member>
+      <member refid="struct_x_asu___channel_queue_1a5d85c84bfbb9c25a8f4f20e9595ef035" prot="public" virt="non-virtual"><scope>XAsu_ChannelQueue</scope><name>IsCmdPresent</name></member>
+      <member refid="struct_x_asu___channel_queue_1af646a7c4a7d609a10bbe55bee2616025" prot="public" virt="non-virtual"><scope>XAsu_ChannelQueue</scope><name>ReqSent</name></member>
+      <member refid="struct_x_asu___channel_queue_1ac2be2e8d35a9bdfc132ccbbff4f97c35" prot="public" virt="non-virtual"><scope>XAsu_ChannelQueue</scope><name>ReqServed</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_tx_ss___sub_cores" kind="struct" prot="public">
+    <compoundname>XDpTxSs_SubCores</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___sub_cores_1ac39b08b900b0fda04e276d8d0d73e30f" prot="public" static="no" mutable="no">
+        <type>XDp</type>
+        <definition>XDp XDpTxSs_SubCores::DpInst</definition>
+        <argsstring></argsstring>
+        <name>DpInst</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.c" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___sub_cores_1a0e6d5fba45815460c42faf2b608480cf" prot="public" static="no" mutable="no">
+        <type>XVtc</type>
+        <definition>XVtc XDpTxSs_SubCores::VtcInst[XDPTXSS_NUM_STREAMS]</definition>
+        <argsstring>[XDPTXSS_NUM_STREAMS]</argsstring>
+        <name>VtcInst</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.c" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.c" bodystart="61" bodyend="71"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_tx_ss___sub_cores_1ac39b08b900b0fda04e276d8d0d73e30f" prot="public" virt="non-virtual"><scope>XDpTxSs_SubCores</scope><name>DpInst</name></member>
+      <member refid="struct_x_dp_tx_ss___sub_cores_1a0e6d5fba45815460c42faf2b608480cf" prot="public" virt="non-virtual"><scope>XDpTxSs_SubCores</scope><name>VtcInst</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

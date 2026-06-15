@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_b1df035303c81215cefd62422d2b9f6d" kind="dir">
+    <compoundname>hwicap</compoundname>
+    <innerdir refid="dir_d88c5e846becc8678086b4aa77192a22">examples</innerdir>
+    <innerdir refid="dir_cbe5859eaa383d330b433cfd61c200f7">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/"/>
+  </compounddef>
+</doxygen>

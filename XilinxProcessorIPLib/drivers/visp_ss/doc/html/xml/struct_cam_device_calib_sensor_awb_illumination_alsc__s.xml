@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_calib_sensor_awb_illumination_alsc__s" kind="struct" prot="public">
+    <compoundname>CamDeviceCalibSensorAwbIlluminationAlsc_s</compoundname>
+    <includes local="no">cam_device_calibration.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_illumination_alsc__s_1aaeaa607abe0e252136d0281591789026" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CamDeviceCalibSensorAwbIlluminationAlsc_s::resolution[CAMDEV_CALIB_LENGTH]</definition>
+        <argsstring>[CAMDEV_CALIB_LENGTH]</argsstring>
+        <name>resolution</name>
+        <briefdescription>
+<para>Auto LSC resolution. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_illumination_alsc__s_1a08e847056524978548b2581926b28f59" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CamDeviceCalibSensorAwbIlluminationAlsc_s::profile[CAMDEV_CALIB_LENGTH *4U]</definition>
+        <argsstring>[CAMDEV_CALIB_LENGTH *4U]</argsstring>
+        <name>profile</name>
+        <briefdescription>
+<para>LSC profile corresponding to the light source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice Calibration sensor AWB Illumination auto LSC configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="202" bodyend="205"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_calib_sensor_awb_illumination_alsc__s_1a08e847056524978548b2581926b28f59" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbIlluminationAlsc_s</scope><name>profile</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_illumination_alsc__s_1aaeaa607abe0e252136d0281591789026" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbIlluminationAlsc_s</scope><name>resolution</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

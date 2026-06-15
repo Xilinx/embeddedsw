@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_prach___init" kind="struct" prot="public">
+    <compoundname>XDfePrach_Init</compoundname>
+    <includes local="no">xdfeprach.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_prach___init_1a994eed7fd1f34d06ed06ca20e93f82bb" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_prach___c_c_sequence" kindref="compound">XDfePrach_CCSequence</ref></type>
+        <definition>XDfePrach_CCSequence XDfePrach_Init::Sequence[XDFEPRACH_BAND_ID_MAX]</definition>
+        <argsstring>[XDFEPRACH_BAND_ID_MAX]</argsstring>
+        <name>Sequence</name>
+        <briefdescription>
+<para>sequence structure for each band. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="307" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1287a30b7e83158a48088593234ab1e4" compoundref="xdfeprach__2_c_c__3_r_c__dynamic__example_8c" startline="71" endline="324">XDfePrach_2CC3RCDynamicTestExample</referencedby>
+        <referencedby refid="group___overview_1ga80c73e89a6fc66abac088bbc45431dc3" compoundref="xdfeprach__2_c_c__3_r_c__reconfigure__example_8c" startline="73" endline="377">XDfePrach_2CC3RCReconfigureTestExample</referencedby>
+        <referencedby refid="group___overview_1gabd47bf94fdf2e70c66193ba7d36baded" compoundref="xdfeprach__2_c_c__3_r_c__example_8c" startline="70" endline="337">XDfePrach_2CC3RCTestExample</referencedby>
+        <referencedby refid="group__dfeprach_1gae381973dcaf014664d8df4f8b95f456b" compoundref="xdfeprach_8c" startline="1914" endline="1941">XDfePrach_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___init_1a07c70d0e3eb35beb91f6dd5ab2ab138a" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool XDfePrach_Init::EnableStaticSchedule</definition>
+        <argsstring></argsstring>
+        <name>EnableStaticSchedule</name>
+        <briefdescription>
+<para><verbatim>                    [0-1] Static schedule enable flag (set to 1 to
+</verbatim> enable Static scheduling, only used when &quot;Enable Dynamic Scheduling&quot; has been selected when configuring the core). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="308" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1287a30b7e83158a48088593234ab1e4" compoundref="xdfeprach__2_c_c__3_r_c__dynamic__example_8c" startline="71" endline="324">XDfePrach_2CC3RCDynamicTestExample</referencedby>
+        <referencedby refid="group__dfeprach_1gae381973dcaf014664d8df4f8b95f456b" compoundref="xdfeprach_8c" startline="1914" endline="1941">XDfePrach_Initialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Initialization, &quot;one-time&quot; configuration parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="27">
+        <label>XDfePrach_CCSequence</label>
+        <link refid="struct_x_dfe_prach___c_c_sequence"/>
+      </node>
+      <node id="26">
+        <label>XDfePrach_Init</label>
+        <link refid="struct_x_dfe_prach___init"/>
+        <childnode refid="27" relation="usage">
+          <edgelabel>Sequence</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="305" bodyend="311"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_prach___init_1a07c70d0e3eb35beb91f6dd5ab2ab138a" prot="public" virt="non-virtual"><scope>XDfePrach_Init</scope><name>EnableStaticSchedule</name></member>
+      <member refid="struct_x_dfe_prach___init_1a994eed7fd1f34d06ed06ca20e93f82bb" prot="public" virt="non-virtual"><scope>XDfePrach_Init</scope><name>Sequence</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

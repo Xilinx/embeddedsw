@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_ivs" kind="struct" prot="public">
+    <compoundname>XNvm_EfuseIvs</compoundname>
+    <includes local="no">xnvm_common_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_ivs_1a2c7bddaec5bc3e1221875dade10b96cd" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseIvs::PrgmMetaHeaderIv</definition>
+        <argsstring></argsstring>
+        <name>PrgmMetaHeaderIv</name>
+        <briefdescription>
+<para>Program Meta Header IV. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_ivs_1afe1b81498d18fbc7f35578eed765b8f5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseIvs::PrgmBlkObfusIv</definition>
+        <argsstring></argsstring>
+        <name>PrgmBlkObfusIv</name>
+        <briefdescription>
+<para>Program Block Obfuscation IV. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_ivs_1a29989821f03bc4e277a6b5a58bd86f9f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseIvs::PrgmPlmIv</definition>
+        <argsstring></argsstring>
+        <name>PrgmPlmIv</name>
+        <briefdescription>
+<para>Program PLM IV. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_ivs_1ab7950f0ac6b51b366b16d87c8d188a7e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseIvs::PrgmDataPartitionIv</definition>
+        <argsstring></argsstring>
+        <name>PrgmDataPartitionIv</name>
+        <briefdescription>
+<para>Program Data Partition IV. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="267" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_ivs_1af3d0b32fc61f6fe4f3ce8a8adf7c4b2b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseIvs::MetaHeaderIv[XNVM_EFUSE_IV_LEN_IN_WORDS]</definition>
+        <argsstring>[XNVM_EFUSE_IV_LEN_IN_WORDS]</argsstring>
+        <name>MetaHeaderIv</name>
+        <briefdescription>
+<para>Meta Header IV data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="268" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_ivs_1aae869a074ec22a9a5c18332bc2d46e08" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseIvs::BlkObfusIv[XNVM_EFUSE_IV_LEN_IN_WORDS]</definition>
+        <argsstring>[XNVM_EFUSE_IV_LEN_IN_WORDS]</argsstring>
+        <name>BlkObfusIv</name>
+        <briefdescription>
+<para>Block Obfuscation IV data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="269" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_ivs_1a90531a83e0fcc7bcd900768523d96929" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseIvs::PlmIv[XNVM_EFUSE_IV_LEN_IN_WORDS]</definition>
+        <argsstring>[XNVM_EFUSE_IV_LEN_IN_WORDS]</argsstring>
+        <name>PlmIv</name>
+        <briefdescription>
+<para>PLM IV data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="270" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_ivs_1ad2665a6733e95a7043acc50e878ec008" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseIvs::DataPartitionIv[XNVM_EFUSE_IV_LEN_IN_WORDS]</definition>
+        <argsstring>[XNVM_EFUSE_IV_LEN_IN_WORDS]</argsstring>
+        <name>DataPartitionIv</name>
+        <briefdescription>
+<para>Data Partition IV data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="271" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="271" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for IV data. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="263" bodyend="272"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_ivs_1aae869a074ec22a9a5c18332bc2d46e08" prot="public" virt="non-virtual"><scope>XNvm_EfuseIvs</scope><name>BlkObfusIv</name></member>
+      <member refid="struct_x_nvm___efuse_ivs_1ad2665a6733e95a7043acc50e878ec008" prot="public" virt="non-virtual"><scope>XNvm_EfuseIvs</scope><name>DataPartitionIv</name></member>
+      <member refid="struct_x_nvm___efuse_ivs_1af3d0b32fc61f6fe4f3ce8a8adf7c4b2b" prot="public" virt="non-virtual"><scope>XNvm_EfuseIvs</scope><name>MetaHeaderIv</name></member>
+      <member refid="struct_x_nvm___efuse_ivs_1a90531a83e0fcc7bcd900768523d96929" prot="public" virt="non-virtual"><scope>XNvm_EfuseIvs</scope><name>PlmIv</name></member>
+      <member refid="struct_x_nvm___efuse_ivs_1afe1b81498d18fbc7f35578eed765b8f5" prot="public" virt="non-virtual"><scope>XNvm_EfuseIvs</scope><name>PrgmBlkObfusIv</name></member>
+      <member refid="struct_x_nvm___efuse_ivs_1ab7950f0ac6b51b366b16d87c8d188a7e" prot="public" virt="non-virtual"><scope>XNvm_EfuseIvs</scope><name>PrgmDataPartitionIv</name></member>
+      <member refid="struct_x_nvm___efuse_ivs_1a2c7bddaec5bc3e1221875dade10b96cd" prot="public" virt="non-virtual"><scope>XNvm_EfuseIvs</scope><name>PrgmMetaHeaderIv</name></member>
+      <member refid="struct_x_nvm___efuse_ivs_1a29989821f03bc4e277a6b5a58bd86f9f" prot="public" virt="non-virtual"><scope>XNvm_EfuseIvs</scope><name>PrgmPlmIv</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

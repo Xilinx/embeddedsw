@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_r_e_a_d___c_a_p_a_c_i_t_y" kind="struct" prot="public">
+    <compoundname>READ_CAPACITY</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_r_e_a_d___c_a_p_a_c_i_t_y_1a8a0591fa9c9cb04a9e336b13abe9c18f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 READ_CAPACITY::lastLBA[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>lastLBA</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_r_e_a_d___c_a_p_a_c_i_t_y_1a28da773f7785f229f2ef33c455899f05" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 READ_CAPACITY::blocklength[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>blocklength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="239" bodyend="242"/>
+    <listofallmembers>
+      <member refid="struct_r_e_a_d___c_a_p_a_c_i_t_y_1a28da773f7785f229f2ef33c455899f05" prot="public" virt="non-virtual"><scope>READ_CAPACITY</scope><name>blocklength</name></member>
+      <member refid="struct_r_e_a_d___c_a_p_a_c_i_t_y_1a8a0591fa9c9cb04a9e336b13abe9c18f" prot="public" virt="non-virtual"><scope>READ_CAPACITY</scope><name>lastLBA</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

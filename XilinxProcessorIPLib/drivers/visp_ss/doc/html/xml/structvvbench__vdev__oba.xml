@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structvvbench__vdev__oba" kind="struct" prot="public">
+    <compoundname>vvbench_vdev_oba</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structvvbench__vdev__oba_1adadc10d447061133ff8aab9e6045a132" prot="public" static="no" mutable="no">
+        <type><ref refid="group____buf__mgmt__ctrl_1ga477942d22afe7298d497ae48e8bb498b" kindref="member">CamDeviceBufChainId_t</ref></type>
+        <definition>CamDeviceBufChainId_t vvbench_vdev_oba::path[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>path</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvvbench__vdev__oba_1a2ee170d55b9677bb4ac86daef764f35d" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int vvbench_vdev_oba::pathEnable[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>pathEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvvbench__vdev__oba_1ad56b9836807e013810eff075d1ed4ecd" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t vvbench_vdev_oba::hpId</definition>
+        <argsstring></argsstring>
+        <name>hpId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvvbench__vdev__oba_1a6ed638832cb0187756cb3934dedb6537" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga03d5afda881a720931044845b7659167" kindref="member">CamDeviceInputType_t</ref></type>
+        <definition>CamDeviceInputType_t vvbench_vdev_oba::inputType</definition>
+        <argsstring></argsstring>
+        <name>inputType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvvbench__vdev__oba_1ad4397b4761e9913c685844c0684af86f" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gadea6d16db290e5ceae71de6d23488818" kindref="member">CamDeviceWorkMode_t</ref></type>
+        <definition>CamDeviceWorkMode_t vvbench_vdev_oba::workMode</definition>
+        <argsstring></argsstring>
+        <name>workMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvvbench__vdev__oba_1ab23228f32f12e0ca2d2341c044ac2267" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga20c75829daea91b7f3c758123ad5e2a5" kindref="member">CamDeviceOutputType_t</ref></type>
+        <definition>CamDeviceOutputType_t vvbench_vdev_oba::outPutType</definition>
+        <argsstring></argsstring>
+        <name>outPutType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvvbench__vdev__oba_1ac074493f146f2400ffce66e554491fe2" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t vvbench_vdev_oba::pathOutType[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>pathOutType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvvbench__vdev__oba_1aac0b2b1b54406d86f53df589ee3182af" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t vvbench_vdev_oba::format[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>format</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvvbench__vdev__oba_1a207f2557e28b251f8cf455c1e0ea5551" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t vvbench_vdev_oba::dataBits[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>dataBits</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="113" bodyend="123"/>
+    <listofallmembers>
+      <member refid="structvvbench__vdev__oba_1a207f2557e28b251f8cf455c1e0ea5551" prot="public" virt="non-virtual"><scope>vvbench_vdev_oba</scope><name>dataBits</name></member>
+      <member refid="structvvbench__vdev__oba_1aac0b2b1b54406d86f53df589ee3182af" prot="public" virt="non-virtual"><scope>vvbench_vdev_oba</scope><name>format</name></member>
+      <member refid="structvvbench__vdev__oba_1ad56b9836807e013810eff075d1ed4ecd" prot="public" virt="non-virtual"><scope>vvbench_vdev_oba</scope><name>hpId</name></member>
+      <member refid="structvvbench__vdev__oba_1a6ed638832cb0187756cb3934dedb6537" prot="public" virt="non-virtual"><scope>vvbench_vdev_oba</scope><name>inputType</name></member>
+      <member refid="structvvbench__vdev__oba_1ab23228f32f12e0ca2d2341c044ac2267" prot="public" virt="non-virtual"><scope>vvbench_vdev_oba</scope><name>outPutType</name></member>
+      <member refid="structvvbench__vdev__oba_1adadc10d447061133ff8aab9e6045a132" prot="public" virt="non-virtual"><scope>vvbench_vdev_oba</scope><name>path</name></member>
+      <member refid="structvvbench__vdev__oba_1a2ee170d55b9677bb4ac86daef764f35d" prot="public" virt="non-virtual"><scope>vvbench_vdev_oba</scope><name>pathEnable</name></member>
+      <member refid="structvvbench__vdev__oba_1ac074493f146f2400ffce66e554491fe2" prot="public" virt="non-virtual"><scope>vvbench_vdev_oba</scope><name>pathOutType</name></member>
+      <member refid="structvvbench__vdev__oba_1ad4397b4761e9913c685844c0684af86f" prot="public" virt="non-virtual"><scope>vvbench_vdev_oba</scope><name>workMode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

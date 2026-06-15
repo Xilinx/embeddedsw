@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___ocp_dev_ak_attest" kind="struct" prot="public">
+    <compoundname>XAsu_OcpDevAkAttest</compoundname>
+    <includes local="no">xasu_ocpinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___ocp_dev_ak_attest_1a7610ca5ca3389ced84161ca74c19fda3" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_OcpDevAkAttest::DataAddr</definition>
+        <argsstring></argsstring>
+        <name>DataAddr</name>
+        <briefdescription>
+<para>Address of the data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="105" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__common__apis_1ga3e41f95cc96b47f6c22d3a45f9acacf7" compoundref="xasu__ocp__common_8c" startline="86" endline="101">XAsu_OcpValidateAttestParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ocp_dev_ak_attest_1a0c6a9b091fb7bd03f6dc55cff845ecb9" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_OcpDevAkAttest::SignatureAddr</definition>
+        <argsstring></argsstring>
+        <name>SignatureAddr</name>
+        <briefdescription>
+<para>Address of the signature. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="106" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__common__apis_1ga3e41f95cc96b47f6c22d3a45f9acacf7" compoundref="xasu__ocp__common_8c" startline="86" endline="101">XAsu_OcpValidateAttestParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ocp_dev_ak_attest_1aaf571aa149289ea01a7f9b69db553476" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_OcpDevAkAttest::DataLen</definition>
+        <argsstring></argsstring>
+        <name>DataLen</name>
+        <briefdescription>
+<para>Length of the data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="107" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__common__apis_1ga3e41f95cc96b47f6c22d3a45f9acacf7" compoundref="xasu__ocp__common_8c" startline="86" endline="101">XAsu_OcpValidateAttestParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___ocp_dev_ak_attest_1a31b1c10068e56565070f5637fdffea95" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_OcpDevAkAttest::SignatureBufLen</definition>
+        <argsstring></argsstring>
+        <name>SignatureBufLen</name>
+        <briefdescription>
+<para>Length of the signature buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="group__xasu__ocp__common__apis_1ga3e41f95cc96b47f6c22d3a45f9acacf7" compoundref="xasu__ocp__common_8c" startline="86" endline="101">XAsu_OcpValidateAttestParams</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains information related to DevAk attestation. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ocpinfo.h" bodystart="104" bodyend="109"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___ocp_dev_ak_attest_1a7610ca5ca3389ced84161ca74c19fda3" prot="public" virt="non-virtual"><scope>XAsu_OcpDevAkAttest</scope><name>DataAddr</name></member>
+      <member refid="struct_x_asu___ocp_dev_ak_attest_1aaf571aa149289ea01a7f9b69db553476" prot="public" virt="non-virtual"><scope>XAsu_OcpDevAkAttest</scope><name>DataLen</name></member>
+      <member refid="struct_x_asu___ocp_dev_ak_attest_1a0c6a9b091fb7bd03f6dc55cff845ecb9" prot="public" virt="non-virtual"><scope>XAsu_OcpDevAkAttest</scope><name>SignatureAddr</name></member>
+      <member refid="struct_x_asu___ocp_dev_ak_attest_1a31b1c10068e56565070f5637fdffea95" prot="public" virt="non-virtual"><scope>XAsu_OcpDevAkAttest</scope><name>SignatureBufLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

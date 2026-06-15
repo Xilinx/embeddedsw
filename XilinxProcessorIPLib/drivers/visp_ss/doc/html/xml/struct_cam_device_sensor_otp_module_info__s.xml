@@ -1,0 +1,282 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_sensor_otp_module_info__s" kind="struct" prot="public">
+    <compoundname>CamDeviceSensorOtpModuleInfo_s</compoundname>
+    <includes local="no">cam_device_sensor_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_sensor_otp_module_info__s_1a2414b03dc5f9d302e26ff6fe4fdacee6" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceSensorOtpModuleInfo_s::hwVersion</definition>
+        <argsstring></argsstring>
+        <name>hwVersion</name>
+        <briefdescription>
+<para>Module HW version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="421" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="421" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_otp_module_info__s_1a29e5d7446a701f407d74ef0bf98bb961" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceSensorOtpModuleInfo_s::SensorEEPROMRevision</definition>
+        <argsstring></argsstring>
+        <name>SensorEEPROMRevision</name>
+        <briefdescription>
+<para>EEPROM revision. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="422" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="422" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_otp_module_info__s_1a33c7d08ea4e51e32938b5b85a29a2489" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceSensorOtpModuleInfo_s::sensorRevision</definition>
+        <argsstring></argsstring>
+        <name>sensorRevision</name>
+        <briefdescription>
+<para>Image sensor revision. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="423" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_otp_module_info__s_1a926e0ea847476f458a02dad51e309aca" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceSensorOtpModuleInfo_s::tLensRevision</definition>
+        <argsstring></argsstring>
+        <name>tLensRevision</name>
+        <briefdescription>
+<para>Tlens revision. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="424" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="424" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_otp_module_info__s_1a20e5751808efa9ec39d348611338b98a" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceSensorOtpModuleInfo_s::ircfRevision</definition>
+        <argsstring></argsstring>
+        <name>ircfRevision</name>
+        <briefdescription>
+<para>Ircf revision. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="425" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="425" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_otp_module_info__s_1a4b7284ea108a393b7c0433f1da03bd44" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceSensorOtpModuleInfo_s::lensRevision</definition>
+        <argsstring></argsstring>
+        <name>lensRevision</name>
+        <briefdescription>
+<para>Lens revision. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="426" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="426" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_otp_module_info__s_1a47bba854df0ffd2587bc22cdc5df5fd7" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceSensorOtpModuleInfo_s::caRevision</definition>
+        <argsstring></argsstring>
+        <name>caRevision</name>
+        <briefdescription>
+<para>Contact assembly revision. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="427" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="427" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_otp_module_info__s_1adf8719c9c97f0b7df93b479ec7917b91" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceSensorOtpModuleInfo_s::moduleInteID</definition>
+        <argsstring></argsstring>
+        <name>moduleInteID</name>
+        <briefdescription>
+<para>Module integrator ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="428" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="428" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_otp_module_info__s_1ac1b79bfa1d488df0d8c4f63ec1a7612e" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceSensorOtpModuleInfo_s::factoryID</definition>
+        <argsstring></argsstring>
+        <name>factoryID</name>
+        <briefdescription>
+<para>Factory ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="429" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="429" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_otp_module_info__s_1a94f2891011af342648e1b1bd730fe27d" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceSensorOtpModuleInfo_s::mirrorFlip</definition>
+        <argsstring></argsstring>
+        <name>mirrorFlip</name>
+        <briefdescription>
+<para>Image mirror and flip. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="430" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="430" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_otp_module_info__s_1ae0c253d02e28b365886d2ad07bd28c6f" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceSensorOtpModuleInfo_s::tLensSlaveID</definition>
+        <argsstring></argsstring>
+        <name>tLensSlaveID</name>
+        <briefdescription>
+<para>Tlens slave ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="431" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="431" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_otp_module_info__s_1a3bf19467a73c04115b7306c95fe8a8b5" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceSensorOtpModuleInfo_s::SensorEEPROMSlaveID</definition>
+        <argsstring></argsstring>
+        <name>SensorEEPROMSlaveID</name>
+        <briefdescription>
+<para>EEPROM slave ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="432" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="432" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_otp_module_info__s_1a5b35ac42be968698dacad1679bc242b0" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceSensorOtpModuleInfo_s::sensorSlaveID</definition>
+        <argsstring></argsstring>
+        <name>sensorSlaveID</name>
+        <briefdescription>
+<para>Image sensor slave ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="433" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="433" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_otp_module_info__s_1a4f01d7845dae6bece149ef722c139683" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceSensorOtpModuleInfo_s::sensorID[SENSOR_ID_LEN]</definition>
+        <argsstring>[SENSOR_ID_LEN]</argsstring>
+        <name>sensorID</name>
+        <briefdescription>
+<para>Image sensor ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="434" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="434" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_otp_module_info__s_1a5fb1b5e838ed59e2ea54c4ba55e728c6" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceSensorOtpModuleInfo_s::manuDateYear</definition>
+        <argsstring></argsstring>
+        <name>manuDateYear</name>
+        <briefdescription>
+<para>Manufacture Date (Year) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="435" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="435" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_otp_module_info__s_1aaea81fdb9db7cba6258242365c4e6b70" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceSensorOtpModuleInfo_s::manuDateMonth</definition>
+        <argsstring></argsstring>
+        <name>manuDateMonth</name>
+        <briefdescription>
+<para>Manufacture Date (Month) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="436" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="436" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_otp_module_info__s_1aabbcf282301c40a2049fd1a18e63b740" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceSensorOtpModuleInfo_s::manuDateDay</definition>
+        <argsstring></argsstring>
+        <name>manuDateDay</name>
+        <briefdescription>
+<para>Manufacture Date (Date) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="437" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="437" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_otp_module_info__s_1acc456b03e4cd19d52a642a71f7efa89e" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceSensorOtpModuleInfo_s::barcodeModuleSN[MODULE_SN_LEN]</definition>
+        <argsstring>[MODULE_SN_LEN]</argsstring>
+        <name>barcodeModuleSN</name>
+        <briefdescription>
+<para>Barcode-Module SN. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="438" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="438" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_otp_module_info__s_1a4ad460ffe3e6b285f82108e7e523c889" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceSensorOtpModuleInfo_s::mapTotalSize</definition>
+        <argsstring></argsstring>
+        <name>mapTotalSize</name>
+        <briefdescription>
+<para>Total size of EEPROM map. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="439" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="439" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice sensor one time program information structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="420" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="420" bodyend="440"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_sensor_otp_module_info__s_1acc456b03e4cd19d52a642a71f7efa89e" prot="public" virt="non-virtual"><scope>CamDeviceSensorOtpModuleInfo_s</scope><name>barcodeModuleSN</name></member>
+      <member refid="struct_cam_device_sensor_otp_module_info__s_1a47bba854df0ffd2587bc22cdc5df5fd7" prot="public" virt="non-virtual"><scope>CamDeviceSensorOtpModuleInfo_s</scope><name>caRevision</name></member>
+      <member refid="struct_cam_device_sensor_otp_module_info__s_1ac1b79bfa1d488df0d8c4f63ec1a7612e" prot="public" virt="non-virtual"><scope>CamDeviceSensorOtpModuleInfo_s</scope><name>factoryID</name></member>
+      <member refid="struct_cam_device_sensor_otp_module_info__s_1a2414b03dc5f9d302e26ff6fe4fdacee6" prot="public" virt="non-virtual"><scope>CamDeviceSensorOtpModuleInfo_s</scope><name>hwVersion</name></member>
+      <member refid="struct_cam_device_sensor_otp_module_info__s_1a20e5751808efa9ec39d348611338b98a" prot="public" virt="non-virtual"><scope>CamDeviceSensorOtpModuleInfo_s</scope><name>ircfRevision</name></member>
+      <member refid="struct_cam_device_sensor_otp_module_info__s_1a4b7284ea108a393b7c0433f1da03bd44" prot="public" virt="non-virtual"><scope>CamDeviceSensorOtpModuleInfo_s</scope><name>lensRevision</name></member>
+      <member refid="struct_cam_device_sensor_otp_module_info__s_1aabbcf282301c40a2049fd1a18e63b740" prot="public" virt="non-virtual"><scope>CamDeviceSensorOtpModuleInfo_s</scope><name>manuDateDay</name></member>
+      <member refid="struct_cam_device_sensor_otp_module_info__s_1aaea81fdb9db7cba6258242365c4e6b70" prot="public" virt="non-virtual"><scope>CamDeviceSensorOtpModuleInfo_s</scope><name>manuDateMonth</name></member>
+      <member refid="struct_cam_device_sensor_otp_module_info__s_1a5fb1b5e838ed59e2ea54c4ba55e728c6" prot="public" virt="non-virtual"><scope>CamDeviceSensorOtpModuleInfo_s</scope><name>manuDateYear</name></member>
+      <member refid="struct_cam_device_sensor_otp_module_info__s_1a4ad460ffe3e6b285f82108e7e523c889" prot="public" virt="non-virtual"><scope>CamDeviceSensorOtpModuleInfo_s</scope><name>mapTotalSize</name></member>
+      <member refid="struct_cam_device_sensor_otp_module_info__s_1a94f2891011af342648e1b1bd730fe27d" prot="public" virt="non-virtual"><scope>CamDeviceSensorOtpModuleInfo_s</scope><name>mirrorFlip</name></member>
+      <member refid="struct_cam_device_sensor_otp_module_info__s_1adf8719c9c97f0b7df93b479ec7917b91" prot="public" virt="non-virtual"><scope>CamDeviceSensorOtpModuleInfo_s</scope><name>moduleInteID</name></member>
+      <member refid="struct_cam_device_sensor_otp_module_info__s_1a29e5d7446a701f407d74ef0bf98bb961" prot="public" virt="non-virtual"><scope>CamDeviceSensorOtpModuleInfo_s</scope><name>SensorEEPROMRevision</name></member>
+      <member refid="struct_cam_device_sensor_otp_module_info__s_1a3bf19467a73c04115b7306c95fe8a8b5" prot="public" virt="non-virtual"><scope>CamDeviceSensorOtpModuleInfo_s</scope><name>SensorEEPROMSlaveID</name></member>
+      <member refid="struct_cam_device_sensor_otp_module_info__s_1a4f01d7845dae6bece149ef722c139683" prot="public" virt="non-virtual"><scope>CamDeviceSensorOtpModuleInfo_s</scope><name>sensorID</name></member>
+      <member refid="struct_cam_device_sensor_otp_module_info__s_1a33c7d08ea4e51e32938b5b85a29a2489" prot="public" virt="non-virtual"><scope>CamDeviceSensorOtpModuleInfo_s</scope><name>sensorRevision</name></member>
+      <member refid="struct_cam_device_sensor_otp_module_info__s_1a5b35ac42be968698dacad1679bc242b0" prot="public" virt="non-virtual"><scope>CamDeviceSensorOtpModuleInfo_s</scope><name>sensorSlaveID</name></member>
+      <member refid="struct_cam_device_sensor_otp_module_info__s_1a926e0ea847476f458a02dad51e309aca" prot="public" virt="non-virtual"><scope>CamDeviceSensorOtpModuleInfo_s</scope><name>tLensRevision</name></member>
+      <member refid="struct_cam_device_sensor_otp_module_info__s_1ae0c253d02e28b365886d2ad07bd28c6f" prot="public" virt="non-virtual"><scope>CamDeviceSensorOtpModuleInfo_s</scope><name>tLensSlaveID</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

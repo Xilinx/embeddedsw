@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dcfg" kind="struct" prot="public">
+    <compoundname>XDcfg</compoundname>
+    <includes local="no">xdevcfg.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dcfg___config" kindref="compound">XDcfg_Config</ref></type>
+        <definition>XDcfg_Config XDcfg::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" bodystart="201" bodyend="-1"/>
+        <referencedby refid="group__devcfg_1gafcaaa8ac67cf7316c54d1cba36e83e08" compoundref="xdevcfg_8c" startline="109" endline="149">XDcfg_CfgInitialize</referencedby>
+        <referencedby refid="group__devcfg_1gaeb69ef133b53618e896a4776b9e8f337" compoundref="xdevcfg_8c" startline="261" endline="277">XDcfg_ClearControlRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga7f73a84f734f2e1996a029d8e5934b9c" compoundref="xdevcfg_8c" startline="198" endline="214">XDcfg_DisablePCAP</referencedby>
+        <referencedby refid="group__devcfg_1gabb2094cb7d36f83c4c150a3b18e8aad0" compoundref="xdevcfg_8c" startline="167" endline="183">XDcfg_EnablePCAP</referencedby>
+        <referencedby refid="xdevcfg__reg__readback__example_8c_1af9cf92cccf467028f2ac04b532a100c0" compoundref="xdevcfg__reg__readback__example_8c" startline="334" endline="419">XDcfg_GetConfigReg</referencedby>
+        <referencedby refid="group__devcfg_1ga3b46b8db6ea49d8c066fefe0d137b2c9" compoundref="xdevcfg_8c" startline="405" endline="415">XDcfg_GetConfigRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga81a254369eea778c17c212cc95056c26" compoundref="xdevcfg_8c" startline="294" endline="306">XDcfg_GetControlRegister</referencedby>
+        <referencedby refid="group__devcfg_1gad3df072e27abfff9beb69cb09567a8c1" compoundref="xdevcfg_8c" startline="349" endline="361">XDcfg_GetLockRegister</referencedby>
+        <referencedby refid="group__devcfg_1gaee0dfc6838f33d700fc4b8a5549b0473" compoundref="xdevcfg_8c" startline="570" endline="582">XDcfg_GetMiscControlRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga5573651d2f14ff760e36d551a49fa919" compoundref="xdevcfg_8c" startline="511" endline="523">XDcfg_GetSoftwareIdRegister</referencedby>
+        <referencedby refid="group__devcfg_1gaaacacd5169ad7a79f09d08858f58dc8e" compoundref="xdevcfg_8c" startline="457" endline="469">XDcfg_GetStatusRegister</referencedby>
+        <referencedby refid="group__devcfg_1gafda6d24be18657370c15e1e893a0ab05" compoundref="xdevcfg_8c" startline="642" endline="661">XDcfg_InitiateDma</referencedby>
+        <referencedby refid="group__devcfg_1ga3cb50f996ae2577642b7d1b91c33105f" compoundref="xdevcfg__intr_8c" startline="223" endline="253">XDcfg_InterruptHandler</referencedby>
+        <referencedby refid="group__devcfg_1gafff047d176ced3a255248219c1278e3b" compoundref="xdevcfg__intr_8c" startline="195" endline="207">XDcfg_IntrClear</referencedby>
+        <referencedby refid="group__devcfg_1gab7606b370c10d68d61402bed68955a80" compoundref="xdevcfg__intr_8c" startline="99" endline="118">XDcfg_IntrDisable</referencedby>
+        <referencedby refid="group__devcfg_1gab9c70f073e4522d6085c0059bc385aa9" compoundref="xdevcfg__intr_8c" startline="61" endline="80">XDcfg_IntrEnable</referencedby>
+        <referencedby refid="xdevcfg__interrupt__example_8c_1a9af298cf6df14b196fb9f7c2fd6a74d3" compoundref="xdevcfg__interrupt__example_8c" startline="187" endline="336">XDcfg_IntrExample</referencedby>
+        <referencedby refid="group__devcfg_1ga879fec56ba0f64d3b2128f11e2b022f0" compoundref="xdevcfg__intr_8c" startline="133" endline="146">XDcfg_IntrGetEnabled</referencedby>
+        <referencedby refid="group__devcfg_1ga9ed5382e8c80a2277816a4db98a1ec6f" compoundref="xdevcfg__intr_8c" startline="163" endline="176">XDcfg_IntrGetStatus</referencedby>
+        <referencedby refid="group__devcfg_1gab3412c2881ffaa15fd3615770a4225a7" compoundref="xdevcfg_8c" startline="597" endline="615">XDcfg_IsDmaBusy</referencedby>
+        <referencedby refid="group__devcfg_1ga89e1eef15fcfe06cd0e8d8dd7e804ad1" compoundref="xdevcfg_8c" startline="377" endline="387">XDcfg_SetConfigRegister</referencedby>
+        <referencedby refid="group__devcfg_1gacc8c10b5cc877595c1ade09e1a589296" compoundref="xdevcfg_8c" startline="230" endline="246">XDcfg_SetControlRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga1e0516cd9cdc5066e98e3c3c195c1d3c" compoundref="xdevcfg_8c" startline="322" endline="332">XDcfg_SetLockRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga2739b6bce23b6e02a9076c0eba8664d4" compoundref="xdevcfg_8c" startline="539" endline="555">XDcfg_SetMiscControlRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga332a5c7c856e8f6637cafaa3ec69eaca" compoundref="xdevcfg_8c" startline="485" endline="496">XDcfg_SetRomShadowRegister</referencedby>
+        <referencedby refid="group__devcfg_1gae7a3e8052f73c370990b77dae5751a36" compoundref="xdevcfg_8c" startline="430" endline="440">XDcfg_SetStatusRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga5a7a69cfe6e10770f82089bdd277955d" compoundref="xdevcfg_8c" startline="767" endline="921">XDcfg_Transfer</referencedby>
+        <referencedby refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" compoundref="xdevcfg__polled__example_8c" startline="164" endline="286">XDcfgPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcfg::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" bodystart="202" bodyend="-1"/>
+        <referencedby refid="group__devcfg_1gafcaaa8ac67cf7316c54d1cba36e83e08" compoundref="xdevcfg_8c" startline="109" endline="149">XDcfg_CfgInitialize</referencedby>
+        <referencedby refid="group__devcfg_1gaeb69ef133b53618e896a4776b9e8f337" compoundref="xdevcfg_8c" startline="261" endline="277">XDcfg_ClearControlRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga7f73a84f734f2e1996a029d8e5934b9c" compoundref="xdevcfg_8c" startline="198" endline="214">XDcfg_DisablePCAP</referencedby>
+        <referencedby refid="group__devcfg_1gabb2094cb7d36f83c4c150a3b18e8aad0" compoundref="xdevcfg_8c" startline="167" endline="183">XDcfg_EnablePCAP</referencedby>
+        <referencedby refid="group__devcfg_1ga3b46b8db6ea49d8c066fefe0d137b2c9" compoundref="xdevcfg_8c" startline="405" endline="415">XDcfg_GetConfigRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga81a254369eea778c17c212cc95056c26" compoundref="xdevcfg_8c" startline="294" endline="306">XDcfg_GetControlRegister</referencedby>
+        <referencedby refid="group__devcfg_1gad3df072e27abfff9beb69cb09567a8c1" compoundref="xdevcfg_8c" startline="349" endline="361">XDcfg_GetLockRegister</referencedby>
+        <referencedby refid="group__devcfg_1gaee0dfc6838f33d700fc4b8a5549b0473" compoundref="xdevcfg_8c" startline="570" endline="582">XDcfg_GetMiscControlRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga5573651d2f14ff760e36d551a49fa919" compoundref="xdevcfg_8c" startline="511" endline="523">XDcfg_GetSoftwareIdRegister</referencedby>
+        <referencedby refid="group__devcfg_1gaaacacd5169ad7a79f09d08858f58dc8e" compoundref="xdevcfg_8c" startline="457" endline="469">XDcfg_GetStatusRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga3cb50f996ae2577642b7d1b91c33105f" compoundref="xdevcfg__intr_8c" startline="223" endline="253">XDcfg_InterruptHandler</referencedby>
+        <referencedby refid="group__devcfg_1gafff047d176ced3a255248219c1278e3b" compoundref="xdevcfg__intr_8c" startline="195" endline="207">XDcfg_IntrClear</referencedby>
+        <referencedby refid="group__devcfg_1gab7606b370c10d68d61402bed68955a80" compoundref="xdevcfg__intr_8c" startline="99" endline="118">XDcfg_IntrDisable</referencedby>
+        <referencedby refid="group__devcfg_1gab9c70f073e4522d6085c0059bc385aa9" compoundref="xdevcfg__intr_8c" startline="61" endline="80">XDcfg_IntrEnable</referencedby>
+        <referencedby refid="group__devcfg_1ga879fec56ba0f64d3b2128f11e2b022f0" compoundref="xdevcfg__intr_8c" startline="133" endline="146">XDcfg_IntrGetEnabled</referencedby>
+        <referencedby refid="group__devcfg_1ga9ed5382e8c80a2277816a4db98a1ec6f" compoundref="xdevcfg__intr_8c" startline="163" endline="176">XDcfg_IntrGetStatus</referencedby>
+        <referencedby refid="group__devcfg_1gab3412c2881ffaa15fd3615770a4225a7" compoundref="xdevcfg_8c" startline="597" endline="615">XDcfg_IsDmaBusy</referencedby>
+        <referencedby refid="group__devcfg_1ga2c24756b9d6f8e81b620d27a86379e15" compoundref="xdevcfg__selftest_8c" startline="58" endline="88">XDcfg_SelfTest</referencedby>
+        <referencedby refid="group__devcfg_1ga89e1eef15fcfe06cd0e8d8dd7e804ad1" compoundref="xdevcfg_8c" startline="377" endline="387">XDcfg_SetConfigRegister</referencedby>
+        <referencedby refid="group__devcfg_1gacc8c10b5cc877595c1ade09e1a589296" compoundref="xdevcfg_8c" startline="230" endline="246">XDcfg_SetControlRegister</referencedby>
+        <referencedby refid="group__devcfg_1gaed08df4afb0dd9c343bf994b4c18e926" compoundref="xdevcfg__intr_8c" startline="272" endline="285">XDcfg_SetHandler</referencedby>
+        <referencedby refid="group__devcfg_1ga1e0516cd9cdc5066e98e3c3c195c1d3c" compoundref="xdevcfg_8c" startline="322" endline="332">XDcfg_SetLockRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga2739b6bce23b6e02a9076c0eba8664d4" compoundref="xdevcfg_8c" startline="539" endline="555">XDcfg_SetMiscControlRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga332a5c7c856e8f6637cafaa3ec69eaca" compoundref="xdevcfg_8c" startline="485" endline="496">XDcfg_SetRomShadowRegister</referencedby>
+        <referencedby refid="group__devcfg_1gae7a3e8052f73c370990b77dae5751a36" compoundref="xdevcfg_8c" startline="430" endline="440">XDcfg_SetStatusRegister</referencedby>
+        <referencedby refid="group__devcfg_1ga5a7a69cfe6e10770f82089bdd277955d" compoundref="xdevcfg_8c" startline="767" endline="921">XDcfg_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dcfg_1a8c0b292203540ec4fa43ef3a8b633bbd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDcfg::IsStarted</definition>
+        <argsstring></argsstring>
+        <name>IsStarted</name>
+        <briefdescription>
+<para>Device Configuration Interface is running. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" bodystart="203" bodyend="-1"/>
+        <referencedby refid="group__devcfg_1gafcaaa8ac67cf7316c54d1cba36e83e08" compoundref="xdevcfg_8c" startline="109" endline="149">XDcfg_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dcfg_1a465455a02b26fc267848ac86d7eb2f18" prot="public" static="no" mutable="no">
+        <type><ref refid="group__devcfg_1ga98b91ecac0510dc4f55961e285f425ef" kindref="member">XDcfg_IntrHandler</ref></type>
+        <definition>XDcfg_IntrHandler XDcfg::StatusHandler</definition>
+        <argsstring></argsstring>
+        <name>StatusHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dcfg_1adc7351e2ac0b7268fc55e3f51de4e16b" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDcfg::CallBackRef</definition>
+        <argsstring></argsstring>
+        <name>CallBackRef</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>XDcfg</label>
+        <link refid="struct_x_dcfg"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XDcfg_Config</label>
+        <link refid="struct_x_dcfg___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" bodystart="200" bodyend="208"/>
+    <listofallmembers>
+      <member refid="struct_x_dcfg_1adc7351e2ac0b7268fc55e3f51de4e16b" prot="public" virt="non-virtual"><scope>XDcfg</scope><name>CallBackRef</name></member>
+      <member refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" prot="public" virt="non-virtual"><scope>XDcfg</scope><name>Config</name></member>
+      <member refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" prot="public" virt="non-virtual"><scope>XDcfg</scope><name>IsReady</name></member>
+      <member refid="struct_x_dcfg_1a8c0b292203540ec4fa43ef3a8b633bbd" prot="public" virt="non-virtual"><scope>XDcfg</scope><name>IsStarted</name></member>
+      <member refid="struct_x_dcfg_1a465455a02b26fc267848ac86d7eb2f18" prot="public" virt="non-virtual"><scope>XDcfg</scope><name>StatusHandler</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_tmr_ctr" kind="struct" prot="public">
+    <compoundname>XTmrCtr</compoundname>
+    <includes local="no">xtmrctr.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_tmr_ctr_1a1fc51ca5db0c37e2b9b8db794f8a7496" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_tmr_ctr___config" kindref="compound">XTmrCtr_Config</ref></type>
+        <definition>XTmrCtr_Config XTmrCtr::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Core configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" bodystart="261" bodyend="-1"/>
+        <referencedby refid="xtmrctr__intr__64bit__example_8c_1a2a0a4c94c41976b913d5f021f257bd51" compoundref="xtmrctr__intr__64bit__example_8c" startline="218" endline="347">TmrCtrCascadeIntrExample</referencedby>
+        <referencedby refid="xtmrctr__fast__intr__example_8c_1a54a8e8c734acc65446415bf6aab2d995" compoundref="xtmrctr__fast__intr__example_8c" startline="205" endline="310">TmrCtrFastIntrExample</referencedby>
+        <referencedby refid="xtmrctr__intr__example_8c_1a51bb17a10cb7750f7b8e62c81c239cd6" compoundref="xtmrctr__intr__example_8c" startline="237" endline="346">TmrCtrIntrExample</referencedby>
+        <referencedby refid="xtmrctr__pwm__example_8c_1a2bb99ca758c410790a4779cef91b7fa2" compoundref="xtmrctr__pwm__example_8c" startline="183" endline="309">TmrCtrPwmExample</referencedby>
+        <referencedby refid="group___overview_1ga220874785f096cc5f38b3bec907a008c" compoundref="xtmrctr_8c" startline="96" endline="115">XTmrCtr_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga295c8b4acc8b8fd71cb1085d3fa2c53c" compoundref="xtmrctr_8c" startline="533" endline="600">XTmrCtr_PwmConfigure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tmr_ctr_1ad5cd023157ffa3ef8881bc88ae6ea26b" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_tmr_ctr_stats" kindref="compound">XTmrCtrStats</ref></type>
+        <definition>XTmrCtrStats XTmrCtr::Stats</definition>
+        <argsstring></argsstring>
+        <name>Stats</name>
+        <briefdescription>
+<para>Component Statistics. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" bodystart="262" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga220874785f096cc5f38b3bec907a008c" compoundref="xtmrctr_8c" startline="96" endline="115">XTmrCtr_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga6f51d8030e9d1a4edc588b0846e22e49" compoundref="xtmrctr__stats_8c" startline="83" endline="89">XTmrCtr_ClearStats</referencedby>
+        <referencedby refid="group___overview_1ga3c99744f99aef2a019616e712206f1b0" compoundref="xtmrctr__stats_8c" startline="62" endline="69">XTmrCtr_GetStats</referencedby>
+        <referencedby refid="group___overview_1ga2c00e99b19f58b5821c5541069ffb20b" compoundref="xtmrctr__intr_8c" startline="100" endline="210">XTmrCtr_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tmr_ctr_1a2c1369a4e70206c5abb620c8fa387551" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XTmrCtr::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base address of registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" bodystart="263" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga220874785f096cc5f38b3bec907a008c" compoundref="xtmrctr_8c" startline="96" endline="115">XTmrCtr_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gad8f339bdf71ed11fa92f08720c9ce663" compoundref="xtmrctr_8c" startline="426" endline="435">XTmrCtr_GetCaptureValue</referencedby>
+        <referencedby refid="group___overview_1gaaff209dc01c2946c239c6e5c1bdc1a5b" compoundref="xtmrctr__options_8c" startline="161" endline="191">XTmrCtr_GetOptions</referencedby>
+        <referencedby refid="group___overview_1ga325269055bb6f9f7a0c7f703bd2f2174" compoundref="xtmrctr_8c" startline="366" endline="375">XTmrCtr_GetValue</referencedby>
+        <referencedby refid="group___overview_1gac3ffcfef4ba4507d5f2b9e17a08c7bf0" compoundref="xtmrctr_8c" startline="130" endline="166">XTmrCtr_InitHw</referencedby>
+        <referencedby refid="group___overview_1ga2c00e99b19f58b5821c5541069ffb20b" compoundref="xtmrctr__intr_8c" startline="100" endline="210">XTmrCtr_InterruptHandler</referencedby>
+        <referencedby refid="group___overview_1ga44d19561a31682753e4996c7b57d6982" compoundref="xtmrctr_8c" startline="499" endline="515">XTmrCtr_IsExpired</referencedby>
+        <referencedby refid="group___overview_1ga295c8b4acc8b8fd71cb1085d3fa2c53c" compoundref="xtmrctr_8c" startline="533" endline="600">XTmrCtr_PwmConfigure</referencedby>
+        <referencedby refid="group___overview_1ga7442dd2a194e46db961019a29c9e755d" compoundref="xtmrctr_8c" startline="668" endline="703">XTmrCtr_PwmDisable</referencedby>
+        <referencedby refid="group___overview_1gaf13a8cf6dcc0f322abd768c41243220d" compoundref="xtmrctr_8c" startline="614" endline="652">XTmrCtr_PwmEnable</referencedby>
+        <referencedby refid="group___overview_1gaa7b4ca5a0ac2199ee5341fddd8056500" compoundref="xtmrctr_8c" startline="454" endline="476">XTmrCtr_Reset</referencedby>
+        <referencedby refid="group___overview_1ga42b972b6d7ae5d18a9bb2ca99446b1e7" compoundref="xtmrctr__selftest_8c" startline="73" endline="138">XTmrCtr_SelfTest</referencedby>
+        <referencedby refid="group___overview_1ga93d796cf55144d6adb3c51fedf6c3b76" compoundref="xtmrctr__options_8c" startline="105" endline="139">XTmrCtr_SetOptions</referencedby>
+        <referencedby refid="group___overview_1ga74b790866611a3ab1e96700feb48f6ea" compoundref="xtmrctr_8c" startline="397" endline="407">XTmrCtr_SetResetValue</referencedby>
+        <referencedby refid="group___overview_1ga009c17ab4fcedf73279638dd97b6edd4" compoundref="xtmrctr_8c" startline="249" endline="292">XTmrCtr_Start</referencedby>
+        <referencedby refid="group___overview_1gab8156ff2a16b8efc0fcd3ed2b7ecf91a" compoundref="xtmrctr_8c" startline="314" endline="346">XTmrCtr_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tmr_ctr_1a6e340e798d785abfe551a776fd6f7bb9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTmrCtr::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" bodystart="264" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga220874785f096cc5f38b3bec907a008c" compoundref="xtmrctr_8c" startline="96" endline="115">XTmrCtr_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga6f51d8030e9d1a4edc588b0846e22e49" compoundref="xtmrctr__stats_8c" startline="83" endline="89">XTmrCtr_ClearStats</referencedby>
+        <referencedby refid="group___overview_1gad8f339bdf71ed11fa92f08720c9ce663" compoundref="xtmrctr_8c" startline="426" endline="435">XTmrCtr_GetCaptureValue</referencedby>
+        <referencedby refid="group___overview_1gaaff209dc01c2946c239c6e5c1bdc1a5b" compoundref="xtmrctr__options_8c" startline="161" endline="191">XTmrCtr_GetOptions</referencedby>
+        <referencedby refid="group___overview_1ga3c99744f99aef2a019616e712206f1b0" compoundref="xtmrctr__stats_8c" startline="62" endline="69">XTmrCtr_GetStats</referencedby>
+        <referencedby refid="group___overview_1ga325269055bb6f9f7a0c7f703bd2f2174" compoundref="xtmrctr_8c" startline="366" endline="375">XTmrCtr_GetValue</referencedby>
+        <referencedby refid="group___overview_1gac3ffcfef4ba4507d5f2b9e17a08c7bf0" compoundref="xtmrctr_8c" startline="130" endline="166">XTmrCtr_InitHw</referencedby>
+        <referencedby refid="group___overview_1ga44d19561a31682753e4996c7b57d6982" compoundref="xtmrctr_8c" startline="499" endline="515">XTmrCtr_IsExpired</referencedby>
+        <referencedby refid="group___overview_1ga295c8b4acc8b8fd71cb1085d3fa2c53c" compoundref="xtmrctr_8c" startline="533" endline="600">XTmrCtr_PwmConfigure</referencedby>
+        <referencedby refid="group___overview_1gaa7b4ca5a0ac2199ee5341fddd8056500" compoundref="xtmrctr_8c" startline="454" endline="476">XTmrCtr_Reset</referencedby>
+        <referencedby refid="group___overview_1ga42b972b6d7ae5d18a9bb2ca99446b1e7" compoundref="xtmrctr__selftest_8c" startline="73" endline="138">XTmrCtr_SelfTest</referencedby>
+        <referencedby refid="group___overview_1ga9eb7b372c13b5e3493fec7370858309f" compoundref="xtmrctr__intr_8c" startline="75" endline="84">XTmrCtr_SetHandler</referencedby>
+        <referencedby refid="group___overview_1ga93d796cf55144d6adb3c51fedf6c3b76" compoundref="xtmrctr__options_8c" startline="105" endline="139">XTmrCtr_SetOptions</referencedby>
+        <referencedby refid="group___overview_1ga74b790866611a3ab1e96700feb48f6ea" compoundref="xtmrctr_8c" startline="397" endline="407">XTmrCtr_SetResetValue</referencedby>
+        <referencedby refid="group___overview_1ga009c17ab4fcedf73279638dd97b6edd4" compoundref="xtmrctr_8c" startline="249" endline="292">XTmrCtr_Start</referencedby>
+        <referencedby refid="group___overview_1gab8156ff2a16b8efc0fcd3ed2b7ecf91a" compoundref="xtmrctr_8c" startline="314" endline="346">XTmrCtr_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tmr_ctr_1aa273d27a5f60d8b003eb83247aca3341" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTmrCtr::IsStartedTmrCtr0</definition>
+        <argsstring></argsstring>
+        <name>IsStartedTmrCtr0</name>
+        <briefdescription>
+<para>Is Timer Counter 0 started. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" bodystart="265" bodyend="-1"/>
+        <referencedby refid="group___overview_1gac3ffcfef4ba4507d5f2b9e17a08c7bf0" compoundref="xtmrctr_8c" startline="130" endline="166">XTmrCtr_InitHw</referencedby>
+        <referencedby refid="group___overview_1ga8fbe1a132a6c742c79cb73dee233e779" compoundref="xtmrctr_8c" startline="197" endline="224">XTmrCtr_Initialize</referencedby>
+        <referencedby refid="group___overview_1ga295c8b4acc8b8fd71cb1085d3fa2c53c" compoundref="xtmrctr_8c" startline="533" endline="600">XTmrCtr_PwmConfigure</referencedby>
+        <referencedby refid="group___overview_1ga009c17ab4fcedf73279638dd97b6edd4" compoundref="xtmrctr_8c" startline="249" endline="292">XTmrCtr_Start</referencedby>
+        <referencedby refid="group___overview_1gab8156ff2a16b8efc0fcd3ed2b7ecf91a" compoundref="xtmrctr_8c" startline="314" endline="346">XTmrCtr_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tmr_ctr_1adcc945170ebc1ae68a01ba548ad60b0d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTmrCtr::IsStartedTmrCtr1</definition>
+        <argsstring></argsstring>
+        <name>IsStartedTmrCtr1</name>
+        <briefdescription>
+<para>Is Timer Counter 1 started. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" bodystart="266" bodyend="-1"/>
+        <referencedby refid="group___overview_1gac3ffcfef4ba4507d5f2b9e17a08c7bf0" compoundref="xtmrctr_8c" startline="130" endline="166">XTmrCtr_InitHw</referencedby>
+        <referencedby refid="group___overview_1ga8fbe1a132a6c742c79cb73dee233e779" compoundref="xtmrctr_8c" startline="197" endline="224">XTmrCtr_Initialize</referencedby>
+        <referencedby refid="group___overview_1ga295c8b4acc8b8fd71cb1085d3fa2c53c" compoundref="xtmrctr_8c" startline="533" endline="600">XTmrCtr_PwmConfigure</referencedby>
+        <referencedby refid="group___overview_1ga009c17ab4fcedf73279638dd97b6edd4" compoundref="xtmrctr_8c" startline="249" endline="292">XTmrCtr_Start</referencedby>
+        <referencedby refid="group___overview_1gab8156ff2a16b8efc0fcd3ed2b7ecf91a" compoundref="xtmrctr_8c" startline="314" endline="346">XTmrCtr_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tmr_ctr_1aa5c711ba517f5360a868695f8324df73" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTmrCtr::IsPwmEnabled</definition>
+        <argsstring></argsstring>
+        <name>IsPwmEnabled</name>
+        <briefdescription>
+<para>Is PWM Enabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" bodystart="267" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga7442dd2a194e46db961019a29c9e755d" compoundref="xtmrctr_8c" startline="668" endline="703">XTmrCtr_PwmDisable</referencedby>
+        <referencedby refid="group___overview_1gaf13a8cf6dcc0f322abd768c41243220d" compoundref="xtmrctr_8c" startline="614" endline="652">XTmrCtr_PwmEnable</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tmr_ctr_1a5cc0b10723d9bad1b654dab33ae56c23" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga2d96523ba7b80814a9f6c769619564cf" kindref="member">XTmrCtr_Handler</ref></type>
+        <definition>XTmrCtr_Handler XTmrCtr::Handler</definition>
+        <argsstring></argsstring>
+        <name>Handler</name>
+        <briefdescription>
+<para>Callback function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" bodystart="269" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga220874785f096cc5f38b3bec907a008c" compoundref="xtmrctr_8c" startline="96" endline="115">XTmrCtr_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga2c00e99b19f58b5821c5541069ffb20b" compoundref="xtmrctr__intr_8c" startline="100" endline="210">XTmrCtr_InterruptHandler</referencedby>
+        <referencedby refid="group___overview_1ga9eb7b372c13b5e3493fec7370858309f" compoundref="xtmrctr__intr_8c" startline="75" endline="84">XTmrCtr_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tmr_ctr_1a19b7b38862e322c61d95f0f71f325f13" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XTmrCtr::CallBackRef</definition>
+        <argsstring></argsstring>
+        <name>CallBackRef</name>
+        <briefdescription>
+<para>Callback reference for handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" bodystart="270" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga220874785f096cc5f38b3bec907a008c" compoundref="xtmrctr_8c" startline="96" endline="115">XTmrCtr_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga2c00e99b19f58b5821c5541069ffb20b" compoundref="xtmrctr__intr_8c" startline="100" endline="210">XTmrCtr_InterruptHandler</referencedby>
+        <referencedby refid="group___overview_1ga9eb7b372c13b5e3493fec7370858309f" compoundref="xtmrctr__intr_8c" startline="75" endline="84">XTmrCtr_SetHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_tmr_ctr" kindref="compound">XTmrCtr</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every timer/counter device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="5">
+        <label>XTmrCtrStats</label>
+        <link refid="struct_x_tmr_ctr_stats"/>
+      </node>
+      <node id="3">
+        <label>XTmrCtr</label>
+        <link refid="struct_x_tmr_ctr"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>Stats</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>XTmrCtr_Config</label>
+        <link refid="struct_x_tmr_ctr___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" bodystart="260" bodyend="271"/>
+    <listofallmembers>
+      <member refid="struct_x_tmr_ctr_1a2c1369a4e70206c5abb620c8fa387551" prot="public" virt="non-virtual"><scope>XTmrCtr</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_tmr_ctr_1a19b7b38862e322c61d95f0f71f325f13" prot="public" virt="non-virtual"><scope>XTmrCtr</scope><name>CallBackRef</name></member>
+      <member refid="struct_x_tmr_ctr_1a1fc51ca5db0c37e2b9b8db794f8a7496" prot="public" virt="non-virtual"><scope>XTmrCtr</scope><name>Config</name></member>
+      <member refid="struct_x_tmr_ctr_1a5cc0b10723d9bad1b654dab33ae56c23" prot="public" virt="non-virtual"><scope>XTmrCtr</scope><name>Handler</name></member>
+      <member refid="struct_x_tmr_ctr_1aa5c711ba517f5360a868695f8324df73" prot="public" virt="non-virtual"><scope>XTmrCtr</scope><name>IsPwmEnabled</name></member>
+      <member refid="struct_x_tmr_ctr_1a6e340e798d785abfe551a776fd6f7bb9" prot="public" virt="non-virtual"><scope>XTmrCtr</scope><name>IsReady</name></member>
+      <member refid="struct_x_tmr_ctr_1aa273d27a5f60d8b003eb83247aca3341" prot="public" virt="non-virtual"><scope>XTmrCtr</scope><name>IsStartedTmrCtr0</name></member>
+      <member refid="struct_x_tmr_ctr_1adcc945170ebc1ae68a01ba548ad60b0d" prot="public" virt="non-virtual"><scope>XTmrCtr</scope><name>IsStartedTmrCtr1</name></member>
+      <member refid="struct_x_tmr_ctr_1ad5cd023157ffa3ef8881bc88ae6ea26b" prot="public" virt="non-virtual"><scope>XTmrCtr</scope><name>Stats</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

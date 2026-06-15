@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_dsi_tx_ss_sub_core" kind="struct" prot="public">
+    <compoundname>DsiTxSsSubCore</compoundname>
+    <includes local="no">xdsitxss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_dsi_tx_ss_sub_core_1ad5f59898c85b52f5b18bd872e8fc6a3c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 DsiTxSsSubCore::IsPresent</definition>
+        <argsstring></argsstring>
+        <name>IsPresent</name>
+        <briefdescription>
+<para>Flag indicating if sub-core is present in the design. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="149" bodyend="-1"/>
+        <referencedby refid="group__dsitxss_1gacdbf8bdffcc5c58bafabca09ce89ffbb" compoundref="xdsitxss_8c" startline="272" endline="310">XDsiTxSs_ReportCoreInfo</referencedby>
+        <referencedby refid="group__dsitxss_1ga5c2a0c949b32000d56edf503bcee3b48" compoundref="xdsitxss__selftest_8c" startline="64" endline="98">XDsiTxSs_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_dsi_tx_ss_sub_core_1a56ffcc262f9e2ae2d5a91a7eed3177e5" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR DsiTxSsSubCore::AddrOffset</definition>
+        <argsstring></argsstring>
+        <name>AddrOffset</name>
+        <briefdescription>
+<para>Sub-core address offset (SDT mode) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Sub-core configuration information structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>Contains configuration details for a sub-core (DSI, DPHY, or MIPI TX PHY) including its presence in the design, device ID, and memory offset. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/xdsitxss.h" bodystart="148" bodyend="157"/>
+    <listofallmembers>
+      <member refid="struct_dsi_tx_ss_sub_core_1a56ffcc262f9e2ae2d5a91a7eed3177e5" prot="public" virt="non-virtual"><scope>DsiTxSsSubCore</scope><name>AddrOffset</name></member>
+      <member refid="struct_dsi_tx_ss_sub_core_1ad5f59898c85b52f5b18bd872e8fc6a3c" prot="public" virt="non-virtual"><scope>DsiTxSsSubCore</scope><name>IsPresent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

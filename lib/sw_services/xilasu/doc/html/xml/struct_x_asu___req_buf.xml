@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___req_buf" kind="struct" prot="public">
+    <compoundname>XAsu_ReqBuf</compoundname>
+    <includes local="no">xasu_sharedmem.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___req_buf_1ae6e3ffde005f27cd4b9dc3a5a671551e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_ReqBuf::Header</definition>
+        <argsstring></argsstring>
+        <name>Header</name>
+        <briefdescription>
+<para>Command header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___req_buf_1a2807b52be02d30158ec18f3dcfb06aef" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_ReqBuf::Arg[XASU_COMMAND_REQ_ARGS]</definition>
+        <argsstring>[XASU_COMMAND_REQ_ARGS]</argsstring>
+        <name>Arg</name>
+        <briefdescription>
+<para>Command arguments. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___req_buf_1ac6d6c1a90715dbe975287a7be8f797c4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_ReqBuf::Reserved</definition>
+        <argsstring></argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Reserved. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure is the request buffer. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="124" bodyend="128"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___req_buf_1a2807b52be02d30158ec18f3dcfb06aef" prot="public" virt="non-virtual"><scope>XAsu_ReqBuf</scope><name>Arg</name></member>
+      <member refid="struct_x_asu___req_buf_1ae6e3ffde005f27cd4b9dc3a5a671551e" prot="public" virt="non-virtual"><scope>XAsu_ReqBuf</scope><name>Header</name></member>
+      <member refid="struct_x_asu___req_buf_1ac6d6c1a90715dbe975287a7be8f797c4" prot="public" virt="non-virtual"><scope>XAsu_ReqBuf</scope><name>Reserved</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_30e2a1b86f3561df6fc05a255e132626" kind="dir">
+    <compoundname>slhdsa</compoundname>
+    <innerfile refid="xsecure__slhdsa_8c">xsecure_slhdsa.c</innerfile>
+    <innerfile refid="xsecure__slhdsa_8h">xsecure_slhdsa.h</innerfile>
+    <innerfile refid="xsecure__slhdsa__addr_8h">xsecure_slhdsa_addr.h</innerfile>
+    <innerfile refid="xsecure__slhdsa__fors_8c">xsecure_slhdsa_fors.c</innerfile>
+    <innerfile refid="xsecure__slhdsa__fors_8h">xsecure_slhdsa_fors.h</innerfile>
+    <innerfile refid="xsecure__slhdsa__hash_8c">xsecure_slhdsa_hash.c</innerfile>
+    <innerfile refid="xsecure__slhdsa__hash_8h">xsecure_slhdsa_hash.h</innerfile>
+    <innerfile refid="xsecure__slhdsa__ht_8c">xsecure_slhdsa_ht.c</innerfile>
+    <innerfile refid="xsecure__slhdsa__ht_8h">xsecure_slhdsa_ht.h</innerfile>
+    <innerfile refid="xsecure__slhdsa__instance_8c">xsecure_slhdsa_instance.c</innerfile>
+    <innerfile refid="xsecure__slhdsa__instance_8h">xsecure_slhdsa_instance.h</innerfile>
+    <innerfile refid="xsecure__slhdsa__ipihandler_8c">xsecure_slhdsa_ipihandler.c</innerfile>
+    <innerfile refid="xsecure__slhdsa__ipihandler_8h">xsecure_slhdsa_ipihandler.h</innerfile>
+    <innerfile refid="xsecure__slhdsa__wots_8c">xsecure_slhdsa_wots.c</innerfile>
+    <innerfile refid="xsecure__slhdsa__wots_8h">xsecure_slhdsa_wots.h</innerfile>
+    <innerfile refid="xsecure__slhdsa__xmss_8c">xsecure_slhdsa_xmss.c</innerfile>
+    <innerfile refid="xsecure__slhdsa__xmss_8h">xsecure_slhdsa_xmss.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/"/>
+  </compounddef>
+</doxygen>

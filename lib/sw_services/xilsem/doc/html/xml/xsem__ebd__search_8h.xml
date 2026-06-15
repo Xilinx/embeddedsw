@@ -1,0 +1,325 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsem__ebd__search_8h" kind="file">
+    <compoundname>xsem_ebd_search.h</compoundname>
+    <includes local="yes">xbasic_types.h</includes>
+    <includedby refid="xsem__ebd__example_8c" local="yes">xsem_ebd_example.c</includedby>
+    <includedby refid="xsem__ebd__ssit__example_8c" local="yes">xsem_ebd_ssit_example.c</includedby>
+    <incdepgraph>
+      <node id="80">
+        <label>xsem_ebd_search.h</label>
+        <link refid="xsem_ebd_search.h"/>
+        <childnode refid="81" relation="include">
+        </childnode>
+      </node>
+      <node id="81">
+        <label>xbasic_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="84">
+        <label>xsem_ebd_ssit_example.c</label>
+        <link refid="xsem__ebd__ssit__example_8c"/>
+      </node>
+      <node id="82">
+        <label>xsem_ebd_search.h</label>
+        <link refid="xsem_ebd_search.h"/>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+      </node>
+      <node id="83">
+        <label>xsem_ebd_example.c</label>
+        <link refid="xsem__ebd__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xsem__ebd__search_8h_1a21a5e4dd9fcb4583b12b1419c0e3b6d9" prot="public" static="no">
+        <name>XSEM_EBDSEARCH_H</name>
+        <briefdescription>
+<para>by using protection macros </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsem__ebd__search_8h_1ad18ba7839caae7e5085a5e040b763933" prot="public" static="no">
+        <name>XSEM_BT0ROW0_FRAMES</name>
+        <initializer>34111</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsem__ebd__search_8h_1a3e7a59ef427e189ff177a0ec5213e462" prot="public" static="no">
+        <name>XSEM_BT0ROW1_FRAMES</name>
+        <initializer>38498</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" line="30" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsem__ebd__search_8h_1a7a3c56b6de07420593470a2e7a1a0d29" prot="public" static="no">
+        <name>XSEM_BT0ROW2_FRAMES</name>
+        <initializer>38498</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" line="31" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsem__ebd__search_8h_1a57a43b7788d38bdfd3273ffcfefbd86f" prot="public" static="no">
+        <name>XSEM_BT0ROW3_FRAMES</name>
+        <initializer>38498</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsem__ebd__search_8h_1a82ab0f9217aba0c41a4cc3e3d62d20c4" prot="public" static="no">
+        <name>XSEM_BT3ROW0_FRAMES</name>
+        <initializer>11</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsem__ebd__search_8h_1ae80d3912ed7767dc8ef2cd057f495548" prot="public" static="no">
+        <name>XSEM_BT3ROW1_FRAMES</name>
+        <initializer>12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsem__ebd__search_8h_1a711510912da9e8914d3a69568500d32a" prot="public" static="no">
+        <name>XSEM_BT3ROW2_FRAMES</name>
+        <initializer>12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsem__ebd__search_8h_1a3ca49448c07b40817bf833151823df05" prot="public" static="no">
+        <name>XSEM_BT3ROW3_FRAMES</name>
+        <initializer>12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsem__ebd__search_8h_1ae007f7d6b92da7706a06027ae76abc27" prot="public" static="no">
+        <name>XSEM_BT4ROW0_FRAMES</name>
+        <initializer>5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsem__ebd__search_8h_1aa9bc42a0b525bbc786844e0f7c82f1b7" prot="public" static="no">
+        <name>XSEM_BT4ROW1_FRAMES</name>
+        <initializer>6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsem__ebd__search_8h_1a88074d31748ce2c15bf6820b99f526a2" prot="public" static="no">
+        <name>XSEM_BT4ROW2_FRAMES</name>
+        <initializer>6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsem__ebd__search_8h_1a9f83b0b792bb6bada56258ef1982c9cb" prot="public" static="no">
+        <name>XSEM_BT4ROW3_FRAMES</name>
+        <initializer>6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsem__ebd__search_8h_1a080e36d951bb3a74fe07e412e4126286" prot="public" static="no">
+        <name>XSEM_BT5ROW0_FRAMES</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsem__ebd__search_8h_1adf0a8f6d1b536eb7e862409fa41c9ecb" prot="public" static="no">
+        <name>XSEM_BT5ROW1_FRAMES</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsem__ebd__search_8h_1ab8bfd86e6b5f10bc381b97055bf7333a" prot="public" static="no">
+        <name>XSEM_BT5ROW2_FRAMES</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsem__ebd__search_8h_1a4dd70ba83c11ca881b9438bd20bb74ff" prot="public" static="no">
+        <name>XSEM_BT5ROW3_FRAMES</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xsem__ebd__search_8h_1a3d3ee9197f6186a62b2ed71f17120627" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSem_EbdLookUp</definition>
+        <argsstring>(u8 BtIndex, u8 RowIndex, u32 FAddr, u32 QwordIndex, u32 BitIndex, volatile int *XSem_EbdBuffer)</argsstring>
+        <name>XSem_EbdLookUp</name>
+        <param>
+          <type>u8</type>
+          <declname>BtIndex</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>RowIndex</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>FAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>QwordIndex</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BitIndex</declname>
+        </param>
+        <param>
+          <type>volatile int *</type>
+          <declname>XSem_EbdBuffer</declname>
+        </param>
+        <briefdescription>
+<para>This API can be used to check whether a particular bit is an Essential bit or not. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BtIndex[In]</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Block type (Valid Inputs: 0, 3, 4, 5) RowIndex[In] : Row (Valid Inputs: 0 to 3) FAddr[In] : Frame Address (Valid Inputs: Refer note) QwordIndex[In] : Qword (Valid Inputs: 0 to 24) BitIndex[In] : Bit (Valid Inputs: 0 to 127) XSem_EbdBuffer : Pointer to golden EBD data buffer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0U : Input Bit is essential 1U : Input Bit is not essential 2U : Invalid Input</para></simplesect>
+<simplesect kind="note"><para><itemizedlist>
+<listitem><para>Total number of frames in a row is not same for all rows.</para></listitem><listitem><para>XSem_CmdCfrGetTotalFrames API is provided to know the total number of frames in a row for each block. Output param (FrameCntPtr) of XSem_CmdCfrGetTotalFrames API is updated with total number of frames of each block type for the input row. If a particular block in a row has 0 frames, then error injection shall not be performed. Range of Frame number: 0 to (FrameCntPtr[n] - 1) where n is block type with range 0 to 6. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Check if Input bit is set or not, If Set, then the bit is essential, else, not essential</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.c" bodystart="63" bodyend="111"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains required declarations and definitions. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver     Who  Date         Changes
+<hruler/>
+
+0.1   hv   05/17/2022   Initial creation
+0.2   anv  02/24/2025   Updated XSem_EbdLookUp function arguments
+                        to make it useful for both mono and ssit.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>(c)<sp/>Copyright<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>(c)<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="22"><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XSEM_EBDSEARCH_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="24" refid="xsem__ebd__search_8h_1a21a5e4dd9fcb4583b12b1419c0e3b6d9" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_EBDSEARCH_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xbasic_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Macro<sp/>Definitions<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT0ROW0_FRAMES<sp/><sp/><sp/><sp/><sp/>34111</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT0ROW1_FRAMES<sp/><sp/><sp/><sp/><sp/>38498</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT0ROW2_FRAMES<sp/><sp/><sp/><sp/><sp/>38498</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT0ROW3_FRAMES<sp/><sp/><sp/><sp/><sp/>38498</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT3ROW0_FRAMES<sp/><sp/><sp/><sp/><sp/>11</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT3ROW1_FRAMES<sp/><sp/><sp/><sp/><sp/>12</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT3ROW2_FRAMES<sp/><sp/><sp/><sp/><sp/>12</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT3ROW3_FRAMES<sp/><sp/><sp/><sp/><sp/>12</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT4ROW0_FRAMES<sp/><sp/><sp/><sp/><sp/>5</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT4ROW1_FRAMES<sp/><sp/><sp/><sp/><sp/>6</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT4ROW2_FRAMES<sp/><sp/><sp/><sp/><sp/>6</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT4ROW3_FRAMES<sp/><sp/><sp/><sp/><sp/>6</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT5ROW0_FRAMES<sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT5ROW1_FRAMES<sp/><sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT5ROW2_FRAMES<sp/><sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSEM_BT5ROW3_FRAMES<sp/><sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Function<sp/>prototypes<sp/>***************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal">u32<sp/><ref refid="xsem__ebd__search_8c_1a3d3ee9197f6186a62b2ed71f17120627" kindref="member">XSem_EbdLookUp</ref>(u8<sp/>BtIndex,<sp/>u8<sp/>RowIndex,\</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FAddr,<sp/>u32<sp/>QwordIndex,<sp/>u32<sp/>BitIndex,<sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*<ref refid="xsem__ebd__example_8c_1a6566c89e845a1cda5fb6c72b74d043e3" kindref="member">XSem_EbdBuffer</ref>);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_ebd_search.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,739 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__keywrap__example_8c" kind="file">
+    <compoundname>xasu_keywrap_example.c</compoundname>
+    <includes local="yes">xil_cache.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <includes refid="xasu__keywrap_8h" local="yes">xasu_keywrap.h</includes>
+    <includes refid="xasu__client_8h" local="yes">xasu_client.h</includes>
+    <includes refid="xasu__rsainfo_8h" local="yes">xasu_rsainfo.h</includes>
+    <includes refid="xasu__shainfo_8h" local="yes">xasu_shainfo.h</includes>
+    <includes refid="xasu__aesinfo_8h" local="yes">xasu_aesinfo.h</includes>
+    <incdepgraph>
+      <node id="703">
+        <label>xasu_shainfo.h</label>
+        <link refid="xasu__shainfo_8h"/>
+        <childnode refid="693" relation="include">
+        </childnode>
+        <childnode refid="704" relation="include">
+        </childnode>
+      </node>
+      <node id="700">
+        <label>xasu_def.h</label>
+        <link refid="xasu__def_8h"/>
+        <childnode refid="693" relation="include">
+        </childnode>
+      </node>
+      <node id="695">
+        <label>xasu_sharedmem.h</label>
+        <link refid="xasu__sharedmem_8h"/>
+        <childnode refid="693" relation="include">
+        </childnode>
+      </node>
+      <node id="692">
+        <label>xasu_keywrap.h</label>
+        <link refid="xasu__keywrap_8h"/>
+        <childnode refid="693" relation="include">
+        </childnode>
+        <childnode refid="694" relation="include">
+        </childnode>
+        <childnode refid="701" relation="include">
+        </childnode>
+      </node>
+      <node id="690">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="694">
+        <label>xasu_client.h</label>
+        <link refid="xasu__client_8h"/>
+        <childnode refid="695" relation="include">
+        </childnode>
+        <childnode refid="696" relation="include">
+        </childnode>
+        <childnode refid="697" relation="include">
+        </childnode>
+        <childnode refid="699" relation="include">
+        </childnode>
+        <childnode refid="700" relation="include">
+        </childnode>
+      </node>
+      <node id="691">
+        <label>xil_util.h</label>
+      </node>
+      <node id="698">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="689">
+        <label>xasu_keywrap_example.c</label>
+        <link refid="xasu_keywrap_example.c"/>
+        <childnode refid="690" relation="include">
+        </childnode>
+        <childnode refid="691" relation="include">
+        </childnode>
+        <childnode refid="692" relation="include">
+        </childnode>
+        <childnode refid="694" relation="include">
+        </childnode>
+        <childnode refid="702" relation="include">
+        </childnode>
+        <childnode refid="703" relation="include">
+        </childnode>
+        <childnode refid="705" relation="include">
+        </childnode>
+      </node>
+      <node id="696">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="697">
+        <label>xasu_perf.h</label>
+        <link refid="xasu__perf_8h"/>
+        <childnode refid="693" relation="include">
+        </childnode>
+        <childnode refid="698" relation="include">
+        </childnode>
+      </node>
+      <node id="704">
+        <label>xstatus.h</label>
+      </node>
+      <node id="701">
+        <label>xasu_keywrapinfo.h</label>
+        <link refid="xasu__keywrapinfo_8h"/>
+        <childnode refid="693" relation="include">
+        </childnode>
+        <childnode refid="698" relation="include">
+        </childnode>
+      </node>
+      <node id="693">
+        <label>xil_types.h</label>
+      </node>
+      <node id="702">
+        <label>xasu_rsainfo.h</label>
+        <link refid="xasu__rsainfo_8h"/>
+        <childnode refid="693" relation="include">
+        </childnode>
+        <childnode refid="691" relation="include">
+        </childnode>
+        <childnode refid="698" relation="include">
+        </childnode>
+      </node>
+      <node id="705">
+        <label>xasu_aesinfo.h</label>
+        <link refid="xasu__aesinfo_8h"/>
+        <childnode refid="693" relation="include">
+        </childnode>
+        <childnode refid="698" relation="include">
+        </childnode>
+      </node>
+      <node id="699">
+        <label>xasu_status.h</label>
+        <link refid="xasu__status_8h"/>
+        <childnode refid="693" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__keywrap__client__example_1ga2384dc543a2c3a267b328d6b592db417" prot="public" static="no">
+        <name>XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES</name>
+        <initializer>(512U)</initializer>
+        <briefdescription>
+<para>RSA key size for 4096 bit data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="38" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keywrap__client__example_1ga7718a8369314053fa0d9bacbc2a784cb" prot="public" static="no">
+        <name>XASU_KEYWRAP_INPUT_SIZE_IN_BYTES</name>
+        <initializer>(31U)</initializer>
+        <briefdescription>
+<para>Key wrap unwrap input size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="39" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keywrap__client__example_1ga53d0fa016126e0a90a01c81e00515464" prot="public" static="no">
+        <name>XASU_RSA_OPTIONAL_DATA_SIZE_IN_BYTES</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>512 bytes for 4096 bit data </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="40" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keywrap__client__example_1gabba3327756b50588a5aad980277ea39e" prot="public" static="no">
+        <name>XASU_KEYWRAP_OUTPUT_SIZE_IN_BYTES</name>
+        <initializer>(552U)</initializer>
+        <briefdescription>
+<para>Key wrap unwrap output size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="41" bodyend="-1"/>
+        <referencedby refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__keywrap__example_8c" startline="175" endline="311">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__keywrap__client__example_1gad009724e34661e0dc7ffc2595a0ab630" prot="public" static="no">
+        <name>XASU_CACHE_DISABLE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xasu__keywrap__client__example_1gabcd89f838ad336b0eb904d8584a838b6" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XAsu_RsaModulus[XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES]</argsstring>
+        <name>XAsu_RsaModulus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keywrap__client__example_1gac90ee3ea3837d00c048cdc2059fbe368" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XAsu_RsaPrivateExp[XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES]</argsstring>
+        <name>XAsu_RsaPrivateExp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keywrap__client__example_1ga30194181baf1b060347df4ba72777d40" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XAsu_KeywrapInput[XASU_KEYWRAP_INPUT_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_KEYWRAP_INPUT_SIZE_IN_BYTES]</argsstring>
+        <name>XAsu_KeywrapInput</name>
+        <initializer>= {
+	0x2cU, 0xe9U, 0x3aU, 0x23U, 0x22U, 0x69U, 0xfeU, 0x10U, 0x59U, 0xcaU, 0x99U, 0x2aU, 0xd8U,
+        0xb7U, 0x07U, 0xfeU, 0x2eU, 0x72U, 0x33U, 0xe5U, 0xabU, 0xb3U, 0xdeU, 0x0dU, 0x7fU, 0xf7U,
+        0x25U, 0x2aU, 0x78U, 0xc9U, 0x9dU
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keywrap__client__example_1ga3fffe5334fef61dc4bbb2aab7f3ff976" prot="public" static="yes" mutable="no">
+        <type>const char</type>
+        <definition>const char XAsu_RsaOpt[XASU_RSA_OPTIONAL_DATA_SIZE_IN_BYTES+1U]</definition>
+        <argsstring>[XASU_RSA_OPTIONAL_DATA_SIZE_IN_BYTES+1U]</argsstring>
+        <name>XAsu_RsaOpt</name>
+        <initializer>= &quot;HI&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keywrap__client__example_1gac0cf66ff32e334445bcac8e2b7c66cd3" prot="public" static="yes" mutable="no">
+        <type>const u32</type>
+        <definition>const u32 XAsu_RsaPublicExp</definition>
+        <argsstring></argsstring>
+        <name>XAsu_RsaPublicExp</name>
+        <initializer>= 0x1000100U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keywrap__client__example_1gac0cb74bcee26f1da969e3b2bf1fb14e1" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_KeyWrapWrappedOutput[XASU_KEYWRAP_OUTPUT_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_KEYWRAP_OUTPUT_SIZE_IN_BYTES]</argsstring>
+        <name>XAsu_KeyWrapWrappedOutput</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keywrap__client__example_1ga321808753141d2eae52908078dd82a10" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_KeyWrapUnwrappedOutput[XASU_KEYWRAP_INPUT_SIZE_IN_BYTES]</definition>
+        <argsstring>[XASU_KEYWRAP_INPUT_SIZE_IN_BYTES]</argsstring>
+        <name>XAsu_KeyWrapUnwrappedOutput</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keywrap__client__example_1ga1c1b963b027de446092e91d695efb1c7" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_KeyWrapOutputLen</definition>
+        <argsstring></argsstring>
+        <name>XAsu_KeyWrapOutputLen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keywrap__client__example_1ga70ea992adacb42e65e8c487d8a1b8d2d" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_KeyWrapUnwrapOutputLen</definition>
+        <argsstring></argsstring>
+        <name>XAsu_KeyWrapUnwrapOutputLen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keywrap__client__example_1ga3c904c6c8f2cb359b6847af0df908e64" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 Notify</definition>
+        <argsstring></argsstring>
+        <name>Notify</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>To notify the call back from client library. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__keywrap__client__example_1ga89bdef12ea1ad95bf3acb2ef59e4d299" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 ErrorStatus</definition>
+        <argsstring></argsstring>
+        <name>ErrorStatus</name>
+        <initializer>= XST_FAILURE</initializer>
+        <briefdescription>
+<para>Status variable to store the error returned from server. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__keywrap__client__example_1ga3ca88b4ff1c2a1c59c0f29995ce79642" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_KeywrapunwrapCallBackRef</definition>
+        <argsstring>(void *CallBackRef, u32 Status)</argsstring>
+        <name>XAsu_KeywrapunwrapCallBackRef</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Call back function which will be registered with library to notify the completion of request. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the call back reference. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Status of the request will be passed as an argument during callback<itemizedlist>
+<listitem><para>0 Upon success</para></listitem><listitem><para>Error code from ASUFW application upon any error </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="324" bodyend="332"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function to call the XAsu_Keywrap() and XAsu_Keyunwrap() API&apos;s. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if example runs successfully.</para></listitem><listitem><para>ErrorCode if the example fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Initialize mailbox instance.</para><para>Compare generated unwrapped message with expected input. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c" bodystart="175" bodyend="311"/>
+        <references refid="struct_x_asu___key_wrap_params_1a680fae798d0ff51fca68a4871f1568d9" compoundref="xasu__keywrapinfo_8h" startline="65">XAsu_KeyWrapParams::ActualOutputDataLenAddr</references>
+        <references refid="struct_x_asu___key_wrap_params_1ac335e1a7457b3dfa31bfb6ad2f7a40e7" compoundref="xasu__keywrapinfo_8h" startline="74">XAsu_KeyWrapParams::AesKeyId</references>
+        <references refid="struct_x_asu___key_wrap_params_1aadaa548059c19c40a13624d158c4efd4" compoundref="xasu__keywrapinfo_8h" startline="76">XAsu_KeyWrapParams::AesKeySize</references>
+        <references refid="struct_x_asu___key_wrap_params_1a994f49dc1b961429ba8cb8170d8bc0ba" compoundref="xasu__keywrapinfo_8h" startline="61">XAsu_KeyWrapParams::ExpoCompAddr</references>
+        <references refid="struct_x_asu___key_wrap_params_1a7e975623b5d478db1451042b05b662ea" compoundref="xasu__keywrapinfo_8h" startline="57">XAsu_KeyWrapParams::InputDataAddr</references>
+        <references refid="struct_x_asu___key_wrap_params_1a776bcc1fcddaf0b9d9b4323f4051ee85" compoundref="xasu__keywrapinfo_8h" startline="67">XAsu_KeyWrapParams::InputDataLen</references>
+        <references refid="struct_x_asu___key_wrap_params_1ac1f5e0fc07b7e1b19fcccfe352442269" compoundref="xasu__keywrapinfo_8h" startline="62">XAsu_KeyWrapParams::KeyCompAddr</references>
+        <references refid="struct_x_asu___rsa_pub_key_comp_1a9ad687d0df69d07e4584833f13049d22" compoundref="xasu__rsainfo_8h" startline="103">XAsu_RsaPubKeyComp::Keysize</references>
+        <references refid="struct_x_asu___rsa_pub_key_comp_1a227d2fe9cecd9dae88b63cd268a0eebe" compoundref="xasu__rsainfo_8h" startline="104">XAsu_RsaPubKeyComp::Modulus</references>
+        <references refid="struct_x_asu___key_wrap_params_1a35bf5a34cf3e2325bdcf3100f82af618" compoundref="xasu__keywrapinfo_8h" startline="64">XAsu_KeyWrapParams::OptionalLabelAddr</references>
+        <references refid="struct_x_asu___key_wrap_params_1abf6549ec448bea10512c895abf9baf07" compoundref="xasu__keywrapinfo_8h" startline="69">XAsu_KeyWrapParams::OptionalLabelSize</references>
+        <references refid="struct_x_asu___key_wrap_params_1aa7cbcf8280698e9df3458951df9959ec" compoundref="xasu__keywrapinfo_8h" startline="59">XAsu_KeyWrapParams::OutputDataAddr</references>
+        <references refid="struct_x_asu___key_wrap_params_1aa700f9f3d7b11950e1b932fd2f2ddefe" compoundref="xasu__keywrapinfo_8h" startline="70">XAsu_KeyWrapParams::OutputDataLen</references>
+        <references refid="struct_x_asu___rsa_pvt_key_comp_1aee026bc85163c5d997042dc1895c48be" compoundref="xasu__rsainfo_8h" startline="114">XAsu_RsaPvtKeyComp::PrimeCompOrTotientPrsnt</references>
+        <references refid="struct_x_asu___rsa_pub_key_comp_1a0b396660fe58b779190f084389c92bb4" compoundref="xasu__rsainfo_8h" startline="105">XAsu_RsaPubKeyComp::PubExp</references>
+        <references refid="struct_x_asu___rsa_pvt_key_comp_1aefcc19b50b4d9737f74baeca5f256529" compoundref="xasu__rsainfo_8h" startline="110">XAsu_RsaPvtKeyComp::PubKeyComp</references>
+        <references refid="struct_x_asu___rsa_pvt_key_comp_1a062bb63966c303087965d1e37b767428" compoundref="xasu__rsainfo_8h" startline="111">XAsu_RsaPvtKeyComp::PvtExp</references>
+        <references refid="struct_x_asu___key_wrap_params_1ab5d016c0e32be8c69f03308ef2491508" compoundref="xasu__keywrapinfo_8h" startline="75">XAsu_KeyWrapParams::RsaKeyId</references>
+        <references refid="struct_x_asu___key_wrap_params_1a38fcf90cf3ca3349320ec043a58e065b" compoundref="xasu__keywrapinfo_8h" startline="68">XAsu_KeyWrapParams::RsaKeySize</references>
+        <references refid="struct_x_asu___key_wrap_params_1a3d2c47719c3dab4ce5dd8222487751b8" compoundref="xasu__keywrapinfo_8h" startline="79">XAsu_KeyWrapParams::ShaMode</references>
+        <references refid="struct_x_asu___key_wrap_params_1abb2a09abd19af9c8165f7dadf6b365ab" compoundref="xasu__keywrapinfo_8h" startline="78">XAsu_KeyWrapParams::ShaType</references>
+        <references refid="group__xasu__common__defs_1ga565a9f9f9f947674eb43a1ce60e638d6" compoundref="xasu__aesinfo_8h" startline="103">XASU_AES_KEY_SIZE_256_BITS</references>
+        <references refid="group__xasu__client__info_1ga3dc785000c560adedbb23beb0404beee" compoundref="xasu__client_8c" startline="127" endline="177">XAsu_ClientInit</references>
+        <references refid="group__xasu__common__defs_1ga2ce83e6be7ef8a6dc0ec9067b7e8f396" compoundref="xasu__def_8h" startline="46">XASU_CMD_SECURE</references>
+        <references refid="group__xasu__keywrap__client__apis_1ga5182a3df4600b1e0c78db02eab118fe7" compoundref="xasu__keywrap_8c" startline="129" endline="178">XAsu_KeyUnwrap</references>
+        <references refid="group__xasu__keywrap__client__apis_1gad64883d138efba842bfc4961b3c8ee0f" compoundref="xasu__keywrap_8c" startline="61" endline="110">XAsu_KeyWrap</references>
+        <references refid="group__xasu__keywrap__client__example_1ga7718a8369314053fa0d9bacbc2a784cb" compoundref="xasu__keywrap__example_8c" startline="39">XASU_KEYWRAP_INPUT_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__keywrap__client__example_1gabba3327756b50588a5aad980277ea39e" compoundref="xasu__keywrap__example_8c" startline="41">XASU_KEYWRAP_OUTPUT_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__keywrap__client__example_1ga2384dc543a2c3a267b328d6b592db417" compoundref="xasu__keywrap__example_8c" startline="38">XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__client__info_1gaf4bee00214accc868d4697e6745d83ca" compoundref="xasu__client_8h" startline="50">XASU_PRIORITY_HIGH</references>
+        <references refid="group__xasu__keywrap__client__example_1ga53d0fa016126e0a90a01c81e00515464" compoundref="xasu__keywrap__example_8c" startline="40">XASU_RSA_OPTIONAL_DATA_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="57">XASU_SHA2_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga1b2246776bc9c632002768c9edd40340" compoundref="xasu__shainfo_8h" startline="51">XASU_SHA_MODE_256</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cache.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__keywrap_8h" kindref="compound">xasu_keywrap.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__client_8h" kindref="compound">xasu_client.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__rsainfo_8h" kindref="compound">xasu_rsainfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__shainfo_8h" kindref="compound">xasu_shainfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__aesinfo_8h" kindref="compound">xasu_aesinfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38" refid="group__xasu__keywrap__client__example_1ga2384dc543a2c3a267b328d6b592db417" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES<sp/>(512U)<sp/><sp/></highlight></codeline>
+<codeline lineno="39" refid="group__xasu__keywrap__client__example_1ga7718a8369314053fa0d9bacbc2a784cb" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_KEYWRAP_INPUT_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(31U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="40" refid="group__xasu__keywrap__client__example_1ga53d0fa016126e0a90a01c81e00515464" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_RSA_OPTIONAL_DATA_SIZE_IN_BYTES<sp/><sp/><sp/><sp/>(2U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="41" refid="group__xasu__keywrap__client__example_1gabba3327756b50588a5aad980277ea39e" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_KEYWRAP_OUTPUT_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(552U)<sp/><sp/></highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor">#define<sp/>XASU_CACHE_DISABLE</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XAsu_KeywrapunwrapCallBackRef(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u32<sp/>Status);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>XAsu_RsaModulus[<ref refid="group__xasu__keywrap__client__example_1ga2384dc543a2c3a267b328d6b592db417" kindref="member">XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES</ref>]<sp/>__attribute__<sp/>((</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>section<sp/>(</highlight><highlight class="stringliteral">&quot;.data.XAsu_RsaModulus&quot;</highlight><highlight class="normal">)))<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xCCU,<sp/>0x90U,<sp/>0xB4U,<sp/>0xB1U,<sp/>0xF1U,<sp/>0xC1U,<sp/>0xD3U,<sp/>0x9DU,<sp/>0x98U,<sp/>0xB1U,<sp/>0x34U,<sp/>0x49U,<sp/>0x92U,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xCDU,<sp/>0xFDU,<sp/>0xD1U,<sp/>0xCFU,<sp/>0x87U,<sp/>0x43U,<sp/>0x52U,<sp/>0xAFU,<sp/>0x9CU,<sp/>0x5CU,<sp/>0xFBU,<sp/>0x62U,<sp/>0xC9U,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xAAU,<sp/>0x7EU,<sp/>0xCAU,<sp/>0xFDU,<sp/>0x0EU,<sp/>0x2AU,<sp/>0xF9U,<sp/>0xBFU,<sp/>0x86U,<sp/>0xBCU,<sp/>0xDEU,<sp/>0xFDU,<sp/>0x10U,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x42U,<sp/>0x79U,<sp/>0xF2U,<sp/>0x18U,<sp/>0x6BU,<sp/>0xB1U,<sp/>0xCFU,<sp/>0x8DU,<sp/>0x66U,<sp/>0xDEU,<sp/>0xB0U,<sp/>0x64U,<sp/>0x1EU,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xB1U,<sp/>0x45U,<sp/>0x45U,<sp/>0x20U,<sp/>0x80U,<sp/>0xCCU,<sp/>0xCBU,<sp/>0x6AU,<sp/>0xADU,<sp/>0x1AU,<sp/>0x0AU,<sp/>0x2AU,<sp/>0xA9U,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xE2U,<sp/>0xA6U,<sp/>0x41U,<sp/>0xABU,<sp/>0xD3U,<sp/>0x3AU,<sp/>0xEDU,<sp/>0x34U,<sp/>0x71U,<sp/>0x2EU,<sp/>0x2DU,<sp/>0x08U,<sp/>0xF5U,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x16U,<sp/>0x7BU,<sp/>0x89U,<sp/>0xEBU,<sp/>0xBAU,<sp/>0xD5U,<sp/>0x86U,<sp/>0x33U,<sp/>0x0FU,<sp/>0x26U,<sp/>0x80U,<sp/>0x9FU,<sp/>0x3CU,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x98U,<sp/>0x11U,<sp/>0x62U,<sp/>0xDCU,<sp/>0x12U,<sp/>0x41U,<sp/>0xE9U,<sp/>0x7AU,<sp/>0x3CU,<sp/>0xD9U,<sp/>0x1BU,<sp/>0x0CU,<sp/>0xE5U,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x33U,<sp/>0x55U,<sp/>0x25U,<sp/>0x51U,<sp/>0xEFU,<sp/>0x2DU,<sp/>0xF2U,<sp/>0x3EU,<sp/>0x6EU,<sp/>0x7FU,<sp/>0xF9U,<sp/>0x76U,<sp/>0x86U,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x6CU,<sp/>0xA9U,<sp/>0x3CU,<sp/>0x04U,<sp/>0xFFU,<sp/>0xADU,<sp/>0xD1U,<sp/>0x9DU,<sp/>0x93U,<sp/>0xC1U,<sp/>0x04U,<sp/>0x4CU,<sp/>0x55U,</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xABU,<sp/>0xFDU,<sp/>0xE7U,<sp/>0x71U,<sp/>0xAFU,<sp/>0xF5U,<sp/>0xA6U,<sp/>0xE1U,<sp/>0x51U,<sp/>0xE7U,<sp/>0xBAU,<sp/>0x4DU,<sp/>0x94U,</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x22U,<sp/>0xD2U,<sp/>0x07U,<sp/>0x7BU,<sp/>0x64U,<sp/>0x11U,<sp/>0xC2U,<sp/>0x56U,<sp/>0xFAU,<sp/>0xBEU,<sp/>0x7CU,<sp/>0x1DU,<sp/>0x5FU,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x57U,<sp/>0x66U,<sp/>0x4EU,<sp/>0x88U,<sp/>0xD4U,<sp/>0x58U,<sp/>0x1FU,<sp/>0x12U,<sp/>0x07U,<sp/>0x65U,<sp/>0x77U,<sp/>0xA3U,<sp/>0x2AU,</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF4U,<sp/>0x8DU,<sp/>0xDEU,<sp/>0xDAU,<sp/>0x3CU,<sp/>0xA1U,<sp/>0x0DU,<sp/>0x41U,<sp/>0x3EU,<sp/>0x58U,<sp/>0x77U,<sp/>0x1EU,<sp/>0x59U,</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x71U,<sp/>0xDBU,<sp/>0xD2U,<sp/>0xDDU,<sp/>0x48U,<sp/>0x20U,<sp/>0xE8U,<sp/>0xB9U,<sp/>0x09U,<sp/>0xB0U,<sp/>0xD5U,<sp/>0x95U,<sp/>0x26U,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xCFU,<sp/>0xAEU,<sp/>0x4FU,<sp/>0x31U,<sp/>0xDFU,<sp/>0x10U,<sp/>0xE7U,<sp/>0x7BU,<sp/>0x34U,<sp/>0x44U,<sp/>0x3EU,<sp/>0x2DU,<sp/>0x4EU,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7EU,<sp/>0x9BU,<sp/>0xBAU,<sp/>0x9CU,<sp/>0xBDU,<sp/>0xB4U,<sp/>0xC9U,<sp/>0xD9U,<sp/>0x8AU,<sp/>0x09U,<sp/>0x74U,<sp/>0x75U,<sp/>0x3DU,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xD2U,<sp/>0x9FU,<sp/>0xDFU,<sp/>0x1AU,<sp/>0xE8U,<sp/>0x6AU,<sp/>0xA0U,<sp/>0x09U,<sp/>0xD3U,<sp/>0x66U,<sp/>0x04U,<sp/>0x8DU,<sp/>0xA8U,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7BU,<sp/>0x4BU,<sp/>0x2EU,<sp/>0x3AU,<sp/>0x42U,<sp/>0xACU,<sp/>0xD7U,<sp/>0x24U,<sp/>0xFFU,<sp/>0x5FU,<sp/>0x9CU,<sp/>0x09U,<sp/>0x7FU,</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xEFU,<sp/>0x22U,<sp/>0xA5U,<sp/>0x5AU,<sp/>0x7EU,<sp/>0x3BU,<sp/>0x63U,<sp/>0x36U,<sp/>0x38U,<sp/>0xF8U,<sp/>0xEBU,<sp/>0xFFU,<sp/>0xAEU,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFDU,<sp/>0xDEU,<sp/>0x19U,<sp/>0xB6U,<sp/>0x38U,<sp/>0xC2U,<sp/>0x91U,<sp/>0x83U,<sp/>0x75U,<sp/>0x5FU,<sp/>0x86U,<sp/>0x9EU,<sp/>0xA7U,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x99U,<sp/>0xA1U,<sp/>0xC0U,<sp/>0x75U,<sp/>0x7EU,<sp/>0x43U,<sp/>0x8CU,<sp/>0xE7U,<sp/>0x4BU,<sp/>0x66U,<sp/>0x4CU,<sp/>0x3BU,<sp/>0xBBU,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x11U,<sp/>0x3EU,<sp/>0xF2U,<sp/>0x9DU,<sp/>0x84U,<sp/>0x4AU,<sp/>0x2FU,<sp/>0xACU,<sp/>0xBFU,<sp/>0x2CU,<sp/>0xC2U,<sp/>0xA9U,<sp/>0x97U,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xDCU,<sp/>0xC4U,<sp/>0x0FU,<sp/>0x09U,<sp/>0x2CU,<sp/>0xCCU,<sp/>0x1DU,<sp/>0x57U,<sp/>0xD6U,<sp/>0x34U,<sp/>0xB0U,<sp/>0x43U,<sp/>0xB9U,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFBU,<sp/>0x45U,<sp/>0xC9U,<sp/>0x51U,<sp/>0xE8U,<sp/>0x87U,<sp/>0x39U,<sp/>0x90U,<sp/>0x49U,<sp/>0x81U,<sp/>0x1FU,<sp/>0x0EU,<sp/>0x6DU,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1AU,<sp/>0x4FU,<sp/>0xC2U,<sp/>0x04U,<sp/>0xEEU,<sp/>0x69U,<sp/>0xF0U,<sp/>0x67U,<sp/>0xCEU,<sp/>0xDCU,<sp/>0x92U,<sp/>0xC5U,<sp/>0x8CU,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xCEU,<sp/>0x91U,<sp/>0x89U,<sp/>0x2CU,<sp/>0x56U,<sp/>0xFBU,<sp/>0xF8U,<sp/>0x70U,<sp/>0x8FU,<sp/>0xB9U,<sp/>0xCFU,<sp/>0xA0U,<sp/>0xBDU,</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x9FU,<sp/>0x8AU,<sp/>0xF7U,<sp/>0xC5U,<sp/>0xEDU,<sp/>0xA1U,<sp/>0x57U,<sp/>0xD4U,<sp/>0x27U,<sp/>0x70U,<sp/>0x34U,<sp/>0xD5U,<sp/>0x59U,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x6AU,<sp/>0x93U,<sp/>0x48U,<sp/>0x11U,<sp/>0x00U,<sp/>0x02U,<sp/>0xD0U,<sp/>0x92U,<sp/>0xE6U,<sp/>0x1BU,<sp/>0xA3U,<sp/>0xFCU,<sp/>0xF8U,</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04U,<sp/>0x64U,<sp/>0x08U,<sp/>0x0BU,<sp/>0xDBU,<sp/>0x49U,<sp/>0x93U,<sp/>0xE3U,<sp/>0xB4U,<sp/>0x4DU,<sp/>0x68U,<sp/>0xEBU,<sp/>0x9EU,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xEAU,<sp/>0xABU,<sp/>0x19U,<sp/>0x36U,<sp/>0xA3U,<sp/>0xCFU,<sp/>0x39U,<sp/>0x6AU,<sp/>0xDDU,<sp/>0x24U,<sp/>0x1AU,<sp/>0x4EU,<sp/>0x70U,</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x64U,<sp/>0xF4U,<sp/>0x0CU,<sp/>0x2CU,<sp/>0x54U,<sp/>0xCEU,<sp/>0xB3U,<sp/>0x78U,<sp/>0x53U,<sp/>0xEAU,<sp/>0x2DU,<sp/>0xB0U,<sp/>0xDBU,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xEEU,<sp/>0x58U,<sp/>0x86U,<sp/>0x00U,<sp/>0x42U,<sp/>0x99U,<sp/>0x8FU,<sp/>0xCFU,<sp/>0x2EU,<sp/>0x1FU,<sp/>0xCBU,<sp/>0xA5U,<sp/>0x60U,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x44U,<sp/>0xD4U,<sp/>0xBEU,<sp/>0x05U,<sp/>0x2CU,<sp/>0xD4U,<sp/>0x62U,<sp/>0xD8U,<sp/>0xB4U,<sp/>0x38U,<sp/>0xCBU,<sp/>0x80U,<sp/>0x38U,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x78U,<sp/>0x42U,<sp/>0x43U,<sp/>0xACU,<sp/>0xEBU,<sp/>0xA5U,<sp/>0xBDU,<sp/>0x05U,<sp/>0xFCU,<sp/>0x13U,<sp/>0xA7U,<sp/>0x2BU,<sp/>0x67U,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x82U,<sp/>0x02U,<sp/>0x4CU,<sp/>0x74U,<sp/>0x8EU,<sp/>0xAAU,<sp/>0xD0U,<sp/>0x28U,<sp/>0xD1U,<sp/>0x39U,<sp/>0x8CU,<sp/>0xEFU,<sp/>0x61U,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xB2U,<sp/>0xFFU,<sp/>0x60U,<sp/>0x41U,<sp/>0x83U,<sp/>0x99U,<sp/>0x81U,<sp/>0x4DU,<sp/>0xCFU,<sp/>0x81U,<sp/>0x7CU,<sp/>0xCCU,<sp/>0xECU,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xE3U,<sp/>0xF5U,<sp/>0xF1U,<sp/>0x17U,<sp/>0x2BU,<sp/>0x32U,<sp/>0xF2U,<sp/>0x46U,<sp/>0x8AU,<sp/>0xC4U,<sp/>0x93U,<sp/>0x20U,<sp/>0xC1U,</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xD8U,<sp/>0xFCU,<sp/>0xC8U,<sp/>0x23U,<sp/>0x71U,<sp/>0xBFU,<sp/>0x37U,<sp/>0x85U,<sp/>0x00U,<sp/>0x7CU,<sp/>0xEDU,<sp/>0xB6U,<sp/>0x84U,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xABU,<sp/>0x45U,<sp/>0x00U,<sp/>0x39U,<sp/>0xA5U</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>XAsu_RsaPrivateExp[<ref refid="group__xasu__keywrap__client__example_1ga2384dc543a2c3a267b328d6b592db417" kindref="member">XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES</ref>]<sp/>__attribute__<sp/>((</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>section<sp/>(</highlight><highlight class="stringliteral">&quot;.data.XAsu_RsaPrivateExp&quot;</highlight><highlight class="normal">)))<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x07U,<sp/>0x31U,<sp/>0xDBU,<sp/>0xB9U,<sp/>0x1AU,<sp/>0x78U,<sp/>0xA7U,<sp/>0xB9U,<sp/>0xB6U,<sp/>0x42U,<sp/>0x1DU,<sp/>0x45U,<sp/>0xADU,</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2DU,<sp/>0x23U,<sp/>0x8DU,<sp/>0x3AU,<sp/>0x90U,<sp/>0x56U,<sp/>0x54U,<sp/>0xD5U,<sp/>0x2AU,<sp/>0x59U,<sp/>0xB6U,<sp/>0xD9U,<sp/>0xBDU,</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xA0U,<sp/>0x0AU,<sp/>0x7FU,<sp/>0x97U,<sp/>0x30U,<sp/>0xE5U,<sp/>0x60U,<sp/>0x0DU,<sp/>0x55U,<sp/>0x6EU,<sp/>0xD5U,<sp/>0x24U,<sp/>0xEFU,</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x6AU,<sp/>0x77U,<sp/>0x21U,<sp/>0x85U,<sp/>0xACU,<sp/>0x5BU,<sp/>0xFFU,<sp/>0xA1U,<sp/>0xC8U,<sp/>0x89U,<sp/>0x72U,<sp/>0x88U,<sp/>0xC2U,</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xEFU,<sp/>0x97U,<sp/>0x31U,<sp/>0x1CU,<sp/>0x38U,<sp/>0x8BU,<sp/>0x7BU,<sp/>0x68U,<sp/>0x10U,<sp/>0x18U,<sp/>0x87U,<sp/>0x5DU,<sp/>0x02U,</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xC6U,<sp/>0x9EU,<sp/>0xF4U,<sp/>0x56U,<sp/>0x57U,<sp/>0xC2U,<sp/>0x8DU,<sp/>0xCFU,<sp/>0x37U,<sp/>0x5FU,<sp/>0xD9U,<sp/>0x63U,<sp/>0xA4U,</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x43U,<sp/>0x1BU,<sp/>0x2BU,<sp/>0x39U,<sp/>0xA8U,<sp/>0x43U,<sp/>0x94U,<sp/>0x49U,<sp/>0xBDU,<sp/>0x71U,<sp/>0xACU,<sp/>0x3AU,<sp/>0x6DU,</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x86U,<sp/>0x27U,<sp/>0xAEU,<sp/>0x63U,<sp/>0x71U,<sp/>0x1CU,<sp/>0xF2U,<sp/>0x5AU,<sp/>0x43U,<sp/>0x43U,<sp/>0x9BU,<sp/>0x88U,<sp/>0xF3U,</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x92U,<sp/>0xBFU,<sp/>0x9EU,<sp/>0xE5U,<sp/>0x67U,<sp/>0xD5U,<sp/>0x24U,<sp/>0xDCU,<sp/>0xFFU,<sp/>0x43U,<sp/>0xEFU,<sp/>0x01U,<sp/>0x35U,</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2FU,<sp/>0x23U,<sp/>0x30U,<sp/>0xA2U,<sp/>0x38U,<sp/>0x5FU,<sp/>0xE3U,<sp/>0xACU,<sp/>0x78U,<sp/>0x22U,<sp/>0xE4U,<sp/>0xC4U,<sp/>0xCEU,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x8AU,<sp/>0x93U,<sp/>0x0EU,<sp/>0x8DU,<sp/>0xD8U,<sp/>0x13U,<sp/>0x7AU,<sp/>0xC0U,<sp/>0x18U,<sp/>0x02U,<sp/>0x5FU,<sp/>0x72U,<sp/>0x15U,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10U,<sp/>0xB8U,<sp/>0x74U,<sp/>0x5CU,<sp/>0xE9U,<sp/>0xA3U,<sp/>0x1AU,<sp/>0x43U,<sp/>0xB6U,<sp/>0xE3U,<sp/>0xF6U,<sp/>0x37U,<sp/>0x8EU,</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3FU,<sp/>0xE3U,<sp/>0xB0U,<sp/>0x45U,<sp/>0x6DU,<sp/>0xBAU,<sp/>0x7FU,<sp/>0xB5U,<sp/>0x41U,<sp/>0x9FU,<sp/>0x56U,<sp/>0xFAU,<sp/>0xDDU,</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2AU,<sp/>0xE6U,<sp/>0xC6U,<sp/>0x7CU,<sp/>0xC4U,<sp/>0x7FU,<sp/>0x21U,<sp/>0x99U,<sp/>0x36U,<sp/>0xD9U,<sp/>0x23U,<sp/>0xAFU,<sp/>0x64U,</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x93U,<sp/>0xF5U,<sp/>0x98U,<sp/>0x50U,<sp/>0x02U,<sp/>0x16U,<sp/>0x6EU,<sp/>0x38U,<sp/>0xFBU,<sp/>0xD7U,<sp/>0x45U,<sp/>0x5BU,<sp/>0xCEU,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x96U,<sp/>0xA5U,<sp/>0x59U,<sp/>0xD1U,<sp/>0xB6U,<sp/>0x37U,<sp/>0xC0U,<sp/>0xFCU,<sp/>0x7BU,<sp/>0x55U,<sp/>0x1FU,<sp/>0x1EU,<sp/>0xB6U,</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xD1U,<sp/>0x0BU,<sp/>0x27U,<sp/>0x20U,<sp/>0x16U,<sp/>0x28U,<sp/>0x02U,<sp/>0xA5U,<sp/>0x6DU,<sp/>0x0EU,<sp/>0x72U,<sp/>0x13U,<sp/>0x21U,</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x8EU,<sp/>0x83U,<sp/>0xE2U,<sp/>0xF3U,<sp/>0xEEU,<sp/>0x52U,<sp/>0xB9U,<sp/>0xB8U,<sp/>0x3EU,<sp/>0xC0U,<sp/>0x2AU,<sp/>0xCEU,<sp/>0xD4U,</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xABU,<sp/>0x29U,<sp/>0x74U,<sp/>0xC1U,<sp/>0xC5U,<sp/>0xD0U,<sp/>0x90U,<sp/>0x6CU,<sp/>0x93U,<sp/>0xB2U,<sp/>0xC8U,<sp/>0x29U,<sp/>0x29U,</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x5FU,<sp/>0xBEU,<sp/>0xC7U,<sp/>0x34U,<sp/>0x0CU,<sp/>0x96U,<sp/>0x88U,<sp/>0x21U,<sp/>0xC3U,<sp/>0x05U,<sp/>0x1DU,<sp/>0x3EU,<sp/>0x31U,</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3BU,<sp/>0xDFU,<sp/>0x6FU,<sp/>0x57U,<sp/>0xF1U,<sp/>0xD4U,<sp/>0x9CU,<sp/>0x6CU,<sp/>0x48U,<sp/>0x8FU,<sp/>0xCDU,<sp/>0x88U,<sp/>0xE4U,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xC0U,<sp/>0x8EU,<sp/>0xDAU,<sp/>0x79U,<sp/>0x27U,<sp/>0x50U,<sp/>0xA8U,<sp/>0x7CU,<sp/>0xB9U,<sp/>0x38U,<sp/>0xA3U,<sp/>0x93U,<sp/>0x67U,</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x36U,<sp/>0x35U,<sp/>0x35U,<sp/>0xB3U,<sp/>0x2AU,<sp/>0x4DU,<sp/>0x16U,<sp/>0x96U,<sp/>0x47U,<sp/>0x98U,<sp/>0x27U,<sp/>0xEFU,<sp/>0xDEU,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x23U,<sp/>0xE6U,<sp/>0xFBU,<sp/>0x4BU,<sp/>0xAFU,<sp/>0x7AU,<sp/>0xB1U,<sp/>0x9BU,<sp/>0x7CU,<sp/>0x05U,<sp/>0xBEU,<sp/>0x0EU,<sp/>0xCEU,</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x69U,<sp/>0x53U,<sp/>0xF0U,<sp/>0x76U,<sp/>0xC1U,<sp/>0x89U,<sp/>0xCCU,<sp/>0xF2U,<sp/>0xCAU,<sp/>0x2CU,<sp/>0xBBU,<sp/>0xA4U,<sp/>0xFEU,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3CU,<sp/>0x3DU,<sp/>0xAFU,<sp/>0xBCU,<sp/>0x25U,<sp/>0x4AU,<sp/>0x53U,<sp/>0x4BU,<sp/>0xE9U,<sp/>0x85U,<sp/>0x55U,<sp/>0xF1U,<sp/>0x79U,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x70U,<sp/>0xDFU,<sp/>0x57U,<sp/>0x23U,<sp/>0x55U,<sp/>0x7DU,<sp/>0x7AU,<sp/>0x5CU,<sp/>0xA7U,<sp/>0xEEU,<sp/>0xFBU,<sp/>0x00U,<sp/>0x35U,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1EU,<sp/>0xE3U,<sp/>0xF1U,<sp/>0xFDU,<sp/>0x3EU,<sp/>0x94U,<sp/>0x70U,<sp/>0x88U,<sp/>0x91U,<sp/>0xFAU,<sp/>0xC6U,<sp/>0xCBU,<sp/>0x05U,</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xE1U,<sp/>0xCDU,<sp/>0x7DU,<sp/>0xD1U,<sp/>0xE3U,<sp/>0x2BU,<sp/>0x7FU,<sp/>0xB4U,<sp/>0x64U,<sp/>0x1CU,<sp/>0x94U,<sp/>0x1EU,<sp/>0xC2U,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x55U,<sp/>0x6CU,<sp/>0x78U,<sp/>0x22U,<sp/>0x27U,<sp/>0x90U,<sp/>0xBAU,<sp/>0x33U,<sp/>0x0EU,<sp/>0xADU,<sp/>0x5DU,<sp/>0x55U,<sp/>0xD9U,</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xDFU,<sp/>0x7BU,<sp/>0x83U,<sp/>0xA5U,<sp/>0x2BU,<sp/>0x4FU,<sp/>0xA0U,<sp/>0x36U,<sp/>0x3CU,<sp/>0x67U,<sp/>0xDDU,<sp/>0xC4U,<sp/>0x00U,</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x50U,<sp/>0x90U,<sp/>0x12U,<sp/>0xE1U,<sp/>0x8AU,<sp/>0x65U,<sp/>0x35U,<sp/>0x13U,<sp/>0x9EU,<sp/>0xB2U,<sp/>0x0CU,<sp/>0xE4U,<sp/>0xEAU,</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x51U,<sp/>0x2FU,<sp/>0xCDU,<sp/>0xAEU,<sp/>0x35U,<sp/>0x41U,<sp/>0x1EU,<sp/>0xFAU,<sp/>0x5AU,<sp/>0x6CU,<sp/>0xB6U,<sp/>0xC1U,<sp/>0xA7U,</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFEU,<sp/>0x69U,<sp/>0x6FU,<sp/>0x7DU,<sp/>0x50U,<sp/>0xFCU,<sp/>0xABU,<sp/>0x5FU,<sp/>0xADU,<sp/>0x0CU,<sp/>0x2BU,<sp/>0x58U,<sp/>0xF6U,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xB3U,<sp/>0x33U,<sp/>0x1FU,<sp/>0xF4U,<sp/>0x3AU,<sp/>0xDAU,<sp/>0x89U,<sp/>0xD3U,<sp/>0x0EU,<sp/>0x79U,<sp/>0x7BU,<sp/>0x31U,<sp/>0x8EU,</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x15U,<sp/>0x84U,<sp/>0xECU,<sp/>0x2CU,<sp/>0x05U,<sp/>0x2FU,<sp/>0xA9U,<sp/>0x52U,<sp/>0xF6U,<sp/>0x59U,<sp/>0x94U,<sp/>0xBFU,<sp/>0xC0U,</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4BU,<sp/>0xCDU,<sp/>0x40U,<sp/>0xFBU,<sp/>0x24U,<sp/>0x44U,<sp/>0x0FU,<sp/>0x76U,<sp/>0x11U,<sp/>0xE8U,<sp/>0xD1U,<sp/>0xE3U,<sp/>0x13U,</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x26U,<sp/>0xEFU,<sp/>0xFAU,<sp/>0xA9U,<sp/>0xE3U,<sp/>0xDBU,<sp/>0x73U,<sp/>0x29U,<sp/>0x80U,<sp/>0x4DU,<sp/>0x61U,<sp/>0x74U,<sp/>0x3CU,</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x12U,<sp/>0x50U,<sp/>0xFDU,<sp/>0xDDU,<sp/>0xEAU,<sp/>0x72U,<sp/>0xE4U,<sp/>0x88U,<sp/>0x8BU,<sp/>0x20U,<sp/>0x1AU,<sp/>0x3BU,<sp/>0x36U,</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xE8U,<sp/>0xB8U,<sp/>0x98U,<sp/>0x55U,<sp/>0xCDU</highlight></codeline>
+<codeline lineno="137"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>XAsu_KeywrapInput[<ref refid="group__xasu__keywrap__client__example_1ga7718a8369314053fa0d9bacbc2a784cb" kindref="member">XASU_KEYWRAP_INPUT_SIZE_IN_BYTES</ref>]<sp/>__attribute__<sp/>((</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>section<sp/>(</highlight><highlight class="stringliteral">&quot;.data.XAsu_KeywrapInput&quot;</highlight><highlight class="normal">)))<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2cU,<sp/>0xe9U,<sp/>0x3aU,<sp/>0x23U,<sp/>0x22U,<sp/>0x69U,<sp/>0xfeU,<sp/>0x10U,<sp/>0x59U,<sp/>0xcaU,<sp/>0x99U,<sp/>0x2aU,<sp/>0xd8U,</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xb7U,<sp/>0x07U,<sp/>0xfeU,<sp/>0x2eU,<sp/>0x72U,<sp/>0x33U,<sp/>0xe5U,<sp/>0xabU,<sp/>0xb3U,<sp/>0xdeU,<sp/>0x0dU,<sp/>0x7fU,<sp/>0xf7U,</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x25U,<sp/>0x2aU,<sp/>0x78U,<sp/>0xc9U,<sp/>0x9dU</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>XAsu_RsaOpt[<ref refid="group__xasu__keywrap__client__example_1ga53d0fa016126e0a90a01c81e00515464" kindref="member">XASU_RSA_OPTIONAL_DATA_SIZE_IN_BYTES</ref><sp/>+<sp/>1U]<sp/>__attribute__<sp/>((</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>section<sp/>(</highlight><highlight class="stringliteral">&quot;.data.XAsu_RsaOpt&quot;</highlight><highlight class="normal">)))<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;HI&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>XAsu_RsaPublicExp</highlight></codeline>
+<codeline lineno="150"><highlight class="normal">__attribute__<sp/>((section<sp/>(</highlight><highlight class="stringliteral">&quot;.data.XAsu_RsaPublicExp&quot;</highlight><highlight class="normal">)))<sp/>=<sp/>0x1000100U;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>XAsu_KeyWrapWrappedOutput[<ref refid="group__xasu__keywrap__client__example_1gabba3327756b50588a5aad980277ea39e" kindref="member">XASU_KEYWRAP_OUTPUT_SIZE_IN_BYTES</ref>]<sp/>__attribute__<sp/>((</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>section<sp/>(</highlight><highlight class="stringliteral">&quot;.data.XAsu_KeyWrapWrappedOutput&quot;</highlight><highlight class="normal">)));</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>XAsu_KeyWrapUnwrappedOutput[<ref refid="group__xasu__keywrap__client__example_1ga7718a8369314053fa0d9bacbc2a784cb" kindref="member">XASU_KEYWRAP_INPUT_SIZE_IN_BYTES</ref>]<sp/>__attribute__<sp/>((</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>section<sp/>(</highlight><highlight class="stringliteral">&quot;.data.XAsu_KeyWrapUnwrappedOutput&quot;</highlight><highlight class="normal">)));</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XAsu_KeyWrapOutputLen<sp/>__attribute__<sp/>((section<sp/>(</highlight><highlight class="stringliteral">&quot;.data.XAsu_KeyWrapOutputLen&quot;</highlight><highlight class="normal">)));</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XAsu_KeyWrapUnwrapOutputLen</highlight></codeline>
+<codeline lineno="159"><highlight class="normal">__attribute__<sp/>((section<sp/>(</highlight><highlight class="stringliteral">&quot;.data.XAsu_KeyWrapUnwrapOutputLen&quot;</highlight><highlight class="normal">)));</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/><ref refid="group__xasufw__ecc__client__example_1ga15547568239beb028a917f170b866338" kindref="member">Notify</ref><sp/>=<sp/>0;<sp/></highlight></codeline>
+<codeline lineno="162" refid="group__xasu__keywrap__client__example_1ga89bdef12ea1ad95bf3acb2ef59e4d299" refkind="member"><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/><ref refid="group__xasufw__ecc__client__example_1ga89bdef12ea1ad95bf3acb2ef59e4d299" kindref="member">ErrorStatus</ref><sp/>=<sp/>XST_FAILURE;<sp/></highlight></codeline>
+<codeline lineno="164"><highlight class="comment">/************************************<sp/>Function<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="175" refid="group__xasu__keywrap__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="176"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___key_wrap_params" kindref="compound">XAsu_KeyWrapParams</ref><sp/>KwpunwpClientParam<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAsu_ClientParams<sp/>ClientParam<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___rsa_pub_key_comp" kindref="compound">XAsu_RsaPubKeyComp</ref><sp/>PubKeyParam<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___rsa_pvt_key_comp" kindref="compound">XAsu_RsaPvtKeyComp</ref><sp/>PvtKeyParam<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMailbox<sp/>MailboxInstance;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XASU_CACHE_DISABLE</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheDisable();</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>client<sp/>parameters<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParam.Priority<sp/>=<sp/><ref refid="group__xasu__client__info_1gaf4bee00214accc868d4697e6745d83ca" kindref="member">XASU_PRIORITY_HIGH</ref>;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParam.SecureFlag<sp/>=<sp/><ref refid="group__xasu__common__defs_1ga2ce83e6be7ef8a6dc0ec9067b7e8f396" kindref="member">XASU_CMD_SECURE</ref>;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParam.CallBackFuncPtr<sp/>=<sp/>(<ref refid="group__xasu__client__info_1gab35273f00eccc22237ed1fa5cffda558" kindref="member">XAsuClient_ResponseHandler</ref>)((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)XAsu_KeywrapunwrapCallBackRef);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParam.CallBackRefPtr<sp/>=<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)&amp;ClientParam;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XMailbox_Initialize(&amp;MailboxInstance,<sp/>XPAR_XIPIPSU_0_BASEADDR);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;Mailbox<sp/>initialize<sp/>failed:<sp/>%08x<sp/>\r\n&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>client<sp/>instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1ga3dc785000c560adedbb23beb0404beee" kindref="member">XAsu_ClientInit</ref>(&amp;MailboxInstance);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;Client<sp/>initialize<sp/>failed:%08x<sp/>\r\n&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>RSA<sp/>key<sp/>parameters<sp/>for<sp/>RSA<sp/>OAEP<sp/>operation<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PubKeyParam.<ref refid="struct_x_asu___rsa_pub_key_comp_1a9ad687d0df69d07e4584833f13049d22" kindref="member">Keysize</ref><sp/>=<sp/><ref refid="group__xasu__keywrap__client__example_1ga2384dc543a2c3a267b328d6b592db417" kindref="member">XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PubKeyParam.<ref refid="struct_x_asu___rsa_pub_key_comp_1a0b396660fe58b779190f084389c92bb4" kindref="member">PubExp</ref><sp/>=<sp/>XAsu_RsaPublicExp;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_SMemCpy(PubKeyParam.<ref refid="struct_x_asu___rsa_pub_key_comp_1a227d2fe9cecd9dae88b63cd268a0eebe" kindref="member">Modulus</ref>,<sp/><ref refid="group__xasu__keywrap__client__example_1ga2384dc543a2c3a267b328d6b592db417" kindref="member">XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES</ref>,<sp/>XAsu_RsaModulus,</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__keywrap__client__example_1ga2384dc543a2c3a267b328d6b592db417" kindref="member">XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES</ref>,<sp/><ref refid="group__xasu__keywrap__client__example_1ga2384dc543a2c3a267b328d6b592db417" kindref="member">XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PvtKeyParam.<ref refid="struct_x_asu___rsa_pvt_key_comp_1aefcc19b50b4d9737f74baeca5f256529" kindref="member">PubKeyComp</ref><sp/>=<sp/>PubKeyParam;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PvtKeyParam.<ref refid="struct_x_asu___rsa_pvt_key_comp_1aee026bc85163c5d997042dc1895c48be" kindref="member">PrimeCompOrTotientPrsnt</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_SMemCpy(PvtKeyParam.<ref refid="struct_x_asu___rsa_pvt_key_comp_1a062bb63966c303087965d1e37b767428" kindref="member">PvtExp</ref>,<sp/><ref refid="group__xasu__keywrap__client__example_1ga2384dc543a2c3a267b328d6b592db417" kindref="member">XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES</ref>,<sp/>XAsu_RsaPrivateExp,</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__keywrap__client__example_1ga2384dc543a2c3a267b328d6b592db417" kindref="member">XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES</ref>,<sp/><ref refid="group__xasu__keywrap__client__example_1ga2384dc543a2c3a267b328d6b592db417" kindref="member">XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Key<sp/>wrap<sp/>parameters<sp/>structure<sp/>initialization<sp/>for<sp/>encryption<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorStatus<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1a7e975623b5d478db1451042b05b662ea" kindref="member">InputDataAddr</ref><sp/>=<sp/>(u64)(UINTPTR)XAsu_KeywrapInput;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1aa7cbcf8280698e9df3458951df9959ec" kindref="member">OutputDataAddr</ref><sp/>=<sp/>(u64)(UINTPTR)XAsu_KeyWrapWrappedOutput;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1a994f49dc1b961429ba8cb8170d8bc0ba" kindref="member">ExpoCompAddr</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1ac1f5e0fc07b7e1b19fcccfe352442269" kindref="member">KeyCompAddr</ref><sp/>=<sp/>(u64)(UINTPTR)&amp;PubKeyParam;</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1a35bf5a34cf3e2325bdcf3100f82af618" kindref="member">OptionalLabelAddr</ref><sp/>=<sp/>(u64)(UINTPTR)XAsu_RsaOpt;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1a776bcc1fcddaf0b9d9b4323f4051ee85" kindref="member">InputDataLen</ref><sp/>=<sp/><ref refid="group__xasu__keywrap__client__example_1ga7718a8369314053fa0d9bacbc2a784cb" kindref="member">XASU_KEYWRAP_INPUT_SIZE_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1a38fcf90cf3ca3349320ec043a58e065b" kindref="member">RsaKeySize</ref><sp/>=<sp/><ref refid="group__xasu__keywrap__client__example_1ga2384dc543a2c3a267b328d6b592db417" kindref="member">XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1abf6549ec448bea10512c895abf9baf07" kindref="member">OptionalLabelSize</ref><sp/>=<sp/><ref refid="group__xasu__keywrap__client__example_1ga53d0fa016126e0a90a01c81e00515464" kindref="member">XASU_RSA_OPTIONAL_DATA_SIZE_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1aa700f9f3d7b11950e1b932fd2f2ddefe" kindref="member">OutputDataLen</ref><sp/>=<sp/><ref refid="group__xasu__keywrap__client__example_1gabba3327756b50588a5aad980277ea39e" kindref="member">XASU_KEYWRAP_OUTPUT_SIZE_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1a680fae798d0ff51fca68a4871f1568d9" kindref="member">ActualOutputDataLenAddr</ref><sp/>=<sp/>(u64)(UINTPTR)&amp;XAsu_KeyWrapOutputLen;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1aadaa548059c19c40a13624d158c4efd4" kindref="member">AesKeySize</ref><sp/>=<sp/><ref refid="group__xasu__common__defs_1ga565a9f9f9f947674eb43a1ce60e638d6" kindref="member">XASU_AES_KEY_SIZE_256_BITS</ref>;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1abb2a09abd19af9c8165f7dadf6b365ab" kindref="member">ShaType</ref><sp/>=<sp/><ref refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" kindref="member">XASU_SHA2_TYPE</ref>;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1a3d2c47719c3dab4ce5dd8222487751b8" kindref="member">ShaMode</ref><sp/>=<sp/><ref refid="group__xasu__common__defs_1ga1b2246776bc9c632002768c9edd40340" kindref="member">XASU_SHA_MODE_256</ref>;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1ac335e1a7457b3dfa31bfb6ad2f7a40e7" kindref="member">AesKeyId</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1ab5d016c0e32be8c69f03308ef2491508" kindref="member">RsaKeyId</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Perform<sp/>key<sp/>wrap<sp/>operation<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__keywrap__client__apis_1gad64883d138efba842bfc4961b3c8ee0f" kindref="member">XAsu_KeyWrap</ref>(&amp;ClientParam,<sp/>&amp;KwpunwpClientParam);</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;\r\n<sp/>Key<sp/>wrap<sp/>operation<sp/>Status<sp/>=<sp/>%08x&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(!Notify);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Notify<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XAsu_KeyWrapOutputLen<sp/>!=<sp/><ref refid="group__xasu__keywrap__client__example_1gabba3327756b50588a5aad980277ea39e" kindref="member">XASU_KEYWRAP_OUTPUT_SIZE_IN_BYTES</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ErrorStatus<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParam.Priority<sp/>=<sp/><ref refid="group__xasu__client__info_1gaf4bee00214accc868d4697e6745d83ca" kindref="member">XASU_PRIORITY_HIGH</ref>;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParam.SecureFlag<sp/>=<sp/><ref refid="group__xasu__common__defs_1ga2ce83e6be7ef8a6dc0ec9067b7e8f396" kindref="member">XASU_CMD_SECURE</ref>;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParam.CallBackFuncPtr<sp/>=<sp/>(<ref refid="group__xasu__client__info_1gab35273f00eccc22237ed1fa5cffda558" kindref="member">XAsuClient_ResponseHandler</ref>)((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)XAsu_KeywrapunwrapCallBackRef);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParam.CallBackRefPtr<sp/>=<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)&amp;ClientParam;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Key<sp/>unwrap<sp/>parameters<sp/>structure<sp/>initialization<sp/>for<sp/>encryption<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorStatus<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1a7e975623b5d478db1451042b05b662ea" kindref="member">InputDataAddr</ref><sp/>=<sp/>(u64)(UINTPTR)XAsu_KeyWrapWrappedOutput;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1aa7cbcf8280698e9df3458951df9959ec" kindref="member">OutputDataAddr</ref><sp/>=<sp/>(u64)(UINTPTR)XAsu_KeyWrapUnwrappedOutput;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1a994f49dc1b961429ba8cb8170d8bc0ba" kindref="member">ExpoCompAddr</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1ac1f5e0fc07b7e1b19fcccfe352442269" kindref="member">KeyCompAddr</ref><sp/>=<sp/>(u64)(UINTPTR)&amp;PvtKeyParam;</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1a35bf5a34cf3e2325bdcf3100f82af618" kindref="member">OptionalLabelAddr</ref><sp/>=<sp/>(u64)(UINTPTR)XAsu_RsaOpt;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1a776bcc1fcddaf0b9d9b4323f4051ee85" kindref="member">InputDataLen</ref><sp/>=<sp/><ref refid="group__xasu__keywrap__client__example_1gabba3327756b50588a5aad980277ea39e" kindref="member">XASU_KEYWRAP_OUTPUT_SIZE_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1a38fcf90cf3ca3349320ec043a58e065b" kindref="member">RsaKeySize</ref><sp/>=<sp/><ref refid="group__xasu__keywrap__client__example_1ga2384dc543a2c3a267b328d6b592db417" kindref="member">XASU_KEYWRAP_RSA_4096_KEY_SIZE_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1abf6549ec448bea10512c895abf9baf07" kindref="member">OptionalLabelSize</ref><sp/>=<sp/><ref refid="group__xasu__keywrap__client__example_1ga53d0fa016126e0a90a01c81e00515464" kindref="member">XASU_RSA_OPTIONAL_DATA_SIZE_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1aa700f9f3d7b11950e1b932fd2f2ddefe" kindref="member">OutputDataLen</ref><sp/>=<sp/><ref refid="group__xasu__keywrap__client__example_1ga7718a8369314053fa0d9bacbc2a784cb" kindref="member">XASU_KEYWRAP_INPUT_SIZE_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1a680fae798d0ff51fca68a4871f1568d9" kindref="member">ActualOutputDataLenAddr</ref><sp/>=<sp/>(u64)(UINTPTR)&amp;XAsu_KeyWrapUnwrapOutputLen;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1aadaa548059c19c40a13624d158c4efd4" kindref="member">AesKeySize</ref><sp/>=<sp/><ref refid="group__xasu__common__defs_1ga565a9f9f9f947674eb43a1ce60e638d6" kindref="member">XASU_AES_KEY_SIZE_256_BITS</ref>;</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1abb2a09abd19af9c8165f7dadf6b365ab" kindref="member">ShaType</ref><sp/>=<sp/><ref refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" kindref="member">XASU_SHA2_TYPE</ref>;</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1a3d2c47719c3dab4ce5dd8222487751b8" kindref="member">ShaMode</ref><sp/>=<sp/><ref refid="group__xasu__common__defs_1ga1b2246776bc9c632002768c9edd40340" kindref="member">XASU_SHA_MODE_256</ref>;</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1ac335e1a7457b3dfa31bfb6ad2f7a40e7" kindref="member">AesKeyId</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KwpunwpClientParam.<ref refid="struct_x_asu___key_wrap_params_1ab5d016c0e32be8c69f03308ef2491508" kindref="member">RsaKeyId</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Perform<sp/>key<sp/>unwrap<sp/>operation<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__keywrap__client__apis_1ga5182a3df4600b1e0c78db02eab118fe7" kindref="member">XAsu_KeyUnwrap</ref>(&amp;ClientParam,<sp/>&amp;KwpunwpClientParam);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;\r\n<sp/>Decrypt<sp/>operation<sp/>Status<sp/>=<sp/>%08x&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(!Notify);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Notify<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XAsu_KeyWrapUnwrapOutputLen<sp/>!=<sp/><ref refid="group__xasu__keywrap__client__example_1ga7718a8369314053fa0d9bacbc2a784cb" kindref="member">XASU_KEYWRAP_INPUT_SIZE_IN_BYTES</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ErrorStatus<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SMemCmp_CT(XAsu_KeywrapInput,<sp/><ref refid="group__xasu__keywrap__client__example_1ga7718a8369314053fa0d9bacbc2a784cb" kindref="member">XASU_KEYWRAP_INPUT_SIZE_IN_BYTES</ref>,<sp/>XAsu_KeyWrapUnwrappedOutput,</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__keywrap__client__example_1ga7718a8369314053fa0d9bacbc2a784cb" kindref="member">XASU_KEYWRAP_INPUT_SIZE_IN_BYTES</ref>,<sp/><ref refid="group__xasu__keywrap__client__example_1ga7718a8369314053fa0d9bacbc2a784cb" kindref="member">XASU_KEYWRAP_INPUT_SIZE_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;ASU<sp/>Key<sp/>Wrap<sp/>Unwrap<sp/>Example<sp/>Failed<sp/>at<sp/>Unwrapped<sp/>data<sp/>Comparison<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n<sp/>Key<sp/>wrap<sp/>unwrap<sp/>client<sp/>example<sp/>failed<sp/>with<sp/>Status<sp/>=<sp/>%08x&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ErrorStatus<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n<sp/>Key<sp/>wrap<sp/>unwrap<sp/>client<sp/>example<sp/>failed<sp/>with<sp/>error<sp/>from<sp/>server<sp/>=<sp/>%08x&quot;</highlight><highlight class="normal">,<sp/>ErrorStatus);</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n<sp/>Successfully<sp/>ran<sp/>Key<sp/>wrap<sp/>unwrap<sp/>client<sp/>example<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="311"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"></highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XAsu_KeywrapunwrapCallBackRef(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u32<sp/>Status)</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)CallBackRef;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorStatus<sp/>=<sp/>Status;</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Update<sp/>the<sp/>variable<sp/>to<sp/>notify<sp/>the<sp/>callback<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Notify<sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/>}</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_keywrap_example.c"/>
+  </compounddef>
+</doxygen>

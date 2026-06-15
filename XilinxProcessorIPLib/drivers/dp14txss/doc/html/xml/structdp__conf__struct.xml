@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structdp__conf__struct" kind="struct" prot="public">
+    <compoundname>dp_conf_struct</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structdp__conf__struct_1a3cff6ac44df96776c057a4161827f613" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char dp_conf_struct::LaneCount</definition>
+        <argsstring></argsstring>
+        <name>LaneCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/xdptxss_kcu105_dp14.c" line="437" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/xdptxss_kcu105_dp14.c" bodystart="437" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdp__conf__struct_1a83b34e18ae511c708de9bfe69aaec02b" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char dp_conf_struct::LineRate</definition>
+        <argsstring></argsstring>
+        <name>LineRate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/xdptxss_kcu105_dp14.c" line="438" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/xdptxss_kcu105_dp14.c" bodystart="438" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdp__conf__struct_1af44493a90ba3dd82b7bc1f7ca6b634fc" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char dp_conf_struct::pixel</definition>
+        <argsstring></argsstring>
+        <name>pixel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/xdptxss_kcu105_dp14.c" line="439" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/xdptxss_kcu105_dp14.c" bodystart="439" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdp__conf__struct_1a5e5b1e330c757770652f05d7aacf6836" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char dp_conf_struct::bpc</definition>
+        <argsstring></argsstring>
+        <name>bpc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/xdptxss_kcu105_dp14.c" line="440" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/xdptxss_kcu105_dp14.c" bodystart="440" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/xdptxss_kcu105_dp14.c" line="436" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/xdptxss_kcu105_dp14.c" bodystart="435" bodyend="441"/>
+    <listofallmembers>
+      <member refid="structdp__conf__struct_1a5e5b1e330c757770652f05d7aacf6836" prot="public" virt="non-virtual"><scope>dp_conf_struct</scope><name>bpc</name></member>
+      <member refid="structdp__conf__struct_1a3cff6ac44df96776c057a4161827f613" prot="public" virt="non-virtual"><scope>dp_conf_struct</scope><name>LaneCount</name></member>
+      <member refid="structdp__conf__struct_1a83b34e18ae511c708de9bfe69aaec02b" prot="public" virt="non-virtual"><scope>dp_conf_struct</scope><name>LineRate</name></member>
+      <member refid="structdp__conf__struct_1af44493a90ba3dd82b7bc1f7ca6b634fc" prot="public" virt="non-virtual"><scope>dp_conf_struct</scope><name>pixel</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

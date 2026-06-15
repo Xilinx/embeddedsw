@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>v_hscaler</title>
+    <detaileddescription>
+<para>The Horizontal Scaler Layer-2 Driver.The functions in this file provides an abstraction from the register peek/poke methodology by implementing most common use-case provided by the sub-core. See <ref refid="xv__hscaler__l2_8h" kindref="compound">xv_hscaler_l2.h</ref> for a detailed description of the layer-2 driver</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00  rco   07/21/15   Initial Release
+2.00  rco   11/05/15   Integrate layer-1 with layer-2
+      dmc   12/17/15   Updated the XV_HScalerDbgReportStatus routine
+3.0   mpe   04/28/16   Added optional color format conversion handling
+3.1   rco   11/01/16   Fixed bug in config validation API, wherein hi/lo
+                       check should be made only if input is not RGB
+      rco   02/09/17   Fix c++ compilation warnings
+      jsr   09/07/18 Fix for 64-bit driver support
+3.3   vsa   04/07/20   Improve quality with better coefficient tables
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

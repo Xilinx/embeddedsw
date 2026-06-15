@@ -1,0 +1,1478 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__v__multi__scaler" kind="group">
+    <compoundname>v_multi_scaler</compoundname>
+    <title>Overview</title>
+    <innerclass refid="struct_x_v__multi__scaler___crop___window" prot="public">XV_multi_scaler_Crop_Window</innerclass>
+    <innerclass refid="struct_x_v__multi__scaler___video___config" prot="public">XV_multi_scaler_Video_Config</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__v__multi__scaler_1ga63a80e7e8ab1a6ae649a4157e2f5b75a" prot="public" static="no">
+        <name>XV_MULTISCALER_TYPE</name>
+        <enumvalue id="group__v__multi__scaler_1gga63a80e7e8ab1a6ae649a4157e2f5b75aab0c23686a7ffb500de05c6fdb4245542" prot="public">
+          <name>XV_MULTISCALER_BILINEAR</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Bilinear interpolation. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__multi__scaler_1gga63a80e7e8ab1a6ae649a4157e2f5b75aa1ce93f0528a2ae3895c8523fe4e0b7be" prot="public">
+          <name>XV_MULTISCALER_BICUBIC</name>
+          <briefdescription>
+<para>Bicubic interpolation. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__multi__scaler_1gga63a80e7e8ab1a6ae649a4157e2f5b75aa14a2e7c6d4d6be938ef19179f5bb5a1b" prot="public">
+          <name>XV_MULTISCALER_POLYPHASE</name>
+          <briefdescription>
+<para>Polyphase interpolation. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Scaler type enumeration - defines the interpolation algorithm used. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="103" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__v__multi__scaler_1ga287ce7aabbab2249b8159862dceee51b" prot="public" static="no">
+        <name>XV_MULTISCALER_TAPS</name>
+        <enumvalue id="group__v__multi__scaler_1gga287ce7aabbab2249b8159862dceee51baec9b4df9ca632e243f88ac5c8958110f" prot="public">
+          <name>XV_MULTISCALER_TAPS_6</name>
+          <initializer>= 6</initializer>
+          <briefdescription>
+<para>6-tap filter </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__multi__scaler_1gga287ce7aabbab2249b8159862dceee51ba752375d8b9eb02c863327808df53ae49" prot="public">
+          <name>XV_MULTISCALER_TAPS_8</name>
+          <initializer>= 8</initializer>
+          <briefdescription>
+<para>8-tap filter </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__multi__scaler_1gga287ce7aabbab2249b8159862dceee51bad808b32d7fdf8c339fbbc44b151eafc5" prot="public">
+          <name>XV_MULTISCALER_TAPS_10</name>
+          <initializer>= 10</initializer>
+          <briefdescription>
+<para>10-tap filter </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__multi__scaler_1gga287ce7aabbab2249b8159862dceee51ba7a348675315624ef559166a9bff89f59" prot="public">
+          <name>XV_MULTISCALER_TAPS_12</name>
+          <initializer>= 12</initializer>
+          <briefdescription>
+<para>12-tap filter </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Supported filter tap configurations for polyphase scaling. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="113" bodyend="119"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__v__multi__scaler_1gaf85fcd2b60ace85961e0abdb589ad61f" prot="public" static="no">
+        <name>XV_MULTISCALER_MEMORY_FORMATS</name>
+        <enumvalue id="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61fa744c7b137c5530e02830cee272c05b24" prot="public">
+          <name>XV_MULTI_SCALER_RGBX8</name>
+          <initializer>= 10</initializer>
+          <briefdescription>
+<para>RGB with alpha, 8-bit per component. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61faf77f65828d81654ed75045b66cf80674" prot="public">
+          <name>XV_MULTI_SCALER_YUVX8</name>
+          <initializer>= 11</initializer>
+          <briefdescription>
+<para>YUV with alpha, 8-bit per component. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61faea6013b4c7d631c93d2e2b7f898a14c6" prot="public">
+          <name>XV_MULTI_SCALER_YUYV8</name>
+          <initializer>= 12</initializer>
+          <briefdescription>
+<para>YUYV 4:2:2, 8-bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61fa40daa7c63fab96b1f7e164b88934d5bb" prot="public">
+          <name>XV_MULTI_SCALER_RGBX10</name>
+          <initializer>= 15</initializer>
+          <briefdescription>
+<para>RGB with alpha, 10-bit per component. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61fac7866fdd5318a39fcb6ae58b199e6932" prot="public">
+          <name>XV_MULTI_SCALER_YUVX10</name>
+          <initializer>= 16</initializer>
+          <briefdescription>
+<para>YUV with alpha, 10-bit per component. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61fa675e0933e2e52c0c03a01a4d3b1ac386" prot="public">
+          <name>XV_MULTI_SCALER_Y_UV8</name>
+          <initializer>= 18</initializer>
+          <briefdescription>
+<para>Y/UV semi-planar 4:2:2, 8-bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61fa17891da696b5ba550295e10fef21fdcc" prot="public">
+          <name>XV_MULTI_SCALER_Y_UV8_420</name>
+          <initializer>= 19</initializer>
+          <briefdescription>
+<para>Y/UV semi-planar 4:2:0, 8-bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61fa4fbbadb3d2810594475114ab1ed2024b" prot="public">
+          <name>XV_MULTI_SCALER_RGB8</name>
+          <initializer>= 20</initializer>
+          <briefdescription>
+<para>RGB packed, 8-bit per component. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61fa940f42fccb2fa176b0fd8a6a4f3d962e" prot="public">
+          <name>XV_MULTI_SCALER_YUV8</name>
+          <initializer>= 21</initializer>
+          <briefdescription>
+<para>YUV packed, 8-bit per component. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61fa1e51a788aa48dfd8b90ddb40c3666e6f" prot="public">
+          <name>XV_MULTI_SCALER_Y_UV10</name>
+          <initializer>= 22</initializer>
+          <briefdescription>
+<para>Y/UV semi-planar 4:2:2, 10-bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61faa2005b3f12d39342c5e181b8f002049e" prot="public">
+          <name>XV_MULTI_SCALER_Y_UV10_420</name>
+          <initializer>= 23</initializer>
+          <briefdescription>
+<para>Y/UV semi-planar 4:2:0, 10-bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61fad946e1a5aa61214a98c7cd0334a95f93" prot="public">
+          <name>XV_MULTI_SCALER_Y8</name>
+          <initializer>= 24</initializer>
+          <briefdescription>
+<para>Y only (grayscale), 8-bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61fa5139191690a36c85da65c4d9c2b47180" prot="public">
+          <name>XV_MULTI_SCALER_Y10</name>
+          <initializer>= 25</initializer>
+          <briefdescription>
+<para>Y only (grayscale), 10-bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61fa202daf2b5f5135c8c2ee85659bfb5b6d" prot="public">
+          <name>XV_MULTI_SCALER_BGRX8</name>
+          <initializer>= 27</initializer>
+          <briefdescription>
+<para>BGR with alpha, 8-bit per component. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61fa15098ce5516a5f26c5a6a925fd0bcd45" prot="public">
+          <name>XV_MULTI_SCALER_UYVY8</name>
+          <initializer>= 28</initializer>
+          <briefdescription>
+<para>UYVY 4:2:2, 8-bit. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61fabcd0a8432d9def50a7a7614b9417f8c3" prot="public">
+          <name>XV_MULTI_SCALER_BGR8</name>
+          <initializer>= 29</initializer>
+          <briefdescription>
+<para>BGR packed, 8-bit per component. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Memory pixel format enumeration - defines supported color formats. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="124" bodyend="142"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga1df60dab912fc9a16f28c6e8485dd40a" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_multiscaler_fixedcoeff_taps6_12C[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12]</definition>
+        <argsstring>[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12]</argsstring>
+        <name>XV_multiscaler_fixedcoeff_taps6_12C</name>
+        <briefdescription>
+<para>Fixed coefficient table for 6-tap polyphase filter (12 coefficient format) </para>        </briefdescription>
+        <detaileddescription>
+<para>Fixed coefficient table for 6-tap filter with 12 coefficients per phase.</para><para>This table contains a 64-phase, 6-tap FIR filter bank for vertical and horizontal scaling. The 12-coefficient format includes zero-padding to match hardware requirements. Each row represents one of 64 interpolation phases, allowing smooth sub-pixel precision during scaling operations.</para><para>Format: [XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12] Phases: 64 Active taps: 6 (with padding zeros) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_coeff.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_coeff.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga230a9dd799b90aab04c506d5687ebea4" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_multiscaler_fixedcoeff_taps6_6C[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_6]</definition>
+        <argsstring>[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_6]</argsstring>
+        <name>XV_multiscaler_fixedcoeff_taps6_6C</name>
+        <briefdescription>
+<para>Fixed coefficient table for 6-tap polyphase filter (6 coefficient format) </para>        </briefdescription>
+        <detaileddescription>
+<para>Fixed coefficient tables for polyphase scaling filters.</para><para>This table contains a 64-phase, 6-tap FIR filter bank optimized for hardware implementations that support exactly 6 coefficients per phase. This is a compact version of the 12C format without padding zeros.</para><para>Format: [XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_6] Phases: 64 Active taps: 6 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_coeff.c" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_coeff.c" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga4b0577641ab1ead12caf3a93c8def312" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_multiscaler_fixedcoeff_taps8_12C[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12]</definition>
+        <argsstring>[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12]</argsstring>
+        <name>XV_multiscaler_fixedcoeff_taps8_12C</name>
+        <briefdescription>
+<para>Fixed coefficient table for 8-tap polyphase filter (12 coefficient format) </para>        </briefdescription>
+        <detaileddescription>
+<para>Fixed coefficient table for 8-tap filter with 12 coefficients per phase.</para><para>This table contains a 64-phase, 8-tap FIR filter bank providing higher quality scaling compared to 6-tap filters. The 12-coefficient format includes zero-padding for hardware alignment. 8-tap filters offer improved frequency response and reduced aliasing artifacts.</para><para>Format: [XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12] Phases: 64 Active taps: 8 (with padding zeros) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_coeff.c" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_coeff.c" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga2a274bddc96223d1a907f59e8d30b296" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_multiscaler_fixedcoeff_taps8_8C[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_8]</definition>
+        <argsstring>[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_8]</argsstring>
+        <name>XV_multiscaler_fixedcoeff_taps8_8C</name>
+        <briefdescription>
+<para>Fixed coefficient table for 8-tap polyphase filter (8 coefficient format) </para>        </briefdescription>
+        <detaileddescription>
+<para>Fixed coefficient table for 8-tap filter with 8 coefficients per phase.</para><para>This table contains a 64-phase, 8-tap FIR filter bank in compact format without padding zeros. Optimized for hardware that supports exactly 8 coefficients per phase.</para><para>Format: [XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_8] Phases: 64 Active taps: 8 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_coeff.c" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_coeff.c" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga1134264b7c3ed1d23336900f8b6968e4" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_multiscaler_fixedcoeff_taps10_12C[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12]</definition>
+        <argsstring>[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12]</argsstring>
+        <name>XV_multiscaler_fixedcoeff_taps10_12C</name>
+        <briefdescription>
+<para>Fixed coefficient table for 10-tap polyphase filter (12 coefficient format) </para>        </briefdescription>
+        <detaileddescription>
+<para>Fixed coefficient table for 10-tap filter with 12 coefficients per phase.</para><para>This table contains a 64-phase, 10-tap FIR filter bank offering superior scaling quality. The 12-coefficient format includes minimal padding. 10-tap filters provide excellent frequency response characteristics and minimal ringing artifacts, suitable for professional image processing.</para><para>Format: [XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12] Phases: 64 Active taps: 10 (with minimal padding) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_coeff.c" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_coeff.c" bodystart="370" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1gacf0060240911fc8017fc400e0bfd5a93" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_multiscaler_fixedcoeff_taps10_10C[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_10]</definition>
+        <argsstring>[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_10]</argsstring>
+        <name>XV_multiscaler_fixedcoeff_taps10_10C</name>
+        <briefdescription>
+<para>Fixed coefficient table for 10-tap polyphase filter (10 coefficient format) </para>        </briefdescription>
+        <detaileddescription>
+<para>Fixed coefficient table for 10-tap filter with 10 coefficients per phase.</para><para>This table contains a 64-phase, 10-tap FIR filter bank in compact format without padding zeros. Optimized for hardware that supports exactly 10 coefficients per phase.</para><para>Format: [XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_10] Phases: 64 Active taps: 10 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_coeff.c" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_coeff.c" bodystart="449" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga88f54282785f5ae17e172c3b0291e433" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_multiscaler_fixedcoeff_taps12_12C[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12]</definition>
+        <argsstring>[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12]</argsstring>
+        <name>XV_multiscaler_fixedcoeff_taps12_12C</name>
+        <briefdescription>
+<para>Fixed coefficient table for 12-tap polyphase filter (12 coefficient format) </para>        </briefdescription>
+        <detaileddescription>
+<para>Fixed coefficient table for 12-tap filter with 12 coefficients per phase.</para><para>This table contains a 64-phase, 12-tap FIR filter bank providing the highest quality scaling among all supported tap configurations. With no padding required, all 12 coefficients are active. 12-tap filters deliver exceptional frequency response, minimal aliasing, and superior image quality for demanding applications.</para><para>Format: [XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12] Phases: 64 Active taps: 12 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_coeff.c" line="529" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_coeff.c" bodystart="530" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1gadc0ca8befe5ef5848fc810cf402f5386" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__multi__scaler___config" kindref="compound">XV_multi_scaler_Config</ref></type>
+        <definition>XV_multi_scaler_Config XV_multi_scaler_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XV_multi_scaler_ConfigTable</name>
+        <initializer>= {
+	{
+		XPAR_V_MULTI_SCALER_0_DEVICE_ID,
+		XPAR_V_MULTI_SCALER_0_S_AXI_CTRL_BASEADDR,
+		XPAR_V_MULTI_SCALER_0_SAMPLES_PER_CLOCK,
+		XPAR_V_MULTI_SCALER_0_MAX_DATA_WIDTH,
+		XPAR_V_MULTI_SCALER_0_MAX_COLS,
+		XPAR_V_MULTI_SCALER_0_MAX_ROWS,
+		XPAR_V_MULTI_SCALER_0_PHASE_SHIFT,
+		XPAR_V_MULTI_SCALER_0_SCALE_MODE,
+		XPAR_V_MULTI_SCALER_0_TAPS,
+		XPAR_V_MULTI_SCALER_0_MAX_OUTS
+	}
+}</initializer>
+        <briefdescription>
+<para>MultiScaler device configuration table. </para>        </briefdescription>
+        <detaileddescription>
+<para>Configuration table for multi-scaler devices.</para><para>This table contains the configuration information for each MultiScaler device in the system. Each entry includes:<itemizedlist>
+<listitem><para>Device ID: Unique identifier for the device instance</para></listitem><listitem><para>Base Address: AXI control interface base address</para></listitem><listitem><para>Samples Per Clock: Number of samples processed per clock cycle</para></listitem><listitem><para>Max Data Width: Maximum pixel data width supported</para></listitem><listitem><para>Max Cols: Maximum number of horizontal pixels</para></listitem><listitem><para>Max Rows: Maximum number of vertical pixels</para></listitem><listitem><para>Phase Shift: Scaling phase shift precision</para></listitem><listitem><para>Scale Mode: Supported scaling modes (bilinear, polyphase, etc.)</para></listitem><listitem><para>Taps: Number of filter taps for polyphase scaling</para></listitem><listitem><para>Max Outs: Maximum number of output channels supported</para></listitem></itemizedlist>
+</para><para>The table is indexed by device ID for lookup during initialization. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_g.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_g.c" bodystart="52" bodyend="-1"/>
+        <referencedby refid="xv__multi__scaler__sinit_8c_1adee042e3274745edc3827b4b0768c44b" compoundref="xv__multi__scaler__sinit_8c" startline="102" endline="117">XV_multi_scaler_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga9cc77f4c9dc5c736162a69ad186585b6" prot="public" static="yes" mutable="no">
+        <type>const u32(*</type>
+        <definition>const u32(* XV_MS_Get_WidthIn[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr)</argsstring>
+        <name>XV_MS_Get_WidthIn</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1adc312a9031a1789d6f29c8571b898972" kindref="member">XV_multi_scaler_Get_HwReg_WidthIn_0</ref>,
+	<ref refid="xv__multi__scaler_8h_1a9271d53f6aae593cecd3c3482ad47502" kindref="member">XV_multi_scaler_Get_HwReg_WidthIn_1</ref>,
+	<ref refid="xv__multi__scaler_8h_1a3ea9ed0ccc3aaeee5605e7ed3180484d" kindref="member">XV_multi_scaler_Get_HwReg_WidthIn_2</ref>,
+	<ref refid="xv__multi__scaler_8h_1a0fb9d3617c9d1e7efb0b8e6c73b3a2ec" kindref="member">XV_multi_scaler_Get_HwReg_WidthIn_3</ref>,
+	<ref refid="xv__multi__scaler_8h_1a6fd85304171713d0475f0d4632dd1b62" kindref="member">XV_multi_scaler_Get_HwReg_WidthIn_4</ref>,
+	<ref refid="xv__multi__scaler_8h_1aba8ee261a753b842d6891746bc788f7d" kindref="member">XV_multi_scaler_Get_HwReg_WidthIn_5</ref>,
+	<ref refid="xv__multi__scaler_8h_1af429c646eb351c7272b3079dcd5ab701" kindref="member">XV_multi_scaler_Get_HwReg_WidthIn_6</ref>,
+	<ref refid="xv__multi__scaler_8h_1abfb96c5134d0aa71d4df28ee1052b479" kindref="member">XV_multi_scaler_Get_HwReg_WidthIn_7</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1gabbf62373dea1ac326bd28a431f5ddb83" prot="public" static="yes" mutable="no">
+        <type>const u32(*</type>
+        <definition>const u32(* XV_MS_Get_WidthOut[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr)</argsstring>
+        <name>XV_MS_Get_WidthOut</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1a792ad5be00852f860f134428f018a82b" kindref="member">XV_multi_scaler_Get_HwReg_WidthOut_0</ref>,
+	<ref refid="xv__multi__scaler_8h_1a79b3788831c013f839232d8abdeafcf5" kindref="member">XV_multi_scaler_Get_HwReg_WidthOut_1</ref>,
+	<ref refid="xv__multi__scaler_8h_1af0c67b3098f1c8cedf11cc112362143c" kindref="member">XV_multi_scaler_Get_HwReg_WidthOut_2</ref>,
+	<ref refid="xv__multi__scaler_8h_1a0410fcb2cb0147a86cbaad30e2447d5f" kindref="member">XV_multi_scaler_Get_HwReg_WidthOut_3</ref>,
+	<ref refid="xv__multi__scaler_8h_1a086ddf7f5265f0917aa388de89bf21e1" kindref="member">XV_multi_scaler_Get_HwReg_WidthOut_4</ref>,
+	<ref refid="xv__multi__scaler_8h_1ae101a8db60826d0adaabfcd0e95a2d81" kindref="member">XV_multi_scaler_Get_HwReg_WidthOut_5</ref>,
+	<ref refid="xv__multi__scaler_8h_1a05c70f48bff524a77332d172f6073e92" kindref="member">XV_multi_scaler_Get_HwReg_WidthOut_6</ref>,
+	<ref refid="xv__multi__scaler_8h_1af1a5a9ad75d9c5750161fb49b67001c5" kindref="member">XV_multi_scaler_Get_HwReg_WidthOut_7</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1gae478ef34589cdc57e34cf9bf4987bd6e" prot="public" static="yes" mutable="no">
+        <type>const u32(*</type>
+        <definition>const u32(* XV_MS_Get_HeightIn[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr)</argsstring>
+        <name>XV_MS_Get_HeightIn</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1aa90c68568aa9aac1f19c522588361600" kindref="member">XV_multi_scaler_Get_HwReg_HeightIn_0</ref>,
+	<ref refid="xv__multi__scaler_8h_1a3613579fb1238dd954949b2e6aacfc38" kindref="member">XV_multi_scaler_Get_HwReg_HeightIn_1</ref>,
+	<ref refid="xv__multi__scaler_8h_1a9c8c572959316aca8612f049f99b8213" kindref="member">XV_multi_scaler_Get_HwReg_HeightIn_2</ref>,
+	<ref refid="xv__multi__scaler_8h_1a1fc6ac61afc3c37f712cc4f2b3f6bd2f" kindref="member">XV_multi_scaler_Get_HwReg_HeightIn_3</ref>,
+	<ref refid="xv__multi__scaler_8h_1af8921a9c0b79ad024791144ebc7b2899" kindref="member">XV_multi_scaler_Get_HwReg_HeightIn_4</ref>,
+	<ref refid="xv__multi__scaler_8h_1abefc2cf2027695a78d70f7ef6c1c9068" kindref="member">XV_multi_scaler_Get_HwReg_HeightIn_5</ref>,
+	<ref refid="xv__multi__scaler_8h_1ab2cf45b18ece797b6344f95569495a16" kindref="member">XV_multi_scaler_Get_HwReg_HeightIn_6</ref>,
+	<ref refid="xv__multi__scaler_8h_1ab5035be9904f4110c646a5967513a5cb" kindref="member">XV_multi_scaler_Get_HwReg_HeightIn_7</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1gaf9269f7938497ad07eb08709b1c044b9" prot="public" static="yes" mutable="no">
+        <type>const u32(*</type>
+        <definition>const u32(* XV_MS_Get_HeightOut[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr)</argsstring>
+        <name>XV_MS_Get_HeightOut</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1ac9ede1a3138dd4671570e2100d0ab1b2" kindref="member">XV_multi_scaler_Get_HwReg_HeightOut_0</ref>,
+	<ref refid="xv__multi__scaler_8h_1a3571d5ecd39a0ca7899f6dd0f71ea3d5" kindref="member">XV_multi_scaler_Get_HwReg_HeightOut_1</ref>,
+	<ref refid="xv__multi__scaler_8h_1a068d40aa7de5beeca31315ce8c0ece77" kindref="member">XV_multi_scaler_Get_HwReg_HeightOut_2</ref>,
+	<ref refid="xv__multi__scaler_8h_1a9913a8955b6af47c8eaafdeeefa12400" kindref="member">XV_multi_scaler_Get_HwReg_HeightOut_3</ref>,
+	<ref refid="xv__multi__scaler_8h_1aa2461ac7192e23bf593f0b35a8543ab4" kindref="member">XV_multi_scaler_Get_HwReg_HeightOut_4</ref>,
+	<ref refid="xv__multi__scaler_8h_1a49fdb0846c2f3cd5e17373f05b983828" kindref="member">XV_multi_scaler_Get_HwReg_HeightOut_5</ref>,
+	<ref refid="xv__multi__scaler_8h_1ac4f769b773a477747b4d371a779b396e" kindref="member">XV_multi_scaler_Get_HwReg_HeightOut_6</ref>,
+	<ref refid="xv__multi__scaler_8h_1a256751703f494c1f57e28c4057af469b" kindref="member">XV_multi_scaler_Get_HwReg_HeightOut_7</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga76789d71227e16b3652e323c5e54fde4" prot="public" static="yes" mutable="no">
+        <type>const u32(*</type>
+        <definition>const u32(* XV_MS_Get_ColorFormatIn[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr)</argsstring>
+        <name>XV_MS_Get_ColorFormatIn</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1a5c0b086e6f0c06b2b8a02580b2b6b44b" kindref="member">XV_multi_scaler_Get_HwReg_InPixelFmt_0</ref>,
+	<ref refid="xv__multi__scaler_8h_1aa4a30b4c1004cf851e3d8afeaaea44cc" kindref="member">XV_multi_scaler_Get_HwReg_InPixelFmt_1</ref>,
+	<ref refid="xv__multi__scaler_8h_1a0f21150d492705f30ffe0d07a9b5ba94" kindref="member">XV_multi_scaler_Get_HwReg_InPixelFmt_2</ref>,
+	<ref refid="xv__multi__scaler_8h_1a12fbffe0e366ce6dac11bf304530690f" kindref="member">XV_multi_scaler_Get_HwReg_InPixelFmt_3</ref>,
+	<ref refid="xv__multi__scaler_8h_1a13c9cdeb88da732515a0d22e19463993" kindref="member">XV_multi_scaler_Get_HwReg_InPixelFmt_4</ref>,
+	<ref refid="xv__multi__scaler_8h_1a852b12b08ec771947a34a3de89b2422f" kindref="member">XV_multi_scaler_Get_HwReg_InPixelFmt_5</ref>,
+	<ref refid="xv__multi__scaler_8h_1a0e2b54663f200d1dfba3c3151555aa41" kindref="member">XV_multi_scaler_Get_HwReg_InPixelFmt_6</ref>,
+	<ref refid="xv__multi__scaler_8h_1a20beee45ddc9002f9445828283c6f9c2" kindref="member">XV_multi_scaler_Get_HwReg_InPixelFmt_7</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga4ea552b2a888bb315eff21e612ef4e0d" prot="public" static="yes" mutable="no">
+        <type>const u32(*</type>
+        <definition>const u32(* XV_MS_Get_ColorFormatOut[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr)</argsstring>
+        <name>XV_MS_Get_ColorFormatOut</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1ad5bfdf25bdca143aded84d906d2afca1" kindref="member">XV_multi_scaler_Get_HwReg_OutPixelFmt_0</ref>,
+	<ref refid="xv__multi__scaler_8h_1aa5473befe1d2e2ca04cd23ea472262b8" kindref="member">XV_multi_scaler_Get_HwReg_OutPixelFmt_1</ref>,
+	<ref refid="xv__multi__scaler_8h_1aab3633cace93cded16a42ca5c13cc6dd" kindref="member">XV_multi_scaler_Get_HwReg_OutPixelFmt_2</ref>,
+	<ref refid="xv__multi__scaler_8h_1a525f32769840d6b8f4833231a97e411d" kindref="member">XV_multi_scaler_Get_HwReg_OutPixelFmt_3</ref>,
+	<ref refid="xv__multi__scaler_8h_1a48a9ce4cb658a077ac2022abe8daec41" kindref="member">XV_multi_scaler_Get_HwReg_OutPixelFmt_4</ref>,
+	<ref refid="xv__multi__scaler_8h_1a0c120ad8bcfa9acc0752bd5ff24ce32e" kindref="member">XV_multi_scaler_Get_HwReg_OutPixelFmt_5</ref>,
+	<ref refid="xv__multi__scaler_8h_1a888d097903d1952f130649efb98981ed" kindref="member">XV_multi_scaler_Get_HwReg_OutPixelFmt_6</ref>,
+	<ref refid="xv__multi__scaler_8h_1a7afe770dfe98d195b20ad747854ab4db" kindref="member">XV_multi_scaler_Get_HwReg_OutPixelFmt_7</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1gad57e24cb4ac579710ba9358c06a7757b" prot="public" static="yes" mutable="no">
+        <type>const u32(*</type>
+        <definition>const u32(* XV_MS_Get_InStride[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr)</argsstring>
+        <name>XV_MS_Get_InStride</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1a7e211c901356e3d513035abd4ec3ad18" kindref="member">XV_multi_scaler_Get_HwReg_InStride_0</ref>,
+	<ref refid="xv__multi__scaler_8h_1a632c0c3a0defd7330c050c84a892716c" kindref="member">XV_multi_scaler_Get_HwReg_InStride_1</ref>,
+	<ref refid="xv__multi__scaler_8h_1a472b8181b7c31773c307df942f1acf2c" kindref="member">XV_multi_scaler_Get_HwReg_InStride_2</ref>,
+	<ref refid="xv__multi__scaler_8h_1a5fd4b7f87294179742739217204fe8de" kindref="member">XV_multi_scaler_Get_HwReg_InStride_3</ref>,
+	<ref refid="xv__multi__scaler_8h_1aab77e45e3b06cc28d6d95aa958bc3ade" kindref="member">XV_multi_scaler_Get_HwReg_InStride_4</ref>,
+	<ref refid="xv__multi__scaler_8h_1a1494ddd1d70995ef0a5db3214d18079c" kindref="member">XV_multi_scaler_Get_HwReg_InStride_5</ref>,
+	<ref refid="xv__multi__scaler_8h_1aac61676caa57c00afb76c96f87987a4a" kindref="member">XV_multi_scaler_Get_HwReg_InStride_6</ref>,
+	<ref refid="xv__multi__scaler_8h_1a9de16dcb6bec24a6301ebc3e0e19c9d0" kindref="member">XV_multi_scaler_Get_HwReg_InStride_7</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga0090fc9b6ccb6476a57ab9d7d62679fc" prot="public" static="yes" mutable="no">
+        <type>const u32(*</type>
+        <definition>const u32(* XV_MS_Get_OutStride[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr)</argsstring>
+        <name>XV_MS_Get_OutStride</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1aacb0e43e580152994d7aa57b4ffd9336" kindref="member">XV_multi_scaler_Get_HwReg_OutStride_0</ref>,
+	<ref refid="xv__multi__scaler_8h_1aa8d0a85d7c3284cb3afae7381d5a2d16" kindref="member">XV_multi_scaler_Get_HwReg_OutStride_1</ref>,
+	<ref refid="xv__multi__scaler_8h_1a99331b8aa967d5a3f034005e2f8377a9" kindref="member">XV_multi_scaler_Get_HwReg_OutStride_2</ref>,
+	<ref refid="xv__multi__scaler_8h_1a2c822afb58cb55ade13047534186fde6" kindref="member">XV_multi_scaler_Get_HwReg_OutStride_3</ref>,
+	<ref refid="xv__multi__scaler_8h_1af42693396f22235229fef10abe9b1342" kindref="member">XV_multi_scaler_Get_HwReg_OutStride_4</ref>,
+	<ref refid="xv__multi__scaler_8h_1ac5861266e5bd723a09689b78d5914849" kindref="member">XV_multi_scaler_Get_HwReg_OutStride_5</ref>,
+	<ref refid="xv__multi__scaler_8h_1a4a5992fce9335835c6bdac28d5249dee" kindref="member">XV_multi_scaler_Get_HwReg_OutStride_6</ref>,
+	<ref refid="xv__multi__scaler_8h_1aab9844031be75c78c5b8447204b10d9d" kindref="member">XV_multi_scaler_Get_HwReg_OutStride_7</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga7ae0af8e03d5c25ba4f89d05ab6be356" prot="public" static="yes" mutable="no">
+        <type>const u64(*</type>
+        <definition>const u64(* XV_MS_Get_SrcImgBuf0[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr)</argsstring>
+        <name>XV_MS_Get_SrcImgBuf0</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1aa3c0fcdb6250f10c0aaa38b70e5b0ee7" kindref="member">XV_multi_scaler_Get_HwReg_srcImgBuf0_0_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1af9c71615214853fa088596f4db0b92a8" kindref="member">XV_multi_scaler_Get_HwReg_srcImgBuf0_1_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a58e1daa382b144d64ec178b2c2840507" kindref="member">XV_multi_scaler_Get_HwReg_srcImgBuf0_2_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a4ce0fd09bfa1cf098b992d8256b32da3" kindref="member">XV_multi_scaler_Get_HwReg_srcImgBuf0_3_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a013eb7cb1dccd4e88c078ec2fd6e470c" kindref="member">XV_multi_scaler_Get_HwReg_srcImgBuf0_4_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a559157fdcf94d7561b7af3e358d08b8a" kindref="member">XV_multi_scaler_Get_HwReg_srcImgBuf0_5_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a22796ef22300eac39be623c1cd42b2f6" kindref="member">XV_multi_scaler_Get_HwReg_srcImgBuf0_6_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a9414004e1814f6b7ee2ed26a3f3037ff" kindref="member">XV_multi_scaler_Get_HwReg_srcImgBuf0_7_V</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga71953836fc41713da1a975840b018469" prot="public" static="yes" mutable="no">
+        <type>const u64(*</type>
+        <definition>const u64(* XV_MS_Get_SrcImgBuf1[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr)</argsstring>
+        <name>XV_MS_Get_SrcImgBuf1</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1a254f2f8fc688357dabe33e86c4fcf950" kindref="member">XV_multi_scaler_Get_HwReg_srcImgBuf1_0_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a43c7bc48bcce20cf8406b0373ed3f7c9" kindref="member">XV_multi_scaler_Get_HwReg_srcImgBuf1_1_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1ad312d1ec0bb4fd08f9e8a9d32519a6ea" kindref="member">XV_multi_scaler_Get_HwReg_srcImgBuf1_2_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1affb28e87d98d280a10ff1982d4f3b978" kindref="member">XV_multi_scaler_Get_HwReg_srcImgBuf1_3_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a03b885fa9bf0da0de8b9c23b1cff4e95" kindref="member">XV_multi_scaler_Get_HwReg_srcImgBuf1_4_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a2db39d06ddf04009ddff198035b91dbe" kindref="member">XV_multi_scaler_Get_HwReg_srcImgBuf1_5_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a433cd4baea1981498be1c6a72334f567" kindref="member">XV_multi_scaler_Get_HwReg_srcImgBuf1_6_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1ae0cea7d588d91a764f1bdcdb8096728b" kindref="member">XV_multi_scaler_Get_HwReg_srcImgBuf1_7_V</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga28d63eb2f93c7062779e6c75503b99c8" prot="public" static="yes" mutable="no">
+        <type>const u64(*</type>
+        <definition>const u64(* XV_MS_Get_DstImgBuf0[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr)</argsstring>
+        <name>XV_MS_Get_DstImgBuf0</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1a0523529b57dd228197514206f9c0875d" kindref="member">XV_multi_scaler_Get_HwReg_dstImgBuf0_0_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1ad21c42e956119d02da225113d49de824" kindref="member">XV_multi_scaler_Get_HwReg_dstImgBuf0_1_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1adf01096b65d804569ed1d14131e1c708" kindref="member">XV_multi_scaler_Get_HwReg_dstImgBuf0_2_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1aae263b620626600f04d25ac53b5554a9" kindref="member">XV_multi_scaler_Get_HwReg_dstImgBuf0_3_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a296530b163a4bfdd858a9a19e3f61f28" kindref="member">XV_multi_scaler_Get_HwReg_dstImgBuf0_4_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1ad12d6126b0b8a912fa302036bb960976" kindref="member">XV_multi_scaler_Get_HwReg_dstImgBuf0_5_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a342f029e04128281b27c8463bcfe8f46" kindref="member">XV_multi_scaler_Get_HwReg_dstImgBuf0_6_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a0e109dea7839a34c62621cf28bd2d619" kindref="member">XV_multi_scaler_Get_HwReg_dstImgBuf0_7_V</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1gab2fea62328dcccf8855ec962e6cb72aa" prot="public" static="yes" mutable="no">
+        <type>const u64(*</type>
+        <definition>const u64(* XV_MS_Get_DstImgBuf1[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr)</argsstring>
+        <name>XV_MS_Get_DstImgBuf1</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1a3a96a142370b25ca8dadb4a388d1c2a0" kindref="member">XV_multi_scaler_Get_HwReg_dstImgBuf1_0_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1ad145d2b14a9bb46147368c8230693751" kindref="member">XV_multi_scaler_Get_HwReg_dstImgBuf1_1_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1aed2a2f790b8a3d433fd27e828f2dd74d" kindref="member">XV_multi_scaler_Get_HwReg_dstImgBuf1_2_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1aa11c68a5a97db7b58c5dca6f31e141f8" kindref="member">XV_multi_scaler_Get_HwReg_dstImgBuf1_3_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a4ad573265f79d04e4d20b3447ff9edf3" kindref="member">XV_multi_scaler_Get_HwReg_dstImgBuf1_4_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a3b854343123e3a1c9f165007065c13e5" kindref="member">XV_multi_scaler_Get_HwReg_dstImgBuf1_5_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1aa7b6b2b7f1cc52278162199fb877998b" kindref="member">XV_multi_scaler_Get_HwReg_dstImgBuf1_6_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a6a11b2693f4ee8625ecd8a0cd4e0cdb5" kindref="member">XV_multi_scaler_Get_HwReg_dstImgBuf1_7_V</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1gaaa24b99c1442e4448b265f28340d6429" prot="public" static="yes" mutable="no">
+        <type>const void(*</type>
+        <definition>const void(* XV_MS_Set_WidthIn[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u32 Data)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u32 Data)</argsstring>
+        <name>XV_MS_Set_WidthIn</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1ab70060a1d3bdfffacbcd6affd8bb2e17" kindref="member">XV_multi_scaler_Set_HwReg_WidthIn_0</ref>,
+	<ref refid="xv__multi__scaler_8h_1a212bbb299d6470400b635824c6bca339" kindref="member">XV_multi_scaler_Set_HwReg_WidthIn_1</ref>,
+	<ref refid="xv__multi__scaler_8h_1a4a6c90ddb3850c40ba396b2bd2d52a1d" kindref="member">XV_multi_scaler_Set_HwReg_WidthIn_2</ref>,
+	<ref refid="xv__multi__scaler_8h_1a49d1d9ac61e50561fbeeab0ff1165116" kindref="member">XV_multi_scaler_Set_HwReg_WidthIn_3</ref>,
+	<ref refid="xv__multi__scaler_8h_1a67d21e98e4fa78f13c5218ef2fd1ac82" kindref="member">XV_multi_scaler_Set_HwReg_WidthIn_4</ref>,
+	<ref refid="xv__multi__scaler_8h_1a969f963ce091db58f8273c506fd7099a" kindref="member">XV_multi_scaler_Set_HwReg_WidthIn_5</ref>,
+	<ref refid="xv__multi__scaler_8h_1ad5894205983c2561e052d78f3b6c35db" kindref="member">XV_multi_scaler_Set_HwReg_WidthIn_6</ref>,
+	<ref refid="xv__multi__scaler_8h_1a0a1316bb4c952f87a9a641a04cc3d0c1" kindref="member">XV_multi_scaler_Set_HwReg_WidthIn_7</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga14e252f5f8d99115701f5dd8e042b86d" prot="public" static="yes" mutable="no">
+        <type>const void(*</type>
+        <definition>const void(* XV_MS_Set_WidthOut[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u32 Data)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u32 Data)</argsstring>
+        <name>XV_MS_Set_WidthOut</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1a65467a9639d10de156818441a947bcd8" kindref="member">XV_multi_scaler_Set_HwReg_WidthOut_0</ref>,
+	<ref refid="xv__multi__scaler_8h_1a7e0d36316235c3fc8e05662f5e961c80" kindref="member">XV_multi_scaler_Set_HwReg_WidthOut_1</ref>,
+	<ref refid="xv__multi__scaler_8h_1a035115f679d542239df0c7c1a33bba71" kindref="member">XV_multi_scaler_Set_HwReg_WidthOut_2</ref>,
+	<ref refid="xv__multi__scaler_8h_1a58371c57164054cf31514f07a10e0a86" kindref="member">XV_multi_scaler_Set_HwReg_WidthOut_3</ref>,
+	<ref refid="xv__multi__scaler_8h_1a861a4f32f68569799decfdf5b5599382" kindref="member">XV_multi_scaler_Set_HwReg_WidthOut_4</ref>,
+	<ref refid="xv__multi__scaler_8h_1adba7dbd2294d95f4c98fa7befba0bbf4" kindref="member">XV_multi_scaler_Set_HwReg_WidthOut_5</ref>,
+	<ref refid="xv__multi__scaler_8h_1a85fd5f17666feb95babc5390c8c9a131" kindref="member">XV_multi_scaler_Set_HwReg_WidthOut_6</ref>,
+	<ref refid="xv__multi__scaler_8h_1a0611e967b66de6eb99dbf922e5225fd6" kindref="member">XV_multi_scaler_Set_HwReg_WidthOut_7</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga3752e1a9bb5b03ab760758a3083beaf3" prot="public" static="yes" mutable="no">
+        <type>const void(*</type>
+        <definition>const void(* XV_MS_Set_HeightIn[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u32 Data)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u32 Data)</argsstring>
+        <name>XV_MS_Set_HeightIn</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1a778b3f6cc91b3803f251040bead3d089" kindref="member">XV_multi_scaler_Set_HwReg_HeightIn_0</ref>,
+	<ref refid="xv__multi__scaler_8h_1a047cd352bcb5789b358d86d485820100" kindref="member">XV_multi_scaler_Set_HwReg_HeightIn_1</ref>,
+	<ref refid="xv__multi__scaler_8h_1ab1ba030bb4e445cd5935b9178a8ff910" kindref="member">XV_multi_scaler_Set_HwReg_HeightIn_2</ref>,
+	<ref refid="xv__multi__scaler_8h_1a4ef3444aa43d6c6952c8917a77159473" kindref="member">XV_multi_scaler_Set_HwReg_HeightIn_3</ref>,
+	<ref refid="xv__multi__scaler_8h_1a3e0f3720817edc57a357ad0b8da16db6" kindref="member">XV_multi_scaler_Set_HwReg_HeightIn_4</ref>,
+	<ref refid="xv__multi__scaler_8h_1a66c92831a712167d3dd9658271a066fd" kindref="member">XV_multi_scaler_Set_HwReg_HeightIn_5</ref>,
+	<ref refid="xv__multi__scaler_8h_1a9671874039eb29745f0077046448ef81" kindref="member">XV_multi_scaler_Set_HwReg_HeightIn_6</ref>,
+	<ref refid="xv__multi__scaler_8h_1a4062cd895956a3a8f06b518a50576822" kindref="member">XV_multi_scaler_Set_HwReg_HeightIn_7</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga803da5827a125ffc1712099f93ad500f" prot="public" static="yes" mutable="no">
+        <type>const void(*</type>
+        <definition>const void(* XV_MS_Set_HeightOut[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u32 Data)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u32 Data)</argsstring>
+        <name>XV_MS_Set_HeightOut</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1a4baedc3620a5e52811288ec3bf4b60f9" kindref="member">XV_multi_scaler_Set_HwReg_HeightOut_0</ref>,
+	<ref refid="xv__multi__scaler_8h_1a5fc31e1a5b3c411ca3f2d3477a29d753" kindref="member">XV_multi_scaler_Set_HwReg_HeightOut_1</ref>,
+	<ref refid="xv__multi__scaler_8h_1aabdae1e729a91533ab19fb6d6a7fd4b8" kindref="member">XV_multi_scaler_Set_HwReg_HeightOut_2</ref>,
+	<ref refid="xv__multi__scaler_8h_1aba6dcc3995c0e8a12315061a52131f41" kindref="member">XV_multi_scaler_Set_HwReg_HeightOut_3</ref>,
+	<ref refid="xv__multi__scaler_8h_1a6434a36287d3a949c0c925b627263907" kindref="member">XV_multi_scaler_Set_HwReg_HeightOut_4</ref>,
+	<ref refid="xv__multi__scaler_8h_1a581a840433aae48d8f2e7238c8db8ed9" kindref="member">XV_multi_scaler_Set_HwReg_HeightOut_5</ref>,
+	<ref refid="xv__multi__scaler_8h_1af39ad77d4bcf4409a96b9d34f1a27c7d" kindref="member">XV_multi_scaler_Set_HwReg_HeightOut_6</ref>,
+	<ref refid="xv__multi__scaler_8h_1a48b525fc8975c6d747fdc669c90f4ab4" kindref="member">XV_multi_scaler_Set_HwReg_HeightOut_7</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga407fb9346e165416ce443c54552184e0" prot="public" static="yes" mutable="no">
+        <type>const void(*</type>
+        <definition>const void(* XV_MS_Set_LineRate[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u32 Data)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u32 Data)</argsstring>
+        <name>XV_MS_Set_LineRate</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1a948e42ef1a334e34489171ed5de19a95" kindref="member">XV_multi_scaler_Set_HwReg_LineRate_0</ref>,
+	<ref refid="xv__multi__scaler_8h_1a100248142bafbe195643aca379b9959b" kindref="member">XV_multi_scaler_Set_HwReg_LineRate_1</ref>,
+	<ref refid="xv__multi__scaler_8h_1af112dbeb62f88d3f8c974695efd331f8" kindref="member">XV_multi_scaler_Set_HwReg_LineRate_2</ref>,
+	<ref refid="xv__multi__scaler_8h_1af921ccb3d1e984a94b23a1960a477c90" kindref="member">XV_multi_scaler_Set_HwReg_LineRate_3</ref>,
+	<ref refid="xv__multi__scaler_8h_1a594dd1f190bb4f568f64810071844f72" kindref="member">XV_multi_scaler_Set_HwReg_LineRate_4</ref>,
+	<ref refid="xv__multi__scaler_8h_1a3a4cc62f798d118d5944d93995411769" kindref="member">XV_multi_scaler_Set_HwReg_LineRate_5</ref>,
+	<ref refid="xv__multi__scaler_8h_1a723bd9430f7acbf8f8b68e3327c5b99d" kindref="member">XV_multi_scaler_Set_HwReg_LineRate_6</ref>,
+	<ref refid="xv__multi__scaler_8h_1a6c8e5b9c2201e9852993c149345e137a" kindref="member">XV_multi_scaler_Set_HwReg_LineRate_7</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga58e6d2716ae2896ea5eadfb798e758d6" prot="public" static="yes" mutable="no">
+        <type>const void(*</type>
+        <definition>const void(* XV_MS_Set_PixelRate[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u32 Data)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u32 Data)</argsstring>
+        <name>XV_MS_Set_PixelRate</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1a0ad054c0c9b6f30a4aa68f36c5e91bc1" kindref="member">XV_multi_scaler_Set_HwReg_PixelRate_0</ref>,
+	<ref refid="xv__multi__scaler_8h_1aaafe9c021c1980c7c5dc98eab3b4d030" kindref="member">XV_multi_scaler_Set_HwReg_PixelRate_1</ref>,
+	<ref refid="xv__multi__scaler_8h_1a2bfb7bd386aa6dbbf8595dbb80e8160c" kindref="member">XV_multi_scaler_Set_HwReg_PixelRate_2</ref>,
+	<ref refid="xv__multi__scaler_8h_1a02309e131f003cbd402b2ed894169c02" kindref="member">XV_multi_scaler_Set_HwReg_PixelRate_3</ref>,
+	<ref refid="xv__multi__scaler_8h_1ad92eaa567284f7e635b39b5839f7538a" kindref="member">XV_multi_scaler_Set_HwReg_PixelRate_4</ref>,
+	<ref refid="xv__multi__scaler_8h_1ae6b35dce3d3e31831f11bf6866d68d93" kindref="member">XV_multi_scaler_Set_HwReg_PixelRate_5</ref>,
+	<ref refid="xv__multi__scaler_8h_1ad0dfb16a9662991542f8793f703679ed" kindref="member">XV_multi_scaler_Set_HwReg_PixelRate_6</ref>,
+	<ref refid="xv__multi__scaler_8h_1af6fdabb1f37cfc70d352add06cd88cfb" kindref="member">XV_multi_scaler_Set_HwReg_PixelRate_7</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga893893e114448e8c1f8d96b165ff1034" prot="public" static="yes" mutable="no">
+        <type>const void(*</type>
+        <definition>const void(* XV_MS_Set_ColorFormatIn[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u32 Data)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u32 Data)</argsstring>
+        <name>XV_MS_Set_ColorFormatIn</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1ad5526e0b46fa7ec39452b2a07b75b3ee" kindref="member">XV_multi_scaler_Set_HwReg_InPixelFmt_0</ref>,
+	<ref refid="xv__multi__scaler_8h_1a00600501cdffaee156f7b712f4733461" kindref="member">XV_multi_scaler_Set_HwReg_InPixelFmt_1</ref>,
+	<ref refid="xv__multi__scaler_8h_1ac1a04b97d04cdac12b4938eda3497137" kindref="member">XV_multi_scaler_Set_HwReg_InPixelFmt_2</ref>,
+	<ref refid="xv__multi__scaler_8h_1a6fa218e7e6a30b1308f628aa01c5fa25" kindref="member">XV_multi_scaler_Set_HwReg_InPixelFmt_3</ref>,
+	<ref refid="xv__multi__scaler_8h_1a8bb9d1ed46d2a23c49687327e4ac01a0" kindref="member">XV_multi_scaler_Set_HwReg_InPixelFmt_4</ref>,
+	<ref refid="xv__multi__scaler_8h_1a965b21b30d8313acf78d3da26ad10398" kindref="member">XV_multi_scaler_Set_HwReg_InPixelFmt_5</ref>,
+	<ref refid="xv__multi__scaler_8h_1ae5f30a47ae1be39b3ec4dec57e603241" kindref="member">XV_multi_scaler_Set_HwReg_InPixelFmt_6</ref>,
+	<ref refid="xv__multi__scaler_8h_1a4bf288182cc344ddae094d2ddedff2c1" kindref="member">XV_multi_scaler_Set_HwReg_InPixelFmt_7</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga4ee626509f4f65a732bc6c8a17c8f019" prot="public" static="yes" mutable="no">
+        <type>const void(*</type>
+        <definition>const void(* XV_MS_Set_ColorFormatOut[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u32 Data)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u32 Data)</argsstring>
+        <name>XV_MS_Set_ColorFormatOut</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1ad2f0cc8166a97f3fb7340ef8b847d18b" kindref="member">XV_multi_scaler_Set_HwReg_OutPixelFmt_0</ref>,
+	<ref refid="xv__multi__scaler_8h_1a926066fafa574b5840d6c01c30bfa85f" kindref="member">XV_multi_scaler_Set_HwReg_OutPixelFmt_1</ref>,
+	<ref refid="xv__multi__scaler_8h_1ad20e8d438513ae160a74d2b85b754ec8" kindref="member">XV_multi_scaler_Set_HwReg_OutPixelFmt_2</ref>,
+	<ref refid="xv__multi__scaler_8h_1ad9a00dd1d5fcabe8c5fb06427c6b4d3f" kindref="member">XV_multi_scaler_Set_HwReg_OutPixelFmt_3</ref>,
+	<ref refid="xv__multi__scaler_8h_1a9b38e4c708e07ef462580bb4bfe592b8" kindref="member">XV_multi_scaler_Set_HwReg_OutPixelFmt_4</ref>,
+	<ref refid="xv__multi__scaler_8h_1ad066645414b521719530c92feafaf791" kindref="member">XV_multi_scaler_Set_HwReg_OutPixelFmt_5</ref>,
+	<ref refid="xv__multi__scaler_8h_1af7b01b138cd9c05b35427545cb6c3457" kindref="member">XV_multi_scaler_Set_HwReg_OutPixelFmt_6</ref>,
+	<ref refid="xv__multi__scaler_8h_1a352d33b05aa4fa04dc3ae92249ba4bbf" kindref="member">XV_multi_scaler_Set_HwReg_OutPixelFmt_7</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga45aa9951e2bcf9066c37dd012dfa0155" prot="public" static="yes" mutable="no">
+        <type>const void(*</type>
+        <definition>const void(* XV_MS_Set_InStride[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u32 Data)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u32 Data)</argsstring>
+        <name>XV_MS_Set_InStride</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1abd5e2057c34d07606996ba40d9ca1cec" kindref="member">XV_multi_scaler_Set_HwReg_InStride_0</ref>,
+	<ref refid="xv__multi__scaler_8h_1ad223dfe7d846366d3f6c5d314b250c6d" kindref="member">XV_multi_scaler_Set_HwReg_InStride_1</ref>,
+	<ref refid="xv__multi__scaler_8h_1a62841d7ef690af71a8d6ad72aba8f7be" kindref="member">XV_multi_scaler_Set_HwReg_InStride_2</ref>,
+	<ref refid="xv__multi__scaler_8h_1a8ed98731a742f14e98690c906ea5d8a1" kindref="member">XV_multi_scaler_Set_HwReg_InStride_3</ref>,
+	<ref refid="xv__multi__scaler_8h_1ac0e6484e7fd26dcdcabc2576dfb49f51" kindref="member">XV_multi_scaler_Set_HwReg_InStride_4</ref>,
+	<ref refid="xv__multi__scaler_8h_1abb7f976bb4b5441727a491a4c5677d41" kindref="member">XV_multi_scaler_Set_HwReg_InStride_5</ref>,
+	<ref refid="xv__multi__scaler_8h_1ad60b24780ca15b301d8fcb62050b7329" kindref="member">XV_multi_scaler_Set_HwReg_InStride_6</ref>,
+	<ref refid="xv__multi__scaler_8h_1ad21ddf6207e955b693b1b8c8fd4ffe27" kindref="member">XV_multi_scaler_Set_HwReg_InStride_7</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga632ba84bdddbc3626f784b112a0c7c8b" prot="public" static="yes" mutable="no">
+        <type>const void(*</type>
+        <definition>const void(* XV_MS_Set_OutStride[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u32 Data)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u32 Data)</argsstring>
+        <name>XV_MS_Set_OutStride</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1a7b8c5b613aed0991500edf7d64975bb3" kindref="member">XV_multi_scaler_Set_HwReg_OutStride_0</ref>,
+	<ref refid="xv__multi__scaler_8h_1a2265e12fcc0f3ce52d08345882bf9314" kindref="member">XV_multi_scaler_Set_HwReg_OutStride_1</ref>,
+	<ref refid="xv__multi__scaler_8h_1a1cf839060517db3c089435bbff15b14d" kindref="member">XV_multi_scaler_Set_HwReg_OutStride_2</ref>,
+	<ref refid="xv__multi__scaler_8h_1a77b2aa42db6b7d8dcfea8e6d88f5efed" kindref="member">XV_multi_scaler_Set_HwReg_OutStride_3</ref>,
+	<ref refid="xv__multi__scaler_8h_1a17f88c0c23151ce7e9f892f5f759bea5" kindref="member">XV_multi_scaler_Set_HwReg_OutStride_4</ref>,
+	<ref refid="xv__multi__scaler_8h_1a43273004c144314c1c970bdf316e35d1" kindref="member">XV_multi_scaler_Set_HwReg_OutStride_5</ref>,
+	<ref refid="xv__multi__scaler_8h_1a9c033ba869ad4a9d88bdd3c3e1a73f7b" kindref="member">XV_multi_scaler_Set_HwReg_OutStride_6</ref>,
+	<ref refid="xv__multi__scaler_8h_1a1499f438982a376e8188c08de528f5d4" kindref="member">XV_multi_scaler_Set_HwReg_OutStride_7</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga501b3790a2cafd71ba80679b26e1329a" prot="public" static="yes" mutable="no">
+        <type>const void(*</type>
+        <definition>const void(* XV_MS_Set_SrcImgBuf0[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u64 Data)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u64 Data)</argsstring>
+        <name>XV_MS_Set_SrcImgBuf0</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1a73c9cda58180938a6321f0b66fcc687c" kindref="member">XV_multi_scaler_Set_HwReg_srcImgBuf0_0_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a8076d2999923172891e71714fa4adca8" kindref="member">XV_multi_scaler_Set_HwReg_srcImgBuf0_1_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1ab19974dd068de51f0c0afa4427b79c81" kindref="member">XV_multi_scaler_Set_HwReg_srcImgBuf0_2_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a60617e641915821f63b01c24544b9f6c" kindref="member">XV_multi_scaler_Set_HwReg_srcImgBuf0_3_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1ac1348ae23cb73ae620260fcbacee94ae" kindref="member">XV_multi_scaler_Set_HwReg_srcImgBuf0_4_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a19e1daf18132160ba4d59d7567f523a5" kindref="member">XV_multi_scaler_Set_HwReg_srcImgBuf0_5_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1ae89f8f06fb9ae07b6c49368e26fae5cf" kindref="member">XV_multi_scaler_Set_HwReg_srcImgBuf0_6_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a1a96b6279b81efd3111d0f276214bb92" kindref="member">XV_multi_scaler_Set_HwReg_srcImgBuf0_7_V</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1gaadda95dd1d55cfd94f01eb92d4001b44" prot="public" static="yes" mutable="no">
+        <type>const void(*</type>
+        <definition>const void(* XV_MS_Set_SrcImgBuf1[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u64 Data)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u64 Data)</argsstring>
+        <name>XV_MS_Set_SrcImgBuf1</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1afa4d95acf024b4779d2ac28bf430fefe" kindref="member">XV_multi_scaler_Set_HwReg_srcImgBuf1_0_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a7e1160a303c86342293a598ccf3a9d11" kindref="member">XV_multi_scaler_Set_HwReg_srcImgBuf1_1_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a13dcedf613f824cc02187d7402463064" kindref="member">XV_multi_scaler_Set_HwReg_srcImgBuf1_2_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1aa54acc8e5e61b74a3150cec571c8d74e" kindref="member">XV_multi_scaler_Set_HwReg_srcImgBuf1_3_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a4408fcba2230f1ca3afe84e1a6db0951" kindref="member">XV_multi_scaler_Set_HwReg_srcImgBuf1_4_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1aa61ae3b7801bf1b95f6c172e7b6a4275" kindref="member">XV_multi_scaler_Set_HwReg_srcImgBuf1_5_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a2c3dae55b505a179de09ab39044a7eb9" kindref="member">XV_multi_scaler_Set_HwReg_srcImgBuf1_6_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a61a285a21cdebc087eb2677b87c2c840" kindref="member">XV_multi_scaler_Set_HwReg_srcImgBuf1_7_V</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga920040b8181b53a678f8561f897cc936" prot="public" static="yes" mutable="no">
+        <type>const void(*</type>
+        <definition>const void(* XV_MS_Set_DstImgBuf0[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u64 Data)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u64 Data)</argsstring>
+        <name>XV_MS_Set_DstImgBuf0</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1a142adb3001fc6915a4d40bca721965f2" kindref="member">XV_multi_scaler_Set_HwReg_dstImgBuf0_0_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a5df579243c891b7ca45f8df0ec6408b6" kindref="member">XV_multi_scaler_Set_HwReg_dstImgBuf0_1_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1aad3100ca02c63877344acfbbe87f15bb" kindref="member">XV_multi_scaler_Set_HwReg_dstImgBuf0_2_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a1ee48be547b519ae4fdf72f9cb53dc86" kindref="member">XV_multi_scaler_Set_HwReg_dstImgBuf0_3_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1ab87022c54805762c1137801c9b96ab1a" kindref="member">XV_multi_scaler_Set_HwReg_dstImgBuf0_4_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1acb06658f75750a0de71de18b4d3ac63a" kindref="member">XV_multi_scaler_Set_HwReg_dstImgBuf0_5_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a3954193557be114a81dee1365b02b914" kindref="member">XV_multi_scaler_Set_HwReg_dstImgBuf0_6_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1ae0c69d4aead68f5ad04b3bac4466b0e8" kindref="member">XV_multi_scaler_Set_HwReg_dstImgBuf0_7_V</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1gaa30e609df377e10851e37dd386b5dc1e" prot="public" static="yes" mutable="no">
+        <type>const void(*</type>
+        <definition>const void(* XV_MS_Set_DstImgBuf1[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u64 Data)</definition>
+        <argsstring>[XV_MAX_OUTS])(XV_multi_scaler *InstancePtr, u64 Data)</argsstring>
+        <name>XV_MS_Set_DstImgBuf1</name>
+        <initializer>= { <ref refid="xv__multi__scaler_8h_1aba9c45e8b0479bf5422c2882c140b6ff" kindref="member">XV_multi_scaler_Set_HwReg_dstImgBuf1_0_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a1cbb739cd167b573bef7e7841eded01d" kindref="member">XV_multi_scaler_Set_HwReg_dstImgBuf1_1_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a7238a8c55e3c1498408209c8d6872c87" kindref="member">XV_multi_scaler_Set_HwReg_dstImgBuf1_2_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1abb1a3c87312e593a09cf192164778c48" kindref="member">XV_multi_scaler_Set_HwReg_dstImgBuf1_3_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1af6613c328255fda59560c5f77b85684a" kindref="member">XV_multi_scaler_Set_HwReg_dstImgBuf1_4_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1ac17f3fadafc4d7a103004dde6d7cf2c0" kindref="member">XV_multi_scaler_Set_HwReg_dstImgBuf1_5_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a27c1ad3493b581e22a8f32b647117b9a" kindref="member">XV_multi_scaler_Set_HwReg_dstImgBuf1_6_V</ref>,
+	<ref refid="xv__multi__scaler_8h_1a18b652138a6474f5e11ba362e558d182" kindref="member">XV_multi_scaler_Set_HwReg_dstImgBuf1_7_V</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga230a9dd799b90aab04c506d5687ebea4" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_multiscaler_fixedcoeff_taps6_6C[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_6]</definition>
+        <argsstring>[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_6]</argsstring>
+        <name>XV_multiscaler_fixedcoeff_taps6_6C</name>
+        <briefdescription>
+<para>Fixed coefficient tables for polyphase scaling filters. </para>        </briefdescription>
+        <detaileddescription>
+<para>Fixed coefficient tables for polyphase scaling filters.</para><para>This table contains a 64-phase, 6-tap FIR filter bank optimized for hardware implementations that support exactly 6 coefficients per phase. This is a compact version of the 12C format without padding zeros.</para><para>Format: [XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_6] Phases: 64 Active taps: 6 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_coeff.c" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga1df60dab912fc9a16f28c6e8485dd40a" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_multiscaler_fixedcoeff_taps6_12C[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12]</definition>
+        <argsstring>[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12]</argsstring>
+        <name>XV_multiscaler_fixedcoeff_taps6_12C</name>
+        <briefdescription>
+<para>Fixed coefficient table for 6-tap filter with 12 coefficients per phase. </para>        </briefdescription>
+        <detaileddescription>
+<para>Fixed coefficient table for 6-tap filter with 12 coefficients per phase.</para><para>This table contains a 64-phase, 6-tap FIR filter bank for vertical and horizontal scaling. The 12-coefficient format includes zero-padding to match hardware requirements. Each row represents one of 64 interpolation phases, allowing smooth sub-pixel precision during scaling operations.</para><para>Format: [XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12] Phases: 64 Active taps: 6 (with padding zeros) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_coeff.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga2a274bddc96223d1a907f59e8d30b296" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_multiscaler_fixedcoeff_taps8_8C[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_8]</definition>
+        <argsstring>[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_8]</argsstring>
+        <name>XV_multiscaler_fixedcoeff_taps8_8C</name>
+        <briefdescription>
+<para>Fixed coefficient table for 8-tap filter with 8 coefficients per phase. </para>        </briefdescription>
+        <detaileddescription>
+<para>Fixed coefficient table for 8-tap filter with 8 coefficients per phase.</para><para>This table contains a 64-phase, 8-tap FIR filter bank in compact format without padding zeros. Optimized for hardware that supports exactly 8 coefficients per phase.</para><para>Format: [XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_8] Phases: 64 Active taps: 8 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_coeff.c" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga4b0577641ab1ead12caf3a93c8def312" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_multiscaler_fixedcoeff_taps8_12C[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12]</definition>
+        <argsstring>[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12]</argsstring>
+        <name>XV_multiscaler_fixedcoeff_taps8_12C</name>
+        <briefdescription>
+<para>Fixed coefficient table for 8-tap filter with 12 coefficients per phase. </para>        </briefdescription>
+        <detaileddescription>
+<para>Fixed coefficient table for 8-tap filter with 12 coefficients per phase.</para><para>This table contains a 64-phase, 8-tap FIR filter bank providing higher quality scaling compared to 6-tap filters. The 12-coefficient format includes zero-padding for hardware alignment. 8-tap filters offer improved frequency response and reduced aliasing artifacts.</para><para>Format: [XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12] Phases: 64 Active taps: 8 (with padding zeros) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_coeff.c" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1gacf0060240911fc8017fc400e0bfd5a93" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_multiscaler_fixedcoeff_taps10_10C[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_10]</definition>
+        <argsstring>[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_10]</argsstring>
+        <name>XV_multiscaler_fixedcoeff_taps10_10C</name>
+        <briefdescription>
+<para>Fixed coefficient table for 10-tap filter with 10 coefficients per phase. </para>        </briefdescription>
+        <detaileddescription>
+<para>Fixed coefficient table for 10-tap filter with 10 coefficients per phase.</para><para>This table contains a 64-phase, 10-tap FIR filter bank in compact format without padding zeros. Optimized for hardware that supports exactly 10 coefficients per phase.</para><para>Format: [XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_10] Phases: 64 Active taps: 10 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_coeff.c" bodystart="449" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga1134264b7c3ed1d23336900f8b6968e4" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_multiscaler_fixedcoeff_taps10_12C[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12]</definition>
+        <argsstring>[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12]</argsstring>
+        <name>XV_multiscaler_fixedcoeff_taps10_12C</name>
+        <briefdescription>
+<para>Fixed coefficient table for 10-tap filter with 12 coefficients per phase. </para>        </briefdescription>
+        <detaileddescription>
+<para>Fixed coefficient table for 10-tap filter with 12 coefficients per phase.</para><para>This table contains a 64-phase, 10-tap FIR filter bank offering superior scaling quality. The 12-coefficient format includes minimal padding. 10-tap filters provide excellent frequency response characteristics and minimal ringing artifacts, suitable for professional image processing.</para><para>Format: [XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12] Phases: 64 Active taps: 10 (with minimal padding) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_coeff.c" bodystart="370" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__multi__scaler_1ga88f54282785f5ae17e172c3b0291e433" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_multiscaler_fixedcoeff_taps12_12C[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12]</definition>
+        <argsstring>[XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12]</argsstring>
+        <name>XV_multiscaler_fixedcoeff_taps12_12C</name>
+        <briefdescription>
+<para>Fixed coefficient table for 12-tap filter with 12 coefficients per phase. </para>        </briefdescription>
+        <detaileddescription>
+<para>Fixed coefficient table for 12-tap filter with 12 coefficients per phase.</para><para>This table contains a 64-phase, 12-tap FIR filter bank providing the highest quality scaling among all supported tap configurations. With no padding required, all 12 coefficients are active. 12-tap filters deliver exceptional frequency response, minimal aliasing, and superior image quality for demanding applications.</para><para>Format: [XV_MULTISCALER_MAX_V_PHASES][XV_MULTISCALER_TAPS_12] Phases: 64 Active taps: 12 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_coeff.c" bodystart="530" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__v__multi__scaler_1gaa963a38ee6df7b1790e6b4112caa936e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVMultiScaler_SetCallback</definition>
+        <argsstring>(XV_multi_scaler *InstancePtr, void *CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XVMultiScaler_SetCallback</name>
+        <param>
+          <type><ref refid="struct_x_v__multi__scaler" kindref="compound">XV_multi_scaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>Install an asynchronous callback function for MultiScaler events. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function registers a user-defined callback function that will be invoked when the MultiScaler IP generates an interrupt. The callback is typically used to handle frame processing completion notifications.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the MultiScaler IP instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Invoking this function for a handler that already has been installed replaces it with the new handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_intr.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_intr.c" bodystart="44" bodyend="54"/>
+        <references refid="struct_x_v__multi__scaler_1a4dcdc9b8086f59643462608251154f55" compoundref="xv__multi__scaler_8h" startline="161">XV_multi_scaler::CallbackRef</references>
+        <references refid="struct_x_v__multi__scaler_1a556ed9053f394c0d8a42329dd1b9bed8" compoundref="xv__multi__scaler_8h" startline="160">XV_multi_scaler::FrameDoneCallback</references>
+        <referencedby refid="xv__multi__scaler__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__multi__scaler__example_8c" startline="379" endline="545">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__v__multi__scaler_1ga5e677dc070c124e1d19c6fbd07cf3c8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* XV_MultiScalerIntrHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XV_MultiScalerIntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the MultiScaler core driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler clears the pending interrupt and determines if the source is frame done signal. If yes, calls the registered callback function.</para><para>The application is responsible for connecting this function to the interrupt system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance that just interrupted.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_intr.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_intr.c" bodystart="75" bodyend="90"/>
+        <references refid="struct_x_v__multi__scaler_1a556ed9053f394c0d8a42329dd1b9bed8" compoundref="xv__multi__scaler_8h" startline="160">XV_multi_scaler::FrameDoneCallback</references>
+        <references refid="struct_x_v__multi__scaler_1af1df2f8837a2ec5a25292418558a1c70" compoundref="xv__multi__scaler_8h" startline="151">XV_multi_scaler::IsReady</references>
+        <references refid="xv__multi__scaler_8c_1a5f8f32c168b31b403968db34f9178d6e" compoundref="xv__multi__scaler_8c" startline="10118" endline="10125">XV_multi_scaler_InterruptClear</references>
+        <references refid="xv__multi__scaler_8c_1a58473ded57839bdeaed8eb2400466786" compoundref="xv__multi__scaler_8c" startline="10158" endline="10165">XV_multi_scaler_InterruptGetStatus</references>
+        <references refid="xv__multi__scaler_8h_1a19f9095f82df48af37e2ecb250ab3523" compoundref="xv__multi__scaler_8h" startline="68">XV_MULTI_SCALER_ISR_DONE_BIT_MASK</references>
+        <references refid="xv__multi__scaler_8h_1a09cb096510d86fa51edb4b142113155a" compoundref="xv__multi__scaler_8h" startline="72">XV_MULTI_SCALER_ISR_READY_BIT_MASK</references>
+        <referencedby refid="xv__multi__scaler__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__multi__scaler__example_8c" startline="379" endline="545">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__v__multi__scaler_1gaea900bec1142249a116ad11c2b189e8d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XV_MultiScalerSetCoeff</definition>
+        <argsstring>(XV_multi_scaler *MscPtr, XV_multi_scaler_Video_Config *MS_cfg)</argsstring>
+        <name>XV_MultiScalerSetCoeff</name>
+        <param>
+          <type><ref refid="struct_x_v__multi__scaler" kindref="compound">XV_multi_scaler</ref> *</type>
+          <declname>MscPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_v__multi__scaler___video___config" kindref="compound">XV_multi_scaler_Video_Config</ref> *</type>
+          <declname>MS_cfg</declname>
+        </param>
+        <briefdescription>
+<para>Program filter coefficients for scaling operation. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function selects and programs the appropriate fixed filter coefficients into the multi scaler core registers based on the scaling ratio. The coefficients are chosen from predefined tables based on the vertical and horizontal scaling factors (HeightIn/HeightOut and WidthIn/WidthOut). Different coefficient sets are used for different scaling ranges to optimize image quality.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MscPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MS_cfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the channel configuration structure containing scaling parameters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>This is a static (internal) function called by XV_MultiScalerSetChannelConfig. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="383" bodyend="520"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__multi__scaler_1ga72ecb43c374027b51fc780f208aea156" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_MultiScalerStart</definition>
+        <argsstring>(XV_multi_scaler *InstancePtr)</argsstring>
+        <name>XV_MultiScalerStart</name>
+        <param>
+          <type><ref refid="struct_x_v__multi__scaler" kindref="compound">XV_multi_scaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Start the multi scaler core operation. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function enables auto-restart mode and starts the multi scaler core. It validates that the number of outputs is configured correctly and that all output channels specified by the output bit mask are properly configured.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="280" bodyend="294"/>
+        <references refid="struct_x_v__multi__scaler_1aedeaba0ac0133b97d009d57e37301f17" compoundref="xv__multi__scaler_8h" startline="162">XV_multi_scaler::OutBitMask</references>
+        <references refid="xv__multi__scaler_8h_1ac653652a60c1d539a71f476699de3f35" compoundref="xv__multi__scaler_8h" startline="42">XV_MAX_OUTS</references>
+        <references refid="xv__multi__scaler_8c_1a5260b782b76d173e30f49e054a4031dd" compoundref="xv__multi__scaler_8c" startline="179" endline="187">XV_multi_scaler_EnableAutoRestart</references>
+        <references refid="xv__multi__scaler_8c_1ac9bc9549a67ace2447ccb3d94447a043" compoundref="xv__multi__scaler_8c" startline="244" endline="254">XV_multi_scaler_Get_HwReg_num_outs</references>
+        <references refid="xv__multi__scaler_8c_1a00ce444c37bfd7eb4920b484e295aaf0" compoundref="xv__multi__scaler_8c" startline="82" endline="95">XV_multi_scaler_Start</references>
+        <references refid="group__v__multi__scaler_1ga8cc37ad6f7bea69f9473116ca2255984" compoundref="xv__multi__scaler__l2_8h" startline="65">XV_MULTISCALER_OUTPUT_MASK</references>
+        <referencedby refid="xv__multi__scaler__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__multi__scaler__example_8c" startline="379" endline="545">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__v__multi__scaler_1gac76f0404a4543e4b45ae1ee8e633946c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_MultiScalerStop</definition>
+        <argsstring>(XV_multi_scaler *InstancePtr)</argsstring>
+        <name>XV_MultiScalerStop</name>
+        <param>
+          <type><ref refid="struct_x_v__multi__scaler" kindref="compound">XV_multi_scaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Stop the multi scaler core operation. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function disables auto-restart mode on the multi scaler core, effectively stopping its operation after the current frame completes.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="310" bodyend="315"/>
+        <references refid="xv__multi__scaler_8c_1a11cfb91b17b360b0a7254d4ad20c0371" compoundref="xv__multi__scaler_8c" startline="200" endline="207">XV_multi_scaler_DisableAutoRestart</references>
+        <referencedby refid="xv__multi__scaler__example_8c_1aaf2755c1b359172dcbe95758278b74ee" compoundref="xv__multi__scaler__example_8c" startline="285" endline="295">XVMultiScalerCallback</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__v__multi__scaler_1ga12eacf4add26c91456221b04172d314e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_MultiScalerGetNumOutputs</definition>
+        <argsstring>(XV_multi_scaler *InstancePtr)</argsstring>
+        <name>XV_MultiScalerGetNumOutputs</name>
+        <param>
+          <type><ref refid="struct_x_v__multi__scaler" kindref="compound">XV_multi_scaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Get the number of output channels configured. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function retrieves the current number of output channels that are configured for the multi scaler core.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Number of configured output channels (u32).</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="331" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="331" bodyend="336"/>
+        <references refid="xv__multi__scaler_8c_1ac9bc9549a67ace2447ccb3d94447a043" compoundref="xv__multi__scaler_8c" startline="244" endline="254">XV_multi_scaler_Get_HwReg_num_outs</references>
+        <referencedby refid="xv__multi__scaler__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__multi__scaler__example_8c" startline="379" endline="545">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__v__multi__scaler_1ga954a2264fa23e2726a43a40433a1216d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_MultiScalerSetNumOutputs</definition>
+        <argsstring>(XV_multi_scaler *InstancePtr, u32 NumOuts)</argsstring>
+        <name>XV_MultiScalerSetNumOutputs</name>
+        <param>
+          <type><ref refid="struct_x_v__multi__scaler" kindref="compound">XV_multi_scaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumOuts</declname>
+        </param>
+        <briefdescription>
+<para>Set the number of output channels to be used. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function configures the number of output channels for the multi scaler core. The number must be between 1 and the maximum number of outputs supported by the hardware instance. The output bit mask is reset when this function is called.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumOuts</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of output channels to configure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>NumOuts must be greater than 0 and less than or equal to MaxOuts. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="354" bodyend="362"/>
+        <references refid="struct_x_v__multi__scaler_1aedeaba0ac0133b97d009d57e37301f17" compoundref="xv__multi__scaler_8h" startline="162">XV_multi_scaler::OutBitMask</references>
+        <references refid="xv__multi__scaler_8c_1ab3aab3de200cc805e79e0cd875bae6ca" compoundref="xv__multi__scaler_8c" startline="223" endline="231">XV_multi_scaler_Set_HwReg_num_outs</references>
+        <referencedby refid="xv__multi__scaler__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__multi__scaler__example_8c" startline="379" endline="545">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__v__multi__scaler_1ga8bec7aefd004b6b1ce75da869454ae9e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_MultiScalerGetChannelConfig</definition>
+        <argsstring>(XV_multi_scaler *InstancePtr, XV_multi_scaler_Video_Config *MS_cfg)</argsstring>
+        <name>XV_MultiScalerGetChannelConfig</name>
+        <param>
+          <type><ref refid="struct_x_v__multi__scaler" kindref="compound">XV_multi_scaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_v__multi__scaler___video___config" kindref="compound">XV_multi_scaler_Video_Config</ref> *</type>
+          <declname>MS_cfg</declname>
+        </param>
+        <briefdescription>
+<para>Read the configuration of a specific channel. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function retrieves the current configuration settings for a specified output channel. The application must set the ChannelId field in the MS_cfg structure before calling this function. The function reads all channel parameters including dimensions, color formats, strides, and buffer addresses.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MS_cfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the multi scaler config structure. The ChannelId field must be pre-filled by the application.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The ChannelId in MS_cfg must be set before calling this function. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="540" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="540" bodyend="567"/>
+        <references refid="struct_x_v__multi__scaler___video___config_1a8b381fecdeae9d3e33a10acf77d3a400" compoundref="xv__multi__scaler__l2_8h" startline="159">XV_multi_scaler_Video_Config::ChannelId</references>
+        <references refid="struct_x_v__multi__scaler___video___config_1ae8d008b02058f5e44755cb63b909ceb2" compoundref="xv__multi__scaler__l2_8h" startline="166">XV_multi_scaler_Video_Config::ColorFormatIn</references>
+        <references refid="struct_x_v__multi__scaler___video___config_1a4b50bc5d11363b1da56605a851d7dd7e" compoundref="xv__multi__scaler__l2_8h" startline="167">XV_multi_scaler_Video_Config::ColorFormatOut</references>
+        <references refid="struct_x_v__multi__scaler___video___config_1aeb02ddf050dc9504dfbd909af26c94eb" compoundref="xv__multi__scaler__l2_8h" startline="170">XV_multi_scaler_Video_Config::DstImgBuf0</references>
+        <references refid="struct_x_v__multi__scaler___video___config_1a1937b437d3262059dbe660258b578e3e" compoundref="xv__multi__scaler__l2_8h" startline="171">XV_multi_scaler_Video_Config::DstImgBuf1</references>
+        <references refid="struct_x_v__multi__scaler___video___config_1aee1e004a9996d57d3e672e1b37bb97c2" compoundref="xv__multi__scaler__l2_8h" startline="162">XV_multi_scaler_Video_Config::HeightIn</references>
+        <references refid="struct_x_v__multi__scaler___video___config_1a3e20ef3965e65216307d3a7b9680f4ac" compoundref="xv__multi__scaler__l2_8h" startline="163">XV_multi_scaler_Video_Config::HeightOut</references>
+        <references refid="struct_x_v__multi__scaler___video___config_1affa95d9f560d8aad722849d7555d43a2" compoundref="xv__multi__scaler__l2_8h" startline="168">XV_multi_scaler_Video_Config::InStride</references>
+        <references refid="struct_x_v__multi__scaler___video___config_1ac780f887c6863f1ea098e67e914876af" compoundref="xv__multi__scaler__l2_8h" startline="169">XV_multi_scaler_Video_Config::OutStride</references>
+        <references refid="struct_x_v__multi__scaler_1abf8c9a07415957ce019bd3c941bfb450" compoundref="xv__multi__scaler_8h" startline="152">XV_multi_scaler::SamplesPerClock</references>
+        <references refid="struct_x_v__multi__scaler___video___config_1ac49861e151f2bdaa9c10f85789def0a6" compoundref="xv__multi__scaler__l2_8h" startline="160">XV_multi_scaler_Video_Config::SrcImgBuf0</references>
+        <references refid="struct_x_v__multi__scaler___video___config_1ac865217ba2ae35b47bad8e1f0c14214a" compoundref="xv__multi__scaler__l2_8h" startline="161">XV_multi_scaler_Video_Config::SrcImgBuf1</references>
+        <references refid="struct_x_v__multi__scaler___video___config_1af081389d32fd02fe58b7eea54cb5bb85" compoundref="xv__multi__scaler__l2_8h" startline="164">XV_multi_scaler_Video_Config::WidthIn</references>
+        <references refid="struct_x_v__multi__scaler___video___config_1a89cad588496c291deb22461abe56483e" compoundref="xv__multi__scaler__l2_8h" startline="165">XV_multi_scaler_Video_Config::WidthOut</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__multi__scaler_1gadac93267b546f514b3311c1825fd832c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_MultiScalerSetChannelConfig</definition>
+        <argsstring>(XV_multi_scaler *InstancePtr, XV_multi_scaler_Video_Config *MS_cfg)</argsstring>
+        <name>XV_MultiScalerSetChannelConfig</name>
+        <param>
+          <type><ref refid="struct_x_v__multi__scaler" kindref="compound">XV_multi_scaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_v__multi__scaler___video___config" kindref="compound">XV_multi_scaler_Video_Config</ref> *</type>
+          <declname>MS_cfg</declname>
+        </param>
+        <briefdescription>
+<para>Configure a channel with the specified scaling parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function programs all configuration parameters for a specific output channel including input/output dimensions, color formats, strides, buffer addresses, and scaling rates. It also handles optional cropping window configuration and automatically programs the appropriate filter coefficients based on the scaling ratio. Extensive validation is performed on all parameters to ensure valid configuration.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MS_cfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the multi scaler config structure containing all channel configuration parameters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>All configuration parameters are validated via assertions. Buffer addresses must not overlap to prevent data corruption. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" line="590" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.c" bodystart="590" bodyend="735"/>
+        <references refid="struct_x_v__multi__scaler___video___config_1a8b381fecdeae9d3e33a10acf77d3a400" compoundref="xv__multi__scaler__l2_8h" startline="159">XV_multi_scaler_Video_Config::ChannelId</references>
+        <references refid="struct_x_v__multi__scaler___video___config_1ae8d008b02058f5e44755cb63b909ceb2" compoundref="xv__multi__scaler__l2_8h" startline="166">XV_multi_scaler_Video_Config::ColorFormatIn</references>
+        <references refid="struct_x_v__multi__scaler___video___config_1a4b50bc5d11363b1da56605a851d7dd7e" compoundref="xv__multi__scaler__l2_8h" startline="167">XV_multi_scaler_Video_Config::ColorFormatOut</references>
+        <references refid="struct_x_v__multi__scaler___crop___window_1a8bb39681061f01a37164ac5fdeee28a1" compoundref="xv__multi__scaler__l2_8h" startline="152">XV_multi_scaler_Crop_Window::Crop</references>
+        <references refid="struct_x_v__multi__scaler___video___config_1a66ca47e5e09d10677d21bf9cd5b67320" compoundref="xv__multi__scaler__l2_8h" startline="172">XV_multi_scaler_Video_Config::CropWin</references>
+        <references refid="struct_x_v__multi__scaler___video___config_1aeb02ddf050dc9504dfbd909af26c94eb" compoundref="xv__multi__scaler__l2_8h" startline="170">XV_multi_scaler_Video_Config::DstImgBuf0</references>
+        <references refid="struct_x_v__multi__scaler___video___config_1a1937b437d3262059dbe660258b578e3e" compoundref="xv__multi__scaler__l2_8h" startline="171">XV_multi_scaler_Video_Config::DstImgBuf1</references>
+        <references refid="struct_x_v__multi__scaler___crop___window_1a04e794d6605f99662470193db3cd83bb" compoundref="xv__multi__scaler__l2_8h" startline="148">XV_multi_scaler_Crop_Window::Height</references>
+        <references refid="struct_x_v__multi__scaler___video___config_1aee1e004a9996d57d3e672e1b37bb97c2" compoundref="xv__multi__scaler__l2_8h" startline="162">XV_multi_scaler_Video_Config::HeightIn</references>
+        <references refid="struct_x_v__multi__scaler___video___config_1a3e20ef3965e65216307d3a7b9680f4ac" compoundref="xv__multi__scaler__l2_8h" startline="163">XV_multi_scaler_Video_Config::HeightOut</references>
+        <references refid="struct_x_v__multi__scaler___video___config_1affa95d9f560d8aad722849d7555d43a2" compoundref="xv__multi__scaler__l2_8h" startline="168">XV_multi_scaler_Video_Config::InStride</references>
+        <references refid="struct_x_v__multi__scaler_1a72d4412d9c8613777dab212a462445aa" compoundref="xv__multi__scaler_8h" startline="155">XV_multi_scaler::MaxCols</references>
+        <references refid="struct_x_v__multi__scaler_1aa2ed53b7c6ce39142054648a6ae399fa" compoundref="xv__multi__scaler_8h" startline="154">XV_multi_scaler::MaxRows</references>
+        <references refid="struct_x_v__multi__scaler_1aedeaba0ac0133b97d009d57e37301f17" compoundref="xv__multi__scaler_8h" startline="162">XV_multi_scaler::OutBitMask</references>
+        <references refid="struct_x_v__multi__scaler___video___config_1ac780f887c6863f1ea098e67e914876af" compoundref="xv__multi__scaler__l2_8h" startline="169">XV_multi_scaler_Video_Config::OutStride</references>
+        <references refid="struct_x_v__multi__scaler_1abf8c9a07415957ce019bd3c941bfb450" compoundref="xv__multi__scaler_8h" startline="152">XV_multi_scaler::SamplesPerClock</references>
+        <references refid="struct_x_v__multi__scaler___video___config_1ac49861e151f2bdaa9c10f85789def0a6" compoundref="xv__multi__scaler__l2_8h" startline="160">XV_multi_scaler_Video_Config::SrcImgBuf0</references>
+        <references refid="struct_x_v__multi__scaler___video___config_1ac865217ba2ae35b47bad8e1f0c14214a" compoundref="xv__multi__scaler__l2_8h" startline="161">XV_multi_scaler_Video_Config::SrcImgBuf1</references>
+        <references refid="struct_x_v__multi__scaler___crop___window_1ae7604d9d87e2abd1efc14e915ff14b6e" compoundref="xv__multi__scaler__l2_8h" startline="150">XV_multi_scaler_Crop_Window::StartX</references>
+        <references refid="struct_x_v__multi__scaler___crop___window_1ae8a644b1bc2488b0b10437864fc3c437" compoundref="xv__multi__scaler__l2_8h" startline="151">XV_multi_scaler_Crop_Window::StartY</references>
+        <references refid="group__v__multi__scaler_1gaac235f0d069019ec0c914325b3165ca6" compoundref="xv__multi__scaler__l2_8h" startline="87">STEP_PRECISION</references>
+        <references refid="struct_x_v__multi__scaler___crop___window_1a37117950830f268e6170313945564188" compoundref="xv__multi__scaler__l2_8h" startline="149">XV_multi_scaler_Crop_Window::Width</references>
+        <references refid="struct_x_v__multi__scaler___video___config_1af081389d32fd02fe58b7eea54cb5bb85" compoundref="xv__multi__scaler__l2_8h" startline="164">XV_multi_scaler_Video_Config::WidthIn</references>
+        <references refid="struct_x_v__multi__scaler___video___config_1a89cad588496c291deb22461abe56483e" compoundref="xv__multi__scaler__l2_8h" startline="165">XV_multi_scaler_Video_Config::WidthOut</references>
+        <references refid="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61fabcd0a8432d9def50a7a7614b9417f8c3" compoundref="xv__multi__scaler__l2_8h" startline="141">XV_MULTI_SCALER_BGR8</references>
+        <references refid="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61fa4fbbadb3d2810594475114ab1ed2024b" compoundref="xv__multi__scaler__l2_8h" startline="133">XV_MULTI_SCALER_RGB8</references>
+        <references refid="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61fa15098ce5516a5f26c5a6a925fd0bcd45" compoundref="xv__multi__scaler__l2_8h" startline="140">XV_MULTI_SCALER_UYVY8</references>
+        <references refid="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61fa5139191690a36c85da65c4d9c2b47180" compoundref="xv__multi__scaler__l2_8h" startline="138">XV_MULTI_SCALER_Y10</references>
+        <references refid="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61fad946e1a5aa61214a98c7cd0334a95f93" compoundref="xv__multi__scaler__l2_8h" startline="137">XV_MULTI_SCALER_Y8</references>
+        <references refid="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61fa1e51a788aa48dfd8b90ddb40c3666e6f" compoundref="xv__multi__scaler__l2_8h" startline="135">XV_MULTI_SCALER_Y_UV10</references>
+        <references refid="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61faa2005b3f12d39342c5e181b8f002049e" compoundref="xv__multi__scaler__l2_8h" startline="136">XV_MULTI_SCALER_Y_UV10_420</references>
+        <references refid="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61fa675e0933e2e52c0c03a01a4d3b1ac386" compoundref="xv__multi__scaler__l2_8h" startline="131">XV_MULTI_SCALER_Y_UV8</references>
+        <references refid="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61fa17891da696b5ba550295e10fef21fdcc" compoundref="xv__multi__scaler__l2_8h" startline="132">XV_MULTI_SCALER_Y_UV8_420</references>
+        <references refid="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61fa940f42fccb2fa176b0fd8a6a4f3d962e" compoundref="xv__multi__scaler__l2_8h" startline="134">XV_MULTI_SCALER_YUV8</references>
+        <references refid="group__v__multi__scaler_1ggaf85fcd2b60ace85961e0abdb589ad61faea6013b4c7d631c93d2e2b7f898a14c6" compoundref="xv__multi__scaler__l2_8h" startline="128">XV_MULTI_SCALER_YUYV8</references>
+        <referencedby refid="xv__multi__scaler__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__multi__scaler__example_8c" startline="379" endline="545">main</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__v__multi__scaler_1gace71752192132b2b251c4563a1dd3747" prot="public" static="no">
+        <name>XV_MULTISCALER_MAX_V_TAPS</name>
+        <initializer>12</initializer>
+        <briefdescription>
+<para>Maximum number of vertical taps supported by the scaler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__multi__scaler_1ga15d813b620867a730e6e66d1558b90c1" prot="public" static="no">
+        <name>XV_MULTISCALER_MAX_V_PHASES</name>
+        <initializer>64</initializer>
+        <briefdescription>
+<para>Maximum number of vertical phases for polyphase filter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__multi__scaler_1ga8cc37ad6f7bea69f9473116ca2255984" prot="public" static="no">
+        <name>XV_MULTISCALER_OUTPUT_MASK</name>
+        <initializer>0xFF</initializer>
+        <briefdescription>
+<para>Bit mask for extracting output channel selection. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__v__multi__scaler_1ga72ecb43c374027b51fc780f208aea156" compoundref="xv__multi__scaler__l2_8c" startline="280" endline="294">XV_MultiScalerStart</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__v__multi__scaler_1ga056aa48055c09de112709b603d77f0b7" prot="public" static="no">
+        <name>XV_MAX_BYTES_PER_PIXEL</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Maximum bytes per pixel (for RGBX/YUVX at 10-bit) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__multi__scaler_1ga9e7c42921bc3cafee3a11e8925ed83d0" prot="public" static="no">
+        <name>XV_MAX_BUF_SIZE</name>
+        <initializer>XPAR_XV_MULTI_SCALER_0_MAX_COLS * \
+		XPAR_XV_MULTI_SCALER_0_MAX_ROWS * \
+		<ref refid="group__v__multi__scaler_1ga056aa48055c09de112709b603d77f0b7" kindref="member">XV_MAX_BYTES_PER_PIXEL</ref></initializer>
+        <briefdescription>
+<para>Maximum buffer size calculation based on max dimensions and pixel format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__multi__scaler_1ga97b15841abc14a7530c5914bc6786e6f" prot="public" static="no">
+        <name>XV_MULTI_SCALER_CTRL_ADDR_HWREG_MM_FLTCOEFF_OFFSET</name>
+        <initializer>0x2000</initializer>
+        <briefdescription>
+<para>Hardware register offset for filter coefficient memory. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__multi__scaler_1gaac235f0d069019ec0c914325b3165ca6" prot="public" static="no">
+        <name>STEP_PRECISION</name>
+        <initializer>65536</initializer>
+        <briefdescription>
+<para>Fixed-point precision for scaling step calculation (2^16) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="87" bodyend="-1"/>
+        <referencedby refid="group__v__multi__scaler_1gadac93267b546f514b3311c1825fd832c" compoundref="xv__multi__scaler__l2_8c" startline="590" endline="735">XV_MultiScalerSetChannelConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__v__multi__scaler_1ga54159a1b4063f709b966089dccd507d6" prot="public" static="no">
+        <name>XVSC_MASK_LOW_16BITS</name>
+        <initializer>0x0000FFFF</initializer>
+        <briefdescription>
+<para>Bit mask for extracting lower 16 bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__multi__scaler_1ga91a63bca1494822a85cc80411382884e" prot="public" static="no">
+        <name>XVSC_MASK_HIGH_16BITS</name>
+        <initializer>0xFFFF0000</initializer>
+        <briefdescription>
+<para>Bit mask for extracting upper 16 bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>} </para>    </briefdescription>
+    <detaileddescription>
+<para>This is main file for the MultiScaler example design.</para><para>This header file contains layer 2 API&apos;s of the multi scaler core driver.The functions contained herein provides a high level implementation of features provided by the IP, abstracting away the register level details from the user.</para><para>The Multi Scaler Layer-2 Driver.</para><para>The functions in this file provides interrupt handler and associated functions that are consumed by layer-2.</para><para>This file contains the device configuration table for the MultiScaler IP.</para><para>The configuration table is automatically generated based on hardware parameters defined in xparameters.h. This table is used during device initialization to configure the MultiScaler driver instance.</para><para><simplesect kind="note"><para>This is an auto-generated file. Manual modifications may be overwritten during hardware regeneration.</para></simplesect>
+The functions in this file provides an abstraction from the register peek/poke methodology by implementing most common use-case provided by the core. See <ref refid="xv__multi__scaler__l2_8h" kindref="compound">xv_multi_scaler_l2.h</ref> for a detailed description of the layer-2 driver</para><para><bold> Interrupts </bold></para><para>The driver does the interrupt handling, and dispatch to the user application through callback functions that user has registered. If there are no registered callback functions, then a stub callback function is called.</para><para><bold> Virtual Memory </bold></para><para>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space.</para><para><bold> Threads </bold></para><para>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</para><para><bold>Limitations</bold></para><para>The MultiScaler HW configuration is detected and several use cases are selected to test it.</para><para>On start-up the program reads the HW config and initializes its internal data structures. The interrupt handler is registered. The set of use cases mentioned in the array are selected. Testing a use case is done by: 1) Read the destination buffer before scaling. 2) Program the parameters mentioned in the use case to the HW registers. 3) Start the HW, and when the scaling completes interrupt handler is invoked. In the interrupt handler again read the contents of the destination buffer to verify that the scaled data is available in the destination buffer. 4) Go back and set up the next use case, repeating steps 1,2,3. </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1106 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__elliptic_8h" kind="file">
+    <compoundname>xsecure_elliptic.h</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xsecure__ellipticcrvs_8h" local="yes">xsecure_ellipticcrvs.h</includes>
+    <includedby refid="xsecure__kat_8h" local="yes">xsecure_kat.h</includedby>
+    <includedby refid="xsecure__ellipticplat_8c" local="yes">xsecure_ellipticplat.c</includedby>
+    <includedby refid="xsecure__plat__elliptic__ipihandler_8c" local="yes">xsecure_plat_elliptic_ipihandler.c</includedby>
+    <includedby refid="xsecure__elliptic_8c" local="yes">xsecure_elliptic.c</includedby>
+    <includedby refid="xsecure__elliptic__ipihandler_8c" local="yes">xsecure_elliptic_ipihandler.c</includedby>
+    <includedby refid="xilsecure__versal__ecdsa__server__example_8c" local="yes">xilsecure_versal_ecdsa_server_example.c</includedby>
+    <incdepgraph>
+      <node id="1303">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="1296">
+        <label>xsecure_elliptic.h</label>
+        <link refid="xsecure_elliptic.h"/>
+        <childnode refid="1297" relation="include">
+        </childnode>
+        <childnode refid="1298" relation="include">
+        </childnode>
+        <childnode refid="1299" relation="include">
+        </childnode>
+      </node>
+      <node id="1300">
+        <label>Ecdsa.h</label>
+      </node>
+      <node id="1304">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="1301">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure__defs_8h"/>
+        <childnode refid="1302" relation="include">
+        </childnode>
+        <childnode refid="1298" relation="include">
+        </childnode>
+        <childnode refid="1303" relation="include">
+        </childnode>
+        <childnode refid="1304" relation="include">
+        </childnode>
+        <childnode refid="1305" relation="include">
+        </childnode>
+      </node>
+      <node id="1299">
+        <label>xsecure_ellipticcrvs.h</label>
+        <link refid="xsecure__ellipticcrvs_8h"/>
+        <childnode refid="1297" relation="include">
+        </childnode>
+        <childnode refid="1298" relation="include">
+        </childnode>
+        <childnode refid="1300" relation="include">
+        </childnode>
+        <childnode refid="1301" relation="include">
+        </childnode>
+      </node>
+      <node id="1305">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="1298">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1297">
+        <label>xparameters.h</label>
+      </node>
+      <node id="1302">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1325">
+        <label>xsecure_plat_rsa.c</label>
+        <link refid="xsecure__plat__rsa_8c"/>
+      </node>
+      <node id="1309">
+        <label>xsecure_kat_ipihandler.c</label>
+        <link refid="xsecure__kat__ipihandler_8c"/>
+      </node>
+      <node id="1324">
+        <label>xsecure_ellipticplat.c</label>
+        <link refid="xsecure__ellipticplat_8c"/>
+      </node>
+      <node id="1308">
+        <label>xsecure_kat.c</label>
+        <link refid="xsecure__kat_8c"/>
+      </node>
+      <node id="1307">
+        <label>xsecure_kat.h</label>
+        <link refid="xsecure__kat_8h"/>
+        <childnode refid="1308" relation="include">
+        </childnode>
+        <childnode refid="1309" relation="include">
+        </childnode>
+        <childnode refid="1310" relation="include">
+        </childnode>
+        <childnode refid="1311" relation="include">
+        </childnode>
+        <childnode refid="1312" relation="include">
+        </childnode>
+        <childnode refid="1317" relation="include">
+        </childnode>
+        <childnode refid="1318" relation="include">
+        </childnode>
+        <childnode refid="1323" relation="include">
+        </childnode>
+      </node>
+      <node id="1331">
+        <label>xilsecure_versal_ecdsa_server_example.c</label>
+        <link refid="xilsecure__versal__ecdsa__server__example_8c"/>
+      </node>
+      <node id="1330">
+        <label>xsecure_elliptic.c</label>
+        <link refid="xsecure__elliptic_8c"/>
+      </node>
+      <node id="1306">
+        <label>xsecure_elliptic.h</label>
+        <link refid="xsecure_elliptic.h"/>
+        <childnode refid="1307" relation="include">
+        </childnode>
+        <childnode refid="1324" relation="include">
+        </childnode>
+        <childnode refid="1329" relation="include">
+        </childnode>
+        <childnode refid="1330" relation="include">
+        </childnode>
+        <childnode refid="1310" relation="include">
+        </childnode>
+        <childnode refid="1331" relation="include">
+        </childnode>
+      </node>
+      <node id="1322">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="2vp__p_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="1318">
+        <label>xsecure_plat_kat.h</label>
+        <link refid="2vp__p_2xsecure__plat__kat_8h"/>
+        <childnode refid="1319" relation="include">
+        </childnode>
+        <childnode refid="1322" relation="include">
+        </childnode>
+        <childnode refid="1321" relation="include">
+        </childnode>
+      </node>
+      <node id="1326">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__net_2xsecure__plat_8c"/>
+      </node>
+      <node id="1328">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__net_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="1327">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="net_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="1323">
+        <label>xsecure_plat_kat.h</label>
+        <link refid="net_2xsecure__plat__kat_8h"/>
+        <childnode refid="1309" relation="include">
+        </childnode>
+        <childnode refid="1324" relation="include">
+        </childnode>
+        <childnode refid="1325" relation="include">
+        </childnode>
+        <childnode refid="1326" relation="include">
+        </childnode>
+        <childnode refid="1327" relation="include">
+        </childnode>
+        <childnode refid="1328" relation="include">
+        </childnode>
+      </node>
+      <node id="1316">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="2ve__2vm_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="1312">
+        <label>xsecure_plat_kat.h</label>
+        <link refid="2ve__2vm_2xsecure__plat__kat_8h"/>
+        <childnode refid="1313" relation="include">
+        </childnode>
+        <childnode refid="1316" relation="include">
+        </childnode>
+        <childnode refid="1315" relation="include">
+        </childnode>
+      </node>
+      <node id="1320">
+        <label>xsecure_cmd.c</label>
+        <link refid="2vp__p_2xsecure__cmd_8c"/>
+      </node>
+      <node id="1321">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__2vp__p_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="1319">
+        <label>xsecure_plat_kat_ipihandler.h</label>
+        <link refid="versal__2vp__p_2xsecure__plat__kat__ipihandler_8h"/>
+        <childnode refid="1320" relation="include">
+        </childnode>
+        <childnode refid="1321" relation="include">
+        </childnode>
+      </node>
+      <node id="1315">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="1313">
+        <label>xsecure_plat_kat_ipihandler.h</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8h"/>
+        <childnode refid="1314" relation="include">
+        </childnode>
+        <childnode refid="1315" relation="include">
+        </childnode>
+      </node>
+      <node id="1317">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="2vp_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="1310">
+        <label>xsecure_elliptic_ipihandler.c</label>
+        <link refid="xsecure__elliptic__ipihandler_8c"/>
+      </node>
+      <node id="1311">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="xsecure__plat__kat_8c"/>
+      </node>
+      <node id="1329">
+        <label>xsecure_plat_elliptic_ipihandler.c</label>
+        <link refid="xsecure__plat__elliptic__ipihandler_8c"/>
+      </node>
+      <node id="1314">
+        <label>xsecure_cmd.c</label>
+        <link refid="2ve__2vm_2xsecure__cmd_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_secure___elliptic_key" prot="public">XSecure_EllipticKey</innerclass>
+    <innerclass refid="struct_x_secure___elliptic_sign" prot="public">XSecure_EllipticSign</innerclass>
+    <innerclass refid="struct_x_secure___elliptic_key_addr" prot="public">XSecure_EllipticKeyAddr</innerclass>
+    <innerclass refid="struct_x_secure___elliptic_sign_addr" prot="public">XSecure_EllipticSignAddr</innerclass>
+    <innerclass refid="struct_x_secure___elliptic_hash_data" prot="public">XSecure_EllipticHashData</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__ecdsa__server__apis_1ga2a9ae41886d6bd60c8b8a0f896847e58" prot="public" static="no">
+        <name>XSECURE_ECC_P384_SIZE_IN_BYTES</name>
+        <initializer>(48U)</initializer>
+        <briefdescription>
+<para>Size of NIST P-384 curve in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="xilsecure__versal__net__ecdh__client__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilsecure__versal__net__ecdh__client__example_8c" startline="118" endline="161">main</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab3835b878d2947b3f94ba4cd555dd641" compoundref="xsecure__ellipticplat_8c" startline="310" endline="400">XSecure_EcdhGetSecret</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gae456632737631e0943f3a473c1642f35" compoundref="xsecure__ellipticplat_8c" startline="244" endline="288">XSecure_EllipticGenEphemeralNSign</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga9566bee278ec58acd705a67ee9d58766" compoundref="xsecure__ellipticplat_8c" startline="185" endline="226">XSecure_EllipticGenerateEphemeralKey</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="85" endline="166">XSecure_EllipticPrvtKeyGenerate</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga7e6af9c7d2a5b9c134f201143b5caaca" compoundref="xsecure__kat_8c" startline="1280" endline="1339">XSecure_EllipticPwct</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga75b2f22f2f6c3bdb9529025c8ecf58f2" compoundref="xsecure__kat_8c" startline="1216" endline="1263">XSecure_EllipticSignGenerateKat</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga769778c653dd202471b5eec4249b1f25" compoundref="xsecure__kat_8c" startline="533" endline="546">XSecure_GetKatEccExpSign</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gaa3ec8efc0badbd66518768e16b2dcc81" compoundref="xsecure__kat_8c" startline="508" endline="521">XSecure_GetKatEccPublicKey</referencedby>
+        <referencedby refid="xilsecure__versal__ecdsa__server__example_8c_1a747e722a3e8f46bc1eb8095e18b88b7f" compoundref="xilsecure__versal__ecdsa__server__example_8c" startline="137" endline="249">XSecure_TestP384</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__ecdsa__server__apis_1gad7f0fdd86e7cf849e595e156156b7804" prot="public" static="no">
+        <name>XSECURE_ECC_P521_SIZE_IN_BYTES</name>
+        <initializer>(66U)</initializer>
+        <briefdescription>
+<para>Size of NIST P-521 curve in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab3835b878d2947b3f94ba4cd555dd641" compoundref="xsecure__ellipticplat_8c" startline="310" endline="400">XSecure_EcdhGetSecret</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga682282def21e1c86ab583cdd41090fbb" compoundref="xsecure__elliptic_8c" startline="118" endline="194">XSecure_EllipticGenerateKey_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gacfb2a9d041a4b449a47874add5f01547" compoundref="xsecure__elliptic_8c" startline="414" endline="459">XSecure_EllipticGenerateSignature</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga3af7e8a366bb982fa4c0c82be1b37250" compoundref="xsecure__elliptic_8c" startline="269" endline="390">XSecure_EllipticGenerateSignature_64Bit</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga7e6af9c7d2a5b9c134f201143b5caaca" compoundref="xsecure__kat_8c" startline="1280" endline="1339">XSecure_EllipticPwct</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab83385dfd83a7bfdef4d74ec412e15c6" compoundref="xsecure__elliptic_8c" startline="479" endline="552">XSecure_EllipticValidateKey_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga7d2dfbb593a38b3bb47d1ab26fb0cfea" compoundref="xsecure__elliptic_8c" startline="756" endline="800">XSecure_EllipticVerifySign</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga0bb6ca50d138b482eb9a5d9f18e398d8" compoundref="xsecure__elliptic_8c" startline="621" endline="738">XSecure_EllipticVerifySign_64Bit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__ecdsa__server__apis_1gae3028dc8cdad7058c8a68feca364f6df" prot="public" static="no">
+        <name>XSECURE_ECC_P256_SIZE_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>Size of NIST P-256 curve in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab3835b878d2947b3f94ba4cd555dd641" compoundref="xsecure__ellipticplat_8c" startline="310" endline="400">XSecure_EcdhGetSecret</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga7e6af9c7d2a5b9c134f201143b5caaca" compoundref="xsecure__kat_8c" startline="1280" endline="1339">XSecure_EllipticPwct</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__ecdsa__server__apis_1ga26187a912fd3da2eb9cea5f36b25a709" prot="public" static="no">
+        <name>XSECURE_ECC_P192_SIZE_IN_BYTES</name>
+        <initializer>(24U)</initializer>
+        <briefdescription>
+<para>Size of NIST P-192 curve in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga7e6af9c7d2a5b9c134f201143b5caaca" compoundref="xsecure__kat_8c" startline="1280" endline="1339">XSecure_EllipticPwct</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__ecdsa__server__apis_1ga192d103795f91f2cfa9a4b9cca781285" prot="public" static="no">
+        <name>XSECURE_ECC_P224_SIZE_IN_BYTES</name>
+        <initializer>(28U)</initializer>
+        <briefdescription>
+<para>Size of NIST P-224 curve in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga7e6af9c7d2a5b9c134f201143b5caaca" compoundref="xsecure__kat_8c" startline="1280" endline="1339">XSecure_EllipticPwct</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__ecdsa__server__apis_1ga2617ad08234f40b7da71060fd6eb9ec7" prot="public" static="no">
+        <name>XSECURE_ECDSA_P521_ALIGN_BYTES</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Size of NIST P-521 curve is 66 bytes. </para>        </briefdescription>
+        <detaileddescription>
+<para>This macro is used to make the address word aligned </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab3835b878d2947b3f94ba4cd555dd641" compoundref="xsecure__ellipticplat_8c" startline="310" endline="400">XSecure_EcdhGetSecret</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga682282def21e1c86ab583cdd41090fbb" compoundref="xsecure__elliptic_8c" startline="118" endline="194">XSecure_EllipticGenerateKey_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga3af7e8a366bb982fa4c0c82be1b37250" compoundref="xsecure__elliptic_8c" startline="269" endline="390">XSecure_EllipticGenerateSignature_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab83385dfd83a7bfdef4d74ec412e15c6" compoundref="xsecure__elliptic_8c" startline="479" endline="552">XSecure_EllipticValidateKey_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga0bb6ca50d138b482eb9a5d9f18e398d8" compoundref="xsecure__elliptic_8c" startline="621" endline="738">XSecure_EllipticVerifySign_64Bit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__ecdsa__server__apis_1ga6a551adc342018909d5b53bffca62d3a" prot="public" static="no">
+        <name>XSECURE_ELLIPTIC_LITTLE_ENDIAN</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Operates APIs on little endian format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gab4982b81bdf14b95cfbf9ec1be61bf61" compoundref="xsecure__elliptic_8c" startline="911" endline="924">XSecure_FixEndiannessNCopy</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga4b04814c049951cd68c6f1a32ffcb707" compoundref="xsecure__elliptic_8c" startline="877" endline="894">XSecure_GetData</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gaeae4245a96b56ed57680a2df01da5944" compoundref="xsecure__elliptic_8c" startline="848" endline="865">XSecure_PutData</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__ecdsa__server__apis_1ga3fcdd9235bcbb13f538c106bc6e32bcf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_EllipticGenerateKey</definition>
+        <argsstring>(XSecure_EllipticCrvTyp CrvType, const u8 *D, const XSecure_EllipticKey *Key)</argsstring>
+        <name>XSecure_EllipticGenerateKey</name>
+        <param>
+          <type><ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref></type>
+          <declname>CrvType</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>D</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_secure___elliptic_key" kindref="compound">XSecure_EllipticKey</ref> *</type>
+          <declname>Key</declname>
+        </param>
+        <briefdescription>
+<para>This function generates Public Key for a given curve type. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CrvType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Is a type of elliptic curve </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>D</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to static private key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to public key</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_ELLIPTIC_NON_SUPPORTED_CRV - When elliptic Curve is not supported</para></listitem><listitem><para>XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Generate public key with provided private key and curve type </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.c" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.c" bodystart="210" bodyend="239"/>
+        <references refid="struct_x_secure___elliptic_key_1a824bafa48e8262572731b4ae7605e1a4" compoundref="xsecure__elliptic_8h" startline="85">XSecure_EllipticKey::Qx</references>
+        <references refid="struct_x_secure___elliptic_key_addr_1a1431fb313924c44d173d0df2c8f01b5b" compoundref="xsecure__elliptic_8h" startline="97">XSecure_EllipticKeyAddr::Qx</references>
+        <references refid="struct_x_secure___elliptic_key_1a69be86ac66e9e1051bc7f2249f76f698" compoundref="xsecure__elliptic_8h" startline="86">XSecure_EllipticKey::Qy</references>
+        <references refid="struct_x_secure___elliptic_key_addr_1a78bfd8086c63862b2329ec26e7448e9d" compoundref="xsecure__elliptic_8h" startline="98">XSecure_EllipticKeyAddr::Qy</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a56563085e91b2916d8b2597aa5b0518c" compoundref="xsecure__defs_8h" startline="231">XSECURE_ECC_NIST_P192</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6ada7c82dece1225d698e071b37a709a7b" compoundref="xsecure__defs_8h" startline="232">XSECURE_ECC_NIST_P224</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a4887100b873751c7ab11f3c25971da31" compoundref="xsecure__defs_8h" startline="233">XSECURE_ECC_NIST_P256</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a96b467bb47305585cbcb31f93d527407" compoundref="xsecure__defs_8h" startline="234">XSECURE_ECC_NIST_P384</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" compoundref="xsecure__defs_8h" startline="235">XSECURE_ECC_NIST_P521</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da85dc080b8ec968eb80f0638d2d2027ec" compoundref="spartanup_2xsecure__error_8h" startline="241">XSECURE_ELLIPTIC_INVALID_PARAM</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga682282def21e1c86ab583cdd41090fbb" compoundref="xsecure__elliptic_8c" startline="118" endline="194">XSecure_EllipticGenerateKey_64Bit</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__ecdsa__server__apis_1gacfb2a9d041a4b449a47874add5f01547" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_EllipticGenerateSignature</definition>
+        <argsstring>(XSecure_EllipticCrvTyp CrvType, const u8 *Hash, const u32 HashLen, const u8 *D, const u8 *K, const XSecure_EllipticSign *Sign)</argsstring>
+        <name>XSecure_EllipticGenerateSignature</name>
+        <param>
+          <type><ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref></type>
+          <declname>CrvType</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Hash</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>HashLen</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>D</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>K</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_secure___elliptic_sign" kindref="compound">XSecure_EllipticSign</ref> *</type>
+          <declname>Sign</declname>
+        </param>
+        <briefdescription>
+<para>This function generates signature for a given hash and curve type. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CrvType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of elliptic curve </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Hash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the hash for which sign has to be generated </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the hash in bytes </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>D</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the static private key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>K</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Ephemeral private key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Sign</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the signature</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>K, the ephemeral private key, shall be an unpredictable (cryptographically secure) random number unique for each signature Note that reuse or external predictability of this number generally breaks the security of ECDSA </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Generate signature with provided hash, private key, ephemeral key and curve type</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.c" line="414" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.c" bodystart="414" bodyend="459"/>
+        <references refid="struct_x_secure___elliptic_hash_data_1a07c12dc312b5f283897e5a4917feedb6" compoundref="xsecure__elliptic_8h" startline="112">XSecure_EllipticHashData::Addr</references>
+        <references refid="struct_x_secure___elliptic_hash_data_1a511f26334411d75a9b5eb2681f2a7464" compoundref="xsecure__elliptic_8h" startline="113">XSecure_EllipticHashData::Len</references>
+        <references refid="struct_x_secure___elliptic_sign_1a39f9f985b86ee5bbf8f301fca4a004f3" compoundref="xsecure__elliptic_8h" startline="91">XSecure_EllipticSign::SignR</references>
+        <references refid="struct_x_secure___elliptic_sign_addr_1acd6064a14b174830f5d05a15a922ce46" compoundref="xsecure__elliptic_8h" startline="103">XSecure_EllipticSignAddr::SignR</references>
+        <references refid="struct_x_secure___elliptic_sign_1a1378dc1cc131e69d07290a9f3e750a8a" compoundref="xsecure__elliptic_8h" startline="92">XSecure_EllipticSign::SignS</references>
+        <references refid="struct_x_secure___elliptic_sign_addr_1a9a334b4c6ecc7e9e58de6f48c79d4850" compoundref="xsecure__elliptic_8h" startline="104">XSecure_EllipticSignAddr::SignS</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a56563085e91b2916d8b2597aa5b0518c" compoundref="xsecure__defs_8h" startline="231">XSECURE_ECC_NIST_P192</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6ada7c82dece1225d698e071b37a709a7b" compoundref="xsecure__defs_8h" startline="232">XSECURE_ECC_NIST_P224</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a4887100b873751c7ab11f3c25971da31" compoundref="xsecure__defs_8h" startline="233">XSECURE_ECC_NIST_P256</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a96b467bb47305585cbcb31f93d527407" compoundref="xsecure__defs_8h" startline="234">XSECURE_ECC_NIST_P384</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" compoundref="xsecure__defs_8h" startline="235">XSECURE_ECC_NIST_P521</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1gad7f0fdd86e7cf849e595e156156b7804" compoundref="xsecure__elliptic_8h" startline="67">XSECURE_ECC_P521_SIZE_IN_BYTES</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da85dc080b8ec968eb80f0638d2d2027ec" compoundref="spartanup_2xsecure__error_8h" startline="241">XSECURE_ELLIPTIC_INVALID_PARAM</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga3af7e8a366bb982fa4c0c82be1b37250" compoundref="xsecure__elliptic_8c" startline="269" endline="390">XSecure_EllipticGenerateSignature_64Bit</references>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gae456632737631e0943f3a473c1642f35" compoundref="xsecure__ellipticplat_8c" startline="244" endline="288">XSecure_EllipticGenEphemeralNSign</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga75b2f22f2f6c3bdb9529025c8ecf58f2" compoundref="xsecure__kat_8c" startline="1216" endline="1263">XSecure_EllipticSignGenerateKat</referencedby>
+        <referencedby refid="xilsecure__versal__ecdsa__server__example_8c_1a747e722a3e8f46bc1eb8095e18b88b7f" compoundref="xilsecure__versal__ecdsa__server__example_8c" startline="137" endline="249">XSecure_TestP384</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__ecdsa__server__apis_1ga35ed639454381d4bcf89858e55b9c980" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_EllipticValidateKey</definition>
+        <argsstring>(XSecure_EllipticCrvTyp CrvType, const XSecure_EllipticKey *Key)</argsstring>
+        <name>XSecure_EllipticValidateKey</name>
+        <param>
+          <type><ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref></type>
+          <declname>CrvType</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_secure___elliptic_key" kindref="compound">XSecure_EllipticKey</ref> *</type>
+          <declname>Key</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the public key for a given curve type. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CrvType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of elliptic curve </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the public key</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate the public key for a given curve type </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.c" line="566" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.c" bodystart="566" bodyend="595"/>
+        <references refid="struct_x_secure___elliptic_key_1a824bafa48e8262572731b4ae7605e1a4" compoundref="xsecure__elliptic_8h" startline="85">XSecure_EllipticKey::Qx</references>
+        <references refid="struct_x_secure___elliptic_key_addr_1a1431fb313924c44d173d0df2c8f01b5b" compoundref="xsecure__elliptic_8h" startline="97">XSecure_EllipticKeyAddr::Qx</references>
+        <references refid="struct_x_secure___elliptic_key_1a69be86ac66e9e1051bc7f2249f76f698" compoundref="xsecure__elliptic_8h" startline="86">XSecure_EllipticKey::Qy</references>
+        <references refid="struct_x_secure___elliptic_key_addr_1a78bfd8086c63862b2329ec26e7448e9d" compoundref="xsecure__elliptic_8h" startline="98">XSecure_EllipticKeyAddr::Qy</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a56563085e91b2916d8b2597aa5b0518c" compoundref="xsecure__defs_8h" startline="231">XSECURE_ECC_NIST_P192</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6ada7c82dece1225d698e071b37a709a7b" compoundref="xsecure__defs_8h" startline="232">XSECURE_ECC_NIST_P224</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a4887100b873751c7ab11f3c25971da31" compoundref="xsecure__defs_8h" startline="233">XSECURE_ECC_NIST_P256</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a96b467bb47305585cbcb31f93d527407" compoundref="xsecure__defs_8h" startline="234">XSECURE_ECC_NIST_P384</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" compoundref="xsecure__defs_8h" startline="235">XSECURE_ECC_NIST_P521</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da85dc080b8ec968eb80f0638d2d2027ec" compoundref="spartanup_2xsecure__error_8h" startline="241">XSECURE_ELLIPTIC_INVALID_PARAM</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1gab83385dfd83a7bfdef4d74ec412e15c6" compoundref="xsecure__elliptic_8c" startline="479" endline="552">XSecure_EllipticValidateKey_64Bit</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__ecdsa__server__apis_1ga7d2dfbb593a38b3bb47d1ab26fb0cfea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_EllipticVerifySign</definition>
+        <argsstring>(XSecure_EllipticCrvTyp CrvType, const u8 *Hash, const u32 HashLen, const XSecure_EllipticKey *Key, const XSecure_EllipticSign *Sign)</argsstring>
+        <name>XSecure_EllipticVerifySign</name>
+        <param>
+          <type><ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref></type>
+          <declname>CrvType</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Hash</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>HashLen</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_secure___elliptic_key" kindref="compound">XSecure_EllipticKey</ref> *</type>
+          <declname>Key</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_secure___elliptic_sign" kindref="compound">XSecure_EllipticSign</ref> *</type>
+          <declname>Sign</declname>
+        </param>
+        <briefdescription>
+<para>This function verifies the signature for a given hash, key and curve type. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CrvType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of elliptic curve </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Hash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the hash for which sign has to be generated </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of hash in bytes </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the public key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Sign</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the signature</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Verify signature with provided hash, public key and curve type </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.c" line="756" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.c" bodystart="756" bodyend="800"/>
+        <references refid="struct_x_secure___elliptic_hash_data_1a07c12dc312b5f283897e5a4917feedb6" compoundref="xsecure__elliptic_8h" startline="112">XSecure_EllipticHashData::Addr</references>
+        <references refid="struct_x_secure___elliptic_hash_data_1a511f26334411d75a9b5eb2681f2a7464" compoundref="xsecure__elliptic_8h" startline="113">XSecure_EllipticHashData::Len</references>
+        <references refid="struct_x_secure___elliptic_key_1a824bafa48e8262572731b4ae7605e1a4" compoundref="xsecure__elliptic_8h" startline="85">XSecure_EllipticKey::Qx</references>
+        <references refid="struct_x_secure___elliptic_key_addr_1a1431fb313924c44d173d0df2c8f01b5b" compoundref="xsecure__elliptic_8h" startline="97">XSecure_EllipticKeyAddr::Qx</references>
+        <references refid="struct_x_secure___elliptic_key_1a69be86ac66e9e1051bc7f2249f76f698" compoundref="xsecure__elliptic_8h" startline="86">XSecure_EllipticKey::Qy</references>
+        <references refid="struct_x_secure___elliptic_key_addr_1a78bfd8086c63862b2329ec26e7448e9d" compoundref="xsecure__elliptic_8h" startline="98">XSecure_EllipticKeyAddr::Qy</references>
+        <references refid="struct_x_secure___elliptic_sign_1a39f9f985b86ee5bbf8f301fca4a004f3" compoundref="xsecure__elliptic_8h" startline="91">XSecure_EllipticSign::SignR</references>
+        <references refid="struct_x_secure___elliptic_sign_addr_1acd6064a14b174830f5d05a15a922ce46" compoundref="xsecure__elliptic_8h" startline="103">XSecure_EllipticSignAddr::SignR</references>
+        <references refid="struct_x_secure___elliptic_sign_1a1378dc1cc131e69d07290a9f3e750a8a" compoundref="xsecure__elliptic_8h" startline="92">XSecure_EllipticSign::SignS</references>
+        <references refid="struct_x_secure___elliptic_sign_addr_1a9a334b4c6ecc7e9e58de6f48c79d4850" compoundref="xsecure__elliptic_8h" startline="104">XSecure_EllipticSignAddr::SignS</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a56563085e91b2916d8b2597aa5b0518c" compoundref="xsecure__defs_8h" startline="231">XSECURE_ECC_NIST_P192</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6ada7c82dece1225d698e071b37a709a7b" compoundref="xsecure__defs_8h" startline="232">XSECURE_ECC_NIST_P224</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a4887100b873751c7ab11f3c25971da31" compoundref="xsecure__defs_8h" startline="233">XSECURE_ECC_NIST_P256</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a96b467bb47305585cbcb31f93d527407" compoundref="xsecure__defs_8h" startline="234">XSECURE_ECC_NIST_P384</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" compoundref="xsecure__defs_8h" startline="235">XSECURE_ECC_NIST_P521</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1gad7f0fdd86e7cf849e595e156156b7804" compoundref="xsecure__elliptic_8h" startline="67">XSECURE_ECC_P521_SIZE_IN_BYTES</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da85dc080b8ec968eb80f0638d2d2027ec" compoundref="spartanup_2xsecure__error_8h" startline="241">XSECURE_ELLIPTIC_INVALID_PARAM</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga0bb6ca50d138b482eb9a5d9f18e398d8" compoundref="xsecure__elliptic_8c" startline="621" endline="738">XSecure_EllipticVerifySign_64Bit</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__ecdsa__server__apis_1ga682282def21e1c86ab583cdd41090fbb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_EllipticGenerateKey_64Bit</definition>
+        <argsstring>(XSecure_EllipticCrvTyp CrvType, const u64 DAddr, const XSecure_EllipticKeyAddr *KeyAddr)</argsstring>
+        <name>XSecure_EllipticGenerateKey_64Bit</name>
+        <param>
+          <type><ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref></type>
+          <declname>CrvType</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>DAddr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_secure___elliptic_key_addr" kindref="compound">XSecure_EllipticKeyAddr</ref> *</type>
+          <declname>KeyAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function generates Public Key for a given curve type using private key where both keys located at 64 bit address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CrvType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Is a type of elliptic curve </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of static private key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to public key address</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_ELLIPTIC_NON_SUPPORTED_CRV - When elliptic Curve is not supported</para></listitem><listitem><para>XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument</para></listitem><listitem><para>XSECURE_ELLIPTIC_GEN_KEY_ERR - Error in generating Public key </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Store Priv key to local buffer</para></listitem><listitem><para>Place the hardware core into the reset</para></listitem><listitem><para>Generate public key with provided private key and curve type</para></listitem><listitem><para>Store key to destination address </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.c" bodystart="118" bodyend="194"/>
+        <references refid="struct_x_secure___elliptic_key_addr_1a1431fb313924c44d173d0df2c8f01b5b" compoundref="xsecure__elliptic_8h" startline="97">XSecure_EllipticKeyAddr::Qx</references>
+        <references refid="struct_x_secure___elliptic_key_addr_1a78bfd8086c63862b2329ec26e7448e9d" compoundref="xsecure__elliptic_8h" startline="98">XSecure_EllipticKeyAddr::Qy</references>
+        <references refid="group__xsecure__helper__server__apis_1gga4a4bd32908fec3ffc005880c1fd38ce0a8fd1af87ffbefaeca194e706837cc248" compoundref="core_2generic_2xsecure__cryptochk_8h" startline="50">XSECURE_CORE_RSA_ECC</references>
+        <references refid="group__xsecure__generic__server__apis_1ga4900fde0f315a9807c11bf73a2e8d90d" compoundref="core_2generic_2xsecure__cryptochk_8c" startline="54" endline="80">XSecure_CryptoCheck</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" compoundref="xsecure__defs_8h" startline="235">XSECURE_ECC_NIST_P521</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1gad7f0fdd86e7cf849e595e156156b7804" compoundref="xsecure__elliptic_8h" startline="67">XSECURE_ECC_P521_SIZE_IN_BYTES</references>
+        <references refid="group__xsecure__helper__server__apis_1ga7ceaf28c4b557ab6cefc96402262ecc0" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="478" endline="510">XSecure_ECCRandInit</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga2617ad08234f40b7da71060fd6eb9ec7" compoundref="xsecure__elliptic_8h" startline="75">XSECURE_ECDSA_P521_ALIGN_BYTES</references>
+        <references refid="xsecure__ecdsa__rsa__hw_8h_1a9f0671ce55189d7783c0abaf1f001c55" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="45">XSECURE_ECDSA_RSA_BASEADDR</references>
+        <references refid="xsecure__ecdsa__rsa__hw_8h_1a88ec30cbcee985ead897eabfeace1549" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="94">XSECURE_ECDSA_RSA_RESET_OFFSET</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da8139861ed2172f9e08100898cb7ecbbc" compoundref="spartanup_2xsecure__error_8h" startline="240">XSECURE_ELLIPTIC_GEN_KEY_ERR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da85dc080b8ec968eb80f0638d2d2027ec" compoundref="spartanup_2xsecure__error_8h" startline="241">XSECURE_ELLIPTIC_INVALID_PARAM</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga4b04814c049951cd68c6f1a32ffcb707" compoundref="xsecure__elliptic_8c" startline="877" endline="894">XSecure_GetData</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1gaeae4245a96b56ed57680a2df01da5944" compoundref="xsecure__elliptic_8c" startline="848" endline="865">XSecure_PutData</references>
+        <references refid="group__xsecure__generic__server__apis_1ga448da91f94630d83a52c21b895455ebf" compoundref="core_2util_2xsecure__utils_8c" startline="47" endline="54">XSecure_ReleaseReset</references>
+        <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga3fcdd9235bcbb13f538c106bc6e32bcf" compoundref="xsecure__elliptic_8c" startline="210" endline="239">XSecure_EllipticGenerateKey</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__ecdsa__server__apis_1ga3af7e8a366bb982fa4c0c82be1b37250" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_EllipticGenerateSignature_64Bit</definition>
+        <argsstring>(XSecure_EllipticCrvTyp CrvType, const XSecure_EllipticHashData *HashInfo, const u64 DAddr, const u64 KAddr, const XSecure_EllipticSignAddr *SignAddr)</argsstring>
+        <name>XSecure_EllipticGenerateSignature_64Bit</name>
+        <param>
+          <type><ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref></type>
+          <declname>CrvType</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_secure___elliptic_hash_data" kindref="compound">XSecure_EllipticHashData</ref> *</type>
+          <declname>HashInfo</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>DAddr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>KAddr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_secure___elliptic_sign_addr" kindref="compound">XSecure_EllipticSignAddr</ref> *</type>
+          <declname>SignAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function generates signature for a given hash and curve type where data is located at 64-bit address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CrvType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of elliptic curve </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to Hash Data i.e. Hash Address and length </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the static private key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Ephemeral private key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SignAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to signature address</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument</para></listitem><listitem><para>XSECURE_ELLIPTIC_NON_SUPPORTED_CRV - If curve data pointer is NULL</para></listitem><listitem><para>XSECURE_ELLIPTIC_GEN_SIGN_BAD_RAND_NUM - When Bad random number used for sign generation</para></listitem><listitem><para>XSECURE_ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN Incorrect hash length for sign generation</para></listitem><listitem><para>XST_FAILURE - On any other failures</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>K, the ephemeral private key, shall be an unpredictable (cryptographically secure) random number unique for each signature Note that reuse or external predictability of this number generally breaks the security of ECDSA </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Store Hash,D,K to local buffers</para></listitem><listitem><para>Generate signature with provided hash, private key, ephemeral key and curve type.</para></listitem><listitem><para>Store Sign to destination address</para></listitem><listitem><para>Zeroize local key copy </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.c" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.c" bodystart="269" bodyend="390"/>
+        <references refid="struct_x_secure___elliptic_hash_data_1a07c12dc312b5f283897e5a4917feedb6" compoundref="xsecure__elliptic_8h" startline="112">XSecure_EllipticHashData::Addr</references>
+        <references refid="struct_ecdsa_crv_info_1a73e6a9de9816384b5cdef5c52c283952" compoundref="spartanup_2_ecdsa_8h" startline="84">EcdsaCrvInfo::Bits</references>
+        <references refid="struct_x_secure___elliptic_hash_data_1a511f26334411d75a9b5eb2681f2a7464" compoundref="xsecure__elliptic_8h" startline="113">XSecure_EllipticHashData::Len</references>
+        <references refid="struct_x_secure___elliptic_sign_addr_1acd6064a14b174830f5d05a15a922ce46" compoundref="xsecure__elliptic_8h" startline="103">XSecure_EllipticSignAddr::SignR</references>
+        <references refid="struct_x_secure___elliptic_sign_addr_1a9a334b4c6ecc7e9e58de6f48c79d4850" compoundref="xsecure__elliptic_8h" startline="104">XSecure_EllipticSignAddr::SignS</references>
+        <references refid="group__xsecure__helper__server__apis_1gga4a4bd32908fec3ffc005880c1fd38ce0a8fd1af87ffbefaeca194e706837cc248" compoundref="core_2generic_2xsecure__cryptochk_8h" startline="50">XSECURE_CORE_RSA_ECC</references>
+        <references refid="group__xsecure__generic__server__apis_1ga4900fde0f315a9807c11bf73a2e8d90d" compoundref="core_2generic_2xsecure__cryptochk_8c" startline="54" endline="80">XSecure_CryptoCheck</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" compoundref="xsecure__defs_8h" startline="235">XSECURE_ECC_NIST_P521</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1gad7f0fdd86e7cf849e595e156156b7804" compoundref="xsecure__elliptic_8h" startline="67">XSECURE_ECC_P521_SIZE_IN_BYTES</references>
+        <references refid="group__xsecure__helper__server__apis_1ga7ceaf28c4b557ab6cefc96402262ecc0" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="478" endline="510">XSecure_ECCRandInit</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga2617ad08234f40b7da71060fd6eb9ec7" compoundref="xsecure__elliptic_8h" startline="75">XSECURE_ECDSA_P521_ALIGN_BYTES</references>
+        <references refid="xsecure__ecdsa__rsa__hw_8h_1a9f0671ce55189d7783c0abaf1f001c55" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="45">XSECURE_ECDSA_RSA_BASEADDR</references>
+        <references refid="xsecure__ecdsa__rsa__hw_8h_1a88ec30cbcee985ead897eabfeace1549" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="94">XSECURE_ECDSA_RSA_RESET_OFFSET</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da127805b39c4ad4d4140a913b1bf3ce25" compoundref="spartanup_2xsecure__error_8h" startline="238">XSECURE_ELLIPTIC_GEN_SIGN_BAD_RAND_NUM</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da5cfe27959e40581cb43ced3a3451bdeb" compoundref="spartanup_2xsecure__error_8h" startline="234">XSECURE_ELLIPTIC_GEN_SIGN_INCORRECT_HASH_LEN</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da85dc080b8ec968eb80f0638d2d2027ec" compoundref="spartanup_2xsecure__error_8h" startline="241">XSECURE_ELLIPTIC_INVALID_PARAM</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga4b04814c049951cd68c6f1a32ffcb707" compoundref="xsecure__elliptic_8c" startline="877" endline="894">XSecure_GetData</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1gaeae4245a96b56ed57680a2df01da5944" compoundref="xsecure__elliptic_8c" startline="848" endline="865">XSecure_PutData</references>
+        <references refid="group__xsecure__generic__server__apis_1ga448da91f94630d83a52c21b895455ebf" compoundref="core_2util_2xsecure__utils_8c" startline="47" endline="54">XSecure_ReleaseReset</references>
+        <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1gacfb2a9d041a4b449a47874add5f01547" compoundref="xsecure__elliptic_8c" startline="414" endline="459">XSecure_EllipticGenerateSignature</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga7e6af9c7d2a5b9c134f201143b5caaca" compoundref="xsecure__kat_8c" startline="1280" endline="1339">XSecure_EllipticPwct</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__ecdsa__server__apis_1gab83385dfd83a7bfdef4d74ec412e15c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_EllipticValidateKey_64Bit</definition>
+        <argsstring>(XSecure_EllipticCrvTyp CrvType, const XSecure_EllipticKeyAddr *KeyAddr)</argsstring>
+        <name>XSecure_EllipticValidateKey_64Bit</name>
+        <param>
+          <type><ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref></type>
+          <declname>CrvType</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_secure___elliptic_key_addr" kindref="compound">XSecure_EllipticKeyAddr</ref> *</type>
+          <declname>KeyAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the public key for a given curve type where key is located at 64-bit address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CrvType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of elliptic curve </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to public key address</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument</para></listitem><listitem><para>XSECURE_ELLIPTIC_NON_SUPPORTED_CRV - If curve data pointer is NULL</para></listitem><listitem><para>XSECURE_ELLIPTIC_KEY_ZERO - When Public key is zero</para></listitem><listitem><para>XSECURE_ELLIPTIC_KEY_WRONG_ORDER Wrong order of Public key</para></listitem><listitem><para>XSECURE_ELLIPTIC_KEY_NOT_ON_CRV - When Key is not found on the curve</para></listitem><listitem><para>XST_FAILURE - On any other failures </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Store Pub key(Qx,Qy) to local buffer</para></listitem><listitem><para>Validate the public key for a given curve type </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.c" line="479" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.c" bodystart="479" bodyend="552"/>
+        <references refid="struct_x_secure___elliptic_key_addr_1a1431fb313924c44d173d0df2c8f01b5b" compoundref="xsecure__elliptic_8h" startline="97">XSecure_EllipticKeyAddr::Qx</references>
+        <references refid="struct_x_secure___elliptic_key_addr_1a78bfd8086c63862b2329ec26e7448e9d" compoundref="xsecure__elliptic_8h" startline="98">XSecure_EllipticKeyAddr::Qy</references>
+        <references refid="group__xsecure__helper__server__apis_1gga4a4bd32908fec3ffc005880c1fd38ce0a8fd1af87ffbefaeca194e706837cc248" compoundref="core_2generic_2xsecure__cryptochk_8h" startline="50">XSECURE_CORE_RSA_ECC</references>
+        <references refid="group__xsecure__generic__server__apis_1ga4900fde0f315a9807c11bf73a2e8d90d" compoundref="core_2generic_2xsecure__cryptochk_8c" startline="54" endline="80">XSecure_CryptoCheck</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" compoundref="xsecure__defs_8h" startline="235">XSECURE_ECC_NIST_P521</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1gad7f0fdd86e7cf849e595e156156b7804" compoundref="xsecure__elliptic_8h" startline="67">XSECURE_ECC_P521_SIZE_IN_BYTES</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga2617ad08234f40b7da71060fd6eb9ec7" compoundref="xsecure__elliptic_8h" startline="75">XSECURE_ECDSA_P521_ALIGN_BYTES</references>
+        <references refid="xsecure__ecdsa__rsa__hw_8h_1a9f0671ce55189d7783c0abaf1f001c55" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="45">XSECURE_ECDSA_RSA_BASEADDR</references>
+        <references refid="xsecure__ecdsa__rsa__hw_8h_1a88ec30cbcee985ead897eabfeace1549" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="94">XSECURE_ECDSA_RSA_RESET_OFFSET</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da85dc080b8ec968eb80f0638d2d2027ec" compoundref="spartanup_2xsecure__error_8h" startline="241">XSECURE_ELLIPTIC_INVALID_PARAM</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da11a5820deacf8cd6d5e0576b268fc1a0" compoundref="spartanup_2xsecure__error_8h" startline="231">XSECURE_ELLIPTIC_KEY_NOT_ON_CRV</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da0faf938abdac9e0d6c8a949493431c61" compoundref="spartanup_2xsecure__error_8h" startline="230">XSECURE_ELLIPTIC_KEY_WRONG_ORDER</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da83b58599bb19054f82b8b0ae035b789a" compoundref="spartanup_2xsecure__error_8h" startline="229">XSECURE_ELLIPTIC_KEY_ZERO</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1gaeae4245a96b56ed57680a2df01da5944" compoundref="xsecure__elliptic_8c" startline="848" endline="865">XSecure_PutData</references>
+        <references refid="group__xsecure__generic__server__apis_1ga448da91f94630d83a52c21b895455ebf" compoundref="core_2util_2xsecure__utils_8c" startline="47" endline="54">XSecure_ReleaseReset</references>
+        <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga35ed639454381d4bcf89858e55b9c980" compoundref="xsecure__elliptic_8c" startline="566" endline="595">XSecure_EllipticValidateKey</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__ecdsa__server__apis_1ga0bb6ca50d138b482eb9a5d9f18e398d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_EllipticVerifySign_64Bit</definition>
+        <argsstring>(XSecure_EllipticCrvTyp CrvType, const XSecure_EllipticHashData *HashInfo, const XSecure_EllipticKeyAddr *KeyAddr, const XSecure_EllipticSignAddr *SignAddr)</argsstring>
+        <name>XSecure_EllipticVerifySign_64Bit</name>
+        <param>
+          <type><ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref></type>
+          <declname>CrvType</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_secure___elliptic_hash_data" kindref="compound">XSecure_EllipticHashData</ref> *</type>
+          <declname>HashInfo</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_secure___elliptic_key_addr" kindref="compound">XSecure_EllipticKeyAddr</ref> *</type>
+          <declname>KeyAddr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_secure___elliptic_sign_addr" kindref="compound">XSecure_EllipticSignAddr</ref> *</type>
+          <declname>SignAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function verifies the signature for a given hash, key and curve type where data is located at 64-bit address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CrvType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of elliptic curve </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to Hash Data i.e. Hash Address and length </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to public key address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SignAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to signature address</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_ELLIPTIC_INVALID_PARAM - On invalid argument</para></listitem><listitem><para>XSECURE_ELLIPTIC_NON_SUPPORTED_CRV - If curve data pointer is NULL</para></listitem><listitem><para>XSECURE_ELLIPTIC_BAD_SIGN - When signature provided for verification is bad</para></listitem><listitem><para>XSECURE_ELLIPTIC_VER_SIGN_INCORRECT_HASH_LEN Incorrect hash length for sign verification</para></listitem><listitem><para>XSECURE_ELLIPTIC_VER_SIGN_R_ZERO R set to zero</para></listitem><listitem><para>XSECURE_ELLIPTIC_VER_SIGN_S_ZERO S set to zero</para></listitem><listitem><para>XSECURE_ELLIPTIC_VER_SIGN_R_ORDER_ERROR R is not within ECC order</para></listitem><listitem><para>XSECURE_ELLIPTIC_VER_SIGN_S_ORDER_ERROR S is not within ECC order</para></listitem><listitem><para>XST_FAILURE - On any other failures </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Store Pub key(Qx,Qy) and Sign(SignR, SignS) to local buffers</para></listitem><listitem><para>Store Hash to local buffer</para></listitem><listitem><para>Verify signature with provided hash, public key and curve type </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.c" line="621" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.c" bodystart="621" bodyend="738"/>
+        <references refid="struct_x_secure___elliptic_hash_data_1a07c12dc312b5f283897e5a4917feedb6" compoundref="xsecure__elliptic_8h" startline="112">XSecure_EllipticHashData::Addr</references>
+        <references refid="struct_ecdsa_crv_info_1a73e6a9de9816384b5cdef5c52c283952" compoundref="spartanup_2_ecdsa_8h" startline="84">EcdsaCrvInfo::Bits</references>
+        <references refid="struct_x_secure___elliptic_hash_data_1a511f26334411d75a9b5eb2681f2a7464" compoundref="xsecure__elliptic_8h" startline="113">XSecure_EllipticHashData::Len</references>
+        <references refid="struct_x_secure___elliptic_key_addr_1a1431fb313924c44d173d0df2c8f01b5b" compoundref="xsecure__elliptic_8h" startline="97">XSecure_EllipticKeyAddr::Qx</references>
+        <references refid="struct_x_secure___elliptic_key_addr_1a78bfd8086c63862b2329ec26e7448e9d" compoundref="xsecure__elliptic_8h" startline="98">XSecure_EllipticKeyAddr::Qy</references>
+        <references refid="struct_x_secure___elliptic_sign_addr_1acd6064a14b174830f5d05a15a922ce46" compoundref="xsecure__elliptic_8h" startline="103">XSecure_EllipticSignAddr::SignR</references>
+        <references refid="struct_x_secure___elliptic_sign_addr_1a9a334b4c6ecc7e9e58de6f48c79d4850" compoundref="xsecure__elliptic_8h" startline="104">XSecure_EllipticSignAddr::SignS</references>
+        <references refid="group__xsecure__helper__server__apis_1gga4a4bd32908fec3ffc005880c1fd38ce0a8fd1af87ffbefaeca194e706837cc248" compoundref="core_2generic_2xsecure__cryptochk_8h" startline="50">XSECURE_CORE_RSA_ECC</references>
+        <references refid="group__xsecure__generic__server__apis_1ga4900fde0f315a9807c11bf73a2e8d90d" compoundref="core_2generic_2xsecure__cryptochk_8c" startline="54" endline="80">XSecure_CryptoCheck</references>
+        <references refid="group__xsecure__helper__server__apis_1gga7aecdb57be4a4242f11ad3e3bebb42e6a1ac6872da48c5879c457fb9e0590c36b" compoundref="xsecure__defs_8h" startline="235">XSECURE_ECC_NIST_P521</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1gad7f0fdd86e7cf849e595e156156b7804" compoundref="xsecure__elliptic_8h" startline="67">XSECURE_ECC_P521_SIZE_IN_BYTES</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1ga2617ad08234f40b7da71060fd6eb9ec7" compoundref="xsecure__elliptic_8h" startline="75">XSECURE_ECDSA_P521_ALIGN_BYTES</references>
+        <references refid="xsecure__ecdsa__rsa__hw_8h_1a9f0671ce55189d7783c0abaf1f001c55" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="45">XSECURE_ECDSA_RSA_BASEADDR</references>
+        <references refid="xsecure__ecdsa__rsa__hw_8h_1a88ec30cbcee985ead897eabfeace1549" compoundref="xsecure__ecdsa__rsa__hw_8h" startline="94">XSECURE_ECDSA_RSA_RESET_OFFSET</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da18a716562563208f5e88a88ec50df500" compoundref="spartanup_2xsecure__error_8h" startline="232">XSECURE_ELLIPTIC_BAD_SIGN</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da85dc080b8ec968eb80f0638d2d2027ec" compoundref="spartanup_2xsecure__error_8h" startline="241">XSECURE_ELLIPTIC_INVALID_PARAM</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dacc2d05ce3aeec10732ec209e18031720" compoundref="spartanup_2xsecure__error_8h" startline="236">XSECURE_ELLIPTIC_VER_SIGN_INCORRECT_HASH_LEN</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da15e2df039013013886c345c133edc35e" compoundref="spartanup_2xsecure__error_8h" startline="244">XSECURE_ELLIPTIC_VER_SIGN_R_ORDER_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da5da0de9f27b7012473ee7f7e0e4d0747" compoundref="spartanup_2xsecure__error_8h" startline="242">XSECURE_ELLIPTIC_VER_SIGN_R_ZERO</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2dac1c1e6e13381f0a298de3233ef6104ee" compoundref="spartanup_2xsecure__error_8h" startline="245">XSECURE_ELLIPTIC_VER_SIGN_S_ORDER_ERROR</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da77bc8e1afed29bac66f985179da277d8" compoundref="spartanup_2xsecure__error_8h" startline="243">XSECURE_ELLIPTIC_VER_SIGN_S_ZERO</references>
+        <references refid="group__xsecure__ecdsa__server__apis_1gaeae4245a96b56ed57680a2df01da5944" compoundref="xsecure__elliptic_8c" startline="848" endline="865">XSecure_PutData</references>
+        <references refid="group__xsecure__generic__server__apis_1ga448da91f94630d83a52c21b895455ebf" compoundref="core_2util_2xsecure__utils_8c" startline="47" endline="54">XSecure_ReleaseReset</references>
+        <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga7e6af9c7d2a5b9c134f201143b5caaca" compoundref="xsecure__kat_8c" startline="1280" endline="1339">XSecure_EllipticPwct</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga7d2dfbb593a38b3bb47d1ab26fb0cfea" compoundref="xsecure__elliptic_8c" startline="756" endline="800">XSecure_EllipticVerifySign</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the interface functions for ECC engine. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+1.0   vns  03/27/19 First Release
+4.0   vns  08/24/20 Updated file version to sync with library version
+4.2   har  11/07/19 Typo correction to enable compilation in C++
+      rpo  04/02/20 Added crypto KAT APIs
+4.3   har  08/24/20 Added function prototype for APIs to generate and verify
+                    ECDSA public key and signature
+      am   09/25/20 Resolved MISRA C violations
+      har  10/12/20 Addressed security review comments
+      har  10/14/20 Replaced ecdsa with elliptic in names of function and
+                    macros
+4.5   har  01/18/21 Updated prototype for XSecure_EllipticKat
+4.6   har  07/14/21 Fixed doxygen warnings
+      gm   07/16/21 Added support for 64-bit address
+5.0   kpt  07/24/22 Moved XSecure_EllipticKat into <ref refid="xsecure__kat_8c" kindref="compound">xsecure_kat.c</ref>
+5.2   yog  05/18/23 Updated the flow for Big Endian ECC Mode setting
+      yog  06/07/23 Added support for P-256 Curve
+      mmd  07/09/23 Included header file for crypto algorithm information
+      am   08/18/23 Added <ref refid="group__xsecure__ecdsa__server__apis_1ga1d8ce761d128ed9438878593bc349c36" kindref="member">XSecure_EllipticGetCrvSize()</ref> prototype
+      vss  09/11/2023 Fixed MISRA-C Rule 8.13 violation
+5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
+      mb   05/23/24 Added support for P-192 Curve
+      mb   05/23/24 Added support for P-224 Curve
+5.7   tbk  03/30/26 Remove unwanted header</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor">#ifndef<sp/>XSECURE_ELLIPTIC_H_</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_ELLIPTIC_H_</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_ECDSA_EXCLUDE</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__ellipticcrvs_8h" kindref="compound">xsecure_ellipticcrvs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65" refid="group__xsecure__ecdsa__server__apis_1ga2a9ae41886d6bd60c8b8a0f896847e58" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_ECC_P384_SIZE_IN_BYTES<sp/><sp/>(48U)</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="67" refid="group__xsecure__ecdsa__server__apis_1gad7f0fdd86e7cf849e595e156156b7804" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_ECC_P521_SIZE_IN_BYTES<sp/><sp/>(66U)</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="69" refid="group__xsecure__ecdsa__server__apis_1gae3028dc8cdad7058c8a68feca364f6df" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_ECC_P256_SIZE_IN_BYTES<sp/><sp/>(32U)</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="71" refid="group__xsecure__ecdsa__server__apis_1ga26187a912fd3da2eb9cea5f36b25a709" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_ECC_P192_SIZE_IN_BYTES<sp/><sp/>(24U)</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="73" refid="group__xsecure__ecdsa__server__apis_1ga192d103795f91f2cfa9a4b9cca781285" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_ECC_P224_SIZE_IN_BYTES<sp/><sp/>(28U)</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="75" refid="group__xsecure__ecdsa__server__apis_1ga2617ad08234f40b7da71060fd6eb9ec7" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_ECDSA_P521_ALIGN_BYTES<sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="79" refid="group__xsecure__ecdsa__server__apis_1ga6a551adc342018909d5b53bffca62d3a" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_ELLIPTIC_LITTLE_ENDIAN<sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="82"><highlight class="comment">/*****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight></codeline>
+<codeline lineno="84" refid="struct_x_secure___elliptic_key" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="85" refid="struct_x_secure___elliptic_key_1a824bafa48e8262572731b4ae7605e1a4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*<ref refid="struct_x_secure___elliptic_key_1a824bafa48e8262572731b4ae7605e1a4" kindref="member">Qx</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86" refid="struct_x_secure___elliptic_key_1a69be86ac66e9e1051bc7f2249f76f698" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*<ref refid="struct_x_secure___elliptic_key_1a69be86ac66e9e1051bc7f2249f76f698" kindref="member">Qy</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="normal">}<sp/><ref refid="struct_x_secure___elliptic_key" kindref="compound">XSecure_EllipticKey</ref>;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90" refid="struct_x_secure___elliptic_sign" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="91" refid="struct_x_secure___elliptic_sign_1a39f9f985b86ee5bbf8f301fca4a004f3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*<ref refid="struct_x_secure___elliptic_sign_1a39f9f985b86ee5bbf8f301fca4a004f3" kindref="member">SignR</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="92" refid="struct_x_secure___elliptic_sign_1a1378dc1cc131e69d07290a9f3e750a8a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*<ref refid="struct_x_secure___elliptic_sign_1a1378dc1cc131e69d07290a9f3e750a8a" kindref="member">SignS</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93"><highlight class="normal">}<sp/><ref refid="struct_x_secure___elliptic_sign" kindref="compound">XSecure_EllipticSign</ref>;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96" refid="struct_x_secure___elliptic_key_addr" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="97" refid="struct_x_secure___elliptic_key_addr_1a1431fb313924c44d173d0df2c8f01b5b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_secure___elliptic_key_addr_1a1431fb313924c44d173d0df2c8f01b5b" kindref="member">Qx</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98" refid="struct_x_secure___elliptic_key_addr_1a78bfd8086c63862b2329ec26e7448e9d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_secure___elliptic_key_addr_1a78bfd8086c63862b2329ec26e7448e9d" kindref="member">Qy</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99"><highlight class="normal">}<sp/><ref refid="struct_x_secure___elliptic_key_addr" kindref="compound">XSecure_EllipticKeyAddr</ref>;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102" refid="struct_x_secure___elliptic_sign_addr" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="103" refid="struct_x_secure___elliptic_sign_addr_1acd6064a14b174830f5d05a15a922ce46" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_secure___elliptic_sign_addr_1acd6064a14b174830f5d05a15a922ce46" kindref="member">SignR</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104" refid="struct_x_secure___elliptic_sign_addr_1a9a334b4c6ecc7e9e58de6f48c79d4850" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_secure___elliptic_sign_addr_1a9a334b4c6ecc7e9e58de6f48c79d4850" kindref="member">SignS</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="normal">}<sp/><ref refid="struct_x_secure___elliptic_sign_addr" kindref="compound">XSecure_EllipticSignAddr</ref>;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111" refid="struct_x_secure___elliptic_hash_data" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="112" refid="struct_x_secure___elliptic_hash_data_1a07c12dc312b5f283897e5a4917feedb6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_secure___elliptic_hash_data_1a07c12dc312b5f283897e5a4917feedb6" kindref="member">Addr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113" refid="struct_x_secure___elliptic_hash_data_1a511f26334411d75a9b5eb2681f2a7464" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_secure___elliptic_hash_data_1a511f26334411d75a9b5eb2681f2a7464" kindref="member">Len</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114"><highlight class="normal">}<sp/><ref refid="struct_x_secure___elliptic_hash_data" kindref="compound">XSecure_EllipticHashData</ref>;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Function<sp/>Prototypes<sp/>***************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__ecdsa__client__apis_1ga623ff4e3a9216677e7b5abe2767790a8" kindref="member">XSecure_EllipticGenerateKey</ref>(<ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref><sp/>CrvType,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>D,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___elliptic_key" kindref="compound">XSecure_EllipticKey</ref><sp/>*Key);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__ecdsa__server__apis_1gacfb2a9d041a4b449a47874add5f01547" kindref="member">XSecure_EllipticGenerateSignature</ref>(<ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref><sp/>CrvType,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>Hash,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>HashLen,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>D,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8*<sp/>K,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___elliptic_sign" kindref="compound">XSecure_EllipticSign</ref><sp/>*Sign);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__ecdsa__client__apis_1ga4e7f8b3452f7f23b4591cc21f1806b54" kindref="member">XSecure_EllipticValidateKey</ref>(<ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref><sp/>CrvType,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___elliptic_key" kindref="compound">XSecure_EllipticKey</ref><sp/>*Key);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__ecdsa__client__apis_1ga88eea76778dab99a54821e2117a3034e" kindref="member">XSecure_EllipticVerifySign</ref>(<ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref><sp/>CrvType,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Hash,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>HashLen,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___elliptic_key" kindref="compound">XSecure_EllipticKey</ref><sp/>*Key,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___elliptic_sign" kindref="compound">XSecure_EllipticSign</ref><sp/>*Sign);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>64<sp/>Bit<sp/>address<sp/>supported<sp/>APIs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__ecdsa__server__apis_1ga682282def21e1c86ab583cdd41090fbb" kindref="member">XSecure_EllipticGenerateKey_64Bit</ref>(<ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref><sp/>CrvType,</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>DAddr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___elliptic_key_addr" kindref="compound">XSecure_EllipticKeyAddr</ref><sp/>*KeyAddr);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__ecdsa__server__apis_1ga3af7e8a366bb982fa4c0c82be1b37250" kindref="member">XSecure_EllipticGenerateSignature_64Bit</ref>(<ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref><sp/>CrvType,</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___elliptic_hash_data" kindref="compound">XSecure_EllipticHashData</ref><sp/>*HashInfo,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>DAddr,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>KAddr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___elliptic_sign_addr" kindref="compound">XSecure_EllipticSignAddr</ref><sp/>*SignAddr);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__ecdsa__server__apis_1gab83385dfd83a7bfdef4d74ec412e15c6" kindref="member">XSecure_EllipticValidateKey_64Bit</ref>(<ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref><sp/>CrvType,</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___elliptic_key_addr" kindref="compound">XSecure_EllipticKeyAddr</ref><sp/>*KeyAddr);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__ecdsa__server__apis_1ga0bb6ca50d138b482eb9a5d9f18e398d8" kindref="member">XSecure_EllipticVerifySign_64Bit</ref>(<ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref><sp/>CrvType,</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___elliptic_hash_data" kindref="compound">XSecure_EllipticHashData</ref><sp/>*HashInfo,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___elliptic_key_addr" kindref="compound">XSecure_EllipticKeyAddr</ref><sp/>*KeyAddr,</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___elliptic_sign_addr" kindref="compound">XSecure_EllipticSignAddr</ref><sp/>*SignAddr);</highlight></codeline>
+<codeline lineno="141"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__ecdsa__server__apis_1gaeae4245a96b56ed57680a2df01da5944" kindref="member">XSecure_PutData</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Size,<sp/>u8<sp/>*Dst,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>SrcAddr);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__ecdsa__server__apis_1ga4b04814c049951cd68c6f1a32ffcb707" kindref="member">XSecure_GetData</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Size,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Src,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>DstAddr);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__ecdsa__server__apis_1gab4982b81bdf14b95cfbf9ec1be61bf61" kindref="member">XSecure_FixEndiannessNCopy</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Size,<sp/>u64<sp/>DstAddr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>SrcAddr);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">u32<sp/><ref refid="group__xsecure__ecdsa__server__apis_1ga1d8ce761d128ed9438878593bc349c36" kindref="member">XSecure_EllipticGetCrvSize</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga7aecdb57be4a4242f11ad3e3bebb42e6" kindref="member">XSecure_EllipticCrvTyp</ref><sp/>CrvType);</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecdsa/xsecure_elliptic.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nand_ps___command_format" kind="struct" prot="public">
+    <compoundname>XNandPs_CommandFormat</compoundname>
+    <includes local="no">xnandps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nand_ps___command_format_1abab8ebd07b5838c58667294329488788" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XNandPs_CommandFormat::StartCmd</definition>
+        <argsstring></argsstring>
+        <name>StartCmd</name>
+        <briefdescription>
+<para>Start command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="422" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="422" bodyend="-1"/>
+        <referencedby refid="group__nandps_1gae2862ccd7e9180b843d9e73e2a8c7e7b" compoundref="xnandps_8c" startline="1045" endline="1142">XNandPs_SendCommand</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps___command_format_1add044f5e1abe6bf7857d6e0d678b0ae8" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XNandPs_CommandFormat::EndCmd</definition>
+        <argsstring></argsstring>
+        <name>EndCmd</name>
+        <briefdescription>
+<para>End command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="423" bodyend="-1"/>
+        <referencedby refid="group__nandps_1gae2862ccd7e9180b843d9e73e2a8c7e7b" compoundref="xnandps_8c" startline="1045" endline="1142">XNandPs_SendCommand</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps___command_format_1a82db80bc15a0f098854ed8034187b36e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNandPs_CommandFormat::AddrCycles</definition>
+        <argsstring></argsstring>
+        <name>AddrCycles</name>
+        <briefdescription>
+<para>Number of address cycles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="424" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="424" bodyend="-1"/>
+        <referencedby refid="group__nandps_1gacb42515d1fa541b8ac5e785d1fb7eefd" compoundref="xnandps__onfi_8c" startline="488" endline="664">Onfi_NandInit</referencedby>
+        <referencedby refid="group__nandps_1gae2862ccd7e9180b843d9e73e2a8c7e7b" compoundref="xnandps_8c" startline="1045" endline="1142">XNandPs_SendCommand</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps___command_format_1a4fc076b266b7ef2cc79e059c7ef4e59b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNandPs_CommandFormat::EndCmdValid</definition>
+        <argsstring></argsstring>
+        <name>EndCmdValid</name>
+        <briefdescription>
+<para>End command valid. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="425" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="425" bodyend="-1"/>
+        <referencedby refid="group__nandps_1gae2862ccd7e9180b843d9e73e2a8c7e7b" compoundref="xnandps_8c" startline="1045" endline="1142">XNandPs_SendCommand</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>NAND Command format structures. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="421" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="421" bodyend="426"/>
+    <listofallmembers>
+      <member refid="struct_x_nand_ps___command_format_1a82db80bc15a0f098854ed8034187b36e" prot="public" virt="non-virtual"><scope>XNandPs_CommandFormat</scope><name>AddrCycles</name></member>
+      <member refid="struct_x_nand_ps___command_format_1add044f5e1abe6bf7857d6e0d678b0ae8" prot="public" virt="non-virtual"><scope>XNandPs_CommandFormat</scope><name>EndCmd</name></member>
+      <member refid="struct_x_nand_ps___command_format_1a4fc076b266b7ef2cc79e059c7ef4e59b" prot="public" virt="non-virtual"><scope>XNandPs_CommandFormat</scope><name>EndCmdValid</name></member>
+      <member refid="struct_x_nand_ps___command_format_1abab8ebd07b5838c58667294329488788" prot="public" virt="non-virtual"><scope>XNandPs_CommandFormat</scope><name>StartCmd</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_trngpsv___d_f_input" kind="struct" prot="public">
+    <compoundname>XTrngpsv_DFInput</compoundname>
+    <includes local="no">xtrngpsv.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_trngpsv___d_f_input_1a070ffffac3fc8d54aa6c7a1de9e66b5d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrngpsv_DFInput::IvCounter[DF_IP_IV_LEN]</definition>
+        <argsstring>[DF_IP_IV_LEN]</argsstring>
+        <name>IvCounter</name>
+        <briefdescription>
+<para>Counter/seq number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" bodystart="247" bodyend="-1"/>
+        <referencedby refid="group__trngpsv__api_1ga385580225d449ba49c6425fc61836092" compoundref="xtrngpsv__df_8c" startline="76" endline="238">XTrngpsv_DF</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_trngpsv___d_f_input_1a75de62d5fab5b6a535fde14804dd8ef4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrngpsv_DFInput::InputLen</definition>
+        <argsstring></argsstring>
+        <name>InputLen</name>
+        <briefdescription>
+<para><verbatim>              length indicating actual entropy
+</verbatim> data length + pers string length in bytes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" bodystart="248" bodyend="-1"/>
+        <referencedby refid="group__trngpsv__api_1ga385580225d449ba49c6425fc61836092" compoundref="xtrngpsv__df_8c" startline="76" endline="238">XTrngpsv_DF</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_trngpsv___d_f_input_1a4b2a6af78a2fa7b927d727e29731faf9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrngpsv_DFInput::PostDfLen</definition>
+        <argsstring></argsstring>
+        <name>PostDfLen</name>
+        <briefdescription>
+<para>Length of entropy data (e.g. </para>        </briefdescription>
+        <detaileddescription>
+<para>seed, random data) post DF in bytes </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" bodystart="250" bodyend="-1"/>
+        <referencedby refid="group__trngpsv__api_1ga385580225d449ba49c6425fc61836092" compoundref="xtrngpsv__df_8c" startline="76" endline="238">XTrngpsv_DF</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_trngpsv___d_f_input_1a22f1f448d93cf1ef5e0cc4b33ffce2b0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XTrngpsv_DFInput::EntropyData[MAX_PRE_DF_LEN_BYTES]</definition>
+        <argsstring>[MAX_PRE_DF_LEN_BYTES]</argsstring>
+        <name>EntropyData</name>
+        <briefdescription>
+<para>Input Entropy data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="252" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" bodystart="252" bodyend="-1"/>
+        <referencedby refid="group__trngpsv__api_1ga385580225d449ba49c6425fc61836092" compoundref="xtrngpsv__df_8c" startline="76" endline="238">XTrngpsv_DF</referencedby>
+        <referencedby refid="group__trngpsv__api_1ga2d5b1c7182c8de3767e0345a3435ffe5" compoundref="xtrngpsv_8c" startline="450" endline="627">XTrngpsv_Generate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_trngpsv___d_f_input_1ad08be7f583b931c672990b94ce572365" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XTrngpsv_DFInput::PersString[XTRNGPSV_PERS_STR_LEN_BYTES]</definition>
+        <argsstring>[XTRNGPSV_PERS_STR_LEN_BYTES]</argsstring>
+        <name>PersString</name>
+        <briefdescription>
+<para>Personalization String. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" bodystart="253" bodyend="-1"/>
+        <referencedby refid="group__trngpsv__api_1ga385580225d449ba49c6425fc61836092" compoundref="xtrngpsv__df_8c" startline="76" endline="238">XTrngpsv_DF</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_trngpsv___d_f_input_1a98a49240ef2e63dbcb8a230e08f3095e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XTrngpsv_DFInput::PadData[DF_PAD_DATA_LEN]</definition>
+        <argsstring>[DF_PAD_DATA_LEN]</argsstring>
+        <name>PadData</name>
+        <briefdescription>
+<para>Padding to make structure, multiple of 16Bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" bodystart="254" bodyend="-1"/>
+        <referencedby refid="group__trngpsv__api_1ga385580225d449ba49c6425fc61836092" compoundref="xtrngpsv__df_8c" startline="76" endline="238">XTrngpsv_DF</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains the format in which the Block Cipher (DF) algorithm expects the information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" bodystart="246" bodyend="255"/>
+    <listofallmembers>
+      <member refid="struct_x_trngpsv___d_f_input_1a22f1f448d93cf1ef5e0cc4b33ffce2b0" prot="public" virt="non-virtual"><scope>XTrngpsv_DFInput</scope><name>EntropyData</name></member>
+      <member refid="struct_x_trngpsv___d_f_input_1a75de62d5fab5b6a535fde14804dd8ef4" prot="public" virt="non-virtual"><scope>XTrngpsv_DFInput</scope><name>InputLen</name></member>
+      <member refid="struct_x_trngpsv___d_f_input_1a070ffffac3fc8d54aa6c7a1de9e66b5d" prot="public" virt="non-virtual"><scope>XTrngpsv_DFInput</scope><name>IvCounter</name></member>
+      <member refid="struct_x_trngpsv___d_f_input_1a98a49240ef2e63dbcb8a230e08f3095e" prot="public" virt="non-virtual"><scope>XTrngpsv_DFInput</scope><name>PadData</name></member>
+      <member refid="struct_x_trngpsv___d_f_input_1ad08be7f583b931c672990b94ce572365" prot="public" virt="non-virtual"><scope>XTrngpsv_DFInput</scope><name>PersString</name></member>
+      <member refid="struct_x_trngpsv___d_f_input_1a4b2a6af78a2fa7b927d727e29731faf9" prot="public" virt="non-virtual"><scope>XTrngpsv_DFInput</scope><name>PostDfLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

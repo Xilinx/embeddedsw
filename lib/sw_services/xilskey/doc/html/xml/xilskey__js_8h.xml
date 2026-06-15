@@ -1,0 +1,894 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilskey__js_8h" kind="file">
+    <compoundname>xilskey_js.h</compoundname>
+    <includes local="no">stdlib.h</includes>
+    <includes local="no">stdint.h</includes>
+    <includedby refid="xilskey__jslib_8h" local="yes">xilskey_jslib.h</includedby>
+    <includedby refid="xilskey__jscmd_8h" local="yes">xilskey_jscmd.h</includedby>
+    <incdepgraph>
+      <node id="151">
+        <label>stdint.h</label>
+      </node>
+      <node id="150">
+        <label>stdlib.h</label>
+      </node>
+      <node id="149">
+        <label>xilskey_js.h</label>
+        <link refid="xilskey_js.h"/>
+        <childnode refid="150" relation="include">
+        </childnode>
+        <childnode refid="151" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="155">
+        <label>xilskey_jslib.c</label>
+      </node>
+      <node id="153">
+        <label>xilskey_jslib.h</label>
+        <childnode refid="154" relation="include">
+        </childnode>
+        <childnode refid="155" relation="include">
+        </childnode>
+      </node>
+      <node id="152">
+        <label>xilskey_js.h</label>
+        <link refid="xilskey_js.h"/>
+        <childnode refid="153" relation="include">
+        </childnode>
+        <childnode refid="156" relation="include">
+        </childnode>
+      </node>
+      <node id="157">
+        <label>xilskey_jtag.h</label>
+      </node>
+      <node id="154">
+        <label>xilskey_jscmd.c</label>
+        <link refid="xilskey__jscmd_8c"/>
+      </node>
+      <node id="156">
+        <label>xilskey_jscmd.h</label>
+        <childnode refid="154" relation="include">
+        </childnode>
+        <childnode refid="157" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structjs__port__descr__struct" prot="public">js_port_descr_struct</innerclass>
+    <innerclass refid="structjs__port__struct" prot="public">js_port_struct</innerclass>
+    <innerclass refid="structjs__node__struct" prot="public">js_node_struct</innerclass>
+    <innerclass refid="structjs__command__sequence__struct" prot="public">js_command_sequence_struct</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xilskey__js_8h_1ac8dd85babeaed3a522dd2749119a6174" prot="public" static="no">
+        <name>JS_DUMMY_IDCODE</name>
+        <initializer>0x000000ff</initializer>
+        <briefdescription>
+<para>IEEE 1149.1 defined dummy idcode value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xilskey__js_8h_1a45fe0f1329830bbc34b4c59b2e9a0411" prot="public" static="no">
+        <name>js_property_kind_t</name>
+        <enumvalue id="xilskey__js_8h_1a45fe0f1329830bbc34b4c59b2e9a0411a6ae7b764ad0a6605866c29a64169c186" prot="public">
+          <name>JS_PROP_FREQUENCY</name>
+          <briefdescription>
+<para>JS PROP frequency. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>JTAG property kinds. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" bodystart="79" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="enum" id="xilskey__js_8h_1aceabc38c52000667e7b77191a5e25be8" prot="public" static="no">
+        <name>js_state_t</name>
+        <enumvalue id="xilskey__js_8h_1aceabc38c52000667e7b77191a5e25be8a37df507be7b41aa2a8a1e6f81d4dc84b" prot="public">
+          <name>JS_RESET</name>
+          <briefdescription>
+<para>JS Reset. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xilskey__js_8h_1aceabc38c52000667e7b77191a5e25be8a0d94e06936e1f2d4b8cfc6bcdc21ddfe" prot="public">
+          <name>JS_IDLE</name>
+          <briefdescription>
+<para>JS Idle. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xilskey__js_8h_1aceabc38c52000667e7b77191a5e25be8aa317f668f43d9cf5ec42f609ecfec701" prot="public">
+          <name>JS_DRSELECT</name>
+          <briefdescription>
+<para>JS DrSelect. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xilskey__js_8h_1aceabc38c52000667e7b77191a5e25be8a0b1368bf7abb8293a38a85718aff31b3" prot="public">
+          <name>JS_DRCAPTURE</name>
+          <briefdescription>
+<para>JS DrCapture. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xilskey__js_8h_1aceabc38c52000667e7b77191a5e25be8a1e11008bf7213518f66a4ffcd22b52be" prot="public">
+          <name>JS_DRSHIFT</name>
+          <briefdescription>
+<para>JS DrShift. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xilskey__js_8h_1aceabc38c52000667e7b77191a5e25be8acc286c599eaa395766222d7cc2988944" prot="public">
+          <name>JS_DREXIT1</name>
+          <briefdescription>
+<para>JS DrExit1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xilskey__js_8h_1aceabc38c52000667e7b77191a5e25be8a93a48584e61fc61bee8d3cd1573e6264" prot="public">
+          <name>JS_DRPAUSE</name>
+          <briefdescription>
+<para>JS DrPause. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xilskey__js_8h_1aceabc38c52000667e7b77191a5e25be8a5511bc772cb7f1760794709c8263f7d1" prot="public">
+          <name>JS_DREXIT2</name>
+          <briefdescription>
+<para>JS DrExit2. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xilskey__js_8h_1aceabc38c52000667e7b77191a5e25be8a759e8675f2046ac0712d7b0f9292e046" prot="public">
+          <name>JS_DRUPDATE</name>
+          <briefdescription>
+<para>JS DrUpdate. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xilskey__js_8h_1aceabc38c52000667e7b77191a5e25be8a8690f9880e8400f42f1374df2647968b" prot="public">
+          <name>JS_IRSELECT</name>
+          <briefdescription>
+<para>JS IRSelect. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xilskey__js_8h_1aceabc38c52000667e7b77191a5e25be8a0bf359b96062b3d37ff18606dab62a2c" prot="public">
+          <name>JS_IRCAPTURE</name>
+          <briefdescription>
+<para>JS IRCapture. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xilskey__js_8h_1aceabc38c52000667e7b77191a5e25be8a2c8f42e6e80b9fe17d7c46247b5b4f42" prot="public">
+          <name>JS_IRSHIFT</name>
+          <briefdescription>
+<para>JS IRShift. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xilskey__js_8h_1aceabc38c52000667e7b77191a5e25be8ad3c412ef405091671479cbebc609585c" prot="public">
+          <name>JS_IREXIT1</name>
+          <briefdescription>
+<para>JS IRExit1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xilskey__js_8h_1aceabc38c52000667e7b77191a5e25be8a19642da9a67e2a6c6f2a11e954cb1482" prot="public">
+          <name>JS_IRPAUSE</name>
+          <briefdescription>
+<para>JS IRPause. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xilskey__js_8h_1aceabc38c52000667e7b77191a5e25be8ae34b2c10fb63e561b1d9c5206a1ea2ab" prot="public">
+          <name>JS_IREXIT2</name>
+          <briefdescription>
+<para>JS IRExit2. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xilskey__js_8h_1aceabc38c52000667e7b77191a5e25be8ad2a7dc2c47c29b85e3981d23205c67c6" prot="public">
+          <name>JS_IRUPDATE</name>
+          <briefdescription>
+<para>JS IRUpdate. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xilskey__js_8h_1aceabc38c52000667e7b77191a5e25be8a0f5d9c25d19571cfa6598ba8a7bd326d" prot="public">
+          <name>JS_STATE_MAX</name>
+          <briefdescription>
+<para>JS State Max. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>JTAG states. </para>        </briefdescription>
+        <detaileddescription>
+<para>To simply the interface only a subset of the JTAG states are make accessible. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" bodystart="165" bodyend="183"/>
+      </memberdef>
+      <memberdef kind="enum" id="xilskey__js_8h_1a06fc87d81c62e9abb8790b6e5713c55b" prot="public" static="no">
+        <name>@0</name>
+        <enumvalue id="xilskey__js_8h_1a06fc87d81c62e9abb8790b6e5713c55ba909b763db92b81f35de01ee7d66f81cd" prot="public">
+          <name>JS_TO_IR</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>JS to IR. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xilskey__js_8h_1a06fc87d81c62e9abb8790b6e5713c55ba97f985cd782af1b28bb953ee25d75e2c" prot="public">
+          <name>JS_ONES</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>JS one&apos;s. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Adds command to. </para>        </briefdescription>
+        <detaileddescription>
+<para><orderedlist>
+<listitem><para>move state machine to either JS_SHIFT_IR if (&lt;flags&gt; &amp; JS_TO_IR) != 0 or JS_SHIFT_DR if (&lt;flags&gt; &amp; JS_TO_IR) == 0,</para></listitem><listitem><para>shift &lt;bits&gt; number of bits in from tdi_buffer to TDI and out from TDO to tdo_buffer, and</para></listitem><listitem><para>move state machine to &lt;state&gt;.</para></listitem></orderedlist>
+</para><para>If &lt;tdi_buffer&gt; is NULL then &lt;bits&gt; number of ones if (&lt;flags&gt; &amp; JS_ONES) != 0 or zeroes if (&lt;flags&gt; &amp; JS_ONES) == 0 are shifted to TDI.</para><para>If &lt;tdo_buffer&gt; is NULL then TDO bits are ignored.</para><para>Both state transitions are optional if the state machine is already in the correct state. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" bodystart="326" bodyend="329"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xilskey__js_8h_1a5d04e6cd8f84a7021af0a3e9b2d98406" prot="public" static="no">
+        <type>struct <ref refid="structjs__server__struct" kindref="compound">js_server_struct</ref></type>
+        <definition>typedef struct js_server_struct js_server_t</definition>
+        <argsstring></argsstring>
+        <name>js_server_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xilskey__js_8h_1aca99a7e61926a09eb6f0447161b99e17" prot="public" static="no">
+        <type>struct <ref refid="structjs__port__descr__struct" kindref="compound">js_port_descr_struct</ref></type>
+        <definition>typedef struct js_port_descr_struct js_port_descr_t</definition>
+        <argsstring></argsstring>
+        <name>js_port_descr_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xilskey__js_8h_1a842bc10077db256a6b5d69b69fe333d2" prot="public" static="no">
+        <type>struct <ref refid="structjs__port__struct" kindref="compound">js_port_struct</ref></type>
+        <definition>typedef struct js_port_struct js_port_t</definition>
+        <argsstring></argsstring>
+        <name>js_port_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xilskey__js_8h_1a3dd9bd1fec247c2ed0c4822340240eb9" prot="public" static="no">
+        <type>struct <ref refid="structjs__node__struct" kindref="compound">js_node_struct</ref></type>
+        <definition>typedef struct js_node_struct js_node_t</definition>
+        <argsstring></argsstring>
+        <name>js_node_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xilskey__js_8h_1aafe073b6abd34a633839789b2ac36592" prot="public" static="no">
+        <type>struct <ref refid="structjs__command__sequence__struct" kindref="compound">js_command_sequence_struct</ref></type>
+        <definition>typedef struct js_command_sequence_struct js_command_sequence_t</definition>
+        <argsstring></argsstring>
+        <name>js_command_sequence_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xilskey__js_8h_1a1f64dd804a554d69f8a68bc7ee1ff054" prot="public" static="no">
+        <type>long</type>
+        <definition>typedef long js_property_value_t</definition>
+        <argsstring></argsstring>
+        <name>js_property_value_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xilskey__js_8h_1a399f3429022ff4771f013fe3dfd2c3ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int js_get_port_descr_list</definition>
+        <argsstring>(js_server_t *server, js_port_descr_t **port_listp)</argsstring>
+        <name>js_get_port_descr_list</name>
+        <param>
+          <type><ref refid="structjs__server__struct" kindref="compound">js_server_t</ref> *</type>
+          <declname>server</declname>
+        </param>
+        <param>
+          <type><ref refid="structjs__port__descr__struct" kindref="compound">js_port_descr_t</ref> **</type>
+          <declname>port_listp</declname>
+        </param>
+        <briefdescription>
+<para>Get list of available JTAG ports supported by this server. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.c" bodystart="351" bodyend="358"/>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__js_8h_1acf33390731762426ba2950ffdf7f3ea1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int js_open_port</definition>
+        <argsstring>(js_server_t *server, js_port_descr_t *port_descr, js_port_t **port)</argsstring>
+        <name>js_open_port</name>
+        <param>
+          <type><ref refid="structjs__server__struct" kindref="compound">js_server_t</ref> *</type>
+          <declname>server</declname>
+        </param>
+        <param>
+          <type><ref refid="structjs__port__descr__struct" kindref="compound">js_port_descr_t</ref> *</type>
+          <declname>port_descr</declname>
+        </param>
+        <param>
+          <type><ref refid="structjs__port__struct" kindref="compound">js_port_t</ref> **</type>
+          <declname>port</declname>
+        </param>
+        <briefdescription>
+<para>Open a specific JTAG port for this server instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.c" bodystart="361" bodyend="373"/>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__js_8h_1ac4509e059e70d40fc1a86a62e2fb54b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void js_deinit_server</definition>
+        <argsstring>(js_server_t *server)</argsstring>
+        <name>js_deinit_server</name>
+        <param>
+          <type><ref refid="structjs__server__struct" kindref="compound">js_server_t</ref> *</type>
+          <declname>server</declname>
+        </param>
+        <briefdescription>
+<para>Delete server instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.c" bodystart="376" bodyend="382"/>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__js_8h_1a2c19fbc78bfb58335de50309e9881795" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int js_get_property</definition>
+        <argsstring>(js_port_t *port, js_property_kind_t kind, js_property_value_t *valuep)</argsstring>
+        <name>js_get_property</name>
+        <param>
+          <type><ref refid="structjs__port__struct" kindref="compound">js_port_t</ref> *</type>
+          <declname>port</declname>
+        </param>
+        <param>
+          <type>js_property_kind_t</type>
+          <declname>kind</declname>
+        </param>
+        <param>
+          <type>js_property_value_t *</type>
+          <declname>valuep</declname>
+        </param>
+        <briefdescription>
+<para>Get property value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.c" bodystart="385" bodyend="393"/>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__js_8h_1af3b18518f2a9afccbc124386d8beb02c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int js_set_property</definition>
+        <argsstring>(js_port_t *port, js_property_kind_t kind, js_property_value_t value)</argsstring>
+        <name>js_set_property</name>
+        <param>
+          <type><ref refid="structjs__port__struct" kindref="compound">js_port_t</ref> *</type>
+          <declname>port</declname>
+        </param>
+        <param>
+          <type>js_property_kind_t</type>
+          <declname>kind</declname>
+        </param>
+        <param>
+          <type>js_property_value_t</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Set property value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.c" bodystart="396" bodyend="404"/>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__js_8h_1a5ac13a3ba109a4cc5f48672424085771" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int js_run_command_sequence</definition>
+        <argsstring>(js_command_sequence_t *commands)</argsstring>
+        <name>js_run_command_sequence</name>
+        <param>
+          <type><ref refid="structjs__command__sequence__struct" kindref="compound">js_command_sequence_t</ref> *</type>
+          <declname>commands</declname>
+        </param>
+        <briefdescription>
+<para>Execute pending commands. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.c" bodystart="407" bodyend="414"/>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__js_8h_1a218b17d68595c8f1f3feeae21b16160a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int js_close_port</definition>
+        <argsstring>(js_port_t *port)</argsstring>
+        <name>js_close_port</name>
+        <param>
+          <type><ref refid="structjs__port__struct" kindref="compound">js_port_t</ref> *</type>
+          <declname>port</declname>
+        </param>
+        <briefdescription>
+<para>Open a specific JTAG port for this server instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.c" bodystart="417" bodyend="423"/>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__js_8h_1adbda2e9d58e321db8f942fb3155a077a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* js_get_last_error</definition>
+        <argsstring>(js_server_t *server)</argsstring>
+        <name>js_get_last_error</name>
+        <param>
+          <type><ref refid="structjs__server__struct" kindref="compound">js_server_t</ref> *</type>
+          <declname>server</declname>
+        </param>
+        <briefdescription>
+<para>Retrieve information about the last error as a string. </para>        </briefdescription>
+        <detaileddescription>
+<para>Returns NULL if no error occurred since last call to <ref refid="xilskey__jscmd_8c_1a9416efb3f480fb568cd0e7e625363ecf" kindref="member">set_last_error(server, NULL)</ref>. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.c" bodystart="70" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__js_8h_1a1ea7a9a279dee7f8ccb3238f82029535" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void js_set_last_error</definition>
+        <argsstring>(js_server_t *server, const char *fmt,...)</argsstring>
+        <name>js_set_last_error</name>
+        <param>
+          <type><ref refid="structjs__server__struct" kindref="compound">js_server_t</ref> *</type>
+          <declname>server</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>fmt</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+<para>Set error information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.c" bodystart="81" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__js_8h_1a47cf5a5c3b720805ef6f1826da2494a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structjs__command__sequence__struct" kindref="compound">js_command_sequence_t</ref> *</type>
+        <definition>js_command_sequence_t* js_create_command_sequence</definition>
+        <argsstring>(js_node_t *node)</argsstring>
+        <name>js_create_command_sequence</name>
+        <param>
+          <type><ref refid="structjs__node__struct" kindref="compound">js_node_t</ref> *</type>
+          <declname>node</declname>
+        </param>
+        <briefdescription>
+<para>Allocate command sequence object. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.c" bodystart="95" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__js_8h_1a9a7727d9bc5b6211ec054164ae9c3318" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int js_clear_command_sequence</definition>
+        <argsstring>(js_command_sequence_t *cmdseq)</argsstring>
+        <name>js_clear_command_sequence</name>
+        <param>
+          <type><ref refid="structjs__command__sequence__struct" kindref="compound">js_command_sequence_t</ref> *</type>
+          <declname>cmdseq</declname>
+        </param>
+        <briefdescription>
+<para>CLear command sequence. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function allows a command sequence object to be reused for a difference sequence. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="287" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.c" bodystart="126" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__js_8h_1a89e6f5f4a15ca7b13ee4e99ee520069f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int js_delete_command_sequence</definition>
+        <argsstring>(js_command_sequence_t *cmdseq)</argsstring>
+        <name>js_delete_command_sequence</name>
+        <param>
+          <type><ref refid="structjs__command__sequence__struct" kindref="compound">js_command_sequence_t</ref> *</type>
+          <declname>cmdseq</declname>
+        </param>
+        <briefdescription>
+<para>Delete command sequence. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.c" bodystart="145" bodyend="154"/>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__js_8h_1a443d84c79a359b8fdfece18f871ff186" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int js_add_state_change</definition>
+        <argsstring>(js_command_sequence_t *cmdseq, js_state_t state, unsigned int clocks)</argsstring>
+        <name>js_add_state_change</name>
+        <param>
+          <type><ref refid="structjs__command__sequence__struct" kindref="compound">js_command_sequence_t</ref> *</type>
+          <declname>cmdseq</declname>
+        </param>
+        <param>
+          <type>js_state_t</type>
+          <declname>state</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>clocks</declname>
+        </param>
+        <briefdescription>
+<para>Adds command to move JTAG state machine to &lt;state&gt; and cycle TCK &lt;clock&gt; times. </para>        </briefdescription>
+        <detaileddescription>
+<para>The &lt;clock&gt; argument is only applicable for when &lt;state&gt; is one of the stable states JS_RESET, JS_IDLE, JS_PAUSE_IR or JS_PAUSE_DR. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.c" bodystart="188" bodyend="207"/>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__js_8h_1a940ff002b413aec89a060595e61026da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int js_add_shift</definition>
+        <argsstring>(js_command_sequence_t *cmdseq, unsigned int flags, size_t bits, unsigned char **tdi_buffer, unsigned char **tdo_buffer, js_state_t state)</argsstring>
+        <name>js_add_shift</name>
+        <param>
+          <type><ref refid="structjs__command__sequence__struct" kindref="compound">js_command_sequence_t</ref> *</type>
+          <declname>cmdseq</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>flags</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>bits</declname>
+        </param>
+        <param>
+          <type>unsigned char **</type>
+          <declname>tdi_buffer</declname>
+        </param>
+        <param>
+          <type>unsigned char **</type>
+          <declname>tdo_buffer</declname>
+        </param>
+        <param>
+          <type>js_state_t</type>
+          <declname>state</declname>
+        </param>
+        <briefdescription>
+<para>This function adds shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.c" bodystart="244" bodyend="275"/>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__js_8h_1a85c94dca9ae7b2251214df750abc09d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int js_detect_taps</definition>
+        <argsstring>(js_port_t *port, uint32_t **resultp)</argsstring>
+        <name>js_detect_taps</name>
+        <param>
+          <type><ref refid="structjs__port__struct" kindref="compound">js_port_t</ref> *</type>
+          <declname>port</declname>
+        </param>
+        <param>
+          <type>uint32_t **</type>
+          <declname>resultp</declname>
+        </param>
+        <briefdescription>
+<para>Auto detect TAPs on scan chain. </para>        </briefdescription>
+        <detaileddescription>
+<para>This typically involes a reset of the scan chain followed by reading data registers.</para><para>The result is allocated using malloc() and the caller is responsible for freeing the buffer when it is no longer needed. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.c" bodystart="278" bodyend="348"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2013<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>JTAG<sp/>server<sp/>interface</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>This<sp/>interface<sp/>is<sp/>intended<sp/>to<sp/>be<sp/>a<sp/>common<sp/>abstraction<sp/>of<sp/>JTAG<sp/>cable</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>implementations.</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Interface<sp/>usage<sp/>steps:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>1.<sp/>Initialize<sp/>server<sp/>implementation<sp/>instance<sp/>using<sp/>implementation</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/>specific<sp/>js_init_*()<sp/>function.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>2.<sp/>Enumerate<sp/>available<sp/>ports<sp/>using<sp/>js_get_port_descr_list().</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>3.<sp/>Open<sp/>selected<sp/>port<sp/>using<sp/>js_open_port().</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>4.<sp/>Optional:<sp/>get<sp/>or<sp/>set<sp/>properties<sp/>using<sp/>js_get_property()<sp/>or</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/>js_set_property().</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*<sp/>5.<sp/>Optional:<sp/>enumerate<sp/>scan<sp/>chain<sp/>using<sp/>js_detect_taps()<sp/>or</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/>manually.<sp/><sp/>Add<sp/>nodes<sp/>for<sp/>each<sp/>TAP<sp/>controller<sp/>(API<sp/>TDB).</highlight></codeline>
+<codeline lineno="27"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="28"><highlight class="comment"><sp/>*<sp/>6.<sp/>Build<sp/>command<sp/>sequence(s)<sp/>object<sp/>using</highlight></codeline>
+<codeline lineno="29"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/>js_create_command_sequence(),<sp/>js_add_state_change(),<sp/>and</highlight></codeline>
+<codeline lineno="30"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/>js_add_shift().</highlight></codeline>
+<codeline lineno="31"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="32"><highlight class="comment"><sp/>*<sp/>7.<sp/>Run<sp/>sequence<sp/>using<sp/>js_run_command_sequence().</highlight></codeline>
+<codeline lineno="33"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="34"><highlight class="comment"><sp/>*<sp/>8.<sp/>Repeat<sp/>#6<sp/>and<sp/>#7<sp/>as<sp/>needed,<sp/>possibly<sp/>deleting<sp/>or<sp/>clearing</highlight></codeline>
+<codeline lineno="35"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/>command<sp/>sequence<sp/>objects<sp/>as<sp/>needed<sp/>using</highlight></codeline>
+<codeline lineno="36"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/>js_delete_command_sequence()<sp/>and<sp/>js_clear_command_sequence().</highlight></codeline>
+<codeline lineno="37"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="38"><highlight class="comment"><sp/>*<sp/>9.<sp/>Close<sp/>port<sp/>using<sp/>js_close_port().</highlight></codeline>
+<codeline lineno="39"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="40"><highlight class="comment"><sp/>*<sp/>10.<sp/>Delete<sp/>server<sp/>using<sp/>js_deinit_server().</highlight></codeline>
+<codeline lineno="41"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XILSKEY_JS_H</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILSKEY_JS_H</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(_MSC_VER)<sp/>&amp;&amp;<sp/>_MSC_VER<sp/>&lt;<sp/>1600</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">signed</highlight><highlight class="normal"><sp/>__int8<sp/>int8_t;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>__int8<sp/>uint8_t;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">signed</highlight><highlight class="normal"><sp/>__int16<sp/>int16_t;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>__int16<sp/>uint16_t;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">signed</highlight><highlight class="normal"><sp/>__int32<sp/>int32_t;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>__int32<sp/>uint32_t;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">signed</highlight><highlight class="normal"><sp/>__int64<sp/>int64_t;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>__int64<sp/>uint64_t;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/><sp/>include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor">#define<sp/>JS_DUMMY_IDCODE<sp/>0x000000ff</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structjs__server__struct" kindref="compound">js_server_struct</ref><sp/><ref refid="structjs__server__struct" kindref="compound">js_server_t</ref>;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structjs__port__descr__struct" kindref="compound">js_port_descr_struct</ref><sp/><ref refid="structjs__port__descr__struct" kindref="compound">js_port_descr_t</ref>;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structjs__port__struct" kindref="compound">js_port_struct</ref><sp/><ref refid="structjs__port__struct" kindref="compound">js_port_t</ref>;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structjs__node__struct" kindref="compound">js_node_struct</ref><sp/><ref refid="structjs__node__struct" kindref="compound">js_node_t</ref>;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structjs__command__sequence__struct" kindref="compound">js_command_sequence_struct</ref><sp/><ref refid="structjs__command__sequence__struct" kindref="compound">js_command_sequence_t</ref>;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>JS_PROP_FREQUENCY<sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="normal">}<sp/>js_property_kind_t;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>js_property_value_t;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91" refid="structjs__port__descr__struct" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structjs__port__descr__struct" kindref="compound">js_port_descr_struct</ref><sp/>{</highlight></codeline>
+<codeline lineno="92" refid="structjs__port__descr__struct_1abf452597f2b0c5894a1f24d6bf9cf6f1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structjs__port__descr__struct_1abf452597f2b0c5894a1f24d6bf9cf6f1" kindref="member">manufacturer</ref>[64];<sp/></highlight></codeline>
+<codeline lineno="93" refid="structjs__port__descr__struct_1a26e204bd66301a4580cb7d8dde4bbbce" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structjs__port__descr__struct_1a26e204bd66301a4580cb7d8dde4bbbce" kindref="member">serial</ref>[64];<sp/></highlight></codeline>
+<codeline lineno="94" refid="structjs__port__descr__struct_1a7c706e3254c90f4b2e5d8dc89b71ec02" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structjs__port__descr__struct_1a7c706e3254c90f4b2e5d8dc89b71ec02" kindref="member">port</ref>[64];<sp/></highlight></codeline>
+<codeline lineno="95" refid="structjs__port__descr__struct_1a27397970ff5afd5167192110539b5d42" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structjs__port__descr__struct_1a27397970ff5afd5167192110539b5d42" kindref="member">description</ref>[128];<sp/></highlight></codeline>
+<codeline lineno="96" refid="structjs__port__descr__struct_1a1aa73d32856930821c1e84dbdf84329c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="structjs__port__descr__struct_1a1aa73d32856930821c1e84dbdf84329c" kindref="member">handle</ref>;<sp/></highlight></codeline>
+<codeline lineno="97"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104" refid="structjs__port__struct" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structjs__port__struct" kindref="compound">js_port_struct</ref><sp/>{</highlight></codeline>
+<codeline lineno="108" refid="structjs__port__struct_1a01281a854f85117dc9ac2151c7c2e6d9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjs__server__struct" kindref="compound">js_server_t</ref><sp/>*<ref refid="structjs__port__struct_1a01281a854f85117dc9ac2151c7c2e6d9" kindref="member">server</ref>;</highlight></codeline>
+<codeline lineno="112" refid="structjs__port__struct_1abf533f6c7a4e296234a45949cbf45839" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjs__node__struct" kindref="compound">js_node_t</ref><sp/>*<ref refid="structjs__port__struct_1abf533f6c7a4e296234a45949cbf45839" kindref="member">root_node</ref>;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125" refid="structjs__node__struct" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structjs__node__struct" kindref="compound">js_node_struct</ref><sp/>{</highlight></codeline>
+<codeline lineno="126" refid="structjs__node__struct_1a06ba02c37fe4cc4855991ab1e7350b92" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjs__port__struct" kindref="compound">js_port_t</ref><sp/>*<ref refid="structjs__node__struct_1a06ba02c37fe4cc4855991ab1e7350b92" kindref="member">port</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="128" refid="structjs__node__struct_1af7cdc8e1c5731424f3796ad530e33e81" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structjs__node__struct_1af7cdc8e1c5731424f3796ad530e33e81" kindref="member">is_tap</ref>:1;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="130" refid="structjs__node__struct_1a40f92b3dc8e4052f6dedcf6d5a192a03" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structjs__node__struct_1a40f92b3dc8e4052f6dedcf6d5a192a03" kindref="member">is_mux</ref>:1;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="132" refid="structjs__node__struct_1aadb6b57560b190c4f85ceb684bd5205e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structjs__node__struct_1aadb6b57560b190c4f85ceb684bd5205e" kindref="member">is_branch</ref>:1;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="134" refid="structjs__node__struct_1a24846c0e06f68b5b64c97c1d9d31fd03" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structjs__node__struct_1a24846c0e06f68b5b64c97c1d9d31fd03" kindref="member">is_active</ref>:1;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="136" refid="structjs__node__struct_1a5ca68acf03d0472355c10dc2e40ff8ac" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structjs__node__struct_1a5ca68acf03d0472355c10dc2e40ff8ac" kindref="member">idcode</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="139" refid="structjs__node__struct_1a74d8a49094fc1b2a551525fa5b476c9a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structjs__node__struct_1a74d8a49094fc1b2a551525fa5b476c9a" kindref="member">irlen</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="141" refid="structjs__node__struct_1ab75a111d16fea99608c9f9cec1badaed" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="structjs__node__struct_1ab75a111d16fea99608c9f9cec1badaed" kindref="member">name</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="143" refid="structjs__node__struct_1a4eeacf88c8f77afe62846c6a584a6b68" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjs__node__struct" kindref="compound">js_node_t</ref><sp/>**<ref refid="structjs__node__struct_1a4eeacf88c8f77afe62846c6a584a6b68" kindref="member">parent</ref>;<sp/></highlight></codeline>
+<codeline lineno="145" refid="structjs__node__struct_1a2c330212fe51ad5949791b742e7ca7e5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjs__node__struct" kindref="compound">js_node_t</ref><sp/>**<ref refid="structjs__node__struct_1a2c330212fe51ad5949791b742e7ca7e5" kindref="member">child_list</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="146" refid="structjs__node__struct_1a84b40162b1c22b5e1abf6be3e0ba7a75" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structjs__node__struct_1a84b40162b1c22b5e1abf6be3e0ba7a75" kindref="member">child_count</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="147"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="comment">/*typedef<sp/>enum<sp/>{</highlight></codeline>
+<codeline lineno="157"><highlight class="comment"><sp/><sp/><sp/><sp/>JS_RESET,</highlight></codeline>
+<codeline lineno="158"><highlight class="comment"><sp/><sp/><sp/><sp/>JS_IDLE,</highlight></codeline>
+<codeline lineno="159"><highlight class="comment"><sp/><sp/><sp/><sp/>JS_SHIFT_DR,</highlight></codeline>
+<codeline lineno="160"><highlight class="comment"><sp/><sp/><sp/><sp/>JS_PAUSE_DR,</highlight></codeline>
+<codeline lineno="161"><highlight class="comment"><sp/><sp/><sp/><sp/>JS_SHIFT_IR,</highlight></codeline>
+<codeline lineno="162"><highlight class="comment"><sp/><sp/><sp/><sp/>JS_PAUSE_IR,</highlight></codeline>
+<codeline lineno="163"><highlight class="comment"><sp/><sp/><sp/><sp/>JS_STATE_MAX</highlight></codeline>
+<codeline lineno="164"><highlight class="comment">}<sp/>js_state_t;*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/>JS_RESET,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/>JS_IDLE,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/>JS_DRSELECT,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/>JS_DRCAPTURE,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/>JS_DRSHIFT,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/>JS_DREXIT1,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/>JS_DRPAUSE,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/>JS_DREXIT2,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/>JS_DRUPDATE,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/>JS_IRSELECT,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/>JS_IRCAPTURE,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/>JS_IRSHIFT,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/>JS_IREXIT1,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/>JS_IRPAUSE,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/>JS_IREXIT2,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/>JS_IRUPDATE,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/>JS_STATE_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="183"><highlight class="normal">}<sp/>js_state_t;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192" refid="structjs__command__sequence__struct" refkind="compound"><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structjs__command__sequence__struct" kindref="compound">js_command_sequence_struct</ref><sp/>{</highlight></codeline>
+<codeline lineno="193" refid="structjs__command__sequence__struct_1a27dcdd01a1c60dcc94f0b546b01c379b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjs__node__struct" kindref="compound">js_node_t</ref><sp/>*<ref refid="structjs__command__sequence__struct_1a27dcdd01a1c60dcc94f0b546b01c379b" kindref="member">node</ref>;<sp/></highlight></codeline>
+<codeline lineno="194"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight><highlight class="comment">/***********************************************************************</highlight></codeline>
+<codeline lineno="198"><highlight class="comment"><sp/>*<sp/>JTAG<sp/>server<sp/>implementation<sp/>specific<sp/>functions</highlight></codeline>
+<codeline lineno="199"><highlight class="comment"><sp/>***********************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>js_get_port_descr_list(</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjs__server__struct" kindref="compound">js_server_t</ref><sp/>*server,</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjs__port__descr__struct" kindref="compound">js_port_descr_t</ref><sp/>**port_listp);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>js_open_port(</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjs__server__struct" kindref="compound">js_server_t</ref><sp/>*server,</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjs__port__descr__struct" kindref="compound">js_port_descr_t</ref><sp/>*port_descr,</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjs__port__struct" kindref="compound">js_port_t</ref><sp/>**port);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>js_deinit_server(</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjs__server__struct" kindref="compound">js_server_t</ref><sp/>*server);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>js_get_property(</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjs__port__struct" kindref="compound">js_port_t</ref><sp/>*port,</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/>js_property_kind_t<sp/>kind,</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/>js_property_value_t<sp/>*valuep);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>js_set_property(</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjs__port__struct" kindref="compound">js_port_t</ref><sp/>*port,</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/>js_property_kind_t<sp/>kind,</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/>js_property_value_t<sp/>value);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>js_run_command_sequence(</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjs__command__sequence__struct" kindref="compound">js_command_sequence_t</ref><sp/>*commands);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>js_close_port(</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structjs__port__struct" kindref="compound">js_port_t</ref><sp/>*port);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight><highlight class="comment">/***********************************************************************</highlight></codeline>
+<codeline lineno="252"><highlight class="comment"><sp/>*<sp/>JTAG<sp/>server<sp/>library<sp/>functions</highlight></codeline>
+<codeline lineno="253"><highlight class="comment"><sp/>***********************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*js_get_last_error(</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjs__server__struct" kindref="compound">js_server_t</ref><sp/>*server);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>js_set_last_error(</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjs__server__struct" kindref="compound">js_server_t</ref><sp/>*server,</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*fmt,</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/>...);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="structjs__command__sequence__struct" kindref="compound">js_command_sequence_t</ref><sp/>*js_create_command_sequence(</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjs__node__struct" kindref="compound">js_node_t</ref><sp/>*node);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>js_clear_command_sequence(</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjs__command__sequence__struct" kindref="compound">js_command_sequence_t</ref><sp/>*cmdseq);</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>js_delete_command_sequence(</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjs__command__sequence__struct" kindref="compound">js_command_sequence_t</ref><sp/>*cmdseq);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>js_add_state_change(</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjs__command__sequence__struct" kindref="compound">js_command_sequence_t</ref><sp/>*cmdseq,</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/>js_state_t<sp/>state,</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>clocks);</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/>JS_TO_IR<sp/>=<sp/>1,<sp/></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/>JS_ONES<sp/>=<sp/>2<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="329"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>js_add_shift(</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjs__command__sequence__struct" kindref="compound">js_command_sequence_t</ref><sp/>*cmdseq,</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>flags,</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>bits,</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>**tdi_buffer,</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>**tdo_buffer,</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/>js_state_t<sp/>state);</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>js_detect_taps(</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structjs__port__struct" kindref="compound">js_port_t</ref><sp/>*port,</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>**resultp);</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"></highlight></codeline>
+<codeline lineno="356"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="357"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="359"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XILSKEY_JS_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h"/>
+  </compounddef>
+</doxygen>

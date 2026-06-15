@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_eb14f11fd032d8e2c257ced84e4ed588" kind="dir">
+    <compoundname>core</compoundname>
+    <innerdir refid="dir_e9e218ea29d3be97da5efd1ee8908daf">aes</innerdir>
+    <innerdir refid="dir_5f87a88ad7f6280c16d41cbfd1f38ab1">crypto_kat</innerdir>
+    <innerdir refid="dir_c569f9115ff50cafdba9293305b642f8">ecc_keypair</innerdir>
+    <innerdir refid="dir_4f50cf3d869e39a1ba2b298545554153">ecdsa</innerdir>
+    <innerdir refid="dir_3eff69e6be4db338c60726cf24c39187">generic</innerdir>
+    <innerdir refid="dir_f8e55c4ffce06b39a6d68e5757559153">hmac</innerdir>
+    <innerdir refid="dir_fe6f9f11af3d4d1ddd69da775d7770e5">key_zeroize</innerdir>
+    <innerdir refid="dir_08ffe88a4e2a89f4abc78541e45df6e6">lms_hss</innerdir>
+    <innerdir refid="dir_a321ab03f8fb9495d6930b0597bacefa">mailbox</innerdir>
+    <innerdir refid="dir_80f9306b34a794fc6977926bf8a591af">mldsa</innerdir>
+    <innerdir refid="dir_5fc59eb9275dd39799db354e83f6b19c">rsa</innerdir>
+    <innerdir refid="dir_7543be27ced99e85a11a28c46a3cfef4">sha</innerdir>
+    <innerdir refid="dir_8a946152ee900da83a5205d302e4040a">slhdsa</innerdir>
+    <innerdir refid="dir_92a493ebc200e3678253f727e06299f4">smc</innerdir>
+    <innerdir refid="dir_8098403f1c2c725ffd0c62d02dbb3c8e">trng</innerdir>
+    <innerdir refid="dir_f9295673765169e6cbfcd433f76b2352">utils</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/"/>
+  </compounddef>
+</doxygen>

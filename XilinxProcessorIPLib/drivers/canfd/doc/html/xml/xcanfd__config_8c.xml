@@ -1,0 +1,1150 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xcanfd__config_8c" kind="file">
+    <compoundname>xcanfd_config.c</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes refid="xcanfd_8h" local="yes">xcanfd.h</includes>
+    <incdepgraph>
+      <node id="32">
+        <label>xcanfd_config.c</label>
+        <link refid="xcanfd_config.c"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="39">
+        <label>xil_io.h</label>
+      </node>
+      <node id="36">
+        <label>xplatform_info.h</label>
+      </node>
+      <node id="38">
+        <label>xcanfd_hw.h</label>
+        <link refid="xcanfd__hw_8h"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>xstatus.h</label>
+      </node>
+      <node id="35">
+        <label>xcanfd.h</label>
+        <link refid="xcanfd_8h"/>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__canfd_1ga0816bd655bd4460034d67b6ee7481be4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XCanFd_SetBaudRatePrescaler</definition>
+        <argsstring>(XCanFd *InstancePtr, u8 Prescaler)</argsstring>
+        <name>XCanFd_SetBaudRatePrescaler</name>
+        <param>
+          <type><ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Prescaler</declname>
+        </param>
+        <briefdescription>
+<para>This routine sets Baud Rate Prescaler value in Arbitration Phse. </para>        </briefdescription>
+        <detaileddescription>
+<para>The system clock for the CAN controller is divided by (Prescaler + 1) to generate the quantum clock needed for sampling and synchronization. Read the device specification for details.</para><para>Baud Rate Prescaler could be set only after CAN device entered Configuration Mode. So please call <ref refid="group__canfd_1gaaa893768ea4f0db5796f31ab3d8ca431" kindref="member">XCanFd_EnterMode()</ref> to enter Configuration Mode before using this function.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Prescaler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to set. Valid values are from 0 to 255.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS if the Baud Rate Prescaler value is set successfully.<itemizedlist>
+<listitem><para>XST_FAILURE if CAN device is not in Configuration Mode.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" line="1090" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd_config.c" bodystart="71" bodyend="88"/>
+        <references refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" compoundref="xcanfd_8h" startline="351">XCanFd_Config::BaseAddress</references>
+        <references refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" compoundref="xcanfd_8h" startline="410">XCanFd::CanFdConfig</references>
+        <references refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" compoundref="xcanfd_8h" startline="411">XCanFd::IsReady</references>
+        <references refid="group__canfd_1gadf75e2f5afba9cd64e5791c153ee7e1a" compoundref="xcanfd__hw_8h" startline="67">XCANFD_BRPR_OFFSET</references>
+        <references refid="group__canfd_1ga8e1df3e2b6ed809dda14de08d8b6d0a5" compoundref="xcanfd_8c" startline="275" endline="306">XCanFd_GetMode</references>
+        <references refid="group__canfd_1ga6197f9c8450e02a85e4c3bf046d43895" compoundref="xcanfd_8h" startline="313">XCANFD_MODE_CONFIG</references>
+        <references refid="group__canfd_1ga6d131863301cf6d7de97e223530acbe2" compoundref="xcanfd__hw_8h" startline="1148">XCanFd_WriteReg</references>
+        <referencedby refid="xcanfd__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcanfd__intr__example_8c" startline="203" endline="216">main</referencedby>
+        <referencedby refid="group__canfd_1gad1bbb72c208cf3330dc27a32b2546999" compoundref="xcanfd__selftest_8c" startline="103" endline="254">XCanFd_SelfTest</referencedby>
+        <referencedby refid="xcanfd__polled__example_8c_1a4e9e09ef664aee1dcef0dfb56e5fc93b" compoundref="xcanfd__polled__example_8c" startline="188" endline="294">XCanFdPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__canfd_1gab34e6273828db6f9f5ef1b88ce094b02" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XCanFd_GetBaudRatePrescaler</definition>
+        <argsstring>(XCanFd *InstancePtr)</argsstring>
+        <name>XCanFd_GetBaudRatePrescaler</name>
+        <param>
+          <type><ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This routine gets Baud Rate Prescaler value. </para>        </briefdescription>
+        <detaileddescription>
+<para>The system clock for the CAN controller is divided by (Prescaler + 1) to generate the quantum clock needed for sampling and synchronization. Read the device specification for details.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current used Baud Rate Prescaler value. The value&apos;s range is from 0 to 255.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" line="1091" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd_config.c" bodystart="106" bodyend="117"/>
+        <references refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" compoundref="xcanfd_8h" startline="351">XCanFd_Config::BaseAddress</references>
+        <references refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" compoundref="xcanfd_8h" startline="410">XCanFd::CanFdConfig</references>
+        <references refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" compoundref="xcanfd_8h" startline="411">XCanFd::IsReady</references>
+        <references refid="group__canfd_1gadf75e2f5afba9cd64e5791c153ee7e1a" compoundref="xcanfd__hw_8h" startline="67">XCANFD_BRPR_OFFSET</references>
+        <references refid="group__canfd_1ga12b802c8f83b2a1b48d1322a7458ae34" compoundref="xcanfd__hw_8h" startline="1130">XCanFd_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__canfd_1gaa17ba1328e0830d24fb6e4f0be805478" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XCanFd_SetBitTiming</definition>
+        <argsstring>(XCanFd *InstancePtr, u8 SyncJumpWidth, u8 TimeSegment2, u16 TimeSegment1)</argsstring>
+        <name>XCanFd_SetBitTiming</name>
+        <param>
+          <type><ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>SyncJumpWidth</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>TimeSegment2</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>TimeSegment1</declname>
+        </param>
+        <briefdescription>
+<para>This routine sets Bit time. </para>        </briefdescription>
+        <detaileddescription>
+<para>Time segment 1, Time segment 2 and Synchronization Jump Width are set in this function. Device specification requires the values passed into this function be one less than the actual values of these fields. Read the device specification for details.</para><para>Bit time could be set only after CAN device entered Configuration Mode. Please call <ref refid="group__canfd_1gaaa893768ea4f0db5796f31ab3d8ca431" kindref="member">XCanFd_EnterMode()</ref> to enter Configuration Mode before using this function.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SyncJumpWidth</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Synchronization Jump Width value to set. Valid values are from 0 to 3. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TimeSegment2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Time Segment 2 value to set. Valid values are from 0 to 7. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TimeSegment1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Time Segment 1 value to set. Valid values are from 0 to 15.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS if the Bit time is set successfully.<itemizedlist>
+<listitem><para>XST_FAILURE if CAN device is not in Configuration Mode.</para></listitem><listitem><para>XST_INVALID_PARAM if any value of SyncJumpWidth, TimeSegment2 and TimeSegment1 is invalid.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" line="1093" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd_config.c" bodystart="147" bodyend="176"/>
+        <references refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" compoundref="xcanfd_8h" startline="351">XCanFd_Config::BaseAddress</references>
+        <references refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" compoundref="xcanfd_8h" startline="410">XCanFd::CanFdConfig</references>
+        <references refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" compoundref="xcanfd_8h" startline="411">XCanFd::IsReady</references>
+        <references refid="group__canfd_1gab9688e1229929a3645cd284d1d245ada" compoundref="xcanfd__hw_8h" startline="68">XCANFD_BTR_OFFSET</references>
+        <references refid="group__canfd_1ga6f7e0452c98b7c77b0d05750833d2a42" compoundref="xcanfd__hw_8h" startline="351">XCANFD_BTR_SJW_MASK</references>
+        <references refid="group__canfd_1ga80eeaf2c70b389ed69f0353b16cd653a" compoundref="xcanfd__hw_8h" startline="359">XCANFD_BTR_SJW_SHIFT</references>
+        <references refid="group__canfd_1ga255b18c6b873d325f414dab1861ffa8b" compoundref="xcanfd__hw_8h" startline="353">XCANFD_BTR_TS1_MASK</references>
+        <references refid="group__canfd_1gafce91432bfd04a800a53a867aa71a0cd" compoundref="xcanfd__hw_8h" startline="352">XCANFD_BTR_TS2_MASK</references>
+        <references refid="group__canfd_1gaa0993f7d7f44b3d1da9843efe312af51" compoundref="xcanfd__hw_8h" startline="358">XCANFD_BTR_TS2_SHIFT</references>
+        <references refid="group__canfd_1ga8e1df3e2b6ed809dda14de08d8b6d0a5" compoundref="xcanfd_8c" startline="275" endline="306">XCanFd_GetMode</references>
+        <references refid="group__canfd_1ga7ce21e6269e135eb65f4bd43976b5df5" compoundref="xcanfd_8h" startline="292">XCANFD_MAX_SJW_VALUE</references>
+        <references refid="group__canfd_1gaee1da48a54c75174c59c880b60dfae3a" compoundref="xcanfd_8h" startline="293">XCANFD_MAX_TS1_VALUE</references>
+        <references refid="group__canfd_1ga5c578312154336c6a14a68307e84dae5" compoundref="xcanfd_8h" startline="294">XCANFD_MAX_TS2_VALUE</references>
+        <references refid="group__canfd_1ga6197f9c8450e02a85e4c3bf046d43895" compoundref="xcanfd_8h" startline="313">XCANFD_MODE_CONFIG</references>
+        <references refid="group__canfd_1ga6d131863301cf6d7de97e223530acbe2" compoundref="xcanfd__hw_8h" startline="1148">XCanFd_WriteReg</references>
+        <referencedby refid="xcanfd__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcanfd__intr__example_8c" startline="203" endline="216">main</referencedby>
+        <referencedby refid="group__canfd_1gad1bbb72c208cf3330dc27a32b2546999" compoundref="xcanfd__selftest_8c" startline="103" endline="254">XCanFd_SelfTest</referencedby>
+        <referencedby refid="xcanfd__polled__example_8c_1a4e9e09ef664aee1dcef0dfb56e5fc93b" compoundref="xcanfd__polled__example_8c" startline="188" endline="294">XCanFdPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__canfd_1ga64393737bf5924aa748fc2bd22604396" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCanFd_GetBitTiming</definition>
+        <argsstring>(XCanFd *InstancePtr, u8 *SyncJumpWidth, u8 *TimeSegment2, u8 *TimeSegment1)</argsstring>
+        <name>XCanFd_GetBitTiming</name>
+        <param>
+          <type><ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>SyncJumpWidth</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>TimeSegment2</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>TimeSegment1</declname>
+        </param>
+        <briefdescription>
+<para>This routine gets Bit time. </para>        </briefdescription>
+        <detaileddescription>
+<para>Time segment 1, Time segment 2 and Synchronization Jump Width values are read in this function. According to device specification, the actual value of each of these fields is one more than the value read. Read the device specification for details.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SyncJumpWidth</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>will store the Synchronization Jump Width value after this function returns. Its value ranges from 0 to 3. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TimeSegment2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>will store the Time Segment 2 value after this function returns. Its value ranges from 0 to 7. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TimeSegment1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>will store the Time Segment 1 value after this function returns. Its value ranges from 0 to 15.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" line="1095" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd_config.c" bodystart="199" bodyend="215"/>
+        <references refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" compoundref="xcanfd_8h" startline="351">XCanFd_Config::BaseAddress</references>
+        <references refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" compoundref="xcanfd_8h" startline="410">XCanFd::CanFdConfig</references>
+        <references refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" compoundref="xcanfd_8h" startline="411">XCanFd::IsReady</references>
+        <references refid="group__canfd_1gab9688e1229929a3645cd284d1d245ada" compoundref="xcanfd__hw_8h" startline="68">XCANFD_BTR_OFFSET</references>
+        <references refid="group__canfd_1ga6f7e0452c98b7c77b0d05750833d2a42" compoundref="xcanfd__hw_8h" startline="351">XCANFD_BTR_SJW_MASK</references>
+        <references refid="group__canfd_1ga80eeaf2c70b389ed69f0353b16cd653a" compoundref="xcanfd__hw_8h" startline="359">XCANFD_BTR_SJW_SHIFT</references>
+        <references refid="group__canfd_1ga255b18c6b873d325f414dab1861ffa8b" compoundref="xcanfd__hw_8h" startline="353">XCANFD_BTR_TS1_MASK</references>
+        <references refid="group__canfd_1gafce91432bfd04a800a53a867aa71a0cd" compoundref="xcanfd__hw_8h" startline="352">XCANFD_BTR_TS2_MASK</references>
+        <references refid="group__canfd_1gaa0993f7d7f44b3d1da9843efe312af51" compoundref="xcanfd__hw_8h" startline="358">XCANFD_BTR_TS2_SHIFT</references>
+        <references refid="group__canfd_1ga12b802c8f83b2a1b48d1322a7458ae34" compoundref="xcanfd__hw_8h" startline="1130">XCanFd_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__canfd_1ga9bb4859d5023d5fd72ccdcf8603ac484" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XCanFd_SetFBaudRatePrescaler</definition>
+        <argsstring>(XCanFd *InstancePtr, u8 Prescaler)</argsstring>
+        <name>XCanFd_SetFBaudRatePrescaler</name>
+        <param>
+          <type><ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Prescaler</declname>
+        </param>
+        <briefdescription>
+<para>This routine sets Baud Rate Prescaler value in Data Phase. </para>        </briefdescription>
+        <detaileddescription>
+<para>The system clock for the CAN controller is divided by (Prescaler + 1) to generate the quantum clock needed for sampling and synchronization. Read the device specification for details.</para><para>Baud Rate Prescaler could be set only after CAN device entered Configuration Mode. So please call <ref refid="group__canfd_1gaaa893768ea4f0db5796f31ab3d8ca431" kindref="member">XCanFd_EnterMode()</ref> to enter Configuration Mode before using this function.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Prescaler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to set. Valid values are from 1 to 256.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS if the Baud Rate Prescaler value is set successfully.<itemizedlist>
+<listitem><para>XST_FAILURE if CAN device is not in Configuration Mode.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" line="1099" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd_config.c" bodystart="239" bodyend="261"/>
+        <references refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" compoundref="xcanfd_8h" startline="351">XCanFd_Config::BaseAddress</references>
+        <references refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" compoundref="xcanfd_8h" startline="410">XCanFd::CanFdConfig</references>
+        <references refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" compoundref="xcanfd_8h" startline="411">XCanFd::IsReady</references>
+        <references refid="group__canfd_1gaa2f59eb35cc8631250b3f016aa3aa673" compoundref="xcanfd__hw_8h" startline="338">XCANFD_BRPR_BRP_MASK</references>
+        <references refid="group__canfd_1ga7a4dcaaa4bed9227030acc6b92736969" compoundref="xcanfd__hw_8h" startline="77">XCANFD_F_BRPR_OFFSET</references>
+        <references refid="group__canfd_1ga8e1df3e2b6ed809dda14de08d8b6d0a5" compoundref="xcanfd_8c" startline="275" endline="306">XCanFd_GetMode</references>
+        <references refid="group__canfd_1ga6197f9c8450e02a85e4c3bf046d43895" compoundref="xcanfd_8h" startline="313">XCANFD_MODE_CONFIG</references>
+        <references refid="group__canfd_1ga12b802c8f83b2a1b48d1322a7458ae34" compoundref="xcanfd__hw_8h" startline="1130">XCanFd_ReadReg</references>
+        <references refid="group__canfd_1ga6d131863301cf6d7de97e223530acbe2" compoundref="xcanfd__hw_8h" startline="1148">XCanFd_WriteReg</references>
+        <referencedby refid="xcanfd__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcanfd__intr__example_8c" startline="203" endline="216">main</referencedby>
+        <referencedby refid="group__canfd_1gad1bbb72c208cf3330dc27a32b2546999" compoundref="xcanfd__selftest_8c" startline="103" endline="254">XCanFd_SelfTest</referencedby>
+        <referencedby refid="xcanfd__polled__example_8c_1a4e9e09ef664aee1dcef0dfb56e5fc93b" compoundref="xcanfd__polled__example_8c" startline="188" endline="294">XCanFdPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__canfd_1gacedd51c2e06c3be7d4b6908c6e235acb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XCanFd_GetFBaudRatePrescaler</definition>
+        <argsstring>(XCanFd *InstancePtr)</argsstring>
+        <name>XCanFd_GetFBaudRatePrescaler</name>
+        <param>
+          <type><ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This routine gets Baud Rate Prescaler value in Data Phase. </para>        </briefdescription>
+        <detaileddescription>
+<para>The system clock for the CAN controller is divided by (Prescaler + 1) to generate the quantum clock needed for sampling and synchronization. Read the device specification for details.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current used Baud Rate Prescaler value. The value&apos;s range is from 1 to 256.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" line="1092" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd_config.c" bodystart="279" bodyend="290"/>
+        <references refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" compoundref="xcanfd_8h" startline="351">XCanFd_Config::BaseAddress</references>
+        <references refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" compoundref="xcanfd_8h" startline="410">XCanFd::CanFdConfig</references>
+        <references refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" compoundref="xcanfd_8h" startline="411">XCanFd::IsReady</references>
+        <references refid="group__canfd_1gaa2f59eb35cc8631250b3f016aa3aa673" compoundref="xcanfd__hw_8h" startline="338">XCANFD_BRPR_BRP_MASK</references>
+        <references refid="group__canfd_1ga7a4dcaaa4bed9227030acc6b92736969" compoundref="xcanfd__hw_8h" startline="77">XCANFD_F_BRPR_OFFSET</references>
+        <references refid="group__canfd_1ga12b802c8f83b2a1b48d1322a7458ae34" compoundref="xcanfd__hw_8h" startline="1130">XCanFd_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__canfd_1gac7c6d1176e31abbe2e7e3f429c70be11" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XCanFd_SetFBitTiming</definition>
+        <argsstring>(XCanFd *InstancePtr, u8 SyncJumpWidth, u8 TimeSegment2, u8 TimeSegment1)</argsstring>
+        <name>XCanFd_SetFBitTiming</name>
+        <param>
+          <type><ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>SyncJumpWidth</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>TimeSegment2</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>TimeSegment1</declname>
+        </param>
+        <briefdescription>
+<para>This routine sets Bit time in Data Phase. </para>        </briefdescription>
+        <detaileddescription>
+<para>Time segment 1, Time segment 2 and Synchronization Jump Width are set in this function. Device specification requires the values passed into this function be one less than the actual values of these fields. Read the device specification for details.</para><para>Bit time could be set only after CAN device entered Configuration Mode. Please call <ref refid="group__canfd_1gaaa893768ea4f0db5796f31ab3d8ca431" kindref="member">XCanFd_EnterMode()</ref> to enter Configuration Mode before using this function.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SyncJumpWidth</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Synchronization Jump Width value to set. Valid values are from 0 to 3. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TimeSegment2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Time Segment 2 value to set. Valid values are from 0 to 7. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TimeSegment1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Time Segment 1 value to set. Valid values are from 0 to 15.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS if the Bit time is set successfully.<itemizedlist>
+<listitem><para>XST_FAILURE if CAN device is not in Configuration Mode.<itemizedlist>
+<listitem><para>XST_INVALID_PARAM if any value of SyncJumpWidth, TimeSegment2 and TimeSegment1 is invalid.</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" line="1100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd_config.c" bodystart="320" bodyend="348"/>
+        <references refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" compoundref="xcanfd_8h" startline="351">XCanFd_Config::BaseAddress</references>
+        <references refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" compoundref="xcanfd_8h" startline="410">XCanFd::CanFdConfig</references>
+        <references refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" compoundref="xcanfd_8h" startline="411">XCanFd::IsReady</references>
+        <references refid="group__canfd_1ga39cb59def7174e3ac4c1ecaac18a78bc" compoundref="xcanfd__hw_8h" startline="80">XCANFD_F_BTR_OFFSET</references>
+        <references refid="group__canfd_1ga1ea950826c113f4bec1ec193052868f6" compoundref="xcanfd__hw_8h" startline="375">XCANFD_F_BTR_SJW_MASK</references>
+        <references refid="group__canfd_1ga96b7a9e51fd1fcf4e93764694f929d64" compoundref="xcanfd__hw_8h" startline="380">XCANFD_F_BTR_SJW_SHIFT</references>
+        <references refid="group__canfd_1gaaf5d78e47a5ba6919b0545059d590a4a" compoundref="xcanfd__hw_8h" startline="377">XCANFD_F_BTR_TS1_MASK</references>
+        <references refid="group__canfd_1gac551c38e6faf80c5708b8008e4291a7b" compoundref="xcanfd__hw_8h" startline="376">XCANFD_F_BTR_TS2_MASK</references>
+        <references refid="group__canfd_1gaad09cbb2656a78c03ed0312e58f6e267" compoundref="xcanfd__hw_8h" startline="379">XCANFD_F_BTR_TS2_SHIFT</references>
+        <references refid="group__canfd_1ga8e1df3e2b6ed809dda14de08d8b6d0a5" compoundref="xcanfd_8c" startline="275" endline="306">XCanFd_GetMode</references>
+        <references refid="group__canfd_1ga0cb019518fc7abe0c5eabbd33677dbb8" compoundref="xcanfd_8h" startline="305">XCANFD_MAX_F_SJW_VALUE</references>
+        <references refid="group__canfd_1gabfdfb75c9db697291cec684cbdf4060c" compoundref="xcanfd_8h" startline="306">XCANFD_MAX_F_TS1_VALUE</references>
+        <references refid="group__canfd_1ga911d86ca7cd1afe941662f887772e222" compoundref="xcanfd_8h" startline="307">XCANFD_MAX_F_TS2_VALUE</references>
+        <references refid="group__canfd_1ga6197f9c8450e02a85e4c3bf046d43895" compoundref="xcanfd_8h" startline="313">XCANFD_MODE_CONFIG</references>
+        <references refid="group__canfd_1ga6d131863301cf6d7de97e223530acbe2" compoundref="xcanfd__hw_8h" startline="1148">XCanFd_WriteReg</references>
+        <referencedby refid="xcanfd__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcanfd__intr__example_8c" startline="203" endline="216">main</referencedby>
+        <referencedby refid="group__canfd_1gad1bbb72c208cf3330dc27a32b2546999" compoundref="xcanfd__selftest_8c" startline="103" endline="254">XCanFd_SelfTest</referencedby>
+        <referencedby refid="xcanfd__polled__example_8c_1a4e9e09ef664aee1dcef0dfb56e5fc93b" compoundref="xcanfd__polled__example_8c" startline="188" endline="294">XCanFdPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__canfd_1gadef0243731e4a4f2d83016445fb8dcb3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCanFd_GetFBitTiming</definition>
+        <argsstring>(XCanFd *InstancePtr, u8 *SyncJumpWidth, u8 *TimeSegment2, u8 *TimeSegment1)</argsstring>
+        <name>XCanFd_GetFBitTiming</name>
+        <param>
+          <type><ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>SyncJumpWidth</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>TimeSegment2</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>TimeSegment1</declname>
+        </param>
+        <briefdescription>
+<para>This routine gets Bit time in Data Phase. </para>        </briefdescription>
+        <detaileddescription>
+<para>Time segment 1, Time segment 2 and Synchronization Jump Width values are read in this function. According to device specification, the actual value of each of these fields is one more than the value read. Read the device specification for details.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SyncJumpWidth</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>will store the Synchronization Jump Width value after this function returns. Its value ranges from 0 to 3. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TimeSegment2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>will store the Time Segment 2 value after this function returns. Its value ranges from 0 to 7. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TimeSegment1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>will store the Time Segment 1 value after this function returns. Its value ranges from 0 to 15.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" line="1097" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd_config.c" bodystart="371" bodyend="389"/>
+        <references refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" compoundref="xcanfd_8h" startline="351">XCanFd_Config::BaseAddress</references>
+        <references refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" compoundref="xcanfd_8h" startline="410">XCanFd::CanFdConfig</references>
+        <references refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" compoundref="xcanfd_8h" startline="411">XCanFd::IsReady</references>
+        <references refid="group__canfd_1ga39cb59def7174e3ac4c1ecaac18a78bc" compoundref="xcanfd__hw_8h" startline="80">XCANFD_F_BTR_OFFSET</references>
+        <references refid="group__canfd_1ga1ea950826c113f4bec1ec193052868f6" compoundref="xcanfd__hw_8h" startline="375">XCANFD_F_BTR_SJW_MASK</references>
+        <references refid="group__canfd_1ga96b7a9e51fd1fcf4e93764694f929d64" compoundref="xcanfd__hw_8h" startline="380">XCANFD_F_BTR_SJW_SHIFT</references>
+        <references refid="group__canfd_1gaaf5d78e47a5ba6919b0545059d590a4a" compoundref="xcanfd__hw_8h" startline="377">XCANFD_F_BTR_TS1_MASK</references>
+        <references refid="group__canfd_1gac551c38e6faf80c5708b8008e4291a7b" compoundref="xcanfd__hw_8h" startline="376">XCANFD_F_BTR_TS2_MASK</references>
+        <references refid="group__canfd_1gaad09cbb2656a78c03ed0312e58f6e267" compoundref="xcanfd__hw_8h" startline="379">XCANFD_F_BTR_TS2_SHIFT</references>
+        <references refid="group__canfd_1ga12b802c8f83b2a1b48d1322a7458ae34" compoundref="xcanfd__hw_8h" startline="1130">XCanFd_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__canfd_1ga2807c709f44b3d761733d3f4ee0013cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCanFd_SetBitRateSwitch_EnableNominal</definition>
+        <argsstring>(XCanFd *InstancePtr)</argsstring>
+        <name>XCanFd_SetBitRateSwitch_EnableNominal</name>
+        <param>
+          <type><ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This routine sets the Bit Rate Switch with nominal bit rate. </para>        </briefdescription>
+        <detaileddescription>
+<para>if we set BRSD bit in Mode Select Register then CAN Controller transmits CAN FD Frames with Nominal Bit Rate. Read the device specification for details.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" line="1103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd_config.c" bodystart="406" bodyend="421"/>
+        <references refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" compoundref="xcanfd_8h" startline="351">XCanFd_Config::BaseAddress</references>
+        <references refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" compoundref="xcanfd_8h" startline="410">XCanFd::CanFdConfig</references>
+        <references refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" compoundref="xcanfd_8h" startline="411">XCanFd::IsReady</references>
+        <references refid="group__canfd_1ga332086833cedcda810dae5d10601c4aa" compoundref="xcanfd__hw_8h" startline="322">XCANFD_MSR_BRSD_MASK</references>
+        <references refid="group__canfd_1gaf320a6a3fc644cd807559ebb6ebda58b" compoundref="xcanfd__hw_8h" startline="66">XCANFD_MSR_OFFSET</references>
+        <references refid="group__canfd_1ga12b802c8f83b2a1b48d1322a7458ae34" compoundref="xcanfd__hw_8h" startline="1130">XCanFd_ReadReg</references>
+        <references refid="group__canfd_1ga1a923a858916161bc407f2918098bdba" compoundref="xcanfd__hw_8h" startline="313">XCANFD_SRR_CEN_MASK</references>
+        <references refid="group__canfd_1ga6d131863301cf6d7de97e223530acbe2" compoundref="xcanfd__hw_8h" startline="1148">XCanFd_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__canfd_1ga8875718facd2632f0d1c82a9d0ce2c27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCanFd_SetBitRateSwitch_DisableNominal</definition>
+        <argsstring>(XCanFd *InstancePtr)</argsstring>
+        <name>XCanFd_SetBitRateSwitch_DisableNominal</name>
+        <param>
+          <type><ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This routine Disables the BRSD bit, so that Bit Rate Switch can be happen with Nominal or configured rate. </para>        </briefdescription>
+        <detaileddescription>
+<para>Read the device specification for details.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>if we set BRSD bit in Mode Select Register then CAN Controller transmits CAN FD Frames with Nominal Bit Rate. else with configured bit rate(As specified in Data phase BRPR and BTR Registers. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" line="1102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd_config.c" bodystart="440" bodyend="454"/>
+        <references refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" compoundref="xcanfd_8h" startline="351">XCanFd_Config::BaseAddress</references>
+        <references refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" compoundref="xcanfd_8h" startline="410">XCanFd::CanFdConfig</references>
+        <references refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" compoundref="xcanfd_8h" startline="411">XCanFd::IsReady</references>
+        <references refid="group__canfd_1ga332086833cedcda810dae5d10601c4aa" compoundref="xcanfd__hw_8h" startline="322">XCANFD_MSR_BRSD_MASK</references>
+        <references refid="group__canfd_1gaf320a6a3fc644cd807559ebb6ebda58b" compoundref="xcanfd__hw_8h" startline="66">XCANFD_MSR_OFFSET</references>
+        <references refid="group__canfd_1ga12b802c8f83b2a1b48d1322a7458ae34" compoundref="xcanfd__hw_8h" startline="1130">XCanFd_ReadReg</references>
+        <references refid="group__canfd_1ga1a923a858916161bc407f2918098bdba" compoundref="xcanfd__hw_8h" startline="313">XCANFD_SRR_CEN_MASK</references>
+        <references refid="group__canfd_1ga6d131863301cf6d7de97e223530acbe2" compoundref="xcanfd__hw_8h" startline="1148">XCanFd_WriteReg</references>
+        <referencedby refid="xcanfd__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcanfd__intr__example_8c" startline="203" endline="216">main</referencedby>
+        <referencedby refid="xcanfd__polled__example_8c_1a4e9e09ef664aee1dcef0dfb56e5fc93b" compoundref="xcanfd__polled__example_8c" startline="188" endline="294">XCanFdPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__canfd_1ga30a1745f0967ac96948b137a8adaf15c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCanFd_SetRxIntrWatermark</definition>
+        <argsstring>(XCanFd *InstancePtr, s8 Threshold)</argsstring>
+        <name>XCanFd_SetRxIntrWatermark</name>
+        <param>
+          <type><ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>s8</type>
+          <declname>Threshold</declname>
+        </param>
+        <briefdescription>
+<para>This routine sets the Rx Full threshold in the Watermark Interrupt Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Threshold</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the threshold to be set. The valid values are from 1 to 63.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_FAILURE - If the CAN device is not in Configuration Mode.<itemizedlist>
+<listitem><para>XST_SUCCESS - If the Rx Full threshold is set in Watermark Interrupt Register.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>The threshold can only be set when the CAN device is in the configuration mode. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" line="1104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd_config.c" bodystart="473" bodyend="498"/>
+        <references refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" compoundref="xcanfd_8h" startline="351">XCanFd_Config::BaseAddress</references>
+        <references refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" compoundref="xcanfd_8h" startline="410">XCanFd::CanFdConfig</references>
+        <references refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" compoundref="xcanfd_8h" startline="411">XCanFd::IsReady</references>
+        <references refid="group__canfd_1ga8e1df3e2b6ed809dda14de08d8b6d0a5" compoundref="xcanfd_8c" startline="275" endline="306">XCanFd_GetMode</references>
+        <references refid="group__canfd_1ga6197f9c8450e02a85e4c3bf046d43895" compoundref="xcanfd_8h" startline="313">XCANFD_MODE_CONFIG</references>
+        <references refid="group__canfd_1ga12b802c8f83b2a1b48d1322a7458ae34" compoundref="xcanfd__hw_8h" startline="1130">XCanFd_ReadReg</references>
+        <references refid="group__canfd_1gaaea9222a03e7560da7d12d9866d43362" compoundref="xcanfd__hw_8h" startline="288">XCANFD_WIR_MASK</references>
+        <references refid="group__canfd_1gafcb42e5f639fe09c200a449e7bdb7fd9" compoundref="xcanfd__hw_8h" startline="283">XCANFD_WIR_OFFSET</references>
+        <references refid="group__canfd_1ga1f072321c155022caff5b9369421a126" compoundref="xcanfd__hw_8h" startline="289">XCANFD_WM_FIFO0_THRESHOLD</references>
+        <references refid="group__canfd_1ga6d131863301cf6d7de97e223530acbe2" compoundref="xcanfd__hw_8h" startline="1148">XCanFd_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__canfd_1gaa0f9930ac4d2eadeead51c66825c78e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCanFd_SetRxIntrWatermarkFifo1</definition>
+        <argsstring>(XCanFd *InstancePtr, s8 Threshold)</argsstring>
+        <name>XCanFd_SetRxIntrWatermarkFifo1</name>
+        <param>
+          <type><ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>s8</type>
+          <declname>Threshold</declname>
+        </param>
+        <briefdescription>
+<para>This routine sets the Rx Full threshold in the Watermark Interrupt Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Threshold</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the threshold to be set. The valid values are from 1 to 63.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_FAILURE - If the CAN device is not in Configuration Mode.<itemizedlist>
+<listitem><para>XST_SUCCESS - If the Rx Full threshold is set in Watermark Interrupt Register.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>The threshold can only be set when the CAN device is in the configuration mode.This API is meant to be used with IP with CanFD 2.0 spec support only. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" line="1105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd_config.c" bodystart="518" bodyend="542"/>
+        <references refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" compoundref="xcanfd_8h" startline="351">XCanFd_Config::BaseAddress</references>
+        <references refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" compoundref="xcanfd_8h" startline="410">XCanFd::CanFdConfig</references>
+        <references refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" compoundref="xcanfd_8h" startline="411">XCanFd::IsReady</references>
+        <references refid="group__canfd_1ga8e1df3e2b6ed809dda14de08d8b6d0a5" compoundref="xcanfd_8c" startline="275" endline="306">XCanFd_GetMode</references>
+        <references refid="group__canfd_1ga6197f9c8450e02a85e4c3bf046d43895" compoundref="xcanfd_8h" startline="313">XCANFD_MODE_CONFIG</references>
+        <references refid="group__canfd_1ga12b802c8f83b2a1b48d1322a7458ae34" compoundref="xcanfd__hw_8h" startline="1130">XCanFd_ReadReg</references>
+        <references refid="group__canfd_1gafcb42e5f639fe09c200a449e7bdb7fd9" compoundref="xcanfd__hw_8h" startline="283">XCANFD_WIR_OFFSET</references>
+        <references refid="group__canfd_1ga505a2f0fee5bd86ae267490fa8fea1f5" compoundref="xcanfd__hw_8h" startline="619">XCANFD_WMR_RXFWM_1_MASK</references>
+        <references refid="group__canfd_1gab4d78f5cadee1cc5813cb3946e5bbbb2" compoundref="xcanfd__hw_8h" startline="294">XCANFD_WMR_RXFWM_1_SHIFT</references>
+        <references refid="group__canfd_1ga6d131863301cf6d7de97e223530acbe2" compoundref="xcanfd__hw_8h" startline="1148">XCanFd_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__canfd_1gada4f8e428b96e82d87ed30cf397cfb5e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCanFd_SetTxEventIntrWatermark</definition>
+        <argsstring>(XCanFd *InstancePtr, u8 Threshold)</argsstring>
+        <name>XCanFd_SetTxEventIntrWatermark</name>
+        <param>
+          <type><ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Threshold</declname>
+        </param>
+        <briefdescription>
+<para>This routine sets the TX Events Full threshold in the Watermark Interrupt Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Threshold</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the threshold to be set. The valid values are from 1 to 31.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_FAILURE - If the CAN device is not in Configuration Mode.<itemizedlist>
+<listitem><para>XST_SUCCESS - If the Rx Full threshold is set in Watermark Interrupt Register.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>The threshold can only be set when the CAN device is in the configuration mode, This API is meant to be used with IP with CanFD 2.0 spec support only. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" line="1106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd_config.c" bodystart="563" bodyend="586"/>
+        <references refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" compoundref="xcanfd_8h" startline="351">XCanFd_Config::BaseAddress</references>
+        <references refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" compoundref="xcanfd_8h" startline="410">XCanFd::CanFdConfig</references>
+        <references refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" compoundref="xcanfd_8h" startline="411">XCanFd::IsReady</references>
+        <references refid="group__canfd_1ga8e1df3e2b6ed809dda14de08d8b6d0a5" compoundref="xcanfd_8c" startline="275" endline="306">XCanFd_GetMode</references>
+        <references refid="group__canfd_1ga6197f9c8450e02a85e4c3bf046d43895" compoundref="xcanfd_8h" startline="313">XCANFD_MODE_CONFIG</references>
+        <references refid="group__canfd_1ga12b802c8f83b2a1b48d1322a7458ae34" compoundref="xcanfd__hw_8h" startline="1130">XCanFd_ReadReg</references>
+        <references refid="group__canfd_1ga1ccd9692f3b721904e0fc3a4b90062bb" compoundref="xcanfd__hw_8h" startline="304">XCANFD_TXEVENT_WIR_MASK</references>
+        <references refid="group__canfd_1gadb63f741e7a6e7f1914978a6b4ea5c2b" compoundref="xcanfd__hw_8h" startline="303">XCANFD_TXEVENT_WIR_OFFSET</references>
+        <references refid="group__canfd_1ga6d131863301cf6d7de97e223530acbe2" compoundref="xcanfd__hw_8h" startline="1148">XCanFd_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__canfd_1ga1499d5291ac1f2c71b31f79b96cfcae5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCanFd_SetRxFilterPartition</definition>
+        <argsstring>(XCanFd *InstancePtr, u8 FilterPartition)</argsstring>
+        <name>XCanFd_SetRxFilterPartition</name>
+        <param>
+          <type><ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>FilterPartition</declname>
+        </param>
+        <briefdescription>
+<para>This routine sets the Receive filter partition in the Watermark Interrupt Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FilterPartition</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Filter Mask number, valid values are 0 to 31.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_FAILURE - If the CAN device is not in Configuration Mode.<itemizedlist>
+<listitem><para>XST_SUCCESS - If the Rx Full threshold is set in Watermark Interrupt Register.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>The RX filter partition can only be set when the CAN device is in the configuration mode, This API is meant to be used with IP with CanFD 2.0 spec support only. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" line="1107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd_config.c" bodystart="606" bodyend="632"/>
+        <references refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" compoundref="xcanfd_8h" startline="351">XCanFd_Config::BaseAddress</references>
+        <references refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" compoundref="xcanfd_8h" startline="410">XCanFd::CanFdConfig</references>
+        <references refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" compoundref="xcanfd_8h" startline="411">XCanFd::IsReady</references>
+        <references refid="group__canfd_1ga8e1df3e2b6ed809dda14de08d8b6d0a5" compoundref="xcanfd_8c" startline="275" endline="306">XCanFd_GetMode</references>
+        <references refid="group__canfd_1ga6197f9c8450e02a85e4c3bf046d43895" compoundref="xcanfd_8h" startline="313">XCANFD_MODE_CONFIG</references>
+        <references refid="group__canfd_1ga12b802c8f83b2a1b48d1322a7458ae34" compoundref="xcanfd__hw_8h" startline="1130">XCanFd_ReadReg</references>
+        <references refid="group__canfd_1gafcb42e5f639fe09c200a449e7bdb7fd9" compoundref="xcanfd__hw_8h" startline="283">XCANFD_WIR_OFFSET</references>
+        <references refid="group__canfd_1gafeb9a120686f79963d939f46d8f3178f" compoundref="xcanfd__hw_8h" startline="297">XCANFD_WMR_RXFP_MASK</references>
+        <references refid="group__canfd_1gac2a2ab2ff4739076715c1dce5d442a1c" compoundref="xcanfd__hw_8h" startline="300">XCANFD_WMR_RXFP_SHIFT</references>
+        <references refid="group__canfd_1ga6d131863301cf6d7de97e223530acbe2" compoundref="xcanfd__hw_8h" startline="1148">XCanFd_WriteReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="34"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xcanfd_8h" kindref="compound">xcanfd.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="71" refid="group__canfd_1ga0816bd655bd4460034d67b6ee7481be4" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__canfd_1ga0816bd655bd4460034d67b6ee7481be4" kindref="member">XCanFd_SetBaudRatePrescaler</ref>(<ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref><sp/>*InstancePtr,<sp/>u8<sp/>Prescaler)</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="77"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Return<sp/>error<sp/>code<sp/>if<sp/>the<sp/>device<sp/>currently<sp/>is<sp/>NOT<sp/>in<sp/>Configuration</highlight></codeline>
+<codeline lineno="78"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Mode</highlight></codeline>
+<codeline lineno="79"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__canfd_1ga8e1df3e2b6ed809dda14de08d8b6d0a5" kindref="member">XCanFd_GetMode</ref>(InstancePtr)<sp/>!=<sp/>(u8)<ref refid="group__canfd_1ga6197f9c8450e02a85e4c3bf046d43895" kindref="member">XCANFD_MODE_CONFIG</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga6d131863301cf6d7de97e223530acbe2" kindref="member">XCanFd_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" kindref="member">CanFdConfig</ref>.<ref refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__canfd_1gadf75e2f5afba9cd64e5791c153ee7e1a" kindref="member">XCANFD_BRPR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<sp/>Prescaler);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="106" refid="group__canfd_1gab34e6273828db6f9f5ef1b88ce094b02" refkind="member"><highlight class="normal">u8<sp/><ref refid="group__canfd_1gab34e6273828db6f9f5ef1b88ce094b02" kindref="member">XCanFd_GetBaudRatePrescaler</ref>(<ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Result;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result<sp/>=<sp/>(u8)<sp/><ref refid="group__canfd_1ga12b802c8f83b2a1b48d1322a7458ae34" kindref="member">XCanFd_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" kindref="member">CanFdConfig</ref>.<ref refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gadf75e2f5afba9cd64e5791c153ee7e1a" kindref="member">XCANFD_BRPR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Result;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="147" refid="group__canfd_1gaa17ba1328e0830d24fb6e4f0be805478" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__canfd_1gaa17ba1328e0830d24fb6e4f0be805478" kindref="member">XCanFd_SetBitTiming</ref>(<ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref><sp/>*InstancePtr,<sp/>u8<sp/>SyncJumpWidth,</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>TimeSegment2,<sp/>u16<sp/>TimeSegment1)</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((SyncJumpWidth<sp/>&gt;<sp/>(u8)<ref refid="group__canfd_1ga7ce21e6269e135eb65f4bd43976b5df5" kindref="member">XCANFD_MAX_SJW_VALUE</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TimeSegment2<sp/>&gt;<sp/>(u8)<ref refid="group__canfd_1ga5c578312154336c6a14a68307e84dae5" kindref="member">XCANFD_MAX_TS2_VALUE</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TimeSegment1<sp/>&gt;<sp/>(u16)<ref refid="group__canfd_1gaee1da48a54c75174c59c880b60dfae3a" kindref="member">XCANFD_MAX_TS1_VALUE</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Return<sp/>error<sp/>code<sp/>if<sp/>the<sp/>device<sp/>is<sp/>NOT<sp/>in<sp/>Configuration<sp/>Mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__canfd_1ga8e1df3e2b6ed809dda14de08d8b6d0a5" kindref="member">XCanFd_GetMode</ref>(InstancePtr)<sp/>!=<sp/>(u8)<ref refid="group__canfd_1ga6197f9c8450e02a85e4c3bf046d43895" kindref="member">XCANFD_MODE_CONFIG</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/>((u32)<sp/>TimeSegment1)<sp/>&amp;<sp/><ref refid="group__canfd_1ga255b18c6b873d325f414dab1861ffa8b" kindref="member">XCANFD_BTR_TS1_MASK</ref>;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>|=<sp/>(((u32)<sp/>TimeSegment2)<sp/>&lt;&lt;<sp/><ref refid="group__canfd_1gaa0993f7d7f44b3d1da9843efe312af51" kindref="member">XCANFD_BTR_TS2_SHIFT</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gafce91432bfd04a800a53a867aa71a0cd" kindref="member">XCANFD_BTR_TS2_MASK</ref>;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>|=<sp/>(((u32)<sp/>SyncJumpWidth)<sp/>&lt;&lt;<sp/><ref refid="group__canfd_1ga80eeaf2c70b389ed69f0353b16cd653a" kindref="member">XCANFD_BTR_SJW_SHIFT</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga6f7e0452c98b7c77b0d05750833d2a42" kindref="member">XCANFD_BTR_SJW_MASK</ref>;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga6d131863301cf6d7de97e223530acbe2" kindref="member">XCanFd_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" kindref="member">CanFdConfig</ref>.<ref refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gab9688e1229929a3645cd284d1d245ada" kindref="member">XCANFD_BTR_OFFSET</ref>,<sp/>Value);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="199" refid="group__canfd_1ga64393737bf5924aa748fc2bd22604396" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__canfd_1ga64393737bf5924aa748fc2bd22604396" kindref="member">XCanFd_GetBitTiming</ref>(<ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref><sp/>*InstancePtr,<sp/>u8<sp/>*SyncJumpWidth,</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*TimeSegment2,<sp/>u8<sp/>*TimeSegment1)</highlight></codeline>
+<codeline lineno="201"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/><ref refid="group__canfd_1ga12b802c8f83b2a1b48d1322a7458ae34" kindref="member">XCanFd_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" kindref="member">CanFdConfig</ref>.<ref refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gab9688e1229929a3645cd284d1d245ada" kindref="member">XCANFD_BTR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*TimeSegment1<sp/>=<sp/>(u8)<sp/>(Value<sp/>&amp;<sp/><ref refid="group__canfd_1ga255b18c6b873d325f414dab1861ffa8b" kindref="member">XCANFD_BTR_TS1_MASK</ref>);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*TimeSegment2<sp/>=</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)<sp/>((Value<sp/>&amp;<sp/><ref refid="group__canfd_1gafce91432bfd04a800a53a867aa71a0cd" kindref="member">XCANFD_BTR_TS2_MASK</ref>)<sp/>&gt;&gt;<sp/><ref refid="group__canfd_1gaa0993f7d7f44b3d1da9843efe312af51" kindref="member">XCANFD_BTR_TS2_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*SyncJumpWidth<sp/>=</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)<sp/>((Value<sp/>&amp;<sp/><ref refid="group__canfd_1ga6f7e0452c98b7c77b0d05750833d2a42" kindref="member">XCANFD_BTR_SJW_MASK</ref>)<sp/>&gt;&gt;<sp/><ref refid="group__canfd_1ga80eeaf2c70b389ed69f0353b16cd653a" kindref="member">XCANFD_BTR_SJW_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="239" refid="group__canfd_1ga9bb4859d5023d5fd72ccdcf8603ac484" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__canfd_1ga9bb4859d5023d5fd72ccdcf8603ac484" kindref="member">XCanFd_SetFBaudRatePrescaler</ref>(<ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref><sp/>*InstancePtr,<sp/>u8<sp/>Prescaler)</highlight></codeline>
+<codeline lineno="240"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="247"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Return<sp/>error<sp/>code<sp/>if<sp/>the<sp/>device<sp/>currently<sp/>is<sp/>NOT<sp/>in<sp/>Configuration</highlight></codeline>
+<codeline lineno="248"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Mode</highlight></codeline>
+<codeline lineno="249"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__canfd_1ga8e1df3e2b6ed809dda14de08d8b6d0a5" kindref="member">XCanFd_GetMode</ref>(InstancePtr)<sp/>!=<sp/>(u8)<ref refid="group__canfd_1ga6197f9c8450e02a85e4c3bf046d43895" kindref="member">XCANFD_MODE_CONFIG</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/><ref refid="group__canfd_1ga12b802c8f83b2a1b48d1322a7458ae34" kindref="member">XCanFd_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" kindref="member">CanFdConfig</ref>.<ref refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga7a4dcaaa4bed9227030acc6b92736969" kindref="member">XCANFD_F_BRPR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>RegValue<sp/>&amp;<sp/>(~<ref refid="group__canfd_1gaa2f59eb35cc8631250b3f016aa3aa673" kindref="member"> XCANFD_BRPR_BRP_MASK</ref>);</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>|=<sp/>((u32)<sp/>Prescaler<sp/>&amp;<sp/><ref refid="group__canfd_1gaa2f59eb35cc8631250b3f016aa3aa673" kindref="member">XCANFD_BRPR_BRP_MASK</ref>);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga6d131863301cf6d7de97e223530acbe2" kindref="member">XCanFd_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" kindref="member">CanFdConfig</ref>.<ref refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga7a4dcaaa4bed9227030acc6b92736969" kindref="member">XCANFD_F_BRPR_OFFSET</ref>,RegValue);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="261"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="279" refid="group__canfd_1gacedd51c2e06c3be7d4b6908c6e235acb" refkind="member"><highlight class="normal">u8<sp/><ref refid="group__canfd_1gacedd51c2e06c3be7d4b6908c6e235acb" kindref="member">XCanFd_GetFBaudRatePrescaler</ref>(<ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="280"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Result;</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result<sp/>=<sp/>(u8)<sp/><ref refid="group__canfd_1ga12b802c8f83b2a1b48d1322a7458ae34" kindref="member">XCanFd_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" kindref="member">CanFdConfig</ref>.<ref refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga7a4dcaaa4bed9227030acc6b92736969" kindref="member">XCANFD_F_BRPR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u8)(Result<sp/>&amp;<sp/><ref refid="group__canfd_1gaa2f59eb35cc8631250b3f016aa3aa673" kindref="member">XCANFD_BRPR_BRP_MASK</ref>);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="320" refid="group__canfd_1gac7c6d1176e31abbe2e7e3f429c70be11" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__canfd_1gac7c6d1176e31abbe2e7e3f429c70be11" kindref="member">XCanFd_SetFBitTiming</ref>(<ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref><sp/>*InstancePtr,<sp/>u8<sp/>SyncJumpWidth,</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>TimeSegment2,<sp/>u8<sp/>TimeSegment1)</highlight></codeline>
+<codeline lineno="322"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((SyncJumpWidth<sp/>&gt;<sp/>(u8)<ref refid="group__canfd_1ga0cb019518fc7abe0c5eabbd33677dbb8" kindref="member">XCANFD_MAX_F_SJW_VALUE</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TimeSegment2<sp/>&gt;<sp/>(u8)<ref refid="group__canfd_1ga911d86ca7cd1afe941662f887772e222" kindref="member">XCANFD_MAX_F_TS2_VALUE</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TimeSegment1<sp/>&gt;<sp/>(u8)<ref refid="group__canfd_1gabfdfb75c9db697291cec684cbdf4060c" kindref="member">XCANFD_MAX_F_TS1_VALUE</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Return<sp/>error<sp/>code<sp/>if<sp/>the<sp/>device<sp/>is<sp/>NOT<sp/>in<sp/>Configuration<sp/>Mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__canfd_1ga8e1df3e2b6ed809dda14de08d8b6d0a5" kindref="member">XCanFd_GetMode</ref>(InstancePtr)<sp/>!=<sp/>(u8)<ref refid="group__canfd_1ga6197f9c8450e02a85e4c3bf046d43895" kindref="member">XCANFD_MODE_CONFIG</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/>((u32)<sp/>TimeSegment1)<sp/>&amp;<sp/><ref refid="group__canfd_1gaaf5d78e47a5ba6919b0545059d590a4a" kindref="member">XCANFD_F_BTR_TS1_MASK</ref>;</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>|=<sp/>(((u32)<sp/>TimeSegment2)<sp/>&lt;&lt;<sp/><ref refid="group__canfd_1gaad09cbb2656a78c03ed0312e58f6e267" kindref="member">XCANFD_F_BTR_TS2_SHIFT</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gac551c38e6faf80c5708b8008e4291a7b" kindref="member">XCANFD_F_BTR_TS2_MASK</ref>;</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>|=<sp/>(((u32)<sp/>SyncJumpWidth)<sp/>&lt;&lt;<sp/><ref refid="group__canfd_1ga96b7a9e51fd1fcf4e93764694f929d64" kindref="member">XCANFD_F_BTR_SJW_SHIFT</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga1ea950826c113f4bec1ec193052868f6" kindref="member">XCANFD_F_BTR_SJW_MASK</ref>;</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga6d131863301cf6d7de97e223530acbe2" kindref="member">XCanFd_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" kindref="member">CanFdConfig</ref>.<ref refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga39cb59def7174e3ac4c1ecaac18a78bc" kindref="member">XCANFD_F_BTR_OFFSET</ref>,Value);</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="348"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="371" refid="group__canfd_1gadef0243731e4a4f2d83016445fb8dcb3" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__canfd_1gadef0243731e4a4f2d83016445fb8dcb3" kindref="member">XCanFd_GetFBitTiming</ref>(<ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref><sp/>*InstancePtr,<sp/>u8<sp/>*SyncJumpWidth,</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*TimeSegment2,<sp/>u8<sp/>*TimeSegment1)</highlight></codeline>
+<codeline lineno="373"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"></highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/><ref refid="group__canfd_1ga12b802c8f83b2a1b48d1322a7458ae34" kindref="member">XCanFd_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" kindref="member">CanFdConfig</ref>.<ref refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga39cb59def7174e3ac4c1ecaac18a78bc" kindref="member">XCANFD_F_BTR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"></highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*TimeSegment1<sp/>=<sp/>(u8)<sp/>(Value<sp/>&amp;<sp/><ref refid="group__canfd_1gaaf5d78e47a5ba6919b0545059d590a4a" kindref="member">XCANFD_F_BTR_TS1_MASK</ref>);</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*TimeSegment2<sp/>=</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)<sp/>((Value<sp/>&amp;<sp/><ref refid="group__canfd_1gac551c38e6faf80c5708b8008e4291a7b" kindref="member">XCANFD_F_BTR_TS2_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gaad09cbb2656a78c03ed0312e58f6e267" kindref="member">XCANFD_F_BTR_TS2_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*SyncJumpWidth<sp/>=</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)<sp/>((Value<sp/>&amp;<sp/><ref refid="group__canfd_1ga1ea950826c113f4bec1ec193052868f6" kindref="member">XCANFD_F_BTR_SJW_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga96b7a9e51fd1fcf4e93764694f929d64" kindref="member">XCANFD_F_BTR_SJW_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="389"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"></highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="406" refid="group__canfd_1ga2807c709f44b3d761733d3f4ee0013cb" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__canfd_1ga2807c709f44b3d761733d3f4ee0013cb" kindref="member">XCanFd_SetBitRateSwitch_EnableNominal</ref>(<ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="407"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Result;</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"></highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"></highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result<sp/>=<sp/><ref refid="group__canfd_1ga12b802c8f83b2a1b48d1322a7458ae34" kindref="member">XCanFd_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" kindref="member">CanFdConfig</ref>.<ref refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gaf320a6a3fc644cd807559ebb6ebda58b" kindref="member">XCANFD_MSR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Result<sp/>&amp;<sp/><ref refid="group__canfd_1ga1a923a858916161bc407f2918098bdba" kindref="member">XCANFD_SRR_CEN_MASK</ref>)<sp/>==<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result<sp/>=<sp/>Result<sp/>|<sp/><ref refid="group__canfd_1ga332086833cedcda810dae5d10601c4aa" kindref="member">XCANFD_MSR_BRSD_MASK</ref>;</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga6d131863301cf6d7de97e223530acbe2" kindref="member">XCanFd_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" kindref="member">CanFdConfig</ref>.<ref refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gaf320a6a3fc644cd807559ebb6ebda58b" kindref="member">XCANFD_MSR_OFFSET</ref>,Result);</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"></highlight></codeline>
+<codeline lineno="421"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"></highlight></codeline>
+<codeline lineno="423"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="440" refid="group__canfd_1ga8875718facd2632f0d1c82a9d0ce2c27" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__canfd_1ga8875718facd2632f0d1c82a9d0ce2c27" kindref="member">XCanFd_SetBitRateSwitch_DisableNominal</ref>(<ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="441"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Result;</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"></highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"></highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result<sp/>=<sp/><ref refid="group__canfd_1ga12b802c8f83b2a1b48d1322a7458ae34" kindref="member">XCanFd_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" kindref="member">CanFdConfig</ref>.<ref refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gaf320a6a3fc644cd807559ebb6ebda58b" kindref="member">XCANFD_MSR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Result<sp/>&amp;<sp/><ref refid="group__canfd_1ga1a923a858916161bc407f2918098bdba" kindref="member">XCANFD_SRR_CEN_MASK</ref>)<sp/>==<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Result<sp/>=<sp/>Result<sp/>&amp;<sp/>(~<ref refid="group__canfd_1ga332086833cedcda810dae5d10601c4aa" kindref="member">XCANFD_MSR_BRSD_MASK</ref>);</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga6d131863301cf6d7de97e223530acbe2" kindref="member">XCanFd_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" kindref="member">CanFdConfig</ref>.<ref refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gaf320a6a3fc644cd807559ebb6ebda58b" kindref="member">XCANFD_MSR_OFFSET</ref>,Result);</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="454"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="455"><highlight class="normal"></highlight></codeline>
+<codeline lineno="456"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="473" refid="group__canfd_1ga30a1745f0967ac96948b137a8adaf15c" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__canfd_1ga30a1745f0967ac96948b137a8adaf15c" kindref="member">XCanFd_SetRxIntrWatermark</ref>(<ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref><sp/>*InstancePtr,<sp/>s8<sp/>Threshold)</highlight></codeline>
+<codeline lineno="474"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"></highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"></highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid((Threshold<sp/>&gt;=<sp/>(s8)0)<sp/>&amp;&amp;<sp/>(Threshold<sp/>&lt;=<sp/>(s8)<ref refid="group__canfd_1ga1f072321c155022caff5b9369421a126" kindref="member">XCANFD_WM_FIFO0_THRESHOLD</ref>));</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"></highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__canfd_1ga8e1df3e2b6ed809dda14de08d8b6d0a5" kindref="member">XCanFd_GetMode</ref>(InstancePtr)<sp/>!=<sp/>(u8)<ref refid="group__canfd_1ga6197f9c8450e02a85e4c3bf046d43895" kindref="member">XCANFD_MODE_CONFIG</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/><ref refid="group__canfd_1ga12b802c8f83b2a1b48d1322a7458ae34" kindref="member">XCanFd_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" kindref="member">CanFdConfig</ref>.<ref refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gafcb42e5f639fe09c200a449e7bdb7fd9" kindref="member">XCANFD_WIR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>&amp;=<sp/>(~<ref refid="group__canfd_1gaaea9222a03e7560da7d12d9866d43362" kindref="member">XCANFD_WIR_MASK</ref>);</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>|=<sp/>(((u32)Threshold)<sp/>&amp;</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__canfd_1gaaea9222a03e7560da7d12d9866d43362" kindref="member">XCANFD_WIR_MASK</ref>);</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga6d131863301cf6d7de97e223530acbe2" kindref="member">XCanFd_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" kindref="member">CanFdConfig</ref>.<ref refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gafcb42e5f639fe09c200a449e7bdb7fd9" kindref="member">XCANFD_WIR_OFFSET</ref>,Value);</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"></highlight></codeline>
+<codeline lineno="498"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"></highlight></codeline>
+<codeline lineno="500"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="518" refid="group__canfd_1gaa0f9930ac4d2eadeead51c66825c78e7" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__canfd_1gaa0f9930ac4d2eadeead51c66825c78e7" kindref="member">XCanFd_SetRxIntrWatermarkFifo1</ref>(<ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref><sp/>*InstancePtr,<sp/>s8<sp/>Threshold)</highlight></codeline>
+<codeline lineno="519"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"></highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"></highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid((Threshold<sp/>&gt;=(s8)0)<sp/>&amp;&amp;<sp/>(Threshold<sp/>&lt;=<sp/>(s8)63));</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"></highlight></codeline>
+<codeline lineno="528"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__canfd_1ga8e1df3e2b6ed809dda14de08d8b6d0a5" kindref="member">XCanFd_GetMode</ref>(InstancePtr)<sp/>!=<sp/>(u8)<ref refid="group__canfd_1ga6197f9c8450e02a85e4c3bf046d43895" kindref="member">XCANFD_MODE_CONFIG</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/><ref refid="group__canfd_1ga12b802c8f83b2a1b48d1322a7458ae34" kindref="member">XCanFd_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" kindref="member">CanFdConfig</ref>.<ref refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gafcb42e5f639fe09c200a449e7bdb7fd9" kindref="member">XCANFD_WIR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>&amp;=<sp/>(~<ref refid="group__canfd_1ga505a2f0fee5bd86ae267490fa8fea1f5" kindref="member">XCANFD_WMR_RXFWM_1_MASK</ref>);</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>|=<sp/>(((u32)Threshold<sp/>&lt;&lt;<sp/>(u32)<ref refid="group__canfd_1gab4d78f5cadee1cc5813cb3946e5bbbb2" kindref="member">XCANFD_WMR_RXFWM_1_SHIFT</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga505a2f0fee5bd86ae267490fa8fea1f5" kindref="member">XCANFD_WMR_RXFWM_1_MASK</ref>);</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga6d131863301cf6d7de97e223530acbe2" kindref="member">XCanFd_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" kindref="member">CanFdConfig</ref>.<ref refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gafcb42e5f639fe09c200a449e7bdb7fd9" kindref="member">XCANFD_WIR_OFFSET</ref>,Value);</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="542"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"></highlight></codeline>
+<codeline lineno="544"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="563" refid="group__canfd_1gada4f8e428b96e82d87ed30cf397cfb5e" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__canfd_1gada4f8e428b96e82d87ed30cf397cfb5e" kindref="member">XCanFd_SetTxEventIntrWatermark</ref>(<ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref><sp/>*InstancePtr,<sp/>u8<sp/>Threshold)</highlight></codeline>
+<codeline lineno="564"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"></highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"></highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid((Threshold<sp/>&gt;<sp/>(u8)0)<sp/>||<sp/>(Threshold<sp/>&lt;=<sp/>(u8)31));</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"></highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__canfd_1ga8e1df3e2b6ed809dda14de08d8b6d0a5" kindref="member">XCanFd_GetMode</ref>(InstancePtr)<sp/>!=<sp/>(u8)<ref refid="group__canfd_1ga6197f9c8450e02a85e4c3bf046d43895" kindref="member">XCANFD_MODE_CONFIG</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/><ref refid="group__canfd_1ga12b802c8f83b2a1b48d1322a7458ae34" kindref="member">XCanFd_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" kindref="member">CanFdConfig</ref>.<ref refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gadb63f741e7a6e7f1914978a6b4ea5c2b" kindref="member">XCANFD_TXEVENT_WIR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="579"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>&amp;=<sp/>(~<ref refid="group__canfd_1ga1ccd9692f3b721904e0fc3a4b90062bb" kindref="member">XCANFD_TXEVENT_WIR_MASK</ref>);</highlight></codeline>
+<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>|=<sp/>((u32)Threshold<sp/><sp/>&amp;<sp/><ref refid="group__canfd_1ga1ccd9692f3b721904e0fc3a4b90062bb" kindref="member">XCANFD_TXEVENT_WIR_MASK</ref>);</highlight></codeline>
+<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga6d131863301cf6d7de97e223530acbe2" kindref="member">XCanFd_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" kindref="member">CanFdConfig</ref>.<ref refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="582"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gadb63f741e7a6e7f1914978a6b4ea5c2b" kindref="member">XCANFD_TXEVENT_WIR_OFFSET</ref>,Value);</highlight></codeline>
+<codeline lineno="583"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="584"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="586"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="587"><highlight class="normal"></highlight></codeline>
+<codeline lineno="588"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="606" refid="group__canfd_1ga1499d5291ac1f2c71b31f79b96cfcae5" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__canfd_1ga1499d5291ac1f2c71b31f79b96cfcae5" kindref="member">XCanFd_SetRxFilterPartition</ref>(<ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref><sp/>*InstancePtr,<sp/>u8<sp/>FilterPartition)</highlight></codeline>
+<codeline lineno="607"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="608"><highlight class="normal"></highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value;</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"></highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="613"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_can_fd_1a5d35d83e593c5a49be4aaf66e3cabf7c" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="614"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid((FilterPartition<sp/>&gt;<sp/>(u8)0)<sp/>||<sp/>(FilterPartition<sp/>&lt;=<sp/>(u8)31));</highlight></codeline>
+<codeline lineno="615"><highlight class="normal"></highlight></codeline>
+<codeline lineno="616"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__canfd_1ga8e1df3e2b6ed809dda14de08d8b6d0a5" kindref="member">XCanFd_GetMode</ref>(InstancePtr)<sp/>!=<sp/>(u8)<ref refid="group__canfd_1ga6197f9c8450e02a85e4c3bf046d43895" kindref="member">XCANFD_MODE_CONFIG</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="617"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="618"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="619"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="620"><highlight class="normal"></highlight></codeline>
+<codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/><ref refid="group__canfd_1ga12b802c8f83b2a1b48d1322a7458ae34" kindref="member">XCanFd_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" kindref="member">CanFdConfig</ref>.<ref refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="622"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gafcb42e5f639fe09c200a449e7bdb7fd9" kindref="member">XCANFD_WIR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="623"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>&amp;=<sp/>(~<ref refid="group__canfd_1gafeb9a120686f79963d939f46d8f3178f" kindref="member">XCANFD_WMR_RXFP_MASK</ref>);</highlight></codeline>
+<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>|=<sp/>(((u32)FilterPartition<sp/>&lt;&lt;<sp/><ref refid="group__canfd_1gac2a2ab2ff4739076715c1dce5d442a1c" kindref="member">XCANFD_WMR_RXFP_SHIFT</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="625"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gafeb9a120686f79963d939f46d8f3178f" kindref="member">XCANFD_WMR_RXFP_MASK</ref><sp/>);</highlight></codeline>
+<codeline lineno="626"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga6d131863301cf6d7de97e223530acbe2" kindref="member">XCanFd_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_can_fd_1ae8b61b55c08e04c425048dc379185245" kindref="member">CanFdConfig</ref>.<ref refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="627"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gafcb42e5f639fe09c200a449e7bdb7fd9" kindref="member">XCANFD_WIR_OFFSET</ref>,Value);</highlight></codeline>
+<codeline lineno="628"><highlight class="normal"></highlight></codeline>
+<codeline lineno="629"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="630"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="631"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="632"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="633"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd_config.c"/>
+  </compounddef>
+</doxygen>

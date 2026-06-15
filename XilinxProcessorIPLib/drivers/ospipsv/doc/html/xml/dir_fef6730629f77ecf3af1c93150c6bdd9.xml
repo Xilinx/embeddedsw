@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_fef6730629f77ecf3af1c93150c6bdd9" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xospipsv_8c">xospipsv.c</innerfile>
+    <innerfile refid="xospipsv_8h">xospipsv.h</innerfile>
+    <innerfile refid="xospipsv__control_8c">xospipsv_control.c</innerfile>
+    <innerfile refid="xospipsv__control_8h">xospipsv_control.h</innerfile>
+    <innerfile refid="xospipsv__g_8c">xospipsv_g.c</innerfile>
+    <innerfile refid="xospipsv__hw_8c">xospipsv_hw.c</innerfile>
+    <innerfile refid="xospipsv__hw_8h">xospipsv_hw.h</innerfile>
+    <innerfile refid="xospipsv__options_8c">xospipsv_options.c</innerfile>
+    <innerfile refid="xospipsv__sinit_8c">xospipsv_sinit.c</innerfile>
+    <innerfile refid="xospipsv__xfer_8c">xospipsv_xfer.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/"/>
+  </compounddef>
+</doxygen>

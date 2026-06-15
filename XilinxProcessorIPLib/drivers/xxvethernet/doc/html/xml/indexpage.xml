@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>xxvethernet</title>
+    <detaileddescription>
+<para>The Xilinx XXV Ethernet MAC driver component. This driver supports both XXV Ethernet core and USXGMII core on Zynq Ultrascale+ MPSoC. The MAC portion of USXMGII and XXV ethernet is similar. Speed supported for XXV Ethernet core is 10Gbps. Speed supported for USXGMII core is 1Gbps or 2.5Gbps.</para><para>For a full description of XXV Ethernet features, please see the hardware spec. This driver supports the following features:<itemizedlist>
+<listitem><para>Access to host interface registers</para></listitem><listitem><para>Interfacing to target MCDMA device via application</para></listitem><listitem><para>Full duplex operation</para></listitem><listitem><para>Automatic PAD &amp; FCS insertion and stripping (programmable)</para></listitem><listitem><para>Jumbo frame support</para></listitem></itemizedlist>
+</para><para>For full description of USXGMII features, please refer to hardware spec. In addition to the above MAC features, USXGMII core supports USXGMII PHY functionality. This driver supports the same.</para><para><heading level="2">Driver Description</heading>
+</para><para>The device driver enables higher layer software (e.g., an application) to configure an Xxv Ethernet device. It is intended that this driver be used in cooperation with another MCDMA driver for data communication..</para><para><heading level="2">Initialization &amp; Configuration</heading>
+</para><para>The <ref refid="struct_x_xxv_ethernet___config" kindref="compound">XXxvEthernet_Config</ref> structure can be used by the driver to configure itself. This configuration structure is typically created by the tool-chain based on hardware build properties.</para><para>The driver instance can be initialized using the XXvEthernet_CfgInitialze() routine.</para><para><heading level="2">Interrupts and Asynchronous Callbacks</heading>
+</para><para>The driver has no dependencies on the interrupt controller. It provides no interrupt handlers. The application/OS software should set up its own interrupt handlers if required based on the target DMA device.</para><para><heading level="2">Device Reset</heading>
+</para><para>When an Xxv Ethernet device is connected up to a MCDMA core in hardware, reset is controlled by the latter. If a reset is performed, the calling code should also reconfigure and reapply the proper settings in the Xxv Ethernet device. When an Xxv Ethernet device reset is required, <ref refid="group__xxvethernet_1gabd5dad43d5d82fd52bd8b9101f50a96e" kindref="member">XXxvEthernet_Reset()</ref> should be utilized. For GT/Serdes reset, refer to the example.</para><para><heading level="2">Transferring Data</heading>
+</para><para>The Xxv Ethernet core by itself is not capable of transmitting or receiving data in any meaningful way. Instead the Xxv Ethernet device needs to be connected to a FIFO or DMA core in hardware, currently MCDMA is supported.</para><para>This Xxv Ethernet driver is modeled in a similar fashion where the application code or O/S adapter driver needs to make use of a separate MCDMA driver in connection with this driver to establish meaningful communication over Ethernet.</para><para><heading level="2">PHY Communication</heading>
+</para><para>XXV Ethernet core: This device supports clause 49 10GBaseKR at the moment. There is no autonegotiation enabled by default - the autonegotiation speed is limited to 10G.</para><para>USXGMII core: This driver supports USXMGII autonegotiation at 1G and and 2.5G. The core also supports 10G and 5G speeds but it is not validated with this driver. There is also an option to bypass autonegotiation.</para><para><heading level="2">Asserts</heading>
+</para><para>Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining, at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that users leave asserts on during development. For deployment use -DNDEBUG compiler switch to remove assert code.</para><para><simplesect kind="note"><para></para></simplesect>
+Xilinx drivers are typically composed of two components, one is the driver and the other is the adapter. The driver is independent of OS and processor and is intended to be highly portable. The adapter is OS-specific and facilitates communication between the driver and an OS. <linebreak/>
+<linebreak/>
+ This driver is intended to be RTOS and processor independent. Any needs for dynamic memory management, threads or thread mutual exclusion, or cache control must be satisfied by the layer above this driver.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   hk   6/16/17  First release
+      hk   2/15/18  Add support for USXGMII
+1.1   mj   3/30/18  Add Macro <ref refid="group__xxvethernet_1ga3344d63068c5bd9e67e0e978aa5f519a" kindref="member">XXxvEthernet_IsMcDma(InstancePtr)</ref> to check
+                    McDma is connected or not.
+1.4   rsp  05/08/20 Include sleep.h header
+1.6     sk   02/18/21 Use UINTPTR instead of u32 for XxvDevBaseAddress
+                      variable.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

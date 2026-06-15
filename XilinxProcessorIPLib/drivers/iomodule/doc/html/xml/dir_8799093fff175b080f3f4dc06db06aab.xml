@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_8799093fff175b080f3f4dc06db06aab" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xiomodule_8c">xiomodule.c</innerfile>
+    <innerfile refid="xiomodule_8h">xiomodule.h</innerfile>
+    <innerfile refid="xiomodule__extra_8c">xiomodule_extra.c</innerfile>
+    <innerfile refid="xiomodule__g_8c">xiomodule_g.c</innerfile>
+    <innerfile refid="xiomodule__i_8h">xiomodule_i.h</innerfile>
+    <innerfile refid="xiomodule__intr_8c">xiomodule_intr.c</innerfile>
+    <innerfile refid="xiomodule__io_8h">xiomodule_io.h</innerfile>
+    <innerfile refid="xiomodule__l_8c">xiomodule_l.c</innerfile>
+    <innerfile refid="xiomodule__l_8h">xiomodule_l.h</innerfile>
+    <innerfile refid="xiomodule__options_8c">xiomodule_options.c</innerfile>
+    <innerfile refid="xiomodule__selftest_8c">xiomodule_selftest.c</innerfile>
+    <innerfile refid="xiomodule__stats_8c">xiomodule_stats.c</innerfile>
+    <innerfile refid="xiomodule__uart_8c">xiomodule_uart.c</innerfile>
+    <innerfile refid="xiomodule__uart__intr_8c">xiomodule_uart_intr.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/"/>
+  </compounddef>
+</doxygen>

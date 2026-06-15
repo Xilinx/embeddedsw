@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sem_cfr_err_inj_data" kind="struct" prot="public">
+    <compoundname>XSemCfrErrInjData</compoundname>
+    <includes local="no">xsem_client_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_sem_cfr_err_inj_data_1a254b3d1dd5ee7d247574ec3d589d8267" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSemCfrErrInjData::Efar</definition>
+        <argsstring></argsstring>
+        <name>Efar</name>
+        <briefdescription>
+<para>Frame Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="283" bodyend="-1"/>
+        <referencedby refid="group__xsem__client__apis_1gade8e42013440053cf0eeb5e6d34dfa15" compoundref="xsem__client__api_8c" startline="469" endline="535">XSem_CmdCfrNjctErr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem_cfr_err_inj_data_1a497a888fda44876daa4b459540ef28d1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSemCfrErrInjData::Qword</definition>
+        <argsstring></argsstring>
+        <name>Qword</name>
+        <briefdescription>
+<para>Quad Word 0...24. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="284" bodyend="-1"/>
+        <referencedby refid="group__xsem__client__apis_1gade8e42013440053cf0eeb5e6d34dfa15" compoundref="xsem__client__api_8c" startline="469" endline="535">XSem_CmdCfrNjctErr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem_cfr_err_inj_data_1a12e52c2f767a33cb05539e9871cd580a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSemCfrErrInjData::Bit</definition>
+        <argsstring></argsstring>
+        <name>Bit</name>
+        <briefdescription>
+<para>Bit Position 0...127. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="285" bodyend="-1"/>
+        <referencedby refid="group__xsem__client__apis_1gade8e42013440053cf0eeb5e6d34dfa15" compoundref="xsem__client__api_8c" startline="469" endline="535">XSem_CmdCfrNjctErr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem_cfr_err_inj_data_1aa3295aad6d645a2a33e3a11c3e028ce1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSemCfrErrInjData::Row</definition>
+        <argsstring></argsstring>
+        <name>Row</name>
+        <briefdescription>
+<para>Row Number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="286" bodyend="-1"/>
+        <referencedby refid="group__xsem__client__apis_1gade8e42013440053cf0eeb5e6d34dfa15" compoundref="xsem__client__api_8c" startline="469" endline="535">XSem_CmdCfrNjctErr</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="struct_x_sem_cfr_err_inj_data" kindref="compound">XSemCfrErrInjData</ref> - CRAM Error Injection structure to hold the Error Injection Location details for CRAM: </para>    </briefdescription>
+    <detaileddescription>
+<para><itemizedlist>
+<listitem><para>Frame address</para></listitem><listitem><para>Quad Word in a Frame, Range from 0 to 24</para></listitem><listitem><para>Bit Position in a Quad Word, Range from 0 to 127</para></listitem><listitem><para>Row Number, Range can be found from CFU_APB_CFU_ROW_RANGE register </para></listitem></itemizedlist>
+</para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="282" bodyend="287"/>
+    <listofallmembers>
+      <member refid="struct_x_sem_cfr_err_inj_data_1a12e52c2f767a33cb05539e9871cd580a" prot="public" virt="non-virtual"><scope>XSemCfrErrInjData</scope><name>Bit</name></member>
+      <member refid="struct_x_sem_cfr_err_inj_data_1a254b3d1dd5ee7d247574ec3d589d8267" prot="public" virt="non-virtual"><scope>XSemCfrErrInjData</scope><name>Efar</name></member>
+      <member refid="struct_x_sem_cfr_err_inj_data_1a497a888fda44876daa4b459540ef28d1" prot="public" virt="non-virtual"><scope>XSemCfrErrInjData</scope><name>Qword</name></member>
+      <member refid="struct_x_sem_cfr_err_inj_data_1aa3295aad6d645a2a33e3a11c3e028ce1" prot="public" virt="non-virtual"><scope>XSemCfrErrInjData</scope><name>Row</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_u_s_b___s_t_d___s_t_r_i_n_g___d_e_s_c" kind="struct" prot="public">
+    <compoundname>USB_STD_STRING_DESC</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___s_t_r_i_n_g___d_e_s_c_1ad48531f46a85de3018f2bdece21c9d1e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_STD_STRING_DESC::bLength</definition>
+        <argsstring></argsstring>
+        <name>bLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="272" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="272" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___s_t_r_i_n_g___d_e_s_c_1a48d4f8a73e6eff5168d8f68d7834c1ca" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_STD_STRING_DESC::bDescriptorType</definition>
+        <argsstring></argsstring>
+        <name>bDescriptorType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="273" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="273" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___s_t_d___s_t_r_i_n_g___d_e_s_c_1ae086be461d7b04fb96ff3d07d84bad79" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 USB_STD_STRING_DESC::wLANGID</definition>
+        <argsstring>[1]</argsstring>
+        <name>wLANGID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="274" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="271" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="271" bodyend="275"/>
+    <listofallmembers>
+      <member refid="struct_u_s_b___s_t_d___s_t_r_i_n_g___d_e_s_c_1a48d4f8a73e6eff5168d8f68d7834c1ca" prot="public" virt="non-virtual"><scope>USB_STD_STRING_DESC</scope><name>bDescriptorType</name></member>
+      <member refid="struct_u_s_b___s_t_d___s_t_r_i_n_g___d_e_s_c_1ad48531f46a85de3018f2bdece21c9d1e" prot="public" virt="non-virtual"><scope>USB_STD_STRING_DESC</scope><name>bLength</name></member>
+      <member refid="struct_u_s_b___s_t_d___s_t_r_i_n_g___d_e_s_c_1ae086be461d7b04fb96ff3d07d84bad79" prot="public" virt="non-virtual"><scope>USB_STD_STRING_DESC</scope><name>wLANGID</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

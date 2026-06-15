@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_usb_psu___config" kind="struct" prot="public">
+    <compoundname>XUsbPsu_Config</compoundname>
+    <includes local="no">xusbpsu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_usb_psu___config_1a106731ff7eba99998eac449025bd0c41" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XUsbPsu_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="455" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="455" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu___config_1a389cb184e06d5795b4239fe005e2290f" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XUsbPsu_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Core register base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="457" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="457" bodyend="-1"/>
+        <referencedby refid="xusb__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusb__intr__example_8c" startline="186" endline="308">main</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga2616d8b140915fc83ced2c316db3aa16" compoundref="xusbpsu__device_8c" startline="68" endline="79">XUsbPsu_WaitClearTimeout</referencedby>
+        <referencedby refid="group__usbpsu__api_1gaf75d50db67d1cab7fed1c8738d1b95c9" compoundref="xusbpsu__device_8c" startline="95" endline="106">XUsbPsu_WaitSetTimeout</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu___config_1a87b9ea25fdd7468b4cb5cb72ee5b494a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUsbPsu_Config::IsCacheCoherent</definition>
+        <argsstring></argsstring>
+        <name>IsCacheCoherent</name>
+        <briefdescription>
+<para>Describes whether Cache Coherent or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="458" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="458" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1ga01495a656b7de39f6874390556643a1e" compoundref="xusbpsu__device_8c" startline="461" endline="529">XUsbPsu_CoreInit</referencedby>
+        <referencedby refid="group__usbpsu__api_1gaee37aa4d612811db703893d777308e3e" compoundref="xusbpsu__controltransfers_8c" startline="91" endline="152">XUsbPsu_Ep0DataDone</referencedby>
+        <referencedby refid="group__usbpsu__api_1gacaefa0abe2036b61d3341ee9232ffb17" compoundref="xusbpsu__ep0handler_8c" startline="315" endline="386">XUsbPsu_Ep0Recv</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga057ab0e4a9511055a42e60b92550660d" compoundref="xusbpsu__ep0handler_8c" startline="241" endline="301">XUsbPsu_Ep0Send</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga8dcb3237803d60fc90cea8270b6fe1a0" compoundref="xusbpsu__controltransfers_8c" startline="205" endline="271">XUsbPsu_Ep0StartStatus</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga5fbc6f2e5e21efc273d5d44a4bdf21d1" compoundref="xusbpsu__controltransfers_8c" startline="164" endline="192">XUsbPsu_Ep0StatusDone</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga12ed169a9dd7d4138c1b2b6e32078f73" compoundref="xusbpsu__ep0handler_8c" startline="127" endline="182">XUsbPsu_Ep0XferComplete</referencedby>
+        <referencedby refid="group__usbpsu__api_1gad0102ce2327d084245189584307ecdfe" compoundref="xusbpsu__ephandler_8c" startline="380" endline="532">XUsbPsu_EpBufferRecv</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga9a977327906f2995960e50d429703687" compoundref="xusbpsu__ephandler_8c" startline="222" endline="362">XUsbPsu_EpBufferSend</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga1a566eeb18fcd70e9cf6024f2cf8a35b" compoundref="xusbpsu__command_8c" startline="86" endline="170">XUsbPsu_EpEnable</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga5fdd7c08c30d46a9c3024ebe404d877e" compoundref="xusbpsu__ephandler_8c" startline="680" endline="757">XUsbPsu_EpXferComplete</referencedby>
+        <referencedby refid="group__usbpsu__api_1gaa95e2a0adf788cfa67722243e0c6e803" compoundref="xusbpsu__event_8c" startline="170" endline="213">XUsbPsu_EventBufferHandler</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga1cbbfbb1658f7fe29ec7f1b24ba87eeb" compoundref="xusbpsu__ep0handler_8c" startline="53" endline="114">XUsbPsu_RecvSetup</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu___config_1aaa803eab77fc38e18becdf22821e22e4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUsbPsu_Config::EnableSuperSpeed</definition>
+        <argsstring></argsstring>
+        <name>EnableSuperSpeed</name>
+        <briefdescription>
+<para>Set to enable super speed support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="459" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="459" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1ga55228afff6b16b58790b91efb185eff5" compoundref="xusbpsu_8c" startline="144" endline="192">XUsbPsu_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu___config_1a9cb738931b4fdcf976f2a5b1979ae427" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XUsbPsu_Config::IntrId[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="461" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="461" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu___config_1a9952dcc7e659403550c4ce12a228b4b2" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XUsbPsu_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bits[11:0] Interrupt-id Bits[15:12] trigger type. </para>        </briefdescription>
+        <detaileddescription>
+<para>level flags </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="463" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="463" bodyend="-1"/>
+        <referencedby refid="xusb__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusb__intr__example_8c" startline="186" endline="308">main</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>struct <ref refid="struct_x_usb_psu___config" kindref="compound">XUsbPsu_Config</ref> - Configuration information for the USB </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Unique ID of controller </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Core register base address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsCacheCoherent</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Describes whether Cache Coherent or not </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EnableSuperSpeed</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Set to enable super speed support </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RefClk</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input clocks </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="451" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="451" bodyend="468"/>
+    <listofallmembers>
+      <member refid="struct_x_usb_psu___config_1a389cb184e06d5795b4239fe005e2290f" prot="public" virt="non-virtual"><scope>XUsbPsu_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_usb_psu___config_1aaa803eab77fc38e18becdf22821e22e4" prot="public" virt="non-virtual"><scope>XUsbPsu_Config</scope><name>EnableSuperSpeed</name></member>
+      <member refid="struct_x_usb_psu___config_1a9cb738931b4fdcf976f2a5b1979ae427" prot="public" virt="non-virtual"><scope>XUsbPsu_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_usb_psu___config_1a9952dcc7e659403550c4ce12a228b4b2" prot="public" virt="non-virtual"><scope>XUsbPsu_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_usb_psu___config_1a87b9ea25fdd7468b4cb5cb72ee5b494a" prot="public" virt="non-virtual"><scope>XUsbPsu_Config</scope><name>IsCacheCoherent</name></member>
+      <member refid="struct_x_usb_psu___config_1a106731ff7eba99998eac449025bd0c41" prot="public" virt="non-virtual"><scope>XUsbPsu_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

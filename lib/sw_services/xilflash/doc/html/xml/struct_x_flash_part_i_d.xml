@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_flash_part_i_d" kind="struct" prot="public">
+    <compoundname>XFlashPartID</compoundname>
+    <includes local="no">xilflash_properties.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_flash_part_i_d_1ab0f45c7ea118386ed374a6e871a9a625" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XFlashPartID::ManufacturerID</definition>
+        <argsstring></argsstring>
+        <name>ManufacturerID</name>
+        <briefdescription>
+<para>Manufacturer of parts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_flash_part_i_d_1a336905689f86d82302db0a0520f6c962" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XFlashPartID::DeviceID</definition>
+        <argsstring></argsstring>
+        <name>DeviceID</name>
+        <briefdescription>
+<para>Part number of manufacturer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_flash_part_i_d_1a16f684e9202c161f2c84e220107f04d6" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XFlashPartID::CommandSet</definition>
+        <argsstring></argsstring>
+        <name>CommandSet</name>
+        <briefdescription>
+<para>Command algorithm used by part. </para>        </briefdescription>
+        <detaileddescription>
+<para>Choices are defined in XFL_CMDSET constants </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Flash identification. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="74" bodyend="79"/>
+    <listofallmembers>
+      <member refid="struct_x_flash_part_i_d_1a16f684e9202c161f2c84e220107f04d6" prot="public" virt="non-virtual"><scope>XFlashPartID</scope><name>CommandSet</name></member>
+      <member refid="struct_x_flash_part_i_d_1a336905689f86d82302db0a0520f6c962" prot="public" virt="non-virtual"><scope>XFlashPartID</scope><name>DeviceID</name></member>
+      <member refid="struct_x_flash_part_i_d_1ab0f45c7ea118386ed374a6e871a9a625" prot="public" virt="non-virtual"><scope>XFlashPartID</scope><name>ManufacturerID</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

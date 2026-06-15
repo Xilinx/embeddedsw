@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_mix___model_parameters" kind="struct" prot="public">
+    <compoundname>XDfeMix_ModelParameters</compoundname>
+    <includes local="no">xdfemix.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_mix___model_parameters_1a1f6d1782979aab44c0d3f30e230c7686" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_ModelParameters::Mode</definition>
+        <argsstring></argsstring>
+        <name>Mode</name>
+        <briefdescription>
+<para>[0,1] 0=downlink, 1=uplink </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="288" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1gaa2cf38486d8a775970d6fa1c77c0f4a7" compoundref="xdfemix_8c" startline="1905" endline="1989">XDfeMix_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___model_parameters_1a1c34bd4bbecf1a7b4b13a68376ce7123" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_ModelParameters::NumAntenna</definition>
+        <argsstring></argsstring>
+        <name>NumAntenna</name>
+        <briefdescription>
+<para>[1,2,4,8] Number of antennas </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="289" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1gaa2cf38486d8a775970d6fa1c77c0f4a7" compoundref="xdfemix_8c" startline="1905" endline="1989">XDfeMix_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___model_parameters_1aa80fbec888aaeeb095724e44683c03e7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_ModelParameters::MaxUseableCcids</definition>
+        <argsstring></argsstring>
+        <name>MaxUseableCcids</name>
+        <briefdescription>
+<para>[2,4,8] Maximum CC usable </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="290" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1gaa2cf38486d8a775970d6fa1c77c0f4a7" compoundref="xdfemix_8c" startline="1905" endline="1989">XDfeMix_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___model_parameters_1ae8077e9f1371645b516309b978836b9e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_ModelParameters::Lanes</definition>
+        <argsstring></argsstring>
+        <name>Lanes</name>
+        <briefdescription>
+<para>[1-8] Number of lanes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="291" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1gaa2cf38486d8a775970d6fa1c77c0f4a7" compoundref="xdfemix_8c" startline="1905" endline="1989">XDfeMix_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___model_parameters_1a24d3ec4a70f4231788196c53f6b08934" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_ModelParameters::AntennaInterleave</definition>
+        <argsstring></argsstring>
+        <name>AntennaInterleave</name>
+        <briefdescription>
+<para>[1,2,4,8] Number of Antenna slots </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="292" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1gaa2cf38486d8a775970d6fa1c77c0f4a7" compoundref="xdfemix_8c" startline="1905" endline="1989">XDfeMix_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___model_parameters_1a80372d574b3b698b67971f68904363d1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_ModelParameters::MixerCps</definition>
+        <argsstring></argsstring>
+        <name>MixerCps</name>
+        <briefdescription>
+<para>[1,2,4] </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="293" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1gaa2cf38486d8a775970d6fa1c77c0f4a7" compoundref="xdfemix_8c" startline="1905" endline="1989">XDfeMix_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___model_parameters_1a2149e5eef1c05767275e06591053a70b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_ModelParameters::NumAuxiliary</definition>
+        <argsstring></argsstring>
+        <name>NumAuxiliary</name>
+        <briefdescription>
+<para>[0-3] </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="294" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1gaa2cf38486d8a775970d6fa1c77c0f4a7" compoundref="xdfemix_8c" startline="1905" endline="1989">XDfeMix_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___model_parameters_1a3de51c690143595ec0406270d5ec2728" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_ModelParameters::DataIWidth</definition>
+        <argsstring></argsstring>
+        <name>DataIWidth</name>
+        <briefdescription>
+<para><verbatim>         [16,24] 16 for 16-bit sample data and 24 for
+</verbatim> 18-bit sample data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="295" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1gaa2cf38486d8a775970d6fa1c77c0f4a7" compoundref="xdfemix_8c" startline="1905" endline="1989">XDfeMix_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___model_parameters_1a3153f4bb3bd41a0b5bedf3fddc62b3d2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_ModelParameters::DataOWidth</definition>
+        <argsstring></argsstring>
+        <name>DataOWidth</name>
+        <briefdescription>
+<para><verbatim>         [16,24] 16 for 16-bit sample data and 24 for
+</verbatim> 18-bit sample data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="297" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1gaa2cf38486d8a775970d6fa1c77c0f4a7" compoundref="xdfemix_8c" startline="1905" endline="1989">XDfeMix_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___model_parameters_1ae3933e33997f60c45a133438e54d63bc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_ModelParameters::TUserWidth</definition>
+        <argsstring></argsstring>
+        <name>TUserWidth</name>
+        <briefdescription>
+<para>[0-64] </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="299" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="299" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1gaa2cf38486d8a775970d6fa1c77c0f4a7" compoundref="xdfemix_8c" startline="1905" endline="1989">XDfeMix_Configure</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Mixer model parameters structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>Data defined in Device tree/xparameters.h. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="287" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="287" bodyend="300"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_mix___model_parameters_1a24d3ec4a70f4231788196c53f6b08934" prot="public" virt="non-virtual"><scope>XDfeMix_ModelParameters</scope><name>AntennaInterleave</name></member>
+      <member refid="struct_x_dfe_mix___model_parameters_1a3de51c690143595ec0406270d5ec2728" prot="public" virt="non-virtual"><scope>XDfeMix_ModelParameters</scope><name>DataIWidth</name></member>
+      <member refid="struct_x_dfe_mix___model_parameters_1a3153f4bb3bd41a0b5bedf3fddc62b3d2" prot="public" virt="non-virtual"><scope>XDfeMix_ModelParameters</scope><name>DataOWidth</name></member>
+      <member refid="struct_x_dfe_mix___model_parameters_1ae8077e9f1371645b516309b978836b9e" prot="public" virt="non-virtual"><scope>XDfeMix_ModelParameters</scope><name>Lanes</name></member>
+      <member refid="struct_x_dfe_mix___model_parameters_1aa80fbec888aaeeb095724e44683c03e7" prot="public" virt="non-virtual"><scope>XDfeMix_ModelParameters</scope><name>MaxUseableCcids</name></member>
+      <member refid="struct_x_dfe_mix___model_parameters_1a80372d574b3b698b67971f68904363d1" prot="public" virt="non-virtual"><scope>XDfeMix_ModelParameters</scope><name>MixerCps</name></member>
+      <member refid="struct_x_dfe_mix___model_parameters_1a1f6d1782979aab44c0d3f30e230c7686" prot="public" virt="non-virtual"><scope>XDfeMix_ModelParameters</scope><name>Mode</name></member>
+      <member refid="struct_x_dfe_mix___model_parameters_1a1c34bd4bbecf1a7b4b13a68376ce7123" prot="public" virt="non-virtual"><scope>XDfeMix_ModelParameters</scope><name>NumAntenna</name></member>
+      <member refid="struct_x_dfe_mix___model_parameters_1a2149e5eef1c05767275e06591053a70b" prot="public" virt="non-virtual"><scope>XDfeMix_ModelParameters</scope><name>NumAuxiliary</name></member>
+      <member refid="struct_x_dfe_mix___model_parameters_1ae3933e33997f60c45a133438e54d63bc" prot="public" virt="non-virtual"><scope>XDfeMix_ModelParameters</scope><name>TUserWidth</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

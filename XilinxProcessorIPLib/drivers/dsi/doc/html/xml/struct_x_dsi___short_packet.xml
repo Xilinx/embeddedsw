@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dsi___short_packet" kind="struct" prot="public">
+    <compoundname>XDsi_ShortPacket</compoundname>
+    <includes local="no">xdsi.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dsi___short_packet_1aa83630a9b5982b428894d845f68c2825" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDsi_ShortPacket::VcId</definition>
+        <argsstring></argsstring>
+        <name>VcId</name>
+        <briefdescription>
+<para>VcId indicates one of four channels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="82" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gab2cf4f33eff4d4e77d083335025c08f9" compoundref="xdsi_8c" startline="258" endline="274">XDsi_SendShortPacket</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi___short_packet_1a31197e6b8434c207d452eb6c8a25c2aa" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDsi_ShortPacket::DataType</definition>
+        <argsstring></argsstring>
+        <name>DataType</name>
+        <briefdescription>
+<para>Short Hand command issue from application. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="83" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gab2cf4f33eff4d4e77d083335025c08f9" compoundref="xdsi_8c" startline="258" endline="274">XDsi_SendShortPacket</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi___short_packet_1a699b7355c6865a7dee80d2e4ac59ebf4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDsi_ShortPacket::Data0</definition>
+        <argsstring></argsstring>
+        <name>Data0</name>
+        <briefdescription>
+<para>First data byte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gad642065adf499f3953713cc5b94a456a" compoundref="xdsi_8c" startline="300" endline="321">XDsi_SendLongPacket</referencedby>
+        <referencedby refid="group__dsi_1gab2cf4f33eff4d4e77d083335025c08f9" compoundref="xdsi_8c" startline="258" endline="274">XDsi_SendShortPacket</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi___short_packet_1a5b56fab1a76f81ae7b4bcf6d0dab46f8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDsi_ShortPacket::Data1</definition>
+        <argsstring></argsstring>
+        <name>Data1</name>
+        <briefdescription>
+<para>Second data byte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="85" bodyend="-1"/>
+        <referencedby refid="group__dsi_1gab2cf4f33eff4d4e77d083335025c08f9" compoundref="xdsi_8c" startline="258" endline="274">XDsi_SendShortPacket</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the Short Packet information from the Generic Short Packet Register. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.h" bodystart="81" bodyend="86"/>
+    <listofallmembers>
+      <member refid="struct_x_dsi___short_packet_1a699b7355c6865a7dee80d2e4ac59ebf4" prot="public" virt="non-virtual"><scope>XDsi_ShortPacket</scope><name>Data0</name></member>
+      <member refid="struct_x_dsi___short_packet_1a5b56fab1a76f81ae7b4bcf6d0dab46f8" prot="public" virt="non-virtual"><scope>XDsi_ShortPacket</scope><name>Data1</name></member>
+      <member refid="struct_x_dsi___short_packet_1a31197e6b8434c207d452eb6c8a25c2aa" prot="public" virt="non-virtual"><scope>XDsi_ShortPacket</scope><name>DataType</name></member>
+      <member refid="struct_x_dsi___short_packet_1aa83630a9b5982b428894d845f68c2825" prot="public" virt="non-virtual"><scope>XDsi_ShortPacket</scope><name>VcId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

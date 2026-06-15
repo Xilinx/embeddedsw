@@ -1,0 +1,192 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group____cam__device__wb" kind="group">
+    <compoundname>_cam_device_wb</compoundname>
+    <title>VsCamDevice E01C05 Device_WBG Definitions</title>
+    <innerclass refid="struct_cam_device_manual_wb_config__s" prot="public">CamDeviceManualWbConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wb_config__s" prot="public">CamDeviceWbConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wb_status__s" prot="public">CamDeviceWbStatus_s</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__wb_1ga8b841ef6af9a3389540217e763f7a430" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_manual_wb_config__s" kindref="compound">CamDeviceManualWbConfig_s</ref></type>
+        <definition>typedef struct CamDeviceManualWbConfig_s CamDeviceManualWbConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceManualWbConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WB manual configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wb_v1_1/cam_device_wb_api.h" line="53" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wb_1ga4e911f857dd92849e45136c2fe87a3a8" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wb_config__s" kindref="compound">CamDeviceWbConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWbConfig_s CamDeviceWbConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWbConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WB configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wb_v1_1/cam_device_wb_api.h" line="62" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wb_1ga46248ac954e5d8f2b1b3feb482f627d1" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wb_status__s" kindref="compound">CamDeviceWbStatus_s</ref></type>
+        <definition>typedef struct CamDeviceWbStatus_s CamDeviceWbStatus_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWbStatus_t</name>
+        <briefdescription>
+<para>VsCamDevice WB status structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wb_v1_1/cam_device_wb_api.h" line="73" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__wb_1ga2ee3e72740674fb970fa20ad2c0964df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWbSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, const CamDeviceWbConfig_t *pWbCfg)</argsstring>
+        <name>VsiCamDeviceWbSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group____cam__device__wb_1ga4e911f857dd92849e45136c2fe87a3a8" kindref="member">CamDeviceWbConfig_t</ref> *</type>
+          <declname>pWbCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wb_v1_1/cam_device_wb_api.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wb/cam_device_wb_api.c" bodystart="20" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wb_1gaf2497fbac809310c11573fef45654e25" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWbGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceWbConfig_t *pWbCfg)</argsstring>
+        <name>VsiCamDeviceWbGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__wb_1ga4e911f857dd92849e45136c2fe87a3a8" kindref="member">CamDeviceWbConfig_t</ref> *</type>
+          <declname>pWbCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wb_v1_1/cam_device_wb_api.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wb/cam_device_wb_api.c" bodystart="58" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wb_1gad4f172aba4cb1a613f7ac7567e2740b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWbEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceWbEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wb_v1_1/cam_device_wb_api.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wb/cam_device_wb_api.c" bodystart="97" bodyend="127"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wb_1ga5701e68785ea986e92ba2307b8a9689b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWbDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceWbDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wb_v1_1/cam_device_wb_api.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wb/cam_device_wb_api.c" bodystart="131" bodyend="162"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wb_1gab4da17647936842064e31425ca5fd7e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWbGetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceWbStatus_t *pStatus)</argsstring>
+        <name>VsiCamDeviceWbGetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__wb_1ga46248ac954e5d8f2b1b3feb482f627d1" kindref="member">CamDeviceWbStatus_t</ref> *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wb_v1_1/cam_device_wb_api.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wb/cam_device_wb_api.c" bodystart="166" bodyend="205"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wb_1ga6e77140bef6b0b4e18ffbe2bc21194fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWbReset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceWbReset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wb_v1_1/cam_device_wb_api.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wb/cam_device_wb_api.c" bodystart="209" bodyend="243"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wb_1ga2829a96623430dc9518b2985d1c88108" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWbGetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceWbGetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wb_v1_1/cam_device_wb_api.h" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wb/cam_device_wb_api.c" bodystart="247" bodyend="286"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Provides interfaces for controlling the white balance module working in the ISP pipeline. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

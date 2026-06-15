@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structdslink__t" kind="struct" prot="public">
+    <compoundname>dslink_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structdslink__t_1a74d8ee021801ffb7ca47b4acb46da7e4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 dslink_t::serializer_default_addr</definition>
+        <argsstring></argsstring>
+        <name>serializer_default_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdslink__t_1a0f7ca51a7e0e076481329422e1eb182b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 dslink_t::serializer_alias_addr</definition>
+        <argsstring></argsstring>
+        <name>serializer_alias_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdslink__t_1a46d186372bec653b8e0f8ba518026848" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 dslink_t::sensor_default_addr</definition>
+        <argsstring></argsstring>
+        <name>sensor_default_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdslink__t_1a556de3dfb02ed95c836edb9cae71a23e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 dslink_t::sensor_alias_addr</definition>
+        <argsstring></argsstring>
+        <name>sensor_alias_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="23" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="23" bodyend="28"/>
+    <listofallmembers>
+      <member refid="structdslink__t_1a556de3dfb02ed95c836edb9cae71a23e" prot="public" virt="non-virtual"><scope>dslink_t</scope><name>sensor_alias_addr</name></member>
+      <member refid="structdslink__t_1a46d186372bec653b8e0f8ba518026848" prot="public" virt="non-virtual"><scope>dslink_t</scope><name>sensor_default_addr</name></member>
+      <member refid="structdslink__t_1a0f7ca51a7e0e076481329422e1eb182b" prot="public" virt="non-virtual"><scope>dslink_t</scope><name>serializer_alias_addr</name></member>
+      <member refid="structdslink__t_1a74d8ee021801ffb7ca47b4acb46da7e4" prot="public" virt="non-virtual"><scope>dslink_t</scope><name>serializer_default_addr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

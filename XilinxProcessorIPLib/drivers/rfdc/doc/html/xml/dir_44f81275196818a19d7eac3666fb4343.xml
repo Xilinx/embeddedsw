@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_44f81275196818a19d7eac3666fb4343" kind="dir">
+    <compoundname>rfdc</compoundname>
+    <innerdir refid="dir_7a9bbfb2c151b200d14b535df4c7bc7a">examples</innerdir>
+    <innerdir refid="dir_389aaff3cbd3863c7ad807e0ac51d39e">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/"/>
+  </compounddef>
+</doxygen>

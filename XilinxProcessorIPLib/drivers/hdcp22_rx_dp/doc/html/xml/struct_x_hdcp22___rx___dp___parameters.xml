@@ -1,0 +1,226 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___rx___dp___parameters" kind="struct" prot="public">
+    <compoundname>XHdcp22_Rx_Dp_Parameters</compoundname>
+    <includes local="no">xhdcp22_rx_dp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___parameters_1abe1b2bae8dcae56246ebd5147543960f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Parameters::Rtx[8]</definition>
+        <argsstring>[8]</argsstring>
+        <name>Rtx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="493" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="493" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___parameters_1ad960374744b0145dea62527083efac08" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Parameters::TxCaps[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>TxCaps</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="494" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="494" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___parameters_1a16e23530f83b818e6ea2e9ed47bf82a5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Parameters::Rrx[8]</definition>
+        <argsstring>[8]</argsstring>
+        <name>Rrx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="495" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="495" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___parameters_1a44274d66db15a4eb0e0583d4de891736" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Parameters::RxCaps[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>RxCaps</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="496" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="496" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___parameters_1a8d0b0a9a10acc771dee9344b93101ed9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Parameters::Km[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>Km</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="497" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="497" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___parameters_1a1654b36b663db28974363750bc676306" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Parameters::Rn[8]</definition>
+        <argsstring>[8]</argsstring>
+        <name>Rn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="498" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="498" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___parameters_1a43ba86ab7eaddecc1ab9524ac5afebd9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Parameters::HPrime[32]</definition>
+        <argsstring>[32]</argsstring>
+        <name>HPrime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="499" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="499" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___parameters_1a87b6b2ed20ae578a5e1a46bd9c613958" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Parameters::LPrime[32]</definition>
+        <argsstring>[32]</argsstring>
+        <name>LPrime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="500" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="500" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___parameters_1ab721819e315364c46c029aab90f83421" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Parameters::EKh[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>EKh</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="501" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="501" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___parameters_1a382f73f88ec8817bafaace9dfa8223d3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Parameters::Riv[8]</definition>
+        <argsstring>[8]</argsstring>
+        <name>Riv</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="502" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="502" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___parameters_1a1eba533d97ef67edc0156e1b54c28c1e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Parameters::Ks[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>Ks</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="503" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="503" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___parameters_1ad72ace5b4eb3e834f1050f1cfad6e240" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Parameters::VPrime[32]</definition>
+        <argsstring>[32]</argsstring>
+        <name>VPrime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="504" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="504" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___parameters_1a67e1966e77eb65c7faa32ee6f8675905" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Parameters::SeqNumM[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>SeqNumM</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="505" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="505" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___parameters_1a6e42da01bc90c28ca99207079b5b9148" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Parameters::StreamIdType[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>StreamIdType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="506" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="506" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___dp___parameters_1a5d8f84b9535552c6a3c3c58583ba1c44" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_Dp_Parameters::MPrime[32]</definition>
+        <argsstring>[32]</argsstring>
+        <name>MPrime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="507" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="507" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef is used to store temporary parameters for computations. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" line="492" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp.h" bodystart="491" bodyend="508"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___rx___dp___parameters_1ab721819e315364c46c029aab90f83421" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Parameters</scope><name>EKh</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___parameters_1a43ba86ab7eaddecc1ab9524ac5afebd9" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Parameters</scope><name>HPrime</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___parameters_1a8d0b0a9a10acc771dee9344b93101ed9" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Parameters</scope><name>Km</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___parameters_1a1eba533d97ef67edc0156e1b54c28c1e" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Parameters</scope><name>Ks</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___parameters_1a87b6b2ed20ae578a5e1a46bd9c613958" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Parameters</scope><name>LPrime</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___parameters_1a5d8f84b9535552c6a3c3c58583ba1c44" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Parameters</scope><name>MPrime</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___parameters_1a382f73f88ec8817bafaace9dfa8223d3" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Parameters</scope><name>Riv</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___parameters_1a1654b36b663db28974363750bc676306" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Parameters</scope><name>Rn</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___parameters_1a16e23530f83b818e6ea2e9ed47bf82a5" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Parameters</scope><name>Rrx</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___parameters_1abe1b2bae8dcae56246ebd5147543960f" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Parameters</scope><name>Rtx</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___parameters_1a44274d66db15a4eb0e0583d4de891736" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Parameters</scope><name>RxCaps</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___parameters_1a67e1966e77eb65c7faa32ee6f8675905" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Parameters</scope><name>SeqNumM</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___parameters_1a6e42da01bc90c28ca99207079b5b9148" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Parameters</scope><name>StreamIdType</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___parameters_1ad960374744b0145dea62527083efac08" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Parameters</scope><name>TxCaps</name></member>
+      <member refid="struct_x_hdcp22___rx___dp___parameters_1ad72ace5b4eb3e834f1050f1cfad6e240" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_Dp_Parameters</scope><name>VPrime</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

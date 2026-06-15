@@ -1,0 +1,544 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xilfpga__zynq__versal" kind="group">
+    <compoundname>xilfpga_zynq_versal</compoundname>
+    <title>XilFPGA APIs for Versal Adaptive SoC and Zynq UltraScale+ MPSoC</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XFpga_BitStream_Load</definition>
+        <argsstring>(XFpga *InstancePtr, UINTPTR BitstreamImageAddr, UINTPTR KeyAddr, u32 Size, u32 Flags)</argsstring>
+        <name>XFpga_BitStream_Load</name>
+        <param>
+          <type><ref refid="xilfpga_8h_1a2e73b67f19f7d94e00988c853ff4599b" kindref="member">XFpga</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BitstreamImageAddr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>KeyAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Flags</declname>
+        </param>
+        <briefdescription>
+<para>The API is used to load the bitstream file into the PL region. </para>        </briefdescription>
+        <detaileddescription>
+<para>It supports AMD Vivadoâ„¢ Design Suite generated bitstream (*.bit, *.bin) and Bootgen-generated bitstream (*.bin) loading, Passing valid bitstream size(Size) information is mandatory for Vivado Design Suite generated bitstream, For Bootgen-generated bitstreams bitstream size is taken from the bitstream header.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XFpga structure.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BitstreamImageAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Linear memory bitstream image base address</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>AES key address which is used for decryption.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Used to store size of bitstream image.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flags are used to specify the type of bitstream file.<itemizedlist>
+<listitem><para>BIT(0) - Bitstream type<itemizedlist>
+<listitem><para>0 - Full bitstream</para></listitem><listitem><para>1 - Partial bitstream</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(1) - Authentication using DDR<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(2) - Authentication using OCM<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(3) - User-key Encryption<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(4) - Device-key Encryption<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XFPGA_SUCCESS on success</para></listitem><listitem><para>Error code on failure.</para></listitem><listitem><para>XFPGA_VALIDATE_ERROR.</para></listitem><listitem><para>XFPGA_PRE_CONFIG_ERROR.</para></listitem><listitem><para>XFPGA_WRITE_BITSTREAM_ERROR.</para></listitem><listitem><para>XFPGA_POST_CONFIG_ERROR. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="140" bodyend="202"/>
+        <references refid="struct_x_fpga___write_1ab3ba8d05e4395ac2f404282ac8acd2ca" compoundref="xilfpga__versal_8h" startline="78">XFpga_Write::BitstreamAddr</references>
+        <references refid="struct_x_fpga___write_1a3213fec12e94e571eadb705e21efe982" compoundref="xilfpga__versal_8h" startline="81">XFpga_Write::Flags</references>
+        <references refid="struct_x_fpga___write_1a6a67375da15c7c9b5ba870fae38bf434" compoundref="xilfpga__versal_8h" startline="79">XFpga_Write::KeyAddr</references>
+        <references refid="struct_x_fpga___write_1af17c38a1a35ad02470377430f894e403" compoundref="xilfpga__versal_8h" startline="80">XFpga_Write::Size</references>
+        <references refid="struct_x_fpgatag_1a43bcd659f5043721bf8f99df22330a19" compoundref="xilfpga_8h" startline="138">XFpgatag::WriteInfo</references>
+        <references refid="group__xilfpga__zynq__versal_1gae97b4dd15b87b8a9931a242bb855e031" compoundref="xilfpga_8c" startline="380" endline="405">XFpga_PL_PostConfig</references>
+        <references refid="group__xilfpga__zynq__versal_1gade4f3d3efdce2034be71f597e84a667c" compoundref="xilfpga_8c" startline="279" endline="303">XFpga_PL_Preconfig</references>
+        <references refid="group__xilfpga__zynq__versal_1gab9954493b57ad172167f25a3aa1b0eb0" compoundref="xilfpga_8c" startline="234" endline="271">XFpga_ValidateImage</references>
+        <references refid="group__xilfpga__zynq__versal_1ga3801d1f23178289fb912ecc61cdc018d" compoundref="xilfpga_8c" startline="334" endline="371">XFpga_Write_Pl</references>
+        <referencedby refid="xfpga__load__bitstream__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xfpga__load__bitstream__example_8c" startline="93" endline="128">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilfpga__zynq__versal_1gab9954493b57ad172167f25a3aa1b0eb0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XFpga_ValidateImage</definition>
+        <argsstring>(XFpga *InstancePtr, UINTPTR BitstreamImageAddr, UINTPTR KeyAddr, u32 Size, u32 Flags)</argsstring>
+        <name>XFpga_ValidateImage</name>
+        <param>
+          <type><ref refid="xilfpga_8h_1a2e73b67f19f7d94e00988c853ff4599b" kindref="member">XFpga</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BitstreamImageAddr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>KeyAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Flags</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to validate the bitstream image. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XFpga structure</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BitstreamImageAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Linear memory bitstream image base address</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Aes key address which is used for decryption.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Used to store size of bitstream image.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flags are used to specify the type of bitstream file.<itemizedlist>
+<listitem><para>BIT(0) - Bitstream type<itemizedlist>
+<listitem><para>0 - Full bitstream</para></listitem><listitem><para>1 - Partial bitstream</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(1) - Authentication using DDR<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(2) - Authentication using OCM<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(3) - User-key Encryption<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(4) - Device-key Encryption<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Codes as mentioned in <ref refid="xilfpga_8h" kindref="compound">xilfpga.h</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="234" bodyend="271"/>
+        <references refid="struct_x_fpga___write_1ab3ba8d05e4395ac2f404282ac8acd2ca" compoundref="xilfpga__versal_8h" startline="78">XFpga_Write::BitstreamAddr</references>
+        <references refid="struct_x_fpga___write_1a3213fec12e94e571eadb705e21efe982" compoundref="xilfpga__versal_8h" startline="81">XFpga_Write::Flags</references>
+        <references refid="struct_x_fpga___write_1a6a67375da15c7c9b5ba870fae38bf434" compoundref="xilfpga__versal_8h" startline="79">XFpga_Write::KeyAddr</references>
+        <references refid="struct_x_fpga___write_1af17c38a1a35ad02470377430f894e403" compoundref="xilfpga__versal_8h" startline="80">XFpga_Write::Size</references>
+        <references refid="struct_x_fpgatag_1a43bcd659f5043721bf8f99df22330a19" compoundref="xilfpga_8h" startline="138">XFpgatag::WriteInfo</references>
+        <references refid="struct_x_fpgatag_1a17d90caf2f96a1c0ce3a309015fd32ae" compoundref="xilfpga_8h" startline="120">XFpgatag::XFpga_ValidateBitstream</references>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" compoundref="xilfpga_8c" startline="140" endline="202">XFpga_BitStream_Load</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilfpga__zynq__versal_1gade4f3d3efdce2034be71f597e84a667c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XFpga_PL_Preconfig</definition>
+        <argsstring>(XFpga *InstancePtr)</argsstring>
+        <name>XFpga_PL_Preconfig</name>
+        <param>
+          <type><ref refid="xilfpga_8h_1a2e73b67f19f7d94e00988c853ff4599b" kindref="member">XFpga</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function prepares the FPGA to receive configuration data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the XFpga.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Codes as mentioned in <ref refid="xilfpga_8h" kindref="compound">xilfpga.h</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="279" bodyend="303"/>
+        <references refid="struct_x_fpgatag_1a542049e29b0804aabea8bcc577d71b47" compoundref="xilfpga_8h" startline="121">XFpgatag::XFpga_PreConfig</references>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" compoundref="xilfpga_8c" startline="140" endline="202">XFpga_BitStream_Load</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilfpga__zynq__versal_1ga3801d1f23178289fb912ecc61cdc018d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XFpga_Write_Pl</definition>
+        <argsstring>(XFpga *InstancePtr, UINTPTR BitstreamImageAddr, UINTPTR KeyAddr, u32 Size, u32 Flags)</argsstring>
+        <name>XFpga_Write_Pl</name>
+        <param>
+          <type><ref refid="xilfpga_8h_1a2e73b67f19f7d94e00988c853ff4599b" kindref="member">XFpga</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BitstreamImageAddr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>KeyAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Flags</declname>
+        </param>
+        <briefdescription>
+<para>This function writes the count bytes of configuration data into the PL. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XFpga structure</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BitstreamImageAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Linear memory bitstream image base address</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Aes key address which is used for decryption.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Used to store size of bitstream image.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Flags</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flags are used to specify the type of bitstream file.<itemizedlist>
+<listitem><para>BIT(0) - Bitstream type<itemizedlist>
+<listitem><para>0 - Full bitstream</para></listitem><listitem><para>1 - Partial bitstream</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(1) - Authentication using DDR<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(2) - Authentication using OCM<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(3) - User-key Encryption<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem><listitem><para>BIT(4) - Device-key Encryption<itemizedlist>
+<listitem><para>1 - Enable</para></listitem><listitem><para>0 - Disable</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Codes as mentioned in <ref refid="xilfpga_8h" kindref="compound">xilfpga.h</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="334" bodyend="371"/>
+        <references refid="struct_x_fpga___write_1ab3ba8d05e4395ac2f404282ac8acd2ca" compoundref="xilfpga__versal_8h" startline="78">XFpga_Write::BitstreamAddr</references>
+        <references refid="struct_x_fpga___write_1a3213fec12e94e571eadb705e21efe982" compoundref="xilfpga__versal_8h" startline="81">XFpga_Write::Flags</references>
+        <references refid="struct_x_fpga___write_1a6a67375da15c7c9b5ba870fae38bf434" compoundref="xilfpga__versal_8h" startline="79">XFpga_Write::KeyAddr</references>
+        <references refid="struct_x_fpga___write_1af17c38a1a35ad02470377430f894e403" compoundref="xilfpga__versal_8h" startline="80">XFpga_Write::Size</references>
+        <references refid="struct_x_fpgatag_1a43bcd659f5043721bf8f99df22330a19" compoundref="xilfpga_8h" startline="138">XFpgatag::WriteInfo</references>
+        <references refid="struct_x_fpgatag_1a31407cee8cfa8d58cea94bda3147e757" compoundref="xilfpga_8h" startline="122">XFpgatag::XFpga_WriteToPl</references>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" compoundref="xilfpga_8c" startline="140" endline="202">XFpga_BitStream_Load</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilfpga__zynq__versal_1gae97b4dd15b87b8a9931a242bb855e031" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XFpga_PL_PostConfig</definition>
+        <argsstring>(XFpga *InstancePtr)</argsstring>
+        <name>XFpga_PL_PostConfig</name>
+        <param>
+          <type><ref refid="xilfpga_8h_1a2e73b67f19f7d94e00988c853ff4599b" kindref="member">XFpga</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the FPGA to the operating state after writing. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XFpga structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Codes as mentioned in <ref refid="xilfpga_8h" kindref="compound">xilfpga.h</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" line="380" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="380" bodyend="405"/>
+        <references refid="struct_x_fpgatag_1a3e5baa8aaa7b73f6cd31737b2465515c" compoundref="xilfpga_8h" startline="123">XFpgatag::XFpga_PostConfig</references>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" compoundref="xilfpga_8c" startline="140" endline="202">XFpga_BitStream_Load</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilfpga__zynq__versal_1ga5e98e018395a91d666b1bf5322ead85a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XFpga_GetPlConfigData</definition>
+        <argsstring>(XFpga *InstancePtr, UINTPTR ReadbackAddr, u32 NumFrames)</argsstring>
+        <name>XFpga_GetPlConfigData</name>
+        <param>
+          <type><ref refid="xilfpga_8h_1a2e73b67f19f7d94e00988c853ff4599b" kindref="member">XFpga</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>ReadbackAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumFrames</declname>
+        </param>
+        <briefdescription>
+<para>This function provides functionality to read back the PL configuration data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XFpga structure</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReadbackAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address which is used to store the PL readback data.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumFrames</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of FPGA configuration frames to read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XFPGA_SUCCESS, if successful</para></listitem><listitem><para>XFPGA_FAILURE, if unsuccessful</para></listitem><listitem><para>XFPGA_OPS_NOT_IMPLEMENTED, if implementation not exists. </para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para><itemizedlist>
+<listitem><para>This API is not supported for the Versal platform. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" line="426" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="426" bodyend="451"/>
+        <references refid="struct_x_fpgatag_1acd5464c8e6c66bf80aa0139efe016bb7" compoundref="xilfpga_8h" startline="136">XFpgatag::ReadInfo</references>
+        <references refid="struct_x_fpgatag_1af817a3d9e50e29ae60448178d216df29" compoundref="xilfpga_8h" startline="128">XFpgatag::XFpga_GetConfigData</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilfpga__zynq__versal_1ga16b3f58643bb4ca44b5f76cb15ca3c27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XFpga_GetPlConfigReg</definition>
+        <argsstring>(XFpga *InstancePtr, UINTPTR ReadbackAddr, u32 ConfigRegAddr)</argsstring>
+        <name>XFpga_GetPlConfigReg</name>
+        <param>
+          <type><ref refid="xilfpga_8h_1a2e73b67f19f7d94e00988c853ff4599b" kindref="member">XFpga</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>ReadbackAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ConfigRegAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function provides PL specific configuration register values. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XFpga structure</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReadbackAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address which is used to store the PL Configuration register data.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigRegAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Configuration register address as mentioned in the UG570.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XFPGA_SUCCESS if, successful</para></listitem><listitem><para>XFPGA_FAILURE if, unsuccessful</para></listitem><listitem><para>XFPGA_OPS_NOT_IMPLEMENTED, if implementation not exists. </para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para><itemizedlist>
+<listitem><para>This API is not supported for the Versal platform. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" line="473" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="473" bodyend="511"/>
+        <references refid="struct_x_fpgatag_1acd5464c8e6c66bf80aa0139efe016bb7" compoundref="xilfpga_8h" startline="136">XFpgatag::ReadInfo</references>
+        <references refid="struct_x_fpgatag_1a112c731b7c08c57308e95856658fae97" compoundref="xilfpga_8h" startline="127">XFpgatag::XFpga_GetConfigReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilfpga__zynq__versal_1ga2f8e3aaa97c67aaaae6521f75f989e59" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XFpga_InterfaceStatus</definition>
+        <argsstring>(XFpga *InstancePtr)</argsstring>
+        <name>XFpga_InterfaceStatus</name>
+        <param>
+          <type><ref refid="xilfpga_8h_1a2e73b67f19f7d94e00988c853ff4599b" kindref="member">XFpga</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function provides the status of the PL programming interface. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XFpga structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of the PL programming interface</para></simplesect>
+<simplesect kind="note"><para><itemizedlist>
+<listitem><para>This API is not supported for the Versal platform. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" line="619" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.c" bodystart="619" bodyend="638"/>
+        <references refid="struct_x_fpgatag_1a6af355b88beaac6b872a53c13285514b" compoundref="xilfpga_8h" startline="126">XFpgatag::XFpga_GetInterfaceStatus</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the definitions of Bitstream loading functions. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+4.2  Nava  06/08/16  Refactor the xilfpga library to support
+                different PL programming Interfaces.
+4.2  adk   07/11/18  Added support for readback of PL configuration data.
+4.2  Nava  08/16/18     Modified the PL data handling Logic to support
+                different PL programming interfaces.
+4.2  Nava  09/15/18  Fixed global function call-backs issue.
+5.0  Nava  05/11/18  Added full bitstream loading support for versal Platform.
+5.0  Div   01/21/19  Fixed misra-c required standard violation for zynqmp.
+5.0  Nava  02/06/19  Remove redundant API&apos;s from the interface agnostic layer
+                     and make the existing API&apos;s generic to support both
+                     ZynqMP and versal platforms.
+5.0 Nava   02/26/19  Update the data handling logic to avoid the code
+                duplication
+5.0 sne    03/27/19  Fixed misra-c violations.
+5.0 Nava   03/29/19  Removed versal platform related changes.As per the new
+                     design, the Bitstream loading for versal platform is
+                     done by PLM based on the CDO&apos;s data exists in the PDI
+                     images. So there is no need of xilfpga API&apos;s for versal
+                     platform to configure the PL.
+5.1 Nava   06/27/19  Updated documentation for readback API&apos;s.
+5.1 Nava   07/16/19  Initialize empty status (or) status success to status failure
+                     to avoid security violations.
+5.2 Nava   12/05/19  Added Versal platform support.
+5.2 Nava   02/14/20  Added Bitstream loading support by using IPI services
+                     for ZynqMP platform.
+5.3 Nava   06/16/20  Modified the date format from dd/mm to mm/dd.
+5.3 Nava   06/23/20  Added asserts to validate input params.
+5.3 Nava   09/09/20  Replaced the asserts with input validations for non void
+                     API&apos;s.
+6.0 Nava   12/14/20  In XFpga_PL_BitStream_Load() API the argument
+                     AddrPtr_Size is being used for multiple purposes.
+                     Use of the same variable for multiple purposes can
+                     make it more difficult for a person to read (or)
+                     understand the code and also it leads to a safety
+                     violation. fixes this  issue by adding a separate
+                     function arguments to read KeyAddr and
+                     Size(Bitstream size).
+6.0 Nava   01/07/21  Fixed misra-c required standard violations.
+6.0 Nava   01/08/21  Removed unwanted if else conditions.
+6.0 Nava   01/20/21  Reset the status variable to fail to avoid safety
+                     violations.
+6.0 Nava   01/21/21  Make Status variable volatile to avoid compiler
+                     optimizations.
+6.0 Nava   02/22/21  Fixed doxygen issues.
+6.0 Nava   05/17/21  Fixed misra-c violations.
+6.1 Nava   09/13/21  Fixed compilation warning for versal platform.
+6.2 Nava   01/10/22  Removed duplicated legacy API&apos;s to reduce the xilfpga
+                     memory footprint.
+6.2 Nava   01/10/22  Adds XFpga_GetVersion() and XFpga_GetFeatureList() API&apos;s
+                     to provide the access to the xilfpga library to get the
+                     xilfpga version and supported feature list info.
+6.3 Nava   08/05/22  Added doxygen tags.
+6.5 Nava   08/18/23  Resolved the doxygen issues.
+6.5 Nava   09/04/23  Added proper ifdef platform checks for user-accessible APIs.
+6.6 Nava   10/20/23  Added proper validations checks for input parameters.
+6.10 Arvd  02/04/26  Fixed codespell errors
+6.10 Arvd  02/11/26  Fixed Doxygen warnings.
+6.10 Arvd  02/20/26  Add support to set config regs and
+                     read frame data via PMUFW
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

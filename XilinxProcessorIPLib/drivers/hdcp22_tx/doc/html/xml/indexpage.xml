@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>hdcp22_tx</title>
+    <detaileddescription>
+<para>This file contains the main implementation of the Xilinx HDCP 2.2 Transmitter device driver.<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00  JO     06/24/15 Initial release.
+1.01  MH     01/15/16 Replaced function XHdcp22Tx_SetDdcHandles with
+                      XHdcp22Tx_SetCallback. Removed test directives.
+1.02  MG     02/25/16 Added authenticated callback and GetVersion.
+1.03  MG     02/29/16 Added XHdcp22Cipher_Disable in function XHdcp22Tx_Reset.
+1.04  MH     03/14/16 Updated StateA5 to check re-authentication request
+                      before enabling the cipher.
+2.00  MH     06/28/16 Updated for repeater downstream support.
+2.01  MH     02/13/17 1. Fixed function XHdcp22Tx_IsInProgress to correctly
+                         return TRUE while state machine is executing.
+                      2. Fixed checking of seq_num_V for topology propagation.
+                      3. Updated state A0 to set 100ms timer before sending
+                         AKE_Init message to ensure encryption is disabled.
+                      4. Fixed function XHdcp22Tx_UpdatePairingInfo to check
+                         for empty slots before overriding entry.
+                      5. Fixed problem with pairing table update that was
+                         causing corrupted entries.
+                      6. Update to check return status of DDC read/write.
+                      7. Fixed compiler warnings.
+2.20  MH     04/12/17 Added function XHdcp22Tx_IsDwnstrmCapable.
+2.30  MH     07/06/17 1. Updated for 64 bit ARM support.
+                      2. Added HDCP2Capable check for re-authentication
+                      3. Update cipher enablement
+                      4. Fix in XHdcp22Tx_WaitForReceiver to poll RxStatus
+                         based on fixed interval.
+                      5. Fix in XHdcp22Tx_WaitForReceiver to wait for READY
+                         and non-zero Message_Size before reading message
+                         buffer.
+                      6. Check return status of DDC write/read when polling
+                         RxStatus register.
+2.31  YB     03/28/19 Moved the reading of the DDC status from
+                         XHdcp22Tx_TimerHandler to XHdcp22Tx_Poll.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

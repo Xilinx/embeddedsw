@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>prc</title>
+    <detaileddescription>
+<para>Xilinx PRC driver component provides management function for self-controlling partially reconfigurable designs.It is intended for enclosed systems where all of the Reconfigurable Modules are known to the controller. The optional AXI4-Lite register interface allows the core to be reconfigured at run time, so it can also be used in systems where the Reconfigurable Modules(RM) can change in the field.</para><para>The PRC supports the following features:<itemizedlist>
+<listitem><para>32 Virtual Sockets.</para></listitem><listitem><para>128 Reconfigurable modules per Virtual Socket.</para></listitem><listitem><para>Optional hardware and software shutdown of Reconfigurable Modules (configurable per Reconfigurable Module).</para></listitem><listitem><para>Optional software start-up of Reconfigurable Modules (configurable per Reconfigurable Module).</para></listitem><listitem><para>Optional reset of Reconfigurable Modules after loading (configurable per Reconfigurable Module).</para></listitem><listitem><para>Virtual Socket Managers can be shutdown and restarted by the user to allow external controllers to partially reconfigure the device.</para></listitem><listitem><para>User control of Virtual Socket Manager output signals is supported in the shutdown state.</para></listitem></itemizedlist>
+</para><para>The Partial Reconfiguration Controller consists of one or more Virtual Socket Managers(VSMs) which connect to a single fetch path. Virtual Socket Managers operate in parallel waiting for triggers to occur. When a trigger occurs, the appropriate VSM maps the trigger to an RM and manages the reconfiguration of that RM. VSM&apos;s queue for access to the fetch path.</para><para>VSMs exist in two States<itemizedlist>
+<listitem><para>Active State</para></listitem><listitem><para>Shutdown State</para></listitem></itemizedlist>
+</para><para><bold>Initialization &amp; Configuration</bold></para><para>The XPrc_Config structure is used by the driver to configure itself. This configuration structure is created based on HW build properties.</para><para>To support multiple runtime loading and initialization strategies employed by various operating systems, the driver instance can be initialized in the following way:</para><para><itemizedlist>
+<listitem><para>XPrc_LookupConfig(DeviceId) - Use the device identifier to find the static configuration structure defined in xprc_g.c. This is setup by the tools. For some operating systems the config structure will be initialized by the software and this call is not needed.</para></listitem><listitem><para>XPrc_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) is used for initialization. The user needs to first call the <ref refid="group__prc_1ga51e9679d6d99b32bfafc1a8543556297" kindref="member">XPrc_LookupConfig()</ref> API which returns the Configuration structure pointer which is passed as a parameter to the <ref refid="group__prc_1ga860a4c5ba01881e1547b8150affa7c0d" kindref="member">XPrc_CfgInitialize()</ref> API.</para></listitem></itemizedlist>
+</para><para><bold> Threads </bold></para><para>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</para><para><bold> Asserts </bold></para><para>Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining, at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that users leave asserts on during development.</para><para><bold> Building the driver </bold></para><para>The <ref refid="struct_x_prc" kindref="compound">XPrc</ref> driver is composed of several source files. This allows the user to build and link only those parts of the driver that are necessary.</para><para><bold> Debug prints </bold></para><para><ref refid="struct_x_prc" kindref="compound">XPrc</ref> driver is having debug prints.<itemizedlist>
+<listitem><para>To get the debug print statements of the driver, please define XPRC_DEBUG as shown below. &quot;#define XPRC_DEBUG&quot;</para></listitem><listitem><para>To get the debug print statements of the core, please define XPRC_DEBUG_CORE as shown below. &quot;#define XPRC_DEBUG_CORE&quot;</para></listitem></itemizedlist>
+</para><para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who      Date        Changes
+<hruler/>
+
+1.0   ms     07/18/16     First release
+      ms     03/17/17     Added readme.txt file in examples folder for
+                          doxygen generation.
+      ms     04/05/17     Modified comment lines notation in functions
+                          of prc examples to avoid unnecessary description
+                          which was displayed while generating doxygen.
+1.1   ms     04/18/17     Modified tcl file to add suffix U for all macros
+                          definitions of prc in xparameters.h
+      ms     08/01/17     Added a new parameter &quot;Cp_Compression&quot; to
+                          XPrc_Config structure and also inline function
+                          related to this parameter.
+                          Modified <ref refid="xprc_8c" kindref="compound">xprc.c</ref>, prc.tcl, <ref refid="xprc__hw_8h" kindref="compound">xprc_hw.h</ref> to add a
+                          new parameter &quot;Cp_Compression&quot; and status error
+                          flags. Added the Updated api.tcl to data folder.
+1.2  Nava   29/03/19      Updated the tcl logic to generated the
+                          XPrc_ConfigTable properly.
+2.2  Nava   07/04/23      Added support for system device-tree flow.
+2.4  Arvd   02/04/26      Fixed codespell errors
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

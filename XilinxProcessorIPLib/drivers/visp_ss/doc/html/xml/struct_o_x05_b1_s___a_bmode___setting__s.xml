@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_o_x05_b1_s___a_bmode___setting__s" kind="struct" prot="public">
+    <compoundname>OX05B1S_ABmode_Setting_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_o_x05_b1_s___a_bmode___setting__s_1a7cd33e723e27aaba1bf23aaeb20b6597" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t OX05B1S_ABmode_Setting_s::expLine</definition>
+        <argsstring></argsstring>
+        <name>expLine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox05b1s.c" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox05b1s.c" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_o_x05_b1_s___a_bmode___setting__s_1a33ff3c00e76712880c90db9d0d0e04ce" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t OX05B1S_ABmode_Setting_s::again</definition>
+        <argsstring></argsstring>
+        <name>again</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox05b1s.c" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox05b1s.c" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_o_x05_b1_s___a_bmode___setting__s_1aef6aa669cca6c42010d727b5ebe7564e" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t OX05B1S_ABmode_Setting_s::dgain</definition>
+        <argsstring></argsstring>
+        <name>dgain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox05b1s.c" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox05b1s.c" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_o_x05_b1_s___a_bmode___setting__s_1aec60f695a1c6f1ad68f79512a2711f27" prot="public" static="no" mutable="no">
+        <type>OX05B1S_IR_setting_t</type>
+        <definition>OX05B1S_IR_setting_t OX05B1S_ABmode_Setting_s::irCfg</definition>
+        <argsstring></argsstring>
+        <name>irCfg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox05b1s.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox05b1s.c" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox05b1s.c" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox05b1s.c" bodystart="36" bodyend="41"/>
+    <listofallmembers>
+      <member refid="struct_o_x05_b1_s___a_bmode___setting__s_1a33ff3c00e76712880c90db9d0d0e04ce" prot="public" virt="non-virtual"><scope>OX05B1S_ABmode_Setting_s</scope><name>again</name></member>
+      <member refid="struct_o_x05_b1_s___a_bmode___setting__s_1aef6aa669cca6c42010d727b5ebe7564e" prot="public" virt="non-virtual"><scope>OX05B1S_ABmode_Setting_s</scope><name>dgain</name></member>
+      <member refid="struct_o_x05_b1_s___a_bmode___setting__s_1a7cd33e723e27aaba1bf23aaeb20b6597" prot="public" virt="non-virtual"><scope>OX05B1S_ABmode_Setting_s</scope><name>expLine</name></member>
+      <member refid="struct_o_x05_b1_s___a_bmode___setting__s_1aec60f695a1c6f1ad68f79512a2711f27" prot="public" virt="non-virtual"><scope>OX05B1S_ABmode_Setting_s</scope><name>irCfg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

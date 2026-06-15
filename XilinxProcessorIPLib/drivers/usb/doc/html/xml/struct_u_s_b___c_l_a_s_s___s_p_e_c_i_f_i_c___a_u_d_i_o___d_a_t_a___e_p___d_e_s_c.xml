@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_u_s_b___c_l_a_s_s___s_p_e_c_i_f_i_c___a_u_d_i_o___d_a_t_a___e_p___d_e_s_c" kind="struct" prot="public">
+    <compoundname>USB_CLASS_SPECIFIC_AUDIO_DATA_EP_DESC</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_u_s_b___c_l_a_s_s___s_p_e_c_i_f_i_c___a_u_d_i_o___d_a_t_a___e_p___d_e_s_c_1a54edf5aef53a663b0a83ea53fb2774ad" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_CLASS_SPECIFIC_AUDIO_DATA_EP_DESC::bLength</definition>
+        <argsstring></argsstring>
+        <name>bLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="400" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="400" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_l_a_s_s___s_p_e_c_i_f_i_c___a_u_d_i_o___d_a_t_a___e_p___d_e_s_c_1ad44df1a5c186bd3d7e1fc4d5eb1df46a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_CLASS_SPECIFIC_AUDIO_DATA_EP_DESC::bDescriptorType</definition>
+        <argsstring></argsstring>
+        <name>bDescriptorType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="401" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="401" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_l_a_s_s___s_p_e_c_i_f_i_c___a_u_d_i_o___d_a_t_a___e_p___d_e_s_c_1ac21098286ddb1b4306b18082b7e598a7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_CLASS_SPECIFIC_AUDIO_DATA_EP_DESC::bDescriptorSubtype</definition>
+        <argsstring></argsstring>
+        <name>bDescriptorSubtype</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="402" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="402" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_l_a_s_s___s_p_e_c_i_f_i_c___a_u_d_i_o___d_a_t_a___e_p___d_e_s_c_1a6530dec850abaa613cc124c0220f9c3b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_CLASS_SPECIFIC_AUDIO_DATA_EP_DESC::bmAttributes</definition>
+        <argsstring></argsstring>
+        <name>bmAttributes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="403" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="403" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_l_a_s_s___s_p_e_c_i_f_i_c___a_u_d_i_o___d_a_t_a___e_p___d_e_s_c_1aa5c21e2ccb2e44f8044e2e1aea342c43" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_CLASS_SPECIFIC_AUDIO_DATA_EP_DESC::bLockDelayUnits</definition>
+        <argsstring></argsstring>
+        <name>bLockDelayUnits</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="404" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="404" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_l_a_s_s___s_p_e_c_i_f_i_c___a_u_d_i_o___d_a_t_a___e_p___d_e_s_c_1acc22ba0052f1ae4c24985351fe194a22" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_CLASS_SPECIFIC_AUDIO_DATA_EP_DESC::wLockDelayL</definition>
+        <argsstring></argsstring>
+        <name>wLockDelayL</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="405" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="405" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_l_a_s_s___s_p_e_c_i_f_i_c___a_u_d_i_o___d_a_t_a___e_p___d_e_s_c_1a46dc72af958b1d70199ad85457640675" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_CLASS_SPECIFIC_AUDIO_DATA_EP_DESC::wLockDelayH</definition>
+        <argsstring></argsstring>
+        <name>wLockDelayH</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="406" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="406" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" line="399" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_types.h" bodystart="399" bodyend="408"/>
+    <listofallmembers>
+      <member refid="struct_u_s_b___c_l_a_s_s___s_p_e_c_i_f_i_c___a_u_d_i_o___d_a_t_a___e_p___d_e_s_c_1ac21098286ddb1b4306b18082b7e598a7" prot="public" virt="non-virtual"><scope>USB_CLASS_SPECIFIC_AUDIO_DATA_EP_DESC</scope><name>bDescriptorSubtype</name></member>
+      <member refid="struct_u_s_b___c_l_a_s_s___s_p_e_c_i_f_i_c___a_u_d_i_o___d_a_t_a___e_p___d_e_s_c_1ad44df1a5c186bd3d7e1fc4d5eb1df46a" prot="public" virt="non-virtual"><scope>USB_CLASS_SPECIFIC_AUDIO_DATA_EP_DESC</scope><name>bDescriptorType</name></member>
+      <member refid="struct_u_s_b___c_l_a_s_s___s_p_e_c_i_f_i_c___a_u_d_i_o___d_a_t_a___e_p___d_e_s_c_1a54edf5aef53a663b0a83ea53fb2774ad" prot="public" virt="non-virtual"><scope>USB_CLASS_SPECIFIC_AUDIO_DATA_EP_DESC</scope><name>bLength</name></member>
+      <member refid="struct_u_s_b___c_l_a_s_s___s_p_e_c_i_f_i_c___a_u_d_i_o___d_a_t_a___e_p___d_e_s_c_1aa5c21e2ccb2e44f8044e2e1aea342c43" prot="public" virt="non-virtual"><scope>USB_CLASS_SPECIFIC_AUDIO_DATA_EP_DESC</scope><name>bLockDelayUnits</name></member>
+      <member refid="struct_u_s_b___c_l_a_s_s___s_p_e_c_i_f_i_c___a_u_d_i_o___d_a_t_a___e_p___d_e_s_c_1a6530dec850abaa613cc124c0220f9c3b" prot="public" virt="non-virtual"><scope>USB_CLASS_SPECIFIC_AUDIO_DATA_EP_DESC</scope><name>bmAttributes</name></member>
+      <member refid="struct_u_s_b___c_l_a_s_s___s_p_e_c_i_f_i_c___a_u_d_i_o___d_a_t_a___e_p___d_e_s_c_1a46dc72af958b1d70199ad85457640675" prot="public" virt="non-virtual"><scope>USB_CLASS_SPECIFIC_AUDIO_DATA_EP_DESC</scope><name>wLockDelayH</name></member>
+      <member refid="struct_u_s_b___c_l_a_s_s___s_p_e_c_i_f_i_c___a_u_d_i_o___d_a_t_a___e_p___d_e_s_c_1acc22ba0052f1ae4c24985351fe194a22" prot="public" virt="non-virtual"><scope>USB_CLASS_SPECIFIC_AUDIO_DATA_EP_DESC</scope><name>wLockDelayL</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

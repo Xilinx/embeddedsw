@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_qspi_ps___config" kind="struct" prot="public">
+    <compoundname>XQspiPs_Config</compoundname>
+    <includes local="no">xqspips.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_qspi_ps___config_1a4e35a0f844fbc0e5d2fe0fb4a475e4be" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XQspiPs_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" line="498" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" bodystart="498" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gae1d4740600c52a11e0044f7a853292e4" compoundref="xqspips__sinit_8c" startline="85" endline="98">XQspiPs_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_ps___config_1a63e87c5d7d434dcbbb745e5d4d5bfa4c" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XQspiPs_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base address of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" line="500" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" bodystart="500" bodyend="-1"/>
+        <referencedby refid="xqspips__dual__flash__stack__lqspi__example_8c_1a696e25af996b9d0106ac7529e9e72472" compoundref="xqspips__dual__flash__stack__lqspi__example_8c" startline="274" endline="463">DualStackExample</referencedby>
+        <referencedby refid="xqspips__dual__flash__lqspi__example_8c_1a57d62056b91d395bf496c958a423ad53" compoundref="xqspips__dual__flash__lqspi__example_8c" startline="269" endline="428">LinearQspiFlashExample</referencedby>
+        <referencedby refid="xqspips__flash__intr__example_8c_1a703f891e7456310dbd11f74005e2d2b4" compoundref="xqspips__flash__intr__example_8c" startline="294" endline="589">QspiFlashIntrExample</referencedby>
+        <referencedby refid="xqspips__flash__polled__example_8c_1a69d63032b37169995ad11d3c7591121c" compoundref="xqspips__flash__polled__example_8c" startline="255" endline="522">QspiFlashPolledExample</referencedby>
+        <referencedby refid="xqspips__g128__flash__example_8c_1a231588ab2ebd6c354ac94aca5820ed0f" compoundref="xqspips__g128__flash__example_8c" startline="487" endline="669">QspiG128FlashExample</referencedby>
+        <referencedby refid="xqspips__selftest__example_8c_1ac2c8e6ffe5e72246bdcb251911867317" compoundref="xqspips__selftest__example_8c" startline="124" endline="157">QspiPsSelfTestExample</referencedby>
+        <referencedby refid="group__qspips_1gafaa01b15d795ba75e438b718d5fbe92b" compoundref="xqspips_8c" startline="292" endline="336">XQspiPs_Abort</referencedby>
+        <referencedby refid="group__qspips_1gaf348b6ee07c1e3e7d01857a789e658d4" compoundref="xqspips_8c" startline="194" endline="234">XQspiPs_CfgInitialize</referencedby>
+        <referencedby refid="group__qspips_1ga6855fc350191a8273ed2363963af8f4d" compoundref="xqspips__options_8c" startline="287" endline="300">XQspiPs_GetClkPrescaler</referencedby>
+        <referencedby refid="group__qspips_1ga5f21bb46591dc0c4915f5f65cdf3a412" compoundref="xqspips__options_8c" startline="383" endline="404">XQspiPs_GetDelays</referencedby>
+        <referencedby refid="group__qspips_1ga589925a6983f4075992c431a0077cf48" compoundref="xqspips__options_8c" startline="181" endline="216">XQspiPs_GetOptions</referencedby>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1281" endline="1533">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="704" endline="1067">XQspiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__qspips_1ga5e488f0da6981f817242eee92e238d69" compoundref="xqspips_8c" startline="252" endline="274">XQspiPs_Reset</referencedby>
+        <referencedby refid="group__qspips_1gaafc1b751d17216ad037b7dd167f073f0" compoundref="xqspips__options_8c" startline="239" endline="272">XQspiPs_SetClkPrescaler</referencedby>
+        <referencedby refid="group__qspips_1gadae4c3733183129463090187c54aaaa7" compoundref="xqspips__options_8c" startline="333" endline="359">XQspiPs_SetDelays</referencedby>
+        <referencedby refid="group__qspips_1ga425ce03f19417a386c6882efb79641df" compoundref="xqspips__options_8c" startline="99" endline="162">XQspiPs_SetOptions</referencedby>
+        <referencedby refid="group__qspips_1ga8eb7e89e789b707718444125358167e9" compoundref="xqspips_8c" startline="1145" endline="1170">XQspiPs_SetSlaveSelect</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="403" endline="649">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_ps___config_1a53e34eddfa38b0ef64f40c3b35a933c5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XQspiPs_Config::InputClockHz</definition>
+        <argsstring></argsstring>
+        <name>InputClockHz</name>
+        <briefdescription>
+<para>Input clock frequency. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" line="501" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" bodystart="501" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_ps___config_1ac79a340f28f24fce2a543c77a2921755" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XQspiPs_Config::ConnectionMode</definition>
+        <argsstring></argsstring>
+        <name>ConnectionMode</name>
+        <briefdescription>
+<para>Single, Stacked and Parallel mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" line="502" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" bodystart="502" bodyend="-1"/>
+        <referencedby refid="xqspips__dual__flash__stack__lqspi__example_8c_1a696e25af996b9d0106ac7529e9e72472" compoundref="xqspips__dual__flash__stack__lqspi__example_8c" startline="274" endline="463">DualStackExample</referencedby>
+        <referencedby refid="xqspips__g128__flash__example_8c_1aca1ee50e3326d7a6bf10276be2d21391" compoundref="xqspips__g128__flash__example_8c" startline="809" endline="1032">FlashErase</referencedby>
+        <referencedby refid="xqspips__g128__flash__example_8c_1a36c56a9a6494163d17ea1a06312c6dec" compoundref="xqspips__g128__flash__example_8c" startline="1055" endline="1211">FlashReadID</referencedby>
+        <referencedby refid="xqspips__g128__flash__example_8c_1a8dcc4059afd09dacccfa2ab80669aa91" compoundref="xqspips__g128__flash__example_8c" startline="1559" endline="1620">GetRealAddr</referencedby>
+        <referencedby refid="xqspips__g128__flash__example_8c_1a231588ab2ebd6c354ac94aca5820ed0f" compoundref="xqspips__g128__flash__example_8c" startline="487" endline="669">QspiG128FlashExample</referencedby>
+        <referencedby refid="group__qspips_1gaf348b6ee07c1e3e7d01857a789e658d4" compoundref="xqspips_8c" startline="194" endline="234">XQspiPs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_ps___config_1aadbf7ca8116f29e3357a3b01537d745b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XQspiPs_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" line="504" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" bodystart="504" bodyend="-1"/>
+        <referencedby refid="xqspips__flash__intr__example_8c_1a703f891e7456310dbd11f74005e2d2b4" compoundref="xqspips__flash__intr__example_8c" startline="294" endline="589">QspiFlashIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_ps___config_1aeedb282c463a76fec3b33b1c33749530" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XQspiPs_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" line="506" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" bodystart="506" bodyend="-1"/>
+        <referencedby refid="xqspips__flash__intr__example_8c_1a703f891e7456310dbd11f74005e2d2b4" compoundref="xqspips__flash__intr__example_8c" startline="294" endline="589">QspiFlashIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" line="494" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" bodystart="494" bodyend="509"/>
+    <listofallmembers>
+      <member refid="struct_x_qspi_ps___config_1a63e87c5d7d434dcbbb745e5d4d5bfa4c" prot="public" virt="non-virtual"><scope>XQspiPs_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_qspi_ps___config_1ac79a340f28f24fce2a543c77a2921755" prot="public" virt="non-virtual"><scope>XQspiPs_Config</scope><name>ConnectionMode</name></member>
+      <member refid="struct_x_qspi_ps___config_1a53e34eddfa38b0ef64f40c3b35a933c5" prot="public" virt="non-virtual"><scope>XQspiPs_Config</scope><name>InputClockHz</name></member>
+      <member refid="struct_x_qspi_ps___config_1aadbf7ca8116f29e3357a3b01537d745b" prot="public" virt="non-virtual"><scope>XQspiPs_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_qspi_ps___config_1aeedb282c463a76fec3b33b1c33749530" prot="public" virt="non-virtual"><scope>XQspiPs_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_qspi_ps___config_1a4e35a0f844fbc0e5d2fe0fb4a475e4be" prot="public" virt="non-virtual"><scope>XQspiPs_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

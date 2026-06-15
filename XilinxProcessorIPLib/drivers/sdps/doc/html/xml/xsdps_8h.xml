@@ -1,0 +1,1914 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsdps_8h" kind="file">
+    <compoundname>xsdps.h</compoundname>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xil_cache.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xsdps__hw_8h" local="yes">xsdps_hw.h</includes>
+    <includes local="yes">xplatform_info.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <includes local="no">string.h</includes>
+    <includedby refid="xsdps__g_8c" local="yes">xsdps_g.c</includedby>
+    <includedby refid="xsdps__sinit_8c" local="yes">xsdps_sinit.c</includedby>
+    <includedby refid="xsdps__raw__example_8c" local="yes">xsdps_raw_example.c</includedby>
+    <incdepgraph>
+      <node id="15">
+        <label>sleep.h</label>
+      </node>
+      <node id="11">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="14">
+        <label>xplatform_info.h</label>
+      </node>
+      <node id="13">
+        <label>xsdps_hw.h</label>
+        <link refid="xsdps__hw_8h"/>
+      </node>
+      <node id="16">
+        <label>string.h</label>
+      </node>
+      <node id="12">
+        <label>xstatus.h</label>
+      </node>
+      <node id="9">
+        <label>xsdps.h</label>
+        <link refid="xsdps.h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="19">
+        <label>xsdps_sinit.c</label>
+        <link refid="xsdps__sinit_8c"/>
+      </node>
+      <node id="20">
+        <label>xsdps_raw_example.c</label>
+        <link refid="xsdps__raw__example_8c"/>
+      </node>
+      <node id="17">
+        <label>xsdps.h</label>
+        <link refid="xsdps.h"/>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>xsdps_g.c</label>
+        <link refid="xsdps__g_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_sd_ps___config" prot="public">XSdPs_Config</innerclass>
+    <innerclass refid="struct_x_sd_ps___adma2_descriptor32" prot="public">XSdPs_Adma2Descriptor32</innerclass>
+    <innerclass refid="struct_x_sd_ps___adma2_descriptor64" prot="public">XSdPs_Adma2Descriptor64</innerclass>
+    <innerclass refid="struct_x_sd_ps" prot="public">XSdPs</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Block size mask for 512 bytes</header>
+      <description><para>Block size mask for 512 bytes - This is the default block size. </para></description>
+      <memberdef kind="define" id="group__sdps__api_1ga893a5ec77671176e84b4885113db80f5" prot="public" static="no">
+        <name>XSDPS_BLK_SIZE_512_MASK</name>
+        <initializer>0x200U</initializer>
+        <briefdescription>
+<para>Blk Size 512. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="181" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1ga24e128116e1fd880b3ed1ffe7709e75d" compoundref="xsdps__card_8c" startline="669" endline="727">XSdPs_GetCsd</referencedby>
+        <referencedby refid="group__sdps__api_1ga90976f95bfd56ede8ee75175610c4c58" compoundref="xsdps__card_8c" startline="829" endline="847">XSdPs_HostConfig</referencedby>
+        <referencedby refid="group__sdps__api_1gae55b1aa663629e99a9da94619c7487c5" compoundref="xsdps__card_8c" startline="344" endline="390">XSdPs_MmcCardInitialize</referencedby>
+        <referencedby refid="group__sdps__api_1gab81250892c84553ab4738f038ed35edf" compoundref="xsdps__host_8c" startline="320" endline="426">XSdPs_SdModeInit</referencedby>
+        <referencedby refid="group__sdps__api_1ga78d4cd8fc91d6c32b6ed35bd86581cb3" compoundref="xsdps__host_8c" startline="219" endline="254">XSdPs_SetupTransfer</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>SD High Speed mode configuration options</header>
+      <memberdef kind="define" id="group__sdps__api_1gab6d1efc7e1e190a2a265752012d21bf7" prot="public" static="no">
+        <name>SD_HS_MODE_ENABLE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>User configuration option to enable or disable SD HS mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>By default SD HS mode is disabled for Versal and enabled for other platforms. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="300" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__sdps__api_1gad5f983cd6daadb92a96fa4e7674541cc" prot="public" static="no">
+        <name>XSDPS_CT_ERROR</name>
+        <initializer>0x2L</initializer>
+        <briefdescription>
+<para>Command timeout flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="135" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1ga121220c9912174a846e46a4c1ef388d3" compoundref="xsdps__card_8c" startline="466" endline="502">XSdPs_CardIfCond</referencedby>
+        <referencedby refid="group__sdps__api_1ga1c5c45efb0402b9d8e6a33d036dbd220" compoundref="xsdps__host_8c" startline="1586" endline="1645">XSdPs_CmdTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1gaf7596df11ad001d37fd1f4482a817270" prot="public" static="no">
+        <name>MAX_TUNING_COUNT</name>
+        <initializer>40U</initializer>
+        <briefdescription>
+<para>Maximum Tuning count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="136" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1ga089a1b91f436e99b0663b91c3038e9ce" compoundref="xsdps__card_8c" startline="1125" endline="1181">XSdPs_AutoTuning</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga85fda3522e69a1bf85f7dcd97b6023a1" prot="public" static="no">
+        <name>MAX_TIMEOUT</name>
+        <initializer>0x1FFFFFFFU</initializer>
+        <briefdescription>
+<para>Maximum Timeout. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="137" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gaf0101a5bb2238bcf0279c3e4c0a33ccb" compoundref="xsdps__card_8c" startline="924" endline="942">XSdPs_CheckBusHigh</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1gae4fc5b8635d5370e57487b3fe8084396" prot="public" static="no">
+        <name>XSDPS_CMD8_VOL_PATTERN</name>
+        <initializer>0x1AAU</initializer>
+        <briefdescription>
+<para>CMD8 voltage pattern. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="138" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1ga121220c9912174a846e46a4c1ef388d3" compoundref="xsdps__card_8c" startline="466" endline="502">XSdPs_CardIfCond</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga8ea1bb6ebaa47630e35391dda14b3c9f" prot="public" static="no">
+        <name>XSDPS_RESPOCR_READY</name>
+        <initializer>0x80000000U</initializer>
+        <briefdescription>
+<para>Ready response. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="139" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1ga6c8f3a195672b1225b967c936c2e26ca" compoundref="xsdps__card_8c" startline="514" endline="582">XSdPs_CardOpCond</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga38948ef8aebdc9fef1edde02dbfecdc7" prot="public" static="no">
+        <name>XSDPS_ACMD41_HCS</name>
+        <initializer>0x40000000U</initializer>
+        <briefdescription>
+<para>High Capacity Support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="140" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1ga6c8f3a195672b1225b967c936c2e26ca" compoundref="xsdps__card_8c" startline="514" endline="582">XSdPs_CardOpCond</referencedby>
+        <referencedby refid="group__sdps__api_1ga87790bbe65eea7bf873f401121f4a6f7" compoundref="xsdps__card_8c" startline="219" endline="265">XSdPs_IdentifyCard</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga0f1b246b9a0ce96065516e69ab486a16" prot="public" static="no">
+        <name>XSDPS_ACMD41_3V3</name>
+        <initializer>0x00300000U</initializer>
+        <briefdescription>
+<para>3.3 voltage support </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="141" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1ga6c8f3a195672b1225b967c936c2e26ca" compoundref="xsdps__card_8c" startline="514" endline="582">XSdPs_CardOpCond</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga59829d4d2c22b281cd9ab09e63c48d1f" prot="public" static="no">
+        <name>XSDPS_CMD1_HIGH_VOL</name>
+        <initializer>0x00FF8000U</initializer>
+        <briefdescription>
+<para>CMD1 for High voltage. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="142" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1ga6c8f3a195672b1225b967c936c2e26ca" compoundref="xsdps__card_8c" startline="514" endline="582">XSdPs_CardOpCond</referencedby>
+        <referencedby refid="group__sdps__api_1ga87790bbe65eea7bf873f401121f4a6f7" compoundref="xsdps__card_8c" startline="219" endline="265">XSdPs_IdentifyCard</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1gae0c50e51df911268acccdd1d8d46b878" prot="public" static="no">
+        <name>XSDPS_CMD1_DUAL_VOL</name>
+        <initializer>0x00FF8010U</initializer>
+        <briefdescription>
+<para>CMD1 for Dual voltage. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga77a17479fd0519869661c9e71b82a82c" prot="public" static="no">
+        <name>HIGH_SPEED_SUPPORT</name>
+        <initializer>0x2U</initializer>
+        <briefdescription>
+<para>High Speed support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="144" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gab81250892c84553ab4738f038ed35edf" compoundref="xsdps__host_8c" startline="320" endline="426">XSdPs_SdModeInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1gafcfa86089805c4306f98f4e3838b1858" prot="public" static="no">
+        <name>UHS_SDR12_SUPPORT</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+<para>SDR12 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga136ddd489f399b4eb82a3c8aab6717af" prot="public" static="no">
+        <name>UHS_SDR25_SUPPORT</name>
+        <initializer>0x2U</initializer>
+        <briefdescription>
+<para>SDR25 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="146" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gafe05874a0c1191faf537b69af39cdef5" compoundref="xsdps__card_8c" startline="960" endline="981">XSdPs_Identify_UhsMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga9510331005527a72f48fbe8d2ed16765" prot="public" static="no">
+        <name>UHS_SDR50_SUPPORT</name>
+        <initializer>0x4U</initializer>
+        <briefdescription>
+<para>SDR50 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="147" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gafe05874a0c1191faf537b69af39cdef5" compoundref="xsdps__card_8c" startline="960" endline="981">XSdPs_Identify_UhsMode</referencedby>
+        <referencedby refid="group__sdps__api_1gab81250892c84553ab4738f038ed35edf" compoundref="xsdps__host_8c" startline="320" endline="426">XSdPs_SdModeInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga7bad99c0dac6870ee0a0a8ca83522852" prot="public" static="no">
+        <name>UHS_SDR104_SUPPORT</name>
+        <initializer>0x8U</initializer>
+        <briefdescription>
+<para>SDR104 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="148" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gafe05874a0c1191faf537b69af39cdef5" compoundref="xsdps__card_8c" startline="960" endline="981">XSdPs_Identify_UhsMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1gab6d8b9d8dfb5c12e16fee49452b1c1b1" prot="public" static="no">
+        <name>UHS_DDR50_SUPPORT</name>
+        <initializer>0x10U</initializer>
+        <briefdescription>
+<para>DDR50 support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="149" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gafe05874a0c1191faf537b69af39cdef5" compoundref="xsdps__card_8c" startline="960" endline="981">XSdPs_Identify_UhsMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga406577df2b89f9b74838df7567268413" prot="public" static="no">
+        <name>WIDTH_4_BIT_SUPPORT</name>
+        <initializer>0x4U</initializer>
+        <briefdescription>
+<para>4-bit width support </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="150" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gab81250892c84553ab4738f038ed35edf" compoundref="xsdps__host_8c" startline="320" endline="426">XSdPs_SdModeInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1gaaa8483d5e22a34ded603eb88e1805aa0" prot="public" static="no">
+        <name>SD_CLK_25_MHZ</name>
+        <initializer>25000000U</initializer>
+        <briefdescription>
+<para>25MHz clock </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="151" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gabb269de0a2001e73f252206fa07ce1e7" compoundref="xsdps__host_8c" startline="651" endline="725">XSdPs_SdCardEnum</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga5348592d5802b364df8d3e96c0a3c454" prot="public" static="no">
+        <name>SD_CLK_19_MHZ</name>
+        <initializer>19000000U</initializer>
+        <briefdescription>
+<para>19MHz clock </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="152" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gabb269de0a2001e73f252206fa07ce1e7" compoundref="xsdps__host_8c" startline="651" endline="725">XSdPs_SdCardEnum</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga671326aa4ef3737f7f31a6c929c3604f" prot="public" static="no">
+        <name>SD_CLK_26_MHZ</name>
+        <initializer>26000000U</initializer>
+        <briefdescription>
+<para>26MHz clock </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="153" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1ga8683eac6348837f171e31b10d27c8f13" compoundref="xsdps__host_8c" startline="737" endline="795">XSdPs_MmcCardEnum</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga52d080f8ba1068e8190d52806e5a57c0" prot="public" static="no">
+        <name>EXT_CSD_DEVICE_TYPE_BYTE</name>
+        <initializer>196U</initializer>
+        <briefdescription>
+<para>CSD Device Type byte number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="154" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1ga0941061de89eef852f88a589b743983c" compoundref="xsdps__card_8c" startline="1336" endline="1392">XSdPs_IdentifyEmmcMode</referencedby>
+        <referencedby refid="group__sdps__api_1gaf6a7c6b7c9f7a52aac051af0aa6ef729" compoundref="xsdps__host_8c" startline="440" endline="494">XSdPs_MmcModeInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga99fcdcae8a8f2a00fe2fd919b6ce1dc2" prot="public" static="no">
+        <name>EXT_CSD_SEC_COUNT_BYTE1</name>
+        <initializer>212U</initializer>
+        <briefdescription>
+<para>CSD Sector count byte 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="155" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1ga643a4036059e0a3094c22f46b1adccc8" compoundref="xsdps__host_8c" startline="508" endline="586">XSdPs_EmmcModeInit</referencedby>
+        <referencedby refid="group__sdps__api_1gaf6a7c6b7c9f7a52aac051af0aa6ef729" compoundref="xsdps__host_8c" startline="440" endline="494">XSdPs_MmcModeInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga9bfc7e9f44c30d5b468eec19d2f92a1f" prot="public" static="no">
+        <name>EXT_CSD_SEC_COUNT_BYTE2</name>
+        <initializer>213U</initializer>
+        <briefdescription>
+<para>CSD Sector count byte 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="156" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1ga643a4036059e0a3094c22f46b1adccc8" compoundref="xsdps__host_8c" startline="508" endline="586">XSdPs_EmmcModeInit</referencedby>
+        <referencedby refid="group__sdps__api_1gaf6a7c6b7c9f7a52aac051af0aa6ef729" compoundref="xsdps__host_8c" startline="440" endline="494">XSdPs_MmcModeInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga87cf522720c21983a95b60ecf92c5f60" prot="public" static="no">
+        <name>EXT_CSD_SEC_COUNT_BYTE3</name>
+        <initializer>214U</initializer>
+        <briefdescription>
+<para>CSD Sector count byte 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="157" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1ga643a4036059e0a3094c22f46b1adccc8" compoundref="xsdps__host_8c" startline="508" endline="586">XSdPs_EmmcModeInit</referencedby>
+        <referencedby refid="group__sdps__api_1gaf6a7c6b7c9f7a52aac051af0aa6ef729" compoundref="xsdps__host_8c" startline="440" endline="494">XSdPs_MmcModeInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1gaed489daacfd9447abba7e2098e0d9ae4" prot="public" static="no">
+        <name>EXT_CSD_SEC_COUNT_BYTE4</name>
+        <initializer>215U</initializer>
+        <briefdescription>
+<para>CSD Sector count byte 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="158" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1ga643a4036059e0a3094c22f46b1adccc8" compoundref="xsdps__host_8c" startline="508" endline="586">XSdPs_EmmcModeInit</referencedby>
+        <referencedby refid="group__sdps__api_1gaf6a7c6b7c9f7a52aac051af0aa6ef729" compoundref="xsdps__host_8c" startline="440" endline="494">XSdPs_MmcModeInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga8ca877dc2ad27fc4802f6405af288256" prot="public" static="no">
+        <name>EXT_CSD_DEVICE_TYPE_HIGH_SPEED</name>
+        <initializer>0x2U</initializer>
+        <briefdescription>
+<para>CSD Device type HS. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="159" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1ga0941061de89eef852f88a589b743983c" compoundref="xsdps__card_8c" startline="1336" endline="1392">XSdPs_IdentifyEmmcMode</referencedby>
+        <referencedby refid="group__sdps__api_1gaf6a7c6b7c9f7a52aac051af0aa6ef729" compoundref="xsdps__host_8c" startline="440" endline="494">XSdPs_MmcModeInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga784ed6937b99829ef7a9c249a61482cf" prot="public" static="no">
+        <name>EXT_CSD_DEVICE_TYPE_DDR_1V8_HIGH_SPEED</name>
+        <initializer>0x4U</initializer>
+        <briefdescription>
+<para>CSD Dev type DDR 1.8v speed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="160" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="160" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1ga0941061de89eef852f88a589b743983c" compoundref="xsdps__card_8c" startline="1336" endline="1392">XSdPs_IdentifyEmmcMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1gab9c4b83ddf8471ff2fa8a4988ba01423" prot="public" static="no">
+        <name>EXT_CSD_DEVICE_TYPE_DDR_1V2_HIGH_SPEED</name>
+        <initializer>0x8U</initializer>
+        <briefdescription>
+<para>CSD Dev type DDR 1.2v speed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="161" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1ga0941061de89eef852f88a589b743983c" compoundref="xsdps__card_8c" startline="1336" endline="1392">XSdPs_IdentifyEmmcMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga785425c7f7070eddd02dbaf1630dba25" prot="public" static="no">
+        <name>EXT_CSD_DEVICE_TYPE_SDR_1V8_HS200</name>
+        <initializer>0x10U</initializer>
+        <briefdescription>
+<para>CSD SDR 1.8v HS200. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="162" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1ga0941061de89eef852f88a589b743983c" compoundref="xsdps__card_8c" startline="1336" endline="1392">XSdPs_IdentifyEmmcMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga5d8e27bc9f9ab98a143e6a7a7a78ed35" prot="public" static="no">
+        <name>EXT_CSD_DEVICE_TYPE_SDR_1V2_HS200</name>
+        <initializer>0x20U</initializer>
+        <briefdescription>
+<para>CSD SDR 1.2v HS200. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="163" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1ga0941061de89eef852f88a589b743983c" compoundref="xsdps__card_8c" startline="1336" endline="1392">XSdPs_IdentifyEmmcMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1gab9586aa74011d614d3b87aa6d72962be" prot="public" static="no">
+        <name>EXT_CSD_DEVICE_TYPE_DDR_1V8_HS400</name>
+        <initializer>0x40U</initializer>
+        <briefdescription>
+<para>CSD SDR 1.8v HS400. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="164" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1ga0941061de89eef852f88a589b743983c" compoundref="xsdps__card_8c" startline="1336" endline="1392">XSdPs_IdentifyEmmcMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1gad9c2fb1320f91077acfa8b78450c3863" prot="public" static="no">
+        <name>EXT_CSD_DEVICE_TYPE_DDR_1V2_HS400</name>
+        <initializer>0x80U</initializer>
+        <briefdescription>
+<para>CSD SDR 1.2v HS400. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="165" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1ga0941061de89eef852f88a589b743983c" compoundref="xsdps__card_8c" startline="1336" endline="1392">XSdPs_IdentifyEmmcMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1gabe76c4b7e5469e21fee99adcc183d663" prot="public" static="no">
+        <name>CSD_SPEC_VER_3</name>
+        <initializer>0x3U</initializer>
+        <briefdescription>
+<para>CSD card spec ver 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="166" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gae55b1aa663629e99a9da94619c7487c5" compoundref="xsdps__card_8c" startline="344" endline="390">XSdPs_MmcCardInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga40c201c512bf82c9cc12883af000fb2b" prot="public" static="no">
+        <name>SCR_SPEC_VER_3</name>
+        <initializer>0x80U</initializer>
+        <briefdescription>
+<para>SCR spec ver 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="167" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gab81250892c84553ab4738f038ed35edf" compoundref="xsdps__host_8c" startline="320" endline="426">XSdPs_SdModeInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1gaad1398373adf6de2322bf721948b891e" prot="public" static="no">
+        <name>ADDRESS_BEYOND_32BIT</name>
+        <initializer>0x100000000U</initializer>
+        <briefdescription>
+<para>Macro used for beyond 32-bit addr. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="168" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1ga4fde94c65a7c6e64e2444cb33e7d0431" compoundref="xsdps__host_8c" startline="984" endline="1014">XSdPs_SetupReadDma</referencedby>
+        <referencedby refid="group__sdps__api_1ga7deb56821f069d713aa76a10b83c4baa" compoundref="xsdps__host_8c" startline="1032" endline="1062">XSdPs_SetupWriteDma</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga206b703b7f911793694382fed5b5ff60" prot="public" static="no">
+        <name>XSDPS_ZYNQMP_SD0_BASE</name>
+        <initializer>0xFF160000U</initializer>
+        <briefdescription>
+<para>ZynqMP SD0 Baseaddress. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="170" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gacf453a36b7ec19fb4b5dbfda827cc6a7" compoundref="xsdps__host_8c" startline="1315" endline="1448">XSdPs_ConfigTapDelay</referencedby>
+        <referencedby refid="group__sdps__api_1gaf51d4f72c727b7d28592ac797fe5d467" compoundref="xsdps__host_8c" startline="1260" endline="1300">XSdPs_DllRstCtrl</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga20a4495876d4efadbb543db0974af396" prot="public" static="no">
+        <name>XSDPS_ZYNQMP_SD1_BASE</name>
+        <initializer>0xFF170000U</initializer>
+        <briefdescription>
+<para>ZynqMP SD1 Baseaddress. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="171" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga595cc431f6b2f4697e6d39f20ca7e2ea" prot="public" static="no">
+        <name>XSDPS_VERSAL_SD0_BASE</name>
+        <initializer>0xF1040000U</initializer>
+        <briefdescription>
+<para>Versal SD0 Baseaddress. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="172" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga141c6ee970bedfb72b987c201844dcde" prot="public" static="no">
+        <name>XSDPS_VERSAL_SD1_BASE</name>
+        <initializer>0xF1050000U</initializer>
+        <briefdescription>
+<para>Versal SD1 Baseaddress. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdps__api_1ga98b954d28a6cea0c477bbd189ce48ddb" prot="public" static="no">
+        <name>ENABLE_HS400_MODE</name>
+        <briefdescription>
+<para>Enable eMMC HS400 mode for Versal Net platform. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="307" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__sdps__api_1ga29c3d4542867ad2d0c8fcf48f46b8845" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_sd_ps___config" kindref="compound">XSdPs_Config</ref></type>
+        <definition>XSdPs_Config XSdPs_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XSdPs_ConfigTable</name>
+        <briefdescription>
+<para><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> Configuration Table. </para>        </briefdescription>
+        <detaileddescription>
+<para><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> Configuration Table. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps_g.c" bodystart="39" bodyend="-1"/>
+        <referencedby refid="group__sdps__api_1gab155865689d6bdec2c089166799a423d" compoundref="xsdps__sinit_8c" startline="84" endline="97">XSdPs_LookupConfig</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__sdps__api_1gab155865689d6bdec2c089166799a423d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_sd_ps___config" kindref="compound">XSdPs_Config</ref> *</type>
+        <definition>XSdPs_Config * XSdPs_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdPs_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Looks up the device configuration based on the unique device ID/BaseAddress. </para>        </briefdescription>
+        <detaileddescription>
+<para>The XSdPs_ConfigTable[] contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration found or NULL if the specified device ID/BaseAddress was not found. See <ref refid="xsdps_8h" kindref="compound">xsdps.h</ref> for the definition of <ref refid="struct_x_sd_ps___config" kindref="compound">XSdPs_Config</ref>.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps_sinit.c" bodystart="84" bodyend="97"/>
+        <references refid="struct_x_sd_ps___config_1a4f676512430e5cd1e0485b2d37a79c23" compoundref="xsdps_8h" startline="194">XSdPs_Config::Name</references>
+        <references refid="group__sdps__api_1ga29c3d4542867ad2d0c8fcf48f46b8845" compoundref="xsdps__g_8c" startline="39">XSdPs_ConfigTable</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1gaf99da6fcfbc311afcd2d6e8a94c5fe55" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_CfgInitialize</definition>
+        <argsstring>(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XSdPs_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_sd_ps___config" kindref="compound">XSdPs_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>Initializes a specific <ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> instance so that the driver is ready to use. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reference to a structure containing information about a specific SD device. This function initializes an InstancePtr object for a specific device specified by the contents of Configuration. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, use ConfigPtr-&gt;Config. BaseAddress for this device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_DEVICE_IS_STARTED if the device is already started. It must be stopped to re-initialize.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function initializes the host controller. Initial clock of 400 KHz is set. Voltage of 3.3 V is selected as that is supported by host. Interrupts status is enabled and signal disabled by default. Default data direction is card to host and 32 bit ADMA2 is selected. Default Block size is 512 bytes. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" bodystart="144" bodyend="222"/>
+        <references refid="struct_x_sd_ps___config_1a7fe36b608a4251f5b93c9c74cfb85e08" compoundref="xsdps_8h" startline="201">XSdPs_Config::BankNumber</references>
+        <references refid="struct_x_sd_ps___config_1a18fc4a81c465a70686b9a3c038e3dbc0" compoundref="xsdps_8h" startline="196">XSdPs_Config::BaseAddress</references>
+        <references refid="struct_x_sd_ps_1a9f2cc68e1e0155d5a70c6d7323fe39c9" compoundref="xsdps_8h" startline="281">XSdPs::BlkSize</references>
+        <references refid="struct_x_sd_ps___config_1aea317a5fc926ce97c26cd7deeecb0c0f" compoundref="xsdps_8h" startline="200">XSdPs_Config::BusWidth</references>
+        <references refid="struct_x_sd_ps___config_1a494f4186575a737efe3f8b3b9848c3c7" compoundref="xsdps_8h" startline="198">XSdPs_Config::CardDetect</references>
+        <references refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" compoundref="xsdps_8h" startline="258">XSdPs::Config</references>
+        <references refid="struct_x_sd_ps_1af0e45cda323df91369aa88c61d8e00e2" compoundref="xsdps_8h" startline="277">XSdPs::Dma64BitAddr</references>
+        <references refid="struct_x_sd_ps___config_1a892a82eef72bba816d1576cc8b4aa1ba" compoundref="xsdps_8h" startline="202">XSdPs_Config::HasEMIO</references>
+        <references refid="struct_x_sd_ps_1a11d4222e3ecae1a01aa4c3e34a00ef35" compoundref="xsdps_8h" startline="265">XSdPs::HC_Version</references>
+        <references refid="struct_x_sd_ps_1ad8613960aa0353d5a3515d9bc8d8540a" compoundref="xsdps_8h" startline="260">XSdPs::Host_Caps</references>
+        <references refid="struct_x_sd_ps___config_1a0f3c5d739bd1567d28b1ef827aedc75b" compoundref="xsdps_8h" startline="197">XSdPs_Config::InputClockHz</references>
+        <references refid="struct_x_sd_ps_1aae169220856ab624877027540c585b93" compoundref="xsdps_8h" startline="280">XSdPs::IsBusy</references>
+        <references refid="struct_x_sd_ps___config_1a1f220a7f0690a1d0c7fd0a95b5cec14c" compoundref="xsdps_8h" startline="204">XSdPs_Config::IsCacheCoherent</references>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="struct_x_sd_ps_1af363c990cbd2a7c2ac2fedef7041f082" compoundref="xsdps_8h" startline="282">XSdPs::IsTuningDone</references>
+        <references refid="struct_x_sd_ps_1ace5e3ce5b40302079652d5244fc26461" compoundref="xsdps_8h" startline="276">XSdPs::ITapDelay</references>
+        <references refid="struct_x_sd_ps___config_1a14ecdc28f2bfb7947ac241e0025b78b5" compoundref="xsdps_8h" startline="210">XSdPs_Config::ITapDly_DDR_Clk50</references>
+        <references refid="struct_x_sd_ps___config_1a6fb9aee8d2b99bd35fc1f328425ea86f" compoundref="xsdps_8h" startline="208">XSdPs_Config::ITapDly_SDR_Clk50</references>
+        <references refid="struct_x_sd_ps_1a2958388759de8ad51b37dcd814f96be3" compoundref="xsdps_8h" startline="274">XSdPs::Mode</references>
+        <references refid="struct_x_sd_ps_1a5c05548361b08986315685d826851c3c" compoundref="xsdps_8h" startline="275">XSdPs::OTapDelay</references>
+        <references refid="struct_x_sd_ps___config_1a2ab8b411b04ba543826fdd91794b4c87" compoundref="xsdps_8h" startline="214">XSdPs_Config::OTapDly_DDR_Clk200</references>
+        <references refid="struct_x_sd_ps___config_1a97d8fe542ee0224d85448f3e0cc1877c" compoundref="xsdps_8h" startline="211">XSdPs_Config::OTapDly_DDR_Clk50</references>
+        <references refid="struct_x_sd_ps___config_1a6c15fcbb080e3e2b428135eb21c02d8b" compoundref="xsdps_8h" startline="212">XSdPs_Config::OTapDly_SDR_Clk100</references>
+        <references refid="struct_x_sd_ps___config_1a365ea7869549e591ca1e48a3c89d91ca" compoundref="xsdps_8h" startline="213">XSdPs_Config::OTapDly_SDR_Clk200</references>
+        <references refid="struct_x_sd_ps___config_1ab88ed07cfc347e97ac5391b602081b4c" compoundref="xsdps_8h" startline="209">XSdPs_Config::OTapDly_SDR_Clk50</references>
+        <references refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" compoundref="xsdps_8h" startline="206">XSdPs_Config::RefClk</references>
+        <references refid="struct_x_sd_ps_1afb72007125fc5046392961ad99999ad9" compoundref="xsdps_8h" startline="272">XSdPs::SectorCount</references>
+        <references refid="struct_x_sd_ps_1a227dd8d81f553fb5d647a3a21b42d0c6" compoundref="xsdps_8h" startline="279">XSdPs::SlcrBaseAddr</references>
+        <references refid="struct_x_sd_ps___config_1a97543575628c859c83c69a772df955ee" compoundref="xsdps_8h" startline="203">XSdPs_Config::SlotType</references>
+        <references refid="struct_x_sd_ps___config_1a096af7ddafe53bdf7e4359f3555ae2c4" compoundref="xsdps_8h" startline="199">XSdPs_Config::WriteProtect</references>
+        <references refid="group__sdps__api_1ga90976f95bfd56ede8ee75175610c4c58" compoundref="xsdps__card_8c" startline="829" endline="847">XSdPs_HostConfig</references>
+        <references refid="group__sdps__api_1ga43c82653cd80c9c1eb82db2eec0d7718" compoundref="xsdps__card_8c" startline="787" endline="817">XSdPs_ResetConfig</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1ga3c3ab46b98e997b8439af4b149445811" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_CardInitialize</definition>
+        <argsstring>(XSdPs *InstancePtr)</argsstring>
+        <name>XSdPs_CardInitialize</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Initializes Card with Identification mode sequence. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful</para></listitem><listitem><para>XST_FAILURE if failure - could be because a) SD is already initialized b) There is no card inserted c) One of the steps (commands) in the initialization cycle failed </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" bodystart="243" bodyend="295"/>
+        <references refid="struct_x_sd_ps_1aa22055804ffd9cbe6885b2abe40fee86" compoundref="xsdps_8h" startline="267">XSdPs::BusSpeed</references>
+        <references refid="struct_x_sd_ps_1a069e352a2e02b9a9c0f61787549817db" compoundref="xsdps_8h" startline="266">XSdPs::BusWidth</references>
+        <references refid="struct_x_sd_ps_1ace9a2dd34b39f3100f97fcd50883f833" compoundref="xsdps_8h" startline="263">XSdPs::CardType</references>
+        <references refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" compoundref="xsdps_8h" startline="258">XSdPs::Config</references>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" compoundref="xsdps_8h" startline="206">XSdPs_Config::RefClk</references>
+        <references refid="struct_x_sd_ps_1ad43dbd76cb2740f110f3088a8b592006" compoundref="xsdps_8h" startline="268">XSdPs::Switch1v8</references>
+        <references refid="group__sdps__api_1ga1f8661e4ae53a7c29b3fd44cc56a3673" compoundref="xsdps__options_8c" startline="99" endline="148">XSdPs_Change_ClkFreq</references>
+        <references refid="group__sdps__api_1ga87790bbe65eea7bf873f401121f4a6f7" compoundref="xsdps__card_8c" startline="219" endline="265">XSdPs_IdentifyCard</references>
+        <references refid="group__sdps__api_1gae55b1aa663629e99a9da94619c7487c5" compoundref="xsdps__card_8c" startline="344" endline="390">XSdPs_MmcCardInitialize</references>
+        <references refid="group__sdps__api_1ga8e9a576dfdb4440a795eb6e712994050" compoundref="xsdps__card_8c" startline="293" endline="318">XSdPs_SdCardInitialize</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1ga8dfe3686ed74d09a2a46a7b5cddcde47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_ReadPolled</definition>
+        <argsstring>(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)</argsstring>
+        <name>XSdPs_ReadPolled</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Arg</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BlkCnt</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Buff</declname>
+        </param>
+        <briefdescription>
+<para>Performs SD read in polled mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Arg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address passed by the user that is to be sent as argument along with the command. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BlkCnt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Block count passed by the user. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Buff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the data buffer for a DMA transfer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful</para></listitem><listitem><para>XST_FAILURE if failure - could be because another transfer is in progress or command or data inhibit is set </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" line="314" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" bodystart="314" bodyend="366"/>
+        <references refid="struct_x_sd_ps_1a9f2cc68e1e0155d5a70c6d7323fe39c9" compoundref="xsdps_8h" startline="281">XSdPs::BlkSize</references>
+        <references refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" compoundref="xsdps_8h" startline="258">XSdPs::Config</references>
+        <references refid="struct_x_sd_ps_1aae169220856ab624877027540c585b93" compoundref="xsdps_8h" startline="280">XSdPs::IsBusy</references>
+        <references refid="struct_x_sd_ps___config_1a1f220a7f0690a1d0c7fd0a95b5cec14c" compoundref="xsdps_8h" startline="204">XSdPs_Config::IsCacheCoherent</references>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" compoundref="xsdps_8h" startline="206">XSdPs_Config::RefClk</references>
+        <references refid="group__sdps__api_1gaaa85509249cb90b33c8a201a751bdd8f" compoundref="xsdps__host_8c" startline="1656" endline="1692">XSdps_CheckTransferDone</references>
+        <references refid="group__sdps__api_1ga15e41cb3481e66918efd4ad7db154b62" compoundref="xsdps__card_8c" startline="76" endline="105">XSdPs_Read</references>
+        <references refid="group__sdps__api_1ga78d4cd8fc91d6c32b6ed35bd86581cb3" compoundref="xsdps__host_8c" startline="219" endline="254">XSdPs_SetupTransfer</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1ga69aa57979c1ef9b9ec3fbdc6d8ab7277" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_WritePolled</definition>
+        <argsstring>(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff)</argsstring>
+        <name>XSdPs_WritePolled</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Arg</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BlkCnt</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Buff</declname>
+        </param>
+        <briefdescription>
+<para>Performs SD write in polled mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Arg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address passed by the user that is to be sent as argument along with the command. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BlkCnt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Block count passed by the user. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Buff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the data buffer for a DMA transfer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful</para></listitem><listitem><para>XST_FAILURE if failure - could be because another transfer is in progress or command or data inhibit is set </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" line="385" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" bodystart="385" bodyend="427"/>
+        <references refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" compoundref="xsdps_8h" startline="258">XSdPs::Config</references>
+        <references refid="struct_x_sd_ps_1aae169220856ab624877027540c585b93" compoundref="xsdps_8h" startline="280">XSdPs::IsBusy</references>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" compoundref="xsdps_8h" startline="206">XSdPs_Config::RefClk</references>
+        <references refid="group__sdps__api_1gaaa85509249cb90b33c8a201a751bdd8f" compoundref="xsdps__host_8c" startline="1656" endline="1692">XSdps_CheckTransferDone</references>
+        <references refid="group__sdps__api_1ga78d4cd8fc91d6c32b6ed35bd86581cb3" compoundref="xsdps__host_8c" startline="219" endline="254">XSdPs_SetupTransfer</references>
+        <references refid="group__sdps__api_1gac51519692c6bb54d91aaecb8bcf957d1" compoundref="xsdps__card_8c" startline="124" endline="153">XSdPs_Write</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1ga88cdddd905825791ef9b682eb5adfff8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_Idle</definition>
+        <argsstring>(XSdPs *InstancePtr)</argsstring>
+        <name>XSdPs_Idle</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>API to idle the SDIO Interface. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" line="442" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" bodystart="442" bodyend="479"/>
+        <references refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" compoundref="xsdps_8h" startline="258">XSdPs::Config</references>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" compoundref="xsdps_8h" startline="206">XSdPs_Config::RefClk</references>
+        <references refid="group__sdps__api_1ga3c9d104a1d7f9e14d8b2b79fbb47702d" compoundref="xsdps__host_8c" startline="1705" endline="1727">XSdPs_CheckBusIdle</references>
+        <references refid="group__sdps__api_1gaa42580dd8c7438e838e274579d9c4be3" compoundref="xsdps__host_8c" startline="598" endline="611">XSdPs_DisableBusPower</references>
+        <references refid="group__sdps__api_1gab802e347cc12cdd73d4d9dd7737535e6" compoundref="xsdps__host_8c" startline="269" endline="285">XSdPs_Reset</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1ga6bc000fb4ce51502058f2e351c90fc19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_Change_BusSpeed</definition>
+        <argsstring>(XSdPs *InstancePtr)</argsstring>
+        <name>XSdPs_Change_BusSpeed</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Sets high speed in card and host. </para>        </briefdescription>
+        <detaileddescription>
+<para>Changes clock in host accordingly.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if fail. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="332" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps_options.c" bodystart="523" bodyend="586"/>
+        <references refid="struct_x_sd_ps___config_1a18fc4a81c465a70686b9a3c038e3dbc0" compoundref="xsdps_8h" startline="196">XSdPs_Config::BaseAddress</references>
+        <references refid="struct_x_sd_ps_1aa22055804ffd9cbe6885b2abe40fee86" compoundref="xsdps_8h" startline="267">XSdPs::BusSpeed</references>
+        <references refid="struct_x_sd_ps_1ace9a2dd34b39f3100f97fcd50883f833" compoundref="xsdps_8h" startline="263">XSdPs::CardType</references>
+        <references refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" compoundref="xsdps_8h" startline="258">XSdPs::Config</references>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="struct_x_sd_ps_1af363c990cbd2a7c2ac2fedef7041f082" compoundref="xsdps_8h" startline="282">XSdPs::IsTuningDone</references>
+        <references refid="struct_x_sd_ps_1a2958388759de8ad51b37dcd814f96be3" compoundref="xsdps_8h" startline="274">XSdPs::Mode</references>
+        <references refid="group__sdps__api_1ga1f8661e4ae53a7c29b3fd44cc56a3673" compoundref="xsdps__options_8c" startline="99" endline="148">XSdPs_Change_ClkFreq</references>
+        <references refid="group__sdps__api_1ga9dee6f11ef102eebf0440c20ec1caa8c" compoundref="xsdps__card_8c" startline="1085" endline="1113">XSdPs_Change_MmcBusSpeed</references>
+        <references refid="group__sdps__api_1ga273b141e9bacac12fd3b3123b7827faa" compoundref="xsdps__card_8c" startline="1026" endline="1073">XSdPs_Change_SdBusSpeed</references>
+        <references refid="group__sdps__api_1gad8446a2398d2a9d346f9a52bf700f42d" compoundref="xsdps__host_8c" startline="807" endline="843">XSdPs_Execute_Tuning</references>
+        <referencedby refid="group__sdps__api_1ga643a4036059e0a3094c22f46b1adccc8" compoundref="xsdps__host_8c" startline="508" endline="586">XSdPs_EmmcModeInit</referencedby>
+        <referencedby refid="group__sdps__api_1gaf6a7c6b7c9f7a52aac051af0aa6ef729" compoundref="xsdps__host_8c" startline="440" endline="494">XSdPs_MmcModeInit</referencedby>
+        <referencedby refid="group__sdps__api_1gab81250892c84553ab4738f038ed35edf" compoundref="xsdps__host_8c" startline="320" endline="426">XSdPs_SdModeInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1ga1f8661e4ae53a7c29b3fd44cc56a3673" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_Change_ClkFreq</definition>
+        <argsstring>(XSdPs *InstancePtr, u32 SelFreq)</argsstring>
+        <name>XSdPs_Change_ClkFreq</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SelFreq</declname>
+        </param>
+        <briefdescription>
+<para>API to change clock frequency to a given value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SelFreq</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Clock frequency in Hz.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>This API will change clock frequency to the value less than or equal to the given value using the permissible dividers. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps_options.c" bodystart="99" bodyend="148"/>
+        <references refid="struct_x_sd_ps___config_1a18fc4a81c465a70686b9a3c038e3dbc0" compoundref="xsdps_8h" startline="196">XSdPs_Config::BaseAddress</references>
+        <references refid="struct_x_sd_ps_1ace9a2dd34b39f3100f97fcd50883f833" compoundref="xsdps_8h" startline="263">XSdPs::CardType</references>
+        <references refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" compoundref="xsdps_8h" startline="258">XSdPs::Config</references>
+        <references refid="struct_x_sd_ps_1a11d4222e3ecae1a01aa4c3e34a00ef35" compoundref="xsdps_8h" startline="265">XSdPs::HC_Version</references>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="struct_x_sd_ps_1ace5e3ce5b40302079652d5244fc26461" compoundref="xsdps_8h" startline="276">XSdPs::ITapDelay</references>
+        <references refid="struct_x_sd_ps_1a2958388759de8ad51b37dcd814f96be3" compoundref="xsdps_8h" startline="274">XSdPs::Mode</references>
+        <references refid="struct_x_sd_ps_1a5c05548361b08986315685d826851c3c" compoundref="xsdps_8h" startline="275">XSdPs::OTapDelay</references>
+        <references refid="group__sdps__api_1ga45d325b142a6526ec0468d1fbc34c471" compoundref="xsdps__card_8c" startline="1456" endline="1538">XSdPs_SetClock</references>
+        <references refid="group__sdps__api_1ga172c91b6b33e2e94ded0c3d58797411d" compoundref="xsdps__card_8c" startline="995" endline="1014">XSdPs_SetTapDelay</references>
+        <referencedby refid="group__sdps__api_1ga3c3ab46b98e997b8439af4b149445811" compoundref="xsdps_8c" startline="243" endline="295">XSdPs_CardInitialize</referencedby>
+        <referencedby refid="group__sdps__api_1ga6bc000fb4ce51502058f2e351c90fc19" compoundref="xsdps__options_8c" startline="523" endline="586">XSdPs_Change_BusSpeed</referencedby>
+        <referencedby refid="group__sdps__api_1ga8683eac6348837f171e31b10d27c8f13" compoundref="xsdps__host_8c" startline="737" endline="795">XSdPs_MmcCardEnum</referencedby>
+        <referencedby refid="group__sdps__api_1gabb269de0a2001e73f252206fa07ce1e7" compoundref="xsdps__host_8c" startline="651" endline="725">XSdPs_SdCardEnum</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1ga0be8518af877aa1fe5f7c6b86ac4f7f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_Pullup</definition>
+        <argsstring>(XSdPs *InstancePtr)</argsstring>
+        <name>XSdPs_Pullup</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Sends pullup command to card before using DAT line 3(using 4-bit bus). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if fail. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps_options.c" bodystart="713" bodyend="738"/>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="struct_x_sd_ps_1a6c40b5686bd92c1a00b208cce84583c7" compoundref="xsdps_8h" startline="270">XSdPs::RelCardAddr</references>
+        <references refid="group__sdps__api_1ga1c5c45efb0402b9d8e6a33d036dbd220" compoundref="xsdps__host_8c" startline="1586" endline="1645">XSdPs_CmdTransfer</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1ga864452e1802367600d196ccc37310f7c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_Get_BusWidth</definition>
+        <argsstring>(XSdPs *InstancePtr, u8 *ReadBuff)</argsstring>
+        <name>XSdPs_Get_BusWidth</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ReadBuff</declname>
+        </param>
+        <briefdescription>
+<para>Gets bus width support by card. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReadBuff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer to store SCR register returned by card.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if fail.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps_options.c" bodystart="211" bodyend="266"/>
+        <references refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" compoundref="xsdps_8h" startline="258">XSdPs::Config</references>
+        <references refid="struct_x_sd_ps___config_1a1f220a7f0690a1d0c7fd0a95b5cec14c" compoundref="xsdps_8h" startline="204">XSdPs_Config::IsCacheCoherent</references>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="struct_x_sd_ps_1a6c40b5686bd92c1a00b208cce84583c7" compoundref="xsdps_8h" startline="270">XSdPs::RelCardAddr</references>
+        <references refid="group__sdps__api_1gaaa85509249cb90b33c8a201a751bdd8f" compoundref="xsdps__host_8c" startline="1656" endline="1692">XSdps_CheckTransferDone</references>
+        <references refid="group__sdps__api_1ga1c5c45efb0402b9d8e6a33d036dbd220" compoundref="xsdps__host_8c" startline="1586" endline="1645">XSdPs_CmdTransfer</references>
+        <references refid="group__sdps__api_1ga4fde94c65a7c6e64e2444cb33e7d0431" compoundref="xsdps__host_8c" startline="984" endline="1014">XSdPs_SetupReadDma</references>
+        <referencedby refid="group__sdps__api_1gab81250892c84553ab4738f038ed35edf" compoundref="xsdps__host_8c" startline="320" endline="426">XSdPs_SdModeInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1gaf11db1719933123762fecb790a2977da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_Change_BusWidth</definition>
+        <argsstring>(XSdPs *InstancePtr)</argsstring>
+        <name>XSdPs_Change_BusWidth</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Sets bus width to 4-bit in card and host. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if fail. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps_options.c" bodystart="283" bodyend="369"/>
+        <references refid="struct_x_sd_ps___config_1a18fc4a81c465a70686b9a3c038e3dbc0" compoundref="xsdps_8h" startline="196">XSdPs_Config::BaseAddress</references>
+        <references refid="struct_x_sd_ps___config_1aea317a5fc926ce97c26cd7deeecb0c0f" compoundref="xsdps_8h" startline="200">XSdPs_Config::BusWidth</references>
+        <references refid="struct_x_sd_ps_1a069e352a2e02b9a9c0f61787549817db" compoundref="xsdps_8h" startline="266">XSdPs::BusWidth</references>
+        <references refid="struct_x_sd_ps_1ace9a2dd34b39f3100f97fcd50883f833" compoundref="xsdps_8h" startline="263">XSdPs::CardType</references>
+        <references refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" compoundref="xsdps_8h" startline="258">XSdPs::Config</references>
+        <references refid="struct_x_sd_ps_1a11d4222e3ecae1a01aa4c3e34a00ef35" compoundref="xsdps_8h" startline="265">XSdPs::HC_Version</references>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="struct_x_sd_ps_1a2958388759de8ad51b37dcd814f96be3" compoundref="xsdps_8h" startline="274">XSdPs::Mode</references>
+        <references refid="struct_x_sd_ps_1a6c40b5686bd92c1a00b208cce84583c7" compoundref="xsdps_8h" startline="270">XSdPs::RelCardAddr</references>
+        <references refid="group__sdps__api_1ga1c5c45efb0402b9d8e6a33d036dbd220" compoundref="xsdps__host_8c" startline="1586" endline="1645">XSdPs_CmdTransfer</references>
+        <references refid="group__sdps__api_1gaee773eef8e260b4498dc607061eb18f6" compoundref="xsdps__options_8c" startline="671" endline="696">XSdPs_Set_Mmc_ExtCsd</references>
+        <referencedby refid="group__sdps__api_1ga643a4036059e0a3094c22f46b1adccc8" compoundref="xsdps__host_8c" startline="508" endline="586">XSdPs_EmmcModeInit</referencedby>
+        <referencedby refid="group__sdps__api_1gaf6a7c6b7c9f7a52aac051af0aa6ef729" compoundref="xsdps__host_8c" startline="440" endline="494">XSdPs_MmcModeInit</referencedby>
+        <referencedby refid="group__sdps__api_1gab81250892c84553ab4738f038ed35edf" compoundref="xsdps__host_8c" startline="320" endline="426">XSdPs_SdModeInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1gafc7e71cb62142d0ef939336195102666" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_Get_BusSpeed</definition>
+        <argsstring>(XSdPs *InstancePtr, u8 *ReadBuff)</argsstring>
+        <name>XSdPs_Get_BusSpeed</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ReadBuff</declname>
+        </param>
+        <briefdescription>
+<para>Gets bus speed supported by card. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReadBuff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer to store function group support data returned by card.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if fail.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps_options.c" bodystart="389" bodyend="439"/>
+        <references refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" compoundref="xsdps_8h" startline="258">XSdPs::Config</references>
+        <references refid="struct_x_sd_ps___config_1a1f220a7f0690a1d0c7fd0a95b5cec14c" compoundref="xsdps_8h" startline="204">XSdPs_Config::IsCacheCoherent</references>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="group__sdps__api_1gaaa85509249cb90b33c8a201a751bdd8f" compoundref="xsdps__host_8c" startline="1656" endline="1692">XSdps_CheckTransferDone</references>
+        <references refid="group__sdps__api_1ga1c5c45efb0402b9d8e6a33d036dbd220" compoundref="xsdps__host_8c" startline="1586" endline="1645">XSdPs_CmdTransfer</references>
+        <references refid="group__sdps__api_1ga4fde94c65a7c6e64e2444cb33e7d0431" compoundref="xsdps__host_8c" startline="984" endline="1014">XSdPs_SetupReadDma</references>
+        <referencedby refid="group__sdps__api_1gab81250892c84553ab4738f038ed35edf" compoundref="xsdps__host_8c" startline="320" endline="426">XSdPs_SdModeInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1ga69e8d7cd927da4273a12d0d5fb3f36ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_Get_Mmc_ExtCsd</definition>
+        <argsstring>(XSdPs *InstancePtr, u8 *ReadBuff)</argsstring>
+        <name>XSdPs_Get_Mmc_ExtCsd</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ReadBuff</declname>
+        </param>
+        <briefdescription>
+<para>Gets EXT_CSD register of eMMC. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReadBuff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer to store EXT_CSD</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if fail. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="338" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps_options.c" bodystart="604" bodyend="653"/>
+        <references refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" compoundref="xsdps_8h" startline="258">XSdPs::Config</references>
+        <references refid="struct_x_sd_ps___config_1a1f220a7f0690a1d0c7fd0a95b5cec14c" compoundref="xsdps_8h" startline="204">XSdPs_Config::IsCacheCoherent</references>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="group__sdps__api_1gaaa85509249cb90b33c8a201a751bdd8f" compoundref="xsdps__host_8c" startline="1656" endline="1692">XSdps_CheckTransferDone</references>
+        <references refid="group__sdps__api_1ga1c5c45efb0402b9d8e6a33d036dbd220" compoundref="xsdps__host_8c" startline="1586" endline="1645">XSdPs_CmdTransfer</references>
+        <references refid="group__sdps__api_1ga4fde94c65a7c6e64e2444cb33e7d0431" compoundref="xsdps__host_8c" startline="984" endline="1014">XSdPs_SetupReadDma</references>
+        <referencedby refid="group__sdps__api_1gaa0025016d626fdafc3ed1dc856834f12" compoundref="xsdps__card_8c" startline="1405" endline="1443">XSdPs_CheckEmmcTiming</referencedby>
+        <referencedby refid="group__sdps__api_1ga643a4036059e0a3094c22f46b1adccc8" compoundref="xsdps__host_8c" startline="508" endline="586">XSdPs_EmmcModeInit</referencedby>
+        <referencedby refid="group__sdps__api_1gaf6a7c6b7c9f7a52aac051af0aa6ef729" compoundref="xsdps__host_8c" startline="440" endline="494">XSdPs_MmcModeInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1gaee773eef8e260b4498dc607061eb18f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_Set_Mmc_ExtCsd</definition>
+        <argsstring>(XSdPs *InstancePtr, u32 Arg)</argsstring>
+        <name>XSdPs_Set_Mmc_ExtCsd</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Arg</declname>
+        </param>
+        <briefdescription>
+<para>Writes EXT_CSD register of eMMC. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Arg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Argument to be sent along with the command.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if fail. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps_options.c" bodystart="671" bodyend="696"/>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="group__sdps__api_1gaaa85509249cb90b33c8a201a751bdd8f" compoundref="xsdps__host_8c" startline="1656" endline="1692">XSdps_CheckTransferDone</references>
+        <references refid="group__sdps__api_1ga1c5c45efb0402b9d8e6a33d036dbd220" compoundref="xsdps__host_8c" startline="1586" endline="1645">XSdPs_CmdTransfer</references>
+        <referencedby refid="group__sdps__api_1gaf11db1719933123762fecb790a2977da" compoundref="xsdps__options_8c" startline="283" endline="369">XSdPs_Change_BusWidth</referencedby>
+        <referencedby refid="group__sdps__api_1ga643a4036059e0a3094c22f46b1adccc8" compoundref="xsdps__host_8c" startline="508" endline="586">XSdPs_EmmcModeInit</referencedby>
+        <referencedby refid="group__sdps__api_1gad748650bd8ac568583551f6ef14b498a" compoundref="xsdps_8c" startline="572" endline="599">XSdPs_Sanitize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1ga1af3178b4b24c991b431eb7a0aa3b23b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_SetBlkSize</definition>
+        <argsstring>(XSdPs *InstancePtr, u16 BlkSize)</argsstring>
+        <name>XSdPs_SetBlkSize</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>BlkSize</declname>
+        </param>
+        <briefdescription>
+<para>Updates Block size for read/write operations. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BlkSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Block size passed by the user.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps_options.c" bodystart="161" bodyend="192"/>
+        <references refid="struct_x_sd_ps___config_1a18fc4a81c465a70686b9a3c038e3dbc0" compoundref="xsdps_8h" startline="196">XSdPs_Config::BaseAddress</references>
+        <references refid="struct_x_sd_ps_1a9f2cc68e1e0155d5a70c6d7323fe39c9" compoundref="xsdps_8h" startline="281">XSdPs::BlkSize</references>
+        <references refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" compoundref="xsdps_8h" startline="258">XSdPs::Config</references>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="group__sdps__api_1ga3c9d104a1d7f9e14d8b2b79fbb47702d" compoundref="xsdps__host_8c" startline="1705" endline="1727">XSdPs_CheckBusIdle</references>
+        <references refid="group__sdps__api_1ga1c5c45efb0402b9d8e6a33d036dbd220" compoundref="xsdps__host_8c" startline="1586" endline="1645">XSdPs_CmdTransfer</references>
+        <referencedby refid="group__sdps__api_1gae55b1aa663629e99a9da94619c7487c5" compoundref="xsdps__card_8c" startline="344" endline="390">XSdPs_MmcCardInitialize</referencedby>
+        <referencedby refid="group__sdps__api_1gab81250892c84553ab4738f038ed35edf" compoundref="xsdps__host_8c" startline="320" endline="426">XSdPs_SdModeInit</referencedby>
+        <referencedby refid="group__sdps__api_1ga78d4cd8fc91d6c32b6ed35bd86581cb3" compoundref="xsdps__host_8c" startline="219" endline="254">XSdPs_SetupTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1gaa26e9b4a046701024b01b1b0cb48ed08" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_Get_Status</definition>
+        <argsstring>(XSdPs *InstancePtr, u8 *SdStatReg)</argsstring>
+        <name>XSdPs_Get_Status</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>SdStatReg</declname>
+        </param>
+        <briefdescription>
+<para>Gets SD card status information. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SdStatReg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer to store status data returned by card.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if fail. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps_options.c" bodystart="457" bodyend="506"/>
+        <references refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" compoundref="xsdps_8h" startline="258">XSdPs::Config</references>
+        <references refid="struct_x_sd_ps___config_1a1f220a7f0690a1d0c7fd0a95b5cec14c" compoundref="xsdps_8h" startline="204">XSdPs_Config::IsCacheCoherent</references>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="struct_x_sd_ps_1a6c40b5686bd92c1a00b208cce84583c7" compoundref="xsdps_8h" startline="270">XSdPs::RelCardAddr</references>
+        <references refid="group__sdps__api_1gaaa85509249cb90b33c8a201a751bdd8f" compoundref="xsdps__host_8c" startline="1656" endline="1692">XSdps_CheckTransferDone</references>
+        <references refid="group__sdps__api_1ga1c5c45efb0402b9d8e6a33d036dbd220" compoundref="xsdps__host_8c" startline="1586" endline="1645">XSdPs_CmdTransfer</references>
+        <references refid="group__sdps__api_1ga4fde94c65a7c6e64e2444cb33e7d0431" compoundref="xsdps__host_8c" startline="984" endline="1014">XSdPs_SetupReadDma</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1ga17d43f52a8948d5ec4f315641336d115" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_Select_Card</definition>
+        <argsstring>(XSdPs *InstancePtr)</argsstring>
+        <name>XSdPs_Select_Card</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Selects card and sets default block size. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if fail.</para></listitem><listitem><para>XSDPS_CT_ERROR if Command Transfer fail. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps_options.c" bodystart="756" bodyend="768"/>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="struct_x_sd_ps_1a6c40b5686bd92c1a00b208cce84583c7" compoundref="xsdps_8h" startline="270">XSdPs::RelCardAddr</references>
+        <references refid="group__sdps__api_1ga1c5c45efb0402b9d8e6a33d036dbd220" compoundref="xsdps__host_8c" startline="1586" endline="1645">XSdPs_CmdTransfer</references>
+        <referencedby refid="group__sdps__api_1ga8683eac6348837f171e31b10d27c8f13" compoundref="xsdps__host_8c" startline="737" endline="795">XSdPs_MmcCardEnum</referencedby>
+        <referencedby refid="group__sdps__api_1gabb269de0a2001e73f252206fa07ce1e7" compoundref="xsdps__host_8c" startline="651" endline="725">XSdPs_SdCardEnum</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1ga4910d9a9023501be9878c9bf02d3970f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_StartReadTransfer</definition>
+        <argsstring>(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)</argsstring>
+        <name>XSdPs_StartReadTransfer</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Arg</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BlkCnt</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Buff</declname>
+        </param>
+        <briefdescription>
+<para>Performs SD read in polled mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Arg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address passed by the user that is to be sent as argument along with the command. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BlkCnt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Block count passed by the user. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Buff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the data buffer for a DMA transfer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if Transfer initialization was successful</para></listitem><listitem><para>XST_FAILURE if failure - could be because another transfer is in progress or command or data inhibit is set </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps_options.c" bodystart="787" bodyend="816"/>
+        <references refid="struct_x_sd_ps_1aae169220856ab624877027540c585b93" compoundref="xsdps_8h" startline="280">XSdPs::IsBusy</references>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="group__sdps__api_1ga15e41cb3481e66918efd4ad7db154b62" compoundref="xsdps__card_8c" startline="76" endline="105">XSdPs_Read</references>
+        <references refid="group__sdps__api_1ga78d4cd8fc91d6c32b6ed35bd86581cb3" compoundref="xsdps__host_8c" startline="219" endline="254">XSdPs_SetupTransfer</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1ga555d8f458181719d701f93a9bd023ed2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_CheckReadTransfer</definition>
+        <argsstring>(XSdPs *InstancePtr)</argsstring>
+        <name>XSdPs_CheckReadTransfer</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Checks if the transfer is completed successfully. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if transfer was successful</para></listitem><listitem><para>XST_FAILURE if failure</para></listitem><listitem><para>XST_DEVICE_BUSY - if the transfer is still in progress </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps_options.c" bodystart="879" bodyend="889"/>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="group__sdps__api_1gafa28027fec9472b8b49c61ad1c9489f2" compoundref="xsdps__card_8c" startline="168" endline="207">XSdPs_CheckTransferComplete</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1ga6f7763ba81207cc125a3da437b140b58" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_StartWriteTransfer</definition>
+        <argsstring>(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)</argsstring>
+        <name>XSdPs_StartWriteTransfer</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Arg</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BlkCnt</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Buff</declname>
+        </param>
+        <briefdescription>
+<para>Starts SD write transfer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Arg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address passed by the user that is to be sent as argument along with the command. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BlkCnt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Block count passed by the user. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Buff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the data buffer for a DMA transfer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if Transfer initialization was successful</para></listitem><listitem><para>XST_FAILURE if failure - could be because another transfer is in progress or command or data inhibit is set </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="345" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps_options.c" bodystart="835" bodyend="864"/>
+        <references refid="struct_x_sd_ps_1aae169220856ab624877027540c585b93" compoundref="xsdps_8h" startline="280">XSdPs::IsBusy</references>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="group__sdps__api_1ga78d4cd8fc91d6c32b6ed35bd86581cb3" compoundref="xsdps__host_8c" startline="219" endline="254">XSdPs_SetupTransfer</references>
+        <references refid="group__sdps__api_1gac51519692c6bb54d91aaecb8bcf957d1" compoundref="xsdps__card_8c" startline="124" endline="153">XSdPs_Write</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1gaa75b4159ddf2d517b2f8452bb7a704ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_CheckWriteTransfer</definition>
+        <argsstring>(XSdPs *InstancePtr)</argsstring>
+        <name>XSdPs_CheckWriteTransfer</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Checks for the write transfer completed. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if transfer was successful</para></listitem><listitem><para>XST_FAILURE if failure</para></listitem><listitem><para>XST_DEVICE_BUSY - if the transfer is still in progress </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps_options.c" bodystart="904" bodyend="914"/>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="group__sdps__api_1gafa28027fec9472b8b49c61ad1c9489f2" compoundref="xsdps__card_8c" startline="168" endline="207">XSdPs_CheckTransferComplete</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1gae356e151de825904653850dc1f2de4e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_Erase</definition>
+        <argsstring>(XSdPs *InstancePtr, u32 StartAddr, u32 EndAddr)</argsstring>
+        <name>XSdPs_Erase</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>StartAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EndAddr</declname>
+        </param>
+        <briefdescription>
+<para>Performs Erase operation on the given address range. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>StartAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the first write block to be erased. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EndAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the last write block of the continuous range to be erased.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if erase is successful</para></listitem><listitem><para>XST_FAILURE if failure - could be because another transfer is in progress or card not present or erase operation failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" line="496" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" bodystart="496" bodyend="557"/>
+        <references refid="struct_x_sd_ps___config_1a18fc4a81c465a70686b9a3c038e3dbc0" compoundref="xsdps_8h" startline="196">XSdPs_Config::BaseAddress</references>
+        <references refid="struct_x_sd_ps___config_1a494f4186575a737efe3f8b3b9848c3c7" compoundref="xsdps_8h" startline="198">XSdPs_Config::CardDetect</references>
+        <references refid="struct_x_sd_ps_1a33a193ab2bde892a55f842b0d49856d1" compoundref="xsdps_8h" startline="271">XSdPs::CardSpecData</references>
+        <references refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" compoundref="xsdps_8h" startline="258">XSdPs::Config</references>
+        <references refid="struct_x_sd_ps_1a11d4222e3ecae1a01aa4c3e34a00ef35" compoundref="xsdps_8h" startline="265">XSdPs::HC_Version</references>
+        <references refid="struct_x_sd_ps_1ad8613960aa0353d5a3515d9bc8d8540a" compoundref="xsdps_8h" startline="260">XSdPs::Host_Caps</references>
+        <references refid="struct_x_sd_ps_1aae169220856ab624877027540c585b93" compoundref="xsdps_8h" startline="280">XSdPs::IsBusy</references>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" compoundref="xsdps_8h" startline="206">XSdPs_Config::RefClk</references>
+        <references refid="struct_x_sd_ps_1a4a098e7835929d87e01f9cf7a9091598" compoundref="xsdps_8h" startline="278">XSdPs::TransferMode</references>
+        <references refid="group__sdps__api_1ga5ab803ced3accc20c54eee342e6e5b52" compoundref="xsdps__card_8c" startline="1734" endline="1749">XSdPs_SendErase</references>
+        <references refid="group__sdps__api_1ga9fb2d5662fa3656cafb4a20530def821" compoundref="xsdps__card_8c" startline="1709" endline="1720">XSdPs_SetEndAddr</references>
+        <references refid="group__sdps__api_1ga73b1071173ef4b1a1958773ed5c59a5f" compoundref="xsdps__card_8c" startline="1683" endline="1694">XSdPs_SetStartAddr</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1gad748650bd8ac568583551f6ef14b498a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_Sanitize</definition>
+        <argsstring>(XSdPs *InstancePtr)</argsstring>
+        <name>XSdPs_Sanitize</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Performs Sanitize operation on the unmapped user address range. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if Sanitize is successful</para></listitem><listitem><para>XST_FAILURE if failure - could be because another transfer is in progress or card not present or Sanitize operation failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" line="572" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" bodystart="572" bodyend="599"/>
+        <references refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" compoundref="xsdps_8h" startline="258">XSdPs::Config</references>
+        <references refid="struct_x_sd_ps_1aae169220856ab624877027540c585b93" compoundref="xsdps_8h" startline="280">XSdPs::IsBusy</references>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" compoundref="xsdps_8h" startline="206">XSdPs_Config::RefClk</references>
+        <references refid="group__sdps__api_1gaee773eef8e260b4498dc607061eb18f6" compoundref="xsdps__options_8c" startline="671" endline="696">XSdPs_Set_Mmc_ExtCsd</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2013<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor">#ifndef<sp/>SDPS_H_</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SDPS_H_</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cache.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsdps__hw_8h" kindref="compound">xsdps_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplatform_info.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/><sp/>(XCLOCKING)</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_clocking.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135" refid="group__sdps__api_1gad5f983cd6daadb92a96fa4e7674541cc" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDPS_CT_ERROR<sp/><sp/>0x2L<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="136" refid="group__sdps__api_1gaf7596df11ad001d37fd1f4482a817270" refkind="member"><highlight class="preprocessor">#define<sp/>MAX_TUNING_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>40U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="137" refid="group__sdps__api_1ga85fda3522e69a1bf85f7dcd97b6023a1" refkind="member"><highlight class="preprocessor">#define<sp/>MAX_TIMEOUT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1FFFFFFFU<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="138" refid="group__sdps__api_1gae4fc5b8635d5370e57487b3fe8084396" refkind="member"><highlight class="preprocessor">#define<sp/>XSDPS_CMD8_VOL_PATTERN<sp/><sp/>0x1AAU<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="139" refid="group__sdps__api_1ga8ea1bb6ebaa47630e35391dda14b3c9f" refkind="member"><highlight class="preprocessor">#define<sp/>XSDPS_RESPOCR_READY<sp/><sp/><sp/><sp/><sp/>0x80000000U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="140" refid="group__sdps__api_1ga38948ef8aebdc9fef1edde02dbfecdc7" refkind="member"><highlight class="preprocessor">#define<sp/>XSDPS_ACMD41_HCS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40000000U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="141" refid="group__sdps__api_1ga0f1b246b9a0ce96065516e69ab486a16" refkind="member"><highlight class="preprocessor">#define<sp/>XSDPS_ACMD41_3V3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00300000U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="142" refid="group__sdps__api_1ga59829d4d2c22b281cd9ab09e63c48d1f" refkind="member"><highlight class="preprocessor">#define<sp/>XSDPS_CMD1_HIGH_VOL<sp/><sp/><sp/><sp/><sp/>0x00FF8000U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="143" refid="group__sdps__api_1gae0c50e51df911268acccdd1d8d46b878" refkind="member"><highlight class="preprocessor">#define<sp/>XSDPS_CMD1_DUAL_VOL<sp/><sp/><sp/><sp/><sp/>0x00FF8010U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="144" refid="group__sdps__api_1ga77a17479fd0519869661c9e71b82a82c" refkind="member"><highlight class="preprocessor">#define<sp/>HIGH_SPEED_SUPPORT<sp/><sp/><sp/><sp/><sp/><sp/>0x2U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="145" refid="group__sdps__api_1gafcfa86089805c4306f98f4e3838b1858" refkind="member"><highlight class="preprocessor">#define<sp/>UHS_SDR12_SUPPORT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="146" refid="group__sdps__api_1ga136ddd489f399b4eb82a3c8aab6717af" refkind="member"><highlight class="preprocessor">#define<sp/>UHS_SDR25_SUPPORT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="147" refid="group__sdps__api_1ga9510331005527a72f48fbe8d2ed16765" refkind="member"><highlight class="preprocessor">#define<sp/>UHS_SDR50_SUPPORT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="148" refid="group__sdps__api_1ga7bad99c0dac6870ee0a0a8ca83522852" refkind="member"><highlight class="preprocessor">#define<sp/>UHS_SDR104_SUPPORT<sp/><sp/><sp/><sp/><sp/><sp/>0x8U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="149" refid="group__sdps__api_1gab6d8b9d8dfb5c12e16fee49452b1c1b1" refkind="member"><highlight class="preprocessor">#define<sp/>UHS_DDR50_SUPPORT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="150" refid="group__sdps__api_1ga406577df2b89f9b74838df7567268413" refkind="member"><highlight class="preprocessor">#define<sp/>WIDTH_4_BIT_SUPPORT<sp/><sp/><sp/><sp/><sp/>0x4U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="151" refid="group__sdps__api_1gaaa8483d5e22a34ded603eb88e1805aa0" refkind="member"><highlight class="preprocessor">#define<sp/>SD_CLK_25_MHZ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>25000000U<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="152" refid="group__sdps__api_1ga5348592d5802b364df8d3e96c0a3c454" refkind="member"><highlight class="preprocessor">#define<sp/>SD_CLK_19_MHZ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>19000000U<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="153" refid="group__sdps__api_1ga671326aa4ef3737f7f31a6c929c3604f" refkind="member"><highlight class="preprocessor">#define<sp/>SD_CLK_26_MHZ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>26000000U<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="154" refid="group__sdps__api_1ga52d080f8ba1068e8190d52806e5a57c0" refkind="member"><highlight class="preprocessor">#define<sp/>EXT_CSD_DEVICE_TYPE_BYTE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>196U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="155" refid="group__sdps__api_1ga99fcdcae8a8f2a00fe2fd919b6ce1dc2" refkind="member"><highlight class="preprocessor">#define<sp/>EXT_CSD_SEC_COUNT_BYTE1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>212U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="156" refid="group__sdps__api_1ga9bfc7e9f44c30d5b468eec19d2f92a1f" refkind="member"><highlight class="preprocessor">#define<sp/>EXT_CSD_SEC_COUNT_BYTE2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>213U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="157" refid="group__sdps__api_1ga87cf522720c21983a95b60ecf92c5f60" refkind="member"><highlight class="preprocessor">#define<sp/>EXT_CSD_SEC_COUNT_BYTE3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>214U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="158" refid="group__sdps__api_1gaed489daacfd9447abba7e2098e0d9ae4" refkind="member"><highlight class="preprocessor">#define<sp/>EXT_CSD_SEC_COUNT_BYTE4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>215U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="159" refid="group__sdps__api_1ga8ca877dc2ad27fc4802f6405af288256" refkind="member"><highlight class="preprocessor">#define<sp/>EXT_CSD_DEVICE_TYPE_HIGH_SPEED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="160" refid="group__sdps__api_1ga784ed6937b99829ef7a9c249a61482cf" refkind="member"><highlight class="preprocessor">#define<sp/>EXT_CSD_DEVICE_TYPE_DDR_1V8_HIGH_SPEED<sp/><sp/>0x4U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="161" refid="group__sdps__api_1gab9c4b83ddf8471ff2fa8a4988ba01423" refkind="member"><highlight class="preprocessor">#define<sp/>EXT_CSD_DEVICE_TYPE_DDR_1V2_HIGH_SPEED<sp/><sp/>0x8U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="162" refid="group__sdps__api_1ga785425c7f7070eddd02dbaf1630dba25" refkind="member"><highlight class="preprocessor">#define<sp/>EXT_CSD_DEVICE_TYPE_SDR_1V8_HS200<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="163" refid="group__sdps__api_1ga5d8e27bc9f9ab98a143e6a7a7a78ed35" refkind="member"><highlight class="preprocessor">#define<sp/>EXT_CSD_DEVICE_TYPE_SDR_1V2_HS200<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="164" refid="group__sdps__api_1gab9586aa74011d614d3b87aa6d72962be" refkind="member"><highlight class="preprocessor">#define<sp/>EXT_CSD_DEVICE_TYPE_DDR_1V8_HS400<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="165" refid="group__sdps__api_1gad9c2fb1320f91077acfa8b78450c3863" refkind="member"><highlight class="preprocessor">#define<sp/>EXT_CSD_DEVICE_TYPE_DDR_1V2_HS400<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="166" refid="group__sdps__api_1gabe76c4b7e5469e21fee99adcc183d663" refkind="member"><highlight class="preprocessor">#define<sp/>CSD_SPEC_VER_3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="167" refid="group__sdps__api_1ga40c201c512bf82c9cc12883af000fb2b" refkind="member"><highlight class="preprocessor">#define<sp/>SCR_SPEC_VER_3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="168" refid="group__sdps__api_1gaad1398373adf6de2322bf721948b891e" refkind="member"><highlight class="preprocessor">#define<sp/>ADDRESS_BEYOND_32BIT<sp/><sp/><sp/><sp/>0x100000000U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="170" refid="group__sdps__api_1ga206b703b7f911793694382fed5b5ff60" refkind="member"><highlight class="preprocessor">#define<sp/>XSDPS_ZYNQMP_SD0_BASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF160000U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="171" refid="group__sdps__api_1ga20a4495876d4efadbb543db0974af396" refkind="member"><highlight class="preprocessor">#define<sp/>XSDPS_ZYNQMP_SD1_BASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF170000U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="172" refid="group__sdps__api_1ga595cc431f6b2f4697e6d39f20ca7e2ea" refkind="member"><highlight class="preprocessor">#define<sp/>XSDPS_VERSAL_SD0_BASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF1040000U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="173" refid="group__sdps__api_1ga141c6ee970bedfb72b987c201844dcde" refkind="member"><highlight class="preprocessor">#define<sp/>XSDPS_VERSAL_SD1_BASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF1050000U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="181" refid="group__sdps__api_1ga893a5ec77671176e84b4885113db80f5" refkind="member"><highlight class="preprocessor">#define<sp/>XSDPS_BLK_SIZE_512_MASK<sp/>0x200U<sp/><sp/></highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="190" refid="struct_x_sd_ps___config" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DeviceId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="194" refid="struct_x_sd_ps___config_1a4f676512430e5cd1e0485b2d37a79c23" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="struct_x_sd_ps___config_1a4f676512430e5cd1e0485b2d37a79c23" kindref="member">Name</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="196" refid="struct_x_sd_ps___config_1a18fc4a81c465a70686b9a3c038e3dbc0" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_sd_ps___config_1a18fc4a81c465a70686b9a3c038e3dbc0" kindref="member">BaseAddress</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="197" refid="struct_x_sd_ps___config_1a0f3c5d739bd1567d28b1ef827aedc75b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps___config_1a0f3c5d739bd1567d28b1ef827aedc75b" kindref="member">InputClockHz</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="198" refid="struct_x_sd_ps___config_1a494f4186575a737efe3f8b3b9848c3c7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps___config_1a494f4186575a737efe3f8b3b9848c3c7" kindref="member">CardDetect</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="199" refid="struct_x_sd_ps___config_1a096af7ddafe53bdf7e4359f3555ae2c4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps___config_1a096af7ddafe53bdf7e4359f3555ae2c4" kindref="member">WriteProtect</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="200" refid="struct_x_sd_ps___config_1aea317a5fc926ce97c26cd7deeecb0c0f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps___config_1aea317a5fc926ce97c26cd7deeecb0c0f" kindref="member">BusWidth</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="201" refid="struct_x_sd_ps___config_1a7fe36b608a4251f5b93c9c74cfb85e08" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps___config_1a7fe36b608a4251f5b93c9c74cfb85e08" kindref="member">BankNumber</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="202" refid="struct_x_sd_ps___config_1a892a82eef72bba816d1576cc8b4aa1ba" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps___config_1a892a82eef72bba816d1576cc8b4aa1ba" kindref="member">HasEMIO</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="203" refid="struct_x_sd_ps___config_1a97543575628c859c83c69a772df955ee" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_sd_ps___config_1a97543575628c859c83c69a772df955ee" kindref="member">SlotType</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="204" refid="struct_x_sd_ps___config_1a1f220a7f0690a1d0c7fd0a95b5cec14c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_sd_ps___config_1a1f220a7f0690a1d0c7fd0a95b5cec14c" kindref="member">IsCacheCoherent</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor">#if<sp/>defined<sp/><sp/>(XCLOCKING)<sp/>||<sp/>defined<sp/>(SDT)</highlight></codeline>
+<codeline lineno="206" refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" kindref="member">RefClk</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="208" refid="struct_x_sd_ps___config_1a6fb9aee8d2b99bd35fc1f328425ea86f" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps___config_1a6fb9aee8d2b99bd35fc1f328425ea86f" kindref="member">ITapDly_SDR_Clk50</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="209" refid="struct_x_sd_ps___config_1ab88ed07cfc347e97ac5391b602081b4c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps___config_1ab88ed07cfc347e97ac5391b602081b4c" kindref="member">OTapDly_SDR_Clk50</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="210" refid="struct_x_sd_ps___config_1a14ecdc28f2bfb7947ac241e0025b78b5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps___config_1a14ecdc28f2bfb7947ac241e0025b78b5" kindref="member">ITapDly_DDR_Clk50</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="211" refid="struct_x_sd_ps___config_1a97d8fe542ee0224d85448f3e0cc1877c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps___config_1a97d8fe542ee0224d85448f3e0cc1877c" kindref="member">OTapDly_DDR_Clk50</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="212" refid="struct_x_sd_ps___config_1a6c15fcbb080e3e2b428135eb21c02d8b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps___config_1a6c15fcbb080e3e2b428135eb21c02d8b" kindref="member">OTapDly_SDR_Clk100</ref>;<sp/></highlight></codeline>
+<codeline lineno="213" refid="struct_x_sd_ps___config_1a365ea7869549e591ca1e48a3c89d91ca" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps___config_1a365ea7869549e591ca1e48a3c89d91ca" kindref="member">OTapDly_SDR_Clk200</ref>;<sp/></highlight></codeline>
+<codeline lineno="214" refid="struct_x_sd_ps___config_1a2ab8b411b04ba543826fdd91794b4c87" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps___config_1a2ab8b411b04ba543826fdd91794b4c87" kindref="member">OTapDly_DDR_Clk200</ref>;<sp/></highlight></codeline>
+<codeline lineno="215"><highlight class="normal">}<sp/><ref refid="struct_x_sd_ps___config" kindref="compound">XSdPs_Config</ref>;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor">#ifdef<sp/>__ICCARM__</highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#pragma<sp/>pack(push,1)</highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="223" refid="struct_x_sd_ps___adma2_descriptor32" refkind="compound"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="224" refid="struct_x_sd_ps___adma2_descriptor32_1a8c361689ce562a5dcb36788ef60f4861" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_sd_ps___adma2_descriptor32_1a8c361689ce562a5dcb36788ef60f4861" kindref="member">Attribute</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="225" refid="struct_x_sd_ps___adma2_descriptor32_1ab2e253d6fc9bd26934b13a43eab0052f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_sd_ps___adma2_descriptor32_1ab2e253d6fc9bd26934b13a43eab0052f" kindref="member">Length</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="226" refid="struct_x_sd_ps___adma2_descriptor32_1af42b0f5495567390d13e5e4b1894b25b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps___adma2_descriptor32_1af42b0f5495567390d13e5e4b1894b25b" kindref="member">Address</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="227"><highlight class="preprocessor">#ifdef<sp/>__ICCARM__</highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_x_sd_ps___adma2_descriptor32" kindref="compound">XSdPs_Adma2Descriptor32</ref>;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>pack(pop)</highlight></codeline>
+<codeline lineno="230"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="232"><highlight class="normal">__attribute__((__packed__))<ref refid="struct_x_sd_ps___adma2_descriptor32" kindref="compound">XSdPs_Adma2Descriptor32</ref>;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="234"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="238"><highlight class="preprocessor">#ifdef<sp/>__ICCARM__</highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#pragma<sp/>pack(push,1)</highlight></codeline>
+<codeline lineno="240"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="241" refid="struct_x_sd_ps___adma2_descriptor64" refkind="compound"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="242" refid="struct_x_sd_ps___adma2_descriptor64_1a22d587ba14be034c8529840cbbeb4bfc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_sd_ps___adma2_descriptor64_1a22d587ba14be034c8529840cbbeb4bfc" kindref="member">Attribute</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="243" refid="struct_x_sd_ps___adma2_descriptor64_1af17756bbecb52446b6e462add8ace3c8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_sd_ps___adma2_descriptor64_1af17756bbecb52446b6e462add8ace3c8" kindref="member">Length</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="244" refid="struct_x_sd_ps___adma2_descriptor64_1a863c7dfddeff05277c06896fb0d0ff1d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_sd_ps___adma2_descriptor64_1a863c7dfddeff05277c06896fb0d0ff1d" kindref="member">Address</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="245"><highlight class="preprocessor">#ifdef<sp/>__ICCARM__</highlight></codeline>
+<codeline lineno="246"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_x_sd_ps___adma2_descriptor64" kindref="compound">XSdPs_Adma2Descriptor64</ref>;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>pack(pop)</highlight></codeline>
+<codeline lineno="248"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="249"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><sp/>__attribute__((__packed__))<ref refid="struct_x_sd_ps___adma2_descriptor64" kindref="compound">XSdPs_Adma2Descriptor64</ref>;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="257" refid="struct_x_sd_ps" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="258" refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_sd_ps___config" kindref="compound">XSdPs_Config</ref><sp/><ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="259" refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" kindref="member">IsReady</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="260" refid="struct_x_sd_ps_1ad8613960aa0353d5a3515d9bc8d8540a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps_1ad8613960aa0353d5a3515d9bc8d8540a" kindref="member">Host_Caps</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="261" refid="struct_x_sd_ps_1a0b2633d1f7493f879799cd8ad81f3b5a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps_1a0b2633d1f7493f879799cd8ad81f3b5a" kindref="member">Host_CapsExt</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="262" refid="struct_x_sd_ps_1a1b42689f5e0abe7e468108755a1691fd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps_1a1b42689f5e0abe7e468108755a1691fd" kindref="member">HCS</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="263" refid="struct_x_sd_ps_1ace9a2dd34b39f3100f97fcd50883f833" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_sd_ps_1ace9a2dd34b39f3100f97fcd50883f833" kindref="member">CardType</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="264" refid="struct_x_sd_ps_1a0b6e466f05d6ac3fb4916a640b0c02c5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_sd_ps_1a0b6e466f05d6ac3fb4916a640b0c02c5" kindref="member">Card_Version</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="265" refid="struct_x_sd_ps_1a11d4222e3ecae1a01aa4c3e34a00ef35" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_sd_ps_1a11d4222e3ecae1a01aa4c3e34a00ef35" kindref="member">HC_Version</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="266" refid="struct_x_sd_ps_1a069e352a2e02b9a9c0f61787549817db" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_sd_ps_1a069e352a2e02b9a9c0f61787549817db" kindref="member">BusWidth</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="267" refid="struct_x_sd_ps_1aa22055804ffd9cbe6885b2abe40fee86" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps_1aa22055804ffd9cbe6885b2abe40fee86" kindref="member">BusSpeed</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="268" refid="struct_x_sd_ps_1ad43dbd76cb2740f110f3088a8b592006" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_sd_ps_1ad43dbd76cb2740f110f3088a8b592006" kindref="member">Switch1v8</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="269" refid="struct_x_sd_ps_1a8219b2ad6434c77a0101b75919fe4a55" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CardID[4];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="270" refid="struct_x_sd_ps_1a6c40b5686bd92c1a00b208cce84583c7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps_1a6c40b5686bd92c1a00b208cce84583c7" kindref="member">RelCardAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="271" refid="struct_x_sd_ps_1a33a193ab2bde892a55f842b0d49856d1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CardSpecData[4];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="272" refid="struct_x_sd_ps_1afb72007125fc5046392961ad99999ad9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps_1afb72007125fc5046392961ad99999ad9" kindref="member">SectorCount</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="273" refid="struct_x_sd_ps_1ae04ce61dfe425035857dc3f0f291d268" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps_1ae04ce61dfe425035857dc3f0f291d268" kindref="member">SdCardConfig</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="274" refid="struct_x_sd_ps_1a2958388759de8ad51b37dcd814f96be3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps_1a2958388759de8ad51b37dcd814f96be3" kindref="member">Mode</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="275" refid="struct_x_sd_ps_1a5c05548361b08986315685d826851c3c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps_1a5c05548361b08986315685d826851c3c" kindref="member">OTapDelay</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="276" refid="struct_x_sd_ps_1ace5e3ce5b40302079652d5244fc26461" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps_1ace5e3ce5b40302079652d5244fc26461" kindref="member">ITapDelay</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="277" refid="struct_x_sd_ps_1af0e45cda323df91369aa88c61d8e00e2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_sd_ps_1af0e45cda323df91369aa88c61d8e00e2" kindref="member">Dma64BitAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="278" refid="struct_x_sd_ps_1a4a098e7835929d87e01f9cf7a9091598" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_sd_ps_1a4a098e7835929d87e01f9cf7a9091598" kindref="member">TransferMode</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="279" refid="struct_x_sd_ps_1a227dd8d81f553fb5d647a3a21b42d0c6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps_1a227dd8d81f553fb5d647a3a21b42d0c6" kindref="member">SlcrBaseAddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="280" refid="struct_x_sd_ps_1aae169220856ab624877027540c585b93" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_sd_ps_1aae169220856ab624877027540c585b93" kindref="member">IsBusy</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="281" refid="struct_x_sd_ps_1a9f2cc68e1e0155d5a70c6d7323fe39c9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sd_ps_1a9f2cc68e1e0155d5a70c6d7323fe39c9" kindref="member">BlkSize</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="282" refid="struct_x_sd_ps_1af363c990cbd2a7c2ac2fedef7041f082" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_sd_ps_1af363c990cbd2a7c2ac2fedef7041f082" kindref="member">IsTuningDone</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="283" refid="struct_x_sd_ps_1a06b3d484255f0a8fc3984e4a86754964" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_sd_ps___adma2_descriptor32" kindref="compound">XSdPs_Adma2Descriptor32</ref><sp/>Adma2_DescrTbl32[32]<sp/>__attribute__<sp/>((aligned(32)));<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="284" refid="struct_x_sd_ps_1a63837547eca8b040520aca06a6f786c9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdPs_Adma2Descriptor64<sp/>Adma2_DescrTbl64[32]<sp/>__attribute__<sp/>((aligned(32)));<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="285"><highlight class="normal">}<sp/><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref>;</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight></codeline>
+<codeline lineno="297"><highlight class="preprocessor">#ifdef<sp/>versal</highlight></codeline>
+<codeline lineno="298"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_HS_MODE_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="299"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="300" refid="group__sdps__api_1gab6d1efc7e1e190a2a265752012d21bf7" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SD_HS_MODE_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="301"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="302"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="307" refid="group__sdps__api_1ga98b954d28a6cea0c477bbd189ce48ddb" refkind="member"><highlight class="preprocessor">#define<sp/>ENABLE_HS400_MODE</highlight></codeline>
+<codeline lineno="308"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="313"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="314"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_sd_ps___config" kindref="compound">XSdPs_Config</ref><sp/><ref refid="group__sdps__api_1ga29c3d4542867ad2d0c8fcf48f46b8845" kindref="member">XSdPs_ConfigTable</ref>[XPAR_XSDPS_NUM_INSTANCES];</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="316"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_sd_ps___config" kindref="compound">XSdPs_Config</ref><sp/>XSdPs_ConfigTable[];</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="318"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="321"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_sd_ps___config" kindref="compound">XSdPs_Config</ref><sp/>*<ref refid="group__sdps__api_1gab155865689d6bdec2c089166799a423d" kindref="member">XSdPs_LookupConfig</ref>(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="323"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_sd_ps___config" kindref="compound">XSdPs_Config</ref><sp/>*<ref refid="group__sdps__api_1gab155865689d6bdec2c089166799a423d" kindref="member">XSdPs_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="325"><highlight class="preprocessor"></highlight><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gaf99da6fcfbc311afcd2d6e8a94c5fe55" kindref="member">XSdPs_CfgInitialize</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_sd_ps___config" kindref="compound">XSdPs_Config</ref><sp/>*ConfigPtr,</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr);</highlight></codeline>
+<codeline lineno="327"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga3c3ab46b98e997b8439af4b149445811" kindref="member">XSdPs_CardInitialize</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="328"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga8dfe3686ed74d09a2a46a7b5cddcde47" kindref="member">XSdPs_ReadPolled</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Arg,<sp/>u32<sp/>BlkCnt,<sp/>u8<sp/>*Buff);</highlight></codeline>
+<codeline lineno="329"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga69aa57979c1ef9b9ec3fbdc6d8ab7277" kindref="member">XSdPs_WritePolled</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Arg,<sp/>u32<sp/>BlkCnt,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Buff);</highlight></codeline>
+<codeline lineno="330"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga88cdddd905825791ef9b682eb5adfff8" kindref="member">XSdPs_Idle</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga6bc000fb4ce51502058f2e351c90fc19" kindref="member">XSdPs_Change_BusSpeed</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="333"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga1f8661e4ae53a7c29b3fd44cc56a3673" kindref="member">XSdPs_Change_ClkFreq</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>SelFreq);</highlight></codeline>
+<codeline lineno="334"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga0be8518af877aa1fe5f7c6b86ac4f7f8" kindref="member">XSdPs_Pullup</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="335"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga864452e1802367600d196ccc37310f7c" kindref="member">XSdPs_Get_BusWidth</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>*ReadBuff);</highlight></codeline>
+<codeline lineno="336"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gaf11db1719933123762fecb790a2977da" kindref="member">XSdPs_Change_BusWidth</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="337"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gafc7e71cb62142d0ef939336195102666" kindref="member">XSdPs_Get_BusSpeed</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>*ReadBuff);</highlight></codeline>
+<codeline lineno="338"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga69e8d7cd927da4273a12d0d5fb3f36ff" kindref="member">XSdPs_Get_Mmc_ExtCsd</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>*ReadBuff);</highlight></codeline>
+<codeline lineno="339"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gaee773eef8e260b4498dc607061eb18f6" kindref="member">XSdPs_Set_Mmc_ExtCsd</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Arg);</highlight></codeline>
+<codeline lineno="340"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga1af3178b4b24c991b431eb7a0aa3b23b" kindref="member">XSdPs_SetBlkSize</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u16<sp/>BlkSize);</highlight></codeline>
+<codeline lineno="341"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gaa26e9b4a046701024b01b1b0cb48ed08" kindref="member">XSdPs_Get_Status</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>*SdStatReg);</highlight></codeline>
+<codeline lineno="342"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga17d43f52a8948d5ec4f315641336d115" kindref="member">XSdPs_Select_Card</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="343"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga4910d9a9023501be9878c9bf02d3970f" kindref="member">XSdPs_StartReadTransfer</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Arg,<sp/>u32<sp/>BlkCnt,<sp/>u8<sp/>*Buff);</highlight></codeline>
+<codeline lineno="344"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga555d8f458181719d701f93a9bd023ed2" kindref="member">XSdPs_CheckReadTransfer</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="345"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga6f7763ba81207cc125a3da437b140b58" kindref="member">XSdPs_StartWriteTransfer</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Arg,<sp/>u32<sp/>BlkCnt,<sp/>u8<sp/>*Buff);</highlight></codeline>
+<codeline lineno="346"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gaa75b4159ddf2d517b2f8452bb7a704ca" kindref="member">XSdPs_CheckWriteTransfer</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="347"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gae356e151de825904653850dc1f2de4e7" kindref="member">XSdPs_Erase</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>StartAddr,<sp/>u32<sp/>EndAddr);</highlight></codeline>
+<codeline lineno="348"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gad748650bd8ac568583551f6ef14b498a" kindref="member">XSdPs_Sanitize</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="351"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="353"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>SD_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="355"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.h"/>
+  </compounddef>
+</doxygen>

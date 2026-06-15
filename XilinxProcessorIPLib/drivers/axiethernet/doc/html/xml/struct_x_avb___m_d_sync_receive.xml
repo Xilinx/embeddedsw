@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_avb___m_d_sync_receive" kind="struct" prot="public">
+    <compoundname>XAvb_MDSyncReceive</compoundname>
+    <includes local="no">xavb.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_avb___m_d_sync_receive_1a2216e32e52d75fbd0fce66973bfb0d0f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAvb_MDSyncReceive::logMessageInterval</definition>
+        <argsstring></argsstring>
+        <name>logMessageInterval</name>
+        <briefdescription>
+<para>The logMessageInterval is the value of the logMessageInterval of the time-synchronization event message received by this port. </para>        </briefdescription>
+        <detaileddescription>
+<para>It is the logSyncInterval of the upstream MasterPort that sent the event message. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="417" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="417" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__packets_8c_1a3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="1003" endline="1058">XAvb_DecodeRxSync</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___m_d_sync_receive_1a944032b9d928ba8760663d512d56432f" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAvb_MDSyncReceive::SyncIntervalDuration</definition>
+        <argsstring></argsstring>
+        <name>SyncIntervalDuration</name>
+        <briefdescription>
+<para>Convert logMessageInterval into a value we can relate to our 1/128 ns clk pulse. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="420" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="420" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__packets_8c_1a3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="1003" endline="1058">XAvb_DecodeRxSync</referencedby>
+        <referencedby refid="xavb_8h_1aab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="279" endline="435">XAvb_PtpTimerInterruptHandler</referencedby>
+        <referencedby refid="xavb_8h_1af24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="131" endline="199">XAvb_Reset</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This struct captures information from RX&apos;d Sync/FollowUp message pairs in a format similar to the MDSyncReceive structure described in the IEEE P802.1AS specification. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="413" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="412" bodyend="422"/>
+    <listofallmembers>
+      <member refid="struct_x_avb___m_d_sync_receive_1a2216e32e52d75fbd0fce66973bfb0d0f" prot="public" virt="non-virtual"><scope>XAvb_MDSyncReceive</scope><name>logMessageInterval</name></member>
+      <member refid="struct_x_avb___m_d_sync_receive_1a944032b9d928ba8760663d512d56432f" prot="public" virt="non-virtual"><scope>XAvb_MDSyncReceive</scope><name>SyncIntervalDuration</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

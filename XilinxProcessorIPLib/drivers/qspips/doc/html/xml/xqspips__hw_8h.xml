@@ -1,0 +1,1645 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xqspips__hw_8h" kind="file">
+    <compoundname>xqspips_hw.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includedby refid="xqspips_8h" local="yes">xqspips.h</includedby>
+    <includedby refid="xqspips__hw_8c" local="yes">xqspips_hw.c</includedby>
+    <incdepgraph>
+      <node id="128">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="129">
+        <label>xil_io.h</label>
+      </node>
+      <node id="127">
+        <label>xil_types.h</label>
+      </node>
+      <node id="130">
+        <label>xparameters.h</label>
+      </node>
+      <node id="126">
+        <label>xqspips_hw.h</label>
+        <link refid="xqspips_hw.h"/>
+        <childnode refid="127" relation="include">
+        </childnode>
+        <childnode refid="128" relation="include">
+        </childnode>
+        <childnode refid="129" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="141">
+        <label>xqspips_flash_intr_example.c</label>
+        <link refid="xqspips__flash__intr__example_8c"/>
+      </node>
+      <node id="139">
+        <label>xqspips_dual_flash_lqspi_example.c</label>
+        <link refid="xqspips__dual__flash__lqspi__example_8c"/>
+      </node>
+      <node id="133">
+        <label>xqspips.c</label>
+        <link refid="xqspips_8c"/>
+      </node>
+      <node id="132">
+        <label>xqspips.h</label>
+        <link refid="xqspips_8h"/>
+        <childnode refid="133" relation="include">
+        </childnode>
+        <childnode refid="134" relation="include">
+        </childnode>
+        <childnode refid="135" relation="include">
+        </childnode>
+        <childnode refid="136" relation="include">
+        </childnode>
+        <childnode refid="137" relation="include">
+        </childnode>
+        <childnode refid="138" relation="include">
+        </childnode>
+        <childnode refid="139" relation="include">
+        </childnode>
+        <childnode refid="140" relation="include">
+        </childnode>
+        <childnode refid="141" relation="include">
+        </childnode>
+        <childnode refid="142" relation="include">
+        </childnode>
+        <childnode refid="143" relation="include">
+        </childnode>
+        <childnode refid="144" relation="include">
+        </childnode>
+        <childnode refid="145" relation="include">
+        </childnode>
+      </node>
+      <node id="140">
+        <label>xqspips_dual_flash_stack_lqspi_example.c</label>
+        <link refid="xqspips__dual__flash__stack__lqspi__example_8c"/>
+      </node>
+      <node id="144">
+        <label>xqspips_g128_flash_example.c</label>
+        <link refid="xqspips__g128__flash__example_8c"/>
+      </node>
+      <node id="142">
+        <label>xqspips_flash_lqspi_example.c</label>
+        <link refid="xqspips__flash__lqspi__example_8c"/>
+      </node>
+      <node id="143">
+        <label>xqspips_flash_polled_example.c</label>
+        <link refid="xqspips__flash__polled__example_8c"/>
+      </node>
+      <node id="136">
+        <label>xqspips_options.c</label>
+        <link refid="xqspips__options_8c"/>
+      </node>
+      <node id="145">
+        <label>xqspips_selftest_example.c</label>
+        <link refid="xqspips__selftest__example_8c"/>
+      </node>
+      <node id="137">
+        <label>xqspips_selftest.c</label>
+        <link refid="xqspips__selftest_8c"/>
+      </node>
+      <node id="138">
+        <label>xqspips_sinit.c</label>
+        <link refid="xqspips__sinit_8c"/>
+      </node>
+      <node id="134">
+        <label>xqspips_g.c</label>
+        <link refid="xqspips__g_8c"/>
+      </node>
+      <node id="135">
+        <label>xqspips_hw.c</label>
+        <link refid="xqspips__hw_8c"/>
+      </node>
+      <node id="131">
+        <label>xqspips_hw.h</label>
+        <link refid="xqspips_hw.h"/>
+        <childnode refid="132" relation="include">
+        </childnode>
+        <childnode refid="135" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Register Map</header>
+      <description><para>Register offsets from the base address of an QSPI device. </para></description>
+      <memberdef kind="define" id="group__qspips_1gad65b0a99e7acd5b73ef96245cabee22b" prot="public" static="no">
+        <name>XQSPIPS_CR_OFFSET</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+<para>Configuration Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gafaa01b15d795ba75e438b718d5fbe92b" compoundref="xqspips_8c" startline="292" endline="336">XQspiPs_Abort</referencedby>
+        <referencedby refid="group__qspips_1ga6855fc350191a8273ed2363963af8f4d" compoundref="xqspips__options_8c" startline="287" endline="300">XQspiPs_GetClkPrescaler</referencedby>
+        <referencedby refid="group__qspips_1ga589925a6983f4075992c431a0077cf48" compoundref="xqspips__options_8c" startline="181" endline="216">XQspiPs_GetOptions</referencedby>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1281" endline="1533">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1gad769e09710e28c9876cebf678f6e890c" compoundref="xqspips__hw_8c" startline="144" endline="198">XQspiPs_LinearInit</referencedby>
+        <referencedby refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="704" endline="1067">XQspiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__qspips_1ga5e488f0da6981f817242eee92e238d69" compoundref="xqspips_8c" startline="252" endline="274">XQspiPs_Reset</referencedby>
+        <referencedby refid="group__qspips_1ga2732af9facd00339b5dc96c83d74a355" compoundref="xqspips__hw_8c" startline="67" endline="130">XQspiPs_ResetHw</referencedby>
+        <referencedby refid="group__qspips_1gaafc1b751d17216ad037b7dd167f073f0" compoundref="xqspips__options_8c" startline="239" endline="272">XQspiPs_SetClkPrescaler</referencedby>
+        <referencedby refid="group__qspips_1ga425ce03f19417a386c6882efb79641df" compoundref="xqspips__options_8c" startline="99" endline="162">XQspiPs_SetOptions</referencedby>
+        <referencedby refid="group__qspips_1ga8eb7e89e789b707718444125358167e9" compoundref="xqspips_8c" startline="1145" endline="1170">XQspiPs_SetSlaveSelect</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="403" endline="649">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga932c802186fcabf52f50881159028535" prot="public" static="no">
+        <name>XQSPIPS_SR_OFFSET</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>Interrupt Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1281" endline="1533">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="704" endline="1067">XQspiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__qspips_1ga2732af9facd00339b5dc96c83d74a355" compoundref="xqspips__hw_8c" startline="67" endline="130">XQspiPs_ResetHw</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="403" endline="649">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gaeb7277c4dc92141976f2a238c80b3a21" prot="public" static="no">
+        <name>XQSPIPS_IER_OFFSET</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>Interrupt Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1281" endline="1533">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="403" endline="649">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga0273dd38f06363ce19a473304589ca26" prot="public" static="no">
+        <name>XQSPIPS_IDR_OFFSET</name>
+        <initializer>0x0c</initializer>
+        <briefdescription>
+<para>Interrupt Disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1281" endline="1533">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1ga2732af9facd00339b5dc96c83d74a355" compoundref="xqspips__hw_8c" startline="67" endline="130">XQspiPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gad146aae5ec2398afb5a876f6aff16c60" prot="public" static="no">
+        <name>XQSPIPS_IMR_OFFSET</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>Interrupt Enabled Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gadeb61bbc1b66a0fde033664cfee4fd30" prot="public" static="no">
+        <name>XQSPIPS_ER_OFFSET</name>
+        <initializer>0x14</initializer>
+        <briefdescription>
+<para>Enable/Disable Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gad769e09710e28c9876cebf678f6e890c" compoundref="xqspips__hw_8c" startline="144" endline="198">XQspiPs_LinearInit</referencedby>
+        <referencedby refid="group__qspips_1ga2732af9facd00339b5dc96c83d74a355" compoundref="xqspips__hw_8c" startline="67" endline="130">XQspiPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga108ac25b6c44eb9e0babd1a7948e18cc" prot="public" static="no">
+        <name>XQSPIPS_DR_OFFSET</name>
+        <initializer>0x18</initializer>
+        <briefdescription>
+<para>Delay Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga5f21bb46591dc0c4915f5f65cdf3a412" compoundref="xqspips__options_8c" startline="383" endline="404">XQspiPs_GetDelays</referencedby>
+        <referencedby refid="group__qspips_1gadae4c3733183129463090187c54aaaa7" compoundref="xqspips__options_8c" startline="333" endline="359">XQspiPs_SetDelays</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga5dda022acf4337554d3db261663dcc29" prot="public" static="no">
+        <name>XQSPIPS_TXD_00_OFFSET</name>
+        <initializer>0x1C</initializer>
+        <briefdescription>
+<para>Transmit 4-byte inst/data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1281" endline="1533">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="704" endline="1067">XQspiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="403" endline="649">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga9e202889f9544e37c4ef76f8ded6df7f" prot="public" static="no">
+        <name>XQSPIPS_RXD_OFFSET</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>Data Receive Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1281" endline="1533">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="704" endline="1067">XQspiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__qspips_1ga2732af9facd00339b5dc96c83d74a355" compoundref="xqspips__hw_8c" startline="67" endline="130">XQspiPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga0781d2328e59158090ba44294f6ca8d1" prot="public" static="no">
+        <name>XQSPIPS_SICR_OFFSET</name>
+        <initializer>0x24</initializer>
+        <briefdescription>
+<para>Slave Idle Count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gaca82abc3f1f75efb2d1b6d67a735bb23" prot="public" static="no">
+        <name>XQSPIPS_TXWR_OFFSET</name>
+        <initializer>0x28</initializer>
+        <briefdescription>
+<para>Transmit FIFO Watermark. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gafaa01b15d795ba75e438b718d5fbe92b" compoundref="xqspips_8c" startline="292" endline="336">XQspiPs_Abort</referencedby>
+        <referencedby refid="group__qspips_1ga2732af9facd00339b5dc96c83d74a355" compoundref="xqspips__hw_8c" startline="67" endline="130">XQspiPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gacfe5eff35c496b0555437eae756ab3ba" prot="public" static="no">
+        <name>XQSPIPS_RXWR_OFFSET</name>
+        <initializer>0x2C</initializer>
+        <briefdescription>
+<para>Receive FIFO Watermark. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gafaa01b15d795ba75e438b718d5fbe92b" compoundref="xqspips_8c" startline="292" endline="336">XQspiPs_Abort</referencedby>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1281" endline="1533">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="704" endline="1067">XQspiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__qspips_1ga2732af9facd00339b5dc96c83d74a355" compoundref="xqspips__hw_8c" startline="67" endline="130">XQspiPs_ResetHw</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="403" endline="649">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga3829bec1dd9c175514efb6ff3bdd8a85" prot="public" static="no">
+        <name>XQSPIPS_GPIO_OFFSET</name>
+        <initializer>0x30</initializer>
+        <briefdescription>
+<para>GPIO Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gabb6e04970bc1755d9f1d67e155042bff" prot="public" static="no">
+        <name>XQSPIPS_LPBK_DLY_ADJ_OFFSET</name>
+        <initializer>0x38</initializer>
+        <briefdescription>
+<para>Loopback Delay Adjust Reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gad5bf76639c42c131bf81ac80c3e21ec8" prot="public" static="no">
+        <name>XQSPIPS_TXD_01_OFFSET</name>
+        <initializer>0x80</initializer>
+        <briefdescription>
+<para>Transmit 1-byte inst. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="80" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="704" endline="1067">XQspiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="403" endline="649">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga67b841cfcf0b4c0ed0a3bd156cb740cf" prot="public" static="no">
+        <name>XQSPIPS_TXD_10_OFFSET</name>
+        <initializer>0x84</initializer>
+        <briefdescription>
+<para>Transmit 2-byte inst. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="704" endline="1067">XQspiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="403" endline="649">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga30f47aecc238b9f22fd577c3c13d5544" prot="public" static="no">
+        <name>XQSPIPS_TXD_11_OFFSET</name>
+        <initializer>0x88</initializer>
+        <briefdescription>
+<para>Transmit 3-byte inst. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="82" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="704" endline="1067">XQspiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="403" endline="649">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga569d8bbdf1473234ab9d067d46c5a454" prot="public" static="no">
+        <name>XQSPIPS_LQSPI_CR_OFFSET</name>
+        <initializer>0xA0</initializer>
+        <briefdescription>
+<para>Linear QSPI config register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="83" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga589925a6983f4075992c431a0077cf48" compoundref="xqspips__options_8c" startline="181" endline="216">XQspiPs_GetOptions</referencedby>
+        <referencedby refid="group__qspips_1gad769e09710e28c9876cebf678f6e890c" compoundref="xqspips__hw_8c" startline="144" endline="198">XQspiPs_LinearInit</referencedby>
+        <referencedby refid="group__qspips_1ga2732af9facd00339b5dc96c83d74a355" compoundref="xqspips__hw_8c" startline="67" endline="130">XQspiPs_ResetHw</referencedby>
+        <referencedby refid="group__qspips_1ga425ce03f19417a386c6882efb79641df" compoundref="xqspips__options_8c" startline="99" endline="162">XQspiPs_SetOptions</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gadab922905ac2ae980d7b094a62e5aafc" prot="public" static="no">
+        <name>XQSPIPS_LQSPI_SR_OFFSET</name>
+        <initializer>0xA4</initializer>
+        <briefdescription>
+<para>Linear QSPI status register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gaa84ef0f51f3ddc18f9d7d684dfa5f924" prot="public" static="no">
+        <name>XQSPIPS_MOD_ID_OFFSET</name>
+        <initializer>0xFC</initializer>
+        <briefdescription>
+<para>Module ID register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Configuration Register</header>
+      <description><para>This register contains various control bits that affect the operation of the QSPI device.</para><para>Read/Write. </para></description>
+      <memberdef kind="define" id="group__qspips_1ga7fdb4394bae580ea63ef74ff202713f9" prot="public" static="no">
+        <name>XQSPIPS_CR_IFMODE_MASK</name>
+        <initializer>0x80000000</initializer>
+        <briefdescription>
+<para>Flash mem interface mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gab4f388c3e262a39963914757c9535ffd" prot="public" static="no">
+        <name>XQSPIPS_CR_ENDIAN_MASK</name>
+        <initializer>0x04000000</initializer>
+        <briefdescription>
+<para>Tx/Rx FIFO endianness. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga153c93f73abd1240e238aa0fe5bff099" prot="public" static="no">
+        <name>XQSPIPS_CR_MANSTRT_MASK</name>
+        <initializer>0x00010000</initializer>
+        <briefdescription>
+<para>Manual Transmission Start. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1281" endline="1533">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="704" endline="1067">XQspiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="403" endline="649">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gadc8a72b569bec261d09d0b503687f5c3" prot="public" static="no">
+        <name>XQSPIPS_CR_MANSTRTEN_MASK</name>
+        <initializer>0x00008000</initializer>
+        <briefdescription>
+<para>Manual Transmission Start Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gab8c609b8289ed6b9b7fb337477bba0db" prot="public" static="no">
+        <name>XQSPIPS_CR_SSFORCE_MASK</name>
+        <initializer>0x00004000</initializer>
+        <briefdescription>
+<para>Force Slave Select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="102" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gafaa01b15d795ba75e438b718d5fbe92b" compoundref="xqspips_8c" startline="292" endline="336">XQspiPs_Abort</referencedby>
+        <referencedby refid="group__qspips_1ga2732af9facd00339b5dc96c83d74a355" compoundref="xqspips__hw_8c" startline="67" endline="130">XQspiPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga18805dc0789d5e4bfba04ea85ce1395e" prot="public" static="no">
+        <name>XQSPIPS_CR_SSCTRL_MASK</name>
+        <initializer>0x00000400</initializer>
+        <briefdescription>
+<para>Slave Select Decode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="103" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gafaa01b15d795ba75e438b718d5fbe92b" compoundref="xqspips_8c" startline="292" endline="336">XQspiPs_Abort</referencedby>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1281" endline="1533">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1gad769e09710e28c9876cebf678f6e890c" compoundref="xqspips__hw_8c" startline="144" endline="198">XQspiPs_LinearInit</referencedby>
+        <referencedby refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="704" endline="1067">XQspiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__qspips_1ga2732af9facd00339b5dc96c83d74a355" compoundref="xqspips__hw_8c" startline="67" endline="130">XQspiPs_ResetHw</referencedby>
+        <referencedby refid="group__qspips_1ga8eb7e89e789b707718444125358167e9" compoundref="xqspips_8c" startline="1145" endline="1170">XQspiPs_SetSlaveSelect</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="403" endline="649">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gadd25c288ae539e4c553e6d83c2f8b9e8" prot="public" static="no">
+        <name>XQSPIPS_CR_SSCTRL_SHIFT</name>
+        <initializer>10</initializer>
+        <briefdescription>
+<para>Slave Select Decode shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga8c0a0df06417ac7c6ca6284bd5ec37b6" prot="public" static="no">
+        <name>XQSPIPS_CR_DATA_SZ_MASK</name>
+        <initializer>0x000000C0</initializer>
+        <briefdescription>
+<para>Size of word to be transferred. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gaada7d5e9fd8a0575f83c54d32155ccd2" prot="public" static="no">
+        <name>XQSPIPS_CR_PRESC_MASK</name>
+        <initializer>0x00000038</initializer>
+        <briefdescription>
+<para>Prescaler Setting. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga6855fc350191a8273ed2363963af8f4d" compoundref="xqspips__options_8c" startline="287" endline="300">XQspiPs_GetClkPrescaler</referencedby>
+        <referencedby refid="group__qspips_1gad769e09710e28c9876cebf678f6e890c" compoundref="xqspips__hw_8c" startline="144" endline="198">XQspiPs_LinearInit</referencedby>
+        <referencedby refid="group__qspips_1gaafc1b751d17216ad037b7dd167f073f0" compoundref="xqspips__options_8c" startline="239" endline="272">XQspiPs_SetClkPrescaler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga383bb44aa6dcae975de138577e837543" prot="public" static="no">
+        <name>XQSPIPS_CR_PRESC_SHIFT</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>Prescaler shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="109" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga6855fc350191a8273ed2363963af8f4d" compoundref="xqspips__options_8c" startline="287" endline="300">XQspiPs_GetClkPrescaler</referencedby>
+        <referencedby refid="group__qspips_1gad769e09710e28c9876cebf678f6e890c" compoundref="xqspips__hw_8c" startline="144" endline="198">XQspiPs_LinearInit</referencedby>
+        <referencedby refid="group__qspips_1gaafc1b751d17216ad037b7dd167f073f0" compoundref="xqspips__options_8c" startline="239" endline="272">XQspiPs_SetClkPrescaler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga7efbd780e81bffc209d57e4124c95499" prot="public" static="no">
+        <name>XQSPIPS_CR_PRESC_MAXIMUM</name>
+        <initializer>0x07</initializer>
+        <briefdescription>
+<para>Prescaler maximum value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="110" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gaafc1b751d17216ad037b7dd167f073f0" compoundref="xqspips__options_8c" startline="239" endline="272">XQspiPs_SetClkPrescaler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gae928c099fd4d1427d83309550464d589" prot="public" static="no">
+        <name>XQSPIPS_CR_CPHA_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Phase Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga0d462dc931e6c9d1ed845190b1dd18a7" prot="public" static="no">
+        <name>XQSPIPS_CR_CPOL_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Polarity Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga64c12fb196b1c07f70eae117ff1b0a20" prot="public" static="no">
+        <name>XQSPIPS_CR_MSTREN_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Master Mode Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga8e37eb5b65d43582a068c281fcb33e44" prot="public" static="no">
+        <name>XQSPIPS_CR_HOLD_B_MASK</name>
+        <initializer>0x00080000</initializer>
+        <briefdescription>
+<para>HOLD_B Pin Drive Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gac8c3ff005783e08e09beb3c8ea030f14" prot="public" static="no">
+        <name>XQSPIPS_CR_REF_CLK_MASK</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+<para>Ref clk bit - should be 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gab4c29699eb9aa0a81e5ce1441c309ca9" prot="public" static="no">
+        <name>XQSPIPS_CR_RESET_MASK_SET</name>
+        <initializer><ref refid="group__qspips_1ga7fdb4394bae580ea63ef74ff202713f9" kindref="member">XQSPIPS_CR_IFMODE_MASK</ref> | \
+	<ref refid="group__qspips_1ga18805dc0789d5e4bfba04ea85ce1395e" kindref="member">XQSPIPS_CR_SSCTRL_MASK</ref> | \
+	<ref refid="group__qspips_1ga8c0a0df06417ac7c6ca6284bd5ec37b6" kindref="member">XQSPIPS_CR_DATA_SZ_MASK</ref> | \
+	<ref refid="group__qspips_1ga64c12fb196b1c07f70eae117ff1b0a20" kindref="member">XQSPIPS_CR_MSTREN_MASK</ref> | \
+	<ref refid="group__qspips_1gab8c609b8289ed6b9b7fb337477bba0db" kindref="member">XQSPIPS_CR_SSFORCE_MASK</ref> | \
+	<ref refid="group__qspips_1ga8e37eb5b65d43582a068c281fcb33e44" kindref="member">XQSPIPS_CR_HOLD_B_MASK</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gab92d1006b5c167d5d8ed7b1e9150bab3" prot="public" static="no">
+        <name>XQSPIPS_CR_RESET_MASK_CLR</name>
+        <initializer><ref refid="group__qspips_1ga0d462dc931e6c9d1ed845190b1dd18a7" kindref="member">XQSPIPS_CR_CPOL_MASK</ref> | \
+	<ref refid="group__qspips_1gae928c099fd4d1427d83309550464d589" kindref="member">XQSPIPS_CR_CPHA_MASK</ref> | \
+	<ref refid="group__qspips_1gaada7d5e9fd8a0575f83c54d32155ccd2" kindref="member">XQSPIPS_CR_PRESC_MASK</ref> | \
+	<ref refid="group__qspips_1gadc8a72b569bec261d09d0b503687f5c3" kindref="member">XQSPIPS_CR_MANSTRTEN_MASK</ref> | \
+	<ref refid="group__qspips_1ga153c93f73abd1240e238aa0fe5bff099" kindref="member">XQSPIPS_CR_MANSTRT_MASK</ref> | \
+	<ref refid="group__qspips_1gab4f388c3e262a39963914757c9535ffd" kindref="member">XQSPIPS_CR_ENDIAN_MASK</ref> | \
+	<ref refid="group__qspips_1gac8c3ff005783e08e09beb3c8ea030f14" kindref="member">XQSPIPS_CR_REF_CLK_MASK</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>QSPI Interrupt Registers</header>
+      <description><para><bold>QSPI Status Register</bold></para><para>This register holds the interrupt status flags for an QSPI device. Some of the flags are level triggered, which means that they are set as long as the interrupt condition exists. Other flags are edge triggered, which means they are set once the interrupt condition occurs and remain set until they are cleared by software. The interrupts are cleared by writing a &apos;1&apos; to the interrupt bit position in the Status Register. Read/Write.</para><para><bold>QSPI Interrupt Enable Register</bold></para><para>This register is used to enable chosen interrupts for an QSPI device. Writing a &apos;1&apos; to a bit in this register sets the corresponding bit in the QSPI Interrupt Mask register. Write only.</para><para><bold>QSPI Interrupt Disable Register </bold></para><para>This register is used to disable chosen interrupts for an QSPI device. Writing a &apos;1&apos; to a bit in this register clears the corresponding bit in the QSPI Interrupt Mask register. Write only.</para><para><bold>QSPI Interrupt Mask Register</bold></para><para>This register shows the enabled/disabled interrupts of an QSPI device. Read only.</para><para>All four registers have the same bit definitions. They are only defined once for each of the Interrupt Enable Register, Interrupt Disable Register, Interrupt Mask Register, and Channel Interrupt Status Register </para></description>
+      <memberdef kind="define" id="group__qspips_1ga46b985ce1ff37d75727ebaa8d95004ee" prot="public" static="no">
+        <name>XQSPIPS_IXR_TXUF_MASK</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>QSPI Tx FIFO Underflow. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="171" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="173" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1281" endline="1533">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="403" endline="649">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gaeaf6b9eec8bb18a8aea981f5ba596179" prot="public" static="no">
+        <name>XQSPIPS_IXR_RXFULL_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>QSPI Rx FIFO Full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="172" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gaffcc35360d77f07d56312cf208ddc4c3" prot="public" static="no">
+        <name>XQSPIPS_IXR_RXNEMPTY_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>QSPI Rx FIFO Not Empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="175" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1281" endline="1533">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="704" endline="1067">XQspiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__qspips_1ga2732af9facd00339b5dc96c83d74a355" compoundref="xqspips__hw_8c" startline="67" endline="130">XQspiPs_ResetHw</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="403" endline="649">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga023456cea2736c8018b5dc3e2200b2ee" prot="public" static="no">
+        <name>XQSPIPS_IXR_TXFULL_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>QSPI Tx FIFO Full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga491641b423fa08099b6f14890e42079f" prot="public" static="no">
+        <name>XQSPIPS_IXR_TXOW_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>QSPI Tx FIFO Overwater. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="177" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1281" endline="1533">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="704" endline="1067">XQspiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="403" endline="649">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga62fc17aae53cac9cc489e91c4a9b1602" prot="public" static="no">
+        <name>XQSPIPS_IXR_RXOVR_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>QSPI Rx FIFO Overrun. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="178" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1281" endline="1533">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="403" endline="649">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga20a2334064dc754e55bcc1bf3d586e3d" prot="public" static="no">
+        <name>XQSPIPS_IXR_DFLT_MASK</name>
+        <initializer>0x00000025</initializer>
+        <briefdescription>
+<para>QSPI default interrupts mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga7d69feac74eea544a6c44f0528d617c6" prot="public" static="no">
+        <name>XQSPIPS_IXR_WR_TO_CLR_MASK</name>
+        <initializer>0x00000041</initializer>
+        <briefdescription>
+<para>Interrupts which need write to clear. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="182" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1281" endline="1533">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1ga2732af9facd00339b5dc96c83d74a355" compoundref="xqspips__hw_8c" startline="67" endline="130">XQspiPs_ResetHw</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="403" endline="649">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gaf23adee5f63eadcc9d7811b0ae125573" prot="public" static="no">
+        <name>XQSPIPS_ISR_RESET_STATE</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Default to tx/rx empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga40777e9e6b84d8b83cdbac816f2f46f4" prot="public" static="no">
+        <name>XQSPIPS_IXR_DISABLE_ALL</name>
+        <initializer>0x0000007D</initializer>
+        <briefdescription>
+<para>Disable all interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="186" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga2732af9facd00339b5dc96c83d74a355" compoundref="xqspips__hw_8c" startline="67" endline="130">XQspiPs_ResetHw</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Enable Register</header>
+      <description><para>This register is used to enable or disable an QSPI device.</para><para>Read/Write </para></description>
+      <memberdef kind="define" id="group__qspips_1ga59b8080014041bb088c8fd28a2154b8d" prot="public" static="no">
+        <name>XQSPIPS_ER_ENABLE_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>QSPI Enable Bit Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="196" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gad769e09710e28c9876cebf678f6e890c" compoundref="xqspips__hw_8c" startline="144" endline="198">XQspiPs_LinearInit</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Delay Register</header>
+      <description><para>This register is used to program timing delays in slave mode.</para><para>Read/Write </para></description>
+      <memberdef kind="define" id="group__qspips_1gabc227ea7c06b95d6f70c1f1b91674514" prot="public" static="no">
+        <name>XQSPIPS_DR_NSS_MASK</name>
+        <initializer>0xFF000000</initializer>
+        <briefdescription>
+<para>Delay to de-assert slave select between two words mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="203" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="206" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga5f21bb46591dc0c4915f5f65cdf3a412" compoundref="xqspips__options_8c" startline="383" endline="404">XQspiPs_GetDelays</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga5f8585aa21a78dbeeb3501b3a2be232f" prot="public" static="no">
+        <name>XQSPIPS_DR_NSS_SHIFT</name>
+        <initializer>24</initializer>
+        <briefdescription>
+<para>Delay to de-assert slave select between two words shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="205" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="209" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga5f21bb46591dc0c4915f5f65cdf3a412" compoundref="xqspips__options_8c" startline="383" endline="404">XQspiPs_GetDelays</referencedby>
+        <referencedby refid="group__qspips_1gadae4c3733183129463090187c54aaaa7" compoundref="xqspips__options_8c" startline="333" endline="359">XQspiPs_SetDelays</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga13ae52f0fa79506212aae52080096177" prot="public" static="no">
+        <name>XQSPIPS_DR_BTWN_MASK</name>
+        <initializer>0x00FF0000</initializer>
+        <briefdescription>
+<para>Delay Between Transfers mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="207" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="212" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga5f21bb46591dc0c4915f5f65cdf3a412" compoundref="xqspips__options_8c" startline="383" endline="404">XQspiPs_GetDelays</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga3f210c67ccbc40aca99fdeeefb6a456b" prot="public" static="no">
+        <name>XQSPIPS_DR_BTWN_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Delay Between Transfers shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="208" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="215" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga5f21bb46591dc0c4915f5f65cdf3a412" compoundref="xqspips__options_8c" startline="383" endline="404">XQspiPs_GetDelays</referencedby>
+        <referencedby refid="group__qspips_1gadae4c3733183129463090187c54aaaa7" compoundref="xqspips__options_8c" startline="333" endline="359">XQspiPs_SetDelays</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga993b6ddfc938d8cc0addfa76e50fa20c" prot="public" static="no">
+        <name>XQSPIPS_DR_AFTER_MASK</name>
+        <initializer>0x0000FF00</initializer>
+        <briefdescription>
+<para>Delay After Transfers mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="209" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="216" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga5f21bb46591dc0c4915f5f65cdf3a412" compoundref="xqspips__options_8c" startline="383" endline="404">XQspiPs_GetDelays</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga75799fb67be08680e1111f9e0657051b" prot="public" static="no">
+        <name>XQSPIPS_DR_AFTER_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Delay After Transfers shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="217" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga5f21bb46591dc0c4915f5f65cdf3a412" compoundref="xqspips__options_8c" startline="383" endline="404">XQspiPs_GetDelays</referencedby>
+        <referencedby refid="group__qspips_1gadae4c3733183129463090187c54aaaa7" compoundref="xqspips__options_8c" startline="333" endline="359">XQspiPs_SetDelays</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga5623dd8f755d70760b91137ee24f3116" prot="public" static="no">
+        <name>XQSPIPS_DR_INIT_MASK</name>
+        <initializer>0x000000FF</initializer>
+        <briefdescription>
+<para>Delay Initially mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="211" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="218" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga5f21bb46591dc0c4915f5f65cdf3a412" compoundref="xqspips__options_8c" startline="383" endline="404">XQspiPs_GetDelays</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Slave Idle Count Registers</header>
+      <description><para>This register defines the number of pclk cycles the slave waits for a the QSPI clock to become stable in quiescent state before it can detect the start of the next transfer in CPHA = 1 mode.</para><para>Read/Write </para></description>
+      <memberdef kind="define" id="group__qspips_1gaf23ade3775cacdcf55f592c7b63156ef" prot="public" static="no">
+        <name>XQSPIPS_SICR_MASK</name>
+        <initializer>0x000000FF</initializer>
+        <briefdescription>
+<para>Slave Idle Count Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="223" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="230" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Transmit FIFO Watermark Register</header>
+      <description><para>This register defines the watermark setting for the Transmit FIFO. </para></description>
+      <memberdef kind="define" id="group__qspips_1gadd8b2b1507bf4ad065d64832baa398aa" prot="public" static="no">
+        <name>XQSPIPS_TXWR_MASK</name>
+        <initializer>0x0000003F</initializer>
+        <briefdescription>
+<para>Transmit Watermark Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="233" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="240" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga2732af9facd00339b5dc96c83d74a355" compoundref="xqspips__hw_8c" startline="67" endline="130">XQspiPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gaef912da3bdebe9cb54c18472c0b0b50c" prot="public" static="no">
+        <name>XQSPIPS_TXWR_RESET_VALUE</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Transmit Watermark register reset value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="235" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="241" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gafaa01b15d795ba75e438b718d5fbe92b" compoundref="xqspips_8c" startline="292" endline="336">XQspiPs_Abort</referencedby>
+        <referencedby refid="group__qspips_1ga2732af9facd00339b5dc96c83d74a355" compoundref="xqspips__hw_8c" startline="67" endline="130">XQspiPs_ResetHw</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Receive FIFO Watermark Register</header>
+      <description><para>This register defines the watermark setting for the Receive FIFO. </para></description>
+      <memberdef kind="define" id="group__qspips_1ga72c315000e6adebb4eccac4f7ccd3ec3" prot="public" static="no">
+        <name>XQSPIPS_RXWR_MASK</name>
+        <initializer>0x0000003F</initializer>
+        <briefdescription>
+<para>Receive Watermark Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="245" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="253" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga2732af9facd00339b5dc96c83d74a355" compoundref="xqspips__hw_8c" startline="67" endline="130">XQspiPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga40a339843fea8bd9c3352c554d85ed4f" prot="public" static="no">
+        <name>XQSPIPS_RXWR_RESET_VALUE</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Receive Watermark register reset value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="247" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="254" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gafaa01b15d795ba75e438b718d5fbe92b" compoundref="xqspips_8c" startline="292" endline="336">XQspiPs_Abort</referencedby>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1281" endline="1533">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="704" endline="1067">XQspiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__qspips_1ga2732af9facd00339b5dc96c83d74a355" compoundref="xqspips__hw_8c" startline="67" endline="130">XQspiPs_ResetHw</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>FIFO Depth</header>
+      <description><para>This macro provides the depth of transmit FIFO and receive FIFO. </para></description>
+      <memberdef kind="define" id="group__qspips_1gaa78347b3998401c5aeebf6292ace2ce5" prot="public" static="no">
+        <name>XQSPIPS_FIFO_DEPTH</name>
+        <initializer>63</initializer>
+        <briefdescription>
+<para>FIFO depth (words) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="257" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="266" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="704" endline="1067">XQspiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="403" endline="649">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Linear QSPI Configuration Register</header>
+      <description><para>This register contains various control bits that affect the operation of the Linear QSPI controller.</para><para>Read/Write. </para></description>
+      <memberdef kind="define" id="group__qspips_1gafc4b03f8705c7c19693225d718546118" prot="public" static="no">
+        <name>XQSPIPS_LQSPI_CR_LINEAR_MASK</name>
+        <initializer>0x80000000</initializer>
+        <briefdescription>
+<para>LQSPI mode enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="268" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="277" bodyend="-1"/>
+        <referencedby refid="group__qspips_1ga589925a6983f4075992c431a0077cf48" compoundref="xqspips__options_8c" startline="181" endline="216">XQspiPs_GetOptions</referencedby>
+        <referencedby refid="group__qspips_1gacbdefc29998bb7b4a61e62f8ef3ed127" compoundref="xqspips_8c" startline="1088" endline="1122">XQspiPs_LqspiRead</referencedby>
+        <referencedby refid="group__qspips_1ga425ce03f19417a386c6882efb79641df" compoundref="xqspips__options_8c" startline="99" endline="162">XQspiPs_SetOptions</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga2dad6e5df54b9e6cf4a276eaf92c6dd2" prot="public" static="no">
+        <name>XQSPIPS_LQSPI_CR_TWO_MEM_MASK</name>
+        <initializer>0x40000000</initializer>
+        <briefdescription>
+<para>Both memories or one. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="269" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="278" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gad769e09710e28c9876cebf678f6e890c" compoundref="xqspips__hw_8c" startline="144" endline="198">XQspiPs_LinearInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga18b5ef37d915313347cc7bc90d2136da" prot="public" static="no">
+        <name>XQSPIPS_LQSPI_CR_SEP_BUS_MASK</name>
+        <initializer>0x20000000</initializer>
+        <briefdescription>
+<para>Separate memory bus. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="270" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="279" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gad769e09710e28c9876cebf678f6e890c" compoundref="xqspips__hw_8c" startline="144" endline="198">XQspiPs_LinearInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga43ea3e35e6c6a57aba2301e0a3de9e8e" prot="public" static="no">
+        <name>XQSPIPS_LQSPI_CR_U_PAGE_MASK</name>
+        <initializer>0x10000000</initializer>
+        <briefdescription>
+<para>Upper memory page. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="271" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="280" bodyend="-1"/>
+        <referencedby refid="xqspips__g128__flash__example_8c_1aca1ee50e3326d7a6bf10276be2d21391" compoundref="xqspips__g128__flash__example_8c" startline="809" endline="1032">FlashErase</referencedby>
+        <referencedby refid="xqspips__g128__flash__example_8c_1a8dcc4059afd09dacccfa2ab80669aa91" compoundref="xqspips__g128__flash__example_8c" startline="1559" endline="1620">GetRealAddr</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga00bf8fcd643bd848fbe928cf27bbeafe" prot="public" static="no">
+        <name>XQSPIPS_LQSPI_CR_MODE_EN_MASK</name>
+        <initializer>0x02000000</initializer>
+        <briefdescription>
+<para>Enable mode bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="272" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gaa468fba4523d010cde533a2c4d4a8d09" prot="public" static="no">
+        <name>XQSPIPS_LQSPI_CR_MODE_ON_MASK</name>
+        <initializer>0x01000000</initializer>
+        <briefdescription>
+<para>Mode on. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="273" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga844b7089e30c37640c8f0fa74c875fed" prot="public" static="no">
+        <name>XQSPIPS_LQSPI_CR_MODE_BITS_MASK</name>
+        <initializer>0x00FF0000</initializer>
+        <briefdescription>
+<para>Mode value for dual I/O or quad I/O. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="275" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gafa7a197c87274427b3903a48be33780e" prot="public" static="no">
+        <name>XQSPIPS_LQSPI_CR_DUMMY_MASK</name>
+        <initializer>0x00000700</initializer>
+        <briefdescription>
+<para>Number of dummy bytes between addr and return read data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="278" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gad327ae631cb6e447615bc9534738af72" prot="public" static="no">
+        <name>XQSPIPS_LQSPI_CR_INST_MASK</name>
+        <initializer>0x000000FF</initializer>
+        <briefdescription>
+<para>Read instr code. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="279" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga6f187c067994aa193d43051cb5fef0db" prot="public" static="no">
+        <name>XQSPIPS_LQSPI_CR_RST_STATE</name>
+        <initializer>0x8000016B</initializer>
+        <briefdescription>
+<para>Default CR value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="280" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="292" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gad769e09710e28c9876cebf678f6e890c" compoundref="xqspips__hw_8c" startline="144" endline="198">XQspiPs_LinearInit</referencedby>
+        <referencedby refid="group__qspips_1ga425ce03f19417a386c6882efb79641df" compoundref="xqspips__options_8c" startline="99" endline="162">XQspiPs_SetOptions</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Linear QSPI Status Register</header>
+      <description><para>This register contains various status bits of the Linear QSPI controller.</para><para>Read/Write. </para></description>
+      <memberdef kind="define" id="group__qspips_1gaebd63f5db08829210463161a8b2541cc" prot="public" static="no">
+        <name>XQSPIPS_LQSPI_SR_D_FSM_ERR_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>AXI Data FSM Error received. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="291" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gae1df76d175197557f5341675981b0c6f" prot="public" static="no">
+        <name>XQSPIPS_LQSPI_SR_WR_RECVD_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>AXI write command received. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="293" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Loopback Delay Adjust Register</header>
+      <description><para>This register contains various bit masks of Loopback Delay Adjust Register. </para></description>
+      <memberdef kind="define" id="group__qspips_1ga6d8db4e6ef37984fc65f469d68001ae5" prot="public" static="no">
+        <name>XQSPIPS_LPBK_DLY_ADJ_USE_LPBK_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>Loopback Bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="304" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="318" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>SLCR Register</header>
+      <description><para>Bit Masks of above SLCR Registers . </para></description>
+      <memberdef kind="define" id="group__qspips_1ga286f17de7ab3285f143c9aab3fc26da4" prot="public" static="no">
+        <name>SLCR_LOCK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>SLCR Write Protection Lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="316" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="330" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gafaa01b15d795ba75e438b718d5fbe92b" compoundref="xqspips_8c" startline="292" endline="336">XQspiPs_Abort</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga83fcf6f141c914ab6b8b683fb62232b4" prot="public" static="no">
+        <name>SLCR_UNLOCK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>SLCR Write Protection Unlock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="317" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="331" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gafaa01b15d795ba75e438b718d5fbe92b" compoundref="xqspips_8c" startline="292" endline="336">XQspiPs_Abort</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga092a4aa1f062806072ebb1d947708796" prot="public" static="no">
+        <name>LQSPI_RST_CTRL</name>
+        <initializer>0x00000230</initializer>
+        <briefdescription>
+<para>Quad SPI Software Reset Control. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="318" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="332" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gafaa01b15d795ba75e438b718d5fbe92b" compoundref="xqspips_8c" startline="292" endline="336">XQspiPs_Abort</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga1d7797b08b7b40f62f0dfde3bc8ac547" prot="public" static="no">
+        <name>SLCR_LOCKSTA</name>
+        <initializer>0x0000000C</initializer>
+        <briefdescription>
+<para>SLCR Write Protection status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="319" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="333" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gafaa01b15d795ba75e438b718d5fbe92b" compoundref="xqspips_8c" startline="292" endline="336">XQspiPs_Abort</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga5d638bda734baa1b0de6e6994023a3bd" prot="public" static="no">
+        <name>XPAR_XSLCR_0_BASEADDR</name>
+        <initializer>0xF8000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="332" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="346" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gac11ad6eef43004fc003da9fd134c5eac" prot="public" static="no">
+        <name>SLCR_LOCK_MASK</name>
+        <initializer>0x767B</initializer>
+        <briefdescription>
+<para>Write Protection Lock mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="334" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="348" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gafaa01b15d795ba75e438b718d5fbe92b" compoundref="xqspips_8c" startline="292" endline="336">XQspiPs_Abort</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gaac26206f6af2c9142b6565dcf38d9e74" prot="public" static="no">
+        <name>SLCR_UNLOCK_MASK</name>
+        <initializer>0xDF0D</initializer>
+        <briefdescription>
+<para>SLCR Write Protection Unlock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="335" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="349" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gafaa01b15d795ba75e438b718d5fbe92b" compoundref="xqspips_8c" startline="292" endline="336">XQspiPs_Abort</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga7f208afda8f0b517f00aa56aebe34f39" prot="public" static="no">
+        <name>LQSPI_RST_CTRL_MASK</name>
+        <initializer>0x3</initializer>
+        <briefdescription>
+<para>Quad SPI Software Reset Control. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="336" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="350" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gafaa01b15d795ba75e438b718d5fbe92b" compoundref="xqspips_8c" startline="292" endline="336">XQspiPs_Abort</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__qspips_1ga8c0fce39ca1617588d6a2847e155b6f2" prot="public" static="no">
+        <name>XQSPIPS_HW_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1gac1be08ca63c12b54f4055356fdd1b169" prot="public" static="no">
+        <name>XQspiPs_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="345" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="359" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga5a925f16944436d9af4e8c7b8f890894" prot="public" static="no">
+        <name>XQspiPs_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="346" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="360" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga64f456ceb5135bf25b2562949189e868" prot="public" static="no">
+        <name>XQSPIPS_DUMMY_TX_DATA</name>
+        <initializer>0xFFFFFFFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="347" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="361" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga816dc349df40d377cb0b08d93bee37d2" prot="public" static="no">
+        <name>XQspiPs_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>XQspiPs_In32((BaseAddress) + (RegOffset))</initializer>
+        <briefdescription>
+<para>Read a register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the offset from the 1st register of the device to the target register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read from the register.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: u32 XQspiPs_ReadReg(u32 BaseAddress. int RegOffset) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="363" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="377" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gafaa01b15d795ba75e438b718d5fbe92b" compoundref="xqspips_8c" startline="292" endline="336">XQspiPs_Abort</referencedby>
+        <referencedby refid="group__qspips_1ga6855fc350191a8273ed2363963af8f4d" compoundref="xqspips__options_8c" startline="287" endline="300">XQspiPs_GetClkPrescaler</referencedby>
+        <referencedby refid="group__qspips_1ga5f21bb46591dc0c4915f5f65cdf3a412" compoundref="xqspips__options_8c" startline="383" endline="404">XQspiPs_GetDelays</referencedby>
+        <referencedby refid="group__qspips_1ga589925a6983f4075992c431a0077cf48" compoundref="xqspips__options_8c" startline="181" endline="216">XQspiPs_GetOptions</referencedby>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1281" endline="1533">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1gad769e09710e28c9876cebf678f6e890c" compoundref="xqspips__hw_8c" startline="144" endline="198">XQspiPs_LinearInit</referencedby>
+        <referencedby refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="704" endline="1067">XQspiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__qspips_1ga5e488f0da6981f817242eee92e238d69" compoundref="xqspips_8c" startline="252" endline="274">XQspiPs_Reset</referencedby>
+        <referencedby refid="group__qspips_1ga2732af9facd00339b5dc96c83d74a355" compoundref="xqspips__hw_8c" startline="67" endline="130">XQspiPs_ResetHw</referencedby>
+        <referencedby refid="group__qspips_1gaafc1b751d17216ad037b7dd167f073f0" compoundref="xqspips__options_8c" startline="239" endline="272">XQspiPs_SetClkPrescaler</referencedby>
+        <referencedby refid="group__qspips_1ga425ce03f19417a386c6882efb79641df" compoundref="xqspips__options_8c" startline="99" endline="162">XQspiPs_SetOptions</referencedby>
+        <referencedby refid="group__qspips_1ga8eb7e89e789b707718444125358167e9" compoundref="xqspips_8c" startline="1145" endline="1170">XQspiPs_SetSlaveSelect</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="403" endline="649">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__qspips_1ga0d50616771e04824af465a0f078a7ebb" prot="public" static="no">
+        <name>XQspiPs_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>RegisterValue</defname></param>
+        <initializer>XQspiPs_Out32((BaseAddress) + (RegOffset), (RegisterValue))</initializer>
+        <briefdescription>
+<para>Write to a register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the offset from the 1st register of the device to target register. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegisterValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to be written to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: void XQspiPs_WriteReg(u32 BaseAddress, int RegOffset, u32 RegisterValue) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" line="382" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h" bodystart="396" bodyend="-1"/>
+        <referencedby refid="group__qspips_1gafaa01b15d795ba75e438b718d5fbe92b" compoundref="xqspips_8c" startline="292" endline="336">XQspiPs_Abort</referencedby>
+        <referencedby refid="group__qspips_1ga44c9e0841d774e9c4958e2cdd8c23220" compoundref="xqspips_8c" startline="1281" endline="1533">XQspiPs_InterruptHandler</referencedby>
+        <referencedby refid="group__qspips_1gad769e09710e28c9876cebf678f6e890c" compoundref="xqspips__hw_8c" startline="144" endline="198">XQspiPs_LinearInit</referencedby>
+        <referencedby refid="group__qspips_1ga92bcb2ff87e82a4f27e9a49db023d08d" compoundref="xqspips_8c" startline="704" endline="1067">XQspiPs_PolledTransfer</referencedby>
+        <referencedby refid="group__qspips_1ga5e488f0da6981f817242eee92e238d69" compoundref="xqspips_8c" startline="252" endline="274">XQspiPs_Reset</referencedby>
+        <referencedby refid="group__qspips_1ga2732af9facd00339b5dc96c83d74a355" compoundref="xqspips__hw_8c" startline="67" endline="130">XQspiPs_ResetHw</referencedby>
+        <referencedby refid="group__qspips_1gaafc1b751d17216ad037b7dd167f073f0" compoundref="xqspips__options_8c" startline="239" endline="272">XQspiPs_SetClkPrescaler</referencedby>
+        <referencedby refid="group__qspips_1gadae4c3733183129463090187c54aaaa7" compoundref="xqspips__options_8c" startline="333" endline="359">XQspiPs_SetDelays</referencedby>
+        <referencedby refid="group__qspips_1ga425ce03f19417a386c6882efb79641df" compoundref="xqspips__options_8c" startline="99" endline="162">XQspiPs_SetOptions</referencedby>
+        <referencedby refid="group__qspips_1ga8eb7e89e789b707718444125358167e9" compoundref="xqspips_8c" startline="1145" endline="1170">XQspiPs_SetSlaveSelect</referencedby>
+        <referencedby refid="group__qspips_1gaeafbee8d795ef8805ab7c8756f5e2274" compoundref="xqspips_8c" startline="403" endline="649">XQspiPs_Transfer</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__qspips_1ga2732af9facd00339b5dc96c83d74a355" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XQspiPs_ResetHw</definition>
+        <argsstring>(u32 BaseAddress)</argsstring>
+        <name>XQspiPs_ResetHw</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Resets QSPI by disabling the device and bringing it to reset state through register writes. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.c" bodystart="67" bodyend="130"/>
+        <references refid="group__qspips_1gad65b0a99e7acd5b73ef96245cabee22b" compoundref="xqspips__hw_8h" startline="66">XQSPIPS_CR_OFFSET</references>
+        <references refid="group__qspips_1ga18805dc0789d5e4bfba04ea85ce1395e" compoundref="xqspips__hw_8h" startline="103">XQSPIPS_CR_SSCTRL_MASK</references>
+        <references refid="group__qspips_1gab8c609b8289ed6b9b7fb337477bba0db" compoundref="xqspips__hw_8h" startline="102">XQSPIPS_CR_SSFORCE_MASK</references>
+        <references refid="group__qspips_1gadeb61bbc1b66a0fde033664cfee4fd30" compoundref="xqspips__hw_8h" startline="71">XQSPIPS_ER_OFFSET</references>
+        <references refid="group__qspips_1ga0273dd38f06363ce19a473304589ca26" compoundref="xqspips__hw_8h" startline="69">XQSPIPS_IDR_OFFSET</references>
+        <references refid="group__qspips_1ga40777e9e6b84d8b83cdbac816f2f46f4" compoundref="xqspips__hw_8h" startline="186">XQSPIPS_IXR_DISABLE_ALL</references>
+        <references refid="group__qspips_1gaffcc35360d77f07d56312cf208ddc4c3" compoundref="xqspips__hw_8h" startline="175">XQSPIPS_IXR_RXNEMPTY_MASK</references>
+        <references refid="group__qspips_1ga7d69feac74eea544a6c44f0528d617c6" compoundref="xqspips__hw_8h" startline="182">XQSPIPS_IXR_WR_TO_CLR_MASK</references>
+        <references refid="group__qspips_1ga569d8bbdf1473234ab9d067d46c5a454" compoundref="xqspips__hw_8h" startline="83">XQSPIPS_LQSPI_CR_OFFSET</references>
+        <references refid="group__qspips_1ga816dc349df40d377cb0b08d93bee37d2" compoundref="xqspips__hw_8h" startline="377">XQspiPs_ReadReg</references>
+        <references refid="group__qspips_1ga9e202889f9544e37c4ef76f8ded6df7f" compoundref="xqspips__hw_8h" startline="74">XQSPIPS_RXD_OFFSET</references>
+        <references refid="group__qspips_1ga72c315000e6adebb4eccac4f7ccd3ec3" compoundref="xqspips__hw_8h" startline="253">XQSPIPS_RXWR_MASK</references>
+        <references refid="group__qspips_1gacfe5eff35c496b0555437eae756ab3ba" compoundref="xqspips__hw_8h" startline="77">XQSPIPS_RXWR_OFFSET</references>
+        <references refid="group__qspips_1ga40a339843fea8bd9c3352c554d85ed4f" compoundref="xqspips__hw_8h" startline="254">XQSPIPS_RXWR_RESET_VALUE</references>
+        <references refid="group__qspips_1ga932c802186fcabf52f50881159028535" compoundref="xqspips__hw_8h" startline="67">XQSPIPS_SR_OFFSET</references>
+        <references refid="group__qspips_1gadd8b2b1507bf4ad065d64832baa398aa" compoundref="xqspips__hw_8h" startline="240">XQSPIPS_TXWR_MASK</references>
+        <references refid="group__qspips_1gaca82abc3f1f75efb2d1b6d67a735bb23" compoundref="xqspips__hw_8h" startline="76">XQSPIPS_TXWR_OFFSET</references>
+        <references refid="group__qspips_1gaef912da3bdebe9cb54c18472c0b0b50c" compoundref="xqspips__hw_8h" startline="241">XQSPIPS_TXWR_RESET_VALUE</references>
+        <references refid="group__qspips_1ga0d50616771e04824af465a0f078a7ebb" compoundref="xqspips__hw_8h" startline="396">XQspiPs_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__qspips_1gad769e09710e28c9876cebf678f6e890c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XQspiPs_LinearInit</definition>
+        <argsstring>(u32 BaseAddress)</argsstring>
+        <name>XQspiPs_LinearInit</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Initializes QSPI to Linear mode with default QSPI boot settings. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.c" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.c" bodystart="144" bodyend="198"/>
+        <references refid="group__qspips_1gad65b0a99e7acd5b73ef96245cabee22b" compoundref="xqspips__hw_8h" startline="66">XQSPIPS_CR_OFFSET</references>
+        <references refid="group__qspips_1gaada7d5e9fd8a0575f83c54d32155ccd2" compoundref="xqspips__hw_8h" startline="108">XQSPIPS_CR_PRESC_MASK</references>
+        <references refid="group__qspips_1ga383bb44aa6dcae975de138577e837543" compoundref="xqspips__hw_8h" startline="109">XQSPIPS_CR_PRESC_SHIFT</references>
+        <references refid="group__qspips_1ga18805dc0789d5e4bfba04ea85ce1395e" compoundref="xqspips__hw_8h" startline="103">XQSPIPS_CR_SSCTRL_MASK</references>
+        <references refid="group__qspips_1ga59b8080014041bb088c8fd28a2154b8d" compoundref="xqspips__hw_8h" startline="196">XQSPIPS_ER_ENABLE_MASK</references>
+        <references refid="group__qspips_1gadeb61bbc1b66a0fde033664cfee4fd30" compoundref="xqspips__hw_8h" startline="71">XQSPIPS_ER_OFFSET</references>
+        <references refid="group__qspips_1ga569d8bbdf1473234ab9d067d46c5a454" compoundref="xqspips__hw_8h" startline="83">XQSPIPS_LQSPI_CR_OFFSET</references>
+        <references refid="group__qspips_1ga6f187c067994aa193d43051cb5fef0db" compoundref="xqspips__hw_8h" startline="292">XQSPIPS_LQSPI_CR_RST_STATE</references>
+        <references refid="group__qspips_1ga18b5ef37d915313347cc7bc90d2136da" compoundref="xqspips__hw_8h" startline="279">XQSPIPS_LQSPI_CR_SEP_BUS_MASK</references>
+        <references refid="group__qspips_1ga2dad6e5df54b9e6cf4a276eaf92c6dd2" compoundref="xqspips__hw_8h" startline="278">XQSPIPS_LQSPI_CR_TWO_MEM_MASK</references>
+        <references refid="group__qspips_1ga816dc349df40d377cb0b08d93bee37d2" compoundref="xqspips__hw_8h" startline="377">XQspiPs_ReadReg</references>
+        <references refid="group__qspips_1ga0d50616771e04824af465a0f078a7ebb" compoundref="xqspips__hw_8h" startline="396">XQspiPs_WriteReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor">#ifndef<sp/>XQSPIPS_HW_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XQSPIPS_HW_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66" refid="group__qspips_1gad65b0a99e7acd5b73ef96245cabee22b" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_CR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00<sp/></highlight></codeline>
+<codeline lineno="67" refid="group__qspips_1ga932c802186fcabf52f50881159028535" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_SR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04<sp/></highlight></codeline>
+<codeline lineno="68" refid="group__qspips_1gaeb7277c4dc92141976f2a238c80b3a21" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_IER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08<sp/></highlight></codeline>
+<codeline lineno="69" refid="group__qspips_1ga0273dd38f06363ce19a473304589ca26" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_IDR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0c<sp/></highlight></codeline>
+<codeline lineno="70" refid="group__qspips_1gad146aae5ec2398afb5a876f6aff16c60" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_IMR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10<sp/></highlight></codeline>
+<codeline lineno="71" refid="group__qspips_1gadeb61bbc1b66a0fde033664cfee4fd30" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_ER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x14<sp/></highlight></codeline>
+<codeline lineno="72" refid="group__qspips_1ga108ac25b6c44eb9e0babd1a7948e18cc" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_DR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x18<sp/></highlight></codeline>
+<codeline lineno="73" refid="group__qspips_1ga5dda022acf4337554d3db261663dcc29" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_TXD_00_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1C<sp/></highlight></codeline>
+<codeline lineno="74" refid="group__qspips_1ga9e202889f9544e37c4ef76f8ded6df7f" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_RXD_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20<sp/></highlight></codeline>
+<codeline lineno="75" refid="group__qspips_1ga0781d2328e59158090ba44294f6ca8d1" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_SICR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x24<sp/></highlight></codeline>
+<codeline lineno="76" refid="group__qspips_1gaca82abc3f1f75efb2d1b6d67a735bb23" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_TXWR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x28<sp/></highlight></codeline>
+<codeline lineno="77" refid="group__qspips_1gacfe5eff35c496b0555437eae756ab3ba" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_RXWR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2C<sp/></highlight></codeline>
+<codeline lineno="78" refid="group__qspips_1ga3829bec1dd9c175514efb6ff3bdd8a85" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_GPIO_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x30<sp/></highlight></codeline>
+<codeline lineno="79" refid="group__qspips_1gabb6e04970bc1755d9f1d67e155042bff" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_LPBK_DLY_ADJ_OFFSET<sp/><sp/><sp/><sp/><sp/>0x38<sp/></highlight></codeline>
+<codeline lineno="80" refid="group__qspips_1gad5bf76639c42c131bf81ac80c3e21ec8" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_TXD_01_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80<sp/></highlight></codeline>
+<codeline lineno="81" refid="group__qspips_1ga67b841cfcf0b4c0ed0a3bd156cb740cf" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_TXD_10_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x84<sp/></highlight></codeline>
+<codeline lineno="82" refid="group__qspips_1ga30f47aecc238b9f22fd577c3c13d5544" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_TXD_11_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x88<sp/></highlight></codeline>
+<codeline lineno="83" refid="group__qspips_1ga569d8bbdf1473234ab9d067d46c5a454" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_LQSPI_CR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xA0<sp/></highlight></codeline>
+<codeline lineno="84" refid="group__qspips_1gadab922905ac2ae980d7b094a62e5aafc" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_LQSPI_SR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xA4<sp/></highlight></codeline>
+<codeline lineno="85" refid="group__qspips_1gaa84ef0f51f3ddc18f9d7d684dfa5f924" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_MOD_ID_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFC<sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="96" refid="group__qspips_1ga7fdb4394bae580ea63ef74ff202713f9" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_CR_IFMODE_MASK<sp/><sp/><sp/><sp/>0x80000000<sp/></highlight></codeline>
+<codeline lineno="97" refid="group__qspips_1gab4f388c3e262a39963914757c9535ffd" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_CR_ENDIAN_MASK<sp/><sp/><sp/><sp/>0x04000000<sp/></highlight></codeline>
+<codeline lineno="98" refid="group__qspips_1ga153c93f73abd1240e238aa0fe5bff099" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_CR_MANSTRT_MASK<sp/><sp/><sp/>0x00010000<sp/></highlight></codeline>
+<codeline lineno="99" refid="group__qspips_1gadc8a72b569bec261d09d0b503687f5c3" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_CR_MANSTRTEN_MASK<sp/>0x00008000<sp/></highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor">#define<sp/>XQSPIPS_CR_SSFORCE_MASK<sp/><sp/><sp/>0x00004000<sp/></highlight></codeline>
+<codeline lineno="102" refid="group__qspips_1gab8c609b8289ed6b9b7fb337477bba0db" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_CR_SSCTRL_MASK<sp/><sp/><sp/><sp/>0x00000400<sp/></highlight></codeline>
+<codeline lineno="103" refid="group__qspips_1ga18805dc0789d5e4bfba04ea85ce1395e" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_CR_SSCTRL_SHIFT<sp/><sp/><sp/>10<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104" refid="group__qspips_1gadd25c288ae539e4c553e6d83c2f8b9e8" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_CR_DATA_SZ_MASK<sp/><sp/><sp/>0x000000C0<sp/></highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor">#define<sp/>XQSPIPS_CR_PRESC_MASK<sp/><sp/><sp/><sp/><sp/>0x00000038<sp/></highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor">#define<sp/>XQSPIPS_CR_PRESC_SHIFT<sp/><sp/><sp/><sp/>3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108" refid="group__qspips_1gaada7d5e9fd8a0575f83c54d32155ccd2" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_CR_PRESC_MAXIMUM<sp/><sp/>0x07<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110" refid="group__qspips_1ga7efbd780e81bffc209d57e4124c95499" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_CR_CPHA_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor">#define<sp/>XQSPIPS_CR_CPOL_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/></highlight></codeline>
+<codeline lineno="113" refid="group__qspips_1ga0d462dc931e6c9d1ed845190b1dd18a7" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_CR_MSTREN_MASK<sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="115" refid="group__qspips_1ga64c12fb196b1c07f70eae117ff1b0a20" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_CR_HOLD_B_MASK<sp/><sp/><sp/><sp/>0x00080000<sp/></highlight></codeline>
+<codeline lineno="117" refid="group__qspips_1ga8e37eb5b65d43582a068c281fcb33e44" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_CR_REF_CLK_MASK<sp/><sp/><sp/>0x00000100<sp/></highlight></codeline>
+<codeline lineno="119" refid="group__qspips_1gac8c3ff005783e08e09beb3c8ea030f14" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Deselect<sp/>the<sp/>Slave<sp/>select<sp/>line<sp/>and<sp/>set<sp/>the<sp/>transfer<sp/>size<sp/>to<sp/>32<sp/>at<sp/>reset<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XQSPIPS_CR_RESET_MASK_SET<sp/><sp/>XQSPIPS_CR_IFMODE_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPS_CR_SSCTRL_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPS_CR_DATA_SZ_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPS_CR_MSTREN_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPS_CR_SSFORCE_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPS_CR_HOLD_B_MASK</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XQSPIPS_CR_RESET_MASK_CLR<sp/><sp/>XQSPIPS_CR_CPOL_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPS_CR_CPHA_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPS_CR_PRESC_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPS_CR_MANSTRTEN_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPS_CR_MANSTRT_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPS_CR_ENDIAN_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQSPIPS_CR_REF_CLK_MASK</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor">#define<sp/>XQSPIPS_IXR_TXUF_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000040<sp/><sp/></highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor">#define<sp/>XQSPIPS_IXR_RXFULL_MASK<sp/><sp/><sp/><sp/>0x00000020<sp/><sp/></highlight></codeline>
+<codeline lineno="173" refid="group__qspips_1ga46b985ce1ff37d75727ebaa8d95004ee" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_IXR_RXNEMPTY_MASK<sp/><sp/>0x00000010<sp/><sp/></highlight></codeline>
+<codeline lineno="174" refid="group__qspips_1gaeaf6b9eec8bb18a8aea981f5ba596179" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_IXR_TXFULL_MASK<sp/><sp/><sp/><sp/>0x00000008<sp/><sp/></highlight></codeline>
+<codeline lineno="175" refid="group__qspips_1gaffcc35360d77f07d56312cf208ddc4c3" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_IXR_TXOW_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/><sp/></highlight></codeline>
+<codeline lineno="176" refid="group__qspips_1ga023456cea2736c8018b5dc3e2200b2ee" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_IXR_RXOVR_MASK<sp/><sp/><sp/><sp/><sp/>0x00000001<sp/><sp/></highlight></codeline>
+<codeline lineno="177" refid="group__qspips_1ga491641b423fa08099b6f14890e42079f" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_IXR_DFLT_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000025<sp/><sp/></highlight></codeline>
+<codeline lineno="179" refid="group__qspips_1ga20a2334064dc754e55bcc1bf3d586e3d" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_IXR_WR_TO_CLR_MASK<sp/>0x00000041<sp/><sp/></highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor">#define<sp/>XQSPIPS_ISR_RESET_STATE<sp/><sp/><sp/><sp/>0x00000004<sp/><sp/></highlight></codeline>
+<codeline lineno="182" refid="group__qspips_1ga7d69feac74eea544a6c44f0528d617c6" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_IXR_DISABLE_ALL<sp/><sp/><sp/><sp/>0x0000007D<sp/><sp/></highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185" refid="group__qspips_1gaf23adee5f63eadcc9d7811b0ae125573" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor">#define<sp/>XQSPIPS_ER_ENABLE_MASK<sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor">#define<sp/>XQSPIPS_DR_NSS_MASK<sp/><sp/><sp/><sp/><sp/>0xFF000000<sp/></highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor">#define<sp/>XQSPIPS_DR_NSS_SHIFT<sp/><sp/><sp/><sp/>24<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="206" refid="group__qspips_1gabc227ea7c06b95d6f70c1f1b91674514" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_DR_BTWN_MASK<sp/><sp/><sp/><sp/>0x00FF0000<sp/></highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor">#define<sp/>XQSPIPS_DR_BTWN_SHIFT<sp/><sp/><sp/>16<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="209" refid="group__qspips_1ga5f8585aa21a78dbeeb3501b3a2be232f" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_DR_AFTER_MASK<sp/><sp/><sp/>0x0000FF00<sp/></highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor">#define<sp/>XQSPIPS_DR_AFTER_SHIFT<sp/><sp/>8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor">#define<sp/>XQSPIPS_DR_INIT_MASK<sp/><sp/><sp/><sp/>0x000000FF<sp/></highlight></codeline>
+<codeline lineno="212" refid="group__qspips_1ga13ae52f0fa79506212aae52080096177" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="223"><highlight class="preprocessor">#define<sp/>XQSPIPS_SICR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000FF<sp/></highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="preprocessor">#define<sp/>XQSPIPS_TXWR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000003F<sp/></highlight></codeline>
+<codeline lineno="234"><highlight class="preprocessor">#define<sp/>XQSPIPS_TXWR_RESET_VALUE<sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="238"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="245"><highlight class="preprocessor">#define<sp/>XQSPIPS_RXWR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000003F<sp/></highlight></codeline>
+<codeline lineno="246"><highlight class="preprocessor">#define<sp/>XQSPIPS_RXWR_RESET_VALUE<sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="249"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="257"><highlight class="preprocessor">#define<sp/>XQSPIPS_FIFO_DEPTH<sp/><sp/><sp/><sp/><sp/><sp/>63<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="258"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="259"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="preprocessor">#define<sp/>XQSPIPS_LQSPI_CR_LINEAR_MASK<sp/><sp/><sp/><sp/><sp/>0x80000000<sp/></highlight></codeline>
+<codeline lineno="269"><highlight class="preprocessor">#define<sp/>XQSPIPS_LQSPI_CR_TWO_MEM_MASK<sp/><sp/><sp/><sp/>0x40000000<sp/></highlight></codeline>
+<codeline lineno="270"><highlight class="preprocessor">#define<sp/>XQSPIPS_LQSPI_CR_SEP_BUS_MASK<sp/><sp/><sp/><sp/>0x20000000<sp/></highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor">#define<sp/>XQSPIPS_LQSPI_CR_U_PAGE_MASK<sp/><sp/><sp/><sp/><sp/>0x10000000<sp/></highlight></codeline>
+<codeline lineno="272"><highlight class="preprocessor">#define<sp/>XQSPIPS_LQSPI_CR_MODE_EN_MASK<sp/><sp/><sp/><sp/>0x02000000<sp/></highlight></codeline>
+<codeline lineno="273"><highlight class="preprocessor">#define<sp/>XQSPIPS_LQSPI_CR_MODE_ON_MASK<sp/><sp/><sp/><sp/>0x01000000<sp/></highlight></codeline>
+<codeline lineno="274"><highlight class="preprocessor">#define<sp/>XQSPIPS_LQSPI_CR_MODE_BITS_MASK<sp/><sp/>0x00FF0000<sp/></highlight></codeline>
+<codeline lineno="276"><highlight class="preprocessor">#define<sp/>XQSPIPS_LQSPI_CR_DUMMY_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000700<sp/></highlight></codeline>
+<codeline lineno="279" refid="group__qspips_1ga18b5ef37d915313347cc7bc90d2136da" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_LQSPI_CR_INST_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000FF<sp/></highlight></codeline>
+<codeline lineno="280" refid="group__qspips_1ga43ea3e35e6c6a57aba2301e0a3de9e8e" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_LQSPI_CR_RST_STATE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x8000016B<sp/></highlight></codeline>
+<codeline lineno="281" refid="group__qspips_1ga00bf8fcd643bd848fbe928cf27bbeafe" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="282" refid="group__qspips_1gaa468fba4523d010cde533a2c4d4a8d09" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="290"><highlight class="preprocessor">#define<sp/>XQSPIPS_LQSPI_SR_D_FSM_ERR_MASK<sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="292" refid="group__qspips_1ga6f187c067994aa193d43051cb5fef0db" refkind="member"><highlight class="preprocessor">#define<sp/>XQSPIPS_LQSPI_SR_WR_RECVD_MASK<sp/><sp/><sp/><sp/>0x00000002<sp/></highlight></codeline>
+<codeline lineno="294"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="295"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="preprocessor">#define<sp/>XQSPIPS_LPBK_DLY_ADJ_USE_LPBK_MASK<sp/>0x00000020<sp/></highlight></codeline>
+<codeline lineno="306"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="307"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="316"><highlight class="preprocessor">#define<sp/>SLCR_LOCK<sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="317"><highlight class="preprocessor">#define<sp/>SLCR_UNLOCK<sp/>0x00000008<sp/></highlight></codeline>
+<codeline lineno="318" refid="group__qspips_1ga6d8db4e6ef37984fc65f469d68001ae5" refkind="member"><highlight class="preprocessor">#define<sp/>LQSPI_RST_CTRL<sp/>0x00000230<sp/></highlight></codeline>
+<codeline lineno="319"><highlight class="preprocessor">#define<sp/>SLCR_LOCKSTA<sp/>0x0000000C<sp/></highlight></codeline>
+<codeline lineno="321"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="322"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight></codeline>
+<codeline lineno="331" refid="group__qspips_1ga83fcf6f141c914ab6b8b683fb62232b4" refkind="member"><highlight class="preprocessor">#ifndef<sp/>XPAR_XSLCR_0_BASEADDR</highlight></codeline>
+<codeline lineno="332" refid="group__qspips_1ga092a4aa1f062806072ebb1d947708796" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_XSLCR_0_BASEADDR<sp/>0xF8000000</highlight></codeline>
+<codeline lineno="333" refid="group__qspips_1ga1d7797b08b7b40f62f0dfde3bc8ac547" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="334"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SLCR_LOCK_MASK<sp/>0x767B<sp/></highlight></codeline>
+<codeline lineno="335"><highlight class="preprocessor">#define<sp/>SLCR_UNLOCK_MASK<sp/>0xDF0D<sp/></highlight></codeline>
+<codeline lineno="336"><highlight class="preprocessor">#define<sp/>LQSPI_RST_CTRL_MASK<sp/>0x3<sp/></highlight></codeline>
+<codeline lineno="338"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="339"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="344"><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XQspiPs_In32<sp/>Xil_In32</highlight></codeline>
+<codeline lineno="346"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XQspiPs_Out32<sp/>Xil_Out32</highlight></codeline>
+<codeline lineno="347"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XQSPIPS_DUMMY_TX_DATA<sp/><sp/><sp/>0xFFFFFFFF</highlight></codeline>
+<codeline lineno="348" refid="group__qspips_1gac11ad6eef43004fc003da9fd134c5eac" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="349" refid="group__qspips_1gaac26206f6af2c9142b6565dcf38d9e74" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="363"><highlight class="preprocessor">#define<sp/>XQspiPs_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="364"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQspiPs_In32((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="365"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"></highlight><highlight class="comment">/***************************************************************************/</highlight></codeline>
+<codeline lineno="382"><highlight class="preprocessor">#define<sp/>XQspiPs_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>RegisterValue)<sp/>\</highlight></codeline>
+<codeline lineno="383"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XQspiPs_Out32((BaseAddress)<sp/>+<sp/>(RegOffset),<sp/>(RegisterValue))</highlight></codeline>
+<codeline lineno="384"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="385"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="386"><highlight class="normal"></highlight></codeline>
+<codeline lineno="387"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="388"><highlight class="comment"><sp/>*<sp/>Functions<sp/>implemented<sp/>in<sp/>xqspips_hw.c</highlight></codeline>
+<codeline lineno="389"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="390"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__qspips_1ga2732af9facd00339b5dc96c83d74a355" kindref="member">XQspiPs_ResetHw</ref>(u32<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__qspips_1gad769e09710e28c9876cebf678f6e890c" kindref="member">XQspiPs_LinearInit</ref>(u32<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="394"><highlight class="normal"></highlight></codeline>
+<codeline lineno="395"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="396" refid="group__qspips_1ga0d50616771e04824af465a0f078a7ebb" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="398"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="399"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="400"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_hw.h"/>
+  </compounddef>
+</doxygen>

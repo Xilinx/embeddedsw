@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_vphy___pll_param" kind="struct" prot="public">
+    <compoundname>XVphy_PllParam</compoundname>
+    <includes local="no">xvphy.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_vphy___pll_param_1a5e29833dc3b45f3964da901f8ae84feb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVphy_PllParam::MRefClkDiv</definition>
+        <argsstring></argsstring>
+        <name>MRefClkDiv</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="490" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="490" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___pll_param_1adf283609c1fbe0fb43426573363322f6" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVphy_PllParam::NFbDivs[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>NFbDivs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="493" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="493" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___pll_param_1ae4085458caacd924da3bb62ee9b8143f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVphy_PllParam::NFbDiv</definition>
+        <argsstring></argsstring>
+        <name>NFbDiv</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="494" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="494" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___pll_param_1a5b4606d8661b574eff2cd0e3c2e41d1a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVphy_PllParam::N1FbDiv</definition>
+        <argsstring></argsstring>
+        <name>N1FbDiv</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="496" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="496" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___pll_param_1a09db6af5143ce0a7179c05667dac4a5d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVphy_PllParam::N2FbDiv</definition>
+        <argsstring></argsstring>
+        <name>N2FbDiv</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="497" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="497" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___pll_param_1a5496571820830cf51e3b724312774307" prot="public" static="no" mutable="no">
+        <type>union XVphy_PllParam::@0</type>
+        <definition>union XVphy_PllParam::@0 XVphy_PllParam::@1</definition>
+        <argsstring></argsstring>
+        <name>@1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="499" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___pll_param_1a48149fadcbf9da3efe9961d46fbf1a4e" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVphy_PllParam::Cdr[5]</definition>
+        <argsstring>[5]</argsstring>
+        <name>Cdr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="500" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="500" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___pll_param_1a8de337d78f9b415e10371697eea0a644" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVphy_PllParam::IsLowerBand</definition>
+        <argsstring></argsstring>
+        <name>IsLowerBand</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="501" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="501" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for CPLL/QPLL programming. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="489" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="489" bodyend="502"/>
+    <listofallmembers>
+      <member refid="struct_x_vphy___pll_param_1a48149fadcbf9da3efe9961d46fbf1a4e" prot="public" virt="non-virtual"><scope>XVphy_PllParam</scope><name>Cdr</name></member>
+      <member refid="struct_x_vphy___pll_param_1a8de337d78f9b415e10371697eea0a644" prot="public" virt="non-virtual"><scope>XVphy_PllParam</scope><name>IsLowerBand</name></member>
+      <member refid="struct_x_vphy___pll_param_1a5e29833dc3b45f3964da901f8ae84feb" prot="public" virt="non-virtual"><scope>XVphy_PllParam</scope><name>MRefClkDiv</name></member>
+      <member refid="struct_x_vphy___pll_param_1a5b4606d8661b574eff2cd0e3c2e41d1a" prot="public" virt="non-virtual"><scope>XVphy_PllParam</scope><name>N1FbDiv</name></member>
+      <member refid="struct_x_vphy___pll_param_1a09db6af5143ce0a7179c05667dac4a5d" prot="public" virt="non-virtual"><scope>XVphy_PllParam</scope><name>N2FbDiv</name></member>
+      <member refid="struct_x_vphy___pll_param_1ae4085458caacd924da3bb62ee9b8143f" prot="public" virt="non-virtual"><scope>XVphy_PllParam</scope><name>NFbDiv</name></member>
+      <member refid="struct_x_vphy___pll_param_1adf283609c1fbe0fb43426573363322f6" prot="public" virt="non-virtual"><scope>XVphy_PllParam</scope><name>NFbDivs</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

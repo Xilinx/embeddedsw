@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>scuwdt</title>
+    <detaileddescription>
+<para>The Xilinx SCU watchdog timer driver (<ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref>) supports the Xilinx SCU private watchdog timer hardware.The <ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref> driver supports the following features:<itemizedlist>
+<listitem><para>Watchdog mode</para></listitem><listitem><para>Timer mode</para></listitem><listitem><para>Auto reload (timer mode only)</para></listitem></itemizedlist>
+</para><para>The watchdog counter register is a down counter and starts decrementing when the watchdog is started. In watchdog mode, when the counter reaches 0, the Reset flag is set in the Reset status register and the WDRESETREQ pin is asserted, causing a system reset. The Reset flag is not reset by normal processor reset and is cleared when written with a value of 1. This enables the user to differentiate a normal reset and a reset caused by watchdog time-out. The user needs to call <ref refid="group___overview_1ga9487e2c385d8dc9cf5f1f27539ca079f" kindref="member">XScuWdt_RestartWdt()</ref> periodically, to avoid the watchdog from being timed-out.</para><para>The IsWdtExpired function can be used to check if the watchdog was the cause of the last reset. In this situation, call Initialize then call IsWdtExpired. If the result is true, watchdog timeout caused the last system reset. The application then needs to clear the Reset flag.</para><para>In timer mode, when the counter reaches 0, the Event flag is set in the Interrupt status register and if interrupts are enabled, interrupt ID 30 is set as pending in the interrupt distributor. The IsTimerExpired function is used to check if the watchdog counter has decremented to 0 in timer mode. If auto-reload mode is enabled, the Counter register is automatically reloaded from the Load register.</para><para><bold> Initialization and Configuration </bold></para><para>The device driver enables higher layer software (e.g., an application) to communicate with the Watchdog Timer.</para><para><ref refid="group___overview_1ga1fee56fc3ec3c8b003e6ae0528703b1c" kindref="member">XScuWdt_CfgInitialize()</ref> API is used to initialize the Watchdog Timer. The user needs to first call the <ref refid="group___overview_1ga24bed0bb643b657bbd3f26ab2921246e" kindref="member">XScuWdt_LookupConfig()</ref> API which returns the Configuration structure pointer which is passed as a parameter to the <ref refid="group___overview_1ga1fee56fc3ec3c8b003e6ae0528703b1c" kindref="member">XScuWdt_CfgInitialize()</ref> API.</para><para><bold>Interrupts</bold></para><para>The SCU Watchdog Timer supports interrupts in Timer mode.</para><para>This driver does not provide a Interrupt Service Routine (ISR) for the device. It is the responsibility of the application to provide one if needed. Refer to the interrupt example provided with this driver for details on using the Timer in interrupt mode.</para><para><bold> Virtual Memory </bold></para><para>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space.</para><para><bold> Threads </bold></para><para>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</para><para><bold> Asserts </bold></para><para>Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining, at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that users leave asserts on during development.</para><para><bold> Building the driver </bold></para><para>The <ref refid="struct_x_scu_wdt" kindref="compound">XScuWdt</ref> driver is composed of several source files. This allows the user to build and link only those parts of the driver that are necessary.</para><para><linebreak/>
+<linebreak/>
+</para><para>NOTE: The watchdog timer is not a part of the snoop control unit as indicated by the prefix &quot;scu&quot; in the name of the driver. It is an independent module in APU.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
+<hruler/>
+
+1.00a sdm 01/15/10 First release
+1.02a  sg 07/17/12 Included xil_assert.h for CR 667947. This is an issue
+             when the xstatus.h in the common driver overwrites
+             the xstatus.h of the standalone BSP during the
+             libgen.
+2.1     sk  02/26/15 Modified the code for MISRA-C:2012 compliance.
+      ms  03/17/17 Added readme.txt file in examples folder for doxygen
+                   generation.
+2.3   mus 08/31/20 Updated makefile to support parallel make and
+                   incremental builds. It would help to reduce compilation
+                   time.
+2.3     sne 09/16/20 Fixed MISRA-C violations.
+2.4     sne 02/04/21 Fixed Doxygen warnings.
+2.5   asa 07/18/23 Added support for system device tree based workflow
+                   decoupling flow.
+2.7   vlt  12/29/25 Update Doxygen comments to include SDT flow details.
+      vlt  01/27/26 Fixed codespell issues.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

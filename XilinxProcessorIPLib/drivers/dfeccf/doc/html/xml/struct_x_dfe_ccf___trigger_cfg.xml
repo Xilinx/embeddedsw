@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_ccf___trigger_cfg" kind="struct" prot="public">
+    <compoundname>XDfeCcf_TriggerCfg</compoundname>
+    <includes local="no">xdfeccf.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_ccf___trigger_cfg_1a8e0fd292605e716b1e580cca643140f9" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_ccf___trigger" kindref="compound">XDfeCcf_Trigger</ref></type>
+        <definition>XDfeCcf_Trigger XDfeCcf_TriggerCfg::Activate</definition>
+        <argsstring></argsstring>
+        <name>Activate</name>
+        <briefdescription>
+<para><verbatim>                   Switch between &quot;Initialized&quot;,
+</verbatim> ultra-low power state, and &quot;Operational&quot;. </para>        </briefdescription>
+        <detaileddescription>
+<para>One-shot trigger, disabled following a single event. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="250" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1gab972682f29380a36912ecb49a929f6d0" compoundref="xdfeccf_8c" startline="1879" endline="1959">XDfeCcf_GetTriggersCfg</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+        <referencedby refid="group__dfeccf_1ga7b3d2fde4403c86dc13478fadb4665ab" compoundref="xdfeccf_8c" startline="1970" endline="2076">XDfeCcf_SetTriggersCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___trigger_cfg_1adc803d7fc4d6b3db21c766936584cd71" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_ccf___trigger" kindref="compound">XDfeCcf_Trigger</ref></type>
+        <definition>XDfeCcf_Trigger XDfeCcf_TriggerCfg::LowPower</definition>
+        <argsstring></argsstring>
+        <name>LowPower</name>
+        <briefdescription>
+<para><verbatim>                   Switch between &quot;Low-power&quot;
+</verbatim> and &quot;Operational&quot; state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="253" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1gab972682f29380a36912ecb49a929f6d0" compoundref="xdfeccf_8c" startline="1879" endline="1959">XDfeCcf_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeccf_1ga7b3d2fde4403c86dc13478fadb4665ab" compoundref="xdfeccf_8c" startline="1970" endline="2076">XDfeCcf_SetTriggersCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___trigger_cfg_1ab268b98412be113d4be332409eacb24e" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_ccf___trigger" kindref="compound">XDfeCcf_Trigger</ref></type>
+        <definition>XDfeCcf_Trigger XDfeCcf_TriggerCfg::CCUpdate</definition>
+        <argsstring></argsstring>
+        <name>CCUpdate</name>
+        <briefdescription>
+<para><verbatim>                   Transition to next CC
+</verbatim> configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para>Will initiate flush based on CC configuration. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="255" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="255" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1gab972682f29380a36912ecb49a929f6d0" compoundref="xdfeccf_8c" startline="1879" endline="1959">XDfeCcf_GetTriggersCfg</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+        <referencedby refid="group__dfeccf_1ga7b3d2fde4403c86dc13478fadb4665ab" compoundref="xdfeccf_8c" startline="1970" endline="2076">XDfeCcf_SetTriggersCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___trigger_cfg_1a433d274ba4944916125721e9063e0355" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_ccf___trigger" kindref="compound">XDfeCcf_Trigger</ref></type>
+        <definition>XDfeCcf_Trigger XDfeCcf_TriggerCfg::Switch</definition>
+        <argsstring></argsstring>
+        <name>Switch</name>
+        <briefdescription>
+<para><verbatim>                 Switch between Downlink and Uplink datapth
+</verbatim> configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para>Will initiate flush based on CC configuration. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="257" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1gab972682f29380a36912ecb49a929f6d0" compoundref="xdfeccf_8c" startline="1879" endline="1959">XDfeCcf_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeccf_1ga7b3d2fde4403c86dc13478fadb4665ab" compoundref="xdfeccf_8c" startline="1970" endline="2076">XDfeCcf_SetTriggersCfg</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>All IP triggers. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="37">
+        <label>XDfeCcf_Trigger</label>
+        <link refid="struct_x_dfe_ccf___trigger"/>
+      </node>
+      <node id="36">
+        <label>XDfeCcf_TriggerCfg</label>
+        <link refid="struct_x_dfe_ccf___trigger_cfg"/>
+        <childnode refid="37" relation="usage">
+          <edgelabel>Switch</edgelabel>
+          <edgelabel>LowPower</edgelabel>
+          <edgelabel>Activate</edgelabel>
+          <edgelabel>CCUpdate</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="249" bodyend="259"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_ccf___trigger_cfg_1a8e0fd292605e716b1e580cca643140f9" prot="public" virt="non-virtual"><scope>XDfeCcf_TriggerCfg</scope><name>Activate</name></member>
+      <member refid="struct_x_dfe_ccf___trigger_cfg_1ab268b98412be113d4be332409eacb24e" prot="public" virt="non-virtual"><scope>XDfeCcf_TriggerCfg</scope><name>CCUpdate</name></member>
+      <member refid="struct_x_dfe_ccf___trigger_cfg_1adc803d7fc4d6b3db21c766936584cd71" prot="public" virt="non-virtual"><scope>XDfeCcf_TriggerCfg</scope><name>LowPower</name></member>
+      <member refid="struct_x_dfe_ccf___trigger_cfg_1a433d274ba4944916125721e9063e0355" prot="public" virt="non-virtual"><scope>XDfeCcf_TriggerCfg</scope><name>Switch</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>hwicap</title>
+    <detaileddescription>
+<para>The Xilinx <ref refid="struct_x_hw_icap" kindref="compound">XHwIcap</ref> driver supports the Xilinx Hardware Internal Configuration Access Port (HWICAP) device.The HWICAP device is used for reconfiguration of select FPGA resources as well as loading partial bitstreams from the system memory through the Internal Configuration Access Port (ICAP).</para><para><bold> Initialization and Configuration </bold></para><para>The device driver enables higher layer software (e.g., an application) to communicate to the HWICAP device.</para><para><ref refid="group__hwicap_1gad497b5129aff666181e85457f1c5f678" kindref="member">XHwIcap_CfgInitialize()</ref> API is used to initialize the HWICAP device. The user needs to first call the <ref refid="group__hwicap_1ga56a4670419991c549bdda6868a22b4f0" kindref="member">XHwIcap_LookupConfig()</ref> API which returns the Configuration structure pointer which is passed as a parameter to the <ref refid="group__hwicap_1gad497b5129aff666181e85457f1c5f678" kindref="member">XHwIcap_CfgInitialize()</ref> API.</para><para><bold> Interrupts </bold></para><para>The driver provides an interrupt handler XHwIcap_IntrHandler for handling the interrupt from the HWICAP device. The users of this driver have to register this handler with the interrupt system and provide the callback functions. The callback functions are invoked by the interrupt handler based on the interrupt source.</para><para>The driver supports interrupt mode only for writing to the ICAP device and is NOT supported for reading from the ICAP device.</para><para><bold> Virtual Memory </bold></para><para>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space.</para><para><bold> Threads </bold></para><para>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</para><para><bold> Asserts </bold></para><para>Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining, at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that users leave asserts on during development.</para><para><bold> Building the driver </bold></para><para>The <ref refid="struct_x_hw_icap" kindref="compound">XHwIcap</ref> driver is composed of several source files. This allows the user to build and link only those parts of the driver that are necessary.</para><para><simplesect kind="note"><para></para></simplesect>
+There are a few items to be aware of when using this driver: 1) Only Virtex4, Virtex5, Virtex6, Spartan6, 7 series and Zynq devices are supported. 2) The ICAP port is disabled when the configuration mode, via the MODE pins, is set to Boundary Scan/JTAG. The ICAP is enabled in all other configuration modes and it is possible to configure the device via JTAG in all configuration modes. 3) Reading or writing to columns containing SRL16&apos;s or LUT RAM&apos;s can cause corruption of data in those elements. Avoid reading or writing to columns containing SRL16&apos;s or LUT RAM&apos;s. 4) Only the LUT and SRL are accessible, all other features of the slice are not available through this interface. 5) The Spartan6 devices access is 16-bit access and is 32 bit for all other devices. 6) In a Zynq device the ICAP needs to be selected using the XDcfg_SelectIcapInterface API of the DevCfg driver (clear the PCAP_PR bit of Control register in the Device Config Interface) before it can be accessed using the HwIcap.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00a bjb  11/17/03 First release
+1.01a bjb  04/10/06 V4 Support
+2.00a sv   09/28/07 First release for the FIFO mode
+2.01a ecm  04/08/08 Updated data structures to include the V5FXT parts.
+3.00a sv   11/28/08 Added the API for initiating Abort while reading/writing
+              from the ICAP.
+3.01a sv   10/21/09 Corrected the IDCODE definitions for some of the
+                    V5 FX parts in <ref refid="xhwicap__l_8h" kindref="compound">xhwicap_l.h</ref>. Corrected the V5 BOOTSTS and
+                    CTL_1 Register definitions in <ref refid="xhwicap__i_8h" kindref="compound">xhwicap_i.h</ref> file as they
+                    were wrongly defined.
+4.00a hvm  12/1/09  Added support for V6 and updated with HAL phase 1
+              modifications
+5.00a hvm  04/02/10 Added S6 device support
+5.01a hvm  07/06/10 In XHwIcap_DeviceRead function, a read bit mask
+              verification is added after all the data bytes are read
+              from READ FIFO.The Verification of the read bit mask
+              at the beginning of reading of bytes is removed.
+              Removed the code that adds wrong data byte before the
+              CRC bytes in the XHwIcap_DeviceWriteFrame function for S6
+              (CR560534).
+5.02a hvm  10/06/10 Updated to support AXI HWICAP
+5.03a hvm  15/4/11 Updated with V6 CXT device definitions.</preformatted></para><para><preformatted>6.00a hvm  08/01/11 Added support for K7 devices.
+7.00a bss  03/14/12 Added support for 8/16/32 ICAP Data Widths - CR 620085
+              Added support for Lite Mode(no Write FIFO) - CR 601748
+              Added Virtex7,Artix7 and Zynq Idcodes-CR647140,CR643295
+              ReadId API is added to desync after lock up during
+                configuration CR 637538
+8.00a bss  06/20/12 Deleted ReadId API in <ref refid="xhwicap__srp_8c" kindref="compound">xhwicap_srp.c</ref> and Hang mask
+                definition in <ref refid="xhwicap__l_8h" kindref="compound">xhwicap_l.h</ref> as per CR 656162
+8.01a bss  04/18/13  Updated <ref refid="xhwicap_8c" kindref="compound">xhwicap.c</ref> to fix compiler warnings. CR#704814
+                       Added the define XHI_COR_1 for CR718042
+9.0   adk  19/12/13 Updated as per the New Tcl API&apos;s
+9.0   bss  02/20/14 Modified <ref refid="xhwicap_8c" kindref="compound">xhwicap.c</ref>, <ref refid="xhwicap__l_8h" kindref="compound">xhwicap_l.h</ref>, <ref refid="xhwicap__i_8h" kindref="compound">xhwicap_i.h</ref> and tcl
+              to support Kintex8, kintexu and virtex72000T family
+              devices.
+10.0  bss  6/24/14  Removed support for families older than 7 series.
+              Modified driver tcl not to generate family.h.
+              Removed IDCODE lookup logic in XHwIcap_CfgInitialize
+              in <ref refid="xhwicap_8c" kindref="compound">xhwicap.c</ref>.
+              Removed IDCODE macros from <ref refid="xhwicap__i_8h" kindref="compound">xhwicap_i.h</ref>.
+10.0  bss  7/10/14  Fix compilation failure for designs other than 32 bit
+              data width of HWICAP in <ref refid="xhwicap_8c" kindref="compound">xhwicap.c</ref>.
+10.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+                     Changed the prototype of XHwIcap_CfgInitialize API.
+10.1   nsk  01/06/16 Removed xhwicap_clb_srinv.h, xhwicap_clb_ff.h,
+                     xhwicap_clb_lut.h files
+                     Removed xhwicap_lut.c and xhwicap_ff.c examples
+                     Removed defines
+                     XHI_FAR_MAJOR_FRAME_MASK
+                     XHI_FAR_MINOR_FRAME_MASK
+                     XHI_FAR_MAJOR_FRAME_SHIFT
+                     XHI_FAR_MINOR_FRAME_SHIFT
+                     XHI_C0R_1
+                     Updated XHI_FAR_COLUMN_ADDR_MASK to 0x3FF
+                     Updated XHI_FAR_BLOCK_SHIFT to 23
+                     Updated XHI_FAR_TOP_BOTTOM_SHIFT to 22
+                     Updated XHI_FAR_ROW_ADDR_SHIFT to 17
+                     Updated XHI_NUM_FRAME_BYTES to 404
+                     Updated XHI_NUM_FRAME_WORDS to 101
+                     Updated XHI_NUM_WORDS_FRAME_INCL_NULL_FRAME to 202
+                     CR# 909615.
+10.2   mi   09/22/16 Fixed compilation warnings.
+11.0  ms    01/23/17 Added xil_printf statement in main function for all
+                     examples to ensure that &quot;Successfully ran&quot; and &quot;Failed&quot;
+                     strings are available in all examples. This is a fix
+                     for CR-965028.
+      ms    03/17/17 Added readme.txt file in examples folder for doxygen
+                     generation.
+11.2 Nava   02/08/19 The current version of the driver is not supported for
+                     families older than 7 series.So removed .o referenced
+                     function prototypes from the header file.
+11.5 Nava   09/30/22 Added new IDCODE&apos;s as mentioned in the ug570 Doc.
+11.6 Nava   06/28/23 Added support for system device-tree flow.
+11.7 Nava   12/02/24 Fixed mismatch between IDCODE array size and initialization value.
+11.7 Nava   02/06/25 Added missing xlnx,icap-dwidth and xlnx,mode to YAML to
+                     align with the driver config struct.
+11.8 Arvd   02/04/26 Fixed codespell errors.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

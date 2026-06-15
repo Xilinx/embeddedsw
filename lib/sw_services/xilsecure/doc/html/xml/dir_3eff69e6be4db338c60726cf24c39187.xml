@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_3eff69e6be4db338c60726cf24c39187" kind="dir">
+    <compoundname>generic</compoundname>
+    <innerfile refid="xsecure__generic_8c">xsecure_generic.c</innerfile>
+    <innerfile refid="xsecure__generic_8h">xsecure_generic.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/generic/"/>
+  </compounddef>
+</doxygen>

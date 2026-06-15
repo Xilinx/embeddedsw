@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___slhdsa_chain_config" kind="struct" prot="public">
+    <compoundname>XSecure_SlhdsaChainConfig</compoundname>
+    <includes local="no">xsecure_slhdsa_hash.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___slhdsa_chain_config_1a6f07310e601a00ebbfda4382dc31fafe" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_SlhdsaChainConfig::StartIdx</definition>
+        <argsstring></argsstring>
+        <name>StartIdx</name>
+        <briefdescription>
+<para>Start index for chain operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_hash.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_hash.h" bodystart="46" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gaaa866ce6d1c865f26afda73bc6a2003b" compoundref="xsecure__slhdsa__hash_8c" startline="197" endline="258">XSecure_SlhdsaShake256sChain</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gaf6e4f612fb9bedd0adc25a5e5d6828c1" compoundref="xsecure__slhdsa__wots_8c" startline="214" endline="282">XSecure_SlhdsaWotsPkFromSign</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___slhdsa_chain_config_1a1a8026f972031d204b1f91187a44f25a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_SlhdsaChainConfig::Steps</definition>
+        <argsstring></argsstring>
+        <name>Steps</name>
+        <briefdescription>
+<para>Number of steps in the chain. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_hash.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_hash.h" bodystart="47" bodyend="-1"/>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gaaa866ce6d1c865f26afda73bc6a2003b" compoundref="xsecure__slhdsa__hash_8c" startline="197" endline="258">XSecure_SlhdsaShake256sChain</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gaf6e4f612fb9bedd0adc25a5e5d6828c1" compoundref="xsecure__slhdsa__wots_8c" startline="214" endline="282">XSecure_SlhdsaWotsPkFromSign</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to maintain SLH-DSA chain configuration parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_hash.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_hash.h" bodystart="45" bodyend="48"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___slhdsa_chain_config_1a6f07310e601a00ebbfda4382dc31fafe" prot="public" virt="non-virtual"><scope>XSecure_SlhdsaChainConfig</scope><name>StartIdx</name></member>
+      <member refid="struct_x_secure___slhdsa_chain_config_1a1a8026f972031d204b1f91187a44f25a" prot="public" virt="non-virtual"><scope>XSecure_SlhdsaChainConfig</scope><name>Steps</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

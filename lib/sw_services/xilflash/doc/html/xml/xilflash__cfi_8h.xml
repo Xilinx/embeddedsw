@@ -1,0 +1,587 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilflash__cfi_8h" kind="file">
+    <compoundname>xilflash_cfi.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xilflash_8h" local="yes">xilflash.h</includes>
+    <includes refid="xilflash__properties_8h" local="yes">xilflash_properties.h</includes>
+    <includedby refid="xilflash_8c" local="yes">xilflash.c</includedby>
+    <includedby refid="xilflash__cfi_8c" local="yes">xilflash_cfi.c</includedby>
+    <incdepgraph>
+      <node id="46">
+        <label>xilflash_properties.h</label>
+        <link refid="xilflash__properties_8h"/>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>xstatus.h</label>
+      </node>
+      <node id="42">
+        <label>xilflash_cfi.h</label>
+        <link refid="xilflash_cfi.h"/>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>xil_types.h</label>
+      </node>
+      <node id="45">
+        <label>xilflash.h</label>
+        <link refid="xilflash_8h"/>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="48">
+        <label>xilflash.c</label>
+        <link refid="xilflash_8c"/>
+      </node>
+      <node id="49">
+        <label>xilflash_cfi.c</label>
+        <link refid="xilflash__cfi_8c"/>
+      </node>
+      <node id="47">
+        <label>xilflash_cfi.h</label>
+        <link refid="xilflash_cfi.h"/>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Layout constants</header>
+      <memberdef kind="define" id="xilflash__cfi_8h_1a5f6c51f2f7f22d4a83dd5fb20cea6812" prot="public" static="no">
+        <name>XFL_LAYOUT_NUM_PARTS_MASK</name>
+        <initializer>0x000000FF</initializer>
+        <briefdescription>
+<para>LAYOUT constants are used to parse the XFL_LAYOUT_X* constants. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" bodystart="55" bodyend="-1"/>
+        <referencedby refid="xilflash__cfi_8c_1a025ba2cd783a06301dc7caa4fb537d95" compoundref="xilflash__cfi_8c" startline="113" endline="757">XFlashCFI_ReadCommon</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilflash__cfi_8h_1af6b3f8e8b48c63755f9ea145c7f38acd" prot="public" static="no">
+        <name>XFL_LAYOUT_PART_MODE_MASK</name>
+        <initializer>0x0000FF00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilflash__cfi_8h_1ac01b8c2bf3859ac0e1a44044368d0382" prot="public" static="no">
+        <name>XFL_LAYOUT_PART_WIDTH_MASK</name>
+        <initializer>0x00FF0000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilflash__cfi_8h_1a736f5a863edb22e78c84a74662dbb2b8" prot="public" static="no">
+        <name>XFL_LAYOUT_CFI_INTERL_MASK</name>
+        <initializer>0xFF000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilflash__cfi_8h_1a652af384d5f6e590922362df47ecea46" prot="public" static="no">
+        <name>XFL_LAYOUT_NUM_PARTS_1</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilflash__cfi_8h_1aa5ba160038c186769a1778c32f084cb2" prot="public" static="no">
+        <name>XFL_LAYOUT_NUM_PARTS_2</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilflash__cfi_8h_1a9e597e4605703e0a1aae1b4202949b8f" prot="public" static="no">
+        <name>XFL_LAYOUT_NUM_PARTS_4</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilflash__cfi_8h_1a7ab02e3f79423815dbfdb7a11dfcfadf" prot="public" static="no">
+        <name>XFL_LAYOUT_PART_MODE_8</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilflash__cfi_8h_1aa64aa76c7afa8853905ed7cb28b00894" prot="public" static="no">
+        <name>XFL_LAYOUT_PART_MODE_16</name>
+        <initializer>0x00000200</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilflash__cfi_8h_1ad35edd42f6c0220d9e0d6ec3ce94241d" prot="public" static="no">
+        <name>XFL_LAYOUT_PART_WIDTH_8</name>
+        <initializer>0x00010000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilflash__cfi_8h_1a51ea0dbfb650b39b8ee19705c944c050" prot="public" static="no">
+        <name>XFL_LAYOUT_PART_WIDTH_16</name>
+        <initializer>0x00020000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilflash__cfi_8h_1ac1ac439ba26f75ac0c5a386e69d8c5e2" prot="public" static="no">
+        <name>XFL_LAYOUT_CFI_INTERL_1</name>
+        <initializer>0x01000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilflash__cfi_8h_1a520acc900657f9a7bdeb320539d0c495" prot="public" static="no">
+        <name>XFL_LAYOUT_CFI_INTERL_2</name>
+        <initializer>0x02000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilflash__cfi_8h_1a98a4906acc2683a6b07af3c594d88e5b" prot="public" static="no">
+        <name>XFL_LAYOUT_CFI_INTERL_4</name>
+        <initializer>0x04000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilflash__cfi_8h_1aaf7e09b41712c8dc6ec2e2d8bc0cd568" prot="public" static="no">
+        <name>XFL_LAYOUT_CFI_INTERL_8</name>
+        <initializer>0x08000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xilflash__cfi_8h_1a86ebd4f16fd21a6e7e557d0bd00e9cb3" prot="public" static="no">
+        <name>XFLASH_CFI_H</name>
+        <briefdescription>
+<para>&lt; prevent circular inclusions </para>        </briefdescription>
+        <detaileddescription>
+<para>by using protection macros </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilflash__cfi_8h_1a12bd0c89aecceb6ce7e6449d0a76137a" prot="public" static="no">
+        <name>XFL_CFI_POSITION_PTR</name>
+        <param><defname>Ptr</defname></param>
+        <param><defname>BaseAddr</defname></param>
+        <param><defname>Interleave</defname></param>
+        <param><defname>ByteAddr</defname></param>
+        <initializer>(								  	\
+			Ptr = (void*)((u32)BaseAddr + ((u32)Interleave *	  	\
+					(u32)ByteAddr))	  	\
+	)</initializer>
+        <briefdescription>
+<para>Moves the CFI data pointer to a physical address that corresponds to a specific CFI byte offset. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to modify. Can be of any type. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of flash part. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Interleave</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the byte interleaving (based on part layout). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ByteAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the byte offset within CFI data to read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The Ptr argument is set to point at the CFI byte specified by the ByteAddr parameter. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" bodystart="91" bodyend="-1"/>
+        <referencedby refid="xilflash__cfi_8c_1a025ba2cd783a06301dc7caa4fb537d95" compoundref="xilflash__cfi_8c" startline="113" endline="757">XFlashCFI_ReadCommon</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilflash__cfi_8h_1abee73d45fcdf7098f5b2daf57b27698a" prot="public" static="no">
+        <name>XFL_CFI_ADVANCE_PTR8</name>
+        <param><defname>Ptr</defname></param>
+        <param><defname>Interleave</defname></param>
+        <initializer>(Ptr = (void*)((u32)Ptr + (Interleave)))</initializer>
+        <briefdescription>
+<para>Advances the CFI pointer to the next byte. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to advance. Can be a pointer to any type. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Interleave</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the byte interleaving (based on part layout).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Adjusted Ptr. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="xilflash__cfi_8c_1a025ba2cd783a06301dc7caa4fb537d95" compoundref="xilflash__cfi_8c" startline="113" endline="757">XFlashCFI_ReadCommon</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilflash__cfi_8h_1a2e6f76db4955297ab8edfd917acf4e40" prot="public" static="no">
+        <name>XFL_CFI_ADVANCE_PTR16</name>
+        <param><defname>Ptr</defname></param>
+        <param><defname>Interleave</defname></param>
+        <initializer>(Ptr = (void*)((u32)Ptr + ((Interleave) &lt;&lt; 1)))</initializer>
+        <briefdescription>
+<para>Advances the CFI pointer to the next 16-bit quantity. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to advance. Can be a pointer to any type. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Interleave</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the byte interleaving (based on part layout).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Adjusted Ptr. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" bodystart="122" bodyend="-1"/>
+        <referencedby refid="xilflash__cfi_8c_1a025ba2cd783a06301dc7caa4fb537d95" compoundref="xilflash__cfi_8c" startline="113" endline="757">XFlashCFI_ReadCommon</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xilflash__cfi_8h_1a025ba2cd783a06301dc7caa4fb537d95" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XFlashCFI_ReadCommon</definition>
+        <argsstring>(XFlash *InstancePtr, u8 BusWidth)</argsstring>
+        <name>XFlashCFI_ReadCommon</name>
+        <param>
+          <type>XFlash *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>BusWidth</declname>
+        </param>
+        <briefdescription>
+<para>Retrieves the standard CFI data from the part(s), interpret the data, and update the provided geometry and properties structures. </para>        </briefdescription>
+        <detaileddescription>
+<para>Extended CFI data is part specific and ignored here. This data must be read by the specific flash device family library.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the XFlash instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BusWidth</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the total width of the flash memory, in bytes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XFLASH_CFI_QUERY_ERROR if an error occurred interpreting the data.</para></listitem><listitem><para>XFLASH_PART_NOT_SUPPORTED if invalid Layout parameter.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/xilflash_cfi.c" bodystart="113" bodyend="757"/>
+        <references refid="xilflash__cfi_8h_1a2e6f76db4955297ab8edfd917acf4e40" compoundref="xilflash__cfi_8h" startline="122">XFL_CFI_ADVANCE_PTR16</references>
+        <references refid="xilflash__cfi_8h_1abee73d45fcdf7098f5b2daf57b27698a" compoundref="xilflash__cfi_8h" startline="108">XFL_CFI_ADVANCE_PTR8</references>
+        <references refid="xilflash__cfi_8h_1a12bd0c89aecceb6ce7e6449d0a76137a" compoundref="xilflash__cfi_8h" startline="91">XFL_CFI_POSITION_PTR</references>
+        <references refid="xilflash__cfi_8h_1a5f6c51f2f7f22d4a83dd5fb20cea6812" compoundref="xilflash__cfi_8h" startline="55">XFL_LAYOUT_NUM_PARTS_MASK</references>
+        <references refid="xilflash__cfi_8h_1a25c9cc3b842a35592e8b009f64b3df1f" compoundref="xilflash__cfi_8c" startline="837" endline="852">XFlashCFI_Read16</references>
+        <references refid="xilflash__cfi_8h_1ad868fe5f733b6042f9ee8b6adb59652c" compoundref="xilflash__cfi_8c" startline="816" endline="823">XFlashCFI_Read8</references>
+        <referencedby refid="group__xilflash__apis_1gab4c908ad78f6ded9407d0dc7ed611370" compoundref="xilflash_8c" startline="114" endline="176">XFlash_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xilflash__cfi_8h_1ad868fe5f733b6042f9ee8b6adb59652c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XFlashCFI_Read8</definition>
+        <argsstring>(u8 *Ptr, u8 Interleave, u8 Mode)</argsstring>
+        <name>XFlashCFI_Read8</name>
+        <param>
+          <type>u8 *</type>
+          <declname>Ptr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Interleave</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+<para>Reads 8-bits of data from the CFI data location into a local variable. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to read. Can be a pointer to any type. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Interleave</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the byte interleaving (based on part layout). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the mode of operation (based on part layout).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The byte at Ptr adjusted for the interleave factor. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/xilflash_cfi.c" bodystart="816" bodyend="823"/>
+        <referencedby refid="xilflash__cfi_8c_1a025ba2cd783a06301dc7caa4fb537d95" compoundref="xilflash__cfi_8c" startline="113" endline="757">XFlashCFI_ReadCommon</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xilflash__cfi_8h_1a25c9cc3b842a35592e8b009f64b3df1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XFlashCFI_Read16</definition>
+        <argsstring>(u8 *Ptr, u8 Interleave, u8 Mode)</argsstring>
+        <name>XFlashCFI_Read16</name>
+        <param>
+          <type>u8 *</type>
+          <declname>Ptr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Interleave</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+<para>Reads 16-bits of data from the CFI data location into a local variable. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to read. Can be a pointer to any type. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Interleave</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the byte interleaving (based on part layout). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the mode of operation (based on part layout).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 16-bit value at Ptr adjusted for the interleave factor. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/xilflash_cfi.c" bodystart="837" bodyend="852"/>
+        <referencedby refid="xilflash__cfi_8c_1a025ba2cd783a06301dc7caa4fb537d95" compoundref="xilflash__cfi_8c" startline="113" endline="757">XFlashCFI_ReadCommon</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains methods used to extract and interpret Common Flash Interface(CFI) from a flash memory part that supports the CFI query command. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00a rmm  10/25/07 First release
+1.00a mta  10/25/07 Updated to flash library
+1.01a ksu  04/10/08 Added support for AMD CFI Interface
+2.00a ktn  12/04/09 Updated to use the HAL processor APIs/macros
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2007<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>XFLASH_CFI_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="29" refid="xilflash__cfi_8h_1a86ebd4f16fd21a6e7e557d0bd00e9cb3" refkind="member"><highlight class="preprocessor">#define<sp/>XFLASH_CFI_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xilflash_8h" kindref="compound">xilflash.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xilflash__properties_8h" kindref="compound">xilflash_properties.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XFL_DEVICE_FAMILY_INTEL</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xilflash__intel_8h" kindref="compound">xilflash_intel.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPAR_XFL_DEVICE_FAMILY_INTEL<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XFL_DEVICE_FAMILY_AMD</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xilflash__amd_8h" kindref="compound">xilflash_amd.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPAR_XFL_DEVICE_FAMILY_AMD<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="xilflash__cfi_8h_1a5f6c51f2f7f22d4a83dd5fb20cea6812" refkind="member"><highlight class="preprocessor">#define<sp/>XFL_LAYOUT_NUM_PARTS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000FF</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_LAYOUT_PART_MODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FF00</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_LAYOUT_PART_WIDTH_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00FF0000</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_LAYOUT_CFI_INTERL_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0xFF000000</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XFL_LAYOUT_NUM_PARTS_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_LAYOUT_NUM_PARTS_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_LAYOUT_NUM_PARTS_4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_LAYOUT_PART_MODE_8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000100</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_LAYOUT_PART_MODE_16<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000200</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_LAYOUT_PART_WIDTH_8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00010000</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_LAYOUT_PART_WIDTH_16<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00020000</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_LAYOUT_CFI_INTERL_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01000000</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_LAYOUT_CFI_INTERL_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02000000</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_LAYOUT_CFI_INTERL_4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04000000</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_LAYOUT_CFI_INTERL_8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08000000</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="73"><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="91" refid="xilflash__cfi_8h_1a12bd0c89aecceb6ce7e6449d0a76137a" refkind="member"><highlight class="preprocessor">#define<sp/>XFL_CFI_POSITION_PTR(Ptr,<sp/>BaseAddr,<sp/>Interleave,<sp/>ByteAddr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ptr<sp/>=<sp/>(void*)((u32)BaseAddr<sp/>+<sp/>((u32)Interleave<sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)ByteAddr))<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="108" refid="xilflash__cfi_8h_1abee73d45fcdf7098f5b2daf57b27698a" refkind="member"><highlight class="preprocessor">#define<sp/>XFL_CFI_ADVANCE_PTR8(Ptr,<sp/>Interleave)<sp/>\</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Ptr<sp/>=<sp/>(void*)((u32)Ptr<sp/>+<sp/>(Interleave)))</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="122" refid="xilflash__cfi_8h_1a2e6f76db4955297ab8edfd917acf4e40" refkind="member"><highlight class="preprocessor">#define<sp/>XFL_CFI_ADVANCE_PTR16(Ptr,<sp/>Interleave)<sp/>\</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Ptr<sp/>=<sp/>(void*)((u32)Ptr<sp/>+<sp/>((Interleave)<sp/>&lt;&lt;<sp/>1)))</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xilflash__cfi_8h_1a025ba2cd783a06301dc7caa4fb537d95" kindref="member">XFlashCFI_ReadCommon</ref>(XFlash<sp/>*InstancePtr,<sp/>u8<sp/>BusWidth);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xilflash__cfi_8h_1ad868fe5f733b6042f9ee8b6adb59652c" kindref="member">XFlashCFI_Read8</ref>(u8<sp/>*Ptr,<sp/>u8<sp/>Interleave,<sp/>u8<sp/>Mode);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xilflash__cfi_8h_1a25c9cc3b842a35592e8b009f64b3df1f" kindref="member">XFlashCFI_Read16</ref>(u8<sp/>*Ptr,<sp/>u8<sp/>Interleave,<sp/>u8<sp/>Mode);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_cfi.h"/>
+  </compounddef>
+</doxygen>

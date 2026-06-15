@@ -1,0 +1,1118 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="oba_8h" kind="file">
+    <compoundname>oba.h</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <includes refid="cam__device__buffer__api_8h" local="yes">cam_device_buffer_api.h</includes>
+    <includes refid="cam__device__common_8h" local="yes">cam_device_common.h</includes>
+    <includedby refid="oba_8c" local="yes">oba.c</includedby>
+    <includedby refid="vvdevice_8c" local="yes">vvdevice.c</includedby>
+    <incdepgraph>
+      <node id="6815">
+        <label>stdbool.h</label>
+      </node>
+      <node id="6797">
+        <label>xil_io.h</label>
+      </node>
+      <node id="6805">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="6806">
+        <label>oslayer.h</label>
+        <link refid="oslayer_8h"/>
+        <childnode refid="6807" relation="include">
+        </childnode>
+        <childnode refid="6809" relation="include">
+        </childnode>
+      </node>
+      <node id="6816">
+        <label>stdint.h</label>
+      </node>
+      <node id="6802">
+        <label>stdlib.h</label>
+      </node>
+      <node id="6810">
+        <label>cam_device_api.h</label>
+        <childnode refid="6811" relation="include">
+        </childnode>
+        <childnode refid="6819" relation="include">
+        </childnode>
+        <childnode refid="6820" relation="include">
+        </childnode>
+        <childnode refid="6821" relation="include">
+        </childnode>
+      </node>
+      <node id="6819">
+        <label>cam_device_calibration.h</label>
+        <childnode refid="6799" relation="include">
+        </childnode>
+      </node>
+      <node id="6813">
+        <label>sensor_cmd.h</label>
+        <childnode refid="6814" relation="include">
+        </childnode>
+        <childnode refid="6805" relation="include">
+        </childnode>
+      </node>
+      <node id="6798">
+        <label>cam_device_buffer_api.h</label>
+        <childnode refid="6799" relation="include">
+        </childnode>
+        <childnode refid="6805" relation="include">
+        </childnode>
+        <childnode refid="6806" relation="include">
+        </childnode>
+        <childnode refid="6810" relation="include">
+        </childnode>
+        <childnode refid="6812" relation="include">
+        </childnode>
+      </node>
+      <node id="6804">
+        <label>stddef.h</label>
+      </node>
+      <node id="6803">
+        <label>limits.h</label>
+      </node>
+      <node id="6811">
+        <label>cam_device_common.h</label>
+        <childnode refid="6799" relation="include">
+        </childnode>
+        <childnode refid="6805" relation="include">
+        </childnode>
+        <childnode refid="6807" relation="include">
+        </childnode>
+        <childnode refid="6812" relation="include">
+        </childnode>
+        <childnode refid="6813" relation="include">
+        </childnode>
+      </node>
+      <node id="6812">
+        <label>buf_defs.h</label>
+        <childnode refid="6799" relation="include">
+        </childnode>
+      </node>
+      <node id="6814">
+        <label>mbox_api.h</label>
+        <childnode refid="6815" relation="include">
+        </childnode>
+        <childnode refid="6816" relation="include">
+        </childnode>
+        <childnode refid="6817" relation="include">
+        </childnode>
+      </node>
+      <node id="6808">
+        <label>string.h</label>
+      </node>
+      <node id="6817">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="6815" relation="include">
+        </childnode>
+        <childnode refid="6818" relation="include">
+        </childnode>
+      </node>
+      <node id="6818">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="6809">
+        <label>ff.h</label>
+      </node>
+      <node id="6796">
+        <label>oba.h</label>
+        <link refid="oba.h"/>
+        <childnode refid="6797" relation="include">
+        </childnode>
+        <childnode refid="6798" relation="include">
+        </childnode>
+        <childnode refid="6811" relation="include">
+        </childnode>
+      </node>
+      <node id="6820">
+        <label>offline_trace.h</label>
+        <link refid="offline__trace_8h"/>
+        <childnode refid="6800" relation="include">
+        </childnode>
+        <childnode refid="6799" relation="include">
+        </childnode>
+        <childnode refid="6805" relation="include">
+        </childnode>
+      </node>
+      <node id="6799">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="6800" relation="include">
+        </childnode>
+        <childnode refid="6803" relation="include">
+        </childnode>
+        <childnode refid="6804" relation="include">
+        </childnode>
+      </node>
+      <node id="6821">
+        <label>cam_device_ccm_api.h</label>
+        <childnode refid="6811" relation="include">
+        </childnode>
+      </node>
+      <node id="6807">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="6799" relation="include">
+        </childnode>
+        <childnode refid="6808" relation="include">
+        </childnode>
+      </node>
+      <node id="6801">
+        <label>stdio.h</label>
+      </node>
+      <node id="6800">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="6801" relation="include">
+        </childnode>
+        <childnode refid="6802" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="6824">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="6823">
+        <label>oba.c</label>
+      </node>
+      <node id="6822">
+        <label>oba.h</label>
+        <link refid="oba.h"/>
+        <childnode refid="6823" relation="include">
+        </childnode>
+        <childnode refid="6824" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structoba__isp__combination" prot="public">oba_isp_combination</innerclass>
+    <innerclass refid="structoba__instance" prot="public">oba_instance</innerclass>
+    <innerclass refid="structoba__map" prot="public">oba_map</innerclass>
+    <innerclass refid="structvvbench__vdev__oba" prot="public">vvbench_vdev_oba</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="oba_8h_1af887f5c0f4e1b370b60f763be5fb50f6" prot="public" static="no">
+        <name>MAX_OBA_PER_TILE</name>
+        <initializer>(4UL)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="10" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="oba_8h_1ac2423ea60d189c943bf479c5f3aabb7a" prot="public" static="no">
+        <name>MAX_OBA_PER_ISP</name>
+        <initializer>(2UL)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="12" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="oba_8h_1aedbec37f7e8271685b0d2dea20f5c014" prot="public" static="no">
+        <name>XPAR_OBA_INSTANCES</name>
+        <initializer>(2UL)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="13" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="oba_8h_1ae2ec07c129267e95962cc3aab2c52ac1" prot="public" static="no">
+        <name>XPAR_OBA_ISP_INSTANCE</name>
+        <initializer>(2UL)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="14" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="oba_8h_1aaf40af8f4217b4db8b28e345e0e3cb68" prot="public" static="no">
+        <name>XPAR_OBA_TILE_INSTANCES</name>
+        <initializer>(1UL)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="15" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="oba_8h_1a4367c46551d649dc21e2d699e7161b18" prot="public" static="no">
+        <name>oba_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32( (UINTPTR)(((u8 *)BaseAddress) + (RegOffset)), (u32)(Data)) ; <ref refid="group__module__tracer_1ga5f6aa8edcd99914757600b5d3b259bb7" kindref="member">TRACE</ref>(OBA_RPU_INFO,&quot;RPU:oba reg add 0x%x ,val 0x%x \n&quot;,(UINTPTR)(((u8 *)BaseAddress) + (RegOffset)),Data);</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="oba_8h_1a92d385c5bf1b28d68c08f7872ab92fe6" prot="public" static="no">
+        <name>oba_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32( (UINTPTR) (((u8 *)BaseAddress) + (RegOffset)))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="oba_8h_1a2eb9cf3ca8b8e9f0599e5e4bc7411e88" prot="public" static="no">
+        <name>XPAR_ISP0_OBA_PIX_MODE_BASEADDR</name>
+        <initializer>(0xE8540000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="oba_8h_1a1ceff1871bc4b4ad6312de12b0b374a8" prot="public" static="no">
+        <name>XPAR_ISP1_OBA_PIX_MODE_BASEADDR</name>
+        <initializer>(0xE8541000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="oba_8h_1a40e5edfe7ec952a94d69f954d0043cb1" prot="public" static="no">
+        <name>oba_id</name>
+        <enumvalue id="oba_8h_1a40e5edfe7ec952a94d69f954d0043cb1afb8aa736f0ea7936811d8c15a3d44c30" prot="public">
+          <name>OBA_0_MP</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1a40e5edfe7ec952a94d69f954d0043cb1a8a1fd76137d9c4b32ad5948fb502dc67" prot="public">
+          <name>OBA_1_SP</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1a40e5edfe7ec952a94d69f954d0043cb1a24b83344fdf8f2761c826328f4eb3192" prot="public">
+          <name>OBA_2_MP</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1a40e5edfe7ec952a94d69f954d0043cb1ac9f3300d54ffe411cad34f0de27199a9" prot="public">
+          <name>OBA_3_SP</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1a40e5edfe7ec952a94d69f954d0043cb1ad60f1f5e609264c92355b852be905a41" prot="public">
+          <name>MAX_OBA</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1a40e5edfe7ec952a94d69f954d0043cb1a1c688ff3d2fab266d72cc80f3d277fcd" prot="public">
+          <name>DUMMY_OBA_ID</name>
+          <initializer>= 0XDEADFEED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="18" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="18" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="enum" id="oba_8h_1a2b98c94215af932a155c2d491e7ba1b9" prot="public" static="no">
+        <name>oba_path</name>
+        <enumvalue id="oba_8h_1a2b98c94215af932a155c2d491e7ba1b9a240d585bd3e829cb007f1f99fcdd8a52" prot="public">
+          <name>MAIN_PATH</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1a2b98c94215af932a155c2d491e7ba1b9a053461b7bc0bd4ba30009bc4eb2cc4e9" prot="public">
+          <name>SELF_PATH</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1a2b98c94215af932a155c2d491e7ba1b9accfb83c21cda9710dbcaffa8eb512e48" prot="public">
+          <name>DUMMY_OBA_PATH_ID</name>
+          <initializer>= 0XDEADFEED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="28" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="enum" id="oba_8h_1abe7af827cb667e911d5c1f87a9af49a8" prot="public" static="no">
+        <name>oba_output_data_mode</name>
+        <enumvalue id="oba_8h_1abe7af827cb667e911d5c1f87a9af49a8a1739d793b6dbc9fe01d0cf2f2c122d89" prot="public">
+          <name>RGB888_FORMAT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1abe7af827cb667e911d5c1f87a9af49a8a044e1149e31a5e17c353d8f05ebad162" prot="public">
+          <name>YUV444_FORMAT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1abe7af827cb667e911d5c1f87a9af49a8a90a3bbcbec787bb533b49ac9a2d24171" prot="public">
+          <name>YUV422_SP_FORMAT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1abe7af827cb667e911d5c1f87a9af49a8a0a9da38f2bc68dc2a826570d1edf034b" prot="public">
+          <name>YUV420_SP_FORMAT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1abe7af827cb667e911d5c1f87a9af49a8aa9986fbfc008387342be16223c961abd" prot="public">
+          <name>Y_FORMAT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1abe7af827cb667e911d5c1f87a9af49a8a8e8808093d57a405053be8abd57bfd1d" prot="public">
+          <name>DUMMY_OBA_OUTPUT_DATA_MODE</name>
+          <initializer>= 0XDEADFEED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="35" bodyend="42"/>
+      </memberdef>
+      <memberdef kind="enum" id="oba_8h_1ac99b874558e5e4c621a5196e08510fe1" prot="public" static="no">
+        <name>oba_data_type</name>
+        <enumvalue id="oba_8h_1ac99b874558e5e4c621a5196e08510fe1ac9de6eaa4e8adfaf9aa59ba8001f629c" prot="public">
+          <name>YUV_420_8_BIT</name>
+          <initializer>= 0x18</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1ac99b874558e5e4c621a5196e08510fe1a6fce9c3d37710a9716030a9280cd5fc1" prot="public">
+          <name>YUV_420_10_BIT</name>
+          <initializer>= 0x19</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1ac99b874558e5e4c621a5196e08510fe1a966b39e1673c7a19425fab2aff01b481" prot="public">
+          <name>YUV_422_8_BIT</name>
+          <initializer>= 0x1E</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1ac99b874558e5e4c621a5196e08510fe1a5476f30c1f3b0186ce8a032221dd90b3" prot="public">
+          <name>YUV_422_10_BIT</name>
+          <initializer>= 0x1F</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1ac99b874558e5e4c621a5196e08510fe1acbcf87c79628b8c7fed02f39f7cbd15f" prot="public">
+          <name>RGB888</name>
+          <initializer>= 0x24</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1ac99b874558e5e4c621a5196e08510fe1a9a6bd8e3840fff94b0abf4502dcb6314" prot="public">
+          <name>YUV_400_8_BIT</name>
+          <initializer>= 0x20</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1ac99b874558e5e4c621a5196e08510fe1a69255963a4da7467205acb134afa4a95" prot="public">
+          <name>YUV_400_10_BIT</name>
+          <initializer>= 0x21</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1ac99b874558e5e4c621a5196e08510fe1adf02f0fe4151b2124f7736d5f39ac39b" prot="public">
+          <name>DUMMY_OBA_DATA_TYPE</name>
+          <initializer>= 0XDEADFEED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="45" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="enum" id="oba_8h_1a63707db326d6382eb4658f178b06c26e" prot="public" static="no">
+        <name>oba_pixel_mode</name>
+        <enumvalue id="oba_8h_1a63707db326d6382eb4658f178b06c26ea89b8f57d31ab436c1e7716efc2f5e52a" prot="public">
+          <name>SINGLE_PIXEL_MODE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1a63707db326d6382eb4658f178b06c26ea06c4f3f4bb8e9521fbdf40a820d97958" prot="public">
+          <name>DUAL_PIXEL_MODE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1a63707db326d6382eb4658f178b06c26eabeae27b7c3ef42518eed344958b77395" prot="public">
+          <name>QUAD_PIXEL_MODE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1a63707db326d6382eb4658f178b06c26ea2fb34875edde51cfb48f3e34c714a699" prot="public">
+          <name>DUMMY_OBA_PIXEL_MODE</name>
+          <initializer>= 0XDEADFEED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="57" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="enum" id="oba_8h_1a2c59a483b38477d85e68e033e3f5dc35" prot="public" static="no">
+        <name>oba_tile_id</name>
+        <enumvalue id="oba_8h_1a2c59a483b38477d85e68e033e3f5dc35a43d7fb8b97af6123254a01f1e37fe95a" prot="public">
+          <name>OBA_TILE_0</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1a2c59a483b38477d85e68e033e3f5dc35aa1b2371d6c93ce9e454d8b032a1e4647" prot="public">
+          <name>OBA_MAX_TILE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1a2c59a483b38477d85e68e033e3f5dc35a038dbf39a22b8fa2b121c42f2a85f0e4" prot="public">
+          <name>OBA_DUMMY_TILE_ID</name>
+          <initializer>= 0XDEADFEED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="65" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="enum" id="oba_8h_1a3db4874229c860b9b4d4e26054b16d69" prot="public" static="no">
+        <name>oba_isp_instance</name>
+        <enumvalue id="oba_8h_1a3db4874229c860b9b4d4e26054b16d69af38e199b3498a4a15fc5f8f60ba4e7bc" prot="public">
+          <name>OBA_ISP0</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1a3db4874229c860b9b4d4e26054b16d69a462eaa3ca9574bdfbe8aad67dabcbdd1" prot="public">
+          <name>OBA_ISP1</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1a3db4874229c860b9b4d4e26054b16d69a782615421870817c2ddaae83157fae84" prot="public">
+          <name>OBA_MAX_ISP_PER_TILE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1a3db4874229c860b9b4d4e26054b16d69ae6e627d8c5ddf8fad39f5eabfa082044" prot="public">
+          <name>DUMMY_OBA_ISP</name>
+          <initializer>= 0XDEADFEED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="72" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="enum" id="oba_8h_1ae50436ac3b76bf04cca7b3074ae81656" prot="public" static="no">
+        <name>oba_status</name>
+        <enumvalue id="oba_8h_1ae50436ac3b76bf04cca7b3074ae81656a7d3c41890b573f1d82f102ad20aac713" prot="public">
+          <name>OBA_DISABLED</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1ae50436ac3b76bf04cca7b3074ae81656ad10baf0258e70383865d195861bb555a" prot="public">
+          <name>OBA_ENABLED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oba_8h_1ae50436ac3b76bf04cca7b3074ae81656a1b41df4748d1863fa3aaa20eede42012" prot="public">
+          <name>DUMMY_OBA_STATUS</name>
+          <initializer>= 0XDEADFEED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="79" bodyend="83"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="oba_8h_1a650f9db2fafa00c9f9b62322c18ae2cf" prot="public" static="no">
+        <type>enum oba_id</type>
+        <definition>typedef enum oba_id  oba_id_t</definition>
+        <argsstring></argsstring>
+        <name>oba_id_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="25" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="oba_8h_1af952995567bdee5e8b521f3b58e27800" prot="public" static="no">
+        <type>enum oba_path</type>
+        <definition>typedef enum oba_path  oba_path_t</definition>
+        <argsstring></argsstring>
+        <name>oba_path_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="32" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="oba_8h_1a6661e424ccbb6c9379360c1e96b2bc79" prot="public" static="no">
+        <type>enum oba_output_data_mode</type>
+        <definition>typedef enum oba_output_data_mode  oba_data_mode_t</definition>
+        <argsstring></argsstring>
+        <name>oba_data_mode_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="42" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="oba_8h_1a7624073447f3008792c8119d42dc24f8" prot="public" static="no">
+        <type>enum oba_data_type</type>
+        <definition>typedef enum oba_data_type  oba_data_type_t</definition>
+        <argsstring></argsstring>
+        <name>oba_data_type_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="54" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="oba_8h_1a4b58747a498a2c44d1da12f3357cd409" prot="public" static="no">
+        <type>enum oba_pixel_mode</type>
+        <definition>typedef enum oba_pixel_mode  oba_pixel_mode_t</definition>
+        <argsstring></argsstring>
+        <name>oba_pixel_mode_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="62" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="oba_8h_1a411ab029d55332d1511268e1cd111a21" prot="public" static="no">
+        <type>enum oba_tile_id</type>
+        <definition>typedef enum oba_tile_id  oba_tile_id_t</definition>
+        <argsstring></argsstring>
+        <name>oba_tile_id_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="69" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="oba_8h_1ae1e024c8c917cd9229f26af25db47471" prot="public" static="no">
+        <type>enum oba_isp_instance</type>
+        <definition>typedef enum oba_isp_instance  oba_isp_instance_t</definition>
+        <argsstring></argsstring>
+        <name>oba_isp_instance_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="77" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="oba_8h_1a3610eb752b3fb082454e58a86c20f9b3" prot="public" static="no">
+        <type>enum oba_status</type>
+        <definition>typedef enum oba_status  oba_status_t</definition>
+        <argsstring></argsstring>
+        <name>oba_status_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="83" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="oba_8h_1a829ba9c7734904f578c479686b13e463" prot="public" static="no">
+        <type>struct oba_isp_combination</type>
+        <definition>typedef struct oba_isp_combination  oba_isp_split_t</definition>
+        <argsstring></argsstring>
+        <name>oba_isp_split_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="87" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="oba_8h_1a2ea5484abbdebb309edd84681b1c0e3d" prot="public" static="no">
+        <type>struct vvbench_vdev_oba</type>
+        <definition>typedef struct vvbench_vdev_oba  vvbench_vdev_oba_t</definition>
+        <argsstring></argsstring>
+        <name>vvbench_vdev_oba_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="123" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="oba_8h_1ae4197203d9241fbff323fa67e6c4edda" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 BaseAddress[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="oba_8h_1a9c8e3256784c5e9f9851599c3f0ea3cc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 hcamdev_instanceid</definition>
+        <argsstring></argsstring>
+        <name>hcamdev_instanceid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="oba_8h_1a97124cbd2c02383c6cae61c9c3fe53b0" prot="public" static="no" mutable="no">
+        <type>oba_id_t</type>
+        <definition>oba_id_t DeviceId</definition>
+        <argsstring></argsstring>
+        <name>DeviceId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="oba_8h_1aaea553007501a837b358182961d3e591" prot="public" static="no" mutable="no">
+        <type>oba_path_t</type>
+        <definition>oba_path_t path_info</definition>
+        <argsstring></argsstring>
+        <name>path_info</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="238" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="oba_8h_1ae1fde52f01d35542e948e7e80c81b68a" prot="public" static="no" mutable="no">
+        <type>oba_pixel_mode_t</type>
+        <definition>oba_pixel_mode_t pixle_mode</definition>
+        <argsstring></argsstring>
+        <name>pixle_mode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="oba_8h_1a206bd9a6c534d9d0319cd96da82735cc" prot="public" static="no" mutable="no">
+        <type>oba_data_mode_t</type>
+        <definition>oba_data_mode_t data_format</definition>
+        <argsstring></argsstring>
+        <name>data_format</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="oba_8h_1ab2c5d9c3104a2a17cf63cabec5724e5b" prot="public" static="no" mutable="no">
+        <type>oba_data_type_t</type>
+        <definition>oba_data_type_t data_type</definition>
+        <argsstring></argsstring>
+        <name>data_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="oba_8h_1aeca82ed85afbb9b296cd8b53f6ad3192" prot="public" static="no" mutable="no">
+        <type>oba_tile_id_t</type>
+        <definition>oba_tile_id_t oba_tile_id</definition>
+        <argsstring></argsstring>
+        <name>oba_tile_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="oba_8h_1a4fac88bc44b9093c10b9b6e9f92a595d" prot="public" static="no" mutable="no">
+        <type>oba_status_t</type>
+        <definition>oba_status_t oba_is_enabled</definition>
+        <argsstring></argsstring>
+        <name>oba_is_enabled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="243" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="oba_8h_1ae51a168313b91ca5ebcd7b5b8ad3245c" prot="public" static="no" mutable="no">
+        <type>oba_isp_instance_t</type>
+        <definition>oba_isp_instance_t isp_instance</definition>
+        <argsstring></argsstring>
+        <name>isp_instance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="oba_8h_1ad0e8a2f650c1c39f36752d494940367b" prot="public" static="no" mutable="no">
+        <type>oba_inst_t</type>
+        <definition>oba_inst_t oba_inst[OBA_MAX_TILE][OBA_MAX_ISP_PER_TILE][MAX_OBA_PER_ISP]</definition>
+        <argsstring>[OBA_MAX_TILE][OBA_MAX_ISP_PER_TILE][MAX_OBA_PER_ISP]</argsstring>
+        <name>oba_inst</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="230" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="oba_8h_1a353f6fb22f5369c6f5a2529c5d0dd1db" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="oba_8h_1a2ffecce693f25051c1dac64d922f9bb9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct oba_instance</type>
+        <definition>struct oba_instance __attribute</definition>
+        <argsstring>((__packed__)) __attribute((aligned(8))) oba_inst_t</argsstring>
+        <name>__attribute</name>
+        <param>
+          <type>(__packed__)</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h" line="229" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__oba_H__</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__oba_H__</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cam_device_buffer_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cam_device_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_OBA_PER_TILE<sp/><sp/><sp/><sp/>(4UL)</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_OBA_PER_ISP<sp/><sp/><sp/><sp/><sp/>(2UL)</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_OBA_INSTANCES<sp/><sp/>(2UL)</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_OBA_ISP_INSTANCE<sp/><sp/><sp/>(2UL)</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_OBA_TILE_INSTANCES<sp/>(1UL)</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>oba_id<sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OBA_0_MP,</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OBA_1_SP,</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OBA_2_MP,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OBA_3_SP,</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAX_OBA,</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_OBA_ID<sp/>=<sp/>0XDEADFEED</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">}<sp/>oba_id_t;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>oba_path<sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MAIN_PATH<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SELF_PATH,</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_OBA_PATH_ID<sp/>=<sp/>0XDEADFEED</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">}<sp/>oba_path_t;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>oba_output_data_mode<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RGB888_FORMAT,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YUV444_FORMAT,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YUV422_SP_FORMAT,</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YUV420_SP_FORMAT,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Y_FORMAT,</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_OBA_OUTPUT_DATA_MODE<sp/>=<sp/>0XDEADFEED</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">}<sp/>oba_data_mode_t;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>oba_data_type<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YUV_420_8_BIT<sp/>=<sp/>0x18,</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YUV_420_10_BIT<sp/>=<sp/>0x19,</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YUV_422_8_BIT<sp/>=<sp/>0x1E,</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YUV_422_10_BIT<sp/>=<sp/>0x1F,</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RGB888<sp/>=<sp/>0x24,</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YUV_400_8_BIT<sp/>=<sp/>0x20,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>YUV_400_10_BIT<sp/>=<sp/>0x21,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_OBA_DATA_TYPE<sp/>=<sp/>0XDEADFEED</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">}<sp/>oba_data_type_t;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>oba_pixel_mode<sp/>{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SINGLE_PIXEL_MODE<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUAL_PIXEL_MODE,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>QUAD_PIXEL_MODE,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_OBA_PIXEL_MODE<sp/>=<sp/>0XDEADFEED</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">}<sp/>oba_pixel_mode_t;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>oba_tile_id<sp/>{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OBA_TILE_0<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OBA_MAX_TILE,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OBA_DUMMY_TILE_ID<sp/>=<sp/>0XDEADFEED</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">}<sp/>oba_tile_id_t;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>oba_isp_instance<sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OBA_ISP0<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OBA_ISP1,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OBA_MAX_ISP_PER_TILE,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_OBA_ISP<sp/>=<sp/>0XDEADFEED</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}<sp/>oba_isp_instance_t;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>oba_status<sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OBA_DISABLED<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OBA_ENABLED,</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_OBA_STATUS<sp/>=<sp/>0XDEADFEED</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">}<sp/>oba_status_t;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">oba_isp_combination<sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal">}<sp/>oba_isp_split_t;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">oba_instance<sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="92"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Hi-addr,<sp/>Low-addr<sp/>,<sp/>padding<sp/>of<sp/>4bytes<sp/>is<sp/>required<sp/>on<sp/>RPU</highlight></codeline>
+<codeline lineno="93"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>as<sp/>the<sp/>baseaddress<sp/>will<sp/>be<sp/>aligned<sp/>to<sp/>8<sp/>bytes<sp/>as<sp/>APU<sp/>is<sp/>64<sp/>bit</highlight></codeline>
+<codeline lineno="94"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BaseAddress[2];</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>hcamdev_instanceid;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>oba_id_t<sp/>DeviceId;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>oba_path_t<sp/>path_info;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>oba_pixel_mode_t<sp/>pixle_mode;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>oba_data_mode_t<sp/>data_format;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>oba_data_type_t<sp/>data_type;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>oba_tile_id_t<sp/>oba_tile_id;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>oba_status_t<sp/>oba_is_enabled;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>oba_isp_instance_t<sp/>isp_instance;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*To<sp/>which<sp/>ISP<sp/>is<sp/>this<sp/>oba<sp/>connected*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal">}<sp/><ref refid="mbox__fifo_8h_1a9a2e6eb08f03c130861efc945c3831e4" kindref="member">__attribute</ref>((__packed__))<sp/><ref refid="mbox__fifo_8h_1a9a2e6eb08f03c130861efc945c3831e4" kindref="member">__attribute</ref>((aligned(8)))<sp/>oba_inst_t<sp/>;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal">typedef<sp/>struct<sp/>oba_map<sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>oba_inst_t<sp/>oba_inst[OBA_MAX_TILE][OBA_MAX_ISP_PER_TILE][MAX_OBA_PER_ISP];</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>IsReady;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal">}<sp/><ref refid="mbox__fifo_8h_1a9a2e6eb08f03c130861efc945c3831e4" kindref="member">__attribute</ref>((__packed__))<sp/><ref refid="mbox__fifo_8h_1a9a2e6eb08f03c130861efc945c3831e4" kindref="member">__attribute</ref>((aligned(8)))<sp/>oba_map_t<sp/>;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal">typedef<sp/>struct<sp/>vvbench_vdev_oba<sp/>{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group____buf__mgmt__ctrl_1ga477942d22afe7298d497ae48e8bb498b" kindref="member">CamDeviceBufChainId_t</ref><sp/>path[2];</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>pathEnable[2];</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>hpId;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1ga03d5afda881a720931044845b7659167" kindref="member">CamDeviceInputType_t</ref><sp/>inputType;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1gadea6d16db290e5ceae71de6d23488818" kindref="member">CamDeviceWorkMode_t</ref><sp/>workMode;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1ga20c75829daea91b7f3c758123ad5e2a5" kindref="member">CamDeviceOutputType_t</ref><sp/>outPutType;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>pathOutType[2];</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>format[2];</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>dataBits[2];</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">}<sp/>vvbench_vdev_oba_t<sp/>;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>oba_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(<sp/>(UINTPTR)(((u8<sp/>*)BaseAddress)<sp/>+<sp/>(RegOffset)),<sp/>(u32)(Data))<sp/>;<sp/>TRACE(OBA_RPU_INFO,&quot;RPU:oba<sp/>reg<sp/>add<sp/>0x%x<sp/>,val<sp/>0x%x<sp/>\n&quot;,(UINTPTR)(((u8<sp/>*)BaseAddress)<sp/>+<sp/>(RegOffset)),Data);</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>oba_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32(<sp/>(UINTPTR)<sp/>(((u8<sp/>*)BaseAddress)<sp/>+<sp/>(RegOffset)))</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="133"><highlight class="comment">*<sp/>The<sp/>configuration<sp/>table<sp/>for<sp/>devices</highlight></codeline>
+<codeline lineno="134"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPAR_ISP0_OBA_PIX_MODE_BASEADDR<sp/>(0xE8540000)<sp/>//oba0<sp/>base<sp/>address<sp/><sp/>xE8540004</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_ISP1_OBA_PIX_MODE_BASEADDR<sp/>(0xE8541000)</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/oba_drv/oba.h"/>
+  </compounddef>
+</doxygen>

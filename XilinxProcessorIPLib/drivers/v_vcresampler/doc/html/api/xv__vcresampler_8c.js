@@ -1,0 +1,27 @@
+var xv__vcresampler_8c =
+[
+    [ "XV_vcresampler_CfgInitialize", "xv__vcresampler_8c.html#acf9c225585cfa2ab8800a5463c00e208", null ],
+    [ "XV_vcresampler_DisableAutoRestart", "xv__vcresampler_8c.html#a5e2713e1e927461583ef9e0b82f672e4", null ],
+    [ "XV_vcresampler_EnableAutoRestart", "xv__vcresampler_8c.html#afcfcebe5b588b8a1dfb8761d817c0fc9", null ],
+    [ "XV_vcresampler_Get_HwReg_coefs_0_0", "xv__vcresampler_8c.html#af2ca57aec971092e7ad860e927284039", null ],
+    [ "XV_vcresampler_Get_HwReg_height", "xv__vcresampler_8c.html#a2556a5a207d9d47b84133d8aaa7e81e8", null ],
+    [ "XV_vcresampler_Get_HwReg_input_video_format", "xv__vcresampler_8c.html#a66b92c787146f6151e0267a20faf37be", null ],
+    [ "XV_vcresampler_Get_HwReg_output_video_format", "xv__vcresampler_8c.html#ad90ffa0e7003659e0230f1a7ab435356", null ],
+    [ "XV_vcresampler_Get_HwReg_width", "xv__vcresampler_8c.html#a6a8682f6648b031b94cc4d0bb4e788e5", null ],
+    [ "XV_vcresampler_InterruptClear", "xv__vcresampler_8c.html#a70ad8a9201effb14e50319e9c28ea900", null ],
+    [ "XV_vcresampler_InterruptDisable", "xv__vcresampler_8c.html#a2b23b213f26452cef35f57e65e738e67", null ],
+    [ "XV_vcresampler_InterruptEnable", "xv__vcresampler_8c.html#a5ddf84a4aa2a43a8e37e722a3537351d", null ],
+    [ "XV_vcresampler_InterruptGetEnabled", "xv__vcresampler_8c.html#a596fe770a2385452fce657a3a74de180", null ],
+    [ "XV_vcresampler_InterruptGetStatus", "xv__vcresampler_8c.html#a9e15d8f0ec0dcacb919ba6ac74953997", null ],
+    [ "XV_vcresampler_InterruptGlobalDisable", "xv__vcresampler_8c.html#ac08213358922858432c0d0db2fbd1bf4", null ],
+    [ "XV_vcresampler_InterruptGlobalEnable", "xv__vcresampler_8c.html#afc2f103c0173f6238614971cc43b0113", null ],
+    [ "XV_vcresampler_IsDone", "xv__vcresampler_8c.html#aba0027e29d9fcbd6c1ab016000a99dfa", null ],
+    [ "XV_vcresampler_IsIdle", "xv__vcresampler_8c.html#aa09f70e6c9ab6416836f49b84ac087f3", null ],
+    [ "XV_vcresampler_IsReady", "xv__vcresampler_8c.html#ad1eda8d670141d925646d219074054e7", null ],
+    [ "XV_vcresampler_Set_HwReg_coefs_0_0", "xv__vcresampler_8c.html#a027c311ca2e9d3d2fd7fa4a1d647d6a6", null ],
+    [ "XV_vcresampler_Set_HwReg_height", "xv__vcresampler_8c.html#a072495c5efe846ce5f19f990f5eb8825", null ],
+    [ "XV_vcresampler_Set_HwReg_input_video_format", "xv__vcresampler_8c.html#a5741ce40dc98ea86a3a6d7ca752108f5", null ],
+    [ "XV_vcresampler_Set_HwReg_output_video_format", "xv__vcresampler_8c.html#acbc8c85cc8ce7852a8eed88191cecf48", null ],
+    [ "XV_vcresampler_Set_HwReg_width", "xv__vcresampler_8c.html#a4cf12d7ba9ed07002b192d6393b809c7", null ],
+    [ "XV_vcresampler_Start", "xv__vcresampler_8c.html#a87dde33eb2551ab05c02ee4e6df75c7e", null ]
+];

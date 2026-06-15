@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structjs__command__sequence__struct" kind="struct" prot="public">
+    <compoundname>js_command_sequence_struct</compoundname>
+    <includes local="no">xilskey_js.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structjs__command__sequence__struct_1a27dcdd01a1c60dcc94f0b546b01c379b" prot="public" static="no" mutable="no">
+        <type><ref refid="structjs__node__struct" kindref="compound">js_node_t</ref> *</type>
+        <definition>js_node_t* js_command_sequence_struct::node</definition>
+        <argsstring></argsstring>
+        <name>node</name>
+        <briefdescription>
+<para>JTAG node. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>JTAG command sequence object. </para>    </briefdescription>
+    <detaileddescription>
+<para>Commands are added to this object for later execution. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="8">
+        <label>js_server_struct</label>
+        <link refid="structjs__server__struct"/>
+      </node>
+      <node id="7">
+        <label>js_port_struct</label>
+        <link refid="structjs__port__struct"/>
+        <childnode refid="8" relation="usage">
+          <edgelabel>server</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>root_node</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>js_command_sequence_struct</label>
+        <link refid="structjs__command__sequence__struct"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>node</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>js_node_struct</label>
+        <link refid="structjs__node__struct"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>port</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>child_list</edgelabel>
+          <edgelabel>parent</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" bodystart="192" bodyend="194"/>
+    <listofallmembers>
+      <member refid="structjs__command__sequence__struct_1a27dcdd01a1c60dcc94f0b546b01c379b" prot="public" virt="non-virtual"><scope>js_command_sequence_struct</scope><name>node</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

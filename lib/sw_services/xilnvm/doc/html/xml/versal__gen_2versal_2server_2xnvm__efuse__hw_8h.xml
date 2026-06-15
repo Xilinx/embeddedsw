@@ -1,0 +1,700 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h" kind="file">
+    <compoundname>versal_gen/versal/server/xnvm_efuse_hw.h</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes refid="xnvm__efuse__common__hw_8h" local="yes">xnvm_efuse_common_hw.h</includes>
+    <includedby refid="versal__gen_2versal_2server_2xnvm__efuse_8c" local="yes">xnvm_efuse.c</includedby>
+    <incdepgraph>
+      <node id="434">
+        <label>xnvm_efuse_hw.h</label>
+        <link refid="versal_gen/versal/server/xnvm_efuse_hw.h"/>
+        <childnode refid="435" relation="include">
+        </childnode>
+        <childnode refid="436" relation="include">
+        </childnode>
+      </node>
+      <node id="436">
+        <label>xnvm_efuse_common_hw.h</label>
+        <link refid="xnvm__efuse__common__hw_8h"/>
+        <childnode refid="435" relation="include">
+        </childnode>
+      </node>
+      <node id="435">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="437">
+        <label>xnvm_efuse_hw.h</label>
+        <link refid="versal_gen/versal/server/xnvm_efuse_hw.h"/>
+        <childnode refid="438" relation="include">
+        </childnode>
+      </node>
+      <node id="438">
+        <label>xnvm_efuse.c</label>
+        <link refid="versal__gen_2versal_2server_2xnvm__efuse_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>EFUSE row numbers</header>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1aa62fb13830c2ee70860fb1d7bd50bcec" prot="public" static="no">
+        <name>XNVM_EFUSE_TBITS_XILINX_CTRL_ROW</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>eFUSE Xilinx control TBITS row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga15d0a0989ba278e28edaaf2cd9d7bf7f" compoundref="xnvm__efuse__common_8c" startline="863" endline="870">XNvm_EfuseReadProtectionBits</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a175c770b5efdb7f574111bc719b3d05b" prot="public" static="no">
+        <name>XNM_EFUSE_GLITCH_ANLG_TRIM_3</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>eFUSE glitch analog trim 3 row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a6e102d27f24e497411f209c1e9acb3df" prot="public" static="no">
+        <name>XNVM_EFUSE_DNA_START_ROW</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>eFUSE DNA start row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gafe7f7c2ced18e824970eaa2c509d3263" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1688" endline="1714">XNvm_EfuseReadDna</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a3ced4397c283598a340f6e4443d35c7a" prot="public" static="no">
+        <name>XNVM_EFUSE_AES_KEY_START_ROW</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>eFUSE AES key start row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a91e89f3039af8c9df323d2aaa01380e9" prot="public" static="no">
+        <name>XNVM_EFUSE_USER_KEY_0_START_ROW</name>
+        <initializer>(20U)</initializer>
+        <briefdescription>
+<para>eFUSE user key 0 start row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ac51a0f14068b8fcf86f0b60abaac9fee" prot="public" static="no">
+        <name>XNVM_EFUSE_USER_KEY_1_START_ROW</name>
+        <initializer>(28U)</initializer>
+        <briefdescription>
+<para>eFUSE user key 1 start row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a91fbb0768d4ea358d9382b492f6fd62c" prot="public" static="no">
+        <name>XNVM_EFUSE_USER_KEY_1_END_ROW</name>
+        <initializer>(35U)</initializer>
+        <briefdescription>
+<para>eFUSE user key 1 end row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a05b2a514a40b3355aee7d44a96a19095" prot="public" static="no">
+        <name>XNVM_EFUSE_BOOT_ENV_CTRL_ROW</name>
+        <initializer>(37U)</initializer>
+        <briefdescription>
+<para>eFUSE boot environment control row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga50174985a13b2facd6fd35fea6637f8c" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="778" endline="831">XNvm_EfuseReadBootEnvCtrlBits</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1afc9ff6b5aa7ffd9ff84eac9ebdc6baef" prot="public" static="no">
+        <name>XNVM_EFUSE_MISC_CTRL_ROW</name>
+        <initializer>(40U)</initializer>
+        <briefdescription>
+<para>eFUSE miscellaneous control row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga41a3f8903c46968528ef035b329fb58f" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1357" endline="1434">XNvm_EfuseReadMiscCtrlBits</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ad99de8e8a7b665b8940eb09eb42ffa17" prot="public" static="no">
+        <name>XNVM_EFUSE_PUF_AUX_ROW</name>
+        <initializer>(41U)</initializer>
+        <briefdescription>
+<para>eFUSE PUF AUX row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga0c0ae462f443cc003504d85d719d816f" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1611" endline="1674">XNvm_EfuseReadPuf</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga4632d36b5d828148cb6cdec52d6310ff" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1290" endline="1341">XNvm_EfuseReadPufSecCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gac6d13e9abcbed3286ccda15361a4168a" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="2333" endline="2417">XNvm_EfuseWritePufSecCtrl</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ac4db55d19934a09659c278cbe04868f9" prot="public" static="no">
+        <name>XNVM_EFUSE_PUF_CHASH_ROW</name>
+        <initializer>(42U)</initializer>
+        <briefdescription>
+<para>eFUSE PUF CHASH row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga0c0ae462f443cc003504d85d719d816f" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1611" endline="1674">XNvm_EfuseReadPuf</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a0fb2923423d9a787bbc0eb61c19bebd6" prot="public" static="no">
+        <name>XNVM_EFUSE_SECURITY_CONTROL_ROW</name>
+        <initializer>(43U)</initializer>
+        <briefdescription>
+<para>eFUSE security control row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga4632d36b5d828148cb6cdec52d6310ff" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1290" endline="1341">XNvm_EfuseReadPufSecCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gaf0e51beac90b7d5fe2d18c9ef25bc2ea" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="605" endline="702">XNvm_EfuseReadSecCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga420873a40f9a6f98373837d2fed08bb6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="856" endline="1012">XNvm_EfuseWritePuf</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1abe3de7854ec5bc06ffe8d9d014cd98dc" prot="public" static="no">
+        <name>XNVM_EFUSE_REVOCATION_ID_0_ROW</name>
+        <initializer>(44U)</initializer>
+        <briefdescription>
+<para>eFUSE revocation ID 0 row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga46bc38f1599f488fabc6c4fc499336e0" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1967" endline="1993">XNvm_EfuseReadRevocationId</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ab55d2521fef8e08adda4865bd2abc9ef" prot="public" static="no">
+        <name>XNVM_EFUSE_DEC_EFUSE_ONLY_ROW</name>
+        <initializer>(57U)</initializer>
+        <briefdescription>
+<para>eFUSE decrypt eFUSE only row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gaf25ea1ce6b8a6f3971b341861f66a4d6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1730" endline="1754">XNvm_EfuseReadDecOnly</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a18e50d04cb599d1d6af14046779f5fe3" prot="public" static="no">
+        <name>XNVM_EFUSE_SECURITY_MISC_1_ROW</name>
+        <initializer>(58U)</initializer>
+        <briefdescription>
+<para>eFUSE security misc 1 row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gac805987f2e5adffda160b2027ff46ed6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="718" endline="762">XNvm_EfuseReadSecMisc1Bits</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ae2614cab67363691afa5de6fb7c15154" prot="public" static="no">
+        <name>XNVM_EFUSE_PPK_0_HASH_START_ROW</name>
+        <initializer>(64U)</initializer>
+        <briefdescription>
+<para>eFUSE PPK0 hash start row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gaa94fa3a1bbb5fcad4fc6a8c9822f55f0" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1770" endline="1817">XNvm_EfuseReadPpkHash</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a93787e3af742a5498f6807c24cce826d" prot="public" static="no">
+        <name>XNVM_EFUSE_PPK_1_HASH_START_ROW</name>
+        <initializer>(72U)</initializer>
+        <briefdescription>
+<para>eFUSE PPK1 hash start row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="80" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gaa94fa3a1bbb5fcad4fc6a8c9822f55f0" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1770" endline="1817">XNvm_EfuseReadPpkHash</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1aab61f96078e7c6b975003c82fc3dd724" prot="public" static="no">
+        <name>XNVM_EFUSE_PPK_2_HASH_START_ROW</name>
+        <initializer>(80U)</initializer>
+        <briefdescription>
+<para>eFUSE PPK2 hash start row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gaa94fa3a1bbb5fcad4fc6a8c9822f55f0" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1770" endline="1817">XNvm_EfuseReadPpkHash</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a7fdcf7f3b589b3b5084a7265dd9444d4" prot="public" static="no">
+        <name>XNVM_EFUSE_PPK_3_HASH_START_ROW</name>
+        <initializer>(176U)</initializer>
+        <briefdescription>
+<para>eFUSE PPK3 hash start row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="82" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gaa94fa3a1bbb5fcad4fc6a8c9822f55f0" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1770" endline="1817">XNvm_EfuseReadPpkHash</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ad046dcd98267da5d4063505220bb32c8" prot="public" static="no">
+        <name>XNVM_EFUSE_PPK_4_HASH_START_ROW</name>
+        <initializer>(184U)</initializer>
+        <briefdescription>
+<para>eFUSE PPK4 hash start row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="83" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gaa94fa3a1bbb5fcad4fc6a8c9822f55f0" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1770" endline="1817">XNvm_EfuseReadPpkHash</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a2be89e92b52ce4d0930c344e4f7b692b" prot="public" static="no">
+        <name>XNVM_EFUSE_OFFCHIP_REVOKE_0_ROW</name>
+        <initializer>(88U)</initializer>
+        <briefdescription>
+<para>eFUSE off-chip revocation ID 0 row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gac8bca3f1faba5e060ba174bad3908ca2" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="2010" endline="2040">XNvm_EfuseReadOffchipRevokeId</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a32f792b7e2a1e4b2cbac48876c46a121" prot="public" static="no">
+        <name>XNVM_EFUSE_META_HEADER_IV_START_ROW</name>
+        <initializer>(96U)</initializer>
+        <briefdescription>
+<para>eFUSE meta header IV start row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="85" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gaac535d6758d3eccb3407e6d30acad999" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1513" endline="1595">XNvm_EfuseReadIv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ae402dc4a05e17aafccd7ff7724cdbb3c" prot="public" static="no">
+        <name>XNVM_EFUSE_BLACK_OBFUS_IV_START_ROW</name>
+        <initializer>(116U)</initializer>
+        <briefdescription>
+<para>eFUSE black obfuscated IV start row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="86" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gaac535d6758d3eccb3407e6d30acad999" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1513" endline="1595">XNvm_EfuseReadIv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a350763dd3f9c26b76dfc7541b99027d9" prot="public" static="no">
+        <name>XNVM_EFUSE_PLM_IV_START_ROW</name>
+        <initializer>(119U)</initializer>
+        <briefdescription>
+<para>eFUSE PLM IV start row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="87" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gaac535d6758d3eccb3407e6d30acad999" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1513" endline="1595">XNvm_EfuseReadIv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a502fa33d59bacb8a63a47c81c8275efe" prot="public" static="no">
+        <name>XNVM_EFUSE_DATA_PARTITION_IV_START_ROW</name>
+        <initializer>(122U)</initializer>
+        <briefdescription>
+<para>eFUSE data partition IV start row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="88" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gaac535d6758d3eccb3407e6d30acad999" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1513" endline="1595">XNvm_EfuseReadIv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1abb21057460c50bb96b268dfa301d1186" prot="public" static="no">
+        <name>XNVM_EFUSE_PUF_SYN_START_ROW</name>
+        <initializer>(129U)</initializer>
+        <briefdescription>
+<para>eFUSE PUF syndrome data start row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="89" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga0c0ae462f443cc003504d85d719d816f" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1611" endline="1674">XNvm_EfuseReadPuf</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ad26252928c440fffccba2258419dc4bc" prot="public" static="no">
+        <name>XNVM_EFUSE_USER_FUSE_START_ROW</name>
+        <initializer>(129U)</initializer>
+        <briefdescription>
+<para>eFUSE user fuse start row </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>EFUSE column numbers</header>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a70ff807ac0afca71e517af603babacd0" prot="public" static="no">
+        <name>XNVM_EFUSE_ROW_43_1_PROT_COLUMN</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>eFUSE row 43 page 1 protection column </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ab515ea0f935e89189ca1689f8773a552" prot="public" static="no">
+        <name>XNVM_EFUSE_ROW_57_1_PROT_COLUMN</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>eFUSE row 57 page 1 protection column </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a1245ab00c8fc1cd4e39de3b840125ab8" prot="public" static="no">
+        <name>XNVM_EFUSE_ROW64_87_1_PROT_COLUMN</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>eFUSE rows 64-87 page 1 protection column </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ae4748ffbe51343e245aded2a594485d3" prot="public" static="no">
+        <name>XNVM_EFUSE_ROW96_99_1_PROT_COLUMN</name>
+        <initializer>(17U)</initializer>
+        <briefdescription>
+<para>eFUSE rows 96-99 page 1 protection column </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a4e74e30418492c549fae352eecd2966a" prot="public" static="no">
+        <name>XNVM_EFUSE_ROW_58_PROT_COLUMN</name>
+        <initializer>(18U)</initializer>
+        <briefdescription>
+<para>eFUSE row 58 protection column </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a5ec4d50c2139effcb03642b433fa0a57" prot="public" static="no">
+        <name>XNVM_EFUSE_ROW_42_PROT_COLUMN</name>
+        <initializer>(19U)</initializer>
+        <briefdescription>
+<para>eFUSE row 42 protection column </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a91550155d6294d758069c972e617c8f6" prot="public" static="no">
+        <name>XNVM_EFUSE_ROW_40_PROT_COLUMN</name>
+        <initializer>(20U)</initializer>
+        <briefdescription>
+<para>eFUSE row 40 protection column </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ae666d536b3ed41217af39e199a9e6a8f" prot="public" static="no">
+        <name>XNVM_EFUSE_ROW_37_PROT_COLUMN</name>
+        <initializer>(21U)</initializer>
+        <briefdescription>
+<para>eFUSE row 37 protection column </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a6df915d0256a2691d560c7fa774cfef4" prot="public" static="no">
+        <name>XNVM_EFUSE_ROW96_99_0_PROT_COLUMN</name>
+        <initializer>(22U)</initializer>
+        <briefdescription>
+<para>eFUSE rows 96-99 page 0 protection column </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a9a60bd86ac2368e2519fea5477f48625" prot="public" static="no">
+        <name>XNVM_EFUSE_ROW64_87_0_PROT_COLUMN</name>
+        <initializer>(23U)</initializer>
+        <briefdescription>
+<para>eFUSE rows 64-87 page 0 protection column </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ac5ddd178a312061c93889ebe727db97c" prot="public" static="no">
+        <name>XNVM_EFUSE_ROW_57_0_PROT_COLUMN</name>
+        <initializer>(24U)</initializer>
+        <briefdescription>
+<para>eFUSE row 57 page 0 protection column </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a438483991f07642dad27ccf1a982958d" prot="public" static="no">
+        <name>XNVM_EFUSE_ROW_43_0_PROT_COLUMN</name>
+        <initializer>(25U)</initializer>
+        <briefdescription>
+<para>eFUSE row 43 page 0 protection column </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1aa2a791c5a665876f5849ad35c8252ff0" prot="public" static="no">
+        <name>XNVM_EFUSE_GLITCH_WRLK_COLUMN</name>
+        <initializer>(31U)</initializer>
+        <briefdescription>
+<para>eFUSE glitch write lock column </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ae13369f5fdff41b2827266aedfe481f2" prot="public" static="no">
+        <name>XNVM_EFUSE_GLITCH_ROM_EN_COLUMN</name>
+        <initializer>(29U)</initializer>
+        <briefdescription>
+<para>eFUSE glitch ROM enable column </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a21e060ed1ff1480e395d3b93ba212774" prot="public" static="no">
+        <name>XNVM_EFUSE_GLITCH_HALT_EN_0_COLUMN</name>
+        <initializer>(30U)</initializer>
+        <briefdescription>
+<para>eFUSE glitch halt enable 0 column </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ada26ac4200f7a106cf018539b584b665" prot="public" static="no">
+        <name>XNVM_EFUSE_GLITCH_HALT_EN_1_COLUMN</name>
+        <initializer>(31U)</initializer>
+        <briefdescription>
+<para>eFUSE glitch halt enable 1 column </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ae96ddc32cdf11463d9c287cf2440db4b" prot="public" static="no">
+        <name>XNVM_EFUSE_HALT_BOOT_ERROR_1</name>
+        <initializer>(22U)</initializer>
+        <briefdescription>
+<para>eFUSE halt boot error 1 column </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ae8d7b217fddd73fb1747bbaef62a5ac1" prot="public" static="no">
+        <name>XNVM_EFUSE_HALT_BOOT_ERROR_0</name>
+        <initializer>(21U)</initializer>
+        <briefdescription>
+<para>eFUSE halt boot error 0 column </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ac8154a4a9fc8710f43a58e2ab528dec8" prot="public" static="no">
+        <name>XNVM_EFUSE_HALT_ENV_ERROR_1</name>
+        <initializer>(20U)</initializer>
+        <briefdescription>
+<para>eFUSE halt environment error 1 column </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1abfc05f34cfd07d6ee4b82284f5ee3742" prot="public" static="no">
+        <name>XNVM_EFUSE_HALT_ENV_ERROR_0</name>
+        <initializer>(19U)</initializer>
+        <briefdescription>
+<para>eFUSE halt environment error 0 column </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1af34a84285a76eb3bde86dc1bded47afa" prot="public" static="no">
+        <name>XNVM_EFUSE_PUF_ECC_PUF_CTRL_REGEN_DIS_COLUMN</name>
+        <initializer>(31U)</initializer>
+        <briefdescription>
+<para>eFUSE PUF ECC regeneration disable column </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a2cafef38318ede64bf716dd473eaee5e" prot="public" static="no">
+        <name>XNVM_EFUSE_PUF_ECC_PUF_CTRL_HD_INVLD_COLUMN</name>
+        <initializer>(30U)</initializer>
+        <briefdescription>
+<para>eFUSE PUF ECC helper data invalid column </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains NVM library eFUSE controller register definitions. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor">#ifndef<sp/>XNVM_EFUSE_HW_H</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_HW_H</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xnvm__efuse__common__hw_8h" kindref="compound">xnvm_efuse_common_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="64" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1aa62fb13830c2ee70860fb1d7bd50bcec" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_TBITS_XILINX_CTRL_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="65" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a175c770b5efdb7f574111bc719b3d05b" refkind="member"><highlight class="preprocessor">#define<sp/>XNM_EFUSE_GLITCH_ANLG_TRIM_3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="66" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a6e102d27f24e497411f209c1e9acb3df" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_DNA_START_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)<sp/></highlight></codeline>
+<codeline lineno="67" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a3ced4397c283598a340f6e4443d35c7a" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_AES_KEY_START_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(12U)<sp/></highlight></codeline>
+<codeline lineno="68" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a91e89f3039af8c9df323d2aaa01380e9" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_USER_KEY_0_START_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(20U)<sp/></highlight></codeline>
+<codeline lineno="69" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ac51a0f14068b8fcf86f0b60abaac9fee" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_USER_KEY_1_START_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(28U)<sp/></highlight></codeline>
+<codeline lineno="70" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a91fbb0768d4ea358d9382b492f6fd62c" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_USER_KEY_1_END_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(35U)<sp/></highlight></codeline>
+<codeline lineno="71" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a05b2a514a40b3355aee7d44a96a19095" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_BOOT_ENV_CTRL_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(37U)<sp/></highlight></codeline>
+<codeline lineno="72" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1afc9ff6b5aa7ffd9ff84eac9ebdc6baef" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_MISC_CTRL_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(40U)<sp/></highlight></codeline>
+<codeline lineno="73" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ad99de8e8a7b665b8940eb09eb42ffa17" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PUF_AUX_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(41U)<sp/></highlight></codeline>
+<codeline lineno="74" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ac4db55d19934a09659c278cbe04868f9" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PUF_CHASH_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(42U)<sp/></highlight></codeline>
+<codeline lineno="75" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a0fb2923423d9a787bbc0eb61c19bebd6" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SECURITY_CONTROL_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(43U)<sp/></highlight></codeline>
+<codeline lineno="76" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1abe3de7854ec5bc06ffe8d9d014cd98dc" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_REVOCATION_ID_0_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(44U)<sp/></highlight></codeline>
+<codeline lineno="77" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ab55d2521fef8e08adda4865bd2abc9ef" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_DEC_EFUSE_ONLY_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(57U)<sp/></highlight></codeline>
+<codeline lineno="78" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a18e50d04cb599d1d6af14046779f5fe3" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_SECURITY_MISC_1_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(58U)<sp/></highlight></codeline>
+<codeline lineno="79" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ae2614cab67363691afa5de6fb7c15154" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PPK_0_HASH_START_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(64U)<sp/></highlight></codeline>
+<codeline lineno="80" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a93787e3af742a5498f6807c24cce826d" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PPK_1_HASH_START_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(72U)<sp/></highlight></codeline>
+<codeline lineno="81" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1aab61f96078e7c6b975003c82fc3dd724" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PPK_2_HASH_START_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(80U)<sp/></highlight></codeline>
+<codeline lineno="82" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a7fdcf7f3b589b3b5084a7265dd9444d4" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PPK_3_HASH_START_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(176U)<sp/></highlight></codeline>
+<codeline lineno="83" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ad046dcd98267da5d4063505220bb32c8" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PPK_4_HASH_START_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(184U)<sp/></highlight></codeline>
+<codeline lineno="84" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a2be89e92b52ce4d0930c344e4f7b692b" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_OFFCHIP_REVOKE_0_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(88U)<sp/></highlight></codeline>
+<codeline lineno="85" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a32f792b7e2a1e4b2cbac48876c46a121" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_META_HEADER_IV_START_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(96U)<sp/></highlight></codeline>
+<codeline lineno="86" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ae402dc4a05e17aafccd7ff7724cdbb3c" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_BLACK_OBFUS_IV_START_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(116U)<sp/></highlight></codeline>
+<codeline lineno="87" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a350763dd3f9c26b76dfc7541b99027d9" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PLM_IV_START_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(119U)<sp/></highlight></codeline>
+<codeline lineno="88" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a502fa33d59bacb8a63a47c81c8275efe" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_DATA_PARTITION_IV_START_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(122U)<sp/></highlight></codeline>
+<codeline lineno="89" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1abb21057460c50bb96b268dfa301d1186" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PUF_SYN_START_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(129U)<sp/></highlight></codeline>
+<codeline lineno="90" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ad26252928c440fffccba2258419dc4bc" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_USER_FUSE_START_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(129U)<sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor">#ifdef<sp/>XNVM_ACCESS_PUF_USER_DATA</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PUF_SYN_RSVD_START_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(128U)</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PUF_SYN_USERDATA_NUM_OF_ROWS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(128U)</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PUF_SYN_RSVD_CACHE_READ_ROW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(640U)</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="106" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a70ff807ac0afca71e517af603babacd0" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ROW_43_1_PROT_COLUMN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="107" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ab515ea0f935e89189ca1689f8773a552" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ROW_57_1_PROT_COLUMN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)<sp/></highlight></codeline>
+<codeline lineno="108" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a1245ab00c8fc1cd4e39de3b840125ab8" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ROW64_87_1_PROT_COLUMN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)<sp/></highlight></codeline>
+<codeline lineno="109" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ae4748ffbe51343e245aded2a594485d3" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ROW96_99_1_PROT_COLUMN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(17U)<sp/></highlight></codeline>
+<codeline lineno="110" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a4e74e30418492c549fae352eecd2966a" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ROW_58_PROT_COLUMN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(18U)<sp/></highlight></codeline>
+<codeline lineno="111" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a5ec4d50c2139effcb03642b433fa0a57" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ROW_42_PROT_COLUMN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(19U)<sp/></highlight></codeline>
+<codeline lineno="112" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a91550155d6294d758069c972e617c8f6" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ROW_40_PROT_COLUMN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(20U)<sp/></highlight></codeline>
+<codeline lineno="113" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ae666d536b3ed41217af39e199a9e6a8f" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ROW_37_PROT_COLUMN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(21U)<sp/></highlight></codeline>
+<codeline lineno="114" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a6df915d0256a2691d560c7fa774cfef4" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ROW96_99_0_PROT_COLUMN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(22U)<sp/></highlight></codeline>
+<codeline lineno="115" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a9a60bd86ac2368e2519fea5477f48625" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ROW64_87_0_PROT_COLUMN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(23U)<sp/></highlight></codeline>
+<codeline lineno="116" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ac5ddd178a312061c93889ebe727db97c" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ROW_57_0_PROT_COLUMN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(24U)<sp/></highlight></codeline>
+<codeline lineno="117" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a438483991f07642dad27ccf1a982958d" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_ROW_43_0_PROT_COLUMN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(25U)<sp/></highlight></codeline>
+<codeline lineno="118" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1aa2a791c5a665876f5849ad35c8252ff0" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_GLITCH_WRLK_COLUMN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(31U)<sp/></highlight></codeline>
+<codeline lineno="119" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ae13369f5fdff41b2827266aedfe481f2" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_GLITCH_ROM_EN_COLUMN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(29U)<sp/></highlight></codeline>
+<codeline lineno="120" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a21e060ed1ff1480e395d3b93ba212774" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_GLITCH_HALT_EN_0_COLUMN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(30U)<sp/></highlight></codeline>
+<codeline lineno="121" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ada26ac4200f7a106cf018539b584b665" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_GLITCH_HALT_EN_1_COLUMN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(31U)<sp/></highlight></codeline>
+<codeline lineno="122" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ae96ddc32cdf11463d9c287cf2440db4b" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_HALT_BOOT_ERROR_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(22U)<sp/></highlight></codeline>
+<codeline lineno="123" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ae8d7b217fddd73fb1747bbaef62a5ac1" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_HALT_BOOT_ERROR_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(21U)<sp/></highlight></codeline>
+<codeline lineno="124" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1ac8154a4a9fc8710f43a58e2ab528dec8" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_HALT_ENV_ERROR_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(20U)<sp/></highlight></codeline>
+<codeline lineno="125" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1abfc05f34cfd07d6ee4b82284f5ee3742" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_HALT_ENV_ERROR_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(19U)<sp/></highlight></codeline>
+<codeline lineno="126" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1af34a84285a76eb3bde86dc1bded47afa" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PUF_ECC_PUF_CTRL_REGEN_DIS_COLUMN<sp/><sp/><sp/><sp/>(31U)<sp/></highlight></codeline>
+<codeline lineno="127" refid="versal__gen_2versal_2server_2xnvm__efuse__hw_8h_1a2cafef38318ede64bf716dd473eaee5e" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_PUF_ECC_PUF_CTRL_HD_INVLD_COLUMN<sp/><sp/><sp/><sp/><sp/>(30U)<sp/></highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XNVM_EFUSE_HW_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal/server/xnvm_efuse_hw.h"/>
+  </compounddef>
+</doxygen>

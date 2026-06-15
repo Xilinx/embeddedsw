@@ -1,0 +1,665 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dc" kind="struct" prot="public">
+    <compoundname>XDc</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dc_1aa688cffa101903bd5c8b1db8c2768949" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dc___config" kindref="compound">XDc_Config</ref></type>
+        <definition>XDc_Config XDc::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="417" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="417" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1abf240c9dbe7f3ffc01f41f529ba24e88" prot="public" static="no" mutable="no">
+        <type><ref refid="xdc_8h_1a510a18b29e2feae16cc3255db20d8312" kindref="member">XDc_VidInterface</ref></type>
+        <definition>XDc_VidInterface XDc::VidInterface</definition>
+        <argsstring></argsstring>
+        <name>VidInterface</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="418" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="418" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1ad83925ae060bdb74890d910f9d875ec8" prot="public" static="no" mutable="no">
+        <type><ref refid="xdc_8h_1a937bdfbb7f35c3ba41caebf7d8208e8e" kindref="member">XDc_AudInterface</ref></type>
+        <definition>XDc_AudInterface XDc::AudInterface</definition>
+        <argsstring></argsstring>
+        <name>AudInterface</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="419" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="419" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1afddda14189b2fa582bd34ac66899f319" prot="public" static="no" mutable="no">
+        <type>XDc_BlenderBgClr *</type>
+        <definition>XDc_BlenderBgClr* XDc::BgClr</definition>
+        <argsstring></argsstring>
+        <name>BgClr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="421" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="421" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1a9d0a794467d595ab613092bd494a04b0" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dc___blender" kindref="compound">XDc_Blender</ref></type>
+        <definition>XDc_Blender XDc::Blender</definition>
+        <argsstring></argsstring>
+        <name>Blender</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="422" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="422" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1a593e0b42b0c1846abb1318c87cace58a" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dc___a_v_modes" kindref="compound">XDc_AVModes</ref></type>
+        <definition>XDc_AVModes XDc::AVMode</definition>
+        <argsstring></argsstring>
+        <name>AVMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="423" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1a524fabe66d536126de008be0292534c8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc::VideoClk</definition>
+        <argsstring></argsstring>
+        <name>VideoClk</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="425" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="425" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1aa0914b8a8ff5864762d7600dace9f989" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc::AudioClk</definition>
+        <argsstring></argsstring>
+        <name>AudioClk</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="426" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="426" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1a33ebc18e86a18b896199cbcdac746958" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc::VidTimingSrc</definition>
+        <argsstring></argsstring>
+        <name>VidTimingSrc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="427" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="427" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1a087640c233288838e1e1d80336bd8a60" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc::VidClkSelect</definition>
+        <argsstring></argsstring>
+        <name>VidClkSelect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="429" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="429" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1a5e276b5e790ba8b4bf5ad76c38f22cab" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc::AudClkSelect</definition>
+        <argsstring></argsstring>
+        <name>AudClkSelect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="430" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="430" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1a5cd80f517b51c7f518917a5f007a002c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc::Stream1ChannelEn</definition>
+        <argsstring></argsstring>
+        <name>Stream1ChannelEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="432" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="432" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1a45dd2bce2762f491a622dd64306653f2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc::Stream1BurstLen</definition>
+        <argsstring></argsstring>
+        <name>Stream1BurstLen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="433" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="433" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1ae1ab4900fdc15148248194eaffe72b01" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc::Stream2ChannelEn</definition>
+        <argsstring></argsstring>
+        <name>Stream2ChannelEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="434" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="434" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1aac7314a5fc98331cb3e1557d029dd5be" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc::Stream2BurstLen</definition>
+        <argsstring></argsstring>
+        <name>Stream2BurstLen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="435" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="435" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1a7ed1ba09238ae2fa6802a7761c848d62" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc::AudLineRstDisable</definition>
+        <argsstring></argsstring>
+        <name>AudLineRstDisable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="437" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="437" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1a22662fcd9b1215be580bffc0a04ba0a8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc::AudBypassExtraBS</definition>
+        <argsstring></argsstring>
+        <name>AudBypassExtraBS</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="438" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="438" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1a178204a35b89eca0cccf2bd83245248c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc::AudChannelEn</definition>
+        <argsstring></argsstring>
+        <name>AudChannelEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="439" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="439" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1ae078a253eefec6f8ed8a0dc5f66cab7b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc::AudBurstLen</definition>
+        <argsstring></argsstring>
+        <name>AudBurstLen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="440" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="440" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1a8bfa490aa5d8d9bc9f9ed8b0f4069d41" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc::AudChannelSel</definition>
+        <argsstring></argsstring>
+        <name>AudChannelSel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="441" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="441" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1a7fd717272d509014ca8ae07f2779f429" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDc::AudSampleRate</definition>
+        <argsstring></argsstring>
+        <name>AudSampleRate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="442" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="442" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1a4c88668eae738d1311c779b6d7707acd" prot="public" static="no" mutable="no">
+        <type><ref refid="xdc_8h_1ade7189ee3e9d6111088d07c0f133dbbb" kindref="member">XDc_AudEn</ref></type>
+        <definition>XDc_AudEn XDc::AudioEnable</definition>
+        <argsstring></argsstring>
+        <name>AudioEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="443" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="443" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1a4e8b9f31a40e779a48e687b218449b20" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDc::AudChCtrl</definition>
+        <argsstring></argsstring>
+        <name>AudChCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="444" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="444" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1ac63af1d6a92c1be69f3c24e9ad52dabf" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc::AudSegmentedMode</definition>
+        <argsstring></argsstring>
+        <name>AudSegmentedMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="445" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="445" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1a8bff902db210d00d834f3f21673c8cab" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc::SdpEnable</definition>
+        <argsstring></argsstring>
+        <name>SdpEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="447" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="447" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1ae9e4e490ef12553e2155a7ac2b3a7f6d" prot="public" static="no" mutable="no">
+        <type><ref refid="xdc_8h_1abb93d84de44419b19456293def29e55a" kindref="member">XDc_Sdp</ref></type>
+        <definition>XDc_Sdp XDc::Sdp</definition>
+        <argsstring></argsstring>
+        <name>Sdp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="448" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1a1611bcb965ecabdb7c53dd96e9db0f95" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc::SdpEmptyThreshold</definition>
+        <argsstring></argsstring>
+        <name>SdpEmptyThreshold</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="449" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="449" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1a9666887f656e43efee9ea00f6b4d36ed" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc::SdpChannelEn</definition>
+        <argsstring></argsstring>
+        <name>SdpChannelEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="450" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="450" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1ad1714297f2130dd493fbdf1cdc346fe0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc::SdpBurstLen</definition>
+        <argsstring></argsstring>
+        <name>SdpBurstLen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="451" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="451" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1aa31989e3ab20155e4c7ee3986f654061" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDc::RdyInterval</definition>
+        <argsstring></argsstring>
+        <name>RdyInterval</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="452" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="452" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1ae9880eb8d247bbbc1822e1e047eb29d5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc::SdpAckSel</definition>
+        <argsstring></argsstring>
+        <name>SdpAckSel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="453" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="453" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1af305b0a43326f35e40147de214c77b7b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDc::VidFrameSwitchCtrl</definition>
+        <argsstring></argsstring>
+        <name>VidFrameSwitchCtrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="455" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="455" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1ae7d97a78464847cc522f992b882b340a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDc::NonLiveLatency</definition>
+        <argsstring></argsstring>
+        <name>NonLiveLatency</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="457" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="457" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1af76ad18239deacf774742e62c3883f7f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDc::StcEn</definition>
+        <argsstring></argsstring>
+        <name>StcEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="459" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="459" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1ac5bc914524ce2b6839e71f687f6bed74" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDc::StcInitVal</definition>
+        <argsstring></argsstring>
+        <name>StcInitVal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="460" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="460" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1a6d3b5508b91dd70ec3a3e8b658e34839" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDc::StcAdjVal</definition>
+        <argsstring></argsstring>
+        <name>StcAdjVal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="461" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="461" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1aa851330284d11a314195a373975ca5eb" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XDc::StcVSyncTs</definition>
+        <argsstring></argsstring>
+        <name>StcVSyncTs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="462" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="462" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1aaa89c85e7c5bdd03dece46f1f221e1cb" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XDc::StcExtVSyncTs</definition>
+        <argsstring></argsstring>
+        <name>StcExtVSyncTs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="463" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="463" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1af20e2ac9de8a9aa1ce2c5d5401fe6b0e" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XDc::StcCustomEventTs</definition>
+        <argsstring></argsstring>
+        <name>StcCustomEventTs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="464" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="464" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1aa2e78f197e4d0a262ca2571657709354" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XDc::StcCustomEvent2Ts</definition>
+        <argsstring></argsstring>
+        <name>StcCustomEvent2Ts</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="465" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="465" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1a525f65c8e7a415d9b9188be2af51d542" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XDc::StcSnapshot</definition>
+        <argsstring></argsstring>
+        <name>StcSnapshot</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="466" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="466" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_1a0dcbbcad5db9404470063df90146f8f4" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dc___video_timing" kindref="compound">XDc_VideoTiming</ref></type>
+        <definition>XDc_VideoTiming XDc::VideoTiming</definition>
+        <argsstring></argsstring>
+        <name>VideoTiming</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="468" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="468" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="15">
+        <label>XDc_Cursor</label>
+        <link refid="struct_x_dc___cursor"/>
+      </node>
+      <node id="20">
+        <label>XDc_AVModes</label>
+        <link refid="struct_x_dc___a_v_modes"/>
+      </node>
+      <node id="13">
+        <label>XDc_Blender</label>
+        <link refid="struct_x_dc___blender"/>
+        <childnode refid="14" relation="usage">
+          <edgelabel>ChromaKey</edgelabel>
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>Cursor</edgelabel>
+        </childnode>
+        <childnode refid="16" relation="usage">
+          <edgelabel>Stream1PbCoords</edgelabel>
+          <edgelabel>Stream2PbCoords</edgelabel>
+        </childnode>
+      </node>
+      <node id="19">
+        <label>XDc_StreamConfig</label>
+        <link refid="struct_x_dc___stream_config"/>
+      </node>
+      <node id="14">
+        <label>XDc_ChromaKey</label>
+        <link refid="struct_x_dc___chroma_key"/>
+      </node>
+      <node id="17">
+        <label>XDc_VideoTiming</label>
+        <link refid="struct_x_dc___video_timing"/>
+      </node>
+      <node id="12">
+        <label>XDc</label>
+        <childnode refid="13" relation="usage">
+          <edgelabel>Blender</edgelabel>
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>VideoTiming</edgelabel>
+        </childnode>
+        <childnode refid="18" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+        <childnode refid="20" relation="usage">
+          <edgelabel>AVMode</edgelabel>
+        </childnode>
+      </node>
+      <node id="16">
+        <label>XDc_PartialBlend</label>
+        <link refid="struct_x_dc___partial_blend"/>
+      </node>
+      <node id="18">
+        <label>XDc_Config</label>
+        <link refid="struct_x_dc___config"/>
+        <childnode refid="19" relation="usage">
+          <edgelabel>StreamConfig</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="415" bodyend="469"/>
+    <listofallmembers>
+      <member refid="struct_x_dc_1ae078a253eefec6f8ed8a0dc5f66cab7b" prot="public" virt="non-virtual"><scope>XDc</scope><name>AudBurstLen</name></member>
+      <member refid="struct_x_dc_1a22662fcd9b1215be580bffc0a04ba0a8" prot="public" virt="non-virtual"><scope>XDc</scope><name>AudBypassExtraBS</name></member>
+      <member refid="struct_x_dc_1a178204a35b89eca0cccf2bd83245248c" prot="public" virt="non-virtual"><scope>XDc</scope><name>AudChannelEn</name></member>
+      <member refid="struct_x_dc_1a8bfa490aa5d8d9bc9f9ed8b0f4069d41" prot="public" virt="non-virtual"><scope>XDc</scope><name>AudChannelSel</name></member>
+      <member refid="struct_x_dc_1a4e8b9f31a40e779a48e687b218449b20" prot="public" virt="non-virtual"><scope>XDc</scope><name>AudChCtrl</name></member>
+      <member refid="struct_x_dc_1a5e276b5e790ba8b4bf5ad76c38f22cab" prot="public" virt="non-virtual"><scope>XDc</scope><name>AudClkSelect</name></member>
+      <member refid="struct_x_dc_1ad83925ae060bdb74890d910f9d875ec8" prot="public" virt="non-virtual"><scope>XDc</scope><name>AudInterface</name></member>
+      <member refid="struct_x_dc_1aa0914b8a8ff5864762d7600dace9f989" prot="public" virt="non-virtual"><scope>XDc</scope><name>AudioClk</name></member>
+      <member refid="struct_x_dc_1a4c88668eae738d1311c779b6d7707acd" prot="public" virt="non-virtual"><scope>XDc</scope><name>AudioEnable</name></member>
+      <member refid="struct_x_dc_1a7ed1ba09238ae2fa6802a7761c848d62" prot="public" virt="non-virtual"><scope>XDc</scope><name>AudLineRstDisable</name></member>
+      <member refid="struct_x_dc_1a7fd717272d509014ca8ae07f2779f429" prot="public" virt="non-virtual"><scope>XDc</scope><name>AudSampleRate</name></member>
+      <member refid="struct_x_dc_1ac63af1d6a92c1be69f3c24e9ad52dabf" prot="public" virt="non-virtual"><scope>XDc</scope><name>AudSegmentedMode</name></member>
+      <member refid="struct_x_dc_1a593e0b42b0c1846abb1318c87cace58a" prot="public" virt="non-virtual"><scope>XDc</scope><name>AVMode</name></member>
+      <member refid="struct_x_dc_1afddda14189b2fa582bd34ac66899f319" prot="public" virt="non-virtual"><scope>XDc</scope><name>BgClr</name></member>
+      <member refid="struct_x_dc_1a9d0a794467d595ab613092bd494a04b0" prot="public" virt="non-virtual"><scope>XDc</scope><name>Blender</name></member>
+      <member refid="struct_x_dc_1aa688cffa101903bd5c8b1db8c2768949" prot="public" virt="non-virtual"><scope>XDc</scope><name>Config</name></member>
+      <member refid="struct_x_dc_1ae7d97a78464847cc522f992b882b340a" prot="public" virt="non-virtual"><scope>XDc</scope><name>NonLiveLatency</name></member>
+      <member refid="struct_x_dc_1aa31989e3ab20155e4c7ee3986f654061" prot="public" virt="non-virtual"><scope>XDc</scope><name>RdyInterval</name></member>
+      <member refid="struct_x_dc_1ae9e4e490ef12553e2155a7ac2b3a7f6d" prot="public" virt="non-virtual"><scope>XDc</scope><name>Sdp</name></member>
+      <member refid="struct_x_dc_1ae9880eb8d247bbbc1822e1e047eb29d5" prot="public" virt="non-virtual"><scope>XDc</scope><name>SdpAckSel</name></member>
+      <member refid="struct_x_dc_1ad1714297f2130dd493fbdf1cdc346fe0" prot="public" virt="non-virtual"><scope>XDc</scope><name>SdpBurstLen</name></member>
+      <member refid="struct_x_dc_1a9666887f656e43efee9ea00f6b4d36ed" prot="public" virt="non-virtual"><scope>XDc</scope><name>SdpChannelEn</name></member>
+      <member refid="struct_x_dc_1a1611bcb965ecabdb7c53dd96e9db0f95" prot="public" virt="non-virtual"><scope>XDc</scope><name>SdpEmptyThreshold</name></member>
+      <member refid="struct_x_dc_1a8bff902db210d00d834f3f21673c8cab" prot="public" virt="non-virtual"><scope>XDc</scope><name>SdpEnable</name></member>
+      <member refid="struct_x_dc_1a6d3b5508b91dd70ec3a3e8b658e34839" prot="public" virt="non-virtual"><scope>XDc</scope><name>StcAdjVal</name></member>
+      <member refid="struct_x_dc_1aa2e78f197e4d0a262ca2571657709354" prot="public" virt="non-virtual"><scope>XDc</scope><name>StcCustomEvent2Ts</name></member>
+      <member refid="struct_x_dc_1af20e2ac9de8a9aa1ce2c5d5401fe6b0e" prot="public" virt="non-virtual"><scope>XDc</scope><name>StcCustomEventTs</name></member>
+      <member refid="struct_x_dc_1af76ad18239deacf774742e62c3883f7f" prot="public" virt="non-virtual"><scope>XDc</scope><name>StcEn</name></member>
+      <member refid="struct_x_dc_1aaa89c85e7c5bdd03dece46f1f221e1cb" prot="public" virt="non-virtual"><scope>XDc</scope><name>StcExtVSyncTs</name></member>
+      <member refid="struct_x_dc_1ac5bc914524ce2b6839e71f687f6bed74" prot="public" virt="non-virtual"><scope>XDc</scope><name>StcInitVal</name></member>
+      <member refid="struct_x_dc_1a525f65c8e7a415d9b9188be2af51d542" prot="public" virt="non-virtual"><scope>XDc</scope><name>StcSnapshot</name></member>
+      <member refid="struct_x_dc_1aa851330284d11a314195a373975ca5eb" prot="public" virt="non-virtual"><scope>XDc</scope><name>StcVSyncTs</name></member>
+      <member refid="struct_x_dc_1a45dd2bce2762f491a622dd64306653f2" prot="public" virt="non-virtual"><scope>XDc</scope><name>Stream1BurstLen</name></member>
+      <member refid="struct_x_dc_1a5cd80f517b51c7f518917a5f007a002c" prot="public" virt="non-virtual"><scope>XDc</scope><name>Stream1ChannelEn</name></member>
+      <member refid="struct_x_dc_1aac7314a5fc98331cb3e1557d029dd5be" prot="public" virt="non-virtual"><scope>XDc</scope><name>Stream2BurstLen</name></member>
+      <member refid="struct_x_dc_1ae1ab4900fdc15148248194eaffe72b01" prot="public" virt="non-virtual"><scope>XDc</scope><name>Stream2ChannelEn</name></member>
+      <member refid="struct_x_dc_1a087640c233288838e1e1d80336bd8a60" prot="public" virt="non-virtual"><scope>XDc</scope><name>VidClkSelect</name></member>
+      <member refid="struct_x_dc_1a524fabe66d536126de008be0292534c8" prot="public" virt="non-virtual"><scope>XDc</scope><name>VideoClk</name></member>
+      <member refid="struct_x_dc_1a0dcbbcad5db9404470063df90146f8f4" prot="public" virt="non-virtual"><scope>XDc</scope><name>VideoTiming</name></member>
+      <member refid="struct_x_dc_1af305b0a43326f35e40147de214c77b7b" prot="public" virt="non-virtual"><scope>XDc</scope><name>VidFrameSwitchCtrl</name></member>
+      <member refid="struct_x_dc_1abf240c9dbe7f3ffc01f41f529ba24e88" prot="public" virt="non-virtual"><scope>XDc</scope><name>VidInterface</name></member>
+      <member refid="struct_x_dc_1a33ebc18e86a18b896199cbcdac746958" prot="public" virt="non-virtual"><scope>XDc</scope><name>VidTimingSrc</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sd_fec_turbo_parameters" kind="struct" prot="public">
+    <compoundname>XSdFecTurboParameters</compoundname>
+    <includes local="no">xsdfec.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_sd_fec_turbo_parameters_1ab8c3ff095e11d92162a2c55bced47944" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSdFecTurboParameters::Alg</definition>
+        <argsstring></argsstring>
+        <name>Alg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sd_fec_turbo_parameters_1af3d3d41a8394d017755eef42876650ed" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XSdFecTurboParameters::Scale</definition>
+        <argsstring></argsstring>
+        <name>Scale</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Struct defining Turbo Decode parameters. </para>    </briefdescription>
+    <detaileddescription>
+<para>Member values defined in device specific header x&lt;ipinst_name&gt;_turbo_params.h as per IP GUI configuration </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="120" bodyend="123"/>
+    <listofallmembers>
+      <member refid="struct_x_sd_fec_turbo_parameters_1ab8c3ff095e11d92162a2c55bced47944" prot="public" virt="non-virtual"><scope>XSdFecTurboParameters</scope><name>Alg</name></member>
+      <member refid="struct_x_sd_fec_turbo_parameters_1af3d3d41a8394d017755eef42876650ed" prot="public" virt="non-virtual"><scope>XSdFecTurboParameters</scope><name>Scale</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

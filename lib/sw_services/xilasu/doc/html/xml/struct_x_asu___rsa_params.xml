@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___rsa_params" kind="struct" prot="public">
+    <compoundname>XAsu_RsaParams</compoundname>
+    <includes local="no">xasu_rsainfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___rsa_params_1ae603b7d80dd7b6135fb3b0bef96301c2" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_RsaParams::InputDataAddr</definition>
+        <argsstring></argsstring>
+        <name>InputDataAddr</name>
+        <briefdescription>
+<para>Address of RSA input data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="142" bodyend="-1"/>
+        <referencedby refid="group__xasufw__rsa__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__rsa__example_8c" startline="234" endline="367">main</referencedby>
+        <referencedby refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" compoundref="xasu__rsa__common_8c" startline="57" endline="70">XAsu_RsaValidateInputParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_params_1a4d1e5191bc0b3870ab1dc8a58ebc539f" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_RsaParams::OutputDataAddr</definition>
+        <argsstring></argsstring>
+        <name>OutputDataAddr</name>
+        <briefdescription>
+<para>Address of RSA output data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="143" bodyend="-1"/>
+        <referencedby refid="group__xasufw__rsa__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__rsa__example_8c" startline="234" endline="367">main</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaa738d6a05293f677e9fdd1fd137cc912" compoundref="xasu__rsa_8c" startline="233" endline="299">XAsu_RsaCrtDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga8d99c3659893b5b77683b6bc3ee3abf8" compoundref="xasu__rsa_8c" startline="148" endline="214">XAsu_RsaDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaa85dcefff8e7e30465bf6a5e5d20e7fd" compoundref="xasu__rsa_8c" startline="64" endline="130">XAsu_RsaEnc</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaf459c9f8ebb4d33247bbd8b6ab591809" compoundref="xasu__rsa_8c" startline="418" endline="499">XAsu_RsaOaepDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga32fd59ce2f1c0da67ca9217a224a4626" compoundref="xasu__rsa_8c" startline="318" endline="399">XAsu_RsaOaepEnc</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaceff65cb28ac22b56121a047dbb53aa9" compoundref="xasu__rsa_8c" startline="518" endline="601">XAsu_RsaPssSignGen</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_params_1a93d8fc0e123ab9ccfbcfc285cc52e8d1" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_RsaParams::ExpoCompAddr</definition>
+        <argsstring></argsstring>
+        <name>ExpoCompAddr</name>
+        <briefdescription>
+<para>Address of RSA exponent data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="144" bodyend="-1"/>
+        <referencedby refid="group__xasufw__rsa__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__rsa__example_8c" startline="234" endline="367">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_params_1a5e18a0a1b467d66aa7570db8a1dadaef" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_RsaParams::KeyCompAddr</definition>
+        <argsstring></argsstring>
+        <name>KeyCompAddr</name>
+        <briefdescription>
+<para>Address of RSA key component structure : <ref refid="struct_x_asu___rsa_pub_key_comp" kindref="compound">XAsu_RsaPubKeyComp</ref> - for public key operations and <ref refid="struct_x_asu___rsa_pvt_key_comp" kindref="compound">XAsu_RsaPvtKeyComp</ref> - for private key operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="145" bodyend="-1"/>
+        <referencedby refid="group__xasufw__rsa__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__rsa__example_8c" startline="234" endline="367">main</referencedby>
+        <referencedby refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" compoundref="xasu__rsa__common_8c" startline="57" endline="70">XAsu_RsaValidateInputParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_RsaParams::OutputLenAddr</definition>
+        <argsstring></argsstring>
+        <name>OutputLenAddr</name>
+        <briefdescription>
+<para>Contains actual output data length which is returned from RSA operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="148" bodyend="-1"/>
+        <referencedby refid="group__xasufw__rsa__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__rsa__example_8c" startline="234" endline="367">main</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaa738d6a05293f677e9fdd1fd137cc912" compoundref="xasu__rsa_8c" startline="233" endline="299">XAsu_RsaCrtDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga8d99c3659893b5b77683b6bc3ee3abf8" compoundref="xasu__rsa_8c" startline="148" endline="214">XAsu_RsaDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaa85dcefff8e7e30465bf6a5e5d20e7fd" compoundref="xasu__rsa_8c" startline="64" endline="130">XAsu_RsaEnc</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaf459c9f8ebb4d33247bbd8b6ab591809" compoundref="xasu__rsa_8c" startline="418" endline="499">XAsu_RsaOaepDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga32fd59ce2f1c0da67ca9217a224a4626" compoundref="xasu__rsa_8c" startline="318" endline="399">XAsu_RsaOaepEnc</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaceff65cb28ac22b56121a047dbb53aa9" compoundref="xasu__rsa_8c" startline="518" endline="601">XAsu_RsaPssSignGen</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaParams::Len</definition>
+        <argsstring></argsstring>
+        <name>Len</name>
+        <briefdescription>
+<para>Data Len. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="150" bodyend="-1"/>
+        <referencedby refid="group__xasufw__rsa__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__rsa__example_8c" startline="234" endline="367">main</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaa738d6a05293f677e9fdd1fd137cc912" compoundref="xasu__rsa_8c" startline="233" endline="299">XAsu_RsaCrtDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga8d99c3659893b5b77683b6bc3ee3abf8" compoundref="xasu__rsa_8c" startline="148" endline="214">XAsu_RsaDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaa85dcefff8e7e30465bf6a5e5d20e7fd" compoundref="xasu__rsa_8c" startline="64" endline="130">XAsu_RsaEnc</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaf459c9f8ebb4d33247bbd8b6ab591809" compoundref="xasu__rsa_8c" startline="418" endline="499">XAsu_RsaOaepDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga32fd59ce2f1c0da67ca9217a224a4626" compoundref="xasu__rsa_8c" startline="318" endline="399">XAsu_RsaOaepEnc</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaceff65cb28ac22b56121a047dbb53aa9" compoundref="xasu__rsa_8c" startline="518" endline="601">XAsu_RsaPssSignGen</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga3a33eba68b96c49e0dcb8ca6abfd7b89" compoundref="xasu__rsa_8c" startline="620" endline="701">XAsu_RsaPssSignVer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_params_1a1abf4a87c26e0d8113367be1832373fe" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaParams::OutputDataLen</definition>
+        <argsstring></argsstring>
+        <name>OutputDataLen</name>
+        <briefdescription>
+<para>Output Data Len is an input from user which specifies the size of output buffer which should be equal or greater than the size of the enc or dec output. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="151" bodyend="-1"/>
+        <referencedby refid="group__xasufw__rsa__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__rsa__example_8c" startline="234" endline="367">main</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaa738d6a05293f677e9fdd1fd137cc912" compoundref="xasu__rsa_8c" startline="233" endline="299">XAsu_RsaCrtDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga8d99c3659893b5b77683b6bc3ee3abf8" compoundref="xasu__rsa_8c" startline="148" endline="214">XAsu_RsaDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaa85dcefff8e7e30465bf6a5e5d20e7fd" compoundref="xasu__rsa_8c" startline="64" endline="130">XAsu_RsaEnc</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaf459c9f8ebb4d33247bbd8b6ab591809" compoundref="xasu__rsa_8c" startline="418" endline="499">XAsu_RsaOaepDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga32fd59ce2f1c0da67ca9217a224a4626" compoundref="xasu__rsa_8c" startline="318" endline="399">XAsu_RsaOaepEnc</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaceff65cb28ac22b56121a047dbb53aa9" compoundref="xasu__rsa_8c" startline="518" endline="601">XAsu_RsaPssSignGen</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaParams::KeySize</definition>
+        <argsstring></argsstring>
+        <name>KeySize</name>
+        <briefdescription>
+<para>Key Size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="154" bodyend="-1"/>
+        <referencedby refid="group__xasufw__rsa__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__rsa__example_8c" startline="234" endline="367">main</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaa738d6a05293f677e9fdd1fd137cc912" compoundref="xasu__rsa_8c" startline="233" endline="299">XAsu_RsaCrtDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga8d99c3659893b5b77683b6bc3ee3abf8" compoundref="xasu__rsa_8c" startline="148" endline="214">XAsu_RsaDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaa85dcefff8e7e30465bf6a5e5d20e7fd" compoundref="xasu__rsa_8c" startline="64" endline="130">XAsu_RsaEnc</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaf459c9f8ebb4d33247bbd8b6ab591809" compoundref="xasu__rsa_8c" startline="418" endline="499">XAsu_RsaOaepDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga32fd59ce2f1c0da67ca9217a224a4626" compoundref="xasu__rsa_8c" startline="318" endline="399">XAsu_RsaOaepEnc</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaceff65cb28ac22b56121a047dbb53aa9" compoundref="xasu__rsa_8c" startline="518" endline="601">XAsu_RsaPssSignGen</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga3a33eba68b96c49e0dcb8ca6abfd7b89" compoundref="xasu__rsa_8c" startline="620" endline="701">XAsu_RsaPssSignVer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_params_1a59ac67149bdb6dfd10cc7fcb0033934b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaParams::KeyId</definition>
+        <argsstring></argsstring>
+        <name>KeyId</name>
+        <briefdescription>
+<para>Key ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="155" bodyend="-1"/>
+        <referencedby refid="group__xasufw__rsa__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__rsa__example_8c" startline="234" endline="367">main</referencedby>
+        <referencedby refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" compoundref="xasu__rsa__common_8c" startline="57" endline="70">XAsu_RsaValidateInputParams</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains RSA params info. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="141" bodyend="156"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___rsa_params_1a93d8fc0e123ab9ccfbcfc285cc52e8d1" prot="public" virt="non-virtual"><scope>XAsu_RsaParams</scope><name>ExpoCompAddr</name></member>
+      <member refid="struct_x_asu___rsa_params_1ae603b7d80dd7b6135fb3b0bef96301c2" prot="public" virt="non-virtual"><scope>XAsu_RsaParams</scope><name>InputDataAddr</name></member>
+      <member refid="struct_x_asu___rsa_params_1a5e18a0a1b467d66aa7570db8a1dadaef" prot="public" virt="non-virtual"><scope>XAsu_RsaParams</scope><name>KeyCompAddr</name></member>
+      <member refid="struct_x_asu___rsa_params_1a59ac67149bdb6dfd10cc7fcb0033934b" prot="public" virt="non-virtual"><scope>XAsu_RsaParams</scope><name>KeyId</name></member>
+      <member refid="struct_x_asu___rsa_params_1a5274ca6616c0d7e21c40dc4a168370d7" prot="public" virt="non-virtual"><scope>XAsu_RsaParams</scope><name>KeySize</name></member>
+      <member refid="struct_x_asu___rsa_params_1a1d604912459e3e38cad1573f180997d7" prot="public" virt="non-virtual"><scope>XAsu_RsaParams</scope><name>Len</name></member>
+      <member refid="struct_x_asu___rsa_params_1a4d1e5191bc0b3870ab1dc8a58ebc539f" prot="public" virt="non-virtual"><scope>XAsu_RsaParams</scope><name>OutputDataAddr</name></member>
+      <member refid="struct_x_asu___rsa_params_1a1abf4a87c26e0d8113367be1832373fe" prot="public" virt="non-virtual"><scope>XAsu_RsaParams</scope><name>OutputDataLen</name></member>
+      <member refid="struct_x_asu___rsa_params_1a2e6f477d0009e9b36f97b62d2bdaf0b2" prot="public" virt="non-virtual"><scope>XAsu_RsaParams</scope><name>OutputLenAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
